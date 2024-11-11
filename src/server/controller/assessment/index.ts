@@ -9,6 +9,7 @@ import { generateMetadataCache } from './generateMetadataCache'
 import { getOneWithCycle } from './getOne'
 import { remove } from './remove'
 import { removeCycle } from './removeCycle'
+import { renameCycle } from './renameCycle'
 import { updateDefaultCycle } from './update'
 
 export const AssessmentController = {
@@ -24,6 +25,7 @@ export const AssessmentController = {
   cloneCycle,
   createCycle,
   removeCycle,
+  renameCycle,
 
   // data cache
   generateDataCache,
