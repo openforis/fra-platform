@@ -79,8 +79,7 @@ const Cell: React.FC<Props> = (props) => {
 
   return (
     <DataCell
-      // className={className}
-      className='table-grid__data-cell'
+      className={className}
       data-tooltip-html={errorMessages}
       data-tooltip-id={TooltipId.error}
       gridColumn={gridColumn}
