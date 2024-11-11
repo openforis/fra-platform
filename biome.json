@@ -1,21 +1,10 @@
 {
   "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
-  "files": {
-    "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.js", "src/**/*.jsx", "src/**/*.json"],
-    "ignore": [
-      "**/node_modules/**",
-      "**/dist/**",
-      "**/.idea/**",
-      "**/coverage/**",
-      "**/build/**",
-      "**/.src.legacy/**",
-      "**/*.d.ts"
-    ]
-  },
   "vcs": {
     "enabled": true,
     "clientKind": "git",
-    "useIgnoreFile": true
+    "useIgnoreFile": true,
+    "defaultBranch": "development"
   },
   "organizeImports": {
     "enabled": true
@@ -24,23 +13,41 @@
     "enabled": true,
     "rules": {
       "recommended": true,
+      "complexity": {
+        "noUselessSwitchCase": "error",
+        "useOptionalChain": "error"
+      },
       "style": {
-        "useNodejsImportProtocol": "warn"
+        "useNodejsImportProtocol": "warn",
+        "useConsistentArrayType": {
+          "options": {
+            "syntax": "generic"
+          },
+          "level": "error"
+        }
+      },
+      "suspicious": {
+        "noExplicitAny": "warn",
+        "noConsoleLog": "warn"
       }
-    }
+    },
+    "ignore": ["**/*.d.ts"]
   },
   "formatter": {
     "enabled": true,
     "formatWithErrors": false,
     "indentStyle": "space",
     "indentWidth": 2,
-    "lineWidth": 120
+    "lineWidth": 120,
+    "ignore": ["**/*.d.ts"]
   },
   "javascript": {
     "formatter": {
       "quoteStyle": "single",
       "trailingCommas": "es5",
-      "semicolons": "asNeeded"
+      "semicolons": "asNeeded",
+      "arrowParentheses": "asNeeded",
+      "bracketSpacing": true
     }
   }
 }
