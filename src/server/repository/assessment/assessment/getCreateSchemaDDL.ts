@@ -1,3 +1,7 @@
+import { Assessment, Cycle } from 'meta/assessment'
+
+import { Schemas } from 'server/db'
+
 export const getCreateSchemaDDL = (schemaName: string): string => {
   const query = `
 create schema ${schemaName};
@@ -339,4 +343,46 @@ export const getCreateSchemaCycleOriginalDataPointViewDDL = (assessmentCycleSche
                    left join other_land ol on odp.country_iso = ol.country_iso and odp.year = ol.year
           order by odp.country_iso, odp.year
   `
+}
+
+export const getCreateOrReplaceViewCountryUserSummary = (props: { assessment: Assessment; cycle: Cycle }) => {
+  const { assessment, cycle } = props
+  const schemaName = Schemas.getNameCycle(assessment, cycle)
+  return `
+        create or replace view ${schemaName}.country_user_summary as
+        select distinct on (u.uuid, coalesce(ur.country_iso, ui.country_iso))
+            u.uuid,
+            coalesce(ur.country_iso, ui.country_iso)  as country_iso,
+            u.email,
+            u.props->>'name' as name,
+            u.props->>'surname' as surname,
+            concat(
+                    coalesce(u.props->>'name', ''),
+                    case when u.props->>'name' is not null and u.props->>'surname' is not null then ' ' else '' end,
+                    coalesce(u.props->>'surname', '')
+            ) as fullname,
+            u.status,
+            to_jsonb(ur.*)                              as role,
+            case
+                when
+                    to_jsonb(ur.*) is null
+                    then
+                    coalesce(to_jsonb(ui.*), '{}'::jsonb)
+                end                                     as invitation
+        from users u
+                 left join users_role ur on (u.uuid = ur.user_uuid and ur.cycle_uuid = '${cycle.uuid}' and ur.assessment_uuid = '${assessment.uuid}')
+                 left join users_invitation ui on (u.uuid = ui.user_uuid and ui.cycle_uuid = '${cycle.uuid}' and ui.assessment_uuid = '${assessment.uuid}')
+        where (ur.uuid is not null or ui.uuid is not null)
+        order by
+            u.uuid,
+            coalesce(ur.country_iso, ui.country_iso),
+            country_iso asc,
+            lower(u.props->>'surname') asc nulls last,
+            lower(u.props->>'name') asc nulls last,
+            u.email asc,
+            ur.uuid nulls last;
+            
+        comment on view ${schemaName}.country_user_summary is 'Shows users with their role or invitation by country/assessment/cycle';
+        
+      `
 }
