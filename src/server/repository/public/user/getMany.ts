@@ -5,12 +5,7 @@ import { Assessment, Cycle } from 'meta/assessment'
 import { TablePaginatedOrderByDirection } from 'meta/tablePaginated'
 import { RoleName, User, UserStatus } from 'meta/user'
 
-import { BaseProtocol, DB } from 'server/db'
-import { UserRoleAdapter } from 'server/repository/adapter'
-
-import { fields } from './fields'
-
-const selectFields = fields.map((f) => `u.${f}`).join(',')
+import { BaseProtocol, DB, Schemas } from 'server/db'
 
 export type UsersGetManyProps = {
   assessment?: Assessment
@@ -30,21 +25,13 @@ export type UsersGetManyProps = {
   orderByDirection?: TablePaginatedOrderByDirection
 }
 
-type BuildQueryReturned = { query: string; queryParams: Array<string | number> }
+type BuildQueryReturned = { query: string; queryParams: Record<string, string | number> }
 
 const _getOrderClause = (
-  orderBy: string | undefined,
-  orderByDirection: TablePaginatedOrderByDirection | undefined
+  orderBy: string | undefined = 'full_name',
+  orderByDirection: TablePaginatedOrderByDirection | undefined = TablePaginatedOrderByDirection.asc
 ): string => {
-  const orderByName = "order by concat(u.props->'name', ' ', u.props->'surname')"
-
-  if (Objects.isEmpty(orderBy)) return `${orderByName} ${TablePaginatedOrderByDirection.asc}`
-
-  const direction = orderByDirection ?? TablePaginatedOrderByDirection.asc
-  if (orderBy === 'name') {
-    return `${orderByName} ${direction}`
-  }
-  return `order by ${orderBy} ${direction}`
+  return `order by ${orderBy} ${orderByDirection}`
 }
 
 export const buildGetManyQuery = (props: UsersGetManyProps): BuildQueryReturned => {
@@ -67,76 +54,46 @@ export const buildGetManyQuery = (props: UsersGetManyProps): BuildQueryReturned 
     ? countries.map((countryIso) => `'${countryIso}'`).join(',')
     : null
 
-  const selectedRoles = !Objects.isEmpty(roles) ? roles.map((roleName) => `'${roleName}'`).join(',') : null
+  const allRoles = administrators
+    ? Object.values(RoleName)
+    : Object.values(RoleName).filter((role) => role !== RoleName.ADMINISTRATOR)
 
-  const whereConditions: Array<string> = []
-
-  if (administrators) {
-    whereConditions.push(`(
-    (ur.assessment_uuid = $1
-    and ur.cycle_uuid = $2
-    and ((accepted_at is not null and invited_at is not null) or invited_at is null)
-    )
-   or (ur.role = '${RoleName.ADMINISTRATOR}')
-    )`)
-  } else {
-    whereConditions.push('ur.assessment_uuid = $1')
-    whereConditions.push('ur.cycle_uuid = $2')
-  }
-
-  if (selectedCountries) {
-    whereConditions.push(`ur.country_iso in (${selectedCountries})`)
-  }
-
-  if (selectedRoles) {
-    whereConditions.push(`ur.role in (${selectedRoles})`)
-  }
-
-  if (fullName) {
-    whereConditions.push(`concat(u.props->'name', ' ', u.props->'surname') ilike '%${fullName}%'`)
-  }
-
-  if (statuses) {
-    whereConditions.push(`u.status in (${statuses.map((status) => `'${status}'`).join(',')})`)
-  }
-
-  if (countryIso) {
-    whereConditions.push(`u.uuid in (
-    select user_uuid
-    from public.users_role
-    where assessment_uuid = $1
-      and cycle_uuid = $2
-      and country_iso = $3
-    )`)
-  }
-
+  const selectedRoles = (!Objects.isEmpty(roles) ? roles : allRoles).map((roleName) => `'${roleName}'`).join(',')
+  const userStatuses = statuses ? `(${statuses.map((status) => `'${status}'`).join(',')})` : ''
   const order = _getOrderClause(orderBy, orderByDirection)
 
+  const schemaName = Schemas.getNameCycle(assessment, cycle)
   const query = `
-      select ${selectFields}, jsonb_agg(to_jsonb(ur.*) - 'props') as roles
-      from public.users u
-               join public.users_role ur on (u.uuid = ur.user_uuid)
-      where ${whereConditions.join(`
-      and
-      `)}
-      group by ${selectFields}
-                   ${order}
-                   ${limit ? `limit ${limit}` : ''}
-                   ${offset ? `offset ${offset}` : ''}
+  with filtered_users as (
+    select distinct id
+    from ${schemaName}.country_user_summary cus
+    where 1 = 1
+    ${fullName ? `and full_name ilike '%${fullName}%'` : ''}
+    ${selectedRoles ? `and (role ->> 'role' in (${selectedRoles}) or invitation ->> 'role' in (${selectedRoles}))` : ''}
+    ${countryIso ? `and country_iso = '${countryIso}'` : ''}
+    ${selectedCountries ? `and country_iso in ${selectedCountries}` : ''} 
+    ${userStatuses ? `and status in ${userStatuses}` : ''}
+  )
+  select 
+      cus.id,
+      cus.full_name,
+      cus.email,
+      coalesce(jsonb_agg(cus.role) filter ( where cus.role is not null ), '[]') as roles,
+      coalesce(jsonb_agg(cus.invitation) filter ( where cus.invitation is not null ), '[]') as invitations
+  from filtered_users fu
+  join ${schemaName}.country_user_summary cus on fu.id = cus.id
+  group by cus.id, cus.full_name, cus.email
+  ${order}
+  ${limit ? `limit ${limit}` : ''}
+  ${offset ? `offset ${offset}` : ''}
   `
-
-  const queryParams = countryIso ? [assessment.uuid, cycle.uuid, countryIso] : [assessment.uuid, cycle.uuid]
-
+  const queryParams: Record<string, string> = {}
+  if (countryIso) queryParams.countryIso = countryIso
   return { query, queryParams }
 }
 
 export const getMany = async (props: UsersGetManyProps, client: BaseProtocol = DB): Promise<Array<User>> => {
   const { query, queryParams } = buildGetManyQuery(props)
 
-  return client.manyOrNone<User>(query, queryParams).then((data) =>
-    data.map(({ roles, ...user }) => ({
-      ...Objects.camelize(user),
-      roles: roles.map(UserRoleAdapter),
-    }))
-  )
+  return client.map<User>(query, queryParams, (row) => Objects.camelize(row))
 }
