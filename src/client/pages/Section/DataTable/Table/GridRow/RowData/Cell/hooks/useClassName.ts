@@ -3,13 +3,13 @@ import classNames from 'classnames'
 import { Col, Cols, ColType, Cycle, NodeValueValidation, Row } from 'meta/assessment'
 
 type Props = {
-  cycle: Cycle
   col: Col
+  cycle: Cycle
   row: Row
   validation: NodeValueValidation
 }
 
-export default (props: Props): string => {
+export const useClassName = (props: Props): string => {
   const { cycle, col, row, validation } = props
   const { colType } = col.props
 

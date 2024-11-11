@@ -9,7 +9,7 @@ import { useCycle } from 'client/store/assessment'
 import { useNodeValueValidation } from 'client/store/data'
 import { DataCell } from 'client/components/DataGrid'
 
-import useClassName from './hooks/useClassName'
+import { useClassName } from './hooks/useClassName'
 import useErrorMessages from './hooks/useErrorMessages'
 import { useNodeValue } from './hooks/useNodeValue'
 import useOnChange from './hooks/useOnChange'
