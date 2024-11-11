@@ -33,8 +33,9 @@ export interface ColSelectOption {
 }
 
 export interface ColSelectProps {
-  options: Array<ColSelectOption>
   labelKeyPrefix?: string
+  options?: Array<ColSelectOption>
+  years?: { start: number; end?: number }
 }
 
 export interface ColStyle extends CSSProperties {
@@ -60,7 +61,7 @@ export interface ColProps {
   labels?: Record<CycleUuid, Label>
   linkedNodes?: Record<CycleUuid, ColLinkedNode>
   readonly?: boolean
-  select?: ColSelectProps
+  select?: Record<CycleUuid, ColSelectProps>
   style?: Record<CycleUuid, ColStyle>
   validateFns?: Record<CycleUuid, Array<string>>
   variableNo?: Record<CycleUuid, string>

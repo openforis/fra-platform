@@ -18,7 +18,7 @@ export const removeMetadata = async (props: Props, client: BaseProtocol): Promis
     table_section: ['descriptions', 'lables'],
     table: ['cellsExportAlways', 'columnNames', 'columnsExport', 'columnsExportAlways', 'disableErrorMessage'],
     row: ['calculateFn', 'calculateIf', 'chart', 'excludeFromDataExport', 'linkToSection', 'validateFns', 'withReview'],
-    col: ['calculateFn', 'classNames', 'labels', 'linkedNodes', 'style', 'validateFns', 'variableNo'],
+    col: ['calculateFn', 'classNames', 'labels', 'linkedNodes', 'select', 'style', 'validateFns', 'variableNo'],
   }
 
   const query = tableNames.map((tableName) => {
