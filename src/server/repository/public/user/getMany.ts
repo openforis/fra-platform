@@ -7,6 +7,8 @@ import { RoleName, User, UserStatus } from 'meta/user'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'
 
+import { UserQueryParams } from './UserQueryParams'
+
 export type UsersGetManyProps = {
   assessment?: Assessment
   cycle?: Cycle
@@ -25,7 +27,7 @@ export type UsersGetManyProps = {
   orderByDirection?: TablePaginatedOrderByDirection
 }
 
-type BuildQueryReturned = { query: string; queryParams: Record<string, string | number> }
+type BuildQueryReturned = { query: string; queryParams: UserQueryParams }
 
 const _getOrderClause = (
   orderBy: string | undefined = 'full_name',
@@ -50,6 +52,11 @@ export const buildGetManyQuery = (props: UsersGetManyProps): BuildQueryReturned 
     orderByDirection,
   } = props
 
+  const queryParams: UserQueryParams = {}
+
+  if (fullName) queryParams.fullName = fullName.trim().toLowerCase()
+  if (countryIso) queryParams.countryIso = countryIso
+
   const selectedCountries = !Objects.isEmpty(countries)
     ? countries.map((countryIso) => `'${countryIso}'`).join(',')
     : null
@@ -58,21 +65,31 @@ export const buildGetManyQuery = (props: UsersGetManyProps): BuildQueryReturned 
     ? Object.values(RoleName)
     : Object.values(RoleName).filter((role) => role !== RoleName.ADMINISTRATOR)
 
-  const selectedRoles = (!Objects.isEmpty(roles) ? roles : allRoles).map((roleName) => `'${roleName}'`).join(',')
-  const userStatuses = statuses ? `(${statuses.map((status) => `'${status}'`).join(',')})` : ''
+  const selectedRoles = !Objects.isEmpty(roles) ? roles : allRoles
+  if (selectedRoles) queryParams.roles = selectedRoles
+
+  const userStatuses = statuses || undefined
+  if (userStatuses) queryParams.statuses = userStatuses
+
+  if (limit) queryParams.limit = limit
+  if (offset) queryParams.offset = offset
+
   const order = _getOrderClause(orderBy, orderByDirection)
+
+  const whereConditions = [
+    fullName && `full_name ilike '%' || $(fullName) || '%'`,
+    selectedRoles && `(role ->> 'role' in ($(roles:list)) or invitation ->> 'role' in ($(roles:list)))`,
+    countryIso && `country_iso = '$(countryIso)'`,
+    selectedCountries && `country_iso in ($(selectedCountries))`,
+    userStatuses && `status in ($(statuses:list))`,
+  ].filter(Boolean)
 
   const schemaName = Schemas.getNameCycle(assessment, cycle)
   const query = `
   with filtered_users as (
     select distinct id
     from ${schemaName}.country_user_summary cus
-    where 1 = 1
-    ${fullName ? `and full_name ilike '%${fullName}%'` : ''}
-    ${selectedRoles ? `and (role ->> 'role' in (${selectedRoles}) or invitation ->> 'role' in (${selectedRoles}))` : ''}
-    ${countryIso ? `and country_iso = '${countryIso}'` : ''}
-    ${selectedCountries ? `and country_iso in ${selectedCountries}` : ''} 
-    ${userStatuses ? `and status in ${userStatuses}` : ''}
+    where ${whereConditions.join(' and ')}
   )
   select 
       cus.id,
@@ -87,8 +104,6 @@ export const buildGetManyQuery = (props: UsersGetManyProps): BuildQueryReturned 
   ${limit ? `limit ${limit}` : ''}
   ${offset ? `offset ${offset}` : ''}
   `
-  const queryParams: Record<string, string> = {}
-  if (countryIso) queryParams.countryIso = countryIso
   return { query, queryParams }
 }
 
