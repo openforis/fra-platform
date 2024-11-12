@@ -16,6 +16,7 @@ import ButtonTableExport from 'client/components/ButtonTableExport'
 import { DataGrid } from 'client/components/DataGrid'
 import ButtonCopyValues from 'client/pages/Section/DataTable/Table/ButtonCopyValues'
 import ButtonTableClear from 'client/pages/Section/DataTable/Table/ButtonTableClear'
+import GridHead from 'client/pages/Section/DataTable/Table/GridHead'
 import GridRow from 'client/pages/Section/DataTable/Table/GridRow'
 import TableBody from 'client/pages/Section/DataTable/Table/TableBody'
 import TableHead from 'client/pages/Section/DataTable/Table/TableHead'
@@ -64,6 +65,8 @@ const Table: React.FC<Props> = (props) => {
         </div>
 
         <DataGrid className="table-grid" gridTemplateColumns={`minmax(auto, 400px) repeat(${headers.length},1fr)`}>
+          <GridHead assessmentName={assessmentName} data={data} headers={headers} table={table} />
+
           {rowsData.map((row, index) => (
             <GridRow
               key={row.uuid}
