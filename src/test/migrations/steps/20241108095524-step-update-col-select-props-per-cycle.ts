@@ -33,7 +33,7 @@ export default async (client: BaseProtocol) => {
                from ${schemaAssessment}.col c
                         left join ${schemaAssessment}.row r on r.id = c.row_id
                         left join ${schemaAssessment}."table" t on t.id = r.table_id
-               where c.props ->> 'colType' in ('${ColType.multiselect}','${ColType.select}')
+               where c.props ->> 'colType' in ('multiselect','${ColType.select}')
                order by c.id)
              , col_props as
               (select cp.id

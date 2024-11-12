@@ -17,13 +17,10 @@ export enum ColType {
   integer = 'integer',
   noticeMessage = 'noticeMessage',
   placeholder = 'placeholder',
-  multiselect = 'multiselect',
   select = 'select',
-  selectYesNo = 'selectYesNo',
   taxon = 'taxon',
   text = 'text',
   textarea = 'textarea',
-  // placeholder = 'placeholder',
 }
 
 export interface ColSelectOption {
@@ -33,6 +30,7 @@ export interface ColSelectOption {
 }
 
 export interface ColSelectProps {
+  isMulti?: boolean
   labelKeyPrefix?: string
   options?: Array<ColSelectOption>
   years?: { start: number; end?: number }
