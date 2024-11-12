@@ -10,7 +10,7 @@ import { PropsCell } from '../props'
 import { useOptions } from './hooks/useOptions'
 
 const Select: React.FC<PropsCell> = (props) => {
-  const { col, disabled, nodeValue, onChange: onChangeProps } = props
+  const { col, disabled, nodeValue, onChangeNodeValue } = props
 
   const cycle = useCycle()
   const options = useOptions({ col, nodeValue })
@@ -18,12 +18,10 @@ const Select: React.FC<PropsCell> = (props) => {
   const { isMulti } = Cols.getSelectProps({ cycle, col })
 
   const onChange = useCallback(
-    (value: string | null) => {
-      // TODO: Refactor -> onChange should take string | undefined, not event
-      // @ts-ignore
-      onChangeProps({ target: { value } })
+    (raw: string | Array<string> | null) => {
+      onChangeNodeValue({ ...nodeValue, raw })
     },
-    [onChangeProps]
+    [nodeValue, onChangeNodeValue]
   )
 
   return (

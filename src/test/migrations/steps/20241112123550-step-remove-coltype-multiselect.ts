@@ -19,7 +19,7 @@ export default async (client: BaseProtocol) => {
                from ${schemaAssessment}.col c
                         left join ${schemaAssessment}.row r on r.id = c.row_id
                         left join ${schemaAssessment}."table" t on t.id = r.table_id
-               where c.props ->> 'colType' = '${ColType.multiselect}')
+               where c.props ->> 'colType' = 'multiselect')
              , col_props as
               (select cp.id
                     , jsonb_object_agg(cp.cycle_uuid, cp.select_props) as select_props
