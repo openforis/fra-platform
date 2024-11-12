@@ -47,7 +47,7 @@ const OdpHeaderCell: React.FC<Props> = (props) => {
 
   return (
     <DataCell
-      className={classNames(className, 'table-grid__odp-header-cell')}
+      className={classNames(className, 'table-grid__odp-cell')}
       gridColumn={gridColumn}
       gridRow={gridRow}
       header
