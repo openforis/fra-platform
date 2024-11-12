@@ -3,6 +3,8 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
+import classNames from 'classnames'
+
 import { Routes } from 'meta/routes'
 import { TooltipId } from 'meta/tooltip'
 
@@ -35,9 +37,17 @@ const OdpHeaderCell: React.FC<Props> = (props) => {
 
   const reviewStatus = useOdpReviewSummary(odpId)
 
-  return !print ? (
+  if (print) {
+    return (
+      <DataCell className={className} gridColumn={gridColumn} gridRow={gridRow}>
+        {odpYear}
+      </DataCell>
+    )
+  }
+
+  return (
     <DataCell
-      className="table-grid__data-cell table-grid__odp-header-cell"
+      className={classNames(className, 'table-grid__odp-header-cell')}
       gridColumn={gridColumn}
       gridRow={gridRow}
       header
@@ -48,20 +58,16 @@ const OdpHeaderCell: React.FC<Props> = (props) => {
         data-tooltip-content={t('nationalDataPoint.clickOnNDP')}
         data-tooltip-id={TooltipId.info}
         to={Routes.OriginalDataPoint.generatePath({
-          countryIso,
           assessmentName: assessment.props.name,
+          countryIso,
           cycleName: cycle.name,
-          year: odpYear,
           sectionName,
+          year: odpYear,
         })}
       >
         {odpYear}
       </Link>
       <ReviewSummaryIndicator status={reviewStatus} />
-    </DataCell>
-  ) : (
-    <DataCell className={className} gridColumn={gridColumn} gridRow={gridRow}>
-      {odpYear}
     </DataCell>
   )
 }
