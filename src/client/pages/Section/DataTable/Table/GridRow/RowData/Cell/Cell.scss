@@ -18,6 +18,9 @@
 //}
 
 .table-grid__data-cell {
+  align-items: center;
+  display: flex;
+  justify-content: end;
   padding: 10px;
   text-align: right;
 
