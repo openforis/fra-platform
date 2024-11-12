@@ -97,12 +97,12 @@ export const buildGetManyQuery = (props: UsersGetManyProps): BuildQueryReturned 
       cus.email,
       coalesce(jsonb_agg(cus.role) filter ( where cus.role is not null ), '[]') as roles,
       coalesce(jsonb_agg(cus.invitation) filter ( where cus.invitation is not null ), '[]') as invitations
-  from filtered_users fu
-  join ${schemaName}.country_user_summary cus on fu.id = cus.id
-  group by cus.id, cus.full_name, cus.email
-  ${order}
-  ${limit ? `limit ${limit}` : ''}
-  ${offset ? `offset ${offset}` : ''}
+    from filtered_users fu
+    left join ${schemaName}.country_user_summary cus on fu.id = cus.id
+    group by cus.id, cus.full_name, cus.email
+    ${order}
+    ${limit ? `limit ${limit}` : ''}
+    ${offset ? `offset ${offset}` : ''}
   `
   return { query, queryParams }
 }
