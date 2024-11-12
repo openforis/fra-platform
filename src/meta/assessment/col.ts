@@ -33,6 +33,7 @@ export interface ColSelectOption {
 }
 
 export interface ColSelectProps {
+  isMulti?: boolean
   labelKeyPrefix?: string
   options?: Array<ColSelectOption>
   years?: { start: number; end?: number }
