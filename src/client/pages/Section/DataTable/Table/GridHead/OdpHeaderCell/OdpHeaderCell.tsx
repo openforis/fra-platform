@@ -66,8 +66,8 @@ const OdpHeaderCell: React.FC<Props> = (props) => {
         })}
       >
         {odpYear}
+        <ReviewSummaryIndicator status={reviewStatus} />
       </Link>
-      <ReviewSummaryIndicator status={reviewStatus} />
     </DataCell>
   )
 }
