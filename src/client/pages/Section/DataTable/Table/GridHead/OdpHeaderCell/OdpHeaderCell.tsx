@@ -15,16 +15,16 @@ import ReviewSummaryIndicator from 'client/components/ReviewSummaryIndicator'
 
 type Props = {
   className: string
-  colSpan: number
+  gridColumn: string
+  gridRow: string
   lastCol?: boolean
   odpId: number
   odpYear: string
-  rowSpan: number
   sectionName: string
 }
 
 const OdpHeaderCell: React.FC<Props> = (props) => {
-  const { className, colSpan, lastCol, odpId, odpYear, rowSpan, sectionName } = props
+  const { className, gridColumn, gridRow, lastCol, odpId, odpYear, sectionName } = props
 
   const assessment = useAssessment()
   const countryIso = useCountryIso()
@@ -38,8 +38,8 @@ const OdpHeaderCell: React.FC<Props> = (props) => {
   return !print ? (
     <DataCell
       className="table-grid__data-cell table-grid__odp-header-cell"
-      gridColumn={`span ${colSpan}`}
-      gridRow={`span ${rowSpan}`}
+      gridColumn={gridColumn}
+      gridRow={gridRow}
       header
       lastCol={lastCol}
     >
@@ -60,7 +60,7 @@ const OdpHeaderCell: React.FC<Props> = (props) => {
       <ReviewSummaryIndicator status={reviewStatus} />
     </DataCell>
   ) : (
-    <DataCell className={className} gridColumn={`span ${colSpan}`} gridRow={`span ${rowSpan}`}>
+    <DataCell className={className} gridColumn={gridColumn} gridRow={gridRow}>
       {odpYear}
     </DataCell>
   )
