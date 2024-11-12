@@ -7,6 +7,7 @@ import { RoleName, User, Users } from 'meta/user'
 
 import { UserRoleAdapter } from 'server/repository/adapter'
 import { UserRepository, UsersGetManyProps } from 'server/repository/public/user'
+import { UserQueryParams } from 'server/repository/public/user/UserQueryParams'
 
 type Props = UsersGetManyProps & {
   lang: Lang
@@ -14,7 +15,7 @@ type Props = UsersGetManyProps & {
 
 type Returned = {
   query: string
-  queryParams: Record<string, string | number>
+  queryParams: UserQueryParams
   rowTransformer: (rawUser: User) => Record<string, string>
 }
 

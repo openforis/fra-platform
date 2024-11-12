@@ -79,7 +79,7 @@ export const buildGetManyQuery = (props: UsersGetManyProps): BuildQueryReturned 
   const whereConditions = [
     fullName && `full_name ilike '%' || $(fullName) || '%'`,
     selectedRoles && `(role ->> 'role' in ($(roles:list)) or invitation ->> 'role' in ($(roles:list)))`,
-    countryIso && `country_iso = '$(countryIso)'`,
+    countryIso && `country_iso = $(countryIso)`,
     selectedCountries && `country_iso in ($(selectedCountries))`,
     userStatuses && `status in ($(statuses:list))`,
   ].filter(Boolean)
