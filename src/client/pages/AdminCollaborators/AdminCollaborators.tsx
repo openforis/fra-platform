@@ -3,10 +3,10 @@ import React from 'react'
 import { ApiEndPoint } from 'meta/api/endpoint'
 
 import TablePaginated from 'client/components/TablePaginated'
-import UsersCount from 'client/pages/Admin/UserManagement/UsersCount'
 
 import { useColumns } from './hooks/useColumns'
 import { useFilters } from './hooks/useFilters'
+import UsersCount from './UsersCount'
 
 const UserManagement: React.FC = () => {
   const columns = useColumns()

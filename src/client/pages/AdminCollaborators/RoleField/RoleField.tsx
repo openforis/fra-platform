@@ -4,18 +4,19 @@ import { useTranslation } from 'react-i18next'
 
 import { Areas } from 'meta/area'
 import { TooltipId } from 'meta/tooltip'
-import { RoleName, User, Users } from 'meta/user'
+import { CountryUserSummary, RoleName, Users } from 'meta/user'
 
 type Props = {
   roleName: RoleName
-  user: User
+  userSummary: CountryUserSummary
 }
 
+// TODO: Support invitations
 const RoleField: React.FC<Props> = (props: Props) => {
-  const { roleName, user } = props
+  const { roleName, userSummary } = props
   const { t } = useTranslation()
 
-  const roles = user.roles
+  const roles = userSummary.roles
     .filter((role) => role.role === roleName)
     .map((role) =>
       role.role === RoleName.ADMINISTRATOR

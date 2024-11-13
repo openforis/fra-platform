@@ -1,30 +1,31 @@
 import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { RoleName, User, Users } from 'meta/user'
+import { CountryUserSummary, RoleName, Users } from 'meta/user'
 
 import { Column } from 'client/components/TablePaginated'
-import NameField from 'client/pages/Admin/UserManagement/NameField'
-import RoleField from 'client/pages/Admin/UserManagement/RoleField'
 
-type Returned = Array<Column<User>>
+import NameField from '../NameField'
+import RoleField from '../RoleField'
+
+type Returned = Array<Column<CountryUserSummary>>
 
 export const useColumns = (): Returned => {
   const { t } = useTranslation()
 
   return useMemo<Returned>(() => {
     const roleColumns: Returned = Object.values(RoleName).map((roleName) => ({
-      component: ({ datum }) => <RoleField roleName={roleName} user={datum} />,
+      component: ({ datum }) => <RoleField roleName={roleName} userSummary={datum} />,
       header: t(Users.getI18nRoleLabelKey(roleName)),
       key: roleName,
     }))
 
     return [
       {
-        component: ({ datum }) => <NameField user={datum} />,
+        component: ({ datum }) => <NameField userSummary={datum} />,
         header: t('common.name'),
-        key: 'name',
-        orderByProperty: 'name',
+        key: 'full_name',
+        orderByProperty: 'full_name',
       },
       ...roleColumns,
     ]
