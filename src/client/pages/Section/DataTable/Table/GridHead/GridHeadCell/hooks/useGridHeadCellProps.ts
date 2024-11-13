@@ -1,5 +1,7 @@
 import { useMemo } from 'react'
 
+import classNames from 'classnames'
+
 import { Cols } from 'meta/assessment'
 
 import { useAssessmentCountry } from 'client/store/area'
@@ -45,7 +47,7 @@ export const useGridHeadCellProps = (props: GridHeadCellProps): Returned => {
 
     const { index } = col.props
     const isHeaderLeft = (index === 0 && rowIndex === 0) || row.props?.readonly
-    const className = `table-grid__data-cell ${isHeaderLeft ? 'left' : ''}`
+    const className = classNames('table-grid__data-cell', { left: isHeaderLeft })
 
     const gridColumn = `span ${colSpan}`
     const gridRow = `span ${rowSpan}`
