@@ -397,7 +397,8 @@ export const getCreateOrReplaceViewCountryUserSummary = (props: { assessment: As
         case when ur.role is null then ui.invitation_data else null::jsonb end as invitation
     from user_countries uc
     join users u on u.uuid = uc.user_uuid
-    left join filtered_roles ur on u.uuid = ur.user_uuid and ur.country_iso = uc.country_iso
+    left join filtered_roles ur on u.uuid = ur.user_uuid 
+        and (ur.role->>'role' = 'ADMINISTRATOR' or ur.country_iso = uc.country_iso)
     left join filtered_invitations ui on u.uuid = ui.user_uuid and ui.country_iso = uc.country_iso
     order by 
         u.uuid,
@@ -406,6 +407,6 @@ export const getCreateOrReplaceViewCountryUserSummary = (props: { assessment: As
         lower(u.props ->> 'name'),
         u.email;
         
-    comment on view ${schemaName}.country_user_summary is 'Shows users with their role or invitation by country/assessment/cycle';
+    comment on view ${schemaName}.country_user_summary is 'Shows the user (as disaggregated) with their role or invitation by country/assessment/cycle';
   `
 }
