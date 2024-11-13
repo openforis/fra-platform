@@ -6,7 +6,7 @@ import { Routes } from 'meta/routes/routes'
 
 import PageLayout from 'client/components/PageLayout'
 import Admin from 'client/pages/Admin'
-import UserManagement from 'client/pages/Admin/UserManagement'
+import AdminCollaborators from 'client/pages/AdminCollaborators'
 import AdminCountries from 'client/pages/AdminCountries'
 import AdminInvitations from 'client/pages/AdminInvitations'
 import AdminLinks from 'client/pages/AdminLinks'
@@ -43,7 +43,7 @@ export const useRoutes = () => {
               <Route element={<AdminCountries />} path={Routes.AdminCountries.path.relative} />
               <Route element={<AdminInvitations />} path={Routes.AdminInvitations.path.relative} />
               <Route element={<AdminLinks />} path={Routes.AdminLinks.path.relative} />
-              <Route element={<UserManagement />} path={Routes.AdminUserManagement.path.relative} />
+              <Route element={<AdminCollaborators />} path={Routes.AdminUserManagement.path.relative} />
             </Route>
 
             {/* Tutorials */}

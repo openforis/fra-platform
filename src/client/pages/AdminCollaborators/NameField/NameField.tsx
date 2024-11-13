@@ -4,30 +4,26 @@ import { Link } from 'react-router-dom'
 
 import { Global } from 'meta/area'
 import { Routes } from 'meta/routes'
-import { User, Users } from 'meta/user'
+import { CountryUserSummary } from 'meta/user'
 
 import { useCycleRouteParams } from 'client/hooks/useRouteParams'
 import Icon from 'client/components/Icon'
 
 type Props = {
-  user: User
+  userSummary: CountryUserSummary
 }
 
 const NameField: React.FC<Props> = (props: Props) => {
-  const { user } = props
+  const { userSummary } = props
+  const { id, fullName } = userSummary
 
   const { assessmentName, cycleName } = useCycleRouteParams()
 
-  const url = Routes.CountryUser.generatePath({
-    assessmentName,
-    countryIso: Global.WO,
-    cycleName,
-    id: user.id,
-  })
+  const url = Routes.CountryUser.generatePath({ assessmentName, countryIso: Global.WO, cycleName, id })
 
   return (
     <Link className="admin-user-management__user-link" rel="noreferrer" target="_blank" to={url}>
-      {Users.getFullName(user)}
+      {fullName}
       <Icon name="external-link" />
     </Link>
   )
