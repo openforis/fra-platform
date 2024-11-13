@@ -23,7 +23,7 @@ const _getAllRolesAndInvitations = (props: Props): Array<{ countryIso: CountryIs
 
   const roles = userSummary.roles?.filter((role) => role.role === roleName).map(({ countryIso }) => ({ countryIso }))
 
-  return [...roles, ...invitations]
+  return [...(roles ?? []), ...(invitations ?? [])]
 }
 
 const _getRoleLabel = (countryIso: CountryIso, roleName: RoleName, invitation: boolean, t: TFunction): string => {
@@ -57,7 +57,9 @@ const RoleField: React.FC<Props> = (props: Props) => {
       data-tooltip-id={TooltipId.info}
     >
       {firstThreeItems.map(({ countryIso, invitation }) => (
-        <span className={classNames({ invitation })}>{_getRoleLabel(countryIso, roleName, false, t)}</span>
+        <span key={`${userSummary.uuid}-${countryIso}`} className={classNames({ invitation })}>
+          {_getRoleLabel(countryIso, roleName, false, t)}
+        </span>
       ))}
     </div>
   )
