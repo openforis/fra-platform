@@ -7,8 +7,8 @@ import { useAssessmentCountry } from 'client/store/area'
 import { useCycle } from 'client/store/assessment'
 import { useOriginalDataPointYears } from 'client/store/data'
 import { useShowOriginalDatapoints } from 'client/store/ui/assessmentSection'
+import { getODPHeader } from 'client/pages/Section/DataTable/Table/GridHead/GridHeadCell/hooks/getODPHeader'
 import { getODPColSpan } from 'client/pages/Section/DataTable/Table/utils/getODPColSpan'
-import { getODPHeader } from 'client/pages/Section/DataTable/Table/utils/getODPHeader'
 
 type Props = {
   assessmentName: string
