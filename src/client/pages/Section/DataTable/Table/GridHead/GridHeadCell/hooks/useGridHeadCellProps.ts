@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import { Col, Cols, Cycle, Row, Table } from 'meta/assessment'
+import { Col, Cols, Row, Table } from 'meta/assessment'
 import { RecordAssessmentData } from 'meta/data'
 
 import { useAssessmentCountry } from 'client/store/area'
@@ -23,7 +23,6 @@ type Props = {
 
 type Returned = {
   className: string
-  cycle: Cycle
   gridColumn: string
   gridRow: string
   lastCol: boolean
@@ -64,7 +63,6 @@ export const useGridHeadCellProps = (props: Props): Returned => {
 
     return {
       className,
-      cycle,
       gridColumn,
       gridRow,
       lastCol,

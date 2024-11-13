@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next'
 import { Col, Cols, Row, Table } from 'meta/assessment'
 import { RecordAssessmentData } from 'meta/data'
 
+import { useCycle } from 'client/store/assessment'
 import { DataCell } from 'client/components/DataGrid'
 import OdpHeaderCell from 'client/pages/Section/DataTable/Table/GridHead/OdpHeaderCell'
 
@@ -25,7 +26,8 @@ type Props = {
 const GridHeadCell: React.FC<Props> = (props) => {
   const { col, table } = props
 
-  const { className, cycle, gridColumn, gridRow, lastCol, odpHeader } = useGridHeadCellProps(props)
+  const cycle = useCycle()
+  const { className, gridColumn, gridRow, lastCol, odpHeader } = useGridHeadCellProps(props)
 
   const { t } = useTranslation()
 
