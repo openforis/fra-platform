@@ -349,40 +349,64 @@ export const getCreateOrReplaceViewCountryUserSummary = (props: { assessment: As
   const { assessment, cycle } = props
   const schemaName = Schemas.getNameCycle(assessment, cycle)
   return `
-        create or replace view ${schemaName}.country_user_summary as
-        select distinct on (u.uuid, coalesce(ur.country_iso, ui.country_iso))
-            u.uuid,
-            coalesce(ur.country_iso, ui.country_iso)  as country_iso,
-            u.email,
-            u.props->>'name' as name,
-            u.props->>'surname' as surname,
-            concat(
-                    coalesce(u.props->>'name', ''),
-                    case when u.props->>'name' is not null and u.props->>'surname' is not null then ' ' else '' end,
-                    coalesce(u.props->>'surname', '')
-            ) as fullname,
-            u.status,
-            to_jsonb(ur.*)                              as role,
-            case
-                when
-                    to_jsonb(ur.*) is null
-                    then
-                    coalesce(to_jsonb(ui.*), '{}'::jsonb)
-                end                                     as invitation
-        from users u
-                 left join users_role ur on (u.uuid = ur.user_uuid and ur.cycle_uuid = '${cycle.uuid}' and ur.assessment_uuid = '${assessment.uuid}')
-                 left join users_invitation ui on (u.uuid = ui.user_uuid and ui.cycle_uuid = '${cycle.uuid}' and ui.assessment_uuid = '${assessment.uuid}')
-        where (ur.uuid is not null or ui.uuid is not null)
-        order by
-            u.uuid,
-            coalesce(ur.country_iso, ui.country_iso),
-            country_iso asc,
-            lower(u.props->>'surname') asc nulls last,
-            lower(u.props->>'name') asc nulls last,
-            u.email asc,
-            ur.uuid nulls last;
-            
-        comment on view ${schemaName}.country_user_summary is 'Shows users with their role or invitation by country/assessment/cycle';
+    create or replace view ${schemaName}.country_user_summary as
+    with filtered_roles as (
+        select 
+            ur.user_uuid,
+            ur.country_iso,
+            ur.uuid,
+            to_jsonb(ur.*) as role
+        from users_role ur
+        where (ur.cycle_uuid = '${cycle.uuid}' and
+               ur.assessment_uuid = '${assessment.uuid}')
+           or ur.role = 'ADMINISTRATOR'
+    ),
+    filtered_invitations as (
+        select 
+            ui.user_uuid,
+            ui.country_iso,
+            ui.uuid,
+            to_jsonb(ui.*) as invitation_data
+        from users_invitation ui
+        where ui.cycle_uuid = '${cycle.uuid}' 
+        and ui.assessment_uuid = '${assessment.uuid}'
+    ),
+    user_countries as (
+        select distinct user_uuid, country_iso
+        from (
+            select user_uuid, country_iso from filtered_roles
+            union all
+            select user_uuid, country_iso from filtered_invitations
+        ) combined
+    )
+    select 
+        u.uuid,
+        u.id,
+        uc.country_iso,
+        u.email,
+        u.props ->> 'name' as name,
+        u.props ->> 'surname' as surname,
+        concat(
+            coalesce(u.props ->> 'name', ''),
+            case when u.props ->> 'name' is not null and u.props ->> 'surname' is not null 
+                 then ' ' else '' end,
+            coalesce(u.props ->> 'surname', '')
+        ) as full_name,
+        u.status,
+        ur.role as role,
+        case when ur.role is null then ui.invitation_data else null::jsonb end as invitation
+    from user_countries uc
+    join users u on u.uuid = uc.user_uuid
+    left join filtered_roles ur on u.uuid = ur.user_uuid 
+        and (ur.role->>'role' = 'ADMINISTRATOR' or ur.country_iso = uc.country_iso)
+    left join filtered_invitations ui on u.uuid = ui.user_uuid and ui.country_iso = uc.country_iso
+    order by 
+        u.uuid,
+        uc.country_iso,
+        lower(u.props ->> 'surname'),
+        lower(u.props ->> 'name'),
+        u.email;
         
-      `
+    comment on view ${schemaName}.country_user_summary is 'Shows the user (as disaggregated) with their role or invitation by country/assessment/cycle';
+  `
 }

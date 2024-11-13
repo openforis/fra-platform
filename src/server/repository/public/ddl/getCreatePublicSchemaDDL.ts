@@ -21,6 +21,7 @@ export const getUsersRoleDDL = (schemaName = 'public'): string => {
     );
     create unique index if not exists users_role_uuid_key on ${schemaName}.users_role using btree (uuid);
     create unique index if not exists users_role_user_uuid_assessment_uuid_country_iso_cycle_uuid_uindex on ${schemaName}.users_role using btree (user_uuid, assessment_uuid, country_iso, cycle_uuid);
+    create index if not exists users_role_user_lookup_idx on ${schemaName}.users_role(user_uuid, cycle_uuid, assessment_uuid, role);
   `
 }
 
@@ -50,6 +51,7 @@ export const getUsersInvitationDDL = (schemaName = 'public'): string => {
     create unique index if not exists users_invitation_assessment_cycle_country_uindex 
       on ${schemaName}.users_invitation using btree (assessment_uuid, cycle_uuid, country_iso, user_uuid) 
       where accepted_at is null;
+    create index if not exists users_invitation_user_lookup_idx on ${schemaName}.users_invitation(user_uuid, cycle_uuid, assessment_uuid);
   `
 }
 
