@@ -1,7 +1,6 @@
 import { useMemo } from 'react'
 
-import { Col, Cols, Row, Table } from 'meta/assessment'
-import { RecordAssessmentData } from 'meta/data'
+import { Cols } from 'meta/assessment'
 
 import { useAssessmentCountry } from 'client/store/area'
 import { useCycle } from 'client/store/assessment'
@@ -10,16 +9,7 @@ import { useShowOriginalDatapoints } from 'client/store/ui/assessmentSection'
 import { getODPHeader } from 'client/pages/Section/DataTable/Table/GridHead/GridHeadCell/hooks/getODPHeader'
 import { getODPColSpan } from 'client/pages/Section/DataTable/Table/utils/getODPColSpan'
 
-type Props = {
-  assessmentName: string
-  col: Col
-  colIndex: number
-  data: RecordAssessmentData
-  headers: Array<string>
-  row: Row
-  rowIndex: number
-  table: Table
-}
+import { GridHeadCellProps } from '../types'
 
 type Returned = {
   className: string
@@ -32,7 +22,7 @@ type Returned = {
   }
 }
 
-export const useGridHeadCellProps = (props: Props): Returned => {
+export const useGridHeadCellProps = (props: GridHeadCellProps): Returned => {
   const { assessmentName, col, colIndex, data, headers, row, rowIndex, table } = props
 
   const country = useAssessmentCountry()
