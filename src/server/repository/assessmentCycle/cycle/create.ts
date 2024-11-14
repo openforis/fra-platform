@@ -5,29 +5,34 @@ import { BaseProtocol, DB, Schemas } from 'server/db'
 import { AssessmentRepository } from 'server/repository/assessment/assessment'
 import { getCreateOrReplaceViewCountryUserSummary } from 'server/repository/assessment/assessment/getCreateSchemaDDL'
 
+type Props = {
+  assessment: Assessment
+  name: string
+}
+
+type Returned = Promise<{
+  assessment: Assessment
+  cycle: Cycle
+}>
+
 const defaultMetaCache: AssessmentMetaCache = {
   calculations: { dependants: {}, dependencies: {} },
   validations: { dependants: {}, dependencies: {} },
   variablesByTable: {},
 }
 
-const dateCreated = new Date().toISOString()
-
-const defaultProps: CycleProps = {
-  status: CycleStatus.draft,
-  dateCreated,
-  dateDraft: dateCreated,
-  dateEditing: undefined,
-  datePublished: undefined,
+const getDefaultProps = (): CycleProps => {
+  const dateCreated = new Date().toISOString()
+  return {
+    status: CycleStatus.draft,
+    dateCreated,
+    dateDraft: dateCreated,
+    dateEditing: undefined,
+    datePublished: undefined,
+  }
 }
 
-export const create = async (
-  params: {
-    assessment: Assessment
-    name: string
-  },
-  client: BaseProtocol = DB
-): Promise<{ assessment: Assessment; cycle: Cycle }> => {
+export const create = async (params: Props, client: BaseProtocol = DB): Returned => {
   const { assessment, name } = params
 
   const schemaAssessment = Schemas.getName(assessment)
@@ -41,7 +46,7 @@ export const create = async (
     `insert into assessment_cycle (assessment_id, name, props)
      values ($1, $2, $3)
      returning *;`,
-    [assessment.id, name, defaultProps]
+    [assessment.id, name, getDefaultProps()]
   )
 
   // Init country user summary view

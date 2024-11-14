@@ -13,11 +13,11 @@ import { useOnChange } from './hooks/useOnChange'
 
 const YearSelection: React.FC = () => {
   const { t } = useTranslation()
-  const { cycleName, sectionName } = useOriginalDataPointRouteParams()
+  const { sectionName } = useOriginalDataPointRouteParams()
   const originalDataPoint = useOriginalDataPoint()
   const canEditData = useIsEditTableDataEnabled(sectionName)
   const onChange = useOnChange()
-  const { years, reservedYears } = useODPYears(cycleName)
+  const { years, reservedYears } = useODPYears()
   const validYear = ODPs.validateYear(originalDataPoint)
   const disabled = Boolean(!canEditData)
 

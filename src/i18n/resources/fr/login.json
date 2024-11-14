@@ -29,7 +29,6 @@
   "noMatchingEmail": "Nous n'avons trouvé aucun utilisateur correspondant à cette adresse e-mail.\nAssurez-vous d'avoir un compte FRA valide.",
   "noMatchingLocalUser": "Nous n'avons trouvé aucun utilisateur correspondant à ces identifiants",
   "noMatchingProvider": "Nous n'avons trouvé aucun utilisateur correspondant à ces identifiants",
-  "noMatchingUser": "Nous n'avons trouvé aucun utilisateur correspondant à ces informations d'identification.\nAssurez-vous d'avoir un compte FRA valide.",
   "noShortPassword": "Mot de passe trop court",
   "notAuthorized": "Utilisateur non autorisé",
   "password": "Password",

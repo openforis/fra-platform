@@ -1,4 +1,4 @@
-import { Assessment, Cycle, Table, TableName } from 'meta/assessment'
+import { Assessment, Cycle, Table, TableName, TableSection } from 'meta/assessment'
 
 import { SectionRedisRepository } from 'server/repository/redis/section'
 
@@ -6,6 +6,14 @@ type Props = {
   assessment: Assessment
   cycle: Cycle
   tableName: TableName
+}
+
+const findTable = (tableSections: Array<TableSection>, tableName: TableName): Table => {
+  for (let i = 0; i < tableSections.length; i += 1) {
+    const table = tableSections[i].tables.find((table) => table.props.name === tableName)
+    if (table) return table
+  }
+  return undefined
 }
 
 /**
@@ -23,12 +31,7 @@ export const getOne = async (props: Props): Promise<Table | undefined> => {
   const { assessment, cycle, tableName } = props
   const sectionsMetadata = await SectionRedisRepository.getManyMetadata({ assessment, cycle })
   return Object.keys(sectionsMetadata).reduce<Table | undefined>((acc, sectionName) => {
-    const section = sectionsMetadata[sectionName].find((section) =>
-      section.tables.find((table) => table.props.name === tableName)
-    )
-    if (section) {
-      return section.tables.find((table) => table.props.name === tableName)
-    }
-    return acc
+    const table = findTable(sectionsMetadata[sectionName], tableName)
+    return table ?? acc
   }, undefined)
 }

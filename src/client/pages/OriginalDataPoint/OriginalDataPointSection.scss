@@ -22,19 +22,6 @@
 // custom data grid
 .odp__section {
   .data-grid {
-    // TODO: multi select refactor style
-    .multi-select__closed-content {
-      padding: $spacing-xxs;
-    }
-
-    // TODO: multi select refactor style
-    .multi-select__opened {
-      border-radius: unset;
-      top: -1px;
-      left: -1px;
-      width: calc(100% + 2px);
-    }
-
     svg.icon-reference-files {
       stroke: none;
     }

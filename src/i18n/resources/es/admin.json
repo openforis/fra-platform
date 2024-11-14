@@ -1,8 +1,17 @@
 {
   "admin": "Administración",
+  "country_one": "{{count}} País",
+  "country_other": "{{count}} Países",
+  "enotfound": "Error de DNS",
   "filter": "Filtrar por",
   "invitationPending": "Invitación pendiente",
   "invitationsAcceptedCount": "Nº de invitaciones aceptadas",
   "invitationsSentCount": "Nº de invitaciones enviadas",
-  "usersCount": "Nº de usuarios"
+  "lastStatus": "Último estado",
+  "locationsCount": "Número de ubicaciones",
+  "role_one": "{{count}} Rol",
+  "role_other": "{{count}} Roles",
+  "urlParsingError": "Error de análisis de URL",
+  "usersCount": "Nº de usuarios",
+  "verifyLinks": "Verificar enlaces"
 }

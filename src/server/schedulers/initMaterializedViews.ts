@@ -1,45 +1,50 @@
 import { Job, Queue, Worker } from 'bullmq'
 import IORedis from 'ioredis'
-import { Objects } from 'utils/objects'
 import { Promises } from 'utils/promises'
 
-import { CountryIso } from 'meta/area'
+import { Areas, CountryIso } from 'meta/area'
+import { Assessment, Cycle, Cycles } from 'meta/assessment'
 
 import { AreaController } from 'server/controller/area'
 import { AssessmentController } from 'server/controller/assessment'
-import { BaseProtocol, DB } from 'server/db'
+import { BaseProtocol, DB, Schemas } from 'server/db'
 import { CountryActivityLogRepository } from 'server/repository/assessmentCycle/countryActivityLog'
+import {
+  activitiesLastEdit,
+  activitiesLastEditOdpData,
+} from 'server/repository/assessmentCycle/countrySummary/_lastEditActivities'
 import { Logger } from 'server/utils/logger'
 
 const client: BaseProtocol = DB
 
-// assessmentUuid->cycleUuid->[countryIso]
-type ActivityLogEntries = Record<string, Record<string, Set<CountryIso>>>
+const _getCountryISOsOutOfSync = async (props: {
+  assessment: Assessment
+  cycle: Cycle
+}): Promise<Array<CountryIso>> => {
+  const { assessment, cycle } = props
 
-const _getActivityLogEntries = async (props: { jobTimestamp: number }): Promise<ActivityLogEntries> => {
-  const { jobTimestamp } = props
+  const schemaCycle = Schemas.getNameCycle(assessment, cycle)
 
-  const jobCreatedAt = new Date(jobTimestamp).toISOString()
-
-  const activities = await client.map<{ assessmentUuid: string; cycleUuid: string; countryIso: CountryIso }>(
-    `
-        select assessment_uuid, cycle_uuid, country_iso
-        from public.activity_log
-        where
-              time > $1
-          and country_iso is not null
-          and cycle_uuid is not null
-        order by time desc`,
-    [jobCreatedAt],
-    (row) => Objects.camelize(row)
+  const res = await client.map(
+    `with al as
+              (select al.country_iso
+                    , max(al.time) filter (where al.message in (${activitiesLastEdit}))         as last_edit
+                    , max(al.time) filter (where al.message in (${activitiesLastEditOdpData})) as last_odp_edit
+               from activity_log al
+               where al.assessment_uuid = $1
+                 and al.cycle_uuid = $2
+               group by al.country_iso)
+     select cs.country_iso as countryiso
+     from ${schemaCycle}.country_summary cs
+              left join al on cs.country_iso = al.country_iso
+     where ((cs.last_edit is null and (al.last_edit is not null or al.last_odp_edit is not null)) or
+            greatest(al.last_edit, al.last_odp_edit) > cs.last_edit)
+     order by 1 desc`,
+    [assessment.uuid, cycle.uuid],
+    ({ countryiso }) => countryiso
   )
-  return activities.reduce<ActivityLogEntries>((acc, entry) => {
-    const res = { ...acc }
-    if (!res[entry.assessmentUuid]) res[entry.assessmentUuid] = {}
-    if (!res[entry.assessmentUuid][entry.cycleUuid]) res[entry.assessmentUuid][entry.cycleUuid] = new Set()
-    res[entry.assessmentUuid][entry.cycleUuid].add(entry.countryIso)
-    return res
-  }, {})
+  if (Cycles.isPublished(cycle)) return res.filter((countryIso) => !Areas.isAtlantis(countryIso))
+  return res
 }
 
 export const initMaterializedViews = (connection: IORedis): Worker => {
@@ -48,27 +53,24 @@ export const initMaterializedViews = (connection: IORedis): Worker => {
 
   const worker = new Worker(
     name,
-    async (job: Job) => {
+    async (_job: Job) => {
       Logger.info(`[${name}] ** started`)
 
-      const [assessments, entries] = await Promise.all([
-        AssessmentController.getAll({}),
-        _getActivityLogEntries({ jobTimestamp: job.timestamp }),
-      ])
+      const assessments = await AssessmentController.getAll({}, client)
 
       await Promises.each(assessments, (assessment) =>
         Promises.each(assessment.cycles, async (cycle) => {
-          // 1. refresh country summary
-          await AreaController.refreshSummaries({ assessment, cycle })
-          Logger.info(`[${name}:CountrySummary] ${assessment.props.name} ${cycle.name} refreshed`)
-
-          // 2. refresh countries activity log
-          const countryISOs = Array.from(entries[assessment.uuid]?.[cycle.uuid] ?? [])
+          // 1. refresh countries activity log
+          const countryISOs = await _getCountryISOsOutOfSync({ assessment, cycle })
           await Promises.each(countryISOs, async (countryIso) => {
             Logger.debug(`[${name}:CountryActivityLog] ${assessment.props.name} ${cycle.name} ${countryIso} refreshing`)
             await CountryActivityLogRepository.refreshMaterializedView({ assessment, cycle, countryIso })
             Logger.info(`[${name}:CountryActivityLog] ${assessment.props.name} ${cycle.name} ${countryIso} refreshed`)
           })
+
+          // 2. refresh country summary
+          await AreaController.refreshSummaries({ assessment, cycle })
+          Logger.info(`[${name}:CountrySummary] ${assessment.props.name} ${cycle.name} refreshed`)
         })
       )
 

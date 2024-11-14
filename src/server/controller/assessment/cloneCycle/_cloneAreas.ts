@@ -17,7 +17,7 @@ export const cloneAreas = async (props: CloneProps, client: BaseProtocol): Promi
       from ${schemaCycleSource}.region;
 
       insert into ${schemaCycleTarget}.country (country_iso, props)
-      select country_iso, props
+      select country_iso, props #- '{status}'
       from ${schemaCycleSource}.country;
 
       insert into ${schemaCycleTarget}.country_region (country_iso, region_code)

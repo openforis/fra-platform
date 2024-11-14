@@ -1,0 +1,28 @@
+name: Manual Database Backup
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to backup (production/development)'
+        required: true
+        default: 'production'
+        type: choice
+        options:
+          - production
+          - development
+
+jobs:
+  backup:
+    runs-on: ubuntu-22.04
+    
+    steps:
+      - name: Install Heroku CLI
+        run: curl https://cli-assets.heroku.com/install.sh | sh
+
+      - name: Create Heroku Postgres Backup
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+          APP_NAME: ${{ github.event.inputs.environment == 'production' && secrets.HEROKU_APP_NAME_PRODUCTION || secrets.HEROKU_APP_NAME_DEVELOPMENT }}
+        run: |
+          heroku pg:backups:capture --app $APP_NAME 

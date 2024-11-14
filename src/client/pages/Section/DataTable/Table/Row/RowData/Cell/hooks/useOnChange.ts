@@ -49,7 +49,7 @@ export default (props: Props): Returned => {
         value: value.raw,
         type,
         valuePrev: nodeValue.raw,
-        options: col.props.select?.options,
+        options: Cols.getSelectOptions({ cycle, col }),
       })
 
       dispatch(
@@ -137,7 +137,7 @@ export default (props: Props): Returned => {
               value,
               type: colSpecType,
               valuePrev: nodeValue.raw,
-              options: colSpec.props.select?.options,
+              options: Cols.getSelectOptions({ cycle, col: colSpec }),
             })
             const nodeValueUpdate = { raw: valueUpdate }
 
