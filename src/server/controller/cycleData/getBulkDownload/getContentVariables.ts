@@ -50,6 +50,12 @@ export const getContentVariables = async (props: Props & { fileName: string; ent
     await Promises.each(variables, async (variable) => {
       const { csvColumn, variableName } = variable
 
+      const currentCols = [...cols]
+
+      if (tableName === 'growingStockComposition2025' && variableName.match(/^(native|introduced)Rank\d+$/)) {
+        currentCols.unshift('scientific_name', 'common_name')
+      }
+
       const content = countries.map((country) => {
         const { countryIso, regionCodes } = country
 
@@ -75,7 +81,7 @@ export const getContentVariables = async (props: Props & { fileName: string; ent
           subtropical: getClimaticValue('sub_tropical', countryIso, climaticData),
         }
 
-        cols.forEach((colName) => {
+        currentCols.forEach((colName) => {
           const datum = RecordAssessmentDatas.getDatum({
             assessmentName: assessment.props.name,
             cycleName: cycle.name,
