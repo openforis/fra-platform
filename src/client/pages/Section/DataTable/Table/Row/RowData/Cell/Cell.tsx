@@ -13,7 +13,6 @@ import Flags from '../../../GridRow/RowData/Cell/Flags'
 import useErrorMessages from '../../../GridRow/RowData/Cell/hooks/useErrorMessages'
 import { useNodeValue } from '../../../GridRow/RowData/Cell/hooks/useNodeValue'
 import useOnChange from '../../../GridRow/RowData/Cell/hooks/useOnChange'
-import Multiselect from '../../../GridRow/RowData/Cell/Multiselect'
 import Number from '../../../GridRow/RowData/Cell/Number'
 import Placeholder from '../../../GridRow/RowData/Cell/Placeholder'
 import Select from '../../../GridRow/RowData/Cell/Select'
@@ -29,7 +28,6 @@ const Components: Record<string, React.FC<PropsCell>> = {
   [ColType.textarea]: Text,
   [ColType.decimal]: Number,
   [ColType.integer]: Number,
-  [ColType.multiselect]: Multiselect,
   [ColType.select]: Select,
   [ColType.placeholder]: Placeholder,
 }
