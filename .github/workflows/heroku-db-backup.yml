@@ -12,12 +12,6 @@ on:
           - production
           - development
 
-  push:
-    branches:
-      - 4113-github-action-db-backup
-    paths:
-      - '.github/workflows/heroku-db-backup.yml'
-
 jobs:
   backup:
     runs-on: ubuntu-22.04
