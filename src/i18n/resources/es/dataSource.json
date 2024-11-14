@@ -2,6 +2,7 @@
   "comments": "Comentarios",
   "fraVariable": "Variable FRA",
   "nationalForestInventory": "Inventario Forestal Nacional (IFN)",
+  "other": "$t(common.otherSpecifyInComments)",
   "referenceToTataSource": "Referencia de las fuente de datos",
   "registersAndStatistics": "Registros y estadísticas",
   "remoteSensingBasedAssessmentWithGroundTruthing": "Evaluación basada en mapas realizados mediante técnicas de teledetección con verificación sobre el terreno",

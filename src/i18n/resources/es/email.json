@@ -3,5 +3,12 @@
     "htmlMessage": "Estimado/a {{recipientName}} {{recipientSurname}},\n<br/><br/>\nEl usuario {{invitedUserName}} {{invitedUserSurname}} ha aceptado su invitación a {{assessmentName}} {{cycleName}} como {{role}} para <b><a href=\"{{- manageCollaboratorsUrl}}\">{{country}}</a></b>.\n<br/><br/>\nEl equipo de FRA",
     "subject": "El usuario {{invitedUserName}} {{invitedUserSurname}} ha aceptado su invitación",
     "textMessage": "Estimado/a {{recipientName}} {{recipientSurname}},\n\nEl usuario {{invitedUserName}} {{invitedUserSurname}} ha aceptado su invitación a {{assessmentName}} {{cycleName}} como {{role}} para {{country}}:\n{{- manageCollaboratorsUrl}}\n\nEl equipo de FRA"
+  },
+  "remindReviewer": {
+    "messageBodyHTML": "\n    <br/>\n    Los informes de país {{assessmentName}} {{cycleName}} para<br />\n    {{- countryLinks}}<br />\n    han estado “En revisión” por más de una semana.<br/>\n    ",
+    "messageBodyText": "\n    El informe de países {{assessmentName}} {{cycleName}} para: {{- countries}} ha estado “En revisión”  por más de una semana.\n   \n\n{{- countryUrls}}\n\n    ",
+    "messageFooter": "\n    Por favor, proporcione sus comentarios y envíe el informe de vuelta a “Editando”, o proceda con la aprobación si no hay más observaciones.\n<br />\n    Gracias.",
+    "messageHeader": "Estimado/a {{recipientName}},",
+    "subject": "Recordatorio: Uno o más países están pendientes de revisión"
   }
 }

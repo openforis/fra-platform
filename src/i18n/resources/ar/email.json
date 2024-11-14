@@ -3,5 +3,12 @@
     "htmlMessage": "{{recipientSurname}} {{recipientName}}  عزيزتي عزيزي /\n<br/><br/>\n<b><a href=\"{{- manageCollaboratorsUrl}}\">{{country}}</a></b> في {{role}}  ك  {{cycleName}} {{assessmentName}} لقد تم قبول الدعوة المقدمة من جانبكم {{invitedUserSurname}}  {{invitedUserName}} المستخدم\n<br/><br/>\nفريق التقييم العالمي للموارد الحرجيه",
     "subject": "لقد تم قبول الدعوة المقدمة من جانبكم   {{invitedUserSurname}} {{invitedUserName}}  المستخدم",
     "textMessage": "{{recipientSurname}} {{recipientName}}  عزيزتي عزيزي /\n\n{{country}} في {{role}}  ك  {{cycleName}} {{assessmentName}} لقد تم قبول الدعوة المقدمة من جانبكم {{invitedUserSurname}}  {{invitedUserName}} المستخدم\n{{- manageCollaboratorsUrl}}\n\nفريق التقييم العالمي للموارد الحرجيه"
+  },
+  "remindReviewer": {
+    "messageBodyHTML": "\n    <br/>\n    تقارير البلدان {{assessmentName}} {{cycleName}} لـ<br />\n    {{- countryLinks}}<br />\n    كانت ”مراجعة“ أكثر من أسبوع.<br/>\n    ",
+    "messageBodyText": "\n    التقرير القطري {{assessmentName}} {{cycleName}} للبلدان: {{- countries}} كان ”مراجعة“ على مدى أسبوع.\n   \n\n{{- countryUrls}}\n\n    ",
+    "messageFooter": "\n    الرجاء تقديم تعليقاتك وإرسال التقرير مرة أخرى إلى \"التحرير\"، أو المضي قدما في الموافقة إذا لم تكن هناك مسائل أخرى.\n    <br />\n    شكرا لك.",
+    "messageHeader": "عزيزي {{recipientName}},",
+    "subject": "تذكير: بلد واحد أو أكثر في انتظار الاستعراض"
   }
 }

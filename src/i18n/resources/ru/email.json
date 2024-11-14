@@ -3,5 +3,12 @@
     "htmlMessage": "Уважаемый (ая) {{recipientName}} {{recipientSurname}},\n<br/><br/>\nПользователь {{invitedUserName}} {{invitedUserSurname}} принял(а) ваше приглашение на {{assessmentName}} {{cycleName}} в качестве {{role}} для <b><a href=\"{{- manageCollaboratorsUrl}}\">{{country}}</a></b>.\n<br/><br/>\nКоманда по ОЛР",
     "subject": "Пользователь {{invitedUserName}} {{invitedUserSurname}} принял(а) ваше приглашение",
     "textMessage": "Уважаемый (ая) {{recipientName}} {{recipientSurname}},\n\nПользователь {{invitedUserName}} {{invitedUserSurname}} принял(а) ваше приглашение на {{assessmentName}} {{cycleName}} в качестве {{role}} для {{country}}\n{{- manageCollaboratorsUrl}}\n\nКоманда по ОЛР"
+  },
+  "remindReviewer": {
+    "messageBodyHTML": "\n    <br/>\n    Страновые отчеты {{assessmentName}} {{cycleName}} для<br />\n    {{- countryLinks}}<br />\n    были \"рассмотрены\" более недели.<br/>\n    ",
+    "messageBodyText": "\n    Страновые отчеты {{assessmentName}} {{cycleName}} для {{- countries}} были \"На рассмотрении\" более недели.\n   \n\n{{- countryUrls}}\n\n    ",
+    "messageFooter": "\n    Пожалуйста, оставьте свои комментарии и отправьте отчет обратно на «Редактирование», или приступайте к утверждению, если никаких проблем не возникает.\n    <br />\n    Спасибо.",
+    "messageHeader": "Dear {{recipientName}},",
+    "subject": "Напоминание: одна или несколько стран ожидают рассмотрения"
   }
 }

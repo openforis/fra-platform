@@ -1,10 +1,12 @@
 import { TFunction } from 'i18next'
+import { Arrays } from 'utils/arrays'
+import { Dates } from 'utils/dates'
 import { Objects } from 'utils/objects'
 
 import { Cycle } from 'meta/assessment/cycle'
 import { Labels } from 'meta/assessment/labels'
 
-import { Col, ColStyle, ColType } from './col'
+import { Col, ColSelectOption, ColSelectProps, ColStyle, ColType } from './col'
 import { Row } from './row'
 
 const cloneProps = (props: { cycleSource: Cycle; cycleTarget: Cycle; col: Col }): Col['props'] => {
@@ -24,6 +26,8 @@ const cloneProps = (props: { cycleSource: Cycle; cycleTarget: Cycle; col: Col })
     _props.labels[cycleTargetUuid] = Objects.cloneDeep(_props.labels[cycleSourceUuid])
   if (!Objects.isNil(_props.linkedNodes?.[cycleSourceUuid]))
     _props.linkedNodes[cycleTargetUuid] = Objects.cloneDeep(_props.linkedNodes[cycleSourceUuid])
+  if (!Objects.isNil(_props.select?.[cycleSourceUuid]))
+    _props.select[cycleTargetUuid] = Objects.cloneDeep(_props.select[cycleSourceUuid])
   if (!Objects.isNil(_props.style?.[cycleSourceUuid]))
     _props.style[cycleTargetUuid] = Objects.cloneDeep(_props.style[cycleSourceUuid])
   if (!Objects.isNil(_props.validateFns?.[cycleSourceUuid]))
@@ -89,12 +93,36 @@ const getStyle = (props: { cycle: Cycle; col: Col }): ColStyle => {
   return style[cycle.uuid] ?? {}
 }
 
+const getSelectProps = (props: { cycle: Cycle; col: Col }): ColSelectProps => {
+  const { col, cycle } = props
+
+  return col.props.select?.[cycle.uuid] ?? { options: [] }
+}
+
+const getSelectOptions = (props: { cycle: Cycle; col: Col }): Array<ColSelectOption> => {
+  const selectProps = getSelectProps(props)
+  const { options, years } = selectProps
+  if (!Objects.isNil(options)) {
+    return options
+  }
+
+  if (!Objects.isNil(years)) {
+    const { start, end = Dates.getCurrentYear() + 1 } = years
+
+    return Arrays.reverse(Arrays.range(start, end)).map<ColSelectOption>((year) => ({ name: String(year) }))
+  }
+
+  throw new Error(`Unable to get col options. col: ${JSON.stringify(props.col)}`)
+}
+
 export const Cols = {
   cloneProps,
   getCalculateFn,
   getClassNames,
   getColName,
   getLabel,
+  getSelectOptions,
+  getSelectProps,
   getStyle,
   hasLinkedNodes,
   isCalculated,

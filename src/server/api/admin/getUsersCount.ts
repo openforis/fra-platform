@@ -19,10 +19,10 @@ export const getUsersCount = async (req: UsersRequest, res: Response) => {
     const count = await UserController.count({
       administrators,
       assessment,
-      countries: countries || [],
+      countries,
       cycle,
-      fullName: fullName || '',
-      roles: roles || [],
+      fullName,
+      roles,
     })
 
     Requests.sendOk(res, count)

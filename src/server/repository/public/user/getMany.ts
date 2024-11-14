@@ -56,10 +56,8 @@ export const buildGetManyQuery = (props: UsersGetManyProps): BuildQueryReturned 
 
   if (fullName) queryParams.fullName = fullName.trim().toLowerCase()
   if (countryIso) queryParams.countryIso = countryIso
-
-  const selectedCountries = !Objects.isEmpty(countries)
-    ? countries.map((countryIso) => `'${countryIso}'`).join(',')
-    : null
+  const hasCountries = countries && countries.length > 0
+  if (hasCountries) queryParams.countries = countries
 
   const allRoles = administrators
     ? Object.values(RoleName)
@@ -85,7 +83,7 @@ export const buildGetManyQuery = (props: UsersGetManyProps): BuildQueryReturned 
       (invitation is not null and invitation ->> 'role' in ($(roles:list)))
     )`,
     countryIso && `country_iso = $(countryIso)`,
-    selectedCountries && `country_iso in ($(selectedCountries))`,
+    hasCountries && `country_iso in ($(countries:list))`,
     userStatuses && `status in ($(statuses:list))`,
   ].filter(Boolean)
 

@@ -17,18 +17,19 @@ export const getUsers = async (req: UsersRequest, res: Response) => {
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
+    const statuses = [UserStatus.active, UserStatus.disabled, UserStatus.invitationPending]
     const users = await UserController.getMany({
       administrators,
       assessment,
-      countries: countries || [],
+      countries,
       cycle,
-      fullName: fullName || '',
+      fullName,
       limit: limit && Number(limit),
       offset: offset && Number(offset),
       orderBy,
       orderByDirection,
-      roles: roles || [],
-      statuses: [UserStatus.active, UserStatus.disabled, UserStatus.invitationPending],
+      roles,
+      statuses,
     })
 
     Requests.sendOk(res, users)
