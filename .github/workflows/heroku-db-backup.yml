@@ -11,6 +11,7 @@ on:
         options:
           - production
           - development
+
   push:
     branches:
       - 4113-github-action-db-backup
@@ -22,12 +23,12 @@ jobs:
     runs-on: ubuntu-22.04
     
     steps:
+      - name: Install Heroku CLI
+        run: curl https://cli-assets.heroku.com/install.sh | sh
+
       - name: Create Heroku Postgres Backup
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
           APP_NAME: ${{ github.event.inputs.environment == 'production' && secrets.HEROKU_APP_NAME_PRODUCTION || secrets.HEROKU_APP_NAME_DEVELOPMENT }}
         run: |
-          curl -n -X POST https://api.heroku.com/apps/$APP_NAME/pg-backups \
-            -H "Content-Type: application/json" \
-            -H "Accept: application/vnd.heroku+json; version=3" \
-            -H "Authorization: Bearer $HEROKU_API_KEY" 
+          heroku pg:backups:capture --app $APP_NAME 
