@@ -95,7 +95,7 @@ describe('canViewReview', () => {
     expect(canViewReview({ country: mockCountry, section: testSection, user: mockUser, cycle: mockCycle })).toBe(false)
   })
 
-  test('should return false for country status not in allowed statuses', () => {
+  test('should return true for admin when country status is accepted', () => {
     const mockCountryNotInReview = { ...mockCountry, props: { status: AssessmentStatus.accepted } }
     ;(Users.isAdministrator as jest.Mock).mockReturnValue(true)
     ;(Users.getRole as jest.Mock).mockReturnValue({ role: RoleName.ADMINISTRATOR })
@@ -106,6 +106,6 @@ describe('canViewReview', () => {
         user: mockUser,
         cycle: mockCycle,
       })
-    ).toBe(false)
+    ).toBe(true)
   })
 })

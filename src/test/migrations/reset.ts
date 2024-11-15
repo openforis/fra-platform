@@ -58,17 +58,11 @@ const resetMigrationSteps = async () => {
     }
 
     // === 3. Create reset step
-    const { filePath, fileName } = await createMigrationStep('reset')
+    const { fileName } = await createMigrationStep('reset')
     // eslint-disable-next-line @typescript-eslint/no-var-requires,global-require,import/no-dynamic-require
-    const resetStep = require(filePath).default
 
-    await DB.tx(async (t) => {
-      // === 4. Run reset step
-      await resetStep(t, fileName)
-
-      // === 5. Delete old migration files
-      deleteOldMigrationFiles(fileName)
-    })
+    // === 4. Delete old migration files
+    deleteOldMigrationFiles(fileName)
 
     Logger.info('Migration steps reset completed successfully')
   } catch (error) {

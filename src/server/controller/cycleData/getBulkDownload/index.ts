@@ -65,9 +65,12 @@ const handleResult = ({ regions, iso3, deskStudy, name, year, ...row }: Record<s
   const fixed: Record<string, string> = {
     regions: _handleRegions(regions),
     iso3: `"${iso3}"`,
-    deskStudy: `"${i18n.t(deskStudy)}"`,
     name: `"${_translate(name)}"`,
     ...row,
+  }
+
+  if (deskStudy) {
+    fixed.deskStudy = `"${i18n.t(deskStudy)}"`
   }
 
   if (year) {

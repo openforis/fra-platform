@@ -3,5 +3,12 @@
     "htmlMessage": "Cher/Chère {{recipientName}} {{recipientSurname}},\n<br/><br/>\nL’utilisateur {{invitedUserName}} {{invitedUserSurname}} a accepté votre invitation à participer à {{assessmentName}} {{cycleName}} en tant que {{role}} pour le/la <b><a href=\"{{- manageCollaboratorsUrl}}\">{{country}}</a></b>.\n<br/><br/>\nL’équipe FRA",
     "subject": "L’utilisateur {{invitedUserName}} {{invitedUserSurname}} a accepté votre invitation",
     "textMessage": "Cher/Chère {{recipientName}} {{recipientSurname}},\n\nL’utilisateur {{invitedUserName}} {{invitedUserSurname}} a accepté votre invitation à participer à {{assessmentName}} {{cycleName}} en tant que {{role}} pour le/la {{- country}}\n{{- manageCollaboratorsUrl}}\n\nL’équipe FRA"
+  },
+  "remindReviewer": {
+    "messageBodyHTML": "\n    <br/>\n    Les rapports nationaux du {{assessmentName}} {{cycleName}} pour<br />\n    {{- countryLinks}}<br />\n    sont \"À l'étude\" depuis plus d'une semaine.<br/>\n    ",
+    "messageBodyText": "\n    Le rapport national du {{assessmentName}} {{cycleName}} pour les pays : {{- countries}} est \"À l'étude\" depuis plus d'une semaine.\n   \n\n{{- countryUrls}}\n\n    ",
+    "messageFooter": "\n    Veuillez fournir vos commentaires et renvoyer le rapport à \"Modifier\", ou procéder à l'approbation s'il n'y a plus de problèmes.\n    <br />\n    Merci.",
+    "messageHeader": "Cher/Chère {{recipientName}},",
+    "subject": "Rappel : Un ou plusieurs pays sont en attente d'examen"
   }
 }

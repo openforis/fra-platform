@@ -19,7 +19,7 @@ type Props = TablePaginatedFilter<TablePaginatedFilterType.MULTI_SELECT> & {
 }
 
 const MultiSelect: React.FC<Props> = (props: Props) => {
-  const { fieldName, label, path, options } = props
+  const { fieldName, label, multiLabelSummaryKey, options, path } = props
 
   const dispatch = useAppDispatch()
 
@@ -50,7 +50,7 @@ const MultiSelect: React.FC<Props> = (props: Props) => {
           }),
         }}
         isMulti
-        multiLabelSummaryKey="admin.role"
+        multiLabelSummaryKey={multiLabelSummaryKey}
         onChange={handleChange}
         onMenuClose={showTooltip}
         onMenuOpen={hideTooltip}

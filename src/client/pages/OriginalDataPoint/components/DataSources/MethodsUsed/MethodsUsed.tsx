@@ -5,8 +5,7 @@ import { ODPDataSourceMethod, OriginalDataPoint } from 'meta/assessment/original
 import { Topics } from 'meta/messageCenter'
 
 import { DataCell, DataRow, DataRowAction, DataRowActionType } from 'client/components/DataGrid'
-import MultiSelect from 'client/components/MultiSelect'
-import { Option } from 'client/components/MultiSelect/option'
+import Select, { Option } from 'client/components/Inputs/Select'
 import { useShowReviewIndicator } from 'client/pages/OriginalDataPoint/hooks/useShowReviewIndicator'
 
 import { useIsDisabled } from '../hooks/useIsDisabled'
@@ -59,11 +58,12 @@ const MethodsUsed: React.FC<Props> = (props: Props) => {
     <DataRow actions={actions}>
       <DataCell header>{t('nationalDataPoint.methodsUsed')}</DataCell>
       <DataCell lastCol>
-        <MultiSelect
+        <Select
           disabled={disabled}
+          isMulti
           onChange={onChange}
           options={options}
-          values={originalDataPoint.dataSourceMethods ?? []}
+          value={originalDataPoint.dataSourceMethods ?? []}
         />
       </DataCell>
     </DataRow>

@@ -17,15 +17,17 @@ export const useShowActions = (topic: MessageTopic) => {
   const isAdmin = Users.isAdministrator(user)
   const isReviewer = Users.isReviewer(user, countryIso, cycle)
 
+  const isNotStarted = status === AssessmentStatus.notStarted
   const isEditing = status === AssessmentStatus.editing
   const isReview = topic.type === MessageTopicType.review
   const isOpened = topic.status === MessageTopicStatus.opened
   const isResolved = topic.status === MessageTopicStatus.resolved
   const hasMessages = topic.messages?.length > 0
 
-  const canResolve = isEditing && isReview && isOpened && hasMessages && (isAdmin || isReviewer)
+  const canResolve = (isNotStarted || isEditing) && isReview && isOpened && hasMessages && (isAdmin || isReviewer)
 
-  const canPostMessage = (!isReview || isEditing) && (isOpened || (isResolved && (isAdmin || isReviewer)))
+  const canPostMessage =
+    (!isReview || isEditing || isNotStarted) && (isOpened || (isResolved && (isAdmin || isReviewer)))
 
   return { canResolve, canPostMessage }
 }

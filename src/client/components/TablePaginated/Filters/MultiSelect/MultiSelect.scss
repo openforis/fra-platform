@@ -47,6 +47,11 @@ div.filter-multiselect__container {
     }
   }
 
+  div.select__groupHeading {
+    background-color: lighten($ui-bg, 1%);
+    border-bottom: 1px solid lighten($ui-border, 1%);
+  }
+
   &.active {
     border: 1px solid $ui-accent;
   }

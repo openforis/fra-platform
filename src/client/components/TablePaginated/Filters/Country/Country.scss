@@ -1,0 +1,48 @@
+@import 'src/client/style/partials';
+
+div.filter-country {
+  width: 235px;
+}
+
+.tooltip-container {
+  .react-tooltip.filter-country__tooltip {
+    max-width: unset;
+
+    .regions-container {
+      column-gap: $spacing-xs;
+      display: grid;
+      font-size: $font-xs;
+      max-height: 500px;
+      max-width: 1200px;
+      overflow-y: scroll;
+      pointer-events: auto;
+      row-gap: $spacing-xxxs;
+
+      .region-title {
+        align-self: end;
+        background-color: $infoTooltipBgColor;
+        font-weight: bold;
+        padding-bottom: $spacing-xxxs;
+        position: sticky;
+        text-align: center;
+        top: 0;
+      }
+
+      .countries-container {
+        display: grid;
+        height: min-content;
+        align-items: center;
+
+        .country {
+          -moz-box-shadow: 0px -2px 4px -4px rgba($ui-accent, 1);
+          -webkit-box-shadow: 0px -2px 4px -4px rgba($ui-accent, 1);
+          box-shadow: 0px -2px 4px -4px rgba($ui-accent, 1);
+          max-width: 170px;
+          min-height: $spacing-s;
+          padding: $spacing-xxxs 0;
+          white-space: wrap;
+        }
+      }
+    }
+  }
+}

@@ -11,7 +11,7 @@ export interface ColDB {
 
 export const ColAdapter = (colDB: ColDB): Col => {
   const {
-    props: { calculateFn, classNames, labels, linkedNodes, style, validateFns, variableNo, ...otherProps },
+    props: { calculateFn, classNames, labels, linkedNodes, select, style, validateFns, variableNo, ...otherProps },
     ...col
   } = colDB
 
@@ -24,6 +24,7 @@ export const ColAdapter = (colDB: ColDB): Col => {
       classNames,
       labels,
       linkedNodes,
+      select,
       style,
       variableNo,
     },

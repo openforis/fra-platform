@@ -1,8 +1,17 @@
 {
   "admin": "Администратор",
+  "country_one": "{{count}} Страна",
+  "country_other": "{{count}} Страны",
+  "enotfound": "Ошибка DNS",
   "filter": "Фильтровать по",
   "invitationPending": "Приглашение в стадии рассмотрения",
   "invitationsAcceptedCount": "Число принятых приглашений",
   "invitationsSentCount": "Число направленных приглашений",
-  "usersCount": "Число пользователей"
+  "lastStatus": "Последний статус",
+  "locationsCount": "Нет мест",
+  "role_one": "{{count}} Роль",
+  "role_other": "{{count}} Роли",
+  "urlParsingError": "URL parsing error",
+  "usersCount": "Число пользователей",
+  "verifyLinks": "Проверить ссылки"
 }
