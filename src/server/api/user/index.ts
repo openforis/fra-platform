@@ -31,6 +31,10 @@ export const UserApi = {
     express.get(ApiEndPoint.User.invitation(), getInvitation)
     express.get(ApiEndPoint.User.invitationAccept(), acceptInvitation)
     express.get(ApiEndPoint.User.invitationSendEmail(), AuthMiddleware.requireInviteUser, sendInvitationEmail)
+    /**
+     * @deprecated
+     */
+    // TODO Delete
     express.get(ApiEndPoint.User.invitations(), AuthMiddleware.requireViewUsers, getInvitations)
     express.post(ApiEndPoint.User.invite(), AuthMiddleware.requireInviteUser, invite)
 

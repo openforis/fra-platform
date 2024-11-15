@@ -1,20 +1,29 @@
+import './Actions.scss'
 import React from 'react'
 
-import { User } from 'meta/user'
+import { CountryUserSummary } from 'meta/user'
 
-import ActionsContainer from '../../ActionsContainer'
+import CopyLink from './CopyLink'
 import Edit from './Edit'
+import Remove from './Remove'
+import Resend from './Resend'
 
 type Props = {
-  user: User
+  countryUserSummary: CountryUserSummary
 }
 
 const Actions: React.FC<Props> = (props: Props) => {
-  const { user } = props
+  const { countryUserSummary } = props
   return (
-    <ActionsContainer>
-      <Edit user={user} />
-    </ActionsContainer>
+    <div className="actions-container">
+      {/* invitations */}
+      <CopyLink countryUserSummary={countryUserSummary} />
+      <Remove countryUserSummary={countryUserSummary} />
+      <Resend countryUserSummary={countryUserSummary} />
+
+      {/* existing user */}
+      <Edit countryUserSummary={countryUserSummary} />
+    </div>
   )
 }
 

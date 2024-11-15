@@ -1,14 +1,14 @@
 import './UserList.scss'
 import React from 'react'
 
-import UserInvitations from './UserInvitations'
+import Invite from './Invite'
 import Users from './Users'
 
 const UserList: React.FC = () => {
   return (
     <div className="country-home__user-list">
+      <Invite />
       <Users />
-      <UserInvitations />
     </div>
   )
 }

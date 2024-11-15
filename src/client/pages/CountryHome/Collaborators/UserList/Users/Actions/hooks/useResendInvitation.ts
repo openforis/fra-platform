@@ -2,17 +2,18 @@ import { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { CountryIso } from 'meta/area'
-import { UserInvitationSummary } from 'meta/user'
+import { CountryUserSummary } from 'meta/user'
+import { CountryUserSummaries } from 'meta/user/countryUserSummaries'
 
 import { useAppDispatch } from 'client/store'
 import { UserManagementActions } from 'client/store/ui/userManagement'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { useToaster } from 'client/hooks/useToaster'
 
-import { useRefetchInvitations } from './useRefetchInvitations'
+import { useRefetchUsers } from './useRefetchUsers'
 
 type Props = {
-  invitationSummary: UserInvitationSummary
+  countryUserSummary: CountryUserSummary
   callback?: () => void
 }
 
@@ -22,8 +23,7 @@ type Returned = {
 }
 
 export const useResendInvitation = (props: Props): Returned => {
-  const { invitationSummary, callback } = props
-  const { uuid: invitationUuid } = invitationSummary
+  const { countryUserSummary, callback } = props
   const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
 
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -32,18 +32,20 @@ export const useResendInvitation = (props: Props): Returned => {
   const { toaster } = useToaster()
 
   const dispatch = useAppDispatch()
-  const refetchInvitations = useRefetchInvitations()
+  const refetchUsers = useRefetchUsers()
 
   const resendInvitation = useCallback(() => {
     setIsLoading(true)
+    const { invitation } = CountryUserSummaries.getCountryRoleAndInvitation(countryUserSummary, countryIso)
+    const { uuid: invitationUuid } = invitation
     const params = { assessmentName, countryIso, cycleName, invitationUuid }
     dispatch(UserManagementActions.sendInvitationEmail(params)).then(() => {
-      refetchInvitations()
+      refetchUsers()
       toaster.success(t('userManagement.invitationEmailSent'))
       setIsLoading(false)
       callback?.()
     })
-  }, [assessmentName, countryIso, cycleName, invitationUuid, dispatch, refetchInvitations, toaster, t, callback])
+  }, [countryUserSummary, countryIso, assessmentName, cycleName, dispatch, refetchUsers, toaster, t, callback])
 
   return { resendInvitation, isLoading }
 }

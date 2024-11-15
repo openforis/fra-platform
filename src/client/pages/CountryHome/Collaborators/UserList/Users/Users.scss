@@ -5,4 +5,18 @@
     display: flex;
     align-items: center;
   }
+
+  .data-grid-column {
+    display: flex;
+    align-items: center;
+  }
+
+  .invitation {
+    color: $text-mute;
+    font-style: italic;
+  }
+
+  .expired {
+    color: lighten($ui-destructive, 40%);
+  }
 }

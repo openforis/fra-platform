@@ -7,7 +7,7 @@ import { useAppDispatch } from 'client/store'
 import { TablePaginatedActions } from 'client/store/ui/tablePaginated'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
-export const useRefetchInvitations = () => {
+export const useRefetchUsers = () => {
   const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
 
   const dispatch = useAppDispatch()
@@ -15,7 +15,7 @@ export const useRefetchInvitations = () => {
   const getDataProps = useMemo(() => {
     const limit: number = undefined
     const page: number = undefined
-    const path = ApiEndPoint.User.invitations()
+    const path = ApiEndPoint.User.many()
 
     return { assessmentName, cycleName, countryIso, limit, page, path }
   }, [assessmentName, countryIso, cycleName])

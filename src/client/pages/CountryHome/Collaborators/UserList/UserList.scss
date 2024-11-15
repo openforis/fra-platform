@@ -3,4 +3,8 @@
 .country-home__user-list {
   display: flex;
   flex-direction: column;
+
+  .btn-invite {
+    margin: $spacing-xs 0 $spacing-xs auto;
+  }
 }
