@@ -11,6 +11,7 @@ import TablePaginated, { Column } from 'client/components/TablePaginated'
 
 import { GRID_TEMPLATE_COLUMNS } from '../getGridTemplateColumns'
 import Actions from './Actions'
+import Info from './Info'
 
 const useColumns = (): Array<Column<User>> => {
   const { countryIso } = useCountryRouteParams()
@@ -22,7 +23,9 @@ const useColumns = (): Array<Column<User>> => {
       {
         header: '',
         key: 'info',
-        component: () => <div />,
+        component: ({ datum }) => {
+          return <Info countryUserSummary={datum} />
+        },
       },
       {
         component: ({ datum }) => <span>{Users.getFullName(datum)}</span>,
