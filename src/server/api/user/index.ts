@@ -7,7 +7,6 @@ import { AuthMiddleware } from 'server/middleware/auth'
 
 import { acceptInvitation } from './acceptInvitation'
 import { getInvitation } from './getInvitation'
-import { getInvitations } from './getInvitations'
 import { getMany } from './getMany'
 import { getProfilePicture } from './getProfilePicture'
 import { getResetPassword } from './getResetPassword'
@@ -31,11 +30,6 @@ export const UserApi = {
     express.get(ApiEndPoint.User.invitation(), getInvitation)
     express.get(ApiEndPoint.User.invitationAccept(), acceptInvitation)
     express.get(ApiEndPoint.User.invitationSendEmail(), AuthMiddleware.requireInviteUser, sendInvitationEmail)
-    /**
-     * @deprecated
-     */
-    // TODO Delete
-    express.get(ApiEndPoint.User.invitations(), AuthMiddleware.requireViewUsers, getInvitations)
     express.post(ApiEndPoint.User.invite(), AuthMiddleware.requireInviteUser, invite)
 
     express.get(ApiEndPoint.User.resetPassword(), getResetPassword)
