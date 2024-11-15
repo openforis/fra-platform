@@ -393,7 +393,7 @@ export const getCreateOrReplaceViewCountryUserSummary = (props: { assessment: As
             coalesce(u.props ->> 'surname', '')
         ) as full_name,
         u.status,
-        u.props ->> 'lang' as lang,
+        coalesce(u.props ->> 'lang', 'en') as lang,
         ur.role as role,
         case when ur.role is null then ui.invitation_data else null::jsonb end as invitation
     from user_countries uc
