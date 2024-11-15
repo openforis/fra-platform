@@ -2,10 +2,13 @@ import './Users.scss'
 import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { ApiEndPoint } from 'meta/api/endpoint'
-import { User, Users } from 'meta/user'
+import classNames from 'classnames'
 
-import { useCycle } from 'client/store/assessment'
+import { ApiEndPoint } from 'meta/api/endpoint'
+import { CountryIso } from 'meta/area'
+import { CountryUserSummary, Users } from 'meta/user'
+import { CountryUserSummaries } from 'meta/user/countryUserSummaries'
+
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import TablePaginated, { Column } from 'client/components/TablePaginated'
 
@@ -13,12 +16,11 @@ import { GRID_TEMPLATE_COLUMNS } from '../getGridTemplateColumns'
 import Actions from './Actions'
 import Info from './Info'
 
-const useColumns = (): Array<Column<User>> => {
-  const { countryIso } = useCountryRouteParams()
-  const cycle = useCycle()
+const useColumns = (): Array<Column<CountryUserSummary>> => {
+  const { countryIso } = useCountryRouteParams<CountryIso>()
   const { t } = useTranslation()
 
-  return useMemo<Array<Column<User>>>(
+  return useMemo<Array<Column<CountryUserSummary>>>(
     () => [
       {
         header: '',
@@ -28,30 +30,46 @@ const useColumns = (): Array<Column<User>> => {
         },
       },
       {
-        component: ({ datum }) => <span>{Users.getFullName(datum)}</span>,
+        component: ({ datum }) => {
+          const { role, invitation } = CountryUserSummaries.getCountryRoleAndInvitation(datum, countryIso)
+          const label = datum.fullName
+          const _classNames = { invitation: Boolean(!role && invitation) }
+
+          return <span className={classNames(_classNames)}>{label}</span>
+        },
         header: t('common.name'),
         key: 'name',
       },
       {
         component: ({ datum }) => {
-          const { role } = Users.getRole(datum, countryIso, cycle)
-          return <span>{t(Users.getI18nRoleLabelKey(role))}</span>
+          const { role, invitation } = CountryUserSummaries.getCountryRoleAndInvitation(datum, countryIso)
+          const _role = role?.role ?? invitation?.role
+          const label = t(Users.getI18nRoleLabelKey(_role))
+          const _classNames = { invitation: Boolean(!role && invitation) }
+
+          return <span className={classNames(_classNames)}>{label}</span>
         },
         header: t('common.role'),
         key: 'role',
       },
       {
-        component: ({ datum }) => <span>{datum.email}</span>,
+        component: ({ datum }) => {
+          const { role, invitation } = CountryUserSummaries.getCountryRoleAndInvitation(datum, countryIso)
+          const label = datum.email
+          const _classNames = { invitation: Boolean(!role && invitation) }
+
+          return <span className={classNames(_classNames)}>{label}</span>
+        },
         header: t('common.email'),
         key: 'email',
       },
       {
         header: '',
         key: 'actions',
-        component: ({ datum }) => <Actions user={datum} />,
+        component: ({ datum }) => <Actions countryUserSummary={datum} />,
       },
     ],
-    [countryIso, cycle, t]
+    [countryIso, t]
   )
 }
 
