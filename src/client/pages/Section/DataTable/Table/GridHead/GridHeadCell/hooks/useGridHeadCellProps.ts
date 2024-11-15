@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 
 import classNames from 'classnames'
+import { Objects } from 'utils/objects'
 
 import { Cols } from 'meta/assessment'
 
@@ -35,7 +36,7 @@ export const useGridHeadCellProps = (props: GridHeadCellProps): Returned => {
   return useMemo<Returned>(() => {
     const { odp: isOdpTable } = table.props
 
-    const { colSpan: defaultColSpan, rowSpan } = Cols.getStyle({ col, cycle })
+    const { colSpan: defaultColSpan, gridRow } = Cols.getStyle({ col, cycle })
     const columnName = headers[colIndex]
 
     const odpHeader = getODPHeader({ col, columnName, country, odpYears, showOdp, table })
@@ -44,13 +45,12 @@ export const useGridHeadCellProps = (props: GridHeadCellProps): Returned => {
     if (isOdpTable && !defaultColSpan) {
       colSpan = getODPColSpan({ assessmentName, cycleName: cycle.name, data, headers, table })
     }
+    const gridColumn = Objects.isNil(colSpan) ? undefined : `span ${colSpan}`
 
     const { index } = col.props
     const isHeaderLeft = (index === 0 && rowIndex === 0) || row.props?.readonly
     const className = classNames('table-grid__data-cell', { left: isHeaderLeft })
 
-    const gridColumn = `span ${colSpan}`
-    const gridRow = `span ${rowSpan}`
     const lastCol = colIndex === row.cols.length - 1
 
     return {

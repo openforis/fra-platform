@@ -87,7 +87,7 @@ const getLabel = (props: { cycle: Cycle; col: Col; t: TFunction }): string => {
   return col.props.colName ?? Labels.getCycleLabel({ cycle, labels: col.props.labels, t })
 }
 
-const getStyle = (props: { cycle: Cycle; col: Col }): ColStyle => {
+const getStyle = (props: { cycle: Cycle; col: Col }): ColStyle & { gridColumn?: string; gridRow?: string } => {
   const { col, cycle } = props
   const { style = {} } = col.props
   const colStyle = style[cycle.uuid] ?? {}
