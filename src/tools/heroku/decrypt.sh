@@ -2,20 +2,21 @@
 
 set -eu
 
-# Check env vars
-if [ -z "${BACKUP_DIR:-}" ]; then
-    echo "Error: BACKUP_DIR environment variable is not set"
-    exit 1
-fi
-
+# Check vars
 if [ -z "${BACKUP_PASSPHRASE:-}" ]; then
     echo "Error: BACKUP_PASSPHRASE environment variable is not set"
     exit 1
 fi
 
-if [ -z "${ENCRYPTED_FILE:-}" ]; then
-    echo "Error: ENCRYPTED_FILE environment variable is not set"
-    echo "Usage: ENCRYPTED_FILE=backup_file.sql.gpg ./decrypt.sh"
+if [ $# -eq 0 ]; then
+    echo "Error: No encrypted file specified"
+    echo "Usage: $0 path/to/encrypted/file.gpg"
+    exit 1
+fi
+
+ENCRYPTED_FILE="$1"
+if [ ! -f "${ENCRYPTED_FILE}" ]; then
+    echo "Error: File not found: ${ENCRYPTED_FILE}"
     exit 1
 fi
 
@@ -35,4 +36,4 @@ if [ -f "${DECRYPTED_FILE}" ]; then
 else
     echo "Decryption failed"
     exit 1
-fi 
+fi
