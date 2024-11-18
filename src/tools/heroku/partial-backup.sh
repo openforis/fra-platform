@@ -32,7 +32,6 @@ fi
 
 # Backup
 if pg_dump "$DATABASE_URL" \
-  --verbose \
   --exclude-schema="_legacy" \
   --exclude-schema="_legacy_assessment_fra_2020" \
   --exclude-schema="_legacy_assessment_fra_2025" \
