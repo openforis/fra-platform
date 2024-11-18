@@ -8,6 +8,9 @@ import { useCountryIso } from 'client/hooks'
 
 import MessageButton from './MessageButton'
 
+/**
+ * @deprecated
+ */
 const MessageBoard: React.FC = () => {
   const countryIso = useCountryIso()
 
