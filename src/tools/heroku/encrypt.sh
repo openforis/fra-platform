@@ -13,8 +13,14 @@ if [ -z "${BACKUP_PASSPHRASE:-}" ]; then
     exit 1
 fi
 
-BACKUP_FILE="$BACKUP_DIR/backup_*.sql"
+BACKUP_FILE=$(ls -t "${BACKUP_DIR}"/*.sql | head -n1)
 
+if [ ! -f "${BACKUP_FILE}" ]; then
+    echo "Error: No .sql backup file found in ${BACKUP_DIR}"
+    exit 1
+fi
+
+echo "Found backup file: ${BACKUP_FILE}"
 echo "Encrypting backup file..."
 
 # Encrypt with AES256
@@ -25,12 +31,10 @@ gpg --symmetric \
     --output "${BACKUP_FILE}.gpg" \
     "${BACKUP_FILE}"
 
-# cleanup
-shred -u "${BACKUP_FILE}"
-
 # verify
 if gpg --list-packets "${BACKUP_FILE}.gpg" &>/dev/null; then
     echo "Backup encrypted successfully: ${BACKUP_FILE}.gpg"
+    shred -u "${BACKUP_FILE}"
 else
     echo "Encryption failed"
     exit 1
