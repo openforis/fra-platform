@@ -16,10 +16,6 @@ on:
         required: true
         default: '7'
         type: number
-  pull_request:
-    paths:
-      - '.github/workflows/heroku-db-partial-backup.yml'
-      - 'src/tools/heroku/**'
 
 jobs:
   backup:
