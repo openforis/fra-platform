@@ -517,17 +517,10 @@ export const entries = (
           variableName: 'private_ownership',
           csvColumn: '4a_priv_own',
         },
-
-        ...[
-          ...(cycle.name === '2020'
-            ? [
-                {
-                  variableName: 'of_which_by_individuals',
-                  csvColumn: '4a_individ',
-                },
-              ]
-            : []),
-        ],
+        {
+          variableName: 'of_which_by_individuals',
+          csvColumn: '4a_individ',
+        },
         {
           variableName: 'of_which_by_private_businesses',
           csvColumn: '4a_bus_inst_fo',
