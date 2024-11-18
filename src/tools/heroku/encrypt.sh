@@ -23,13 +23,21 @@ fi
 echo "Found backup file: ${BACKUP_FILE}"
 echo "Encrypting backup file..."
 
+gpg --version
+mkdir -p ~/.gnupg
+chmod 700 ~/.gnupg
+
 # Encrypt with AES256
-gpg --symmetric \
-    --cipher-algo AES256 \
-    --batch \
-    --passphrase "${BACKUP_PASSPHRASE}" \
-    --output "${BACKUP_FILE}.gpg" \
-    "${BACKUP_FILE}"
+if ! gpg --verbose \
+        --symmetric \
+        --cipher-algo AES256 \
+        --batch \
+        --passphrase "${BACKUP_PASSPHRASE}" \
+        --output "${BACKUP_FILE}.gpg" \
+        "${BACKUP_FILE}" 2>&1; then
+    echo "GPG encryption failed"
+    exit 1
+fi
 
 # verify
 if gpg --list-packets "${BACKUP_FILE}.gpg" &>/dev/null; then
