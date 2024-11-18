@@ -37,9 +37,7 @@ const getLastRole = (params: { assessment?: Assessment; user: User }) => {
 
   if (!user || !user.roles) return undefined
 
-  const roles = assessment
-    ? user.roles.filter((role) => Number(role.assessmentUuid) === Number(assessment?.uuid))
-    : user.roles
+  const roles = assessment ? user.roles.filter((role) => role.assessmentUuid === assessment?.uuid) : user.roles
 
   if (roles.length === 1) return roles[0]
 
