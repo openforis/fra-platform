@@ -38,7 +38,7 @@ const MessageBoardUsers: React.FC = () => {
               <img alt="" className="landing__user-avatar" src={ApiEndPoint.User.profilePicture(String(_user.id))} />
               <div className="landing__user-info">
                 <div className={classNames('landing__user-name', { 'session-user': user.id === _user.id })}>
-                  {Users.getFullName(_user)}
+                  {_user.fullName}
                 </div>
                 <div className="landing__user-role">
                   {t(Users.getI18nRoleLabelKey(Users.getRole(_user, countryIso, cycle)?.role))}
@@ -47,7 +47,7 @@ const MessageBoardUsers: React.FC = () => {
                   <MessageButton
                     topicKey={Topics.getMessageBoardChatKey(user, _user)}
                     topicSubtitle={t('landing.users.message')}
-                    topicTitle={Users.getFullName(_user)}
+                    topicTitle={_user.fullName}
                     topicType={MessageTopicType.chat}
                   />
                 )}
