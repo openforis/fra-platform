@@ -30,6 +30,7 @@ const FraHome: React.FC = () => {
           {t(`area.${countryIso}.listName`)}
           <ButtonDownloadDashboard />
           <MessageButton
+            label={t('landing.users.message')}
             topicKey={Topics.getMessageBoardCountryKey()}
             topicTitle={t(Areas.getTranslationKey(countryIso))}
             topicType={MessageTopicType.messageBoard}

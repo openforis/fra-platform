@@ -17,11 +17,11 @@ type Props = {
   topicSubtitle?: string
   topicTitle: string
   topicType: MessageTopicType
-  buttonText?: string
+  label?: string
 }
 
 const MessageButton: React.FC<Props> = (props) => {
-  const { topicKey, topicSubtitle, topicTitle, topicType, buttonText } = props
+  const { topicKey, topicSubtitle, topicTitle, topicType, label } = props
   const countryIso = useCountryIso()
   const assessment = useAssessment()
   const cycle = useCycle()
@@ -66,7 +66,7 @@ const MessageButton: React.FC<Props> = (props) => {
       type="button"
     >
       <Icon className="icon-middle" name="chat-46" />
-      {buttonText}
+      {label}
       {parseInt(unreadMessages, 10) > 0 && <div className="btn-message-count">{unreadMessages}</div>}
     </button>
   )
@@ -74,7 +74,7 @@ const MessageButton: React.FC<Props> = (props) => {
 
 MessageButton.defaultProps = {
   topicSubtitle: '',
-  buttonText: undefined,
+  label: undefined,
 }
 
 export default MessageButton
