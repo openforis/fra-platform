@@ -15,7 +15,6 @@ import { useNodeValue } from './hooks/useNodeValue'
 import useOnChange from './hooks/useOnChange'
 import Calculated from './Calculated'
 import Flags from './Flags'
-import Multiselect from './Multiselect'
 import Number from './Number'
 import Placeholder from './Placeholder'
 import { PropsCell } from './props'
@@ -30,7 +29,6 @@ const Components: Record<string, React.FC<PropsCell>> = {
   [ColType.textarea]: Text,
   [ColType.decimal]: Number,
   [ColType.integer]: Number,
-  [ColType.multiselect]: Multiselect,
   [ColType.select]: Select,
   [ColType.placeholder]: Placeholder,
 }
