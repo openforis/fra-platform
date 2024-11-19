@@ -12,6 +12,8 @@ import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 import { useSections } from './hooks/useSections'
 
+// TODO: Where to put country message button?
+
 const PanEuropeanHome: React.FC = () => {
   const { t } = useTranslation()
   const { countryIso } = useCountryRouteParams()
@@ -26,12 +28,12 @@ const PanEuropeanHome: React.FC = () => {
           {sections.map(({ name }) => (
             <NavLink
               key={name}
-              to={name}
               className={(navData) =>
                 classNames('btn landing__page-menu-button', {
                   disabled: navData.isActive,
                 })
               }
+              to={name}
             >
               {t(`landing.sections.${name}`)}
             </NavLink>
@@ -40,10 +42,10 @@ const PanEuropeanHome: React.FC = () => {
       )}
       <Routes>
         {sections.map(({ name, component }) => (
-          <Route key={name} path={`${name}/*`} element={React.createElement(component, {})} />
+          <Route key={name} element={React.createElement(component, {})} path={`${name}/*`} />
         ))}
 
-        <Route index element={<Navigate replace to={SectionNames.Country.Home.overview} />} />
+        <Route element={<Navigate replace to={SectionNames.Country.Home.overview} />} index />
       </Routes>
     </>
   )

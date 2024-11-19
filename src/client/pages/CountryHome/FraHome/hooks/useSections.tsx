@@ -9,7 +9,6 @@ import { useAssessment, useCycle } from 'client/store/assessment'
 import { useUser } from 'client/store/user'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import Collaborators from 'client/pages/CountryHome/Collaborators'
-import CountryMessageBoard from 'client/pages/CountryHome/FraHome/CountryMessageBoard'
 import RecentActivity from 'client/pages/CountryHome/FraHome/RecentActivity'
 import Overview from 'client/pages/CountryHome/Overview'
 import Repository from 'client/pages/CountryHome/Repository'
@@ -38,7 +37,6 @@ export const useSections = (): Array<Section> => {
     }
 
     if (user) {
-      sections.push({ name: SectionNames.Country.Home.messageBoard, component: CountryMessageBoard })
       sections.push({ name: SectionNames.Country.Home.recentActivity, component: RecentActivity })
       sections.push({ name: SectionNames.Country.Home.repository, component: Repository })
     }

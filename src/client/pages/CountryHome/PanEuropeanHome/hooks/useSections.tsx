@@ -7,7 +7,6 @@ import { useCycle } from 'client/store/assessment'
 import { useUser } from 'client/store/user'
 import { useCountryIso } from 'client/hooks'
 import Collaborators from 'client/pages/CountryHome/Collaborators'
-import CountryMessageBoard from 'client/pages/CountryHome/FraHome/CountryMessageBoard'
 import RecentActivity from 'client/pages/CountryHome/FraHome/RecentActivity'
 import Repository from 'client/pages/CountryHome/Repository'
 
@@ -26,7 +25,6 @@ export const useSections = (): Array<Section> => {
   const sections: Array<Section> = [{ name: SectionNames.Country.Home.overview, component: Overview }]
 
   if (user) {
-    sections.push({ name: SectionNames.Country.Home.messageBoard, component: CountryMessageBoard })
     sections.push({ name: SectionNames.Country.Home.recentActivity, component: RecentActivity })
     sections.push({ name: SectionNames.Country.Home.repository, component: Repository })
   }

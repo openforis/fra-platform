@@ -1,6 +1,5 @@
 import './MessageButton.scss'
 import React, { useEffect, useRef } from 'react'
-import { useTranslation } from 'react-i18next'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { MessageTopicType } from 'meta/messageCenter'
@@ -18,14 +17,15 @@ type Props = {
   topicSubtitle?: string
   topicTitle: string
   topicType: MessageTopicType
+  buttonText?: string
 }
 
-const MessageButton: React.FC<Props> = ({ topicKey, topicSubtitle, topicTitle, topicType }) => {
+const MessageButton: React.FC<Props> = (props) => {
+  const { topicKey, topicSubtitle, topicTitle, topicType, buttonText } = props
   const countryIso = useCountryIso()
   const assessment = useAssessment()
   const cycle = useCycle()
 
-  const i18n = useTranslation()
   const dispatch = useAppDispatch()
 
   const user = useUser()
@@ -48,9 +48,8 @@ const MessageButton: React.FC<Props> = ({ topicKey, topicSubtitle, topicTitle, t
 
   return (
     <button
-      disabled={Users.isAdministrator(user)}
-      type="button"
       className="btn-secondary btn-message"
+      disabled={Users.isAdministrator(user)}
       onClick={() => {
         dispatch(
           MessageCenterActions.openTopic({
@@ -64,9 +63,10 @@ const MessageButton: React.FC<Props> = ({ topicKey, topicSubtitle, topicTitle, t
           })
         )
       }}
+      type="button"
     >
-      <Icon name="chat-46" className="icon-middle" />
-      {i18n.t<string>('landing.users.message')}
+      <Icon className="icon-middle" name="chat-46" />
+      {buttonText}
       {parseInt(unreadMessages, 10) > 0 && <div className="btn-message-count">{unreadMessages}</div>}
     </button>
   )
@@ -74,6 +74,7 @@ const MessageButton: React.FC<Props> = ({ topicKey, topicSubtitle, topicTitle, t
 
 MessageButton.defaultProps = {
   topicSubtitle: '',
+  buttonText: undefined,
 }
 
 export default MessageButton
