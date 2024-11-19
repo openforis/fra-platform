@@ -621,6 +621,16 @@ export const entries = (
           variableName: cycle.name === '2020 ' ? 'other' : 'unknown',
           csvColumn: '4b_unknown',
         },
+        ...[
+          ...(cycle.name === '2020'
+            ? []
+            : [
+                {
+                  variableName: 'other2025',
+                  csvColumn: '4b_other',
+                },
+              ]),
+        ],
       ],
     },
     degradedForest,
