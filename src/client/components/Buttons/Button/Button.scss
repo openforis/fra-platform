@@ -153,7 +153,7 @@
 }
 
 .button__type-danger {
-  @include withTheme($ui-destructive, 58%);
+  @include withTheme(darken($ui-destructive, 5%), 58%);
 }
 
 .button__type-primary {
