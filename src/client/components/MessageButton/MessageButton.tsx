@@ -18,10 +18,11 @@ type Props = {
   topicTitle: string
   topicType: MessageTopicType
   label?: string
+  className?: string
 }
 
 const MessageButton: React.FC<Props> = (props) => {
-  const { topicKey, topicSubtitle, topicTitle, topicType, label } = props
+  const { topicKey, topicSubtitle, topicTitle, topicType, label, className } = props
   const countryIso = useCountryIso()
   const assessment = useAssessment()
   const cycle = useCycle()
@@ -48,7 +49,7 @@ const MessageButton: React.FC<Props> = (props) => {
 
   return (
     <button
-      className="btn-secondary btn-message"
+      className={className}
       disabled={Users.isAdministrator(user)}
       onClick={() => {
         dispatch(
@@ -75,6 +76,7 @@ const MessageButton: React.FC<Props> = (props) => {
 MessageButton.defaultProps = {
   topicSubtitle: '',
   label: undefined,
+  className: 'btn-secondary btn-message',
 }
 
 export default MessageButton
