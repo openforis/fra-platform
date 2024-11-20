@@ -30,24 +30,27 @@ export const useSections = (): Array<Section> => {
     if (!cycle) return null
 
     const isFra2020 = assessment.props.name === AssessmentNames.fra && cycle.name === '2020'
-    const showOverview = isFra2020 || Areas.isISOCountry(countryIso)
+    const isCountry = Areas.isISOCountry(countryIso)
+
+    const showOverview = isFra2020 || isCountry
 
     if (showOverview) {
       sections.push({ name: SectionNames.Country.Home.overview, component: Overview })
     }
 
-    if (user) {
-      sections.push({ name: SectionNames.Country.Home.recentActivity, component: RecentActivity })
+    if (user && isCountry) {
       sections.push({ name: SectionNames.Country.Home.repository, component: Repository })
     }
 
-    if (Users.getRolesAllowedToView({ user, countryIso, cycle }).length > 0) {
+    const rolesAllowedToView = Users.getRolesAllowedToView({ user, countryIso, cycle })
+    if (rolesAllowedToView.length > 0 && isCountry) {
       sections.splice(2, 0, { name: SectionNames.Country.Home.userManagement, component: Collaborators })
     }
 
-    // if (Users.isAdministrator(user) || Users.isReviewer(user, countryIso, cycle)) {
-    //   sections.splice(2, 0, { name: SectionNames.contentCheck, component: Placeholder })
-    // }
+    // Show recent activity as last item
+    if (user && isCountry) {
+      sections.push({ name: SectionNames.Country.Home.recentActivity, component: RecentActivity })
+    }
 
     return sections
   }, [assessment.props.name, cycle, user, countryIso])
