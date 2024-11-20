@@ -29,14 +29,13 @@ const FraHome: React.FC = () => {
         <h1 className="landing__page-title title">
           {t(`area.${countryIso}.listName`)}
           <ButtonDownloadDashboard />
-          <MessageButton
-            label={t('landing.users.message')}
-            topicKey={Topics.getMessageBoardCountryKey()}
-            topicTitle={t(Areas.getTranslationKey(countryIso))}
-            topicType={MessageTopicType.messageBoard}
-          />
         </h1>
-
+        <MessageButton
+          label={t('landing.users.message')}
+          topicKey={Topics.getMessageBoardCountryKey()}
+          topicTitle={t(Areas.getTranslationKey(countryIso))}
+          topicType={MessageTopicType.messageBoard}
+        />
         {Areas.isISOGlobal(countryIso) && <CountrySelector />}
       </div>
 
