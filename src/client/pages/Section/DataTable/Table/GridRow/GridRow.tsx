@@ -3,12 +3,13 @@ import React from 'react'
 import { RowType } from 'meta/assessment'
 
 import RowData from 'client/pages/Section/DataTable/Table/GridRow/RowData'
+import RowNoticeMessage from 'client/pages/Section/DataTable/Table/GridRow/RowNoticeMessage'
 
 import { Props } from './props'
 
 const Components: Record<string, React.FC<Props>> = {
   [RowType.data]: RowData,
-  // [RowType.noticeMessage]: RowNoticeMessage, TODO
+  [RowType.noticeMessage]: RowNoticeMessage,
 }
 
 const GridRow: React.FC<Props> = (props) => {
