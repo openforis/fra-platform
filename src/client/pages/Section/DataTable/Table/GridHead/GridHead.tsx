@@ -23,6 +23,7 @@ const GridHead: React.FC<Props> = (props) => {
         row.cols.map((col: TypeCol, colIndex: number) => {
           return (
             <GridHeadCell
+              key={col.uuid}
               assessmentName={assessmentName}
               col={col}
               colIndex={colIndex}
