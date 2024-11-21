@@ -19,7 +19,7 @@ import GridRow from 'client/pages/Section/DataTable/Table/GridRow'
 import TableBody from 'client/pages/Section/DataTable/Table/TableBody'
 import TableHead from 'client/pages/Section/DataTable/Table/TableHead'
 
-import { useTableData } from './hooks/useTableData'
+import { useParsedTable } from './hooks/useParsedTable'
 import DataValidations from './DataValidations'
 
 type Props = {
@@ -39,7 +39,7 @@ const Table: React.FC<Props> = (props) => {
   const { print } = useIsPrintRoute()
   const tableRef = useRef<HTMLTableElement>(null)
 
-  const { headers, parsedTable, rowsData, noticeMessages } = useTableData({ assessmentName, data, table: tableProps })
+  const { headers, parsedTable, rowsData, noticeMessages } = useParsedTable({ assessmentName, data, table: tableProps })
 
   const { secondary, name } = parsedTable.props
 

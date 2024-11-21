@@ -22,7 +22,7 @@ type Returned = {
   rowsData: Array<Row>
 }
 
-export const useTableData = (props: Props): Returned => {
+export const useParsedTable = (props: Props): Returned => {
   const { assessmentName, data, table: tableProps } = props
 
   const countryIso = useCountryIso()
