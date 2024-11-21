@@ -5,6 +5,7 @@
 
   &.left {
     justify-content: start;
+    text-align: left;
   }
 
   &.category {
@@ -25,6 +26,5 @@
   &.subcategory1,
   &.subcategory2 {
     font-weight: 400;
-    justify-content: start;
   }
 }

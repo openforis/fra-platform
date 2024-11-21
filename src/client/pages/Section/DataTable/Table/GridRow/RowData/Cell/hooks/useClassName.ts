@@ -16,7 +16,7 @@ export const useClassName = (props: Props): string => {
   let className = ''
   if (Cols.isReadOnly({ cycle, col, row })) className = 'calculated'
   if ([ColType.text, ColType.textarea, ColType.select, ColType.taxon].includes(colType)) className = 'left'
-  // if (colType === ColType.placeholder) className = 'fra-table__category-cell fra-table__filler-last' // TODO: Investigate ColType.placeholder
+  if (colType === ColType.placeholder) className = 'category'
 
   return classNames('table-grid__data-cell', className, { 'validation-error': !validation.valid })
 }

@@ -28,4 +28,8 @@
     cursor: default;
     font-weight: 600;
   }
+
+  &.category {
+    background-color: $ui-bg;
+  }
 }
