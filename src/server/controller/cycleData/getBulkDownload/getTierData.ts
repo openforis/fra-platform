@@ -1,3 +1,4 @@
+import { TableNames } from 'meta/assessment'
 import { RecordAssessmentDatas } from 'meta/data'
 
 import { climaticDomain } from 'server/controller/cycleData/getBulkDownload/climaticDomain'
@@ -8,9 +9,13 @@ import { Props } from 'server/controller/cycleData/getBulkDownload/props'
 const baseVariables = ['status']
 
 const tableNames = [
-  { tableName: 'extentofforest_forestareastatusandtrend', csvPrefix: '1a', variables: [...baseVariables, 'trend'] },
-  { tableName: 'growingstock_growingstockstatus', csvPrefix: '2a', variables: baseVariables },
-  { tableName: 'biomassstock_biomassstockstatus', csvPrefix: '2c', variables: baseVariables },
+  {
+    tableName: TableNames.extentOfForest_forestAreaStatusAndTrend,
+    csvPrefix: '1a',
+    variables: [...baseVariables, 'trend'],
+  },
+  { tableName: TableNames.growingStock_growingStockStatus, csvPrefix: '2a', variables: baseVariables },
+  { tableName: TableNames.biomassStock_biomassStockStatus, csvPrefix: '2c', variables: baseVariables },
 ]
 
 export const getTierData = async (props: Props): Promise<Array<Record<string, string>>> => {
