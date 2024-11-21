@@ -39,7 +39,7 @@ const Table: React.FC<Props> = (props) => {
   const { print } = useIsPrintRoute()
   const tableRef = useRef<HTMLTableElement>(null)
 
-  const { headers, parsedTable, rowsData, noticeMessages } = useTableData({ assessmentName, table: tableProps, data })
+  const { headers, parsedTable, rowsData, noticeMessages } = useTableData({ assessmentName, data, table: tableProps })
 
   const { secondary, name } = parsedTable.props
 
