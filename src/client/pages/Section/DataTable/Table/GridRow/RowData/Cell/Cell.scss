@@ -32,4 +32,9 @@
   &.category {
     background-color: $ui-bg;
   }
+
+  &.left {
+    justify-content: start;
+    text-align: left;
+  }
 }
