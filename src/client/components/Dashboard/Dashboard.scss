@@ -5,9 +5,11 @@
   grid-column-gap: $spacing-xs;
   grid-row-gap: $spacing-xs;
   grid-template-columns: 1fr;
+  max-width: 100%;
+  overflow: hidden;
 
   @include min-width($laptop) {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     padding-top: $spacing-s;
   }
 }
@@ -16,6 +18,8 @@
   align-content: start;
   align-items: start;
   display: grid;
+  overflow: hidden;
+  width: 100%;
 
   .header {
     border-radius: 2px;
@@ -33,6 +37,18 @@
 
   > :nth-child(2) {
     padding: 0 $spacing-xs;
+    overflow: hidden;
+  }
+
+  table {
+    table-layout: fixed;
+  }
+
+  td,
+  th {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   @include min-width($laptop) {
