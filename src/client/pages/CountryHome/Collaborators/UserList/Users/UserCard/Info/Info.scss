@@ -9,6 +9,10 @@
     font-size: $font-l;
     font-weight: normal;
   }
+
+  &.expired h3 {
+    color: lighten($ui-destructive, 30%);
+  }
 }
 
 .user-role {
