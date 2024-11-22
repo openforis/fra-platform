@@ -14,9 +14,9 @@
 }
 
 .landing__page-title {
-  display: flex;
-  align-items: center;
-  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  grid-column-gap: $spacing-xxs;
 }
 
 .landing__page-menu {

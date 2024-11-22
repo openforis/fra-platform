@@ -1,10 +1,10 @@
 @import 'src/client/style/partials';
 
 .country-home__user-list {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  padding-top: $spacing-xs;
 
   .btn-invite {
-    margin: $spacing-xs 0 $spacing-xs auto;
+    justify-self: end;
   }
 }
