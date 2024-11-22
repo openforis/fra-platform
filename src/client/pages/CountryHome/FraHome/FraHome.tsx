@@ -7,8 +7,7 @@ import classNames from 'classnames'
 import { Areas } from 'meta/area'
 import { MessageTopicType, Topics } from 'meta/messageCenter'
 
-import { useUser } from 'client/store/user'
-import { useCanSeeUserActivities } from 'client/hooks/useCanSeeUserActivities'
+import { useCanSeeUserActivities, useUser } from 'client/store/user'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import MessageButton from 'client/components/MessageButton'
 
