@@ -33,7 +33,11 @@ const _getOrderClause = (
   orderBy: string | undefined = 'full_name',
   orderByDirection: TablePaginatedOrderByDirection | undefined = TablePaginatedOrderByDirection.asc
 ): string => {
-  return `order by ${orderBy} ${orderByDirection}`
+  // Sort users by whether they have roles or invitations, then by the requested sort field
+  return `order by
+    case when (select jsonb_array_length(coalesce(jsonb_agg(role) filter (where role is not null), '[]'))) > 0 then 0 else 1 end,
+    case when (select jsonb_array_length(coalesce(jsonb_agg(invitation) filter (where invitation is not null), '[]'))) > 0 then 0 else 1 end,
+    ${orderBy} ${orderByDirection}`
 }
 
 export const buildGetManyQuery = (props: UsersGetManyProps): BuildQueryReturned => {
@@ -96,6 +100,7 @@ export const buildGetManyQuery = (props: UsersGetManyProps): BuildQueryReturned 
   )
   select 
       cus.id,
+      cus.uuid,
       cus.full_name,
       cus.email,
       cus.lang,
@@ -103,7 +108,7 @@ export const buildGetManyQuery = (props: UsersGetManyProps): BuildQueryReturned 
       coalesce(jsonb_agg(cus.invitation) filter ( where cus.invitation is not null ), '[]') as invitations
     from filtered_users fu
     left join ${schemaName}.country_user_summary cus on fu.id = cus.id
-    group by cus.id, cus.full_name, cus.email, cus.lang
+    group by cus.id, cus.uuid, cus.full_name, cus.email, cus.lang
     ${order}
     ${limit ? `limit ${limit}` : ''}
     ${offset ? `offset ${offset}` : ''}
