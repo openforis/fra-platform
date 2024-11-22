@@ -7,6 +7,8 @@ import classNames from 'classnames'
 import { Areas } from 'meta/area'
 import { MessageTopicType, Topics } from 'meta/messageCenter'
 
+import { useUser } from 'client/store/user'
+import { useCanAccessMessaging } from 'client/hooks/useCanAccessMessaging'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import MessageButton from 'client/components/MessageButton'
 
@@ -19,6 +21,8 @@ const FraHome: React.FC = () => {
   const { t } = useTranslation()
   const { countryIso } = useCountryRouteParams()
   const sections = useSections()
+  const user = useUser()
+  const canAccessMessaging = useCanAccessMessaging(user)
 
   // tabs are available when user is logged-in and selected area is country
   const displayTabs = sections.length > 1 && Areas.isISOCountry(countryIso)
@@ -30,12 +34,14 @@ const FraHome: React.FC = () => {
           {t(`area.${countryIso}.listName`)}
           <ButtonDownloadDashboard />
         </h1>
-        <MessageButton
-          label={t('landing.users.message')}
-          topicKey={Topics.getMessageBoardCountryKey()}
-          topicTitle={t(Areas.getTranslationKey(countryIso))}
-          topicType={MessageTopicType.messageBoard}
-        />
+        {canAccessMessaging && (
+          <MessageButton
+            label={t('landing.users.message')}
+            topicKey={Topics.getMessageBoardCountryKey()}
+            topicTitle={t(Areas.getTranslationKey(countryIso))}
+            topicType={MessageTopicType.messageBoard}
+          />
+        )}
         {Areas.isISOGlobal(countryIso) && <CountrySelector />}
       </div>
 

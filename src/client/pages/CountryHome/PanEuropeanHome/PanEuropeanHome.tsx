@@ -9,6 +9,8 @@ import { Areas } from 'meta/area'
 import { MessageTopicType, Topics } from 'meta/messageCenter'
 import { SectionNames } from 'meta/routes'
 
+import { useUser } from 'client/store/user'
+import { useCanAccessMessaging } from 'client/hooks/useCanAccessMessaging'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import MessageButton from 'client/components/MessageButton'
 import ButtonDownloadDashboard from 'client/pages/CountryHome/FraHome/ButtonDownloadDashboard'
@@ -19,6 +21,8 @@ const PanEuropeanHome: React.FC = () => {
   const { t } = useTranslation()
   const { countryIso } = useCountryRouteParams()
   const sections = useSections()
+  const user = useUser()
+  const canAccessMessaging = useCanAccessMessaging(user)
 
   const displayTabs = sections.length > 1 && Areas.isISOCountry(countryIso)
 
@@ -29,12 +33,14 @@ const PanEuropeanHome: React.FC = () => {
           {t(`area.${countryIso}.listName`)}
           <ButtonDownloadDashboard />
         </h1>
-        <MessageButton
-          label={t('landing.users.message')}
-          topicKey={Topics.getMessageBoardCountryKey()}
-          topicTitle={t(Areas.getTranslationKey(countryIso))}
-          topicType={MessageTopicType.messageBoard}
-        />
+        {canAccessMessaging && (
+          <MessageButton
+            label={t('landing.users.message')}
+            topicKey={Topics.getMessageBoardCountryKey()}
+            topicTitle={t(Areas.getTranslationKey(countryIso))}
+            topicType={MessageTopicType.messageBoard}
+          />
+        )}
       </div>
       {displayTabs && (
         <div className="landing__page-menu">

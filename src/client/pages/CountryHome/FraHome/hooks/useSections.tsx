@@ -3,10 +3,10 @@ import React, { useMemo } from 'react'
 import { Areas } from 'meta/area'
 import { AssessmentNames } from 'meta/assessment'
 import { SectionNames } from 'meta/routes'
-import { Users } from 'meta/user'
 
 import { useAssessment, useCycle } from 'client/store/assessment'
 import { useUser } from 'client/store/user'
+import { useCanAccessMessaging } from 'client/hooks/useCanAccessMessaging'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import Collaborators from 'client/pages/CountryHome/Collaborators'
 import RecentActivity from 'client/pages/CountryHome/FraHome/RecentActivity'
@@ -23,6 +23,8 @@ export const useSections = (): Array<Section> => {
   const { countryIso } = useCountryRouteParams()
   const assessment = useAssessment()
   const cycle = useCycle()
+
+  const canAccessMessagging = useCanAccessMessaging(user)
 
   return useMemo(() => {
     const sections: Array<Section> = []
@@ -42,8 +44,7 @@ export const useSections = (): Array<Section> => {
       sections.push({ name: SectionNames.Country.Home.repository, component: Repository })
     }
 
-    const rolesAllowedToView = Users.getRolesAllowedToView({ user, countryIso, cycle })
-    if (rolesAllowedToView.length > 0 && isCountry) {
+    if (canAccessMessagging && isCountry) {
       sections.splice(2, 0, { name: SectionNames.Country.Home.userManagement, component: Collaborators })
     }
 
@@ -53,5 +54,5 @@ export const useSections = (): Array<Section> => {
     }
 
     return sections
-  }, [assessment.props.name, cycle, user, countryIso])
+  }, [cycle, assessment.props.name, countryIso, user, canAccessMessagging])
 }
