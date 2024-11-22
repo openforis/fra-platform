@@ -52,6 +52,14 @@ const LoginResetPassword = createRoute<CycleRouteParams, LoginResetPasswordQuery
   parent: Login,
 })
 
+// Kiosk routes and sub routes
+const Kiosk = createRoute({ path: 'kiosk', parent: Root })
+const ForestKids = createRoute({ path: 'forest-kids', parent: Kiosk })
+const Fra2020DataPlatform = createRoute({ path: 'fra-2020-data-platform', parent: Kiosk })
+const FraProcess = createRoute({ path: 'fra-process', parent: Kiosk })
+const InteractiveStories = createRoute({ path: 'interactive-stories', parent: Kiosk })
+const RecentHighlights = createRoute({ path: 'recent-highlights', parent: Kiosk })
+
 export const Routes = {
   Root,
   Assessment,
@@ -83,4 +91,12 @@ export const Routes = {
   LoginInvitation,
   LoginInvitationLocal,
   LoginResetPassword,
+
+  // kiosk
+  Kiosk,
+  ForestKids,
+  Fra2020DataPlatform,
+  FraProcess,
+  InteractiveStories,
+  RecentHighlights,
 }

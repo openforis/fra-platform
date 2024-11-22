@@ -1,0 +1,8 @@
+@import 'src/client/style/partials';
+
+.kiosk-container {
+  display: flex;
+  flex-direction: row;
+  height: 100dvh;
+  width: 100%;
+}

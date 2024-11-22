@@ -4,6 +4,8 @@ import { createRoutesFromElements, Navigate, Route } from 'react-router-dom'
 import { RegionCode } from 'meta/area'
 import { Routes } from 'meta/routes/routes'
 
+import Kiosk from 'client/components/Kiosk/Kiosk'
+import KioskPageLayout from 'client/components/Kiosk/PageLayout'
 import PageLayout from 'client/components/PageLayout'
 import Admin from 'client/pages/Admin'
 import UserManagement from 'client/pages/Admin/UserManagement'
@@ -30,57 +32,68 @@ import User from 'client/pages/User'
 export const useRoutes = () => {
   return useMemo(() => {
     const children = (
-      <Route element={<PageLayout />} path="/">
-        <Route element={<Landing />} index />
+      <>
+        <Route element={<PageLayout />} path="/">
+          <Route element={<Landing />} index />
 
-        <Route element={<Assessment />} path={Routes.Assessment.path.relative}>
-          <Route element={<Cycle />} path={Routes.Cycle.path.relative}>
-            <Route element={<CycleHome />} index />
+          <Route element={<Assessment />} path={Routes.Assessment.path.relative}>
+            <Route element={<Cycle />} path={Routes.Cycle.path.relative}>
+              <Route element={<CycleHome />} index />
 
-            {/* Admin */}
-            <Route element={<Admin />} path={Routes.Admin.path.relative}>
-              <Route element={<Navigate replace to={Routes.AdminCountries.path.relative} />} index />
-              <Route element={<AdminCountries />} path={Routes.AdminCountries.path.relative} />
-              <Route element={<AdminInvitations />} path={Routes.AdminInvitations.path.relative} />
-              <Route element={<AdminLinks />} path={Routes.AdminLinks.path.relative} />
-              <Route element={<UserManagement />} path={Routes.AdminUserManagement.path.relative} />
-            </Route>
-
-            {/* Tutorials */}
-            <Route element={<Tutorials />} path={Routes.Tutorials.path.relative} />
-
-            {/* Country */}
-            <Route element={<Country />} path={Routes.Country.path.relative}>
-              <Route element={<Navigate replace to={Routes.CountryHome.path.relative} />} index />
-              <Route element={<CountryHome />} path={`${Routes.CountryHome.path.relative}/*`} />
-              <Route element={<User />} path={Routes.CountryUser.path.relative} />
-              <Route element={<DataDownload />} path={Routes.CountryDataDownload.path.relative} />
-              <Route element={<Geo />} path={Routes.Geo.path.relative} />
-              <Route
-                element={
-                  <SectionWrapper>
-                    <OriginalDataPoint />
-                  </SectionWrapper>
-                }
-                path={Routes.OriginalDataPoint.path.relative}
-              />
-              <Route element={<SectionAreaSwitch />} path={Routes.Section.path.relative} />
-              <Route element={<Print />} path={`${Routes.Print.path.relative}/*`} />
-            </Route>
-
-            {/* Login */}
-            <Route element={<Login />} path={Routes.Login.path.relative}>
-              <Route element={<LoginForm />} index />
-              <Route element={<LoginInvitation />} path={Routes.LoginInvitation.path.relative}>
-                <Route element={<LoginInvitationLocal />} path={Routes.LoginInvitationLocal.path.relative} />
+              {/* Admin */}
+              <Route element={<Admin />} path={Routes.Admin.path.relative}>
+                <Route element={<Navigate replace to={Routes.AdminCountries.path.relative} />} index />
+                <Route element={<AdminCountries />} path={Routes.AdminCountries.path.relative} />
+                <Route element={<AdminInvitations />} path={Routes.AdminInvitations.path.relative} />
+                <Route element={<AdminLinks />} path={Routes.AdminLinks.path.relative} />
+                <Route element={<UserManagement />} path={Routes.AdminUserManagement.path.relative} />
               </Route>
-              <Route element={<LoginResetPassword />} path={Routes.LoginResetPassword.path.relative} />
+
+              {/* Tutorials */}
+              <Route element={<Tutorials />} path={Routes.Tutorials.path.relative} />
+
+              {/* Country */}
+              <Route element={<Country />} path={Routes.Country.path.relative}>
+                <Route element={<Navigate replace to={Routes.CountryHome.path.relative} />} index />
+                <Route element={<CountryHome />} path={`${Routes.CountryHome.path.relative}/*`} />
+                <Route element={<User />} path={Routes.CountryUser.path.relative} />
+                <Route element={<DataDownload />} path={Routes.CountryDataDownload.path.relative} />
+                <Route element={<Geo />} path={Routes.Geo.path.relative} />
+                <Route
+                  element={
+                    <SectionWrapper>
+                      <OriginalDataPoint />
+                    </SectionWrapper>
+                  }
+                  path={Routes.OriginalDataPoint.path.relative}
+                />
+                <Route element={<SectionAreaSwitch />} path={Routes.Section.path.relative} />
+                <Route element={<Print />} path={`${Routes.Print.path.relative}/*`} />
+              </Route>
+
+              {/* Login */}
+              <Route element={<Login />} path={Routes.Login.path.relative}>
+                <Route element={<LoginForm />} index />
+                <Route element={<LoginInvitation />} path={Routes.LoginInvitation.path.relative}>
+                  <Route element={<LoginInvitationLocal />} path={Routes.LoginInvitationLocal.path.relative} />
+                </Route>
+                <Route element={<LoginResetPassword />} path={Routes.LoginResetPassword.path.relative} />
+              </Route>
             </Route>
           </Route>
+          <Route element={<PanEuropeanRedirect />} path={`/${RegionCode.FE}/*`} />
+          <Route element={<Navigate replace to={Routes.Root.path.relative} />} path="*" />
         </Route>
-        <Route element={<PanEuropeanRedirect />} path={`/${RegionCode.FE}/*`} />
-        <Route element={<Navigate replace to={Routes.Root.path.relative} />} path="*" />
-      </Route>
+        {/* Kiosk */}
+        <Route element={<KioskPageLayout />} path={Routes.Kiosk.path.relative}>
+          <Route element={<Kiosk />} index />
+          <Route element={<div>Fra process</div>} path={Routes.FraProcess.path.relative} />
+          <Route element={<div>Recent highlights</div>} path={Routes.RecentHighlights.path.relative} />
+          <Route element={<div>Fra 2020 data platform</div>} path={Routes.Fra2020DataPlatform.path.relative} />
+          <Route element={<div>Interactive stories</div>} path={Routes.InteractiveStories.path.relative} />
+          <Route element={<div>Forest kids</div>} path={Routes.ForestKids.path.relative} />
+        </Route>
+      </>
     )
     return createRoutesFromElements(children)
   }, [])
