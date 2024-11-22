@@ -4,20 +4,20 @@ import { useCycle } from 'client/store/assessment'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 /**
- * React hook to determine whether given user has access to the platforms messaging functionality
+ * React hook to determine whether given user has access to view user activities (eg. Messaging, Recent activity, etc.)
  *
  * @param user - The user
- * @returns boolean indicating whether the user can access messaging features
+ * @returns boolean indicating whether the user can view user activities
  *
  * @example
  * const user = useUser();
- * const canAccessMessaging = useCanAccessMessaging(user);
+ * const canSeeActivities = useCanSeeUserActivities(user);
  *
- * if (!canAccessMessaging) {
- *   // Hide messaging UI
+ * if (!canSeeActivities) {
+ *   // Hide activities UI
  * }
  */
-export const useCanAccessMessaging = (user: User) => {
+export const useCanSeeUserActivities = (user: User) => {
   const { countryIso } = useCountryRouteParams()
   const cycle = useCycle()
 

@@ -6,7 +6,7 @@ import { SectionNames } from 'meta/routes'
 
 import { useAssessment, useCycle } from 'client/store/assessment'
 import { useUser } from 'client/store/user'
-import { useCanAccessMessaging } from 'client/hooks/useCanAccessMessaging'
+import { useCanSeeUserActivities } from 'client/hooks/useCanSeeUserActivities'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import Collaborators from 'client/pages/CountryHome/Collaborators'
 import RecentActivity from 'client/pages/CountryHome/FraHome/RecentActivity'
@@ -24,7 +24,7 @@ export const useSections = (): Array<Section> => {
   const assessment = useAssessment()
   const cycle = useCycle()
 
-  const canAccessMessagging = useCanAccessMessaging(user)
+  const canSeeUserActivities = useCanSeeUserActivities(user)
 
   return useMemo(() => {
     const sections: Array<Section> = []
@@ -44,15 +44,15 @@ export const useSections = (): Array<Section> => {
       sections.push({ name: SectionNames.Country.Home.repository, component: Repository })
     }
 
-    if (canAccessMessagging && isCountry) {
+    if (canSeeUserActivities && isCountry) {
       sections.splice(2, 0, { name: SectionNames.Country.Home.userManagement, component: Collaborators })
     }
 
     // Show recent activity as last item
-    if (user && isCountry) {
+    if (canSeeUserActivities && isCountry) {
       sections.push({ name: SectionNames.Country.Home.recentActivity, component: RecentActivity })
     }
 
     return sections
-  }, [cycle, assessment.props.name, countryIso, user, canAccessMessagging])
+  }, [cycle, assessment.props.name, countryIso, user, canSeeUserActivities])
 }
