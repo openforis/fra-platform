@@ -1,22 +1,11 @@
 @import 'src/client/style/partials';
 
 .users {
-  .data-grid-column {
-    display: flex;
-    align-items: center;
-  }
+  .table-paginated-datagrid {
+    grid-row-gap: $spacing-xxs;
 
-  .data-grid-column {
-    display: flex;
-    align-items: center;
-  }
-
-  .invitation {
-    color: $text-mute;
-    font-style: italic;
-  }
-
-  .expired {
-    color: lighten($ui-destructive, 40%);
+    .data-grid-column.withBorder {
+      //border: unset;
+    }
   }
 }

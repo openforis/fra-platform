@@ -1,0 +1,19 @@
+@import 'src/client/style/partials';
+
+.user-card {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  grid-row-gap: 12px;
+  grid-column-gap: $spacing-xs;
+
+  justify-content: start;
+
+  padding: $spacing-xxs;
+
+  &.invitation {
+    .user-avatar,
+    .user-info {
+      opacity: 0.6;
+    }
+  }
+}
