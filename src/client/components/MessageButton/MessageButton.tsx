@@ -2,14 +2,15 @@ import './MessageButton.scss'
 import React, { useEffect, useRef } from 'react'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
+import { CountryIso } from 'meta/area'
 import { MessageTopicType } from 'meta/messageCenter'
 import { Users } from 'meta/user/users'
 
 import { useAppDispatch } from 'client/store'
-import { useAssessment, useCycle } from 'client/store/assessment'
 import { MessageCenterActions } from 'client/store/ui/messageCenter'
 import { useUser } from 'client/store/user'
-import { useCountryIso, useGetRequest } from 'client/hooks'
+import { useGetRequest } from 'client/hooks'
+import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import Icon from 'client/components/Icon'
 
 type Props = {
@@ -23,25 +24,15 @@ type Props = {
 
 const MessageButton: React.FC<Props> = (props) => {
   const { topicKey, topicSubtitle, topicTitle, topicType, label, className } = props
-  const countryIso = useCountryIso()
-  const assessment = useAssessment()
-  const cycle = useCycle()
+  const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
 
   const dispatch = useAppDispatch()
 
   const user = useUser()
 
-  const { data: unreadMessages = 0, dispatch: fetchData } = useGetRequest(
-    ApiEndPoint.MessageCenter.topicUnreadMessages(),
-    {
-      params: {
-        countryIso,
-        assessmentName: assessment.props.name,
-        cycleName: cycle.name,
-        key: topicKey,
-      },
-    }
-  )
+  const params = { countryIso, assessmentName, cycleName, key: topicKey }
+  const url = ApiEndPoint.MessageCenter.topicUnreadMessages()
+  const { data: unreadMessages = 0, dispatch: fetchData } = useGetRequest(url, { params })
 
   const fetchRef = useRef(fetchData)
 
@@ -55,8 +46,8 @@ const MessageButton: React.FC<Props> = (props) => {
         dispatch(
           MessageCenterActions.openTopic({
             countryIso,
-            assessmentName: assessment.props.name,
-            cycleName: cycle.name,
+            assessmentName,
+            cycleName,
             key: topicKey,
             subtitle: topicSubtitle,
             title: topicTitle,
