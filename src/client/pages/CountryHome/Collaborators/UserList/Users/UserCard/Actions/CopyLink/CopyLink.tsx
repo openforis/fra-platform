@@ -40,11 +40,13 @@ const CopyLink: React.FC<Props> = (props: Props) => {
     return null
   }
 
+  const label = t('common.copyLink')
+
   return (
     <Button
       iconName="content_copy"
       inverse
-      label="Copy link"
+      label={label}
       onClick={onClick}
       size={ButtonSize.s}
       type={ButtonType.primary}
