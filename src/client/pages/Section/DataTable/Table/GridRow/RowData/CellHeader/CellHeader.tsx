@@ -41,7 +41,7 @@ const CellHeader: React.FC<Props> = (props) => {
       className={classNames(
         'table-grid__data-cell',
         {
-          [`subcategory${row.props.categoryLevel}`]: subcategory,
+          [`subcategory${row.props.categoryLevel} left`]: subcategory,
           'category left': !subcategory && !headerCell,
           left: !subcategory && headerCell,
         },

@@ -22,7 +22,6 @@
   display: flex;
   justify-content: end;
   padding: 10px;
-  text-align: right;
 
   &.calculated {
     cursor: default;
@@ -35,6 +34,15 @@
 
   &.left {
     justify-content: start;
-    text-align: left;
+  }
+
+  .number-input__container {
+    text-align: right;
+  }
+}
+
+@include rtl {
+  .table-grid__data-cell {
+    justify-content: start;
   }
 }
