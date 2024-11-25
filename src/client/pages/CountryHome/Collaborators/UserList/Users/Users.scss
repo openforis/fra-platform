@@ -3,9 +3,5 @@
 .users {
   .table-paginated-datagrid {
     grid-row-gap: $spacing-xxs;
-
-    .data-grid-column.withBorder {
-      //border: unset;
-    }
   }
 }
