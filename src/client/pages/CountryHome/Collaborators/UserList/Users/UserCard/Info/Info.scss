@@ -1,6 +1,6 @@
 @import 'src/client/style/partials';
 
-.user-info {
+.home-user-info {
   display: flex;
   gap: $spacing-xxs;
   align-items: center;
@@ -15,7 +15,7 @@
   }
 }
 
-.user-role {
+.home-user-role {
   font-size: $font-xs;
   text-transform: uppercase;
   color: $text-disabled;

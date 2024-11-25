@@ -29,7 +29,7 @@ const UserComponent: React.FC = () => {
   const path = ApiEndPoint.User.many()
 
   return (
-    <div className="users">
+    <div className="home-users">
       <TablePaginated columns={columns} counter={counter} header={header} path={path} />
     </div>
   )

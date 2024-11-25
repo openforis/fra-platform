@@ -23,7 +23,7 @@ const UserCard: React.FC<Props> = (props) => {
   const expired = invitation && UserInvitations.isExpired(_invitation)
 
   return (
-    <div className={classNames('user-card', { invitation, expired })}>
+    <div className={classNames('home-user-card', { invitation, expired })}>
       <Avatar user={user} />
       <Info user={user} />
       <Actions user={user} />

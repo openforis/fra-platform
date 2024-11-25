@@ -11,7 +11,7 @@ const Actions: React.FC<Props> = (props: Props) => {
   const actions = useActions(props)
 
   return (
-    <div className="user-actions">
+    <div className="home-user-actions">
       {actions.map(({ name, Component }, i) => {
         const isLast = i === actions.length - 1
         return (

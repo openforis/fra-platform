@@ -22,9 +22,9 @@ const Info: React.FC<Props> = (props: Props) => {
   const expired = invitation && UserInvitations.isExpired(invitation)
 
   return (
-    <div className={classNames('user-info', { expired })}>
+    <div className={classNames('home-user-info', { expired })}>
       <h3>{user.fullName}</h3>
-      <div className="user-role">{t(Users.getI18nRoleLabelKey(role?.role ?? invitation?.role))}</div>
+      <div className="home-user-role">{t(Users.getI18nRoleLabelKey(role?.role ?? invitation?.role))}</div>
       {isInvitation && (
         <div className={classNames('invitation-badge', { expired })}>{expired ? 'Expired' : 'Pending'}</div>
       )}
