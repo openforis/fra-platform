@@ -2,7 +2,6 @@ import './Table.scss'
 import React, { useRef } from 'react'
 
 import classNames from 'classnames'
-import { Objects } from 'utils/objects'
 
 import { AssessmentName, Table as TableType } from 'meta/assessment'
 import { RecordAssessmentData } from 'meta/data'
@@ -60,15 +59,25 @@ const Table: React.FC<Props> = (props) => {
         <DataGrid className="table-grid" gridTemplateColumns={`minmax(auto, 400px) repeat(${headers.length},1fr)`}>
           <GridHead assessmentName={assessmentName} data={data} headers={headers} table={table} />
 
-          {rowsData.concat(noticeMessages).map((row, index) => (
+          {rowsData.map((row, index) => (
             <GridRow
               key={row.uuid}
               assessmentName={assessmentName}
               data={data}
               disabled={disabled}
-              lastRow={
-                index === rowsData.length - 1 || (index === rowsData.length - 1 && !Objects.isEmpty(noticeMessages))
-              }
+              lastRow={index === rowsData.length - 1}
+              row={row}
+              sectionName={sectionName}
+              table={table}
+            />
+          ))}
+
+          {noticeMessages.map((row) => (
+            <GridRow
+              key={row.uuid}
+              assessmentName={assessmentName}
+              data={data}
+              disabled={disabled}
               row={row}
               sectionName={sectionName}
               table={table}
