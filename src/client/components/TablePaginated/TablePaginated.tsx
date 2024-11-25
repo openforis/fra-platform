@@ -22,6 +22,8 @@ import Header from './Header'
 import Paginator from './Paginator'
 import { Props as BaseProps, TablePaginatedCounter, TablePaginatedSkeleton } from './types'
 
+export type SortFn<Datum extends object> = (data: Array<Datum>) => Array<Datum>
+
 type Props<Datum extends object> = Pick<HTMLAttributes<HTMLDivElement>, 'className'> &
   Pick<HTMLAttributes<HTMLDivElement>['style'], 'gridTemplateColumns'> &
   Pick<PaginatorProps, 'marginPagesDisplayed' | 'pageRangeDisplayed'> &
@@ -32,13 +34,14 @@ type Props<Datum extends object> = Pick<HTMLAttributes<HTMLDivElement>, 'classNa
     header?: boolean
     skeleton?: TablePaginatedSkeleton
     wrapCells?: boolean
+    sortFn?: SortFn<Datum>
   }
 
 const TablePaginated = <Datum extends object>(props: Props<Datum>) => {
   const { className, gridTemplateColumns } = props // HTMLDivElement Props
   const { marginPagesDisplayed, pageRangeDisplayed } = props // Paginator Props
   const { columns, filters, limit, path } = props // Base Props
-  const { counter, EmptyListComponent, export: exportTable, header, skeleton, wrapCells } = props // Component Props
+  const { counter, EmptyListComponent, export: exportTable, header, skeleton, wrapCells, sortFn } = props // Component Props
 
   useInitTablePaginated({ filters, path })
   useFetchData({ counter, limit, path })
@@ -77,7 +80,7 @@ const TablePaginated = <Datum extends object>(props: Props<Datum>) => {
         >
           {header && <Header columns={columns} path={path} />}
           {count?.total === 0 && <EmptyListComponent />}
-          <Body columns={columns} limit={limit} path={path} skeleton={skeleton} wrapCells={wrapCells} />
+          <Body columns={columns} limit={limit} path={path} skeleton={skeleton} sortFn={sortFn} wrapCells={wrapCells} />
         </DataGrid>
       </div>
 
@@ -108,6 +111,7 @@ TablePaginated.defaultProps = {
     Component: () => <Skeleton borderRadius="2px" height="20px" width="100%" />,
   },
   wrapCells: true,
+  sortFn: undefined,
 }
 
 export default TablePaginated
