@@ -8,9 +8,9 @@ import { UserInvitations } from 'meta/user'
 import { CountryUserSummaries } from 'meta/user/countryUserSummaries'
 
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import Avatar from 'client/components/Avatar'
 
 import Actions from './Actions'
-import Avatar from './Avatar'
 import Info from './Info'
 import { Props } from './Props'
 

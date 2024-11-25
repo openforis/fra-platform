@@ -1,12 +1,10 @@
 @import 'src/client/style/partials';
 
 .user-avatar {
-  grid-row: span 2;
   width: $spacing-xl;
   height: $spacing-xl;
   border-radius: 50%;
   overflow: hidden;
-  align-self: center;
 
   img {
     width: 100%;

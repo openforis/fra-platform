@@ -16,4 +16,9 @@
       opacity: 0.6;
     }
   }
+
+  .user-avatar {
+    grid-row: span 2;
+    align-self: center;
+  }
 }
