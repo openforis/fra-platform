@@ -371,7 +371,7 @@ export const getCreateOrReplaceViewCountryUserSummary = (props: { assessment: As
         where ui.cycle_uuid = '${cycle.uuid}' 
         and ui.assessment_uuid = '${assessment.uuid}'
         -- only show pending invitations
-        and ui.accepted_at is null;
+        and ui.accepted_at is null
     ),
     user_countries as (
         select distinct user_uuid, country_iso
