@@ -17,6 +17,10 @@ import CountrySelectModal from 'client/components/CountrySelectModal'
 
 import CountryRole from './CountryRole'
 
+/*
+  This component is used by admins when setting or removing multiple roles
+ */
+
 // properties used to render ui form fields
 const roles = [
   RoleName.REVIEWER,
@@ -33,6 +37,10 @@ type ModalOptionsProps = {
   role: RoleName | null
 }
 
+/**
+ * @deprecated
+ * Deprecation notice: EditUserForm is scheduled for refactor in #3810
+ */
 const CountryRoles: React.FC<{ user: User }> = ({ user }) => {
   const dispatch = useAppDispatch()
   const { t } = useTranslation()
@@ -58,7 +66,7 @@ const CountryRoles: React.FC<{ user: User }> = ({ user }) => {
         (countryIso): Partial<UserRole<RoleName>> => ({
           countryIso: countryIso as CountryIso,
           role,
-          assessmentId: assessment.id,
+          assessmentUuid: assessment.uuid,
           cycleUuid: cycle.uuid,
         })
       )
@@ -70,16 +78,16 @@ const CountryRoles: React.FC<{ user: User }> = ({ user }) => {
           assessmentName: assessment.props.name,
           cycleName: cycle.name,
           roles,
-          userId: user.id,
+          userUuid: user.uuid,
         })
       )
     },
-    [assessment.id, assessment.props.name, cycle.name, cycle.uuid, dispatch, user.id, user.roles]
+    [assessment.props.name, assessment.uuid, cycle.name, cycle.uuid, dispatch, user.roles, user.uuid]
   )
 
   const _toggleAdmin = useCallback(() => {
     if (window.confirm(t(Users.isAdministrator(user) ? 'editUser.demoteToUser' : 'editUser.promoteToAdmin'))) {
-      dispatch(UserManagementActions.updateUserAdminRole({ userId: user.id }))
+      dispatch(UserManagementActions.updateUserAdminRole({ userUuid: user.uuid }))
     }
   }, [dispatch, t, user])
 
@@ -121,9 +129,9 @@ const CountryRoles: React.FC<{ user: User }> = ({ user }) => {
 
         {Users.isAdministrator(userInfo) && (
           <div
+            aria-hidden="true"
             className="edit-user__form-field-role edit-user__form-field-role-admin edit-user__form-field-role-container validation-error-sensitive-field"
             onClick={_toggleAdmin}
-            aria-hidden="true"
           >
             <div className="role">{t(Users.getI18nRoleLabelKey(RoleName.ADMINISTRATOR))}</div>
             <div className={classNames('fra-checkbox', { checked: Users.isAdministrator(user) })} />
@@ -132,15 +140,15 @@ const CountryRoles: React.FC<{ user: User }> = ({ user }) => {
       </div>
 
       <CountrySelectModal
-        open={modalOptions.open}
         countries={countries}
         excludedRegions={excludeRegions}
         headerLabel={t(Users.getI18nRoleLabelKey(modalOptions.role as RoleName))}
-        onClose={() => setModalOptions(initialModalState)}
         initialSelection={modalOptions.initialSelection}
-        unselectableCountries={modalOptions.unselectableCountries}
         onChange={(_, selectionUpdate: Array<string>) => _onChange(selectionUpdate, modalOptions.role)}
+        onClose={() => setModalOptions(initialModalState)}
+        open={modalOptions.open}
         showFooter={false}
+        unselectableCountries={modalOptions.unselectableCountries}
       />
     </div>
   )

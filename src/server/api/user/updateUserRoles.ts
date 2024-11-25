@@ -11,7 +11,7 @@ export const updateUserRoles = async (
   res: Response
 ) => {
   try {
-    const { assessmentName, cycleName, roles, userId } = req.body
+    const { assessmentName, cycleName, roles, userUuid } = req.body
 
     const user = Requests.getUser(req)
 
@@ -20,7 +20,7 @@ export const updateUserRoles = async (
     const updatedUser = await UserController.updateUserRoles({
       cycleUuid: cycle.uuid,
       roles,
-      userId,
+      userUuid,
       user,
     })
 
