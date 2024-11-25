@@ -7,7 +7,7 @@ import { useCycle } from 'client/store/assessment'
 import { useShowOriginalDatapoints } from 'client/store/ui/assessmentSection'
 import { useCountryIso } from 'client/hooks'
 
-import { parseTable } from '../utils/parseTable'
+import { parseTable } from './_parseTable'
 
 type Props = {
   assessmentName: AssessmentName
