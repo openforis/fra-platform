@@ -4,8 +4,7 @@ import { createRoutesFromElements, Navigate, Route } from 'react-router-dom'
 import { RegionCode } from 'meta/area'
 import { Routes } from 'meta/routes/routes'
 
-import Kiosk from 'client/components/Kiosk/Kiosk'
-import KioskPageLayout from 'client/components/Kiosk/PageLayout'
+import KioskLayout from 'client/components/KioskLayout'
 import PageLayout from 'client/components/PageLayout'
 import Admin from 'client/pages/Admin'
 import UserManagement from 'client/pages/Admin/UserManagement'
@@ -20,6 +19,7 @@ import Cycle from 'client/pages/Cycle'
 import CycleHome from 'client/pages/CycleHome'
 import DataDownload from 'client/pages/DataDownload'
 import Geo from 'client/pages/Geo'
+import Kiosk from 'client/pages/Kiosk'
 import Landing from 'client/pages/Landing'
 import Login, { LoginForm, LoginInvitation, LoginInvitationLocal, LoginResetPassword } from 'client/pages/Login'
 import OriginalDataPoint from 'client/pages/OriginalDataPoint'
@@ -85,7 +85,7 @@ export const useRoutes = () => {
           <Route element={<Navigate replace to={Routes.Root.path.relative} />} path="*" />
         </Route>
         {/* Kiosk */}
-        <Route element={<KioskPageLayout />} path={Routes.Kiosk.path.relative}>
+        <Route element={<KioskLayout />} path={Routes.Kiosk.path.relative}>
           <Route element={<Kiosk />} index />
           <Route element={<div>Fra process</div>} path={Routes.FraProcess.path.relative} />
           <Route element={<div>Recent highlights</div>} path={Routes.RecentHighlights.path.relative} />

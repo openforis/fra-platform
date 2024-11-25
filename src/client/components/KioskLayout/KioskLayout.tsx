@@ -1,10 +1,10 @@
-import './PageLayout.scss'
+import './KioskLayout.scss'
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 
 import SidePanel from './SidePanel'
 
-const PageLayout: React.FC = () => {
+const KioskLayout: React.FC = () => {
   return (
     <div className="kiosk-container">
       <SidePanel />
@@ -13,4 +13,4 @@ const PageLayout: React.FC = () => {
   )
 }
 
-export default PageLayout
+export default KioskLayout
