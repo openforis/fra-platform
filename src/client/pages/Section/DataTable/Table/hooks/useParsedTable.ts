@@ -18,8 +18,8 @@ type Props = {
 type Returned = {
   headers: Array<string>
   noticeMessages: Array<Row>
-  parsedTable: Table
   rowsData: Array<Row>
+  table: Table
 }
 
 export const useParsedTable = (props: Props): Returned => {
@@ -30,7 +30,7 @@ export const useParsedTable = (props: Props): Returned => {
   const showODP = useShowOriginalDatapoints()
 
   return useMemo<Returned>(() => {
-    const { headers, table: parsedTable } = parseTable({
+    const { headers, table } = parseTable({
       assessmentName,
       countryIso,
       cycle,
@@ -42,7 +42,7 @@ export const useParsedTable = (props: Props): Returned => {
     const rowsData: Array<Row> = []
     const noticeMessages: Array<Row> = []
 
-    parsedTable.rows.forEach((row) => {
+    table.rows.forEach((row) => {
       if (row.props.type === RowType.noticeMessage) {
         noticeMessages.push(row)
       } else if (!row.props.hidden && row.props.type !== RowType.header) {
@@ -53,8 +53,8 @@ export const useParsedTable = (props: Props): Returned => {
     return {
       headers,
       noticeMessages,
-      parsedTable,
       rowsData,
+      table,
     }
   }, [assessmentName, countryIso, cycle, data, showODP, tableProps])
 }

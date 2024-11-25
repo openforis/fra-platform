@@ -39,12 +39,12 @@ const Table: React.FC<Props> = (props) => {
   const { print } = useIsPrintRoute()
   const tableRef = useRef<HTMLTableElement>(null)
 
-  const { headers, parsedTable, rowsData, noticeMessages } = useParsedTable({ assessmentName, data, table: tableProps })
+  const { headers, noticeMessages, rowsData, table } = useParsedTable({ assessmentName, data, table: tableProps })
 
-  const { secondary, name } = parsedTable.props
+  const { secondary, name } = table.props
 
   const isDataLocked = useIsDataLocked()
-  const canClearData = !print && !isDataLocked && !parsedTable.props.readonly
+  const canClearData = !print && !isDataLocked && !table.props.readonly
 
   const fileName = `${sectionAnchor ? `${sectionAnchor} ` : ''}${name}`
 
@@ -53,12 +53,12 @@ const Table: React.FC<Props> = (props) => {
       <div className="fra-table__scroll-wrapper">
         <div className="fra-table__editor">
           {!print && <ButtonTableExport filename={fileName} tableRef={tableRef} />}
-          <ButtonCopyValues table={parsedTable} tableRef={tableRef} />
-          {canClearData && <ButtonTableClear disabled={disabled} sectionName={sectionName} table={parsedTable} />}
+          <ButtonCopyValues table={table} tableRef={tableRef} />
+          {canClearData && <ButtonTableClear disabled={disabled} sectionName={sectionName} table={table} />}
         </div>
 
         <DataGrid className="table-grid" gridTemplateColumns={`minmax(auto, 400px) repeat(${headers.length},1fr)`}>
-          <GridHead assessmentName={assessmentName} data={data} headers={headers} table={parsedTable} />
+          <GridHead assessmentName={assessmentName} data={data} headers={headers} table={table} />
 
           {rowsData.concat(noticeMessages).map((row, index) => (
             <GridRow
@@ -71,24 +71,24 @@ const Table: React.FC<Props> = (props) => {
               }
               row={row}
               sectionName={sectionName}
-              table={parsedTable}
+              table={table}
             />
           ))}
         </DataGrid>
         {/* TODO: remove at the end */}
         <br />
-        <table ref={tableRef} className="fra-table data-table" id={parsedTable.props.name}>
-          <TableHead assessmentName={assessmentName} data={data} headers={headers} table={parsedTable} />
+        <table ref={tableRef} className="fra-table data-table" id={table.props.name}>
+          <TableHead assessmentName={assessmentName} data={data} headers={headers} table={table} />
 
           <TableBody
             assessmentName={assessmentName}
             data={data}
             disabled={disabled}
             sectionName={sectionName}
-            table={parsedTable}
+            table={table}
           />
         </table>
-        {!print && canEdit && <DataValidations table={parsedTable} />}
+        {!print && canEdit && <DataValidations table={table} />}
       </div>
     </div>
   )
