@@ -27,15 +27,7 @@ import SectionAreaSwitch from 'client/pages/SectionAreaSwitch'
 import Tutorials from 'client/pages/Tutorials'
 import User from 'client/pages/User'
 
-import { lazyLoad } from './_lazyLoad'
-
-const ForestKids = lazyLoad(() => import('client/pages/Kiosk/ForestKids'))
-const Fra2020DataPlatform = lazyLoad(() => import('client/pages/Kiosk/Fra2020DataPlatform'))
-const FraProcess = lazyLoad(() => import('client/pages/Kiosk/FraProcess'))
-const InteractiveStories = lazyLoad(() => import('client/pages/Kiosk/InteractiveStories'))
-const Kiosk = lazyLoad(() => import('client/pages/Kiosk/Kiosk'))
-const KioskLayout = lazyLoad(() => import('client/components/KioskLayout'))
-const RecentHighlights = lazyLoad(() => import('client/pages/Kiosk/RecentHighlights'))
+import { KioskRoutes } from './_KioskRoutes'
 
 export const useRoutes = () => {
   return useMemo(() => {
@@ -93,14 +85,7 @@ export const useRoutes = () => {
           <Route element={<Navigate replace to={Routes.Root.path.relative} />} path="*" />
         </Route>
         {/* Kiosk */}
-        <Route element={<KioskLayout />} path={Routes.Kiosk.path.relative}>
-          <Route element={<Kiosk />} index />
-          <Route element={<FraProcess />} path={Routes.FraProcess.path.relative} />
-          <Route element={<RecentHighlights />} path={Routes.RecentHighlights.path.relative} />
-          <Route element={<Fra2020DataPlatform />} path={Routes.Fra2020DataPlatform.path.relative} />
-          <Route element={<InteractiveStories />} path={Routes.InteractiveStories.path.relative} />
-          <Route element={<ForestKids />} path={Routes.ForestKids.path.relative} />
-        </Route>
+        {KioskRoutes}
       </>
     )
     return createRoutesFromElements(children)
