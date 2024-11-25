@@ -4,7 +4,6 @@ import { createRoutesFromElements, Navigate, Route } from 'react-router-dom'
 import { RegionCode } from 'meta/area'
 import { Routes } from 'meta/routes/routes'
 
-import KioskLayout from 'client/components/KioskLayout'
 import PageLayout from 'client/components/PageLayout'
 import Admin from 'client/pages/Admin'
 import UserManagement from 'client/pages/Admin/UserManagement'
@@ -19,7 +18,6 @@ import Cycle from 'client/pages/Cycle'
 import CycleHome from 'client/pages/CycleHome'
 import DataDownload from 'client/pages/DataDownload'
 import Geo from 'client/pages/Geo'
-import Kiosk from 'client/pages/Kiosk'
 import Landing from 'client/pages/Landing'
 import Login, { LoginForm, LoginInvitation, LoginInvitationLocal, LoginResetPassword } from 'client/pages/Login'
 import OriginalDataPoint from 'client/pages/OriginalDataPoint'
@@ -28,6 +26,16 @@ import Print from 'client/pages/Print'
 import SectionAreaSwitch from 'client/pages/SectionAreaSwitch'
 import Tutorials from 'client/pages/Tutorials'
 import User from 'client/pages/User'
+
+import { lazyLoad } from './_lazyLoad'
+
+const ForestKids = lazyLoad(() => import('client/pages/Kiosk/ForestKids'))
+const Fra2020DataPlatform = lazyLoad(() => import('client/pages/Kiosk/Fra2020DataPlatform'))
+const FraProcess = lazyLoad(() => import('client/pages/Kiosk/FraProcess'))
+const InteractiveStories = lazyLoad(() => import('client/pages/Kiosk/InteractiveStories'))
+const Kiosk = lazyLoad(() => import('client/pages/Kiosk/Kiosk'))
+const KioskLayout = lazyLoad(() => import('client/components/KioskLayout'))
+const RecentHighlights = lazyLoad(() => import('client/pages/Kiosk/RecentHighlights'))
 
 export const useRoutes = () => {
   return useMemo(() => {
@@ -87,11 +95,11 @@ export const useRoutes = () => {
         {/* Kiosk */}
         <Route element={<KioskLayout />} path={Routes.Kiosk.path.relative}>
           <Route element={<Kiosk />} index />
-          <Route element={<div>Fra process</div>} path={Routes.FraProcess.path.relative} />
-          <Route element={<div>Recent highlights</div>} path={Routes.RecentHighlights.path.relative} />
-          <Route element={<div>Fra 2020 data platform</div>} path={Routes.Fra2020DataPlatform.path.relative} />
-          <Route element={<div>Interactive stories</div>} path={Routes.InteractiveStories.path.relative} />
-          <Route element={<div>Forest kids</div>} path={Routes.ForestKids.path.relative} />
+          <Route element={<FraProcess />} path={Routes.FraProcess.path.relative} />
+          <Route element={<RecentHighlights />} path={Routes.RecentHighlights.path.relative} />
+          <Route element={<Fra2020DataPlatform />} path={Routes.Fra2020DataPlatform.path.relative} />
+          <Route element={<InteractiveStories />} path={Routes.InteractiveStories.path.relative} />
+          <Route element={<ForestKids />} path={Routes.ForestKids.path.relative} />
         </Route>
       </>
     )
