@@ -1,0 +1,14 @@
+@import 'src/client/style/partials';
+
+.user-avatar {
+  width: $spacing-xl;
+  height: $spacing-xl;
+  border-radius: 50%;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}

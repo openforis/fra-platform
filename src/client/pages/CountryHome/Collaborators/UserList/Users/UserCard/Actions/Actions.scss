@@ -1,0 +1,15 @@
+.home-user-actions {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 8px;
+
+  .hr {
+    width: 1px;
+    height: 16px;
+  }
+
+  .btn-message-count {
+    padding-top: 10px;
+  }
+}
