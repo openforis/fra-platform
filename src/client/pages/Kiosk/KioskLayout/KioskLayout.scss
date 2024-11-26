@@ -1,0 +1,8 @@
+@import 'src/client/style/partials';
+
+.kiosk-container {
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  height: 100dvh;
+  width: 100%;
+}
