@@ -29,34 +29,38 @@ export const count = async (props: Props, client: BaseProtocol = DB): Promise<Re
 
   const queryParams: UserQueryParams = {}
 
+  if (fullName) queryParams.fullName = fullName.trim().toLowerCase()
+  const hasCountries = countries && countries.length > 0
+  if (hasCountries) queryParams.countries = countries
+
   const allRoles = administrators
     ? Object.values(RoleName)
     : Object.values(RoleName).filter((role) => role !== RoleName.ADMINISTRATOR)
-  queryParams.roles = !Objects.isEmpty(roles) ? roles : allRoles
 
-  if (fullName) queryParams.fullName = fullName.trim().toLowerCase()
+  const selectedRoles = !Objects.isEmpty(roles) ? roles : allRoles
+  if (selectedRoles) queryParams.roles = selectedRoles
 
-  const conditions: Array<string> = []
-  if (Objects.isEmpty(countries)) {
-    conditions.push(`(country_iso is null or country_iso not like 'X%')`)
-  } else {
-    queryParams.countries = countries
-    conditions.push(`country_iso in ($(countries:csv))`)
-  }
-
-  if (!Objects.isEmpty(fullName)) conditions.push(`full_name ilike '%' || $(fullName) || '%'`)
-
-  conditions.push(`(
-    (role is not null and role ->> 'role' in ($(roles:csv)))
-    or 
-    (invitation is not null and invitation ->> 'role' in ($(roles:csv)))
-  )`)
+  const whereConditions = [
+    fullName && `full_name ilike '%' || $(fullName) || '%'`,
+    selectedRoles &&
+      `(
+      (role is not null and role ->> 'role' in ($(roles:list)))
+      or 
+      (invitation is not null and invitation ->> 'role' in ($(roles:list)))
+    )`,
+    hasCountries && `country_iso in ($(countries:list))`,
+  ].filter(Boolean)
 
   const queryRoles = `
-    with counts as (
+      with filtered_users as (
+          select distinct uuid
+          from ${schemaName}.country_user_summary cus
+          where ${whereConditions.join(' and ')}
+      ),
+         counts as (
       select count(distinct (id)) as totals, coalesce(role ->> 'role', invitation ->> 'role') as role
-      from ${schemaName}.country_user_summary
-      where ${conditions.join(' and ')}
+      from filtered_users u
+      left join ${schemaName}.country_user_summary using (uuid)
       group by role ->> 'role', invitation ->> 'role'
     )
     select jsonb_object_agg(counts.role, counts.totals) as result
