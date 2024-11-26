@@ -22,10 +22,27 @@
   display: flex;
   justify-content: end;
   padding: 10px;
-  text-align: right;
 
   &.calculated {
     cursor: default;
     font-weight: 600;
+  }
+
+  &.category {
+    background-color: $ui-bg;
+  }
+
+  &.left {
+    justify-content: start;
+  }
+
+  .number-input__container {
+    text-align: right;
+  }
+}
+
+@include rtl {
+  .table-grid__data-cell {
+    justify-content: start;
   }
 }

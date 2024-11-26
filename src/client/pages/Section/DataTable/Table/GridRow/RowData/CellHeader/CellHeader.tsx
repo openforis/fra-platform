@@ -1,5 +1,4 @@
 import './CellHeader.scss'
-
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
@@ -30,7 +29,7 @@ const CellHeader: React.FC<Props> = (props) => {
   let colHeaderLabel = Cols.getLabel({ cycle, col, t })
   const variableNo = col.props.variableNo?.[cycle.uuid]
   if (variableNo) colHeaderLabel = `${colHeaderLabel} (${variableNo})`
-  const { colSpan, gridColumn, gridRow, rowSpan, ...colHeaderStyle } = Cols.getStyle({ col, cycle })
+  const { gridColumn, gridRow, ...colHeaderStyle } = Cols.getStyle({ col, cycle })
   const classes = Cols.getClassNames({ col, cycle })
 
   // TODO: revisit the concept of headerCell
@@ -42,8 +41,8 @@ const CellHeader: React.FC<Props> = (props) => {
       className={classNames(
         'table-grid__data-cell',
         {
-          [`subcategory${row.props.categoryLevel}`]: subcategory,
-          category: !subcategory && !headerCell,
+          [`subcategory${row.props.categoryLevel} left`]: subcategory,
+          'category left': !subcategory && !headerCell,
           left: !subcategory && headerCell,
         },
         classes
@@ -74,6 +73,10 @@ const CellHeader: React.FC<Props> = (props) => {
       )}
     </DataCell>
   )
+}
+
+CellHeader.defaultProps = {
+  lastRow: false,
 }
 
 export default CellHeader
