@@ -10,7 +10,7 @@ const KioskLayout = lazyLoad(
   () =>
     import(
       /* webpackChunkName: "kiosk" */
-      'client/components/KioskLayout'
+      'client/pages/Kiosk/KioskLayout'
     )
 )
 const ForestKids = React.lazy(
