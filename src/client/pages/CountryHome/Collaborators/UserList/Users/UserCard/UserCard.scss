@@ -2,13 +2,19 @@
 
 .home-user-card {
   display: grid;
-  grid-template-columns: repeat(2, auto);
-  grid-row-gap: 12px;
-  grid-column-gap: $spacing-xs;
+  grid-template-columns: 64px auto;
+  gap: $spacing-xxxs;
+
+  align-content: center;
 
   justify-content: start;
 
   padding: $spacing-xxs;
+
+  .user-avatar {
+    grid-row: span 3;
+    align-self: center;
+  }
 
   &.invitation {
     .user-avatar,
@@ -17,8 +23,15 @@
     }
   }
 
-  .user-avatar {
-    grid-row: span 2;
-    align-self: center;
+  // Hide all buttons but not message button
+  [class*='home-user-action-button-']:not([class*='home-user-action-button-message']) {
+    opacity: 0;
+    transition: all 0.2s ease;
+  }
+
+  &:hover {
+    [class*='home-user-action-button-']:not([class*='home-user-action-button-message']) {
+      opacity: 1;
+    }
   }
 }

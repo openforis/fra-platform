@@ -5,7 +5,15 @@ import classNames from 'classnames'
 import { ButtonProps, ButtonSize, ButtonType } from 'client/components/Buttons/Button/types'
 
 export const useButtonClassName = (props: ButtonProps): string => {
-  const { className, disabled, inverse, noPrint = true, size = ButtonSize.s, type = ButtonType.primary } = props
+  const {
+    className,
+    disabled,
+    inverse,
+    noBorder = false,
+    noPrint = true,
+    size = ButtonSize.s,
+    type = ButtonType.primary,
+  } = props
 
   return useMemo<string>(() => {
     return classNames(
@@ -15,7 +23,8 @@ export const useButtonClassName = (props: ButtonProps): string => {
       `button__type-${type}`,
       { inverse },
       { disabled },
+      { noBorder },
       className
     )
-  }, [className, disabled, inverse, noPrint, size, type])
+  }, [className, disabled, inverse, noBorder, noPrint, size, type])
 }

@@ -112,6 +112,10 @@
     }
   }
 
+  &.noBorder {
+    border: unset;
+  }
+
   &.inverse {
     background-color: $colorSecondary;
     color: $colorPrimary;

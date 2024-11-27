@@ -19,7 +19,7 @@ const Message: React.FC<Props> = (props: Props) => {
   const size = ButtonSize.s
   const type = ButtonType.primary
 
-  const className = useButtonClassName({ iconName, label, size, type })
+  const className = useButtonClassName({ iconName, label, size, type, className: 'home-users-message' })
 
   return (
     <MessageButton

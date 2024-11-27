@@ -14,10 +14,15 @@ const Actions: React.FC<Props> = (props: Props) => {
     <div className="home-user-actions">
       {actions.map(({ name, Component }, i) => {
         const isLast = i === actions.length - 1
+
+        const base = `home-user-action-button`
+        const key = `${base}-${name}`
+        const keyHr = `${base}-hr`
+
         return (
-          <React.Fragment key={`user-action-button-${name}`}>
+          <React.Fragment key={key}>
             <Component user={user} />
-            {!isLast && <Hr />}
+            {!isLast && <Hr className={keyHr} />}
           </React.Fragment>
         )
       })}

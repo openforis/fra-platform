@@ -25,6 +25,7 @@ const Information: React.FC<Props> = (props: Props) => {
 
   return (
     <Button
+      className="home-user-action-button-resend"
       disabled={isLoading}
       iconName="rotate"
       label={label}

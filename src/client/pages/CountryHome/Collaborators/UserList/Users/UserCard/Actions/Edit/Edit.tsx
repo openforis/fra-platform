@@ -30,8 +30,7 @@ const Edit: React.FC<Props> = (props: Props) => {
   const iconName = currentUserIsReviewer ? 'icon-eye' : 'pencil'
   const size = ButtonSize.s
   const type = ButtonType.primary
-  const inverse = true
-  const className = useButtonClassName({ iconName, label, size, inverse, type })
+  const className = useButtonClassName({ iconName, label, size, type, className: 'home-user-action-button-edit' })
 
   if (CountryUserSummaries.isInvitation(user, countryIso)) {
     return null
