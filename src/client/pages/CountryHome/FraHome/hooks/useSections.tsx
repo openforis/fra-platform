@@ -44,7 +44,7 @@ export const useSections = (): Array<Section> => {
     }
 
     if (canSeeUserActivities && isCountry) {
-      sections.splice(2, 0, { name: SectionNames.Country.Home.userManagement, component: Collaborators })
+      sections.splice(2, 0, { name: SectionNames.Country.Home.collaborators, component: Collaborators })
     }
 
     // Show recent activity as last item
