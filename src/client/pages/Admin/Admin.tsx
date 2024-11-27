@@ -27,7 +27,7 @@ const sections: Array<Section> = [
     labelKey: 'common.invitations',
   },
   {
-    name: SectionNames.Admin.userManagement,
+    name: SectionNames.Admin.collaborators,
     labelKey: 'common.collaborators',
   },
   {

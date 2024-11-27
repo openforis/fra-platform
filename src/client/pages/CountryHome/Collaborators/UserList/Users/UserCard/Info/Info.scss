@@ -1,21 +1,23 @@
 @import 'src/client/style/partials';
 
 .home-user-info {
-  display: flex;
-  gap: $spacing-xxs;
-  align-items: center;
-  align-content: center;
-  h3 {
-    font-size: $font-l;
-    font-weight: normal;
-  }
-
-  &.expired h3 {
+  &.expired .home-user.name h3 {
     color: lighten($ui-destructive, 30%);
   }
 }
 
+.home-user-name {
+  display: flex;
+  gap: 8px;
+
+  h3 {
+    font-size: $font-l;
+    font-weight: normal;
+  }
+}
+
 .home-user-role {
+  margin-top: -6px;
   font-size: $font-xs;
   text-transform: uppercase;
   color: $text-disabled;

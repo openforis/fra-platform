@@ -44,6 +44,7 @@ const CopyLink: React.FC<Props> = (props: Props) => {
 
   return (
     <Button
+      className="home-user-action-button-copy"
       iconName="content_copy"
       inverse
       label={label}

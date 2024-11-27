@@ -9,19 +9,18 @@ import { Areas } from 'meta/area'
 import { MessageTopicType, Topics } from 'meta/messageCenter'
 import { SectionNames } from 'meta/routes'
 
-import { useCanSeeUserActivities, useUser } from 'client/store/user'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import MessageButton from 'client/components/MessageButton'
 import ButtonDownloadDashboard from 'client/pages/CountryHome/FraHome/ButtonDownloadDashboard'
 
+import { useShowCountryMessageButton } from '../hooks/useShowCountryMessageButton'
 import { useSections } from './hooks/useSections'
 
 const PanEuropeanHome: React.FC = () => {
   const { t } = useTranslation()
   const { countryIso } = useCountryRouteParams()
   const sections = useSections()
-  const user = useUser()
-  const canSeeUserActivities = useCanSeeUserActivities(user)
+  const showCountryMessageButton = useShowCountryMessageButton()
 
   const displayTabs = sections.length > 1 && Areas.isISOCountry(countryIso)
 
@@ -32,7 +31,7 @@ const PanEuropeanHome: React.FC = () => {
           {t(`area.${countryIso}.listName`)}
           <ButtonDownloadDashboard />
         </h1>
-        {canSeeUserActivities && (
+        {showCountryMessageButton && (
           <MessageButton
             label={t('landing.users.message')}
             topicKey={Topics.getMessageBoardCountryKey()}
@@ -68,4 +67,5 @@ const PanEuropeanHome: React.FC = () => {
     </>
   )
 }
+
 export default PanEuropeanHome

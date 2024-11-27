@@ -43,7 +43,7 @@ export const useRoutes = () => {
               <Route element={<AdminCountries />} path={Routes.AdminCountries.path.relative} />
               <Route element={<AdminInvitations />} path={Routes.AdminInvitations.path.relative} />
               <Route element={<AdminLinks />} path={Routes.AdminLinks.path.relative} />
-              <Route element={<AdminCollaborators />} path={Routes.AdminUserManagement.path.relative} />
+              <Route element={<AdminCollaborators />} path={Routes.AdminCollaborators.path.relative} />
             </Route>
 
             {/* Tutorials */}

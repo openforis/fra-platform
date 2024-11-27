@@ -29,7 +29,7 @@ export const useSections = (): Array<Section> => {
     sections.push({ name: SectionNames.Country.Home.repository, component: Repository })
   }
   if (Users.getRolesAllowedToEdit({ user, countryIso, cycle }).length > 0) {
-    sections.splice(2, 0, { name: SectionNames.Country.Home.userManagement, component: Collaborators })
+    sections.splice(2, 0, { name: SectionNames.Country.Home.collaborators, component: Collaborators })
   }
 
   if (canSeeActivities) {

@@ -78,7 +78,7 @@
     "overview": "Overview",
     "recentActivity": "Recent activity",
     "repository": "Links & Repository",
-    "userManagement": "Manage collaborators",
+    "collaborators": "$t(common.collaborators)",
     "versioning": "Versioning"
   },
   "users": {

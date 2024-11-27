@@ -37,10 +37,12 @@ const Remove: React.FC<Props> = (props: Props) => {
 
   return (
     <Button
+      className="home-user-action-button-remove"
       disabled={disabled}
       iconName="trash-simple"
       inverse
       label={label}
+      noBorder
       onClick={removeInvitation}
       size={ButtonSize.s}
       type={ButtonType.danger}
