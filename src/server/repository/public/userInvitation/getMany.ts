@@ -15,11 +15,10 @@ type Props = {
   offset?: string
   orderBy?: string
   orderByDirection?: TablePaginatedOrderByDirection
-  pendingOnly?: boolean
 }
 
 export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<Array<UserInvitationSummary>> => {
-  const { assessment, cycle, countryIso, limit, offset, orderBy, orderByDirection, pendingOnly } = props
+  const { assessment, cycle, countryIso, limit, offset, orderBy, orderByDirection } = props
 
   const params: Record<string, string | number | boolean> = {
     assessmentId: assessment.id,
@@ -29,8 +28,6 @@ export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<
   if (countryIso) params.countryIso = countryIso
   if (limit) params.limit = limit
   if (offset) params.offset = offset
-  // Used in e.g. country home collaborator view
-  if (pendingOnly) params.pendingOnly = pendingOnly
 
   return client.map<UserInvitationSummary>(
     `
@@ -45,7 +42,6 @@ export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<
         where a.id = $(assessmentId)
           and ac.id = $(cycleId)
           ${countryIso ? 'and ui.country_iso = $(countryIso)' : ''}
-          ${pendingOnly ? 'and ui.accepted_at is null' : ''}
         order by ${orderBy ?? 'country_iso'} ${orderByDirection ?? TablePaginatedOrderByDirection.asc} nulls last
         ${limit ? 'limit $(limit)' : ''}
         ${offset ? 'offset $(offset)' : ''}
