@@ -19,7 +19,7 @@ const intervals = (cycle: Cycle): Array<string> => {
 const annual = (cycle: Cycle): Array<string> => {
   const years = Array.from({ length: 18 }, (_, i) => String(2000 + i))
   if (cycle.name === '2025') {
-    years.push(...Array.from({ length: 7 }, (_, i) => String(2017 + i)))
+    years.push(...Array.from({ length: 6 }, (_, i) => String(2018 + i)))
   }
   return years
 }

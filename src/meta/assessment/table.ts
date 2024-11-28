@@ -14,6 +14,9 @@ export enum TableNames {
   carbonStockTotal = 'carbonStockTotal',
   climaticDomain = 'climaticDomain',
   extentOfForest = 'extentOfForest',
+  extentOfForest_forestAreaStatusAndTrend = 'extentOfForest_forestAreaStatusAndTrend',
+  growingStock_growingStockStatus = 'growingStock_growingStockStatus',
+  biomassStock_biomassStockStatus = 'biomassStock_biomassStockStatus',
   forestAreaWithinProtectedAreas = 'forestAreaWithinProtectedAreas',
   forestCharacteristics = 'forestCharacteristics',
   forestOwnership = 'forestOwnership',
@@ -21,6 +24,8 @@ export enum TableNames {
   growingStockTotal = 'growingStockTotal',
   primaryDesignatedManagementObjective = 'primaryDesignatedManagementObjective',
   specificForestCategories = 'specificForestCategories',
+  sustainableDevelopment15_2_1_1 = 'sustainableDevelopment15_2_1_1',
+  sustainableDevelopment15_2_1_2 = 'sustainableDevelopment15_2_1_2',
   sustainableDevelopment15_2_1_5 = 'sustainableDevelopment15_2_1_5',
   totalAreaWithDesignatedManagementObjective = 'totalAreaWithDesignatedManagementObjective',
   // Used to append ODP data to tableData
