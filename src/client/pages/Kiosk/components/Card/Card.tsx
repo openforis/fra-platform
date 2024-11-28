@@ -1,4 +1,5 @@
 import './Card.scss'
+import 'client/pages/Kiosk/Kiosk.scss'
 import React, { useTransition } from 'react'
 import { useNavigate } from 'react-router-dom'
 

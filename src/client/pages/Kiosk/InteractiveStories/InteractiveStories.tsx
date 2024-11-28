@@ -1,4 +1,5 @@
 import './InteractiveStories.scss'
+import 'client/pages/Kiosk/Kiosk.scss'
 import React from 'react'
 
 import { Routes } from 'meta/routes'

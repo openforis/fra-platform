@@ -1,3 +1,4 @@
+import 'client/pages/Kiosk/Kiosk.scss'
 import React from 'react'
 
 const Fra2020DataPlatform: React.FC = () => {
