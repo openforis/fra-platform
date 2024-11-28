@@ -20,5 +20,6 @@ export const getManyItems = async (props: Props): Promise<Array<DashboardItem<Da
 
   const regionDashboardItems = await NodeExtRepository.getManyDashboardItems({ assessment, cycle, region: true })
 
-  return Objects.merge(countryDashboardItems, regionDashboardItems)
+  // If we don't have any region items, we return an empty array
+  return regionDashboardItems ? Objects.merge(countryDashboardItems, regionDashboardItems) : []
 }

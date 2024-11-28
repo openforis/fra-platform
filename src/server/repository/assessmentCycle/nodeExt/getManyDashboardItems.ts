@@ -12,7 +12,7 @@ export const getManyDashboardItems = async (
 ): Promise<Array<DashboardItem<DashboardItemType>>> => {
   const { assessment, cycle, region } = props
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
-  return client.one<Array<DashboardItem<DashboardItemType>>>(
+  return client.oneOrNone<Array<DashboardItem<DashboardItemType>>>(
     `
     select value 
     from ${schemaCycle}.node_ext 
@@ -24,6 +24,6 @@ export const getManyDashboardItems = async (
     }
     `,
     [NodeExtType.dashboard],
-    (result) => result.value
+    (result) => result?.value
   )
 }

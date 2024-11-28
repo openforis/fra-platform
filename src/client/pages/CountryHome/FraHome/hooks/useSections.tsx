@@ -1,11 +1,12 @@
 import React, { useMemo } from 'react'
 
-import { Areas } from 'meta/area'
-import { AssessmentNames } from 'meta/assessment'
+import { Objects } from 'utils/objects'
+
 import { SectionNames } from 'meta/routes'
 import { Users } from 'meta/user'
 
-import { useAssessment, useCycle } from 'client/store/assessment'
+import { useCycle } from 'client/store/assessment'
+import { useDashboardItems } from 'client/store/metadata'
 import { useDashboardLoading } from 'client/store/metadata/hooks/useDashboardLoading'
 import { useUser } from 'client/store/user'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
@@ -23,9 +24,10 @@ type Section = {
 export const useSections = (): Array<Section> | null => {
   const user = useUser()
   const { countryIso, assessmentName, cycleName } = useCountryRouteParams()
-  const assessment = useAssessment()
   const cycle = useCycle()
   const isLoading = useDashboardLoading(assessmentName, cycleName)
+  const dashboardItems = useDashboardItems()
+  const hasDashboardItems = !Objects.isEmpty(dashboardItems)
 
   return useMemo(() => {
     const sections: Array<Section> = []
@@ -33,10 +35,7 @@ export const useSections = (): Array<Section> | null => {
     if (isLoading) return sections
     if (!cycle) return null
 
-    const isFra2020 = assessment.props.name === AssessmentNames.fra && cycle.name === '2020'
-    const showOverview = isFra2020 || Areas.isISOCountry(countryIso)
-
-    if (showOverview) {
+    if (hasDashboardItems) {
       sections.push({ name: SectionNames.Country.Home.overview, component: Overview })
     }
 
@@ -51,5 +50,5 @@ export const useSections = (): Array<Section> | null => {
     }
 
     return sections
-  }, [assessment.props.name, cycle, user, countryIso, isLoading])
+  }, [isLoading, cycle, hasDashboardItems, user, countryIso])
 }
