@@ -90,6 +90,7 @@ export default async () => {
   await client.query(`create unique index if not exists users_uuid_key on public.users (uuid);`)
 
   // ---- 2. Move users_role table to _legacy schema
+  await client.query(`create schema if not exists _legacy;`) // eg running vs partial db
   await client.query(`alter table public.users_role set schema _legacy;`)
 
   // ---- 3. Create users_invitation table

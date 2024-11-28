@@ -1,6 +1,8 @@
 import 'tsconfig-paths/register'
 import 'dotenv/config'
 
+import { Promises } from 'utils/promises'
+
 import { VisitCycleLinksQueueFactory } from 'server/controller/cycleData/links/visitCycleLinks/queueFactory'
 import { WorkerFactory as VisitLinksWorkerFactory } from 'server/controller/cycleData/links/visitCycleLinks/workerFactory'
 import { UpdateDependenciesQueueFactory } from 'server/controller/cycleData/updateDependencies/queueFactory'
@@ -55,8 +57,7 @@ const exec = async () => {
   await init()
 
   await client.tx(async (t) => {
-    // eslint-disable-next-line no-restricted-syntax
-    for await (const file of migrationSteps) {
+    await Promises.each(migrationSteps, async (file) => {
       try {
         Logger.info(`Running migration ${file}`)
         // eslint-disable-next-line @typescript-eslint/no-var-requires,global-require,import/no-dynamic-require
@@ -65,7 +66,7 @@ const exec = async () => {
       } catch (e) {
         Logger.error(e)
       }
-    }
+    })
   })
 
   if (!process.argv.includes('--watch')) {
