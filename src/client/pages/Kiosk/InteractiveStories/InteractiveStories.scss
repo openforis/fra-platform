@@ -1,0 +1,5 @@
+.kiosk-interactive-stories__grid-container {
+  display: grid;
+  gap: 64px;
+  grid-template-columns: repeat(2, 1fr);
+}
