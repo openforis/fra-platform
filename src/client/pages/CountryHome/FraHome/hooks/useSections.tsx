@@ -6,6 +6,7 @@ import { SectionNames } from 'meta/routes'
 import { Users } from 'meta/user'
 
 import { useAssessment, useCycle } from 'client/store/assessment'
+import { useDashboardLoading } from 'client/store/metadata/hooks/useDashboardLoading'
 import { useUser } from 'client/store/user'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import Collaborators from 'client/pages/CountryHome/FraHome/Collaborators'
@@ -19,15 +20,17 @@ type Section = {
   component: React.FC
 }
 
-export const useSections = (): Array<Section> => {
+export const useSections = (): Array<Section> | null => {
   const user = useUser()
-  const { countryIso } = useCountryRouteParams()
+  const { countryIso, assessmentName, cycleName } = useCountryRouteParams()
   const assessment = useAssessment()
   const cycle = useCycle()
+  const isLoading = useDashboardLoading(assessmentName, cycleName)
 
   return useMemo(() => {
     const sections: Array<Section> = []
 
+    if (isLoading) return sections
     if (!cycle) return null
 
     const isFra2020 = assessment.props.name === AssessmentNames.fra && cycle.name === '2020'
@@ -47,10 +50,6 @@ export const useSections = (): Array<Section> => {
       sections.splice(2, 0, { name: SectionNames.Country.Home.userManagement, component: Collaborators })
     }
 
-    // if (Users.isAdministrator(user) || Users.isReviewer(user, countryIso, cycle)) {
-    //   sections.splice(2, 0, { name: SectionNames.contentCheck, component: Placeholder })
-    // }
-
     return sections
-  }, [assessment.props.name, cycle, user, countryIso])
+  }, [assessment.props.name, cycle, user, countryIso, isLoading])
 }

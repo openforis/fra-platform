@@ -6,6 +6,7 @@ import classNames from 'classnames'
 
 import { Areas } from 'meta/area'
 
+import { useGetDashboard } from 'client/store/metadata'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 import { useSections } from './hooks/useSections'
@@ -16,6 +17,7 @@ import SelectedCountries from './SelectedCountries'
 const FraHome: React.FC = () => {
   const { t } = useTranslation()
   const { countryIso } = useCountryRouteParams()
+  useGetDashboard()
   const sections = useSections()
 
   // tabs are available when user is logged-in and selected area is country
@@ -39,12 +41,12 @@ const FraHome: React.FC = () => {
           {sections.map(({ name }) => (
             <NavLink
               key={name}
-              to={name}
               className={(navData) =>
                 classNames('btn landing__page-menu-button', {
                   disabled: navData.isActive,
                 })
               }
+              to={name}
             >
               {t(`landing.sections.${name}`)}
             </NavLink>
@@ -54,9 +56,9 @@ const FraHome: React.FC = () => {
 
       <Routes>
         {sections.map(({ name, component }) => (
-          <Route key={name} path={`${name}/*`} element={React.createElement(component, {})} />
+          <Route key={name} element={React.createElement(component, {})} path={`${name}/*`} />
         ))}
-        {sections.length >= 1 && <Route index element={<Navigate replace to={sections[0].name} />} />}
+        {sections.length >= 1 && <Route element={<Navigate replace to={sections[0].name} />} index />}
       </Routes>
     </>
   )
