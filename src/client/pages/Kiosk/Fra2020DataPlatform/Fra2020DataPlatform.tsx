@@ -1,7 +1,14 @@
 import React from 'react'
 
 const Fra2020DataPlatform: React.FC = () => {
-  return <div>Fra 2020 data platform</div>
+  return (
+    <object
+      aria-label="FRA 2020 data platform"
+      className="kiosk-content__embedded-object"
+      data="https://fra-data.fao.org/assessments/fra/2020"
+      type="text/html"
+    />
+  )
 }
 
 export default Fra2020DataPlatform
