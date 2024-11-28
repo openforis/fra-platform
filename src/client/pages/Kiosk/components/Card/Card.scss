@@ -1,0 +1,43 @@
+.kiosk-content__card-button {
+  all: unset;
+  aspect-ratio: 1 / 1;
+  background-color: #dcf0f5;
+  border-radius: 40px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: block;
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 380px;
+}
+
+.kiosk-content__card-button:hover,
+.kiosk-content__card-button:focus {
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+  transform: scale(1.05);
+}
+
+.kiosk-content__card-img {
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.kiosk-content__card-overlay {
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.7);
+  bottom: calc(10%);
+  color: white;
+  display: flex;
+  font-size: 48px;
+  font-weight: bold;
+  height: 33%;
+  justify-content: center;
+  left: 0;
+  line-height: 1.25;
+  position: absolute;
+  text-align: center;
+  text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.7);
+  transition: opacity 0.3s ease-in-out;
+  width: 100%;
+}
