@@ -57,8 +57,12 @@ const Kiosk = createRoute({ path: 'kiosk', parent: Root })
 const ForestKids = createRoute({ path: 'forest-kids', parent: Kiosk })
 const Fra2020DataPlatform = createRoute({ path: 'fra-2020-data-platform', parent: Kiosk })
 const FraProcess = createRoute({ path: 'fra-process', parent: Kiosk })
-const InteractiveStories = createRoute({ path: 'interactive-stories', parent: Kiosk })
 const RecentHighlights = createRoute({ path: 'recent-highlights', parent: Kiosk })
+const InteractiveStories = createRoute({ path: 'interactive-stories', parent: Kiosk })
+const AFreshPerspective = createRoute({ path: 'a-fresh-perspective', parent: InteractiveStories })
+const ExploringOurForests = createRoute({ path: 'exploring-our-forests', parent: InteractiveStories })
+const HiddenInPlainSight = createRoute({ path: 'hidden-in-plain-sight', parent: InteractiveStories })
+const TheSecretsOfMangroves = createRoute({ path: 'the-secrets-of-mangroves', parent: InteractiveStories })
 
 export const Routes = {
   Root,
@@ -97,6 +101,10 @@ export const Routes = {
   ForestKids,
   Fra2020DataPlatform,
   FraProcess,
-  InteractiveStories,
   RecentHighlights,
+  InteractiveStories,
+  AFreshPerspective,
+  ExploringOurForests,
+  HiddenInPlainSight,
+  TheSecretsOfMangroves,
 }

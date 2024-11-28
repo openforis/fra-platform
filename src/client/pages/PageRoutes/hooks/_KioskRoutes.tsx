@@ -41,6 +41,34 @@ const InteractiveStories = React.lazy(
       'client/pages/Kiosk/InteractiveStories'
     )
 )
+const AFreshPerspective = React.lazy(
+  () =>
+    import(
+      /* webpackChunkName: "kiosk" */
+      'client/pages/Kiosk/InteractiveStories/AFreshPerspective'
+    )
+)
+const HiddenInPlainSight = React.lazy(
+  () =>
+    import(
+      /* webpackChunkName: "kiosk" */
+      'client/pages/Kiosk/InteractiveStories/HiddenInPlainSight'
+    )
+)
+const ExploringOurForests = React.lazy(
+  () =>
+    import(
+      /* webpackChunkName: "kiosk" */
+      'client/pages/Kiosk/InteractiveStories/ExploringOurForests'
+    )
+)
+const TheSecretsOfMangroves = React.lazy(
+  () =>
+    import(
+      /* webpackChunkName: "kiosk" */
+      'client/pages/Kiosk/InteractiveStories/TheSecretsOfMangroves'
+    )
+)
 const Kiosk = React.lazy(
   () =>
     import(
@@ -62,7 +90,15 @@ export const KioskRoutes: React.ReactElement = (
     <Route element={<FraProcess />} path={Routes.FraProcess.path.relative} />
     <Route element={<RecentHighlights />} path={Routes.RecentHighlights.path.relative} />
     <Route element={<Fra2020DataPlatform />} path={Routes.Fra2020DataPlatform.path.relative} />
-    <Route element={<InteractiveStories />} path={Routes.InteractiveStories.path.relative} />
+
+    <Route path={Routes.InteractiveStories.path.relative}>
+      <Route element={<InteractiveStories />} index />
+      <Route element={<AFreshPerspective />} path={Routes.AFreshPerspective.path.relative} />
+      <Route element={<ExploringOurForests />} path={Routes.ExploringOurForests.path.relative} />
+      <Route element={<HiddenInPlainSight />} path={Routes.HiddenInPlainSight.path.relative} />
+      <Route element={<TheSecretsOfMangroves />} path={Routes.TheSecretsOfMangroves.path.relative} />
+    </Route>
+
     <Route element={<ForestKids />} path={Routes.ForestKids.path.relative} />
   </Route>
 )
