@@ -7,7 +7,7 @@ import { Users } from 'meta/user'
 
 import { useCycle } from 'client/store/assessment'
 import { useDashboardItems } from 'client/store/metadata'
-import { useDashboardLoading } from 'client/store/metadata/hooks/useDashboardLoading'
+import { useDashboardLoaded } from 'client/store/metadata/hooks/useDashboardLoaded'
 import { useUser } from 'client/store/user'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import Collaborators from 'client/pages/CountryHome/FraHome/Collaborators'
@@ -25,14 +25,14 @@ export const useSections = (): Array<Section> | null => {
   const user = useUser()
   const { countryIso, assessmentName, cycleName } = useCountryRouteParams()
   const cycle = useCycle()
-  const isLoading = useDashboardLoading(assessmentName, cycleName)
+  const loaded = useDashboardLoaded(assessmentName, cycleName)
   const dashboardItems = useDashboardItems()
   const hasDashboardItems = !Objects.isEmpty(dashboardItems)
 
   return useMemo(() => {
     const sections: Array<Section> = []
 
-    if (isLoading) return sections
+    if (!loaded) return null
     if (!cycle) return null
 
     if (hasDashboardItems) {
@@ -50,5 +50,5 @@ export const useSections = (): Array<Section> | null => {
     }
 
     return sections
-  }, [isLoading, cycle, hasDashboardItems, user, countryIso])
+  }, [loaded, cycle, hasDashboardItems, user, countryIso])
 }

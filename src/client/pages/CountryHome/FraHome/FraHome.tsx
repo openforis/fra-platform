@@ -21,7 +21,9 @@ const FraHome: React.FC = () => {
   const sections = useSections()
 
   // tabs are available when user is logged-in and selected area is country
-  const displayTabs = sections.length > 1 && Areas.isISOCountry(countryIso)
+  const displayTabs = sections?.length > 1 && Areas.isISOCountry(countryIso)
+
+  if (!sections) return null
 
   return (
     <>
