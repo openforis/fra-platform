@@ -1,9 +1,10 @@
 import React from 'react'
 
 import { CountryIso } from 'meta/area'
-import { UserInvitations } from 'meta/user'
+import { UserInvitations, Users } from 'meta/user'
 import { CountryUserSummaries } from 'meta/user/countryUserSummaries'
 
+import { useCycle } from 'client/store/assessment'
 import { useCanSeeUserActivities, useUser } from 'client/store/user'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
@@ -23,6 +24,9 @@ export const useActions = (props: Props): Array<ActionType> => {
   const { user } = props
   const currentUser = useUser()
   const { countryIso } = useCountryRouteParams<CountryIso>()
+  const cycle = useCycle()
+
+  const isReviewer = Users.isReviewer(currentUser, countryIso, cycle)
 
   const { invitation } = CountryUserSummaries.getCountryRoleAndInvitation(user, countryIso)
 
@@ -35,7 +39,8 @@ export const useActions = (props: Props): Array<ActionType> => {
   // List of actions available to the user
   const actions: Array<ActionType> = []
 
-  if (isInvitation) {
+  // Reviewer cannot access invitation actions
+  if (isInvitation && !isReviewer) {
     actions.push({ name: 'resend', Component: Resend })
     // Allow copying the link only when the invitation is not expired
     if (!expired) {
