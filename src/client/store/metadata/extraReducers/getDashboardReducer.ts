@@ -12,8 +12,8 @@ export const getDashboardReducer = (builder: ActionReducerMapBuilder<MetadataSta
       const { assessmentName, cycleName } = action.meta.arg
       Objects.setInPath({
         obj: state.dashboard,
-        path: [assessmentName, cycleName, 'isLoading'],
-        value: true,
+        path: [assessmentName, cycleName, 'loaded'],
+        value: false,
       })
     })
     .addCase(getDashboard.fulfilled, (state, action) => {
@@ -23,8 +23,8 @@ export const getDashboardReducer = (builder: ActionReducerMapBuilder<MetadataSta
       Objects.setInPath({ obj: state.dashboard, path: [assessmentName, cycleName, key], value: action.payload })
       Objects.setInPath({
         obj: state.dashboard,
-        path: [assessmentName, cycleName, 'isLoading'],
-        value: false,
+        path: [assessmentName, cycleName, 'loaded'],
+        value: true,
       })
     })
 }

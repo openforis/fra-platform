@@ -14,7 +14,7 @@ type DashboardState = Record<
     {
       [DashboardAreaType.Region]?: Array<DashboardItem>
       [DashboardAreaType.Country]?: Array<DashboardItem>
-      isLoading: boolean
+      loaded: boolean
     }
   >
 >
