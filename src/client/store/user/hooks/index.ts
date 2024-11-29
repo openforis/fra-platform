@@ -168,10 +168,8 @@ export const useCanEditUserActivities = (user: User) => {
  * }
  */
 export const useCanSeeUserActivities = (user: User) => {
-  const { countryIso } = useCountryRouteParams()
+  const { countryIso } = useCountryRouteParams<CountryIso>()
   const cycle = useCycle()
 
-  const rolesAllowedToView = Users.getRolesAllowedToView({ user, countryIso, cycle })
-
-  return rolesAllowedToView.length > 0
+  return Authorizer.canViewUsers({ countryIso, cycle, user })
 }
