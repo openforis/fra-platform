@@ -1,11 +1,14 @@
 import { useSelector } from 'react-redux'
 
-import { AssessmentName, CycleName } from 'meta/assessment'
+import { Dashboards } from 'meta/dashboard'
 
 import { RootState } from 'client/store/RootState'
+import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 import { MetadataSelectors } from '../selectors'
 
-export const useDashboardLoaded = (assessmentName: AssessmentName, cycleName: CycleName): boolean => {
-  return useSelector((state: RootState) => MetadataSelectors.getDashboardLoaded(state, assessmentName, cycleName))
+export const useDashboardLoaded = (): boolean => {
+  const { assessmentName, cycleName, countryIso } = useCountryRouteParams()
+  const key = Dashboards.getAreaType(countryIso)
+  return useSelector((state: RootState) => MetadataSelectors.getDashboardLoaded(state, assessmentName, cycleName, key))
 }

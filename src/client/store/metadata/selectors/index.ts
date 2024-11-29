@@ -14,7 +14,7 @@ const getSections = createSelector(
   (metadataState, assessmentName, cycleName) => metadataState.sections?.[assessmentName]?.[cycleName]
 )
 
-const getDashboard = createSelector(
+const _getDashboardState = createSelector(
   [
     (state: RootState) => state.metadata,
     (_state: RootState, assessmentName: AssessmentName) => assessmentName,
@@ -24,11 +24,11 @@ const getDashboard = createSelector(
   (metadataState, assessmentName, cycleName, key) => metadataState.dashboard?.[assessmentName]?.[cycleName]?.[key]
 )
 
-const getDashboardLoaded = (state: RootState, assessmentName: AssessmentName, cycleName: CycleName): boolean =>
-  Boolean(state.metadata.dashboard[assessmentName]?.[cycleName]?.loaded)
+const getDashboardItems = createSelector([_getDashboardState], (dashboardState) => dashboardState?.items)
+const getDashboardLoaded = createSelector([_getDashboardState], (dashboardState) => Boolean(dashboardState?.loaded))
 
 export const MetadataSelectors = {
   getSections,
-  getDashboard,
+  getDashboardItems,
   getDashboardLoaded,
 }

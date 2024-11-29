@@ -23,9 +23,9 @@ type Section = {
 
 export const useSections = (): Array<Section> | null => {
   const user = useUser()
-  const { countryIso, assessmentName, cycleName } = useCountryRouteParams()
+  const { countryIso } = useCountryRouteParams()
   const cycle = useCycle()
-  const loaded = useDashboardLoaded(assessmentName, cycleName)
+  const loaded = useDashboardLoaded()
   const dashboardItems = useDashboardItems()
   const hasDashboardItems = !Objects.isEmpty(dashboardItems)
 

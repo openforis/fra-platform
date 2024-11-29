@@ -12,9 +12,8 @@ type DashboardState = Record<
   Record<
     CycleName,
     {
-      [DashboardAreaType.Region]?: Array<DashboardItem>
-      [DashboardAreaType.Country]?: Array<DashboardItem>
-      loaded: boolean
+      [DashboardAreaType.Region]?: { items: Array<DashboardItem>; loaded: boolean }
+      [DashboardAreaType.Country]?: { items: Array<DashboardItem>; loaded: boolean }
     }
   >
 >
