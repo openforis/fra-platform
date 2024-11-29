@@ -14,9 +14,6 @@ type Props = {
   cycle: Cycle
 }
 
-/**
- * @deprecated
- */
 export const updateODPDependencies = async (props: Props, client: BaseProtocol = DB): Promise<void> => {
   const { assessment, cycle } = props
   const countryNodes: Record<CountryIso, Array<NodeUpdate>> = {} as Record<CountryIso, Array<NodeUpdate>>
