@@ -22,13 +22,13 @@ const SidePanel: React.FC = () => {
           <Icon name="home-circle" />
         </button>
       </div>
-      {/* <div className="kiosk-side-panel__quiz">
-        <h1>Get to know FRA and test your knowledge!</h1>
+      <div className="kiosk-side-panel__quiz">
+        {/* <h1>Get to know FRA and test your knowledge!</h1> */}
         <div className="kiosk-side-panel__quiz-img-container">
-          <div className="kiosk-side-panel__quiz-title">FRA quiz</div>
+          {/* <div className="kiosk-side-panel__quiz-title">FRA quiz</div> */}
           <img alt="quiz" className="kiosk-side-panel__quiz-img" src="/img/kiosk/quiz-bubbles.png" />
         </div>
-      </div> */}
+      </div>
       <div className="kiosk-side-panel__footer">
         <p>
           <i>Created with the financial support of:</i>
