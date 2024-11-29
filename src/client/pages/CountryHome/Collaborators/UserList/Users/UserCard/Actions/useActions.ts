@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { CountryIso } from 'meta/area'
-import { UserInvitations } from 'meta/user'
+import { UserInvitations, Users } from 'meta/user'
 import { CountryUserSummaries } from 'meta/user/countryUserSummaries'
 
 import { useCanSeeUserActivities, useUser } from 'client/store/user'
@@ -22,24 +22,22 @@ type ActionType = {
 
 export const useActions = (props: Props): Array<ActionType> => {
   const { user } = props
-  const currentUser = useUser()
-  const { countryIso } = useCountryRouteParams<CountryIso>()
 
-  const useCanEditActivities = useCanEditUserActivities(currentUser)
+  const { countryIso } = useCountryRouteParams<CountryIso>()
+  const currentUser = useUser()
+  const canCurrentUserEditActivities = useCanEditUserActivities(currentUser)
+  const canCurrentUserViewActivities = useCanSeeUserActivities(currentUser)
+  const canTargetUserViewActivities = useCanSeeUserActivities(user)
 
   const { invitation } = CountryUserSummaries.getCountryRoleAndInvitation(user, countryIso)
-
   const isInvitation = CountryUserSummaries.isInvitation(user, countryIso)
   const expired = invitation && UserInvitations.isExpired(invitation)
-
-  const canCurrentUserSeeUserActivities = useCanSeeUserActivities(currentUser)
-  const canTargetUserSeeUserActivities = useCanSeeUserActivities(user)
 
   // List of actions available to the user
   const actions: Array<ActionType> = []
 
   // Reviewer cannot access invitation actions
-  if (isInvitation && useCanEditActivities) {
+  if (isInvitation && canCurrentUserEditActivities) {
     actions.push({ name: 'resend', Component: Resend })
     // Allow copying the link only when the invitation is not expired
     if (!expired) {
@@ -50,7 +48,7 @@ export const useActions = (props: Props): Array<ActionType> => {
 
   if (!isInvitation) {
     // If the user or target cannot send/receive messages, hide message button
-    const canSendOrReceiveMessage = canCurrentUserSeeUserActivities && canTargetUserSeeUserActivities
+    const canSendOrReceiveMessage = canCurrentUserViewActivities && canTargetUserViewActivities
     // If viewing self, return hide message button
     const isSelf = user.uuid === currentUser.uuid
 
@@ -58,7 +56,9 @@ export const useActions = (props: Props): Array<ActionType> => {
       actions.push({ name: 'message', Component: Message })
     }
 
-    actions.push({ name: 'edit', Component: Edit })
+    if (Users.isAdministrator(currentUser) || isSelf) {
+      actions.push({ name: 'edit', Component: Edit })
+    }
   }
   return actions
 }

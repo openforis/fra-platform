@@ -69,6 +69,8 @@
 
   .message-author {
     color: $text-disabled;
+    font-style: italic;
+    text-decoration: line-through;
   }
 
   .message-time {

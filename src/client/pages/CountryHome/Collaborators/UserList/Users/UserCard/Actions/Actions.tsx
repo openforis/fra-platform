@@ -8,6 +8,7 @@ import { useActions } from './useActions'
 
 const Actions: React.FC<Props> = (props: Props) => {
   const { user } = props
+
   const actions = useActions(props)
 
   return (
