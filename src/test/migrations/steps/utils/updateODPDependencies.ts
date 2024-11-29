@@ -1,12 +1,11 @@
 import { Objects } from 'utils/objects'
 
-import { CountryIso } from 'meta/area'
+import { Areas, CountryIso } from 'meta/area'
 import { Assessment, Cycle } from 'meta/assessment'
 import { NodeUpdate } from 'meta/data'
 
 import { getOriginalDataPointVariables } from 'server/controller/cycleData/originalDataPoint/getOriginalDataPointVariables'
 import { BaseProtocol, DB, Schemas } from 'server/db'
-import { isAtlantisAllowed } from 'server/repository/assessmentCycle/country/isAtlantisAllowed'
 
 import { updateDependencies } from './updateDependencies'
 
@@ -15,6 +14,9 @@ type Props = {
   cycle: Cycle
 }
 
+/**
+ * @deprecated
+ */
 export const updateODPDependencies = async (props: Props, client: BaseProtocol = DB): Promise<void> => {
   const { assessment, cycle } = props
   const countryNodes: Record<CountryIso, Array<NodeUpdate>> = {} as Record<CountryIso, Array<NodeUpdate>>
@@ -33,7 +35,7 @@ export const updateODPDependencies = async (props: Props, client: BaseProtocol =
   )
 
   originalDataPoints.forEach(({ countryIso, year }) => {
-    if (!countryIso.startsWith('X') || isAtlantisAllowed(assessment, cycle)) {
+    if (!countryIso.startsWith('X') || Areas.isAtlantisAllowed(cycle)) {
       countryNodes[countryIso] = []
 
       const colName = String(year)

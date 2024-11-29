@@ -1,10 +1,9 @@
 import { Objects } from 'utils/objects'
 
-import { RegionCode, RegionGroup } from 'meta/area'
+import { Areas, RegionCode, RegionGroup } from 'meta/area'
 import { Assessment, Cycle } from 'meta/assessment'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'
-import { isAtlantisAllowed } from 'server/repository/assessmentCycle/country/isAtlantisAllowed'
 
 export const getRegionGroups = async (
   props: { assessment: Assessment; cycle: Cycle },
@@ -15,7 +14,7 @@ export const getRegionGroups = async (
 
   let atlantis = ''
 
-  if (!isAtlantisAllowed(assessment, cycle)) {
+  if (!Areas.isAtlantisAllowed(cycle)) {
     atlantis = `where r.region_code != '${RegionCode.AT}'`
   }
 

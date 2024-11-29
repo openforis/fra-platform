@@ -1,10 +1,9 @@
 import { Objects } from 'utils/objects'
 
-import { Country } from 'meta/area'
+import { Areas, Country } from 'meta/area'
 import { Assessment, Cycle } from 'meta/assessment'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'
-import { isAtlantisAllowed } from 'server/repository/assessmentCycle/country/isAtlantisAllowed'
 
 export const getMany = async (
   props: { assessment: Assessment; cycle: Cycle },
@@ -15,7 +14,7 @@ export const getMany = async (
   const cycleSchema = Schemas.getNameCycle(assessment, cycle)
 
   let atlantis = ''
-  if (!isAtlantisAllowed(assessment, cycle)) {
+  if (!Areas.isAtlantisAllowed(cycle)) {
     atlantis = `where c.country_iso not like 'X%'`
   }
 
@@ -38,7 +37,6 @@ export const getMany = async (
         order by 1
     `,
     [cycle.uuid],
-    // @ts-ignore
-    Objects.camelize
+    (row) => Objects.camelize(row)
   )
 }
