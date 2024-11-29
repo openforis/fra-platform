@@ -1,3 +1,4 @@
+import { Areas } from 'meta/area'
 import { Assessment, Cycle } from 'meta/assessment'
 
 import { Schemas } from 'server/db'
@@ -357,9 +358,23 @@ export const getCreateOrReplaceViewCountryUserSummary = (props: { assessment: As
             ur.uuid,
             to_jsonb(ur.*) as role
         from users_role ur
-        where (ur.cycle_uuid = '${cycle.uuid}' and
-               ur.assessment_uuid = '${assessment.uuid}')
-           or ur.role = 'ADMINISTRATOR'
+        where (
+            -- 1. Allow admin roles
+            ur.role = 'ADMINISTRATOR'
+            -- 2. Allow regular roles
+            or (
+                ur.cycle_uuid = '${cycle.uuid}' and ur.assessment_uuid = '${assessment.uuid}'
+                and (
+                    -- Allow non-Atlantis roles always
+                    ur.country_iso not like '${Areas.ATLANTIS_PREFIX}%'
+                    or (
+                     -- Allow Atlantis roles only if cycle is not published
+                        ur.country_iso like '${Areas.ATLANTIS_PREFIX}%'
+                        and '${cycle.props?.status}' != 'published'
+                    )
+                )
+            )
+        )
     ),
     filtered_invitations as (
         select 
