@@ -1,6 +1,7 @@
 import { AreaCode, Country, CountryIso, Global, RegionCode } from 'meta/area'
 import { fraRegionCodes } from 'meta/area/regionCode'
 import { AssessmentStatus } from 'meta/area/status'
+import { Cycle, Cycles } from 'meta/assessment'
 
 const getCountryBackgroundImg = (isoCode: AreaCode): string =>
   isoCode.startsWith('X')
@@ -9,7 +10,10 @@ const getCountryBackgroundImg = (isoCode: AreaCode): string =>
 
 const getTranslationKey = (isoCode: AreaCode): string => `area.${isoCode}.listName`
 
-const isAtlantis = (countryIso: CountryIso): boolean => countryIso.startsWith('X')
+const ATLANTIS_PREFIX = 'X'
+const isAtlantis = (countryIso: CountryIso): boolean => countryIso.startsWith(ATLANTIS_PREFIX)
+const isAtlantisAllowed = (cycle: Cycle): boolean => !Cycles.isPublished(cycle)
+
 const isGlobal = (isoCode: CountryIso | RegionCode | Global) => Global.WO === isoCode
 const isISOCountry = (isoCode: string): boolean => /^[a-zA-Z0-9]{3}$/.test(isoCode)
 const isISOGlobal = (isoCode: string): boolean => isoCode === Global.WO
@@ -26,9 +30,11 @@ export const Areas = {
   getStatus,
   getTranslationKey,
   isAtlantis,
+  isAtlantisAllowed,
   isFRARegion,
   isGlobal,
   isISOCountry,
   isISOGlobal,
   isRegion,
+  ATLANTIS_PREFIX,
 }
