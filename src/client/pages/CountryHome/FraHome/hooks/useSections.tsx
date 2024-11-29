@@ -1,10 +1,10 @@
 import React, { useMemo } from 'react'
 
 import { Areas } from 'meta/area'
-import { AssessmentNames } from 'meta/assessment'
+import { Cycles } from 'meta/assessment'
 import { SectionNames } from 'meta/routes'
 
-import { useAssessment, useCycle } from 'client/store/assessment'
+import { useCycle } from 'client/store/assessment'
 import { useCanSeeUserActivities, useUser } from 'client/store/user'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import Collaborators from 'client/pages/CountryHome/Collaborators'
@@ -20,7 +20,6 @@ type Section = {
 export const useSections = (): Array<Section> => {
   const user = useUser()
   const { countryIso } = useCountryRouteParams()
-  const assessment = useAssessment()
   const cycle = useCycle()
 
   const canSeeUserActivities = useCanSeeUserActivities(user)
@@ -29,11 +28,8 @@ export const useSections = (): Array<Section> => {
     const sections: Array<Section> = []
 
     if (!cycle) return null
-
-    const isFra2020 = assessment.props.name === AssessmentNames.fra && cycle.name === '2020'
     const isCountry = Areas.isISOCountry(countryIso)
-
-    const showOverview = isFra2020 || isCountry
+    const showOverview = Cycles.isPublished(cycle) || Areas.isISOCountry(countryIso)
 
     if (showOverview) {
       sections.push({ name: SectionNames.Country.Home.overview, component: Overview })
@@ -53,5 +49,5 @@ export const useSections = (): Array<Section> => {
     }
 
     return sections
-  }, [cycle, assessment.props.name, countryIso, user, canSeeUserActivities])
+  }, [cycle, countryIso, user, canSeeUserActivities])
 }
