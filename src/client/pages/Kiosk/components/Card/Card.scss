@@ -2,18 +2,18 @@
   all: unset;
   aspect-ratio: 1 / 1;
   background-color: #dcf0f5;
-  border-radius: 40px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: min(2dvw, 3.7dvh);
+  box-shadow: 0 min(0.2dvw, 0.37dvh) min(0.3125dvw, 0.555dvh) rgba(0, 0, 0, 0.1);
   display: block;
   overflow: hidden;
   position: relative;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  width: 380px;
+  width: min(20dvw, 35dvh);
 }
 
 .kiosk-content__card-button:hover,
 .kiosk-content__card-button:focus {
-  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 min(0.3125dvw, 0.555dvh) min(0.52dvw, 0.92dvh) rgba(0, 0, 0, 0.15);
   transform: scale(1.05);
 }
 
@@ -29,7 +29,7 @@
   bottom: calc(10%);
   color: white;
   display: flex;
-  font-size: 48px;
+  font-size: min(2.5dvw, 4.44dvh);
   font-weight: bold;
   height: 33%;
   justify-content: center;
@@ -37,7 +37,7 @@
   line-height: 1.25;
   position: absolute;
   text-align: center;
-  text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.7);
+  text-shadow: min(0.1dvw, 0.18dvh) min(0.1dvw, 0.18dvh) 0px rgba(0, 0, 0, 0.7);
   transition: opacity 0.3s ease-in-out;
   width: 100%;
 }

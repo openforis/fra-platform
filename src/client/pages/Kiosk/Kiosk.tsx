@@ -42,11 +42,13 @@ const cards: Array<KioskCardProps> = [
 const Kiosk: React.FC = () => {
   return (
     <div className="kiosk-content">
-      <h1 className="kiosk-content__title">Global Forest Resources Assessment</h1>
-      <div className="kiosk-content__grid-container">
-        {cards.map(({ altText, imageUrl, link, title }) => (
-          <Card key={title} altText={altText} imageUrl={imageUrl} link={link} title={title} />
-        ))}
+      <div>
+        <h1 className="kiosk-content__title">Global Forest Resources Assessment</h1>
+        <div className="kiosk-content__grid-container">
+          {cards.map(({ altText, imageUrl, link, title }) => (
+            <Card key={title} altText={altText} imageUrl={imageUrl} link={link} title={title} />
+          ))}
+        </div>
       </div>
     </div>
   )

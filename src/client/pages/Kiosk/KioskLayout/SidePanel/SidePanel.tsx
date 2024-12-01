@@ -34,8 +34,8 @@ const SidePanel: React.FC = () => {
           <i>Created with the financial support of:</i>
         </p>
         <div className="kiosk-side-panel__partners">
-          <img alt="EU" className="quiz-image" src="/img/partners/EU.jpg" />
-          <img alt="NICFI" className="quiz-image" src="/img/partners/NICFI_3_lines.png" />
+          <img alt="EU" className="kiosk-side-panel__partners-eu" src="/img/partners/EU.jpg" />
+          <img alt="NICFI" className="kiosk-side-panel__partners-nicfi" src="/img/partners/NICFI.png" />
         </div>
       </div>
     </div>

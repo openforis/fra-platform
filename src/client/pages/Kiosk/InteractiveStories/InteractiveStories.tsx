@@ -37,11 +37,13 @@ const cards: Array<KioskCardProps> = [
 const InteractiveStories: React.FC = () => {
   return (
     <div className="kiosk-content">
-      <h1 className="kiosk-content__title">Interactive Stories</h1>
-      <div className="kiosk-interactive-stories__grid-container">
-        {cards.map(({ altText, imageUrl, link, title }) => (
-          <Card key={title} altText={altText} imageUrl={imageUrl} link={link} title={title} />
-        ))}
+      <div>
+        <h1 className="kiosk-content__title">Interactive Stories</h1>
+        <div className="kiosk-interactive-stories__grid-container">
+          {cards.map(({ altText, imageUrl, link, title }) => (
+            <Card key={title} altText={altText} imageUrl={imageUrl} link={link} title={title} />
+          ))}
+        </div>
       </div>
     </div>
   )
