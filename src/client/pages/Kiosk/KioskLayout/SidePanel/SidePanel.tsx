@@ -23,9 +23,9 @@ const SidePanel: React.FC = () => {
         </button>
       </div>
       <div className="kiosk-side-panel__quiz">
-        <h1>Get to know FRA and test your knowledge!</h1>
+        {/* <h1>Get to know FRA and test your knowledge!</h1> */}
         <div className="kiosk-side-panel__quiz-img-container">
-          <div className="kiosk-side-panel__quiz-title">FRA quiz</div>
+          {/* <div className="kiosk-side-panel__quiz-title">FRA quiz</div> */}
           <img alt="quiz" className="kiosk-side-panel__quiz-img" src="/img/kiosk/quiz-bubbles.png" />
         </div>
       </div>
@@ -34,8 +34,8 @@ const SidePanel: React.FC = () => {
           <i>Created with the financial support of:</i>
         </p>
         <div className="kiosk-side-panel__partners">
-          <img alt="EU" className="quiz-image" src="/img/partners/EU.jpg" />
-          <img alt="NICFI" className="quiz-image" src="/img/partners/NICFI_3_lines.png" />
+          <img alt="EU" className="kiosk-side-panel__partners-eu" src="/img/partners/EU.jpg" />
+          <img alt="NICFI" className="kiosk-side-panel__partners-nicfi" src="/img/partners/NICFI.png" />
         </div>
       </div>
     </div>
