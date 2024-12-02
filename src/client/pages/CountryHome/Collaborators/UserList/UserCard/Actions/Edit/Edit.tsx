@@ -15,21 +15,21 @@ import Icon from 'client/components/Icon'
 
 import { Props } from '../../Props'
 
+const size = ButtonSize.xs
+const type = ButtonType.primary
+
 const Edit: React.FC<Props> = (props: Props) => {
   const { user } = props
+  const { id } = user
 
   const { t } = useTranslation()
-
   const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
   const currentUser = useUser()
-  const { id } = user
   const cycle = useCycle()
 
   const currentUserIsReviewer = Users.isReviewer(currentUser, countryIso, cycle)
   const label = t(currentUserIsReviewer ? 'common.view' : 'userManagement.edit')
   const iconName = currentUserIsReviewer ? 'icon-eye' : 'pencil'
-  const size = ButtonSize.s
-  const type = ButtonType.primary
   const className = useButtonClassName({ iconName, label, size, type, className: 'home-user-action-button-edit' })
 
   if (CountryUserSummaries.isInvitation(user, countryIso)) {

@@ -31,20 +31,16 @@ const Remove: React.FC<Props> = (props: Props) => {
     return null
   }
 
-  const disabled = currentUser.uuid === user.uuid
-
-  const label = t('common.remove')
-
   return (
     <Button
       className="home-user-action-button-remove"
-      disabled={disabled}
+      disabled={currentUser.uuid === user.uuid}
       iconName="trash-simple"
       inverse
-      label={label}
+      label={t('common.remove')}
       noBorder
       onClick={removeInvitation}
-      size={ButtonSize.s}
+      size={ButtonSize.xs}
       type={ButtonType.danger}
     />
   )

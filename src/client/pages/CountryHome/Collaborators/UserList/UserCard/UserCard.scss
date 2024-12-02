@@ -3,14 +3,14 @@
 .home-user-card {
   align-content: center;
   display: grid;
-  gap: $spacing-xxxs;
-  grid-template-columns: auto 1fr auto;
+  grid-column-gap: $spacing-xxxs;
+  grid-row-gap: $spacing-xxxxs;
+  grid-template-columns: auto auto;
   justify-content: start;
   padding: $spacing-xxs;
 
   .user-avatar {
     align-self: center;
-    grid-row: span 2;
   }
 
   &.invitation {
