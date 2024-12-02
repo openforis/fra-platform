@@ -1,0 +1,26 @@
+.kiosk-content {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: min(2.5dvw, 4.44dvh);
+}
+
+.kiosk-content__embedded-object {
+  height: 100%;
+  width: 100%;
+}
+
+.kiosk-content__grid-container {
+  display: grid;
+  gap: min(3.33dvw, 5.925dvh);
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.kiosk-content__title {
+  color: #ef7a2d;
+  font-size: min(3.33dvw, 5.925dvh);
+  font-weight: 900;
+  margin-bottom: min(3.2dvw, 6dvh);
+  text-align: center;
+}
