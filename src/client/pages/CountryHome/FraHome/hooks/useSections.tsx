@@ -1,11 +1,11 @@
 import React, { useMemo } from 'react'
 
 import { Areas } from 'meta/area'
-import { AssessmentNames } from 'meta/assessment'
+import { Cycles } from 'meta/assessment'
 import { SectionNames } from 'meta/routes'
 import { Users } from 'meta/user'
 
-import { useAssessment, useCycle } from 'client/store/assessment'
+import { useCycle } from 'client/store/assessment'
 import { useUser } from 'client/store/user'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import Collaborators from 'client/pages/CountryHome/FraHome/Collaborators'
@@ -22,7 +22,6 @@ type Section = {
 export const useSections = (): Array<Section> => {
   const user = useUser()
   const { countryIso } = useCountryRouteParams()
-  const assessment = useAssessment()
   const cycle = useCycle()
 
   return useMemo(() => {
@@ -30,8 +29,7 @@ export const useSections = (): Array<Section> => {
 
     if (!cycle) return null
 
-    const isFra2020 = assessment.props.name === AssessmentNames.fra && cycle.name === '2020'
-    const showOverview = isFra2020 || Areas.isISOCountry(countryIso)
+    const showOverview = Cycles.isPublished(cycle) || Areas.isISOCountry(countryIso)
 
     if (showOverview) {
       sections.push({ name: SectionNames.Country.Home.overview, component: Overview })
@@ -47,10 +45,6 @@ export const useSections = (): Array<Section> => {
       sections.splice(2, 0, { name: SectionNames.Country.Home.userManagement, component: Collaborators })
     }
 
-    // if (Users.isAdministrator(user) || Users.isReviewer(user, countryIso, cycle)) {
-    //   sections.splice(2, 0, { name: SectionNames.contentCheck, component: Placeholder })
-    // }
-
     return sections
-  }, [assessment.props.name, cycle, user, countryIso])
+  }, [cycle, user, countryIso])
 }
