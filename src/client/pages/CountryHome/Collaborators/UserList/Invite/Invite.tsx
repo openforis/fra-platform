@@ -20,7 +20,7 @@ const Invite: React.FC = () => {
     className: 'btn-invite',
     iconName: 'small-add',
     label: 'L',
-    size: ButtonSize.m,
+    size: ButtonSize.s,
   })
 
   if (!Users.getRolesAllowedToEdit({ user, countryIso, cycle }).length) return null

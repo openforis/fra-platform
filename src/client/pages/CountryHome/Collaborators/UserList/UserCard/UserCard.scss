@@ -1,18 +1,15 @@
 @import 'src/client/style/partials';
 
 .home-user-card {
-  display: grid;
-  grid-template-columns: 64px auto;
-  gap: $spacing-xxxs;
-
   align-content: center;
-
+  display: grid;
+  grid-column-gap: $spacing-xxxs;
+  grid-row-gap: $spacing-xxxxs;
+  grid-template-columns: auto auto;
   justify-content: start;
-
   padding: $spacing-xxs;
 
   .user-avatar {
-    grid-row: span 3;
     align-self: center;
   }
 
@@ -30,6 +27,8 @@
   }
 
   &:hover {
+    background-color: rgba($ui-accent-light-extra, 0.2);
+
     [class*='home-user-action-button-']:not([class*='home-user-action-button-message']) {
       opacity: 1;
     }

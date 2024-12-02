@@ -21,16 +21,14 @@ const Information: React.FC<Props> = (props: Props) => {
     return null
   }
 
-  const label = t('common.inviteAgain')
-
   return (
     <Button
       className="home-user-action-button-resend"
       disabled={isLoading}
       iconName="rotate"
-      label={label}
+      label={t('common.inviteAgain')}
       onClick={resendInvitation}
-      size={ButtonSize.s}
+      size={ButtonSize.xs}
       type={ButtonType.primary}
     />
   )

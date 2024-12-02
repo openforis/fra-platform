@@ -23,14 +23,14 @@ const Info: React.FC<Props> = (props: Props) => {
 
   return (
     <div className={classNames('home-user-info', { expired })}>
-      <div className="home-user-name">
-        <h3>{user.fullName}</h3>
+      <div className="home-user-role">
+        <div className="role">{t(Users.getI18nRoleLabelKey(role?.role ?? invitation?.role))}</div>
         {isInvitation && (
           <div className={classNames('invitation-badge', { expired })}>{expired ? 'Expired' : 'Pending'}</div>
         )}
       </div>
 
-      <div className="home-user-role">{t(Users.getI18nRoleLabelKey(role?.role ?? invitation?.role))}</div>
+      <div className="home-user-name">{user.fullName}</div>
     </div>
   )
 }

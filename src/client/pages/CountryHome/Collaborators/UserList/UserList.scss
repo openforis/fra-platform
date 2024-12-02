@@ -7,4 +7,10 @@
   .btn-invite {
     justify-self: end;
   }
+
+  .table-paginated-datagrid {
+    .data-grid-column {
+      padding: unset;
+    }
+  }
 }

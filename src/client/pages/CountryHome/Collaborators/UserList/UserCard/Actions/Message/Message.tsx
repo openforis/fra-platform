@@ -9,6 +9,9 @@ import MessageButton from 'client/components/MessageButton'
 
 import { Props } from '../../Props'
 
+const size = ButtonSize.xs
+const type = ButtonType.primary
+
 const Message: React.FC<Props> = (props: Props) => {
   const { user } = props
   const currentUser = useUser()
@@ -16,15 +19,13 @@ const Message: React.FC<Props> = (props: Props) => {
   const iconName = 'chat-46'
 
   const label = t('landing.users.message')
-  const size = ButtonSize.s
-  const type = ButtonType.primary
 
   const className = useButtonClassName({ iconName, label, size, type, className: 'home-users-message' })
 
   return (
     <MessageButton
       className={className}
-      label={t('landing.users.message')}
+      label={label}
       topicKey={Topics.getMessageBoardChatKey(user, currentUser)}
       topicSubtitle={t('landing.users.message')}
       topicTitle={user.fullName}
