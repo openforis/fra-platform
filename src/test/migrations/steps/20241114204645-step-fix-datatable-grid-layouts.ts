@@ -246,6 +246,45 @@ const _fixPanEuropean2025GridLayouts = async (client: BaseProtocol) => {
     [JSON.stringify(['forest', 'FAWS', 'OWL', 'FOWL'])]
   )
 
+  // Fix 1.2.1 Growing stock -> country_comments_1_2_1
+  await client.query(
+    `update ${schemaAssessment}.table
+     set props = jsonb_set(
+        props,
+        '{columnNames,${cycle.uuid}}',
+        $1::jsonb
+       )
+     where props->>'name' = 'country_comments_1_2_1'
+     `,
+    [JSON.stringify(['method', 'comment'])]
+  )
+
+  // Fix 1.2.2 Growing stock -> country_comments_1_2_2
+  await client.query(
+    `update ${schemaAssessment}.table
+     set props = jsonb_set(
+        props,
+        '{columnNames,${cycle.uuid}}',
+        $1::jsonb
+       )
+     where props->>'name' = 'country_comments_1_2_2'
+     `,
+    [JSON.stringify(['method', 'comment'])]
+  )
+
+  // Fix 1.3a.2 Growing stock -> country_comments_1_3a_2
+  await client.query(
+    `update ${schemaAssessment}.table
+     set props = jsonb_set(
+        props,
+        '{columnNames,${cycle.uuid}}',
+        $1::jsonb
+       )
+     where props->>'name' = 'country_comments_1_3a_2'
+     `,
+    [JSON.stringify(['method', 'comment'])]
+  )
+
   // Fix 1.4 Carbon stock -> table_1_4a header rowSpan
   await client.query(
     `update ${schemaAssessment}.col c
@@ -273,6 +312,19 @@ const _fixPanEuropean2025GridLayouts = async (client: BaseProtocol) => {
      where props->>'name' = 'reasonability_check_1_4'
       `,
     [JSON.stringify(['forest', 'OWL', 'FOWL'])]
+  )
+
+  // Fix 1.4 Carbon stock -> country_comments_1_4_1
+  await client.query(
+    `update ${schemaAssessment}.table
+     set props = jsonb_set(
+        props,
+        '{columnNames,${cycle.uuid}}',
+        $1::jsonb
+       )
+     where props->>'name' = 'country_comments_1_4_1'
+     `,
+    [JSON.stringify(['method', 'comment'])]
   )
 
   // Fix 2.4 Forest area with damage -> table_2_4 header rowSpan
@@ -330,6 +382,32 @@ const _fixPanEuropean2025GridLayouts = async (client: BaseProtocol) => {
     [JSON.stringify(['FAWS'])]
   )
 
+  // Fix 4.3 Naturalness -> country_comments_4_3_1
+  await client.query(
+    `update ${schemaAssessment}.table
+     set props = jsonb_set(
+        props,
+        '{columnNames,${cycle.uuid}}',
+        $1::jsonb
+       )
+     where props->>'name' = 'country_comments_4_3_1'
+     `,
+    [JSON.stringify(['method', 'comment'])]
+  )
+
+  // Fix 4.4 Area of stands -> country_comments_4_4_1
+  await client.query(
+    `update ${schemaAssessment}.table
+     set props = jsonb_set(
+        props,
+        '{columnNames,${cycle.uuid}}',
+        $1::jsonb
+       )
+     where props->>'name' = 'country_comments_4_4_1'
+     `,
+    [JSON.stringify(['method', 'comment'])]
+  )
+
   // Fix 4.5 Increment and fellings -> reasonability_check_4_5
   await client.query(
     `update ${schemaAssessment}.table
@@ -373,6 +451,32 @@ const _fixPanEuropean2025GridLayouts = async (client: BaseProtocol) => {
         and t.props ->> 'name' = 'table_4_8'
       )
       `
+  )
+
+  // Fix 4.9 Protected forests -> country_comments_4_9_1
+  await client.query(
+    `update ${schemaAssessment}.table
+     set props = jsonb_set(
+        props,
+        '{columnNames,${cycle.uuid}}',
+        $1::jsonb
+       )
+     where props->>'name' = 'country_comments_4_9_1'
+     `,
+    [JSON.stringify(['method', 'comment'])]
+  )
+
+  // Fix 5.1 Protective forests -> country_comments_5_1_1
+  await client.query(
+    `update ${schemaAssessment}.table
+     set props = jsonb_set(
+        props,
+        '{columnNames,${cycle.uuid}}',
+        $1::jsonb
+       )
+     where props->>'name' = 'country_comments_5_1_1'
+     `,
+    [JSON.stringify(['method', 'comment'])]
   )
 
   await AssessmentController.generateMetadataCache({ assessment }, client)
