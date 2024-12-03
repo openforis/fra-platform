@@ -10,18 +10,18 @@ type Props = {
   data: RecordAssessmentData
   headers: Array<string>
   table: Table
+  withActions: boolean
 }
 
 const GridHead: React.FC<Props> = (props) => {
-  const { assessmentName, data, headers, table } = props
+  const { assessmentName, data, headers, table, withActions } = props
 
   const rowsHeader = table.rows.filter((row) => row.props.type === RowType.header)
-
   return (
     <>
-      {rowsHeader.map((row: TypeRow, rowIndex: number) =>
-        row.cols.map((col: TypeCol, colIndex: number) => {
-          return (
+      {rowsHeader.map((row: TypeRow, rowIndex: number) => (
+        <React.Fragment key={row.uuid}>
+          {row.cols.map((col: TypeCol, colIndex: number) => (
             <GridHeadCell
               key={col.uuid}
               assessmentName={assessmentName}
@@ -33,9 +33,10 @@ const GridHead: React.FC<Props> = (props) => {
               rowIndex={rowIndex}
               table={table}
             />
-          )
-        })
-      )}
+          ))}
+          {withActions && <div />}
+        </React.Fragment>
+      ))}
     </>
   )
 }

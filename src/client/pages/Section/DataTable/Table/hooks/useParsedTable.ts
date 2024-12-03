@@ -20,6 +20,7 @@ type Returned = {
   noticeMessages: Array<Row>
   rowsData: Array<Row>
   table: Table
+  withReview: boolean
 }
 
 export const useParsedTable = (props: Props): Returned => {
@@ -41,6 +42,7 @@ export const useParsedTable = (props: Props): Returned => {
 
     const rowsData: Array<Row> = []
     const noticeMessages: Array<Row> = []
+    let withReview = !table.props.secondary
 
     table.rows.forEach((row) => {
       if (row.props.type === RowType.noticeMessage) {
@@ -48,6 +50,7 @@ export const useParsedTable = (props: Props): Returned => {
       } else if (!row.props.hidden && row.props.type !== RowType.header) {
         rowsData.push(row)
       }
+      withReview = withReview || row.props.withReview?.[cycle.uuid]
     })
 
     return {
@@ -55,6 +58,7 @@ export const useParsedTable = (props: Props): Returned => {
       noticeMessages,
       rowsData,
       table,
+      withReview,
     }
   }, [assessmentName, countryIso, cycle, data, showODP, tableProps])
 }
