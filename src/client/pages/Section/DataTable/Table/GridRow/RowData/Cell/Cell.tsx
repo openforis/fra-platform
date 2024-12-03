@@ -38,6 +38,8 @@ type Props = {
   col: Col
   data: RecordAssessmentData
   disabled: boolean
+  firstCol?: boolean
+  highlighted?: boolean
   lastCol: boolean
   lastRow: boolean
   row: Row
@@ -50,16 +52,18 @@ const emptyFn = () => ({})
 
 const Cell: React.FC<Props> = (props) => {
   const {
-    data,
     assessmentName,
+    col,
+    data,
+    disabled: disabledProps,
+    firstCol,
+    highlighted,
     lastCol,
     lastRow,
+    row,
+    rowIndex,
     sectionName,
     table,
-    disabled: disabledProps,
-    rowIndex,
-    col,
-    row,
   } = props
 
   const cycle = useCycle()
@@ -80,9 +84,10 @@ const Cell: React.FC<Props> = (props) => {
       className={className}
       data-tooltip-html={errorMessages}
       data-tooltip-id={TooltipId.error}
+      firstCol={firstCol}
       gridColumn={gridColumn}
       gridRow={gridRow}
-      // id={`${col.props.colType}_${col.id}_${col.props.colName ?? ''}`}
+      highlighted={highlighted}
       lastCol={lastCol}
       lastRow={lastRow}
       style={style}
@@ -104,6 +109,11 @@ const Cell: React.FC<Props> = (props) => {
       <Flags col={col} nodeValue={nodeValue} row={row} sectionName={sectionName} />
     </DataCell>
   )
+}
+
+Cell.defaultProps = {
+  firstCol: false,
+  highlighted: false,
 }
 
 export default Cell

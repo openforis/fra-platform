@@ -15,12 +15,14 @@ import { DataCell } from 'client/components/DataGrid'
 type Props = {
   assessmentName: AssessmentName
   col: Col
+  firstCol?: boolean
+  highlighted?: boolean
   lastRow?: boolean
   row: Row
 }
 
 const CellHeader: React.FC<Props> = (props) => {
-  const { assessmentName, col, lastRow, row } = props
+  const { assessmentName, col, firstCol, highlighted, lastRow, row } = props
 
   const { t } = useTranslation()
   const cycle = useCycle()
@@ -47,9 +49,11 @@ const CellHeader: React.FC<Props> = (props) => {
         },
         classes
       )}
+      firstCol={firstCol}
       gridColumn={gridColumn}
       gridRow={gridRow}
       header
+      highlighted={highlighted}
       lastRow={lastRow}
       style={colHeaderStyle}
     >
@@ -76,6 +80,8 @@ const CellHeader: React.FC<Props> = (props) => {
 }
 
 CellHeader.defaultProps = {
+  firstCol: false,
+  highlighted: false,
   lastRow: false,
 }
 

@@ -17,7 +17,7 @@ const DataRow: React.FC<DataRowProps> = (props) => {
   return (
     <>
       {React.Children.map(children, (child, idx) => {
-        if (!child) return null
+        if (!React.isValidElement(child)) return null
         const firstCol = idx === 0
         const lastCol = idx === React.Children.count(children) - 1
         return React.cloneElement(child as ReactElement, { firstCol, highlighted, lastCol })
