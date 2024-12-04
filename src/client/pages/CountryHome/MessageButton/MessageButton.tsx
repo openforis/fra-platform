@@ -46,7 +46,7 @@ const MessageButton: React.FC<Props> = (props) => {
       label={
         <>
           {label}
-          {parseInt(unreadMessages, 10) > 0 && <div className="btn-message-count">{unreadMessages}</div>}
+          {parseInt(unreadMessages, 10) > 0 && <div className="btn-message__count">{unreadMessages}</div>}
         </>
       }
       onClick={onClick}
