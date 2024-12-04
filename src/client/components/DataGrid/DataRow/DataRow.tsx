@@ -17,24 +17,30 @@ const DataRow: React.FC<DataRowProps> = (props) => {
   const { actions, children, highlightRange } = props
 
   const highlighted = useHighlighted({ actions })
+  const highlightRangeExists = !Objects.isEmpty(highlightRange)
 
   return (
     <>
       {React.Children.map(children, (child, idx) => {
         if (!React.isValidElement(child)) return null
 
-        let firstCol = idx === 0
-        let lastCol = idx === React.Children.count(children) - 1
-        let shouldHighlightCell = highlighted
-        if (!Objects.isEmpty(highlightRange)) {
-          shouldHighlightCell &&= idx >= highlightRange.start && idx <= highlightRange.end
-          if (shouldHighlightCell) {
-            firstCol = idx === highlightRange.start
-            lastCol = idx === highlightRange.end
-          }
-        }
+        const firstCol = idx === 0
+        const lastCol = idx === React.Children.count(children) - 1
 
-        return React.cloneElement(child as ReactElement, { firstCol, highlighted: shouldHighlightCell, lastCol })
+        const cellInHighlightRange = highlightRangeExists && idx >= highlightRange.start && idx <= highlightRange.end
+
+        const firstHighlightCol = cellInHighlightRange ? idx === highlightRange.start : firstCol
+        const lastHighlightCol = cellInHighlightRange ? idx === highlightRange.end : lastCol
+
+        const shouldHighlightCell = highlighted && (cellInHighlightRange || !highlightRangeExists)
+
+        return React.cloneElement(child as ReactElement, {
+          firstCol,
+          firstHighlightCol,
+          highlighted: shouldHighlightCell,
+          lastCol,
+          lastHighlightCol,
+        })
       })}
       <Actions actions={actions} />
     </>

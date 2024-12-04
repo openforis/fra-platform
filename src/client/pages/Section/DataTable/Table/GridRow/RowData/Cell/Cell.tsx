@@ -39,8 +39,10 @@ type Props = {
   data: RecordAssessmentData
   disabled: boolean
   firstCol?: boolean
+  firstHighlightCol?: boolean
   highlighted?: boolean
   lastCol: boolean
+  lastHighlightCol?: boolean
   lastRow: boolean
   row: Row
   rowIndex: number
@@ -57,8 +59,10 @@ const Cell: React.FC<Props> = (props) => {
     data,
     disabled: disabledProps,
     firstCol,
+    firstHighlightCol,
     highlighted,
     lastCol,
+    lastHighlightCol,
     lastRow,
     row,
     rowIndex,
@@ -85,10 +89,12 @@ const Cell: React.FC<Props> = (props) => {
       data-tooltip-html={errorMessages}
       data-tooltip-id={TooltipId.error}
       firstCol={firstCol}
+      firstHighlightCol={firstHighlightCol}
       gridColumn={gridColumn}
       gridRow={gridRow}
       highlighted={highlighted}
       lastCol={lastCol}
+      lastHighlightCol={lastHighlightCol}
       lastRow={lastRow}
       style={style}
     >
@@ -113,7 +119,9 @@ const Cell: React.FC<Props> = (props) => {
 
 Cell.defaultProps = {
   firstCol: false,
+  firstHighlightCol: false,
   highlighted: false,
+  lastHighlightCol: false,
 }
 
 export default Cell

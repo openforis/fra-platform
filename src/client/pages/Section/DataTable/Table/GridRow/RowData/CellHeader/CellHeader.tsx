@@ -16,13 +16,15 @@ type Props = {
   assessmentName: AssessmentName
   col: Col
   firstCol?: boolean
+  firstHighlightCol?: boolean
   highlighted?: boolean
+  lastHighlightCol?: boolean
   lastRow?: boolean
   row: Row
 }
 
 const CellHeader: React.FC<Props> = (props) => {
-  const { assessmentName, col, firstCol, highlighted, lastRow, row } = props
+  const { assessmentName, col, firstCol, firstHighlightCol, highlighted, lastHighlightCol, lastRow, row } = props
 
   const { t } = useTranslation()
   const cycle = useCycle()
@@ -50,10 +52,12 @@ const CellHeader: React.FC<Props> = (props) => {
         classes
       )}
       firstCol={firstCol}
+      firstHighlightCol={firstHighlightCol}
       gridColumn={gridColumn}
       gridRow={gridRow}
       header
       highlighted={highlighted}
+      lastHighlightCol={lastHighlightCol}
       lastRow={lastRow}
       style={colHeaderStyle}
     >
@@ -81,7 +85,9 @@ const CellHeader: React.FC<Props> = (props) => {
 
 CellHeader.defaultProps = {
   firstCol: false,
+  firstHighlightCol: false,
   highlighted: false,
+  lastHighlightCol: false,
   lastRow: false,
 }
 
