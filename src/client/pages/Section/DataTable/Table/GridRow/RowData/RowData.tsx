@@ -5,6 +5,7 @@ import { ColType } from 'meta/assessment'
 import { DataRow } from 'client/components/DataGrid'
 
 import { Props } from '../props'
+import { useHighlightRange } from './hooks/useHighlightRange'
 import { useRowActions } from './hooks/useRowActions'
 import Cell from './Cell'
 import CellHeader from './CellHeader'
@@ -16,9 +17,10 @@ const RowData: React.FC<Props> = (props) => {
   const colHeader = [ColType.placeholder, ColType.header].includes(cols[0].props.colType) ? cols[0] : undefined
   const colsData = colHeader ? cols.slice(1, cols.length) : cols
   const actions = useRowActions({ colHeader, row, sectionName, table })
+  const highlightRange = useHighlightRange({ cols })
 
   return (
-    <DataRow actions={actions}>
+    <DataRow actions={actions} highlightRange={highlightRange}>
       {colHeader && <CellHeader assessmentName={assessmentName} col={colHeader} lastRow={lastRow} row={row} />}
 
       {colsData.map((col, index) => (
