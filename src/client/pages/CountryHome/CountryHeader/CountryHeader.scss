@@ -1,0 +1,43 @@
+@import 'src/client/style/partials';
+
+.country-header {
+  align-items: center;
+  display: grid;
+  justify-content: start;
+  width: 100%;
+
+  &.withTabs {
+    grid-column-gap: $spacing-s;
+    grid-template-columns: repeat(2, auto);
+
+    &.withMessageBoard {
+      grid-template-columns: repeat(3, auto);
+    }
+  }
+}
+
+.country-header__label {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+}
+
+.country-header__tabs {
+  align-items: center;
+  display: flex;
+  gap: 4px;
+  height: 100%;
+  border: 1px solid $ui-border;
+  padding: 2px;
+  border-radius: 2px;
+  background-color: $ui-bg;
+
+  a.button__type-black.inverse {
+    background-color: $ui-bg;
+    color: lighten($ui-black-map, 30%);
+
+    &:hover {
+      background-color: $ui-bg-hover;
+    }
+  }
+}

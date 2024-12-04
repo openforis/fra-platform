@@ -1,67 +1,16 @@
 import React from 'react'
-import { useTranslation } from 'react-i18next'
-import { Navigate, NavLink, Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 
-import classNames from 'classnames'
+import CountryHeader from 'client/pages/CountryHome/CountryHeader'
 
-import { Areas } from 'meta/area'
-import { MessageTopicType, Topics } from 'meta/messageCenter'
-
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
-import MessageButton from 'client/components/MessageButton'
-
-import { useShowCountryMessageButton } from '../hooks/useShowCountryMessageButton'
 import { useSections } from './hooks/useSections'
-import ButtonDownloadDashboard from './ButtonDownloadDashboard'
-import CountrySelector from './CountrySelector'
-import SelectedCountries from './SelectedCountries'
 
 const FraHome: React.FC = () => {
-  const { t } = useTranslation()
-  const { countryIso } = useCountryRouteParams()
   const sections = useSections()
-  const showCountryMessageButton = useShowCountryMessageButton()
-
-  // tabs are available when user is logged-in and selected area is country
-  const displayTabs = sections.length > 1 && Areas.isISOCountry(countryIso)
 
   return (
     <>
-      <div className="landing__page-header space-between">
-        <h1 className="landing__page-title title">
-          {t(`area.${countryIso}.listName`)}
-          <ButtonDownloadDashboard />
-        </h1>
-        {showCountryMessageButton && (
-          <MessageButton
-            label={t('landing.users.message')}
-            topicKey={Topics.getMessageBoardCountryKey()}
-            topicTitle={t(Areas.getTranslationKey(countryIso))}
-            topicType={MessageTopicType.messageBoard}
-          />
-        )}
-        {Areas.isISOGlobal(countryIso) && <CountrySelector />}
-      </div>
-
-      {Areas.isISOGlobal(countryIso) && <SelectedCountries />}
-
-      {displayTabs && (
-        <div className="landing__page-menu">
-          {sections.map(({ name }) => (
-            <NavLink
-              key={name}
-              className={(navData) =>
-                classNames('btn landing__page-menu-button', {
-                  disabled: navData.isActive,
-                })
-              }
-              to={name}
-            >
-              {t(`landing.sections.${name}`)}
-            </NavLink>
-          ))}
-        </div>
-      )}
+      <CountryHeader sections={sections} />
 
       <Routes>
         {sections.map(({ name, component }) => (
