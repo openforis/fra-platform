@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, ReactElement } from 'react'
+import React, { PropsWithChildren, ReactElement, useMemo } from 'react'
 
 import { Objects } from 'utils/objects'
 
@@ -19,13 +19,22 @@ const DataRow: React.FC<DataRowProps> = (props) => {
   const highlighted = useHighlighted({ actions })
   const highlightRangeExists = !Objects.isEmpty(highlightRange)
 
+  const validChildren = useMemo<React.ReactElement[]>(
+    () =>
+      React.Children.toArray(children).reduce<Array<React.ReactElement>>((acc, child) => {
+        if (React.isValidElement(child)) {
+          acc.push(child)
+        }
+        return acc
+      }, []),
+    [children]
+  )
+
   return (
     <>
-      {React.Children.map(children, (child, idx) => {
-        if (!React.isValidElement(child)) return null
-
+      {validChildren.map((child, idx) => {
         const firstCol = idx === 0
-        const lastCol = idx === React.Children.count(children) - 1
+        const lastCol = idx === validChildren.length - 1
 
         const cellInHighlightRange = highlightRangeExists && idx >= highlightRange.start && idx <= highlightRange.end
 
