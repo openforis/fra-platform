@@ -22,18 +22,21 @@ export const useHighlightRange = (props: Props): Returned => {
       return undefined
     }
 
-    const end = rowSpans.length - 1
-    const targetValue = rowSpans[end]
+    let start = -1
+    let end = -1
 
-    // returns the range of consecutive equal row spans, starting from the last column.
-    // e.g. if rowSpans = [2, 1, 1, 1], returns { start: 1, end: 3 }
-    let start = end
-    for (let i = end - 1; i >= 0; i -= 1) {
-      if (rowSpans[i] === targetValue) {
-        start = i
-      } else {
-        break
+    // Get the first and last index with rowSpan = 1
+    for (let i = 0; i < rowSpans.length; i += 1) {
+      if (rowSpans[i] === 1) {
+        if (start === -1) {
+          start = i
+        }
+        end = i
       }
+    }
+
+    if (start === -1 || end === -1) {
+      return undefined
     }
 
     return { end, start }
