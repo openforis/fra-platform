@@ -21,11 +21,11 @@
   align-items: center;
   display: flex;
   justify-content: end;
-  padding: 10px;
 
   &.calculated {
     cursor: default;
     font-weight: 600;
+    padding: $spacing-xxs;
   }
 
   &.category {
