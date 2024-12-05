@@ -3,14 +3,14 @@ import React from 'react'
 import { ColType } from 'meta/assessment'
 
 import { DataRow } from 'client/components/DataGrid'
+import { RowProps } from 'client/pages/Section/DataTable/Table/types'
 
-import { Props } from '../props'
 import { useHighlightRange } from './hooks/useHighlightRange'
 import { useRowActions } from './hooks/useRowActions'
 import Cell from './Cell'
 import CellHeader from './CellHeader'
 
-const RowData: React.FC<Props> = (props) => {
+const RowData: React.FC<RowProps> = (props) => {
   const { data, assessmentName, lastRow, sectionName, table, row, disabled } = props
 
   const { cols } = row

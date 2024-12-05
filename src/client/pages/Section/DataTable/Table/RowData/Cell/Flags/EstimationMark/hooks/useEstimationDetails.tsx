@@ -31,7 +31,7 @@ export const useEstimationDetails = (props: Props): Returned => {
 
   const node = (
     <div className="data-cell__flag-estimate">
-      {executedBeforeOdpUpdate && <Icon name="alert" className="icon-middle" />}E
+      {executedBeforeOdpUpdate && <Icon className="icon-middle" name="alert" />}E
     </div>
   )
 
@@ -46,7 +46,7 @@ export const useEstimationDetails = (props: Props): Returned => {
       )}
       {executedBeforeOdpUpdate && (
         <div className="data-cell__flag-estimate tooltipMessage">
-          <Icon name="alert" className="icon-middle" /> {t('page.assessmentSection.odpUpdatedAfterEstimatingThisCell')}
+          <Icon className="icon-middle" name="alert" /> {t('page.assessmentSection.odpUpdatedAfterEstimatingThisCell')}
         </div>
       )}
     </div>

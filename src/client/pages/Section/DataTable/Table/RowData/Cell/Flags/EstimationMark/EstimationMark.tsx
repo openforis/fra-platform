@@ -13,7 +13,7 @@ const EstimationMark: React.FC<Props> = (props) => {
   const { node, tooltipContent } = useEstimationDetails({ estimationUuid, variableName })
 
   return (
-    <Flag tooltipId={TooltipId.info} tooltipContent={tooltipContent}>
+    <Flag tooltipContent={tooltipContent} tooltipId={TooltipId.info}>
       {node}
     </Flag>
   )

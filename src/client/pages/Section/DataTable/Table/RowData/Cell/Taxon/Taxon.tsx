@@ -56,14 +56,14 @@ const Taxon: React.FC<PropsCell> = (props: PropsCell) => {
   }
 
   return (
-    <div title={nodeValue.raw ?? ''} className="text-input__container validation-error-sensitive-field">
+    <div className="text-input__container validation-error-sensitive-field" title={nodeValue.raw ?? ''}>
       <Autocomplete
         disabled={disabled}
         items={items.map((item) => ({ value: item, label: item.scientificName }))}
         name="taxon"
         onInputValueChange={onInputValueChange}
-        onSave={onSave}
         onPaste={onPaste}
+        onSave={onSave}
         value={nodeValue.raw}
       />
     </div>

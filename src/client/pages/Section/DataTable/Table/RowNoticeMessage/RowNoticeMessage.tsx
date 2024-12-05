@@ -6,10 +6,9 @@ import { Cols } from 'meta/assessment'
 
 import { useCycle } from 'client/store/assessment'
 import { DataCell, DataRow } from 'client/components/DataGrid'
+import { RowProps } from 'client/pages/Section/DataTable/Table/types'
 
-import { Props } from '../props'
-
-const RowNoticeMessage: React.FC<Props> = (props) => {
+const RowNoticeMessage: React.FC<RowProps> = (props) => {
   const { row } = props
 
   const { t } = useTranslation()

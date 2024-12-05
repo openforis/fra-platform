@@ -15,7 +15,8 @@ import { DataGrid } from 'client/components/DataGrid'
 import ButtonCopyValues from 'client/pages/Section/DataTable/Table/ButtonCopyValues'
 import ButtonTableClear from 'client/pages/Section/DataTable/Table/ButtonTableClear'
 import GridHeadCell from 'client/pages/Section/DataTable/Table/GridHeadCell'
-import GridRow from 'client/pages/Section/DataTable/Table/GridRow'
+import RowData from 'client/pages/Section/DataTable/Table/RowData'
+import RowNoticeMessage from 'client/pages/Section/DataTable/Table/RowNoticeMessage'
 import TableBody from 'client/pages/Section/DataTable/Table/TableBody'
 import TableHead from 'client/pages/Section/DataTable/Table/TableHead'
 
@@ -89,7 +90,7 @@ const Table: React.FC<Props> = (props) => {
           ))}
 
           {rowsData.map((row, index) => (
-            <GridRow
+            <RowData
               key={row.uuid}
               assessmentName={assessmentName}
               data={data}
@@ -102,7 +103,7 @@ const Table: React.FC<Props> = (props) => {
           ))}
 
           {noticeMessages.map((row) => (
-            <GridRow
+            <RowNoticeMessage
               key={row.uuid}
               assessmentName={assessmentName}
               data={data}
