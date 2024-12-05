@@ -80,6 +80,7 @@ const Cell: React.FC<Props> = (props) => {
   const disabled = disabledProps || !!nodeValue?.odpId || Cols.hasLinkedNodes({ cycle, col })
   const Component = Components[col.props.colType]
   const { gridColumn, gridRow, ...style } = Cols.getStyle({ col, cycle })
+  const isInput = ![ColType.calculated, ColType.placeholder].includes(col.props.colType)
 
   if (!Component) return null
 
@@ -88,6 +89,7 @@ const Cell: React.FC<Props> = (props) => {
       className={className}
       data-tooltip-html={errorMessages}
       data-tooltip-id={TooltipId.error}
+      editable={!disabled && isInput}
       firstCol={firstCol}
       firstHighlightCol={firstHighlightCol}
       gridColumn={gridColumn}
