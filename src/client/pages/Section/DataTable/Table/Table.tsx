@@ -14,7 +14,7 @@ import ButtonTableExport from 'client/components/ButtonTableExport'
 import { DataGrid } from 'client/components/DataGrid'
 import ButtonCopyValues from 'client/pages/Section/DataTable/Table/ButtonCopyValues'
 import ButtonTableClear from 'client/pages/Section/DataTable/Table/ButtonTableClear'
-import GridHead from 'client/pages/Section/DataTable/Table/GridHead'
+import GridHeadCell from 'client/pages/Section/DataTable/Table/GridHeadCell'
 import GridRow from 'client/pages/Section/DataTable/Table/GridRow'
 import TableBody from 'client/pages/Section/DataTable/Table/TableBody'
 import TableHead from 'client/pages/Section/DataTable/Table/TableHead'
@@ -39,7 +39,7 @@ const Table: React.FC<Props> = (props) => {
   const { print } = useIsPrintRoute()
   const tableRef = useRef<HTMLTableElement>(null)
 
-  const { headers, noticeMessages, rowsData, table, withReview } = useParsedTable({
+  const { headers, noticeMessages, rowsData, rowsHeader, table, withReview } = useParsedTable({
     assessmentName,
     data,
     table: tableProps,
@@ -69,13 +69,24 @@ const Table: React.FC<Props> = (props) => {
           gridTemplateColumns={`minmax(auto, 400px) repeat(${headers.length},1fr)`}
           withActions={withActions}
         >
-          <GridHead
-            assessmentName={assessmentName}
-            data={data}
-            headers={headers}
-            table={table}
-            withActions={withActions}
-          />
+          {rowsHeader.map((row, rowIndex) => (
+            <React.Fragment key={row.uuid}>
+              {row.cols.map((col, colIndex) => (
+                <GridHeadCell
+                  key={col.uuid}
+                  assessmentName={assessmentName}
+                  col={col}
+                  colIndex={colIndex}
+                  data={data}
+                  headers={headers}
+                  row={row}
+                  rowIndex={rowIndex}
+                  table={table}
+                />
+              ))}
+              {withActions && <div />}
+            </React.Fragment>
+          ))}
 
           {rowsData.map((row, index) => (
             <GridRow

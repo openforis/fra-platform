@@ -5,7 +5,7 @@ import { Cols } from 'meta/assessment'
 
 import { useCycle } from 'client/store/assessment'
 import { DataCell } from 'client/components/DataGrid'
-import OdpHeaderCell from 'client/pages/Section/DataTable/Table/GridHead/OdpHeaderCell'
+import OdpHeaderCell from 'client/pages/Section/DataTable/Table/GridHeadCell/OdpHeaderCell'
 
 import { useGridHeadCellProps } from './hooks/useGridHeadCellProps'
 import { GridHeadCellProps } from './types'
