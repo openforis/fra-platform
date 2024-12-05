@@ -58,17 +58,17 @@ $highlight-top-bottom: inset 0 1px $ui-accent, inset 0 -1px $ui-accent;
       width: 100%;
     }
 
-    &.firstCol::before {
+    &.firstHighlightCol::before {
       box-shadow: $highlight-top-bottom, $highlight-left, $highlight-border-shadow;
       clip-path: inset(-4px 0px -4px -4px); // Adds shadow to top, bottom, left
     }
 
-    &.lastCol::before {
+    &.lastHighlightCol::before {
       box-shadow: $highlight-top-bottom, $highlight-right, $highlight-border-shadow;
       clip-path: inset(-4px -4px -4px 0px); // Adds shadow to top, bottom, right
     }
 
-    &.firstCol.lastCol::before {
+    &.firstHighlightCol.lastHighlightCol::before {
       box-shadow: $highlight-top-bottom, $highlight-left, $highlight-right, $highlight-border-shadow;
       clip-path: inset(-4px -4px -4px -4px); // Adds shadow to top, bottom, left, right
     }
@@ -135,17 +135,17 @@ $highlight-top-bottom: inset 0 1px $ui-accent, inset 0 -1px $ui-accent;
     }
 
     &.highlighted {
-      &.firstCol::before {
+      &.firstHighlightCol::before {
         box-shadow: $highlight-top-bottom, $highlight-right, $highlight-border-shadow;
         clip-path: inset(-4px -4px -4px 0px); // Adds shadow to top, bottom, right
       }
 
-      &.lastCol::before {
+      &.lastHighlightCol::before {
         box-shadow: $highlight-top-bottom, $highlight-left, $highlight-border-shadow;
         clip-path: inset(-4px 0px -4px -4px); // Adds shadow to top, bottom, left
       }
 
-      &.firstCol.lastCol::before {
+      &.firstHighlightCol.lastHighlightCol::before {
         box-shadow: $highlight-top-bottom, $highlight-left, $highlight-right, $highlight-border-shadow;
         clip-path: inset(-4px -4px -4px -4px); // Adds shadow to top, bottom, left, right
       }

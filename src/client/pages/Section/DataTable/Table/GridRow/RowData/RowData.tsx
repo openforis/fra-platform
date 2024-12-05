@@ -1,39 +1,26 @@
 import React from 'react'
-import { useTranslation } from 'react-i18next'
-
-import classNames from 'classnames'
 
 import { ColType } from 'meta/assessment'
-import { Topics } from 'meta/messageCenter'
 
-import { useCycle } from 'client/store/assessment'
-import { useTopicKeys } from 'client/store/ui/messageCenter/hooks'
-import { useCanViewReview } from 'client/store/user/hooks'
 import { DataRow } from 'client/components/DataGrid'
 
 import { Props } from '../props'
+import { useHighlightRange } from './hooks/useHighlightRange'
+import { useRowActions } from './hooks/useRowActions'
 import Cell from './Cell'
 import CellHeader from './CellHeader'
 
 const RowData: React.FC<Props> = (props) => {
   const { data, assessmentName, lastRow, sectionName, table, row, disabled } = props
 
-  const { t } = useTranslation()
-  const cycle = useCycle()
-  const openTopics = useTopicKeys()
-
   const { cols } = row
   const colHeader = [ColType.placeholder, ColType.header].includes(cols[0].props.colType) ? cols[0] : undefined
   const colsData = colHeader ? cols.slice(1, cols.length) : cols
-  const withReview = !table.props.secondary || row.props.withReview?.[cycle.uuid]
-
-  const id = `${row.props.type}_${row.id}_${row.props.variableName ?? ''}`
-  const className = classNames({ 'fra-row-comments__open': openTopics.includes(Topics.getDataReviewTopicKey(row)) })
-
-  const canViewReview = useCanViewReview(sectionName)
+  const actions = useRowActions({ colHeader, row, sectionName, table })
+  const highlightRange = useHighlightRange({ cols })
 
   return (
-    <DataRow>
+    <DataRow actions={actions} highlightRange={highlightRange}>
       {colHeader && <CellHeader assessmentName={assessmentName} col={colHeader} lastRow={lastRow} row={row} />}
 
       {colsData.map((col, index) => (
@@ -51,15 +38,6 @@ const RowData: React.FC<Props> = (props) => {
           table={table}
         />
       ))}
-
-      {/* {canViewReview && withReview && ( */}
-      {/*  <td className="fra-table__review-cell no-print"> */}
-      {/*    <ReviewIndicator */}
-      {/*      title={colHeader ? Cols.getLabel({ cycle, col: colHeader, t }) : ''} */}
-      {/*      topicKey={Topics.getDataReviewTopicKey(row)} */}
-      {/*    /> */}
-      {/*  </td> */}
-      {/* )} */}
     </DataRow>
   )
 }

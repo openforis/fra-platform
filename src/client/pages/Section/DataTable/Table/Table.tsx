@@ -8,6 +8,7 @@ import { RecordAssessmentData } from 'meta/data'
 
 import { useIsDataLocked } from 'client/store/ui/dataLock'
 import { useCanEdit } from 'client/store/user'
+import { useCanViewReview } from 'client/store/user/hooks'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import ButtonTableExport from 'client/components/ButtonTableExport'
 import { DataGrid } from 'client/components/DataGrid'
@@ -38,7 +39,14 @@ const Table: React.FC<Props> = (props) => {
   const { print } = useIsPrintRoute()
   const tableRef = useRef<HTMLTableElement>(null)
 
-  const { headers, noticeMessages, rowsData, table } = useParsedTable({ assessmentName, data, table: tableProps })
+  const { headers, noticeMessages, rowsData, table, withReview } = useParsedTable({
+    assessmentName,
+    data,
+    table: tableProps,
+  })
+
+  const canViewReview = useCanViewReview(sectionName)
+  const withActions = withReview && canViewReview
 
   const { secondary, name } = table.props
 
@@ -56,8 +64,18 @@ const Table: React.FC<Props> = (props) => {
           {canClearData && <ButtonTableClear disabled={disabled} sectionName={sectionName} table={table} />}
         </div>
 
-        <DataGrid className="table-grid" gridTemplateColumns={`minmax(auto, 400px) repeat(${headers.length},1fr)`}>
-          <GridHead assessmentName={assessmentName} data={data} headers={headers} table={table} />
+        <DataGrid
+          className="table-grid"
+          gridTemplateColumns={`minmax(auto, 400px) repeat(${headers.length},1fr)`}
+          withActions={withActions}
+        >
+          <GridHead
+            assessmentName={assessmentName}
+            data={data}
+            headers={headers}
+            table={table}
+            withActions={withActions}
+          />
 
           {rowsData.map((row, index) => (
             <GridRow
