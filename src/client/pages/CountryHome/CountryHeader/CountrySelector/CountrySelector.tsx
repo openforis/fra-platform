@@ -9,13 +9,14 @@ import { useAppDispatch } from 'client/store'
 import { useCountries, useSecondaryRegion } from 'client/store/area'
 import { useHomeCountriesFilter } from 'client/store/ui/home'
 import { HomeActions } from 'client/store/ui/home/slice'
+import Button, { ButtonSize } from 'client/components/Buttons/Button'
 import CountrySelectModal from 'client/components/CountrySelectModal'
 
 const __MIN_COUNTRIES__ = 9
 
 const CountrySelector: React.FC = () => {
   const dispatch = useAppDispatch()
-  const i18n = useTranslation()
+  const { t } = useTranslation()
   const countries = useCountries()
   const secondaryRegions = useSecondaryRegion()
 
@@ -38,18 +39,22 @@ const CountrySelector: React.FC = () => {
   return (
     <div className="country-selector">
       <CountrySelectModal
-        countries={countries}
-        initialSelection={countriesFilter}
-        open={modalOpen}
-        headerLabel={i18n.t<string>('common.select')}
-        onClose={onClose}
         canSave={canSave}
+        countries={countries}
         excludedRegions={[RegionCode.FE, ...secondaryRegions.regions.map((r: Region) => r.regionCode)]}
+        headerLabel={t('common.select')}
+        initialSelection={countriesFilter}
+        onClose={onClose}
+        open={modalOpen}
         showCount
       />
-      <button onClick={() => setModalOpen(true)} className="btn-s btn btn-primary filter-countries" type="button">
-        {i18n.t<string>('common.filterCountries')}
-      </button>
+      <Button
+        iconName="filter"
+        inverse={Objects.isEmpty(countriesFilter)}
+        label={t('common.filterCountries')}
+        onClick={() => setModalOpen(true)}
+        size={ButtonSize.s}
+      />
     </div>
   )
 }

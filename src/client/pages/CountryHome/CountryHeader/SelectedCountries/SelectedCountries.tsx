@@ -16,13 +16,13 @@ const SelectedCountries: React.FC = () => {
   }
 
   return (
-    <>
+    <div>
       {countriesFilter.map((countryIso: CountryIso) => (
         <span key={countryIso} className="landng__page-country-label">
           {i18n.t<string>(Areas.getTranslationKey(countryIso))}
         </span>
       ))}
-    </>
+    </div>
   )
 }
 

@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 
 import { Areas } from 'meta/area'
 import { Cycles } from 'meta/assessment'
@@ -11,13 +11,9 @@ import Collaborators from 'client/pages/CountryHome/Collaborators'
 import RecentActivity from 'client/pages/CountryHome/FraHome/RecentActivity'
 import Overview from 'client/pages/CountryHome/Overview'
 import Repository from 'client/pages/CountryHome/Repository'
+import { CountryHomeSection } from 'client/pages/CountryHome/types'
 
-type Section = {
-  name: string
-  component: React.FC
-}
-
-export const useSections = (): Array<Section> => {
+export const useSections = (): Array<CountryHomeSection> => {
   const user = useUser()
   const { countryIso } = useCountryRouteParams()
   const cycle = useCycle()
@@ -25,7 +21,7 @@ export const useSections = (): Array<Section> => {
   const canSeeUserActivities = useCanSeeUserActivities(user)
 
   return useMemo(() => {
-    const sections: Array<Section> = []
+    const sections: Array<CountryHomeSection> = []
 
     if (!cycle) return null
     const isCountry = Areas.isISOCountry(countryIso)
