@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next'
 
 import { ColType } from 'meta/assessment'
 
-import TextInput from 'client/components/TextInput'
-import VerticallyGrowingTextField from 'client/components/VerticallyGrowingTextField'
+import InputText from 'client/components/Inputs/InputText'
+import TextArea from 'client/components/Inputs/TextArea'
 
 import { PropsCell } from '../props'
 
@@ -13,19 +13,19 @@ const Text: React.FC<PropsCell> = (props) => {
   const value = nodeValue?.raw || ''
   const { t } = useTranslation()
 
-  const [Component, componentProps] =
-    col.props.colType === ColType.text ? [TextInput, {}] : [VerticallyGrowingTextField, { minWidth: 350 }]
+  const Component = col.props.colType === ColType.text ? InputText : TextArea
 
   const { inputPlaceholder } = col.props
 
-  return React.createElement(Component, {
-    ...componentProps,
-    value,
-    onChange,
-    onPaste,
-    disabled,
-    placeholder: t(inputPlaceholder),
-  })
+  return (
+    <Component
+      disabled={disabled}
+      onChange={onChange}
+      onPaste={onPaste}
+      placeholder={t(inputPlaceholder)}
+      value={value}
+    />
+  )
 }
 
 export default Text
