@@ -1,0 +1,48 @@
+@import 'src/client/style/partials';
+
+//TODO: Investigate
+//.fra-table__select-container {
+//  &.multiple {
+//    overflow: visible;
+//    text-align: left;
+//  }
+//  .multi-select {
+//    width: 100%;
+//  }
+//}
+//
+//body.rtl .fra-table__select-container {
+//  &.multiple {
+//    text-align: right;
+//  }
+//}
+
+.table-grid__data-cell {
+  align-items: center;
+  display: flex;
+  justify-content: end;
+
+  &.calculated {
+    cursor: default;
+    font-weight: 600;
+    padding: $spacing-xxs;
+  }
+
+  &.category {
+    background-color: $ui-bg;
+  }
+
+  &.left {
+    justify-content: start;
+  }
+
+  .number-input__container {
+    text-align: right;
+  }
+}
+
+@include rtl {
+  .table-grid__data-cell {
+    justify-content: start;
+  }
+}

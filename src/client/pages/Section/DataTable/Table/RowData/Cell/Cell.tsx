@@ -7,19 +7,20 @@ import { TooltipId } from 'meta/tooltip'
 
 import { useCycle } from 'client/store/assessment'
 import { useNodeValueValidation } from 'client/store/data'
+import { DataCell } from 'client/components/DataGrid'
 
-import Calculated from '../../../RowData/Cell/Calculated'
-import Flags from '../../../RowData/Cell/Flags'
-import useErrorMessages from '../../../RowData/Cell/hooks/useErrorMessages'
-import { useNodeValue } from '../../../RowData/Cell/hooks/useNodeValue'
-import useOnChange from '../../../RowData/Cell/hooks/useOnChange'
-import Number from '../../../RowData/Cell/Number'
-import Placeholder from '../../../RowData/Cell/Placeholder'
-import Select from '../../../RowData/Cell/Select'
-import Taxon from '../../../RowData/Cell/Taxon'
-import Text from '../../../RowData/Cell/Text'
-import useClassName from './hooks/useClassName'
+import { useClassName } from './hooks/useClassName'
+import useErrorMessages from './hooks/useErrorMessages'
+import { useNodeValue } from './hooks/useNodeValue'
+import useOnChange from './hooks/useOnChange'
+import Calculated from './Calculated'
+import Flags from './Flags'
+import Number from './Number'
+import Placeholder from './Placeholder'
 import { PropsCell } from './props'
+import Select from './Select'
+import Taxon from './Taxon'
+import Text from './Text'
 
 const Components: Record<string, React.FC<PropsCell>> = {
   [ColType.calculated]: Calculated,
@@ -33,20 +34,41 @@ const Components: Record<string, React.FC<PropsCell>> = {
 }
 
 type Props = {
-  data: RecordAssessmentData
   assessmentName: AssessmentName
+  col: Col
+  data: RecordAssessmentData
+  disabled: boolean
+  firstCol?: boolean
+  firstHighlightCol?: boolean
+  highlighted?: boolean
+  lastCol: boolean
+  lastHighlightCol?: boolean
+  lastRow: boolean
+  row: Row
+  rowIndex: number
   sectionName: string
   table: Table
-  disabled: boolean
-  rowIndex: number
-  col: Col
-  row: Row
 }
 
 const emptyFn = () => ({})
 
 const Cell: React.FC<Props> = (props) => {
-  const { data, assessmentName, sectionName, table, disabled: disabledProps, rowIndex, col, row } = props
+  const {
+    assessmentName,
+    col,
+    data,
+    disabled: disabledProps,
+    firstCol,
+    firstHighlightCol,
+    highlighted,
+    lastCol,
+    lastHighlightCol,
+    lastRow,
+    row,
+    rowIndex,
+    sectionName,
+    table,
+  } = props
 
   const cycle = useCycle()
   const nodeValue = useNodeValue({ col, data, row, table })
@@ -57,18 +79,25 @@ const Cell: React.FC<Props> = (props) => {
 
   const disabled = disabledProps || !!nodeValue?.odpId || Cols.hasLinkedNodes({ cycle, col })
   const Component = Components[col.props.colType]
-  const { colSpan, rowSpan, ...style } = Cols.getStyle({ col, cycle })
+  const { gridColumn, gridRow, ...style } = Cols.getStyle({ col, cycle })
+  const isInput = ![ColType.calculated, ColType.placeholder].includes(col.props.colType)
 
   if (!Component) return null
 
   return (
-    <td
+    <DataCell
       className={className}
-      colSpan={colSpan}
       data-tooltip-html={errorMessages}
       data-tooltip-id={TooltipId.error}
-      id={`${col.props.colType}_${col.id}_${col.props.colName ?? ''}`}
-      rowSpan={rowSpan}
+      editable={!disabled && isInput}
+      firstCol={firstCol}
+      firstHighlightCol={firstHighlightCol}
+      gridColumn={gridColumn}
+      gridRow={gridRow}
+      highlighted={highlighted}
+      lastCol={lastCol}
+      lastHighlightCol={lastHighlightCol}
+      lastRow={lastRow}
       style={style}
     >
       <Component
@@ -86,8 +115,15 @@ const Cell: React.FC<Props> = (props) => {
       />
 
       <Flags col={col} nodeValue={nodeValue} row={row} sectionName={sectionName} />
-    </td>
+    </DataCell>
   )
+}
+
+Cell.defaultProps = {
+  firstCol: false,
+  firstHighlightCol: false,
+  highlighted: false,
+  lastHighlightCol: false,
 }
 
 export default Cell
