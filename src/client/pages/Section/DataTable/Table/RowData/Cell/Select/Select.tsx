@@ -25,7 +25,7 @@ const Select: React.FC<PropsCell> = (props) => {
   )
 
   return (
-    <div className="table__select-container">
+    <div className="table-grid__select-cell-container">
       <SelectCommon disabled={disabled} isMulti={isMulti} onChange={onChange} options={options} value={nodeValue.raw} />
     </div>
   )
