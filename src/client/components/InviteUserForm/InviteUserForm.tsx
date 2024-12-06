@@ -46,28 +46,28 @@ const InviteUserForm: React.FC = () => {
       <div className="edit-user__form-item">
         <div className="edit-user__form-label">{t('common.name')}*</div>
         <input
-          className="edit-user__form-field edit-user__form-input-text-field text-input__input-field"
-          onFocus={() => setErrors({ ...errors, name: null })}
+          className="edit-user__form-field edit-user__form-input-text-field input-text"
           name="name"
-          value={userToInvite.name}
-          type="text"
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setUserToInvite({ ...userToInvite, name: e.target.value })
           }
+          onFocus={() => setErrors({ ...errors, name: null })}
+          type="text"
+          value={userToInvite.name}
         />
       </div>
 
       <div className="edit-user__form-item">
         <div className="edit-user__form-label">{t('editUser.surname')}*</div>
         <input
-          className="edit-user__form-field edit-user__form-input-text-field text-input__input-field"
-          onFocus={() => setErrors({ ...errors, surname: null })}
+          className="edit-user__form-field edit-user__form-input-text-field input-text"
           name="surname"
-          value={userToInvite.surname}
-          type="text"
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setUserToInvite({ ...userToInvite, surname: e.target.value })
           }
+          onFocus={() => setErrors({ ...errors, surname: null })}
+          type="text"
+          value={userToInvite.surname}
         />
       </div>
 
@@ -76,7 +76,6 @@ const InviteUserForm: React.FC = () => {
         <div className="edit-user__form-field edit-user__form-select-field">
           <select
             className="fra-table__select"
-            value={userToInvite.role}
             onChange={(e) => {
               const role = e.target.value as RoleName
               if (role !== RoleName.COLLABORATOR) {
@@ -85,6 +84,7 @@ const InviteUserForm: React.FC = () => {
                 setUserToInvite({ ...userToInvite, role })
               }
             }}
+            value={userToInvite.role}
           >
             <option value="">{t('userManagement.placeholder')}</option>
             {Users.getRolesAllowedToEdit({ user, countryIso, cycle }).map((role: RoleName) => (
@@ -100,14 +100,14 @@ const InviteUserForm: React.FC = () => {
         <div className="edit-user__form-label">{t('common.email')}*</div>
 
         <input
-          className="edit-user__form-field edit-user__form-input-text-field text-input__input-field"
-          onFocus={() => setErrors({ ...errors, email: null })}
+          className="edit-user__form-field edit-user__form-input-text-field input-text"
           name="email"
-          value={userToInvite.email}
-          type="text"
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setUserToInvite({ ...userToInvite, email: e.target.value })
           }
+          onFocus={() => setErrors({ ...errors, email: null })}
+          type="text"
+          value={userToInvite.email}
         />
       </div>
 
@@ -116,8 +116,8 @@ const InviteUserForm: React.FC = () => {
         <div className="edit-user__form-field edit-user__form-select-field">
           <select
             className="fra-table__select"
-            value={userToInvite.lang}
             onChange={(e) => setUserToInvite({ ...userToInvite, lang: e.target.value as Lang })}
+            value={userToInvite.lang}
           >
             {LanguageCodes.map((lang) => (
               <option key={lang} value={lang}>
