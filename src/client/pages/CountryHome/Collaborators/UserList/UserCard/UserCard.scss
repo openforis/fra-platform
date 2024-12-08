@@ -15,7 +15,8 @@
 
   &.invitation {
     .user-avatar,
-    .user-info {
+    .home-user-role .role,
+    .home-user-name {
       opacity: 0.6;
     }
   }
