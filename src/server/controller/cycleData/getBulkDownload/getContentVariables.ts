@@ -47,6 +47,10 @@ export const getContentVariables = async (props: Props & { fileName: string; ent
       cols = ['growingStockPercent', 'growingStockMillionCubicMeter']
     }
 
+    if (tableName === TableNames.carbonStockSoilDepth) {
+      cols = ['soil_depth']
+    }
+
     await Promises.each(variables, async (variable) => {
       const { csvColumn, variableName } = variable
 
