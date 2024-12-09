@@ -1,25 +1,17 @@
-import {
-  ChangeEventHandler,
-  InputHTMLAttributes,
-  MutableRefObject,
-  useCallback,
-  useLayoutEffect,
-  useState,
-} from 'react'
+import { ChangeEventHandler, MutableRefObject, useCallback, useLayoutEffect, useState } from 'react'
 
+import { InputNumberProps } from 'client/components/Inputs/InputNumber/types'
 import { Sanitizer } from 'client/utils/sanitizer'
 
 type OnChange = ChangeEventHandler<HTMLInputElement>
 
-type Props = Pick<InputHTMLAttributes<HTMLInputElement>, 'value'> & {
+type Props = Pick<InputNumberProps, 'isInteger' | 'onChange' | 'value'> & {
   inputRef: MutableRefObject<HTMLInputElement>
-} & {
-  onChange: (value?: string) => void
-  setLocalValue: (newValue: InputHTMLAttributes<HTMLInputElement>['value']) => void
+  setLocalValue: (value: string) => void
 }
 
 export const useOnChange = (props: Props): OnChange => {
-  const { inputRef, onChange, setLocalValue, value } = props
+  const { inputRef, isInteger, onChange, setLocalValue, value } = props
 
   const [cursor, setCursor] = useState<number | null>(null)
 
@@ -32,14 +24,16 @@ export const useOnChange = (props: Props): OnChange => {
       const { value } = event.target
       setCursor(event.target.selectionStart)
 
-      if (!Sanitizer.acceptableAsDecimal(value)) return
+      const validationFunction = isInteger ? Sanitizer.acceptableAsInteger : Sanitizer.acceptableAsDecimal
+      if (!validationFunction(value)) return
+
       setLocalValue(value)
       if ((value ?? '').endsWith('.')) return
 
       if (onChange) {
-        onChange(value)
+        onChange(event)
       }
     },
-    [onChange, setLocalValue]
+    [isInteger, onChange, setLocalValue]
   )
 }
