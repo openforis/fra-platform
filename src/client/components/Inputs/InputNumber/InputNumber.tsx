@@ -29,6 +29,7 @@ const InputNumber = forwardRef<HTMLInputElement, InputNumberProps>((props, outer
 
   const [localValue, setLocalValue] = useState<typeof value>(value)
   const [focused, setFocused] = useState<boolean>(false)
+  const hasPasted = useRef<boolean>(false)
 
   const _onChange = useOnChange({ inputRef, isInteger, onChange, setLocalValue, value: localValue })
   const _onBlur = useOnBlur({ isInteger, onChange, precision, shouldRound, value })
@@ -41,7 +42,10 @@ const InputNumber = forwardRef<HTMLInputElement, InputNumberProps>((props, outer
   const inputVisible = focused || Objects.isEmpty(formattedValue)
 
   useEffect(() => {
-    if (!focused) setLocalValue(value)
+    if (!focused || hasPasted.current) {
+      setLocalValue(value)
+      hasPasted.current = false
+    }
   }, [value, focused])
 
   return (
@@ -59,7 +63,10 @@ const InputNumber = forwardRef<HTMLInputElement, InputNumberProps>((props, outer
         }}
         onChange={_onChange}
         onFocus={() => setFocused(true)}
-        onPaste={onPaste}
+        onPaste={(e) => {
+          hasPasted.current = true
+          onPaste?.(e)
+        }}
         placeholder={placeholder}
         type="text"
         value={localValue ?? ''}
