@@ -2,6 +2,7 @@ import { Response } from 'express'
 
 import { UsersRequest } from 'meta/api/request'
 import { TablePaginateds, UserFilters } from 'meta/tablePaginated'
+import { UserStatus } from 'meta/user'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { UserController } from 'server/controller/user'
@@ -23,6 +24,7 @@ export const getUsersCount = async (req: UsersRequest, res: Response) => {
       cycle,
       fullName,
       roles,
+      statuses: [UserStatus.active, UserStatus.disabled, UserStatus.invitationPending],
     })
 
     Requests.sendOk(res, count)

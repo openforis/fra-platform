@@ -1,3 +1,4 @@
+import { Areas, CountryIso } from 'meta/area'
 import { RoleName } from 'meta/user'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'
@@ -12,6 +13,10 @@ export const count = async (props: UsersGetManyProps, client: BaseProtocol = DB)
   const schemaName = Schemas.getNameCycle(assessment, cycle)
 
   const { queryParams, whereConditions } = getPropsToQueryParams(props)
+
+  // Exclude atlantis countries from the count when not explicitly filtering for atlantis
+  if (!queryParams.countries?.every((countryIso: CountryIso) => Areas.isAtlantis(countryIso)))
+    whereConditions.push(`(cus.country_iso is null or cus.country_iso not like 'X%')`)
 
   const queryRoles = `
       with filtered_users as (
