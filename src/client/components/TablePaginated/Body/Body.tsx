@@ -1,52 +1,25 @@
-import React, { useMemo } from 'react'
-import { SkeletonTheme } from 'react-loading-skeleton'
+import React from 'react'
 
 import classNames from 'classnames'
+import { Objects } from 'utils/objects'
 
 import { useTablePaginatedData } from 'client/store/ui/tablePaginated'
 import DataColumn from 'client/components/DataGridDeprecated/DataColumn'
-import { Props as BaseProps, TablePaginatedSkeleton } from 'client/components/TablePaginated/types'
+import RowsSkeleton from 'client/components/TablePaginated/Body/RowsSkeleton'
+import { Props as BaseProps } from 'client/components/TablePaginated/types'
 
-import { SortFn } from '../TablePaginated'
+const Body = <Datum extends object>(props: BaseProps<Datum>) => {
+  const { columns, compareFn, limit, path, wrapCells, skeleton } = props
 
-type Props<Datum extends object> = BaseProps<Datum> & {
-  limit: number
-  wrapCells: boolean
-  skeleton: TablePaginatedSkeleton
-  sortFn?: SortFn<Datum>
-}
+  const data = useTablePaginatedData<Datum>(path, compareFn)
 
-const Body = <Datum extends object>(props: Props<Datum>) => {
-  const { columns, limit, path, wrapCells, skeleton, sortFn } = props
-
-  const data = useTablePaginatedData<Datum>(path)
-
-  // Optionally sort data client side
-  const sortedData = useMemo(() => {
-    return sortFn && data ? sortFn(data) : data
-  }, [data, sortFn])
-
-  if (!data) {
-    const { baseColor, highlightColor, Component } = skeleton
-
-    return (
-      <SkeletonTheme baseColor={baseColor} highlightColor={highlightColor} inline>
-        {Array.from(Array(limit).keys()).map((i) => {
-          return (
-            <React.Fragment key={`row-skeleton-${String(i)}`}>
-              {columns.map((column) => (
-                <Component key={column.key} />
-              ))}
-            </React.Fragment>
-          )
-        })}
-      </SkeletonTheme>
-    )
+  if (Objects.isNil(data)) {
+    return <RowsSkeleton columns={columns} limit={limit} skeleton={skeleton} />
   }
 
   return (
     <>
-      {sortedData.map((datum, rowIndex) => (
+      {data.map((datum, rowIndex) => (
         <React.Fragment key={`row_${String(rowIndex)}}`}>
           {columns.map((column) => {
             const { component: Component, key } = column
@@ -65,10 +38,6 @@ const Body = <Datum extends object>(props: Props<Datum>) => {
       ))}
     </>
   )
-}
-
-Body.defaultProps = {
-  sortFn: undefined,
 }
 
 export default Body
