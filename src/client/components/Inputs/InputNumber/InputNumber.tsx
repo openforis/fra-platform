@@ -10,19 +10,7 @@ import { useOnChange } from './hooks/useOnChange'
 import { InputNumberProps } from './types'
 
 const InputNumber = forwardRef<HTMLInputElement, InputNumberProps>((props, outerRef) => {
-  const {
-    disabled,
-    id,
-    isInteger,
-    maxLength,
-    onChange,
-    onPaste,
-    placeholder,
-    precision,
-    shouldRound,
-    thousandSeparated,
-    value,
-  } = props
+  const { disabled, id, maxLength, onChange, onPaste, placeholder, precision, value } = props
 
   const inputRef = useRef<HTMLInputElement>(null)
   useImperativeHandle(outerRef, () => inputRef.current!, [])
@@ -31,13 +19,10 @@ const InputNumber = forwardRef<HTMLInputElement, InputNumberProps>((props, outer
   const [focused, setFocused] = useState<boolean>(false)
   const hasPasted = useRef<boolean>(false)
 
-  const _onChange = useOnChange({ inputRef, isInteger, onChange, setLocalValue, value: localValue })
-  const _onBlur = useOnBlur({ isInteger, onChange, precision, shouldRound, value })
+  const _onChange = useOnChange({ inputRef, onChange, precision, setLocalValue, value })
+  const _onBlur = useOnBlur({ onChange, precision, value })
 
-  const formatPrecision = isInteger ? 0 : precision
-  const formattedValue = thousandSeparated
-    ? Numbers.format(String(value ?? ''), formatPrecision)
-    : Numbers.toFixed(String(value ?? ''), formatPrecision)
+  const formattedValue = Numbers.format(String(value ?? ''), precision)
 
   const inputVisible = focused || Objects.isEmpty(formattedValue)
 
@@ -76,10 +61,7 @@ const InputNumber = forwardRef<HTMLInputElement, InputNumberProps>((props, outer
 })
 
 InputNumber.defaultProps = {
-  isInteger: false,
   precision: 2,
-  shouldRound: false,
-  thousandSeparated: false,
 }
 
 export default InputNumber

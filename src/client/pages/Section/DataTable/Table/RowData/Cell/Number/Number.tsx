@@ -10,18 +10,9 @@ const Number: React.FC<PropsCell> = (props) => {
   const { onChange, onPaste, col, nodeValue, disabled } = props
   const value = nodeValue?.raw ?? null
 
-  const isInteger = col.props.colType === ColType.integer
+  const precision = col.props.colType === ColType.integer ? 0 : 2
 
-  return (
-    <InputNumber
-      disabled={disabled}
-      isInteger={isInteger}
-      onChange={onChange}
-      onPaste={onPaste}
-      thousandSeparated
-      value={value}
-    />
-  )
+  return <InputNumber disabled={disabled} onChange={onChange} onPaste={onPaste} precision={precision} value={value} />
 }
 
 export default Number

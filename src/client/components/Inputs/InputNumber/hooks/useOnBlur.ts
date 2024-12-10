@@ -5,10 +5,10 @@ import { Sanitizer } from 'client/utils/sanitizer'
 
 type OnChange = React.FocusEventHandler<HTMLInputElement>
 
-type Props = Pick<InputNumberProps, 'isInteger' | 'onChange' | 'precision' | 'shouldRound' | 'value'>
+type Props = Pick<InputNumberProps, 'onChange' | 'precision' | 'value'>
 
 export const useOnBlur = (props: Props): OnChange => {
-  const { isInteger, onChange, precision, shouldRound, value } = props
+  const { onChange, precision, value } = props
 
   const valueRef = useRef<typeof value>(value)
   useEffect(() => {
@@ -19,11 +19,11 @@ export const useOnBlur = (props: Props): OnChange => {
     async (event: React.FocusEvent<HTMLInputElement, Element>) => {
       const { value } = event.target
 
-      if (!shouldRound || isInteger) return
+      if (precision === 0) return
 
       if (!Sanitizer.acceptableAsDecimal(value)) return
 
-      const sanitizedRoundedValue = Sanitizer.acceptNextDecimal(value, valueRef.current?.toString(), precision)
+      const sanitizedRoundedValue = Sanitizer.acceptNextDecimal(value ?? '', valueRef.current?.toString(), precision)
       if (sanitizedRoundedValue === valueRef.current) return
 
       valueRef.current = sanitizedRoundedValue
@@ -37,6 +37,6 @@ export const useOnBlur = (props: Props): OnChange => {
       }
       onChange(modifiedEvent)
     },
-    [isInteger, onChange, precision, shouldRound]
+    [onChange, precision]
   )
 }

@@ -16,7 +16,6 @@ const InputPercent = forwardRef<HTMLInputElement, InputNumberProps>((props, oute
 
 InputPercent.defaultProps = {
   precision: 3,
-  shouldRound: true,
 }
 
 export default InputPercent
