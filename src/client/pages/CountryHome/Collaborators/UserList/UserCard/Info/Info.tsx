@@ -17,16 +17,18 @@ const Info: React.FC<Props> = (props: Props) => {
   const { t } = useTranslation()
   const { countryIso } = useCountryRouteParams<CountryIso>()
 
-  const { role, invitation } = CountryUserSummaries.getCountryRoleAndInvitation(user, countryIso)
+  const { invitation } = CountryUserSummaries.getCountryRoleAndInvitation(user, countryIso)
   const isInvitation = CountryUserSummaries.isInvitation(user, countryIso)
   const expired = invitation && UserInvitations.isExpired(invitation)
 
   return (
     <div className={classNames('home-user-info', { expired })}>
       <div className="home-user-role">
-        <div className="role">{t(Users.getI18nRoleLabelKey(role?.role ?? invitation?.role))}</div>
+        <div className="role">{t(Users.getI18nRoleLabelKey(CountryUserSummaries.getRoleName(user, countryIso)))}</div>
         {isInvitation && (
-          <div className={classNames('invitation-badge', { expired })}>{expired ? 'Expired' : 'Pending'}</div>
+          <div className={classNames('invitation-badge', { expired })}>
+            {expired ? t('common.expired') : t('common.pending')}
+          </div>
         )}
       </div>
 

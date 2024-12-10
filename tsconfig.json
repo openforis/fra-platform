@@ -5,8 +5,8 @@
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "baseUrl": "./src",
-    "jsx": "react",
     "isolatedModules": true,
+    "jsx": "react",
     "module": "CommonJS",
     "moduleResolution": "Node",
     "noImplicitAny": true,
@@ -14,15 +14,6 @@
     "noUnusedParameters": true,
     "outDir": "./dist/",
     "resolveJsonModule": true,
-//    "paths": {
-//      "i18n/*": ["./src/i18n/*"],
-//      "client/*": ["./src/client/*"],
-//      "meta/*": ["./src/meta/*"],
-//      "server/*": ["./src/server/*"],
-//      "test/*": ["./src/test/*"],
-//      "utils/*": ["./src/utils/*"]
-//    },
-//    "strict": true,
     "target": "ESNext"
   }
 }

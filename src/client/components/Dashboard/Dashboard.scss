@@ -1,15 +1,35 @@
 @import 'src/client/style/partials';
 
+$border: 1px dotted $ui-border;
+
 .dashboard {
+  background-color: $ui-bg-light;
+  border-left: $border;
+  border-radius: 2px;
+  border-right: $border;
+  border-top: $border;
   display: grid;
-  grid-column-gap: $spacing-xs;
-  grid-row-gap: $spacing-xs;
   grid-template-columns: 1fr;
   overflow: hidden;
 
   @include min-width($laptop) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    padding-top: $spacing-s;
+    margin-top: $spacing-s;
+
+    > .dashboard-item:nth-child(odd) {
+      border-right: $border;
+    }
+  }
+}
+
+@include rtl {
+  .dashboard {
+    @include min-width($laptop) {
+      > .dashboard-item:nth-child(odd) {
+        border-left: $border;
+        border-right: unset;
+      }
+    }
   }
 }
 
@@ -18,23 +38,16 @@
   align-items: start;
   display: grid;
   overflow: hidden;
+  padding: $spacing-xs $spacing-s;
+  border-bottom: $border;
 
   .header {
-    border-radius: 2px;
-    border: 1px solid $ui-border;
-    padding: 6px;
-
     h3 {
-      background-color: $ui-bg;
-      border-radius: 2px;
-      font-size: $font-m;
-      padding: 6px $spacing-xxs;
-      text-transform: uppercase;
+      font-size: $font-m + 1px;
     }
   }
 
   > :nth-child(2) {
-    padding: 0 $spacing-xs;
     overflow: hidden;
   }
 

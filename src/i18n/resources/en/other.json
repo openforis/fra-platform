@@ -651,16 +651,18 @@
     },
     "roles": {
       "ADMINISTRATOR": "Administrator",
+      "ADMINISTRATOR_other": "Administrators",
       "ALTERNATE_NATIONAL_CORRESPONDENT": "Alternate national correspondent",
+      "ALTERNATE_NATIONAL_CORRESPONDENT_other": "Alternate national correspondents",
       "COLLABORATOR": "Collaborator",
+      "COLLABORATOR_other": "Collaborators",
       "NATIONAL_CORRESPONDENT": "National correspondent",
+      "NATIONAL_CORRESPONDENT_other": "National correspondents",
       "REVIEWER": "Reviewer",
+      "REVIEWER_other": "Reviewers",
       "VIEWER": "Viewer",
-      "alternateNationalCorrespondent_plural": "Alternate national correspondents",
-      "collaborator_plural": "Collaborators",
-      "nationalCorrespondent_plural": "National correspondents",
-      "noRole": "",
-      "reviewer_plural": "Reviewers"
+      "VIEWER_other": "Viewers",
+      "noRole": ""
     }
   },
   "userChat": {
