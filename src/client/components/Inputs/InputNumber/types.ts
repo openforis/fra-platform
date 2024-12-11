@@ -1,8 +1,5 @@
-import { InputHTMLAttributes } from 'react'
+import { InputTextProps } from 'client/components/Inputs/InputText/types'
 
-export type InputNumberProps = Pick<
-  InputHTMLAttributes<HTMLInputElement>,
-  'disabled' | 'id' | 'maxLength' | 'onChange' | 'onPaste' | 'placeholder' | 'value'
-> & {
+export type InputNumberProps = InputTextProps & {
   precision?: number
 }

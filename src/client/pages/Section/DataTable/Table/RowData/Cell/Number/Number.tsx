@@ -1,3 +1,4 @@
+import './Number.scss'
 import React from 'react'
 
 import { ColType } from 'meta/assessment'
@@ -12,7 +13,16 @@ const Number: React.FC<PropsCell> = (props) => {
 
   const precision = col.props.colType === ColType.integer ? 0 : 2
 
-  return <InputNumber disabled={disabled} onChange={onChange} onPaste={onPaste} precision={precision} value={value} />
+  return (
+    <InputNumber
+      className="table-grid__data-cell-input-number"
+      disabled={disabled}
+      onChange={onChange}
+      onPaste={onPaste}
+      precision={precision}
+      value={value}
+    />
+  )
 }
 
 export default Number

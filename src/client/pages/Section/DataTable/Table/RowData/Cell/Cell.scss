@@ -35,10 +35,6 @@
   &.left {
     justify-content: start;
   }
-
-  .input-number__container {
-    text-align: right;
-  }
 }
 
 @include rtl {
