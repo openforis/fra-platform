@@ -1,15 +1,13 @@
 import './InputText.scss'
-import React, { forwardRef, InputHTMLAttributes, useImperativeHandle, useRef } from 'react'
+import React, { forwardRef, useImperativeHandle, useRef } from 'react'
+
+import classNames from 'classnames'
 
 import { useOnChange } from './hooks/useOnChange'
+import { InputTextProps } from './types'
 
-type Props = Pick<
-  InputHTMLAttributes<HTMLInputElement>,
-  'disabled' | 'id' | 'onChange' | 'onPaste' | 'placeholder' | 'value'
->
-
-const InputText = forwardRef<HTMLInputElement, Props>((props, outerRef) => {
-  const { disabled, id, onChange, onPaste, placeholder, value } = props
+const InputText = forwardRef<HTMLInputElement, InputTextProps>((props, outerRef) => {
+  const { className, disabled, id, onBlur, onChange, onFocus, onPaste, placeholder, value } = props
 
   const inputRef = useRef<HTMLInputElement>(null)
   useImperativeHandle(outerRef, () => inputRef.current!, [])
@@ -22,9 +20,11 @@ const InputText = forwardRef<HTMLInputElement, Props>((props, outerRef) => {
   return (
     <input
       ref={inputRef}
-      className="input-text"
+      className={classNames('input-text', className)}
       id={id}
+      onBlur={onBlur}
       onChange={_onChange}
+      onFocus={onFocus}
       onPaste={onPaste}
       placeholder={placeholder}
       type="text"
