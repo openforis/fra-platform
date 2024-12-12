@@ -29,4 +29,5 @@ export type UserFilters = {
   countries?: Array<CountryIso>
   fullName?: string
   roles?: Array<RoleName>
+  disabled?: boolean
 }

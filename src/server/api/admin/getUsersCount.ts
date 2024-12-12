@@ -13,9 +13,11 @@ export const getUsersCount = async (req: UsersRequest, res: Response) => {
     const { assessmentName, cycleName, filters } = req.query
 
     const decodedFilters = TablePaginateds.decodeFilters(filters) as UserFilters
-    const { administrators, countries, fullName, roles } = decodedFilters ?? {}
+    const { administrators, countries, fullName, roles, disabled } = decodedFilters ?? {}
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+
+    const statuses = disabled ? [UserStatus.disabled] : [UserStatus.active, UserStatus.invitationPending]
 
     const count = await UserController.count({
       administrators,
@@ -24,7 +26,7 @@ export const getUsersCount = async (req: UsersRequest, res: Response) => {
       cycle,
       fullName,
       roles,
-      statuses: [UserStatus.active, UserStatus.disabled, UserStatus.invitationPending],
+      statuses,
     })
 
     Requests.sendOk(res, count)

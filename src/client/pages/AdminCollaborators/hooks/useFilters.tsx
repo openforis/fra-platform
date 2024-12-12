@@ -45,6 +45,12 @@ export const useFilters = (): Returned => {
         label: t('common.countries'),
         type: TablePaginatedFilterType.COUNTRY,
       },
+      {
+        defaultValue: false,
+        fieldName: 'disabled',
+        label: t('admin.disabledUsers'),
+        type: TablePaginatedFilterType.SWITCH,
+      },
     ]
   }, [t])
 }
