@@ -19,8 +19,8 @@
   gap: 8px;
 
   .role {
-    color: darken($text-disabled, 4%);
-    font-size: $font-xxs;
+    color: lighten($text-mute, 10%);
+    font-size: $font-xs;
     text-transform: uppercase;
   }
 }

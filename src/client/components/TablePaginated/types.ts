@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { TablePaginatedCount, TablePaginatedFilterType } from 'meta/tablePaginated'
+import { TablePaginatedCompareFn, TablePaginatedCount, TablePaginatedFilterType } from 'meta/tablePaginated'
 
 export type ColumnComponentProps<Datum> = {
   datum: Datum
@@ -14,11 +14,14 @@ export type Column<Datum> = {
   orderByProperty?: string
 }
 
-export type Props<Datum> = {
+export type Props<Datum extends object> = {
   columns: Array<Column<Datum>>
+  compareFn?: TablePaginatedCompareFn<Datum>
   filters?: Array<TablePaginatedFilter<TablePaginatedFilterType>>
   limit?: number
   path: string
+  skeleton?: TablePaginatedSkeleton
+  wrapCells?: boolean
 }
 
 export type TablePaginatedCounterComponent = React.FC<{ count: TablePaginatedCount }>

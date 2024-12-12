@@ -14,6 +14,11 @@ const getCountryRoleAndInvitation = (
   }
 }
 
+const getRoleName = (countryUserSummary: CountryUserSummary, countryIso: CountryIso): RoleName | undefined => {
+  const { invitation, role } = getCountryRoleAndInvitation(countryUserSummary, countryIso)
+  return invitation?.role ?? role?.role
+}
+
 const isInvitation = (countryUserSummary: CountryUserSummary, countryIso: CountryIso) => {
   const { role, invitation } = getCountryRoleAndInvitation(countryUserSummary, countryIso)
 
@@ -22,5 +27,6 @@ const isInvitation = (countryUserSummary: CountryUserSummary, countryIso: Countr
 
 export const CountryUserSummaries = {
   getCountryRoleAndInvitation,
+  getRoleName,
   isInvitation,
 }
