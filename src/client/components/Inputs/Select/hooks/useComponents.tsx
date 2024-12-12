@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import { MultiValueProps, Props as ReactSelectProps } from 'react-select'
+import { components as originalComponents, InputProps, MultiValueProps, Props as ReactSelectProps } from 'react-select'
 
 import { Objects } from 'utils/objects'
 
@@ -17,7 +17,7 @@ import { SelectProps } from 'client/components/Inputs/Select/types'
 type Returned = ReactSelectProps['components']
 
 export const useComponents = (props: SelectProps): Returned => {
-  const { collapsibleGroups, isMulti, multiLabelSummaryKey, selectableGroups } = props
+  const { collapsibleGroups, isMulti, multiLabelSummaryKey, onPaste, selectableGroups } = props
 
   return useMemo<Returned>(() => {
     const components: Returned = {
@@ -35,7 +35,13 @@ export const useComponents = (props: SelectProps): Returned => {
     }
     if (isMulti && selectableGroups) components.GroupHeading = SelectableGroupHeading
     if (collapsibleGroups) components.Group = CollapsibleGroup
+    if (Objects.isFunction(onPaste)) {
+      components.Input = (originalInputProps: InputProps) => {
+        // eslint-disable-next-line react/jsx-props-no-spreading
+        return <originalComponents.Input {...originalInputProps} onPaste={onPaste} />
+      }
+    }
 
     return components
-  }, [collapsibleGroups, isMulti, multiLabelSummaryKey, selectableGroups])
+  }, [collapsibleGroups, isMulti, multiLabelSummaryKey, onPaste, selectableGroups])
 }
