@@ -6,6 +6,7 @@
     "allowSyntheticDefaultImports": true,
     "baseUrl": "./src",
     "isolatedModules": true,
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "jsx": "react",
     "module": "CommonJS",
     "moduleResolution": "Node",
