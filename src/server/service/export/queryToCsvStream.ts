@@ -2,13 +2,12 @@ import QueryStream = require('pg-query-stream')
 import { pipeline, Transform } from 'stream'
 import * as fastCsv from 'fast-csv'
 import { ParserRow } from 'fast-csv'
-import { Client } from 'pg'
 
 import { BaseProtocol, DB } from 'server/db'
 
 export type QueryToCsvStreamProps<QueryResultRow> = {
   query: string
-  queryParams?: Parameters<Client['query']>[1]
+  queryParams?: unknown
   rowTransformer?: (row: QueryResultRow) => ParserRow
 }
 
@@ -19,7 +18,7 @@ export const queryToCsvStream = <QueryResultRow>(
   const { query, queryParams, rowTransformer } = props
 
   return new Promise((resolve, reject) => {
-    const queryStream = new QueryStream(query, queryParams)
+    const queryStream = new QueryStream(query, queryParams as any[])
 
     const csvStream = fastCsv.format({ headers: true })
 
