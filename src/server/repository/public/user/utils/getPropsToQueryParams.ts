@@ -27,8 +27,7 @@ export const getPropsToQueryParams = (props: UsersGetManyProps): Returned => {
   const selectedRoles = !Objects.isEmpty(roles) ? roles : allRoles
   if (selectedRoles) queryParams.roles = selectedRoles
 
-  const userStatuses = statuses || undefined
-  if (userStatuses) queryParams.statuses = userStatuses
+  queryParams.statuses = statuses
 
   if (!Objects.isNil(limit)) queryParams.limit = limit
   if (!Objects.isNil(offset)) queryParams.offset = offset
@@ -43,7 +42,7 @@ export const getPropsToQueryParams = (props: UsersGetManyProps): Returned => {
     )`,
     countryIso && `country_iso = $(countryIso)`,
     hasCountries && `country_iso in ($(countries:list))`,
-    userStatuses && `status in ($(statuses:list))`,
+    `status in ($(statuses:list))`,
   ].filter(Boolean)
 
   return { queryParams, whereConditions }
