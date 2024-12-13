@@ -19,7 +19,6 @@ export const exportUsers = async (req: UsersRequest, res: Response) => {
 
     const { query, queryParams, rowTransformer } = await UserController.getManyExport({ ...props, lang })
 
-    // @ts-ignore
     await ExportService.queryToCsvResponseStream<User>({ fileName, query, queryParams, res, rowTransformer })
   } catch (e) {
     Requests.sendErr(res, e)
