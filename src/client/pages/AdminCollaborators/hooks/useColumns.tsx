@@ -10,11 +10,20 @@ import RoleField from '../RoleField'
 
 type Returned = Array<Column<CountryUserSummary>>
 
+const roles = [
+  RoleName.ADMINISTRATOR,
+  RoleName.REVIEWER,
+  RoleName.NATIONAL_CORRESPONDENT,
+  RoleName.ALTERNATE_NATIONAL_CORRESPONDENT,
+  RoleName.COLLABORATOR,
+  RoleName.VIEWER,
+]
+
 export const useColumns = (): Returned => {
   const { t } = useTranslation()
 
   return useMemo<Returned>(() => {
-    const roleColumns: Returned = Object.values(RoleName).map((roleName) => ({
+    const roleColumns: Returned = roles.map((roleName) => ({
       component: ({ datum }) => <RoleField roleName={roleName} userSummary={datum} />,
       header: t(Users.getI18nRoleLabelKey(roleName)),
       key: roleName,
