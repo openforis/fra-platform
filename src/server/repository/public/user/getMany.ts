@@ -13,7 +13,7 @@ type BuildQueryReturned = { query: string; queryParams: UserQueryParams }
 
 const _getOrderClause = (
   orderBy: string | undefined = 'full_name',
-  orderByDirection: TablePaginatedOrderByDirection | undefined = TablePaginatedOrderByDirection.asc
+  orderByDirection: TablePaginatedOrderByDirection = TablePaginatedOrderByDirection.asc
 ): string => {
   return `order by
     ${orderBy} ${orderByDirection}`

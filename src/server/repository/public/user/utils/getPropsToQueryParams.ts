@@ -8,22 +8,16 @@ import { UsersGetManyProps } from 'server/repository/public/user/usersGetManyPro
 type Returned = { whereConditions: Array<string>; queryParams: UserQueryParams }
 
 export const getPropsToQueryParams = (props: UsersGetManyProps): Returned => {
-  const {
-    countryIso,
-    limit,
-    offset,
-    countries,
-    fullName,
-    roles,
-    administrators,
-    statuses = [UserStatus.active, UserStatus.invitationPending],
-  } = props
+  const { countryIso, filters = {}, limit, offset } = props
+
+  const { administrators, countries, fullName, roles, disabled } = filters
+  const statuses = disabled ? [UserStatus.disabled] : [UserStatus.active]
 
   const queryParams: UserQueryParams = {}
 
   if (fullName) queryParams.fullName = fullName.trim().toLowerCase()
   if (countryIso) queryParams.countryIso = countryIso
-  const hasCountries = countries && countries.length > 0
+  const hasCountries = !Objects.isEmpty(countries)
   if (hasCountries) queryParams.countries = countries
 
   const allRoles = administrators
@@ -36,8 +30,8 @@ export const getPropsToQueryParams = (props: UsersGetManyProps): Returned => {
   const userStatuses = statuses || undefined
   if (userStatuses) queryParams.statuses = userStatuses
 
-  if (limit) queryParams.limit = limit
-  if (offset) queryParams.offset = offset
+  if (!Objects.isNil(limit)) queryParams.limit = limit
+  if (!Objects.isNil(offset)) queryParams.offset = offset
 
   const whereConditions = [
     fullName && `full_name ilike '%' || $(fullName) || '%'`,

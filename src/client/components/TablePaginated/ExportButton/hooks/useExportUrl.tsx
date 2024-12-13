@@ -1,5 +1,7 @@
 import { useMemo } from 'react'
 
+import { Objects } from 'utils/objects'
+
 import { TablePaginateds } from 'meta/tablePaginated'
 
 import { useTablePaginatedOrderBy } from 'client/store/ui/tablePaginated'
@@ -28,7 +30,7 @@ export const useExportUrl = (props: Props): string => {
         orderBy: orderBy?.property,
         orderByDirection: orderBy?.direction,
         sectionName,
-      }).filter(([, value]) => value !== undefined)
+      }).filter(([, value]) => !Objects.isNil(value))
     )
     return `${path}/export?${queryParams.toString()}`
   }, [assessmentName, countryIso, cycleName, filters, orderBy, path, sectionName])
