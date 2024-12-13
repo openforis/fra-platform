@@ -18,7 +18,11 @@ const Select: React.FC<SelectProps> = (props) => {
     isClearable,
     isCreatable,
     isMulti,
+    isValidNewOption,
     maxMenuHeight,
+    onBlur,
+    onCreateOption,
+    onFocus,
     onInputChange,
     onMenuClose,
     onMenuOpen,
@@ -46,10 +50,14 @@ const Select: React.FC<SelectProps> = (props) => {
       isDisabled={disabled}
       isMulti={isMulti}
       isSearchable
+      isValidNewOption={isValidNewOption}
       maxMenuHeight={maxMenuHeight}
       menuPlacement="auto"
       menuPosition="fixed"
+      onBlur={onBlur}
       onChange={onChange}
+      onCreateOption={onCreateOption}
+      onFocus={onFocus}
       onInputChange={onInputChange}
       onMenuClose={onMenuClose}
       onMenuOpen={onMenuOpen}

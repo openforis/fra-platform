@@ -1,4 +1,5 @@
 import { Props as ReactSelectProps } from 'react-select'
+import { CreatableProps } from 'react-select/creatable'
 
 export type Option = {
   label: string
@@ -14,17 +15,22 @@ export type OptionsOrGroups = readonly (Option | OptionsGroup)[]
 
 export type ValueInput = string | Array<string> | null
 
-type SelectBaseProps = Pick<
-  ReactSelectProps,
-  | 'inputValue'
-  | 'isClearable'
-  | 'isMulti'
-  | 'maxMenuHeight'
-  | 'onInputChange'
-  | 'onMenuClose'
-  | 'onMenuOpen'
-  | 'placeholder'
->
+type SelectBaseProps =
+  | Pick<
+      ReactSelectProps,
+      | 'inputValue'
+      | 'isClearable'
+      | 'isMulti'
+      | 'maxMenuHeight'
+      | 'onBlur'
+      | 'onFocus'
+      | 'onInputChange'
+      | 'onMenuClose'
+      | 'onMenuOpen'
+      | 'placeholder'
+    > &
+      Pick<CreatableProps<Option, boolean, OptionsGroup>, 'isValidNewOption' | 'onCreateOption'>
+
 type SelectClassNamesProps = {
   classNames?: { container?: string }
 }
@@ -33,6 +39,7 @@ export type SelectProps = SelectBaseProps &
     collapsibleGroups?: boolean
     createOptionLabelKey?: string
     disabled?: boolean
+    inputHidden?: boolean
     isCreatable?: boolean
     multiLabelSummaryKey?: string
     onChange: (value: string | Array<string> | null) => void
