@@ -2,7 +2,7 @@ import * as pgPromise from 'pg-promise'
 import { Objects } from 'utils/objects'
 
 import { ActivityLog } from 'meta/assessment'
-import { RoleName, UserRole } from 'meta/user'
+import { RoleName, UserRole, UserStatus } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db'
 import { AssessmentRepository } from 'server/repository/assessment/assessment'
@@ -88,6 +88,20 @@ export default async () => {
 
   // ---- 1. Add unique index on users (uuid) table
   await client.query(`create unique index if not exists users_uuid_key on public.users (uuid);`)
+
+  // ---- 1.5 Fix users inconsistencies
+  await client.query(`
+      update users u
+      set status = '${UserStatus.active}'
+      where u.id in
+            (select distinct u.id
+             from users u
+                      left join users_role ur on u.id = ur.user_id
+             where ((ur.invited_at is not null and ur.accepted_at is not null)
+                 or (invited_at is null))
+               and u.status = 'invitationPending'
+               and ur.country_iso is not null)
+  `)
 
   // ---- 2. Move users_role table to _legacy schema
   await client.query(`create schema if not exists _legacy;`) // eg running vs partial db
