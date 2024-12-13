@@ -13,11 +13,7 @@ export const getMany = async (req: CycleRequest<{ print: string }>, res: Respons
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
-    let users = await UserController.getMany({
-      assessment,
-      countryIso,
-      cycle,
-    })
+    let users = await UserController.getMany({ assessment, cycle, countryIso })
 
     if (print && print === 'true')
       users = users.filter((user) => !ProcessEnv.fraReportCollaboratorsExcluded.includes(user.email))
