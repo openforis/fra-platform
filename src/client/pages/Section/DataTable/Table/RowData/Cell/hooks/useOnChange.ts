@@ -1,5 +1,7 @@
 import React, { ClipboardEventHandler } from 'react'
 
+import { Objects } from 'utils/objects'
+
 import { NodesBodyValue } from 'meta/api/request'
 import { Col, Cols, ColType, NodeValue, Row, RowType, Table } from 'meta/assessment'
 import { RecordAssessmentData, RecordAssessmentDatas } from 'meta/data'
@@ -51,6 +53,15 @@ export default (props: Props): Returned => {
         valuePrev: nodeValue.raw,
         options: Cols.getSelectOptions({ cycle, col }),
       })
+      const nodeValueUpdate = { ...nodeValue, raw: valueUpdate }
+
+      if (type === ColType.taxon) {
+        if (Objects.isEmpty(value.taxonCode)) {
+          delete nodeValueUpdate.taxonCode
+        } else {
+          nodeValueUpdate.taxonCode = value.taxonCode
+        }
+      }
 
       dispatch(
         DataActions.updateNodeValues({
@@ -62,7 +73,7 @@ export default (props: Props): Returned => {
           values: [
             {
               colName: col.props.colName,
-              value: { ...nodeValue, raw: valueUpdate },
+              value: nodeValueUpdate,
               variableName: row.props.variableName,
             },
           ],
