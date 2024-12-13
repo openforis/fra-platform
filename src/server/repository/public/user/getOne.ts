@@ -4,7 +4,6 @@ import { User, UserStatus } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db'
 import { UserRoleAdapter } from 'server/repository/adapter'
-import { ProcessEnv } from 'server/utils'
 
 import { fields } from './fields'
 
@@ -12,12 +11,11 @@ const selectFields = fields.map((f) => `u.${f}`).join(',')
 
 type Props = ({ id: number } | { uuid: string } | { email: string } | { emailGoogle: string }) & {
   allowDisabled?: boolean
-  allowedCountriesOnly?: boolean
   cycleUuid?: string
 }
 
 export const getOne = async (props: Props, client: BaseProtocol = DB): Promise<User> => {
-  const { allowDisabled, allowedCountriesOnly = true } = props
+  const { allowDisabled } = props
   const where = []
   let join = ''
   const values = []
@@ -53,37 +51,12 @@ export const getOne = async (props: Props, client: BaseProtocol = DB): Promise<U
     where.push(`and u.status in (${allowed.map((status) => `'${status}'`).join(',')})`)
   }
 
-  let usersRoleSubquery = ''
-
-  if (allowedCountriesOnly) {
-    const allowedAtlantisCycles: Array<string> = []
-    ProcessEnv.fraAtlantisAllowed.forEach(
-      ({ assessmentName, cycleName }: { assessmentName: string; cycleName: string }) =>
-        allowedAtlantisCycles.push(`(c.name = '${cycleName}' AND a.props->>'name' = '${assessmentName}')`)
-    )
-    if (allowedAtlantisCycles.length > 0) {
-      usersRoleSubquery = `
-      (
-        select ur_sub.*
-        from users_role ur_sub
-        left join public.assessment_cycle c on ur_sub.cycle_uuid = c.uuid
-        left join public.assessment a on a.uuid = ur_sub.assessment_uuid
-        where (
-          (c.name is null or a.props->>'name' is null or 
-           ${allowedAtlantisCycles.join(' or ')}
-          )
-          or ur_sub.country_iso not like 'X%'
-        )
-      ) AS `
-    }
-  }
-
   return client
     .oneOrNone<User>(
       `
         select ${selectFields}, jsonb_agg(to_jsonb(ur.*)) as roles
         from public.users u
-        left join ${usersRoleSubquery.length > 0 ? usersRoleSubquery : 'users_role'} ur on u.uuid = ur.user_uuid ${join}
+        left join users_role ur on u.uuid = ur.user_uuid ${join}
         where ${where.join(' ')}
         group by ${selectFields}
     `,
