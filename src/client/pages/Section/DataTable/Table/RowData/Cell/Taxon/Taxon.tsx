@@ -1,71 +1,46 @@
+import './Taxon.scss'
 import React from 'react'
 
-import axios from 'axios'
+import classNames from 'classnames'
 
-import { ApiEndPoint } from 'meta/api/endpoint'
-import { Taxon as TaxonType } from 'meta/extData/taxon'
+import Select from 'client/components/Inputs/Select'
+import { PropsCell } from 'client/pages/Section/DataTable/Table/RowData/Cell/props'
 
-import Autocomplete from 'client/components/Autocomplete'
-
-import { PropsCell } from '../props'
+import { useOnChange } from './hooks/useOnChange'
+import { useOnCreateOption } from './hooks/useOnCreateOption'
+import { useOnInputChange } from './hooks/useOnInputChange'
+import { useOptions } from './hooks/useOptions'
 
 const Taxon: React.FC<PropsCell> = (props: PropsCell) => {
   const { onChangeNodeValue, onPaste, disabled, nodeValue } = props
-  const [items, setItems] = React.useState([])
 
-  const onSave = (value: string | TaxonType) => {
-    const isString = typeof value === 'string'
-    // Handle first load ajax query call of onChange
-    const isSame = value === nodeValue.raw || (!isString && value?.scientificName === nodeValue.raw)
-    // value can be empty string
-    const isNull = !value && !isString
-    if (isSame || isNull) return
+  const { data, handleInputChange, inputValue, onBlur, onFocus } = useOnInputChange({ nodeValue })
+  const { isValidNewOption, options, value } = useOptions({ data, nodeValue })
 
-    const nodeValueUpdate = { ...nodeValue }
-
-    if (!isString && value.code) {
-      nodeValueUpdate.raw = value.scientificName
-      nodeValueUpdate.taxonCode = value.code
-    }
-
-    if (isString) {
-      // If previous version had a taxonCode
-      // No inserting raw string
-      nodeValueUpdate.raw = value
-      delete nodeValueUpdate.taxonCode
-    }
-
-    onChangeNodeValue(nodeValueUpdate)
-  }
-
-  const fetchAutocomplete = async (query: string) => {
-    const { data } = await axios.get(ApiEndPoint.ExtData.Taxa.search(), {
-      params: {
-        query,
-        limit: 15,
-      },
-    })
-    setItems(data)
-  }
-
-  const onInputValueChange = async (inputValue: string) => {
-    if (!inputValue) {
-      return
-    }
-    await fetchAutocomplete(inputValue)
-  }
+  const onChange = useOnChange({ nodeValue, onChangeNodeValue, options })
+  const onCreateOption = useOnCreateOption({ nodeValue, onChangeNodeValue })
 
   return (
-    <div className="text-input__container validation-error-sensitive-field" title={nodeValue.raw ?? ''}>
-      <Autocomplete
-        disabled={disabled}
-        items={items.map((item) => ({ value: item, label: item.scientificName }))}
-        name="taxon"
-        onInputValueChange={onInputValueChange}
-        onPaste={onPaste}
-        onSave={onSave}
-        value={nodeValue.raw}
-      />
+    <div className={classNames('table-grid__taxon-cell-container', { disabled })}>
+      {disabled && inputValue}
+      {!disabled && (
+        <Select
+          createOptionLabelKey="common.addValue"
+          inputHidden={false}
+          inputValue={inputValue ?? ''}
+          isClearable={false}
+          isCreatable
+          isValidNewOption={isValidNewOption}
+          onBlur={onBlur}
+          onChange={onChange}
+          onCreateOption={onCreateOption}
+          onFocus={onFocus}
+          onInputChange={handleInputChange}
+          onPaste={onPaste}
+          options={options}
+          value={value}
+        />
+      )}
     </div>
   )
 }
