@@ -13,7 +13,7 @@ type BuildQueryReturned = { query: string; queryParams: UserQueryParams }
 
 const _getOrderClause = (
   orderBy: string | undefined = 'full_name',
-  orderByDirection: TablePaginatedOrderByDirection | undefined = TablePaginatedOrderByDirection.asc
+  orderByDirection: TablePaginatedOrderByDirection = TablePaginatedOrderByDirection.asc
 ): string => {
   return `order by
     ${orderBy} ${orderByDirection}`
@@ -28,11 +28,6 @@ export const buildGetManyQuery = (props: UsersGetManyProps): BuildQueryReturned 
 
   const schemaName = Schemas.getNameCycle(assessment, cycle)
   const query = `
-  with filtered_users as (
-    select distinct uuid
-    from ${schemaName}.country_user_summary cus
-    where ${whereConditions.join(' and ')}
-  )
   select 
       cus.id,
       cus.uuid,
@@ -41,8 +36,8 @@ export const buildGetManyQuery = (props: UsersGetManyProps): BuildQueryReturned 
       cus.lang,
       coalesce(jsonb_agg(cus.role) filter ( where cus.role is not null ), '[]') as roles,
       coalesce(jsonb_agg(cus.invitation) filter ( where cus.invitation is not null ), '[]') as invitations
-    from filtered_users fu
-    left join ${schemaName}.country_user_summary cus using (uuid)
+    from ${schemaName}.country_user_summary cus
+    where ${whereConditions.join(' and ')}
     group by cus.id, cus.uuid, cus.full_name, cus.email, cus.lang
     ${order}
     ${queryParams.limit ? `limit $(limit)` : ''}
