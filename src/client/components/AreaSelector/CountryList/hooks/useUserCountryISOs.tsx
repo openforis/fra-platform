@@ -1,4 +1,4 @@
-import { CountryIso } from 'meta/area'
+import { Areas, CountryIso } from 'meta/area'
 import { Cycles, CycleUuid } from 'meta/assessment'
 import { RoleName, Users } from 'meta/user'
 import { UserRoles } from 'meta/user/userRoles'
@@ -37,7 +37,7 @@ export const useUserCountryISOs = (): Record<CycleUuid, Record<string, Array<Cou
       // For no user role, show only current cycle countries
       userCountryISOs[UserRoles.noRole.role][cycle.uuid] = allCountries
         .map((c) => c.countryIso)
-        .filter((countryIso: CountryIso) => !userCountries?.includes(countryIso))
+        .filter((countryIso: CountryIso) => !Areas.isAtlantis(countryIso) && !userCountries?.includes(countryIso))
     }
   }
 
