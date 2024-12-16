@@ -482,7 +482,53 @@ const _fixPanEuropean2025GridLayouts = async (client: BaseProtocol) => {
   await AssessmentController.generateMetadataCache({ assessment }, client)
 }
 
+const _fixTaxonCodes = async (client: BaseProtocol) => {
+  const assessments = await AssessmentController.getAll({}, client)
+
+  /* eslint-disable no-useless-escape */
+  await Promise.all(
+    assessments.map((assessment) =>
+      Promise.all(
+        assessment.cycles.map((cycle) => {
+          const schemaCycle = Schemas.getNameCycle(assessment, cycle)
+          return client.query(`
+            with nodes_to_update as (
+              select
+                  n.id,
+                  n.value,
+                  t.code as matching_taxon_code,
+                  t.scientific_name as original_scientific_name
+              from ${schemaCycle}.node n
+              join ext_data.taxon t
+                  on lower(trim(both ' ' from regexp_replace(n.value->>'raw', '\s+', ' ', 'g'))) = lower(t.scientific_name)
+              join assessment_fra.col c
+                  on c.uuid = n.col_uuid and c.props->>'colType' = 'taxon'
+              where n.value->>'taxonCode' is null
+            ),
+            updated_values as (
+              select
+                id,
+                jsonb_set(
+                  jsonb_set(value, '{taxonCode}', to_jsonb(matching_taxon_code::text), true),
+                  '{raw}',
+                  to_jsonb(original_scientific_name),
+                  true
+                ) as new_value
+              from nodes_to_update
+            )
+            update ${schemaCycle}.node
+            set value = updated_values.new_value
+            from updated_values
+            where ${schemaCycle}.node.id = updated_values.id;
+          `)
+        })
+      )
+    )
+  )
+}
+
 export default async (client: BaseProtocol) => {
+  await _fixTaxonCodes(client)
   await _fixFRA2025GridLayouts(client)
   await _fixFRA2020GridLayouts(client)
   await _fixPanEuropean2020GridLayouts(client)
