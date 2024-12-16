@@ -34,110 +34,39 @@ const _fixFRA2025GridLayouts = async (client: BaseProtocol) => {
   const cycleUuid = cycle.uuid
   const schemaAssessment = Schemas.getName(assessment)
 
-  // Fix 1a Extent of forest and other wooded land -> forest area status
-  await _fixColumnNames(
+  const columnsToFix: Array<{ tableName: string; columnNames: Array<string> }> = [
     {
       columnNames: ['tier'],
-      cycleUuid: cycle.uuid,
-      schemaAssessment,
       tableName: 'extentOfForest_forestAreaStatusAndTrend',
     },
-    client
-  )
-
-  // Fix 2a Growing stock status description -> tier status
-  await _fixColumnNames(
     {
       columnNames: ['status', 'tier'],
-      cycleUuid,
-      schemaAssessment,
       tableName: 'growingStock_growingStockStatus_Description',
     },
-    client
-  )
-
-  // Fix 2c Biomass stock status description -> tier status
-  await _fixColumnNames(
     {
       columnNames: ['status', 'tier'],
-      cycleUuid,
-      schemaAssessment,
       tableName: 'biomassStock_biomassStockStatus_Description',
     },
-    client
-  )
-
-  // Fix 3b Forest area within protected areas
-  await _fixColumnNames(
     {
       columnNames: ['1990', '2000', '2010', '2015', '2020', '2025'],
-      cycleUuid,
-      schemaAssessment,
       tableName: 'forestAreaWithinProtectedAreas',
     },
-    client
-  )
-  // Fix area header colSpan
-  await client.query(
-    `update ${schemaAssessment}.col c
-     set props = jsonb_set( props, '{style,${cycle.uuid},colSpan}', '6', true)
-     where c.props ->> 'colType' = 'header'
-        and c.props ->> 'index' = '1'
-        and c.row_id in (
-          select r.id from ${schemaAssessment}.row r
-          left join ${schemaAssessment}."table" t on t.id = r.table_id
-          where r.props ->> 'type' = 'header'
-        and r.props ->> 'index' = 'header_0'
-        and t.props ->> 'name' = 'forestAreaWithinProtectedAreas'
-      )
-  `
-  )
-
-  // Fix 5c Degraded forest -> degradedForest2025
-  await _fixColumnNames(
     {
       columnNames: ['hasNationalDefinitionOfDegradedForest', 'national_definition'],
-      cycleUuid,
-      schemaAssessment,
       tableName: 'degradedForest2025',
     },
-    client
-  )
-  // Fix 5c Degraded forest -> degradedForestMonitoring2025
-  await _fixColumnNames(
     {
       columnNames: ['hasNationalDefinitionOfDegradedForest', 'national_definition'],
-      cycleUuid,
-      schemaAssessment,
       tableName: 'degradedForestMonitoring2025',
     },
-    client
-  )
-
-  // Fix 6b Area of permanent forest estate
-  await _fixColumnNames(
     {
       columnNames: ['applicable', '1990', '2000', '2010', '2015', '2020', '2025'],
-      cycleUuid,
-      schemaAssessment,
       tableName: 'areaOfPermanentForestEstate',
     },
-    client
-  )
-
-  // Fix 8 Sustainable Development Goal -> sustainableDevelopment15_2_1_3
-  await _fixColumnNames(
     {
       columnNames: ['2000', '2010', '2015', '2020', '2021', '2022', '2023', '2024', '2025'],
-      cycleUuid,
-      schemaAssessment,
       tableName: 'sustainableDevelopment15_2_1_3',
     },
-    client
-  )
-
-  // Fix 8 Sustainable Development Goal -> sustainableDevelopment15_2_1_5
-  await _fixColumnNames(
     {
       columnNames: [
         '2000',
@@ -155,13 +84,31 @@ const _fixFRA2025GridLayouts = async (client: BaseProtocol) => {
         '2024',
         '2025',
       ],
-      cycleUuid,
-      schemaAssessment,
       tableName: 'sustainableDevelopment15_2_1_5',
     },
-    client
+  ]
+
+  await Promise.all(
+    columnsToFix.map(({ columnNames, tableName }) =>
+      _fixColumnNames({ columnNames, cycleUuid, schemaAssessment, tableName }, client)
+    )
   )
-  await AssessmentController.generateMetadataCache({ assessment }, client)
+
+  // Fix 3b Forest area within protected areas - header colSpan
+  await client.query(
+    `update ${schemaAssessment}.col c
+     set props = jsonb_set( props, '{style,${cycle.uuid},colSpan}', '6', true)
+     where c.props ->> 'colType' = 'header'
+        and c.props ->> 'index' = '1'
+        and c.row_id in (
+          select r.id from ${schemaAssessment}.row r
+          left join ${schemaAssessment}."table" t on t.id = r.table_id
+          where r.props ->> 'type' = 'header'
+        and r.props ->> 'index' = 'header_0'
+        and t.props ->> 'name' = 'forestAreaWithinProtectedAreas'
+      )
+  `
+  )
 }
 
 const _fixFRA2020GridLayouts = async (client: BaseProtocol) => {
@@ -208,8 +155,6 @@ const _fixPanEuropean2020GridLayouts = async (client: BaseProtocol) => {
       )
     `
   )
-
-  await AssessmentController.generateMetadataCache({ assessment }, client)
 }
 
 const _fixPanEuropean2025GridLayouts = async (client: BaseProtocol) => {
@@ -221,59 +166,73 @@ const _fixPanEuropean2025GridLayouts = async (client: BaseProtocol) => {
   const cycleUuid = cycle.uuid
   const schemaAssessment = Schemas.getName(assessment)
 
-  // Fix 1.1 Forest area -> country_comments_1_1_1
-  await _fixColumnNames(
+  const columnsToFix: Array<{ tableName: string; columnNames: Array<string> }> = [
     {
       columnNames: ['method', 'comment'],
-      cycleUuid,
-      schemaAssessment,
       tableName: 'country_comments_1_1_1',
     },
-    client
-  )
-
-  // Fix 1.2 Growing stock -> reasonability_check_1_2
-  await _fixColumnNames(
     {
       columnNames: ['forest', 'FAWS', 'OWL', 'FOWL'],
-      cycleUuid,
-      schemaAssessment,
       tableName: 'reasonability_check_1_2',
     },
-    client
-  )
-
-  // Fix 1.2.1 Growing stock -> country_comments_1_2_1
-  await _fixColumnNames(
     {
       columnNames: ['method', 'comment'],
-      cycleUuid,
-      schemaAssessment,
       tableName: 'country_comments_1_2_1',
     },
-    client
-  )
-
-  // Fix 1.2.2 Growing stock -> country_comments_1_2_2
-  await _fixColumnNames(
     {
       columnNames: ['method', 'comment'],
-      cycleUuid,
-      schemaAssessment,
       tableName: 'country_comments_1_2_2',
     },
-    client
-  )
-
-  // Fix 1.3a.2 Growing stock -> country_comments_1_3a_2
-  await _fixColumnNames(
     {
       columnNames: ['method', 'comment'],
-      cycleUuid,
-      schemaAssessment,
       tableName: 'country_comments_1_3a_2',
     },
-    client
+    {
+      columnNames: ['forest', 'OWL', 'FOWL'],
+      tableName: 'reasonability_check_1_4',
+    },
+    {
+      columnNames: ['method', 'comment'],
+      tableName: 'country_comments_1_4_1',
+    },
+    {
+      columnNames: ['forest', 'OWL', 'FOWL'],
+      tableName: 'reasonability_check_2_4',
+    },
+    {
+      columnNames: ['total_area_of_degraded_land', 'comment', 'comment_trends'],
+      tableName: 'country_comments_2_5_2',
+    },
+    {
+      columnNames: ['FAWS'],
+      tableName: 'reasonability_check_3_1',
+    },
+    {
+      columnNames: ['method', 'comment'],
+      tableName: 'country_comments_4_3_1',
+    },
+    {
+      columnNames: ['method', 'comment'],
+      tableName: 'country_comments_4_4_1',
+    },
+    {
+      columnNames: ['forest', 'OWL', 'FOWL'],
+      tableName: 'reasonability_check_4_5',
+    },
+    {
+      columnNames: ['method', 'comment'],
+      tableName: 'country_comments_4_9_1',
+    },
+    {
+      columnNames: ['method', 'comment'],
+      tableName: 'country_comments_5_1_1',
+    },
+  ]
+
+  await Promise.all(
+    columnsToFix.map(({ columnNames, tableName }) =>
+      _fixColumnNames({ columnNames, cycleUuid, schemaAssessment, tableName }, client)
+    )
   )
 
   // Fix 1.4 Carbon stock -> table_1_4a header rowSpan
@@ -292,28 +251,6 @@ const _fixPanEuropean2025GridLayouts = async (client: BaseProtocol) => {
     `
   )
 
-  // Fix 1.4 Carbon stock -> reasonability_check_1_4
-  await _fixColumnNames(
-    {
-      columnNames: ['forest', 'OWL', 'FOWL'],
-      cycleUuid,
-      schemaAssessment,
-      tableName: 'reasonability_check_1_4',
-    },
-    client
-  )
-
-  // Fix 1.4 Carbon stock -> country_comments_1_4_1
-  await _fixColumnNames(
-    {
-      columnNames: ['method', 'comment'],
-      cycleUuid,
-      schemaAssessment,
-      tableName: 'country_comments_1_4_1',
-    },
-    client
-  )
-
   // Fix 2.4 Forest area with damage -> table_2_4 header rowSpan
   await client.query(
     `update ${schemaAssessment}.col c
@@ -328,72 +265,6 @@ const _fixPanEuropean2025GridLayouts = async (client: BaseProtocol) => {
         and t.props ->> 'name' = 'table_2_4'
       )
       `
-  )
-
-  // Fix 2.4 Forest area with damage -> reasonability_check_2_4
-  await _fixColumnNames(
-    {
-      columnNames: ['forest', 'OWL', 'FOWL'],
-      cycleUuid,
-      schemaAssessment,
-      tableName: 'reasonability_check_2_4',
-    },
-    client
-  )
-
-  // Fix 2.5 Area with forest land degradation -> country_comments_2_5_2
-  await _fixColumnNames(
-    {
-      columnNames: ['total_area_of_degraded_land', 'comment', 'comment_trends'],
-      cycleUuid,
-      schemaAssessment,
-      tableName: 'country_comments_2_5_2',
-    },
-    client
-  )
-
-  // Fix 3.1 Increment and fellings -> reasonability_check_3_1
-  await _fixColumnNames(
-    {
-      columnNames: ['FAWS'],
-      cycleUuid,
-      schemaAssessment,
-      tableName: 'reasonability_check_3_1',
-    },
-    client
-  )
-
-  // Fix 4.3 Naturalness -> country_comments_4_3_1
-  await _fixColumnNames(
-    {
-      columnNames: ['method', 'comment'],
-      cycleUuid,
-      schemaAssessment,
-      tableName: 'country_comments_4_3_1',
-    },
-    client
-  )
-
-  // Fix 4.4 Area of stands -> country_comments_4_4_1
-  await _fixColumnNames(
-    {
-      columnNames: ['method', 'comment'],
-      cycleUuid,
-      schemaAssessment,
-      tableName: 'country_comments_4_4_1',
-    },
-    client
-  )
-
-  // Fix 4.5 Increment and fellings -> reasonability_check_4_5
-  await _fixColumnNames(
-    {
-      columnNames: ['forest', 'OWL', 'FOWL'],
-      cycleUuid,
-      schemaAssessment,
-      tableName: 'reasonability_check_4_5',
-    },
-    client
   )
 
   // Fix 4.5 Increment and fellings -> country_comments_4_5_1 header colSpan
@@ -427,30 +298,6 @@ const _fixPanEuropean2025GridLayouts = async (client: BaseProtocol) => {
       )
       `
   )
-
-  // Fix 4.9 Protected forests -> country_comments_4_9_1
-  await _fixColumnNames(
-    {
-      columnNames: ['method', 'comment'],
-      cycleUuid,
-      schemaAssessment,
-      tableName: 'country_comments_4_9_1',
-    },
-    client
-  )
-
-  // Fix 5.1 Protective forests -> country_comments_5_1_1
-  await _fixColumnNames(
-    {
-      columnNames: ['method', 'comment'],
-      cycleUuid,
-      schemaAssessment,
-      tableName: 'country_comments_5_1_1',
-    },
-    client
-  )
-
-  await AssessmentController.generateMetadataCache({ assessment }, client)
 }
 
 const _fixTaxonCodes = async (client: BaseProtocol) => {
@@ -504,4 +351,17 @@ export default async (client: BaseProtocol) => {
   await _fixFRA2020GridLayouts(client)
   await _fixPanEuropean2020GridLayouts(client)
   await _fixPanEuropean2025GridLayouts(client)
+
+  const assessments = await AssessmentController.getAll({})
+
+  await Promise.all(
+    assessments.map(async (assessment) => {
+      await AssessmentController.generateMetadataCache({ assessment })
+      await Promise.all(
+        assessment.cycles.map(async (cycle) => {
+          await AssessmentController.generateDataCache({ assessment, cycle })
+        })
+      )
+    })
+  )
 }
