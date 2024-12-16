@@ -3,6 +3,7 @@ import { useCallback } from 'react'
 import { NodeValue } from 'meta/assessment'
 
 import { Option } from 'client/components/Inputs/Select'
+import { CURRENT_NODE_OPTION_VALUE } from 'client/pages/Section/DataTable/Table/RowData/Cell/Taxon/types'
 
 type Props = {
   nodeValue: NodeValue
@@ -18,6 +19,8 @@ export const useOnChange = (props: Props): Returned => {
   return useCallback<Returned>(
     (value: string | null) => {
       const nodeValueUpdate = { ...nodeValue }
+
+      if (value === CURRENT_NODE_OPTION_VALUE) return
 
       if (value === null || value === '') {
         nodeValueUpdate.raw = ''

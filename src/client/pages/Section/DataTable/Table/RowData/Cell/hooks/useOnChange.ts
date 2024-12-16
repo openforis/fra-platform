@@ -24,7 +24,9 @@ type Props = {
 
 export type OnChangeNodeValue = (value: NodeValue) => void
 export type OnChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => void
-export type OnPaste = React.ClipboardEventHandler<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+export type OnPaste = React.ClipboardEventHandler<
+  HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement | HTMLDivElement
+>
 
 type Returned = {
   onChange: OnChange

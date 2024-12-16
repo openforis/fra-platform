@@ -12,7 +12,7 @@ export const useFormatCreateLabel = (props: SelectProps): Returned => {
   const { t } = useTranslation()
 
   if (isCreatable && !Objects.isEmpty(createOptionLabelKey)) {
-    return (value: string) => t(createOptionLabelKey, { value })
+    return (value: string) => t(createOptionLabelKey, { value: value?.trim() })
   }
 
   return undefined

@@ -1,58 +1,46 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useMemo } from 'react'
 
 import { Objects } from 'utils/objects'
 
 import { NodeValue } from 'meta/assessment'
 import { Taxon } from 'meta/extData'
 
-import { Option, SelectProps } from 'client/components/Inputs/Select'
+import { Option } from 'client/components/Inputs/Select'
+import { CURRENT_NODE_OPTION_VALUE } from 'client/pages/Section/DataTable/Table/RowData/Cell/Taxon/types'
 
 type Props = {
   data: Array<Taxon>
+  inputValue: string
   nodeValue: NodeValue
 }
 
-type Returned = {
-  isValidNewOption: SelectProps['isValidNewOption']
-  options: Array<Option>
-  value: string
-}
+type Returned = Array<Option>
 
 export const useOptions = (props: Props): Returned => {
-  const { data, nodeValue } = props
+  const { data, inputValue, nodeValue } = props
 
-  const [value, setValue] = useState<string>('')
-
-  useEffect(() => {
-    setValue(nodeValue?.taxonCode ?? '')
-  }, [nodeValue])
-
-  const options = useMemo<Array<Option>>(() => {
-    return data.map((taxon) => {
+  return useMemo<Returned>(() => {
+    const options = data.map((taxon) => {
       const label = taxon.scientificName
       const value = taxon.code.toString()
       return { label, value }
     })
-  }, [data])
 
-  const isValidNewOption = useCallback<SelectProps['isValidNewOption']>(
-    (inputValue: string, value: Array<Option>, options: Array<Option>) => {
-      const selectedOption = value?.at(0)
+    // Add the current node value option if not already present
+    if (Objects.isEmpty(nodeValue?.raw)) return options
+    if (Objects.isEmpty(inputValue)) return options
 
-      if (!Objects.isEmpty(selectedOption) && selectedOption.label === inputValue) {
-        return false
-      }
-      if (nodeValue?.raw?.toLocaleLowerCase() === inputValue?.toLocaleLowerCase()) return false
-      if (options.some((option) => option.label.toLocaleLowerCase() === inputValue?.toLocaleLowerCase())) return false
+    const isCurrentNodeInOptions = options.some(
+      (option) => option.value === nodeValue.taxonCode || option.label === nodeValue.raw
+    )
+    if (isCurrentNodeInOptions) return options
 
-      return true
-    },
-    [nodeValue?.raw]
-  )
+    const currentNodeOption = {
+      label: nodeValue.raw,
+      value: !Objects.isEmpty(nodeValue.taxonCode) ? nodeValue.taxonCode : CURRENT_NODE_OPTION_VALUE,
+    }
+    options.unshift(currentNodeOption)
 
-  return {
-    isValidNewOption,
-    options,
-    value,
-  }
+    return options
+  }, [data, inputValue, nodeValue])
 }

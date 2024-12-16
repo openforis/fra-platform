@@ -1,7 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
 
-import { Objects } from 'utils/objects'
-
 import { NodeValue } from 'meta/assessment'
 import { Taxon } from 'meta/extData'
 
@@ -17,7 +15,6 @@ type Returned = {
   data: Array<Taxon>
   handleInputChange: SelectProps['onInputChange']
   inputValue: string
-  onBlur: SelectProps['onBlur']
   onFocus: SelectProps['onFocus']
 }
 
@@ -34,7 +31,7 @@ export const useOnInputChange = (props: Props): Returned => {
 
   const fetchData = useCallback<FetchTaxonData>(async (query) => {
     const data = await fetchTaxonData(query)
-    setData(data)
+    setData(data ?? [])
   }, [])
 
   const handleInputChange = useCallback<SelectProps['onInputChange']>(
@@ -51,19 +48,10 @@ export const useOnInputChange = (props: Props): Returned => {
     fetchData(inputValue)
   }, [fetchData, inputValue])
 
-  const onBlur = useCallback<SelectProps['onBlur']>(() => {
-    if (Objects.isEmpty(nodeValue.raw)) {
-      setInputValue('')
-    } else {
-      setInputValue(nodeValue.raw)
-    }
-  }, [nodeValue.raw])
-
   return {
     data,
     handleInputChange,
     inputValue,
-    onBlur,
     onFocus,
   }
 }
