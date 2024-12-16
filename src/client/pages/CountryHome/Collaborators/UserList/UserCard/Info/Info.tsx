@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
 
 import { CountryIso } from 'meta/area'
-import { UserInvitations, Users } from 'meta/user'
+import { UserInvitations } from 'meta/user'
 import { CountryUserSummaries } from 'meta/user/countryUserSummaries'
 
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
@@ -23,16 +23,15 @@ const Info: React.FC<Props> = (props: Props) => {
 
   return (
     <div className={classNames('home-user-info', { expired })}>
-      <div className="home-user-role">
-        <div className="role">{t(Users.getI18nRoleLabelKey(CountryUserSummaries.getRoleName(user, countryIso)))}</div>
+      <div className="home-user-name">
+        <div className="name">{user.fullName}</div>
+
         {isInvitation && (
           <div className={classNames('invitation-badge', { expired })}>
             {expired ? t('common.expired') : t('common.pending')}
           </div>
         )}
       </div>
-
-      <div className="home-user-name">{user.fullName}</div>
     </div>
   )
 }

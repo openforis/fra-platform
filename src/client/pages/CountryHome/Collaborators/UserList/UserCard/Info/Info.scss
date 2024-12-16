@@ -2,26 +2,19 @@
 
 .home-user-info {
   &.expired {
-    .home-user-name {
+    .home-user-name .name {
       text-decoration: line-through;
     }
   }
 }
 
 .home-user-name {
-  font-weight: 700;
-  margin-top: -6px;
-}
-
-.home-user-role {
   align-items: center;
   display: flex;
   gap: 8px;
 
-  .role {
-    color: lighten($text-mute, 10%);
-    font-size: $font-xs;
-    text-transform: uppercase;
+  .name {
+    font-weight: 700;
   }
 }
 
@@ -33,9 +26,9 @@
   border: 1px solid rgba($ui-alert, 0.8);
   color: darken($ui-alert, 20%);
   display: grid;
-  font-size: 9px;
+  font-size: 8px;
   font-weight: 600;
-  height: 18px;
+  height: 16px;
   justify-content: center;
   letter-spacing: 0.4px;
   line-height: 0;

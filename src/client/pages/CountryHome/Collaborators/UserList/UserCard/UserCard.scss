@@ -8,15 +8,17 @@
   grid-template-columns: auto auto;
   justify-content: start;
   padding: $spacing-xxs;
+  background-color: $ui-bg-light;
+  transition: background-color 0.2s ease;
 
   .user-avatar {
     align-self: center;
+    grid-row: span 2;
   }
 
   &.invitation {
     .user-avatar,
-    .home-user-role .role,
-    .home-user-name {
+    .home-user-name .name {
       opacity: 0.6;
     }
   }
@@ -28,7 +30,7 @@
   }
 
   &:hover {
-    background-color: rgba($ui-accent-light-extra, 0.2);
+    background-color: darken($ui-bg-light, 2%);
 
     [class*='home-user-action-button-']:not([class*='home-user-action-button-message']) {
       opacity: 1;

@@ -25,7 +25,7 @@ export const useOnChange = (user: User): Returned => {
         return userRole
       })
 
-      const params = { assessmentName, cycleName, roles, userId: user.id }
+      const params = { assessmentName, cycleName, roles, userUuid: user.uuid }
       dispatch(UserManagementActions.updateUserRoles(params))
     },
     [assessmentName, countryIso, cycle, cycleName, dispatch, user]

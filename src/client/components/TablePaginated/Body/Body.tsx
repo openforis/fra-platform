@@ -1,43 +1,42 @@
+import './Body.scss'
 import React from 'react'
 
-import classNames from 'classnames'
 import { Objects } from 'utils/objects'
 
-import { useTablePaginatedData } from 'client/store/ui/tablePaginated'
-import DataColumn from 'client/components/DataGridDeprecated/DataColumn'
+import Rows from 'client/components/TablePaginated/Body/Rows'
+import RowsGroup from 'client/components/TablePaginated/Body/RowsGroup'
 import RowsSkeleton from 'client/components/TablePaginated/Body/RowsSkeleton'
 import { Props as BaseProps } from 'client/components/TablePaginated/types'
 
-const Body = <Datum extends object>(props: BaseProps<Datum>) => {
-  const { columns, compareFn, limit, path, wrapCells, skeleton } = props
+import { useTablePaginatedBodyData } from './hooks/useTablePaginatedBodyData'
 
-  const data = useTablePaginatedData<Datum>(path, compareFn)
+const Body = <Datum extends object>(props: BaseProps<Datum>) => {
+  const { columns, groups, limit, wrapCells, skeleton } = props
+
+  const data = useTablePaginatedBodyData<Datum>(props)
 
   if (Objects.isNil(data)) {
     return <RowsSkeleton columns={columns} limit={limit} skeleton={skeleton} />
   }
 
-  return (
-    <>
-      {data.map((datum, rowIndex) => (
-        <React.Fragment key={`row_${String(rowIndex)}}`}>
-          {columns.map((column) => {
-            const { component: Component, key } = column
+  if (!Objects.isNil(groups)) {
+    return (
+      <div className="table-paginated__groups">
+        {(data as Array<[PropertyKey, Array<Datum>]>).map(([propertyKey, dataRows]) => (
+          <RowsGroup
+            key={propertyKey.toString()}
+            columns={columns}
+            data={dataRows}
+            groups={groups}
+            propertyKey={propertyKey}
+            wrapCells={wrapCells}
+          />
+        ))}
+      </div>
+    )
+  }
 
-            if (wrapCells) {
-              return (
-                <DataColumn key={key} className={classNames({ withBorder: rowIndex !== 0 })}>
-                  <Component datum={datum} rowIndex={rowIndex} />
-                </DataColumn>
-              )
-            }
-
-            return <Component key={key} datum={datum} rowIndex={rowIndex} />
-          })}
-        </React.Fragment>
-      ))}
-    </>
-  )
+  return <Rows columns={columns} data={data as Array<Datum>} wrapCells={wrapCells} />
 }
 
 export default Body
