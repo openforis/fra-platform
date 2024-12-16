@@ -29,7 +29,10 @@ type SelectBaseProps =
       | 'onMenuOpen'
       | 'placeholder'
     > &
-      Pick<CreatableProps<Option, boolean, OptionsGroup>, 'isValidNewOption' | 'onCreateOption'>
+      Pick<
+        CreatableProps<Option, boolean, OptionsGroup>,
+        'createOptionPosition' | 'onCreateOption' | 'isValidNewOption'
+      >
 
 type SelectClassNamesProps = {
   classNames?: { container?: string }
@@ -43,7 +46,6 @@ export type SelectProps = SelectBaseProps &
     isCreatable?: boolean
     multiLabelSummaryKey?: string
     onChange: (value: string | Array<string> | null) => void
-    onPaste?: React.ClipboardEventHandler<HTMLInputElement>
     options: OptionsOrGroups
     selectableGroups?: boolean
     toggleAll?: boolean

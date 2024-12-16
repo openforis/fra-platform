@@ -13,6 +13,7 @@ import { SelectProps } from './types'
 
 const Select: React.FC<SelectProps> = (props) => {
   const {
+    createOptionPosition,
     disabled,
     inputValue,
     isClearable,
@@ -43,6 +44,7 @@ const Select: React.FC<SelectProps> = (props) => {
       classNames={classNames}
       closeMenuOnSelect={!isMulti}
       components={components}
+      createOptionPosition={createOptionPosition}
       formatCreateLabel={formatCreateLabel}
       hideSelectedOptions={false}
       inputValue={inputValue}
