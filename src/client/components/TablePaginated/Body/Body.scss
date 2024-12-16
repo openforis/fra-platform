@@ -1,0 +1,6 @@
+@import 'src/client/style/partials';
+
+.table-paginated__groups {
+  display: grid;
+  grid-row-gap: $spacing-xs;
+}
