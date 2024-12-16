@@ -3,64 +3,79 @@ import { AssessmentNames } from 'meta/assessment'
 import { AssessmentController } from 'server/controller/assessment'
 import { BaseProtocol, Schemas } from 'server/db'
 
+type UpdateColumnNamesProps = {
+  columnNames: Array<string>
+  cycleUuid: string
+  schemaAssessment: string
+  tableName: string
+}
+
+const _fixColumnNames = async (props: UpdateColumnNamesProps, client: BaseProtocol) => {
+  const { schemaAssessment, cycleUuid, tableName, columnNames } = props
+
+  return client.query(
+    `update ${schemaAssessment}.table
+     set props = jsonb_set(
+      props,
+       '{columnNames,${cycleUuid}}',
+      $1::jsonb
+     )
+     where props->>'name' = '${tableName}'
+    `,
+    [JSON.stringify(columnNames)]
+  )
+}
+
 const _fixFRA2025GridLayouts = async (client: BaseProtocol) => {
   const { assessment, cycle } = await AssessmentController.getOneWithCycle(
     { assessmentName: AssessmentNames.fra, cycleName: '2025' },
     client
   )
-
+  const cycleUuid = cycle.uuid
   const schemaAssessment = Schemas.getName(assessment)
 
   // Fix 1a Extent of forest and other wooded land -> forest area status
-  await client.query(
-    `update ${schemaAssessment}.table
-     set props = jsonb_set(
-        props,
-        '{columnNames,${cycle.uuid}}',
-        $1::jsonb
-       )
-      where props->>'name' = 'extentOfForest_forestAreaStatusAndTrend'
-      `,
-    [JSON.stringify(['tier'])]
+  await _fixColumnNames(
+    {
+      columnNames: ['tier'],
+      cycleUuid: cycle.uuid,
+      schemaAssessment,
+      tableName: 'extentOfForest_forestAreaStatusAndTrend',
+    },
+    client
   )
 
   // Fix 2a Growing stock status description -> tier status
-  await client.query(
-    `update ${schemaAssessment}.table
-     set props = jsonb_set(
-        props,
-        '{columnNames,${cycle.uuid}}',
-        $1::jsonb
-       )
-      where props->>'name' = 'growingStock_growingStockStatus_Description'
-    `,
-    [JSON.stringify(['status', 'tier'])]
+  await _fixColumnNames(
+    {
+      columnNames: ['status', 'tier'],
+      cycleUuid,
+      schemaAssessment,
+      tableName: 'growingStock_growingStockStatus_Description',
+    },
+    client
   )
 
   // Fix 2c Biomass stock status description -> tier status
-  await client.query(
-    `update ${schemaAssessment}.table
-     set props = jsonb_set(
-        props,
-        '{columnNames,${cycle.uuid}}',
-        $1::jsonb
-     )
-      where props->>'name' = 'biomassStock_biomassStockStatus_Description'
-    `,
-    [JSON.stringify(['status', 'tier'])]
+  await _fixColumnNames(
+    {
+      columnNames: ['status', 'tier'],
+      cycleUuid,
+      schemaAssessment,
+      tableName: 'biomassStock_biomassStockStatus_Description',
+    },
+    client
   )
 
   // Fix 3b Forest area within protected areas
-  await client.query(
-    `update ${schemaAssessment}.table
-     set props = jsonb_set(
-        props,
-        '{columnNames,${cycle.uuid}}',
-        $1::jsonb
-     )
-     where props->>'name' = 'forestAreaWithinProtectedAreas'
-    `,
-    [JSON.stringify(['1990', '2000', '2010', '2015', '2020', '2025'])]
+  await _fixColumnNames(
+    {
+      columnNames: ['1990', '2000', '2010', '2015', '2020', '2025'],
+      cycleUuid,
+      schemaAssessment,
+      tableName: 'forestAreaWithinProtectedAreas',
+    },
+    client
   )
   // Fix area header colSpan
   await client.query(
@@ -79,68 +94,52 @@ const _fixFRA2025GridLayouts = async (client: BaseProtocol) => {
   )
 
   // Fix 5c Degraded forest -> degradedForest2025
-  await client.query(
-    `update ${schemaAssessment}.table
-     set props = jsonb_set(
-        props,
-        '{columnNames,${cycle.uuid}}',
-        $1::jsonb
-     )
-     where props->>'name' = 'degradedForest2025'
-      `,
-    [JSON.stringify(['hasNationalDefinitionOfDegradedForest', 'national_definition'])]
+  await _fixColumnNames(
+    {
+      columnNames: ['hasNationalDefinitionOfDegradedForest', 'national_definition'],
+      cycleUuid,
+      schemaAssessment,
+      tableName: 'degradedForest2025',
+    },
+    client
   )
   // Fix 5c Degraded forest -> degradedForestMonitoring2025
-  await client.query(
-    `update ${schemaAssessment}.table
-     set props = jsonb_set(
-        props,
-        '{columnNames,${cycle.uuid}}',
-        $1::jsonb
-     )
-     where props->>'name' = 'degradedForestMonitoring2025'
-    `,
-    [JSON.stringify(['hasNationalDefinitionOfDegradedForest', 'national_definition'])]
+  await _fixColumnNames(
+    {
+      columnNames: ['hasNationalDefinitionOfDegradedForest', 'national_definition'],
+      cycleUuid,
+      schemaAssessment,
+      tableName: 'degradedForestMonitoring2025',
+    },
+    client
   )
 
   // Fix 6b Area of permanent forest estate
-  await client.query(
-    `update ${schemaAssessment}.table
-     set props = jsonb_set(
-        props,
-        '{columnNames,${cycle.uuid}}',
-        $1::jsonb
-     )
-     where props->>'name' = 'areaOfPermanentForestEstate'
-      `,
-    [JSON.stringify(['applicable', '1990', '2000', '2010', '2015', '2020', '2025'])]
+  await _fixColumnNames(
+    {
+      columnNames: ['applicable', '1990', '2000', '2010', '2015', '2020', '2025'],
+      cycleUuid,
+      schemaAssessment,
+      tableName: 'areaOfPermanentForestEstate',
+    },
+    client
   )
 
   // Fix 8 Sustainable Development Goal -> sustainableDevelopment15_2_1_3
-  await client.query(
-    `update ${schemaAssessment}.table
-     set props = jsonb_set(
-        props,
-        '{columnNames,${cycle.uuid}}',
-        $1::jsonb
-     )
-     where props->>'name' = 'sustainableDevelopment15_2_1_3'
-    `,
-    [JSON.stringify(['2000', '2010', '2015', '2020', '2021', '2022', '2023', '2024', '2025'])]
+  await _fixColumnNames(
+    {
+      columnNames: ['2000', '2010', '2015', '2020', '2021', '2022', '2023', '2024', '2025'],
+      cycleUuid,
+      schemaAssessment,
+      tableName: 'sustainableDevelopment15_2_1_3',
+    },
+    client
   )
 
   // Fix 8 Sustainable Development Goal -> sustainableDevelopment15_2_1_5
-  await client.query(
-    `update ${schemaAssessment}.table
-     set props = jsonb_set(
-        props,
-        '{columnNames,${cycle.uuid}}',
-        $1::jsonb
-     )
-     where props->>'name' = 'sustainableDevelopment15_2_1_5'
-    `,
-    [
-      JSON.stringify([
+  await _fixColumnNames(
+    {
+      columnNames: [
         '2000',
         '2005',
         '2010',
@@ -155,8 +154,12 @@ const _fixFRA2025GridLayouts = async (client: BaseProtocol) => {
         '2023',
         '2024',
         '2025',
-      ]),
-    ]
+      ],
+      cycleUuid,
+      schemaAssessment,
+      tableName: 'sustainableDevelopment15_2_1_5',
+    },
+    client
   )
   await AssessmentController.generateMetadataCache({ assessment }, client)
 }
@@ -166,23 +169,20 @@ const _fixFRA2020GridLayouts = async (client: BaseProtocol) => {
     { assessmentName: AssessmentNames.fra, cycleName: '2020' },
     client
   )
+  const cycleUuid = cycle.uuid
 
   const schemaAssessment = Schemas.getName(assessment)
 
   // Fix 5c Degraded forest definition
-  await client.query(
-    `update ${schemaAssessment}.table
-     set props = jsonb_set(
-        props,
-        '{columnNames,${cycle.uuid}}',
-        $1::jsonb
-       )
-     where props->>'name' = 'degradedForest'
-      `,
-    [JSON.stringify(['definition', 'answer'])]
+  await _fixColumnNames(
+    {
+      columnNames: ['definition', 'answer'],
+      cycleUuid,
+      schemaAssessment,
+      tableName: 'degradedForest',
+    },
+    client
   )
-
-  await AssessmentController.generateMetadataCache({ assessment }, client)
 }
 
 const _fixPanEuropean2020GridLayouts = async (client: BaseProtocol) => {
@@ -218,71 +218,62 @@ const _fixPanEuropean2025GridLayouts = async (client: BaseProtocol) => {
     client
   )
 
+  const cycleUuid = cycle.uuid
   const schemaAssessment = Schemas.getName(assessment)
 
   // Fix 1.1 Forest area -> country_comments_1_1_1
-  await client.query(
-    `update ${schemaAssessment}.table
-     set props = jsonb_set(
-        props,
-        '{columnNames,${cycle.uuid}}',
-        $1::jsonb
-       )
-     where props->>'name' = 'country_comments_1_1_1'
-      `,
-    [JSON.stringify(['method', 'comment'])]
+  await _fixColumnNames(
+    {
+      columnNames: ['method', 'comment'],
+      cycleUuid,
+      schemaAssessment,
+      tableName: 'country_comments_1_1_1',
+    },
+    client
   )
 
   // Fix 1.2 Growing stock -> reasonability_check_1_2
-  await client.query(
-    `update ${schemaAssessment}.table
-     set props = jsonb_set(
-        props,
-        '{columnNames,${cycle.uuid}}',
-        $1::jsonb
-       )
-     where props->>'name' = 'reasonability_check_1_2'
-      `,
-    [JSON.stringify(['forest', 'FAWS', 'OWL', 'FOWL'])]
+  await _fixColumnNames(
+    {
+      columnNames: ['forest', 'FAWS', 'OWL', 'FOWL'],
+      cycleUuid,
+      schemaAssessment,
+      tableName: 'reasonability_check_1_2',
+    },
+    client
   )
 
   // Fix 1.2.1 Growing stock -> country_comments_1_2_1
-  await client.query(
-    `update ${schemaAssessment}.table
-     set props = jsonb_set(
-        props,
-        '{columnNames,${cycle.uuid}}',
-        $1::jsonb
-       )
-     where props->>'name' = 'country_comments_1_2_1'
-     `,
-    [JSON.stringify(['method', 'comment'])]
+  await _fixColumnNames(
+    {
+      columnNames: ['method', 'comment'],
+      cycleUuid,
+      schemaAssessment,
+      tableName: 'country_comments_1_2_1',
+    },
+    client
   )
 
   // Fix 1.2.2 Growing stock -> country_comments_1_2_2
-  await client.query(
-    `update ${schemaAssessment}.table
-     set props = jsonb_set(
-        props,
-        '{columnNames,${cycle.uuid}}',
-        $1::jsonb
-       )
-     where props->>'name' = 'country_comments_1_2_2'
-     `,
-    [JSON.stringify(['method', 'comment'])]
+  await _fixColumnNames(
+    {
+      columnNames: ['method', 'comment'],
+      cycleUuid,
+      schemaAssessment,
+      tableName: 'country_comments_1_2_2',
+    },
+    client
   )
 
   // Fix 1.3a.2 Growing stock -> country_comments_1_3a_2
-  await client.query(
-    `update ${schemaAssessment}.table
-     set props = jsonb_set(
-        props,
-        '{columnNames,${cycle.uuid}}',
-        $1::jsonb
-       )
-     where props->>'name' = 'country_comments_1_3a_2'
-     `,
-    [JSON.stringify(['method', 'comment'])]
+  await _fixColumnNames(
+    {
+      columnNames: ['method', 'comment'],
+      cycleUuid,
+      schemaAssessment,
+      tableName: 'country_comments_1_3a_2',
+    },
+    client
   )
 
   // Fix 1.4 Carbon stock -> table_1_4a header rowSpan
@@ -302,29 +293,25 @@ const _fixPanEuropean2025GridLayouts = async (client: BaseProtocol) => {
   )
 
   // Fix 1.4 Carbon stock -> reasonability_check_1_4
-  await client.query(
-    `update ${schemaAssessment}.table
-     set props = jsonb_set(
-        props,
-        '{columnNames,${cycle.uuid}}',
-        $1::jsonb
-       )
-     where props->>'name' = 'reasonability_check_1_4'
-      `,
-    [JSON.stringify(['forest', 'OWL', 'FOWL'])]
+  await _fixColumnNames(
+    {
+      columnNames: ['forest', 'OWL', 'FOWL'],
+      cycleUuid,
+      schemaAssessment,
+      tableName: 'reasonability_check_1_4',
+    },
+    client
   )
 
   // Fix 1.4 Carbon stock -> country_comments_1_4_1
-  await client.query(
-    `update ${schemaAssessment}.table
-     set props = jsonb_set(
-        props,
-        '{columnNames,${cycle.uuid}}',
-        $1::jsonb
-       )
-     where props->>'name' = 'country_comments_1_4_1'
-     `,
-    [JSON.stringify(['method', 'comment'])]
+  await _fixColumnNames(
+    {
+      columnNames: ['method', 'comment'],
+      cycleUuid,
+      schemaAssessment,
+      tableName: 'country_comments_1_4_1',
+    },
+    client
   )
 
   // Fix 2.4 Forest area with damage -> table_2_4 header rowSpan
@@ -344,81 +331,69 @@ const _fixPanEuropean2025GridLayouts = async (client: BaseProtocol) => {
   )
 
   // Fix 2.4 Forest area with damage -> reasonability_check_2_4
-  await client.query(
-    `update ${schemaAssessment}.table
-     set props = jsonb_set(
-        props,
-        '{columnNames,${cycle.uuid}}',
-        $1::jsonb
-       )
-     where props->>'name' = 'reasonability_check_2_4'
-      `,
-    [JSON.stringify(['forest', 'OWL', 'FOWL'])]
+  await _fixColumnNames(
+    {
+      columnNames: ['forest', 'OWL', 'FOWL'],
+      cycleUuid,
+      schemaAssessment,
+      tableName: 'reasonability_check_2_4',
+    },
+    client
   )
 
   // Fix 2.5 Area with forest land degradation -> country_comments_2_5_2
-  await client.query(
-    `update ${schemaAssessment}.table
-     set props = jsonb_set(
-        props,
-        '{columnNames,${cycle.uuid}}',
-        $1::jsonb
-       )
-     where props->>'name' = 'country_comments_2_5_2'
-    `,
-    [JSON.stringify(['total_area_of_degraded_land', 'comment', 'comment_trends'])]
+  await _fixColumnNames(
+    {
+      columnNames: ['total_area_of_degraded_land', 'comment', 'comment_trends'],
+      cycleUuid,
+      schemaAssessment,
+      tableName: 'country_comments_2_5_2',
+    },
+    client
   )
 
   // Fix 3.1 Increment and fellings -> reasonability_check_3_1
-  await client.query(
-    `update ${schemaAssessment}.table
-     set props = jsonb_set(
-        props,
-        '{columnNames,${cycle.uuid}}',
-        $1::jsonb
-       )
-     where props->>'name' = 'reasonability_check_3_1'
-      `,
-    [JSON.stringify(['FAWS'])]
+  await _fixColumnNames(
+    {
+      columnNames: ['FAWS'],
+      cycleUuid,
+      schemaAssessment,
+      tableName: 'reasonability_check_3_1',
+    },
+    client
   )
 
   // Fix 4.3 Naturalness -> country_comments_4_3_1
-  await client.query(
-    `update ${schemaAssessment}.table
-     set props = jsonb_set(
-        props,
-        '{columnNames,${cycle.uuid}}',
-        $1::jsonb
-       )
-     where props->>'name' = 'country_comments_4_3_1'
-     `,
-    [JSON.stringify(['method', 'comment'])]
+  await _fixColumnNames(
+    {
+      columnNames: ['method', 'comment'],
+      cycleUuid,
+      schemaAssessment,
+      tableName: 'country_comments_4_3_1',
+    },
+    client
   )
 
   // Fix 4.4 Area of stands -> country_comments_4_4_1
-  await client.query(
-    `update ${schemaAssessment}.table
-     set props = jsonb_set(
-        props,
-        '{columnNames,${cycle.uuid}}',
-        $1::jsonb
-       )
-     where props->>'name' = 'country_comments_4_4_1'
-     `,
-    [JSON.stringify(['method', 'comment'])]
+  await _fixColumnNames(
+    {
+      columnNames: ['method', 'comment'],
+      cycleUuid,
+      schemaAssessment,
+      tableName: 'country_comments_4_4_1',
+    },
+    client
   )
 
   // Fix 4.5 Increment and fellings -> reasonability_check_4_5
-  await client.query(
-    `update ${schemaAssessment}.table
-     set props = jsonb_set(
-        props,
-        '{columnNames,${cycle.uuid}}',
-        $1::jsonb
-       )
-     where props->>'name' = 'reasonability_check_4_5'
-      `,
-    [JSON.stringify(['forest', 'OWL', 'FOWL'])]
+  await _fixColumnNames(
+    {
+      columnNames: ['forest', 'OWL', 'FOWL'],
+      cycleUuid,
+      schemaAssessment,
+      tableName: 'reasonability_check_4_5',
+    },
+    client
   )
 
   // Fix 4.5 Increment and fellings -> country_comments_4_5_1 header colSpan
@@ -454,29 +429,25 @@ const _fixPanEuropean2025GridLayouts = async (client: BaseProtocol) => {
   )
 
   // Fix 4.9 Protected forests -> country_comments_4_9_1
-  await client.query(
-    `update ${schemaAssessment}.table
-     set props = jsonb_set(
-        props,
-        '{columnNames,${cycle.uuid}}',
-        $1::jsonb
-       )
-     where props->>'name' = 'country_comments_4_9_1'
-     `,
-    [JSON.stringify(['method', 'comment'])]
+  await _fixColumnNames(
+    {
+      columnNames: ['method', 'comment'],
+      cycleUuid,
+      schemaAssessment,
+      tableName: 'country_comments_4_9_1',
+    },
+    client
   )
 
   // Fix 5.1 Protective forests -> country_comments_5_1_1
-  await client.query(
-    `update ${schemaAssessment}.table
-     set props = jsonb_set(
-        props,
-        '{columnNames,${cycle.uuid}}',
-        $1::jsonb
-       )
-     where props->>'name' = 'country_comments_5_1_1'
-     `,
-    [JSON.stringify(['method', 'comment'])]
+  await _fixColumnNames(
+    {
+      columnNames: ['method', 'comment'],
+      cycleUuid,
+      schemaAssessment,
+      tableName: 'country_comments_5_1_1',
+    },
+    client
   )
 
   await AssessmentController.generateMetadataCache({ assessment }, client)
