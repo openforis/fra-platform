@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 import { CountryIso } from 'meta/area'
 import { Routes } from 'meta/routes'
-import { Users } from 'meta/user'
+import { Authorizer } from 'meta/user'
 import { CountryUserSummaries } from 'meta/user/countryUserSummaries'
 
 import { useCycle } from 'client/store/assessment'
@@ -27,9 +27,9 @@ const Edit: React.FC<Props> = (props: Props) => {
   const currentUser = useUser()
   const cycle = useCycle()
 
-  const currentUserIsReviewer = Users.isReviewer(currentUser, countryIso, cycle)
-  const label = t(currentUserIsReviewer ? 'common.view' : 'userManagement.edit')
-  const iconName = currentUserIsReviewer ? 'icon-eye' : 'pencil'
+  const isEdit = Authorizer.canEditUser({ cycle, countryIso, user: currentUser, target: user })
+  const label = t(isEdit ? 'userManagement.edit' : 'common.view')
+  const iconName = isEdit ? 'pencil' : 'icon-eye'
   const className = useButtonClassName({ iconName, label, size, type, className: 'home-user-action-button-edit' })
 
   if (CountryUserSummaries.isInvitation(user, countryIso)) {

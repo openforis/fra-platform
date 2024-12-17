@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next'
 import { NavLink } from 'react-router-dom'
 
 import classNames from 'classnames'
-import { Objects } from 'utils/objects'
 
 import { Areas } from 'meta/area'
 import { MessageTopicType, Topics } from 'meta/messageCenter'
@@ -42,7 +41,7 @@ const CountryHeader: React.FC<Props> = (props) => {
   )
 
   const withTabs = useMemo<boolean>(
-    () => !Objects.isEmpty(sections) && Areas.isISOCountry(countryIso),
+    () => Areas.isISOCountry(countryIso) && sections?.length > 1,
     [countryIso, sections]
   )
 
