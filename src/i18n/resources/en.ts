@@ -19,6 +19,7 @@ import * as other from './en/other.json'
 import * as panEuropean from './en/panEuropean/panEuropean.json'
 import * as statisticalFactsheets from './en/statisticalFactsheets.json'
 import * as uc from './en/uc.json'
+import * as user from './en/user.json'
 import * as validation from './en/validation.json'
 
 export const enTranslation = {
@@ -38,15 +39,11 @@ export const enTranslation = {
   landing,
   login,
   nationalDataPoint,
-
-  page: {
-    assessmentSection,
-  },
-
+  page: { assessmentSection },
   panEuropean,
   statisticalFactsheets,
   uc,
+  user,
   validation,
-
   ...other,
 }

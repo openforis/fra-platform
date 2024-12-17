@@ -643,26 +643,6 @@
     "thousandPersons": "1000 شخص",
     "tonnesPerHa": "طن/هـ"
   },
-  "user": {
-    "resetPasswordEmail": {
-      "htmlMessage": "عزيزي {{user}}\n<br/><br/>\nتلقينا طلباً بإعادة ضبط كلمة المرور إلى حساب تقييم الموارد الحرجية الخاص بك. \n<br/>\nإن لم تقدم هذا الطلب، يمكنك تجاهل هذه الرسالة بأمان.\n<br/><br/><br/>\n<a href=\"{{link}}\" style=\"text-decoration: none; background-color: #0098a6;border: 2px solid #00988F;color: white;font-size: 14px;font-weight: 700;    padding: 10px 50px;\">Click here to reset your password</a>\n<br/><br/><br/>\nThanks,\n<br/>\nفريق تقييم الموارد الحرجية fra@fao.org\n<br/>\n{{- url}}\n      ",
-      "subject": "منصة تقييم الموارد الحرجية، إعادة ضبط كلمة المرور",
-      "textMessage": "عزيزي {{user}}\n\nتلقينا طلباً بإعادة ضبط كلمة المرور إلى حساب تقييم الموارد الحرجية الخاص بك. إذا لم تقدم هذا الطلب يمكنك تجاهل هذه الرسالة بأمان.\nانقر على الرابط التالي لإعادة ضبط كلمة المرور{{- link}}\n\nClick the following link to reset your password\n{{- link}}\n\n\nشكراً\nفريق تقييم الموارد الحرجية fra@fao.org\n{{- url}}"
-    },
-    "roles": {
-      "ADMINISTRATOR": "مدير",
-      "ALTERNATE_NATIONAL_CORRESPONDENT": "مراسل وطني بديل",
-      "COLLABORATOR": "متعاون",
-      "NATIONAL_CORRESPONDENT": "مراسل وطني",
-      "REVIEWER": "مُراجع",
-      "VIEWER": "مشاهد",
-      "alternateNationalCorrespondent_plural": "المراسلون الوطنيون المناوبون",
-      "collaborator_plural": "المتعاونين",
-      "nationalCorrespondent_plural": "المراسلون الوطنيون",
-      "noRole": "",
-      "reviewer_plural": "المراجعين"
-    }
-  },
   "userChat": {
     "cancel": "إلغاء",
     "chatHeader": "رسائل مع {{user}}",
