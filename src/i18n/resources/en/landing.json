@@ -72,13 +72,14 @@
   },
   "sections": {
     "about": "About FRA",
+    "collaborators": "$t(user.roles.COLLABORATOR, {\"count\":10})",
     "contentCheck": "Content / Check",
     "externalData": "External data",
     "messageBoard": "Message board",
     "overview": "Overview",
     "recentActivity": "Recent activity",
     "repository": "Links & Repository",
-    "collaborators": "$t(common.collaborators)",
+    "userManagement": "Manage Collaborators",
     "versioning": "Versioning"
   },
   "users": {
