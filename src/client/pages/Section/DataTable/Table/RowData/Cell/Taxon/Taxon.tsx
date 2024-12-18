@@ -1,8 +1,6 @@
 import './Taxon.scss'
 import React from 'react'
 
-import classNames from 'classnames'
-
 import Select from 'client/components/Inputs/Select'
 import { PropsCell } from 'client/pages/Section/DataTable/Table/RowData/Cell/props'
 
@@ -29,26 +27,24 @@ const Taxon: React.FC<PropsCell> = (props: PropsCell) => {
   const onBlur = useOnBlur({ nodeValue, onChange, onCreateOption, options })
 
   return (
-    <div className={classNames('table-grid__taxon-cell-container', { disabled })} onPaste={onPaste}>
-      {disabled && inputValue}
-      {!disabled && (
-        <Select
-          createOptionLabelKey="common.addValue"
-          createOptionPosition="first"
-          inputHidden={false}
-          inputValue={inputValue ?? ''}
-          isClearable={false}
-          isCreatable
-          isValidNewOption={isValidNewOption}
-          onBlur={onBlur}
-          onChange={onChange}
-          onCreateOption={onCreateOption}
-          onFocus={onFocus}
-          onInputChange={handleInputChange}
-          options={options}
-          value={nodeValue?.taxonCode ?? CURRENT_NODE_OPTION_VALUE}
-        />
-      )}
+    <div className="table-grid__taxon-cell-container" onPaste={onPaste}>
+      <Select
+        createOptionLabelKey="common.addValue"
+        createOptionPosition="first"
+        disabled={disabled}
+        inputHidden={false}
+        inputValue={!disabled ? inputValue : null}
+        isClearable={false}
+        isCreatable
+        isValidNewOption={isValidNewOption}
+        onBlur={onBlur}
+        onChange={onChange}
+        onCreateOption={onCreateOption}
+        onFocus={onFocus}
+        onInputChange={handleInputChange}
+        options={options}
+        value={nodeValue?.taxonCode ?? CURRENT_NODE_OPTION_VALUE}
+      />
     </div>
   )
 }
