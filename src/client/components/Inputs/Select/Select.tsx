@@ -27,6 +27,7 @@ const Select: React.FC<SelectProps> = (props) => {
     onInputChange,
     onMenuClose,
     onMenuOpen,
+    onPaste,
     placeholder,
   } = props
 
@@ -40,33 +41,35 @@ const Select: React.FC<SelectProps> = (props) => {
   const Component = isCreatable ? CreatableSelect : ReactSelect
 
   return (
-    <Component
-      classNames={classNames}
-      closeMenuOnSelect={!isMulti}
-      components={components}
-      createOptionPosition={createOptionPosition}
-      formatCreateLabel={formatCreateLabel}
-      hideSelectedOptions={false}
-      inputValue={inputValue}
-      isClearable={isClearable}
-      isDisabled={disabled}
-      isMulti={isMulti}
-      isSearchable
-      isValidNewOption={isValidNewOption}
-      maxMenuHeight={maxMenuHeight}
-      menuPlacement="auto"
-      menuPosition="fixed"
-      onBlur={onBlur}
-      onChange={onChange}
-      onCreateOption={onCreateOption}
-      onFocus={onFocus}
-      onInputChange={onInputChange}
-      onMenuClose={onMenuClose}
-      onMenuOpen={onMenuOpen}
-      options={options}
-      placeholder={placeholder ?? ''}
-      value={value}
-    />
+    <div className="select__wrapper" onPaste={onPaste}>
+      <Component
+        classNames={classNames}
+        closeMenuOnSelect={!isMulti}
+        components={components}
+        createOptionPosition={createOptionPosition}
+        formatCreateLabel={formatCreateLabel}
+        hideSelectedOptions={false}
+        inputValue={inputValue}
+        isClearable={isClearable}
+        isDisabled={disabled}
+        isMulti={isMulti}
+        isSearchable
+        isValidNewOption={isValidNewOption}
+        maxMenuHeight={maxMenuHeight}
+        menuPlacement="auto"
+        menuPosition="fixed"
+        onBlur={onBlur}
+        onChange={onChange}
+        onCreateOption={onCreateOption}
+        onFocus={onFocus}
+        onInputChange={onInputChange}
+        onMenuClose={onMenuClose}
+        onMenuOpen={onMenuOpen}
+        options={options}
+        placeholder={placeholder ?? ''}
+        value={value}
+      />
+    </div>
   )
 }
 

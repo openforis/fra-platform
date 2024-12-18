@@ -46,6 +46,7 @@ export type SelectProps = SelectBaseProps &
     isCreatable?: boolean
     multiLabelSummaryKey?: string
     onChange: (value: string | Array<string> | null) => void
+    onPaste?: React.ClipboardEventHandler<HTMLDivElement>
     options: OptionsOrGroups
     selectableGroups?: boolean
     toggleAll?: boolean

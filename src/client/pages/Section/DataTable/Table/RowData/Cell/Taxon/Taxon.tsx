@@ -27,7 +27,7 @@ const Taxon: React.FC<PropsCell> = (props: PropsCell) => {
   const onBlur = useOnBlur({ nodeValue, onChange, onCreateOption, options })
 
   return (
-    <div className="table-grid__taxon-cell-container" onPaste={onPaste}>
+    <div className="table-grid__taxon-cell-container">
       <Select
         createOptionLabelKey="common.addValue"
         createOptionPosition="first"
@@ -42,6 +42,7 @@ const Taxon: React.FC<PropsCell> = (props: PropsCell) => {
         onCreateOption={onCreateOption}
         onFocus={onFocus}
         onInputChange={handleInputChange}
+        onPaste={onPaste}
         options={options}
         value={nodeValue?.taxonCode ?? CURRENT_NODE_OPTION_VALUE}
       />
