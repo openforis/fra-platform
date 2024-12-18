@@ -1,5 +1,7 @@
 import { useCallback } from 'react'
 
+import { Objects } from 'utils/objects'
+
 import { NodeValue } from 'meta/assessment'
 
 import { Option } from 'client/components/Inputs/Select'
@@ -22,7 +24,7 @@ export const useOnChange = (props: Props): Returned => {
 
       if (value === CURRENT_NODE_OPTION_VALUE) return
 
-      if (value === null || value === '') {
+      if (Objects.isEmpty(value)) {
         nodeValueUpdate.raw = ''
         delete nodeValueUpdate.taxonCode
         onChangeNodeValue(nodeValueUpdate)
