@@ -29,7 +29,7 @@ const Taxon: React.FC<PropsCell> = (props: PropsCell) => {
   return (
     <div className="table-grid__taxon-cell-container">
       <Select
-        createOptionLabelKey="common.addValue"
+        createOptionLabelKey="common.add"
         createOptionPosition="first"
         disabled={disabled}
         inputHidden={false}
