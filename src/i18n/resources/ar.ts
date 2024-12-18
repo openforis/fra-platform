@@ -18,6 +18,7 @@ import * as nationalDataPoint from './ar/nationalDataPoint.json'
 import * as other from './ar/other.json'
 import * as statisticalFactsheets from './ar/statisticalFactsheets.json'
 import * as uc from './ar/uc.json'
+import * as user from './ar/user.json'
 
 export const arTranslation = {
   admin,
@@ -36,13 +37,9 @@ export const arTranslation = {
   landing,
   login,
   nationalDataPoint,
-
-  page: {
-    assessmentSection,
-  },
-
+  page: { assessmentSection },
   statisticalFactsheets,
   uc,
-
+  user,
   ...other,
 }

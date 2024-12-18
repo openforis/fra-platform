@@ -1,0 +1,20 @@
+{
+  "resetPasswordEmail": {
+    "htmlMessage": "Уважаемый (ая)  {{user}}\n<br/><br/>\nМы получили запрос на сброс пароля для вашей учетной записи в FRA. \n<br/>\nЕсли вы не делали этого запроса, вы можете проигнорировать это письмо.\n<br/><br/><br/>\n<a href=\"{{link}}\" style=\"text-decoration: none; background-color: #0098a6;border: 2px solid #00988F;color: white;font-size: 14px;font-weight: 700;    padding: 10px 50px;\">Нажмите здесь, чтобы сбросить свой пароль</a>\n<br/><br/><br/>\nСпасибо,\n<br/>\nГруппа по ОЛР fra@fao.org\n<br/>\n{{- url}}\n      ",
+    "subject": "Платформа ОЛР - сменить пароль",
+    "textMessage": "Уважаемый (ая)  {{user}}\n\nМы получили запрос на сброс пароля для вашей учетной записи в FRA. \nЕсли вы не делали этого запроса, вы можете проигнорировать это письмо.\n\nНажмите здесь, чтобы сбросить свой пароль\n{{- link}}\n\n\nСпасибо,\nГруппа по ОЛР fra@fao.org\n{{- url}}"
+  },
+  "roles": {
+    "ADMINISTRATOR": "Администратор",
+    "ALTERNATE_NATIONAL_CORRESPONDENT": "Помощник национального корреспондента",
+    "ALTERNATE_NATIONAL_CORRESPONDENT_other": "Заместители национального корреспондента",
+    "COLLABORATOR": "Сотрудник",
+    "COLLABORATOR_other": "Сотрудники",
+    "NATIONAL_CORRESPONDENT": "Национальный корреспондент",
+    "NATIONAL_CORRESPONDENT_other": "Национальные корреспонденты",
+    "REVIEWER": "Рецензент",
+    "REVIEWER_other": "Рецензенты",
+    "VIEWER": "Наблюдатель",
+    "noRole": ""
+  }
+}

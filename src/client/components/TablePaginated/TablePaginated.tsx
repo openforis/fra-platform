@@ -101,7 +101,7 @@ TablePaginated.defaultProps = {
   skeleton: {
     baseColor: 'white',
     highlightColor: 'var(--ui-bg)',
-    Component: () => <Skeleton borderRadius="2px" height="20px" width="100%" />,
+    Component: () => <Skeleton borderRadius="2px" duration={1} height="20px" width="100%" />,
   },
   // eslint-disable-next-line react/default-props-match-prop-types
   wrapCells: true,

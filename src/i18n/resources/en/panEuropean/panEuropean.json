@@ -1,25 +1,5 @@
 {
-  "2020": {
-    "description": {
-      "dataSource": {
-        "comments": "$t(dataSource.comments)",
-        "referenceToTataSource": "Name and Reference to data source",
-        "typeOfDataSource": "$t(dataSource.typeOfDataSource)",
-        "variable": "$t(dataSource.variable)",
-        "yearForDataSource": "$t(dataSource.yearForDataSource)"
-      }
-    }
-  },
   "2025": {
-    "description": {
-      "dataSource": {
-        "comments": "$t(dataSource.comments)",
-        "referenceToTataSource": "Name and Reference to data source",
-        "typeOfDataSource": "$t(dataSource.typeOfDataSource)",
-        "variable": "$t(dataSource.variable)",
-        "yearForDataSource": "$t(dataSource.yearForDataSource)"
-      }
-    },
     "meta": {
       "select": {
         "facilityCategory": {
@@ -479,6 +459,15 @@
     "total_forest_and_other_wooded_land": "Total forest and other wooded land - {{year}}",
     "volumeOfDeadwoodInFOWLBySpeciesGroups": "Volume of deadwood in FOWL by species groups",
     "volumeOfDeadwoodM3Ha": "Volume of deadwood (m³/ha)"
+  },
+  "description": {
+    "dataSource": {
+      "comments": "$t(dataSource.comments)",
+      "referenceToTataSource": "Name and Reference to data source",
+      "typeOfDataSource": "$t(dataSource.typeOfDataSource)",
+      "variable": "$t(dataSource.variable)",
+      "yearForDataSource": "$t(dataSource.yearForDataSource)"
+    }
   },
   "diameterDistributionAndTotalAreaUnevenAgedStands": {
     "_21_40_cm": "21-40 cm",

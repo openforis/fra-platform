@@ -17,6 +17,7 @@ import * as nationalDataPoint from './zh/nationalDataPoint.json'
 import * as other from './zh/other.json'
 import * as statisticalFactsheets from './zh/statisticalFactsheets.json'
 import * as uc from './zh/uc.json'
+import * as user from './zh/user.json'
 
 export const zhTranslation = {
   admin,
@@ -34,13 +35,9 @@ export const zhTranslation = {
   landing,
   login,
   nationalDataPoint,
-
-  page: {
-    assessmentSection,
-  },
-
+  page: { assessmentSection },
   statisticalFactsheets,
   uc,
-
+  user,
   ...other,
 }

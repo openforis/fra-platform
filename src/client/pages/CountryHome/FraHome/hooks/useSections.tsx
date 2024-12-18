@@ -3,6 +3,7 @@ import { useMemo } from 'react'
 import { Areas } from 'meta/area'
 import { Cycles } from 'meta/assessment'
 import { SectionNames } from 'meta/routes'
+import { Users } from 'meta/user'
 
 import { useCycle } from 'client/store/assessment'
 import { useCanSeeUserActivities, useUser } from 'client/store/user'
@@ -26,12 +27,13 @@ export const useSections = (): Array<CountryHomeSection> => {
     if (!cycle) return null
     const isCountry = Areas.isISOCountry(countryIso)
     const showOverview = Cycles.isPublished(cycle) || Areas.isISOCountry(countryIso)
+    const hasRoleInCountry = user && isCountry && Users.hasRoleInCountry({ countryIso, cycle, user })
 
     if (showOverview) {
       sections.push({ name: SectionNames.Country.Home.overview, component: Overview })
     }
 
-    if (user && isCountry) {
+    if (hasRoleInCountry) {
       sections.push({ name: SectionNames.Country.Home.repository, component: Repository })
     }
 

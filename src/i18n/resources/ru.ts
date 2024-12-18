@@ -17,6 +17,7 @@ import * as nationalDataPoint from './ru/nationalDataPoint.json'
 import * as other from './ru/other.json'
 import * as statisticalFactsheets from './ru/statisticalFactsheets.json'
 import * as uc from './ru/uc.json'
+import * as user from './ru/user.json'
 
 export const ruTranslation = {
   admin,
@@ -34,13 +35,9 @@ export const ruTranslation = {
   landing,
   login,
   nationalDataPoint,
-
-  page: {
-    assessmentSection,
-  },
-
+  page: { assessmentSection },
   statisticalFactsheets,
   uc,
-
+  user,
   ...other,
 }
