@@ -10,13 +10,13 @@ export const generateMaterializedViews = async (props: CloneProps, client: BaseP
 
   await Promise.all([
     TableData.refreshViews({ assessment, cycle: cycleTarget }, client),
-    CountrySummaryRepository.createMaterializedView({ assessment, cycle: cycleTarget }),
+    CountrySummaryRepository.createMaterializedView({ assessment, cycle: cycleTarget }, client),
   ])
 
   const countries = await CountryRepository.getMany({ assessment, cycle: cycleTarget }, client)
   await Promise.all([
     ...countries.map(({ countryIso }) =>
-      CountryActivityLogRepository.createMaterializedView({ assessment, cycle: cycleTarget, countryIso })
+      CountryActivityLogRepository.createMaterializedView({ assessment, cycle: cycleTarget, countryIso }, client)
     ),
   ])
 }

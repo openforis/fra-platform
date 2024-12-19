@@ -1,0 +1,39 @@
+@import 'src/client/style/partials';
+
+.home-user-card {
+  align-content: center;
+  display: grid;
+  grid-column-gap: $spacing-xxxs;
+  grid-row-gap: $spacing-xxxxs;
+  grid-template-columns: auto auto;
+  justify-content: start;
+  padding: $spacing-xxs;
+  background-color: $ui-bg-light;
+  transition: background-color 0.2s ease;
+
+  .user-avatar {
+    align-self: center;
+    grid-row: span 2;
+  }
+
+  &.invitation {
+    .user-avatar,
+    .home-user-name .name {
+      opacity: 0.6;
+    }
+  }
+
+  // Hide all buttons but not message button
+  [class*='home-user-action-button-']:not([class*='home-user-action-button-message']) {
+    opacity: 0;
+    transition: all 0.2s ease;
+  }
+
+  &:hover {
+    background-color: darken($ui-bg-light, 2%);
+
+    [class*='home-user-action-button-']:not([class*='home-user-action-button-message']) {
+      opacity: 1;
+    }
+  }
+}

@@ -1,6 +1,6 @@
 import { Assessment, Cycle } from 'meta/assessment'
 import { Lang } from 'meta/lang'
-import { RoleName, User, UserRole, UserStatus } from 'meta/user'
+import { RoleName, User, UserInvitation, UserStatus } from 'meta/user'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { UserController } from 'server/controller/user'
@@ -8,22 +8,30 @@ import { UserController } from 'server/controller/user'
 import { assessmentParams } from 'test/integration/mock/assessment'
 import { userMockTest, userMockUnknown } from 'test/integration/mock/user'
 
+type TestContext = {
+  assessment: Assessment
+  cycle: Cycle
+  user: User
+  userInvitation?: UserInvitation
+}
+
 export default (): void =>
   describe('User Invite', () => {
-    let assessment: Assessment
-    let cycle: Cycle
-    let user: User
-    let userRole: UserRole<RoleName>
+    const testContext: TestContext = {
+      assessment: undefined,
+      cycle: undefined,
+      user: undefined,
+    }
 
     beforeAll(async () => {
-      assessment = await AssessmentController.getOne({ assessmentName: assessmentParams.props.name })
-      const [first] = assessment.cycles
-      cycle = first
-      user = await UserController.getOne({ email: userMockTest.email })
+      testContext.assessment = await AssessmentController.getOne({ assessmentName: assessmentParams.props.name })
+      testContext.cycle = testContext.assessment.cycles.at(0)
+      testContext.user = await UserController.getOne({ email: userMockTest.email })
     })
 
     it('Invite new user as Collaborator', async () => {
-      const { userRole, user: invitedUser } = await UserController.invite({
+      const { assessment, cycle, user } = testContext
+      const { userInvitation, user: invitedUser } = await UserController.invite({
         assessment,
         countryIso: 'X01',
         cycle,
@@ -33,21 +41,34 @@ export default (): void =>
         lang: Lang.en,
       })
 
-      // verify invitation exists
-      expect(userRole).toHaveProperty('invitationUuid')
+      // verify user invitation exists and fields are correct
+      expect(userInvitation).toBeDefined()
+      expect(userInvitation.invitedByUserUuid).toBe(user.uuid)
+      expect(userInvitation.role).toBe(RoleName.COLLABORATOR)
+      expect(userInvitation.countryIso).toBe('X01')
       // verify user status is invitationPending
       expect(invitedUser.status).toBe(UserStatus.invitationPending)
+      // verify no active role exists yet
+      expect(invitedUser.roles).toHaveLength(0)
+
       // User accepts invitation with his own email and password
-      expect(userRole.acceptedAt).toBeNull()
+      const acceptedUser = await UserController.acceptInvitation({
+        assessment,
+        cycle,
+        user: invitedUser,
+        userInvitation,
+      })
 
-      // verify user status is active and he is collaborator of X01
-      await UserController.acceptInvitation({ assessment, cycle, user: invitedUser, userRole })
-
-      expect(invitedUser.status).toBe(UserStatus.active)
+      // verify user status is active and role is created
+      expect(acceptedUser.status).toBe(UserStatus.active)
+      expect(acceptedUser.roles).toHaveLength(1)
+      expect(acceptedUser.roles[0].countryIso).toBe('X01')
+      expect(acceptedUser.roles[0].role).toBe(RoleName.COLLABORATOR)
     })
 
     it('Invite the user as National Correspondent to a country', async () => {
-      const { user: invitedUser, userRole: invitedUserRole } = await UserController.invite({
+      const { assessment, cycle, user } = testContext
+      const { userInvitation, user: invitedUser } = await UserController.invite({
         assessment,
         countryIso: 'X02',
         cycle,
@@ -57,9 +78,15 @@ export default (): void =>
         lang: Lang.en,
       })
 
-      userRole = invitedUserRole
+      // Save userInvitation in testContext for next test
+      testContext.userInvitation = userInvitation
 
       // invite same userA as National Correspondent to X02
+      // verify user invitation exists and fields are correct
+      expect(userInvitation).toBeDefined()
+      expect(userInvitation.invitedByUserUuid).toBe(user.uuid)
+      expect(userInvitation.role).toBe(RoleName.NATIONAL_CORRESPONDENT)
+      expect(userInvitation.countryIso).toBe('X02')
       // verify user status is active, and he is only collaborator of X01
       expect(invitedUser.status).toBe(UserStatus.active)
 
@@ -70,6 +97,7 @@ export default (): void =>
     })
 
     it('Invite the user as Reviewer to the same country', async () => {
+      const { assessment, cycle, user } = testContext
       // invite same userA as Reviewer to X02
       // verify Controller throws exception since user has a pending invitation for X02 already
       await expect(
@@ -86,11 +114,12 @@ export default (): void =>
     })
 
     it('User accept invitation as National Correspondant', async () => {
-      const { user } = await UserController.findByInvitation({ invitationUuid: userRole.invitationUuid })
+      const { assessment, cycle, userInvitation } = testContext
+      const { user } = await UserController.findByInvitation({ invitationUuid: userInvitation.uuid })
 
       // UserA accept invitation National Correspondant to X02
       // verify user status is active and he is collaborator of X01 and National Correspondant of X02
-      const invitedUser = await UserController.acceptInvitation({ assessment, cycle, user, userRole })
+      const invitedUser = await UserController.acceptInvitation({ assessment, cycle, user, userInvitation })
 
       expect(invitedUser.status).toBe(UserStatus.active)
 
@@ -103,6 +132,7 @@ export default (): void =>
     })
 
     afterAll(async () => {
+      const { user } = testContext
       await UserController.remove({ userToRemove: userMockUnknown, user })
     })
   })

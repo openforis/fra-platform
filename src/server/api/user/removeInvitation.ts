@@ -10,22 +10,20 @@ export const removeInvitation = async (req: CycleRequest<{ invitationUuid: strin
   try {
     const { countryIso, invitationUuid } = req.query
 
-    const { assessment, userRole } = await UserController.findByInvitation({ invitationUuid })
+    const { assessment, userInvitation } = await UserController.findByInvitation({ invitationUuid })
 
-    const { cycle } = await AssessmentController.getOneWithCycle({
-      assessmentName: assessment.props.name,
-      cycleUuid: userRole.cycleUuid,
-    })
+    const assessmentName = assessment.props.name
+    const { cycleUuid } = userInvitation
+    const { cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleUuid })
 
-    const removedUserRole = await UserController.removeInvitation({
-      countryIso,
-      assessment,
-      cycle,
-      invitationUuid,
-      user: Requests.getUser(req),
-    })
+    const user = Requests.getUser(req)
+    const removeInvitationProps = { assessment, cycle, countryIso, invitationUuid, user }
+    const removedUserInvitation = await UserController.removeInvitation(removeInvitationProps)
 
-    Requests.sendOk(res, removedUserRole)
+    // TODO: This has changed
+    // { userRole => userInvitation }
+    // Update frontend accordingly
+    Requests.sendOk(res, removedUserInvitation)
   } catch (e) {
     Requests.sendErr(res, e)
   }

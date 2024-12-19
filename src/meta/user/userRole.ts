@@ -53,18 +53,17 @@ export type UserRoleExtendedProps = UserRoleBaseProps & {
 }
 
 export interface UserRole<Name extends RoleName, Props extends UserRoleBaseProps = undefined, Permissions = undefined> {
-  id: number
-  assessmentId?: number
-  cycleUuid: string
+  assessmentUuid?: string
   countryIso?: CountryIso
-  invitedByUserUuid?: string
+  createdAt: string
+  cycleUuid?: string
+  id: number
+  invitationUuid?: string
   permissions: Permissions
   props: Props
   role: Name
-  userId: number
-  invitationUuid: string
-  invitedAt: string
-  acceptedAt?: string
+  userUuid: string
+  uuid: string
 }
 
 export type UserRoleExtended<Name extends RoleName> = UserRole<Name, UserRoleExtendedProps>

@@ -1,0 +1,44 @@
+@import 'src/client/style/partials';
+
+.home-user-info {
+  &.expired {
+    .home-user-name .name {
+      text-decoration: line-through;
+    }
+  }
+}
+
+.home-user-name {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+
+  .name {
+    font-weight: 700;
+  }
+}
+
+// TODO: Introduce common component Badge
+.invitation-badge {
+  align-items: center;
+  background-color: rgba($ui-alert, 0.2);
+  border-radius: 4px;
+  border: 1px solid rgba($ui-alert, 0.8);
+  color: darken($ui-alert, 20%);
+  display: grid;
+  font-size: 8px;
+  font-weight: 600;
+  height: 16px;
+  justify-content: center;
+  letter-spacing: 0.4px;
+  line-height: 0;
+  padding: 0 8px;
+  text-transform: uppercase;
+  transition: all 0.2s;
+
+  &.expired {
+    border: 1px solid rgba($ui-destructive, 0.8);
+    background-color: rgba($ui-destructive, 0.2);
+    color: darken($ui-destructive, 15%);
+  }
+}

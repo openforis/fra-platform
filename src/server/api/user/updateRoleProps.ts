@@ -7,10 +7,7 @@ export const updateRoleProps = async (req: Request, res: Response) => {
   try {
     const { id, props } = req.body.role
 
-    const userRole = await UserController.updateRoleProps({
-      id,
-      props,
-    })
+    const userRole = await UserController.updateRoleProps({ id, props })
 
     Requests.sendOk(res, userRole)
   } catch (e) {

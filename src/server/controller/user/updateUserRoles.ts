@@ -1,4 +1,4 @@
-import { ActivityLogMessage } from 'meta/assessment'
+import { ActivityLogMessage, CycleUuid } from 'meta/assessment'
 import { RoleName, User, UserRole } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db'
@@ -6,32 +6,25 @@ import { ActivityLogRepository } from 'server/repository/public/activityLog'
 import { UserRepository } from 'server/repository/public/user'
 import { UserRoleRepository } from 'server/repository/public/userRole'
 
-export const updateUserRoles = async (
-  props: {
-    cycleUuid?: string
-    roles: Array<Partial<UserRole<RoleName>>>
-    userId: number
-    user: User
-  },
-  client: BaseProtocol = DB
-): Promise<User> => {
-  const { cycleUuid, roles, userId, user } = props
+type Props = {
+  cycleUuid?: CycleUuid
+  roles: Array<Partial<UserRole<RoleName>>>
+  userUuid: User['uuid']
+  user: User
+}
+
+export const updateUserRoles = async (props: Props, client: BaseProtocol = DB): Promise<User> => {
+  const { cycleUuid, roles, userUuid, user } = props
 
   return client.tx(async (t) => {
-    await UserRoleRepository.update({ cycleUuid, roles, userId }, t)
+    await UserRoleRepository.update({ cycleUuid, roles, userUuid }, t)
 
-    await ActivityLogRepository.insertActivityLog(
-      {
-        activityLog: {
-          target: { roles, userId },
-          section: 'users',
-          message: ActivityLogMessage.userRolesUpdate,
-          user,
-        },
-      },
-      t
-    )
+    const target = { roles, userUuid }
+    const message = ActivityLogMessage.userRolesUpdate
+    const activityLog = { target, section: 'users', message, user }
 
-    return UserRepository.getOne({ id: userId, cycleUuid }, t)
+    await ActivityLogRepository.insertActivityLog({ activityLog }, t)
+
+    return UserRepository.getOne({ uuid: userUuid, cycleUuid }, t)
   })
 }

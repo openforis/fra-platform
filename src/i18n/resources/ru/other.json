@@ -643,26 +643,6 @@
     "thousandPersons": "1 000 человек",
     "tonnesPerHa": "тонн/га"
   },
-  "user": {
-    "resetPasswordEmail": {
-      "htmlMessage": "Уважаемый (ая)  {{user}}\n<br/><br/>\nМы получили запрос на сброс пароля для вашей учетной записи в FRA. \n<br/>\nЕсли вы не делали этого запроса, вы можете проигнорировать это письмо.\n<br/><br/><br/>\n<a href=\"{{link}}\" style=\"text-decoration: none; background-color: #0098a6;border: 2px solid #00988F;color: white;font-size: 14px;font-weight: 700;    padding: 10px 50px;\">Нажмите здесь, чтобы сбросить свой пароль</a>\n<br/><br/><br/>\nСпасибо,\n<br/>\nГруппа по ОЛР fra@fao.org\n<br/>\n{{- url}}\n      ",
-      "subject": "Платформа ОЛР - сменить пароль",
-      "textMessage": "Уважаемый (ая)  {{user}}\n\nМы получили запрос на сброс пароля для вашей учетной записи в FRA. \nЕсли вы не делали этого запроса, вы можете проигнорировать это письмо.\n\nНажмите здесь, чтобы сбросить свой пароль\n{{- link}}\n\n\nСпасибо,\nГруппа по ОЛР fra@fao.org\n{{- url}}"
-    },
-    "roles": {
-      "ADMINISTRATOR": "Администратор",
-      "ALTERNATE_NATIONAL_CORRESPONDENT": "Помощник национального корреспондента",
-      "COLLABORATOR": "Сотрудник",
-      "NATIONAL_CORRESPONDENT": "Национальный корреспондент",
-      "REVIEWER": "Рецензент",
-      "VIEWER": "Наблюдатель",
-      "alternateNationalCorrespondent_plural": "Заместители национального корреспондента",
-      "collaborator_plural": "Сотрудники",
-      "nationalCorrespondent_plural": "Национальные корреспонденты",
-      "noRole": "",
-      "reviewer_plural": "Рецензенты"
-    }
-  },
   "userChat": {
     "cancel": "Отмена",
     "chatHeader": "Сообщения от {{user}}",

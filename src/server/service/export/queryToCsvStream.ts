@@ -2,13 +2,14 @@ import QueryStream = require('pg-query-stream')
 import { pipeline, Transform } from 'stream'
 import * as fastCsv from 'fast-csv'
 import { ParserRow } from 'fast-csv'
-import { Client } from 'pg'
+import * as pgPromise from 'pg-promise'
 
 import { BaseProtocol, DB } from 'server/db'
+import { Logger } from 'server/utils/logger'
 
 export type QueryToCsvStreamProps<QueryResultRow> = {
   query: string
-  queryParams?: Parameters<Client['query']>[1]
+  queryParams?: unknown
   rowTransformer?: (row: QueryResultRow) => ParserRow
 }
 
@@ -19,8 +20,13 @@ export const queryToCsvStream = <QueryResultRow>(
   const { query, queryParams, rowTransformer } = props
 
   return new Promise((resolve, reject) => {
-    const queryStream = new QueryStream(query, queryParams)
+    let finalQuery = query
+    if (queryParams) {
+      const pgp = pgPromise()
+      finalQuery = pgp.as.format(query, queryParams)
+    }
 
+    const queryStream = new QueryStream(finalQuery, null)
     const csvStream = fastCsv.format({ headers: true })
 
     let transformStream: Transform | null = null
@@ -41,8 +47,9 @@ export const queryToCsvStream = <QueryResultRow>(
     client
       .stream(queryStream, (stream) => {
         // pipeline requires a cb function to be passed, even if it does nothing.
-        // eslint-disable-next-line @typescript-eslint/no-empty-function
-        const pipelineCallBack = (_err: NodeJS.ErrnoException) => {}
+        const pipelineCallBack = (_err: NodeJS.ErrnoException) => {
+          Logger.error(_err)
+        }
         if (transformStream) {
           resolve(pipeline(stream, transformStream, csvStream, pipelineCallBack))
         } else {

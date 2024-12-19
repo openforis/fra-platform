@@ -72,6 +72,7 @@
   },
   "sections": {
     "about": "Acerca de FRA",
+    "collaborators": "$t(user.roles.COLLABORATOR, {\"count\":10})",
     "contentCheck": "Contenido / Comprobar",
     "externalData": "Datos externos",
     "messageBoard": "Tablero de mensajes",

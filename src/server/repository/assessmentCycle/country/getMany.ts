@@ -4,7 +4,6 @@ import { Country } from 'meta/area'
 import { Assessment, Cycle } from 'meta/assessment'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'
-import { isAtlantisAllowed } from 'server/repository/assessmentCycle/country/isAtlantisAllowed'
 
 export const getMany = async (
   props: { assessment: Assessment; cycle: Cycle },
@@ -13,11 +12,6 @@ export const getMany = async (
   const { assessment, cycle } = props
 
   const cycleSchema = Schemas.getNameCycle(assessment, cycle)
-
-  let atlantis = ''
-  if (!isAtlantisAllowed(assessment, cycle)) {
-    atlantis = `where c.country_iso not like 'X%'`
-  }
 
   return client.map<Country>(
     `
@@ -33,12 +27,10 @@ export const getMany = async (
                            on c.country_iso = cr.country_iso
                  left join ${cycleSchema}.country_summary cs
                            on c.country_iso = cs.country_iso
-                               ${atlantis}
         group by 1, 2, 3, 4, 5, 6, 7
         order by 1
     `,
     [cycle.uuid],
-    // @ts-ignore
-    Objects.camelize
+    (row) => Objects.camelize(row)
   )
 }

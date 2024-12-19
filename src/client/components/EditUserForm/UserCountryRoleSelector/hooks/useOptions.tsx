@@ -1,26 +1,26 @@
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { RoleName, Users } from 'meta/user'
+import { Users } from 'meta/user'
 
+import { useCycle } from 'client/store/assessment'
+import { useUser } from 'client/store/user'
+import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { Option } from 'client/components/Inputs/Select'
 
 type Returned = Array<Option>
 
 export const useOptions = (): Returned => {
   const { t } = useTranslation()
+  const { countryIso } = useCountryRouteParams()
+  const cycle = useCycle()
+  const user = useUser()
 
   return useMemo<Returned>(() => {
-    const options = Object.keys(RoleName).reduce<Returned>((acc, key) => {
-      if (key !== RoleName.ADMINISTRATOR) {
-        acc.push({
-          label: t(Users.getI18nRoleLabelKey(key)),
-          value: key,
-        })
-      }
-      return acc
-    }, [])
+    const roleNames = Users.getRolesAllowedToEdit({ user, countryIso, cycle })
 
-    return options
-  }, [t])
+    return roleNames.map<Option>((roleName) => {
+      return { label: t(Users.getI18nRoleLabelKey(roleName)), value: roleName }
+    }, [])
+  }, [countryIso, cycle, t, user])
 }

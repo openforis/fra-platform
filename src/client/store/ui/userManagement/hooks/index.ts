@@ -1,7 +1,10 @@
-import { User } from 'meta/user'
+import { CountryUserSummary, User } from 'meta/user'
 
 import { useAppSelector } from 'client/store/store'
 
 export const useUserToEdit = (): User => useAppSelector((state) => state.ui.userManagement.user)
 
-export const useUsers = (): Array<User> => useAppSelector((state) => state.ui.userManagement.users)
+/**
+ * @deprecated
+ */
+export const useUsers = (): Array<CountryUserSummary> => useAppSelector((state) => state.ui.userManagement.users)

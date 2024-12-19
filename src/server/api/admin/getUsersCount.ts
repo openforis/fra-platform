@@ -9,21 +9,12 @@ import Requests from 'server/utils/requests'
 
 export const getUsersCount = async (req: UsersRequest, res: Response) => {
   try {
-    const { assessmentName, cycleName, filters } = req.query
-
-    const decodedFilters = TablePaginateds.decodeFilters(filters) as UserFilters
-    const { administrators, countries, fullName, roles } = decodedFilters ?? {}
+    const { assessmentName, cycleName, filters: filtersReq } = req.query
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
-    const count = await UserController.count({
-      administrators,
-      assessment,
-      countries: countries || [],
-      cycle,
-      fullName: fullName || '',
-      roles: roles || [],
-    })
+    const filters = TablePaginateds.decodeFilters<UserFilters>(filtersReq)
+    const count = await UserController.count({ assessment, cycle, filters })
 
     Requests.sendOk(res, count)
   } catch (e) {

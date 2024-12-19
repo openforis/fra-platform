@@ -3,10 +3,11 @@ import { Objects } from 'utils/objects'
 
 import { Areas } from 'meta/area'
 import { Lang } from 'meta/lang'
-import { RoleName, User, Users } from 'meta/user'
+import { CountryUserSummary, RoleName, User, Users } from 'meta/user'
 
 import { UserRoleAdapter } from 'server/repository/adapter'
 import { UserRepository, UsersGetManyProps } from 'server/repository/public/user'
+import { UserQueryParams } from 'server/repository/public/user/UserQueryParams'
 
 type Props = UsersGetManyProps & {
   lang: Lang
@@ -14,7 +15,7 @@ type Props = UsersGetManyProps & {
 
 type Returned = {
   query: string
-  queryParams: Array<string | number>
+  queryParams: UserQueryParams
   rowTransformer: (rawUser: User) => Record<string, string>
 }
 
@@ -38,9 +39,9 @@ export const getManyExport = async (props: Props): Promise<Returned> => {
     [RoleName.VIEWER]: i18n.t(Users.getI18nRoleLabelKey(RoleName.VIEWER)),
   }
 
-  const rowTransformer = (rawUser: User): Record<string, string> => {
+  const rowTransformer = (rawUser: CountryUserSummary): Record<string, string> => {
     const { roles, ...user } = rawUser
-    const userRow: User = {
+    const userRow: CountryUserSummary = {
       ...Objects.camelize(user),
       roles: roles.map(UserRoleAdapter),
     }
@@ -57,7 +58,7 @@ export const getManyExport = async (props: Props): Promise<Returned> => {
       return roleCountries
     }
 
-    const name = Users.getFullName(userRow)
+    const name = userRow.fullName
     const { email } = user
 
     const rowData: Record<string, string> = {

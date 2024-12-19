@@ -3,10 +3,8 @@ import React, { HTMLAttributes, useMemo, useRef } from 'react'
 import Skeleton from 'react-loading-skeleton'
 
 import classNames from 'classnames'
-import { Objects } from 'utils/objects'
 
-import { useTablePaginatedCount, useTablePaginatedData, useTablePaginatedPage } from 'client/store/ui/tablePaginated'
-import { useOnUpdate } from 'client/hooks'
+import { useTablePaginatedCount } from 'client/store/ui/tablePaginated'
 import DataGrid from 'client/components/DataGridDeprecated'
 import { PaginatorProps } from 'client/components/Paginator'
 import Filters from 'client/components/TablePaginated/Filters/Filters'
@@ -15,12 +13,13 @@ import ExportButton from './ExportButton/ExportButton'
 import { useFetchData } from './hooks/useFetchData'
 import { useInitTablePaginated } from './hooks/useInitTablePaginated'
 import { useResetOnUnmount } from './hooks/useResetOnUnmount'
+import { useScrollToTopOnPageUpdate } from './hooks/useScrollToTopOnPageUpdate'
 import Body from './Body'
 import Count from './Count'
 import DefaultEmptyList from './DefaultEmptyList'
 import Header from './Header'
 import Paginator from './Paginator'
-import { Props as BaseProps, TablePaginatedCounter, TablePaginatedSkeleton } from './types'
+import { Props as BaseProps, TablePaginatedCounter } from './types'
 
 type Props<Datum extends object> = Pick<HTMLAttributes<HTMLDivElement>, 'className'> &
   Pick<HTMLAttributes<HTMLDivElement>['style'], 'gridTemplateColumns'> &
@@ -30,36 +29,27 @@ type Props<Datum extends object> = Pick<HTMLAttributes<HTMLDivElement>, 'classNa
     EmptyListComponent?: React.FC
     export?: boolean
     header?: boolean
-    skeleton?: TablePaginatedSkeleton
-    wrapCells?: boolean
   }
 
 const TablePaginated = <Datum extends object>(props: Props<Datum>) => {
-  const { className, gridTemplateColumns } = props // HTMLDivElement Props
+  const { className, gridTemplateColumns: gridTemplateColumnsProps } = props // HTMLDivElement Props
   const { marginPagesDisplayed, pageRangeDisplayed } = props // Paginator Props
-  const { columns, filters, limit, path } = props // Base Props
-  const { counter, EmptyListComponent, export: exportTable, header, skeleton, wrapCells } = props // Component Props
+  const { columns, filters, groups, limit, path } = props // Base Props
+  const { counter, EmptyListComponent, export: exportTable, header, skeleton, wrapCells, compareFn } = props // Component Props
+
+  const divRef = useRef<HTMLDivElement>()
 
   useInitTablePaginated({ filters, path })
   useFetchData({ counter, limit, path })
   useResetOnUnmount({ path })
-
+  useScrollToTopOnPageUpdate({ divRef, path })
   const count = useTablePaginatedCount(path)
-  const data = useTablePaginatedData(path)
-  const page = useTablePaginatedPage(path)
 
+  const gridTemplateColumns = useMemo<string | number>(
+    () => gridTemplateColumnsProps ?? `repeat(${columns.length}, auto)`,
+    [columns.length, gridTemplateColumnsProps]
+  )
   const withFilters = useMemo<boolean>(() => filters.filter((filter) => !filter.hidden).length > 0, [filters])
-  const divRef = useRef<HTMLDivElement>()
-
-  // on page update -> scroll on top
-  useOnUpdate(() => {
-    if (!Objects.isNil(data)) {
-      setTimeout(() => {
-        const opts: ScrollIntoViewOptions = { behavior: 'smooth', block: 'start', inline: 'nearest' }
-        divRef.current?.parentElement?.parentElement?.scrollIntoView(opts)
-      })
-    }
-  }, [page])
 
   return (
     <div ref={divRef} className={classNames('table-paginated', className)}>
@@ -71,13 +61,18 @@ const TablePaginated = <Datum extends object>(props: Props<Datum>) => {
             {withFilters && <Filters filters={filters} path={path} />}
           </div>
         )}
-        <DataGrid
-          className="table-paginated-datagrid"
-          style={{ gridTemplateColumns: gridTemplateColumns ?? `repeat(${columns.length}, auto)` }}
-        >
+        <DataGrid className="table-paginated-datagrid" style={{ gridTemplateColumns }}>
           {header && <Header columns={columns} path={path} />}
           {count?.total === 0 && <EmptyListComponent />}
-          <Body columns={columns} limit={limit} path={path} skeleton={skeleton} wrapCells={wrapCells} />
+          <Body
+            columns={columns}
+            compareFn={compareFn}
+            groups={groups}
+            limit={limit}
+            path={path}
+            skeleton={skeleton}
+            wrapCells={wrapCells}
+          />
         </DataGrid>
       </div>
 
@@ -102,11 +97,13 @@ TablePaginated.defaultProps = {
   header: true,
   // eslint-disable-next-line react/default-props-match-prop-types
   limit: 30,
+  // eslint-disable-next-line react/default-props-match-prop-types
   skeleton: {
     baseColor: 'white',
     highlightColor: 'var(--ui-bg)',
-    Component: () => <Skeleton borderRadius="2px" height="20px" width="100%" />,
+    Component: () => <Skeleton borderRadius="2px" duration={1} height="20px" width="100%" />,
   },
+  // eslint-disable-next-line react/default-props-match-prop-types
   wrapCells: true,
 }
 

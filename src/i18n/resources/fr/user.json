@@ -1,0 +1,21 @@
+{
+  "resetPasswordEmail": {
+    "htmlMessage": "Cher/Chère {{user}}\n<br/><br/>\nNous avons reçu une demande pour réinitialiser votre mot de passe pour votre compte FRA.\n<br/>\nSi vous n'avez pas effectué cette demande, vous pouvez ignorer cet e-mail en toute sécurité.\n<br/><br/><br/>\n<a href=\"{{link}}\" style=\"text-decoration: none; background-color: #0098a6;border: 2px solid #00988F;color: white;font-size: 14px;font-weight: 700;    padding: 10px 50px;\">Cliquez ici pour réinitialiser votre mot de passe</a>\n<br/><br/><br/>\nMerci,\n<br/>\nL'équipe FRA fra@fao.org\n<br/>\n{{- url}}\n      ",
+    "subject": "Plateforme FRA - Réinitialiser le mot de passe",
+    "textMessage": "Cher/Chère {{user}}\n\nNous avons reçu une demande pour réinitialiser votre mot de passe pour votre compte FRA.\nSi vous n'avez pas effectué cette demande, vous pouvez ignorer cet e-mail en toute sécurité.\n\nCliquez ici pour réinitialiser votre mot de passe\n{{- link}}\n\nMerci,\nL'équipe FRA fra@fao.org\n{{- url}}"
+  },
+  "roles": {
+    "ADMINISTRATOR": "Administrateur",
+    "ALTERNATE_NATIONAL_CORRESPONDENT": "Correspondant national suppléant",
+    "ALTERNATE_NATIONAL_CORRESPONDENT_other": "Correspondants nationaux suppléants",
+    "COLLABORATOR": "Collaborateur",
+    "COLLABORATOR_other": "Collaborateurs",
+    "NATIONAL_CORRESPONDENT": "Correspondant national",
+    "NATIONAL_CORRESPONDENT_other": "Correspondants nationaux",
+    "REVIEWER": "Examinateur",
+    "REVIEWER_other": "Examinateurs",
+    "VIEWER": "Visionneur",
+    "VIEWER_other": "Visionneurs",
+    "noRole": ""
+  }
+}

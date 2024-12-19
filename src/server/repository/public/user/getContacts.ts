@@ -48,13 +48,14 @@ export const getContacts = async (props: Props, client: BaseProtocol = DB): Prom
                            else ur.permissions
                           end) -> 'sections')) as section
            from public.users u
-                    left join public.users_role ur on (u.id = ur.user_id)
+                    left join public.users_role ur on (u.uuid = ur.user_uuid)
            where ur.role in ($4:list)
              and ur.country_iso = $3
              and ur.cycle_uuid = $2
-             and ur.assessment_id = $1
+             and ur.assessment_uuid = $1
              and u.status = 'active'
-             and ((ur.accepted_at is not null and ur.invited_at is not null) or ur.invited_at is null))
+               -- all roles but admin
+             and (ur.created_at is not null))
          , users as
           (select u.id
                 , u.uuid
@@ -94,7 +95,7 @@ export const getContacts = async (props: Props, client: BaseProtocol = DB): Prom
       order by role_order, u.props ->> 'surname', u.props ->> 'name'
   `
 
-  const queryParams = [assessment.id, cycle.uuid, countryIso, roles]
+  const queryParams = [assessment.uuid, cycle.uuid, countryIso, roles]
 
   return client.map<Contact>(query, queryParams, (row) => Objects.camelize(row))
 }

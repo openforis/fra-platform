@@ -5,8 +5,7 @@ import { Link, Navigate } from 'react-router-dom'
 import { Objects } from 'utils/objects'
 
 import { LoginInvitationQueryParams, Routes } from 'meta/routes'
-import { AuthProvider } from 'meta/user'
-import { UserRoles } from 'meta/user/userRoles'
+import { AuthProvider, UserInvitations } from 'meta/user'
 
 import { useAppDispatch } from 'client/store'
 import { LoginActions, useInvitation } from 'client/store/login'
@@ -14,12 +13,6 @@ import { useAcceptInvitationForm } from 'client/store/login/hooks'
 import { useUser } from 'client/store/user'
 import { useSearchParams } from 'client/hooks/useSearchParams'
 import { useInitInvitation } from 'client/pages/Login/Invitation/hooks/useInitInvitation'
-
-export type InvitationLocalFormData = {
-  email: string
-  password: string
-  password2: string
-}
 
 const InvitationLocal: React.FC = () => {
   const { t } = useTranslation()
@@ -30,12 +23,12 @@ const InvitationLocal: React.FC = () => {
   useInitInvitation()
 
   const { invitationUuid, lang } = useSearchParams<LoginInvitationQueryParams>()
-  const { assessment, invitedUser, userProviders, userRole } = useInvitation()
+  const { assessment, invitedUser, userProviders, userInvitation } = useInvitation()
 
   const formData = useAcceptInvitationForm()
   const errors = formData?.errors ?? {}
 
-  const cycle = assessment?.cycles.find((cycle) => cycle.uuid === userRole.cycleUuid)
+  const cycle = assessment?.cycles.find((cycle) => cycle.uuid === userInvitation.cycleUuid)
   const assessmentName = assessment?.props.name
   const cycleName = cycle?.name
 
@@ -53,13 +46,13 @@ const InvitationLocal: React.FC = () => {
 
   if (
     loggedUser?.email === invitedUser.email ||
-    userRole?.acceptedAt ||
-    (userRole && UserRoles.isInvitationExpired(userRole))
+    userInvitation?.acceptedAt ||
+    (userInvitation && UserInvitations.isExpired(userInvitation))
   ) {
     return (
       <Navigate
-        to={Routes.LoginInvitation.generatePath({ cycleName, assessmentName }, { invitationUuid, lang })}
         replace
+        to={Routes.LoginInvitation.generatePath({ cycleName, assessmentName }, { invitationUuid, lang })}
       />
     )
   }
@@ -70,8 +63,8 @@ const InvitationLocal: React.FC = () => {
         <input
           disabled={!!invitedUser}
           name="email"
-          onFocus={() => LoginActions.updateAcceptInvitationFormErrors({ email: null })}
           onChange={(event) => dispatch(LoginActions.updateAcceptInvitationForm({ email: event.target.value }))}
+          onFocus={() => LoginActions.updateAcceptInvitationFormErrors({ email: null })}
           placeholder={t('login.email')}
           type="text"
           value={formData?.email ?? ''}
@@ -79,8 +72,8 @@ const InvitationLocal: React.FC = () => {
         {errors.email?.length > 0 && <span className="login__field-error">{t(errors.email)}</span>}
 
         <input
-          onFocus={() => LoginActions.updateAcceptInvitationFormErrors({ password: null })}
           onChange={(event) => dispatch(LoginActions.updateAcceptInvitationForm({ password: event.target.value }))}
+          onFocus={() => LoginActions.updateAcceptInvitationFormErrors({ password: null })}
           placeholder={t('login.password')}
           type="password"
           value={formData?.password ?? ''}
@@ -90,8 +83,8 @@ const InvitationLocal: React.FC = () => {
         {showPassword2 && (
           <>
             <input
-              onFocus={() => LoginActions.updateAcceptInvitationFormErrors({ password2: null })}
               onChange={(event) => dispatch(LoginActions.updateAcceptInvitationForm({ password2: event.target.value }))}
+              onFocus={() => LoginActions.updateAcceptInvitationFormErrors({ password2: null })}
               placeholder={t('login.repeatPassword')}
               type="password"
               value={formData?.password2 ?? ''}

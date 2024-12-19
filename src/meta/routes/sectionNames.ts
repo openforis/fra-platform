@@ -2,14 +2,14 @@ enum AdminSectionNames {
   countries = 'countries',
   invitations = 'invitations',
   links = 'links',
-  userManagement = 'userManagement',
+  collaborators = 'collaborators',
 }
 
 enum CountryHomeSectionNames {
   overview = 'overview',
   messageBoard = 'messageBoard',
   // contentCheck = 'contentCheck',
-  userManagement = 'userManagement',
+  collaborators = 'collaborators',
   recentActivity = 'recentActivity',
   repository = 'repository',
 }

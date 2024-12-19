@@ -52,7 +52,7 @@ const useColumns = (): Array<Column<UserInvitationSummary>> => {
         orderByProperty: 'accepted_at',
       },
       {
-        component: ({ datum }) => <Expired role={datum} />,
+        component: ({ datum }) => <Expired userInvitation={datum} />,
         header: t('common.expired'),
         key: 'expired',
       },

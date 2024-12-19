@@ -6,6 +6,7 @@ import { TablePaginatedFilterType } from 'meta/tablePaginated'
 import Icon from 'client/components/Icon'
 import Country from 'client/components/TablePaginated/Filters/Country/Country'
 import MultiSelect from 'client/components/TablePaginated/Filters/MultiSelect/MultiSelect'
+import Switch from 'client/components/TablePaginated/Filters/Switch'
 import Text from 'client/components/TablePaginated/Filters/Text/Text'
 import { TablePaginatedFilter } from 'client/components/TablePaginated/types'
 
@@ -15,7 +16,7 @@ const componentsByFilterType: Record<
 > = {
   [TablePaginatedFilterType.COUNTRY]: Country,
   [TablePaginatedFilterType.MULTI_SELECT]: MultiSelect,
-  [TablePaginatedFilterType.SWITCH]: () => null,
+  [TablePaginatedFilterType.SWITCH]: Switch,
   [TablePaginatedFilterType.TEXT]: Text,
 }
 
