@@ -1,20 +1,20 @@
 import { Objects } from 'utils/objects'
 
-import { RoleName, UserRole } from 'meta/user'
+import { UserInvitation } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db'
 
 export const renew = async (
-  props: { userRole: UserRole<RoleName> },
+  props: { invitation: UserInvitation },
   client: BaseProtocol = DB
-): Promise<UserRole<RoleName>> => {
+): Promise<UserInvitation> => {
   const {
-    userRole: { id },
+    invitation: { uuid },
   } = props
 
-  return client.one<UserRole<RoleName>>(
-    'update users_role set invited_at = now() where id = $1 returning *;',
-    [id],
+  return client.one<UserInvitation>(
+    'update users_invitation set invited_at = now() where uuid = $1 returning *;',
+    [uuid],
     Objects.camelize
   )
 }

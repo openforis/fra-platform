@@ -1,0 +1,12 @@
+.home-user-actions {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+  grid-column: 2;
+  justify-self: flex-start;
+
+  .hr {
+    width: 1px;
+    height: 16px;
+  }
+}

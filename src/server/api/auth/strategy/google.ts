@@ -28,7 +28,7 @@ const googleStrategyVerifyCallback = async (
     const { invitationUuid } = state
 
     if (invitationUuid) {
-      const { user: invitedUser, userRole } = await UserController.findByInvitation({ invitationUuid })
+      const { user: invitedUser, userInvitation } = await UserController.findByInvitation({ invitationUuid })
 
       const userProviders = await UserProviderController.read<AuthProviderGoogleProps>({
         user: invitedUser,
@@ -56,15 +56,15 @@ const googleStrategyVerifyCallback = async (
 
         if (googleMatch) {
           const { assessment, cycle } = await AssessmentController.getOneWithCycle({
-            id: userRole.assessmentId,
-            cycleUuid: userRole.cycleUuid,
+            uuid: userInvitation.assessmentUuid,
+            cycleUuid: userInvitation.cycleUuid,
           })
 
-          user = await UserController.acceptInvitation({ assessment, cycle, user: invitedUser, userRole })
+          user = await UserController.acceptInvitation({ assessment, cycle, user: invitedUser, userInvitation })
 
           done(null, user, {
             message: JSON.stringify({
-              countryIso: userRole.countryIso,
+              countryIso: userInvitation.countryIso,
               assessmentName: assessment.props.name,
               cycleName: cycle.name,
             }),

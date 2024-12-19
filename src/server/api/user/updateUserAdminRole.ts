@@ -5,17 +5,17 @@ import { RoleName, Users } from 'meta/user'
 import { UserController } from 'server/controller/user'
 import { Requests } from 'server/utils'
 
-export const updateUserAdminRole = async (req: Request<{ userId: string }>, res: Response) => {
+export const updateUserAdminRole = async (req: Request<{ userUuid: string }>, res: Response) => {
   try {
-    const { userId } = req.body
+    const { userUuid } = req.body
 
     const user = Requests.getUser(req)
 
-    const userToUpdate = await UserController.getOne({ id: userId })
+    const userToUpdate = await UserController.getOne({ uuid: userUuid })
 
     const updatedUser = await UserController.updateUserRoles({
       roles: !Users.isAdministrator(userToUpdate) ? [{ role: RoleName.ADMINISTRATOR }] : [],
-      userId: Number(userId),
+      userUuid,
       user,
     })
 

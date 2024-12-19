@@ -43,7 +43,9 @@ const TextInputField: React.FC<Props> = (props) => {
           error: !valid,
         })}
       >
-        {editorLink && <EditorWYSIWYGLinks onChange={(_value) => onChange(name, _value)} value={value} />}
+        {editorLink && (
+          <EditorWYSIWYGLinks disabled={!enabled} onChange={(_value) => onChange(name, _value)} value={value} />
+        )}
 
         {!editorLink && (
           <input

@@ -4,10 +4,10 @@ import axios from 'axios'
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { User } from 'meta/user'
 
-export const updateUserAdminRole = createAsyncThunk<User, { userId: number }>(
+export const updateUserAdminRole = createAsyncThunk<User, { userUuid: User['uuid'] }>(
   'userManagement/post/updateUserAdminRole',
-  async ({ userId }) => {
-    const { data } = await axios.post(ApiEndPoint.User.adminRole(), { userId })
+  async ({ userUuid }) => {
+    const { data } = await axios.post(ApiEndPoint.User.adminRole(), { userUuid })
 
     return data
   }

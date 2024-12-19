@@ -1,8 +1,11 @@
 export { Authorizer } from './authorizer'
+export type { CountryUserSummary } from './countryUserSummary'
 export type { User } from './user'
 export { UserStatus, UserTitle } from './user'
 export type { UserAuthProvider } from './userAuth'
 export { AuthProvider } from './userAuth'
+export type { UserInvitation } from './userInvitation'
+export { UserInvitations } from './userInvitations'
 export type { UserInvitationSummary } from './userInvitationSummary'
 export type { UserResetPassword } from './userResetPassword'
 export type {

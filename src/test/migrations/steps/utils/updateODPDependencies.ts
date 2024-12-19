@@ -6,7 +6,6 @@ import { NodeUpdate } from 'meta/data'
 
 import { getOriginalDataPointVariables } from 'server/controller/cycleData/originalDataPoint/getOriginalDataPointVariables'
 import { BaseProtocol, DB, Schemas } from 'server/db'
-import { isAtlantisAllowed } from 'server/repository/assessmentCycle/country/isAtlantisAllowed'
 
 import { updateDependencies } from './updateDependencies'
 
@@ -33,15 +32,13 @@ export const updateODPDependencies = async (props: Props, client: BaseProtocol =
   )
 
   originalDataPoints.forEach(({ countryIso, year }) => {
-    if (!countryIso.startsWith('X') || isAtlantisAllowed(assessment, cycle)) {
-      countryNodes[countryIso] = []
+    countryNodes[countryIso] = []
 
-      const colName = String(year)
-      const opdNodes = originalDataPointVariables.map<NodeUpdate>(({ tableName, variableName }) => {
-        return { tableName, variableName, colName, value: undefined }
-      })
-      countryNodes[countryIso].push(...opdNodes)
-    }
+    const colName = String(year)
+    const opdNodes = originalDataPointVariables.map<NodeUpdate>(({ tableName, variableName }) => {
+      return { tableName, variableName, colName, value: undefined }
+    })
+    countryNodes[countryIso].push(...opdNodes)
   })
 
   await updateDependencies({

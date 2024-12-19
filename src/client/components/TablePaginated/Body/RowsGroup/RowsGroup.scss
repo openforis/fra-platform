@@ -1,0 +1,31 @@
+@import 'src/client/style/partials';
+
+button.rows-group__header.inverse {
+  background-color: $ui-bg-light;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom: 1px solid transparent;
+  border-left: 1px solid $ui-border;
+  border-right: 1px solid $ui-border;
+  border-top: 1px solid $ui-border;
+
+  &.collapsed {
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+    border-bottom: 1px solid $ui-border;
+
+    svg {
+      transform: rotate(-90deg);
+    }
+  }
+}
+
+.rows-group__rows {
+  background-color: $ui-bg-light;
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
+  border-top-right-radius: 2px;
+  border: 1px solid $ui-border;
+  margin-top: -1px;
+  padding: $spacing-xxs;
+}

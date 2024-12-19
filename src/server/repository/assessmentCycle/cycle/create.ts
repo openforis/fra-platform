@@ -3,6 +3,7 @@ import { Assessment, AssessmentMetaCache, AssessmentNames, Cycle, CycleProps, Cy
 import { getOneWithCycle } from 'server/controller/assessment/getOne'
 import { BaseProtocol, DB, Schemas } from 'server/db'
 import { AssessmentRepository } from 'server/repository/assessment/assessment'
+import { getCreateOrReplaceViewCountryUserSummary } from 'server/repository/assessment/assessment/getCreateSchemaDDL'
 
 type Props = {
   assessment: Assessment
@@ -47,6 +48,9 @@ export const create = async (params: Props, client: BaseProtocol = DB): Returned
      returning *;`,
     [assessment.id, name, getDefaultProps()]
   )
+
+  // Init country user summary view
+  await client.query(getCreateOrReplaceViewCountryUserSummary({ assessment, cycle }))
 
   // Initialise meta_cache for assessment on cycle creation
   // cycle.uuid is required to initialise meta_cache

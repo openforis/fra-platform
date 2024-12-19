@@ -643,26 +643,6 @@
     "thousandPersons": "1 000 人",
     "tonnesPerHa": "吨/公顷"
   },
-  "user": {
-    "resetPasswordEmail": {
-      "htmlMessage": "尊敬的 {{user}}\n<br/><br/>\n我们收到了一个重置您FRA账户密码的请求。 \n<br/>\n如果您没有提出这一要求，请忽略这封邮件。\n<br/><br/><br/>\n<a href=\"{{link}}\" style=\"text-decoration: none; background-color: #0098a6;border: 2px solid #00988F;color: white;font-size: 14px;font-weight: 700;    padding: 10px 50px;\">点击此处重设密码</a>\n<br/><br/><br/>\n谢谢！\n<br/>\nFRA工作组 fra@fao.org\n<br/>\n{{- url}}\n      ",
-      "subject": "FRA平台 - 重置密码",
-      "textMessage": "尊敬的 {{user}}\n\n我们收到了一个重置您FRA账户密码的请求。\n如果您没有提出这一要求，请忽略这封邮件。\n\n\n请点击以下链接重置您的密码\n{{- link}}\n\n\n谢谢！,\nFRA工作组 fra@fao.org\n{{- url}}"
-    },
-    "roles": {
-      "ADMINISTRATOR": "管理员",
-      "ALTERNATE_NATIONAL_CORRESPONDENT": "候补国家通讯员",
-      "COLLABORATOR": "合作者",
-      "NATIONAL_CORRESPONDENT": "国家通讯员",
-      "REVIEWER": "审核人",
-      "VIEWER": "观察者",
-      "alternateNationalCorrespondent_plural": "候补国家通讯员",
-      "collaborator_plural": "合作者",
-      "nationalCorrespondent_plural": "国家通讯员",
-      "noRole": "",
-      "reviewer_plural": "审查者"
-    }
-  },
   "userChat": {
     "cancel": "取消",
     "chatHeader": "与 {{user}}的消息",

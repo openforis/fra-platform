@@ -72,6 +72,7 @@
   },
   "sections": {
     "about": "نبذة عن تقييم الموارد الحرجية",
+    "collaborators": "$t(user.roles.COLLABORATOR, {\"count\":10})",
     "contentCheck": "المحتوى / التحقق",
     "externalData": "بيانات خارجية",
     "messageBoard": "لوح الرسائل",

@@ -1,3 +1,7 @@
+import { Assessment, Cycle } from 'meta/assessment'
+
+import { Schemas } from 'server/db'
+
 export const getCreateSchemaDDL = (schemaName: string): string => {
   const query = `
 create schema ${schemaName};
@@ -338,5 +342,74 @@ export const getCreateSchemaCycleOriginalDataPointViewDDL = (assessmentCycleSche
                    left join total_land_area tla on odp.country_iso = tla.country_iso and odp.year::text = tla.col_name
                    left join other_land ol on odp.country_iso = ol.country_iso and odp.year = ol.year
           order by odp.country_iso, odp.year
+  `
+}
+
+export const getCreateOrReplaceViewCountryUserSummary = (props: { assessment: Assessment; cycle: Cycle }) => {
+  const { assessment, cycle } = props
+  const schemaName = Schemas.getNameCycle(assessment, cycle)
+  return `
+    create or replace view ${schemaName}.country_user_summary as
+    with filtered_roles as (
+        select 
+            ur.user_uuid,
+            ur.country_iso,
+            ur.uuid,
+            to_jsonb(ur.*) as role
+        from users_role ur
+        where (ur.cycle_uuid = '${cycle.uuid}' and
+               ur.assessment_uuid = '${assessment.uuid}')
+           or ur.role = 'ADMINISTRATOR'
+    ),
+    filtered_invitations as (
+        select 
+            ui.user_uuid,
+            ui.country_iso,
+            ui.uuid,
+            to_jsonb(ui.*) as invitation_data
+        from users_invitation ui
+        where ui.cycle_uuid = '${cycle.uuid}' 
+        and ui.assessment_uuid = '${assessment.uuid}'
+        -- only show pending invitations
+        and ui.accepted_at is null
+    ),
+    user_countries as (
+        select distinct user_uuid, country_iso
+        from (
+            select user_uuid, country_iso from filtered_roles
+            union all
+            select user_uuid, country_iso from filtered_invitations
+        ) combined
+    )
+    select 
+        u.uuid,
+        u.id,
+        uc.country_iso,
+        u.email,
+        u.props ->> 'name' as name,
+        u.props ->> 'surname' as surname,
+        concat(
+            coalesce(u.props ->> 'name', ''),
+            case when u.props ->> 'name' is not null and u.props ->> 'surname' is not null 
+                 then ' ' else '' end,
+            coalesce(u.props ->> 'surname', '')
+        ) as full_name,
+        u.status,
+        coalesce(u.props ->> 'lang', 'en') as lang,
+        ur.role as role,
+        case when ur.role is null then ui.invitation_data else null::jsonb end as invitation
+    from user_countries uc
+    join users u on u.uuid = uc.user_uuid
+    left join filtered_roles ur on u.uuid = ur.user_uuid 
+        and (ur.role->>'role' = 'ADMINISTRATOR' or ur.country_iso = uc.country_iso)
+    left join filtered_invitations ui on u.uuid = ui.user_uuid and ui.country_iso = uc.country_iso
+    order by 
+        u.uuid,
+        uc.country_iso,
+        lower(u.props ->> 'surname'),
+        lower(u.props ->> 'name'),
+        u.email;
+        
+    comment on view ${schemaName}.country_user_summary is 'Shows the user (as disaggregated) with their role or invitation by country/assessment/cycle';
   `
 }

@@ -1,0 +1,14 @@
+@import 'src/client/style/partials';
+@import 'src/client/styles/buttons';
+
+.btn-message__count {
+  align-items: center;
+  background-color: rgba(0, 152, 166, 0.77);
+  border-radius: 50%;
+  color: white;
+  display: flex;
+  font-size: $font-xxs;
+  height: 18px;
+  justify-content: center;
+  width: 18px;
+}

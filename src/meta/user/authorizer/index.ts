@@ -7,6 +7,7 @@ import { User } from 'meta/user/user'
 import { Collaborator, CollaboratorEditPropertyType } from 'meta/user/userRole'
 import { Users } from 'meta/user/users'
 
+import { canEditUser, canEditUserRole } from './canEditUser'
 import { canViewReview } from './canViewReview'
 
 /**
@@ -224,5 +225,8 @@ export const Authorizer = {
   canViewHistory,
   canViewRepositoryItem,
   canViewReview,
+  // user
   canViewUsers,
+  canEditUser,
+  canEditUserRole,
 }

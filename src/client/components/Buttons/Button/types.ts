@@ -22,4 +22,5 @@ export type ButtonProps = Pick<InputHTMLAttributes<HTMLButtonElement>, 'classNam
   noPrint?: boolean
   size?: ButtonSize
   type?: ButtonType
+  noBorder?: boolean
 }

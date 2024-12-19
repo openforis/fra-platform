@@ -34,7 +34,7 @@ export const userManagementSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(removeInvitation.fulfilled, (state, { payload }) => {
-      const i = state.users.findIndex((u) => u.id === payload.userId)
+      const i = state.users.findIndex((u) => u.uuid === payload.userUuid)
       if (i !== -1) state.users.splice(i, 1)
     })
 
@@ -47,7 +47,7 @@ export const userManagementSlice = createSlice({
     })
 
     builder.addCase(sendInvitationEmail.fulfilled, (state, { payload }) => {
-      const i = state.users.findIndex((u) => u.id === payload.userId)
+      const i = state.users.findIndex((u) => u.uuid === payload.userUuid)
       if (i !== -1) state.users[i].roles = [payload]
     })
 

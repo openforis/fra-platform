@@ -50,8 +50,8 @@ export const loginSlice = createSlice({
     builder.addCase(acceptInvitation.fulfilled, () => initialState)
 
     builder.addCase(fetchUserByInvitation.fulfilled, (state, { payload }) => {
-      const { assessment, user, userRole, userProviders } = payload
-      state.invitation = { assessment, invitedUser: user, userRole, userProviders }
+      const { assessment, user, userInvitation, userProviders } = payload
+      state.invitation = { assessment, invitedUser: user, userInvitation, userProviders }
     })
 
     builder.addCase(initLogin.fulfilled, (state, { payload }) => {
