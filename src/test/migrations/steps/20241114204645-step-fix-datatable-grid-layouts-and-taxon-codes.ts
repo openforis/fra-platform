@@ -3,11 +3,40 @@ import { AssessmentNames } from 'meta/assessment'
 import { AssessmentController } from 'server/controller/assessment'
 import { BaseProtocol, Schemas } from 'server/db'
 
-type UpdateColumnNamesProps = {
-  columnNames: Array<string>
+type TableInfo = {
   cycleUuid: string
   schemaAssessment: string
   tableName: string
+}
+
+type AddGridTemplateColumnsProps = TableInfo & {
+  gridTemplateColumns: string
+}
+
+type UpdateColumnNamesProps = TableInfo & {
+  columnNames: Array<string>
+}
+
+const _addGridTemplateColumns = async (props: AddGridTemplateColumnsProps, client: BaseProtocol) => {
+  const { cycleUuid, gridTemplateColumns, schemaAssessment, tableName } = props
+
+  return client.query(
+    `update ${schemaAssessment}.table
+     set props = jsonb_set(
+      jsonb_set(
+        props,
+        '{style}',
+        coalesce(props->'style', '{}'::jsonb),
+        true
+      ),
+      '{style,${cycleUuid}}',
+      $1::jsonb,
+      true
+     )
+     where props->>'name' = '${tableName}'
+    `,
+    [JSON.stringify({ gridTemplateColumns })]
+  )
 }
 
 const _fixColumnNames = async (props: UpdateColumnNamesProps, client: BaseProtocol) => {
@@ -91,6 +120,47 @@ const _fixFRA2025GridLayouts = async (client: BaseProtocol) => {
   await Promise.all(
     columnsToFix.map(({ columnNames, tableName }) =>
       _fixColumnNames({ columnNames, cycleUuid, schemaAssessment, tableName }, client)
+    )
+  )
+
+  const gridTemplateColumnsToAdd: Array<{ tableName: string; gridTemplateColumns: string }> = [
+    {
+      gridTemplateColumns: 'minmax(auto, 150px) 1fr auto',
+      tableName: 'extentOfForest_forestAreaStatusAndTrend_Description',
+    },
+    {
+      gridTemplateColumns: '2fr 1fr',
+      tableName: 'extentOfForest_forestAreaStatusAndTrend',
+    },
+    {
+      gridTemplateColumns: '2fr 1fr',
+      tableName: 'biomassStock_biomassStockStatus',
+    },
+    {
+      gridTemplateColumns: 'minmax(auto, 150px) 1fr 2fr',
+      tableName: 'forestRestoration',
+    },
+    {
+      gridTemplateColumns: 'minmax(auto, 150px) repeat(24, 1fr)',
+      tableName: 'disturbances',
+    },
+    {
+      gridTemplateColumns: 'minmax(auto, 150px) repeat(24, 1fr)',
+      tableName: 'areaAffectedByFire',
+    },
+    {
+      gridTemplateColumns: 'minmax(auto, 150px) repeat(2, 1fr)',
+      tableName: 'degradedForest2025',
+    },
+    {
+      gridTemplateColumns: '2fr repeat(2, 1fr)',
+      tableName: 'forestPolicy',
+    },
+  ]
+
+  await Promise.all(
+    gridTemplateColumnsToAdd.map(({ gridTemplateColumns, tableName }) =>
+      _addGridTemplateColumns({ cycleUuid, gridTemplateColumns, schemaAssessment, tableName }, client)
     )
   )
 
@@ -352,14 +422,16 @@ export default async (client: BaseProtocol) => {
   await _fixPanEuropean2020GridLayouts(client)
   await _fixPanEuropean2025GridLayouts(client)
 
-  const assessments = await AssessmentController.getAll({})
+  await AssessmentController.generateMetaCache(client)
+
+  const assessments = await AssessmentController.getAll({}, client)
 
   await Promise.all(
     assessments.map(async (assessment) => {
-      await AssessmentController.generateMetadataCache({ assessment })
+      await AssessmentController.generateMetadataCache({ assessment }, client)
       await Promise.all(
         assessment.cycles.map(async (cycle) => {
-          await AssessmentController.generateDataCache({ assessment, cycle })
+          await AssessmentController.generateDataCache({ assessment, cycle }, client)
         })
       )
     })
