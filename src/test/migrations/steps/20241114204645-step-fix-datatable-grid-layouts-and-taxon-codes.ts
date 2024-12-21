@@ -17,6 +17,26 @@ type UpdateColumnNamesProps = TableInfo & {
   columnNames: Array<string>
 }
 
+type RemoveCycleColWidthPropertiesProps = {
+  cycleUuid: string
+  schemaAssessment: string
+}
+
+const _removeCycleColWidthProperties = async (props: RemoveCycleColWidthPropertiesProps, client: BaseProtocol) => {
+  const { cycleUuid, schemaAssessment } = props
+
+  return client.query(
+    `update ${schemaAssessment}.col
+     set props = jsonb_set(
+         props,
+         '{style,${cycleUuid}}',
+         (props -> 'style' -> '${cycleUuid}') - 'width' - 'maxWidth' - 'minWidth'
+     )
+     where props -> 'style' -> '${cycleUuid}' ?| ARRAY['width', 'maxWidth', 'minWidth']`,
+    []
+  )
+}
+
 const _addGridTemplateColumns = async (props: AddGridTemplateColumnsProps, client: BaseProtocol) => {
   const { cycleUuid, gridTemplateColumns, schemaAssessment, tableName } = props
 
@@ -62,6 +82,8 @@ const _fixFRA2025GridLayouts = async (client: BaseProtocol) => {
   )
   const cycleUuid = cycle.uuid
   const schemaAssessment = Schemas.getName(assessment)
+
+  await _removeCycleColWidthProperties({ cycleUuid, schemaAssessment }, client)
 
   const columnsToFix: Array<{ tableName: string; columnNames: Array<string> }> = [
     {
@@ -133,6 +155,22 @@ const _fixFRA2025GridLayouts = async (client: BaseProtocol) => {
       tableName: 'extentOfForest_forestAreaStatusAndTrend',
     },
     {
+      gridTemplateColumns: 'minmax(auto, 150px) 1fr auto',
+      tableName: 'growingStock_growingStockStatus_Description',
+    },
+    {
+      gridTemplateColumns: '2fr 1fr',
+      tableName: 'growingStock_growingStockStatus',
+    },
+    {
+      gridTemplateColumns: 'minmax(auto, 250px) repeat(4, 1fr)',
+      tableName: 'growingStockComposition2025',
+    },
+    {
+      gridTemplateColumns: 'minmax(auto, 150px) 1fr auto',
+      tableName: 'biomassStock_biomassStockStatus_Description',
+    },
+    {
       gridTemplateColumns: '2fr 1fr',
       tableName: 'biomassStock_biomassStockStatus',
     },
@@ -155,6 +193,10 @@ const _fixFRA2025GridLayouts = async (client: BaseProtocol) => {
     {
       gridTemplateColumns: '2fr repeat(2, 1fr)',
       tableName: 'forestPolicy',
+    },
+    {
+      gridTemplateColumns: '50px repeat(6, 1fr)',
+      tableName: 'nonWoodForestProductsRemovals',
     },
   ]
 
@@ -190,6 +232,8 @@ const _fixFRA2020GridLayouts = async (client: BaseProtocol) => {
 
   const schemaAssessment = Schemas.getName(assessment)
 
+  await _removeCycleColWidthProperties({ cycleUuid, schemaAssessment }, client)
+
   // Fix 5c Degraded forest definition
   await _fixColumnNames(
     {
@@ -208,7 +252,10 @@ const _fixPanEuropean2020GridLayouts = async (client: BaseProtocol) => {
     client
   )
 
+  const cycleUuid = cycle.uuid
   const schemaAssessment = Schemas.getName(assessment)
+
+  await _removeCycleColWidthProperties({ cycleUuid, schemaAssessment }, client)
 
   // Fix 2.5 Area with forest land degradation -> table_2_5 Area header colSpan
   await client.query(
@@ -235,6 +282,8 @@ const _fixPanEuropean2025GridLayouts = async (client: BaseProtocol) => {
 
   const cycleUuid = cycle.uuid
   const schemaAssessment = Schemas.getName(assessment)
+
+  await _removeCycleColWidthProperties({ cycleUuid, schemaAssessment }, client)
 
   const columnsToFix: Array<{ tableName: string; columnNames: Array<string> }> = [
     {
