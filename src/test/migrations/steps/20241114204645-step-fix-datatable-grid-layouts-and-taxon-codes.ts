@@ -419,16 +419,17 @@ const _fixPanEuropean2025GridLayouts = async (client: BaseProtocol) => {
   )
 }
 
-const _fixTaxonCodes = async (client: BaseProtocol) => {
-  const assessments = await AssessmentController.getAll({}, client)
+const _fixFraTaxonCodes = async (client: BaseProtocol) => {
+  const assessment = await AssessmentController.getOne({ assessmentName: AssessmentNames.fra }, client)
+  const { cycles } = assessment
+
+  const schemaAssessment = Schemas.getName(assessment)
 
   /* eslint-disable no-useless-escape */
   await Promise.all(
-    assessments.map((assessment) =>
-      Promise.all(
-        assessment.cycles.map((cycle) => {
-          const schemaCycle = Schemas.getNameCycle(assessment, cycle)
-          return client.query(`
+    cycles.map((cycle) => {
+      const schemaCycle = Schemas.getNameCycle(assessment, cycle)
+      return client.query(`
             with nodes_to_update as (
               select
                   n.id,
@@ -438,7 +439,7 @@ const _fixTaxonCodes = async (client: BaseProtocol) => {
               from ${schemaCycle}.node n
               join ext_data.taxon t
                   on lower(trim(both ' ' from regexp_replace(n.value->>'raw', '\s+', ' ', 'g'))) = lower(t.scientific_name)
-              join assessment_fra.col c
+              join ${schemaAssessment}.col c
                   on c.uuid = n.col_uuid and c.props->>'colType' = 'taxon'
               where n.value->>'taxonCode' is null
             ),
@@ -458,14 +459,12 @@ const _fixTaxonCodes = async (client: BaseProtocol) => {
             from updated_values
             where ${schemaCycle}.node.id = updated_values.id;
           `)
-        })
-      )
-    )
+    })
   )
 }
 
 export default async (client: BaseProtocol) => {
-  await _fixTaxonCodes(client)
+  await _fixFraTaxonCodes(client)
   await _fixFRA2025GridLayouts(client)
   await _fixFRA2020GridLayouts(client)
   await _fixPanEuropean2020GridLayouts(client)
@@ -478,11 +477,14 @@ export default async (client: BaseProtocol) => {
   await Promise.all(
     assessments.map(async (assessment) => {
       await AssessmentController.generateMetadataCache({ assessment }, client)
-      await Promise.all(
-        assessment.cycles.map(async (cycle) => {
-          await AssessmentController.generateDataCache({ assessment, cycle }, client)
-        })
-      )
+
+      if (assessment.props.name === AssessmentNames.fra) {
+        await Promise.all(
+          assessment.cycles.map(async (cycle) => {
+            await AssessmentController.generateDataCache({ assessment, cycle }, client)
+          })
+        )
+      }
     })
   )
 }
