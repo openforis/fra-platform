@@ -1,0 +1,27 @@
+import { CSSProperties, useMemo } from 'react'
+
+import { Objects } from 'utils/objects'
+
+import { Table } from 'meta/assessment'
+
+import { useCycle } from 'client/store/assessment'
+
+type Props = {
+  headers: Array<string>
+  table: Table
+}
+
+type Returned = CSSProperties['gridTemplateColumns']
+
+export const useGridTemplateColumns = (props: Props): Returned => {
+  const { headers, table } = props
+
+  const cycle = useCycle()
+
+  return useMemo<Returned>(() => {
+    const gridTemplateColumnsFromTable = table.props.style?.[cycle.uuid]?.gridTemplateColumns
+    if (!Objects.isEmpty(gridTemplateColumnsFromTable)) return gridTemplateColumnsFromTable
+
+    return `minmax(auto, 350px) repeat(${headers.length},1fr)`
+  }, [cycle.uuid, headers.length, table.props.style])
+}

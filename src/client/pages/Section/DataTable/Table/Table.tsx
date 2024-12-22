@@ -2,12 +2,10 @@ import './Table.scss'
 import React, { useRef } from 'react'
 
 import classNames from 'classnames'
-import { Objects } from 'utils/objects'
 
 import { AssessmentName, Table as TableType } from 'meta/assessment'
 import { RecordAssessmentData } from 'meta/data'
 
-import { useCycle } from 'client/store/assessment'
 import { useIsDataLocked } from 'client/store/ui/dataLock'
 import { useCanEdit } from 'client/store/user'
 import { useCanViewReview } from 'client/store/user/hooks'
@@ -22,6 +20,7 @@ import RowNoticeMessage from 'client/pages/Section/DataTable/Table/RowNoticeMess
 import TableBody from 'client/pages/Section/DataTable/Table/TableBody'
 import TableHead from 'client/pages/Section/DataTable/Table/TableHead'
 
+import { useGridTemplateColumns } from './hooks/useGridTemplateColumns'
 import { useParsedTable } from './hooks/useParsedTable'
 import DataValidations from './DataValidations'
 
@@ -48,6 +47,8 @@ const Table: React.FC<Props> = (props) => {
     table: tableProps,
   })
 
+  const gridTemplateColumns = useGridTemplateColumns({ headers, table })
+
   const canViewReview = useCanViewReview(sectionName)
   const withActions = withReview && canViewReview
 
@@ -57,13 +58,6 @@ const Table: React.FC<Props> = (props) => {
   const canClearData = !print && !isDataLocked && !table.props.readonly
 
   const fileName = `${sectionAnchor ? `${sectionAnchor} ` : ''}${name}`
-
-  const cycle = useCycle()
-
-  const gridTemplateColumnsFromTable = table.props.style?.[cycle.uuid]?.gridTemplateColumns
-  const gridTemplateColumns = !Objects.isEmpty(gridTemplateColumnsFromTable)
-    ? gridTemplateColumnsFromTable
-    : `minmax(auto, 350px) repeat(${headers.length},1fr)`
 
   return (
     <div className={classNames('fra-table__container', { 'fra-secondary-table__wrapper': secondary })}>
