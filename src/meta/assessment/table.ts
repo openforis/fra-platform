@@ -67,7 +67,7 @@ export interface TableProps {
   print?: { pageBreakAfter: boolean }
   readonly?: boolean
   secondary?: boolean
-  style?: Record<CycleUuid, CSSProperties>
+  style?: Record<CycleUuid, Pick<CSSProperties, 'gridTemplateColumns'>>
   unit?: Unit
 }
 

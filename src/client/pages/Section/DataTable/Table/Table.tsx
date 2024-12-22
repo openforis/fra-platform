@@ -2,10 +2,12 @@ import './Table.scss'
 import React, { useRef } from 'react'
 
 import classNames from 'classnames'
+import { Objects } from 'utils/objects'
 
 import { AssessmentName, Table as TableType } from 'meta/assessment'
 import { RecordAssessmentData } from 'meta/data'
 
+import { useCycle } from 'client/store/assessment'
 import { useIsDataLocked } from 'client/store/ui/dataLock'
 import { useCanEdit } from 'client/store/user'
 import { useCanViewReview } from 'client/store/user/hooks'
@@ -56,6 +58,13 @@ const Table: React.FC<Props> = (props) => {
 
   const fileName = `${sectionAnchor ? `${sectionAnchor} ` : ''}${name}`
 
+  const cycle = useCycle()
+
+  const gridTemplateColumnsFromTable = table.props.style?.[cycle.uuid]?.gridTemplateColumns
+  const gridTemplateColumns = !Objects.isEmpty(gridTemplateColumnsFromTable)
+    ? gridTemplateColumnsFromTable
+    : `minmax(auto, 350px) repeat(${headers.length},1fr)`
+
   return (
     <div className={classNames('fra-table__container', { 'fra-secondary-table__wrapper': secondary })}>
       <div className="fra-table__scroll-wrapper">
@@ -65,11 +74,7 @@ const Table: React.FC<Props> = (props) => {
           {canClearData && <ButtonTableClear disabled={disabled} sectionName={sectionName} table={table} />}
         </div>
 
-        <DataGrid
-          className="table-grid"
-          gridTemplateColumns={`minmax(auto, 400px) repeat(${headers.length},1fr)`}
-          withActions={withActions}
-        >
+        <DataGrid className="table-grid" gridTemplateColumns={gridTemplateColumns} withActions={withActions}>
           {rowsHeader.map((row, rowIndex) => (
             <React.Fragment key={row.uuid}>
               {row.cols.map((col, colIndex) => (
