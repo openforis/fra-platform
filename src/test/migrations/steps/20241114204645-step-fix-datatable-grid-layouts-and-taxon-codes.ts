@@ -244,6 +244,55 @@ const _fixFRA2020GridLayouts = async (client: BaseProtocol) => {
     },
     client
   )
+
+  const gridTemplateColumnsToAdd: Array<{ tableName: string; gridTemplateColumns: string }> = [
+    {
+      gridTemplateColumns: 'minmax(auto, 200px) repeat(9, 1fr)',
+      tableName: 'extentOfForest',
+    },
+    {
+      gridTemplateColumns: 'minmax(auto, 250px) repeat(9, 1fr)',
+      tableName: 'forestCharacteristics',
+    },
+    {
+      gridTemplateColumns: 'minmax(auto, 250px) repeat(9, 1fr)',
+      tableName: 'growingStockAvg',
+    },
+    {
+      gridTemplateColumns: 'minmax(auto, 250px) repeat(9, 1fr)',
+      tableName: 'growingStockTotal',
+    },
+    {
+      gridTemplateColumns: 'minmax(auto, 250px) repeat(7, 1fr)',
+      tableName: 'growingStockComposition',
+    },
+    {
+      gridTemplateColumns: 'auto repeat(18, 1fr)',
+      tableName: 'disturbances',
+    },
+    {
+      gridTemplateColumns: 'auto repeat(18, 1fr)',
+      tableName: 'areaAffectedByFire',
+    },
+    {
+      gridTemplateColumns: 'minmax(auto, 150px) 2fr 1fr',
+      tableName: 'degradedForest',
+    },
+    {
+      gridTemplateColumns: 'minmax(auto, 250px) repeat(12, 1fr)',
+      tableName: 'graduationOfStudents',
+    },
+    {
+      gridTemplateColumns: 'minmax(auto, 50px) repeat(6, 1fr)',
+      tableName: 'nonWoodForestProductsRemovals',
+    },
+  ]
+
+  await Promise.all(
+    gridTemplateColumnsToAdd.map(({ gridTemplateColumns, tableName }) =>
+      _addGridTemplateColumns({ cycleUuid, gridTemplateColumns, schemaAssessment, tableName }, client)
+    )
+  )
 }
 
 const _fixPanEuropean2020GridLayouts = async (client: BaseProtocol) => {
