@@ -3,11 +3,60 @@ import { AssessmentNames } from 'meta/assessment'
 import { AssessmentController } from 'server/controller/assessment'
 import { BaseProtocol, Schemas } from 'server/db'
 
-type UpdateColumnNamesProps = {
-  columnNames: Array<string>
+type TableInfo = {
   cycleUuid: string
   schemaAssessment: string
   tableName: string
+}
+
+type AddGridTemplateColumnsProps = TableInfo & {
+  gridTemplateColumns: string
+}
+
+type UpdateColumnNamesProps = TableInfo & {
+  columnNames: Array<string>
+}
+
+type RemoveCycleColWidthPropertiesProps = {
+  cycleUuid: string
+  schemaAssessment: string
+}
+
+const _removeCycleColWidthProperties = async (props: RemoveCycleColWidthPropertiesProps, client: BaseProtocol) => {
+  const { cycleUuid, schemaAssessment } = props
+
+  return client.query(
+    `update ${schemaAssessment}.col
+     set props = jsonb_set(
+         props,
+         '{style,${cycleUuid}}',
+         (props -> 'style' -> '${cycleUuid}') - 'width' - 'maxWidth' - 'minWidth'
+     )
+     where props -> 'style' -> '${cycleUuid}' ?| ARRAY['width', 'maxWidth', 'minWidth']`,
+    []
+  )
+}
+
+const _addGridTemplateColumns = async (props: AddGridTemplateColumnsProps, client: BaseProtocol) => {
+  const { cycleUuid, gridTemplateColumns, schemaAssessment, tableName } = props
+
+  return client.query(
+    `update ${schemaAssessment}.table
+     set props = jsonb_set(
+      jsonb_set(
+        props,
+        '{style}',
+        coalesce(props->'style', '{}'::jsonb),
+        true
+      ),
+      '{style,${cycleUuid}}',
+      $1::jsonb,
+      true
+     )
+     where props->>'name' = '${tableName}'
+    `,
+    [JSON.stringify({ gridTemplateColumns })]
+  )
 }
 
 const _fixColumnNames = async (props: UpdateColumnNamesProps, client: BaseProtocol) => {
@@ -33,6 +82,8 @@ const _fixFRA2025GridLayouts = async (client: BaseProtocol) => {
   )
   const cycleUuid = cycle.uuid
   const schemaAssessment = Schemas.getName(assessment)
+
+  await _removeCycleColWidthProperties({ cycleUuid, schemaAssessment }, client)
 
   const columnsToFix: Array<{ tableName: string; columnNames: Array<string> }> = [
     {
@@ -94,6 +145,67 @@ const _fixFRA2025GridLayouts = async (client: BaseProtocol) => {
     )
   )
 
+  const gridTemplateColumnsToAdd: Array<{ tableName: string; gridTemplateColumns: string }> = [
+    {
+      gridTemplateColumns: 'minmax(auto, 150px) 1fr auto',
+      tableName: 'extentOfForest_forestAreaStatusAndTrend_Description',
+    },
+    {
+      gridTemplateColumns: '2fr 1fr',
+      tableName: 'extentOfForest_forestAreaStatusAndTrend',
+    },
+    {
+      gridTemplateColumns: 'minmax(auto, 150px) 1fr auto',
+      tableName: 'growingStock_growingStockStatus_Description',
+    },
+    {
+      gridTemplateColumns: '2fr 1fr',
+      tableName: 'growingStock_growingStockStatus',
+    },
+    {
+      gridTemplateColumns: 'minmax(auto, 250px) repeat(4, 1fr)',
+      tableName: 'growingStockComposition2025',
+    },
+    {
+      gridTemplateColumns: 'minmax(auto, 150px) 1fr auto',
+      tableName: 'biomassStock_biomassStockStatus_Description',
+    },
+    {
+      gridTemplateColumns: '2fr 1fr',
+      tableName: 'biomassStock_biomassStockStatus',
+    },
+    {
+      gridTemplateColumns: 'minmax(auto, 150px) 1fr 2fr',
+      tableName: 'forestRestoration',
+    },
+    {
+      gridTemplateColumns: 'minmax(auto, 150px) repeat(24, 1fr)',
+      tableName: 'disturbances',
+    },
+    {
+      gridTemplateColumns: 'minmax(auto, 150px) repeat(24, 1fr)',
+      tableName: 'areaAffectedByFire',
+    },
+    {
+      gridTemplateColumns: 'minmax(auto, 150px) repeat(2, 1fr)',
+      tableName: 'degradedForest2025',
+    },
+    {
+      gridTemplateColumns: '2fr repeat(2, 1fr)',
+      tableName: 'forestPolicy',
+    },
+    {
+      gridTemplateColumns: '50px repeat(6, 1fr)',
+      tableName: 'nonWoodForestProductsRemovals',
+    },
+  ]
+
+  await Promise.all(
+    gridTemplateColumnsToAdd.map(({ gridTemplateColumns, tableName }) =>
+      _addGridTemplateColumns({ cycleUuid, gridTemplateColumns, schemaAssessment, tableName }, client)
+    )
+  )
+
   // Fix 3b Forest area within protected areas - header colSpan
   await client.query(
     `update ${schemaAssessment}.col c
@@ -120,6 +232,8 @@ const _fixFRA2020GridLayouts = async (client: BaseProtocol) => {
 
   const schemaAssessment = Schemas.getName(assessment)
 
+  await _removeCycleColWidthProperties({ cycleUuid, schemaAssessment }, client)
+
   // Fix 5c Degraded forest definition
   await _fixColumnNames(
     {
@@ -130,6 +244,55 @@ const _fixFRA2020GridLayouts = async (client: BaseProtocol) => {
     },
     client
   )
+
+  const gridTemplateColumnsToAdd: Array<{ tableName: string; gridTemplateColumns: string }> = [
+    {
+      gridTemplateColumns: 'minmax(auto, 200px) repeat(9, 1fr)',
+      tableName: 'extentOfForest',
+    },
+    {
+      gridTemplateColumns: 'minmax(auto, 250px) repeat(9, 1fr)',
+      tableName: 'forestCharacteristics',
+    },
+    {
+      gridTemplateColumns: 'minmax(auto, 250px) repeat(9, 1fr)',
+      tableName: 'growingStockAvg',
+    },
+    {
+      gridTemplateColumns: 'minmax(auto, 250px) repeat(9, 1fr)',
+      tableName: 'growingStockTotal',
+    },
+    {
+      gridTemplateColumns: 'minmax(auto, 250px) repeat(7, 1fr)',
+      tableName: 'growingStockComposition',
+    },
+    {
+      gridTemplateColumns: 'auto repeat(18, 1fr)',
+      tableName: 'disturbances',
+    },
+    {
+      gridTemplateColumns: 'auto repeat(18, 1fr)',
+      tableName: 'areaAffectedByFire',
+    },
+    {
+      gridTemplateColumns: 'minmax(auto, 150px) 2fr 1fr',
+      tableName: 'degradedForest',
+    },
+    {
+      gridTemplateColumns: 'minmax(auto, 250px) repeat(12, 1fr)',
+      tableName: 'graduationOfStudents',
+    },
+    {
+      gridTemplateColumns: 'minmax(auto, 50px) repeat(6, 1fr)',
+      tableName: 'nonWoodForestProductsRemovals',
+    },
+  ]
+
+  await Promise.all(
+    gridTemplateColumnsToAdd.map(({ gridTemplateColumns, tableName }) =>
+      _addGridTemplateColumns({ cycleUuid, gridTemplateColumns, schemaAssessment, tableName }, client)
+    )
+  )
 }
 
 const _fixPanEuropean2020GridLayouts = async (client: BaseProtocol) => {
@@ -138,7 +301,10 @@ const _fixPanEuropean2020GridLayouts = async (client: BaseProtocol) => {
     client
   )
 
+  const cycleUuid = cycle.uuid
   const schemaAssessment = Schemas.getName(assessment)
+
+  await _removeCycleColWidthProperties({ cycleUuid, schemaAssessment }, client)
 
   // Fix 2.5 Area with forest land degradation -> table_2_5 Area header colSpan
   await client.query(
@@ -165,6 +331,8 @@ const _fixPanEuropean2025GridLayouts = async (client: BaseProtocol) => {
 
   const cycleUuid = cycle.uuid
   const schemaAssessment = Schemas.getName(assessment)
+
+  await _removeCycleColWidthProperties({ cycleUuid, schemaAssessment }, client)
 
   const columnsToFix: Array<{ tableName: string; columnNames: Array<string> }> = [
     {
@@ -300,16 +468,17 @@ const _fixPanEuropean2025GridLayouts = async (client: BaseProtocol) => {
   )
 }
 
-const _fixTaxonCodes = async (client: BaseProtocol) => {
-  const assessments = await AssessmentController.getAll({}, client)
+const _fixFraTaxonCodes = async (client: BaseProtocol) => {
+  const assessment = await AssessmentController.getOne({ assessmentName: AssessmentNames.fra }, client)
+  const { cycles } = assessment
+
+  const schemaAssessment = Schemas.getName(assessment)
 
   /* eslint-disable no-useless-escape */
   await Promise.all(
-    assessments.map((assessment) =>
-      Promise.all(
-        assessment.cycles.map((cycle) => {
-          const schemaCycle = Schemas.getNameCycle(assessment, cycle)
-          return client.query(`
+    cycles.map((cycle) => {
+      const schemaCycle = Schemas.getNameCycle(assessment, cycle)
+      return client.query(`
             with nodes_to_update as (
               select
                   n.id,
@@ -319,7 +488,7 @@ const _fixTaxonCodes = async (client: BaseProtocol) => {
               from ${schemaCycle}.node n
               join ext_data.taxon t
                   on lower(trim(both ' ' from regexp_replace(n.value->>'raw', '\s+', ' ', 'g'))) = lower(t.scientific_name)
-              join assessment_fra.col c
+              join ${schemaAssessment}.col c
                   on c.uuid = n.col_uuid and c.props->>'colType' = 'taxon'
               where n.value->>'taxonCode' is null
             ),
@@ -339,29 +508,32 @@ const _fixTaxonCodes = async (client: BaseProtocol) => {
             from updated_values
             where ${schemaCycle}.node.id = updated_values.id;
           `)
-        })
-      )
-    )
+    })
   )
 }
 
 export default async (client: BaseProtocol) => {
-  await _fixTaxonCodes(client)
+  await _fixFraTaxonCodes(client)
   await _fixFRA2025GridLayouts(client)
   await _fixFRA2020GridLayouts(client)
   await _fixPanEuropean2020GridLayouts(client)
   await _fixPanEuropean2025GridLayouts(client)
 
-  const assessments = await AssessmentController.getAll({})
+  await AssessmentController.generateMetaCache(client)
+
+  const assessments = await AssessmentController.getAll({}, client)
 
   await Promise.all(
     assessments.map(async (assessment) => {
-      await AssessmentController.generateMetadataCache({ assessment })
-      await Promise.all(
-        assessment.cycles.map(async (cycle) => {
-          await AssessmentController.generateDataCache({ assessment, cycle })
-        })
-      )
+      await AssessmentController.generateMetadataCache({ assessment }, client)
+
+      if (assessment.props.name === AssessmentNames.fra) {
+        await Promise.all(
+          assessment.cycles.map(async (cycle) => {
+            await AssessmentController.generateDataCache({ assessment, cycle }, client)
+          })
+        )
+      }
     })
   )
 }

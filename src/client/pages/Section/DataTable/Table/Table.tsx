@@ -20,6 +20,7 @@ import RowNoticeMessage from 'client/pages/Section/DataTable/Table/RowNoticeMess
 import TableBody from 'client/pages/Section/DataTable/Table/TableBody'
 import TableHead from 'client/pages/Section/DataTable/Table/TableHead'
 
+import { useGridTemplateColumns } from './hooks/useGridTemplateColumns'
 import { useParsedTable } from './hooks/useParsedTable'
 import DataValidations from './DataValidations'
 
@@ -46,6 +47,8 @@ const Table: React.FC<Props> = (props) => {
     table: tableProps,
   })
 
+  const gridTemplateColumns = useGridTemplateColumns({ headers, table })
+
   const canViewReview = useCanViewReview(sectionName)
   const withActions = withReview && canViewReview
 
@@ -65,11 +68,7 @@ const Table: React.FC<Props> = (props) => {
           {canClearData && <ButtonTableClear disabled={disabled} sectionName={sectionName} table={table} />}
         </div>
 
-        <DataGrid
-          className="table-grid"
-          gridTemplateColumns={`minmax(auto, 400px) repeat(${headers.length},1fr)`}
-          withActions={withActions}
-        >
+        <DataGrid className="table-grid" gridTemplateColumns={gridTemplateColumns} withActions={withActions}>
           {rowsHeader.map((row, rowIndex) => (
             <React.Fragment key={row.uuid}>
               {row.cols.map((col, colIndex) => (

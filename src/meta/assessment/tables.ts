@@ -22,6 +22,8 @@ const cloneProps = (props: { cycleSource: Cycle; cycleTarget: Cycle; table: Tabl
     _props.columnsExportAlways[cycleTargetUuid] = Objects.cloneDeep(_props.columnsExportAlways[cycleSourceUuid])
   if (!Objects.isNil(_props.disableErrorMessage?.[cycleSourceUuid]))
     _props.disableErrorMessage[cycleTargetUuid] = Objects.cloneDeep(_props.disableErrorMessage[cycleSourceUuid])
+  if (!Objects.isNil(_props.style?.[cycleSourceUuid]))
+    _props.style[cycleTargetUuid] = Objects.cloneDeep(_props.style[cycleSourceUuid])
 
   return _props
 }
