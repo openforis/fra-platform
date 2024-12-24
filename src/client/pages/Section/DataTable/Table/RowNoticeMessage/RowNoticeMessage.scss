@@ -1,6 +1,7 @@
 @import 'src/client/style/partials';
 
 .table-grid__notice-message-cell {
+  grid-column: 1 / -1;
   padding: $spacing-xxs $spacing-xxxs;
   vertical-align: top;
 }
