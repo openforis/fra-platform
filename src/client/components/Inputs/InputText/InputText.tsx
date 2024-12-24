@@ -14,7 +14,7 @@ const InputText = forwardRef<HTMLInputElement, InputTextProps>((props, outerRef)
   const _onChange = useOnChange({ inputRef, onChange, value })
 
   if (disabled) {
-    return <div className="input-text disabled">{value}</div>
+    return <div className={classNames('input-text disabled', className)}>{value}</div>
   }
 
   return (
