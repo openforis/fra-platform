@@ -476,6 +476,99 @@ const _fixPanEuropean2025GridLayouts = async (client: BaseProtocol) => {
     )
   )
 
+  const gridTemplateColumnsToAdd: Array<{ tableName: string; gridTemplateColumns: string }> = [
+    {
+      gridTemplateColumns: 'repeat(2, 1fr)',
+      tableName: 'table_1_1a',
+    },
+    {
+      gridTemplateColumns: 'minmax(auto,250px) repeat(9, 1fr)',
+      tableName: 'table_1_2c',
+    },
+    {
+      gridTemplateColumns: 'minmax(auto, 400px) repeat(5, 1fr)',
+      tableName: 'table_1_3a2',
+    },
+    {
+      gridTemplateColumns: 'auto repeat(10, 1fr)',
+      tableName: 'table_2_4',
+    },
+    {
+      gridTemplateColumns: 'minmax(auto, 200px) repeat(7, 1fr)',
+      tableName: 'table_2_5',
+    },
+    {
+      gridTemplateColumns: '2fr 1fr',
+      tableName: 'reasonability_check_3_1',
+    },
+    {
+      gridTemplateColumns: 'minmax(auto, 200px) repeat(6, 1fr)',
+      tableName: 'table_3_3',
+    },
+    {
+      gridTemplateColumns: 'minmax(auto, 200px) repeat(2, 1fr)',
+      tableName: 'country_comments_3_3_1',
+    },
+    {
+      gridTemplateColumns: 'minmax(auto, 200px) repeat(5, 1fr)',
+      tableName: 'table_3_4',
+    },
+    {
+      gridTemplateColumns: 'repeat(2, 1fr)',
+      tableName: 'country_comments_3_4_1',
+    },
+    {
+      gridTemplateColumns: 'minmax(auto, 200px) repeat(2, 1fr)',
+      tableName: 'country_comments_3_4_2',
+    },
+    {
+      gridTemplateColumns: 'minmax(auto, 200px) repeat(3, 1fr)',
+      tableName: 'table_4_2a',
+    },
+    {
+      gridTemplateColumns: 'minmax(auto, 200px) repeat(5, 1fr)',
+      tableName: 'table_4_2b',
+    },
+    {
+      gridTemplateColumns: 'minmax(auto, 200px) repeat(7, 1fr)',
+      tableName: 'table_4_3b',
+    },
+    {
+      gridTemplateColumns: 'minmax(auto, 200px) repeat(6, 1fr)',
+      tableName: 'table_4_4b',
+    },
+    {
+      gridTemplateColumns: 'minmax(auto, 200px) repeat(6, 1fr)',
+      tableName: 'table_4_4c',
+    },
+    {
+      gridTemplateColumns: 'repeat(2, 1fr)',
+      tableName: 'country_comments_4_5_1',
+    },
+    {
+      gridTemplateColumns: 'repeat(2, 1fr)',
+      tableName: 'country_comments_6_1_1',
+    },
+    {
+      gridTemplateColumns: 'minmax(auto, 250px) repeat(4, 1fr)',
+      tableName: 'table_6_6',
+    },
+    {
+      gridTemplateColumns: 'repeat(2, 1fr)',
+      tableName: 'country_comments_6_6_1',
+    },
+    {
+      gridTemplateColumns: 'minmax(auto, 300px) repeat(4, 1fr)',
+      tableName: 'table_6_10d',
+    },
+  ]
+
+  await Promise.all(
+    gridTemplateColumnsToAdd.map(({ gridTemplateColumns, tableName }) =>
+      _addGridTemplateColumns({ cycleUuid, gridTemplateColumns, schemaAssessment, tableName }, client)
+    )
+  )
+
   // Fix 1.4 Carbon stock -> table_1_4a header rowSpan
   await client.query(
     `update ${schemaAssessment}.col c
