@@ -512,9 +512,59 @@ const _fixFraTaxonCodes = async (client: BaseProtocol) => {
   )
 }
 
+const _fixGrowingStockComposition2025HeaderRows = async (client: BaseProtocol) => {
+  const assessment = await AssessmentController.getOne({ assessmentName: AssessmentNames.fra }, client)
+
+  const schemaAssessment = Schemas.getName(assessment)
+
+  // Move 'header_1' row cols to 'header_0' row
+  await client.query(
+    `with target_row as (
+      select 
+          r.id as target_row_id
+      from ${schemaAssessment}.row r
+      join ${schemaAssessment}.table t on r.table_id = t.id
+      where r.props ->> 'index' = 'header_0'
+          and t.props ->> 'name' = 'growingStockComposition2025'
+    ),
+    cols_to_update as (
+      select 
+          c.id as col_id, 
+          target_row.target_row_id,
+          (c.props ->> 'index')::int + 3 as new_index -- number of cols in header_0 + index
+      from ${schemaAssessment}.col c
+      join ${schemaAssessment}.row r on c.row_id = r.id
+      join ${schemaAssessment}.table t on r.table_id = t.id
+      join target_row on true
+      where r.props ->> 'index' = 'header_1'
+          and t.props ->> 'name' = 'growingStockComposition2025'
+      )
+      update ${schemaAssessment}.col
+      set row_id = cols_to_update.target_row_id,
+        props = jsonb_set(
+            props,
+            '{index}',
+            to_jsonb(cols_to_update.new_index)
+        )
+      from cols_to_update
+      where ${schemaAssessment}.col.id = cols_to_update.col_id;
+
+      delete from ${schemaAssessment}.row
+      where id in (
+        select 
+            r.id
+        from ${schemaAssessment}.row r
+        join ${schemaAssessment}.table t on r.table_id = t.id
+        where r.props ->> 'index' = 'header_1'
+            and t.props ->> 'name' = 'growingStockComposition2025'
+      );`
+  )
+}
+
 export default async (client: BaseProtocol) => {
   await _fixFraTaxonCodes(client)
   await _fixFRA2025GridLayouts(client)
+  await _fixGrowingStockComposition2025HeaderRows(client)
   await _fixFRA2020GridLayouts(client)
   await _fixPanEuropean2020GridLayouts(client)
   await _fixPanEuropean2025GridLayouts(client)
