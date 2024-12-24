@@ -394,6 +394,27 @@ const _fixPanEuropean2020GridLayouts = async (client: BaseProtocol) => {
       )
     `
   )
+
+  // Fix table_1_4b_2020 label keys missing a "."
+  await client.query(
+    `update ${schemaAssessment}.col c
+     set props = jsonb_set(
+       props,
+       '{labels,${cycleUuid},key}',
+       '"panEuropean.carbonStockInHarvestedWoodProductsHWP.harvested_wood_products"',
+       false
+     )
+     where c.props -> 'labels' -> '${cycleUuid}' ->> 'key' = 'panEuropean.carbonStockInHarvestedWoodProductsHWPharvested_wood_products'
+        and c.props ->> 'colType' = 'header'
+        and c.props ->> 'index' = 'header_0'
+        and c.row_id in (
+            select r.id
+            from ${schemaAssessment}.row r
+            join ${schemaAssessment}."table" t on r.table_id = t.id
+            where t.props ->> 'name' = 'table_1_4b_2020'
+        )
+    `
+  )
 }
 
 const _fixPanEuropean2025GridLayouts = async (client: BaseProtocol) => {
