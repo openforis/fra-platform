@@ -18,19 +18,12 @@ const RowNoticeMessage: React.FC<RowProps> = (props) => {
   return (
     <DataRow>
       {cols.map((col) => {
-        const { gridColumn, gridRow } = Cols.getStyle({ col, cycle })
         const message = Cols.getLabel({ cycle, col, t })
 
         if (!message) return null
 
         return (
-          <DataCell
-            key={col.uuid}
-            className="table-grid__notice-message-cell"
-            gridColumn={gridColumn}
-            gridRow={gridRow}
-            noBorder
-          >
+          <DataCell key={col.uuid} className="table-grid__notice-message-cell" noBorder>
             {message}
           </DataCell>
         )
