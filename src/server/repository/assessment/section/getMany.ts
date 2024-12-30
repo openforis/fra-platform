@@ -3,10 +3,13 @@ import { Assessment, Cycle, Section } from 'meta/assessment'
 import { BaseProtocol, DB, Schemas } from 'server/db'
 import { SectionAdapter } from 'server/repository/adapter'
 
-export const getMany = async (
-  props: { assessment: Assessment; cycle: Cycle; showHidden?: boolean },
-  client: BaseProtocol = DB
-): Promise<Array<Section>> => {
+type Props = {
+  assessment: Assessment
+  cycle: Cycle
+  showHidden?: boolean
+}
+
+export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<Array<Section>> => {
   const { assessment, cycle, showHidden = false } = props
   const schemaName = Schemas.getName(assessment)
 
