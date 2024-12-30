@@ -1,22 +1,23 @@
-import { Assessment, Cycle, TableSection } from 'meta/assessment'
+import { Assessment, Cycle, SectionName, TableSection } from 'meta/assessment'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'
 import { TableSectionAdapter } from 'server/repository/adapter'
 
-export const getManyMetadata = async (
-  props: {
-    assessment: Assessment
-    sectionNames?: Array<string>
-    cycle: Cycle
-    showHidden?: boolean
-  },
-  client: BaseProtocol = DB
-): Promise<Record<string, Array<TableSection>>> => {
+type Props = {
+  assessment: Assessment
+  cycle: Cycle
+  sectionNames?: Array<SectionName>
+  showHidden?: boolean
+}
+
+type RecordTableSections = Record<SectionName, Array<TableSection>>
+
+export const getManyMetadata = async (props: Props, client: BaseProtocol = DB): Promise<RecordTableSections> => {
   const { cycle, sectionNames, assessment, showHidden = false } = props
   const schemaName = Schemas.getName(assessment)
 
   // @ts-ignore
-  return client.result<Record<string, Array<TableSection>>>(
+  return client.result<RecordTableSections>(
     `
         with "row" as (select s.props ->> 'name' as section_name,
                               to_jsonb(ts.*)     as table_section,
