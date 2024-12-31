@@ -98,7 +98,10 @@ export const getDataGridData = (grid: HTMLDivElement): TableData => {
 
     let cellContent = _getElementText(cell as HTMLElement)
     const spaceFreeContent = cellContent.replace(/\s/g, '')
-    cellContent = Number.isNaN(Number.parseFloat(spaceFreeContent)) ? cellContent : spaceFreeContent
+    cellContent =
+      Number.isNaN(Number.parseFloat(spaceFreeContent)) || Number.isNaN(Number(spaceFreeContent))
+        ? cellContent
+        : spaceFreeContent
 
     const { rowSpan, colSpan } = _getCellSpans({ cell, columnCount, rowCount })
 
