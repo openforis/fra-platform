@@ -53,21 +53,23 @@ const OdpHeaderCell: React.FC<Props> = (props) => {
       header
       lastCol={lastCol}
     >
-      <Link
-        className="link"
-        data-tooltip-content={t('nationalDataPoint.clickOnNDP')}
-        data-tooltip-id={TooltipId.info}
-        to={Routes.OriginalDataPoint.generatePath({
-          assessmentName: assessment.props.name,
-          countryIso,
-          cycleName: cycle.name,
-          sectionName,
-          year: odpYear,
-        })}
-      >
-        {odpYear}
+      <div>
+        <Link
+          className="link"
+          data-tooltip-content={t('nationalDataPoint.clickOnNDP')}
+          data-tooltip-id={TooltipId.info}
+          to={Routes.OriginalDataPoint.generatePath({
+            assessmentName: assessment.props.name,
+            countryIso,
+            cycleName: cycle.name,
+            sectionName,
+            year: odpYear,
+          })}
+        >
+          {odpYear}
+        </Link>
         <ReviewSummaryIndicator status={reviewStatus} />
-      </Link>
+      </div>
     </DataCell>
   )
 }
