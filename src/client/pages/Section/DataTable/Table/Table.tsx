@@ -10,8 +10,7 @@ import { useIsDataLocked } from 'client/store/ui/dataLock'
 import { useCanEdit } from 'client/store/user'
 import { useCanViewReview } from 'client/store/user/hooks'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
-import ButtonTableExport from 'client/components/ButtonTableExport'
-import { DataGrid } from 'client/components/DataGrid'
+import { ButtonGridExport, DataGrid } from 'client/components/DataGrid'
 import ButtonCopyValues from 'client/pages/Section/DataTable/Table/ButtonCopyValues'
 import ButtonTableClear from 'client/pages/Section/DataTable/Table/ButtonTableClear'
 import GridHeadCell from 'client/pages/Section/DataTable/Table/GridHeadCell'
@@ -40,6 +39,7 @@ const Table: React.FC<Props> = (props) => {
 
   const { print } = useIsPrintRoute()
   const tableRef = useRef<HTMLTableElement>(null)
+  const gridRef = useRef<HTMLDivElement>(null)
 
   const { headers, noticeMessages, rowsData, rowsHeader, table, withReview } = useParsedTable({
     assessmentName,
@@ -63,12 +63,17 @@ const Table: React.FC<Props> = (props) => {
     <div className={classNames('fra-table__container', { 'fra-secondary-table__wrapper': secondary })}>
       <div className="fra-table__scroll-wrapper">
         <div className="fra-table__editor">
-          {!print && <ButtonTableExport filename={fileName} tableRef={tableRef} />}
+          {!print && <ButtonGridExport filename={fileName} gridRef={gridRef} />}
           <ButtonCopyValues table={table} tableRef={tableRef} />
           {canClearData && <ButtonTableClear disabled={disabled} sectionName={sectionName} table={table} />}
         </div>
 
-        <DataGrid className="table-grid" gridTemplateColumns={gridTemplateColumns} withActions={withActions}>
+        <DataGrid
+          ref={gridRef}
+          className="table-grid"
+          gridTemplateColumns={gridTemplateColumns}
+          withActions={withActions}
+        >
           {rowsHeader.map((row, rowIndex) => (
             <React.Fragment key={row.uuid}>
               {row.cols.map((col, colIndex) => (
