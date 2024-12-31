@@ -700,7 +700,10 @@ const _fixFraTaxonCodes = async (client: BaseProtocol) => {
 }
 
 const _fixGrowingStockComposition2025HeaderRows = async (client: BaseProtocol) => {
-  const assessment = await AssessmentController.getOne({ assessmentName: AssessmentNames.fra }, client)
+  const { assessment, cycle } = await AssessmentController.getOneWithCycle(
+    { assessmentName: AssessmentNames.fra, cycleName: '2025' },
+    client
+  )
 
   const schemaAssessment = Schemas.getName(assessment)
 
@@ -744,7 +747,19 @@ const _fixGrowingStockComposition2025HeaderRows = async (client: BaseProtocol) =
         join ${schemaAssessment}.table t on r.table_id = t.id
         where r.props ->> 'index' = 'header_1'
             and t.props ->> 'name' = 'growingStockComposition2025'
-      );`
+      );
+      
+     update ${schemaAssessment}.col c
+     set props = jsonb_set(props, '{style,${cycle.uuid},rowSpan}', '1', false)
+     where c.props ->> 'colType' = 'header'
+        and c.row_id in (
+          select r.id from ${schemaAssessment}.row r
+          left join ${schemaAssessment}."table" t on t.id = r.table_id
+          where r.props ->> 'type' = 'header'
+             and r.props ->> 'index' = 'header_0'
+             and t.props ->> 'name' = 'growingStockComposition2025'
+        );
+      `
   )
 }
 
