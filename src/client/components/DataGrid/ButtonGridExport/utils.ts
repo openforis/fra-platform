@@ -6,9 +6,10 @@ const normalizeString = (string = '') => string.trim().replace(/\s+/g, ' ')
 const _getElementText = (element: HTMLElement): string => {
   if (typeof element === 'string') return normalizeString(element)
 
-  const { children, innerText, style } = element
+  const { children, innerText } = element
+  const computedStyle = getComputedStyle(element)
 
-  if (style && (style.visibility === 'hidden' || style.display === 'none')) return ''
+  if (computedStyle && (computedStyle.visibility === 'hidden' || computedStyle.display === 'none')) return ''
 
   if (element.classList.contains('no-csv')) return ''
 
