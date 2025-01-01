@@ -1,11 +1,8 @@
-.table-grid__data-cell-input-number {
-  text-align: right;
-
+.table-grid__data-cell-input-text {
   &.input-text {
     &.disabled {
       align-items: center;
       display: flex;
-      justify-content: end;
     }
   }
 }
