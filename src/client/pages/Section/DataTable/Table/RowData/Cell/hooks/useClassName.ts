@@ -18,7 +18,7 @@ export const useClassName = (props: Props): string => {
     const { colType } = col.props
 
     const isPlaceholder = colType === ColType.placeholder
-    const isLeftAligned = [ColType.text, ColType.textarea, ColType.select, ColType.taxon].includes(colType)
+    const isTextInput = [ColType.text, ColType.textarea, ColType.select, ColType.taxon].includes(colType)
     const isCalculated = Cols.isCalculated({ col, row })
     const isCalculatedInput = isCalculated && colType !== ColType.calculated
     const isReadOnly = Cols.isReadOnly({ cycle, col, row }) && !isCalculatedInput
@@ -27,9 +27,9 @@ export const useClassName = (props: Props): string => {
       'table-grid__data-cell',
       { 'validation-error': !validation.valid },
       {
-        'calculated-input': isCalculatedInput,
+        'calculated-input': isCalculatedInput && !isTextInput,
         'category header left': isPlaceholder,
-        left: isLeftAligned,
+        left: isTextInput,
         readonly: isReadOnly,
       }
     )
