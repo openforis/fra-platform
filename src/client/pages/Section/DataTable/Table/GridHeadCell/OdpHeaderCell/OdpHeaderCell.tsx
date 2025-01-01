@@ -8,10 +8,10 @@ import classNames from 'classnames'
 import { Routes } from 'meta/routes'
 import { TooltipId } from 'meta/tooltip'
 
-import { useAssessment, useCycle } from 'client/store/assessment'
 import { useOdpReviewSummary } from 'client/store/ui/review/hooks'
 import { useCountryIso } from 'client/hooks'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import { useCycleRouteParams } from 'client/hooks/useRouteParams'
 import { DataCell } from 'client/components/DataGrid'
 import ReviewSummaryIndicator from 'client/components/ReviewSummaryIndicator'
 
@@ -28,9 +28,8 @@ type Props = {
 const OdpHeaderCell: React.FC<Props> = (props) => {
   const { className, gridColumn, gridRow, lastCol, odpId, odpYear, sectionName } = props
 
-  const assessment = useAssessment()
+  const { assessmentName, cycleName } = useCycleRouteParams()
   const countryIso = useCountryIso()
-  const cycle = useCycle()
 
   const { print } = useIsPrintRoute()
   const { t } = useTranslation()
@@ -59,9 +58,9 @@ const OdpHeaderCell: React.FC<Props> = (props) => {
           data-tooltip-content={t('nationalDataPoint.clickOnNDP')}
           data-tooltip-id={TooltipId.info}
           to={Routes.OriginalDataPoint.generatePath({
-            assessmentName: assessment.props.name,
+            assessmentName,
             countryIso,
-            cycleName: cycle.name,
+            cycleName,
             sectionName,
             year: odpYear,
           })}
