@@ -42,6 +42,7 @@ export type SelectProps = SelectBaseProps &
     collapsibleGroups?: boolean
     createOptionLabelKey?: string
     disabled?: boolean
+    hideDropdownIndicator?: boolean
     inputHidden?: boolean
     isCreatable?: boolean
     multiLabelSummaryKey?: string

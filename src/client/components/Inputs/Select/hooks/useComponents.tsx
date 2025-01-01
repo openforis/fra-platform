@@ -17,7 +17,8 @@ import { SelectProps } from 'client/components/Inputs/Select/types'
 type Returned = ReactSelectProps['components']
 
 export const useComponents = (props: SelectProps): Returned => {
-  const { collapsibleGroups, inputHidden, isMulti, multiLabelSummaryKey, selectableGroups } = props
+  const { collapsibleGroups, hideDropdownIndicator, inputHidden, isMulti, multiLabelSummaryKey, selectableGroups } =
+    props
 
   return useMemo<Returned>(() => {
     const components: Returned = {
@@ -41,7 +42,8 @@ export const useComponents = (props: SelectProps): Returned => {
         return <originalComponents.Input {...originalInputProps} isHidden={inputHidden} />
       }
     }
+    if (hideDropdownIndicator) components.DropdownIndicator = null
 
     return components
-  }, [collapsibleGroups, inputHidden, isMulti, multiLabelSummaryKey, selectableGroups])
+  }, [collapsibleGroups, hideDropdownIndicator, inputHidden, isMulti, multiLabelSummaryKey, selectableGroups])
 }
