@@ -3,16 +3,16 @@
 $colorError: darken($ui-destructive, 5%);
 
 .data-validations {
-  margin-top: $spacing-xs;
+  align-items: center;
   color: $colorError;
   display: grid;
-  grid-template-columns: auto 1fr;
-  grid-column-gap: $spacing-xxxs;
   font-size: $font-xs;
-  align-items: center;
-  text-transform: uppercase;
   font-weight: 600;
+  grid-column-gap: $spacing-xxxs;
+  grid-template-columns: auto 1fr;
   letter-spacing: 0.4px;
+  margin-top: $spacing-xs;
+  text-transform: uppercase;
 
   .msg {
     grid-column: 2;
@@ -20,7 +20,7 @@ $colorError: darken($ui-destructive, 5%);
 
   svg.icon {
     color: $colorError;
-    width: 12px;
     height: 12px;
+    width: 12px;
   }
 }

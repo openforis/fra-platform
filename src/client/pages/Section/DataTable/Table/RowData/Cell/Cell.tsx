@@ -72,12 +72,12 @@ const Cell: React.FC<Props> = (props) => {
 
   const cycle = useCycle()
   const nodeValue = useNodeValue({ col, data, row, table })
-  const { onChange, onChangeNodeValue, onPaste } = useOnChange({ table, col, row, nodeValue, data, sectionName })
-  const validation = useNodeValueValidation({ table, row, col })
+  const { onChange, onChangeNodeValue, onPaste } = useOnChange({ col, data, nodeValue, row, sectionName, table })
+  const validation = useNodeValueValidation({ col, row, table })
   const errorMessages = useErrorMessages({ validation })
-  const className = useClassName({ cycle, col, row, validation })
+  const className = useClassName({ col, cycle, row, validation })
 
-  const disabled = disabledProps || !!nodeValue?.odpId || Cols.hasLinkedNodes({ cycle, col })
+  const disabled = disabledProps || !!nodeValue?.odpId || Cols.hasLinkedNodes({ col, cycle })
   const Component = Components[col.props.colType]
   const { gridColumn, gridRow, ...style } = Cols.getStyle({ col, cycle })
   const isInput = ![ColType.calculated, ColType.placeholder].includes(col.props.colType)
