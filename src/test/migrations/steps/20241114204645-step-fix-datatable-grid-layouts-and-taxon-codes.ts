@@ -1,7 +1,13 @@
+import { Objects } from 'utils/objects'
+import { Promises } from 'utils/promises'
+
+import { CountryIso } from 'meta/area'
 import { AssessmentNames } from 'meta/assessment'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { BaseProtocol, Schemas } from 'server/db'
+import { DataRedisRepository } from 'server/repository/redis/data'
+import { Logger } from 'server/utils/logger'
 
 type TableInfo = {
   cycleUuid: string
@@ -661,27 +667,35 @@ const _fixFraTaxonCodes = async (client: BaseProtocol) => {
 
   const schemaAssessment = Schemas.getName(assessment)
 
-  /* eslint-disable no-useless-escape */
   await Promise.all(
-    cycles.map((cycle) => {
+    cycles.map(async (cycle) => {
       const schemaCycle = Schemas.getNameCycle(assessment, cycle)
-      return client.query(`
+      const updatedTables = await client.map<{ countryIso: CountryIso; tableName: string }>(
+        `
             with nodes_to_update as (
               select
                   n.id,
                   n.value,
+                  n.country_iso,
+                  tb.props->>'name' as table_name,
                   t.code as matching_taxon_code,
                   t.scientific_name as original_scientific_name
               from ${schemaCycle}.node n
               join ext_data.taxon t
-                  on lower(trim(both ' ' from regexp_replace(n.value->>'raw', '\s+', ' ', 'g'))) = lower(t.scientific_name)
+                  on lower(trim(both ' ' from regexp_replace(n.value->>'raw', '\\s+', ' ', 'g'))) = lower(t.scientific_name)
               join ${schemaAssessment}.col c
                   on c.uuid = n.col_uuid and c.props->>'colType' = 'taxon'
+              join ${schemaAssessment}.row r
+                  on c.row_id = r.id
+              join ${schemaAssessment}."table" tb
+                  on tb.id = r.table_id
               where n.value->>'taxonCode' is null
             ),
             updated_values as (
               select
                 id,
+                country_iso,
+                table_name,
                 jsonb_set(
                   jsonb_set(value, '{taxonCode}', to_jsonb(matching_taxon_code::text), true),
                   '{raw}',
@@ -689,12 +703,25 @@ const _fixFraTaxonCodes = async (client: BaseProtocol) => {
                   true
                 ) as new_value
               from nodes_to_update
+            ),
+            updated_tables as (
+              update ${schemaCycle}.node
+              set value = updated_values.new_value
+              from updated_values
+              where ${schemaCycle}.node.id = updated_values.id
+              returning updated_values.country_iso, updated_values.table_name
             )
-            update ${schemaCycle}.node
-            set value = updated_values.new_value
-            from updated_values
-            where ${schemaCycle}.node.id = updated_values.id;
-          `)
+            select distinct country_iso, table_name from updated_tables;
+          `,
+        [],
+        (res) => Objects.camelize(res)
+      )
+
+      await Promises.each(updatedTables, ({ countryIso, tableName }) =>
+        DataRedisRepository.cacheCountryTable({ assessment, countryIso, cycle, force: true, tableName }, client)
+      )
+
+      Logger.info(`Generated cache for ${updatedTables.length} tables in ${schemaCycle}.`)
     })
   )
 }
@@ -778,14 +805,6 @@ export default async (client: BaseProtocol) => {
   await Promise.all(
     assessments.map(async (assessment) => {
       await AssessmentController.generateMetadataCache({ assessment }, client)
-
-      if (assessment.props.name === AssessmentNames.fra) {
-        await Promise.all(
-          assessment.cycles.map(async (cycle) => {
-            await AssessmentController.generateDataCache({ assessment, cycle }, client)
-          })
-        )
-      }
     })
   )
 }

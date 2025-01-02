@@ -32,6 +32,7 @@ const Taxon: React.FC<PropsCell> = (props: PropsCell) => {
         createOptionLabelKey="common.add"
         createOptionPosition="first"
         disabled={disabled}
+        hideDropdownIndicator
         inputHidden={false}
         inputValue={!disabled ? inputValue : null}
         isClearable={false}
