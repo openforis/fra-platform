@@ -6,10 +6,10 @@ import { Table, TableNames } from 'meta/assessment'
 import { useCycle } from 'client/store/assessment'
 import { useUser } from 'client/store/user'
 import Button from 'client/components/Buttons/Button'
-import { getData } from 'client/components/ButtonTableExport/utils'
+import { getDataGridData } from 'client/components/DataGrid/ButtonGridExport/utils'
 
 type CopyValuesProps = {
-  tableRef: MutableRefObject<HTMLTableElement>
+  gridRef: MutableRefObject<HTMLDivElement>
   table: Table
 }
 
@@ -47,7 +47,7 @@ const tableMappings2025: Record<string, Array<string>> = {
 const colMapping = [1990, 2000, 2010, 2015, 2020, 2025]
 
 const ButtonCopyValues: React.FC<CopyValuesProps> = (props: CopyValuesProps) => {
-  const { tableRef, table } = props
+  const { gridRef, table } = props
   const cycle = useCycle()
   const user = useUser()
   const { t } = useTranslation()
@@ -57,9 +57,9 @@ const ButtonCopyValues: React.FC<CopyValuesProps> = (props: CopyValuesProps) => 
   const showButton = Object.keys(tableMappings).includes(table.props.name)
 
   const _onClick = useCallback(() => {
-    const _table = tableRef.current
-    if (!_table) return
-    const csv = getData(_table)
+    const grid = gridRef.current
+    if (!grid) return
+    const csv = getDataGridData(grid)
     const include = tableMappings[table.props.name].map((variableLabel) => t(variableLabel))
     // A list of indexes of the table columns that should be copied to clipboard
     const correctIndexes = colMapping.map((year) => csv[1].indexOf(year.toString()))
@@ -72,7 +72,7 @@ const ButtonCopyValues: React.FC<CopyValuesProps> = (props: CopyValuesProps) => 
       })
 
     navigator.clipboard.writeText(z.map((row: Array<string>) => row.join('\t')).join('\n'))
-  }, [t, table.props.name, tableMappings, tableRef])
+  }, [t, table.props.name, tableMappings, gridRef])
 
   // Hide button if incorrect table or user is not logged in
   if (!user || !showButton) return null
