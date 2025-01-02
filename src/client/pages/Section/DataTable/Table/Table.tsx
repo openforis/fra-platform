@@ -16,8 +16,6 @@ import ButtonTableClear from 'client/pages/Section/DataTable/Table/ButtonTableCl
 import GridHeadCell from 'client/pages/Section/DataTable/Table/GridHeadCell'
 import RowData from 'client/pages/Section/DataTable/Table/RowData'
 import RowNoticeMessage from 'client/pages/Section/DataTable/Table/RowNoticeMessage'
-import TableBody from 'client/pages/Section/DataTable/Table/TableBody'
-import TableHead from 'client/pages/Section/DataTable/Table/TableHead'
 
 import { useGridTemplateColumns } from './hooks/useGridTemplateColumns'
 import { useParsedTable } from './hooks/useParsedTable'
@@ -118,19 +116,6 @@ const Table: React.FC<Props> = (props) => {
             />
           ))}
         </DataGrid>
-        {/* TODO: remove at the end */}
-        <br />
-        <table ref={tableRef} className="fra-table data-table" id={table.props.name}>
-          <TableHead assessmentName={assessmentName} data={data} headers={headers} table={table} />
-
-          <TableBody
-            assessmentName={assessmentName}
-            data={data}
-            disabled={disabled}
-            sectionName={sectionName}
-            table={table}
-          />
-        </table>
         {!print && canEdit && <DataValidations table={table} />}
       </div>
     </div>
