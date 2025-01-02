@@ -1,3 +1,5 @@
+import { useMemo } from 'react'
+
 import classNames from 'classnames'
 
 import { Col, Cols, ColType, Cycle, NodeValueValidation, Row } from 'meta/assessment'
@@ -11,12 +13,25 @@ type Props = {
 
 export const useClassName = (props: Props): string => {
   const { cycle, col, row, validation } = props
-  const { colType } = col.props
 
-  let className = ''
-  if (Cols.isReadOnly({ cycle, col, row })) className = 'calculated'
-  if ([ColType.text, ColType.textarea, ColType.select, ColType.taxon].includes(colType)) className = 'left'
-  if (colType === ColType.placeholder) className = 'category header left'
+  return useMemo<string>(() => {
+    const { colType } = col.props
 
-  return classNames('table-grid__data-cell', className, { 'validation-error': !validation.valid })
+    const isPlaceholder = colType === ColType.placeholder
+    const isTextInput = [ColType.text, ColType.textarea, ColType.select, ColType.taxon].includes(colType)
+    const isCalculated = Cols.isCalculated({ col, row })
+    const isCalculatedInput = isCalculated && colType !== ColType.calculated
+    const isReadOnly = Cols.isReadOnly({ cycle, col, row }) && !isCalculatedInput
+
+    return classNames(
+      'table-grid__data-cell',
+      { 'validation-error': !validation.valid },
+      {
+        'calculated-input': isCalculatedInput && !isTextInput,
+        'category header left': isPlaceholder,
+        left: isTextInput,
+        readonly: isReadOnly,
+      }
+    )
+  }, [col, cycle, row, validation])
 }

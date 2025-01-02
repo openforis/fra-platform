@@ -22,9 +22,13 @@
   display: flex;
   justify-content: end;
 
-  &.calculated {
+  &.readonly,
+  &.calculated-input {
     cursor: default;
     font-weight: 600;
+  }
+
+  &.readonly {
     padding: $spacing-xxs;
   }
 

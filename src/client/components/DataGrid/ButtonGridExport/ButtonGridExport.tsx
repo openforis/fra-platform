@@ -6,6 +6,7 @@ import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { ButtonProps, useButtonClassName } from 'client/components/Buttons/Button'
 import Icon from 'client/components/Icon'
 
+import { useFilename } from './hooks/useFilename'
 import * as Utils from './utils'
 
 type Props = Pick<ButtonProps, 'size'> & {
@@ -15,7 +16,7 @@ type Props = Pick<ButtonProps, 'size'> & {
 }
 
 const ButtonGridExport: React.FC<Props> = (props) => {
-  const { disabled, filename, gridRef, size } = props
+  const { disabled, filename: filenameProp, gridRef, size } = props
 
   const [data, setData] = useState<Array<object>>([])
 
@@ -23,6 +24,7 @@ const ButtonGridExport: React.FC<Props> = (props) => {
   const isLocked = useIsDataLocked()
 
   const className = useButtonClassName({ disabled: !isLocked || disabled, iconName: 'hit-down', label: 'CSV', size })
+  const filename = useFilename(filenameProp)
 
   if (print) return null
 
