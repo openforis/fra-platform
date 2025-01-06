@@ -27,8 +27,9 @@ export type TablePaginatedFilterValues = boolean | string | Array<string>
 export type UserFilters = {
   administrators?: boolean
   countries?: Array<CountryIso>
-  fullName?: string
-  roles?: Array<RoleName>
   disabled?: boolean
+  fullName?: string
+  invitations?: boolean
+  roles?: Array<RoleName>
   statuses?: Array<UserStatus>
 }

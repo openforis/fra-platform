@@ -13,9 +13,10 @@ export const getPropsToQueryParams = (props: UsersGetManyProps): Returned => {
   const {
     administrators,
     countries,
-    fullName,
-    roles,
     disabled,
+    fullName,
+    invitations = true,
+    roles,
     statuses: defaultStatuses = [UserStatus.active],
   } = filters
 
@@ -41,13 +42,13 @@ export const getPropsToQueryParams = (props: UsersGetManyProps): Returned => {
   if (!Objects.isNil(limit)) queryParams.limit = limit
   if (!Objects.isNil(offset)) queryParams.offset = offset
 
+  const withInvitations = invitations ? `or (invitation is not null and invitation ->> 'role' in ($(roles:list)))` : ''
+
   const whereConditions = [
     fullName && `full_name ilike '%' || $(fullName) || '%'`,
     selectedRoles &&
       `(
-      (role is not null and role ->> 'role' in ($(roles:list)))
-      or 
-      (invitation is not null and invitation ->> 'role' in ($(roles:list)))
+      (role is not null and role ->> 'role' in ($(roles:list))) ${withInvitations}
     )`,
     countryIso && `country_iso = $(countryIso)`,
     hasCountries && `country_iso in ($(countries:list))`,
