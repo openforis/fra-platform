@@ -34,6 +34,13 @@ export const useFilters = (): Returned => {
         type: TablePaginatedFilterType.SWITCH,
       },
       {
+        defaultValue: false,
+        fieldName: 'invitations',
+        hidden: true,
+        label: '',
+        type: TablePaginatedFilterType.SWITCH,
+      },
+      {
         fieldName: 'roles',
         label: t('common.role'),
         multiLabelSummaryKey: 'admin.role',
