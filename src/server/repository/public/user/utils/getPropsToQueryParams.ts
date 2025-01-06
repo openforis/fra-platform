@@ -11,7 +11,10 @@ export const getPropsToQueryParams = (props: UsersGetManyProps): Returned => {
   const { countryIso, filters = {}, limit, offset } = props
 
   const { administrators, countries, fullName, roles, disabled } = filters
-  const statuses = disabled ? [UserStatus.disabled] : [UserStatus.active]
+
+  // Only return users with active status, unless other statuses specified outside
+  const defaultStatuses = props.filters.statuses ?? [UserStatus.active]
+  const statuses = disabled ? [UserStatus.disabled] : defaultStatuses
 
   const queryParams: UserQueryParams = {}
 
