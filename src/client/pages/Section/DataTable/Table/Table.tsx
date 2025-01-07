@@ -62,7 +62,7 @@ const Table: React.FC<Props> = (props) => {
       <div className="fra-table__scroll-wrapper">
         <div className="fra-table__editor">
           {!print && <ButtonGridExport filename={fileName} gridRef={gridRef} />}
-          <ButtonCopyValues table={table} tableRef={tableRef} />
+          <ButtonCopyValues gridRef={gridRef} table={table} />
           {canClearData && <ButtonTableClear disabled={disabled} sectionName={sectionName} table={table} />}
         </div>
 
@@ -99,6 +99,8 @@ const Table: React.FC<Props> = (props) => {
               disabled={disabled}
               lastRow={index === rowsData.length - 1}
               row={row}
+              rowCount={rowsHeader.length + rowsData.length}
+              rowIndex={rowsHeader.length + index}
               sectionName={sectionName}
               table={table}
             />

@@ -1,5 +1,5 @@
 import { CountryIso } from 'meta/area'
-import { RoleName } from 'meta/user'
+import { RoleName, UserStatus } from 'meta/user'
 
 export enum TablePaginatedOrderByDirection {
   asc = 'asc',
@@ -27,7 +27,9 @@ export type TablePaginatedFilterValues = boolean | string | Array<string>
 export type UserFilters = {
   administrators?: boolean
   countries?: Array<CountryIso>
-  fullName?: string
-  roles?: Array<RoleName>
   disabled?: boolean
+  fullName?: string
+  invitations?: boolean
+  roles?: Array<RoleName>
+  statuses?: Array<UserStatus>
 }

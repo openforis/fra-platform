@@ -1,6 +1,8 @@
 import { Response } from 'express'
 
 import { CycleRequest } from 'meta/api/request'
+import { UserFilters } from 'meta/tablePaginated'
+import { UserStatus } from 'meta/user'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { UserController } from 'server/controller/user'
@@ -13,7 +15,8 @@ export const getMany = async (req: CycleRequest<{ print: string }>, res: Respons
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
-    let users = await UserController.getMany({ assessment, cycle, countryIso })
+    const filters: UserFilters = { statuses: [UserStatus.active, UserStatus.invitationPending] }
+    let users = await UserController.getMany({ assessment, cycle, countryIso, filters })
 
     if (print && print === 'true')
       users = users.filter((user) => !ProcessEnv.fraReportCollaboratorsExcluded.includes(user.email))

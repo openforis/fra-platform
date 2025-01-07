@@ -38,7 +38,7 @@ const OdpHeaderCell: React.FC<Props> = (props) => {
 
   if (print) {
     return (
-      <DataCell className={className} gridColumn={gridColumn} gridRow={gridRow}>
+      <DataCell className={classNames(className, 'header')} gridColumn={gridColumn} gridRow={gridRow}>
         {odpYear}
       </DataCell>
     )
