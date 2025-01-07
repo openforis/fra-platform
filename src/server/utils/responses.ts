@@ -16,7 +16,7 @@ const sendFile = (res: Response, fileName: string, file: Buffer): void => {
 
 const sendZip = async (
   res: Response,
-  files: Array<{ fileName: string; file: Buffer }>,
+  files: Array<{ fileName: string; file: Buffer | Readable }>,
   fileName = 'files'
 ): Promise<void> => {
   res.setHeader('Content-Disposition', `attachment; filename="${fileName}.zip"`)

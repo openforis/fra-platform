@@ -31,6 +31,8 @@ const client: BaseProtocol = DB
 
 export default async () => {
   try {
+    await client.query(`create schema if not exists _legacy;`) // eg running vs partial db
+
     // Check if _legacy.file table exists
     const legacyTableExists = await client.query(`
       SELECT EXISTS (
