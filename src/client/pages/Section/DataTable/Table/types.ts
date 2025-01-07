@@ -3,7 +3,6 @@ import { RecordAssessmentData } from 'meta/data'
 
 export type RowProps = {
   assessmentName: AssessmentName
-  columnCount: number
   data: RecordAssessmentData
   disabled: boolean
   lastRow?: boolean

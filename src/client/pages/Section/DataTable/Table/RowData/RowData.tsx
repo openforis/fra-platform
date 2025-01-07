@@ -14,7 +14,7 @@ import Cell from './Cell'
 import CellHeader from './CellHeader'
 
 const RowData: React.FC<RowProps> = (props) => {
-  const { assessmentName, columnCount, data, disabled, lastRow, row, rowCount, rowIndex, sectionName, table } = props
+  const { assessmentName, data, disabled, lastRow, row, rowCount, rowIndex, sectionName, table } = props
 
   const { cols } = row
   const colHeader = [ColType.placeholder, ColType.header].includes(cols[0].props.colType) ? cols[0] : undefined
@@ -27,9 +27,8 @@ const RowData: React.FC<RowProps> = (props) => {
       {cols.map((col, colIndex) => {
         const lastCol = colIndex === cols.length - 1
 
-        const { colSpan = 1, rowSpan = 1 } = Cols.getStyle({ col, cycle })
+        const { rowSpan = 1 } = Cols.getStyle({ col, cycle })
         const lastSpanningRow = rowSpan !== 1 && rowSpan + rowIndex === rowCount
-        const lastSpanningCol = colSpan !== 1 && colSpan + colIndex === columnCount
 
         if (!Objects.isEmpty(colHeader) && colIndex === 0) {
           return (
@@ -37,7 +36,7 @@ const RowData: React.FC<RowProps> = (props) => {
               key={col.uuid}
               assessmentName={assessmentName}
               col={colHeader}
-              lastCol={lastCol || lastSpanningCol}
+              lastCol={lastCol}
               lastRow={lastRow || lastSpanningRow}
               row={row}
             />
@@ -51,7 +50,7 @@ const RowData: React.FC<RowProps> = (props) => {
             col={col}
             data={data}
             disabled={disabled}
-            lastCol={lastCol || lastSpanningCol}
+            lastCol={lastCol}
             lastRow={lastRow || lastSpanningRow}
             row={row}
             rowIndex={Number(row.props.index)}

@@ -19,7 +19,6 @@ import RowNoticeMessage from 'client/pages/Section/DataTable/Table/RowNoticeMess
 import TableBody from 'client/pages/Section/DataTable/Table/TableBody'
 import TableHead from 'client/pages/Section/DataTable/Table/TableHead'
 
-import { useGridColumnCount } from './hooks/useGridColumnCount'
 import { useGridTemplateColumns } from './hooks/useGridTemplateColumns'
 import { useParsedTable } from './hooks/useParsedTable'
 import DataValidations from './DataValidations'
@@ -49,7 +48,6 @@ const Table: React.FC<Props> = (props) => {
   })
 
   const gridTemplateColumns = useGridTemplateColumns({ headers, table })
-  const columnCount = useGridColumnCount({ gridRef })
 
   const canViewReview = useCanViewReview(sectionName)
   const withActions = withReview && canViewReview
@@ -99,7 +97,6 @@ const Table: React.FC<Props> = (props) => {
             <RowData
               key={row.uuid}
               assessmentName={assessmentName}
-              columnCount={columnCount}
               data={data}
               disabled={disabled}
               lastRow={index === rowsData.length - 1}

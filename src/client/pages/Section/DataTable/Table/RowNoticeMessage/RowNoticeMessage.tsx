@@ -8,7 +8,7 @@ import { useCycle } from 'client/store/assessment'
 import { DataCell, DataRow } from 'client/components/DataGrid'
 import { RowProps } from 'client/pages/Section/DataTable/Table/types'
 
-const RowNoticeMessage: React.FC<Omit<RowProps, 'columnCount' | 'rowCount' | 'rowIndex'>> = (props) => {
+const RowNoticeMessage: React.FC<Omit<RowProps, 'rowCount' | 'rowIndex'>> = (props) => {
   const { row } = props
 
   const { t } = useTranslation()
