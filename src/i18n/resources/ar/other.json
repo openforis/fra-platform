@@ -1,0 +1,698 @@
+{
+  "annualReforestation": {
+    "annualReforestation": "إعادة التحريج السنوي",
+    "areaUnitLabel": "المساحة (1000 هـ/العام)",
+    "categoryHeader": "فئات تقييم الموارد الحرجية",
+    "reforestation": "إعادة التحريج"
+  },
+  "areaAffectedByFire": {
+    "areaAffectedByFire": "المساحة المتضررة بالحرائق",
+    "areaUnitLabel": "المساحة (1000 هـ)",
+    "categoryHeader": "فئات تقييم الموارد الحرجية",
+    "ofWhichForest": "...منها في الغابات",
+    "totalLandAreaAffectedByFire": "إجمالي مساحة الاراضي المتضررة بالحرائق"
+  },
+  "areaOfPermanentForestEstate": {
+    "applicable": "أقابل للتطبيق؟",
+    "areaOfPermanentForestEstate": "مساحة الأرض المخصصة للغابة بشكل دائم",
+    "areaUnitLabel": "مساحة الغابة (1000 هـ)",
+    "categoryHeader": "فئات تقييم الموارد الحرجية لعام 2020"
+  },
+  "assessment": {
+    "deskStudy": "دراسة مكتبية",
+    "fra": "تقييم الموارد الحرجية عام",
+    "panEuropean": "عموم أوروبا",
+    "status": {
+      "accepted": {
+        "label": "مقبول",
+        "next": "اقبل",
+        "previous": ""
+      },
+      "approval": {
+        "label": "بانتظار الموافقة",
+        "next": "أرسل للحصول على الموافقة",
+        "previous": "العودة إلى الموافقة"
+      },
+      "changing": {
+        "label": "تغيير..."
+      },
+      "editing": {
+        "label": "تعديل...",
+        "previous": "العودة إلى تعديل"
+      },
+      "notStarted": {
+        "label": "لم يبدأ"
+      },
+      "review": {
+        "label": "قيد المراجعة",
+        "next": "أرسل إلى المراجعة",
+        "previous": "العودة إلى المراجعة"
+      }
+    },
+    "statusChangeNotification": {
+      "htmlMessage": "عزيزي {{recipientName}},\n<br/><br/>\n{{changer}} غير الحالة الخاصه {{assessment}} إلى \"{{status}}\"بالنسبة لـ {{country}} على منصة تقييم الموارد الحرجية.\n<br/><br/>\n{{message}}\n<br/><br/>\n<a href=\"{{- serverUrl}}\"><b>لزيارة المنصة</b></a>\n<br/><br/>\nفريق تقييم الموارد الحرجية\n<br/>\n{{- serverUrl}}",
+      "subject": "{{country}} تغير الحالة الي {{status}} على منصة تقييم الموارد الحرجية.",
+      "textMessage": "عزيزي {{recipientName}},\n\n{{changer}} غير الحالة الخاصه {{assessment}} إلى \"{{status}}\"بالنسبة لـ  {{country}} على منصة تقييم الموارد الحرجية.\n\n{{message}}\n\nقم بزيارة المنصة على: {{- serverUrl}}\n\nفريق تقييم الموارد الحرجية\n{{- serverUrl}}"
+    }
+  },
+  "audit": {
+    "edited": "منقح",
+    "notStarted": "لم يبدأ"
+  },
+  "biomassStock": {
+    "aboveGround": "الكتلة الحيوية فوق الأرض",
+    "belowGround": "الكتلة الحيوية تحت الأرض",
+    "biomassStock": "مخزون الكتلة الحيوية",
+    "categoryHeader": "فئات تقييم الموارد الحرجية",
+    "deadWood": "خشب ميت",
+    "downloadExcel": "تنزيل حاسبة إكسل",
+    "tableHeader": "الكتلة الحيوية الحرجية (طن/هـ)"
+  },
+  "carbonStock": {
+    "carbonAboveGroundBiomass": "الكربون في الكتلة الحيوية فوق الأرض",
+    "carbonBelowGroundBiomass": "الكربون في الكتلة الحيوية تحت الأرض",
+    "carbonDeadwood": "الكربون في الخشب الميت",
+    "carbonLitter": "الكربون في المهاد",
+    "carbonSoil": "كربون التربة",
+    "carbonStock": "مخزون الكربون",
+    "categoryHeader": "فئات تقييم الموارد الحرجية",
+    "soilDepthHeading": "عمق التربة (سم) المستخدم في تقدير كربون التربة",
+    "tableHeader": "الكربون الحرجي (طن/هـ)"
+  },
+  "climaticDomain": {
+    "boreal": "شمالية",
+    "climaticDomain": "النطاق المناخي",
+    "percentOfForestArea2015": "% من مساحة الغابة عام 2015",
+    "percentOfForestArea2015Override": "تجاهل القيمة",
+    "selectDefault": "افتراضي",
+    "sub_tropical": "$t(climaticDomain.subtropical)",
+    "subtropical": "دون استوائية",
+    "temperate": "معتدلة",
+    "tropical": "استوائية"
+  },
+  "contactPersons": {
+    "all": "$t(common.all)",
+    "contactPersons": "مدخل",
+    "contactPersonsSupport": "أعد التقرير الحالي من قبل الأشخاص التالية أسماؤهم",
+    "email": "البريد الإلكتروني",
+    "firstName": "الاسم",
+    "institution": "المؤسسة/العنوان",
+    "introductoryText": "نص استهلالي",
+    "introductoryTextSupport": "ضع نصاً استهلالياً ضمن محتوى هذا التقرير",
+    "lastName": "النسب",
+    "none": "ولا واحد",
+    "reportPreparationAndContactPersons": "إعداد التقارير ومسؤولي التواصل",
+    "tables": "جداول"
+  },
+  "country": {
+    "region": {
+      "africa": "أفريقيا",
+      "asia": "آسيا",
+      "atlantis": "أطلانطس",
+      "europe": "أوروبا",
+      "forest_europe": "المبادرة الأوروبية للغابات",
+      "north_and_central_america": "أمريكا الشمالية والوسطى",
+      "oceania": "أوقيانوسيا",
+      "south_america": "أمريكا الجنوبية"
+    }
+  },
+  "countryListing": {
+    "annuallyUpdated": "محدّث سنوياً",
+    "fra2020": "تقييم الموارد الحرجية 2020"
+  },
+  "countryMessageBoard": {
+    "messageBoard": "لوح الرسائل",
+    "messageBoardDesc": "يمكن لجميع الأعضاء القطريين مشاهدة الرسائل الموضوعة هنا ",
+    "oneToOneMessages": "رسائل من شخص إلى شخص"
+  },
+  "countrySelection": {
+    "selectCountry": "اختر بلداً"
+  },
+  "definition": {
+    "definitionLabel": "انظر التعاريف",
+    "faqLabel": "أسئلة متكررة",
+    "seeReportingNotes": "انظر ملاحظات الإبلاغ"
+  },
+  "degradedForest": {
+    "degradedForest": "غابة متدهورة"
+  },
+  "description": {
+    "analysisAndProcessing": "تحليل البيانات الوطنية ومعالجتها",
+    "dataSources": "مصادر البيانات",
+    "dataSourcesPlus": "مصادر البيانات + نمط مصدر البيانات، مثلاً الجرد الوطني للغابات، إلخ.",
+    "dataSourcesTitle": "مصادر البيانات، والبيانات الأصلية والتصنيف الوطني، والتعاريف",
+    "description": "وصف",
+    "done": "تم",
+    "edit": "تعديل",
+    "estimationAndForecasting": "التوقعات والتنبؤات",
+    "generalCommentsTitle": "التعليقات",
+    "loading": "تحميل المحتوى...",
+    "nationalClassificationAndDefinitions": "التصنيف والتعاريف الوطنية",
+    "nationalData": "بيانات وطنية",
+    "originalData": "بيانات أصلية",
+    "reclassification": "إعادة التصنيف بما يتوافق وفئات تقييم الموارد الحرجية لعام {{cycleName}}"
+  },
+  "designatedManagementObjective": {
+    "areaUnitLabel": "مساحة الغابة (1000 هـ)",
+    "biodiversityConservation": "حفظ التنوع الحيوي",
+    "categoryHeader": "فئات تقييم الموارد الحرجية لعام 2020",
+    "designatedManagementObjective": "الهدف المحدد للإدارة",
+    "multipleUse": "متعدد الاستخدام",
+    "other": "غير ذلك (حدده في التعليقات)",
+    "primaryDesignatedManagementObjective": "الهدف الرئيسي المحدد للإدارة",
+    "primaryDesignatedManagementObjectiveSupport": "إن الهدف الرئيس المحدد لإدارة الغابة هو ذو أهمية أكبر بكثير قياساً بسائر الأهداف الأخرى. وتعد الأهداف الرئيسة المختلفة للإدارة *حصرية* بمعنى أن المناطق التي تخضع لهدف رئيس للإدارة لا يجب إدراجها في التقارير بغرض إخضاعها لأهداف رئيسة أخرى للإدارة. في حين يضاف إلى الغابة مجموع الأهداف المختلفة للإدارة.  ",
+    "production": "الإنتاج",
+    "socialServices": "خدمات اجتماعية",
+    "soilWaterProtection": "حماية التربة والمياه",
+    "total": "الإجمالي",
+    "totalAreaWithDesignatedManagementObjective": "إجمالي المساحة الخاضعة لهدف إدارة محدد",
+    "totalAreaWithDesignatedManagementObjectiveSupport": "الهدف المحدد للإدارة، بغض النظر أكان الهدف رئيساً أم لا. فالفئات المحددة المختلفة للإدارة هي فئات *غير حصرية*، ما يعطي إمكانية إدراج المناطق في التقارير أكثر من مرة. فعلى سبيل المثال بالنسبة لمنطقة الغابة التي اعتبرت في التقارير أنها خاضعة لهدف إدارة رئيس متمثل في \"استخدام متعدد\" يجب إدراجها في التقارير عند كل هدف من أهداف الإدارة. ما قد يفضي بالتالي إلى أن مجموع الأهداف المختلفة للإدارة سيتجاوز إجمالي منطقة الغابة.",
+    "totalForestArea": "إجمالي مساحة الغابة",
+    "unknown": "لا يوجد/مجهول"
+  },
+  "disclaimer": {
+    "europeanUnion": "الاتحاد الأوروبي",
+    "gef": "مرفق البيئة العالمية",
+    "govFinland": "حكومة الفنلندية",
+    "govNorway": "حكومة النرويجية",
+    "part1": "أنتج هذا الموقع الإلكتروني بمساعدة من",
+    "part2": ", الـ ",
+    "part3": ", الـ ",
+    "part4": " و ",
+    "part5": "يقع محتواه ضمن المسؤولية الحصرية لمنظمة الأغذية والزراعة، ولا يمكن بأي شكل من الأشكال اعتبار أنه يعكس آراء الاتحاد الأوروبي والحكومة الفنلندية والحكومة النرويجية ومرفق البيئة العالمية.",
+    "statisticalFactsheets": "إخلاء مسؤولية: قد يحتوي على قيم تقديرية خاصة بمنظمة الأغذية والزراعة، وتكون تغيب عنه بعض القيم",
+    "termsOfUse": "شروط استخدام قواعد البيانات الإحصائية"
+  },
+  "disturbances": {
+    "areaUnitLabel": "المساحة (1000 هـ)",
+    "categoryHeader": "فئات تقييم الموارد الحرجية",
+    "diseases": "أمراض",
+    "disturbances": "اضطرابات",
+    "insects": "حشرات",
+    "other": "غير ذلك (حددها في التعليقات)",
+    "severeWeatherEvents": "الظواهر الجوية القاسية",
+    "total": "الإجمالي",
+    "totalForestArea": "إجمالي مساحة الغابة"
+  },
+  "emoji": {
+    "picker": {
+      "categories": {
+        "activity": "نشاط",
+        "flags": "أعلام",
+        "foods": "طعام وشراب",
+        "nature": "حيوانات وطبيعة",
+        "objects": "أشياء",
+        "people": "أوجه ضاحكة وأشخاص",
+        "places": "سفر وأماكن",
+        "recent": "مستخدم بشكل متكرر",
+        "search": "ابحث في النتائج",
+        "symbols": "رموز"
+      },
+      "search": "ابحث"
+    }
+  },
+  "employment": {
+    "average": "معدل ثلاث سنوات",
+    "categoryHeader": "فئات تقييم الموارد الحرجية لعام 2020",
+    "employment": "التوظيف في الحراجة وقطع الأشجار",
+    "female": "أنثى",
+    "inForestry": "التوظيف في الحراجة وقطع الأشجار",
+    "male": "ذكر",
+    "ofWhichGathering": "...منها جمع منتجات حرجية غير خشبية",
+    "ofWhichLogging": "...منها قطع الأشجار",
+    "ofWhichSilviculture": "...منها أنشطة حرجية وغيرها من الأنشطة المرتبطة بالغابات",
+    "ofWhichSupport": "...منها تقديم خدمات دعم الحراجة",
+    "total": "الإجمالي",
+    "unitHeader": "مكافئ العمل بدوام كامل (1000)"
+  },
+  "error": {
+    "access": {
+      "assessmentCommentingNotAllowed": "خطأ: المستخدم {{user}} المضطلع بدور {{role}} لا يمكنه كتابة تقييم عن حالة {{assessmentStatus}} البلد {{countryIso}}",
+      "assessmentEditingNotAllowed": "خطأ: المستخدم {{user}} المضطلع بدور {{role}} لا يمكنه تعديل تقييم حالة {{assessmentStatus}} البلد {{countryIso}}",
+      "countryDoesNotMatch": "خطأ: البلد {{countyryIso}} غير مطابق",
+      "countryRoleNotSpecified": "خطأ : المستخدم {{user}} حاول الدخول إلى {{countryIso}} لكن لم يتم تحديد دوره",
+      "countryUserNotReviewer": "خطأ: المستخدم {{user}} حاول الدخول إلى {{countryIso}} وهو ليس مراجعاً فيه",
+      "invitationAlreadyUsed": "خطأ: الدعوة {{invitationUuid}} استخدمت مسبقا، وإن قرصنة البريد الإلكتروني {{loginEmail}} ممنوعة!",
+      "roleChangeNotAllowed": "خطأ: المستخدم {{user}} المستخدم حاول تحديد دور آخر إضافة إلى  {{role}} وهو غير مسموح للشخص المسجل للدخول",
+      "userAlreadyAddedToCountry": "خطأ: تمت إضافة المستخدم {{المستخدم}} بالفعل إلى البلد {{البلد}}",
+      "userNotAdministrator": "خطأ: حاول المستخدم {{المستخدم}} الوصول إلى مورد متاح فقط للمسؤولين"
+    },
+    "assessment": {
+      "deskStudyNotAllowed": "خطأ: المديرون فقط هم من يحق لهم تغيير حالة الدراسة المكتبية",
+      "transitionNotAllowed": "خطأ: التحول من حالة {{currentStatus}} إلى {{status}} غير مسموح لهذا الدور {{role}}"
+    },
+    "ndp": {
+      "previousNdpNotFound": "عاجز عن إيجاد أية نقطة بيانات وطنية قبل عام {{year}}"
+    },
+    "review": {
+      "commentDeleteNotOwner": "خطأ: المستخدم {{user}} حاول حذف تعليق ليس له",
+      "commentEnterResolvedIssue": "خطأ: المستخدم {{user}} حاول إدخال تعليق حول مسألة تم حلها"
+    }
+  },
+  "extentOfForest": {
+    "categoryHeader": "فئات تقييم الموارد الحرجية",
+    "chart": {
+      "placeholderLine1": "للبدء، قم بإضافة نقاط بيانات وطنية جديدة واستخدمها",
+      "placeholderLine2": "لإيجاد القيم الخاصة بتقييم الموارد الحرجية آلياً"
+    },
+    "dontUseOriginalDataPoints": "لاتستخدم نقاط البيانات الوطنية",
+    "estimationAndForecasting": "تقييمات وتنبؤات",
+    "extentOfForest": "نطاق الغابة والأرض الحرجية الأخرى",
+    "fedAreasExceedTotalLandArea": "مساحة الغابة والأرض الحرجية الأخرى تتجاوز إجمالي مساحة الأرض",
+    "forestArea": "غابة",
+    "forestAreaDoesNotMatchPreviouslyReported": "مساحة الغابة لا تتوافق مع مساحة تقييم الموارد الحرجية لعام {{year}}: {{previous}}",
+    "forestAreaNetChangeDoesNotMatch": "التغيير الصافي لمساحة الغابة لا يطابق القيمة المتوقعة: {{القيمه}}",
+    "hideNDPs": "إخفاء نقاط البيانات الوطنية",
+    "ndpMissingValues": "هنالك قيم مفقودة في نقطة البيانات الوطنية",
+    "ofWhichAgroforestry": "منها زراعة حرجية",
+    "ofWhichPalms": "منها النخيل (زيت، جوز الهند، تمر، إلخ)",
+    "ofWhichTreeOrchards": "... منها بساتين أشجار مختلفة (بما فيها الفاكهة والمكسرات والزيتون، إلخ)",
+    "ofWhichTreesUrbanSettings": "...منها أشجار في بيئات حضرية",
+    "otherLandCategories": "فئات أراض أخرى",
+    "showNDPs": "إظهار نقاط البيانات الوطنية",
+    "tableNoticeMessage": "استخدم الرقم المتعلق بمساحة الأرض المستمد من قاعدة البيانات الإحصائية الموضوعية في منظمة الأغذية والزراعة لعام 2015 لكافة السنوات المرجعية",
+    "totalLandArea": "إجمالي مساحة الأرض",
+    "useOriginalDataPoints": "استخدم نقاط البيانات الوطنية",
+    "whatIsThis": "ما هذا؟"
+  },
+  "fileDrop": {
+    "dragAndDropOrClick": "اسحب و ضع الملفات هنا, او اضغط لاختيار الملف ",
+    "dropFilesHere": "ضع الملف هنا"
+  },
+  "footer": {
+    "contactUs": "تواصل معنا",
+    "licenses": "التراخيص",
+    "platformVersion": "إصدار المنصة",
+    "reportMisconduct": "تبليغ عن سوء تصرف",
+    "scamAlert": "تبليغ عن احتيال",
+    "sendFeedback": "أرسل رأيك",
+    "termsAndConditions": "الأحكام والشروط",
+    "tutorials": "الفيديو"
+  },
+  "forestAreaChange": {
+    "areaUnitLabel": "المساحة (1000 هـ/العام)",
+    "categoryHeader": "فئات تقييم الموارد الحرجية",
+    "deforestation": "إزالة الغابة",
+    "forestAreaChange": "اتساع مساحة الغابة، وإزالة الغابة، وصافي التغيير سنوياً.",
+    "forestAreaNetChange": "صافي التغيير في مساحة الغابة",
+    "forestAreaNetChangeFrom1a": "تم حساب تغيير مساحة الغابات من الجدول 1أ",
+    "forestExpansion": "اتساع مساحة الغابة",
+    "netChangeDoesNotMatch": "غير مطابق لصافي التغيير في مساحة الغابة",
+    "ofWhichAfforestation": "...منها تحريج",
+    "ofWhichNaturalExpansion": "...منها اتساع طبيعي"
+  },
+  "forestAreaWithinProtectedAreas": {
+    "areaUnitLabel": "المساحة (1000 هـ)",
+    "categoryHeader": "فئات تقييم الموارد الحرجية",
+    "forestAreaWithLongTermManagementPlan": "مساحة الغابة الخاضعة لخطة إدارة طويلة الأجل للغابة",
+    "forestAreaWithinProtectedAreas": "مساحة الغابة ضمن المناطق المحمية ومساحة الغابة الخاضعة لخطط إدارة طويلة الأجل",
+    "header": "مساحة الغابة ضمن المناطق المحمية",
+    "ofWhichInProtectedAreas": "...منها في مناطق محمية"
+  },
+  "forestCharacteristics": {
+    "categoryHeader": "فئات تقييم الموارد الحرجية",
+    "dontUseOriginalDataPoints": "لا تستخدم نقاط البيانات الوطنية",
+    "estimationAndForecasting": "تقييمات وتنبؤات",
+    "forestCharacteristics": "مواصفات الغابات",
+    "naturalForestArea": "غابة متجددة طبيعياً",
+    "otherPlantedForestArea": "غابة مزروعة أخرى",
+    "plantationForestArea": "غابات مزروعة",
+    "plantationForestIntroducedArea": "...منها أنواع مدخلة",
+    "plantedForest": "الغابات المزروعة",
+    "total": "الإجمالي",
+    "totalForestArea": "إجمالي مساحة الغابة",
+    "useOriginalDataPoints": "استخدم نقاط البيانات الوطنية"
+  },
+  "forestOwnership": {
+    "areaUnitLabel": "مساحة الغابة (1000 هـ)",
+    "categoryHeader": "فئات تقييم الموارد الحرجية",
+    "forestOwnership": "ملكية الغابة",
+    "ofWhichCommunities": "...منها خاضع لملكية مجتمعات محلية وقبلية وأصلية",
+    "ofWhichIndividuals": "منها خاضع لملكية الأفراد",
+    "ofWhichPrivateBusinesses": "...منها خاضع لملكية كيانات ومؤسسات أعمال خاصة",
+    "otherOrUnknown": "مجهولة/غير ذلك (حددها في التعليقات)",
+    "privateOwnership": "ملكية خاصة",
+    "publicOwnership": "ملكية عامة",
+    "total": "الإجمالي",
+    "totalForestArea": "إجمالي مساحة الغابة"
+  },
+  "forestPolicy": {
+    "areaUnitLabel": "بوليني  (نعم/لا)",
+    "categoryHeader": "أشر إلى وجود",
+    "existenceOfTraceabilitySystem": "نظام (نظم) تعقب المنتجات الخشبية",
+    "forestPolicy": "السياسات والتشريع والمنصة الوطنية المطلوبة لمشاركة أصحاب الشأن في السياسة المتعلقة بالغابات",
+    "legislationsSFM": "التشريعات واللوائح الداعمة للإدارة المستدامة للغابات",
+    "national": "وطني",
+    "policiesSFM": "سياسات داعمة للإدارة المستدامة للغابات",
+    "stakeholderParticipation": "المنصة التي تعزز أو تتيح مشاركة أصحاب الشأن في رسم سياسة الغابات",
+    "subnational": "دون وطني"
+  },
+  "fraClass": {
+    "forest": "غابة",
+    "otherLand": "أرض أخرى",
+    "otherWoodedLand": "أرض حرجية أخرى"
+  },
+  "fraForestCharacteristicsClass": {
+    "naturallyRegeneratingForest": "غابة متجددة طبيعياً",
+    "ofWhichIntroduced": "... الأنواع المدخلة منها",
+    "ofWhichPrimaryForest": "$t(fra.forestCharacteristics.primaryForest)",
+    "otherPlantedForest": "غابة مزروعة أخرى",
+    "plantationForest": "الغابات الاصطناعية (مشجرة)",
+    "totalForest": "إجمالي مساحة الغابة"
+  },
+  "fraOtherLandClass": {
+    "agroforestry": "... منها زراعة حرجية",
+    "palms": "منها النخيل (زيت، جوز الهند، تمر، إلخ)",
+    "treeOrchards": "... منها بساتين أشجار (بما فيها الفاكهة والمكسرات والزيتون، إلخ)",
+    "treesUrbanSettings": "...منها أشجار في بيئة حضرية"
+  },
+  "graduationOfStudents": {
+    "average": "معدل ثلاث سنوات",
+    "bachelorsDegree": "درجة البكالوريوس",
+    "doctoralDegree": "درجة الدكتوراة",
+    "female": "أنثى",
+    "fra2020Categories": "فئات تقييم الموارد الحرجية لعام 2020",
+    "graduationOfStudents": "تخريج طلاب في ميدان التعليم المرتبط بالغابات",
+    "male": "ذكر",
+    "mastersDegree": "درجةالماجستير",
+    "numberOfStudents": "عدد الطلاب الخريجين",
+    "technicianCertificate": "شهادة/دبلوم فني",
+    "total": "الإجمالي"
+  },
+  "growingStock": {
+    "avgTableHeader": "مخزون الأشجار الحية م3/هـ (مع اللحاء)",
+    "categoryHeader": "فئات تقييم الموارد الحرجية",
+    "copyToClipboard": "انسخ القيم",
+    "forest": "غابة",
+    "growingStock": "مخزون الأشجار الحية",
+    "naturallyRegeneratingForest": "غابة متجددة طبيعياً",
+    "otherPlantedForest": "...منها غابة مزروعة أخرى",
+    "otherWoodedLand": "أرض حرجية أخرى",
+    "plantationForest": "...منها غابة اصطناعيه",
+    "plantedForest": "الغابات المزروعة",
+    "supportText": "يرجى التأكد من إدخالك للبيانات في الجدولين 1أ و1ب قبل تعديل هذا الجدول",
+    "totalTableHeader": "إجمالي مخزون الأشجار الحية (مليون م3 مع اللحاء)"
+  },
+  "growingStockComposition": {
+    "areaUnitLabel": "مخزون الأشجار الحية في الغابة (مليون م3 مع اللحاء)",
+    "categoryHeader": "فئات تقييم الموارد الحرجية",
+    "commonName": "الاسم الشائع",
+    "forestGrowingStockComposition": "تكوين مخزون الأشجار الحيّة بالغابات",
+    "growingStockComposition": "تركيبة مخزون الأشجار الحية",
+    "growingStockPercent": "$t(unit.growingStockPercent)",
+    "introduced": "مدخلة",
+    "introducedTreeSpecies": "أنواع أشجار مدخلة",
+    "millionCubicMeter": "$t(fra.growingStockComposition.millionCubicMeter)",
+    "mostRecentYear": "$t(fra.growingStockComposition.mostRecentYear)",
+    "native": "أصلية",
+    "nativeTreeSpecies": "أنواع أشجار أصلية",
+    "rank": "#{{idx}} مصنفة من حيث الحجم",
+    "rankingYear": "عام التصنيف 2015",
+    "remainingIntroduced": "أنواع الأشجار المدخلة المتبقية",
+    "remainingNative": "أنواع الأشجار الأصلية المتبقية",
+    "scientificName": "الاسم العلمي",
+    "totalGrowingStock": "إجمالي مخزون الأشجار الحية",
+    "totalIntroduced": "إجمالي حجم أنواع الأشجار المدخلة",
+    "totalNative": "إجمالي حجم أنواع الأشجار الأصلية"
+  },
+  "header": {
+    "autoSave": {
+      "complete": "تم حفظ جميع التغييرات",
+      "lastSaveTimestampReceived": "آخر تعديل ",
+      "saving": "حفظ..."
+    },
+    "editProfile": "تعديل معلومات الملف الشخصي",
+    "hideSidebar": "إخفاء العمود الجانبي",
+    "logout": "تسجيل خروج",
+    "showSidebar": "إظهار العمود الجانبي"
+  },
+  "holderOfManagementRights": {
+    "areaUnitLabel": "مساحة الغابة (1000 هـ)",
+    "categoryHeader": "فئات تقييم الموارد الحرجية",
+    "communities": "مجتمعات محلية وقبلية وأصلية",
+    "holderOfManagementRights": "صاحب حقوق إدارة الغابات العامة",
+    "individuals": "أفراد",
+    "other": "مجهولة/غير ذلك (حددها في التعليقات)",
+    "privateBusinesses": "كيانات ومؤسسات أعمال تابعة للقطاع الخاص",
+    "publicAdministration": "إدارة عامة",
+    "publicOwnershipDoesNotMatch": "غير مطابق لإجمالي الملكية العامة",
+    "total": "الإجمالي",
+    "totalPublicOwnership": "إجمالي الملكية العامة"
+  },
+  "home": {
+    "keyFindings": "يبلغ إجمالي مساحة الغابات في العالم 4,06 مليار هكتار (هـ)، \nأي أنها تشكل 31 في المائة من إجمالي مساحة اليابسة. \nوهذه المساحة تكافئ 0,52 هـ للشخص، إلا أن توزع الغابات يفتقر إلى التجانس بين سكان العالم أو من الناحية الجغرافية، \nحيث تبقى المنطقة الاستوائية هي المستحوذة على النسبة الأكبر من غابات العالم (45 في المائة)، \nلتأتي من بعدها الغابات الشمالية، فالمناطق المعتدلة، وشبه الاستوائية."
+  },
+  "language": {
+    "ar": "العربية",
+    "en": "English",
+    "es": "Español",
+    "fr": "Français",
+    "ru": "Русский",
+    "zh": "中文"
+  },
+  "messageBoard": {
+    "messageBoard": "$t(landing.sections.messageBoard)"
+  },
+  "multiSelect": {
+    "placeholder": "اختر..."
+  },
+  "navigation": {
+    "cancel": "إلغاء",
+    "changeStatusTextPlaceholder": "إضافة رسالة اختيارية",
+    "doNotNotifyUsers": "عدم إرسال إشعار إلى المستخدمين",
+    "hideAll": "إخفاء الكل",
+    "notifySelf": "إرسال نسخة الي البريد الالكتروني الخاص بك",
+    "sectionHeaders": {
+      "employmentEducationAndNwfp": "التوظيف والتعليم ومنتجات حرجية غير خشبية",
+      "forestDesignationAndManagement": "تسمية الغابة وإدارتها",
+      "forestDisturbances": "اضطرابات الغابات",
+      "forestExtentCharacteristicsAndChanges": "نطاق الغابات ومواصفاتها والتغيرات التي تطرأ عليها",
+      "forestGrowingStockBiomassAndCarbon": "مخزون الأشجار الحية والكتلة الحيوية والكربون في الغابة",
+      "forestOwnershipAndManagementRights": "حقوق ملكية الغابات وإدارتها",
+      "forestPolicyAndLegislation": "السياسات والتشريعات الخاصة بالغابات",
+      "introduction": "مدخل",
+      "panEuropeanIndicators": "مؤشرات عموم أوروبا",
+      "sustainableDevelopment": "الهدف الخامس عشر من أهداف التنمية المستدامة"
+    },
+    "showAll": "إظهار الكل",
+    "support": {
+      "dontDelete": "معلومات خاصة بالنظام يرجى عدم إزالتها",
+      "feedbackEmailSubject": "آراء حول منصة تقييم الموارد الحرجية",
+      "manageCollaborators": "إدارة المتعاونين",
+      "platformVersion": "نسخة المنصة",
+      "user": "المستخدم",
+      "userAgent": "وكيل المستخدم"
+    }
+  },
+  "nonWoodForestProductsRemovals": {
+    "allOtherAnimalProducts": "جميع المنتجات الحيوانية الأخرى",
+    "allOtherPlantProducts": "جميع المنتجات النباتية الأخرى",
+    "animalProductsSelectHeading": "منتجات حيوانية/ مادة أولية",
+    "animalRawMaterialForColorants": "14 مادة أولية للملونات",
+    "animalRawMaterialForMedicine": "13 مادة أولية للأدوية",
+    "category": "فئة المنتج الحرجي غير الخشبي",
+    "currency": "اسم العملة",
+    "exudates": "7 نضحات",
+    "fodder": "2 علف",
+    "food": "1 غذاء",
+    "hidesSkins": "10 جلود الحيوانات ونصبها",
+    "keySpecies": "النوع الأساسي",
+    "livingAnimals": "9 حيوانات حية",
+    "nameOfProduct": "اسم المنتج الحرجي غير الخشبي",
+    "nonWoodForestProductsRemovals": "إزالة منتجات حرجية غير خشبية وقيمتها عام 2015",
+    "notSelected": "",
+    "ornamentalPlants": "6 نباتات زينة",
+    "otherEdibleAnimalProducts": "15 منتجات حيوانية أخرى صالحة للأكل",
+    "otherNonEdibleAnimalProducts": "16 منتجات حيوانية أخرى غير صالحة للأكل",
+    "otherPlantProducts": "8 منتجات نباتية أخرى",
+    "plantProductsSelectHeading": "منتجات نباتية/مادة أولية",
+    "quantity": "الكمية",
+    "rawMaterialForColorants": "4 مادة أولية تستخدم في الملونات والأصبغة",
+    "rawMaterialForMedicine": "3 مادة أولية لمنتجات طبية وعطرية",
+    "rawMaterialForUtensils": "5 مادة أولية تستخدم في صناعة أوانٍ يدوية ",
+    "total": "الإجمالي",
+    "unit": "الواحدة",
+    "value": "القيمة (1000 عملة محلية)",
+    "wildHoney": "11 عسل بري وشمع النحل",
+    "wildMeat": "12 لحم بري"
+  },
+  "otherLandWithTreeCover": {
+    "agroforestry": "زراعة حرجية",
+    "areaUnitLabel": "المساحة (1000 هـ)",
+    "categoryHeader": "فئات تقييم الموارد الحرجية",
+    "other": "غير ذلك (حددها في التعليقات)",
+    "otherLandArea": "مساحة أرض أخرى",
+    "otherLandWithTreeCover": "أرض أخرى ذات غطاء شجري",
+    "palms": "نخيل",
+    "total": "الإجمالي",
+    "treeorchards": "بساتين أشجار",
+    "treesinurbansettings": "الأشجار في بيئات حضرية"
+  },
+  "panEuropeanIndicators": {
+    "accessReportingPage": "ادخل إلى صفحة إعداد التقارير",
+    "chooseFile": "اختر ملفاً",
+    "download": "تنزيل",
+    "downloadQuestionnaire": "نزل الاستبيان",
+    "noQuestionnaire": "لم يتم اختيار استبيان",
+    "panEuropeanIndicators": "المؤشرات الكمية في عموم أوروبا للإدارة المستدامة للغابات",
+    "panEuropeanQualitativeIndicators": "المؤشرات الكمية في عموم أوروبا للإدارة المستدامة للغابات",
+    "remove": "إزالة",
+    "uploadQuestionnaire": "حمّل الاستبيان"
+  },
+  "review": {
+    "cancel": "إلغاء",
+    "commentDeleted": "تم حذف التعليق",
+    "commentMarkedAsResolved": "وُسمت بأنه تم حلها",
+    "commentingClosed": "إغلاق التعليقات",
+    "comments": "تعليقات",
+    "confirmDelete": "هل تود حذف هذا التعليق؟ لايمكن الرجوع عن هذه الخطوة.",
+    "delete": "إلغاء",
+    "loading": "تحميل",
+    "noComments": "لاتوجد تعليقات",
+    "resolve": "حل",
+    "writeComment": "كتابة تعليق..."
+  },
+  "specificForestCategories": {
+    "areaUnitLabel": "المساحة (1000 هـ)",
+    "bamboo": "خيزران",
+    "categoryHeader": "فئات تقييم الموارد الحرجية",
+    "exceedsNaturallyRegeneratingForest": "تتجاوز الغابة المتجددة طبيعياً (1ب)",
+    "mangroves": "منغروف",
+    "primaryForest": "غابة بكر",
+    "rubberWood": "خشب المطاط",
+    "specificForestCategories": "فئات الغابات البكر والغابات الخاصة",
+    "temporarilyUnstocked": "غابة أزيلت أشجارها مؤقتاً أو أعيد تجديدها مؤخراً أو كليهما"
+  },
+  "sustainableDevelopment": {
+    "aboveGroundBiomassStockForests": "مخزون الكتلة الحيوية فوق الأرض في الغابة",
+    "forestArea1000Ha": "مساحة الغابة (1000 هـ)",
+    "forestAreaAnnualNetChangeRate": "المعدل السنوي لصافي التغيير في مساحة الغابة",
+    "forestAreaProportionLandArea2015": "مساحة الغابة كنسبة من إجمالي مساحة الأرض عام 2015",
+    "forestAreaVerifiedForestManagement": "مساحة الغابة الخاضعة لخطط اعتماد إدارة الغابة المتحقق منها بشكل مستقل ",
+    "indicator": "المؤشر",
+    "nameOfAgencyResponsible": "اسم الهيئة المسؤولة",
+    "percent": "النسبة المئوية",
+    "percent2015ForestAreaBaseline": "النسبة المئوية (بيانات خط المنطلق الخاصة بمساحة الغابة عام 2015)",
+    "proportionForestAreaLegallyEstablishedProtectedAreas": "نسبة مساحة الغابة الموجودة ضمن مناطق محمية قانونياً",
+    "proportionForestAreaLongTermForestManagement": "نسبة مساحة الغابة الخاضعة لخطة إدارة طويلة الأجل للغابة",
+    "sdgIndicator1": "مؤشر هدف التنمية المستدامة 15-1-1 مساحة الغابة كنسبة من إجمالي مساحة الأرض عام 2015",
+    "sdgIndicator2": "مؤشر هدف التنمية المستدامة 15-2-1 التقدم باتجاه الإدارة المستدامة للغابات",
+    "subIndicator": "المؤشر الفرعي {{no}}",
+    "sustainableDevelopment": "الهدف الخامس عشر من أهداف التنمية المستدامة"
+  },
+  "tableWithOdp": {
+    "_1000haYear": "1000 هـ/العام",
+    "annualChangeExtrapolation": "تغيير سنوي",
+    "confirmGenerateFraValues": "هل تود تجاهل القيم الموجودة؟",
+    "copyToClipboard": "انسخ القيم",
+    "generateFraValues": "أوجد قيماً",
+    "generatingFraValues": "جارٍ الإنشاء ...",
+    "linearExtrapolation": "خطي",
+    "placeholderFuture": "في المستقبل",
+    "placeholderPast": "في الماضي",
+    "placeholderSelect": "تقييمات وتنبؤات",
+    "repeatLastExtrapolation": "كرر الأخير"
+  },
+  "time": {
+    "aMomentAgo": "قبل لحظة",
+    "day": "{{count}} قبل يوم",
+    "day_plural": "قبل {{عدد}} ايام",
+    "hour": "{{count}} قبل ساعة",
+    "hour_plural": "قبل {{عدد}} ساعات",
+    "week": "{{count}} قبل أسبوع",
+    "week_plural": "قبل {{عدد}} أسابيع"
+  },
+  "tutorial": {
+    "collaboratorAdd": "البرنامج التعليمي لمنصة الفرا - كيفية إضافة شخص اخر للتعاون في ملئ التقارير",
+    "documentUpload": "البرنامج التعليمي لمنصة الفرا - كيفية رفع المستندات",
+    "googleLogin": "البرنامج التعليمي لمنصة الفرا - كيفية تسجيل الدخول باستخدام جوجل.",
+    "googleLoginShort": "كيفية تسجيل الدخول باستخدام جوجل",
+    "guidelinesAndSpecifications": "المبادئ التوجيهية والمواصفات",
+    "nationalDataAddReferenceLink": "البرنامج التعليمي لمنصة الفرا - كيفية إضافة رابط مرجعي للبيانات الوطنية؟",
+    "ndpAdd": "البرنامج التعليمي لمنصة الفرا - كيفية إضافة نقطة بيانات وطنية",
+    "ndpAddReferenceLink": "البرنامج التعليمي لمنصة الفرا - كيفية إضافة رابط مرجعي لنقطة البيانات الوطنية؟",
+    "passwordLogin": "البرنامج التعليمي لمنصة الفرا - كيفية تسجيل الدخول باستخدام كلمة مرور محددة ذاتيًا.",
+    "passwordLoginShort": "كيفية تسجيل الدخول باستخدام كلمة مرور محددة ذاتيًا",
+    "platformNavigation": "البرنامج التعليمي لمنصة الفرا - استكشاف المنصة",
+    "watch": "المشاهدة"
+  },
+  "unit": {
+    "absoluteNumber": "العدد المطلق",
+    "acre": "فدان",
+    "acre1000": "1000 فدان",
+    "annualNumberOfVisitsMillion": "عدد الزيارات السنوية (مليون)",
+    "billionCubicMeter": "مليار م³",
+    "cubicMeterPerHa": "م³/هـ",
+    "facilityLengthIn1000Km": "المرفق (الطول بآلاف الكيلومترات)",
+    "fte1000": "1000 مكافئ الدوام الكامل",
+    "growingStockPercent": "٪ من إجمالي مخزون الأشجار الحيّة في الغابات",
+    "gt": "جيجاطن",
+    "ha": "هـ",
+    "haMillion": "مليون هكتار",
+    "haThousand": "1000 هـ",
+    "haThousandPerYear": "1000 هكتار/السنة",
+    "kmSq": "كم²",
+    "mileSq": "ميل²",
+    "millionNationalCurrency": "مليون وفق العملة المحلية",
+    "millionTonnes": "مليون طن متري",
+    "millionsCubicMeterOverBark": "مليون م³ مع اللحاء",
+    "numberOfStudents": "$t(graduationOfStudents.numberOfStudents)",
+    "thousandCubicMeter": "1000 م³",
+    "thousandCubicMeterOverBark": "1000 م³ مع اللحاء",
+    "thousandCubicMeterRWE": "1000 م³ مكافئ أخشاب مستديرة",
+    "thousandPersons": "1000 شخص",
+    "tonnesPerHa": "طن/هـ"
+  },
+  "userChat": {
+    "cancel": "إلغاء",
+    "chatHeader": "رسائل مع {{user}}",
+    "noMessages": "لاتوجد رسائل",
+    "notificationEmail": {
+      "htmlMessage": "عزيزي {{recipient}},\n<br/><br/>\n{{sender}} أرسل لك رسالة حول {{country}}.\n<br/><br/>\n<b><a href=\"{{- link}}\">ادخل إلى المنصة من خلال عنوان الموقع التالي لمشاهدتها والإجابة عنها.</a></b>\n<br/><br/>\nThe FRA team\n<br/>\n{{- url}}\n    ",
+      "subject": "{{sender}} أرسل لك رسالة حول {{country}}",
+      "textMessage": "عزيزي {{recipient}},\n\n{{sender}} أرسل لك رسالة حول {{country}}.\n\nادخل إلى المنصة من خلال عنوان الموقع التالي لمشاهدتها والإجابة عنها:\n{{- link}}\n\nفريق تقييم الموارد الحرجية\n{{- url}}\n    "
+    },
+    "send": "إرسال",
+    "writeMessage": "اكتب رسالة"
+  },
+  "userManagement": {
+    "addUser": "إضافة متعاون",
+    "allUsers": "جميع المتعاونين",
+    "confirmDelete": "إزالة {{user}}?",
+    "done": "تم",
+    "edit": "تعديل",
+    "editPermissions": "تحرير الأذونات",
+    "formErrors": "هنالك أخطاء في الاستمارة. يرجى تصويبها وتقديمها مجدداً.",
+    "info": "معلومات",
+    "insufficientPrivileges": "امتيازات غير كافية",
+    "invitationDeleted": "تم حذف الدعوة",
+    "invitationEmail": {
+      "htmlMessage": "عزيزي {{invitedUser}},\n<br/><br/>\nتمت دعوتك للدخول إلى منصة تقييم الموارد الحرجية بصفتك {{role}} عن {{country}}.\n<br/><br/>\n<b><a href=\"{{- link}}\">اقبل هذه الدعوة وادخل إلى المنصة</a></b>\n<br/><br/>\nوقتاً سعيداً في إعداد التقارير!\n<br/><br/>\nفريق تقييم الموارد الحرجية fra@fao.org\n<br/>\n{{- url}}\n    ",
+      "subject": "دعوة خاصة بمنصة تقييم الموارد الحرجية",
+      "textMessage": "عزيزي {{invitedUser}},\n\nتمت دعوتك للدخول إلى منصة تقييم الموارد الحرجية{{role}} عن {{country}}.\n\nبإمكانك قبول الدعوة والدخول إلى المنصة من خلال عنوان الموقع الإلكتروني التالي: \n{{- link}}\n\nوقتاً سعيداً في إعداد التقارير!\n\nفريق تقييم الموارد الحرجية fra@fao.org\n{{- url}}\n    "
+    },
+    "invitationEmailSent": "تم إرسال بريد إلكتروني للدعوة",
+    "invitationLink": "رابط الدعوة",
+    "invitationLinkCopied": "تم نسخ رابط الدعوة",
+    "inviteAgain": "دعوة مرة أخرى",
+    "loginEmail": "تسجيل دخول",
+    "manageCollaborators": "إدارة المتعاونين",
+    "noUsers": "لم تتم إضافة متعاونين آخرين",
+    "permissionNames": {
+      "descriptions": "التفصيل",
+      "tableData": "بيانات الجدول"
+    },
+    "permissions": "أذونات",
+    "personalInfoRequired": "يرجى استكمال معلوماتك الشخصية قبل المتابعة",
+    "placeholder": "اختيار...",
+    "remove": "إزالة",
+    "sendInvitation": "إرسال دعوة عبر البريد الإلكتروني",
+    "userAdded": "تمت إضافة {{البريد الالكتروني}}",
+    "userModified": "تم تعديل {{المستخدم}}"
+  },
+  "yesNoTextSelect": {
+    "no": "لا",
+    "notSelected": "",
+    "yes": "نعم"
+  }
+}

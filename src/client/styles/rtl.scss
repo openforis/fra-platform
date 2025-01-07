@@ -97,11 +97,6 @@
     left: 24px;
   }
 
-  .multi-select__opened-item-label {
-    margin-right: 6px;
-    margin-left: initial;
-  }
-
   .edit-user__form-label {
     padding-right: initial;
     padding-left: 14px;
@@ -159,10 +154,10 @@
     margin-right: 4px;
   }
 
-  .multi-select,
-  .multi-select:not([disabled]) {
-    background-position: left 10px top 50%;
-  }
+  //.multi-select,
+  //.multi-select:not([disabled]) {
+  //  background-position: left 10px top 50%;
+  //}
 
   .autosave-status {
     right: initial;

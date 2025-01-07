@@ -1,0 +1,21 @@
+{
+  "resetPasswordEmail": {
+    "htmlMessage": "Estimado/a {{user}}\n<br/><br/>\nHemos recibido una solicitud para restablecer la contraseña de su cuenta de FRA. \n<br/>\nSi no ha realizado esta solicitud, puede ignorar este correo electrónico.\n<br/><br/><br/>\n<a href=\"{{link}}\" style=\"text-decoration: none; background-color: #0098a6;border: 2px solid #00988F;color: white;font-size: 14px;font-weight: 700;    padding: 10px 50px;\">Haga clic aquí para restablecer su contraseña</a>\n<br/><br/><br/>\nGracias,\n<br/>\nEl equipo de FRA fra@fao. rg\n<br/>\n{{- url}}\n      ",
+    "subject": "Plataforma FRA - Restablecer contraseña",
+    "textMessage": "Estimado/a {{user}}\n\nHemos recibido una solicitud para restablecer la contraseña de su cuenta de FRA.\nSi usted no hizo esta solicitud, puede ignorar este correo electrónico.\n\nHaga clic en el siguiente enlace para restablecer su contraseña:\n{{- link}}\n\nGracias,\nEl equipo de FRA fra@fao.org\n{{- url}}"
+  },
+  "roles": {
+    "ADMINISTRATOR": "Administrador",
+    "ALTERNATE_NATIONAL_CORRESPONDENT": "Corresponsal Nacional alterno",
+    "ALTERNATE_NATIONAL_CORRESPONDENT_other": "Corresponsales nacionales suplentes",
+    "COLLABORATOR": "Colaborador",
+    "COLLABORATOR_other": "Colaboradores",
+    "NATIONAL_CORRESPONDENT": "Corresponsal Nacional",
+    "NATIONAL_CORRESPONDENT_other": "Corresponsales nacionales",
+    "REVIEWER": "Evaluador",
+    "REVIEWER_other": "Revisores",
+    "VIEWER": "Observador",
+    "VIEWER_other": "Observadores",
+    "noRole": ""
+  }
+}

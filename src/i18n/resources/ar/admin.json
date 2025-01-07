@@ -1,0 +1,17 @@
+{
+  "admin": "المدير",
+  "country_one": "{{count}} بلد",
+  "country_other": "{{count}} بلدان",
+  "enotfound": "خطأ في نظام أسماء النطاقات",
+  "filter": "غربلة وفق",
+  "invitationPending": "تعليق الدعوة",
+  "invitationsAcceptedCount": "عدد الدعوات المقبولة",
+  "invitationsSentCount": "عدد الدعوات المرسلة",
+  "lastStatus": "آخر تحديث",
+  "locationsCount": "عدد المواقع",
+  "role_one": "دور {{count}}",
+  "role_other": "{{count}} أدوار",
+  "urlParsingError": "خطأ في التوصل إلى عنوان الموقع",
+  "usersCount": "عدد المستخدمين",
+  "verifyLinks": "التحقق من الروابط"
+}

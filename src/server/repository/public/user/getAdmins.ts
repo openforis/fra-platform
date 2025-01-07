@@ -18,7 +18,7 @@ export const getAdmins = async (
     `
       select ${selectFields}, jsonb_agg(to_jsonb(ur.*) - 'props') as roles
       from public.users u
-              join public.users_role ur on (u.id = ur.user_id)
+              join public.users_role ur on (u.uuid = ur.user_uuid)
       where ur.role = '${RoleName.ADMINISTRATOR}'
         and u.status in ($1:list)
       group by ${selectFields}

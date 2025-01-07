@@ -5,14 +5,15 @@
   "compilerOptions": {
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
-    "skipLibCheck": true,
+    "baseUrl": "./src",
+    "lib": ["ESNext", "DOM"],
     "module": "CommonJS",
     "moduleResolution": "Node",
     "noImplicitAny": true,
     "outDir": "./dist/",
-    "baseUrl": "./src",
+    "resolveJsonModule": true,
     "rootDir": "./src",
-    "target": "es2020",
-    "lib": ["es2020", "esnext", "dom"]
+    "skipLibCheck": true,
+    "target": "ESNext"
   }
 }

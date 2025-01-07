@@ -1,56 +1,51 @@
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 
 import { Areas } from 'meta/area'
-import { AssessmentNames } from 'meta/assessment'
+import { Cycles } from 'meta/assessment'
 import { SectionNames } from 'meta/routes'
 import { Users } from 'meta/user'
 
-import { useAssessment, useCycle } from 'client/store/assessment'
-import { useUser } from 'client/store/user'
+import { useCycle } from 'client/store/assessment'
+import { useCanSeeUserActivities, useUser } from 'client/store/user'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
-import Collaborators from 'client/pages/CountryHome/FraHome/Collaborators'
-import CountryMessageBoard from 'client/pages/CountryHome/FraHome/CountryMessageBoard'
+import Collaborators from 'client/pages/CountryHome/Collaborators'
 import RecentActivity from 'client/pages/CountryHome/FraHome/RecentActivity'
 import Overview from 'client/pages/CountryHome/Overview'
 import Repository from 'client/pages/CountryHome/Repository'
+import { CountryHomeSection } from 'client/pages/CountryHome/types'
 
-type Section = {
-  name: string
-  component: React.FC
-}
-
-export const useSections = (): Array<Section> => {
+export const useSections = (): Array<CountryHomeSection> => {
   const user = useUser()
   const { countryIso } = useCountryRouteParams()
-  const assessment = useAssessment()
   const cycle = useCycle()
 
+  const canSeeUserActivities = useCanSeeUserActivities(user)
+
   return useMemo(() => {
-    const sections: Array<Section> = []
+    const sections: Array<CountryHomeSection> = []
 
     if (!cycle) return null
-
-    const isFra2025 = assessment.props.name === AssessmentNames.fra && cycle.name === '2025'
-    const showOverview = !isFra2025 || Areas.isISOCountry(countryIso)
+    const isCountry = Areas.isISOCountry(countryIso)
+    const showOverview = Cycles.isPublished(cycle) || Areas.isISOCountry(countryIso)
+    const hasRoleInCountry = user && isCountry && Users.hasRoleInCountry({ countryIso, cycle, user })
 
     if (showOverview) {
       sections.push({ name: SectionNames.Country.Home.overview, component: Overview })
     }
 
-    if (user) {
-      sections.push({ name: SectionNames.Country.Home.messageBoard, component: CountryMessageBoard })
-      sections.push({ name: SectionNames.Country.Home.recentActivity, component: RecentActivity })
+    if (hasRoleInCountry) {
       sections.push({ name: SectionNames.Country.Home.repository, component: Repository })
     }
 
-    if (Users.getRolesAllowedToView({ user, countryIso, cycle }).length > 0) {
-      sections.splice(2, 0, { name: SectionNames.Country.Home.userManagement, component: Collaborators })
+    if (canSeeUserActivities && isCountry) {
+      sections.splice(2, 0, { name: SectionNames.Country.Home.collaborators, component: Collaborators })
     }
 
-    // if (Users.isAdministrator(user) || Users.isReviewer(user, countryIso, cycle)) {
-    //   sections.splice(2, 0, { name: SectionNames.contentCheck, component: Placeholder })
-    // }
+    // Show recent activity as last item
+    if (canSeeUserActivities && isCountry) {
+      sections.push({ name: SectionNames.Country.Home.recentActivity, component: RecentActivity })
+    }
 
     return sections
-  }, [assessment.props.name, cycle, user, countryIso])
+  }, [cycle, countryIso, user, canSeeUserActivities])
 }

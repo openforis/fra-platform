@@ -1,1 +1,0 @@
-CREATE TABLE growing_stock_composition ("country_iso" varchar, "row_name" varchar, "scientific_name" text, "common_name" text, "1990" numeric, "1995" numeric, "2000" numeric, "2005" numeric, "2010" numeric, "2015" numeric, PRIMARY KEY (country_iso, row_name));

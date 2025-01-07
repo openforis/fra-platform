@@ -4,8 +4,8 @@ import { useParams } from 'react-router-dom'
 
 import { Objects } from 'utils/objects'
 
-import { Cols, Row } from 'meta/assessment'
-import { Unit, UnitFactors } from 'meta/dataExport'
+import { Cols, Row, Unit } from 'meta/assessment'
+import { UnitFactors } from 'meta/dataExport'
 
 import { useCycle } from 'client/store/assessment'
 import { useTableSections } from 'client/store/metadata'

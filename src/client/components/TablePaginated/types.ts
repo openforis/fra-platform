@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { TablePaginatedCount } from 'meta/tablePaginated'
+import { TablePaginatedCompareFn, TablePaginatedCount, TablePaginatedFilterType } from 'meta/tablePaginated'
 
 export type ColumnComponentProps<Datum> = {
   datum: Datum
@@ -14,10 +14,15 @@ export type Column<Datum> = {
   orderByProperty?: string
 }
 
-export type Props<Datum> = {
+export type Props<Datum extends object> = {
   columns: Array<Column<Datum>>
-  path: string
+  compareFn?: TablePaginatedCompareFn<Datum>
+  filters?: Array<TablePaginatedFilter<TablePaginatedFilterType>>
+  groups?: { headerLabel: (key: PropertyKey) => string; keySelector: (datum: Datum) => PropertyKey }
   limit?: number
+  path: string
+  skeleton?: TablePaginatedSkeleton
+  wrapCells?: boolean
 }
 
 export type TablePaginatedCounterComponent = React.FC<{ count: TablePaginatedCount }>
@@ -26,6 +31,36 @@ export type TablePaginatedCounter = {
   show: boolean
   Component?: TablePaginatedCounterComponent
 }
+
+export type TablePaginatedEmptyListComponent = React.FC
+
+type TablePaginatedFilterTypeMap = {
+  [TablePaginatedFilterType.COUNTRY]: Array<string>
+  [TablePaginatedFilterType.MULTI_SELECT]: Array<string>
+  [TablePaginatedFilterType.SWITCH]: boolean
+  [TablePaginatedFilterType.TEXT]: string
+}
+
+type BaseTablePaginatedFilter<FilterType extends TablePaginatedFilterType> = {
+  defaultValue?: TablePaginatedFilterTypeMap[FilterType]
+  fieldName: string
+  hidden?: boolean
+  label: string
+  type: FilterType
+}
+
+type MultiSelectItem = {
+  label: string
+  value: string
+}
+
+type MultiSelectFilter = BaseTablePaginatedFilter<TablePaginatedFilterType.MULTI_SELECT> & {
+  multiLabelSummaryKey: string
+  options: Array<MultiSelectItem>
+}
+
+export type TablePaginatedFilter<FilterType extends TablePaginatedFilterType> =
+  FilterType extends TablePaginatedFilterType.MULTI_SELECT ? MultiSelectFilter : BaseTablePaginatedFilter<FilterType>
 
 export type TablePaginatedSkeleton = {
   baseColor: string

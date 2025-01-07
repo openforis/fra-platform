@@ -1,4 +1,6 @@
-import { TableNames } from 'meta/assessment'
+import { Promises } from 'utils/promises'
+
+import { TableNames, Years } from 'meta/assessment'
 import { RecordAssessmentDatas } from 'meta/data'
 
 import { climaticDomain } from 'server/controller/cycleData/getBulkDownload/climaticDomain'
@@ -8,10 +10,13 @@ import { getData } from 'server/controller/cycleData/getBulkDownload/getData'
 import { Props } from 'server/controller/cycleData/getBulkDownload/props'
 import { TableRepository } from 'server/repository/assessment/table'
 
+import { getMetadata } from './utils/getMetadata'
+
 type Entries = Array<{ tableName: string; variables: Array<{ csvColumn: string; variableName: string }> }>
 
 export const getContentVariables = async (props: Props & { fileName: string; entries: Entries }) => {
   const { assessment, cycle, countries, entries, fileName } = props
+  const isFRAYears = fileName === 'FRA_Years'
   const _climaticData = await climaticDomain(props)
   const climaticData = RecordAssessmentDatas.getCycleData({
     assessmentName: assessment.props.name,
@@ -33,17 +38,27 @@ export const getContentVariables = async (props: Props & { fileName: string; ent
 
   const ret: Array<{ fileName: string; content: Array<Record<string, string>> }> = []
 
-  entries.forEach((entry) => {
+  await Promises.each(entries, async (entry) => {
     const { tableName, variables } = entry
     const tableMetadata = tablesMetadata.find((table) => table.props.name === tableName)
-    let cols = tableMetadata?.props.columnNames[cycle.uuid]
+    let cols = isFRAYears ? Years.fraYears(cycle) : tableMetadata?.props.columnNames[cycle.uuid]
 
     if (tableName === 'growingStockComposition2025') {
       cols = ['growingStockPercent', 'growingStockMillionCubicMeter']
     }
 
-    variables.forEach((variable) => {
+    if (tableName === TableNames.carbonStockSoilDepth) {
+      cols = ['soil_depth']
+    }
+
+    await Promises.each(variables, async (variable) => {
       const { csvColumn, variableName } = variable
+
+      const currentCols = [...cols]
+
+      if (tableName === 'growingStockComposition2025' && variableName.match(/^(native|introduced)Rank\d+$/)) {
+        currentCols.unshift('scientific_name', 'common_name')
+      }
 
       const content = countries.map((country) => {
         const { countryIso, regionCodes } = country
@@ -70,7 +85,7 @@ export const getContentVariables = async (props: Props & { fileName: string; ent
           subtropical: getClimaticValue('sub_tropical', countryIso, climaticData),
         }
 
-        cols.forEach((colName) => {
+        currentCols.forEach((colName) => {
           const datum = RecordAssessmentDatas.getDatum({
             assessmentName: assessment.props.name,
             cycleName: cycle.name,
@@ -86,6 +101,11 @@ export const getContentVariables = async (props: Props & { fileName: string; ent
 
         return base
       })
+
+      const { dateExported, unit } = await getMetadata({ assessment, cycle, tableName, csvColumn })
+
+      content[0][csvColumn] = dateExported
+      content[1][csvColumn] = unit
 
       ret.push({ fileName: `${fileName}_variables/${csvColumn}`, content })
     })

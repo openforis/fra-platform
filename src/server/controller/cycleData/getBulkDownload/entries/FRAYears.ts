@@ -38,7 +38,7 @@ export const entries = (
         ]
       : []
 
-  const carbonStock = {
+  const carbonStockAvg = {
     tableName: cycle.name === '2020' ? 'carbonStock' : 'carbonStockAvg',
     variables: [
       {
@@ -63,6 +63,37 @@ export const entries = (
       },
     ],
   }
+
+  const carbonStockTotal =
+    cycle.name === '2020'
+      ? []
+      : [
+          {
+            tableName: 'carbonStockTotal',
+            variables: [
+              {
+                variableName: 'carbon_forest_above_ground',
+                csvColumn: '2d_carbon_agb_total',
+              },
+              {
+                variableName: 'carbon_forest_below_ground',
+                csvColumn: '2d_carbon_bgb_total',
+              },
+              {
+                variableName: 'carbon_forest_deadwood',
+                csvColumn: '2d_carbon_dw_total',
+              },
+              {
+                variableName: 'carbon_forest_litter',
+                csvColumn: '2d_carbon_litter_total',
+              },
+              {
+                variableName: 'carbon_forest_soil',
+                csvColumn: '2d_carbon_soil_total',
+              },
+            ],
+          },
+        ]
 
   const degradedForest = {
     tableName: cycle.name === '2020' ? 'degradedForest' : 'degradedForestMonitoring2025',
@@ -105,7 +136,7 @@ export const entries = (
         ]
       : []
 
-  const biomassStock = {
+  const biomassStockAvg = {
     tableName: cycle.name === '2020' ? 'biomassStock' : 'biomassStockAvg',
     variables: [
       {
@@ -122,6 +153,29 @@ export const entries = (
       },
     ],
   }
+
+  const biomassStockTotal =
+    cycle.name === '2020'
+      ? []
+      : [
+          {
+            tableName: 'biomassStockTotal',
+            variables: [
+              {
+                variableName: 'forest_above_ground',
+                csvColumn: '2c_agb_total',
+              },
+              {
+                variableName: 'forest_below_ground',
+                csvColumn: '2c_bgb_total',
+              },
+              {
+                variableName: 'forest_deadwood',
+                csvColumn: '2c_dwb_total',
+              },
+            ],
+          },
+        ]
 
   const growingStockComposition = {
     tableName: cycle.name === '2020' ? 'growingStockComposition' : 'growingStockComposition2025',
@@ -185,7 +239,33 @@ export const entries = (
             ],
           },
         ]
-      : []
+      : [
+          {
+            tableName: 'otherLandWithTreeCover',
+            variables: [
+              {
+                variableName: 'palms',
+                csvColumn: '1e_palms',
+              },
+              {
+                variableName: 'tree_orchards',
+                csvColumn: '1e_treeOrchards',
+              },
+              {
+                variableName: 'agroforestry',
+                csvColumn: '1e_agroforestry',
+              },
+              {
+                variableName: 'trees_in_urban_settings',
+                csvColumn: '1e_treesUrbanSettings',
+              },
+              {
+                variableName: 'other',
+                csvColumn: '1e_other',
+              },
+            ],
+          },
+        ]
 
   const specificForestCategoriesVariables =
     cycle.name === '2020'
@@ -246,6 +326,34 @@ export const entries = (
           {
             variableName: 'unknown',
             csvColumn: '4a_fo_unknown',
+          },
+        ]
+
+  const growingStockAvgVariables =
+    cycle.name === '2020'
+      ? []
+      : [
+          {
+            variableName: 'primaryForest',
+            csvColumn: '2a_gs_ha_primary',
+          },
+          {
+            variableName: 'plantationForestIntroducedArea',
+            csvColumn: '2a_gs_ha_introduced',
+          },
+        ]
+
+  const growingStockTotalVariables =
+    cycle.name === '2020'
+      ? []
+      : [
+          {
+            variableName: 'primaryForest',
+            csvColumn: '2a_gs_total_primary',
+          },
+          {
+            variableName: 'plantationForestIntroducedArea',
+            csvColumn: '2a_gs_total_introduced',
           },
         ]
 
@@ -319,6 +427,7 @@ export const entries = (
           variableName: 'naturallyRegeneratingForest',
           csvColumn: '2a_gs_ha_nat_reg',
         },
+        ...growingStockAvgVariables,
         {
           variableName: 'forest',
           csvColumn: '2a_gs_ha_forest',
@@ -348,6 +457,7 @@ export const entries = (
           variableName: 'naturallyRegeneratingForest',
           csvColumn: '2a_gs_tot_nat_reg',
         },
+        ...growingStockTotalVariables,
         {
           variableName: 'plantedForest',
           csvColumn: '2a_gs_tot_planted',
@@ -371,8 +481,10 @@ export const entries = (
       ],
     },
     growingStockComposition,
-    biomassStock,
-    carbonStock,
+    biomassStockAvg,
+    ...biomassStockTotal,
+    carbonStockAvg,
+    ...carbonStockTotal,
     {
       tableName: 'carbonStockSoilDepth',
       variables: [
@@ -461,17 +573,10 @@ export const entries = (
           variableName: 'private_ownership',
           csvColumn: '4a_priv_own',
         },
-
-        ...[
-          ...(cycle.name === '2020'
-            ? [
-                {
-                  variableName: 'of_which_by_individuals',
-                  csvColumn: '4a_individ',
-                },
-              ]
-            : []),
-        ],
+        {
+          variableName: 'of_which_by_individuals',
+          csvColumn: '4a_individ',
+        },
         {
           variableName: 'of_which_by_private_businesses',
           csvColumn: '4a_bus_inst_fo',
@@ -516,6 +621,16 @@ export const entries = (
           variableName: cycle.name === '2020 ' ? 'other' : 'unknown',
           csvColumn: '4b_unknown',
         },
+        ...[
+          ...(cycle.name === '2020'
+            ? []
+            : [
+                {
+                  variableName: 'other2025',
+                  csvColumn: '4b_other',
+                },
+              ]),
+        ],
       ],
     },
     degradedForest,

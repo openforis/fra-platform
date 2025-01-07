@@ -1,0 +1,104 @@
+{
+  "agreementLevelExplanation": "El nivel de acuerdo N significa que al menos N de las fuentes de datos seleccionadas necesitan acordar que un determinado píxel es área de superficie forestal.",
+  "burnedArea": "Zona Quemada",
+  "burnedAreaWithUnit": "$t(geo.burnedArea) ({{unit}})",
+  "chooseAgreementLevel": "Elija el nivel mínimo de acuerdo entre las capas seleccionadas.",
+  "customAgreementArea": "Área de acuerdo personalizada",
+  "error": {
+    "extraEstimation": {
+      "failedToRetrieve": "Hubo un problema al recuperar la estimación.",
+      "unexpectedDuringProcessing": "Error inesperado durante el procesamiento."
+    },
+    "map": {
+      "failedToLoad": "Hubo un problema al cargar el mapa."
+    },
+    "mosaic": {
+      "noMosaicAvailableForConfiguration": "Error: No hay mosaico disponible para la configuración seleccionada."
+    },
+    "statistics": {
+      "dataUnavailable": "Datos no disponibles.",
+      "failedToFetch": "Se ha producido un error al recuperar las estadísticas: {{error}}",
+      "foundNoData": "No se encontraron datos."
+    }
+  },
+  "estimateCustomAgreementArea": "Estimar área de acuerdo personalizada",
+  "forestArea": "Área de cubierta del árbol ({{unit}})",
+  "geeAssetId": "ID de recurso de GEE",
+  "globalOpacity": "Opacidad global",
+  "landsat": "Landsat",
+  "map": "Mapa",
+  "maxCloudCoverage": "Cobertura máxima de nubes",
+  "metersReducerScale": "Reductor de escala {{meters}}m",
+  "recipes": {
+    "forest": {
+      "allGfc10": "Todos (GFC Hansen >=10%)",
+      "allGfc20": "Todos (GFC Hansen >=20%)",
+      "allGfc30": "Todos (GFC Hansen >=30%)",
+      "esriEsa": "ESRI & ESA",
+      "esriEsaGlobland2020Gfc10": "ESRI, ESA, Globland 2020 & GFC Hansen >=10%"
+    },
+    "recipes": "Recetas"
+  },
+  "reportedToFra2020": "Informado a FRA 2020",
+  "satellite": "Satelite",
+  "satelliteMosaic": "Mosaico satelital",
+  "sections": {
+    "burnedArea": {
+      "layerTitles": {
+        "modis": "MODIS"
+      },
+      "title": "Zona Quemada"
+    },
+    "forest": {
+      "layerTitles": {
+        "agreement": "Capa de acuerdo",
+        "copernicus2019": "Copernicus (2019)",
+        "customFnf": "FnF personalizado",
+        "esa2020": "ESA (2020)",
+        "esaGlobCover2009": "ESA GlobCover (2009)",
+        "esri2020": "ESRI (2020)",
+        "globeLand2020": "GlobeLand (2020)",
+        "hansenGfc2020": "Hansen GFC (2020)",
+        "hansenGfc2020WithPercent": "$t(geo.sections.forest.layerTitles.hansenGfc2020) {{hansenPercent}} %",
+        "jaxa2017": "JAXA (2017)",
+        "modis": "MODIS",
+        "tanDemX2019": "TanDEM-X (2019)"
+      },
+      "title": "Cobertura forestal"
+    },
+    "protectedArea": {
+      "layerTitles": {
+        "customProtectedArea": "Área protegida personalizada",
+        "filteredWdpa": "WDPA filtrado",
+        "wdpa": "WDPA"
+      },
+      "title": "Área protegida"
+    }
+  },
+  "selectMinTreeCoverPercent": "Seleccionar porcentaje mínimo de cobertura forestal:",
+  "sentinel": "Centinela",
+  "showSatelliteMosaic": "Mostrar Mosaico Satelital",
+  "snowMasking": "Máscara de nieve",
+  "statistics": {
+    "burnedArea": {
+      "burnedAreaByYear": "Zona quemada por año"
+    },
+    "forestArea": {
+      "extentOfForestPerSource": "Existencia de la cobertura forestal por fuente y como fue reporta a FRA {{year}}",
+      "extentOfForestTreeCover": "Extensión de la cobertura forestal por fuente",
+      "forestAreaHa": "Cobertura forestal, ha",
+      "forestAreaPercentOfLandArea": "Cobertura forestal % del área de terreno",
+      "landArea": " Área de terreno"
+    },
+    "graphs": "Gráficas estadísticas",
+    "protectedArea": {
+      "allGfc10": "Todos (GFC Hansen >=10%)",
+      "allGfc20": "Todos (GFC Hansen >=20%)",
+      "allGfc30": "Todos (GFC Hansen >=30%)"
+    },
+    "title": "Estadísticas"
+  },
+  "treeCoverAgreementSelected": "Acuerdo de cobertura forestal seleccionado",
+  "treeCoverProtectedAreas": "Cobertura forestal dentro de áreas protegidas",
+  "treeCoverProtectedAreasWithUnit": "$t(geo.treeCoverProtectedAreas) ({{unit}})"
+}

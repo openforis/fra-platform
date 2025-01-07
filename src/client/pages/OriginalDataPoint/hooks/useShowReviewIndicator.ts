@@ -1,11 +1,11 @@
-import { OriginalDataPoint } from 'meta/assessment'
+import { SectionName, SectionNames } from 'meta/assessment'
 
-import { useIsPrintRoute } from 'client/hooks/useIsRoute'
-import { useCanEditData } from 'client/pages/OriginalDataPoint/hooks/useCanEditData'
+import { useCanViewReview } from 'client/store/user/hooks'
+import { useIsEditODPEnabled } from 'client/pages/OriginalDataPoint/hooks/useIsEditODPEnabled'
 
-export const useShowReviewIndicator = (originalDataPoint: OriginalDataPoint) => {
-  const { print } = useIsPrintRoute()
+export const useShowReviewIndicator = (sectionName: SectionName = SectionNames.extentOfForest) => {
+  const canEditData = useIsEditODPEnabled()
+  const canViewReview = useCanViewReview(sectionName)
 
-  const canEditData = useCanEditData(originalDataPoint)
-  return originalDataPoint.id && !print && canEditData
+  return canEditData || canViewReview
 }

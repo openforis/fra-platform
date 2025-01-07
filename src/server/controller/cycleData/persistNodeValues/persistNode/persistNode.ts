@@ -21,10 +21,9 @@ export const persistNode = async (props: Props, client: BaseProtocol): Promise<N
   const { assessment, countryIso, activityLogMessage, user, cycle, sectionName } = props
   const node: Node = await NodeRepository.getOneOrNone(props, client)
 
-  const [nodeUpdated] = await Promise.all([
-    node ? NodeRepository.update(props, client) : NodeRepository.create(props, client),
-    DataRedisRepository.updateNode(props),
-  ])
+  const nodeUpdated = await (node ? NodeRepository.update(props, client) : NodeRepository.create(props, client))
+  await DataRedisRepository.updateNode(props)
+
   const activityLog: ActivityLog<Node> = {
     countryIso,
     message: activityLogMessage ?? ActivityLogMessage.nodeValueUpdate,

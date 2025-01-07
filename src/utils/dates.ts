@@ -6,6 +6,7 @@ import {
   differenceInMonths,
   differenceInWeeks,
   format,
+  getYear,
   isAfter,
   isBefore,
   parseISO,
@@ -25,13 +26,16 @@ export const getRelativeDate = (rawDate: any, i18n: any) => {
   return i18n.t('time.aMomentAgo')
 }
 
+const getCurrentYear = (): number => getYear(new Date())
+
 export const Dates = {
   addDays,
   addMonths,
   differenceInDays,
+  format,
+  getCurrentYear,
+  getRelativeDate,
   isAfter,
   isBefore,
-  format,
-  getRelativeDate,
   parseISO,
 }

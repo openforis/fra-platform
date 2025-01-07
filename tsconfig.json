@@ -5,23 +5,16 @@
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "baseUrl": "./src",
-    "jsx": "react",
     "isolatedModules": true,
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "jsx": "react",
     "module": "CommonJS",
     "moduleResolution": "Node",
     "noImplicitAny": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "outDir": "./dist/",
-//    "paths": {
-//      "i18n/*": ["./src/i18n/*"],
-//      "client/*": ["./src/client/*"],
-//      "meta/*": ["./src/meta/*"],
-//      "server/*": ["./src/server/*"],
-//      "test/*": ["./src/test/*"],
-//      "utils/*": ["./src/utils/*"]
-//    },
-//    "strict": true,
+    "resolveJsonModule": true,
     "target": "ESNext"
   }
 }

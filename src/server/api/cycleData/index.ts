@@ -4,6 +4,7 @@ import * as queue from 'express-queue'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 
+import { getDashboardItems } from 'server/api/cycleData/dashboard/getDashboardItems'
 import { getHistory } from 'server/api/cycleData/history/getHistory'
 import { getHistoryCount } from 'server/api/cycleData/history/getHistoryCount'
 import { AuthMiddleware } from 'server/middleware/auth'
@@ -193,5 +194,8 @@ export const CycleDataApi = {
     express.get(ApiEndPoint.CycleData.Links.count(), AuthMiddleware.requireAdmin, getLinksCount)
     express.post(ApiEndPoint.CycleData.Links.verify(), AuthMiddleware.requireAdmin, verifyLinks)
     express.get(ApiEndPoint.CycleData.Links.verifyStatus(), AuthMiddleware.requireAdmin, isVerificationInProgress)
+
+    // dashboard
+    express.get(ApiEndPoint.CycleData.Dashboard.one(), getDashboardItems)
   },
 }

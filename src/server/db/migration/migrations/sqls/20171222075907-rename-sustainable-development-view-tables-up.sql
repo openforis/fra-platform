@@ -1,5 +1,0 @@
-ALTER TABLE sustainable_development_ind_15_1_1 RENAME TO sustainable_development_indicator;
-ALTER TABLE sustainable_development_ind_15_2_1_1 RENAME TO sustainable_development_sub_indicator1;
-ALTER TABLE sustainable_development_ind_15_2_1_2 RENAME TO sustainable_development_sub_indicator2;
-ALTER TABLE sustainable_development_ind_15_2_1_3 RENAME TO sustainable_development_sub_indicator3;
-ALTER TABLE sustainable_development_ind_15_2_1_4 RENAME TO sustainable_development_sub_indicator4;

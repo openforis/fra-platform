@@ -1,57 +1,39 @@
-import { Objects } from 'utils/objects'
-
-import { CountryIso } from 'meta/area'
-import { Assessment, Cycle } from 'meta/assessment'
+import { Areas, CountryIso } from 'meta/area'
 import { RoleName } from 'meta/user'
 
-import { BaseProtocol, DB } from 'server/db'
+import { BaseProtocol, DB, Schemas } from 'server/db'
 
-type Props = {
-  assessment: Assessment
-  cycle: Cycle
-  countries?: Array<CountryIso>
-  fullName?: string
-  roles?: Array<RoleName>
-}
+import { getPropsToQueryParams } from './utils/getPropsToQueryParams'
+import { UsersGetManyProps } from './usersGetManyProps'
 
-type Returned = {
-  total: number
-} & Record<RoleName, number>
-export const count = async (props: Props, client: BaseProtocol = DB): Promise<Returned> => {
-  const { assessment, cycle, countries, fullName, roles } = props
+type Returned = Record<RoleName | 'total', number>
 
-  const conditions: Array<string> = []
-  if (Objects.isEmpty(countries)) conditions.push(`(ur.country_iso is null or ur.country_iso not like 'X%')`)
-  else conditions.push(`ur.country_iso in (${countries.map((countryIso) => `'${countryIso}'`).join(',')})`)
+export const count = async (props: UsersGetManyProps, client: BaseProtocol = DB): Promise<Returned> => {
+  const { assessment, cycle } = props
+  const schemaName = Schemas.getNameCycle(assessment, cycle)
 
-  if (!Objects.isEmpty(roles)) conditions.push(`ur.role in (${roles.map((roleName) => `'${roleName}'`).join(',')})`)
+  const { queryParams, whereConditions } = getPropsToQueryParams(props)
 
-  if (!Objects.isEmpty(fullName))
-    conditions.push(`concat(u.props->'name', ' ', u.props->'surname') ilike '%${fullName}%'`)
+  // Exclude atlantis countries from the count when not explicitly filtering for atlantis
+  if (!queryParams.countries?.every((countryIso: CountryIso) => Areas.isAtlantis(countryIso)))
+    whereConditions.push(`(cus.country_iso is null or cus.country_iso not like 'X%')`)
 
-  const getQuery = (groupByRole?: boolean): string => {
-    return `select count(distinct (u.id)) as totals
-                ${groupByRole ? `, ur.role` : ''}
-            from public.users u
-                     join public.users_role ur on u.id = ur.user_id
-            where (ur.assessment_id is null or (ur.assessment_id = $1 and ur.cycle_uuid = $2))
-              -- and ((ur.accepted_at is not null and ur.invited_at is not null) or ur.invited_at is null)
-                and ${conditions.join(` 
-              and 
-              `)} ${groupByRole ? `group by ur.role` : ''}`
-  }
+  const queryRoles = `
+      with filtered_users as
+               (select distinct uuid
+                from ${schemaName}.country_user_summary cus
+                where ${whereConditions.join(' and ')}),
+           counts as
+               (select count(distinct (id)) as totals, coalesce(role ->> 'role', invitation ->> 'role') as role
+                from ${schemaName}.country_user_summary cus
+                where ${whereConditions.join(' and ')}
+                group by coalesce(role ->> 'role', invitation ->> 'role')
+                union all
+                -- add row "total" that describes the total count of unique users
+                select count(uuid) as total, 'total' as role
+                from filtered_users)
+      select jsonb_object_agg(counts.role, counts.totals) as result
+      from counts`
 
-  const queryTotals = getQuery()
-  const queryRoles = `with counts as (${getQuery(true)})
-                      select jsonb_object_agg(counts.role, counts.totals) as result
-                      from counts`
-
-  const total = await client.one<number>(queryTotals, [assessment.id, cycle.uuid], ({ totals }) => totals)
-  const roleTotals = await client.one<Record<RoleName, number>>(
-    queryRoles,
-    [assessment.id, cycle.uuid],
-    ({ result }) => result
-  )
-
-  return { total, ...roleTotals }
+  return client.one<Returned>(queryRoles, queryParams, ({ result }) => result)
 }

@@ -1,0 +1,12 @@
+@import 'src/client/style/partials';
+
+.select__multiValue-label {
+  padding-right: $spacing-xxxs;
+}
+
+@include rtl {
+  .select__multiValue-label {
+    padding-left: $spacing-xxxs;
+    padding-right: unset;
+  }
+}

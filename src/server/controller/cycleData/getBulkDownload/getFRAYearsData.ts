@@ -28,11 +28,12 @@ export const getFraYearsData = async (props: Props) => {
 
   const years = Years.fraYears(cycle)
 
-  return countries.flatMap(({ countryIso, regionCodes }) =>
+  return countries.flatMap(({ countryIso, regionCodes, props: { deskStudy } }) =>
     years.flatMap<Record<string, string>>((year: string) => {
       const base: Record<string, string> = {
         regions: regionCodes.join(';'),
         iso3: countryIso,
+        deskStudy: deskStudy ? 'assessment.deskStudy' : '',
         name: countryIso,
         year,
         boreal: getClimaticValue('boreal', countryIso, climaticData),

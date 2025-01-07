@@ -1,0 +1,57 @@
+{
+  "carbonAndGrowingStock": {
+    "carbon_stock_biomass_total": "Carbon stock in biomass ($t({{unit}}))",
+    "carbon_stock_total": "Total carbon stock ($t({{unit}}))",
+    "growing_stock_total": "$t(growingStock.growingStock) ($t({{unit}}))",
+    "rowName": "",
+    "title": "Forest growing stock and carbon, {{startYear}} - {{endYear}}"
+  },
+  "forestArea": {
+    "title": "Forest Area, {{startYear}} - {{endYear}}, $t({{unit}})"
+  },
+  "forestAreaPercent": {
+    "title": "Forest area % of land area, {{year}}"
+  },
+  "forestAreaWithinProtectedAreas": {
+    "title": "Forest area within protected areas, {{year}}, % of forest area"
+  },
+  "forestOwnership": {
+    "title": "$t(forestOwnership.forestOwnership) %, {{year}}"
+  },
+  "naturallyRegeneratingForest": {
+    "title": "Naturally regenerated and planted forest area, {{startYear}} - {{endYear}}, $t({{unit}})"
+  },
+  "noData": "No data available",
+  "primaryDesignatedManagementObjective": {
+    "conservation_of_biodiversity": "$t(designatedManagementObjective.biodiversityConservation)",
+    "multiple_use": "$t(designatedManagementObjective.multipleUse)",
+    "no_designation": "$t(fra.designatedManagementObjective.noDesignation)",
+    "other": "$t(common.other)",
+    "production": "$t(designatedManagementObjective.production)",
+    "protection_of_soil_and_water": "$t(designatedManagementObjective.soilWaterProtection)",
+    "rowName": "",
+    "social_services": "$t(designatedManagementObjective.socialServices)",
+    "title": "$t(designatedManagementObjective.primaryDesignatedManagementObjective), {{startYear}} - {{endYear}}, $t({{unit}})",
+    "unknown": "$t(fra.designatedManagementObjective.unknown2025)"
+  },
+  "primaryForest": {
+    "title": "Primary forest % of forest area, {{year}}"
+  },
+  "rowName": {
+    "area": "Area",
+    "forest": "Forest",
+    "landArea": "Land area",
+    "naturalForestArea": "$t(forestCharacteristics.naturalForestArea)",
+    "other": "$t(common.other)",
+    "otherArea": "Other area",
+    "otherForest": "Other forest",
+    "otherLand": "$t(fraClass.otherLand)",
+    "other_or_unknown": "Other or unknown",
+    "plantedForest": "$t(forestCharacteristics.plantedForest)",
+    "primaryForest": "$t(specificForestCategories.primaryForest)",
+    "private_ownership": "Private",
+    "protected": "Protected",
+    "public_ownership": "Public",
+    "unknown": "$t(fra.forestOwnership.unknown2025)"
+  }
+}

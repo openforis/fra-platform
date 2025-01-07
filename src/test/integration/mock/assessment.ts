@@ -10,6 +10,6 @@ export const assessmentParams = {
 export const assessmentCycleName = '2020'
 
 export const originalDataPoint = {
-  countryIso: 'AFG',
+  countryIso: 'X02',
   year: 2019,
 } as OriginalDataPoint

@@ -8,6 +8,7 @@ import { Topics } from 'meta/messageCenter'
 
 import { useCycle } from 'client/store/assessment'
 import { useTopicKeys } from 'client/store/ui/messageCenter/hooks'
+import { useCanViewReview } from 'client/store/user/hooks'
 import ReviewIndicator from 'client/components/ReviewIndicator'
 
 import { Props } from '../props'
@@ -29,6 +30,8 @@ const RowData: React.FC<Props> = (props) => {
   const id = `${row.props.type}_${row.id}_${row.props.variableName ?? ''}`
   const className = classNames({ 'fra-row-comments__open': openTopics.includes(Topics.getDataReviewTopicKey(row)) })
 
+  const canViewReview = useCanViewReview(sectionName)
+
   return (
     <tr className={className} id={id}>
       {colHeader && <CellHeader assessmentName={assessmentName} col={colHeader} row={row} />}
@@ -47,7 +50,7 @@ const RowData: React.FC<Props> = (props) => {
         />
       ))}
 
-      {!disabled && withReview && (
+      {canViewReview && withReview && (
         <td className="fra-table__review-cell no-print">
           <ReviewIndicator
             title={colHeader ? Cols.getLabel({ cycle, col: colHeader, t }) : ''}

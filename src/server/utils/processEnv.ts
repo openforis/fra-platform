@@ -33,8 +33,10 @@ export const ProcessEnv = {
   logLevel: process.env.LOG_LEVEL ?? (process.env.DEBUG === 'true' ? 'debug' : 'error'),
 
   // fra
+  /**
+   * @deprecated Deprecation notice: This will be removed in future refactor
+   */
   fraReportCollaboratorsExcluded: JSON.parse(process.env.FRA_REPORT_COLLABORATORS_EXCLUDED ?? '[]'),
-  fraAtlantisAllowed: JSON.parse(process.env.FRA_ATLANTIS_ALLOWED ?? '[]'),
 
   invitationExpiryDays: Number(process.env.INVITATION_EXPIRY_DAYS) || 7,
 

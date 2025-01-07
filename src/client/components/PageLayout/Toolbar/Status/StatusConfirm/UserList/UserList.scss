@@ -1,0 +1,15 @@
+@import 'src/client/style/partials';
+
+.status-confirm__user-list {
+  .data-cell,
+  .data-cell.header {
+    padding: $spacing-xs;
+    border-left: unset;
+    line-height: 19px;
+  }
+
+  // Don't show border top for header row
+  & > .data-cell.header {
+    border-top: unset;
+  }
+}

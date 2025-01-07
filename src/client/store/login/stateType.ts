@@ -1,5 +1,5 @@
 import { Assessment } from 'meta/assessment'
-import { AuthProvider, RoleName, User, UserRole } from 'meta/user'
+import { AuthProvider, User, UserInvitation } from 'meta/user'
 
 export type AcceptInvitationFormFields = {
   email?: string
@@ -17,7 +17,7 @@ export interface InvitationState {
   assessment?: Assessment
   invitedUser?: User
   userProviders?: Array<AuthProvider>
-  userRole?: UserRole<RoleName>
+  userInvitation?: UserInvitation
   acceptForm?: AcceptInvitationFormState
 }
 

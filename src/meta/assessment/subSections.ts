@@ -1,7 +1,33 @@
+import { Objects } from 'utils/objects'
+
 import { Cycle } from 'meta/assessment/cycle'
 import { Section, SubSection } from 'meta/assessment/section'
+import { Sections } from 'meta/assessment/sections'
 
 import { Assessment } from './assessment'
+
+const cloneProps = (props: { cycleSource: Cycle; cycleTarget: Cycle; subSection: SubSection }): SubSection['props'] => {
+  const { cycleSource, cycleTarget, subSection } = props
+
+  const { uuid: cycleSourceUuid } = cycleSource
+  const { uuid: cycleTargetUuid } = cycleTarget
+  const section = subSection as Section
+
+  const _props: SubSection['props'] = Sections.cloneProps({ cycleSource, cycleTarget, section }) as SubSection['props']
+
+  const descriptionsSource = Objects.cloneDeep(_props.descriptions?.[cycleSourceUuid])
+  if (!Objects.isEmpty(descriptionsSource)) {
+    // delete nationalData->dataSources->text needed only in FRA 2025
+    Objects.unset(descriptionsSource, ['nationalData', 'dataSources', 'text'])
+    _props.descriptions[cycleTargetUuid] = descriptionsSource
+  }
+  if (!Objects.isNil(_props.hidden?.[cycleSourceUuid]))
+    _props.hidden[cycleTargetUuid] = Objects.cloneDeep(_props.hidden[cycleSourceUuid])
+  if (!Objects.isNil(_props.hints?.[cycleSourceUuid]))
+    _props.hints[cycleTargetUuid] = Objects.cloneDeep(_props.hints[cycleSourceUuid])
+
+  return _props
+}
 
 const getAnchor = (props: { cycle: Cycle; subSection: SubSection }): string => {
   const { cycle, subSection } = props
@@ -37,6 +63,7 @@ const getPrevious = (props: { subSection: SubSection; sections: Array<Section> }
 }
 
 export const SubSections = {
+  cloneProps,
   getAnchor,
   getAnchorLabel,
   getAnchorsByUuid,

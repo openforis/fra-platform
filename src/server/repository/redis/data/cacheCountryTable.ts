@@ -20,8 +20,7 @@ export const cacheCountryTable = async (props: PropsCache, client: BaseProtocol 
   const redis = RedisData.getInstance()
   const key = getKeyCountry({ assessment, cycle, countryIso, key: Keys.Data.data })
 
-  const exist = await redis.hexists(key, tableName)
-  if (!exist || force) {
+  if (force || !(await redis.hexists(key, tableName))) {
     const propsData = { assessment, cycle, countryISOs: [countryIso], tables: { [tableName]: {} } }
     const data =
       tableName === TableNames.originalDataPointValue

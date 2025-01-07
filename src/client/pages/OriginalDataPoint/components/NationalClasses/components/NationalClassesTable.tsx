@@ -7,7 +7,8 @@ import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { useCycleRouteParams } from 'client/hooks/useRouteParams'
 import { DataCell, DataGrid } from 'client/components/DataGrid'
 import NationalClass from 'client/pages/OriginalDataPoint/components/NationalClasses/components/NationalClass'
-import { useCanEditData } from 'client/pages/OriginalDataPoint/hooks/useCanEditData'
+import { useIsEditODPEnabled } from 'client/pages/OriginalDataPoint/hooks/useIsEditODPEnabled'
+import { useShowReviewIndicator } from 'client/pages/OriginalDataPoint/hooks/useShowReviewIndicator'
 
 type Props = {
   gridRef: React.MutableRefObject<HTMLDivElement>
@@ -21,13 +22,14 @@ export const NationalClassesTable = (props: Props) => {
   const { cycleName } = useCycleRouteParams()
 
   const { print } = useIsPrintRoute()
-  const canEdit = useCanEditData(originalDataPoint)
+  const canEdit = useIsEditODPEnabled()
+  const showReviewIndicator = useShowReviewIndicator()
 
   return (
     <DataGrid
-      gridTemplateColumns={`${print ? `100px ` : ''}minmax(240px, 40%) 1fr`}
       ref={gridRef}
-      withActions={canEdit}
+      gridTemplateColumns={`${print ? `100px ` : ''}minmax(240px, 40%) 1fr`}
+      withActions={canEdit || showReviewIndicator}
     >
       {print && (
         <DataCell gridRow={`1/${nationalClasses.length + 2}`} header lastRow>
@@ -36,15 +38,15 @@ export const NationalClassesTable = (props: Props) => {
       )}
 
       <DataCell header>
-        {t(`nationalDataPoint.${cycleName === '2025' ? 'nationalClassifications' : 'nationalClass'}`)}
+        {t(`nationalDataPoint.${cycleName !== '2020' ? 'nationalClassifications' : 'nationalClass'}`)}
       </DataCell>
       <DataCell header lastCol>
         {t('nationalDataPoint.definition')}
       </DataCell>
-      {canEdit && <div />}
+      {(canEdit || showReviewIndicator) && <div />}
 
       {nationalClasses.map((nationalClass, idx) => (
-        <NationalClass index={idx} key={nationalClass.uuid} originalDataPoint={originalDataPoint} />
+        <NationalClass key={nationalClass.uuid} index={idx} originalDataPoint={originalDataPoint} />
       ))}
     </DataGrid>
   )

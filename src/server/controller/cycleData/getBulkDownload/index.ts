@@ -3,10 +3,15 @@ import { i18n as i18nType } from 'i18next'
 
 import { Areas, CountryIso, RegionCode, RegionGroupName } from 'meta/area'
 import { Assessment, Cycle } from 'meta/assessment'
+import { Lang } from 'meta/lang'
 
 import { getContent } from 'server/controller/cycleData/getBulkDownload/getContent'
 import { getContentVariables } from 'server/controller/cycleData/getBulkDownload/getContentVariables'
+import { getDegradedForest } from 'server/controller/cycleData/getBulkDownload/getDegradedForest'
+import { getForestPolicy } from 'server/controller/cycleData/getBulkDownload/getForestPolicy'
+import { getForestRestoration } from 'server/controller/cycleData/getBulkDownload/getForestRestoration'
 import { getFraYearsData } from 'server/controller/cycleData/getBulkDownload/getFRAYearsData'
+import { getNWFP } from 'server/controller/cycleData/getBulkDownload/getNWFP'
 import { getTierData } from 'server/controller/cycleData/getBulkDownload/getTierData'
 import { CountryRepository } from 'server/repository/assessmentCycle/country'
 import { RegionRepository } from 'server/repository/assessmentCycle/region'
@@ -14,6 +19,7 @@ import { RegionRepository } from 'server/repository/assessmentCycle/region'
 import { entries as annualEntries } from './entries/AnnualData'
 import { entries as FRAEntries } from './entries/FRAYears'
 import { entries as intervalEntries } from './entries/Intervals'
+import { getNDPYear } from './getNDPYear'
 
 const _convertToCSV = (arr: Array<Record<string, string>>): string => {
   if (!arr.length) return ''
@@ -22,6 +28,7 @@ const _convertToCSV = (arr: Array<Record<string, string>>): string => {
   const fixedHeaders = [
     'regions',
     'iso3',
+    'deskStudy',
     'name',
     'year',
     'forest area 2020',
@@ -48,7 +55,7 @@ const _getFileName = (name: string): string => {
   return `${name}_${timestamp}.csv`
 }
 
-const handleResult = ({ regions, iso3, name, year, ...row }: Record<string, string>, i18n: i18nType) => {
+const handleResult = ({ regions, iso3, deskStudy, name, year, ...row }: Record<string, string>, i18n: i18nType) => {
   const _translate = (key: string) => i18n.t<string>(Areas.getTranslationKey(key as RegionCode | CountryIso))
 
   const _handleRegions = (regions: string): string => {
@@ -62,13 +69,17 @@ const handleResult = ({ regions, iso3, name, year, ...row }: Record<string, stri
     ...row,
   }
 
+  if (deskStudy) {
+    fixed.deskStudy = `"${i18n.t(deskStudy)}"`
+  }
+
   if (year) {
     fixed.year = `"${year.replace('_', '-')}"`
   }
 
   Object.keys(row).forEach((key) => {
     if (row[key]) {
-      fixed[key] = row[key].replace(/"/g, '').replace(/\n/g, '').replace(/\r/g, '')
+      fixed[key] = `"${row[key].replace(/"/g, '').replace(/\n/g, '').replace(/\r/g, '')}"`
     }
   })
 
@@ -76,7 +87,7 @@ const handleResult = ({ regions, iso3, name, year, ...row }: Record<string, stri
 }
 
 const handleContent = async (content: Array<Record<string, string>>) => {
-  const i18n = (await createI18nPromise('en')) as i18nType
+  const i18n = (await createI18nPromise(Lang.en)) as i18nType
   // sort content by country iso and then by year
   content.sort((a, b) => {
     if (a.iso3 < b.iso3) return -1
@@ -116,54 +127,83 @@ export const getBulkDownload = async (props: { assessment: Assessment; cycle: Cy
     getContentVariables({ ...params, fileName: 'FRA_Years', entries: FRAEntries(cycle) }),
   ])
 
-  const [annual, intervals, fraYears] = await Promise.all([
+  const [annual, intervals, fraYears, nwfp, forestPolicy, ndpYear] = await Promise.all([
     getContent({ ...params, entries: annualEntries }),
     getContent({ ...params, entries: intervalEntries(cycle), intervals: true }),
     getFraYearsData(params),
+    getNWFP(params),
+    getForestPolicy(params),
+    getNDPYear(params),
   ])
 
   const promises = [
     ...annualVariableEntries.map(async (entry) => {
       return {
         fileName: _getFileName(entry.fileName),
-        content: handleContent(entry.content),
+        content: await handleContent(entry.content),
       }
     }),
     ...intervalVariableEntries.map(async (entry) => {
       return {
         fileName: _getFileName(entry.fileName),
-        content: handleContent(entry.content),
+        content: await handleContent(entry.content),
       }
     }),
     ...fraYearsVariableEntries.map(async (entry) => {
       return {
         fileName: _getFileName(entry.fileName),
-        content: handleContent(entry.content),
+        content: await handleContent(entry.content),
       }
     }),
 
     {
       fileName: _getFileName('Annual'),
-      content: handleContent(annual),
+      content: await handleContent(annual),
     },
     {
       fileName: _getFileName('Intervals'),
-      content: handleContent(intervals),
+      content: await handleContent(intervals),
     },
     {
       fileName: _getFileName('FRA_Years'),
-      content: handleContent(fraYears),
+      content: await handleContent(fraYears),
+    },
+    {
+      fileName: _getFileName('NWFP'),
+      content: await handleContent(nwfp),
+    },
+    {
+      fileName: _getFileName('ForestPolicy'),
+      content: await handleContent(forestPolicy),
+    },
+    {
+      fileName: _getFileName('NDPYear'),
+      content: await handleContent(ndpYear),
     },
   ]
 
   // Tier data only available for 2025
   if (cycle.name === '2025') {
-    const tiers = await getTierData(params)
+    const [tiers, forestRestoration, degradedForest] = await Promise.all([
+      getTierData(params),
+      getForestRestoration(params),
+      getDegradedForest(params),
+    ])
 
-    promises.push({
-      fileName: _getFileName('Tiers'),
-      content: handleContent(tiers),
-    })
+    promises.push(
+      {
+        fileName: _getFileName('DegradedForest'),
+        content: await handleContent(degradedForest),
+      },
+      {
+        fileName: _getFileName('ForestRestoration'),
+        content: await handleContent(forestRestoration),
+      },
+      {
+        fileName: _getFileName('Tiers'),
+        content: await handleContent(tiers),
+      }
+    )
   }
 
   return Promise.all(promises)

@@ -7,6 +7,7 @@ import {
   OriginalDataPointRouteParams,
   SectionRouteParams,
 } from 'meta/routes/routeParams'
+import { SectionNames } from 'meta/routes/sectionNames'
 
 import { createRoute } from './createRoute'
 import { LoginInvitationQueryParams, LoginQueryParams, LoginResetPasswordQueryParams } from './queryParams'
@@ -20,7 +21,7 @@ const Admin = createRoute<CycleRouteParams>({ path: 'admin', parent: Cycle })
 const AdminCountries = createRoute<CycleRouteParams>({ path: 'countries', parent: Admin })
 const AdminInvitations = createRoute<CycleRouteParams>({ path: 'invitations', parent: Admin })
 const AdminLinks = createRoute<CycleRouteParams>({ path: 'links', parent: Admin })
-const AdminUserManagement = createRoute<CycleRouteParams>({ path: 'userManagement', parent: Admin })
+const AdminCollaborators = createRoute<CycleRouteParams>({ path: SectionNames.Admin.collaborators, parent: Admin })
 const Tutorials = createRoute<CycleRouteParams>({ path: 'tutorials', parent: Cycle })
 
 // Country routes and sub routes
@@ -52,6 +53,18 @@ const LoginResetPassword = createRoute<CycleRouteParams, LoginResetPasswordQuery
   parent: Login,
 })
 
+// Kiosk routes and sub routes
+const Kiosk = createRoute({ path: 'kiosk', parent: Root })
+const ForestKids = createRoute({ path: 'forest-kids', parent: Kiosk })
+const Fra2020DataPlatform = createRoute({ path: 'fra-2020-data-platform', parent: Kiosk })
+const FraProcess = createRoute({ path: 'fra-process', parent: Kiosk })
+const RecentHighlights = createRoute({ path: 'recent-highlights', parent: Kiosk })
+const InteractiveStories = createRoute({ path: 'interactive-stories', parent: Kiosk })
+const AFreshPerspective = createRoute({ path: 'a-fresh-perspective', parent: InteractiveStories })
+const ExploringOurForests = createRoute({ path: 'exploring-our-forests', parent: InteractiveStories })
+const HiddenInPlainSight = createRoute({ path: 'hidden-in-plain-sight', parent: InteractiveStories })
+const TheSecretsOfMangroves = createRoute({ path: 'the-secrets-of-mangroves', parent: InteractiveStories })
+
 export const Routes = {
   Root,
   Assessment,
@@ -62,7 +75,7 @@ export const Routes = {
   AdminCountries,
   AdminInvitations,
   AdminLinks,
-  AdminUserManagement,
+  AdminCollaborators,
   Tutorials,
 
   // country
@@ -83,4 +96,16 @@ export const Routes = {
   LoginInvitation,
   LoginInvitationLocal,
   LoginResetPassword,
+
+  // kiosk
+  Kiosk,
+  ForestKids,
+  Fra2020DataPlatform,
+  FraProcess,
+  RecentHighlights,
+  InteractiveStories,
+  AFreshPerspective,
+  ExploringOurForests,
+  HiddenInPlainSight,
+  TheSecretsOfMangroves,
 }

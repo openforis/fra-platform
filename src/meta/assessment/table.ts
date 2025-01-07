@@ -9,11 +9,15 @@ import { Unit } from 'meta/assessment/unit'
 export enum TableNames {
   biomassStockAvg = 'biomassStockAvg',
   biomassStockTotal = 'biomassStockTotal',
+  biomassStock_biomassStockStatus = 'biomassStock_biomassStockStatus',
   carbonStock = 'carbonStock',
   carbonStockAvg = 'carbonStockAvg',
+  carbonStockSoilDepth = 'carbonStockSoilDepth',
   carbonStockTotal = 'carbonStockTotal',
   climaticDomain = 'climaticDomain',
   extentOfForest = 'extentOfForest',
+  extentOfForest_forestAreaStatusAndTrend = 'extentOfForest_forestAreaStatusAndTrend',
+  growingStock_growingStockStatus = 'growingStock_growingStockStatus',
   forestAreaWithinProtectedAreas = 'forestAreaWithinProtectedAreas',
   forestCharacteristics = 'forestCharacteristics',
   forestOwnership = 'forestOwnership',
@@ -21,11 +25,28 @@ export enum TableNames {
   growingStockTotal = 'growingStockTotal',
   primaryDesignatedManagementObjective = 'primaryDesignatedManagementObjective',
   specificForestCategories = 'specificForestCategories',
+  sustainableDevelopment15_2_1_1 = 'sustainableDevelopment15_2_1_1',
+  sustainableDevelopment15_2_1_2 = 'sustainableDevelopment15_2_1_2',
   sustainableDevelopment15_2_1_5 = 'sustainableDevelopment15_2_1_5',
   totalAreaWithDesignatedManagementObjective = 'totalAreaWithDesignatedManagementObjective',
   // Used to append ODP data to tableData
   originalDataPointValue = 'originalDataPointValue',
 }
+
+export enum TableCellNumberFormat {
+  decimal = 'decimal',
+  integer = 'integer',
+  original = 'original',
+}
+
+export type TableCell = {
+  columnName: ColName
+  variableName: VariableName
+  format?: TableCellNumberFormat
+  unit?: Unit | null
+}
+
+export type TableCellNames = Record<CycleUuid, Array<TableCell>>
 
 // array of column names indexed by cycle uuid
 export type TableColumnNames = Record<CycleUuid, Array<ColName>>
@@ -33,6 +54,7 @@ export type TableColumnNames = Record<CycleUuid, Array<ColName>>
 export type TableName = string
 
 export interface TableProps {
+  cellsExportAlways?: TableCellNames
   columnNames: TableColumnNames
   columnsExport?: TableColumnNames
   columnsExportAlways?: TableColumnNames

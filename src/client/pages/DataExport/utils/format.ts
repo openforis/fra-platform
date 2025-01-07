@@ -1,9 +1,9 @@
 import { Numbers } from 'utils/numbers'
 
 import { CountryIso } from 'meta/area'
-import { AssessmentName, AssessmentNames, CycleName } from 'meta/assessment'
+import { AssessmentName, AssessmentNames, CycleName, TableCellNumberFormat, Unit } from 'meta/assessment'
 import { RecordAssessmentDatas, RecordCountryData } from 'meta/data'
-import { Unit, UnitConverter, UnitFactors } from 'meta/dataExport'
+import { UnitConverter, UnitFactors } from 'meta/dataExport'
 
 // import { getPanEuropeanTableMapping } from 'client/pages/DataExport/utils/panEuropean'
 
@@ -22,15 +22,30 @@ const sections: Record<string, string> = {
  * @param {string} variableName - url params: current variable
  * @returns {{columnKey: string, value: string}} - formatted column and value, from results
  */
-export const formatValue = (
-  assessmentName: AssessmentName,
-  cycleName: CycleName,
-  colName: string,
-  countryIso: CountryIso,
-  data: RecordCountryData,
-  tableName: string,
+type FormatValueProps = {
+  assessmentName: AssessmentName
+  colName: string
+  countryIso: CountryIso
+  cycleName: CycleName
+  data: RecordCountryData
+  tableName: string
   variableName: string
-): { columnKey: string; value: string } => {
+  format?: TableCellNumberFormat
+}
+
+type Returned = { columnKey: string; value: string }
+
+export const formatValue = (props: FormatValueProps): Returned => {
+  const {
+    assessmentName,
+    colName,
+    countryIso,
+    cycleName,
+    data,
+    format = TableCellNumberFormat.decimal,
+    tableName,
+    variableName,
+  } = props
   const columnKey = colName
 
   let value = RecordAssessmentDatas.getDatum({
@@ -43,8 +58,18 @@ export const formatValue = (
     variableName,
   })
 
+  if (format === TableCellNumberFormat.original) {
+    return { columnKey, value }
+  }
+
   // Convert value to string and check if it's a number
-  if (value && !Number.isNaN(+value)) value = Numbers.format(Number(value))
+  if (value && !Number.isNaN(+value)) {
+    const numericValue = Number(value)
+    let precision
+    if (format === TableCellNumberFormat.integer) precision = 0
+    value = Numbers.format(numericValue, precision)
+  }
+
   if (value === 'NaN') value = ''
 
   return { columnKey, value }

@@ -122,12 +122,13 @@ div.select__group {
 }
 
 div.select__groupHeading {
+  display: flex;
   text-transform: unset;
   font-size: $font-xs;
   font-weight: 600;
   padding: $spacing-xxs;
   white-space: break-spaces;
-  color: $text-disabled;
+  color: $text-body;
   margin: unset;
 }
 

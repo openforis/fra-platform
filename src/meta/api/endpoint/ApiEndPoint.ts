@@ -13,6 +13,7 @@ export const ApiEndPoint = {
     invitationsCount: () => apiPath('admin', 'invitations', 'count'),
     users: () => apiPath('admin', 'users'),
     usersCount: () => apiPath('admin', 'users', 'count'),
+    usersExport: () => apiPath('admin', 'users', 'export'),
   },
 
   Area: {
@@ -35,6 +36,10 @@ export const ApiEndPoint = {
     activitiesCount: () => apiPath('cycle-data', 'activities', 'count'),
     history: (target = ':target') => apiPath('cycle-data', 'history', target),
     historyCount: (target = ':target') => apiPath('cycle-data', 'history', target, 'count'),
+
+    Dashboard: {
+      one: () => apiPath('cycle-data', 'dashboard'),
+    },
 
     Descriptions: {
       many: () => apiPath('cycle-data', 'descriptions'),

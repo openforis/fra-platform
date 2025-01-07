@@ -1,42 +1,42 @@
 import { Response } from 'express'
 
 import { CycleDataRequest } from 'meta/api/request'
-import { Areas, CountryIso } from 'meta/area'
+import { CountryIso, RegionCode } from 'meta/area'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { CycleDataController } from 'server/controller/cycleData'
 import Requests from 'server/utils/requests'
 
 type GetTableDataRequest = CycleDataRequest<{
-  tableNames: Array<string>
-  countryISOs: Array<CountryIso>
-  variables: Array<string>
   columns: Array<string>
+  countryISOs: Array<CountryIso>
   mergeOdp: string
+  regionCode?: RegionCode
+  tableNames: Array<string>
+  variables: Array<string>
 }>
 
 export const getTableData = async (req: GetTableDataRequest, res: Response) => {
   try {
     const {
       assessmentName,
-      cycleName,
-      tableNames = [],
-      countryISOs,
-      variables,
       columns,
+      countryISOs,
+      cycleName,
       mergeOdp: mergeOdpReq,
+      regionCode,
+      tableNames = [],
+      variables,
     } = req.query
     // if mergeOdp is not passed, then by default result data includes odp for table 1a and 1b if available
     const mergeOdp = !mergeOdpReq || mergeOdpReq === 'true'
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
-    const isRegion = !Areas.isISOCountry(countryISOs[0])
-
     // When fetching data for regions, use getAggregatedTableData
-    const getData = isRegion ? CycleDataController.TableData.getAggregatedTableData : CycleDataController.getTableData
+    const getData = regionCode ? CycleDataController.TableData.getAggregatedTableData : CycleDataController.getTableData
 
-    const props = { assessment, cycle, countryISOs, tableNames, variables, columns, mergeOdp }
+    const props = { assessment, cycle, regionCode, countryISOs, tableNames, variables, columns, mergeOdp }
     const table = await getData(props)
 
     Requests.send(res, table)

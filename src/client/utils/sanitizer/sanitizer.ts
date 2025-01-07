@@ -1,14 +1,17 @@
 import { ColSelectOption, ColType } from 'meta/assessment'
 
+import { Value } from 'client/utils/sanitizer/_types'
+
 import { acceptableAsDecimal, acceptNextDecimal } from './decimal'
 import { acceptableAsInteger, acceptNextInteger } from './integer'
 import { acceptNextSelectOption } from './select'
 
 const sanitizerFnByType: Record<
   string,
-  (value: string, valuePrev: string, options?: Array<ColSelectOption>, precision?: number) => string
+  (value: Value, valuePrev: Value, options?: Array<ColSelectOption>, precision?: number) => Value
 > = {
-  [ColType.decimal]: (value, valuePrev, _options, precision) => acceptNextDecimal(value, valuePrev, precision),
+  [ColType.decimal]: (value, valuePrev, _options, precision) =>
+    acceptNextDecimal(value as string, valuePrev as string, precision),
   [ColType.integer]: acceptNextInteger,
   [ColType.select]: acceptNextSelectOption,
 }
@@ -31,9 +34,9 @@ export const sanitize = (props: {
   options?: Array<ColSelectOption>
   precision?: number
   type: ColType
-  value: string
-  valuePrev: string
-}): string => {
+  value: Value
+  valuePrev: Value
+}): Value => {
   const { options, precision, type, value, valuePrev } = props
   const sanitizerFn = sanitizerFnByType[type]
   if (sanitizerFn) {

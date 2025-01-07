@@ -3,8 +3,9 @@ import { useTranslation } from 'react-i18next'
 
 import { TFunction } from 'i18next'
 
-import { Col, ColSelectOption, NodeValue } from 'meta/assessment'
+import { Col, Cols, ColSelectOption, NodeValue } from 'meta/assessment'
 
+import { useCycle } from 'client/store/assessment'
 import { Option, OptionsGroup, OptionsOrGroups } from 'client/components/Inputs/Select'
 
 const getLabel = (option: ColSelectOption, t: TFunction, labelKeyPrefix = 'yesNoTextSelect'): string => {
@@ -19,9 +20,12 @@ type Props = {
 
 export const useOptions = (props: Props): OptionsOrGroups => {
   const { col } = props
-  const { options: optionsProps, labelKeyPrefix } = col.props.select
 
   const { t } = useTranslation()
+  const cycle = useCycle()
+
+  const { labelKeyPrefix } = Cols.getSelectProps({ cycle, col })
+  const optionsProps = Cols.getSelectOptions({ cycle, col })
 
   return useMemo<OptionsOrGroups>(() => {
     const groups: Array<OptionsGroup> = []

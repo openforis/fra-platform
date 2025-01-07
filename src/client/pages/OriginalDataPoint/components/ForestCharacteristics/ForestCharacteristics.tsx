@@ -43,33 +43,30 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
   })
 
   const hasPlantation = plantationTotal && Numbers.greaterThanOrEqualTo(plantationTotal, 0)
-  // Display primary_forest only for ODP/Cycle2025
+  //  naturally regenerating forest is not available in Cycle 2020
   const hasNaturallyRegeneratingForest =
-    cycleName === '2025' &&
+    cycleName !== '2020' &&
     naturallyRegeneratingForestTotal &&
     Numbers.greaterThanOrEqualTo(naturallyRegeneratingForestTotal, 0)
 
   const tableRef = useRef(null)
 
+  const fileName = `odp-${t('nationalDataPoint.forestCharacteristics')} ${year ?? ''}`
   return (
     <div className="odp__section">
       {!print && (
         <div className="odp__section-header">
-          <ButtonTableExport
-            tableRef={tableRef}
-            filename={`FRA${cycleName} - ${t('nationalDataPoint.forestCharacteristics')} ${year ?? ''}`}
-            disabled={year === -1 || year === undefined}
-          />
+          <ButtonTableExport disabled={year === -1 || year === undefined} filename={fileName} tableRef={tableRef} />
 
           <h3 className="subhead">{t('nationalDataPoint.forestCharacteristics')}</h3>
 
           <DefinitionLink
+            anchor="1b"
             assessmentName={assessmentName}
             cycleName={cycleName}
             document="tad"
-            anchor="1b"
-            title={t('definition.definitionLabel')}
             lang={language}
+            title={t('definition.definitionLabel')}
           />
         </div>
       )}
@@ -85,7 +82,7 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
                   </th>
                 )}
                 <th className="fra-table__header-cell fra-table__divider" colSpan={2}>
-                  {t(`nationalDataPoint.${cycleName === '2025' ? 'nationalClassifications' : 'nationalClasses'}`)}
+                  {t(`nationalDataPoint.${cycleName !== '2020' ? 'nationalClassifications' : 'nationalClasses'}`)}
                 </th>
                 <th className="fra-table__header-cell" colSpan={3}>
                   {t(`nationalDataPoint.fraClasses`)}
@@ -104,10 +101,10 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
 
               {nationalClasses.map((nationalClass, index) => (
                 <ForestCharacteristicsRow
-                  originalDataPoint={originalDataPoint}
                   key={nationalClass.name}
                   canEditData={canEditData}
                   index={index}
+                  originalDataPoint={originalDataPoint}
                 />
               ))}
 

@@ -1,62 +1,42 @@
+import './Body.scss'
 import React from 'react'
-import { SkeletonTheme } from 'react-loading-skeleton'
 
-import classNames from 'classnames'
+import { Objects } from 'utils/objects'
 
-import { useTablePaginatedData } from 'client/store/ui/tablePaginated'
-import DataColumn from 'client/components/DataGridDeprecated/DataColumn'
-import { Props as BaseProps, TablePaginatedSkeleton } from 'client/components/TablePaginated/types'
+import Rows from 'client/components/TablePaginated/Body/Rows'
+import RowsGroup from 'client/components/TablePaginated/Body/RowsGroup'
+import RowsSkeleton from 'client/components/TablePaginated/Body/RowsSkeleton'
+import { Props as BaseProps } from 'client/components/TablePaginated/types'
 
-type Props<Datum extends object> = BaseProps<Datum> & {
-  limit: number
-  wrapCells: boolean
-  skeleton: TablePaginatedSkeleton
-}
+import { useTablePaginatedBodyData } from './hooks/useTablePaginatedBodyData'
 
-const Body = <Datum extends object>(props: Props<Datum>) => {
-  const { columns, limit, path, wrapCells, skeleton } = props
+const Body = <Datum extends object>(props: BaseProps<Datum>) => {
+  const { columns, groups, limit, wrapCells, skeleton } = props
 
-  const data = useTablePaginatedData<Datum>(path)
+  const data = useTablePaginatedBodyData<Datum>(props)
 
-  if (!data) {
-    const { baseColor, highlightColor, Component } = skeleton
+  if (Objects.isNil(data)) {
+    return <RowsSkeleton columns={columns} limit={limit} skeleton={skeleton} />
+  }
 
+  if (!Objects.isNil(groups)) {
     return (
-      <SkeletonTheme baseColor={baseColor} highlightColor={highlightColor} inline>
-        {Array.from(Array(limit).keys()).map((i) => {
-          return (
-            <React.Fragment key={`row-skeleton-${String(i)}`}>
-              {columns.map((column) => (
-                <Component key={column.key} />
-              ))}
-            </React.Fragment>
-          )
-        })}
-      </SkeletonTheme>
+      <div className="table-paginated__groups">
+        {(data as Array<[PropertyKey, Array<Datum>]>).map(([propertyKey, dataRows]) => (
+          <RowsGroup
+            key={propertyKey.toString()}
+            columns={columns}
+            data={dataRows}
+            groups={groups}
+            propertyKey={propertyKey}
+            wrapCells={wrapCells}
+          />
+        ))}
+      </div>
     )
   }
 
-  return (
-    <>
-      {data.map((datum, rowIndex) => (
-        <React.Fragment key={`row_${String(rowIndex)}}`}>
-          {columns.map((column) => {
-            const { component: Component, key } = column
-
-            if (wrapCells) {
-              return (
-                <DataColumn key={key} className={classNames({ withBorder: rowIndex !== 0 })}>
-                  <Component datum={datum} rowIndex={rowIndex} />
-                </DataColumn>
-              )
-            }
-
-            return <Component key={key} datum={datum} rowIndex={rowIndex} />
-          })}
-        </React.Fragment>
-      ))}
-    </>
-  )
+  return <Rows columns={columns} data={data as Array<Datum>} wrapCells={wrapCells} />
 }
 
 export default Body

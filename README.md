@@ -27,35 +27,17 @@ To constantly build it when something changes, run:
 
 ```yarn start```
 
-## Database
+## * Backend Storage Setup
 
-### Create your own local datbase
+## Postgres
 
-If you have a Docker server configured locally, just run this command:
+Create a new Postgres local instance via Docker. Run the command:
 
 ```shell
 sudo docker run -d --name fra-db -p 5442:5432 -e POSTGRES_DB=frap-dev -e POSTGRES_PASSWORD=frap -e POSTGRES_USER=frap postgres:15.4
 ```
 
 Otherwise, check `.env` configurations for setting it up manually (note that the server port is not default!)
-
-### Migrations
-
-Migrations are run automatically on startup of the server.
-
-### Adding a database migration
-
-When you need e.g. a new table to the database (say "kuikka"), create a migration
-template with:
-
-```shell
-yarn run create-migration kuikka
-```
-
-Now you'll see new sql files in `db/migration/migrations/sql/<timestamp>-kuikka-<up/down>.sql`
-
-You should edit the `<timestamp-kuikka-up.sql` to contain your `create table` -statement. Maybe also
-add the corresponding `drop table` to `<timestamp>-kuikka-down.sql` if we ever want to run migrations downwards.
 
 ## Redis
 
@@ -68,36 +50,20 @@ sudo docker run --name fra-queue-redis -p 6379:6379 -d redis:6.2.6
 sudo docker run --name fra-data-redis -p 6389:6379 -d redis:6.2.6
 ```
 
-## Design decisions
+## Database Migrations
 
-* all numeric values for areas are stored in hectares, and converted for UI for user unnits
-* Data points are stored in precision of year
+Migrations are run automatically on startup of the server.
 
-## Icons
+### Adding a database migration
 
-Download the desktop app  at https://nucleoapp.com
+When you need e.g. a new table to the database (say "kuikka"), create a migration
+template with:
 
-### Add icon to set
+```shell
+yarn migration-public:create kuikka
+```
 
-* Select the icon you like
-* Add to Project
-* Select `FRA Platform`
+Now you'll see new sql files in `src/tools/migrations/public/steps/`.
 
-### Export icon set
-
-* Go to Projects > FRA Platform
-* Select all
-* Export
-    * Settings: SVG, SVG <symbols>
-    * https://files.slack.com/files-tmb/T4FG1BM7G-F6Q547Y3G-a26d73a50d/artboard_480.png
-* Download & unzip
-* Move `icons.svg`, `demo.svg` to `/img`
-* Run `update-icons.sh`
-
-## Using the traditional table framework
-
-FRA Platform contains a simple framework for creating tables with
-fixed amount of rows and columns. These tables can store and retrieve
-their own data so it reduces the need to custom-code the logic for
-these simple cases. [The user guide is here](doc/traditional-table-guide.md).
-
+You should edit the `<timestamp-kuikka-up.ts` to contain your `create table` -statement.
+Make sure migrations can be ran twice without side effects.

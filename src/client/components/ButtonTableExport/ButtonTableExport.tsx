@@ -6,6 +6,7 @@ import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { useButtonClassName } from 'client/components/Buttons/Button'
 import Icon from 'client/components/Icon'
 
+import { useFilename } from './hooks/useFilename'
 import * as Utils from './utils'
 
 type Props = {
@@ -14,14 +15,15 @@ type Props = {
   tableRef: MutableRefObject<HTMLTableElement>
 }
 
-const ButtonTableExport: React.FC<Props> = (props) => {
-  const { disabled, filename, tableRef } = props
+const ButtonTableExport: React.FC<Props> = (props: Props) => {
+  const { disabled, filename: filenameProp, tableRef } = props
 
   const [data, setData] = useState<Array<object>>([])
   const { print } = useIsPrintRoute()
   const isLocked = useIsDataLocked()
 
   const className = useButtonClassName({ disabled: !isLocked && disabled, iconName: 'hit-down', label: 'CSV' })
+  const filename = useFilename(filenameProp)
 
   if (print) return null
 
@@ -30,7 +32,7 @@ const ButtonTableExport: React.FC<Props> = (props) => {
       asyncOnClick
       className={className}
       data={data}
-      filename={`${filename}.csv`}
+      filename={filename}
       onClick={(_, done) => {
         setData(Utils.getData(tableRef.current))
         done()

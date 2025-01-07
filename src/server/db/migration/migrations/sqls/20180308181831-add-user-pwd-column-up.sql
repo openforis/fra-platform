@@ -1,2 +1,0 @@
-ALTER TABLE
-    fra_user ADD COLUMN password CHARACTER VARYING(512)

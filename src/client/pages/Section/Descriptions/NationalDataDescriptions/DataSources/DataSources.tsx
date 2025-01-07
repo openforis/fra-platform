@@ -2,6 +2,8 @@ import './DataSources.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { Objects } from 'utils/objects'
+
 import { CommentableDescriptionName } from 'meta/assessment'
 import { NationalDataDescription } from 'meta/assessment/description'
 
@@ -30,7 +32,7 @@ export const DataSources: React.FC<Props> = (props: Props) => {
   const { nationalData } = props
 
   const { t } = useTranslation()
-  const { assessmentName, cycleName } = useCycleRouteParams()
+  const { assessmentName } = useCycleRouteParams()
   const { sectionName } = useSectionContext()
   const { dataSources, text } = useDataSourcesData({ sectionName })
   const { dataSourcesLinked } = useGetDataSourcesLinked({ nationalData, sectionName })
@@ -39,8 +41,8 @@ export const DataSources: React.FC<Props> = (props: Props) => {
   const editable = useIsDescriptionEditable({ sectionName, name })
   const { empty } = useDescriptionErrorState({ name, sectionName })
 
-  const renderGrid = Boolean(dataSources?.length || dataSourcesLinked?.length || editable)
-  const keyPrefix = `${assessmentName}.${cycleName}.description.dataSource`
+  const renderGrid = Boolean(!Objects.isEmpty(dataSources) || !Objects.isEmpty(dataSourcesLinked) || editable)
+  const keyPrefix = `${assessmentName}.description.dataSource`
 
   return (
     <DataGrid className="description" withActions={canEdit}>

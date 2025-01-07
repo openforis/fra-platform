@@ -1,0 +1,16 @@
+@import 'src/client/style/partials';
+
+.country-home__user-list {
+  display: grid;
+  padding-top: $spacing-xs;
+
+  .btn-invite {
+    justify-self: end;
+  }
+
+  .table-paginated-datagrid {
+    .data-grid-column {
+      padding: unset;
+    }
+  }
+}

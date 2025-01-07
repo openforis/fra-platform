@@ -5,22 +5,18 @@ import { Topics } from 'meta/messageCenter'
 
 import { useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
 import { DataRowAction, DataRowActionType } from 'client/components/DataGrid'
+import { useShowReviewIndicator } from 'client/pages/OriginalDataPoint/hooks/useShowReviewIndicator'
 
-type Props = {
-  canEditData: boolean
-}
-
-export const useCommentsActions = (props: Props): Array<DataRowAction> => {
-  const { canEditData } = props
-
+export const useCommentsActions = (): Array<DataRowAction> => {
   const { t } = useTranslation()
   const originalDataPoint = useOriginalDataPoint()
+  const showReviewIndicator = useShowReviewIndicator()
 
   return useMemo<Array<DataRowAction>>(() => {
-    if (!canEditData) return []
+    if (!showReviewIndicator) return []
 
     const title = t('nationalDataPoint.nationalDataPoint')
     const topicKey = Topics.getOdpReviewTopicKey(originalDataPoint.id, 'nationalDataPointComments')
     return [{ type: DataRowActionType.Review, title, topicKey }]
-  }, [canEditData, originalDataPoint.id, t])
+  }, [originalDataPoint.id, showReviewIndicator, t])
 }

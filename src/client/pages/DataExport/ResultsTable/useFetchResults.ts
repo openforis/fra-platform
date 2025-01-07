@@ -2,17 +2,19 @@ import { useEffect } from 'react'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { AssessmentName } from 'meta/assessment'
+import { TableCell } from 'meta/assessment/table'
 import { RecordAssessmentData } from 'meta/data'
 
 import { useDataExportSelection } from 'client/store/ui/dataExport'
 import { useCountryIso, useGetRequest } from 'client/hooks'
 
 type Props = {
-  columnsAlwaysExport: Array<string>
-  tableName: string
-  sectionName: string
   assessmentName: AssessmentName
+  cellsExportAlways: Array<TableCell>
+  columnsAlwaysExport: Array<string>
   cycleName: string
+  sectionName: string
+  tableName: string
 }
 
 type UseFetchResults = {
@@ -21,9 +23,12 @@ type UseFetchResults = {
 }
 
 export const useFetchResults = (props: Props): UseFetchResults => {
-  const { columnsAlwaysExport, tableName, sectionName, assessmentName, cycleName } = props
+  const { assessmentName, cellsExportAlways, columnsAlwaysExport, cycleName, sectionName, tableName } = props
   const selection = useDataExportSelection(sectionName)
   const countryIso = useCountryIso()
+
+  const cellsExportAlwaysColumns = cellsExportAlways.map((cell) => cell.columnName)
+  const cellsExportAlwaysVariables = cellsExportAlways.map((cell) => cell.variableName)
 
   const {
     data: results = {},
@@ -36,11 +41,10 @@ export const useFetchResults = (props: Props): UseFetchResults => {
       cycleName,
       tableNames: [tableName],
       countryISOs: selection.countryISOs,
-      variables: selection.sections[sectionName].variables,
-      columns: [...columnsAlwaysExport, ...selection.sections[sectionName].columns],
+      variables: [...cellsExportAlwaysVariables, ...selection.sections[sectionName].variables],
+      columns: [...cellsExportAlwaysColumns, ...columnsAlwaysExport, ...selection.sections[sectionName].columns],
     },
   })
-
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(fetchResults, [selection])
 

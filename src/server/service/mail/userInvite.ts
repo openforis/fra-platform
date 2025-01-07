@@ -4,7 +4,7 @@ import { CountryIso } from 'meta/area'
 import { AssessmentName, Assessments } from 'meta/assessment'
 import { Lang } from 'meta/lang'
 import { Routes } from 'meta/routes'
-import { RoleName, User, UserRole, Users } from 'meta/user'
+import { User, UserInvitation, Users } from 'meta/user'
 
 import { ProcessEnv } from 'server/utils'
 
@@ -14,20 +14,20 @@ export const userInvite = async (props: {
   assessmentName: AssessmentName
   countryIso: CountryIso
   cycleName: string
-  role: UserRole<RoleName>
+  userInvitation: UserInvitation
   userToInvite: User
 }) => {
-  const { assessmentName, countryIso, cycleName, role, userToInvite } = props
+  const { assessmentName, countryIso, cycleName, userInvitation, userToInvite } = props
 
   const url = ProcessEnv.appUri
   const i18n = await createI18nPromise(userToInvite.props.lang ?? Lang.en)
 
   const link = `${url}${Routes.LoginInvitation.generatePath(
     { assessmentName, cycleName },
-    { invitationUuid: role.invitationUuid, lang: userToInvite.props.lang }
+    { invitationUuid: userInvitation.uuid, lang: userToInvite.props.lang }
   )}`
 
-  const roleName = i18n.t(Users.getI18nRoleLabelKey(role.role))
+  const roleName = i18n.t(Users.getI18nRoleLabelKey(userInvitation.role))
 
   const emailProps = {
     country: i18n.t(`area.${countryIso}.listName`),

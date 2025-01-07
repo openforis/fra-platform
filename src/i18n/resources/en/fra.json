@@ -1,0 +1,276 @@
+{
+  "area100Ha": "Area (1000 ha)",
+  "area100HaYear": "Area (1000 ha/year)",
+  "areaAffectedByFire": {
+    "areaAffected": "Area affected (1000 ha)",
+    "areaAffectedByFire2025": "$t(areaAffectedByFire.areaAffectedByFire)",
+    "totalLandAreaAffectedByFire2025": "$t(areaAffectedByFire.totalLandAreaAffectedByFire)"
+  },
+  "areaOfPermanentForestEstate": {
+    "areaOfPermanentForestEstate2025": "$t(areaOfPermanentForestEstate.areaOfPermanentForestEstate)"
+  },
+  "biomassStock": {
+    "aboveGround2025": "$t(biomassStock.aboveGround)",
+    "belowGround2025": "$t(biomassStock.belowGround)",
+    "biomassStock2025": "$t(biomassStock.biomassStock)",
+    "deadWood2025": "$t(biomassStock.deadWood)"
+  },
+  "biomassStockAvg": {
+    "forestBiomass": "Forest Biomass (tonnes/ha)"
+  },
+  "biomassStockTotal": {
+    "totalForestBiomass": "Total forest Biomass (million tonnes)"
+  },
+  "biomassStock_biomassStockStatus_Description": {
+    "header_0": "Biomass estimation methods tier criteria",
+    "status": {
+      "high": "Country-specific biomass conversion and expansion factors or allometric equations applied",
+      "low": "IPCC default biomass conversion and expansion factors applied (e g using the \"biomass calculator\"), or estimates based on remote sensing-based biomass maps.",
+      "medium": "Application of generic or biome-level allometric equations or a combination of country/biome specific conversion factors and IPCC default biomass expansion factors."
+    }
+  },
+  "carbonStock": {
+    "carbonAboveGroundBiomass2025": "$t(carbonStock.carbonAboveGroundBiomass)",
+    "carbonBelowGroundBiomass2025": "$t(carbonStock.carbonBelowGroundBiomass)",
+    "carbonStock2025": "$t(carbonStock.carbonStock)"
+  },
+  "carbonStockTotal": {
+    "totalForestCarbon": "Total forest carbon (million tonnes)"
+  },
+  "categoryHeader2020": "FRA 2020 categories",
+  "categoryHeader2025": "FRA 2025 categories",
+  "climaticDomain": {
+    "percentOfForestArea": "% of forest area"
+  },
+  "contactPersons": {
+    "expectedYearForNextCountryReportUpdate": "Expected year for next update of the country report"
+  },
+  "degradedForest": {
+    "biome": "Biome",
+    "changeInForestStructureDecreaseInForestCanopy": "Change in forest structure / Decrease in forest canopy",
+    "criteriaOfDegradedForest": "Criteria applied in the definition of degraded forest",
+    "criteriaOfDegradedForest2025": "$t(fra.degradedForest.criteriaOfDegradedForest)",
+    "degradedAreaForThatYear": "Degraded forest area for that year (in 1 000 ha)",
+    "degradedForest": "Degraded forest",
+    "degradedForestDefinition": "Degraded forest definition",
+    "doesYourCountryMonitor": "Does your country monitor area of degraded forest",
+    "expertOpinion": "Expert opinion",
+    "fieldInventoryAndObservations": "Field inventory and observations",
+    "forestDegradationMonitoringAndAssessment": "Forest degradation monitoring and assessment",
+    "forestDisturbances": "Forest disturbances",
+    "forestManagementPlanReport": "Forest management plan report",
+    "hasNationalDefinitionOfDegradedForest": "Has your country a national definition of \"Degraded forest\"",
+    "hasNationalLevelData": "If national level data are available",
+    "howMonitored": "Describe the monitoring process and results",
+    "ifYes": "If \"yes\"",
+    "lossOfBiologicalDiversity": "Loss of biological diversity",
+    "lossOfCarbonBiomassAndGrowingStock": "Loss of carbon, biomass and growing stock",
+    "lossOfForestServices": "Loss of forest services",
+    "lossOfProductivityAndForestGoods": "Loss of productivity and forest goods",
+    "mainMethods": "Main methods applied to monitor degraded forest area",
+    "monitoringScale": "Monitoring scale",
+    "national": "National",
+    "notSelected": "",
+    "other": "Other (explain in comments)",
+    "productionHarvestData": "Production / Harvest data",
+    "remoteSensingSurvey": "Remote sensing survey",
+    "soilDamageErosion": "Soil damage / erosion",
+    "standLocal": "Stand / Local",
+    "subnational": "Subnational",
+    "underDevelopment": "Under development",
+    "wallToWallRemoteSensingMapping": "Wall-to-wall remote sensing mapping",
+    "whatIsDefinition": "What is the national definition of \"Degraded forest\"?",
+    "yearOfLatestAssessment": "Year of latest assessment"
+  },
+  "description": {
+    "dataSource": {
+      "comments": "$t(dataSource.comments)",
+      "referenceToTataSource": "$t(dataSource.referenceToTataSource)",
+      "typeOfDataSource": "$t(dataSource.typeOfDataSource)",
+      "variable": "$t(dataSource.fraVariable)",
+      "yearForDataSource": "$t(dataSource.yearForDataSource)"
+    }
+  },
+  "designatedManagementObjective": {
+    "designatedManagementObjective2025": "$t(designatedManagementObjective.designatedManagementObjective)",
+    "noDesignation": "No designation",
+    "unknown2025": "Unknown"
+  },
+  "disturbances": {
+    "forestAreaAffected": "Forest area affected (1000 ha)",
+    "forestDamage": "Forest damage",
+    "predominantCause": "Predominant cause",
+    "severeWeatherEvents2025": "$t(disturbances.severeWeatherEvents)"
+  },
+  "extentOfForest": {
+    "extentOfForest2025": "$t(extentOfForest.extentOfForest)",
+    "otherWoodedLand": "$t(fraClass.otherWoodedLand)",
+    "remainingLandArea": "Remaining land area",
+    "totalLandArea2025": "$t(extentOfForest.totalLandArea)"
+  },
+  "extentOfForest_forestAreaStatusAndTrend_Description": {
+    "footer1": "¹ Data not older than 5 years from year of submission of report (2018 or more recent for FRA 2025 country reports)",
+    "footer2": "² Data older than 5 years from year of submission of report (older than 2018 for FRA 2025 country reports)",
+    "footer3": "³ Compatible in terms of methods, categories and definitions used",
+    "header_0": "Forest area tier criteria",
+    "status": {
+      "high": "Data sources: Recent¹ National Forest Inventory or remote sensing (sample-based survey or wall-to-wall mapping) with accuracy assessment / field data calibration.",
+      "low": "Data sources:  Other, such as registers, expert estimates, or remote sensing without accuracy assessment / field data calibration.",
+      "medium": "Data sources: Old² National Forest Inventory or remote sensing (sample-based survey or wall-to-wall mapping) with accuracy assessment / field data calibration."
+    },
+    "trend": {
+      "high": "Estimates based on repeated compatible³ National Forest Inventories where the most recent is not older than five years; and/or remote sensing- change assessments through multitemporal analysis for a period ending not more than five years ago (e.g., REDD+ forest reference [emission] levels).",
+      "low": "Other data sources, e.g., expert estimates, or estimates based on non-compatible assessments.",
+      "medium": "Estimates based on repeated compatible³ National Forest Inventories where the most recent is older than five years; and/or remote sensing change assessments through multitemporal analysis for a period ending more than five years ago; or comparison of compatible maps without multitemporal analysis."
+    }
+  },
+  "forestArea100HaYear": "Forest area (1000 ha)",
+  "forestAreaChange": {
+    "forestAreaChange2025": "$t(forestAreaChange.forestAreaChange)",
+    "forestAreaNetChange2025": "$t(forestAreaChange.forestAreaNetChange)",
+    "forestExpansion2025": "$t(forestAreaChange.forestExpansion)"
+  },
+  "forestAreaWithinProtectedAreas": {
+    "forestAreaWithLongTermManagementPlan2025": "Forest area with long-term management plan",
+    "forestAreaWithinProtectedAreas2025": "$t(forestAreaWithinProtectedAreas.forestAreaWithinProtectedAreas)"
+  },
+  "forestCharacteristics": {
+    "naturalForestArea2025": "$t(forestCharacteristics.naturalForestArea)",
+    "ofWhichOtherPlantedForest": "$t(growingStock.otherPlantedForest)",
+    "ofWhichPlantationForest": "$t(growingStock.plantationForest)",
+    "plantationForestIntroducedArea2025": "…of which introduced species",
+    "primaryForest": "…of which primary forest"
+  },
+  "forestOwnership": {
+    "forestOwnership2025": "$t(forestOwnership.forestOwnership)",
+    "ofWhichCommunities2025": "…of which owned by Indigenous Peoples and local communities",
+    "ofWhichPrivateBusinesses2025": "$t(forestOwnership.ofWhichPrivateBusinesses)",
+    "other2025": "$t(common.otherSpecifyInComments)",
+    "total2025": "Total",
+    "unknown2025": "Unknown"
+  },
+  "forestPolicy": {
+    "existenceOfTraceabilitySystem2025": "$t(forestPolicy.existenceOfTraceabilitySystem)",
+    "forestPolicy2025": "$t(forestPolicy.forestPolicy)",
+    "legislationsSFM2025": "$t(forestPolicy.legislationsSFM)",
+    "policiesSFM2025": "$t(forestPolicy.policiesSFM)",
+    "stakeholderParticipation2025": "$t(forestPolicy.stakeholderParticipation)"
+  },
+  "forestRestoration": {
+    "forestRestoration": "Forest restoration",
+    "hasYourCountryForestRestorationCommitments": "Has your country forest restoration commitments?",
+    "howManyHectaresOfForestHaveBeenRestoredToDate": "How many hectares of forest have been restored to date?",
+    "ifYes": "If \"yes\"",
+    "isThereALawOrOtherGovernmentMandateInSupportOfRestoration": "Is there a  law or other government mandate in support of restoration?",
+    "isThereANationalDefinitionOfRestoration": "Is there a national definition of \"restoration\" if yes, provide the defintion the monitoring process and results.",
+    "whatAreTheTargetsSetForTheRestoration": "What are the targets set for the restoration? E g xxx hectares by year yyyy",
+    "whatAreasInNeedOfRestorationHaveBeenIdentified": "What areas in need of restoration have been identified and how have they been identified?"
+  },
+  "growingStock": {
+    "naturallyRegeneratingForest2025": "$t(growingStock.naturallyRegeneratingForest)",
+    "otherPlantedForest2025": "$t(growingStock.otherPlantedForest)",
+    "plantationForest2025": "$t(growingStock.plantationForest)",
+    "plantedForest2025": "$t(growingStock.plantedForest)",
+    "totalForest": "Total Forest"
+  },
+  "growingStockComposition": {
+    "introducedTreeSpecies2025": "$t(growingStockComposition.introducedTreeSpecies)",
+    "millionCubicMeter": "Million m³",
+    "mostRecentYear": "Most recent year:",
+    "nativeTreeSpecies2025": "$t(growingStockComposition.nativeTreeSpecies)",
+    "percentOfTotal": "% of total",
+    "ranked": "#{{idx}} Ranked",
+    "remainingIntroduced2025": "$t(growingStockComposition.remainingIntroduced)",
+    "remainingNative2025": "$t(growingStockComposition.remainingNative)",
+    "totalGrowingStock": "Total growing stock",
+    "totalIntroducedTreeSpecies": "TOTAL introduced tree species",
+    "totalNativeTreeSpecies": "TOTAL native tree species",
+    "updatedGrowingStockComposition": "$t(growingStockComposition.growingStockComposition)"
+  },
+  "growingStock_growingStockStatus_Description": {
+    "footer1": "¹ Data not older than 10 years from year of submission of report (2013 or more recent for FRA 2025 country reports)",
+    "footer2": "² Data older than 10 years from year of submission of report (older than 2013 for FRA 2025 country reports)",
+    "header_0": "Growing stock tier criteria",
+    "status": {
+      "high": "Data sources: Recent¹ National Forest Inventory or Airborne Laser Scanning (ALS) with probabilistic ground samples.",
+      "low": "Data sources:  Other data sources, such as satellite data, registers, questionnaires or expert assessments.",
+      "medium": "Data sources:  Old² National Forest Inventory, partial field inventories, or ALS without probabilistic ground samples."
+    },
+    "status2025": {
+      "high": "$t(fra.growingStock_growingStockStatus_Description.status.high)",
+      "low": "$t(fra.growingStock_growingStockStatus_Description.status.low)",
+      "medium": "$t(fra.growingStock_growingStockStatus_Description.status.medium)"
+    }
+  },
+  "holderOfManagementRights": {
+    "communities2025": "Indigenous Peoples and local communities",
+    "holderOfManagementRights2025": "$t(holderOfManagementRights.holderOfManagementRights)",
+    "other2025": "$t(common.otherSpecifyInComments)",
+    "privateBusinesses2025": "$t(holderOfManagementRights.privateBusinesses)",
+    "unknown2025": "Unknown"
+  },
+  "labels": {
+    "short": "FRA"
+  },
+  "navigation": {
+    "sectionHeaders": {
+      "employmentEducationAndNwfp2025": "Non wood forest products removals and value 2020",
+      "forestDesignationAndManagement2025": "$t(navigation.sectionHeaders.forestDesignationAndManagement)",
+      "forestDisturbances2025": "$t(navigation.sectionHeaders.forestDisturbances)",
+      "forestExtentCharacteristicsAndChanges2025": "$t(navigation.sectionHeaders.forestExtentCharacteristicsAndChanges)",
+      "forestGrowingStockBiomassAndCarbon2025": "$t(navigation.sectionHeaders.forestGrowingStockBiomassAndCarbon)",
+      "forestOwnershipAndManagementRights2025": "$t(navigation.sectionHeaders.forestOwnershipAndManagementRights)",
+      "forestPolicyAndLegislation2025": "$t(navigation.sectionHeaders.forestPolicyAndLegislation)"
+    }
+  },
+  "nonWoodForestProductsRemovals": {
+    "allOtherAnimalProducts2025": "$t(nonWoodForestProductsRemovals.allOtherAnimalProducts)",
+    "allOtherPlantProducts2025": "$t(nonWoodForestProductsRemovals.allOtherPlantProducts)",
+    "currency2025": "$t(nonWoodForestProductsRemovals.currency)",
+    "nameOfProduct2025": "$t(nonWoodForestProductsRemovals.nameOfProduct)",
+    "nonWoodForestProductsRemovals2025": "Non wood forest products removals and value 2020"
+  },
+  "otherLandWithTreeCover": {
+    "agroforestry2025": "$t(otherLandWithTreeCover.agroforestry)",
+    "other2025": "$t(otherLandWithTreeCover.other)",
+    "otherLandWithTreeCover2025": "$t(otherLandWithTreeCover.otherLandWithTreeCover)"
+  },
+  "otherWoodedLand": {
+    "otherWoodedLand2025": "$t(growingStock.otherWoodedLand)"
+  },
+  "primaryForestByClimaticDomain": {
+    "primaryForestArea100Ha": "Primary forest area ($t(unit.haThousand))",
+    "primaryForestBoreal": "…of which boreal primary forest",
+    "primaryForestByClimaticDomain": "Primary forest by climatic domain",
+    "primaryForestSubTropical": "…of which sub-tropical primary forest",
+    "primaryForestTemperate": "…of which temperate primary forest",
+    "primaryForestTropical": "…of which tropical primary forest",
+    "totalPrimaryForest": "Total"
+  },
+  "print": {
+    "disclaimer": "FAO has been monitoring the world's forests at 5 to 10 year intervals since 1946. The Global Forest Resources Assessments (FRA) are now produced every five years in an attempt to provide a consistent approach to describing the world's forests and how they are changing. The FRA is a country-driven process and the assessments are based on reports prepared by officially nominated National Correspondents. If a report is not available, the FRA Secretariat prepares a desk study using earlier reports, existing information and/or remote sensing based analysis.",
+    "disclaimerGenerated": "This document was generated automatically using the report made available as a contribution to the FAO Global Forest Resources Assessment {{cycleName}}, and submitted to FAO as an official government document. The content and the views expressed in this report are the responsibility of the entity submitting the report to FAO. FAO cannot be held responsible for any use made of the information contained in this document.",
+    "disclaimerGeneratedDeskStudy": "This document was generated automatically from a desk study. FAO cannot be held responsible for any use made of the information contained in this document.",
+    "tableOfContent": "Table of contents",
+    "title": "FRA {{cycleName}} report",
+    "titleTables": "FRA {{cycleName}} reporting tables"
+  },
+  "specificForestCategories": {
+    "mangroves2025": "Mangroves¹",
+    "mangrovesDisclaimer": "¹Includes both Forest and Other wooded land",
+    "rubberWood2025": "$t(specificForestCategories.rubberWood)",
+    "specificForestCategories2025": "Specific forest categories"
+  },
+  "sustainableDevelopment": {
+    "Metadata-15-01-01": "SDG Indicator 15.1.1 Metadata",
+    "Metadata-15-02-01": "SDG Indicator 15.2.1 Metadata",
+    "aboveGroundBiomassStockForests2025": "$t(sustainableDevelopment.aboveGroundBiomassStockForests)",
+    "annualForestAreaChangeRate": "Annual forest area change rate",
+    "dataProvidedBy": "Data for this SDG sub-indicator are provided by FSC and PEFC (forest certification organizations).",
+    "forestAreaProportionLandArea": "Forest area as proportion of total land area",
+    "forestAreaVerifiedForestManagement2025": "$t(sustainableDevelopment.forestAreaVerifiedForestManagement)",
+    "proportionForestAreaLegallyEstablishedProtectedAreas2025": "$t(sustainableDevelopment.proportionForestAreaLegallyEstablishedProtectedAreas)",
+    "proportionForestAreaLongTermForestManagement2025": "$t(sustainableDevelopment.proportionForestAreaLongTermForestManagement)",
+    "sdgIndicator1_2025": "SDG Indicator 15.1.1 Forest area as proportion of total land area"
+  }
+}

@@ -3,6 +3,7 @@ import { Arrays } from 'utils/arrays'
 
 import { AssessmentStatus, Country, CountryIso } from 'meta/area'
 import { AssessmentName, Cycle } from 'meta/assessment'
+import { Lang } from 'meta/lang'
 import { Routes } from 'meta/routes'
 import { RoleName, User, Users } from 'meta/user'
 import { UserRoles } from 'meta/user/userRoles'
@@ -25,7 +26,7 @@ type CreateMailProps = {
 const createMail = async (props: CreateMailProps) => {
   const { assessmentName, countryIso, cycleName, user, url, status, recipient, message } = props
 
-  const i18n = await createI18nPromise(recipient.props.lang ?? 'en')
+  const i18n = await createI18nPromise(recipient.props.lang ?? Lang.en)
 
   const serverUrl = `${url}${Routes.Country.generatePath({ assessmentName, countryIso, cycleName })}`
 

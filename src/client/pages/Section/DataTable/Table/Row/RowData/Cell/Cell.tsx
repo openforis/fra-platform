@@ -14,7 +14,6 @@ import { useNodeValue } from './hooks/useNodeValue'
 import useOnChange from './hooks/useOnChange'
 import Calculated from './Calculated'
 import Flags from './Flags'
-import Multiselect from './Multiselect'
 import Number from './Number'
 import Placeholder from './Placeholder'
 import { PropsCell } from './props'
@@ -29,7 +28,6 @@ const Components: Record<string, React.FC<PropsCell>> = {
   [ColType.textarea]: Text,
   [ColType.decimal]: Number,
   [ColType.integer]: Number,
-  [ColType.multiselect]: Multiselect,
   [ColType.select]: Select,
   [ColType.placeholder]: Placeholder,
 }
@@ -65,26 +63,26 @@ const Cell: React.FC<Props> = (props) => {
 
   return (
     <td
-      id={`${col.props.colType}_${col.id}_${col.props.colName ?? ''}`}
-      colSpan={colSpan}
       className={className}
+      colSpan={colSpan}
+      data-tooltip-html={errorMessages}
+      data-tooltip-id={TooltipId.error}
+      id={`${col.props.colType}_${col.id}_${col.props.colName ?? ''}`}
       rowSpan={rowSpan}
       style={style}
-      data-tooltip-id={TooltipId.error}
-      data-tooltip-html={errorMessages}
     >
       <Component
         assessmentName={assessmentName}
-        sectionName={sectionName}
-        table={table}
-        disabled={disabled}
-        rowIndex={rowIndex}
         col={col}
-        row={row}
+        disabled={disabled}
         nodeValue={nodeValue}
         onChange={disabled ? emptyFn : onChange}
         onChangeNodeValue={disabled ? emptyFn : onChangeNodeValue}
         onPaste={disabled ? emptyFn : onPaste}
+        row={row}
+        rowIndex={rowIndex}
+        sectionName={sectionName}
+        table={table}
       />
 
       <Flags col={col} nodeValue={nodeValue} row={row} sectionName={sectionName} />
