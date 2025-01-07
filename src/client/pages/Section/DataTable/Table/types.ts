@@ -7,6 +7,8 @@ export type RowProps = {
   disabled: boolean
   lastRow?: boolean
   row: Row
+  rowCount: number
+  rowIndex: number
   sectionName: string
   table: Table
 }

@@ -101,6 +101,8 @@ const Table: React.FC<Props> = (props) => {
               disabled={disabled}
               lastRow={index === rowsData.length - 1}
               row={row}
+              rowCount={rowsHeader.length + rowsData.length}
+              rowIndex={rowsHeader.length + index}
               sectionName={sectionName}
               table={table}
             />
