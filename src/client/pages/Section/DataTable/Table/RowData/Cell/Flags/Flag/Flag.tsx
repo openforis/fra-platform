@@ -12,7 +12,7 @@ const Flag: React.FC<PropsWithChildren<Props>> = (props) => {
   const { children, tooltipContent, tooltipId } = props
 
   return (
-    <div className="data-cell__flag no-csv" data-tooltip-html={tooltipContent} data-tooltip-id={tooltipId}>
+    <div className="table-grid__data-cell-flag no-csv" data-tooltip-html={tooltipContent} data-tooltip-id={tooltipId}>
       {React.Children.toArray(children)}
     </div>
   )

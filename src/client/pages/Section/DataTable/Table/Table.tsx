@@ -36,7 +36,7 @@ const Table: React.FC<Props> = (props) => {
   const canEdit = useCanEdit(sectionName)
 
   const { print } = useIsPrintRoute()
-  const tableRef = useRef<HTMLTableElement>(null)
+
   const gridRef = useRef<HTMLDivElement>(null)
 
   const { headers, noticeMessages, rowsData, rowsHeader, table, withReview } = useParsedTable({

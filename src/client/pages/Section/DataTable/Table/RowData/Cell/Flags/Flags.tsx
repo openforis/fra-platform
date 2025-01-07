@@ -42,7 +42,7 @@ const Flags: React.FC<Props> = (props) => {
   }
 
   return (
-    <div className="data-cell__flags">
+    <div className="table-grid__data-cell-flags">
       {linkedNode && (
         <Flag>
           {t(`${linkedNode.assessmentName}.labels.short`)}
