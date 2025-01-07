@@ -109,7 +109,6 @@ export const getCreatePublicSchemaDDL = (schemaName = 'public'): string => {
       id bigserial primary key,
       uuid uuid not null default uuid_generate_v4(),
       name character varying(255) not null,
-      file bytea not null, -- TODO: Remove this when S3 branch merged
       created_at timestamp without time zone not null default now()
     );
     create unique index if not exists file_uuid_key on ${schemaName}.file using btree (uuid);
