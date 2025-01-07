@@ -34,6 +34,7 @@ const RowData: React.FC<RowProps> = (props) => {
         if (!Objects.isEmpty(colHeader) && colIndex === 0) {
           return (
             <CellHeader
+              key={col.uuid}
               assessmentName={assessmentName}
               col={colHeader}
               lastCol={lastCol || lastSpanningCol}
