@@ -1,4 +1,5 @@
-@import 'src/client/style/partials';
+@use 'sass:color';
+@import 'client/style/partials';
 
 .button {
   align-items: center;
@@ -104,11 +105,11 @@
   }
 
   &:hover {
-    background-color: lighten($colorPrimary, $hoverPercent);
-    color: darken(white, $hoverPercent);
+    background-color: color.adjust($colorPrimary, $lightness: $hoverPercent);
+    color: color.adjust(white, $lightness: $hoverPercent);
 
     svg {
-      color: darken(white, $hoverPercent);
+      color: color.adjust(white, $lightness: $hoverPercent);
     }
   }
 
@@ -125,11 +126,11 @@
     }
 
     &:hover {
-      background-color: lighten($colorPrimary, $hoverInverseLighten);
-      color: darken($colorPrimary, $hoverPercent);
+      background-color: color.adjust($colorPrimary, $lightness: $hoverInverseLighten);
+      color: color.adjust($colorPrimary, $lightness: $hoverPercent);
 
       svg {
-        color: darken($colorPrimary, $hoverPercent);
+        color: color.adjust($colorPrimary, $lightness: $hoverPercent);
       }
     }
   }
@@ -146,7 +147,7 @@
 
     &:hover {
       svg {
-        color: darken($text-link, 5%);
+        color: color.adjust($text-link, $lightness: 5%);
       }
     }
   }
@@ -157,7 +158,7 @@
 }
 
 .button__type-danger {
-  @include withTheme(darken($ui-destructive, 5%), 58%);
+  @include withTheme(color.adjust($ui-destructive, $lightness: -5%), 58%);
 }
 
 .button__type-primary {

@@ -1,4 +1,5 @@
-@import 'src/client/style/partials';
+@use 'sass:color';
+@import 'client/style/partials';
 
 .history-compare__cell-diff {
   padding: $spacing-xxs;
@@ -9,7 +10,7 @@
   }
 
   .added {
-    color: darken($ui-status-accepted, 10%);
+    color: color.adjust($ui-status-accepted, $lightness: 10%);
   }
 
   .removed {

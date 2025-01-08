@@ -1,4 +1,5 @@
-@import 'src/client/style/partials';
+@use 'sass:color';
+@import 'client/style/partials';
 
 button.btn-close {
   align-items: center;
@@ -19,7 +20,7 @@ button.btn-close {
 
   &:hover {
     svg {
-      color: darken($ui-destructive, 7%);
+      color: color.adjust($ui-destructive, $lightness: 7%);
       transform: scale(1.1);
     }
   }

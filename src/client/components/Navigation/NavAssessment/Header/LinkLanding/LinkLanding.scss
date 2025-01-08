@@ -1,4 +1,4 @@
-@import 'src/client/style/partials';
+@import 'client/style/partials';
 
 .country-selection-link-landing {
   @include mixin-nav-secondary-base(8px, true);

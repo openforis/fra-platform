@@ -1,4 +1,5 @@
-@import 'src/client/style/partials';
+@use 'sass:color';
+@import 'client/style/partials';
 
 .nav-header__status {
   align-items: center;
@@ -39,7 +40,7 @@
 
   &.status-review {
     background-color: $ui-status-review;
-    border: 1px solid darken($ui-status-review, 5%);
+    border: 1px solid color.adjust($ui-status-review, $lightness: 5%);
   }
 
   &.status-accepted {

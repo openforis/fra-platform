@@ -1,4 +1,5 @@
-@import 'src/client/style/partials';
+@use 'sass:color';
+@import 'client/style/partials';
 
 .tooltip-container {
   z-index: 1;
@@ -21,7 +22,7 @@
 
     &.error-tooltip {
       color: black;
-      background-color: lighten($ui-destructive, 55%);
+      background-color: color.adjust($ui-destructive, $lightness: 55%);
       border: 1px solid $ui-destructive;
 
       .error-tooltip-arrow {
@@ -39,7 +40,7 @@
     &.info-tooltip {
       background-color: $infoTooltipBgColor;
       border: 1px solid $ui-accent;
-      color: darken($text-body, 4%);
+      color: color.adjust($text-body, $lightness: 4%);
       max-width: 240px;
       opacity: 0.95;
 

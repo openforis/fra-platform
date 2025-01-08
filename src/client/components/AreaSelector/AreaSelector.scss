@@ -1,4 +1,5 @@
-@import 'src/client/style/partials';
+@use 'sass:color';
+@import 'client/style/partials';
 
 .btn-country-select {
   position: relative;
@@ -18,7 +19,7 @@
   outline: unset;
 
   &:hover {
-    background-color: darken($ui-bg, 4%);
+    background-color: color.adjust($ui-bg, $lightness: 4%);
   }
 
   .icon {

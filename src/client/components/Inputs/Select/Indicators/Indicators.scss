@@ -1,4 +1,5 @@
-@import 'src/client/style/partials';
+@use 'sass:color';
+@import 'client/style/partials';
 
 div.select__indicatorsContainer {
   display: flex;
@@ -22,11 +23,11 @@ div.select__clearIndicator {
   width: 18px;
 
   svg.icon {
-    color: darken($ui-destructive, 7%);
+    color: color.adjust($ui-destructive, $lightness: 7%);
   }
 
   &:hover {
-    background-color: rgba(lighten($ui-destructive, 30%), 0.1);
+    background-color: rgba(color.adjust($ui-destructive, $lightness: 30%), 0.1);
     svg.icon {
       color: $ui-destructive;
     }

@@ -1,4 +1,5 @@
-@import 'src/client/style/partials';
+@use 'sass:color';
+@import 'client/style/partials';
 
 .home-user-card {
   align-content: center;
@@ -30,7 +31,7 @@
   }
 
   &:hover {
-    background-color: darken($ui-bg-light, 2%);
+    background-color: color.adjust($ui-bg-light, $lightness: 2%);
 
     [class*='home-user-action-button-']:not([class*='home-user-action-button-message']) {
       opacity: 1;

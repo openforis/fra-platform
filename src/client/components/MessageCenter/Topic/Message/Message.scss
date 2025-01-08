@@ -1,4 +1,5 @@
-@import 'src/client/style/partials';
+@use 'sass:color';
+@import 'client/style/partials';
 
 .message {
   padding: ($spacing-xxs + 2) $spacing-xs;
@@ -30,7 +31,7 @@
     align-items: center;
 
     &.author-me {
-      color: darken($ui-accent, 2%);
+      color: color.adjust($ui-accent, $lightness: 2%);
     }
   }
   .message-time {

@@ -1,6 +1,6 @@
-@import 'src/client/styles/config';
+@import 'client/styles/config';
 
-@mixin mixin-status-content-base(){
+@mixin mixin-status-content-base() {
   display: flex;
   flex-flow: row-reverse nowrap;
   align-items: center;
@@ -11,7 +11,7 @@
   }
 }
 
-@mixin mixin-status-base($color){
+@mixin mixin-status-base($color) {
   display: inline-block;
   width: 10px;
   height: 10px;

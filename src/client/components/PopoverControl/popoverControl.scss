@@ -1,4 +1,5 @@
-@import 'src/client/style/partials';
+@use 'sass:color';
+@import 'client/style/partials';
 
 .popover-control__wrapper {
   position: relative;
@@ -22,7 +23,7 @@
   color: $text-link;
 
   &:hover {
-    background-color: darken($ui-bg, 4%);
+    background-color: color.adjust($ui-bg, $lightness: 4%);
     cursor: pointer;
     color: $text-body;
   }

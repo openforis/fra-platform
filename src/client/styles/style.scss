@@ -1,18 +1,19 @@
+@use 'sass:color';
 //===WARNING====
 // DO NOT IMPORT SPECIFIC COMPONENT STYLES HERE,
 // ONLY MORE GENERAL STUFF USED IN MANY PLACES
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap');
-@import 'src/client/styles/config';
+@import './config';
 //Import all common application styles
-@import 'src/client/styles/cssVars';
-@import 'src/client/styles/buttons';
-@import 'src/client/styles/checkbox';
-@import 'src/client/styles/icon';
-@import 'src/client/styles/form';
-@import 'src/client/styles/fraTable';
-@import 'src/client/styles/fraValidation';
-@import 'src/client/styles/typography';
-@import 'src/client/styles/rtl';
+@import './cssVars';
+@import './buttons';
+@import './checkbox';
+@import './icon';
+@import './form';
+@import './fraTable';
+@import './fraValidation';
+@import './typography';
+@import './rtl';
 @import 'react-loading-skeleton/dist/skeleton.css';
 
 *,
@@ -73,11 +74,11 @@ h1.title {
 }
 
 a {
-  color: darken($ui-accent, 2%);
+  color: color.adjust($ui-accent, $lightness: 2%);
 }
 
 a:hover {
-  color: darken($ui-accent, 4%);
+  color: color.adjust($ui-accent, $lightness: 4%);
 }
 
 hr {

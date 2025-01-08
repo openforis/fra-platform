@@ -1,6 +1,6 @@
-@import 'src/client/style/partials';
-@import 'src/client/styles/fraTable';
-@import 'src/client/styles/inputMixins';
+@import 'client/style/partials';
+@import 'client/styles/fraTable';
+@import 'client/styles/inputMixins';
 
 @mixin mixin-odp-list-cell($padding: 12px, $align: left) {
   border-bottom: $ui-thin-border;

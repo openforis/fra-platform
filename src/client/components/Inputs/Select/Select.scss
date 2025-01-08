@@ -1,3 +1,4 @@
+@use 'sass:color';
 @import 'client/style/partials';
 
 $border-menu: 1px solid $ui-edit-border-color;
@@ -78,11 +79,11 @@ div.select__multiValueRemove {
   height: $spacing-xs;
 
   svg {
-    color: darken($ui-destructive, 7%);
+    color: color.adjust($ui-destructive, $lightness: 7%);
   }
 
   &:hover {
-    background-color: rgba(lighten($ui-destructive, 30%), 0.1);
+    background-color: rgba(color.adjust($ui-destructive, $lightness: 30%), 0.1);
 
     svg {
       color: $ui-destructive;
@@ -138,7 +139,7 @@ div.select__option {
 
   &.isFocused,
   &.isMulti.isFocused {
-    background-color: lighten($ui-accent-light-extra, 3%);
+    background-color: color.adjust($ui-accent-light-extra, $lightness: 3%);
     cursor: pointer;
   }
 

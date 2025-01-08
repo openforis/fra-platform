@@ -1,5 +1,6 @@
-@import 'src/client/styles/config';
-@import 'src/client/style/partials';
+@use 'sass:color';
+@import 'client/styles/config';
+@import 'client/style/partials';
 
 .autocomplete {
   transition: all 0.1s ease-out;
@@ -55,14 +56,14 @@
   text-decoration: none;
 
   &.selected {
-    border-left: 2px solid darken($ui-accent-light, 25%);
+    border-left: 2px solid color.adjust($ui-accent-light, $lightness: 25%);
     padding: $spacing-xxs;
   }
 
   &.highlighted {
     padding: $spacing-xxs 9px;
     background-color: $ui-accent-light;
-    border-left: 1px solid darken($ui-accent-light, 25%);
-    border-right: 1px solid darken($ui-accent-light, 25%);
+    border-left: 1px solid color.adjust($ui-accent-light, $lightness: 25%);
+    border-right: 1px solid color.adjust($ui-accent-light, $lightness: 25%);
   }
 }

@@ -1,4 +1,4 @@
-@import "src/client/styles/inputMixins";
+@import 'client/styles/inputMixins';
 
 .number-input__container {
   @include mixin-input-container;

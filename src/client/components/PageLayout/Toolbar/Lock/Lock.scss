@@ -1,8 +1,9 @@
-@import 'src/client/style/partials';
+@use 'sass:color';
+@import 'client/style/partials';
 
 button.btn-lock {
   align-items: center;
-  background-color: lighten($ui-status-accepted, 38%);
+  background-color: color.adjust($ui-status-accepted, $lightness: 38%);
   border-radius: 2px;
   border: 1px solid $ui-status-accepted;
   display: grid;
@@ -13,13 +14,13 @@ button.btn-lock {
   width: $spacing-l;
 
   svg {
-    color: darken($ui-status-accepted, 15%);
+    color: color.adjust($ui-status-accepted, $lightness: 15%);
     height: 20px;
     width: 20px;
   }
 
   &:hover {
-    background-color: lighten($ui-status-accepted, 35%);
+    background-color: color.adjust($ui-status-accepted, $lightness: 35%);
 
     svg {
       transform: scale(1.02);
@@ -27,24 +28,24 @@ button.btn-lock {
   }
 
   &.locked {
-    background-color: lighten($ui-destructive, 53%);
-    border: 1px solid lighten($ui-destructive, 30%);
+    background-color: color.adjust($ui-destructive, $lightness: 53%);
+    border: 1px solid color.adjust($ui-destructive, $lightness: 30%);
 
     svg {
-      color: darken($ui-destructive, 2.5%);
+      color: color.adjust($ui-destructive, $lightness: 2.5%);
     }
 
     &:hover {
-      background-color: lighten($ui-destructive, 51%);
+      background-color: color.adjust($ui-destructive, $lightness: 51%);
     }
   }
 
   &:disabled {
     pointer-events: none;
-    border-color: darken($ui-destructive, 10%);
+    border-color: color.adjust($ui-destructive, $lightness: 10%);
 
     svg {
-      color: darken($ui-destructive, 10%);
+      color: color.adjust($ui-destructive, $lightness: 10%);
     }
   }
 }

@@ -1,11 +1,12 @@
-@import 'src/client/style/partials';
+@use 'sass:color';
+@import 'client/style/partials';
 
 @mixin with-theme($color) {
   display: grid;
 
   button.button-checkbox {
     border-color: $color;
-    color: darken($color, 15%);
+    color: color.adjust($color, $lightness: 15%);
 
     &.inverse {
       svg {
@@ -19,7 +20,7 @@
       }
 
       &:hover {
-        color: darken($color, 5%);
+        color: color.adjust($color, $lightness: 5%);
       }
     }
   }

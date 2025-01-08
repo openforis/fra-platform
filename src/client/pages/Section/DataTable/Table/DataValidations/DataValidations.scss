@@ -1,6 +1,7 @@
-@import 'src/client/style/partials';
+@use 'sass:color';
+@import 'client/style/partials';
 
-$colorError: darken($ui-destructive, 5%);
+$colorError: color.adjust($ui-destructive, $lightness: 5%);
 
 .data-validations {
   margin-top: $spacing-xs;
