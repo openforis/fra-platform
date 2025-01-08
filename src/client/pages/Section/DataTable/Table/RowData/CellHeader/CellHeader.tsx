@@ -38,7 +38,6 @@ const CellHeader: React.FC<Props> = (props) => {
   const { gridColumn, gridRow, ...colHeaderStyle } = Cols.getStyle({ col, cycle })
   const classes = Cols.getClassNames({ col, cycle })
 
-  // TODO: revisit the concept of headerCell
   const headerCell = row.cols.every((col) => Cols.isReadOnly({ cycle, row, col }))
   const subcategory = row.props.categoryLevel > 0
 
@@ -70,8 +69,8 @@ const CellHeader: React.FC<Props> = (props) => {
           <Link
             className="link no-print"
             to={Routes.Section.generatePath({
-              countryIso,
               assessmentName,
+              countryIso,
               cycleName: cycle.name,
               sectionName: row.props.linkToSection?.[cycle.uuid],
             })}

@@ -16,8 +16,6 @@ import ButtonTableClear from 'client/pages/Section/DataTable/Table/ButtonTableCl
 import GridHeadCell from 'client/pages/Section/DataTable/Table/GridHeadCell'
 import RowData from 'client/pages/Section/DataTable/Table/RowData'
 import RowNoticeMessage from 'client/pages/Section/DataTable/Table/RowNoticeMessage'
-import TableBody from 'client/pages/Section/DataTable/Table/TableBody'
-import TableHead from 'client/pages/Section/DataTable/Table/TableHead'
 
 import { useGridTemplateColumns } from './hooks/useGridTemplateColumns'
 import { useParsedTable } from './hooks/useParsedTable'
@@ -38,7 +36,7 @@ const Table: React.FC<Props> = (props) => {
   const canEdit = useCanEdit(sectionName)
 
   const { print } = useIsPrintRoute()
-  const tableRef = useRef<HTMLTableElement>(null)
+
   const gridRef = useRef<HTMLDivElement>(null)
 
   const { headers, noticeMessages, rowsData, rowsHeader, table, withReview } = useParsedTable({
@@ -60,81 +58,66 @@ const Table: React.FC<Props> = (props) => {
   const fileName = `${sectionAnchor ? `${sectionAnchor} ` : ''}${name}`
 
   return (
-    <div className={classNames('fra-table__container', { 'fra-secondary-table__wrapper': secondary })}>
-      <div className="fra-table__scroll-wrapper">
-        <div className="fra-table__editor">
-          {!print && <ButtonGridExport filename={fileName} gridRef={gridRef} />}
-          <ButtonCopyValues gridRef={gridRef} table={table} />
-          {canClearData && <ButtonTableClear disabled={disabled} sectionName={sectionName} table={table} />}
-        </div>
+    <div className={classNames('table-grid-container', { 'secondary-table': secondary })}>
+      <div className="table-grid-actions">
+        {!print && <ButtonGridExport filename={fileName} gridRef={gridRef} />}
+        <ButtonCopyValues gridRef={gridRef} table={table} />
+        {canClearData && <ButtonTableClear disabled={disabled} sectionName={sectionName} table={table} />}
+      </div>
 
-        <DataGrid
-          ref={gridRef}
-          className="table-grid"
-          gridTemplateColumns={gridTemplateColumns}
-          withActions={withActions}
-        >
-          {rowsHeader.map((row, rowIndex) => (
-            <React.Fragment key={row.uuid}>
-              {row.cols.map((col, colIndex) => (
-                <GridHeadCell
-                  key={col.uuid}
-                  assessmentName={assessmentName}
-                  col={col}
-                  colIndex={colIndex}
-                  data={data}
-                  headers={headers}
-                  row={row}
-                  rowIndex={rowIndex}
-                  table={table}
-                />
-              ))}
-              {withActions && <div />}
-            </React.Fragment>
-          ))}
+      <DataGrid
+        ref={gridRef}
+        className="table-grid"
+        gridTemplateColumns={gridTemplateColumns}
+        withActions={withActions}
+      >
+        {rowsHeader.map((row, rowIndex) => (
+          <React.Fragment key={row.uuid}>
+            {row.cols.map((col, colIndex) => (
+              <GridHeadCell
+                key={col.uuid}
+                assessmentName={assessmentName}
+                col={col}
+                colIndex={colIndex}
+                data={data}
+                headers={headers}
+                row={row}
+                rowIndex={rowIndex}
+                table={table}
+              />
+            ))}
+            {withActions && <div />}
+          </React.Fragment>
+        ))}
 
-          {rowsData.map((row, index) => (
-            <RowData
-              key={row.uuid}
-              assessmentName={assessmentName}
-              data={data}
-              disabled={disabled}
-              lastRow={index === rowsData.length - 1}
-              row={row}
-              rowCount={rowsHeader.length + rowsData.length}
-              rowIndex={rowsHeader.length + index}
-              sectionName={sectionName}
-              table={table}
-            />
-          ))}
-
-          {noticeMessages.map((row) => (
-            <RowNoticeMessage
-              key={row.uuid}
-              assessmentName={assessmentName}
-              data={data}
-              disabled={disabled}
-              row={row}
-              sectionName={sectionName}
-              table={table}
-            />
-          ))}
-        </DataGrid>
-        {/* TODO: remove at the end */}
-        <br />
-        <table ref={tableRef} className="fra-table data-table" id={table.props.name}>
-          <TableHead assessmentName={assessmentName} data={data} headers={headers} table={table} />
-
-          <TableBody
+        {rowsData.map((row, index) => (
+          <RowData
+            key={row.uuid}
             assessmentName={assessmentName}
             data={data}
             disabled={disabled}
+            lastRow={index === rowsData.length - 1}
+            row={row}
+            rowCount={rowsHeader.length + rowsData.length}
+            rowIndex={rowsHeader.length + index}
             sectionName={sectionName}
             table={table}
           />
-        </table>
-        {!print && canEdit && <DataValidations table={table} />}
-      </div>
+        ))}
+
+        {noticeMessages.map((row) => (
+          <RowNoticeMessage
+            key={row.uuid}
+            assessmentName={assessmentName}
+            data={data}
+            disabled={disabled}
+            row={row}
+            sectionName={sectionName}
+            table={table}
+          />
+        ))}
+      </DataGrid>
+      {!print && canEdit && <DataValidations table={table} />}
     </div>
   )
 }

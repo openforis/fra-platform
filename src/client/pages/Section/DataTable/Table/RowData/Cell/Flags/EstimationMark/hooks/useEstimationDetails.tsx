@@ -30,7 +30,7 @@ export const useEstimationDetails = (props: Props): Returned => {
   const executedBeforeOdpUpdate = Dates.isBefore(Dates.parseISO(createdAt), Dates.parseISO(odpLastUpdatedTimestamp))
 
   const node = (
-    <div className="data-cell__flag-estimate">
+    <div className="table-grid__data-cell-flag-estimate">
       {executedBeforeOdpUpdate && <Icon className="icon-middle" name="alert" />}E
     </div>
   )
@@ -45,7 +45,7 @@ export const useEstimationDetails = (props: Props): Returned => {
         </>
       )}
       {executedBeforeOdpUpdate && (
-        <div className="data-cell__flag-estimate tooltipMessage">
+        <div className="table-grid__data-cell-flag-estimate tooltipMessage">
           <Icon className="icon-middle" name="alert" /> {t('page.assessmentSection.odpUpdatedAfterEstimatingThisCell')}
         </div>
       )}

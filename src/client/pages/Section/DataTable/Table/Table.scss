@@ -7,18 +7,24 @@
   width: 100%;
 }
 
-// TODO: fra prefix is left with old mode consistency. refactor later on
+.table-grid-actions {
+  display: flex;
+  gap: $spacing-xxxxs;
+}
+
+.table-grid-container {
+  margin-bottom: 28px;
+
+  &.secondary-table {
+    margin-top: $spacing-xs;
+    min-width: 320px;
+    width: 50%;
+  }
+}
+
+// TODO: delete once when the tables using it are refactored
 .fra-table__scroll-wrapper {
   align-content: start;
   display: grid;
   justify-items: start;
-}
-
-.fra-table__editor {
-  display: flex;
-  justify-self: start;
-
-  .button:not(:first-child) {
-    margin-left: 1px;
-  }
 }

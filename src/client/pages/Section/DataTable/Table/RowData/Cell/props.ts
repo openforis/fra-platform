@@ -4,14 +4,14 @@ import { OnChange, OnChangeNodeValue, OnPaste } from './hooks/useOnChange'
 
 export type PropsCell = {
   assessmentName: AssessmentName
-  sectionName: string
-  table: Table
-  disabled: boolean
-  rowIndex: number
   col: Col
-  row: Row
+  disabled: boolean
   nodeValue: NodeValue
   onChange: OnChange
-  onPaste: OnPaste
   onChangeNodeValue: OnChangeNodeValue
+  onPaste: OnPaste
+  row: Row
+  rowIndex: number
+  sectionName: string
+  table: Table
 }

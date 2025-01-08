@@ -1,8 +1,8 @@
 @import 'src/client/style/partials';
 
 .table-grid__odp-cell.header {
-  font-weight: 700;
   background-color: rgba($ui-accent, 10%);
+  font-weight: 700;
 
   .link {
     text-decoration: underline;
