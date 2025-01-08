@@ -10,11 +10,12 @@
     "jsx": "react",
     "module": "CommonJS",
     "moduleResolution": "Node",
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "outDir": "./dist/",
     "resolveJsonModule": true,
-    "target": "ESNext"
+    "target": "ESNext",
+    "esModuleInterop": true
   }
 }

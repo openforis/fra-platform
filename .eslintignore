@@ -1,2 +1,3 @@
 .src.legacy/webapp/main/routes.js
 src/test/migrations/steps/template.ts
+vite.config.ts

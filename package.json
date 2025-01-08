@@ -37,7 +37,11 @@
     "postinstall": "husky install",
     "pre-commit": "lint-staged && eslint --cache --fix",
     "geo:forest-estimations-import": "ts-node tools/geo/forestEstimationsImport.ts",
-    "geo:bounds-import": "ts-node tools/geo/boundsImport.ts"
+    "geo:bounds-import": "ts-node tools/geo/boundsImport.ts",
+    "// TODO: Replace webpack and remove these": "",
+    "vite:dev": "vite",
+    "vite:build": "vite build",
+    "vite:preview": "vite preview"
   },
   "devDependencies": {
     "@babel/cli": "^7.17.6",
@@ -107,6 +111,7 @@
     "@types/uuid": "^8.3.1",
     "@typescript-eslint/eslint-plugin": "^5.17.0",
     "@typescript-eslint/parser": "^5.17.0",
+    "@vitejs/plugin-react-swc": "^3.7.2",
     "babel-loader": "^8.2.4",
     "chai": "^4.3.4",
     "clean-webpack-plugin": "^4.0.0-alpha.0",
@@ -154,6 +159,7 @@
     "tsc-alias": "^1.8.6",
     "turndown": "^7.1.1",
     "typescript": "^5.7.2",
+    "vite": "^6.0.7",
     "webpack": "^5.71.0",
     "webpack-bundle-analyzer": "^4.4.2",
     "webpack-cli": "^4.7.2",
