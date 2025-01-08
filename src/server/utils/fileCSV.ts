@@ -1,5 +1,5 @@
-import * as fs from 'fs'
-import * as fastCsv from 'fast-csv'
+import fs from 'fs'
+import fastCsv from 'fast-csv'
 
 const read = async <RowType>(fileName: string, options?: fastCsv.ParserOptionsArgs): Promise<Array<RowType>> => {
   const opts: fastCsv.ParserOptionsArgs = {

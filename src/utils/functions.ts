@@ -1,9 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { DebounceSettings } from 'lodash'
-// @ts-ignore
-import * as _debounce from 'lodash.debounce'
-// @ts-ignore
-import * as throttle from 'lodash.throttle'
+import _debounce from 'lodash.debounce'
+import throttle from 'lodash.throttle'
 
 const debounceFunctions: any = {}
 

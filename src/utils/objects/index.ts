@@ -1,15 +1,9 @@
-// @ts-ignore
-import * as cloneDeep from 'lodash.clonedeep'
-// @ts-ignore
-import * as isEqual from 'lodash.isequal'
-// @ts-ignore
-import * as isFunction from 'lodash.isfunction'
-// @ts-ignore
-import * as merge from 'lodash.merge'
-// @ts-ignore
-import * as pick from 'lodash.pick'
-// @ts-ignore
-import * as unset from 'lodash.unset'
+import cloneDeep from 'lodash.clonedeep'
+import isEqual from 'lodash.isequal'
+import isFunction from 'lodash.isfunction'
+import merge from 'lodash.merge'
+import pick from 'lodash.pick'
+import unset from 'lodash.unset'
 
 import { camelize } from './camelize'
 import { getDiff } from './getDiff'

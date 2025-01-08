@@ -1,4 +1,4 @@
-import * as http from 'http'
+import http from 'http'
 import { createAdapter } from '@socket.io/redis-streams-adapter'
 import { createClient } from 'redis'
 import { Server } from 'socket.io'

@@ -1,6 +1,6 @@
-import { Dates } from 'utils/dates'
 import { Response } from 'express'
-import * as jwt from 'jsonwebtoken'
+import jwt from 'jsonwebtoken'
+import { Dates } from 'utils/dates'
 
 import { AuthToken } from 'meta/auth'
 import { User } from 'meta/user'

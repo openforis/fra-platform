@@ -1,7 +1,7 @@
 import { Request } from 'express'
 import { PassportStatic } from 'passport'
 import { VerifiedCallback } from 'passport-jwt'
-import * as passportLocal from 'passport-local'
+import passportLocal from 'passport-local'
 import { Objects } from 'utils/objects'
 
 import { AuthProvider, Users } from 'meta/user'

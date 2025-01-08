@@ -1,4 +1,4 @@
-import * as dns from 'dns'
+import dns from 'dns'
 import { Objects } from 'utils/objects'
 
 import { LinkToVisit, LinkValidationStatusCode, VisitedLink } from 'meta/cycleData'

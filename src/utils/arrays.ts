@@ -1,13 +1,8 @@
-// @ts-ignore
-import * as differenceWith from 'lodash.differencewith'
-// @ts-ignore
-import * as range from 'lodash.range'
-// @ts-ignore
-import * as reverse from 'lodash.reverse'
-// @ts-ignore
-import * as uniqueBy from 'lodash.uniqby'
-// @ts-ignore
-import * as uniqWith from 'lodash.uniqwith'
+import differenceWith from 'lodash.differencewith'
+import range from 'lodash.range'
+import reverse from 'lodash.reverse'
+import uniqueBy from 'lodash.uniqby'
+import uniqWith from 'lodash.uniqwith'
 
 import { Objects } from './objects'
 

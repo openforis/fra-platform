@@ -1,4 +1,4 @@
-import * as fs from 'fs'
+import fs from 'fs'
 import { marked } from 'marked'
 
 type Props = { assessmentName: string; cycleName: string; lang: string; name: string }

@@ -1,4 +1,4 @@
-import * as nodemailer from 'nodemailer'
+import nodemailer from 'nodemailer'
 
 import { remindReviewers } from 'server/service/mail/remindReviewers'
 import { ProcessEnv } from 'server/utils'

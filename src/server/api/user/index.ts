@@ -1,5 +1,5 @@
 import { Express } from 'express'
-import * as multer from 'multer'
+import multer from 'multer'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 

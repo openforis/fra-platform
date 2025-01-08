@@ -1,4 +1,4 @@
-import * as pgPromise from 'pg-promise'
+import pgPromise from 'pg-promise'
 
 import { Assessment, Cycle, Section, Sections, SubSection, SubSections } from 'meta/assessment'
 

@@ -1,4 +1,4 @@
-import * as pgPromise from 'pg-promise'
+import pgPromise from 'pg-promise'
 import { Objects } from 'utils/objects'
 
 import { Assessment, Cycle } from 'meta/assessment'

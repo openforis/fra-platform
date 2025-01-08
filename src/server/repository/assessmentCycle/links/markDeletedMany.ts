@@ -1,4 +1,4 @@
-import * as pgPromise from 'pg-promise'
+import pgPromise from 'pg-promise'
 
 import { CountryIso } from 'meta/area'
 import { Assessment, Cycle } from 'meta/assessment'

@@ -1,5 +1,4 @@
-// @ts-ignore
-import * as snake from 'to-snake-case'
+import snake from 'to-snake-case'
 
 export const normalize = (string: string): string =>
   string

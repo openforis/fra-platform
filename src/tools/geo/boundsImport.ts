@@ -1,7 +1,7 @@
 import * as fs from 'fs/promises'
 import * as path from 'path'
 import { config } from 'dotenv'
-import * as pgPromise from 'pg-promise'
+import pgPromise from 'pg-promise'
 
 import { CountryIso } from 'meta/area'
 
