@@ -5,6 +5,12 @@
   line-height: 19px;
   overflow-x: auto;
   width: 100%;
+
+  .data-cell.firstCol {
+    left: 0;
+    position: sticky;
+    z-index: 1;
+  }
 }
 
 .table-grid-actions {
@@ -14,6 +20,7 @@
 
 .table-grid-container {
   margin-bottom: 28px;
+  overflow-x: auto;
 
   &.secondary-table {
     margin-top: $spacing-xs;

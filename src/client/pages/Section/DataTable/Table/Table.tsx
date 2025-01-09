@@ -39,7 +39,7 @@ const Table: React.FC<Props> = (props) => {
 
   const gridRef = useRef<HTMLDivElement>(null)
 
-  const { headers, noticeMessages, rowsData, rowsHeader, table, withReview } = useParsedTable({
+  const { firstHeaderRowSpan, headers, noticeMessages, rowsData, rowsHeader, table, withReview } = useParsedTable({
     assessmentName,
     data,
     table: tableProps,
@@ -73,19 +73,23 @@ const Table: React.FC<Props> = (props) => {
       >
         {rowsHeader.map((row, rowIndex) => (
           <React.Fragment key={row.uuid}>
-            {row.cols.map((col, colIndex) => (
-              <GridHeadCell
-                key={col.uuid}
-                assessmentName={assessmentName}
-                col={col}
-                colIndex={colIndex}
-                data={data}
-                headers={headers}
-                row={row}
-                rowIndex={rowIndex}
-                table={table}
-              />
-            ))}
+            {row.cols.map((col, colIndex) => {
+              const firstCol = colIndex === 0 && (rowIndex === 0 || rowIndex >= firstHeaderRowSpan)
+              return (
+                <GridHeadCell
+                  key={col.uuid}
+                  assessmentName={assessmentName}
+                  col={col}
+                  colIndex={colIndex}
+                  data={data}
+                  firstCol={firstCol}
+                  headers={headers}
+                  row={row}
+                  rowIndex={rowIndex}
+                  table={table}
+                />
+              )
+            })}
             {withActions && <div />}
           </React.Fragment>
         ))}

@@ -11,7 +11,7 @@ import { useGridHeadCellProps } from './hooks/useGridHeadCellProps'
 import { GridHeadCellProps } from './types'
 
 const GridHeadCell: React.FC<GridHeadCellProps> = (props) => {
-  const { col, table } = props
+  const { col, firstCol, table } = props
 
   const cycle = useCycle()
   const { className, gridColumn, gridRow, lastCol, odpHeader } = useGridHeadCellProps(props)
@@ -34,7 +34,15 @@ const GridHeadCell: React.FC<GridHeadCellProps> = (props) => {
   }
 
   return (
-    <DataCell key={col.uuid} className={className} gridColumn={gridColumn} gridRow={gridRow} header lastCol={lastCol}>
+    <DataCell
+      key={col.uuid}
+      className={className}
+      firstCol={firstCol}
+      gridColumn={gridColumn}
+      gridRow={gridRow}
+      header
+      lastCol={lastCol}
+    >
       {Cols.getLabel({ cycle, col, t })}
     </DataCell>
   )

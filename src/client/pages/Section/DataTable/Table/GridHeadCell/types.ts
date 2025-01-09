@@ -6,6 +6,7 @@ export type GridHeadCellProps = {
   col: Col
   colIndex: number
   data: RecordAssessmentData
+  firstCol: boolean
   headers: Array<string>
   row: Row
   rowIndex: number
