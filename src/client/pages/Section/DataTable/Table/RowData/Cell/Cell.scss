@@ -8,11 +8,7 @@
   &.firstCol {
     left: 0;
     position: sticky;
-    z-index: 1;
-  }
-
-  .select__wrapper > .select__container > div:not(.select__control) {
-    z-index: 2;
+    z-index: $z-index-table-grid-sticky-cell;
   }
 
   &.readonly,
