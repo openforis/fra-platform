@@ -1,5 +1,7 @@
 import { useMemo } from 'react'
 
+import { Objects } from 'utils/objects'
+
 import { AssessmentName, Cols, Row, RowType, Table } from 'meta/assessment'
 import { RecordAssessmentData } from 'meta/data'
 
@@ -59,7 +61,11 @@ export const useParsedTable = (props: Props): Returned => {
     })
 
     const firstColHeader = rowsHeader[0]?.cols[0]
-    const { rowSpan: firstHeaderRowSpan } = Cols.getStyle({ col: firstColHeader, cycle })
+    let firstHeaderRowSpan = 0
+    if (!Objects.isEmpty(firstColHeader)) {
+      const { rowSpan } = Cols.getStyle({ col: firstColHeader, cycle })
+      firstHeaderRowSpan = rowSpan ?? 1
+    }
 
     return {
       firstHeaderRowSpan,
