@@ -36,8 +36,8 @@ export default async () => {
     // Check if _legacy.file table exists
     const legacyTableExists = await client.query(`
       SELECT EXISTS (
-        SELECT FROM information_schema.tables 
-        WHERE table_schema = 'public' 
+        SELECT FROM information_schema.tables
+        WHERE table_schema = 'public'
         AND table_name = '_legacy.file'
       );
     `)
@@ -52,13 +52,8 @@ export default async () => {
       Logger.debug('_legacy.file table already exists, skipping creation.')
     }
 
-    // This should be changed to all files,
-    // left for testing purpose (all files 5.7gb, this subset around 80mb)
     const files = await client.query(`
           select * from public.file
-          where
-          octet_length(file) / 1024.0 / 1024.0 < 2
-          and name ilike '%fin%';
     `)
 
     await Promises.each(files, async (fileRecord: any) => {
@@ -66,7 +61,7 @@ export default async () => {
       const fileExtension = path.extname(name).slice(1).toLowerCase()
 
       if (allowedExtensions.includes(fileExtension)) {
-        const s3Key = `public/${uuid}`
+        const s3Key = `${uuid}`
         const fileExists = await FileStorage.fileExists({ key: s3Key })
 
         if (!fileExists) {
