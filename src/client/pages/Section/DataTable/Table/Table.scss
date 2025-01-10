@@ -14,6 +14,7 @@
 
 .table-grid-container {
   margin-bottom: 28px;
+  overflow-x: auto;
 
   &.secondary-table {
     margin-top: $spacing-xs;

@@ -1,6 +1,8 @@
 import { useMemo } from 'react'
 
-import { AssessmentName, Row, RowType, Table } from 'meta/assessment'
+import { Objects } from 'utils/objects'
+
+import { AssessmentName, Cols, Row, RowType, Table } from 'meta/assessment'
 import { RecordAssessmentData } from 'meta/data'
 
 import { useCycle } from 'client/store/assessment'
@@ -16,6 +18,7 @@ type Props = {
 }
 
 type Returned = {
+  firstHeaderRowSpan: number
   headers: Array<string>
   noticeMessages: Array<Row>
   rowsData: Array<Row>
@@ -57,7 +60,15 @@ export const useParsedTable = (props: Props): Returned => {
       withReview = withReview || row.props.withReview?.[cycle.uuid]
     })
 
+    const firstColHeader = rowsHeader[0]?.cols[0]
+    let firstHeaderRowSpan = 0
+    if (!Objects.isEmpty(firstColHeader)) {
+      const { rowSpan } = Cols.getStyle({ col: firstColHeader, cycle })
+      firstHeaderRowSpan = rowSpan ?? 1
+    }
+
     return {
+      firstHeaderRowSpan,
       headers,
       noticeMessages,
       rowsData,

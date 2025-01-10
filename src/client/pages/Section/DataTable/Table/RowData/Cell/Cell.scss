@@ -5,6 +5,12 @@
   display: flex;
   justify-content: end;
 
+  &.firstCol {
+    left: 0;
+    position: sticky;
+    z-index: $z-index-table-grid-sticky-cell;
+  }
+
   &.readonly,
   &.calculated-input {
     cursor: default;
