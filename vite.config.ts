@@ -2,6 +2,7 @@ import path from 'path'
 import react from '@vitejs/plugin-react-swc'
 import { v4 as uuidv4 } from 'uuid'
 import { defineConfig } from 'vite'
+import { version } from './package.json'
 
 export default defineConfig({
   plugins: [react()],
@@ -51,8 +52,7 @@ export default defineConfig({
     __BUST__: JSON.stringify(uuidv4()),
     __GOOGLE_API__: JSON.stringify(process.env.FRA_GOOGLE_API),
     __GOOGLE_MAPS_API_KEY__: JSON.stringify(process.env.FRA_GOOGLE_MAPS_API_KEY),
-    __APPLICATION_VERSION__: JSON.stringify(process.env.APP_VERSION),
+    __APPLICATION_VERSION__: JSON.stringify(version),
     __BUILD_DATE__: JSON.stringify(new Date().toISOString().split('T')[0]),
-    __URL_STATISTICAL_FACTSHEETS__: JSON.stringify(process.env.URL_STATISTICAL_FACTSHEETS),
   },
 })
