@@ -1,20 +1,10 @@
 {
-  "allowSyntheticDefaults": true,
+  "extends": "./tsconfig.json",
   "include": ["src"],
   "exclude": ["node_modules", "src/client", "src/test"],
   "compilerOptions": {
-    "allowJs": true,
-    "allowSyntheticDefaultImports": true,
-    "baseUrl": "./src",
-    "esModuleInterop": true,
-    "lib": ["ESNext", "DOM"],
-    "module": "CommonJS",
-    "moduleResolution": "Node",
     "noImplicitAny": true,
     "outDir": "./dist/",
-    "resolveJsonModule": true,
-    "rootDir": "./src",
-    "skipLibCheck": true,
-    "target": "ESNext",
-  },
+    "rootDir": "./src"
+  }
 }
