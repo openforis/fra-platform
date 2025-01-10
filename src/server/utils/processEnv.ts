@@ -1,5 +1,3 @@
-import process from 'process'
-
 const dbUrl = process.env.DATABASE_URL
 
 const regExDbUrl = /postgres:\/\/(\w+):(\w+)@([\w-.\d]+):(\d+)\/(\w+)/
