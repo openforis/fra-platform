@@ -36,8 +36,7 @@ export const serverInit = () => {
   app.use('/css/', express.static(`${__dirname}/../../web-resources/css`))
   app.use('/video', express.static(`${__dirname}/../../web-resources/video`))
 
-  app.use('/style', express.static(`${__dirname}/../client/style`))
-  app.use('/js', express.static(`${__dirname}/../client/js`))
+  app.use('/assets', express.static(`${__dirname}/../client/assets`))
   app.use('/woff2.css', express.static(`${__dirname}/../client/woff2.css`))
 
   /*
