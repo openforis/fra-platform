@@ -8,7 +8,7 @@
   "scripts": {
     "build": "run-s build:prod:client build:prod:server build:prod:server:resources",
     "build:prod:client": "vite build",
-    "build:prod:server": "yarn tsc --project tsconfig.server.json && tsc-alias -p tsconfig.server.json",
+    "build:prod:server": "tsc --project tsconfig.server.json && tsc-alias -p tsconfig.server.json",
     "build:prod:server:resources": "shx cp -Rf web-resources dist/ && shx cp -Rf src/server/static dist/server/",
     "clean": "shx rm -rf dist/",
     "heroku-prebuild": "echo \"//npm.pkg.github.com/:_authToken=${NPM_GITHUB_TOKEN}\" >> .npmrc",
