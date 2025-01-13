@@ -17,6 +17,8 @@ import { Logger } from 'server/utils/logger'
 const client = DB
 
 // Note: Running this script many times may cause runners IP to timeout as protection mechanism
+// Get from browser cookies
+const COOKIE = ''
 
 // 1 -- Test all files exist in s3
 const TEST_S3_FILES = true
@@ -53,7 +55,7 @@ const _testFileDownload = async (url: string): Promise<boolean> => {
       validateStatus: (status) => status === 200,
       headers: {
         // Copy this from browser request and add it to .env - check .env.template
-        Cookie: ProcessEnv.authCookie,
+        Cookie: COOKIE,
       },
     })
 

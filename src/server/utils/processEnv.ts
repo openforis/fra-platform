@@ -20,7 +20,6 @@ export const ProcessEnv = {
   // app
   appUri: process.env.APP_URI ?? 'http://localhost:9001',
   port: process.env.PORT ? Number(process.env.PORT) : 80,
-  authCookie: process.env.AUTH_COOKIE,
 
   // aws/s3
   awsAccessKeyId: process.env.AWS_ACCESS_KEY_ID,
