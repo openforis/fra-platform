@@ -8,6 +8,7 @@ import { renameMetadataCache } from 'server/controller/assessment/renameCycle/re
 import { BaseProtocol, DB } from 'server/db'
 import { CycleRepository } from 'server/repository/assessmentCycle/cycle'
 import { ActivityLogRepository } from 'server/repository/public/activityLog'
+import { StaticFiles } from 'server/static/staticFiles'
 
 type Props = {
   assessment: Assessment
@@ -29,11 +30,15 @@ export const renameCycle = async (props: Props, client: BaseProtocol = DB): Prom
   return client.tx(async (t) => {
     const cycleTarget = await CycleRepository.rename({ assessment, cycle: cycleSource, name }, t)
 
+    const propsRename = { assessment, cycleSource, cycleTarget }
+
     // update cache
     await generateMetaCache(t)
-    await renameMetadataCache({ assessment, cycleSource, cycleTarget }, t)
-    await renameDataCache({ assessment, cycleSource, cycleTarget }, t)
-
+    await renameMetadataCache(propsRename, t)
+    await renameDataCache(propsRename, t)
+    // rename static files
+    await StaticFiles.renameCycle(propsRename)
+    // insert activity log
     const message = ActivityLogMessage.assessmentCycleRename
     const activityLog = { target: cycleTarget, section: 'assessment', message, user }
     await ActivityLogRepository.insertActivityLog({ activityLog, assessment }, t)
