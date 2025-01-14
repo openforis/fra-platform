@@ -4,11 +4,6 @@
   text-align: left;
   word-break: break-word;
 
-  .invitation {
-    color: $text-disabled;
-    font-style: italic;
-  }
-
   span:not(:last-child)::after {
     content: ',  ';
   }
