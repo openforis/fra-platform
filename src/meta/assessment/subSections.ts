@@ -15,7 +15,9 @@ const cloneProps = (props: { cycleSource: Cycle; cycleTarget: Cycle; subSection:
 
   const _props: SubSection['props'] = Sections.cloneProps({ cycleSource, cycleTarget, section }) as SubSection['props']
 
-  const descriptionsSource = Objects.cloneDeep(_props.descriptions?.[cycleSourceUuid])
+  _props.descriptions ??= {}
+
+  const descriptionsSource = Objects.cloneDeep(_props.descriptions[cycleSourceUuid])
   if (!Objects.isEmpty(descriptionsSource)) {
     // delete nationalData->dataSources->text needed only in FRA 2025
     Objects.unset(descriptionsSource, ['nationalData', 'dataSources', 'text'])
