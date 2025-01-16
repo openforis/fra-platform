@@ -1,0 +1,72 @@
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: 'fra'
+      POSTGRES_PASSWORD: 'fra'
+      POSTGRES_DB: 'fra'
+    ports:
+      - '5432:5432'
+
+  redis-queue:
+    image: redis:7
+    ports:
+      - '6379:6379'
+
+  redis-data:
+    image: redis:7
+    ports:
+      - '6389:6379'
+
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - '1025:1025'
+      - '8025:8025'
+
+  web:
+    build:
+      context: ../../..
+      dockerfile: src/test/e2e/Dockerfile.test
+      args:
+        - NPM_GITHUB_TOKEN=${NPM_GITHUB_TOKEN}
+    depends_on:
+      - postgres
+      - redis-queue
+      - redis-data
+      - mailhog
+    environment:
+      - DATABASE_URL=postgres://fra:fra@postgres:5432/fra
+      - SMTP_HOST=mailhog
+      - SMTP_PORT=1025
+      - NODE_ENV=test
+      - NPM_GITHUB_TOKEN=${NPM_GITHUB_TOKEN}
+      - REDIS_QUEUE_URL=redis://redis-queue:6379
+      - REDIS_DATA_URL=redis://redis-data:6379
+    ports:
+      - '9000:9000'
+    healthcheck:
+      # Check server started
+      test: ['CMD', 'wget', '--spider', 'http://localhost:9000']
+      interval: 5s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+  playwright:
+    build:
+      context: ../../..
+      dockerfile: src/test/e2e/Dockerfile.playwright
+      args:
+        - NPM_GITHUB_TOKEN=${NPM_GITHUB_TOKEN}
+    depends_on:
+      # Check web app healthcheck passed
+      web:
+        condition: service_healthy
+    environment:
+      - BASE_URL=http://web:9000
+      - NPM_GITHUB_TOKEN=${NPM_GITHUB_TOKEN}
+    ports:
+      - '9323:9323'
+    volumes:
+      - './test-results:/app/test-results'
