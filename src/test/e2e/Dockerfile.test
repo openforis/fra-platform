@@ -1,0 +1,16 @@
+FROM node:20.11.1
+
+WORKDIR /app
+
+# TODO: Remove arena-core dep
+ARG NPM_GITHUB_TOKEN
+RUN echo "@openforis:registry=https://npm.pkg.github.com\n//npm.pkg.github.com/:_authToken=${NPM_GITHUB_TOKEN}" >> .npmrc
+
+COPY package.json yarn.lock ./
+RUN yarn install --frozen-lockfile
+
+COPY . .
+RUN yarn build
+
+EXPOSE 9000
+CMD ["yarn", "run:prod:server"] 
