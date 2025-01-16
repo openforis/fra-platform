@@ -6,7 +6,7 @@ const RecentHighlights: React.FC = () => {
     <object
       aria-label="FAO Newsletter"
       className="kiosk-content__embedded-object"
-      data="https://newsletters.fao.org/q/119z0OEvtV7x/wv"
+      data="https://bit.ly/42aEUpk"
       type="text/html"
     />
   )
