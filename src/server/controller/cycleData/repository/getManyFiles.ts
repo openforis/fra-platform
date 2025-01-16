@@ -1,4 +1,5 @@
 import { Readable } from 'stream'
+import { Promises } from 'utils/promises'
 
 import { CountryIso } from 'meta/area'
 import { Assessment, Cycle } from 'meta/assessment'
@@ -30,11 +31,11 @@ export const getManyFiles = async (props: Props): Promise<Returned> => {
   const repositoryProps = { fileUuids: repositoryItems.map((item) => item.fileUuid) }
   const files = await FileRepository.getMany(repositoryProps)
 
-  // eslint-disable-next-line no-restricted-syntax
-  for await (const file of files) {
+  await Promises.each(files, async (file) => {
     const { uuid: key } = file
+    // eslint-disable-next-line no-param-reassign
     file.file = await FileStorage.getFile({ key })
-  }
+  })
 
   return files.map((file) => {
     const repositoryItem = repositoryItems.find((item) => item.fileUuid === file.uuid)
