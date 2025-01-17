@@ -14,6 +14,7 @@ export enum ActivityLogMessage {
   contactUpdate = 'contactUpdate',
   descriptionUpdate = 'descriptionUpdate',
   fileCreate = 'fileCreate',
+  fileDelete = 'fileDelete',
   invitationAccept = 'invitationAccept',
   invitationAdd = 'invitationAdd',
   invitationRemove = 'invitationRemove',

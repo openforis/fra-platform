@@ -5,6 +5,7 @@ import { ApiEndPoint } from 'meta/api/endpoint'
 import { createManyFiles } from 'server/api/file/createManyFiles'
 import { AuthMiddleware } from 'server/middleware/auth'
 
+import { deleteFile } from './deleteFile'
 import { getFile } from './get'
 import { getBiomassStockFile } from './getBiomassStockFile'
 import { getBulkDownload } from './getBulkDownload'
@@ -38,6 +39,8 @@ export const FileApi = {
       AuthMiddleware.requireEditRepositoryItem,
       createManyFiles
     )
+    // File
+    express.delete(ApiEndPoint.File.one(), AuthMiddleware.requireEditRepositoryItem, deleteFile)
 
     // SDG Metadata
     express.get(ApiEndPoint.File.sdgMetadata(), AuthMiddleware.requireView, getSdgMetadata)

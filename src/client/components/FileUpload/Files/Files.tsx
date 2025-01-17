@@ -3,13 +3,12 @@ import React from 'react'
 
 import ButtonDelete from 'client/components/Buttons/ButtonDelete'
 import FileDownload from 'client/components/FileUpload/Files/FileDownload'
-import { FileUploadProps } from 'client/components/FileUpload/types'
+import { useOnDelete } from 'client/components/FileUpload/Files/hooks/useOnDelete'
+import { Props } from 'client/components/FileUpload/Files/props'
 
-type Props = Pick<FileUploadProps, 'onChange' | 'value'> & {
-  acceptedFiles: Array<File>
-}
 const Files: React.FC<Props> = (props) => {
-  const { onChange, value, acceptedFiles } = props
+  const { value, acceptedFiles } = props
+  const onDelete = useOnDelete(props)
   return (
     <div className="file-upload__files">
       {value.map((fileSummary) => {
@@ -17,7 +16,7 @@ const Files: React.FC<Props> = (props) => {
           <React.Fragment key={fileSummary.uuid}>
             <FileDownload acceptedFiles={acceptedFiles} fileSummary={fileSummary} />
 
-            <ButtonDelete onClick={() => onChange(value.filter((f) => f.uuid !== fileSummary.uuid))} />
+            <ButtonDelete onClick={() => onDelete(fileSummary)} />
           </React.Fragment>
         )
       })}
