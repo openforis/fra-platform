@@ -1,5 +1,11 @@
 import { Readable } from 'stream'
-import { GetObjectCommand, HeadObjectCommand, PutObjectCommand, S3Client } from '@aws-sdk/client-s3'
+import {
+  DeleteObjectCommand,
+  GetObjectCommand,
+  HeadObjectCommand,
+  PutObjectCommand,
+  S3Client,
+} from '@aws-sdk/client-s3'
 
 import { ProcessEnv } from 'server/utils'
 
@@ -20,6 +26,17 @@ const getFile = async (props: { key: string; bucket?: string; path?: string }): 
 
   const response = await s3Client.send(command)
   return response.Body as Readable
+}
+
+const removeFile = async (props: { key: string; bucket?: string; path?: string }): Promise<void> => {
+  const { key, bucket = ProcessEnv.s3BucketName, path = 'public' } = props
+
+  const command = new DeleteObjectCommand({
+    Bucket: bucket,
+    Key: `${path}/${key}`,
+  })
+
+  await s3Client.send(command)
 }
 
 const uploadFile = async (props: {
@@ -70,8 +87,9 @@ const fileExists = async (props: { key: string; bucket?: string; path?: string }
 }
 
 export const FileStorage = {
-  getFile,
-  uploadFile,
-  getFileSize,
   fileExists,
+  getFile,
+  getFileSize,
+  removeFile,
+  uploadFile,
 }
