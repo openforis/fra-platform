@@ -19,4 +19,6 @@ COPY . .
 
 RUN ls -la src/test/e2e
 
+EXPOSE 9323
+
 CMD ["yarn", "test:e2e"]

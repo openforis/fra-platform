@@ -101,9 +101,14 @@ const config: PlaywrightTestConfig = {
   retries: 2,
 
   use: {
-    baseURL: process.env.BASE_URL || 'http://web:9000',
-    screenshot: 'only-on-failure',
-    video: 'retain-on-failure',
+    // baseURL: process.env.BASE_URL || 'http://web:9001',
+    // screenshot: 'only-on-failure',
+    // video: 'retain-on-failure',
+    baseURL: process.env.BASE_URL || 'http://web:9001',
+    screenshot: 'on',
+    video: 'on',
+    trace: 'on',
+    headless: true,
   },
 
   projects: [
@@ -119,11 +124,11 @@ const config: PlaywrightTestConfig = {
     ['list'],
     [
       'html',
-      // {
-      //   outputFolder: 'test-results',
-      //   port: 9323,
-      //   host: '0.0.0.0',
-      // },
+      {
+        outputFolder: 'test-results',
+        port: 9323,
+        host: '0.0.0.0',
+      },
     ],
   ],
 

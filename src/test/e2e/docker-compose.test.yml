@@ -43,11 +43,11 @@ services:
       - NPM_GITHUB_TOKEN=${NPM_GITHUB_TOKEN}
       - REDIS_QUEUE_URL=redis://redis-queue:6379
       - REDIS_DATA_URL=redis://redis-data:6379
+      - PORT=9001
     ports:
-      - '9000:9000'
+      - '9001:9001'
     healthcheck:
-      # Check server started
-      test: ['CMD', 'wget', '--spider', 'http://localhost:9000']
+      test: ['CMD', 'wget', '--spider', 'http://localhost:9001']
       interval: 5s
       timeout: 10s
       retries: 3
@@ -64,7 +64,7 @@ services:
       web:
         condition: service_healthy
     environment:
-      - BASE_URL=http://web:9000
+      - BASE_URL=http://web:9001
       - NPM_GITHUB_TOKEN=${NPM_GITHUB_TOKEN}
     ports:
       - '9323:9323'

@@ -12,5 +12,5 @@ RUN yarn install --frozen-lockfile
 COPY . .
 RUN yarn build
 
-EXPOSE 9000
+EXPOSE 9001
 CMD ["yarn", "run:prod:server"] 
