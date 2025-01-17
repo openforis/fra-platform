@@ -6,6 +6,7 @@ import { User } from 'meta/user'
 import { BaseProtocol, DB } from 'server/db'
 import { RepositoryRepository } from 'server/repository/assessmentCycle/repository'
 import { ActivityLogRepository } from 'server/repository/public/activityLog'
+import { FileRepository } from 'server/repository/public/file'
 import { FileStorage } from 'server/service/fileStorage'
 
 type Props = {
@@ -23,6 +24,7 @@ export const remove = async (props: Props): Promise<void> => {
 
   return DB.tx(async (t: BaseProtocol) => {
     const target = await RepositoryRepository.remove(props, t)
+    await FileRepository.remove({ uuid: target.fileUuid })
     await FileStorage.removeFile({ key: target.fileUuid })
 
     const message = ActivityLogMessage.repositoryItemDelete
