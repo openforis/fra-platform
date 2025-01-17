@@ -64,10 +64,10 @@ const _getCellSpans = (props: {
   return { colSpan, rowSpan }
 }
 
-type DataRow = Array<string | null>
-type TableData = Array<DataRow>
+type DataRow<T> = Array<T | null>
+type GridData<T extends Element | string> = Array<DataRow<T>>
 
-export const getDataGridData = (grid: HTMLDivElement): TableData => {
+export const getDataGridElementMatrix = (grid: HTMLDivElement): GridData<Element> => {
   if (!grid) {
     return []
   }
@@ -75,14 +75,14 @@ export const getDataGridData = (grid: HTMLDivElement): TableData => {
   const columnCount = gridStyle.getPropertyValue('grid-template-columns').split(' ').length
   const rowCount = gridStyle.getPropertyValue('grid-template-rows').split(' ').length
 
-  const data: TableData = Array.from({ length: rowCount }, () => new Array(columnCount).fill(null))
+  const elementMatrix: GridData<Element> = Array.from({ length: rowCount }, () => new Array(columnCount).fill(null))
 
   const cells = Array.from(grid.children)
 
   const findNextAvailablePosition = (): { row: number; col: number } | null => {
-    for (let row = 0; row < data.length; row += 1) {
-      for (let col = 0; col < data[row].length; col += 1) {
-        if (Objects.isNil(data[row][col])) {
+    for (let row = 0; row < elementMatrix.length; row += 1) {
+      for (let col = 0; col < elementMatrix[row].length; col += 1) {
+        if (Objects.isNil(elementMatrix[row][col])) {
           return { col, row }
         }
       }
@@ -95,31 +95,57 @@ export const getDataGridData = (grid: HTMLDivElement): TableData => {
     if (Objects.isNil(nextAvailablePosition)) return
     const { col, row } = nextAvailablePosition
 
-    const isNoticeMessage = cell.classList.contains('table-grid__notice-message-cell')
-
-    let cellContent = _getElementText(cell as HTMLElement)
-    const spaceFreeContent = cellContent.replace(/\s/g, '')
-    cellContent =
-      Number.isNaN(Number.parseFloat(spaceFreeContent)) || Number.isNaN(Number(spaceFreeContent))
-        ? cellContent
-        : spaceFreeContent
-
     const { rowSpan, colSpan } = _getCellSpans({ cell, columnCount, rowCount })
 
     for (let r = row; r < row + rowSpan && r < rowCount; r += 1) {
       for (let c = col; c < col + colSpan && c < columnCount; c += 1) {
-        // Place notice message only in the first cell of the row
-        if (isNoticeMessage) {
-          if (r === row && c === col) {
-            data[r][c] = cellContent
-          } else {
-            data[r][c] = ''
-          }
-        } else {
-          data[r][c] = cellContent
-        }
+        elementMatrix[r][c] = cell
       }
     }
+  })
+
+  return elementMatrix
+}
+
+export const getDataGridData = (grid: HTMLDivElement): GridData<string> => {
+  if (!grid) {
+    return []
+  }
+  const elementMatrix = getDataGridElementMatrix(grid)
+
+  const rowCount = elementMatrix.length
+  const columnCount = elementMatrix[0]?.length || 0
+  const data: GridData<string> = Array.from({ length: rowCount }, () => new Array(columnCount).fill(null))
+
+  elementMatrix.forEach((row, rowIndex) => {
+    let noticeMessageAdded = false
+
+    row.forEach((cell, colIndex) => {
+      if (Objects.isEmpty(cell)) {
+        data[rowIndex][colIndex] = ''
+        return
+      }
+
+      const isNoticeMessage = cell.classList.contains('table-grid__notice-message-cell')
+
+      let cellContent = _getElementText(cell as HTMLElement)
+      const spaceFreeContent = cellContent.replace(/\s/g, '')
+      cellContent =
+        Number.isNaN(Number.parseFloat(spaceFreeContent)) || Number.isNaN(Number(spaceFreeContent))
+          ? cellContent
+          : spaceFreeContent
+
+      if (isNoticeMessage) {
+        if (!noticeMessageAdded) {
+          data[rowIndex][colIndex] = cellContent
+          noticeMessageAdded = true
+        } else {
+          data[rowIndex][colIndex] = ''
+        }
+      } else {
+        data[rowIndex][colIndex] = cellContent
+      }
+    })
   })
 
   return data
