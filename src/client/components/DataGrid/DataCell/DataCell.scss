@@ -79,12 +79,20 @@ $highlight-top-bottom: inset 0 1px $ui-accent, inset 0 -1px $ui-accent;
   border-left: $border-editable;
   border-top: $border-editable;
 
+  &.bottomEditable {
+    border-bottom: $border-editable;
+  }
+
   &.lastCol {
     border-right: $border-editable;
   }
 
   &.lastRow {
     border-bottom: $border-editable;
+  }
+
+  &.rightEditable {
+    border-right: $border-editable;
   }
 
   &:focus-within {
@@ -157,6 +165,10 @@ $highlight-top-bottom: inset 0 1px $ui-accent, inset 0 -1px $ui-accent;
     border-right: $border-editable;
 
     &.lastCol {
+      border-left: $border-editable;
+    }
+
+    &.rightEditable {
       border-left: $border-editable;
     }
   }
