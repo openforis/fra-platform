@@ -24,7 +24,7 @@ export const remove = async (props: Props): Promise<void> => {
 
   return DB.tx(async (t: BaseProtocol) => {
     const target = await RepositoryRepository.remove(props, t)
-    await FileRepository.remove({ uuid: target.fileUuid })
+    await FileRepository.remove({ uuid: target.fileUuid }, t)
     await FileStorage.removeFile({ key: target.fileUuid })
 
     const message = ActivityLogMessage.repositoryItemDelete
