@@ -1,9 +1,11 @@
 import { Queue, Worker } from 'bullmq'
 import IORedis from 'ioredis'
+import { Promises } from 'utils/promises'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { BaseProtocol, DB, Schemas } from 'server/db'
 import { FileRepository } from 'server/repository/public/file'
+import { FileStorage } from 'server/service/fileStorage'
 import { Logger } from 'server/utils/logger'
 
 const client: BaseProtocol = DB
@@ -35,7 +37,12 @@ export const initFileCleanup = (connection: IORedis): Worker => {
       const uuids = await client.map(query, [], (row) => row.uuid)
 
       if (uuids.length > 0) {
+        // Remove public.file reference
         const files = await FileRepository.removeMany({ uuids })
+        // Remove S3 files
+        await Promises.each(files, async (file) => {
+          await FileStorage.removeFile({ key: file.uuid })
+        })
 
         files.forEach((file) => {
           Logger.info(`[${name}] removed file ${file.name} (${file.uuid})`)

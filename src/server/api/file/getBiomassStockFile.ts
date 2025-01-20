@@ -2,7 +2,7 @@ import { Response } from 'express'
 
 import { BiomassStockFileRequest } from 'meta/api/request'
 
-import { FileRepository, fileTypes } from 'server/service/file'
+import { FileRepository, fileTypes } from 'server/service/file_deprecated'
 import { Requests } from 'server/utils'
 
 export const getBiomassStockFile = async (req: BiomassStockFileRequest, res: Response) => {

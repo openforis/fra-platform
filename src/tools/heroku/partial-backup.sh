@@ -40,7 +40,6 @@ if pg_dump "$DATABASE_URL" \
   --no-acl \
   --format=custom \
   --exclude-table-data="public.activity_log" \
-  --exclude-table-data="public.file" \
   --exclude-table-data="assessment_fra.file" \
   --exclude-table-data="assessment_paneuropean.file" \
   --file="$BACKUP_FILE"; then
