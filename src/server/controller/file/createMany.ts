@@ -27,6 +27,8 @@ export const createMany = async (props: Props, client: BaseProtocol = DB): Promi
         const body = multerFile.buffer
         await FileStorage.uploadFile({ key, body })
 
+        file.size = multerFile.size
+
         const target = { fileName, uuid }
         const message = ActivityLogMessage.fileCreate
         const activityLog = { target, section: 'assessment', message, user }
