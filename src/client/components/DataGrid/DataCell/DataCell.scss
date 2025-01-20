@@ -79,7 +79,7 @@ $highlight-top-bottom: inset 0 1px $ui-accent, inset 0 -1px $ui-accent;
   border-left: $border-editable;
   border-top: $border-editable;
 
-  &.bottomEditable {
+  &.lastEditableRow {
     border-bottom: $border-editable;
   }
 
@@ -91,7 +91,7 @@ $highlight-top-bottom: inset 0 1px $ui-accent, inset 0 -1px $ui-accent;
     border-bottom: $border-editable;
   }
 
-  &.rightEditable {
+  &.lastEditableCol {
     border-right: $border-editable;
   }
 
@@ -168,7 +168,7 @@ $highlight-top-bottom: inset 0 1px $ui-accent, inset 0 -1px $ui-accent;
       border-left: $border-editable;
     }
 
-    &.rightEditable {
+    &.lastEditableCol {
       border-left: $border-editable;
     }
   }

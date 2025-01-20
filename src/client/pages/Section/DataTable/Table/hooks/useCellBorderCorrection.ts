@@ -36,13 +36,13 @@ export const useCellBorderCorrection = (props: Props) => {
 
         if (!Objects.isEmpty(rightCell) && !rightCell.classList.contains('editable')) {
           if (!rightCell.classList.contains('actions')) {
-            cell.classList.add('rightEditable')
+            cell.classList.add('lastEditableCol')
           }
         }
 
         if (!Objects.isEmpty(bottomCell) && !bottomCell.classList.contains('editable')) {
           if (!bottomCell.classList.contains('actions')) {
-            cell.classList.add('bottomEditable')
+            cell.classList.add('lastEditableRow')
           }
         }
       })
