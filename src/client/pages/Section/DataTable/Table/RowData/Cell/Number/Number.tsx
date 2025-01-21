@@ -20,6 +20,7 @@ const Number: React.FC<PropsCell> = (props) => {
       onChange={onChange}
       onPaste={onPaste}
       precision={precision}
+      resize
       value={value}
     />
   )
