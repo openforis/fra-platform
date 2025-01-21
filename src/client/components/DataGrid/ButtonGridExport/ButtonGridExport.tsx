@@ -4,10 +4,10 @@ import { CSVLink } from 'react-csv'
 import { useIsDataLocked } from 'client/store/ui/dataLock'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { ButtonProps, useButtonClassName } from 'client/components/Buttons/Button'
+import { getDataGridData } from 'client/components/DataGrid/utils'
 import Icon from 'client/components/Icon'
 
 import { useFilename } from './hooks/useFilename'
-import * as Utils from './utils'
 
 type Props = Pick<ButtonProps, 'size'> & {
   disabled?: boolean
@@ -35,7 +35,7 @@ const ButtonGridExport: React.FC<Props> = (props) => {
       data={data}
       filename={`${filename}.csv`}
       onClick={(_, done) => {
-        setData(Utils.getDataGridData(gridRef.current))
+        setData(getDataGridData(gridRef.current))
         done()
       }}
       target="_blank"

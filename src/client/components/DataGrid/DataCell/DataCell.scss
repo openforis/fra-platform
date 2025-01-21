@@ -79,10 +79,12 @@ $highlight-top-bottom: inset 0 1px $ui-accent, inset 0 -1px $ui-accent;
   border-left: $border-editable;
   border-top: $border-editable;
 
-  &.lastCol {
+  &.lastCol,
+  &.lastEditableCol {
     border-right: $border-editable;
   }
 
+  &.lastEditableRow,
   &.lastRow {
     border-bottom: $border-editable;
   }
@@ -156,7 +158,8 @@ $highlight-top-bottom: inset 0 1px $ui-accent, inset 0 -1px $ui-accent;
     border-left: unset;
     border-right: $border-editable;
 
-    &.lastCol {
+    &.lastCol,
+    &.lastEditableCol {
       border-left: $border-editable;
     }
   }
