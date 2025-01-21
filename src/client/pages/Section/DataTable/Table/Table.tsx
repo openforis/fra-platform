@@ -17,6 +17,7 @@ import GridHeadCell from 'client/pages/Section/DataTable/Table/GridHeadCell'
 import RowData from 'client/pages/Section/DataTable/Table/RowData'
 import RowNoticeMessage from 'client/pages/Section/DataTable/Table/RowNoticeMessage'
 
+import { useCellBorderCorrection } from './hooks/useCellBorderCorrection'
 import { useGridTemplateColumns } from './hooks/useGridTemplateColumns'
 import { useParsedTable } from './hooks/useParsedTable'
 import DataValidations from './DataValidations'
@@ -46,6 +47,7 @@ const Table: React.FC<Props> = (props) => {
   })
 
   const gridTemplateColumns = useGridTemplateColumns({ headers, table })
+  useCellBorderCorrection({ disabled, gridRef, rowsData, rowsHeader })
 
   const canViewReview = useCanViewReview(sectionName)
   const withActions = withReview && canViewReview

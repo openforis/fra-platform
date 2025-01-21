@@ -7,7 +7,7 @@ import { TableNames } from 'meta/assessment'
 
 import { useUser } from 'client/store/user'
 import { useCycleRouteParams } from 'client/hooks/useRouteParams'
-import { getDataGridData } from 'client/components/DataGrid/ButtonGridExport/utils'
+import { getDataGridData } from 'client/components/DataGrid/utils'
 import { CopyValuesProps } from 'client/pages/Section/DataTable/Table/ButtonCopyValues/types'
 
 // Cycle -> Table name -> Variables to be coppied to clipboard

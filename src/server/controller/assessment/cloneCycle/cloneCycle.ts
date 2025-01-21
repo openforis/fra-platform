@@ -12,6 +12,7 @@ import { generateDataCache } from 'server/controller/assessment/generateDataCach
 import { generateMetaCache } from 'server/controller/assessment/generateMetaCache'
 import { generateMetadataCache } from 'server/controller/assessment/generateMetadataCache'
 import { BaseProtocol, DB } from 'server/db'
+import { StaticFiles } from 'server/static/staticFiles'
 
 type Props = {
   assessment: Assessment
@@ -33,11 +34,14 @@ export const cloneCycle = async (props: Props, client: BaseProtocol = DB): Promi
 
     const cloneProps: CloneProps = { assessment, cycleSource, cycleTarget }
 
+    // clone metadata and data
     await cloneMetadata(cloneProps, t)
     await cloneAreas(cloneProps, t)
     await cloneUserRoles(cloneProps, t)
     await generateMaterializedViews(cloneProps, t)
     await cloneData(cloneProps, t)
+    // clone static files
+    await StaticFiles.cloneCycle(cloneProps)
 
     // update cache
     await generateMetaCache(t)
