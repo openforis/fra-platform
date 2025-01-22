@@ -1,4 +1,4 @@
-import { CSSProperties, MutableRefObject, useEffect, useMemo, useState } from 'react'
+import { CSSProperties, MutableRefObject, useLayoutEffect, useMemo, useState } from 'react'
 
 import { InputTextProps } from 'client/components/Inputs/InputText/types'
 
@@ -15,7 +15,7 @@ export const useResizeStyle = (props: Props): Returned => {
 
   const [paddingPx, setPaddingPx] = useState(0)
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!resize) return
     if (disabled) return
     if (!inputRef.current) return
