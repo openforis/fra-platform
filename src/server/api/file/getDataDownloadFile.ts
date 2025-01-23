@@ -2,7 +2,7 @@ import { Response } from 'express'
 
 import { CycleRequest } from 'meta/api/request'
 
-import { FileRepository, fileTypes } from 'server/service/file'
+import { FileRepository, fileTypes } from 'server/service/file_deprecated'
 
 type Request = CycleRequest<{
   fileName: string
