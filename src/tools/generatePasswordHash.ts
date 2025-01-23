@@ -1,3 +1,6 @@
+import 'tsconfig-paths/register'
+import 'dotenv/config'
+
 import { passwordHash } from 'server/api/auth/utils/passwordUtils'
 import { Logger } from 'server/utils/logger'
 
