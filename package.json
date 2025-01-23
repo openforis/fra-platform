@@ -3,7 +3,7 @@
   "name": "fra-platform",
   "engines": {
     "node": "20.11.1",
-    "yarn": "^1.22.19"
+    "yarn": "^1.22.22"
   },
   "scripts": {
     "build": "run-s build:prod:client build:prod:server build:prod:server:resources",
