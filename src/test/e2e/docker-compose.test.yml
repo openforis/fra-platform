@@ -5,8 +5,20 @@ services:
       POSTGRES_USER: 'fra'
       POSTGRES_PASSWORD: 'fra'
       POSTGRES_DB: 'fra'
+    restart: always
     ports:
       - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ../../../db/backup:/docker-entrypoint-initdb.d/backup
+      - ./init-db:/docker-entrypoint-initdb.d
+      - ./healthcheck.sh:/healthcheck.sh
+    healthcheck:
+      test: ['CMD-SHELL', '/healthcheck.sh']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
 
   redis-queue:
     image: redis:7
@@ -31,10 +43,14 @@ services:
       args:
         - NPM_GITHUB_TOKEN=${NPM_GITHUB_TOKEN}
     depends_on:
-      - postgres
-      - redis-queue
-      - redis-data
-      - mailhog
+      postgres:
+        condition: service_healthy
+      redis-queue:
+        condition: service_started
+      redis-data:
+        condition: service_started
+      mailhog:
+        condition: service_started
     environment:
       - DATABASE_URL=postgres://fra:fra@postgres:5432/fra
       - SMTP_HOST=mailhog
@@ -60,8 +76,9 @@ services:
       args:
         - NPM_GITHUB_TOKEN=${NPM_GITHUB_TOKEN}
     depends_on:
-      # Check web app healthcheck passed
       web:
+        condition: service_healthy
+      postgres:
         condition: service_healthy
     environment:
       - BASE_URL=http://web:9001
@@ -69,4 +86,8 @@ services:
     ports:
       - '9323:9323'
     volumes:
-      - './test-results:/app/test-results'
+      - './test-results:/app/src/test/e2e/test-results'
+
+volumes:
+  postgres_data:
+    name: e2e_postgres_data

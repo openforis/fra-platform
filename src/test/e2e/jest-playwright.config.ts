@@ -97,18 +97,23 @@ import type { PlaywrightTestConfig } from '@playwright/test'
 const config: PlaywrightTestConfig = {
   testDir: path.join(__dirname, 'tests'),
   testMatch: ['**/*.spec.ts'],
-  timeout: 30000,
+  // These are set to lower than default value to avoid waiting long on failing tests
+  // Refine as needed
+  timeout: 10_0000,
   retries: 2,
-
+  expect: {
+    timeout: 2000,
+  },
   use: {
-    // baseURL: process.env.BASE_URL || 'http://web:9001',
-    // screenshot: 'only-on-failure',
-    // video: 'retain-on-failure',
     baseURL: process.env.BASE_URL || 'http://web:9001',
-    screenshot: 'on',
-    video: 'on',
-    trace: 'on',
+    screenshot: 'only-on-failure', // For always: 'on',
+    video: 'retain-on-failure', // For always: 'on',
+    trace: 'retain-on-failure', // For always: 'on',
     headless: true,
+    // These are set to lower than default value to avoid waiting long on failing tests
+    // Refine as needed
+    actionTimeout: 5_000,
+    navigationTimeout: 5_000,
   },
 
   projects: [
@@ -121,23 +126,19 @@ const config: PlaywrightTestConfig = {
   ],
 
   reporter: [
+    // Report: console
     ['list'],
+    // Report: Html server
     [
       'html',
       {
         outputFolder: 'test-results',
         port: 9323,
         host: '0.0.0.0',
+        open: 'always', // Remove this or change to 'on-failure'
       },
     ],
   ],
-
-  // webServer: {
-  //   command: 'echo "Waiting for web service..."',
-  //   url: process.env.BASE_URL || 'http://web:9000',
-  //   reuseExistingServer: true,
-  //   timeout: 120000,
-  // },
 }
 
 export default config
