@@ -1,16 +1,17 @@
 import { expect, test } from '@playwright/test'
 
+/**
+ * Example of failing test
+ */
+
 test.beforeAll(() => {
   console.log('beforeall')
-  // init user
-  // init assessment
-  // init cycle
 })
 
 test('homepage has title and links to intro page', async ({ page }) => {
-  await page.goto('localhost:9000')
+  await page.goto('/')
 
-  await expect(page).toHaveTitle(/FRA platform/)
+  await expect(page).toHaveTitle(/FRA platform/) // Expect this to fail
   // const headerTitle = await page.getByRole('heading', { level: 1, name: 'Global Forest Resources Assessment' })
   const headerLogo = await page.getByRole('img', { name: 'FAO' })
   await expect(headerLogo).toBeVisible()
