@@ -1,0 +1,28 @@
+FROM node:20.11.1-slim
+
+RUN apt-get update && apt-get install -y \
+    wget \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN rm -rf /usr/local/bin/yarn \
+    && rm -rf /usr/local/bin/yarnpkg \
+    && npm install -g yarn@1.22.22
+
+WORKDIR /app
+
+# TODO: Remove arena-core dep
+ARG NPM_GITHUB_TOKEN
+RUN echo "@openforis:registry=https://npm.pkg.github.com\n//npm.pkg.github.com/:_authToken=${NPM_GITHUB_TOKEN}" >> .npmrc
+
+COPY package.json yarn.lock ./
+RUN yarn install --frozen-lockfile
+
+RUN yarn playwright install --with-deps chromium
+
+COPY . .
+
+RUN ls -la src/test/e2e
+
+EXPOSE 9323
+
+CMD ["yarn", "test:e2e"]

@@ -3,8 +3,6 @@ import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { NavLink } from 'react-router-dom'
 
-import classNames from 'classnames'
-
 import { Areas } from 'meta/area'
 import { MessageTopicType, Topics } from 'meta/messageCenter'
 
@@ -46,12 +44,24 @@ const CountryHeader: React.FC<Props> = (props) => {
   )
 
   return (
-    <div className={classNames('country-header', { withMessageBoard, withTabs })}>
+    <div className="country-header">
       {withLabel && (
         <div className="country-header__label">
-          <h1 className="title">{t(`area.${countryIso}.listName`)}</h1>
+          <h2 className="title">{t(`area.${countryIso}.listName`)}</h2>
           <ButtonDownloadDashboard />
           {Areas.isISOGlobal(countryIso) && <CountrySelector />}
+          {withMessageBoard && (
+            <MessageButton
+              inverse
+              label={t('landing.sections.messageBoard')}
+              size={ButtonSize.s}
+              topic={{
+                key: Topics.getMessageBoardCountryKey(),
+                title: t(Areas.getTranslationKey(countryIso)),
+                type: MessageTopicType.messageBoard,
+              }}
+            />
+          )}
         </div>
       )}
 
@@ -72,19 +82,6 @@ const CountryHeader: React.FC<Props> = (props) => {
             </React.Fragment>
           ))}
         </div>
-      )}
-
-      {withMessageBoard && (
-        <MessageButton
-          inverse
-          label={t('landing.sections.messageBoard')}
-          size={ButtonSize.m}
-          topic={{
-            key: Topics.getMessageBoardCountryKey(),
-            title: t(Areas.getTranslationKey(countryIso)),
-            type: MessageTopicType.messageBoard,
-          }}
-        />
       )}
     </div>
   )

@@ -3,7 +3,7 @@ import { Response } from 'express'
 import { CycleDataRequest } from 'meta/api/request'
 import { Lang } from 'meta/lang'
 
-import { FileRepository, fileTypes } from 'server/service/file'
+import { FileRepository, fileTypes } from 'server/service/file_deprecated'
 import { Requests } from 'server/utils'
 
 type Request = CycleDataRequest<{ key: 'Metadata-15-01-01' | 'Metadata-15-02-01' }>

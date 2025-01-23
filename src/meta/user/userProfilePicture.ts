@@ -1,4 +1,7 @@
+import { Readable } from 'stream'
+
 export interface UserProfilePicture {
   name: string
-  data: string
+  uuid: string
+  data?: Readable
 }
