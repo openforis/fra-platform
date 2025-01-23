@@ -1,16 +1,18 @@
+import { Readable } from 'stream'
+
 import { Label } from 'meta/assessment'
 
 export type FileSummary = {
   readonly createdAt: string
   readonly id: number
   readonly name: string
-  readonly size: number
+  size: number
   readonly uuid: string
   readonly repositoryItemUuid: string
 }
 
 export type File = FileSummary & {
-  readonly file: Buffer
+  file: Readable
 }
 
 export type FileUsage = {

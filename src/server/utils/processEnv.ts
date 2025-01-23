@@ -21,6 +21,12 @@ export const ProcessEnv = {
   appUri: process.env.APP_URI ?? 'http://localhost:9001',
   port: process.env.PORT ? Number(process.env.PORT) : 80,
 
+  // aws/s3
+  awsAccessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  awsRegion: process.env.AWS_REGION,
+  awsSecretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  s3BucketName: process.env.S3_BUCKET_NAME,
+
   // dev
   debug: process.env.DEBUG === 'true',
   nodeEnv: process.env.NODE_ENV || NodeEnv.development,
