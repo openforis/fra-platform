@@ -15,6 +15,7 @@ const Text: React.FC<PropsCell> = (props) => {
   const { t } = useTranslation()
 
   const Component = col.props.colType === ColType.text ? InputText : TextArea
+  const resize = col.props.colType === ColType.text ? true : undefined
 
   const { inputPlaceholder } = col.props
 
@@ -25,6 +26,7 @@ const Text: React.FC<PropsCell> = (props) => {
       onChange={onChange}
       onPaste={onPaste}
       placeholder={t(inputPlaceholder)}
+      resize={resize}
       value={value}
     />
   )

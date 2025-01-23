@@ -22,6 +22,6 @@ export const useGridTemplateColumns = (props: Props): Returned => {
     const gridTemplateColumnsFromTable = table.props.style?.[cycle.uuid]?.gridTemplateColumns
     if (!Objects.isEmpty(gridTemplateColumnsFromTable)) return gridTemplateColumnsFromTable
 
-    return `minmax(auto, 350px) repeat(${headers.length},1fr)`
+    return `minmax(100px, auto) repeat(${headers.length}, minmax(min-content, 1fr))`
   }, [cycle.uuid, headers.length, table.props.style])
 }

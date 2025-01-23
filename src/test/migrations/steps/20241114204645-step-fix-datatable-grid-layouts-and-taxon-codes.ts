@@ -153,56 +153,44 @@ const _fixFRA2025GridLayouts = async (client: BaseProtocol) => {
 
   const gridTemplateColumnsToAdd: Array<{ tableName: string; gridTemplateColumns: string }> = [
     {
-      gridTemplateColumns: 'minmax(auto, 150px) 1fr auto',
+      gridTemplateColumns: 'auto minmax(min-content, 1fr) minmax(min-content, auto)',
       tableName: 'extentOfForest_forestAreaStatusAndTrend_Description',
     },
     {
-      gridTemplateColumns: '2fr 1fr',
+      gridTemplateColumns: 'minmax(min-content, 2fr) minmax(min-content, 1fr)',
       tableName: 'extentOfForest_forestAreaStatusAndTrend',
     },
     {
-      gridTemplateColumns: 'minmax(auto, 150px) 1fr auto',
+      gridTemplateColumns: 'auto minmax(min-content, 1fr) minmax(min-content, auto)',
       tableName: 'growingStock_growingStockStatus_Description',
     },
     {
-      gridTemplateColumns: '2fr 1fr',
+      gridTemplateColumns: 'minmax(min-content, 2fr) minmax(min-content, 1fr)',
       tableName: 'growingStock_growingStockStatus',
     },
     {
-      gridTemplateColumns: 'minmax(auto, 250px) repeat(4, 1fr)',
-      tableName: 'growingStockComposition2025',
-    },
-    {
-      gridTemplateColumns: 'minmax(auto, 150px) 1fr auto',
+      gridTemplateColumns: 'auto minmax(min-content, 1fr) minmax(min-content, auto)',
       tableName: 'biomassStock_biomassStockStatus_Description',
     },
     {
-      gridTemplateColumns: '2fr 1fr',
+      gridTemplateColumns: 'minmax(min-content, 2fr) minmax(min-content, 1fr)',
       tableName: 'biomassStock_biomassStockStatus',
     },
     {
-      gridTemplateColumns: 'minmax(auto, 150px) 1fr 2fr',
+      gridTemplateColumns: 'auto minmax(min-content, 1fr) minmax(min-content, 2fr)',
       tableName: 'forestRestoration',
     },
     {
-      gridTemplateColumns: 'minmax(auto, 150px) repeat(24, 1fr)',
+      gridTemplateColumns: 'minmax(150px, auto) repeat(24, minmax(min-content, 1fr))',
       tableName: 'disturbances',
     },
     {
-      gridTemplateColumns: 'minmax(auto, 150px) repeat(24, 1fr)',
+      gridTemplateColumns: 'minmax(150px, auto) repeat(24, minmax(min-content, 1fr))',
       tableName: 'areaAffectedByFire',
     },
     {
-      gridTemplateColumns: 'minmax(auto, 150px) repeat(2, 1fr)',
-      tableName: 'degradedForest2025',
-    },
-    {
-      gridTemplateColumns: '2fr repeat(2, 1fr)',
-      tableName: 'forestPolicy',
-    },
-    {
-      gridTemplateColumns: '50px repeat(6, 1fr)',
-      tableName: 'nonWoodForestProductsRemovals',
+      gridTemplateColumns: 'minmax(120px, auto) repeat(14, minmax(min-content, 1fr))',
+      tableName: 'sustainableDevelopment15_2_1_5',
     },
   ]
 
@@ -253,43 +241,23 @@ const _fixFRA2020GridLayouts = async (client: BaseProtocol) => {
 
   const gridTemplateColumnsToAdd: Array<{ tableName: string; gridTemplateColumns: string }> = [
     {
-      gridTemplateColumns: 'minmax(auto, 200px) repeat(9, 1fr)',
-      tableName: 'extentOfForest',
-    },
-    {
-      gridTemplateColumns: 'minmax(auto, 250px) repeat(9, 1fr)',
-      tableName: 'forestCharacteristics',
-    },
-    {
-      gridTemplateColumns: 'minmax(auto, 250px) repeat(9, 1fr)',
-      tableName: 'growingStockAvg',
-    },
-    {
-      gridTemplateColumns: 'minmax(auto, 250px) repeat(9, 1fr)',
-      tableName: 'growingStockTotal',
-    },
-    {
-      gridTemplateColumns: 'minmax(auto, 250px) repeat(7, 1fr)',
-      tableName: 'growingStockComposition',
-    },
-    {
-      gridTemplateColumns: 'auto repeat(18, 1fr)',
+      gridTemplateColumns: 'minmax(150px, auto) repeat(18, minmax(min-content, 1fr))',
       tableName: 'disturbances',
     },
     {
-      gridTemplateColumns: 'auto repeat(18, 1fr)',
+      gridTemplateColumns: 'minmax(150px, auto) repeat(18, minmax(min-content, 1fr))',
       tableName: 'areaAffectedByFire',
     },
     {
-      gridTemplateColumns: 'minmax(auto, 150px) 2fr 1fr',
-      tableName: 'degradedForest',
+      gridTemplateColumns: 'minmax(150px, auto) repeat(12, minmax(min-content, 1fr))',
+      tableName: 'employment',
     },
     {
-      gridTemplateColumns: 'minmax(auto, 250px) repeat(12, 1fr)',
+      gridTemplateColumns: 'minmax(150px, auto) repeat(12, minmax(min-content, 1fr))',
       tableName: 'graduationOfStudents',
     },
     {
-      gridTemplateColumns: 'minmax(auto, 50px) repeat(6, 1fr)',
+      gridTemplateColumns: 'minmax(min-content, auto) repeat(6, minmax(min-content, 1fr))',
       tableName: 'nonWoodForestProductsRemovals',
     },
   ]
@@ -314,68 +282,25 @@ const _fixPanEuropean2020GridLayouts = async (client: BaseProtocol) => {
 
   const gridTemplateColumnsToAdd: Array<{ tableName: string; gridTemplateColumns: string }> = [
     {
-      gridTemplateColumns: '2fr 1fr',
+      gridTemplateColumns: 'minmax(min-content, 2fr) minmax(min-content, 1fr)',
       tableName: 'table_1_1a',
     },
     {
-      gridTemplateColumns: 'auto repeat(8, 1fr)',
-      tableName: 'table_1_2c_2020',
+      gridTemplateColumns:
+        'minmax(150px, auto) repeat(4, minmax(min-content, 1fr)) minmax(110px, 1fr) repeat(5, minmax(min-content, 1fr))', // Fixes "Desertification" label overflow
+      tableName: 'table_2_5',
     },
     {
-      gridTemplateColumns: 'minmax(auto, 200px) repeat(9, 1fr)',
-      tableName: 'table_2_4',
-    },
-    {
-      gridTemplateColumns: 'minmax(auto, 150px) repeat(5, 1fr)',
-      tableName: 'table_3_2',
-    },
-    {
-      gridTemplateColumns: ' minmax(auto, 200px) repeat(6, 1fr)',
-      tableName: 'table_3_3',
-    },
-    {
-      gridTemplateColumns: ' minmax(auto, 200px) repeat(5, 1fr)',
-      tableName: 'table_3_4',
-    },
-    {
-      gridTemplateColumns: 'minmax(auto, 200px) repeat(3, 1fr)',
-      tableName: 'table_4_2a',
-    },
-    {
-      gridTemplateColumns: 'minmax(auto, 200px) repeat(5, 1fr)',
-      tableName: 'table_4_2b_2020',
-    },
-    {
-      gridTemplateColumns: 'minmax(auto, 200px) repeat(7, 1fr)',
-      tableName: 'table_4_3b_2020',
-    },
-    {
-      gridTemplateColumns: 'minmax(auto, 250px) repeat(4, 1fr)',
-      tableName: 'table_4_4b_2020',
-    },
-    {
-      gridTemplateColumns: 'auto repeat(8, 1fr)',
+      gridTemplateColumns: 'minmax(150px, auto) repeat(8, minmax(min-content, 1fr))',
       tableName: 'table_6_1',
     },
     {
-      gridTemplateColumns: 'repeat(3, 1fr)',
-      tableName: 'table_6_2',
-    },
-    {
-      gridTemplateColumns: 'auto repeat(5, 1fr)',
-      tableName: 'table_6_5b_2020',
-    },
-    {
-      gridTemplateColumns: 'minmax(auto, 200px) repeat(26, 1fr)',
+      gridTemplateColumns: 'minmax(200px, auto) repeat(26, minmax(min-content, 1fr))',
       tableName: 'table_6_7',
     },
     {
-      gridTemplateColumns: 'minmax(auto, 200px) repeat(26, 1fr)',
+      gridTemplateColumns: 'minmax(200px, auto) repeat(26, minmax(min-content, 1fr))',
       tableName: 'table_6_8',
-    },
-    {
-      gridTemplateColumns: 'minmax(auto, 250px) repeat(10, 1fr)',
-      tableName: 'table_6_9',
     },
   ]
 
@@ -505,88 +430,40 @@ const _fixPanEuropean2025GridLayouts = async (client: BaseProtocol) => {
 
   const gridTemplateColumnsToAdd: Array<{ tableName: string; gridTemplateColumns: string }> = [
     {
-      gridTemplateColumns: 'repeat(2, 1fr)',
+      gridTemplateColumns: 'repeat(2, minmax(min-content, 1fr))',
       tableName: 'table_1_1a',
     },
     {
-      gridTemplateColumns: 'minmax(auto,250px) repeat(9, 1fr)',
-      tableName: 'table_1_2c',
-    },
-    {
-      gridTemplateColumns: 'minmax(auto, 400px) repeat(5, 1fr)',
-      tableName: 'table_1_3a2',
-    },
-    {
-      gridTemplateColumns: 'auto repeat(10, 1fr)',
-      tableName: 'table_2_4',
-    },
-    {
-      gridTemplateColumns: 'minmax(auto, 200px) repeat(7, 1fr)',
-      tableName: 'table_2_5',
-    },
-    {
-      gridTemplateColumns: '2fr 1fr',
+      gridTemplateColumns: 'minmax(min-content, 2fr) minmax(min-content, 1fr)',
       tableName: 'reasonability_check_3_1',
     },
     {
-      gridTemplateColumns: 'minmax(auto, 200px) repeat(6, 1fr)',
-      tableName: 'table_3_3',
+      gridTemplateColumns: 'repeat(3, minmax(min-content, 1fr))',
+      tableName: 'country_comments_4_9_2',
     },
     {
-      gridTemplateColumns: 'minmax(auto, 200px) repeat(2, 1fr)',
-      tableName: 'country_comments_3_3_1',
+      gridTemplateColumns: 'repeat(3, minmax(min-content, 1fr))',
+      tableName: 'country_comments_5_1_2',
     },
     {
-      gridTemplateColumns: 'minmax(auto, 200px) repeat(5, 1fr)',
-      tableName: 'table_3_4',
+      gridTemplateColumns: 'minmax(150px, auto) repeat(8, minmax(min-content, 1fr))',
+      tableName: 'table_6_1',
     },
     {
-      gridTemplateColumns: 'repeat(2, 1fr)',
-      tableName: 'country_comments_3_4_1',
-    },
-    {
-      gridTemplateColumns: 'minmax(auto, 200px) repeat(2, 1fr)',
-      tableName: 'country_comments_3_4_2',
-    },
-    {
-      gridTemplateColumns: 'minmax(auto, 200px) repeat(3, 1fr)',
-      tableName: 'table_4_2a',
-    },
-    {
-      gridTemplateColumns: 'minmax(auto, 200px) repeat(5, 1fr)',
-      tableName: 'table_4_2b',
-    },
-    {
-      gridTemplateColumns: 'minmax(auto, 200px) repeat(7, 1fr)',
-      tableName: 'table_4_3b',
-    },
-    {
-      gridTemplateColumns: 'minmax(auto, 200px) repeat(6, 1fr)',
-      tableName: 'table_4_4b',
-    },
-    {
-      gridTemplateColumns: 'minmax(auto, 200px) repeat(6, 1fr)',
-      tableName: 'table_4_4c',
-    },
-    {
-      gridTemplateColumns: 'repeat(2, 1fr)',
-      tableName: 'country_comments_4_5_1',
-    },
-    {
-      gridTemplateColumns: 'repeat(2, 1fr)',
+      gridTemplateColumns: 'repeat(2, minmax(min-content, 1fr))',
       tableName: 'country_comments_6_1_1',
     },
     {
-      gridTemplateColumns: 'minmax(auto, 250px) repeat(4, 1fr)',
-      tableName: 'table_6_6',
-    },
-    {
-      gridTemplateColumns: 'repeat(2, 1fr)',
+      gridTemplateColumns: 'repeat(2, minmax(min-content, 1fr))',
       tableName: 'country_comments_6_6_1',
     },
     {
-      gridTemplateColumns: 'minmax(auto, 300px) repeat(4, 1fr)',
-      tableName: 'table_6_10d',
+      gridTemplateColumns: 'repeat(3, minmax(min-content, 1fr))',
+      tableName: 'country_comments_6_6_2',
+    },
+    {
+      gridTemplateColumns: 'repeat(2, minmax(min-content, 1fr))',
+      tableName: 'country_comments_6_10_1',
     },
   ]
 
