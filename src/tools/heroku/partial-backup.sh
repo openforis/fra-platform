@@ -8,7 +8,7 @@ TIMESTAMP=$(date +%Y%m%d_%H%M%S)
 if [ -z "${BACKUP_NAME:-}" ]; then
     BACKUP_FILE="${BACKUP_DIR}/backup_${TIMESTAMP}.sql"
 else
-    BACKUP_FILE="${BACKUP_DIR}/${BACKUP_NAME}.sql"
+    BACKUP_FILE="${BACKUP_DIR}/${BACKUP_NAME}"
 fi
 
 # Default excluded tables and schemas
