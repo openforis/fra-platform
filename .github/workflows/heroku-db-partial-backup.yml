@@ -54,7 +54,7 @@ jobs:
         run: ./src/tools/heroku/encrypt.sh
 
       - name: Upload encrypted backup artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: encrypted-database-backup-${{ github.event.inputs.environment }}-${{ github.run_id }}
           path: ./backups/*.gpg
