@@ -60,6 +60,7 @@ services:
       - REDIS_QUEUE_URL=redis://redis-queue:6379
       - REDIS_DATA_URL=redis://redis-data:6379
       - PORT=9001
+      - WWWHISPER_DISABLE=true
     ports:
       - '9001:9001'
     healthcheck:
