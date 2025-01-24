@@ -25,7 +25,7 @@ const MapWrapper: React.FC = () => {
     return <Component />
   }
 
-  return <Wrapper apiKey={apiKey} render={render} />
+  return <Wrapper apiKey={apiKey} libraries={['marker']} render={render} />
 }
 
 export default MapWrapper
