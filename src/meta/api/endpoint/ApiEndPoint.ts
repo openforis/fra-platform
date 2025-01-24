@@ -184,6 +184,10 @@ export const ApiEndPoint = {
     },
   },
 
+  Kiosk: {
+    latestActivities: () => apiPath('kiosk', 'latest-activities'),
+  },
+
   MetaData: {
     metaCache: () => apiPath('metadata', 'metaCache'),
     sections: () => apiPath('metadata', 'sections'),
