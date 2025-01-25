@@ -37,14 +37,20 @@ export const useFetchAndMarkActivities = (props: Props) => {
           header: true,
           skipEmptyLines: true,
           complete: (result) => {
-            const activities: Array<Activity> = result.data.map((row: any) => ({
-              countryIso: row.ISO3,
-              countryName: row.Country,
-              date: row['Date (YYYY-MM-DD)'],
-              description: row.Description,
-              lat: parseFloat(row['Location (lat)']),
-              lng: parseFloat(row['Location (long)']),
-            }))
+            const activities: Array<Activity> = result.data.map((row: any) => {
+              const date = row['Date (YYYY-MM-DD)']
+              const countryIso = row.ISO3
+
+              return {
+                countryIso,
+                countryName: row.Country,
+                date,
+                description: row.Description,
+                id: `${date}-${countryIso}`,
+                lat: parseFloat(row['Location (lat)']),
+                lng: parseFloat(row['Location (long)']),
+              }
+            })
 
             setData(activities)
           },

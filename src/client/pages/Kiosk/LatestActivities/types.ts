@@ -5,6 +5,7 @@ export type Activity = {
   countryName: string
   date: string
   description: string
+  id: string
   lat: number
   lng: number
 }

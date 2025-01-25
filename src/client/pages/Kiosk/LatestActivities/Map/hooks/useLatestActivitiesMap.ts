@@ -2,6 +2,11 @@ import { MutableRefObject, useCallback, useEffect, useRef, useState } from 'reac
 
 import { Activity } from 'client/pages/Kiosk/LatestActivities/types'
 
+type Props = {
+  expandedActivity: string | null
+  handleExpand: (activity: Activity, map: google.maps.Map) => void
+}
+
 type Returned = {
   addMarkers: (activities: Array<Activity>) => void
   map: google.maps.Map
@@ -14,23 +19,31 @@ const baseMapOptions = {
   fullscreenControl: false,
   mapId: 'DEMO_MAP_ID', // Enables advanced markers
   mapTypeControl: false,
-  mapTypeId: 'roadmap',
+  mapTypeId: 'satellite',
   maxZoom: 15,
   minZoom: 3,
   rotateControl: false,
   zoom: 3,
 }
 
-const _formatDateHeader = (date: string, countryName: string): string => {
-  const parsedDate = new Date(date)
-  const month = parsedDate.toLocaleString('en-US', { month: 'long' })
-  const year = parsedDate.getFullYear()
-  return `${month} ${year} - ${countryName}`
+const inActiveMarkerColors = {
+  background: '#9e9e9e',
+  borderColor: '#7e7e7e',
+  glyphColor: '#bdbdbd',
 }
 
-export const useLatestActivitiesMap = (): Returned => {
+const activeMarkerColors = {
+  background: '#5aa955',
+  borderColor: '#388e3c',
+  glyphColor: '#388e3c',
+}
+
+export const useLatestActivitiesMap = (props: Props): Returned => {
+  const { expandedActivity, handleExpand } = props
+
   const ref = useRef<HTMLDivElement>(null)
   const [map, setMap] = useState<google.maps.Map>()
+  const markersRef = useRef<Map<string, google.maps.marker.AdvancedMarkerElement>>(new Map())
 
   useEffect(() => {
     if (!ref.current || map) return
@@ -44,14 +57,14 @@ export const useLatestActivitiesMap = (): Returned => {
     (activities: Array<Activity>) => {
       if (!map) return
 
+      const markers = markersRef.current
+
       activities.forEach((activity) => {
-        const { countryName, date, description, lat, lng } = activity
+        const { id, lat, lng } = activity
 
         const pin = new google.maps.marker.PinElement({
-          background: '#ef7a2d',
-          borderColor: '#d96010',
-          glyphColor: '#d96010',
-          scale: 1.5,
+          ...inActiveMarkerColors,
+          scale: 2.5,
         })
 
         const marker = new google.maps.marker.AdvancedMarkerElement({
@@ -60,22 +73,30 @@ export const useLatestActivitiesMap = (): Returned => {
           content: pin.element,
         })
 
-        const infoWindow = new google.maps.InfoWindow({
-          content: description,
-          headerContent: _formatDateHeader(date, countryName),
-        })
-
         marker.addListener('click', () => {
-          infoWindow.open(map, marker)
+          handleExpand(activity, map)
         })
 
-        google.maps.event.addListener(map, 'click', () => {
-          infoWindow.close()
-        })
+        markers.set(id, marker)
       })
     },
-    [map]
+    [handleExpand, map]
   )
+
+  useEffect(() => {
+    const markers = markersRef.current
+
+    markers.forEach((marker, id) => {
+      const isActive = id === expandedActivity
+      const colors = isActive ? activeMarkerColors : inActiveMarkerColors
+      const pin = new google.maps.marker.PinElement({
+        ...colors,
+        scale: 2.5,
+      })
+
+      Object.assign(marker, { content: pin.element })
+    })
+  }, [expandedActivity])
 
   return { addMarkers, map, ref }
 }
