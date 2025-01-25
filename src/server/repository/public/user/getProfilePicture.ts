@@ -26,7 +26,7 @@ export const getProfilePicture = async (
     `
         select f.uuid, f.name
         from public.users u
-            left join file f on u.profile_picture_file_uuid = f.uuid
+            join file f on u.profile_picture_file_uuid = f.uuid
         ${where}
     `,
     [value]
