@@ -1,9 +1,5 @@
 import { expect, test } from '@playwright/test'
 
-/**
- * Example of login test
- */
-
 test.describe('Login', () => {
   test('should login with test user credentials', async ({ page }) => {
     await page.goto('/assessments/fra/2025/login')

@@ -16,4 +16,11 @@ received-emails/
 .vscode
 
 #Test
-src/test/e2e/test-results
+test-results/
+
+#Playwright
+playwright-report/
+
+#DB
+db/backup
+src/test/e2e/init-db/backup
