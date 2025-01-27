@@ -5,7 +5,7 @@ import MediaQuery from 'react-responsive'
 import classNames from 'classnames'
 
 import { useAppDispatch } from 'client/store'
-import { useIsHistoryActive } from 'client/store/data'
+import { useHistoryActivitiesIsActive } from 'client/store/data'
 import { useShowOriginalDatapoints } from 'client/store/ui/assessmentSection'
 import { DataLockActions, useIsDataLocked } from 'client/store/ui/dataLock'
 import { useCanEditCycleData } from 'client/store/user'
@@ -18,16 +18,16 @@ const Lock: React.FC = () => {
   const canEditCycleData = useCanEditCycleData()
   const locked = useIsDataLocked()
   const showOdps = useShowOriginalDatapoints()
-  const historyActive = useIsHistoryActive()
+  const historyActive = useHistoryActivitiesIsActive()
 
   const [disabled, setDisabled] = useState<boolean>(false)
   const [over, setOver] = useState<boolean>(false)
   const lockRef = useRef<boolean>(showOdps)
-  
+
   const toggleLock = useCallback(() => dispatch(DataLockActions.toggleDataLock()), [dispatch])
-  
+
   useEffect(() => {
-    if(canEditCycleData){
+    if (canEditCycleData) {
       if (historyActive || !showOdps) {
         setDisabled(true)
         if (!locked) {

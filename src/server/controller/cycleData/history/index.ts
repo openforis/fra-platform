@@ -1,7 +1,7 @@
 import { getCount } from './getCount'
-import { getHistory } from './getHistory'
+import { getHistoryActivities } from './getHistoryActivities'
 
 export const History = {
   getCount,
-  getHistory,
+  getHistoryActivities,
 }
