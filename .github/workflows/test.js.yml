@@ -54,16 +54,16 @@ jobs:
         env:
           NPM_GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
 
+      - name: Create test results directory
+        run: mkdir -p playwright-report
+
       - name: Run E2E tests
-        run: docker compose -f src/test/e2e/docker-compose.test.yml run playwright npm run test:e2e
+        run: |
+          docker compose -f src/test/e2e/docker-compose.test.yml run \
+            -v ${{ github.workspace }}/playwright-report:/app/src/test/e2e/test-results \
+            playwright npm run test:e2e
         env:
           NPM_GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-
-      - name: Copy test results
-        if: always()
-        run: |
-          mkdir -p playwright-report
-          docker cp $(docker compose -f src/test/e2e/docker-compose.test.yml ps -q playwright):/app/src/test/e2e/test-results/. playwright-report/
 
       - uses: actions/upload-artifact@v4
         if: always() && !env.ACT
