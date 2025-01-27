@@ -63,6 +63,7 @@ services:
       - WWWHISPER_DISABLE=true
       - FRA_GOOGLE_CLIENT_ID=google-client-id
       - FRA_GOOGLE_CLIENT_SECRET=goggle-client-secret
+      - TOKEN_SECRET=1234567890
     ports:
       - '9001:9001'
     healthcheck:
