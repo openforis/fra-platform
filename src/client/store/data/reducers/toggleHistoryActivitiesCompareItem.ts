@@ -11,13 +11,13 @@ type Action = PayloadAction<{
   target: HistoryTarget
 }>
 
-export const toggleCompareHistoryItem = (state: Draft<DataState>, action: Action) => {
+export const toggleHistoryActivitiesCompareItem = (state: Draft<DataState>, action: Action) => {
   const { datum, target } = action.payload
 
-  if (state.history.compareItem?.[target]?.id === datum.id) {
-    Objects.unset(state.history.compareItem, [target])
+  if (state.history.activities?.compareItem?.[target]?.id === datum.id) {
+    Objects.unset(state.history.activities.compareItem, [target])
   } else {
-    const path = ['history', 'compareItem', target]
+    const path = ['history', 'activities', 'compareItem', target]
     Objects.setInPath({ obj: state, path, value: datum })
   }
 }

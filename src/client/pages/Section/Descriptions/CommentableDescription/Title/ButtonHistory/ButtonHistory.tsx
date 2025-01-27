@@ -5,8 +5,7 @@ import { Objects } from 'utils/objects'
 
 import { CommentableDescriptionName } from 'meta/assessment'
 
-import { useIsHistoryActive } from 'client/store/data'
-import { useHistory } from 'client/store/data/hooks/useHistory'
+import { useHistoryActivities, useHistoryActivitiesIsActive } from 'client/store/data'
 import { useCanViewHistory, useIsDescriptionEditable } from 'client/store/user/hooks'
 import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
 import { useSectionContext } from 'client/pages/Section/context'
@@ -27,12 +26,12 @@ const ButtonHistory: React.FC<Props> = (props) => {
   const loading = false // TODO: useLoading..()
   const disabled = loading || editable
 
-  const historyActive = useIsHistoryActive()
+  const historyActive = useHistoryActivitiesIsActive()
   const onClick = useToggleHistory({ target })
 
   const isDataSources = target === CommentableDescriptionName.dataSources
 
-  const history = useHistory()
+  const history = useHistoryActivities()
   // Show toggle button when browsing history for current section
   const currentSectionEnabled = !Objects.isEmpty(history.items?.[target])
 

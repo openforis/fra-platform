@@ -17,7 +17,7 @@ type Props = {
 
 type Returned = Array<ActivityLog<never>>
 
-export const getHistory = async (props: Props): Promise<Returned> => {
+export const getHistoryActivities = async (props: Props): Promise<Returned> => {
   const { assessment, cycle, countryIso, sectionName, target, limit, offset } = props
 
   const message = messages[target]
