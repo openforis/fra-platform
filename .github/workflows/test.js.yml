@@ -38,12 +38,12 @@ jobs:
         env:
           NPM_GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
 
-      - name: Setup tmate session
-        if: failure()
-        uses: mxschmitt/action-tmate@v3
-        with:
-          limit-access-to-actor: true
-          timeout-minutes: 30
+      # - name: Setup tmate session
+      #   if: failure()
+      #   uses: mxschmitt/action-tmate@v3
+      #   with:
+      #     limit-access-to-actor: true
+      #     timeout-minutes: 30
 
       - name: Wait for services to be ready
         run: |
