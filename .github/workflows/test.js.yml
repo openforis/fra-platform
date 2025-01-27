@@ -12,26 +12,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install PostgreSQL client and GPG
+      - name: Download test database
         run: |
-          sudo apt-get update
-          sudo apt-get install -y curl gnupg2
-          curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo gpg --dearmor -o /usr/share/keyrings/postgresql-keyring.gpg
-          echo "deb [signed-by=/usr/share/keyrings/postgresql-keyring.gpg] http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" | sudo tee /etc/apt/sources.list.d/postgresql.list
-          sudo apt-get update
-          sudo apt-get install -y postgresql-client-15
-
-      - name: Create Partial Backup
-        env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-          HEROKU_APP: ${{ secrets.HEROKU_APP_NAME_DEVELOPMENT }}
-          BACKUP_DIR: ./db
-          BACKUP_NAME: backup
-          EXCLUDE_TABLES: 'public.users public.users_auth_provider public.users_invitation public.users_reset_password public.users_role'
-        run: |
-          export PATH="/usr/lib/postgresql/15/bin:$PATH"
-          mkdir -p $BACKUP_DIR
-          ./src/tools/heroku/partial-backup.sh
+          mkdir -p ./db
+          curl -L "${{ secrets.TEST_DATABASE_URL }}" -o ./db/backup
 
       - name: Build and start containers
         run: docker compose -f src/test/e2e/docker-compose.test.yml up -d
@@ -58,12 +42,26 @@ jobs:
         run: mkdir -p playwright-report
 
       - name: Run E2E tests
+        if: always()
         run: |
           docker compose -f src/test/e2e/docker-compose.test.yml run \
-            -v ${{ github.workspace }}/playwright-report:/app/src/test/e2e/test-results \
             playwright npm run test:e2e
         env:
           NPM_GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+
+      - name: Zip test results
+        if: always()
+        run: |
+          cd src/test/e2e
+          zip -r ../../../playwright-results.zip test-results/
+
+      - name: Upload test results
+        if: always() && !env.ACT
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-results
+          path: playwright-results.zip
+          retention-days: 30
 
       - name: Setup tmate session
         if: failure()
@@ -71,13 +69,6 @@ jobs:
         with:
           limit-access-to-actor: true
           timeout-minutes: 30
-
-      - uses: actions/upload-artifact@v4
-        if: always() && !env.ACT
-        with:
-          name: playwright-report
-          path: playwright-report/
-          retention-days: 30
 
       - name: Stop containers
         if: always()
