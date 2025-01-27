@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { CommentableDescriptionName } from 'meta/assessment'
 
-import { useIsHistoryActive } from 'client/store/data'
+import { useHistoryActivitiesIsActive } from 'client/store/data'
 import { useCanEditDescription, useIsDescriptionEditable } from 'client/store/user/hooks'
 import Button, { ButtonSize } from 'client/components/Buttons/Button'
 import { useSectionContext } from 'client/pages/Section/context'
@@ -21,7 +21,7 @@ const ButtonEdit: React.FC<Props> = (props) => {
   const canEdit = useCanEditDescription({ sectionName })
   const editable = useIsDescriptionEditable({ sectionName, name })
   const toggleEdit = useToggleEdit({ name, sectionName })
-  const disabled = useIsHistoryActive()
+  const disabled = useHistoryActivitiesIsActive()
 
   if (!canEdit) return null
 

@@ -9,7 +9,7 @@ import { Objects } from 'utils/objects'
 import { Areas, CountryIso } from 'meta/area'
 import { Routes } from 'meta/routes'
 
-import { useIsHistoryActive } from 'client/store/data'
+import { useHistoryActivitiesIsActive } from 'client/store/data'
 import { useSections } from 'client/store/metadata'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import Hr from 'client/components/Hr'
@@ -23,7 +23,7 @@ const NavAssessment: React.FC = () => {
   const { t } = useTranslation()
   const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
   const sections = useSections()
-  const historyActive = useIsHistoryActive()
+  const historyActive = useHistoryActivitiesIsActive()
 
   const [showSections, setShowSections] = useState<boolean>(false)
 
