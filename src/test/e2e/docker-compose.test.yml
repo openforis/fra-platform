@@ -61,6 +61,8 @@ services:
       - REDIS_DATA_URL=redis://redis-data:6379
       - PORT=9001
       - WWWHISPER_DISABLE=true
+      - FRA_GOOGLE_CLIENT_ID=google-client-id
+      - FRA_GOOGLE_CLIENT_SECRET=goggle-client-secret
     ports:
       - '9001:9001'
     healthcheck:
