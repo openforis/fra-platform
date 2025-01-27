@@ -4,7 +4,7 @@ import { CountryIso } from 'meta/area'
 
 import { useAppDispatch } from 'client/store'
 import { AssessmentActions } from 'client/store/assessment'
-import { DataActions } from 'client/store/data/slice'
+import { DataActions } from 'client/store/data'
 import { useCanEdit } from 'client/store/user'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'

@@ -9,16 +9,19 @@ const getHistory = createSelector(
   (history) => history
 )
 
+const getHistoryActivities = createSelector(getHistory, (history) => history.activities ?? {})
+
 const getHistoryCompareItem = createSelector(
-  [getHistory, (_, target: HistoryTarget) => target],
-  (history, target) => history.compareItem?.[target]
+  [getHistoryActivities, (_, target: HistoryTarget) => target],
+  (history, target) => history?.compareItem?.[target]
 )
 
-const getHistoryItems = createSelector(getHistory, (history) => history.items)
+const getHistoryItems = createSelector(getHistoryActivities, (history) => history?.items)
 
 export const DataSelector = {
   History: {
     getHistory,
+    getHistoryActivities,
     getHistoryCompareItem,
     getHistoryItems,
   },
