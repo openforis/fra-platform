@@ -5,10 +5,9 @@ import { CommentableDescriptionName } from 'meta/assessment'
 import { ContactNode } from 'meta/cycleData'
 import { RecordAssessmentDatas } from 'meta/data'
 
+import { resetHistoryActivities } from 'client/store/data/reducers/resetHistoryActivities'
 import { DataState, TableDataStatus } from 'client/store/data/state'
 
-import { clearTableData } from './actions/clearTableData'
-import { copyPreviousDatasources } from './actions/copyPreviousDatasources'
 import { createContact } from './actions/createContact'
 import { deleteContact } from './actions/deleteContact'
 import { deleteDataSource } from './actions/deleteDataSource'
@@ -19,17 +18,15 @@ import { getNodeValuesEstimations } from './actions/getNodeValuesEstimations'
 import { getODPLastUpdatedTimestamp } from './actions/getODPLastUpdatedTimestamp'
 import { getTableData } from './actions/getTableData'
 import { postEstimate } from './actions/postEstimate'
-import { setNodeValues } from './actions/setNodeValues'
 import { updateContact } from './actions/updateContact'
 import { updateDescription } from './actions/updateDescription'
 import { updateNodeValues } from './actions/updateNodeValues'
 import { setNodeValuesReducer } from './extraReducers/setNodeValues'
 import { deleteOriginalDataPoint } from './reducers/deleteOriginalDataPoint'
-import { resetHistory } from './reducers/resetHistory'
 import { setNodeValueValidations } from './reducers/setNodeValueValidations'
 import { setValue } from './reducers/setValue'
-import { toggleCompareHistoryItem } from './reducers/toggleCompareHistoryItem'
-import { toggleHistory } from './reducers/toggleHistory'
+import { toggleHistoryActivities } from './reducers/toggleHistoryActivities'
+import { toggleHistoryActivitiesCompareItem } from './reducers/toggleHistoryActivitiesCompareItem'
 
 const initialState: DataState = {
   contacts: {},
@@ -42,7 +39,7 @@ const initialState: DataState = {
   tableDataStatus: {},
 }
 
-export const dataSlice = createSlice({
+export const DataSlice = createSlice({
   name: 'data',
   initialState,
   reducers: {
@@ -50,9 +47,9 @@ export const dataSlice = createSlice({
     setNodeValueValidations,
     setValue,
     // -- history
-    toggleCompareHistoryItem,
-    resetHistory,
-    toggleHistory,
+    toggleHistoryActivitiesCompareItem,
+    resetHistoryActivities,
+    toggleHistoryActivities,
   },
 
   extraReducers: (builder) => {
@@ -217,33 +214,4 @@ export const dataSlice = createSlice({
   },
 })
 
-export const DataActions = {
-  ...dataSlice.actions,
-  // Table data
-  setNodeValues,
-  clearTableData,
-  getTableData,
-  updateNodeValues,
-  getNodeValuesEstimations,
-
-  // Original Data Point
-  getODPLastUpdatedTimestamp,
-
-  // Estimations
-  postEstimate,
-
-  // Descriptions
-  getDescription,
-  updateDescription,
-  copyPreviousDatasources,
-  deleteDataSource,
-  getLinkedDataSources,
-
-  // Contacts
-  createContact,
-  deleteContact,
-  getContacts,
-  updateContact,
-}
-
-export default dataSlice.reducer as Reducer<DataState>
+export default DataSlice.reducer as Reducer<DataState>

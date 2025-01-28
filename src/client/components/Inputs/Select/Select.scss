@@ -2,6 +2,12 @@
 
 $border-menu: 1px solid $ui-edit-border-color;
 
+// Targets the parent div of the select menu
+.select__wrapper > div.select__container > div:not(.select__control) {
+  z-index: $z-index-select-dropdown;
+}
+
+.select__wrapper,
 div.select__container {
   height: 100%;
 }

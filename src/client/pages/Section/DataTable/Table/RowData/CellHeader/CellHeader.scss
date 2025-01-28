@@ -1,0 +1,43 @@
+@import 'src/client/style/partials';
+
+.table-grid__data-cell.header {
+  justify-content: space-around;
+
+  &.left {
+    justify-content: start;
+  }
+
+  &.category {
+    .link {
+      font-weight: 600;
+    }
+  }
+
+  &.subcategory1 {
+    padding-left: 20px;
+  }
+
+  &.subcategory2 {
+    padding-left: $spacing-m;
+  }
+
+  &.category,
+  &.subcategory1,
+  &.subcategory2 {
+    font-weight: 400;
+  }
+}
+
+@include rtl {
+  .table-grid__data-cell.header {
+    &.subcategory1 {
+      padding-left: unset;
+      padding-right: 20px;
+    }
+
+    &.subcategory2 {
+      padding-left: unset;
+      padding-right: $spacing-m;
+    }
+  }
+}

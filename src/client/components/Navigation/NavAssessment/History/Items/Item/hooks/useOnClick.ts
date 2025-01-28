@@ -13,6 +13,6 @@ export const useOnClick = (props: Props): Returned => {
   const dispatch = useAppDispatch()
 
   return useCallback<Returned>(() => {
-    dispatch(DataActions.toggleCompareHistoryItem({ datum, target }))
+    dispatch(DataActions.toggleHistoryActivitiesCompareItem({ datum, target }))
   }, [datum, dispatch, target])
 }
