@@ -1,6 +1,6 @@
 import { MutableRefObject, useCallback, useEffect, useRef, useState } from 'react'
 
-import { Activity } from 'client/pages/Kiosk/LatestActivities/types'
+import { Activity } from 'meta/kiosk'
 
 type Props = {
   expandedActivity: string | null

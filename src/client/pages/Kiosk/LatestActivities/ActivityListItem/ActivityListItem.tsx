@@ -3,8 +3,9 @@ import React from 'react'
 
 import classNames from 'classnames'
 
+import { Activity } from 'meta/kiosk'
+
 import Button, { ButtonType } from 'client/components/Buttons/Button'
-import { Activity } from 'client/pages/Kiosk/LatestActivities/types'
 
 type Props = {
   activity: Activity

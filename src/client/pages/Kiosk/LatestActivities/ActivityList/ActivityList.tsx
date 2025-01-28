@@ -1,8 +1,9 @@
 import './ActivityList.scss'
 import React from 'react'
 
+import { Activity } from 'meta/kiosk'
+
 import ActivityListItem from 'client/pages/Kiosk/LatestActivities/ActivityListItem'
-import { Activity } from 'client/pages/Kiosk/LatestActivities/types'
 
 type Props = {
   activities: Array<Activity> | undefined

@@ -1,8 +1,9 @@
 import './Map.scss'
 import React, { useCallback, useState } from 'react'
 
+import { Activity } from 'meta/kiosk'
+
 import ActivityList from 'client/pages/Kiosk/LatestActivities/ActivityList'
-import { Activity } from 'client/pages/Kiosk/LatestActivities/types'
 
 import { useFetchAndMarkActivities } from './hooks/useFetchAndMarkActivities'
 import { useLatestActivitiesMap } from './hooks/useLatestActivitiesMap'

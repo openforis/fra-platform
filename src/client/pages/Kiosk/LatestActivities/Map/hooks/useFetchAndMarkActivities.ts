@@ -1,12 +1,10 @@
 import { useEffect, useState } from 'react'
 
 import axios from 'axios'
-import Papa from 'papaparse'
 import { Objects } from 'utils/objects'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-
-import { Activity } from 'client/pages/Kiosk/LatestActivities/types'
+import { Activity } from 'meta/kiosk'
 
 type Props = {
   addMarkers: (activities: Array<Activity>) => void
@@ -24,37 +22,16 @@ export const useFetchAndMarkActivities = (props: Props) => {
   useEffect(() => {
     if (!Objects.isNil(data) || isLoading || !Objects.isNil(error)) return
 
-    const fetchCSVData = async () => {
+    const fetchLatestActivities = async () => {
       setIsLoading(true)
       setError(null)
 
       try {
-        const response = await axios.get(ApiEndPoint.Kiosk.latestActivities(), {
-          responseType: 'text',
+        const response = await axios.get<Array<Activity>>(ApiEndPoint.Kiosk.latestActivities(), {
+          responseType: 'json',
         })
 
-        Papa.parse(response.data, {
-          header: true,
-          skipEmptyLines: true,
-          complete: (result) => {
-            const activities: Array<Activity> = result.data.map((row: any) => {
-              const date = row['Date (YYYY-MM-DD)']
-              const countryIso = row.ISO3
-
-              return {
-                countryIso,
-                countryName: row.Country,
-                date,
-                description: row.Description,
-                id: `${date}-${countryIso}`,
-                lat: parseFloat(row['Location (lat)']),
-                lng: parseFloat(row['Location (long)']),
-              }
-            })
-
-            setData(activities)
-          },
-        })
+        setData(response.data)
       } catch (_err: unknown) {
         setError('There was a problem while getting the latest activities.')
       } finally {
@@ -62,7 +39,7 @@ export const useFetchAndMarkActivities = (props: Props) => {
       }
     }
 
-    fetchCSVData()
+    fetchLatestActivities()
   }, [data, error, isLoading])
 
   useEffect(() => {
