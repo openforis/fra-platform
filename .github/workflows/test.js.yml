@@ -32,6 +32,7 @@ jobs:
         env:
           NPM_GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
 
+      # If you need to debug, uncomment the following steps and move to where you need to debug
       # - name: Setup tmate session
       #   if: failure()
       #   uses: mxschmitt/action-tmate@v3
@@ -72,13 +73,6 @@ jobs:
           name: playwright-results
           path: playwright-results.zip
           retention-days: 30
-
-      - name: Setup tmate session
-        if: failure()
-        uses: mxschmitt/action-tmate@v3
-        with:
-          limit-access-to-actor: true
-          timeout-minutes: 30
 
       - name: Stop containers
         if: always()
