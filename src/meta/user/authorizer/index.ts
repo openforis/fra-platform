@@ -235,7 +235,7 @@ const canViewHistoryLastApproved = (props: {
   const { country, cycle, user } = props
   const { status } = country?.props ?? {}
 
-  if (Users.isReviewer(user, country.countryIso, cycle) && status === AssessmentStatus.review) return true
+  if (Users.isReviewer(user, country?.countryIso, cycle) && status === AssessmentStatus.review) return true
 
   return (
     Users.isAdministrator(user) &&
