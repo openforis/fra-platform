@@ -113,11 +113,10 @@ export const useCanViewHistory = (): boolean => {
 
 export const useCanViewHistoryLastApproved = (): boolean => {
   const user = useUser()
-  const section = useSection()
   const country = useAssessmentCountry()
   const cycle = useCycle()
 
-  return Authorizer.canViewHistoryLastApproved({ country, cycle, section, user })
+  return Authorizer.canViewHistoryLastApproved({ country, cycle, user })
 }
 
 export const useCanViewGeo = (): boolean => {

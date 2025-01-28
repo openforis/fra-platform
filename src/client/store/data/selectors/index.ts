@@ -9,6 +9,7 @@ const getHistory = createSelector(
   (history) => history
 )
 
+// history activities
 const getHistoryActivities = createSelector(getHistory, (history) => history.activities ?? {})
 
 const getHistoryCompareItem = createSelector(
@@ -18,11 +19,18 @@ const getHistoryCompareItem = createSelector(
 
 const getHistoryItems = createSelector(getHistoryActivities, (history) => history?.items)
 
+// history last approved
+const getHistoryLastApproved = createSelector(getHistory, (history) => history.lastApproved ?? {})
+const isHistoryLastApprovedActive = createSelector(getHistoryLastApproved, (history) => Boolean(history?.active))
+
 export const DataSelector = {
   History: {
     getHistory,
+    // activities
     getHistoryActivities,
     getHistoryCompareItem,
     getHistoryItems,
+    // lastApproved
+    isHistoryLastApprovedActive,
   },
 }
