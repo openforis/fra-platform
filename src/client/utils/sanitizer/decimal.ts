@@ -1,7 +1,8 @@
 import { Numbers } from 'utils/numbers'
 import { Objects } from 'utils/objects'
 
-export const acceptableAsDecimal = (newValue: string) => {
+export const acceptableAsDecimal = (newValue: string | null) => {
+  if (Objects.isNil(newValue)) return false
   const newValueTrimmed = newValue.trim()
   if (newValueTrimmed === '') return true
   if (newValueTrimmed.includes('e')) return false

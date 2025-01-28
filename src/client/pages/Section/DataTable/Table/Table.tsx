@@ -6,19 +6,20 @@ import classNames from 'classnames'
 import { AssessmentName, Table as TableType } from 'meta/assessment'
 import { RecordAssessmentData } from 'meta/data'
 
-import { useCycle } from 'client/store/assessment'
-import { useShowOriginalDatapoints } from 'client/store/ui/assessmentSection/hooks'
 import { useIsDataLocked } from 'client/store/ui/dataLock'
 import { useCanEdit } from 'client/store/user'
-import { useCountryIso } from 'client/hooks'
+import { useCanViewReview } from 'client/store/user/hooks'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
-import ButtonTableExport from 'client/components/ButtonTableExport'
+import { ButtonGridExport, DataGrid } from 'client/components/DataGrid'
 import ButtonCopyValues from 'client/pages/Section/DataTable/Table/ButtonCopyValues'
 import ButtonTableClear from 'client/pages/Section/DataTable/Table/ButtonTableClear'
-import TableBody from 'client/pages/Section/DataTable/Table/TableBody'
-import TableHead from 'client/pages/Section/DataTable/Table/TableHead'
+import GridHeadCell from 'client/pages/Section/DataTable/Table/GridHeadCell'
+import RowData from 'client/pages/Section/DataTable/Table/RowData'
+import RowNoticeMessage from 'client/pages/Section/DataTable/Table/RowNoticeMessage'
 
-import { parseTable } from './utils/parseTable'
+import { useCellBorderCorrection } from './hooks/useCellBorderCorrection'
+import { useGridTemplateColumns } from './hooks/useGridTemplateColumns'
+import { useParsedTable } from './hooks/useParsedTable'
 import DataValidations from './DataValidations'
 
 type Props = {
@@ -35,14 +36,22 @@ const Table: React.FC<Props> = (props) => {
 
   const canEdit = useCanEdit(sectionName)
 
-  const cycle = useCycle()
-  const showODP = useShowOriginalDatapoints()
-  const countryIso = useCountryIso()
-
   const { print } = useIsPrintRoute()
-  const tableRef = useRef<HTMLTableElement>(null)
 
-  const { headers, table } = parseTable({ assessmentName, cycle, countryIso, data, showODP, table: tableProps })
+  const gridRef = useRef<HTMLDivElement>(null)
+
+  const { firstHeaderRowSpan, headers, noticeMessages, rowsData, rowsHeader, table, withReview } = useParsedTable({
+    assessmentName,
+    data,
+    table: tableProps,
+  })
+
+  const gridTemplateColumns = useGridTemplateColumns({ headers, table })
+  useCellBorderCorrection({ disabled, gridRef, rowsData, rowsHeader })
+
+  const canViewReview = useCanViewReview(sectionName)
+  const withActions = withReview && canViewReview
+
   const { secondary, name } = table.props
 
   const isDataLocked = useIsDataLocked()
@@ -51,28 +60,70 @@ const Table: React.FC<Props> = (props) => {
   const fileName = `${sectionAnchor ? `${sectionAnchor} ` : ''}${name}`
 
   return (
-    <div className={classNames('fra-table__container', { 'fra-secondary-table__wrapper': secondary })}>
-      <div className="fra-table__scroll-wrapper">
-        <div className="fra-table__editor">
-          {!print && <ButtonTableExport filename={fileName} tableRef={tableRef} />}
-          <ButtonCopyValues table={table} tableRef={tableRef} />
-          {canClearData && <ButtonTableClear disabled={disabled} sectionName={sectionName} table={table} />}
-        </div>
+    <div className={classNames('table-grid-container', { 'secondary-table': secondary })}>
+      <div className="table-grid-actions">
+        {!print && <ButtonGridExport filename={fileName} gridRef={gridRef} />}
+        <ButtonCopyValues gridRef={gridRef} table={table} />
+        {canClearData && <ButtonTableClear disabled={disabled} sectionName={sectionName} table={table} />}
+      </div>
 
-        <table ref={tableRef} className="fra-table data-table" id={table.props.name}>
-          <TableHead assessmentName={assessmentName} data={data} headers={headers} table={table} />
+      <DataGrid
+        ref={gridRef}
+        className="table-grid"
+        gridTemplateColumns={gridTemplateColumns}
+        withActions={withActions}
+      >
+        {rowsHeader.map((row, rowIndex) => (
+          <React.Fragment key={row.uuid}>
+            {row.cols.map((col, colIndex) => {
+              const firstCol = colIndex === 0 && (rowIndex === 0 || rowIndex >= firstHeaderRowSpan)
+              return (
+                <GridHeadCell
+                  key={col.uuid}
+                  assessmentName={assessmentName}
+                  col={col}
+                  colIndex={colIndex}
+                  data={data}
+                  firstCol={firstCol}
+                  headers={headers}
+                  row={row}
+                  rowIndex={rowIndex}
+                  table={table}
+                />
+              )
+            })}
+            {withActions && <div />}
+          </React.Fragment>
+        ))}
 
-          <TableBody
+        {rowsData.map((row, index) => (
+          <RowData
+            key={row.uuid}
             assessmentName={assessmentName}
             data={data}
             disabled={disabled}
+            lastRow={index === rowsData.length - 1}
+            row={row}
+            rowCount={rowsHeader.length + rowsData.length}
+            rowIndex={rowsHeader.length + index}
             sectionName={sectionName}
             table={table}
           />
-        </table>
+        ))}
 
-        {!print && canEdit && <DataValidations table={table} />}
-      </div>
+        {noticeMessages.map((row) => (
+          <RowNoticeMessage
+            key={row.uuid}
+            assessmentName={assessmentName}
+            data={data}
+            disabled={disabled}
+            row={row}
+            sectionName={sectionName}
+            table={table}
+          />
+        ))}
+      </DataGrid>
+      {!print && canEdit && <DataValidations table={table} />}
     </div>
   )
 }

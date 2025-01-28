@@ -16,7 +16,7 @@ export const removeMetadata = async (props: Props, client: BaseProtocol): Promis
   const properties: Record<string, Array<string>> = {
     section: ['anchors', 'lables', 'descriptions', 'hidden', 'hints'],
     table_section: ['descriptions', 'lables'],
-    table: ['cellsExportAlways', 'columnNames', 'columnsExport', 'columnsExportAlways', 'disableErrorMessage'],
+    table: ['cellsExportAlways', 'columnNames', 'columnsExport', 'columnsExportAlways', 'disableErrorMessage', 'style'],
     row: ['calculateFn', 'calculateIf', 'chart', 'excludeFromDataExport', 'linkToSection', 'validateFns', 'withReview'],
     col: ['calculateFn', 'classNames', 'labels', 'linkedNodes', 'select', 'style', 'validateFns', 'variableNo'],
   }
