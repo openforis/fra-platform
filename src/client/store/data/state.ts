@@ -60,6 +60,7 @@ export type HistoryActivitiesState = {
 }
 
 export type HistoryLastApprovedState = {
+  active?: boolean
   descriptions?: DescriptionsState
   tableData?: RecordAssessmentData
 }

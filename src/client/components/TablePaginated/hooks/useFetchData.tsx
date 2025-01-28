@@ -32,7 +32,7 @@ export const useFetchData = (props: Props): void => {
           dispatch(TablePaginatedActions.getCount(params))
         },
         500,
-        { trailing: true }
+        { leading: true, trailing: true }
       ),
     [dispatch]
   )
@@ -44,38 +44,38 @@ export const useFetchData = (props: Props): void => {
           dispatch(TablePaginatedActions.getData(params))
         },
         500,
-        { trailing: true }
+        { leading: true, trailing: true }
       ),
     [dispatch]
   )
 
   useEffect(() => {
-    if (!isInitialized || !counter.show) return
-    throttledGetCount({
-      assessmentName,
-      countryIso,
-      cycleName,
-      filters,
-      path,
-      sectionName,
-    })
-  }, [assessmentName, counter, countryIso, cycleName, filters, isInitialized, path, sectionName, throttledGetCount])
+    if (isInitialized && counter?.show) {
+      const _props = { assessmentName, countryIso, cycleName, filters, path, sectionName }
+      throttledGetCount(_props)
+    }
+  }, [
+    assessmentName,
+    counter?.show,
+    countryIso,
+    cycleName,
+    filters,
+    isInitialized,
+    path,
+    sectionName,
+    throttledGetCount,
+  ])
 
   useEffect(() => {
-    if (!isInitialized) return
-    const params = {
-      assessmentName,
-      countryIso,
-      cycleName,
-      filters,
-      limit,
-      orderBy,
-      page,
-      path,
-      sectionName,
+    if (isInitialized) {
+      const _props = { assessmentName, countryIso, cycleName, filters, limit, orderBy, page, path, sectionName }
+      throttledGetData(_props)
+
+      return () => {
+        dispatch(TablePaginatedActions.resetData({ path }))
+      }
     }
-    dispatch(TablePaginatedActions.resetData({ path }))
-    throttledGetData(params)
+    return undefined
   }, [
     assessmentName,
     countryIso,
