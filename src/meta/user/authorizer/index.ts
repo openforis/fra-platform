@@ -215,6 +215,37 @@ const canViewHistory = (props: {
   return Users.isReviewer(user, country.countryIso, cycle) && canEditCycleData(props)
 }
 
+/**
+ * canViewHistoryLastApproved
+ * Viewer or non loggedin user: never
+ * Administrator: if status >=review
+ * NationalCorrespondant and AlternateNationalCorrespondant: never
+ * Collaborator: never
+ * Reviewer: if country status = review
+ * @param props
+ * @param props.country
+ * @param props.cycle
+ * @param props.section
+ * @param props.user
+ * @returns boolean
+ */
+const canViewHistoryLastApproved = (props: {
+  country: Country
+  cycle: Cycle
+  section: Section | SubSection
+  user: User
+}): boolean => {
+  const { country, cycle, user } = props
+  const { status } = country?.props ?? {}
+
+  if (Users.isReviewer(user, country?.countryIso, cycle) && status === AssessmentStatus.review) return true
+
+  return (
+    Users.isAdministrator(user) &&
+    [AssessmentStatus.review, AssessmentStatus.approval, AssessmentStatus.accepted].includes(status)
+  )
+}
+
 export const canViewGeo = (props: { cycle: Cycle; countryIso: AreaCode; user: User }): boolean =>
   Users.hasRoleInCountry(props)
 
@@ -226,6 +257,7 @@ export const Authorizer = {
   canView,
   canViewGeo,
   canViewHistory,
+  canViewHistoryLastApproved,
   canViewRepositoryItem,
   canViewReview,
   // user
