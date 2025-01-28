@@ -1,32 +1,36 @@
 import './InputText.scss'
-import React, { forwardRef, InputHTMLAttributes, useImperativeHandle, useRef } from 'react'
+import React, { forwardRef, useImperativeHandle, useRef } from 'react'
+
+import classNames from 'classnames'
 
 import { useOnChange } from './hooks/useOnChange'
+import { useResizeStyle } from './hooks/useResizeStyle'
+import { InputTextProps } from './types'
 
-type Props = Pick<
-  InputHTMLAttributes<HTMLInputElement>,
-  'disabled' | 'id' | 'onChange' | 'onPaste' | 'placeholder' | 'value'
->
-
-const InputText = forwardRef<HTMLInputElement, Props>((props, outerRef) => {
-  const { disabled, id, onChange, onPaste, placeholder, value } = props
+const InputText = forwardRef<HTMLInputElement, InputTextProps>((props, outerRef) => {
+  const { className, disabled, id, onBlur, onChange, onFocus, onPaste, placeholder, resize, value } = props
 
   const inputRef = useRef<HTMLInputElement>(null)
   useImperativeHandle(outerRef, () => inputRef.current!, [])
   const _onChange = useOnChange({ inputRef, onChange, value })
 
+  const resizeStyle = useResizeStyle({ disabled, inputRef, resize, value })
+
   if (disabled) {
-    return <div className="input-text disabled">{value}</div>
+    return <div className={classNames('input-text disabled', className)}>{value}</div>
   }
 
   return (
     <input
       ref={inputRef}
-      className="input-text"
+      className={classNames('input-text', className)}
       id={id}
+      onBlur={onBlur}
       onChange={_onChange}
+      onFocus={onFocus}
       onPaste={onPaste}
       placeholder={placeholder}
+      style={resizeStyle}
       type="text"
       value={value}
     />

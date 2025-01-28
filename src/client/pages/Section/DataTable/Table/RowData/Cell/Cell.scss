@@ -1,0 +1,38 @@
+@import 'src/client/style/partials';
+
+.table-grid__data-cell {
+  align-items: center;
+  display: flex;
+  justify-content: end;
+  min-width: 90px;
+
+  &.firstCol {
+    left: 0;
+    position: sticky;
+    z-index: $z-index-table-grid-sticky-cell;
+  }
+
+  &.readonly,
+  &.calculated-input {
+    cursor: default;
+    font-weight: 600;
+  }
+
+  &.readonly {
+    padding: $spacing-xxs;
+  }
+
+  &.category {
+    background-color: $ui-bg;
+  }
+
+  &.left {
+    justify-content: start;
+  }
+}
+
+@include rtl {
+  .table-grid__data-cell {
+    justify-content: start;
+  }
+}

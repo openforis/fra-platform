@@ -1,17 +1,31 @@
 @import 'src/client/style/partials';
 
-// TODO: fra prefix is left with old mode consistency. refactor later on
+.table-grid {
+  font-size: $font-s;
+  line-height: 19px;
+  overflow-x: auto;
+  width: 100%;
+}
+
+.table-grid-actions {
+  display: flex;
+  gap: $spacing-xxxxs;
+}
+
+.table-grid-container {
+  margin-bottom: 28px;
+  overflow-x: auto;
+
+  &.secondary-table {
+    margin-top: $spacing-xs;
+    min-width: 320px;
+    width: 50%;
+  }
+}
+
+// TODO: delete once when the tables using it are refactored
 .fra-table__scroll-wrapper {
   align-content: start;
   display: grid;
   justify-items: start;
-}
-
-.fra-table__editor {
-  display: flex;
-  justify-self: start;
-
-  .button:not(:first-child) {
-    margin-left: 1px;
-  }
 }

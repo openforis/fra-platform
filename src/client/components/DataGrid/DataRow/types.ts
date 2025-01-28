@@ -22,3 +22,8 @@ export type Review = {
 }
 
 export type DataRowAction = EditLink | Delete | Review
+
+export type DataRowHighlightRange = {
+  end: number
+  start: number
+}
