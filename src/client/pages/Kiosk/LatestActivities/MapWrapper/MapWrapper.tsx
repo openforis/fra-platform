@@ -25,7 +25,11 @@ const MapWrapper: React.FC = () => {
     return <Component />
   }
 
-  return <Wrapper apiKey={apiKey} render={render} />
+  return (
+    <div className="kiosk-latest-activities__map-wrapper">
+      <Wrapper apiKey={apiKey} libraries={['marker']} render={render} />
+    </div>
+  )
 }
 
 export default MapWrapper

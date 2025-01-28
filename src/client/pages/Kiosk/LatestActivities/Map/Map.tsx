@@ -1,12 +1,32 @@
 import './Map.scss'
-import React from 'react'
+import React, { useCallback, useState } from 'react'
 
+import { Activity } from 'meta/kiosk'
+
+import ActivityList from 'client/pages/Kiosk/LatestActivities/ActivityList'
+
+import { useFetchAndMarkActivities } from './hooks/useFetchAndMarkActivities'
 import { useLatestActivitiesMap } from './hooks/useLatestActivitiesMap'
 
 const Map: React.FC = () => {
-  const { ref } = useLatestActivitiesMap()
+  const [expandedActivity, setExpandedActivity] = useState<string | null>(null)
 
-  return <div ref={ref} className="kiosk-latest-activities__map" />
+  const handleExpand = useCallback((activity: Activity, map: google.maps.Map) => {
+    setExpandedActivity((prev) => (prev === activity.id ? null : activity.id))
+    map?.panTo({ lat: activity.lat, lng: activity.lng })
+  }, [])
+
+  const { addMarkers, map, ref } = useLatestActivitiesMap({ expandedActivity, handleExpand })
+  const { data } = useFetchAndMarkActivities({ addMarkers, map })
+
+  return (
+    <>
+      <div ref={ref} className="kiosk-latest-activities__map" />
+      {map !== null && (
+        <ActivityList activities={data} expandedActivity={expandedActivity} handleExpand={handleExpand} map={map} />
+      )}
+    </>
+  )
 }
 
 export default Map
