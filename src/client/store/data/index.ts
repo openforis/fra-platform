@@ -6,6 +6,7 @@ export { useHasOriginalDataPointData } from './hooks/useHasOriginalDataPointData
 export { useHistoryActivities } from './hooks/useHistoryActivities'
 export { useHistoryActivitiesCompareItem } from './hooks/useHistoryActivitiesCompareItem'
 export { useHistoryActivitiesIsActive } from './hooks/useHistoryActivitiesIsActive'
+export { useHistoryLastApprovedIsActive } from './hooks/useHistoryLastApprovedIsActive'
 export { useIsOdpTableDataFetched } from './hooks/useIsOdpTableDataFetched'
 export { useIsSectionDataEmpty } from './hooks/useIsSectionDataEmpty'
 export { useIsSomeTableDataFetching } from './hooks/useIsSomeTableDataFetching'

@@ -3,15 +3,10 @@
 .toolbar-editor {
   align-items: center;
   border: 1px dashed lighten($ui-edit-border-color, 15%);
-  display: grid;
-  grid-column-gap: $spacing-xs;
-  grid-template-columns: repeat(3, auto);
+  display: flex;
+  column-gap: $spacing-xs;
   height: calc(100% + 2px);
   padding: 0 $spacing-xs;
-
-  &.reviewer {
-    grid-template-columns: repeat(5, auto);
-  }
 }
 
 .toolbar-editor__github {

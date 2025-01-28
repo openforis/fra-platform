@@ -213,25 +213,18 @@ const canViewHistory = (props: {
 }
 
 /**
- * canViewHistoryLastApproved
- * Viewer or non loggedin user: never
- * Administrator: if status >=review
- * NationalCorrespondant and AlternateNationalCorrespondant: never
- * Collaborator: never
+ * canViewHistoryLastApproved:
+ *
  * Reviewer: if country status = review
+ * Administrator: if status >=review
+ *
  * @param props
  * @param props.country
  * @param props.cycle
- * @param props.section
  * @param props.user
  * @returns boolean
  */
-const canViewHistoryLastApproved = (props: {
-  country: Country
-  cycle: Cycle
-  section: Section | SubSection
-  user: User
-}): boolean => {
+const canViewHistoryLastApproved = (props: { country: Country; cycle: Cycle; user: User }): boolean => {
   const { country, cycle, user } = props
   const { status } = country?.props ?? {}
 
