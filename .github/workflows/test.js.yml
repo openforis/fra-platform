@@ -13,13 +13,13 @@ on:
     branches-ignore:
       - 'master'
       - 'production'
-  workflow_dispatch:
-    inputs:
-      force_refresh:
-        description: 'Force database refresh'
-        required: false
-        default: 'false'
-        type: boolean
+    workflow_dispatch:
+      inputs:
+        force_refresh:
+          description: 'Force database refresh'
+          required: false
+          default: 'false'
+          type: boolean
 
 jobs:
   tests:
