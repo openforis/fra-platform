@@ -1,10 +1,25 @@
 name: Run Tests
 
+# If you need to debug, uncomment the following steps and move to where you need to debug
+# - name: Setup tmate session
+#   if: failure()
+#   uses: mxschmitt/action-tmate@v3
+#   with:
+#     limit-access-to-actor: true
+#     timeout-minutes: 30
+
 on:
   push:
     branches-ignore:
       - 'master'
       - 'production'
+  workflow_dispatch:
+    inputs:
+      force_refresh:
+        description: 'Force database refresh'
+        required: false
+        default: 'false'
+        type: boolean
 
 jobs:
   tests:
@@ -19,7 +34,17 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_DEV }}
           aws-region: eu-west-1
 
+      - name: Cache test database
+        id: cache-db
+        uses: actions/cache@v3
+        with:
+          path: ./db
+          key: test-db-v1-${{ hashFiles('src/test/e2e/docker-compose.test.yml') }}
+          restore-keys: |
+            test-db-v1-
+
       - name: Download and decrypt test database
+        if: steps.cache-db.outputs.cache-hit != 'true' || ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.force_refresh == 'true' }}
         run: |
           mkdir -p ./db
           aws s3 cp s3://fra-platform-s3-developer-assets/test-assets/database/backup.gpg ./db/backup.gpg
@@ -31,14 +56,6 @@ jobs:
         run: docker compose -f src/test/e2e/docker-compose.test.yml up -d
         env:
           NPM_GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-
-      # If you need to debug, uncomment the following steps and move to where you need to debug
-      # - name: Setup tmate session
-      #   if: failure()
-      #   uses: mxschmitt/action-tmate@v3
-      #   with:
-      #     limit-access-to-actor: true
-      #     timeout-minutes: 30
 
       - name: Wait for services to be ready
         run: |
