@@ -19,6 +19,8 @@ export const useOnBlur = (props: Props): OnChange => {
     async (event: React.FocusEvent<HTMLInputElement, Element>) => {
       const { value } = event.target
 
+      if (valueRef.current === value) return
+
       if (precision === 0) return
 
       if (!Sanitizer.acceptableAsDecimal(value)) return
