@@ -87,10 +87,17 @@ const getLabel = (props: { cycle: Cycle; col: Col; t: TFunction }): string => {
   return col.props.colName ?? Labels.getCycleLabel({ cycle, labels: col.props.labels, t })
 }
 
-const getStyle = (props: { cycle: Cycle; col: Col }): ColStyle => {
+const getStyle = (props: { cycle: Cycle; col: Col }): ColStyle & { gridColumn?: string; gridRow?: string } => {
   const { col, cycle } = props
   const { style = {} } = col.props
-  return style[cycle.uuid] ?? {}
+  const colStyle = style[cycle.uuid] ?? {}
+  const { colSpan, rowSpan } = colStyle
+
+  return {
+    ...colStyle,
+    gridColumn: Objects.isNil(colSpan) ? undefined : `span ${colSpan}`,
+    gridRow: Objects.isNil(rowSpan) ? undefined : `span ${rowSpan}`,
+  }
 }
 
 const getSelectProps = (props: { cycle: Cycle; col: Col }): ColSelectProps => {

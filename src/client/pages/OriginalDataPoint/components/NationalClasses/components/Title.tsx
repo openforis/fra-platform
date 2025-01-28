@@ -22,7 +22,7 @@ export const Title = (props: Props) => {
 
   return (
     <div className="odp__section-header">
-      <ButtonGridExport disabled={year === -1} filename={`FRA${cycleName}-NDP${year}.csv`} gridRef={gridRef} />
+      <ButtonGridExport disabled={year === -1} filename={`NDP${year}`} gridRef={gridRef} />
       <h3 className="subhead">
         {t(`nationalDataPoint.${cycleName !== '2020' ? 'nationalClassifications' : 'nationalClasses'}`)}
       </h3>

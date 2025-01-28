@@ -22,7 +22,7 @@ $toolbarHeight: $spacing-l;
   position: fixed;
   top: 0;
   width: 100dvw;
-  z-index: 1;
+  z-index: $z-index-print-header-toolbar;
 }
 
 @media print {
