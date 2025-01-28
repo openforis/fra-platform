@@ -1,4 +1,4 @@
-import { createSlice, Reducer } from '@reduxjs/toolkit'
+import { ActionReducerMapBuilder, createSlice, Reducer } from '@reduxjs/toolkit'
 import { Objects } from 'utils/objects'
 
 import { CommentableDescriptionName } from 'meta/assessment'
@@ -20,6 +20,7 @@ import { postEstimate } from './actions/postEstimate'
 import { updateContact } from './actions/updateContact'
 import { updateDescription } from './actions/updateDescription'
 import { updateNodeValues } from './actions/updateNodeValues'
+import { getDescriptionsHistoryReducer } from './extraReducers/getDescriptionsHistory'
 import { setNodeValuesReducer } from './extraReducers/setNodeValues'
 import { deleteOriginalDataPoint } from './reducers/deleteOriginalDataPoint'
 import { resetHistoryActivities } from './reducers/resetHistoryActivities'
@@ -55,7 +56,7 @@ export const DataSlice = createSlice({
     toggleHistoryLastApproved,
   },
 
-  extraReducers: (builder) => {
+  extraReducers: (builder: ActionReducerMapBuilder<DataState>) => {
     setNodeValuesReducer(builder)
 
     // Table data
@@ -214,6 +215,8 @@ export const DataSlice = createSlice({
       const contacts = state.contacts[assessmentName][cycleName][countryIso]
       contacts.push(contactAction)
     })
+
+    getDescriptionsHistoryReducer(builder)
   },
 })
 
