@@ -6,17 +6,20 @@ on:
       run_tests:
         description: 'Run tests after build'
         required: false
-        default: 'false'
+        default: false
         type: boolean
       run_e2e:
         description: 'Run E2E tests after build'
         required: false
-        default: 'false'
+        default: false
         type: boolean
 
 jobs:
   build:
     runs-on: ubuntu-22.04
+    permissions:
+      id-token: write
+      contents: read
     outputs:
       build_success: ${{ steps.build.outputs.success }}
     steps:
@@ -28,6 +31,13 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_DEV }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_DEV }}
           aws-region: eu-west-1
+
+      - name: Setup tmate session
+        if: failure()
+        uses: mxschmitt/action-tmate@v3
+        with:
+          limit-access-to-actor: true
+          connect-timeout-seconds: 120
 
       - name: Cache test database
         id: cache-db

@@ -10,6 +10,7 @@ jobs:
     uses: ./.github/workflows/build.yml
     with:
       run_e2e: true
+    secrets: inherit
 
   e2e-tests:
     needs: build

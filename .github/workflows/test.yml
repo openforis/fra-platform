@@ -11,6 +11,7 @@ jobs:
     uses: ./.github/workflows/build.yml
     with:
       run_tests: true
+    secrets: inherit
 
   unit-tests:
     needs: build
