@@ -30,7 +30,7 @@ export const cloneCycle = async (props: Props, client: BaseProtocol = DB): Promi
   const { cycle: cycleSource } = props
 
   return client.tx(async (t) => {
-    const { assessment, cycle: cycleTarget } = await createCycle(props, t)
+    const { assessment, cycle: cycleTarget } = await createCycle({ ...props, cycleSource }, t)
 
     const cloneProps: CloneProps = { assessment, cycleSource, cycleTarget }
 

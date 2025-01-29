@@ -1,9 +1,7 @@
 export interface CycledPropsObject<Props = void> {
-  props: {
-    cycles: Array<string>
-  } & Props
-  uuid?: string
   id?: number
+  props: { cycles: Array<string> } & Props
+  uuid?: string
 }
 
 export type CycleName = string
@@ -16,16 +14,17 @@ export enum CycleStatus {
 }
 
 export type CycleProps = {
-  status: CycleStatus
   dateCreated: string
   dateDraft: string
   dateEditing: string
   datePublished: string
+  status: CycleStatus
 }
 
 export interface Cycle {
+  cycleUuidSource?: CycleUuid
   id: number
   name: CycleName
-  uuid: CycleUuid
   props: CycleProps
+  uuid: CycleUuid
 }

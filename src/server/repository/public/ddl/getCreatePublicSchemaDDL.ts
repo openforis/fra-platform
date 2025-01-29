@@ -93,10 +93,13 @@ export const getCreatePublicSchemaDDL = (schemaName = 'public'): string => {
       id bigserial primary key,
       assessment_id bigint not null,
       uuid uuid default uuid_generate_v4(),
+      cycle_uuid_source uuid,
       name character varying default '',
       props jsonb default '{}'::jsonb not null,
       foreign key (assessment_id) references ${schemaName}.assessment (id)
-        on update cascade on delete cascade
+        on update cascade on delete cascade,
+      foreign key (cycle_uuid_source) references ${schemaName}.assessment_cycle (uuid)
+        on update cascade on delete set null
     );
     create unique index if not exists assessment_cycle_uuid_key on ${schemaName}.assessment_cycle using btree (uuid);
 
