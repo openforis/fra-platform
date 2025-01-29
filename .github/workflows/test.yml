@@ -10,7 +10,7 @@ on:
         force_refresh:
           description: 'Force database refresh'
           required: false
-          default: 'false'
+          default: false
           type: boolean
 
 jobs:
@@ -30,7 +30,7 @@ jobs:
         id: cache-db
         uses: actions/cache@v3
         with:
-          path: ./db
+          path: ./db/backup
           key: test-db-${{ runner.os }}-v1-${{ hashFiles('src/test/e2e/docker-compose.test.yml') }}
           restore-keys: |
             test-db-${{ runner.os }}-v1-
