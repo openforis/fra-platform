@@ -36,7 +36,7 @@ jobs:
             test-db-${{ runner.os }}-
 
       - name: Download and decrypt test database
-        if: steps.cache-db.outputs.cache-hit != 'true' || ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.force_refresh == 'true' }}
+        if: steps.cache-db.outputs.cache-hit != 'true' || ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.force_refresh == true }}
         run: |
           mkdir -p ./db
           aws s3 cp s3://fra-platform-s3-developer-assets/test-assets/database/backup.gpg ./db/backup.gpg
