@@ -9,7 +9,7 @@ on:
         force_refresh:
           description: 'Force database refresh'
           required: false
-          default: 'false'
+          default: false
           type: boolean
 
 jobs:
