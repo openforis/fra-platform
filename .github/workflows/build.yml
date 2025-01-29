@@ -37,9 +37,18 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ./db
-          key: test-db-v1-${{ hashFiles('src/test/e2e/docker-compose.test.yml') }}
+          key: test-db-${{ runner.os }}-v1-${{ hashFiles('src/test/e2e/docker-compose.test.yml') }}
           restore-keys: |
-            test-db-v1-
+            test-db-${{ runner.os }}-v1-
+            test-db-${{ runner.os }}-
+
+      - name: Verify cache
+        run: |
+          if [ -f ./db/backup.sql ]; then
+            echo "Database cache exists and is valid"
+          else
+            echo "Database cache is missing or invalid"
+          fi
 
       - name: Download and decrypt test database
         if: steps.cache-db.outputs.cache-hit != 'true' || ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.force_refresh == 'true' }}
@@ -49,6 +58,13 @@ jobs:
           ./src/tools/heroku/decrypt.sh ./db/backup.gpg
         env:
           BACKUP_PASSPHRASE: ${{ secrets.BACKUP_PASSPHRASE }}
+
+      - name: Setup tmate session
+        if: ${{ failure() }}
+        uses: mxschmitt/action-tmate@v3
+        with:
+          limit-access-to-actor: true
+          timeout-minutes: 30
 
       - name: Cache node_modules
         uses: actions/cache@v3

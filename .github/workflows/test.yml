@@ -17,15 +17,29 @@ jobs:
     needs: build
     runs-on: ubuntu-22.04
     steps:
+      - uses: actions/checkout@v4
+      - name: Wait for web service to be ready
+        run: |
+          timeout 300 bash -c 'until docker compose -f src/test/e2e/docker-compose.test.yml ps web | grep -q "healthy"; do sleep 5; done'
       - name: Run unit tests
         run: docker compose -f src/test/e2e/docker-compose.test.yml exec -T web yarn test:unit
         env:
           NPM_GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+      - name: Setup tmate session
+        if: ${{ failure() }}
+        uses: mxschmitt/action-tmate@v3
+        with:
+          limit-access-to-actor: true
+          timeout-minutes: 120
 
   integration-tests:
     needs: build
     runs-on: ubuntu-22.04
     steps:
+      - uses: actions/checkout@v4
+      - name: Wait for web service to be ready
+        run: |
+          timeout 300 bash -c 'until docker compose -f src/test/e2e/docker-compose.test.yml ps web | grep -q "healthy"; do sleep 5; done'
       - name: Run integration tests
         run: docker compose -f src/test/e2e/docker-compose.test.yml exec -T web yarn test:integration
         env:
