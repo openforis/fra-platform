@@ -54,6 +54,9 @@ jobs:
         run: |
           timeout 300 bash -c 'until docker compose -f src/test/e2e/docker-compose.test.yml ps web | grep -q "healthy"; do sleep 5; done'
 
+      - name: Run database migrations
+        run: docker compose -f src/test/e2e/docker-compose.test.yml exec -T web yarn migration-steps:run
+
       - name: Run unit and integration tests
         run: docker compose -f src/test/e2e/docker-compose.test.yml exec -T web yarn test
         env:

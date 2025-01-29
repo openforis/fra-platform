@@ -56,6 +56,9 @@ jobs:
       - name: Create test results directory
         run: mkdir -p playwright-report
 
+      - name: Run database migrations
+        run: docker compose -f src/test/e2e/docker-compose.test.yml exec -T web yarn migration-steps:run
+
       - name: Run E2E tests
         if: always()
         run: |
