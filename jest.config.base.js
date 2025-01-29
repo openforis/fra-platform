@@ -9,7 +9,5 @@ module.exports = {
   rootDir: 'src',
   roots: ['<rootDir>'],
   testEnvironment: 'node',
-  testMatch: ['**/*.test.ts'],
-  testPathIgnorePatterns: ['/node_modules/'],
   verbose: true,
 }
