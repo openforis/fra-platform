@@ -2,7 +2,7 @@ import { Draft, PayloadAction } from '@reduxjs/toolkit'
 import { Objects } from 'utils/objects'
 
 import { ActivityLog } from 'meta/assessment'
-import { HistoryTarget } from 'meta/cycleData'
+import { HistoryTarget } from 'meta/cycleData/historyActivities'
 
 import { DataState } from 'client/store/data/state'
 
