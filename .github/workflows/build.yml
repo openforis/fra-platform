@@ -32,13 +32,6 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_DEV }}
           aws-region: eu-west-1
 
-      - name: Setup tmate session
-        if: failure()
-        uses: mxschmitt/action-tmate@v3
-        with:
-          limit-access-to-actor: true
-          connect-timeout-seconds: 120
-
       - name: Cache test database
         id: cache-db
         uses: actions/cache@v3
@@ -57,9 +50,20 @@ jobs:
         env:
           BACKUP_PASSPHRASE: ${{ secrets.BACKUP_PASSPHRASE }}
 
+      - name: Cache node_modules
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: node-modules-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            node-modules-
+
       - name: Build and start containers
         id: build
-        run: docker compose -f src/test/e2e/docker-compose.test.yml up -d
+        run: |
+          docker compose -f src/test/e2e/docker-compose.test.yml build --parallel &
+          docker compose -f src/test/e2e/docker-compose.test.yml up -d &
+          wait
         env:
           NPM_GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
 
