@@ -12,15 +12,28 @@ jobs:
     with:
       run_tests: true
 
-  tests:
+  unit-tests:
     needs: build
     runs-on: ubuntu-22.04
     steps:
-      - name: Run unit and integration tests
-        run: docker compose -f src/test/e2e/docker-compose.test.yml exec -T web yarn test
+      - name: Run unit tests
+        run: docker compose -f src/test/e2e/docker-compose.test.yml exec -T web yarn test:unit
         env:
           NPM_GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
 
+  integration-tests:
+    needs: build
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Run integration tests
+        run: docker compose -f src/test/e2e/docker-compose.test.yml exec -T web yarn test:integration
+        env:
+          NPM_GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+
+  cleanup:
+    needs: [unit-tests, integration-tests]
+    runs-on: ubuntu-22.04
+    if: always()
+    steps:
       - name: Stop containers
-        if: always()
         run: docker compose -f src/test/e2e/docker-compose.test.yml down -v
