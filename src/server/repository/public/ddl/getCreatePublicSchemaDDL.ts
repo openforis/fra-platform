@@ -93,9 +93,9 @@ export const getCreatePublicSchemaDDL = (schemaName = 'public'): string => {
       id bigserial primary key,
       assessment_id bigint not null,
       uuid uuid default uuid_generate_v4(),
-      cycle_uuid_source uuid,
       name character varying default '',
       props jsonb default '{}'::jsonb not null,
+      cycle_uuid_source uuid,
       foreign key (assessment_id) references ${schemaName}.assessment (id)
         on update cascade on delete cascade,
       foreign key (cycle_uuid_source) references ${schemaName}.assessment_cycle (uuid)
