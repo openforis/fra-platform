@@ -50,7 +50,7 @@ const canViewUsers = (props: { countryIso: CountryIso; cycle: Cycle; user: User 
 const canEditCycleData = (props: { cycle: Cycle; country: Country; user: User }): boolean => {
   const { cycle, country, user } = props
   const { countryIso } = country ?? {}
-  const { status } = country?.props ?? {}
+  const status = Areas.getStatus(country)
 
   if (!user) return false
   if (Users.isViewer(user, countryIso, cycle)) return false
@@ -106,7 +106,7 @@ const canEditData = (props: {
   if (!country) return false
   const { countryIso } = country
   if (!Areas.isISOCountry(countryIso)) return false
-  const { status } = country.props
+  const status = Areas.getStatus(country)
 
   if (canEditCycleData({ cycle, country, user })) {
     return true
@@ -147,7 +147,7 @@ const canEditCountryProps = (props: {
 }): boolean => {
   const { allowCollaborator = false, country, cycle, user } = props
   const { countryIso } = country
-  const { status } = country.props
+  const status = Areas.getStatus(country)
 
   if (!user) return false
 
