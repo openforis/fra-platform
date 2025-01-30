@@ -27,7 +27,7 @@ const isHistoryLastApprovedActive = createSelector(getHistoryLastApproved, (hist
 
 const getLastApprovedDescriptions = createSelector(
   [
-    getHistory,
+    getHistoryLastApproved,
     (
       _,
       params: {
@@ -38,8 +38,8 @@ const getLastApprovedDescriptions = createSelector(
       }
     ) => params,
   ],
-  (history, { assessmentName, cycleName, countryIso, sectionName }) =>
-    history.lastApproved?.descriptions?.[assessmentName]?.[cycleName]?.[countryIso]?.[sectionName]
+  (lastApproved, { assessmentName, cycleName, countryIso, sectionName }) =>
+    lastApproved?.descriptions?.[assessmentName]?.[cycleName]?.[countryIso]?.[sectionName]
 )
 
 export const DataSelector = {
