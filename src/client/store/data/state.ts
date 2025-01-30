@@ -12,7 +12,8 @@ import {
   TableName,
   VariableName,
 } from 'meta/assessment'
-import { Contact, HistoryTarget } from 'meta/cycleData'
+import { Contact } from 'meta/cycleData'
+import { HistoryTarget } from 'meta/cycleData/historyActivities'
 import { RecordAssessmentData } from 'meta/data'
 
 export interface DataBaseState {

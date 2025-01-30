@@ -1,4 +1,4 @@
-import { HistoryTarget } from 'meta/cycleData'
+import { HistoryTarget } from 'meta/cycleData/historyActivities'
 
 // Utility functions to get the path to the state that needs to be updated
 
