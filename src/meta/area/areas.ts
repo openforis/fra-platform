@@ -16,7 +16,7 @@ const isISOGlobal = (isoCode: string): boolean => isoCode === Global.WO
 const isRegion = (isoCode: string): boolean => Object.values(RegionCode).includes(isoCode as RegionCode)
 const isFRARegion = (isoCode: string): boolean => fraRegionCodes.includes(isoCode as RegionCode)
 const getStatus = (country: Country): AssessmentStatus => {
-  if (!country?.lastEdit) return AssessmentStatus.notStarted
+  if (!country?.props?.status && !country?.lastEdit) return AssessmentStatus.notStarted
   if (!country?.props?.status && country?.lastEdit) return AssessmentStatus.editing
   return country?.props?.status
 }
