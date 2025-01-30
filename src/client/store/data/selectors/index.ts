@@ -1,6 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit'
 
-import { HistoryTarget } from 'meta/cycleData'
+import { HistoryTarget } from 'meta/cycleData/historyActivities'
 
 import { RootState } from 'client/store/RootState'
 

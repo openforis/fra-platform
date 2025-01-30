@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 
 import { ActivityLog } from 'meta/assessment'
-import { HistoryTarget } from 'meta/cycleData'
+import { HistoryTarget } from 'meta/cycleData/historyActivities'
 
 import Item from 'client/components/Navigation/NavAssessment/History/Items/Item'
 import { Column } from 'client/components/TablePaginated'
