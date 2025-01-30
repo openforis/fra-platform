@@ -17,6 +17,7 @@ import { removeContact } from './contacts/remove'
 import { updateContact } from './contacts/update'
 import { getDataSources } from './descriptions/getDataSources'
 import { getDescription } from './descriptions/getDescription'
+import { getDescriptionsHistory } from './descriptions/getDescriptionsHistory'
 import { removeDataSource } from './descriptions/removeDataSource'
 import { upsertDescription } from './descriptions/upsertDescription'
 import { getLinksCount } from './links/getLinksCount'
@@ -72,6 +73,7 @@ export const CycleDataApi = {
 
     // Descriptions
     express.get(ApiEndPoint.CycleData.Descriptions.many(), AuthMiddleware.requireView, getDescription)
+    express.get(ApiEndPoint.CycleData.Descriptions.history(), AuthMiddleware.requireViewHistory, getDescriptionsHistory)
     express.put(ApiEndPoint.CycleData.Descriptions.many(), AuthMiddleware.requireEditDescriptions, upsertDescription)
     express.get(ApiEndPoint.CycleData.Descriptions.DataSources.many(), AuthMiddleware.requireView, getDataSources)
     express.delete(

@@ -1,5 +1,7 @@
 import { createSelector } from '@reduxjs/toolkit'
 
+import { CountryIso } from 'meta/area'
+import { AssessmentName, CycleName, SectionName } from 'meta/assessment'
 import { HistoryTarget } from 'meta/cycleData/historyActivities'
 
 import { RootState } from 'client/store/RootState'
@@ -23,6 +25,23 @@ const getHistoryItems = createSelector(getHistoryActivities, (history) => histor
 const getHistoryLastApproved = createSelector(getHistory, (history) => history.lastApproved ?? {})
 const isHistoryLastApprovedActive = createSelector(getHistoryLastApproved, (history) => Boolean(history?.active))
 
+const getLastApprovedDescriptions = createSelector(
+  [
+    getHistoryLastApproved,
+    (
+      _,
+      params: {
+        assessmentName: AssessmentName
+        cycleName: CycleName
+        countryIso: CountryIso
+        sectionName: SectionName
+      }
+    ) => params,
+  ],
+  (lastApproved, { assessmentName, cycleName, countryIso, sectionName }) =>
+    lastApproved?.descriptions?.[assessmentName]?.[cycleName]?.[countryIso]?.[sectionName]
+)
+
 export const DataSelector = {
   History: {
     getHistory,
@@ -32,5 +51,7 @@ export const DataSelector = {
     getHistoryItems,
     // lastApproved
     isHistoryLastApprovedActive,
+    // descriptions
+    getLastApprovedDescriptions,
   },
 }

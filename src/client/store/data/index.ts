@@ -10,6 +10,7 @@ export { useHistoryLastApprovedIsActive } from './hooks/useHistoryLastApprovedIs
 export { useIsOdpTableDataFetched } from './hooks/useIsOdpTableDataFetched'
 export { useIsSectionDataEmpty } from './hooks/useIsSectionDataEmpty'
 export { useIsSomeTableDataFetching } from './hooks/useIsSomeTableDataFetching'
+export { useLastApprovedHistoryDescriptions } from './hooks/useLastApprovedHistoryDescriptions'
 export { useNodeValuesEstimation } from './hooks/useNodeValuesEstimation'
 export { useNodeValueValidation, useTableHasErrors } from './hooks/useNodeValueValidations'
 export { useOdpLastUpdatedTimestamp } from './hooks/useOdpLastUpdatedTimestamp'

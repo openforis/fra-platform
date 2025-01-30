@@ -41,6 +41,7 @@ export const ApiEndPoint = {
 
     Descriptions: {
       many: () => apiPath('cycle-data', 'descriptions'),
+      history: () => apiPath('cycle-data', 'descriptions', 'history'),
 
       DataSources: {
         many: () => apiPath('cycle-data', 'descriptions', 'data-sources'),

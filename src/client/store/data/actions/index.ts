@@ -7,6 +7,7 @@ import { deleteContact } from './deleteContact'
 import { deleteDataSource } from './deleteDataSource'
 import { getContacts } from './getContacts'
 import { getDescription } from './getDescription'
+import { getDescriptionsHistory } from './getDescriptionsHistory'
 import { getLinkedDataSources } from './getLinkedDataSources'
 import { getNodeValuesEstimations } from './getNodeValuesEstimations'
 import { getODPLastUpdatedTimestamp } from './getODPLastUpdatedTimestamp'
@@ -38,6 +39,7 @@ export const DataActions = {
   copyPreviousDatasources,
   deleteDataSource,
   getLinkedDataSources,
+  getDescriptionsHistory,
 
   // Contacts
   createContact,

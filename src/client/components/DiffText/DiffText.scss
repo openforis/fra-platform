@@ -1,0 +1,17 @@
+@import 'src/client/style/partials';
+
+.diff-text {
+  .added,
+  .removed {
+    font-weight: 600;
+  }
+
+  .added {
+    color: darken($ui-status-accepted, 10%);
+  }
+
+  .removed {
+    color: $ui-destructive;
+    text-decoration: line-through;
+  }
+}
