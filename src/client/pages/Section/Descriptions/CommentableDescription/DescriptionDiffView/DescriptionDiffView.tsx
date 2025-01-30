@@ -14,8 +14,10 @@ const DescriptionDiffView: React.FC<Props> = (props) => {
   const { sectionName } = useSectionContext()
 
   const descriptions = useLastApprovedHistoryDescriptions()
+  // TODO: Support data sources after 2020
   const descriptionA = descriptions?.[name]?.text || ''
   const descriptionB = useCommentableDescriptionValue({ name, sectionName })?.text || ''
+
   const changes = useChanges({ descriptionA, descriptionB })
 
   return <DiffText changes={changes} />
