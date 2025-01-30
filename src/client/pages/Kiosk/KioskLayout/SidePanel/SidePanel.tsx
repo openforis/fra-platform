@@ -1,14 +1,23 @@
 import './SidePanel.scss'
-import React, { useTransition } from 'react'
+import React, { useCallback, useTransition } from 'react'
 import { useNavigate } from 'react-router-dom'
+
+import classNames from 'classnames'
 
 import { Routes } from 'meta/routes'
 
+import { useIsRoute } from 'client/hooks/useIsRoute'
 import Icon from 'client/components/Icon'
 
 const SidePanel: React.FC = () => {
   const navigate = useNavigate()
   const [, startTransition] = useTransition()
+
+  const isKioskHomeRoute = useIsRoute({ path: Routes.Kiosk.path.absolute, exact: true })
+
+  const goBack = useCallback(() => {
+    navigate(-1)
+  }, [navigate])
 
   return (
     <div className="kiosk-side-panel">
@@ -36,6 +45,15 @@ const SidePanel: React.FC = () => {
         <div className="kiosk-side-panel__partners">
           <img alt="EU" className="kiosk-side-panel__partners-eu" src="/img/partners/EU.jpg" />
           <img alt="NICFI" className="kiosk-side-panel__partners-nicfi" src="/img/partners/NICFI.png" />
+
+          {/* No conditional rendering here to avoid layout shifting in certain screen sizes */}
+          <button
+            className={classNames('kiosk-side-panel__back-button', { visible: !isKioskHomeRoute })}
+            onClick={() => startTransition(() => goBack())}
+            type="button"
+          >
+            <Icon name="arrow-back" />
+          </button>
         </div>
       </div>
     </div>
