@@ -23,6 +23,10 @@ const baseMapOptions = {
   disableDefaultUI: true,
   fullscreenControl: false,
   mapTypeControl: false,
+  restriction: {
+    latLngBounds: { east: 180, north: 85, south: -85, west: -180 },
+    strictBounds: true,
+  },
   rotateControl: false,
   styles,
 }
