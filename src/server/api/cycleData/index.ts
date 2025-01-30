@@ -51,12 +51,14 @@ import { clearTable } from './table/clearTable'
 import { estimateValues } from './table/estimateValues'
 import { getNodeValuesEstimations } from './table/getNodeValuesEstimations'
 import { getTableData } from './table/getTableData'
+import { getTableDataHistory } from './table/getTableDataHistory'
 import { persistNodeValues } from './table/persistNodeValues'
 
 export const CycleDataApi = {
   init: (express: Express): void => {
     // Table
     express.get(ApiEndPoint.CycleData.Table.tableData(), AuthMiddleware.requireView, getTableData)
+    express.get(ApiEndPoint.CycleData.Table.tableDataHistory(), AuthMiddleware.requireViewHistory, getTableDataHistory)
     express.get(
       ApiEndPoint.CycleData.Table.nodeValuesEstimations(),
       AuthMiddleware.requireEditTableData,
