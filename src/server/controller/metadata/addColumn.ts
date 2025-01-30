@@ -1,3 +1,5 @@
+import { Objects } from 'utils/objects'
+
 import { Assessment, ColProps, Cycle, Row, Table, TableProps } from 'meta/assessment'
 
 import { BaseProtocol, DB } from 'server/db'
@@ -52,6 +54,20 @@ export const addColumn = async (props: Props, client: BaseProtocol = DB): Promis
   const columnNames = cycles.reduce<TableProps['columnNames']>((acc, cycle) => {
     return { ...acc, [cycle.uuid]: [...(table.props.columnNames?.[cycle.uuid] ?? []), colProps.colName] }
   }, table.props.columnNames ?? {})
+  // Update Table style -> gridTemplateColumns if present
+  const style = cycles.reduce<TableProps['style']>((acc, cycle) => {
+    const currentGridTemplateColumns = table.props.style?.[cycle.uuid]?.gridTemplateColumns
+    if (Objects.isEmpty(currentGridTemplateColumns)) return acc
 
-  await TableRepository.update({ assessment, tableId: table.id, tableProps: { columnsExport, columnNames } }, client)
+    const newColumnColSpan = colProps.style?.[cycle.uuid]?.colSpan ?? 1
+    const newColGridTemplateCol =
+      newColumnColSpan > 1 ? `repeat(${newColumnColSpan}, minmax(min-content, 1fr))` : 'minmax(min-content, 1fr)'
+    const gridTemplateColumns = `${currentGridTemplateColumns} ${newColGridTemplateCol}`
+    return { ...acc, [cycle.uuid]: { gridTemplateColumns } }
+  }, table.props.style ?? {})
+
+  await TableRepository.update(
+    { assessment, tableId: table.id, tableProps: { columnNames, columnsExport, style } },
+    client
+  )
 }
