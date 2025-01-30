@@ -53,5 +53,5 @@ export const addColumn = async (props: Props, client: BaseProtocol = DB): Promis
     return { ...acc, [cycle.uuid]: [...(table.props.columnNames?.[cycle.uuid] ?? []), colProps.colName] }
   }, table.props.columnNames ?? {})
 
-  await TableRepository.update({ assessment, tableId: table.id, tableProps: { columnNames, columnsExport } }, client)
+  await TableRepository.update({ assessment, tableId: table.id, tableProps: { columnsExport, columnNames } }, client)
 }
