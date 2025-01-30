@@ -27,6 +27,7 @@ describe('canViewReview', () => {
     } as Country
     mockCycle = { uuid: '2020' } as Cycle
     ;(Areas.isISOCountry as jest.Mock).mockReturnValue(true)
+    ;(Areas.getStatus as jest.Mock).mockReturnValue(AssessmentStatus.review)
     ;(Users.isAdministrator as jest.Mock).mockReturnValue(false)
     ;(Users.isReviewer as jest.Mock).mockReturnValue(false)
     ;(Users.isNationalCorrespondent as jest.Mock).mockReturnValue(false)
