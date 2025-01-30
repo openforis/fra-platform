@@ -2,7 +2,7 @@ import { createSelector } from '@reduxjs/toolkit'
 
 import { CountryIso } from 'meta/area'
 import { AssessmentName, CycleName, SectionName } from 'meta/assessment'
-import { HistoryTarget } from 'meta/cycleData'
+import { HistoryTarget } from 'meta/cycleData/historyActivities'
 
 import { RootState } from 'client/store/RootState'
 

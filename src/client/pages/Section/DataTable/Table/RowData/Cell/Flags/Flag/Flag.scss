@@ -1,0 +1,14 @@
+@import 'src/client/style/partials';
+
+.table-grid__data-cell-flag {
+  align-items: center;
+  color: $text-disabled;
+  cursor: pointer;
+  display: flex;
+  font-size: 10px;
+  font-weight: 400;
+  height: 14px;
+  justify-content: center;
+  min-width: 14px;
+  padding: 0 2px;
+}

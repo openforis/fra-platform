@@ -1,3 +1,5 @@
+import { CSSProperties } from 'react'
+
 import { VariableCache } from 'meta/assessment/assessmentMetaCache'
 import { ColName } from 'meta/assessment/col'
 import { CycledPropsObject, CycleUuid } from 'meta/assessment/cycle'
@@ -65,6 +67,7 @@ export interface TableProps {
   print?: { pageBreakAfter: boolean }
   readonly?: boolean
   secondary?: boolean
+  style?: Record<CycleUuid, Pick<CSSProperties, 'gridTemplateColumns'>>
   unit?: Unit
 }
 

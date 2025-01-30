@@ -1,0 +1,34 @@
+$activities-bg: #c7e2c5;
+
+.kiosk-latest-activities__list {
+  background-color: rgba($activities-bg, 0.6);
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  left: 1%;
+  max-height: 95dvh;
+  overflow: auto;
+  position: absolute;
+  top: 1%;
+  width: 25%;
+}
+
+.kiosk-latest-activities__list-container {
+  padding: min(0.8dvw, 1.5dvh);
+}
+
+.kiosk-latest-activities__list-title-container {
+  background-color: rgba($activities-bg, 0.8);
+  display: flex;
+  justify-content: center;
+  width: 100%;
+
+  > h1 {
+    color: #ef7a2d;
+    font-size: min(2.331dvw, 4.1475dvh);
+    font-weight: 900;
+    margin: min(0.8dvw, 1.5dvh) 0;
+    text-align: center;
+    text-shadow: $activities-bg 0px 0px 5px;
+  }
+}
