@@ -63,11 +63,11 @@ const canEditCycleData = (props: { cycle: Cycle; country: Country; user: User })
 
   if (nationalCorrespondent || alternateNationalCorrespondent || collaborator) {
     const collaboratorCanEdit = !collaborator || (user as unknown as Collaborator).permissions?.sections !== 'none'
-    return status === AssessmentStatus.editing && collaboratorCanEdit
+    return [AssessmentStatus.notStarted, AssessmentStatus.editing].includes(status) && collaboratorCanEdit
   }
 
   if (reviewer) {
-    return [AssessmentStatus.editing, AssessmentStatus.review].includes(status)
+    return [AssessmentStatus.notStarted, AssessmentStatus.editing, AssessmentStatus.review].includes(status)
   }
 
   return false
@@ -112,7 +112,10 @@ const canEditData = (props: {
     return true
   }
 
-  if (Users.isCollaborator(user, countryIso, cycle) && status === AssessmentStatus.editing) {
+  if (
+    Users.isCollaborator(user, countryIso, cycle) &&
+    [AssessmentStatus.notStarted, AssessmentStatus.editing].includes(status)
+  ) {
     const userRole = Users.getRole(user, countryIso, cycle) as Collaborator
 
     const userSections = userRole.permissions?.sections ?? {}
@@ -158,10 +161,10 @@ const canEditCountryProps = (props: {
     Users.isAlternateNationalCorrespondent(user, countryIso, cycle) ||
     (allowCollaborator && Users.isCollaborator(user, countryIso, cycle))
   )
-    return status === AssessmentStatus.editing
+    return [AssessmentStatus.notStarted, AssessmentStatus.editing].includes(status)
 
   if (Users.isReviewer(user, countryIso, cycle))
-    return [AssessmentStatus.editing, AssessmentStatus.review].includes(status)
+    return [AssessmentStatus.notStarted, AssessmentStatus.editing, AssessmentStatus.review].includes(status)
 
   return false
 }
