@@ -1,4 +1,4 @@
-name: Run Tests
+name: Run test partial (unit and integration)
 
 on:
   pull_request:

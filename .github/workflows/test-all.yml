@@ -1,4 +1,4 @@
-name: Run E2E Tests
+name: Run test all (unit, integration and e2e)
 
 on:
   pull_request:
