@@ -60,6 +60,10 @@ services:
       - REDIS_QUEUE_URL=redis://redis-queue:6379
       - REDIS_DATA_URL=redis://redis-data:6379
       - PORT=9001
+      - WWWHISPER_DISABLE=true
+      - FRA_GOOGLE_CLIENT_ID=google-client-id
+      - FRA_GOOGLE_CLIENT_SECRET=goggle-client-secret
+      - TOKEN_SECRET=1234567890
     ports:
       - '9001:9001'
     healthcheck:

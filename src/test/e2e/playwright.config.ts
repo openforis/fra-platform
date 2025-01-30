@@ -28,18 +28,7 @@ const config: PlaywrightTestConfig = {
     },
   ],
 
-  reporter: [
-    ['list'],
-    [
-      'html',
-      {
-        outputFolder: 'test-results',
-        port: 9323,
-        host: '0.0.0.0',
-        open: 'always', // Remove this or change to 'on-failure'
-      },
-    ],
-  ],
+  reporter: [['list'], ['html', { outputFolder: 'test-results', open: 'never' }]],
 }
 
 export default config
