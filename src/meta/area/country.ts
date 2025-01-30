@@ -8,7 +8,7 @@ export type CountryProps = {
   domain: string // ex: tropical
   forestCharacteristics: { useOriginalDataPoint: boolean }
   hideContactsTable?: boolean
-  status?: AssessmentStatus
+  status: AssessmentStatus
 }
 
 export type Country = {
