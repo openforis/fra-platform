@@ -10,7 +10,7 @@ interface Props {
 }
 
 const DiffText: React.FC<Props> = (props) => {
-  const { changes, className } = props
+  const { changes, className = '' } = props
 
   return (
     <div className={classNames('diff-text', className)}>
@@ -30,10 +30,6 @@ const DiffText: React.FC<Props> = (props) => {
       })}
     </div>
   )
-}
-
-DiffText.defaultProps = {
-  className: '',
 }
 
 export default DiffText
