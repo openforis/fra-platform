@@ -21,6 +21,7 @@ const ButtonHistory: React.FC = () => {
     if (!historyActive && !locked) {
       dispatch(DataLockActions.toggleDataLock())
     }
+    dispatch(DataActions.resetHistoryActivities())
     dispatch(DataActions.toggleHistoryLastApproved())
   }, [dispatch, historyActive, locked])
 
