@@ -8,7 +8,6 @@ import { unified } from 'unified'
 import { Objects } from 'utils/objects'
 
 import { useRepositoryLinkContext } from 'client/components/EditorWYSIWYG/repositoryLinkContext'
-import { DOMs } from 'client/utils/dom'
 
 const schema = {
   ...defaultSchema,
@@ -61,17 +60,13 @@ export const useOnBlur = (props: Props): OnChange => {
 
       if (newValue === valueRef.current) return
 
-      // Sanitize user input before saving
-      let sanitizedValue = (await processor.process(newValue)).toString()
+      // Sanitize user input before saving and remove initial empty rows
+      const sanitizedValue = (await processor.process(newValue)).toString().replace(/(<div><br><\/div>)*/, '')
 
-      // Sanitizes further - remove empty editor element <div><br></div>
-      const parsedValue = DOMs.parseDOMValue(sanitizedValue)
-      if (Objects.isEmpty(parsedValue)) {
-        sanitizedValue = ''
-      }
       valueRef.current = sanitizedValue
+      jodit.setEditorValue(sanitizedValue)
       onChange(sanitizedValue)
     },
-    [onChange]
+    [jodit, onChange]
   )
 }
