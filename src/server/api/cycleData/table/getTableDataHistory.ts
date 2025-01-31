@@ -2,6 +2,7 @@ import { Response } from 'express'
 
 import { CycleDataRequest } from 'meta/api/request'
 import { CountryIso } from 'meta/area'
+import { TableNames } from 'meta/assessment'
 import { RecordAssessmentData } from 'meta/data'
 
 import Requests from 'server/utils/requests'
@@ -23,13 +24,20 @@ export const getTableDataHistory = async (req: GetTableDataRequest, res: Respons
           ...countryISOs.reduce(
             (acc, countryIso) => ({
               ...acc,
-              [countryIso]: tableNames.reduce(
-                (tableAcc, tableName) => ({
-                  ...tableAcc,
-                  [tableName]: {},
-                }),
-                {}
-              ),
+              [countryIso]: {
+                ...tableNames.reduce(
+                  (tableAcc, tableName) => ({
+                    ...tableAcc,
+                    [tableName]: {},
+                  }),
+                  {}
+                ),
+                [TableNames.extentOfForest]: {
+                  1990: {
+                    forestArea: { raw: '9999999.00' },
+                  },
+                },
+              },
             }),
             {}
           ),
