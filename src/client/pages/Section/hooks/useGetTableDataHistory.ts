@@ -5,9 +5,9 @@ import { SectionName } from 'meta/assessment'
 
 import { useAppDispatch } from 'client/store'
 import { DataActions, useHistoryLastApprovedIsActive } from 'client/store/data'
+import { useTableSections } from 'client/store/metadata'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
-import { useDependencies } from 'client/pages/Section/hooks/useGetTableData/useDependencies'
 
 type Props = { sectionName: SectionName }
 
@@ -20,29 +20,13 @@ export const useGetTableDataHistory = (props: Props): void => {
   const countryIso = _countryIso as CountryIso
   const historyLastApprovedIsActive = useHistoryLastApprovedIsActive()
 
-  const dependencies = useDependencies(props)
+  const tableSections = useTableSections({ sectionName })
+  const tableNames = tableSections.flatMap((tableSection) => tableSection.tables.flatMap((table) => table.props.name))
 
   useEffect(() => {
     if (!print && historyLastApprovedIsActive) {
-      const tableNames = Array.from(dependencies.internal.tableNames)
-      dispatch(
-        DataActions.getTableDataHistory({
-          countryIso,
-          assessmentName,
-          cycleName,
-          sectionName,
-          tableNames,
-        })
-      )
+      const getParams = { countryIso, assessmentName, cycleName, sectionName, tableNames }
+      dispatch(DataActions.getTableDataHistory(getParams))
     }
-  }, [
-    assessmentName,
-    countryIso,
-    cycleName,
-    dependencies.internal.tableNames,
-    dispatch,
-    historyLastApprovedIsActive,
-    print,
-    sectionName,
-  ])
+  }, [assessmentName, countryIso, cycleName, dispatch, historyLastApprovedIsActive, print, sectionName, tableNames])
 }
