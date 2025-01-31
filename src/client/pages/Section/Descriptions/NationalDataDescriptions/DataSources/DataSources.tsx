@@ -20,6 +20,7 @@ import HistoryCompare from 'client/pages/Section/Descriptions/NationalDataDescri
 
 import { useDataSourcesData } from './hooks/useDataSourcesData'
 import { useDataSourcesHistoryActivities } from './hooks/useDataSourcesHistoryActivities'
+import { useDataSourcesHistoryLastApproved } from './hooks/useDataSourcesHistoryLastApproved'
 import { useGetDataSourcesLinked } from './hooks/useGetDataSourcesLinked'
 
 type Props = {
@@ -36,7 +37,11 @@ export const DataSources: React.FC<Props> = (props: Props) => {
   const { sectionName } = useSectionContext()
   const { dataSources, text } = useDataSourcesData({ sectionName })
   const { dataSourcesLinked } = useGetDataSourcesLinked({ nationalData, sectionName })
-  const historyCompares = useDataSourcesHistoryActivities({ dataSources })
+
+  const historyLastApprovedCompares = useDataSourcesHistoryLastApproved({ dataSources })
+  const historyActivityCompares = useDataSourcesHistoryActivities({ dataSources })
+  const historyCompares = historyLastApprovedCompares ?? historyActivityCompares
+
   const canEdit = useCanEditDescription({ sectionName })
   const editable = useIsDescriptionEditable({ sectionName, name })
   const { empty } = useDescriptionErrorState({ name, sectionName })
@@ -83,7 +88,7 @@ export const DataSources: React.FC<Props> = (props: Props) => {
             {historyCompares &&
               historyCompares.map((historyCompare, i) => (
                 <HistoryCompare
-                  key={historyCompare.dataItem?.uuid ?? historyCompare.historyItem?.uuid}
+                  key={`${String(i)}-${historyCompare.dataItem?.uuid ?? historyCompare.historyItem?.uuid}`}
                   historyCompare={historyCompare}
                   lastRow={i === historyCompares.length - 1}
                   meta={nationalData.dataSources}
