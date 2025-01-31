@@ -28,13 +28,15 @@ export const useDataSourcesHistoryLastApproved = (props: Props): Returned => {
     const dataLength = dataSources.length
     const historyLength = dataSourcesHistory.length
 
-    const dataIndex = 0
-    const historyIndex = 0
+    let dataIndex = 0
+    let historyIndex = 0
     for (let i = 0; i < Math.max(dataLength, historyLength); i += 1) {
       const dataItem = dataSources[dataIndex]
       // TODO: Handle non-empty history items by matching dataSources
       const historyItem = dataSourcesHistory[historyIndex]
 
+      dataIndex += 1
+      historyIndex += 1
       items.push({ dataItem, historyItem })
     }
 
