@@ -3,9 +3,12 @@ import React, { useMemo } from 'react'
 import * as Diff from 'diff'
 import { Change } from 'diff'
 
+import { CountryIso } from 'meta/area'
 import { NodeValue } from 'meta/assessment'
+import { RecordAssessmentDatas } from 'meta/data'
 
 import { useLastApprovedHistoryTableData } from 'client/store/data/hooks/useLastApprovedHistoryTableData'
+import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import DiffText from 'client/components/DiffText'
 
 import { PropsCell } from '../props'
@@ -29,9 +32,13 @@ const useChanges = (props: { nodeValueA: NodeValue; nodeValueB: NodeValue }): Re
 
 const History: React.FC<PropsCell> = (props) => {
   const { nodeValue, table, col, row } = props
-  const tableDataHistory = useLastApprovedHistoryTableData()
-  const nodeValueA =
-    tableDataHistory?.[table.props.name]?.[col.props.colName]?.[row.props.variableName] ?? ({} as NodeValue)
+  const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
+  const tableName = table.props.name
+  const { colName } = col.props
+  const { variableName } = row.props
+  const data = useLastApprovedHistoryTableData()
+  const nodeValueProps = { assessmentName, cycleName, countryIso, tableName, colName, variableName, data }
+  const nodeValueA = RecordAssessmentDatas.getNodeValue(nodeValueProps) ?? ({} as NodeValue)
   const nodeValueB = nodeValue ?? ({} as NodeValue)
 
   const changes = useChanges({ nodeValueA, nodeValueB })
