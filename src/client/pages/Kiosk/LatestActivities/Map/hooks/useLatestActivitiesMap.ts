@@ -22,6 +22,10 @@ const baseMapOptions = {
   mapTypeId: 'satellite',
   maxZoom: 15,
   minZoom: 3,
+  restriction: {
+    latLngBounds: { east: 180, north: 85, south: -85, west: -180 },
+    strictBounds: true,
+  },
   rotateControl: false,
   zoom: 3,
 }
