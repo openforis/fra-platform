@@ -5,6 +5,7 @@ import { Change } from 'diff'
 
 import { NodeValue } from 'meta/assessment'
 
+import { useLastApprovedHistoryTableData } from 'client/store/data/hooks/useLastApprovedHistoryTableData'
 import DiffText from 'client/components/DiffText'
 
 import { PropsCell } from '../props'
@@ -18,7 +19,7 @@ const useChanges = (props: { nodeValueA: NodeValue; nodeValueB: NodeValue }): Re
     const textA = nodeValueA?.raw ?? ''
     const textB = nodeValueB?.raw ?? ''
 
-    const changes = Diff.diffChars(textA, textB, {
+    const changes = Diff.diffWords(textA, textB, {
       ignoreCase: false,
     })
 
@@ -27,10 +28,11 @@ const useChanges = (props: { nodeValueA: NodeValue; nodeValueB: NodeValue }): Re
 }
 
 const History: React.FC<PropsCell> = (props) => {
-  const { nodeValue } = props
-
-  const nodeValueA = {} as NodeValue
-  const nodeValueB = nodeValue
+  const { nodeValue, table, col, row } = props
+  const tableDataHistory = useLastApprovedHistoryTableData()
+  const nodeValueA =
+    tableDataHistory?.[table.props.name]?.[col.props.colName]?.[row.props.variableName] ?? ({} as NodeValue)
+  const nodeValueB = nodeValue ?? ({} as NodeValue)
 
   const changes = useChanges({ nodeValueA, nodeValueB })
 

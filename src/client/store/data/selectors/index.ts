@@ -25,21 +25,22 @@ const getHistoryItems = createSelector(getHistoryActivities, (history) => histor
 const getHistoryLastApproved = createSelector(getHistory, (history) => history.lastApproved ?? {})
 const isHistoryLastApprovedActive = createSelector(getHistoryLastApproved, (history) => Boolean(history?.active))
 
+type Params = {
+  assessmentName: AssessmentName
+  cycleName: CycleName
+  countryIso: CountryIso
+}
+
 const getLastApprovedDescriptions = createSelector(
-  [
-    getHistoryLastApproved,
-    (
-      _,
-      params: {
-        assessmentName: AssessmentName
-        cycleName: CycleName
-        countryIso: CountryIso
-        sectionName: SectionName
-      }
-    ) => params,
-  ],
+  [getHistoryLastApproved, (_, params: Params & { sectionName: SectionName }) => params],
   (lastApproved, { assessmentName, cycleName, countryIso, sectionName }) =>
     lastApproved?.descriptions?.[assessmentName]?.[cycleName]?.[countryIso]?.[sectionName]
+)
+
+const getLastApprovedTableData = createSelector(
+  [getHistoryLastApproved, (_, params: Params) => params],
+  (lastApproved, { assessmentName, cycleName, countryIso }) =>
+    lastApproved?.tableData?.[assessmentName]?.[cycleName]?.[countryIso]
 )
 
 export const DataSelector = {
@@ -53,5 +54,7 @@ export const DataSelector = {
     isHistoryLastApprovedActive,
     // descriptions
     getLastApprovedDescriptions,
+    // tabledata
+    getLastApprovedTableData,
   },
 }
