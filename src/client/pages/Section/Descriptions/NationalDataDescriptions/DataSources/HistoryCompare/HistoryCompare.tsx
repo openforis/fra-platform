@@ -4,8 +4,8 @@ import { DataSourceDescription } from 'meta/assessment'
 
 import { DataRow } from 'client/components/DataGrid'
 import CellDiff from 'client/pages/Section/Descriptions/NationalDataDescriptions/DataSources/HistoryCompare/CellDiff'
+import { DataSourceHistoryCompare } from 'client/pages/Section/Descriptions/NationalDataDescriptions/DataSources/types'
 
-import { DataSourceHistoryCompare } from '../hooks/useDataSourcesHistory'
 import { useChanges } from './hooks/useChanges'
 
 type Props = {
