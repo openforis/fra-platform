@@ -15,7 +15,7 @@ type Props = {
 }
 type Returned = Array<DataSourceHistoryCompare> | undefined
 
-export const useDataSourcesHistory = (props: Props): Returned => {
+export const useDataSourcesHistoryActivities = (props: Props): Returned => {
   const { dataSources } = props
 
   const compareItem = useHistoryActivitiesCompareItem<ActivityLogTarget>(CommentableDescriptionName.dataSources)

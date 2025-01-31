@@ -19,7 +19,7 @@ import DataSourceRow from 'client/pages/Section/Descriptions/NationalDataDescrip
 import HistoryCompare from 'client/pages/Section/Descriptions/NationalDataDescriptions/DataSources/HistoryCompare'
 
 import { useDataSourcesData } from './hooks/useDataSourcesData'
-import { useDataSourcesHistory } from './hooks/useDataSourcesHistory'
+import { useDataSourcesHistoryActivities } from './hooks/useDataSourcesHistoryActivities'
 import { useGetDataSourcesLinked } from './hooks/useGetDataSourcesLinked'
 
 type Props = {
@@ -36,7 +36,7 @@ export const DataSources: React.FC<Props> = (props: Props) => {
   const { sectionName } = useSectionContext()
   const { dataSources, text } = useDataSourcesData({ sectionName })
   const { dataSourcesLinked } = useGetDataSourcesLinked({ nationalData, sectionName })
-  const historyCompares = useDataSourcesHistory({ dataSources })
+  const historyCompares = useDataSourcesHistoryActivities({ dataSources })
   const canEdit = useCanEditDescription({ sectionName })
   const editable = useIsDescriptionEditable({ sectionName, name })
   const { empty } = useDescriptionErrorState({ name, sectionName })
