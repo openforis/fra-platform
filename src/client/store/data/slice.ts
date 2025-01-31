@@ -5,6 +5,7 @@ import { CommentableDescriptionName } from 'meta/assessment'
 import { ContactNode } from 'meta/cycleData'
 import { RecordAssessmentDatas } from 'meta/data'
 
+import { getTableDataHistoryReducer } from 'client/store/data/extraReducers/getTableDataHistory'
 import { DataState, TableDataStatus } from 'client/store/data/state'
 
 import { createContact } from './actions/createContact'
@@ -216,7 +217,9 @@ export const DataSlice = createSlice({
       contacts.push(contactAction)
     })
 
+    // == History reducers
     getDescriptionsHistoryReducer(builder)
+    getTableDataHistoryReducer(builder)
   },
 })
 

@@ -12,6 +12,7 @@ import { getLinkedDataSources } from './getLinkedDataSources'
 import { getNodeValuesEstimations } from './getNodeValuesEstimations'
 import { getODPLastUpdatedTimestamp } from './getODPLastUpdatedTimestamp'
 import { getTableData } from './getTableData'
+import { getTableDataHistory } from './getTableDataHistory'
 import { postEstimate } from './postEstimate'
 import { setNodeValues } from './setNodeValues'
 import { updateContact } from './updateContact'
@@ -24,6 +25,7 @@ export const DataActions = {
   setNodeValues,
   clearTableData,
   getTableData,
+  getTableDataHistory,
   updateNodeValues,
   getNodeValuesEstimations,
 
