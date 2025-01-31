@@ -221,7 +221,8 @@ const canViewHistory = (props: {
  */
 const canViewHistoryLastApproved = (props: { country: Country; cycle: Cycle; user: User }): boolean => {
   const { country, cycle, user } = props
-  const { status } = country?.props ?? {}
+
+  const status = Areas.getStatus(country)
 
   return (
     (Users.isAdministrator(user) || Users.isReviewer(user, country?.countryIso, cycle)) &&
