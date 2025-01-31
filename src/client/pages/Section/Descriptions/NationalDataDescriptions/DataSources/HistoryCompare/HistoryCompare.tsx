@@ -4,7 +4,7 @@ import { DataSourceDescription } from 'meta/assessment'
 
 import { DataRow } from 'client/components/DataGrid'
 import CellDiff from 'client/pages/Section/Descriptions/NationalDataDescriptions/DataSources/HistoryCompare/CellDiff'
-import { DataSourceHistoryCompare } from 'client/pages/Section/Descriptions/NationalDataDescriptions/DataSources/hooks/useDataSourcesHistoryActivities'
+import { DataSourceHistoryCompare } from 'client/pages/Section/Descriptions/NationalDataDescriptions/DataSources/types'
 
 import { useChanges } from './hooks/useChanges'
 
