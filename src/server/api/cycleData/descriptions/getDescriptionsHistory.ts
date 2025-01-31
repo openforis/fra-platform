@@ -17,7 +17,7 @@ export const getDescriptionsHistory = async (req: Request, res: Response) => {
           // Example of expected output:
           // dataSources: {
           //   text: '',
-          //   dataSources: {},
+          //   dataSources: [],
           // },
           // generalComments: '',
           // nationalClassificationAndDefinitions: '',
