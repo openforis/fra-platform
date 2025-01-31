@@ -217,25 +217,16 @@ const canViewHistory = (props: {
 
 /**
  * canViewHistoryLastApproved:
- *
- * Reviewer: if country status = review
- * Administrator: if status >=review
- *
- * @param props
- * @param props.country
- * @param props.cycle
- * @param props.user
- * @returns boolean
+ * returns true if (user is admin or reviewer) and status !== notStarted
  */
 const canViewHistoryLastApproved = (props: { country: Country; cycle: Cycle; user: User }): boolean => {
   const { country, cycle, user } = props
-  const { status } = country?.props ?? {}
 
-  if (Users.isReviewer(user, country?.countryIso, cycle) && status === AssessmentStatus.review) return true
+  const status = Areas.getStatus(country)
 
   return (
-    Users.isAdministrator(user) &&
-    [AssessmentStatus.review, AssessmentStatus.approval, AssessmentStatus.accepted].includes(status)
+    (Users.isAdministrator(user) || Users.isReviewer(user, country?.countryIso, cycle)) &&
+    status !== AssessmentStatus.notStarted
   )
 }
 
