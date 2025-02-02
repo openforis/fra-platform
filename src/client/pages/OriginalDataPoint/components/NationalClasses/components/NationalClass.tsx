@@ -8,7 +8,7 @@ import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { DataCell, DataRow } from 'client/components/DataGrid'
 import InputText from 'client/components/Inputs/InputText'
 import TextArea from 'client/components/Inputs/TextArea'
-import DiffView from 'client/pages/OriginalDataPoint/components/DiffView/DiffView'
+import ODPDiffText from 'client/pages/OriginalDataPoint/components/ODPDiffText/ODPDiffText'
 // import { useNationalClassNameComments } from 'client/pages/OriginalDataPoint/hooks'
 import { useIsEditODPEnabled } from 'client/pages/OriginalDataPoint/hooks/useIsEditODPEnabled'
 
@@ -51,7 +51,7 @@ const NationalClass: React.FC<Props> = (props) => {
     <DataRow actions={actions}>
       <DataCell error={error} lastRow={lastRow}>
         {historyLastApprovedIsActive ? (
-          <DiffView originalDataPoint={originalDataPoint} path={['nationalClasses', index, 'name']} />
+          <ODPDiffText originalDataPoint={originalDataPoint} path={['nationalClasses', index, 'name']} />
         ) : (
           <InputText
             disabled={!canEditData}
@@ -65,7 +65,7 @@ const NationalClass: React.FC<Props> = (props) => {
 
       <DataCell lastCol lastRow={lastRow}>
         {historyLastApprovedIsActive ? (
-          <DiffView originalDataPoint={originalDataPoint} path={['nationalClasses', index, 'definition']} />
+          <ODPDiffText originalDataPoint={originalDataPoint} path={['nationalClasses', index, 'definition']} />
         ) : (
           <TextArea
             disabled={!canEditData}

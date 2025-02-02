@@ -1,3 +1,4 @@
+import './ODPDiffText.scss'
 import React from 'react'
 
 import { OriginalDataPoint } from 'meta/assessment'
@@ -10,12 +11,12 @@ type Props = {
   path: Array<string | number>
 }
 
-const DiffView: React.FC<Props> = (props) => {
+const ODPDiffText: React.FC<Props> = (props) => {
   const { originalDataPoint, path } = props
 
   const changes = useFieldChanges({ originalDataPoint, path })
 
-  return <DiffText changes={changes} />
+  return <DiffText changes={changes} className="odp-diff-text" />
 }
 
-export default DiffView
+export default ODPDiffText

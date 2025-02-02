@@ -7,7 +7,7 @@ import { Topics } from 'meta/messageCenter'
 import { useHistoryLastApprovedIsActive } from 'client/store/data'
 import { DataCell, DataRow, DataRowAction, DataRowActionType } from 'client/components/DataGrid'
 import TextArea from 'client/components/Inputs/TextArea'
-import DiffView from 'client/pages/OriginalDataPoint/components/DiffView/DiffView'
+import ODPDiffText from 'client/pages/OriginalDataPoint/components/ODPDiffText/ODPDiffText'
 import { useShowReviewIndicator } from 'client/pages/OriginalDataPoint/hooks/useShowReviewIndicator'
 
 import { useIsDisabled } from '../hooks/useIsDisabled'
@@ -63,7 +63,7 @@ const AdditionalComments: React.FC<Props> = (props: Props) => {
       </DataCell>
       <DataCell lastCol lastRow>
         {historyLastApprovedIsActive ? (
-          <DiffView originalDataPoint={originalDataPoint} path={['dataSourceAdditionalComments']} />
+          <ODPDiffText originalDataPoint={originalDataPoint} path={['dataSourceAdditionalComments']} />
         ) : (
           <TextArea
             disabled={disabled}
