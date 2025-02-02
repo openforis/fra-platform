@@ -11,7 +11,7 @@ import { useOriginalDataPointHistory } from 'client/store/ui/originalDataPoint'
 
 type Props = {
   originalDataPoint: OriginalDataPoint
-  path: Array<string>
+  path: Array<string | number>
 }
 
 type Returned = Array<Change>

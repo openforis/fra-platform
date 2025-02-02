@@ -9,7 +9,7 @@ type Props = {
   lastCol?: boolean
   lastRow?: boolean
   originalDataPoint: OriginalDataPoint
-  path: Array<string>
+  path: Array<string | number>
 }
 
 const DiffView: React.FC<Props> = (props) => {
