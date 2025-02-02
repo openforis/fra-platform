@@ -22,6 +22,9 @@ export const useOriginalDataPoint = (): OriginalDataPoint => {
   return originalDataPoint ?? originalDataPointTemplate
 }
 
+export const useOriginalDataPointHistory = (): OriginalDataPoint | undefined =>
+  useAppSelector((state) => state.ui.originalDataPoint?.history)
+
 export const useIsOriginalDataPointUpdating = () => useAppSelector((state) => state.ui.originalDataPoint?.updating)
 
 export const useOriginalDataPointReservedYears = () =>

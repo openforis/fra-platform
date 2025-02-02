@@ -1,0 +1,27 @@
+import { createAsyncThunk } from '@reduxjs/toolkit'
+import axios from 'axios'
+
+import { ApiEndPoint } from 'meta/api/endpoint'
+import { CycleParams } from 'meta/api/request'
+import { OriginalDataPoint, SectionName } from 'meta/assessment'
+
+type Props = CycleParams & { sectionName?: SectionName; year: string }
+
+type Returned = OriginalDataPoint
+
+export const getOriginalDataPointHistory = createAsyncThunk<Returned, Props>(
+  'originalDataPoint/history/get/byYear',
+  async ({ assessmentName, countryIso, cycleName, sectionName, year }) => {
+    const { data } = await axios.get(ApiEndPoint.CycleData.OriginalDataPoint.history(), {
+      params: {
+        assessmentName,
+        countryIso,
+        cycleName,
+        sectionName,
+        year,
+      },
+    })
+
+    return data
+  }
+)
