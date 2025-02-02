@@ -3,9 +3,8 @@ import { useEffect } from 'react'
 import { CountryIso } from 'meta/area'
 
 import { useAppDispatch } from 'client/store'
-import { useHistoryLastApprovedIsActive } from 'client/store/data'
+import { DataActions, useHistoryLastApprovedIsActive } from 'client/store/data'
 import { useSection } from 'client/store/metadata'
-import { OriginalDataPointActions } from 'client/store/ui/originalDataPoint'
 import { useOriginalDataPointRouteParams } from 'client/hooks/useRouteParams'
 
 export const useGetOriginalDataPointHistory = () => {
@@ -22,7 +21,7 @@ export const useGetOriginalDataPointHistory = () => {
     if (!historyLastApprovedIsActive) return
 
     dispatch(
-      OriginalDataPointActions.getOriginalDataPointHistory({
+      DataActions.getOriginalDataPointHistory({
         assessmentName,
         countryIso: countryIso as CountryIso,
         cycleName,

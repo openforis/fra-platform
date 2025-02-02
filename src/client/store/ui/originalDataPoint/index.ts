@@ -2,7 +2,6 @@ export {
   useIsOriginalDataPointUpdating,
   useODPYears,
   useOriginalDataPoint,
-  useOriginalDataPointHistory,
   useOriginalDataPointReservedYears,
 } from './hooks'
 export { OriginalDataPointActions } from './slice'

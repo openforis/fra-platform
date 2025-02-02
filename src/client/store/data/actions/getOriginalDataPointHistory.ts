@@ -5,12 +5,12 @@ import { ApiEndPoint } from 'meta/api/endpoint'
 import { CycleParams } from 'meta/api/request'
 import { OriginalDataPoint, SectionName } from 'meta/assessment'
 
-type Props = CycleParams & { sectionName?: SectionName; year: string }
+type Props = CycleParams & { sectionName: SectionName; year: string }
 
 type Returned = OriginalDataPoint
 
 export const getOriginalDataPointHistory = createAsyncThunk<Returned, Props>(
-  'originalDataPoint/history/get/byYear',
+  'data/originalDataPoint/history/get',
   async ({ assessmentName, countryIso, cycleName, sectionName, year }) => {
     const { data } = await axios.get(ApiEndPoint.CycleData.OriginalDataPoint.history(), {
       params: {

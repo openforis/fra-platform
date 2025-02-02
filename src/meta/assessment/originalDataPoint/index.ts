@@ -6,3 +6,9 @@ export type { ODPReservedYear } from './odpReservedYear'
 export { ODPs } from './odps'
 export type { ODPValidation, ODPValidationNationalClass, ODPValidationYear } from './odpValidation'
 export type { OriginalDataPoint } from './originalDataPoint'
+export type {
+  RecordAssessmentOriginalDataPoint,
+  RecordCountryOriginalDataPoint,
+  RecordCycleOriginalDataPoint,
+  RecordYearOriginalDataPoint,
+} from './RecordAssessmentOriginalDataPoint'

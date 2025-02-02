@@ -7,7 +7,7 @@ import { Objects } from 'utils/objects'
 
 import { OriginalDataPoint } from 'meta/assessment'
 
-import { useOriginalDataPointHistory } from 'client/store/ui/originalDataPoint'
+import { useLastApprovedOriginalDataPoint } from 'client/store/data/hooks/useLastApprovedOriginalDataPoint'
 
 type Props = {
   originalDataPoint: OriginalDataPoint
@@ -29,7 +29,7 @@ export const useFieldChanges = (props: Props): Returned => {
   const { originalDataPoint, path } = props
 
   const { t } = useTranslation()
-  const originalDataPointHistory = useOriginalDataPointHistory()
+  const originalDataPointHistory = useLastApprovedOriginalDataPoint()
 
   return useMemo<Returned>(() => {
     const valuePrev = Objects.getInPath(originalDataPointHistory, path)
