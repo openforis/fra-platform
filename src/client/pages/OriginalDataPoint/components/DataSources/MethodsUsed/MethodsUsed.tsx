@@ -60,10 +60,10 @@ const MethodsUsed: React.FC<Props> = (props: Props) => {
   return (
     <DataRow actions={actions}>
       <DataCell header>{t('nationalDataPoint.methodsUsed')}</DataCell>
-      {historyLastApprovedIsActive ? (
-        <DiffView lastCol originalDataPoint={originalDataPoint} path={['dataSourceMethods']} />
-      ) : (
-        <DataCell lastCol>
+      <DataCell lastCol>
+        {historyLastApprovedIsActive ? (
+          <DiffView originalDataPoint={originalDataPoint} path={['dataSourceMethods']} />
+        ) : (
           <Select
             disabled={disabled}
             isMulti
@@ -71,8 +71,8 @@ const MethodsUsed: React.FC<Props> = (props: Props) => {
             options={options}
             value={originalDataPoint.dataSourceMethods ?? []}
           />
-        </DataCell>
-      )}
+        )}
+      </DataCell>
     </DataRow>
   )
 }

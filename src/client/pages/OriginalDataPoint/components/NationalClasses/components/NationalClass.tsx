@@ -49,10 +49,10 @@ const NationalClass: React.FC<Props> = (props) => {
 
   return (
     <DataRow actions={actions}>
-      {historyLastApprovedIsActive ? (
-        <DiffView lastRow={lastRow} originalDataPoint={originalDataPoint} path={['nationalClasses', index, 'name']} />
-      ) : (
-        <DataCell error={error} lastRow={lastRow}>
+      <DataCell error={error} lastRow={lastRow}>
+        {historyLastApprovedIsActive ? (
+          <DiffView originalDataPoint={originalDataPoint} path={['nationalClasses', index, 'name']} />
+        ) : (
           <InputText
             disabled={!canEditData}
             onChange={onChangeName}
@@ -60,26 +60,21 @@ const NationalClass: React.FC<Props> = (props) => {
             placeholder={placeHolder && index === 0 ? t('nationalDataPoint.enterOrCopyPasteNationalClasses') : ''}
             value={name ?? ''}
           />
-        </DataCell>
-      )}
+        )}
+      </DataCell>
 
-      {historyLastApprovedIsActive ? (
-        <DiffView
-          lastCol
-          lastRow={lastRow}
-          originalDataPoint={originalDataPoint}
-          path={['nationalClasses', index, 'definition']}
-        />
-      ) : (
-        <DataCell lastCol lastRow={lastRow}>
+      <DataCell lastCol lastRow={lastRow}>
+        {historyLastApprovedIsActive ? (
+          <DiffView originalDataPoint={originalDataPoint} path={['nationalClasses', index, 'definition']} />
+        ) : (
           <TextArea
             disabled={!canEditData}
             onChange={onChangeDefinition}
             onPaste={onPasteDefinition}
             value={definition ?? ''}
           />
-        </DataCell>
-      )}
+        )}
+      </DataCell>
     </DataRow>
   )
 }

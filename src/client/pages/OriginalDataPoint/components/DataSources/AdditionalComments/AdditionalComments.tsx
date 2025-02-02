@@ -61,17 +61,17 @@ const AdditionalComments: React.FC<Props> = (props: Props) => {
       <DataCell header lastRow>
         {t('nationalDataPoint.additionalComments')}
       </DataCell>
-      {historyLastApprovedIsActive ? (
-        <DiffView lastCol lastRow originalDataPoint={originalDataPoint} path={['dataSourceAdditionalComments']} />
-      ) : (
-        <DataCell lastCol lastRow>
+      <DataCell lastCol lastRow>
+        {historyLastApprovedIsActive ? (
+          <DiffView originalDataPoint={originalDataPoint} path={['dataSourceAdditionalComments']} />
+        ) : (
           <TextArea
             disabled={disabled}
             onChange={onChange}
             value={originalDataPoint.dataSourceAdditionalComments ?? ''}
           />
-        </DataCell>
-      )}
+        )}
+      </DataCell>
     </DataRow>
   )
 }

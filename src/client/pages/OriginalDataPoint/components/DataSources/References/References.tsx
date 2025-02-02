@@ -55,18 +55,18 @@ const References: React.FC<Props> = (props: Props) => {
   return (
     <DataRow actions={actions}>
       <DataCell header>{t('nationalDataPoint.references')}</DataCell>
-      {historyLastApprovedIsActive ? (
-        <DiffView lastCol originalDataPoint={originalDataPoint} path={['dataSourceReferences']} />
-      ) : (
-        <DataCell lastCol>
+      <DataCell lastCol>
+        {historyLastApprovedIsActive ? (
+          <DiffView originalDataPoint={originalDataPoint} path={['dataSourceReferences']} />
+        ) : (
           <EditorWYSIWYGLinks
             disabled={disabled}
             onChange={onChange}
             repository
             value={originalDataPoint.dataSourceReferences ?? ''}
           />
-        </DataCell>
-      )}
+        )}
+      </DataCell>
     </DataRow>
   )
 }
