@@ -6,8 +6,10 @@ import { Objects } from 'utils/objects'
 import { OriginalDataPoint } from 'meta/assessment'
 import { Topics } from 'meta/messageCenter'
 
+import { useHistoryLastApprovedIsActive } from 'client/store/data'
 import { DataCell, DataRow, DataRowAction, DataRowActionType } from 'client/components/DataGrid'
 import { EditorWYSIWYGLinks } from 'client/components/EditorWYSIWYG'
+import DiffView from 'client/pages/OriginalDataPoint/components/DiffView/DiffView'
 import { useShowReviewIndicator } from 'client/pages/OriginalDataPoint/hooks/useShowReviewIndicator'
 
 import { useIsDisabled } from '../hooks/useIsDisabled'
@@ -25,6 +27,7 @@ const References: React.FC<Props> = (props: Props) => {
 
   const reviewIndicator = useShowReviewIndicator()
   const disabled = useIsDisabled()
+  const historyLastApprovedIsActive = useHistoryLastApprovedIsActive()
 
   const updateOriginalDataPoint = useUpdateDataSources()
 
@@ -52,14 +55,18 @@ const References: React.FC<Props> = (props: Props) => {
   return (
     <DataRow actions={actions}>
       <DataCell header>{t('nationalDataPoint.references')}</DataCell>
-      <DataCell lastCol>
-        <EditorWYSIWYGLinks
-          disabled={disabled}
-          onChange={onChange}
-          repository
-          value={originalDataPoint.dataSourceReferences ?? ''}
-        />
-      </DataCell>
+      {historyLastApprovedIsActive ? (
+        <DiffView lastCol originalDataPoint={originalDataPoint} path={['dataSourceReferences']} />
+      ) : (
+        <DataCell lastCol>
+          <EditorWYSIWYGLinks
+            disabled={disabled}
+            onChange={onChange}
+            repository
+            value={originalDataPoint.dataSourceReferences ?? ''}
+          />
+        </DataCell>
+      )}
     </DataRow>
   )
 }
