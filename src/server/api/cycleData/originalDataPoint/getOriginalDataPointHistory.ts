@@ -1,19 +1,16 @@
 import { Response } from 'express'
 
 import { CycleDataRequest } from 'meta/api/request'
-import { OriginalDataPoint } from 'meta/assessment'
 
 import { Requests } from 'server/utils'
 
-export const getOriginalDataPointHistory = async (req: CycleDataRequest, res: Response) => {
+export const getOriginalDataPointHistory = async (_req: CycleDataRequest, res: Response) => {
   try {
-    const { year, countryIso } = req.query
-
     // TODO: Add suport for non-empty last cycle odps
-    const odpHistory: Pick<OriginalDataPoint, 'countryIso' | 'year'> = {
-      countryIso,
-      year,
-      // Example of the rest of the object:
+    const odpHistory = {
+      // Example of the object:
+      // countryIso: 'FIN',
+      // year: '1990',
       // dataSourceAdditionalComments: '',
       // dataSourceMethods: [],
       // dataSourceReferences: '',
