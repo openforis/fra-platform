@@ -51,17 +51,19 @@ export const useChanges = (props: Props): Returned => {
     // comments
     const commentsData = dataItem?.comments ?? ''
     const commentsHistory = historyItem?.comments ?? ''
-    const comments = Diff.diffChars(commentsHistory, commentsData)
+    const comments = Diff.diffChars(commentsHistory ?? '', commentsData ?? '')
 
     // reference
     const referenceData = _getHtmlTextContent(dataItem?.reference)
     const referenceHistory = _getHtmlTextContent(historyItem?.reference)
-    const reference = Diff.diffChars(referenceHistory, referenceData)
+    const reference = Diff.diffChars(referenceHistory ?? '', referenceData ?? '')
 
     // type
     const typeData = _getType(dataItem)
     const typeHistory = _getType(historyItem)
-    const type = typeOfDataSourceText ? Diff.diffChars(typeHistory, typeData) : Diff.diffLines(typeHistory, typeData)
+    const type = typeOfDataSourceText
+      ? Diff.diffChars(typeHistory ?? '', typeData ?? '')
+      : Diff.diffLines(typeHistory ?? '', typeData ?? '')
 
     // variables
     const variablesData = variablesSelect ? _getVariablesText(dataItem?.variables) : dataItem?.variables?.at(0)
