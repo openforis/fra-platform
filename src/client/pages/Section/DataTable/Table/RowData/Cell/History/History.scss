@@ -1,0 +1,6 @@
+// Adjust calculated cell padding
+.table-grid__data-cell.readonly {
+  .input-text.disabled.table-grid__data-cell-input-number {
+    padding: unset;
+  }
+}
