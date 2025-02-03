@@ -8,6 +8,7 @@ import { Objects } from 'utils/objects'
 import { OriginalDataPoint } from 'meta/assessment'
 
 import { useLastApprovedOriginalDataPoint } from 'client/store/data/hooks/useLastApprovedOriginalDataPoint'
+import { DOMs } from 'client/utils/dom'
 
 type Props = {
   originalDataPoint: OriginalDataPoint
@@ -18,12 +19,6 @@ type Returned = Array<Change>
 
 const _getSourceMethodText = (values: Array<string> | undefined, t: TFunction): string =>
   (values ?? [])?.map((value) => t(`nationalDataPoint.dataSourceMethodsOptions.${value}`)).join('\n\r')
-
-const _getHtmlTextContent = (html: string): string => {
-  const parser = new DOMParser()
-  const doc = parser.parseFromString(html ?? '', 'text/html')
-  return doc.body.textContent || ''
-}
 
 export const useFieldChanges = (props: Props): Returned => {
   const { originalDataPoint, path } = props
@@ -45,8 +40,8 @@ export const useFieldChanges = (props: Props): Returned => {
       return multipleMethods ? Diff.diffLines(methodsPrev, methodsCurrent) : Diff.diffChars(methodsPrev, methodsCurrent)
     }
 
-    const textPrev = _getHtmlTextContent(valuePrev ?? '')
-    const textCurrent = _getHtmlTextContent(valueCurrent ?? '')
+    const textPrev = DOMs.getHtmlTextContent(valuePrev ?? '')
+    const textCurrent = DOMs.getHtmlTextContent(valueCurrent ?? '')
     return Diff.diffChars(textPrev, textCurrent, {
       ignoreCase: false,
     })
