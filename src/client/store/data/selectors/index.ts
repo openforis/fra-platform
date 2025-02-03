@@ -40,7 +40,7 @@ const getLastApprovedDescriptions = createSelector(
 const getLastApprovedOriginalDataPoint = createSelector(
   [getHistoryLastApproved, (_, params: Params & { year: string }) => params],
   (lastApproved, { assessmentName, countryIso, cycleName, year }) =>
-    lastApproved?.originalDataPoint?.[assessmentName]?.[cycleName]?.[countryIso]?.[year]
+    lastApproved?.originalDataPoints?.[assessmentName]?.[cycleName]?.[countryIso]?.[year]
 )
 
 const getLastApprovedTableData = createSelector(getHistoryLastApproved, (lastApproved) => lastApproved?.tableData)

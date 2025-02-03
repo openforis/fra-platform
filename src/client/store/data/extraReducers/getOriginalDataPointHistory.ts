@@ -10,7 +10,7 @@ export const getOriginalDataPointHistoryReducer = (builder: ActionReducerMapBuil
 
     Objects.setInPath({
       obj: state,
-      path: ['history', 'lastApproved', 'originalDataPoint', assessmentName, cycleName, countryIso, year],
+      path: ['history', 'lastApproved', 'originalDataPoints', assessmentName, cycleName, countryIso, year],
       value: payload,
     })
   })
