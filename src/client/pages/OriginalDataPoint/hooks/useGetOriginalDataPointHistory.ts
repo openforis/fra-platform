@@ -1,7 +1,5 @@
 import { useEffect } from 'react'
 
-import { CountryIso } from 'meta/area'
-
 import { useAppDispatch } from 'client/store'
 import { DataActions, useHistoryLastApprovedIsActive } from 'client/store/data'
 import { useSection } from 'client/store/metadata'
@@ -23,7 +21,7 @@ export const useGetOriginalDataPointHistory = () => {
     dispatch(
       DataActions.getOriginalDataPointHistory({
         assessmentName,
-        countryIso: countryIso as CountryIso,
+        countryIso,
         cycleName,
         sectionName,
         year,
