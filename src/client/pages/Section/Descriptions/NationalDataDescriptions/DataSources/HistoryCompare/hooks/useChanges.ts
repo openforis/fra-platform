@@ -51,7 +51,7 @@ export const useChanges = (props: Props): Returned => {
     // comments
     const commentsData = dataItem?.comments ?? ''
     const commentsHistory = historyItem?.comments ?? ''
-    const comments = Diff.diffChars(commentsHistory ?? '', commentsData ?? '')
+    const comments = Diff.diffChars(commentsHistory, commentsData)
 
     // reference
     const referenceData = _getHtmlTextContent(dataItem?.reference)
