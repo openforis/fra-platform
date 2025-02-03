@@ -11,6 +11,7 @@ import { getDescriptionsHistory } from './getDescriptionsHistory'
 import { getLinkedDataSources } from './getLinkedDataSources'
 import { getNodeValuesEstimations } from './getNodeValuesEstimations'
 import { getODPLastUpdatedTimestamp } from './getODPLastUpdatedTimestamp'
+import { getOriginalDataPointHistory } from './getOriginalDataPointHistory'
 import { getTableData } from './getTableData'
 import { getTableDataHistory } from './getTableDataHistory'
 import { postEstimate } from './postEstimate'
@@ -31,6 +32,7 @@ export const DataActions = {
 
   // Original Data Point
   getODPLastUpdatedTimestamp,
+  getOriginalDataPointHistory,
 
   // Estimations
   postEstimate,

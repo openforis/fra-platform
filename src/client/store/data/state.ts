@@ -12,6 +12,7 @@ import {
   TableName,
   VariableName,
 } from 'meta/assessment'
+import { RecordAssessmentOriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { Contact } from 'meta/cycleData'
 import { HistoryTarget } from 'meta/cycleData/historyActivities'
 import { RecordAssessmentData } from 'meta/data'
@@ -63,6 +64,7 @@ export type HistoryActivitiesState = {
 export type HistoryLastApprovedState = {
   active?: boolean
   descriptions?: DescriptionsState
+  originalDataPoints?: RecordAssessmentOriginalDataPoint
   tableData?: RecordAssessmentData
 }
 

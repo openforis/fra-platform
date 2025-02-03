@@ -4,8 +4,10 @@ import { useTranslation } from 'react-i18next'
 import { OriginalDataPoint } from 'meta/assessment'
 import { Topics } from 'meta/messageCenter'
 
+import { useHistoryLastApprovedIsActive } from 'client/store/data'
 import { DataCell, DataRow, DataRowAction, DataRowActionType } from 'client/components/DataGrid'
 import TextArea from 'client/components/Inputs/TextArea'
+import ODPDiffText from 'client/pages/OriginalDataPoint/components/ODPDiffText/ODPDiffText'
 import { useShowReviewIndicator } from 'client/pages/OriginalDataPoint/hooks/useShowReviewIndicator'
 
 import { useIsDisabled } from '../hooks/useIsDisabled'
@@ -22,6 +24,8 @@ const AdditionalComments: React.FC<Props> = (props: Props) => {
   const reviewIndicator = useShowReviewIndicator()
   const disabled = useIsDisabled()
   const updateOriginalDataPoint = useUpdateDataSources()
+
+  const historyLastApprovedIsActive = useHistoryLastApprovedIsActive()
 
   const onChange = useCallback<ChangeEventHandler<HTMLTextAreaElement>>(
     (event) => {
@@ -58,11 +62,15 @@ const AdditionalComments: React.FC<Props> = (props: Props) => {
         {t('nationalDataPoint.additionalComments')}
       </DataCell>
       <DataCell lastCol lastRow>
-        <TextArea
-          disabled={disabled}
-          onChange={onChange}
-          value={originalDataPoint.dataSourceAdditionalComments ?? ''}
-        />
+        {historyLastApprovedIsActive ? (
+          <ODPDiffText originalDataPoint={originalDataPoint} path={['dataSourceAdditionalComments']} />
+        ) : (
+          <TextArea
+            disabled={disabled}
+            onChange={onChange}
+            value={originalDataPoint.dataSourceAdditionalComments ?? ''}
+          />
+        )}
       </DataCell>
     </DataRow>
   )
