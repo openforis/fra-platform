@@ -27,20 +27,20 @@ const useChanges = (props: { nodeValueA: NodeValue; nodeValueB: NodeValue; row: 
   const { nodeValueA, nodeValueB, row, col } = props
   const isNumeric = useIsNumeric(col)
   return useMemo<Returned>(() => {
-    const formatValue = (nodeValue: NodeValue, format?: { integer?: boolean }) => {
+    const formatValue = (nodeValue: NodeValue) => {
       if (Objects.isEmpty(nodeValue?.raw)) return ''
       if (isNumeric) {
         const bigNumber = Numbers.toBigNumber(nodeValue.raw)
-        return Numbers.format(bigNumber, format?.integer ? 0 : 2).toString()
+        return Numbers.format(bigNumber, row.props?.format?.integer ? 0 : 2).toString()
       }
       return nodeValue?.raw ?? ''
     }
 
-    const textA = formatValue(nodeValueA, row.props?.format)
-    const textB = formatValue(nodeValueB, row.props?.format)
+    const textA = formatValue(nodeValueA)
+    const textB = formatValue(nodeValueB)
 
     return Diff.diffLines(textA, textB, { ignoreCase: false })
-  }, [nodeValueA, nodeValueB, row.props?.format, isNumeric])
+  }, [nodeValueA, nodeValueB, isNumeric, row])
 }
 
 const History: React.FC<PropsCell> = (props) => {
