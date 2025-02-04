@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
@@ -60,6 +60,8 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
 
   const otherLandPercent = Numbers.format(ODPs.calculateNationalClassOtherLandPercent(nationalClass), 3)
   const otherLandPercentChange = useOtherLandPercentChange({ nationalClassIndex: index, otherLandPercent })
+  const formatNumberFn = useCallback((v?: string) => (v ? Numbers.format(v, 2) : ''), [])
+  const formatPercentFn = useCallback((v?: string) => (v ? `${Numbers.format(v, 3)} %` : ''), [])
 
   const _onPaste = useOnPaste({
     columns,
@@ -89,7 +91,11 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
         })}
       >
         {historyLastApprovedIsActive ? (
-          <ODPDiffText originalDataPoint={originalDataPoint} path={['nationalClasses', index, 'area']} />
+          <ODPDiffText
+            formatFn={formatNumberFn}
+            originalDataPoint={originalDataPoint}
+            path={['nationalClasses', index, 'area']}
+          />
         ) : (
           <ThousandSeparatedDecimalInput
             disabled={!canEditData}
@@ -115,7 +121,11 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
         data-tooltip-id={TooltipId.error}
       >
         {historyLastApprovedIsActive ? (
-          <ODPDiffText originalDataPoint={originalDataPoint} path={['nationalClasses', index, 'forestPercent']} />
+          <ODPDiffText
+            formatFn={formatPercentFn}
+            originalDataPoint={originalDataPoint}
+            path={['nationalClasses', index, 'forestPercent']}
+          />
         ) : (
           <PercentInput
             disabled={!canEditData}
@@ -140,6 +150,7 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
       >
         {historyLastApprovedIsActive ? (
           <ODPDiffText
+            formatFn={formatPercentFn}
             originalDataPoint={originalDataPoint}
             path={['nationalClasses', index, 'otherWoodedLandPercent']}
           />
