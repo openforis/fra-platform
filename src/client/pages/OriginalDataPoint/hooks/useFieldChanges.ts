@@ -5,23 +5,18 @@ import * as Diff from 'diff'
 import { Change } from 'diff'
 import { Objects } from 'utils/objects'
 
-import { OriginalDataPoint } from 'meta/assessment'
-
 import { useLastApprovedOriginalDataPoint } from 'client/store/data/hooks/useLastApprovedOriginalDataPoint'
 import { DOMs } from 'client/utils/dom'
 
-type Props = {
-  originalDataPoint: OriginalDataPoint
-  path: Array<string | number>
-}
+import { ODPDiffTextProps } from '../components/ODPDiffText/types'
 
 type Returned = Array<Change>
 
 const _getSourceMethodText = (values: Array<string> | undefined, t: TFunction): string =>
   (values ?? [])?.map((value) => t(`nationalDataPoint.dataSourceMethodsOptions.${value}`)).join('\n\r')
 
-export const useFieldChanges = (props: Props): Returned => {
-  const { originalDataPoint, path } = props
+export const useFieldChanges = (props: ODPDiffTextProps): Returned => {
+  const { formatFn, originalDataPoint, path } = props
 
   const { t } = useTranslation()
   const originalDataPointHistory = useLastApprovedOriginalDataPoint()
@@ -39,11 +34,16 @@ export const useFieldChanges = (props: Props): Returned => {
 
       return multipleMethods ? Diff.diffLines(methodsPrev, methodsCurrent) : Diff.diffChars(methodsPrev, methodsCurrent)
     }
+    let textPrev = DOMs.getHtmlTextContent(valuePrev ?? '')
+    let textCurrent = DOMs.getHtmlTextContent(valueCurrent ?? '')
 
-    const textPrev = DOMs.getHtmlTextContent(valuePrev ?? '')
-    const textCurrent = DOMs.getHtmlTextContent(valueCurrent ?? '')
+    if (Objects.isFunction(formatFn)) {
+      textPrev = formatFn(textPrev)
+      textCurrent = formatFn(textCurrent)
+    }
+
     return Diff.diffChars(textPrev, textCurrent, {
       ignoreCase: false,
     })
-  }, [originalDataPoint, originalDataPointHistory, path, t])
+  }, [formatFn, originalDataPoint, originalDataPointHistory, path, t])
 }

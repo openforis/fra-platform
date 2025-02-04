@@ -1,22 +1,16 @@
-import './ODPDiffText.scss'
 import React from 'react'
-
-import { OriginalDataPoint } from 'meta/assessment'
 
 import DiffText from 'client/components/DiffText'
 import { useFieldChanges } from 'client/pages/OriginalDataPoint/hooks/useFieldChanges'
 
-type Props = {
-  originalDataPoint: OriginalDataPoint
-  path: Array<string | number>
-}
+import { ODPDiffTextProps } from './types'
 
-const ODPDiffText: React.FC<Props> = (props) => {
-  const { originalDataPoint, path } = props
+const ODPDiffText: React.FC<ODPDiffTextProps> = (props) => {
+  const { className } = props
 
-  const changes = useFieldChanges({ originalDataPoint, path })
+  const changes = useFieldChanges(props)
 
-  return <DiffText changes={changes} className="odp-diff-text" />
+  return <DiffText changes={changes} className={className} />
 }
 
 export default ODPDiffText
