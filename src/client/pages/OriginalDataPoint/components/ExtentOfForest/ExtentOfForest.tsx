@@ -1,15 +1,18 @@
 import React, { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Numbers } from 'utils/numbers'
-
 import { ODPs, OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
+import { useHistoryLastApprovedIsActive } from 'client/store/data'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { useCycleRouteParams } from 'client/hooks/useRouteParams'
 import ButtonTableExport from 'client/components/ButtonTableExport'
 import DefinitionLink from 'client/components/DefinitionLink'
+import DiffText from 'client/components/DiffText'
 import ExtentOfForestRow from 'client/pages/OriginalDataPoint/components/ExtentOfForest/ExtentOfForestRow/ExtentOfForestRow'
+
+import { useCalculatedValueChanges } from './hooks/useCalculatedValueChanges'
+import { useCalculatedValues } from './hooks/useCalculatedValues'
 
 type Props = {
   canEditData: boolean
@@ -32,6 +35,19 @@ const ExtentOfForest: React.FC<Props> = (props) => {
   const nationalClassValidations = nationalClasses.map((_, index) =>
     ODPs.validateNationalClass(originalDataPoint, index)
   )
+
+  const { totalArea, totalForestPercent, totalLandArea, totalOtherWoodedLandPercent } = useCalculatedValues({
+    originalDataPoint,
+  })
+
+  const historyLastApprovedIsActive = useHistoryLastApprovedIsActive()
+
+  const changes = useCalculatedValueChanges({
+    totalArea,
+    totalForestPercent,
+    totalLandArea,
+    totalOtherWoodedLandPercent,
+  })
 
   const tableRef = useRef(null)
 
@@ -96,16 +112,20 @@ const ExtentOfForest: React.FC<Props> = (props) => {
               <tr>
                 <th className="fra-table__header-cell-left">{t('nationalDataPoint.total')}</th>
                 <td className="fra-table__calculated-cell fra-table__divider">
-                  {Numbers.format(ODPs.calcTotalArea({ originalDataPoint }))}
+                  {historyLastApprovedIsActive ? <DiffText changes={changes.totalArea} /> : totalArea}
                 </td>
                 <td className="fra-table__calculated-cell">
-                  {Numbers.format(ODPs.calcTotalFieldArea({ originalDataPoint, field: 'forestPercent' }))}
+                  {historyLastApprovedIsActive ? <DiffText changes={changes.totalForestPercent} /> : totalForestPercent}
                 </td>
                 <td className="fra-table__calculated-cell">
-                  {Numbers.format(ODPs.calcTotalFieldArea({ originalDataPoint, field: 'otherWoodedLandPercent' }))}
+                  {historyLastApprovedIsActive ? (
+                    <DiffText changes={changes.totalOtherWoodedLandPercent} />
+                  ) : (
+                    totalOtherWoodedLandPercent
+                  )}
                 </td>
                 <td className="fra-table__calculated-cell">
-                  {Numbers.format(ODPs.calcTotalLandArea({ originalDataPoint }))}
+                  {historyLastApprovedIsActive ? <DiffText changes={changes.totalLandArea} /> : totalLandArea}
                 </td>
               </tr>
             </tbody>
