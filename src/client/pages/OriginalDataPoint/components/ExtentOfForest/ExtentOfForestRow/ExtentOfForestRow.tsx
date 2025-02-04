@@ -76,11 +76,7 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
     <tr className={classNameRowComments}>
       <th className="fra-table__category-cell">
         {historyLastApprovedIsActive ? (
-          <ODPDiffText
-            excludePaddings
-            originalDataPoint={originalDataPoint}
-            path={['nationalClasses', index, 'name']}
-          />
+          <ODPDiffText originalDataPoint={originalDataPoint} path={['nationalClasses', index, 'name']} />
         ) : (
           name
         )}
@@ -92,6 +88,7 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
       >
         {historyLastApprovedIsActive ? (
           <ODPDiffText
+            className="input-text disabled"
             formatFn={formatNumberFn}
             originalDataPoint={originalDataPoint}
             path={['nationalClasses', index, 'area']}
@@ -122,6 +119,7 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
       >
         {historyLastApprovedIsActive ? (
           <ODPDiffText
+            className="input-text disabled"
             formatFn={formatPercentFn}
             originalDataPoint={originalDataPoint}
             path={['nationalClasses', index, 'forestPercent']}
@@ -150,6 +148,7 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
       >
         {historyLastApprovedIsActive ? (
           <ODPDiffText
+            className="input-text disabled"
             formatFn={formatPercentFn}
             originalDataPoint={originalDataPoint}
             path={['nationalClasses', index, 'otherWoodedLandPercent']}

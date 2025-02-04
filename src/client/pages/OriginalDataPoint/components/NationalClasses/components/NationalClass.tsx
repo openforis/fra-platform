@@ -51,7 +51,11 @@ const NationalClass: React.FC<Props> = (props) => {
     <DataRow actions={actions}>
       <DataCell error={error} lastRow={lastRow}>
         {historyLastApprovedIsActive ? (
-          <ODPDiffText originalDataPoint={originalDataPoint} path={['nationalClasses', index, 'name']} />
+          <ODPDiffText
+            className="input-text disabled"
+            originalDataPoint={originalDataPoint}
+            path={['nationalClasses', index, 'name']}
+          />
         ) : (
           <InputText
             disabled={!canEditData}
@@ -65,7 +69,11 @@ const NationalClass: React.FC<Props> = (props) => {
 
       <DataCell lastCol lastRow={lastRow}>
         {historyLastApprovedIsActive ? (
-          <ODPDiffText originalDataPoint={originalDataPoint} path={['nationalClasses', index, 'definition']} />
+          <ODPDiffText
+            className="input-text disabled"
+            originalDataPoint={originalDataPoint}
+            path={['nationalClasses', index, 'definition']}
+          />
         ) : (
           <TextArea
             disabled={!canEditData}

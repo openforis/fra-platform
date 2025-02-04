@@ -57,7 +57,11 @@ const References: React.FC<Props> = (props: Props) => {
       <DataCell header>{t('nationalDataPoint.references')}</DataCell>
       <DataCell lastCol>
         {historyLastApprovedIsActive ? (
-          <ODPDiffText originalDataPoint={originalDataPoint} path={['dataSourceReferences']} />
+          <ODPDiffText
+            className="input-text disabled"
+            originalDataPoint={originalDataPoint}
+            path={['dataSourceReferences']}
+          />
         ) : (
           <EditorWYSIWYGLinks
             disabled={disabled}

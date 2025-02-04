@@ -56,7 +56,7 @@ const Comments: React.FC<Props> = (props) => {
 
       <DataCell editable={open} gridColumn={canEditData ? `1/-1` : undefined} lastCol lastRow noBorder={!open}>
         {historyLastApprovedIsActive ? (
-          <ODPDiffText excludePaddings originalDataPoint={originalDataPoint} path={['description']} />
+          <ODPDiffText originalDataPoint={originalDataPoint} path={['description']} />
         ) : (
           <div className={classNames('description__editor-container', { editable: open })}>
             <EditorWYSIWYG
