@@ -5,10 +5,11 @@ import { TableName, TableNames } from 'meta/assessment'
 import { RecordAssessmentData, RecordCountryData } from 'meta/data'
 
 import { getTablesCondition } from 'server/controller/cycleData/tableData/getTablesCondition'
-import { Props } from 'server/controller/cycleData/tableData/props'
 import { BaseProtocol, DB } from 'server/db'
 import { CountryRepository } from 'server/repository/assessmentCycle/country'
 import { DataRedisRepository } from 'server/repository/redis/data'
+
+import { PropsGetTableData } from './tableData/props'
 
 const _mergeODPTable = (props: {
   countryIso: CountryIso
@@ -24,7 +25,10 @@ const _mergeODPTable = (props: {
   }
 }
 
-export const getTableData = async (props: Props, client: BaseProtocol = DB): Promise<RecordAssessmentData> => {
+export const getTableData = async (
+  props: PropsGetTableData,
+  client: BaseProtocol = DB
+): Promise<RecordAssessmentData> => {
   const { assessment, columns, countryISOs, cycle, mergeOdp, tableNames, variables } = props
 
   const tables = getTablesCondition({ tableNames, columns, variables, mergeOdp })
