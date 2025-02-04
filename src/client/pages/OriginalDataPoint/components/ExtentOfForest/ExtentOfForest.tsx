@@ -9,8 +9,7 @@ import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { useCycleRouteParams } from 'client/hooks/useRouteParams'
 import ButtonTableExport from 'client/components/ButtonTableExport'
 import DefinitionLink from 'client/components/DefinitionLink'
-
-import ExtentOfForestRow from './ExtentOfForestRow'
+import ExtentOfForestRow from 'client/pages/OriginalDataPoint/components/ExtentOfForest/ExtentOfForestRow/ExtentOfForestRow'
 
 type Props = {
   canEditData: boolean
