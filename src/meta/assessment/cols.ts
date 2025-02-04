@@ -122,7 +122,7 @@ const getSelectOptions = (props: { cycle: Cycle; col: Col }): Array<ColSelectOpt
   throw new Error(`Unable to get col options. col: ${JSON.stringify(props.col)}`)
 }
 
-const isNumeric = (col: Col) => {
+const isNumeric = (col: Col): boolean => {
   return [ColType.integer, ColType.decimal, ColType.calculated].includes(col.props.colType)
 }
 
