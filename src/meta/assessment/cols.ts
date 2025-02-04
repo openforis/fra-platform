@@ -122,6 +122,10 @@ const getSelectOptions = (props: { cycle: Cycle; col: Col }): Array<ColSelectOpt
   throw new Error(`Unable to get col options. col: ${JSON.stringify(props.col)}`)
 }
 
+const isNumeric = (col: Col) => {
+  return [ColType.integer, ColType.decimal, ColType.calculated].includes(col.props.colType)
+}
+
 export const Cols = {
   cloneProps,
   getCalculateFn,
@@ -133,5 +137,6 @@ export const Cols = {
   getStyle,
   hasLinkedNodes,
   isCalculated,
+  isNumeric,
   isReadOnly,
 }
