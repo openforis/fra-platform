@@ -20,7 +20,7 @@ export const getTableDataHistory = async (req: GetTableDataRequest, res: Respons
     let tableData = {}
     if (!Objects.isNil(info)) {
       const props = { assessment, cycle, info, countryISOs: [countryIso], tableNames }
-      tableData = await CycleDataController.TableData.getTableDataLastApproved(props) // getTableDataLastApproved -> import './getTableData' -> filter tableNames + replace cycle
+      tableData = await CycleDataController.TableData.getTableDataLastApproved(props)
     }
 
     Requests.send(res, tableData)
