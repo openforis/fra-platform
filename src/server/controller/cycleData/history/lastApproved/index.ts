@@ -1,3 +1,5 @@
+import { Objects } from 'utils/objects'
+
 import { CountryIso } from 'meta/area'
 import { Assessment, Cycle } from 'meta/assessment'
 import { HistoryLastApprovedInfo } from 'meta/cycleData/historyLastApproved'
@@ -11,14 +13,21 @@ type Props = {
   cycle: Cycle
 }
 
-export const getInfo = async (props: Props, client: BaseProtocol = DB): Promise<HistoryLastApprovedInfo> => {
+export const getInfo = async (
+  props: Props,
+  client: BaseProtocol = DB
+): Promise<HistoryLastApprovedInfo | undefined> => {
   const { assessment, cycle } = props
 
   const countrySummary = await CountrySummaryRepository.getOneOrNone(props, client)
   const lastAccepted = countrySummary.lastAccepted as unknown as Date // server side is a Date object
   const prevCycle = cycle.cycleUuidSource ? assessment.cycles.find((c) => c.uuid === cycle.cycleUuidSource) : undefined
 
-  return { lastAccepted, prevCycle }
+  if (!Objects.isEmpty(lastAccepted) || !Objects.isEmpty(prevCycle)) {
+    return { lastAccepted, prevCycle }
+  }
+
+  return undefined
 }
 
 export const LastApproved = {
