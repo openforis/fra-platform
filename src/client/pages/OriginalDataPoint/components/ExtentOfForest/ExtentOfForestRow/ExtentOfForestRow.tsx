@@ -17,10 +17,9 @@ import ThousandSeparatedDecimalInput from 'client/components/ThousandSeparatedDe
 import { Columns, useOnPaste } from 'client/pages/OriginalDataPoint/components/hooks/useOnPaste'
 import { useUpdateOriginalData } from 'client/pages/OriginalDataPoint/components/hooks/useUpdateOriginalData'
 import { useUpdateOriginalDataField } from 'client/pages/OriginalDataPoint/components/hooks/useUpdateOriginalDataField'
+import { useNationalClassNameComments } from 'client/pages/OriginalDataPoint/hooks'
 import { useNationalClassValidations } from 'client/pages/OriginalDataPoint/hooks/useNationalClassValidations'
 import { useShowReviewIndicator } from 'client/pages/OriginalDataPoint/hooks/useShowReviewIndicator'
-
-import { useNationalClassNameComments } from '../../hooks'
 
 type Props = {
   canEditData: boolean
