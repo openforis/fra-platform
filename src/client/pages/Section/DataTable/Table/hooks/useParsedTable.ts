@@ -2,14 +2,17 @@ import { useMemo } from 'react'
 
 import { Objects } from 'utils/objects'
 
+import { CountryIso } from 'meta/area'
 import { AssessmentName, Cols, Row, RowType, Table } from 'meta/assessment'
 import { RecordAssessmentData } from 'meta/data'
 
 import { useCycle } from 'client/store/assessment'
 import { useShowOriginalDatapoints } from 'client/store/ui/assessmentSection'
-import { useCountryIso } from 'client/hooks'
+import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
+import { ColHeader } from '../types'
 import { parseTable } from './_parseTable'
+import { useOriginalDataPointYearsWithHistory } from './useOriginalDataPointYearsWithHistory'
 
 type Props = {
   assessmentName: AssessmentName
@@ -19,7 +22,7 @@ type Props = {
 
 type Returned = {
   firstHeaderRowSpan: number
-  headers: Array<string>
+  headers: Array<ColHeader>
   noticeMessages: Array<Row>
   rowsData: Array<Row>
   rowsHeader: Array<Row>
@@ -28,21 +31,16 @@ type Returned = {
 }
 
 export const useParsedTable = (props: Props): Returned => {
-  const { assessmentName, data, table: tableProps } = props
+  const { assessmentName, data, table: _table } = props
 
-  const countryIso = useCountryIso()
+  const { countryIso } = useCountryRouteParams<CountryIso>()
   const cycle = useCycle()
   const showODP = useShowOriginalDatapoints()
+  const odpYears = useOriginalDataPointYearsWithHistory({ assessmentName, table: _table })
 
   return useMemo<Returned>(() => {
-    const { headers, table } = parseTable({
-      assessmentName,
-      countryIso,
-      cycle,
-      data,
-      showODP,
-      table: tableProps,
-    })
+    const _props = { assessmentName, countryIso, cycle, data, odpYears, showODP, table: _table }
+    const { headers, table } = parseTable(_props)
 
     const rowsData: Array<Row> = []
     const rowsHeader: Array<Row> = []
@@ -67,14 +65,6 @@ export const useParsedTable = (props: Props): Returned => {
       firstHeaderRowSpan = rowSpan ?? 1
     }
 
-    return {
-      firstHeaderRowSpan,
-      headers,
-      noticeMessages,
-      rowsData,
-      rowsHeader,
-      table,
-      withReview,
-    }
-  }, [assessmentName, countryIso, cycle, data, showODP, tableProps])
+    return { firstHeaderRowSpan, headers, noticeMessages, rowsData, rowsHeader, table, withReview }
+  }, [_table, assessmentName, countryIso, cycle, data, odpYears, showODP])
 }

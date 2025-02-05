@@ -1,21 +1,18 @@
 import { Country } from 'meta/area'
-import { Col, Table } from 'meta/assessment'
+import { Col, Table, TableNames } from 'meta/assessment'
 
-type OdpYear = {
-  id: number
-  year: string
-}
+import { ODPYear } from '../../types'
 
 type Props = {
   col: Col
   columnName: string
   country: Country
-  odpYears: Array<OdpYear>
+  odpYears: Array<ODPYear>
   showOdp: boolean
   table: Table
 }
 
-type Returned = OdpYear | undefined
+type Returned = ODPYear | undefined
 
 export const getODPHeader = (props: Props): Returned => {
   const { col, columnName, country, odpYears, showOdp, table } = props
@@ -25,7 +22,10 @@ export const getODPHeader = (props: Props): Returned => {
   if (isODPVisible) {
     odpHeader = odpYears?.find((odp) => odp.year === columnName)
   }
-  if (table.props.name === 'forestCharacteristics' && !country.props.forestCharacteristics.useOriginalDataPoint) {
+  if (
+    table.props.name === TableNames.forestCharacteristics &&
+    !country.props.forestCharacteristics.useOriginalDataPoint
+  ) {
     odpHeader = undefined
   }
 

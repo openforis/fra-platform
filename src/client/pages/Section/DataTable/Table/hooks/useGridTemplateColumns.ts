@@ -6,8 +6,10 @@ import { Table } from 'meta/assessment'
 
 import { useCycle } from 'client/store/assessment'
 
+import { ColHeader } from '../types'
+
 type Props = {
-  headers: Array<string>
+  headers: Array<ColHeader>
   table: Table
 }
 

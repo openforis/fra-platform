@@ -12,3 +12,13 @@ export type RowProps = {
   sectionName: string
   table: Table
 }
+
+export type ColHeader = {
+  columnName: string
+  odpYear?: ODPYear
+}
+
+export type ODPYear = {
+  id: number
+  year: string
+}
