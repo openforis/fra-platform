@@ -58,7 +58,7 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
     variable: 'validExtentOfForestPercentage',
   })
 
-  const otherLandPercent = Numbers.format(ODPs.calculateNationalClassOtherLandPercent(nationalClass), 3)
+  const otherLandPercent = ODPs.calculateNationalClassOtherLandPercent(nationalClass)
   const otherLandPercentChange = useOtherLandPercentChange({ nationalClassIndex: index, otherLandPercent })
   const formatNumberFn = useCallback((v?: string) => (v ? Numbers.format(v, 2) : ''), [])
   const formatPercentFn = useCallback((v?: string) => (v ? `${Numbers.format(v, 3)} %` : ''), [])

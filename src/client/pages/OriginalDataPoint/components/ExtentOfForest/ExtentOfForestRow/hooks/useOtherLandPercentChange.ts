@@ -2,7 +2,6 @@ import { useMemo } from 'react'
 
 import * as Diff from 'diff'
 import { Change } from 'diff'
-import { Numbers } from 'utils/numbers'
 import { Objects } from 'utils/objects'
 
 import { ODPs } from 'meta/assessment'
@@ -12,7 +11,7 @@ import { useLastApprovedOriginalDataPoint } from 'client/store/data/hooks/useLas
 
 type Props = {
   nationalClassIndex: number
-  otherLandPercent: string
+  otherLandPercent: string | null
 }
 
 type Returned = Array<Change>
@@ -30,7 +29,7 @@ export const useOtherLandPercentChange = (props: Props): Returned => {
     const canCalculate = !Objects.isEmpty(nationalClass)
 
     const otherLandPercentPrev = canCalculate
-      ? `${Numbers.format(ODPs.calculateNationalClassOtherLandPercent(nationalClass), 3)} %`
+      ? `${ODPs.calculateNationalClassOtherLandPercent(nationalClass) ?? ''} %`
       : ''
     return Diff.diffChars(otherLandPercentPrev, `${otherLandPercentCurrent} %`)
   }, [historyLastApprovedIsActive, nationalClass, otherLandPercentCurrent])
