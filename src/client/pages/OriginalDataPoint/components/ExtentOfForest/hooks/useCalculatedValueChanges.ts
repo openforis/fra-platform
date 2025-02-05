@@ -52,7 +52,9 @@ export const useCalculatedValueChanges = (props: Props): Returned => {
       : ''
     const totalArea = Diff.diffChars(totalAreaPrev, totalAreaCurrent ?? '')
 
-    const totalForestPercentPrev = canCalculate ? Numbers.format(originalDataPointHistory.values.totalForestArea) : ''
+    const totalForestPercentPrev = canCalculate
+      ? Numbers.format(ODPs.calcTotalFieldArea({ originalDataPoint: originalDataPointHistory, field: 'forestPercent' }))
+      : ''
     const totalForestPercent = Diff.diffChars(totalForestPercentPrev, totalForestPercentCurrent ?? '')
 
     const totalLandAreaPrev = canCalculate
@@ -61,7 +63,9 @@ export const useCalculatedValueChanges = (props: Props): Returned => {
     const totalLandArea = Diff.diffChars(totalLandAreaPrev, totalLandAreaCurrent ?? '')
 
     const totalOtherWoodedLandPercentPrev = canCalculate
-      ? `${Numbers.format(originalDataPointHistory.values.otherWoodedLand)} %`
+      ? `${Numbers.format(
+          ODPs.calcTotalFieldArea({ originalDataPoint: originalDataPointHistory, field: 'otherWoodedLandPercent' })
+        )} %`
       : ''
 
     const totalOtherWoodedLandPercent = Diff.diffChars(

@@ -20,9 +20,11 @@ export const useCalculatedValues = (props: Props): Returned => {
 
   return useMemo<Returned>(() => {
     const totalArea = Numbers.format(ODPs.calcTotalArea({ originalDataPoint }))
-    const totalForestPercent = Numbers.format(originalDataPoint.values.totalForestArea)
+    const totalForestPercent = Numbers.format(ODPs.calcTotalFieldArea({ originalDataPoint, field: 'forestPercent' }))
     const totalLandArea = Numbers.format(ODPs.calcTotalLandArea({ originalDataPoint }))
-    const totalOtherWoodedLandPercent = Numbers.format(originalDataPoint.values.otherWoodedLand)
+    const totalOtherWoodedLandPercent = Numbers.format(
+      ODPs.calcTotalFieldArea({ originalDataPoint, field: 'otherWoodedLandPercent' })
+    )
     return { totalArea, totalForestPercent, totalLandArea, totalOtherWoodedLandPercent }
   }, [originalDataPoint])
 }
