@@ -19,6 +19,7 @@ import { Columns, useOnPaste } from 'client/pages/OriginalDataPoint/components/h
 import { useUpdateOriginalData } from 'client/pages/OriginalDataPoint/components/hooks/useUpdateOriginalData'
 import { useUpdateOriginalDataField } from 'client/pages/OriginalDataPoint/components/hooks/useUpdateOriginalDataField'
 import ODPDiffText from 'client/pages/OriginalDataPoint/components/ODPDiffText/ODPDiffText'
+import { ODPDiffTextProps } from 'client/pages/OriginalDataPoint/components/ODPDiffText/types'
 import { useNationalClassValidations } from 'client/pages/OriginalDataPoint/hooks/useNationalClassValidations'
 import { useShowReviewIndicator } from 'client/pages/OriginalDataPoint/hooks/useShowReviewIndicator'
 
@@ -37,6 +38,10 @@ const columns: Columns = [
   { name: 'otherWoodedLandPercent', type: 'decimal', precision: 3 },
   { name: 'otherLandPercent' as keyof ODPNationalClass, type: 'decimal', precision: 3 },
 ]
+
+const _formatDecimalFieldFn: ODPDiffTextProps['formatFn'] = (v) => (!Objects.isEmpty(v) ? Numbers.format(v, 2) : '')
+const _formatPercentFieldFn: ODPDiffTextProps['formatFn'] = (v) =>
+  !Objects.isEmpty(v) ? `${Numbers.format(v, 3)}  %` : ''
 
 const ExtentOfForestRow: React.FC<Props> = (props) => {
   const { canEditData, index, nationalClassValidation, originalDataPoint } = props
@@ -89,6 +94,7 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
         {historyLastApprovedIsActive ? (
           <ODPDiffText
             className="input-text disabled"
+            formatFn={_formatDecimalFieldFn}
             originalDataPoint={originalDataPoint}
             path={['nationalClasses', index, 'area']}
           />
@@ -119,6 +125,7 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
         {historyLastApprovedIsActive ? (
           <ODPDiffText
             className="input-text disabled"
+            formatFn={_formatPercentFieldFn}
             originalDataPoint={originalDataPoint}
             path={['nationalClasses', index, 'forestPercent']}
           />
@@ -147,6 +154,7 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
         {historyLastApprovedIsActive ? (
           <ODPDiffText
             className="input-text disabled"
+            formatFn={_formatPercentFieldFn}
             originalDataPoint={originalDataPoint}
             path={['nationalClasses', index, 'otherWoodedLandPercent']}
           />
