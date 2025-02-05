@@ -22,6 +22,7 @@ import { updateContact } from './actions/updateContact'
 import { updateDescription } from './actions/updateDescription'
 import { updateNodeValues } from './actions/updateNodeValues'
 import { getDescriptionsHistoryReducer } from './extraReducers/getDescriptionsHistory'
+import { getOriginalDataPointHistoryReducer } from './extraReducers/getOriginalDataPointHistory'
 import { setNodeValuesReducer } from './extraReducers/setNodeValues'
 import { deleteOriginalDataPoint } from './reducers/deleteOriginalDataPoint'
 import { resetHistoryActivities } from './reducers/resetHistoryActivities'
@@ -220,6 +221,7 @@ export const DataSlice = createSlice({
     // == History reducers
     getDescriptionsHistoryReducer(builder)
     getTableDataHistoryReducer(builder)
+    getOriginalDataPointHistoryReducer(builder)
   },
 })
 

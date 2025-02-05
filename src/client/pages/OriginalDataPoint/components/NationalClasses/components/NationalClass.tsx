@@ -3,10 +3,12 @@ import { useTranslation } from 'react-i18next'
 
 import { ODPs, OriginalDataPoint } from 'meta/assessment'
 
+import { useHistoryLastApprovedIsActive } from 'client/store/data'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { DataCell, DataRow } from 'client/components/DataGrid'
 import InputText from 'client/components/Inputs/InputText'
 import TextArea from 'client/components/Inputs/TextArea'
+import ODPDiffText from 'client/pages/OriginalDataPoint/components/ODPDiffText/ODPDiffText'
 // import { useNationalClassNameComments } from 'client/pages/OriginalDataPoint/hooks'
 import { useIsEditODPEnabled } from 'client/pages/OriginalDataPoint/hooks/useIsEditODPEnabled'
 
@@ -31,6 +33,8 @@ const NationalClass: React.FC<Props> = (props) => {
   const actions = useRowActions({ canEdit: canEditData && !placeHolder, index, originalDataPoint })
   const { onChangeDefinition, onChangeName, onPasteDefinition, onPasteName } = useOnChangeNationalClass({ index })
 
+  const historyLastApprovedIsActive = useHistoryLastApprovedIsActive()
+
   const lastRow = canEditData && !print ? placeHolder : index === nationalClasses.length - (print ? 1 : 2)
   // TODO next pr
   // const target = [originalDataPoint.id, 'class', `${uuid}`, 'definition'] as string[]
@@ -46,22 +50,30 @@ const NationalClass: React.FC<Props> = (props) => {
   return (
     <DataRow actions={actions}>
       <DataCell error={error} lastRow={lastRow}>
-        <InputText
-          disabled={!canEditData}
-          onChange={onChangeName}
-          onPaste={onPasteName}
-          placeholder={placeHolder && index === 0 ? t('nationalDataPoint.enterOrCopyPasteNationalClasses') : ''}
-          value={name ?? ''}
-        />
+        {historyLastApprovedIsActive ? (
+          <ODPDiffText originalDataPoint={originalDataPoint} path={['nationalClasses', index, 'name']} />
+        ) : (
+          <InputText
+            disabled={!canEditData}
+            onChange={onChangeName}
+            onPaste={onPasteName}
+            placeholder={placeHolder && index === 0 ? t('nationalDataPoint.enterOrCopyPasteNationalClasses') : ''}
+            value={name ?? ''}
+          />
+        )}
       </DataCell>
 
       <DataCell lastCol lastRow={lastRow}>
-        <TextArea
-          disabled={!canEditData}
-          onChange={onChangeDefinition}
-          onPaste={onPasteDefinition}
-          value={definition ?? ''}
-        />
+        {historyLastApprovedIsActive ? (
+          <ODPDiffText originalDataPoint={originalDataPoint} path={['nationalClasses', index, 'definition']} />
+        ) : (
+          <TextArea
+            disabled={!canEditData}
+            onChange={onChangeDefinition}
+            onPaste={onPasteDefinition}
+            value={definition ?? ''}
+          />
+        )}
       </DataCell>
     </DataRow>
   )

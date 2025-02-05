@@ -23,6 +23,7 @@ const DiffText: React.FC<Props> = (props) => {
             {value.split('\n\r').map((text, j) => (
               <React.Fragment key={`${key}_${String(j)}`}>
                 <span className={classNames({ added, removed })}>{text}</span>
+                <br />
               </React.Fragment>
             ))}
           </React.Fragment>
