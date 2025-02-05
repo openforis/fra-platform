@@ -63,7 +63,11 @@ const AdditionalComments: React.FC<Props> = (props: Props) => {
       </DataCell>
       <DataCell lastCol lastRow>
         {historyLastApprovedIsActive ? (
-          <ODPDiffText originalDataPoint={originalDataPoint} path={['dataSourceAdditionalComments']} />
+          <ODPDiffText
+            className="input-text disabled"
+            originalDataPoint={originalDataPoint}
+            path={['dataSourceAdditionalComments']}
+          />
         ) : (
           <TextArea
             disabled={disabled}
