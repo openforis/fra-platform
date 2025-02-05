@@ -1,10 +1,10 @@
 import { TableNames } from 'meta/assessment'
 import { TablesCondition } from 'meta/data'
 
-import { Props } from 'server/controller/cycleData/tableData/props'
+import { PropsGetTableData } from './props'
 
 export const getTablesCondition = (
-  props: Pick<Props, 'tableNames' | 'columns' | 'variables' | 'mergeOdp'>
+  props: Pick<PropsGetTableData, 'tableNames' | 'columns' | 'variables' | 'mergeOdp'>
 ): TablesCondition => {
   const { tableNames, columns, variables, mergeOdp } = props
 

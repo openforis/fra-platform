@@ -1,18 +1,29 @@
 import { Response } from 'express'
+import { Objects } from 'utils/objects'
 
 import { CycleDataRequest } from 'meta/api/request'
-import { CountryIso } from 'meta/area'
 
+import { AssessmentController } from 'server/controller/assessment'
+import { CycleDataController } from 'server/controller/cycleData'
 import Requests from 'server/utils/requests'
 
 type GetTableDataRequest = CycleDataRequest<{
   tableNames: Array<string>
-  countryISOs: Array<CountryIso>
 }>
 
-export const getTableDataHistory = async (_req: GetTableDataRequest, res: Response) => {
+export const getTableDataHistory = async (req: GetTableDataRequest, res: Response) => {
   try {
-    Requests.send(res, {})
+    const { countryIso, assessmentName, cycleName, tableNames } = req.query
+    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+    const info = await CycleDataController.History.LastApproved.getInfo({ assessment, cycle, countryIso })
+
+    let tableData = {}
+    if (!Objects.isNil(info)) {
+      const props = { assessment, cycle, info, countryISOs: [countryIso], tableNames }
+      tableData = await CycleDataController.TableData.getTableDataLastApproved(props)
+    }
+
+    Requests.send(res, tableData)
   } catch (e) {
     Requests.sendErr(res, e)
   }
