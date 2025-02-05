@@ -5,22 +5,16 @@ import * as Diff from 'diff'
 import { Change } from 'diff'
 import { Objects } from 'utils/objects'
 
-import { OriginalDataPoint } from 'meta/assessment'
-
 import { useLastApprovedOriginalDataPoint } from 'client/store/data/hooks/useLastApprovedOriginalDataPoint'
+import { ODPDiffTextProps } from 'client/pages/OriginalDataPoint/components/ODPDiffText/types'
 import { DOMs } from 'client/utils/dom'
-
-type Props = {
-  originalDataPoint: OriginalDataPoint
-  path: Array<string | number>
-}
 
 type Returned = Array<Change>
 
 const _getSourceMethodText = (values: Array<string> | undefined, t: TFunction): string =>
   (values ?? [])?.map((value) => t(`nationalDataPoint.dataSourceMethodsOptions.${value}`)).join('\n\r')
 
-export const useFieldChanges = (props: Props): Returned => {
+export const useFieldChanges = (props: ODPDiffTextProps): Returned => {
   const { originalDataPoint, path } = props
 
   const { t } = useTranslation()

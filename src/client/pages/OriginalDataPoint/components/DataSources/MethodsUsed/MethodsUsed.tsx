@@ -62,7 +62,11 @@ const MethodsUsed: React.FC<Props> = (props: Props) => {
       <DataCell header>{t('nationalDataPoint.methodsUsed')}</DataCell>
       <DataCell lastCol>
         {historyLastApprovedIsActive ? (
-          <ODPDiffText originalDataPoint={originalDataPoint} path={['dataSourceMethods']} />
+          <ODPDiffText
+            className="input-text disabled"
+            originalDataPoint={originalDataPoint}
+            path={['dataSourceMethods']}
+          />
         ) : (
           <Select
             disabled={disabled}
