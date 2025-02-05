@@ -5,7 +5,7 @@ import { updateODPDependencies } from 'test/migrations/steps/utils/updateODPDepe
 
 export default async (client: BaseProtocol) => {
   const { assessment, cycle } = await AssessmentController.getOneWithCycle(
-    { assessmentName: 'fra', cycleName: '2025' },
+    { assessmentName: 'fra', cycleName: '2025', metaCache: true },
     client
   )
   const schemaName = Schemas.getNameCycle(assessment, cycle)
