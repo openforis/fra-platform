@@ -15,7 +15,7 @@ const _getSourceMethodText = (values: Array<string> | undefined, t: TFunction): 
   (values ?? [])?.map((value) => t(`nationalDataPoint.dataSourceMethodsOptions.${value}`)).join('\n\r')
 
 export const useFieldChanges = (props: ODPDiffTextProps): Returned => {
-  const { originalDataPoint, path } = props
+  const { formatFn, originalDataPoint, path } = props
 
   const { t } = useTranslation()
   const originalDataPointHistory = useLastApprovedOriginalDataPoint()
@@ -33,11 +33,16 @@ export const useFieldChanges = (props: ODPDiffTextProps): Returned => {
 
       return multipleMethods ? Diff.diffLines(methodsPrev, methodsCurrent) : Diff.diffChars(methodsPrev, methodsCurrent)
     }
+    let textPrev = DOMs.getHtmlTextContent(valuePrev ?? '')
+    let textCurrent = DOMs.getHtmlTextContent(valueCurrent ?? '')
 
-    const textPrev = DOMs.getHtmlTextContent(valuePrev ?? '')
-    const textCurrent = DOMs.getHtmlTextContent(valueCurrent ?? '')
+    if (Objects.isFunction(formatFn)) {
+      textPrev = formatFn(textPrev)
+      textCurrent = formatFn(textCurrent)
+    }
+
     return Diff.diffChars(textPrev, textCurrent, {
       ignoreCase: false,
     })
-  }, [originalDataPoint, originalDataPointHistory, path, t])
+  }, [formatFn, originalDataPoint, originalDataPointHistory, path, t])
 }
