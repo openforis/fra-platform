@@ -5,8 +5,7 @@ import { Objects } from 'utils/objects'
 import { Table } from 'meta/assessment'
 
 import { useCycle } from 'client/store/assessment'
-
-import { ColHeader } from '../types'
+import { ColHeader } from 'client/pages/Section/DataTable/Table/types'
 
 type Props = {
   headers: Array<ColHeader>

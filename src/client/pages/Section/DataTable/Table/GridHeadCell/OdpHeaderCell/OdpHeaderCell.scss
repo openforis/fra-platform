@@ -12,14 +12,7 @@
 .table-grid__odp-link {
   text-decoration: underline;
 
-  &.added {
-    color: darken($ui-status-accepted, 10%);
-  }
-
   &.removed {
-    color: $ui-destructive;
     pointer-events: none;
-    text-decoration: line-through;
-    text-decoration: unset;
   }
 }

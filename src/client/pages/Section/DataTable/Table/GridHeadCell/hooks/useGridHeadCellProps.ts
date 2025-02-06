@@ -8,10 +8,10 @@ import { Cols } from 'meta/assessment'
 import { useAssessmentCountry } from 'client/store/area'
 import { useCycle } from 'client/store/assessment'
 import { useShowOriginalDatapoints } from 'client/store/ui/assessmentSection'
+import { ODPColHeader } from 'client/pages/Section/DataTable/Table/types'
 import { getODPColSpan } from 'client/pages/Section/DataTable/Table/utils/getODPColSpan'
 
 import { useOriginalDataPointYearsWithHistory } from '../../hooks/useOriginalDataPointYearsWithHistory'
-import { ODPYear } from '../../types'
 import { GridHeadCellProps } from '../types'
 import { getODPHeader } from './getODPHeader'
 
@@ -20,7 +20,7 @@ type Returned = {
   gridColumn: string
   gridRow: string
   lastCol: boolean
-  odpYear?: ODPYear
+  odpYear?: ODPColHeader
 }
 
 export const useGridHeadCellProps = (props: GridHeadCellProps): Returned => {

@@ -1,9 +1,11 @@
 import './OdpHeaderCell.scss'
+import 'client/components/DiffText/DiffText.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
 import classNames from 'classnames'
+import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area'
 import { Table } from 'meta/assessment'
@@ -16,8 +18,8 @@ import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { DataCell } from 'client/components/DataGrid'
 import ReviewSummaryIndicator from 'client/components/ReviewSummaryIndicator'
+import { ODPColHeader } from 'client/pages/Section/DataTable/Table/types'
 
-import { ODPYear } from '../../types'
 import { useOdpHeaderLastApprovedHistoryInfo } from './hooks/useOdpHeaderLastApprovedHistoryInfo'
 
 type Props = {
@@ -25,7 +27,7 @@ type Props = {
   gridColumn: string
   gridRow: string
   lastCol?: boolean
-  odpYear: ODPYear
+  odpYear: ODPColHeader
   sectionName: string
   table: Table
 }
@@ -57,7 +59,7 @@ const OdpHeaderCell: React.FC<Props> = (props) => {
       header
       lastCol={lastCol}
     >
-      <div>
+      <div className={classNames({ 'diff-text': !Objects.isNil(historyInfo) })}>
         <Link
           className={classNames('table-grid__odp-link', { added: historyInfo?.added, removed: historyInfo?.removed })}
           data-tooltip-content={t('nationalDataPoint.clickOnNDP')}

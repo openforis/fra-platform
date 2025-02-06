@@ -15,10 +15,10 @@ export type RowProps = {
 
 export type ColHeader = {
   columnName: string
-  odpYear?: ODPYear
+  odp?: ODPColHeader
 }
 
-export type ODPYear = {
+export type ODPColHeader = {
   id: number
   year: string
 }

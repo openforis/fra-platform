@@ -9,15 +9,14 @@ import { RecordAssessmentDatas } from 'meta/data'
 import { useHistoryLastApprovedIsActive, useOriginalDataPointYears } from 'client/store/data'
 import { useLastApprovedHistoryTableData } from 'client/store/data/hooks/useLastApprovedHistoryTableData'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
-
-import { ODPYear } from '../types'
+import { ODPColHeader } from 'client/pages/Section/DataTable/Table/types'
 
 type Props = {
   assessmentName: AssessmentName
   table: Table
 }
 
-export const useOriginalDataPointYearsWithHistory = (props: Props): Array<ODPYear> => {
+export const useOriginalDataPointYearsWithHistory = (props: Props): Array<ODPColHeader> => {
   const { assessmentName, table } = props
   const { name: tableName, odp } = table.props
 
@@ -26,11 +25,11 @@ export const useOriginalDataPointYearsWithHistory = (props: Props): Array<ODPYea
   const historyLastApprovedIsActive = useHistoryLastApprovedIsActive()
   const data = useLastApprovedHistoryTableData()
 
-  return useMemo<Array<ODPYear>>(() => {
+  return useMemo<Array<ODPColHeader>>(() => {
     const _odpYears = odpYears ?? []
 
     if (historyLastApprovedIsActive && odp) {
-      const odpYearsMap = _odpYears.reduce<Record<string, ODPYear>>(
+      const odpYearsMap = _odpYears.reduce<Record<string, ODPColHeader>>(
         (acc, odpYear) => ({ ...acc, [odpYear.year]: odpYear }),
         {}
       )

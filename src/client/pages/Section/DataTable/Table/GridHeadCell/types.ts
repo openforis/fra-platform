@@ -1,7 +1,7 @@
 import { Col, Row, Table } from 'meta/assessment'
 import { RecordAssessmentData } from 'meta/data'
 
-import { ColHeader } from '../types'
+import { ColHeader } from 'client/pages/Section/DataTable/Table/types'
 
 export type GridHeadCellProps = {
   assessmentName: string

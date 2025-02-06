@@ -4,7 +4,7 @@ import { Objects } from 'utils/objects'
 import { AssessmentName, CycleName, Table } from 'meta/assessment'
 import { RecordAssessmentData, RecordAssessmentDatas } from 'meta/data'
 
-import { ColHeader } from '../types'
+import { ColHeader } from 'client/pages/Section/DataTable/Table/types'
 
 type Props = {
   assessmentName: AssessmentName

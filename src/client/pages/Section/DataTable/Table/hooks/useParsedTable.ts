@@ -9,8 +9,8 @@ import { RecordAssessmentData } from 'meta/data'
 import { useCycle } from 'client/store/assessment'
 import { useShowOriginalDatapoints } from 'client/store/ui/assessmentSection'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { ColHeader } from 'client/pages/Section/DataTable/Table/types'
 
-import { ColHeader } from '../types'
 import { parseTable } from './_parseTable'
 import { useOriginalDataPointYearsWithHistory } from './useOriginalDataPointYearsWithHistory'
 

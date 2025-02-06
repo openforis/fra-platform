@@ -5,14 +5,14 @@ import { CountryIso } from 'meta/area'
 import { AssessmentName, Col as TypeCol, Cycle, Row as TypeRow, RowType, Table } from 'meta/assessment'
 import { RecordAssessmentData } from 'meta/data'
 
-import { ColHeader, ODPYear } from '../types'
+import { ColHeader, ODPColHeader } from 'client/pages/Section/DataTable/Table/types'
 
 type Props = {
   assessmentName: AssessmentName
   countryIso: CountryIso
   cycle: Cycle
   data: RecordAssessmentData
-  odpYears: Array<ODPYear>
+  odpYears: Array<ODPColHeader>
   showODP: boolean
   table: Table
 }
@@ -32,7 +32,7 @@ const getHeaders = (props: Props): Array<ColHeader> => {
   return columnNames.map<ColHeader>((header) => {
     // Case ex. 1990_2000 => 1990-2000
     const columnName = /^\d{4}_\d{4}$/.test(header) ? header.replace('_', '-') : header
-    return { columnName, odpYear: odpYears.find((o) => o.year === columnName) }
+    return { columnName, odp: odpYears.find((o) => o.year === columnName) }
   })
 }
 
