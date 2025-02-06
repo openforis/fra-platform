@@ -5,7 +5,7 @@ import classNames from 'classnames'
 import { Numbers } from 'utils/numbers'
 import { Objects } from 'utils/objects'
 
-import { ODPNationalClass, OriginalDataPoint } from 'meta/assessment'
+import { ODPNationalClass, ODPs, OriginalDataPoint } from 'meta/assessment'
 import { NationalClassValidation } from 'meta/assessment/originalDataPoint/odps/validateODP'
 import { Topics } from 'meta/messageCenter'
 import { TooltipId } from 'meta/tooltip'
@@ -54,17 +54,13 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
   const target = [originalDataPoint.id, 'class', `${uuid}`, 'value'] as string[]
   const classNameRowComments = useNationalClassNameComments(target)
 
-  let otherLand = null
-
   const validationErrorMessage = useNationalClassValidations({
     index,
     originalDataPoint,
     variable: 'validExtentOfForestPercentage',
   })
 
-  if (!Objects.isEmpty(forestPercent) || !Objects.isEmpty(otherWoodedLandPercent)) {
-    otherLand = Numbers.format(Numbers.sub(100, Numbers.add(forestPercent ?? 0, otherWoodedLandPercent ?? 0)), 3)
-  }
+  const otherLandPercent = ODPs.calculateNationalClassOtherLandPercent(nationalClass)
 
   const historyLastApprovedIsActive = useHistoryLastApprovedIsActive()
 
@@ -176,7 +172,7 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
       </td>
 
       <td className="fra-table__calculated-cell">
-        <span>{otherLand}</span>
+        <span>{otherLandPercent}</span>
         <span style={{ marginLeft: '8px' }}>%</span>
       </td>
 
