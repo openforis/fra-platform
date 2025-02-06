@@ -1,11 +1,9 @@
 import { AssessmentController } from 'server/controller/assessment'
 import { BaseProtocol, Schemas } from 'server/db'
 
-import { updateODPDependencies } from 'test/migrations/steps/utils/updateODPDependencies'
-
 export default async (client: BaseProtocol) => {
   const { assessment, cycle } = await AssessmentController.getOneWithCycle(
-    { assessmentName: 'fra', cycleName: '2025', metaCache: true },
+    { assessmentName: 'fra', cycleName: '2025' },
     client
   )
   const schemaName = Schemas.getNameCycle(assessment, cycle)
@@ -16,7 +14,4 @@ export default async (client: BaseProtocol) => {
       values ->> 'plantationForestArea' = '0' and
       values ->> 'plantationForestIntroducedArea' is null;
   `)
-
-  await AssessmentController.generateDataCache({ assessment, cycle, force: true }, client)
-  await updateODPDependencies({ assessment, cycle })
 }
