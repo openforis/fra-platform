@@ -6,7 +6,6 @@ import { Repository } from 'server/controller/cycleData/repository'
 import { TableData } from 'server/controller/cycleData/tableData'
 import { CountryActivityLogRepository } from 'server/repository/assessmentCycle/countryActivityLog'
 import { CountrySummaryRepository } from 'server/repository/assessmentCycle/countrySummary'
-import { DescriptionRepository } from 'server/repository/assessmentCycle/descriptions'
 import { MessageTopicUserRepository } from 'server/repository/assessmentCycle/messageTopicUser'
 import { OriginalDataPointRepository } from 'server/repository/assessmentCycle/originalDataPoint'
 
@@ -20,13 +19,12 @@ import { updateOriginalDataPointOriginalData } from './originalDataPoint/updateO
 import { updateOriginalDataPointYear } from './originalDataPoint/updateOriginalDataPointYear'
 import { clearTableData } from './clearTableData'
 import { Contacts } from './contact'
+import { Description } from './description'
 import { getBulkDownload } from './getBulkDownload'
 import { getNodeValuesEstimations } from './getNodeValuesEstimations'
 import { getReviewStatus } from './getReviewStatus'
 import { getTableData } from './getTableData'
 import { persistNodeValues, persistNodeValuesEstimated } from './persistNodeValues'
-import { removeDataSource } from './removeDataSource'
-import { upsertDescription } from './upsertDescription'
 
 export const CycleDataController = {
   // ===== node
@@ -64,15 +62,12 @@ export const CycleDataController = {
   getReviewStatus,
   getReviewSummary: MessageTopicUserRepository.getReviewSummary,
 
-  // ==== description
-  getDataSources: DescriptionRepository.getDataSources,
-  getDescriptionValues: DescriptionRepository.getValues,
-  upsertDescription,
-  removeDataSource,
-
   // ==== activities
   getActivities: CountryActivityLogRepository.getMany,
   getActivitiesCount: CountryActivityLogRepository.getCount,
+
+  // ====== description
+  Description,
 
   // ====== history
   History,
