@@ -12,6 +12,7 @@ import { TooltipId } from 'meta/tooltip'
 
 import { useCycle } from 'client/store/assessment'
 import { useHistoryLastApprovedIsActive } from 'client/store/data'
+import DiffText from 'client/components/DiffText'
 import PercentInput from 'client/components/PercentInput'
 import ReviewIndicator from 'client/components/ReviewIndicator'
 import ThousandSeparatedDecimalInput from 'client/components/ThousandSeparatedDecimalInput'
@@ -24,6 +25,7 @@ import { useNationalClassValidations } from 'client/pages/OriginalDataPoint/hook
 import { useShowReviewIndicator } from 'client/pages/OriginalDataPoint/hooks/useShowReviewIndicator'
 
 import { useNationalClassNameComments } from '../../hooks'
+import { useOtherLandPercentChange } from './hooks/useOtherLandPercentChange'
 
 type Props = {
   canEditData: boolean
@@ -63,6 +65,8 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
   const otherLandPercent = ODPs.calculateNationalClassOtherLandPercent(nationalClass)
 
   const historyLastApprovedIsActive = useHistoryLastApprovedIsActive()
+
+  const otherLandPercentChange = useOtherLandPercentChange({ nationalClassIndex: index, otherLandPercent })
 
   const _onPaste = useOnPaste({
     columns,
@@ -172,8 +176,14 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
       </td>
 
       <td className="fra-table__calculated-cell">
-        <span>{otherLandPercent}</span>
-        <span style={{ marginLeft: '8px' }}>%</span>
+        {historyLastApprovedIsActive ? (
+          <DiffText changes={otherLandPercentChange} />
+        ) : (
+          <>
+            <span>{otherLandPercent}</span>
+            <span style={{ marginLeft: '8px' }}>%</span>
+          </>
+        )}
       </td>
 
       {showReviewIndicator && (
