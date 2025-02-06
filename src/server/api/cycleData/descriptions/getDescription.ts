@@ -16,7 +16,7 @@ export const getDescription = async (req: Request, res: Response) => {
     const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
     const propsValues = { assessment, cycle, countryIso, sectionName, name }
-    const values = await CycleDataController.getDescriptionValues(propsValues)
+    const values = await CycleDataController.Description.getDescriptionValues(propsValues)
 
     Requests.send(res, values)
   } catch (e) {

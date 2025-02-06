@@ -18,7 +18,7 @@ export const upsertDescription = async (req: Request, res: Response) => {
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
     const propsUpsert = { assessment, cycle, countryIso, sectionName, name, value, user }
-    const description = await CycleDataController.upsertDescription(propsUpsert)
+    const description = await CycleDataController.Description.upsertDescription(propsUpsert)
 
     Requests.send(res, description)
   } catch (e) {
