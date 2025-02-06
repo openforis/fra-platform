@@ -17,7 +17,7 @@ type Props = {
 type Returned = Array<Change>
 
 export const useOtherLandPercentChange = (props: Props): Returned => {
-  const { nationalClassIndex, otherLandPercent } = props
+  const { nationalClassIndex, otherLandPercent: otherLandPercentCurrent } = props
 
   const originalDataPointHistory = useLastApprovedOriginalDataPoint()
   const historyLastApprovedIsActive = useHistoryLastApprovedIsActive()
@@ -28,11 +28,8 @@ export const useOtherLandPercentChange = (props: Props): Returned => {
 
     const canCalculate = !Objects.isEmpty(nationalClass)
 
-    const otherLandPercentCurrent = !Objects.isNil(otherLandPercent) ? `${otherLandPercent} %` : ''
+    const otherLandPercentPrev = canCalculate ? ODPs.calculateNationalClassOtherLandPercent(nationalClass) : null
 
-    const otherLandPercentPrevValue = canCalculate ? ODPs.calculateNationalClassOtherLandPercent(nationalClass) : null
-    const otherLandPercentPrev = !Objects.isNil(otherLandPercentPrevValue) ? `${otherLandPercentPrevValue} %` : ''
-
-    return Diff.diffChars(otherLandPercentPrev, otherLandPercentCurrent)
-  }, [historyLastApprovedIsActive, nationalClass, otherLandPercent])
+    return Diff.diffChars(otherLandPercentPrev ?? '', otherLandPercentCurrent ?? '')
+  }, [historyLastApprovedIsActive, nationalClass, otherLandPercentCurrent])
 }
