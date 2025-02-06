@@ -5,13 +5,14 @@ import classNames from 'classnames'
 import { Numbers } from 'utils/numbers'
 import { Objects } from 'utils/objects'
 
-import { ODPNationalClass, OriginalDataPoint } from 'meta/assessment'
+import { ODPNationalClass, ODPs, OriginalDataPoint } from 'meta/assessment'
 import { NationalClassValidation } from 'meta/assessment/originalDataPoint/odps/validateODP'
 import { Topics } from 'meta/messageCenter'
 import { TooltipId } from 'meta/tooltip'
 
 import { useCycle } from 'client/store/assessment'
 import { useHistoryLastApprovedIsActive } from 'client/store/data'
+import DiffText from 'client/components/DiffText'
 import PercentInput from 'client/components/PercentInput'
 import ReviewIndicator from 'client/components/ReviewIndicator'
 import ThousandSeparatedDecimalInput from 'client/components/ThousandSeparatedDecimalInput'
@@ -24,6 +25,7 @@ import { useNationalClassValidations } from 'client/pages/OriginalDataPoint/hook
 import { useShowReviewIndicator } from 'client/pages/OriginalDataPoint/hooks/useShowReviewIndicator'
 
 import { useNationalClassNameComments } from '../../hooks'
+import { useOtherLandPercentChange } from './hooks/useOtherLandPercentChange'
 
 type Props = {
   canEditData: boolean
@@ -40,8 +42,7 @@ const columns: Columns = [
 ]
 
 const _formatDecimalFieldFn: ODPDiffTextProps['formatFn'] = (v) => (!Objects.isEmpty(v) ? Numbers.format(v, 2) : '')
-const _formatPercentFieldFn: ODPDiffTextProps['formatFn'] = (v) =>
-  !Objects.isEmpty(v) ? `${Numbers.format(v, 3)}  %` : ''
+const _formatPercentFieldFn: ODPDiffTextProps['formatFn'] = (v) => (!Objects.isEmpty(v) ? Numbers.format(v, 3) : '')
 
 const ExtentOfForestRow: React.FC<Props> = (props) => {
   const { canEditData, index, nationalClassValidation, originalDataPoint } = props
@@ -54,19 +55,17 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
   const target = [originalDataPoint.id, 'class', `${uuid}`, 'value'] as string[]
   const classNameRowComments = useNationalClassNameComments(target)
 
-  let otherLand = null
-
   const validationErrorMessage = useNationalClassValidations({
     index,
     originalDataPoint,
     variable: 'validExtentOfForestPercentage',
   })
 
-  if (!Objects.isEmpty(forestPercent) || !Objects.isEmpty(otherWoodedLandPercent)) {
-    otherLand = Numbers.format(Numbers.sub(100, Numbers.add(forestPercent ?? 0, otherWoodedLandPercent ?? 0)), 3)
-  }
+  const otherLandPercent = ODPs.calculateNationalClassOtherLandPercent(nationalClass)
 
   const historyLastApprovedIsActive = useHistoryLastApprovedIsActive()
+
+  const otherLandPercentChange = useOtherLandPercentChange({ nationalClassIndex: index, otherLandPercent })
 
   const _onPaste = useOnPaste({
     columns,
@@ -93,7 +92,7 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
       >
         {historyLastApprovedIsActive ? (
           <ODPDiffText
-            className="input-text disabled"
+            className="odp-data-input-diff"
             formatFn={_formatDecimalFieldFn}
             originalDataPoint={originalDataPoint}
             path={['nationalClasses', index, 'area']}
@@ -123,12 +122,14 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
         data-tooltip-id={TooltipId.error}
       >
         {historyLastApprovedIsActive ? (
-          <ODPDiffText
-            className="input-text disabled"
-            formatFn={_formatPercentFieldFn}
-            originalDataPoint={originalDataPoint}
-            path={['nationalClasses', index, 'forestPercent']}
-          />
+          <div className="odp-percent-diff">
+            <ODPDiffText
+              formatFn={_formatPercentFieldFn}
+              originalDataPoint={originalDataPoint}
+              path={['nationalClasses', index, 'forestPercent']}
+            />
+            <span>%</span>
+          </div>
         ) : (
           <PercentInput
             disabled={!canEditData}
@@ -152,12 +153,14 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
         data-tooltip-id={TooltipId.error}
       >
         {historyLastApprovedIsActive ? (
-          <ODPDiffText
-            className="input-text disabled"
-            formatFn={_formatPercentFieldFn}
-            originalDataPoint={originalDataPoint}
-            path={['nationalClasses', index, 'otherWoodedLandPercent']}
-          />
+          <div className="odp-percent-diff">
+            <ODPDiffText
+              formatFn={_formatPercentFieldFn}
+              originalDataPoint={originalDataPoint}
+              path={['nationalClasses', index, 'otherWoodedLandPercent']}
+            />
+            <span>%</span>
+          </div>
         ) : (
           <PercentInput
             disabled={!canEditData}
@@ -176,8 +179,17 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
       </td>
 
       <td className="fra-table__calculated-cell">
-        <span>{otherLand}</span>
-        <span style={{ marginLeft: '8px' }}>%</span>
+        {historyLastApprovedIsActive ? (
+          <div className="odp-calculated-percent-diff">
+            <DiffText changes={otherLandPercentChange} />
+            <span>%</span>
+          </div>
+        ) : (
+          <>
+            <span>{otherLandPercent}</span>
+            <span style={{ marginLeft: '8px' }}>%</span>
+          </>
+        )}
       </td>
 
       {showReviewIndicator && (
