@@ -25,7 +25,7 @@ const useChanges = (props: Props): Returned => {
     const textA = getTextContent(descriptionA)
     const textB = getTextContent(descriptionB)
 
-    const changes = Diff.diffWords(textA, textB, {
+    const changes = Diff.diffLines(textA, textB, {
       ignoreCase: false,
     })
 
