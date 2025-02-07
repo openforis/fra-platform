@@ -3,6 +3,10 @@ import { Objects } from 'utils/objects'
 
 import { ODPNationalClass } from 'meta/assessment/originalDataPoint/odpNationalClass'
 
+export const calculateNationalClassForestArea = (nc: ODPNationalClass): string | null => {
+  return nc.area && Numbers.format((Number(nc.area) * Number(nc.forestPercent)) / 100)
+}
+
 export const calculateNationalClassOtherLandPercent = (nc: ODPNationalClass): string | null => {
   if (!Objects.isEmpty(nc.forestPercent) || !Objects.isEmpty(nc.otherWoodedLandPercent)) {
     return Numbers.format(Numbers.sub(100, Numbers.add(nc.forestPercent ?? 0, nc.otherWoodedLandPercent ?? 0)), 3)
