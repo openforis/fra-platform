@@ -5,7 +5,7 @@ import classNames from 'classnames'
 import { Numbers } from 'utils/numbers'
 import { Objects } from 'utils/objects'
 
-import { ODPNationalClass, OriginalDataPoint, SectionNames } from 'meta/assessment'
+import { ODPNationalClass, ODPs, OriginalDataPoint, SectionNames } from 'meta/assessment'
 import { Topics } from 'meta/messageCenter'
 import { TooltipId } from 'meta/tooltip'
 
@@ -46,7 +46,7 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
 
   const { nationalClasses, id } = originalDataPoint
   const nationalClass = nationalClasses[index]
-  const { name, area, forestNaturalPercent, forestPlantationPercent, otherPlantedForestPercent, uuid } = nationalClass
+  const { name, forestNaturalPercent, forestPlantationPercent, otherPlantedForestPercent, uuid } = nationalClass
   const target = [id, 'class', `${uuid}`, 'forest_charasteristics'] as string[]
   const classNameRowComments = useNationalClassNameComments(target)
 
@@ -66,6 +66,8 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
   })
   validationErrorMessage = historyLastApprovedIsActive ? null : validationErrorMessage
 
+  const nationalClassForestArea = ODPs.calculateNationalClassForestArea(nationalClass)
+
   const showReviewIndicator = useShowReviewIndicator(SectionNames.forestCharacteristics)
 
   if (!allowedClass(nationalClass)) {
@@ -82,9 +84,7 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
         )}
       </th>
 
-      <th className="fra-table__calculated-sub-cell fra-table__divider">
-        {area && Numbers.format((Number(area) * Number(nationalClass.forestPercent)) / 100)}
-      </th>
+      <th className="fra-table__calculated-sub-cell fra-table__divider">{nationalClassForestArea}</th>
 
       <td
         className={classNames('fra-table__cell', {
