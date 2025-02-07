@@ -12,13 +12,13 @@ type Request = CycleDataRequest<{ name?: CommentableDescriptionName }>
 
 export const getDescriptionsHistory = async (req: Request, res: Response) => {
   try {
-    const { assessmentName, cycleName, countryIso } = req.query
+    const { assessmentName, cycleName, countryIso, sectionName } = req.query
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
     const info = await CycleDataController.History.LastApproved.getInfo({ assessment, cycle, countryIso })
 
     let descriptions = {}
     if (!Objects.isNil(info)) {
-      const props = { assessment, cycle, countryIso, info }
+      const props = { assessment, cycle, countryIso, sectionName, info }
       descriptions = await CycleDataController.Description.getDescriptionsLastApproved(props)
     }
 
