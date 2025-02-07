@@ -3,6 +3,7 @@ import { TFunction, useTranslation } from 'react-i18next'
 
 import * as Diff from 'diff'
 import { Change } from 'diff'
+import { Numbers } from 'utils/numbers'
 import { Objects } from 'utils/objects'
 
 import { useLastApprovedOriginalDataPoint } from 'client/store/data/hooks/useLastApprovedOriginalDataPoint'
@@ -11,11 +12,21 @@ import { DOMs } from 'client/utils/dom'
 
 type Returned = Array<Change>
 
+type FormatFn = (value: string | null) => string
+
+const _formatDecimalFieldFn: FormatFn = (v) => (!Objects.isEmpty(v) ? Numbers.format(v, 2) : '')
+const _formatPercentFieldFn: FormatFn = (v) => (!Objects.isEmpty(v) ? Numbers.format(v, 3) : '')
+
+const formatFns: Record<ODPDiffTextProps['format'], FormatFn> = {
+  decimal: _formatDecimalFieldFn,
+  percent: _formatPercentFieldFn,
+}
+
 const _getSourceMethodText = (values: Array<string> | undefined, t: TFunction): string =>
   (values ?? [])?.map((value) => t(`nationalDataPoint.dataSourceMethodsOptions.${value}`)).join('\n\r')
 
 export const useFieldChanges = (props: ODPDiffTextProps): Returned => {
-  const { formatFn, originalDataPoint, path } = props
+  const { format, originalDataPoint, path } = props
 
   const { t } = useTranslation()
   const originalDataPointHistory = useLastApprovedOriginalDataPoint()
@@ -36,6 +47,7 @@ export const useFieldChanges = (props: ODPDiffTextProps): Returned => {
     let textPrev = DOMs.getHtmlTextContent(valuePrev ?? '')
     let textCurrent = DOMs.getHtmlTextContent(valueCurrent ?? '')
 
+    const formatFn = formatFns[format]
     if (Objects.isFunction(formatFn)) {
       textPrev = formatFn(textPrev)
       textCurrent = formatFn(textCurrent)
@@ -44,5 +56,5 @@ export const useFieldChanges = (props: ODPDiffTextProps): Returned => {
     return Diff.diffChars(textPrev, textCurrent, {
       ignoreCase: false,
     })
-  }, [formatFn, originalDataPoint, originalDataPointHistory, path, t])
+  }, [format, originalDataPoint, originalDataPointHistory, path, t])
 }

@@ -2,7 +2,7 @@ import { OriginalDataPoint } from 'meta/assessment'
 
 export type ODPDiffTextProps = {
   className?: string
-  formatFn?: (value: string | null) => string
+  format?: 'decimal' | 'percent'
   originalDataPoint: OriginalDataPoint
   path: Array<string | number>
 }
