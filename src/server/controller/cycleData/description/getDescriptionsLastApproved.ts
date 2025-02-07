@@ -22,13 +22,21 @@ export const getDescriptionsLastApproved = async (
   const { assessment, cycle, countryIso, sectionName, info } = props
   const { prevCycle, lastAccepted } = info
 
-  if (!Objects.isNil(lastAccepted)) {
-    return DescriptionRepository.getValuesLastApproved({ assessment, cycle, countryIso, sectionName })
-  }
+  let data: DescriptionCountryValues = {} as DescriptionCountryValues
 
   if (!Objects.isNil(prevCycle)) {
-    return DescriptionRepository.getValues({ ...props, cycle: prevCycle }, client)
+    data = await DescriptionRepository.getValues({ ...props, cycle: prevCycle }, client)
   }
 
-  return {} as DescriptionCountryValues
+  if (!Objects.isNil(lastAccepted)) {
+    const lastApprovedData = await DescriptionRepository.getValuesLastApproved({
+      assessment,
+      cycle,
+      countryIso,
+      sectionName,
+    })
+    data = Objects.merge(data, lastApprovedData)
+  }
+
+  return data
 }
