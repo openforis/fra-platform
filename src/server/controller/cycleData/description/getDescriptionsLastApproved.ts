@@ -19,12 +19,24 @@ export const getDescriptionsLastApproved = async (
   props: Props,
   client: BaseProtocol = DB
 ): Promise<DescriptionCountryValues> => {
-  const { info } = props
-  const { prevCycle } = info
+  const { assessment, cycle, countryIso, sectionName, info } = props
+  const { prevCycle, lastAccepted } = info
+
+  let data: DescriptionCountryValues = {} as DescriptionCountryValues
 
   if (!Objects.isNil(prevCycle)) {
-    return DescriptionRepository.getValues({ ...props, cycle: prevCycle }, client)
+    data = await DescriptionRepository.getValues({ ...props, cycle: prevCycle }, client)
   }
 
-  return {} as DescriptionCountryValues
+  if (!Objects.isNil(lastAccepted)) {
+    const lastApprovedData = await DescriptionRepository.getValuesLastApproved({
+      assessment,
+      cycle,
+      countryIso,
+      sectionName,
+    })
+    data = Objects.merge(data, lastApprovedData)
+  }
+
+  return data
 }

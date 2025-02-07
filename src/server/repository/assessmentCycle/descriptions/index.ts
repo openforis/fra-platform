@@ -2,6 +2,7 @@ import { getDataSources } from './getDataSources'
 import { getManyWithDataSourcesLinks } from './getManyWithDataSourcesLinks'
 import { getManyWithTextLinks } from './getManyWithTextLinks'
 import { getValues } from './getValues'
+import { getValuesLastApproved } from './getValuesLastApproved'
 import { upsert } from './upsert'
 
 export const DescriptionRepository = {
@@ -9,5 +10,6 @@ export const DescriptionRepository = {
   getManyWithDataSourcesLinks,
   getManyWithTextLinks,
   getValues,
+  getValuesLastApproved,
   upsert,
 }
