@@ -30,6 +30,29 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
   } = useTranslation()
   const { print } = useIsPrintRoute()
 
+  const totalForestPercentArea = Numbers.format(ODPs.calcTotalFieldArea({ originalDataPoint, field: 'forestPercent' }))
+  const totalForestNaturalPercentArea = Numbers.format(
+    ODPs.calcTotalSubFieldArea({
+      originalDataPoint,
+      field: 'forestPercent',
+      subField: 'forestNaturalPercent',
+    })
+  )
+  const totalForestPlantationPercentArea = Numbers.format(
+    ODPs.calcTotalSubFieldArea({
+      originalDataPoint,
+      field: 'forestPercent',
+      subField: 'forestPlantationPercent',
+    })
+  )
+  const totalOtherPlantedForestPercentArea = Numbers.format(
+    ODPs.calcTotalSubFieldArea({
+      originalDataPoint,
+      field: 'forestPercent',
+      subField: 'otherPlantedForestPercent',
+    })
+  )
+
   const nationalClasses = originalDataPoint.nationalClasses.filter((nationalClass) => !nationalClass.placeHolder)
   const plantationTotal = ODPs.calcTotalSubFieldArea({
     originalDataPoint,
@@ -110,36 +133,10 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
 
               <tr>
                 <th className="fra-table__header-cell-left">{t('nationalDataPoint.total')}</th>
-                <th className="fra-table__calculated-cell fra-table__divider">
-                  {Numbers.format(ODPs.calcTotalFieldArea({ originalDataPoint, field: 'forestPercent' }))}
-                </th>
-                <td className="fra-table__calculated-cell">
-                  {Numbers.format(
-                    ODPs.calcTotalSubFieldArea({
-                      originalDataPoint,
-                      field: 'forestPercent',
-                      subField: 'forestNaturalPercent',
-                    })
-                  )}
-                </td>
-                <td className="fra-table__calculated-cell">
-                  {Numbers.format(
-                    ODPs.calcTotalSubFieldArea({
-                      originalDataPoint,
-                      field: 'forestPercent',
-                      subField: 'forestPlantationPercent',
-                    })
-                  )}
-                </td>
-                <td className="fra-table__calculated-cell">
-                  {Numbers.format(
-                    ODPs.calcTotalSubFieldArea({
-                      originalDataPoint,
-                      field: 'forestPercent',
-                      subField: 'otherPlantedForestPercent',
-                    })
-                  )}
-                </td>
+                <th className="fra-table__calculated-cell fra-table__divider">{totalForestPercentArea}</th>
+                <td className="fra-table__calculated-cell">{totalForestNaturalPercentArea}</td>
+                <td className="fra-table__calculated-cell">{totalForestPlantationPercentArea}</td>
+                <td className="fra-table__calculated-cell">{totalOtherPlantedForestPercentArea}</td>
               </tr>
             </tbody>
           </table>
