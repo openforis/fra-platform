@@ -3,6 +3,7 @@ import { createOrReplaceTableDataView } from './createOrReplaceTableDataView'
 import { getFaoEstimateData } from './getFaoEstimateData'
 import { getOriginalDataPointData } from './getOriginalDataPointData'
 import { getTableData } from './getTableData'
+import { getTableDataLastApproved } from './getTableDataLastApproved'
 
 export const DataRepository = {
   clearTableData,
@@ -10,4 +11,5 @@ export const DataRepository = {
   getFaoEstimateData,
   getOriginalDataPointData,
   getTableData,
+  getTableDataLastApproved,
 }
