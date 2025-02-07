@@ -19,8 +19,12 @@ export const getDescriptionsLastApproved = async (
   props: Props,
   client: BaseProtocol = DB
 ): Promise<DescriptionCountryValues> => {
-  const { info } = props
-  const { prevCycle } = info
+  const { assessment, cycle, countryIso, sectionName, info } = props
+  const { prevCycle, lastAccepted } = info
+
+  if (!Objects.isNil(lastAccepted)) {
+    return DescriptionRepository.getValuesLastApproved({ assessment, cycle, countryIso, sectionName })
+  }
 
   if (!Objects.isNil(prevCycle)) {
     return DescriptionRepository.getValues({ ...props, cycle: prevCycle }, client)
