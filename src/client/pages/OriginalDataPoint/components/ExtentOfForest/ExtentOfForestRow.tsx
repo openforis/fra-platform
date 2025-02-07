@@ -55,15 +55,17 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
   const target = [originalDataPoint.id, 'class', `${uuid}`, 'value'] as string[]
   const classNameRowComments = useNationalClassNameComments(target)
 
-  const validationErrorMessage = useNationalClassValidations({
+  const historyLastApprovedIsActive = useHistoryLastApprovedIsActive()
+
+  let validationErrorMessage = useNationalClassValidations({
     index,
     originalDataPoint,
     variable: 'validExtentOfForestPercentage',
   })
 
-  const otherLandPercent = ODPs.calculateNationalClassOtherLandPercent(nationalClass)
+  validationErrorMessage = historyLastApprovedIsActive ? null : validationErrorMessage
 
-  const historyLastApprovedIsActive = useHistoryLastApprovedIsActive()
+  const otherLandPercent = ODPs.calculateNationalClassOtherLandPercent(nationalClass)
 
   const otherLandPercentChange = useOtherLandPercentChange({ nationalClassIndex: index, otherLandPercent })
 
