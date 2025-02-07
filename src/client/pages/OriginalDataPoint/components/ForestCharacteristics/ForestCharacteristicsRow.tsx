@@ -8,6 +8,7 @@ import { Topics } from 'meta/messageCenter'
 import { TooltipId } from 'meta/tooltip'
 
 import { useHistoryLastApprovedIsActive } from 'client/store/data'
+import DiffText from 'client/components/DiffText'
 import PercentInput from 'client/components/PercentInput'
 import ReviewIndicator from 'client/components/ReviewIndicator'
 import { Columns, useOnPaste } from 'client/pages/OriginalDataPoint/components/hooks/useOnPaste'
@@ -18,6 +19,7 @@ import { useNationalClassValidations } from 'client/pages/OriginalDataPoint/hook
 import { useShowReviewIndicator } from 'client/pages/OriginalDataPoint/hooks/useShowReviewIndicator'
 
 import { useNationalClassNameComments } from '../../hooks'
+import { useNationalClassForestAreaChange } from './hooks/useNationalClassForestAreaChange'
 
 const columns: Columns = [
   { name: 'area', type: 'decimal' },
@@ -62,6 +64,10 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
   validationErrorMessage = historyLastApprovedIsActive ? null : validationErrorMessage
 
   const nationalClassForestArea = ODPs.calculateNationalClassForestArea(nationalClass)
+  const nationalClassForestAreaChange = useNationalClassForestAreaChange({
+    nationalClassForestArea,
+    nationalClassIndex: index,
+  })
 
   const showReviewIndicator = useShowReviewIndicator(SectionNames.forestCharacteristics)
 
@@ -79,7 +85,9 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
         )}
       </th>
 
-      <th className="fra-table__calculated-sub-cell fra-table__divider">{nationalClassForestArea}</th>
+      <th className="fra-table__calculated-sub-cell fra-table__divider">
+        {historyLastApprovedIsActive ? <DiffText changes={nationalClassForestAreaChange} /> : nationalClassForestArea}
+      </th>
 
       <td
         className={classNames('fra-table__cell', {
