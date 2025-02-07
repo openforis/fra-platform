@@ -2,8 +2,6 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
-import { Numbers } from 'utils/numbers'
-import { Objects } from 'utils/objects'
 
 import { ODPNationalClass, ODPs, OriginalDataPoint, SectionNames } from 'meta/assessment'
 import { Topics } from 'meta/messageCenter'
@@ -16,7 +14,6 @@ import { Columns, useOnPaste } from 'client/pages/OriginalDataPoint/components/h
 import { useUpdateOriginalData } from 'client/pages/OriginalDataPoint/components/hooks/useUpdateOriginalData'
 import { useUpdateOriginalDataField } from 'client/pages/OriginalDataPoint/components/hooks/useUpdateOriginalDataField'
 import ODPDiffText from 'client/pages/OriginalDataPoint/components/ODPDiffText/ODPDiffText'
-import { ODPDiffTextProps } from 'client/pages/OriginalDataPoint/components/ODPDiffText/types'
 import { useNationalClassValidations } from 'client/pages/OriginalDataPoint/hooks/useNationalClassValidations'
 import { useShowReviewIndicator } from 'client/pages/OriginalDataPoint/hooks/useShowReviewIndicator'
 
@@ -28,8 +25,6 @@ const columns: Columns = [
   { name: 'forestPlantationPercent', type: 'decimal', precision: 3 },
   { name: 'otherPlantedForestPercent', type: 'decimal', precision: 3 },
 ]
-
-const _formatPercentFieldFn: ODPDiffTextProps['formatFn'] = (v) => (!Objects.isEmpty(v) ? Numbers.format(v, 3) : '')
 
 const allowedClass = (nc: ODPNationalClass) => Number(nc.forestPercent) > 0
 
@@ -96,7 +91,7 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
         {historyLastApprovedIsActive ? (
           <div className="odp-percent-diff">
             <ODPDiffText
-              formatFn={_formatPercentFieldFn}
+              format="percent"
               originalDataPoint={originalDataPoint}
               path={['nationalClasses', index, 'forestNaturalPercent']}
             />
@@ -129,7 +124,7 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
         {historyLastApprovedIsActive ? (
           <div className="odp-percent-diff">
             <ODPDiffText
-              formatFn={_formatPercentFieldFn}
+              format="percent"
               originalDataPoint={originalDataPoint}
               path={['nationalClasses', index, 'forestPlantationPercent']}
             />
@@ -162,7 +157,7 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
         {historyLastApprovedIsActive ? (
           <div className="odp-percent-diff">
             <ODPDiffText
-              formatFn={_formatPercentFieldFn}
+              format="percent"
               originalDataPoint={originalDataPoint}
               path={['nationalClasses', index, 'otherPlantedForestPercent']}
             />
