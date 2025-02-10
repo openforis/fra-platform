@@ -1,5 +1,11 @@
 import { CountryIso } from 'meta/area'
-import { Assessment, CommentableDescriptionName, Cycle, DescriptionCountryValues } from 'meta/assessment'
+import {
+  ActivityLogMessage,
+  Assessment,
+  CommentableDescriptionName,
+  Cycle,
+  DescriptionCountryValues,
+} from 'meta/assessment'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'
 
@@ -31,7 +37,7 @@ export const getValuesLastApproved = async (
          left join ${schemaName}.country_summary cs on al.country_iso = cs.country_iso
      where
            al.target is not null
-       and al.message = 'descriptionUpdate'
+       and al.message = '${ActivityLogMessage.descriptionUpdate}'
        and al.country_iso = $1
        and al.section = $2
        and cs.last_accepted is not null
