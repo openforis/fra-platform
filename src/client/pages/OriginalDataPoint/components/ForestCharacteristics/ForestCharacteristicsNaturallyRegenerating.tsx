@@ -21,6 +21,20 @@ const ForestCharacteristicsNaturallyRegenerating: React.FC<Props> = (props) => {
 
   const nationalClasses = originalDataPoint?.nationalClasses.filter((nationalClass) => !nationalClass.placeHolder)
 
+  const totalForestNaturalPercentArea =
+    originalDataPoint &&
+    Numbers.format(
+      ODPs.calcTotalSubFieldArea({
+        originalDataPoint,
+        field: 'forestPercent',
+        subField: 'forestNaturalPercent',
+      })
+    )
+
+  const totalPrimaryForestNaturalPercentArea =
+    originalDataPoint?.values.primaryForest &&
+    Numbers.format(Numbers.toBigNumber(originalDataPoint.values.primaryForest))
+
   return (
     <div className="fra-table__container">
       <div className="fra-table__scroll-wrapper">
@@ -49,20 +63,8 @@ const ForestCharacteristicsNaturallyRegenerating: React.FC<Props> = (props) => {
             <PrimaryForestPercent canEditData={canEditData} />
             <tr>
               <th className="fra-table__header-cell-left">{t('nationalDataPoint.total')}</th>
-              <th className="fra-table__calculated-cell fra-table__divider">
-                {originalDataPoint &&
-                  Numbers.format(
-                    ODPs.calcTotalSubFieldArea({
-                      originalDataPoint,
-                      field: 'forestPercent',
-                      subField: 'forestNaturalPercent',
-                    })
-                  )}
-              </th>
-              <td className="fra-table__calculated-cell">
-                {originalDataPoint?.values.primaryForest &&
-                  Numbers.format(Numbers.toBigNumber(originalDataPoint.values.primaryForest))}
-              </td>
+              <th className="fra-table__calculated-cell fra-table__divider">{totalForestNaturalPercentArea}</th>
+              <td className="fra-table__calculated-cell">{totalPrimaryForestNaturalPercentArea}</td>
             </tr>
           </tfoot>
         </table>
