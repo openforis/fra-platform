@@ -80,7 +80,8 @@ const Cell: React.FC<Props> = (props) => {
 
   const historyLastApprovedIsActive = useHistoryLastApprovedIsActive()
   const disabled = disabledProps || !!nodeValue?.odpId || Cols.hasLinkedNodes({ col, cycle })
-  const Component = historyLastApprovedIsActive ? History : Components[col.props.colType]
+  const displayHistory = historyLastApprovedIsActive && !Cols.isPlaceholder(col)
+  const Component = displayHistory ? History : Components[col.props.colType]
   const { gridColumn, gridRow, ...style } = Cols.getStyle({ col, cycle })
   const isInput = ![ColType.calculated, ColType.placeholder].includes(col.props.colType)
 

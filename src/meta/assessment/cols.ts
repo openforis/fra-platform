@@ -126,6 +126,10 @@ const isNumeric = (col: Col): boolean => {
   return [ColType.integer, ColType.decimal, ColType.calculated].includes(col.props.colType)
 }
 
+const isPlaceholder = (col: Col): boolean => {
+  return col.props.colType === ColType.placeholder
+}
+
 export const Cols = {
   cloneProps,
   getCalculateFn,
@@ -139,4 +143,5 @@ export const Cols = {
   isCalculated,
   isNumeric,
   isReadOnly,
+  isPlaceholder,
 }
