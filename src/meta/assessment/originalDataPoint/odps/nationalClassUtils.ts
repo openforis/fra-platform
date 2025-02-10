@@ -1,3 +1,4 @@
+import BigNumber from 'bignumber.js'
 import { Numbers } from 'utils/numbers'
 import { Objects } from 'utils/objects'
 
@@ -5,6 +6,12 @@ import { ODPNationalClass } from 'meta/assessment/originalDataPoint/odpNationalC
 
 export const calculateNationalClassForestArea = (nc: ODPNationalClass): string | null => {
   return nc.area && Numbers.format((Number(nc.area) * Number(nc.forestPercent)) / 100)
+}
+
+export const calculateNationalClassNaturalForestPercentArea = (nc: ODPNationalClass): BigNumber | null => {
+  return nc.area
+    ? Numbers.mul(nc.area, Numbers.div(Numbers.mul(nc.forestNaturalPercent, nc.forestPercent), 10000))
+    : null
 }
 
 export const calculateNationalClassOtherLandPercent = (nc: ODPNationalClass): string | null => {

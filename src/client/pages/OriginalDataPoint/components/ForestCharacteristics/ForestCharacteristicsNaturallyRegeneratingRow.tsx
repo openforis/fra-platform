@@ -8,7 +8,9 @@ import { ODPs, SectionNames } from 'meta/assessment'
 import { Topics } from 'meta/messageCenter'
 import { TooltipId } from 'meta/tooltip'
 
+import { useHistoryLastApprovedIsActive } from 'client/store/data'
 import { useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
+import DiffText from 'client/components/DiffText'
 import PercentInput from 'client/components/PercentInput'
 import ReviewIndicator from 'client/components/ReviewIndicator'
 import { Columns, useOnPaste } from 'client/pages/OriginalDataPoint/components/hooks/useOnPaste'
@@ -18,6 +20,7 @@ import { useNationalClassValidations } from 'client/pages/OriginalDataPoint/hook
 import { useShowReviewIndicator } from 'client/pages/OriginalDataPoint/hooks/useShowReviewIndicator'
 
 import { useNationalClassNameComments } from '../../hooks'
+import { useNaturalForestPercentAndAreaChange } from './hooks/useNaturalForestPercentAndAreaChange'
 
 const columns: Columns = [{ name: 'forestNaturalForestOfWhichPrimaryForestPercent', type: 'decimal', precision: 3 }]
 
@@ -34,20 +37,27 @@ const ForestCharacteristicsNaturallyRegeneratingRow: React.FC<Props> = (props) =
 
   const { nationalClasses, id } = originalDataPoint
   const nationalClass = nationalClasses[index]
-  const { name, area, forestPercent, forestNaturalPercent, forestNaturalForestOfWhichPrimaryForestPercent, uuid } =
-    nationalClass
+  const { name, forestNaturalForestOfWhichPrimaryForestPercent, uuid } = nationalClass
   const target = [id, 'class', `${uuid}`, 'naturally_regenerating_forest_of_which_primary_forest'] as string[]
   const classNameRowComments = useNationalClassNameComments(target)
 
-  const ofWhichPrimary = area
-    ? Numbers.mul(area, Numbers.div(Numbers.mul(forestNaturalPercent, forestPercent), 10000))
-    : null
+  const ofWhichPrimary = ODPs.calculateNationalClassNaturalForestPercentArea(nationalClass)
 
-  const validationErrorMessage = useNationalClassValidations({
+  const changes = useNaturalForestPercentAndAreaChange({
+    forestNaturalForestOfWhichPrimaryForestPercent,
+    nationalClassIndex: index,
+    naturalForestPercentArea: ofWhichPrimary,
+  })
+
+  const historyLastApprovedIsActive = useHistoryLastApprovedIsActive()
+
+  let validationErrorMessage = useNationalClassValidations({
     index,
     originalDataPoint,
     variable: 'validPrimaryForest',
   })
+  validationErrorMessage = historyLastApprovedIsActive ? null : validationErrorMessage
+
   const _onPaste = useOnPaste({
     columns,
     index,
@@ -66,7 +76,13 @@ const ForestCharacteristicsNaturallyRegeneratingRow: React.FC<Props> = (props) =
   return (
     <tr className={classNameRowComments}>
       <th className="fra-table__category-cell">{name}</th>
-      <th className="fra-table__calculated-sub-cell fra-table__divider">{Numbers.format(ofWhichPrimary)}</th>
+      <th className="fra-table__calculated-sub-cell fra-table__divider">
+        {historyLastApprovedIsActive ? (
+          <DiffText changes={changes?.naturalForestPercentArea} />
+        ) : (
+          Numbers.format(ofWhichPrimary)
+        )}
+      </th>
       <td
         className={classNames(`fra-table__cell`, {
           error: Boolean(validationErrorMessage),
@@ -74,19 +90,26 @@ const ForestCharacteristicsNaturallyRegeneratingRow: React.FC<Props> = (props) =
         data-tooltip-content={validationErrorMessage}
         data-tooltip-id={TooltipId.error}
       >
-        <PercentInput
-          disabled={!canEditData || isZeroOrNullPrimaryForest}
-          numberValue={isZeroOrNullPrimaryForest ? 0 : forestNaturalForestOfWhichPrimaryForestPercent}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            const { value } = event.target
-            const updateProps = { field: columns[0].name, index, precision: columns[0].precision, value }
-            updateOriginalDataField(updateProps)
-          }}
-          onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
-            const odp = _onPaste({ event, colIndex: 0 })
-            updateOriginalData(odp)
-          }}
-        />
+        {historyLastApprovedIsActive ? (
+          <div className="odp-percent-diff">
+            <DiffText changes={changes?.naturalForestPercent} />
+            <span>%</span>
+          </div>
+        ) : (
+          <PercentInput
+            disabled={!canEditData || isZeroOrNullPrimaryForest}
+            numberValue={isZeroOrNullPrimaryForest ? 0 : forestNaturalForestOfWhichPrimaryForestPercent}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+              const { value } = event.target
+              const updateProps = { field: columns[0].name, index, precision: columns[0].precision, value }
+              updateOriginalDataField(updateProps)
+            }}
+            onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
+              const odp = _onPaste({ event, colIndex: 0 })
+              updateOriginalData(odp)
+            }}
+          />
+        )}
       </td>
 
       {showReviewIndicator && (

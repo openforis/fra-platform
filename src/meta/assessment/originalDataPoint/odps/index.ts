@@ -12,6 +12,7 @@ import { canCopyPreviousValues } from './canCopyPreviousValues'
 import { deleteNationalClass } from './deleteNationalClass'
 import {
   calculateNationalClassForestArea,
+  calculateNationalClassNaturalForestPercentArea,
   calculateNationalClassOtherLandPercent,
   hasNaturallyRegenerating,
 } from './nationalClassUtils'
@@ -27,6 +28,7 @@ export const ODPs = {
   calcTotalSubFieldArea,
   calcTotalSubSubFieldArea,
   calculateNationalClassForestArea,
+  calculateNationalClassNaturalForestPercentArea,
   calculateNationalClassOtherLandPercent,
   calculateValues,
   canCopyPreviousValues,
