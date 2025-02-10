@@ -1,6 +1,10 @@
 @import 'src/client/style/partials';
 
 .diff-text {
+  span {
+    word-break: break-word;
+  }
+
   .added,
   .removed {
     font-weight: 600;
