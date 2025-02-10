@@ -22,8 +22,13 @@ interface FormatValueProps {
 }
 
 const _formatSelectValue = (nodeValue: NodeValue, col: Col, cycle: Cycle, t: TFunction): string => {
-  const { labelKeyPrefix } = Cols.getSelectProps({ cycle, col })
+  const { labelKeyPrefix, years } = Cols.getSelectProps({ cycle, col })
   const { raw } = nodeValue
+
+  if (!Objects.isEmpty(years)) {
+    return raw
+  }
+
   if (Array.isArray(raw)) {
     return raw.map((value) => t(`${labelKeyPrefix}.${value}`)).join(', ')
   }
