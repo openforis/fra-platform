@@ -43,7 +43,8 @@ const ForestCharacteristicsNaturallyRegeneratingRow: React.FC<Props> = (props) =
 
   const ofWhichPrimary = ODPs.calculateNationalClassNaturalForestPercentArea(nationalClass)
 
-  const naturalForestPercentAreaChange = useNaturalForestPercentAndAreaChange({
+  const changes = useNaturalForestPercentAndAreaChange({
+    forestNaturalForestOfWhichPrimaryForestPercent,
     nationalClassIndex: index,
     naturalForestPercentArea: ofWhichPrimary,
   })
@@ -77,7 +78,7 @@ const ForestCharacteristicsNaturallyRegeneratingRow: React.FC<Props> = (props) =
       <th className="fra-table__category-cell">{name}</th>
       <th className="fra-table__calculated-sub-cell fra-table__divider">
         {historyLastApprovedIsActive ? (
-          <DiffText changes={naturalForestPercentAreaChange} />
+          <DiffText changes={changes?.naturalForestPercentArea} />
         ) : (
           Numbers.format(ofWhichPrimary)
         )}
@@ -89,19 +90,26 @@ const ForestCharacteristicsNaturallyRegeneratingRow: React.FC<Props> = (props) =
         data-tooltip-content={validationErrorMessage}
         data-tooltip-id={TooltipId.error}
       >
-        <PercentInput
-          disabled={!canEditData || isZeroOrNullPrimaryForest}
-          numberValue={isZeroOrNullPrimaryForest ? 0 : forestNaturalForestOfWhichPrimaryForestPercent}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            const { value } = event.target
-            const updateProps = { field: columns[0].name, index, precision: columns[0].precision, value }
-            updateOriginalDataField(updateProps)
-          }}
-          onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
-            const odp = _onPaste({ event, colIndex: 0 })
-            updateOriginalData(odp)
-          }}
-        />
+        {historyLastApprovedIsActive ? (
+          <div className="odp-percent-diff">
+            <DiffText changes={changes?.naturalForestPercent} />
+            <span>%</span>
+          </div>
+        ) : (
+          <PercentInput
+            disabled={!canEditData || isZeroOrNullPrimaryForest}
+            numberValue={isZeroOrNullPrimaryForest ? 0 : forestNaturalForestOfWhichPrimaryForestPercent}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+              const { value } = event.target
+              const updateProps = { field: columns[0].name, index, precision: columns[0].precision, value }
+              updateOriginalDataField(updateProps)
+            }}
+            onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
+              const odp = _onPaste({ event, colIndex: 0 })
+              updateOriginalData(odp)
+            }}
+          />
+        )}
       </td>
 
       {showReviewIndicator && (

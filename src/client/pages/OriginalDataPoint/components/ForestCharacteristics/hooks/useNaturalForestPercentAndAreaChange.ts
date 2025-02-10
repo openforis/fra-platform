@@ -12,14 +12,22 @@ import { useHistoryLastApprovedIsActive } from 'client/store/data'
 import { useLastApprovedOriginalDataPoint } from 'client/store/data/hooks/useLastApprovedOriginalDataPoint'
 
 type Props = {
+  forestNaturalForestOfWhichPrimaryForestPercent?: string
   nationalClassIndex: number
   naturalForestPercentArea: BigNumber | null
 }
 
-type Returned = Array<Change>
+type Returned = {
+  naturalForestPercent: Array<Change>
+  naturalForestPercentArea: Array<Change>
+}
 
 export const useNaturalForestPercentAndAreaChange = (props: Props): Returned => {
-  const { nationalClassIndex, naturalForestPercentArea: naturalForestPercentAreaCurrent } = props
+  const {
+    forestNaturalForestOfWhichPrimaryForestPercent: forestNaturalForestOfWhichPrimaryForestPercentCurrent,
+    nationalClassIndex,
+    naturalForestPercentArea: naturalForestPercentAreaCurrent,
+  } = props
 
   const originalDataPointHistory = useLastApprovedOriginalDataPoint()
   const historyLastApprovedIsActive = useHistoryLastApprovedIsActive()
@@ -34,9 +42,42 @@ export const useNaturalForestPercentAndAreaChange = (props: Props): Returned => 
       ? ODPs.calculateNationalClassNaturalForestPercentArea(nationalClass)
       : null
 
-    const formattedPrev = Numbers.format(naturalForestPercentAreaPrev ?? '')
-    const formattedCurrent = Numbers.format(naturalForestPercentAreaCurrent ?? '')
+    const formattedAreaPrev = Numbers.format(naturalForestPercentAreaPrev ?? '')
+    const formattedAreaCurrent = Numbers.format(naturalForestPercentAreaCurrent ?? '')
 
-    return Diff.diffChars(formattedPrev ?? '', formattedCurrent ?? '')
-  }, [historyLastApprovedIsActive, nationalClass, naturalForestPercentAreaCurrent])
+    const naturalForestPercentArea = Diff.diffChars(formattedAreaPrev ?? '', formattedAreaCurrent ?? '')
+
+    // forestNaturalForestOfWhichPrimaryForestPercent change
+    const isZeroOrNullPrimaryForestPrev =
+      naturalForestPercentAreaPrev === null || Numbers.eq(naturalForestPercentAreaPrev, 0)
+
+    let naturalForestPercentPrev = isZeroOrNullPrimaryForestPrev
+      ? 0
+      : nationalClass?.forestNaturalForestOfWhichPrimaryForestPercent
+    naturalForestPercentPrev = !canCalculate ? '' : naturalForestPercentPrev // Default to empty string if prev is not present
+    const formattedNaturalForestPercentPrev = Numbers.format(naturalForestPercentPrev ?? '', 3)
+
+    const isZeroOrNullPrimaryForestCurrent =
+      naturalForestPercentAreaCurrent === null || Numbers.eq(naturalForestPercentAreaCurrent, 0)
+
+    const naturalForestPercentCurrent = isZeroOrNullPrimaryForestCurrent
+      ? 0
+      : forestNaturalForestOfWhichPrimaryForestPercentCurrent
+    const formattedNaturalForestPercentCurrent = Numbers.format(naturalForestPercentCurrent ?? '', 3)
+
+    const naturalForestPercent = Diff.diffChars(
+      formattedNaturalForestPercentPrev ?? '',
+      formattedNaturalForestPercentCurrent ?? ''
+    )
+
+    return {
+      naturalForestPercent,
+      naturalForestPercentArea,
+    }
+  }, [
+    forestNaturalForestOfWhichPrimaryForestPercentCurrent,
+    historyLastApprovedIsActive,
+    nationalClass,
+    naturalForestPercentAreaCurrent,
+  ])
 }
