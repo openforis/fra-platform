@@ -24,15 +24,21 @@ interface FormatValueProps {
 const _formatSelectValue = (nodeValue: NodeValue, col: Col, cycle: Cycle, t: TFunction): string => {
   const { labelKeyPrefix, years } = Cols.getSelectProps({ cycle, col })
   const { raw } = nodeValue
+  const options = Cols.getSelectOptions({ cycle, col })
 
   if (!Objects.isEmpty(years)) {
     return raw
   }
 
-  if (Array.isArray(raw)) {
-    return raw.map((value) => t(`${labelKeyPrefix}.${value}`)).join(', ')
+  const getLabel = (value: string) => {
+    const optionProps = options.find((option) => option.name === value)
+    return optionProps ? Cols.getSelectOptionLabel(optionProps, t, labelKeyPrefix) : value
   }
-  return t(`${labelKeyPrefix}.${raw}`)
+
+  if (Array.isArray(raw)) {
+    return raw.map(getLabel).join(', ')
+  }
+  return getLabel(raw)
 }
 
 const _formatValue = (props: FormatValueProps): string => {
