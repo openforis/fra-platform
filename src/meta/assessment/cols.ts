@@ -130,18 +130,24 @@ const isPlaceholder = (col: Col): boolean => {
   return col.props.colType === ColType.placeholder
 }
 
+const getSelectOptionLabel = (option: ColSelectOption, t: TFunction, labelKeyPrefix = 'yesNoTextSelect'): string => {
+  const label = Number.isInteger(+option.name) ? option.name : t(`${labelKeyPrefix}.${option.name}`)
+  return option.type === 'header' ? `-- ${label} --` : label
+}
+
 export const Cols = {
   cloneProps,
   getCalculateFn,
   getClassNames,
   getColName,
   getLabel,
+  getSelectOptionLabel,
   getSelectOptions,
   getSelectProps,
   getStyle,
   hasLinkedNodes,
   isCalculated,
   isNumeric,
-  isReadOnly,
   isPlaceholder,
+  isReadOnly,
 }
