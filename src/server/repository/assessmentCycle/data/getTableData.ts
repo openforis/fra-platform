@@ -1,3 +1,5 @@
+import { Objects } from 'utils/objects'
+
 import { CountryIso } from 'meta/area'
 import { Assessment, Cycle, VariableCache } from 'meta/assessment'
 import { RecordCountryData, TablesCondition } from 'meta/data'
@@ -25,7 +27,7 @@ const asQueryStringArray = (arr: any[]) => `(${arr.map((v) => `'${v}'`).join(','
 const mergeDependencies = (props: Props): TablesCondition => {
   const { dependencies, tables } = props
 
-  if (dependencies && dependencies.length) {
+  if (!Objects.isEmpty(dependencies)) {
     dependencies.forEach((d) => {
       if (!tables[d.tableName]) {
         tables[d.tableName] = { variables: [] }
