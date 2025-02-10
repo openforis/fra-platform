@@ -56,15 +56,10 @@ export const getTableDataLastApproved = async (
   if (hasLastAccepted) {
     const assessmentName = assessment.props.name
     const cycleName = cycle.name
-
-    let lastApprovedData = {}
-
-    if (!Objects.isEmpty(tableNames)) {
-      lastApprovedData = {
-        [assessmentName]: {
-          [cycleName]: await DataRepository.getTableDataLastApproved({ ...props, tableNames }, client),
-        },
-      }
+    const lastApprovedData = {
+      [assessmentName]: {
+        [cycleName]: await DataRepository.getTableDataLastApproved(props, client),
+      },
     }
 
     data = Objects.merge(data, lastApprovedData)
