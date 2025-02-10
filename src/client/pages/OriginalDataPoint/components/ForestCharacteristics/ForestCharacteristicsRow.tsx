@@ -2,25 +2,24 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
-import { Numbers } from 'utils/numbers'
-import { Objects } from 'utils/objects'
 
 import { ODPNationalClass, ODPs, OriginalDataPoint, SectionNames } from 'meta/assessment'
 import { Topics } from 'meta/messageCenter'
 import { TooltipId } from 'meta/tooltip'
 
 import { useHistoryLastApprovedIsActive } from 'client/store/data'
+import DiffText from 'client/components/DiffText'
 import PercentInput from 'client/components/PercentInput'
 import ReviewIndicator from 'client/components/ReviewIndicator'
 import { Columns, useOnPaste } from 'client/pages/OriginalDataPoint/components/hooks/useOnPaste'
 import { useUpdateOriginalData } from 'client/pages/OriginalDataPoint/components/hooks/useUpdateOriginalData'
 import { useUpdateOriginalDataField } from 'client/pages/OriginalDataPoint/components/hooks/useUpdateOriginalDataField'
 import ODPDiffText from 'client/pages/OriginalDataPoint/components/ODPDiffText/ODPDiffText'
-import { ODPDiffTextProps } from 'client/pages/OriginalDataPoint/components/ODPDiffText/types'
 import { useNationalClassValidations } from 'client/pages/OriginalDataPoint/hooks/useNationalClassValidations'
 import { useShowReviewIndicator } from 'client/pages/OriginalDataPoint/hooks/useShowReviewIndicator'
 
 import { useNationalClassNameComments } from '../../hooks'
+import { useNationalClassForestAreaChange } from './hooks/useNationalClassForestAreaChange'
 
 const columns: Columns = [
   { name: 'area', type: 'decimal' },
@@ -28,8 +27,6 @@ const columns: Columns = [
   { name: 'forestPlantationPercent', type: 'decimal', precision: 3 },
   { name: 'otherPlantedForestPercent', type: 'decimal', precision: 3 },
 ]
-
-const _formatPercentFieldFn: ODPDiffTextProps['formatFn'] = (v) => (!Objects.isEmpty(v) ? Numbers.format(v, 3) : '')
 
 const allowedClass = (nc: ODPNationalClass) => Number(nc.forestPercent) > 0
 
@@ -67,6 +64,10 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
   validationErrorMessage = historyLastApprovedIsActive ? null : validationErrorMessage
 
   const nationalClassForestArea = ODPs.calculateNationalClassForestArea(nationalClass)
+  const nationalClassForestAreaChange = useNationalClassForestAreaChange({
+    nationalClassForestArea,
+    nationalClassIndex: index,
+  })
 
   const showReviewIndicator = useShowReviewIndicator(SectionNames.forestCharacteristics)
 
@@ -84,7 +85,9 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
         )}
       </th>
 
-      <th className="fra-table__calculated-sub-cell fra-table__divider">{nationalClassForestArea}</th>
+      <th className="fra-table__calculated-sub-cell fra-table__divider">
+        {historyLastApprovedIsActive ? <DiffText changes={nationalClassForestAreaChange} /> : nationalClassForestArea}
+      </th>
 
       <td
         className={classNames('fra-table__cell', {
@@ -96,7 +99,7 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
         {historyLastApprovedIsActive ? (
           <div className="odp-percent-diff">
             <ODPDiffText
-              formatFn={_formatPercentFieldFn}
+              format="percent"
               originalDataPoint={originalDataPoint}
               path={['nationalClasses', index, 'forestNaturalPercent']}
             />
@@ -129,7 +132,7 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
         {historyLastApprovedIsActive ? (
           <div className="odp-percent-diff">
             <ODPDiffText
-              formatFn={_formatPercentFieldFn}
+              format="percent"
               originalDataPoint={originalDataPoint}
               path={['nationalClasses', index, 'forestPlantationPercent']}
             />
@@ -162,7 +165,7 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
         {historyLastApprovedIsActive ? (
           <div className="odp-percent-diff">
             <ODPDiffText
-              formatFn={_formatPercentFieldFn}
+              format="percent"
               originalDataPoint={originalDataPoint}
               path={['nationalClasses', index, 'otherPlantedForestPercent']}
             />
