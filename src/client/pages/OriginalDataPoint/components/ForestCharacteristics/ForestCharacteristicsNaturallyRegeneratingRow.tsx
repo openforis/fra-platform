@@ -16,6 +16,7 @@ import ReviewIndicator from 'client/components/ReviewIndicator'
 import { Columns, useOnPaste } from 'client/pages/OriginalDataPoint/components/hooks/useOnPaste'
 import { useUpdateOriginalData } from 'client/pages/OriginalDataPoint/components/hooks/useUpdateOriginalData'
 import { useUpdateOriginalDataField } from 'client/pages/OriginalDataPoint/components/hooks/useUpdateOriginalDataField'
+import ODPDiffText from 'client/pages/OriginalDataPoint/components/ODPDiffText/ODPDiffText'
 import { useNationalClassValidations } from 'client/pages/OriginalDataPoint/hooks/useNationalClassValidations'
 import { useShowReviewIndicator } from 'client/pages/OriginalDataPoint/hooks/useShowReviewIndicator'
 
@@ -75,7 +76,13 @@ const ForestCharacteristicsNaturallyRegeneratingRow: React.FC<Props> = (props) =
 
   return (
     <tr className={classNameRowComments}>
-      <th className="fra-table__category-cell">{name}</th>
+      <th className="fra-table__category-cell">
+        {historyLastApprovedIsActive ? (
+          <ODPDiffText originalDataPoint={originalDataPoint} path={['nationalClasses', index, 'name']} />
+        ) : (
+          name
+        )}
+      </th>
       <th className="fra-table__calculated-sub-cell fra-table__divider">
         {historyLastApprovedIsActive ? (
           <DiffText changes={changes?.naturalForestPercentArea} />
