@@ -50,11 +50,13 @@ const ForestCharacteristicsNaturallyRegeneratingRow: React.FC<Props> = (props) =
 
   const historyLastApprovedIsActive = useHistoryLastApprovedIsActive()
 
-  const validationErrorMessage = useNationalClassValidations({
+  let validationErrorMessage = useNationalClassValidations({
     index,
     originalDataPoint,
     variable: 'validPrimaryForest',
   })
+  validationErrorMessage = historyLastApprovedIsActive ? null : validationErrorMessage
+
   const _onPaste = useOnPaste({
     columns,
     index,
