@@ -34,14 +34,11 @@ const ForestCharacteristicsNaturallyRegeneratingRow: React.FC<Props> = (props) =
 
   const { nationalClasses, id } = originalDataPoint
   const nationalClass = nationalClasses[index]
-  const { name, area, forestPercent, forestNaturalPercent, forestNaturalForestOfWhichPrimaryForestPercent, uuid } =
-    nationalClass
+  const { name, forestNaturalForestOfWhichPrimaryForestPercent, uuid } = nationalClass
   const target = [id, 'class', `${uuid}`, 'naturally_regenerating_forest_of_which_primary_forest'] as string[]
   const classNameRowComments = useNationalClassNameComments(target)
 
-  const ofWhichPrimary = area
-    ? Numbers.mul(area, Numbers.div(Numbers.mul(forestNaturalPercent, forestPercent), 10000))
-    : null
+  const ofWhichPrimary = ODPs.calculateNationalClassNaturalForestPercentArea(nationalClass)
 
   const validationErrorMessage = useNationalClassValidations({
     index,
