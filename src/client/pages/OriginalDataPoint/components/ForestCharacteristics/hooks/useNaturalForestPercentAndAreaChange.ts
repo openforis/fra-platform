@@ -18,7 +18,7 @@ type Props = {
 
 type Returned = Array<Change>
 
-export const useNaturalForestPercentAreaChange = (props: Props): Returned => {
+export const useNaturalForestPercentAndAreaChange = (props: Props): Returned => {
   const { nationalClassIndex, naturalForestPercentArea: naturalForestPercentAreaCurrent } = props
 
   const originalDataPointHistory = useLastApprovedOriginalDataPoint()

@@ -20,7 +20,7 @@ import { useNationalClassValidations } from 'client/pages/OriginalDataPoint/hook
 import { useShowReviewIndicator } from 'client/pages/OriginalDataPoint/hooks/useShowReviewIndicator'
 
 import { useNationalClassNameComments } from '../../hooks'
-import { useNaturalForestPercentAreaChange } from './hooks/useNaturalForestPercentAreaChange'
+import { useNaturalForestPercentAndAreaChange } from './hooks/useNaturalForestPercentAndAreaChange'
 
 const columns: Columns = [{ name: 'forestNaturalForestOfWhichPrimaryForestPercent', type: 'decimal', precision: 3 }]
 
@@ -43,7 +43,7 @@ const ForestCharacteristicsNaturallyRegeneratingRow: React.FC<Props> = (props) =
 
   const ofWhichPrimary = ODPs.calculateNationalClassNaturalForestPercentArea(nationalClass)
 
-  const naturalForestPercentAreaChange = useNaturalForestPercentAreaChange({
+  const naturalForestPercentAreaChange = useNaturalForestPercentAndAreaChange({
     nationalClassIndex: index,
     naturalForestPercentArea: ofWhichPrimary,
   })
