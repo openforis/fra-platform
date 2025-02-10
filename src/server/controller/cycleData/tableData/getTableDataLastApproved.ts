@@ -13,16 +13,6 @@ import { PropsGetTableData } from './props'
 
 type Props = Omit<PropsGetTableData, 'mergeOdp'> & { info: HistoryLastApprovedInfo }
 
-const _getFilteredTableNames = async (
-  props: Pick<Props, 'tableNames' | 'assessment' | 'cycle'>
-): Promise<Array<TableName>> => {
-  const { assessment, cycle, tableNames } = props
-  const tables = await Promise.all(
-    (tableNames ?? []).map((tableName) => TableRedisRepository.getOne({ assessment, cycle, tableName }))
-  )
-  return tables.reduce<Array<TableName>>((acc, table) => (Objects.isNil(table) ? acc : [...acc, table.props.name]), [])
-}
-
 export const getTableDataLastApproved = async (
   props: Props,
   client: BaseProtocol = DB
@@ -36,7 +26,13 @@ export const getTableDataLastApproved = async (
 
   let data = {}
   if (hasPrevCycle) {
-    const tableNamesPrevCycle = await _getFilteredTableNames({ assessment, cycle: prevCycle, tableNames })
+    const tablesPrevCycle = await Promise.all(
+      (tableNames ?? []).map((tableName) => TableRedisRepository.getOne({ assessment, cycle: prevCycle, tableName }))
+    )
+    const tableNamesPrevCycle = tablesPrevCycle?.reduce<Array<TableName>>(
+      (acc, table) => (Objects.isNil(table) ? acc : [...acc, table.props.name]),
+      []
+    )
 
     if (!Objects.isEmpty(tableNamesPrevCycle)) {
       const mergeOdp = !hasLastAccepted // when has last accepted, odp gets manually merged later
@@ -61,17 +57,12 @@ export const getTableDataLastApproved = async (
     const assessmentName = assessment.props.name
     const cycleName = cycle.name
 
-    const tableNamesCurrentCycle = await _getFilteredTableNames({ assessment, cycle, tableNames })
-
     let lastApprovedData = {}
 
-    if (!Objects.isEmpty(tableNamesCurrentCycle)) {
+    if (!Objects.isEmpty(tableNames)) {
       lastApprovedData = {
         [assessmentName]: {
-          [cycleName]: await DataRepository.getTableDataLastApproved(
-            { ...props, tableNames: tableNamesCurrentCycle },
-            client
-          ),
+          [cycleName]: await DataRepository.getTableDataLastApproved({ ...props, tableNames }, client),
         },
       }
     }
