@@ -27,7 +27,7 @@ export const getTableDataLastApproved = async (
   let data = {}
   if (hasPrevCycle) {
     const tablesPrevCycle = await Promise.all(
-      tableNames?.map((tableName) => TableRedisRepository.getOne({ assessment, cycle: prevCycle, tableName }))
+      (tableNames ?? []).map((tableName) => TableRedisRepository.getOne({ assessment, cycle: prevCycle, tableName }))
     )
     const tableNamesPrevCycle = tablesPrevCycle?.reduce<Array<TableName>>(
       (acc, table) => (Objects.isNil(table) ? acc : [...acc, table.props.name]),
