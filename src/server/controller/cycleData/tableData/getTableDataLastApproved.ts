@@ -1,5 +1,6 @@
 import { Objects } from 'utils/objects'
 
+import { TableName } from 'meta/assessment'
 import { HistoryLastApprovedInfo } from 'meta/cycleData/historyLastApproved'
 import { RecordAssessmentData, RecordAssessmentDatas } from 'meta/data'
 
@@ -10,28 +11,32 @@ import { TableRedisRepository } from 'server/repository/redis/table'
 import { getTableData } from '../getTableData'
 import { PropsGetTableData } from './props'
 
-type Props = PropsGetTableData & { info: HistoryLastApprovedInfo }
+type Props = Omit<PropsGetTableData, 'mergeOdp'> & { info: HistoryLastApprovedInfo }
 
 export const getTableDataLastApproved = async (
   props: Props,
   client: BaseProtocol = DB
 ): Promise<RecordAssessmentData> => {
-  const { assessment, countryISOs, cycle, info, mergeOdp = true, tableNames: _tableNames } = props
+  const { assessment, countryISOs, cycle, info, tableNames } = props
   const { prevCycle, lastAccepted } = info
   const prevCycleName = prevCycle?.name
 
-  let data = {}
-  if (!Objects.isNil(prevCycle)) {
-    const tableNames = (
-      await Promise.all(
-        _tableNames?.map((tableName) => TableRedisRepository.getOne({ assessment, cycle: prevCycle, tableName })) ?? []
-      )
-    )
-      .filter(Boolean)
-      ?.map((table) => table.props.name)
+  const hasPrevCycle = !Objects.isNil(prevCycle)
+  const hasLastAccepted = !Objects.isNil(lastAccepted)
 
-    if (!Objects.isEmpty(tableNames)) {
-      data = await getTableData({ ...props, tableNames, mergeOdp, cycle: prevCycle }, client)
+  let data = {}
+  if (hasPrevCycle) {
+    const tablesPrevCycle = await Promise.all(
+      (tableNames ?? []).map((tableName) => TableRedisRepository.getOne({ assessment, cycle: prevCycle, tableName }))
+    )
+    const tableNamesPrevCycle = tablesPrevCycle?.reduce<Array<TableName>>(
+      (acc, table) => (Objects.isNil(table) ? acc : [...acc, table.props.name]),
+      []
+    )
+
+    if (!Objects.isEmpty(tableNamesPrevCycle)) {
+      const mergeOdp = !hasLastAccepted // when has last accepted, odp gets manually merged later
+      data = await getTableData({ ...props, tableNames: tableNamesPrevCycle, mergeOdp, cycle: prevCycle }, client)
     }
   }
 
@@ -48,7 +53,7 @@ export const getTableDataLastApproved = async (
     }
   }
 
-  if (!Objects.isNil(lastAccepted)) {
+  if (hasLastAccepted) {
     const assessmentName = assessment.props.name
     const cycleName = cycle.name
     const lastApprovedData = {
