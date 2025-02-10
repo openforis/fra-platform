@@ -28,8 +28,13 @@ const PrimaryForestPercent: React.FC<Props> = (props) => {
       <th className="fra-table__header-cell-left fra-table__divider" colSpan={2}>
         {t('common.totalPercentage')}
       </th>
-      {useTotal ? (
-        <td className={classNames('fra-table__cell', {})}>
+      <td
+        className={classNames({
+          'fra-table__calculated-cell': !useTotal,
+          'fra-table__cell': useTotal,
+        })}
+      >
+        {useTotal && (
           <PercentInput
             disabled={!canEditData}
             numberValue={originalDataPoint.values.primaryForestPercent}
@@ -44,10 +49,9 @@ const PrimaryForestPercent: React.FC<Props> = (props) => {
               updateValues(updateProps)
             }}
           />
-        </td>
-      ) : (
-        <td className="fra-table__calculated-cell">{Numbers.toFixed(originalDataPoint.values[field], 3)} %</td>
-      )}
+        )}
+        {!useTotal && <>{Numbers.toFixed(originalDataPoint.values[field], 3)} %</>}
+      </td>
     </tr>
   )
 }
