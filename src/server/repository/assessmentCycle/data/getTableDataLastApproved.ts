@@ -1,5 +1,5 @@
 import { CountryIso } from 'meta/area'
-import { Assessment, Cycle } from 'meta/assessment'
+import { ActivityLogMessage, Assessment, Cycle } from 'meta/assessment'
 import { RecordCountryData } from 'meta/data'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'
@@ -32,22 +32,20 @@ export const getTableDataLastApproved = (props: Props, client: BaseProtocol = DB
             left join ${schemaAssessment}.col c         on (al.target ->> 'colUuid')::uuid = c.uuid
             left join ${schemaAssessment}.row r         on c.row_id = r.id
             left join ${schemaAssessment}.table t       on r.table_id = t.id
-            where al.message in ('nodeValueCalculatedUpdate', 'nodeValueEstimate', 'nodeValueUpdate')
+            where al.message in ('${ActivityLogMessage.nodeValueCalculatedUpdate}', '${ActivityLogMessage.nodeValueEstimate}', '${ActivityLogMessage.nodeValueUpdate}')
               and al.country_iso in ($1:csv)
               and a.props ->> 'name' = $2
               and ac.name = $3
               and al.time < cs.last_accepted
               and t.props ->> 'name' in ($4:csv)
         ),
-        filtered_activities as (
-            select * from activities where row_number = 1
-        ),
         agg1 as (
             select country_iso,
                    table_name,
                    col_name,
                    jsonb_object_agg(variable_name, value) as variable_data
-            from filtered_activities
+            from activities
+            where row_number = 1
             group by country_iso, table_name, col_name
         ),
         agg2 as (
