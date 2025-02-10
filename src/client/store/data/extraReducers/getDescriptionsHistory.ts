@@ -10,6 +10,7 @@ export const getDescriptionsHistoryReducer = (builder: ActionReducerMapBuilder<D
 
     const value = payload[countryIso]
     const path = ['history', 'lastApproved', 'descriptions', assessmentName, cycleName, countryIso]
+    const currentValue = Objects.getInPath(state, path) ?? {}
 
-    Objects.setInPath({ obj: state, path, value })
+    Objects.setInPath({ obj: state, path, value: { ...value, ...currentValue } })
   })
