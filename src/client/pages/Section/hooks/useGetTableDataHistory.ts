@@ -1,5 +1,7 @@
 import { useEffect } from 'react'
 
+import { Objects } from 'utils/objects'
+
 import { CountryIso } from 'meta/area'
 import { SectionName } from 'meta/assessment'
 
@@ -22,7 +24,8 @@ export const useGetTableDataHistory = (props: Props): void => {
   const tableNames = tableSections.flatMap((tableSection) => tableSection.tables.flatMap((table) => table.props.name))
 
   useEffect(() => {
-    if (historyLastApprovedIsActive) {
+    // TableSections might not be initialised on first load
+    if (historyLastApprovedIsActive && !Objects.isEmpty(tableNames)) {
       const getParams = { countryIso, assessmentName, cycleName, sectionName, tableNames }
       dispatch(DataActions.getTableDataHistory(getParams))
     }
