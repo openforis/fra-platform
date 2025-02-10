@@ -23,7 +23,7 @@ export const getTableDataLastApproved = (props: Props, client: BaseProtocol = DB
                    t.props ->> 'name' as table_name,
                    r.props ->> 'variableName' as variable_name,
                    c.props ->> 'colName' as col_name,
-                   al.target -> 'value' || '{ "foo": "bar" }' as value,
+                   al.target -> 'value' as value,
                    row_number() over (partition by al.target ->> 'colUuid' order by al.time desc) as row_number
             from public.activity_log al
             left join ${schemaCycle}.country_summary cs on al.country_iso = cs.country_iso
