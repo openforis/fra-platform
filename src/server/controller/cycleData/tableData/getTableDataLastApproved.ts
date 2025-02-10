@@ -20,16 +20,16 @@ export const getTableDataLastApproved = async (
   const { prevCycle, lastAccepted } = info
   const prevCycleName = prevCycle?.name
 
+  const tableNames = (
+    await Promise.all(
+      _tableNames?.map((tableName) => TableRedisRepository.getOne({ assessment, cycle: prevCycle, tableName })) ?? []
+    )
+  )
+    .filter(Boolean)
+    ?.map((table) => table.props.name)
+
   let data = {}
   if (!Objects.isNil(prevCycle)) {
-    const tableNames = (
-      await Promise.all(
-        _tableNames?.map((tableName) => TableRedisRepository.getOne({ assessment, cycle: prevCycle, tableName })) ?? []
-      )
-    )
-      .filter(Boolean)
-      ?.map((table) => table.props.name)
-
     if (!Objects.isEmpty(tableNames)) {
       data = await getTableData({ ...props, tableNames, mergeOdp, cycle: prevCycle }, client)
     }
@@ -48,7 +48,7 @@ export const getTableDataLastApproved = async (
     }
   }
 
-  if (!Objects.isNil(lastAccepted)) {
+  if (!Objects.isNil(lastAccepted) && !Objects.isEmpty(tableNames)) {
     const assessmentName = assessment.props.name
     const cycleName = cycle.name
     const lastApprovedData = {
