@@ -1,5 +1,7 @@
 import { useMemo } from 'react'
 
+import { Objects } from 'utils/objects'
+
 import { CountryIso } from 'meta/area'
 import { AssessmentName, ColName, CycleName, NodeValue, TableName, VariableName } from 'meta/assessment'
 import { RecordAssessmentData, RecordAssessmentDatas } from 'meta/data'
@@ -15,6 +17,7 @@ type PropsNodeValue = {
   colName: ColName
   variableName: VariableName
 }
+
 export const useLastApprovedHistoryTableData = (): RecordAssessmentData => {
   return useAppSelector((state) => DataSelector.History.getLastApprovedTableData(state))
 }
@@ -27,4 +30,12 @@ export const useLastApprovedHistoryNodeValue = (props: PropsNodeValue): NodeValu
     const nodeValueProps = { assessmentName, cycleName, countryIso, tableName, colName, variableName, data }
     return RecordAssessmentDatas.getNodeValue(nodeValueProps) ?? ({} as NodeValue)
   }, [assessmentName, colName, countryIso, cycleName, data, tableName, variableName])
+}
+
+export const useHistoryLastApprovedDataTableFetched = (): boolean => {
+  const data = useLastApprovedHistoryTableData()
+
+  return useMemo<boolean>(() => {
+    return !Objects.isNil(data)
+  }, [data])
 }
