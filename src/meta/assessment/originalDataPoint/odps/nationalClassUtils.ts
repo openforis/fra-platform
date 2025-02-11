@@ -22,6 +22,12 @@ export const calculateNationalClassOtherLandPercent = (nc: ODPNationalClass): st
   return null
 }
 
+export const calculateNationalClassPlantationForestPercentArea = (nc: ODPNationalClass): BigNumber | null => {
+  return nc.area
+    ? Numbers.mul(nc.area, Numbers.div(Numbers.mul(nc.forestPlantationPercent, nc.forestPercent), 10000))
+    : null
+}
+
 export const hasNaturallyRegenerating = (nc: ODPNationalClass): boolean => {
   return (
     !Objects.isEmpty(nc.forestNaturalPercent) && Number(nc.forestNaturalPercent) > 0 && Number(nc.forestPercent) > 0
