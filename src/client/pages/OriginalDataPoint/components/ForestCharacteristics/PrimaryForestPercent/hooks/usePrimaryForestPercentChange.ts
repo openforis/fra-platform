@@ -27,6 +27,6 @@ export const usePrimaryForestPercentChange = (props: Props): Returned => {
       3
     )
     const formattedPrimaryForestPercentCurrent = Numbers.toFixed(primaryForestPercentCurrent ?? '', 3)
-    return Diff.diffChars(formattedPrimaryForestTotalPercentPrev ?? '', formattedPrimaryForestPercentCurrent ?? '')
+    return Diff.diffLines(formattedPrimaryForestTotalPercentPrev ?? '', formattedPrimaryForestPercentCurrent ?? '')
   }, [historyLastApprovedIsActive, originalDataPointHistory, primaryForestPercentCurrent])
 }

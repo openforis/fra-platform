@@ -42,7 +42,7 @@ export const useForestCharacteristicsTotalsChange = (props: Props): Returned => 
     const totalForestPercentAreaPrev = canCalculate
       ? Numbers.format(ODPs.calcTotalFieldArea({ originalDataPoint: originalDataPointHistory, field: 'forestPercent' }))
       : ''
-    const totalForestPercentArea = Diff.diffChars(totalForestPercentAreaPrev ?? '', totalForestPercentAreaCurrent ?? '')
+    const totalForestPercentArea = Diff.diffLines(totalForestPercentAreaPrev ?? '', totalForestPercentAreaCurrent ?? '')
 
     const totalForestNaturalPercentAreaPrev = canCalculate
       ? Numbers.format(
@@ -53,7 +53,7 @@ export const useForestCharacteristicsTotalsChange = (props: Props): Returned => 
           })
         )
       : ''
-    const totalForestNaturalPercentArea = Diff.diffChars(
+    const totalForestNaturalPercentArea = Diff.diffLines(
       totalForestNaturalPercentAreaPrev ?? '',
       totalForestNaturalPercentAreaCurrent ?? ''
     )
@@ -67,7 +67,7 @@ export const useForestCharacteristicsTotalsChange = (props: Props): Returned => 
           })
         )
       : ''
-    const totalForestPlantationPercentArea = Diff.diffChars(
+    const totalForestPlantationPercentArea = Diff.diffLines(
       totalForestPlantationPercentAreaPrev ?? '',
       totalForestPlantationPercentAreaCurrent ?? ''
     )
@@ -81,7 +81,7 @@ export const useForestCharacteristicsTotalsChange = (props: Props): Returned => 
           })
         )
       : ''
-    const totalOtherPlantedForestPercentArea = Diff.diffChars(
+    const totalOtherPlantedForestPercentArea = Diff.diffLines(
       totalOtherPlantedForestPercentAreaPrev ?? '',
       totalOtherPlantedForestPercentAreaCurrent ?? ''
     )
