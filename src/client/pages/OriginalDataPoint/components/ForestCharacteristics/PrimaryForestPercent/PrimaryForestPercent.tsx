@@ -4,9 +4,12 @@ import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
 import { Numbers } from 'utils/numbers'
 
+import { useHistoryLastApprovedIsActive } from 'client/store/data'
 import { useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
+import DiffText from 'client/components/DiffText'
 import PercentInput from 'client/components/PercentInput'
 
+import { usePrimaryForestPercentChange } from './hooks/usePrimaryForestPercentChange'
 import { useShouldUseTotal } from './hooks/useShouldUseTotal'
 import { useUpdateValues } from './hooks/useUpdateValues'
 
@@ -23,31 +26,50 @@ const PrimaryForestPercent: React.FC<Props> = (props) => {
 
   const field = 'primaryForestPercent'
 
+  const historyLastApprovedIsActive = useHistoryLastApprovedIsActive()
+
+  const primaryForestPercentChange = usePrimaryForestPercentChange({
+    primaryForestPercent: originalDataPoint?.values?.primaryForestPercent,
+  })
+
   return (
     <tr>
       <th className="fra-table__header-cell-left fra-table__divider" colSpan={2}>
         {t('common.totalPercentage')}
       </th>
-      {useTotal ? (
-        <td className={classNames('fra-table__cell', {})}>
-          <PercentInput
-            disabled={!canEditData}
-            numberValue={originalDataPoint.values.primaryForestPercent}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-              const { value } = event.target
-              const updateProps = { field, value }
-              updateValues(updateProps)
-            }}
-            onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
-              const value = event.clipboardData.getData('text')
-              const updateProps = { field, value }
-              updateValues(updateProps)
-            }}
-          />
-        </td>
-      ) : (
-        <td className="fra-table__calculated-cell">{Numbers.toFixed(originalDataPoint.values[field], 3)} %</td>
-      )}
+      <td
+        className={classNames({
+          'fra-table__calculated-cell': !useTotal && !historyLastApprovedIsActive,
+          'fra-table__cell': useTotal || historyLastApprovedIsActive,
+        })}
+      >
+        {historyLastApprovedIsActive ? (
+          <div className="odp-percent-diff">
+            <DiffText changes={primaryForestPercentChange} />
+            <span>%</span>
+          </div>
+        ) : (
+          <>
+            {useTotal && (
+              <PercentInput
+                disabled={!canEditData}
+                numberValue={originalDataPoint.values.primaryForestPercent}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                  const { value } = event.target
+                  const updateProps = { field, value }
+                  updateValues(updateProps)
+                }}
+                onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
+                  const value = event.clipboardData.getData('text')
+                  const updateProps = { field, value }
+                  updateValues(updateProps)
+                }}
+              />
+            )}
+            {!useTotal && <>{Numbers.toFixed(originalDataPoint.values[field], 3)} %</>}
+          </>
+        )}
+      </td>
     </tr>
   )
 }

@@ -5,8 +5,11 @@ import { Numbers } from 'utils/numbers'
 
 import { ODPs } from 'meta/assessment'
 
+import { useHistoryLastApprovedIsActive } from 'client/store/data'
 import { useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
+import DiffText from 'client/components/DiffText'
 
+import { useNaturalForestPercentAndAreaTotalsChange } from './hooks/useNaturalForestPercentAndAreaTotalsChange'
 import ForestCharacteristicsNaturallyRegeneratingRow from './ForestCharacteristicsNaturallyRegeneratingRow'
 import PrimaryForestPercent from './PrimaryForestPercent'
 
@@ -20,6 +23,27 @@ const ForestCharacteristicsNaturallyRegenerating: React.FC<Props> = (props) => {
   const { t } = useTranslation()
 
   const nationalClasses = originalDataPoint?.nationalClasses.filter((nationalClass) => !nationalClass.placeHolder)
+
+  const totalForestNaturalPercentArea =
+    originalDataPoint &&
+    Numbers.format(
+      ODPs.calcTotalSubFieldArea({
+        originalDataPoint,
+        field: 'forestPercent',
+        subField: 'forestNaturalPercent',
+      })
+    )
+
+  const totalPrimaryForestNaturalPercentArea =
+    originalDataPoint?.values.primaryForest &&
+    Numbers.format(Numbers.toBigNumber(originalDataPoint.values.primaryForest))
+
+  const historyLastApprovedIsActive = useHistoryLastApprovedIsActive()
+
+  const totalsChange = useNaturalForestPercentAndAreaTotalsChange({
+    totalForestNaturalPercentArea,
+    totalPrimaryForestNaturalPercentArea,
+  })
 
   return (
     <div className="fra-table__container">
@@ -50,18 +74,18 @@ const ForestCharacteristicsNaturallyRegenerating: React.FC<Props> = (props) => {
             <tr>
               <th className="fra-table__header-cell-left">{t('nationalDataPoint.total')}</th>
               <th className="fra-table__calculated-cell fra-table__divider">
-                {originalDataPoint &&
-                  Numbers.format(
-                    ODPs.calcTotalSubFieldArea({
-                      originalDataPoint,
-                      field: 'forestPercent',
-                      subField: 'forestNaturalPercent',
-                    })
-                  )}
+                {historyLastApprovedIsActive ? (
+                  <DiffText changes={totalsChange?.forestNaturalPercentArea} />
+                ) : (
+                  totalForestNaturalPercentArea
+                )}
               </th>
               <td className="fra-table__calculated-cell">
-                {originalDataPoint?.values.primaryForest &&
-                  Numbers.format(Numbers.toBigNumber(originalDataPoint.values.primaryForest))}
+                {historyLastApprovedIsActive ? (
+                  <DiffText changes={totalsChange?.primaryForestNaturalPercentArea} />
+                ) : (
+                  totalPrimaryForestNaturalPercentArea
+                )}
               </td>
             </tr>
           </tfoot>
