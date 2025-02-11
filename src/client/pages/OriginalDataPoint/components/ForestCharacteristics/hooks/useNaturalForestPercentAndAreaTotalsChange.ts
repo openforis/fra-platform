@@ -50,7 +50,7 @@ export const useNaturalForestPercentAndAreaTotalsChange = (props: Props): Return
     )
 
     const totalPrimaryForestNaturalPercentAreaPrev =
-      canCalculate && originalDataPointHistory.values.primaryForest
+      canCalculate && originalDataPointHistory.values?.primaryForest
         ? Numbers.format(Numbers.toBigNumber(originalDataPointHistory.values.primaryForest))
         : null
 
