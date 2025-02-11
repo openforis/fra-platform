@@ -7,6 +7,7 @@ import { Objects } from 'utils/objects'
 import { CommentableDescriptionName } from 'meta/assessment'
 import { NationalDataDescription } from 'meta/assessment/description'
 
+import { useHistoryLastApprovedDescriptionFetched } from 'client/store/data'
 import { useCanEditDescription, useIsDescriptionEditable } from 'client/store/user/hooks'
 import { useCycleRouteParams } from 'client/hooks/useRouteParams'
 import { DataCell, DataGrid } from 'client/components/DataGrid'
@@ -39,8 +40,13 @@ export const DataSources: React.FC<Props> = (props: Props) => {
   const { dataSourcesLinked } = useGetDataSourcesLinked({ nationalData, sectionName })
 
   const historyLastApprovedCompares = useDataSourcesHistoryLastApproved({ dataSources })
+  const historyLastApprovedDescriptionFetched = useHistoryLastApprovedDescriptionFetched()
+
   const historyActivityCompares = useDataSourcesHistoryActivities({ dataSources })
   const historyCompares = historyLastApprovedCompares ?? historyActivityCompares
+
+  const displayHistory =
+    (historyLastApprovedCompares && historyLastApprovedDescriptionFetched) ?? historyActivityCompares
 
   const canEdit = useCanEditDescription({ sectionName })
   const editable = useIsDescriptionEditable({ sectionName, name })
@@ -85,7 +91,7 @@ export const DataSources: React.FC<Props> = (props: Props) => {
                 </React.Fragment>
               ))}
 
-            {historyCompares &&
+            {displayHistory &&
               historyCompares.map((historyCompare, i) => (
                 <HistoryCompare
                   key={`${String(i)}-${historyCompare.dataItem?.uuid ?? historyCompare.historyItem?.uuid}`}
@@ -95,7 +101,7 @@ export const DataSources: React.FC<Props> = (props: Props) => {
                 />
               ))}
 
-            {!historyCompares &&
+            {!displayHistory &&
               dataSources.map((dataSourceValue, i) => {
                 return (
                   <DataSourceRow
