@@ -1,3 +1,5 @@
+import { Objects } from 'utils/objects'
+
 import { AreaCode, Country, CountryIso, Global, RegionCode } from 'meta/area'
 import { fraRegionCodes } from 'meta/area/regionCode'
 import { AssessmentStatus } from 'meta/area/status'
@@ -16,9 +18,11 @@ const isISOGlobal = (isoCode: string): boolean => isoCode === Global.WO
 const isRegion = (isoCode: string): boolean => Object.values(RegionCode).includes(isoCode as RegionCode)
 const isFRARegion = (isoCode: string): boolean => fraRegionCodes.includes(isoCode as RegionCode)
 const getStatus = (country: Country): AssessmentStatus => {
-  if (!country?.lastEdit) return AssessmentStatus.notStarted
-  if (!country?.props?.status && country?.lastEdit) return AssessmentStatus.editing
-  return country?.props?.status
+  const { status } = country?.props ?? {}
+
+  if (Objects.isNil(country?.lastEdit)) return AssessmentStatus.notStarted
+  if (status === AssessmentStatus.notStarted || Objects.isNil(status)) return AssessmentStatus.editing
+  return status
 }
 
 export const Areas = {

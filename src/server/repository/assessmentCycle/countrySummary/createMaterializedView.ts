@@ -96,7 +96,7 @@ export const createMaterializedView = async (props: Props, client: BaseProtocol 
            , coalesce(us.users_count, 0)                as users_count
            , case
                when le.last_edit is null then '${AssessmentStatus.notStarted}'
-               when c.status is null and le.last_edit is not null then '${AssessmentStatus.editing}'
+               when le.last_edit is not null and c.status in (null, '${AssessmentStatus.notStarted}') then '${AssessmentStatus.editing}'
                else c.status
                end                                    as status
       from country c
