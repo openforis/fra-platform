@@ -10,6 +10,7 @@ import { TooltipId } from 'meta/tooltip'
 
 import { useHistoryLastApprovedIsActive } from 'client/store/data'
 import { useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
+import DiffText from 'client/components/DiffText'
 import PercentInput from 'client/components/PercentInput'
 import ReviewIndicator from 'client/components/ReviewIndicator'
 import { Columns, useOnPaste } from 'client/pages/OriginalDataPoint/components/hooks/useOnPaste'
@@ -19,6 +20,7 @@ import { useNationalClassValidations } from 'client/pages/OriginalDataPoint/hook
 import { useShowReviewIndicator } from 'client/pages/OriginalDataPoint/hooks/useShowReviewIndicator'
 
 import { useNationalClassNameComments } from '../../hooks'
+import { usePlantationForestPercentAndAreaChange } from './hooks/usePlantationForestPercentAndAreaChange'
 
 const allowedClass = (nc: ODPNationalClass) =>
   nc.forestPlantationPercent !== null && Number(nc.forestPlantationPercent) > 0 && Number(nc.forestPercent) > 0
@@ -62,6 +64,12 @@ const ForestCharacteristicsPlantationRow: React.FC<Props> = (props) => {
 
   const showReviewIndicator = useShowReviewIndicator(SectionNames.forestCharacteristics)
 
+  const changes = usePlantationForestPercentAndAreaChange({
+    forestPlantationIntroducedPercent,
+    nationalClassIndex: index,
+    plantationIntroducedArea: plantationIntroduced,
+  })
+
   if (!allowedClass(nationalClass)) {
     return null
   }
@@ -71,7 +79,13 @@ const ForestCharacteristicsPlantationRow: React.FC<Props> = (props) => {
   return (
     <tr className={classNameRowComments}>
       <th className="fra-table__category-cell">{name}</th>
-      <th className="fra-table__calculated-sub-cell fra-table__divider">{Numbers.format(plantationIntroduced)}</th>
+      <th className="fra-table__calculated-sub-cell fra-table__divider">
+        {historyLastApprovedIsActive ? (
+          <DiffText changes={changes?.plantationIntroducedArea} />
+        ) : (
+          Numbers.format(plantationIntroduced)
+        )}
+      </th>
       <td
         className={classNames('fra-table__cell', {
           error: Boolean(validationErrorMessage),
@@ -79,19 +93,26 @@ const ForestCharacteristicsPlantationRow: React.FC<Props> = (props) => {
         data-tooltip-content={validationErrorMessage}
         data-tooltip-id={TooltipId.error}
       >
-        <PercentInput
-          disabled={!canEditData || isZeroOrNullPlantationIntroduced}
-          numberValue={forestPlantationIntroducedPercent}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            const { value } = event.target
-            const updateProps = { field: columns[0].name, index, precision: columns[0].precision, value }
-            updateOriginalDataField(updateProps)
-          }}
-          onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
-            const updatedODP = _onPaste({ event, colIndex: 0 })
-            updateOriginalData(updatedODP)
-          }}
-        />
+        {historyLastApprovedIsActive ? (
+          <div className="odp-percent-diff">
+            <DiffText changes={changes?.forestPlantationIntroducedPercent} />
+            <span>%</span>
+          </div>
+        ) : (
+          <PercentInput
+            disabled={!canEditData || isZeroOrNullPlantationIntroduced}
+            numberValue={forestPlantationIntroducedPercent}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+              const { value } = event.target
+              const updateProps = { field: columns[0].name, index, precision: columns[0].precision, value }
+              updateOriginalDataField(updateProps)
+            }}
+            onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
+              const updatedODP = _onPaste({ event, colIndex: 0 })
+              updateOriginalData(updatedODP)
+            }}
+          />
+        )}
       </td>
 
       {showReviewIndicator && (
