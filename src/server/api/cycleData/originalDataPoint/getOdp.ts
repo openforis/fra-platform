@@ -1,12 +1,12 @@
 import { Response } from 'express'
 
-import { CycleRequest } from 'meta/api/request'
+import { CycleDataRequest } from 'meta/api/request'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { CycleDataController } from 'server/controller/cycleData'
 import { Requests } from 'server/utils'
 
-export const getOriginalDataPoint = async (req: CycleRequest, res: Response) => {
+export const getOriginalDataPoint = async (req: CycleDataRequest<{ year: string }>, res: Response) => {
   try {
     const { assessmentName, cycleName, year, countryIso } = req.query
 

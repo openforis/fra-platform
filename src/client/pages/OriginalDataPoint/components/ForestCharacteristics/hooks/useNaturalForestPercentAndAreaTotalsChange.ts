@@ -44,7 +44,7 @@ export const useNaturalForestPercentAndAreaTotalsChange = (props: Props): Return
         )
       : null
 
-    const forestNaturalPercentArea = Diff.diffChars(
+    const forestNaturalPercentArea = Diff.diffLines(
       totalForestNaturalPercentAreaPrev ?? '',
       totalForestNaturalPercentAreaCurrent ?? ''
     )
@@ -54,7 +54,7 @@ export const useNaturalForestPercentAndAreaTotalsChange = (props: Props): Return
         ? Numbers.format(Numbers.toBigNumber(originalDataPointHistory.values.primaryForest))
         : null
 
-    const primaryForestNaturalPercentArea = Diff.diffChars(
+    const primaryForestNaturalPercentArea = Diff.diffLines(
       totalPrimaryForestNaturalPercentAreaPrev ?? '',
       totalPrimaryForestNaturalPercentAreaCurrent ?? ''
     )

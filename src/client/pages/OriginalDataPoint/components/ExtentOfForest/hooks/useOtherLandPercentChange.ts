@@ -30,6 +30,6 @@ export const useOtherLandPercentChange = (props: Props): Returned => {
 
     const otherLandPercentPrev = canCalculate ? ODPs.calculateNationalClassOtherLandPercent(nationalClass) : null
 
-    return Diff.diffChars(otherLandPercentPrev ?? '', otherLandPercentCurrent ?? '')
+    return Diff.diffLines(otherLandPercentPrev ?? '', otherLandPercentCurrent ?? '')
   }, [historyLastApprovedIsActive, nationalClass, otherLandPercentCurrent])
 }

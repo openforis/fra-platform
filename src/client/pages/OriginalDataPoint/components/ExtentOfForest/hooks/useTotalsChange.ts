@@ -42,24 +42,24 @@ export const useTotalsChange = (props: Props): Returned => {
     const totalAreaPrev = canCalculate
       ? Numbers.format(ODPs.calcTotalArea({ originalDataPoint: originalDataPointHistory }))
       : ''
-    const totalArea = Diff.diffChars(totalAreaPrev ?? '', totalAreaCurrent ?? '')
+    const totalArea = Diff.diffLines(totalAreaPrev ?? '', totalAreaCurrent ?? '')
 
     const totalForestPercentAreaPrev = canCalculate
       ? Numbers.format(ODPs.calcTotalFieldArea({ originalDataPoint: originalDataPointHistory, field: 'forestPercent' }))
       : ''
-    const totalForestPercentArea = Diff.diffChars(totalForestPercentAreaPrev ?? '', totalForestPercentAreaCurrent ?? '')
+    const totalForestPercentArea = Diff.diffLines(totalForestPercentAreaPrev ?? '', totalForestPercentAreaCurrent ?? '')
 
     const totalLandAreaPrev = canCalculate
       ? Numbers.format(ODPs.calcTotalLandArea({ originalDataPoint: originalDataPointHistory }))
       : ''
-    const totalLandArea = Diff.diffChars(totalLandAreaPrev ?? '', totalLandAreaCurrent ?? '')
+    const totalLandArea = Diff.diffLines(totalLandAreaPrev ?? '', totalLandAreaCurrent ?? '')
 
     const totalOtherWoodedLandPercentAreaPrev = canCalculate
       ? Numbers.format(
           ODPs.calcTotalFieldArea({ originalDataPoint: originalDataPointHistory, field: 'otherWoodedLandPercent' })
         )
       : ''
-    const totalOtherWoodedLandPercentArea = Diff.diffChars(
+    const totalOtherWoodedLandPercentArea = Diff.diffLines(
       totalOtherWoodedLandPercentAreaPrev ?? '',
       totalOtherWoodedLandPercentAreaCurrent ?? ''
     )

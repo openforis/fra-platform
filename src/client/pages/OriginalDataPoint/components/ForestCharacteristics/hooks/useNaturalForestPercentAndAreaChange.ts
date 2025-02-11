@@ -45,7 +45,7 @@ export const useNaturalForestPercentAndAreaChange = (props: Props): Returned => 
     const formattedAreaPrev = Numbers.format(naturalForestPercentAreaPrev ?? '')
     const formattedAreaCurrent = Numbers.format(naturalForestPercentAreaCurrent ?? '')
 
-    const naturalForestPercentArea = Diff.diffChars(formattedAreaPrev ?? '', formattedAreaCurrent ?? '')
+    const naturalForestPercentArea = Diff.diffLines(formattedAreaPrev ?? '', formattedAreaCurrent ?? '')
 
     // forestNaturalForestOfWhichPrimaryForestPercent change
     const isZeroOrNullPrimaryForestPrev =
@@ -65,7 +65,7 @@ export const useNaturalForestPercentAndAreaChange = (props: Props): Returned => 
       : forestNaturalForestOfWhichPrimaryForestPercentCurrent
     const formattedNaturalForestPercentCurrent = Numbers.format(naturalForestPercentCurrent ?? '', 3)
 
-    const naturalForestPercent = Diff.diffChars(
+    const naturalForestPercent = Diff.diffLines(
       formattedNaturalForestPercentPrev ?? '',
       formattedNaturalForestPercentCurrent ?? ''
     )

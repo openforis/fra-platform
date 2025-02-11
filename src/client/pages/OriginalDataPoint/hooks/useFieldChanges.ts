@@ -14,6 +14,7 @@ type Returned = Array<Change>
 
 type FormatFn = (value: string | null) => string
 
+const pathsDiffWords = ['dataSourceReferences', 'dataSourceAdditionalComments', 'description']
 const _formatDecimalFieldFn: FormatFn = (v) => (!Objects.isEmpty(v) ? Numbers.format(v, 2) : '')
 const _formatPercentFieldFn: FormatFn = (v) => (!Objects.isEmpty(v) ? Numbers.format(v, 3) : '')
 
@@ -53,8 +54,9 @@ export const useFieldChanges = (props: ODPDiffTextProps): Returned => {
       textCurrent = formatFn(textCurrent)
     }
 
-    return Diff.diffChars(textPrev, textCurrent, {
-      ignoreCase: false,
-    })
+    if (pathsDiffWords.some((p) => path.includes(p))) {
+      return Diff.diffWords(textPrev, textCurrent, { ignoreCase: false })
+    }
+    return Diff.diffLines(textPrev, textCurrent, { ignoreCase: false })
   }, [format, originalDataPoint, originalDataPointHistory, path, t])
 }

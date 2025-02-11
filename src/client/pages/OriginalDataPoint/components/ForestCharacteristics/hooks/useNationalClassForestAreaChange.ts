@@ -30,7 +30,7 @@ export const useNationalClassForestAreaChange = (props: Props): Returned => {
 
     const nationalClassForestAreaPrev = canCalculate ? ODPs.calculateNationalClassForestArea(nationalClass) : null
 
-    return Diff.diffChars(
+    return Diff.diffLines(
       nationalClassForestAreaPrev?.toString() ?? '',
       nationalClassForestAreaCurrent?.toString() ?? ''
     )

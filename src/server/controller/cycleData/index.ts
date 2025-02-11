@@ -11,6 +11,7 @@ import { OriginalDataPointRepository } from 'server/repository/assessmentCycle/o
 
 import { copyOriginalDataPointNationalClasses } from './originalDataPoint/copyOriginalDataPointNationalClasses'
 import { createOriginalDataPoint } from './originalDataPoint/createOriginalDataPoint'
+import { getOriginalDataPointLastApproved } from './originalDataPoint/getOriginalDataPointLastApproved'
 import { removeOriginalDataPoint } from './originalDataPoint/removeOriginalDataPoint'
 import { updateOriginalDataPointDataSources } from './originalDataPoint/updateOriginalDataPointDataSources'
 import { updateOriginalDataPointDescription } from './originalDataPoint/updateOriginalDataPointDescription'
@@ -41,9 +42,11 @@ export const CycleDataController = {
   // ===== original data point
   createOriginalDataPoint,
   getOriginalDataPoint: OriginalDataPointRepository.getOne,
-  getOriginalDataPoints: OriginalDataPointRepository.getMany,
+  getOriginalDataPointLastApproved,
   getOriginalDataPointReservedYears: OriginalDataPointRepository.getReservedYears,
+  getOriginalDataPoints: OriginalDataPointRepository.getMany,
   removeOriginalDataPoint,
+
   // data
   getCountrySummary: CountrySummaryRepository.getOneOrNone,
   updateOriginalDataPointOriginalData,
