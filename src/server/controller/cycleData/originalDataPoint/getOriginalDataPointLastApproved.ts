@@ -14,14 +14,15 @@ type Props = {
   year: string
 }
 
-export const getOriginalDataPointLastApproved = (props: Props): Promise<OriginalDataPoint | undefined> => {
+export const getOriginalDataPointLastApproved = async (props: Props): Promise<OriginalDataPoint | undefined> => {
   const { assessment, countryIso, cycle, info, year } = props
 
+  let odp: OriginalDataPoint
   if (!Objects.isNil(info.lastAccepted)) {
-    return OriginalDataPointRepository.getLastAccepted({ assessment, cycle, countryIso, year })
+    odp = await OriginalDataPointRepository.getLastAccepted({ assessment, cycle, countryIso, year })
   }
-  if (!Objects.isNil(info.prevCycle)) {
-    return OriginalDataPointRepository.getOne({ assessment, cycle: info.prevCycle, countryIso, year })
+  if (!Objects.isNil(info.prevCycle) && Objects.isNil(odp)) {
+    odp = await OriginalDataPointRepository.getOne({ assessment, cycle: info.prevCycle, countryIso, year })
   }
-  return undefined
+  return odp
 }
