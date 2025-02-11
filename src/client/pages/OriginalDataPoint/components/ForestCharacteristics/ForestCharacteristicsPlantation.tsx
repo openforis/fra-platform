@@ -20,6 +20,27 @@ const ForestCharacteristicsPlantation: React.FC<Props> = (props) => {
 
   const nationalClasses = originalDataPoint?.nationalClasses.filter((nationalClass) => !nationalClass.placeHolder)
 
+  const totalForestPlantationPercentArea =
+    originalDataPoint &&
+    Numbers.format(
+      ODPs.calcTotalSubFieldArea({
+        originalDataPoint,
+        field: 'forestPercent',
+        subField: 'forestPlantationPercent',
+      })
+    )
+
+  const totalForestPlantationIntroducedPercentArea =
+    originalDataPoint &&
+    Numbers.format(
+      ODPs.calcTotalSubSubFieldArea({
+        originalDataPoint,
+        field: 'forestPercent',
+        subField: 'forestPlantationPercent',
+        subSubField: 'forestPlantationIntroducedPercent',
+      })
+    )
+
   return (
     <div className="fra-table__container">
       <div className="fra-table__scroll-wrapper">
@@ -41,27 +62,8 @@ const ForestCharacteristicsPlantation: React.FC<Props> = (props) => {
           <tfoot>
             <tr>
               <th className="fra-table__header-cell-left">{t('nationalDataPoint.total')}</th>
-              <th className="fra-table__calculated-cell fra-table__divider">
-                {originalDataPoint &&
-                  Numbers.format(
-                    ODPs.calcTotalSubFieldArea({
-                      originalDataPoint,
-                      field: 'forestPercent',
-                      subField: 'forestPlantationPercent',
-                    })
-                  )}
-              </th>
-              <td className="fra-table__calculated-cell">
-                {originalDataPoint &&
-                  Numbers.format(
-                    ODPs.calcTotalSubSubFieldArea({
-                      originalDataPoint,
-                      field: 'forestPercent',
-                      subField: 'forestPlantationPercent',
-                      subSubField: 'forestPlantationIntroducedPercent',
-                    })
-                  )}
-              </td>
+              <th className="fra-table__calculated-cell fra-table__divider">{totalForestPlantationPercentArea}</th>
+              <td className="fra-table__calculated-cell">{totalForestPlantationIntroducedPercentArea}</td>
             </tr>
           </tfoot>
         </table>
