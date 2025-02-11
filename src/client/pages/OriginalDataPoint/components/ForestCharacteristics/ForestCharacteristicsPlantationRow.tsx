@@ -4,10 +4,11 @@ import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
 import { Numbers } from 'utils/numbers'
 
-import { ODPNationalClass, SectionNames } from 'meta/assessment'
+import { ODPNationalClass, ODPs, SectionNames } from 'meta/assessment'
 import { Topics } from 'meta/messageCenter'
 import { TooltipId } from 'meta/tooltip'
 
+import { useHistoryLastApprovedIsActive } from 'client/store/data'
 import { useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
 import PercentInput from 'client/components/PercentInput'
 import ReviewIndicator from 'client/components/ReviewIndicator'
@@ -37,13 +38,11 @@ const ForestCharacteristicsPlantationRow: React.FC<Props> = (props) => {
 
   const { nationalClasses, id } = originalDataPoint
   const nationalClass = nationalClasses[index]
-  const { name, area, forestPercent, forestPlantationPercent, forestPlantationIntroducedPercent, uuid } = nationalClass
+  const { name, forestPlantationIntroducedPercent, uuid } = nationalClass
   const target = [id, 'class', `${uuid}`, 'plantation_forest_introduced'] as string[]
   const classNameRowComments = useNationalClassNameComments(target)
 
-  const plantationIntroduced = area
-    ? Numbers.mul(area, Numbers.div(Numbers.mul(forestPlantationPercent, forestPercent), 10000))
-    : null
+  const plantationIntroduced = ODPs.calculateNationalClassPlantationForestPercentArea(nationalClass)
 
   const historyLastApprovedIsActive = useHistoryLastApprovedIsActive()
 

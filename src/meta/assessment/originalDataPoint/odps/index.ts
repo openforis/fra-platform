@@ -14,6 +14,7 @@ import {
   calculateNationalClassForestArea,
   calculateNationalClassNaturalForestPercentArea,
   calculateNationalClassOtherLandPercent,
+  calculateNationalClassPlantationForestPercentArea,
   hasNaturallyRegenerating,
 } from './nationalClassUtils'
 import { removeNationalClassPlaceHolder } from './removeNationalClassPlaceHolder'
@@ -30,6 +31,7 @@ export const ODPs = {
   calculateNationalClassForestArea,
   calculateNationalClassNaturalForestPercentArea,
   calculateNationalClassOtherLandPercent,
+  calculateNationalClassPlantationForestPercentArea,
   calculateValues,
   canCopyPreviousValues,
   deleteNationalClass,
