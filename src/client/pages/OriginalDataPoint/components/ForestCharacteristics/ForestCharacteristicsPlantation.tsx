@@ -5,8 +5,11 @@ import { Numbers } from 'utils/numbers'
 
 import { ODPs } from 'meta/assessment'
 
+import { useHistoryLastApprovedIsActive } from 'client/store/data'
 import { useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
+import DiffText from 'client/components/DiffText'
 
+import { usePlantationForestTotalsChange } from './hooks/usePlantationForestTotalsChange'
 import ForestCharacteristicsPlantationRow from './ForestCharacteristicsPlantationRow'
 
 type Props = {
@@ -41,6 +44,13 @@ const ForestCharacteristicsPlantation: React.FC<Props> = (props) => {
       })
     )
 
+  const historyLastApprovedIsActive = useHistoryLastApprovedIsActive()
+
+  const totalsChange = usePlantationForestTotalsChange({
+    totalForestPlantationIntroducedPercentArea,
+    totalForestPlantationPercentArea,
+  })
+
   return (
     <div className="fra-table__container">
       <div className="fra-table__scroll-wrapper">
@@ -62,8 +72,20 @@ const ForestCharacteristicsPlantation: React.FC<Props> = (props) => {
           <tfoot>
             <tr>
               <th className="fra-table__header-cell-left">{t('nationalDataPoint.total')}</th>
-              <th className="fra-table__calculated-cell fra-table__divider">{totalForestPlantationPercentArea}</th>
-              <td className="fra-table__calculated-cell">{totalForestPlantationIntroducedPercentArea}</td>
+              <th className="fra-table__calculated-cell fra-table__divider">
+                {historyLastApprovedIsActive ? (
+                  <DiffText changes={totalsChange?.totalForestPlantationPercentArea} />
+                ) : (
+                  totalForestPlantationPercentArea
+                )}
+              </th>
+              <td className="fra-table__calculated-cell">
+                {historyLastApprovedIsActive ? (
+                  <DiffText changes={totalsChange?.totalForestPlantationIntroducedPercentArea} />
+                ) : (
+                  totalForestPlantationIntroducedPercentArea
+                )}
+              </td>
             </tr>
           </tfoot>
         </table>
