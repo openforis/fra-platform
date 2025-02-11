@@ -1,3 +1,7 @@
+import { useMemo } from 'react'
+
+import { Objects } from 'utils/objects'
+
 import { OriginalDataPoint } from 'meta/assessment'
 
 import { useAppSelector } from 'client/store'
@@ -15,4 +19,12 @@ export const useLastApprovedOriginalDataPoint = (): OriginalDataPoint => {
       year,
     })
   )
+}
+
+export const useHistoryLastApprovedODPFetched = (): boolean => {
+  const data = useLastApprovedOriginalDataPoint()
+
+  return useMemo<boolean>(() => {
+    return !Objects.isNil(data)
+  }, [data])
 }

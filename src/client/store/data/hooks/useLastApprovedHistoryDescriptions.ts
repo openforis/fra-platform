@@ -1,3 +1,7 @@
+import { useMemo } from 'react'
+
+import { Objects } from 'utils/objects'
+
 import { CountryIso } from 'meta/area'
 import { CommentableDescriptionName, CommentableDescriptionValue } from 'meta/assessment'
 
@@ -19,4 +23,12 @@ export const useLastApprovedHistoryDescriptions = (): Record<
       sectionName,
     })
   )
+}
+
+export const useHistoryLastApprovedDescriptionFetched = (): boolean => {
+  const data = useLastApprovedHistoryDescriptions()
+
+  return useMemo<boolean>(() => {
+    return !Objects.isNil(data)
+  }, [data])
 }
