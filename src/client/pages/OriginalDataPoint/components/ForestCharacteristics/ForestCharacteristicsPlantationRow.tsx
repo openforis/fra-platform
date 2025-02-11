@@ -45,11 +45,14 @@ const ForestCharacteristicsPlantationRow: React.FC<Props> = (props) => {
     ? Numbers.mul(area, Numbers.div(Numbers.mul(forestPlantationPercent, forestPercent), 10000))
     : null
 
-  const validationErrorMessage = useNationalClassValidations({
+  const historyLastApprovedIsActive = useHistoryLastApprovedIsActive()
+
+  let validationErrorMessage = useNationalClassValidations({
     index,
     originalDataPoint,
     variable: 'validForestPlantationIntroducedPercent',
   })
+  validationErrorMessage = historyLastApprovedIsActive ? null : validationErrorMessage
 
   const _onPaste = useOnPaste({
     columns,
