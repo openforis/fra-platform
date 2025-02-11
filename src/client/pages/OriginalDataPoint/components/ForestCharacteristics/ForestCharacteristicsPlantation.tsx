@@ -5,8 +5,11 @@ import { Numbers } from 'utils/numbers'
 
 import { ODPs } from 'meta/assessment'
 
+import { useHistoryLastApprovedIsActive } from 'client/store/data'
 import { useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
+import DiffText from 'client/components/DiffText'
 
+import { usePlantationForestTotalsChange } from './hooks/usePlantationForestTotalsChange'
 import ForestCharacteristicsPlantationRow from './ForestCharacteristicsPlantationRow'
 
 type Props = {
@@ -19,6 +22,34 @@ const ForestCharacteristicsPlantation: React.FC<Props> = (props) => {
   const { t } = useTranslation()
 
   const nationalClasses = originalDataPoint?.nationalClasses.filter((nationalClass) => !nationalClass.placeHolder)
+
+  const totalForestPlantationPercentArea =
+    originalDataPoint &&
+    Numbers.format(
+      ODPs.calcTotalSubFieldArea({
+        originalDataPoint,
+        field: 'forestPercent',
+        subField: 'forestPlantationPercent',
+      })
+    )
+
+  const totalForestPlantationIntroducedPercentArea =
+    originalDataPoint &&
+    Numbers.format(
+      ODPs.calcTotalSubSubFieldArea({
+        originalDataPoint,
+        field: 'forestPercent',
+        subField: 'forestPlantationPercent',
+        subSubField: 'forestPlantationIntroducedPercent',
+      })
+    )
+
+  const historyLastApprovedIsActive = useHistoryLastApprovedIsActive()
+
+  const totalsChange = usePlantationForestTotalsChange({
+    totalForestPlantationIntroducedPercentArea,
+    totalForestPlantationPercentArea,
+  })
 
   return (
     <div className="fra-table__container">
@@ -42,25 +73,18 @@ const ForestCharacteristicsPlantation: React.FC<Props> = (props) => {
             <tr>
               <th className="fra-table__header-cell-left">{t('nationalDataPoint.total')}</th>
               <th className="fra-table__calculated-cell fra-table__divider">
-                {originalDataPoint &&
-                  Numbers.format(
-                    ODPs.calcTotalSubFieldArea({
-                      originalDataPoint,
-                      field: 'forestPercent',
-                      subField: 'forestPlantationPercent',
-                    })
-                  )}
+                {historyLastApprovedIsActive ? (
+                  <DiffText changes={totalsChange?.totalForestPlantationPercentArea} />
+                ) : (
+                  totalForestPlantationPercentArea
+                )}
               </th>
               <td className="fra-table__calculated-cell">
-                {originalDataPoint &&
-                  Numbers.format(
-                    ODPs.calcTotalSubSubFieldArea({
-                      originalDataPoint,
-                      field: 'forestPercent',
-                      subField: 'forestPlantationPercent',
-                      subSubField: 'forestPlantationIntroducedPercent',
-                    })
-                  )}
+                {historyLastApprovedIsActive ? (
+                  <DiffText changes={totalsChange?.totalForestPlantationIntroducedPercentArea} />
+                ) : (
+                  totalForestPlantationIntroducedPercentArea
+                )}
               </td>
             </tr>
           </tfoot>
