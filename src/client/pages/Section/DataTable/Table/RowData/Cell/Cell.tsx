@@ -6,7 +6,11 @@ import { RecordAssessmentData } from 'meta/data'
 import { TooltipId } from 'meta/tooltip'
 
 import { useCycle } from 'client/store/assessment'
-import { useHistoryLastApprovedIsActive, useNodeValueValidation } from 'client/store/data'
+import {
+  useHistoryLastApprovedDataTableFetched,
+  useHistoryLastApprovedIsActive,
+  useNodeValueValidation,
+} from 'client/store/data'
 import { DataCell } from 'client/components/DataGrid'
 
 import { useClassName } from './hooks/useClassName'
@@ -78,9 +82,12 @@ const Cell: React.FC<Props> = (props) => {
   const errorMessages = useErrorMessages({ validation })
   const className = useClassName({ col, cycle, row, validation })
 
-  const historyLastApprovedIsActive = useHistoryLastApprovedIsActive()
   const disabled = disabledProps || !!nodeValue?.odpId || Cols.hasLinkedNodes({ col, cycle })
-  const displayHistory = historyLastApprovedIsActive && !Cols.isPlaceholder(col)
+
+  const historyLastApprovedIsActive = useHistoryLastApprovedIsActive()
+  const historyLastApprovedDataTableFetched = useHistoryLastApprovedDataTableFetched()
+  const displayHistory = historyLastApprovedIsActive && historyLastApprovedDataTableFetched && !Cols.isPlaceholder(col)
+
   const Component = displayHistory ? History : Components[col.props.colType]
   const { gridColumn, gridRow, ...style } = Cols.getStyle({ col, cycle })
   const isInput = ![ColType.calculated, ColType.placeholder].includes(col.props.colType)
