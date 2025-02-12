@@ -1,14 +1,14 @@
 import { Objects } from 'utils/objects'
 
-import { Country, CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area'
 import { TableName, TableNames } from 'meta/assessment'
 import { RecordAssessmentData, RecordCountryData } from 'meta/data'
 
-import { getTablesCondition } from 'server/controller/cycleData/tableData/getTablesCondition'
 import { BaseProtocol, DB } from 'server/db'
 import { CountryRepository } from 'server/repository/assessmentCycle/country'
 import { DataRedisRepository } from 'server/repository/redis/data'
 
+import { getTablesCondition } from './tableData/_tablesCondition'
 import { PropsGetTableData } from './tableData/props'
 
 const _mergeODPTable = (props: {
@@ -36,15 +36,11 @@ export const getTableData = async (
   const tableData = await DataRedisRepository.getCountriesData({ assessment, cycle, tables, countryISOs })
 
   if (mergeOdp) {
-    // TODO: add country cache and add AreaRedisRepository.getCountriesMap()
-    const countries = await CountryRepository.getMany({ assessment, cycle }, client)
-    const countryMap = countries.reduce<Record<CountryIso, Country>>(
-      (acc, country) => ({ ...acc, [country.countryIso]: country }),
-      {} as Record<CountryIso, Country>
-    )
+    // TODO: add country cache and add AreaRedisRepository.getCountriesRecord()
+    const countries = await CountryRepository.getManyRecord({ assessment, cycle }, client)
 
     countryISOs.forEach((countryIso) => {
-      const country = countryMap[countryIso]
+      const country = countries[countryIso]
       if (tables[TableNames.extentOfForest]) {
         _mergeODPTable({ countryIso, tableData, tableName: TableNames.extentOfForest })
       }
