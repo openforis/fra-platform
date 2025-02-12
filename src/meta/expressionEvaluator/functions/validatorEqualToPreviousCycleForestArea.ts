@@ -11,11 +11,11 @@ export const validatorEqualToPreviousCycleForestArea: ExpressionFunction<Context
   name: 'validatorEqualToPreviousCycleForestArea',
   minArity: 2,
   executor: () => {
-    return (forestArea2020?: string, forestArea2025?: string): NodeValueValidation => {
+    return (forestAreaPrevious?: string, forestAreaCurrent?: string): NodeValueValidation => {
       const valid =
-        Objects.isEmpty(forestArea2020) ||
-        Objects.isEmpty(forestArea2025) ||
-        Numbers.eqWithTolerance(forestArea2025, forestArea2020)
+        Objects.isEmpty(forestAreaPrevious) ||
+        Objects.isEmpty(forestAreaCurrent) ||
+        Numbers.eqWithTolerance(forestAreaCurrent, forestAreaPrevious)
 
       const messages: Array<NodeValueValidationMessage> = valid
         ? undefined
@@ -23,8 +23,8 @@ export const validatorEqualToPreviousCycleForestArea: ExpressionFunction<Context
             {
               key: 'generalValidation.forestAreaReportedIsDifferentFromPreviousCycle',
               params: {
-                forestArea2020: Numbers.format(Number(forestArea2020)),
-                forestArea2025: Numbers.format(Number(forestArea2025)),
+                forestArea2020: Numbers.format(Number(forestAreaPrevious)),
+                forestArea2025: Numbers.format(Number(forestAreaCurrent)),
               },
             },
           ]
