@@ -18,17 +18,17 @@ export const getLatestActivitiesFromCsv = async (props: Props): Promise<Array<Ac
         reject(error)
       })
       .on('data', (row) => {
-        const date = row['Start date (YYYY-MM-DD)']
-        const countryIso = row.ISO3
-
         const activity: Activity = {
-          countryIso,
+          countryIso: row.ISO3,
           countryName: row.Country,
-          date,
           description: row.Description,
+          endDate: row['End date (YYYY-MM-DD)'],
           id: rowIndex.toString(),
           lat: parseFloat(row['Location (latitude)']),
+          link: row.Link,
           lng: parseFloat(row['Location (longitude)']),
+          startDate: row['Start date (YYYY-MM-DD)'],
+          title: row.Title,
         }
 
         activities.push(activity)
