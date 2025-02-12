@@ -22,7 +22,7 @@ const _excludeDependant = (row: RowCache, tableName: string, variableName: strin
 
 export class MemberEvaluator extends ExpressionNodeEvaluator<Context, MemberExpression> {
   evaluate(expressionNode: MemberExpression): string {
-    const memberVariable = ExpressionEvaluator.parseMemberVariable(expressionNode)
+    const memberVariable = ExpressionEvaluator.parseMemberVariable(expressionNode, this.context)
 
     this.#addDependant(memberVariable)
     this.#addDependency(memberVariable)

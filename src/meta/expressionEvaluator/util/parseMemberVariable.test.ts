@@ -1,5 +1,6 @@
 import { MemberExpression } from '@openforis/arena-core'
 
+import { contextMock as context } from '../context.mock'
 import { parseMemberVariable } from './parseMemberVariable'
 
 describe('parseMemberVariable', () => {
@@ -55,7 +56,7 @@ describe('parseMemberVariable', () => {
       },
     }
 
-    expect(parseMemberVariable(memberExpression)).toEqual(expected)
+    expect(parseMemberVariable(memberExpression, context)).toEqual(expected)
   })
   test('fra["2025"].extentOfForest.forestArea', () => {
     const expected = {
@@ -100,7 +101,7 @@ describe('parseMemberVariable', () => {
       },
     }
 
-    expect(parseMemberVariable(memberExpression)).toEqual(expected)
+    expect(parseMemberVariable(memberExpression, context)).toEqual(expected)
   })
   test('extentOfForest.forestArea["2025"]', () => {
     const expected = {
@@ -138,7 +139,7 @@ describe('parseMemberVariable', () => {
       },
     }
 
-    expect(parseMemberVariable(memberExpression)).toEqual(expected)
+    expect(parseMemberVariable(memberExpression, context)).toEqual(expected)
   })
   test('growingStockComposition2025.remainingIntroduced.growingStockMillionCubicMeter', () => {
     const expected = {
@@ -175,7 +176,7 @@ describe('parseMemberVariable', () => {
       },
     }
 
-    expect(parseMemberVariable(memberExpression)).toEqual(expected)
+    expect(parseMemberVariable(memberExpression, context)).toEqual(expected)
   })
 
   test('extentOfForest.forestArea', () => {
@@ -206,6 +207,52 @@ describe('parseMemberVariable', () => {
       },
     }
 
-    expect(parseMemberVariable(memberExpression)).toEqual(expected)
+    expect(parseMemberVariable(memberExpression, context)).toEqual(expected)
+  })
+
+  test('fra[$prevCycle].extentOfForest.forestArea', () => {
+    const expected = {
+      assessmentName: 'fra',
+      // @ts-ignore
+      colName: undefined,
+      cycleName: '2020',
+      tableName: 'extentOfForest',
+      variableName: 'forestArea',
+    }
+
+    const memberExpression: MemberExpression = {
+      // @ts-ignore
+      type: 'MemberExpression',
+      computed: false,
+      object: {
+        // @ts-ignore
+        type: 'MemberExpression',
+        computed: false,
+        object: {
+          type: 'MemberExpression',
+          computed: true,
+          object: {
+            type: 'Identifier',
+            name: 'fra',
+          },
+          property: {
+            type: 'Literal',
+            value: '$prevCycle',
+            raw: "'$prevCycle'",
+          },
+        },
+        property: {
+          type: 'Identifier',
+          name: 'extentOfForest',
+        },
+      },
+      property: {
+        // @ts-ignore
+        type: 'Identifier',
+        name: 'forestArea',
+      },
+    }
+
+    expect(parseMemberVariable(memberExpression, context)).toEqual(expected)
   })
 })

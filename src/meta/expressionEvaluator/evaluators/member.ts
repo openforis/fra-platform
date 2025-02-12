@@ -17,7 +17,7 @@ export class MemberEvaluator extends ArenaMemberEvaluator<Context> {
       data,
     } = this.context
 
-    const memberVariable = parseMemberVariable(expressionNode)
+    const memberVariable = parseMemberVariable(expressionNode, this.context)
     const memberAssessmentName = memberVariable.assessmentName
     const memberCycleName = memberVariable.cycleName
 
