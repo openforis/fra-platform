@@ -1,5 +1,7 @@
 import { Objects } from 'utils/objects'
 
+import { ODPs } from 'meta/assessment/originalDataPoint/odps/index'
+
 import { OriginalDataPoint } from '../originalDataPoint'
 
 export const deleteNationalClass = (props: { odp: OriginalDataPoint; index: number }): OriginalDataPoint => {
@@ -8,5 +10,5 @@ export const deleteNationalClass = (props: { odp: OriginalDataPoint; index: numb
   const odp: OriginalDataPoint = Objects.cloneDeep(odpProps)
   odp.nationalClasses.splice(index, 1)
 
-  return odp
+  return ODPs.calculateValues(odp)
 }
