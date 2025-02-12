@@ -18,7 +18,7 @@ export const getLatestActivitiesFromCsv = async (props: Props): Promise<Array<Ac
         reject(error)
       })
       .on('data', (row) => {
-        const date = row['Date (YYYY-MM-DD)']
+        const date = row['Start date (YYYY-MM-DD)']
         const countryIso = row.ISO3
 
         const activity: Activity = {
@@ -27,8 +27,8 @@ export const getLatestActivitiesFromCsv = async (props: Props): Promise<Array<Ac
           date,
           description: row.Description,
           id: rowIndex.toString(),
-          lat: parseFloat(row['Location (lat)']),
-          lng: parseFloat(row['Location (long)']),
+          lat: parseFloat(row['Location (latitude)']),
+          lng: parseFloat(row['Location (longitude)']),
         }
 
         activities.push(activity)
