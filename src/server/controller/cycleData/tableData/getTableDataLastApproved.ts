@@ -13,12 +13,32 @@ import { PropsGetTableData } from './props'
 
 type Props = Omit<PropsGetTableData, 'mergeOdp'> & { info: HistoryLastApprovedInfo }
 
+// Sets default values for tableData
+const _withDefaults = (props: Props & { data: RecordAssessmentData }) => {
+  const { assessment, countryISOs, cycle, tableNames, data } = props
+
+  const { name: assessmentName } = assessment.props
+  const { name: cycleName } = cycle
+
+  countryISOs.forEach((countryIso) => {
+    tableNames.forEach((tableName) => {
+      const tableData = RecordAssessmentDatas.getTableData({ assessmentName, cycleName, countryIso, tableName, data })
+      if (Objects.isEmpty(tableData)) {
+        const path = [assessmentName, cycleName, countryIso, tableName]
+        const value = {}
+        Objects.setInPath({ path, obj: data, value })
+      }
+    })
+  })
+  return data
+}
+
 export const getTableDataLastApproved = async (
   props: Props,
   client: BaseProtocol = DB
 ): Promise<RecordAssessmentData> => {
   const { assessment, countryISOs, cycle, info, tableNames } = props
-  const { prevCycle, lastAccepted } = info
+  const { prevCycle, lastAccepted } = info ?? {}
   const prevCycleName = prevCycle?.name
 
   const hasPrevCycle = !Objects.isNil(prevCycle)
@@ -65,5 +85,5 @@ export const getTableDataLastApproved = async (
     data = Objects.merge(data, lastApprovedData)
   }
 
-  return data
+  return _withDefaults({ ...props, data })
 }
