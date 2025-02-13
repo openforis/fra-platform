@@ -14,9 +14,8 @@ export const getTableDataHistory = async (req: GetTableDataRequest, res: Respons
   try {
     const { countryIso, assessmentName, cycleName, tableNames } = req.query
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
-    const info = await CycleDataController.History.LastApproved.getInfo({ assessment, cycle, countryIso })
 
-    const props = { assessment, cycle, info, countryISOs: [countryIso], tableNames }
+    const props = { assessment, cycle, countryISOs: [countryIso], tableNames }
     const tableData = await CycleDataController.TableData.getTableDataLastApproved(props)
 
     Requests.send(res, tableData)

@@ -1,9 +1,9 @@
 import { Objects } from 'utils/objects'
 
 import { TableName } from 'meta/assessment'
-import { HistoryLastApprovedInfo } from 'meta/cycleData/historyLastApproved'
 import { RecordAssessmentData, RecordAssessmentDatas } from 'meta/data'
 
+import { getInfo } from 'server/controller/cycleData/history/lastApproved'
 import { BaseProtocol, DB } from 'server/db'
 import { DataRepository } from 'server/repository/assessmentCycle/data'
 import { TableRedisRepository } from 'server/repository/redis/table'
@@ -11,25 +11,25 @@ import { TableRedisRepository } from 'server/repository/redis/table'
 import { getTableData } from '../getTableData'
 import { PropsGetTableData } from './props'
 
-type Props = Omit<PropsGetTableData, 'mergeOdp'> & { info: HistoryLastApprovedInfo }
+type Props = Omit<PropsGetTableData, 'mergeOdp'>
 
 // Sets default values for tableData
 const _withDefaults = (props: Props & { data: RecordAssessmentData }) => {
   const { assessment, countryISOs, cycle, tableNames, data } = props
+  const [countryIso] = countryISOs
 
   const { name: assessmentName } = assessment.props
   const { name: cycleName } = cycle
 
-  countryISOs.forEach((countryIso) => {
-    tableNames.forEach((tableName) => {
-      const tableData = RecordAssessmentDatas.getTableData({ assessmentName, cycleName, countryIso, tableName, data })
-      if (Objects.isEmpty(tableData)) {
-        const path = [assessmentName, cycleName, countryIso, tableName]
-        const value = {}
-        Objects.setInPath({ path, obj: data, value })
-      }
-    })
+  tableNames.forEach((tableName) => {
+    const tableData = RecordAssessmentDatas.getTableData({ assessmentName, cycleName, countryIso, tableName, data })
+    if (Objects.isEmpty(tableData)) {
+      const path = [assessmentName, cycleName, countryIso, tableName]
+      const value = {}
+      Objects.setInPath({ path, obj: data, value })
+    }
   })
+
   return data
 }
 
@@ -37,8 +37,16 @@ export const getTableDataLastApproved = async (
   props: Props,
   client: BaseProtocol = DB
 ): Promise<RecordAssessmentData> => {
-  const { assessment, countryISOs, cycle, info, tableNames } = props
-  const { prevCycle, lastAccepted } = info ?? {}
+  const { assessment, countryISOs, cycle, tableNames } = props
+  const [countryIso] = countryISOs
+
+  const info = await getInfo({ assessment, cycle, countryIso })
+
+  if (Objects.isNil(info)) {
+    return _withDefaults({ ...props, data: {} })
+  }
+
+  const { prevCycle, lastAccepted } = info
   const prevCycleName = prevCycle?.name
 
   const hasPrevCycle = !Objects.isNil(prevCycle)
@@ -60,6 +68,7 @@ export const getTableDataLastApproved = async (
     }
   }
 
+  // Set the data to current cycle
   if (!Objects.isEmpty(data)) {
     const { name: assessmentName } = assessment.props
     const cycleName = prevCycleName
