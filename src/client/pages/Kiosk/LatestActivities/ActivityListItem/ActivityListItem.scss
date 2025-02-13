@@ -45,8 +45,10 @@
   border-radius: 10px;
   display: flex;
   font-size: min(0.89dvw, 1.5dvh);
-  height: 4dvh;
   justify-content: center;
+  line-height: unset;
+  min-height: 4dvh;
+  padding: min(0.6dvw, 0.85dvh);
   width: 75%;
 
   &:hover {
