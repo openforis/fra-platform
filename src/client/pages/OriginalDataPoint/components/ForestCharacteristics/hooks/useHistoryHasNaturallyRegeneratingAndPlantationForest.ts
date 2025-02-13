@@ -5,8 +5,8 @@ import { Objects } from 'utils/objects'
 
 import { ODPs } from 'meta/assessment'
 
-import { useHistoryLastApprovedIsActive } from 'client/store/data'
 import { useLastApprovedOriginalDataPoint } from 'client/store/data/hooks/useLastApprovedOriginalDataPoint'
+import { useODPDisplayHistory } from 'client/pages/OriginalDataPoint/components/hooks/useODPDisplayHistory'
 
 type Returned = {
   historyHasNaturallyRegeneratingForest: boolean
@@ -15,12 +15,12 @@ type Returned = {
 
 export const useHistoryHasNaturallyRegeneratingAndPlantationForest = (): Returned => {
   const originalDataPointHistory = useLastApprovedOriginalDataPoint()
-  const historyLastApprovedIsActive = useHistoryLastApprovedIsActive()
+  const displayHistory = useODPDisplayHistory()
 
   return useMemo<Returned>(() => {
     const canCalculate = !Objects.isEmpty(originalDataPointHistory)
 
-    if (!historyLastApprovedIsActive || !canCalculate) {
+    if (!displayHistory || !canCalculate) {
       return {
         historyHasNaturallyRegeneratingForest: false,
         historyHasPlantationForest: false,
@@ -46,5 +46,5 @@ export const useHistoryHasNaturallyRegeneratingAndPlantationForest = (): Returne
       historyHasNaturallyRegeneratingForest,
       historyHasPlantationForest,
     }
-  }, [historyLastApprovedIsActive, originalDataPointHistory])
+  }, [displayHistory, originalDataPointHistory])
 }
