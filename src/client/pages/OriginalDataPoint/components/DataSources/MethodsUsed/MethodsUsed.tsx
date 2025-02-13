@@ -4,9 +4,9 @@ import { useTranslation } from 'react-i18next'
 import { ODPDataSourceMethod, OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { Topics } from 'meta/messageCenter'
 
-import { useHistoryLastApprovedIsActive } from 'client/store/data'
 import { DataCell, DataRow, DataRowAction, DataRowActionType } from 'client/components/DataGrid'
 import Select, { Option } from 'client/components/Inputs/Select'
+import { useODPDisplayHistory } from 'client/pages/OriginalDataPoint/components/hooks/useODPDisplayHistory'
 import ODPDiffText from 'client/pages/OriginalDataPoint/components/ODPDiffText/ODPDiffText'
 import { useShowReviewIndicator } from 'client/pages/OriginalDataPoint/hooks/useShowReviewIndicator'
 
@@ -26,7 +26,7 @@ const MethodsUsed: React.FC<Props> = (props: Props) => {
   const reviewIndicator = useShowReviewIndicator()
   const disabled = useIsDisabled()
   const updateOriginalDataPoint = useUpdateDataSources()
-  const historyLastApprovedIsActive = useHistoryLastApprovedIsActive()
+  const displayHistory = useODPDisplayHistory()
 
   const options = useMemo<Array<Option>>(
     () =>
@@ -61,7 +61,7 @@ const MethodsUsed: React.FC<Props> = (props: Props) => {
     <DataRow actions={actions}>
       <DataCell header>{t('nationalDataPoint.methodsUsed')}</DataCell>
       <DataCell lastCol>
-        {historyLastApprovedIsActive ? (
+        {displayHistory ? (
           <ODPDiffText
             className="input-text disabled"
             originalDataPoint={originalDataPoint}

@@ -6,9 +6,9 @@ import { Objects } from 'utils/objects'
 import { OriginalDataPoint } from 'meta/assessment'
 import { Topics } from 'meta/messageCenter'
 
-import { useHistoryLastApprovedIsActive } from 'client/store/data'
 import { DataCell, DataRow, DataRowAction, DataRowActionType } from 'client/components/DataGrid'
 import { EditorWYSIWYGLinks } from 'client/components/EditorWYSIWYG'
+import { useODPDisplayHistory } from 'client/pages/OriginalDataPoint/components/hooks/useODPDisplayHistory'
 import ODPDiffText from 'client/pages/OriginalDataPoint/components/ODPDiffText/ODPDiffText'
 import { useShowReviewIndicator } from 'client/pages/OriginalDataPoint/hooks/useShowReviewIndicator'
 
@@ -27,7 +27,7 @@ const References: React.FC<Props> = (props: Props) => {
 
   const reviewIndicator = useShowReviewIndicator()
   const disabled = useIsDisabled()
-  const historyLastApprovedIsActive = useHistoryLastApprovedIsActive()
+  const displayHistory = useODPDisplayHistory()
 
   const updateOriginalDataPoint = useUpdateDataSources()
 
@@ -56,7 +56,7 @@ const References: React.FC<Props> = (props: Props) => {
     <DataRow actions={actions}>
       <DataCell header>{t('nationalDataPoint.references')}</DataCell>
       <DataCell lastCol>
-        {historyLastApprovedIsActive ? (
+        {displayHistory ? (
           <ODPDiffText
             className="input-text disabled"
             originalDataPoint={originalDataPoint}

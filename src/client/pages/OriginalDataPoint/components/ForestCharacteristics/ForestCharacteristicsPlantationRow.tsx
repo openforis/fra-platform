@@ -8,11 +8,11 @@ import { ODPNationalClass, ODPs, SectionNames } from 'meta/assessment'
 import { Topics } from 'meta/messageCenter'
 import { TooltipId } from 'meta/tooltip'
 
-import { useHistoryLastApprovedIsActive } from 'client/store/data'
 import { useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
 import DiffText from 'client/components/DiffText'
 import PercentInput from 'client/components/PercentInput'
 import ReviewIndicator from 'client/components/ReviewIndicator'
+import { useODPDisplayHistory } from 'client/pages/OriginalDataPoint/components/hooks/useODPDisplayHistory'
 import { Columns, useOnPaste } from 'client/pages/OriginalDataPoint/components/hooks/useOnPaste'
 import { useUpdateOriginalData } from 'client/pages/OriginalDataPoint/components/hooks/useUpdateOriginalData'
 import { useUpdateOriginalDataField } from 'client/pages/OriginalDataPoint/components/hooks/useUpdateOriginalDataField'
@@ -46,14 +46,14 @@ const ForestCharacteristicsPlantationRow: React.FC<Props> = (props) => {
 
   const plantationIntroduced = ODPs.calculateNationalClassPlantationForestPercentArea(nationalClass)
 
-  const historyLastApprovedIsActive = useHistoryLastApprovedIsActive()
+  const displayHistory = useODPDisplayHistory()
 
   let validationErrorMessage = useNationalClassValidations({
     index,
     originalDataPoint,
     variable: 'validForestPlantationIntroducedPercent',
   })
-  validationErrorMessage = historyLastApprovedIsActive ? null : validationErrorMessage
+  validationErrorMessage = displayHistory ? null : validationErrorMessage
 
   const _onPaste = useOnPaste({
     columns,
@@ -80,7 +80,7 @@ const ForestCharacteristicsPlantationRow: React.FC<Props> = (props) => {
     <tr className={classNameRowComments}>
       <th className="fra-table__category-cell">{name}</th>
       <th className="fra-table__calculated-sub-cell fra-table__divider">
-        {historyLastApprovedIsActive ? (
+        {displayHistory ? (
           <DiffText changes={changes?.plantationIntroducedArea} />
         ) : (
           Numbers.format(plantationIntroduced)
@@ -93,7 +93,7 @@ const ForestCharacteristicsPlantationRow: React.FC<Props> = (props) => {
         data-tooltip-content={validationErrorMessage}
         data-tooltip-id={TooltipId.error}
       >
-        {historyLastApprovedIsActive ? (
+        {displayHistory ? (
           <div className="odp-percent-diff">
             <DiffText changes={changes?.forestPlantationIntroducedPercent} />
             <span>%</span>

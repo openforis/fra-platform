@@ -7,10 +7,10 @@ import { ODPNationalClass, ODPs, OriginalDataPoint, SectionNames } from 'meta/as
 import { Topics } from 'meta/messageCenter'
 import { TooltipId } from 'meta/tooltip'
 
-import { useHistoryLastApprovedIsActive } from 'client/store/data'
 import DiffText from 'client/components/DiffText'
 import PercentInput from 'client/components/PercentInput'
 import ReviewIndicator from 'client/components/ReviewIndicator'
+import { useODPDisplayHistory } from 'client/pages/OriginalDataPoint/components/hooks/useODPDisplayHistory'
 import { Columns, useOnPaste } from 'client/pages/OriginalDataPoint/components/hooks/useOnPaste'
 import { useUpdateOriginalData } from 'client/pages/OriginalDataPoint/components/hooks/useUpdateOriginalData'
 import { useUpdateOriginalDataField } from 'client/pages/OriginalDataPoint/components/hooks/useUpdateOriginalDataField'
@@ -54,14 +54,14 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
   const updateOriginalDataField = useUpdateOriginalDataField()
   const updateOriginalData = useUpdateOriginalData()
 
-  const historyLastApprovedIsActive = useHistoryLastApprovedIsActive()
+  const displayHistory = useODPDisplayHistory()
 
   let validationErrorMessage = useNationalClassValidations({
     index,
     originalDataPoint,
     variable: 'validForestCharacteristicsPercentage',
   })
-  validationErrorMessage = historyLastApprovedIsActive ? null : validationErrorMessage
+  validationErrorMessage = displayHistory ? null : validationErrorMessage
 
   const nationalClassForestArea = ODPs.calculateNationalClassForestArea(nationalClass)
   const nationalClassForestAreaChange = useNationalClassForestAreaChange({
@@ -78,7 +78,7 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
   return (
     <tr className={classNameRowComments}>
       <th className="fra-table__category-cell">
-        {historyLastApprovedIsActive ? (
+        {displayHistory ? (
           <ODPDiffText originalDataPoint={originalDataPoint} path={['nationalClasses', index, 'name']} />
         ) : (
           name
@@ -86,7 +86,7 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
       </th>
 
       <th className="fra-table__calculated-sub-cell fra-table__divider">
-        {historyLastApprovedIsActive ? <DiffText changes={nationalClassForestAreaChange} /> : nationalClassForestArea}
+        {displayHistory ? <DiffText changes={nationalClassForestAreaChange} /> : nationalClassForestArea}
       </th>
 
       <td
@@ -96,7 +96,7 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
         data-tooltip-content={validationErrorMessage}
         data-tooltip-id={TooltipId.error}
       >
-        {historyLastApprovedIsActive ? (
+        {displayHistory ? (
           <div className="odp-percent-diff">
             <ODPDiffText
               format="percent"
@@ -129,7 +129,7 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
         data-tooltip-content={validationErrorMessage}
         data-tooltip-id={TooltipId.error}
       >
-        {historyLastApprovedIsActive ? (
+        {displayHistory ? (
           <div className="odp-percent-diff">
             <ODPDiffText
               format="percent"
@@ -162,7 +162,7 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
         data-tooltip-content={validationErrorMessage}
         data-tooltip-id={TooltipId.error}
       >
-        {historyLastApprovedIsActive ? (
+        {displayHistory ? (
           <div className="odp-percent-diff">
             <ODPDiffText
               format="percent"

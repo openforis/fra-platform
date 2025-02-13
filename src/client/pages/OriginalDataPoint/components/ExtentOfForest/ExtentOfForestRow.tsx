@@ -9,11 +9,11 @@ import { Topics } from 'meta/messageCenter'
 import { TooltipId } from 'meta/tooltip'
 
 import { useCycle } from 'client/store/assessment'
-import { useHistoryLastApprovedIsActive } from 'client/store/data'
 import DiffText from 'client/components/DiffText'
 import PercentInput from 'client/components/PercentInput'
 import ReviewIndicator from 'client/components/ReviewIndicator'
 import ThousandSeparatedDecimalInput from 'client/components/ThousandSeparatedDecimalInput'
+import { useODPDisplayHistory } from 'client/pages/OriginalDataPoint/components/hooks/useODPDisplayHistory'
 import { Columns, useOnPaste } from 'client/pages/OriginalDataPoint/components/hooks/useOnPaste'
 import { useUpdateOriginalData } from 'client/pages/OriginalDataPoint/components/hooks/useUpdateOriginalData'
 import { useUpdateOriginalDataField } from 'client/pages/OriginalDataPoint/components/hooks/useUpdateOriginalDataField'
@@ -49,7 +49,7 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
   const target = [originalDataPoint.id, 'class', `${uuid}`, 'value'] as string[]
   const classNameRowComments = useNationalClassNameComments(target)
 
-  const historyLastApprovedIsActive = useHistoryLastApprovedIsActive()
+  const displayHistory = useODPDisplayHistory()
 
   let validationErrorMessage = useNationalClassValidations({
     index,
@@ -57,7 +57,7 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
     variable: 'validExtentOfForestPercentage',
   })
 
-  validationErrorMessage = historyLastApprovedIsActive ? null : validationErrorMessage
+  validationErrorMessage = displayHistory ? null : validationErrorMessage
 
   const otherLandPercent = ODPs.calculateNationalClassOtherLandPercent(nationalClass)
 
@@ -75,7 +75,7 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
   return (
     <tr className={classNameRowComments}>
       <th className="fra-table__category-cell">
-        {historyLastApprovedIsActive ? (
+        {displayHistory ? (
           <ODPDiffText originalDataPoint={originalDataPoint} path={['nationalClasses', index, 'name']} />
         ) : (
           name
@@ -86,7 +86,7 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
           error: !nationalClassValidation.validArea,
         })}
       >
-        {historyLastApprovedIsActive ? (
+        {displayHistory ? (
           <ODPDiffText
             className="odp-data-input-diff"
             format="decimal"
@@ -117,7 +117,7 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
         data-tooltip-content={validationErrorMessage}
         data-tooltip-id={TooltipId.error}
       >
-        {historyLastApprovedIsActive ? (
+        {displayHistory ? (
           <div className="odp-percent-diff">
             <ODPDiffText
               format="percent"
@@ -148,7 +148,7 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
         data-tooltip-content={validationErrorMessage}
         data-tooltip-id={TooltipId.error}
       >
-        {historyLastApprovedIsActive ? (
+        {displayHistory ? (
           <div className="odp-percent-diff">
             <ODPDiffText
               format="percent"
@@ -175,7 +175,7 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
       </td>
 
       <td className="fra-table__calculated-cell">
-        {historyLastApprovedIsActive ? (
+        {displayHistory ? (
           <div className="odp-calculated-percent-diff">
             <DiffText changes={otherLandPercentChange} />
             <span>%</span>

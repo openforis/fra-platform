@@ -3,11 +3,11 @@ import { useTranslation } from 'react-i18next'
 
 import { ODPs, OriginalDataPoint } from 'meta/assessment'
 
-import { useHistoryLastApprovedIsActive } from 'client/store/data'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { DataCell, DataRow } from 'client/components/DataGrid'
 import InputText from 'client/components/Inputs/InputText'
 import TextArea from 'client/components/Inputs/TextArea'
+import { useODPDisplayHistory } from 'client/pages/OriginalDataPoint/components/hooks/useODPDisplayHistory'
 import ODPDiffText from 'client/pages/OriginalDataPoint/components/ODPDiffText/ODPDiffText'
 // import { useNationalClassNameComments } from 'client/pages/OriginalDataPoint/hooks'
 import { useIsEditODPEnabled } from 'client/pages/OriginalDataPoint/hooks/useIsEditODPEnabled'
@@ -33,7 +33,7 @@ const NationalClass: React.FC<Props> = (props) => {
   const actions = useRowActions({ canEdit: canEditData && !placeHolder, index, originalDataPoint })
   const { onChangeDefinition, onChangeName, onPasteDefinition, onPasteName } = useOnChangeNationalClass({ index })
 
-  const historyLastApprovedIsActive = useHistoryLastApprovedIsActive()
+  const displayHistory = useODPDisplayHistory()
 
   const lastRow = canEditData && !print ? placeHolder : index === nationalClasses.length - (print ? 1 : 2)
   // TODO next pr
@@ -50,7 +50,7 @@ const NationalClass: React.FC<Props> = (props) => {
   return (
     <DataRow actions={actions}>
       <DataCell error={error} lastRow={lastRow}>
-        {historyLastApprovedIsActive ? (
+        {displayHistory ? (
           <ODPDiffText
             className="input-text disabled"
             originalDataPoint={originalDataPoint}
@@ -68,7 +68,7 @@ const NationalClass: React.FC<Props> = (props) => {
       </DataCell>
 
       <DataCell lastCol lastRow={lastRow}>
-        {historyLastApprovedIsActive ? (
+        {displayHistory ? (
           <ODPDiffText
             className="input-text disabled"
             originalDataPoint={originalDataPoint}
