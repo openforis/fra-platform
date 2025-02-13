@@ -8,8 +8,8 @@ import { Objects } from 'utils/objects'
 
 import { ODPs } from 'meta/assessment'
 
-import { useHistoryLastApprovedIsActive } from 'client/store/data'
 import { useLastApprovedOriginalDataPoint } from 'client/store/data/hooks/useLastApprovedOriginalDataPoint'
+import { useODPDisplayHistory } from 'client/pages/OriginalDataPoint/components/hooks/useODPDisplayHistory'
 
 type Props = {
   forestNaturalForestOfWhichPrimaryForestPercent?: string
@@ -30,11 +30,11 @@ export const useNaturalForestPercentAndAreaChange = (props: Props): Returned => 
   } = props
 
   const originalDataPointHistory = useLastApprovedOriginalDataPoint()
-  const historyLastApprovedIsActive = useHistoryLastApprovedIsActive()
+  const displayHistory = useODPDisplayHistory()
   const nationalClass = originalDataPointHistory?.nationalClasses?.[nationalClassIndex]
 
   return useMemo<Returned>(() => {
-    if (!historyLastApprovedIsActive) return undefined
+    if (!displayHistory) return undefined
 
     const canCalculate = !Objects.isEmpty(nationalClass)
 
@@ -75,8 +75,8 @@ export const useNaturalForestPercentAndAreaChange = (props: Props): Returned => 
       naturalForestPercentArea,
     }
   }, [
+    displayHistory,
     forestNaturalForestOfWhichPrimaryForestPercentCurrent,
-    historyLastApprovedIsActive,
     nationalClass,
     naturalForestPercentAreaCurrent,
   ])

@@ -4,8 +4,8 @@ import * as Diff from 'diff'
 import { Change } from 'diff'
 import { Numbers } from 'utils/numbers'
 
-import { useHistoryLastApprovedIsActive } from 'client/store/data'
 import { useLastApprovedOriginalDataPoint } from 'client/store/data/hooks/useLastApprovedOriginalDataPoint'
+import { useODPDisplayHistory } from 'client/pages/OriginalDataPoint/components/hooks/useODPDisplayHistory'
 
 type Props = {
   primaryForestPercent?: string
@@ -17,10 +17,10 @@ export const usePrimaryForestPercentChange = (props: Props): Returned => {
   const { primaryForestPercent: primaryForestPercentCurrent } = props
 
   const originalDataPointHistory = useLastApprovedOriginalDataPoint()
-  const historyLastApprovedIsActive = useHistoryLastApprovedIsActive()
+  const displayHistory = useODPDisplayHistory()
 
   return useMemo<Returned>(() => {
-    if (!historyLastApprovedIsActive) return undefined
+    if (!displayHistory) return undefined
 
     const formattedPrimaryForestTotalPercentPrev = Numbers.toFixed(
       originalDataPointHistory?.values?.primaryForestPercent ?? '',
@@ -28,5 +28,5 @@ export const usePrimaryForestPercentChange = (props: Props): Returned => {
     )
     const formattedPrimaryForestPercentCurrent = Numbers.toFixed(primaryForestPercentCurrent ?? '', 3)
     return Diff.diffLines(formattedPrimaryForestTotalPercentPrev ?? '', formattedPrimaryForestPercentCurrent ?? '')
-  }, [historyLastApprovedIsActive, originalDataPointHistory, primaryForestPercentCurrent])
+  }, [displayHistory, originalDataPointHistory, primaryForestPercentCurrent])
 }

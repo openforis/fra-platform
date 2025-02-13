@@ -4,10 +4,10 @@ import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
 import { Numbers } from 'utils/numbers'
 
-import { useHistoryLastApprovedIsActive } from 'client/store/data'
 import { useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
 import DiffText from 'client/components/DiffText'
 import PercentInput from 'client/components/PercentInput'
+import { useODPDisplayHistory } from 'client/pages/OriginalDataPoint/components/hooks/useODPDisplayHistory'
 
 import { usePrimaryForestPercentChange } from './hooks/usePrimaryForestPercentChange'
 import { useShouldUseTotal } from './hooks/useShouldUseTotal'
@@ -26,7 +26,7 @@ const PrimaryForestPercent: React.FC<Props> = (props) => {
 
   const field = 'primaryForestPercent'
 
-  const historyLastApprovedIsActive = useHistoryLastApprovedIsActive()
+  const displayHistory = useODPDisplayHistory()
 
   const primaryForestPercentChange = usePrimaryForestPercentChange({
     primaryForestPercent: originalDataPoint?.values?.primaryForestPercent,
@@ -39,11 +39,11 @@ const PrimaryForestPercent: React.FC<Props> = (props) => {
       </th>
       <td
         className={classNames({
-          'fra-table__calculated-cell': !useTotal && !historyLastApprovedIsActive,
-          'fra-table__cell': useTotal || historyLastApprovedIsActive,
+          'fra-table__calculated-cell': !useTotal && !displayHistory,
+          'fra-table__cell': useTotal || displayHistory,
         })}
       >
-        {historyLastApprovedIsActive ? (
+        {displayHistory ? (
           <div className="odp-percent-diff">
             <DiffText changes={primaryForestPercentChange} />
             <span>%</span>

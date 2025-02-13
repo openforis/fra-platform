@@ -7,8 +7,8 @@ import { Objects } from 'utils/objects'
 
 import { ODPs } from 'meta/assessment'
 
-import { useHistoryLastApprovedIsActive } from 'client/store/data'
 import { useLastApprovedOriginalDataPoint } from 'client/store/data/hooks/useLastApprovedOriginalDataPoint'
+import { useODPDisplayHistory } from 'client/pages/OriginalDataPoint/components/hooks/useODPDisplayHistory'
 
 type Props = {
   totalArea: string | null
@@ -32,10 +32,10 @@ export const useTotalsChange = (props: Props): Returned => {
   } = props
 
   const originalDataPointHistory = useLastApprovedOriginalDataPoint()
-  const historyLastApprovedIsActive = useHistoryLastApprovedIsActive()
+  const displayHistory = useODPDisplayHistory()
 
   return useMemo<Returned>(() => {
-    if (!historyLastApprovedIsActive) return undefined
+    if (!displayHistory) return undefined
 
     const canCalculate = !Objects.isEmpty(originalDataPointHistory)
 
@@ -66,7 +66,7 @@ export const useTotalsChange = (props: Props): Returned => {
 
     return { totalArea, totalForestPercentArea, totalLandArea, totalOtherWoodedLandPercentArea }
   }, [
-    historyLastApprovedIsActive,
+    displayHistory,
     originalDataPointHistory,
     totalAreaCurrent,
     totalForestPercentAreaCurrent,

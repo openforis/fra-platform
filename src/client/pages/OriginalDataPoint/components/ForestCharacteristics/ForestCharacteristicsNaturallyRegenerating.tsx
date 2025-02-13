@@ -5,9 +5,9 @@ import { Numbers } from 'utils/numbers'
 
 import { ODPs } from 'meta/assessment'
 
-import { useHistoryLastApprovedIsActive } from 'client/store/data'
 import { useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
 import DiffText from 'client/components/DiffText'
+import { useODPDisplayHistory } from 'client/pages/OriginalDataPoint/components/hooks/useODPDisplayHistory'
 
 import { useNaturalForestPercentAndAreaTotalsChange } from './hooks/useNaturalForestPercentAndAreaTotalsChange'
 import ForestCharacteristicsNaturallyRegeneratingRow from './ForestCharacteristicsNaturallyRegeneratingRow'
@@ -38,7 +38,7 @@ const ForestCharacteristicsNaturallyRegenerating: React.FC<Props> = (props) => {
     originalDataPoint?.values.primaryForest &&
     Numbers.format(Numbers.toBigNumber(originalDataPoint.values.primaryForest))
 
-  const historyLastApprovedIsActive = useHistoryLastApprovedIsActive()
+  const displayHistory = useODPDisplayHistory()
 
   const totalsChange = useNaturalForestPercentAndAreaTotalsChange({
     totalForestNaturalPercentArea,
@@ -74,14 +74,14 @@ const ForestCharacteristicsNaturallyRegenerating: React.FC<Props> = (props) => {
             <tr>
               <th className="fra-table__header-cell-left">{t('nationalDataPoint.total')}</th>
               <th className="fra-table__calculated-cell fra-table__divider">
-                {historyLastApprovedIsActive ? (
+                {displayHistory ? (
                   <DiffText changes={totalsChange?.forestNaturalPercentArea} />
                 ) : (
                   totalForestNaturalPercentArea
                 )}
               </th>
               <td className="fra-table__calculated-cell">
-                {historyLastApprovedIsActive ? (
+                {displayHistory ? (
                   <DiffText changes={totalsChange?.primaryForestNaturalPercentArea} />
                 ) : (
                   totalPrimaryForestNaturalPercentArea

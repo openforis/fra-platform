@@ -4,9 +4,9 @@ import { useTranslation } from 'react-i18next'
 import { OriginalDataPoint } from 'meta/assessment'
 import { Topics } from 'meta/messageCenter'
 
-import { useHistoryLastApprovedIsActive } from 'client/store/data'
 import { DataCell, DataRow, DataRowAction, DataRowActionType } from 'client/components/DataGrid'
 import TextArea from 'client/components/Inputs/TextArea'
+import { useODPDisplayHistory } from 'client/pages/OriginalDataPoint/components/hooks/useODPDisplayHistory'
 import ODPDiffText from 'client/pages/OriginalDataPoint/components/ODPDiffText/ODPDiffText'
 import { useShowReviewIndicator } from 'client/pages/OriginalDataPoint/hooks/useShowReviewIndicator'
 
@@ -25,7 +25,7 @@ const AdditionalComments: React.FC<Props> = (props: Props) => {
   const disabled = useIsDisabled()
   const updateOriginalDataPoint = useUpdateDataSources()
 
-  const historyLastApprovedIsActive = useHistoryLastApprovedIsActive()
+  const displayHistory = useODPDisplayHistory()
 
   const onChange = useCallback<ChangeEventHandler<HTMLTextAreaElement>>(
     (event) => {
@@ -62,7 +62,7 @@ const AdditionalComments: React.FC<Props> = (props: Props) => {
         {t('nationalDataPoint.additionalComments')}
       </DataCell>
       <DataCell lastCol lastRow>
-        {historyLastApprovedIsActive ? (
+        {displayHistory ? (
           <ODPDiffText
             className="input-text disabled"
             originalDataPoint={originalDataPoint}

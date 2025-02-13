@@ -5,12 +5,12 @@ import { Numbers } from 'utils/numbers'
 
 import { ODPs, OriginalDataPoint } from 'meta/assessment'
 
-import { useHistoryLastApprovedIsActive } from 'client/store/data'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { useCycleRouteParams } from 'client/hooks/useRouteParams'
 import ButtonTableExport from 'client/components/ButtonTableExport'
 import DefinitionLink from 'client/components/DefinitionLink'
 import DiffText from 'client/components/DiffText'
+import { useODPDisplayHistory } from 'client/pages/OriginalDataPoint/components/hooks/useODPDisplayHistory'
 
 import { useForestCharacteristicsTotalsChange } from './hooks/useForestCharacteristicsTotalsChange'
 import { useHistoryHasNaturallyRegeneratingAndPlantationForest } from './hooks/useHistoryHasNaturallyRegeneratingAndPlantationForest'
@@ -57,7 +57,7 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
     })
   )
 
-  const historyLastApprovedIsActive = useHistoryLastApprovedIsActive()
+  const displayHistory = useODPDisplayHistory()
 
   const totalsChange = useForestCharacteristicsTotalsChange({
     totalForestNaturalPercentArea,
@@ -150,28 +150,28 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
               <tr>
                 <th className="fra-table__header-cell-left">{t('nationalDataPoint.total')}</th>
                 <th className="fra-table__calculated-cell fra-table__divider">
-                  {historyLastApprovedIsActive ? (
+                  {displayHistory ? (
                     <DiffText changes={totalsChange?.totalForestPercentArea} />
                   ) : (
                     totalForestPercentArea
                   )}
                 </th>
                 <td className="fra-table__calculated-cell">
-                  {historyLastApprovedIsActive ? (
+                  {displayHistory ? (
                     <DiffText changes={totalsChange?.totalForestNaturalPercentArea} />
                   ) : (
                     totalForestNaturalPercentArea
                   )}
                 </td>
                 <td className="fra-table__calculated-cell">
-                  {historyLastApprovedIsActive ? (
+                  {displayHistory ? (
                     <DiffText changes={totalsChange?.totalForestPlantationPercentArea} />
                   ) : (
                     totalForestPlantationPercentArea
                   )}
                 </td>
                 <td className="fra-table__calculated-cell">
-                  {historyLastApprovedIsActive ? (
+                  {displayHistory ? (
                     <DiffText changes={totalsChange?.totalOtherPlantedForestPercentArea} />
                   ) : (
                     totalOtherPlantedForestPercentArea
