@@ -13,6 +13,7 @@ import DefinitionLink from 'client/components/DefinitionLink'
 import DiffText from 'client/components/DiffText'
 
 import { useForestCharacteristicsTotalsChange } from './hooks/useForestCharacteristicsTotalsChange'
+import { useHistoryHasNaturallyRegeneratingAndPlantationForest } from './hooks/useHistoryHasNaturallyRegeneratingAndPlantationForest'
 import ForestCharacteristicsNaturallyRegenerating from './ForestCharacteristicsNaturallyRegenerating'
 import ForestCharacteristicsPlantation from './ForestCharacteristicsPlantation'
 import ForestCharacteristicsRow from './ForestCharacteristicsRow'
@@ -65,6 +66,9 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
     totalOtherPlantedForestPercentArea,
   })
 
+  const { historyHasNaturallyRegeneratingForest, historyHasPlantationForest } =
+    useHistoryHasNaturallyRegeneratingAndPlantationForest()
+
   const nationalClasses = originalDataPoint.nationalClasses.filter((nationalClass) => !nationalClass.placeHolder)
   const plantationTotal = ODPs.calcTotalSubFieldArea({
     originalDataPoint,
@@ -77,7 +81,7 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
     subField: 'forestNaturalPercent',
   })
 
-  const hasPlantation = plantationTotal && Numbers.greaterThanOrEqualTo(plantationTotal, 0)
+  const hasPlantationForest = plantationTotal && Numbers.greaterThanOrEqualTo(plantationTotal, 0)
   //  naturally regenerating forest is not available in Cycle 2020
   const hasNaturallyRegeneratingForest =
     cycleName !== '2020' &&
@@ -178,8 +182,12 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
           </table>
         </div>
       </div>
-      {hasNaturallyRegeneratingForest && <ForestCharacteristicsNaturallyRegenerating canEditData={canEditData} />}
-      {hasPlantation && <ForestCharacteristicsPlantation canEditData={canEditData} />}
+      {(hasNaturallyRegeneratingForest || historyHasNaturallyRegeneratingForest) && (
+        <ForestCharacteristicsNaturallyRegenerating canEditData={canEditData} />
+      )}
+      {(hasPlantationForest || historyHasPlantationForest) && (
+        <ForestCharacteristicsPlantation canEditData={canEditData} />
+      )}
     </div>
   )
 }
