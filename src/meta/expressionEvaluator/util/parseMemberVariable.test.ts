@@ -210,11 +210,10 @@ describe('parseMemberVariable', () => {
     expect(parseMemberVariable(memberExpression, context)).toEqual(expected)
   })
 
-  test('fra[$prevCycle].extentOfForest.forestArea', () => {
+  test('fra[$prevCycle].extentOfForest.forestArea["2025"]', () => {
     const expected = {
       assessmentName: 'fra',
-      // @ts-ignore
-      colName: undefined,
+      colName: '2025',
       cycleName: '2020',
       tableName: 'extentOfForest',
       variableName: 'forestArea',
@@ -223,33 +222,42 @@ describe('parseMemberVariable', () => {
     const memberExpression: MemberExpression = {
       // @ts-ignore
       type: 'MemberExpression',
-      computed: false,
+      computed: true,
       object: {
         // @ts-ignore
         type: 'MemberExpression',
         computed: false,
         object: {
           type: 'MemberExpression',
-          computed: true,
+          computed: false,
           object: {
-            type: 'Identifier',
-            name: 'fra',
+            type: 'MemberExpression',
+            computed: true,
+            object: {
+              type: 'Identifier',
+              name: 'fra',
+            },
+            property: {
+              type: 'Literal',
+              value: '$prevCycle',
+              raw: "'$prevCycle'",
+            },
           },
           property: {
-            type: 'Literal',
-            value: '$prevCycle',
-            raw: "'$prevCycle'",
+            type: 'Identifier',
+            name: 'extentOfForest',
           },
         },
         property: {
           type: 'Identifier',
-          name: 'extentOfForest',
+          name: 'forestArea',
         },
       },
       property: {
         // @ts-ignore
-        type: 'Identifier',
-        name: 'forestArea',
+        type: 'Literal',
+        value: '2025',
+        raw: "'2025'",
       },
     }
 
