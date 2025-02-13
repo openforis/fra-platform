@@ -1,28 +1,58 @@
 import { Objects } from 'utils/objects'
 
-import { RecordAssessmentData } from 'meta/data'
+import { RecordAssessmentData, RecordAssessmentDatas } from 'meta/data'
 
+import { getInfo } from 'server/controller/cycleData/history/lastApproved'
 import { mergeWithLastApproved } from 'server/controller/cycleData/tableData/_lastApproved/_lastApproved'
 import { BaseProtocol, DB } from 'server/db'
 
 import { getTableDataPrevCycle } from './_prevCycle'
 import { PropsGetLastApproved } from './_types'
 
+// Sets default values for tableData
+const _withDefaults = (props: PropsGetLastApproved & { data: RecordAssessmentData }) => {
+  const { assessment, countryISOs, cycle, tableNames, data } = props
+  const [countryIso] = countryISOs
+
+  const { name: assessmentName } = assessment.props
+  const { name: cycleName } = cycle
+
+  tableNames.forEach((tableName) => {
+    const tableData = RecordAssessmentDatas.getTableData({ assessmentName, cycleName, countryIso, tableName, data })
+    if (Objects.isEmpty(tableData)) {
+      const path = [assessmentName, cycleName, countryIso, tableName]
+      const value = {}
+      Objects.setInPath({ path, obj: data, value })
+    }
+  })
+
+  return data
+}
+
 export const getTableDataLastApproved = async (
   props: PropsGetLastApproved,
   client: BaseProtocol = DB
 ): Promise<RecordAssessmentData> => {
-  const { info } = props
+  const { assessment, cycle, countryISOs } = props
+  const [countryIso] = countryISOs
+
+  const info = await getInfo({ assessment, cycle, countryIso })
+
+  if (Objects.isNil(info)) {
+    return _withDefaults({ ...props, data: {} })
+  }
+
   const { lastAccepted } = info
 
   const hasLastAccepted = !Objects.isNil(lastAccepted)
 
   // when has last accepted, odp gets manually merged later in mergeWithLastApproved
-  const data = await getTableDataPrevCycle({ ...props, mergeOdp: !hasLastAccepted }, client)
+  const data = await getTableDataPrevCycle({ ...props, info, mergeOdp: !hasLastAccepted }, client)
 
   if (hasLastAccepted) {
-    return mergeWithLastApproved({ ...props, data }, client)
+    const _data = await mergeWithLastApproved({ ...props, data }, client)
+    return _withDefaults({ ...props, data: _data })
   }
 
-  return data
+  return _withDefaults({ ...props, data })
 }

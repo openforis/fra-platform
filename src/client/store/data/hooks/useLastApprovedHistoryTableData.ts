@@ -8,6 +8,7 @@ import { RecordAssessmentData, RecordAssessmentDatas } from 'meta/data'
 
 import { useAppSelector } from 'client/store'
 import { DataSelector } from 'client/store/data/selectors'
+import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 type PropsNodeValue = {
   assessmentName: AssessmentName
@@ -32,10 +33,12 @@ export const useLastApprovedHistoryNodeValue = (props: PropsNodeValue): NodeValu
   }, [assessmentName, colName, countryIso, cycleName, data, tableName, variableName])
 }
 
-export const useHistoryLastApprovedDataTableFetched = (): boolean => {
+export const useHistoryLastApprovedDataTableFetched = (tableName: TableName): boolean => {
+  const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
   const data = useLastApprovedHistoryTableData()
 
   return useMemo<boolean>(() => {
-    return !Objects.isNil(data)
-  }, [data])
+    const path = [assessmentName, cycleName, countryIso, tableName]
+    return !Objects.isNil(Objects.getInPath(data, path))
+  }, [assessmentName, countryIso, cycleName, data, tableName])
 }

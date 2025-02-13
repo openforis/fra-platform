@@ -85,7 +85,7 @@ const Cell: React.FC<Props> = (props) => {
   const disabled = disabledProps || !!nodeValue?.odpId || Cols.hasLinkedNodes({ col, cycle })
 
   const historyLastApprovedIsActive = useHistoryLastApprovedIsActive()
-  const historyLastApprovedDataTableFetched = useHistoryLastApprovedDataTableFetched()
+  const historyLastApprovedDataTableFetched = useHistoryLastApprovedDataTableFetched(table.props.name)
   const displayHistory = historyLastApprovedIsActive && historyLastApprovedDataTableFetched && !Cols.isPlaceholder(col)
 
   const Component = displayHistory ? History : Components[col.props.colType]

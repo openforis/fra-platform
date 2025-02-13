@@ -1,5 +1,4 @@
 import { Response } from 'express'
-import { Objects } from 'utils/objects'
 
 import { CycleDataRequest } from 'meta/api/request'
 
@@ -15,13 +14,9 @@ export const getTableDataHistory = async (req: GetTableDataRequest, res: Respons
   try {
     const { countryIso, assessmentName, cycleName, tableNames } = req.query
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
-    const info = await CycleDataController.History.LastApproved.getInfo({ assessment, cycle, countryIso })
 
-    let tableData = {}
-    if (!Objects.isNil(info)) {
-      const props = { assessment, cycle, info, countryISOs: [countryIso], tableNames }
-      tableData = await CycleDataController.TableData.getTableDataLastApproved(props)
-    }
+    const props = { assessment, cycle, countryISOs: [countryIso], tableNames }
+    const tableData = await CycleDataController.TableData.getTableDataLastApproved(props)
 
     Requests.send(res, tableData)
   } catch (e) {

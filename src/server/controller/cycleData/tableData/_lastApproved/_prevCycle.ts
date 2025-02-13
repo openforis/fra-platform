@@ -1,6 +1,7 @@
 import { Objects } from 'utils/objects'
 
 import { TableName } from 'meta/assessment'
+import { HistoryLastApprovedInfo } from 'meta/cycleData/historyLastApproved'
 import { RecordAssessmentData, RecordAssessmentDatas } from 'meta/data'
 
 import { getTableData } from 'server/controller/cycleData/getTableData'
@@ -10,7 +11,7 @@ import { TableRedisRepository } from 'server/repository/redis/table'
 
 import { PropsGetLastApproved } from './_types'
 
-type Props = PropsGetLastApproved & Pick<PropsGetTableData, 'mergeOdp'>
+type Props = PropsGetLastApproved & Pick<PropsGetTableData, 'mergeOdp'> & { info: HistoryLastApprovedInfo }
 
 export const getTableDataPrevCycle = async (props: Props, client: BaseProtocol = DB): Promise<RecordAssessmentData> => {
   const { assessment, cycle, countryISOs, info, mergeOdp, tableNames } = props
