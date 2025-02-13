@@ -1,6 +1,8 @@
 import { Assessment, Cycle } from 'meta/assessment'
 
 import { Schemas } from 'server/db'
+import { NodeExtQueries } from 'server/repository/assessmentCycle/nodeExt/queries'
+import { OriginalDataPointQueries } from 'server/repository/assessmentCycle/originalDataPoint/queries'
 
 export const getCreateSchemaDDL = (schemaName: string): string => {
   const query = `
@@ -301,25 +303,10 @@ export const getCreateSchemaCycleDDL = (assessmentSchemaName: string, assessment
 export const getCreateSchemaCycleOriginalDataPointViewDDL = (assessmentCycleSchemaName: string): string => {
   return `
       create or replace view ${assessmentCycleSchemaName}.original_data_point_data as
-      with total_land_area as (select country_iso,
-                                      r.props ->> 'variableName' as variable_name,
-                                      r.props ->> 'tableName'    as table_name,
-                                      r.props ->> 'colName'      as col_name,
-                                      r.value ->> 'raw'          as value
-                               from ${assessmentCycleSchemaName}.node_ext r
-                               where type = 'node'
-                                 and r.props ->> 'variableName' = 'totalLandArea'
-                                 and r.props ->> 'tableName' = 'extentOfForest'),
+      with total_land_area as (${NodeExtQueries.getTotalLandArea(assessmentCycleSchemaName)}),
            other_land as (select odp.country_iso,
                                  odp.year,
-                                 case
-                                     when (odp.values ->> 'forestArea')::numeric is not null or
-                                          (odp.values ->> 'otherWoodedLand')::numeric is not null then
-                                         (tla.value)::double precision -
-                                         coalesce((odp.values ->> 'forestArea')::numeric, 0)::double precision -
-                                         coalesce((odp.values ->> 'otherWoodedLand')::numeric, 0)::double precision
-                                     else null
-                                     end as other_land
+                                 ${OriginalDataPointQueries.getOtherLand(`odp.values`)}
                           from ${assessmentCycleSchemaName}.original_data_point odp
                                    left join total_land_area tla
                                              on odp.country_iso = tla.country_iso and odp.year::text = tla.col_name)
