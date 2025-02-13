@@ -23,7 +23,7 @@ const ActivityList: React.FC<Props> = (props: Props) => {
       <div className="kiosk-latest-activities__list-container">
         {activities?.map((activity) => (
           <ActivityListItem
-            key={activity.date}
+            key={activity.startDate}
             activity={activity}
             expanded={expandedActivity === activity.id}
             handleExpand={handleExpand}
