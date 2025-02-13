@@ -38,8 +38,7 @@ export const useHistoryLastApprovedDataTableFetched = (tableName: TableName): bo
   const data = useLastApprovedHistoryTableData()
 
   return useMemo<boolean>(() => {
-    return !Objects.isNil(
-      RecordAssessmentDatas.getTableData({ assessmentName, cycleName, countryIso, tableName, data })
-    )
+    const path = [assessmentName, cycleName, countryIso, tableName]
+    return !Objects.isNil(Objects.getInPath(data, path))
   }, [assessmentName, countryIso, cycleName, data, tableName])
 }
