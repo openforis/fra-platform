@@ -1,10 +1,13 @@
 import { Objects } from 'utils/objects'
 
+import { TableNames } from 'meta/assessment'
 import { RecordAssessmentData } from 'meta/data'
 
 import { BaseProtocol } from 'server/db'
 import { DataRepository } from 'server/repository/assessmentCycle/data'
 
+import { mergeOdpCountryData } from '../_mergeOdpCountryData'
+import { getTablesCondition } from '../_tablesCondition'
 import { PropsGetLastApproved } from './_types'
 
 type Props = PropsGetLastApproved & {
@@ -12,14 +15,19 @@ type Props = PropsGetLastApproved & {
 }
 
 export const mergeWithLastApproved = async (props: Props, client: BaseProtocol): Promise<RecordAssessmentData> => {
-  const { assessment, cycle, data } = props
+  const { assessment, cycle, countryISOs, data, tableNames } = props
   const { name: assessmentName } = assessment.props
   const { name: cycleName } = cycle
 
-  const countryData = await DataRepository.getTableDataLastApproved(props, client)
-  const lastApprovedData = { [assessmentName]: { [cycleName]: countryData } }
+  let dataLastApproved = await DataRepository.getTableDataLastApproved(props, client)
 
-  // TODO: merge with odp
+  const tables = getTablesCondition({ tableNames, mergeOdp: true })
+  if (tables[TableNames.originalDataPointValue]) {
+    const odpDataLastApproved = await DataRepository.getOriginalDataPointDataLastApproved(props, client)
+    dataLastApproved = Objects.merge(dataLastApproved, odpDataLastApproved)
 
-  return Objects.merge(data, lastApprovedData)
+    await mergeOdpCountryData({ assessment, cycle, countryISOs, data: dataLastApproved, tables }, client)
+  }
+
+  return Objects.merge(data, { [assessmentName]: { [cycleName]: dataLastApproved } })
 }
