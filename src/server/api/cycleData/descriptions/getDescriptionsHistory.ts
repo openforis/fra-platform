@@ -1,5 +1,4 @@
 import { Response } from 'express'
-import { Objects } from 'utils/objects'
 
 import { CycleDataRequest } from 'meta/api/request'
 import { CommentableDescriptionName } from 'meta/assessment'
@@ -14,13 +13,9 @@ export const getDescriptionsHistory = async (req: Request, res: Response) => {
   try {
     const { assessmentName, cycleName, countryIso, sectionName } = req.query
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
-    const info = await CycleDataController.History.LastApproved.getInfo({ assessment, cycle, countryIso })
 
-    let descriptions = {}
-    if (!Objects.isNil(info)) {
-      const props = { assessment, cycle, countryIso, sectionName, info }
-      descriptions = await CycleDataController.Description.getDescriptionsLastApproved(props)
-    }
+    const props = { assessment, cycle, countryIso, sectionName }
+    const descriptions = await CycleDataController.Description.getDescriptionsLastApproved(props)
 
     Requests.send(res, descriptions)
   } catch (e) {
