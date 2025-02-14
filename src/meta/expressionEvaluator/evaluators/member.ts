@@ -3,6 +3,7 @@ import { MemberEvaluator as ArenaMemberEvaluator } from '@openforis/arena-core/d
 
 import { AssessmentMetaCaches } from 'meta/assessment'
 import { RecordAssessmentDatas } from 'meta/data'
+import { BaseContext } from 'meta/expressionEvaluator/util/_types'
 import { parseMemberVariable } from 'meta/expressionEvaluator/util/parseMemberVariable'
 
 import { Context } from '../context'
@@ -10,6 +11,7 @@ import { Context } from '../context'
 export class MemberEvaluator extends ArenaMemberEvaluator<Context> {
   evaluate(expressionNode: MemberExpression): string | undefined {
     const {
+      assessments,
       assessment: assessmentContext,
       cycle: cycleContext,
       countryIso,
@@ -17,7 +19,13 @@ export class MemberEvaluator extends ArenaMemberEvaluator<Context> {
       data,
     } = this.context
 
-    const memberVariable = parseMemberVariable(expressionNode, this.context)
+    const baseContext: BaseContext = {
+      assessments,
+      assessmentName: assessmentContext.props.name,
+      cycleName: cycleContext.name,
+    }
+
+    const memberVariable = parseMemberVariable(expressionNode, baseContext)
     const memberAssessmentName = memberVariable.assessmentName
     const memberCycleName = memberVariable.cycleName
 
