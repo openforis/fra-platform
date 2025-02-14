@@ -68,7 +68,6 @@ export const parseMemberVariable = (expressionNode: MemberExpression, context: B
         colName: undefined,
         // @ts-ignore
         assessmentName: expressionNode.object.object.object.name,
-        // @ts-ignore
         cycleName,
       }
     }
@@ -88,7 +87,6 @@ export const parseMemberVariable = (expressionNode: MemberExpression, context: B
         colName: expressionNode.property.value ?? expressionNode.property.name,
         // @ts-ignore
         assessmentName: expressionNode.object.object.object.object.name,
-        // @ts-ignore
         cycleName,
       }
     }

@@ -94,10 +94,10 @@ const getLastCreatedCycle = (assessment: Assessment): Cycle | undefined => {
 }
 
 const getRecordAssessments = (assessments: Array<Assessment>): RecordAssessments => {
-  return assessments.reduce((acc, assessment) => {
+  return assessments.reduce<RecordAssessments>((acc, assessment) => {
     acc[assessment.props.name] = assessment
     return acc
-  }, {} as RecordAssessments)
+  }, {})
 }
 
 export const Assessments = {
