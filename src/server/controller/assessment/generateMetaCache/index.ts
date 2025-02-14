@@ -37,12 +37,12 @@ export const generateMetaCache = async (client: BaseProtocol = DB): Promise<void
   })
 
   // 2. generate assessments meta cache
+  const recordAssessments = Assessments.getRecordAssessments(assessments)
   assessments.forEach((assessment) => {
     const assessmentName = assessment.props.name
 
     assessment.cycles.forEach((cycle) => {
       rows[assessmentName].forEach((row) => {
-        const recordAssessments = Assessments.getRecordAssessments(assessments)
         const cycleName = cycle.name
         const context: Omit<Context, 'type'> = { assessments: recordAssessments, cycleName, assessmentName, row }
 
