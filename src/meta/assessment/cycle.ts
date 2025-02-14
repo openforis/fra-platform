@@ -16,12 +16,13 @@ export enum CycleStatus {
 export type CycleProps = {
   dateCreated: string
   dateDraft: string
-  dateEditing: string
-  datePublished: string
+  dateEditing?: string
+  datePublished?: string
   status: CycleStatus
 }
 
 export interface Cycle {
+  readonly assessmentId: number
   cycleUuidSource?: CycleUuid
   id: number
   name: CycleName
