@@ -1,8 +1,9 @@
 import { Objects } from 'utils/objects'
 import { Promises } from 'utils/promises'
 
-import { AssessmentMetaCache, AssessmentName, RowCache } from 'meta/assessment'
+import { AssessmentMetaCache, AssessmentName, Assessments, RowCache } from 'meta/assessment'
 
+import { Context } from 'server/controller/assessment/generateMetaCache/dependencyEvaluator/evalDependencies/context'
 import { BaseProtocol, DB } from 'server/db'
 import { AssessmentRepository } from 'server/repository/assessment/assessment'
 import { RowRepository } from 'server/repository/assessment/row'
@@ -43,7 +44,15 @@ export const generateMetaCache = async (client: BaseProtocol = DB): Promise<void
       const cycleName = cycle.name
 
       rows[assessmentName].forEach((row) => {
-        const context = { assessments, assessment, cycle, assessmentName, cycleName, row }
+        const recordAssessments = Assessments.getRecordAssessments(assessments)
+        const context: Omit<Context, 'type'> = {
+          assessments: recordAssessments,
+          assessment,
+          cycle,
+          assessmentName,
+          cycleName,
+          row,
+        }
 
         if (row.props.calculateFn?.[cycle.uuid]) {
           DependencyEvaluator.evalDependencies(row.props.calculateFn[cycle.uuid], { ...context, type: 'calculations' })
