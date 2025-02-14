@@ -6,6 +6,13 @@ import { Context } from '../context'
 
 type BaseContext = Pick<Context, 'assessment' | 'cycle'> & ExpressionContext
 
+const getCycleName = (cycleName: string, context: BaseContext) => {
+  if (cycleName === '$prevCycle') {
+    return Cycles.getPreviousCycle({ assessment: context.assessment, cycle: context.cycle }).name
+  }
+  return cycleName
+}
+
 const getExpressionDepth = (expressionNode: MemberExpression): number => {
   let depth = 0
   let currentExpressionNode = expressionNode
@@ -51,11 +58,8 @@ export const parseMemberVariable = (expressionNode: MemberExpression, context: B
     // Case when parsing a member expression: fra['2025'].extentOfForest.forestArea
     case 3: {
       // @ts-ignore
-      let cycleName = expressionNode.object.object.property.value
-      if (cycleName === '$prevCycle') {
-        const previousCycleName = Cycles.getPreviousCycle({ assessment: context.assessment, cycle: context.cycle }).name
-        cycleName = previousCycleName
-      }
+      const cycleName = getCycleName(expressionNode.object.object.property.value, context)
+
       return {
         // @ts-ignore
         tableName: expressionNode.object.property.name,
@@ -73,11 +77,7 @@ export const parseMemberVariable = (expressionNode: MemberExpression, context: B
     // @ts-ignore
     case 4: {
       // @ts-ignore
-      let cycleName = expressionNode.object.object.object.property.value
-      if (cycleName === '$prevCycle') {
-        const previousCycleName = Cycles.getPreviousCycle({ assessment: context.assessment, cycle: context.cycle }).name
-        cycleName = previousCycleName
-      }
+      const cycleName = getCycleName(expressionNode.object.object.object.property.value, context)
 
       return {
         // @ts-ignore
