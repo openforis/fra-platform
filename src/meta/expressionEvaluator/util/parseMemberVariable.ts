@@ -2,9 +2,10 @@ import { MemberExpression } from '@openforis/arena-core'
 
 import { Cycles, VariableCache } from 'meta/assessment'
 import { BaseContext } from 'meta/expressionEvaluator/util/_types'
+import { Member } from 'meta/expressions'
 
 const getCycleName = (cycleName: string, context: BaseContext) => {
-  if (cycleName === '$prevCycle') {
+  if (cycleName === Member.$prevCycle) {
     const { assessments, assessmentName, cycleName } = context
     const assessment = assessments[assessmentName]
     const cycle = assessment.cycles.find((c) => c.name === cycleName)

@@ -1,4 +1,5 @@
 import { AssessmentNames, TableNames } from 'meta/assessment'
+import { Member } from 'meta/expressions'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { BaseProtocol, Schemas } from 'server/db'
@@ -6,8 +7,7 @@ import { RowRepository } from 'server/repository/assessment/row'
 
 const tableName = TableNames.extentOfForest
 const variableName = 'forestArea'
-const fn =
-  "validatorEqualToPreviousCycleForestArea(fra['$prevCycle'].extentOfForest.forestArea, extentOfForest.forestArea)"
+const fn = `validatorEqualToPreviousCycleForestArea(fra['${Member.$prevCycle}'].extentOfForest.forestArea, extentOfForest.forestArea)`
 
 export default async (client: BaseProtocol) => {
   const assessment = await AssessmentController.getOne({ assessmentName: AssessmentNames.fra }, client)
