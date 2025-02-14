@@ -23,5 +23,7 @@ export default async (client: BaseProtocol) => {
   const schemaAssessment = Schemas.getName(assessment)
 
   await client.query(`update ${schemaAssessment}.row set props = $1 where id = $2`, [JSON.stringify(row.props), row.id])
+
+  await AssessmentController.generateMetaCache(client)
   await AssessmentController.generateMetadataCache({ assessment }, client)
 }
