@@ -1,15 +1,15 @@
-import * as fs from 'fs/promises'
-import * as path from 'path'
+import axios from 'axios'
 import { Request, Response } from 'express'
 
 import { KioskController } from 'server/controller/kiosk'
+import { ProcessEnv } from 'server/utils'
 import Requests from 'server/utils/requests'
 
 export const getLatestActivities = async (_req: Request, res: Response) => {
   try {
-    const localCsvFilePath = path.resolve(__dirname, '..', '..', 'static', 'kiosk', 'latestActivities.csv')
-
-    const csvData = await fs.readFile(localCsvFilePath, 'utf-8')
+    const sheetUrl = ProcessEnv.kioskActivitiesSheetUrl
+    const response = await axios.get(sheetUrl, { responseType: 'text' })
+    const csvData = response.data
 
     const latestActivities = await KioskController.getLatestActivitiesFromCsv({ csvData })
 
