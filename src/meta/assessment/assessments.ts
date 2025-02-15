@@ -4,7 +4,7 @@ import { Areas, AssessmentStatus, Country, CountryIso } from 'meta/area'
 import { Cycles } from 'meta/assessment/cycles'
 
 import { User, Users } from '../user'
-import { Assessment } from './assessment'
+import { Assessment, RecordAssessments } from './assessment'
 import { AssessmentName } from './assessmentName'
 import { Cycle } from './cycle'
 
@@ -93,8 +93,16 @@ const getLastCreatedCycle = (assessment: Assessment): Cycle | undefined => {
   })
 }
 
+const getRecordAssessments = (assessments: Array<Assessment>): RecordAssessments => {
+  return assessments.reduce<RecordAssessments>((acc, assessment) => {
+    acc[assessment.props.name] = assessment
+    return acc
+  }, {})
+}
+
 export const Assessments = {
   getShortLabel,
   getLastPublishedCycle,
   getLastCreatedCycle,
+  getRecordAssessments,
 }
