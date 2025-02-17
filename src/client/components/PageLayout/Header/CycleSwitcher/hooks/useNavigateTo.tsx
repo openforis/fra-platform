@@ -12,7 +12,7 @@ export const useNavigateTo = () => {
   const navigate = useNavigate()
   // const { countryIso } = useCountryRouteParams()
   const isAdminPage = useIsAdminRoute()
-  const { countryIso } = useCountryRouteParams()
+  const { countryIso, assessmentName: prevAssessmentName } = useCountryRouteParams()
 
   return useCallback(
     (props: { assessment: Assessment; cycle: Cycle; user: User }) => {
@@ -20,15 +20,15 @@ export const useNavigateTo = () => {
       const assessmentName = assessment.props.name
       const cycleName = cycle.name
       const hasRoleInCountry = Users.hasRoleInCountry({ user, cycle, countryIso })
+      const isSameAssessment = prevAssessmentName === assessmentName
 
-      let link = ''
-      if (countryIso && (Cycles.isPublished(cycle) || hasRoleInCountry))
+      let link = Routes.Cycle.generatePath({ assessmentName, cycleName })
+      if (isSameAssessment && countryIso && (Cycles.isPublished(cycle) || hasRoleInCountry)) {
         link = Routes.CountryHome.generatePath({ countryIso, assessmentName, cycleName })
-      else if (isAdminPage) link = Routes.Admin.generatePath({ assessmentName, cycleName })
-      else link = Routes.Cycle.generatePath({ assessmentName, cycleName })
+      } else if (isAdminPage) link = Routes.Admin.generatePath({ assessmentName, cycleName })
 
       navigate(link)
     },
-    [countryIso, isAdminPage, navigate]
+    [countryIso, isAdminPage, navigate, prevAssessmentName]
   )
 }
