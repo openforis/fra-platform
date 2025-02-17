@@ -1,6 +1,7 @@
 import { useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+import { Areas, Global } from 'meta/area'
 import { Assessment, Cycle, Cycles } from 'meta/assessment'
 import { Routes } from 'meta/routes'
 import { User, Users } from 'meta/user'
@@ -22,8 +23,10 @@ export const useNavigateTo = () => {
       const hasRoleInCountry = Users.hasRoleInCountry({ user, cycle, countryIso })
 
       let link = ''
-      if (countryIso && (Cycles.isPublished(cycle) || hasRoleInCountry))
+      if (Areas.isISOCountry(countryIso) && (Cycles.isPublished(cycle) || hasRoleInCountry))
         link = Routes.CountryHome.generatePath({ countryIso, assessmentName, cycleName })
+      if (!Areas.isISOCountry(countryIso) && (Cycles.isPublished(cycle) || hasRoleInCountry))
+        link = Routes.CountryHome.generatePath({ countryIso: Global.WO, assessmentName, cycleName })
       else if (isAdminPage) link = Routes.Admin.generatePath({ assessmentName, cycleName })
       else link = Routes.Cycle.generatePath({ assessmentName, cycleName })
 

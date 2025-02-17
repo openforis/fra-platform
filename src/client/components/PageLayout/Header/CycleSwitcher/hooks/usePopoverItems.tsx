@@ -38,6 +38,7 @@ export const usePopoverItems = (): Array<PopoverItem> => {
   const routeParams = useCycleRouteParams()
   const assessments = useAssessments()
   const user = useUser()
+  const isAdmin = Users.isAdministrator(user)
 
   const isDataExportView = useIsDataExportView()
   const navigateTo = useNavigateTo()
@@ -45,7 +46,7 @@ export const usePopoverItems = (): Array<PopoverItem> => {
   return useMemo<Array<PopoverItem>>(() => {
     const items: Array<PopoverItem> = []
 
-    if (!isDataExportView && user) {
+    if ((isAdmin || !isDataExportView) && user) {
       assessments.forEach((assessment) => {
         const sortedCycles = assessment.cycles.slice().sort(_cyclesSorter)
         sortedCycles.forEach((cycle) => {
@@ -72,5 +73,5 @@ export const usePopoverItems = (): Array<PopoverItem> => {
     }
 
     return items
-  }, [assessments, isDataExportView, navigateTo, routeParams.assessmentName, routeParams.cycleName, t, user])
+  }, [assessments, isAdmin, isDataExportView, navigateTo, routeParams.assessmentName, routeParams.cycleName, t, user])
 }
