@@ -22,13 +22,12 @@ export const useNavigateTo = () => {
       const cycleName = cycle.name
       const hasRoleInCountry = Users.hasRoleInCountry({ user, cycle, countryIso })
 
-      let link = ''
+      let link = Routes.Cycle.generatePath({ assessmentName, cycleName })
       if (Areas.isISOCountry(countryIso) && (Cycles.isPublished(cycle) || hasRoleInCountry))
         link = Routes.CountryHome.generatePath({ countryIso, assessmentName, cycleName })
       if (!Areas.isISOCountry(countryIso) && (Cycles.isPublished(cycle) || hasRoleInCountry))
         link = Routes.CountryHome.generatePath({ countryIso: Global.WO, assessmentName, cycleName })
       else if (isAdminPage) link = Routes.Admin.generatePath({ assessmentName, cycleName })
-      else link = Routes.Cycle.generatePath({ assessmentName, cycleName })
 
       navigate(link)
     },
