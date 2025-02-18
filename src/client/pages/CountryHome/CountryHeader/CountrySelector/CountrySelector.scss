@@ -1,0 +1,23 @@
+@import 'src/client/style/partials';
+
+.country-selector {
+  align-items: center;
+  display: flex;
+  gap: $spacing-xxs;
+  height: 30px;
+  width: 100%;
+
+  .filter-multiselect__container {
+    width: 235px;
+  }
+
+  svg.icon_filter {
+    color: $ui-accent-dark;
+  }
+
+  .filter-country {
+    &.error {
+      border: 1px solid $ui-destructive;
+    }
+  }
+}
