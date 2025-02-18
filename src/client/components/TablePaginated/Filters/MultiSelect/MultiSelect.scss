@@ -55,4 +55,8 @@ div.filter-multiselect__container {
   &.active {
     border: 1px solid $ui-accent;
   }
+
+  &.error {
+    border: 1px solid $ui-destructive;
+  }
 }

@@ -6,18 +6,9 @@
   gap: $spacing-xxs;
   height: 30px;
   width: 100%;
-
-  .filter-multiselect__container {
-    width: 235px;
-  }
+  margin-left: $spacing-s;
 
   svg.icon_filter {
     color: $ui-accent-dark;
-  }
-
-  .filter-country {
-    &.error {
-      border: 1px solid $ui-destructive;
-    }
   }
 }
