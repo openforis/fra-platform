@@ -1,7 +1,11 @@
 @import 'src/client/style/partials';
 
-div.filter-country {
+.filter-multiselect__container {
   width: 235px;
+
+  &.error {
+    border: 1px solid $ui-destructive;
+  }
 }
 
 .tooltip-container {
