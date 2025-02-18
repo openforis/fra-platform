@@ -14,7 +14,6 @@ import { CountryHomeSection } from 'client/pages/CountryHome/types'
 import { useShowCountryMessageButton } from './hooks/useShowCountryMessageButton'
 import ButtonDownloadDashboard from './ButtonDownloadDashboard'
 import CountrySelector from './CountrySelector'
-import SelectedCountries from './SelectedCountries'
 
 type Props = {
   sections: Array<CountryHomeSection>
@@ -49,7 +48,7 @@ const CountryHeader: React.FC<Props> = (props) => {
         <div className="country-header__label">
           <h2 className="title">{t(`area.${countryIso}.listName`)}</h2>
           <ButtonDownloadDashboard />
-          {Areas.isISOGlobal(countryIso) && <CountrySelector />}
+          <CountrySelector />
           {withMessageBoard && (
             <MessageButton
               inverse
@@ -64,8 +63,6 @@ const CountryHeader: React.FC<Props> = (props) => {
           )}
         </div>
       )}
-
-      {Areas.isISOGlobal(countryIso) && <SelectedCountries />}
 
       {withTabs && (
         <div className="country-header__tabs">
