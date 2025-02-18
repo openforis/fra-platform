@@ -6,7 +6,7 @@ import { DiffDOMProps } from 'client/components/DiffDOM/types'
 
 import { normalizeDiffDOM } from './utils'
 
-type Props = Pick<DiffDOMProps, 'current' | 'prev'> & {
+type Props = DiffDOMProps & {
   ref: React.MutableRefObject<HTMLDivElement>
 }
 
