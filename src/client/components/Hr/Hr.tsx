@@ -5,15 +5,17 @@ import classNames from 'classnames'
 
 type Props = {
   className?: string
+  vertical?: boolean
 }
 
 const Hr: React.FC<Props> = (props: Props) => {
-  const { className } = props
-  return <div className={classNames('hr', className)} />
+  const { className, vertical } = props
+  return <div className={classNames('hr', { vertical }, className)} />
 }
 
 Hr.defaultProps = {
   className: undefined,
+  vertical: false,
 }
 
 export default Hr
