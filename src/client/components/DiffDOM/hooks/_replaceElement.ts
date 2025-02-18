@@ -1,13 +1,18 @@
-import { DiffInfo } from 'client/components/DiffDOM/types'
+import { DiffInfo, DiffInfoAction, DiffType } from 'client/components/DiffDOM/types'
 
-export const replaceElement = (info: DiffInfo) => {
-  const div = document.createElement('div')
-  div.className = 'diff-text'
+import { applyDiffClassToElement } from './utils'
 
-  const divRemoved = document.createElement('div')
-  divRemoved.className = 'removed'
-  divRemoved.appendChild(info.node.cloneNode(true))
+export const replaceElement = (info: DiffInfo<DiffInfoAction.replaceElement>) => {
+  const { oldValue } = info.diff
+  const { newValue } = info.diff
 
-  div.appendChild(divRemoved)
-  info.node.replaceWith(div)
+  // eslint-disable-next-line no-param-reassign
+  info.diff.newValue = {
+    nodeName: 'div',
+    attributes: { class: 'diff-text' },
+    childNodes: [
+      applyDiffClassToElement(oldValue, DiffType.removed),
+      applyDiffClassToElement(newValue, DiffType.added),
+    ],
+  }
 }

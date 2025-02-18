@@ -22,8 +22,8 @@ export const useDOMChanges = (props: Props) => {
       preDiffApply(info: DiffInfo<DiffInfoAction>): boolean {
         switch (info.diff.action) {
           case DiffInfoAction.replaceElement:
-            replaceElement(info)
-            return true
+            replaceElement(info as DiffInfo<DiffInfoAction.replaceElement>)
+            return false
           case DiffInfoAction.addElement:
             addElement(info as DiffInfo<DiffInfoAction.addElement>) // TODO: Find a way to avoid typecast
             return false

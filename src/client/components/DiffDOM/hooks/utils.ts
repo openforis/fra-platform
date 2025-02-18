@@ -3,7 +3,7 @@ import { DiffElement, DiffElementNode, DiffTextNodeName, DiffType } from 'client
 export const cleanDOM = (value: string): string => {
   return value
     .replace(/[\n\t\r]/g, '')
-    .replace(/\u00a0/g, ' ')
+    .replace(/\u00a0|&nbsp;/g, ' ')
     .toString()
 }
 
