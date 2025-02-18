@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useMemo, useRef } from 'react'
 
 import { useDOMChanges } from './hooks/useDOMChanges'
 import { cleanDOM } from './hooks/utils'
@@ -8,6 +8,8 @@ const DiffDOM: React.FC<DiffDOMProps> = (props) => {
   const { current, prev } = props
 
   const ref = useRef<HTMLDivElement>()
+
+  const cleanedPrevHTML = useMemo<string>(() => cleanDOM(prev ?? ''), [prev])
 
   useDOMChanges({
     current,
@@ -20,7 +22,7 @@ const DiffDOM: React.FC<DiffDOMProps> = (props) => {
       ref={ref}
       className="editorWYSIWYG jodit-wysiwyg"
       dangerouslySetInnerHTML={{
-        __html: cleanDOM(prev ?? ''),
+        __html: cleanedPrevHTML,
       }}
     />
   )
