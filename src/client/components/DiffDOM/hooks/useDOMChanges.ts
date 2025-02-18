@@ -2,8 +2,10 @@ import { useLayoutEffect } from 'react'
 
 import { DiffDOM, stringToObj } from 'diff-dom'
 
-import { DiffDOMProps } from 'client/components/DiffDOM/types'
+import { DiffDOMProps, DiffInfo } from 'client/components/DiffDOM/types'
 
+import { addElement } from './_addElement'
+import { replaceElement } from './_replaceElement'
 import { normalizeDiffDOM } from './utils'
 
 type Props = DiffDOMProps & {
@@ -17,41 +19,17 @@ export const useDOMChanges = (props: Props) => {
     if (!ref.current) return
     const diffDOM = new DiffDOM({
       caseSensitive: true,
-      preDiffApply(info): boolean {
-        if (info.diff.action === 'replaceElement') {
-          const div = document.createElement('div')
-          div.className = 'diff-text'
-
-          const divRemoved = document.createElement('div')
-          divRemoved.className = 'removed'
-          divRemoved.appendChild(info.node.cloneNode(true))
-
-          div.appendChild(divRemoved)
-          info.node.replaceWith(div)
-          return true
+      preDiffApply(info: DiffInfo): boolean {
+        switch (info.diff.action) {
+          case 'replaceElement':
+            replaceElement(info)
+            return true
+          case 'addElement':
+            addElement(info)
+            return false
+          default:
+            return false
         }
-
-        if (info.diff.action === 'addElement') {
-          // eslint-disable-next-line no-param-reassign
-          info.diff.element = {
-            nodeName: 'div',
-            attributes: { class: 'diff-text' },
-            childNodes: info.diff.element
-              ? [
-                  {
-                    ...info.diff.element,
-                    attributes: {
-                      ...info.diff.element.attributes,
-                      class: info.diff.element.attributes?.class
-                        ? `${info.diff.element.attributes.class} added`
-                        : 'added',
-                    },
-                  },
-                ]
-              : [],
-          }
-        }
-        return false
       },
     })
 
