@@ -3,6 +3,11 @@ export type DiffDOMProps = {
   prev: string
 }
 
+export enum DiffType {
+  added = 'added',
+  removed = 'removed',
+}
+
 export type DiffElementNode = {
   attributes?: { [key: string]: string }
   checked?: boolean
