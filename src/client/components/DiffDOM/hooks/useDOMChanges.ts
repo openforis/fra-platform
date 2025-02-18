@@ -2,7 +2,7 @@ import { useLayoutEffect } from 'react'
 
 import { DiffDOM, stringToObj } from 'diff-dom'
 
-import { DiffDOMProps, DiffInfo } from 'client/components/DiffDOM/types'
+import { DiffDOMProps, DiffInfo, DiffInfoAction } from 'client/components/DiffDOM/types'
 
 import { addElement } from './_addElement'
 import { replaceElement } from './_replaceElement'
@@ -19,13 +19,13 @@ export const useDOMChanges = (props: Props) => {
     if (!ref.current) return
     const diffDOM = new DiffDOM({
       caseSensitive: true,
-      preDiffApply(info: DiffInfo): boolean {
+      preDiffApply(info: DiffInfo<DiffInfoAction>): boolean {
         switch (info.diff.action) {
-          case 'replaceElement':
+          case DiffInfoAction.replaceElement:
             replaceElement(info)
             return true
-          case 'addElement':
-            addElement(info)
+          case DiffInfoAction.addElement:
+            addElement(info as DiffInfo<DiffInfoAction.addElement>) // TODO: Find a way to avoid typecast
             return false
           default:
             return false
