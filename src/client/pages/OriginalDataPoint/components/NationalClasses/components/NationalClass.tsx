@@ -28,7 +28,7 @@ const NationalClass: React.FC<Props> = (props) => {
   const { t } = useTranslation()
   const { print } = useIsPrintRoute()
   const canEditData = useIsEditODPEnabled()
-  const actions = useRowActions({ canEdit: canEditData && !placeHolder, index, originalDataPoint })
+  const actions = useRowActions({ index, originalDataPoint })
   const { onChangeDefinition, onChangeName, onPasteDefinition, onPasteName } = useOnChangeNationalClass({ index })
 
   const lastRow = canEditData && !print ? placeHolder : index === nationalClasses.length - (print ? 1 : 2)
