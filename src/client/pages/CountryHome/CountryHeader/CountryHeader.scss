@@ -11,7 +11,13 @@
 .country-header__label {
   align-items: center;
   display: flex;
-  gap: 8px;
+  gap: $spacing-s;
+  height: 32px;
+
+  .country-header__title {
+    display: flex;
+    gap: 8px;
+  }
 }
 
 .country-header__tabs {

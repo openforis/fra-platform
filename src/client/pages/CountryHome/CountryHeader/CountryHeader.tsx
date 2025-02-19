@@ -46,8 +46,10 @@ const CountryHeader: React.FC<Props> = (props) => {
     <div className="country-header">
       {withLabel && (
         <div className="country-header__label">
-          <h2 className="title">{t(`area.${countryIso}.listName`)}</h2>
-          <ButtonDownloadDashboard />
+          <div className="country-header__title">
+            <h2 className="title">{t(`area.${countryIso}.listName`)}</h2>
+            <ButtonDownloadDashboard />
+          </div>
           <CountrySelector />
           {withMessageBoard && (
             <MessageButton

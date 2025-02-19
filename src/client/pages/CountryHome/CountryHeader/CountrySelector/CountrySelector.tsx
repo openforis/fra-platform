@@ -45,17 +45,19 @@ const CountrySelector: React.FC = () => {
       : undefined
 
   return (
-    <div className="country-selector">
+    <>
       <Hr vertical />
-      <Icon name="filter" />
-      <CountryMultiSelect
-        error={errorMessage}
-        onChange={(value) => setSelection(value as Array<CountryIso>)}
-        onMenuClose={onMenuClose}
-        placeholder={t('common.filterCountries')}
-        value={selection}
-      />
-    </div>
+      <div className="country-selector">
+        <Icon name="filter" />
+        <CountryMultiSelect
+          error={errorMessage}
+          onChange={(value) => setSelection(value as Array<CountryIso>)}
+          onMenuClose={onMenuClose}
+          placeholder={t('common.filterCountries')}
+          value={selection}
+        />
+      </div>
+    </>
   )
 }
 
