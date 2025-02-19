@@ -13,7 +13,7 @@ import { OptionsGroup } from 'client/components/Inputs/Select'
 import { useCountriesByRegionOptions } from './useCountriesByRegionOptions'
 
 interface Props {
-  selection: Array<CountryIso>
+  value: Array<CountryIso>
   error?: boolean
   errorMessage?: string
 }
@@ -26,7 +26,7 @@ interface Returned {
 }
 
 export const useTooltipContent = (props: Props): Returned => {
-  const { selection, error = false, errorMessage } = props
+  const { value, error = false, errorMessage } = props
   const [canDisplayTooltip, setCanDisplayTooltip] = useState<boolean>(true)
   const { t } = useTranslation()
 
@@ -34,7 +34,7 @@ export const useTooltipContent = (props: Props): Returned => {
   const isPanEuropean = useIsPanEuropeanRoute()
 
   const tooltipContent = useMemo<string | null>(() => {
-    if (Objects.isEmpty(selection)) return null
+    if (Objects.isEmpty(value)) return null
     if (!canDisplayTooltip) return null
 
     if (error && errorMessage) {
@@ -55,7 +55,7 @@ export const useTooltipContent = (props: Props): Returned => {
     if (isPanEuropean) {
       selectedRegions.push({
         regionLabel: '', // Not visible when there is only one region
-        selectedCountries: selection
+        selectedCountries: value
           .map((countryIso) => t(`area.${countryIso}.listName`))
           .sort((a, b) => a.localeCompare(b)),
       })
@@ -64,7 +64,7 @@ export const useTooltipContent = (props: Props): Returned => {
         if (!Array.isArray((group as OptionsGroup).options)) return
 
         const regionCountries = (group as OptionsGroup).options.map((option) => option.value as CountryIso)
-        const selectedCountriesInRegion = regionCountries.filter((country) => selection.includes(country))
+        const selectedCountriesInRegion = regionCountries.filter((country) => value.includes(country))
 
         if (selectedCountriesInRegion.length > 0) {
           selectedRegions.push({
@@ -99,7 +99,7 @@ export const useTooltipContent = (props: Props): Returned => {
         ))}
       </div>
     )
-  }, [canDisplayTooltip, countryOptionGroups, selection, error, errorMessage, isPanEuropean, t])
+  }, [canDisplayTooltip, countryOptionGroups, value, error, errorMessage, isPanEuropean, t])
 
   const hideTooltip = useCallback(() => setCanDisplayTooltip(false), [])
   const showTooltip = useCallback(() => setCanDisplayTooltip(true), [])

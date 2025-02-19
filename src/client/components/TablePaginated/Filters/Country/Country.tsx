@@ -19,13 +19,7 @@ const Country: React.FC<Props> = (props: Props) => {
   const filterValue = useTablePaginatedFilterValue<Array<string>>(path, fieldName)
 
   const handleChange = (value: Array<string>) => {
-    dispatch(
-      TablePaginatedActions.setFilterValue({
-        fieldName,
-        path,
-        value,
-      })
-    )
+    dispatch(TablePaginatedActions.setFilterValue({ fieldName, path, value }))
   }
 
   return (

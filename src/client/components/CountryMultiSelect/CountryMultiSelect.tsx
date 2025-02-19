@@ -23,7 +23,7 @@ const CountryMultiSelect: React.FC<Props> = (props) => {
     : undefined
 
   const { hideTooltip, showTooltip, tooltipContent, dataTooltipId } = useTooltipContent({
-    selection: (value as Array<CountryIso>) ?? [],
+    value: (value as Array<CountryIso>) ?? [],
     error,
     errorMessage,
   })
