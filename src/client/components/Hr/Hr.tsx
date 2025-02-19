@@ -13,9 +13,4 @@ const Hr: React.FC<Props> = (props: Props) => {
   return <div className={classNames('hr', { vertical }, className)} />
 }
 
-Hr.defaultProps = {
-  className: undefined,
-  vertical: false,
-}
-
 export default Hr
