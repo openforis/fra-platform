@@ -5,12 +5,12 @@ import { OriginalDataPoint } from 'meta/assessment'
 import { Topics } from 'meta/messageCenter'
 
 import { DataRowAction, DataRowActionType } from 'client/components/DataGrid'
+import { useIsEditODPEnabled } from 'client/pages/OriginalDataPoint/hooks/useIsEditODPEnabled'
 import { useShowReviewIndicator } from 'client/pages/OriginalDataPoint/hooks/useShowReviewIndicator'
 
 import { useDeleteNationalClass } from './useDeleteNationalClass'
 
 type Props = {
-  canEdit: boolean
   index: number
   originalDataPoint: OriginalDataPoint
 }
@@ -18,13 +18,15 @@ type Props = {
 export type Returned = Array<DataRowAction>
 
 export const useRowActions = (props: Props): Returned => {
-  const { index, canEdit, originalDataPoint } = props
+  const { index, originalDataPoint } = props
 
   const { t } = useTranslation()
   const deleteNationalClass = useDeleteNationalClass({ index, originalDataPoint })
-  const { name, uuid } = originalDataPoint.nationalClasses[index]
+  const { name, uuid, placeHolder } = originalDataPoint.nationalClasses[index]
   const odpId = originalDataPoint.id
-  const showReviewIndicator = useShowReviewIndicator()
+  const canEditData = useIsEditODPEnabled()
+  const canEdit = canEditData && !placeHolder
+  const showReviewIndicator = useShowReviewIndicator() && !placeHolder
 
   return useMemo<Returned>(() => {
     const actions: Returned = []
