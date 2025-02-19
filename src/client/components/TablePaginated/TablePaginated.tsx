@@ -6,6 +6,7 @@ import classNames from 'classnames'
 
 import { useTablePaginatedCount } from 'client/store/ui/tablePaginated'
 import DataGrid from 'client/components/DataGridDeprecated'
+import Hr from 'client/components/Hr'
 import { PaginatorProps } from 'client/components/Paginator'
 import Filters from 'client/components/TablePaginated/Filters/Filters'
 
@@ -57,7 +58,7 @@ const TablePaginated = <Datum extends object>(props: Props<Datum>) => {
         {(exportTable || withFilters) && (
           <div className="table-paginated-actions">
             {exportTable && <ExportButton path={path} />}
-            {exportTable && withFilters && <div className="table-paginated-actions-sep" />}
+            {exportTable && withFilters && <Hr vertical />}
             {withFilters && <Filters filters={filters} path={path} />}
           </div>
         )}

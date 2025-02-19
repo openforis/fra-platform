@@ -1,61 +1,64 @@
+import './CountrySelector.scss'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Objects } from 'utils/objects'
 
-import { CountryIso, Region, RegionCode } from 'meta/area'
+import { Areas, CountryIso } from 'meta/area'
 
 import { useAppDispatch } from 'client/store'
-import { useCountries, useSecondaryRegion } from 'client/store/area'
+import { useCountries } from 'client/store/area'
+import { useDashboardItems } from 'client/store/metadata'
 import { useHomeCountriesFilter } from 'client/store/ui/home'
 import { HomeActions } from 'client/store/ui/home/slice'
-import Button, { ButtonSize } from 'client/components/Buttons/Button'
-import CountrySelectModal from 'client/components/CountrySelectModal'
+import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import CountryMultiSelect from 'client/components/CountryMultiSelect'
+import Hr from 'client/components/Hr'
+import Icon from 'client/components/Icon'
 
 const __MIN_COUNTRIES__ = 9
 
 const CountrySelector: React.FC = () => {
-  const dispatch = useAppDispatch()
   const { t } = useTranslation()
+  const dispatch = useAppDispatch()
+
   const countries = useCountries()
-  const secondaryRegions = useSecondaryRegion()
-
   const countriesFilter = useHomeCountriesFilter()
-  const [modalOpen, setModalOpen] = useState(false)
+  const { countryIso } = useCountryRouteParams()
+  const [selection, setSelection] = useState<Array<CountryIso>>(countriesFilter)
 
-  const onClose = (selectedCountries: Array<CountryIso>) => {
-    if (selectedCountries.length >= __MIN_COUNTRIES__) {
-      dispatch(HomeActions.updateCountriesFilter(selectedCountries))
-    } else {
-      dispatch(HomeActions.updateCountriesFilter([]))
-    }
-    setModalOpen(false)
+  const dashboardItems = useDashboardItems()
+
+  const error = selection.length > 0 && selection.length < __MIN_COUNTRIES__
+
+  const onMenuClose = () => {
+    if (!error) dispatch(HomeActions.updateCountriesFilter(selection))
   }
 
-  const canSave = (selectedCountries: Array<string>) => selectedCountries.length >= __MIN_COUNTRIES__
-
   if (Objects.isEmpty(countries)) return null
+  if (!Areas.isISOGlobal(countryIso)) return null
+  if (!dashboardItems) return null
+
+  const errorMessage =
+    selection.length > 0 && selection.length < __MIN_COUNTRIES__
+      ? t('statisticalFactsheets.validation.selectAtLeastNCountries', { count: __MIN_COUNTRIES__ })
+      : undefined
 
   return (
-    <div className="country-selector">
-      <CountrySelectModal
-        canSave={canSave}
-        countries={countries}
-        excludedRegions={[RegionCode.FE, ...secondaryRegions.regions.map((r: Region) => r.regionCode)]}
-        headerLabel={t('common.select')}
-        initialSelection={countriesFilter}
-        onClose={onClose}
-        open={modalOpen}
-        showCount
-      />
-      <Button
-        iconName="filter"
-        inverse={Objects.isEmpty(countriesFilter)}
-        label={t('common.filterCountries')}
-        onClick={() => setModalOpen(true)}
-        size={ButtonSize.s}
-      />
-    </div>
+    <>
+      <Hr dark vertical />
+      <div className="country-selector">
+        <Icon name="filter" />
+        <CountryMultiSelect
+          error={errorMessage}
+          onChange={(value) => setSelection(value as Array<CountryIso>)}
+          onMenuClose={onMenuClose}
+          placeholder={t('common.filterCountries')}
+          value={selection}
+        />
+      </div>
+    </>
   )
 }
+
 export default CountrySelector

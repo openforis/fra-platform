@@ -4,34 +4,47 @@ import { useTranslation } from 'react-i18next'
 
 import { Objects } from 'utils/objects'
 
-import { useTablePaginatedFilterValue } from 'client/store/ui/tablePaginated/hooks'
+import { CountryIso } from 'meta/area'
+import { TooltipId } from 'meta/tooltip'
+
 import { useIsPanEuropeanRoute } from 'client/hooks'
-import { useCountriesByRegionOptions } from 'client/components/CountryMultiSelect/hooks/useCountriesByRegionOptions'
 import { OptionsGroup } from 'client/components/Inputs/Select'
 
-type Props = {
-  fieldName: string
-  path: string
+import { useCountriesByRegionOptions } from './useCountriesByRegionOptions'
+
+interface Props {
+  value: Array<CountryIso>
+  error?: string
 }
 
-type Returned = {
+interface Returned {
   hideTooltip: () => void
   showTooltip: () => void
   tooltipContent: string | null
+  dataTooltipId: TooltipId
 }
 
 export const useTooltipContent = (props: Props): Returned => {
-  const { fieldName, path } = props
-  const filterValue = useTablePaginatedFilterValue<Array<string>>(path, fieldName)
-  const [canDisplayTooltip, setCanDisplayTooltip] = useState(true)
+  const { value, error } = props
+  const [canDisplayTooltip, setCanDisplayTooltip] = useState<boolean>(true)
   const { t } = useTranslation()
 
   const countryOptionGroups = useCountriesByRegionOptions()
   const isPanEuropean = useIsPanEuropeanRoute()
 
   const tooltipContent = useMemo<string | null>(() => {
-    if (Objects.isEmpty(filterValue)) return null
+    if (Objects.isEmpty(value)) return null
     if (!canDisplayTooltip) return null
+
+    if (error) {
+      return ReactDOMServer.renderToStaticMarkup(
+        <div className="regions-container" style={{ gridTemplateColumns: '1fr' }}>
+          <div className="countries-container">
+            <span className="country">{error}</span>
+          </div>
+        </div>
+      )
+    }
 
     const selectedRegions: Array<{
       regionLabel: string
@@ -41,7 +54,7 @@ export const useTooltipContent = (props: Props): Returned => {
     if (isPanEuropean) {
       selectedRegions.push({
         regionLabel: '', // Not visible when there is only one region
-        selectedCountries: filterValue
+        selectedCountries: value
           .map((countryIso) => t(`area.${countryIso}.listName`))
           .sort((a, b) => a.localeCompare(b)),
       })
@@ -49,8 +62,8 @@ export const useTooltipContent = (props: Props): Returned => {
       countryOptionGroups.forEach((group) => {
         if (!Array.isArray((group as OptionsGroup).options)) return
 
-        const regionCountries = (group as OptionsGroup).options.map((option) => option.value)
-        const selectedCountriesInRegion = regionCountries.filter((country) => filterValue.includes(country))
+        const regionCountries = (group as OptionsGroup).options.map((option) => option.value as CountryIso)
+        const selectedCountriesInRegion = regionCountries.filter((country) => value.includes(country))
 
         if (selectedCountriesInRegion.length > 0) {
           selectedRegions.push({
@@ -62,6 +75,7 @@ export const useTooltipContent = (props: Props): Returned => {
         }
       })
     }
+
     const gridTemplateColumns = `repeat(${selectedRegions.length},1fr)`
 
     return ReactDOMServer.renderToStaticMarkup(
@@ -84,14 +98,17 @@ export const useTooltipContent = (props: Props): Returned => {
         ))}
       </div>
     )
-  }, [canDisplayTooltip, countryOptionGroups, filterValue, isPanEuropean, t])
+  }, [canDisplayTooltip, countryOptionGroups, value, error, isPanEuropean, t])
 
   const hideTooltip = useCallback(() => setCanDisplayTooltip(false), [])
   const showTooltip = useCallback(() => setCanDisplayTooltip(true), [])
+
+  const dataTooltipId = useMemo(() => (error ? TooltipId.error : TooltipId.infoClickable), [error])
 
   return {
     hideTooltip,
     showTooltip,
     tooltipContent,
+    dataTooltipId,
   }
 }
