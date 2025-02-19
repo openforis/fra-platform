@@ -1,11 +1,15 @@
 @import 'src/client/style/partials';
 
 .hr {
-  background: radial-gradient($ui-accent-dark, $ui-bg);
+  background: radial-gradient(#c1c1c1, white);
   height: 1px;
 
   &.vertical {
-    height: 100%;
+    height: 60%;
     width: 1px;
+  }
+
+  &.dark {
+    background: radial-gradient($ui-accent-dark, $ui-bg);
   }
 }

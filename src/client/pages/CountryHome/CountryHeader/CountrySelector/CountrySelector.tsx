@@ -46,7 +46,7 @@ const CountrySelector: React.FC = () => {
 
   return (
     <>
-      <Hr vertical />
+      <Hr dark vertical />
       <div className="country-selector">
         <Icon name="filter" />
         <CountryMultiSelect
