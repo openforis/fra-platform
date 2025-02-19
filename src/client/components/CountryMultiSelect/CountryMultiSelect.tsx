@@ -1,27 +1,63 @@
-import React from 'react'
+import './CountryMultiSelect.scss'
+import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import Select, { SelectProps } from 'client/components/Inputs/Select'
+import classNames from 'classnames'
+
+import { CountryIso } from 'meta/area'
+
+import Select from 'client/components/Inputs/Select'
 
 import { useCountriesByRegionOptions } from './hooks/useCountriesByRegionOptions'
+import { useTooltipContent } from './hooks/useTooltipContent'
+import { Props } from './types'
 
-type Props = Omit<SelectProps, 'options'>
-
-const CountryMultiSelect: React.FC<Props> = (props: Props) => {
-  const { multiLabelSummaryKey, placeholder } = props
+const CountryMultiSelect: React.FC<Props> = (props) => {
+  const { value, onChange, placeholder, error, onMenuClose } = props
 
   const { t } = useTranslation()
-
   const optionGroups = useCountriesByRegionOptions()
 
+  const { hideTooltip, showTooltip, tooltipContent, dataTooltipId } = useTooltipContent({
+    value: (value as Array<CountryIso>) ?? [],
+    error,
+  })
+
+  const handleMenuOpen = () => {
+    hideTooltip()
+  }
+
+  const handleMenuClose = () => {
+    showTooltip()
+    onMenuClose?.()
+  }
+
+  const active = useMemo(() => Array.isArray(value) && value.length > 0, [value])
+  const container = classNames('country-multiselect__container', { active, error })
   return (
-    <Select
-      // eslint-disable-next-line react/jsx-props-no-spreading
-      {...props}
-      multiLabelSummaryKey={multiLabelSummaryKey ?? 'admin.country'}
-      options={optionGroups}
-      placeholder={placeholder ?? t('common.countries')}
-    />
+    <div
+      className="country-multiselect__tooltip-trigger"
+      data-tooltip-class-name="country-multiselect__tooltip"
+      data-tooltip-delay-hide={100}
+      data-tooltip-html={tooltipContent}
+      data-tooltip-id={dataTooltipId}
+      data-tooltip-place="bottom"
+    >
+      <Select
+        classNames={{ container }}
+        collapsibleGroups
+        isMulti
+        multiLabelSummaryKey="admin.country"
+        onChange={onChange}
+        onMenuClose={handleMenuClose}
+        onMenuOpen={handleMenuOpen}
+        options={optionGroups}
+        placeholder={placeholder ?? t('common.countries')}
+        selectableGroups
+        toggleAll
+        value={value}
+      />
+    </div>
   )
 }
 
