@@ -46,8 +46,8 @@ const CountrySelector: React.FC = () => {
 
   return (
     <div className="country-selector">
-      <Icon name="filter" />
       <Hr vertical />
+      <Icon name="filter" />
       <CountryMultiSelect
         error={errorMessage}
         onChange={(value) => setSelection(value as Array<CountryIso>)}
