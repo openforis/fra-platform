@@ -39,13 +39,17 @@ const CountrySelector: React.FC = () => {
   if (!Areas.isISOGlobal(countryIso)) return null
   if (!dashboardItems) return null
 
+  const errorMessage =
+    selection.length > 0 && selection.length < __MIN_COUNTRIES__
+      ? t('statisticalFactsheets.validation.selectAtLeastNCountries', { count: __MIN_COUNTRIES__ })
+      : undefined
+
   return (
     <div className="country-selector">
       <Icon name="filter" />
       <Hr vertical />
       <CountryMultiSelect
-        error={error}
-        minCountries={__MIN_COUNTRIES__}
+        error={errorMessage}
         onChange={(value) => setSelection(value as Array<CountryIso>)}
         onMenuClose={onMenuClose}
         placeholder={t('common.filterCountries')}

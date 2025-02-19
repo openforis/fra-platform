@@ -14,8 +14,7 @@ import { useCountriesByRegionOptions } from './useCountriesByRegionOptions'
 
 interface Props {
   value: Array<CountryIso>
-  error?: boolean
-  errorMessage?: string
+  error?: string
 }
 
 interface Returned {
@@ -26,7 +25,7 @@ interface Returned {
 }
 
 export const useTooltipContent = (props: Props): Returned => {
-  const { value, error = false, errorMessage } = props
+  const { value, error } = props
   const [canDisplayTooltip, setCanDisplayTooltip] = useState<boolean>(true)
   const { t } = useTranslation()
 
@@ -37,11 +36,11 @@ export const useTooltipContent = (props: Props): Returned => {
     if (Objects.isEmpty(value)) return null
     if (!canDisplayTooltip) return null
 
-    if (error && errorMessage) {
+    if (error) {
       return ReactDOMServer.renderToStaticMarkup(
         <div className="regions-container" style={{ gridTemplateColumns: '1fr' }}>
           <div className="countries-container">
-            <span className="country">{errorMessage}</span>
+            <span className="country">{error}</span>
           </div>
         </div>
       )
@@ -99,7 +98,7 @@ export const useTooltipContent = (props: Props): Returned => {
         ))}
       </div>
     )
-  }, [canDisplayTooltip, countryOptionGroups, value, error, errorMessage, isPanEuropean, t])
+  }, [canDisplayTooltip, countryOptionGroups, value, error, isPanEuropean, t])
 
   const hideTooltip = useCallback(() => setCanDisplayTooltip(false), [])
   const showTooltip = useCallback(() => setCanDisplayTooltip(true), [])
