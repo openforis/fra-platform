@@ -16,7 +16,6 @@ export const useDOMChanges = (props: Props) => {
   const { current, prev, ref } = props
 
   useLayoutEffect(() => {
-    if (!ref.current) return
     const diffDOM = new DiffDOM({
       caseSensitive: true,
       preDiffApply(info: DiffInfo<DiffInfoAction>): boolean {
@@ -33,8 +32,8 @@ export const useDOMChanges = (props: Props) => {
       },
     })
 
-    const normalizedPrev = normalizeDiffDOM(prev ?? '')
-    const normalizedCurrent = normalizeDiffDOM(current ?? '')
+    const normalizedPrev = normalizeDiffDOM(prev)
+    const normalizedCurrent = normalizeDiffDOM(current)
 
     const objDiffPrev = stringToObj(normalizedPrev)
     const objDiffCurrent = stringToObj(normalizedCurrent)

@@ -1,10 +1,12 @@
-import { DiffElement, DiffElementNode, DiffTextNodeName, DiffType } from 'client/components/DiffDOM/types'
+import { DiffElement, DiffElementNode, DiffTextNode, DiffTextNodeName, DiffType } from 'client/components/DiffDOM/types'
 
 export const cleanDOM = (value: string): string => {
-  return value
-    .replace(/[\n\t\r]/g, '')
-    .replace(/\u00a0|&nbsp;/g, ' ')
-    .toString()
+  return (
+    value
+      .replace(/[\n\t\r]/g, '')
+      // .replace(/\u00a0|&nbsp;/g, ' ')
+      .toString()
+  )
 }
 
 export const normalizeDiffDOM = (value: string): string => {
@@ -19,19 +21,22 @@ export const normalizeDiffDOM = (value: string): string => {
 }
 
 export const applyDiffClassToElement = (element: DiffElement, type: DiffType): DiffElement => {
-  if ('nodeName' in element && Object.values(DiffTextNodeName).includes(element.nodeName as DiffTextNodeName)) {
-    return element // Do nothing if it's a text node
-  }
-
   const elementNode = element as DiffElementNode
-  const newClass = elementNode.attributes?.class ? `${elementNode.attributes.class} ${type}` : type
+
+  if ('nodeName' in element && Object.values(DiffTextNodeName).includes(element.nodeName as DiffTextNodeName)) {
+    // replace space with Unicode char
+    const data = (element as DiffTextNode).data.replaceAll('&nbsp;', '\u00A0')
+    const textNode = { nodeName: element.nodeName, data }
+
+    return {
+      nodeName: 'span',
+      attributes: { class: `${elementNode.attributes?.class ?? ''} ${type}` },
+      childNodes: [textNode],
+    }
+  }
 
   return {
     ...elementNode,
-    attributes: {
-      ...elementNode.attributes,
-      class: newClass,
-    },
     childNodes: elementNode.childNodes?.map((child) => applyDiffClassToElement(child, type)) || [],
   }
 }

@@ -23,7 +23,6 @@ export enum DiffTextNodeName {
 }
 
 export type DiffTextNode = {
-  childNodes?: never
   data: string
   nodeName: DiffTextNodeName
 }

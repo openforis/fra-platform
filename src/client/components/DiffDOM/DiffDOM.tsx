@@ -5,27 +5,13 @@ import { cleanDOM } from './hooks/utils'
 import { DiffDOMProps } from './types'
 
 const DiffDOM: React.FC<DiffDOMProps> = (props) => {
-  const { current, prev } = props
+  const { current = '', prev = '' } = props
 
   const ref = useRef<HTMLDivElement>()
+  const __html = useMemo<string>(() => cleanDOM(prev), [prev])
+  useDOMChanges({ current, prev, ref })
 
-  const cleanedPrevHTML = useMemo<string>(() => cleanDOM(prev ?? ''), [prev])
-
-  useDOMChanges({
-    current,
-    prev,
-    ref,
-  })
-
-  return (
-    <div
-      ref={ref}
-      className="editorWYSIWYG jodit-wysiwyg"
-      dangerouslySetInnerHTML={{
-        __html: cleanedPrevHTML,
-      }}
-    />
-  )
+  return <div ref={ref} className="editorWYSIWYG jodit-wysiwyg" dangerouslySetInnerHTML={{ __html }} />
 }
 
 export default DiffDOM
