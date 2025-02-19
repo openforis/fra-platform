@@ -30,7 +30,7 @@ export const applyDiffClassToElement = (element: DiffElement, type: DiffType): D
 
     return {
       nodeName: 'span',
-      attributes: { class: `${elementNode?.attributes?.class ?? ''} ${type}` },
+      attributes: { class: `${elementNode.attributes?.class ?? ''} ${type}` },
       childNodes: [textNode],
     }
   }
