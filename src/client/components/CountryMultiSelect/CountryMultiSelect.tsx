@@ -33,11 +33,11 @@ const CountryMultiSelect: React.FC<Props> = (props) => {
   }
 
   const active = useMemo(() => Array.isArray(value) && value.length > 0, [value])
-  const container = classNames('filter-multiselect__container', { active, error })
+  const container = classNames('country-multiselect__container', { active, error })
   return (
     <div
-      className="filter-multiselect__tooltip-trigger"
-      data-tooltip-class-name="filter-country__tooltip"
+      className="country-multiselect__tooltip-trigger"
+      data-tooltip-class-name="country-multiselect__tooltip"
       data-tooltip-delay-hide={100}
       data-tooltip-html={tooltipContent}
       data-tooltip-id={dataTooltipId}
