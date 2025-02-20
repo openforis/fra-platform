@@ -9,7 +9,7 @@ import Button, { ButtonSize } from 'client/components/Buttons/Button'
 import { DataCell, DataGrid, DataRow } from 'client/components/DataGrid'
 import EditorWYSIWYG from 'client/components/EditorWYSIWYG'
 import { useODPDisplayHistory } from 'client/pages/OriginalDataPoint/components/hooks/useODPDisplayHistory'
-import ODPDiffText from 'client/pages/OriginalDataPoint/components/ODPDiffText/ODPDiffText'
+import ODPCommentsDiffView from 'client/pages/OriginalDataPoint/components/ODPCommentsDiffView/ODPCommentsDiffView'
 
 import { useUpdateDescription } from './hooks/useUpdateDescription'
 import { useCommentsActions } from './useCommentsActions'
@@ -56,7 +56,7 @@ const Comments: React.FC<Props> = (props) => {
 
       <DataCell editable={open} gridColumn={canEditData ? `1/-1` : undefined} lastCol lastRow noBorder={!open}>
         {displayHistory ? (
-          <ODPDiffText originalDataPoint={originalDataPoint} path={['description']} />
+          <ODPCommentsDiffView />
         ) : (
           <div className={classNames('description__editor-container', { editable: open })}>
             <EditorWYSIWYG
