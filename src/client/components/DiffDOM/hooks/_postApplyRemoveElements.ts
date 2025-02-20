@@ -32,14 +32,16 @@ export const postApplyRemoveElements = (props: Props): void => {
       const _parentRoute = route.slice(0, iterationIndex)
       const _removedKey = JSON.stringify(_parentRoute)
       const _removedCount = removedCounts[_removedKey] ?? 0
-      parentNode = parentNode.childNodes?.[routeIndex + _removedCount]
+      parentNode = parentNode?.childNodes?.[routeIndex + _removedCount]
     })
 
     // 3. insert removed node at new index
-    const childIndex = route.slice(-1)?.at(0)
     const removedKey = JSON.stringify(parentRoute)
     const removedCount = removedCounts[removedKey] ?? 0
-    parentNode.insertBefore(node, parentNode.childNodes[childIndex + removedCount])
+    if (parentNode) {
+      const childIndex = route.slice(-1)?.at(0)
+      parentNode.insertBefore(node, parentNode.childNodes[childIndex + removedCount])
+    }
 
     // 4. update parent route removed counts
     removedCounts[removedKey] = removedCount + 1
