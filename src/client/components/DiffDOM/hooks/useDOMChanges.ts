@@ -32,7 +32,6 @@ export const useDOMChanges = (props: Props) => {
         }
       },
       textDiff(node, currentValue, _expectedValue, newValue) {
-        if (currentValue === newValue) return
         if (node instanceof Text) {
           node.replaceWith(getTextDiffNode(currentValue, newValue))
         }
