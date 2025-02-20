@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next'
 import MediaQuery from 'react-responsive'
 
 import { Areas, CountryIso } from 'meta/area'
-import { Cycles } from 'meta/assessment'
 import { Users } from 'meta/user'
 
 import { useCountry } from 'client/store/area'
@@ -12,6 +11,7 @@ import { useCycle } from 'client/store/assessment'
 import { useUser } from 'client/store/user'
 import { useIsGeoRoute, useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useShowRegions } from 'client/hooks/useShowRegions'
 import AreaSelector from 'client/components/AreaSelector/AreaSelector'
 import LinkHome from 'client/components/LinkHome'
 import EditorOptions from 'client/components/PageLayout/Toolbar/EditorOptions'
@@ -28,12 +28,11 @@ const Toolbar: React.FC = () => {
   const { print } = useIsPrintRoute()
   const user = useUser()
   const geoRoute = useIsGeoRoute()
+  const showRegions = useShowRegions()
 
   if (print) return null
 
   const isCountry = Areas.isISOCountry(countryIso)
-  const isAdmin = Users.isAdministrator(user)
-  const showRegions = !geoRoute && (isAdmin || Cycles.isPublished(cycle))
 
   const editor = Users.hasEditorRole({ user, countryIso, cycle })
 
