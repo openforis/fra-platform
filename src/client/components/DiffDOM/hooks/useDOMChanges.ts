@@ -5,6 +5,7 @@ import { DiffDOM, stringToObj } from 'diff-dom'
 import { DiffDOMProps, DiffInfo, DiffInfoAction } from 'client/components/DiffDOM/types'
 
 import { addElement } from './_addElement'
+import { getTextDiffNode } from './_getTextDiffNode'
 import { replaceElement } from './_replaceElement'
 import { normalizeDiffDOM } from './utils'
 
@@ -24,10 +25,16 @@ export const useDOMChanges = (props: Props) => {
             replaceElement(info as DiffInfo<DiffInfoAction.replaceElement>)
             return false
           case DiffInfoAction.addElement:
-            addElement(info as DiffInfo<DiffInfoAction.addElement>) // TODO: Find a way to avoid typecast
+            addElement(info as DiffInfo<DiffInfoAction.addElement>)
             return false
           default:
             return false
+        }
+      },
+      textDiff(node, currentValue, _expectedValue, newValue) {
+        if (currentValue === newValue) return
+        if (node instanceof Text) {
+          node.replaceWith(getTextDiffNode(currentValue, newValue))
         }
       },
     })
