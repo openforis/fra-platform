@@ -11,7 +11,7 @@ const DiffDOM: React.FC<DiffDOMProps> = (props) => {
   const __html = useMemo<string>(() => cleanDOM(prev), [prev])
   useDOMChanges({ current, prev, ref })
 
-  return <div ref={ref} className="editorWYSIWYG jodit-wysiwyg" dangerouslySetInnerHTML={{ __html }} />
+  return <div ref={ref} className="editorWYSIWYG jodit-wysiwyg diff-text" dangerouslySetInnerHTML={{ __html }} />
 }
 
 export default DiffDOM
