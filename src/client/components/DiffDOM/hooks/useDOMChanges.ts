@@ -2,7 +2,6 @@ import { useLayoutEffect } from 'react'
 
 import { DiffDOM, stringToObj } from 'diff-dom'
 
-import { postApplyRemoveElements } from 'client/components/DiffDOM/hooks/_postDiffRemoveElement'
 import {
   DiffAction,
   DiffDOMProps,
@@ -14,6 +13,7 @@ import {
 
 import { addElement } from './_addElement'
 import { getTextDiffNode } from './_getTextDiffNode'
+import { postApplyRemoveElements } from './_postApplyRemoveElements'
 import { replaceElement } from './_replaceElement'
 import { normalizeDiffDOM } from './utils'
 
