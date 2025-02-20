@@ -28,8 +28,11 @@ export const postApplyRemoveElements = (props: Props): void => {
     // 2. get parent node from route
     const parentRoute = route.slice(0, -1)
     let parentNode: ChildNode = ref.current
-    parentRoute.forEach((idx) => {
-      parentNode = parentNode.childNodes?.[idx]
+    parentRoute.forEach((routeIndex, iterationIndex) => {
+      const _parentRoute = route.slice(0, iterationIndex)
+      const _removedKey = JSON.stringify(_parentRoute)
+      const _removedCount = removedCounts[_removedKey] ?? 0
+      parentNode = parentNode.childNodes?.[routeIndex + _removedCount]
     })
 
     // 3. insert removed node at new index
