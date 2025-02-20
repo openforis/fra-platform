@@ -8,48 +8,42 @@ export enum DiffType {
   removed = 'removed',
 }
 
-export type DiffElementNode = {
-  attributes?: { [key: string]: string }
+export type DiffElement = { nodeName: string }
+
+export type DiffElementNode = DiffElement & {
+  attributes?: Record<string, string>
   checked?: boolean
-  childNodes?: DiffElement[] // eslint-disable-line no-use-before-define
-  nodeName: string
+  childNodes?: DiffElement[]
   selected?: boolean
   value?: string | number
 }
 
-export enum DiffTextNodeName {
-  comment = '#comment',
-  text = '#text',
-}
-
-export type DiffTextNode = {
+export type DiffElementText = DiffElement & {
   data: string
-  nodeName: DiffTextNodeName
 }
 
-export type DiffElement = DiffElementNode | DiffTextNode
-
-export enum DiffInfoAction {
+export enum DiffAction {
   addElement = 'addElement',
+  removeElement = 'removeElement',
   replaceElement = 'replaceElement',
 }
 
-export type Diff =
-  | { route: Array<number> } & (
-      | {
-          action: DiffInfoAction.addElement
-          element: DiffElement
-        }
-      | {
-          action: DiffInfoAction.replaceElement
-          newValue: DiffElement
-          oldValue: DiffElement
-        }
-    )
+type Diff<Action extends DiffAction, Props> = {
+  action: Action
+  route: Array<number>
+} & Props
 
-type DiffByAction<T extends DiffInfoAction> = Extract<Diff, { action: T }>
-
-export type DiffInfo<T extends DiffInfoAction = DiffInfoAction> = {
-  diff: DiffByAction<T>
+export type DiffInfo<
+  Action extends DiffAction = DiffAction,
+  Props extends Record<string, unknown> | void | unknown = void
+> = {
+  diff: Diff<Action, Props>
   node: HTMLElement
 }
+
+export type DiffInfoAddElement = DiffInfo<DiffAction.addElement, { element: DiffElement }>
+export type DiffInfoRemoveElement = DiffInfo<DiffAction.removeElement, { element: DiffElement }>
+export type DiffInfoReplaceElement = DiffInfo<
+  DiffAction.replaceElement,
+  { newValue: DiffElement; oldValue: DiffElement }
+>

@@ -22,8 +22,4 @@ const CellDiff: React.FC<Props> = (props) => {
   )
 }
 
-CellDiff.defaultProps = {
-  lastCol: false,
-}
-
 export default CellDiff

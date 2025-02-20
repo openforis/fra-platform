@@ -1,4 +1,4 @@
-import { DiffElement, DiffElementNode, DiffTextNode, DiffTextNodeName, DiffType } from 'client/components/DiffDOM/types'
+import { DiffElement, DiffElementNode, DiffElementText, DiffType } from 'client/components/DiffDOM/types'
 
 export const cleanDOM = (value: string): string => {
   return (
@@ -20,21 +20,16 @@ export const normalizeDiffDOM = (value: string): string => {
   return element ? `<div class="___diff">${element.innerHTML}</div>` : ''
 }
 
-export const applyDiffClassToElement = (element: DiffElement, type: DiffType): DiffElement => {
-  const elementNode = element as DiffElementNode
-
-  if ('nodeName' in element && Object.values(DiffTextNodeName).includes(element.nodeName as DiffTextNodeName)) {
+export const applyDiffClassToElement = (element: DiffElement, type: DiffType): DiffElementNode => {
+  if (['#comment', '#text'].includes(element.nodeName)) {
     // replace space with Unicode char
-    const data = (element as DiffTextNode).data.replaceAll('&nbsp;', '\u00A0')
+    const data = (element as DiffElementText).data.replaceAll('&nbsp;', '\u00A0')
     const textNode = { nodeName: element.nodeName, data }
 
-    return {
-      nodeName: 'span',
-      attributes: { class: `${elementNode.attributes?.class ?? ''} ${type}` },
-      childNodes: [textNode],
-    }
+    return { nodeName: 'span', attributes: { class: type }, childNodes: [textNode] }
   }
 
+  const elementNode = element as DiffElementNode
   return {
     ...elementNode,
     childNodes: elementNode.childNodes?.map((child) => applyDiffClassToElement(child, type)) || [],
