@@ -1,3 +1,5 @@
+import { Strings } from 'utils/strings'
+
 import { DiffElement, DiffElementNode, DiffElementText, DiffType } from 'client/components/DiffDOM/types'
 
 export const cleanDOM = (value: string): string => {
@@ -23,7 +25,7 @@ export const normalizeDiffDOM = (value: string): string => {
 export const applyDiffClassToElement = (element: DiffElement, type: DiffType): DiffElementNode => {
   if (['#comment', '#text'].includes(element.nodeName)) {
     // replace space with Unicode char
-    const data = (element as DiffElementText).data.replaceAll('&nbsp;', '\u00A0')
+    const data = Strings.nbspToUnicode((element as DiffElementText).data)
     const textNode = { nodeName: element.nodeName, data }
 
     return { nodeName: 'span', attributes: { class: type }, childNodes: [textNode] }
