@@ -1,8 +1,8 @@
-import { DiffInfo, DiffInfoAction, DiffType } from 'client/components/DiffDOM/types'
+import { DiffInfoAddElement, DiffType } from 'client/components/DiffDOM/types'
 
 import { applyDiffClassToElement } from './utils'
 
-export const addElement = (info: DiffInfo<DiffInfoAction.addElement>) => {
+export const addElement = (info: DiffInfoAddElement) => {
   // eslint-disable-next-line no-param-reassign
   info.diff.element = applyDiffClassToElement(info.diff.element, DiffType.added)
 }
