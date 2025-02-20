@@ -12,24 +12,14 @@ import { Users } from 'meta/user'
 import { useAssessment, useCycle } from 'client/store/assessment'
 import { useUser } from 'client/store/user'
 import { useIsGeoRoute } from 'client/hooks'
+import { Props } from 'client/components/AreaSelector/types'
 
 import Icon from '../Icon'
 import CountryList from './CountryList'
 
-type Props = {
-  enableDownload?: boolean
-  includeCountries?: boolean
-  includeRegions?: Array<string>
-  onElementSelect?: (countryIso: CountryIso | Global | RegionCode) => void
-  placeholder?: string
-  selectedValue?: CountryIso | Global | RegionCode
-  showCountryFlag?: boolean
-  showCountryRole?: boolean
-  disabled?: boolean
-}
-
 const AreaSelector: React.FC<Props> = (props) => {
   const {
+    disabled,
     enableDownload,
     includeCountries,
     includeRegions,
@@ -38,7 +28,7 @@ const AreaSelector: React.FC<Props> = (props) => {
     selectedValue,
     showCountryFlag,
     showCountryRole,
-    disabled,
+    userCountries,
   } = props
 
   const { t } = useTranslation()
@@ -149,22 +139,11 @@ const AreaSelector: React.FC<Props> = (props) => {
           query={query}
           selectedValue={selectedValue}
           showCountryRole={showCountryRole}
+          userCountries={userCountries}
         />
       )}
     </button>
   )
-}
-
-AreaSelector.defaultProps = {
-  enableDownload: false,
-  includeRegions: undefined,
-  includeCountries: false,
-  onElementSelect: null,
-  placeholder: null,
-  selectedValue: null,
-  showCountryFlag: false,
-  showCountryRole: false,
-  disabled: false,
 }
 
 export default AreaSelector

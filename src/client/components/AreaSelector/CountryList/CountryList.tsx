@@ -11,6 +11,7 @@ import { UserRoles } from 'meta/user/userRoles'
 import { useCountries, useRegionGroups } from 'client/store/area'
 import { useCycle } from 'client/store/assessment'
 import { useIsAreaSelectorExpanded } from 'client/store/ui/areaSelector'
+import { useUserCountries } from 'client/store/user'
 import { checkMatch } from 'client/utils'
 
 import { useUserCountryISOs } from './hooks/useUserCountryISOs'
@@ -26,6 +27,7 @@ type Props = {
   selectedValue: CountryIso | Global | RegionCode
   showCountryRole: boolean
   query: string
+  userCountries: boolean
 }
 
 const filterRegions = (props: {
@@ -47,18 +49,31 @@ const filterRegions = (props: {
 }
 
 const CountryList: React.FC<Props> = (props: Props) => {
-  const { enableDownload, includeCountries, includeRegions, selectedValue, showCountryRole, onElementSelect, query } =
-    props
+  const {
+    enableDownload,
+    includeCountries,
+    includeRegions,
+    onElementSelect,
+    query,
+    selectedValue,
+    showCountryRole,
+    userCountries,
+  } = props
 
   const { i18n } = useTranslation()
   const regionGroups = useRegionGroups()
   const countryMap = useUserCountryISOs()
+  const _userCountries = useUserCountries()
   const allCountries = useCountries()
   const cycle = useCycle()
   const expanded = useIsAreaSelectorExpanded()
 
   const showCountriesWithRoles = includeCountries && showCountryRole
   const showCountriesWithoutRoles = includeCountries && !showCountryRole
+
+  const countriesWithoutRole: Array<CountryIso> = userCountries
+    ? _userCountries
+    : allCountries.map(({ countryIso }) => countryIso)
 
   return (
     <div className={classNames('country-selection-list', { expanded })}>
@@ -99,7 +114,7 @@ const CountryList: React.FC<Props> = (props: Props) => {
           ))}
 
         {showCountriesWithoutRoles &&
-          allCountries.map(({ countryIso }) => {
+          countriesWithoutRole.map((countryIso) => {
             const countryLabel = i18n.t(Areas.getTranslationKey(countryIso))
 
             const matchCountry = checkMatch(countryLabel, query)
@@ -120,4 +135,5 @@ const CountryList: React.FC<Props> = (props: Props) => {
     </div>
   )
 }
+
 export default CountryList
