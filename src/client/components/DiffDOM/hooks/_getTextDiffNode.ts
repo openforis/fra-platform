@@ -1,7 +1,8 @@
 import * as Diff from 'diff'
+import { Strings } from 'utils/strings'
 
 export const getTextDiffNode = (currentValue: string, newValue: string): HTMLDivElement => {
-  const changes = Diff.diffLines(currentValue.replaceAll('&nbsp;', '\u00A0'), newValue.replaceAll('&nbsp;', '\u00A0'))
+  const changes = Diff.diffLines(Strings.nbspToUnicode(currentValue), Strings.nbspToUnicode(newValue))
 
   const newNode = document.createElement('div')
 
