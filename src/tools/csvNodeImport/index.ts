@@ -39,6 +39,7 @@ const processCSVFiles = async () => {
       const assessment = assessments.find((a) => a.props.name === assessmentName)
       const assessmentPath = path.join(__dirname, assessmentName)
       const cycles = getDirectories(assessmentPath)
+      const rows = await RowRedisRepository.getRows({ assessment })
 
       await Promises.each(cycles, async (cycleName) => {
         const cycle = assessment.cycles.find((c) => c.name === cycleName)
@@ -55,16 +56,21 @@ const processCSVFiles = async () => {
           Logger.info(`Processing ${assessmentName}/${cycleName}/${tableName}:`)
 
           const csvData = Objects.camelize(await CSV.read(csvPath)) as CSVData[]
-          const rows = await RowRedisRepository.getRows({ assessment })
 
           await Promises.each(csvData, async ({ countryIso, value, variableName, colName }) => {
             const rowKey = RowCaches.getKey({ tableName, variableName })
             const row = rows[rowKey]
+            const col = row.cols.find((c) => c.props.colName === colName)
+
+            if (Objects.isNil(row) || Objects.isNil(col)) {
+              Logger.error(`Error: column or row not found for variableName ${variableName} and colName ${colName}`)
+              Logger.error({ row, col })
+            }
 
             const node = {
               country_iso: countryIso,
               row_uuid: row.uuid,
-              col_uuid: row.cols.find((c) => c.props.colName === colName).uuid,
+              col_uuid: col.uuid,
               value: { raw: value, imported: true },
             }
 
