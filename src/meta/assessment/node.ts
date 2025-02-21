@@ -20,6 +20,7 @@ export interface NodeValue {
    * @deprecated
    */
   validation?: NodeValueValidation
+  imported?: boolean
 }
 
 export interface Node {
