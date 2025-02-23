@@ -21,6 +21,11 @@ const getRoundwoodSupplyYearsCols = (year: number, cycleUuid: string): Array<Col
           label: year.toString(),
         },
       },
+      style: {
+        [cycleUuid]: {
+          justifyContent: 'center',
+        },
+      },
     },
     {
       // Forest col
@@ -36,7 +41,6 @@ const getRoundwoodSupplyYearsCols = (year: number, cycleUuid: string): Array<Col
       },
       index: index + 2,
     },
-
     {
       // OWL col
       colType: ColType.placeholder,
@@ -61,6 +65,11 @@ const getRoundwoodTotalYearsCols = (year: number, cycleUuid: string): Array<ColP
       labels: {
         [cycleUuid]: {
           label: year.toString(),
+        },
+      },
+      style: {
+        [cycleUuid]: {
+          justifyContent: 'center',
         },
       },
     },
@@ -104,7 +113,7 @@ export default async (client: BaseProtocol) => {
   const table = await TableRepository.getOne({ assessment, cycle, tableName })
 
   // 1. Add new grid template columns
-  const gridTemplateColumns = 'minmax(150px, auto) repeat(6, minmax(min-content, 1fr))'
+  const gridTemplateColumns = '250px min-content repeat(5, minmax(min-content, 1fr))'
 
   await client.query(
     `update ${schemaAssessment}.table
@@ -265,6 +274,7 @@ export default async (client: BaseProtocol) => {
       style: {
         [cycle.uuid]: {
           colSpan: 1,
+          justifyContent: 'center',
           rowSpan: 6,
         },
       },
@@ -309,6 +319,7 @@ export default async (client: BaseProtocol) => {
       style: {
         [cycle.uuid]: {
           colSpan: 1,
+          justifyContent: 'center',
           rowSpan: 6,
         },
       },
