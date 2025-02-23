@@ -112,25 +112,29 @@ export default async (client: BaseProtocol) => {
   const tableName = 'reasonability_check_3_2'
   const table = await TableRepository.getOne({ assessment, cycle, tableName })
 
-  // 1. Add new grid template columns
+  // 1. Add new grid template columns & update column names
   const gridTemplateColumns = '250px repeat(2, min-content) repeat(4, minmax(min-content, 1fr))'
 
   await client.query(
     `update ${schemaAssessment}.table
      set props = jsonb_set(
-      jsonb_set(
-        props,
-        '{style}',
-        coalesce(props->'style', '{}'::jsonb),
-        true
-      ),
-      '{style,${cycleUuid}}',
-      $1::jsonb,
-      true
+       jsonb_set(
+         jsonb_set(
+           props,
+           '{style}',
+           coalesce(props->'style', '{}'::jsonb),
+           true
+         ),
+         '{style,${cycleUuid}}',
+         $1::jsonb,
+         true
+       ),
+       '{columnNames,${cycleUuid}}',
+       $2::jsonb
      )
      where props->>'name' = '${tableName}'
     `,
-    [JSON.stringify({ gridTemplateColumns })]
+    [JSON.stringify({ gridTemplateColumns }), JSON.stringify(['unit', 'year', 'forest', 'FAWS', 'OWL', 'FOWL'])]
   )
 
   // 2. Delete current cols
@@ -355,5 +359,5 @@ export default async (client: BaseProtocol) => {
   })
 
   // 5. Generate cache
-  await AssessmentController.generateMetadataCache({ assessment }, client)
+  await AssessmentController.generateMetaCache(client)
 }
