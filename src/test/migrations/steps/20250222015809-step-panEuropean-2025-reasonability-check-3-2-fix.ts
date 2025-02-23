@@ -113,7 +113,7 @@ export default async (client: BaseProtocol) => {
   const table = await TableRepository.getOne({ assessment, cycle, tableName })
 
   // 1. Add new grid template columns
-  const gridTemplateColumns = '250px min-content repeat(5, minmax(min-content, 1fr))'
+  const gridTemplateColumns = '250px repeat(2, min-content) repeat(4, minmax(min-content, 1fr))'
 
   await client.query(
     `update ${schemaAssessment}.table
