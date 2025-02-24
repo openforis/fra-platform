@@ -8,6 +8,7 @@ import { Promises } from 'utils/promises'
 
 import { CountryIso } from 'meta/area'
 import { RowCaches } from 'meta/assessment'
+import { NodeUpdate } from 'meta/data'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { CycleDataController } from 'server/controller/cycleData'
@@ -32,7 +33,7 @@ type CSVData = {
 const processCSVFiles = async () => {
   try {
     const user = await UserController.getOne({ email: 'fra@fao.org' })
-    const assessments = await AssessmentController.getAll({})
+    const assessments = await AssessmentController.getAll({ metaCache: true })
     const assessmentNames = getDirectories(__dirname)
 
     await Promises.each(assessmentNames, async (assessmentName) => {
@@ -50,6 +51,7 @@ const processCSVFiles = async () => {
           .map((name) => name.replace('.csv', ''))
 
         const nodes: Array<NodeDb> = []
+        const countryNodes: { [key in CountryIso]?: Array<NodeUpdate> } = {}
 
         await Promises.each(csvFiles, async (tableName) => {
           const csvPath = path.join(assessmentPath, cycleName, `${tableName}.csv`)
@@ -67,6 +69,20 @@ const processCSVFiles = async () => {
               Logger.error({ row, col })
             }
 
+            const nodeUpdate: NodeUpdate = {
+              tableName,
+              variableName,
+              colName,
+              value: { raw: value, imported: true },
+            }
+
+            const countryNode = countryNodes[countryIso] ?? []
+            Objects.setInPath({
+              obj: countryNodes,
+              path: [countryIso],
+              value: countryNode.concat(nodeUpdate),
+            })
+
             const node = {
               country_iso: countryIso,
               row_uuid: row.uuid,
@@ -78,7 +94,7 @@ const processCSVFiles = async () => {
           })
         })
 
-        await CycleDataController.TableData.massiveInsert({ assessment, cycle, nodes, user })
+        await CycleDataController.TableData.massiveInsert({ assessment, cycle, nodes, countryNodes, user })
       })
     })
   } catch (error) {
