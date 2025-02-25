@@ -6,9 +6,11 @@ const OPTS = {
   trim: true,
 }
 
-export const read = async (file: string): Promise<Array<Record<string, string>>> => {
+type ROW_BASE = Record<string, string>
+
+export const read = async <ROW extends ROW_BASE = ROW_BASE>(file: string): Promise<Array<ROW>> => {
   return new Promise((resolve, reject) => {
-    const results: Array<Record<string, string>> = []
+    const results: Array<ROW> = []
 
     fs.createReadStream(file)
       .pipe(fastCsv.parse(OPTS))

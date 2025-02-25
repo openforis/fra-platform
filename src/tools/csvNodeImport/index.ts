@@ -7,26 +7,25 @@ import { Objects } from 'utils/objects'
 import { Promises } from 'utils/promises'
 
 import { CountryIso } from 'meta/area'
-import { RowCaches } from 'meta/assessment'
+import { NodeValue, RowCaches } from 'meta/assessment'
 import { NodeUpdate } from 'meta/data'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { CycleDataController } from 'server/controller/cycleData'
 import { UserController } from 'server/controller/user'
-import { NodeDb } from 'server/repository/assessmentCycle/node'
 import { RowRedisRepository } from 'server/repository/redis/row'
 import { Logger } from 'server/utils/logger'
 
 import { CSV } from '../utils/CSV'
 import { ToolsUtils } from '../utils/toolsUtils'
 
-const getDirectories = (source: string) =>
+const getDirectories = (source: string): Array<string> =>
   fs.readdirSync(source).filter((name) => fs.statSync(path.join(source, name)).isDirectory())
 
 type CSVData = {
-  countryIso: CountryIso
-  variableName: string
-  colName: string
+  country_iso: CountryIso
+  variable_name: string
+  col_name: string
   value: string
 }
 
@@ -50,16 +49,16 @@ const processCSVFiles = async () => {
           .filter((name) => name.endsWith('.csv'))
           .map((name) => name.replace('.csv', ''))
 
-        const nodes: Array<NodeDb> = []
         const countryNodes: { [key in CountryIso]?: Array<NodeUpdate> } = {}
 
         await Promises.each(csvFiles, async (tableName) => {
           const csvPath = path.join(assessmentPath, cycleName, `${tableName}.csv`)
           Logger.info(`Processing ${assessmentName}/${cycleName}/${tableName}:`)
 
-          const csvData = Objects.camelize(await CSV.read(csvPath)) as CSVData[]
+          const csvData = await CSV.read<CSVData>(csvPath)
 
-          await Promises.each(csvData, async ({ countryIso, value, variableName, colName }) => {
+          csvData.forEach((csvData) => {
+            const { country_iso: countryIso, value: raw, variable_name: variableName, col_name: colName } = csvData
             const rowKey = RowCaches.getKey({ tableName, variableName })
             const row = rows[rowKey]
             const col = row.cols.find((c) => c.props.colName === colName)
@@ -67,34 +66,16 @@ const processCSVFiles = async () => {
             if (Objects.isNil(row) || Objects.isNil(col)) {
               Logger.error(`Error: column or row not found for variableName ${variableName} and colName ${colName}`)
               Logger.error({ row, col })
+            } else {
+              const value: NodeValue = { raw, imported: true }
+              const nodeUpdate: NodeUpdate = { tableName, variableName, colName, value }
+              const nodeUpdates = countryNodes[countryIso] ?? []
+              Objects.setInPath({ obj: countryNodes, path: [countryIso], value: [...nodeUpdates, nodeUpdate] })
             }
-
-            const nodeUpdate: NodeUpdate = {
-              tableName,
-              variableName,
-              colName,
-              value: { raw: value, imported: true },
-            }
-
-            const countryNode = countryNodes[countryIso] ?? []
-            Objects.setInPath({
-              obj: countryNodes,
-              path: [countryIso],
-              value: countryNode.concat(nodeUpdate),
-            })
-
-            const node = {
-              country_iso: countryIso,
-              row_uuid: row.uuid,
-              col_uuid: col.uuid,
-              value: { raw: value, imported: true },
-            }
-
-            nodes.push(node)
           })
         })
 
-        await CycleDataController.TableData.massiveInsert({ assessment, cycle, nodes, countryNodes, user })
+        await CycleDataController.TableData.massiveInsert({ assessment, cycle, countryNodes, user })
       })
     })
   } catch (error) {
