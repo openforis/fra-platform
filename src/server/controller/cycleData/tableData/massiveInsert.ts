@@ -89,12 +89,17 @@ export const massiveInsert = async (props: Props): Promise<void> => {
           return acc
         }, {})
 
-        await DataRedisRepository.updateNodes({
-          assessment,
-          cycle,
-          countryIso: countryIso as CountryIso,
-          nodes: nodesByTable,
-        })
+        await Promise.all(
+          Object.keys(nodesByTable).map(async (tableName) => {
+            await DataRedisRepository.cacheCountryTable({
+              assessment,
+              cycle,
+              countryIso: countryIso as CountryIso,
+              tableName,
+              force: true,
+            })
+          })
+        )
 
         // 2. Insert activity logs into DB
         const activityLogs = nodesInsert.map<ActivityLogDb<Node>>((target: Node) => {
