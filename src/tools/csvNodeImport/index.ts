@@ -32,7 +32,7 @@ type CSVData = {
 
 const processCSVFiles = async () => {
   try {
-    const user = await UserController.getOne({ email: 'fra@fao.org' })
+    const user = await UserController.getOne({ email: 'robot@fra.org', allowDisabled: true })
     const assessments = await AssessmentController.getAll({ metaCache: true })
     const assessmentNames = getDirectories(__dirname)
 
