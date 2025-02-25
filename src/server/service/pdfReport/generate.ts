@@ -24,10 +24,16 @@ const defaultProps: Partial<Props> = {
 
 const margin = '5mm'
 const pdfOptions: PDFOptions = {
-  displayHeaderFooter: false,
+  displayHeaderFooter: true,
+  footerTemplate: `
+    <div style="width: 100%; font-size: 10px; text-align: center; color: #444; padding-bottom: 5mm;">
+      <span class="pageNumber"></span> / <span class="totalPages"></span>
+    </div>
+  `,
+  headerTemplate: '<div></div>',
   format: 'A4',
   landscape: true,
-  margin: { bottom: margin, left: margin, right: margin, top: margin },
+  margin: { bottom: '10mm', left: margin, right: margin, top: margin },
   printBackground: true,
   scale: 0.7,
 }
