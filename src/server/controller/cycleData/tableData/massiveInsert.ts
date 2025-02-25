@@ -25,10 +25,10 @@ export const massiveInsert = async (props: Props): Promise<void> => {
   const rowsByRowUuid: Record<string, RowCache> = {}
 
   await DB.tx(async (client) => {
-    // Insert nodes
+    // 1. Insert nodes into DB
     const nodesInsert = await NodeRepository.massiveInsert({ assessment, cycle, nodes }, client)
 
-    // Update cache and insert activity log for each country
+    // 2. Update cache and insert activity log for each country
     await Promise.all(
       Object.entries(countryNodes).map(async ([countryIso, nodes]) => {
         const nodesByTable = nodes.reduce<Record<string, NodeUpdate[]>>((acc, node) => {
@@ -43,6 +43,7 @@ export const massiveInsert = async (props: Props): Promise<void> => {
           return acc
         }, {})
 
+        // 3. Update Redis cache for each affected table
         await Promise.all(
           Object.keys(nodesByTable).map(async (tableName) => {
             await DataRedisRepository.cacheCountryTable({
@@ -55,7 +56,7 @@ export const massiveInsert = async (props: Props): Promise<void> => {
           })
         )
 
-        // 2. Insert activity logs into DB
+        // 4. Insert activity logs into DB
         const activityLogs = nodesInsert.map<ActivityLogDb<Node>>((target: Node) => {
           const section = rowsByRowUuid[target.rowUuid]?.sectionName
           return {
@@ -72,7 +73,7 @@ export const massiveInsert = async (props: Props): Promise<void> => {
       })
     )
 
-    // Update Deps
+    // 5.Update Deps
     await updateTableDataDependencies({ assessment, cycle, countryNodes })
   })
 }
