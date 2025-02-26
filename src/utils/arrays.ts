@@ -7,6 +7,8 @@ import * as range from 'lodash.range'
 // @ts-ignore
 import * as reverse from 'lodash.reverse'
 // @ts-ignore
+import * as union from 'lodash.union'
+// @ts-ignore
 import * as uniqueBy from 'lodash.uniqby'
 // @ts-ignore
 import * as uniqWith from 'lodash.uniqwith'
@@ -29,6 +31,7 @@ export const Arrays = {
   range,
   reverse,
   startsWith,
+  union,
   unique,
   uniqueBy,
 }
