@@ -24,6 +24,8 @@ const OriginalDataPointsPrint: React.FC<Props> = (props) => {
 
   if (loading || Objects.isEmpty(originalDataPoints)) return null
 
+  const hasDescriptions = originalDataPoints.some((odp) => !Objects.isNil(odp.description))
+
   return (
     <div>
       <h2 className="headline">{i18n.t('nationalDataPoint.nationalData')}</h2>
@@ -54,24 +56,36 @@ const OriginalDataPointsPrint: React.FC<Props> = (props) => {
         })}
       </div>
 
-      <div className="odp__section-print-mode">
-        <h3 className="subhead">{i18n.t('dataSource.comments')}</h3>
-        <DataGrid className="odp__section" gridTemplateColumns="100px minmax(240px, 40%)">
-          {originalDataPoints.map((originalDataPoint, i) => {
-            const lastRow = originalDataPoints.length - 1 === i
-            return (
-              <React.Fragment key={originalDataPoint.id}>
-                <DataCell header lastRow={lastRow}>
-                  {originalDataPoint.year}
-                </DataCell>
-                <DataCell lastCol lastRow={lastRow}>
-                  <EditorWYSIWYG disabled onChange={undefined} repository value={originalDataPoint.description} />
-                </DataCell>
-              </React.Fragment>
-            )
-          })}
-        </DataGrid>
-      </div>
+      {hasDescriptions && (
+        <>
+          <div className="page-break" />
+
+          <div className="odp__section-print-mode">
+            <h3 className="subhead">{i18n.t('dataSource.comments')}</h3>
+            <DataGrid className="odp__section" gridTemplateColumns="100px minmax(240px, 40%)">
+              {originalDataPoints.map((originalDataPoint, i) => {
+                const lastRow = originalDataPoints.length - 1 === i
+                const value = originalDataPoint.description
+
+                if (Objects.isNil(value)) {
+                  return null
+                }
+
+                return (
+                  <React.Fragment key={originalDataPoint.id}>
+                    <DataCell header lastRow={lastRow}>
+                      {originalDataPoint.year}
+                    </DataCell>
+                    <DataCell lastCol lastRow={lastRow}>
+                      <EditorWYSIWYG disabled onChange={undefined} repository value={value} />
+                    </DataCell>
+                  </React.Fragment>
+                )
+              })}
+            </DataGrid>
+          </div>
+        </>
+      )}
 
       <div className="page-break" />
     </div>
