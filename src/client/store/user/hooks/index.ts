@@ -23,7 +23,8 @@ export const useUserCountries = (): Array<CountryIso> => {
   const countries = useCountries().map((c) => c.countryIso)
   const isAdministrator = Users.isAdministrator(user)
   // Return only current cycle countries for user
-  const userCountries = user?.roles.filter((role) => cycle.uuid === role.cycleUuid).map((role) => role.countryIso)
+  const userRoles = user?.roles ?? []
+  const userCountries = userRoles.filter((role) => cycle.uuid === role.cycleUuid).map((role) => role.countryIso)
   const compareListName = Areas.getCompareListName(i18n)
 
   return useMemo(() => {
