@@ -5,9 +5,10 @@ import { Objects } from 'utils/objects'
 import { Table } from 'meta/assessment'
 
 import { useCycle } from 'client/store/assessment'
+import { ColHeader } from 'client/pages/Section/DataTable/Table/types'
 
 type Props = {
-  headers: Array<string>
+  headers: Array<ColHeader>
   table: Table
 }
 

@@ -32,37 +32,30 @@ type Props = {
 }
 
 const Table: React.FC<Props> = (props) => {
-  const { assessmentName, sectionName, sectionAnchor, table: tableProps, data, disabled } = props
-
-  const canEdit = useCanEdit(sectionName)
-
-  const { print } = useIsPrintRoute()
-
-  const gridRef = useRef<HTMLDivElement>(null)
-
-  const { firstHeaderRowSpan, headers, noticeMessages, rowsData, rowsHeader, table, withReview } = useParsedTable({
-    assessmentName,
-    data,
-    table: tableProps,
-  })
-
-  const gridTemplateColumns = useGridTemplateColumns({ headers, table })
-  useCellBorderCorrection({ disabled, gridRef, rowsData, rowsHeader })
-
-  const canViewReview = useCanViewReview(sectionName)
-  const withActions = withReview && canViewReview
-
-  const { secondary, name } = table.props
+  const { assessmentName, sectionName, sectionAnchor, table: _table, data, disabled } = props
 
   const isDataLocked = useIsDataLocked()
-  const canClearData = !print && !isDataLocked && !table.props.readonly
+  const canEdit = useCanEdit(sectionName)
+  const canViewReview = useCanViewReview(sectionName)
+  const { print } = useIsPrintRoute()
 
-  const fileName = `${sectionAnchor ? `${sectionAnchor} ` : ''}${name}`
+  const parsedTable = useParsedTable({ assessmentName, data, table: _table })
+  const { firstHeaderRowSpan, headers, noticeMessages, rowsData, rowsHeader, table, withReview } = parsedTable
+
+  const gridTemplateColumns = useGridTemplateColumns({ headers, table })
+  const gridRef = useRef<HTMLDivElement>(null)
+  useCellBorderCorrection({ disabled, gridRef, rowsData, rowsHeader })
+
+  const withActions = withReview && canViewReview
+  const { secondary, name } = table.props
+  const canClearData = !print && !isDataLocked && !table.props.readonly
 
   return (
     <div className={classNames('table-grid-container', { 'secondary-table': secondary })}>
       <div className="table-grid-actions">
-        {!print && <ButtonGridExport filename={fileName} gridRef={gridRef} />}
+        {!print && (
+          <ButtonGridExport filename={`${sectionAnchor ? `${sectionAnchor} ` : ''}${name}`} gridRef={gridRef} />
+        )}
         <ButtonCopyValues gridRef={gridRef} table={table} />
         {canClearData && <ButtonTableClear disabled={disabled} sectionName={sectionName} table={table} />}
       </div>

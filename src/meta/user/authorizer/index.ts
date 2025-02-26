@@ -215,6 +215,21 @@ const canViewHistory = (props: {
   return Users.isReviewer(user, country.countryIso, cycle) && canEditCycleData(props)
 }
 
+/**
+ * canViewHistoryLastApproved:
+ * returns true if (user is admin or reviewer) and status !== notStarted
+ */
+const canViewHistoryLastApproved = (props: { country: Country; cycle: Cycle; user: User }): boolean => {
+  const { country, cycle, user } = props
+
+  const status = Areas.getStatus(country)
+
+  return (
+    (Users.isAdministrator(user) || Users.isReviewer(user, country?.countryIso, cycle)) &&
+    status !== AssessmentStatus.notStarted
+  )
+}
+
 export const canViewGeo = (props: { cycle: Cycle; countryIso: AreaCode; user: User }): boolean =>
   Users.hasRoleInCountry(props)
 
@@ -226,6 +241,7 @@ export const Authorizer = {
   canView,
   canViewGeo,
   canViewHistory,
+  canViewHistoryLastApproved,
   canViewRepositoryItem,
   canViewReview,
   // user

@@ -4,20 +4,28 @@ import { Objects } from 'utils/objects'
 import { AssessmentName, CycleName, Table } from 'meta/assessment'
 import { RecordAssessmentData, RecordAssessmentDatas } from 'meta/data'
 
-export const getODPColSpan = (props: {
+import { ColHeader } from 'client/pages/Section/DataTable/Table/types'
+
+type Props = {
   assessmentName: AssessmentName
   cycleName: CycleName
   data: RecordAssessmentData
-  headers: Array<string>
+  headers: Array<ColHeader>
   table: Table
-}): number => {
+}
+
+export const getODPColSpan = (props: Props): number => {
   const { assessmentName, cycleName, data, headers, table } = props
+
   if (Objects.isEmpty(props.data?.[assessmentName]?.[cycleName])) return headers.length
 
   const [[, tableData]] = Object.entries(RecordAssessmentDatas.getCycleData({ assessmentName, cycleName, data }))
-  const tableDataKeys = Object.keys(tableData?.[table.props.name] || {})
+  const dataColumnNames = Object.keys(tableData?.[table.props.name] || {})
 
-  const keysDifference = Arrays.difference(tableDataKeys, headers)
+  const keysDifference = Arrays.difference(
+    dataColumnNames,
+    headers.map((h) => h.columnName)
+  )
 
   return keysDifference.length + headers.length
 }

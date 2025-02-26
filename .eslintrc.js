@@ -57,6 +57,10 @@ module.exports = {
     'react/function-component-definition': 'off',
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'error',
+
+    // Not possible to enforce destructureInSignature: 'never' - only 'ignore' is possible
+    'react/require-default-props': 'off',
+
     // simple-import-sort rules
 
     'simple-import-sort/exports': 'error',

@@ -5,7 +5,7 @@ import { Objects } from 'utils/objects'
 
 import { CommentableDescriptionName } from 'meta/assessment'
 
-import { useHistoryActivities, useHistoryActivitiesIsActive } from 'client/store/data'
+import { useHistoryActivities, useHistoryActivitiesIsActive, useHistoryLastApprovedIsActive } from 'client/store/data'
 import { useCanViewHistory, useIsDescriptionEditable } from 'client/store/user/hooks'
 import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
 import { useSectionContext } from 'client/pages/Section/context'
@@ -24,9 +24,12 @@ const ButtonHistory: React.FC<Props> = (props) => {
   const { sectionName } = useSectionContext()
   const editable = useIsDescriptionEditable({ sectionName, name: target })
   const loading = false // TODO: useLoading..()
-  const disabled = loading || editable
 
-  const historyActive = useHistoryActivitiesIsActive()
+  const historyLastApprovedActive = useHistoryLastApprovedIsActive()
+  const historyActivitiesActive = useHistoryActivitiesIsActive()
+
+  const disabled = loading || editable || historyLastApprovedActive
+
   const onClick = useToggleHistory({ target })
 
   const isDataSources = target === CommentableDescriptionName.dataSources
@@ -41,7 +44,7 @@ const ButtonHistory: React.FC<Props> = (props) => {
     <Button
       disabled={disabled}
       iconName="history"
-      inverse={!historyActive}
+      inverse={!historyActivitiesActive}
       label={t('history.history')}
       onClick={onClick}
       size={ButtonSize.xs}

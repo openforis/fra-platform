@@ -7,10 +7,11 @@ import { Cols } from 'meta/assessment'
 
 import { useAssessmentCountry } from 'client/store/area'
 import { useCycle } from 'client/store/assessment'
-import { useOriginalDataPointYears } from 'client/store/data'
 import { useShowOriginalDatapoints } from 'client/store/ui/assessmentSection'
+import { ODPColHeader } from 'client/pages/Section/DataTable/Table/types'
 import { getODPColSpan } from 'client/pages/Section/DataTable/Table/utils/getODPColSpan'
 
+import { useOriginalDataPointYearsWithHistory } from '../../hooks/useOriginalDataPointYearsWithHistory'
 import { GridHeadCellProps } from '../types'
 import { getODPHeader } from './getODPHeader'
 
@@ -19,10 +20,7 @@ type Returned = {
   gridColumn: string
   gridRow: string
   lastCol: boolean
-  odpHeader?: {
-    id: number
-    year: string
-  }
+  odpYear?: ODPColHeader
 }
 
 export const useGridHeadCellProps = (props: GridHeadCellProps): Returned => {
@@ -30,19 +28,19 @@ export const useGridHeadCellProps = (props: GridHeadCellProps): Returned => {
 
   const country = useAssessmentCountry()
   const cycle = useCycle()
-  const odpYears = useOriginalDataPointYears()
   const showOdp = useShowOriginalDatapoints()
+  const odpYears = useOriginalDataPointYearsWithHistory(props)
 
   return useMemo<Returned>(() => {
-    const { odp: isOdpTable } = table.props
+    const { odp } = table.props
 
     const { colSpan: defaultColSpan, gridRow } = Cols.getStyle({ col, cycle })
-    const columnName = headers[colIndex]
+    const { columnName } = headers[colIndex] ?? {}
 
-    const odpHeader = getODPHeader({ col, columnName, country, odpYears, showOdp, table })
+    const odpYear = getODPHeader({ col, columnName, country, odpYears, showOdp, table })
 
     let colSpan = defaultColSpan
-    if (isOdpTable && !defaultColSpan) {
+    if (odp && !defaultColSpan) {
       colSpan = getODPColSpan({ assessmentName, cycleName: cycle.name, data, headers, table })
     }
     const gridColumn = Objects.isNil(colSpan) ? undefined : `span ${colSpan}`
@@ -53,12 +51,6 @@ export const useGridHeadCellProps = (props: GridHeadCellProps): Returned => {
 
     const lastCol = colIndex === row.cols.length - 1
 
-    return {
-      className,
-      gridColumn,
-      gridRow,
-      lastCol,
-      odpHeader,
-    }
+    return { className, gridColumn, gridRow, lastCol, odpYear }
   }, [assessmentName, col, colIndex, country, cycle, data, headers, odpYears, row, rowIndex, showOdp, table])
 }

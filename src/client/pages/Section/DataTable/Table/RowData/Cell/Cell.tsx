@@ -6,7 +6,11 @@ import { RecordAssessmentData } from 'meta/data'
 import { TooltipId } from 'meta/tooltip'
 
 import { useCycle } from 'client/store/assessment'
-import { useNodeValueValidation } from 'client/store/data'
+import {
+  useHistoryLastApprovedDataTableFetched,
+  useHistoryLastApprovedIsActive,
+  useNodeValueValidation,
+} from 'client/store/data'
 import { DataCell } from 'client/components/DataGrid'
 
 import { useClassName } from './hooks/useClassName'
@@ -15,6 +19,7 @@ import { useNodeValue } from './hooks/useNodeValue'
 import useOnChange from './hooks/useOnChange'
 import Calculated from './Calculated'
 import Flags from './Flags'
+import History from './History'
 import Number from './Number'
 import Placeholder from './Placeholder'
 import { PropsCell } from './props'
@@ -78,7 +83,12 @@ const Cell: React.FC<Props> = (props) => {
   const className = useClassName({ col, cycle, row, validation })
 
   const disabled = disabledProps || !!nodeValue?.odpId || Cols.hasLinkedNodes({ col, cycle })
-  const Component = Components[col.props.colType]
+
+  const historyLastApprovedIsActive = useHistoryLastApprovedIsActive()
+  const historyLastApprovedDataTableFetched = useHistoryLastApprovedDataTableFetched(table.props.name)
+  const displayHistory = historyLastApprovedIsActive && historyLastApprovedDataTableFetched && !Cols.isPlaceholder(col)
+
+  const Component = displayHistory ? History : Components[col.props.colType]
   const { gridColumn, gridRow, ...style } = Cols.getStyle({ col, cycle })
   const isInput = ![ColType.calculated, ColType.placeholder].includes(col.props.colType)
 
@@ -114,7 +124,7 @@ const Cell: React.FC<Props> = (props) => {
         table={table}
       />
 
-      <Flags col={col} nodeValue={nodeValue} row={row} sectionName={sectionName} />
+      {!displayHistory && <Flags col={col} nodeValue={nodeValue} row={row} sectionName={sectionName} />}
     </DataCell>
   )
 }

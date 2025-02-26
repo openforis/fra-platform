@@ -14,11 +14,11 @@ const GridHeadCell: React.FC<GridHeadCellProps> = (props) => {
   const { col, firstCol, table } = props
 
   const cycle = useCycle()
-  const { className, gridColumn, gridRow, lastCol, odpHeader } = useGridHeadCellProps(props)
+  const { className, gridColumn, gridRow, lastCol, odpYear } = useGridHeadCellProps(props)
 
   const { t } = useTranslation()
 
-  if (odpHeader) {
+  if (odpYear) {
     return (
       <OdpHeaderCell
         key={col.uuid}
@@ -26,9 +26,9 @@ const GridHeadCell: React.FC<GridHeadCellProps> = (props) => {
         gridColumn={gridColumn}
         gridRow={gridRow}
         lastCol={lastCol}
-        odpId={odpHeader.id}
-        odpYear={odpHeader.year}
+        odpYear={odpYear}
         sectionName={table.props.name}
+        table={table}
       />
     )
   }

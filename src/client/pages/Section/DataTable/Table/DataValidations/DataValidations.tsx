@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { Table } from 'meta/assessment'
 
 import { useCycle } from 'client/store/assessment'
-import { useTableHasErrors } from 'client/store/data'
+import { useHistoryLastApprovedIsActive, useTableHasErrors } from 'client/store/data'
 import Icon from 'client/components/Icon'
 
 type Props = {
@@ -18,10 +18,10 @@ const DataValidations: React.FC<Props> = (props) => {
   const { t } = useTranslation()
   const cycle = useCycle()
   const hasErrors = useTableHasErrors({ table })
+  const historyActive = useHistoryLastApprovedIsActive()
 
   const disableErrorMessage = table.props.disableErrorMessage?.[cycle.uuid] === true
-
-  if (!hasErrors) {
+  if (!hasErrors || historyActive) {
     return null
   }
 
@@ -30,7 +30,7 @@ const DataValidations: React.FC<Props> = (props) => {
 
   return (
     <div className="data-validations">
-      <Icon name="alert" className="icon-middle" />
+      <Icon className="icon-middle" name="alert" />
 
       {message}
     </div>

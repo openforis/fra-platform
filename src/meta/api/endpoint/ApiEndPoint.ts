@@ -41,6 +41,7 @@ export const ApiEndPoint = {
 
     Descriptions: {
       many: () => apiPath('cycle-data', 'descriptions'),
+      history: () => apiPath('cycle-data', 'descriptions', 'history'),
 
       DataSources: {
         many: () => apiPath('cycle-data', 'descriptions', 'data-sources'),
@@ -76,6 +77,7 @@ export const ApiEndPoint = {
       one: () => apiPath('cycle-data', 'original-data-points', 'original-data-point'),
       many: () => apiPath('cycle-data', 'original-data-points'),
       lastUpdatedTimestamp: () => apiPath('cycle-data', 'original-data-points', 'last-updated-timestamp'),
+      history: () => apiPath('cycle-data', 'original-data-points', 'original-data-point', 'history'),
 
       dataSources: () => apiPath('cycle-data', 'original-data-points', 'original-data-point', 'data-sources'),
       description: () => apiPath('cycle-data', 'original-data-points', 'original-data-point', 'description'),
@@ -117,6 +119,7 @@ export const ApiEndPoint = {
       estimate: () => apiPath('cycle-data', 'table', 'estimate'),
       nodes: () => apiPath('cycle-data', 'table', 'nodes'),
       tableData: () => apiPath('cycle-data', 'table', 'table-data'),
+      tableDataHistory: () => apiPath('cycle-data', 'table', 'table-data', 'history'),
       tableClear: () => apiPath('cycle-data', 'table', 'clear'),
       nodeValuesEstimations: () => apiPath('cycle-data', 'table', 'node-values-estimations'),
     },

@@ -4,11 +4,15 @@
   background-color: rgba($ui-accent, 10%);
   font-weight: 700;
 
-  .link {
-    text-decoration: underline;
-  }
-
   .review-summary-status {
     margin: 0 $spacing-xxxs;
+  }
+}
+
+.table-grid__odp-link {
+  text-decoration: underline;
+
+  &.removed {
+    pointer-events: none;
   }
 }

@@ -6,6 +6,8 @@ import { Topics } from 'meta/messageCenter'
 
 import { DataCell, DataRow, DataRowAction, DataRowActionType } from 'client/components/DataGrid'
 import TextArea from 'client/components/Inputs/TextArea'
+import { useODPDisplayHistory } from 'client/pages/OriginalDataPoint/components/hooks/useODPDisplayHistory'
+import ODPDiffText from 'client/pages/OriginalDataPoint/components/ODPDiffText/ODPDiffText'
 import { useShowReviewIndicator } from 'client/pages/OriginalDataPoint/hooks/useShowReviewIndicator'
 
 import { useIsDisabled } from '../hooks/useIsDisabled'
@@ -22,6 +24,8 @@ const AdditionalComments: React.FC<Props> = (props: Props) => {
   const reviewIndicator = useShowReviewIndicator()
   const disabled = useIsDisabled()
   const updateOriginalDataPoint = useUpdateDataSources()
+
+  const displayHistory = useODPDisplayHistory()
 
   const onChange = useCallback<ChangeEventHandler<HTMLTextAreaElement>>(
     (event) => {
@@ -58,11 +62,19 @@ const AdditionalComments: React.FC<Props> = (props: Props) => {
         {t('nationalDataPoint.additionalComments')}
       </DataCell>
       <DataCell lastCol lastRow>
-        <TextArea
-          disabled={disabled}
-          onChange={onChange}
-          value={originalDataPoint.dataSourceAdditionalComments ?? ''}
-        />
+        {displayHistory ? (
+          <ODPDiffText
+            className="input-text disabled"
+            originalDataPoint={originalDataPoint}
+            path={['dataSourceAdditionalComments']}
+          />
+        ) : (
+          <TextArea
+            disabled={disabled}
+            onChange={onChange}
+            value={originalDataPoint.dataSourceAdditionalComments ?? ''}
+          />
+        )}
       </DataCell>
     </DataRow>
   )

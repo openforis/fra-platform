@@ -1,5 +1,5 @@
 import { ActivityLog } from 'meta/assessment'
-import { HistoryTarget } from 'meta/cycleData'
+import { HistoryTarget } from 'meta/cycleData/historyActivities'
 
 import { DataSelector } from 'client/store/data/selectors'
 import { useAppSelector } from 'client/store/store'

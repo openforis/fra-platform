@@ -15,8 +15,10 @@ import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 import { SectionContext, SectionContextValue } from 'client/pages/Section/context'
 import Introduction from 'client/pages/Section/Introduction'
 
+import { useGetDescriptionHistoryValues } from './hooks/useGetDescriptionHistoryValues'
 import { useGetDescriptionValues } from './hooks/useGetDescriptionValues'
 import { useGetTableData } from './hooks/useGetTableData'
+import { useGetTableDataHistory } from './hooks/useGetTableDataHistory'
 import { useListenNodeUpdates } from './hooks/useListenNodeUpdates'
 import DataTable from './DataTable'
 import Descriptions, { GeneralComments } from './Descriptions'
@@ -28,7 +30,7 @@ type Props = {
 }
 
 const Section: React.FC<Props> = (props: Props) => {
-  const { section: sectionProp } = props
+  const { section: sectionProp = undefined } = props
 
   const { t } = useTranslation()
   const { assessmentName, cycleName, countryIso } = useSectionRouteParams()
@@ -36,7 +38,9 @@ const Section: React.FC<Props> = (props: Props) => {
   const subSection = useSection(sectionProp)
   const tableSections = useTableSections({ sectionName: subSection?.props.name })
   useGetTableData({ sectionName: subSection?.props.name })
+  useGetTableDataHistory({ sectionName: subSection?.props.name })
   useGetDescriptionValues({ sectionName: subSection?.props.name })
+  useGetDescriptionHistoryValues({ sectionName: subSection?.props.name })
   const canEditTableData = useIsEditTableDataEnabled(sectionProp)
   const { print, onlyTables } = useIsPrintRoute()
   useListenNodeUpdates({ countryIso, assessmentName, cycleName: cycle.name })
@@ -106,10 +110,6 @@ const Section: React.FC<Props> = (props: Props) => {
       </div>
     </SectionContext.Provider>
   )
-}
-
-Section.defaultProps = {
-  section: undefined,
 }
 
 export default Section

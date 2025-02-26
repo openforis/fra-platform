@@ -10,6 +10,19 @@ const debugOptions = {
       Logger.debug(`PARAMS: ${JSON.stringify(e.params)}`)
     }
   },
+  error: (err: Error, e: pgPromise.IEventContext) => {
+    Logger.error(
+      `\x1b[31mDB ERROR: ${err.message}\x1b[0m ${JSON.stringify(
+        {
+          query: e.query,
+          params: e.params,
+          stack: err.stack,
+        },
+        null,
+        2
+      )}`
+    )
+  },
 }
 
 const initOptions = {

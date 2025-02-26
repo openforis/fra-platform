@@ -4,6 +4,8 @@ import { TFunction, useTranslation } from 'react-i18next'
 
 import { NodeValueValidation, NodeValueValidationMessageParam } from 'meta/assessment'
 
+import { useHistoryLastApprovedIsActive } from 'client/store/data'
+
 type Props = {
   validation: NodeValueValidation
 }
@@ -19,10 +21,11 @@ export default (props: Props): string | undefined => {
   const { validation } = props
 
   const { t } = useTranslation()
+  const historyLastApprovedIsActive = useHistoryLastApprovedIsActive()
 
   const { valid, messages = [] } = validation
 
-  if (valid || messages.length === 0) {
+  if (historyLastApprovedIsActive || valid || messages.length === 0) {
     return undefined
   }
 
