@@ -3,19 +3,22 @@ import { NodeValueValidation } from 'meta/assessment/nodeValueValidation'
 
 export interface NodeValue {
   calculated?: boolean
+  estimationUuid?: string
+  faoEstimate?: boolean
+  imported?: boolean
+  odpId?: number
+  raw: any // TODO: do not use any
+  taxonCode?: string
+
+  // === Deprecated
   /**
    * @deprecated
    */
   estimated?: boolean
-  estimationUuid?: string
-  faoEstimate?: boolean
   /**
    * @deprecated Use odpId instead.
    */
   odp?: boolean
-  odpId?: number
-  raw: any // TODO: do not use any
-  taxonCode?: string
   /**
    * @deprecated
    */
