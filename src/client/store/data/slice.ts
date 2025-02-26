@@ -1,11 +1,11 @@
-import { createSlice, Reducer } from '@reduxjs/toolkit'
+import { ActionReducerMapBuilder, createSlice, Reducer } from '@reduxjs/toolkit'
 import { Objects } from 'utils/objects'
 
 import { CommentableDescriptionName } from 'meta/assessment'
 import { ContactNode } from 'meta/cycleData'
 import { RecordAssessmentDatas } from 'meta/data'
 
-import { resetHistoryActivities } from 'client/store/data/reducers/resetHistoryActivities'
+import { getTableDataHistoryReducer } from 'client/store/data/extraReducers/getTableDataHistory'
 import { DataState, TableDataStatus } from 'client/store/data/state'
 
 import { createContact } from './actions/createContact'
@@ -21,12 +21,16 @@ import { postEstimate } from './actions/postEstimate'
 import { updateContact } from './actions/updateContact'
 import { updateDescription } from './actions/updateDescription'
 import { updateNodeValues } from './actions/updateNodeValues'
+import { getDescriptionsHistoryReducer } from './extraReducers/getDescriptionsHistory'
+import { getOriginalDataPointHistoryReducer } from './extraReducers/getOriginalDataPointHistory'
 import { setNodeValuesReducer } from './extraReducers/setNodeValues'
 import { deleteOriginalDataPoint } from './reducers/deleteOriginalDataPoint'
+import { resetHistoryActivities } from './reducers/resetHistoryActivities'
 import { setNodeValueValidations } from './reducers/setNodeValueValidations'
 import { setValue } from './reducers/setValue'
 import { toggleHistoryActivities } from './reducers/toggleHistoryActivities'
 import { toggleHistoryActivitiesCompareItem } from './reducers/toggleHistoryActivitiesCompareItem'
+import { toggleHistoryLastApproved } from './reducers/toggleHistoryLastApproved'
 
 const initialState: DataState = {
   contacts: {},
@@ -46,13 +50,15 @@ export const DataSlice = createSlice({
     deleteOriginalDataPoint,
     setNodeValueValidations,
     setValue,
-    // -- history
+    // -- history activities
     toggleHistoryActivitiesCompareItem,
     resetHistoryActivities,
     toggleHistoryActivities,
+    // -- history last approved
+    toggleHistoryLastApproved,
   },
 
-  extraReducers: (builder) => {
+  extraReducers: (builder: ActionReducerMapBuilder<DataState>) => {
     setNodeValuesReducer(builder)
 
     // Table data
@@ -211,6 +217,11 @@ export const DataSlice = createSlice({
       const contacts = state.contacts[assessmentName][cycleName][countryIso]
       contacts.push(contactAction)
     })
+
+    // == History reducers
+    getDescriptionsHistoryReducer(builder)
+    getTableDataHistoryReducer(builder)
+    getOriginalDataPointHistoryReducer(builder)
   },
 })
 

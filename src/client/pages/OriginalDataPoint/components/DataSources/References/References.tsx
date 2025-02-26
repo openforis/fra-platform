@@ -8,6 +8,8 @@ import { Topics } from 'meta/messageCenter'
 
 import { DataCell, DataRow, DataRowAction, DataRowActionType } from 'client/components/DataGrid'
 import { EditorWYSIWYGLinks } from 'client/components/EditorWYSIWYG'
+import { useODPDisplayHistory } from 'client/pages/OriginalDataPoint/components/hooks/useODPDisplayHistory'
+import ODPDiffText from 'client/pages/OriginalDataPoint/components/ODPDiffText/ODPDiffText'
 import { useShowReviewIndicator } from 'client/pages/OriginalDataPoint/hooks/useShowReviewIndicator'
 
 import { useIsDisabled } from '../hooks/useIsDisabled'
@@ -25,6 +27,7 @@ const References: React.FC<Props> = (props: Props) => {
 
   const reviewIndicator = useShowReviewIndicator()
   const disabled = useIsDisabled()
+  const displayHistory = useODPDisplayHistory()
 
   const updateOriginalDataPoint = useUpdateDataSources()
 
@@ -53,12 +56,20 @@ const References: React.FC<Props> = (props: Props) => {
     <DataRow actions={actions}>
       <DataCell header>{t('nationalDataPoint.references')}</DataCell>
       <DataCell lastCol>
-        <EditorWYSIWYGLinks
-          disabled={disabled}
-          onChange={onChange}
-          repository
-          value={originalDataPoint.dataSourceReferences ?? ''}
-        />
+        {displayHistory ? (
+          <ODPDiffText
+            className="input-text disabled"
+            originalDataPoint={originalDataPoint}
+            path={['dataSourceReferences']}
+          />
+        ) : (
+          <EditorWYSIWYGLinks
+            disabled={disabled}
+            onChange={onChange}
+            repository
+            value={originalDataPoint.dataSourceReferences ?? ''}
+          />
+        )}
       </DataCell>
     </DataRow>
   )

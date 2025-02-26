@@ -99,6 +99,6 @@ export default (): void =>
           year: '2299',
           countryIso: 'FIN',
         })
-      ).rejects.toThrowError('No data returned from the query.')
+      ).resolves.toBeNull()
     })
   })

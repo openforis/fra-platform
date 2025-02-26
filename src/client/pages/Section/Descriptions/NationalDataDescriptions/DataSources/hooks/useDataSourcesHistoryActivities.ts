@@ -3,11 +3,8 @@ import { useMemo } from 'react'
 import { CommentableDescription, CommentableDescriptionName, DataSource } from 'meta/assessment'
 
 import { useHistoryActivitiesCompareItem } from 'client/store/data'
+import { DataSourceHistoryCompare } from 'client/pages/Section/Descriptions/NationalDataDescriptions/DataSources/types'
 
-export type DataSourceHistoryCompare = {
-  dataItem?: DataSource
-  historyItem?: DataSource
-}
 type ActivityLogTarget = { description: CommentableDescription }
 
 type Props = {
@@ -15,7 +12,7 @@ type Props = {
 }
 type Returned = Array<DataSourceHistoryCompare> | undefined
 
-export const useDataSourcesHistory = (props: Props): Returned => {
+export const useDataSourcesHistoryActivities = (props: Props): Returned => {
   const { dataSources } = props
 
   const compareItem = useHistoryActivitiesCompareItem<ActivityLogTarget>(CommentableDescriptionName.dataSources)

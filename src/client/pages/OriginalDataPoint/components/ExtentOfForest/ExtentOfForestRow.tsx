@@ -2,25 +2,27 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
-import { Numbers } from 'utils/numbers'
-import { Objects } from 'utils/objects'
 
-import { ODPNationalClass, OriginalDataPoint } from 'meta/assessment'
+import { ODPNationalClass, ODPs, OriginalDataPoint } from 'meta/assessment'
 import { NationalClassValidation } from 'meta/assessment/originalDataPoint/odps/validateODP'
 import { Topics } from 'meta/messageCenter'
 import { TooltipId } from 'meta/tooltip'
 
 import { useCycle } from 'client/store/assessment'
+import DiffText from 'client/components/DiffText'
 import PercentInput from 'client/components/PercentInput'
 import ReviewIndicator from 'client/components/ReviewIndicator'
 import ThousandSeparatedDecimalInput from 'client/components/ThousandSeparatedDecimalInput'
+import { useODPDisplayHistory } from 'client/pages/OriginalDataPoint/components/hooks/useODPDisplayHistory'
 import { Columns, useOnPaste } from 'client/pages/OriginalDataPoint/components/hooks/useOnPaste'
 import { useUpdateOriginalData } from 'client/pages/OriginalDataPoint/components/hooks/useUpdateOriginalData'
 import { useUpdateOriginalDataField } from 'client/pages/OriginalDataPoint/components/hooks/useUpdateOriginalDataField'
+import ODPDiffText from 'client/pages/OriginalDataPoint/components/ODPDiffText/ODPDiffText'
 import { useNationalClassValidations } from 'client/pages/OriginalDataPoint/hooks/useNationalClassValidations'
 import { useShowReviewIndicator } from 'client/pages/OriginalDataPoint/hooks/useShowReviewIndicator'
 
 import { useNationalClassNameComments } from '../../hooks'
+import { useOtherLandPercentChange } from './hooks/useOtherLandPercentChange'
 
 type Props = {
   canEditData: boolean
@@ -47,17 +49,20 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
   const target = [originalDataPoint.id, 'class', `${uuid}`, 'value'] as string[]
   const classNameRowComments = useNationalClassNameComments(target)
 
-  let otherLand = null
+  const displayHistory = useODPDisplayHistory()
 
-  const validationErrorMessage = useNationalClassValidations({
+  let validationErrorMessage = useNationalClassValidations({
     index,
     originalDataPoint,
     variable: 'validExtentOfForestPercentage',
   })
 
-  if (!Objects.isEmpty(forestPercent) || !Objects.isEmpty(otherWoodedLandPercent)) {
-    otherLand = Numbers.format(Numbers.sub(100, Numbers.add(forestPercent ?? 0, otherWoodedLandPercent ?? 0)), 3)
-  }
+  validationErrorMessage = displayHistory ? null : validationErrorMessage
+
+  const otherLandPercent = ODPs.calculateNationalClassOtherLandPercent(nationalClass)
+
+  const otherLandPercentChange = useOtherLandPercentChange({ nationalClassIndex: index, otherLandPercent })
+
   const _onPaste = useOnPaste({
     columns,
     index,
@@ -69,25 +74,40 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
 
   return (
     <tr className={classNameRowComments}>
-      <th className="fra-table__category-cell">{name}</th>
+      <th className="fra-table__category-cell">
+        {displayHistory ? (
+          <ODPDiffText originalDataPoint={originalDataPoint} path={['nationalClasses', index, 'name']} />
+        ) : (
+          name
+        )}
+      </th>
       <td
         className={classNames(`fra-table__cell fra-table__divider`, {
           error: !nationalClassValidation.validArea,
         })}
       >
-        <ThousandSeparatedDecimalInput
-          disabled={!canEditData}
-          numberValue={area}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            const { value } = event.target
-            const updateProps = { field: columns[0].name, value, index }
-            updateOriginalDataField(updateProps)
-          }}
-          onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
-            const odp = _onPaste({ event, colIndex: 0 })
-            updateOriginalData(odp)
-          }}
-        />
+        {displayHistory ? (
+          <ODPDiffText
+            className="odp-data-input-diff"
+            format="decimal"
+            originalDataPoint={originalDataPoint}
+            path={['nationalClasses', index, 'area']}
+          />
+        ) : (
+          <ThousandSeparatedDecimalInput
+            disabled={!canEditData}
+            numberValue={area}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+              const { value } = event.target
+              const updateProps = { field: columns[0].name, value, index }
+              updateOriginalDataField(updateProps)
+            }}
+            onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
+              const odp = _onPaste({ event, colIndex: 0 })
+              updateOriginalData(odp)
+            }}
+          />
+        )}
       </td>
 
       <td
@@ -97,19 +117,30 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
         data-tooltip-content={validationErrorMessage}
         data-tooltip-id={TooltipId.error}
       >
-        <PercentInput
-          disabled={!canEditData}
-          numberValue={forestPercent}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            const { value } = event.target
-            const updateProps = { field: columns[1].name, index, precision: columns[1].precision, value }
-            updateOriginalDataField(updateProps)
-          }}
-          onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
-            const odp = _onPaste({ event, colIndex: 1 })
-            updateOriginalData(odp)
-          }}
-        />
+        {displayHistory ? (
+          <div className="odp-percent-diff">
+            <ODPDiffText
+              format="percent"
+              originalDataPoint={originalDataPoint}
+              path={['nationalClasses', index, 'forestPercent']}
+            />
+            <span>%</span>
+          </div>
+        ) : (
+          <PercentInput
+            disabled={!canEditData}
+            numberValue={forestPercent}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+              const { value } = event.target
+              const updateProps = { field: columns[1].name, index, precision: columns[1].precision, value }
+              updateOriginalDataField(updateProps)
+            }}
+            onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
+              const odp = _onPaste({ event, colIndex: 1 })
+              updateOriginalData(odp)
+            }}
+          />
+        )}
       </td>
 
       <td
@@ -117,24 +148,44 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
         data-tooltip-content={validationErrorMessage}
         data-tooltip-id={TooltipId.error}
       >
-        <PercentInput
-          disabled={!canEditData}
-          numberValue={otherWoodedLandPercent}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            const { value } = event.target
-            const updateProps = { field: columns[2].name, index, precision: columns[2].precision, value }
-            updateOriginalDataField(updateProps)
-          }}
-          onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
-            const odp = _onPaste({ event, colIndex: 2 })
-            updateOriginalData(odp)
-          }}
-        />
+        {displayHistory ? (
+          <div className="odp-percent-diff">
+            <ODPDiffText
+              format="percent"
+              originalDataPoint={originalDataPoint}
+              path={['nationalClasses', index, 'otherWoodedLandPercent']}
+            />
+            <span>%</span>
+          </div>
+        ) : (
+          <PercentInput
+            disabled={!canEditData}
+            numberValue={otherWoodedLandPercent}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+              const { value } = event.target
+              const updateProps = { field: columns[2].name, index, precision: columns[2].precision, value }
+              updateOriginalDataField(updateProps)
+            }}
+            onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
+              const odp = _onPaste({ event, colIndex: 2 })
+              updateOriginalData(odp)
+            }}
+          />
+        )}
       </td>
 
       <td className="fra-table__calculated-cell">
-        <span>{otherLand}</span>
-        <span style={{ marginLeft: '8px' }}>%</span>
+        {displayHistory ? (
+          <div className="odp-calculated-percent-diff">
+            <DiffText changes={otherLandPercentChange} />
+            <span>%</span>
+          </div>
+        ) : (
+          <>
+            <span>{otherLandPercent}</span>
+            <span style={{ marginLeft: '8px' }}>%</span>
+          </>
+        )}
       </td>
 
       {showReviewIndicator && (

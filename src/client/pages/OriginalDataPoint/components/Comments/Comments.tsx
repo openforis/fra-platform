@@ -8,6 +8,8 @@ import { useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
 import Button, { ButtonSize } from 'client/components/Buttons/Button'
 import { DataCell, DataGrid, DataRow } from 'client/components/DataGrid'
 import EditorWYSIWYG from 'client/components/EditorWYSIWYG'
+import { useODPDisplayHistory } from 'client/pages/OriginalDataPoint/components/hooks/useODPDisplayHistory'
+import ODPCommentsDiffView from 'client/pages/OriginalDataPoint/components/ODPCommentsDiffView/ODPCommentsDiffView'
 
 import { useUpdateDescription } from './hooks/useUpdateDescription'
 import { useCommentsActions } from './useCommentsActions'
@@ -25,6 +27,7 @@ const Comments: React.FC<Props> = (props) => {
   const updateDescription = useUpdateDescription()
   const actions = useCommentsActions()
   const [open, setOpen] = useState<boolean>(false)
+  const displayHistory = useODPDisplayHistory()
 
   useEffect(() => {
     if (open && isDataLocked) {
@@ -52,14 +55,18 @@ const Comments: React.FC<Props> = (props) => {
       </DataRow>
 
       <DataCell editable={open} gridColumn={canEditData ? `1/-1` : undefined} lastCol lastRow noBorder={!open}>
-        <div className={classNames('description__editor-container', { editable: open })}>
-          <EditorWYSIWYG
-            disabled={!open}
-            onChange={updateDescription}
-            repository
-            value={originalDataPoint.description}
-          />
-        </div>
+        {displayHistory ? (
+          <ODPCommentsDiffView />
+        ) : (
+          <div className={classNames('description__editor-container', { editable: open })}>
+            <EditorWYSIWYG
+              disabled={!open}
+              onChange={updateDescription}
+              repository
+              value={originalDataPoint.description}
+            />
+          </div>
+        )}
       </DataCell>
     </DataGrid>
   )

@@ -3,7 +3,11 @@ import React from 'react'
 
 import { CommentableDescriptionName, CommentableDescriptionValue } from 'meta/assessment'
 
-import { useCommentableDescriptionValue } from 'client/store/data'
+import {
+  useCommentableDescriptionValue,
+  useHistoryLastApprovedDescriptionFetched,
+  useHistoryLastApprovedIsActive,
+} from 'client/store/data'
 import { useCanEditDescription, useIsDescriptionEditable } from 'client/store/user/hooks'
 import { DataCell, DataGrid, DataRow } from 'client/components/DataGrid'
 import EditorWYSIWYG from 'client/components/EditorWYSIWYG'
@@ -12,6 +16,7 @@ import Title from 'client/pages/Section/Descriptions/CommentableDescription/Titl
 
 import { useDescriptionErrorState } from './hooks/useDescriptionErrorState'
 import { useOnChange } from './hooks/useOnChange'
+import DescriptionDiffView from './DescriptionDiffView'
 
 type Props = {
   name: CommentableDescriptionName
@@ -27,6 +32,10 @@ const CommentableDescription: React.FC<Props> = (props) => {
   const { sectionName } = useSectionContext()
   const value = useCommentableDescriptionValue({ name, sectionName, template })
   const { empty } = useDescriptionErrorState({ name, sectionName })
+
+  const historyLastApprovedIsActive = useHistoryLastApprovedIsActive()
+  const historyLastApprovedDescriptionFetched = useHistoryLastApprovedDescriptionFetched()
+  const displayHistory = historyLastApprovedIsActive && historyLastApprovedDescriptionFetched
 
   const canEdit = useCanEditDescription({ sectionName })
   const editable = useIsDescriptionEditable({ sectionName, name })
@@ -45,12 +54,16 @@ const CommentableDescription: React.FC<Props> = (props) => {
           lastRow
           noBorder={!editable}
         >
-          <EditorWYSIWYG
-            disabled={!editable}
-            onChange={(content) => onChange({ ...value, text: content })}
-            repository={repository}
-            value={!editable && empty && showDashEmptyContent ? '-' : value.text}
-          />
+          {displayHistory ? (
+            <DescriptionDiffView name={name} />
+          ) : (
+            <EditorWYSIWYG
+              disabled={!editable}
+              onChange={(content) => onChange({ ...value, text: content })}
+              repository={repository}
+              value={!editable && empty && showDashEmptyContent ? '-' : value.text}
+            />
+          )}
         </DataCell>
       </DataRow>
     </DataGrid>

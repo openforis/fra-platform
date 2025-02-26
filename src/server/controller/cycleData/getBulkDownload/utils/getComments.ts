@@ -50,7 +50,7 @@ const _extractTextAndLinks = (html: string) => {
 
 export const getComments = async (props: Props): Promise<string> => {
   const { countryIso, sectionName, name } = props
-  const values = await CycleDataController.getDescriptionValues(props)
+  const values = await CycleDataController.Description.getDescriptionValues(props)
   const comments = values?.[countryIso]?.[sectionName]?.[name]?.text
 
   return comments ? _extractTextAndLinks(comments) : ''
