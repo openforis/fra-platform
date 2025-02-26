@@ -4,6 +4,8 @@ import { Assessment, Cycle } from 'meta/assessment'
 import { NodeUpdates } from 'meta/data'
 import { User } from 'meta/user'
 
+import { BaseProtocol } from 'server/db'
+
 export type UpdateDependenciesProps = {
   assessment: Assessment
   cycle: Cycle
@@ -11,6 +13,7 @@ export type UpdateDependenciesProps = {
   user: User
   includeSourceNodes?: boolean
   isODP?: boolean
+  client?: BaseProtocol
 }
 
 export type UpdateDependenciesResult = {

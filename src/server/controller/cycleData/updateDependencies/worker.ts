@@ -1,3 +1,4 @@
+import { DB } from 'server/db'
 import { Logger } from 'server/utils/logger'
 
 import { ContextFactory } from './context'
@@ -17,13 +18,13 @@ const _getLogKey = (job: UpdateDependenciesJob): string => {
 export default async (job: UpdateDependenciesJob) => {
   const logKey = _getLogKey(job)
   try {
-    const { user } = job.data
+    const { client = DB, user } = job.data
     const time = new Date().getTime()
     Logger.info(`${logKey} started with ${job.data.nodeUpdates.nodes.length} nodes.`)
 
-    const context = await ContextFactory.newInstance(job.data)
+    const context = await ContextFactory.newInstance(job.data, client)
     const result = updateCalculationDependencies({ context, jobId: job.id })
-    await persistResults({ result, user })
+    await persistResults({ result, user }, client)
 
     const resultNodeUpdates = result.nodeUpdates
     const duration = (new Date().getTime() - time) / 1000
