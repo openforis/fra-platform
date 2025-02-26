@@ -1,6 +1,6 @@
 import { Objects } from 'utils/objects'
 
-import { Country } from 'meta/area'
+import { Country, CountryIso, RecordCountries } from 'meta/area'
 import { Assessment, Cycle } from 'meta/assessment'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'
@@ -34,5 +34,14 @@ export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<
     `,
     [cycle.uuid],
     (row) => Objects.camelize(row)
+  )
+}
+
+export const getManyRecord = async (props: Props, client: BaseProtocol = DB): Promise<RecordCountries> => {
+  const countries = await getMany(props, client)
+
+  return countries.reduce<RecordCountries>(
+    (acc, country) => ({ ...acc, [country.countryIso]: country }),
+    {} as Record<CountryIso, Country>
   )
 }

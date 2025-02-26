@@ -13,7 +13,7 @@ export const getHistoryCount = async (req: TablePaginatedDataRequest, res: Respo
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
     const props = { assessment, cycle, countryIso, sectionName, target }
-    const count = await CycleDataController.History.getCount(props)
+    const count = await CycleDataController.History.Activities.getCount(props)
 
     Requests.send(res, count)
   } catch (e) {

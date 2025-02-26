@@ -1,17 +1,10 @@
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { TFunction } from 'i18next'
-
-import { Col, Cols, ColSelectOption, NodeValue } from 'meta/assessment'
+import { Col, Cols, NodeValue } from 'meta/assessment'
 
 import { useCycle } from 'client/store/assessment'
 import { Option, OptionsGroup, OptionsOrGroups } from 'client/components/Inputs/Select'
-
-const getLabel = (option: ColSelectOption, t: TFunction, labelKeyPrefix = 'yesNoTextSelect'): string => {
-  const label = Number.isInteger(+option.name) ? option.name : t(`${labelKeyPrefix}.${option.name}`)
-  return option.type === 'header' ? `-- ${label} --` : label
-}
 
 type Props = {
   col: Col
@@ -32,7 +25,7 @@ export const useOptions = (props: Props): OptionsOrGroups => {
     let options: Array<Option> = []
 
     optionsProps.forEach((optionProps) => {
-      const label = getLabel(optionProps, t, labelKeyPrefix)
+      const label = Cols.getSelectOptionLabel(optionProps, t, labelKeyPrefix)
 
       if (optionProps.type === 'header') {
         options = []

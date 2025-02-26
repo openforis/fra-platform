@@ -18,7 +18,7 @@ export const removeDataSource = async (req: Request, res: Response) => {
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
     const propsDelete = { assessment, cycle, countryIso, sectionName, uuid, user }
-    await CycleDataController.removeDataSource(propsDelete)
+    await CycleDataController.Description.removeDataSource(propsDelete)
 
     SocketServer.emit(Sockets.getRequestReviewSummaryEvent({ assessmentName, cycleName, countryIso }))
 

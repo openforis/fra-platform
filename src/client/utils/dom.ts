@@ -41,9 +41,16 @@ const findElementByName = <Returned extends Element>(element: Element, name: str
   return undefined
 }
 
+const getHtmlTextContent = (html: string): string => {
+  const parser = new DOMParser()
+  const doc = parser.parseFromString(html ?? '', 'text/html')
+  return doc.documentElement.textContent || ''
+}
+
 export const DOMs = {
   elementOffset,
   findElementByName,
-  scrollTo,
+  getHtmlTextContent,
   parseDOMValue,
+  scrollTo,
 }

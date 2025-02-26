@@ -1,45 +1,52 @@
 import './OdpHeaderCell.scss'
+import 'client/components/DiffText/DiffText.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
 import classNames from 'classnames'
+import { Objects } from 'utils/objects'
 
+import { CountryIso } from 'meta/area'
+import { Table } from 'meta/assessment'
 import { Routes } from 'meta/routes'
 import { TooltipId } from 'meta/tooltip'
 
+import { useHistoryLastApprovedIsActive } from 'client/store/data'
 import { useOdpReviewSummary } from 'client/store/ui/review/hooks'
-import { useCountryIso } from 'client/hooks'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
-import { useCycleRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { DataCell } from 'client/components/DataGrid'
 import ReviewSummaryIndicator from 'client/components/ReviewSummaryIndicator'
+import { ODPColHeader } from 'client/pages/Section/DataTable/Table/types'
+
+import { useOdpHeaderLastApprovedHistoryInfo } from './hooks/useOdpHeaderLastApprovedHistoryInfo'
 
 type Props = {
   className: string
   gridColumn: string
   gridRow: string
   lastCol?: boolean
-  odpId: number
-  odpYear: string
+  odpYear: ODPColHeader
   sectionName: string
+  table: Table
 }
 
 const OdpHeaderCell: React.FC<Props> = (props) => {
-  const { className, gridColumn, gridRow, lastCol, odpId, odpYear, sectionName } = props
+  const { className, gridColumn, gridRow, lastCol, odpYear, sectionName, table } = props
+  const { id: odpId, year } = odpYear
 
-  const { assessmentName, cycleName } = useCycleRouteParams()
-  const countryIso = useCountryIso()
-
-  const { print } = useIsPrintRoute()
   const { t } = useTranslation()
-
+  const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
+  const historyLastApprovedIsActive = useHistoryLastApprovedIsActive()
+  const { print } = useIsPrintRoute()
   const reviewStatus = useOdpReviewSummary(odpId)
+  const historyInfo = useOdpHeaderLastApprovedHistoryInfo({ odpYear, table })
 
   if (print) {
     return (
       <DataCell className={classNames(className, 'header')} gridColumn={gridColumn} gridRow={gridRow}>
-        {odpYear}
+        {year}
       </DataCell>
     )
   }
@@ -52,22 +59,17 @@ const OdpHeaderCell: React.FC<Props> = (props) => {
       header
       lastCol={lastCol}
     >
-      <div>
+      <div className={classNames({ 'diff-text': !Objects.isNil(historyInfo) })}>
         <Link
-          className="link"
+          className={classNames('table-grid__odp-link', { added: historyInfo?.added, removed: historyInfo?.removed })}
           data-tooltip-content={t('nationalDataPoint.clickOnNDP')}
           data-tooltip-id={TooltipId.info}
-          to={Routes.OriginalDataPoint.generatePath({
-            assessmentName,
-            countryIso,
-            cycleName,
-            sectionName,
-            year: odpYear,
-          })}
+          to={Routes.OriginalDataPoint.generatePath({ assessmentName, countryIso, cycleName, sectionName, year })}
         >
-          {odpYear}
+          {year}
         </Link>
-        <ReviewSummaryIndicator status={reviewStatus} />
+
+        {!historyLastApprovedIsActive && <ReviewSummaryIndicator status={reviewStatus} />}
       </div>
     </DataCell>
   )

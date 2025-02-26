@@ -122,16 +122,32 @@ const getSelectOptions = (props: { cycle: Cycle; col: Col }): Array<ColSelectOpt
   throw new Error(`Unable to get col options. col: ${JSON.stringify(props.col)}`)
 }
 
+const isNumeric = (col: Col): boolean => {
+  return [ColType.integer, ColType.decimal, ColType.calculated].includes(col.props.colType)
+}
+
+const isPlaceholder = (col: Col): boolean => {
+  return col.props.colType === ColType.placeholder
+}
+
+const getSelectOptionLabel = (option: ColSelectOption, t: TFunction, labelKeyPrefix = 'yesNoTextSelect'): string => {
+  const label = Number.isInteger(+option.name) ? option.name : t(`${labelKeyPrefix}.${option.name}`)
+  return option.type === 'header' ? `-- ${label} --` : label
+}
+
 export const Cols = {
   cloneProps,
   getCalculateFn,
   getClassNames,
   getColName,
   getLabel,
+  getSelectOptionLabel,
   getSelectOptions,
   getSelectProps,
   getStyle,
   hasLinkedNodes,
   isCalculated,
+  isNumeric,
+  isPlaceholder,
   isReadOnly,
 }
