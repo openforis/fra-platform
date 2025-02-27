@@ -9,7 +9,6 @@ import DataSources from 'client/pages/Section/Descriptions/NationalDataDescripti
 
 type Props = {
   nationalData: NationalDataDescription
-  showDashEmptyContent?: boolean
 }
 
 type DataSourcesProps = {
@@ -18,7 +17,7 @@ type DataSourcesProps = {
 }
 
 const NationalDataDescriptions: React.FC<Props> = (props) => {
-  const { nationalData, showDashEmptyContent } = props
+  const { nationalData } = props
 
   const { t } = useTranslation()
 
@@ -39,7 +38,6 @@ const NationalDataDescriptions: React.FC<Props> = (props) => {
           {!dataSourcesProps.withTable && (
             <CommentableDescription
               name={CommentableDescriptionName.dataSources}
-              showDashEmptyContent={showDashEmptyContent}
               title={t('description.dataSourcesPlus')}
             />
           )}
@@ -49,24 +47,15 @@ const NationalDataDescriptions: React.FC<Props> = (props) => {
       {nationalData.nationalClassification && (
         <CommentableDescription
           name={CommentableDescriptionName.nationalClassificationAndDefinitions}
-          showDashEmptyContent={showDashEmptyContent}
           title={t('description.nationalClassificationAndDefinitions')}
         />
       )}
 
       {nationalData.originalData && (
-        <CommentableDescription
-          name={CommentableDescriptionName.originalData}
-          showDashEmptyContent={showDashEmptyContent}
-          title={t('description.originalData')}
-        />
+        <CommentableDescription name={CommentableDescriptionName.originalData} title={t('description.originalData')} />
       )}
     </div>
   )
-}
-
-NationalDataDescriptions.defaultProps = {
-  showDashEmptyContent: false,
 }
 
 export default NationalDataDescriptions

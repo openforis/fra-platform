@@ -3,7 +3,6 @@ import React from 'react'
 
 import { Description } from 'meta/assessment'
 
-import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import AnalysisDescriptions from 'client/pages/Section/Descriptions/AnalysisDescriptions'
 import NationalDataDescriptions from 'client/pages/Section/Descriptions/NationalDataDescriptions'
 
@@ -16,7 +15,6 @@ type Props = {
 const Descriptions: React.FC<Props> = (props: Props) => {
   const { descriptions } = props
 
-  const { print } = useIsPrintRoute()
   const { analysisAndProcessing, nationalData } = useDescriptions({ descriptions })
 
   if (!nationalData && !analysisAndProcessing) {
@@ -25,11 +23,9 @@ const Descriptions: React.FC<Props> = (props: Props) => {
 
   return (
     <div className="descriptions">
-      {nationalData && <NationalDataDescriptions nationalData={nationalData} showDashEmptyContent={print} />}
+      {nationalData && <NationalDataDescriptions nationalData={nationalData} />}
 
-      {analysisAndProcessing && (
-        <AnalysisDescriptions analysisAndProcessing={analysisAndProcessing} showDashEmptyContent={print} />
-      )}
+      {analysisAndProcessing && <AnalysisDescriptions analysisAndProcessing={analysisAndProcessing} />}
     </div>
   )
 }
