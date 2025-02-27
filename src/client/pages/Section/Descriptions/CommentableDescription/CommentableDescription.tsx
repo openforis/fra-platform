@@ -27,7 +27,7 @@ type Props = {
 }
 
 const CommentableDescription: React.FC<Props> = (props) => {
-  const { name, repository, template, title } = props
+  const { name, repository, template = { text: '' }, title } = props
   const { print } = useIsPrintRoute()
   const { sectionName } = useSectionContext()
   const value = useCommentableDescriptionValue({ name, sectionName, template })
@@ -68,11 +68,6 @@ const CommentableDescription: React.FC<Props> = (props) => {
       </DataRow>
     </DataGrid>
   )
-}
-
-CommentableDescription.defaultProps = {
-  repository: false,
-  template: { text: '' },
 }
 
 export default CommentableDescription
