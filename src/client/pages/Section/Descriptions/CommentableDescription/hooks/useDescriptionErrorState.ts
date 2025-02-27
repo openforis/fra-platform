@@ -27,7 +27,7 @@ type Returned = {
 }
 
 /*
-    Note: This is used only in print view
+    Note: Return value of the hook is used only in print view
 */
 
 export const useDescriptionErrorState = (props: Props): Returned => {
