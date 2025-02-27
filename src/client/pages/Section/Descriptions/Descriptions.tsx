@@ -16,7 +16,7 @@ type Props = {
 const Descriptions: React.FC<Props> = (props: Props) => {
   const { descriptions } = props
 
-  const { print, onlyTables } = useIsPrintRoute()
+  const { print } = useIsPrintRoute()
   const { analysisAndProcessing, nationalData } = useDescriptions({ descriptions })
 
   if (!nationalData && !analysisAndProcessing) {
@@ -24,16 +24,13 @@ const Descriptions: React.FC<Props> = (props: Props) => {
   }
 
   return (
-    <>
-      <div className="descriptions">
-        {nationalData && <NationalDataDescriptions nationalData={nationalData} showDashEmptyContent={print} />}
+    <div className="descriptions">
+      {nationalData && <NationalDataDescriptions nationalData={nationalData} showDashEmptyContent={print} />}
 
-        {analysisAndProcessing && (
-          <AnalysisDescriptions analysisAndProcessing={analysisAndProcessing} showDashEmptyContent={print} />
-        )}
-      </div>
-      {print && !onlyTables && <div className="page-break" />}
-    </>
+      {analysisAndProcessing && (
+        <AnalysisDescriptions analysisAndProcessing={analysisAndProcessing} showDashEmptyContent={print} />
+      )}
+    </div>
   )
 }
 
