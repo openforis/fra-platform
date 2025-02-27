@@ -26,11 +26,9 @@ const Descriptions: React.FC<Props> = (props: Props) => {
   return (
     <>
       <div className="descriptions">
-        {nationalData && <NationalDataDescriptions nationalData={nationalData} showDashEmptyContent={print} />}
+        {nationalData && <NationalDataDescriptions nationalData={nationalData} />}
 
-        {analysisAndProcessing && (
-          <AnalysisDescriptions analysisAndProcessing={analysisAndProcessing} showDashEmptyContent={print} />
-        )}
+        {analysisAndProcessing && <AnalysisDescriptions analysisAndProcessing={analysisAndProcessing} />}
       </div>
       {print && !onlyTables && <div className="page-break" />}
     </>
