@@ -9,6 +9,7 @@ import {
   useHistoryLastApprovedIsActive,
 } from 'client/store/data'
 import { useCanEditDescription, useIsDescriptionEditable } from 'client/store/user/hooks'
+import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { DataCell, DataGrid, DataRow } from 'client/components/DataGrid'
 import EditorWYSIWYG from 'client/components/EditorWYSIWYG'
 import { useSectionContext } from 'client/pages/Section/context'
@@ -21,14 +22,13 @@ import DescriptionDiffView from './DescriptionDiffView'
 type Props = {
   name: CommentableDescriptionName
   repository?: boolean
-  showDashEmptyContent?: boolean
   template?: CommentableDescriptionValue
   title: string
 }
 
 const CommentableDescription: React.FC<Props> = (props) => {
-  const { name, showDashEmptyContent, repository, template, title } = props
-
+  const { name, repository, template = { text: '' }, title } = props
+  const { print } = useIsPrintRoute()
   const { sectionName } = useSectionContext()
   const value = useCommentableDescriptionValue({ name, sectionName, template })
   const { empty } = useDescriptionErrorState({ name, sectionName })
@@ -61,19 +61,13 @@ const CommentableDescription: React.FC<Props> = (props) => {
               disabled={!editable}
               onChange={(content) => onChange({ ...value, text: content })}
               repository={repository}
-              value={!editable && empty && showDashEmptyContent ? '-' : value.text}
+              value={empty && print ? '-' : value.text}
             />
           )}
         </DataCell>
       </DataRow>
     </DataGrid>
   )
-}
-
-CommentableDescription.defaultProps = {
-  repository: false,
-  showDashEmptyContent: false,
-  template: { text: '' },
 }
 
 export default CommentableDescription
