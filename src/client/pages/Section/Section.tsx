@@ -97,7 +97,6 @@ const Section: React.FC<Props> = (props: Props) => {
                     sectionName={sectionName}
                     table={table}
                   />
-                  {table.props.print?.pageBreakAfter && <div className="page-break" />}
                 </React.Fragment>
               ))}
             </React.Fragment>

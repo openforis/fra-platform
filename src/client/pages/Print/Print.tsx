@@ -2,6 +2,8 @@ import './style.scss'
 import React, { memo, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import classNames from 'classnames'
+
 import { CountryIso } from 'meta/area/countryIso'
 import { Labels } from 'meta/assessment'
 
@@ -45,12 +47,12 @@ const Print: React.FC = () => {
 
       {!onlyTables && <TableOfContent />}
 
-      {sections.map((section, sectionIdx) => {
+      {sections.map((section) => {
         const { subSections } = section
         const sectionIndex = section.props.index
 
         return (
-          <div key={section.uuid} id={`section${sectionIndex}`}>
+          <div key={section.uuid} className="print-break-before" id={`section${sectionIndex}`}>
             {!onlyTables && (
               <h1 className="title only-print">
                 {sectionIndex === 0 ? '' : sectionIndex}{' '}
@@ -59,12 +61,10 @@ const Print: React.FC = () => {
             )}
 
             {subSections.map((subSection, subSectionIdx) => {
-              const lastSection = sectionIdx === sections.length - 1 && subSectionIdx === subSections.length - 1
               return (
-                <React.Fragment key={subSection.uuid}>
-                  <Section section={subSection.props.name} />
-                  {!lastSection && <div className="page-break" />}
-                </React.Fragment>
+                <div className={classNames({ 'print-break-before': subSectionIdx !== 0 })}>
+                  <Section key={subSection.uuid} section={subSection.props.name} />
+                </div>
               )
             })}
           </div>

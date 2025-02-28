@@ -21,23 +21,18 @@ const TableOfContent: React.FC = () => {
 
   return (
     <>
-      <div className="page-break" />
-
       {assessmentName === AssessmentNames.fra && (
-        <>
-          <div className="disclaimer">
-            <p>{t(`${assessmentName}.print.disclaimer`)}</p>
-            <p>
-              {deskStudy
-                ? t(`${assessmentName}.print.disclaimerGeneratedDeskStudy`)
-                : t(`${assessmentName}.print.disclaimerGenerated`, { cycleName })}
-            </p>
-          </div>
-          <div className="page-break" />
-        </>
+        <div className="disclaimer print-break-before">
+          <p>{t(`${assessmentName}.print.disclaimer`)}</p>
+          <p>
+            {deskStudy
+              ? t(`${assessmentName}.print.disclaimerGeneratedDeskStudy`)
+              : t(`${assessmentName}.print.disclaimerGenerated`, { cycleName })}
+          </p>
+        </div>
       )}
 
-      <div>
+      <div className="print-break-before">
         <h2 className="table-of-content__header">{t(`${assessmentName}.print.tableOfContent`)}</h2>
 
         <ol className="table-of-content__list">
@@ -53,8 +48,6 @@ const TableOfContent: React.FC = () => {
           })}
         </ol>
       </div>
-
-      <div className="page-break" />
     </>
   )
 }
