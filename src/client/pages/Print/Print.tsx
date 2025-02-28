@@ -62,7 +62,7 @@ const Print: React.FC = () => {
 
             {subSections.map((subSection, subSectionIdx) => {
               return (
-                <div className={classNames({ 'print-break-before': subSectionIdx !== 0 })}>
+                <div key={subSection.uuid} className={classNames({ 'print-break-before': subSectionIdx !== 0 })}>
                   <Section key={subSection.uuid} section={subSection.props.name} />
                 </div>
               )
