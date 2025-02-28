@@ -49,31 +49,26 @@ const DataTable: React.FC<Props> = (props) => {
 
   return (
     <>
-      {showOdpChart && (!print || !dataEmpty) && (
-        <>
-          <Chart data={data?.[assessmentName]?.[cycleName]} table={table} />
-          <div className="page-break" />
-        </>
-      )}
+      {showOdpChart && (!print || !dataEmpty) && <Chart data={data?.[assessmentName]?.[cycleName]} table={table} />}
 
       {generateValues && (
         <GenerateValues
           assessmentName={assessmentName}
           cycleName={cycleName}
+          data={data}
+          rows={rows}
           sectionName={sectionName}
           tableName={tableName}
-          rows={rows}
-          data={data}
         />
       )}
 
       <Table
         assessmentName={assessmentName}
-        sectionName={sectionName}
-        sectionAnchor={sectionAnchor}
-        table={table}
         data={data}
         disabled={disabled}
+        sectionAnchor={sectionAnchor}
+        sectionName={sectionName}
+        table={table}
       />
     </>
   )
