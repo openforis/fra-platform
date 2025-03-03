@@ -24,12 +24,12 @@ const defaultProps: Partial<Props> = {
 }
 
 const marginH = '5mm'
-const marginV = '15mm'
+const marginV = '10mm'
 
 const pdfOptions: PDFOptions = {
   displayHeaderFooter: true,
   footerTemplate: `
-    <div style="width: 100%; font-size: 8px; text-align: center; color: #555; padding-bottom: 5mm;font-family: 'Open Sans', sans-serif;">
+    <div style="width: 100%; font-size: 8px; text-align: center; color: #555; font-family: 'Open Sans', sans-serif;">
       <span class="pageNumber"></span>
     </div>
   `,
@@ -54,7 +54,7 @@ export const generate = async (props: Props): Promise<Buffer> => {
   })
 
   pdfOptions.headerTemplate = `
-    <div style="width: 100%; padding: 0 ${marginH}; box-sizing: border-box;">
+    <div style="margin-top: -2mm; width: 100%; padding: 0 ${marginH}; box-sizing: border-box;">
       <div style="width: 100%; box-sizing: border-box; border-top: 1px solid #1798a5;">
         <div style="font-size: 8px; text-align: left; color: #555; font-family: 'Open Sans', sans-serif;padding-top: 1mm;">
           ${headerText}
