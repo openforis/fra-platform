@@ -64,7 +64,6 @@ export interface TableProps {
   disableErrorMessage?: Record<CycleUuid, boolean>
   name: TableName
   odp?: boolean
-  print?: { pageBreakAfter: boolean }
   readonly?: boolean
   secondary?: boolean
   style?: Record<CycleUuid, Pick<CSSProperties, 'gridTemplateColumns'>>
