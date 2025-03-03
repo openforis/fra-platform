@@ -1,6 +1,8 @@
 import './TextArea.scss'
 import React, { forwardRef, TextareaHTMLAttributes, useImperativeHandle, useRef } from 'react'
 
+import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+
 import useResize from './hooks/useResize'
 
 type Props = Pick<
@@ -10,20 +12,25 @@ type Props = Pick<
 
 const TextArea = forwardRef<HTMLTextAreaElement, Props>((props, outerRef) => {
   const { disabled, maxHeight, onChange, onPaste, placeholder, rows, value } = props
+  const { print } = useIsPrintRoute()
 
   const textAreaRef = useRef<HTMLTextAreaElement>(null)
   useImperativeHandle(outerRef, () => textAreaRef.current!, [])
 
   useResize({ textAreaRef, maxHeight, value })
 
+  if (print) {
+    return <div className="textarea-print">{value}</div>
+  }
+
   return (
     <textarea
+      ref={textAreaRef}
       className="textarea"
       disabled={disabled}
       onChange={onChange}
       onPaste={onPaste}
       placeholder={placeholder}
-      ref={textAreaRef}
       rows={rows}
       value={value}
     />

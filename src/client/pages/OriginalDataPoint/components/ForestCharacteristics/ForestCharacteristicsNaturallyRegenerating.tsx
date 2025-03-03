@@ -46,7 +46,7 @@ const ForestCharacteristicsNaturallyRegenerating: React.FC<Props> = (props) => {
   })
 
   return (
-    <div className="fra-table__container">
+    <div className="fra-table__container print-break-inside-avoid">
       <div className="fra-table__scroll-wrapper">
         <table className="fra-table odp__sub-table">
           <thead>

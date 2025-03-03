@@ -55,12 +55,8 @@
 }
 
 @media screen {
-  .page-break {
-    display: none;
-  }
-
   .print__container {
-    .page-break {
+    .print-break-after {
       display: block;
       height: 1px;
       margin: $spacing-m 0;
@@ -71,9 +67,16 @@
 @media print {
   .print__container {
     padding: 0;
+  }
 
-    .page-break {
-      page-break-after: always;
-    }
+  .print-break-after {
+    break-after: page;
+  }
+  .print-break-before {
+    break-before: page;
+  }
+
+  .print-break-inside-avoid {
+    break-inside: avoid;
   }
 }

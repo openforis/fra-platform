@@ -32,7 +32,7 @@ type Props = {
 }
 
 const Table: React.FC<Props> = (props) => {
-  const { assessmentName, sectionName, sectionAnchor, table: _table, data, disabled } = props
+  const { assessmentName, sectionName, sectionAnchor = '', table: _table, data, disabled } = props
 
   const isDataLocked = useIsDataLocked()
   const canEdit = useCanEdit(sectionName)
@@ -119,10 +119,6 @@ const Table: React.FC<Props> = (props) => {
       {!print && canEdit && <DataValidations table={table} />}
     </div>
   )
-}
-
-Table.defaultProps = {
-  sectionAnchor: '',
 }
 
 export default Table

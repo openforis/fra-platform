@@ -5,7 +5,17 @@ import { Objects } from 'utils/objects'
 import { CommentableDescriptionName, SectionName } from 'meta/assessment'
 
 import { useCommentableDescriptionValue } from 'client/store/data'
-import { DOMs } from 'client/utils/dom'
+
+const isHTMLEmpty = (html: string): boolean => {
+  if (Objects.isEmpty(html?.trim())) return true
+
+  const strippedHtml = html
+    .replace(/<[^>]*>/g, '')
+    .replace(/&nbsp;/g, ' ')
+    .trim()
+
+  return !strippedHtml
+}
 
 type Props = {
   name: CommentableDescriptionName
@@ -16,14 +26,15 @@ type Returned = {
   empty: boolean
 }
 
+/*
+    Note: Return value of the hook is used only in print view
+*/
+
 export const useDescriptionErrorState = (props: Props): Returned => {
   const { name, sectionName } = props
-
   const value = useCommentableDescriptionValue({ name, sectionName })
 
   return useMemo<Returned>(() => {
-    const empty = Objects.isEmpty(DOMs.parseDOMValue(value.text))
-
-    return { empty }
+    return { empty: isHTMLEmpty(value.text) }
   }, [value.text])
 }

@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { Labels } from 'meta/assessment'
 
+import { useAssessmentCountry } from 'client/store/area'
 import { useCycle } from 'client/store/assessment'
 import { useOriginalDataPointYears } from 'client/store/data'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
@@ -18,12 +19,16 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
   const odpYears = useOriginalDataPointYears()
   const { print, onlyTables } = useIsPrintRoute()
   const hasOdps = Array.isArray(odpYears)
+  const country = useAssessmentCountry()
 
+  const { useOriginalDataPoint } = country.props.forestCharacteristics
   return (
     <>
       <h2 className="headline no-print">{Labels.getCycleLabel({ cycle, labels: subSection.props.labels, t })}</h2>
 
-      {hasOdps && print && !onlyTables && <OriginalDataPointsPrint sectionName={subSection.props.name} />}
+      {useOriginalDataPoint && hasOdps && print && !onlyTables && (
+        <OriginalDataPointsPrint sectionName={subSection.props.name} />
+      )}
     </>
   )
 }
