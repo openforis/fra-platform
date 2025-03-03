@@ -56,10 +56,9 @@
 
 @media screen {
   .print__container {
-    .print-break-after {
-      display: block;
-      height: 1px;
-      margin: $spacing-m 0;
+    .print-break-after,
+    .print-break-before {
+      margin: $spacing-l 0;
     }
   }
 }
