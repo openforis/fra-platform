@@ -1,3 +1,5 @@
+import { Promises } from 'utils/promises'
+
 import { AssessmentNames, ColProps, ColType, RowProps, RowType } from 'meta/assessment'
 
 import { AssessmentController } from 'server/controller/assessment'
@@ -204,7 +206,6 @@ export default async (client: BaseProtocol) => {
         },
       },
     },
-
     {
       colType: ColType.header,
       index: 4,
@@ -214,7 +215,6 @@ export default async (client: BaseProtocol) => {
         },
       },
     },
-
     {
       colType: ColType.header,
       index: 5,
@@ -236,7 +236,7 @@ export default async (client: BaseProtocol) => {
   ]
 
   const headerRow = await RowRepository.create({ assessment, cycles: [cycle], rowProps: headerRowProps, table }, client)
-  headerCols.forEach(async (colProps) => {
+  await Promises.each(headerCols, async (colProps) => {
     await ColRepository.create({ assessment, cycles: [cycle], row: headerRow, colProps }, client)
   })
 
@@ -330,30 +330,30 @@ export default async (client: BaseProtocol) => {
     },
   ]
 
-  roundwoodSupplyRows.forEach(async (rowProps) => {
+  await Promises.each(roundwoodSupplyRows, async (rowProps) => {
     const row = await RowRepository.create({ assessment, cycles: [cycle], rowProps, table }, client)
     if (rowProps.index === 0) {
-      roundwoodSupplyVarAndUnitCols.forEach(async (colProps) => {
+      await Promises.each(roundwoodSupplyVarAndUnitCols, async (colProps) => {
         await ColRepository.create({ assessment, cycles: [cycle], row, colProps }, client)
       })
     }
     const year = years[Number(rowProps.index)]
     const yearCols = getRoundwoodSupplyYearsCols(year, cycle.uuid)
-    yearCols.forEach(async (colProps) => {
+    await Promises.each(yearCols, async (colProps) => {
       await ColRepository.create({ assessment, cycles: [cycle], row, colProps }, client)
     })
   })
 
-  roundwoodTotalRows.forEach(async (rowProps) => {
+  await Promises.each(roundwoodTotalRows, async (rowProps) => {
     const row = await RowRepository.create({ assessment, cycles: [cycle], rowProps, table }, client)
     if (rowProps.index === 0) {
-      roundwoodTotalVarAndUnitCols.forEach(async (colProps) => {
+      await Promises.each(roundwoodTotalVarAndUnitCols, async (colProps) => {
         await ColRepository.create({ assessment, cycles: [cycle], row, colProps }, client)
       })
     }
     const year = years[Number(rowProps.index)]
     const yearCols = getRoundwoodTotalYearsCols(year, cycle.uuid)
-    yearCols.forEach(async (colProps) => {
+    await Promises.each(yearCols, async (colProps) => {
       await ColRepository.create({ assessment, cycles: [cycle], row, colProps }, client)
     })
   })
