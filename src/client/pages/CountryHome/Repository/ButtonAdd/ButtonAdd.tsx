@@ -33,8 +33,4 @@ const ButtonAdd: React.FC<Props> = (props: Props) => {
   return <Button iconName="small-add" inverse label={t('common.add')} onClick={openPanel} size={ButtonSize.xs} />
 }
 
-ButtonAdd.defaultProps = {
-  isGlobal: false,
-}
-
 export default ButtonAdd

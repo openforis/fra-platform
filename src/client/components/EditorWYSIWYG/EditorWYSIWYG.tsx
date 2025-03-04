@@ -23,7 +23,7 @@ export type EditorWYSIWYGProps = {
 }
 
 const EditorWYSIWYG: React.FC<EditorWYSIWYGProps> = (props: EditorWYSIWYGProps) => {
-  const { disabled, onlyLinks, onChange, options, repository, value } = props
+  const { disabled, onlyLinks, onChange, options = {}, repository, value } = props
 
   const { configs } = useConfigs({ onlyLinks, options, repository })
   const onBlur = useOnBlur({ onChange, value })
@@ -42,13 +42,6 @@ const EditorWYSIWYG: React.FC<EditorWYSIWYGProps> = (props: EditorWYSIWYGProps) 
       <AddFromRepository />
     </>
   )
-}
-
-EditorWYSIWYG.defaultProps = {
-  disabled: false,
-  onlyLinks: false,
-  options: {},
-  repository: false,
 }
 
 export default EditorWYSIWYG

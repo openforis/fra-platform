@@ -13,14 +13,10 @@ const Icon = (props: Props) => {
   const { name, className } = props
 
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" className={classNames('icon', className, `icon_${name}`)}>
+    <svg className={classNames('icon', className, `icon_${name}`)} xmlns="http://www.w3.org/2000/svg">
       <use xlinkHref={`/img/icons.svg?bust=${bustString}#${name}`} />
     </svg>
   )
-}
-
-Icon.defaultProps = {
-  className: null,
 }
 
 export default Icon
