@@ -20,3 +20,4 @@ export type {
 } from './userRole'
 export { CollaboratorEditPropertyType, RoleName } from './userRole'
 export { Users } from './users'
+export { UsersEmail } from './usersEmail'

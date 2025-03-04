@@ -9,6 +9,7 @@ import { Promises } from 'utils/promises'
 import { CountryIso } from 'meta/area'
 import { NodeValue, RowCaches } from 'meta/assessment'
 import { NodeUpdate } from 'meta/data'
+import { UsersEmail } from 'meta/user'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { CycleDataController } from 'server/controller/cycleData'
@@ -31,7 +32,7 @@ type CSVData = {
 
 const processCSVFiles = async () => {
   try {
-    const user = await UserController.getOne({ email: 'robot@fra.org', allowDisabled: true })
+    const user = await UserController.getOne({ email: UsersEmail.robot, allowDisabled: true })
     const assessments = await AssessmentController.getAll({ metaCache: true })
     const assessmentNames = getDirectories(__dirname)
 
