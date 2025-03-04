@@ -1,7 +1,7 @@
 import './DataTable.scss'
-import React from 'react'
+import React, { useMemo } from 'react'
 
-import { AssessmentName, Table as TableType } from 'meta/assessment'
+import { AssessmentName, Table as TableType, TableNames } from 'meta/assessment'
 import { RecordAssessmentDatas } from 'meta/data'
 
 import { useCycle } from 'client/store/assessment'
@@ -38,7 +38,26 @@ const DataTable: React.FC<Props> = (props) => {
   const { name: cycleName } = cycle
   const { props: tableProps, rows } = table
   const { name: tableName, odp, secondary } = tableProps
-  const dataEmpty = RecordAssessmentDatas.isTableDataEmpty({ assessmentName, cycleName, data, tableName, countryIso })
+  const baseProps = useMemo(() => {
+    return { assessmentName, cycleName, data, tableName, countryIso }
+  }, [assessmentName, countryIso, cycleName, data, tableName])
+  const dataEmpty = RecordAssessmentDatas.isTableDataEmpty(baseProps)
+
+  const areChartVariablesEmpty = useMemo(() => {
+    if (tableName === TableNames.extentOfForest) {
+      return ['forestArea', 'otherWoodedLand'].every((variableName) =>
+        RecordAssessmentDatas.isVariableDataEmpty({ ...baseProps, variableName })
+      )
+    }
+
+    if (tableName === TableNames.forestCharacteristics) {
+      return ['plantedForest', 'naturalForestArea'].every((variableName) =>
+        RecordAssessmentDatas.isVariableDataEmpty({ ...baseProps, variableName })
+      )
+    }
+    return false
+  }, [baseProps, tableName])
+
   const showOdpChart = odp
   const generateValues = canEdit && odp
 
@@ -47,9 +66,15 @@ const DataTable: React.FC<Props> = (props) => {
     return null
   }
 
+  // Show chart in print only if chart variables are not empty
+  const showChartPrint = showOdpChart && print && !areChartVariablesEmpty
+
+  // By default, show chart always
+  const showChartDefault = showOdpChart && !print
+
   return (
     <>
-      {showOdpChart && (!print || !dataEmpty) && <Chart data={data?.[assessmentName]?.[cycleName]} table={table} />}
+      {(showChartDefault || showChartPrint) && <Chart data={data?.[assessmentName]?.[cycleName]} table={table} />}
 
       {generateValues && (
         <GenerateValues
