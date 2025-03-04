@@ -27,7 +27,7 @@ const OriginalDataPointsPrint: React.FC<Props> = (props) => {
   const hasDescriptions = originalDataPoints.some((odp) => !Objects.isNil(odp.description))
 
   return (
-    <div>
+    <div className="print-break-after">
       <h2 className="headline">{i18n.t('nationalDataPoint.nationalData')}</h2>
 
       <div className="odp__section-print-mode print-break-inside-avoid">
