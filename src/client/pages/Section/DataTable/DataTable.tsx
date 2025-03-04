@@ -55,14 +55,12 @@ const DataTable: React.FC<Props> = (props) => {
   }
 
   // Show chart in print only if chart variables are not empty
-  const showChartPrint = showOdpChart && print && !areChartVariablesEmpty
-
   // By default, show chart always
-  const showChartDefault = showOdpChart && !print
+  const showChart = (showOdpChart && print && !areChartVariablesEmpty) || (showOdpChart && !print)
 
   return (
     <>
-      {(showChartDefault || showChartPrint) && <Chart data={data?.[assessmentName]?.[cycleName]} table={table} />}
+      {showChart && <Chart data={data?.[assessmentName]?.[cycleName]} table={table} />}
 
       {generateValues && (
         <GenerateValues
