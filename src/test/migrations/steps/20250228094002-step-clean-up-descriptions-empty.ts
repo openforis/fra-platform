@@ -1,9 +1,11 @@
 import { Promises } from 'utils/promises'
 
-import { Assessment, AssessmentNames } from 'meta/assessment'
+import { Assessment, AssessmentNames, Cycle } from 'meta/assessment'
 
 import { BaseProtocol, Schemas } from 'server/db'
 import { AssessmentRepository } from 'server/repository/assessment/assessment'
+
+const brTagRegex = '<br\\s*/?>'
 
 export default async (client: BaseProtocol) => {
   const assessments = await AssessmentRepository.getAll({}, client)
@@ -12,36 +14,57 @@ export default async (client: BaseProtocol) => {
     if (assessment.props.name === AssessmentNames.fra) {
       const schemaAssessment = Schemas.getName(assessment)
       // Remove print prop - only for FRA
-      await client.query(
-        `update ${schemaAssessment}.table    set props = props - 'print'    where props::text ilike '%pageBreakAfter%'  `
-      )
+      await client.query(`update ${schemaAssessment}.table
+                          set props = props - 'print'
+                          where props::text ilike '%pageBreakAfter%'  `)
     }
-    await Promise.all(
-      assessment.cycles.map((cycle) => {
-        const schemaCycle = Schemas.getNameCycle(assessment, cycle)
-        // Remove empty descriptions at the start and end
-        return client.query(`
-      update ${schemaCycle}.descriptions
-      set value = jsonb_set(
-              value,
-              '{text}',
-              to_jsonb(
-                      regexp_replace(
-                              regexp_replace(
-                                      value ->>'text',
-                                      '^(<p><br></p>|\\n)+',
-                                      '',
-                                      'i'
-                              ),
-                              '(<p><br></p>|\\n)+$',
-                              '',
-                              'i'
-                      )
-              )
+
+    await Promises.each(assessment.cycles, async (cycle: Cycle) => {
+      const schemaCycle = Schemas.getNameCycle(assessment, cycle)
+      // Remove empty descriptions' break lines etc. at the start and end
+      await client.query(`
+          update ${schemaCycle}.descriptions
+          set value = jsonb_set(
+                  value,
+                  '{text}',
+                  to_jsonb(
+                          regexp_replace(
+                                  regexp_replace(
+                                          value ->>'text',
+                                          '^(<p>${brTagRegex}</p>|<div>${brTagRegex}</div>|\n)+',
+                                          '',
+                                          'i'
+                                  ),
+                                  '(<p>${brTagRegex}</p>|<div>${brTagRegex}</div>|\n)+$',
+                                  '',
+                                  'i'
+                          )
                   )
-      where value ->>'text' ~* '^(<p><br></p>|\\n)+' or value ->>'text' ~* '(<p><br></p>|\\n)+$'
-  `)
-      })
-    )
+                      )
+          where value ->>'text' ~* '^(<p>${brTagRegex}</p>|<div>${brTagRegex}</div>|\n)+'
+             or value ->>'text' ~* '(<p>${brTagRegex}</p>|<div>${brTagRegex}</div>|\n)+$'
+      `)
+
+      // Remove last br from inside tags:
+      // e.g.
+      // <p>Some content<br /></p>
+      // <div>Some content<br /></div>
+      await client.query(`
+          update ${schemaCycle}.descriptions
+          set value = jsonb_set(
+                  value,
+                  '{text}',
+                  to_jsonb(
+                          regexp_replace(
+                                  value ->>'text',
+                                  '${brTagRegex}\\s*(</p>|</div>)+$',
+                                  '\\1',
+                                  'i'
+                          )
+                  )
+                      )
+          where value ->>'text' ~* '${brTagRegex}\\s*(</p>|</div>)+$'
+      `)
+    })
   })
 }
