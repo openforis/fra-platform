@@ -75,8 +75,4 @@ const OdpHeaderCell: React.FC<Props> = (props) => {
   )
 }
 
-OdpHeaderCell.defaultProps = {
-  lastCol: false,
-}
-
 export default OdpHeaderCell

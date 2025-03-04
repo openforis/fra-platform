@@ -55,8 +55,4 @@ const ReviewIndicator = (props: Props) => {
   )
 }
 
-ReviewIndicator.defaultProps = {
-  subtitle: null,
-}
-
 export default ReviewIndicator

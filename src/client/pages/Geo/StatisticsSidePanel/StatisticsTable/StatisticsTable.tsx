@@ -69,9 +69,4 @@ const StatisticsTable = (props: Props) => {
   )
 }
 
-StatisticsTable.defaultProps = {
-  csvData: undefined,
-  gridTemplateColumns: undefined,
-}
-
 export default StatisticsTable

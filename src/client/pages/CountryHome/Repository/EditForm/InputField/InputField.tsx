@@ -42,7 +42,4 @@ const InputField: React.FC<Props> = (props: Props) => {
   )
 }
 
-InputField.defaultProps = {
-  disabled: false,
-}
 export default InputField

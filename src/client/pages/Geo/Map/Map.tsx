@@ -24,8 +24,4 @@ const Map: React.FC<React.PropsWithChildren<Props>> = (props) => {
   )
 }
 
-Map.defaultProps = {
-  viewport: null,
-}
-
 export default Map

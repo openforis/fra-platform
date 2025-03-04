@@ -11,7 +11,7 @@ type Props = {
 }
 
 export const Title = (props: Props) => {
-  const { gridRef, year } = props
+  const { gridRef, year = -1 } = props
   const { cycleName } = useCycleRouteParams()
 
   const { print } = useIsPrintRoute()
@@ -28,8 +28,4 @@ export const Title = (props: Props) => {
       </h3>
     </div>
   )
-}
-
-Title.defaultProps = {
-  year: -1,
 }
