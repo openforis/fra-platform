@@ -1,19 +1,20 @@
 import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area'
-import { AssessmentName, CycleName, TableName } from 'meta/assessment'
+import { AssessmentName, CycleName, TableName, VariableName } from 'meta/assessment'
 
 import { RecordAssessmentData } from '../RecordAssessmentData'
 import { getTableData } from './getTableData'
 
-export const isTableDataEmpty = (props: {
+export const isVariableDataEmpty = (props: {
   assessmentName: AssessmentName
   countryIso: CountryIso
   cycleName: CycleName
   data: RecordAssessmentData
   tableName: TableName
+  variableName: VariableName
 }): boolean => {
-  const { assessmentName, cycleName, data, tableName, countryIso } = props
+  const { assessmentName, cycleName, data, tableName, countryIso, variableName } = props
   const tableData = getTableData({ assessmentName, cycleName, data, tableName, countryIso })
 
   if (Objects.isEmpty(tableData)) {
@@ -21,6 +22,5 @@ export const isTableDataEmpty = (props: {
   }
 
   const recordRowData = Object.values(tableData)
-  const nodeValues = recordRowData.flatMap((rows) => Object.values(rows).filter((nodeValue) => Boolean(nodeValue?.raw)))
-  return nodeValues.length === 0
+  return Objects.isEmpty(recordRowData.filter((rowData) => rowData[variableName]))
 }
