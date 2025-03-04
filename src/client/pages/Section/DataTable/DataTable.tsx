@@ -1,7 +1,7 @@
 import './DataTable.scss'
 import React, { useMemo } from 'react'
 
-import { AssessmentName, Table as TableType, TableNames } from 'meta/assessment'
+import { AssessmentName, Table as TableType } from 'meta/assessment'
 import { RecordAssessmentDatas } from 'meta/data'
 
 import { useCycle } from 'client/store/assessment'
@@ -9,6 +9,7 @@ import { useIsEditTableDataEnabled } from 'client/store/user'
 import { useCountryIso } from 'client/hooks'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 
+import { useAreChartVariablesEmpty } from './hooks/useAreChartVariablesEmpty'
 import { useData } from './hooks/useData'
 import { useODPDeleteListener } from './hooks/useODPDeleteListener'
 import { useValidate } from './hooks/useValidate'
@@ -41,22 +42,9 @@ const DataTable: React.FC<Props> = (props) => {
   const baseProps = useMemo(() => {
     return { assessmentName, cycleName, data, tableName, countryIso }
   }, [assessmentName, countryIso, cycleName, data, tableName])
+
   const dataEmpty = RecordAssessmentDatas.isTableDataEmpty(baseProps)
-
-  const areChartVariablesEmpty = useMemo(() => {
-    if (tableName === TableNames.extentOfForest) {
-      return ['forestArea', 'otherWoodedLand'].every((variableName) =>
-        RecordAssessmentDatas.isVariableDataEmpty({ ...baseProps, variableName })
-      )
-    }
-
-    if (tableName === TableNames.forestCharacteristics) {
-      return ['plantedForest', 'naturalForestArea'].every((variableName) =>
-        RecordAssessmentDatas.isVariableDataEmpty({ ...baseProps, variableName })
-      )
-    }
-    return false
-  }, [baseProps, tableName])
+  const areChartVariablesEmpty = useAreChartVariablesEmpty(baseProps)
 
   const showOdpChart = odp
   const generateValues = canEdit && odp
