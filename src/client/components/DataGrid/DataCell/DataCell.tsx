@@ -77,18 +77,4 @@ const DataCell: React.FC<Props> = (props) => {
   )
 }
 
-DataCell.defaultProps = {
-  actions: false,
-  editable: false,
-  error: false,
-  firstCol: false,
-  firstHighlightCol: false,
-  header: false,
-  highlighted: false,
-  lastCol: false,
-  lastHighlightCol: false,
-  lastRow: false,
-  noBorder: false,
-}
-
 export default DataCell

@@ -85,13 +85,4 @@ const CellHeader: React.FC<Props> = (props) => {
   )
 }
 
-CellHeader.defaultProps = {
-  firstCol: false,
-  firstHighlightCol: false,
-  highlighted: false,
-  lastCol: false,
-  lastHighlightCol: false,
-  lastRow: false,
-}
-
 export default CellHeader

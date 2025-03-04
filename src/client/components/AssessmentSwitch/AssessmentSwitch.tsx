@@ -1,7 +1,8 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
 
 import { AssessmentNames } from 'meta/assessment'
+
+import { useAssessmentRouteParams } from 'client/hooks/useRouteParams'
 
 type Props = {
   components: Record<string, React.FC<{ query?: string }>>
@@ -14,18 +15,13 @@ const Placeholder: React.FC<{ query?: string }> = () => {
 }
 
 const AssessmentSwitch: React.FC<Props> = (props) => {
-  const { assessmentName } = useParams()
+  const { components, defaultKey = AssessmentNames.fra, ...otherProps } = props
 
-  const { components, defaultKey, ...otherProps } = props
+  const { assessmentName } = useAssessmentRouteParams()
   const key = assessmentName ?? defaultKey
 
   const Component = components[key] ?? Placeholder
   return React.createElement(Component, otherProps)
-}
-
-AssessmentSwitch.defaultProps = {
-  defaultKey: AssessmentNames.fra,
-  query: null,
 }
 
 export default AssessmentSwitch

@@ -14,7 +14,7 @@ type DataRowProps = PropsWithChildren<{
 }>
 
 const DataRow: React.FC<DataRowProps> = (props) => {
-  const { actions, children, highlightRange } = props
+  const { actions = [], children, highlightRange } = props
 
   const highlighted = useHighlighted({ actions })
   const highlightRangeExists = !Objects.isEmpty(highlightRange)
@@ -54,11 +54,6 @@ const DataRow: React.FC<DataRowProps> = (props) => {
       <Actions actions={actions} />
     </>
   )
-}
-
-DataRow.defaultProps = {
-  actions: [],
-  highlightRange: undefined,
 }
 
 export default DataRow
