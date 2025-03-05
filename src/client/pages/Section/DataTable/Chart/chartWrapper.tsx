@@ -38,7 +38,7 @@ const ChartWrapper = (props: Props) => {
   useOnResize(onChangeWidth, chartRef)
 
   return (
-    <div ref={chartRef} className="chart__container print-break-before print-break-after">
+    <div ref={chartRef} className="chart__container print-break-after">
       {width && <ChartContainer data={data} table={table} wrapperWidth={width} />}
     </div>
   )

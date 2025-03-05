@@ -9,6 +9,7 @@ import { NationalDataDescription } from 'meta/assessment/description'
 
 import { useHistoryLastApprovedDescriptionFetched } from 'client/store/data'
 import { useCanEditDescription, useIsDescriptionEditable } from 'client/store/user/hooks'
+import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { useCycleRouteParams } from 'client/hooks/useRouteParams'
 import { DataCell, DataGrid } from 'client/components/DataGrid'
 import EditorWYSIWYG from 'client/components/EditorWYSIWYG'
@@ -52,13 +53,17 @@ export const DataSources: React.FC<Props> = (props: Props) => {
   const editable = useIsDescriptionEditable({ sectionName, name })
   const { empty } = useDescriptionErrorState({ name, sectionName })
 
-  const renderGrid = Boolean(!Objects.isEmpty(dataSources) || !Objects.isEmpty(dataSourcesLinked) || editable)
+  const { print } = useIsPrintRoute()
+
+  const hasDataSources = !Objects.isEmpty(dataSources) || !Objects.isEmpty(dataSourcesLinked)
+  const renderGrid = Boolean(hasDataSources || editable)
   const keyPrefix = `${assessmentName}.description.dataSource`
 
   return (
     <DataGrid className="description" withActions={canEdit}>
       <Title name={name} title={t('description.dataSourcesPlus')} />
 
+      {print && !hasDataSources && <div className="editorWYSIWYG jodit-wysiwyg textarea-print">-</div>}
       {renderGrid && (
         <>
           {editable && <ButtonCopy disabled={dataSources.length !== 1} sectionName={sectionName} />}

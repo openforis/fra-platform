@@ -9,6 +9,7 @@ import { useIsEditTableDataEnabled } from 'client/store/user'
 import { useCountryIso } from 'client/hooks'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 
+import { useAreChartVariablesEmpty } from './hooks/useAreChartVariablesEmpty'
 import { useData } from './hooks/useData'
 import { useODPDeleteListener } from './hooks/useODPDeleteListener'
 import { useValidate } from './hooks/useValidate'
@@ -38,7 +39,9 @@ const DataTable: React.FC<Props> = (props) => {
   const { name: cycleName } = cycle
   const { props: tableProps, rows } = table
   const { name: tableName, odp, secondary } = tableProps
+
   const dataEmpty = RecordAssessmentDatas.isTableDataEmpty({ assessmentName, cycleName, data, tableName, countryIso })
+  const areChartVariablesEmpty = useAreChartVariablesEmpty({ data, table })
   const showOdpChart = odp
   const generateValues = canEdit && odp
 
@@ -47,9 +50,13 @@ const DataTable: React.FC<Props> = (props) => {
     return null
   }
 
+  // Show chart in print only if chart variables are not empty
+  // By default, show chart always
+  const showChart = (showOdpChart && print && !areChartVariablesEmpty) || (showOdpChart && !print)
+
   return (
     <>
-      {showOdpChart && (!print || !dataEmpty) && <Chart data={data?.[assessmentName]?.[cycleName]} table={table} />}
+      {showChart && <Chart data={data?.[assessmentName]?.[cycleName]} table={table} />}
 
       {generateValues && (
         <GenerateValues
