@@ -11,7 +11,7 @@ const EditorWYSIWYGSwitch: React.FC<EditorWYSIWYGProps> = (props: EditorWYSIWYGP
 
   if (print) {
     return (
-      <div className=" editorWYSIWYG jodit-wysiwyg textarea-print" dangerouslySetInnerHTML={{ __html: value || '' }} />
+      <div className="editorWYSIWYG jodit-wysiwyg textarea-print" dangerouslySetInnerHTML={{ __html: value || '' }} />
     )
   }
 
