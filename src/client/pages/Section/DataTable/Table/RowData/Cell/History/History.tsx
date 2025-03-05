@@ -1,3 +1,4 @@
+import './History.scss'
 import React, { useMemo } from 'react'
 
 import classNames from 'classnames'
@@ -26,9 +27,8 @@ const History: React.FC<PropsCell> = (props) => {
   const className = useMemo<string>(() => {
     const numeric = Cols.isNumeric(col)
     const calculated = Cols.isCalculated({ col, row })
-    return classNames('disabled', {
+    return classNames('history-cell', 'disabled', {
       'input-text': !calculated,
-      'table-grid__data-cell-input-text': !numeric,
       'table-grid__data-cell-input-number': numeric,
     })
   }, [col, row])

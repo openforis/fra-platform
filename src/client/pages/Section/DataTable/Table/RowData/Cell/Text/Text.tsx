@@ -1,4 +1,3 @@
-import './Text.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -21,7 +20,6 @@ const Text: React.FC<PropsCell> = (props) => {
 
   return (
     <Component
-      className="table-grid__data-cell-input-text"
       disabled={disabled}
       onChange={onChange}
       onPaste={onPaste}
