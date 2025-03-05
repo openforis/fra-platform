@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Table } from 'meta/assessment'
+import { Table, Tables } from 'meta/assessment'
 
 import { useCycle } from 'client/store/assessment'
 
@@ -24,12 +24,10 @@ export const useTrends = (props: Props): Returned => {
   const cycle = useCycle()
 
   return useMemo<Returned>(() => {
-    return table.rows
-      .filter((row) => !!row.props.chart?.[cycle.uuid])
-      .map((row) => ({
-        name: row.props.variableName,
-        label: t(row.props.chart[cycle.uuid].labelKey),
-        color: row.props.chart[cycle.uuid].color,
-      }))
-  }, [cycle.uuid, t, table.rows])
+    return Tables.getChartRows({ table, cycle }).map((row) => ({
+      name: row.props.variableName,
+      label: t(row.props.chart[cycle.uuid].labelKey),
+      color: row.props.chart[cycle.uuid].color,
+    }))
+  }, [cycle, t, table])
 }
