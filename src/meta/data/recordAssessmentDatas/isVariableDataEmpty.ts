@@ -23,6 +23,6 @@ export const isVariableDataEmpty = (props: Props): boolean => {
     return true
   }
 
-  const recordRowData = Object.values(tableData)
-  return Objects.isEmpty(recordRowData.filter((rowData) => rowData[variableName]))
+  const rowData = Object.values(tableData)
+  return rowData.every((rowData) => !Objects.isEmpty(rowData[variableName]))
 }
