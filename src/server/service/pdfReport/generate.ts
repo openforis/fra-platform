@@ -1,5 +1,5 @@
 import { createI18nPromise } from 'i18n/i18nFactory'
-import puppeteer, { PDFOptions } from 'puppeteer'
+import puppeteer, { PDFOptions, PuppeteerLaunchOptions } from 'puppeteer'
 import { Promises } from 'utils/promises'
 
 import { Areas, CountryIso } from 'meta/area'
@@ -7,6 +7,7 @@ import { AssessmentName, Assessments, CycleName } from 'meta/assessment'
 import { Lang } from 'meta/lang'
 
 import { ProcessEnv } from 'server/utils'
+import { Logger } from 'server/utils/logger'
 
 type Props = {
   appUri?: string
@@ -41,10 +42,14 @@ const pdfOptions: PDFOptions = {
   scale: 0.7,
 }
 
+// Pass --debug to open the browser window and wait for Enter before closing
+const debug = process.argv.includes('--debug')
+const browserOptions: PuppeteerLaunchOptions = debug ? { headless: false, defaultViewport: null } : { headless: true }
+
 export const generate = async (props: Props): Promise<Buffer> => {
   const { appUri, assessmentName, cookies, countryIso, cycleName, lang, onlyTables } = { ...defaultProps, ...props }
   const { t } = await createI18nPromise(lang)
-  const browser = await puppeteer.launch({ headless: true })
+  const browser = await puppeteer.launch(browserOptions)
   const page = await browser.newPage()
 
   const headerText = t('print.header', {
@@ -73,6 +78,13 @@ export const generate = async (props: Props): Promise<Buffer> => {
   })
 
   await page.goto(url, { waitUntil: 'networkidle0', timeout: 0 })
+
+  if (process.stdin.isTTY && debug) {
+    Logger.debug('Browser window opened. Press Enter to generate PDF and close the browser...')
+    await new Promise<void>((resolve) => {
+      process.stdin.once('data', () => resolve())
+    })
+  }
 
   const pdf = await page.pdf(pdfOptions)
   await browser.close()
