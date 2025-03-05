@@ -1,31 +1,37 @@
 import { useMemo } from 'react'
 
+import { Objects } from 'utils/objects'
+
 import { CountryIso } from 'meta/area'
-import { AssessmentName, CycleName, TableName, TableNames } from 'meta/assessment'
+import { Table, Tables } from 'meta/assessment'
 import { RecordAssessmentData, RecordAssessmentDatas } from 'meta/data'
 
+import { useCycle } from 'client/store/assessment'
+import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+
 type Props = {
-  assessmentName: AssessmentName
-  cycleName: CycleName
+  table: Table
   data: RecordAssessmentData
-  tableName: TableName
-  countryIso: CountryIso
 }
 
 export const useAreChartVariablesEmpty = (props: Props) => {
+  const { table, data } = props
+  const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
+  const cycle = useCycle()
+
   return useMemo(() => {
-    const { tableName } = props
-    if (tableName === TableNames.extentOfForest) {
-      return ['forestArea', 'otherWoodedLand'].every((variableName) =>
-        RecordAssessmentDatas.isVariableDataEmpty({ ...props, variableName })
-      )
+    const { name: tableName } = table.props
+    const baseProps = { assessmentName, cycleName, countryIso, tableName, data }
+    const chartRows = Tables.getChartRows({ table, cycle })
+
+    if (Objects.isEmpty(chartRows)) {
+      return true
     }
 
-    if (tableName === TableNames.forestCharacteristics) {
-      return ['plantedForest', 'naturalForestArea'].every((variableName) =>
-        RecordAssessmentDatas.isVariableDataEmpty({ ...props, variableName })
-      )
-    }
-    return false
-  }, [props])
+    const variableNames = chartRows.map((row) => row.props.variableName)
+
+    return variableNames.every((variableName) =>
+      RecordAssessmentDatas.isVariableDataEmpty({ ...baseProps, variableName })
+    )
+  }, [assessmentName, countryIso, cycle, cycleName, data, table])
 }

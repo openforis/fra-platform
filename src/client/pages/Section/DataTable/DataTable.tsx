@@ -1,5 +1,5 @@
 import './DataTable.scss'
-import React, { useMemo } from 'react'
+import React from 'react'
 
 import { AssessmentName, Table as TableType } from 'meta/assessment'
 import { RecordAssessmentDatas } from 'meta/data'
@@ -39,13 +39,9 @@ const DataTable: React.FC<Props> = (props) => {
   const { name: cycleName } = cycle
   const { props: tableProps, rows } = table
   const { name: tableName, odp, secondary } = tableProps
-  const baseProps = useMemo(() => {
-    return { assessmentName, cycleName, data, tableName, countryIso }
-  }, [assessmentName, countryIso, cycleName, data, tableName])
 
-  const dataEmpty = RecordAssessmentDatas.isTableDataEmpty(baseProps)
-  const areChartVariablesEmpty = useAreChartVariablesEmpty(baseProps)
-
+  const dataEmpty = RecordAssessmentDatas.isTableDataEmpty({ assessmentName, cycleName, data, tableName, countryIso })
+  const areChartVariablesEmpty = useAreChartVariablesEmpty({ data, table })
   const showOdpChart = odp
   const generateValues = canEdit && odp
 
