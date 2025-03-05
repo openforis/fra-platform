@@ -50,8 +50,12 @@ const Table: React.FC<Props> = (props) => {
   const { secondary, name } = table.props
   const canClearData = !print && !isDataLocked && !table.props.readonly
 
+  const shouldScale = print && rowsHeader.some((row) => row.cols.length > 15)
+
   return (
-    <div className={classNames('table-grid-container', { 'secondary-table': secondary })}>
+    <div
+      className={classNames('table-grid-container', { 'secondary-table': secondary, 'print-scale-66': shouldScale })}
+    >
       <div className="table-grid-actions">
         {!print && (
           <ButtonGridExport filename={`${sectionAnchor ? `${sectionAnchor} ` : ''}${name}`} gridRef={gridRef} />
