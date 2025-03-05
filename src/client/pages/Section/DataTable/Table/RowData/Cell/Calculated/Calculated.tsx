@@ -8,7 +8,9 @@ import { PropsCell } from '../props'
 const Calculated: React.FC<PropsCell> = (props) => {
   const { nodeValue, row } = props
 
-  const value = !Objects.isEmpty(nodeValue.raw) ? Numbers.format(nodeValue.raw, row.props?.format?.integer ? 0 : 2) : ''
+  const value = !Objects.isEmpty(nodeValue?.raw)
+    ? Numbers.format(nodeValue.raw, row.props?.format?.integer ? 0 : 2)
+    : ''
 
   return <div>{value}</div>
 }
