@@ -16,7 +16,7 @@ type Props = Pick<ButtonProps, 'size'> & {
 }
 
 const ButtonGridExport: React.FC<Props> = (props) => {
-  const { disabled, filename: filenameProp, gridRef, size } = props
+  const { disabled, filename: _filename = 'tableData', gridRef, size } = props
 
   const [data, setData] = useState<Array<object>>([])
 
@@ -24,7 +24,7 @@ const ButtonGridExport: React.FC<Props> = (props) => {
   const isLocked = useIsDataLocked()
 
   const className = useButtonClassName({ disabled: !isLocked || disabled, iconName: 'hit-down', label: 'CSV', size })
-  const filename = useFilename(filenameProp)
+  const filename = useFilename(_filename)
 
   if (print) return null
 
@@ -44,11 +44,6 @@ const ButtonGridExport: React.FC<Props> = (props) => {
       CSV
     </CSVLink>
   )
-}
-
-ButtonGridExport.defaultProps = {
-  disabled: false,
-  filename: 'tableData',
 }
 
 export default ButtonGridExport

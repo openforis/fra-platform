@@ -19,7 +19,7 @@ type Props = {
 }
 
 const Title: React.FC<Props> = (props) => {
-  const { baseUnit, resultsLoading, onUnitChange, variable } = props
+  const { baseUnit = Unit.haThousand, resultsLoading, onUnitChange, variable } = props
 
   const { t } = useTranslation()
   const { sectionName } = useParams<{ sectionName: string }>()
@@ -70,10 +70,6 @@ const Title: React.FC<Props> = (props) => {
       )}
     </>
   )
-}
-
-Title.defaultProps = {
-  baseUnit: Unit.haThousand,
 }
 
 export default Title

@@ -62,8 +62,4 @@ const DataSourceRow: React.FC<Props> = (props: Props) => {
   )
 }
 
-DataSourceRow.defaultProps = {
-  readOnly: false,
-}
-
 export default DataSourceRow

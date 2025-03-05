@@ -31,8 +31,4 @@ const ButtonDownloadAll: React.FC<Props> = (props: Props) => {
   )
 }
 
-ButtonDownloadAll.defaultProps = {
-  isGlobal: false,
-}
-
 export default ButtonDownloadAll

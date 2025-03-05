@@ -62,7 +62,7 @@ const Cell: React.FC<Props> = (props) => {
     assessmentName,
     col,
     data,
-    disabled: disabledProps,
+    disabled: _disabled,
     firstCol,
     firstHighlightCol,
     highlighted,
@@ -82,7 +82,7 @@ const Cell: React.FC<Props> = (props) => {
   const errorMessages = useErrorMessages({ validation })
   const className = useClassName({ col, cycle, row, validation })
 
-  const disabled = disabledProps || !!nodeValue?.odpId || Cols.hasLinkedNodes({ col, cycle })
+  const disabled = _disabled || !!nodeValue?.odpId || Cols.hasLinkedNodes({ col, cycle })
 
   const historyLastApprovedIsActive = useHistoryLastApprovedIsActive()
   const historyLastApprovedDataTableFetched = useHistoryLastApprovedDataTableFetched(table.props.name)
@@ -127,13 +127,6 @@ const Cell: React.FC<Props> = (props) => {
       {!displayHistory && <Flags col={col} nodeValue={nodeValue} row={row} sectionName={sectionName} />}
     </DataCell>
   )
-}
-
-Cell.defaultProps = {
-  firstCol: false,
-  firstHighlightCol: false,
-  highlighted: false,
-  lastHighlightCol: false,
 }
 
 export default Cell

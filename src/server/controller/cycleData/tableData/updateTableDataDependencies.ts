@@ -32,7 +32,7 @@ export const updateTableDataDependencies = async (props: Props, client: BaseProt
     includeSourceNodes,
     client,
   }
-  const job = { queue: undefined, id: 'job-id', name: 'job-name', data } as unknown as UpdateDependenciesJob
+  const job = { id: `id-${countryIso}`, name: `name-${countryIso}`, data } as unknown as UpdateDependenciesJob
 
   await worker(job)
 }

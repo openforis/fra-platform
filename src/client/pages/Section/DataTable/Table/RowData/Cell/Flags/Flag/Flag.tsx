@@ -18,9 +18,4 @@ const Flag: React.FC<PropsWithChildren<Props>> = (props) => {
   )
 }
 
-Flag.defaultProps = {
-  tooltipContent: undefined,
-  tooltipId: undefined,
-}
-
 export default Flag
