@@ -24,5 +24,5 @@ export const isVariableDataEmpty = (props: Props): boolean => {
   }
 
   const rowData = Object.values(tableData)
-  return rowData.every((rowData) => !Objects.isEmpty(rowData[variableName]))
+  return rowData.some((rowData) => !Objects.isEmpty(rowData[variableName]))
 }
