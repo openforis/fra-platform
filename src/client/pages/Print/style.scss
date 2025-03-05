@@ -75,6 +75,8 @@
     break-before: page;
   }
 
+  // Attempts to avoid breaking inside element
+  // used to keep print layouts intact for e.g. data tables, comments
   .print-break-inside-avoid {
     break-inside: avoid;
   }
