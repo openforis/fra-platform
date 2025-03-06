@@ -39,7 +39,7 @@ const Table: React.FC<Props> = (props) => {
   const canViewReview = useCanViewReview(sectionName)
   const { print } = useIsPrintRoute()
 
-  const parsedTable = useParsedTable({ assessmentName, data, table: _table })
+  const parsedTable = useParsedTable({ assessmentName, table: _table })
   const { firstHeaderRowSpan, headers, noticeMessages, rowsData, rowsHeader, table, withReview } = parsedTable
 
   const gridTemplateColumns = useGridTemplateColumns({ headers, table })
@@ -74,6 +74,7 @@ const Table: React.FC<Props> = (props) => {
           <React.Fragment key={row.uuid}>
             {row.cols.map((col, colIndex) => {
               const firstCol = colIndex === 0 && (rowIndex === 0 || rowIndex >= firstHeaderRowSpan)
+
               return (
                 <GridHeadCell
                   key={col.uuid}

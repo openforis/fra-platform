@@ -3,7 +3,6 @@ import { UUIDs } from 'utils/uuids'
 
 import { CountryIso } from 'meta/area'
 import { AssessmentName, Col as TypeCol, Cycle, Row as TypeRow, RowType, Table } from 'meta/assessment'
-import { RecordAssessmentData } from 'meta/data'
 
 import { ColHeader, ODPColHeader } from 'client/pages/Section/DataTable/Table/types'
 
@@ -11,7 +10,6 @@ type Props = {
   assessmentName: AssessmentName
   countryIso: CountryIso
   cycle: Cycle
-  data: RecordAssessmentData
   odpYears: Array<ODPColHeader>
   showODP: boolean
   table: Table

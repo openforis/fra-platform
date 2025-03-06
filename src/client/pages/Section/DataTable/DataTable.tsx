@@ -1,13 +1,14 @@
 import './DataTable.scss'
 import React from 'react'
 
+import { CountryIso } from 'meta/area'
 import { AssessmentName, Table as TableType } from 'meta/assessment'
 import { RecordAssessmentDatas } from 'meta/data'
 
 import { useCycle } from 'client/store/assessment'
 import { useIsEditTableDataEnabled } from 'client/store/user'
-import { useCountryIso } from 'client/hooks'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 import { useAreChartVariablesEmpty } from './hooks/useAreChartVariablesEmpty'
 import { useData } from './hooks/useData'
@@ -29,7 +30,7 @@ const DataTable: React.FC<Props> = (props) => {
   const { assessmentName, sectionName, sectionAnchor, table, disabled } = props
 
   const cycle = useCycle()
-  const countryIso = useCountryIso()
+  const { countryIso } = useCountryRouteParams<CountryIso>()
   const data = useData({ table })
   const canEdit = useIsEditTableDataEnabled(sectionName)
   const { print, onlyTables } = useIsPrintRoute()
