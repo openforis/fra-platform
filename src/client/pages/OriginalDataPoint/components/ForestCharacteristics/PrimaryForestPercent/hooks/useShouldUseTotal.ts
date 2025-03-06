@@ -1,11 +1,8 @@
 import { useMemo } from 'react'
 
-import { ODPs } from 'meta/assessment'
+import { ODPs, OriginalDataPoint } from 'meta/assessment'
 
-import { useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
-
-export const useShouldUseTotal = (): boolean => {
-  const originalDataPoint = useOriginalDataPoint()
+export const useShouldUseTotal = (originalDataPoint: OriginalDataPoint): boolean => {
   return useMemo<boolean>(() => {
     return ODPs.shouldUseTotalPrimaryForestPercentage({ originalDataPoint })
   }, [originalDataPoint])
