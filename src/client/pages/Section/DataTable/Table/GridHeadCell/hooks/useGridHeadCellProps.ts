@@ -9,7 +9,6 @@ import { useAssessmentCountry } from 'client/store/area'
 import { useCycle } from 'client/store/assessment'
 import { useShowOriginalDatapoints } from 'client/store/ui/assessmentSection'
 import { ODPColHeader } from 'client/pages/Section/DataTable/Table/types'
-import { getODPColSpan } from 'client/pages/Section/DataTable/Table/utils/getODPColSpan'
 
 import { useOriginalDataPointYearsWithHistory } from '../../hooks/useOriginalDataPointYearsWithHistory'
 import { GridHeadCellProps } from '../types'
@@ -24,7 +23,7 @@ type Returned = {
 }
 
 export const useGridHeadCellProps = (props: GridHeadCellProps): Returned => {
-  const { assessmentName, col, colIndex, data, headers, row, rowIndex, table } = props
+  const { col, colIndex, headers, row, rowIndex, table } = props
 
   const country = useAssessmentCountry()
   const cycle = useCycle()
@@ -33,17 +32,12 @@ export const useGridHeadCellProps = (props: GridHeadCellProps): Returned => {
 
   return useMemo<Returned>(() => {
     const { odp } = table.props
-
-    const { colSpan: defaultColSpan, gridRow } = Cols.getStyle({ col, cycle })
     const { columnName } = headers[colIndex] ?? {}
 
-    const odpYear = getODPHeader({ col, columnName, country, odpYears, showOdp, table })
-
-    let colSpan = defaultColSpan
-    if (odp && !defaultColSpan) {
-      colSpan = getODPColSpan({ assessmentName, cycleName: cycle.name, data, headers, table })
-    }
+    const { colSpan: _colSpan, gridRow } = Cols.getStyle({ col, cycle })
+    const colSpan = odp && !_colSpan ? headers.length : _colSpan
     const gridColumn = Objects.isNil(colSpan) ? undefined : `span ${colSpan}`
+    const odpYear = getODPHeader({ col, columnName, country, odpYears, showOdp, table })
 
     const { index } = col.props
     const isHeaderLeft = (index === 0 && rowIndex === 0) || row.props?.readonly
@@ -52,5 +46,5 @@ export const useGridHeadCellProps = (props: GridHeadCellProps): Returned => {
     const lastCol = colIndex === row.cols.length - 1
 
     return { className, gridColumn, gridRow, lastCol, odpYear }
-  }, [assessmentName, col, colIndex, country, cycle, data, headers, odpYears, row, rowIndex, showOdp, table])
+  }, [col, colIndex, country, cycle, headers, odpYears, row, rowIndex, showOdp, table])
 }

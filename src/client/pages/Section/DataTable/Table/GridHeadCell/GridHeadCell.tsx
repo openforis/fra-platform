@@ -13,10 +13,9 @@ import { GridHeadCellProps } from './types'
 const GridHeadCell: React.FC<GridHeadCellProps> = (props) => {
   const { col, firstCol, table } = props
 
+  const { t } = useTranslation()
   const cycle = useCycle()
   const { className, gridColumn, gridRow, lastCol, odpYear } = useGridHeadCellProps(props)
-
-  const { t } = useTranslation()
 
   if (odpYear) {
     return (

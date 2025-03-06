@@ -4,7 +4,6 @@ import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area'
 import { AssessmentName, Cols, Row, RowType, Table } from 'meta/assessment'
-import { RecordAssessmentData } from 'meta/data'
 
 import { useCycle } from 'client/store/assessment'
 import { useShowOriginalDatapoints } from 'client/store/ui/assessmentSection'
@@ -16,7 +15,6 @@ import { useOriginalDataPointYearsWithHistory } from './useOriginalDataPointYear
 
 type Props = {
   assessmentName: AssessmentName
-  data: RecordAssessmentData
   table: Table
 }
 
@@ -31,7 +29,7 @@ type Returned = {
 }
 
 export const useParsedTable = (props: Props): Returned => {
-  const { assessmentName, data, table: _table } = props
+  const { assessmentName, table: _table } = props
 
   const { countryIso } = useCountryRouteParams<CountryIso>()
   const cycle = useCycle()
@@ -39,7 +37,7 @@ export const useParsedTable = (props: Props): Returned => {
   const odpYears = useOriginalDataPointYearsWithHistory({ assessmentName, table: _table })
 
   return useMemo<Returned>(() => {
-    const _props = { assessmentName, countryIso, cycle, data, odpYears, showODP, table: _table }
+    const _props = { assessmentName, countryIso, cycle, odpYears, showODP, table: _table }
     const { headers, table } = parseTable(_props)
 
     const rowsData: Array<Row> = []
@@ -66,5 +64,5 @@ export const useParsedTable = (props: Props): Returned => {
     }
 
     return { firstHeaderRowSpan, headers, noticeMessages, rowsData, rowsHeader, table, withReview }
-  }, [_table, assessmentName, countryIso, cycle, data, odpYears, showODP])
+  }, [_table, assessmentName, countryIso, cycle, odpYears, showODP])
 }
