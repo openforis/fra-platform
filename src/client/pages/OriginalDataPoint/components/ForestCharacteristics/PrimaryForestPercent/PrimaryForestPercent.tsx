@@ -4,7 +4,8 @@ import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
 import { Numbers } from 'utils/numbers'
 
-import { useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
+import { OriginalDataPoint } from 'meta/assessment'
+
 import DiffText from 'client/components/DiffText'
 import PercentInput from 'client/components/PercentInput'
 import { useODPDisplayHistory } from 'client/pages/OriginalDataPoint/components/hooks/useODPDisplayHistory'
@@ -15,13 +16,13 @@ import { useUpdateValues } from './hooks/useUpdateValues'
 
 type Props = {
   canEditData: boolean
+  originalDataPoint: OriginalDataPoint
 }
 
 const PrimaryForestPercent: React.FC<Props> = (props) => {
-  const { canEditData } = props
-  const originalDataPoint = useOriginalDataPoint()
+  const { canEditData, originalDataPoint } = props
   const { t } = useTranslation()
-  const useTotal = useShouldUseTotal()
+  const useTotal = useShouldUseTotal(originalDataPoint)
   const updateValues = useUpdateValues()
 
   const field = 'primaryForestPercent'

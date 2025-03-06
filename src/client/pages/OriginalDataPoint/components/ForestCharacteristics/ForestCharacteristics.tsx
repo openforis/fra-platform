@@ -183,10 +183,10 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
         </div>
       </div>
       {(hasNaturallyRegeneratingForest || historyHasNaturallyRegeneratingForest) && (
-        <ForestCharacteristicsNaturallyRegenerating canEditData={canEditData} />
+        <ForestCharacteristicsNaturallyRegenerating canEditData={canEditData} originalDataPoint={originalDataPoint} />
       )}
       {(hasPlantationForest || historyHasPlantationForest) && (
-        <ForestCharacteristicsPlantation canEditData={canEditData} />
+        <ForestCharacteristicsPlantation canEditData={canEditData} originalDataPoint={originalDataPoint} />
       )}
     </div>
   )

@@ -3,9 +3,8 @@ import { useTranslation } from 'react-i18next'
 
 import { Numbers } from 'utils/numbers'
 
-import { ODPs } from 'meta/assessment'
+import { ODPs, OriginalDataPoint } from 'meta/assessment'
 
-import { useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
 import DiffText from 'client/components/DiffText'
 import { useODPDisplayHistory } from 'client/pages/OriginalDataPoint/components/hooks/useODPDisplayHistory'
 
@@ -15,11 +14,11 @@ import PrimaryForestPercent from './PrimaryForestPercent'
 
 type Props = {
   canEditData: boolean
+  originalDataPoint: OriginalDataPoint
 }
 
 const ForestCharacteristicsNaturallyRegenerating: React.FC<Props> = (props) => {
-  const { canEditData } = props
-  const originalDataPoint = useOriginalDataPoint()
+  const { canEditData, originalDataPoint } = props
   const { t } = useTranslation()
 
   const nationalClasses = originalDataPoint?.nationalClasses.filter((nationalClass) => !nationalClass.placeHolder)
@@ -65,12 +64,13 @@ const ForestCharacteristicsNaturallyRegenerating: React.FC<Props> = (props) => {
                 key={nationalClass.name}
                 canEditData={canEditData}
                 index={index}
+                originalDataPoint={originalDataPoint}
               />
             ))}
           </tbody>
 
           <tfoot>
-            <PrimaryForestPercent canEditData={canEditData} />
+            <PrimaryForestPercent canEditData={canEditData} originalDataPoint={originalDataPoint} />
             <tr>
               <th className="fra-table__header-cell-left">{t('nationalDataPoint.total')}</th>
               <th className="fra-table__calculated-cell fra-table__divider">

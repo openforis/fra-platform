@@ -4,11 +4,10 @@ import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
 import { Numbers } from 'utils/numbers'
 
-import { ODPNationalClass, ODPs, SectionNames } from 'meta/assessment'
+import { ODPNationalClass, ODPs, OriginalDataPoint, SectionNames } from 'meta/assessment'
 import { Topics } from 'meta/messageCenter'
 import { TooltipId } from 'meta/tooltip'
 
-import { useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
 import DiffText from 'client/components/DiffText'
 import PercentInput from 'client/components/PercentInput'
 import ReviewIndicator from 'client/components/ReviewIndicator'
@@ -30,11 +29,11 @@ const columns: Columns = [{ name: 'forestPlantationIntroducedPercent', type: 'de
 type Props = {
   canEditData: boolean
   index: number
+  originalDataPoint: OriginalDataPoint
 }
 
 const ForestCharacteristicsPlantationRow: React.FC<Props> = (props) => {
-  const { canEditData, index } = props
-  const originalDataPoint = useOriginalDataPoint()
+  const { canEditData, originalDataPoint, index } = props
 
   const { i18n } = useTranslation()
 
