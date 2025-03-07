@@ -59,7 +59,7 @@ const OriginalDataPointsPrint: React.FC<Props> = (props) => {
       {hasDescriptions && (
         <div className="odp__section-print-mode print-break-inside-avoid">
           <h3 className="subhead">{i18n.t('dataSource.comments')}</h3>
-          <DataGrid className="odp__section" gridTemplateColumns="100px minmax(240px, 40%)">
+          <DataGrid className="odp__section" gridTemplateColumns="100px 1fr">
             {originalDataPoints.map((originalDataPoint, i) => {
               const lastRow = originalDataPoints.length - 1 === i
               const value = originalDataPoint.description
