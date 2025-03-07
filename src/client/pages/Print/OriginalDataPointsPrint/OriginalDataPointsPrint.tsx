@@ -24,7 +24,7 @@ const OriginalDataPointsPrint: React.FC<Props> = (props) => {
 
   if (loading || Objects.isEmpty(originalDataPoints)) return null
 
-  const hasDescriptions = originalDataPoints.some((odp) => !Objects.isNil(odp.description))
+  const hasDescriptions = originalDataPoints.some((odp) => !Objects.isEmpty(odp.description))
 
   return (
     <div className="print-break-after">
