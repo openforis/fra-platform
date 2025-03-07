@@ -1,5 +1,4 @@
 @import 'src/client/style/partials';
-@import 'client/components/Inputs/TextArea/TextArea';
 
 div.editorWYSIWYG {
   height: 100%;
@@ -49,12 +48,6 @@ div.editorWYSIWYG {
       display: none;
       border: unset;
     }
-  }
-
-  &.read-only-html {
-    @extend .textarea;
-    word-wrap: break-word;
-    word-break: break-all;
   }
 }
 
