@@ -15,7 +15,7 @@ export const useGridTemplateColumns = (props: Props): string => {
     const noCols = fields.filter((f) => !f.hidden).length - (print ? 0 : 1)
 
     if (print) {
-      return `1fr 235px repeat(${noCols - 2}, 1fr)`
+      return `1fr max-content repeat(${noCols - 2}, 1fr)`
     }
 
     const title = '12ch'
