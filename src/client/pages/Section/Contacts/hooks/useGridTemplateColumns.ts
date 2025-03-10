@@ -14,7 +14,11 @@ export const useGridTemplateColumns = (props: Props): string => {
   return useMemo<string>(() => {
     const noCols = fields.filter((f) => !f.hidden).length - (print ? 0 : 1)
 
-    const title = `${print ? '' : '12ch '}`
+    if (print) {
+      return `1fr 235px repeat(${noCols - 2}, 1fr)`
+    }
+
+    const title = '12ch'
     const name = `minMax(130px, 0.8fr)`
     const contributions = `minMax(130px, 2fr)`
 
