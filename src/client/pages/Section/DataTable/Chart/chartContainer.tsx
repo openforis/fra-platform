@@ -4,9 +4,10 @@ import React, { memo, useEffect, useState } from 'react'
 import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area'
-import { Table, TableName } from 'meta/assessment'
+import { Cycle, Table } from 'meta/assessment'
 import { RecordCountryData } from 'meta/data'
 
+import { useCycle } from 'client/store/assessment'
 import { useIsSomeTableDataFetching } from 'client/store/data'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
@@ -27,16 +28,27 @@ type ChartContainerProps = {
   wrapperWidth: number
 }
 
-const toObject = (
-  tableData: RecordCountryData,
-  countryIso: CountryIso,
-  tableName: TableName
-): Array<Record<string, string | number>> => {
+type ToObjectProps = {
+  tableData: RecordCountryData
+  countryIso: CountryIso
+  table: Table
+  print: boolean
+  cycle: Cycle
+}
+
+const toObject = (props: ToObjectProps): Array<Record<string, string | number>> => {
+  const { countryIso, cycle, print, table, tableData } = props
   const newData: Array<Record<string, string | number>> = []
+  const { name: tableName } = table.props
+
   const countryValues = tableData?.[countryIso]?.[tableName]
   if (!countryValues) return []
 
   Object.entries(countryValues).forEach(([year, yearValues]: any[]) => {
+    if (print && !table.props.report?.[cycle.uuid]?.columnsReport?.includes(year)) {
+      return
+    }
+
     newData.push({
       countryIso,
       section: tableName,
@@ -59,37 +71,36 @@ const toObject = (
 
 const ChartContainer = (props: ChartContainerProps) => {
   const { data: _data, table, wrapperWidth } = props
-  const { name: tableName } = table.props
-
+  const cycle = useCycle()
   const { countryIso } = useCountryRouteParams<CountryIso>()
   const { print } = useIsPrintRoute()
   const trends = useTrends({ table })
-  const [data, setData] = useState(toObject(_data, countryIso, tableName))
+  const [data, setData] = useState(toObject({ tableData: _data, countryIso, table, cycle, print }))
   const { xScale, yScale, chartData } = useChartData(data, trends, wrapperWidth)
   const dataFetching = useIsSomeTableDataFetching()
   const { left, height, bottom } = Chart.styles
 
   useEffect(() => {
     if (!dataFetching) {
-      setData(toObject(_data, countryIso, tableName))
+      setData(toObject({ tableData: _data, countryIso, table, print, cycle }))
     }
-  }, [_data, countryIso, dataFetching, tableName])
+  }, [_data, countryIso, dataFetching, table, cycle, print])
 
   return (
     <div>
-      <svg width={wrapperWidth} height={height}>
+      <svg height={height} width={wrapperWidth}>
         <Legend data={chartData} trends={trends} wrapperWidth={wrapperWidth} />
-        <YAxis data={chartData} left={left} yScale={yScale} wrapperWidth={wrapperWidth} />
-        <XAxis data={chartData} bottom={bottom} height={height} xScale={xScale} />
+        <YAxis data={chartData} left={left} wrapperWidth={wrapperWidth} yScale={yScale} />
+        <XAxis bottom={bottom} data={chartData} height={height} xScale={xScale} />
         {/* odp ticks must be positioned behind all data points */}
         {trends.map((t) => (
           <OdpTicks
+            data={Chart.getTrendOdps(chartData[t.name])}
+            xScale={xScale}
+            yScale={yScale}
             key={`odp-ticks-${t.name}`}
             // @ts-ignore
             className={`chart__odp-ticks-${t.name}`}
-            xScale={xScale}
-            yScale={yScale}
-            data={Chart.getTrendOdps(chartData[t.name])}
           />
         ))}
         {trends.map((t) => (
