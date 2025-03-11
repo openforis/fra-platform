@@ -17,10 +17,10 @@ const NationalClasses: React.FC<Props> = (props) => {
   const gridRef = useRef<HTMLDivElement>(null)
 
   return (
-    <div className="odp__section">
+    <div className="odp__section print-break-inside-avoid">
       <Title gridRef={gridRef} year={year} />
       <Prefill canEditData={canEditData} originalDataPoint={originalDataPoint} />
-      <NationalClassesTable originalDataPoint={originalDataPoint} gridRef={gridRef} />
+      <NationalClassesTable gridRef={gridRef} originalDataPoint={originalDataPoint} />
     </div>
   )
 }

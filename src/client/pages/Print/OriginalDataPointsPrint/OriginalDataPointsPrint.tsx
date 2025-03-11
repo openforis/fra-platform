@@ -30,14 +30,14 @@ const OriginalDataPointsPrint: React.FC<Props> = (props) => {
     <div className="print-break-after">
       <h2 className="headline">{i18n.t('nationalDataPoint.nationalData')}</h2>
 
-      <div className="odp__section-print-mode print-break-inside-avoid">
+      <div className="odp__section-print-mode">
         <h3 className="subhead">{i18n.t('nationalDataPoint.dataSources')}</h3>
         {originalDataPoints.map((originalDataPoint) => (
           <DataSources key={originalDataPoint.id} originalDataPoint={originalDataPoint} />
         ))}
       </div>
 
-      <div className="odp__section-print-mode print-break-inside-avoid">
+      <div className="odp__section-print-mode">
         <h3 className="subhead">{i18n.t('nationalDataPoint.nationalClassifications')}</h3>
         {originalDataPoints.map((originalDataPoint) => (
           <NationalClasses key={originalDataPoint.id} canEditData={false} originalDataPoint={originalDataPoint} />
