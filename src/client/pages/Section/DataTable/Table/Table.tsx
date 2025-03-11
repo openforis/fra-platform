@@ -81,7 +81,6 @@ const Table: React.FC<Props> = (props) => {
                   assessmentName={assessmentName}
                   col={col}
                   colIndex={colIndex}
-                  data={data}
                   firstCol={firstCol}
                   headers={headers}
                   row={row}

@@ -7,6 +7,12 @@
   width: 100%;
 }
 
+@include print {
+  .table-grid {
+    overflow-x: hidden;
+  }
+}
+
 .table-grid-actions {
   display: flex;
   gap: $spacing-xxxxs;
@@ -20,6 +26,12 @@
     margin-top: $spacing-xs;
     min-width: 320px;
     width: 50%;
+  }
+}
+
+@include print {
+  .table-grid-container {
+    overflow-x: hidden;
   }
 }
 
