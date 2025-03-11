@@ -24,20 +24,23 @@ const defaultProps: Partial<Props> = {
   lang: Lang.en,
 }
 
-const marginH = '5mm'
-const marginV = '10mm'
+const marginH = '12px'
+const marginBottom = '20px'
+const marginTop = '20px'
 
 const pdfOptions: PDFOptions = {
   displayHeaderFooter: true,
   footerTemplate: `
-    <div style="width: 100%; font-size: 8px; text-align: center; color: #555; font-family: 'Open Sans', sans-serif;">
-      <span class="pageNumber"></span>
+    <div style="width: 100%; font-size: 8px; text-align: center; color: #939393;">
+      <div style="margin-top: 12px;">
+        <span class="pageNumber"></span>
+      </div>
     </div>
   `,
   headerTemplate: '<div></div>',
   format: 'A4',
-  landscape: true,
-  margin: { bottom: marginV, left: marginH, right: marginH, top: marginV },
+  // landscape: true,
+  margin: { bottom: marginBottom, left: marginH, right: marginH, top: marginTop },
   printBackground: true,
   scale: 0.7,
 }
@@ -59,11 +62,9 @@ export const generate = async (props: Props): Promise<Buffer> => {
   })
 
   pdfOptions.headerTemplate = `
-    <div style="margin-top: -2mm; width: 100%; padding: 0 ${marginH}; box-sizing: border-box;">
-      <div style="width: 100%; box-sizing: border-box; border-top: 1px solid #1798a5;">
-        <div style="font-size: 8px; text-align: left; color: #555; font-family: 'Open Sans', sans-serif;padding-top: 1mm;">
+    <div style="margin-top: -14px; width: 100%; padding: 0 ${marginH}; box-sizing: border-box;">
+      <div style="width: 100%; box-sizing: border-box; border-top: 1px solid #1798a5; font-size: 8px; text-align: left; color: #939393; font-style: italic;">
           ${headerText}
-        </div>
       </div>
     </div>
   `
