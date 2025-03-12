@@ -11,6 +11,7 @@ import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { ColHeader } from 'client/pages/Section/DataTable/Table/types'
 
+import { transposeTable } from './_transpose/_transposeTable'
 import { parseTable } from './_parseTable'
 import { useOriginalDataPointYearsWithHistory } from './useOriginalDataPointYearsWithHistory'
 
@@ -36,7 +37,6 @@ export const useParsedTable = (props: Props): Returned => {
   const cycle = useCycle()
   const showODP = useShowOriginalDatapoints()
   const odpYears = useOriginalDataPointYearsWithHistory({ assessmentName, table: _table })
-
   const { print } = useIsPrintRoute()
 
   return useMemo<Returned>(() => {
@@ -59,11 +59,18 @@ export const useParsedTable = (props: Props): Returned => {
       withReview = withReview || row.props.withReview?.[cycle.uuid]
     })
 
+    // TODO: Why is this needed - check with YG
     const firstColHeader = rowsHeader[0]?.cols[0]
     let firstHeaderRowSpan = 0
     if (!Objects.isEmpty(firstColHeader)) {
       const { rowSpan } = Cols.getStyle({ col: firstColHeader, cycle })
       firstHeaderRowSpan = rowSpan ?? 1
+    }
+
+    // Transpose table
+    if (print && table.props.report?.[cycle.uuid]?.transpose) {
+      const transpose = transposeTable({ cycle, headers, rowsData, rowsHeader, table })
+      return { firstHeaderRowSpan, noticeMessages, withReview, ...transpose }
     }
 
     return { firstHeaderRowSpan, headers, noticeMessages, rowsData, rowsHeader, table, withReview }
