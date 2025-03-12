@@ -45,7 +45,7 @@ const toObject = (props: ToObjectProps): Array<Record<string, string | number>> 
   if (!countryValues) return []
 
   Object.entries(countryValues).forEach(([year, yearValues]: any[]) => {
-    if (print && !table.props.report?.[cycle.uuid]?.columnsReport?.includes(year)) {
+    if (print && table.props.report?.[cycle.uuid] && !table.props.report?.[cycle.uuid]?.columnsReport?.includes(year)) {
       return
     }
 
