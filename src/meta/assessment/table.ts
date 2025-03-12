@@ -65,6 +65,7 @@ export interface TableProps {
   name: TableName
   odp?: boolean
   readonly?: boolean
+  report?: Record<CycleUuid, { columnsReport?: Array<ColName>; transpose?: boolean }>
   secondary?: boolean
   style?: Record<CycleUuid, Pick<CSSProperties, 'gridTemplateColumns'>>
   unit?: Unit

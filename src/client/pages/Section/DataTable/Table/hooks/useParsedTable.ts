@@ -7,6 +7,7 @@ import { AssessmentName, Cols, Row, RowType, Table } from 'meta/assessment'
 
 import { useCycle } from 'client/store/assessment'
 import { useShowOriginalDatapoints } from 'client/store/ui/assessmentSection'
+import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { ColHeader } from 'client/pages/Section/DataTable/Table/types'
 
@@ -36,8 +37,10 @@ export const useParsedTable = (props: Props): Returned => {
   const showODP = useShowOriginalDatapoints()
   const odpYears = useOriginalDataPointYearsWithHistory({ assessmentName, table: _table })
 
+  const { print } = useIsPrintRoute()
+
   return useMemo<Returned>(() => {
-    const _props = { assessmentName, countryIso, cycle, odpYears, showODP, table: _table }
+    const _props = { assessmentName, countryIso, cycle, odpYears, showODP, table: _table, print }
     const { headers, table } = parseTable(_props)
 
     const rowsData: Array<Row> = []
@@ -64,5 +67,5 @@ export const useParsedTable = (props: Props): Returned => {
     }
 
     return { firstHeaderRowSpan, headers, noticeMessages, rowsData, rowsHeader, table, withReview }
-  }, [_table, assessmentName, countryIso, cycle, odpYears, showODP])
+  }, [_table, assessmentName, countryIso, cycle, odpYears, print, showODP])
 }

@@ -13,13 +13,17 @@ type Props = {
   odpYears: Array<ODPColHeader>
   showODP: boolean
   table: Table
+  print?: boolean
 }
 
 const getHeaders = (props: Props): Array<ColHeader> => {
-  const { cycle, odpYears, showODP, table } = props
+  const { cycle, odpYears, showODP, table, print } = props
 
   let columnNames = table.props.columnNames[cycle.uuid]
-  if (table.props.odp && showODP) {
+
+  if (print && table.props.report?.[cycle.uuid]?.columnsReport) {
+    columnNames = table.props.report[cycle.uuid].columnsReport
+  } else if (table.props.odp && showODP) {
     const columnDiffs = Arrays.difference(
       odpYears.map(({ year }) => year),
       columnNames
