@@ -1,13 +1,12 @@
 import { createContext, Dispatch, SetStateAction, useContext } from 'react'
 
-import type { IControlType } from 'jodit/esm/types'
-import { Jodit } from 'jodit-react'
+import type { IControlType, IJodit } from 'jodit/types'
 
 import { RepositoryItem } from 'meta/cycleData'
 
 export type RepositoryLinkContextType = {
-  jodit?: Jodit
-  setJodit: Dispatch<SetStateAction<Jodit>>
+  jodit?: IJodit
+  setJodit: Dispatch<SetStateAction<IJodit>>
   repositoryButton: IControlType
   repositoryOpened: boolean
   setRepositoryOpened: Dispatch<SetStateAction<boolean>>

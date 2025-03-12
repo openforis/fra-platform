@@ -9914,17 +9914,17 @@ jest@^27.5.1:
     import-local "^3.0.2"
     jest-cli "^27.5.1"
 
-jodit-react@^4.0.9:
-  version "4.1.2"
-  resolved "https://registry.yarnpkg.com/jodit-react/-/jodit-react-4.1.2.tgz#61ef1d6fa1f37cde7b71f666da8be9f6fb70f913"
-  integrity sha512-Hs1evpM1IK5zvy/5m5Gk819L8aC+9EmEdQvCoLHVUr/R3vtH4nYFD6wsMRj3ur3J4ZHhaSBjt0N3R7ggwP405Q==
+jodit-react@^5.2.15:
+  version "5.2.15"
+  resolved "https://registry.yarnpkg.com/jodit-react/-/jodit-react-5.2.15.tgz#3f4302ec06093471ca52572f011d885875a872ab"
+  integrity sha512-KUaDV8cwL96EOlG93t0W41DX1rPcHUS18rgHCZF16Na8UFUGmXYGX5Vbjaa10ExXvBAwc4c92RLxsnrRQM+rgQ==
   dependencies:
-    jodit "^4.2.10"
+    jodit "^4.5.17"
 
-jodit@^4.2.10:
-  version "4.2.27"
-  resolved "https://registry.yarnpkg.com/jodit/-/jodit-4.2.27.tgz#fd6b39a968bd474210e8ab78fc463cdb206d3a6d"
-  integrity sha512-cqqeunB3HMElnocVhs5Qq2bhgpMIT2vKQPBpKcOTWKvX6GJ0GYAIneMEf43lphJuo+119CvBE8YgljD5iTfsAQ==
+jodit@^4.5.17:
+  version "4.5.17"
+  resolved "https://registry.yarnpkg.com/jodit/-/jodit-4.5.17.tgz#7767a2677e7b5236c97345a9da754db413f5f80a"
+  integrity sha512-mfpdYgnkPQRnlGU/xZzBH+L666E/K7KAZi39sF4kOkQzIozG2/csYW2rvPMDNgiPz1bDr8bgHw0m69M5+jVNEA==
   dependencies:
     autobind-decorator "^2.4.0"
 

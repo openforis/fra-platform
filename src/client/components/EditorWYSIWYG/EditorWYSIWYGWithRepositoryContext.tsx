@@ -3,7 +3,7 @@ import { renderToStaticMarkup } from 'react-dom/server'
 import { useTranslation } from 'react-i18next'
 
 import type { IControlType } from 'jodit/esm/types'
-import { Jodit } from 'jodit-react'
+import type { IJodit } from 'jodit/esm/types/jodit'
 
 import { RepositoryItem } from 'meta/cycleData'
 
@@ -14,12 +14,12 @@ import Icon from 'client/components/Icon'
 const EditorWYSIWYGWithRepositoryContext: React.FC<EditorWYSIWYGProps> = (props) => {
   const { t } = useTranslation()
 
-  const [jodit, setJodit] = useState<Jodit>()
+  const [jodit, setJodit] = useState<IJodit>()
   const [repositoryOpened, setRepositoryOpened] = useState<boolean>(false)
   const [selectedFiles, setSelectedFiles] = useState<Array<RepositoryItem>>([])
 
   const repositoryButton = useMemo<IControlType>(() => {
-    const exec = (_jodit: Jodit) => {
+    const exec = (_jodit: IJodit) => {
       // setJodit(_jodit)
       setRepositoryOpened(true)
     }
