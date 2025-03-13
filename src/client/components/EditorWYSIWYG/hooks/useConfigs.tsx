@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 
 import type { IJodit } from 'jodit/esm/types/jodit'
 
+import { _processPaste } from 'client/components/EditorWYSIWYG/hooks/_processPaste'
 import { useRepositoryLinkContext } from 'client/components/EditorWYSIWYG/repositoryLinkContext'
 import { EditorConfig } from 'client/components/EditorWYSIWYG/types'
 
@@ -63,7 +64,6 @@ export const useConfigs = (props: Props): Returned => {
     }
 
     const config: EditorConfig = {
-      // @ts-ignore
       addNewLine: false,
       buttons,
       enter: 'div',
@@ -86,9 +86,17 @@ export const useConfigs = (props: Props): Returned => {
       statusbar: false,
       toolbarAdaptive: false,
       toolbarButtonSize: 'small',
-      // @ts-ignore
       uploader: undefined,
       ...options,
+    }
+
+    // ... existing code ...
+
+    if (onlyLinks) {
+      config.askBeforePasteHTML = false
+      config.askBeforePasteFromWord = false
+      config.defaultActionOnPaste = 'insert_clear_html'
+      config.events.processPaste = _processPaste
     }
 
     const configReadOnly: EditorConfig = {
