@@ -90,8 +90,6 @@ export const useConfigs = (props: Props): Returned => {
       ...options,
     }
 
-    // ... existing code ...
-
     if (onlyLinks) {
       config.askBeforePasteHTML = false
       config.askBeforePasteFromWord = false

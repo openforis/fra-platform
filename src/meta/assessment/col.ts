@@ -65,6 +65,17 @@ export interface ColProps {
   variableNo?: Record<CycleUuid, string>
 
   /**
+   * @deprecated
+   * Adding and deprecating this prop already.
+   *
+   * IMPORTANT: This prop has been added to handle transposed tables in print view only.
+   * It's used in the src/client/pages/Section/DataTable/Table/RowData/Cell/hooks/useNodeValue.tsx.
+   * DO NOT USE IT anywhere else.
+   *
+   * When migrating to measure/dimension each Cell will be associated to a measure/dimension making this prop useless
+   */
+  variableName?: VariableName
+  /**
    * Adding and deprecating this prop already.
    * See HACK FOR HAVING RIGHT CALCULATION ORDER in src/server/controller/cycleData/updateDependencies/updateCalculationDependencies/updateCalculationDependencies.ts
    * @deprecated
