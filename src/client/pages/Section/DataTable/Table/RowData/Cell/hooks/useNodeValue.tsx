@@ -23,7 +23,7 @@ export const useNodeValue = (props: Props): NodeValue => {
   const assessmentName = assessment.props.name
   const cycleName = cycle.name
   const tableName = table.props.name
-  const { variableName } = row.props
+  const variableName = col.props.variableName ?? row.props.variableName
   const { colName } = col.props
 
   return useMemo<NodeValue>(() => {
