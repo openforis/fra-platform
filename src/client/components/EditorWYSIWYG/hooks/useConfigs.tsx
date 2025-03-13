@@ -1,7 +1,8 @@
 import { useMemo } from 'react'
 
-import { Jodit } from 'jodit-react'
+import type { IJodit } from 'jodit/esm/types/jodit'
 
+import { _processPaste } from 'client/components/EditorWYSIWYG/hooks/_processPaste'
 import { useRepositoryLinkContext } from 'client/components/EditorWYSIWYG/repositoryLinkContext'
 import { EditorConfig } from 'client/components/EditorWYSIWYG/types'
 
@@ -51,7 +52,7 @@ const ButtonsOnlyLinks = ['link']
 export const useConfigs = (props: Props): Returned => {
   const { onlyLinks, options, repository } = props
 
-  // const [jodit, setJodit] = useState<Jodit>()
+  // const [jodit, setJodit] = useState<IJodit>()
   const { repositoryButton, setJodit } = useRepositoryLinkContext()
 
   const configs = useMemo<Returned['configs']>(() => {
@@ -63,15 +64,14 @@ export const useConfigs = (props: Props): Returned => {
     }
 
     const config: EditorConfig = {
-      // @ts-ignore
       addNewLine: false,
       buttons,
       enter: 'div',
       events: {
-        afterInit: (args: Jodit) => {
+        afterInit: (args: IJodit) => {
           setJodit(args)
         },
-        applyLink: (_: Jodit, link: HTMLAnchorElement) => {
+        applyLink: (_: IJodit, link: HTMLAnchorElement) => {
           link.setAttribute('rel', 'nofollow')
           link.setAttribute('target', '_blank')
         },
@@ -86,9 +86,15 @@ export const useConfigs = (props: Props): Returned => {
       statusbar: false,
       toolbarAdaptive: false,
       toolbarButtonSize: 'small',
-      // @ts-ignore
       uploader: undefined,
       ...options,
+    }
+
+    if (onlyLinks) {
+      config.askBeforePasteHTML = false
+      config.askBeforePasteFromWord = false
+      config.defaultActionOnPaste = 'insert_clear_html'
+      config.events.processPaste = _processPaste
     }
 
     const configReadOnly: EditorConfig = {
