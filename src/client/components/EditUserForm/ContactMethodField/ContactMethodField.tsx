@@ -63,7 +63,7 @@ const ContactMethodField: React.FC<Props> = (props) => {
     [UserContactPreferenceMethod.primaryPhoneNumber, UserContactPreferenceMethod.secondaryPhoneNumber].includes(method)
 
   return (
-    <div className="edit-user__form-item" key={name}>
+    <div key={name} className="edit-user__form-item">
       <div className="edit-user__form-label">{t(`editUser.${name}`)}</div>
       <div
         className={classNames('edit-user__form-field', 'edit-user__form-contact_method-field', {
@@ -73,11 +73,11 @@ const ContactMethodField: React.FC<Props> = (props) => {
       >
         <select
           disabled={!enabled}
-          value={method}
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
             setMethod(e.target.value as UserContactPreferenceMethod)
             setPhoneOption('')
           }}
+          value={method}
         >
           <option value="">{t('userManagement.placeholder')}</option>
           {Object.entries(methodOptions).map(([k, v]) => (
@@ -89,10 +89,10 @@ const ContactMethodField: React.FC<Props> = (props) => {
 
         {showSecondaryField && (
           <select
-            value={phoneOption}
             onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
               setPhoneOption(e.target.value)
             }}
+            value={phoneOption}
           >
             <option value="">{t('userManagement.placeholder')}</option>
             {Object.entries(phoneOptions).map(([k, v]) => (
@@ -105,11 +105,6 @@ const ContactMethodField: React.FC<Props> = (props) => {
       </div>
     </div>
   )
-}
-
-ContactMethodField.defaultProps = {
-  validator: undefined,
-  enabled: false,
 }
 
 export default ContactMethodField

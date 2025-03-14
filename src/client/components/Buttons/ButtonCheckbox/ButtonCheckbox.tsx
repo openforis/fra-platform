@@ -36,8 +36,4 @@ const ButtonCheckbox: React.FC<Props> = (props) => {
   )
 }
 
-ButtonCheckbox.defaultProps = {
-  checked: false,
-  loading: false,
-}
 export default ButtonCheckbox

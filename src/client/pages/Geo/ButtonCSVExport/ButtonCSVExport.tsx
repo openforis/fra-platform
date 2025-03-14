@@ -12,7 +12,7 @@ type Props = {
 }
 
 const ButtonCSVExport: React.FC<Props> = (props) => {
-  const { csvData, filename } = props
+  const { csvData, filename = 'tableData' } = props
 
   const className = useButtonClassName({ iconName: 'hit-down', label: 'CSV', size: ButtonSize.xs })
 
@@ -28,10 +28,6 @@ const ButtonCSVExport: React.FC<Props> = (props) => {
       CSV
     </CSVLink>
   )
-}
-
-ButtonCSVExport.defaultProps = {
-  filename: 'tableData',
 }
 
 export default ButtonCSVExport

@@ -60,11 +60,4 @@ const TextInputField: React.FC<Props> = (props) => {
   )
 }
 
-TextInputField.defaultProps = {
-  editorLink: false,
-  enabled: false,
-  mandatory: false,
-  validator: undefined,
-}
-
 export default TextInputField

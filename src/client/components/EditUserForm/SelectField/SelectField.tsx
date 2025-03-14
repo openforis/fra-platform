@@ -39,7 +39,7 @@ const SelectField: React.FC<Props> = (props) => {
   }
 
   return (
-    <div className="edit-user__form-item" key={name}>
+    <div key={name} className="edit-user__form-item">
       <div className="edit-user__form-label">{t(`editUser.${name}`)}</div>
       <div
         className={classNames('edit-user__form-field', 'edit-user__form-select-field', {
@@ -51,12 +51,6 @@ const SelectField: React.FC<Props> = (props) => {
       </div>
     </div>
   )
-}
-
-SelectField.defaultProps = {
-  validator: undefined,
-  enabled: false,
-  mandatory: false,
 }
 
 export default SelectField

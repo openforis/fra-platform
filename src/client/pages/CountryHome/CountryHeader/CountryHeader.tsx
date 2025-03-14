@@ -24,7 +24,7 @@ const size = ButtonSize.m
 const noBorder = true
 
 const CountryHeader: React.FC<Props> = (props) => {
-  const { sections, showRegionLabel } = props
+  const { sections, showRegionLabel = true } = props
 
   const { t } = useTranslation()
   const { countryIso } = useCountryRouteParams()
@@ -84,10 +84,6 @@ const CountryHeader: React.FC<Props> = (props) => {
       )}
     </div>
   )
-}
-
-CountryHeader.defaultProps = {
-  showRegionLabel: true,
 }
 
 export default CountryHeader

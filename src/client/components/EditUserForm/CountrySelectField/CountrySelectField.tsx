@@ -30,24 +30,19 @@ const CountrySelectField: React.FC<Props> = (props) => {
   const valid = validator?.({ [name]: value }) ?? true
 
   return (
-    <div className="edit-user__form-item" key={name}>
+    <div key={name} className="edit-user__form-item">
       <div className="edit-user__form-label">{t(`editUser.${name}`)}</div>
       <div className={classNames('edit-user__form-field', { disabled: !enabled, error: !valid })}>
         <AreaSelector
           disabled={!enabled}
           includeCountries
           onElementSelect={(countryIso: CountryIso) => onChange(name, countryIso)}
-          showCountryFlag
           selectedValue={Objects.isEmpty(value) ? defaultCountryIso : (value as CountryIso)}
+          showCountryFlag
         />
       </div>
     </div>
   )
-}
-
-CountrySelectField.defaultProps = {
-  validator: undefined,
-  enabled: false,
 }
 
 export default CountrySelectField

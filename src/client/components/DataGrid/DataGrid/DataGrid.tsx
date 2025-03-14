@@ -23,8 +23,4 @@ const DataGrid = forwardRef<HTMLDivElement, Props>((props, outerRef) => {
   )
 })
 
-DataGrid.defaultProps = {
-  withActions: false,
-}
-
 export default DataGrid

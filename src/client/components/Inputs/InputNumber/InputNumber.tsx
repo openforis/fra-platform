@@ -9,7 +9,7 @@ import { useOnChange } from './hooks/useOnChange'
 import { InputNumberProps } from './types'
 
 const InputNumber = forwardRef<HTMLInputElement, InputNumberProps>((props, outerRef) => {
-  const { className, disabled, id, onChange, onPaste, placeholder, precision, resize, value } = props
+  const { className, disabled, id, onChange, onPaste, placeholder, precision = 2, resize, value } = props
 
   const inputRef = useRef<HTMLInputElement>(null)
   useImperativeHandle(outerRef, () => inputRef.current!, [])
@@ -40,9 +40,5 @@ const InputNumber = forwardRef<HTMLInputElement, InputNumberProps>((props, outer
     />
   )
 })
-
-InputNumber.defaultProps = {
-  precision: 2,
-}
 
 export default InputNumber
