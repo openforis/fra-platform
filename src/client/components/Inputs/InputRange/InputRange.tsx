@@ -14,7 +14,7 @@ type Props = Pick<InputHTMLAttributes<HTMLInputElement>, 'disabled' | 'max' | 'm
 }
 
 const InputRange = forwardRef<HTMLInputElement, Props>((props, outerRef) => {
-  const { disabled, max, min, onChange, size, step, unit, value } = props
+  const { disabled, max, min, onChange, size = InputRangeSize.s, step, unit, value } = props
 
   const inputRef = useRef<HTMLInputElement>(null)
   useImperativeHandle(outerRef, () => inputRef.current!, [])
@@ -39,10 +39,5 @@ const InputRange = forwardRef<HTMLInputElement, Props>((props, outerRef) => {
     </div>
   )
 })
-
-InputRange.defaultProps = {
-  size: InputRangeSize.s,
-  unit: null,
-}
 
 export default InputRange

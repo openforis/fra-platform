@@ -13,8 +13,4 @@ const GeoIcon: React.FC<Props> = ({ name, className }) => {
   return <img alt="" className={svgClass} src={`/img/geo/${name}.svg?bust=${bustString}#${name}`} />
 }
 
-GeoIcon.defaultProps = {
-  className: null,
-}
-
 export default GeoIcon

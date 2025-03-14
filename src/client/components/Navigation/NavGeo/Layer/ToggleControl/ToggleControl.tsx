@@ -30,9 +30,4 @@ const ToggleControl: React.FC<Props> = (props) => {
   )
 }
 
-ToggleControl.defaultProps = {
-  backgroundColor: null,
-  status: null,
-}
-
 export default ToggleControl

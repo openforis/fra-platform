@@ -123,8 +123,4 @@ const UserRolePropsFields: React.FC<Props> = (props) => {
   )
 }
 
-UserRolePropsFields.defaultProps = {
-  enabled: false,
-}
-
 export default UserRolePropsFields

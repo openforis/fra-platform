@@ -31,7 +31,7 @@ const SPACING = 8
 
 const Bar = (props: Props) => {
   const { t } = useTranslation()
-  const { data, chart, showLegend, showLabels, stacked } = props
+  const { data, chart, showLegend = true, showLabels = true, stacked } = props
 
   let yAxisLabel
   let xAxisLabel
@@ -82,12 +82,6 @@ const Bar = (props: Props) => {
       </BarChart>
     </ResponsiveContainer>
   )
-}
-
-Bar.defaultProps = {
-  showLegend: true,
-  showLabels: true,
-  stacked: false,
 }
 
 export default Bar

@@ -16,7 +16,7 @@ const Select: React.FC<SelectProps> = (props) => {
     createOptionPosition,
     disabled,
     inputValue,
-    isClearable,
+    isClearable = true,
     isCreatable,
     isMulti,
     isValidNewOption,
@@ -71,11 +71,6 @@ const Select: React.FC<SelectProps> = (props) => {
       />
     </div>
   )
-}
-
-Select.defaultProps = {
-  // eslint-disable-next-line react/default-props-match-prop-types
-  isClearable: true,
 }
 
 export default Select
