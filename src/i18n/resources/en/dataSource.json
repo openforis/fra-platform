@@ -13,5 +13,5 @@
   "variable": "Variable",
   "vegetationMapping": "Vegetation mapping",
   "yearForDataSource": "Year for data source",
-  "contentUpdatedOnlyLinks": "Your content has been updated, because it contains invalid HTML.\nOnly text and links can be pasted in this field."
+  "contentUpdatedOnlyLinks": "The content you have pasted has been updated because it contains invalid html.\nOnly text and links are allowed in this filed."
 }
