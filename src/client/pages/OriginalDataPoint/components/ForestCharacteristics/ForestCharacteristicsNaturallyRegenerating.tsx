@@ -3,26 +3,49 @@ import { useTranslation } from 'react-i18next'
 
 import { Numbers } from 'utils/numbers'
 
-import { ODPs } from 'meta/assessment'
+import { ODPs, OriginalDataPoint } from 'meta/assessment'
 
-import { useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
+import DiffText from 'client/components/DiffText'
+import { useODPDisplayHistory } from 'client/pages/OriginalDataPoint/components/hooks/useODPDisplayHistory'
 
+import { useNaturalForestPercentAndAreaTotalsChange } from './hooks/useNaturalForestPercentAndAreaTotalsChange'
 import ForestCharacteristicsNaturallyRegeneratingRow from './ForestCharacteristicsNaturallyRegeneratingRow'
 import PrimaryForestPercent from './PrimaryForestPercent'
 
 type Props = {
   canEditData: boolean
+  originalDataPoint: OriginalDataPoint
 }
 
 const ForestCharacteristicsNaturallyRegenerating: React.FC<Props> = (props) => {
-  const { canEditData } = props
-  const originalDataPoint = useOriginalDataPoint()
+  const { canEditData, originalDataPoint } = props
   const { t } = useTranslation()
 
   const nationalClasses = originalDataPoint?.nationalClasses.filter((nationalClass) => !nationalClass.placeHolder)
 
+  const totalForestNaturalPercentArea =
+    originalDataPoint &&
+    Numbers.format(
+      ODPs.calcTotalSubFieldArea({
+        originalDataPoint,
+        field: 'forestPercent',
+        subField: 'forestNaturalPercent',
+      })
+    )
+
+  const totalPrimaryForestNaturalPercentArea =
+    originalDataPoint?.values.primaryForest &&
+    Numbers.format(Numbers.toBigNumber(originalDataPoint.values.primaryForest))
+
+  const displayHistory = useODPDisplayHistory()
+
+  const totalsChange = useNaturalForestPercentAndAreaTotalsChange({
+    totalForestNaturalPercentArea,
+    totalPrimaryForestNaturalPercentArea,
+  })
+
   return (
-    <div className="fra-table__container">
+    <div className="fra-table__container print-break-inside-avoid">
       <div className="fra-table__scroll-wrapper">
         <table className="fra-table odp__sub-table">
           <thead>
@@ -41,27 +64,28 @@ const ForestCharacteristicsNaturallyRegenerating: React.FC<Props> = (props) => {
                 key={nationalClass.name}
                 canEditData={canEditData}
                 index={index}
+                originalDataPoint={originalDataPoint}
               />
             ))}
           </tbody>
 
           <tfoot>
-            <PrimaryForestPercent canEditData={canEditData} />
+            <PrimaryForestPercent canEditData={canEditData} originalDataPoint={originalDataPoint} />
             <tr>
               <th className="fra-table__header-cell-left">{t('nationalDataPoint.total')}</th>
               <th className="fra-table__calculated-cell fra-table__divider">
-                {originalDataPoint &&
-                  Numbers.format(
-                    ODPs.calcTotalSubFieldArea({
-                      originalDataPoint,
-                      field: 'forestPercent',
-                      subField: 'forestNaturalPercent',
-                    })
-                  )}
+                {displayHistory ? (
+                  <DiffText changes={totalsChange?.forestNaturalPercentArea} />
+                ) : (
+                  totalForestNaturalPercentArea
+                )}
               </th>
               <td className="fra-table__calculated-cell">
-                {originalDataPoint?.values.primaryForest &&
-                  Numbers.format(Numbers.toBigNumber(originalDataPoint.values.primaryForest))}
+                {displayHistory ? (
+                  <DiffText changes={totalsChange?.primaryForestNaturalPercentArea} />
+                ) : (
+                  totalPrimaryForestNaturalPercentArea
+                )}
               </td>
             </tr>
           </tfoot>

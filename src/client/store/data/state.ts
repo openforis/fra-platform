@@ -12,12 +12,21 @@ import {
   TableName,
   VariableName,
 } from 'meta/assessment'
-import { Contact, HistoryTarget } from 'meta/cycleData'
+import { RecordAssessmentOriginalDataPoint } from 'meta/assessment/originalDataPoint'
+import { Contact } from 'meta/cycleData'
+import { HistoryTarget } from 'meta/cycleData/historyActivities'
 import { RecordAssessmentData } from 'meta/data'
 
 export interface DataBaseState {
   linkedDataSources: Record<SectionName, Array<DataSourceLinked>>
 }
+
+// data state
+type DescriptionsState = Record<AssessmentName, Record<CycleName, DescriptionCountryValues>>
+export type TableDataStatusState = Record<
+  AssessmentName,
+  Record<CycleName, Record<CountryIso, Record<TableName, TableDataStatus>>>
+>
 
 // validation state types
 export type RecordTableValidationsState = Record<TableName, Record<ColName, Record<VariableName, NodeValueValidation>>>
@@ -37,37 +46,43 @@ export enum TableDataStatus {
   updated = 'updated',
 }
 
-export type RecordTableDataStatus = Record<
-  AssessmentName,
-  Record<CycleName, Record<CountryIso, Record<TableName, TableDataStatus>>>
->
-
 export type RecordContacts = Record<AssessmentName, Record<CycleName, Record<CountryIso, Array<Contact>>>>
 
 // ==============================
 // History state types
 // ==============================
-
-export type HistoryItemState = {
+export type HistoryActivitiesItemState = {
   labelKey: string
   target: HistoryTarget
 }
 
-export type HistoryState = {
-  items?: Record<HistoryTarget, HistoryItemState>
+export type HistoryActivitiesState = {
+  items?: Record<HistoryTarget, HistoryActivitiesItemState>
   compareItem?: Record<HistoryTarget, ActivityLog<never>>
+}
+
+export type HistoryLastApprovedState = {
+  active?: boolean
+  descriptions?: DescriptionsState
+  originalDataPoints?: RecordAssessmentOriginalDataPoint
+  tableData?: RecordAssessmentData
+}
+
+export type HistoryState = {
+  activities?: HistoryActivitiesState
+  lastApproved?: HistoryLastApprovedState
 }
 
 // TODO: this has to become the only DataState (move descriptions and linkedDataSources here)
 interface TableDataState {
   contacts: RecordContacts
-  descriptions: Record<AssessmentName, Record<CycleName, DescriptionCountryValues>>
+  descriptions: DescriptionsState
   history: HistoryState
   nodeValueValidations: RecordAssessmentValidationsState
   nodeValuesEstimations?: Record<string, NodeValuesEstimation>
   odpLastUpdatedTimestamp: ODPLastUpdatedTimestampState
   tableData?: RecordAssessmentData
-  tableDataStatus: RecordTableDataStatus
+  tableDataStatus: TableDataStatusState
 }
 
 type BaseState = Record<AssessmentName, Record<CycleName, DataBaseState>>

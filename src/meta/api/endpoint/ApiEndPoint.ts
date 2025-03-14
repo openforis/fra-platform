@@ -34,8 +34,6 @@ export const ApiEndPoint = {
   CycleData: {
     activities: () => apiPath('cycle-data', 'activities'),
     activitiesCount: () => apiPath('cycle-data', 'activities', 'count'),
-    history: (target = ':target') => apiPath('cycle-data', 'history', target),
-    historyCount: (target = ':target') => apiPath('cycle-data', 'history', target, 'count'),
 
     Dashboard: {
       one: () => apiPath('cycle-data', 'dashboard'),
@@ -43,6 +41,7 @@ export const ApiEndPoint = {
 
     Descriptions: {
       many: () => apiPath('cycle-data', 'descriptions'),
+      history: () => apiPath('cycle-data', 'descriptions', 'history'),
 
       DataSources: {
         many: () => apiPath('cycle-data', 'descriptions', 'data-sources'),
@@ -59,6 +58,13 @@ export const ApiEndPoint = {
       one: () => apiPath('cycle-data', 'contacts', 'contact'),
     },
 
+    History: {
+      Activities: {
+        one: (target = ':target') => apiPath('cycle-data', 'history', 'activities', target),
+        count: (target = ':target') => apiPath('cycle-data', 'history', 'activities', target, 'count'),
+      },
+    },
+
     Links: {
       count: () => apiPath('cycle-data', 'links', 'count'),
       many: () => apiPath('cycle-data', 'links'),
@@ -71,6 +77,7 @@ export const ApiEndPoint = {
       one: () => apiPath('cycle-data', 'original-data-points', 'original-data-point'),
       many: () => apiPath('cycle-data', 'original-data-points'),
       lastUpdatedTimestamp: () => apiPath('cycle-data', 'original-data-points', 'last-updated-timestamp'),
+      history: () => apiPath('cycle-data', 'original-data-points', 'original-data-point', 'history'),
 
       dataSources: () => apiPath('cycle-data', 'original-data-points', 'original-data-point', 'data-sources'),
       description: () => apiPath('cycle-data', 'original-data-points', 'original-data-point', 'description'),
@@ -112,6 +119,7 @@ export const ApiEndPoint = {
       estimate: () => apiPath('cycle-data', 'table', 'estimate'),
       nodes: () => apiPath('cycle-data', 'table', 'nodes'),
       tableData: () => apiPath('cycle-data', 'table', 'table-data'),
+      tableDataHistory: () => apiPath('cycle-data', 'table', 'table-data', 'history'),
       tableClear: () => apiPath('cycle-data', 'table', 'clear'),
       nodeValuesEstimations: () => apiPath('cycle-data', 'table', 'node-values-estimations'),
     },
@@ -182,6 +190,10 @@ export const ApiEndPoint = {
       forestAgreement: () => apiPath('geo', 'estimations', 'forest-agreement'),
       intersectionArea: () => apiPath('geo', 'estimations', 'intersection-area'),
     },
+  },
+
+  Kiosk: {
+    latestActivities: () => apiPath('kiosk', 'latest-activities'),
   },
 
   MetaData: {

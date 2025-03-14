@@ -1,0 +1,11 @@
+@import 'client/style/partials';
+
+.table-grid__data-cell-input-number {
+  text-align: right;
+}
+
+@include rtl {
+  .table-grid__data-cell-input-number {
+    text-align: left;
+  }
+}

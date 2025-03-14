@@ -1,0 +1,72 @@
+name: Run test partial (unit and integration)
+
+on:
+  pull_request:
+    branches-ignore:
+      - 'development'
+    workflow_dispatch:
+      inputs:
+        force_refresh:
+          description: 'Force database refresh'
+          required: false
+          default: false
+          type: boolean
+
+jobs:
+  tests-partial:
+    runs-on: ubuntu-22.04
+    if: always()
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_DEV }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_DEV }}
+          aws-region: eu-west-1
+
+      - name: Cache test database
+        id: cache-db
+        uses: actions/cache@v3
+        with:
+          path: ./db/backup
+          key: test-db-${{ runner.os }}-v1-${{ hashFiles('src/test/e2e/docker-compose.test.yml') }}
+          restore-keys: |
+            test-db-${{ runner.os }}-v1-
+            test-db-${{ runner.os }}-
+
+      - name: Download and decrypt test database
+        if: steps.cache-db.outputs.cache-hit != 'true' || ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.force_refresh == 'true' }}
+        run: |
+          mkdir -p ./db
+          aws s3 cp s3://fra-platform-s3-developer-assets/test-assets/database/backup.gpg ./db/backup.gpg
+          ./src/tools/heroku/decrypt.sh ./db/backup.gpg
+        env:
+          BACKUP_PASSPHRASE: ${{ secrets.BACKUP_PASSPHRASE }}
+
+      - name: Build and start containers
+        run: docker compose -f src/test/e2e/docker-compose.test.yml up -d
+        env:
+          NPM_GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+
+      - name: Wait for services to be ready
+        run: |
+          timeout 300 bash -c 'until docker compose -f src/test/e2e/docker-compose.test.yml ps web | grep -q "healthy"; do sleep 5; done'
+
+      - name: Run database migrations
+        run: docker compose -f src/test/e2e/docker-compose.test.yml exec -T web yarn migration-steps:run
+
+      - name: Run unit and integration tests
+        run: docker compose -f src/test/e2e/docker-compose.test.yml exec -T web yarn test
+        env:
+          NPM_GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+
+      - name: Stop containers
+        if: always()
+        run: docker compose -f src/test/e2e/docker-compose.test.yml down -v
+
+      - name: Cleanup database backup
+        if: always()
+        run: |
+          rm -rf ./db

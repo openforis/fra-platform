@@ -8,27 +8,13 @@
     justify-self: start;
   }
 
-  &.section__degradedForest {
-    .fra-table {
-      tr:nth-child(2) {
-        th:first-child {
-          min-width: 72px;
-        }
-      }
-    }
-  }
-
   &.section__sustainableDevelopment {
     .subhead {
       margin-bottom: $spacing-xs;
     }
 
-    .fra-secondary-table__wrapper {
+    .table-grid-container.secondary-table {
       width: 100%;
-
-      .fra-table__header-cell-left {
-        width: 25%;
-      }
     }
   }
 }

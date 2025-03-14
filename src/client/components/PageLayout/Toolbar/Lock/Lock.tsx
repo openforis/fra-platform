@@ -5,7 +5,7 @@ import MediaQuery from 'react-responsive'
 import classNames from 'classnames'
 
 import { useAppDispatch } from 'client/store'
-import { useIsHistoryActive } from 'client/store/data'
+import { DataActions, useHistoryActivitiesIsActive, useHistoryLastApprovedIsActive } from 'client/store/data'
 import { useShowOriginalDatapoints } from 'client/store/ui/assessmentSection'
 import { DataLockActions, useIsDataLocked } from 'client/store/ui/dataLock'
 import { useCanEditCycleData } from 'client/store/user'
@@ -18,24 +18,31 @@ const Lock: React.FC = () => {
   const canEditCycleData = useCanEditCycleData()
   const locked = useIsDataLocked()
   const showOdps = useShowOriginalDatapoints()
-  const historyActive = useIsHistoryActive()
+  const historyActivitiesActive = useHistoryActivitiesIsActive()
+  const historyLastApprovedActive = useHistoryLastApprovedIsActive()
 
   const [disabled, setDisabled] = useState<boolean>(false)
   const [over, setOver] = useState<boolean>(false)
   const lockRef = useRef<boolean>(showOdps)
-  
-  const toggleLock = useCallback(() => dispatch(DataLockActions.toggleDataLock()), [dispatch])
-  
+
+  const toggleLock = useCallback(() => {
+    // if unlocking for editing and historyLastApproved is Active -> close history
+    if (locked && historyLastApprovedActive) {
+      dispatch(DataActions.toggleHistoryLastApproved())
+    }
+    dispatch(DataLockActions.toggleDataLock())
+  }, [dispatch, historyLastApprovedActive, locked])
+
   useEffect(() => {
-    if(canEditCycleData){
-      if (historyActive || !showOdps) {
+    if (canEditCycleData) {
+      if (historyActivitiesActive || !showOdps) {
         setDisabled(true)
         if (!locked) {
           lockRef.current = locked
           toggleLock()
         }
       }
-      if (!historyActive && showOdps) {
+      if (!historyActivitiesActive && showOdps) {
         setDisabled(false)
         if (!lockRef.current) {
           lockRef.current = true
@@ -43,7 +50,7 @@ const Lock: React.FC = () => {
         }
       }
     }
-  }, [canEditCycleData, historyActive, locked, showOdps, toggleLock])
+  }, [canEditCycleData, historyActivitiesActive, locked, showOdps, toggleLock])
 
   return (
     <MediaQuery minWidth={Breakpoints.laptop}>

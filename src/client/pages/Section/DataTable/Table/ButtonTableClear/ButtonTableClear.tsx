@@ -48,8 +48,4 @@ const ButtonTableClear: React.FC<Props> = (props) => {
   )
 }
 
-ButtonTableClear.defaultProps = {
-  disabled: false,
-}
-
 export default ButtonTableClear

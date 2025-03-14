@@ -1,14 +1,16 @@
 import './DataTable.scss'
 import React from 'react'
 
+import { CountryIso } from 'meta/area'
 import { AssessmentName, Table as TableType } from 'meta/assessment'
 import { RecordAssessmentDatas } from 'meta/data'
 
 import { useCycle } from 'client/store/assessment'
 import { useIsEditTableDataEnabled } from 'client/store/user'
-import { useCountryIso } from 'client/hooks'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
+import { useAreChartVariablesEmpty } from './hooks/useAreChartVariablesEmpty'
 import { useData } from './hooks/useData'
 import { useODPDeleteListener } from './hooks/useODPDeleteListener'
 import { useValidate } from './hooks/useValidate'
@@ -28,7 +30,7 @@ const DataTable: React.FC<Props> = (props) => {
   const { assessmentName, sectionName, sectionAnchor, table, disabled } = props
 
   const cycle = useCycle()
-  const countryIso = useCountryIso()
+  const { countryIso } = useCountryRouteParams<CountryIso>()
   const data = useData({ table })
   const canEdit = useIsEditTableDataEnabled(sectionName)
   const { print, onlyTables } = useIsPrintRoute()
@@ -38,7 +40,9 @@ const DataTable: React.FC<Props> = (props) => {
   const { name: cycleName } = cycle
   const { props: tableProps, rows } = table
   const { name: tableName, odp, secondary } = tableProps
+
   const dataEmpty = RecordAssessmentDatas.isTableDataEmpty({ assessmentName, cycleName, data, tableName, countryIso })
+  const areChartVariablesEmpty = useAreChartVariablesEmpty({ data, table })
   const showOdpChart = odp
   const generateValues = canEdit && odp
 
@@ -47,33 +51,32 @@ const DataTable: React.FC<Props> = (props) => {
     return null
   }
 
+  // Show chart in print only if chart variables are not empty
+  // By default, show chart always
+  const showChart = (showOdpChart && print && !areChartVariablesEmpty) || (showOdpChart && !print)
+
   return (
     <>
-      {showOdpChart && (!print || !dataEmpty) && (
-        <>
-          <Chart data={data?.[assessmentName]?.[cycleName]} table={table} />
-          <div className="page-break" />
-        </>
-      )}
+      {showChart && <Chart data={data?.[assessmentName]?.[cycleName]} table={table} />}
 
       {generateValues && (
         <GenerateValues
           assessmentName={assessmentName}
           cycleName={cycleName}
+          data={data}
+          rows={rows}
           sectionName={sectionName}
           tableName={tableName}
-          rows={rows}
-          data={data}
         />
       )}
 
       <Table
         assessmentName={assessmentName}
-        sectionName={sectionName}
-        sectionAnchor={sectionAnchor}
-        table={table}
         data={data}
         disabled={disabled}
+        sectionAnchor={sectionAnchor}
+        sectionName={sectionName}
+        table={table}
       />
     </>
   )

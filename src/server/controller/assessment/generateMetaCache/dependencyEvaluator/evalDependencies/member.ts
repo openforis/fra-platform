@@ -22,7 +22,7 @@ const _excludeDependant = (row: RowCache, tableName: string, variableName: strin
 
 export class MemberEvaluator extends ExpressionNodeEvaluator<Context, MemberExpression> {
   evaluate(expressionNode: MemberExpression): string {
-    const memberVariable = ExpressionEvaluator.parseMemberVariable(expressionNode)
+    const memberVariable = ExpressionEvaluator.parseMemberVariable(expressionNode, this.context)
 
     this.#addDependant(memberVariable)
     this.#addDependency(memberVariable)
@@ -33,7 +33,7 @@ export class MemberEvaluator extends ExpressionNodeEvaluator<Context, MemberExpr
   #variableExists(variable: VariableCache): boolean {
     const { assessments, assessmentName, cycleName } = this.context
 
-    const assessment = assessments.find((a) => a.props.name === (variable.assessmentName ?? assessmentName))
+    const assessment = assessments[variable.assessmentName ?? assessmentName]
     const cycle = assessment.cycles.find((c) => c.name === (variable.cycleName ?? cycleName))
     const variablesCache = AssessmentMetaCaches.getVariablesByTables({ assessment, cycle })
 
@@ -44,7 +44,7 @@ export class MemberEvaluator extends ExpressionNodeEvaluator<Context, MemberExpr
     const { assessments, assessmentName, cycleName, row, type } = this.context
 
     if (this.#variableExists(variable) && !_excludeDependant(row, variable.tableName, variable.variableName)) {
-      const assessment = assessments.find((a) => a.props.name === (variable.assessmentName ?? assessmentName))
+      const assessment = assessments[variable.assessmentName ?? assessmentName]
       const cycle = assessment.cycles.find((c) => c.name === (variable.cycleName ?? cycleName))
       const metaCache = AssessmentMetaCaches.getMetaCache({ assessment, cycle })
 
@@ -74,8 +74,8 @@ export class MemberEvaluator extends ExpressionNodeEvaluator<Context, MemberExpr
     const { variableName } = row.props
 
     if (this.#variableExists(variable)) {
-      const assessment = assessments.find((a) => a.props.name === assessmentName)
-      const cycle = assessment.cycles.find((c) => c.name === cycleName)
+      const assessment = assessments[assessmentName]
+      const cycle = assessment.cycles.find((cycle) => cycle.name === cycleName)
       const metaCache = AssessmentMetaCaches.getMetaCache({ assessment, cycle })
 
       const propsDependency = { assessment, cycle, tableName, variableName }

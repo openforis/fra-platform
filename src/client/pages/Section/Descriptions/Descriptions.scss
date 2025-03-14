@@ -4,6 +4,8 @@
   display: grid;
   grid-row-gap: $spacing-s;
   margin-bottom: $spacing-s; // TODO: refactor section style with grid and row gap - future task
+  max-width: 100%;
+  min-width: 0;
 }
 
 .descriptions__group {

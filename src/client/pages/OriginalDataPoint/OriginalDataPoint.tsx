@@ -17,6 +17,7 @@ import NationalClasses from './components/NationalClasses'
 import OriginalData from './components/OriginalData'
 import YearSelection from './components/YearSelection'
 import { useGetOriginalDataPoint } from './hooks/useGetOriginalDataPoint'
+import { useGetOriginalDataPointHistory } from './hooks/useGetOriginalDataPointHistory'
 import { useGetReviewStatus } from './hooks/useGetReviewStatus'
 import { useReservedYears } from './hooks/useReservedYears'
 
@@ -31,6 +32,7 @@ const OriginalDataPoint: React.FC = () => {
 
   useReservedYears()
   useGetOriginalDataPoint()
+  useGetOriginalDataPointHistory()
   useGetReviewStatus()
 
   if (originalDataPoint.countryIso !== countryIso) navigate('/')

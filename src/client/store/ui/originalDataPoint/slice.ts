@@ -1,4 +1,4 @@
-import { createSlice, isAnyOf, PayloadAction, Reducer } from '@reduxjs/toolkit'
+import { ActionReducerMapBuilder, createSlice, isAnyOf, PayloadAction, Reducer } from '@reduxjs/toolkit'
 
 import { ODPReservedYear } from 'meta/assessment'
 
@@ -28,7 +28,7 @@ export const originalDataPointSlice = createSlice({
       state.reservedYears = payload
     },
   },
-  extraReducers: (builder) => {
+  extraReducers: (builder: ActionReducerMapBuilder<OriginalDataPointState>) => {
     builder.addCase(
       getOriginalDataPointReservedYears.fulfilled,
       (state, { payload }: PayloadAction<Array<ODPReservedYear>>) => {
@@ -69,17 +69,17 @@ export const originalDataPointSlice = createSlice({
 
 export const OriginalDataPointActions = {
   ...originalDataPointSlice.actions,
-  getOriginalDataPoint,
+  copyNationalClasses,
   createOriginalDataPoint,
   deleteOriginalDataPoint,
   deleteOriginalDataPointNationalClass,
+  getOriginalDataPoint,
+  getOriginalDataPointReservedYears,
   updateOriginalDataPointDataSources,
   updateOriginalDataPointDescription,
   updateOriginalDataPointNationalClasses,
   updateOriginalDataPointOriginalData,
   updateOriginalDataPointYear,
-  copyNationalClasses,
-  getOriginalDataPointReservedYears,
 }
 
 export default originalDataPointSlice.reducer as Reducer<OriginalDataPointState>

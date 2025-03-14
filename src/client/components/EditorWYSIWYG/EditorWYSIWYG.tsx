@@ -1,4 +1,3 @@
-import './EditorWYSIWYG.scss'
 import React from 'react'
 
 import classNames from 'classnames'
@@ -42,13 +41,6 @@ const EditorWYSIWYG: React.FC<EditorWYSIWYGProps> = (props: EditorWYSIWYGProps) 
       <AddFromRepository />
     </>
   )
-}
-
-EditorWYSIWYG.defaultProps = {
-  disabled: false,
-  onlyLinks: false,
-  options: {},
-  repository: false,
 }
 
 export default EditorWYSIWYG

@@ -156,14 +156,6 @@
   border-right: 3px double $ui-border;
 }
 
-// Select cell
-.fra-table__select-container {
-  @include mixin-input-container;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-}
-
 .fra-table__select {
   @include mixin-select-base(10px, none, 0);
   font-size: $font-s;

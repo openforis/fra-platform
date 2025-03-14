@@ -3,11 +3,9 @@
 .admin-user-management__role-field {
   text-align: left;
   word-break: break-word;
-
-  .invitation {
-    color: $text-disabled;
-    font-style: italic;
-  }
+  max-width: 250px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   span:not(:last-child)::after {
     content: ',  ';

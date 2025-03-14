@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
 
-import { CountryIso } from 'meta/area'
+import { Areas, CountryIso } from 'meta/area'
 import { Assessments, CommentableDescriptionName, Cycle, Cycles, SectionName } from 'meta/assessment'
 import { Authorizer, CollaboratorEditPropertyType, User, Users } from 'meta/user'
 
@@ -16,13 +17,21 @@ import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 export const useUser = (): User | undefined => useAppSelector((state) => state.user)
 
 export const useUserCountries = (): Array<CountryIso> => {
+  const { i18n } = useTranslation()
   const cycle = useCycle()
   const user = useUser()
   const countries = useCountries().map((c) => c.countryIso)
   const isAdministrator = Users.isAdministrator(user)
-  if (isAdministrator) return countries
   // Return only current cycle countries for user
-  return user?.roles.filter((role) => cycle.uuid === role.cycleUuid).map((role) => role.countryIso)
+  const userRoles = user?.roles ?? []
+  const userCountries = userRoles.filter((role) => cycle.uuid === role.cycleUuid).map((role) => role.countryIso)
+  const compareListName = Areas.getCompareListName(i18n)
+
+  return useMemo(() => {
+    if (isAdministrator) return countries
+    const compareFn = (c1: CountryIso, c2: CountryIso) => compareListName(c1, c2)
+    return userCountries.sort(compareFn)
+  }, [isAdministrator, countries, userCountries, compareListName])
 }
 
 export const useUserCycles = (): Array<Cycle> => {
@@ -109,6 +118,14 @@ export const useCanViewHistory = (): boolean => {
   const cycle = useCycle()
 
   return Authorizer.canViewHistory({ country, cycle, section, user })
+}
+
+export const useCanViewHistoryLastApproved = (): boolean => {
+  const user = useUser()
+  const country = useAssessmentCountry()
+  const cycle = useCycle()
+
+  return Authorizer.canViewHistoryLastApproved({ country, cycle, user })
 }
 
 export const useCanViewGeo = (): boolean => {

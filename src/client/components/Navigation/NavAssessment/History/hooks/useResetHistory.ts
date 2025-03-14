@@ -15,11 +15,11 @@ export const useResetHistory = () => {
   useEffect(() => {
     return () => {
       // reset table paginated data. add all supported items here
-      const pathDataSources = ApiEndPoint.CycleData.history(CommentableDescriptionName.dataSources)
+      const pathDataSources = ApiEndPoint.CycleData.History.Activities.one(CommentableDescriptionName.dataSources)
       dispatch(TablePaginatedActions.resetPaths({ paths: [pathDataSources] }))
 
       // reset history
-      dispatch(DataActions.resetHistory())
+      dispatch(DataActions.resetHistoryActivities())
     }
   }, [dispatch, location.pathname])
 }

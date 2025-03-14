@@ -11,7 +11,7 @@ type Props = {
 }
 
 export const Title = (props: Props) => {
-  const { gridRef, year } = props
+  const { gridRef, year = -1 } = props
   const { cycleName } = useCycleRouteParams()
 
   const { print } = useIsPrintRoute()
@@ -22,14 +22,10 @@ export const Title = (props: Props) => {
 
   return (
     <div className="odp__section-header">
-      <ButtonGridExport disabled={year === -1} filename={`FRA${cycleName}-NDP${year}.csv`} gridRef={gridRef} />
+      <ButtonGridExport disabled={year === -1} filename={`NDP${year}`} gridRef={gridRef} />
       <h3 className="subhead">
         {t(`nationalDataPoint.${cycleName !== '2020' ? 'nationalClassifications' : 'nationalClasses'}`)}
       </h3>
     </div>
   )
-}
-
-Title.defaultProps = {
-  year: -1,
 }

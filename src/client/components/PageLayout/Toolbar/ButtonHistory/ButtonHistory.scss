@@ -1,0 +1,17 @@
+@import 'client/style/partials';
+
+button.btn-history-last-approved {
+  height: $spacing-m;
+  padding: unset;
+  width: $spacing-l;
+  justify-content: center;
+
+  svg {
+    height: 18px;
+    width: 18px;
+  }
+
+  &.inverse {
+    background-color: transparent;
+  }
+}

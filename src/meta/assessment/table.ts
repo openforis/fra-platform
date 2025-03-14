@@ -1,3 +1,5 @@
+import { CSSProperties } from 'react'
+
 import { VariableCache } from 'meta/assessment/assessmentMetaCache'
 import { ColName } from 'meta/assessment/col'
 import { CycledPropsObject, CycleUuid } from 'meta/assessment/cycle'
@@ -7,6 +9,7 @@ import { Unit } from 'meta/assessment/unit'
 // utility table names
 // e.g. used in getTableData to merge data with odp or fetch correct data for dashboard
 export enum TableNames {
+  areaAffectedByFire = 'areaAffectedByFire',
   biomassStockAvg = 'biomassStockAvg',
   biomassStockTotal = 'biomassStockTotal',
   biomassStock_biomassStockStatus = 'biomassStock_biomassStockStatus',
@@ -15,14 +18,15 @@ export enum TableNames {
   carbonStockSoilDepth = 'carbonStockSoilDepth',
   carbonStockTotal = 'carbonStockTotal',
   climaticDomain = 'climaticDomain',
+  disturbances = 'disturbances',
   extentOfForest = 'extentOfForest',
   extentOfForest_forestAreaStatusAndTrend = 'extentOfForest_forestAreaStatusAndTrend',
-  growingStock_growingStockStatus = 'growingStock_growingStockStatus',
   forestAreaWithinProtectedAreas = 'forestAreaWithinProtectedAreas',
   forestCharacteristics = 'forestCharacteristics',
   forestOwnership = 'forestOwnership',
   growingStockAvg = 'growingStockAvg',
   growingStockTotal = 'growingStockTotal',
+  growingStock_growingStockStatus = 'growingStock_growingStockStatus',
   primaryDesignatedManagementObjective = 'primaryDesignatedManagementObjective',
   specificForestCategories = 'specificForestCategories',
   sustainableDevelopment15_2_1_1 = 'sustainableDevelopment15_2_1_1',
@@ -62,9 +66,10 @@ export interface TableProps {
   disableErrorMessage?: Record<CycleUuid, boolean>
   name: TableName
   odp?: boolean
-  print?: { pageBreakAfter: boolean }
   readonly?: boolean
+  report?: Record<CycleUuid, { columnsReport?: Array<ColName>; transpose?: boolean }>
   secondary?: boolean
+  style?: Record<CycleUuid, Pick<CSSProperties, 'gridTemplateColumns'>>
   unit?: Unit
 }
 

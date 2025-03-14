@@ -4,7 +4,6 @@ import { File } from 'meta/file'
 
 export type FileDB = {
   created_at: string
-  file?: Buffer
   id: number
   name: string
   size: number
@@ -12,10 +11,5 @@ export type FileDB = {
 }
 
 export const FileAdapter = (fileDB: FileDB): File => {
-  const { file, ...rest } = fileDB
-
-  return {
-    ...Objects.camelize(rest),
-    file,
-  }
+  return Objects.camelize(fileDB)
 }

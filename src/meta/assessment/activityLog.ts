@@ -24,6 +24,7 @@ export enum ActivityLogMessage {
   messageCreate = 'messageCreate',
   messageMarkDeleted = 'messageMarkDeleted',
   nodeValueCalculatedUpdate = 'nodeValueCalculatedUpdate',
+  nodeValueImport = 'nodeValueImport',
   nodeValueEstimate = 'nodeValueEstimate',
   nodeValuesEstimationCreate = 'nodeValuesEstimationCreate',
   nodeValueUpdate = 'nodeValueUpdate',

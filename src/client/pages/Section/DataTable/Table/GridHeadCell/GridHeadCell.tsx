@@ -1,0 +1,50 @@
+import React from 'react'
+import { useTranslation } from 'react-i18next'
+
+import { Cols } from 'meta/assessment'
+
+import { useCycle } from 'client/store/assessment'
+import { DataCell } from 'client/components/DataGrid'
+import OdpHeaderCell from 'client/pages/Section/DataTable/Table/GridHeadCell/OdpHeaderCell'
+
+import { useGridHeadCellProps } from './hooks/useGridHeadCellProps'
+import { GridHeadCellProps } from './types'
+
+const GridHeadCell: React.FC<GridHeadCellProps> = (props) => {
+  const { col, firstCol, table } = props
+
+  const { t } = useTranslation()
+  const cycle = useCycle()
+  const { className, gridColumn, gridRow, lastCol, odpYear } = useGridHeadCellProps(props)
+
+  if (odpYear) {
+    return (
+      <OdpHeaderCell
+        key={col.uuid}
+        className={className}
+        gridColumn={gridColumn}
+        gridRow={gridRow}
+        lastCol={lastCol}
+        odpYear={odpYear}
+        sectionName={table.props.name}
+        table={table}
+      />
+    )
+  }
+
+  return (
+    <DataCell
+      key={col.uuid}
+      className={className}
+      firstCol={firstCol}
+      gridColumn={gridColumn}
+      gridRow={gridRow}
+      header
+      lastCol={lastCol}
+    >
+      {Cols.getLabel({ cycle, col, t })}
+    </DataCell>
+  )
+}
+
+export default GridHeadCell

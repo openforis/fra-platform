@@ -1,14 +1,13 @@
-import { createSlice, Reducer } from '@reduxjs/toolkit'
+import { ActionReducerMapBuilder, createSlice, Reducer } from '@reduxjs/toolkit'
 import { Objects } from 'utils/objects'
 
 import { CommentableDescriptionName } from 'meta/assessment'
 import { ContactNode } from 'meta/cycleData'
 import { RecordAssessmentDatas } from 'meta/data'
 
+import { getTableDataHistoryReducer } from 'client/store/data/extraReducers/getTableDataHistory'
 import { DataState, TableDataStatus } from 'client/store/data/state'
 
-import { clearTableData } from './actions/clearTableData'
-import { copyPreviousDatasources } from './actions/copyPreviousDatasources'
 import { createContact } from './actions/createContact'
 import { deleteContact } from './actions/deleteContact'
 import { deleteDataSource } from './actions/deleteDataSource'
@@ -19,17 +18,19 @@ import { getNodeValuesEstimations } from './actions/getNodeValuesEstimations'
 import { getODPLastUpdatedTimestamp } from './actions/getODPLastUpdatedTimestamp'
 import { getTableData } from './actions/getTableData'
 import { postEstimate } from './actions/postEstimate'
-import { setNodeValues } from './actions/setNodeValues'
 import { updateContact } from './actions/updateContact'
 import { updateDescription } from './actions/updateDescription'
 import { updateNodeValues } from './actions/updateNodeValues'
+import { getDescriptionsHistoryReducer } from './extraReducers/getDescriptionsHistory'
+import { getOriginalDataPointHistoryReducer } from './extraReducers/getOriginalDataPointHistory'
 import { setNodeValuesReducer } from './extraReducers/setNodeValues'
 import { deleteOriginalDataPoint } from './reducers/deleteOriginalDataPoint'
-import { resetHistory } from './reducers/resetHistory'
+import { resetHistoryActivities } from './reducers/resetHistoryActivities'
 import { setNodeValueValidations } from './reducers/setNodeValueValidations'
 import { setValue } from './reducers/setValue'
-import { toggleCompareHistoryItem } from './reducers/toggleCompareHistoryItem'
-import { toggleHistory } from './reducers/toggleHistory'
+import { toggleHistoryActivities } from './reducers/toggleHistoryActivities'
+import { toggleHistoryActivitiesCompareItem } from './reducers/toggleHistoryActivitiesCompareItem'
+import { toggleHistoryLastApproved } from './reducers/toggleHistoryLastApproved'
 
 const initialState: DataState = {
   contacts: {},
@@ -42,20 +43,22 @@ const initialState: DataState = {
   tableDataStatus: {},
 }
 
-export const dataSlice = createSlice({
+export const DataSlice = createSlice({
   name: 'data',
   initialState,
   reducers: {
     deleteOriginalDataPoint,
     setNodeValueValidations,
     setValue,
-    // -- history
-    toggleCompareHistoryItem,
-    resetHistory,
-    toggleHistory,
+    // -- history activities
+    toggleHistoryActivitiesCompareItem,
+    resetHistoryActivities,
+    toggleHistoryActivities,
+    // -- history last approved
+    toggleHistoryLastApproved,
   },
 
-  extraReducers: (builder) => {
+  extraReducers: (builder: ActionReducerMapBuilder<DataState>) => {
     setNodeValuesReducer(builder)
 
     // Table data
@@ -214,36 +217,12 @@ export const dataSlice = createSlice({
       const contacts = state.contacts[assessmentName][cycleName][countryIso]
       contacts.push(contactAction)
     })
+
+    // == History reducers
+    getDescriptionsHistoryReducer(builder)
+    getTableDataHistoryReducer(builder)
+    getOriginalDataPointHistoryReducer(builder)
   },
 })
 
-export const DataActions = {
-  ...dataSlice.actions,
-  // Table data
-  setNodeValues,
-  clearTableData,
-  getTableData,
-  updateNodeValues,
-  getNodeValuesEstimations,
-
-  // Original Data Point
-  getODPLastUpdatedTimestamp,
-
-  // Estimations
-  postEstimate,
-
-  // Descriptions
-  getDescription,
-  updateDescription,
-  copyPreviousDatasources,
-  deleteDataSource,
-  getLinkedDataSources,
-
-  // Contacts
-  createContact,
-  deleteContact,
-  getContacts,
-  updateContact,
-}
-
-export default dataSlice.reducer as Reducer<DataState>
+export default DataSlice.reducer as Reducer<DataState>

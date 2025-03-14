@@ -1,0 +1,13 @@
+@import 'client/style/partials';
+
+.country-selector {
+  align-items: center;
+  display: flex;
+  gap: $spacing-xxs;
+  height: 30px;
+  width: 100%;
+
+  svg.icon_filter {
+    color: $ui-accent-dark;
+  }
+}

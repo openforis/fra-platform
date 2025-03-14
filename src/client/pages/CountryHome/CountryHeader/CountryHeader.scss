@@ -4,23 +4,21 @@
 .country-header {
   align-items: center;
   display: grid;
-  justify-content: start;
+  grid-row-gap: 4px;
+  justify-items: start;
   width: 100%;
-
-  &.withTabs {
-    grid-column-gap: $spacing-s;
-    grid-template-columns: repeat(2, auto);
-
-    &.withMessageBoard {
-      grid-template-columns: repeat(3, auto);
-    }
-  }
 }
 
 .country-header__label {
   align-items: center;
   display: flex;
-  gap: 8px;
+  gap: $spacing-s;
+  height: 40px;
+
+  .country-header__title {
+    display: flex;
+    gap: 8px;
+  }
 }
 
 .country-header__tabs {

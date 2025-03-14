@@ -1,12 +1,12 @@
 import React from 'react'
 
-import { useHistory } from 'client/store/data/hooks/useHistory'
+import { useHistoryActivities } from 'client/store/data'
 import Items from 'client/components/Navigation/NavAssessment/History/Items'
 
 import { useResetHistory } from './hooks/useResetHistory'
 
 const History: React.FC = () => {
-  const history = useHistory()
+  const history = useHistoryActivities()
 
   useResetHistory()
 

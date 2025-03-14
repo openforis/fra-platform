@@ -9,7 +9,7 @@ export const getProfilePicture = async (req: Request, res: Response) => {
   try {
     const profilePicture = await UserController.getProfilePicture({ id: Number(id) })
     if (profilePicture && profilePicture.data) {
-      res.end(profilePicture.data, 'binary')
+      profilePicture.data.pipe(res)
     } else {
       res.sendFile(path.resolve(__dirname, '..', '..', 'static', 'avatar.png'))
     }

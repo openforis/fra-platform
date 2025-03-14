@@ -50,7 +50,7 @@ const canViewUsers = (props: { countryIso: CountryIso; cycle: Cycle; user: User 
 const canEditCycleData = (props: { cycle: Cycle; country: Country; user: User }): boolean => {
   const { cycle, country, user } = props
   const { countryIso } = country ?? {}
-  const { status } = country?.props ?? {}
+  const status = Areas.getStatus(country)
 
   if (!user) return false
   if (Users.isViewer(user, countryIso, cycle)) return false
@@ -63,11 +63,11 @@ const canEditCycleData = (props: { cycle: Cycle; country: Country; user: User })
 
   if (nationalCorrespondent || alternateNationalCorrespondent || collaborator) {
     const collaboratorCanEdit = !collaborator || (user as unknown as Collaborator).permissions?.sections !== 'none'
-    return status === AssessmentStatus.editing && collaboratorCanEdit
+    return [AssessmentStatus.notStarted, AssessmentStatus.editing].includes(status) && collaboratorCanEdit
   }
 
   if (reviewer) {
-    return [AssessmentStatus.editing, AssessmentStatus.review].includes(status)
+    return [AssessmentStatus.notStarted, AssessmentStatus.editing, AssessmentStatus.review].includes(status)
   }
 
   return false
@@ -106,13 +106,16 @@ const canEditData = (props: {
   if (!country) return false
   const { countryIso } = country
   if (!Areas.isISOCountry(countryIso)) return false
-  const { status } = country.props
+  const status = Areas.getStatus(country)
 
   if (canEditCycleData({ cycle, country, user })) {
     return true
   }
 
-  if (Users.isCollaborator(user, countryIso, cycle) && status === AssessmentStatus.editing) {
+  if (
+    Users.isCollaborator(user, countryIso, cycle) &&
+    [AssessmentStatus.notStarted, AssessmentStatus.editing].includes(status)
+  ) {
     const userRole = Users.getRole(user, countryIso, cycle) as Collaborator
 
     const userSections = userRole.permissions?.sections ?? {}
@@ -147,7 +150,7 @@ const canEditCountryProps = (props: {
 }): boolean => {
   const { allowCollaborator = false, country, cycle, user } = props
   const { countryIso } = country
-  const { status } = country.props
+  const status = Areas.getStatus(country)
 
   if (!user) return false
 
@@ -158,10 +161,10 @@ const canEditCountryProps = (props: {
     Users.isAlternateNationalCorrespondent(user, countryIso, cycle) ||
     (allowCollaborator && Users.isCollaborator(user, countryIso, cycle))
   )
-    return status === AssessmentStatus.editing
+    return [AssessmentStatus.notStarted, AssessmentStatus.editing].includes(status)
 
   if (Users.isReviewer(user, countryIso, cycle))
-    return [AssessmentStatus.editing, AssessmentStatus.review].includes(status)
+    return [AssessmentStatus.notStarted, AssessmentStatus.editing, AssessmentStatus.review].includes(status)
 
   return false
 }
@@ -212,6 +215,21 @@ const canViewHistory = (props: {
   return Users.isReviewer(user, country.countryIso, cycle) && canEditCycleData(props)
 }
 
+/**
+ * canViewHistoryLastApproved:
+ * returns true if (user is admin or reviewer) and status !== notStarted
+ */
+const canViewHistoryLastApproved = (props: { country: Country; cycle: Cycle; user: User }): boolean => {
+  const { country, cycle, user } = props
+
+  const status = Areas.getStatus(country)
+
+  return (
+    (Users.isAdministrator(user) || Users.isReviewer(user, country?.countryIso, cycle)) &&
+    status !== AssessmentStatus.notStarted
+  )
+}
+
 export const canViewGeo = (props: { cycle: Cycle; countryIso: AreaCode; user: User }): boolean =>
   Users.hasRoleInCountry(props)
 
@@ -223,6 +241,7 @@ export const Authorizer = {
   canView,
   canViewGeo,
   canViewHistory,
+  canViewHistoryLastApproved,
   canViewRepositoryItem,
   canViewReview,
   // user

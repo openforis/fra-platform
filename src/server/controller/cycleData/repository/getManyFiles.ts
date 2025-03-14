@@ -1,3 +1,6 @@
+import { Readable } from 'stream'
+import { Promises } from 'utils/promises'
+
 import { CountryIso } from 'meta/area'
 import { Assessment, Cycle } from 'meta/assessment'
 import { Lang } from 'meta/lang'
@@ -5,6 +8,7 @@ import { Translations } from 'meta/translation'
 
 import { RepositoryRepository } from 'server/repository/assessmentCycle/repository'
 import { FileRepository } from 'server/repository/public/file'
+import { FileStorage } from 'server/service/fileStorage'
 
 type Props = {
   assessment: Assessment
@@ -15,7 +19,7 @@ type Props = {
 
 type Returned = Array<{
   fileName: string
-  file: Buffer
+  file: Readable
 }>
 
 export const getManyFiles = async (props: Props): Promise<Returned> => {
@@ -26,6 +30,12 @@ export const getManyFiles = async (props: Props): Promise<Returned> => {
 
   const repositoryProps = { fileUuids: repositoryItems.map((item) => item.fileUuid) }
   const files = await FileRepository.getMany(repositoryProps)
+
+  await Promises.each(files, async (file) => {
+    const { uuid: key } = file
+    // eslint-disable-next-line no-param-reassign
+    file.file = await FileStorage.getFile({ key })
+  })
 
   return files.map((file) => {
     const repositoryItem = repositoryItems.find((item) => item.fileUuid === file.uuid)

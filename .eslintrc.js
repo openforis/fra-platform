@@ -50,13 +50,17 @@ module.exports = {
     '@typescript-eslint/no-unused-vars': [2, { argsIgnorePattern: '^_' }],
     'no-use-before-define': 'off',
     'no-shadow': 'off',
-    'no-param-reassign': ['error', { props: true, ignorePropertyModificationsFor: ['state'] }],
+    'no-param-reassign': ['error', { props: true, ignorePropertyModificationsFor: ['state', 'acc'] }],
     '@typescript-eslint/no-use-before-define': ['error'],
     '@typescript-eslint/ban-ts-comment': 'off',
     'no-restricted-exports': 'off',
     'react/function-component-definition': 'off',
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'error',
+
+    // Not possible to enforce destructureInSignature: 'never' - only 'ignore' is possible
+    'react/require-default-props': 'off',
+
     // simple-import-sort rules
 
     'simple-import-sort/exports': 'error',

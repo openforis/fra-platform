@@ -95,11 +95,17 @@ export const getCreatePublicSchemaDDL = (schemaName = 'public'): string => {
       uuid uuid default uuid_generate_v4(),
       name character varying default '',
       props jsonb default '{}'::jsonb not null,
+      cycle_uuid_source uuid,
       foreign key (assessment_id) references ${schemaName}.assessment (id)
         on update cascade on delete cascade
     );
     create unique index if not exists assessment_cycle_uuid_key on ${schemaName}.assessment_cycle using btree (uuid);
 
+    alter table ${schemaName}.assessment_cycle
+          add constraint assessment_cycle_assessment_cycle_source_fk
+              foreign key (cycle_uuid_source) references ${schemaName}.assessment_cycle (uuid)
+                  on update cascade on delete set null;
+                  
     create table if not exists ${schemaName}.country (
       country_iso character varying(3) primary key not null,
       config jsonb not null default '{}'::jsonb
@@ -109,7 +115,6 @@ export const getCreatePublicSchemaDDL = (schemaName = 'public'): string => {
       id bigserial primary key,
       uuid uuid not null default uuid_generate_v4(),
       name character varying(255) not null,
-      file bytea not null, -- TODO: Remove this when S3 branch merged
       created_at timestamp without time zone not null default now()
     );
     create unique index if not exists file_uuid_key on ${schemaName}.file using btree (uuid);

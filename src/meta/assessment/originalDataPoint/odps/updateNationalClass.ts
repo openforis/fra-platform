@@ -51,17 +51,20 @@ const calculateValues = (props: CalculateValuesProps) => {
 
   const rowIsMaxedExtentOfForest = Numbers.eq(Numbers.sum([forestPercent, otherWoodedLandPercent]), 100)
 
+  const _forestPlantationPercent = getValueOrNull(forestPlantationPercent, rowIsMaxedForestCharacteristics)
+  const _forestNaturalPercent = getValueOrNull(forestNaturalPercent, rowIsMaxedForestCharacteristics)
+
   // if forestPlantationPercent is 0, set forestPlantationIntroducedPercent to 0
   let _forestPlantationIntroducedPercent = forestPlantationIntroducedPercent
 
-  if (Numbers.eq(forestPlantationPercent, 0)) {
+  if (Numbers.eq(_forestPlantationPercent, 0)) {
     _forestPlantationIntroducedPercent = '0'
   }
 
   // if forestNaturalPercent is 0, set forestPlantationIntroducedPercent to 0
   let _forestNaturalForestOfWhichPrimaryForestPercent = forestNaturalForestOfWhichPrimaryForestPercent
 
-  if (Numbers.eq(forestNaturalPercent, 0)) {
+  if (Numbers.eq(_forestNaturalPercent, 0)) {
     _forestNaturalForestOfWhichPrimaryForestPercent = '0'
   }
 
@@ -85,8 +88,8 @@ const calculateValues = (props: CalculateValuesProps) => {
 
   return {
     ...nationalClass,
-    forestNaturalPercent: getValueOrNull(forestNaturalPercent, rowIsMaxedForestCharacteristics),
-    forestPlantationPercent: getValueOrNull(forestPlantationPercent, rowIsMaxedForestCharacteristics),
+    forestNaturalPercent: _forestNaturalPercent,
+    forestPlantationPercent: _forestPlantationPercent,
     otherPlantedForestPercent: getValueOrNull(otherPlantedForestPercent, rowIsMaxedForestCharacteristics),
     forestPercent: getValueOrNull(forestPercent, rowIsMaxedExtentOfForest),
     otherWoodedLandPercent: getValueOrNull(otherWoodedLandPercent, rowIsMaxedExtentOfForest),

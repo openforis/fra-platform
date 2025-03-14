@@ -2,6 +2,7 @@ import { create } from './create'
 import { getMany } from './getMany'
 import { getOne } from './getOne'
 import { getSummary } from './getSummary'
+import { remove } from './remove'
 import { removeMany } from './removeMany'
 
 export const FileRepository = {
@@ -9,5 +10,6 @@ export const FileRepository = {
   getMany,
   getOne,
   getSummary,
+  remove,
   removeMany,
 }

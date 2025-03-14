@@ -16,6 +16,6 @@ export const useToggleHistory = (props: Props): Returned => {
   const dispatch = useAppDispatch()
 
   return useCallback(() => {
-    dispatch(DataActions.toggleHistory({ labelKey: 'description.dataSourcesPlus', target }))
+    dispatch(DataActions.toggleHistoryActivities({ labelKey: 'description.dataSourcesPlus', target }))
   }, [dispatch, target])
 }

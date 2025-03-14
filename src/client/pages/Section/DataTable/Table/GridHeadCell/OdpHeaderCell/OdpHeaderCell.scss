@@ -1,0 +1,18 @@
+@import 'client/style/partials';
+
+.table-grid__odp-cell.header {
+  background-color: rgba($ui-accent, 10%);
+  font-weight: 700;
+
+  .review-summary-status {
+    margin: 0 $spacing-xxxs;
+  }
+}
+
+.table-grid__odp-link {
+  text-decoration: underline;
+
+  &.removed {
+    pointer-events: none;
+  }
+}

@@ -26,9 +26,4 @@ const PageLayout: React.FC = () => {
   )
 }
 
-PageLayout.defaultProps = {
-  withHeader: true,
-  withToolbar: true,
-}
-
 export default PageLayout

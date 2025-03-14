@@ -1,6 +1,18 @@
 import { MemberExpression } from '@openforis/arena-core'
 
-import { VariableCache } from 'meta/assessment'
+import { Cycles, VariableCache } from 'meta/assessment'
+import { BaseContext } from 'meta/expressionEvaluator/util/_types'
+import { Member } from 'meta/expressions'
+
+const getCycleName = (cycleName: string, context: BaseContext) => {
+  if (cycleName === Member.$prevCycle) {
+    const { assessments, assessmentName, cycleName } = context
+    const assessment = assessments[assessmentName]
+    const cycle = assessment.cycles.find((c) => c.name === cycleName)
+    return Cycles.getPreviousCycle({ assessment, cycle }).name
+  }
+  return cycleName
+}
 
 const getExpressionDepth = (expressionNode: MemberExpression): number => {
   let depth = 0
@@ -13,7 +25,7 @@ const getExpressionDepth = (expressionNode: MemberExpression): number => {
   return depth
 }
 
-export const parseMemberVariable = (expressionNode: MemberExpression): VariableCache => {
+export const parseMemberVariable = (expressionNode: MemberExpression, context: BaseContext): VariableCache => {
   const depth = getExpressionDepth(expressionNode)
 
   switch (depth) {
@@ -46,6 +58,9 @@ export const parseMemberVariable = (expressionNode: MemberExpression): VariableC
 
     // Case when parsing a member expression: fra['2025'].extentOfForest.forestArea
     case 3: {
+      // @ts-ignore
+      const cycleName = getCycleName(expressionNode.object.object.property.value, context)
+
       return {
         // @ts-ignore
         tableName: expressionNode.object.property.name,
@@ -54,14 +69,16 @@ export const parseMemberVariable = (expressionNode: MemberExpression): VariableC
         colName: undefined,
         // @ts-ignore
         assessmentName: expressionNode.object.object.object.name,
-        // @ts-ignore
-        cycleName: expressionNode.object.object.property.value,
+        cycleName,
       }
     }
 
     // Case when parsing a member expression: fra['2025'].extentOfForest.forestArea['2025']
     // @ts-ignore
     case 4: {
+      // @ts-ignore
+      const cycleName = getCycleName(expressionNode.object.object.object.property.value, context)
+
       return {
         // @ts-ignore
         tableName: expressionNode.object.object.property.name,
@@ -71,8 +88,7 @@ export const parseMemberVariable = (expressionNode: MemberExpression): VariableC
         colName: expressionNode.property.value ?? expressionNode.property.name,
         // @ts-ignore
         assessmentName: expressionNode.object.object.object.object.name,
-        // @ts-ignore
-        cycleName: expressionNode.object.object.object.property.value,
+        cycleName,
       }
     }
 

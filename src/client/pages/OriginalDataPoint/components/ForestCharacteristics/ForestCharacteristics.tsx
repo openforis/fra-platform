@@ -9,7 +9,11 @@ import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { useCycleRouteParams } from 'client/hooks/useRouteParams'
 import ButtonTableExport from 'client/components/ButtonTableExport'
 import DefinitionLink from 'client/components/DefinitionLink'
+import DiffText from 'client/components/DiffText'
+import { useODPDisplayHistory } from 'client/pages/OriginalDataPoint/components/hooks/useODPDisplayHistory'
 
+import { useForestCharacteristicsTotalsChange } from './hooks/useForestCharacteristicsTotalsChange'
+import { useHistoryHasNaturallyRegeneratingAndPlantationForest } from './hooks/useHistoryHasNaturallyRegeneratingAndPlantationForest'
 import ForestCharacteristicsNaturallyRegenerating from './ForestCharacteristicsNaturallyRegenerating'
 import ForestCharacteristicsPlantation from './ForestCharacteristicsPlantation'
 import ForestCharacteristicsRow from './ForestCharacteristicsRow'
@@ -30,6 +34,41 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
   } = useTranslation()
   const { print } = useIsPrintRoute()
 
+  const totalForestPercentArea = Numbers.format(ODPs.calcTotalFieldArea({ originalDataPoint, field: 'forestPercent' }))
+  const totalForestNaturalPercentArea = Numbers.format(
+    ODPs.calcTotalSubFieldArea({
+      originalDataPoint,
+      field: 'forestPercent',
+      subField: 'forestNaturalPercent',
+    })
+  )
+  const totalForestPlantationPercentArea = Numbers.format(
+    ODPs.calcTotalSubFieldArea({
+      originalDataPoint,
+      field: 'forestPercent',
+      subField: 'forestPlantationPercent',
+    })
+  )
+  const totalOtherPlantedForestPercentArea = Numbers.format(
+    ODPs.calcTotalSubFieldArea({
+      originalDataPoint,
+      field: 'forestPercent',
+      subField: 'otherPlantedForestPercent',
+    })
+  )
+
+  const displayHistory = useODPDisplayHistory()
+
+  const totalsChange = useForestCharacteristicsTotalsChange({
+    totalForestNaturalPercentArea,
+    totalForestPercentArea,
+    totalForestPlantationPercentArea,
+    totalOtherPlantedForestPercentArea,
+  })
+
+  const { historyHasNaturallyRegeneratingForest, historyHasPlantationForest } =
+    useHistoryHasNaturallyRegeneratingAndPlantationForest()
+
   const nationalClasses = originalDataPoint.nationalClasses.filter((nationalClass) => !nationalClass.placeHolder)
   const plantationTotal = ODPs.calcTotalSubFieldArea({
     originalDataPoint,
@@ -42,7 +81,7 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
     subField: 'forestNaturalPercent',
   })
 
-  const hasPlantation = plantationTotal && Numbers.greaterThanOrEqualTo(plantationTotal, 0)
+  const hasPlantationForest = plantationTotal && Numbers.greaterThanOrEqualTo(plantationTotal, 0)
   //  naturally regenerating forest is not available in Cycle 2020
   const hasNaturallyRegeneratingForest =
     cycleName !== '2020' &&
@@ -71,7 +110,7 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
         </div>
       )}
 
-      <div className="fra-table__container">
+      <div className="fra-table__container print-break-inside-avoid">
         <div className="fra-table__scroll-wrapper">
           <table ref={tableRef} className="fra-table">
             <tbody>
@@ -111,33 +150,31 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
               <tr>
                 <th className="fra-table__header-cell-left">{t('nationalDataPoint.total')}</th>
                 <th className="fra-table__calculated-cell fra-table__divider">
-                  {Numbers.format(ODPs.calcTotalFieldArea({ originalDataPoint, field: 'forestPercent' }))}
+                  {displayHistory ? (
+                    <DiffText changes={totalsChange?.totalForestPercentArea} />
+                  ) : (
+                    totalForestPercentArea
+                  )}
                 </th>
                 <td className="fra-table__calculated-cell">
-                  {Numbers.format(
-                    ODPs.calcTotalSubFieldArea({
-                      originalDataPoint,
-                      field: 'forestPercent',
-                      subField: 'forestNaturalPercent',
-                    })
+                  {displayHistory ? (
+                    <DiffText changes={totalsChange?.totalForestNaturalPercentArea} />
+                  ) : (
+                    totalForestNaturalPercentArea
                   )}
                 </td>
                 <td className="fra-table__calculated-cell">
-                  {Numbers.format(
-                    ODPs.calcTotalSubFieldArea({
-                      originalDataPoint,
-                      field: 'forestPercent',
-                      subField: 'forestPlantationPercent',
-                    })
+                  {displayHistory ? (
+                    <DiffText changes={totalsChange?.totalForestPlantationPercentArea} />
+                  ) : (
+                    totalForestPlantationPercentArea
                   )}
                 </td>
                 <td className="fra-table__calculated-cell">
-                  {Numbers.format(
-                    ODPs.calcTotalSubFieldArea({
-                      originalDataPoint,
-                      field: 'forestPercent',
-                      subField: 'otherPlantedForestPercent',
-                    })
+                  {displayHistory ? (
+                    <DiffText changes={totalsChange?.totalOtherPlantedForestPercentArea} />
+                  ) : (
+                    totalOtherPlantedForestPercentArea
                   )}
                 </td>
               </tr>
@@ -145,8 +182,12 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
           </table>
         </div>
       </div>
-      {hasNaturallyRegeneratingForest && <ForestCharacteristicsNaturallyRegenerating canEditData={canEditData} />}
-      {hasPlantation && <ForestCharacteristicsPlantation canEditData={canEditData} />}
+      {(hasNaturallyRegeneratingForest || historyHasNaturallyRegeneratingForest) && (
+        <ForestCharacteristicsNaturallyRegenerating canEditData={canEditData} originalDataPoint={originalDataPoint} />
+      )}
+      {(hasPlantationForest || historyHasPlantationForest) && (
+        <ForestCharacteristicsPlantation canEditData={canEditData} originalDataPoint={originalDataPoint} />
+      )}
     </div>
   )
 }

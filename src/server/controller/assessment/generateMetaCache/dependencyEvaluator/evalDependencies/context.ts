@@ -1,9 +1,9 @@
 import { ExpressionContext } from '@openforis/arena-core'
 
-import { Assessment, AssessmentName, CycleName, RowCache } from 'meta/assessment'
+import { AssessmentName, CycleName, RecordAssessments, RowCache } from 'meta/assessment'
 
 export interface Context extends ExpressionContext {
-  assessments: Array<Assessment>
+  assessments: RecordAssessments
   assessmentName: AssessmentName
   cycleName: CycleName
   row: RowCache

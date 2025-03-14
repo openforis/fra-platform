@@ -9,7 +9,7 @@ import { ApiEndPoint } from 'meta/api/endpoint'
 import { ActivityLogs } from 'meta/assessment'
 import { Users } from 'meta/user'
 
-import { useHistoryCompareItem } from 'client/store/data'
+import { useHistoryActivitiesCompareItem } from 'client/store/data'
 import Icon from 'client/components/Icon'
 
 import { useOnClick } from './hooks/useOnClick'
@@ -20,7 +20,7 @@ const Item: React.FC<Props> = (props) => {
   const { user } = activity
 
   const { i18n, t } = useTranslation()
-  const compareItem = useHistoryCompareItem(target)
+  const compareItem = useHistoryActivitiesCompareItem(target)
   const onClick = useOnClick(props)
 
   const diffActive = compareItem?.id === activity.id

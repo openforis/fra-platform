@@ -17,6 +17,7 @@ import { removeContact } from './contacts/remove'
 import { updateContact } from './contacts/update'
 import { getDataSources } from './descriptions/getDataSources'
 import { getDescription } from './descriptions/getDescription'
+import { getDescriptionsHistory } from './descriptions/getDescriptionsHistory'
 import { removeDataSource } from './descriptions/removeDataSource'
 import { upsertDescription } from './descriptions/upsertDescription'
 import { getLinksCount } from './links/getLinksCount'
@@ -30,6 +31,7 @@ import { deleteOriginalDataPoint } from './originalDataPoint/deleteOriginalDataP
 import { deleteOriginalDataPointNationalClass } from './originalDataPoint/deleteOriginalDataPointNationalClass'
 import { getLastUpdatedTimestamp } from './originalDataPoint/getLastUpdatedTimestamp'
 import { getOriginalDataPoint } from './originalDataPoint/getOdp'
+import { getOriginalDataPointHistory } from './originalDataPoint/getOriginalDataPointHistory'
 import { getOriginalDataPoints } from './originalDataPoint/getOriginalDataPoints'
 import { getReservedYears } from './originalDataPoint/getReservedYears'
 import { updateOriginalDataPointDataSources } from './originalDataPoint/updateOriginalDataPointDataSources'
@@ -50,12 +52,14 @@ import { clearTable } from './table/clearTable'
 import { estimateValues } from './table/estimateValues'
 import { getNodeValuesEstimations } from './table/getNodeValuesEstimations'
 import { getTableData } from './table/getTableData'
+import { getTableDataHistory } from './table/getTableDataHistory'
 import { persistNodeValues } from './table/persistNodeValues'
 
 export const CycleDataApi = {
   init: (express: Express): void => {
     // Table
     express.get(ApiEndPoint.CycleData.Table.tableData(), AuthMiddleware.requireView, getTableData)
+    express.get(ApiEndPoint.CycleData.Table.tableDataHistory(), AuthMiddleware.requireViewHistory, getTableDataHistory)
     express.get(
       ApiEndPoint.CycleData.Table.nodeValuesEstimations(),
       AuthMiddleware.requireEditTableData,
@@ -72,6 +76,7 @@ export const CycleDataApi = {
 
     // Descriptions
     express.get(ApiEndPoint.CycleData.Descriptions.many(), AuthMiddleware.requireView, getDescription)
+    express.get(ApiEndPoint.CycleData.Descriptions.history(), AuthMiddleware.requireViewHistory, getDescriptionsHistory)
     express.put(ApiEndPoint.CycleData.Descriptions.many(), AuthMiddleware.requireEditDescriptions, upsertDescription)
     express.get(ApiEndPoint.CycleData.Descriptions.DataSources.many(), AuthMiddleware.requireView, getDataSources)
     express.delete(
@@ -120,6 +125,11 @@ export const CycleDataApi = {
       AuthMiddleware.requireEditTableData,
       updateOriginalDataPointYear
     )
+    express.get(
+      ApiEndPoint.CycleData.OriginalDataPoint.history(),
+      AuthMiddleware.requireViewHistory,
+      getOriginalDataPointHistory
+    )
     // OriginalDataPoint NationalClasses
     express.put(
       ApiEndPoint.CycleData.OriginalDataPoint.nationalClasses(),
@@ -153,8 +163,8 @@ export const CycleDataApi = {
     express.get(ApiEndPoint.CycleData.activitiesCount(), AuthMiddleware.requireView, getActivitiesCount)
 
     // History
-    express.get(ApiEndPoint.CycleData.history(), AuthMiddleware.requireViewHistory, getHistory)
-    express.get(ApiEndPoint.CycleData.historyCount(), AuthMiddleware.requireViewHistory, getHistoryCount)
+    express.get(ApiEndPoint.CycleData.History.Activities.one(), AuthMiddleware.requireViewHistory, getHistory)
+    express.get(ApiEndPoint.CycleData.History.Activities.count(), AuthMiddleware.requireViewHistory, getHistoryCount)
 
     // ext node
     // -- Contacts

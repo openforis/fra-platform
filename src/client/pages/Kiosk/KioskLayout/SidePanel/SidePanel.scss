@@ -87,18 +87,35 @@ $title: #ef7a2d;
   }
 }
 
+.kiosk-side-panel__back-button,
 .kiosk-side-panel__home-button {
   all: unset;
   aspect-ratio: 1 / 1;
   cursor: pointer;
   height: auto;
-  width: 35%;
 
   .icon {
     color: $title;
     height: 100%;
-    margin-top: -10px;
     width: 100%;
+  }
+}
+
+.kiosk-side-panel__back-button {
+  margin-left: auto;
+  visibility: hidden;
+  width: 20%;
+
+  &.visible {
+    visibility: visible;
+  }
+}
+
+.kiosk-side-panel__home-button {
+  width: 35%;
+
+  .icon {
+    margin-top: -10px;
   }
 }
 

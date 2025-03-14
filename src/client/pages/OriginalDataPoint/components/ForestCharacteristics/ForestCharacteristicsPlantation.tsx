@@ -3,25 +3,55 @@ import { useTranslation } from 'react-i18next'
 
 import { Numbers } from 'utils/numbers'
 
-import { ODPs } from 'meta/assessment'
+import { ODPs, OriginalDataPoint } from 'meta/assessment'
 
-import { useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
+import DiffText from 'client/components/DiffText'
+import { useODPDisplayHistory } from 'client/pages/OriginalDataPoint/components/hooks/useODPDisplayHistory'
 
+import { usePlantationForestTotalsChange } from './hooks/usePlantationForestTotalsChange'
 import ForestCharacteristicsPlantationRow from './ForestCharacteristicsPlantationRow'
 
 type Props = {
   canEditData: boolean
+  originalDataPoint: OriginalDataPoint
 }
 
 const ForestCharacteristicsPlantation: React.FC<Props> = (props) => {
-  const { canEditData } = props
-  const originalDataPoint = useOriginalDataPoint()
+  const { canEditData, originalDataPoint } = props
   const { t } = useTranslation()
 
   const nationalClasses = originalDataPoint?.nationalClasses.filter((nationalClass) => !nationalClass.placeHolder)
 
+  const totalForestPlantationPercentArea =
+    originalDataPoint &&
+    Numbers.format(
+      ODPs.calcTotalSubFieldArea({
+        originalDataPoint,
+        field: 'forestPercent',
+        subField: 'forestPlantationPercent',
+      })
+    )
+
+  const totalForestPlantationIntroducedPercentArea =
+    originalDataPoint &&
+    Numbers.format(
+      ODPs.calcTotalSubSubFieldArea({
+        originalDataPoint,
+        field: 'forestPercent',
+        subField: 'forestPlantationPercent',
+        subSubField: 'forestPlantationIntroducedPercent',
+      })
+    )
+
+  const displayHistory = useODPDisplayHistory()
+
+  const totalsChange = usePlantationForestTotalsChange({
+    totalForestPlantationIntroducedPercentArea,
+    totalForestPlantationPercentArea,
+  })
+
   return (
-    <div className="fra-table__container">
+    <div className="fra-table__container print-break-inside-avoid">
       <div className="fra-table__scroll-wrapper">
         <table className="fra-table odp__sub-table">
           <thead>
@@ -34,7 +64,12 @@ const ForestCharacteristicsPlantation: React.FC<Props> = (props) => {
 
           <tbody>
             {nationalClasses?.map((nationalClass, index) => (
-              <ForestCharacteristicsPlantationRow key={nationalClass.name} canEditData={canEditData} index={index} />
+              <ForestCharacteristicsPlantationRow
+                key={nationalClass.name}
+                canEditData={canEditData}
+                index={index}
+                originalDataPoint={originalDataPoint}
+              />
             ))}
           </tbody>
 
@@ -42,25 +77,18 @@ const ForestCharacteristicsPlantation: React.FC<Props> = (props) => {
             <tr>
               <th className="fra-table__header-cell-left">{t('nationalDataPoint.total')}</th>
               <th className="fra-table__calculated-cell fra-table__divider">
-                {originalDataPoint &&
-                  Numbers.format(
-                    ODPs.calcTotalSubFieldArea({
-                      originalDataPoint,
-                      field: 'forestPercent',
-                      subField: 'forestPlantationPercent',
-                    })
-                  )}
+                {displayHistory ? (
+                  <DiffText changes={totalsChange?.totalForestPlantationPercentArea} />
+                ) : (
+                  totalForestPlantationPercentArea
+                )}
               </th>
               <td className="fra-table__calculated-cell">
-                {originalDataPoint &&
-                  Numbers.format(
-                    ODPs.calcTotalSubSubFieldArea({
-                      originalDataPoint,
-                      field: 'forestPercent',
-                      subField: 'forestPlantationPercent',
-                      subSubField: 'forestPlantationIntroducedPercent',
-                    })
-                  )}
+                {displayHistory ? (
+                  <DiffText changes={totalsChange?.totalForestPlantationIntroducedPercentArea} />
+                ) : (
+                  totalForestPlantationIntroducedPercentArea
+                )}
               </td>
             </tr>
           </tfoot>

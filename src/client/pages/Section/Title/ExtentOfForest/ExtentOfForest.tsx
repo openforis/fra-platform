@@ -1,5 +1,5 @@
 import './ExtentOfForest.scss'
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
@@ -9,7 +9,7 @@ import { Users } from 'meta/user'
 
 import { useAppDispatch } from 'client/store'
 import { useCycle } from 'client/store/assessment'
-import { useOriginalDataPointYears } from 'client/store/data'
+import { useHistoryLastApprovedIsActive, useOriginalDataPointYears } from 'client/store/data'
 import { AssessmentSectionActions, useShowOriginalDatapoints } from 'client/store/ui/assessmentSection'
 import { useUser } from 'client/store/user'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
@@ -33,6 +33,14 @@ const ExtentOfForest: React.FC<Props> = (props) => {
   const hasOdps = Array.isArray(odpYears)
   const withToggleODPs = Users.isAdministrator(user) && hasOdps
 
+  const historyLastApprovedIsActive = useHistoryLastApprovedIsActive()
+
+  useEffect(() => {
+    if (historyLastApprovedIsActive && !showOdps) {
+      dispatch(AssessmentSectionActions.toggleShowOriginalDataPoint())
+    }
+  }, [dispatch, historyLastApprovedIsActive, showOdps])
+
   const onClick = useCallback(() => {
     dispatch(AssessmentSectionActions.toggleShowOriginalDataPoint())
   }, [dispatch])
@@ -43,6 +51,7 @@ const ExtentOfForest: React.FC<Props> = (props) => {
         <h2 className="headline no-print">{Labels.getCycleLabel({ cycle, labels: subSection.props.labels, t })}</h2>
         {withToggleODPs && (
           <Button
+            disabled={historyLastApprovedIsActive}
             inverse={showOdps}
             label={t(`extentOfForest.${showOdps ? 'hideNDPs' : 'showNDPs'}`)}
             onClick={onClick}

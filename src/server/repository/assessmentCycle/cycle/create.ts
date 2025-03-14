@@ -7,6 +7,7 @@ import { getCreateOrReplaceViewCountryUserSummary } from 'server/repository/asse
 
 type Props = {
   assessment: Assessment
+  cycleSource?: Cycle
   name: string
 }
 
@@ -33,7 +34,7 @@ const getDefaultProps = (): CycleProps => {
 }
 
 export const create = async (params: Props, client: BaseProtocol = DB): Returned => {
-  const { assessment, name } = params
+  const { assessment, cycleSource, name } = params
 
   const schemaAssessment = Schemas.getName(assessment)
   const schemaCycle = Schemas.getNameCycle(assessment, { name } as Cycle)
@@ -43,10 +44,10 @@ export const create = async (params: Props, client: BaseProtocol = DB): Returned
   }
 
   const cycle = await client.one<Cycle>(
-    `insert into assessment_cycle (assessment_id, name, props)
-     values ($1, $2, $3)
+    `insert into assessment_cycle (assessment_id, name, props, cycle_uuid_source)
+     values ($1, $2, $3, $4)
      returning *;`,
-    [assessment.id, name, getDefaultProps()]
+    [assessment.id, name, getDefaultProps(), cycleSource?.uuid]
   )
 
   // Init country user summary view

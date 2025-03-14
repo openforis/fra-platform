@@ -1,7 +1,7 @@
-import { getCount } from './getCount'
-import { getHistory } from './getHistory'
+import { Activities } from './activities'
+import { LastApproved } from './lastApproved'
 
 export const History = {
-  getCount,
-  getHistory,
+  Activities,
+  LastApproved,
 }

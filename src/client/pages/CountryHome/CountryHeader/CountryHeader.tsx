@@ -3,8 +3,6 @@ import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { NavLink } from 'react-router-dom'
 
-import classNames from 'classnames'
-
 import { Areas } from 'meta/area'
 import { MessageTopicType, Topics } from 'meta/messageCenter'
 
@@ -16,7 +14,6 @@ import { CountryHomeSection } from 'client/pages/CountryHome/types'
 import { useShowCountryMessageButton } from './hooks/useShowCountryMessageButton'
 import ButtonDownloadDashboard from './ButtonDownloadDashboard'
 import CountrySelector from './CountrySelector'
-import SelectedCountries from './SelectedCountries'
 
 type Props = {
   sections: Array<CountryHomeSection>
@@ -46,16 +43,28 @@ const CountryHeader: React.FC<Props> = (props) => {
   )
 
   return (
-    <div className={classNames('country-header', { withMessageBoard, withTabs })}>
+    <div className="country-header">
       {withLabel && (
         <div className="country-header__label">
-          <h1 className="title">{t(`area.${countryIso}.listName`)}</h1>
-          <ButtonDownloadDashboard />
-          {Areas.isISOGlobal(countryIso) && <CountrySelector />}
+          <div className="country-header__title">
+            <h2 className="title">{t(`area.${countryIso}.listName`)}</h2>
+            <ButtonDownloadDashboard />
+          </div>
+          <CountrySelector />
+          {withMessageBoard && (
+            <MessageButton
+              inverse
+              label={t('landing.sections.messageBoard')}
+              size={ButtonSize.s}
+              topic={{
+                key: Topics.getMessageBoardCountryKey(),
+                title: t(Areas.getTranslationKey(countryIso)),
+                type: MessageTopicType.messageBoard,
+              }}
+            />
+          )}
         </div>
       )}
-
-      {Areas.isISOGlobal(countryIso) && <SelectedCountries />}
 
       {withTabs && (
         <div className="country-header__tabs">
@@ -72,19 +81,6 @@ const CountryHeader: React.FC<Props> = (props) => {
             </React.Fragment>
           ))}
         </div>
-      )}
-
-      {withMessageBoard && (
-        <MessageButton
-          inverse
-          label={t('landing.sections.messageBoard')}
-          size={ButtonSize.m}
-          topic={{
-            key: Topics.getMessageBoardCountryKey(),
-            title: t(Areas.getTranslationKey(countryIso)),
-            type: MessageTopicType.messageBoard,
-          }}
-        />
       )}
     </div>
   )

@@ -19,6 +19,12 @@ export const ProcessEnv = {
   appUri: process.env.APP_URI ?? 'http://localhost:9001',
   port: process.env.PORT ? Number(process.env.PORT) : 80,
 
+  // aws/s3
+  awsAccessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  awsRegion: process.env.AWS_REGION,
+  awsSecretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  s3BucketName: process.env.S3_BUCKET_NAME,
+
   // dev
   debug: process.env.DEBUG === 'true',
   nodeEnv: process.env.NODE_ENV || NodeEnv.development,
@@ -46,4 +52,7 @@ export const ProcessEnv = {
   // Redis
   redisDataUrl: process.env.REDISCLOUD_DATA_URL ?? process.env.REDIS_DATA_URL ?? 'redis://127.0.0.1:6389',
   redisQueueUrl: process.env.REDISCLOUD_URL ?? process.env.REDIS_QUEUE_URL ?? 'redis://127.0.0.1:6379',
+
+  // Kiosk
+  kioskActivitiesSheetUrl: process.env.KIOSK_ACTIVITIES_SHEET_URL,
 }

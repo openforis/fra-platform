@@ -7,7 +7,9 @@ import { Objects } from 'utils/objects'
 import { CommentableDescriptionName } from 'meta/assessment'
 import { NationalDataDescription } from 'meta/assessment/description'
 
+import { useHistoryLastApprovedDescriptionFetched } from 'client/store/data'
 import { useCanEditDescription, useIsDescriptionEditable } from 'client/store/user/hooks'
+import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { useCycleRouteParams } from 'client/hooks/useRouteParams'
 import { DataCell, DataGrid } from 'client/components/DataGrid'
 import EditorWYSIWYG from 'client/components/EditorWYSIWYG'
@@ -19,7 +21,8 @@ import DataSourceRow from 'client/pages/Section/Descriptions/NationalDataDescrip
 import HistoryCompare from 'client/pages/Section/Descriptions/NationalDataDescriptions/DataSources/HistoryCompare'
 
 import { useDataSourcesData } from './hooks/useDataSourcesData'
-import { useDataSourcesHistory } from './hooks/useDataSourcesHistory'
+import { useDataSourcesHistoryActivities } from './hooks/useDataSourcesHistoryActivities'
+import { useDataSourcesHistoryLastApproved } from './hooks/useDataSourcesHistoryLastApproved'
 import { useGetDataSourcesLinked } from './hooks/useGetDataSourcesLinked'
 
 type Props = {
@@ -36,18 +39,31 @@ export const DataSources: React.FC<Props> = (props: Props) => {
   const { sectionName } = useSectionContext()
   const { dataSources, text } = useDataSourcesData({ sectionName })
   const { dataSourcesLinked } = useGetDataSourcesLinked({ nationalData, sectionName })
-  const historyCompares = useDataSourcesHistory({ dataSources })
+
+  const historyLastApprovedCompares = useDataSourcesHistoryLastApproved({ dataSources })
+  const historyLastApprovedDescriptionFetched = useHistoryLastApprovedDescriptionFetched()
+
+  const historyActivityCompares = useDataSourcesHistoryActivities({ dataSources })
+  const historyCompares = historyLastApprovedCompares ?? historyActivityCompares
+
+  const displayHistory =
+    (historyLastApprovedCompares && historyLastApprovedDescriptionFetched) ?? historyActivityCompares
+
   const canEdit = useCanEditDescription({ sectionName })
   const editable = useIsDescriptionEditable({ sectionName, name })
   const { empty } = useDescriptionErrorState({ name, sectionName })
 
-  const renderGrid = Boolean(!Objects.isEmpty(dataSources) || !Objects.isEmpty(dataSourcesLinked) || editable)
+  const { print } = useIsPrintRoute()
+
+  const hasDataSources = !Objects.isEmpty(dataSources) || !Objects.isEmpty(dataSourcesLinked)
+  const renderGrid = Boolean(hasDataSources || editable)
   const keyPrefix = `${assessmentName}.description.dataSource`
 
   return (
     <DataGrid className="description" withActions={canEdit}>
       <Title name={name} title={t('description.dataSourcesPlus')} />
 
+      {print && !hasDataSources && <div className="editorWYSIWYG jodit-wysiwyg textarea-print">-</div>}
       {renderGrid && (
         <>
           {editable && <ButtonCopy disabled={dataSources.length !== 1} sectionName={sectionName} />}
@@ -80,17 +96,17 @@ export const DataSources: React.FC<Props> = (props: Props) => {
                 </React.Fragment>
               ))}
 
-            {historyCompares &&
+            {displayHistory &&
               historyCompares.map((historyCompare, i) => (
                 <HistoryCompare
-                  key={historyCompare.dataItem?.uuid ?? historyCompare.historyItem?.uuid}
+                  key={`${String(i)}-${historyCompare.dataItem?.uuid ?? historyCompare.historyItem?.uuid}`}
                   historyCompare={historyCompare}
                   lastRow={i === historyCompares.length - 1}
                   meta={nationalData.dataSources}
                 />
               ))}
 
-            {!historyCompares &&
+            {!displayHistory &&
               dataSources.map((dataSourceValue, i) => {
                 return (
                   <DataSourceRow

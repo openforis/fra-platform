@@ -6,6 +6,7 @@ import { getNodeValue } from 'meta/data/recordAssessmentDatas/getNodeValue'
 import { getTableData } from 'meta/data/recordAssessmentDatas/getTableData'
 import { hasErrors } from 'meta/data/recordAssessmentDatas/hasErrors'
 import { isTableDataEmpty } from 'meta/data/recordAssessmentDatas/isTableDataEmpty'
+import { isVariableDataEmpty } from 'meta/data/recordAssessmentDatas/isVariableDataEmpty'
 import { mergeData } from 'meta/data/recordAssessmentDatas/mergeData'
 import { updateDatum } from 'meta/data/recordAssessmentDatas/updateDatum'
 import { updateDatumValidation } from 'meta/data/recordAssessmentDatas/updateDatumValidation'
@@ -21,6 +22,7 @@ export const RecordAssessmentDatas = {
   getTableData,
   hasErrors,
   isTableDataEmpty,
+  isVariableDataEmpty,
   mergeData,
   mergeRecordTableData,
 

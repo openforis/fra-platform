@@ -1,6 +1,8 @@
+import chunk from 'lodash.chunk'
 import differenceWith from 'lodash.differencewith'
 import range from 'lodash.range'
 import reverse from 'lodash.reverse'
+import union from 'lodash.union'
 import uniqueBy from 'lodash.uniqby'
 import uniqWith from 'lodash.uniqwith'
 
@@ -16,11 +18,13 @@ const startsWith = <T>(list: T[], start: T[]): boolean => start.every((item, ind
 const unique = <T>(array: Array<T>): Array<T> => uniqWith(array, Objects.isEqual)
 
 export const Arrays = {
+  chunk,
   difference,
   intersection,
-  startsWith,
   range,
   reverse,
+  startsWith,
+  union,
   unique,
   uniqueBy,
 }

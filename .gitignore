@@ -14,3 +14,20 @@ received-emails/
 #Eslint
 .eslintcache
 .vscode
+
+#Test
+test-results/
+
+#Playwright
+playwright-report/
+
+#DB
+db/backup
+src/test/e2e/init-db/backup
+
+#Reports
+src/tools/report/output-*
+
+#CSVNodeImport sample data
+src/tools/csvNodeImport/fra
+src/tools/csvNodeImport/panEuropean

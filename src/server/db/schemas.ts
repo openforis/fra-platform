@@ -4,7 +4,7 @@ const getName = (assessment: Pick<Assessment, 'props'>): string => {
   return `assessment_${assessment.props.name}`.toLowerCase()
 }
 
-const getNameCycle = (assessment: Pick<Assessment, 'props'>, cycle: Cycle): string => {
+const getNameCycle = (assessment: Pick<Assessment, 'props'>, cycle: Pick<Cycle, 'name'>): string => {
   return `assessment_${assessment.props.name}_${cycle.name}`.toLowerCase()
 }
 

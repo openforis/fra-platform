@@ -1,8 +1,15 @@
 @import 'client/style/partials';
 @import 'client/components/Inputs/InputText/InputText';
 
-.textarea {
+.textarea,
+.textarea-print {
   @extend .input-text;
   overflow-y: hidden;
   resize: none;
+}
+
+.textarea-print {
+  padding-bottom: 12px;
+  word-wrap: break-word;
+  word-break: break-all;
 }

@@ -9,7 +9,10 @@ import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { useCycleRouteParams } from 'client/hooks/useRouteParams'
 import ButtonTableExport from 'client/components/ButtonTableExport'
 import DefinitionLink from 'client/components/DefinitionLink'
+import DiffText from 'client/components/DiffText'
+import { useODPDisplayHistory } from 'client/pages/OriginalDataPoint/components/hooks/useODPDisplayHistory'
 
+import { useTotalsChange } from './hooks/useTotalsChange'
 import ExtentOfForestRow from './ExtentOfForestRow'
 
 type Props = {
@@ -34,6 +37,18 @@ const ExtentOfForest: React.FC<Props> = (props) => {
     ODPs.validateNationalClass(originalDataPoint, index)
   )
 
+  const totalArea = Numbers.format(ODPs.calcTotalArea({ originalDataPoint }))
+  const totalForestPercentArea = Numbers.format(ODPs.calcTotalFieldArea({ originalDataPoint, field: 'forestPercent' }))
+  const totalOtherWoodedLandPercentArea = Numbers.format(
+    ODPs.calcTotalFieldArea({ originalDataPoint, field: 'otherWoodedLandPercent' })
+  )
+  const totalLandArea = Numbers.format(ODPs.calcTotalLandArea({ originalDataPoint }))
+
+  const displayHistory = useODPDisplayHistory()
+
+  const _totals = { totalArea, totalForestPercentArea, totalLandArea, totalOtherWoodedLandPercentArea }
+  const totalsChange = useTotalsChange(_totals)
+
   const tableRef = useRef(null)
 
   const fileName = `odp-${t(`nationalDataPoint.forestCategoriesLabel${cycleName !== '2020' ? '2025' : ''}`)} ${
@@ -57,9 +72,9 @@ const ExtentOfForest: React.FC<Props> = (props) => {
           />
         </div>
       )}
-      <div className="fra-table__container">
+      <div className="fra-table__container print-break-inside-avoid">
         <div className="fra-table__scroll-wrapper">
-          <table ref={tableRef} className="fra-table">
+          <table ref={tableRef} className="fra-table ">
             <tbody>
               <tr>
                 {print && (
@@ -97,16 +112,24 @@ const ExtentOfForest: React.FC<Props> = (props) => {
               <tr>
                 <th className="fra-table__header-cell-left">{t('nationalDataPoint.total')}</th>
                 <td className="fra-table__calculated-cell fra-table__divider">
-                  {Numbers.format(ODPs.calcTotalArea({ originalDataPoint }))}
+                  {displayHistory ? <DiffText changes={totalsChange?.totalArea} /> : totalArea}
                 </td>
                 <td className="fra-table__calculated-cell">
-                  {Numbers.format(ODPs.calcTotalFieldArea({ originalDataPoint, field: 'forestPercent' }))}
+                  {displayHistory ? (
+                    <DiffText changes={totalsChange?.totalForestPercentArea} />
+                  ) : (
+                    totalForestPercentArea
+                  )}
                 </td>
                 <td className="fra-table__calculated-cell">
-                  {Numbers.format(ODPs.calcTotalFieldArea({ originalDataPoint, field: 'otherWoodedLandPercent' }))}
+                  {displayHistory ? (
+                    <DiffText changes={totalsChange?.totalOtherWoodedLandPercentArea} />
+                  ) : (
+                    totalOtherWoodedLandPercentArea
+                  )}
                 </td>
                 <td className="fra-table__calculated-cell">
-                  {Numbers.format(ODPs.calcTotalLandArea({ originalDataPoint }))}
+                  {displayHistory ? <DiffText changes={totalsChange?.totalLandArea} /> : totalLandArea}
                 </td>
               </tr>
             </tbody>

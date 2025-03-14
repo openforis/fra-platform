@@ -1,6 +1,7 @@
 import { Objects } from 'utils/objects'
 
 import { Cycle } from 'meta/assessment/cycle'
+import { Row } from 'meta/assessment/row'
 import { Table } from 'meta/assessment/table'
 
 const cloneProps = (props: { cycleSource: Cycle; cycleTarget: Cycle; table: Table }): Table['props'] => {
@@ -22,10 +23,18 @@ const cloneProps = (props: { cycleSource: Cycle; cycleTarget: Cycle; table: Tabl
     _props.columnsExportAlways[cycleTargetUuid] = Objects.cloneDeep(_props.columnsExportAlways[cycleSourceUuid])
   if (!Objects.isNil(_props.disableErrorMessage?.[cycleSourceUuid]))
     _props.disableErrorMessage[cycleTargetUuid] = Objects.cloneDeep(_props.disableErrorMessage[cycleSourceUuid])
+  if (!Objects.isNil(_props.style?.[cycleSourceUuid]))
+    _props.style[cycleTargetUuid] = Objects.cloneDeep(_props.style[cycleSourceUuid])
 
   return _props
 }
 
+const getChartRows = (props: { table: Table; cycle: Cycle }): Array<Row> => {
+  const { table, cycle } = props
+  return table.rows.filter((row) => !Objects.isEmpty(row.props.chart?.[cycle.uuid]))
+}
+
 export const Tables = {
   cloneProps,
+  getChartRows,
 }

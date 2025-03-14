@@ -17,6 +17,7 @@ import * as login from './en/login.json'
 import * as nationalDataPoint from './en/nationalDataPoint.json'
 import * as other from './en/other.json'
 import * as panEuropean from './en/panEuropean/panEuropean.json'
+import * as print from './en/print.json'
 import * as statisticalFactsheets from './en/statisticalFactsheets.json'
 import * as uc from './en/uc.json'
 import * as user from './en/user.json'
@@ -41,6 +42,7 @@ export const enTranslation = {
   nationalDataPoint,
   page: { assessmentSection },
   panEuropean,
+  print,
   statisticalFactsheets,
   uc,
   user,
