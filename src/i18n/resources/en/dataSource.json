@@ -12,5 +12,6 @@
   "typeOfDataSourceText": "$t(dataSource.typeOfDataSource)",
   "variable": "Variable",
   "vegetationMapping": "Vegetation mapping",
-  "yearForDataSource": "Year for data source"
+  "yearForDataSource": "Year for data source",
+  "contentUpdatedOnlyLinks": "Your content has been updated, because it contains invalid HTML.\nOnly text and links can be pasted in this field."
 }
