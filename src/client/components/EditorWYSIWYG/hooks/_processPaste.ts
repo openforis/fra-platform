@@ -1,6 +1,9 @@
+import { TFunction } from 'i18next'
 import type { IJodit } from 'jodit/esm/types/jodit'
 
-export const _processPaste = (_: IJodit, html: string) => {
+import { ToasterHook } from 'client/hooks/useToaster'
+
+export const _processPaste = (toaster: ToasterHook['toaster'], t: TFunction) => (_: IJodit, html: string) => {
   try {
     const tempDiv = document.createElement('div')
     tempDiv.innerHTML = html || ''
@@ -27,6 +30,28 @@ export const _processPaste = (_: IJodit, html: string) => {
 
     if (currentText.trim()) {
       textParts.push(currentText.trim())
+    }
+
+    const visualElements = [
+      'table',
+      'td',
+      'th',
+      'img',
+      'video',
+      'iframe',
+      'canvas',
+      'svg',
+      'figure',
+      'hr',
+      'br',
+      'ul',
+      'ol',
+      'li',
+      'blockquote',
+    ]
+
+    if (visualElements.some((element) => html.toLowerCase().includes(`<${element}`))) {
+      toaster.info(t('validation.contentUpdatedOnlyLinks'))
     }
 
     return textParts.join(' ')
