@@ -51,7 +51,7 @@ export const _processPaste = (toaster: ToasterHook['toaster'], t: TFunction) => 
     ]
 
     if (visualElements.some((element) => html.toLowerCase().includes(`<${element}`))) {
-      toaster.info(t('dataSource.contentUpdatedOnlyLinks'))
+      toaster.info(t('validation.contentUpdatedOnlyLinks'))
     }
 
     return textParts.join(' ')
