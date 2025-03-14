@@ -18,9 +18,4 @@ const DataColumn: React.FC<Props> = (props: Props) => {
   )
 }
 
-DataColumn.defaultProps = {
-  className: undefined,
-  head: false,
-}
-
 export default DataColumn

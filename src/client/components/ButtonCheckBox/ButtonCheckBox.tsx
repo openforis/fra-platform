@@ -21,18 +21,17 @@ const ButtonCheckBox: React.FC<Props> = (props) => {
   const { label } = props
 
   return (
-    <button className={`btn-s btn-checkbox ${className}`} disabled={disabled} onClick={onClick} type="button">
+    <button
+      className={classNames(`btn-s`, `btn-checkbox`, className)}
+      disabled={disabled}
+      onClick={onClick}
+      type="button"
+    >
       <div className={classNames('fra-checkbox', { checked })} />
       <div>{label}</div>
       {suffix && <span className="suffix">{suffix}</span>}
     </button>
   )
-}
-
-ButtonCheckBox.defaultProps = {
-  className: '',
-  suffix: null,
-  disabled: false,
 }
 
 export default ButtonCheckBox

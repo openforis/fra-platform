@@ -25,19 +25,27 @@ type Props = {
   showFooter?: boolean
 }
 
+const defaults: Readonly<Partial<Props>> = {
+  canSave: () => true,
+  excludedRegions: [],
+  initialSelection: [],
+  onChange: () => ({}),
+  unselectableCountries: [],
+}
+
 const CountrySelectModal: React.FC<Props> = (props) => {
   const {
-    canSave,
+    canSave = defaults.canSave,
     countries,
-    excludedRegions,
+    excludedRegions = defaults.excludedRegions,
     headerLabel,
-    initialSelection,
-    onChange,
+    initialSelection = defaults.initialSelection,
+    onChange = defaults.onChange,
     onClose,
     open,
-    showCount,
-    unselectableCountries,
-    showFooter,
+    showCount = true,
+    unselectableCountries = defaults.unselectableCountries,
+    showFooter = true,
   } = props
 
   const i18n = useTranslation()
@@ -112,22 +120,22 @@ const CountrySelectModal: React.FC<Props> = (props) => {
         {headerLabel} {showCount && `(${selection.length})`}
         <input
           className="text-input filter"
+          onChange={(event) => setQuery(event.target.value)}
+          placeholder={i18n.t('emoji.picker.search')}
           type="text"
           value={query}
-          placeholder={i18n.t('emoji.picker.search')}
-          onChange={(event) => setQuery(event.target.value)}
         />
         <ModalClose onClose={_onClose} />
       </ModalHeader>
 
       <CountrySelectModalBody
         countries={countriesFiltered}
+        excludedRegions={excludedRegions}
         onChange={_onChange}
         onChangeAll={_onChangeAll}
         onChangeMany={_onChangeMany}
         selection={selection}
         unselectableCountries={unselectableCountries}
-        excludedRegions={excludedRegions}
       />
 
       {showFooter && (
@@ -143,16 +151,6 @@ const CountrySelectModal: React.FC<Props> = (props) => {
       )}
     </Modal>
   )
-}
-
-CountrySelectModal.defaultProps = {
-  canSave: () => true,
-  excludedRegions: [],
-  initialSelection: [],
-  onChange: () => ({}),
-  showCount: true,
-  unselectableCountries: [],
-  showFooter: true,
 }
 
 export default CountrySelectModal

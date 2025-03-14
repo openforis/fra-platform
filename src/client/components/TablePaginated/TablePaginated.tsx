@@ -32,11 +32,30 @@ type Props<Datum extends object> = Pick<HTMLAttributes<HTMLDivElement>, 'classNa
     header?: boolean
   }
 
+const defaults: Readonly<Partial<Props<object>>> = {
+  counter: { show: true },
+  EmptyListComponent: DefaultEmptyList,
+  filters: [],
+  skeleton: {
+    baseColor: 'white',
+    highlightColor: 'var(--ui-bg)',
+    Component: () => <Skeleton borderRadius="2px" duration={1} height="20px" width="100%" />,
+  },
+}
+
 const TablePaginated = <Datum extends object>(props: Props<Datum>) => {
   const { className, gridTemplateColumns: gridTemplateColumnsProps } = props // HTMLDivElement Props
   const { marginPagesDisplayed, pageRangeDisplayed } = props // Paginator Props
-  const { columns, filters, groups, limit, path } = props // Base Props
-  const { counter, EmptyListComponent, export: exportTable, header, skeleton, wrapCells, compareFn } = props // Component Props
+  const { columns, filters = defaults.filters, groups, limit = 30, path } = props // Base Props
+  const {
+    counter = defaults.counter,
+    EmptyListComponent = defaults.EmptyListComponent,
+    export: exportTable,
+    header = true,
+    skeleton = defaults.skeleton,
+    wrapCells = true,
+    compareFn,
+  } = props // Component Props
 
   const divRef = useRef<HTMLDivElement>()
 
@@ -87,25 +106,6 @@ const TablePaginated = <Datum extends object>(props: Props<Datum>) => {
       {counter.show && <Count counter={counter} path={path} />}
     </div>
   )
-}
-
-TablePaginated.defaultProps = {
-  counter: { show: true },
-  EmptyListComponent: DefaultEmptyList,
-  export: false,
-  // eslint-disable-next-line react/default-props-match-prop-types
-  filters: [],
-  header: true,
-  // eslint-disable-next-line react/default-props-match-prop-types
-  limit: 30,
-  // eslint-disable-next-line react/default-props-match-prop-types
-  skeleton: {
-    baseColor: 'white',
-    highlightColor: 'var(--ui-bg)',
-    Component: () => <Skeleton borderRadius="2px" duration={1} height="20px" width="100%" />,
-  },
-  // eslint-disable-next-line react/default-props-match-prop-types
-  wrapCells: true,
 }
 
 export default TablePaginated

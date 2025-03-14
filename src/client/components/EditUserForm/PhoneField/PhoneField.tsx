@@ -37,7 +37,7 @@ const PhoneField: React.FC<Props> = (props) => {
   }, [prefix, phoneNumber])
 
   return (
-    <div className="edit-user__form-item" key={name}>
+    <div key={name} className="edit-user__form-item">
       <div className="edit-user__form-label">
         {t(`editUser.${name}`)}
         {mandatory && '*'}
@@ -49,27 +49,21 @@ const PhoneField: React.FC<Props> = (props) => {
         })}
       >
         <input
-          type="text"
           defaultValue={prefix}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPrefix(e.target.value.trim())}
           disabled={!enabled}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPrefix(e.target.value.trim())}
+          type="text"
         />
 
         <input
-          type="text"
           defaultValue={phoneNumber}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPhoneNumber(e.target.value.trim())}
           disabled={!enabled}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPhoneNumber(e.target.value.trim())}
+          type="text"
         />
       </div>
     </div>
   )
-}
-
-PhoneField.defaultProps = {
-  validator: undefined,
-  enabled: false,
-  mandatory: false,
 }
 
 export default PhoneField

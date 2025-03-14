@@ -137,10 +137,4 @@ const EditUserForm: React.FC<Props> = (props: Props) => {
   )
 }
 
-EditUserForm.defaultProps = {
-  canEditPermissions: false,
-  canEditRoles: false,
-  canEditUser: false,
-}
-
 export default EditUserForm
