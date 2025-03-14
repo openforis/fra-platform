@@ -32,19 +32,28 @@ export const _processPaste = (toaster: ToasterHook['toaster'], t: TFunction) => 
       textParts.push(currentText.trim())
     }
 
-    const allowedElements = ['a', 'span', 'div']
+    const visualElements = [
+      'table',
+      'td',
+      'th',
+      'img',
+      'video',
+      'iframe',
+      'canvas',
+      'svg',
+      'figure',
+      'hr',
+      'br',
+      'ul',
+      'ol',
+      'li',
+      'blockquote',
+    ]
 
-    const parser = new DOMParser()
-    const doc = parser.parseFromString(html, 'text/html')
-    const allElements = doc.getElementsByTagName('*')
-
-    const hasDisallowedElements = Array.from(allElements).some(
-      (element) => !allowedElements.includes(element.tagName.toLowerCase())
-    )
-
-    if (hasDisallowedElements) {
+    if (visualElements.some((element) => html.toLowerCase().includes(`<${element}`))) {
       toaster.info(t('dataSource.contentUpdatedOnlyLinks'))
     }
+
     return textParts.join(' ')
   } catch (error) {
     // eslint-disable-next-line no-console
