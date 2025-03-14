@@ -16,7 +16,7 @@ type Props = {
 }
 
 const ButtonTableExport: React.FC<Props> = (props: Props) => {
-  const { disabled, filename: filenameProp, tableRef } = props
+  const { disabled, filename: filenameProp = 'tableData', tableRef } = props
 
   const [data, setData] = useState<Array<object>>([])
   const { print } = useIsPrintRoute()
@@ -43,11 +43,6 @@ const ButtonTableExport: React.FC<Props> = (props: Props) => {
       CSV
     </CSVLink>
   )
-}
-
-ButtonTableExport.defaultProps = {
-  disabled: false,
-  filename: 'tableData',
 }
 
 export default ButtonTableExport

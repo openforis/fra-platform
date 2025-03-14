@@ -20,9 +20,4 @@ const DataGrid: React.FC<React.PropsWithChildren<Props>> = (props: React.PropsWi
   )
 }
 
-DataGrid.defaultProps = {
-  className: undefined,
-  style: undefined,
-}
-
 export default DataGrid

@@ -41,11 +41,11 @@ const ProfilePicture = (props: Props) => {
     <div className={classNames('edit-user__form-item-picture', { error: !valid })}>
       <div className="edit-user__form-label" />
       <div className="edit-user__form-field validation-error-sensitive-field">
-        <input ref={profilePictureFile} type="file" accept="image/*" style={{ display: 'none' }} onChange={_onChange} />
-        <img alt="" ref={profilePicture} src={Users.profilePictureUri(userId)} className="edit-user__picture-img" />
+        <input ref={profilePictureFile} accept="image/*" onChange={_onChange} style={{ display: 'none' }} type="file" />
+        <img ref={profilePicture} alt="" className="edit-user__picture-img" src={Users.profilePictureUri(userId)} />
         {enabled && (
           <>
-            <button className="btn btn-primary btn-xs" onClick={_onClick} type="button" disabled={!enabled}>
+            <button className="btn btn-primary btn-xs" disabled={!enabled} onClick={_onClick} type="button">
               {t('editUser.chooseProfilePicture')}
             </button>
             {!valid && <div className="edit-user__picture-img-invalid">{t('editUser.picture1MbMax')}</div>}
@@ -54,10 +54,6 @@ const ProfilePicture = (props: Props) => {
       </div>
     </div>
   )
-}
-
-ProfilePicture.defaultProps = {
-  enabled: false,
 }
 
 export default ProfilePicture

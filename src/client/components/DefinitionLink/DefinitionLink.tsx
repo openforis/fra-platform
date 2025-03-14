@@ -1,6 +1,8 @@
 import './DefinitionLink.scss'
 import React from 'react'
 
+import classNames from 'classnames'
+
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { Lang } from 'meta/lang'
 
@@ -18,7 +20,8 @@ const DefinitionLink: React.FC<Props> = (props: Props) => {
   const { className, document, anchor, title, lang, assessmentName, cycleName } = props
   return (
     <div
-      className={`definition-link ${className} no-print`}
+      aria-hidden="true"
+      className={classNames(`definition-link`, className, `no-print`)}
       onClick={() =>
         window.open(
           `${ApiEndPoint.definitions(lang, document, assessmentName, cycleName)}${anchor ? `#${anchor}` : ''}`,
@@ -26,15 +29,10 @@ const DefinitionLink: React.FC<Props> = (props: Props) => {
           'height=640,width=360'
         )
       }
-      aria-hidden="true"
     >
       {title}
     </div>
   )
-}
-
-DefinitionLink.defaultProps = {
-  className: '',
 }
 
 export default DefinitionLink

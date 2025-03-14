@@ -37,8 +37,4 @@ const GeoSection: React.FC<Props> = (props) => {
   )
 }
 
-GeoSection.defaultProps = {
-  icon: undefined,
-}
-
 export default GeoSection

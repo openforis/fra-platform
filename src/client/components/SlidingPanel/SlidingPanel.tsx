@@ -12,7 +12,7 @@ type Props = {
 }
 
 const SlidingPanel: React.FC<React.PropsWithChildren<Props>> = (props) => {
-  const { children, closePanel, opened, size } = props
+  const { children, closePanel, opened, size = 30 } = props
   const panelType = 'right'
 
   return (
@@ -29,10 +29,6 @@ const SlidingPanel: React.FC<React.PropsWithChildren<Props>> = (props) => {
       </>
     </SlidingPanelComponent>
   )
-}
-
-SlidingPanel.defaultProps = {
-  size: 30,
 }
 
 export default SlidingPanel

@@ -36,28 +36,18 @@ const Resizable: React.FC<Props> = (props: Props) => {
 
   return (
     <ReResizable
-      enable={enable}
-      minHeight={minHeight}
-      maxHeight={maxHeight}
-      maxWidth={maxWidth}
-      minWidth={minWidth}
       className={className}
       defaultSize={defaultSize}
+      enable={enable}
+      maxHeight={maxHeight}
+      maxWidth={maxWidth}
+      minHeight={minHeight}
+      minWidth={minWidth}
       onResize={onResize}
     >
       {React.Children.toArray(children)}
     </ReResizable>
   )
-}
-
-Resizable.defaultProps = {
-  className: undefined,
-  maxHeight: undefined,
-  minHeight: undefined,
-  maxWidth: undefined,
-  minWidth: undefined,
-  defaultSize: undefined,
-  onResize: undefined,
 }
 
 export default Resizable

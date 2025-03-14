@@ -11,7 +11,7 @@ type Props = Pick<
 > & { maxHeight?: number }
 
 const TextArea = forwardRef<HTMLTextAreaElement, Props>((props, outerRef) => {
-  const { disabled, maxHeight, onChange, onPaste, placeholder, rows, value } = props
+  const { disabled, maxHeight, onChange, onPaste, placeholder, rows = 1, value } = props
   const { print } = useIsPrintRoute()
 
   const textAreaRef = useRef<HTMLTextAreaElement>(null)
@@ -36,10 +36,5 @@ const TextArea = forwardRef<HTMLTextAreaElement, Props>((props, outerRef) => {
     />
   )
 })
-
-TextArea.defaultProps = {
-  maxHeight: null,
-  rows: 1,
-} as Props
 
 export default TextArea
