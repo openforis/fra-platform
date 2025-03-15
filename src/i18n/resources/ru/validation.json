@@ -4,5 +4,6 @@
     "fileOrLink": "Требуется либо ссылка либо файл",
     "nameIsRequired": "Требуется ввести имя",
     "optionsDisabled": "Ярлык, видимость для общественности и удаление отключены, поскольку этот элемент используется:"
-  }
+  },
+  "contentUpdatedOnlyLinks": "The content you have pasted has been updated because it contains invalid html.\nOnly text and links are allowed in this filed."
 }

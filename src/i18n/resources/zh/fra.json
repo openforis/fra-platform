@@ -163,7 +163,7 @@
     "ifYes": "如果 \"是\"",
     "isThereALawOrOtherGovernmentMandateInSupportOfRestoration": "是否有支持森林恢复的法律或其他政府授权？",
     "isThereANationalDefinitionOfRestoration": "是否有 \"森林恢复 \"的国家定义，如果有，请提供该定义、监测过程和结果。",
-    "whatAreTheTargetsSetForTheRestoration": "为恢复工作设定的目标是什么？例如：xxxx公顷，到yyyy年。",
+    "whatAreTheTargetsSetForTheRestoration": "What are the targets set for the restoration? E.g. xxx hectares by year yyyy",
     "whatAreasInNeedOfRestorationHaveBeenIdentified": "已确定哪些地区需要森林恢复，是如何确定的？"
   },
   "growingStock": {

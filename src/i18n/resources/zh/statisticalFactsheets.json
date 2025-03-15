@@ -1,4 +1,7 @@
 {
+  "validation": {
+    "selectAtLeastNCountries": "Select at least {{count}} countries"
+  },
   "carbonAndGrowingStock": {
     "carbon_stock_biomass_total": "生物质碳储量 ($t({{unit}}))",
     "carbon_stock_total": "碳储量合计 ($t({{unit}}))",

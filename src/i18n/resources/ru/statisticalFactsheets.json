@@ -1,4 +1,7 @@
 {
+  "validation": {
+    "selectAtLeastNCountries": "Select at least {{count}} countries"
+  },
   "carbonAndGrowingStock": {
     "carbon_stock_biomass_total": "Запас углерода в биомассе ($t({{unit}}))",
     "carbon_stock_total": "Общий запас углерода ($t({{unit}}))",
