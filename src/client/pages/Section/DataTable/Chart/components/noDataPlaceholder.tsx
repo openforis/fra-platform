@@ -4,8 +4,7 @@ import { useTranslation } from 'react-i18next'
 import * as d3 from 'd3'
 
 import { usePrevious } from 'client/hooks'
-
-import { defaultTransitionDuration, hasData as _hasData } from '../chart'
+import { defaultTransitionDuration, hasData as _hasData } from 'client/pages/Section/DataTable/Chart/charts'
 
 const toucanY = 20
 const toucanWidth = 62
@@ -61,11 +60,11 @@ const NoDataPlaceholder = (props: Props) => {
   const textY = toucanY + toucanHeight
 
   return (
-    <g className="chart__no-data-placeholder" ref={container}>
+    <g ref={container} className="chart__no-data-placeholder">
       <image
+        height={toucanHeight}
         href="/img/tucan.svg"
         width={toucanWidth}
-        height={toucanHeight}
         x={(wrapperWidth - toucanWidth) / 2}
         y={toucanY}
       />

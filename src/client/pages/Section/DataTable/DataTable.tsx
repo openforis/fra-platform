@@ -57,7 +57,7 @@ const DataTable: React.FC<Props> = (props) => {
 
   return (
     <>
-      {showChart && <Chart data={data?.[assessmentName]?.[cycleName]} table={table} />}
+      {showChart && <Chart data={data} table={table} />}
 
       {generateValues && (
         <GenerateValues

@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
+
 import * as d3 from 'd3'
-import { hasData, defaultTransitionDuration } from '../chart'
+
+import { defaultTransitionDuration, hasData } from 'client/pages/Section/DataTable/Chart/charts'
 
 const replaceCommasWithSpaces = (v: any) => d3.format(',')(v).replace(/,/g, ' ')
 type Props = any
@@ -83,13 +85,13 @@ class YAxis extends Component {
       <g className="chart__y-axis">
         <text
           ref="unitLabel"
-          x="17"
-          y="14"
           style={{
             fontSize: '11px',
             fill: '#666666',
             opacity: 0,
           }}
+          x="17"
+          y="14"
         >
           1000 ha
         </text>
