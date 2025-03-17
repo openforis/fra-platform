@@ -36,15 +36,6 @@ const NoDataPlaceholder = (props: Props) => {
 
   return (
     <g ref={containerRef} className="chart__no-data-placeholder">
-      <defs>
-        <filter height="1" id="solid" width="1" x="0" y="0">
-          <feFlood floodColor="rgba(247,247,247,0.2)" result="bg" />
-          <feMerge>
-            <feMergeNode in="bg" />
-            <feMergeNode in="SourceGraphic" />
-          </feMerge>
-        </filter>
-      </defs>
       <image
         height={toucanHeight}
         href="/img/tucan.svg"
