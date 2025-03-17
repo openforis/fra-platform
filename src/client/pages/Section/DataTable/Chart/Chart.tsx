@@ -2,13 +2,13 @@ import './style.scss'
 import React from 'react'
 
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import NoDataPlaceholder from 'client/pages/Section/DataTable/Chart/NoDataPlaceholder'
+import YAxis from 'client/pages/Section/DataTable/Chart/YAxis'
 
 import DataTrend from './components/dataTrend'
 import Legend from './components/legend'
-import NoDataPlaceholder from './components/noDataPlaceholder'
 import OdpTicks from './components/odpTicks'
 import XAxis from './components/xAxis'
-import YAxis from './components/yAxis'
 import { useChartData } from './hooks/useChartData'
 import { useTrends } from './hooks/useTrends'
 import { useXScale } from './hooks/useXScale'
@@ -30,7 +30,7 @@ const Chart = (props: ChartProps) => {
     <div>
       <svg height={Charts.styles.height} width={width}>
         <Legend data={trendsData} trends={trends} wrapperWidth={width} />
-        <YAxis data={trendsData} left={Charts.styles.left} wrapperWidth={width} yScale={yScale} />
+        <YAxis trendsData={trendsData} width={width} yScale={yScale} />
         <XAxis bottom={Charts.styles.bottom} data={trendsData} height={Charts.styles.height} xScale={xScale} />
         {/* odp ticks must be positioned behind all data points */}
         {trends.map((t) => (
@@ -52,7 +52,7 @@ const Chart = (props: ChartProps) => {
             yScale={yScale}
           />
         ))}
-        {!print && <NoDataPlaceholder data={trendsData} wrapperWidth={width} />}
+        {!print && <NoDataPlaceholder trendsData={trendsData} width={width} />}
       </svg>
     </div>
   )

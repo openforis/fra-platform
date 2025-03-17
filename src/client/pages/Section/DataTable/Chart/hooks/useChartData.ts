@@ -29,7 +29,7 @@ export const useChartData = (props: Props): Returned => {
   const cycle = useCycle()
   const { print } = useIsPrintRoute()
 
-  const { name: tableName, report: tableReport } = table.props
+  const { columnNames, name: tableName, report: tableReport } = table.props
   const { uuid: cycleUuid } = cycle
   const columnsReport = tableReport?.[cycleUuid]?.columnsReport
 
@@ -38,7 +38,7 @@ export const useChartData = (props: Props): Returned => {
   }, [assessmentName, countryIso, cycleName, data, tableName])
 
   return useMemo<Returned>(() => {
-    const yearsSet = new Set<number>()
+    const yearsSet = new Set<number>(columnNames[cycleUuid].map((colName) => Number(colName)))
 
     const trendsData = trends.reduce<Returned['trendsData']>((acc, trend) => ({ ...acc, [trend.name]: [] }), {})
     Object.entries(tableData).forEach(([colName, rowData]) => {
@@ -66,5 +66,5 @@ export const useChartData = (props: Props): Returned => {
     const years = yearsSet.size > 0 ? { all, max: Math.max(...all) + 1, min: Math.min(...all) - 1 } : undefined
 
     return { trendsData, years }
-  }, [columnsReport, print, tableData, trends])
+  }, [columnNames, columnsReport, cycleUuid, print, tableData, trends])
 }

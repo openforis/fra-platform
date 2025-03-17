@@ -1,3 +1,5 @@
+import { ScaleLinear, Selection } from 'd3'
+
 import { Table } from 'meta/assessment'
 import { ODPDataSourceMethod } from 'meta/assessment/originalDataPoint'
 import { RecordAssessmentData } from 'meta/data'
@@ -35,3 +37,7 @@ export type TrendsYears = {
   max?: number
   min?: number
 }
+
+// d3 types
+export type D3ChartAxisScale = ScaleLinear<number, number>
+export type D3YAxis = Selection<SVGGElement, unknown, SVGGElement, unknown>
