@@ -29,7 +29,7 @@ export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<
                            on c.country_iso = cr.country_iso
                  left join ${cycleSchema}.country_summary cs
                            on c.country_iso = cs.country_iso
-        group by 1, 2, 3, 4, 5, 6, 7
+        group by 1, 2, 3, 4, 5, 6, 7, 8
         order by 1
     `,
     [cycle.uuid],
