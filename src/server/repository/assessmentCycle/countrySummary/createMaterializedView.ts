@@ -18,7 +18,7 @@ export const createMaterializedView = async (props: Props, client: BaseProtocol 
   const query = `
       create materialized view if not exists ${schemaCycle}.country_summary as
       with country as
-               (select c.country_iso, c.props ->> 'status' as status
+               (select c.country_iso, c.status as status
                 from ${schemaCycle}.country c),
            last_edit as
                (select c.country_iso, max(a.time) as last_edit
