@@ -1,3 +1,5 @@
+import { RecordTrendData } from './types'
+
 /**
  * @deprecated
  */
@@ -17,12 +19,18 @@ type Trends = Trend[]
  */
 export const styles = {
   height: 390,
-  top: 60,
+  top: 24,
   left: 65,
-  bottom: 60,
+  bottom: 24,
+}
+
+const hasData = (props: { trendsData: RecordTrendData }) => {
+  const { trendsData } = props
+  return Object.values(trendsData).some((trendData) => trendData.length > 0)
 }
 
 export const Charts = {
+  hasData,
   styles,
   transitionDuration: 400,
 }
@@ -42,14 +50,6 @@ export const getChartYears = (data: any[]) => {
   return {}
 }
 
-/**
-/**
- * @deprecated
- */
-export const hasData = (data: any) =>
-  Object.values(data)
-    .map((x: any[]) => x.length > 0)
-    .some((z) => z)
 /**
  * @deprecated
  */
