@@ -3249,7 +3249,7 @@
   resolved "https://registry.yarnpkg.com/@types/d3-hierarchy/-/d3-hierarchy-3.1.7.tgz#6023fb3b2d463229f2d680f9ac4b47466f71f17b"
   integrity sha512-tJFtNoYBtRtkNysX1Xq4sxtjK8YgoWUNpIiUee0/jHGRwqvzYxkq0hGVbbOGSz+JgFxxRu4K8nb3YpG3CMARtg==
 
-"@types/d3-interpolate-path@^2.0.0":
+"@types/d3-interpolate-path@^2.0.3":
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/@types/d3-interpolate-path/-/d3-interpolate-path-2.0.3.tgz#6c264de017717bab0662ff42868705ef2ac9b2d9"
   integrity sha512-EmFAmzvZN9vmYfUEOLOQj/PWXkUKrMp0iGElacDIcYj3N2zFJ2Mk5DiL8J4fKYnnyQdcYOixABJx7TaIc4GcdA==
@@ -3320,7 +3320,7 @@
   resolved "https://registry.yarnpkg.com/@types/d3-timer/-/d3-timer-3.0.2.tgz#70bbda77dc23aa727413e22e214afa3f0e852f70"
   integrity sha512-Ps3T8E8dZDam6fUyNiMkekK3XUsaUEik+idO9/YjPtfj2qruF8tFBXS7XhtE4iIXBLxhmLjP3SXpLhVf21I9Lw==
 
-"@types/d3-tip@^3.5.5":
+"@types/d3-tip@^3.5.8":
   version "3.5.8"
   resolved "https://registry.yarnpkg.com/@types/d3-tip/-/d3-tip-3.5.8.tgz#c94c0a34619d549f7843194c72b9f25589d9bb83"
   integrity sha512-wulonUo5oVC3YFfXVCElar8ZC5zhVxrDaPiJ1y2YJOFLlF/nETrLJDwSDzR3DQn1E+IoX5NRJpm2XkSpkJIaDQ==
@@ -3347,7 +3347,7 @@
   resolved "https://registry.yarnpkg.com/@types/d3/-/d3-3.5.53.tgz#2b4ffe34f7f40e14cc9556fd624370e4597d72f7"
   integrity sha512-8yKQA9cAS6+wGsJpBysmnhlaaxlN42Qizqkw+h2nILSlS+MAG2z4JdO6p+PJrJ+ACvimkmLJL281h157e52psQ==
 
-"@types/d3@^7.0.0":
+"@types/d3@^7.4.3":
   version "7.4.3"
   resolved "https://registry.yarnpkg.com/@types/d3/-/d3-7.4.3.tgz#d4550a85d08f4978faf0a4c36b848c61eaac07e2"
   integrity sha512-lZXZ9ckh5R8uiFVt8ogUNf+pIrK4EsWrx2Np75WvF/eTpJ0FMHNhjXk8CKEx/+gpHbNQyJWehbFaTvqmHWB3ww==
@@ -6187,7 +6187,7 @@ d3-hierarchy@3:
   resolved "https://registry.yarnpkg.com/d3-hierarchy/-/d3-hierarchy-3.1.2.tgz#b01cd42c1eed3d46db77a5966cf726f8c09160c6"
   integrity sha512-FX/9frcub54beBdugHjDCdikxThEqjnR93Qt7PvQTOHxyiNCAlvMrHhclk3cD5VeAaq9fxmfRp+CnWw9rEMBuA==
 
-d3-interpolate-path@^2.2.3:
+d3-interpolate-path@^2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/d3-interpolate-path/-/d3-interpolate-path-2.3.0.tgz#ff919acb52968619f4b0dc5fa95653e581d5a0ca"
   integrity sha512-tZYtGXxBmbgHsIc9Wms6LS5u4w6KbP8C09a4/ZYc4KLMYYqub57rRBUgpUr2CIarIrJEpdAWWxWQvofgaMpbKQ==
@@ -6304,7 +6304,7 @@ d3-zoom@3:
     d3-selection "2 - 3"
     d3-transition "2 - 3"
 
-d3@^7.4.0:
+d3@^7.9.0:
   version "7.9.0"
   resolved "https://registry.yarnpkg.com/d3/-/d3-7.9.0.tgz#579e7acb3d749caf8860bd1741ae8d371070cd5d"
   integrity sha512-e1U46jVP+w7Iut8Jt8ri1YsPOvFpg46k+K8TpCb0P+zjCkjkPnV7WzfDJzMHy1LnA+wj5pLT1wjO901gLXeEhA==

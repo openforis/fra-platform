@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import * as d3 from 'd3'
 
-import { getChartYears } from '../chart'
+import { getChartYears } from 'client/pages/Section/DataTable/Chart/charts'
 
 type Props = any
 
@@ -40,8 +40,8 @@ class XAxis extends Component {
   render() {
     return (
       <g
-        className="chart__x-axis"
         ref="axis"
+        className="chart__x-axis"
         transform={`translate(0, ${(this.props as any).height - (this.props as any).bottom})`}
       />
     )

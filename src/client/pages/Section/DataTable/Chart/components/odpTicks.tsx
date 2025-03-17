@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 
 import * as d3 from 'd3'
 
-import { defaultTransitionDuration } from '../chart'
+import { defaultTransitionDuration } from 'client/pages/Section/DataTable/Chart/charts'
 
 type Props = any
 class OdpTicks extends React.Component {

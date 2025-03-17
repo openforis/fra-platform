@@ -4,8 +4,7 @@ import * as d3 from 'd3'
 import { interpolatePath } from 'd3-interpolate-path'
 
 import { usePrevious } from 'client/hooks'
-
-import * as Chart from '../chart'
+import * as Chart from 'client/pages/Section/DataTable/Chart/charts'
 
 type Props = {
   data: any[]
@@ -57,7 +56,7 @@ const DataPath = (props: Props) => {
     }
   }, [data])
 
-  return <path ref={pathElementRef} style={{ ...style, opacity: 0 }} className="chart__data-path" d={null} />
+  return <path ref={pathElementRef} className="chart__data-path" d={null} style={{ ...style, opacity: 0 }} />
 }
 
 export default DataPath

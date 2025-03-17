@@ -3,11 +3,11 @@ import ReactDOM from 'react-dom'
 import ReactDOMServer from 'react-dom/server'
 import { useTranslation } from 'react-i18next'
 
-import { Numbers } from 'utils/numbers'
 import * as d3 from 'd3'
 import d3Tip from 'd3-tip'
+import { Numbers } from 'utils/numbers'
 
-import { defaultTransitionDuration } from '../chart'
+import { defaultTransitionDuration } from 'client/pages/Section/DataTable/Chart/charts'
 
 type Props = any
 
