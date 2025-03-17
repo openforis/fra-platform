@@ -18,8 +18,9 @@ export const getOneOrNone = async (props: Props, client: BaseProtocol = DB): Pro
 
   return client.oneOrNone<CountrySummary>(
     `
-        select *
+        select *, c.status
         from ${schemaCycle}.country_summary cs
+                    left join ${schemaCycle}.country c using country_iso
         where cs.country_iso = $1
     `,
     [countryIso],

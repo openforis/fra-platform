@@ -17,7 +17,8 @@ export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<
 
   return client.map<Country>(
     `
-        select c.*,
+        select c.country_iso,
+               props || jsonb_build_object('status', c.status) as props, 
                cs.last_edit,
                cs.last_in_review,
                cs.last_for_approval,
@@ -29,8 +30,14 @@ export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<
                            on c.country_iso = cr.country_iso
                  left join ${cycleSchema}.country_summary cs
                            on c.country_iso = cs.country_iso
-        group by 1, 2, 3, 4, 5, 6, 7, 8
-        order by 1
+        group by c.country_iso, 
+                 props || jsonb_build_object('status', c.status),
+                 cs.last_edit,
+                 cs.last_in_review,
+                 cs.last_for_approval,
+                 cs.last_accepted,
+                 cs.last_update
+        order by c.country_iso
     `,
     [cycle.uuid],
     (row) => Objects.camelize(row)

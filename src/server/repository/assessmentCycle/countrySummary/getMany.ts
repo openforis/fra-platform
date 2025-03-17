@@ -22,8 +22,9 @@ export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<
 
   return client.map(
     `
-        select *
-        from ${schemaCycle}.country_summary c
+        select cs.*, c.status
+        from ${schemaCycle}.country_summary cs
+            left join ${schemaCycle}.country c using country_iso
         order by ${orderBy ?? 'country_iso'} ${orderByDirection ?? TablePaginatedOrderByDirection.asc} nulls last
         limit $1 offset $2
         ;
