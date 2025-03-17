@@ -1,3 +1,4 @@
+import { AssessmentStatus } from 'meta/area'
 import { Assessment, Cycle } from 'meta/assessment'
 
 import { Schemas } from 'server/db'
@@ -138,6 +139,7 @@ export const getCreateSchemaCycleDDL = (assessmentSchemaName: string, assessment
                   references country
                   on update cascade on delete cascade,
           props jsonb default '{}'::jsonb,
+          status varchar(16) default '${AssessmentStatus.notStarted}'::varchar,
           unique (country_iso)
       );
       
