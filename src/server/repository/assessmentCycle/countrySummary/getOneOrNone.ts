@@ -22,7 +22,7 @@ export const getOneOrNone = async (props: Props, client: BaseProtocol = DB): Pro
     `
         select ${fieldsJoined('cs')}, c.status
         from ${schemaCycle}.country_summary cs
-                    left join ${schemaCycle}.country c using country_iso
+                    left join ${schemaCycle}.country c using (country_iso)
         where cs.country_iso = $1
     `,
     [countryIso],
