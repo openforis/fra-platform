@@ -3,7 +3,7 @@ import { AssessmentStatus } from 'meta/area'
 import { AssessmentController } from 'server/controller/assessment'
 import { BaseProtocol, DB, Schemas } from 'server/db'
 import { CountrySummaryRepository } from 'server/repository/assessmentCycle/countrySummary'
-import { AreaRedisRepository } from 'server/repository/redis/countrySummary'
+import { AreaRedisRepository } from 'server/repository/redis/area'
 
 export default async (client: BaseProtocol) => {
   const assessments = await AssessmentController.getAll({}, client)
