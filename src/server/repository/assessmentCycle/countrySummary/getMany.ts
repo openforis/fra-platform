@@ -11,8 +11,8 @@ import { fieldsJoined } from './fields'
 type Props = {
   assessment: Assessment
   cycle: Cycle
-  limit: string
-  offset: string
+  limit?: string
+  offset?: string
   orderBy?: string
   orderByDirection?: TablePaginatedOrderByDirection
 }
@@ -22,16 +22,18 @@ export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<
 
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
 
-  return client.map(
-    `
+  const query = `
         select ${fieldsJoined('cs')}, c.status
         from ${schemaCycle}.country_summary cs
-            left join ${schemaCycle}.country c using country_iso
+            left join ${schemaCycle}.country c using (country_iso)
         order by ${orderBy ?? 'country_iso'} ${orderByDirection ?? TablePaginatedOrderByDirection.asc} nulls last
-        limit $1 offset $2
+        ${limit ? 'limit $1' : ''} ${offset ? 'offset $2' : ''}
         ;
-    `,
-    [limit, offset],
-    (rows) => Objects.camelize(rows)
-  )
+    `
+
+  const params = []
+  if (limit) params.push(limit)
+  if (offset) params.push(offset)
+
+  return client.map(query, params, (rows) => Objects.camelize(rows))
 }
