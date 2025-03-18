@@ -19,9 +19,9 @@ type Trends = Trend[]
  */
 export const styles = {
   height: 390,
-  top: 24,
+  top: 32,
   left: 65,
-  bottom: 24,
+  bottom: 32,
 }
 
 const hasData = (props: { trendsData: RecordTrendData }) => {
