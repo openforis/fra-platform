@@ -16,15 +16,16 @@ enum Section {
   subSectionsIndex = 'subSectionsIndex',
 }
 
-enum CountrySummary {
-  countrySummary = 'countrySummary',
+enum Area {
+  countrySummary = 'area:countrySummary',
+  regionGroups = 'area:regionGroups',
 }
 
 export const Keys = {
   Data,
   Row,
   Section,
-  CountrySummary,
+  Area,
 }
 
 // ===== Getters

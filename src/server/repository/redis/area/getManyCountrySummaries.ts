@@ -21,7 +21,7 @@ export const getManyCountrySummaries = async (
   const { assessment, cycle, force = false } = props
 
   const redis = RedisData.getInstance()
-  const key = getKeyCycle({ assessment, cycle, key: Keys.CountrySummary.countrySummary })
+  const key = getKeyCycle({ assessment, cycle, key: Keys.Area.countrySummary })
 
   const cachedData = await redis.hgetall(key)
   const cachedKeys = Object.keys(cachedData)

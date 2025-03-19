@@ -17,8 +17,8 @@ export default async (client: BaseProtocol) => {
             `alter table ${schemaName}.country add column status varchar(16) default '${AssessmentStatus.notStarted}'::varchar;`
           )
           await DB.query(`update ${schemaName}.country set status = (
-              select cs.status 
-              from ${schemaName}.country_summary cs 
+              select cs.status
+              from ${schemaName}.country_summary cs
               where cs.country_iso = country.country_iso
           );`)
           await DB.query(`update ${schemaName}.country set props = props - 'status';`)
@@ -27,6 +27,7 @@ export default async (client: BaseProtocol) => {
           await CountrySummaryRepository.createMaterializedView({ assessment, cycle }, client)
 
           await AreaRedisRepository.getManyCountrySummaries({ assessment, cycle, force: true }, client)
+          await AreaRedisRepository.getManyRegionGroups({ assessment, cycle, force: true }, client)
         })
       )
     })
