@@ -8,5 +8,5 @@ type Props = { assessment: Assessment; cycle: Cycle }
 export const generateArea = async (props: Props, client: BaseProtocol = DB) => {
   const { assessment, cycle } = props
   await AreaRedisRepository.getManyRegionGroups({ assessment, cycle, force: true }, client)
-  await AreaRedisRepository.getManyCountrySummaries({ assessment, cycle, force: true }, client)
+  await AreaRedisRepository.getManyCountries({ assessment, cycle, force: true }, client)
 }
