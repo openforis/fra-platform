@@ -10,6 +10,7 @@ type Props = {
   trendsData: RecordTrendData
   unitLabelRef: RefObject<SVGTextElement>
 }
+
 export const useD3YAxisTransition = (props: Props): void => {
   const { d3Axis, trendsData, unitLabelRef } = props
 
