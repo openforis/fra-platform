@@ -2,9 +2,9 @@ import { Response } from 'express'
 
 import { InitRequest } from 'meta/api/request'
 
+import { AreaController } from 'server/controller/area'
 import { AssessmentController } from 'server/controller/assessment'
 import { SettingsController } from 'server/controller/settings'
-import { AreaRedisRepository } from 'server/repository/redis/area'
 import Requests from 'server/utils/requests'
 
 export const getAreas = async (req: InitRequest, res: Response) => {
@@ -16,8 +16,8 @@ export const getAreas = async (req: InitRequest, res: Response) => {
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ ...props, cycleName })
 
     const [countries, regionGroups] = await Promise.all([
-      AreaRedisRepository.getManyCountries({ assessment, cycle }),
-      AreaRedisRepository.getManyRegionGroups({ assessment, cycle }),
+      AreaController.getCountries({ assessment, cycle }),
+      AreaController.getRegionGroups({ assessment, cycle }),
     ])
 
     Requests.sendOk(res, { countries, regionGroups })
