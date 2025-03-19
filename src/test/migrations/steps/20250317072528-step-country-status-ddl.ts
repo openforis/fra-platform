@@ -1,9 +1,9 @@
 import { AssessmentStatus } from 'meta/area'
 
 import { AssessmentController } from 'server/controller/assessment'
+import { CacheController } from 'server/controller/cache'
 import { BaseProtocol, DB, Schemas } from 'server/db'
 import { CountrySummaryRepository } from 'server/repository/assessmentCycle/countrySummary'
-import { AreaRedisRepository } from 'server/repository/redis/area'
 
 export default async (client: BaseProtocol) => {
   const assessments = await AssessmentController.getAll({}, client)
@@ -26,8 +26,7 @@ export default async (client: BaseProtocol) => {
           await CountrySummaryRepository.dropMaterializedView({ assessment, cycle }, client)
           await CountrySummaryRepository.createMaterializedView({ assessment, cycle }, client)
 
-          await AreaRedisRepository.getManyCountrySummaries({ assessment, cycle, force: true }, client)
-          await AreaRedisRepository.getManyRegionGroups({ assessment, cycle, force: true }, client)
+          await CacheController.generateArea({ assessment, cycle }, client)
         })
       )
     })
