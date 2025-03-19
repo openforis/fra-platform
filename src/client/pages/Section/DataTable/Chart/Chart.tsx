@@ -5,10 +5,10 @@ import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import Legend from 'client/pages/Section/DataTable/Chart/Legend'
 import NoDataPlaceholder from 'client/pages/Section/DataTable/Chart/NoDataPlaceholder'
 import OdpTicks from 'client/pages/Section/DataTable/Chart/OdpTicks'
+import XAxis from 'client/pages/Section/DataTable/Chart/XAxis'
 import YAxis from 'client/pages/Section/DataTable/Chart/YAxis'
 
 import DataTrend from './components/dataTrend'
-import XAxis from './components/xAxis'
 import { useChartData } from './hooks/useChartData'
 import { useTrends } from './hooks/useTrends'
 import { useXScale } from './hooks/useXScale'
@@ -30,7 +30,7 @@ const Chart = (props: ChartProps) => {
       <svg height={Charts.styles.height} width={width}>
         <Legend trends={trends} trendsData={trendsData} width={width} />
         <YAxis trendsData={trendsData} width={width} yScale={yScale} />
-        <XAxis bottom={Charts.styles.bottom} data={trendsData} height={Charts.styles.height} xScale={xScale} />
+        <XAxis xScale={xScale} years={years} />
 
         {/* odp ticks must be positioned behind all data points */}
         {trends.map((trend) => {
