@@ -17,7 +17,7 @@ enum Section {
 }
 
 enum Area {
-  countrySummary = 'area:countrySummary',
+  country = 'area:country',
   regionGroups = 'area:regionGroups',
 }
 
