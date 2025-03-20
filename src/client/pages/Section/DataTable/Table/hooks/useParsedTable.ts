@@ -1,4 +1,5 @@
 import { useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { Objects } from 'utils/objects'
 
@@ -33,6 +34,7 @@ type Returned = {
 export const useParsedTable = (props: Props): Returned => {
   const { assessmentName, table: _table } = props
 
+  const { t } = useTranslation()
   const { countryIso } = useCountryRouteParams<CountryIso>()
   const cycle = useCycle()
   const showODP = useShowOriginalDatapoints()
@@ -69,10 +71,10 @@ export const useParsedTable = (props: Props): Returned => {
 
     // Transpose table
     if (print && table.props.report?.[cycle.uuid]?.transpose) {
-      const transpose = transposeTable({ cycle, headers, rowsData, rowsHeader, table })
+      const transpose = transposeTable({ cycle, headers, rowsData, rowsHeader, table, t })
       return { firstHeaderRowSpan, noticeMessages, withReview, ...transpose }
     }
 
     return { firstHeaderRowSpan, headers, noticeMessages, rowsData, rowsHeader, table, withReview }
-  }, [_table, assessmentName, countryIso, cycle, odpYears, print, showODP])
+  }, [_table, assessmentName, countryIso, cycle, odpYears, print, showODP, t])
 }
