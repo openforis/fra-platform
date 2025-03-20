@@ -7,6 +7,7 @@ import * as express from 'express'
 import * as morgan from 'morgan'
 
 import { Api } from 'server/api'
+import { RequestPopulateMiddleware } from 'server/middleware'
 import { Proxy } from 'server/proxy/proxy'
 import { initSchedulers } from 'server/schedulers'
 import { SocketServer } from 'server/service/socket'
@@ -31,6 +32,8 @@ export const serverInit = () => {
   resourceCacheControl.init(app)
 
   app.use(compression({ threshold: 512 }))
+
+  app.use(RequestPopulateMiddleware.populateBaseParams)
 
   app.use('/img/', express.static(`${__dirname}/../../web-resources/img`))
   app.use('/css/', express.static(`${__dirname}/../../web-resources/css`))
