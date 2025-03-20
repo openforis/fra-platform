@@ -19,41 +19,53 @@ type Returned = {
 export const mergeUsers = async (props: Props, client: BaseProtocol = DB): Promise<Returned> => {
   const { assessments, userIdToKeep, userIdToRemove } = props
 
-  const userKept = await getOne({ id: userIdToKeep }, client)
-  if (!userKept) throw new Error(`User with userIdToKeep ${userIdToKeep} not found`)
+  const userToKeep = await getOne({ id: userIdToKeep }, client)
+  if (!userToKeep) throw new Error(`User with userIdToKeep ${userIdToKeep} not found`)
 
   const userToRemove = await getOne({ id: userIdToRemove }, client)
-  if (!userToRemove) throw new Error(`User with userToRemove ${userToRemove} not found`)
+  if (!userToRemove) throw new Error(`User with userIdToRemove ${userIdToRemove} not found`)
 
-  const { uuid: userUuidKept } = userKept
+  const { uuid: userUuidToKeep } = userToKeep
   const { uuid: userUuidToRemove } = userToRemove
 
   await Promise.all([
-    // remove users_auth_provider, users_reset_password
+    // remove users_auth_provider
     client.query(
       `delete
        from public.users_auth_provider
        where user_id = $1 `,
       [userIdToRemove]
     ),
+    // insert users_role if it doesn't exist already
     client.query(
-      `delete
-       from public.users_reset_password
-       where user_id = $1 `,
-      [userIdToRemove]
+      `insert into public.users_role
+       (assessment_uuid, cycle_uuid, country_iso, user_uuid, role, props, permissions, invitation_uuid, created_at)
+       select assessment_uuid,
+              cycle_uuid,
+              country_iso,
+              $1 as user_uuid,
+              role,
+              props,
+              permissions,
+              invitation_uuid,
+              created_at
+       from public.users_role
+       where user_uuid = $2 on conflict (user_uuid,assessment_uuid,country_iso,cycle_uuid) do nothing`,
+      [userUuidToKeep, userUuidToRemove]
     ),
-    // update users_invitation, users_role
+    // update users_reset_password, users_invitation
+    client.query(
+      `update public.users_reset_password 
+       set user_id = $1
+       where user_id = $2`,
+      [userIdToKeep, userIdToRemove]
+    ),
     client.query(
       `update public.users_invitation
        set user_uuid = $1
-       where user_uuid = $2`,
-      [userUuidKept, userUuidToRemove]
-    ),
-    client.query(
-      `update public.users_role
-       set user_uuid = $1
-       where user_uuid = $2`,
-      [userUuidKept, userUuidToRemove]
+       where user_uuid = $2
+      `,
+      [userUuidToKeep, userUuidToRemove]
     ),
     // update activity_log
     client.query(
@@ -100,8 +112,9 @@ export const mergeUsers = async (props: Props, client: BaseProtocol = DB): Promi
       })
     )
   )
-  // remove user
+
   const userRemoved = await remove({ user: userToRemove }, client)
+  const userKept = await getOne({ id: userIdToKeep }, client)
 
   return { userKept, userRemoved }
 }
