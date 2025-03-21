@@ -33,8 +33,6 @@ export const serverInit = () => {
 
   app.use(compression({ threshold: 512 }))
 
-  app.use(RequestPopulateMiddleware.populateBaseParams)
-
   app.use('/img/', express.static(`${__dirname}/../../web-resources/img`))
   app.use('/css/', express.static(`${__dirname}/../../web-resources/css`))
   app.use('/video', express.static(`${__dirname}/../../web-resources/video`))
@@ -46,6 +44,7 @@ export const serverInit = () => {
   /*
    * Initialize API
    */
+  app.use('/api*', RequestPopulateMiddleware.populateBaseParams)
   Api.init(app)
 
   app.use('/*', express.static(path.resolve(__dirname, '..', 'client')))
