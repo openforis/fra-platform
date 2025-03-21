@@ -21,9 +21,8 @@ const initContext = async (req: Request, _: Response, next: NextFunction): Promi
     Objects.setInPath({ obj: req, path: ['context'], value: {} })
 
     if (assessmentName && cycleName) {
-      const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+      const assessment = await AssessmentController.getOne({ assessmentName, cycleName })
       Objects.setInPath({ obj: req, path: ['context', 'assessment'], value: assessment })
-      Objects.setInPath({ obj: req, path: ['context', 'cycle'], value: cycle })
 
       if (countryIso) {
         const country = await CountryRepository.getOne({ assessment, cycle, countryIso })

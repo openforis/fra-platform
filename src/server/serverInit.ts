@@ -7,7 +7,6 @@ import * as express from 'express'
 import * as morgan from 'morgan'
 
 import { Api } from 'server/api'
-import { ApiContextMiddleware } from 'server/middleware/apiContext'
 import { Proxy } from 'server/proxy/proxy'
 import { initSchedulers } from 'server/schedulers'
 import { SocketServer } from 'server/service/socket'
@@ -44,7 +43,6 @@ export const serverInit = () => {
   /*
    * Initialize API
    */
-  app.use('/api*', ApiContextMiddleware.initContext)
   Api.init(app)
 
   app.use('/*', express.static(path.resolve(__dirname, '..', 'client')))
