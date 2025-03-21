@@ -3,7 +3,9 @@ import { Objects } from 'utils/objects'
 import { Country, CountryIso, RecordCountries } from 'meta/area'
 import { Assessment, Cycle } from 'meta/assessment'
 
-import { BaseProtocol, DB, Schemas } from 'server/db'
+import { BaseProtocol, DB } from 'server/db'
+
+import { getBaseQuery } from './_queries/getBaseQuery'
 
 type Props = {
   assessment: Assessment
@@ -13,33 +15,12 @@ type Props = {
 export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<Array<Country>> => {
   const { assessment, cycle } = props
 
-  const cycleSchema = Schemas.getNameCycle(assessment, cycle)
-
   return client.map<Country>(
     `
-        select c.country_iso,
-               props || jsonb_build_object('status', c.status) as props, 
-               cs.last_edit,
-               cs.last_in_review,
-               cs.last_for_approval,
-               cs.last_accepted,
-               cs.last_update,
-               jsonb_agg(cr.region_code) as region_codes
-        from ${cycleSchema}.country c
-                 left join ${cycleSchema}.country_region cr
-                           on c.country_iso = cr.country_iso
-                 left join ${cycleSchema}.country_summary cs
-                           on c.country_iso = cs.country_iso
-        group by c.country_iso, 
-                 props || jsonb_build_object('status', c.status),
-                 cs.last_edit,
-                 cs.last_in_review,
-                 cs.last_for_approval,
-                 cs.last_accepted,
-                 cs.last_update
-        order by c.country_iso
+      ${getBaseQuery({ assessment, cycle })}
+      order by c.country_iso
     `,
-    [cycle.uuid],
+    [],
     (row) => Objects.camelize(row)
   )
 }
