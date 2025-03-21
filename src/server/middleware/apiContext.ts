@@ -13,7 +13,7 @@ type BaseType = {
   countryIso?: CountryIso
 }
 
-export const populateBaseParams = async (req: Request, _: Response, next: NextFunction): Promise<void> => {
+const initContext = async (req: Request, _: Response, next: NextFunction): Promise<void> => {
   try {
     const params = { ...req.params, ...req.query, ...req.body } as BaseType
     const { assessmentName, cycleName, countryIso } = params
@@ -35,4 +35,8 @@ export const populateBaseParams = async (req: Request, _: Response, next: NextFu
   } catch (error) {
     next(error)
   }
+}
+
+export const ApiContextMiddleware = {
+  initContext,
 }
