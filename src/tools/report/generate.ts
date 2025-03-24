@@ -9,7 +9,7 @@ import { ToolsUtils } from 'tools/utils/toolsUtils'
 import { Dates } from 'utils/dates'
 import { Promises } from 'utils/promises'
 
-import { CountryIso } from 'meta/area'
+import { Areas, CountryIso } from 'meta/area'
 import { AssessmentNames } from 'meta/assessment'
 import { Lang } from 'meta/lang'
 
@@ -20,17 +20,18 @@ import { Logger } from 'server/utils/logger'
 
 const appUri = 'http://localhost:9001'
 const assessmentName = AssessmentNames.fra
+const cycleName = '2025'
+const skipAtlantis = true
 const cookies = {
   'fra-auth-token': ``,
 }
-const cycleName = '2025'
 
 const generateCountryReport = async (props: {
   countryIso: CountryIso
-  lang: Lang
+  lang?: Lang
   outputDir: string
 }): Promise<void> => {
-  const { countryIso, lang, outputDir } = props
+  const { countryIso, lang = Lang.en, outputDir } = props
 
   const buffer = await PdfReport.generate({ appUri, assessmentName, cookies, countryIso, cycleName, lang })
 
@@ -49,18 +50,25 @@ ToolsUtils.exec(async () => {
   )
 
   // reset output dir
-  const dirName = `${assessmentName}-${cycleName}__${Dates.format(new Date(), 'yyyy-MM-dd')}`
-  const outputDir = path.resolve(__dirname, dirName)
+  const outputDirName = 'output'
+  const outputDir = path.resolve(__dirname, outputDirName)
   await fs.rm(outputDir, { recursive: true, force: true })
-  await fs.mkdir(outputDir)
+  // create reports dir
+  const reportsDirName = `${assessmentName}-${cycleName}-reports_${Dates.format(new Date(), 'yyyy-MM-dd')}`
+  const reportsDir = path.resolve(outputDir, reportsDirName)
+  await fs.mkdir(reportsDir, { recursive: true })
 
   const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
   const countries = await AreaController.getCountries({ assessment, cycle })
 
   await Promises.each(countries, async (country, index) => {
     const { countryIso } = country
-    const lang = countryLangs[countryIso]
-    await generateCountryReport({ countryIso, lang, outputDir })
-    Logger.info(`    ${countryIso} (${lang}) (${index + 1}/${countries.length}) generated`)
+    if (!skipAtlantis || !Areas.isAtlantis(countryIso)) {
+      const lang = countryLangs[countryIso]
+      await generateCountryReport({ countryIso, lang, outputDir: reportsDir })
+      Logger.info(`    ${countryIso} (${lang}) (${index + 1}/${countries.length}) generated`)
+    } else {
+      Logger.info(`    ${countryIso} (${index + 1}/${countries.length}) skipped`)
+    }
   })
 })
