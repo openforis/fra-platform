@@ -2,9 +2,8 @@ import { NextFunction, Request, Response } from 'express'
 import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area'
-import { AssessmentName, CycleName } from 'meta/assessment'
+import { Assessment, AssessmentName, Cycle, CycleName } from 'meta/assessment'
 
-import { AssessmentController } from 'server/controller/assessment'
 import { CountryRepository } from 'server/repository/assessmentCycle/country'
 
 type BaseType = {
@@ -21,8 +20,12 @@ const initContext = async (req: Request, _: Response, next: NextFunction): Promi
     Objects.setInPath({ obj: req, path: ['context'], value: {} })
 
     if (assessmentName && cycleName) {
-      const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
-      Objects.setInPath({ obj: req, path: ['context', 'assessment'], value: assessment })
+      // TODO: Fetch and populate from redis
+      // const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+      // Objects.setInPath({ obj: req, path: ['context', 'assessment'], value: assessment })
+
+      const assessment = { props: { name: assessmentName } } as unknown as Assessment
+      const cycle = { name: cycleName } as Cycle
 
       if (countryIso) {
         const country = await CountryRepository.getOne({ assessment, cycle, countryIso })
