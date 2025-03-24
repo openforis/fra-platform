@@ -65,7 +65,7 @@ export const usePathProps = (props: Props): Returned => {
 
   const pathNext = useMemo<string | undefined>(() => {
     if (hasData) return getPath(data) // interpolating to next data
-    if (!hasData && hasDataPrev) return getPathDefault(dataPrev) // exiting from view
+    if (hasDataPrev) return getPathDefault(dataPrev) // exiting from view
     return undefined
   }, [data, dataPrev, getPath, getPathDefault, hasData, hasDataPrev])
 
