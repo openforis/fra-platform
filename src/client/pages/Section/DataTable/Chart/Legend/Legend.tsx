@@ -29,7 +29,7 @@ const Legend: React.FC<Props> = (props) => {
           const { color, label, name: trendName } = trend
           const className = _getLegendTrendClassName({ trendName })
           return (
-            <div key={trendName} className={classNames('chart__legend-item', className)}>
+            <div key={trendName} className={classNames('chart__legend-item', className)} style={{ opacity: 0 }}>
               <div className="chart__legend-item-color" style={{ backgroundColor: color }} />
               <div className="chart__legend-item-label">{label}</div>
             </div>

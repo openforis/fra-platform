@@ -2,13 +2,13 @@ import './style.scss'
 import React from 'react'
 
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import DataTrend from 'client/pages/Section/DataTable/Chart/DataTrend'
 import Legend from 'client/pages/Section/DataTable/Chart/Legend'
 import NoDataPlaceholder from 'client/pages/Section/DataTable/Chart/NoDataPlaceholder'
 import OdpTicks from 'client/pages/Section/DataTable/Chart/OdpTicks'
 import XAxis from 'client/pages/Section/DataTable/Chart/XAxis'
 import YAxis from 'client/pages/Section/DataTable/Chart/YAxis'
 
-import DataTrend from './components/dataTrend'
 import { useChartData } from './hooks/useChartData'
 import { useTrends } from './hooks/useTrends'
 import { useXScale } from './hooks/useXScale'
@@ -40,16 +40,13 @@ const Chart = (props: ChartProps) => {
           return <OdpTicks key={key} trendData={trendData} xScale={xScale} yScale={yScale} />
         })}
 
-        {trends.map((t) => (
-          <DataTrend
-            key={`data-trend-${t.name}`}
-            className={`chart__data-trend-${t.name}`}
-            color={t.color}
-            data={trendsData?.[t.name]}
-            xScale={xScale}
-            yScale={yScale}
-          />
-        ))}
+        {trends.map((trend) => {
+          const { name: trendName } = trend
+          const trendData = trendsData[trendName]
+          const key = `data-trend-${trendName}`
+          return <DataTrend key={key} data={trendData} trend={trend} xScale={xScale} yScale={yScale} />
+        })}
+
         {!print && <NoDataPlaceholder trendsData={trendsData} width={width} />}
       </svg>
     </div>
