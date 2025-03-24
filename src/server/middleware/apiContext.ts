@@ -4,7 +4,7 @@ import { Objects } from 'utils/objects'
 import { CountryIso } from 'meta/area'
 import { Assessment, AssessmentName, Cycle, CycleName } from 'meta/assessment'
 
-import { CountryRepository } from 'server/repository/assessmentCycle/country'
+import { AreaController } from 'server/controller/area'
 
 type BaseType = {
   assessmentName?: AssessmentName
@@ -28,7 +28,7 @@ const initContext = async (req: Request, _: Response, next: NextFunction): Promi
       const cycle = { name: cycleName } as Cycle
 
       if (countryIso) {
-        const country = await CountryRepository.getOne({ assessment, cycle, countryIso })
+        const country = await AreaController.getCountry({ assessment, cycle, countryIso })
         Objects.setInPath({ obj: req, path: ['context', 'country'], value: country })
       }
     }
