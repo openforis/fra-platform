@@ -4,6 +4,7 @@ import 'dotenv/config'
 
 import * as fs from 'fs/promises'
 import * as path from 'path'
+import { CSV } from 'tools/utils/CSV'
 import { ToolsUtils } from 'tools/utils/toolsUtils'
 import { Dates } from 'utils/dates'
 import { Promises } from 'utils/promises'
@@ -23,19 +24,33 @@ const cookies = {
   'fra-auth-token': ``,
 }
 const cycleName = '2025'
-const lang = Lang.en
 
-const generateCountryReport = async (props: { countryIso: CountryIso; outputDir: string }): Promise<void> => {
-  const { countryIso, outputDir } = props
+const generateCountryReport = async (props: {
+  countryIso: CountryIso
+  lang: Lang
+  outputDir: string
+}): Promise<void> => {
+  const { countryIso, lang, outputDir } = props
 
   const buffer = await PdfReport.generate({ appUri, assessmentName, cookies, countryIso, cycleName, lang })
 
-  const fileName = path.resolve(outputDir, `${assessmentName}-${cycleName}-${countryIso}.pdf`)
+  const fileName = path.resolve(outputDir, `${assessmentName}-${cycleName}-${countryIso}_${lang}.pdf`)
   await fs.writeFile(fileName, buffer)
 }
 
 ToolsUtils.exec(async () => {
-  const outputDir = path.resolve(__dirname, `output-${Dates.format(new Date(), 'yyyy-MM-dd')}`)
+  // get country languages from csv file
+  const countryLangsList = await CSV.read<{ ISO3: CountryIso; Country: string; Language: string }>(
+    path.resolve(__dirname, `ISO3_country_lan.csv`)
+  )
+  const countryLangs = countryLangsList.reduce<{ [key in CountryIso]?: Lang }>(
+    (acc, row) => ({ ...acc, [row.ISO3]: row.Language.toLowerCase() }),
+    {}
+  )
+
+  // reset output dir
+  const dirName = `${assessmentName}-${cycleName}__${Dates.format(new Date(), 'yyyy-MM-dd')}`
+  const outputDir = path.resolve(__dirname, dirName)
   await fs.rm(outputDir, { recursive: true, force: true })
   await fs.mkdir(outputDir)
 
@@ -44,7 +59,8 @@ ToolsUtils.exec(async () => {
 
   await Promises.each(countries, async (country, index) => {
     const { countryIso } = country
-    await generateCountryReport({ countryIso, outputDir })
-    Logger.info(`    ${countryIso} (${index + 1}/${countries.length}) generated`)
+    const lang = countryLangs[countryIso]
+    await generateCountryReport({ countryIso, lang, outputDir })
+    Logger.info(`    ${countryIso} (${lang}) (${index + 1}/${countries.length}) generated`)
   })
 })
