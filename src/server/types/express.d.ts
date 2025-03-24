@@ -1,8 +1,8 @@
 import { Country } from 'meta/area'
-import { Assessment } from 'meta/assessment'
 
 export interface RequestContext {
-  assessment?: Assessment
+  // assessment?: Assessment
+  // cycle?: Cycle
   country?: Country
 }
 
