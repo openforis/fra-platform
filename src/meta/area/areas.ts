@@ -1,5 +1,4 @@
 import { i18n } from 'i18next'
-import { Objects } from 'utils/objects'
 import { Strings } from 'utils/strings'
 
 import { AreaCode, Country, CountryIso, Global, RegionCode } from 'meta/area'
@@ -22,8 +21,6 @@ const isFRARegion = (isoCode: string): boolean => fraRegionCodes.includes(isoCod
 const getStatus = (country: Country): AssessmentStatus => {
   const { status } = country?.props ?? {}
 
-  if (Objects.isNil(country?.lastEdit)) return AssessmentStatus.notStarted
-  if (status === AssessmentStatus.notStarted || Objects.isNil(status)) return AssessmentStatus.editing
   return status
 }
 
