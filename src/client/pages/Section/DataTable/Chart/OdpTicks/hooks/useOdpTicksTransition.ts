@@ -21,19 +21,20 @@ export const useOdpTicksTransition = (props: Props): void => {
     // update
     lines
       .transition()
-      .duration(Charts.transitionDuration)
-      .ease(d3.easePolyOut)
+      .duration(Charts.transitions.odpTicks)
+      .ease(d3.easeCircle)
       .attr('x1', (d: TrendDatum) => xScale(d.year))
       .attr('y1', () => yScale(0))
       .attr('x2', (d: TrendDatum) => xScale(d.year))
       .attr('y2', (d: TrendDatum) => yScale(d.value))
+      .style('opacity', '1')
 
     // exit
     lines
       .exit()
       .transition()
-      .duration(Charts.transitionDuration)
-      .ease(d3.easePolyOut)
+      .duration(Charts.transitions.odpTicks)
+      .ease(d3.easeCircle)
       .attr('y2', () => yScale(0))
       .style('opacity', '0')
       .remove()
@@ -50,8 +51,8 @@ export const useOdpTicksTransition = (props: Props): void => {
       .style('stroke', '#cccccc')
       .style('stroke-width', 1)
       .transition()
-      .duration(Charts.transitionDuration)
-      .ease(d3.easePolyOut)
+      .duration(Charts.transitions.odpTicks)
+      .ease(d3.easeCircle)
       .attr('y2', (d: TrendDatum) => yScale(d.value))
       .style('opacity', '1')
   }, [containerRef, trendData, xScale, yScale])

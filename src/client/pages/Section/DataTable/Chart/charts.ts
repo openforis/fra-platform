@@ -1,9 +1,6 @@
 import { RecordTrendData } from './types'
 
-/**
- * @deprecated. Use Charts.styles
- */
-export const styles = {
+const styles = {
   height: 390,
   top: 32,
   left: 65,
@@ -18,11 +15,12 @@ const hasData = (props: { trendsData: RecordTrendData }) => {
 export const Charts = {
   hasData,
   styles,
-  transitionDuration: 400,
+  transitions: {
+    dataPath: 500,
+    dataPoints: 750,
+    legend: 1000,
+    odpTicks: 500,
+    placeholder: 500,
+    yAxis: 500,
+  },
 }
-
-/**
- * @deprecated
- * use Charts.transitionDuration
- */
-export const defaultTransitionDuration = 400

@@ -7,7 +7,8 @@ import * as d3 from 'd3'
 import d3Tip from 'd3-tip'
 import { Numbers } from 'utils/numbers'
 
-import { defaultTransitionDuration } from 'client/pages/Section/DataTable/Chart/charts'
+import { Charts } from 'client/pages/Section/DataTable/Chart/charts'
+import { TrendDatum } from 'client/pages/Section/DataTable/Chart/types'
 
 type Props = any
 
@@ -28,22 +29,22 @@ class DataPoint extends Component<Props, {}> {
       // update
       circle
         .transition()
-        .duration(defaultTransitionDuration)
-        .ease(d3.easePolyOut)
-        .attr('cx', (d: any) => xScale(d.year))
-        .attr('cy', (d: any) => yScale(d.value))
-        .attr('r', (d: any) => (d.type === 'odp' ? 4.5 : 6.5))
-        .style('fill', (d: any) => (d.type === 'fra' ? '#ffffff' : color))
-        .style('stroke', (d: any) => (d.type === 'fra' ? '#333333' : '#ffffff'))
+        .duration(Charts.transitions.dataPoints)
+        .ease(d3.easeCircle)
+        .attr('cx', (d: TrendDatum) => xScale(d.year))
+        .attr('cy', (d: TrendDatum) => yScale(d.value))
+        .attr('r', (d: TrendDatum) => (d.type === 'odp' ? 4.5 : 6.5))
+        .style('fill', (d: TrendDatum) => (d.type === 'fra' ? '#ffffff' : color))
+        .style('stroke', (d: TrendDatum) => (d.type === 'fra' ? '#333333' : '#ffffff'))
         .style('stroke-width', '1.5')
         .style('opacity', '1')
       // exit
       circle
         .exit()
         .transition()
-        .duration(defaultTransitionDuration)
-        .ease(d3.easePolyOut)
-        .attr('cy', (d: any) => yScale(0))
+        .duration(Charts.transitions.dataPoints)
+        .ease(d3.easeCircle)
+        .attr('cy', () => yScale(0))
         .style('opacity', '0')
         .remove()
       // enter
@@ -53,13 +54,13 @@ class DataPoint extends Component<Props, {}> {
         .on('mouseover', this.toolTip.show)
         .on('mouseout', this.toolTip.hide)
         .attr('r', 0)
-        .attr('cx', (d: any) => xScale(1990))
-        .attr('cy', (d: any) => yScale(0))
-        .style('fill', '#ffffff')
+        // .attr('cx', (d: any) => xScale(1990))
         .attr('cx', (d: any) => xScale(d.year))
+        // .attr('cy', (d: any) => yScale(0))
+        .style('fill', '#ffffff')
         .transition()
-        .duration(defaultTransitionDuration)
-        .ease(d3.easePolyOut)
+        .duration(Charts.transitions.dataPoints)
+        .ease(d3.easeBounceIn)
         .attr('cx', (d: any) => xScale(d.year))
         .attr('cy', (d: any) => yScale(d.value))
         .attr('r', (d: any) => (d.type === 'odp' ? 4.5 : 6.5))
@@ -72,7 +73,8 @@ class DataPoint extends Component<Props, {}> {
 
   htmlTooltip(d: any) {
     const data = d?.target?.__data__
-    if (!data) return
+    console.log('=== data', data, d)
+    if (!data) return undefined
     const precision = Number.isInteger(data.value) ? 0 : 2
     return (
       <div>
@@ -104,7 +106,7 @@ class DataPoint extends Component<Props, {}> {
     this.toolTip = d3Tip()
       .attr('class', 'chart__tooltip')
       .offset([-10, 0])
-      .html((d: any) => ReactDOMServer.renderToString(this.htmlTooltip(d)))
+      .html<TrendDatum>((d) => ReactDOMServer.renderToString(this.htmlTooltip(d)))
     // @ts-ignore
     d3.select(this.refs.circles).call(this.toolTip)
     this.update(this.props)

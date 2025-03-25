@@ -11,6 +11,7 @@ const toucanY = 95
 const toucanWidth = 62
 const toucanHeight = 87
 const textY = toucanY + toucanHeight
+const style = { opacity: `0`, transform: `translateY(-${(toucanHeight * 2) / 3}px)` }
 
 type Props = Pick<ChartProps, 'width'> & {
   trendsData: RecordTrendData
@@ -35,11 +36,11 @@ const NoDataPlaceholder = (props: Props) => {
   }, [hasData, hidePlaceholder, showPlaceholder])
 
   return (
-    <g ref={containerRef} className="chart__no-data-placeholder">
+    <g ref={containerRef}>
       <image
         height={toucanHeight}
         href="/img/tucan.svg"
-        style={{ opacity: `0`, transform: `translateY(-${(toucanHeight * 2) / 3}px)` }}
+        style={style}
         width={toucanWidth}
         x={(width - toucanWidth) / 2}
         y={toucanY}

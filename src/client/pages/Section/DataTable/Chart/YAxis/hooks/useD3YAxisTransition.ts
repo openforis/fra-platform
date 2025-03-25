@@ -21,7 +21,7 @@ export const useD3YAxisTransition = (props: Props): void => {
       .selectAll('text')
       .transition()
       .ease(d3.easePolyOut)
-      .duration(Charts.transitionDuration)
+      .duration(Charts.transitions.yAxis)
       .attrTween('fill', () =>
         // hasData -> enter / otherwise update
         hasData ? d3.interpolateRgb('#ffffff', '#666666') : d3.interpolateRgb('#666666', '#666666')
@@ -33,13 +33,13 @@ export const useD3YAxisTransition = (props: Props): void => {
     d3Axis
       .transition()
       .ease(d3.easePolyOut)
-      .duration(Charts.transitionDuration)
+      .duration(Charts.transitions.yAxis)
       .attr('transform', () => `translate(${hasData ? Charts.styles.left : '0'}, 0)`)
     d3.select(unitLabelRef.current)
       .transition()
       .ease(d3.easePolyOut)
       .delay(100)
-      .duration(Charts.transitionDuration)
+      .duration(Charts.transitions.yAxis)
       .style('opacity', () => (hasData ? 1 : 0))
   }, [d3Axis, hasData, unitLabelRef])
 }

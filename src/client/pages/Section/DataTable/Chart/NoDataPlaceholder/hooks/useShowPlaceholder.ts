@@ -19,7 +19,7 @@ export const useShowPlaceholder = (props: Props): Returned => {
     d3.select(containerRef.current)
       .select('image')
       .transition()
-      .duration(Charts.transitionDuration)
+      .duration(Charts.transitions.placeholder)
       .style('opacity', '1')
       .style('transform', `translateY(0)`)
       .ease(d3.easeBounceOut)
@@ -28,7 +28,7 @@ export const useShowPlaceholder = (props: Props): Returned => {
       .selectAll('text')
       .transition()
       .delay(100)
-      .duration(Charts.transitionDuration * 2)
+      .duration(Charts.transitions.placeholder)
       .style('opacity', '1')
   }, [containerRef])
 }
