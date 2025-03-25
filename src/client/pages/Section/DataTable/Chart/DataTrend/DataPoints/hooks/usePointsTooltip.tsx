@@ -31,7 +31,7 @@ const _getHtml = (props: PropsGetHtml): string => {
       </div>
       <div className="chart__tooltip-value-container">
         <div className="chart__tooltip-value">{Numbers.format(datum.value)}</div>
-        <div>(1000 ha)</div>
+        <div>({t<string>('unit.haThousand')})</div>
       </div>
 
       {datum.dataSourceMethods && (
