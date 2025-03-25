@@ -1,0 +1,74 @@
+@import 'client/style/partials';
+
+.chart__data-points circle:hover {
+  cursor: pointer;
+}
+
+// Tooltip
+$bgColorTooltip: rgba(17, 17, 17, 0.85);
+
+.chart__tooltip {
+  line-height: 16px;
+  font-weight: 400;
+  padding: 12px 16px;
+  background: $bgColorTooltip;
+  border-radius: 2px;
+  pointer-events: none;
+  font-size: $font-xs;
+  color: #fff;
+  opacity: 0;
+  text-align: center;
+  transition: opacity 0.2s ease-out 0.1s;
+}
+
+.chart__tooltip:after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: $bgColorTooltip transparent transparent transparent;
+}
+
+.chart__tooltip-container {
+  display: grid;
+  grid-row-gap: $spacing-xxxs;
+  justify-items: start;
+}
+
+// heading
+.chart__tooltip-heading {
+  align-items: center;
+  color: $ui-border;
+  display: flex;
+  gap: $spacing-xxs;
+}
+
+.chart__tooltip-marker {
+  align-self: center;
+  border-radius: 2px;
+  height: 12px;
+  width: 12px;
+}
+
+// value
+.chart__tooltip-value-container {
+  align-items: baseline;
+  display: flex;
+  gap: $spacing-xxxs;
+}
+
+.chart__tooltip-value {
+  font-size: $font-m;
+}
+
+// data sources
+.chart__tooltip-methods {
+  margin-top: $spacing-xxxs;
+}
+
+.chart__tooltip-data-source {
+  text-align: left;
+}
