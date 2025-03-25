@@ -2,6 +2,7 @@ import { Response } from 'express'
 
 import { CycleRequest } from 'meta/api/request'
 
+import { AreaController } from 'server/controller/area'
 import { AssessmentController } from 'server/controller/assessment'
 import { CycleDataController } from 'server/controller/cycleData'
 import Requests from 'server/utils/requests'
@@ -13,14 +14,16 @@ export const copyOriginalDataPointNationalClasses = async (
   try {
     const { assessmentName, countryIso, cycleName, year } = req.query
     const { targetYear } = req.body
+    const user = Requests.getUser(req)
 
     const getOneWithCycleProps = { assessmentName, cycleName, metaCache: true }
     const { assessment, cycle } = await AssessmentController.getOneWithCycle(getOneWithCycleProps)
 
-    const copyNationalClassesProps = { assessment, cycle, countryIso, year, targetYear, user: Requests.getUser(req) }
+    const copyNationalClassesProps = { assessment, cycle, countryIso, year, targetYear, user }
     const returnedOriginalDataPoint = await CycleDataController.copyOriginalDataPointNationalClasses(
       copyNationalClassesProps
     )
+    await AreaController.updateCountryStatus({ assessment, cycle, countryIso, user })
 
     Requests.send(res, returnedOriginalDataPoint)
   } catch (e) {
