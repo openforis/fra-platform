@@ -5,7 +5,6 @@ import { CycleDataRequest, EstimateBody } from 'meta/api/request'
 import { NodeValueEstimationMethod, NodeValuesEstimation, Table, TableNames } from 'meta/assessment'
 import { RecordAssessmentDatas } from 'meta/data'
 
-import { AreaController } from 'server/controller/area'
 import { AssessmentController } from 'server/controller/assessment'
 import { CycleDataController } from 'server/controller/cycleData'
 import { MetadataController } from 'server/controller/metadata'
@@ -75,7 +74,6 @@ export const estimateValues = async (req: CycleDataRequest<never, EstimateBody>,
     const estimation = generateSpecToEstimation({ generateSpec, table })
     const nodes = EstimationEngine.estimateValues(
       years,
-      // originalDataPointValues[assessment.props.name][cycle.name],
       RecordAssessmentDatas.getCycleData({ assessmentName, cycleName, data }),
       generateSpec,
       tableName,
@@ -85,8 +83,8 @@ export const estimateValues = async (req: CycleDataRequest<never, EstimateBody>,
     if (nodes.length) {
       await CycleDataController.persistNodeValuesEstimated({
         assessment,
-        countryIso,
         cycle,
+        countryIso,
         estimation,
         nodes,
         sectionName,
@@ -101,9 +99,7 @@ export const estimateValues = async (req: CycleDataRequest<never, EstimateBody>,
       tableName,
     })
 
-    await AreaController.updateCountryStatus({ assessment, cycle, countryIso, user })
-
-    return Requests.sendOk(res, { nodes, nodeValueEstimations })
+    return Requests.send(res, { nodeValueEstimations })
   } catch (e) {
     return Requests.sendErr(res, e)
   }

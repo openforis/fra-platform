@@ -3,7 +3,6 @@ import { Response } from 'express'
 import { CycleDataRequest } from 'meta/api/request'
 import { Sockets } from 'meta/socket'
 
-import { AreaController } from 'server/controller/area'
 import { AssessmentController } from 'server/controller/assessment'
 import { CycleDataController } from 'server/controller/cycleData'
 import { SocketServer } from 'server/service/socket'
@@ -16,7 +15,6 @@ type Body = {
 export const removeContact = async (req: CycleDataRequest<never, Body>, res: Response) => {
   try {
     const { assessmentName, cycleName, countryIso, sectionName, uuid } = req.query
-
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
     const user = Requests.getUser(req)
 
@@ -24,8 +22,6 @@ export const removeContact = async (req: CycleDataRequest<never, Body>, res: Res
     await CycleDataController.Contacts.remove(props)
 
     SocketServer.emit(Sockets.getRequestReviewSummaryEvent({ assessmentName, cycleName, countryIso }))
-
-    await AreaController.updateCountryStatus({ assessment, cycle, countryIso, user })
 
     Requests.sendOk(res)
   } catch (e) {
