@@ -19,10 +19,11 @@ export const update = async (props: Props, client: BaseProtocol = DB): Promise<C
 
   const { status, ...countryProps } = country.props
 
-  await client.one<Country>(
+  await client.none(
     `
         update ${assessmentCycleName}.country
-        set props = $2
+        set props = $2,
+            status = $3
         where country_iso = $1
     `,
     [countryIso ?? country.countryIso, countryProps, status]
