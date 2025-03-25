@@ -2,6 +2,7 @@ import { Response } from 'express'
 
 import { CycleDataRequest } from 'meta/api/request'
 
+import { AreaController } from 'server/controller/area'
 import { AssessmentController } from 'server/controller/assessment'
 import { CycleDataController } from 'server/controller/cycleData'
 import Requests from 'server/utils/requests'
@@ -9,6 +10,7 @@ import Requests from 'server/utils/requests'
 export const clearTable = async (req: CycleDataRequest, res: Response) => {
   try {
     const { countryIso, assessmentName, cycleName, sectionName, tableName } = req.query
+    const user = Requests.getUser(req)
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({
       assessmentName,
@@ -22,8 +24,10 @@ export const clearTable = async (req: CycleDataRequest, res: Response) => {
       cycle,
       sectionName,
       tableName,
-      user: Requests.getUser(req),
+      user,
     })
+
+    await AreaController.updateCountryStatus({ assessment, cycle, countryIso, user })
 
     return Requests.sendOk(res, nodes)
   } catch (e) {

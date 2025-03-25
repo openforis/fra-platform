@@ -4,7 +4,7 @@ import { User } from 'meta/user'
 
 import { updateCountry } from 'server/controller/area/updateCountry'
 import { BaseProtocol, DB } from 'server/db'
-import { AreaRedisRepository } from 'server/repository/redis/area'
+import { CountryRepository } from 'server/repository/assessmentCycle/country'
 
 type Props = {
   assessment: Assessment
@@ -29,7 +29,7 @@ export const updateCountryStatus = async (props: Props, client: BaseProtocol = D
   }
 
   if ('countryIso' in props) {
-    country = await AreaRedisRepository.getOneCountry({ assessment, cycle, countryIso: props.countryIso })
+    country = await CountryRepository.getOne({ assessment, cycle, countryIso: props.countryIso }, client)
   }
 
   if (country.props.status === AssessmentStatus.notStarted) {
