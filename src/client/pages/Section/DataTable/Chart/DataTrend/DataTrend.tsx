@@ -17,7 +17,7 @@ const DataTrend = (props: Props) => {
   return (
     <g>
       <DataPath data={data} trend={trend} xScale={xScale} yScale={yScale} />
-      <DataPoints color={trend.color} data={data} xScale={xScale} yScale={yScale} />
+      <DataPoints data={data} trend={trend} xScale={xScale} yScale={yScale} />
     </g>
   )
 }

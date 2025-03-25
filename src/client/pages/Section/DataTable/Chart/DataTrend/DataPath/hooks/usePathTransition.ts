@@ -44,8 +44,7 @@ export const usePathTransition = (props: Props): void => {
   useLayoutEffect(() => {
     if (hasDiffs && pathNext && pathPrev) {
       const opacity = hasData ? 1 : 0
-      const fn = firstTransition.current ? transition : throttleTransition
-      fn(pathNext, pathPrev, opacity)
+      throttleTransition(pathNext, pathPrev, opacity)
       firstTransition.current = false
     }
   }, [hasData, hasDiffs, pathNext, pathPrev, throttleTransition, transition])
