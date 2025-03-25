@@ -3,6 +3,7 @@ import { Response } from 'express'
 import { CycleDataRequest, NodesBody } from 'meta/api/request'
 import { NodeUpdate, NodeUpdates } from 'meta/data'
 
+import { AreaController } from 'server/controller/area'
 import { AssessmentController } from 'server/controller/assessment'
 import { CycleDataController } from 'server/controller/cycleData'
 import Requests from 'server/utils/requests'
@@ -21,6 +22,8 @@ export const persistNodeValues = async (req: CycleDataRequest<never, NodesBody>,
     })
     const nodeUpdates: NodeUpdates = { assessmentName, cycleName, countryIso, nodes }
     await CycleDataController.persistNodeValues({ assessment, cycle, nodeUpdates, sectionName, user })
+
+    await AreaController.updateCountryStatus({ assessment, cycle, countryIso, user })
 
     Requests.sendOk(res)
   } catch (e) {
