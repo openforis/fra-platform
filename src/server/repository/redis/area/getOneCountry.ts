@@ -17,7 +17,7 @@ type Props = {
 
 const _validateCountryIso = (countryIso: CountryIso) => {
   if (!Areas.isISOCountry(countryIso)) {
-    throw new Error(`Error: Expected a valid area: country iso\nInstead received: \x1b[43m"${countryIso}"\x1b[0m`)
+    throw new Error(`Error: Expected a valid area: country iso\nInstead received: "${countryIso}"`)
   }
 }
 
