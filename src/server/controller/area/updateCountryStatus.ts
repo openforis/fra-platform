@@ -27,6 +27,7 @@ export const updateCountryStatus = async (props: Props, client: BaseProtocol = D
   if ('country' in props) {
     country = props.country
   }
+
   if ('countryIso' in props) {
     country = await AreaRedisRepository.getOneCountry({ assessment, cycle, countryIso: props.countryIso })
   }
