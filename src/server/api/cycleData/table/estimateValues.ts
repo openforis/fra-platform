@@ -5,6 +5,7 @@ import { CycleDataRequest, EstimateBody } from 'meta/api/request'
 import { NodeValueEstimationMethod, NodeValuesEstimation, Table, TableNames } from 'meta/assessment'
 import { RecordAssessmentDatas } from 'meta/data'
 
+import { AreaController } from 'server/controller/area'
 import { AssessmentController } from 'server/controller/assessment'
 import { CycleDataController } from 'server/controller/cycleData'
 import { MetadataController } from 'server/controller/metadata'
@@ -99,6 +100,8 @@ export const estimateValues = async (req: CycleDataRequest<never, EstimateBody>,
       cycle,
       tableName,
     })
+
+    await AreaController.updateCountryStatus({ assessment, cycle, countryIso, user })
 
     return Requests.sendOk(res, { nodes, nodeValueEstimations })
   } catch (e) {
