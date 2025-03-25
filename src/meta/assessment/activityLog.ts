@@ -54,6 +54,7 @@ export enum ActivityLogMessage {
   userRemove = 'userRemove',
   userRolesUpdate = 'userRolesUpdate',
   userUpdate = 'userUpdate',
+  usersMerge = 'usersMerge',
 }
 
 export interface ActivityLog<Target> {

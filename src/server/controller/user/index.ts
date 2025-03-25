@@ -11,6 +11,7 @@ import { findByResetPassword } from './findByResetPassword'
 import { getManyExport } from './getManyExport'
 import { getProfilePicture } from './getProfilePicture'
 import { invite } from './invite'
+import { mergeUsers } from './mergeUsers'
 import { remove } from './remove'
 import { removeInvitation } from './removeInvitation'
 import { sendInvitationEmail } from './sendInvitationEmail'
@@ -40,4 +41,5 @@ export const UserController = {
   updateRoleProps: UserRoleRepository.updateProps,
   updateSectionAuth: UserRoleRepository.updateSectionAuth,
   updateUserRoles,
+  mergeUsers,
 }

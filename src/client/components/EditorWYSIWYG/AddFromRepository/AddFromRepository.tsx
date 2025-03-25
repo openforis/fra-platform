@@ -26,7 +26,7 @@ const AddFromRepository: React.FC = () => {
   const language = useLanguage()
   const { repositoryOpened, setSelectedFiles } = useRepositoryLinkContext()
 
-  useGetRepositoryItems()
+  const getRepositoryItems = useGetRepositoryItems()
   const isChecked = useIsChecked()
   const onClick = useOnClick()
   const onClose = useOnClose()
@@ -34,8 +34,11 @@ const AddFromRepository: React.FC = () => {
   const repositoryItems = useRepositoryItems()
 
   useEffect(() => {
-    if (repositoryOpened) setSelectedFiles([])
-  }, [repositoryOpened, setSelectedFiles])
+    if (repositoryOpened) {
+      setSelectedFiles([])
+      getRepositoryItems()
+    }
+  }, [repositoryOpened, setSelectedFiles, getRepositoryItems])
 
   if (!repositoryOpened) {
     return null

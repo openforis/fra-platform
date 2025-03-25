@@ -8,9 +8,11 @@ import { RecordAssessmentData, RecordAssessmentDatas, RecordTableData } from 'me
 import { useAssessmentCountry } from 'client/store/area'
 import { useAssessment, useCycle } from 'client/store/assessment'
 import { useOriginalDataPointData } from 'client/store/data/hooks/useOriginalDataPointData'
+import { DataSelector } from 'client/store/data/selectors'
 import { useAppSelector } from 'client/store/store'
 
-export const useRecordAssessmentData = (): RecordAssessmentData => useAppSelector((state) => state.data.tableData)
+export const useRecordAssessmentData = (): RecordAssessmentData =>
+  useAppSelector(DataSelector.TableData.getRecordAssessmentData)
 
 export const useRecordAssessmentDataWithOdp = (): RecordAssessmentData => {
   const assessment = useAssessment()
