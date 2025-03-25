@@ -49,6 +49,10 @@ div.editorWYSIWYG {
       border: unset;
     }
   }
+
+  .icon-reference-files {
+    stroke: none;
+  }
 }
 
 @include print {

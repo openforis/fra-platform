@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react'
+import { useCallback } from 'react'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CountryIso } from 'meta/area'
@@ -13,17 +13,11 @@ export const useGetRepositoryItems = (): Returned => {
   const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
   const dispatch = useAppDispatch()
 
-  const getRepositoryItems = useCallback<Returned>(() => {
+  return useCallback<Returned>(() => {
     const limit: number = undefined
     const page: number = undefined
     const path = ApiEndPoint.CycleData.Repository.many()
     const getDataProps = { assessmentName, cycleName, countryIso, limit, page, path }
     dispatch(TablePaginatedActions.getData(getDataProps))
   }, [assessmentName, cycleName, countryIso, dispatch])
-
-  useEffect(() => {
-    getRepositoryItems()
-  }, [getRepositoryItems])
-
-  return getRepositoryItems
 }

@@ -1,3 +1,5 @@
+import { TFunction } from 'i18next'
+
 import { Cycle, Row, Table } from 'meta/assessment'
 
 import { ColHeader } from 'client/pages/Section/DataTable/Table/types'
@@ -7,6 +9,7 @@ export type PropsTranspose = {
   headers: Array<ColHeader>
   rowsData: Array<Row>
   rowsHeader: Array<Row>
+  t: TFunction
   table: Table
 }
 
@@ -16,3 +19,5 @@ export type ReturnedTranspose = {
   rowsData: Array<Row>
   rowsHeader: Array<Row>
 }
+
+export type TransposeHeaders = (props: PropsTranspose) => Pick<ReturnedTranspose, 'headers' | 'rowsHeader'>
