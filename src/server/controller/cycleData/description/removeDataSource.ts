@@ -6,6 +6,7 @@ import { User } from 'meta/user'
 import { BaseProtocol, DB } from 'server/db'
 import { DescriptionRepository } from 'server/repository/assessmentCycle/descriptions'
 import { MessageTopicRepository } from 'server/repository/assessmentCycle/messageTopic'
+import { CountryService } from 'server/service/country'
 
 import { upsertDescription } from './upsertDescription'
 
@@ -38,5 +39,7 @@ export const removeDataSource = async (props: Props, client: BaseProtocol = DB):
     await upsertDescription({ assessment, cycle, countryIso, sectionName, name, value, user }, t)
     const keyPrefix = Topics.getDataSourceReviewTopicKey(dataSource)
     await MessageTopicRepository.removeMany({ assessment, cycle, keyPrefix }, t)
+
+    await CountryService.setCountryStatusEditing({ assessment, cycle, countryIso, user }, t)
   })
 }

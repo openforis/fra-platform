@@ -7,6 +7,7 @@ import { User } from 'meta/user'
 import { DB } from 'server/db'
 import { NodeValueEstimationRepository } from 'server/repository/assessmentCycle/nodeValueEstimationRepository'
 import { ActivityLogRepository } from 'server/repository/public/activityLog'
+import { CountryService } from 'server/service/country'
 
 import { persistNodeValues } from './persistNodeValues'
 
@@ -43,6 +44,7 @@ export const persistNodeValuesEstimated = async (props: Props): Promise<void> =>
       persistNodeValues(getPersistNodeValuesProps(props), client),
       NodeValueEstimationRepository.create({ assessment, countryIso, cycle, estimation }, client),
       ActivityLogRepository.insertActivityLog({ activityLog: getActivityLog(props), assessment, cycle }, client),
+      CountryService.setCountryStatusEditing({ assessment, cycle, countryIso, user: props.user }, client),
     ])
   })
 }

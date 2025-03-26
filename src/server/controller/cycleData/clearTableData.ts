@@ -10,6 +10,7 @@ import { BaseProtocol, DB } from 'server/db'
 import { DataRepository } from 'server/repository/assessmentCycle/data'
 import { ActivityLogRepository } from 'server/repository/public/activityLog'
 import { DataRedisRepository } from 'server/repository/redis/data'
+import { CountryService } from 'server/service/country'
 import { SocketServer } from 'server/service/socket'
 
 type Props = {
@@ -49,6 +50,7 @@ export const clearTableData = async (props: Props, client: BaseProtocol = DB): P
       user,
     }
     await ActivityLogRepository.insertActivityLog({ activityLog, assessment, cycle }, t)
+    await CountryService.setCountryStatusEditing({ assessment, cycle, countryIso, user }, t)
 
     return nodes
   })

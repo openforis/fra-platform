@@ -6,6 +6,7 @@ import { User } from 'meta/user'
 import { resetMirrorNodes } from 'server/controller/cycleData/resetMirrorNodes'
 import { scheduleUpdateDependencies } from 'server/controller/cycleData/updateDependencies'
 import { BaseProtocol, DB } from 'server/db'
+import { CountryService } from 'server/service/country'
 import { SocketServer } from 'server/service/socket'
 import { Logger } from 'server/utils/logger'
 
@@ -61,6 +62,7 @@ export const persistNodeValues = async (props: Props, client: BaseProtocol = DB)
         client
       )
       SocketServer.emit(nodeUpdateEvent, { nodeUpdates: nodeUpdatesMirrorReset })
+      await CountryService.setCountryStatusEditing({ assessment, cycle, countryIso, user }, client)
 
       // schedule dependencies update
       await scheduleUpdateDependencies({ assessment, cycle, nodeUpdates: nodeUpdatesPersisted, user })

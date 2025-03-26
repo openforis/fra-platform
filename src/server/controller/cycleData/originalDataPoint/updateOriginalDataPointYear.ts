@@ -7,6 +7,7 @@ import { CycleDataController } from 'server/controller/cycleData/index'
 import { BaseProtocol, DB } from 'server/db'
 import { OriginalDataPointRepository } from 'server/repository/assessmentCycle/originalDataPoint'
 import { ActivityLogRepository } from 'server/repository/public/activityLog'
+import { CountryService } from 'server/service/country'
 import { SocketServer } from 'server/service/socket'
 
 import { updateOriginalDataPointsDependentNodes } from './updateDependants/updateOriginalDataPointsDependentNodes'
@@ -40,6 +41,8 @@ export const updateOriginalDataPointYear = async (
     const message = ActivityLogMessage.originalDataPointUpdateYear
     const activityLog = { target: updatedOriginalDataPoint, section: 'odp', message, countryIso, user }
     await ActivityLogRepository.insertActivityLog({ activityLog, assessment, cycle }, t)
+
+    await CountryService.setCountryStatusEditing({ assessment, cycle, countryIso, user }, t)
 
     return updatedOriginalDataPoint
   })

@@ -3,7 +3,6 @@ import { Response } from 'express'
 import { CycleDataRequest } from 'meta/api/request'
 import { CommentableDescriptionName, CommentableDescriptionValue } from 'meta/assessment'
 
-import { AreaController } from 'server/controller/area'
 import { AssessmentController } from 'server/controller/assessment'
 import { CycleDataController } from 'server/controller/cycleData'
 import Requests from 'server/utils/requests'
@@ -20,8 +19,6 @@ export const upsertDescription = async (req: Request, res: Response) => {
 
     const propsUpsert = { assessment, cycle, countryIso, sectionName, name, value, user }
     const description = await CycleDataController.Description.upsertDescription(propsUpsert)
-
-    await AreaController.updateCountryStatus({ assessment, cycle, countryIso, user })
 
     Requests.send(res, description)
   } catch (e) {

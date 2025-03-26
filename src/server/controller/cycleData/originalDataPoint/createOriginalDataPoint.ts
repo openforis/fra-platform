@@ -4,6 +4,7 @@ import { User } from 'meta/user'
 import { BaseProtocol, DB } from 'server/db'
 import { OriginalDataPointRepository } from 'server/repository/assessmentCycle/originalDataPoint'
 import { ActivityLogRepository } from 'server/repository/public/activityLog'
+import { CountryService } from 'server/service/country'
 import { ProcessEnv } from 'server/utils'
 import { NodeEnv } from 'server/utils/processEnv'
 
@@ -35,6 +36,8 @@ export const createOriginalDataPoint = async (props: Props, client: BaseProtocol
       user,
     }
     await ActivityLogRepository.insertActivityLog({ activityLog, assessment, cycle }, t)
+
+    await CountryService.setCountryStatusEditing({ assessment, cycle, countryIso, user }, t)
 
     return createdOriginalDataPoint
   })

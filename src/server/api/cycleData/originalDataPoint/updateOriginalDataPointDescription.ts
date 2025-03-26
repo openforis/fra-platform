@@ -3,7 +3,6 @@ import { Response } from 'express'
 import { CycleRequest } from 'meta/api/request'
 import { OriginalDataPoint } from 'meta/assessment'
 
-import { AreaController } from 'server/controller/area'
 import { AssessmentController } from 'server/controller/assessment'
 import { CycleDataController } from 'server/controller/cycleData'
 import Requests from 'server/utils/requests'
@@ -13,7 +12,7 @@ export const updateOriginalDataPointDescription = async (
   res: Response
 ) => {
   try {
-    const { assessmentName, cycleName, countryIso } = req.query
+    const { assessmentName, cycleName } = req.query
     const { originalDataPoint } = req.body
     const user = Requests.getUser(req)
 
@@ -22,8 +21,6 @@ export const updateOriginalDataPointDescription = async (
 
     const propsUpdate = { assessment, cycle, originalDataPoint, user }
     const returnedOriginalDataPoint = await CycleDataController.updateOriginalDataPointDescription(propsUpdate)
-
-    await AreaController.updateCountryStatus({ assessment, cycle, countryIso, user })
 
     Requests.send(res, returnedOriginalDataPoint)
   } catch (e) {

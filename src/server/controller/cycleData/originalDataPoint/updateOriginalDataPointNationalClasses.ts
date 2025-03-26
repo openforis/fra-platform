@@ -4,6 +4,7 @@ import { User } from 'meta/user'
 import { BaseProtocol, DB } from 'server/db'
 import { OriginalDataPointRepository } from 'server/repository/assessmentCycle/originalDataPoint'
 import { ActivityLogRepository } from 'server/repository/public/activityLog'
+import { CountryService } from 'server/service/country'
 
 type Props = {
   assessment: Assessment
@@ -32,6 +33,10 @@ export const updateOriginalDataPointNationalClasses = async (
       user,
     }
     await ActivityLogRepository.insertActivityLog({ activityLog, assessment, cycle }, t)
+    await CountryService.setCountryStatusEditing(
+      { assessment, cycle, countryIso: updatedOriginalDataPoint.countryIso, user },
+      t
+    )
 
     return updatedOriginalDataPoint
   })

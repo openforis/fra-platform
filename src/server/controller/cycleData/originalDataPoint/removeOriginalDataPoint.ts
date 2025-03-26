@@ -7,6 +7,7 @@ import { BaseProtocol, DB } from 'server/db'
 import { MessageTopicRepository } from 'server/repository/assessmentCycle/messageTopic'
 import { OriginalDataPointRepository } from 'server/repository/assessmentCycle/originalDataPoint'
 import { ActivityLogRepository } from 'server/repository/public/activityLog'
+import { CountryService } from 'server/service/country'
 import { SocketServer } from 'server/service/socket'
 
 import { updateOriginalDataPointDependentNodes } from './updateDependants/updateOriginalDataPointDependentNodes'
@@ -36,6 +37,8 @@ export const removeOriginalDataPoint = async (props: Props, client: BaseProtocol
     const socketProps = { assessmentName, cycleName, countryIso }
     SocketServer.emit(Sockets.getODPDeleteEvent(socketProps), { countryIso, year: originalDataPoint.year })
     SocketServer.emit(Sockets.getRequestReviewSummaryEvent(socketProps))
+
+    await CountryService.setCountryStatusEditing({ assessment, cycle, countryIso, user }, t)
 
     return target
   })
