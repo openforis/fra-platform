@@ -4,6 +4,7 @@ import * as d3 from 'd3'
 import { interpolatePath } from 'd3-interpolate-path'
 import { Functions } from 'utils/functions'
 
+import { useOnUpdate } from 'client/hooks'
 import { Charts } from 'client/pages/Section/DataTable/Chart/charts'
 import { D3ChartAxisScale, Trend, TrendData } from 'client/pages/Section/DataTable/Chart/types'
 
@@ -30,7 +31,7 @@ export const usePathTransition = (props: Props): void => {
 
       d3.select(pathRef.current)
         .transition()
-        .ease(d3.easeCubic)
+        .ease(d3.easeLinear)
         .duration(duration)
         .attrTween('d', () => interpolatePath(prev, next))
         .style('opacity', opacity)
@@ -48,4 +49,12 @@ export const usePathTransition = (props: Props): void => {
       firstTransition.current = false
     }
   }, [hasData, hasDiffs, pathNext, pathPrev, throttleTransition, transition])
+
+  // when xScale updates (width has changed)
+  useOnUpdate(() => {
+    if (pathNext && pathPrev) {
+      const opacity = hasData ? 1 : 0
+      throttleTransition(pathNext, pathPrev, opacity)
+    }
+  }, [hasData, xScale])
 }
