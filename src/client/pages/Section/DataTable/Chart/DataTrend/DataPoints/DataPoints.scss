@@ -5,7 +5,7 @@
 }
 
 // Tooltip
-$bgColorTooltip: rgba(17, 17, 17, 0.85);
+$bgColorTooltip: rgba($ui-black-map, 0.85);
 
 .chart__tooltip {
   line-height: 16px;
@@ -41,9 +41,14 @@ $bgColorTooltip: rgba(17, 17, 17, 0.85);
 // heading
 .chart__tooltip-heading {
   align-items: center;
-  color: $ui-border;
+  border-bottom: 1px solid rgba($ui-black-map, 0.5);
+  color: $ui-bg;
   display: flex;
-  gap: $spacing-xxs;
+  font-weight: 600;
+  gap: $spacing-xxxs;
+  justify-self: center;
+  padding-bottom: $spacing-xxxs;
+  width: 100%;
 }
 
 .chart__tooltip-marker {
@@ -57,7 +62,7 @@ $bgColorTooltip: rgba(17, 17, 17, 0.85);
 .chart__tooltip-value-container {
   align-items: baseline;
   display: flex;
-  gap: $spacing-xxxs;
+  gap: $spacing-xxs;
 }
 
 .chart__tooltip-value {

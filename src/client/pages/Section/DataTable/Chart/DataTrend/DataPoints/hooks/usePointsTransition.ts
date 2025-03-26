@@ -3,7 +3,7 @@ import { RefObject, useLayoutEffect } from 'react'
 import * as d3 from 'd3'
 
 import { Charts } from 'client/pages/Section/DataTable/Chart/charts'
-import { D3ChartAxisScale, Trend, TrendData } from 'client/pages/Section/DataTable/Chart/types'
+import { D3ChartAxisScale, Trend, TrendData, TrendDatum } from 'client/pages/Section/DataTable/Chart/types'
 
 import { usePointsStyleFNs } from './usePointsStyleFNs'
 import { usePointsTooltip } from './usePointsTooltip'
@@ -23,7 +23,10 @@ export const usePointsTransition = (props: Props): void => {
   const tooltip = usePointsTooltip({ containerRef, trend })
 
   useLayoutEffect(() => {
-    const circle = d3.select(containerRef.current).selectAll('circle').data(data)
+    const circle = d3.select(containerRef.current).selectAll('circle').data<TrendDatum>(data)
+
+    // init mouseover/out tooltip
+    circle.on('mouseover', tooltip?.show).on('mouseout', tooltip?.hide)
 
     // update
     circle
@@ -52,8 +55,6 @@ export const usePointsTransition = (props: Props): void => {
     circle
       .enter()
       .append('circle')
-      .on('mouseover', tooltip?.show)
-      .on('mouseout', tooltip?.hide)
       .attr('r', 0)
       // .attr('cx', () => xScale(1990))
       .attr('cx', getCX)

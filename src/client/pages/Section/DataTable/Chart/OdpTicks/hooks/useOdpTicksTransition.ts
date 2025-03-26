@@ -16,17 +16,18 @@ export const useOdpTicksTransition = (props: Props): void => {
   const { containerRef, trendData, xScale, yScale } = props
 
   useLayoutEffect(() => {
-    const lines = d3.select(containerRef.current).selectAll('line').data(trendData)
+    const lines = d3.select(containerRef.current).selectAll('line').data<TrendDatum>(trendData)
 
     // update
     lines
       .transition()
+      .delay(Charts.transitions.odpTicks / 2)
       .duration(Charts.transitions.odpTicks)
-      .ease(d3.easeCircle)
-      .attr('x1', (d: TrendDatum) => xScale(d.year))
+      .ease(d3.easeLinear)
+      .attr('x1', (d) => xScale(d.year))
       .attr('y1', () => yScale(0))
-      .attr('x2', (d: TrendDatum) => xScale(d.year))
-      .attr('y2', (d: TrendDatum) => yScale(d.value))
+      .attr('x2', (d) => xScale(d.year))
+      .attr('y2', (d) => yScale(d.value))
       .style('opacity', '1')
 
     // exit
@@ -34,7 +35,7 @@ export const useOdpTicksTransition = (props: Props): void => {
       .exit()
       .transition()
       .duration(Charts.transitions.odpTicks)
-      .ease(d3.easeCircle)
+      .ease(d3.easeLinear)
       .attr('y2', () => yScale(0))
       .style('opacity', '0')
       .remove()
@@ -43,17 +44,18 @@ export const useOdpTicksTransition = (props: Props): void => {
     lines
       .enter()
       .append('line')
-      .attr('x1', (d: TrendDatum) => xScale(d.year))
+      .attr('x1', (d) => xScale(d.year))
       .attr('y1', () => yScale(0))
-      .attr('x2', (d: TrendDatum) => xScale(d.year))
+      .attr('x2', (d) => xScale(d.year))
       .attr('y2', () => yScale(0))
       .style('opacity', 0)
       .style('stroke', '#cccccc')
       .style('stroke-width', 1)
       .transition()
+      .delay(Charts.transitions.odpTicks / 2)
       .duration(Charts.transitions.odpTicks)
-      .ease(d3.easeCircle)
-      .attr('y2', (d: TrendDatum) => yScale(d.value))
+      .ease(d3.easeLinear)
+      .attr('y2', (d) => yScale(d.value))
       .style('opacity', '1')
   }, [containerRef, trendData, xScale, yScale])
 }

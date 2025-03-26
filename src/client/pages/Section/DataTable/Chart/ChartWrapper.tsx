@@ -1,11 +1,13 @@
-import React, { useCallback, useLayoutEffect, useRef, useState } from 'react'
+import React, { useRef } from 'react'
+
+import { Objects } from 'utils/objects'
 
 import { Table } from 'meta/assessment'
 import { RecordAssessmentData } from 'meta/data'
 
-import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import Chart from 'client/pages/Section/DataTable/Chart/Chart'
-import { DOMs } from 'client/utils/dom'
+
+import { useChartWidth } from './hooks/useChartWidth'
 
 type Props = {
   data: RecordAssessmentData
@@ -15,43 +17,12 @@ type Props = {
 const ChartWrapper = (props: Props) => {
   const { data, table } = props
 
-  const { print } = useIsPrintRoute()
+  const containerRef = useRef<HTMLDivElement>(null)
+  const width = useChartWidth({ containerRef })
 
-  const chartRef = useRef<HTMLDivElement>(null)
-  const [width, setWidth] = useState<number>()
-
-  const updateWidth = useCallback(() => {
-    if (print) {
-      setWidth(960)
-    }
-    const { width: widthUpdate } = DOMs.elementOffset(chartRef.current)
-    setWidth(widthUpdate)
-  }, [print])
-
-  useLayoutEffect(updateWidth, [updateWidth])
-
-  // const onChangeWidth = useCallback(
-  //   // @ts-ignore
-  //   (entries, observer) => {
-  //     console.log({ entries, observer })
-  //     if (print) {
-  //       setWidth(960)
-  //     } else {
-  //       const { width: widthUpdate } = DOMs.elementOffset(chartRef.current)
-  //       setWidth(widthUpdate)
-  //     }
-  //   },
-  //   [print]
-  // )
-  //
-  // // eslint-disable-next-line react-hooks/exhaustive-deps
-  // useEffect(onChangeWidth, [window.innerWidth])
-  //
-  // // on mount and on resize, update width
-  // useOnResize(onChangeWidth, chartRef)
   return (
-    <div ref={chartRef} className="chart__container print-break-after">
-      {width && <Chart data={data} table={table} width={width} />}
+    <div ref={containerRef} className="print-break-after">
+      {!Objects.isNil(width) && <Chart data={data} table={table} width={width} />}
     </div>
   )
 }
