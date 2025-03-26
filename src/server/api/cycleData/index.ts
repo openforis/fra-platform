@@ -7,7 +7,6 @@ import { ApiEndPoint } from 'meta/api/endpoint'
 import { getDashboardItems } from 'server/api/cycleData/dashboard/getDashboardItems'
 import { getHistory } from 'server/api/cycleData/history/getHistory'
 import { getHistoryCount } from 'server/api/cycleData/history/getHistoryCount'
-import { CountryStatusMiddleware } from 'server/middleware'
 import { AuthMiddleware } from 'server/middleware/auth'
 
 import { getActivities } from './activities/getActivities'
@@ -66,35 +65,19 @@ export const CycleDataApi = {
       AuthMiddleware.requireEditTableData,
       getNodeValuesEstimations
     )
-    express.patch(
-      ApiEndPoint.CycleData.Table.nodes(),
-      AuthMiddleware.requireEditTableData,
-      CountryStatusMiddleware.updateCountryStatus,
-      persistNodeValues
-    )
+    express.patch(ApiEndPoint.CycleData.Table.nodes(), AuthMiddleware.requireEditTableData, persistNodeValues)
     express.post(
       ApiEndPoint.CycleData.Table.estimate(),
       queue({ activeLimit: 1 }),
       AuthMiddleware.requireEditTableData,
-      CountryStatusMiddleware.updateCountryStatus,
       estimateValues
     )
-    express.post(
-      ApiEndPoint.CycleData.Table.tableClear(),
-      AuthMiddleware.requireEditTableData,
-      CountryStatusMiddleware.updateCountryStatus,
-      clearTable
-    )
+    express.post(ApiEndPoint.CycleData.Table.tableClear(), AuthMiddleware.requireEditTableData, clearTable)
 
     // Descriptions
     express.get(ApiEndPoint.CycleData.Descriptions.many(), AuthMiddleware.requireView, getDescription)
     express.get(ApiEndPoint.CycleData.Descriptions.history(), AuthMiddleware.requireViewHistory, getDescriptionsHistory)
-    express.put(
-      ApiEndPoint.CycleData.Descriptions.many(),
-      AuthMiddleware.requireEditDescriptions,
-      CountryStatusMiddleware.updateCountryStatus,
-      upsertDescription
-    )
+    express.put(ApiEndPoint.CycleData.Descriptions.many(), AuthMiddleware.requireEditDescriptions, upsertDescription)
     express.get(ApiEndPoint.CycleData.Descriptions.DataSources.many(), AuthMiddleware.requireView, getDataSources)
     express.delete(
       ApiEndPoint.CycleData.Descriptions.DataSources.one(),
@@ -108,7 +91,6 @@ export const CycleDataApi = {
     express.post(
       ApiEndPoint.CycleData.OriginalDataPoint.one(),
       AuthMiddleware.requireEditTableData,
-      CountryStatusMiddleware.updateCountryStatus,
       createOriginalDataPoint
     )
     express.delete(
@@ -121,31 +103,26 @@ export const CycleDataApi = {
     express.put(
       ApiEndPoint.CycleData.OriginalDataPoint.copyNationalClasses(),
       AuthMiddleware.requireEditTableData,
-      CountryStatusMiddleware.updateCountryStatus,
       copyOriginalDataPointNationalClasses
     )
     express.put(
       ApiEndPoint.CycleData.OriginalDataPoint.dataSources(),
       AuthMiddleware.requireEditTableData,
-      CountryStatusMiddleware.updateCountryStatus,
       updateOriginalDataPointDataSources
     )
     express.put(
       ApiEndPoint.CycleData.OriginalDataPoint.description(),
       AuthMiddleware.requireEditTableData,
-      CountryStatusMiddleware.updateCountryStatus,
       updateOriginalDataPointDescription
     )
     express.put(
       ApiEndPoint.CycleData.OriginalDataPoint.originalData(),
       AuthMiddleware.requireEditTableData,
-      CountryStatusMiddleware.updateCountryStatus,
       updateOriginalDataPointOriginalData
     )
     express.put(
       ApiEndPoint.CycleData.OriginalDataPoint.year(),
       AuthMiddleware.requireEditTableData,
-      CountryStatusMiddleware.updateCountryStatus,
       updateOriginalDataPointYear
     )
     express.get(
@@ -157,14 +134,12 @@ export const CycleDataApi = {
     express.put(
       ApiEndPoint.CycleData.OriginalDataPoint.nationalClasses(),
       AuthMiddleware.requireEditTableData,
-      CountryStatusMiddleware.updateCountryStatus,
       updateOriginalDataPointNationalClasses
     )
 
     express.delete(
       ApiEndPoint.CycleData.OriginalDataPoint.nationalClass(),
       AuthMiddleware.requireEditTableData,
-      CountryStatusMiddleware.updateCountryStatus,
       deleteOriginalDataPointNationalClass
     )
 
@@ -193,25 +168,10 @@ export const CycleDataApi = {
 
     // ext node
     // -- Contacts
-    express.post(
-      ApiEndPoint.CycleData.Contacts.one(),
-      AuthMiddleware.requireEditTableData,
-      CountryStatusMiddleware.updateCountryStatus,
-      createContact
-    )
+    express.post(ApiEndPoint.CycleData.Contacts.one(), AuthMiddleware.requireEditTableData, createContact)
     express.get(ApiEndPoint.CycleData.Contacts.many(), AuthMiddleware.requireView, getContacts)
-    express.put(
-      ApiEndPoint.CycleData.Contacts.one(),
-      AuthMiddleware.requireEditTableData,
-      CountryStatusMiddleware.updateCountryStatus,
-      updateContact
-    )
-    express.delete(
-      ApiEndPoint.CycleData.Contacts.one(),
-      AuthMiddleware.requireEditTableData,
-      CountryStatusMiddleware.updateCountryStatus,
-      removeContact
-    )
+    express.put(ApiEndPoint.CycleData.Contacts.one(), AuthMiddleware.requireEditTableData, updateContact)
+    express.delete(ApiEndPoint.CycleData.Contacts.one(), AuthMiddleware.requireEditTableData, removeContact)
 
     // repository
     express.post(ApiEndPoint.CycleData.Repository.one(), AuthMiddleware.requireEditRepositoryItem, createRepositoryItem)

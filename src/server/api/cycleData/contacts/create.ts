@@ -3,6 +3,7 @@ import { Response } from 'express'
 import { CycleDataRequest } from 'meta/api/request'
 import { Contact } from 'meta/cycleData'
 
+import { AreaController } from 'server/controller/area'
 import { AssessmentController } from 'server/controller/assessment'
 import { CycleDataController } from 'server/controller/cycleData'
 import Requests from 'server/utils/requests'
@@ -21,6 +22,8 @@ export const createContact = async (req: CycleDataRequest<never, Body>, res: Res
 
     const props = { assessment, cycle, countryIso, sectionName, user, contact }
     const createdContact = await CycleDataController.Contacts.create(props)
+
+    await AreaController.updateCountryStatus({ assessment, cycle, countryIso, user })
 
     Requests.send(res, createdContact)
   } catch (e) {
