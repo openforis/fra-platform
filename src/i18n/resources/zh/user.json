@@ -1,20 +1,22 @@
 {
   "resetPasswordEmail": {
-    "htmlMessage": "尊敬的 {{user}}\n<br/><br/>\n我们收到了一个重置您FRA账户密码的请求。 \n<br/>\n如果您没有提出这一要求，请忽略这封邮件。\n<br/><br/><br/>\n<a href=\"{{link}}\" style=\"text-decoration: none; background-color: #0098a6;border: 2px solid #00988F;color: white;font-size: 14px;font-weight: 700;    padding: 10px 50px;\">点击此处重设密码</a>\n<br/><br/><br/>\n谢谢！\n<br/>\nFRA工作组 fra@fao.org\n<br/>\n{{- url}}\n      ",
-    "subject": "FRA平台 - 重置密码",
-    "textMessage": "尊敬的 {{user}}\n\n我们收到了一个重置您FRA账户密码的请求。\n如果您没有提出这一要求，请忽略这封邮件。\n\n\n请点击以下链接重置您的密码\n{{- link}}\n\n\n谢谢！,\nFRA工作组 fra@fao.org\n{{- url}}"
+    "htmlMessage": "Dear {{user}}\n<br/><br/>\nWe have received a request to reset your password for your FRA account. \n<br/>\nIf you didn't make this request, you can safely ignore this email.\n<br/><br/><br/>\n<a href=\"{{link}}\" style=\"text-decoration: none; background-color: #0098a6;border: 2px solid #00988F;color: white;font-size: 14px;font-weight: 700;    padding: 10px 50px;\">Click here to reset your password</a>\n<br/><br/><br/>\nThanks,\n<br/>\nThe FRA team fra@fao.org\n<br/>\n{{- url}}\n      ",
+    "subject": "FRA platform - Reset password",
+    "textMessage": "Dear {{user}}\n\nWe have received a request to reset your password for your FRA account. \nIf you didn't make this request, you can safely ignore this email.\n\nClick the following link to reset your password\n{{- link}}\n\n\nThanks,\nThe FRA team fra@fao.org\n{{- url}}"
   },
   "roles": {
-    "ADMINISTRATOR": "管理员",
-    "ALTERNATE_NATIONAL_CORRESPONDENT": "候补国家通讯员",
-    "ALTERNATE_NATIONAL_CORRESPONDENT_other": "候补国家通讯员",
-    "COLLABORATOR": "合作者",
-    "COLLABORATOR_other": "合作者",
-    "NATIONAL_CORRESPONDENT": "国家通讯员",
-    "NATIONAL_CORRESPONDENT_other": "国家通讯员",
-    "REVIEWER": "审核人",
-    "REVIEWER_other": "审查者",
-    "VIEWER": "观察者",
+    "ADMINISTRATOR": "Administrator",
+    "ADMINISTRATOR_other": "Administrators",
+    "ALTERNATE_NATIONAL_CORRESPONDENT": "Alternate national correspondent",
+    "ALTERNATE_NATIONAL_CORRESPONDENT_other": "Alternate national correspondents",
+    "COLLABORATOR": "Collaborator",
+    "COLLABORATOR_other": "Collaborators",
+    "NATIONAL_CORRESPONDENT": "National correspondent",
+    "NATIONAL_CORRESPONDENT_other": "National correspondents",
+    "REVIEWER": "Reviewer",
+    "REVIEWER_other": "Reviewers",
+    "VIEWER": "Viewer",
+    "VIEWER_other": "Viewers",
     "noRole": ""
   }
 }

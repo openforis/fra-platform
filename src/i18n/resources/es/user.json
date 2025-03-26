@@ -1,21 +1,22 @@
 {
   "resetPasswordEmail": {
-    "htmlMessage": "Estimado/a {{user}}\n<br/><br/>\nHemos recibido una solicitud para restablecer la contraseña de su cuenta de FRA. \n<br/>\nSi no ha realizado esta solicitud, puede ignorar este correo electrónico.\n<br/><br/><br/>\n<a href=\"{{link}}\" style=\"text-decoration: none; background-color: #0098a6;border: 2px solid #00988F;color: white;font-size: 14px;font-weight: 700;    padding: 10px 50px;\">Haga clic aquí para restablecer su contraseña</a>\n<br/><br/><br/>\nGracias,\n<br/>\nEl equipo de FRA fra@fao. rg\n<br/>\n{{- url}}\n      ",
-    "subject": "Plataforma FRA - Restablecer contraseña",
-    "textMessage": "Estimado/a {{user}}\n\nHemos recibido una solicitud para restablecer la contraseña de su cuenta de FRA.\nSi usted no hizo esta solicitud, puede ignorar este correo electrónico.\n\nHaga clic en el siguiente enlace para restablecer su contraseña:\n{{- link}}\n\nGracias,\nEl equipo de FRA fra@fao.org\n{{- url}}"
+    "htmlMessage": "Dear {{user}}\n<br/><br/>\nWe have received a request to reset your password for your FRA account. \n<br/>\nIf you didn't make this request, you can safely ignore this email.\n<br/><br/><br/>\n<a href=\"{{link}}\" style=\"text-decoration: none; background-color: #0098a6;border: 2px solid #00988F;color: white;font-size: 14px;font-weight: 700;    padding: 10px 50px;\">Click here to reset your password</a>\n<br/><br/><br/>\nThanks,\n<br/>\nThe FRA team fra@fao.org\n<br/>\n{{- url}}\n      ",
+    "subject": "FRA platform - Reset password",
+    "textMessage": "Dear {{user}}\n\nWe have received a request to reset your password for your FRA account. \nIf you didn't make this request, you can safely ignore this email.\n\nClick the following link to reset your password\n{{- link}}\n\n\nThanks,\nThe FRA team fra@fao.org\n{{- url}}"
   },
   "roles": {
-    "ADMINISTRATOR": "Administrador",
-    "ALTERNATE_NATIONAL_CORRESPONDENT": "Corresponsal Nacional alterno",
-    "ALTERNATE_NATIONAL_CORRESPONDENT_other": "Corresponsales nacionales suplentes",
-    "COLLABORATOR": "Colaborador",
-    "COLLABORATOR_other": "Colaboradores",
-    "NATIONAL_CORRESPONDENT": "Corresponsal Nacional",
-    "NATIONAL_CORRESPONDENT_other": "Corresponsales nacionales",
-    "REVIEWER": "Evaluador",
-    "REVIEWER_other": "Revisores",
-    "VIEWER": "Observador",
-    "VIEWER_other": "Observadores",
+    "ADMINISTRATOR": "Administrator",
+    "ADMINISTRATOR_other": "Administrators",
+    "ALTERNATE_NATIONAL_CORRESPONDENT": "Alternate national correspondent",
+    "ALTERNATE_NATIONAL_CORRESPONDENT_other": "Alternate national correspondents",
+    "COLLABORATOR": "Collaborator",
+    "COLLABORATOR_other": "Collaborators",
+    "NATIONAL_CORRESPONDENT": "National correspondent",
+    "NATIONAL_CORRESPONDENT_other": "National correspondents",
+    "REVIEWER": "Reviewer",
+    "REVIEWER_other": "Reviewers",
+    "VIEWER": "Viewer",
+    "VIEWER_other": "Viewers",
     "noRole": ""
   }
 }

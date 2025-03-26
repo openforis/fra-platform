@@ -4,5 +4,6 @@
     "fileOrLink": "Soit un fichier, soit un lien est requis",
     "nameIsRequired": "Le nom est requis",
     "optionsDisabled": "Le nom, la visibilité publique et la suppression sont désactivés car cet élément est utilisé par :"
-  }
+  },
+  "contentUpdatedOnlyLinks": "The content you have pasted has been updated because it contains invalid html.\nOnly text and links are allowed in this filed."
 }

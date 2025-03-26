@@ -163,7 +163,7 @@
     "ifYes": "Если \"да\"",
     "isThereALawOrOtherGovernmentMandateInSupportOfRestoration": "Существует ли какой-либо закон или другой правительственный мандат в поддержку восстановления лесов?",
     "isThereANationalDefinitionOfRestoration": "Существует ли национальное определение \"восстановления лесов\" в случае утвердительного ответа, дайте определение процессу мониторинга и результатам.",
-    "whatAreTheTargetsSetForTheRestoration": "Каковы цели восстановления лесов? Пример xxx гектар к yyyy году ",
+    "whatAreTheTargetsSetForTheRestoration": "What are the targets set for the restoration? E.g. xxx hectares by year yyyy",
     "whatAreasInNeedOfRestorationHaveBeenIdentified": "Какие площади, нуждающиеся в восстановлении, были идентифицированы и как они были идентифицированы?"
   },
   "growingStock": {

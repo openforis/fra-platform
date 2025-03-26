@@ -1,4 +1,7 @@
 {
+  "validation": {
+    "selectAtLeastNCountries": "Select at least {{count}} countries"
+  },
   "carbonAndGrowingStock": {
     "carbon_stock_biomass_total": "Carbono en la biomasa ($t({{unit}}))",
     "carbon_stock_total": "Total de carbono ($t({{unit}}))",

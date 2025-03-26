@@ -4,5 +4,6 @@
     "fileOrLink": "يجب تحديدإختيار واحد فقط إما الملف أو الرابط",
     "nameIsRequired": "خانة الإسم أجبارية",
     "optionsDisabled": "تم تعطيل العلامة والرؤية العامة والحذف لأن هذا العنصر يتم استخدامه بواسطة:"
-  }
+  },
+  "contentUpdatedOnlyLinks": "The content you have pasted has been updated because it contains invalid html.\nOnly text and links are allowed in this filed."
 }

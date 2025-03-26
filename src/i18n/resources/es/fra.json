@@ -163,7 +163,7 @@
     "ifYes": "Si la respuesta es \"sí\"",
     "isThereALawOrOtherGovernmentMandateInSupportOfRestoration": "¿Existe alguna ley u otro mandato gubernamental que apoye la restauración?",
     "isThereANationalDefinitionOfRestoration": "¿Existe una definición nacional de \"restauración\"? En caso afirmativo, indique la definición, el proceso de seguimiento y los resultados.",
-    "whatAreTheTargetsSetForTheRestoration": "¿Cuáles son los objetivos concretos de restauración? Por ejemplo, xxx hectáreas antes del año aaaa",
+    "whatAreTheTargetsSetForTheRestoration": "What are the targets set for the restoration? E.g. xxx hectares by year yyyy",
     "whatAreasInNeedOfRestorationHaveBeenIdentified": "Describa qué tipo de zonas han sido identificadas como áreas con necesidades de restauración y cómo se han identificado"
   },
   "growingStock": {
