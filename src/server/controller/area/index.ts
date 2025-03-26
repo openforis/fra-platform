@@ -2,7 +2,6 @@ import { CountrySummaryRepository } from 'server/repository/assessmentCycle/coun
 import { AreaRedisRepository } from 'server/repository/redis/area'
 
 import { updateCountry } from './updateCountry'
-import { updateCountryStatus } from './updateCountryStatus'
 
 export const AreaController = {
   getCountries: AreaRedisRepository.getManyCountries,
@@ -12,5 +11,4 @@ export const AreaController = {
   getRegionGroups: AreaRedisRepository.getManyRegionGroups,
   refreshSummaries: CountrySummaryRepository.refreshMaterializedView,
   updateCountry,
-  updateCountryStatus,
 }
