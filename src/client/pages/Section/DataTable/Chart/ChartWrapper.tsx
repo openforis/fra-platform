@@ -21,7 +21,7 @@ const ChartWrapper = (props: Props) => {
   const width = useChartWidth({ containerRef })
 
   return (
-    <div ref={containerRef} className="chart__container print-break-after">
+    <div ref={containerRef} className="print-break-after">
       {!Objects.isNil(width) && <Chart data={data} table={table} width={width} />}
     </div>
   )
