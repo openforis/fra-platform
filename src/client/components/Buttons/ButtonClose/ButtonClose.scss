@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 @import 'src/client/style/partials';
 
 button.btn-close {
@@ -19,7 +21,7 @@ button.btn-close {
 
   &:hover {
     svg {
-      color: darken($ui-destructive, 7%);
+      color: color.adjust($ui-destructive, $lightness: -7%, $space: hsl);
       transform: scale(1.1);
     }
   }

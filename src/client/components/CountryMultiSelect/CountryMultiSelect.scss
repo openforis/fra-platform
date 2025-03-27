@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 @import 'src/client/style/partials';
 
 $icon-size: 14px;
@@ -57,8 +59,8 @@ $icon-size: 14px;
   }
 
   .select__groupHeading {
-    background-color: lighten($ui-bg, 1%);
-    border-bottom: 1px solid lighten($ui-border, 1%);
+    background-color: color.adjust($ui-bg, $lightness: 1%, $space: hsl);
+    border-bottom: 1px solid color.adjust($ui-border, $lightness: 1%, $space: hsl);
   }
 }
 

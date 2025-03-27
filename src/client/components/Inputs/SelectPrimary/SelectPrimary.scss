@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 @import 'src/client/style/partials';
 
 // only size s for now (for size proportion see ButtonSize)
@@ -59,7 +61,7 @@ div.select-primary__container {
     background-color: white;
 
     div.select__placeholder {
-      color: rgba(darken($ui-accent, 10%), 0.5);
+      color: rgba(color.adjust($ui-accent, $lightness: -10%, $space: hsl), 0.5);
     }
 
     div.select__singleValue {

@@ -1,7 +1,9 @@
+@use 'sass:color';
+
 @import 'src/client/style/partials';
 
 .sliding-panel {
-  background: lighten($ui-bg, 2%);
+  background: color.adjust($ui-bg, $lightness: 2%, $space: hsl);
   padding: $spacing-l $spacing-s $spacing-s;
   position: relative;
 }

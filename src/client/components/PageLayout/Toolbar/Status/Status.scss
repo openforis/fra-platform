@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 @import 'src/client/style/partials';
 
 .nav-header__status {
@@ -39,7 +41,7 @@
 
   &.status-review {
     background-color: $ui-status-review;
-    border: 1px solid darken($ui-status-review, 5%);
+    border: 1px solid color.adjust($ui-status-review, $lightness: -5%, $space: hsl);
   }
 
   &.status-accepted {

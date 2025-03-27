@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 @import 'src/client/style/partials';
 
 .edit-user__form-item {
@@ -35,7 +37,7 @@
   font-weight: bold;
   text-transform: uppercase;
   font-size: $font-xxs;
-  color: lighten($text-mute, 10%);
+  color: color.adjust($text-mute, $lightness: 10%, $space: hsl);
 }
 
 .edit-user__form-field {
@@ -83,7 +85,7 @@
 .edit-user__picture-img-invalid {
   position: absolute;
   bottom: -5px;
-  color: lighten($ui-destructive, 1%);
+  color: color.adjust($ui-destructive, $lightness: 1%, $space: hsl);
   font-weight: bold;
   font-size: $font-xs;
 }

@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 @import 'src/client/style/partials';
 
 .table-paginated-paginator {
@@ -17,7 +19,7 @@
 
     &.disabled {
       &:hover {
-        background-color: darken($ui-bg, 4%);
+        background-color: color.adjust($ui-bg, $lightness: -4%, $space: hsl);
       }
     }
 
@@ -32,7 +34,7 @@
     }
 
     &:hover {
-      background-color: darken($ui-bg, 4%);
+      background-color: color.adjust($ui-bg, $lightness: -4%, $space: hsl);
     }
 
     &.selected {
