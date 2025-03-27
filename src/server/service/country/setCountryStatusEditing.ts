@@ -4,7 +4,6 @@ import { User } from 'meta/user'
 
 import { AreaController } from 'server/controller/area'
 import { BaseProtocol, DB } from 'server/db'
-import { CountryRepository } from 'server/repository/assessmentCycle/country'
 
 type Props = {
   assessment: Assessment
@@ -16,7 +15,7 @@ type Props = {
 export const setCountryStatusEditing = async (props: Props, client: BaseProtocol = DB) => {
   const { assessment, cycle, countryIso, user } = props
 
-  const country: Country = await CountryRepository.getOne({ assessment, cycle, countryIso }, client)
+  const country: Country = await AreaController.getCountry({ assessment, cycle, countryIso }, client)
 
   if (country.props.status === AssessmentStatus.notStarted) {
     country.props.status = AssessmentStatus.editing

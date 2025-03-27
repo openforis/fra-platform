@@ -7,18 +7,22 @@ import { ActivityLogRepository } from 'server/repository/public/activityLog'
 
 type Props = {
   assessment: Assessment
-  cycleSource?: Cycle
   name: string
   user: User
+  cycleSource?: Cycle
+  withCountries?: boolean
 }
 
 type Returned = { assessment: Assessment; cycle: Cycle }
 
 export const createCycle = async (props: Props, client: BaseProtocol = DB): Promise<Returned> => {
-  const { assessment, cycleSource, name, user } = props
+  const { assessment, cycleSource, name, user, withCountries } = props
 
   return client.tx(async (t) => {
-    const { assessment: updatedAssessment, cycle } = await CycleRepository.create({ assessment, cycleSource, name }, t)
+    const { assessment: updatedAssessment, cycle } = await CycleRepository.create(
+      { assessment, cycleSource, name, withCountries },
+      t
+    )
 
     const message = ActivityLogMessage.assessmentCycleCreate
     const activityLog = { target: updatedAssessment, section: 'assessment', message, user }
