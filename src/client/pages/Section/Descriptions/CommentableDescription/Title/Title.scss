@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 @import 'src/client/style/partials';
 
 div.description-title {
@@ -12,11 +14,11 @@ div.description-title {
 }
 
 .description-title__btn-edit {
-  color: darken($ui-accent, 2%);
+  color: color.adjust($ui-accent, $lightness: -2%, $space: hsl);
   padding: 0 $spacing-xxs;
   white-space: nowrap;
 
   &:hover {
-    color: darken($ui-accent, 6%);
+    color: color.adjust($ui-accent, $lightness: -6%, $space: hsl);
   }
 }

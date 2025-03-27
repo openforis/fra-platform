@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 @import 'src/client/style/partials';
 
 .country-status-indicator {
@@ -35,7 +37,7 @@
   }
 
   .status-approval-label {
-    color: darken($ui-status-review, 13%);
+    color: color.adjust($ui-status-review, $lightness: -13%, $space: hsl);
     font-weight: 600;
   }
 }

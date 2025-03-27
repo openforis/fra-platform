@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 @import 'src/client/style/partials';
 
 .toaster-container {
@@ -26,28 +28,28 @@
   color: $text-heading;
   &.error {
     border-color: $ui-destructive;
-    background-color: lighten($ui-destructive, 55%);
+    background-color: color.adjust($ui-destructive, $lightness: 55%, $space: hsl);
     .toast-icon {
       color: $ui-destructive;
     }
   }
   &.info {
     border-color: $ui-accent;
-    background-color: lighten($ui-accent, 55%);
+    background-color: color.adjust($ui-accent, $lightness: 55%, $space: hsl);
     .toast-icon {
       color: $ui-accent;
     }
   }
   &.success {
     border-color: $ui-status-accepted;
-    background-color: lighten($ui-status-accepted, 35%);
+    background-color: color.adjust($ui-status-accepted, $lightness: 35%, $space: hsl);
     .toast-icon {
       color: $ui-status-accepted;
     }
   }
   &.warning {
     border-color: $ui-status-review;
-    background-color: lighten($ui-status-review, 35%);
+    background-color: color.adjust($ui-status-review, $lightness: 35%, $space: hsl);
     .toast-icon {
       color: $ui-status-review;
     }

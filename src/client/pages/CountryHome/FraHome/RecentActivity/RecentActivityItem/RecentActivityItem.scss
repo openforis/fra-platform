@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 @import 'src/client/style/partials';
 
 .landing__activity-item {
@@ -32,7 +34,7 @@
   > .controls__separator {
     width: 1px;
     height: 60%;
-    background: radial-gradient($ui-border, lighten($ui-border, 12%));
+    background: radial-gradient($ui-border, color.adjust($ui-border, $lightness: 12%, $space: hsl));
     margin: auto $spacing-xxs;
   }
 }

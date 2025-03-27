@@ -1,8 +1,10 @@
+@use 'sass:color';
+
 @import 'src/client/style/partials';
 
 .toolbar-editor {
   align-items: center;
-  border: 1px dashed lighten($ui-edit-border-color, 15%);
+  border: 1px dashed color.adjust($ui-edit-border-color, $lightness: 15%, $space: hsl);
   display: flex;
   column-gap: $spacing-xs;
   height: calc(100% + 2px);
