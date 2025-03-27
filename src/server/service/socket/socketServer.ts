@@ -35,6 +35,12 @@ const emit = (event: string, ...args: any[]) => {
   io.emit(event, args)
 }
 
+// SocketService
+// Country,
+// =======> Country.notifyStatusUpdate
+//          SocketServer.emit(countryUpdateStatus, { [countryIso]: CountryStatus })
+
+// Untouched: Rename file to SocketServer
 export const SocketServer = {
   init,
   emit,
