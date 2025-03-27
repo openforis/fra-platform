@@ -10,6 +10,7 @@ export const clearTable = async (req: CycleDataRequest, res: Response) => {
   try {
     const { countryIso, assessmentName, cycleName, sectionName, tableName } = req.query
     const user = Requests.getUser(req)
+    const { country } = req.context
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({
       assessmentName,
@@ -19,6 +20,7 @@ export const clearTable = async (req: CycleDataRequest, res: Response) => {
 
     const nodes = await CycleDataController.clearTableData({
       assessment,
+      country,
       countryIso,
       cycle,
       sectionName,

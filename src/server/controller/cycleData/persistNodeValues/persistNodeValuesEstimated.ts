@@ -1,4 +1,4 @@
-import { CountryIso } from 'meta/area'
+import { Country, CountryIso } from 'meta/area'
 import { ActivityLog, ActivityLogMessage, Assessment, Cycle } from 'meta/assessment'
 import { NodeValuesEstimation } from 'meta/assessment/nodeValuesEstimation'
 import { NodeUpdate } from 'meta/data'
@@ -14,6 +14,7 @@ import { persistNodeValues } from './persistNodeValues'
 type Props = {
   assessment: Assessment
   countryIso: CountryIso
+  country: Country
   cycle: Cycle
   estimation: NodeValuesEstimation
   nodes: Array<NodeUpdate>
@@ -28,23 +29,23 @@ const getActivityLog = (props: Props): ActivityLog<NodeValuesEstimation> => {
 }
 
 const getPersistNodeValuesProps = (props: Props): Parameters<typeof persistNodeValues>['0'] => {
-  const { assessment, countryIso, cycle, nodes, sectionName, user } = props
+  const { assessment, cycle, country, countryIso, nodes, sectionName, user } = props
 
   const nodeUpdates = { assessmentName: assessment.props.name, cycleName: cycle.name, countryIso, nodes }
   const activityLogMessage = ActivityLogMessage.nodeValueEstimate
 
-  return { assessment, cycle, activityLogMessage, nodeUpdates, sectionName, user }
+  return { assessment, cycle, country, activityLogMessage, nodeUpdates, sectionName, user }
 }
 
 export const persistNodeValuesEstimated = async (props: Props): Promise<void> => {
-  const { assessment, countryIso, cycle, estimation } = props
+  const { assessment, cycle, countryIso, country, estimation } = props
 
   await DB.tx(async (client) => {
     await Promise.all([
       persistNodeValues(getPersistNodeValuesProps(props), client),
       NodeValueEstimationRepository.create({ assessment, countryIso, cycle, estimation }, client),
       ActivityLogRepository.insertActivityLog({ activityLog: getActivityLog(props), assessment, cycle }, client),
-      CountryService.setCountryStatusEditing({ assessment, cycle, countryIso, user: props.user }, client),
+      CountryService.setCountryStatusEditing({ assessment, cycle, country, user: props.user }, client),
     ])
   })
 }

@@ -1,3 +1,4 @@
+import { Country } from 'meta/area'
 import { ActivityLogMessage, Assessment, Cycle, OriginalDataPoint } from 'meta/assessment'
 import { User } from 'meta/user'
 
@@ -11,6 +12,7 @@ import { updateOriginalDataPointDependentNodes } from './updateDependants/update
 type Props = {
   assessment: Assessment
   cycle: Cycle
+  country: Country
   originalDataPoint: OriginalDataPoint
   user: User
   sectionName: string
@@ -20,7 +22,7 @@ export const updateOriginalDataPointOriginalData = async (
   props: Props,
   client: BaseProtocol = DB
 ): Promise<OriginalDataPoint> => {
-  const { assessment, cycle, sectionName, originalDataPoint, user } = props
+  const { assessment, cycle, sectionName, originalDataPoint, user, country } = props
   const { countryIso } = originalDataPoint
 
   const odpReturn = await client.tx(async (t) => {
@@ -37,7 +39,7 @@ export const updateOriginalDataPointOriginalData = async (
       user,
     }
     await ActivityLogRepository.insertActivityLog({ activityLog, assessment, cycle }, t)
-    await CountryService.setCountryStatusEditing({ assessment, cycle, countryIso, user }, t)
+    await CountryService.setCountryStatusEditing({ assessment, cycle, country, user }, t)
 
     return updatedOriginalDataPoint
   })

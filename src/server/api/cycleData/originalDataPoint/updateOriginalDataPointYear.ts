@@ -13,12 +13,13 @@ export const updateOriginalDataPointYear = async (
   try {
     const { assessmentName, cycleName, countryIso, sectionName } = req.query
     const { id, targetYear, year } = req.body
+    const { country } = req.context
 
     const metaCache = true
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName, metaCache })
 
     const user = Requests.getUser(req)
-    const propsUpdate = { assessment, cycle, sectionName, countryIso, id, year, targetYear, user }
+    const propsUpdate = { assessment, cycle, sectionName, countryIso, country, id, year, targetYear, user }
 
     const returnedOriginalDataPoint = await CycleDataController.updateOriginalDataPointYear(propsUpdate)
 

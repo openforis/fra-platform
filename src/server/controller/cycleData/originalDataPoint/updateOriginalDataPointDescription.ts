@@ -1,3 +1,4 @@
+import { Country } from 'meta/area'
 import { ActivityLogMessage, Assessment, Cycle, OriginalDataPoint } from 'meta/assessment'
 import { User } from 'meta/user'
 
@@ -9,6 +10,7 @@ import { CountryService } from 'server/service/country'
 type Props = {
   assessment: Assessment
   cycle: Cycle
+  country: Country
   originalDataPoint: OriginalDataPoint
   user: User
 }
@@ -17,7 +19,7 @@ export const updateOriginalDataPointDescription = async (
   props: Props,
   client: BaseProtocol = DB
 ): Promise<OriginalDataPoint> => {
-  const { assessment, cycle, originalDataPoint, user } = props
+  const { assessment, cycle, originalDataPoint, user, country } = props
 
   return client.tx(async (t) => {
     const updatedOriginalDataPoint = await OriginalDataPointRepository.updateDescription(
@@ -29,15 +31,12 @@ export const updateOriginalDataPointDescription = async (
       target: updatedOriginalDataPoint,
       section: 'odp',
       message: ActivityLogMessage.originalDataPointUpdateDescription,
-      countryIso: originalDataPoint.countryIso,
+      countryIso: country.countryIso,
       user,
     }
     await ActivityLogRepository.insertActivityLog({ activityLog, assessment, cycle }, t)
 
-    await CountryService.setCountryStatusEditing(
-      { assessment, cycle, countryIso: updatedOriginalDataPoint.countryIso, user },
-      t
-    )
+    await CountryService.setCountryStatusEditing({ assessment, cycle, country, user }, t)
 
     return updatedOriginalDataPoint
   })

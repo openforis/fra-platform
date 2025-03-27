@@ -1,4 +1,4 @@
-import { CountryIso } from 'meta/area'
+import { Country, CountryIso } from 'meta/area'
 import { ActivityLogMessage, Assessment, Cycle } from 'meta/assessment'
 import { NodeUpdate } from 'meta/data'
 import { Sockets } from 'meta/socket'
@@ -17,13 +17,14 @@ type Props = {
   assessment: Assessment
   cycle: Cycle
   countryIso: CountryIso
+  country: Country
   sectionName: string
   tableName: string
   user: User
 }
 
 export const clearTableData = async (props: Props, client: BaseProtocol = DB): Promise<Array<NodeUpdate>> => {
-  const { assessment, cycle, tableName, countryIso, user, sectionName } = props
+  const { assessment, cycle, countryIso, tableName, country, user, sectionName } = props
   const assessmentName = assessment.props.name
   const cycleName = cycle.name
 
@@ -50,7 +51,7 @@ export const clearTableData = async (props: Props, client: BaseProtocol = DB): P
       user,
     }
     await ActivityLogRepository.insertActivityLog({ activityLog, assessment, cycle }, t)
-    await CountryService.setCountryStatusEditing({ assessment, cycle, countryIso, user }, t)
+    await CountryService.setCountryStatusEditing({ assessment, cycle, country, user }, t)
 
     return nodes
   })

@@ -14,6 +14,7 @@ export const createOriginalDataPoint = async (
   try {
     const { assessmentName, cycleName, sectionName } = req.query
     const { originalDataPoint } = req.body
+    const { country } = req.context
 
     if (!originalDataPoint.year) {
       throw new Error(`odpMissingYear`)
@@ -22,7 +23,7 @@ export const createOriginalDataPoint = async (
     const metaCache = true
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName, metaCache })
 
-    const propsCreate = { assessment, cycle, originalDataPoint, sectionName, user: Requests.getUser(req) }
+    const propsCreate = { assessment, cycle, country, originalDataPoint, sectionName, user: Requests.getUser(req) }
     const returnedOriginalDataPoint = await CycleDataController.createOriginalDataPoint(propsCreate)
 
     Requests.send(res, returnedOriginalDataPoint)

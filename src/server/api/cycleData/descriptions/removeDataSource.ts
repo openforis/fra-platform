@@ -13,11 +13,12 @@ type Request = CycleDataRequest<{ uuid: string }>
 export const removeDataSource = async (req: Request, res: Response) => {
   try {
     const { assessmentName, sectionName, cycleName, countryIso, uuid } = req.query
+    const { country } = req.context
 
     const user = Requests.getUser(req)
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
-    const propsDelete = { assessment, cycle, countryIso, sectionName, uuid, user }
+    const propsDelete = { assessment, cycle, countryIso, country, sectionName, uuid, user }
     await CycleDataController.Description.removeDataSource(propsDelete)
 
     SocketServer.emit(Sockets.getRequestReviewSummaryEvent({ assessmentName, cycleName, countryIso }))
