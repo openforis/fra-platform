@@ -4,26 +4,19 @@ import { useTranslation } from 'react-i18next'
 import { Table, Tables } from 'meta/assessment'
 
 import { useCycle } from 'client/store/assessment'
+import { Trends } from 'client/pages/Section/DataTable/Chart/types'
 
 type Props = {
   table: Table
 }
 
-export type Trend = {
-  color: string
-  label: string
-  name: string
-}
-
-type Returned = Array<Trend>
-
-export const useTrends = (props: Props): Returned => {
+export const useTrends = (props: Props): Trends => {
   const { table } = props
 
   const { t } = useTranslation()
   const cycle = useCycle()
 
-  return useMemo<Returned>(() => {
+  return useMemo<Trends>(() => {
     return Tables.getChartRows({ table, cycle }).map((row) => ({
       name: row.props.variableName,
       label: t(row.props.chart[cycle.uuid].labelKey),
