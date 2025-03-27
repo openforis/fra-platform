@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 @import 'src/client/style/partials';
 
 .message {
@@ -30,7 +32,7 @@
     align-items: center;
 
     &.author-me {
-      color: darken($ui-accent, 2%);
+      color: color.adjust($ui-accent, $lightness: -2%, $space: hsl);
     }
   }
   .message-time {

@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 @import 'src/client/style/partials';
 
 $login-height: 50vh;
@@ -37,7 +39,7 @@ $login-height: 50vh;
 
     &:hover {
       color: white;
-      background-color: lighten($ui-accent, 5%);
+      background-color: color.adjust($ui-accent, $lightness: 5%, $space: hsl);
     }
   }
 }

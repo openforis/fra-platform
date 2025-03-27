@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 @import 'src/client/style/partials';
 
 .country-header {
@@ -32,7 +34,7 @@
 
   a.button__type-black.inverse {
     background-color: $ui-bg;
-    color: lighten($ui-black-map, 30%);
+    color: color.adjust($ui-black-map, $lightness: 30%, $space: hsl);
 
     &:hover {
       background-color: $ui-bg-hover;

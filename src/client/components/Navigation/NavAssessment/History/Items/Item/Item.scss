@@ -1,7 +1,9 @@
+@use 'sass:color';
+
 @use 'sass:math';
 @import 'src/client/style/partials';
 
-$color: darken($ui-bg, 20%);
+$color: color.adjust($ui-bg, $lightness: -20%, $space: hsl);
 
 .history-item__separator {
   background-color: $color;
@@ -51,7 +53,7 @@ $color: darken($ui-bg, 20%);
   }
 
   &:hover {
-    background-color: lighten($ui-accent-light, 11%);
+    background-color: color.adjust($ui-accent-light, $lightness: 11%, $space: hsl);
 
     svg {
       color: $ui-black-map;
@@ -60,7 +62,7 @@ $color: darken($ui-bg, 20%);
   }
 
   &.diffActive {
-    background-color: lighten($ui-accent-light, 10%);
+    background-color: color.adjust($ui-accent-light, $lightness: 10%, $space: hsl);
     border-color: $ui-black-map;
 
     svg {
@@ -93,7 +95,7 @@ $color: darken($ui-bg, 20%);
 }
 
 .history-item__timestamp {
-  color: darken($text-disabled, 5%);
+  color: color.adjust($text-disabled, $lightness: -5%, $space: hsl);
   font-size: $font-xxxs;
   font-weight: 600;
   margin-bottom: -$spacing-xxxxs;
