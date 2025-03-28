@@ -1,4 +1,5 @@
 import { Assessment } from 'meta/assessment/assessment'
+import { Cycle, CycleStatus } from 'meta/assessment/cycle'
 
 const isPublished = (cycle: Cycle): boolean => {
   return cycle.props.status === CycleStatus.published
