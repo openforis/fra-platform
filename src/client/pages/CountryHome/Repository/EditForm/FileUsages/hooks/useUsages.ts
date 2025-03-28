@@ -1,7 +1,9 @@
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Labels, SectionNames, SubSections } from 'meta/assessment'
+import { Labels } from 'meta/assessment'
+import { SectionNames } from 'meta/assessment/section'
+import { SubSections } from 'meta/assessment/subSections'
 
 import { useAssessment, useCycle } from 'client/store/assessment'
 import { useSections } from 'client/store/metadata'

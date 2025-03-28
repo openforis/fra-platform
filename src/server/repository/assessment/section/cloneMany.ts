@@ -1,7 +1,10 @@
 import * as pgPromise from 'pg-promise'
 
-import { Assessment, Section, Sections, SubSection, SubSections } from 'meta/assessment'
+import { Assessment } from 'meta/assessment'
 import { Cycle } from 'meta/assessment/cycle'
+import { Section, SubSection } from 'meta/assessment/section'
+import { Sections } from 'meta/assessment/sections'
+import { SubSections } from 'meta/assessment/subSections'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'
 

@@ -1,4 +1,4 @@
-import { SectionName, SectionNames } from 'meta/assessment'
+import { SectionName, SectionNames } from 'meta/assessment/section'
 
 import { useCanViewReview } from 'client/store/user/hooks'
 import { useIsEditODPEnabled } from 'client/pages/OriginalDataPoint/hooks/useIsEditODPEnabled'

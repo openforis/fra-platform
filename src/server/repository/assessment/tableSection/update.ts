@@ -1,6 +1,7 @@
 import { Objects } from 'utils/objects'
 
-import { Assessment, TableSection } from 'meta/assessment'
+import { Assessment } from 'meta/assessment'
+import { TableSection } from 'meta/assessment/tableSection'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'
 

@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react'
 
-import { SectionName } from 'meta/assessment'
+import { SectionName } from 'meta/assessment/section'
 
 export type SectionContextValue = {
   sectionName: SectionName

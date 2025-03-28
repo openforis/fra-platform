@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import { Objects } from 'utils/objects'
 
-import { SubSections } from 'meta/assessment'
+import { SubSections } from 'meta/assessment/subSections'
 import { CollaboratorPermissions } from 'meta/user'
 
 import { useCycle } from 'client/store/assessment'

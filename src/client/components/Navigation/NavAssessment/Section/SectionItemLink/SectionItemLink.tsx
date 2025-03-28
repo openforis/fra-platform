@@ -5,7 +5,9 @@ import { NavLink } from 'react-router-dom'
 
 import classNames from 'classnames'
 
-import { Labels, SubSection, SubSections } from 'meta/assessment'
+import { Labels } from 'meta/assessment'
+import { SubSection } from 'meta/assessment/section'
+import { SubSections } from 'meta/assessment/subSections'
 import { Routes } from 'meta/routes'
 
 import { useAppDispatch } from 'client/store'
@@ -38,12 +40,6 @@ const SectionItemLink: React.FC<Props> = (props) => {
 
   return (
     <NavLink
-      to={Routes.Section.generatePath({
-        assessmentName: assessment.props.name,
-        cycleName: cycle.name,
-        countryIso,
-        sectionName,
-      })}
       className={(navData) =>
         classNames('nav-section__item', {
           selected: navData.isActive,
@@ -54,6 +50,12 @@ const SectionItemLink: React.FC<Props> = (props) => {
           dispatch(NavigationActions.toggleNavigationVisible())
         }
       }}
+      to={Routes.Section.generatePath({
+        assessmentName: assessment.props.name,
+        cycleName: cycle.name,
+        countryIso,
+        sectionName,
+      })}
     >
       <div className="nav-section__order">
         {t(SubSections.getAnchorLabel({ assessment, cycle, subSection }), SubSections.getAnchor({ cycle, subSection }))}

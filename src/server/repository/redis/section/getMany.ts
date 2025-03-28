@@ -1,5 +1,6 @@
-import { Assessment, Section } from 'meta/assessment'
+import { Assessment } from 'meta/assessment'
 import { Cycle } from 'meta/assessment/cycle'
+import { Section } from 'meta/assessment/section'
 
 import { BaseProtocol, DB } from 'server/db'
 import { getKeyCycle, Keys } from 'server/repository/redis/keys'

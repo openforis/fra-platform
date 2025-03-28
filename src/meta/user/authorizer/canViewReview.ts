@@ -1,8 +1,8 @@
 import { Objects } from 'utils/objects'
 
 import { Areas, AssessmentStatus, Country } from 'meta/area'
-import { Section, SubSection } from 'meta/assessment'
 import { Cycle } from 'meta/assessment/cycle'
+import { Section, SubSection } from 'meta/assessment/section'
 import { User } from 'meta/user/user'
 
 import { Collaborator, CollaboratorEditPropertyType, CollaboratorSectionsPermission, RoleName } from '../userRole'

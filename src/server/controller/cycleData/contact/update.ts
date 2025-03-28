@@ -1,6 +1,7 @@
 import { CountryIso } from 'meta/area'
-import { ActivityLogMessage, Assessment, NodeValue, SectionNames } from 'meta/assessment'
+import { ActivityLogMessage, Assessment, NodeValue } from 'meta/assessment'
 import { Cycle } from 'meta/assessment/cycle'
+import { SectionNames } from 'meta/assessment/section'
 import { ContactNode } from 'meta/cycleData'
 import { User } from 'meta/user'
 

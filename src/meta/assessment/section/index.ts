@@ -1,8 +1,7 @@
 import { CycleUuid } from 'meta/assessment/cycle'
 import { CycledPropsObject } from 'meta/assessment/cycledObject'
-
-import { Descriptions } from './description'
-import { Label } from './label'
+import { Descriptions } from 'meta/assessment/description'
+import { Label } from 'meta/assessment/label'
 
 export type SectionName = string
 
