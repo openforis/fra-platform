@@ -1,4 +1,4 @@
-import { TableNames } from 'meta/assessment'
+import { TableNames } from 'meta/assessment/table'
 
 import { getTableData } from '../getTableData'
 import { Props } from './props'

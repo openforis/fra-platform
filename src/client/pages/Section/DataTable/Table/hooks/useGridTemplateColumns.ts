@@ -2,7 +2,7 @@ import { CSSProperties, useMemo } from 'react'
 
 import { Objects } from 'utils/objects'
 
-import { Table } from 'meta/assessment'
+import { Table } from 'meta/assessment/table'
 
 import { useCycle } from 'client/store/assessment'
 import { ColHeader } from 'client/pages/Section/DataTable/Table/types'

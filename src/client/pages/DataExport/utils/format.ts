@@ -1,9 +1,10 @@
 import { Numbers } from 'utils/numbers'
 
 import { CountryIso } from 'meta/area'
-import { TableCellNumberFormat, Unit } from 'meta/assessment'
+import { Unit } from 'meta/assessment'
 import { AssessmentName, AssessmentNames } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
+import { TableCellNumberFormat } from 'meta/assessment/table'
 import { RecordAssessmentDatas, RecordCountryData } from 'meta/data'
 import { UnitConverter, UnitFactors } from 'meta/dataExport'
 

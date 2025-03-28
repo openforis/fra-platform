@@ -4,9 +4,10 @@ import { useTranslation } from 'react-i18next'
 
 import { Objects } from 'utils/objects'
 
-import { Row, TableNames } from 'meta/assessment'
+import { Row } from 'meta/assessment'
 import { AssessmentName } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
+import { TableNames } from 'meta/assessment/table'
 import { RecordAssessmentData } from 'meta/data'
 
 import { useAssessmentCountry } from 'client/store/area'

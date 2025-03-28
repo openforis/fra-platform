@@ -1,4 +1,5 @@
-import { Col, Row, Table } from 'meta/assessment'
+import { Col, Row } from 'meta/assessment'
+import { Table } from 'meta/assessment/table'
 
 import { ColHeader } from 'client/pages/Section/DataTable/Table/types'
 

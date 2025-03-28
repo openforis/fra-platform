@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from 'react'
 
 import { CountryIso } from 'meta/area'
-import { TableName, TableNames } from 'meta/assessment'
+import { TableName, TableNames } from 'meta/assessment/table'
 
 import { useAppDispatch } from 'client/store'
 import { DataActions } from 'client/store/data'

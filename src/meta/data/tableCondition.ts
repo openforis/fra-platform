@@ -1,4 +1,4 @@
-import { TableName } from 'meta/assessment'
+import { TableName } from 'meta/assessment/table'
 
 export type TableCondition = { variables?: Array<string>; columns?: Array<string> }
 

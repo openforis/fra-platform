@@ -1,4 +1,4 @@
-import { TableName, TableNames } from 'meta/assessment'
+import { TableName, TableNames } from 'meta/assessment/table'
 
 import { transposeHeadersDefault } from './_transposeHeadersDefault'
 import { transposeHeadersSdg15215 } from './_transposeHeadersSdg15215'

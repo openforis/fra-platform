@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react'
 
 import { Objects } from 'utils/objects'
 
-import { NodeCalculations, RowCache, Table } from 'meta/assessment'
+import { NodeCalculations, RowCache } from 'meta/assessment'
+import { Table } from 'meta/assessment/table'
 import { RecordAssessmentData, RecordAssessmentDatas } from 'meta/data'
 
 import { useAppSelector } from 'client/store'

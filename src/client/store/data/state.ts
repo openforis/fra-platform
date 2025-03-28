@@ -6,13 +6,13 @@ import {
   DescriptionCountryValues,
   NodeValuesEstimation,
   NodeValueValidation,
-  TableName,
   VariableName,
 } from 'meta/assessment'
 import { AssessmentName } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
 import { RecordAssessmentOriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { SectionName } from 'meta/assessment/section'
+import { TableName } from 'meta/assessment/table'
 import { Contact } from 'meta/cycleData'
 import { HistoryTarget } from 'meta/cycleData/historyActivities'
 import { RecordAssessmentData } from 'meta/data'

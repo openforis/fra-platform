@@ -3,9 +3,10 @@ import 'dotenv/config'
 
 import { ToolsUtils } from 'tools/utils/toolsUtils'
 
-import { ColProps, ColType, Table } from 'meta/assessment'
+import { ColProps, ColType } from 'meta/assessment'
 import { Assessment, AssessmentNames } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
+import { Table } from 'meta/assessment/table'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { MetadataController } from 'server/controller/metadata'
