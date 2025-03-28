@@ -1,4 +1,4 @@
-import { Country, CountryIso } from 'meta/area'
+import { Country } from 'meta/area'
 import {
   ActivityLogMessage,
   Assessment,
@@ -16,7 +16,6 @@ import { CountryService } from 'server/service/country'
 type Props = {
   assessment: Assessment
   cycle: Cycle
-  countryIso: CountryIso
   country: Country
   sectionName: string
   value: CommentableDescriptionValue
@@ -25,7 +24,9 @@ type Props = {
 }
 
 export const upsertDescription = async (props: Props, client: BaseProtocol = DB): Promise<string> => {
-  const { assessment, cycle, countryIso, country, value, sectionName, name, user } = props
+  const { assessment, cycle, country, value, sectionName, name, user } = props
+  const { countryIso } = country
+
   return client.tx(async (t) => {
     const description = await DescriptionRepository.upsert(
       { assessment, cycle, countryIso, sectionName, name, value },

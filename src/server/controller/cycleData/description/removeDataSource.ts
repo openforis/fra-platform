@@ -1,4 +1,4 @@
-import { Country, CountryIso } from 'meta/area'
+import { Country } from 'meta/area'
 import { Assessment, CommentableDescriptionName, Cycle } from 'meta/assessment'
 import { Topics } from 'meta/messageCenter'
 import { User } from 'meta/user'
@@ -12,7 +12,6 @@ import { upsertDescription } from './upsertDescription'
 type Props = {
   assessment: Assessment
   cycle: Cycle
-  countryIso: CountryIso
   country: Country
   sectionName: string
   uuid: string
@@ -22,7 +21,9 @@ type Props = {
 const name = CommentableDescriptionName.dataSources
 
 export const removeDataSource = async (props: Props, client: BaseProtocol = DB): Promise<void> => {
-  const { assessment, cycle, countryIso, country, sectionName, uuid, user } = props
+  const { assessment, cycle, country, sectionName, uuid, user } = props
+  const { countryIso } = country
+
   return client.tx(async (t) => {
     const values = await DescriptionRepository.getValues({ assessment, cycle, countryIso, sectionName, name }, t)
     const value = values[countryIso][sectionName].dataSources
@@ -36,7 +37,7 @@ export const removeDataSource = async (props: Props, client: BaseProtocol = DB):
     const index = value.dataSources.findIndex((d) => d.uuid === uuid)
     const [dataSource] = value.dataSources.splice(index, 1)
 
-    await upsertDescription({ assessment, cycle, country, countryIso, sectionName, name, value, user }, t)
+    await upsertDescription({ assessment, cycle, country, sectionName, name, value, user }, t)
     const keyPrefix = Topics.getDataSourceReviewTopicKey(dataSource)
     await MessageTopicRepository.removeMany({ assessment, cycle, keyPrefix }, t)
   })
