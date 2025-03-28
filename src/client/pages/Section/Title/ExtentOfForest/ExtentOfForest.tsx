@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
 
-import { Labels } from 'meta/assessment'
+import { Labels } from 'meta/assessment/labels'
 import { Users } from 'meta/user'
 
 import { useAppDispatch } from 'client/store'

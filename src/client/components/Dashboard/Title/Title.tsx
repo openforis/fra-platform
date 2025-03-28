@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Labels } from 'meta/assessment'
+import { Labels } from 'meta/assessment/labels'
 import { DashboardItem } from 'meta/dashboard'
 
 type Props = {

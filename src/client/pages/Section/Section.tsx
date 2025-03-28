@@ -3,7 +3,7 @@ import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Navigate } from 'react-router-dom'
 
-import { Labels } from 'meta/assessment'
+import { Labels } from 'meta/assessment/labels'
 import { SubSections } from 'meta/assessment/subSections'
 import { Routes } from 'meta/routes'
 

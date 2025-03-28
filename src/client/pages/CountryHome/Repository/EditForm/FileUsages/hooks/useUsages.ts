@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Labels } from 'meta/assessment'
+import { Labels } from 'meta/assessment/labels'
 import { SectionNames } from 'meta/assessment/section'
 import { SubSections } from 'meta/assessment/subSections'
 

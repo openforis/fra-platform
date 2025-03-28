@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom'
 
 import classNames from 'classnames'
 
-import { Labels } from 'meta/assessment'
+import { Labels } from 'meta/assessment/labels'
 import { SubSection } from 'meta/assessment/section'
 import { SubSections } from 'meta/assessment/subSections'
 import { Routes } from 'meta/routes'
