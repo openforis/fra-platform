@@ -9,7 +9,7 @@ import { APIUtil } from 'tools/utils/API'
 import { cookies } from 'tools/utils/API/cookie'
 
 import { CountryIso } from 'meta/area'
-import { Section, SubSection } from 'meta/assessment'
+import { Section, SubSection } from 'meta/assessment/section'
 
 import { Logger } from 'server/utils/logger'
 

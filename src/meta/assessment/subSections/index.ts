@@ -1,10 +1,9 @@
 import { Objects } from 'utils/objects'
 
+import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { Section, SubSection } from 'meta/assessment/section'
 import { Sections } from 'meta/assessment/sections'
-
-import { Assessment } from './assessment'
 
 const cloneProps = (props: { cycleSource: Cycle; cycleTarget: Cycle; subSection: SubSection }): SubSection['props'] => {
   const { cycleSource, cycleTarget, subSection } = props

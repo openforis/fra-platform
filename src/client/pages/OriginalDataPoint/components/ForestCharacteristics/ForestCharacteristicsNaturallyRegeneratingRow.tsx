@@ -4,7 +4,8 @@ import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
 import { Numbers } from 'utils/numbers'
 
-import { ODPs, OriginalDataPoint, SectionNames } from 'meta/assessment'
+import { ODPs, OriginalDataPoint } from 'meta/assessment'
+import { SectionNames } from 'meta/assessment/section'
 import { Topics } from 'meta/messageCenter'
 import { TooltipId } from 'meta/tooltip'
 

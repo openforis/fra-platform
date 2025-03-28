@@ -1,6 +1,7 @@
-import { AssessmentName, Section, TableSection } from 'meta/assessment'
+import { AssessmentName } from 'meta/assessment'
 import { CycleName } from 'meta/assessment/cycle'
-import { SectionName } from 'meta/assessment/section'
+import { Section, SectionName } from 'meta/assessment/section'
+import { TableSection } from 'meta/assessment/tableSection'
 import { DashboardItem } from 'meta/dashboard'
 
 export enum DashboardAreaType {

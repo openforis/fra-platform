@@ -1,6 +1,7 @@
 import { createSelector } from '@reduxjs/toolkit'
 
-import { SectionName, TableSection } from 'meta/assessment'
+import { SectionName } from 'meta/assessment/section'
+import { TableSection } from 'meta/assessment/tableSection'
 
 import { RootState, useAppSelector } from 'client/store'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'

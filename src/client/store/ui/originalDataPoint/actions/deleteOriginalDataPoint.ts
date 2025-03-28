@@ -3,7 +3,8 @@ import axios from 'axios'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CycleParams } from 'meta/api/request'
-import { OriginalDataPoint, SectionNames } from 'meta/assessment'
+import { OriginalDataPoint } from 'meta/assessment'
+import { SectionNames } from 'meta/assessment/section'
 
 export const deleteOriginalDataPoint = createAsyncThunk<void, CycleParams & { originalDataPoint: OriginalDataPoint }>(
   'originalDataPoint/delete',

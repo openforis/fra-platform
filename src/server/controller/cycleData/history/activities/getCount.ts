@@ -1,6 +1,7 @@
 import { AreaCode } from 'meta/area'
-import { Assessment, SectionName } from 'meta/assessment'
+import { Assessment } from 'meta/assessment'
 import { Cycle } from 'meta/assessment/cycle'
+import { SectionName } from 'meta/assessment/section'
 import { TablePaginatedCount } from 'meta/tablePaginated'
 
 import { ActivityLogRepository } from 'server/repository/public/activityLog'

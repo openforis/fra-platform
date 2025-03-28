@@ -1,7 +1,7 @@
 import './Title.scss'
 import React from 'react'
 
-import { SectionName } from 'meta/assessment'
+import { SectionName } from 'meta/assessment/section'
 
 import { useCycleRouteParams } from 'client/hooks/useRouteParams'
 import { Components, TitleDefault } from 'client/pages/Section/Title/Components'

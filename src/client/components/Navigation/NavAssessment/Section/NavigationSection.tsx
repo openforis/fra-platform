@@ -3,7 +3,8 @@ import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { matchPath, useLocation } from 'react-router-dom'
 
-import { Labels, Section } from 'meta/assessment'
+import { Labels } from 'meta/assessment'
+import { Section } from 'meta/assessment/section'
 import { Routes } from 'meta/routes'
 
 import { useAssessment, useCycle } from 'client/store/assessment'
@@ -66,12 +67,12 @@ const NavigationSection: React.FC<Props> = (props) => {
   return (
     <div className="nav-section">
       <div
-        className="nav-section__header"
-        role="button"
         aria-label={sectionLabel}
-        tabIndex={0}
+        className="nav-section__header"
         onClick={() => setExpanded(!expanded)}
         onKeyDown={() => setExpanded(!expanded)}
+        role="button"
+        tabIndex={0}
       >
         <div className="nav-section__order">{prefix}</div>
         <div className="nav-section__label">{sectionLabel}</div>

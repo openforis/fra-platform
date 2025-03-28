@@ -7,12 +7,12 @@ import {
   DescriptionCountryValues,
   NodeValuesEstimation,
   NodeValueValidation,
-  SectionName,
   TableName,
   VariableName,
 } from 'meta/assessment'
 import { CycleName } from 'meta/assessment/cycle'
 import { RecordAssessmentOriginalDataPoint } from 'meta/assessment/originalDataPoint'
+import { SectionName } from 'meta/assessment/section'
 import { Contact } from 'meta/cycleData'
 import { HistoryTarget } from 'meta/cycleData/historyActivities'
 import { RecordAssessmentData } from 'meta/data'
