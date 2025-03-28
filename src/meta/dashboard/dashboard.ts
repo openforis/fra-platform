@@ -1,4 +1,5 @@
-import { Label, Table } from 'meta/assessment'
+import { Table } from 'meta/assessment'
+import { Label } from 'meta/assessment/label'
 import { BarChart, PieChart } from 'meta/chart'
 
 export enum DashboardItemType {

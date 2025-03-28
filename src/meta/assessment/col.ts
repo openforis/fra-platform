@@ -3,10 +3,9 @@ import { CSSProperties } from 'react'
 import { AssessmentName } from 'meta/assessment/assessmentName'
 import { CycleName, CycleUuid } from 'meta/assessment/cycle'
 import { CycledPropsObject } from 'meta/assessment/cycledObject'
+import { Label } from 'meta/assessment/label'
 import { VariableName } from 'meta/assessment/row'
 import { TableName } from 'meta/assessment/table'
-
-import { Label } from './label'
 
 export type ColName = string
 export type InputPlaceholder = string

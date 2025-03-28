@@ -13,7 +13,7 @@ import {
   YAxis,
 } from 'recharts'
 
-import { Labels } from 'meta/assessment'
+import { Labels } from 'meta/assessment/labels'
 import { BarChart as BarChartType, BarChartData } from 'meta/chart'
 
 import { cursor } from '../utils/cursor'

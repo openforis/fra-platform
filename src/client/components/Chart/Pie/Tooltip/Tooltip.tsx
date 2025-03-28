@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { TooltipProps } from 'recharts'
 
-import { Labels } from 'meta/assessment'
+import { Labels } from 'meta/assessment/labels'
 
 import TooltipContent from 'client/components/Chart/TooltipContent'
 

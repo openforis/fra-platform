@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { Objects } from 'utils/objects'
 
-import { Labels } from 'meta/assessment'
+import { Labels } from 'meta/assessment/labels'
 import { SubSections } from 'meta/assessment/subSections'
 
 import { useAssessment, useCycle } from 'client/store/assessment'
