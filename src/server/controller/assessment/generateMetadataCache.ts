@@ -1,6 +1,6 @@
 import { Promises } from 'utils/promises'
 
-import { Assessment } from 'meta/assessment'
+import { Assessment } from 'meta/assessment/assessment'
 
 import { BaseProtocol, DB } from 'server/db'
 import { RowRedisRepository } from 'server/repository/redis/row'

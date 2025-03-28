@@ -1,4 +1,4 @@
-import { Assessment } from 'meta/assessment'
+import { Assessment } from 'meta/assessment/assessment'
 import { AuthProvider, User, UserInvitation } from 'meta/user'
 
 export type AcceptInvitationFormFields = {

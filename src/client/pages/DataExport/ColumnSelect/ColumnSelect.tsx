@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import MediaQuery from 'react-responsive'
 import { useParams } from 'react-router-dom'
 
-import { AssessmentName } from 'meta/assessment'
+import { AssessmentName } from 'meta/assessment/assessment'
 
 import { useAppDispatch } from 'client/store'
 import { DataExportActions, DataExportSelection, useDataExportSelection } from 'client/store/ui/dataExport'
@@ -47,8 +47,8 @@ const ColumnSelect: React.FC<{ columns: Array<string> }> = ({ columns }) => {
       <div className="export__form-section-header select-all">
         <h4>{t('common.column')}</h4>
         <ButtonCheckBox
-          className="btn-all"
           checked={selectionColumns.length > 0 && selectionColumns.length === columns.length}
+          className="btn-all"
           label={t(selectionColumns.length > 0 ? 'common.unselectAll' : 'common.selectAll')}
           onClick={() => updateSelection(selection.sections[sectionName].columns.length > 0 ? [] : columns.map(String))}
         />
@@ -57,11 +57,11 @@ const ColumnSelect: React.FC<{ columns: Array<string> }> = ({ columns }) => {
       <MediaQuery maxWidth={Breakpoints.laptop - 1}>
         <select
           multiple
-          value={selectionColumns}
           onChange={(event) => {
             const columnsUpdate = Array.from(event.target.selectedOptions, (option) => String(option.value))
             updateSelection(columnsUpdate)
           }}
+          value={selectionColumns}
         >
           {columns.map((column: string) => {
             const label = getColumnLabelKeys(column, sectionName, assessmentName).map(t).join(' ')

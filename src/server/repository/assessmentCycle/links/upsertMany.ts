@@ -1,7 +1,7 @@
 import * as pgPromise from 'pg-promise'
 import { Objects } from 'utils/objects'
 
-import { Assessment } from 'meta/assessment'
+import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { Link, LinkProps, VisitedLink } from 'meta/cycleData'
 

@@ -1,5 +1,6 @@
 import { CountryIso } from 'meta/area'
-import { Assessment, NodeValuesEstimation } from 'meta/assessment'
+import { NodeValuesEstimation } from 'meta/assessment'
+import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 
 import { BaseProtocol, DB } from 'server/db'

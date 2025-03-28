@@ -1,5 +1,6 @@
 import { CountryIso } from 'meta/area'
-import { Assessment, OriginalDataPoint } from 'meta/assessment'
+import { OriginalDataPoint } from 'meta/assessment'
+import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'

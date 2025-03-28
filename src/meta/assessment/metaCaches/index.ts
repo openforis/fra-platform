@@ -1,15 +1,14 @@
+// ****==== types
+import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-
-import { Assessment } from './assessment'
 import {
   AssessmentMetaCache,
   DependencyCache,
   DependencyRecord,
   VariableCache,
   VariablesCache,
-} from './assessmentMetaCache'
+} from 'meta/assessment/metaCache'
 
-// ****==== types
 type CycleProps = {
   assessment: Assessment
   cycle: Cycle

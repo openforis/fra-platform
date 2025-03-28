@@ -1,5 +1,6 @@
 import { CountryIso } from 'meta/area'
-import { AssessmentName, NodeValue } from 'meta/assessment'
+import { NodeValue } from 'meta/assessment'
+import { AssessmentName } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
 
 export type NodeUpdate = {

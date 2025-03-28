@@ -1,5 +1,6 @@
 import { CountryIso } from 'meta/area'
-import { ActivityLogMessage, Assessment, OriginalDataPoint } from 'meta/assessment'
+import { ActivityLogMessage, OriginalDataPoint } from 'meta/assessment'
+import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { Sockets } from 'meta/socket'
 import { User } from 'meta/user'

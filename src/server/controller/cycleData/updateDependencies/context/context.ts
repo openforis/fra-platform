@@ -1,6 +1,8 @@
 import { CountryIso } from 'meta/area'
-import { Assessment, RecordAssessments, RecordRowCache, VariableCache } from 'meta/assessment'
+import { RecordRowCache } from 'meta/assessment'
+import { Assessment, RecordAssessments } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
+import { VariableCache } from 'meta/assessment/metaCache'
 import { NodeUpdates, RecordAssessmentData, RecordCountryData } from 'meta/data'
 
 import { ContextResult } from './contextResult'

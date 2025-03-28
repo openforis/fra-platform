@@ -3,7 +3,7 @@ import axios from 'axios'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { AreaCode } from 'meta/area'
-import { AssessmentName } from 'meta/assessment'
+import { AssessmentName } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
 import { DashboardItem } from 'meta/dashboard'
 

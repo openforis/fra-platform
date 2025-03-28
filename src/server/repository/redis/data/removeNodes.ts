@@ -1,7 +1,8 @@
 import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area'
-import { Assessment, TableName } from 'meta/assessment'
+import { TableName } from 'meta/assessment'
+import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { NodeUpdate } from 'meta/data'
 

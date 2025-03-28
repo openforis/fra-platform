@@ -1,4 +1,4 @@
-import { Assessment, AssessmentNames } from 'meta/assessment'
+import { Assessment, AssessmentNames } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 
 import { AssessmentController } from 'server/controller/assessment'

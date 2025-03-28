@@ -1,6 +1,6 @@
+import { Assessment, AssessmentNames, RecordAssessments } from 'meta/assessment/assessment'
 import { CycleStatus } from 'meta/assessment/cycle'
 
-import { Assessment, AssessmentNames, RecordAssessments } from '../assessment'
 import { Context } from './context'
 
 const assessment = {

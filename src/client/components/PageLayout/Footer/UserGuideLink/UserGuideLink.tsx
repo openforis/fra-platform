@@ -2,7 +2,7 @@ import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { AssessmentNames } from 'meta/assessment'
+import { AssessmentNames } from 'meta/assessment/assessment'
 import { Routes } from 'meta/routes'
 
 import { useUser } from 'client/store/user'
@@ -39,7 +39,7 @@ const UserGuideLinkInner: React.FC<Props> = (props) => {
   return (
     <>
       <div className="separator" />
-      <a target="_top" href={userGuideLink}>
+      <a href={userGuideLink} target="_top">
         {t('common.userGuide')}
       </a>
     </>

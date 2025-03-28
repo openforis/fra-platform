@@ -1,5 +1,6 @@
 import { CountryIso } from 'meta/area'
-import { AssessmentName, NodeValueValidations, TableName } from 'meta/assessment'
+import { NodeValueValidations, TableName } from 'meta/assessment'
+import { AssessmentName } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
 import { RecordAssessmentData } from 'meta/data'
 import { getTableData } from 'meta/data/recordAssessmentDatas/getTableData'

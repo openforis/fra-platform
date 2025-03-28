@@ -1,4 +1,5 @@
-import { ActivityLogMessage, Assessment, ODPs, OriginalDataPoint } from 'meta/assessment'
+import { ActivityLogMessage, ODPs, OriginalDataPoint } from 'meta/assessment'
+import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { User } from 'meta/user'
 

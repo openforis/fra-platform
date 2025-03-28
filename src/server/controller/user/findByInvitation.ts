@@ -1,4 +1,4 @@
-import { Assessment } from 'meta/assessment'
+import { Assessment } from 'meta/assessment/assessment'
 import { AuthProvider, User, UserInvitation } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db'

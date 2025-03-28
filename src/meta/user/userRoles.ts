@@ -2,7 +2,7 @@ import i18n from 'i18next'
 import { Dates } from 'utils/dates'
 
 import { Areas, AssessmentStatus } from 'meta/area'
-import { Assessment } from 'meta/assessment'
+import { Assessment } from 'meta/assessment/assessment'
 import { User } from 'meta/user/user'
 
 import { RoleName, UserRole } from './userRole'

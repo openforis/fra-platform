@@ -1,9 +1,9 @@
 import { CSSProperties } from 'react'
 
-import { VariableCache } from 'meta/assessment/assessmentMetaCache'
 import { ColName } from 'meta/assessment/col'
 import { CycleUuid } from 'meta/assessment/cycle'
 import { CycledPropsObject } from 'meta/assessment/cycledObject'
+import { VariableCache } from 'meta/assessment/metaCache'
 import { Row, VariableName } from 'meta/assessment/row'
 import { Unit } from 'meta/assessment/unit'
 

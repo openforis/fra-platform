@@ -1,4 +1,5 @@
-import { ActivityLogMessage, Assessment } from 'meta/assessment'
+import { ActivityLogMessage } from 'meta/assessment'
+import { Assessment } from 'meta/assessment/assessment'
 import { TableSection } from 'meta/assessment/tableSection'
 import { User } from 'meta/user'
 

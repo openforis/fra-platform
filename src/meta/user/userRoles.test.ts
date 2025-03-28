@@ -1,4 +1,4 @@
-import { Assessment } from 'meta/assessment'
+import { Assessment } from 'meta/assessment/assessment'
 import { User } from 'meta/user/user'
 
 import { RoleName, UserRole } from './userRole'

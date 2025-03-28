@@ -1,8 +1,7 @@
 import { AssessmentStatus, Country, CountryIso } from 'meta/area'
+import { AssessmentStatusTransition, AssessmentStatusTransitions } from 'meta/assessment/assessments'
 import { Cycle } from 'meta/assessment/cycle'
 import { RoleName, User } from 'meta/user'
-
-import { AssessmentStatusTransition, AssessmentStatusTransitions } from './assessments'
 
 const countryIso = 'ATL' as CountryIso
 const cycleUuid = '123-XXX-123'

@@ -1,7 +1,6 @@
 import { CountryIso } from 'meta/area'
 import {
   ActivityLog,
-  AssessmentName,
   ColName,
   DataSourceLinked,
   DescriptionCountryValues,
@@ -10,6 +9,7 @@ import {
   TableName,
   VariableName,
 } from 'meta/assessment'
+import { AssessmentName } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
 import { RecordAssessmentOriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { SectionName } from 'meta/assessment/section'

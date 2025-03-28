@@ -1,8 +1,9 @@
 import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area'
-import { Assessment, VariableCache } from 'meta/assessment'
+import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
+import { VariableCache } from 'meta/assessment/metaCache'
 import { RecordCountryData, TablesCondition } from 'meta/data'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'

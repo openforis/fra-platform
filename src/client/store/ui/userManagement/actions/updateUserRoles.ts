@@ -4,7 +4,7 @@ import { Dispatch } from 'redux'
 import { Functions } from 'utils/functions'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { AssessmentName } from 'meta/assessment'
+import { AssessmentName } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
 import { RoleName, User, UserRole } from 'meta/user'
 

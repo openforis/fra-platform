@@ -1,6 +1,6 @@
 import { Job, JobsOptions } from 'bullmq'
 
-import { AssessmentMetaCaches } from 'meta/assessment'
+import { AssessmentMetaCaches } from 'meta/assessment/metaCaches'
 
 import { Logger } from 'server/utils/logger'
 

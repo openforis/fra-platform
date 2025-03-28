@@ -1,6 +1,7 @@
-import { Col, VariableCache } from 'meta/assessment'
+import { Col } from 'meta/assessment'
 import { CycleUuid } from 'meta/assessment/cycle'
 import { CycledPropsObject } from 'meta/assessment/cycledObject'
+import { VariableCache } from 'meta/assessment/metaCache'
 
 export type VariableName = string
 

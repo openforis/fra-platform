@@ -2,7 +2,8 @@ import { Arrays } from 'utils/arrays'
 import { UUIDs } from 'utils/uuids'
 
 import { CountryIso } from 'meta/area'
-import { AssessmentName, Col as TypeCol, Row as TypeRow, RowType, Table } from 'meta/assessment'
+import { Col as TypeCol, Row as TypeRow, RowType, Table } from 'meta/assessment'
+import { AssessmentName } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 
 import { ColHeader, ODPColHeader } from 'client/pages/Section/DataTable/Table/types'

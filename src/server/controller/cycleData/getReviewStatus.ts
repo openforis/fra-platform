@@ -1,5 +1,6 @@
 import { CountryIso } from 'meta/area'
-import { Assessment, ReviewStatus } from 'meta/assessment'
+import { ReviewStatus } from 'meta/assessment'
+import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { User } from 'meta/user'
 

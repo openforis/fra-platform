@@ -2,7 +2,9 @@
 import { Promises } from 'utils/promises'
 
 import { Country } from 'meta/area'
-import { AssessmentMetaCaches, RowCacheKey, RowCaches, TableNames, VariableCache } from 'meta/assessment'
+import { RowCacheKey, RowCaches, TableNames } from 'meta/assessment'
+import { VariableCache } from 'meta/assessment/metaCache'
+import { AssessmentMetaCaches } from 'meta/assessment/metaCaches'
 import { NodeUpdate, NodeUpdates } from 'meta/data'
 
 import { isODPVariable } from 'server/controller/cycleData/originalDataPoint/getOriginalDataPointVariables'
