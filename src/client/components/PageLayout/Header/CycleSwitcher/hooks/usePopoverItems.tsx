@@ -2,7 +2,8 @@ import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Assessments } from 'meta/assessment'
-import { Cycle, Cycles } from 'meta/assessment/cycle'
+import { Cycle } from 'meta/assessment/cycle'
+import { Cycles } from 'meta/assessment/cycles'
 import { Users } from 'meta/user'
 
 import { useAssessments } from 'client/store/assessment'

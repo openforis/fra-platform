@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { Areas } from 'meta/area'
 import { AssessmentNames } from 'meta/assessment'
-import { Cycles } from 'meta/assessment/cycle'
+import { Cycles } from 'meta/assessment/cycles'
 import { Routes } from 'meta/routes'
 import { Users } from 'meta/user'
 

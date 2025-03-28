@@ -1,7 +1,7 @@
 import { Objects } from 'utils/objects'
 
 import { Areas, Country, RegionCode } from 'meta/area'
-import { Cycles } from 'meta/assessment/cycle'
+import { Cycles } from 'meta/assessment/cycles'
 import { Users } from 'meta/user'
 
 import { useAppDispatch, useAppSelector } from 'client/store'

@@ -4,7 +4,8 @@ import { Promises } from 'utils/promises'
 
 import { Areas, CountryIso } from 'meta/area'
 import { Assessment } from 'meta/assessment'
-import { Cycle, Cycles } from 'meta/assessment/cycle'
+import { Cycle } from 'meta/assessment/cycle'
+import { Cycles } from 'meta/assessment/cycles'
 
 import { AreaController } from 'server/controller/area'
 import { AssessmentController } from 'server/controller/assessment'
