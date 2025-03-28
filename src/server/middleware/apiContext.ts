@@ -2,7 +2,8 @@ import { NextFunction, Request, Response } from 'express'
 import { Objects } from 'utils/objects'
 
 import { Areas, CountryIso } from 'meta/area'
-import { Assessment, AssessmentName, Cycle, CycleName } from 'meta/assessment'
+import { Assessment, AssessmentName } from 'meta/assessment/assessment'
+import { Cycle, CycleName } from 'meta/assessment/cycle'
 
 import { AreaController } from 'server/controller/area'
 
