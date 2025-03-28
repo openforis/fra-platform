@@ -1,4 +1,4 @@
-import { Country } from 'meta/area'
+import { AssessmentStatus, Country } from 'meta/area'
 import { Assessment, Cycle, OriginalDataPoint } from 'meta/assessment'
 import { User } from 'meta/user'
 
@@ -30,7 +30,7 @@ export default (): void =>
       const createdOriginalDataPoint = await CycleDataController.createOriginalDataPoint({
         assessment,
         cycle,
-        country: { countryIso: originalDataPoint.countryIso } as Country,
+        country: { countryIso: originalDataPoint.countryIso, props: { status: AssessmentStatus.editing } } as Country,
         sectionName: 'extentOfForest',
         originalDataPoint,
         user,
