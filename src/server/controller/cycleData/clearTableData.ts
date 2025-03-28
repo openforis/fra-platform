@@ -1,4 +1,4 @@
-import { CountryIso } from 'meta/area'
+import { Country } from 'meta/area'
 import { ActivityLogMessage, Assessment, Cycle } from 'meta/assessment'
 import { NodeUpdate } from 'meta/data'
 import { Sockets } from 'meta/socket'
@@ -10,19 +10,21 @@ import { BaseProtocol, DB } from 'server/db'
 import { DataRepository } from 'server/repository/assessmentCycle/data'
 import { ActivityLogRepository } from 'server/repository/public/activityLog'
 import { DataRedisRepository } from 'server/repository/redis/data'
+import { CountryService } from 'server/service/country'
 import { SocketServer } from 'server/service/socket'
 
 type Props = {
   assessment: Assessment
   cycle: Cycle
-  countryIso: CountryIso
+  country: Country
   sectionName: string
   tableName: string
   user: User
 }
 
 export const clearTableData = async (props: Props, client: BaseProtocol = DB): Promise<Array<NodeUpdate>> => {
-  const { assessment, cycle, tableName, countryIso, user, sectionName } = props
+  const { assessment, cycle, tableName, country, user, sectionName } = props
+  const { countryIso } = country
   const assessmentName = assessment.props.name
   const cycleName = cycle.name
 
@@ -49,6 +51,7 @@ export const clearTableData = async (props: Props, client: BaseProtocol = DB): P
       user,
     }
     await ActivityLogRepository.insertActivityLog({ activityLog, assessment, cycle }, t)
+    await CountryService.setCountryStatusEditing({ assessment, cycle, country, user }, t)
 
     return nodes
   })

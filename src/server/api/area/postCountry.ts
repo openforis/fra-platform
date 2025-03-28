@@ -22,7 +22,6 @@ export const postCountry = async (
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
     const updatedCountry = await AreaController.updateCountry({
-      countryIso,
       cycle,
       assessment,
       country,

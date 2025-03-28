@@ -1,19 +1,20 @@
 import { UUIDs } from 'utils/uuids'
 
-import { CountryIso } from 'meta/area'
+import { Country } from 'meta/area'
 import { ActivityLogMessage, Assessment, Cycle, ODPNationalClass, OriginalDataPoint } from 'meta/assessment'
 import { User } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db'
 import { OriginalDataPointRepository } from 'server/repository/assessmentCycle/originalDataPoint'
 import { ActivityLogRepository } from 'server/repository/public/activityLog'
+import { CountryService } from 'server/service/country'
 
 import { updateOriginalDataPointDependentNodes } from './updateDependants/updateOriginalDataPointDependentNodes'
 
 type Props = {
   assessment: Assessment
   cycle: Cycle
-  countryIso: CountryIso
+  country: Country
   year: string
   targetYear: string
   user: User
@@ -23,7 +24,8 @@ export const copyOriginalDataPointNationalClasses = async (
   props: Props,
   client: BaseProtocol = DB
 ): Promise<OriginalDataPoint> => {
-  const { assessment, cycle, countryIso, year, targetYear, user } = props
+  const { assessment, cycle, country, year, targetYear, user } = props
+  const { countryIso } = country
 
   const odpReturn = await client.tx(async (t) => {
     const commonProps = { assessment, cycle, countryIso }
@@ -56,6 +58,8 @@ export const copyOriginalDataPointNationalClasses = async (
       user,
     }
     await ActivityLogRepository.insertActivityLog({ activityLog, assessment, cycle }, t)
+
+    await CountryService.setCountryStatusEditing({ assessment, cycle, country, user }, t)
 
     return updatedOriginalDataPoint
   })

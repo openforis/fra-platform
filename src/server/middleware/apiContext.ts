@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 import { Objects } from 'utils/objects'
 
-import { CountryIso } from 'meta/area'
+import { Areas, CountryIso } from 'meta/area'
 import { Assessment, AssessmentName, Cycle, CycleName } from 'meta/assessment'
 
 import { AreaController } from 'server/controller/area'
@@ -27,7 +27,7 @@ const initContext = async (req: Request, _: Response, next: NextFunction): Promi
       const assessment = { props: { name: assessmentName } } as unknown as Assessment
       const cycle = { name: cycleName } as Cycle
 
-      if (countryIso) {
+      if (countryIso && Areas.isISOCountry(countryIso)) {
         const country = await AreaController.getCountry({ assessment, cycle, countryIso })
         Objects.setInPath({ obj: req, path: ['context', 'country'], value: country })
       }
