@@ -1,6 +1,6 @@
-import { TableNames } from 'meta/assessment'
 import { Assessment, AssessmentNames } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
+import { TableNames } from 'meta/assessment/table'
 import { RecordCountryData, TablesCondition } from 'meta/data'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'

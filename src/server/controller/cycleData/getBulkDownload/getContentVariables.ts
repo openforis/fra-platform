@@ -1,6 +1,7 @@
 import { Promises } from 'utils/promises'
 
-import { TableNames, Years } from 'meta/assessment'
+import { Years } from 'meta/assessment'
+import { TableNames } from 'meta/assessment/table'
 import { RecordAssessmentDatas } from 'meta/data'
 
 import { climaticDomain } from 'server/controller/cycleData/getBulkDownload/climaticDomain'

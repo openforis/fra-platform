@@ -2,7 +2,7 @@ import React, { useRef } from 'react'
 
 import { Objects } from 'utils/objects'
 
-import { Table } from 'meta/assessment'
+import { Table } from 'meta/assessment/table'
 import { RecordAssessmentData } from 'meta/data'
 
 import Chart from 'client/pages/Section/DataTable/Chart/Chart'

@@ -1,5 +1,6 @@
-import { ActivityLogMessage, Table, TableProps } from 'meta/assessment'
+import { ActivityLogMessage } from 'meta/assessment'
 import { Assessment } from 'meta/assessment/assessment'
+import { Table, TableProps } from 'meta/assessment/table'
 import { User } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db'

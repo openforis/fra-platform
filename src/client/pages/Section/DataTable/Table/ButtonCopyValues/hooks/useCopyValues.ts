@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { Objects } from 'utils/objects'
 
-import { TableNames } from 'meta/assessment'
+import { TableNames } from 'meta/assessment/table'
 
 import { useUser } from 'client/store/user'
 import { useCycleRouteParams } from 'client/hooks/useRouteParams'

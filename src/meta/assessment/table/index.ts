@@ -1,3 +1,5 @@
+// utility table names
+// e.g. used in getTableData to merge data with odp or fetch correct data for dashboard
 import { CSSProperties } from 'react'
 
 import { ColName } from 'meta/assessment/col'
@@ -7,8 +9,6 @@ import { VariableCache } from 'meta/assessment/metaCache'
 import { Row, VariableName } from 'meta/assessment/row'
 import { Unit } from 'meta/assessment/unit'
 
-// utility table names
-// e.g. used in getTableData to merge data with odp or fetch correct data for dashboard
 export enum TableNames {
   areaAffectedByFire = 'areaAffectedByFire',
   biomassStockAvg = 'biomassStockAvg',
@@ -50,12 +50,9 @@ export type TableCell = {
   format?: TableCellNumberFormat
   unit?: Unit | null
 }
-
 export type TableCellNames = Record<CycleUuid, Array<TableCell>>
-
 // array of column names indexed by cycle uuid
 export type TableColumnNames = Record<CycleUuid, Array<ColName>>
-
 export type TableName = string
 
 export interface TableProps {

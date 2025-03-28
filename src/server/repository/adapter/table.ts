@@ -1,6 +1,6 @@
 import { Objects } from 'utils/objects'
 
-import { Table, TableProps } from 'meta/assessment'
+import { Table, TableProps } from 'meta/assessment/table'
 
 import { RowAdapter, RowDB } from 'server/repository/adapter/row'
 

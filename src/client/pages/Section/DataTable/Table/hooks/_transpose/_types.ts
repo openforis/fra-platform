@@ -1,7 +1,8 @@
 import { TFunction } from 'i18next'
 
-import { Row, Table } from 'meta/assessment'
+import { Row } from 'meta/assessment'
 import { Cycle } from 'meta/assessment/cycle'
+import { Table } from 'meta/assessment/table'
 
 import { ColHeader } from 'client/pages/Section/DataTable/Table/types'
 

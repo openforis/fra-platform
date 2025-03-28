@@ -1,11 +1,11 @@
 import { Objects } from 'utils/objects'
 import { Promises } from 'utils/promises'
 
-import { TableName } from 'meta/assessment'
 import { Assessment, AssessmentName, RecordAssessments } from 'meta/assessment/assessment'
 import { Cycle, CycleName } from 'meta/assessment/cycle'
 import { VariableCache } from 'meta/assessment/metaCache'
 import { AssessmentMetaCaches } from 'meta/assessment/metaCaches'
+import { TableName } from 'meta/assessment/table'
 import { RecordAssessmentData } from 'meta/data'
 
 import { AssessmentController } from 'server/controller/assessment'

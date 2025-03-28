@@ -2,8 +2,8 @@ import './DataTable.scss'
 import React from 'react'
 
 import { CountryIso } from 'meta/area'
-import { Table as TableType } from 'meta/assessment'
 import { AssessmentName } from 'meta/assessment/assessment'
+import { Table as TableType } from 'meta/assessment/table'
 import { RecordAssessmentDatas } from 'meta/data'
 
 import { useCycle } from 'client/store/assessment'

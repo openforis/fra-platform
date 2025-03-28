@@ -3,7 +3,8 @@ import React, { ClipboardEventHandler } from 'react'
 import { Objects } from 'utils/objects'
 
 import { NodesBodyValue } from 'meta/api/request'
-import { Col, Cols, ColType, NodeValue, Row, RowType, Table } from 'meta/assessment'
+import { Col, Cols, ColType, NodeValue, Row, RowType } from 'meta/assessment'
+import { Table } from 'meta/assessment/table'
 import { RecordAssessmentData, RecordAssessmentDatas } from 'meta/data'
 
 import { useAppDispatch } from 'client/store'

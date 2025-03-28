@@ -1,5 +1,5 @@
-import { TableNames } from 'meta/assessment'
 import { Cycle } from 'meta/assessment/cycle'
+import { TableNames } from 'meta/assessment/table'
 import { ChartColor } from 'meta/chart'
 import { DashboardBarChart, DashboardItemType } from 'meta/dashboard'
 

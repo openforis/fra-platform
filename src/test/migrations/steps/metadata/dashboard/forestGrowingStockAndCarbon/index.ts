@@ -1,5 +1,5 @@
-import { TableNames } from 'meta/assessment'
 import { Cycle } from 'meta/assessment/cycle'
+import { TableNames } from 'meta/assessment/table'
 import { DashboardItemType, DashboardTable } from 'meta/dashboard'
 
 import { getTable, RowsMetadata } from '../utils'
