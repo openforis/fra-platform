@@ -12,7 +12,7 @@ export const persistNodeValues = async (req: CycleDataRequest<never, NodesBody>,
     const { assessmentName, cycleName, sectionName } = req.query
     const { tableName, values } = req.body
     const { country } = req.context
-    const { countryIso } = req.query
+    const { countryIso } = country
 
     const user = Requests.getUser(req)
     const metaCache = true
