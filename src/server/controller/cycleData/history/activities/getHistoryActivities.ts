@@ -1,5 +1,6 @@
 import { AreaCode } from 'meta/area'
-import { ActivityLog, Assessment, Cycle, SectionName } from 'meta/assessment'
+import { ActivityLog, Assessment, SectionName } from 'meta/assessment'
+import { Cycle } from 'meta/assessment/cycle'
 
 import { ActivityLogRepository } from 'server/repository/public/activityLog'
 

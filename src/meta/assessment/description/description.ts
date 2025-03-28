@@ -1,4 +1,5 @@
-import { CycleUuid } from '../cycle'
+import { CycleUuid } from 'meta/assessment/cycle'
+
 import { AnalysisAndProcessingDescription } from './analysisAndProcessingDescription'
 import { NationalDataDescription } from './nationalDataDescription'
 

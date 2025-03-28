@@ -1,7 +1,8 @@
 import { Promises } from 'utils/promises'
 
 import { CountryIso } from 'meta/area'
-import { AssessmentNames, ColName, CycleName, TableNames } from 'meta/assessment'
+import { AssessmentNames, ColName, TableNames } from 'meta/assessment'
+import { CycleName } from 'meta/assessment/cycle'
 import { NodeExtType } from 'meta/nodeExt'
 
 import { AssessmentController } from 'server/controller/assessment'

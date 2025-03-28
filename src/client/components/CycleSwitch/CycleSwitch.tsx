@@ -1,7 +1,8 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 
-import { AssessmentName, CycleName } from 'meta/assessment'
+import { AssessmentName } from 'meta/assessment'
+import { CycleName } from 'meta/assessment/cycle'
 
 type Props = {
   components: Record<AssessmentName, Record<CycleName, React.FC>>

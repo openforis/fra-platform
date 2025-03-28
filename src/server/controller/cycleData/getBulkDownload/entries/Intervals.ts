@@ -1,4 +1,4 @@
-import { Cycle } from 'meta/assessment'
+import { Cycle } from 'meta/assessment/cycle'
 
 export const entries = (cycle: Cycle) => {
   const arr = [

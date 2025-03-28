@@ -1,7 +1,8 @@
 import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area'
-import { Assessment, Cycle } from 'meta/assessment'
+import { Assessment } from 'meta/assessment'
+import { Cycle } from 'meta/assessment/cycle'
 import { RoleName, User, UserInvitation, UserRole } from 'meta/user'
 import { CollaboratorPermissions, UserRoleBaseProps, UserRoleExtendedProps } from 'meta/user/userRole'
 

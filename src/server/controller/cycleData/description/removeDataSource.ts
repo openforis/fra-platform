@@ -1,5 +1,6 @@
 import { CountryIso } from 'meta/area'
-import { Assessment, CommentableDescriptionName, Cycle } from 'meta/assessment'
+import { Assessment, CommentableDescriptionName } from 'meta/assessment'
+import { Cycle } from 'meta/assessment/cycle'
 import { Topics } from 'meta/messageCenter'
 import { User } from 'meta/user'
 

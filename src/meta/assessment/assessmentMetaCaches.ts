@@ -1,3 +1,5 @@
+import { Cycle } from 'meta/assessment/cycle'
+
 import { Assessment } from './assessment'
 import {
   AssessmentMetaCache,
@@ -6,7 +8,6 @@ import {
   VariableCache,
   VariablesCache,
 } from './assessmentMetaCache'
-import { Cycle } from './cycle'
 
 // ****==== types
 type CycleProps = {

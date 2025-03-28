@@ -1,4 +1,5 @@
-import { Assessment, Cycle } from 'meta/assessment'
+import { Assessment } from 'meta/assessment'
+import { Cycle } from 'meta/assessment/cycle'
 import { Lang } from 'meta/lang'
 import { RoleName, User, UserInvitation, UserStatus } from 'meta/user'
 

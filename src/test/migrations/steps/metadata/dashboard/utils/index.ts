@@ -1,6 +1,7 @@
 import { UUIDs } from 'utils/uuids'
 
-import { Col, ColStyle, ColType, Cycle, CycleUuid, Label, Row, RowType, Table, VariableCache } from 'meta/assessment'
+import { Col, ColStyle, ColType, Label, Row, RowType, Table, VariableCache } from 'meta/assessment'
+import { Cycle, CycleUuid } from 'meta/assessment/cycle'
 
 export type RowMetadata = {
   id: number

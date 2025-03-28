@@ -1,7 +1,8 @@
 import { Request } from 'express'
 
 import { AreaCode } from 'meta/area'
-import { AssessmentName, CycleName, SectionName } from 'meta/assessment'
+import { AssessmentName, SectionName } from 'meta/assessment'
+import { CycleName } from 'meta/assessment/cycle'
 import { TablePaginatedOrderByDirection } from 'meta/tablePaginated'
 
 export type TablePaginatedBaseParams = {

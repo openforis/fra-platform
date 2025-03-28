@@ -1,5 +1,6 @@
 import { CountryIso } from 'meta/area'
-import { Assessment, Cycle } from 'meta/assessment'
+import { Assessment } from 'meta/assessment'
+import { Cycle } from 'meta/assessment/cycle'
 import { TablePaginatedCount } from 'meta/tablePaginated'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'

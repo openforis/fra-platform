@@ -1,4 +1,5 @@
-import { ActivityLog, ActivityLogMessage, Assessment, Cycle, OriginalDataPoint } from 'meta/assessment'
+import { ActivityLog, ActivityLogMessage, Assessment, OriginalDataPoint } from 'meta/assessment'
+import { Cycle } from 'meta/assessment/cycle'
 import { Topics } from 'meta/messageCenter'
 import { Sockets } from 'meta/socket'
 import { User } from 'meta/user'

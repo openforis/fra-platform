@@ -1,4 +1,5 @@
-import { Assessment, Cycle } from 'meta/assessment'
+import { Assessment } from 'meta/assessment'
+import { Cycle } from 'meta/assessment/cycle'
 import { AuthProvider, User } from 'meta/user'
 import { AuthProviderLocalProps } from 'meta/user/userAuth'
 

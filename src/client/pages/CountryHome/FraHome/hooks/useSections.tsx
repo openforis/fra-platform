@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 
 import { Areas } from 'meta/area'
-import { Cycles } from 'meta/assessment'
+import { Cycles } from 'meta/assessment/cycles'
 import { SectionNames } from 'meta/routes'
 import { Users } from 'meta/user'
 

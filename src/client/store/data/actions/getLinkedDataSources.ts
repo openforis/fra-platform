@@ -3,7 +3,8 @@ import axios from 'axios'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CountryIso } from 'meta/area'
-import { AssessmentName, CycleName, DataSourceLinked, DataSourceLinkedVariable } from 'meta/assessment'
+import { AssessmentName, DataSourceLinked, DataSourceLinkedVariable } from 'meta/assessment'
+import { CycleName } from 'meta/assessment/cycle'
 
 type Params = {
   countryIso: CountryIso

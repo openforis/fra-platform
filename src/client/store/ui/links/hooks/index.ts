@@ -1,4 +1,5 @@
-import { AssessmentName, CycleName } from 'meta/assessment'
+import { AssessmentName } from 'meta/assessment'
+import { CycleName } from 'meta/assessment/cycle'
 
 import { useAppSelector } from 'client/store/store'
 import { LinksSelectors } from 'client/store/ui/links/selectors'

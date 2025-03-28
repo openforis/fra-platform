@@ -5,12 +5,11 @@ import {
   Assessment,
   AssessmentMetaCaches,
   AssessmentName,
-  Cycle,
-  CycleName,
   RecordAssessments,
   TableName,
   VariableCache,
 } from 'meta/assessment'
+import { Cycle, CycleName } from 'meta/assessment/cycle'
 import { RecordAssessmentData } from 'meta/data'
 
 import { AssessmentController } from 'server/controller/assessment'

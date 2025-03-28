@@ -1,4 +1,5 @@
-import { Assessment, Cycle } from 'meta/assessment'
+import { Assessment } from 'meta/assessment'
+import { Cycle } from 'meta/assessment/cycle'
 import { FileMeta } from 'meta/file'
 
 import { RepositoryRepository } from 'server/repository/assessmentCycle/repository'

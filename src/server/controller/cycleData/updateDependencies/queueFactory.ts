@@ -2,7 +2,8 @@ import { Queue, QueueOptions, Worker } from 'bullmq'
 import IORedis from 'ioredis'
 
 import { CountryIso } from 'meta/area'
-import { Assessment, Cycle } from 'meta/assessment'
+import { Assessment } from 'meta/assessment'
+import { Cycle } from 'meta/assessment/cycle'
 
 import { ProcessEnv } from 'server/utils'
 import { Logger } from 'server/utils/logger'

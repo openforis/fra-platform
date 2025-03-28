@@ -1,7 +1,8 @@
 import { CSSProperties } from 'react'
 
 import { AssessmentName } from 'meta/assessment/assessmentName'
-import { CycledPropsObject, CycleName, CycleUuid } from 'meta/assessment/cycle'
+import { CycleName, CycleUuid } from 'meta/assessment/cycle'
+import { CycledPropsObject } from 'meta/assessment/cycledObject'
 import { VariableName } from 'meta/assessment/row'
 import { TableName } from 'meta/assessment/table'
 

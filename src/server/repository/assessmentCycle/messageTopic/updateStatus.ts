@@ -1,5 +1,6 @@
 import { CountryIso } from 'meta/area'
-import { Assessment, Cycle } from 'meta/assessment'
+import { Assessment } from 'meta/assessment'
+import { Cycle } from 'meta/assessment/cycle'
 import { MessageTopic, MessageTopicStatus } from 'meta/messageCenter'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'

@@ -1,7 +1,8 @@
 import { Draft, PayloadAction } from '@reduxjs/toolkit'
 
 import { CountryIso } from 'meta/area'
-import { AssessmentName, CycleName, TableNames } from 'meta/assessment'
+import { AssessmentName, TableNames } from 'meta/assessment'
+import { CycleName } from 'meta/assessment/cycle'
 import { RecordAssessmentDatas } from 'meta/data'
 
 import { DataState } from 'client/store/data/state'

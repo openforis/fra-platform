@@ -1,7 +1,8 @@
 import { Request } from 'express'
 
 import { CountryIso } from 'meta/area'
-import { AssessmentName, CycleName, SectionName } from 'meta/assessment'
+import { AssessmentName, SectionName } from 'meta/assessment'
+import { CycleName } from 'meta/assessment/cycle'
 
 // base params
 export type CycleParams = {

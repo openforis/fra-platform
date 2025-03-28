@@ -1,7 +1,8 @@
 import { Objects } from 'utils/objects'
 
 import { AreaCode } from 'meta/area'
-import { ActivityLog, ActivityLogMessage, Assessment, Cycle } from 'meta/assessment'
+import { ActivityLog, ActivityLogMessage, Assessment } from 'meta/assessment'
+import { Cycle } from 'meta/assessment/cycle'
 
 import { BaseProtocol, DB } from 'server/db'
 
