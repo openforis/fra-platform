@@ -1,6 +1,6 @@
 import { UUIDs } from 'utils/uuids'
 
-import { Country, CountryIso } from 'meta/area'
+import { Country } from 'meta/area'
 import { ActivityLogMessage, Assessment, Cycle, ODPNationalClass, OriginalDataPoint } from 'meta/assessment'
 import { User } from 'meta/user'
 
@@ -14,7 +14,6 @@ import { updateOriginalDataPointDependentNodes } from './updateDependants/update
 type Props = {
   assessment: Assessment
   cycle: Cycle
-  countryIso: CountryIso
   country: Country
   year: string
   targetYear: string
@@ -25,7 +24,8 @@ export const copyOriginalDataPointNationalClasses = async (
   props: Props,
   client: BaseProtocol = DB
 ): Promise<OriginalDataPoint> => {
-  const { assessment, cycle, countryIso, country, year, targetYear, user } = props
+  const { assessment, cycle, country, year, targetYear, user } = props
+  const { countryIso } = country
 
   const odpReturn = await client.tx(async (t) => {
     const commonProps = { assessment, cycle, countryIso }

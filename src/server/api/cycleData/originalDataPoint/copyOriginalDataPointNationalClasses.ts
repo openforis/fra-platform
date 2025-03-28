@@ -11,7 +11,7 @@ export const copyOriginalDataPointNationalClasses = async (
   res: Response
 ) => {
   try {
-    const { assessmentName, countryIso, cycleName, year } = req.query
+    const { assessmentName, cycleName, year } = req.query
     const { targetYear } = req.body
     const { country } = req.context
     const user = Requests.getUser(req)
@@ -19,7 +19,7 @@ export const copyOriginalDataPointNationalClasses = async (
     const getOneWithCycleProps = { assessmentName, cycleName, metaCache: true }
     const { assessment, cycle } = await AssessmentController.getOneWithCycle(getOneWithCycleProps)
 
-    const copyNationalClassesProps = { assessment, cycle, country, countryIso, year, targetYear, user }
+    const copyNationalClassesProps = { assessment, cycle, country, year, targetYear, user }
     const returnedOriginalDataPoint = await CycleDataController.copyOriginalDataPointNationalClasses(
       copyNationalClassesProps
     )

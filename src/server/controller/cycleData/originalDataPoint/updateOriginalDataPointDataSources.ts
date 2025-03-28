@@ -20,6 +20,7 @@ export const updateOriginalDataPointDataSources = async (
   client: BaseProtocol = DB
 ): Promise<OriginalDataPoint> => {
   const { assessment, cycle, country, originalDataPoint, user } = props
+  const { countryIso } = originalDataPoint
 
   return client.tx(async (t) => {
     const updatedOriginalDataPoint = await OriginalDataPointRepository.updateDataSources(
@@ -31,7 +32,7 @@ export const updateOriginalDataPointDataSources = async (
       target: updatedOriginalDataPoint,
       section: 'odp',
       message: ActivityLogMessage.originalDataPointUpdateDataSources,
-      countryIso: country.countryIso,
+      countryIso,
       user,
     }
     await ActivityLogRepository.insertActivityLog({ activityLog, assessment, cycle }, t)
