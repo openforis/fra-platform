@@ -3,7 +3,8 @@ import { useMemo } from 'react'
 import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area'
-import { AssessmentName, ColName, NodeValue, TableName, VariableName } from 'meta/assessment'
+import { ColName, NodeValue, TableName, VariableName } from 'meta/assessment'
+import { AssessmentName } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
 import { RecordAssessmentData, RecordAssessmentDatas } from 'meta/data'
 

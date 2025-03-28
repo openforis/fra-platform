@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 
-import { TableName, VariableCache } from 'meta/assessment'
+import { TableName } from 'meta/assessment'
+import { VariableCache } from 'meta/assessment/metaCache'
 
 import { Props } from 'client/components/Dashboard/props'
 

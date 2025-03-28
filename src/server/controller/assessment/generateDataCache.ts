@@ -1,4 +1,5 @@
-import { Assessment, AssessmentNames, TableNames } from 'meta/assessment'
+import { TableNames } from 'meta/assessment'
+import { Assessment, AssessmentNames } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { RecordCountryData, TablesCondition } from 'meta/data'
 

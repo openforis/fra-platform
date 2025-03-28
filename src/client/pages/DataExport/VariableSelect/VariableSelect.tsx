@@ -3,7 +3,8 @@ import { useTranslation } from 'react-i18next'
 import MediaQuery from 'react-responsive'
 import { useParams } from 'react-router-dom'
 
-import { AssessmentName, AssessmentNames, Row } from 'meta/assessment'
+import { Row } from 'meta/assessment'
+import { AssessmentName, AssessmentNames } from 'meta/assessment/assessment'
 import { Labels } from 'meta/assessment/labels'
 
 import { useAppDispatch } from 'client/store'

@@ -1,7 +1,8 @@
 import { Parser } from 'htmlparser2'
 
 import { CountryIso } from 'meta/area'
-import { Assessment, CommentableDescriptionName } from 'meta/assessment'
+import { CommentableDescriptionName } from 'meta/assessment'
+import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { SectionName } from 'meta/assessment/section'
 

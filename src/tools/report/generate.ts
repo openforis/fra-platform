@@ -10,7 +10,7 @@ import { Dates } from 'utils/dates'
 import { Promises } from 'utils/promises'
 
 import { Areas, CountryIso } from 'meta/area'
-import { AssessmentNames } from 'meta/assessment'
+import { AssessmentNames } from 'meta/assessment/assessment'
 import { Lang } from 'meta/lang'
 
 import { AreaController } from 'server/controller/area'

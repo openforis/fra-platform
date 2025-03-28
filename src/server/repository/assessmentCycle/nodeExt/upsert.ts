@@ -1,6 +1,6 @@
 import { Objects } from 'utils/objects'
 
-import { Assessment } from 'meta/assessment'
+import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { NodeExt } from 'meta/nodeExt'
 

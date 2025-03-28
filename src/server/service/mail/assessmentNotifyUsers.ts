@@ -2,7 +2,7 @@ import { createI18nPromise } from 'i18n/i18nFactory'
 import { Arrays } from 'utils/arrays'
 
 import { AssessmentStatus, Country, CountryIso } from 'meta/area'
-import { AssessmentName } from 'meta/assessment'
+import { AssessmentName } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { Lang } from 'meta/lang'
 import { Routes } from 'meta/routes'

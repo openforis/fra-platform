@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Assessments } from 'meta/assessment'
+import { Assessments } from 'meta/assessment/assessments'
 import { Cycle } from 'meta/assessment/cycle'
 import { Cycles } from 'meta/assessment/cycles'
 import { Users } from 'meta/user'

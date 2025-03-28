@@ -1,12 +1,10 @@
 import { Dates } from 'utils/dates'
 
 import { Areas, AssessmentStatus, Country, CountryIso } from 'meta/area'
+import { Assessment, AssessmentName, RecordAssessments } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { Cycles } from 'meta/assessment/cycles'
-
-import { User, Users } from '../user'
-import { Assessment, RecordAssessments } from './assessment'
-import { AssessmentName } from './assessmentName'
+import { User, Users } from 'meta/user'
 
 export interface AssessmentStatusTransition {
   next?: AssessmentStatus

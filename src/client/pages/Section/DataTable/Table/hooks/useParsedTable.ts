@@ -4,7 +4,8 @@ import { useTranslation } from 'react-i18next'
 import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area'
-import { AssessmentName, Cols, Row, RowType, Table } from 'meta/assessment'
+import { Cols, Row, RowType, Table } from 'meta/assessment'
+import { AssessmentName } from 'meta/assessment/assessment'
 
 import { useCycle } from 'client/store/assessment'
 import { useShowOriginalDatapoints } from 'client/store/ui/assessmentSection'

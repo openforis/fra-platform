@@ -1,4 +1,4 @@
-import { AssessmentName } from 'meta/assessment/assessmentName'
+import { AssessmentName } from 'meta/assessment/assessment'
 import { ColName } from 'meta/assessment/col'
 import { CycleName } from 'meta/assessment/cycle'
 import { VariableName } from 'meta/assessment/row'

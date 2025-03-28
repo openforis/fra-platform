@@ -1,7 +1,7 @@
 import { MemberExpression } from '@openforis/arena-core'
 import { MemberEvaluator as ArenaMemberEvaluator } from '@openforis/arena-core/dist/expression/javascript/node/member'
 
-import { AssessmentMetaCaches } from 'meta/assessment'
+import { AssessmentMetaCaches } from 'meta/assessment/metaCaches'
 import { RecordAssessmentDatas } from 'meta/data'
 import { BaseContext } from 'meta/expressionEvaluator/util/_types'
 import { parseMemberVariable } from 'meta/expressionEvaluator/util/parseMemberVariable'

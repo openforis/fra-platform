@@ -2,7 +2,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Navigate, Outlet, useNavigate } from 'react-router-dom'
 
-import { Assessments } from 'meta/assessment'
+import { Assessments } from 'meta/assessment/assessments'
 import { LoginInvitationQueryParams, Routes } from 'meta/routes'
 import { UserInvitations, Users } from 'meta/user'
 

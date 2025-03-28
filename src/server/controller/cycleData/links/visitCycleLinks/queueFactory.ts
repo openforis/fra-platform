@@ -1,7 +1,7 @@
 import { Job, Queue, QueueOptions, Worker } from 'bullmq'
 import IORedis from 'ioredis'
 
-import { Assessment } from 'meta/assessment'
+import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 
 import { ProcessEnv } from 'server/utils'

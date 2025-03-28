@@ -1,4 +1,5 @@
-import { AssessmentNames, TableNames, TableProps, Years } from 'meta/assessment'
+import { TableNames, TableProps, Years } from 'meta/assessment'
+import { AssessmentNames } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 
 import { AssessmentController } from 'server/controller/assessment'

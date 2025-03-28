@@ -1,6 +1,6 @@
 import { CycleParams } from 'meta/api/request'
 import { CountryIso, RegionCode } from 'meta/area'
-import { AssessmentName } from 'meta/assessment'
+import { AssessmentName } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
 
 export type Props = CycleParams & {

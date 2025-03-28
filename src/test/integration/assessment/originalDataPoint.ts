@@ -1,4 +1,5 @@
-import { Assessment, OriginalDataPoint } from 'meta/assessment'
+import { OriginalDataPoint } from 'meta/assessment'
+import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { User } from 'meta/user'
 

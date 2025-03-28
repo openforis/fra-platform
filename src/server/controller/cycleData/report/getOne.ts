@@ -1,6 +1,6 @@
 import { errors as pgErrors } from 'pg-promise'
 
-import { Assessment } from 'meta/assessment'
+import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { RepositoryItem } from 'meta/cycleData'
 import { File } from 'meta/file'

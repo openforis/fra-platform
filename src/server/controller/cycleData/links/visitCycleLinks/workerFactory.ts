@@ -1,7 +1,8 @@
 import { Worker, WorkerListener, WorkerOptions } from 'bullmq'
 import IORedis from 'ioredis'
 
-import { ActivityLogMessage, Assessment } from 'meta/assessment'
+import { ActivityLogMessage } from 'meta/assessment'
+import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { SectionNames } from 'meta/routes/sectionNames'
 import { Sockets } from 'meta/socket'

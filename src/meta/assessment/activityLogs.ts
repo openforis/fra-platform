@@ -1,7 +1,7 @@
 import { TFunction } from 'i18next'
 
 import { AreaCode } from 'meta/area'
-import { AssessmentName } from 'meta/assessment/assessmentName'
+import { AssessmentName } from 'meta/assessment/assessment'
 import { Cycle, CycleName } from 'meta/assessment/cycle'
 import { Labels } from 'meta/assessment/labels'
 import { SectionName, SectionNames, SubSection } from 'meta/assessment/section'

@@ -1,7 +1,7 @@
 import { Objects } from 'utils/objects'
 
 import { AreaCode, Areas, AssessmentStatus, Country, CountryIso } from 'meta/area'
-import { Assessment } from 'meta/assessment'
+import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { Cycles } from 'meta/assessment/cycles'
 import { Section, SubSection } from 'meta/assessment/section'

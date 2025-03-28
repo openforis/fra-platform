@@ -1,6 +1,6 @@
 import { CSSProperties } from 'react'
 
-import { AssessmentName } from 'meta/assessment/assessmentName'
+import { AssessmentName } from 'meta/assessment/assessment'
 import { CycleName, CycleUuid } from 'meta/assessment/cycle'
 import { CycledPropsObject } from 'meta/assessment/cycledObject'
 import { Label } from 'meta/assessment/label'

@@ -2,7 +2,7 @@ import { createI18nPromise } from 'i18n/i18nFactory'
 import { i18n as i18nType } from 'i18next'
 import { Objects } from 'utils/objects'
 
-import { Assessment } from 'meta/assessment'
+import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { Labels } from 'meta/assessment/labels'
 import { Lang } from 'meta/lang'

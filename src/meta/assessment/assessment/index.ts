@@ -1,7 +1,13 @@
 import { Cycle, CycleUuid } from 'meta/assessment/cycle'
+import { AssessmentMetaCache } from 'meta/assessment/metaCache'
 
-import { AssessmentMetaCache } from './assessmentMetaCache'
-import { AssessmentName } from './assessmentName'
+export type AssessmentName = string
+
+export enum AssessmentNames {
+  fra = 'fra',
+  fraTest = 'fra_test',
+  panEuropean = 'panEuropean',
+}
 
 export type AssessmentProps = {
   name: AssessmentName

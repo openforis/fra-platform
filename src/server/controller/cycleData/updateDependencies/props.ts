@@ -1,6 +1,6 @@
 import { Job } from 'bullmq'
 
-import { Assessment } from 'meta/assessment'
+import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { NodeUpdates } from 'meta/data'
 import { User } from 'meta/user'

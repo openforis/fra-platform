@@ -1,6 +1,6 @@
 import * as pgPromise from 'pg-promise'
 
-import { Assessment } from 'meta/assessment'
+import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { TableSection } from 'meta/assessment/tableSection'
 import { TableSections } from 'meta/assessment/tableSections'

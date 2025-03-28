@@ -1,18 +1,6 @@
 export type { ActivityLog, ActivityLogDescription } from './activityLog'
 export { ActivityLogMessage } from './activityLog'
 export { ActivityLogs } from './activityLogs'
-export type { Assessment, AssessmentProps, RecordAssessments } from './assessment'
-export type {
-  AssessmentMetaCache,
-  DependencyCache,
-  DependencyRecord,
-  VariableCache,
-  VariablesCache,
-} from './assessmentMetaCache'
-export { AssessmentMetaCaches } from './assessmentMetaCaches'
-export type { AssessmentName } from './assessmentName'
-export { AssessmentNames } from './assessmentName'
-export { Assessments } from './assessments'
 export type { Col, ColLinkedNode, ColName, ColProps, ColSelectOption, ColSelectProps, ColStyle } from './col'
 export { ColType } from './col'
 export { Cols } from './cols'

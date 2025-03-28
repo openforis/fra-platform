@@ -1,5 +1,6 @@
 import { AreaCode } from 'meta/area'
-import { AssessmentName, ColName, NodeValue, TableName, VariableName } from 'meta/assessment'
+import { ColName, NodeValue, TableName, VariableName } from 'meta/assessment'
+import { AssessmentName } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
 
 export type RecordRowData = Record<VariableName, NodeValue>

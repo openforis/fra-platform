@@ -1,4 +1,5 @@
-import { Assessment, Table, TableProps } from 'meta/assessment'
+import { Table, TableProps } from 'meta/assessment'
+import { Assessment } from 'meta/assessment/assessment'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'
 import { TableAdapter } from 'server/repository/adapter'

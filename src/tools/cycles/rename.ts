@@ -3,7 +3,7 @@ import 'dotenv/config'
 
 import { ToolsUtils } from 'tools/utils/toolsUtils'
 
-import { AssessmentNames } from 'meta/assessment'
+import { AssessmentNames } from 'meta/assessment/assessment'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { UserController } from 'server/controller/user'

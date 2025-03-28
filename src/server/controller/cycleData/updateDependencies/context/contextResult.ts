@@ -1,6 +1,7 @@
 import { Objects } from 'utils/objects'
 
-import { Assessment, Col, NodeValue, RowCache, TableName } from 'meta/assessment'
+import { Col, NodeValue, RowCache, TableName } from 'meta/assessment'
+import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { NodeUpdate, NodeUpdates } from 'meta/data'
 

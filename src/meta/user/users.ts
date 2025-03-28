@@ -2,7 +2,7 @@ import { Objects } from 'utils/objects'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { AreaCode, Areas, CountryIso } from 'meta/area'
-import { Assessment } from 'meta/assessment'
+import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 
 import type { User, UserProps } from './user'

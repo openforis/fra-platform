@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-import { AssessmentNames } from 'meta/assessment'
+import { AssessmentNames } from 'meta/assessment/assessment'
 import { Lang } from 'meta/lang'
 
 import { useAssessment } from 'client/store/assessment'

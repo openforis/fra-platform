@@ -3,7 +3,7 @@ import IORedis from 'ioredis'
 import { Promises } from 'utils/promises'
 
 import { Areas, CountryIso } from 'meta/area'
-import { Assessment } from 'meta/assessment'
+import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { Cycles } from 'meta/assessment/cycles'
 

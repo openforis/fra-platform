@@ -1,5 +1,6 @@
-import { Assessment, VariablesCache } from 'meta/assessment'
+import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
+import { VariablesCache } from 'meta/assessment/metaCache'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'
 

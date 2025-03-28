@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { AssessmentName } from 'meta/assessment'
+import { AssessmentName } from 'meta/assessment/assessment'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { CycleDataController } from 'server/controller/cycleData'
