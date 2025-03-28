@@ -1,4 +1,6 @@
-import { CycledPropsObject, CycleUuid } from './cycle'
+import { CycleUuid } from 'meta/assessment/cycle'
+import { CycledPropsObject } from 'meta/assessment/cycledObject'
+
 import { Descriptions } from './description'
 import { Label } from './label'
 

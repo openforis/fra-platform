@@ -1,7 +1,8 @@
 import { Objects } from 'utils/objects'
 
 import { CountrySummary } from 'meta/area'
-import { Assessment, Cycle } from 'meta/assessment'
+import { Assessment } from 'meta/assessment'
+import { Cycle } from 'meta/assessment/cycle'
 import { TablePaginatedOrderByDirection } from 'meta/tablePaginated'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'

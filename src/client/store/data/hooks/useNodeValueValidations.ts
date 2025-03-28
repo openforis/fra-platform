@@ -1,5 +1,6 @@
 import { CountryIso } from 'meta/area'
-import { AssessmentName, Col, CycleName, NodeValueValidation, Row, Table } from 'meta/assessment'
+import { AssessmentName, Col, NodeValueValidation, Row, Table } from 'meta/assessment'
+import { CycleName } from 'meta/assessment/cycle'
 
 import { useAssessment, useCycle } from 'client/store/assessment'
 import { useAppSelector } from 'client/store/store'

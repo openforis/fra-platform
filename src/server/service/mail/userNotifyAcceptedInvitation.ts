@@ -1,7 +1,8 @@
 import { createI18nPromise } from 'i18n/i18nFactory'
 
 import { CountryIso } from 'meta/area'
-import { AssessmentName, Assessments, CycleName } from 'meta/assessment'
+import { AssessmentName, Assessments } from 'meta/assessment'
+import { CycleName } from 'meta/assessment/cycle'
 import { Lang } from 'meta/lang'
 import { Routes, SectionNames } from 'meta/routes'
 import { RoleName, User, UserRole, Users } from 'meta/user'

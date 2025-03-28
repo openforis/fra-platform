@@ -1,11 +1,6 @@
 import { CountryIso } from 'meta/area'
-import {
-  ActivityLogMessage,
-  Assessment,
-  CommentableDescriptionName,
-  Cycle,
-  DescriptionCountryValues,
-} from 'meta/assessment'
+import { ActivityLogMessage, Assessment, CommentableDescriptionName, DescriptionCountryValues } from 'meta/assessment'
+import { Cycle } from 'meta/assessment/cycle'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'
 

@@ -1,6 +1,7 @@
+import { Cycle, CycleUuid } from 'meta/assessment/cycle'
+
 import { AssessmentMetaCache } from './assessmentMetaCache'
 import { AssessmentName } from './assessmentName'
-import { Cycle, CycleUuid } from './cycle'
 
 export type AssessmentProps = {
   name: AssessmentName

@@ -1,5 +1,6 @@
 import { AreaCode, CountryIso } from 'meta/area'
-import { AssessmentName, CycleName, SectionName } from 'meta/assessment'
+import { AssessmentName, SectionName } from 'meta/assessment'
+import { CycleName } from 'meta/assessment/cycle'
 
 export type AssessmentRouteParams = {
   assessmentName: AssessmentName

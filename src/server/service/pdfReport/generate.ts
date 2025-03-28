@@ -3,7 +3,8 @@ import puppeteer, { PDFOptions, PuppeteerLaunchOptions } from 'puppeteer'
 import { Promises } from 'utils/promises'
 
 import { Areas, CountryIso } from 'meta/area'
-import { AssessmentName, Assessments, CycleName } from 'meta/assessment'
+import { AssessmentName, Assessments } from 'meta/assessment'
+import { CycleName } from 'meta/assessment/cycle'
 import { Lang } from 'meta/lang'
 
 import { ProcessEnv } from 'server/utils'

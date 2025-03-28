@@ -3,7 +3,8 @@ import axios from 'axios'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { Global } from 'meta/area'
-import { AssessmentName, CycleName, Section } from 'meta/assessment'
+import { AssessmentName, Section } from 'meta/assessment'
+import { CycleName } from 'meta/assessment/cycle'
 
 type Props = {
   assessmentName: AssessmentName

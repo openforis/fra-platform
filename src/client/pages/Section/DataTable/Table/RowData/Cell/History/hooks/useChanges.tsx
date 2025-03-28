@@ -6,7 +6,8 @@ import { Change } from 'diff'
 import { Numbers } from 'utils/numbers'
 import { Objects } from 'utils/objects'
 
-import { Col, Cols, ColType, Cycle, NodeValue, Row } from 'meta/assessment'
+import { Col, Cols, ColType, NodeValue, Row } from 'meta/assessment'
+import { Cycle } from 'meta/assessment/cycle'
 
 import { useCycle } from 'client/store/assessment'
 

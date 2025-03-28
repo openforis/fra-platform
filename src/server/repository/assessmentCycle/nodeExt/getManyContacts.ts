@@ -1,7 +1,8 @@
 import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area'
-import { Assessment, Cycle } from 'meta/assessment'
+import { Assessment } from 'meta/assessment'
+import { Cycle } from 'meta/assessment/cycle'
 import { Contact, ContactField } from 'meta/cycleData'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'

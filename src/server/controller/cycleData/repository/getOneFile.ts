@@ -1,4 +1,5 @@
-import { Assessment, Cycle } from 'meta/assessment'
+import { Assessment } from 'meta/assessment'
+import { Cycle } from 'meta/assessment/cycle'
 import { RepositoryItem } from 'meta/cycleData'
 import { File } from 'meta/file'
 

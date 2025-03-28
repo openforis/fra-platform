@@ -1,4 +1,5 @@
-import { Assessment, Cycle, Section } from 'meta/assessment'
+import { Assessment, Section } from 'meta/assessment'
+import { Cycle } from 'meta/assessment/cycle'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'
 import { SectionAdapter } from 'server/repository/adapter'

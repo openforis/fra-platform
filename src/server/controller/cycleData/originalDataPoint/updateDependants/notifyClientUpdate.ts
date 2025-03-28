@@ -1,5 +1,6 @@
 import { CountryIso } from 'meta/area'
-import { Assessment, Cycle, OriginalDataPoint, TableNames } from 'meta/assessment'
+import { Assessment, OriginalDataPoint, TableNames } from 'meta/assessment'
+import { Cycle } from 'meta/assessment/cycle'
 import { NodeUpdate, NodeUpdates, RecordAssessmentDatas } from 'meta/data'
 import { Sockets } from 'meta/socket'
 

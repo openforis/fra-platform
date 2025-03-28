@@ -5,7 +5,8 @@ import { Link } from 'react-router-dom'
 import { TFunction } from 'i18next'
 
 import { CountryIso, Global } from 'meta/area'
-import { Assessment, Cycle } from 'meta/assessment'
+import { Assessment } from 'meta/assessment'
+import { Cycle } from 'meta/assessment/cycle'
 import { Routes } from 'meta/routes'
 import { User, Users } from 'meta/user'
 import { UserRoles } from 'meta/user/userRoles'
@@ -84,8 +85,8 @@ const LinksFRA: React.FC = () => {
       {!user && !isLogin && (
         <Link
           key="admin-link"
-          to={Routes.Login.generatePath({ assessmentName, cycleName })}
           className="app-header__menu-item"
+          to={Routes.Login.generatePath({ assessmentName, cycleName })}
         >
           {t<string>('common.login')}
         </Link>

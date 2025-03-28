@@ -1,5 +1,6 @@
 import { CountryIso, RegionCode } from 'meta/area'
-import { Assessment, Cycle } from 'meta/assessment'
+import { Assessment } from 'meta/assessment'
+import { Cycle } from 'meta/assessment/cycle'
 import { RecordCountryData, TablesCondition } from 'meta/data'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'

@@ -4,7 +4,8 @@ import { useTranslation } from 'react-i18next'
 
 import { Objects } from 'utils/objects'
 
-import { AssessmentName, CycleName, Row, TableNames } from 'meta/assessment'
+import { AssessmentName, Row, TableNames } from 'meta/assessment'
+import { CycleName } from 'meta/assessment/cycle'
 import { RecordAssessmentData } from 'meta/data'
 
 import { useAssessmentCountry } from 'client/store/area'
@@ -49,8 +50,8 @@ const GenerateValues: React.FC<Props> = (props) => {
   return (
     <div className="app-view__section-toolbar no-print">
       <div className="data-table-generate-values">
-        <select className="select-s" value={method ?? ''} onChange={(evt) => setMethod(evt.target.value as Method)}>
-          <option value="" disabled>
+        <select className="select-s" onChange={(evt) => setMethod(evt.target.value as Method)} value={method ?? ''}>
+          <option disabled value="">
             {t('tableWithOdp.placeholderSelect')}
           </option>
           <option value={Method.linear}>{t('tableWithOdp.linearExtrapolation')}</option>
@@ -59,7 +60,6 @@ const GenerateValues: React.FC<Props> = (props) => {
         </select>
 
         <button
-          type="button"
           className="btn-s btn-primary"
           disabled={isEstimationPending || !valid || !buttonEnabled}
           onClick={() => {
@@ -69,11 +69,12 @@ const GenerateValues: React.FC<Props> = (props) => {
               setButtonEnabled(true)
             }, 4_000)
           }}
+          type="button"
         >
           {t(buttonLabel)}
         </button>
 
-        {!Objects.isEmpty(method) && <FieldsOption method={method} fields={fields} setFields={setFields} />}
+        {!Objects.isEmpty(method) && <FieldsOption fields={fields} method={method} setFields={setFields} />}
       </div>
     </div>
   )

@@ -1,4 +1,5 @@
 import { Country } from 'meta/area'
-import { Assessment, Cycle } from 'meta/assessment'
+import { Assessment } from 'meta/assessment'
+import { Cycle } from 'meta/assessment/cycle'
 
 export type Props = { assessment: Assessment; cycle: Cycle; countries: Array<Country> }

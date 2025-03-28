@@ -1,7 +1,8 @@
 import { useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { Assessment, Cycle, Cycles } from 'meta/assessment'
+import { Assessment } from 'meta/assessment'
+import { Cycle, Cycles } from 'meta/assessment/cycle'
 import { Routes } from 'meta/routes'
 import { User, Users } from 'meta/user'
 

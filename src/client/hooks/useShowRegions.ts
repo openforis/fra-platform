@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import { Cycles } from 'meta/assessment'
+import { Cycles } from 'meta/assessment/cycle'
 import { Users } from 'meta/user'
 
 import { useCycle } from 'client/store/assessment'

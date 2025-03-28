@@ -1,7 +1,8 @@
 import { Objects } from 'utils/objects'
 
 import { AreaCode, Areas } from 'meta/area'
-import { Assessment, Cycle } from 'meta/assessment'
+import { Assessment } from 'meta/assessment'
+import { Cycle } from 'meta/assessment/cycle'
 import { DashboardItem, DashboardItemType } from 'meta/dashboard'
 
 import { NodeExtRepository } from 'server/repository/assessmentCycle/nodeExt'

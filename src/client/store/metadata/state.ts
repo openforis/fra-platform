@@ -1,4 +1,5 @@
-import { AssessmentName, CycleName, Section, TableSection } from 'meta/assessment'
+import { AssessmentName, Section, TableSection } from 'meta/assessment'
+import { CycleName } from 'meta/assessment/cycle'
 import { SectionName } from 'meta/assessment/section'
 import { DashboardItem } from 'meta/dashboard'
 

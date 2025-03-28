@@ -1,7 +1,8 @@
 import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area'
-import { Assessment, Cycle, ReviewStatus } from 'meta/assessment'
+import { Assessment, ReviewStatus } from 'meta/assessment'
+import { Cycle } from 'meta/assessment/cycle'
 import { Topics } from 'meta/messageCenter'
 import { User } from 'meta/user'
 

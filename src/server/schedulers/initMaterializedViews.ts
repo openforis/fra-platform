@@ -3,7 +3,8 @@ import IORedis from 'ioredis'
 import { Promises } from 'utils/promises'
 
 import { Areas, CountryIso } from 'meta/area'
-import { Assessment, Cycle, Cycles } from 'meta/assessment'
+import { Assessment } from 'meta/assessment'
+import { Cycle, Cycles } from 'meta/assessment/cycle'
 
 import { AreaController } from 'server/controller/area'
 import { AssessmentController } from 'server/controller/assessment'

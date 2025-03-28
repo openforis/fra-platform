@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction, Reducer } from '@reduxjs/toolkit'
 import { Objects } from 'utils/objects'
 
-import { AssessmentName, CycleName } from 'meta/assessment'
+import { AssessmentName } from 'meta/assessment'
+import { CycleName } from 'meta/assessment/cycle'
 
 import { getIsVerificationInProgress } from './actions/getIsVerificationInProgress'
 import { initialState, LinksState } from './state'

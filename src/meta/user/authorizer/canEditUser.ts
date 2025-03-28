@@ -1,5 +1,5 @@
 import { CountryIso } from 'meta/area'
-import { Cycle } from 'meta/assessment'
+import { Cycle } from 'meta/assessment/cycle'
 import { User } from 'meta/user/user'
 import { Users } from 'meta/user/users'
 

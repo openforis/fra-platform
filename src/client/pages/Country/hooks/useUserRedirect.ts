@@ -2,7 +2,8 @@ import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { Areas } from 'meta/area'
-import { AssessmentNames, Cycles } from 'meta/assessment'
+import { AssessmentNames } from 'meta/assessment'
+import { Cycles } from 'meta/assessment/cycle'
 import { Routes } from 'meta/routes'
 import { Users } from 'meta/user'
 

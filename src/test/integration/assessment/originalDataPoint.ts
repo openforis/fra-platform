@@ -1,4 +1,5 @@
-import { Assessment, Cycle, OriginalDataPoint } from 'meta/assessment'
+import { Assessment, OriginalDataPoint } from 'meta/assessment'
+import { Cycle } from 'meta/assessment/cycle'
 import { User } from 'meta/user'
 
 import { AssessmentController } from 'server/controller/assessment'

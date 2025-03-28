@@ -1,4 +1,5 @@
-import { Assessment, AssessmentMetaCache, AssessmentNames, Cycle, CycleProps, CycleStatus } from 'meta/assessment'
+import { Assessment, AssessmentMetaCache, AssessmentNames } from 'meta/assessment'
+import { Cycle, CycleProps, CycleStatus } from 'meta/assessment/cycle'
 
 import { getOneWithCycle } from 'server/controller/assessment/getOne'
 import { BaseProtocol, DB, Schemas } from 'server/db'

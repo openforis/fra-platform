@@ -1,7 +1,8 @@
 import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area'
-import { ActivityLogMessage, Assessment, Cycle, Cycles } from 'meta/assessment'
+import { ActivityLogMessage, Assessment } from 'meta/assessment'
+import { Cycle, Cycles } from 'meta/assessment/cycle'
 import { RecordAssessmentData } from 'meta/data'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'

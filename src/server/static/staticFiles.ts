@@ -1,7 +1,8 @@
 import * as fs from 'fs/promises'
 import * as path from 'path'
 
-import { Assessment, Cycle } from 'meta/assessment'
+import { Assessment } from 'meta/assessment'
+import { Cycle } from 'meta/assessment/cycle'
 
 type PropsClone = {
   assessment: Assessment

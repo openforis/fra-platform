@@ -1,4 +1,6 @@
-import { CycledPropsObject, Label, Table } from './index'
+import { CycledPropsObject } from 'meta/assessment/cycledObject'
+
+import { Label, Table } from './index'
 
 export interface TableSectionProps {
   descriptions: Record<string, Label> // label by cycle uuid

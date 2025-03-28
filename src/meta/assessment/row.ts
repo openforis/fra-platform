@@ -1,4 +1,6 @@
-import { Col, CycledPropsObject, CycleUuid, VariableCache } from 'meta/assessment'
+import { Col, VariableCache } from 'meta/assessment'
+import { CycleUuid } from 'meta/assessment/cycle'
+import { CycledPropsObject } from 'meta/assessment/cycledObject'
 
 export type VariableName = string
 

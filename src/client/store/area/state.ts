@@ -1,5 +1,6 @@
 import { Country, CountryIso } from 'meta/area'
-import { AssessmentName, CycleName } from 'meta/assessment'
+import { AssessmentName } from 'meta/assessment'
+import { CycleName } from 'meta/assessment/cycle'
 
 export interface AreaState {
   countries: Record<AssessmentName, Record<CycleName, Record<CountryIso, Country>>>
