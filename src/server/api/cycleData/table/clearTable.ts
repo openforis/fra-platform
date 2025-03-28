@@ -8,7 +8,7 @@ import Requests from 'server/utils/requests'
 
 export const clearTable = async (req: CycleDataRequest, res: Response) => {
   try {
-    const { countryIso, assessmentName, cycleName, sectionName, tableName } = req.query
+    const { assessmentName, cycleName, sectionName, tableName } = req.query
     const user = Requests.getUser(req)
     const { country } = req.context
 
@@ -18,15 +18,7 @@ export const clearTable = async (req: CycleDataRequest, res: Response) => {
       metaCache: true,
     })
 
-    const nodes = await CycleDataController.clearTableData({
-      assessment,
-      country,
-      countryIso,
-      cycle,
-      sectionName,
-      tableName,
-      user,
-    })
+    const nodes = await CycleDataController.clearTableData({ assessment, country, cycle, sectionName, tableName, user })
 
     return Requests.sendOk(res, nodes)
   } catch (e) {

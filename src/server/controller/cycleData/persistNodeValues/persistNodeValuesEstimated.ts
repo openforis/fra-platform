@@ -1,4 +1,4 @@
-import { Country, CountryIso } from 'meta/area'
+import { Country } from 'meta/area'
 import { ActivityLog, ActivityLogMessage, Assessment, Cycle } from 'meta/assessment'
 import { NodeValuesEstimation } from 'meta/assessment/nodeValuesEstimation'
 import { NodeUpdate } from 'meta/data'
@@ -13,7 +13,6 @@ import { persistNodeValues } from './persistNodeValues'
 
 type Props = {
   assessment: Assessment
-  countryIso: CountryIso
   country: Country
   cycle: Cycle
   estimation: NodeValuesEstimation
@@ -23,13 +22,15 @@ type Props = {
 }
 
 const getActivityLog = (props: Props): ActivityLog<NodeValuesEstimation> => {
-  const { countryIso, estimation: target, sectionName: section, user } = props
+  const { country, estimation: target, sectionName: section, user } = props
+  const { countryIso } = country
 
   return { countryIso, message: ActivityLogMessage.nodeValuesEstimationCreate, section, target, user }
 }
 
 const getPersistNodeValuesProps = (props: Props): Parameters<typeof persistNodeValues>['0'] => {
-  const { assessment, cycle, country, countryIso, nodes, sectionName, user } = props
+  const { assessment, cycle, country, nodes, sectionName, user } = props
+  const { countryIso } = country
 
   const nodeUpdates = { assessmentName: assessment.props.name, cycleName: cycle.name, countryIso, nodes }
   const activityLogMessage = ActivityLogMessage.nodeValueEstimate
@@ -38,7 +39,8 @@ const getPersistNodeValuesProps = (props: Props): Parameters<typeof persistNodeV
 }
 
 export const persistNodeValuesEstimated = async (props: Props): Promise<void> => {
-  const { assessment, cycle, countryIso, country, estimation } = props
+  const { assessment, cycle, country, estimation } = props
+  const { countryIso } = country
 
   await DB.tx(async (client) => {
     await Promise.all([

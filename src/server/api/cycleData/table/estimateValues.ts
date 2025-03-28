@@ -34,8 +34,9 @@ const generateSpecToEstimation = (props: { generateSpec: GenerateSpec; table: Ta
 // TODO: future task -> request body should be NodeValuesEstimation
 export const estimateValues = async (req: CycleDataRequest<never, EstimateBody>, res: Response) => {
   try {
-    const { countryIso, assessmentName, cycleName, sectionName } = req.query
+    const { assessmentName, cycleName, sectionName } = req.query
     const { country } = req.context
+    const { countryIso } = country
 
     const { method, tableName, fields } = req.body
     const user = Requests.getUser(req)
@@ -88,7 +89,6 @@ export const estimateValues = async (req: CycleDataRequest<never, EstimateBody>,
         assessment,
         cycle,
         country,
-        countryIso,
         estimation,
         nodes,
         sectionName,
