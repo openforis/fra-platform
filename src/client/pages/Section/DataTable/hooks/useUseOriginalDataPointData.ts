@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import { Table, TableNames } from 'meta/assessment'
+import { Table, TableNames } from 'meta/assessment/table'
 
 import { useCountry } from 'client/store/area'
 import { useShowOriginalDatapoints } from 'client/store/ui/assessmentSection'

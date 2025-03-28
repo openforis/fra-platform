@@ -1,4 +1,4 @@
-import { TableNames } from 'meta/assessment'
+import { TableNames } from 'meta/assessment/table'
 
 export const CustomDataView: Record<
   string,

@@ -1,4 +1,4 @@
-import { Cycle } from 'meta/assessment'
+import { Cycle } from 'meta/assessment/cycle'
 
 export type HistoryLastApprovedInfo = {
   lastAccepted?: Date

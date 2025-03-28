@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { Cell, Legend, Pie as PieComponent, PieChart, ResponsiveContainer, Tooltip as TooltipRecharts } from 'recharts'
 import { Numbers } from 'utils/numbers'
 
-import { Labels } from 'meta/assessment'
+import { Labels } from 'meta/assessment/labels'
 import { PieChartData } from 'meta/chart'
 
 import { cursor } from '../utils/cursor'

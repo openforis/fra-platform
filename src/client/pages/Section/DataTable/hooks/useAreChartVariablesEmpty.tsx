@@ -3,7 +3,8 @@ import { useMemo } from 'react'
 import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area'
-import { Table, Tables } from 'meta/assessment'
+import { Table } from 'meta/assessment/table'
+import { Tables } from 'meta/assessment/tables'
 import { RecordAssessmentData, RecordAssessmentDatas } from 'meta/data'
 
 import { useCycle } from 'client/store/assessment'

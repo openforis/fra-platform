@@ -1,4 +1,5 @@
-import { ActivityLogMessage, CycleUuid } from 'meta/assessment'
+import { ActivityLogMessage } from 'meta/assessment'
+import { CycleUuid } from 'meta/assessment/cycle'
 import { RoleName, User, UserRole } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db'

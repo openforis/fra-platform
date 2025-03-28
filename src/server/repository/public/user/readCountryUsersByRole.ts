@@ -1,7 +1,7 @@
 import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area'
-import { Cycle } from 'meta/assessment'
+import { Cycle } from 'meta/assessment/cycle'
 import { RoleName, User } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db'

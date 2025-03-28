@@ -1,4 +1,6 @@
-import { Assessment, Cycle, Table } from 'meta/assessment'
+import { Assessment } from 'meta/assessment/assessment'
+import { Cycle } from 'meta/assessment/cycle'
+import { Table } from 'meta/assessment/table'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'
 import { CustomDataView } from 'server/repository/assessmentCycle/data/ddl/customDataView'

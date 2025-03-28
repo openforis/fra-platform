@@ -1,7 +1,7 @@
 import './CountryHome.scss'
 import React from 'react'
 
-import { AssessmentNames } from 'meta/assessment'
+import { AssessmentNames } from 'meta/assessment/assessment'
 
 import { useAssessment } from 'client/store/assessment'
 import MessageCenter from 'client/components/MessageCenter'

@@ -4,7 +4,7 @@ import { Functions } from 'utils/functions'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CycleDataParams, NodesBody } from 'meta/api/request'
-import { AssessmentMetaCaches } from 'meta/assessment'
+import { AssessmentMetaCaches } from 'meta/assessment/metaCaches'
 import { NodeUpdate, NodeUpdates } from 'meta/data'
 
 import { AssessmentSelectors } from 'client/store/assessment/selectors'

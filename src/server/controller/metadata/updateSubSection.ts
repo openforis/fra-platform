@@ -1,4 +1,6 @@
-import { ActivityLogMessage, Assessment, SubSection } from 'meta/assessment'
+import { ActivityLogMessage } from 'meta/assessment'
+import { Assessment } from 'meta/assessment/assessment'
+import { SubSection } from 'meta/assessment/section'
 import { User } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db'

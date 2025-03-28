@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Labels } from 'meta/assessment'
+import { Labels } from 'meta/assessment/labels'
 import { NodeExt, NodeExtCellType } from 'meta/nodeExt'
 
 import { DataCell, DataGrid } from 'client/components/DataGrid'

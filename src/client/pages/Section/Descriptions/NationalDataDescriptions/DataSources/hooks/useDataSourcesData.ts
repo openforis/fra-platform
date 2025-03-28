@@ -2,7 +2,8 @@ import { useMemo } from 'react'
 
 import { UUIDs } from 'utils/uuids'
 
-import { CommentableDescriptionName, DataSource, SectionName } from 'meta/assessment'
+import { CommentableDescriptionName, DataSource } from 'meta/assessment'
+import { SectionName } from 'meta/assessment/section'
 
 import { useCommentableDescriptionValue } from 'client/store/data'
 import { useIsDescriptionEditable } from 'client/store/user/hooks'

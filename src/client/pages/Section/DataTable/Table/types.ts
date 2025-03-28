@@ -1,4 +1,6 @@
-import { AssessmentName, Row, Table } from 'meta/assessment'
+import { Row } from 'meta/assessment'
+import { AssessmentName } from 'meta/assessment/assessment'
+import { Table } from 'meta/assessment/table'
 import { RecordAssessmentData } from 'meta/data'
 
 export type RowProps = {

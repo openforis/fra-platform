@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area'
-import { SectionName } from 'meta/assessment'
+import { SectionName } from 'meta/assessment/section'
 
 import { useAppDispatch } from 'client/store'
 import { DataActions, useHistoryLastApprovedIsActive } from 'client/store/data'

@@ -1,5 +1,6 @@
 import { Country } from 'meta/area'
-import { Col, Table, TableNames } from 'meta/assessment'
+import { Col } from 'meta/assessment'
+import { Table, TableNames } from 'meta/assessment/table'
 
 import { ODPColHeader } from 'client/pages/Section/DataTable/Table/types'
 

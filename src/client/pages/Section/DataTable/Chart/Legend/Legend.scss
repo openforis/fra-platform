@@ -1,0 +1,27 @@
+@import 'src/client/style/partials';
+
+.chart__legend-wrapper {
+  display: flex;
+  gap: $spacing-xs;
+  height: 20px;
+}
+
+.chart__legend-item {
+  display: flex;
+  align-items: center;
+  opacity: 0;
+}
+
+.chart__legend-item-color {
+  width: 12px;
+  height: 12px;
+  margin-right: 4px;
+  border-radius: 2px;
+}
+
+.chart__legend-item-label {
+  color: $text-mute;
+  font-size: $font-xs;
+  white-space: nowrap;
+  overflow: hidden;
+}

@@ -1,6 +1,9 @@
 import { Promises } from 'utils/promises'
 
-import { Assessment, AssessmentMetaCaches, Cycle, NodeValue } from 'meta/assessment'
+import { NodeValue } from 'meta/assessment'
+import { Assessment } from 'meta/assessment/assessment'
+import { Cycle } from 'meta/assessment/cycle'
+import { AssessmentMetaCaches } from 'meta/assessment/metaCaches'
 import { NodeUpdate, NodeUpdates } from 'meta/data'
 
 import { BaseProtocol } from 'server/db'

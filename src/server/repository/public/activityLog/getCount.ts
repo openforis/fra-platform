@@ -1,5 +1,7 @@
 import { AreaCode } from 'meta/area'
-import { ActivityLogMessage, Assessment, Cycle } from 'meta/assessment'
+import { ActivityLogMessage } from 'meta/assessment'
+import { Assessment } from 'meta/assessment/assessment'
+import { Cycle } from 'meta/assessment/cycle'
 import { TablePaginatedCount } from 'meta/tablePaginated'
 
 import { BaseProtocol, DB } from 'server/db'

@@ -1,6 +1,7 @@
 import { createSelector } from '@reduxjs/toolkit'
 
-import { CommentableDescriptionName, SectionName } from 'meta/assessment'
+import { CommentableDescriptionName } from 'meta/assessment'
+import { SectionName } from 'meta/assessment/section'
 
 import { RootState } from 'client/store/RootState'
 import { AssessmentSectionSlice } from 'client/store/ui/assessmentSection/slice'

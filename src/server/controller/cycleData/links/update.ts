@@ -1,4 +1,6 @@
-import { ActivityLogMessage, Assessment, Cycle } from 'meta/assessment'
+import { ActivityLogMessage } from 'meta/assessment'
+import { Assessment } from 'meta/assessment/assessment'
+import { Cycle } from 'meta/assessment/cycle'
 import { Link } from 'meta/cycleData'
 import { SectionNames } from 'meta/routes'
 import { User } from 'meta/user'

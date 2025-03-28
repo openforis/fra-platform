@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 
 import { Objects } from 'utils/objects'
 
-import { TableName, TableNames } from 'meta/assessment'
+import { TableName, TableNames } from 'meta/assessment/table'
 import { RecordAssessmentData, RecordAssessmentDatas, RecordTableData } from 'meta/data'
 
 import { useAssessmentCountry } from 'client/store/area'

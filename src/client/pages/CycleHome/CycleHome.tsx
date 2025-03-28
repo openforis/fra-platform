@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { AssessmentName, AssessmentNames } from 'meta/assessment'
+import { AssessmentName, AssessmentNames } from 'meta/assessment/assessment'
 
 import AssessmentSwitch from 'client/components/AssessmentSwitch'
 import Overview from 'client/pages/CountryHome/PanEuropeanHome/Overview'

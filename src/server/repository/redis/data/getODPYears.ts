@@ -1,5 +1,7 @@
 import { CountryIso } from 'meta/area'
-import { Assessment, Cycle, TableNames } from 'meta/assessment'
+import { Assessment } from 'meta/assessment/assessment'
+import { Cycle } from 'meta/assessment/cycle'
+import { TableNames } from 'meta/assessment/table'
 
 import { getCountriesData } from 'server/repository/redis/data/getCountriesData'
 

@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 @import 'src/client/style/partials';
 
 .input-range {
@@ -68,14 +70,14 @@
 
     /***** Chrome, Safari, Opera, and Edge Chromium *****/
     input[type='range']:focus::-webkit-slider-thumb {
-      border: $thumb-border-width solid lighten($ui-accent, 8%);
+      border: $thumb-border-width solid color.adjust($ui-accent, $lightness: 8%, $space: hsl);
       outline-offset: 2px;
       outline: 1px dashed $ui-accent;
     }
 
     /******** Firefox ********/
     input[type='range']:focus::-moz-range-thumb {
-      border: $thumb-border-width solid lighten($ui-accent, 8%);
+      border: $thumb-border-width solid color.adjust($ui-accent, $lightness: 8%, $space: hsl);
       outline-offset: 2px;
       outline: 1px dashed $ui-accent;
     }

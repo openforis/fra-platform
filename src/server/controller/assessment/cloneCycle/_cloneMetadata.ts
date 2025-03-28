@@ -1,4 +1,6 @@
-import { Col, Row, Table, TableSection } from 'meta/assessment'
+import { Col, Row } from 'meta/assessment'
+import { Table } from 'meta/assessment/table'
+import { TableSection } from 'meta/assessment/tableSection'
 
 import { CloneProps } from 'server/controller/assessment/cloneCycle/types'
 import { BaseProtocol } from 'server/db'

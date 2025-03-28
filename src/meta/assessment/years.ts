@@ -1,4 +1,4 @@
-import { Cycle } from './cycle'
+import { Cycle } from 'meta/assessment/cycle'
 
 const _fraYears: Record<string, Array<string>> = {
   '2020': ['1990', '2000', '2010', '2015', '2020'],

@@ -1,6 +1,8 @@
 import { Objects } from 'utils/objects'
 
-import { Assessment, Cycle, Node, NodeValue } from 'meta/assessment'
+import { Node, NodeValue } from 'meta/assessment'
+import { Assessment } from 'meta/assessment/assessment'
+import { Cycle } from 'meta/assessment/cycle'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'
 

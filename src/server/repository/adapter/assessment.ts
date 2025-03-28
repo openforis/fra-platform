@@ -1,6 +1,7 @@
 import { Objects } from 'utils/objects'
 
-import { Assessment, AssessmentMetaCache, AssessmentProps } from 'meta/assessment'
+import { Assessment, AssessmentProps } from 'meta/assessment/assessment'
+import { AssessmentMetaCache } from 'meta/assessment/metaCache'
 
 interface AssessmentDB {
   id: number

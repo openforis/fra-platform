@@ -1,4 +1,5 @@
-import { AssessmentNames, TableNames } from 'meta/assessment'
+import { AssessmentNames } from 'meta/assessment/assessment'
+import { TableNames } from 'meta/assessment/table'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { BaseProtocol, Schemas } from 'server/db'

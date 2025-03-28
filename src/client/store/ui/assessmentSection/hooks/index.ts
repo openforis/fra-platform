@@ -1,4 +1,5 @@
-import { CommentableDescriptionName, SectionName } from 'meta/assessment'
+import { CommentableDescriptionName } from 'meta/assessment'
+import { SectionName } from 'meta/assessment/section'
 
 import { useAppSelector } from 'client/store'
 import { AssessmentSectionSelectors } from 'client/store/ui/assessmentSection/selectors'
