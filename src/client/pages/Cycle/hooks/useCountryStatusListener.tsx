@@ -25,7 +25,7 @@ export const useCountryStatusListener = (): void => {
         AreaActions.updateCountryStatus({
           assessmentName,
           cycleName,
-          countryIso: countryIso as CountryIso,
+          countryIso,
           status,
         })
       )
