@@ -20,9 +20,8 @@ export const setCountryStatusEditing = async (props: Props, client: BaseProtocol
 
   if (country.props.status === AssessmentStatus.notStarted) {
     country.props.status = AssessmentStatus.editing
+
+    // Client is notified through websocket in updateCountry
     await AreaController.updateCountry({ assessment, cycle, country, user }, client)
   }
-  // TODO: Websocket
-  // NotifyCountryStatusUpdate through websocket
-  // This should be used also when admin or reviewers or whatever changes the country status to next or previous
 }

@@ -1,6 +1,6 @@
 import { AreaCode, CountryIso } from 'meta/area'
 import { Assessment, AssessmentName } from 'meta/assessment/assessment'
-import { Cycle } from 'meta/assessment/cycle'
+import { Cycle, CycleName } from 'meta/assessment/cycle'
 import { MessageTopic } from 'meta/messageCenter'
 
 const getRequestReviewSummaryEvent = (props: {
@@ -58,16 +58,25 @@ const getNodeValidationsUpdateEvent = (props: {
 
 const getNodeValuesUpdateEvent = (props: {
   countryIso: AreaCode
-  assessmentName: string
-  cycleName: string
+  assessmentName: AssessmentName
+  cycleName: CycleName
 }): string => {
   const { countryIso, assessmentName, cycleName } = props
   return `${countryIso}-${assessmentName}-${cycleName}-nodeUpdates`
 }
 
-const getLinksVerificationEvent = (props: { assessmentName: AssessmentName; cycleName: string }) => {
+const getLinksVerificationEvent = (props: { assessmentName: AssessmentName; cycleName: CycleName }) => {
   const { assessmentName, cycleName } = props
   return `${assessmentName}-${cycleName}-linksVerification`
+}
+
+const getCountryStatusUpdateEvent = (props: {
+  assessmentName: AssessmentName
+  cycleName: CycleName
+  countryIso: CountryIso
+}) => {
+  const { assessmentName, cycleName, countryIso } = props
+  return `${assessmentName}-${cycleName}-${countryIso}-countryUpdateStatus`
 }
 
 export const Sockets = {
@@ -81,4 +90,5 @@ export const Sockets = {
   getTopicMessageDeleteEvent,
   getTopicStatusEvent,
   getLinksVerificationEvent,
+  getCountryStatusUpdateEvent,
 }
