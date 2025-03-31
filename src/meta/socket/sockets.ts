@@ -70,6 +70,11 @@ const getLinksVerificationEvent = (props: { assessmentName: AssessmentName; cycl
   return `${assessmentName}-${cycleName}-linksVerification`
 }
 
+const getCountryStatusUpdateEvent = (props: { assessmentName: AssessmentName; cycleName: string }) => {
+  const { assessmentName, cycleName } = props
+  return `${assessmentName}-${cycleName}-countryUpdateStatus`
+}
+
 export const Sockets = {
   getNodeValidationsUpdateEvent,
   getNodeValuesUpdateEvent,
@@ -81,4 +86,5 @@ export const Sockets = {
   getTopicMessageDeleteEvent,
   getTopicStatusEvent,
   getLinksVerificationEvent,
+  getCountryStatusUpdateEvent,
 }

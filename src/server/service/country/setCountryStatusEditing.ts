@@ -5,6 +5,7 @@ import { User } from 'meta/user'
 
 import { AreaController } from 'server/controller/area'
 import { BaseProtocol, DB } from 'server/db'
+import { Country as CountrySocket } from 'server/service/socket/socketService/country'
 
 type Props = {
   assessment: Assessment
@@ -21,8 +22,12 @@ export const setCountryStatusEditing = async (props: Props, client: BaseProtocol
   if (country.props.status === AssessmentStatus.notStarted) {
     country.props.status = AssessmentStatus.editing
     await AreaController.updateCountry({ assessment, cycle, country, user }, client)
+
+    CountrySocket.notifyStatusUpdate({
+      countryIso: country.countryIso,
+      assessmentName: assessment.props.name,
+      cycleName: cycle.name,
+      status: country.props.status,
+    })
   }
-  // TODO: Websocket
-  // NotifyCountryStatusUpdate through websocket
-  // This should be used also when admin or reviewers or whatever changes the country status to next or previous
 }
