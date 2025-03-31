@@ -1,6 +1,6 @@
 import type { PieLabel } from 'recharts/types/polar/Pie'
 
-import { Label } from 'meta/assessment'
+import { Label } from 'meta/assessment/label'
 import { ChartColor } from 'meta/chart'
 
 type BarCell = {

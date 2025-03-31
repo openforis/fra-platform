@@ -1,6 +1,6 @@
 import { Objects } from 'utils/objects'
 
-import { TableName, TableNames } from 'meta/assessment'
+import { TableName, TableNames } from 'meta/assessment/table'
 
 import { _transposeData } from './_transposeData'
 import { _transposeHeaders } from './_transposeHeaders'

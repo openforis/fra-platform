@@ -1,5 +1,7 @@
 // To further expand
-import { Cycle, TableNames, VariableCache } from 'meta/assessment'
+import { Cycle } from 'meta/assessment/cycle'
+import { VariableCache } from 'meta/assessment/metaCache'
+import { TableNames } from 'meta/assessment/table'
 
 type Variable = {
   // metadata properties

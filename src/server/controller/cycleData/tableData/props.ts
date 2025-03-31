@@ -1,5 +1,7 @@
 import { CountryIso } from 'meta/area'
-import { Assessment, Cycle, VariableCache } from 'meta/assessment'
+import { Assessment } from 'meta/assessment/assessment'
+import { Cycle } from 'meta/assessment/cycle'
+import { VariableCache } from 'meta/assessment/metaCache'
 
 export type PropsGetTableData = {
   assessment: Assessment

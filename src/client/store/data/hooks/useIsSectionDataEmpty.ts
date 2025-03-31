@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 
-import { TableSection } from 'meta/assessment'
+import { TableSection } from 'meta/assessment/tableSection'
 import { RecordAssessmentDatas } from 'meta/data'
 
 import { useAppSelector } from 'client/store'

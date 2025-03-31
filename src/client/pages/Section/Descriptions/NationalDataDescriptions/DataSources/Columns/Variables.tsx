@@ -1,8 +1,9 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { DataSource, DataSources, SectionName } from 'meta/assessment'
+import { DataSource, DataSources } from 'meta/assessment'
 import { DataSourceDescription } from 'meta/assessment/description/nationalDataDataSourceDescription'
+import { SectionName } from 'meta/assessment/section'
 
 import Select, { Option } from 'client/components/Inputs/Select'
 import TextArea from 'client/components/Inputs/TextArea'

@@ -1,7 +1,9 @@
 import { createSelector } from '@reduxjs/toolkit'
 
 import { CountryIso } from 'meta/area'
-import { AssessmentName, CycleName, SectionName } from 'meta/assessment'
+import { AssessmentName } from 'meta/assessment/assessment'
+import { CycleName } from 'meta/assessment/cycle'
+import { SectionName } from 'meta/assessment/section'
 import { HistoryTarget } from 'meta/cycleData/historyActivities'
 
 import { RootState } from 'client/store/RootState'

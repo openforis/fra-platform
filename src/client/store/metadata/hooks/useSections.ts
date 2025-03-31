@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 
-import { Section, SubSection, SubSections } from 'meta/assessment'
+import { Section, SubSection } from 'meta/assessment/section'
+import { SubSections } from 'meta/assessment/subSections'
 
 import { MetadataSelectors } from 'client/store/metadata/selectors'
 import { useAppSelector } from 'client/store/store'

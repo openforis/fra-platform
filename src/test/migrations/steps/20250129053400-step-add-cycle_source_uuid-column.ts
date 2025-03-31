@@ -1,6 +1,6 @@
 import { Objects } from 'utils/objects'
 
-import { CycleName } from 'meta/assessment'
+import { CycleName } from 'meta/assessment/cycle'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { BaseProtocol, DB } from 'server/db'

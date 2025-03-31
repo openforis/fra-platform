@@ -1,6 +1,7 @@
 import { Promises } from 'utils/promises'
 
-import { Assessment, Cycle } from 'meta/assessment'
+import { Assessment } from 'meta/assessment/assessment'
+import { Cycle } from 'meta/assessment/cycle'
 
 import { BaseProtocol, Schemas } from 'server/db'
 import { AssessmentRepository } from 'server/repository/assessment/assessment'

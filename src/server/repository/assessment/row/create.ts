@@ -1,4 +1,7 @@
-import { Assessment, Cycle, Row, RowProps, Table } from 'meta/assessment'
+import { Row, RowProps } from 'meta/assessment'
+import { Assessment } from 'meta/assessment/assessment'
+import { Cycle } from 'meta/assessment/cycle'
+import { Table } from 'meta/assessment/table'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'
 import { RowAdapter } from 'server/repository/adapter'

@@ -1,4 +1,5 @@
-import { Assessment } from 'meta/assessment'
+import { Assessment } from 'meta/assessment/assessment'
+
 import { DB, Schemas } from 'server/db'
 
 export const removeAssessmentSchema = async (props: { assessment: Assessment }): Promise<string> => {

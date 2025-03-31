@@ -1,11 +1,11 @@
 import { NavigateFunction } from 'react-router-dom'
 
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { UUIDs } from 'utils/uuids'
 import axios from 'axios'
+import { UUIDs } from 'utils/uuids'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { AssessmentName } from 'meta/assessment'
+import { AssessmentName } from 'meta/assessment/assessment'
 
 import { NotificationActions, NotificationMessage } from 'client/store/ui/notification'
 

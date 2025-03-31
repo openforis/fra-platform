@@ -1,4 +1,4 @@
-import { Cycle, CycleName } from 'meta/assessment'
+import { Cycle, CycleName } from 'meta/assessment/cycle'
 import { ChartColor } from 'meta/chart'
 import { DashboardItemType, DashboardPieChart } from 'meta/dashboard'
 

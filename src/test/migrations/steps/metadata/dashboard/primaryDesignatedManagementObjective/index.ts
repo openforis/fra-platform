@@ -1,4 +1,4 @@
-import { Cycle } from 'meta/assessment'
+import { Cycle } from 'meta/assessment/cycle'
 import { DashboardItemType, DashboardTable } from 'meta/dashboard'
 
 import { getTable, RowsMetadata } from '../utils'

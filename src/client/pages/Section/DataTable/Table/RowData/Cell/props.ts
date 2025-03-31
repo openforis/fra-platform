@@ -1,4 +1,6 @@
-import { AssessmentName, Col, NodeValue, Row, Table } from 'meta/assessment'
+import { Col, NodeValue, Row } from 'meta/assessment'
+import { AssessmentName } from 'meta/assessment/assessment'
+import { Table } from 'meta/assessment/table'
 
 import { OnChange, OnChangeNodeValue, OnPaste } from './hooks/useOnChange'
 

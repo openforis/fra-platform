@@ -26,7 +26,7 @@ export const transposeHeadersSdg15215: TransposeHeaders = (props) => {
       uuid: `${_firstColHeader.uuid}-ssss`,
       props: {
         ..._firstColHeader.props,
-        labels: { [cycleUuid]: { key: `unit.haThousandShort` } },
+        labels: { [cycleUuid]: { key: `unit.haThousand` } },
         style: { [cycleUuid]: { colSpan: 1, rowSpan: 2 } },
       },
     },

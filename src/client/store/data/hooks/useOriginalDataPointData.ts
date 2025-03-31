@@ -1,5 +1,5 @@
 import { CountryIso } from 'meta/area'
-import { TableNames } from 'meta/assessment'
+import { TableNames } from 'meta/assessment/table'
 import { RecordAssessmentDatas, RecordColumnData } from 'meta/data'
 
 import { useAppSelector } from 'client/store'

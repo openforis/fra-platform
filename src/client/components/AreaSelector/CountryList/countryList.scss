@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 @import 'src/client/style/partials';
 
 .country-selection-list {
@@ -78,7 +80,7 @@
 
 .country-selection-list__row {
   &:hover {
-    background-color: darken($ui-bg, 4%);
+    background-color: color.adjust($ui-bg, $lightness: -4%, $space: hsl);
     color: inherit;
   }
 

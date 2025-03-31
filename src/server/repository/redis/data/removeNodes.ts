@@ -1,7 +1,9 @@
 import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area'
-import { Assessment, Cycle, TableName } from 'meta/assessment'
+import { Assessment } from 'meta/assessment/assessment'
+import { Cycle } from 'meta/assessment/cycle'
+import { TableName } from 'meta/assessment/table'
 import { NodeUpdate } from 'meta/data'
 
 import { getKeyCountry, Keys } from 'server/repository/redis/keys'

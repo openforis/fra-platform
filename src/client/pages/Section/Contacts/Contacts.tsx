@@ -3,7 +3,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { CountryIso } from 'meta/area'
-import { Labels } from 'meta/assessment'
+import { Labels } from 'meta/assessment/labels'
 import { Users } from 'meta/user'
 
 import { useCountry } from 'client/store/area'

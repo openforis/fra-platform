@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 @import 'src/client/style/partials';
 
 .edit-user__form-field-role-countries {
@@ -9,7 +11,7 @@
   border: $ui-thin-border;
   padding: 4px 8px;
   border-radius: 3px;
-  background-color: lighten($ui-bg, 1%);
-  color: darken($text-disabled, 15%);
+  background-color: color.adjust($ui-bg, $lightness: 1%, $space: hsl);
+  color: color.adjust($text-disabled, $lightness: -15%, $space: hsl);
   margin: 5px 2.5px 0;
 }

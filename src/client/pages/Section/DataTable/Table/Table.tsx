@@ -3,7 +3,8 @@ import React, { useRef } from 'react'
 
 import classNames from 'classnames'
 
-import { AssessmentName, Table as TableType } from 'meta/assessment'
+import { AssessmentName } from 'meta/assessment/assessment'
+import { Table as TableType } from 'meta/assessment/table'
 import { RecordAssessmentData } from 'meta/data'
 
 import { useIsDataLocked } from 'client/store/ui/dataLock'

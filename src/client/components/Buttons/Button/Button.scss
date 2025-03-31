@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 @import 'src/client/style/partials';
 
 .button {
@@ -104,11 +106,11 @@
   }
 
   &:hover {
-    background-color: lighten($colorPrimary, $hoverPercent);
-    color: darken(white, $hoverPercent);
+    background-color: color.adjust($colorPrimary, $lightness: $hoverPercent, $space: hsl);
+    color: color.adjust(white, $lightness: -$hoverPercent, $space: hsl);
 
     svg {
-      color: darken(white, $hoverPercent);
+      color: color.adjust(white, $lightness: -$hoverPercent, $space: hsl);
     }
   }
 
@@ -125,11 +127,11 @@
     }
 
     &:hover {
-      background-color: lighten($colorPrimary, $hoverInverseLighten);
-      color: darken($colorPrimary, $hoverPercent);
+      background-color: color.adjust($colorPrimary, $lightness: $hoverInverseLighten, $space: hsl);
+      color: color.adjust($colorPrimary, $lightness: -$hoverPercent, $space: hsl);
 
       svg {
-        color: darken($colorPrimary, $hoverPercent);
+        color: color.adjust($colorPrimary, $lightness: -$hoverPercent, $space: hsl);
       }
     }
   }
@@ -146,7 +148,7 @@
 
     &:hover {
       svg {
-        color: darken($text-link, 5%);
+        color: color.adjust($text-link, $lightness: -5%, $space: hsl);
       }
     }
   }
@@ -157,7 +159,7 @@
 }
 
 .button__type-danger {
-  @include withTheme(darken($ui-destructive, 5%), 58%);
+  @include withTheme(color.adjust($ui-destructive, $lightness: -5%, $space: hsl), 58%);
 }
 
 .button__type-primary {

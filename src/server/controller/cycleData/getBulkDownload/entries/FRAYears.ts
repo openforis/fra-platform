@@ -1,4 +1,5 @@
-import { Cycle, TableNames } from 'meta/assessment'
+import { Cycle } from 'meta/assessment/cycle'
+import { TableNames } from 'meta/assessment/table'
 
 export const entries = (
   cycle: Cycle

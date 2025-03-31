@@ -3,7 +3,10 @@ import axios from 'axios'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { Global } from 'meta/area'
-import { AssessmentMetaCache, AssessmentMetaCaches, AssessmentName, CycleName } from 'meta/assessment'
+import { AssessmentName } from 'meta/assessment/assessment'
+import { CycleName } from 'meta/assessment/cycle'
+import { AssessmentMetaCache } from 'meta/assessment/metaCache'
+import { AssessmentMetaCaches } from 'meta/assessment/metaCaches'
 
 import { AssessmentSelectors } from 'client/store/assessment/selectors'
 import { ThunkApiConfig } from 'client/store/types'

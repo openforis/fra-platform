@@ -1,4 +1,4 @@
-import { Label } from 'meta/assessment'
+import { Label } from 'meta/assessment/label'
 
 export type DataSourceLinkedVariable = {
   assessmentName: string

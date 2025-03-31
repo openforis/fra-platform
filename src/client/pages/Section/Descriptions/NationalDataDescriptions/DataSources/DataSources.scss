@@ -1,7 +1,9 @@
+@use 'sass:color';
+
 @import 'src/client/style/partials';
 
 .data-sources__readOnlyText {
-  background-color: lighten($ui-bg, 2%);
+  background-color: color.adjust($ui-bg, $lightness: 2%, $space: hsl);
   display: grid;
   grid-column: 1 / -1;
   grid-row-gap: $spacing-xs;

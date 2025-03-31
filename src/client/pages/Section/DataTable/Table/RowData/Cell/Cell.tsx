@@ -1,7 +1,9 @@
 import './Cell.scss'
 import React from 'react'
 
-import { AssessmentName, Col, Cols, ColType, Row, Table } from 'meta/assessment'
+import { Col, Cols, ColType, Row } from 'meta/assessment'
+import { AssessmentName } from 'meta/assessment/assessment'
+import { Table } from 'meta/assessment/table'
 import { RecordAssessmentData } from 'meta/data'
 import { TooltipId } from 'meta/tooltip'
 

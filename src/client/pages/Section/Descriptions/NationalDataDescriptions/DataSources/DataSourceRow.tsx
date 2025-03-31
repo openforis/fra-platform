@@ -2,7 +2,8 @@ import React from 'react'
 
 import classNames from 'classnames'
 
-import { CommentableDescriptionName, DataSource, DataSourceDescription, SectionName } from 'meta/assessment'
+import { CommentableDescriptionName, DataSource, DataSourceDescription } from 'meta/assessment'
+import { SectionName } from 'meta/assessment/section'
 import { TooltipId } from 'meta/tooltip'
 
 import { useIsDescriptionEditable } from 'client/store/user/hooks'

@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import { TableNames } from 'meta/assessment'
+import { TableNames } from 'meta/assessment/table'
 import { RecordAssessmentDatas } from 'meta/data'
 
 import { useAssessment, useCycle } from 'client/store/assessment'

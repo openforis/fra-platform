@@ -2,7 +2,7 @@ import './DataValidations.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Table } from 'meta/assessment'
+import { Table } from 'meta/assessment/table'
 
 import { useCycle } from 'client/store/assessment'
 import { useHistoryLastApprovedIsActive, useTableHasErrors } from 'client/store/data'

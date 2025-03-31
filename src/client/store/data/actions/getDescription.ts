@@ -3,7 +3,8 @@ import axios from 'axios'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CycleParams } from 'meta/api/request'
-import { DescriptionCountryValues, SectionName } from 'meta/assessment'
+import { DescriptionCountryValues } from 'meta/assessment'
+import { SectionName } from 'meta/assessment/section'
 
 type Props = CycleParams & { sectionName?: SectionName; name?: string }
 

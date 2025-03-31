@@ -1,6 +1,6 @@
 import { Readable } from 'stream'
 
-import { Label } from 'meta/assessment'
+import { Label } from 'meta/assessment/label'
 
 export type FileSummary = {
   readonly createdAt: string

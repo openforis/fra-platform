@@ -2,7 +2,8 @@ import { Response } from 'express'
 import { UUIDs } from 'utils/uuids'
 
 import { CycleDataRequest, EstimateBody } from 'meta/api/request'
-import { NodeValueEstimationMethod, NodeValuesEstimation, Table, TableNames } from 'meta/assessment'
+import { NodeValueEstimationMethod, NodeValuesEstimation } from 'meta/assessment'
+import { Table, TableNames } from 'meta/assessment/table'
 import { RecordAssessmentDatas } from 'meta/data'
 
 import { AssessmentController } from 'server/controller/assessment'

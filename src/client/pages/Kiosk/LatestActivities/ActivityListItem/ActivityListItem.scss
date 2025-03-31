@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 .kiosk-latest-activities__list-item {
   display: grid;
   padding: 0.5dvh 0;
@@ -52,6 +54,6 @@
   width: 75%;
 
   &:hover {
-    background-color: lighten(#ef7a2d, 5%);
+    background-color: color.adjust(#ef7a2d, $lightness: 5%, $space: hsl);
   }
 }

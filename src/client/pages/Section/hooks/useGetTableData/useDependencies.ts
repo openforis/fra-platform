@@ -3,7 +3,10 @@ import { useMemo } from 'react'
 import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area'
-import { AssessmentName, CycleName, TableName, TableNames, VariableCache } from 'meta/assessment'
+import { AssessmentName } from 'meta/assessment/assessment'
+import { CycleName } from 'meta/assessment/cycle'
+import { VariableCache } from 'meta/assessment/metaCache'
+import { TableName, TableNames } from 'meta/assessment/table'
 
 import { useCountry } from 'client/store/area'
 import { useTableSections } from 'client/store/metadata'

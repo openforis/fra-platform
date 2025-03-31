@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { SectionName } from 'meta/assessment'
+import { SectionName } from 'meta/assessment/section'
 import { RecordAssessmentData } from 'meta/data'
 
 import { Props } from 'client/store/data/actions/getTableDataProps'

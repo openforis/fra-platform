@@ -1,6 +1,6 @@
 import { Objects } from 'utils/objects'
 
-import { TableSection, TableSectionProps } from 'meta/assessment'
+import { TableSection, TableSectionProps } from 'meta/assessment/tableSection'
 
 import { TableAdapter, TableDB } from 'server/repository/adapter/table'
 

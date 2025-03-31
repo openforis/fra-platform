@@ -1,7 +1,8 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { AssessmentNames, Labels } from 'meta/assessment'
+import { AssessmentNames } from 'meta/assessment/assessment'
+import { Labels } from 'meta/assessment/labels'
 
 import { useCycle } from 'client/store/assessment'
 import ExtentOfForest from 'client/pages/Section/Title/ExtentOfForest'

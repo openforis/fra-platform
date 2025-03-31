@@ -1,4 +1,4 @@
-import { TableNames } from 'meta/assessment'
+import { TableNames } from 'meta/assessment/table'
 
 export const getTotalLandArea = (schema: string): string => {
   return `select country_iso,

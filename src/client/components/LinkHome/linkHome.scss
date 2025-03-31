@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 @import 'src/client/style/partials';
 
 .app-header-link-home {
@@ -10,7 +12,7 @@
   justify-content: center;
 
   svg {
-    color: darken($text-link, 10%);
+    color: color.adjust($text-link, $lightness: -10%, $space: hsl);
     height: 28px;
     width: 28px;
   }

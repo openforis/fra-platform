@@ -1,6 +1,7 @@
 import { createSelector } from '@reduxjs/toolkit'
 
-import { AssessmentName, CycleName } from 'meta/assessment'
+import { AssessmentName } from 'meta/assessment/assessment'
+import { CycleName } from 'meta/assessment/cycle'
 
 import { DashboardAreaType } from 'client/store/metadata/state'
 import { RootState } from 'client/store/RootState'

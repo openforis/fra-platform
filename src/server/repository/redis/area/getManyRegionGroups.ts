@@ -1,7 +1,8 @@
 import { Objects } from 'utils/objects'
 
 import { RegionGroup } from 'meta/area'
-import { Assessment, Cycle } from 'meta/assessment'
+import { Assessment } from 'meta/assessment/assessment'
+import { Cycle } from 'meta/assessment/cycle'
 
 import { BaseProtocol, DB } from 'server/db'
 import { RegionRepository } from 'server/repository/assessmentCycle/region'

@@ -1,6 +1,6 @@
 import { Objects } from 'utils/objects'
 
-import { Section, SectionProps, SubSection, SubSectionProps } from 'meta/assessment'
+import { Section, SectionProps, SubSection, SubSectionProps } from 'meta/assessment/section'
 
 interface SectionDB {
   id: number

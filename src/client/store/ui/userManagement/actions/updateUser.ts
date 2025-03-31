@@ -4,7 +4,7 @@ import { Functions } from 'utils/functions'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { AreaCode } from 'meta/area'
-import { AssessmentName } from 'meta/assessment'
+import { AssessmentName } from 'meta/assessment/assessment'
 import { User, Users } from 'meta/user'
 
 type Params = {

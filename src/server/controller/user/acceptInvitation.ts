@@ -1,6 +1,8 @@
 import { Objects } from 'utils/objects'
 
-import { ActivityLogMessage, Assessment, Cycle } from 'meta/assessment'
+import { ActivityLogMessage } from 'meta/assessment'
+import { Assessment } from 'meta/assessment/assessment'
+import { Cycle } from 'meta/assessment/cycle'
 import { User, UserInvitation, UserInvitations, UserStatus } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db'

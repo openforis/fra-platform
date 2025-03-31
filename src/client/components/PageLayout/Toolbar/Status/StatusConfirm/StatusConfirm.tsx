@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom'
 import classNames from 'classnames'
 
 import { AssessmentStatus } from 'meta/area/status'
-import { AssessmentName } from 'meta/assessment'
+import { AssessmentName } from 'meta/assessment/assessment'
 import { Users } from 'meta/user'
 
 import { useAppDispatch } from 'client/store'

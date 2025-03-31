@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { AssessmentNames } from 'meta/assessment'
+import { AssessmentNames } from 'meta/assessment/assessment'
 
 import { useUser } from 'client/store/user'
 import { useLanguage } from 'client/hooks/useLanguage'
@@ -26,7 +26,7 @@ const Fra2025GuidelinesAndSpecifications: React.FC = () => {
         <h1 className="landing__page-title title">{t('tutorial.guidelinesAndSpecifications')}</h1>
       </div>
       <div className="list-tutorial ">
-        <a target="_blank" rel="noreferrer" href={userGuideUrls[lang] ?? userGuideUrls.en}>
+        <a href={userGuideUrls[lang] ?? userGuideUrls.en} rel="noreferrer" target="_blank">
           {t('common.userGuide')}
         </a>
       </div>
