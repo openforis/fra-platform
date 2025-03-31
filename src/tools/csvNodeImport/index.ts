@@ -7,7 +7,8 @@ import { Objects } from 'utils/objects'
 import { Promises } from 'utils/promises'
 
 import { CountryIso } from 'meta/area'
-import { NodeValue, RowCaches } from 'meta/assessment'
+import { NodeValue } from 'meta/assessment/node'
+import { RowCaches } from 'meta/assessment/rowCaches'
 import { NodeUpdate } from 'meta/data'
 import { UsersEmail } from 'meta/user'
 

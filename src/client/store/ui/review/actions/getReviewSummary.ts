@@ -3,7 +3,7 @@ import axios from 'axios'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { AreaCode } from 'meta/area'
-import { ReviewSummary } from 'meta/assessment'
+import { ReviewSummary } from 'meta/assessment/review'
 
 type Params = {
   countryIso: AreaCode

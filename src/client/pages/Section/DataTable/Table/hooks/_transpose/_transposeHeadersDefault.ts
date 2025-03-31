@@ -1,7 +1,8 @@
 import { Objects } from 'utils/objects'
 
-import { Col, ColType, Row } from 'meta/assessment'
+import { Col, ColType } from 'meta/assessment/col'
 import { Labels } from 'meta/assessment/labels'
+import { Row } from 'meta/assessment/row'
 
 import { ColHeader } from 'client/pages/Section/DataTable/Table/types'
 

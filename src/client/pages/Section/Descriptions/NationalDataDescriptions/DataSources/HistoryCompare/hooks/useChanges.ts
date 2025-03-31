@@ -4,7 +4,9 @@ import { useTranslation } from 'react-i18next'
 import * as Diff from 'diff'
 import { Change } from 'diff'
 
-import { DataSource, DataSourceDescription, DataSources } from 'meta/assessment'
+import { DataSourceDescription } from 'meta/assessment/description'
+import { DataSources } from 'meta/assessment/description/dataSources'
+import { DataSource } from 'meta/assessment/descriptionValue'
 
 import { DataSourceHistoryCompare } from 'client/pages/Section/Descriptions/NationalDataDescriptions/DataSources/types'
 

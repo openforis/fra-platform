@@ -1,4 +1,5 @@
-import { Col, Row } from 'meta/assessment'
+import { Col } from 'meta/assessment/col'
+import { Row } from 'meta/assessment/row'
 
 import { _getTransposedHeaders } from 'client/pages/Section/DataTable/Table/hooks/_transpose/_transposeHeadersDefault'
 import { TransposeHeaders } from 'client/pages/Section/DataTable/Table/hooks/_transpose/_types'

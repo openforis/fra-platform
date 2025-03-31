@@ -5,7 +5,7 @@ import { Change } from 'diff'
 import { Numbers } from 'utils/numbers'
 import { Objects } from 'utils/objects'
 
-import { ODPs } from 'meta/assessment'
+import { ODPs } from 'meta/assessment/odps'
 
 import { useLastApprovedOriginalDataPoint } from 'client/store/data/hooks/useLastApprovedOriginalDataPoint'
 import { useODPDisplayHistory } from 'client/pages/OriginalDataPoint/components/hooks/useODPDisplayHistory'

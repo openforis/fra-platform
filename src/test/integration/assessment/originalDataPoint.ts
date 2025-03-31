@@ -1,7 +1,7 @@
 import { AssessmentStatus, Country } from 'meta/area'
-import { OriginalDataPoint } from 'meta/assessment'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
+import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { User } from 'meta/user'
 
 import { AssessmentController } from 'server/controller/assessment'

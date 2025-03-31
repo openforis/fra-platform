@@ -1,7 +1,8 @@
 import { useCallback } from 'react'
 
 import { CountryIso } from 'meta/area'
-import { ODPs, OriginalDataPoint } from 'meta/assessment'
+import { ODPs } from 'meta/assessment/odps'
+import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
 import { useAppDispatch } from 'client/store'
 import { OriginalDataPointActions } from 'client/store/ui/originalDataPoint'

@@ -1,4 +1,5 @@
-import { ActivityLogMessage, ODPNationalClass, OriginalDataPoint } from 'meta/assessment'
+import { ActivityLogMessage } from 'meta/assessment/activityLog'
+import { ODPNationalClass, OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
 export const diffOriginalData = (odpA: OriginalDataPoint, odpB: OriginalDataPoint) => {
   const diffNationalClassesLength = odpA.nationalClasses.length !== odpB.nationalClasses.length

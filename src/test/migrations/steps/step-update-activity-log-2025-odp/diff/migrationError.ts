@@ -1,4 +1,5 @@
-import { ActivityLogMessage, OriginalDataPoint } from 'meta/assessment'
+import { ActivityLogMessage } from 'meta/assessment/activityLog'
+import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
 export const migrationError = (odpA: OriginalDataPoint, odpB: OriginalDataPoint) => {
   // @ts-ignore idLegacy is old reference id that is not used, but we need to check if it was changed

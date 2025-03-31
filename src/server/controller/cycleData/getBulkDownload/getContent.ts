@@ -1,4 +1,4 @@
-import { Years } from 'meta/assessment'
+import { Years } from 'meta/assessment/years'
 import { RecordAssessmentDatas } from 'meta/data'
 
 import { climaticDomain } from 'server/controller/cycleData/getBulkDownload/climaticDomain'

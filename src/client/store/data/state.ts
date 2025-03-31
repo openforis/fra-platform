@@ -1,18 +1,15 @@
 import { CountryIso } from 'meta/area'
-import {
-  ActivityLog,
-  ColName,
-  DataSourceLinked,
-  DescriptionCountryValues,
-  NodeValuesEstimation,
-  NodeValueValidation,
-  VariableName,
-} from 'meta/assessment'
+import { ActivityLog } from 'meta/assessment/activityLog'
 import { AssessmentName } from 'meta/assessment/assessment'
+import { ColName } from 'meta/assessment/col'
 import { CycleName } from 'meta/assessment/cycle'
+import { DataSourceLinked, DescriptionCountryValues } from 'meta/assessment/descriptionValue'
+import { NodeValuesEstimation } from 'meta/assessment/nodeValuesEstimation'
+import { NodeValueValidation } from 'meta/assessment/nodeValueValidation'
 import { RecordAssessmentOriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { SectionName } from 'meta/assessment/section'
 import { TableName } from 'meta/assessment/table'
+import { VariableName } from 'meta/assessment/variable'
 import { Contact } from 'meta/cycleData'
 import { HistoryTarget } from 'meta/cycleData/historyActivities'
 import { RecordAssessmentData } from 'meta/data'

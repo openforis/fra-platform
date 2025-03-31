@@ -1,6 +1,6 @@
-import { OriginalDataPoint } from 'meta/assessment'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
+import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { User } from 'meta/user'
 
 import { updateOriginalDataPointsDependentNodes } from 'server/controller/cycleData/originalDataPoint/updateDependants/updateOriginalDataPointsDependentNodes'

@@ -1,7 +1,7 @@
-import { Years } from 'meta/assessment'
 import { AssessmentNames } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { TableNames, TableProps } from 'meta/assessment/table'
+import { Years } from 'meta/assessment/years'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { BaseProtocol } from 'server/db'

@@ -1,4 +1,5 @@
-import { ActivityLogMessage, OriginalDataPoint } from 'meta/assessment'
+import { ActivityLogMessage } from 'meta/assessment/activityLog'
+import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
 export const diffDescription = (odpA: OriginalDataPoint, odpB: OriginalDataPoint) => {
   if (odpA.description !== odpB.description) {

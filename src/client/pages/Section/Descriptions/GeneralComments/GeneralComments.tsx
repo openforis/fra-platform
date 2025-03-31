@@ -1,8 +1,8 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { CommentableDescriptionName } from 'meta/assessment'
 import { AssessmentNames } from 'meta/assessment/assessment'
+import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 
 import { useAssessmentRouteParams } from 'client/hooks/useRouteParams'
 import CommentableDescription from 'client/pages/Section/Descriptions/CommentableDescription'

@@ -1,9 +1,8 @@
 import { Numbers } from 'utils/numbers'
 
 import { CountryIso } from 'meta/area'
-
-import { ODPs } from './odps'
-import { OriginalDataPoint } from './originalDataPoint'
+import { ODPs } from 'meta/assessment/odps'
+import { OriginalDataPoint } from 'meta/assessment/originalDataPoint/originalDataPoint'
 
 const countryIso = 'ATL' as CountryIso
 

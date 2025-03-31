@@ -1,6 +1,7 @@
 import { Objects } from 'utils/objects'
 
-import { Col, ColType, Row, RowType } from 'meta/assessment'
+import { Col, ColType } from 'meta/assessment/col'
+import { Row, RowType } from 'meta/assessment/row'
 
 import { PropsTranspose, ReturnedTranspose } from './_types'
 

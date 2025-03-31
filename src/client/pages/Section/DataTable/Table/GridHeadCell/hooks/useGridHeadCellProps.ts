@@ -3,7 +3,7 @@ import { useMemo } from 'react'
 import classNames from 'classnames'
 import { Objects } from 'utils/objects'
 
-import { Cols } from 'meta/assessment'
+import { Cols } from 'meta/assessment/cols'
 
 import { useAssessmentCountry } from 'client/store/area'
 import { useCycle } from 'client/store/assessment'

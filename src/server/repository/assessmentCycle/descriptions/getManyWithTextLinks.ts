@@ -1,8 +1,8 @@
 import { Objects } from 'utils/objects'
 
-import { CommentableDescription } from 'meta/assessment'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
+import { CommentableDescription } from 'meta/assessment/descriptionValue'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'
 

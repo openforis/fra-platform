@@ -2,7 +2,7 @@ import { MutableRefObject, useEffect } from 'react'
 
 import { Objects } from 'utils/objects'
 
-import { Row } from 'meta/assessment'
+import { Row } from 'meta/assessment/row'
 
 import { getDataGridElementMatrix } from 'client/components/DataGrid/utils'
 

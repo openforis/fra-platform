@@ -2,8 +2,8 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { Settings } from 'meta/assessment'
 import { Assessment } from 'meta/assessment/assessment'
+import { Settings } from 'meta/assessment/settings'
 import { User } from 'meta/user'
 
 type Returned = {

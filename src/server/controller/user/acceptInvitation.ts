@@ -1,6 +1,6 @@
 import { Objects } from 'utils/objects'
 
-import { ActivityLogMessage } from 'meta/assessment'
+import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { User, UserInvitation, UserInvitations, UserStatus } from 'meta/user'

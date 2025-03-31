@@ -2,7 +2,7 @@ import { ExpressionFunction } from '@openforis/arena-core/dist/expression/functi
 import { Numbers } from 'utils/numbers'
 import { Objects } from 'utils/objects'
 
-import { NodeValueValidation } from 'meta/assessment'
+import { NodeValueValidation } from 'meta/assessment/nodeValueValidation'
 import { Context } from 'meta/expressionEvaluator/context'
 
 import { calculateCategoriesSum, getValidationMessage } from './utils'

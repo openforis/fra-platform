@@ -1,4 +1,4 @@
-import { ReviewStatus } from 'meta/assessment'
+import { ReviewStatus } from 'meta/assessment/review'
 import { MessageTopicStatus, Topics } from 'meta/messageCenter'
 
 import { useAppSelector } from 'client/store'

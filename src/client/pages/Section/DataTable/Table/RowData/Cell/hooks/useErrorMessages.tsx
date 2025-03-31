@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOMServer from 'react-dom/server'
 import { TFunction, useTranslation } from 'react-i18next'
 
-import { NodeValueValidation, NodeValueValidationMessageParam } from 'meta/assessment'
+import { NodeValueValidation, NodeValueValidationMessageParam } from 'meta/assessment/nodeValueValidation'
 
 import { useHistoryLastApprovedIsActive } from 'client/store/data'
 

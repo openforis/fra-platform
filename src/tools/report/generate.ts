@@ -23,7 +23,7 @@ const assessmentName = AssessmentNames.fra
 const cycleName = '2025'
 const skipAtlantis = true
 const cookies = {
-  'fra-auth-token': ``,
+  'fra-auth-token': `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDkzLCJlbWFpbCI6IkNvc2ltby50b2duYUBmYW8ub3JnIiwicHJvcHMiOnsibGFuZyI6ImVuIiwibmFtZSI6IkNvc2ltbyIsInRpdGxlIjoibXIiLCJzdXJuYW1lIjoiVG9nbmEifSwic3RhdHVzIjoiYWN0aXZlIiwidXVpZCI6IjZjYmU4MDdjLTRhYWYtNGUxMi05ZWRjLWY3MTc0MmZkNGVlYyIsImlhdCI6MTczMjc5NTMwN30.nqJQ07xFgJ9S69og8CTPynapX7TfAEu-9UD1czrjooo`,
 }
 
 const generateCountryReport = async (props: {

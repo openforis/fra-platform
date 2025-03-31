@@ -1,7 +1,8 @@
 import { useTranslation } from 'react-i18next'
 
-import { ODPs, OriginalDataPoint } from 'meta/assessment'
-import { NationalClassValidation } from 'meta/assessment/originalDataPoint/odps/validateODP'
+import { ODPs } from 'meta/assessment/odps'
+import { NationalClassValidation } from 'meta/assessment/odps/validateODP'
+import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { Authorizer } from 'meta/user'
 
 import { useAssessmentCountry } from 'client/store/area'

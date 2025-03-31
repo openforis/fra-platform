@@ -1,6 +1,6 @@
 import { ActionReducerMapBuilder, createSlice, isAnyOf, PayloadAction, Reducer } from '@reduxjs/toolkit'
 
-import { ODPReservedYear } from 'meta/assessment'
+import { ODPReservedYear } from 'meta/assessment/originalDataPoint'
 
 import { copyNationalClasses } from 'client/store/ui/originalDataPoint/actions/copyNationalClasses'
 import { getOriginalDataPointReservedYears } from 'client/store/ui/originalDataPoint/actions/getOriginalDataPointReservedYears'

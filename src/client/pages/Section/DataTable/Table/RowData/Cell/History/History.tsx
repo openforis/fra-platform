@@ -4,7 +4,7 @@ import React, { useMemo } from 'react'
 import classNames from 'classnames'
 
 import { CountryIso } from 'meta/area'
-import { Cols } from 'meta/assessment'
+import { Cols } from 'meta/assessment/cols'
 
 import { useLastApprovedHistoryNodeValue } from 'client/store/data/hooks/useLastApprovedHistoryTableData'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'

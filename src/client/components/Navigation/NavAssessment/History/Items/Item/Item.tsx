@@ -6,7 +6,7 @@ import classNames from 'classnames'
 import { Dates } from 'utils/dates'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { ActivityLogs } from 'meta/assessment'
+import { ActivityLogs } from 'meta/assessment/activityLogs'
 import { Users } from 'meta/user'
 
 import { useHistoryActivitiesCompareItem } from 'client/store/data'

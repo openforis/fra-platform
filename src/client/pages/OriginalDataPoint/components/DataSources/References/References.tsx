@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { Objects } from 'utils/objects'
 
-import { OriginalDataPoint } from 'meta/assessment'
+import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { Topics } from 'meta/messageCenter'
 
 import { DataCell, DataRow, DataRowAction, DataRowActionType } from 'client/components/DataGrid'

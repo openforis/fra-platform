@@ -1,4 +1,4 @@
-import { ActivityLogMessage } from 'meta/assessment'
+import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { SectionNames } from 'meta/routes'
 
 import { CycleDataController } from 'server/controller/cycleData'

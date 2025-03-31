@@ -1,6 +1,7 @@
 import { Objects } from 'utils/objects'
 
-import { Row, RowCache, RowProps } from 'meta/assessment'
+import { Row, RowProps } from 'meta/assessment/row'
+import { RowCache } from 'meta/assessment/rowCache'
 
 import { ColAdapter, ColDB } from 'server/repository/adapter/col'
 

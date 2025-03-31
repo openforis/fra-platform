@@ -3,7 +3,10 @@ import React, { ClipboardEventHandler } from 'react'
 import { Objects } from 'utils/objects'
 
 import { NodesBodyValue } from 'meta/api/request'
-import { Col, Cols, ColType, NodeValue, Row, RowType } from 'meta/assessment'
+import { Col, ColType } from 'meta/assessment/col'
+import { Cols } from 'meta/assessment/cols'
+import { NodeValue } from 'meta/assessment/node'
+import { Row, RowType } from 'meta/assessment/row'
 import { Table } from 'meta/assessment/table'
 import { RecordAssessmentData, RecordAssessmentDatas } from 'meta/data'
 

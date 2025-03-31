@@ -1,7 +1,7 @@
 import { AreaCode } from 'meta/area'
-import { OriginalDataPoint } from 'meta/assessment'
 import { AssessmentName } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
+import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
 export type RecordYearOriginalDataPoint = Record<string, OriginalDataPoint>
 export type RecordCountryOriginalDataPoint = { [key in AreaCode]?: RecordYearOriginalDataPoint }

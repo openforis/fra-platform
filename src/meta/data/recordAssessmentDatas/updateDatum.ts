@@ -1,6 +1,6 @@
 import { Objects } from 'utils/objects'
 
-import { NodeValue } from 'meta/assessment'
+import { NodeValue } from 'meta/assessment/node'
 
 import { RecordAssessmentData } from '../RecordAssessmentData'
 import { Props } from './props'

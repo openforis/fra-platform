@@ -1,7 +1,7 @@
 import { Response } from 'express'
 
 import { CycleRequest } from 'meta/api/request'
-import { OriginalDataPoint } from 'meta/assessment'
+import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { CycleDataController } from 'server/controller/cycleData'

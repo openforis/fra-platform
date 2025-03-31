@@ -1,8 +1,8 @@
 import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { CommentableDescriptionName } from 'meta/assessment'
 import { NationalDataDescription } from 'meta/assessment/description'
+import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 
 import CommentableDescription from 'client/pages/Section/Descriptions/CommentableDescription'
 import DataSources from 'client/pages/Section/Descriptions/NationalDataDescriptions/DataSources/DataSources'

@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 
-import { ODPs, OriginalDataPoint } from 'meta/assessment'
+import { ODPs } from 'meta/assessment/odps'
+import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
 export const useShouldUseTotal = (originalDataPoint: OriginalDataPoint): boolean => {
   return useMemo<boolean>(() => {

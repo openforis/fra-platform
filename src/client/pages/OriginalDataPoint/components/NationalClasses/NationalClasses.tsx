@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
 
-import { OriginalDataPoint } from 'meta/assessment'
+import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
 import { NationalClassesTable } from './components/NationalClassesTable'
 import { Prefill } from './components/Prefill'

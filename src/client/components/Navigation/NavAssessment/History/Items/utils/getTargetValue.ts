@@ -1,4 +1,5 @@
-import { ActivityLogDescription, CommentableDescriptionValue } from 'meta/assessment'
+import { ActivityLogDescription } from 'meta/assessment/activityLog'
+import { CommentableDescriptionValue } from 'meta/assessment/descriptionValue'
 import { HistoryTarget } from 'meta/cycleData/historyActivities'
 
 export const getTargetValue: Record<

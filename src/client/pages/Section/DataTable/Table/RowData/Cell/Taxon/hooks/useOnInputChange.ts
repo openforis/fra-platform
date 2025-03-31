@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 
-import { NodeValue } from 'meta/assessment'
+import { NodeValue } from 'meta/assessment/node'
 import { Taxon } from 'meta/extData'
 
 import { SelectProps } from 'client/components/Inputs/Select'

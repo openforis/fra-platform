@@ -3,8 +3,9 @@ import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
 
-import { ODPNationalClass, ODPs, OriginalDataPoint } from 'meta/assessment'
-import { NationalClassValidation } from 'meta/assessment/originalDataPoint/odps/validateODP'
+import { ODPs } from 'meta/assessment/odps'
+import { NationalClassValidation } from 'meta/assessment/odps/validateODP'
+import { ODPNationalClass, OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { Topics } from 'meta/messageCenter'
 import { TooltipId } from 'meta/tooltip'
 

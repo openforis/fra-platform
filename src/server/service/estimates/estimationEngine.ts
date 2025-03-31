@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js'
 import { BigNumberInput, Numbers } from 'utils/numbers'
 import { Objects } from 'utils/objects'
 
-import { NodeValuesEstimation } from 'meta/assessment'
+import { NodeValuesEstimation } from 'meta/assessment/nodeValuesEstimation'
 import { NodeUpdate, RecordCountryData } from 'meta/data'
 
 // TODO: refactor everything

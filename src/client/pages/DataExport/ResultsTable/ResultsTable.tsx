@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { Objects } from 'utils/objects'
 
 import { Areas, CountryIso } from 'meta/area'
-import { Unit } from 'meta/assessment'
+import { Unit } from 'meta/assessment/unit'
 
 import { useCycle } from 'client/store/assessment'
 import { useTableSections } from 'client/store/metadata'

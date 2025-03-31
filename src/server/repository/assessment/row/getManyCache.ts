@@ -1,5 +1,5 @@
-import { RowCache } from 'meta/assessment'
 import { Assessment } from 'meta/assessment/assessment'
+import { RowCache } from 'meta/assessment/rowCache'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'
 import { RowCacheAdapter } from 'server/repository/adapter'

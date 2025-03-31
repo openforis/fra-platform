@@ -1,7 +1,7 @@
 import './Number.scss'
 import React from 'react'
 
-import { ColType } from 'meta/assessment'
+import { ColType } from 'meta/assessment/col'
 
 import InputNumber from 'client/components/Inputs/InputNumber'
 

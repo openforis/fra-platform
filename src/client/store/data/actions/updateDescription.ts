@@ -4,7 +4,7 @@ import { Functions } from 'utils/functions'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CycleDataParams } from 'meta/api/request'
-import { CommentableDescriptionValue } from 'meta/assessment'
+import { CommentableDescriptionValue } from 'meta/assessment/descriptionValue'
 
 type Props = CycleDataParams & { name: string; value: CommentableDescriptionValue }
 

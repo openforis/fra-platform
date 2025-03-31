@@ -1,7 +1,7 @@
 import { Numbers } from 'utils/numbers'
 import { Objects } from 'utils/objects'
 
-import { NodeValueValidationMessage } from 'meta/assessment'
+import { NodeValueValidationMessage } from 'meta/assessment/nodeValueValidation'
 import { Context } from 'meta/expressionEvaluator/context'
 
 type CategoryInfo = { labelKey: string; value?: string }

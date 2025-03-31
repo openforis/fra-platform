@@ -1,7 +1,7 @@
 import './Select.scss'
 import React, { useCallback } from 'react'
 
-import { Cols } from 'meta/assessment'
+import { Cols } from 'meta/assessment/cols'
 
 import { useCycle } from 'client/store/assessment'
 import SelectCommon from 'client/components/Inputs/Select'

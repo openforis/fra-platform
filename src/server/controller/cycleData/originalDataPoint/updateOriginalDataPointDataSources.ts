@@ -1,7 +1,8 @@
 import { Country } from 'meta/area'
-import { ActivityLogMessage, OriginalDataPoint } from 'meta/assessment'
+import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
+import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { User } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db'

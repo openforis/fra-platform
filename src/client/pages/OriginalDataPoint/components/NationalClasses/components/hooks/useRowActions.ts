@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { OriginalDataPoint } from 'meta/assessment'
+import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { Topics } from 'meta/messageCenter'
 
 import { DataRowAction, DataRowActionType } from 'client/components/DataGrid'

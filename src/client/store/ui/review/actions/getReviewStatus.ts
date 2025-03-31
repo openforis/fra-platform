@@ -3,7 +3,7 @@ import axios from 'axios'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CountryIso } from 'meta/area'
-import { ReviewStatus } from 'meta/assessment'
+import { ReviewStatus } from 'meta/assessment/review'
 
 type Params = {
   assessmentName: string

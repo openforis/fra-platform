@@ -1,4 +1,4 @@
-import { Description } from 'meta/assessment'
+import { Description } from 'meta/assessment/description'
 
 import { useAssessmentCountry } from 'client/store/area'
 import { useHasOriginalDataPointData } from 'client/store/data'

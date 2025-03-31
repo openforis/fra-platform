@@ -1,6 +1,6 @@
 import { Objects } from 'utils/objects'
 
-import { ActivityLogMessage } from 'meta/assessment'
+import { ActivityLogMessage } from 'meta/assessment/activityLog'
 
 import { BaseProtocol } from 'server/db'
 

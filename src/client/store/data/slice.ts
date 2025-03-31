@@ -1,7 +1,7 @@
 import { ActionReducerMapBuilder, createSlice, Reducer } from '@reduxjs/toolkit'
 import { Objects } from 'utils/objects'
 
-import { CommentableDescriptionName } from 'meta/assessment'
+import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 import { ContactNode } from 'meta/cycleData'
 import { RecordAssessmentDatas } from 'meta/data'
 

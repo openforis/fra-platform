@@ -1,6 +1,6 @@
 import { Objects } from 'utils/objects'
 
-import { Settings } from 'meta/assessment'
+import { Settings } from 'meta/assessment/settings'
 
 import { BaseProtocol, DB } from 'server/db'
 

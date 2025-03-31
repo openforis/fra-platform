@@ -4,7 +4,9 @@ import { useTranslation } from 'react-i18next'
 
 import { Objects } from 'utils/objects'
 
-import { Col, NodeValue, Row } from 'meta/assessment'
+import { Col } from 'meta/assessment/col'
+import { NodeValue } from 'meta/assessment/node'
+import { Row } from 'meta/assessment/row'
 import { Authorizer } from 'meta/user'
 
 import { useCountry } from 'client/store/area'

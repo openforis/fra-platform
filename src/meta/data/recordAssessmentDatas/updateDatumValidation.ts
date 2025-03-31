@@ -1,4 +1,4 @@
-import { NodeValue } from 'meta/assessment'
+import { NodeValue } from 'meta/assessment/node'
 
 import { RecordAssessmentData } from '../RecordAssessmentData'
 import { getNodeValue } from './getNodeValue'

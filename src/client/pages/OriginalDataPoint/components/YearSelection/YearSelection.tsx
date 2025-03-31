@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
 
-import { ODPs } from 'meta/assessment'
+import { ODPs } from 'meta/assessment/odps'
 
 import { useODPYears, useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
 import { useIsEditTableDataEnabled } from 'client/store/user'

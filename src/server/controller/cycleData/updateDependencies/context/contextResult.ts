@@ -1,8 +1,10 @@
 import { Objects } from 'utils/objects'
 
-import { Col, NodeValue, RowCache } from 'meta/assessment'
 import { Assessment } from 'meta/assessment/assessment'
+import { Col } from 'meta/assessment/col'
 import { Cycle } from 'meta/assessment/cycle'
+import { NodeValue } from 'meta/assessment/node'
+import { RowCache } from 'meta/assessment/rowCache'
 import { TableName } from 'meta/assessment/table'
 import { NodeUpdate, NodeUpdates } from 'meta/data'
 

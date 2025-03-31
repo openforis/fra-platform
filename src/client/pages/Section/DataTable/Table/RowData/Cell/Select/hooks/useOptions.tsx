@@ -1,7 +1,9 @@
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Col, Cols, NodeValue } from 'meta/assessment'
+import { Col } from 'meta/assessment/col'
+import { Cols } from 'meta/assessment/cols'
+import { NodeValue } from 'meta/assessment/node'
 
 import { useCycle } from 'client/store/assessment'
 import { Option, OptionsGroup, OptionsOrGroups } from 'client/components/Inputs/Select'

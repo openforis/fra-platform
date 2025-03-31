@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 
 import { CountryIso } from 'meta/area'
-import { ODPReservedYear } from 'meta/assessment'
+import { ODPReservedYear } from 'meta/assessment/originalDataPoint'
 import { Sockets } from 'meta/socket'
 
 import { useAppDispatch } from 'client/store'

@@ -2,7 +2,7 @@ import './Title.scss'
 import React from 'react'
 import MediaQuery from 'react-responsive'
 
-import { CommentableDescriptionName } from 'meta/assessment'
+import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 
 import { DataCell, DataRow } from 'client/components/DataGrid'
 import ButtonEdit from 'client/pages/Section/Descriptions/CommentableDescription/Title/ButtonEdit'

@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import { CommentableDescriptionName, DataSource } from 'meta/assessment'
+import { CommentableDescriptionName, DataSource } from 'meta/assessment/descriptionValue'
 
 import { useHistoryLastApprovedIsActive, useLastApprovedHistoryDescriptions } from 'client/store/data'
 

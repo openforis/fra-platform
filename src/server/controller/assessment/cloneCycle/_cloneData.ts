@@ -1,4 +1,4 @@
-import { CommentableDescriptionName } from 'meta/assessment'
+import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 import { NodeExtType } from 'meta/nodeExt'
 
 import { CloneProps } from 'server/controller/assessment/cloneCycle/types'

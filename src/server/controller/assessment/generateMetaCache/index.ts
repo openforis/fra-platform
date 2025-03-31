@@ -1,10 +1,10 @@
 import { Objects } from 'utils/objects'
 import { Promises } from 'utils/promises'
 
-import { RowCache } from 'meta/assessment'
 import { AssessmentName } from 'meta/assessment/assessment'
 import { Assessments } from 'meta/assessment/assessments'
 import { AssessmentMetaCache } from 'meta/assessment/metaCache'
+import { RowCache } from 'meta/assessment/rowCache'
 
 import { Context } from 'server/controller/assessment/generateMetaCache/dependencyEvaluator/evalDependencies/context'
 import { BaseProtocol, DB } from 'server/db'

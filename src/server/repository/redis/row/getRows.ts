@@ -1,5 +1,6 @@
-import { RecordRowCache, RowCacheKey, RowCaches } from 'meta/assessment'
 import { Assessment } from 'meta/assessment/assessment'
+import { RecordRowCache, RowCacheKey } from 'meta/assessment/rowCache'
+import { RowCaches } from 'meta/assessment/rowCaches'
 
 import { BaseProtocol, DB } from 'server/db'
 import { RowRepository } from 'server/repository/assessment/row'

@@ -1,7 +1,7 @@
 import { CountryIso } from 'meta/area'
-import { NodeValuesEstimation } from 'meta/assessment'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
+import { NodeValuesEstimation } from 'meta/assessment/nodeValuesEstimation'
 
 import { BaseProtocol, DB } from 'server/db'
 import { TableRepository } from 'server/repository/assessment/table'

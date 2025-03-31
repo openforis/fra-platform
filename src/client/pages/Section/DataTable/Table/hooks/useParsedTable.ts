@@ -4,8 +4,9 @@ import { useTranslation } from 'react-i18next'
 import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area'
-import { Cols, Row, RowType } from 'meta/assessment'
 import { AssessmentName } from 'meta/assessment/assessment'
+import { Cols } from 'meta/assessment/cols'
+import { Row, RowType } from 'meta/assessment/row'
 import { Table } from 'meta/assessment/table'
 
 import { useCycle } from 'client/store/assessment'

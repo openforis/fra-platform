@@ -1,5 +1,5 @@
-import { Unit } from 'meta/assessment'
 import { AssessmentName, AssessmentNames } from 'meta/assessment/assessment'
+import { Unit } from 'meta/assessment/unit'
 
 import { isYearWithWord } from './checks'
 

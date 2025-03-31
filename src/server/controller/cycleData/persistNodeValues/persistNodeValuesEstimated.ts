@@ -1,5 +1,5 @@
 import { Country } from 'meta/area'
-import { ActivityLog, ActivityLogMessage } from 'meta/assessment'
+import { ActivityLog, ActivityLogMessage } from 'meta/assessment/activityLog'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { NodeValuesEstimation } from 'meta/assessment/nodeValuesEstimation'

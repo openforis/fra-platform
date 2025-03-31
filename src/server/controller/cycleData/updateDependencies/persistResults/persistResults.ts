@@ -1,4 +1,5 @@
-import { ActivityLogMessage, Node } from 'meta/assessment'
+import { ActivityLogMessage } from 'meta/assessment/activityLog'
+import { Node } from 'meta/assessment/node'
 import { User } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db'
