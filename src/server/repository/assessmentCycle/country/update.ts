@@ -30,5 +30,5 @@ export const update = async (props: Props, client: BaseProtocol = DB): Promise<C
     [countryIso, countryProps, status]
   )
 
-  return getOne({ assessment, cycle, countryIso })
+  return getOne({ assessment, cycle, countryIso }, client)
 }
