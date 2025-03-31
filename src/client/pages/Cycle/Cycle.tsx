@@ -6,6 +6,7 @@ import { useCycle } from 'client/store/assessment'
 import { useUserCycles } from 'client/store/user'
 import { useIsLoginRoute } from 'client/hooks/useIsRoute'
 
+import { useCountryStatusListener } from './hooks/useCountryStatusListener'
 import { useInitAreas } from './hooks/useInitAreas'
 
 const Cycle: React.FC = () => {
@@ -15,6 +16,7 @@ const Cycle: React.FC = () => {
   const navigate = useNavigate()
   const userCycles = useUserCycles()
   useInitAreas()
+  useCountryStatusListener()
 
   // TODO: think later
   useEffect(() => {

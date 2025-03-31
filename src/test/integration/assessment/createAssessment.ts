@@ -19,6 +19,7 @@ export default () =>
       assessment,
       name: assessmentCycleName,
       user,
+      withCountries: true,
     })
 
     expect(assessment).toHaveProperty('id')

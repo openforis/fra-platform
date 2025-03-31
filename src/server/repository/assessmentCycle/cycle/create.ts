@@ -6,11 +6,13 @@ import { getOneWithCycle } from 'server/controller/assessment/getOne'
 import { BaseProtocol, DB, Schemas } from 'server/db'
 import { AssessmentRepository } from 'server/repository/assessment/assessment'
 import { getCreateOrReplaceViewCountryUserSummary } from 'server/repository/assessment/assessment/getCreateSchemaDDL'
+import { CountrySummaryRepository } from 'server/repository/assessmentCycle/countrySummary'
 
 type Props = {
   assessment: Assessment
   cycleSource?: Cycle
   name: string
+  withCountries?: boolean
 }
 
 type Returned = Promise<{
@@ -36,7 +38,7 @@ const getDefaultProps = (): CycleProps => {
 }
 
 export const create = async (params: Props, client: BaseProtocol = DB): Returned => {
-  const { assessment, cycleSource, name } = params
+  const { assessment, cycleSource, name, withCountries } = params
 
   const schemaAssessment = Schemas.getName(assessment)
   const schemaCycle = Schemas.getNameCycle(assessment, { name } as Cycle)
@@ -51,6 +53,18 @@ export const create = async (params: Props, client: BaseProtocol = DB): Returned
      returning *;`,
     [assessment.id, name, getDefaultProps(), cycleSource?.uuid]
   )
+
+  if (withCountries) {
+    // Init countries
+    await client.query(`
+      insert into ${schemaCycle}.country (country_iso, props)
+      select country_iso, config
+      from country
+  `)
+  }
+
+  // Init country_summary view
+  await CountrySummaryRepository.createMaterializedView({ assessment, cycle })
 
   // Init country user summary view
   await client.query(getCreateOrReplaceViewCountryUserSummary({ assessment, cycle }))

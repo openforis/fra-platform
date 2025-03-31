@@ -20,7 +20,7 @@ export const createMaterializedView = async (props: Props, client: BaseProtocol 
   const query = `
       create materialized view if not exists ${schemaCycle}.country_summary as
       with country as
-               (select c.country_iso, c.props ->> 'status' as status
+               (select c.country_iso, c.status as status
                 from ${schemaCycle}.country c),
            last_edit as
                (select c.country_iso, max(a.time) as last_edit
@@ -96,11 +96,6 @@ export const createMaterializedView = async (props: Props, client: BaseProtocol 
            , coalesce(us.invitations_accepted_count, 0) as invitations_accepted_count
            , coalesce(us.invitations_sent_count, 0)     as invitations_sent_count
            , coalesce(us.users_count, 0)                as users_count
-           , case
-               when le.last_edit is null then '${AssessmentStatus.notStarted}'
-               when le.last_edit is not null and c.status in (null, '${AssessmentStatus.notStarted}') then '${AssessmentStatus.editing}'
-               else c.status
-               end                                    as status
       from country c
                left join last_edit le on c.country_iso = le.country_iso
                left join last_edit_odp_data leo on c.country_iso = leo.country_iso

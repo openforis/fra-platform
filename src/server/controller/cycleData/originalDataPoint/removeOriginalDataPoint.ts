@@ -1,3 +1,4 @@
+import { Country } from 'meta/area'
 import { ActivityLog, ActivityLogMessage, OriginalDataPoint } from 'meta/assessment'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
@@ -9,6 +10,7 @@ import { BaseProtocol, DB } from 'server/db'
 import { MessageTopicRepository } from 'server/repository/assessmentCycle/messageTopic'
 import { OriginalDataPointRepository } from 'server/repository/assessmentCycle/originalDataPoint'
 import { ActivityLogRepository } from 'server/repository/public/activityLog'
+import { CountryService } from 'server/service/country'
 import { SocketServer } from 'server/service/socket'
 
 import { updateOriginalDataPointDependentNodes } from './updateDependants/updateOriginalDataPointDependentNodes'
@@ -16,12 +18,13 @@ import { updateOriginalDataPointDependentNodes } from './updateDependants/update
 type Props = {
   assessment: Assessment
   cycle: Cycle
+  country: Country
   originalDataPoint: OriginalDataPoint
   user: User
 }
 
 export const removeOriginalDataPoint = async (props: Props, client: BaseProtocol = DB): Promise<OriginalDataPoint> => {
-  const { assessment, cycle, originalDataPoint, user } = props
+  const { assessment, cycle, originalDataPoint, user, country } = props
   const assessmentName = assessment.props.name
   const cycleName = cycle.name
   const { countryIso } = originalDataPoint
@@ -38,6 +41,8 @@ export const removeOriginalDataPoint = async (props: Props, client: BaseProtocol
     const socketProps = { assessmentName, cycleName, countryIso }
     SocketServer.emit(Sockets.getODPDeleteEvent(socketProps), { countryIso, year: originalDataPoint.year })
     SocketServer.emit(Sockets.getRequestReviewSummaryEvent(socketProps))
+
+    await CountryService.setCountryStatusEditing({ assessment, cycle, country, user }, t)
 
     return target
   })

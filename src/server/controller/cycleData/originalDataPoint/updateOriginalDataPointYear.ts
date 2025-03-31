@@ -1,4 +1,4 @@
-import { CountryIso } from 'meta/area'
+import { Country } from 'meta/area'
 import { ActivityLogMessage, OriginalDataPoint } from 'meta/assessment'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
@@ -9,6 +9,7 @@ import { CycleDataController } from 'server/controller/cycleData/index'
 import { BaseProtocol, DB } from 'server/db'
 import { OriginalDataPointRepository } from 'server/repository/assessmentCycle/originalDataPoint'
 import { ActivityLogRepository } from 'server/repository/public/activityLog'
+import { CountryService } from 'server/service/country'
 import { SocketServer } from 'server/service/socket'
 
 import { updateOriginalDataPointsDependentNodes } from './updateDependants/updateOriginalDataPointsDependentNodes'
@@ -16,7 +17,7 @@ import { updateOriginalDataPointsDependentNodes } from './updateDependants/updat
 type Props = {
   assessment: Assessment
   cycle: Cycle
-  countryIso: CountryIso
+  country: Country
   sectionName: string
 
   id: string
@@ -30,18 +31,21 @@ export const updateOriginalDataPointYear = async (
   props: Props,
   client: BaseProtocol = DB
 ): Promise<OriginalDataPoint> => {
-  const { assessment, cycle, countryIso, user, year } = props
+  const { assessment, cycle, country, user, year } = props
+  const { countryIso } = country
 
   const originalDataPoint = await OriginalDataPointRepository.getOne({ assessment, cycle, countryIso, year })
 
   const updatedOriginalDataPoint = await client.tx(async (t) => {
     // --- 1. Update ODP year
-    const updatedOriginalDataPoint = await OriginalDataPointRepository.updateYear(props, t)
+    const updatedOriginalDataPoint = await OriginalDataPointRepository.updateYear({ ...props, countryIso }, t)
 
     // --- 2. Update activity log
     const message = ActivityLogMessage.originalDataPointUpdateYear
     const activityLog = { target: updatedOriginalDataPoint, section: 'odp', message, countryIso, user }
     await ActivityLogRepository.insertActivityLog({ activityLog, assessment, cycle }, t)
+
+    await CountryService.setCountryStatusEditing({ assessment, cycle, country, user }, t)
 
     return updatedOriginalDataPoint
   })

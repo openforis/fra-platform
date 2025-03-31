@@ -1,6 +1,7 @@
 import { Express } from 'express'
 
 import { ExtDataApi } from 'server/api/extData'
+import { ApiContextMiddleware } from 'server/middleware/apiContext'
 
 import { AdminApi } from './admin'
 import { AreaApi } from './area'
@@ -22,6 +23,8 @@ import { UserApi } from './user'
 
 export const Api = {
   init: (express: Express): void => {
+    express.use('/api*', ApiContextMiddleware.initContext)
+
     AuthApi.init(express)
 
     InitApi.init(express)

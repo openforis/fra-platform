@@ -17,10 +17,16 @@ enum Section {
   subSectionsIndex = 'subSectionsIndex',
 }
 
+enum Area {
+  country = 'area:country',
+  regionGroups = 'area:regionGroups',
+}
+
 export const Keys = {
   Data,
   Row,
   Section,
+  Area,
 }
 
 // ===== Getters

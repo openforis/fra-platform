@@ -1,3 +1,4 @@
+import { Country } from 'meta/area'
 import { ActivityLogMessage, ODPs, OriginalDataPoint } from 'meta/assessment'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
@@ -6,12 +7,14 @@ import { User } from 'meta/user'
 import { BaseProtocol, DB } from 'server/db'
 import { OriginalDataPointRepository } from 'server/repository/assessmentCycle/originalDataPoint'
 import { ActivityLogRepository } from 'server/repository/public/activityLog'
+import { CountryService } from 'server/service/country'
 
 import { updateOriginalDataPointDependentNodes } from './updateDependants/updateOriginalDataPointDependentNodes'
 
 type Props = {
   assessment: Assessment
   cycle: Cycle
+  country: Country
   id: string
   index: number
   user: User
@@ -21,7 +24,7 @@ export const deleteOriginalDataPointNationalClass = async (
   props: Props,
   client: BaseProtocol = DB
 ): Promise<OriginalDataPoint> => {
-  const { assessment, cycle, id, index, user } = props
+  const { assessment, cycle, country, id, index, user } = props
 
   const odpReturn = await client.tx(async (t) => {
     const originalDataPoint = await OriginalDataPointRepository.deleteNationalClass({ assessment, cycle, id, index }, t)
@@ -35,6 +38,8 @@ export const deleteOriginalDataPointNationalClass = async (
     const section = 'odp'
     const activityLog = { target: updatedOriginalDataPoint, section, message, countryIso, user }
     await ActivityLogRepository.insertActivityLog({ activityLog, assessment, cycle }, t)
+
+    await CountryService.setCountryStatusEditing({ assessment, cycle, country, user }, t)
 
     return updatedOriginalDataPoint
   })

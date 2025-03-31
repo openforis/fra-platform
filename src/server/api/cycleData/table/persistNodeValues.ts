@@ -9,8 +9,10 @@ import Requests from 'server/utils/requests'
 
 export const persistNodeValues = async (req: CycleDataRequest<never, NodesBody>, res: Response) => {
   try {
-    const { countryIso, assessmentName, cycleName, sectionName } = req.query
+    const { assessmentName, cycleName, sectionName } = req.query
     const { tableName, values } = req.body
+    const { country } = req.context
+    const { countryIso } = country
 
     const user = Requests.getUser(req)
     const metaCache = true
@@ -20,7 +22,7 @@ export const persistNodeValues = async (req: CycleDataRequest<never, NodesBody>,
       return { tableName, variableName, colName, value }
     })
     const nodeUpdates: NodeUpdates = { assessmentName, cycleName, countryIso, nodes }
-    await CycleDataController.persistNodeValues({ assessment, cycle, nodeUpdates, sectionName, user })
+    await CycleDataController.persistNodeValues({ assessment, cycle, country, nodeUpdates, sectionName, user })
 
     Requests.sendOk(res)
   } catch (e) {
