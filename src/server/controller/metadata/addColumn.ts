@@ -1,4 +1,7 @@
-import { Assessment, ColProps, Cycle, Row, Table, TableProps } from 'meta/assessment'
+import { ColProps, Row } from 'meta/assessment'
+import { Assessment } from 'meta/assessment/assessment'
+import { Cycle } from 'meta/assessment/cycle'
+import { Table, TableProps } from 'meta/assessment/table'
 
 import { BaseProtocol, DB } from 'server/db'
 import { ColRepository } from 'server/repository/assessment/col'

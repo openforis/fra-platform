@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 @import 'src/client/style/partials';
 
 .review-indicator {
@@ -32,10 +34,10 @@
 
   &.resolved {
     svg {
-      color: darken($ui-accent, 20%);
+      color: color.adjust($ui-accent, $lightness: -20%, $space: hsl);
 
       &:hover {
-        color: darken($ui-accent, 25%);
+        color: color.adjust($ui-accent, $lightness: -25%, $space: hsl);
       }
     }
   }

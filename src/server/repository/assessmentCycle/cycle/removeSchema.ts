@@ -1,4 +1,5 @@
-import { Assessment, Cycle } from 'meta/assessment'
+import { Assessment } from 'meta/assessment/assessment'
+import { Cycle } from 'meta/assessment/cycle'
 
 import { DB, Schemas } from 'server/db'
 

@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { AssessmentName, ColType, CycleName, Row, RowType } from 'meta/assessment'
+import { ColType, Row, RowType } from 'meta/assessment'
+import { AssessmentName } from 'meta/assessment/assessment'
+import { CycleName } from 'meta/assessment/cycle'
 import { RecordAssessmentData, RecordAssessmentDatas, RecordCountryData } from 'meta/data'
 
 import { useAppDispatch } from 'client/store'

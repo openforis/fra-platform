@@ -2,7 +2,8 @@ import { createI18nPromise } from 'i18n/i18nFactory'
 import { i18n as i18nType } from 'i18next'
 
 import { Areas, CountryIso, RegionCode, RegionGroupName } from 'meta/area'
-import { Assessment, Cycle } from 'meta/assessment'
+import { Assessment } from 'meta/assessment/assessment'
+import { Cycle } from 'meta/assessment/cycle'
 import { Lang } from 'meta/lang'
 
 import { getContent } from 'server/controller/cycleData/getBulkDownload/getContent'

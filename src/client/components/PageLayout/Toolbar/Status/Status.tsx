@@ -44,7 +44,7 @@ const Status: React.FC = () => {
     {
       content: (
         <div className="popover-control__checkbox-container">
-          <span style={{ marginRight: '8px' }} className={classNames('fra-checkbox', { checked: deskStudy })} />
+          <span className={classNames('fra-checkbox', { checked: deskStudy })} style={{ marginRight: '8px' }} />
           <span>{t<string>('assessment.deskStudy')}</span>
         </div>
       ),
@@ -93,7 +93,7 @@ const Status: React.FC = () => {
 
   return (
     <>
-      {targetStatus && <StatusConfirm status={targetStatus} onClose={() => setTargetStatus(null)} />}
+      {targetStatus && <StatusConfirm onClose={() => setTargetStatus(null)} status={targetStatus} />}
       <MediaQuery maxWidth={Breakpoints.laptop - 1}>
         <div className={`nav-header__status status-${status}`}>
           <span>{t<string>(`assessment.status.${status}.label`)}</span>

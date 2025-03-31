@@ -1,7 +1,7 @@
 import './CycleSwitcher.scss'
 import React from 'react'
 
-import { Assessments } from 'meta/assessment'
+import { Assessments } from 'meta/assessment/assessments'
 
 import { useAssessment } from 'client/store/assessment'
 import { useCycleRouteParams } from 'client/hooks/useRouteParams'

@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-import { AssessmentMetaCaches } from 'meta/assessment'
+import { AssessmentMetaCaches } from 'meta/assessment/metaCaches'
 
 import { useAppDispatch } from 'client/store'
 import { AssessmentActions, useAssessment, useCycle } from 'client/store/assessment'

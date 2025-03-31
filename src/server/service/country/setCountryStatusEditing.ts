@@ -1,5 +1,6 @@
 import { AssessmentStatus, Country } from 'meta/area'
-import { Assessment, Cycle } from 'meta/assessment'
+import { Assessment } from 'meta/assessment/assessment'
+import { Cycle } from 'meta/assessment/cycle'
 import { User } from 'meta/user'
 
 import { AreaController } from 'server/controller/area'

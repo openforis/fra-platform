@@ -1,4 +1,7 @@
-import { Assessment, Cycle, Table, TableName, TableSection } from 'meta/assessment'
+import { Assessment } from 'meta/assessment/assessment'
+import { Cycle } from 'meta/assessment/cycle'
+import { Table, TableName } from 'meta/assessment/table'
+import { TableSection } from 'meta/assessment/tableSection'
 
 import { SectionRedisRepository } from 'server/repository/redis/section'
 

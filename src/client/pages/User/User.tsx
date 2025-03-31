@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { useLocation, useParams } from 'react-router-dom'
 
 import { Areas } from 'meta/area'
-import { AssessmentName } from 'meta/assessment'
+import { AssessmentName } from 'meta/assessment/assessment'
 import { Users } from 'meta/user'
 
 import { useAppDispatch } from 'client/store'

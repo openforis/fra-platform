@@ -1,4 +1,5 @@
-import { Assessment, Cycle } from 'meta/assessment'
+import { Assessment } from 'meta/assessment/assessment'
+import { Cycle } from 'meta/assessment/cycle'
 import { MessageTopic } from 'meta/messageCenter'
 import { User } from 'meta/user'
 

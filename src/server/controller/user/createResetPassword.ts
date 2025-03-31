@@ -1,4 +1,4 @@
-import { AssessmentName } from 'meta/assessment'
+import { AssessmentName } from 'meta/assessment/assessment'
 import { User, UserResetPassword } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db'

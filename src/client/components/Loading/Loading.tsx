@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { AssessmentNames } from 'meta/assessment'
+import { AssessmentNames } from 'meta/assessment/assessment'
 
 const Loading = () => {
   // Toucan is hidden in PanEuropean pages.
@@ -9,7 +9,7 @@ const Loading = () => {
 
   return (
     <div className="notfound" style={{ minHeight: '90vh' }}>
-      {showToucan && <img src="/img/tucan.svg" alt="tucan" />}
+      {showToucan && <img alt="tucan" src="/img/tucan.svg" />}
 
       <p className="subhead">
         <strong>Loading... </strong>

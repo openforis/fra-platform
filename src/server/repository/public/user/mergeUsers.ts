@@ -1,4 +1,4 @@
-import { Assessment } from 'meta/assessment'
+import { Assessment } from 'meta/assessment/assessment'
 import { User } from 'meta/user'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'

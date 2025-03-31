@@ -2,7 +2,7 @@ import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { CountryIso } from 'meta/area'
-import { Table } from 'meta/assessment'
+import { Table } from 'meta/assessment/table'
 
 import { useAppDispatch } from 'client/store'
 import { DataActions } from 'client/store/data'

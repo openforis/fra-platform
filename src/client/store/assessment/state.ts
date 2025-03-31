@@ -1,4 +1,5 @@
-import { Assessment, Settings } from 'meta/assessment'
+import { Settings } from 'meta/assessment'
+import { Assessment } from 'meta/assessment/assessment'
 
 export interface AssessmentState {
   appInitialized: boolean

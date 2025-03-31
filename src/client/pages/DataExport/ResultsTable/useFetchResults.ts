@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { AssessmentName } from 'meta/assessment'
+import { AssessmentName } from 'meta/assessment/assessment'
 import { TableCell } from 'meta/assessment/table'
 import { RecordAssessmentData } from 'meta/data'
 

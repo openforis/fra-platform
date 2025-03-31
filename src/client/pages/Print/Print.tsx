@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
 
 import { CountryIso } from 'meta/area/countryIso'
-import { Labels } from 'meta/assessment'
+import { Labels } from 'meta/assessment/labels'
 
 import { useCycle } from 'client/store/assessment'
 import { useSections } from 'client/store/metadata'

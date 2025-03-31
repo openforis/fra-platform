@@ -1,9 +1,11 @@
+@use 'sass:color';
+
 @import 'src/client/style/partials';
 
 .select__groupHeading-selectable {
   display: flex;
 
   &:hover {
-    background-color: lighten($ui-accent-light-extra, 3%);
+    background-color: color.adjust($ui-accent-light-extra, $lightness: 3%, $space: hsl);
   }
 }

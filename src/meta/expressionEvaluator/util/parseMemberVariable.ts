@@ -1,6 +1,7 @@
 import { MemberExpression } from '@openforis/arena-core'
 
-import { Cycles, VariableCache } from 'meta/assessment'
+import { Cycles } from 'meta/assessment/cycles'
+import { VariableCache } from 'meta/assessment/metaCache'
 import { BaseContext } from 'meta/expressionEvaluator/util/_types'
 import { Member } from 'meta/expressions'
 

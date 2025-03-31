@@ -1,6 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit'
 
-import { TableName } from 'meta/assessment'
+import { TableName } from 'meta/assessment/table'
 
 import { useAssessment, useCycle } from 'client/store/assessment'
 import { TableDataStatus } from 'client/store/data/state'

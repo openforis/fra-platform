@@ -2,7 +2,7 @@ import './ModalEditor.scss'
 import React, { useEffect, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { SubSections } from 'meta/assessment'
+import { SubSections } from 'meta/assessment/subSections'
 import { CollaboratorEditPropertyType, CollaboratorPermissions } from 'meta/user'
 
 import { useCycle } from 'client/store/assessment'

@@ -1,6 +1,6 @@
 import { Objects } from 'utils/objects'
 
-import { TableName } from 'meta/assessment'
+import { TableName } from 'meta/assessment/table'
 import { HistoryLastApprovedInfo } from 'meta/cycleData/historyLastApproved'
 import { RecordAssessmentData, RecordAssessmentDatas } from 'meta/data'
 

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
 import { CountryIso } from 'meta/area'
-import { Cycle } from 'meta/assessment'
+import { Cycle } from 'meta/assessment/cycle'
 import { RoleName, User } from 'meta/user'
 
 import { useAppDispatch } from 'client/store'

@@ -1,5 +1,7 @@
 import { CountryIso } from 'meta/area'
-import { ActivityLogMessage, Assessment, Cycle } from 'meta/assessment'
+import { ActivityLogMessage } from 'meta/assessment'
+import { Assessment } from 'meta/assessment/assessment'
+import { Cycle } from 'meta/assessment/cycle'
 import { RecordCountryData } from 'meta/data'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'

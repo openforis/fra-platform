@@ -3,7 +3,8 @@ import { useMemo } from 'react'
 import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area'
-import { AssessmentName, Table } from 'meta/assessment'
+import { AssessmentName } from 'meta/assessment/assessment'
+import { Table } from 'meta/assessment/table'
 import { RecordAssessmentDatas } from 'meta/data'
 
 import { useHistoryLastApprovedIsActive, useOriginalDataPointYears } from 'client/store/data'

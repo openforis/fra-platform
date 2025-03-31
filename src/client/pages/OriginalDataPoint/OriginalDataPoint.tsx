@@ -4,7 +4,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
-import { TableNames } from 'meta/assessment'
+import { TableNames } from 'meta/assessment/table'
 
 import { useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
 import { useIsEditTableDataEnabled } from 'client/store/user'

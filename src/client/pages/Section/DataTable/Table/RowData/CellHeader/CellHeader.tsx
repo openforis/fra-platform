@@ -5,7 +5,8 @@ import { Link } from 'react-router-dom'
 
 import classNames from 'classnames'
 
-import { AssessmentName, Col, Cols, Row } from 'meta/assessment'
+import { Col, Cols, Row } from 'meta/assessment'
+import { AssessmentName } from 'meta/assessment/assessment'
 import { Routes } from 'meta/routes'
 
 import { useCycle } from 'client/store/assessment'

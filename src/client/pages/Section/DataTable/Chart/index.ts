@@ -1,1 +1,1 @@
-export { default } from './chartWrapper'
+export { default } from './ChartWrapper'

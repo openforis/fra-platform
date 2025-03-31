@@ -1,7 +1,9 @@
 import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area'
-import { Assessment, Cycle, OriginalDataPoint } from 'meta/assessment'
+import { OriginalDataPoint } from 'meta/assessment'
+import { Assessment } from 'meta/assessment/assessment'
+import { Cycle } from 'meta/assessment/cycle'
 import { HistoryLastApprovedInfo } from 'meta/cycleData/historyLastApproved'
 
 import { OriginalDataPointRepository } from 'server/repository/assessmentCycle/originalDataPoint'

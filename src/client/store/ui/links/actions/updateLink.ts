@@ -2,7 +2,8 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { AssessmentName, CycleName } from 'meta/assessment'
+import { AssessmentName } from 'meta/assessment/assessment'
+import { CycleName } from 'meta/assessment/cycle'
 import { Link } from 'meta/cycleData'
 
 import { ThunkApiConfig } from 'client/store/types'

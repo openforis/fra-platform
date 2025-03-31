@@ -26,7 +26,7 @@ db/backup
 src/test/e2e/init-db/backup
 
 #Reports
-src/tools/report/output-*
+src/tools/report/output/
 
 #CSVNodeImport sample data
 src/tools/csvNodeImport/fra

@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 @import 'src/client/style/partials';
 
 .table-paginated {
@@ -33,7 +35,7 @@
     text-align: left;
     overflow-wrap: break-word;
     border: none;
-    border-bottom: 1px solid darken($ui-border, 15%);
+    border-bottom: 1px solid color.adjust($ui-border, $lightness: -15%, $space: hsl);
     display: flex;
     justify-content: start;
     align-items: center;

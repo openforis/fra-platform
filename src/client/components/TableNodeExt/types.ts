@@ -1,4 +1,4 @@
-import { Label } from 'meta/assessment'
+import { Label } from 'meta/assessment/label'
 import { NodeExtCellType } from 'meta/nodeExt'
 
 import { OptionsOrGroups } from 'client/components/Inputs/Select'

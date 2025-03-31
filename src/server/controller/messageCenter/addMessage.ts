@@ -1,5 +1,7 @@
 import { CountryIso } from 'meta/area'
-import { ActivityLogMessage, Assessment, Cycle } from 'meta/assessment'
+import { ActivityLogMessage } from 'meta/assessment'
+import { Assessment } from 'meta/assessment/assessment'
+import { Cycle } from 'meta/assessment/cycle'
 import { Message, MessageTopic, MessageTopicType, Topics } from 'meta/messageCenter'
 import { User } from 'meta/user'
 

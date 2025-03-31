@@ -3,7 +3,8 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { CountryIso } from 'meta/area'
-import { AssessmentNames, Labels } from 'meta/assessment'
+import { AssessmentNames } from 'meta/assessment/assessment'
+import { Labels } from 'meta/assessment/labels'
 
 import { useCountry } from 'client/store/area'
 import { useCycle } from 'client/store/assessment'

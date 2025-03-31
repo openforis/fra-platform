@@ -1,7 +1,8 @@
 import { Objects } from 'utils/objects'
 
 import { Country } from 'meta/area'
-import { Assessment, Cycle } from 'meta/assessment'
+import { Assessment } from 'meta/assessment/assessment'
+import { Cycle } from 'meta/assessment/cycle'
 
 import { BaseProtocol, DB } from 'server/db'
 import { CountryRepository } from 'server/repository/assessmentCycle/country'

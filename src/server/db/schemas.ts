@@ -1,4 +1,5 @@
-import { Assessment, Cycle } from 'meta/assessment'
+import { Assessment } from 'meta/assessment/assessment'
+import { Cycle } from 'meta/assessment/cycle'
 
 const getName = (assessment: Pick<Assessment, 'props'>): string => {
   return `assessment_${assessment.props.name}`.toLowerCase()

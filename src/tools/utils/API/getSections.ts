@@ -1,6 +1,6 @@
 import { API } from 'tools/utils/API/API'
 
-import { Section } from 'meta/assessment'
+import { Section } from 'meta/assessment/section'
 
 export const getSections = async (props: {
   source: string

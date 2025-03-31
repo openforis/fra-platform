@@ -1,6 +1,8 @@
+@use 'sass:color';
+
 @import 'src/client/style/partials';
 
-$colorError: darken($ui-destructive, 5%);
+$colorError: color.adjust($ui-destructive, $lightness: -5%, $space: hsl);
 
 .data-validations {
   align-items: center;

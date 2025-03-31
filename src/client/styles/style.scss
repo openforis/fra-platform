@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 //===WARNING====
 // DO NOT IMPORT SPECIFIC COMPONENT STYLES HERE,
 // ONLY MORE GENERAL STUFF USED IN MANY PLACES
@@ -73,11 +75,11 @@ h1.title {
 }
 
 a {
-  color: darken($ui-accent, 2%);
+  color: color.adjust($ui-accent, $lightness: -2%, $space: hsl);
 }
 
 a:hover {
-  color: darken($ui-accent, 4%);
+  color: color.adjust($ui-accent, $lightness: -4%, $space: hsl);
 }
 
 hr {

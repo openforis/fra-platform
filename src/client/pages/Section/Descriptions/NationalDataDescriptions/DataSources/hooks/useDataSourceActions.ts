@@ -1,7 +1,8 @@
 import { useMemo } from 'react'
 
 import { CountryIso } from 'meta/area'
-import { CommentableDescriptionName, DataSource, SectionName } from 'meta/assessment'
+import { CommentableDescriptionName, DataSource } from 'meta/assessment'
+import { SectionName } from 'meta/assessment/section'
 import { Topics } from 'meta/messageCenter'
 
 import { useAppDispatch } from 'client/store'

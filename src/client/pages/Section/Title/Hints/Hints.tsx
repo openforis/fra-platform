@@ -6,7 +6,8 @@ import { Objects } from 'utils/objects'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CountryIso } from 'meta/area'
-import { SubSectionHints, SubSections } from 'meta/assessment'
+import { SubSectionHints } from 'meta/assessment/section'
+import { SubSections } from 'meta/assessment/subSections'
 
 import { useCycle } from 'client/store/assessment'
 import { useCycleRouteParams, useSectionRouteParams } from 'client/hooks/useRouteParams'

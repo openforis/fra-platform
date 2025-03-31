@@ -3,7 +3,7 @@ import { useEffect, useMemo } from 'react'
 import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area'
-import { TableNames } from 'meta/assessment'
+import { TableNames } from 'meta/assessment/table'
 import { RecordAssessmentDatas } from 'meta/data'
 
 import { useAppDispatch } from 'client/store'

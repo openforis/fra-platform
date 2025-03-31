@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 
-import { AssessmentName } from 'meta/assessment'
+import { AssessmentName } from 'meta/assessment/assessment'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { UserController } from 'server/controller/user'

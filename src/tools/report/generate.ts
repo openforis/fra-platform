@@ -4,12 +4,13 @@ import 'dotenv/config'
 
 import * as fs from 'fs/promises'
 import * as path from 'path'
+import { CSV } from 'tools/utils/CSV'
 import { ToolsUtils } from 'tools/utils/toolsUtils'
 import { Dates } from 'utils/dates'
 import { Promises } from 'utils/promises'
 
-import { CountryIso } from 'meta/area'
-import { AssessmentNames } from 'meta/assessment'
+import { Areas, CountryIso } from 'meta/area'
+import { AssessmentNames } from 'meta/assessment/assessment'
 import { Lang } from 'meta/lang'
 
 import { AreaController } from 'server/controller/area'
@@ -19,32 +20,55 @@ import { Logger } from 'server/utils/logger'
 
 const appUri = 'http://localhost:9001'
 const assessmentName = AssessmentNames.fra
+const cycleName = '2025'
+const skipAtlantis = true
 const cookies = {
   'fra-auth-token': ``,
 }
-const cycleName = '2025'
-const lang = Lang.en
 
-const generateCountryReport = async (props: { countryIso: CountryIso; outputDir: string }): Promise<void> => {
-  const { countryIso, outputDir } = props
+const generateCountryReport = async (props: {
+  countryIso: CountryIso
+  lang?: Lang
+  outputDir: string
+}): Promise<void> => {
+  const { countryIso, lang = Lang.en, outputDir } = props
 
   const buffer = await PdfReport.generate({ appUri, assessmentName, cookies, countryIso, cycleName, lang })
 
-  const fileName = path.resolve(outputDir, `${assessmentName}-${cycleName}-${countryIso}.pdf`)
+  const fileName = path.resolve(outputDir, `${assessmentName}-${cycleName}-${countryIso}_${lang}.pdf`)
   await fs.writeFile(fileName, buffer)
 }
 
 ToolsUtils.exec(async () => {
-  const outputDir = path.resolve(__dirname, `output-${Dates.format(new Date(), 'yyyy-MM-dd')}`)
+  // get country languages from csv file
+  const countryLangsList = await CSV.read<{ ISO3: CountryIso; Country: string; Language: string }>(
+    path.resolve(__dirname, `ISO3_country_lan.csv`)
+  )
+  const countryLangs = countryLangsList.reduce<{ [key in CountryIso]?: Lang }>(
+    (acc, row) => ({ ...acc, [row.ISO3]: row.Language.toLowerCase() }),
+    {}
+  )
+
+  // reset output dir
+  const outputDirName = 'output'
+  const outputDir = path.resolve(__dirname, outputDirName)
   await fs.rm(outputDir, { recursive: true, force: true })
-  await fs.mkdir(outputDir)
+  // create reports dir
+  const reportsDirName = `${assessmentName}-${cycleName}-reports_${Dates.format(new Date(), 'yyyy-MM-dd')}`
+  const reportsDir = path.resolve(outputDir, reportsDirName)
+  await fs.mkdir(reportsDir, { recursive: true })
 
   const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
   const countries = await AreaController.getCountries({ assessment, cycle })
 
   await Promises.each(countries, async (country, index) => {
     const { countryIso } = country
-    await generateCountryReport({ countryIso, outputDir })
-    Logger.info(`    ${countryIso} (${index + 1}/${countries.length}) generated`)
+    if (!skipAtlantis || !Areas.isAtlantis(countryIso)) {
+      const lang = countryLangs[countryIso]
+      await generateCountryReport({ countryIso, lang, outputDir: reportsDir })
+      Logger.info(`    ${countryIso} (${lang}) (${index + 1}/${countries.length}) generated`)
+    } else {
+      Logger.info(`    ${countryIso} (${index + 1}/${countries.length}) skipped`)
+    }
   })
 })

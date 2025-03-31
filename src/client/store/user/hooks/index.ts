@@ -2,7 +2,11 @@ import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Areas, CountryIso } from 'meta/area'
-import { Assessments, CommentableDescriptionName, Cycle, Cycles, SectionName } from 'meta/assessment'
+import { CommentableDescriptionName } from 'meta/assessment'
+import { Assessments } from 'meta/assessment/assessments'
+import { Cycle } from 'meta/assessment/cycle'
+import { Cycles } from 'meta/assessment/cycles'
+import { SectionName } from 'meta/assessment/section'
 import { Authorizer, CollaboratorEditPropertyType, User, Users } from 'meta/user'
 
 import { useAppSelector } from 'client/store'

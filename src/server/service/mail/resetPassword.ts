@@ -1,6 +1,6 @@
 import { createI18nPromise } from 'i18n/i18nFactory'
 
-import { AssessmentName } from 'meta/assessment'
+import { AssessmentName } from 'meta/assessment/assessment'
 import { Lang } from 'meta/lang'
 import { Routes } from 'meta/routes'
 import { User, UserResetPassword, Users } from 'meta/user'

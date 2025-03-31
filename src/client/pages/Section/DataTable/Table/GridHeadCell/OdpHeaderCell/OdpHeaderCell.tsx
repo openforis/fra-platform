@@ -8,7 +8,7 @@ import classNames from 'classnames'
 import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area'
-import { Table } from 'meta/assessment'
+import { Table } from 'meta/assessment/table'
 import { Routes } from 'meta/routes'
 import { TooltipId } from 'meta/tooltip'
 

@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 @import 'src/client/style/partials';
 
 .toolbar {
@@ -30,7 +32,7 @@
 .toolbar__separator {
   width: 1px;
   height: 60%;
-  background: radial-gradient(darken($ui-bg, 25%), $ui-bg);
+  background: radial-gradient(color.adjust($ui-bg, $lightness: -25%, $space: hsl), $ui-bg);
 }
 
 .toolbar__geo-beta-message {

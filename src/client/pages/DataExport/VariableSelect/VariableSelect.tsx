@@ -3,7 +3,9 @@ import { useTranslation } from 'react-i18next'
 import MediaQuery from 'react-responsive'
 import { useParams } from 'react-router-dom'
 
-import { AssessmentName, AssessmentNames, Labels, Row } from 'meta/assessment'
+import { Row } from 'meta/assessment'
+import { AssessmentName, AssessmentNames } from 'meta/assessment/assessment'
+import { Labels } from 'meta/assessment/labels'
 
 import { useAppDispatch } from 'client/store'
 import { useCycle } from 'client/store/assessment'
@@ -57,18 +59,18 @@ const VariableSelect: React.FC<{ variables: Array<Row> }> = ({ variables }) => {
         <div className="export__form-section-header-withLink">
           <h4>{t(Heading[assessmentName])}</h4>
           <DefinitionLink
-            assessmentName={assessmentName}
-            cycleName={cycle.name}
-            className="margin-right-big"
-            document="tad"
             anchor={subSection.props.anchors[cycle.uuid]}
-            title={`(${t('definition.definitionLabel')})`}
+            assessmentName={assessmentName}
+            className="margin-right-big"
+            cycleName={cycle.name}
+            document="tad"
             lang={i18n.resolvedLanguage}
+            title={`(${t('definition.definitionLabel')})`}
           />
         </div>
         <ButtonCheckBox
-          className="btn-all"
           checked={selectionVariables.length > 0 && selectionVariables.length === variables.length}
+          className="btn-all"
           label={t(selectionVariables.length > 0 ? 'common.unselectAll' : 'common.selectAll')}
           onClick={() => {
             updateSelection(
@@ -81,13 +83,13 @@ const VariableSelect: React.FC<{ variables: Array<Row> }> = ({ variables }) => {
       <MediaQuery maxWidth={Breakpoints.laptop - 1}>
         <select
           multiple
-          value={selectionVariables}
           onChange={(event) => {
             const variablesUpdate = Array.from(event.target.selectedOptions, (option) => {
               return String(option.value)
             })
             updateSelection(variablesUpdate)
           }}
+          value={selectionVariables}
         >
           {variables.map((variable) => {
             const { variableName } = variable.props
