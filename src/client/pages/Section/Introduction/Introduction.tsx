@@ -2,7 +2,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { CountryIso } from 'meta/area'
-import { CommentableDescriptionName } from 'meta/assessment'
+import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 
 import { useCountry } from 'client/store/area'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'

@@ -1,6 +1,6 @@
-import { OriginalDataPoint } from 'meta/assessment'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
+import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { TableNames } from 'meta/assessment/table'
 import { NodeUpdate } from 'meta/data'
 import { User } from 'meta/user'

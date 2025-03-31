@@ -1,4 +1,4 @@
-import { ColType } from 'meta/assessment'
+import { ColType } from 'meta/assessment/col'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { BaseProtocol, Schemas } from 'server/db'

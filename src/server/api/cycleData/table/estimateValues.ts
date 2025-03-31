@@ -2,7 +2,7 @@ import { Response } from 'express'
 import { UUIDs } from 'utils/uuids'
 
 import { CycleDataRequest, EstimateBody } from 'meta/api/request'
-import { NodeValueEstimationMethod, NodeValuesEstimation } from 'meta/assessment'
+import { NodeValueEstimationMethod, NodeValuesEstimation } from 'meta/assessment/nodeValuesEstimation'
 import { Table, TableNames } from 'meta/assessment/table'
 import { RecordAssessmentDatas } from 'meta/data'
 

@@ -1,4 +1,5 @@
-import { NodeCalculations, RowCaches } from 'meta/assessment'
+import { NodeCalculations } from 'meta/assessment/nodeCalculations'
+import { RowCaches } from 'meta/assessment/rowCaches'
 
 import { Logger } from 'server/utils/logger'
 

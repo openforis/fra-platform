@@ -4,8 +4,8 @@ import { useTranslation } from 'react-i18next'
 
 import { Objects } from 'utils/objects'
 
-import { CommentableDescriptionName } from 'meta/assessment'
 import { NationalDataDescription } from 'meta/assessment/description'
+import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 
 import { useHistoryLastApprovedDescriptionFetched } from 'client/store/data'
 import { useCanEditDescription, useIsDescriptionEditable } from 'client/store/user/hooks'

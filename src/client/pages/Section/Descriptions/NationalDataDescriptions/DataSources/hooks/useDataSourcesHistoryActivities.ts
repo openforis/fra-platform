@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import { CommentableDescription, CommentableDescriptionName, DataSource } from 'meta/assessment'
+import { CommentableDescription, CommentableDescriptionName, DataSource } from 'meta/assessment/descriptionValue'
 
 import { useHistoryActivitiesCompareItem } from 'client/store/data'
 

@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from 'react'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { OriginalDataPoint } from 'meta/assessment'
+import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
 import { useAssessment, useCycle } from 'client/store/assessment'
 import { useCountryIso, useGetRequest } from 'client/hooks'

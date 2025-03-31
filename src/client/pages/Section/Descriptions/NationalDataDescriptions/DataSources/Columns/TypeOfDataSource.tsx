@@ -1,8 +1,9 @@
 import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { DataSource, DataSourceType } from 'meta/assessment'
+import { DataSourceType } from 'meta/assessment/description'
 import { DataSourceDescription } from 'meta/assessment/description/nationalDataDataSourceDescription'
+import { DataSource } from 'meta/assessment/descriptionValue'
 import { SectionName } from 'meta/assessment/section'
 
 import Select from 'client/components/Inputs/Select'

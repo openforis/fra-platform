@@ -3,8 +3,8 @@ import 'dotenv/config'
 
 import { ToolsUtils } from 'tools/utils/toolsUtils'
 
-import { ColProps, ColType } from 'meta/assessment'
 import { Assessment, AssessmentNames } from 'meta/assessment/assessment'
+import { ColProps, ColType } from 'meta/assessment/col'
 import { Cycle } from 'meta/assessment/cycle'
 import { Table } from 'meta/assessment/table'
 

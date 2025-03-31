@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
 
 import { CountryIso } from 'meta/area'
-import { DataSourceLinked } from 'meta/assessment'
 import { NationalDataDescription } from 'meta/assessment/description'
+import { DataSourceLinked } from 'meta/assessment/descriptionValue'
 
 import { useAppDispatch } from 'client/store'
 import { DataActions, useDataSourcesLinked } from 'client/store/data'

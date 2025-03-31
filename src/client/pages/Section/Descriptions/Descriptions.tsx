@@ -1,7 +1,7 @@
 import './Descriptions.scss'
 import React from 'react'
 
-import { Description } from 'meta/assessment'
+import { Description } from 'meta/assessment/description'
 
 import AnalysisDescriptions from 'client/pages/Section/Descriptions/AnalysisDescriptions'
 import NationalDataDescriptions from 'client/pages/Section/Descriptions/NationalDataDescriptions'

@@ -1,4 +1,4 @@
-import { ActivityLog, ActivityLogMessage } from 'meta/assessment'
+import { ActivityLog, ActivityLogMessage } from 'meta/assessment/activityLog'
 import { User } from 'meta/user'
 
 import { DB } from 'server/db'

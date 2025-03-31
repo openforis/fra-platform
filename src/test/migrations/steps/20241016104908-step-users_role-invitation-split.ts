@@ -1,7 +1,7 @@
 import * as pgPromise from 'pg-promise'
 import { Objects } from 'utils/objects'
 
-import { ActivityLog } from 'meta/assessment'
+import { ActivityLog } from 'meta/assessment/activityLog'
 import { RoleName, UserRole, UserStatus } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db'

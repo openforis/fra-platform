@@ -3,7 +3,7 @@ import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { CountryIso } from 'meta/area'
-import { CommentableDescriptionName } from 'meta/assessment'
+import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 
 import { useAppDispatch } from 'client/store'
 import { DataActions, useCommentableDescriptionValue } from 'client/store/data'

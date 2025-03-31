@@ -3,7 +3,8 @@ import { useTranslation } from 'react-i18next'
 
 import { Numbers } from 'utils/numbers'
 
-import { ODPs, OriginalDataPoint } from 'meta/assessment'
+import { ODPs } from 'meta/assessment/odps'
+import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
 import DiffText from 'client/components/DiffText'
 import { useODPDisplayHistory } from 'client/pages/OriginalDataPoint/components/hooks/useODPDisplayHistory'

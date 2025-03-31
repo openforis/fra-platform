@@ -1,4 +1,4 @@
-import { DataSourceLinked } from 'meta/assessment'
+import { DataSourceLinked } from 'meta/assessment/descriptionValue'
 
 import { useAppSelector } from 'client/store'
 import { useAssessment, useCycle } from 'client/store/assessment'

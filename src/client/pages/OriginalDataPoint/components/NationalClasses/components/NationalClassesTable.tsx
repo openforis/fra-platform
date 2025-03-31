@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { OriginalDataPoint } from 'meta/assessment'
+import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { useCycleRouteParams } from 'client/hooks/useRouteParams'

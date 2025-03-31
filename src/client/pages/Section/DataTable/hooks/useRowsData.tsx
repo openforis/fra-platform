@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import { Row, RowType } from 'meta/assessment'
+import { Row, RowType } from 'meta/assessment/row'
 import { Table } from 'meta/assessment/table'
 
 export const useRowsData = (props: { table: Table }): Array<Row> => {

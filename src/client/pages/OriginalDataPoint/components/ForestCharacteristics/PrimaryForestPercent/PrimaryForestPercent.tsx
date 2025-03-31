@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
 import { Numbers } from 'utils/numbers'
 
-import { OriginalDataPoint } from 'meta/assessment'
+import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
 import DiffText from 'client/components/DiffText'
 import PercentInput from 'client/components/PercentInput'

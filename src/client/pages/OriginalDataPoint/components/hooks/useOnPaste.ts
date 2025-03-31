@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react'
 
-import { ODPNationalClass, OriginalDataPoint } from 'meta/assessment'
+import { ODPNationalClass, OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
 import { useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
 import handlePaste from 'client/store/ui/originalDataPoint/actions/handlePaste'

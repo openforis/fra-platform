@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import { ActivityLog } from 'meta/assessment'
+import { ActivityLog } from 'meta/assessment/activityLog'
 
 import { Column } from 'client/components/TablePaginated'
 import RecentActivityItem from 'client/pages/CountryHome/FraHome/RecentActivity/RecentActivityItem'

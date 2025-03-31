@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 
-import { Col, Cols } from 'meta/assessment'
+import { Col } from 'meta/assessment/col'
+import { Cols } from 'meta/assessment/cols'
 
 import { useCycle } from 'client/store/assessment'
 import { DataRowHighlightRange } from 'client/components/DataGrid/DataRow/types'

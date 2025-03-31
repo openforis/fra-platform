@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 
-import { ActivityLog } from 'meta/assessment'
+import { ActivityLog } from 'meta/assessment/activityLog'
 import { HistoryTarget } from 'meta/cycleData/historyActivities'
 
 import Item from 'client/components/Navigation/NavAssessment/History/Items/Item'

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { DataSourceDescription } from 'meta/assessment'
+import { DataSourceDescription } from 'meta/assessment/description'
 
 import { DataRow } from 'client/components/DataGrid'
 import CellDiff from 'client/pages/Section/Descriptions/NationalDataDescriptions/DataSources/HistoryCompare/CellDiff'

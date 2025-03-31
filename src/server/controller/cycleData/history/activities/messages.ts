@@ -1,4 +1,4 @@
-import { ActivityLogMessage } from 'meta/assessment'
+import { ActivityLogMessage } from 'meta/assessment/activityLog'
 
 export const messages: Record<string, ActivityLogMessage> = {
   dataSources: ActivityLogMessage.descriptionUpdate,

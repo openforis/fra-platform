@@ -1,5 +1,5 @@
-import { Col } from 'meta/assessment'
 import { Assessment } from 'meta/assessment/assessment'
+import { Col } from 'meta/assessment/col'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'
 import { ColAdapter } from 'server/repository/adapter'

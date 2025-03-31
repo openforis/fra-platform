@@ -1,6 +1,6 @@
 import { Arrays } from 'utils/arrays'
 
-import { DataSource } from 'meta/assessment'
+import { DataSource } from 'meta/assessment/descriptionValue'
 
 import { DataSourceHistoryCompare } from '../types'
 

@@ -1,4 +1,5 @@
-import { Col, Row } from 'meta/assessment'
+import { Col } from 'meta/assessment/col'
+import { Row } from 'meta/assessment/row'
 import { Table } from 'meta/assessment/table'
 import { TableSection } from 'meta/assessment/tableSection'
 

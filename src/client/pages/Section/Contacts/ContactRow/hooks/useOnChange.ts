@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 
 import { CountryIso } from 'meta/area'
-import { NodeValue } from 'meta/assessment'
+import { NodeValue } from 'meta/assessment/node'
 import { Contact, ContactField } from 'meta/cycleData'
 
 import { useAppDispatch } from 'client/store'

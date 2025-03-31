@@ -1,5 +1,6 @@
 import { CountryIso } from 'meta/area'
-import { ActivityLogMessage, OriginalDataPoint } from 'meta/assessment'
+import { ActivityLogMessage } from 'meta/assessment/activityLog'
+import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
 export type ActivityLogEntries = Array<{
   country_iso: CountryIso

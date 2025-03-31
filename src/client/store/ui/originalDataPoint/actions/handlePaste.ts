@@ -1,7 +1,8 @@
 import { Arrays } from 'utils/arrays'
 import { Objects } from 'utils/objects'
 
-import { ODPNationalClass, ODPs, OriginalDataPoint } from 'meta/assessment'
+import { ODPs } from 'meta/assessment/odps'
+import { ODPNationalClass, OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
 import { Sanitizer } from 'client/utils/sanitizer'
 

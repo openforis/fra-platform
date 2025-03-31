@@ -1,4 +1,4 @@
-import { OriginalDataPoint } from 'meta/assessment'
+import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
 export type ODPDiffTextProps = {
   className?: string

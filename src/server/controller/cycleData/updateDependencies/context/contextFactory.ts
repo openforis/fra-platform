@@ -2,9 +2,10 @@
 import { Promises } from 'utils/promises'
 
 import { Country } from 'meta/area'
-import { RowCacheKey, RowCaches } from 'meta/assessment'
 import { VariableCache } from 'meta/assessment/metaCache'
 import { AssessmentMetaCaches } from 'meta/assessment/metaCaches'
+import { RowCacheKey } from 'meta/assessment/rowCache'
+import { RowCaches } from 'meta/assessment/rowCaches'
 import { TableNames } from 'meta/assessment/table'
 import { NodeUpdate, NodeUpdates } from 'meta/data'
 

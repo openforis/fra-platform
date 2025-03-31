@@ -1,4 +1,5 @@
-import { ActivityLogMessage, OriginalDataPoint } from 'meta/assessment'
+import { ActivityLogMessage } from 'meta/assessment/activityLog'
+import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
 export const diffDataSources = (odpA: OriginalDataPoint, odpB: OriginalDataPoint) => {
   const diffAdditionalComments = odpA.dataSourceAdditionalComments !== odpB.dataSourceAdditionalComments

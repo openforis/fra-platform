@@ -1,4 +1,4 @@
-import { ColSelectOption, ColType } from 'meta/assessment'
+import { ColSelectOption, ColType } from 'meta/assessment/col'
 
 import { Value } from 'client/utils/sanitizer/_types'
 

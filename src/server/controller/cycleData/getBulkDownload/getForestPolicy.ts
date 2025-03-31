@@ -1,6 +1,6 @@
 import { Promises } from 'utils/promises'
 
-import { CommentableDescriptionName } from 'meta/assessment'
+import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 import { RecordAssessmentDatas } from 'meta/data'
 
 import { getData } from 'server/controller/cycleData/getBulkDownload/getData'

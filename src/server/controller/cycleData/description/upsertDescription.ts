@@ -1,7 +1,8 @@
 import { Country } from 'meta/area'
-import { ActivityLogMessage, CommentableDescriptionName, CommentableDescriptionValue } from 'meta/assessment'
+import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
+import { CommentableDescriptionName, CommentableDescriptionValue } from 'meta/assessment/descriptionValue'
 import { User } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db'

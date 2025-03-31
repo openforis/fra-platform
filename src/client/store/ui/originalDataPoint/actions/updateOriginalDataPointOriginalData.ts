@@ -5,7 +5,8 @@ import { Functions } from 'utils/functions'
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CycleDataParams } from 'meta/api/request'
 import { CountryIso } from 'meta/area'
-import { ODPs, OriginalDataPoint } from 'meta/assessment'
+import { ODPs } from 'meta/assessment/odps'
+import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
 type Props = CycleDataParams & {
   countryIso: CountryIso

@@ -1,7 +1,7 @@
 import { UUIDs } from 'utils/uuids'
 
 import { CountryIso } from 'meta/area'
-import { NodeValue } from 'meta/assessment'
+import { NodeValue } from 'meta/assessment/node'
 import { NodeExtType } from 'meta/nodeExt'
 import { RoleName, UserTitle } from 'meta/user'
 

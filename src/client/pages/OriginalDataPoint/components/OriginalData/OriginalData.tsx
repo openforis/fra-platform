@@ -4,8 +4,8 @@ import { NavLink, useParams } from 'react-router-dom'
 
 import classNames from 'classnames'
 
-import { OriginalDataPoint } from 'meta/assessment'
 import { AssessmentName } from 'meta/assessment/assessment'
+import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { Routes } from 'meta/routes'
 
 import { useAssessmentCountry } from 'client/store/area'

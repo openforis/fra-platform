@@ -4,7 +4,7 @@ import { Functions } from 'utils/functions'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CycleDataParams } from 'meta/api/request'
-import { NodeValue } from 'meta/assessment'
+import { NodeValue } from 'meta/assessment/node'
 import { Contact, ContactField } from 'meta/cycleData'
 
 type Props = CycleDataParams & {

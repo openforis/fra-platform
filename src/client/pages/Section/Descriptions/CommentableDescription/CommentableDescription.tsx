@@ -1,7 +1,7 @@
 import './Description.scss'
 import React from 'react'
 
-import { CommentableDescriptionName, CommentableDescriptionValue } from 'meta/assessment'
+import { CommentableDescriptionName, CommentableDescriptionValue } from 'meta/assessment/descriptionValue'
 
 import {
   useCommentableDescriptionValue,

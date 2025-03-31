@@ -1,6 +1,6 @@
 import { Draft } from '@reduxjs/toolkit'
 
-import { OriginalDataPoint } from 'meta/assessment'
+import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
 import { OriginalDataPointState } from 'client/store/ui/originalDataPoint/stateType'
 

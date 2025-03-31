@@ -1,7 +1,8 @@
 import * as pgPromise from 'pg-promise'
 
-import { Col, Cols } from 'meta/assessment'
 import { Assessment } from 'meta/assessment/assessment'
+import { Col } from 'meta/assessment/col'
+import { Cols } from 'meta/assessment/cols'
 import { Cycle } from 'meta/assessment/cycle'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'

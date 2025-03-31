@@ -7,7 +7,8 @@ import classNames from 'classnames'
 import { Dates } from 'utils/dates'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { ActivityLog, ActivityLogs } from 'meta/assessment'
+import { ActivityLog } from 'meta/assessment/activityLog'
+import { ActivityLogs } from 'meta/assessment/activityLogs'
 import { Users } from 'meta/user'
 
 import { useCycle } from 'client/store/assessment'

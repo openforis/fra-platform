@@ -1,7 +1,7 @@
 import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area'
-import { ActivityLogMessage } from 'meta/assessment'
+import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { Cycles } from 'meta/assessment/cycles'

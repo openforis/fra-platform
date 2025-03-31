@@ -2,7 +2,7 @@ import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { CountryIso } from 'meta/area'
-import { OriginalDataPoint } from 'meta/assessment'
+import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
 import { useAppDispatch } from 'client/store'
 import { OriginalDataPointActions } from 'client/store/ui/originalDataPoint'

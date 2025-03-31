@@ -1,7 +1,7 @@
 import { CountryIso } from 'meta/area'
-import { ReviewStatus } from 'meta/assessment'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
+import { ReviewStatus } from 'meta/assessment/review'
 import { User } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db'

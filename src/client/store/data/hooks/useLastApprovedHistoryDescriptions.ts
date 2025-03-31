@@ -3,7 +3,7 @@ import { useMemo } from 'react'
 import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area'
-import { CommentableDescriptionName, CommentableDescriptionValue } from 'meta/assessment'
+import { CommentableDescriptionName, CommentableDescriptionValue } from 'meta/assessment/descriptionValue'
 
 import { useAppSelector } from 'client/store'
 import { DataSelector } from 'client/store/data/selectors'
@@ -16,12 +16,7 @@ export const useLastApprovedHistoryDescriptions = (): Record<
   const { assessmentName, cycleName, countryIso, sectionName } = useSectionRouteParams<CountryIso>()
 
   return useAppSelector((state) =>
-    DataSelector.History.getLastApprovedDescriptions(state, {
-      assessmentName,
-      cycleName,
-      countryIso,
-      sectionName,
-    })
+    DataSelector.History.getLastApprovedDescriptions(state, { assessmentName, cycleName, countryIso, sectionName })
   )
 }
 

@@ -1,7 +1,7 @@
 import { Arrays } from 'utils/arrays'
 import { Dates } from 'utils/dates'
 
-import { OriginalDataPoint } from 'meta/assessment'
+import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
 import { useAppSelector } from 'client/store'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'

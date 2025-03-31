@@ -1,7 +1,8 @@
 import { CountryIso } from 'meta/area'
-import { ActivityLog, ActivityLogMessage, Node } from 'meta/assessment'
+import { ActivityLog, ActivityLogMessage } from 'meta/assessment/activityLog'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
+import { Node } from 'meta/assessment/node'
 import { NodeUpdate } from 'meta/data'
 import { User } from 'meta/user'
 

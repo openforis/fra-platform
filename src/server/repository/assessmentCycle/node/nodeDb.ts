@@ -1,5 +1,5 @@
 import { CountryIso } from 'meta/area'
-import { NodeValue } from 'meta/assessment'
+import { NodeValue } from 'meta/assessment/node'
 
 export type NodeDb = {
   country_iso: CountryIso

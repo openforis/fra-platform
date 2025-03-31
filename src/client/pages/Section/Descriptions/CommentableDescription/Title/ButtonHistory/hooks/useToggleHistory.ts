@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 
-import { CommentableDescriptionName } from 'meta/assessment'
+import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 
 import { useAppDispatch } from 'client/store'
 import { DataActions } from 'client/store/data'

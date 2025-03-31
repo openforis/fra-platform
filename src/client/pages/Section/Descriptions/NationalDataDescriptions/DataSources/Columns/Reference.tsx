@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react'
 
-import { DataSource } from 'meta/assessment'
+import { DataSource } from 'meta/assessment/descriptionValue'
 import { SectionName } from 'meta/assessment/section'
 
 import { EditorWYSIWYGLinks } from 'client/components/EditorWYSIWYG'

@@ -2,8 +2,11 @@ import { useMemo } from 'react'
 
 import classNames from 'classnames'
 
-import { Col, Cols, ColType, NodeValueValidation, Row } from 'meta/assessment'
+import { Col, ColType } from 'meta/assessment/col'
+import { Cols } from 'meta/assessment/cols'
 import { Cycle } from 'meta/assessment/cycle'
+import { NodeValueValidation } from 'meta/assessment/nodeValueValidation'
+import { Row } from 'meta/assessment/row'
 
 import { useHistoryLastApprovedIsActive } from 'client/store/data'
 

@@ -1,9 +1,9 @@
 import { Parser } from 'htmlparser2'
 
 import { CountryIso } from 'meta/area'
-import { CommentableDescriptionName } from 'meta/assessment'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
+import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 import { SectionName } from 'meta/assessment/section'
 
 import { CycleDataController } from 'server/controller/cycleData/index'

@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { ColType, Row, RowType } from 'meta/assessment'
 import { AssessmentName } from 'meta/assessment/assessment'
+import { ColType } from 'meta/assessment/col'
 import { CycleName } from 'meta/assessment/cycle'
+import { Row, RowType } from 'meta/assessment/row'
 import { RecordAssessmentData, RecordAssessmentDatas, RecordCountryData } from 'meta/data'
 
 import { useAppDispatch } from 'client/store'

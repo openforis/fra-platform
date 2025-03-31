@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { CommentableDescriptionName } from 'meta/assessment'
+import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 
 import { useCommentableDescriptionValue, useLastApprovedHistoryDescriptions } from 'client/store/data'
 import DiffDOM from 'client/components/DiffDOM'

@@ -4,7 +4,11 @@ import { UUIDs } from 'utils/uuids'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CycleDataParams } from 'meta/api/request'
-import { CommentableDescriptionName, CommentableDescriptionValue, DescriptionCountryValues } from 'meta/assessment'
+import {
+  CommentableDescriptionName,
+  CommentableDescriptionValue,
+  DescriptionCountryValues,
+} from 'meta/assessment/descriptionValue'
 
 import { updateDescription } from './updateDescription'
 

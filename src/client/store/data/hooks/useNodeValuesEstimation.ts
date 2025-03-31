@@ -1,4 +1,4 @@
-import { NodeValuesEstimation } from 'meta/assessment'
+import { NodeValuesEstimation } from 'meta/assessment/nodeValuesEstimation'
 
 import { useAppSelector } from 'client/store'
 

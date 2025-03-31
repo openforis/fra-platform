@@ -1,6 +1,8 @@
 import { useMemo } from 'react'
 
-import { Col, NodeValue, Row } from 'meta/assessment'
+import { Col } from 'meta/assessment/col'
+import { NodeValue } from 'meta/assessment/node'
+import { Row } from 'meta/assessment/row'
 import { Table } from 'meta/assessment/table'
 import { RecordAssessmentData, RecordAssessmentDatas } from 'meta/data'
 

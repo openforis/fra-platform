@@ -2,7 +2,8 @@ import React from 'react'
 
 import { Objects } from 'utils/objects'
 
-import { Cols, ColType } from 'meta/assessment'
+import { ColType } from 'meta/assessment/col'
+import { Cols } from 'meta/assessment/cols'
 
 import { useCycle } from 'client/store/assessment'
 import { DataRow } from 'client/components/DataGrid'

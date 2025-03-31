@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react'
 
-import { ODPNationalClass, ODPs } from 'meta/assessment'
+import { ODPs } from 'meta/assessment/odps'
+import { ODPNationalClass } from 'meta/assessment/originalDataPoint'
 
 import { useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
 import { Columns, useOnPaste } from 'client/pages/OriginalDataPoint/components/hooks/useOnPaste'

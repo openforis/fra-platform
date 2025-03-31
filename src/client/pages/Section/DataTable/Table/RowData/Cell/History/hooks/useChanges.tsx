@@ -6,8 +6,11 @@ import { Change } from 'diff'
 import { Numbers } from 'utils/numbers'
 import { Objects } from 'utils/objects'
 
-import { Col, Cols, ColType, NodeValue, Row } from 'meta/assessment'
+import { Col, ColType } from 'meta/assessment/col'
+import { Cols } from 'meta/assessment/cols'
 import { Cycle } from 'meta/assessment/cycle'
+import { NodeValue } from 'meta/assessment/node'
+import { Row } from 'meta/assessment/row'
 
 import { useCycle } from 'client/store/assessment'
 

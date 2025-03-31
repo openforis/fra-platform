@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 
 import { UUIDs } from 'utils/uuids'
 
-import { CommentableDescriptionName, DataSource } from 'meta/assessment'
+import { CommentableDescriptionName, DataSource } from 'meta/assessment/descriptionValue'
 import { SectionName } from 'meta/assessment/section'
 
 import { useCommentableDescriptionValue } from 'client/store/data'

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { Objects } from 'utils/objects'
 
-import { CommentableDescriptionName } from 'meta/assessment'
+import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 
 import { useHistoryActivities, useHistoryActivitiesIsActive, useHistoryLastApprovedIsActive } from 'client/store/data'
 import { useCanViewHistory, useIsDescriptionEditable } from 'client/store/user/hooks'

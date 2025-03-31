@@ -1,4 +1,4 @@
-import { ActivityLog } from 'meta/assessment'
+import { ActivityLog } from 'meta/assessment/activityLog'
 import { HistoryTarget } from 'meta/cycleData/historyActivities'
 
 import { DataSelector } from 'client/store/data/selectors'

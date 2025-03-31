@@ -1,4 +1,4 @@
-import { NodeValue } from 'meta/assessment'
+import { NodeValue } from 'meta/assessment/node'
 
 import { getTableData } from './getTableData'
 import { Props } from './props'

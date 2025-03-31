@@ -3,7 +3,7 @@ import axios from 'axios'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CycleDataParams } from 'meta/api/request'
-import { NodeValuesEstimation } from 'meta/assessment'
+import { NodeValuesEstimation } from 'meta/assessment/nodeValuesEstimation'
 
 export const getNodeValuesEstimations = createAsyncThunk<
   Record<string, NodeValuesEstimation>,

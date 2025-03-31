@@ -1,4 +1,5 @@
-import { ActivityLogMessage, OriginalDataPoint } from 'meta/assessment'
+import { ActivityLogMessage } from 'meta/assessment/activityLog'
+import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
 // Object key value can be : string | number | array
 const deepCompare = (a: any, b: any): any => {

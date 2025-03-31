@@ -1,4 +1,4 @@
-import { ActivityLogMessage } from 'meta/assessment'
+import { ActivityLogMessage } from 'meta/assessment/activityLog'
 
 export const acceptedMessages = [
   ActivityLogMessage.assessmentStatusUpdate,

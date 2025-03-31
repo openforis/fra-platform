@@ -1,7 +1,8 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { ODPs, OriginalDataPoint } from 'meta/assessment'
+import { ODPs } from 'meta/assessment/odps'
+import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { DataCell, DataRow } from 'client/components/DataGrid'

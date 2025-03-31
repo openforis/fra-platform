@@ -1,7 +1,9 @@
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Col, Cols, Row } from 'meta/assessment'
+import { Col } from 'meta/assessment/col'
+import { Cols } from 'meta/assessment/cols'
+import { Row } from 'meta/assessment/row'
 import { Table } from 'meta/assessment/table'
 import { Topics } from 'meta/messageCenter'
 

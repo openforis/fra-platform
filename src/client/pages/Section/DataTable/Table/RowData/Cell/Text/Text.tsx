@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { ColType } from 'meta/assessment'
+import { ColType } from 'meta/assessment/col'
 
 import InputText from 'client/components/Inputs/InputText'
 import TextArea from 'client/components/Inputs/TextArea'

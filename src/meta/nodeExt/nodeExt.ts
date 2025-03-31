@@ -1,5 +1,5 @@
 import { CountryIso } from 'meta/area'
-import { NodeValue } from 'meta/assessment'
+import { NodeValue } from 'meta/assessment/node'
 
 export enum NodeExtCellType {
   link = 'link',

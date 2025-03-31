@@ -2,7 +2,7 @@ import './RowNoticeMessage.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Cols } from 'meta/assessment'
+import { Cols } from 'meta/assessment/cols'
 
 import { useCycle } from 'client/store/assessment'
 import { DataCell, DataRow } from 'client/components/DataGrid'

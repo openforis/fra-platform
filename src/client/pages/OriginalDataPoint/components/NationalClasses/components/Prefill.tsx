@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { OriginalDataPoint } from 'meta/assessment'
+import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
 import { useIsOriginalDataPointUpdating } from 'client/store/ui/originalDataPoint'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
@@ -32,9 +32,9 @@ export const Prefill = (props: { canEditData: boolean; originalDataPoint: Origin
       <h4>{t('nationalDataPoint.prefillWith')}</h4>
       <select
         className="select"
-        value={selectedPreviousYear}
-        onChange={(e) => setSelectedPreviousYear(e.target.value)}
         disabled={copyDisabled}
+        onChange={(e) => setSelectedPreviousYear(e.target.value)}
+        value={selectedPreviousYear}
       >
         <option value="">{t('nationalDataPoint.selectYear')}</option>
         {reservedYearsWithClasses?.map((reservedYear: number) => (
@@ -44,10 +44,10 @@ export const Prefill = (props: { canEditData: boolean; originalDataPoint: Origin
         ))}
       </select>
       <button
-        type="button"
         className="btn-s btn-primary btn-copy-prev-values"
         disabled={copyDisabled || selectedPreviousYear === ''}
         onClick={onCopyClick}
+        type="button"
       >
         {t('nationalDataPoint.prefill')}
       </button>

@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom'
 
 import { Objects } from 'utils/objects'
 
-import { Row } from 'meta/assessment'
+import { Row } from 'meta/assessment/row'
 
 import { useAppDispatch } from 'client/store'
 import { useCycle } from 'client/store/assessment'

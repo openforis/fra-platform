@@ -1,5 +1,5 @@
 import { CountryIso } from 'meta/area'
-import { CommentableDescriptionName, CommentableDescriptionValue } from 'meta/assessment'
+import { CommentableDescriptionName, CommentableDescriptionValue } from 'meta/assessment/descriptionValue'
 
 import { useAppSelector } from 'client/store'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'

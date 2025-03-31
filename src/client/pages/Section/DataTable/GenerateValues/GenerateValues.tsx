@@ -4,9 +4,9 @@ import { useTranslation } from 'react-i18next'
 
 import { Objects } from 'utils/objects'
 
-import { Row } from 'meta/assessment'
 import { AssessmentName } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
+import { Row } from 'meta/assessment/row'
 import { TableNames } from 'meta/assessment/table'
 import { RecordAssessmentData } from 'meta/data'
 

@@ -1,6 +1,7 @@
-import { ColProps, Row } from 'meta/assessment'
 import { Assessment } from 'meta/assessment/assessment'
+import { ColProps } from 'meta/assessment/col'
 import { Cycle } from 'meta/assessment/cycle'
+import { Row } from 'meta/assessment/row'
 import { Table, TableProps } from 'meta/assessment/table'
 
 import { BaseProtocol, DB } from 'server/db'

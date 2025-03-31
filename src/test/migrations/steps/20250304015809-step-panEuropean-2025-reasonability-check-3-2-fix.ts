@@ -1,7 +1,8 @@
 import { Promises } from 'utils/promises'
 
-import { ColProps, ColType, RowProps, RowType } from 'meta/assessment'
 import { AssessmentNames } from 'meta/assessment/assessment'
+import { ColProps, ColType } from 'meta/assessment/col'
+import { RowProps, RowType } from 'meta/assessment/row'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { BaseProtocol, Schemas } from 'server/db'

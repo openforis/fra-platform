@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { Objects } from 'utils/objects'
 
-import { DataSource } from 'meta/assessment'
+import { DataSource } from 'meta/assessment/descriptionValue'
 
 type Props = {
   dataSource: DataSource

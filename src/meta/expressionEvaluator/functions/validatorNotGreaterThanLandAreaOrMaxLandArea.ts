@@ -2,7 +2,7 @@ import { ExpressionFunction } from '@openforis/arena-core/dist/expression/functi
 import { Numbers } from 'utils/numbers'
 import { Objects } from 'utils/objects'
 
-import { NodeValueValidation, NodeValueValidationMessage } from 'meta/assessment'
+import { NodeValueValidation, NodeValueValidationMessage } from 'meta/assessment/nodeValueValidation'
 import { validatorNotGreaterThanLandArea } from 'meta/expressionEvaluator/functions/validatorNotGreaterThanLandArea'
 
 import { Context } from '../context'

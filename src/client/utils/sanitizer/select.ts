@@ -1,6 +1,6 @@
 import { Objects } from 'utils/objects'
 
-import { ColSelectOption } from 'meta/assessment'
+import { ColSelectOption } from 'meta/assessment/col'
 
 import { Value } from 'client/utils/sanitizer/_types'
 

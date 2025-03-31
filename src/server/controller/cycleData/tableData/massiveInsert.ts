@@ -1,9 +1,12 @@
 import { Promises } from 'utils/promises'
 
 import { CountryIso } from 'meta/area'
-import { ActivityLogMessage, Node, RowCache, RowCaches } from 'meta/assessment'
+import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
+import { Node } from 'meta/assessment/node'
+import { RowCache } from 'meta/assessment/rowCache'
+import { RowCaches } from 'meta/assessment/rowCaches'
 import { TableName } from 'meta/assessment/table'
 import { NodeUpdate } from 'meta/data'
 import { User } from 'meta/user'

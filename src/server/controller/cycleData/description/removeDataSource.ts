@@ -1,7 +1,7 @@
 import { Country } from 'meta/area'
-import { CommentableDescriptionName } from 'meta/assessment'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
+import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 import { Topics } from 'meta/messageCenter'
 import { User } from 'meta/user'
 

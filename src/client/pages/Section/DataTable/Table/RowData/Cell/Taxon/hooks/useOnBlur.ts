@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 
-import { NodeValue } from 'meta/assessment'
+import { NodeValue } from 'meta/assessment/node'
 
 import { Option, SelectProps } from 'client/components/Inputs/Select'
 

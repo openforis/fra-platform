@@ -1,4 +1,4 @@
-import { OriginalDataPoint } from 'meta/assessment'
+import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
 import { diffDataSources } from './diffDataSources'
 import { diffDescription } from './diffDescription'
