@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 
 import { CycleDataParams, CycleParams } from 'meta/api/request'
-import { AreaCode, Areas, Country, CountryIso } from 'meta/area'
+import { AreaCode, Country, CountryIso } from 'meta/area'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { Cycles } from 'meta/assessment/cycles'
@@ -33,7 +33,7 @@ const _getAuthCycleProps = async (req: Request, next: NextFunction): Promise<Aut
   }
 
   const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
-  const country = Areas.isISOCountry(countryIso) ? req.context.country : undefined
+  const { country } = req.context
   const user = Requests.getUser(req)
 
   return { assessment, cycle, country, countryIso, user }
