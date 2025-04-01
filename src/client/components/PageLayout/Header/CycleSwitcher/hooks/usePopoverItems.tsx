@@ -51,7 +51,7 @@ export const usePopoverItems = (): Array<PopoverItem> => {
     if ((isAdmin || !isDataExportView) && user) {
       assessments.forEach((assessment) => {
         const sortedCycles = assessment.cycles.slice().sort(_cyclesSorter)
-        sortedCycles.forEach((cycle: Cycle) => {
+        sortedCycles.forEach((cycle) => {
           const hasRoleInAssessment = Users.hasRoleInAssessment({ user, assessment })
           const hasRoleInCycle = Users.hasRoleInCycle({ user, cycle })
           const canViewCycle = (hasRoleInAssessment && Cycles.isPublished(cycle)) || hasRoleInCycle
@@ -60,9 +60,8 @@ export const usePopoverItems = (): Array<PopoverItem> => {
           const cycleName = cycle.name
           const isLatestCycle = Assessments.getLastCreatedCycle(assessment)?.name === cycleName
           const isCurrentRoute = assessmentName === routeParams.assessmentName && cycleName === routeParams.cycleName
-          const assessmentLabel = t(`${assessmentName}.labels.short`)
           const content = t(isLatestCycle ? 'common.cycleLatestLabel' : 'common.cycleLabel', {
-            assessmentLabel,
+            assessmentName,
             cycleName,
           })
 
