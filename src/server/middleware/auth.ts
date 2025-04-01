@@ -234,7 +234,7 @@ const requireViewHistory = async (req: Request, _res: Response, next: NextFuncti
   const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
   const section = await MetadataController.getSubSection({ assessment, cycle, sectionName })
 
-  const country = await req.context.country
+  const { country } = req.context
 
   _next(Authorizer.canViewHistory({ country, cycle, section, user }), next)
 }
