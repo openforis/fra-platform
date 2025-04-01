@@ -18,6 +18,8 @@
   "countries": "Countries",
   "country": "Country",
   "custom": "Custom",
+  "cycleLabel": "{{assessmentLabel}} {{cycleName}}",
+  "cycleLatestLabel": "{{assessmentLabel}} $t(common.latest)",
   "dashboard": "Dashboard",
   "dataExport": "Data Export",
   "delete": "Delete",
