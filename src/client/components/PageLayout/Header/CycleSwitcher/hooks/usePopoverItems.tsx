@@ -1,14 +1,18 @@
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { TFunction } from 'i18next'
+
 import { Assessments } from 'meta/assessment/assessments'
 import { Cycle } from 'meta/assessment/cycle'
 import { Cycles } from 'meta/assessment/cycles'
+import { Lang } from 'meta/lang'
 import { Users } from 'meta/user'
 
 import { useAssessments } from 'client/store/assessment'
 import { useUser } from 'client/store/user'
 import { useIsDataExportView } from 'client/hooks'
+import { useLanguage } from 'client/hooks/useLanguage'
 import { useCycleRouteParams } from 'client/hooks/useRouteParams'
 import { PopoverItem } from 'client/components/PopoverControl'
 
@@ -35,8 +39,22 @@ const _cyclesSorter = (cycleA: Cycle, cycleB: Cycle): number => {
   return 0
 }
 
+const _getContent = (
+  cycleName: string,
+  isLatestCycle: boolean,
+  label: string,
+  language: Lang,
+  t: TFunction
+): string => {
+  if (language === Lang.ru) {
+    return isLatestCycle ? `${t('common.latest')} ${label}` : `${label}–${cycleName}`
+  }
+  return `${label} ${isLatestCycle ? t('common.latest') : cycleName}`
+}
+
 export const usePopoverItems = (): Array<PopoverItem> => {
   const { t } = useTranslation()
+  const language = useLanguage()
   const routeParams = useCycleRouteParams()
   const assessments = useAssessments()
   const user = useUser()
@@ -51,7 +69,7 @@ export const usePopoverItems = (): Array<PopoverItem> => {
     if ((isAdmin || !isDataExportView) && user) {
       assessments.forEach((assessment) => {
         const sortedCycles = assessment.cycles.slice().sort(_cyclesSorter)
-        sortedCycles.forEach((cycle) => {
+        sortedCycles.forEach((cycle: Cycle) => {
           const hasRoleInAssessment = Users.hasRoleInAssessment({ user, assessment })
           const hasRoleInCycle = Users.hasRoleInCycle({ user, cycle })
           const canViewCycle = (hasRoleInAssessment && Cycles.isPublished(cycle)) || hasRoleInCycle
@@ -61,7 +79,7 @@ export const usePopoverItems = (): Array<PopoverItem> => {
           const isLatestCycle = Assessments.getLastCreatedCycle(assessment)?.name === cycleName
           const isCurrentRoute = assessmentName === routeParams.assessmentName && cycleName === routeParams.cycleName
           const label = t(`${assessmentName}.labels.short`)
-          const content = `${label} ${isLatestCycle ? t('common.latest') : cycleName}`
+          const content = _getContent(cycleName, isLatestCycle, label, language, t)
 
           if (canViewCycle && !isCurrentRoute) {
             const item: PopoverItem = {
@@ -75,5 +93,15 @@ export const usePopoverItems = (): Array<PopoverItem> => {
     }
 
     return items
-  }, [assessments, isAdmin, isDataExportView, navigateTo, routeParams.assessmentName, routeParams.cycleName, t, user])
+  }, [
+    assessments,
+    isAdmin,
+    isDataExportView,
+    language,
+    navigateTo,
+    routeParams.assessmentName,
+    routeParams.cycleName,
+    t,
+    user,
+  ])
 }
