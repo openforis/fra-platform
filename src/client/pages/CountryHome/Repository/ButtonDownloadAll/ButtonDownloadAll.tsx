@@ -14,7 +14,7 @@ type Props = {
 }
 
 const ButtonDownloadAll: React.FC<Props> = (props: Props) => {
-  const { isGlobal } = props
+  const { isGlobal = false } = props
   const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
   const { t } = useTranslation()
 
