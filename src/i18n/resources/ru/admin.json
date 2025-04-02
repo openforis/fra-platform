@@ -2,6 +2,7 @@
   "admin": "Администратор",
   "country_one": "{{count}} Страна",
   "country_other": "{{count}} Страны",
+  "disabledUsers": "Отключенные пользователи",
   "enotfound": "Ошибка DNS",
   "filter": "Фильтровать по",
   "invitationPending": "Приглашение в стадии рассмотрения",
