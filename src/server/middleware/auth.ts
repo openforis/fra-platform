@@ -1,14 +1,13 @@
 import { NextFunction, Request, Response } from 'express'
 
 import { CycleDataParams, CycleParams } from 'meta/api/request'
-import { AreaCode, Areas, Country, CountryIso } from 'meta/area'
+import { AreaCode, Country, CountryIso } from 'meta/area'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { Cycles } from 'meta/assessment/cycles'
 import { MessageTopicStatus } from 'meta/messageCenter'
 import { Authorizer, CollaboratorEditPropertyType, User, Users } from 'meta/user'
 
-import { AreaController } from 'server/controller/area'
 import { AssessmentController } from 'server/controller/assessment'
 import { CycleDataController } from 'server/controller/cycleData'
 import { MessageCenterController } from 'server/controller/messageCenter'
@@ -34,26 +33,24 @@ const _getAuthCycleProps = async (req: Request, next: NextFunction): Promise<Aut
   }
 
   const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
-  const country = Areas.isISOCountry(countryIso)
-    ? await AreaController.getCountry({ assessment, cycle, countryIso })
-    : undefined
+  const { country } = req.context
   const user = Requests.getUser(req)
 
   return { assessment, cycle, country, countryIso, user }
 }
 
 const requireEditCountryProps = async (req: Request, _res: Response, next: NextFunction) => {
-  const { assessmentName, countryIso, cycleName } = { ...req.params, ...req.query, ...req.body } as CycleParams
+  const { assessmentName, cycleName } = { ...req.params, ...req.query, ...req.body } as CycleParams
   const user = Requests.getUser(req)
 
-  const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
-  const country = await AreaController.getCountry({ countryIso, assessment, cycle })
+  const { cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+  const { country } = req.context
 
   _next(Authorizer.canEditCountryProps({ country, cycle, user }), next)
 }
 
 const requireEditData = async (req: Request, next: NextFunction) => {
-  const { assessmentName, countryIso, cycleName, permission, sectionName } = {
+  const { assessmentName, cycleName, permission, sectionName } = {
     ...req.params,
     ...req.query,
     ...req.body,
@@ -61,7 +58,7 @@ const requireEditData = async (req: Request, next: NextFunction) => {
   const user = Requests.getUser(req)
 
   const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
-  const country = await AreaController.getCountry({ countryIso, assessment, cycle })
+  const { country } = req.context
   const section = await MetadataController.getSubSection({ assessment, cycle, sectionName })
 
   _next(Authorizer.canEditData({ country, cycle, permission, section, user }), next)
@@ -193,15 +190,15 @@ const requireViewUsers = async (req: Request, _res: Response, next: NextFunction
 }
 
 const requireEditRepositoryItem = async (req: Request, _res: Response, next: NextFunction) => {
-  const { assessmentName, countryIso, cycleName } = {
+  const { assessmentName, cycleName } = {
     ...req.params,
     ...req.query,
     ...req.body,
   } as CycleParams
   const user = Requests.getUser(req)
 
-  const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
-  const country = await AreaController.getCountry({ countryIso, assessment, cycle })
+  const { cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+  const { country } = req.context
 
   _next(Authorizer.canEditRepositoryItem({ country, cycle, user }), next)
 }
@@ -227,7 +224,7 @@ const requireViewRepositoryFile = async (req: Request, _res: Response, next: Nex
 }
 
 const requireViewHistory = async (req: Request, _res: Response, next: NextFunction) => {
-  const { countryIso, assessmentName, cycleName, sectionName } = {
+  const { assessmentName, cycleName, sectionName } = {
     ...req.params,
     ...req.query,
     ...req.body,
@@ -237,7 +234,7 @@ const requireViewHistory = async (req: Request, _res: Response, next: NextFuncti
   const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
   const section = await MetadataController.getSubSection({ assessment, cycle, sectionName })
 
-  const country = await AreaController.getCountry({ countryIso, assessment, cycle })
+  const { country } = req.context
 
   _next(Authorizer.canViewHistory({ country, cycle, section, user }), next)
 }
