@@ -70,8 +70,8 @@ const CountryListRow: React.FC<Props> = (props: Props) => {
             <>
               <div>{formatDate(country.lastEdit)}</div>
               <div>{formatDate(country.lastInReview)}</div>
-              <div>{formatDate(country.lastForApproval)}</div>
-              <div>{formatDate(country.lastAccepted)}</div>
+              <div>{formatDate(country.lastInApproval)}</div>
+              <div>{formatDate(country.lastInAccepted)}</div>
             </>
           )}
         </>
