@@ -60,8 +60,10 @@ export const usePopoverItems = (): Array<PopoverItem> => {
           const cycleName = cycle.name
           const isLatestCycle = Assessments.getLastCreatedCycle(assessment)?.name === cycleName
           const isCurrentRoute = assessmentName === routeParams.assessmentName && cycleName === routeParams.cycleName
-          const label = t(`${assessmentName}.labels.short`)
-          const content = `${label} ${isLatestCycle ? t('common.latest') : cycleName}`
+          const content = t(isLatestCycle ? 'common.cycleLatestLabel' : 'common.cycleLabel', {
+            assessmentName,
+            cycleName,
+          })
 
           if (canViewCycle && !isCurrentRoute) {
             const item: PopoverItem = {
