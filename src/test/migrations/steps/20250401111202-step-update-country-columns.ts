@@ -2,7 +2,9 @@ import { AssessmentStatus } from 'meta/area'
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
 
 import { AssessmentController } from 'server/controller/assessment'
+import { CacheController } from 'server/controller/cache'
 import { BaseProtocol, DB, Schemas } from 'server/db'
+import { CountrySummaryRepository } from 'server/repository/assessmentCycle/countrySummary'
 import { activitiesLastEdit } from 'server/repository/assessmentCycle/countrySummary/_lastEditActivities'
 
 export default async (client: BaseProtocol) => {
@@ -67,6 +69,10 @@ export default async (client: BaseProtocol) => {
             );`,
             [cycle.uuid, ActivityLogMessage.assessmentStatusUpdate, AssessmentStatus.editing]
           )
+          await CountrySummaryRepository.dropMaterializedView({ assessment, cycle }, client)
+          await CountrySummaryRepository.createMaterializedView({ assessment, cycle }, client)
+
+          await CacheController.generateArea({ assessment, cycle }, client)
         })
       )
     })
