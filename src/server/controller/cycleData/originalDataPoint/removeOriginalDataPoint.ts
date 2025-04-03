@@ -43,7 +43,7 @@ export const removeOriginalDataPoint = async (props: Props, client: BaseProtocol
     SocketServer.emit(Sockets.getODPDeleteEvent(socketProps), { countryIso, year: originalDataPoint.year })
     SocketServer.emit(Sockets.getRequestReviewSummaryEvent(socketProps))
 
-    await CountryService.setCountryStatusEditing({ assessment, cycle, country, user }, t)
+    await CountryService.setCountryStatusEditing({ assessment, cycle, country, user, lastEditOdp: true }, t)
 
     return target
   })
