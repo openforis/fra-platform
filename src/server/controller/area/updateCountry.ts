@@ -25,7 +25,7 @@ export const updateCountry = async (props: Props, client: BaseProtocol = DB): Pr
   const { countryIso } = country
 
   return client.tx(async (t) => {
-    const currentCountry = await CountryRepository.getOne({ assessment, cycle, countryIso: country.countryIso }, t)
+    const currentCountry = await AreaRedisRepository.getOneCountry({ assessment, cycle, countryIso }, t)
     const statusUpdate = currentCountry.props.status !== country.props.status
 
     const updatedCountry = await CountryRepository.update(
