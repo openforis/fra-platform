@@ -28,7 +28,7 @@ export const getTableDataLastApproved = (props: Props, client: BaseProtocol = DB
                    al.target -> 'value' as value,
                    row_number() over (partition by al.target ->> 'colUuid' order by al.time desc) as row_number
             from public.activity_log al
-            left join ${schemaCycle}.country_summary cs on al.country_iso = cs.country_iso
+            left join ${schemaCycle}.country c on al.country_iso = c.country_iso
             left join public.assessment a               on al.assessment_uuid = a.uuid
             left join public.assessment_cycle ac        on a.id = ac.assessment_id and al.cycle_uuid = ac.uuid
             left join ${schemaAssessment}.col c         on (al.target ->> 'colUuid')::uuid = c.uuid
@@ -38,7 +38,7 @@ export const getTableDataLastApproved = (props: Props, client: BaseProtocol = DB
               and al.country_iso in ($1:csv)
               and a.props ->> 'name' = $2
               and ac.name = $3
-              and al.time < cs.last_accepted
+              and al.time < c.last_in_accepted
               and t.props ->> 'name' in ($4:csv)
         ),
         agg1 as (

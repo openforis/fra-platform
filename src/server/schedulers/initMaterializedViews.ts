@@ -36,11 +36,11 @@ const _getCountryISOsOutOfSync = async (props: {
                where al.assessment_uuid = $1
                  and al.cycle_uuid = $2
                group by al.country_iso)
-     select cs.country_iso as countryiso
-     from ${schemaCycle}.country_summary cs
-              left join al on cs.country_iso = al.country_iso
-     where ((cs.last_edit is null and (al.last_edit is not null or al.last_odp_edit is not null)) or
-            greatest(al.last_edit, al.last_odp_edit) > cs.last_edit)
+     select c.country_iso as countryiso
+     from ${schemaCycle}.country c
+              left join al on c.country_iso = al.country_iso
+     where ((c.last_edit is null and (al.last_edit is not null or al.last_odp_edit is not null)) or
+            greatest(al.last_edit, al.last_odp_edit) > c.last_edit)
      order by 1 desc`,
     [assessment.uuid, cycle.uuid],
     ({ countryiso }) => countryiso
