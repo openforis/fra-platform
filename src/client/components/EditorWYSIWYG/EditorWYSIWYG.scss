@@ -4,6 +4,10 @@ div.editorWYSIWYG {
   height: 100%;
   word-break: break-word;
 
+  table {
+    word-break: normal;
+  }
+
   p,
   table,
   ul {
