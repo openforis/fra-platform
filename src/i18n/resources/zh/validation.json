@@ -4,5 +4,6 @@
     "fileOrLink": "需要提供文件或链接",
     "nameIsRequired": "名称是必需的",
     "optionsDisabled": "标签、公开和删除已被禁用，因为此项已被使用："
-  }
+  },
+  "contentUpdatedOnlyLinks": "您粘贴的内容已被更新，因为它包含无效的 html。\n只允许在此归档中使用文本和链接。"
 }

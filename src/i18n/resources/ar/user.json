@@ -6,15 +6,17 @@
   },
   "roles": {
     "ADMINISTRATOR": "مدير",
+    "ADMINISTRATOR_other": "المدراء",
     "ALTERNATE_NATIONAL_CORRESPONDENT": "مراسل وطني بديل",
     "ALTERNATE_NATIONAL_CORRESPONDENT_other": "المراسلون الوطنيون المناوبون",
     "COLLABORATOR": "متعاون",
+    "COLLABORATOR_other": "المتعاونين",
     "NATIONAL_CORRESPONDENT": "مراسل وطني",
     "NATIONAL_CORRESPONDENT_other": "المراسلون الوطنيون",
     "REVIEWER": "مُراجع",
-    "REVIEWER_plural": "المراجعين",
+    "REVIEWER_other": "المراجعون",
     "VIEWER": "مشاهد",
-    "COLLABORATOR_other": "المتعاونين",
+    "VIEWER_other": "المشاهدون",
     "noRole": ""
   }
 }
