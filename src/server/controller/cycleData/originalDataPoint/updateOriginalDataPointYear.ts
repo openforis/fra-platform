@@ -46,7 +46,7 @@ export const updateOriginalDataPointYear = async (
     const activityLog = { target: updatedOriginalDataPoint, section: 'odp', message, countryIso, user }
     await ActivityLogRepository.insertActivityLog({ activityLog, assessment, cycle }, t)
 
-    await CountryService.setCountryStatusEditing({ assessment, cycle, country, user }, t)
+    await CountryService.setCountryStatusEditing({ assessment, cycle, country, user, lastEditOdp: true }, t)
 
     return updatedOriginalDataPoint
   })
