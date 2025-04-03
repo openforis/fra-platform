@@ -6,6 +6,7 @@
   },
   "roles": {
     "ADMINISTRATOR": "管理员",
+    "ADMINISTRATOR_other": "管理员",
     "ALTERNATE_NATIONAL_CORRESPONDENT": "候补国家通讯员",
     "ALTERNATE_NATIONAL_CORRESPONDENT_other": "候补国家通讯员",
     "COLLABORATOR": "合作者",
@@ -15,6 +16,7 @@
     "REVIEWER": "审核人",
     "REVIEWER_other": "审查者",
     "VIEWER": "观察者",
+    "VIEWER_other": "查看者",
     "noRole": ""
   }
 }

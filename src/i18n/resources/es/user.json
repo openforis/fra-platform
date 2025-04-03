@@ -6,6 +6,7 @@
   },
   "roles": {
     "ADMINISTRATOR": "Administrador",
+    "ADMINISTRATOR_other": "Administradores",
     "ALTERNATE_NATIONAL_CORRESPONDENT": "Corresponsal Nacional alterno",
     "ALTERNATE_NATIONAL_CORRESPONDENT_other": "Corresponsales nacionales suplentes",
     "COLLABORATOR": "Colaborador",
