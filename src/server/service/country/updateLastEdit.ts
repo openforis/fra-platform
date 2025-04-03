@@ -14,7 +14,7 @@ type Props = {
   lastEditOdp?: boolean
 }
 
-export const setCountryStatusEditing = async (props: Props, client: BaseProtocol = DB) => {
+export const updateLastEdit = async (props: Props, client: BaseProtocol = DB) => {
   const { assessment, cycle, country, user, lastEditOdp } = props
 
   if (!country) return

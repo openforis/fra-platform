@@ -41,7 +41,7 @@ export const deleteOriginalDataPointNationalClass = async (
     const activityLog = { target: updatedOriginalDataPoint, section, message, countryIso, user }
     await ActivityLogRepository.insertActivityLog({ activityLog, assessment, cycle }, t)
 
-    await CountryService.setCountryStatusEditing({ assessment, cycle, country, user, lastEditOdp: true }, t)
+    await CountryService.updateLastEdit({ assessment, cycle, country, user, lastEditOdp: true }, t)
 
     return updatedOriginalDataPoint
   })
