@@ -10,12 +10,16 @@ type props = {
   cycleName: CycleName
   countryIso: CountryIso
   status: AssessmentStatus
+  notifyClient?: boolean
 }
 
 const notifyStatusUpdate = (props: props) => {
-  const { countryIso, assessmentName, cycleName, status } = props
-  const eventName = Sockets.getCountryStatusUpdateEvent({ assessmentName, cycleName, countryIso })
-  SocketServer.emit(eventName, { status })
+  const { countryIso, assessmentName, cycleName, status, notifyClient = true } = props
+
+  if (notifyClient) {
+    const eventName = Sockets.getCountryStatusUpdateEvent({ assessmentName, cycleName, countryIso })
+    SocketServer.emit(eventName, { status })
+  }
 }
 
 export const Country = {

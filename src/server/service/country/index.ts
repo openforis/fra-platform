@@ -1,5 +1,5 @@
-import { setCountryStatusEditing } from 'server/service/country/setCountryStatusEditing'
+import { updateLastEdit } from 'server/service/country/updateLastEdit'
 
 export const CountryService = {
-  setCountryStatusEditing,
+  updateLastEdit,
 }

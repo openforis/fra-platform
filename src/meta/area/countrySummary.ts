@@ -11,10 +11,10 @@ export type CountrySummary = {
   usersCount: number
 
   /* last timestamp strings */
-  lastAccepted: string
+  lastInAccepted: string
   lastEdit: string
   lastEditOdpData: string
-  lastForApproval: string
+  lastInApproval: string
   lastInReview: string
   lastUpdate: string
 }

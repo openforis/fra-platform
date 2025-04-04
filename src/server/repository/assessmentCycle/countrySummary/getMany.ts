@@ -7,7 +7,7 @@ import { TablePaginatedOrderByDirection } from 'meta/tablePaginated'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'
 
-import { fieldsJoined } from './fields'
+import { fieldsFromCountryJoined, fieldsJoined } from './fields'
 
 type Props = {
   assessment: Assessment
@@ -24,7 +24,7 @@ export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
 
   const query = `
-        select ${fieldsJoined('cs')}, c.status
+        select ${fieldsJoined('cs')}, ${fieldsFromCountryJoined('c')}, c.status
         from ${schemaCycle}.country_summary cs
             left join ${schemaCycle}.country c using (country_iso)
         order by ${orderBy ?? 'country_iso'} ${orderByDirection ?? TablePaginatedOrderByDirection.asc} nulls last

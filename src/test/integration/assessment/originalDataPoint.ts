@@ -36,6 +36,7 @@ export default (): void =>
         sectionName: 'extentOfForest',
         originalDataPoint,
         user,
+        notifyClient: false,
       })
 
       gotOriginalDataPoint = await CycleDataController.getOriginalDataPoint({
