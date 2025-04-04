@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Areas, AssessmentStatus } from 'meta/area'
-import { CountryStatuses } from 'meta/assessment/countryStatuses'
+import { CountryStatuses } from 'meta/area/countryStatuses'
 
 import { useAssessmentCountry } from 'client/store/area'
 import { useCycle } from 'client/store/assessment'

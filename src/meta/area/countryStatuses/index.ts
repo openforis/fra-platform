@@ -1,7 +1,9 @@
 // TODO: Rename in CountryStatusTransition
 import { Objects } from 'utils/objects'
 
-import { Areas, AssessmentStatus, Country } from 'meta/area'
+import { Areas } from 'meta/area/areas'
+import { Country } from 'meta/area/country'
+import { AssessmentStatus } from 'meta/area/status'
 import { Cycle } from 'meta/assessment/cycle'
 import { RoleName, User, Users } from 'meta/user'
 

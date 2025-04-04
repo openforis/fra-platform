@@ -1,5 +1,7 @@
-import { AssessmentStatus, Country, CountryIso } from 'meta/area'
-import { CountryStatuses, CountryStatusTransition } from 'meta/assessment/countryStatuses/index'
+import { Country } from 'meta/area/country'
+import { CountryIso } from 'meta/area/countryIso'
+import { CountryStatuses, CountryStatusTransition } from 'meta/area/countryStatuses/index'
+import { AssessmentStatus } from 'meta/area/status'
 import { Cycle } from 'meta/assessment/cycle'
 import { RoleName, User } from 'meta/user'
 
