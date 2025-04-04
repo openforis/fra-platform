@@ -18,10 +18,11 @@ type Props = {
   lastUpdate?: boolean
   lastEdit?: boolean
   lastEditOdp?: boolean
+  notifyClient?: boolean
 }
 
 export const updateCountry = async (props: Props, client: BaseProtocol = DB): Promise<Country> => {
-  const { assessment, cycle, country, user, lastUpdate = true, lastEdit, lastEditOdp } = props
+  const { assessment, cycle, country, user, lastUpdate = true, lastEdit, lastEditOdp, notifyClient = true } = props
   const { countryIso } = country
 
   return client.tx(async (t) => {
@@ -49,6 +50,7 @@ export const updateCountry = async (props: Props, client: BaseProtocol = DB): Pr
         cycleName: cycle.name,
         countryIso,
         status: country.props.status,
+        notifyClient,
       })
     }
 

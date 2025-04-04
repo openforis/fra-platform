@@ -21,10 +21,11 @@ type Props = {
   sectionName: string
   originalDataPoint: OriginalDataPoint
   user: User
+  notifyClient?: boolean
 }
 
 export const createOriginalDataPoint = async (props: Props, client: BaseProtocol = DB): Promise<OriginalDataPoint> => {
-  const { assessment, cycle, sectionName, originalDataPoint, user, country } = props
+  const { assessment, cycle, sectionName, originalDataPoint, user, country, notifyClient = true } = props
   const { countryIso } = originalDataPoint
 
   const odpReturn = await client.tx(async (t) => {
@@ -42,7 +43,7 @@ export const createOriginalDataPoint = async (props: Props, client: BaseProtocol
     }
     await ActivityLogRepository.insertActivityLog({ activityLog, assessment, cycle }, t)
 
-    await CountryService.updateLastEdit({ assessment, cycle, country, user, lastEditOdp: true }, t)
+    await CountryService.updateLastEdit({ assessment, cycle, country, user, lastEditOdp: true, notifyClient }, t)
 
     return createdOriginalDataPoint
   })

@@ -12,10 +12,11 @@ type Props = {
   country: Country
   user: User
   lastEditOdp?: boolean
+  notifyClient?: boolean
 }
 
 export const updateLastEdit = async (props: Props, client: BaseProtocol = DB) => {
-  const { assessment, cycle, country, user, lastEditOdp } = props
+  const { assessment, cycle, country, user, lastEditOdp, notifyClient = true } = props
 
   if (!country) return
 
@@ -25,7 +26,7 @@ export const updateLastEdit = async (props: Props, client: BaseProtocol = DB) =>
 
   // Client is notified through websocket in updateCountry
   await AreaController.updateCountry(
-    { assessment, cycle, country, user, lastEdit: true, lastUpdate: true, lastEditOdp },
+    { assessment, cycle, country, user, lastEdit: true, lastUpdate: true, lastEditOdp, notifyClient },
     client
   )
 }
