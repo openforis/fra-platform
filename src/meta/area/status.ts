@@ -7,5 +7,4 @@ export enum AssessmentStatus {
   review = 'review',
   approval = 'approval',
   accepted = 'accepted',
-  changing = 'changing',
 }

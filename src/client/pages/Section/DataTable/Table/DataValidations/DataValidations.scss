@@ -2,13 +2,13 @@
 
 @import 'src/client/style/partials';
 
-$colorError: color.adjust($ui-destructive, $lightness: -5%, $space: hsl);
+$colorError: color.adjust($ui-destructive, $lightness: -3%, $space: hsl);
 
 .data-validations {
   align-items: center;
   color: $colorError;
   display: grid;
-  font-size: $font-xs;
+  font-size: $font-xxs;
   font-weight: 600;
   grid-column-gap: $spacing-xxxs;
   grid-template-columns: auto 1fr;
@@ -22,7 +22,7 @@ $colorError: color.adjust($ui-destructive, $lightness: -5%, $space: hsl);
 
   svg.icon {
     color: $colorError;
-    height: 12px;
-    width: 12px;
+    height: 11px;
+    width: 11px;
   }
 }

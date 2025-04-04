@@ -41,9 +41,14 @@ $ui-edit-border-color: #939393;
 //Theme 2
 $ui-accent-2: #d46e33;
 
-$ui-status-editing: #a5abb0;
-$ui-status-accepted: #66bb66;
-$ui-status-review: #ffbb33;
+$ui-status-notStarted: #a5aab0;
+$ui-status-editing: #1798a5;
+//$ui-status-review: #ffbb33;
+$ui-status-review: #324b4e;
+$ui-status-approval: #009ac7;
+//$ui-status-accepted: #66bb66;
+$ui-status-accepted: #8e83ba;
+$ui-status-published: #5a5184;
 
 $ui-thin-border: 1px solid $ui-border;
 $ui-app-review-width: 288px;
