@@ -1,5 +1,6 @@
 import { Job } from 'bullmq'
 
+import { Country } from 'meta/area'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { NodeUpdates } from 'meta/data'
@@ -10,6 +11,7 @@ import { BaseProtocol } from 'server/db'
 export type UpdateDependenciesProps = {
   assessment: Assessment
   cycle: Cycle
+  country: Country
   nodeUpdates: NodeUpdates
   user: User
   includeSourceNodes?: boolean

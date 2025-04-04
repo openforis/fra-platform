@@ -1,7 +1,6 @@
 // eslint-disable-next-line max-classes-per-file
 import { Promises } from 'utils/promises'
 
-import { Country } from 'meta/area'
 import { VariableCache } from 'meta/assessment/metaCache'
 import { AssessmentMetaCaches } from 'meta/assessment/metaCaches'
 import { RowCacheKey } from 'meta/assessment/rowCache'
@@ -13,14 +12,11 @@ import { isODPVariable } from 'server/controller/cycleData/originalDataPoint/get
 import { BaseContextBuilder } from 'server/controller/cycleData/updateDependencies/context/baseContextBuilder'
 import { ContextBuilderProps } from 'server/controller/cycleData/updateDependencies/context/contextBuilderProps'
 import { DataContextBuilder } from 'server/controller/cycleData/updateDependencies/context/dataContextBuilder'
-import { BaseProtocol, DB } from 'server/db'
-import { CountryRepository } from 'server/repository/assessmentCycle/country'
 import { RowRedisRepository } from 'server/repository/redis/row'
 
 import { Context } from './context'
 
 export class ContextFactory extends BaseContextBuilder {
-  #country: Country
   readonly #queue: Array<VariableCache>
   readonly #rowKeys: Set<RowCacheKey>
   readonly #dataContextBuilder: DataContextBuilder
@@ -39,8 +35,8 @@ export class ContextFactory extends BaseContextBuilder {
   // check whether a variable must be added to the queue
   #mustAddToQueue(variable: VariableCache): boolean {
     const { tableName } = variable
-    const { cycle, isODP } = this.props
-    const { useOriginalDataPoint } = this.#country.props.forestCharacteristics
+    const { country, cycle, isODP } = this.props
+    const { useOriginalDataPoint } = country.props.forestCharacteristics
 
     if (isODP && isODPVariable(cycle, variable)) {
       if (tableName === TableNames.extentOfForest) return false
@@ -77,8 +73,8 @@ export class ContextFactory extends BaseContextBuilder {
   // add node dependants to queue. Returns true if input node is dependant of itself, false otherwise
   async #addDependantsToQueue(variable: VariableCache): Promise<boolean> {
     const { tableName, variableName, colName } = variable
-    const { assessment, cycle } = this.props
-    const { countryIso } = this.#country
+    const { assessment, country, cycle } = this.props
+    const { countryIso } = country
 
     const dependants = AssessmentMetaCaches.getCalculationsDependants({ assessment, cycle, tableName, variableName })
     await Promises.each(dependants, async (variable) => {
@@ -120,11 +116,9 @@ export class ContextFactory extends BaseContextBuilder {
     )
   }
 
-  async #initQueue(client: BaseProtocol): Promise<void> {
-    const { assessment, cycle, nodeUpdates, includeSourceNodes } = this.props
-    const { countryIso, nodes } = nodeUpdates
-
-    this.#country = await CountryRepository.getOne({ assessment, cycle, countryIso }, client)
+  async #initQueue(): Promise<void> {
+    const { includeSourceNodes, nodeUpdates } = this.props
+    const { nodes } = nodeUpdates
 
     await Promises.each(nodes, async (node) => {
       await this.#dataContextBuilder.addVariable(node)
@@ -138,8 +132,8 @@ export class ContextFactory extends BaseContextBuilder {
   }
 
   async #createContext(): Promise<Context> {
-    const { assessment, cycle, nodeUpdates } = this.props
-    const { countryIso } = nodeUpdates
+    const { assessment, country, cycle } = this.props
+    const { countryIso } = country
     const queue = this.#queue
     const visitedVariables = this.#visitedVariables
     const externalDependants = this.#externalDependants
@@ -150,9 +144,9 @@ export class ContextFactory extends BaseContextBuilder {
     return new Context(pr)
   }
 
-  static async newInstance(props: ContextBuilderProps, client: BaseProtocol = DB): Promise<Context> {
+  static async newInstance(props: ContextBuilderProps): Promise<Context> {
     const factory = new ContextFactory(props)
-    await factory.#initQueue(client)
+    await factory.#initQueue()
     return factory.#createContext()
   }
 }

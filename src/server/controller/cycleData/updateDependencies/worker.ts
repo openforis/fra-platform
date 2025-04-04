@@ -1,4 +1,5 @@
 import { DB } from 'server/db'
+import { CountryRepository } from 'server/repository/assessmentCycle/country'
 import { Logger } from 'server/utils/logger'
 
 import { ContextFactory } from './context'
@@ -18,11 +19,14 @@ const _getLogKey = (job: UpdateDependenciesJob): string => {
 export default async (job: UpdateDependenciesJob) => {
   const logKey = _getLogKey(job)
   try {
-    const { client = DB, user } = job.data
+    const { assessment, cycle, client = DB, user, nodeUpdates } = job.data
     const time = new Date().getTime()
     Logger.info(`${logKey} started with ${job.data.nodeUpdates.nodes.length} nodes.`)
 
-    const context = await ContextFactory.newInstance(job.data, client)
+    const { countryIso } = nodeUpdates
+    const country = await CountryRepository.getOne({ assessment, cycle, countryIso }, client)
+
+    const context = await ContextFactory.newInstance({ ...job.data, country })
     const result = updateCalculationDependencies({ context, jobId: job.id })
     await persistResults({ result, user }, client)
 
