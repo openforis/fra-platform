@@ -35,7 +35,7 @@ export const upsertDescription = async (props: Props, client: BaseProtocol = DB)
     const activityLog = { target, section: sectionName, message, countryIso, user }
     await ActivityLogRepository.insertActivityLog({ assessment, cycle, activityLog }, t)
 
-    await CountryService.setCountryStatusEditing({ assessment, cycle, country, user }, t)
+    await CountryService.updateLastEdit({ assessment, cycle, country, user }, t)
 
     return description
   })

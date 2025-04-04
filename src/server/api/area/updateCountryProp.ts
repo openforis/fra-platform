@@ -29,7 +29,14 @@ export const updateCountryProp = async (req: Request, res: Response) => {
     // 1. update database country prop
     const countrySource = await AreaController.getCountry({ assessment, cycle, countryIso })
     const country: Country = { ...countrySource, props: { ...countrySource.props, ...countryProp } }
-    const updatedCountry = await AreaController.updateCountry({ assessment, cycle, country, user })
+    const updatedCountry = await AreaController.updateCountry({
+      assessment,
+      cycle,
+      country,
+      user,
+      lastEdit: true,
+      lastUpdate: true,
+    })
 
     if (Object.keys(countryProp).includes('forestCharacteristics')) {
       // 2. get table data

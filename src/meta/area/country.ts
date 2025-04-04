@@ -15,6 +15,6 @@ export type Country = {
   countryIso: CountryIso
   props?: CountryProps
   regionCodes?: Array<RegionCode>
-} & Pick<CountrySummary, 'lastAccepted' | 'lastEdit' | 'lastForApproval' | 'lastInReview' | 'lastUpdate'>
+} & Pick<CountrySummary, 'lastInAccepted' | 'lastEdit' | 'lastInApproval' | 'lastInReview' | 'lastUpdate'>
 
 export type RecordCountries = Record<CountryIso, Country>

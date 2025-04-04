@@ -31,14 +31,14 @@ export const getValuesLastApproved = async (
             al.target -> 'description' -> 'value' as value,
             row_number() over (partition by al.target ->> 'name' order by al.time desc) as row_number
      from public.activity_log al
-         left join ${schemaName}.country_summary cs on al.country_iso = cs.country_iso
+         left join ${schemaName}.country c on al.country_iso = c.country_iso
      where
            al.target is not null
        and al.message = '${ActivityLogMessage.descriptionUpdate}'
        and al.country_iso = $1
        and al.section = $2
-       and cs.last_accepted is not null
-       and al.time < cs.last_accepted
+       and c.last_in_accepted is not null
+       and al.time < c.last_in_accepted
          ),
          agg1 as (
      select
