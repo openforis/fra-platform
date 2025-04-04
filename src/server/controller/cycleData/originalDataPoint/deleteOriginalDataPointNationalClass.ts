@@ -46,7 +46,7 @@ export const deleteOriginalDataPointNationalClass = async (
     return updatedOriginalDataPoint
   })
 
-  await updateOriginalDataPointDependentNodes({ assessment, cycle, originalDataPoint: odpReturn, user })
+  await updateOriginalDataPointDependentNodes({ assessment, cycle, country, originalDataPoint: odpReturn, user })
 
   return odpReturn
 }

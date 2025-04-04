@@ -1,3 +1,4 @@
+import { Country } from 'meta/area'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
@@ -13,23 +14,23 @@ import { DataRedisRepository } from 'server/repository/redis/data'
 type Props = {
   assessment: Assessment
   cycle: Cycle
+  country: Country
   sectionName?: string
   originalDataPoints: Array<{ originalDataPoint: OriginalDataPoint; notifyClient: boolean }>
   user: User
 }
 
 export const updateOriginalDataPointsDependentNodes = async (props: Props): Promise<void> => {
-  const { assessment, cycle, sectionName, originalDataPoints, user } = props
+  const { assessment, cycle, country, sectionName, originalDataPoints, user } = props
   const assessmentName = assessment.props.name
   const cycleName = cycle.name
+  const { countryIso } = country
 
   originalDataPoints.forEach(({ originalDataPoint }) => {
     if (!originalDataPoint.year) {
       throw new Error(`OriginalDataPoint ${originalDataPoint.id} is missing year`)
     }
   })
-
-  const { countryIso } = originalDataPoints[0].originalDataPoint
 
   // 1. update cache
   const tableName = TableNames.originalDataPointValue
@@ -49,7 +50,7 @@ export const updateOriginalDataPointsDependentNodes = async (props: Props): Prom
   })
 
   const nodeUpdates = { assessmentName, cycleName, countryIso, nodes }
-  const propsDeps = { assessment, cycle, isODP: true, nodeUpdates, user }
+  const propsDeps = { assessment, cycle, country, isODP: true, nodeUpdates, user }
   await scheduleUpdateDependencies(propsDeps)
 
   // 3. notifies client

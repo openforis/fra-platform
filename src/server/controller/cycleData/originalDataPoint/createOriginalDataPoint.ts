@@ -48,7 +48,14 @@ export const createOriginalDataPoint = async (props: Props, client: BaseProtocol
   })
 
   if (ProcessEnv.nodeEnv !== NodeEnv.test) {
-    await updateOriginalDataPointDependentNodes({ assessment, cycle, sectionName, originalDataPoint: odpReturn, user })
+    await updateOriginalDataPointDependentNodes({
+      assessment,
+      cycle,
+      country,
+      sectionName,
+      originalDataPoint: odpReturn,
+      user,
+    })
   }
 
   return odpReturn

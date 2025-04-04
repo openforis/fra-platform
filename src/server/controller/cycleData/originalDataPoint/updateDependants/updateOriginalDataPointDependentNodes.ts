@@ -1,3 +1,4 @@
+import { Country } from 'meta/area'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
@@ -8,6 +9,7 @@ import { updateOriginalDataPointsDependentNodes } from 'server/controller/cycleD
 type Props = {
   assessment: Assessment
   cycle: Cycle
+  country: Country
   sectionName?: string
   originalDataPoint: OriginalDataPoint
   user: User
