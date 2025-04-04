@@ -4,5 +4,6 @@
     "fileOrLink": "Se requiere un archivo o un enlace",
     "nameIsRequired": "El nombre es obligatorio",
     "optionsDisabled": "La etiqueta, la visibilidad pública y la eliminación están desactivadas porque este elemento es utilizado por:"
-  }
+  },
+  "contentUpdatedOnlyLinks": "El contenido que has pegado ha sido actualizado porque contiene HTML inválido.\nSolo se permiten texto y enlaces en este archivo."
 }

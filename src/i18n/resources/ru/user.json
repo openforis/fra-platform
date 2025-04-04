@@ -6,6 +6,7 @@
   },
   "roles": {
     "ADMINISTRATOR": "Администратор",
+    "ADMINISTRATOR_other": "Администраторы",
     "ALTERNATE_NATIONAL_CORRESPONDENT": "Помощник национального корреспондента",
     "ALTERNATE_NATIONAL_CORRESPONDENT_other": "Заместители национального корреспондента",
     "COLLABORATOR": "Сотрудник",
@@ -15,6 +16,7 @@
     "REVIEWER": "Рецензент",
     "REVIEWER_other": "Рецензенты",
     "VIEWER": "Наблюдатель",
+    "VIEWER_other": "Просмотры",
     "noRole": ""
   }
 }

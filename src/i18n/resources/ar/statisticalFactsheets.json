@@ -1,4 +1,7 @@
 {
+  "validation": {
+    "selectAtLeastNCountries": "حدد على الأقل {{count}} بلدان"
+  },
   "carbonAndGrowingStock": {
     "carbon_stock_biomass_total": "مخزون الكربون في الكتلة الحيوية($t({{unit}}))",
     "carbon_stock_total": "إجمالي مخزون الكربون($t({{unit}})) ",
