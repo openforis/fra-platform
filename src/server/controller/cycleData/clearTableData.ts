@@ -53,7 +53,7 @@ export const clearTableData = async (props: Props, client: BaseProtocol = DB): P
       user,
     }
     await ActivityLogRepository.insertActivityLog({ activityLog, assessment, cycle }, t)
-    await CountryService.setCountryStatusEditing({ assessment, cycle, country, user }, t)
+    await CountryService.updateLastEdit({ assessment, cycle, country, user }, t)
 
     return nodes
   })

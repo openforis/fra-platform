@@ -49,7 +49,7 @@ export const persistNodeValuesEstimated = async (props: Props): Promise<void> =>
       persistNodeValues(getPersistNodeValuesProps(props), client),
       NodeValueEstimationRepository.create({ assessment, countryIso, cycle, estimation }, client),
       ActivityLogRepository.insertActivityLog({ activityLog: getActivityLog(props), assessment, cycle }, client),
-      CountryService.setCountryStatusEditing({ assessment, cycle, country, user: props.user }, client),
+      CountryService.updateLastEdit({ assessment, cycle, country, user: props.user }, client),
     ])
   })
 }

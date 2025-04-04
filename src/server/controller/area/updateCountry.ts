@@ -15,17 +15,24 @@ type Props = {
   cycle: Cycle
   country: Country
   user: User
+  lastUpdate?: boolean
+  lastEdit?: boolean
+  lastEditOdp?: boolean
+  notifyClient?: boolean
 }
 
 export const updateCountry = async (props: Props, client: BaseProtocol = DB): Promise<Country> => {
-  const { country, assessment, cycle, user } = props
+  const { assessment, cycle, country, user, lastUpdate = true, lastEdit, lastEditOdp, notifyClient = true } = props
   const { countryIso } = country
 
   return client.tx(async (t) => {
-    const oldCountry = await AreaRedisRepository.getOneCountry({ assessment, cycle, countryIso }, t)
+    const currentCountry = await AreaRedisRepository.getOneCountry({ assessment, cycle, countryIso }, t)
+    const statusUpdate = currentCountry.props.status !== country.props.status
 
-    // update db
-    const updatedCountry = await CountryRepository.update({ assessment, cycle, country }, t)
+    const updatedCountry = await CountryRepository.update(
+      { assessment, cycle, country, lastUpdate, lastEdit, lastEditOdp, lastInStatus: statusUpdate },
+      t
+    )
 
     // update cache
     await AreaRedisRepository.getOneCountry({ assessment, cycle, countryIso, force: true }, t)
@@ -36,13 +43,14 @@ export const updateCountry = async (props: Props, client: BaseProtocol = DB): Pr
     const activityLog = { target, section: 'assessment', message, countryIso, user }
     await ActivityLogRepository.insertActivityLog({ activityLog, assessment, cycle }, t)
 
-    if (oldCountry.props.status !== country.props.status) {
-      // notify client
+    // notify client
+    if (statusUpdate) {
       SocketService.Country.notifyStatusUpdate({
         assessmentName: assessment.props.name,
         cycleName: cycle.name,
         countryIso,
         status: country.props.status,
+        notifyClient,
       })
     }
 
