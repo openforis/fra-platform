@@ -6,7 +6,6 @@ import { Routes } from 'meta/routes'
 import { useAppDispatch } from 'client/store'
 import { LoginActions, useInvitation } from 'client/store/login'
 import { AcceptInvitationFormState } from 'client/store/login/stateType'
-import { useCycleRouteParams } from 'client/hooks/useRouteParams'
 import { isError, LoginValidator } from 'client/pages/Login/utils/LoginValidator'
 
 type Props = {
@@ -24,9 +23,11 @@ export const useOnAcceptInvitationLocal = (props: Props): Returned => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
 
-  const { userInvitation } = useInvitation()
+  const { assessment, userInvitation } = useInvitation()
   const { countryIso } = userInvitation
-  const { assessmentName, cycleName } = useCycleRouteParams()
+  const cycle = assessment?.cycles.find((cycle) => cycle.uuid === userInvitation.cycleUuid)
+  const assessmentName = assessment?.props.name
+  const cycleName = cycle?.name
   const redirectUrl = Routes.Country.generatePath({ assessmentName, countryIso, cycleName })
 
   return useCallback<Returned>(() => {
