@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 import * as passport from 'passport'
+import { Objects } from 'utils/objects'
 
 import { LoginRequest } from 'meta/api/request'
 import { AuthToken } from 'meta/auth'
@@ -30,6 +31,7 @@ export const getGoogleLogin = (req: LoginRequest, res: Response) => {
     scope: ['https://www.googleapis.com/auth/plus.login', 'profile', 'email'],
     state: JSON.stringify({
       assessmentName: req.query.assessmentName,
+      countryIso: req.query.countryIso,
       cycleName: req.query.cycleName,
       invitationUuid: req.query.invitationUuid,
     }),
@@ -39,8 +41,7 @@ export const getGoogleLogin = (req: LoginRequest, res: Response) => {
 export const getGoogleCallback = (req: Request, res: Response, next: NextFunction) => {
   passport.authenticate('google', { session: false }, (err: any, user: User, msg: any) => {
     const state = JSON.parse(req.query.state as string) ?? {}
-
-    const { assessmentName, cycleName } = state
+    const { assessmentName, countryIso, cycleName } = state
 
     if (err) {
       next(err)
@@ -51,7 +52,13 @@ export const getGoogleCallback = (req: Request, res: Response, next: NextFunctio
       req.login(user, (err: any) => {
         if (err) next(err)
         setAuthToken(res, user)
-        const redirectUrl = process.env.NODE_ENV === 'development' ? '/' : ProcessEnv.appUri
+
+        const countryPath = !Objects.isEmpty(countryIso)
+          ? Routes.Country.generatePath({ assessmentName, countryIso, cycleName })
+          : ''
+        const redirectUrl =
+          process.env.NODE_ENV === 'development' ? countryPath || '/' : `${ProcessEnv.appUri}${countryPath}`
+
         res.redirect(redirectUrl)
       })
     }
