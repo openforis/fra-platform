@@ -22,7 +22,7 @@ export const getInfo = async (
   const { assessment, cycle } = props
 
   const countrySummary = await CountrySummaryRepository.getOneOrNone(props, client)
-  const lastAccepted = countrySummary.lastAccepted as unknown as Date // server side is a Date object
+  const lastAccepted = countrySummary.lastInAccepted as unknown as Date // server side is a Date object
   const prevCycle = cycle.cycleUuidSource ? Cycles.getPreviousCycle({ assessment, cycle }) : undefined
 
   if (!Objects.isEmpty(lastAccepted) || !Objects.isEmpty(prevCycle)) {

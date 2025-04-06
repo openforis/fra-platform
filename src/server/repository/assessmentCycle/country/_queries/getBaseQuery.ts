@@ -17,11 +17,11 @@ export const getBaseQuery = (props: Props): string => {
   return `
     select c.country_iso,
            props || jsonb_build_object('status', c.status) as props, 
-           cs.last_edit,
-           cs.last_in_review,
-           cs.last_for_approval,
-           cs.last_accepted,
-           cs.last_update,
+           c.last_edit,
+           c.last_in_review,
+           c.last_in_approval,
+           c.last_in_accepted,
+           c.last_update,
            jsonb_agg(cr.region_code) as region_codes
     from ${cycleSchema}.country c
              left join ${cycleSchema}.country_region cr
@@ -31,10 +31,10 @@ export const getBaseQuery = (props: Props): string => {
     ${countryIso ? 'where c.country_iso = $1' : ''}
     group by c.country_iso, 
              props || jsonb_build_object('status', c.status),
-             cs.last_edit,
-             cs.last_in_review,
-             cs.last_for_approval,
-             cs.last_accepted,
-             cs.last_update
+            c.last_edit,
+            c.last_in_review,
+            c.last_in_approval,
+            c.last_in_accepted,
+            c.last_update
   `
 }

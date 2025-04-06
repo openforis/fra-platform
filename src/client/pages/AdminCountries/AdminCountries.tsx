@@ -46,16 +46,16 @@ const useColumns = (): Array<Column<CountrySummary>> => {
         orderByProperty: 'last_in_review',
       },
       {
-        component: ({ datum: { lastForApproval } }) => <DateCell date={lastForApproval} />,
+        component: ({ datum: { lastInApproval } }) => <DateCell date={lastInApproval} />,
         header: t('common.submittedForApproval'),
-        key: 'lastForApproval',
-        orderByProperty: 'last_for_approval',
+        key: 'lastInApproval',
+        orderByProperty: 'last_in_approval',
       },
       {
-        component: ({ datum: { lastAccepted } }) => <DateCell date={lastAccepted} />,
+        component: ({ datum: { lastInAccepted } }) => <DateCell date={lastInAccepted} />,
         header: t('common.accepted'),
-        key: 'lastAccepted',
-        orderByProperty: 'last_accepted',
+        key: 'lastInAccepted',
+        orderByProperty: 'last_in_accepted',
       },
       {
         component: ({ datum }) => <span>{datum.usersCount}</span>,

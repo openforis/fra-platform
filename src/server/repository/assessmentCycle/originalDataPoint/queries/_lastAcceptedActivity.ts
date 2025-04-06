@@ -38,12 +38,12 @@ export const getLastAcceptedActivity = (props: Props): string => {
           from public.activity_log al
                    left join public.assessment a on al.assessment_uuid = a.uuid
                    left join public.assessment_cycle ac on a.id = ac.assessment_id and al.cycle_uuid = ac.uuid
-                   left join ${schemaCycle}.country_summary cs on al.country_iso = cs.country_iso
+                   left join ${schemaCycle}.country c on al.country_iso = c.country_iso
           where a.props ->> 'name' = '${assessmentName}'
             and ac.name = '${cycleName}'
             and al.country_iso in (${countryISOs.map((c) => `'${c}'`).join(',')})
             and al.message in (${activityMessages.map((m) => `'${m}'`).join(',')})
-            and al.time < cs.last_accepted
+            and al.time < c.last_in_accepted
               ${Objects.isEmpty(year) ? '' : `and al.target ->> 'year' = '${year}'`}
           order by al.time desc`
 }
