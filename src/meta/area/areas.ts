@@ -3,7 +3,7 @@ import { Strings } from 'utils/strings'
 
 import { AreaCode, Country, CountryIso, Global, RegionCode } from 'meta/area'
 import { fraRegionCodes } from 'meta/area/regionCode'
-import { AssessmentStatus } from 'meta/area/status'
+import { CountryStatus } from 'meta/area/status'
 
 const getCountryBackgroundImg = (isoCode: AreaCode): string =>
   isoCode.startsWith('X')
@@ -18,7 +18,7 @@ const isISOCountry = (isoCode: string): boolean => /^[a-zA-Z0-9]{3}$/.test(isoCo
 const isISOGlobal = (isoCode: string): boolean => isoCode === Global.WO
 const isRegion = (isoCode: string): boolean => Object.values(RegionCode).includes(isoCode as RegionCode)
 const isFRARegion = (isoCode: string): boolean => fraRegionCodes.includes(isoCode as RegionCode)
-const getStatus = (country: Country): AssessmentStatus => {
+const getStatus = (country: Country): CountryStatus => {
   const { status } = country?.props ?? {}
 
   return status

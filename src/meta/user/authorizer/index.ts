@@ -1,6 +1,6 @@
 import { Objects } from 'utils/objects'
 
-import { AreaCode, Areas, AssessmentStatus, Country, CountryIso } from 'meta/area'
+import { AreaCode, Areas, Country, CountryIso, CountryStatus } from 'meta/area'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { Cycles } from 'meta/assessment/cycles'
@@ -66,11 +66,11 @@ const canEditCycleData = (props: { cycle: Cycle; country: Country; user: User })
 
   if (nationalCorrespondent || alternateNationalCorrespondent || collaborator) {
     const collaboratorCanEdit = !collaborator || (user as unknown as Collaborator).permissions?.sections !== 'none'
-    return [AssessmentStatus.notStarted, AssessmentStatus.editing].includes(status) && collaboratorCanEdit
+    return [CountryStatus.notStarted, CountryStatus.editing].includes(status) && collaboratorCanEdit
   }
 
   if (reviewer) {
-    return [AssessmentStatus.notStarted, AssessmentStatus.editing, AssessmentStatus.review].includes(status)
+    return [CountryStatus.notStarted, CountryStatus.editing, CountryStatus.review].includes(status)
   }
 
   return false
@@ -117,7 +117,7 @@ const canEditData = (props: {
 
   if (
     Users.isCollaborator(user, countryIso, cycle) &&
-    [AssessmentStatus.notStarted, AssessmentStatus.editing].includes(status)
+    [CountryStatus.notStarted, CountryStatus.editing].includes(status)
   ) {
     const userRole = Users.getRole(user, countryIso, cycle) as Collaborator
 
@@ -164,10 +164,10 @@ const canEditCountryProps = (props: {
     Users.isAlternateNationalCorrespondent(user, countryIso, cycle) ||
     (allowCollaborator && Users.isCollaborator(user, countryIso, cycle))
   )
-    return [AssessmentStatus.notStarted, AssessmentStatus.editing].includes(status)
+    return [CountryStatus.notStarted, CountryStatus.editing].includes(status)
 
   if (Users.isReviewer(user, countryIso, cycle))
-    return [AssessmentStatus.notStarted, AssessmentStatus.editing, AssessmentStatus.review].includes(status)
+    return [CountryStatus.notStarted, CountryStatus.editing, CountryStatus.review].includes(status)
 
   return false
 }
@@ -229,7 +229,7 @@ const canViewHistoryLastApproved = (props: { country: Country; cycle: Cycle; use
 
   return (
     (Users.isAdministrator(user) || Users.isReviewer(user, country?.countryIso, cycle)) &&
-    status !== AssessmentStatus.notStarted
+    status !== CountryStatus.notStarted
   )
 }
 

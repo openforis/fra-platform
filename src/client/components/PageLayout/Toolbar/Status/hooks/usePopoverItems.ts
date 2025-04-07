@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Areas, AssessmentStatus } from 'meta/area'
+import { Areas, CountryStatus } from 'meta/area'
 import { CountryStatuses } from 'meta/area/countryStatuses'
 
 import { useAssessmentCountry } from 'client/store/area'
@@ -29,7 +29,7 @@ export const usePopoverItems = (props: Props): Array<PopoverItem> => {
   const status = Areas.getStatus(country)
 
   return useMemo(() => {
-    if ([AssessmentStatus.notStarted].includes(status) || dataLocked) return []
+    if ([CountryStatus.notStarted].includes(status) || dataLocked) return []
     const items: Array<PopoverItem> = []
     const { next, previous } = CountryStatuses.getAllowedTransition({ country, user, cycle })
 

@@ -1,4 +1,4 @@
-import { AssessmentStatus } from 'meta/area'
+import { CountryStatus } from 'meta/area'
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
 
 import { AssessmentController } from 'server/controller/assessment'
@@ -67,7 +67,7 @@ export default async (client: BaseProtocol) => {
                   and a.message in (${activitiesLastEdit})
               )
             );`,
-            [cycle.uuid, ActivityLogMessage.assessmentStatusUpdate, AssessmentStatus.editing]
+            [cycle.uuid, ActivityLogMessage.assessmentStatusUpdate, CountryStatus.editing]
           )
           await CountrySummaryRepository.dropMaterializedView({ assessment, cycle }, client)
           await CountrySummaryRepository.createMaterializedView({ assessment, cycle }, client)

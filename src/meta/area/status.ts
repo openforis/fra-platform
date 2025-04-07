@@ -1,7 +1,4 @@
-/**
- * TODO: rename to CountryStatus
- */
-export enum AssessmentStatus {
+export enum CountryStatus {
   notStarted = 'notStarted',
   editing = 'editing',
   review = 'review',

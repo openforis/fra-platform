@@ -1,4 +1,4 @@
-import { AssessmentStatus } from 'meta/area'
+import { CountryStatus } from 'meta/area'
 
 import { CloneProps } from 'server/controller/assessment/cloneCycle/types'
 import { BaseProtocol, Schemas } from 'server/db'
@@ -19,7 +19,7 @@ export const cloneAreas = async (props: CloneProps, client: BaseProtocol): Promi
       from ${schemaCycleSource}.region;
 
       insert into ${schemaCycleTarget}.country (country_iso, props)
-      select country_iso, props || jsonb_build_object('status','${AssessmentStatus.notStarted}')
+      select country_iso, props || jsonb_build_object('status','${CountryStatus.notStarted}')
       from ${schemaCycleSource}.country;
 
       insert into ${schemaCycleTarget}.country_region (country_iso, region_code)

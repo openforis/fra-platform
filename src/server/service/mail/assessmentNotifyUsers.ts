@@ -1,7 +1,7 @@
 import { createI18nPromise } from 'i18n/i18nFactory'
 import { Arrays } from 'utils/arrays'
 
-import { AssessmentStatus, Country, CountryIso } from 'meta/area'
+import { Country, CountryIso, CountryStatus } from 'meta/area'
 import { AssessmentName } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { Lang } from 'meta/lang'
@@ -15,7 +15,7 @@ import { ProcessEnv } from 'server/utils'
 import { sendMail } from './mail'
 
 type CreateMailProps = {
-  status: AssessmentStatus
+  status: CountryStatus
   user: User
   recipient: User
   url: string
@@ -68,7 +68,7 @@ const getCountryUsers = async (props: {
 const getRecipients = async (props: {
   countryISOs: Array<CountryIso>
   cycle: Cycle
-  status: AssessmentStatus
+  status: CountryStatus
   notifySelf: boolean
   notifyUsers: boolean
   user: User

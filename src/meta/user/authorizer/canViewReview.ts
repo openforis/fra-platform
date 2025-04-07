@@ -1,6 +1,6 @@
 import { Objects } from 'utils/objects'
 
-import { Areas, AssessmentStatus, Country } from 'meta/area'
+import { Areas, Country, CountryStatus } from 'meta/area'
 import { Cycle } from 'meta/assessment/cycle'
 import { Section, SubSection } from 'meta/assessment/section'
 import { User } from 'meta/user/user'
@@ -36,7 +36,7 @@ const hasCollaboratorEditSectionPermission = (props: AuthProps) => {
 
 const hasEditSectionPermission = (
   props: AuthProps & {
-    countryStatus: { [key in RoleName]?: Array<AssessmentStatus> }
+    countryStatus: { [key in RoleName]?: Array<CountryStatus> }
   }
 ): boolean => {
   const { country, cycle, user, countryStatus } = props
@@ -57,7 +57,7 @@ export const canViewReview = (props: AuthProps): boolean => {
   if (!country || !section || !user || !Areas.isISOCountry(country.countryIso)) return false
 
   // Selected roles can see only in edit statuses: not started, review and editing
-  const allowedStatuses = [AssessmentStatus.notStarted, AssessmentStatus.review, AssessmentStatus.editing]
+  const allowedStatuses = [CountryStatus.notStarted, CountryStatus.review, CountryStatus.editing]
 
   const countryStatus = Object.fromEntries(
     [
@@ -69,7 +69,7 @@ export const canViewReview = (props: AuthProps): boolean => {
   )
 
   // Admin can view in all statuses
-  countryStatus[RoleName.ADMINISTRATOR] = Object.values(AssessmentStatus)
+  countryStatus[RoleName.ADMINISTRATOR] = Object.values(CountryStatus)
 
   return hasEditSectionPermission({ ...props, countryStatus })
 }

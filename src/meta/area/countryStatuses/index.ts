@@ -3,32 +3,32 @@ import { Objects } from 'utils/objects'
 
 import { Areas } from 'meta/area/areas'
 import { Country } from 'meta/area/country'
-import { AssessmentStatus } from 'meta/area/status'
+import { CountryStatus } from 'meta/area/status'
 import { Cycle } from 'meta/assessment/cycle'
 import { RoleName, User, Users } from 'meta/user'
 
 export type CountryStatusTransition = {
-  next?: AssessmentStatus
-  previous?: AssessmentStatus
+  next?: CountryStatus
+  previous?: CountryStatus
 }
 
-const statusTransitions: { [status in AssessmentStatus]?: CountryStatusTransition } = {
+const statusTransitions: { [status in CountryStatus]?: CountryStatusTransition } = {
   // notStarted: no transitions,
-  [AssessmentStatus.editing]: { next: AssessmentStatus.review },
-  [AssessmentStatus.review]: { next: AssessmentStatus.approval, previous: AssessmentStatus.editing },
-  [AssessmentStatus.approval]: { next: AssessmentStatus.accepted, previous: AssessmentStatus.review },
-  [AssessmentStatus.accepted]: { previous: AssessmentStatus.review },
+  [CountryStatus.editing]: { next: CountryStatus.review },
+  [CountryStatus.review]: { next: CountryStatus.approval, previous: CountryStatus.editing },
+  [CountryStatus.approval]: { next: CountryStatus.accepted, previous: CountryStatus.review },
+  [CountryStatus.accepted]: { previous: CountryStatus.review },
 }
 
-const statusRolesAllowed: { [status in AssessmentStatus]?: Array<RoleName> } = {
-  [AssessmentStatus.editing]: [
+const statusRolesAllowed: { [status in CountryStatus]?: Array<RoleName> } = {
+  [CountryStatus.editing]: [
     RoleName.ADMINISTRATOR,
     RoleName.NATIONAL_CORRESPONDENT,
     RoleName.ALTERNATE_NATIONAL_CORRESPONDENT,
   ],
-  [AssessmentStatus.review]: [RoleName.ADMINISTRATOR, RoleName.REVIEWER],
-  [AssessmentStatus.approval]: [RoleName.ADMINISTRATOR],
-  [AssessmentStatus.accepted]: [RoleName.ADMINISTRATOR],
+  [CountryStatus.review]: [RoleName.ADMINISTRATOR, RoleName.REVIEWER],
+  [CountryStatus.approval]: [RoleName.ADMINISTRATOR],
+  [CountryStatus.accepted]: [RoleName.ADMINISTRATOR],
 }
 
 type PropsAllowedTransition = {

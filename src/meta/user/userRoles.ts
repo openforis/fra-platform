@@ -1,7 +1,7 @@
 import i18n from 'i18next'
 import { Dates } from 'utils/dates'
 
-import { Areas, AssessmentStatus } from 'meta/area'
+import { Areas, CountryStatus } from 'meta/area'
 import { Assessment } from 'meta/assessment/assessment'
 import { User } from 'meta/user/user'
 
@@ -10,22 +10,22 @@ import { RoleName, UserRole } from './userRole'
 const noRole = { role: 'NONE', labelKey: 'user.roles.noRole' }
 
 // Return roles to receive email on country assessment status change
-const getRecipientRoles = (props: { status: AssessmentStatus }) => {
+const getRecipientRoles = (props: { status: CountryStatus }) => {
   const { status } = props
 
   switch (status) {
-    case AssessmentStatus.editing:
+    case CountryStatus.editing:
       return [
         RoleName.COLLABORATOR,
         RoleName.REVIEWER,
         RoleName.ALTERNATE_NATIONAL_CORRESPONDENT,
         RoleName.NATIONAL_CORRESPONDENT,
       ]
-    case AssessmentStatus.review:
+    case CountryStatus.review:
       return [RoleName.REVIEWER]
-    case AssessmentStatus.approval:
+    case CountryStatus.approval:
       return [RoleName.ADMINISTRATOR, RoleName.REVIEWER]
-    case AssessmentStatus.accepted:
+    case CountryStatus.accepted:
       return [RoleName.REVIEWER, RoleName.NATIONAL_CORRESPONDENT]
     default:
       return []
