@@ -26,6 +26,7 @@ export const postCountry = async (
       assessment,
       country,
       user: Requests.getUser(req),
+      lastUpdate: true,
     })
 
     if (notifyUsers || notifySelf) {

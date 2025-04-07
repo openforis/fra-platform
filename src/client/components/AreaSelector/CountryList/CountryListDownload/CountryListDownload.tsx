@@ -31,8 +31,8 @@ const CountryListDownload: React.FC = () => {
       status: t(`assessment.status.${status}.label`),
       lastEdit: formatDate(country.lastEdit),
       lastInReview: formatDate(country.lastInReview),
-      lastForApproval: formatDate(country.lastForApproval),
-      lastAccepted: formatDate(country.lastAccepted),
+      lastInApproval: formatDate(country.lastInApproval),
+      lastInAccepted: formatDate(country.lastInAccepted),
       deskStudy: t(`yesNoTextSelect.${country.props.deskStudy ? 'yes' : 'no'}`),
     }
   })
@@ -42,8 +42,8 @@ const CountryListDownload: React.FC = () => {
     { label: t('common.status'), key: 'status' },
     { label: t('audit.edited'), key: 'lastEdit' },
     { label: t('common.submittedToReview'), key: 'lastInReview' },
-    { label: t('common.submittedForApproval'), key: 'lastForApproval' },
-    { label: t('common.accepted'), key: 'lastAccepted' },
+    { label: t('common.submittedForApproval'), key: 'lastInApproval' },
+    { label: t('common.accepted'), key: 'lastInAccepted' },
     { label: t('assessment.deskStudy'), key: 'deskStudy' },
   ]
 

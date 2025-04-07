@@ -11,17 +11,22 @@ type Props = {
   cycle: Cycle
   country: Country
   user: User
+  lastEditOdp?: boolean
+  notifyClient?: boolean
 }
 
-export const setCountryStatusEditing = async (props: Props, client: BaseProtocol = DB) => {
-  const { assessment, cycle, country, user } = props
+export const updateLastEdit = async (props: Props, client: BaseProtocol = DB) => {
+  const { assessment, cycle, country, user, lastEditOdp, notifyClient = true } = props
 
   if (!country) return
 
   if (country.props.status === AssessmentStatus.notStarted) {
     country.props.status = AssessmentStatus.editing
-
-    // Client is notified through websocket in updateCountry
-    await AreaController.updateCountry({ assessment, cycle, country, user }, client)
   }
+
+  // Client is notified through websocket in updateCountry
+  await AreaController.updateCountry(
+    { assessment, cycle, country, user, lastEdit: true, lastUpdate: true, lastEditOdp, notifyClient },
+    client
+  )
 }

@@ -141,6 +141,13 @@ export const getCreateSchemaCycleDDL = (assessmentSchemaName: string, assessment
                   on update cascade on delete cascade,
           props jsonb default '{}'::jsonb,
           status varchar(16) default '${AssessmentStatus.notStarted}'::varchar,
+          last_update timestamptz,
+          last_edit timestamptz,
+          last_edit_odp timestamptz,
+          last_in_editing timestamptz,
+          last_in_review timestamptz,
+          last_in_approval timestamptz,
+          last_in_accepted timestamptz,
           unique (country_iso)
       );
       

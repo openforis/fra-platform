@@ -62,7 +62,7 @@ export const copyOriginalDataPointNationalClasses = async (
     }
     await ActivityLogRepository.insertActivityLog({ activityLog, assessment, cycle }, t)
 
-    await CountryService.setCountryStatusEditing({ assessment, cycle, country, user }, t)
+    await CountryService.updateLastEdit({ assessment, cycle, country, user, lastEditOdp: true }, t)
 
     return updatedOriginalDataPoint
   })

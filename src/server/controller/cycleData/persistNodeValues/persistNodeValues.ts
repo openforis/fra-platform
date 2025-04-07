@@ -66,7 +66,7 @@ export const persistNodeValues = async (props: Props, client: BaseProtocol = DB)
         client
       )
       SocketServer.emit(nodeUpdateEvent, { nodeUpdates: nodeUpdatesMirrorReset })
-      await CountryService.setCountryStatusEditing({ assessment, cycle, country, user }, client)
+      await CountryService.updateLastEdit({ assessment, cycle, country, user }, client)
 
       // schedule dependencies update
       await scheduleUpdateDependencies({ assessment, cycle, country, nodeUpdates: nodeUpdatesPersisted, user })
