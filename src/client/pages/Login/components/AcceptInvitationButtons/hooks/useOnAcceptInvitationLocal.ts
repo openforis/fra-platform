@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { Routes } from 'meta/routes'
 
 import { useAppDispatch } from 'client/store'
-import { LoginActions } from 'client/store/login'
+import { LoginActions, useInvitation } from 'client/store/login'
 import { AcceptInvitationFormState } from 'client/store/login/stateType'
 import { isError, LoginValidator } from 'client/pages/Login/utils/LoginValidator'
 
@@ -23,6 +23,13 @@ export const useOnAcceptInvitationLocal = (props: Props): Returned => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
 
+  const { assessment, userInvitation } = useInvitation()
+  const { countryIso } = userInvitation
+  const cycle = assessment?.cycles.find((cycle) => cycle.uuid === userInvitation.cycleUuid)
+  const assessmentName = assessment?.props.name
+  const cycleName = cycle?.name
+  const redirectUrl = Routes.Country.generatePath({ assessmentName, countryIso, cycleName })
+
   return useCallback<Returned>(() => {
     const fieldErrors = showPassword2
       ? LoginValidator.invitationValidate(email, password, password2)
@@ -38,8 +45,8 @@ export const useOnAcceptInvitationLocal = (props: Props): Returned => {
         })
       ).then(() => {
         dispatch(LoginActions.resetAcceptInvitationForm())
-        navigate(Routes.Root.path.absolute)
+        navigate(redirectUrl)
       })
     }
-  }, [dispatch, email, invitationUuid, navigate, password, password2, showPassword2])
+  }, [dispatch, email, invitationUuid, navigate, password, password2, redirectUrl, showPassword2])
 }

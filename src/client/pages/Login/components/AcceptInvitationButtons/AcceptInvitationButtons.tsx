@@ -21,6 +21,7 @@ const AcceptInvitationButtons: React.FC = () => {
 
   const { invitationUuid, lang } = useSearchParams<LoginInvitationQueryParams>()
   const { assessment, invitedUser, userProviders, userInvitation } = useInvitation()
+  const { countryIso } = userInvitation
 
   const cycle = assessment?.cycles.find((cycle) => cycle.uuid === userInvitation.cycleUuid)
   const assessmentName = assessment?.props.name
@@ -64,7 +65,7 @@ const AcceptInvitationButtons: React.FC = () => {
 
       <a
         className="btn"
-        href={`${ApiEndPoint.Auth.google()}?assessmentName=${assessmentName}&cycleName=${cycleName}&invitationUuid=${invitationUuid}`}
+        href={`${ApiEndPoint.Auth.google()}?assessmentName=${assessmentName}&countryIso=${countryIso}&cycleName=${cycleName}&invitationUuid=${invitationUuid}`}
       >
         {t('login.acceptInvitationWithGoogle')}
       </a>
