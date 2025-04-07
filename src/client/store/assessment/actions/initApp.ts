@@ -3,12 +3,10 @@ import axios from 'axios'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { Assessment } from 'meta/assessment/assessment'
-import { Settings } from 'meta/assessment/settings'
 import { User } from 'meta/user'
 
 type Returned = {
   assessments: Array<Assessment>
-  settings: Settings
   user?: User
 }
 

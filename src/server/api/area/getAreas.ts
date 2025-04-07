@@ -4,16 +4,26 @@ import { InitRequest } from 'meta/api/request'
 
 import { AreaController } from 'server/controller/area'
 import { AssessmentController } from 'server/controller/assessment'
-import { SettingsController } from 'server/controller/settings'
 import Requests from 'server/utils/requests'
 
 export const getAreas = async (req: InitRequest, res: Response) => {
   try {
     const { assessmentName, cycleName } = req.query
 
-    const settings = await SettingsController.read()
-    const props = assessmentName ? { assessmentName } : { id: settings.defaultAssessmentId }
-    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ ...props, cycleName })
+    let assessmentProps: { assessmentName: string }
+
+    if (assessmentName) {
+      assessmentProps = { assessmentName }
+    } else {
+      const assessments = await AssessmentController.getAll({})
+      const defaultAssessment = assessments.find((a) => a.props.default)
+      assessmentProps = { assessmentName: defaultAssessment.props.name }
+    }
+
+    const { assessment, cycle } = await AssessmentController.getOneWithCycle({
+      ...assessmentProps,
+      cycleName,
+    })
 
     const [countries, regionGroups] = await Promise.all([
       AreaController.getCountries({ assessment, cycle }),

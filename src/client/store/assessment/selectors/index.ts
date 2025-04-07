@@ -15,15 +15,12 @@ const getAssessment = createSelector(
     assessments.find((assessment) => assessment.props.name === assessmentName)
 )
 
-const getSettings = createSelector([(state: RootState) => state.assessment.settings], (settings) => settings)
-
-const getDefaultAssessment = createSelector([getAssessments, getSettings], (assessments, settings) =>
-  assessments.find((assessment) => assessment.id === settings.defaultAssessmentId)
+const getDefaultAssessment = createSelector([getAssessments], (assessments) =>
+  assessments.find((assessment) => assessment.props.default)
 )
 
 export const AssessmentSelectors = {
   getAssessments,
   getAssessment,
   getDefaultAssessment,
-  getSettings,
 }
