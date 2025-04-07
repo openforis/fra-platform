@@ -27,16 +27,15 @@ const defaultProps: Partial<Props> = {
 }
 
 const marginH = '12px'
-const marginBottom = '20px'
+const marginBottom = '32px'
 const marginTop = '20px'
 
 const pdfOptions: PDFOptions = {
   displayHeaderFooter: true,
   footerTemplate: `
-    <div style="width: 100%; font-size: 8px; text-align: center; color: #939393;">
-      <div style="margin-top: 12px;">
-        <span class="pageNumber"></span>
-      </div>
+    <style>#footer { padding: 0 !important; }</style>
+    <div style="width: 100%; height: ${marginBottom}; position: relative; font-size: 8px; text-align: center; color: #939393;">
+      <span class="pageNumber" style="position: absolute; top: 50%; transform: translateY(-50%);"></span>
     </div>
   `,
   headerTemplate: '<div></div>',

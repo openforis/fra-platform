@@ -42,6 +42,7 @@
   "nationalClassifications": "国家级分类",
   "nationalData": "国家数据",
   "nationalDataPoint": "国家数据点",
+  "nationalDataReferToSection1a": "国家数据 —— 数据来源和国家级分类已在1a节中展示。请参阅相应内容。",
   "noNationalDataAdded": "未添加国家数据",
   "otherLandCharacteristics": "有树木覆盖的其他土地",
   "plantationForest": "种植林",
