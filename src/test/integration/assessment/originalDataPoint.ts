@@ -1,9 +1,10 @@
-import { AssessmentStatus, Country } from 'meta/area'
+import { Country } from 'meta/area'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { User } from 'meta/user'
 
+import { AreaController } from 'server/controller/area'
 import { AssessmentController } from 'server/controller/assessment'
 import { CycleDataController } from 'server/controller/cycleData'
 import { UserController } from 'server/controller/user'
@@ -15,6 +16,7 @@ export default (): void =>
   describe('Original data point', () => {
     let assessment: Assessment
     let cycle: Cycle
+    let country: Country
     let user: User
     let gotOriginalDataPoint: OriginalDataPoint
 
@@ -25,6 +27,7 @@ export default (): void =>
         metaCache: true,
       }))
 
+      country = await AreaController.getCountry({ assessment, cycle, countryIso: originalDataPoint.countryIso })
       user = await UserController.getOne({ email: userMockTest.email })
     })
 
@@ -32,7 +35,7 @@ export default (): void =>
       const createdOriginalDataPoint = await CycleDataController.createOriginalDataPoint({
         assessment,
         cycle,
-        country: { countryIso: originalDataPoint.countryIso, props: { status: AssessmentStatus.editing } } as Country,
+        country,
         sectionName: 'extentOfForest',
         originalDataPoint,
         user,
