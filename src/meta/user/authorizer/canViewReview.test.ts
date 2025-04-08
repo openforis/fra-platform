@@ -1,4 +1,4 @@
-import { Areas, AssessmentStatus, Country, CountryIso } from 'meta/area'
+import { Areas, Country, CountryIso, CountryStatus } from 'meta/area'
 import { Cycle } from 'meta/assessment/cycle'
 import { Section } from 'meta/assessment/section'
 
@@ -23,12 +23,12 @@ describe('canViewReview', () => {
     mockUser = { id: 1 } as User
     mockCountry = {
       countryIso: 'X01' as CountryIso,
-      props: { status: AssessmentStatus.review },
+      props: { status: CountryStatus.review },
       lastEdit: '2024-03-12 09:53:02.9951',
     } as Country
     mockCycle = { uuid: '2020' } as Cycle
     ;(Areas.isISOCountry as jest.Mock).mockReturnValue(true)
-    ;(Areas.getStatus as jest.Mock).mockReturnValue(AssessmentStatus.review)
+    ;(Areas.getStatus as jest.Mock).mockReturnValue(CountryStatus.review)
     ;(Users.isAdministrator as jest.Mock).mockReturnValue(false)
     ;(Users.isReviewer as jest.Mock).mockReturnValue(false)
     ;(Users.isNationalCorrespondent as jest.Mock).mockReturnValue(false)
@@ -99,7 +99,7 @@ describe('canViewReview', () => {
   })
 
   test('should return true for admin when country status is accepted', () => {
-    const mockCountryNotInReview = { ...mockCountry, props: { status: AssessmentStatus.accepted } }
+    const mockCountryNotInReview = { ...mockCountry, props: { status: CountryStatus.accepted } }
     ;(Users.isAdministrator as jest.Mock).mockReturnValue(true)
     ;(Users.getRole as jest.Mock).mockReturnValue({ role: RoleName.ADMINISTRATOR })
     expect(

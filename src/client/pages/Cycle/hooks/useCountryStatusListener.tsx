@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-import { AssessmentStatus, CountryIso } from 'meta/area'
+import { CountryIso, CountryStatus } from 'meta/area'
 import { Sockets } from 'meta/socket'
 
 import { useAppDispatch } from 'client/store'
@@ -19,7 +19,7 @@ export const useCountryStatusListener = (): void => {
       countryIso,
     })
 
-    const handleStatusUpdate = (args: [{ status: AssessmentStatus }]) => {
+    const handleStatusUpdate = (args: [{ status: CountryStatus }]) => {
       const [{ status }] = args
       dispatch(
         AreaActions.updateCountryStatus({

@@ -36,6 +36,11 @@
     margin-right: 8px;
   }
 
+  .status-published {
+    @include mixin-status-base($ui-status-published);
+    margin-right: 8px;
+  }
+
   .status-approval-label {
     color: color.adjust($ui-status-review, $lightness: -13%, $space: hsl);
     font-weight: 600;

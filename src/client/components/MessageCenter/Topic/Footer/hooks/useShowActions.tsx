@@ -1,4 +1,4 @@
-import { Areas, AssessmentStatus } from 'meta/area'
+import { Areas, CountryStatus } from 'meta/area'
 import { MessageTopic, MessageTopicStatus, MessageTopicType } from 'meta/messageCenter'
 import { Users } from 'meta/user'
 
@@ -17,8 +17,8 @@ export const useShowActions = (topic: MessageTopic) => {
   const isAdmin = Users.isAdministrator(user)
   const isReviewer = Users.isReviewer(user, countryIso, cycle)
 
-  const isNotStarted = status === AssessmentStatus.notStarted
-  const isEditing = status === AssessmentStatus.editing
+  const isNotStarted = status === CountryStatus.notStarted
+  const isEditing = status === CountryStatus.editing
   const isReview = topic.type === MessageTopicType.review
   const isOpened = topic.status === MessageTopicStatus.opened
   const isResolved = topic.status === MessageTopicStatus.resolved

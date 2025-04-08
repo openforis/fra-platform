@@ -33,22 +33,23 @@
     visibility: hidden;
   }
 
-  &.status-notStarted,
-  &.status-changing,
+  &.status-notStarted {
+    background-color: $ui-status-notStarted;
+  }
+
   &.status-editing {
     background-color: $ui-status-editing;
   }
 
   &.status-review {
     background-color: $ui-status-review;
-    border: 1px solid color.adjust($ui-status-review, $lightness: -5%, $space: hsl);
+  }
+
+  &.status-approval {
+    background-color: $ui-status-approval;
   }
 
   &.status-accepted {
     background-color: $ui-status-accepted;
-  }
-
-  &.status-approval {
-    background-color: $ui-status-review;
   }
 }

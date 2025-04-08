@@ -41,9 +41,12 @@ $ui-edit-border-color: #939393;
 //Theme 2
 $ui-accent-2: #d46e33;
 
-$ui-status-editing: #a5abb0;
-$ui-status-accepted: #66bb66;
-$ui-status-review: #ffbb33;
+$ui-status-notStarted: #a5aab0;
+$ui-status-editing: #bbcaa1;
+$ui-status-review: #7de1a0;
+$ui-status-approval: #57bf80;
+$ui-status-accepted: #14884e;
+$ui-status-published: #555555;
 
 $ui-thin-border: 1px solid $ui-border;
 $ui-app-review-width: 288px;

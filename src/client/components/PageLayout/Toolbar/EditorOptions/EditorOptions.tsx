@@ -7,6 +7,7 @@ import { Users } from 'meta/user'
 import { useCycle } from 'client/store/assessment'
 import { useUser } from 'client/store/user'
 import { useCanViewHistoryLastApproved } from 'client/store/user/hooks'
+import { useUserHasRoleInCountry } from 'client/store/user/hooks/roles'
 import Icon from 'client/components/Icon'
 import ButtonHistory from 'client/components/PageLayout/Toolbar/ButtonHistory'
 import Lock from 'client/components/PageLayout/Toolbar/Lock'
@@ -17,6 +18,7 @@ const EditorOptions: React.FC = () => {
   const cycle = useCycle()
   const user = useUser()
   const canViewHistory = useCanViewHistoryLastApproved()
+  const userHasRoleInCountry = useUserHasRoleInCountry()
 
   const reviewer = Users.isAReviewer(user, cycle) || Users.isAdministrator(user)
 
@@ -24,7 +26,7 @@ const EditorOptions: React.FC = () => {
     <div className="toolbar-editor">
       <Lock />
       <div className="toolbar__separator" />
-      <Status />
+      {userHasRoleInCountry && <Status />}
 
       {canViewHistory && (
         <>

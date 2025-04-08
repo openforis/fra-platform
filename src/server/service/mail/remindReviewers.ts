@@ -2,7 +2,7 @@ import { createI18nPromise } from 'i18n/i18nFactory'
 import { TFunction } from 'i18next'
 import { Dates } from 'utils/dates'
 
-import { AreaCode, Areas, AssessmentStatus, Country } from 'meta/area'
+import { AreaCode, Areas, Country, CountryStatus } from 'meta/area'
 import { Assessment, AssessmentName } from 'meta/assessment/assessment'
 import { Cycle, CycleName } from 'meta/assessment/cycle'
 import { Lang } from 'meta/lang'
@@ -99,7 +99,7 @@ const getReviewerRecipients = async (props: {
           const inReview = countries.filter((country) => {
             const diffInDays = Dates.differenceInDays(new Date(), new Date(country.lastInReview))
             return (
-              country.props.status === AssessmentStatus.review &&
+              country.props.status === CountryStatus.review &&
               diffInDays > 6 &&
               diffInDays % 7 === 0 &&
               !Areas.isAtlantis(country.countryIso)
@@ -111,7 +111,7 @@ const getReviewerRecipients = async (props: {
           const users = await UserRepository.readCountryUsersByRole({
             countryISOs: inReview.map((c) => c.countryIso),
             cycle,
-            roles: UserRoles.getRecipientRoles({ status: AssessmentStatus.review }),
+            roles: UserRoles.getRecipientRoles({ status: CountryStatus.review }),
           })
 
           users.forEach((user) => {

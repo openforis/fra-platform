@@ -1,4 +1,4 @@
-import { AssessmentStatus, Country } from 'meta/area'
+import { Country, CountryStatus } from 'meta/area'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { User } from 'meta/user'
@@ -20,8 +20,8 @@ export const updateLastEdit = async (props: Props, client: BaseProtocol = DB) =>
 
   if (!country) return
 
-  if (country.props.status === AssessmentStatus.notStarted) {
-    country.props.status = AssessmentStatus.editing
+  if (country.props.status === CountryStatus.notStarted) {
+    country.props.status = CountryStatus.editing
   }
 
   // Client is notified through websocket in updateCountry
