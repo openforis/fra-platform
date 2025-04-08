@@ -43,7 +43,6 @@
 
   &.status-review {
     background-color: $ui-status-review;
-    border: 1px solid color.adjust($ui-status-review, $lightness: -5%, $space: hsl);
   }
 
   &.status-approval {
