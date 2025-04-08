@@ -4,6 +4,7 @@ import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 export const assessmentParams = {
   props: {
     name: AssessmentNames.fraTest,
+    default: true,
   },
 }
 

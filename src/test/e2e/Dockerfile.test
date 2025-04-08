@@ -17,4 +17,4 @@ COPY . .
 RUN yarn build
 
 EXPOSE 9001
-CMD ["yarn", "run:prod:server"] 
+CMD ["yarn", "start"]

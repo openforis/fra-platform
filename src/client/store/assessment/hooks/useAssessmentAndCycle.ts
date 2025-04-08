@@ -20,6 +20,10 @@ export const useAssessments = (): Array<Assessment> => {
   return useAppSelector(AssessmentSelectors.getAssessments)
 }
 
+export const useAssessmentDefault = (): Assessment => {
+  return useAppSelector(AssessmentSelectors.getDefaultAssessment)
+}
+
 export const useCycle = (cycleUuid?: CycleUuid): Cycle => {
   const { cycleName } = useCycleRouteParams()
   const assessment = useAssessment()
