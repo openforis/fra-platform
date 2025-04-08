@@ -3,7 +3,7 @@ import { UserRoles } from 'meta/user/userRoles'
 import { useAssessmentDefault, useAssessments } from 'client/store/assessment'
 import { useUser } from 'client/store/user'
 
-export const _useInitialAssessment = () => {
+export const useInitialAssessment = () => {
   const assessments = useAssessments()
   const assessmentDefault = useAssessmentDefault()
   const user = useUser()
