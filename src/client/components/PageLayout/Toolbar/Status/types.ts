@@ -1,6 +1,6 @@
-import { AssessmentStatus } from 'meta/area'
+import { CountryStatus } from 'meta/area'
 
 export interface StatusTransition {
-  status: AssessmentStatus
+  status: CountryStatus
   direction: 'next' | 'previous'
 }
