@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import { AssessmentStatus, CountryIso } from 'meta/area'
+import { CountryIso, CountryStatus } from 'meta/area'
 import { RoleName, User, Users } from 'meta/user'
 import { UserRoles } from 'meta/user/userRoles'
 
@@ -35,7 +35,7 @@ export const useRecipients = (props: Props): Returned => {
       return currentUser.id !== user.id && recipientRoles.includes(userCountryRole)
     })
 
-    if (status.status !== AssessmentStatus.approval) return userList
+    if (status.status !== CountryStatus.approval) return userList
 
     const getApprovalRoleOrder = (user: User): number => {
       const role = Users.getRole(user, countryIso, cycle)?.role

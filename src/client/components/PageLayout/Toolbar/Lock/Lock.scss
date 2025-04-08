@@ -2,11 +2,13 @@
 
 @import 'src/client/style/partials';
 
+$colorUnlock: #57bf80;
+
 button.btn-lock {
   align-items: center;
-  background-color: color.adjust($ui-status-accepted, $lightness: 38%, $space: hsl);
+  background-color: color.adjust($colorUnlock, $lightness: 40%, $space: hsl);
   border-radius: 2px;
-  border: 1px solid $ui-status-accepted;
+  border: 1px solid color.adjust($colorUnlock, $lightness: -10%, $space: hsl);
   display: grid;
   height: $spacing-m;
   justify-content: center;
@@ -15,13 +17,13 @@ button.btn-lock {
   width: $spacing-l;
 
   svg {
-    color: color.adjust($ui-status-accepted, $lightness: -15%, $space: hsl);
+    color: color.adjust($colorUnlock, $lightness: -15%, $space: hsl);
     height: 20px;
     width: 20px;
   }
 
   &:hover {
-    background-color: color.adjust($ui-status-accepted, $lightness: 35%, $space: hsl);
+    background-color: color.adjust($colorUnlock, $lightness: 35%, $space: hsl);
 
     svg {
       transform: scale(1.02);

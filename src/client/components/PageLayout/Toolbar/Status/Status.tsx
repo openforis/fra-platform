@@ -3,93 +3,27 @@ import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import MediaQuery from 'react-responsive'
 
-import classNames from 'classnames'
 import { Objects } from 'utils/objects'
 
-import { Areas, AssessmentStatus } from 'meta/area'
-import { AssessmentStatusTransitions } from 'meta/assessment/assessments'
-import { Users } from 'meta/user'
+import { Areas } from 'meta/area'
 
-import { useAppDispatch } from 'client/store'
-import { AreaActions, useAssessmentCountry } from 'client/store/area'
-import { useCycle } from 'client/store/assessment'
-import { useIsDataLocked } from 'client/store/ui/dataLock'
-import { useUser } from 'client/store/user'
-import { useCountryIso } from 'client/hooks'
-import { useCycleRouteParams } from 'client/hooks/useRouteParams'
+import { useAssessmentCountry } from 'client/store/area'
 import Icon from 'client/components/Icon'
-import PopoverControl, { PopoverItem } from 'client/components/PopoverControl'
+import PopoverControl from 'client/components/PopoverControl'
 import { Breakpoints } from 'client/utils/breakpoints'
 
+import { usePopoverItems } from './hooks/usePopoverItems'
 import StatusConfirm from './StatusConfirm'
 import { StatusTransition } from './types'
 
 const Status: React.FC = () => {
-  const dispatch = useAppDispatch()
-  const countryIso = useCountryIso()
   const { t } = useTranslation()
-  const user = useUser()
   const country = useAssessmentCountry()
-  const cycle = useCycle()
-  const dataLocked = useIsDataLocked()
-  const hasRoleInCountry = Users.hasRoleInCountry({ user, cycle, countryIso })
-  const { assessmentName, cycleName } = useCycleRouteParams()
+
   const [targetStatus, setTargetStatus] = useState<StatusTransition>(null)
+  const items = usePopoverItems({ setTargetStatus })
 
-  if (!country || !hasRoleInCountry) return null
-  const { deskStudy } = country.props ?? {}
   const status = Areas.getStatus(country)
-  const deskStudyItems: Array<PopoverItem> = [
-    { divider: true },
-    {
-      content: (
-        <div className="popover-control__checkbox-container">
-          <span className={classNames('fra-checkbox', { checked: deskStudy })} style={{ marginRight: '8px' }} />
-          <span>{t<string>('assessment.deskStudy')}</span>
-        </div>
-      ),
-      onClick: () => {
-        dispatch(
-          AreaActions.updateCountry({
-            country: {
-              ...country,
-              props: {
-                ...country.props,
-                deskStudy: !country.props.deskStudy,
-              },
-            },
-            countryIso,
-            cycleName,
-            assessmentName,
-          })
-        )
-      },
-    },
-  ]
-
-  const items: Array<PopoverItem> = []
-  if (![AssessmentStatus.changing, AssessmentStatus.notStarted].includes(status) && !dataLocked) {
-    const { next, previous } = AssessmentStatusTransitions.getAllowedTransition({
-      country,
-      countryIso,
-      user,
-      cycle,
-    })
-
-    if (next) {
-      items.push({
-        content: t(`assessment.status.${next}.next`),
-        onClick: () => setTargetStatus({ status: next, direction: 'next' }),
-      })
-    }
-    if (previous) {
-      items.push({
-        content: t(`assessment.status.${previous}.previous`),
-        onClick: () => setTargetStatus({ status: previous, direction: 'previous' }),
-      })
-    }
-    if (Users.isAdministrator(user)) items.push(...deskStudyItems)
-  }
 
   return (
     <>

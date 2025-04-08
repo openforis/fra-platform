@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import { Areas, AssessmentStatus, CountryIso } from 'meta/area'
+import { Areas, CountryIso, CountryStatus } from 'meta/area'
 import { Users } from 'meta/user'
 
 import { useCountry } from 'client/store/area'
@@ -15,6 +15,6 @@ export const useCanEditRoleProps = (): boolean => {
   const isAdmin = Users.isAdministrator(user)
 
   return useMemo<boolean>(() => {
-    return isAdmin || [AssessmentStatus.editing, AssessmentStatus.notStarted].includes(Areas.getStatus(country))
+    return isAdmin || [CountryStatus.editing, CountryStatus.notStarted].includes(Areas.getStatus(country))
   }, [isAdmin, country])
 }

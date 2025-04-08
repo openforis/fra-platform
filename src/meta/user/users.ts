@@ -20,7 +20,7 @@ const isAdministrator = (user: User) => {
   return user?.roles?.some((role) => role?.role === RoleName.ADMINISTRATOR)
 }
 
-const getRole = (user: User, countryIso: AreaCode, cycle: Cycle): UserRole<RoleName, any> => {
+const getRole = (user: User, countryIso: AreaCode, cycle: Cycle): UserRole<RoleName> => {
   if (isAdministrator(user)) return user.roles[0]
 
   return user?.roles?.find(

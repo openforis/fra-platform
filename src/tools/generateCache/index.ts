@@ -2,6 +2,7 @@ import 'tsconfig-paths/register'
 import 'dotenv/config'
 
 import { AssessmentController } from 'server/controller/assessment'
+import { CacheController } from 'server/controller/cache'
 import { DB } from 'server/db'
 import { RedisData } from 'server/repository/redis/redisData'
 import { Logger } from 'server/utils/logger'
@@ -20,6 +21,7 @@ const exec = async () => {
       // cycles data cache
       await Promise.all(
         assessment.cycles.map(async (cycle) => {
+          await CacheController.generateArea({ assessment, cycle })
           await AssessmentController.generateDataCache({ assessment, cycle })
         })
       )

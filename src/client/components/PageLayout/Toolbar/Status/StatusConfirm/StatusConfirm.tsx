@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom'
 
 import classNames from 'classnames'
 
-import { AssessmentStatus } from 'meta/area/status'
+import { CountryStatus } from 'meta/area/status'
 import { AssessmentName } from 'meta/assessment/assessment'
 import { Users } from 'meta/user'
 
@@ -59,7 +59,7 @@ const StatusConfirm: React.FC<Props> = (props) => {
           />
         </div>
 
-        {status.status !== AssessmentStatus.approval && Users.isAdministrator(user) && hasRecipients && (
+        {status.status !== CountryStatus.approval && Users.isAdministrator(user) && hasRecipients && (
           <div
             className="nav-assessment-status-confirm__notify-users"
             onClick={() => setNotifyUsers(!notifyUsers)}

@@ -1,9 +1,9 @@
 import { CountryIso } from 'meta/area/countryIso'
-import { AssessmentStatus } from 'meta/area/status'
+import { CountryStatus } from 'meta/area/status'
 
 export type CountrySummary = {
   countryIso: CountryIso
-  status: AssessmentStatus
+  status: CountryStatus
 
   /* invitation/user counts */
   invitationsAcceptedCount: number
