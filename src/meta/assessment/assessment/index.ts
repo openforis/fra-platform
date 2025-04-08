@@ -12,6 +12,7 @@ export enum AssessmentNames {
 export type AssessmentProps = {
   name: AssessmentName
   defaultCycle?: CycleUuid
+  default?: boolean
 }
 
 export interface Assessment {

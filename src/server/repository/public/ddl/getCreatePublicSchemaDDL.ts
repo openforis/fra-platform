@@ -159,10 +159,6 @@ export const getCreatePublicSchemaDDL = (schemaName = 'public'): string => {
       name text
     );
 
-    create table if not exists ${schemaName}.settings (
-      default_assessment_id bigint
-    );
-
     create table if not exists ${schemaName}.users_auth_provider (
       id bigserial primary key,
       user_id bigint not null,
