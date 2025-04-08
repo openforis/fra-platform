@@ -6,16 +6,16 @@ import * as path from 'node:path'
 import { Objects } from 'utils/objects'
 import { Promises } from 'utils/promises'
 
-import { Country, CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area'
 import { NodeValue } from 'meta/assessment/node'
 import { RowCaches } from 'meta/assessment/rowCaches'
 import { NodeUpdate } from 'meta/data'
 import { UsersEmail } from 'meta/user'
 
-import { AreaController } from 'server/controller/area'
 import { AssessmentController } from 'server/controller/assessment'
 import { CycleDataController } from 'server/controller/cycleData'
 import { UserController } from 'server/controller/user'
+import { AreaRedisRepository } from 'server/repository/redis/area'
 import { RowRedisRepository } from 'server/repository/redis/row'
 import { Logger } from 'server/utils/logger'
 
@@ -78,19 +78,15 @@ const processCSVFiles = async () => {
           })
         })
 
-        const countries = await AreaController.getCountries({ assessment, cycle })
-        const countriesByIso = countries.reduce<Record<CountryIso, Country>>((acc, country) => {
-          acc[country.countryIso] = country
-          return acc
-        }, {} as Record<CountryIso, Country>)
+        const countriesMap = await AreaRedisRepository.getCountriesMap({ assessment, cycle })
 
         await Promises.each(Object.entries(countryNodes), async ([countryIso, nodes]) => {
-          const country = countriesByIso[countryIso as CountryIso]
+          const country = countriesMap[countryIso as CountryIso]
           await CycleDataController.TableData.massiveInsert({
             assessment,
             cycle,
             country,
-            countryNodes: { [countryIso as CountryIso]: nodes },
+            countryNodes: { [countryIso]: nodes },
             user,
           })
         })
