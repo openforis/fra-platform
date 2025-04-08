@@ -1,11 +1,11 @@
 import { Worker, WorkerOptions } from 'bullmq'
 import IORedis from 'ioredis'
 
+import { Country } from 'meta/area'
 import { NodeUpdates } from 'meta/data'
 import { Sockets } from 'meta/socket'
 import { User } from 'meta/user'
 
-import { AreaController } from 'server/controller/area'
 import { AssessmentController } from 'server/controller/assessment'
 import { scheduleUpdateDependencies } from 'server/controller/cycleData/updateDependencies/scheduleUpdateDependencies'
 import { SocketServer } from 'server/service/socket'
@@ -26,20 +26,20 @@ const workerOptions: WorkerOptions = {
 
 const _scheduleExternalDependantsUpdate = async (props: {
   logKey: string
+  country: Country
   nodeUpdates: NodeUpdates
   user: User
 }): Promise<void> => {
-  const { logKey, nodeUpdates, user } = props
+  const { logKey, country, nodeUpdates, user } = props
 
-  const { assessmentName, cycleName, countryIso } = nodeUpdates
+  const { assessmentName, cycleName } = nodeUpdates
 
   const propsAssessment = { assessmentName, cycleName, metaCache: true }
   const { assessment, cycle } = await AssessmentController.getOneWithCycle(propsAssessment)
-  const country = await AreaController.getCountry({ assessment, cycle, countryIso })
 
   if (country) {
     Logger.info(`${logKey} scheduling updates ${assessmentName}-${cycleName} of ${nodeUpdates.nodes.length} nodes.`)
-    await scheduleUpdateDependencies({ assessment, cycle, nodeUpdates, includeSourceNodes: true, user })
+    await scheduleUpdateDependencies({ assessment, cycle, country, nodeUpdates, includeSourceNodes: true, user })
   }
 }
 
@@ -50,7 +50,7 @@ const newInstance = (props: { key: string }) => {
   const worker = new Worker<UpdateDependenciesProps, UpdateDependenciesResult>(key, processor, workerOptions)
 
   worker.on('completed', async (job, result) => {
-    const { user } = job.data
+    const { user, country } = job.data
     const { externalDependants, nodeUpdates } = result
     const { assessmentName, cycleName, countryIso } = nodeUpdates
 
@@ -61,6 +61,7 @@ const newInstance = (props: { key: string }) => {
       // schedule external assessment/cycle updates
       _scheduleExternalDependantsUpdate({
         logKey: `[updateDependencies-worker] [job-${job.id}]`,
+        country,
         nodeUpdates: externalNodeUpdates,
         user,
       })

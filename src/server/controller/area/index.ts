@@ -5,6 +5,7 @@ import { updateCountry } from './updateCountry'
 
 export const AreaController = {
   getCountries: AreaRedisRepository.getManyCountries,
+  getCountriesMap: AreaRedisRepository.getCountriesMap,
   getCountry: AreaRedisRepository.getOneCountry,
   getCountrySummaries: CountrySummaryRepository.getMany,
   getCountrySummariesCount: CountrySummaryRepository.getCount,

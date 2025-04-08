@@ -1,4 +1,4 @@
-import { CountryIso } from 'meta/area'
+import { Country } from 'meta/area'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { NodeUpdate } from 'meta/data'
@@ -10,8 +10,8 @@ import { BaseProtocol, DB } from 'server/db'
 
 type Props = {
   assessment: Assessment
-  countryIso: CountryIso
   cycle: Cycle
+  country: Country
   includeSourceNodes?: boolean
   isODP?: boolean
   nodes: Array<NodeUpdate>
@@ -19,7 +19,9 @@ type Props = {
 }
 
 export const updateTableDataDependencies = async (props: Props, client: BaseProtocol = DB): Promise<void> => {
-  const { assessment, cycle, countryIso, nodes, includeSourceNodes, isODP, user } = props
+  const { assessment, cycle, country, nodes, includeSourceNodes, isODP, user } = props
+  const { countryIso } = country
+
   const { name: assessmentName } = assessment.props
   const { name: cycleName } = cycle
 
@@ -27,6 +29,7 @@ export const updateTableDataDependencies = async (props: Props, client: BaseProt
   const data: UpdateDependenciesJob['data'] = {
     assessment,
     cycle,
+    country,
     nodeUpdates,
     user,
     isODP,

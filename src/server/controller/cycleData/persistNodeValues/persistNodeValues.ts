@@ -69,7 +69,7 @@ export const persistNodeValues = async (props: Props, client: BaseProtocol = DB)
       await CountryService.updateLastEdit({ assessment, cycle, country, user }, client)
 
       // schedule dependencies update
-      await scheduleUpdateDependencies({ assessment, cycle, nodeUpdates: nodeUpdatesPersisted, user })
+      await scheduleUpdateDependencies({ assessment, cycle, country, nodeUpdates: nodeUpdatesPersisted, user })
     } catch (error) {
       Logger.error(error)
       throw error

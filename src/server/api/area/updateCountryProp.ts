@@ -27,7 +27,7 @@ export const updateCountryProp = async (req: Request, res: Response) => {
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName, metaCache })
 
     // 1. update database country prop
-    const countrySource = await AreaController.getCountry({ assessment, cycle, countryIso })
+    const countrySource = req.context.country
     const country: Country = { ...countrySource, props: { ...countrySource.props, ...countryProp } }
     const updatedCountry = await AreaController.updateCountry({
       assessment,
@@ -55,7 +55,7 @@ export const updateCountryProp = async (req: Request, res: Response) => {
         },
         { assessmentName, cycleName, countryIso, nodes: [] }
       )
-      await scheduleUpdateDependencies({ assessment, cycle, nodeUpdates, user })
+      await scheduleUpdateDependencies({ assessment, cycle, country: updatedCountry, nodeUpdates, user })
     }
 
     // 4. send updated country to client

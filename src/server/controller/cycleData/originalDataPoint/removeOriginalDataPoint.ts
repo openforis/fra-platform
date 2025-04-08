@@ -48,7 +48,14 @@ export const removeOriginalDataPoint = async (props: Props, client: BaseProtocol
     return target
   })
 
-  await updateOriginalDataPointDependentNodes({ assessment, cycle, originalDataPoint, user, notifyClient: false })
+  await updateOriginalDataPointDependentNodes({
+    assessment,
+    cycle,
+    country,
+    originalDataPoint,
+    user,
+    notifyClient: false,
+  })
 
   return odpReturn
 }

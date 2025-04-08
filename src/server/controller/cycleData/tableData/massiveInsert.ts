@@ -1,6 +1,6 @@
 import { Promises } from 'utils/promises'
 
-import { CountryIso } from 'meta/area'
+import { Country, CountryIso } from 'meta/area'
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
@@ -21,12 +21,13 @@ import { RowRedisRepository } from 'server/repository/redis/row'
 type Props = {
   assessment: Assessment
   cycle: Cycle
+  country: Country
   countryNodes: { [key in CountryIso]?: Array<NodeUpdate> }
   user: User
 }
 
 export const massiveInsert = async (props: Props): Promise<void> => {
-  const { assessment, cycle, countryNodes, user } = props
+  const { assessment, cycle, country, countryNodes, user } = props
   const { uuid: assessmentUuid } = assessment
   const { uuid: cycleUuid } = cycle
 
@@ -77,7 +78,7 @@ export const massiveInsert = async (props: Props): Promise<void> => {
       )
 
       // 5. Update dependencies
-      await updateTableDataDependencies({ assessment, cycle, countryIso, nodes, user }, client)
+      await updateTableDataDependencies({ assessment, cycle, country, nodes, user }, client)
     })
   })
 }

@@ -12,6 +12,7 @@ import { RowCaches } from 'meta/assessment/rowCaches'
 import { NodeUpdate } from 'meta/data'
 import { UsersEmail } from 'meta/user'
 
+import { AreaController } from 'server/controller/area'
 import { AssessmentController } from 'server/controller/assessment'
 import { CycleDataController } from 'server/controller/cycleData'
 import { UserController } from 'server/controller/user'
@@ -77,7 +78,18 @@ const processCSVFiles = async () => {
           })
         })
 
-        await CycleDataController.TableData.massiveInsert({ assessment, cycle, countryNodes, user })
+        const countriesMap = await AreaController.getCountriesMap({ assessment, cycle })
+
+        await Promises.each(Object.entries(countryNodes), async ([countryIso, nodes]) => {
+          const country = countriesMap[countryIso as CountryIso]
+          await CycleDataController.TableData.massiveInsert({
+            assessment,
+            cycle,
+            country,
+            countryNodes: { [countryIso]: nodes },
+            user,
+          })
+        })
       })
     })
   } catch (error) {

@@ -70,7 +70,7 @@ export const copyOriginalDataPointNationalClasses = async (
   // Note: When copying one or more national classes,
   // we must update the dependent nodes of the original data point.
   // The new value for copied original data for each national class is always null or undefined, as we don't copy values.
-  await updateOriginalDataPointDependentNodes({ assessment, cycle, originalDataPoint: odpReturn, user })
+  await updateOriginalDataPointDependentNodes({ assessment, cycle, country, originalDataPoint: odpReturn, user })
 
   return odpReturn
 }

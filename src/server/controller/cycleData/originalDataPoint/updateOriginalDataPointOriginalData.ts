@@ -47,7 +47,14 @@ export const updateOriginalDataPointOriginalData = async (
     return updatedOriginalDataPoint
   })
 
-  await updateOriginalDataPointDependentNodes({ assessment, cycle, sectionName, originalDataPoint: odpReturn, user })
+  await updateOriginalDataPointDependentNodes({
+    assessment,
+    cycle,
+    country,
+    sectionName,
+    originalDataPoint: odpReturn,
+    user,
+  })
 
   return odpReturn
 }

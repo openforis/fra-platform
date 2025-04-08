@@ -61,6 +61,7 @@ export const updateOriginalDataPointYear = async (
   const commonProps = { assessment, cycle, user }
   await updateOriginalDataPointsDependentNodes({
     ...commonProps,
+    country,
     originalDataPoints: [
       { originalDataPoint, notifyClient: false },
       { originalDataPoint: updatedOriginalDataPoint, notifyClient: true },
