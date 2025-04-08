@@ -51,7 +51,6 @@ services:
         condition: service_started
       mailhog:
         condition: service_started
-    command: sh -c "yarn migration-public:run"
     environment:
       - DATABASE_URL=postgres://fra:fra@postgres:5432/fra
       - SMTP_HOST=mailhog
