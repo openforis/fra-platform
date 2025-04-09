@@ -97,7 +97,7 @@ export const forestLayersMetadata: Record<ForestKey, LayerMetadata> = {
   [ForestKey.JRC2020]: {
     titleKey: 'geo.sections.forest.layerTitles.jrc2020',
     scale: 10,
-     palette: ['#e60073'], // magenta
+    palette: ['#e60073'], // magenta
     citation: 'http://data.europa.eu/89h/e554d6fb-6340-45d5-9309-332337e5bc26',
     forestAreaDataProperty: 'faJrc2020',
   },
