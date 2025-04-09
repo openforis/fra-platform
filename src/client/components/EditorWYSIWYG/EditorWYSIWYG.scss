@@ -70,5 +70,10 @@ div.editorWYSIWYG {
     td[nowrap] {
       white-space: normal;
     }
+
+    tr {
+      break-inside: avoid-page;
+      page-break-inside: avoid;
+    }
   }
 }
