@@ -52,6 +52,7 @@ export const useGeoProtectedAreas = () => {
         faJaxaProtected: state.geo?.geoStatistics?.forestEstimations?.data?.faJaxaProtected,
         faTandemxProtected: state.geo?.geoStatistics?.forestEstimations?.data?.faTandemxProtected,
         fra3bProtected: state.geo?.geoStatistics?.forestEstimations?.data?.fra3bProtected,
+        faJrc2020Protected: state.geo?.geoStatistics?.forestEstimations?.data?.faJrc2020Protected,
       })
     )
   )

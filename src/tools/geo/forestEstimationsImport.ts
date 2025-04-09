@@ -1,3 +1,6 @@
+import 'tsconfig-paths/register'
+import 'dotenv/config'
+
 import * as fs from 'fs/promises'
 import * as path from 'path'
 import { config } from 'dotenv'
@@ -173,4 +176,3 @@ forestIndicatorsImport()
     console.error(error)
     process.exit(1)
   })
-  
