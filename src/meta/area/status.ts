@@ -4,4 +4,5 @@ export enum CountryStatus {
   review = 'review',
   approval = 'approval',
   accepted = 'accepted',
+  published = 'published',
 }
