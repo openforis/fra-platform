@@ -105,6 +105,18 @@ export const getForestAssetData = (layer: LayerSource): { year?: number; img: Im
       }
       break
     }
+    
+    case ForestKey.JRC2020: {
+      const imgForestJRC2020 = ImageCollection('JRC/GFC2020/V2').mosaic();
+
+      asset = {
+        year: 2020,
+        img: imgForestJRC2020,
+        metadata: forestLayersMetadata[layer.key],
+      }
+      break
+    }
+
     case ForestKey.CustomFnF: {
       const imgCustom = Image(layer.options.assetId).select(0).eq(1)
 
