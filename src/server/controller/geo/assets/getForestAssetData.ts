@@ -107,7 +107,7 @@ export const getForestAssetData = (layer: LayerSource): { year?: number; img: Im
     }
     
     case ForestKey.JRC2020: {
-      const imgForestJRC2020 = ee.ImageCollection('JRC/GFC2020/V2').mosaic();
+      const imgForestJRC2020 = ImageCollection('JRC/GFC2020/V2').mosaic();
 
       asset = {
         year: 2020,
