@@ -29,6 +29,7 @@ const sourceNameKey: Record<string, string> = {
   faJaxaProtected: forestLayersMetadata[ForestKey.JAXA].titleKey,
   faTandemxProtected: forestLayersMetadata[ForestKey.TandemX].titleKey,
   fra3bProtected: extraEstimationsMetadata[ExtraEstimation.ReportedToFRA2020].titleKey,
+  faJrc2020Protected: forestLayersMetadata[ForestKey.JRC2020].titleKey,
 }
 
 export const useProtectedAreaData = (): Returned => {

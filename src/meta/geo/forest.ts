@@ -4,7 +4,7 @@ import { LayerMetadata, LayerSection, LayerSectionKey, Recipe } from './layer'
 
 export const hansenPercentages = [10, 20, 30] as const
 
-export type HansenPercentage = typeof hansenPercentages[number]
+export type HansenPercentage = (typeof hansenPercentages)[number]
 
 export enum ForestKey {
   JAXA = 'JAXA',
@@ -16,6 +16,7 @@ export enum ForestKey {
   ESAWorldCover = 'ESAWorldCover',
   Hansen = 'Hansen',
   MODIS = 'MODIS',
+  JRC2020 = 'JRC2020',
   CustomFnF = 'CustomFnF',
   Agreement = 'Agreement',
 }
@@ -32,6 +33,7 @@ export const agreementPalette = [
   '#9c8aad',
   '#a793b9',
   '#af9ac2',
+  '#c1abd6',
 ]
 
 export const forestLayersMetadata: Record<ForestKey, LayerMetadata> = {
@@ -91,6 +93,15 @@ export const forestLayersMetadata: Record<ForestKey, LayerMetadata> = {
     citation: 'https://doi.org/10.1126/science.1244693', // from gee asset
     forestAreaDataProperty: 'faHansen',
   },
+
+  [ForestKey.JRC2020]: {
+    titleKey: 'geo.sections.forest.layerTitles.jrc2020',
+    scale: 10,
+    palette: ['#93024c'], // magenta
+    citation: 'http://data.europa.eu/89h/e554d6fb-6340-45d5-9309-332337e5bc26',
+    forestAreaDataProperty: 'faJrc2020',
+  },
+
   [ForestKey.MODIS]: {
     titleKey: 'geo.sections.forest.layerTitles.modis',
     scale: 231.6563,
@@ -121,6 +132,7 @@ export const forestAgreementRecipes: Array<Recipe> = [
       { key: ForestKey.Copernicus },
       { key: ForestKey.ESRI },
       { key: ForestKey.ESAWorldCover },
+      { key: ForestKey.JRC2020 },
       {
         key: ForestKey.Hansen,
         options: {
@@ -140,6 +152,7 @@ export const forestAgreementRecipes: Array<Recipe> = [
       { key: ForestKey.Copernicus },
       { key: ForestKey.ESRI },
       { key: ForestKey.ESAWorldCover },
+      { key: ForestKey.JRC2020 },
       {
         key: ForestKey.Hansen,
         options: {
@@ -159,6 +172,7 @@ export const forestAgreementRecipes: Array<Recipe> = [
       { key: ForestKey.Copernicus },
       { key: ForestKey.ESRI },
       { key: ForestKey.ESAWorldCover },
+      { key: ForestKey.JRC2020 },
       {
         key: ForestKey.Hansen,
         options: {
@@ -235,6 +249,10 @@ export const forestLayers: LayerSection = {
     //   key: ForestKey.MODIS, // <- Layer not yet implemented in the backend
     //   metadata: forestLayersMetadata.MODIS,
     // },
+    {
+      key: ForestKey.JRC2020,
+      metadata: forestLayersMetadata.JRC2020,
+    },
     {
       key: ForestKey.CustomFnF,
       isCustomAsset: true,

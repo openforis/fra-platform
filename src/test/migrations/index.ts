@@ -1,5 +1,4 @@
-import 'tsconfig-paths/register'
-import 'dotenv/config'
+import '../../tools/scriptInit'
 
 import { Promises } from 'utils/promises'
 

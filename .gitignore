@@ -31,3 +31,7 @@ src/tools/report/output/
 #CSVNodeImport sample data
 src/tools/csvNodeImport/fra
 src/tools/csvNodeImport/panEuropean
+
+#Local env
+/.env.review
+/.env.production
