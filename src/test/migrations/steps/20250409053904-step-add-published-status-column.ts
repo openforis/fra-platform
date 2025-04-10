@@ -1,16 +1,30 @@
 import { Promises } from 'utils/promises'
 
+import { Assessment } from 'meta/assessment/assessment'
+import { Cycle } from 'meta/assessment/cycle'
+
 import { AssessmentController } from 'server/controller/assessment'
-import { BaseProtocol, Schemas } from 'server/db'
+import { DB, Schemas } from 'server/db'
+import { AreaRedisRepository } from 'server/repository/redis/area'
 
-export default async (client: BaseProtocol) => {
-  const assessments = await AssessmentController.getAll({ metaCache: true }, client)
+type SchemaValues = Array<{ schemaName: string; assessment: Assessment; cycle: Cycle }>
 
-  const schemas: Array<string> = assessments.flatMap((assessment) =>
-    assessment.cycles.map((cycle) => Schemas.getNameCycle(assessment, cycle))
+export default async () => {
+  const assessments = await AssessmentController.getAll({ metaCache: true })
+
+  const schemaValues: SchemaValues = assessments.flatMap((assessment) =>
+    assessment.cycles.map((cycle) => ({
+      schemaName: Schemas.getNameCycle(assessment, cycle),
+      assessment,
+      cycle,
+    }))
   )
 
-  await Promises.each(schemas, async (schemaName) => {
-    await client.query(`alter table ${schemaName}.country add column last_in_published timestamptz;`)
+  await Promises.each(schemaValues, async ({ schemaName }) => {
+    await DB.query(`alter table ${schemaName}.country add column last_in_published timestamptz;`)
+  })
+
+  await Promises.each(schemaValues, async ({ assessment, cycle }) => {
+    await AreaRedisRepository.getCountriesMap({ assessment, cycle, force: true })
   })
 }
