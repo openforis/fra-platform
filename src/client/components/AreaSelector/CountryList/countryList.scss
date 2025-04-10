@@ -79,14 +79,20 @@
 }
 
 .country-selection-list__row {
+  transition: background-color 0.2s ease;
+
   &:hover {
-    background-color: color.adjust($ui-bg, $lightness: -4%, $space: hsl);
+    background-color: color.adjust($ui-bg, $lightness: -2%, $space: hsl);
     color: inherit;
   }
 
   &.selected {
-    background-color: $ui-accent-light-extra;
+    background-color: rgba($ui-accent-light-extra, 0.4);
     color: inherit;
+
+    &:hover {
+      pointer-events: none;
+    }
   }
 }
 

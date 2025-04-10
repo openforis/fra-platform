@@ -1,5 +1,4 @@
-import 'tsconfig-paths/register'
-import 'dotenv/config'
+import '../scriptInit'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { CacheController } from 'server/controller/cache'

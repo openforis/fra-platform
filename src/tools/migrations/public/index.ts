@@ -1,5 +1,4 @@
-import 'tsconfig-paths/register'
-import 'dotenv/config'
+import '../../scriptInit'
 
 import * as fs from 'fs'
 import * as path from 'path'
