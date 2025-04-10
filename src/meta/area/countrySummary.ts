@@ -10,4 +10,4 @@ export type CountrySummary = {
   invitationsAcceptedCount: number
   invitationsSentCount: number
   usersCount: number
-} & Pick<Country, 'lastInAccepted' | 'lastEdit' | 'lastInApproval' | 'lastInReview' | 'lastUpdate'>
+} & Pick<Country, 'lastInAccepted' | 'lastEdit' | 'lastInApproval' | 'lastInReview' | 'lastUpdate' | 'lastEditOdpData'>
