@@ -1,6 +1,5 @@
 // localhost:9000/api/cycle-data/print/report?assessmentName=fra&cycleName=2025&countryIso=FIN&lang=en
-import 'tsconfig-paths/register'
-import 'dotenv/config'
+import '../scriptInit'
 
 import * as fs from 'fs/promises'
 import * as path from 'path'
@@ -10,21 +9,18 @@ import { Dates } from 'utils/dates'
 import { Promises } from 'utils/promises'
 
 import { Areas, CountryIso } from 'meta/area'
-import { AssessmentNames } from 'meta/assessment/assessment'
 import { Lang } from 'meta/lang'
 
 import { AreaController } from 'server/controller/area'
 import { AssessmentController } from 'server/controller/assessment'
 import { PdfReport } from 'server/service/pdfReport'
+import { ProcessEnv } from 'server/utils'
 import { Logger } from 'server/utils/logger'
 
-const appUri = 'http://localhost:9001'
-const assessmentName = AssessmentNames.fra
-const cycleName = '2025'
-const skipAtlantis = true
-const cookies = {
-  'fra-auth-token': `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDkzLCJlbWFpbCI6IkNvc2ltby50b2duYUBmYW8ub3JnIiwicHJvcHMiOnsibGFuZyI6ImVuIiwibmFtZSI6IkNvc2ltbyIsInRpdGxlIjoibXIiLCJzdXJuYW1lIjoiVG9nbmEifSwic3RhdHVzIjoiYWN0aXZlIiwidXVpZCI6IjZjYmU4MDdjLTRhYWYtNGUxMi05ZWRjLWY3MTc0MmZkNGVlYyIsImlhdCI6MTczMjc5NTMwN30.nqJQ07xFgJ9S69og8CTPynapX7TfAEu-9UD1czrjooo`,
-}
+const { appUri, fraAuthToken, fraReportAssessment, fraReportCycle, fraReportSkipAtlantis } = ProcessEnv
+const assessmentName = fraReportAssessment
+const cycleName = fraReportCycle
+const cookies = { 'fra-auth-token': fraAuthToken }
 
 const generateCountryReport = async (props: {
   countryIso: CountryIso
@@ -63,7 +59,7 @@ ToolsUtils.exec(async () => {
 
   await Promises.each(countries, async (country, index) => {
     const { countryIso } = country
-    if (!skipAtlantis || !Areas.isAtlantis(countryIso)) {
+    if (!fraReportSkipAtlantis || !Areas.isAtlantis(countryIso)) {
       const lang = countryLangs[countryIso]
       await generateCountryReport({ countryIso, lang, outputDir: reportsDir })
       Logger.info(`    ${countryIso} (${lang}) (${index + 1}/${countries.length}) generated`)

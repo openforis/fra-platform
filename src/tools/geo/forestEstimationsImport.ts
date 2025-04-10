@@ -1,6 +1,7 @@
+import '../scriptInit'
+
 import * as fs from 'fs/promises'
 import * as path from 'path'
-import { config } from 'dotenv'
 import * as pgPromise from 'pg-promise'
 import { Objects } from 'utils/objects'
 
@@ -26,6 +27,7 @@ type Response = {
       fa_agreement_hansen10_gte_6: number
       fa_agreement_hansen10_gte_7: number
       fa_agreement_hansen10_gte_8: number
+      fa_agreement_hansen10_gte_9: number
       fa_agreement_hansen20_gte_1: number
       fa_agreement_hansen20_gte_2: number
       fa_agreement_hansen20_gte_3: number
@@ -34,6 +36,7 @@ type Response = {
       fa_agreement_hansen20_gte_6: number
       fa_agreement_hansen20_gte_7: number
       fa_agreement_hansen20_gte_8: number
+      fa_agreement_hansen20_gte_9: number
       fa_agreement_hansen30_gte_1: number
       fa_agreement_hansen30_gte_2: number
       fa_agreement_hansen30_gte_3: number
@@ -42,6 +45,7 @@ type Response = {
       fa_agreement_hansen30_gte_6: number
       fa_agreement_hansen30_gte_7: number
       fa_agreement_hansen30_gte_8: number
+      fa_agreement_hansen30_gte_9: number
       fa_copernicus: number
       fa_esa_2009: number
       fa_esa_2020: number
@@ -52,6 +56,7 @@ type Response = {
       fa_hansen30: number
       fa_jaxa: number
       fa_tandemx: number
+      fa_jrc_2020: number
       fa_copernicus_protected: number
       fa_esa_2009_protected: number
       fa_esa_2020_protected: number
@@ -62,6 +67,7 @@ type Response = {
       fa_hansen30_protected: number
       fa_jaxa_protected: number
       fa_tandemx_protected: number
+      fa_jrc_2020_protected: number
       fra_1a_forestArea: number
       fra_1a_landArea: number
       fra_3b_protected: number
@@ -115,8 +121,6 @@ type Response = {
     }
   }>
 }
-
-config({ path: path.resolve(__dirname, '..', '..', '.env') })
 
 export const forestIndicatorsImport = async (): Promise<void> => {
   // eslint-disable-next-line no-console
