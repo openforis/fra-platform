@@ -1,5 +1,4 @@
 import { CountryIso } from 'meta/area/countryIso'
-import { CountrySummary } from 'meta/area/countrySummary'
 import { RegionCode } from 'meta/area/regionCode'
 import { CountryStatus } from 'meta/area/status'
 
@@ -11,16 +10,21 @@ export type CountryProps = {
   status: CountryStatus
 }
 
-export type LastPublished = {
-  cycleUuid: string
-  lastInPublished: string
-}
-
 export type Country = {
   countryIso: CountryIso
   props?: CountryProps
   regionCodes?: Array<RegionCode>
-  lastPublished?: LastPublished
-} & Pick<CountrySummary, 'lastInAccepted' | 'lastEdit' | 'lastInApproval' | 'lastInReview' | 'lastUpdate'>
+  lastPublishedCycleUuid: string
+  lastPublishedCycleTimestamp: string
+
+  /* last timestamp strings */
+  lastEdit: string
+  lastEditOdpData: string
+  lastInAccepted: string
+  lastInApproval: string
+  lastInPublished: string
+  lastInReview: string
+  lastUpdate: string
+}
 
 export type RecordCountries = Record<CountryIso, Country>

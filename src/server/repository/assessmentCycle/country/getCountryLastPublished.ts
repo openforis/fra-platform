@@ -1,17 +1,16 @@
 import { CountryIso } from 'meta/area'
-import { LastPublished } from 'meta/area/country'
 import { Assessment } from 'meta/assessment/assessment'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'
 
 type Props = { assessment: Assessment; countryIso?: CountryIso }
 
-type LastPublishedRecord = { lastPublished: LastPublished }
+type LastPublishedRecord = Record<CountryIso, { lastPublishedCycleUuid: string; lastPublishedCycleTimestamp: string }>
 
 export const getCountryLastPublished = async (
   props: Props,
   client: BaseProtocol = DB
-): Promise<Record<CountryIso, LastPublishedRecord>> => {
+): Promise<LastPublishedRecord> => {
   const { assessment, countryIso } = props
 
   const selectStatements = assessment.cycles
@@ -29,10 +28,8 @@ export const getCountryLastPublished = async (
     select jsonb_object_agg(
       country_iso,
       jsonb_build_object(
-        'lastPublished', jsonb_build_object(
-              'cycleUuid', cycle_uuid,
-              'lastInPublished', last_in_published
-                         )
+              'lastPublishedCycleUuid', cycle_uuid,
+              'lastPublishedCycleTimestamp', last_in_published
       )
     ) as result
     from (

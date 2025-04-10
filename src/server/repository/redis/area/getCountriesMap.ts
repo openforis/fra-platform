@@ -28,11 +28,11 @@ export const getCountriesMap = async (
     ])
 
     const countriesMap = countries.reduce((acc, country) => {
-      const countryWithLastPublished = Objects.setInPath({
-        obj: country,
-        path: ['lastPublished'],
-        value: countryLastPublished?.[country.countryIso]?.lastPublished,
-      })
+      const lastPublishedData = countryLastPublished?.[country.countryIso]
+      const countryWithLastPublished = {
+        ...country,
+        ...lastPublishedData,
+      }
 
       acc[country.countryIso] = countryWithLastPublished
       return acc

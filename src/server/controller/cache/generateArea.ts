@@ -13,7 +13,7 @@ export const generateArea = async (props: Props, client: BaseProtocol = DB) => {
   const { name: cycleName } = cycle
 
   const regionGroups = await AreaRedisRepository.getManyRegionGroups({ assessment, cycle, force: true }, client)
-  const countries = await AreaRedisRepository.getManyCountries({ assessment, cycle, force: true }, client)
+  const countries = await AreaRedisRepository.getCountriesMap({ assessment, cycle, force: true }, client)
 
   Logger.info(`${assessmentName}-${cycleName}: "${Object.keys(regionGroups).length} region groups" generated`)
   Logger.info(`${assessmentName}-${cycleName}: "${Object.keys(countries).length} countries" generated`)
