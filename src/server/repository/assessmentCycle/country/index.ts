@@ -1,3 +1,5 @@
+import { getCountryLastPublished } from 'server/repository/assessmentCycle/country/getCountryLastPublished'
+
 import { getCountryIsos } from './getCountryIsos'
 import { getMany, getManyRecord } from './getMany'
 import { getOne } from './getOne'
@@ -9,4 +11,5 @@ export const CountryRepository = {
   getOne,
   update,
   getCountryIsos,
+  getCountryLastPublished,
 }

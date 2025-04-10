@@ -11,10 +11,16 @@ export type CountryProps = {
   status: CountryStatus
 }
 
+export type LastPublished = {
+  cycleUuid: string
+  lastInPublished: string
+}
+
 export type Country = {
   countryIso: CountryIso
   props?: CountryProps
   regionCodes?: Array<RegionCode>
+  lastPublished?: LastPublished
 } & Pick<CountrySummary, 'lastInAccepted' | 'lastEdit' | 'lastInApproval' | 'lastInReview' | 'lastUpdate'>
 
 export type RecordCountries = Record<CountryIso, Country>
