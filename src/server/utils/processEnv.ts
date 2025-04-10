@@ -57,4 +57,10 @@ export const ProcessEnv = {
 
   // Kiosk
   kioskActivitiesSheetUrl: process.env.KIOSK_ACTIVITIES_SHEET_URL,
+
+  // scripts
+  fraAuthToken: process.env.FRA_AUTH_TOKEN,
+  fraReportAssessment: process.env.FRA_REPORT_ASSESSMENT,
+  fraReportCycle: process.env.FRA_REPORT_CYCLE,
+  fraReportSkipAtlantis: process.env.FRA_REPORT_SKIP_ATLANTIS ? Boolean(process.env.FRA_REPORT_SKIP_ATLANTIS) : true,
 }

@@ -9,6 +9,7 @@ import * as editUser from './es/editUser.json'
 import * as email from './es/email.json'
 import * as fra from './es/fra.json'
 import * as generalValidation from './es/generalValidations.json'
+import * as geo from './es/geo.json'
 import * as history from './es/history.json'
 import * as landing from './es/landing.json'
 import * as login from './es/login.json'
@@ -29,6 +30,7 @@ export const esTranslation = {
   email,
   fra,
   generalValidation,
+  geo,
   history,
   landing,
   login,
