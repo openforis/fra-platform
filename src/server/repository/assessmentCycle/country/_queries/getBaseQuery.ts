@@ -31,7 +31,7 @@ export const getBaseQuery = (props: Props): string => {
              left join ${cycleSchema}.country_summary cs
                        on c.country_iso = cs.country_iso
     ${countryIso ? 'where c.country_iso = $1' : ''}
-    ${countryIsos ? 'where c.country_iso in ($1:list)' : ''}
+    ${countryIsos?.length > 0 ? 'where c.country_iso in ($1:list)' : ''}
     group by c.country_iso, 
              props || jsonb_build_object('status', c.status),
             c.last_edit,
