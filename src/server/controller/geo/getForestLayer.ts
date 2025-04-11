@@ -32,7 +32,7 @@ export const getForestLayer = async (props: Props): Promise<LayerConfig> => {
   }
 
   const map = await getMap({
-    image: asset.img.selfMask(),
+    image: asset.img,
     style,
     countryIso,
   })

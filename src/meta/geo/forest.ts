@@ -93,7 +93,6 @@ export const forestLayersMetadata: Record<ForestKey, LayerMetadata> = {
     citation: 'https://doi.org/10.1126/science.1244693', // from gee asset
     forestAreaDataProperty: 'faHansen',
   },
-
   [ForestKey.JRC2020]: {
     titleKey: 'geo.sections.forest.layerTitles.jrc2020',
     scale: 10,
