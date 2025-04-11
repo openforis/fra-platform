@@ -23,6 +23,10 @@
   .fra-table {
     margin: 0 1px;
     width: calc(100% - 2px);
+
+    tr {
+      @include print-break-inside-avoid-page;
+    }
   }
 
   .fra-table__header-cell-left,
