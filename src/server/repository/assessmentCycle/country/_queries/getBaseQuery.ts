@@ -21,6 +21,7 @@ export const getBaseQuery = (props: Props): string => {
            c.last_in_review,
            c.last_in_approval,
            c.last_in_accepted,
+           c.last_in_published,
            c.last_update,
            jsonb_agg(cr.region_code) as region_codes
     from ${cycleSchema}.country c
@@ -35,6 +36,7 @@ export const getBaseQuery = (props: Props): string => {
             c.last_in_review,
             c.last_in_approval,
             c.last_in_accepted,
+            c.last_in_published,
             c.last_update
   `
 }
