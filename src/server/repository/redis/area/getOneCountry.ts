@@ -35,13 +35,6 @@ export const getOneCountry = async (props: Props, client: BaseProtocol = DB): Pr
 
   if (Objects.isEmpty(cachedData) || force) {
     country = await CountryRepository.getOne({ assessment, cycle, countryIso }, client)
-    const countryLastPublished = await CountryRepository.getCountryLastPublished({ assessment, countryIso }, client)
-
-    country = {
-      ...country,
-      ...countryLastPublished?.[countryIso],
-    }
-
     await redis.hmset(key, [countryIso, JSON.stringify(country)])
   } else {
     country = JSON.parse(cachedData)
