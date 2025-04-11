@@ -14,8 +14,6 @@ export type Country = {
   countryIso: CountryIso
   props?: CountryProps
   regionCodes?: Array<RegionCode>
-  lastPublishedCycleUuid: string
-  lastPublishedCycleTimestamp: string
 
   /* last timestamp strings */
   lastEdit: string
