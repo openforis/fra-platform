@@ -24,8 +24,7 @@ export default async (client: BaseProtocol) => {
                 add column last_in_editing timestamptz,
                 add column last_in_review timestamptz,
                 add column last_in_approval timestamptz,
-                add column last_in_accepted timestamptz,
-                add column last_in_published timestamptz
+                add column last_in_accepted timestamptz
                 ;`
       )
 
