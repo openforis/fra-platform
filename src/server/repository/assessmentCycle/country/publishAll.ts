@@ -19,8 +19,9 @@ export const publishAll = async (props: Props, client: BaseProtocol = DB): Promi
   const countryIsos = await client.map(
     `
     update ${schemaName}.country
-    set last_in_published = now()
-    where status != 'published'
+    set last_in_published = now(),
+        status = 'published'
+    where status = 'accepted'
     returning country_iso
   `,
     [],
