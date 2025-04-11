@@ -4,7 +4,7 @@ import { LayerMetadata, LayerSection, LayerSectionKey, Recipe } from './layer'
 
 export const hansenPercentages = [10, 20, 30] as const
 
-export type HansenPercentage = typeof hansenPercentages[number]
+export type HansenPercentage = (typeof hansenPercentages)[number]
 
 export enum ForestKey {
   JAXA = 'JAXA',
@@ -33,7 +33,7 @@ export const agreementPalette = [
   '#9c8aad',
   '#a793b9',
   '#af9ac2',
-  '#b8a2c6', // added with JRC2020 addition (if need another colour) 
+  '#c1abd6',
 ]
 
 export const forestLayersMetadata: Record<ForestKey, LayerMetadata> = {
@@ -93,11 +93,10 @@ export const forestLayersMetadata: Record<ForestKey, LayerMetadata> = {
     citation: 'https://doi.org/10.1126/science.1244693', // from gee asset
     forestAreaDataProperty: 'faHansen',
   },
-  
   [ForestKey.JRC2020]: {
     titleKey: 'geo.sections.forest.layerTitles.jrc2020',
     scale: 10,
-    palette: ['#e60073'], // magenta
+    palette: ['#93024c'], // magenta
     citation: 'http://data.europa.eu/89h/e554d6fb-6340-45d5-9309-332337e5bc26',
     forestAreaDataProperty: 'faJrc2020',
   },
@@ -252,7 +251,7 @@ export const forestLayers: LayerSection = {
     {
       key: ForestKey.JRC2020,
       metadata: forestLayersMetadata.JRC2020,
-    }, 
+    },
     {
       key: ForestKey.CustomFnF,
       isCustomAsset: true,

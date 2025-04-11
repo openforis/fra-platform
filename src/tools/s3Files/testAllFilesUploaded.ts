@@ -1,5 +1,4 @@
-import 'tsconfig-paths/register'
-import 'dotenv/config'
+import '../scriptInit'
 
 import axios from 'axios'
 import { Arrays } from 'utils/arrays'

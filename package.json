@@ -39,8 +39,8 @@
     "prepare": "husky install",
     "postinstall": "husky install",
     "pre-commit": "lint-staged && eslint --cache --fix",
-    "geo:forest-estimations-import": "ts-node tools/geo/forestEstimationsImport.ts",
-    "geo:bounds-import": "ts-node tools/geo/boundsImport.ts"
+    "geo:forest-estimations-import": "ts-node src/tools/geo/forestEstimationsImport.ts",
+    "geo:bounds-import": "ts-node src/tools/geo/boundsImport.ts"
   },
   "devDependencies": {
     "@babel/cli": "^7.17.6",
@@ -285,7 +285,7 @@
   "browserslist": [
     "last 2 versions"
   ],
-  "version": "3.10.2",
+  "version": "3.10.3",
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"

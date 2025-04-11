@@ -1,6 +1,7 @@
+import '../scriptInit'
+
 import * as fs from 'fs/promises'
 import * as path from 'path'
-import { config } from 'dotenv'
 import * as pgPromise from 'pg-promise'
 import { Objects } from 'utils/objects'
 
@@ -120,8 +121,6 @@ type Response = {
     }
   }>
 }
-
-config({ path: path.resolve(__dirname, '..', '..', '.env') })
 
 export const forestIndicatorsImport = async (): Promise<void> => {
   // eslint-disable-next-line no-console
