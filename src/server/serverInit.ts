@@ -13,6 +13,7 @@ import { SocketServer } from 'server/service/socket'
 import { ProcessEnv } from 'server/utils'
 import { Logger } from 'server/utils/logger'
 
+import { swaggerInit } from './swagger/swaggerInit'
 import { sendErr } from './utils/requests'
 import * as resourceCacheControl from './resourceCacheControl'
 
@@ -44,6 +45,8 @@ export const serverInit = () => {
    * Initialize API
    */
   Api.init(app)
+
+  swaggerInit(app)
 
   app.use('/*', express.static(path.resolve(__dirname, '..', 'client')))
 

@@ -16,6 +16,104 @@ type GetTableDataRequest = CycleDataRequest<{
   variables: Array<string>
 }>
 
+/**
+ * @openapi
+ * /cycle-data/table/table-data:
+ *   get:
+ *     summary: Get table data
+ *     parameters:
+ *       - in: query
+ *         name: assessmentName
+ *         description: The name of the assessment. For example, "fra" or "panEuropean".
+ *         required: true
+ *         schema:
+ *           type: string
+ *           example: fra
+ *       - in: query
+ *         name: columns[]
+ *         description: Array of columns to retrieve. For example, ["1990"].
+ *         required: false
+ *         schema:
+ *           type: array
+ *           items:
+ *             type: string
+ *           example: ["1990"]
+ *         style: form
+ *         explode: true
+ *       - in: query
+ *         name: countryIso
+ *         description: A single country ISO code like "FIN", or a region like "EU".
+ *         required: true
+ *         schema:
+ *           type: string
+ *           example: EU
+ *       - in: query
+ *         name: countryISOs[]
+ *         description: Array of country ISO codes. For example, ["FIN", "ITA"].
+ *         required: true
+ *         schema:
+ *           type: array
+ *           items:
+ *             type: string
+ *           example: ["FIN", "ITA"]
+ *         style: form
+ *         explode: true
+ *       - in: query
+ *         name: cycleName
+ *         description: The name of the cycle. For example, "2020".
+ *         required: true
+ *         schema:
+ *           type: string
+ *           example: "2020"
+ *       - in: query
+ *         name: mergeOdp
+ *         description: A flag indicating whether to merge ODP data. Defaults to "true" if omitted.
+ *         required: false
+ *         schema:
+ *           type: string
+ *           enum: ["true", "false"]
+ *           default: "true"
+ *           example: "true"
+ *       - in: query
+ *         name: regionCode
+ *         description: Specifies the region code for aggregating table data. When provided, country-level filters are ignored and the data is grouped by region (e.g., "EU").
+ *         required: false
+ *         schema:
+ *           type: string
+ *       - in: query
+ *         name: tableNames[]
+ *         description: Array of table names. For example, ["extentOfForest"].
+ *         required: true
+ *         schema:
+ *           type: array
+ *           items:
+ *             type: string
+ *           example: ["extentOfForest"]
+ *         style: form
+ *         explode: true
+ *       - in: query
+ *         name: variables[]
+ *         description: Array of variable names to retrieve. For example, ["forestArea"].
+ *         required: false
+ *         schema:
+ *           type: array
+ *           items:
+ *             type: string
+ *           example: ["forestArea"]
+ *         style: form
+ *         explode: true
+ *     responses:
+ *       200:
+ *         description: Successful operation.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               description: The resulting table data.
+ *       401:
+ *         description: Unauthorized access.
+ */
+
 export const getTableData = async (req: GetTableDataRequest, res: Response) => {
   try {
     const {
