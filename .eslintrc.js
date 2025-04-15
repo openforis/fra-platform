@@ -82,6 +82,7 @@ module.exports = {
           ],
           ['^meta(\\/\\w)*'],
           ['^client\\/store(\\/\\w)*', '^client\\/hooks(\\/\\w)*', '^client\\components(\\/\\w)*', '^client(\\/\\w)*'],
+          ['^docs(\\/\\w)*'],
           ['^server(\\/\\w)*'],
           ['^test(\\/\\w)*'],
           [
