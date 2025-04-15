@@ -5,10 +5,6 @@ import * as wwwhisper from 'connect-wwwhisper'
 import * as cookieParser from 'cookie-parser'
 import * as express from 'express'
 import * as morgan from 'morgan'
-import * as swaggerJSDoc from 'swagger-jsdoc'
-import * as swaggerUi from 'swagger-ui-express'
-
-import { swaggerOptions } from 'docs/api/swagger.config'
 
 import { Api } from 'server/api'
 import { Proxy } from 'server/proxy/proxy'
@@ -17,10 +13,9 @@ import { SocketServer } from 'server/service/socket'
 import { ProcessEnv } from 'server/utils'
 import { Logger } from 'server/utils/logger'
 
+import { swaggerInit } from './swagger/swaggerInit'
 import { sendErr } from './utils/requests'
 import * as resourceCacheControl from './resourceCacheControl'
-
-const swaggerSpec = swaggerJSDoc(swaggerOptions)
 
 export const serverInit = () => {
   const app = express()
@@ -51,7 +46,7 @@ export const serverInit = () => {
    */
   Api.init(app)
 
-  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
+  swaggerInit(app)
 
   app.use('/*', express.static(path.resolve(__dirname, '..', 'client')))
 
