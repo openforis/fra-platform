@@ -1,0 +1,31 @@
+components:
+  schemas:
+    RecordRowData:
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/NodeValue'
+
+    RecordColumnData:
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/RecordRowData'
+
+    RecordTableData:
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/RecordColumnData'
+
+    RecordCountryData:
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/RecordTableData'
+
+    RecordCycleData:
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/RecordCountryData'
+
+    RecordAssessmentData:
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/RecordCycleData'

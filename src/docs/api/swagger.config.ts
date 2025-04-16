@@ -3,7 +3,7 @@ import { Options } from 'swagger-jsdoc'
 import { ProcessEnv } from 'server/utils'
 
 export const swaggerOptions: Options = {
-  apis: ['./src/server/api/**/*.ts'],
+  apis: ['./src/server/api/**/*.ts', './src/docs/api/schemas/*.yml'],
   definition: {
     info: {
       description: '',
