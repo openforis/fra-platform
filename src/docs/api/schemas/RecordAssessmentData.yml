@@ -1,0 +1,43 @@
+components:
+  schemas:
+    RecordRowData:
+      title: Record<VariableName, NodeValue>
+      type: object
+      description: Mapping of variable names (e.g., "forestArea", "otherWoodedLand") to their corresponding NodeValue.
+      additionalProperties:
+        $ref: '#/components/schemas/NodeValue'
+
+    RecordColumnData:
+      title: Record<ColName, RecordRowData>
+      type: object
+      description: Mapping of column names (e.g., "1990", "2020") to row data for that column.
+      additionalProperties:
+        $ref: '#/components/schemas/RecordRowData'
+
+    RecordTableData:
+      title: Record<TableName, RecordColumnData>
+      type: object
+      description: Mapping of table names (e.g., "extentOfForest", "forestOwnership") to column data for each table.
+      additionalProperties:
+        $ref: '#/components/schemas/RecordColumnData'
+
+    RecordCountryData:
+      title: Record<AreaCode, RecordTableData>
+      type: object
+      description: Mapping of area codes (ISO country codes like "FIN", or region codes like "EU") to table data.
+      additionalProperties:
+        $ref: '#/components/schemas/RecordTableData'
+
+    RecordCycleData:
+      title: Record<CycleName, RecordCountryData>
+      type: object
+      description: Mapping of cycle names (e.g., "2020", "2025") to country or region-level data.
+      additionalProperties:
+        $ref: '#/components/schemas/RecordCountryData'
+
+    RecordAssessmentData:
+      title: Record<AssessmentName, RecordCycleData>
+      type: object
+      description: Mapping of assessment names (e.g., "fra", "panEuropean") to their respective cycle data.
+      additionalProperties:
+        $ref: '#/components/schemas/RecordCycleData'

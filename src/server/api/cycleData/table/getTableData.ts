@@ -108,8 +108,26 @@ type GetTableDataRequest = CycleDataRequest<{
  *         content:
  *           application/json:
  *             schema:
- *               type: object
  *               description: The resulting table data.
+ *               $ref: '#/components/schemas/RecordAssessmentData'
+ *             example:
+ *               fra:
+ *                 "2020":
+ *                   FIN:
+ *                     extentOfForest:
+ *                       "1990":
+ *                         total:
+ *                           odp: true
+ *                           raw: "21875.33"
+ *                           odpId: 231
+ *                         otherLand:
+ *                           odp: true
+ *                           raw: "7589.76999"
+ *                           odpId: 231
+ *                         forestArea:
+ *                           odp: true
+ *                           raw: "21875.33"
+ *                           odpId: 231
  *       401:
  *         description: Unauthorized access.
  */
