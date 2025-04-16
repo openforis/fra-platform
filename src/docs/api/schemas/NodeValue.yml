@@ -1,32 +1,5 @@
 components:
   schemas:
-    NodeValueValidation:
-      type: object
-      properties:
-        valid:
-          type: boolean
-        messages:
-          type: array
-          items:
-            $ref: '#/components/schemas/NodeValueValidationMessage'
-
-    NodeValueValidationMessage:
-      type: object
-      properties:
-        key:
-          type: string
-        params:
-          type: object
-          additionalProperties:
-            oneOf:
-              - type: string
-              - type: number
-              - type: array
-                items:
-                  oneOf:
-                    - type: string
-                    - type: number
-
     NodeValue:
       type: object
       properties:
@@ -47,8 +20,3 @@ components:
         estimated:
           type: boolean
           deprecated: true
-        odp:
-          type: boolean
-          deprecated: true
-        validation:
-          $ref: '#/components/schemas/NodeValueValidation'
