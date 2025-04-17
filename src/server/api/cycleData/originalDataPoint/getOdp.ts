@@ -12,27 +12,9 @@ import { Requests } from 'server/utils'
  *   get:
  *     summary: Get Original Data Point
  *     parameters:
- *       - in: query
- *         name: assessmentName
- *         description: The name of the assessment. For example, "fra" or "panEuropean".
- *         required: true
- *         schema:
- *           type: string
- *           example: fra
- *       - in: query
- *         name: countryIso
- *         description: A country ISO code like "FIN".
- *         required: true
- *         schema:
- *           type: string
- *           example: FIN
- *       - in: query
- *         name: cycleName
- *         description: The name of the cycle. For example, "2020".
- *         required: true
- *         schema:
- *           type: string
- *           example: 2020
+ *       - $ref: '#/components/parameters/assessmentName'
+ *       - $ref: '#/components/parameters/countryIso'
+ *       - $ref: '#/components/parameters/cycleName'
  *       - in: query
  *         name: year
  *         description: Year of the Original Data Point. For example, "1990".
