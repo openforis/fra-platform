@@ -22,13 +22,8 @@ type GetTableDataRequest = CycleDataRequest<{
  *   get:
  *     summary: Get table data
  *     parameters:
- *       - in: query
- *         name: assessmentName
- *         description: The name of the assessment. For example, "fra" or "panEuropean".
- *         required: true
- *         schema:
- *           type: string
- *           example: fra
+ *       - $ref: '#/components/parameters/assessmentName'
+ *       - $ref: '#/components/parameters/cycleName'
  *       - in: query
  *         name: columns[]
  *         description: Array of columns to retrieve. For example, ["1990"].
@@ -58,13 +53,6 @@ type GetTableDataRequest = CycleDataRequest<{
  *           example: ["FIN", "ITA"]
  *         style: form
  *         explode: true
- *       - in: query
- *         name: cycleName
- *         description: The name of the cycle. For example, "2020".
- *         required: true
- *         schema:
- *           type: string
- *           example: "2020"
  *       - in: query
  *         name: mergeOdp
  *         description: A flag indicating whether to merge ODP data. Defaults to "true" if omitted.

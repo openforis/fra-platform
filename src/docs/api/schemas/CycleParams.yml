@@ -1,0 +1,28 @@
+components:
+  parameters:
+    assessmentName:
+      name: assessmentName
+      in: query
+      required: true
+      description: The name of the assessment. For example, "fra" or "panEuropean".
+      schema:
+        type: string
+        example: fra
+
+    cycleName:
+      name: cycleName
+      in: query
+      required: true
+      description: The name of the cycle. For example, "2020".
+      schema:
+        type: string
+        example: 2020
+
+    countryIso:
+      name: countryIso
+      in: query
+      required: true
+      description: A country ISO code like "FIN".
+      schema:
+        type: string
+        example: FIN
