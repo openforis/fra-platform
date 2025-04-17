@@ -6,6 +6,62 @@ import { AssessmentController } from 'server/controller/assessment'
 import { CycleDataController } from 'server/controller/cycleData'
 import { Requests } from 'server/utils'
 
+/**
+ * @openapi
+ * /cycle-data/original-data-points:
+ *   get:
+ *     summary: Get all Original Data Points for a given country and cycle
+ *     parameters:
+ *       - $ref: '#/components/parameters/assessmentName'
+ *       - $ref: '#/components/parameters/countryIso'
+ *       - $ref: '#/components/parameters/cycleName'
+ *     responses:
+ *       200:
+ *         description: Successful operation.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/OriginalDataPoint'
+ *             example:
+ *               - id: 123
+ *                 countryIso: ITA
+ *                 year: 2015
+ *                 dataSourceAdditionalComments: "Example comment about data source"
+ *                 dataSourceMethods:
+ *                   - nationalForestInventory
+ *                 dataSourceReferences: |
+ *                   Example Reference Title, 2021.
+ *                   Organization Name. Example Publisher.
+ *                   http://example.com/resource
+ *                 description: "<div>Original Data Point HTML-formatted comments</div>"
+ *                 nationalClasses:
+ *                   - area: 1813.24
+ *                     name: "Other Wooded Land"
+ *                     uuid: "a1b2c3d4-e5f6-7a89-b0c1-d2e3f4a5b6c7"
+ *                     definition: "Example definition text."
+ *                   - area: 9297.08
+ *                     name: "Forest"
+ *                     uuid: "abcdef12-3456-7890-abcd-ef1234567890"
+ *                     definition: "Example definition text."
+ *                 idLegacy: 456
+ *                 values:
+ *                   total: "9297.08"
+ *                   forestArea: "9297.08"
+ *                   plantedForest: "639.639104"
+ *                   primaryForest: null
+ *                   otherWoodedLand: "1813.24"
+ *                   totalForestArea: "9297.08"
+ *                   naturalForestArea: "8657.440896"
+ *                   plantationForestArea: "126.440288"
+ *                   primaryForestPercent: null
+ *                   otherPlantedForestArea: "513.198816"
+ *                   plantationForestIntroducedArea: "93.2750004576"
+ *       401:
+ *         description: Unauthorized access.
+ */
+
 export const getOriginalDataPoints = async (req: CycleRequest, res: Response) => {
   try {
     const { assessmentName, cycleName, countryIso } = req.query
