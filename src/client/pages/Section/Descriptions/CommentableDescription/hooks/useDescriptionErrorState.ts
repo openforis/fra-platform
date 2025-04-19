@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import { Objects } from 'utils/objects'
+import { Parser } from 'htmlparser2'
 
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 import { SectionName } from 'meta/assessment/section'
@@ -8,14 +8,26 @@ import { SectionName } from 'meta/assessment/section'
 import { useCommentableDescriptionValue } from 'client/store/data'
 
 const isHTMLEmpty = (html: string): boolean => {
-  if (Objects.isEmpty(html?.trim())) return true
+  if (!html) return true
 
-  const strippedHtml = html
-    .replace(/<[^>]*>/g, '')
-    .replace(/&nbsp;/g, ' ')
-    .trim()
+  let hasVisibleText = false
+  const parser = new Parser(
+    {
+      ontext(text) {
+        // Stop parsing as soon as a non-whitespace character is found
+        if (/\S/.test(text)) {
+          hasVisibleText = true
+          parser.pause()
+        }
+      },
+    },
+    { decodeEntities: true }
+  )
 
-  return !strippedHtml
+  parser.write(html)
+  parser.end()
+
+  return !hasVisibleText
 }
 
 type Props = {
