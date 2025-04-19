@@ -8,6 +8,8 @@ import { SectionName } from 'meta/assessment/section'
 import { useCommentableDescriptionValue } from 'client/store/data'
 
 const isHTMLEmpty = (html: string): boolean => {
+  // Objects.isEmpty() calls trim() internally, which causes
+  // crashes with large strings in Firefox. It is avoided here.
   if (!html) return true
 
   let hasVisibleText = false
