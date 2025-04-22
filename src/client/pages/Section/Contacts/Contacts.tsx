@@ -41,7 +41,7 @@ const Contacts: React.FC = () => {
   if ((print || !Users.isAdministrator(user)) && hideContactsTable) return null
 
   return (
-    <div className="contacts print-break-inside-avoid">
+    <div className="contacts">
       <ContactsTitle />
 
       {!hideContactsTable && (

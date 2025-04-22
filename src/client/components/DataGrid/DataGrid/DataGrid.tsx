@@ -17,7 +17,7 @@ const DataGrid = forwardRef<HTMLDivElement, Props>((props, outerRef) => {
   }, [gridColumn, gridTemplateColumns, withActions])
 
   return (
-    <div ref={outerRef} className={classNames('data-grid print-break-inside-avoid', className)} style={style}>
+    <div ref={outerRef} className={classNames('data-grid', className)} style={style}>
       {React.Children.toArray(children)}
     </div>
   )
