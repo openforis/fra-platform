@@ -5,6 +5,7 @@ import { Areas } from 'meta/area/areas'
 import { Country } from 'meta/area/country'
 import { CountryStatus } from 'meta/area/status'
 import { Cycle } from 'meta/assessment/cycle'
+import { Cycles } from 'meta/assessment/cycles'
 import { RoleName, User, Users } from 'meta/user'
 
 export type CountryStatusTransition = {
@@ -17,7 +18,8 @@ const statusTransitions: { [status in CountryStatus]?: CountryStatusTransition }
   [CountryStatus.editing]: { next: CountryStatus.review },
   [CountryStatus.review]: { next: CountryStatus.approval, previous: CountryStatus.editing },
   [CountryStatus.approval]: { next: CountryStatus.accepted, previous: CountryStatus.review },
-  [CountryStatus.accepted]: { previous: CountryStatus.review },
+  [CountryStatus.accepted]: { next: CountryStatus.published, previous: CountryStatus.review },
+  [CountryStatus.published]: { previous: CountryStatus.accepted },
 }
 
 const statusRolesAllowed: { [status in CountryStatus]?: Array<RoleName> } = {
@@ -29,6 +31,7 @@ const statusRolesAllowed: { [status in CountryStatus]?: Array<RoleName> } = {
   [CountryStatus.review]: [RoleName.ADMINISTRATOR, RoleName.REVIEWER],
   [CountryStatus.approval]: [RoleName.ADMINISTRATOR],
   [CountryStatus.accepted]: [RoleName.ADMINISTRATOR],
+  [CountryStatus.published]: [RoleName.ADMINISTRATOR],
 }
 
 type PropsAllowedTransition = {
@@ -46,6 +49,11 @@ export const CountryStatuses = {
     const roleName = Users.getRole(user, countryIso, cycle)?.role
     const transitions = statusTransitions[status]
     const rolesAllowed = statusRolesAllowed[status]
+
+    // When a cycle is published, a country cannot be moved back to previous steps
+    if (Cycles.isPublished(cycle)) {
+      return { next: transitions.next }
+    }
 
     if (!Objects.isNil(transitions) && rolesAllowed?.includes(roleName)) {
       return transitions
