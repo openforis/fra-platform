@@ -11,17 +11,18 @@ import { getBaseQuery } from './_queries/getBaseQuery'
 type Props = {
   assessment: Assessment
   cycle: Cycle
+  countryIsos?: Array<CountryIso>
 }
 
 export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<Array<Country>> => {
-  const { assessment, cycle } = props
+  const { assessment, cycle, countryIsos } = props
 
   return client.map<Country>(
     `
-      ${getBaseQuery({ assessment, cycle })}
+      ${getBaseQuery({ assessment, cycle, countryIsos })}
       order by c.country_iso
     `,
-    [],
+    [countryIsos],
     (row) => Objects.camelize(row)
   )
 }
