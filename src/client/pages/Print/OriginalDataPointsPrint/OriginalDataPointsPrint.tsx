@@ -75,7 +75,7 @@ const OriginalDataPointsPrint: React.FC<Props> = (props) => {
               const lastRow = originalDataPoints.length - 1 === i
               const value = originalDataPoint.description
 
-              if (Objects.isNil(value)) {
+              if (Objects.isEmpty(value)) {
                 return null
               }
 
