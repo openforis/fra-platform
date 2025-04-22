@@ -22,7 +22,7 @@ export const publishCycle = async (
     await CycleRepository.update({ cycle }, t)
 
     // Update countries db
-    const publishedCountries = await CountryRepository.publishAll({ assessment, cycle })
+    const publishedCountries = await CountryRepository.publishAllAccepted({ assessment, cycle })
     // Update countries cache
     await AreaRedisRepository.getCountriesMap({ assessment, cycle, force: true })
 
