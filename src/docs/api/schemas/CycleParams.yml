@@ -7,7 +7,7 @@ components:
       description: The name of the assessment. For example, "fra" or "panEuropean".
       schema:
         type: string
-        example: fra
+        enum: ["fra", "panEuropean"]
 
     cycleName:
       name: cycleName
@@ -16,7 +16,7 @@ components:
       description: The name of the cycle. For example, "2020".
       schema:
         type: string
-        example: 2020
+        enum: ["2020", "2025", "latest"]
 
     countryIso:
       name: countryIso
