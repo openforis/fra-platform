@@ -73,7 +73,7 @@ const ExtentOfForest: React.FC<Props> = (props) => {
           />
         </div>
       )}
-      <div className="fra-table__container print-break-inside-avoid">
+      <div className="fra-table__container">
         <div className="fra-table__scroll-wrapper">
           <table ref={tableRef} className="fra-table ">
             <tbody>
