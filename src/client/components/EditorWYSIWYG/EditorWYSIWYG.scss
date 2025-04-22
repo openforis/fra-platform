@@ -72,8 +72,7 @@ div.editorWYSIWYG {
     }
 
     tr {
-      break-inside: avoid-page;
-      page-break-inside: avoid;
+      @include print-break-inside-avoid-page;
     }
   }
 }

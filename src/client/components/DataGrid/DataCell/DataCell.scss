@@ -168,3 +168,9 @@ $highlight-top-bottom: inset 0 1px $ui-accent, inset 0 -1px $ui-accent;
     border: unset;
   }
 }
+
+@include print {
+  .data-cell:not(:has(.editorWYSIWYG)) {
+    @include print-break-inside-avoid-page;
+  }
+}

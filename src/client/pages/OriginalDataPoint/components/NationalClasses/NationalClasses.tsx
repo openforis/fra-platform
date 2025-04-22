@@ -17,7 +17,7 @@ const NationalClasses: React.FC<Props> = (props) => {
   const gridRef = useRef<HTMLDivElement>(null)
 
   return (
-    <div className="odp__section print-break-inside-avoid">
+    <div className="odp__section">
       <Title gridRef={gridRef} year={year} />
       <Prefill canEditData={canEditData} originalDataPoint={originalDataPoint} />
       <NationalClassesTable gridRef={gridRef} originalDataPoint={originalDataPoint} />

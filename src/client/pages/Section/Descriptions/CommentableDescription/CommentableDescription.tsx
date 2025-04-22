@@ -42,7 +42,7 @@ const CommentableDescription: React.FC<Props> = (props) => {
   const onChange = useOnChange({ sectionName, name })
 
   return (
-    <DataGrid className="description print-break-inside-avoid" withActions={canEdit}>
+    <DataGrid className="description" withActions={canEdit}>
       <Title name={name} title={title} />
 
       <DataRow>
