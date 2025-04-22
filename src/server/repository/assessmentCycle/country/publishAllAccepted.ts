@@ -11,7 +11,7 @@ type Props = {
   cycle: Cycle
 }
 
-export const publishAll = async (props: Props, client: BaseProtocol = DB): Promise<Array<Country>> => {
+export const publishAllAccepted = async (props: Props, client: BaseProtocol = DB): Promise<Array<Country>> => {
   const { assessment, cycle } = props
 
   const schemaName = Schemas.getNameCycle(assessment, cycle)
