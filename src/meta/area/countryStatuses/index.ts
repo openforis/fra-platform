@@ -50,9 +50,10 @@ export const CountryStatuses = {
     const transitions = statusTransitions[status]
     const rolesAllowed = statusRolesAllowed[status]
 
-    // When a cycle is published, a country cannot be moved back to previous steps
-    if (Cycles.isPublished(cycle)) {
-      return { next: transitions.next }
+    // When a cycle is published and status is published,
+    // country cannot be moved back to accepted
+    if (Cycles.isPublished(cycle) && status === CountryStatus.published) {
+      return {}
     }
 
     if (!Objects.isNil(transitions) && rolesAllowed?.includes(roleName)) {
