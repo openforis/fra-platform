@@ -11,7 +11,11 @@ export type CountryProps = {
   status: CountryStatus
 }
 
-export type LastPublishedInfo = { cycleUuid: string; cycleName: CycleName; lastPublishedTimestamp: string }
+export type LastPublishedInfo = {
+  cycleUuid: string
+  cycleName: CycleName
+  lastPublished: string
+}
 
 export type Country = {
   countryIso: CountryIso
