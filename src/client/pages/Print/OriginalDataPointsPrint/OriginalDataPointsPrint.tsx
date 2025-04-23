@@ -55,7 +55,7 @@ const OriginalDataPointsPrint: React.FC<Props> = (props) => {
         </>
       )}
 
-      <div className="odp__section-print-mode print-break-inside-avoid">
+      <div className="odp__section-print-mode">
         <h3 className="subhead">{i18n.t('nationalDataPoint.reclassificationLabel')}</h3>
         {originalDataPoints.map((originalDataPoint) => {
           const Component = isExtendOfForest ? ExtentOfForest : ForestCharacteristics
@@ -68,14 +68,14 @@ const OriginalDataPointsPrint: React.FC<Props> = (props) => {
       </div>
 
       {isExtendOfForest && hasDescriptions && (
-        <div className="odp__section-print-mode print-break-inside-avoid">
+        <div className="odp__section-print-mode">
           <h3 className="subhead">{i18n.t('dataSource.comments')}</h3>
           <DataGrid className="odp__section" gridTemplateColumns="100px 1fr">
             {originalDataPoints.map((originalDataPoint, i) => {
               const lastRow = originalDataPoints.length - 1 === i
               const value = originalDataPoint.description
 
-              if (Objects.isNil(value)) {
+              if (Objects.isEmpty(value)) {
                 return null
               }
 

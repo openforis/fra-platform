@@ -11,7 +11,7 @@ export const getForestAssetData = (layer: LayerSource): { year?: number; img: Im
       const imgForestJAXA = ImageCollection('JAXA/ALOS/PALSAR/YEARLY/FNF')
         .filterDate('2017-01-01', '2017-12-31')
         .mosaic()
-        .eq(1)
+        .eq(1).selfMask()
 
       asset = {
         year: 2017,
@@ -21,7 +21,7 @@ export const getForestAssetData = (layer: LayerSource): { year?: number; img: Im
       break
     }
     case ForestKey.TandemX: {
-      const imgForestTANDEMX = ImageCollection('users/debcysjec/fao_fra/tandem_x_fnf50').mosaic().eq(1)
+      const imgForestTANDEMX = ImageCollection('users/debcysjec/fao_fra/tandem_x_fnf50').mosaic().eq(1).selfMask()
 
       asset = {
         year: 2019,
@@ -35,7 +35,7 @@ export const getForestAssetData = (layer: LayerSource): { year?: number; img: Im
       const imgForestLCESA = imgLandCoverESA
         .gte(39)
         .and(imgLandCoverESA.lte(101))
-        .add(imgLandCoverESA.gte(160).and(imgLandCoverESA.lte(170)))
+        .add(imgLandCoverESA.gte(160).and(imgLandCoverESA.lte(170))).selfMask()
 
       asset = {
         year: 2009,
@@ -45,7 +45,7 @@ export const getForestAssetData = (layer: LayerSource): { year?: number; img: Im
       break
     }
     case ForestKey.GlobeLand: {
-      const imgForestGlobeLand = ImageCollection('users/eraviolo/GlobeLand30m_2020').mosaic().eq(20)
+      const imgForestGlobeLand = ImageCollection('users/eraviolo/GlobeLand30m_2020').mosaic().eq(20).selfMask()
 
       asset = {
         year: 2020,
@@ -56,8 +56,7 @@ export const getForestAssetData = (layer: LayerSource): { year?: number; img: Im
     }
 
     case ForestKey.Copernicus: {
-      const imgForestCopernicus = Image('users/eraviolo/WORLD/Copernicus_forest_2019_100m').eq(1)
-
+      const imgForestCopernicus = Image('users/eraviolo/WORLD/Copernicus_forest_2019_100m').eq(1).selfMask()
       asset = {
         year: 2019,
         img: imgForestCopernicus,
@@ -66,7 +65,7 @@ export const getForestAssetData = (layer: LayerSource): { year?: number; img: Im
       break
     }
     case ForestKey.ESRI: {
-      const imgForestESRIy2020 = Image('users/cesarnon/World/esri_lulc10_UNCCDcat_World').eq(1)
+      const imgForestESRIy2020 = Image('users/cesarnon/World/esri_lulc10_UNCCDcat_World').eq(1).selfMask()
 
       asset = {
         year: 2020,
@@ -77,7 +76,7 @@ export const getForestAssetData = (layer: LayerSource): { year?: number; img: Im
     }
     case ForestKey.ESAWorldCover: {
       const imgESAy2020 = ImageCollection('ESA/WorldCover/v100').first()
-      const imgForestESAy2020 = imgESAy2020.eq(10).or(imgESAy2020.eq(95))
+      const imgForestESAy2020 = imgESAy2020.eq(10).or(imgESAy2020.eq(95)).selfMask()
 
       asset = {
         year: 2020,
@@ -96,7 +95,7 @@ export const getForestAssetData = (layer: LayerSource): { year?: number; img: Im
       const imgForestHansen = hforest2000
         .gte(layer.options.gteTreeCoverPercent)
         .where(hgain.eq(1), 1)
-        .where(hlost.eq(1), 0)
+        .where(hlost.eq(1), 0).selfMask()
 
       asset = {
         year: 2020,
@@ -109,6 +108,7 @@ export const getForestAssetData = (layer: LayerSource): { year?: number; img: Im
     case ForestKey.JRC2020: {
       const imgForestJRC2020 = ImageCollection('JRC/GFC2020/V2').mosaic();
 
+
       asset = {
         year: 2020,
         img: imgForestJRC2020,
@@ -118,7 +118,7 @@ export const getForestAssetData = (layer: LayerSource): { year?: number; img: Im
     }
 
     case ForestKey.CustomFnF: {
-      const imgCustom = Image(layer.options.assetId).select(0).eq(1)
+      const imgCustom = Image(layer.options.assetId).select(0).eq(1).selfMask()
 
       asset = {
         img: imgCustom,
