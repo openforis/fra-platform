@@ -4,10 +4,10 @@ components:
       name: assessmentName
       in: query
       required: true
-      description: The name of the assessment. For example, "fra" or "panEuropean".
+      description: The name of the assessment.
       schema:
         type: string
-        enum: ["fra", "panEuropean"]
+        enum: ["fra"]
 
     cycleName:
       name: cycleName
