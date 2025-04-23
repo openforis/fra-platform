@@ -1,0 +1,58 @@
+components:
+  parameters:
+    fra2025tableNames:
+      name: tableNames[]
+      in: query
+      description: Array of table names. For example, ["extentOfForest"].
+      required: true
+      style: form
+      explode: true
+      schema:
+        type: array
+        items:
+          type: string
+          enum:
+            - areaAffectedByFire
+            - areaOfPermanentForestEstate
+            - biomassStock_biomassStockStatus
+            - biomassStock_biomassStockStatus_Description
+            - biomassStockAvg
+            - biomassStockTotal
+            - carbonStockAvg
+            - carbonStockSoilDepth
+            - carbonStockTotal
+            - climaticDomain
+            - contactPersons
+            - degradedForest2025
+            - degradedForestMonitoring2025
+            - disturbances
+            - extentOfForest
+            - extentOfForest_forestAreaStatusAndTrend
+            - extentOfForest_forestAreaStatusAndTrend_Description
+            - forestAreaChange
+            - forestAreaWithinProtectedAreas
+            - forestCharacteristics
+            - forestOwnership
+            - forestPolicy
+            - forestRestoration
+            - growingStock_growingStockStatus
+            - growingStock_growingStockStatus_Description
+            - growingStockAvg
+            - growingStockComposition2025
+            - growingStockTotal
+            - holderOfManagementRights
+            - nonWoodForestProductsRemovals
+            - nonWoodForestProductsRemovalsCurrency
+            - otherLandWithTreeCover
+            - primaryDesignatedManagementObjective
+            - primaryForestByClimaticDomain
+            - specificForestCategories
+            - sustainableDevelopment15_1_1
+            - sustainableDevelopment15_2_1_1
+            - sustainableDevelopment15_2_1_2
+            - sustainableDevelopment15_2_1_3
+            - sustainableDevelopment15_2_1_4
+            - sustainableDevelopment15_2_1_5
+            - totalAreaWithDesignatedManagementObjective
+        example:
+          - extentOfForest

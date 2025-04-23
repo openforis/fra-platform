@@ -23,6 +23,7 @@ type GetTableDataRequest = CycleDataRequest<{
  *     summary: Get table data
  *     parameters:
  *       - $ref: '#/components/parameters/assessmentName'
+ *       - $ref: '#/components/parameters/countryIso'
  *       - $ref: '#/components/parameters/cycleName'
  *       - in: query
  *         name: columns[]
@@ -35,13 +36,6 @@ type GetTableDataRequest = CycleDataRequest<{
  *           example: ["1990"]
  *         style: form
  *         explode: true
- *       - in: query
- *         name: countryIso
- *         description: A single country ISO code like "FIN", or a region like "EU".
- *         required: true
- *         schema:
- *           type: string
- *           example: EU
  *       - in: query
  *         name: countryISOs[]
  *         description: Array of country ISO codes. For example, ["FIN", "ITA"].
@@ -62,23 +56,7 @@ type GetTableDataRequest = CycleDataRequest<{
  *           enum: ["true", "false"]
  *           default: "true"
  *           example: "true"
- *       - in: query
- *         name: regionCode
- *         description: Specifies the region code for aggregating table data. When provided, country-level filters are ignored and the data is grouped by region (e.g., "EU").
- *         required: false
- *         schema:
- *           type: string
- *       - in: query
- *         name: tableNames[]
- *         description: Array of table names. For example, ["extentOfForest"].
- *         required: true
- *         schema:
- *           type: array
- *           items:
- *             type: string
- *           example: ["extentOfForest"]
- *         style: form
- *         explode: true
+ *       - $ref: '#/components/parameters/fra2025tableNames'
  *       - in: query
  *         name: variables[]
  *         description: Array of variable names to retrieve. For example, ["forestArea"].
