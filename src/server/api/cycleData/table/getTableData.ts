@@ -56,17 +56,7 @@ type GetTableDataRequest = CycleDataRequest<{
  *           enum: ["true", "false"]
  *           default: "true"
  *           example: "true"
- *       - in: query
- *         name: tableNames[]
- *         description: Array of table names. For example, ["extentOfForest"].
- *         required: true
- *         schema:
- *           type: array
- *           items:
- *             type: string
- *           example: ["extentOfForest"]
- *         style: form
- *         explode: true
+ *       - $ref: '#/components/parameters/fra2025tableNames'
  *       - in: query
  *         name: variables[]
  *         description: Array of variable names to retrieve. For example, ["forestArea"].
