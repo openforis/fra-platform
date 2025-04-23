@@ -17,7 +17,10 @@ export const getCountryLastPublishedInfo = async (
   const selectStatements = assessment.cycles
     .map(
       (cycle) =>
-        `select country_iso, last_in_published, '${cycle.uuid}' as cycle_uuid, '${cycle.name}' as cycle_name
+        `select country_iso, 
+         greatest(last_in_published, last_update) as last_published_timestamp,
+         '${cycle.uuid}' as cycle_uuid, 
+         '${cycle.name}' as cycle_name
          from ${Schemas.getNameCycle(assessment, cycle)}.country ${countryIso ? 'where country_iso = $1' : ''}`
     )
     .join(' union all ')
@@ -29,14 +32,14 @@ export const getCountryLastPublishedInfo = async (
       jsonb_build_object(
               'cycleUuid', cycle_uuid,
               'cycleName', cycle_name,
-              'lastPublished', last_in_published
+              'lastPublishedTimestamp', last_published_timestamp
       )
     ) as result
     from (
       select distinct on (country_iso)
-        country_iso, cycle_uuid, cycle_name, last_in_published
+        country_iso, cycle_uuid, cycle_name, last_published_timestamp
       from rows
-      order by country_iso, last_in_published desc nulls last
+      order by country_iso, last_published_timestamp desc nulls last
     ) q;
   `
 
