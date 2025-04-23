@@ -22,9 +22,18 @@ export const getCountriesMap = async (
   const cachedKeys = Object.keys(cachedData)
 
   if (Objects.isEmpty(cachedKeys) || force) {
-    const countries = await CountryRepository.getMany({ assessment, cycle }, client)
-    await redis.hmset(key, ...countries.flatMap((c) => [c.countryIso, JSON.stringify(c)]))
-    return countries.reduce((acc, country) => {
+    const [countries, lastPublishedInfo] = await Promise.all([
+      CountryRepository.getMany({ assessment, cycle }, client),
+      CountryRepository.getCountryLastPublishedInfo({ assessment }, client),
+    ])
+
+    const countriesWithLastPublished = countries.map((country) => ({
+      ...country,
+      lastPublishedInfo: lastPublishedInfo?.[country.countryIso],
+    }))
+
+    await redis.hmset(key, ...countriesWithLastPublished.flatMap((c) => [c.countryIso, JSON.stringify(c)]))
+    return countriesWithLastPublished.reduce((acc, country) => {
       acc[country.countryIso] = country
       return acc
     }, {} as Record<CountryIso, Country>)

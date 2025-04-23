@@ -1,12 +1,12 @@
 import { CountryIso } from 'meta/area'
+import { LastPublishedInfo } from 'meta/area/country'
 import { Assessment } from 'meta/assessment/assessment'
-import { CycleName } from 'meta/assessment/cycle'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'
 
 type Props = { assessment: Assessment; countryIso?: CountryIso }
 
-type LastPublishedRecord = Record<CountryIso, { cycleUuid: string; cycleName: CycleName; lastPublished: string }>
+type LastPublishedRecord = Record<CountryIso, LastPublishedInfo>
 
 export const getCountryLastPublishedInfo = async (
   props: Props,
