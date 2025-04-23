@@ -23,6 +23,7 @@ type GetTableDataRequest = CycleDataRequest<{
  *     summary: Get table data
  *     parameters:
  *       - $ref: '#/components/parameters/assessmentName'
+ *       - $ref: '#/components/parameters/countryIso'
  *       - $ref: '#/components/parameters/cycleName'
  *       - in: query
  *         name: columns[]
@@ -35,13 +36,6 @@ type GetTableDataRequest = CycleDataRequest<{
  *           example: ["1990"]
  *         style: form
  *         explode: true
- *       - in: query
- *         name: countryIso
- *         description: A single country ISO code like "FIN", or a region like "EU".
- *         required: true
- *         schema:
- *           type: string
- *           example: EU
  *       - in: query
  *         name: countryISOs[]
  *         description: Array of country ISO codes. For example, ["FIN", "ITA"].
