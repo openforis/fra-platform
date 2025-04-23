@@ -57,12 +57,6 @@ type GetTableDataRequest = CycleDataRequest<{
  *           default: "true"
  *           example: "true"
  *       - in: query
- *         name: regionCode
- *         description: Specifies the region code for aggregating table data. When provided, country-level filters are ignored and the data is grouped by region (e.g., "EU").
- *         required: false
- *         schema:
- *           type: string
- *       - in: query
  *         name: tableNames[]
  *         description: Array of table names. For example, ["extentOfForest"].
  *         required: true
