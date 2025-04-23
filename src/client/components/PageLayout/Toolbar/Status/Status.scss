@@ -52,4 +52,8 @@
   &.status-accepted {
     background-color: $ui-status-accepted;
   }
+
+  &.status-published {
+    background-color: $ui-status-published;
+  }
 }
