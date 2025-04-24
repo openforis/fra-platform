@@ -1,4 +1,4 @@
-import { CountryIso } from 'meta/area'
+import { CountryIso, CountryStatus } from 'meta/area'
 import { LastPublishedInfo } from 'meta/area/country'
 import { Assessment } from 'meta/assessment/assessment'
 
@@ -22,7 +22,7 @@ export const getCountryLastPublishedInfo = async (
          last_update,
          '${cycle.uuid}' as cycle_uuid, 
          '${cycle.name}' as cycle_name
-         from ${Schemas.getNameCycle(assessment, cycle)}.country where status = 'published' ${
+         from ${Schemas.getNameCycle(assessment, cycle)}.country where status = '${CountryStatus.published}' ${
           countryIso ? 'and country_iso = $1' : ''
         }`
     )
