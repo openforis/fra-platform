@@ -22,8 +22,7 @@ export const getCountriesMap = async (
   const cachedKeys = Object.keys(cachedData)
 
   if (Objects.isEmpty(cachedKeys) || force) {
-    const countries = await _cacheCountries({ assessment, cycle }, client)
-    return countries as Record<CountryIso, Country>
+    return _cacheCountries({ assessment, cycle }, client)
   }
 
   return Object.entries(cachedData).reduce((acc, [countryIso, country]: [CountryIso, string]) => {

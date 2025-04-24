@@ -32,14 +32,10 @@ export const getOneCountry = async (props: Props, client: BaseProtocol = DB): Pr
   const key = getKeyCycle({ assessment, cycle, key: Keys.Area.country })
 
   const cachedData = await redis.hget(key, countryIso)
-  let country: Country
 
   if (Objects.isEmpty(cachedData) || force) {
     const countries = await _cacheCountries({ assessment, cycle, countryIso }, client)
-    country = countries[countryIso]
-  } else {
-    country = JSON.parse(cachedData)
+    return countries[countryIso]
   }
-
-  return country
+  return JSON.parse(cachedData)
 }
