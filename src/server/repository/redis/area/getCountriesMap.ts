@@ -3,10 +3,10 @@ import { Objects } from 'utils/objects'
 import { Country, CountryIso } from 'meta/area'
 
 import { BaseProtocol, DB } from 'server/db'
-import { CountryRepository } from 'server/repository/assessmentCycle/country'
 import { getKeyCycle, Keys } from 'server/repository/redis/keys'
 import { RedisData } from 'server/repository/redis/redisData'
 
+import { _cacheCountries } from './cacheCountries'
 import { Props } from './props'
 
 export const getCountriesMap = async (
@@ -22,21 +22,8 @@ export const getCountriesMap = async (
   const cachedKeys = Object.keys(cachedData)
 
   if (Objects.isEmpty(cachedKeys) || force) {
-    const [countries, lastPublishedInfo] = await Promise.all([
-      CountryRepository.getMany({ assessment, cycle }, client),
-      CountryRepository.getCountryLastPublishedInfo({ assessment }, client),
-    ])
-
-    const countriesWithLastPublished = countries.map((country) => ({
-      ...country,
-      lastPublishedInfo: lastPublishedInfo?.[country.countryIso],
-    }))
-
-    await redis.hmset(key, ...countriesWithLastPublished.flatMap((c) => [c.countryIso, JSON.stringify(c)]))
-    return countriesWithLastPublished.reduce((acc, country) => {
-      acc[country.countryIso] = country
-      return acc
-    }, {} as Record<CountryIso, Country>)
+    const countries = await _cacheCountries({ assessment, cycle }, client)
+    return countries as Record<CountryIso, Country>
   }
 
   return Object.entries(cachedData).reduce((acc, [countryIso, country]: [CountryIso, string]) => {
