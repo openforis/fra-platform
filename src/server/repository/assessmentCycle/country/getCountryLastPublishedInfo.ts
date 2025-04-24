@@ -1,12 +1,12 @@
-import { CountryIso } from 'meta/area'
+import { CountryIso, CountryStatus } from 'meta/area'
+import { LastPublishedInfo } from 'meta/area/country'
 import { Assessment } from 'meta/assessment/assessment'
-import { CycleName } from 'meta/assessment/cycle'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'
 
 type Props = { assessment: Assessment; countryIso?: CountryIso }
 
-type LastPublishedRecord = Record<CountryIso, { cycleUuid: string; cycleName: CycleName; lastPublished: string }>
+type LastPublishedRecord = Record<CountryIso, LastPublishedInfo>
 
 export const getCountryLastPublishedInfo = async (
   props: Props,
@@ -17,11 +17,19 @@ export const getCountryLastPublishedInfo = async (
   const selectStatements = assessment.cycles
     .map(
       (cycle) =>
-        `select country_iso, last_in_published, '${cycle.uuid}' as cycle_uuid, '${cycle.name}' as cycle_name
-         from ${Schemas.getNameCycle(assessment, cycle)}.country ${countryIso ? 'where country_iso = $1' : ''}`
+        `select country_iso, 
+         last_in_published,
+         last_update,
+         '${cycle.uuid}' as cycle_uuid, 
+         '${cycle.name}' as cycle_name
+         from ${Schemas.getNameCycle(assessment, cycle)}.country where status = '${CountryStatus.published}' ${
+          countryIso ? 'and country_iso = $1' : ''
+        }`
     )
     .join(' union all ')
 
+  // Note: lastPublished: from last published country (order by ...last_in_published....)
+  // we find the greatest of last update and published timestamp
   const query = `
     with rows as (${selectStatements})
     select jsonb_object_agg(
@@ -29,12 +37,12 @@ export const getCountryLastPublishedInfo = async (
       jsonb_build_object(
               'cycleUuid', cycle_uuid,
               'cycleName', cycle_name,
-              'lastPublished', last_in_published
+              'lastPublished', greatest(last_in_published, last_update)
       )
     ) as result
     from (
       select distinct on (country_iso)
-        country_iso, cycle_uuid, cycle_name, last_in_published
+        country_iso, cycle_uuid, cycle_name, last_in_published, last_update
       from rows
       order by country_iso, last_in_published desc nulls last
     ) q;

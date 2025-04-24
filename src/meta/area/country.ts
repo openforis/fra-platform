@@ -1,6 +1,7 @@
 import { CountryIso } from 'meta/area/countryIso'
 import { RegionCode } from 'meta/area/regionCode'
 import { CountryStatus } from 'meta/area/status'
+import { CycleName } from 'meta/assessment/cycle'
 
 export type CountryProps = {
   deskStudy: boolean
@@ -8,6 +9,12 @@ export type CountryProps = {
   forestCharacteristics: { useOriginalDataPoint: boolean }
   hideContactsTable?: boolean
   status: CountryStatus
+}
+
+export type LastPublishedInfo = {
+  cycleUuid: string
+  cycleName: CycleName
+  lastPublished: string
 }
 
 export type Country = {
@@ -23,6 +30,8 @@ export type Country = {
   lastInPublished: string
   lastInReview: string
   lastUpdate: string
+
+  lastPublishedInfo: LastPublishedInfo
 }
 
 export type RecordCountries = Record<CountryIso, Country>
