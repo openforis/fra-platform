@@ -22,7 +22,9 @@ export const getCountryLastPublishedInfo = async (
          last_update,
          '${cycle.uuid}' as cycle_uuid, 
          '${cycle.name}' as cycle_name
-         from ${Schemas.getNameCycle(assessment, cycle)}.country ${countryIso ? 'where country_iso = $1' : ''}`
+         from ${Schemas.getNameCycle(assessment, cycle)}.country where status = 'published' ${
+          countryIso ? 'and country_iso = $1' : ''
+        }`
     )
     .join(' union all ')
 
