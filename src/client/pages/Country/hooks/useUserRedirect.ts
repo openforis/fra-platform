@@ -8,12 +8,14 @@ import { Routes } from 'meta/routes'
 import { Users } from 'meta/user'
 
 import { useAssessmentCountry } from 'client/store/area'
-import { useCycle } from 'client/store/assessment'
+import { useAssessment, useCycle } from 'client/store/assessment'
 import { useUser } from 'client/store/user'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 export const useUserRedirect = (): void => {
+  const assessment = useAssessment()
   const cycle = useCycle()
+  const defaultCycle = useCycle(assessment.props.defaultCycle)
   const cycleName = cycle.name
   const { assessmentName, countryIso } = useCountryRouteParams()
   const country = useAssessmentCountry()
@@ -39,6 +41,17 @@ export const useUserRedirect = (): void => {
       navigate(route)
     }
 
+    // When user is not logged in and accessing a region, we should redirect to default cycle
+    const shouldRedirectToDefaultCycle = !user && !Areas.isISOCountry(countryIso)
+    if (shouldRedirectToDefaultCycle) {
+      const route = Routes.Country.generatePath({
+        assessmentName,
+        cycleName: defaultCycle.name,
+        countryIso,
+      })
+      navigate(route)
+    }
+
     if (shouldRedirectToProfile) {
       const params = { assessmentName, cycleName, countryIso, id: user.id }
       const routeParams = { assessmentName, cycleName, countryIso }
@@ -50,5 +63,5 @@ export const useUserRedirect = (): void => {
     if (!Cycles.isPublished(cycle) && !Users.isAdministrator(user) && !Areas.isISOCountry(countryIso)) {
       navigate(Routes.Cycle.generatePath({ assessmentName, cycleName }))
     }
-  }, [assessmentName, country, countryIso, cycle, cycleName, navigate, user, userRole])
+  }, [assessmentName, country, countryIso, cycle, defaultCycle.name, cycleName, navigate, user, userRole])
 }

@@ -16,6 +16,7 @@ export const useDefaultHandleElementSelect = () => {
   const assessment = useAssessment()
   const assessmentName = assessment.props.name
   const cycle = useCycle()
+  const defaultCycle = useCycle(assessment.props.defaultCycle)
   const countries = useCountries()
 
   const isInGeoPage = useIsGeoRoute()
@@ -31,11 +32,14 @@ export const useDefaultHandleElementSelect = () => {
       // If the user is not logged in, direct the user to the last published cycle
       if (!user && Areas.isISOCountry(areaCode)) {
         cycleName = countries.find((country) => country.countryIso === areaCode).lastPublishedInfo.cycleName
+        // If the user is not logged in and accessing a region, direct to default cycle
+      } else if (!user && !Areas.isISOCountry(areaCode)) {
+        cycleName = defaultCycle.name
       }
 
       const path = destinationRoute.generatePath({ assessmentName, cycleName, countryIso: areaCode })
       navigate(path)
     },
-    [assessmentName, countries, cycle.name, isInGeoPage, navigate, user]
+    [assessmentName, countries, cycle.name, defaultCycle.name, isInGeoPage, navigate, user]
   )
 }
