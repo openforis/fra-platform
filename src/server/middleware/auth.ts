@@ -77,9 +77,9 @@ const requireEditTableData = async (req: Request, _res: Response, next: NextFunc
 }
 
 const requireView = async (req: Request, _res: Response, next: NextFunction) => {
-  const { assessment, cycle, countryIso, user } = await _getAuthCycleProps(req, next)
+  const { assessment, cycle, country, countryIso, user } = await _getAuthCycleProps(req, next)
 
-  _next(Authorizer.canView({ assessment, user, countryIso, cycle }), next)
+  _next(Authorizer.canView({ assessment, country, areaCode: countryIso, cycle, user }), next)
 }
 
 const requireAdmin = async (req: Request, _res: Response, next: NextFunction) => {
@@ -210,7 +210,12 @@ const requireUser = async (req: Request, _res: Response, next: NextFunction) => 
 }
 
 const requireViewRepositoryFile = async (req: Request, _res: Response, next: NextFunction) => {
-  const { assessmentName, cycleName, countryIso, uuid } = {
+  const {
+    assessmentName,
+    cycleName,
+    countryIso: areaCode,
+    uuid,
+  } = {
     ...req.params,
     ...req.query,
     ...req.body,
@@ -219,8 +224,9 @@ const requireViewRepositoryFile = async (req: Request, _res: Response, next: Nex
   const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
   const repositoryItem = await CycleDataController.Repository.getOne({ assessment, cycle, uuid })
   const user = Requests.getUser(req)
+  const { country } = req.context
 
-  _next(Authorizer.canViewRepositoryItem({ assessment, cycle, countryIso, user, repositoryItem }), next)
+  _next(Authorizer.canViewRepositoryItem({ assessment, cycle, country, areaCode, user, repositoryItem }), next)
 }
 
 const requireViewHistory = async (req: Request, _res: Response, next: NextFunction) => {
