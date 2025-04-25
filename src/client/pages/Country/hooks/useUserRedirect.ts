@@ -7,6 +7,7 @@ import { Cycles } from 'meta/assessment/cycles'
 import { Routes } from 'meta/routes'
 import { Users } from 'meta/user'
 
+import { useAssessmentCountry } from 'client/store/area'
 import { useCycle } from 'client/store/assessment'
 import { useUser } from 'client/store/user'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
@@ -15,6 +16,7 @@ export const useUserRedirect = (): void => {
   const cycle = useCycle()
   const cycleName = cycle.name
   const { assessmentName, countryIso } = useCountryRouteParams()
+  const country = useAssessmentCountry()
   const user = useUser()
   const userRole = Users.getRole(user, countryIso, cycle)
   const navigate = useNavigate()
@@ -23,6 +25,19 @@ export const useUserRedirect = (): void => {
     const personalInfoRequired = Users.isPersonalInfoRequired(user, userRole)
     const isFra = assessmentName === AssessmentNames.fra
     const shouldRedirectToProfile = Boolean(personalInfoRequired && navigate && isFra)
+
+    // When user is not logged in, redirect to last published (e.g. when accessing older cycles)
+    // Note: First load might not have country
+    const shouldRedirectToLastPublished = !user && country && cycleName !== country?.lastPublishedInfo.cycleName
+
+    if (shouldRedirectToLastPublished) {
+      const route = Routes.Country.generatePath({
+        assessmentName,
+        cycleName: country?.lastPublishedInfo.cycleName,
+        countryIso,
+      })
+      navigate(route)
+    }
 
     if (shouldRedirectToProfile) {
       const params = { assessmentName, cycleName, countryIso, id: user.id }
@@ -35,5 +50,5 @@ export const useUserRedirect = (): void => {
     if (!Cycles.isPublished(cycle) && !Users.isAdministrator(user) && !Areas.isISOCountry(countryIso)) {
       navigate(Routes.Cycle.generatePath({ assessmentName, cycleName }))
     }
-  }, [assessmentName, countryIso, cycle, cycleName, navigate, user, userRole])
+  }, [assessmentName, country, countryIso, cycle, cycleName, navigate, user, userRole])
 }
