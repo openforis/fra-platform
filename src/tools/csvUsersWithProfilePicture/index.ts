@@ -22,6 +22,7 @@ type DBUser = {
   email: string
   roles: Array<DBRole>
   profile_picture_file_uuid: string
+  file_name: string
 }
 
 type CSVUser = {
@@ -33,12 +34,14 @@ type CSVUser = {
 }
 
 const transformUser = (user: DBUser, role: DBRole): CSVUser => {
+  const originalFileName = path.parse(user.file_name).name
+  const originalExtension = path.extname(user.file_name)
   return {
     countryIso: role.country_iso,
     fullName: user.full_name,
     email: user.email,
     role: role.role,
-    fileName: user.profile_picture_file_uuid,
+    fileName: `${originalFileName}_${user.profile_picture_file_uuid}${originalExtension}`,
   }
 }
 
@@ -53,11 +56,13 @@ const downloadProfilePictures = async () => {
     return client
       .map(
         `
-        select cus.full_name, cus.email, coalesce(jsonb_agg(cus.role) filter ( where cus.role is not null ), '[]') as roles, u.profile_picture_file_uuid
+        select cus.full_name, cus.email, coalesce(jsonb_agg(cus.role) filter ( where cus.role is not null ), '[]') as roles, 
+               u.profile_picture_file_uuid, f.name as file_name
         from ${schemaName}.country_user_summary cus
         left join public.users u on cus.uuid = u.uuid
+        left join public.file f on u.profile_picture_file_uuid = f.uuid
         where cus.role is not null and cus.status in ('active') and u.profile_picture_file_uuid is not null and cus.country_iso not like 'X%'
-        group by u.profile_picture_file_uuid , cus.full_name, cus.email, cus.lang
+        group by u.profile_picture_file_uuid, f.name, cus.full_name, cus.email, cus.lang
         order by full_name asc
       `,
         [],
@@ -114,10 +119,10 @@ const downloadProfilePictures = async () => {
             }
 
             downloadedFiles.add(user.fileName)
-            const fileStream = await FileStorage.getFile({ key: user.fileName })
-            const extension = path.extname(user.fileName) || '.jpg'
-            const safeFileName = `${user.fileName}${extension}`
-            archive.append(fileStream, { name: safeFileName })
+            const fileUuid = path.parse(user.fileName).name.split('_').pop()
+            const fileStream = await FileStorage.getFile({ key: fileUuid })
+            const name = user.fileName
+            archive.append(fileStream, { name })
           } catch (error) {
             Logger.error(`Failed to fetch profile picture for ${user.fullName}: ${error.message}`)
           }
