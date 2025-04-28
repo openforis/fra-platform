@@ -2,6 +2,7 @@ import { RefObject, useLayoutEffect } from 'react'
 
 import * as d3 from 'd3'
 
+import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { Charts } from 'client/pages/Section/DataTable/Chart/charts'
 import { D3ChartAxisScale, Trend, TrendData, TrendDatum } from 'client/pages/Section/DataTable/Chart/types'
 
@@ -19,10 +20,12 @@ type Props = {
 export const usePointsTransition = (props: Props): void => {
   const { containerRef, data, trend, xScale, yScale } = props
 
+  const { print } = useIsPrintRoute()
   const { getCX, getCY, getFill, getR, getStroke } = usePointsStyleFNs({ trend, xScale, yScale })
   const tooltip = usePointsTooltip({ containerRef, trend })
 
   useLayoutEffect(() => {
+    const duration = print ? 0 : Charts.transitions.dataPoints
     const circle = d3.select(containerRef.current).selectAll('circle').data<TrendDatum>(data)
 
     // init mouseover/out tooltip
@@ -31,7 +34,7 @@ export const usePointsTransition = (props: Props): void => {
     // update
     circle
       .transition()
-      .duration(Charts.transitions.dataPoints)
+      .duration(duration)
       .ease(d3.easeCircle)
       .attr('cx', getCX)
       .attr('cy', getCY)
@@ -45,7 +48,7 @@ export const usePointsTransition = (props: Props): void => {
     circle
       .exit()
       .transition()
-      .duration(Charts.transitions.dataPoints)
+      .duration(duration)
       .ease(d3.easeCircle)
       .attr('cy', () => yScale(0))
       .style('opacity', '0')
@@ -61,7 +64,7 @@ export const usePointsTransition = (props: Props): void => {
       // .attr('cy', () => yScale(0))
       .style('fill', '#ffffff')
       .transition()
-      .duration(Charts.transitions.dataPoints)
+      .duration(duration)
       .ease(d3.easeBounceIn)
       .attr('cx', getCX)
       .attr('cy', getCY)
@@ -70,5 +73,5 @@ export const usePointsTransition = (props: Props): void => {
       .style('stroke', getStroke)
       .style('stroke-width', '1.5')
       .style('opacity', '1')
-  }, [containerRef, data, getCX, getCY, getFill, getR, getStroke, tooltip, yScale])
+  }, [containerRef, data, getCX, getCY, getFill, getR, getStroke, print, tooltip, yScale])
 }

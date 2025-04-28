@@ -1,4 +1,4 @@
-import { RefObject, useMemo } from 'react'
+import { RefObject, useLayoutEffect, useState } from 'react'
 
 import * as d3 from 'd3'
 
@@ -14,7 +14,9 @@ const replaceCommasWithSpaces = (v: number) => d3.format(',')(v).replace(/,/g, '
 export const useD3YAxis = (props: Props): D3YAxis => {
   const { axisRef, yScale, width } = props
 
-  return useMemo<D3YAxis>(() => {
+  const [d3YAxis, setD3YAxis] = useState<D3YAxis>()
+
+  useLayoutEffect(() => {
     const axis = d3
       .axisLeft(yScale)
       .ticks(5)
@@ -28,6 +30,8 @@ export const useD3YAxis = (props: Props): D3YAxis => {
     d3Axis.selectAll('line').style('stroke', (_: number, i: number) => (i === 0 ? '#cccccc' : 'rgba(0,0,0,.08)'))
     d3Axis.selectAll('text').style('fill', '#666666').style('font-size', '11px')
 
-    return d3Axis
+    setD3YAxis(d3Axis)
   }, [axisRef, width, yScale])
+
+  return d3YAxis
 }
