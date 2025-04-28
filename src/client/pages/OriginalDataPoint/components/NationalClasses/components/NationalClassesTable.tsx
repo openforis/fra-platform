@@ -1,3 +1,4 @@
+import './NationalClassesTable.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -26,13 +27,9 @@ export const NationalClassesTable = (props: Props) => {
   const showReviewIndicator = useShowReviewIndicator()
 
   return (
-    <DataGrid
-      ref={gridRef}
-      gridTemplateColumns={`${print ? `100px ` : ''}minmax(240px, 40%) 1fr`}
-      withActions={canEdit || showReviewIndicator}
-    >
+    <DataGrid ref={gridRef} gridTemplateColumns="minmax(240px, 40%) 1fr" withActions={canEdit || showReviewIndicator}>
       {print && (
-        <DataCell gridRow={`1/${nationalClasses.length + 2}`} header lastRow>
+        <DataCell className="national-classes__year-header print-break-after-avoid" gridColumn="1/-1" header lastCol>
           {year}
         </DataCell>
       )}
