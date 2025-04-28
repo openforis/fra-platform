@@ -32,6 +32,9 @@ export const swaggerInit = (app: Express): void => {
     '/api-docs',
     swaggerUi.serve,
     swaggerUi.setup(undefined, {
+      swaggerOptions: {
+        validatorUrl: null,
+      },
       swaggerUrl: '/api-docs/swagger.json',
     })
   )

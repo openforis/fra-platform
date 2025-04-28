@@ -14,6 +14,5 @@ export const swaggerOptions: Options = {
         url: '/api',
       },
     ],
-    validatorUrl: null,
   },
 }
