@@ -1,0 +1,13 @@
+@import 'src/client/style/partials';
+
+.chart-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+@include printPdf {
+  .chart-wrapper {
+    padding-top: $spacing-xxxl;
+  }
+}

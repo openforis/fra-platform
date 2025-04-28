@@ -25,30 +25,28 @@ const Chart = (props: ChartProps) => {
   const yScale = useYScale({ trendsData })
 
   return (
-    <div>
-      <svg height={Charts.styles.height} width={width}>
-        <Legend trends={trends} trendsData={trendsData} width={width} />
-        <YAxis trendsData={trendsData} width={width} yScale={yScale} />
-        <XAxis xScale={xScale} years={years} />
+    <svg height={Charts.styles.height} width={width}>
+      <Legend trends={trends} trendsData={trendsData} width={width} />
+      <YAxis trendsData={trendsData} width={width} yScale={yScale} />
+      <XAxis xScale={xScale} years={years} />
 
-        {/* odp ticks must be positioned behind all data points */}
-        {trends.map((trend) => {
-          const { name: trendName } = trend
-          const trendData = trendsData[trendName]
-          const key = `odp-ticks-${trendName}`
-          return <OdpTicks key={key} trendData={trendData} xScale={xScale} yScale={yScale} />
-        })}
+      {/* odp ticks must be positioned behind all data points */}
+      {trends.map((trend) => {
+        const { name: trendName } = trend
+        const trendData = trendsData[trendName]
+        const key = `odp-ticks-${trendName}`
+        return <OdpTicks key={key} trendData={trendData} xScale={xScale} yScale={yScale} />
+      })}
 
-        {trends.map((trend) => {
-          const { name: trendName } = trend
-          const trendData = trendsData[trendName]
-          const key = `data-trend-${trendName}`
-          return <DataTrend key={key} data={trendData} trend={trend} xScale={xScale} yScale={yScale} />
-        })}
+      {trends.map((trend) => {
+        const { name: trendName } = trend
+        const trendData = trendsData[trendName]
+        const key = `data-trend-${trendName}`
+        return <DataTrend key={key} data={trendData} trend={trend} xScale={xScale} yScale={yScale} />
+      })}
 
-        {!print && <NoDataPlaceholder trendsData={trendsData} width={width} />}
-      </svg>
-    </div>
+      {!print && <NoDataPlaceholder trendsData={trendsData} width={width} />}
+    </svg>
   )
 }
 
