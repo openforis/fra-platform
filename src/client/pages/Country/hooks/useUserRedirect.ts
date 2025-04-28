@@ -14,7 +14,7 @@ import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 export const useUserRedirect = (): void => {
   const cycle = useCycle()
-  const defaultCycle = useLastPublishedCycle()
+  const lastPublishedCycle = useLastPublishedCycle()
   const cycleName = cycle.name
   const { assessmentName, countryIso } = useCountryRouteParams()
   const country = useAssessmentCountry()
@@ -25,31 +25,24 @@ export const useUserRedirect = (): void => {
   useEffect(() => {
     const personalInfoRequired = Users.isPersonalInfoRequired(user, userRole)
     const isFra = assessmentName === AssessmentNames.fra
-    const shouldRedirectToProfile = Boolean(personalInfoRequired && navigate && isFra)
 
     // When user is not logged in, redirect to last published (e.g. when accessing older cycles)
-    // Note: First load might not have country
-    const shouldRedirectToLastPublished = !user && country && cycleName !== country?.lastPublishedInfo.cycleName
-
-    if (shouldRedirectToLastPublished) {
-      const route = Routes.Country.generatePath({
-        assessmentName,
-        cycleName: country?.lastPublishedInfo.cycleName,
-        countryIso,
-      })
-      navigate(route)
-    }
-
+    const shouldRedirectToLastPublished = country && cycleName !== country?.lastPublishedInfo.cycleName
     // When user is not logged in and accessing a region, we should redirect to default cycle
-    const shouldRedirectToDefaultCycle = !user && !Areas.isISOCountry(countryIso)
-    if (shouldRedirectToDefaultCycle) {
+    const isRegion = !Areas.isISOCountry(countryIso)
+
+    if (!user && (shouldRedirectToLastPublished || isRegion)) {
+      const _cycleName = isRegion ? lastPublishedCycle.name : country?.lastPublishedInfo.cycleName
+
       const route = Routes.Country.generatePath({
         assessmentName,
-        cycleName: defaultCycle.name,
+        cycleName: _cycleName,
         countryIso,
       })
       navigate(route)
     }
+
+    const shouldRedirectToProfile = Boolean(personalInfoRequired && navigate && isFra)
 
     if (shouldRedirectToProfile) {
       const params = { assessmentName, cycleName, countryIso, id: user.id }
@@ -62,5 +55,5 @@ export const useUserRedirect = (): void => {
     if (!Cycles.isPublished(cycle) && !Users.isAdministrator(user) && !Areas.isISOCountry(countryIso)) {
       navigate(Routes.Cycle.generatePath({ assessmentName, cycleName }))
     }
-  }, [assessmentName, country, countryIso, cycle, defaultCycle.name, cycleName, navigate, user, userRole])
+  }, [assessmentName, country, countryIso, cycle, lastPublishedCycle.name, cycleName, navigate, user, userRole])
 }
