@@ -1,7 +1,7 @@
 import { Options } from 'swagger-jsdoc'
 
 export const swaggerOptions: Options = {
-  apis: ['./src/server/api/**/*.ts', './src/docs/api/schemas/*.yml'],
+  apis: ['./src/server/api/**/*.yml', './src/docs/api/schemas/*.yml'],
   definition: {
     info: {
       description: '',
@@ -14,5 +14,6 @@ export const swaggerOptions: Options = {
         url: '/api',
       },
     ],
+    validatorUrl: null,
   },
 }
