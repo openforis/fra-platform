@@ -1,3 +1,4 @@
+import './DataSources.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -28,9 +29,9 @@ const DataSources: React.FC<Props> = (props) => {
     <div className="odp__section">
       {!print && <h3 className="subhead">{t('nationalDataPoint.dataSources')}</h3>}
 
-      <DataGrid gridTemplateColumns={`${print ? `100px ` : ''}180px 1fr`} withActions={canEdit || showReviewIndicator}>
+      <DataGrid gridTemplateColumns="180px 1fr" withActions={canEdit || showReviewIndicator}>
         {print && (
-          <DataCell gridRow="1/4" header lastRow>
+          <DataCell className="data-sources__year-header" gridColumn="1/-1" header lastCol>
             {originalDataPoint.year}
           </DataCell>
         )}
