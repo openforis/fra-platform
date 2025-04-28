@@ -15,22 +15,33 @@ import { canViewReview } from './canViewReview'
 
 /**
  *  CanView
+ *  if country is published, everyone can view
  *  if cycle is published, everyone can view
  *  if not, admin can view, any other logged user in whom have a role in that country for that cycle can view
  *  @param props
- *  @param props.countryIso
+ *  @param props.areaCode - used to handle regions
+ *  @param props.country
  *  @param props.cycle
  *  @param props.User
  *  @returns boolean
  */
-const canView = (props: { assessment: Assessment; countryIso: AreaCode; cycle: Cycle; user: User }): boolean => {
-  const { assessment, countryIso, user, cycle } = props
+const canView = (props: {
+  assessment: Assessment
+  country?: Country
+  cycle: Cycle
+  areaCode: AreaCode
+  user: User
+}): boolean => {
+  const { assessment, cycle, country, areaCode, user } = props
+
+  // Country can be undefined when passed from middleware when countryIso: RegionCode
+  if (country?.props.status === CountryStatus.published) return true
   if (Cycles.isPublished(cycle)) return true
   if (Users.isAdministrator(user)) return true
   // if global or region, user must have at least one role in that assessment
-  if (Areas.isGlobal(countryIso) || Areas.isRegion(countryIso)) return Users.hasRoleInAssessment({ assessment, user })
+  if (Areas.isGlobal(areaCode) || Areas.isRegion(areaCode)) return Users.hasRoleInAssessment({ assessment, user })
 
-  return Users.hasRoleInCountry({ user, countryIso, cycle })
+  return Users.hasRoleInCountry({ user, countryIso: areaCode, cycle })
 }
 
 /**
@@ -178,17 +189,18 @@ const canEditRepositoryItem = (props: { cycle: Cycle; country: Country; user: Us
 const canViewRepositoryItem = (props: {
   assessment: Assessment
   cycle: Cycle
-  countryIso: CountryIso
+  country: Country
+  areaCode: AreaCode
   user: User
   repositoryItem: RepositoryItem
 }): boolean => {
-  const { assessment, countryIso, user, cycle, repositoryItem } = props
+  const { assessment, cycle, country, areaCode, user, repositoryItem } = props
 
   if (repositoryItem?.props?.public) {
-    return canView({ assessment, user, countryIso, cycle })
+    return canView({ assessment, cycle, country, areaCode, user })
   }
 
-  return Users.hasRoleInCountry({ user, countryIso, cycle })
+  return Users.hasRoleInCountry({ user, countryIso: areaCode, cycle })
 }
 
 /**
