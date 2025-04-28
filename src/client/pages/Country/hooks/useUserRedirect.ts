@@ -8,14 +8,13 @@ import { Routes } from 'meta/routes'
 import { Users } from 'meta/user'
 
 import { useAssessmentCountry } from 'client/store/area'
-import { useAssessment, useCycle } from 'client/store/assessment'
+import { useCycle, useLastPublishedCycle } from 'client/store/assessment'
 import { useUser } from 'client/store/user'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 export const useUserRedirect = (): void => {
-  const assessment = useAssessment()
   const cycle = useCycle()
-  const defaultCycle = useCycle(assessment.props.defaultCycle)
+  const defaultCycle = useLastPublishedCycle()
   const cycleName = cycle.name
   const { assessmentName, countryIso } = useCountryRouteParams()
   const country = useAssessmentCountry()

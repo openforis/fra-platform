@@ -5,7 +5,7 @@ import { AreaCode, Areas } from 'meta/area'
 import { Routes } from 'meta/routes'
 
 import { useCountries } from 'client/store/area'
-import { useAssessment, useCycle } from 'client/store/assessment'
+import { useAssessment, useCycle, useLastPublishedCycle } from 'client/store/assessment'
 import { useUser } from 'client/store/user'
 import { useIsGeoRoute } from 'client/hooks'
 
@@ -16,7 +16,7 @@ export const useDefaultHandleElementSelect = () => {
   const assessment = useAssessment()
   const assessmentName = assessment.props.name
   const cycle = useCycle()
-  const defaultCycle = useCycle(assessment.props.defaultCycle)
+  const defaultCycle = useLastPublishedCycle()
   const countries = useCountries()
 
   const isInGeoPage = useIsGeoRoute()

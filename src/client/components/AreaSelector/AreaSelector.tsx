@@ -9,10 +9,10 @@ import { Users } from 'meta/user'
 
 import { useCycle } from 'client/store/assessment'
 import { useUser } from 'client/store/user'
-import { useDefaultHandleElementSelect } from 'client/components/AreaSelector/hooks/useDefaultHandleElementSelect'
 import { Props } from 'client/components/AreaSelector/types'
 
 import Icon from '../Icon'
+import { useDefaultHandleElementSelect } from './hooks/useDefaultHandleElementSelect'
 import CountryList from './CountryList'
 
 const AreaSelector: React.FC<Props> = (props) => {
