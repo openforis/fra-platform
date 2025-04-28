@@ -29,7 +29,7 @@ export const NationalClassesTable = (props: Props) => {
   return (
     <DataGrid ref={gridRef} gridTemplateColumns="minmax(240px, 40%) 1fr" withActions={canEdit || showReviewIndicator}>
       {print && (
-        <DataCell className="national-classes__year-header" gridColumn="1/-1" header lastCol>
+        <DataCell className="national-classes__year-header print-break-after-avoid" gridColumn="1/-1" header lastCol>
           {year}
         </DataCell>
       )}

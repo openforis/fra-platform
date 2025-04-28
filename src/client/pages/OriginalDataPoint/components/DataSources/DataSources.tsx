@@ -31,7 +31,7 @@ const DataSources: React.FC<Props> = (props) => {
 
       <DataGrid gridTemplateColumns="180px 1fr" withActions={canEdit || showReviewIndicator}>
         {print && (
-          <DataCell className="data-sources__year-header" gridColumn="1/-1" header lastCol>
+          <DataCell className="data-sources__year-header print-break-after-avoid" gridColumn="1/-1" header lastCol>
             {originalDataPoint.year}
           </DataCell>
         )}
