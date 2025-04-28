@@ -4,6 +4,14 @@
   }
 }
 
+@mixin printPdf {
+  @media print {
+    @include print {
+      @content;
+    }
+  }
+}
+
 @mixin print-break-inside-avoid-page {
   break-inside: avoid-page;
   page-break-inside: avoid;
