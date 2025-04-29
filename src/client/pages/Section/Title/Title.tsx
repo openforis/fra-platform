@@ -3,6 +3,7 @@ import React from 'react'
 
 import { SectionName } from 'meta/assessment/section'
 
+import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { useCycleRouteParams } from 'client/hooks/useRouteParams'
 import { Components, TitleDefault } from 'client/pages/Section/Title/Components'
 import Hints, { HintsSustainableDevelopment } from 'client/pages/Section/Title/Hints'
@@ -19,6 +20,8 @@ const Title: React.FC<Props> = (props) => {
 
   const { assessmentName } = useCycleRouteParams()
 
+  const { print } = useIsPrintRoute()
+
   const Component = Components[assessmentName]?.[sectionName] ?? TitleDefault
   const HintsComponent = HintsComponents[sectionName] ?? Hints
 
@@ -26,7 +29,7 @@ const Title: React.FC<Props> = (props) => {
     <div className="section__title">
       {React.createElement(Component, { subSection })}
 
-      <HintsComponent subSection={subSection} />
+      {!print && <HintsComponent subSection={subSection} />}
     </div>
   )
 }
