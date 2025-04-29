@@ -33,6 +33,13 @@ export const swaggerInit = (app: Express): void => {
     swaggerUi.serve,
     swaggerUi.setup(undefined, {
       swaggerOptions: {
+        defaultModelExpandDepth: 10,
+        defaultModelsExpandDepth: 10,
+        onComplete: () => {
+          document
+            .querySelectorAll('#swagger-ui section.models button.model-box-control')
+            .forEach((btn) => (btn as HTMLButtonElement).click())
+        },
         validatorUrl: null,
       },
       swaggerUrl: '/api-docs/swagger.json',
