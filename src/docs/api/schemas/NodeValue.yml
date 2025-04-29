@@ -1,0 +1,22 @@
+components:
+  schemas:
+    NodeValue:
+      type: object
+      properties:
+        calculated:
+          type: boolean
+        estimationUuid:
+          type: string
+        faoEstimate:
+          type: boolean
+        imported:
+          type: boolean
+        odpId:
+          type: integer
+        raw:
+          type: object
+        taxonCode:
+          type: string
+        estimated:
+          type: boolean
+          deprecated: true
