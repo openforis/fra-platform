@@ -34,8 +34,12 @@ export const updateCountry = async (props: Props, client: BaseProtocol = DB): Pr
       t
     )
 
-    // update cache
-    await AreaRedisRepository.getOneCountry({ assessment, cycle, countryIso, force: true }, t)
+    // update cache for all cycles to keep lastPublished up to date
+    await Promise.all(
+      assessment.cycles.map((c) =>
+        AreaRedisRepository.getOneCountry({ assessment, cycle: c, countryIso, force: true }, t)
+      )
+    )
 
     // insert activity log
     const target = { assessment: assessment.props.name, status: country.props.status }
