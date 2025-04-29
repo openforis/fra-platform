@@ -61,6 +61,7 @@
         "hansenGfc2020": "Hansen GFC (2020)",
         "hansenGfc2020WithPercent": "$t(geo.sections.forest.layerTitles.hansenGfc2020) {{hansenPercent}} %",
         "jaxa2017": "JAXA (2017)",
+        "jrc2020": "JRC Forest 2000",
         "modis": "MODIS",
         "tanDemX2019": "TanDEM-X (2019)"
       },

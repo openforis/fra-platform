@@ -38,7 +38,7 @@
     "unknown": "$t(fra.designatedManagementObjective.unknown2025)"
   },
   "primaryForest": {
-    "title": "Девственные леса % от площади лесов, {{year}}"
+    "title": "Первичные леса % от площади лесов, {{year}}"
   },
   "rowName": {
     "area": "Площадь",
