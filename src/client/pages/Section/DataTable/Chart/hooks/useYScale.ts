@@ -13,6 +13,7 @@ const yMaxValue = 98765
 
 export const useYScale = (props: Props): D3ChartAxisScale => {
   const { trendsData } = props
+
   return useMemo<D3ChartAxisScale>(() => {
     const values = Object.values(trendsData).flatMap((trendData) => trendData.map((data) => data.value))
     const max = Math.max(...values)

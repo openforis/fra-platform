@@ -5,6 +5,7 @@ import { interpolatePath } from 'd3-interpolate-path'
 import { Functions } from 'utils/functions'
 
 import { useOnUpdate } from 'client/hooks'
+import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { Charts } from 'client/pages/Section/DataTable/Chart/charts'
 import { D3ChartAxisScale, Trend, TrendData } from 'client/pages/Section/DataTable/Chart/types'
 
@@ -21,12 +22,13 @@ type Props = {
 export const usePathTransition = (props: Props): void => {
   const { data, trend, pathRef, xScale, yScale } = props
 
+  const { print } = useIsPrintRoute()
   const { hasData, hasDiffs, pathNext, pathPrev } = usePathProps({ data, trend, pathRef, xScale, yScale })
   const firstTransition = useRef<boolean>(true)
 
   const transition = useCallback(
     (next: string, prev: string, opacity: number) => {
-      let duration = Charts.transitions.dataPath * 2
+      let duration = print ? 0 : Charts.transitions.dataPath * 2
       if (!firstTransition.current) duration /= 2
 
       d3.select(pathRef.current)
@@ -36,7 +38,7 @@ export const usePathTransition = (props: Props): void => {
         .attrTween('d', () => interpolatePath(prev, next))
         .style('opacity', opacity)
     },
-    [pathRef]
+    [pathRef, print]
   )
   const throttleTransition = useMemo(() => {
     return Functions.throttle(transition, Charts.transitions.dataPath, { leading: false, trailing: true })
