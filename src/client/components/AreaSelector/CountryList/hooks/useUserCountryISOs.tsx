@@ -34,7 +34,7 @@ export const useUserCountryISOs = (): Record<CycleUuid, Record<string, Array<Cou
     if (!userCountryISOs[UserRoles.noRole.role]) userCountryISOs[UserRoles.noRole.role] = {}
 
     // Only show countries of cycle if published when no role
-    if (Cycles.isPublished(cycle)) {
+    if (!user || Cycles.isPublished(cycle)) {
       // For no user role, show only current cycle countries
       userCountryISOs[UserRoles.noRole.role][cycle.uuid] = allCountries
         .map((c) => c.countryIso)
