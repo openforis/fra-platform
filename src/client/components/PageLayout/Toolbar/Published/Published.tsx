@@ -5,13 +5,13 @@ import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
 import { Dates } from 'utils/dates'
 
-import { Lang } from 'meta/lang'
-
 import { useAssessmentCountry } from 'client/store/area'
 import { useLastPublishedCycle } from 'client/store/assessment'
+import { useLanguage } from 'client/hooks/useLanguage'
 
 const Published: React.FC = () => {
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
+  const lang = useLanguage()
   const lastPublishedCycle = useLastPublishedCycle()
   const country = useAssessmentCountry()
 
@@ -19,9 +19,8 @@ const Published: React.FC = () => {
     if (!country?.lastPublishedInfo?.lastPublished) return ''
 
     const date = Dates.parseISO(country.lastPublishedInfo.lastPublished)
-    const lang = i18n.language as Lang
     return Dates.format(date, 'MMMM yyyy', { locale: Dates.getLocale(lang) })
-  }, [country?.lastPublishedInfo?.lastPublished, i18n.language])
+  }, [country?.lastPublishedInfo?.lastPublished, lang])
 
   const publishedAfter = useMemo(() => {
     return Dates.isAfter(
