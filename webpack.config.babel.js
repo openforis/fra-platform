@@ -62,6 +62,7 @@ const appConfig = {
     alias: {
       i18n: path.resolve(__dirname, 'src/i18n/'),
       client: path.resolve(__dirname, 'src/client/'),
+      docs: path.resolve(__dirname, 'src/docs/'),
       meta: path.resolve(__dirname, 'src/meta/'),
       server: path.resolve(__dirname, 'src/server/'),
       test: path.resolve(__dirname, 'src/test/'),
