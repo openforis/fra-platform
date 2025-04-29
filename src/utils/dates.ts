@@ -9,8 +9,12 @@ import {
   getYear,
   isAfter,
   isBefore,
+  Locale,
   parseISO,
 } from 'date-fns'
+import { ar, enUS, es, fr, ru, zhCN } from 'date-fns/locale'
+
+import { Lang } from 'meta/lang'
 
 export const getRelativeDate = (rawDate: any, i18n: any) => {
   const timestamp = parseISO(rawDate)
@@ -28,6 +32,17 @@ export const getRelativeDate = (rawDate: any, i18n: any) => {
 
 const getCurrentYear = (): number => getYear(new Date())
 
+const localeMap: Record<Lang, Locale> = {
+  [Lang.en]: enUS,
+  [Lang.es]: es,
+  [Lang.fr]: fr,
+  [Lang.ru]: ru,
+  [Lang.ar]: ar,
+  [Lang.zh]: zhCN,
+}
+
+const getLocale = (languageCode: Lang): Locale => localeMap[languageCode] || enUS
+
 export const Dates = {
   addDays,
   addMonths,
@@ -38,4 +53,5 @@ export const Dates = {
   isAfter,
   isBefore,
   parseISO,
+  getLocale,
 }
