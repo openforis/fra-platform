@@ -2,6 +2,8 @@ openapi: 3.0.0
 paths:
   /cycle-data/table/table-data:
     get:
+      tags:
+        - Data
       summary: Get table data
       parameters:
         - $ref: '#/components/parameters/assessmentName'
