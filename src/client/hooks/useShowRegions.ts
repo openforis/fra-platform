@@ -14,6 +14,6 @@ export const useShowRegions = () => {
   const isAdmin = Users.isAdministrator(user)
 
   return useMemo(() => {
-    return !geoRoute && (isAdmin || Cycles.isPublished(cycle))
-  }, [cycle, geoRoute, isAdmin])
+    return !geoRoute && (isAdmin || !user || Cycles.isPublished(cycle))
+  }, [cycle, geoRoute, isAdmin, user])
 }
