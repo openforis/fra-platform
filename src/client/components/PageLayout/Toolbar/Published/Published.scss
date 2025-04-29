@@ -1,0 +1,19 @@
+@import 'src/client/style/partials';
+
+.toolbar__published_date {
+  padding: $spacing-xxxxs $spacing-xxs;
+  text-transform: uppercase;
+  font-size: 11px;
+  color: #555555;
+  display: flex;
+  align-items: center;
+  margin-left: $spacing-xxs;
+  font-weight: 600;
+  border-radius: 2px;
+
+  &.published_after {
+    color: #fbfafa;
+    background-color: #555555;
+    letter-spacing: 0.05ch;
+  }
+}
