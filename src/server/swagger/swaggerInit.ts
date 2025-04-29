@@ -33,6 +33,8 @@ export const swaggerInit = (app: Express): void => {
     swaggerUi.serve,
     swaggerUi.setup(undefined, {
       swaggerOptions: {
+        defaultModelExpandDepth: 10,
+        defaultModelsExpandDepth: 0,
         validatorUrl: null,
       },
       swaggerUrl: '/api-docs/swagger.json',

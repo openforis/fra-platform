@@ -2,6 +2,8 @@ openapi: 3.0.0
 paths:
   /cycle-data/descriptions:
     get:
+      tags:
+        - Data
       summary: Get Descriptions by cycle and country
       parameters:
         - $ref: '#/components/parameters/assessmentName'

@@ -2,6 +2,8 @@ openapi: 3.0.0
 paths:
   /cycle-data/original-data-points:
     get:
+      tags:
+        - Data
       summary: Get all Original Data Points for a given country and cycle
       parameters:
         - $ref: '#/components/parameters/assessmentName'

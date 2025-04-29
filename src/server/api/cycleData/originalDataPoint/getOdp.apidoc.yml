@@ -2,6 +2,8 @@ openapi: 3.0.0
 paths:
   /cycle-data/original-data-points/original-data-point:
     get:
+      tags:
+        - Data
       summary: Get Original Data Point
       parameters:
         - $ref: '#/components/parameters/assessmentName'
