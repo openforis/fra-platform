@@ -11,7 +11,6 @@ import { publishCycle } from './publishCycle'
 import { remove } from './remove'
 import { removeCycle } from './removeCycle'
 import { renameCycle } from './renameCycle'
-import { updateDefaultCycle } from './update'
 
 export const AssessmentController = {
   // assessment
@@ -20,7 +19,6 @@ export const AssessmentController = {
   getOne: AssessmentRepository.getOne,
   getOneWithCycle,
   remove,
-  updateDefaultCycle,
 
   // cycle
   cloneCycle,
