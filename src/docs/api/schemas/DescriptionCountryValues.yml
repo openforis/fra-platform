@@ -1,0 +1,71 @@
+components:
+  schemas:
+    CommentableDescriptionName:
+      type: string
+      enum:
+        - dataSources
+        - estimationAndForecasting
+        - generalComments
+        - introductoryText
+        - nationalClassificationAndDefinitions
+        - originalData
+        - reclassification
+
+    DataSource:
+      type: object
+      properties:
+        comments:
+          type: string
+        placeholder:
+          type: boolean
+        reference:
+          type: string
+        type:
+          type: string
+        uuid:
+          type: string
+        variables:
+          type: array
+          items:
+            type: string
+        year:
+          type: string
+      required:
+        - comments
+        - reference
+        - type
+        - year
+
+    CommentableDescriptionValue:
+      type: object
+      description: Text and optional data sources associated with a commentable description.
+      properties:
+        text:
+          type: string
+        dataSources:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataSource'
+      required:
+        - text
+
+    DescriptionValues:
+      title: Record<CommentableDescriptionName, CommentableDescriptionValue>
+      type: object
+      description: Mapping of description field names (e.g., "dataSources", "generalComments") to their respective values.
+      additionalProperties:
+        $ref: '#/components/schemas/CommentableDescriptionValue'
+
+    DescriptionSectionValues:
+      title: Record<SectionName, DescriptionValues>
+      type: object
+      description: Mapping of section names (e.g., "annualReforestation") to description values.
+      additionalProperties:
+        $ref: '#/components/schemas/DescriptionValues'
+
+    DescriptionCountryValues:
+      title: Record<CountryIso, DescriptionSectionValues>
+      type: object
+      description: Mapping of country ISO codes (e.g., "FIN") to their description data.
+      additionalProperties:
+        $ref: '#/components/schemas/DescriptionSectionValues'

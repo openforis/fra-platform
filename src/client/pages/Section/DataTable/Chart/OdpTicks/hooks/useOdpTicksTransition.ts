@@ -2,6 +2,7 @@ import { RefObject, useLayoutEffect } from 'react'
 
 import * as d3 from 'd3'
 
+import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { Charts } from 'client/pages/Section/DataTable/Chart/charts'
 import { D3ChartAxisScale, TrendData, TrendDatum } from 'client/pages/Section/DataTable/Chart/types'
 
@@ -15,14 +16,19 @@ type Props = {
 export const useOdpTicksTransition = (props: Props): void => {
   const { containerRef, trendData, xScale, yScale } = props
 
+  const { print } = useIsPrintRoute()
+
   useLayoutEffect(() => {
+    const duration = print ? 0 : Charts.transitions.odpTicks
+    const delay = print ? 0 : Charts.transitions.odpTicks / 2
+
     const lines = d3.select(containerRef.current).selectAll('line').data<TrendDatum>(trendData)
 
     // update
     lines
       .transition()
-      .delay(Charts.transitions.odpTicks / 2)
-      .duration(Charts.transitions.odpTicks)
+      .delay(delay)
+      .duration(duration)
       .ease(d3.easeLinear)
       .attr('x1', (d) => xScale(d.year))
       .attr('y1', () => yScale(0))
@@ -34,7 +40,7 @@ export const useOdpTicksTransition = (props: Props): void => {
     lines
       .exit()
       .transition()
-      .duration(Charts.transitions.odpTicks)
+      .duration(duration)
       .ease(d3.easeLinear)
       .attr('y2', () => yScale(0))
       .style('opacity', '0')
@@ -52,10 +58,10 @@ export const useOdpTicksTransition = (props: Props): void => {
       .style('stroke', '#cccccc')
       .style('stroke-width', 1)
       .transition()
-      .delay(Charts.transitions.odpTicks / 2)
-      .duration(Charts.transitions.odpTicks)
+      .delay(delay)
+      .duration(duration)
       .ease(d3.easeLinear)
       .attr('y2', (d) => yScale(d.value))
       .style('opacity', '1')
-  }, [containerRef, trendData, xScale, yScale])
+  }, [containerRef, print, trendData, xScale, yScale])
 }

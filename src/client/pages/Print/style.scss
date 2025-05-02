@@ -79,6 +79,12 @@
     break-before: page;
   }
 
+  // Prevents a page‐break immediately after this element
+  // used to prevent table headers splitting from their first row
+  .print-break-after-avoid {
+    break-after: avoid-page;
+  }
+
   // Attempts to avoid breaking inside element
   // used to keep print layouts intact for e.g. data tables, comments
   .print-break-inside-avoid {
