@@ -15,12 +15,7 @@ export default async (client: BaseProtocol) => {
       const schemaName = Schemas.getNameCycle(assessment, cycle)
 
       if (cycle.props.status === CycleStatus.published) {
-        await client.query(
-          `
-            update ${schemaName}.country set status = $1 where status = $2
-        `,
-          [CountryStatus.published, CountryStatus.accepted]
-        )
+        await client.query(`update ${schemaName}.country set status = $1`, [CountryStatus.published])
       }
 
       await DB.query(`alter table ${schemaName}.country add column last_in_published timestamptz;`)
