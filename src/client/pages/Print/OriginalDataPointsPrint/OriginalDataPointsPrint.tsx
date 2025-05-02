@@ -67,7 +67,7 @@ const OriginalDataPointsPrint: React.FC<Props> = (props) => {
         })}
       </div>
 
-      {isExtendOfForest && hasDescriptions && (
+      {hasDescriptions && (
         <div className="odp__section-print-mode">
           <h3 className="subhead">{i18n.t('dataSource.comments')}</h3>
           <DataGrid className="odp__section" gridTemplateColumns="100px 1fr">
