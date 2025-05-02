@@ -11,10 +11,10 @@ import { ActivityLogDb, ActivityLogRepository } from 'server/repository/public/a
 import { AreaRedisRepository } from 'server/repository/redis/area'
 
 export const publishCycle = async (
-  props: { user: User; assessment: Assessment; cycle: Cycle },
+  props: { user: User; assessment: Assessment; cycle: Cycle; allCountries?: boolean },
   client: BaseProtocol = DB
 ): Promise<{ cycle: Cycle; countries: Array<Country> }> => {
-  const { assessment, user, cycle } = props
+  const { assessment, user, cycle, allCountries } = props
 
   return client.tx(async (t) => {
     cycle.props.status = CycleStatus.published
@@ -22,7 +22,7 @@ export const publishCycle = async (
     await CycleRepository.update({ cycle }, t)
 
     // Update countries db
-    const publishedCountries = await CountryRepository.publishAllAccepted({ assessment, cycle })
+    const publishedCountries = await CountryRepository.publishMany({ assessment, cycle, allCountries })
     // Update countries cache
     await AreaRedisRepository.getCountriesMap({ assessment, cycle, force: true })
 

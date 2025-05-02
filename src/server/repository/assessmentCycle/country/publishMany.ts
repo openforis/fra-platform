@@ -1,4 +1,4 @@
-import { Country } from 'meta/area'
+import { Country, CountryStatus } from 'meta/area'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 
@@ -9,10 +9,11 @@ import { getMany } from './getMany'
 type Props = {
   assessment: Assessment
   cycle: Cycle
+  allCountries?: boolean
 }
 
-export const publishAllAccepted = async (props: Props, client: BaseProtocol = DB): Promise<Array<Country>> => {
-  const { assessment, cycle } = props
+export const publishMany = async (props: Props, client: BaseProtocol = DB): Promise<Array<Country>> => {
+  const { assessment, cycle, allCountries } = props
 
   const schemaName = Schemas.getNameCycle(assessment, cycle)
 
@@ -20,11 +21,11 @@ export const publishAllAccepted = async (props: Props, client: BaseProtocol = DB
     `
     update ${schemaName}.country
     set last_in_published = now(),
-        status = 'published'
-    where status = 'accepted'
+        status = $1
+        ${allCountries ? '' : 'where status = $2'}
     returning country_iso
   `,
-    [],
+    [CountryStatus.published, CountryStatus.accepted],
     (row) => row.country_iso
   )
 

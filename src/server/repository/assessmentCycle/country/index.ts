@@ -1,8 +1,9 @@
+import { publishMany } from 'server/repository/assessmentCycle/country/publishMany'
+
 import { getCountryIsos } from './getCountryIsos'
 import { getCountryLastPublishedInfo } from './getCountryLastPublishedInfo'
 import { getMany, getManyRecord } from './getMany'
 import { getOne } from './getOne'
-import { publishAllAccepted } from './publishAllAccepted'
 import { update } from './update'
 
 export const CountryRepository = {
@@ -11,6 +12,6 @@ export const CountryRepository = {
   getMany,
   getManyRecord,
   getOne,
-  publishAllAccepted,
+  publishMany,
   update,
 }
