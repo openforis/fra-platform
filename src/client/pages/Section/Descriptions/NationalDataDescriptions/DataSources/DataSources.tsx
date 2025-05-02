@@ -70,7 +70,7 @@ export const DataSources: React.FC<Props> = (props: Props) => {
 
           <DataGrid
             gridColumn={canEdit ? `1/3` : undefined}
-            gridTemplateColumns="minmax(200px, 1fr) minmax(200px, 1fr) minmax(200px, 1fr) minmax(150px, 300px) minmax(150px, 1fr)"
+            gridTemplateColumns="minmax(200px, 1fr) minmax(200px, 1fr) minmax(200px, 1fr) minmax(150px, 1fr) minmax(150px, 1fr)"
             withActions={canEdit}
           >
             <DataCell header>{t(`${keyPrefix}.referenceToTataSource`)}</DataCell>
