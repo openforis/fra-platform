@@ -10,7 +10,6 @@ import { RedisData } from 'server/repository/redis/redisData'
 import assessmentCreate from 'test/integration/assessment/createAssessment'
 import originalDataPoint from 'test/integration/assessment/originalDataPoint'
 import assessmentRemove from 'test/integration/assessment/removeAssessment'
-import updateAssessmentDefaultCycle from 'test/integration/assessment/updateAssessmentDefaultCycle'
 import messageCenter from 'test/integration/messageCenter/messageCenter'
 import sectionCreateChild from 'test/integration/section/createChildSection'
 import sectionCreate from 'test/integration/section/createSection'
@@ -46,7 +45,6 @@ describe('Metadata integration test', () => {
 
   // assessment
   assessmentCreate()
-  updateAssessmentDefaultCycle()
 
   // section
   sectionCreate()

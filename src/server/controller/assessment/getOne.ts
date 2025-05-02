@@ -1,4 +1,5 @@
 import { Assessment } from 'meta/assessment/assessment'
+import { Assessments } from 'meta/assessment/assessments'
 import { Cycle } from 'meta/assessment/cycle'
 
 import { BaseProtocol, DB } from 'server/db'
@@ -13,14 +14,14 @@ const _getCycleByName = (props: { cycleName?: string; assessment: Assessment }):
   const { cycleName, assessment } = props
   if (cycleName) return assessment.cycles.find((cycle) => cycle.name === cycleName)
   // Return default cycle if cycleName not defined
-  return assessment.cycles.find((cycle) => cycle.uuid === assessment.props.defaultCycle)
+  return Assessments.getLastPublishedCycle(assessment)
 }
 
 const _getCycleByUuid = (props: { cycleUuid?: string; assessment: Assessment }): Cycle | undefined => {
   const { cycleUuid, assessment } = props
   if (cycleUuid) return assessment.cycles.find((cycle) => cycle.uuid === cycleUuid)
   // Return default cycle if cycleName not defined
-  return assessment.cycles.find((cycle) => cycle.uuid === assessment.props.defaultCycle)
+  return Assessments.getLastPublishedCycle(assessment)
 }
 
 export const getOneWithCycle = async (
