@@ -4,6 +4,22 @@ div.editorWYSIWYG {
   height: 100%;
   word-break: break-word;
 
+  &.show-pdf-guideline {
+    position: relative;
+    width: 100%;
+
+    &::after {
+      border-left: 2px dashed $ui-edit-border-color;
+      content: '';
+      top: 0;
+      // PDF Width
+      left: 1202px;
+      right: 0;
+      bottom: 0;
+      position: absolute;
+    }
+  }
+
   table {
     word-break: normal;
   }
