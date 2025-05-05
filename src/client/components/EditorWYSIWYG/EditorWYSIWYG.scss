@@ -9,16 +9,14 @@ div.editorWYSIWYG {
     width: 100%;
 
     &::after {
-      background-color: $ui-destructive;
       border-left: 2px dashed $ui-edit-border-color;
-      bottom: 0;
       content: '';
+      top: 0;
       // PDF Width
       left: 1202px;
-      opacity: 4%;
-      position: absolute;
       right: 0;
-      top: 0;
+      bottom: 0;
+      position: absolute;
     }
   }
 
