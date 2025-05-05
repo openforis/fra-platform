@@ -4,6 +4,24 @@ div.editorWYSIWYG {
   height: 100%;
   word-break: break-word;
 
+  &.show-pdf-guideline {
+    position: relative;
+    width: 100%;
+
+    &::after {
+      background-color: $ui-destructive;
+      border-left: 2px dashed $ui-edit-border-color;
+      bottom: 0;
+      content: '';
+      // PDF Width
+      left: 1202px;
+      opacity: 4%;
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+  }
+
   table {
     word-break: normal;
   }

@@ -61,6 +61,7 @@ const CommentableDescription: React.FC<Props> = (props) => {
               disabled={!editable}
               onChange={(content) => onChange({ ...value, text: content })}
               repository={repository}
+              showPDFGuideLine
               value={empty && print ? '-' : value.text}
             />
           )}
