@@ -5,7 +5,7 @@ import { CycleStatus } from 'meta/assessment/cycle'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { CacheController } from 'server/controller/cache'
-import { BaseProtocol, Schemas } from 'server/db'
+import { BaseProtocol, DB, Schemas } from 'server/db'
 
 export default async (client: BaseProtocol) => {
   const assessments = await AssessmentController.getAll({}, client)
@@ -14,7 +14,7 @@ export default async (client: BaseProtocol) => {
   await Promises.each(assessments, async (assessment) => {
     return Promises.each(assessment.cycles, async (cycle) => {
       const schemaName = Schemas.getNameCycle(assessment, cycle)
-      await client.query(`alter table ${schemaName}.country add column last_in_published timestamptz;`)
+      await DB.query(`alter table ${schemaName}.country add column last_in_published timestamptz;`)
     })
   })
 
