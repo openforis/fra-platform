@@ -3,11 +3,11 @@ import { AssessmentNames } from 'meta/assessment/assessment'
 import { AssessmentController } from 'server/controller/assessment'
 import { BaseProtocol, Schemas } from 'server/db'
 
-const assessmentName = AssessmentNames.fra
-const cycleName = '2025'
-const tableName = 'forestRestoration'
+const removeFraForestRestorationIfYesColumn = async (props: { cycleName: string }, client: BaseProtocol) => {
+  const { cycleName } = props
+  const assessmentName = AssessmentNames.fra
+  const tableName = 'forestRestoration'
 
-export default async (client: BaseProtocol) => {
   const { assessment, cycle } = await AssessmentController.getOneWithCycle(
     {
       assessmentName,
@@ -80,6 +80,12 @@ export default async (client: BaseProtocol) => {
        )
     `
   )
+}
 
+export default async (client: BaseProtocol) => {
+  const cycles = ['2025', 'latest']
+  await Promise.all(cycles.map((cycleName) => removeFraForestRestorationIfYesColumn({ cycleName }, client)))
+
+  const assessment = await AssessmentController.getOne({ assessmentName: AssessmentNames.fra }, client)
   await AssessmentController.generateMetadataCache({ assessment }, client)
 }
