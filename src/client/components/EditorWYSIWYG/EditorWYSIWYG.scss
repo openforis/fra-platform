@@ -1,8 +1,37 @@
 @import 'src/client/style/partials';
 
+@include rtl {
+  div.editorWYSIWYG {
+    &.show-pdf-guideline {
+      &::after {
+        border-left: none !important;
+        border-right: 2px dashed $ui-edit-border-color !important;
+        left: auto !important;
+        right: 1202px !important;
+      }
+    }
+  }
+}
+
 div.editorWYSIWYG {
   height: 100%;
   word-break: break-word;
+
+  &.show-pdf-guideline {
+    position: relative;
+    width: 100%;
+
+    &::after {
+      border-left: 2px dashed $ui-edit-border-color;
+      content: '';
+      top: 0;
+      // PDF Width
+      left: 1202px;
+      right: auto !important;
+      bottom: 0;
+      position: absolute;
+    }
+  }
 
   table {
     word-break: normal;
