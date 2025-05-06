@@ -18,13 +18,11 @@ export default async (client: BaseProtocol) => {
     })
   })
 
-  // 2. Update data and generate cache for each cycle
-  // N.B. When populating data, we expect _all assessment schemas_ to have above column
+  // 2. Update data
   await Promises.each(assessments, async (assessment) => {
     return Promises.each(assessment.cycles, async (cycle) => {
-      const schemaName = Schemas.getNameCycle(assessment, cycle)
-
       if (cycle.props.status === CycleStatus.published) {
+        const schemaName = Schemas.getNameCycle(assessment, cycle)
         await client.query(
           `
           update ${schemaName}.country
@@ -34,7 +32,13 @@ export default async (client: BaseProtocol) => {
           [cycle.props.datePublished, CountryStatus.published]
         )
       }
+    })
+  })
 
+  // 3. Generate cache for each cycle
+  // N.B. When populating cache, we expect _all assessment cycle schemas_ to have above column
+  await Promises.each(assessments, async (assessment) => {
+    return Promises.each(assessment.cycles, async (cycle) => {
       await CacheController.generateArea({ assessment, cycle }, client)
     })
   })
