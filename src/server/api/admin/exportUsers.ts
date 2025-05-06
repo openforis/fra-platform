@@ -15,7 +15,7 @@ export const exportUsers = async (req: UsersRequest, res: Response) => {
     const { assessment, cycle } = props
     const fileName = `users-${assessment.props.name}-${cycle.name}.csv`
     const user = Requests.getUser(req)
-    const { lang } = user.props
+    const lang = req.query.lang ?? user.props.lang
 
     const { query, queryParams, rowTransformer } = await UserController.getManyExport({ ...props, lang })
 

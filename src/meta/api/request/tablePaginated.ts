@@ -4,12 +4,14 @@ import { AreaCode } from 'meta/area'
 import { AssessmentName } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
 import { SectionName } from 'meta/assessment/section'
+import { Lang } from 'meta/lang'
 import { TablePaginatedOrderByDirection } from 'meta/tablePaginated'
 
 export type TablePaginatedBaseParams = {
   assessmentName: AssessmentName
-  cycleName: CycleName
   countryIso?: AreaCode
+  cycleName: CycleName
+  lang?: Lang
   sectionName?: SectionName
 }
 
