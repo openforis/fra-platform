@@ -57,7 +57,7 @@ export default async (client: BaseProtocol) => {
   await Promise.all(cycles.map((cycleName) => removeFraForestRestorationIfYesColumn({ cycleName }, client)))
   const assessment = await AssessmentController.getOne({ assessmentName: AssessmentNames.fra }, client)
 
-  // 3. Delete the "if yes" header column for this cycle
+  // 3. Delete the "if yes" header column for the assessment
   const schemaAssessment = Schemas.getName(assessment)
   await client.query(
     `delete from ${schemaAssessment}.col c
