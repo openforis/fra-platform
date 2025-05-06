@@ -3,10 +3,11 @@ import { AssessmentNames } from 'meta/assessment/assessment'
 import { AssessmentController } from 'server/controller/assessment'
 import { BaseProtocol, Schemas } from 'server/db'
 
+const tableName = 'forestRestoration'
+
 const removeFraForestRestorationIfYesColumn = async (props: { cycleName: string }, client: BaseProtocol) => {
   const { cycleName } = props
   const assessmentName = AssessmentNames.fra
-  const tableName = 'forestRestoration'
 
   const { assessment, cycle } = await AssessmentController.getOneWithCycle(
     {
@@ -24,15 +25,10 @@ const removeFraForestRestorationIfYesColumn = async (props: { cycleName: string 
   await client.query(
     `update ${schemaAssessment}.table
      set props = jsonb_set(
-      jsonb_set(
-        props,
-        '{style}',
-        coalesce(props->'style', '{}'::jsonb),
-        true
-      ),
-      '{style,${cycleUuid}}',
-      $1::jsonb,
-      true
+       props,
+       '{style,${cycleUuid}}',
+       $1::jsonb,
+       true
      )
      where props->>'name' = '${tableName}'
     `,
@@ -54,20 +50,17 @@ const removeFraForestRestorationIfYesColumn = async (props: { cycleName: string 
      )
     `
   )
+}
 
-  // 3. Remove "if yes" cell
+export default async (client: BaseProtocol) => {
+  const cycles = ['2025', 'latest']
+  await Promise.all(cycles.map((cycleName) => removeFraForestRestorationIfYesColumn({ cycleName }, client)))
+  const assessment = await AssessmentController.getOne({ assessmentName: AssessmentNames.fra }, client)
+
+  // 3. Delete the "if yes" header column for this cycle
+  const schemaAssessment = Schemas.getName(assessment)
   await client.query(
-    `update ${schemaAssessment}.col c
-     set props = jsonb_set(
-       (
-         props
-         #- '{style,${cycleUuid}}'
-         #- '{labels,${cycleUuid}}'
-       ),
-       '{cycles}',
-       (props->'cycles') - '${cycleUuid}',
-       true
-     )
+    `delete from ${schemaAssessment}.col c
      where c.props->>'colType' = 'header'
        and c.props->>'index' = 'header_0'
        and c.row_id in (
@@ -80,12 +73,6 @@ const removeFraForestRestorationIfYesColumn = async (props: { cycleName: string 
        )
     `
   )
-}
 
-export default async (client: BaseProtocol) => {
-  const cycles = ['2025', 'latest']
-  await Promise.all(cycles.map((cycleName) => removeFraForestRestorationIfYesColumn({ cycleName }, client)))
-
-  const assessment = await AssessmentController.getOne({ assessmentName: AssessmentNames.fra }, client)
   await AssessmentController.generateMetadataCache({ assessment }, client)
 }
