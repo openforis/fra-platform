@@ -8,10 +8,10 @@ import { i18n } from 'i18next'
 import { Areas, CountryIso, Global, Region, RegionCode, RegionGroup } from 'meta/area'
 import { UserRoles } from 'meta/user/userRoles'
 
-import { useCountries, useRegionGroups } from 'client/store/area'
+import { useRegionGroups } from 'client/store/area'
 import { useCycle } from 'client/store/assessment'
 import { useIsAreaSelectorExpanded } from 'client/store/ui/areaSelector'
-import { useUserCountries } from 'client/store/user'
+import { useCountriesWithoutRole } from 'client/components/AreaSelector/CountryList/hooks/useCountriesWithoutRole'
 import { checkMatch } from 'client/utils'
 
 import { useUserCountryISOs } from './hooks/useUserCountryISOs'
@@ -63,17 +63,14 @@ const CountryList: React.FC<Props> = (props: Props) => {
   const { i18n } = useTranslation()
   const regionGroups = useRegionGroups()
   const countryMap = useUserCountryISOs()
-  const _userCountries = useUserCountries()
-  const allCountries = useCountries()
+
   const cycle = useCycle()
   const expanded = useIsAreaSelectorExpanded()
 
   const showCountriesWithRoles = includeCountries && showCountryRole
   const showCountriesWithoutRoles = includeCountries && !showCountryRole
 
-  const countriesWithoutRole: Array<CountryIso> = userCountries
-    ? _userCountries
-    : allCountries.map(({ countryIso }) => countryIso)
+  const countriesWithoutRole = useCountriesWithoutRole(userCountries)
 
   return (
     <div className={classNames('country-selection-list', { expanded })}>
