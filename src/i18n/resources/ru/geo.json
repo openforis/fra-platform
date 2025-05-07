@@ -62,6 +62,7 @@
         "hansenGfc2020WithPercent": "$t(geo.sections.forest.layerTitles.hansenGfc2020) {{hansenPercent}} %",
         "jaxa2017": "JAXA (2017)",
         "modis": "MODIS",
+        "jrc2020": "JRC Forest 2020",
         "tanDemX2019": "TanDEM-X (2019)"
       },
       "title": "Деревянный покров"
