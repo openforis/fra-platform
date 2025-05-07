@@ -23,6 +23,7 @@ const AnalysisDescriptions: React.FC<Props> = (props) => {
       {analysisAndProcessing.estimationAndForecasting && (
         <CommentableDescription
           name={CommentableDescriptionName.estimationAndForecasting}
+          repository
           title={t('description.estimationAndForecasting')}
         />
       )}
@@ -30,6 +31,7 @@ const AnalysisDescriptions: React.FC<Props> = (props) => {
       {analysisAndProcessing.reclassification && (
         <CommentableDescription
           name={CommentableDescriptionName.reclassification}
+          repository
           title={t('description.reclassification', { cycleName })}
         />
       )}
