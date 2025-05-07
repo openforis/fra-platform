@@ -8,10 +8,11 @@ type Props = {
   assessment: Assessment
   cycle: Cycle
   countryIso?: CountryIso
+  countryIsos?: Array<CountryIso>
 }
 
 export const getBaseQuery = (props: Props): string => {
-  const { assessment, cycle, countryIso } = props
+  const { assessment, cycle, countryIso, countryIsos } = props
   const cycleSchema = Schemas.getNameCycle(assessment, cycle)
 
   return `
@@ -21,6 +22,7 @@ export const getBaseQuery = (props: Props): string => {
            c.last_in_review,
            c.last_in_approval,
            c.last_in_accepted,
+           c.last_in_published,
            c.last_update,
            jsonb_agg(cr.region_code) as region_codes
     from ${cycleSchema}.country c
@@ -29,12 +31,14 @@ export const getBaseQuery = (props: Props): string => {
              left join ${cycleSchema}.country_summary cs
                        on c.country_iso = cs.country_iso
     ${countryIso ? 'where c.country_iso = $1' : ''}
+    ${countryIsos?.length > 0 ? 'where c.country_iso in ($1:list)' : ''}
     group by c.country_iso, 
              props || jsonb_build_object('status', c.status),
             c.last_edit,
             c.last_in_review,
             c.last_in_approval,
             c.last_in_accepted,
+            c.last_in_published,
             c.last_update
   `
 }

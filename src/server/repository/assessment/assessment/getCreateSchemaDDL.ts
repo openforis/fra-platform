@@ -148,6 +148,7 @@ export const getCreateSchemaCycleDDL = (assessmentSchemaName: string, assessment
           last_in_review timestamptz,
           last_in_approval timestamptz,
           last_in_accepted timestamptz,
+          last_in_published timestamptz,
           unique (country_iso)
       );
       

@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 
 import { Assessment } from 'meta/assessment/assessment'
+import { Assessments } from 'meta/assessment/assessments'
 import { Cycle, CycleUuid } from 'meta/assessment/cycle'
 
 import { AssessmentSelectors } from 'client/store/assessment/selectors'
@@ -32,6 +33,11 @@ export const useCycle = (cycleUuid?: CycleUuid): Cycle => {
     if (!assessment) return undefined
     if (cycleUuid) return assessment.cycles.find((cycle) => cycle.uuid === cycleUuid)
     if (cycleName) return assessment.cycles.find((cycle) => cycle.name === cycleName)
-    return assessment.cycles.find((cycle) => cycle.uuid === assessment.props.defaultCycle)
+    return Assessments.getLastPublishedCycle(assessment)
   }, [assessment, cycleName, cycleUuid])
+}
+
+export const useLastPublishedCycle = () => {
+  const assessment = useAssessment()
+  return Assessments.getLastPublishedCycle(assessment)
 }

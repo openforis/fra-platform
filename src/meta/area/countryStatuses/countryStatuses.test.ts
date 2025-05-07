@@ -2,7 +2,7 @@ import { Country } from 'meta/area/country'
 import { CountryIso } from 'meta/area/countryIso'
 import { CountryStatuses, CountryStatusTransition } from 'meta/area/countryStatuses/index'
 import { CountryStatus } from 'meta/area/status'
-import { Cycle } from 'meta/assessment/cycle'
+import { Cycle, CycleStatus } from 'meta/assessment/cycle'
 import { RoleName, User } from 'meta/user'
 
 const countryIso = 'ATL' as CountryIso
@@ -14,7 +14,7 @@ const getUserInfo = (countryIso: CountryIso, role: RoleName) =>
 const getCountry = (countryIso: CountryIso, status: CountryStatus) =>
   ({ countryIso, props: { status }, lastEdit: new Date().toString() } as Country)
 
-const cycle = { uuid: cycleUuid } as Cycle
+const cycle = { uuid: cycleUuid, props: { status: CycleStatus.editing } } as Cycle
 
 describe('assessment', () => {
   test('Allows nothing when no role found', () =>
@@ -176,6 +176,62 @@ describe('assessment', () => {
 
   test('Returns review as previous when user is ADMINISTRATOR and state is accepted', () =>
     expect({
+      next: CountryStatus.published,
+      previous: CountryStatus.review,
+    } as CountryStatusTransition).toEqual(
+      CountryStatuses.getAllowedTransition({
+        country: getCountry(countryIso, CountryStatus.accepted),
+        user: getUserInfo(countryIso, RoleName.ADMINISTRATOR),
+        cycle,
+      })
+    ))
+
+  test('Allows nothing when user is REVIEWER tries to change from accepted to published', () =>
+    expect({} as CountryStatusTransition).toEqual(
+      CountryStatuses.getAllowedTransition({
+        country: getCountry(countryIso, CountryStatus.accepted),
+        user: getUserInfo(countryIso, RoleName.REVIEWER),
+        cycle,
+      })
+    ))
+
+  test('Returns published as next when user is ADMINISTRATOR and state is accepted and cycle is not published', () =>
+    expect({
+      next: CountryStatus.published,
+      previous: CountryStatus.review,
+    } as CountryStatusTransition).toEqual(
+      CountryStatuses.getAllowedTransition({
+        country: getCountry(countryIso, CountryStatus.accepted),
+        user: getUserInfo(countryIso, RoleName.ADMINISTRATOR),
+        cycle,
+      })
+    ))
+
+  test('Returns accepted as previous when user is ADMINISTRATOR and state is published and cycle is not published', () =>
+    expect({
+      previous: CountryStatus.accepted,
+    } as CountryStatusTransition).toEqual(
+      CountryStatuses.getAllowedTransition({
+        country: getCountry(countryIso, CountryStatus.published),
+        user: getUserInfo(countryIso, RoleName.ADMINISTRATOR),
+        cycle,
+      })
+    ))
+
+  test('Returns empty transition when user is ADMINISTRATOR and state is published and cycle is published', () =>
+    expect({
+      previous: CountryStatus.accepted,
+    } as CountryStatusTransition).toEqual(
+      CountryStatuses.getAllowedTransition({
+        country: getCountry(countryIso, CountryStatus.published),
+        user: getUserInfo(countryIso, RoleName.ADMINISTRATOR),
+        cycle,
+      })
+    ))
+
+  test('Returns published as next when user is ADMINISTRATOR and state is accepted and cycle is published', () =>
+    expect({
+      next: CountryStatus.published,
       previous: CountryStatus.review,
     } as CountryStatusTransition).toEqual(
       CountryStatuses.getAllowedTransition({

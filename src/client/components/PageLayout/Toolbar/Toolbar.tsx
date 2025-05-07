@@ -16,6 +16,7 @@ import AreaSelector from 'client/components/AreaSelector/AreaSelector'
 import LinkHome from 'client/components/LinkHome'
 import EditorOptions from 'client/components/PageLayout/Toolbar/EditorOptions'
 import Options from 'client/components/PageLayout/Toolbar/Options'
+import Published from 'client/components/PageLayout/Toolbar/Published'
 import { Breakpoints } from 'client/utils'
 
 import ToggleNavigationControl from './ToggleNavigationControl'
@@ -62,6 +63,7 @@ const Toolbar: React.FC = () => {
         <MediaQuery minWidth={Breakpoints.laptop}>
           {editor && !geoRoute && <EditorOptions />}
           {country?.props?.deskStudy && <div className="toolbar__desk-study">({t('assessment.deskStudy')})</div>}
+          {!user && <Published />}
           <Options />
         </MediaQuery>
       )}

@@ -1,14 +1,24 @@
 import './linkHome.scss'
-import React from 'react'
+import React, { useMemo } from 'react'
 import { NavLink } from 'react-router-dom'
 
+import { Assessments } from 'meta/assessment/assessments'
 import { Routes } from 'meta/routes'
 
+import { useAssessment } from 'client/store/assessment'
+import { useUser } from 'client/store/user'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import Icon from 'client/components/Icon'
 
 const LinkHome: React.FC = () => {
-  const { assessmentName, cycleName } = useCountryRouteParams()
+  const assessment = useAssessment()
+  const { assessmentName, cycleName: cycleNameParam } = useCountryRouteParams()
+  const user = useUser()
+
+  const cycleName = useMemo(
+    () => (user ? cycleNameParam : Assessments.getLastPublishedCycle(assessment).name),
+    [assessment, cycleNameParam, user]
+  )
 
   if (!assessmentName || !cycleName) return null
 

@@ -10,5 +10,4 @@ export type Props = {
   showCountryFlag?: boolean
   showCountryRole?: boolean
   disabled?: boolean
-  userCountries?: boolean
 }

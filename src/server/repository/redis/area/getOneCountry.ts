@@ -5,9 +5,10 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 
 import { BaseProtocol, DB } from 'server/db'
-import { CountryRepository } from 'server/repository/assessmentCycle/country'
 import { getKeyCycle, Keys } from 'server/repository/redis/keys'
 import { RedisData } from 'server/repository/redis/redisData'
+
+import { _cacheCountries } from './cacheCountries'
 
 type Props = {
   assessment: Assessment
@@ -31,14 +32,10 @@ export const getOneCountry = async (props: Props, client: BaseProtocol = DB): Pr
   const key = getKeyCycle({ assessment, cycle, key: Keys.Area.country })
 
   const cachedData = await redis.hget(key, countryIso)
-  let country: Country
 
   if (Objects.isEmpty(cachedData) || force) {
-    country = await CountryRepository.getOne({ assessment, cycle, countryIso }, client)
-    await redis.hmset(key, [countryIso, JSON.stringify(country)])
-  } else {
-    country = JSON.parse(cachedData)
+    const countries = await _cacheCountries({ assessment, cycle, countryIso }, client)
+    return countries[countryIso]
   }
-
-  return country
+  return JSON.parse(cachedData)
 }
