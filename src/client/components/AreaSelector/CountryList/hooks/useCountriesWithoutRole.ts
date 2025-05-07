@@ -7,7 +7,7 @@ import { useCountries } from 'client/store/area'
 import { useCycle } from 'client/store/assessment'
 import { useUser, useUserCountries } from 'client/store/user'
 
-export const useCountriesWithoutRole = (userCountries: boolean): Array<CountryIso> => {
+export const useCountriesWithoutRole = (): Array<CountryIso> => {
   const cycle = useCycle()
   const user = useUser()
 
@@ -18,14 +18,12 @@ export const useCountriesWithoutRole = (userCountries: boolean): Array<CountryIs
     const isCyclePublished = Cycles.isPublished(cycle)
     const allCountryISOs = allCountries.map(({ countryIso }) => countryIso)
 
-    if (userCountries && user && !isCyclePublished) {
+    // For unpublished cycles, return user's countries if user is logged in
+    if (user && !isCyclePublished) {
       return _userCountries
     }
 
-    if (userCountries) {
-      return allCountryISOs.filter((countryIso) => !Areas.isAtlantis(countryIso))
-    }
-
-    return allCountryISOs
-  }, [_userCountries, allCountries, cycle, user, userCountries])
+    // For published cycles or no user, return all countries except Atlantis
+    return allCountryISOs.filter((countryIso) => !Areas.isAtlantis(countryIso))
+  }, [_userCountries, allCountries, cycle, user])
 }

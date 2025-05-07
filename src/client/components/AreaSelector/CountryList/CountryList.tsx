@@ -27,7 +27,6 @@ type Props = {
   selectedValue: CountryIso | Global | RegionCode
   showCountryRole: boolean
   query: string
-  userCountries: boolean
 }
 
 const filterRegions = (props: {
@@ -50,16 +49,8 @@ const filterRegions = (props: {
 }
 
 const CountryList: React.FC<Props> = (props: Props) => {
-  const {
-    enableDownload,
-    includeCountries,
-    includeRegions,
-    onElementSelect,
-    query,
-    selectedValue,
-    showCountryRole,
-    userCountries,
-  } = props
+  const { enableDownload, includeCountries, includeRegions, onElementSelect, query, selectedValue, showCountryRole } =
+    props
 
   const { i18n } = useTranslation()
   const regionGroups = useRegionGroups()
@@ -71,7 +62,7 @@ const CountryList: React.FC<Props> = (props: Props) => {
   const showCountriesWithRoles = includeCountries && showCountryRole
   const showCountriesWithoutRoles = includeCountries && !showCountryRole
 
-  const countriesWithoutRole = useCountriesWithoutRole(userCountries)
+  const countriesWithoutRole = useCountriesWithoutRole()
 
   return (
     <div className={classNames('country-selection-list', { expanded })}>

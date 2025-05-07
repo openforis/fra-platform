@@ -26,7 +26,6 @@ const AreaSelector: React.FC<Props> = (props) => {
     selectedValue,
     showCountryFlag,
     showCountryRole,
-    userCountries,
   } = props
 
   const { t } = useTranslation()
@@ -124,7 +123,6 @@ const AreaSelector: React.FC<Props> = (props) => {
           query={query}
           selectedValue={selectedValue}
           showCountryRole={showCountryRole}
-          userCountries={userCountries}
         />
       )}
     </button>

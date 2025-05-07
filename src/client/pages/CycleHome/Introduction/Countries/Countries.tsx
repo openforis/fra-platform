@@ -10,7 +10,7 @@ const Countries = () => {
     <div className="home-area-selector__group">
       <img alt="" src="/img/iconCountries.svg" />
       <div>{t('common.countries')}</div>
-      <AreaSelector includeCountries placeholder="common.select" userCountries />
+      <AreaSelector includeCountries placeholder="common.select" />
     </div>
   )
 }
