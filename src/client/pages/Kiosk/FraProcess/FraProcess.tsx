@@ -8,7 +8,7 @@ const FraProcess: React.FC = () => {
     <object
       aria-label="FRA process video"
       className="kiosk-content__embedded-object"
-      data={`https://www.youtube.com/embed/${FRA_PROCESS_VIDEO_ID}`}
+      data={`https://www.youtube.com/embed/${FRA_PROCESS_VIDEO_ID}?rel=0`}
       type="video/mp4"
     />
   )
