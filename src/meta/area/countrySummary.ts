@@ -1,3 +1,4 @@
+import { Country } from 'meta/area/country'
 import { CountryIso } from 'meta/area/countryIso'
 import { CountryStatus } from 'meta/area/status'
 
@@ -9,12 +10,13 @@ export type CountrySummary = {
   invitationsAcceptedCount: number
   invitationsSentCount: number
   usersCount: number
-
-  /* last timestamp strings */
-  lastInAccepted: string
-  lastEdit: string
-  lastEditOdpData: string
-  lastInApproval: string
-  lastInReview: string
-  lastUpdate: string
-}
+} & Pick<
+  Country,
+  | 'lastInAccepted'
+  | 'lastEdit'
+  | 'lastInApproval'
+  | 'lastInReview'
+  | 'lastInPublished'
+  | 'lastUpdate'
+  | 'lastEditOdpData'
+>

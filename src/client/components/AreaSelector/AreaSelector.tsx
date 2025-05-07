@@ -1,20 +1,18 @@
 import './AreaSelector.scss'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useNavigate } from 'react-router-dom'
 
 import classNames from 'classnames'
 
-import { Areas, CountryIso, Global, RegionCode } from 'meta/area'
-import { Routes } from 'meta/routes'
+import { Areas, CountryIso } from 'meta/area'
 import { Users } from 'meta/user'
 
-import { useAssessment, useCycle } from 'client/store/assessment'
+import { useCycle } from 'client/store/assessment'
 import { useUser } from 'client/store/user'
-import { useIsGeoRoute } from 'client/hooks'
 import { Props } from 'client/components/AreaSelector/types'
 
 import Icon from '../Icon'
+import { useDefaultHandleElementSelect } from './hooks/useDefaultHandleElementSelect'
 import CountryList from './CountryList'
 
 const AreaSelector: React.FC<Props> = (props) => {
@@ -28,20 +26,14 @@ const AreaSelector: React.FC<Props> = (props) => {
     selectedValue,
     showCountryFlag,
     showCountryRole,
-    userCountries,
   } = props
 
   const { t } = useTranslation()
-  const assessment = useAssessment()
   const cycle = useCycle()
   const user = useUser()
-  const navigate = useNavigate()
 
   // The user should remain in the maps page when changing countries.
-  const isInGeoPage = useIsGeoRoute()
   const isCountry = Areas.isISOCountry(selectedValue)
-
-  const destinationRoute = isInGeoPage && isCountry ? Routes.Geo : Routes.Country
 
   const [open, setOpen] = useState(false)
   const [query, setQuery] = useState('')
@@ -53,15 +45,7 @@ const AreaSelector: React.FC<Props> = (props) => {
 
   const handleClick = useCallback((event: React.MouseEvent<HTMLInputElement>) => event.stopPropagation(), [])
 
-  const defaultHandleElementSelect = (countryIso: CountryIso | Global | RegionCode) => {
-    navigate(
-      destinationRoute.generatePath({
-        assessmentName: assessment.props.name,
-        cycleName: cycle?.name,
-        countryIso,
-      })
-    )
-  }
+  const defaultHandleElementSelect = useDefaultHandleElementSelect()
 
   const handleElementSelect = onElementSelect ?? defaultHandleElementSelect
 
@@ -139,7 +123,6 @@ const AreaSelector: React.FC<Props> = (props) => {
           query={query}
           selectedValue={selectedValue}
           showCountryRole={showCountryRole}
-          userCountries={userCountries}
         />
       )}
     </button>

@@ -43,7 +43,10 @@ const Country: React.FC = () => {
 
   if (countries?.length === 0) return null
 
-  if ((Areas.isISOCountry(countryIso) && !country) || !Authorizer.canView({ assessment, countryIso, cycle, user }))
+  if (
+    (Areas.isISOCountry(countryIso) && !country) ||
+    !Authorizer.canView({ assessment, cycle, areaCode: countryIso, country, user })
+  )
     window.location.href = Routes.Cycle.generatePath({ assessmentName, cycleName })
 
   return (

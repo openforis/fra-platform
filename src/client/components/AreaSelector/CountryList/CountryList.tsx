@@ -8,10 +8,10 @@ import { i18n } from 'i18next'
 import { Areas, CountryIso, Global, Region, RegionCode, RegionGroup } from 'meta/area'
 import { UserRoles } from 'meta/user/userRoles'
 
-import { useCountries, useRegionGroups } from 'client/store/area'
+import { useRegionGroups } from 'client/store/area'
 import { useCycle } from 'client/store/assessment'
 import { useIsAreaSelectorExpanded } from 'client/store/ui/areaSelector'
-import { useUserCountries } from 'client/store/user'
+import { useCountriesWithoutRole } from 'client/components/AreaSelector/CountryList/hooks/useCountriesWithoutRole'
 import { checkMatch } from 'client/utils'
 
 import { useUserCountryISOs } from './hooks/useUserCountryISOs'
@@ -27,7 +27,6 @@ type Props = {
   selectedValue: CountryIso | Global | RegionCode
   showCountryRole: boolean
   query: string
-  userCountries: boolean
 }
 
 const filterRegions = (props: {
@@ -42,6 +41,7 @@ const filterRegions = (props: {
   if (includeRegions && includeRegions.length > 0 && !includeRegions.includes(regionGroup.name)) return []
 
   return regionGroup.regions.filter(({ regionCode }) => {
+    if (regionCode === RegionCode.AT) return false
     const regionLabel = i18n.t(Areas.getTranslationKey(regionCode))
     const matchQuery = checkMatch(regionLabel, query)
     return matchQuery
@@ -49,31 +49,20 @@ const filterRegions = (props: {
 }
 
 const CountryList: React.FC<Props> = (props: Props) => {
-  const {
-    enableDownload,
-    includeCountries,
-    includeRegions,
-    onElementSelect,
-    query,
-    selectedValue,
-    showCountryRole,
-    userCountries,
-  } = props
+  const { enableDownload, includeCountries, includeRegions, onElementSelect, query, selectedValue, showCountryRole } =
+    props
 
   const { i18n } = useTranslation()
   const regionGroups = useRegionGroups()
   const countryMap = useUserCountryISOs()
-  const _userCountries = useUserCountries()
-  const allCountries = useCountries()
+
   const cycle = useCycle()
   const expanded = useIsAreaSelectorExpanded()
 
   const showCountriesWithRoles = includeCountries && showCountryRole
   const showCountriesWithoutRoles = includeCountries && !showCountryRole
 
-  const countriesWithoutRole: Array<CountryIso> = userCountries
-    ? _userCountries
-    : allCountries.map(({ countryIso }) => countryIso)
+  const countriesWithoutRole = useCountriesWithoutRole()
 
   return (
     <div className={classNames('country-selection-list', { expanded })}>

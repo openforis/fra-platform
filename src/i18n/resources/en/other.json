@@ -26,7 +26,7 @@
       "accepted": {
         "label": "Accepted",
         "next": "Accept",
-        "previous": ""
+        "previous": "Return to Accepted"
       },
       "approval": {
         "label": "Awaiting approval",
@@ -47,6 +47,10 @@
         "label": "In review",
         "next": "Send to review",
         "previous": "Return to review"
+      },
+      "published": {
+        "label": "Published",
+        "next": "Publish"
       }
     },
     "statusChangeNotification": {

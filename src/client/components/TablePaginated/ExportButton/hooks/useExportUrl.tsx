@@ -6,6 +6,7 @@ import { TablePaginateds } from 'meta/tablePaginated'
 
 import { useTablePaginatedOrderBy } from 'client/store/ui/tablePaginated'
 import { useTablePaginatedFilters } from 'client/store/ui/tablePaginated/hooks'
+import { useLanguage } from 'client/hooks/useLanguage'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 
 type Props = {
@@ -18,6 +19,7 @@ export const useExportUrl = (props: Props): string => {
   const { assessmentName, countryIso, cycleName, sectionName } = useSectionRouteParams()
   const orderBy = useTablePaginatedOrderBy(path)
   const filters = useTablePaginatedFilters(path)
+  const lang = useLanguage()
 
   return useMemo<string>(() => {
     const encodedFilters = TablePaginateds.encodeFilters(filters)
@@ -27,11 +29,12 @@ export const useExportUrl = (props: Props): string => {
         countryIso,
         cycleName,
         filters: encodedFilters,
+        lang,
         orderBy: orderBy?.property,
         orderByDirection: orderBy?.direction,
         sectionName,
       }).filter(([, value]) => !Objects.isNil(value))
     )
     return `${path}/export?${queryParams.toString()}`
-  }, [assessmentName, countryIso, cycleName, filters, orderBy, path, sectionName])
+  }, [assessmentName, countryIso, cycleName, filters, lang, orderBy, path, sectionName])
 }

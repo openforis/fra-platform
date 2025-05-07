@@ -38,6 +38,7 @@ const NationalDataDescriptions: React.FC<Props> = (props) => {
           {!dataSourcesProps.withTable && (
             <CommentableDescription
               name={CommentableDescriptionName.dataSources}
+              repository
               title={t('description.dataSourcesPlus')}
             />
           )}
@@ -47,12 +48,17 @@ const NationalDataDescriptions: React.FC<Props> = (props) => {
       {nationalData.nationalClassification && (
         <CommentableDescription
           name={CommentableDescriptionName.nationalClassificationAndDefinitions}
+          repository
           title={t('description.nationalClassificationAndDefinitions')}
         />
       )}
 
       {nationalData.originalData && (
-        <CommentableDescription name={CommentableDescriptionName.originalData} title={t('description.originalData')} />
+        <CommentableDescription
+          name={CommentableDescriptionName.originalData}
+          repository
+          title={t('description.originalData')}
+        />
       )}
     </div>
   )

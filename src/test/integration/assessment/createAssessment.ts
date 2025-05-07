@@ -1,3 +1,5 @@
+import { CycleStatus } from 'meta/assessment/cycle'
+
 import { AssessmentController } from 'server/controller/assessment'
 import { UserController } from 'server/controller/user'
 
@@ -15,12 +17,15 @@ export default () =>
       user,
     })
 
-    const { assessment: assessmentCycle } = await AssessmentController.createCycle({
+    const { assessment: assessmentCycle, cycle } = await AssessmentController.createCycle({
       assessment,
       name: assessmentCycleName,
       user,
       withCountries: true,
     })
+
+    cycle.props.status = CycleStatus.published
+    await AssessmentController.updateCycle({ cycle })
 
     expect(assessment).toHaveProperty('id')
     expect(assessment.id).toBeTruthy()
