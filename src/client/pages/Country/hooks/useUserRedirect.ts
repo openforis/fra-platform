@@ -27,12 +27,11 @@ export const useUserRedirect = (): void => {
     const isFra = assessmentName === AssessmentNames.fra
 
     // When user is not logged in, redirect to last published (e.g. when accessing older cycles)
-    const shouldRedirectToLastPublished = country && cycleName !== country?.lastPublishedInfo.cycleName
-    // When user is not logged in and accessing a region, we should redirect to default cycle
-    const isRegion = !Areas.isISOCountry(countryIso)
+    // Disable this if you want to allow non-logged users to access older cycles
+    const shouldRedirectToLastPublished = !user && country && cycleName !== country?.lastPublishedInfo.cycleName
 
-    if (!user && (shouldRedirectToLastPublished || isRegion)) {
-      const _cycleName = isRegion ? lastPublishedCycle.name : country?.lastPublishedInfo.cycleName
+    if (shouldRedirectToLastPublished) {
+      const _cycleName = country?.lastPublishedInfo.cycleName
 
       const route = Routes.Country.generatePath({
         assessmentName,
