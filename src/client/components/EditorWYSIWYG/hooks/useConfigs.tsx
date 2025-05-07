@@ -102,6 +102,9 @@ export const useConfigs = (props: Props): Returned => {
 
     const configReadOnly: EditorConfig = {
       inline: true,
+      link: {
+        preventReadOnlyNavigation: false,
+      },
       readonly: true,
       statusbar: false,
     }
