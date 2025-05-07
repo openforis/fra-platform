@@ -6,11 +6,13 @@ import classNames from 'classnames'
 import { i18n } from 'i18next'
 
 import { Areas, CountryIso, Global, Region, RegionCode, RegionGroup } from 'meta/area'
+import { User } from 'meta/user'
 import { UserRoles } from 'meta/user/userRoles'
 
 import { useRegionGroups } from 'client/store/area'
 import { useCycle } from 'client/store/assessment'
 import { useIsAreaSelectorExpanded } from 'client/store/ui/areaSelector'
+import { useUser } from 'client/store/user'
 import { useCountriesWithoutRole } from 'client/components/AreaSelector/CountryList/hooks/useCountriesWithoutRole'
 import { checkMatch } from 'client/utils'
 
@@ -35,13 +37,15 @@ const filterRegions = (props: {
   includeRegions: Array<string>
   query: string
   regionGroup: RegionGroup
+  user: User
 }): Array<Region> => {
-  const { i18n, includeRegions, query, regionGroup } = props
+  const { i18n, includeRegions, query, regionGroup, user } = props
 
   // If includeRegions is empty array, include all regions
   if (includeRegions && includeRegions.length > 0 && !includeRegions.includes(regionGroup.name)) return []
 
   return regionGroup.regions.filter(({ regionCode }) => {
+    if (!user && regionCode === RegionCode.AT) return false
     const regionLabel = i18n.t(Areas.getTranslationKey(regionCode))
     const matchQuery = checkMatch(regionLabel, query)
     return matchQuery
@@ -61,6 +65,7 @@ const CountryList: React.FC<Props> = (props: Props) => {
   } = props
 
   const { i18n } = useTranslation()
+  const user = useUser()
   const regionGroups = useRegionGroups()
   const countryMap = useUserCountryISOs()
 
@@ -80,7 +85,7 @@ const CountryList: React.FC<Props> = (props: Props) => {
         <div className="country-selection-list__global">
           {includeRegions &&
             Object.entries(regionGroups).map(([order, regionGroup]) => {
-              const regions = filterRegions({ regionGroup, query, i18n, includeRegions })
+              const regions = filterRegions({ user, regionGroup, query, i18n, includeRegions })
               return (
                 <div key={order}>
                   {regions.map(({ regionCode }) => (
