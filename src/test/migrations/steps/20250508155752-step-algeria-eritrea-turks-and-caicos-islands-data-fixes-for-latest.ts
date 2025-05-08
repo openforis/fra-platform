@@ -79,7 +79,7 @@ const fixAlgeriaOriginalDataTableWidth = async (schemaCycle: string, client: Bas
   )
 }
 
-const FixTurksAndCaicosIslandsEmptyDescriptionPTags = async (schemaCycle: string, client: BaseProtocol) => {
+const fixTurksAndCaicosIslandsEmptyDescriptionPTags = async (schemaCycle: string, client: BaseProtocol) => {
   const countryIso = 'TCA'
   const sectionName = 'extentOfForest'
   const descriptionName = CommentableDescriptionName.generalComments
@@ -127,6 +127,6 @@ export default async (client: BaseProtocol) => {
   await Promise.all([
     fixEritreaEmptyDescriptionDiv(schemaCycle, client),
     fixAlgeriaOriginalDataTableWidth(schemaCycle, client),
-    FixTurksAndCaicosIslandsEmptyDescriptionPTags(schemaCycle, client),
+    fixTurksAndCaicosIslandsEmptyDescriptionPTags(schemaCycle, client),
   ])
 }
