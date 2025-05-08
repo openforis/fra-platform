@@ -63,7 +63,6 @@ const exec = async () => {
 
   await Promises.each(migrationSteps, async (file) => {
     await client.tx(async (t) => {
-      Logger.info(`Transaction started for migration: ${file}`)
       try {
         Logger.info(`Running migration ${file}`)
         // eslint-disable-next-line @typescript-eslint/no-var-requires,global-require,import/no-dynamic-require
@@ -74,7 +73,6 @@ const exec = async () => {
         Logger.error('Error caught in migration step:', e)
         throw e
       }
-      Logger.info(`Transaction finished for migration: ${file}`)
     })
   })
 
