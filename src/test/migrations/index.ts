@@ -22,18 +22,24 @@ const tableDDL = `
 
     do $$ 
     begin
-      if exists (select 1 from information_schema.tables where table_schema = 'public' and table_name = 'migration_steps') then
-        alter table public.migration_steps rename to steps;
-        alter table public.steps set schema migrations;
-      else
-        create table if not exists migrations.steps (
-          id serial primary key,
-          name character varying(255) unique not null,
-          run_on timestamp without time zone not null default now()
-        );
-      end if;
+      create table if not exists migrations.steps (
+        id serial primary key,
+        name character varying(255) unique not null,
+        run_on timestamp without time zone not null default now()
+      );
     end $$;
 `
+
+const _writeStep = async (fileName: string) => {
+  executedMigrations.push(fileName)
+
+  const isWatch = process.argv.includes('--watch')
+  const isReset = fileName.endsWith('-step-reset.ts')
+
+  const shouldWrite = !isWatch && !isReset
+
+  if (shouldWrite) await client.query('insert into migrations.steps (name) values ($1)', [fileName])
+}
 
 const init = async () => {
   await client.query(tableDDL)
@@ -55,33 +61,32 @@ const close = async () => {
 const exec = async () => {
   await init()
 
-  await client.tx(async (t) => {
-    await Promises.each(migrationSteps, async (file) => {
+  await Promises.each(migrationSteps, async (file) => {
+    await client.tx(async (t) => {
       try {
         Logger.info(`Running migration ${file}`)
         // eslint-disable-next-line @typescript-eslint/no-var-requires,global-require,import/no-dynamic-require
         await require(`./steps/${file}`).default(t)
-        executedMigrations.push(file)
+        Logger.info(`Migration step completed: ${file}`)
+        await _writeStep(file)
       } catch (e) {
-        Logger.error(e)
+        Logger.error('Error caught in migration step:', e)
+        throw e
       }
     })
   })
-
-  if (!process.argv.includes('--watch')) {
-    // eslint-disable-next-line no-restricted-syntax
-    for (const file of executedMigrations) {
-      if (!file.endsWith('-step-reset.ts')) {
-        // eslint-disable-next-line no-await-in-loop
-        await client.query('insert into migrations.steps (name) values ($1)', [file])
-      }
-    }
-  }
 
   await close()
 }
 
 Logger.info('Migrations starting')
-exec().then(() => {
-  Logger.info('Migrations executed')
-})
+exec()
+  .then(() => {
+    Logger.info('Migrations executed:')
+    Logger.info(`\n${executedMigrations.join('\n')}`)
+  })
+  .catch(async (err) => {
+    Logger.error('Migration process failed:', err)
+    await close()
+    process.exit(1)
+  })
