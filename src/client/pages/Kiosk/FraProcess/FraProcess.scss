@@ -1,0 +1,40 @@
+@use 'sass:color';
+
+.kiosk-fra-process {
+  height: 100%;
+  position: relative;
+  width: 100%;
+}
+
+.kiosk-fra-process__yt-container {
+  height: 100%;
+  width: 100%;
+}
+
+.kiosk-fra-process__yt-video-overlay {
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.9);
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 1;
+}
+
+.kiosk-fra-process__yt-video-overlay-button {
+  background-color: #5aa955;
+  border-radius: 30px;
+  display: flex;
+  font-size: min(1.78dvw, 3dvh);
+  justify-content: center;
+  line-height: unset;
+  min-height: 4dvh;
+  padding: min(1.8dvw, 2.55dvh);
+
+  &:hover {
+    background-color: color.adjust(#ef7a2d, $lightness: 5%, $space: hsl);
+  }
+}
