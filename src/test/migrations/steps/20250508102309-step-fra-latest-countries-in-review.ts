@@ -12,15 +12,10 @@ export default async (client: BaseProtocol) => {
   })
   const schemaName = Schemas.getNameCycle(assessment, cycle)
 
-  await client.query(
-    `
-  update ${schemaName}.country
-  set status = $1,
-      last_in_${CountryStatus.review} = now()
-  where status = $2
-  `,
-    [CountryStatus.review, CountryStatus.notStarted]
-  )
+  await client.query(`update ${schemaName}.country set status = $1 where status = $2`, [
+    CountryStatus.review,
+    CountryStatus.notStarted,
+  ])
 
   await CacheController.generateArea({ assessment, cycle }, client)
 }
