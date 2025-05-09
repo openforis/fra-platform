@@ -4,10 +4,22 @@
   grid-row-gap: $spacing-xxxxs;
 }
 
+.description__editor-container {
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+
 .description__editor-container:not(.editable) {
   div.editorWYSIWYG:not(.validation-error) {
     div.jodit-wysiwyg {
       padding: unset;
     }
+  }
+}
+
+@include print {
+  .description__editor-container {
+    overflow-x: unset;
+    overflow-y: unset;
   }
 }
