@@ -8,6 +8,8 @@ import { _processPaste } from 'client/components/EditorWYSIWYG/hooks/_processPas
 import { useRepositoryLinkContext } from 'client/components/EditorWYSIWYG/repositoryLinkContext'
 import { EditorConfig } from 'client/components/EditorWYSIWYG/types'
 
+import { _processCustomPaste } from './_processCustomPaste'
+
 type Props = {
   onlyLinks?: boolean
   options?: EditorConfig
@@ -78,6 +80,7 @@ export const useConfigs = (props: Props): Returned => {
           link.setAttribute('rel', 'nofollow')
           link.setAttribute('target', '_blank')
         },
+        onCustomPasteHTMLOption: _processCustomPaste,
       },
       inline: true,
       link: {

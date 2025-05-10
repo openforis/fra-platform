@@ -4,7 +4,7 @@ import rehypeSanitize, { defaultSchema, Options } from 'rehype-sanitize'
 import rehypeStringify from 'rehype-stringify'
 import { unified } from 'unified'
 
-export const tableTags = ['table', 'td', 'th', 'tr']
+export const tableTags = ['table', 'tbody', 'td', 'tfoot', 'th', 'thead', 'tr']
 
 const tableTagsAttributes = tableTags.reduce<Partial<Options['attributes']>>((acc, tag) => {
   const defaultAttributes = defaultSchema.attributes[tag] || []
