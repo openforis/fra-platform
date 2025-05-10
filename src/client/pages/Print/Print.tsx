@@ -19,6 +19,7 @@ import Section from 'client/pages/Section'
 import { useGetDescriptionValues } from './hooks/useGetDescriptionValues'
 import { useGetTableData } from './hooks/useGetTableData'
 import { useGetTableSections } from './hooks/useGetTableSections'
+import { useLoadPrintFonts } from './hooks/useLoadPrintFonts'
 
 const Print: React.FC = () => {
   const { t } = useTranslation()
@@ -29,6 +30,7 @@ const Print: React.FC = () => {
   useGetTableSections()
   useGetTableData()
   useGetDescriptionValues()
+  useLoadPrintFonts()
 
   // body height is 100vh. unset height to print all pages
   useEffect(() => {
