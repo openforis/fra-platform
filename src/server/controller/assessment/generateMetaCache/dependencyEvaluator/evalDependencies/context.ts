@@ -9,5 +9,5 @@ export interface Context extends ExpressionContext {
   assessmentName: AssessmentName
   cycleName: CycleName
   row: RowCache
-  type: 'calculations' | 'validations'
+  type: 'calculations' | 'validations' | 'enablers'
 }

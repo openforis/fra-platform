@@ -54,6 +54,7 @@ export interface ColProps {
   classNames?: Record<CycleUuid, Array<string>>
   colName?: ColName
   colType: ColType
+  enableIf?: Record<CycleUuid, string>
   index?: number | string
   inputPlaceholder?: InputPlaceholder
   labels?: Record<CycleUuid, Label>
