@@ -5,7 +5,6 @@ import { AssessmentName } from 'meta/assessment/assessment'
 import { Col, ColType } from 'meta/assessment/col'
 import { Cols } from 'meta/assessment/cols'
 import { Row } from 'meta/assessment/row'
-import { RowCache } from 'meta/assessment/rowCache'
 import { Table } from 'meta/assessment/table'
 import { RecordAssessmentData } from 'meta/data'
 import { TooltipId } from 'meta/tooltip'
@@ -83,13 +82,7 @@ const Cell: React.FC<Props> = (props) => {
 
   const cycle = useCycle()
 
-  const rowCache: RowCache = {
-    ...row,
-    tableName: table.props.name,
-    sectionName,
-  }
-
-  const enabled = useEnableIf({ data, col, row: rowCache })
+  const enabled = useEnableIf({ data, col, row, sectionName, table })
 
   const nodeValue = useNodeValue({ col, data, row, table })
   const { onChange, onChangeNodeValue, onPaste } = useOnChange({ col, data, nodeValue, row, sectionName, table })
