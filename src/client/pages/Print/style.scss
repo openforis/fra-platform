@@ -91,3 +91,16 @@
     break-inside: avoid;
   }
 }
+
+@include print {
+  font-family: $font-family-report-body;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    font-family: $font-family-report-header;
+    letter-spacing: 0.05ch;
+  }
+}
