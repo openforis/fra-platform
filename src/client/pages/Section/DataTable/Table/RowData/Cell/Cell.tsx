@@ -86,13 +86,13 @@ const Cell: React.FC<Props> = (props) => {
   const cycle = useCycle()
   const countryIso = useCountryIso()
 
-  const rowForHook: RowCache = {
+  const rowCache: RowCache = {
     ...row,
     tableName: table.props.name,
     sectionName,
   }
 
-  const enabled = useEnableIf({ assessment, cycle, data, countryIso, col, row: rowForHook })
+  const enabled = useEnableIf({ assessment, cycle, data, countryIso, col, row: rowCache })
 
   const nodeValue = useNodeValue({ col, data, row, table })
   const { onChange, onChangeNodeValue, onPaste } = useOnChange({ col, data, nodeValue, row, sectionName, table })
