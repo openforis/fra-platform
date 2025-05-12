@@ -116,7 +116,7 @@ const Cell: React.FC<Props> = (props) => {
     <DataCell
       className={className}
       data-tooltip-html={errorMessages}
-      data-tooltip-id={TooltipId.info}
+      data-tooltip-id={TooltipId.error}
       editable={!disabled && isInput}
       firstCol={firstCol}
       firstHighlightCol={firstHighlightCol}
