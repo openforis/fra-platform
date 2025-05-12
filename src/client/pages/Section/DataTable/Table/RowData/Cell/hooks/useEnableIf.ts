@@ -1,24 +1,24 @@
 import { useTranslation } from 'react-i18next'
 
-import { CountryIso } from 'meta/area'
-import { Assessment } from 'meta/assessment/assessment'
 import { Col } from 'meta/assessment/col'
-import { Cycle } from 'meta/assessment/cycle'
 import { RowCache } from 'meta/assessment/rowCache'
 import { RecordAssessmentData } from 'meta/data'
 import { ExpressionEvaluator } from 'meta/expressionEvaluator'
 
+import { useAssessment, useCycle } from 'client/store/assessment'
+import { useCountryIso } from 'client/hooks'
+
 interface Props {
-  assessment: Assessment
-  cycle: Cycle
   data: RecordAssessmentData
-  countryIso: CountryIso
   col: Col
   row: RowCache
 }
 
 export const useEnableIf = (props: Props): boolean => {
-  const { assessment, cycle, data, countryIso, col, row } = props
+  const { data, col, row } = props
+  const assessment = useAssessment()
+  const cycle = useCycle()
+  const countryIso = useCountryIso()
   const { t } = useTranslation()
 
   const enableIfFn = col.props.enableIf?.[cycle.uuid]

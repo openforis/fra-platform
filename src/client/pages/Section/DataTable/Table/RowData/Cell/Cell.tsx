@@ -10,13 +10,12 @@ import { Table } from 'meta/assessment/table'
 import { RecordAssessmentData } from 'meta/data'
 import { TooltipId } from 'meta/tooltip'
 
-import { useAssessment, useCycle } from 'client/store/assessment'
+import { useCycle } from 'client/store/assessment'
 import {
   useHistoryLastApprovedDataTableFetched,
   useHistoryLastApprovedIsActive,
   useNodeValueValidation,
 } from 'client/store/data'
-import { useCountryIso } from 'client/hooks'
 import { DataCell } from 'client/components/DataGrid'
 
 import { useClassName } from './hooks/useClassName'
@@ -82,9 +81,7 @@ const Cell: React.FC<Props> = (props) => {
     table,
   } = props
 
-  const assessment = useAssessment()
   const cycle = useCycle()
-  const countryIso = useCountryIso()
 
   const rowCache: RowCache = {
     ...row,
@@ -92,7 +89,7 @@ const Cell: React.FC<Props> = (props) => {
     sectionName,
   }
 
-  const enabled = useEnableIf({ assessment, cycle, data, countryIso, col, row: rowCache })
+  const enabled = useEnableIf({ data, col, row: rowCache })
 
   const nodeValue = useNodeValue({ col, data, row, table })
   const { onChange, onChangeNodeValue, onPaste } = useOnChange({ col, data, nodeValue, row, sectionName, table })
