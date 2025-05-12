@@ -2,16 +2,21 @@ import serialize from 'dom-serializer'
 import { DomUtils, parseDocument } from 'htmlparser2'
 import type { IJodit } from 'jodit/esm/types/jodit'
 
-import { tableTags } from './_sanitizer'
+import { processor, tableTags } from './_sanitizer'
 
 export const _processCustomPaste = (_: IJodit, html: string): string => {
-  const dom = parseDocument(html, { lowerCaseAttributeNames: true, lowerCaseTags: true })
+  const sanitizedHtml = processor
+    .processSync(html)
+    .toString()
+    .replace(/(<div><br><\/div>)*/, '')
+
+  const dom = parseDocument(sanitizedHtml, { lowerCaseAttributeNames: true, lowerCaseTags: true })
 
   const styledTableNodes = DomUtils.findAll((node) => {
     return node.type === 'tag' && tableTags.includes(node.name) && typeof node.attribs.style === 'string'
   }, dom.children)
 
-  const lengthRE = /^\d+(?:\.\d+)?(?:px|em|rem|%)$/
+  const lengthRE = /^\d+(?:\.\d+)?[a-zA-Z%]+$/
   styledTableNodes.forEach((el) => {
     const { style } = el.attribs
     const styleDeclarations = style.split(';')
