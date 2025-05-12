@@ -2,6 +2,7 @@ import { ExpressionFunction } from '@openforis/arena-core/dist/expression/functi
 
 import { Context } from '../context'
 import { calculatorForestAreaAsProportionOfTotalLandArea } from './calculations/calculatorForestAreaAsProportionOfTotalLandArea'
+import { valueEquals } from './enableIf/valueEquals'
 import { validatorSumSubCategoriesNotEqualToParent } from './subcategories/validatorSumSubCategoriesNotEqualToParent'
 import { validatorSumSubCategoriesNotGreaterThanParent } from './subcategories/validatorSumSubCategoriesNotGreaterThanParent'
 import { equalsWithTolerance } from './equalsWithTolerance'
@@ -84,4 +85,7 @@ export const functions: Array<ExpressionFunction<Context>> = [
   validatorSumSubCategoriesNotEqualToParent,
   validatorSumSubCategoriesNotGreaterThanParent,
   validatorTotalForest,
+
+  // enableIf functions
+  valueEquals,
 ]

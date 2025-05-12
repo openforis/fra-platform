@@ -31,6 +31,8 @@ const cloneProps = (props: { cycleSource: Cycle; cycleTarget: Cycle; col: Col })
     _props.style[cycleTargetUuid] = Objects.cloneDeep(_props.style[cycleSourceUuid])
   if (!Objects.isNil(_props.validateFns?.[cycleSourceUuid]))
     _props.validateFns[cycleTargetUuid] = Objects.cloneDeep(_props.validateFns[cycleSourceUuid])
+  if (!Objects.isNil(_props.enableIf?.[cycleSourceUuid]))
+    _props.enableIf[cycleTargetUuid] = Objects.cloneDeep(_props.enableIf[cycleSourceUuid])
   if (!Objects.isNil(_props.variableNo?.[cycleSourceUuid]))
     _props.variableNo[cycleTargetUuid] = Objects.cloneDeep(_props.variableNo[cycleSourceUuid])
 

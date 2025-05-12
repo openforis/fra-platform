@@ -11,8 +11,6 @@ const exec = async () => {
 
   const assessments = await AssessmentController.getAll({})
 
-  await AssessmentController.generateMetaCache()
-
   await Promise.all(
     assessments.map(async (assessment) => {
       // assessment and cycles metadata cache
@@ -26,6 +24,8 @@ const exec = async () => {
       )
     })
   )
+
+  await AssessmentController.generateMetaCache()
 }
 
 const start = new Date().getTime()

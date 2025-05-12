@@ -5,19 +5,22 @@ import { AssessmentName } from 'meta/assessment/assessment'
 import { Col, ColType } from 'meta/assessment/col'
 import { Cols } from 'meta/assessment/cols'
 import { Row } from 'meta/assessment/row'
+import { RowCache } from 'meta/assessment/rowCache'
 import { Table } from 'meta/assessment/table'
 import { RecordAssessmentData } from 'meta/data'
 import { TooltipId } from 'meta/tooltip'
 
-import { useCycle } from 'client/store/assessment'
+import { useAssessment, useCycle } from 'client/store/assessment'
 import {
   useHistoryLastApprovedDataTableFetched,
   useHistoryLastApprovedIsActive,
   useNodeValueValidation,
 } from 'client/store/data'
+import { useCountryIso } from 'client/hooks'
 import { DataCell } from 'client/components/DataGrid'
 
 import { useClassName } from './hooks/useClassName'
+import { useEnableIf } from './hooks/useEnableIf'
 import useErrorMessages from './hooks/useErrorMessages'
 import { useNodeValue } from './hooks/useNodeValue'
 import useOnChange from './hooks/useOnChange'
@@ -79,14 +82,25 @@ const Cell: React.FC<Props> = (props) => {
     table,
   } = props
 
+  const assessment = useAssessment()
   const cycle = useCycle()
+  const countryIso = useCountryIso()
+
+  const rowForHook: RowCache = {
+    ...row,
+    tableName: table.props.name,
+    sectionName,
+  }
+
+  const enabled = useEnableIf({ assessment, cycle, data, countryIso, col, row: rowForHook })
+
   const nodeValue = useNodeValue({ col, data, row, table })
   const { onChange, onChangeNodeValue, onPaste } = useOnChange({ col, data, nodeValue, row, sectionName, table })
   const validation = useNodeValueValidation({ col, row, table })
   const errorMessages = useErrorMessages({ validation })
   const className = useClassName({ col, cycle, row, validation })
 
-  const disabled = _disabled || !!nodeValue?.odpId || Cols.hasLinkedNodes({ col, cycle })
+  const disabled = _disabled || !!nodeValue?.odpId || Cols.hasLinkedNodes({ col, cycle }) || !enabled
 
   const historyLastApprovedIsActive = useHistoryLastApprovedIsActive()
   const historyLastApprovedDataTableFetched = useHistoryLastApprovedDataTableFetched(table.props.name)
@@ -102,7 +116,7 @@ const Cell: React.FC<Props> = (props) => {
     <DataCell
       className={className}
       data-tooltip-html={errorMessages}
-      data-tooltip-id={TooltipId.error}
+      data-tooltip-id={TooltipId.info}
       editable={!disabled && isInput}
       firstCol={firstCol}
       firstHighlightCol={firstHighlightCol}
