@@ -12,7 +12,7 @@ export const valueEquals: ExpressionFunction<Context> = {
         return false
       }
 
-      return String(value) === String(expectedValue)
+      return value === expectedValue
     }
   },
 }
