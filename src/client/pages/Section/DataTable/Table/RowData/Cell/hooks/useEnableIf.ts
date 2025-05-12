@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next'
 
+import { CountryIso } from 'meta/area'
 import { Col } from 'meta/assessment/col'
 import { Row } from 'meta/assessment/row'
 import { RowCache } from 'meta/assessment/rowCache'
@@ -8,7 +9,7 @@ import { RecordAssessmentData } from 'meta/data'
 import { ExpressionEvaluator } from 'meta/expressionEvaluator'
 
 import { useAssessment, useCycle } from 'client/store/assessment'
-import { useCountryIso } from 'client/hooks'
+import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 interface Props {
   col: Col
@@ -22,7 +23,7 @@ export const useEnableIf = (props: Props): boolean => {
   const { data, col, row, sectionName, table } = props
   const assessment = useAssessment()
   const cycle = useCycle()
-  const countryIso = useCountryIso()
+  const { countryIso } = useCountryRouteParams<CountryIso>()
   const { t } = useTranslation()
 
   const enableIfFn = col.props.enableIf?.[cycle.uuid]
