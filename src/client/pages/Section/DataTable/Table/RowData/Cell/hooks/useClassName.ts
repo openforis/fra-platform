@@ -13,13 +13,13 @@ import { useHistoryLastApprovedIsActive } from 'client/store/data'
 type Props = {
   col: Col
   cycle: Cycle
+  enabled: boolean
   row: Row
   validation: NodeValueValidation
-  enabled: boolean
 }
 
 export const useClassName = (props: Props): string => {
-  const { cycle, col, row, validation, enabled } = props
+  const { col, cycle, enabled, row, validation } = props
   const historyLastApprovedIsActive = useHistoryLastApprovedIsActive()
 
   return useMemo<string>(() => {
@@ -45,5 +45,5 @@ export const useClassName = (props: Props): string => {
         disabled: !enabled,
       }
     )
-  }, [col, row, cycle, historyLastApprovedIsActive, validation.valid, enabled])
+  }, [col, enabled, historyLastApprovedIsActive, row, cycle, validation.valid])
 }
