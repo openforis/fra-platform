@@ -13,7 +13,7 @@ export const getContent = async (
     intervals?: boolean
   }
 ): Promise<Array<Record<string, string>>> => {
-  const { assessment, cycle, countries, entries, intervals } = props
+  const { assessment, countries, cycle, entries, intervals } = props
   const _climaticData = await climaticDomain(props)
   const climaticData = RecordAssessmentDatas.getCycleData({
     assessmentName: assessment.props.name,
@@ -44,8 +44,8 @@ export const getContent = async (
         subtropical: getClimaticValue('sub_tropical', countryIso, climaticData),
       }
 
-      entries.forEach(({ variables, tableName }) => {
-        variables.forEach(({ variableName, csvColumn }) => {
+      entries.forEach(({ tableName, variables }) => {
+        variables.forEach(({ csvColumn, variableName }) => {
           const datum = RecordAssessmentDatas.getDatum({
             assessmentName: assessment.props.name,
             cycleName: cycle.name,

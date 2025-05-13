@@ -14,7 +14,7 @@ type Props = {
 const RepositoryLink = (props: Props) => {
   const { datum } = props
 
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams()
   const language = useLanguage()
 
   const label = Translations.getLabel({ translation: datum.props.translation, language })

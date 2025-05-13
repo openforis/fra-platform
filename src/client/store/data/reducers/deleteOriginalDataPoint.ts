@@ -17,7 +17,7 @@ type Payload = {
 
 export const deleteOriginalDataPoint = (state: Draft<DataState>, action: PayloadAction<Payload>) => {
   // Delete reference from state for deleted ODP
-  const { countryIso, year, cycleName, assessmentName } = action.payload
+  const { assessmentName, countryIso, cycleName, year } = action.payload
 
   const odpReference = RecordAssessmentDatas.getTableData({
     data: state.tableData,

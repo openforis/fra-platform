@@ -12,7 +12,7 @@ export const removeTable = async (
   props: { user: User; assessment: Assessment; table: Table },
   client: BaseProtocol = DB
 ): Promise<void> => {
-  const { user, assessment, table } = props
+  const { assessment, table, user } = props
 
   return client.tx(async (t) => {
     const deletedTable = await TableRepository.remove({ table, assessment }, t)

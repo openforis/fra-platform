@@ -128,7 +128,7 @@ const setMapIdCache = (state: Draft<GeoState>, sectionKey: LayerSectionKey, laye
   if (Objects.isEmpty(layerOptions) || layerOptions.assetId !== undefined) return
 
   if (Objects.isEmpty(layerState.cache)) layerState.cache = {}
-  const { agreementLayer, year, gteTreeCoverPercent } = layerOptions
+  const { agreementLayer, gteTreeCoverPercent, year } = layerOptions
   switch (true) {
     case agreementLayer?.level !== undefined: {
       const sectionState = getSectionState(state, sectionKey)
@@ -260,7 +260,7 @@ export const geoSlice = createSlice({
       state: Draft<GeoState>,
       action: PayloadAction<{ sectionKey: LayerSectionKey; layerKey: LayerKey; selected: boolean }>
     ) => {
-      const { sectionKey, layerKey, selected } = action.payload
+      const { layerKey, sectionKey, selected } = action.payload
       const layerState = getLayerState(state, sectionKey, layerKey)
 
       // If the property is not defined, it means the layer has not been selected before,
@@ -271,7 +271,7 @@ export const geoSlice = createSlice({
       state.sections[sectionKey][layerKey] = newLayerState
 
       // Render or remove layer from the map
-      const { selected: isLayerSelected, mapId } = state.sections[sectionKey][layerKey]
+      const { mapId, selected: isLayerSelected } = state.sections[sectionKey][layerKey]
       const mapLayerKey: MapLayerKey = `${sectionKey}-${layerKey}`
       const opacity = newLayerState.opacity ?? 1
       if (isLayerSelected) {
@@ -292,7 +292,7 @@ export const geoSlice = createSlice({
       state: Draft<GeoState>,
       action: PayloadAction<{ sectionKey: LayerSectionKey; layerKey: LayerKey; opacity: number }>
     ) => {
-      const { sectionKey, layerKey, opacity } = action.payload
+      const { layerKey, opacity, sectionKey } = action.payload
       const layerState = getLayerState(state, sectionKey, layerKey)
       state.sections[sectionKey][layerKey] = { ...layerState, opacity }
       const mapLayerKey: MapLayerKey = `${sectionKey}-${layerKey}`
@@ -309,7 +309,7 @@ export const geoSlice = createSlice({
         drawLayer?: boolean
       }>
     ) => {
-      const { sectionKey, layerKey, mapId, drawLayer = true } = action.payload
+      const { drawLayer = true, layerKey, mapId, sectionKey } = action.payload
       const layerState = getLayerState(state, sectionKey, layerKey)
       state.sections[sectionKey][layerKey] = { ...layerState, mapId }
 
@@ -324,7 +324,7 @@ export const geoSlice = createSlice({
       state: Draft<GeoState>,
       action: PayloadAction<{ sectionKey: LayerSectionKey; layerKey: LayerKey; assetId: string }>
     ) => {
-      const { sectionKey, layerKey, assetId } = action.payload
+      const { assetId, layerKey, sectionKey } = action.payload
       const layerStateOptions = getLayerStateOptions(state, sectionKey, layerKey)
       state.sections[sectionKey][layerKey].options = { ...layerStateOptions, assetId }
     },
@@ -332,7 +332,7 @@ export const geoSlice = createSlice({
       state: Draft<GeoState>,
       action: PayloadAction<{ sectionKey: LayerSectionKey; layerKey: LayerKey; gteTreeCoverPercent: number }>
     ) => {
-      const { sectionKey, layerKey, gteTreeCoverPercent } = action.payload
+      const { gteTreeCoverPercent, layerKey, sectionKey } = action.payload
       const layerStateOptions = getLayerStateOptions(state, sectionKey, layerKey)
       state.sections[sectionKey][layerKey].options = { ...layerStateOptions, gteTreeCoverPercent }
     },
@@ -340,7 +340,7 @@ export const geoSlice = createSlice({
       state: Draft<GeoState>,
       action: PayloadAction<{ sectionKey: LayerSectionKey; layerKey: LayerKey; year: number }>
     ) => {
-      const { sectionKey, layerKey, year } = action.payload
+      const { layerKey, sectionKey, year } = action.payload
       const layerStateOptions = getLayerStateOptions(state, sectionKey, layerKey)
       state.sections[sectionKey][layerKey].options = { ...layerStateOptions, year }
     },
@@ -348,14 +348,14 @@ export const geoSlice = createSlice({
       state: Draft<GeoState>,
       action: PayloadAction<{ sectionKey: LayerSectionKey; layerKey: LayerKey; level: number }>
     ) => {
-      const { sectionKey, layerKey, level } = action.payload
+      const { layerKey, level, sectionKey } = action.payload
       const agreementOptionsState = getAgreementOptionsState(state, sectionKey, layerKey)
       state.sections[sectionKey][layerKey].options.agreementLayer = { ...agreementOptionsState, level }
     },
     setAgreementReducerScale: (
       state,
       {
-        payload: { sectionKey, layerKey, reducerScale },
+        payload: { layerKey, reducerScale, sectionKey },
       }: PayloadAction<{ sectionKey: LayerSectionKey; layerKey: LayerKey; reducerScale: number }>
     ) => {
       state.sections[sectionKey][layerKey].options.agreementLayer.reducerScale = reducerScale
@@ -364,7 +364,7 @@ export const geoSlice = createSlice({
       state: Draft<GeoState>,
       action: PayloadAction<{ sectionKey: LayerSectionKey; layerKey: LayerKey }>
     ) => {
-      const { sectionKey, layerKey } = action.payload
+      const { layerKey, sectionKey } = action.payload
       const layerState = getLayerState(state, sectionKey, layerKey)
       state.sections[sectionKey][layerKey] = { ...layerState, status: LayerFetchStatus.Unfetched }
     },
@@ -378,14 +378,14 @@ export const geoSlice = createSlice({
       })
     },
     setLayerSectionRecipeName: (state, action: PayloadAction<{ recipe: string; sectionKey: LayerSectionKey }>) => {
-      const { sectionKey, recipe } = action.payload
+      const { recipe, sectionKey } = action.payload
       state.recipes[sectionKey] = recipe
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(postMosaicOptions.fulfilled, (state, { payload }) => {
-        const { urlTemplate, countryIso } = payload
+        const { countryIso, urlTemplate } = payload
         state.mosaicOptions.url[countryIso] = urlTemplate
         state.mosaicOptions.status = LayerFetchStatus.Ready
       })
@@ -436,7 +436,7 @@ export const geoSlice = createSlice({
         }
       })
       .addCase(postExtraEstimation.rejected, (state, action) => {
-        const { sectionKey, extraEstimation } = action.meta.arg
+        const { extraEstimation, sectionKey } = action.meta.arg
         getExtraEstimationState(state, sectionKey, extraEstimation)
         state.geoStatistics.extraEstimations[sectionKey][extraEstimation] = {
           errorKey: action.payload as string,

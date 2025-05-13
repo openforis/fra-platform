@@ -8,7 +8,7 @@ import { Requests } from 'server/utils'
 
 export const getOriginalDataPoints = async (req: CycleRequest, res: Response) => {
   try {
-    const { assessmentName, cycleName, countryIso } = req.query
+    const { assessmentName, countryIso, cycleName } = req.query
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
     const originalDataPoints = await CycleDataController.getOriginalDataPoints({ assessment, cycle, countryIso })

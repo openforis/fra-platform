@@ -30,23 +30,23 @@ const Partners: React.FC = () => {
 
       <div className="partners__disclaimer">
         {t('disclaimer.part1')}
-        <a href="https://ec.europa.eu/info/index_en" target="_blank" rel="noreferrer">
+        <a href="https://ec.europa.eu/info/index_en" rel="noreferrer" target="_blank">
           {t('disclaimer.europeanUnion')}
         </a>
         {t('disclaimer.part2')}
-        <a href="https://um.fi/frontpage" target="_blank" rel="noreferrer">
+        <a href="https://um.fi/frontpage" rel="noreferrer" target="_blank">
           {t('disclaimer.govFinland')}
         </a>
         {t('disclaimer.part3')}
         <a
           href="https://norad.no/en/front/thematic-areas/climate-change-and-environment/norways-international-climate-and-forest-initiative-nicfi/"
-          target="_blank"
           rel="noreferrer"
+          target="_blank"
         >
           {t('disclaimer.govNorway')}
         </a>
         {t('disclaimer.part4')}
-        <a href="https://www.thegef.org" target="_blank" rel="noreferrer">
+        <a href="https://www.thegef.org" rel="noreferrer" target="_blank">
           {t('disclaimer.gef')}
         </a>
         {t('disclaimer.part5')}

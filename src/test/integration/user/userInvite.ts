@@ -32,7 +32,7 @@ export default (): void =>
 
     it('Invite new user as Collaborator', async () => {
       const { assessment, cycle, user } = testContext
-      const { userInvitation, user: invitedUser } = await UserController.invite({
+      const { user: invitedUser, userInvitation } = await UserController.invite({
         assessment,
         countryIso: 'X01',
         cycle,
@@ -69,7 +69,7 @@ export default (): void =>
 
     it('Invite the user as National Correspondent to a country', async () => {
       const { assessment, cycle, user } = testContext
-      const { userInvitation, user: invitedUser } = await UserController.invite({
+      const { user: invitedUser, userInvitation } = await UserController.invite({
         assessment,
         countryIso: 'X02',
         cycle,

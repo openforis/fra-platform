@@ -13,7 +13,7 @@ export const useLastApprovedHistoryDescriptions = (): Record<
   CommentableDescriptionName,
   CommentableDescriptionValue
 > => {
-  const { assessmentName, cycleName, countryIso, sectionName } = useSectionRouteParams<CountryIso>()
+  const { assessmentName, countryIso, cycleName, sectionName } = useSectionRouteParams<CountryIso>()
 
   return useAppSelector((state) =>
     DataSelector.History.getLastApprovedDescriptions(state, { assessmentName, cycleName, countryIso, sectionName })

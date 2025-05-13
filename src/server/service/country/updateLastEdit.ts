@@ -16,7 +16,7 @@ type Props = {
 }
 
 export const updateLastEdit = async (props: Props, client: BaseProtocol = DB) => {
-  const { assessment, cycle, country, user, lastEditOdp, notifyClient = true } = props
+  const { assessment, country, cycle, lastEditOdp, notifyClient = true, user } = props
 
   if (!country) return
 

@@ -1,4 +1,5 @@
 import { createSlice, Reducer } from '@reduxjs/toolkit'
+
 import { NotificationState } from './stateType'
 
 const initialState: NotificationState = {

@@ -15,7 +15,7 @@ const KeyFindings: React.FC = () => {
   return (
     <div className="home-key-findings">
       <div className="home-key-findings__map">
-        <img alt="" src="/img/map.png" className="map" />
+        <img alt="" className="map" src="/img/map.png" />
       </div>
 
       <div>{t('home.keyFindings')}</div>
@@ -23,7 +23,7 @@ const KeyFindings: React.FC = () => {
       <div className="home-key-findings__map-legend">
         {Object.entries(climaticDomains).map(([key, value]) => (
           <div key={key} className="legend">
-            <img className="legend-icon" alt="" src={`/img/mapLegend_${key}.svg`} />
+            <img alt="" className="legend-icon" src={`/img/mapLegend_${key}.svg`} />
             <div className="legend-key">{t(`climaticDomain.${key}`)}</div>
             <div className="legend-value">{value}%</div>
           </div>

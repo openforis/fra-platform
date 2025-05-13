@@ -76,42 +76,42 @@ const ResetPassword: React.FC = () => {
       {!resetPasswordUuid && <h3>{t('login.forgotPasswordTitle')}</h3>}
 
       <input
-        onFocus={() => setErrors({ ...errors, email: null })}
-        name="email"
         disabled={!!resetPasswordUuid}
-        value={email}
-        type="text"
-        placeholder={t('login.email')}
+        name="email"
         onChange={(event) => setEmail(event.target.value)}
+        onFocus={() => setErrors({ ...errors, email: null })}
+        placeholder={t('login.email')}
+        type="text"
+        value={email}
       />
       {errors.email && <span className="login__field-error">{t(errors.email)}</span>}
 
       {resetPasswordUuid && (
         <>
           <input
-            onFocus={() => setErrors({ ...errors, password: null })}
-            value={password}
-            type="password"
-            placeholder={t('login.password')}
             onChange={(event) => setPassword(event.target.value)}
+            onFocus={() => setErrors({ ...errors, password: null })}
+            placeholder={t('login.password')}
+            type="password"
+            value={password}
           />
           {errors.password && <span className="login__field-error">{t(errors.password)}</span>}
 
           <input
-            onFocus={() => setErrors({ ...errors, password2: null })}
-            value={password2}
-            type="password"
-            placeholder={t('login.repeatPassword')}
             onChange={(event) => setPassword2(event.target.value)}
+            onFocus={() => setErrors({ ...errors, password2: null })}
+            placeholder={t('login.repeatPassword')}
+            type="password"
+            value={password2}
           />
           {errors.password2 && <span className="login__field-error">{t(errors.password2)}</span>}
 
           <div style={{ textAlign: 'center' }}>
-            <button className="btn" type="button" onClick={() => navigate(-1)}>
+            <button className="btn" onClick={() => navigate(-1)} type="button">
               {t('login.cancel')}
             </button>
 
-            <button className="btn" type="button" onClick={onChangePassword}>
+            <button className="btn" onClick={onChangePassword} type="button">
               {t('login.changePassword')}
             </button>
           </div>
@@ -120,11 +120,11 @@ const ResetPassword: React.FC = () => {
 
       {!resetPasswordUuid && (
         <div style={{ textAlign: 'center' }}>
-          <button className="btn" type="button" onClick={() => navigate(-1)}>
+          <button className="btn" onClick={() => navigate(-1)} type="button">
             {t('login.cancel')}
           </button>
 
-          <button className="btn" type="button" onClick={onResetPassword}>
+          <button className="btn" onClick={onResetPassword} type="button">
             {t('login.resetPassword')}
           </button>
         </div>

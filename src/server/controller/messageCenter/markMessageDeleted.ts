@@ -18,7 +18,7 @@ type Props = {
 }
 
 export const markMessageDeleted = async (props: Props, client: BaseProtocol = DB): Promise<void> => {
-  const { countryIso, assessment, cycle, sectionName, id, user } = props
+  const { assessment, countryIso, cycle, id, sectionName, user } = props
 
   return client.tx(async (t) => {
     const target = await MessageRepository.markDeleted({ assessment, cycle, id }, t)

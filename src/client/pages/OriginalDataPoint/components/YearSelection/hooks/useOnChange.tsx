@@ -16,7 +16,7 @@ type RouteParams = SectionRouteParams & {
 export const useOnChange = (): Returned => {
   const dispatch = useAppDispatch()
   const originalDataPoint = useOriginalDataPoint()
-  const { assessmentName, cycleName, countryIso, sectionName } = useSectionRouteParams() as RouteParams
+  const { assessmentName, countryIso, cycleName, sectionName } = useSectionRouteParams() as RouteParams
 
   return useCallback<Returned>(
     (event) => {

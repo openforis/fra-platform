@@ -13,7 +13,7 @@ type PropsCache = {
 }
 
 export const renameCountriesData = async (props: PropsCache): Promise<void> => {
-  const { assessment, cycleSource, cycleTarget, countryISOs } = props
+  const { assessment, countryISOs, cycleSource, cycleTarget } = props
 
   const redis = RedisData.getInstance()
 

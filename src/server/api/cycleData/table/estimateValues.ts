@@ -39,7 +39,7 @@ export const estimateValues = async (req: CycleDataRequest<never, EstimateBody>,
     const { country } = req.context
     const { countryIso } = country
 
-    const { method, tableName, fields } = req.body
+    const { fields, method, tableName } = req.body
     const user = Requests.getUser(req)
 
     const metaCache = true

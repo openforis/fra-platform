@@ -25,7 +25,7 @@ type Props = {
 }
 
 export const createOriginalDataPoint = async (props: Props, client: BaseProtocol = DB): Promise<OriginalDataPoint> => {
-  const { assessment, cycle, sectionName, originalDataPoint, user, country, notifyClient = true } = props
+  const { assessment, country, cycle, notifyClient = true, originalDataPoint, sectionName, user } = props
   const { countryIso } = originalDataPoint
 
   const odpReturn = await client.tx(async (t) => {

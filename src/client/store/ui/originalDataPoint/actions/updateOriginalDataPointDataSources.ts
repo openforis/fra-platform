@@ -15,7 +15,7 @@ type Props = CycleParams & {
 
 const putOriginalDataPointDataSources = Functions.debounce(
   async (props: Props) => {
-    const { countryIso, assessmentName, cycleName, originalDataPoint } = props
+    const { assessmentName, countryIso, cycleName, originalDataPoint } = props
 
     await axios.put(
       ApiEndPoint.CycleData.OriginalDataPoint.dataSources(),

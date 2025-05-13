@@ -21,7 +21,7 @@ type PropsCallback = {
 }
 
 export const useOnPaste = (props: Props): ((propsCallback: PropsCallback) => OriginalDataPoint) => {
-  const { allowedClass = () => true, allowGrow = false, columns, index } = props
+  const { allowGrow = false, allowedClass = () => true, columns, index } = props
   const originalDataPoint = useOriginalDataPoint()
 
   return useCallback(
@@ -41,6 +41,6 @@ export const useOnPaste = (props: Props): ((propsCallback: PropsCallback) => Ori
 
       return updatedOdp
     },
-    [columns, allowedClass, originalDataPoint, allowGrow, index]
+    [allowedClass, allowGrow, columns, index, originalDataPoint]
   )
 }

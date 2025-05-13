@@ -16,5 +16,5 @@ export const useCanEditRoleProps = (): boolean => {
 
   return useMemo<boolean>(() => {
     return isAdmin || [CountryStatus.editing, CountryStatus.notStarted].includes(Areas.getStatus(country))
-  }, [isAdmin, country])
+  }, [country, isAdmin])
 }

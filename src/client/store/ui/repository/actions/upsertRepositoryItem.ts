@@ -12,7 +12,7 @@ type Props = CycleParams & {
 }
 
 const _getParamsConfig = (props: Props) => {
-  const { assessmentName, cycleName, countryIso } = props
+  const { assessmentName, countryIso, cycleName } = props
   const params = { countryIso, assessmentName, cycleName }
   return { params }
 }

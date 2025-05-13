@@ -21,7 +21,7 @@ import { useOnSuccess } from './hooks/useOnSuccess'
 import { useRepositoryItems } from './hooks/useRepositoryItems'
 
 const AddFromRepository: React.FC = () => {
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams()
   const { t } = useTranslation()
   const language = useLanguage()
   const { repositoryOpened, setSelectedFiles } = useRepositoryLinkContext()
@@ -38,7 +38,7 @@ const AddFromRepository: React.FC = () => {
       setSelectedFiles([])
       getRepositoryItems()
     }
-  }, [repositoryOpened, setSelectedFiles, getRepositoryItems])
+  }, [getRepositoryItems, repositoryOpened, setSelectedFiles])
 
   if (!repositoryOpened) {
     return null

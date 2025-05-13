@@ -13,8 +13,8 @@ export const useOnCopyClick = (params: {
   setSelectedPreviousYear: React.Dispatch<React.SetStateAction<string>>
   selectedPreviousYear: string
 }) => {
-  const { originalDataPoint, setSelectedPreviousYear, selectedPreviousYear } = params
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams()
+  const { originalDataPoint, selectedPreviousYear, setSelectedPreviousYear } = params
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams()
 
   const dispatch = useAppDispatch()
   const { t } = useTranslation()
@@ -35,8 +35,8 @@ export const useOnCopyClick = (params: {
     }
   }, [
     assessmentName,
-    cycleName,
     countryIso,
+    cycleName,
     dispatch,
     originalDataPoint,
     selectedPreviousYear,

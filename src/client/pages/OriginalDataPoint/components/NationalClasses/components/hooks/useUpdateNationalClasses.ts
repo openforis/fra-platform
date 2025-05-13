@@ -8,7 +8,7 @@ import { OriginalDataPointActions } from 'client/store/ui/originalDataPoint'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 export const useUpdateNationalClasses = () => {
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams()
 
   const dispatch = useAppDispatch()
   return useCallback(
@@ -22,6 +22,6 @@ export const useUpdateNationalClasses = () => {
         })
       )
     },
-    [dispatch, countryIso, cycleName, assessmentName]
+    [assessmentName, countryIso, cycleName, dispatch]
   )
 }

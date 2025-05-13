@@ -14,7 +14,7 @@ type Body = {
 
 export const removeContact = async (req: CycleDataRequest<never, Body>, res: Response) => {
   try {
-    const { assessmentName, cycleName, countryIso, sectionName, uuid } = req.query
+    const { assessmentName, countryIso, cycleName, sectionName, uuid } = req.query
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
     const user = Requests.getUser(req)

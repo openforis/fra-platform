@@ -16,7 +16,7 @@ import { getMetadata } from './utils/getMetadata'
 type Entries = Array<{ tableName: string; variables: Array<{ csvColumn: string; variableName: string }> }>
 
 export const getContentVariables = async (props: Props & { fileName: string; entries: Entries }) => {
-  const { assessment, cycle, countries, entries, fileName } = props
+  const { assessment, countries, cycle, entries, fileName } = props
   const isFRAYears = fileName === 'FRA_Years'
   const _climaticData = await climaticDomain(props)
   const climaticData = RecordAssessmentDatas.getCycleData({

@@ -17,7 +17,7 @@ export type AuthProps = {
 }
 
 const hasCollaboratorEditSectionPermission = (props: AuthProps) => {
-  const { section, user, country, cycle, permission = CollaboratorEditPropertyType.tableData } = props
+  const { country, cycle, permission = CollaboratorEditPropertyType.tableData, section, user } = props
   const { countryIso } = country ?? {}
 
   const isCollaborator = Users.isCollaborator(user, countryIso, cycle)
@@ -39,7 +39,7 @@ const hasEditSectionPermission = (
     countryStatus: { [key in RoleName]?: Array<CountryStatus> }
   }
 ): boolean => {
-  const { country, cycle, user, countryStatus } = props
+  const { country, countryStatus, cycle, user } = props
   const { countryIso } = country
   const status = Areas.getStatus(country)
 

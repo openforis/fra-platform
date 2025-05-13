@@ -31,10 +31,10 @@ type Props = {
   children: React.ReactNode | React.ReactNode[]
 }
 
-export const Modal: React.FC<Props> = ({ children, isOpen, className = '' }: any) => {
+export const Modal: React.FC<Props> = ({ children, className = '', isOpen }: any) => {
   if (!isOpen) return null
   return (
-    <div className={`modal ${className}`} tabIndex={-1} role="dialog">
+    <div className={`modal ${className}`} role="dialog" tabIndex={-1}>
       <div className="modal-content">{React.Children.toArray(children)}</div>
     </div>
   )

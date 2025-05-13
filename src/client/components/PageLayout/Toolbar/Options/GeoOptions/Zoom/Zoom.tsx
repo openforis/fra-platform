@@ -7,7 +7,7 @@ import { mapController } from 'client/utils'
 
 const Zoom: React.FC = () => {
   const dispatch = useAppDispatch()
-  const { minZoom, maxZoom } = useGeoMapOptions()
+  const { maxZoom, minZoom } = useGeoMapOptions()
 
   const setZoom = useCallback(
     (_zoom: number) => {

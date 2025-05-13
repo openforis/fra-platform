@@ -17,7 +17,7 @@ type Props = {
 }
 
 const TextInputField: React.FC<Props> = (props) => {
-  const { editorLink, name, value, onChange, validator, enabled, mandatory } = props
+  const { editorLink, enabled, mandatory, name, onChange, validator, value } = props
 
   const { t } = useTranslation()
 

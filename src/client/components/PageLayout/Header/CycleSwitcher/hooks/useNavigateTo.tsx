@@ -14,7 +14,7 @@ export const useNavigateTo = () => {
   const navigate = useNavigate()
   // const { countryIso } = useCountryRouteParams()
   const isAdminPage = useIsAdminRoute()
-  const { countryIso, assessmentName: prevAssessmentName } = useCountryRouteParams()
+  const { assessmentName: prevAssessmentName, countryIso } = useCountryRouteParams()
 
   return useCallback(
     (props: { assessment: Assessment; cycle: Cycle; user: User }) => {

@@ -8,7 +8,7 @@ import Requests from 'server/utils/requests'
 
 export const getReviewStatus = async (req: CycleDataRequest<{ odpId: string }>, res: Response) => {
   try {
-    const { countryIso, assessmentName, cycleName, sectionName, odpId } = req.query
+    const { assessmentName, countryIso, cycleName, odpId, sectionName } = req.query
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 

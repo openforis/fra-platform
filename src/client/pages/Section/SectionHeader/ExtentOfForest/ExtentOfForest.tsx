@@ -15,7 +15,7 @@ const ExtentOfForest: React.FC = () => {
   const { t } = useTranslation()
   const { sectionName } = useSectionContext()
   const editEnabled = useIsEditTableDataEnabled(sectionName)
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const user = useUser()
   const disabled = !editEnabled
   const className = useButtonClassName({ disabled, iconName: 'small-add', label: 'L', size: ButtonSize.m })

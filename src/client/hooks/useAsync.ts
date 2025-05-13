@@ -22,7 +22,7 @@ const useAsyncActionHandlers = [
 
 export const useAsync = (promiseFn: any, promiseArgs: any) => {
   const [state, _dispatch] = useReducer(
-    (_state: any, { type, payload }: any) => useAsyncActionHandlers[type](payload),
+    (_state: any, { payload, type }: any) => useAsyncActionHandlers[type](payload),
     {
       loading: false,
       loaded: false,

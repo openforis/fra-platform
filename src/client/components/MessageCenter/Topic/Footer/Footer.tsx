@@ -24,7 +24,7 @@ const Footer: React.FC<Props> = (props: Props) => {
   const countryIso = useCountryIso()
   const assessment = useAssessment()
   const cycle = useCycle()
-  const { canResolve, canPostMessage } = useShowActions(topic)
+  const { canPostMessage, canResolve } = useShowActions(topic)
 
   const { sectionName } = useParams<{ sectionName: string }>()
 
@@ -40,7 +40,7 @@ const Footer: React.FC<Props> = (props: Props) => {
         sectionName: topic.type !== MessageTopicType.review ? topic.type : sectionName,
       })
     ).then(() => setMessage(''))
-  }, [countryIso, assessment, cycle, topic, message, dispatch, sectionName])
+  }, [assessment, countryIso, cycle, dispatch, message, sectionName, topic])
 
   const resolveTopic = useCallback(() => {
     dispatch(

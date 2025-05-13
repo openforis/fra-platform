@@ -21,7 +21,7 @@ type Props = {
 }
 
 const CountrySelectModalBody: React.FC<Props> = (props) => {
-  const { countries, onChange, onChangeAll, onChangeMany, selection, unselectableCountries, excludedRegions } = props
+  const { countries, excludedRegions, onChange, onChangeAll, onChangeMany, selection, unselectableCountries } = props
   const allSelectedInRegion = useCallback(
     (region: string[], selection: string[]) =>
       region.every((v) => selection.includes(v) || unselectableCountries.includes(v)),
@@ -90,13 +90,13 @@ const CountrySelectModalBody: React.FC<Props> = (props) => {
               </div>
               <select
                 multiple
-                value={countryISOs.filter((countryIso) => selection.includes(countryIso))}
                 onChange={(event) => {
                   const currentSelection = Array.from(event.target.selectedOptions, (option) => String(option.value))
                   onChangeAll(
                     selection.filter((countryIso) => !countryISOs.includes(countryIso)).concat(currentSelection)
                   )
                 }}
+                value={countryISOs.filter((countryIso) => selection.includes(countryIso))}
               >
                 {countryISOs.map((countryIso: string) => {
                   const unselectable = unselectableCountries.includes(countryIso)

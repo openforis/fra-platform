@@ -14,7 +14,7 @@ const Toast: React.FC<ToastProps> = ({ notification }) => {
   const dispatch = useAppDispatch()
   const { t } = useTranslation()
 
-  const { duration, id, type, message, params } = notification
+  const { duration, id, message, params, type } = notification
   const onClose = () => dispatch(NotificationActions.removeMessage(id))
 
   if (duration) {

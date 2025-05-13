@@ -12,7 +12,7 @@ type Props = {
 
 const BarChart: React.FC<Props> = (props: Props) => {
   const {
-    item: { table, chart },
+    item: { chart, table },
   } = props
 
   const data = useBarChartData(table, chart)

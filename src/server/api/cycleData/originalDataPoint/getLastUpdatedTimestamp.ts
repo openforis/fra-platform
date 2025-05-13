@@ -8,7 +8,7 @@ import { Requests } from 'server/utils'
 
 export const getLastUpdatedTimestamp = async (req: CycleRequest, res: Response) => {
   try {
-    const { assessmentName, cycleName, countryIso } = req.query
+    const { assessmentName, countryIso, cycleName } = req.query
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 

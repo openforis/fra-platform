@@ -24,7 +24,7 @@ const OriginalData: React.FC<Props> = (props) => {
   const { canEditData, originalDataPoint } = props
   const cycle = useCycle()
   const country = useAssessmentCountry()
-  const { assessmentName, cycleName, year, sectionName } = useParams<{
+  const { assessmentName, cycleName, sectionName, year } = useParams<{
     assessmentName: AssessmentName
     cycleName: string
     year: string

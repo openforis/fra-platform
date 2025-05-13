@@ -21,7 +21,7 @@ type Props = {
 }
 
 export const updateOriginalDataPointsDependentNodes = async (props: Props): Promise<void> => {
-  const { assessment, cycle, country, sectionName, originalDataPoints, user } = props
+  const { assessment, country, cycle, originalDataPoints, sectionName, user } = props
   const assessmentName = assessment.props.name
   const cycleName = cycle.name
   const { countryIso } = country

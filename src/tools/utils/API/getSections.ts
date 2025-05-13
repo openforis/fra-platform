@@ -7,7 +7,7 @@ export const getSections = async (props: {
   assessmentName: string
   cycleName: string
 }): Promise<Array<Section>> => {
-  const { source, assessmentName, cycleName } = props
+  const { assessmentName, cycleName, source } = props
   const urlParams = new URLSearchParams({ assessmentName, cycleName, countryIso: 'WO' }).toString()
   const url = `${source}/api/metadata/sections?${urlParams}`
   const { data } = await API.get(url)

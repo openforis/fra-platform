@@ -11,7 +11,7 @@ export const getMany = async (
   props: { assessment: Assessment; cycle: Cycle; countryIso: CountryIso },
   client: BaseProtocol = DB
 ): Promise<Array<OriginalDataPoint>> => {
-  const { assessment, cycle, countryIso } = props
+  const { assessment, countryIso, cycle } = props
 
   const schemaName = Schemas.getNameCycle(assessment, cycle)
 

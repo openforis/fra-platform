@@ -19,7 +19,7 @@ export const useAdminPopoverItems = (): Array<PopoverItem> => {
   const user = useUser()
   const country = useAssessmentCountry()
 
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
 
   return useMemo<Array<PopoverItem>>(() => {
     if (Objects.isNil(country) || !Users.isAdministrator(user)) return []

@@ -25,7 +25,7 @@ type CreateMailProps = {
   cycleName: string
 }
 const createMail = async (props: CreateMailProps) => {
-  const { assessmentName, countryIso, cycleName, user, url, status, recipient, message } = props
+  const { assessmentName, countryIso, cycleName, message, recipient, status, url, user } = props
 
   const i18n = await createI18nPromise(recipient.props.lang ?? Lang.en)
 
@@ -73,7 +73,7 @@ const getRecipients = async (props: {
   notifyUsers: boolean
   user: User
 }) => {
-  const { countryISOs, status, cycle, notifySelf, notifyUsers, user } = props
+  const { countryISOs, cycle, notifySelf, notifyUsers, status, user } = props
   if (!notifyUsers) {
     return notifySelf ? [user] : []
   }
@@ -106,16 +106,16 @@ export const assessmentNotifyUsers = async (props: {
   notifyUsers: boolean
 }) => {
   const {
-    user,
+    assessmentName,
     country: {
       props: { status },
     },
-    message,
-    assessmentName,
     countryIso,
     cycle,
+    message,
     notifySelf,
     notifyUsers,
+    user,
   } = props
 
   const recipients = await getRecipients({ cycle, countryISOs: [countryIso], status, notifySelf, notifyUsers, user })

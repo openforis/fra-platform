@@ -15,7 +15,7 @@ type Request = CycleDataRequest<never, Body>
 
 export const updateRepositoryItem = async (req: Request, res: Response) => {
   try {
-    const { assessmentName, cycleName, countryIso, sectionName } = req.query
+    const { assessmentName, countryIso, cycleName, sectionName } = req.query
     const { repositoryItem } = req.body
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })

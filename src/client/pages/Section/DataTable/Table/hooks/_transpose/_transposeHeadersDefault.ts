@@ -12,7 +12,7 @@ export const _getTransposedHeaders = (rowsData: PropsTranspose['rowsData']): Ret
   rowsData.map<ColHeader>((row) => ({ columnName: row.props.variableName }))
 
 export const transposeHeadersDefault: TransposeHeaders = (props) => {
-  const { cycle, headers: _headers, rowsData, rowsHeader: _rowsHeader, table, t } = props
+  const { cycle, headers: _headers, rowsData, rowsHeader: _rowsHeader, t, table } = props
   const { uuid: cycleUUID } = cycle
 
   const headers = _getTransposedHeaders(rowsData)

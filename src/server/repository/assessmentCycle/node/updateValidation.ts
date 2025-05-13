@@ -17,7 +17,7 @@ type Props = {
 }
 
 export const updateValidation = (props: Props, client: BaseProtocol = DB): Promise<Node | null> => {
-  const { assessment, cycle, countryIso, tableName, variableName, colName, validation } = props
+  const { assessment, colName, countryIso, cycle, tableName, validation, variableName } = props
   const schema = Schemas.getName(assessment)
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
 

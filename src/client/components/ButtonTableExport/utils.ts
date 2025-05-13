@@ -54,7 +54,7 @@ export const getData = (
     currentY = 0
     // Handle both table haders and table cells
     Array.from(row.cells).forEach((column) => {
-      const { rowSpan, colSpan } = column
+      const { colSpan, rowSpan } = column
       let content = textMode ? _getElementText(column) : column.innerHTML
       if (formatToNumber)
         content = Number.isNaN(Number.parseFloat(content.replace(/\s/g, ''))) ? content : content.replace(/\s/g, '')

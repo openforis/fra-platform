@@ -16,7 +16,7 @@ type Props = {
 }
 
 const PhoneField: React.FC<Props> = (props) => {
-  const { name, value, onChange, validator, enabled, mandatory } = props
+  const { enabled, mandatory, name, onChange, validator, value } = props
 
   const { t } = useTranslation()
 

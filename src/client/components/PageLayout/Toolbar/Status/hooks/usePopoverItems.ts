@@ -48,5 +48,5 @@ export const usePopoverItems = (props: Props): Array<PopoverItem> => {
     items.push(...adminPopoverItems)
 
     return items
-  }, [country, cycle, dataLocked, adminPopoverItems, setTargetStatus, status, t, user])
+  }, [adminPopoverItems, country, cycle, dataLocked, setTargetStatus, status, t, user])
 }

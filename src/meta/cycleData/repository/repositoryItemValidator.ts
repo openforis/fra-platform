@@ -8,11 +8,11 @@ export type RepositoryItemValidation = {
 
 const validate = (repositoryItem: Partial<RepositoryItem>): RepositoryItemValidation | undefined => {
   const {
+    fileUuid,
+    link,
     props: {
       translation: { en: name },
     },
-    fileUuid,
-    link,
   } = repositoryItem || {}
 
   if (!name) {

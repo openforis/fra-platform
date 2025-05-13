@@ -48,7 +48,7 @@ const getCommentableDescriptionKey = (props: {
   sectionName: SectionName
   name: CommentableDescriptionName
 }): string => {
-  const { assessmentName, cycleName, countryIso, sectionName, name } = props
+  const { assessmentName, countryIso, cycleName, name, sectionName } = props
   return `commentable-description-${[countryIso, assessmentName, cycleName, sectionName, name].join('_')}`
 }
 

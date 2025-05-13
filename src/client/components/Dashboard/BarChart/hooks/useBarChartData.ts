@@ -11,7 +11,7 @@ import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { useData } from 'client/components/Dashboard/hooks/useData'
 
 export const useBarChartData = (table: Table, chart: BarChart): BarChartData => {
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
 
   const data = useData(table)
 
@@ -35,5 +35,5 @@ export const useBarChartData = (table: Table, chart: BarChart): BarChartData => 
         }
       }, {})
     })
-  }, [chart.columns, chart.cells, tableData])
+  }, [chart.cells, chart.columns, tableData])
 }

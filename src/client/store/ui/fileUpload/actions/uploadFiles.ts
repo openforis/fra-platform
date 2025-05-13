@@ -15,7 +15,7 @@ type Props = CycleParams & {
 export const uploadFiles = createAsyncThunk<Array<FileSummary>, Props, ThunkApiConfig>(
   'fileUpload/uploadFiles',
   async (props, { dispatch }) => {
-    const { assessmentName, cycleName, countryIso, files } = props
+    const { assessmentName, countryIso, cycleName, files } = props
 
     const formData = new FormData()
     files.forEach((file) => formData.append('file', file))

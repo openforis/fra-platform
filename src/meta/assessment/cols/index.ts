@@ -9,7 +9,7 @@ import { Labels } from 'meta/assessment/labels'
 import { Row } from 'meta/assessment/row'
 
 const cloneProps = (props: { cycleSource: Cycle; cycleTarget: Cycle; col: Col }): Col['props'] => {
-  const { cycleSource, cycleTarget, col } = props
+  const { col, cycleSource, cycleTarget } = props
 
   const { uuid: cycleSourceUuid } = cycleSource
   const { uuid: cycleTargetUuid } = cycleTarget
@@ -61,7 +61,7 @@ const hasLinkedNodes = (props: { cycle: Cycle; col: Col }): boolean => {
 }
 
 const isReadOnly = (props: { cycle: Cycle; col: Col; row: Row }): boolean => {
-  const { cycle, col, row } = props
+  const { col, cycle, row } = props
   return !!(
     isCalculated(props) ||
     row.props.readonly ||
@@ -71,7 +71,7 @@ const isReadOnly = (props: { cycle: Cycle; col: Col; row: Row }): boolean => {
 }
 
 const getCalculateFn = (props: { cycle: Cycle; col: Col; row: Row }): string | undefined => {
-  const { cycle, col, row } = props
+  const { col, cycle, row } = props
   return col.props.calculateFn?.[cycle.uuid] ?? row.props.calculateFn?.[cycle.uuid]
 }
 
@@ -82,7 +82,7 @@ const getClassNames = (props: { cycle: Cycle; col: Col }): Array<string> => {
 }
 
 const getLabel = (props: { cycle: Cycle; col: Col; t: TFunction }): string => {
-  const { cycle, col, t } = props
+  const { col, cycle, t } = props
   return col.props.colName ?? Labels.getCycleLabel({ cycle, labels: col.props.labels, t })
 }
 
@@ -113,7 +113,7 @@ const getSelectOptions = (props: { cycle: Cycle; col: Col }): Array<ColSelectOpt
   }
 
   if (!Objects.isNil(years)) {
-    const { start, end = Dates.getCurrentYear() + 1 } = years
+    const { end = Dates.getCurrentYear() + 1, start } = years
 
     return Arrays.reverse(Arrays.range(start, end)).map<ColSelectOption>((year) => ({ name: String(year) }))
   }

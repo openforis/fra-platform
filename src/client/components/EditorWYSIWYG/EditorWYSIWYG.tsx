@@ -23,7 +23,7 @@ export type EditorWYSIWYGProps = {
 }
 
 const EditorWYSIWYG: React.FC<EditorWYSIWYGProps> = (props: EditorWYSIWYGProps) => {
-  const { disabled, onlyLinks, onChange, options, repository, value, showPDFGuideLine } = props
+  const { disabled, onChange, onlyLinks, options, repository, showPDFGuideLine, value } = props
 
   const { configs } = useConfigs({ onlyLinks, options, repository })
   const onBlur = useOnBlur({ onChange, value })

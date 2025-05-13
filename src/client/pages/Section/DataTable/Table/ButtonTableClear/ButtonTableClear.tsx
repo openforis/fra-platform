@@ -18,11 +18,11 @@ type Props = {
 }
 
 const ButtonTableClear: React.FC<Props> = (props) => {
-  const { disabled, table, sectionName } = props
+  const { disabled, sectionName, table } = props
 
   const dispatch = useAppDispatch()
   const { t } = useTranslation()
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const { print } = useIsPrintRoute()
   const isLocked = useIsDataLocked()
 

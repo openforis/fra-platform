@@ -22,7 +22,7 @@ const getGeneratePath =
   }
 
 const getAbsolutePath = (props: { relativePath: string; parent?: Route<any, any> }): string => {
-  const { relativePath, parent } = props
+  const { parent, relativePath } = props
   const prefix = parent
     ? `${getAbsolutePath({ relativePath: parent.path.relative, parent: parent.parent })}${
         parent.path.relative !== Root.path.relative ? '/' : ''

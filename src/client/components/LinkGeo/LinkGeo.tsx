@@ -7,13 +7,13 @@ import { Routes } from 'meta/routes'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 const LinkGeo: React.FC = () => {
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams()
 
   return (
     <NavLink
+      className="app-header-link-geo"
       end
       to={Routes.Geo.generatePath({ assessmentName, cycleName, countryIso })}
-      className="app-header-link-geo"
     >
       GEO
     </NavLink>

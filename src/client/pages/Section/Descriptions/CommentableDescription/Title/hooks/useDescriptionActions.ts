@@ -17,7 +17,7 @@ type Props = {
 export const useDescriptionActions = (props: Props): Array<DataRowAction> => {
   const { name, title } = props
 
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const { sectionName } = useSectionContext()
   const canEdit = useCanEditDescription({ sectionName })
   const topicKey = Topics.getCommentableDescriptionKey({ assessmentName, cycleName, countryIso, sectionName, name })

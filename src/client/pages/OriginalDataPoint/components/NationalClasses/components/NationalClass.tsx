@@ -26,7 +26,7 @@ const NationalClass: React.FC<Props> = (props) => {
 
   const { nationalClasses } = originalDataPoint
   const nationalClass = nationalClasses[index]
-  const { name, definition, placeHolder } = nationalClass
+  const { definition, name, placeHolder } = nationalClass
 
   const { t } = useTranslation()
   const { print } = useIsPrintRoute()

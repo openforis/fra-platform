@@ -25,7 +25,7 @@ type CalculateValuesProps = {
 }
 
 const calculateValues = (props: CalculateValuesProps) => {
-  const { odp, index, field, value } = props
+  const { field, index, odp, value } = props
 
   const prevValue = odp.nationalClasses[index][field] as string
 
@@ -35,13 +35,13 @@ const calculateValues = (props: CalculateValuesProps) => {
   }
 
   const {
+    forestNaturalForestOfWhichPrimaryForestPercent,
     forestNaturalPercent,
+    forestPercent,
+    forestPlantationIntroducedPercent,
     forestPlantationPercent,
     otherPlantedForestPercent,
-    forestPercent,
     otherWoodedLandPercent,
-    forestPlantationIntroducedPercent,
-    forestNaturalForestOfWhichPrimaryForestPercent,
   } = nationalClass
 
   const rowIsMaxedForestCharacteristics = Numbers.eq(
@@ -104,7 +104,7 @@ export const updateNationalClass = (props: {
   field: keyof ODPNationalClass
   value: string
 }): OriginalDataPoint => {
-  const { odp: odpProps, index, field, value } = props
+  const { field, index, odp: odpProps, value } = props
 
   const odp: OriginalDataPoint = Objects.cloneDeep(odpProps)
   const calculateProps = { odp, index, field, value }

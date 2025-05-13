@@ -22,7 +22,7 @@ type Props = {
 }
 
 export const updateCountry = async (props: Props, client: BaseProtocol = DB): Promise<Country> => {
-  const { assessment, cycle, country, user, lastUpdate = true, lastEdit, lastEditOdp, notifyClient = true } = props
+  const { assessment, country, cycle, lastEdit, lastEditOdp, lastUpdate = true, notifyClient = true, user } = props
   const { countryIso } = country
 
   return client.tx(async (t) => {

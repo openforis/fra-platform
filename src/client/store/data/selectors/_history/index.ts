@@ -35,7 +35,7 @@ type Params = {
 
 const getLastApprovedDescriptions = createSelector(
   [getHistoryLastApproved, (_, params: Params & { sectionName: SectionName }) => params],
-  (lastApproved, { assessmentName, cycleName, countryIso, sectionName }) =>
+  (lastApproved, { assessmentName, countryIso, cycleName, sectionName }) =>
     lastApproved?.descriptions?.[assessmentName]?.[cycleName]?.[countryIso]?.[sectionName]
 )
 

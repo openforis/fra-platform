@@ -27,7 +27,7 @@ export const copyOriginalDataPointNationalClasses = async (
   props: Props,
   client: BaseProtocol = DB
 ): Promise<OriginalDataPoint> => {
-  const { assessment, cycle, country, year, targetYear, user } = props
+  const { assessment, country, cycle, targetYear, user, year } = props
   const { countryIso } = country
 
   const odpReturn = await client.tx(async (t) => {

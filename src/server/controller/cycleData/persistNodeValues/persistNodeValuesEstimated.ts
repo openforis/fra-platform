@@ -31,7 +31,7 @@ const getActivityLog = (props: Props): ActivityLog<NodeValuesEstimation> => {
 }
 
 const getPersistNodeValuesProps = (props: Props): Parameters<typeof persistNodeValues>['0'] => {
-  const { assessment, cycle, country, nodes, sectionName, user } = props
+  const { assessment, country, cycle, nodes, sectionName, user } = props
   const { countryIso } = country
 
   const nodeUpdates = { assessmentName: assessment.props.name, cycleName: cycle.name, countryIso, nodes }
@@ -41,7 +41,7 @@ const getPersistNodeValuesProps = (props: Props): Parameters<typeof persistNodeV
 }
 
 export const persistNodeValuesEstimated = async (props: Props): Promise<void> => {
-  const { assessment, cycle, country, estimation } = props
+  const { assessment, country, cycle, estimation } = props
   const { countryIso } = country
 
   await DB.tx(async (client) => {

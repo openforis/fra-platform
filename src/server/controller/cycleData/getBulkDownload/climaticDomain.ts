@@ -5,7 +5,7 @@ import { Props } from './props'
 
 // used by all CSVs
 export const climaticDomain = (props: Props) => {
-  const { assessment, cycle, countries } = props
+  const { assessment, countries, cycle } = props
   return getTableData({
     assessment,
     cycle,

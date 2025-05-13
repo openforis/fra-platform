@@ -15,7 +15,7 @@ type Props = {
 
 const NameField: React.FC<Props> = (props: Props) => {
   const { userSummary } = props
-  const { id, fullName } = userSummary
+  const { fullName, id } = userSummary
 
   const { assessmentName, cycleName } = useCycleRouteParams()
 

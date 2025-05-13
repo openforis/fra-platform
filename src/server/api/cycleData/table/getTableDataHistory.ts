@@ -12,7 +12,7 @@ type GetTableDataRequest = CycleDataRequest<{
 
 export const getTableDataHistory = async (req: GetTableDataRequest, res: Response) => {
   try {
-    const { countryIso, assessmentName, cycleName, tableNames } = req.query
+    const { assessmentName, countryIso, cycleName, tableNames } = req.query
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
     const props = { assessment, cycle, countryISOs: [countryIso], tableNames }

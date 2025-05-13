@@ -31,7 +31,7 @@ const variableNames = Array.from(
 )
 
 export const getForestPolicy = async (props: Props) => {
-  const { assessment, cycle, countries } = props
+  const { assessment, countries, cycle } = props
 
   const tableNames = [tableName]
 

@@ -53,7 +53,7 @@ const Topic: React.FC<TopicProps> = (props) => {
           sectionName: topic.type !== MessageTopicType.review ? topic.type : undefined,
         })
       ),
-    [countryIso, assessment, cycle, topic, dispatch]
+    [assessment, countryIso, cycle, dispatch, topic]
   )
 
   useEffect(() => {
@@ -85,7 +85,7 @@ const Topic: React.FC<TopicProps> = (props) => {
         .off(statusEvent, changeStatusEventHandler)
         .off(messageDeleteEvent, deleteMessageEventHandler)
     }
-  }, [assessment, cycle, topic, dispatch])
+  }, [assessment, cycle, dispatch, topic])
 
   const handleTopicResize = useCallback(() => {
     window.dispatchEvent(new Event('resize'))

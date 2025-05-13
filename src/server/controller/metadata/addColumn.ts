@@ -16,7 +16,7 @@ type Props = {
 }
 
 export const addColumn = async (props: Props, client: BaseProtocol = DB): Promise<void> => {
-  const { assessment, cycles, table, colProps } = props
+  const { assessment, colProps, cycles, table } = props
 
   // split rows
   const rows = table.rows.reduce<[Array<Row>, Array<Row>]>(

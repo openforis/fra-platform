@@ -25,7 +25,7 @@ type Props = {
 }
 
 export const clearTableData = async (props: Props, client: BaseProtocol = DB): Promise<Array<NodeUpdate>> => {
-  const { assessment, cycle, tableName, country, user, sectionName } = props
+  const { assessment, country, cycle, sectionName, tableName, user } = props
   const { countryIso } = country
   const assessmentName = assessment.props.name
   const cycleName = cycle.name

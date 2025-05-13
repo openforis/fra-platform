@@ -8,7 +8,7 @@ import Requests from 'server/utils/requests'
 
 export const getHistoryCount = async (req: TablePaginatedDataRequest, res: Response) => {
   try {
-    const { assessmentName, cycleName, countryIso, sectionName } = req.query
+    const { assessmentName, countryIso, cycleName, sectionName } = req.query
     const { target } = req.params
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 

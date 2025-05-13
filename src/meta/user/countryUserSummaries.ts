@@ -20,7 +20,7 @@ const getRoleName = (countryUserSummary: CountryUserSummary, countryIso: Country
 }
 
 const isInvitation = (countryUserSummary: CountryUserSummary, countryIso: CountryIso) => {
-  const { role, invitation } = getCountryRoleAndInvitation(countryUserSummary, countryIso)
+  const { invitation, role } = getCountryRoleAndInvitation(countryUserSummary, countryIso)
 
   return Boolean(!role && invitation)
 }

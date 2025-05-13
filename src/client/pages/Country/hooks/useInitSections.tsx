@@ -7,7 +7,7 @@ import { MetadataActions, useSections } from 'client/store/metadata'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 export const useInitSections = () => {
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams()
   const dispatch = useAppDispatch()
   const sections = useSections()
 

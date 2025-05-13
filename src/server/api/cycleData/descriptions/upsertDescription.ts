@@ -11,7 +11,7 @@ type Request = CycleDataRequest<{ name: CommentableDescriptionName }, { value: C
 
 export const upsertDescription = async (req: Request, res: Response) => {
   try {
-    const { assessmentName, sectionName, cycleName, name } = req.query
+    const { assessmentName, cycleName, name, sectionName } = req.query
     const { value } = req.body
     const user = Requests.getUser(req)
     const { country } = req.context

@@ -13,7 +13,7 @@ export const useUploadFiles = (props: Pick<FileUploadProps, 'onChange'>): Return
   const { onChange } = props
 
   const dispatch = useAppDispatch()
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
 
   return useCallback<Returned>(
     async (files: Array<File>) => {

@@ -42,7 +42,7 @@ const _getLabelActionKey = (activity: ActivityLog<any>) => {
 const _getLabelActionParams = (activity: ActivityLog<any>, t: TFunction) => {
   const { target } = activity
   let params = {}
-  const { user, role, assessment, status, file } = target ?? {}
+  const { assessment, file, role, status, user } = target ?? {}
   if (user)
     params = {
       user,
@@ -90,7 +90,7 @@ const isSectionLinkDisabled = (activity: ActivityLog<any>) => {
 }
 
 const getLabelSection = (props: { cycle: Cycle; section?: SubSection; activity: ActivityLog<any>; t: TFunction }) => {
-  const { cycle, section, activity, t } = props
+  const { activity, cycle, section, t } = props
   const labels = section?.props?.labels
   const labelSectionKey = labels ? Labels.getCycleLabel({ cycle, labels, t }) : getLabelSectionKey(activity)
   return t(labelSectionKey)
@@ -104,7 +104,7 @@ type GetSectionLinkProp = {
 }
 
 const getSectionLink = (props: GetSectionLinkProp): string => {
-  const { countryIso, assessmentName, cycleName, sectionName: sectionNameProp } = props
+  const { assessmentName, countryIso, cycleName, sectionName: sectionNameProp } = props
 
   const sectionNameMap: { [key in SectionName]?: SectionName } = {
     [SectionNames.contacts]: SectionNames.contactPersons,

@@ -12,7 +12,7 @@ type Props = {
 }
 
 export const getOne = (props: Props, client: BaseProtocol = DB): Promise<Row> => {
-  const { assessment, tableName, variableName, includeCols } = props
+  const { assessment, includeCols, tableName, variableName } = props
   const schema = Schemas.getName(assessment)
 
   return client.one<Row>(

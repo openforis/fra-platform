@@ -14,7 +14,7 @@ import { PropsGetLastApproved } from './_types'
 type Props = PropsGetLastApproved & Pick<PropsGetTableData, 'mergeOdp'> & { info: HistoryLastApprovedInfo }
 
 export const getTableDataPrevCycle = async (props: Props, client: BaseProtocol = DB): Promise<RecordAssessmentData> => {
-  const { assessment, cycle, countryISOs, info, mergeOdp, tableNames } = props
+  const { assessment, countryISOs, cycle, info, mergeOdp, tableNames } = props
   const { name: assessmentName } = assessment.props
   const { name: cycleName } = cycle
   const { prevCycle } = info

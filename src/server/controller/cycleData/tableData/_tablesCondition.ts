@@ -6,7 +6,7 @@ import { PropsGetTableData } from './props'
 export const getTablesCondition = (
   props: Pick<PropsGetTableData, 'tableNames' | 'columns' | 'variables' | 'mergeOdp'>
 ): TablesCondition => {
-  const { tableNames, columns, variables, mergeOdp } = props
+  const { columns, mergeOdp, tableNames, variables } = props
 
   const tables: TablesCondition = {}
 

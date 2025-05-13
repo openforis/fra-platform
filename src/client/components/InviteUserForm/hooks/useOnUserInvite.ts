@@ -31,7 +31,7 @@ export const useOnUserInvite = (props: {
   cycle: Cycle
   user: User
 }) => {
-  const { userToInvite, setUserToInvite, countryIso, setErrors, cycle } = props
+  const { countryIso, cycle, setErrors, setUserToInvite, userToInvite } = props
   const navigate = useNavigate()
   const { t } = useTranslation()
   const { toaster } = useToaster()

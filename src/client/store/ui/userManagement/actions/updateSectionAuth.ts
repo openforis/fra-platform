@@ -16,7 +16,7 @@ export const updateSectionAuth = createAsyncThunk<
       countryIso: CountryIso
     }
   }
->('userManagement/post/countryAccess', async ({ id, sections, params }) => {
+>('userManagement/post/countryAccess', async ({ id, params, sections }) => {
   const { data } = await axios.post(
     ApiEndPoint.User.sectionAuth(),
     {

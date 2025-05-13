@@ -15,7 +15,7 @@ type Props = PropsGetLastApproved & {
 }
 
 export const mergeWithLastApproved = async (props: Props, client: BaseProtocol): Promise<RecordAssessmentData> => {
-  const { assessment, cycle, countryISOs, data, tableNames } = props
+  const { assessment, countryISOs, cycle, data, tableNames } = props
   const { name: assessmentName } = assessment.props
   const { name: cycleName } = cycle
 

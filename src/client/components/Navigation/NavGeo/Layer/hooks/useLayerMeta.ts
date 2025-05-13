@@ -7,7 +7,7 @@ import { LayerMeta, LayerProps } from 'client/components/Navigation/NavGeo/Layer
 
 export const useLayerMeta = (props: Pick<LayerProps, 'layer'>): LayerMeta => {
   const { layer } = props
-  const { isCustomAsset, metadata, options, key } = layer
+  const { isCustomAsset, key, metadata, options } = layer
   const { titleKey } = metadata ?? {}
   const { agreementLayer, gteTreeCoverPercent, years } = options ?? {}
 

@@ -34,10 +34,10 @@ const PopoverControl: React.FC<PropsWithChildren<Props>> = (props) => {
 
   return (
     <div
+      ref={popoverControlRef}
       className="popover-control__wrapper"
       onClick={() => setOpen((prevState) => !prevState)}
       onKeyDown={() => setOpen((prevState) => !prevState)}
-      ref={popoverControlRef}
       role="button"
       tabIndex={0}
     >
@@ -50,22 +50,22 @@ const PopoverControl: React.FC<PropsWithChildren<Props>> = (props) => {
       {open && items.length > 0 && (
         <div className="popover-control__menu">
           {items.map((item, index) => {
-            const { divider, link, content, onClick } = item
+            const { content, divider, link, onClick } = item
             const key = `${index}`
 
-            if (divider) return <div className="popover-control__divider" key={key} />
+            if (divider) return <div key={key} className="popover-control__divider" />
 
             if (link)
               return (
-                <Link className="popover-control__item-link" key={key} to={link}>
+                <Link key={key} className="popover-control__item-link" to={link}>
                   {content}
                 </Link>
               )
 
             return (
               <div
-                className="popover-control__item"
                 key={key}
+                className="popover-control__item"
                 onClick={onClick}
                 onKeyDown={onClick}
                 role="button"

@@ -10,7 +10,7 @@ type Props = {
 }
 
 const Map: React.FC<React.PropsWithChildren<Props>> = (props) => {
-  const { viewport, children } = props
+  const { children, viewport } = props
 
   const { map, ref } = useGeoMap({ viewport })
   useMapLayersHandler()

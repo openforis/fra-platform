@@ -1,7 +1,6 @@
 // TODO: DO not export hooks from here. https://github.com/openforis/fra-platform/issues/2907
 export { useAsync } from './useAsync'
 export { useCountryIso } from './useCountryIso'
-export { useCountryLandingSections } from './useCountryLandingSections'
 export { useGetRequest } from './useGetRequest'
 export { useIsDataExportView } from './useIsDataExportView'
 export { useIsMounted } from './useIsMounted'

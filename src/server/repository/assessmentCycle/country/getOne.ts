@@ -12,7 +12,7 @@ export const getOne = async (
   props: { countryIso: CountryIso; assessment: Assessment; cycle: Cycle },
   client: BaseProtocol = DB
 ): Promise<Country> => {
-  const { countryIso, assessment, cycle } = props
+  const { assessment, countryIso, cycle } = props
 
   return client.oneOrNone<Country>(getBaseQuery({ assessment, cycle, countryIso }), [countryIso], Objects.camelize)
 }

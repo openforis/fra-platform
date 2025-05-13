@@ -22,8 +22,8 @@ type Returned = {
 }
 
 export const useResendInvitation = (props: Props): Returned => {
-  const { user, callback } = props
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
+  const { callback, user } = props
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
 
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
@@ -44,7 +44,7 @@ export const useResendInvitation = (props: Props): Returned => {
       setIsLoading(false)
       callback?.()
     })
-  }, [user, countryIso, assessmentName, cycleName, dispatch, refetchUsers, toaster, t, callback])
+  }, [assessmentName, callback, countryIso, cycleName, dispatch, refetchUsers, t, toaster, user])
 
   return { resendInvitation, isLoading }
 }

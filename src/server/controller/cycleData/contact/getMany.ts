@@ -15,7 +15,7 @@ type Props = {
 type Returned = Array<Contact>
 
 export const getMany = async (props: Props): Promise<Returned> => {
-  const { assessment, cycle, countryIso } = props
+  const { assessment, countryIso, cycle } = props
 
   const getContactsProps = { assessment, cycle, countryIso }
   const prefilled = await UserRepository.getContacts(getContactsProps)

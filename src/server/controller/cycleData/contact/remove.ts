@@ -20,7 +20,7 @@ type Props = {
 }
 
 export const remove = async (props: Props, client: BaseProtocol = DB): Promise<void> => {
-  const { assessment, cycle, countryIso, user, uuid } = props
+  const { assessment, countryIso, cycle, user, uuid } = props
 
   await client.tx(async (t) => {
     const target = await NodeExtRepository.removeContact({ assessment, cycle, uuid }, t)

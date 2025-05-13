@@ -15,7 +15,7 @@ type Props = {
 }
 
 export const getDataSources = async (props: Props, client: BaseProtocol = DB): Promise<Array<DataSourceLinked>> => {
-  const { countryIso, assessment, cycle, sectionName, variableName } = props
+  const { assessment, countryIso, cycle, sectionName, variableName } = props
 
   const schemaAssessment = Schemas.getName(assessment)
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)

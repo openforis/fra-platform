@@ -21,7 +21,7 @@ type Props = {
 }
 
 const getHeaders = (props: Props): Array<ColHeader> => {
-  const { cycle, odpYears, showODP, table, print } = props
+  const { cycle, odpYears, print, showODP, table } = props
 
   let columnNames = table.props.columnNames[cycle.uuid]
 

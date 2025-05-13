@@ -16,7 +16,7 @@ type Props = {
 type RecordTableSections = Record<SectionName, Array<TableSection>>
 
 export const getManyMetadata = async (props: Props, client: BaseProtocol = DB): Promise<RecordTableSections> => {
-  const { cycle, sectionNames, assessment, showHidden = false } = props
+  const { assessment, cycle, sectionNames, showHidden = false } = props
   const schemaName = Schemas.getName(assessment)
 
   // @ts-ignore

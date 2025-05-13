@@ -22,5 +22,5 @@ export default () => {
         UserManagementActions.getUsers({ countryIso, assessmentName: assessment.props.name, cycleName: cycle.name })
       )
     }
-  }, [countryIso, cycle, assessment, user, dispatch])
+  }, [assessment, countryIso, cycle, dispatch, user])
 }

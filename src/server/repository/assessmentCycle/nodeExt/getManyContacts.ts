@@ -14,7 +14,7 @@ type Props = {
 }
 
 export const getManyContacts = (props: Props, client: BaseProtocol = DB): Promise<Array<Contact>> => {
-  const { assessment, cycle, countryIso } = props
+  const { assessment, countryIso, cycle } = props
 
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
 

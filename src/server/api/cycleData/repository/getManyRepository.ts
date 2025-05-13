@@ -12,7 +12,7 @@ type Request = CycleRequest & {
 
 export const getManyRepository = async (req: Request, res: Response) => {
   try {
-    const { assessmentName, cycleName, countryIso, global } = req.query
+    const { assessmentName, countryIso, cycleName, global } = req.query
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 

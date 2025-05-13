@@ -9,6 +9,6 @@ export const useAllSelected = (): boolean => {
 
   return useMemo(
     () => repositoryItems.every((repositoryItem) => isChecked(repositoryItem.uuid)),
-    [repositoryItems, isChecked]
+    [isChecked, repositoryItems]
   )
 }

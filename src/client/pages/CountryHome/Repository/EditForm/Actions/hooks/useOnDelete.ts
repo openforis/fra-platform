@@ -13,7 +13,7 @@ type Returned = () => void
 export const useOnDelete = (): Returned => {
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
-  const { assessmentName, cycleName, countryIso, sectionName } = useSectionRouteParams<CountryIso>()
+  const { assessmentName, countryIso, cycleName, sectionName } = useSectionRouteParams<CountryIso>()
   const repositoryItem = useRepositoryItem()
 
   const closePanel = useClosePanel()
@@ -28,5 +28,5 @@ export const useOnDelete = (): Returned => {
       .then(() => {
         closePanel()
       })
-  }, [t, assessmentName, cycleName, countryIso, sectionName, repositoryItem, dispatch, closePanel])
+  }, [assessmentName, closePanel, countryIso, cycleName, dispatch, repositoryItem, sectionName, t])
 }

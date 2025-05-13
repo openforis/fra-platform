@@ -29,7 +29,7 @@ export const useLastApprovedHistoryTableData = (): RecordAssessmentData => {
 }
 
 export const useLastApprovedHistoryNodeValue = (props: PropsNodeValue): NodeValue => {
-  const { assessmentName, cycleName, countryIso, tableName, colName, variableName } = props
+  const { assessmentName, colName, countryIso, cycleName, tableName, variableName } = props
   const data = useLastApprovedHistoryTableData()
 
   return useMemo<NodeValue>(() => {
@@ -39,7 +39,7 @@ export const useLastApprovedHistoryNodeValue = (props: PropsNodeValue): NodeValu
 }
 
 export const useHistoryLastApprovedDataTableFetched = (tableName: TableName): boolean => {
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const data = useLastApprovedHistoryTableData()
 
   return useMemo<boolean>(() => {

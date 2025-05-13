@@ -13,7 +13,7 @@ import { useOptions } from './hooks/useOptions'
 import { CURRENT_NODE_OPTION_VALUE } from './types'
 
 const Taxon: React.FC<PropsCell> = (props: PropsCell) => {
-  const { onChangeNodeValue, onPaste, disabled, nodeValue } = props
+  const { disabled, nodeValue, onChangeNodeValue, onPaste } = props
 
   const { data, handleInputChange, inputValue, onFocus } = useOnInputChange({ nodeValue })
 

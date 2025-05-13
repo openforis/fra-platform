@@ -19,7 +19,7 @@ export const useDeleteContact = (props: Props): Returned => {
 
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
-  const { assessmentName, cycleName, countryIso, sectionName } = useSectionRouteParams<CountryIso>()
+  const { assessmentName, countryIso, cycleName, sectionName } = useSectionRouteParams<CountryIso>()
 
   return useCallback<Returned>(() => {
     const user = `${contact[ContactField.name].value.raw} ${contact[ContactField.surname].value.raw}`

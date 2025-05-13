@@ -1,3 +1,3 @@
-export type { NotificationMessage, NotificationState } from './stateType'
-export { NotificationActions } from './slice'
 export { useNotification } from './hooks'
+export { NotificationActions } from './slice'
+export type { NotificationMessage, NotificationState } from './stateType'

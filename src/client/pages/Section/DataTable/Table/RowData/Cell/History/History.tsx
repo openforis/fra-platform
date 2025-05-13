@@ -14,12 +14,12 @@ import { PropsCell } from '../props'
 import { useChanges } from './hooks/useChanges'
 
 const History: React.FC<PropsCell> = (props) => {
-  const { nodeValue = { raw: '' }, table, col, row } = props
+  const { col, nodeValue = { raw: '' }, row, table } = props
   const { name: tableName } = table.props
   const { colName } = col.props
   const { variableName } = row.props
 
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const _props = { assessmentName, cycleName, countryIso, tableName, colName, variableName }
   const nodeValueA = useLastApprovedHistoryNodeValue(_props)
   const changes = useChanges({ nodeValueA, nodeValueB: nodeValue, row, col })

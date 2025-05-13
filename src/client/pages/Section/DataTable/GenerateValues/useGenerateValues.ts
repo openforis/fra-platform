@@ -76,8 +76,8 @@ const useGenerateValues = (
       const changeRates =
         method === Method.annualChange
           ? fieldsToUpdate.reduce((changeRatesAccumulator, field) => {
-              const { variableName, annualChangeRates } = field
-              const { past: ratePast, future: rateFuture } = annualChangeRates
+              const { annualChangeRates, variableName } = field
+              const { future: rateFuture, past: ratePast } = annualChangeRates
               return { ...changeRatesAccumulator, [variableName]: { ratePast, rateFuture } }
             }, {})
           : null

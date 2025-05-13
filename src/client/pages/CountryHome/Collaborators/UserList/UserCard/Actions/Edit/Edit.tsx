@@ -23,7 +23,7 @@ const Edit: React.FC<Props> = (props: Props) => {
   const { id } = user
 
   const { t } = useTranslation()
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const currentUser = useUser()
   const cycle = useCycle()
 

@@ -18,7 +18,7 @@ type Props = {
 }
 
 const TableNodeExt = (props: Props) => {
-  const { columns, data, onChange, disabled, gridTemplateColumns } = props
+  const { columns, data, disabled, gridTemplateColumns, onChange } = props
   const { t } = useTranslation()
 
   return (

@@ -22,7 +22,7 @@ type Props = {
 export const useOnChange = (props: Props): Returned => {
   const { dataSource, sectionName } = props
 
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const dispatch = useAppDispatch()
   const value = useCommentableDescriptionValue({ name, sectionName })
 

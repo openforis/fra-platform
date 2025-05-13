@@ -87,8 +87,8 @@ const Tutorials: React.FC = () => {
               <a
                 className="btn-s btn-primary nav__bulk-download"
                 href={resource.url[lang] ?? resource.url.en}
-                target="_blank"
                 rel="noreferrer"
+                target="_blank"
               >
                 <Icon className="icon-sub icon-white" name="video" />
                 {t('tutorial.watch')}

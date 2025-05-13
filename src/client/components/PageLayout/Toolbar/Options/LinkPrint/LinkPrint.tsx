@@ -12,7 +12,7 @@ const inverse = true
 const size = ButtonSize.l
 
 const LinkPrint: React.FC = () => {
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams()
   const classNamePrint = useButtonClassName({ iconName, inverse, size, type: ButtonType.anonymous })
 
   const path = Routes.Print.generatePath({ assessmentName, cycleName, countryIso })

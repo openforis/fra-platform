@@ -95,7 +95,7 @@ export const getDataGridElementMatrix = (grid: HTMLDivElement): GridData<Element
     if (Objects.isNil(nextAvailablePosition)) return
     const { col, row } = nextAvailablePosition
 
-    const { rowSpan, colSpan } = _getCellSpans({ cell, columnCount, rowCount })
+    const { colSpan, rowSpan } = _getCellSpans({ cell, columnCount, rowCount })
 
     for (let r = row; r < row + rowSpan && r < rowCount; r += 1) {
       for (let c = col; c < col + colSpan && c < columnCount; c += 1) {

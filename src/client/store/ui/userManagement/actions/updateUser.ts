@@ -17,7 +17,7 @@ type Params = {
 
 const putUser = Functions.debounce(
   async (props: Params) => {
-    const { user, profilePicture, assessmentName, countryIso, cycleName } = props
+    const { assessmentName, countryIso, cycleName, profilePicture, user } = props
 
     try {
       const formData = new FormData()

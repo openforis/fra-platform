@@ -19,7 +19,7 @@ type Props = {
 }
 
 export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<Array<ActivityLog<never>>> => {
-  const { assessment, cycle, countryIso, sectionName, message, target, limit, offset } = props
+  const { assessment, countryIso, cycle, limit, message, offset, sectionName, target } = props
 
   return client.map<ActivityLog<never>>(
     `select al.*,

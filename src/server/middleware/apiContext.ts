@@ -16,7 +16,7 @@ type BaseType = {
 const initContext = async (req: Request, _: Response, next: NextFunction): Promise<void> => {
   try {
     const params = { ...req.params, ...req.query, ...req.body } as BaseType
-    const { assessmentName, cycleName, countryIso } = params
+    const { assessmentName, countryIso, cycleName } = params
 
     Objects.setInPath({ obj: req, path: ['context'], value: {} })
 
