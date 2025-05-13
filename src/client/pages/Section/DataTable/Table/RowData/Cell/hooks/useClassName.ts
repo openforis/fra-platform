@@ -15,10 +15,11 @@ type Props = {
   cycle: Cycle
   row: Row
   validation: NodeValueValidation
+  enabled: boolean
 }
 
 export const useClassName = (props: Props): string => {
-  const { cycle, col, row, validation } = props
+  const { cycle, col, row, validation, enabled } = props
   const historyLastApprovedIsActive = useHistoryLastApprovedIsActive()
 
   return useMemo<string>(() => {
@@ -41,7 +42,8 @@ export const useClassName = (props: Props): string => {
         'category header left': isPlaceholder,
         left: isTextInput,
         readonly: isReadOnly,
+        'not-enabled': !enabled,
       }
     )
-  }, [col, cycle, row, validation, historyLastApprovedIsActive])
+  }, [col, row, cycle, historyLastApprovedIsActive, validation.valid, enabled])
 }
