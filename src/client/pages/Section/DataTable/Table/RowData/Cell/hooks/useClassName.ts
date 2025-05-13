@@ -45,5 +45,5 @@ export const useClassName = (props: Props): string => {
         disabled: !enabled,
       }
     )
-  }, [col, enabled, historyLastApprovedIsActive, row, cycle, validation.valid])
+  }, [col, cycle, enabled, historyLastApprovedIsActive, row, validation.valid])
 }
