@@ -29,6 +29,10 @@
   &.left {
     justify-content: start;
   }
+
+  &.disabled {
+    background-color: $ui-bg-light;
+  }
 }
 
 @include rtl {
