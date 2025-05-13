@@ -42,7 +42,7 @@ export const useClassName = (props: Props): string => {
         'category header left': isPlaceholder,
         left: isTextInput,
         readonly: isReadOnly,
-        'not-enabled': !enabled,
+        disabled: !enabled,
       }
     )
   }, [col, row, cycle, historyLastApprovedIsActive, validation.valid, enabled])
