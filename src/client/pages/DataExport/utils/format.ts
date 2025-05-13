@@ -4,9 +4,9 @@ import { CountryIso } from 'meta/area'
 import { AssessmentName, AssessmentNames } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
 import { TableCellNumberFormat } from 'meta/assessment/table'
-import { UnitName } from 'meta/assessment/unit'
 import { RecordAssessmentDatas, RecordCountryData } from 'meta/data'
 import { UnitConverter, UnitFactors } from 'meta/dataExport'
+import { UnitName } from 'meta/measurement/unit'
 
 // import { getPanEuropeanTableMapping } from 'client/pages/DataExport/utils/panEuropean'
 

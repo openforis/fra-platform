@@ -6,8 +6,8 @@ import { Objects } from 'utils/objects'
 
 import { Cols } from 'meta/assessment/cols'
 import { Row } from 'meta/assessment/row'
-import { UnitName } from 'meta/assessment/unit'
 import { UnitFactors } from 'meta/dataExport'
+import { UnitName } from 'meta/measurement/unit'
 
 import { useCycle } from 'client/store/assessment'
 import { useTableSections } from 'client/store/metadata'
