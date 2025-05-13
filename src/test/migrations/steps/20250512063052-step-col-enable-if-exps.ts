@@ -7,17 +7,14 @@ import { BaseProtocol, Schemas } from 'server/db'
 
 type TableChild = { col: string; variableName: string }
 type TableToUpdate = {
+  children: Array<TableChild>
+  colName: string
   tableName: string
   variableName: string
-  colName: string
-  children: Array<TableChild>
 }
 
 const tablesToUpdate: Array<TableToUpdate> = [
   {
-    tableName: 'forestRestoration',
-    variableName: 'has_your_country_forest_restoration_commitments',
-    colName: 'answer',
     children: [
       { col: 'answer', variableName: 'law_or_other_mandate' },
       { col: 'answer', variableName: 'how_monitored' },
@@ -25,11 +22,11 @@ const tablesToUpdate: Array<TableToUpdate> = [
       { col: 'answer', variableName: 'restoration_targets' },
       { col: 'answer', variableName: 'hectares_restored' },
     ],
+    colName: 'answer',
+    tableName: 'forestRestoration',
+    variableName: 'has_your_country_forest_restoration_commitments',
   },
   {
-    tableName: 'areaOfPermanentForestEstate',
-    variableName: 'area_of_permanent_forest_estate',
-    colName: 'applicable',
     children: [
       { col: 'applicable', variableName: 'area_of_permanent_forest_estate' },
       { col: '1990', variableName: 'area_of_permanent_forest_estate' },
@@ -39,26 +36,29 @@ const tablesToUpdate: Array<TableToUpdate> = [
       { col: '2020', variableName: 'area_of_permanent_forest_estate' },
       { col: '2025', variableName: 'area_of_permanent_forest_estate' },
     ],
+    colName: 'applicable',
+    tableName: 'areaOfPermanentForestEstate',
+    variableName: 'area_of_permanent_forest_estate',
   },
   {
-    tableName: 'degradedForest2025',
-    variableName: 'hasNationalDefinitionOfDegradedForest',
-    colName: 'hasNationalDefinitionOfDegradedForest',
     children: [
       { col: 'national_definition', variableName: 'national_definition' },
       { col: 'criteriaOfDegradedForest', variableName: 'criteriaOfDegradedForest' },
     ],
+    colName: 'hasNationalDefinitionOfDegradedForest',
+    tableName: 'degradedForest2025',
+    variableName: 'hasNationalDefinitionOfDegradedForest',
   },
   {
-    tableName: 'degradedForestMonitoring2025',
-    variableName: 'doesYourCountryMonitor',
-    colName: 'doesYourCountryMonitor',
     children: [
       { col: 'mainMethods', variableName: 'mainMethods' },
       { col: 'monitoringScale', variableName: 'monitoringScale' },
       { col: 'yearOfLatestAssessment', variableName: 'yearOfLatestAssessment' },
       { col: 'degradedAreaForThatYear', variableName: 'degradedAreaForThatYear' },
     ],
+    colName: 'doesYourCountryMonitor',
+    tableName: 'degradedForestMonitoring2025',
+    variableName: 'doesYourCountryMonitor',
   },
 ]
 

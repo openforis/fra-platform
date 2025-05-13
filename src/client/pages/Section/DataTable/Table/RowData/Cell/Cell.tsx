@@ -88,7 +88,7 @@ const Cell: React.FC<Props> = (props) => {
   const { onChange, onChangeNodeValue, onPaste } = useOnChange({ col, data, nodeValue, row, sectionName, table })
   const validation = useNodeValueValidation({ col, row, table })
   const errorMessages = useErrorMessages({ validation })
-  const className = useClassName({ col, cycle, row, validation, enabled })
+  const className = useClassName({ col, cycle, enabled, row, validation })
 
   const disabled = _disabled || !!nodeValue?.odpId || Cols.hasLinkedNodes({ col, cycle }) || !enabled
 
