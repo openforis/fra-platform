@@ -28,13 +28,13 @@ type Props = {
 }
 
 const DataTable: React.FC<Props> = (props) => {
-  const { assessmentName, sectionName, sectionAnchor, table, disabled } = props
+  const { assessmentName, disabled, sectionAnchor, sectionName, table } = props
 
   const cycle = useCycle()
   const { countryIso } = useCountryRouteParams<CountryIso>()
   const data = useData({ table })
   const canEdit = useIsEditTableDataEnabled(sectionName)
-  const { print, onlyTables } = useIsPrintRoute()
+  const { onlyTables, print } = useIsPrintRoute()
   useValidate({ data, sectionName, table })
   useODPDeleteListener()
 

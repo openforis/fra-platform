@@ -22,7 +22,7 @@ export const useRowActions = (props: Props): Returned => {
 
   const { t } = useTranslation()
   const deleteNationalClass = useDeleteNationalClass({ index, originalDataPoint })
-  const { name, uuid, placeHolder } = originalDataPoint.nationalClasses[index]
+  const { name, placeHolder, uuid } = originalDataPoint.nationalClasses[index]
   const odpId = originalDataPoint.id
   const canEditData = useIsEditODPEnabled()
   const canEdit = canEditData && !placeHolder
@@ -43,5 +43,5 @@ export const useRowActions = (props: Props): Returned => {
     }
 
     return actions
-  }, [canEdit, showReviewIndicator, deleteNationalClass, t, odpId, uuid, name])
+  }, [canEdit, deleteNationalClass, name, odpId, showReviewIndicator, t, uuid])
 }

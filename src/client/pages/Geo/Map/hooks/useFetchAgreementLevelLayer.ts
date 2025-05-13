@@ -48,8 +48,8 @@ export const useFetchAgreementLevelLayer = (sectionKey: LayerSectionKey, layerKe
     [
       agreementLevel,
       cacheKey,
-      countSelectedLayers,
       countryIso,
+      countSelectedLayers,
       dispatch,
       layerKey,
       layerState?.cache,

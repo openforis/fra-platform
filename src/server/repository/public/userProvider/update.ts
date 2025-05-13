@@ -10,8 +10,8 @@ export const update = async (
   client: BaseProtocol = DB
 ): Promise<UserAuthProvider<AuthProviderLocalProps>> => {
   const {
-    user: { id: userId },
     password,
+    user: { id: userId },
   } = props
 
   return client.oneOrNone<UserAuthProvider<AuthProviderLocalProps>>(

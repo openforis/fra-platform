@@ -12,7 +12,7 @@ type Returned = { onClick: OnClick; loading: boolean }
 export const useOnClick = (): Returned => {
   const dispatch = useAppDispatch()
   const [loading, setLoading] = useState(false)
-  const { assessmentName, cycleName, countryIso, sectionName } = useSectionRouteParams<CountryIso>()
+  const { assessmentName, countryIso, cycleName, sectionName } = useSectionRouteParams<CountryIso>()
 
   const onClick = useCallback<OnClick>(async () => {
     setLoading(true)
@@ -24,7 +24,7 @@ export const useOnClick = (): Returned => {
     } catch (error) {
       setLoading(false)
     }
-  }, [dispatch, assessmentName, cycleName, countryIso, sectionName])
+  }, [assessmentName, countryIso, cycleName, dispatch, sectionName])
 
   return {
     loading,

@@ -15,7 +15,7 @@ import { Props } from '../../Props'
 const CopyLink: React.FC<Props> = (props: Props) => {
   const { user } = props
 
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const { t } = useTranslation()
   const { toaster } = useToaster()
 
@@ -32,7 +32,7 @@ const CopyLink: React.FC<Props> = (props: Props) => {
     navigator.clipboard.writeText(url).then(() => {
       toaster.info(t('userManagement.invitationLinkCopied'))
     })
-  }, [assessmentName, user, cycleName, invitation, t, toaster])
+  }, [assessmentName, cycleName, invitation, t, toaster, user])
 
   const isInvitation = CountryUserSummaries.isInvitation(user, countryIso)
 

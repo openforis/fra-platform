@@ -27,7 +27,7 @@ export const removeContact = async (props: Props, client: BaseProtocol = DB): Pr
     Objects.camelize
   )
 
-  const { countryIso, type, props: contactProps } = deletedContact
+  const { countryIso, props: contactProps, type } = deletedContact
   const { rowIndex } = contactProps
 
   // After deleting a contact, update all the other contacts' row_index for the same country_iso and type

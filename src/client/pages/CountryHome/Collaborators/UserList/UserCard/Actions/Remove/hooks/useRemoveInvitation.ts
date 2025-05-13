@@ -16,9 +16,9 @@ type Props = BaseProps & {
 }
 
 export const useRemoveInvitation = (props: Props) => {
-  const { user, callback } = props
+  const { callback, user } = props
 
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
   const refetchInvitations = useRefetchUsers()
@@ -35,5 +35,5 @@ export const useRemoveInvitation = (props: Props) => {
         callback()
       })
     }
-  }, [user, countryIso, t, assessmentName, cycleName, dispatch, refetchInvitations, callback])
+  }, [assessmentName, callback, countryIso, cycleName, dispatch, refetchInvitations, t, user])
 }

@@ -31,7 +31,7 @@ const SPACING = 8
 
 const Bar = (props: Props) => {
   const { t } = useTranslation()
-  const { data, chart, showLegend = true, showLabels = true, stacked } = props
+  const { chart, data, showLabels = true, showLegend = true, stacked } = props
 
   let yAxisLabel
   let xAxisLabel

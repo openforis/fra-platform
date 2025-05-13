@@ -1,4 +1,5 @@
 import { createSlice, Reducer } from '@reduxjs/toolkit'
+
 import { DataLockState } from './stateType'
 
 const initialState: DataLockState = {

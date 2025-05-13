@@ -20,7 +20,7 @@ type Props = {
 }
 
 export const updateTopicStatus = async (props: Props, client: BaseProtocol = DB): Promise<MessageTopic> => {
-  const { user, countryIso, assessment, cycle, sectionName, key, status } = props
+  const { assessment, countryIso, cycle, key, sectionName, status, user } = props
 
   return client.tx(async (t) => {
     const target = await MessageTopicRepository.updateStatus(

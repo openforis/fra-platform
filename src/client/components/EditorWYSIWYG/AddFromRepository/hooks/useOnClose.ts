@@ -13,7 +13,7 @@ type Returned = () => void
 
 export const useOnClose = (): Returned => {
   const language = useLanguage()
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const { jodit, selectedFiles, setRepositoryOpened } = useRepositoryLinkContext()
   const updateRepositoryAccess = useUpdateRepositoryItemsAccess()
 
@@ -37,13 +37,13 @@ export const useOnClose = (): Returned => {
     jodit?.s.insertHTML(linksString)
     // setJodit(null)
   }, [
-    setRepositoryOpened,
-    selectedFiles,
-    jodit?.s,
     assessmentName,
-    cycleName,
     countryIso,
+    cycleName,
+    jodit?.s,
     language,
+    selectedFiles,
+    setRepositoryOpened,
     updateRepositoryAccess,
   ])
 }

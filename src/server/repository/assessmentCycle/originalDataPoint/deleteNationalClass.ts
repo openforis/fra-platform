@@ -27,7 +27,7 @@ export const deleteNationalClass = async (
     Objects.camelize
   )
 
-  const { year, countryIso } = originalDataPoint
+  const { countryIso, year } = originalDataPoint
 
   return getOne({ assessment, cycle, countryIso, year: String(year) }, client)
 }

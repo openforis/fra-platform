@@ -17,7 +17,7 @@ type Props = {
 }
 
 export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<Array<CountrySummary>> => {
-  const { assessment, cycle, countryIso, limit, offset } = props
+  const { assessment, countryIso, cycle, limit, offset } = props
 
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
   const viewName = getMaterializedViewName(countryIso)

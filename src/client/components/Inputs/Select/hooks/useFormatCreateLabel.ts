@@ -7,7 +7,7 @@ import { SelectProps } from 'client/components/Inputs/Select/types'
 type Returned = ((value: string) => string) | undefined
 
 export const useFormatCreateLabel = (props: SelectProps): Returned => {
-  const { isCreatable, createOptionLabelKey } = props
+  const { createOptionLabelKey, isCreatable } = props
 
   const { t } = useTranslation()
 

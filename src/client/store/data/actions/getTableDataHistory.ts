@@ -10,7 +10,7 @@ import { Props } from 'client/store/data/actions/getTableDataProps'
 export const getTableDataHistory = createAsyncThunk<RecordAssessmentData, Props & { sectionName: SectionName }>(
   'data/tableData/history/get',
   async (props) => {
-    const { assessmentName, countryISOs, countryIso, cycleName, tableNames, sectionName } = props
+    const { assessmentName, countryISOs, countryIso, cycleName, sectionName, tableNames } = props
 
     const params = {
       assessmentName,

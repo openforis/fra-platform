@@ -14,7 +14,7 @@ type Props = {
 }
 
 const Header: React.FC<Props> = (props) => {
-  const { showSections, setShowSections } = props
+  const { setShowSections, showSections } = props
 
   return (
     <div className="nav-header">

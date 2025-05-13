@@ -25,7 +25,7 @@ export const useOdpHeaderLastApprovedHistoryInfo = (props: Props): Returned | un
   const { odpYear, table } = props
   const { name: tableName } = table.props
 
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const historyLastApprovedIsActive = useHistoryLastApprovedIsActive()
   const historyData = useLastApprovedHistoryTableData()
 

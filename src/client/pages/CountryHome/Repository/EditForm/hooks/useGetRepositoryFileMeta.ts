@@ -8,7 +8,7 @@ import { RepositoryActions, useRepositoryFileMeta, useRepositoryItem } from 'cli
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 export const useGetRepositoryFileMeta = () => {
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
 
   const dispatch = useAppDispatch()
   const repositoryItem = useRepositoryItem() as RepositoryItem

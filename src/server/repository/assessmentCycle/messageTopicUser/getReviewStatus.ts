@@ -12,7 +12,7 @@ export const getReviewStatus = async (
   props: { countryIso: CountryIso; assessment: Assessment; cycle: Cycle; sectionName: string; user: User },
   client: BaseProtocol = DB
 ): Promise<Array<ReviewStatus>> => {
-  const { countryIso, assessment, cycle, sectionName, user } = props
+  const { assessment, countryIso, cycle, sectionName, user } = props
 
   const schemaName = Schemas.getName(assessment)
   const cycleSchema = Schemas.getNameCycle(assessment, cycle)

@@ -21,7 +21,7 @@ export const estimateArea = async (props: {
   baseImage?: Image
   scale?: number
 }): Promise<{ areaHa: number }> => {
-  const { countryIso, maskImage, baseImage = null, scale = 30 } = props
+  const { baseImage = null, countryIso, maskImage, scale = 30 } = props
   const ftcCountry = AssetsController.getCountryBoundaries(countryIso)
 
   const imgArea = baseImage !== null ? baseImage.mask(maskImage) : maskImage
@@ -62,7 +62,7 @@ export const estimateIntersectionArea = async (props: {
   maskSource: LayerSource
   scale?: number
 }): Promise<{ areaHa: number }> => {
-  const { baseSource, maskSource, countryIso, scale = 30 } = props
+  const { baseSource, countryIso, maskSource, scale = 30 } = props
 
   const baseAsset = AssetsController.getAssetData(baseSource)
   const maskAsset = AssetsController.getAssetData(maskSource)

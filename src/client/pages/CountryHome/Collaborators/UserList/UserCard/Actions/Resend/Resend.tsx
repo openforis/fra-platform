@@ -13,7 +13,7 @@ import { useResendInvitation } from '../hooks/useResendInvitation'
 const Information: React.FC<Props> = (props: Props) => {
   const { user } = props
   const { countryIso } = useCountryRouteParams<CountryIso>()
-  const { resendInvitation, isLoading } = useResendInvitation({ user })
+  const { isLoading, resendInvitation } = useResendInvitation({ user })
 
   const { t } = useTranslation()
 

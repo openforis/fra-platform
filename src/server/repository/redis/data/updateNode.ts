@@ -13,7 +13,7 @@ type Props = {
 } & NodeUpdate
 
 export const updateNode = (props: Props): Promise<void> => {
-  const { assessment, cycle, countryIso, tableName, variableName, colName, value } = props
+  const { assessment, colName, countryIso, cycle, tableName, value, variableName } = props
 
   const node: NodeUpdate = { tableName, variableName, colName, value }
   const nodes: Record<TableName, Array<NodeUpdate>> = { [tableName]: [node] }

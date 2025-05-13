@@ -16,7 +16,7 @@ const StatisticalGraphsPanel: React.FC<Props> = (props: Props) => {
 
   const title = t('geo.statistics.forestArea.extentOfForestPerSource', { year })
 
-  const { data, chart, error, isLoading } = useStatisticalGraphsData()
+  const { chart, data, error, isLoading } = useStatisticalGraphsData()
 
   if (!isLoading && data?.length === 0 && !error) return <p>{t('geo.error.statistics.foundNoData')}</p>
 

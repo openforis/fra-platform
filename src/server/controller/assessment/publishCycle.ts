@@ -14,7 +14,7 @@ export const publishCycle = async (
   props: { user: User; assessment: Assessment; cycle: Cycle },
   client: BaseProtocol = DB
 ): Promise<{ cycle: Cycle; countries: Array<Country> }> => {
-  const { assessment, user, cycle } = props
+  const { assessment, cycle, user } = props
 
   return client.tx(async (t) => {
     cycle.props.status = CycleStatus.published

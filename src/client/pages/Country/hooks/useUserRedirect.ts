@@ -54,5 +54,5 @@ export const useUserRedirect = (): void => {
     if (!Cycles.isPublished(cycle) && !Users.isAdministrator(user) && !Areas.isISOCountry(countryIso)) {
       navigate(Routes.Cycle.generatePath({ assessmentName, cycleName }))
     }
-  }, [assessmentName, country, countryIso, cycle, lastPublishedCycle.name, cycleName, navigate, user, userRole])
+  }, [assessmentName, country, countryIso, cycle, cycleName, lastPublishedCycle.name, navigate, user, userRole])
 }

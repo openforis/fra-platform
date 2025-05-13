@@ -16,7 +16,7 @@ type Props = {
 
 export const persistResults = async (props: Props, client: BaseProtocol = DB): Promise<void> => {
   const { result, user } = props
-  const { assessment, cycle, nodes, nodeUpdates, nodesDb, rowsByColUuid } = result
+  const { assessment, cycle, nodeUpdates, nodes, nodesDb, rowsByColUuid } = result
   const { countryIso } = nodeUpdates
 
   if (nodesDb.length > 0) {

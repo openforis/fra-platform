@@ -20,7 +20,7 @@ type Props = {
 }
 
 const SelectField: React.FC<Props> = (props) => {
-  const { name, value, options, onChange, validator, enabled, mandatory } = props
+  const { enabled, mandatory, name, onChange, options, validator, value } = props
 
   const { t } = useTranslation()
 

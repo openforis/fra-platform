@@ -13,8 +13,8 @@ const CellText: React.FC<CellProps<NodeExtCell<NodeExtCellType.text>>> = (props)
   return (
     <TextInput
       disabled={disabled}
-      value={nodeExt?.value?.raw ?? null}
       onChange={(event) => onChange(event.target.value)}
+      value={nodeExt?.value?.raw ?? null}
     />
   )
 }

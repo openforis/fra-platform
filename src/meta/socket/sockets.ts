@@ -8,7 +8,7 @@ const getRequestReviewSummaryEvent = (props: {
   assessmentName: AssessmentName
   cycleName: string
 }) => {
-  const { countryIso, assessmentName, cycleName } = props
+  const { assessmentName, countryIso, cycleName } = props
   return `${countryIso}-${assessmentName}-${cycleName}-request-review-summary`
 }
 
@@ -18,7 +18,7 @@ const getRequestReviewStatusEvent = (props: {
   cycleName: string
   sectionName: string
 }) => {
-  const { countryIso, assessmentName, cycleName, sectionName } = props
+  const { assessmentName, countryIso, cycleName, sectionName } = props
   return `${countryIso}-${assessmentName}-${cycleName}-${sectionName}-request-review-status`
 }
 
@@ -38,12 +38,12 @@ const getTopicStatusEvent = (props: { assessment: Assessment; cycle: Cycle; topi
 }
 
 const getODPDeleteEvent = (props: { countryIso: CountryIso; assessmentName: string; cycleName: string }) => {
-  const { assessmentName, cycleName, countryIso } = props
+  const { assessmentName, countryIso, cycleName } = props
   return `${countryIso}-${assessmentName}-${cycleName}-odpDelete`
 }
 
 const getODPReservedYearsEvent = (props: { countryIso: CountryIso; assessmentName: string; cycleName: string }) => {
-  const { assessmentName, cycleName, countryIso } = props
+  const { assessmentName, countryIso, cycleName } = props
   return `${countryIso}-${assessmentName}-${cycleName}-odpReservedYears`
 }
 
@@ -52,7 +52,7 @@ const getNodeValidationsUpdateEvent = (props: {
   assessmentName: AssessmentName
   cycleName: string
 }) => {
-  const { assessmentName, cycleName, countryIso } = props
+  const { assessmentName, countryIso, cycleName } = props
   return `${countryIso}-${assessmentName}-${cycleName}-validationsUpdate`
 }
 
@@ -61,7 +61,7 @@ const getNodeValuesUpdateEvent = (props: {
   assessmentName: AssessmentName
   cycleName: CycleName
 }): string => {
-  const { countryIso, assessmentName, cycleName } = props
+  const { assessmentName, countryIso, cycleName } = props
   return `${countryIso}-${assessmentName}-${cycleName}-nodeUpdates`
 }
 
@@ -75,7 +75,7 @@ const getCountryStatusUpdateEvent = (props: {
   cycleName: CycleName
   countryIso: CountryIso
 }) => {
-  const { assessmentName, cycleName, countryIso } = props
+  const { assessmentName, countryIso, cycleName } = props
   return `${assessmentName}-${cycleName}-${countryIso}-countryUpdateStatus`
 }
 

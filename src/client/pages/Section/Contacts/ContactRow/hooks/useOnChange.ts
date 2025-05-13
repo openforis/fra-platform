@@ -17,7 +17,7 @@ type PropsOnChange = {
 type Returned = (props: PropsOnChange) => void
 
 export const useOnChange = (): Returned => {
-  const { assessmentName, cycleName, countryIso, sectionName } = useSectionRouteParams<CountryIso>()
+  const { assessmentName, countryIso, cycleName, sectionName } = useSectionRouteParams<CountryIso>()
   const dispatch = useAppDispatch()
 
   return useCallback<Returned>(

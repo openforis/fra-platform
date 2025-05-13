@@ -11,7 +11,7 @@ import { SocketClient } from 'client/service/socket'
 
 export const useListenReservedYearsChange = (): void => {
   const dispatch = useAppDispatch()
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams()
   const props = { assessmentName, cycleName, countryIso: countryIso as CountryIso }
   const odpReservedYearsEvent = Sockets.getODPReservedYearsEvent(props)
 
@@ -30,7 +30,7 @@ export const useListenReservedYearsChange = (): void => {
 
 export const useReservedYears = () => {
   const dispatch = useAppDispatch()
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams()
 
   useListenReservedYearsChange()
 

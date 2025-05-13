@@ -48,7 +48,7 @@ export const getBulkDownload = async (req: CycleRequest, res: Response) => {
 
     const BOM = '\uFEFF' // Byte Order Mark for UTF-8
     const readmeContent = Buffer.from(BOM + _README(cycle.name), 'utf-8')
-    const fileList = files.map(({ fileName, content }) => ({
+    const fileList = files.map(({ content, fileName }) => ({
       fileName,
       file: Buffer.from(BOM + content, 'utf-8'),
     }))

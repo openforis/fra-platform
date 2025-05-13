@@ -18,10 +18,10 @@ import { ColumnComponentProps } from 'client/components/TablePaginated'
 
 const RecentActivityItem: React.FC<ColumnComponentProps<ActivityLog<never>>> = (props) => {
   const { datum: activity, rowIndex } = props
-  const { user, section: sectionName } = activity
+  const { section: sectionName, user } = activity
 
   const { i18n, t } = useTranslation()
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams()
   const cycle = useCycle()
   const section = useSection(sectionName)
   const anchor = section?.props?.anchors?.[cycle.uuid]

@@ -26,13 +26,13 @@ type Props = {
 }
 
 const GenerateValues: React.FC<Props> = (props) => {
-  const { assessmentName, cycleName, sectionName, tableName, rows, data } = props
+  const { assessmentName, cycleName, data, rows, sectionName, tableName } = props
 
   const { t } = useTranslation()
   const country = useAssessmentCountry()
   const useOriginalDataPoint = country?.props?.forestCharacteristics?.useOriginalDataPoint
 
-  const { method, setMethod, fields, setFields, valid, generateValues, isEstimationPending } = useGenerateValues(
+  const { fields, generateValues, isEstimationPending, method, setFields, setMethod, valid } = useGenerateValues(
     assessmentName,
     cycleName,
     sectionName,

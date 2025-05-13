@@ -3,7 +3,7 @@ import { Objects } from 'utils/objects'
 import { CountryIso } from 'meta/area'
 
 export const getOriginalDataPointData = (props: { selectFrom: string; countryISOs?: Array<CountryIso> }): string => {
-  const { selectFrom, countryISOs } = props
+  const { countryISOs, selectFrom } = props
 
   return `
       with data as

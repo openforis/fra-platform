@@ -43,7 +43,7 @@ const Footer: React.FC = () => {
           <React.Fragment key={link.key}>
             {i !== 0 && <div className="separator" />}
 
-            <a target="_blank" rel="noreferrer" href={`${link.to}${language}`}>
+            <a href={`${link.to}${language}`} rel="noreferrer" target="_blank">
               {t(link.key)}
             </a>
           </React.Fragment>
@@ -57,7 +57,7 @@ const Footer: React.FC = () => {
 
         <div className="separator" />
 
-        <a target="_blank" href={`https://www.fao.org/contact-us/terms/db-terms-of-use/${language}`} rel="noreferrer">
+        <a href={`https://www.fao.org/contact-us/terms/db-terms-of-use/${language}`} rel="noreferrer" target="_blank">
           {t('footer.licenses')}
         </a>
       </div>

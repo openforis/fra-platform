@@ -15,7 +15,7 @@ type Props = {
 }
 
 export const getOne = async (props: Props, client: BaseProtocol = DB): Promise<OriginalDataPoint | undefined> => {
-  const { assessment, cycle, countryIso, year } = props
+  const { assessment, countryIso, cycle, year } = props
 
   const schemaName = Schemas.getNameCycle(assessment, cycle)
 

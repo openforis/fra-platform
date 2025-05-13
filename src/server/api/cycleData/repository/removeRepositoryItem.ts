@@ -12,7 +12,7 @@ type QueryParams = {
 
 export const removeRepositoryItem = async (req: CycleDataRequest<QueryParams>, res: Response) => {
   try {
-    const { assessmentName, cycleName, countryIso, sectionName, uuid } = req.query
+    const { assessmentName, countryIso, cycleName, sectionName, uuid } = req.query
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
     const user = Requests.getUser(req)
 

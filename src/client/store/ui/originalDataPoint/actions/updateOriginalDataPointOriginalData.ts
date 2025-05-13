@@ -15,7 +15,7 @@ type Props = CycleDataParams & {
 
 const putOriginalDataPointOriginalData = Functions.debounce(
   async (props: Props) => {
-    const { assessmentName, cycleName, countryIso, sectionName, originalDataPoint } = props
+    const { assessmentName, countryIso, cycleName, originalDataPoint, sectionName } = props
 
     const params = { countryIso, assessmentName, cycleName, sectionName }
     const data = { originalDataPoint: ODPs.removeNationalClassPlaceHolder(originalDataPoint) }

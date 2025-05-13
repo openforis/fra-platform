@@ -29,7 +29,7 @@ type Props = {
 type Returned = { userInvitation: UserInvitation; user: User }
 
 const _getOrCreateUserToInvite = async (props: UserProps, client: BaseProtocol): Promise<User> => {
-  const { email, email: emailGoogle, name, surname, lang } = props
+  const { email, email: emailGoogle, lang, name, surname } = props
 
   // Get user with primary email
   let userToInvite: User = await UserRepository.getOne({ email }, client)
@@ -44,7 +44,7 @@ const _getOrCreateUserToInvite = async (props: UserProps, client: BaseProtocol):
 }
 
 export const invite = async (props: Props, client: BaseProtocol = DB): Promise<Returned> => {
-  const { assessment, cycle, countryIso, email, lang, name, roleName, surname, user } = props
+  const { assessment, countryIso, cycle, email, lang, name, roleName, surname, user } = props
 
   return client.tx(async (t) => {
     const userToInvite = await _getOrCreateUserToInvite({ email, name, surname, lang }, t)
@@ -52,7 +52,7 @@ export const invite = async (props: Props, client: BaseProtocol = DB): Promise<R
     const userInvitationProps = { assessment, countryIso, cycle, invitedBy: user, role: roleName, user: userToInvite }
     const userInvitation: UserInvitation = await UserInvitationRepository.create(userInvitationProps, t)
 
-    const { userUuid, role } = userInvitation
+    const { role, userUuid } = userInvitation
 
     const target = { userUuid, user: userToInvite.props.name, role }
     const message = ActivityLogMessage.invitationAdd

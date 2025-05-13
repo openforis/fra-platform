@@ -8,7 +8,7 @@ import Requests from 'server/utils/requests'
 
 export const getActivities = async (req: TablePaginatedDataRequest, res: Response) => {
   try {
-    const { assessmentName, cycleName, countryIso, offset, limit } = req.query
+    const { assessmentName, countryIso, cycleName, limit, offset } = req.query
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 

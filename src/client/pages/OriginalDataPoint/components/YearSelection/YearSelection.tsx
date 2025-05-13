@@ -17,7 +17,7 @@ const YearSelection: React.FC = () => {
   const originalDataPoint = useOriginalDataPoint()
   const canEditData = useIsEditTableDataEnabled(sectionName)
   const onChange = useOnChange()
-  const { years, reservedYears } = useODPYears()
+  const { reservedYears, years } = useODPYears()
   const validYear = ODPs.validateYear(originalDataPoint)
   const disabled = Boolean(!canEditData)
 

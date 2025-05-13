@@ -17,7 +17,7 @@ type Props = {
 }
 
 export const removeNodes = async (props: Props): Promise<void> => {
-  const { assessment, cycle, countryIso, nodes } = props
+  const { assessment, countryIso, cycle, nodes } = props
 
   const redis = RedisData.getInstance()
   const key = getKeyCountry({ assessment, cycle, countryIso, key: Keys.Data.data })

@@ -19,7 +19,7 @@ type Props = Pick<ButtonProps, 'inverse' | 'label' | 'size'> & {
 
 const MessageButton: React.FC<Props> = (props) => {
   const { inverse, label, size, topic } = props
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
 
   const dispatch = useAppDispatch()
 

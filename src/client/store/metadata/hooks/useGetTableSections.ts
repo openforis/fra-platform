@@ -8,7 +8,7 @@ import { useTableSections } from './useTableSections'
 
 export const useGetTableSections = () => {
   const dispatch = useAppDispatch()
-  const { assessmentName, cycleName, countryIso, sectionName } = useSectionRouteParams()
+  const { assessmentName, countryIso, cycleName, sectionName } = useSectionRouteParams()
   const tableSections = useTableSections({ sectionName })
 
   useEffect(() => {

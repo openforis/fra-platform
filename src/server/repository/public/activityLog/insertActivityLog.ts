@@ -15,9 +15,9 @@ export const insertActivityLog = async (
   client: BaseProtocol = DB
 ): Promise<ActivityLog<any>> => {
   const {
+    activityLog: { countryIso, message, section, target, user },
     assessment,
     cycle,
-    activityLog: { user, countryIso, message, section, target },
   } = params
 
   const query = `

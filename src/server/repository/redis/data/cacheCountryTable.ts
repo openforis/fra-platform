@@ -17,7 +17,7 @@ type PropsCache = {
 }
 
 export const cacheCountryTable = async (props: PropsCache, client: BaseProtocol = DB): Promise<void> => {
-  const { assessment, cycle, countryIso, tableName, force } = props
+  const { assessment, countryIso, cycle, force, tableName } = props
 
   const redis = RedisData.getInstance()
   const key = getKeyCountry({ assessment, cycle, countryIso, key: Keys.Data.data })

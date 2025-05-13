@@ -48,7 +48,7 @@ export class ContextFactory extends BaseContextBuilder {
 
   // check whether a variable has been added to the queue
   #isInQueue(variable: VariableCache): boolean {
-    const { variableName, tableName, colName } = variable
+    const { colName, tableName, variableName } = variable
     return Boolean(
       this.#queue.find(
         (processed) =>
@@ -72,7 +72,7 @@ export class ContextFactory extends BaseContextBuilder {
 
   // add node dependants to queue. Returns true if input node is dependant of itself, false otherwise
   async #addDependantsToQueue(variable: VariableCache): Promise<boolean> {
-    const { tableName, variableName, colName } = variable
+    const { colName, tableName, variableName } = variable
     const { assessment, country, cycle } = this.props
     const { countryIso } = country
 

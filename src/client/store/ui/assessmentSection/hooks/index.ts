@@ -10,7 +10,7 @@ export const useIsDescriptionEditEnabled = (props: {
   sectionName: SectionName
   name: CommentableDescriptionName
 }): boolean => {
-  const { sectionName, name } = props
+  const { name, sectionName } = props
   return useAppSelector((state) => AssessmentSectionSelectors.isDescriptionEditEnabled(state, sectionName, name))
 }
 

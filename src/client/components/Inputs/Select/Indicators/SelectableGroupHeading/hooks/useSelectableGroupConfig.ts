@@ -28,5 +28,5 @@ export const useSelectableGroupConfig = (props: Props): Returned => {
       checked: selectedCount === groupOptionValues.length,
       isInputIndeterminate: selectedCount > 0 && selectedCount < groupOptionValues.length,
     }
-  }, [selectedValues, groupOptionValues])
+  }, [groupOptionValues, selectedValues])
 }

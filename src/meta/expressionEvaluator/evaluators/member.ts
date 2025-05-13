@@ -11,11 +11,11 @@ import { Context } from '../context'
 export class MemberEvaluator extends ArenaMemberEvaluator<Context> {
   evaluate(expressionNode: MemberExpression): string | undefined {
     const {
-      assessments,
       assessment: assessmentContext,
-      cycle: cycleContext,
-      countryIso,
+      assessments,
       colName: colNameContext,
+      countryIso,
+      cycle: cycleContext,
       data,
     } = this.context
 
@@ -46,7 +46,7 @@ export class MemberEvaluator extends ArenaMemberEvaluator<Context> {
     const variablesByTables = AssessmentMetaCaches.getVariablesByTables({ assessment, cycle })
     const assessmentName = assessment.props.name
     const cycleName = cycle.name
-    const { tableName, variableName, colName: memberColName } = memberVariable
+    const { colName: memberColName, tableName, variableName } = memberVariable
     const colName = memberColName ?? colNameContext
 
     if (tableName in variablesByTables) {

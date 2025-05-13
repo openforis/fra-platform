@@ -29,7 +29,7 @@ const _getCountries = async (
   props: { assessment: Assessment; cycle: Cycle; countryIso?: CountryIso },
   client: BaseProtocol
 ): Promise<Array<Country>> => {
-  const { assessment, cycle, countryIso } = props
+  const { assessment, countryIso, cycle } = props
 
   const params = countryIso ? { assessment, countryIso } : { assessment }
   const lastPublishedInfo = await CountryRepository.getCountryLastPublishedInfo(params, client)
@@ -44,7 +44,7 @@ const _getCountries = async (
 }
 
 export const _cacheCountries = async (props: Props, client: BaseProtocol): Promise<Record<CountryIso, Country>> => {
-  const { assessment, cycle, countryIso } = props
+  const { assessment, countryIso, cycle } = props
   const key = getKeyCycle({ assessment, cycle, key: Keys.Area.country })
 
   const countries = await _getCountries({ assessment, cycle, countryIso }, client)

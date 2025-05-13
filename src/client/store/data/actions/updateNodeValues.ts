@@ -41,7 +41,7 @@ export const updateNodeValues = createAsyncThunk<void, Props, ThunkApiConfig>(
     const cycle = assessment.cycles.find((cycle) => cycle.name === cycleName)
     const { countryIso, tableName, values } = props
     const nodes = values.reduce<Array<NodeUpdate>>((nodesAcc, node) => {
-      const { variableName, colName } = node
+      const { colName, variableName } = node
       const paramsMirror = { assessment, cycle, tableName, variableName }
       const mirrorVariable = AssessmentMetaCaches.getCalculationMirrorVariable(paramsMirror)
       if (mirrorVariable) {

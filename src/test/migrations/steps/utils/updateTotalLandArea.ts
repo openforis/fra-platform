@@ -99,7 +99,7 @@ export const updateTotalLandArea = async (props: Props, client: BaseProtocol): P
         ({ meta }) => meta
       )
 
-      const query = values.reduce<Array<string>>((acc, { year, value }) => {
+      const query = values.reduce<Array<string>>((acc, { value, year }) => {
         if (meta[year]) {
           const query = `
               insert into ${schemaCycle}.node (country_iso, row_uuid, col_uuid, value)
@@ -119,7 +119,7 @@ export const updateTotalLandArea = async (props: Props, client: BaseProtocol): P
   await Promise.all(
     dataEntries.map(async ([countryIso, values]) => {
       const query = values.map(
-        ({ year, value }) => `
+        ({ value, year }) => `
             insert into ${schemaCycle}.node_ext (country_iso, props, type, value)
             values ('${countryIso}',
                     jsonb_build_object(

@@ -18,7 +18,7 @@ type MessageProps = {
 }
 
 const Message: React.FC<MessageProps> = (props) => {
-  const { message, isMine = false, deleteFunc } = props
+  const { deleteFunc, isMine = false, message } = props
   const { i18n } = useTranslation()
 
   const elementRef = useRef<HTMLDivElement>()
@@ -29,17 +29,17 @@ const Message: React.FC<MessageProps> = (props) => {
   }, [])
 
   return (
-    <div className={classNames('message', { deleted })} ref={elementRef}>
+    <div ref={elementRef} className={classNames('message', { deleted })}>
       <div className="message-header">
-        <img className="message-avatar" src={ApiEndPoint.User.profilePicture(String(message.user.id))} alt="" />
+        <img alt="" className="message-avatar" src={ApiEndPoint.User.profilePicture(String(message.user.id))} />
         <div className="message-info">
           <div className={classNames('message-author', { 'author-me': isMine })}>{Users.getFullName(message.user)}</div>
 
           {isMine && !deleted && message.message !== 'Marked as resolved' && (
             <button
-              type="button"
               className="btn-xs btn-secondary btn-remove-msg"
               onClick={() => deleteFunc(message.id)}
+              type="button"
             >
               <Icon name="trash-simple" />
             </button>

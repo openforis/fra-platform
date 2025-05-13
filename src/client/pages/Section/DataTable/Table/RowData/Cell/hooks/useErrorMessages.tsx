@@ -23,7 +23,7 @@ export default (props: Props): string | undefined => {
   const { t } = useTranslation()
   const historyLastApprovedIsActive = useHistoryLastApprovedIsActive()
 
-  const { valid, messages = [] } = validation
+  const { messages = [], valid } = validation
 
   if (historyLastApprovedIsActive || valid || messages.length === 0) {
     return undefined

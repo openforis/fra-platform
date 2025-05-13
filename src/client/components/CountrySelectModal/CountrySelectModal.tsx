@@ -44,8 +44,8 @@ const CountrySelectModal: React.FC<Props> = (props) => {
     onClose,
     open,
     showCount = true,
-    unselectableCountries = defaults.unselectableCountries,
     showFooter = true,
+    unselectableCountries = defaults.unselectableCountries,
   } = props
 
   const i18n = useTranslation()

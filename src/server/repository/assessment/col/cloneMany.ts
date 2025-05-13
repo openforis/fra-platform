@@ -20,7 +20,7 @@ type Props = {
  * @param props
  */
 export const cloneMany = async (props: Props, client: BaseProtocol = DB): Promise<void> => {
-  const { assessment, cycleSource, cycleTarget, cols } = props
+  const { assessment, cols, cycleSource, cycleTarget } = props
   const updates: Array<{ id: number; props: Col['props'] }> = []
 
   cols.forEach((col) => {

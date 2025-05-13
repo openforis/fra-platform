@@ -11,7 +11,7 @@ import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { useGetRepositoryItems } from './useGetRepositoryItems'
 
 export const useOnSuccess = () => {
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const dispatch = useAppDispatch()
   const getRepositoryItems = useGetRepositoryItems()
 
@@ -28,6 +28,6 @@ export const useOnSuccess = () => {
           })
       })
     },
-    [assessmentName, cycleName, countryIso, dispatch, getRepositoryItems]
+    [assessmentName, countryIso, cycleName, dispatch, getRepositoryItems]
   )
 }

@@ -32,7 +32,7 @@ type Returned = {
 export const useDependencies = (props: Props): Returned => {
   const { sectionName } = props
 
-  const { assessmentName, cycleName, countryIso } = useSectionRouteParams()
+  const { assessmentName, countryIso, cycleName } = useSectionRouteParams()
   const tableSections = useTableSections({ sectionName })
   const canEdit = useCanEdit(sectionName)
   const country = useCountry(countryIso as CountryIso)

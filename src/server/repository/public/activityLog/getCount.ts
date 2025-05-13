@@ -16,7 +16,7 @@ type Props = {
 }
 
 export const getCount = async (props: Props, client: BaseProtocol = DB): Promise<TablePaginatedCount> => {
-  const { assessment, cycle, countryIso, sectionName, message, target } = props
+  const { assessment, countryIso, cycle, message, sectionName, target } = props
 
   return client.one<TablePaginatedCount>(
     `select count(al.id) as total

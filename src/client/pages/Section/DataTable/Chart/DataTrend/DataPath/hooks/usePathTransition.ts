@@ -20,7 +20,7 @@ type Props = {
 }
 
 export const usePathTransition = (props: Props): void => {
-  const { data, trend, pathRef, xScale, yScale } = props
+  const { data, pathRef, trend, xScale, yScale } = props
 
   const { print } = useIsPrintRoute()
   const { hasData, hasDiffs, pathNext, pathPrev } = usePathProps({ data, trend, pathRef, xScale, yScale })

@@ -13,13 +13,13 @@ import { useDependencies } from './useDependencies'
 
 export const useGetTableData = (props: Props): void => {
   const dispatch = useAppDispatch()
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const dependencies = useDependencies(props)
   const homeCountriesFilter = useHomeCountriesFilter()
 
   const countryISOs = useMemo(
     () => (homeCountriesFilter.length > 0 ? homeCountriesFilter : [countryIso]),
-    [homeCountriesFilter, countryIso]
+    [countryIso, homeCountriesFilter]
   )
 
   const fetchTableData = useCallback(() => {
@@ -33,7 +33,7 @@ export const useGetTableData = (props: Props): void => {
       }
       dispatch(DataActions.getTableData({ ...propsFetch, countryISOs }))
     }
-  }, [assessmentName, cycleName, countryIso, dependencies, dispatch, countryISOs])
+  }, [assessmentName, countryIso, countryISOs, cycleName, dependencies, dispatch])
 
   useEffect(() => {
     fetchTableData()

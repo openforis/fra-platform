@@ -8,7 +8,7 @@ import CycleSwitcher from '../CycleSwitcher'
 import UserLinks from '../UserLinks'
 
 const PanEuropeanHeader: React.FC = () => {
-  const { t, i18n } = useTranslation()
+  const { i18n, t } = useTranslation()
   const cycle = useCycle()
 
   return (

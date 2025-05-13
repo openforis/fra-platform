@@ -3,7 +3,7 @@ import { marked } from 'marked'
 
 type Props = { assessmentName: string; cycleName: string; lang: string; name: string }
 const getDefinition = (props: Props) => {
-  const { cycleName, name, lang, assessmentName } = props
+  const { assessmentName, cycleName, lang, name } = props
   return fs.promises.readFile(
     `${__dirname}/../../../static/definitions/${assessmentName}/${cycleName}/${lang}/${name}.md`,
     'utf8'

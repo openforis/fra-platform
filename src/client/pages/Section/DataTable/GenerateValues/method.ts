@@ -17,7 +17,7 @@ export const Methods = {
     method: Method
     fields: Array<GenerateValuesField>
   }): boolean => {
-    const { data, method, fields } = props
+    const { data, fields, method } = props
     const fieldsSelected = fields.filter((field) => field.selected === true)
 
     // method and fields must be selected

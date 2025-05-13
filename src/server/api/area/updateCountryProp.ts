@@ -20,7 +20,7 @@ const tableNames = [tableName]
 
 export const updateCountryProp = async (req: Request, res: Response) => {
   try {
-    const { assessmentName, cycleName, countryIso } = req.query
+    const { assessmentName, countryIso, cycleName } = req.query
     const { countryProp } = req.body
     const user = Requests.getUser(req)
 

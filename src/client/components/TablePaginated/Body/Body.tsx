@@ -11,7 +11,7 @@ import { Props as BaseProps } from 'client/components/TablePaginated/types'
 import { useTablePaginatedBodyData } from './hooks/useTablePaginatedBodyData'
 
 const Body = <Datum extends object>(props: BaseProps<Datum>) => {
-  const { columns, groups, limit, wrapCells, skeleton } = props
+  const { columns, groups, limit, skeleton, wrapCells } = props
 
   const data = useTablePaginatedBodyData<Datum>(props)
 

@@ -18,7 +18,7 @@ type Props = {
 } & (PropsId | PropsKey)
 
 export const getOneOrNone = async (props: Props, client: BaseProtocol = DB): Promise<MessageTopic | undefined> => {
-  const { countryIso, assessment, cycle, includeMessages } = props
+  const { assessment, countryIso, cycle, includeMessages } = props
 
   const { key } = props as PropsKey
   const { id } = props as PropsId

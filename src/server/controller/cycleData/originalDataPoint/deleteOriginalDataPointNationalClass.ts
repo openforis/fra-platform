@@ -26,7 +26,7 @@ export const deleteOriginalDataPointNationalClass = async (
   props: Props,
   client: BaseProtocol = DB
 ): Promise<OriginalDataPoint> => {
-  const { assessment, cycle, country, id, index, user } = props
+  const { assessment, country, cycle, id, index, user } = props
 
   const odpReturn = await client.tx(async (t) => {
     const originalDataPoint = await OriginalDataPointRepository.deleteNationalClass({ assessment, cycle, id, index }, t)

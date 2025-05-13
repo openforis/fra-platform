@@ -11,7 +11,7 @@ export const maxForestArea: ExpressionFunction<Context> = {
   minArity: 0,
   executor: (context) => {
     return (): string | undefined => {
-      const { data, countryIso, assessment, cycle } = context
+      const { assessment, countryIso, cycle, data } = context
       const tableData = RecordAssessmentDatas.getTableData({
         assessmentName: assessment.props.name,
         cycleName: cycle.name,

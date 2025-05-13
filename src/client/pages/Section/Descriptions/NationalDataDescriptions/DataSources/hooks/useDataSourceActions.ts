@@ -20,7 +20,7 @@ type Props = {
 export const useDataSourceActions = (props: Props): Array<DataRowAction> => {
   const { dataSource, readOnly, sectionName } = props
 
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const canEdit = useCanEditDescription({ sectionName })
   const editable = useIsDescriptionEditable({ sectionName, name: CommentableDescriptionName.dataSources })
   const dispatch = useAppDispatch()

@@ -16,7 +16,7 @@ const initialRepositoryItem = (countryIso?: CountryIso): Partial<RepositoryItem>
 })
 
 export const useOpenPanel = (props: { repositoryItem?: RepositoryItem; countryIso?: CountryIso }) => {
-  const { repositoryItem, countryIso } = props
+  const { countryIso, repositoryItem } = props
   const _repositoryItem = repositoryItem ?? initialRepositoryItem(countryIso)
   const dispatch = useAppDispatch()
   return useCallback(() => dispatch(RepositoryActions.setRepositoryItem(_repositoryItem)), [_repositoryItem, dispatch])

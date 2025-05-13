@@ -27,7 +27,7 @@ type Props = {
 }
 
 export const massiveInsert = async (props: Props): Promise<void> => {
-  const { assessment, cycle, country, countryNodes, user } = props
+  const { assessment, country, countryNodes, cycle, user } = props
   const { uuid: assessmentUuid } = assessment
   const { uuid: cycleUuid } = cycle
 
@@ -42,7 +42,7 @@ export const massiveInsert = async (props: Props): Promise<void> => {
 
       // 1. create nodes db
       const nodesDb = nodes.map<NodeDb>((node) => {
-        const { tableName, variableName, colName } = node
+        const { colName, tableName, variableName } = node
         const rowKey = RowCaches.getKey({ tableName, variableName })
         const row = rows[rowKey]
         const col = row.cols.find((c) => c.props.colName === colName)

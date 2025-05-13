@@ -20,7 +20,7 @@ export const getTopic = async (
   },
   client: BaseProtocol = DB
 ): Promise<MessageTopic | undefined> => {
-  const { countryIso, assessment, cycle, key, includeMessages = true, user } = props
+  const { assessment, countryIso, cycle, includeMessages = true, key, user } = props
 
   const topic = await MessageTopicRepository.getOneOrNone(
     { countryIso, assessment, cycle, key, includeMessages },

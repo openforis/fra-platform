@@ -11,7 +11,7 @@ type Props = {
 }
 
 export const localLogin = createAsyncThunk<User | undefined, Props>('login/local', async (props) => {
-  const { email, password, invitationUuid } = props
+  const { email, invitationUuid, password } = props
 
   const { data } = await axios.post(ApiEndPoint.Auth.login(), { email, password }, { params: { invitationUuid } })
 

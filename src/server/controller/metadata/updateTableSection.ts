@@ -12,7 +12,7 @@ export const updateTableSection = async (
   props: { user: User; assessment: Assessment; tableSection: TableSection },
   client: BaseProtocol = DB
 ): Promise<TableSection> => {
-  const { user, assessment, tableSection } = props
+  const { assessment, tableSection, user } = props
 
   return client.tx(async (t) => {
     const updatedTableSection = await TableSectionRepository.update({ tableSection, assessment }, t)

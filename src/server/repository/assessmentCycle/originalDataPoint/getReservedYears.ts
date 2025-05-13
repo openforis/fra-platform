@@ -15,7 +15,7 @@ export const getReservedYears = async (
   },
   client: BaseProtocol = DB
 ): Promise<Array<ODPReservedYear>> => {
-  const { assessment, cycle, countryIso } = params
+  const { assessment, countryIso, cycle } = params
 
   const schemaName = Schemas.getNameCycle(assessment, cycle)
 

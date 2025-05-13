@@ -8,12 +8,12 @@ import { useDashboardItems } from './useDashboardItems'
 
 export const useGetDashboard = () => {
   const dispatch = useAppDispatch()
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams()
   const dashboardItems = useDashboardItems()
 
   useEffect(() => {
     if (!dashboardItems) {
       dispatch(MetadataActions.getDashboard({ assessmentName, cycleName, countryIso }))
     }
-  }, [assessmentName, cycleName, countryIso, dispatch, dashboardItems])
+  }, [assessmentName, countryIso, cycleName, dashboardItems, dispatch])
 }

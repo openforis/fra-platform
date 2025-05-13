@@ -18,7 +18,7 @@ export const useFetchData = (props: Props): void => {
   const { counter, limit, path } = props
 
   const dispatch = useAppDispatch()
-  const { assessmentName, cycleName, countryIso, sectionName } = useSectionRouteParams()
+  const { assessmentName, countryIso, cycleName, sectionName } = useSectionRouteParams()
 
   const filters = useTablePaginatedFilters(path)
   const isInitialized = useIsTablePaginatedInitialized(path)

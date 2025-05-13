@@ -8,8 +8,8 @@ import Requests from 'server/utils/requests'
 
 export const getSectionsMetadata = async (req: CycleRequest<{ sectionNames: Array<string> }>, res: Response) => {
   try {
-    const { assessmentName, sectionNames, cycleName } = req.query
-    const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+    const { assessmentName, cycleName, sectionNames } = req.query
+    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
     const tablesMetadata = await MetadataController.getSectionsMetadata({ assessment, cycle, sectionNames })
 

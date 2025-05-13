@@ -7,11 +7,11 @@ const InputRadio = forwardRef<HTMLInputElement, Props>((props, outerRef) => {
 
   return (
     <input
+      ref={outerRef}
       checked={checked}
       disabled={disabled}
       id={id}
       onChange={onChange}
-      ref={outerRef}
       type="radio"
       value={value}
     />

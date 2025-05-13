@@ -11,7 +11,7 @@ import { TablePaginatedActions } from 'client/store/ui/tablePaginated'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 export const useRepositoryItemChangeListener = () => {
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams()
   const dispatch = useAppDispatch()
 
   useEffect(() => {

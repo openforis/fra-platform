@@ -11,7 +11,8 @@ export const getForestAssetData = (layer: LayerSource): { year?: number; img: Im
       const imgForestJAXA = ImageCollection('JAXA/ALOS/PALSAR/YEARLY/FNF')
         .filterDate('2017-01-01', '2017-12-31')
         .mosaic()
-        .eq(1).selfMask()
+        .eq(1)
+        .selfMask()
 
       asset = {
         year: 2017,
@@ -35,7 +36,8 @@ export const getForestAssetData = (layer: LayerSource): { year?: number; img: Im
       const imgForestLCESA = imgLandCoverESA
         .gte(39)
         .and(imgLandCoverESA.lte(101))
-        .add(imgLandCoverESA.gte(160).and(imgLandCoverESA.lte(170))).selfMask()
+        .add(imgLandCoverESA.gte(160).and(imgLandCoverESA.lte(170)))
+        .selfMask()
 
       asset = {
         year: 2009,
@@ -95,7 +97,8 @@ export const getForestAssetData = (layer: LayerSource): { year?: number; img: Im
       const imgForestHansen = hforest2000
         .gte(layer.options.gteTreeCoverPercent)
         .where(hgain.eq(1), 1)
-        .where(hlost.eq(1), 0).selfMask()
+        .where(hlost.eq(1), 0)
+        .selfMask()
 
       asset = {
         year: 2020,
@@ -104,10 +107,9 @@ export const getForestAssetData = (layer: LayerSource): { year?: number; img: Im
       }
       break
     }
-    
-    case ForestKey.JRC2020: {
-      const imgForestJRC2020 = ImageCollection('JRC/GFC2020/V2').mosaic();
 
+    case ForestKey.JRC2020: {
+      const imgForestJRC2020 = ImageCollection('JRC/GFC2020/V2').mosaic()
 
       asset = {
         year: 2020,

@@ -14,7 +14,7 @@ export const useGetDescriptionValues = (props: Props): void => {
 
   const dispatch = useAppDispatch()
   const { print } = useIsPrintRoute()
-  const { assessmentName, cycleName, countryIso: _countryIso } = useCountryRouteParams()
+  const { assessmentName, countryIso: _countryIso, cycleName } = useCountryRouteParams()
   const countryIso = _countryIso as CountryIso
 
   useEffect(() => {

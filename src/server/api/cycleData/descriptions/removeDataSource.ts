@@ -12,7 +12,7 @@ type Request = CycleDataRequest<{ uuid: string }>
 
 export const removeDataSource = async (req: Request, res: Response) => {
   try {
-    const { assessmentName, sectionName, cycleName, uuid } = req.query
+    const { assessmentName, cycleName, sectionName, uuid } = req.query
     const { country } = req.context
     const { countryIso } = country
 

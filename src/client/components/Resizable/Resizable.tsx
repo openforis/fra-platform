@@ -18,7 +18,7 @@ type ResizableProps = {
 type Props = React.PropsWithChildren<ResizableProps>
 
 const Resizable: React.FC<Props> = (props: Props) => {
-  const { children, defaultSize, className, maxHeight, minHeight, maxWidth, minWidth, onResize } = props
+  const { children, className, defaultSize, maxHeight, maxWidth, minHeight, minWidth, onResize } = props
 
   const enable = useMemo(
     () => ({

@@ -23,7 +23,7 @@ type Props = {
 }
 
 export const notifyClientUpdate = async (props: Props) => {
-  const { assessment, cycle, countryIso, sectionName, originalDataPoints } = props
+  const { assessment, countryIso, cycle, originalDataPoints, sectionName } = props
   const { name: assessmentName } = assessment.props
   const { name: cycleName } = cycle
 
@@ -37,10 +37,10 @@ export const notifyClientUpdate = async (props: Props) => {
   const nodeUpdateEvent = Sockets.getNodeValuesUpdateEvent(propsEvent)
 
   const nodesUpdated: Array<NodeUpdate> = originalDataPoints.reduce<Array<NodeUpdate>>(
-    (acc, { originalDataPoint, notifyClient }) => {
+    (acc, { notifyClient, originalDataPoint }) => {
       if (notifyClient) {
         const colName = String(originalDataPoint.year)
-        originalDataPointVariables.forEach(({ variableName, tableName }) => {
+        originalDataPointVariables.forEach(({ tableName, variableName }) => {
           const propsValue = { assessmentName, cycleName, colName, variableName, tableName, countryIso, data }
           const value = RecordAssessmentDatas.getNodeValue(propsValue)
 

@@ -25,7 +25,7 @@ interface Returned {
 }
 
 export const useTooltipContent = (props: Props): Returned => {
-  const { value, error } = props
+  const { error, value } = props
   const [canDisplayTooltip, setCanDisplayTooltip] = useState<boolean>(true)
   const { t } = useTranslation()
 
@@ -98,7 +98,7 @@ export const useTooltipContent = (props: Props): Returned => {
         ))}
       </div>
     )
-  }, [canDisplayTooltip, countryOptionGroups, value, error, isPanEuropean, t])
+  }, [canDisplayTooltip, countryOptionGroups, error, isPanEuropean, t, value])
 
   const hideTooltip = useCallback(() => setCanDisplayTooltip(false), [])
   const showTooltip = useCallback(() => setCanDisplayTooltip(true), [])

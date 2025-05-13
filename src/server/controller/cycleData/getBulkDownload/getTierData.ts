@@ -19,7 +19,7 @@ const tableNames = [
 ]
 
 export const getTierData = async (props: Props): Promise<Array<Record<string, string>>> => {
-  const { assessment, cycle, countries } = props
+  const { assessment, countries, cycle } = props
   const _climaticData = await climaticDomain(props)
   const climaticData = RecordAssessmentDatas.getCycleData({
     assessmentName: assessment.props.name,
@@ -45,7 +45,7 @@ export const getTierData = async (props: Props): Promise<Array<Record<string, st
       subtropical: getClimaticValue('sub_tropical', countryIso, climaticData),
     }
 
-    tableNames.forEach(({ tableName, csvPrefix, variables }) => {
+    tableNames.forEach(({ csvPrefix, tableName, variables }) => {
       variables.forEach((key) => {
         base[`${csvPrefix}_${key}`] = RecordAssessmentDatas.getDatum({
           assessmentName: assessment.props.name,

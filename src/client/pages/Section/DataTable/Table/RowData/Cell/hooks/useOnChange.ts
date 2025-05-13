@@ -39,7 +39,7 @@ type Returned = {
 }
 
 export default (props: Props): Returned => {
-  const { table, col, row, nodeValue: _nodeValue, data, sectionName } = props
+  const { col, data, nodeValue: _nodeValue, row, sectionName, table } = props
   const type = col.props.colType
 
   const dispatch = useAppDispatch()
@@ -191,7 +191,7 @@ export default (props: Props): Returned => {
       // @ts-ignore
       if (event.target?.selectionStart >= 0) {
         // @ts-ignore
-        const { selectionStart, selectionEnd, value: targetValue } = event.target
+        const { selectionEnd, selectionStart, value: targetValue } = event.target
         value = `${targetValue.slice(0, selectionStart)}${value}${targetValue.slice(selectionEnd)}`
       }
       _persistSanitizedValue({ ...nodeValue, raw: value })

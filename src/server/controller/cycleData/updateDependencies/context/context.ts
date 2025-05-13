@@ -32,7 +32,7 @@ export class Context {
   readonly #externalDependants: Array<NodeUpdates>
 
   constructor(props: ConstructorProps) {
-    const { assessments, assessment, cycle, countryIso, data, queue, rows, visitedVariables, externalDependants } =
+    const { assessment, assessments, countryIso, cycle, data, externalDependants, queue, rows, visitedVariables } =
       props
 
     this.#assessments = assessments

@@ -65,8 +65,8 @@ const roleNamesOrder = [
 ]
 
 const sortRolesByRolesAndCountry = (
-  { role: roleA, countryIso: countryIsoA }: UserRole<RoleName>,
-  { role: roleB, countryIso: countryIsoB }: UserRole<RoleName>
+  { countryIso: countryIsoA, role: roleA }: UserRole<RoleName>,
+  { countryIso: countryIsoB, role: roleB }: UserRole<RoleName>
 ) =>
   roleNamesOrder.indexOf(roleA) - roleNamesOrder.indexOf(roleB) ||
   (i18n.t(Areas.getTranslationKey(countryIsoA)) < i18n.t(Areas.getTranslationKey(countryIsoB)) ? -1 : 1)

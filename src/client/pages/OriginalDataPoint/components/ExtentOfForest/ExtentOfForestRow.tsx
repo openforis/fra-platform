@@ -46,7 +46,7 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
   const cycle = useCycle()
 
   const nationalClass = originalDataPoint.nationalClasses[index]
-  const { name, area, forestPercent, otherWoodedLandPercent, uuid } = nationalClass
+  const { area, forestPercent, name, otherWoodedLandPercent, uuid } = nationalClass
   const target = [originalDataPoint.id, 'class', `${uuid}`, 'value'] as string[]
   const classNameRowComments = useNationalClassNameComments(target)
 

@@ -13,7 +13,7 @@ export const update = async (
   },
   client: BaseProtocol = DB
 ): Promise<TableSection> => {
-  const { tableSection, assessment } = params
+  const { assessment, tableSection } = params
   const schemaName = Schemas.getName(assessment)
 
   return client.one<TableSection>(

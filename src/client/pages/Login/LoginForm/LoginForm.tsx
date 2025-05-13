@@ -63,38 +63,38 @@ const LoginForm: React.FC = () => {
     return (
       <div className="login__form">
         <input
-          onFocus={() => setErrors({ ...errors, email: null })}
           name="email"
-          value={email}
-          type="text"
-          placeholder={t('login.email')}
           onChange={(event) => setEmail(event.target.value)}
+          onFocus={() => setErrors({ ...errors, email: null })}
+          placeholder={t('login.email')}
+          type="text"
+          value={email}
         />
         {errors.email && <span className="login__field-error">{t(errors.email)}</span>}
 
         <input
-          onFocus={() => setErrors({ ...errors, password: null })}
-          value={password}
-          type="password"
-          placeholder={t('login.password')}
           onChange={(event) => setPassword(event.target.value)}
+          onFocus={() => setErrors({ ...errors, password: null })}
+          placeholder={t('login.password')}
+          type="password"
+          value={password}
         />
         {errors.password && <span className="login__field-error">{t(errors.password)}</span>}
 
         <div>
-          <button type="button" className="btn" onClick={() => setIsLocal(false)}>
+          <button className="btn" onClick={() => setIsLocal(false)} type="button">
             {t('login.cancel')}
           </button>
 
-          <button type="button" className="btn" onClick={onLogin}>
+          <button className="btn" onClick={onLogin} type="button">
             {t('login.login')}
           </button>
         </div>
 
         <Link
+          className="btn-forgot-pwd"
           to={Routes.LoginResetPassword.generatePath({ assessmentName, cycleName })}
           type="button"
-          className="btn-forgot-pwd"
         >
           {t('login.forgotPassword')}
         </Link>
@@ -112,7 +112,7 @@ const LoginForm: React.FC = () => {
           {t('login.signInGoogle')}
         </a>
 
-        <button className="btn" type="button" onClick={() => setIsLocal(true)}>
+        <button className="btn" onClick={() => setIsLocal(true)} type="button">
           {t('login.signInFRA')}
         </button>
       </div>

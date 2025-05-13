@@ -25,7 +25,7 @@ type Props = {
 }
 
 const matchRegion = (props: { country: Country; t: TFunction; query: string }): boolean => {
-  const { country, t, query } = props
+  const { country, query, t } = props
 
   return country.regionCodes.some((regionCode) => {
     const regionLabel = t(Areas.getTranslationKey(regionCode))
@@ -34,7 +34,7 @@ const matchRegion = (props: { country: Country; t: TFunction; query: string }): 
 }
 
 const CountryListRoleSection: React.FC<Props> = (props: Props) => {
-  const { countryISOs, onElementSelect, role, selectedValue, query } = props
+  const { countryISOs, onElementSelect, query, role, selectedValue } = props
 
   const { t } = useTranslation()
   const countries = useCountries()
@@ -85,9 +85,9 @@ const CountryListRoleSection: React.FC<Props> = (props: Props) => {
           return (
             <CountryListRow
               key={countryIso}
-              role={role}
               country={{ countryIso }}
               onElementSelect={onElementSelect}
+              role={role}
               selectedValue={selectedValue}
             />
           )

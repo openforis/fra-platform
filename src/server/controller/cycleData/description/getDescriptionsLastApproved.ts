@@ -20,11 +20,11 @@ export const getDescriptionsLastApproved = async (
   props: Props,
   client: BaseProtocol = DB
 ): Promise<DescriptionCountryValues> => {
-  const { assessment, cycle, countryIso, sectionName } = props
+  const { assessment, countryIso, cycle, sectionName } = props
   const info = await getInfo(props)
 
   if (Objects.isNil(info)) return { [countryIso]: { [sectionName]: {} } }
-  const { prevCycle, lastAccepted } = info
+  const { lastAccepted, prevCycle } = info
 
   let data: DescriptionCountryValues = {} as DescriptionCountryValues
 

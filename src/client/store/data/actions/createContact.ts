@@ -18,7 +18,7 @@ export const createContact = createAsyncThunk<Contact, Props, ThunkApiConfig>(
       rowIndex: contacts.filter((c) => !c.props.readOnly).length - 1,
     })
 
-    const { assessmentName, cycleName, countryIso, sectionName } = props
+    const { assessmentName, countryIso, cycleName, sectionName } = props
 
     const body = { contact }
     const params = { assessmentName, cycleName, countryIso, sectionName }

@@ -47,7 +47,7 @@ const mergeDependencies = (props: Props): TablesCondition => {
 }
 
 export const getTableData = (props: Props, client: BaseProtocol = DB): Promise<RecordCountryData> => {
-  const { assessment, cycle, countryISOs } = props
+  const { assessment, countryISOs, cycle } = props
   const tables = mergeDependencies(props)
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
 

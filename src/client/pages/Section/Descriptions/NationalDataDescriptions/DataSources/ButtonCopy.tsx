@@ -21,7 +21,7 @@ export const ButtonCopy: React.FC<Props> = (props: Props) => {
 
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const currentValue = useCommentableDescriptionValue({ sectionName, name: CommentableDescriptionName.dataSources })
   const previousSection = usePreviousSection(sectionName)
   const previousSectionName = previousSection?.props.name

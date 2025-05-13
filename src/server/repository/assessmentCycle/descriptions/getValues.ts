@@ -14,7 +14,7 @@ type Props = {
 }
 
 export const getValues = async (props: Props, client: BaseProtocol = DB): Promise<DescriptionCountryValues> => {
-  const { countryIso, assessment, cycle, sectionName, name } = props
+  const { assessment, countryIso, cycle, name, sectionName } = props
 
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
 

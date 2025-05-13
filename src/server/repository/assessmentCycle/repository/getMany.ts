@@ -15,7 +15,7 @@ type Props = {
 }
 
 export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<Array<RepositoryItem>> => {
-  const { assessment, cycle, countryIso, global } = props
+  const { assessment, countryIso, cycle, global } = props
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
 
   let condition = 'country_iso = $1'

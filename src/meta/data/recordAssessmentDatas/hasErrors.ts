@@ -13,7 +13,7 @@ export const hasErrors = (props: {
   tableName: TableName
   data: RecordAssessmentData
 }): boolean => {
-  const { assessmentName, cycleName, countryIso, tableName, data } = props
+  const { assessmentName, countryIso, cycleName, data, tableName } = props
   const tableData = getTableData({ assessmentName, cycleName, countryIso, tableName, data })
   return Object.values(tableData).some((values) => {
     return Object.values(values).some((value) => !NodeValueValidations.isValid(value))

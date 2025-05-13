@@ -13,13 +13,13 @@ import { sendRequestReviewUpdateEvents } from './sendRequestReviewUpdateEvents'
 
 export const addMessage = async (req: CycleDataRequest<{ key: string; type: MessageTopicType }>, res: Response) => {
   try {
-    const { countryIso, assessmentName, cycleName, key, type, sectionName } = req.query
+    const { assessmentName, countryIso, cycleName, key, sectionName, type } = req.query
     const user = Requests.getUser(req)
     const { message } = req.body
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
-    const { topic, message: messageCreated } = await MessageCenterController.addMessage({
+    const { message: messageCreated, topic } = await MessageCenterController.addMessage({
       message,
       user,
       countryIso,

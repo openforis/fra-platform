@@ -18,7 +18,7 @@ const InviteCollaboratorPermissions: React.FC<Props> = (props) => {
     <div className="edit-user__form-item-permissions">
       <div className="edit-user__form-label">{t(`userManagement.permissions`)}</div>
       <div className="edit-user__form-field">
-        <CollaboratorPermissionsEditor permissions={permissions} onPermissionsChange={onPermissionsChange} />
+        <CollaboratorPermissionsEditor onPermissionsChange={onPermissionsChange} permissions={permissions} />
       </div>
     </div>
   )

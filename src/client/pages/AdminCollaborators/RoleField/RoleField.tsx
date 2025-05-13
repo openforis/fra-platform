@@ -16,7 +16,7 @@ type Props = {
 }
 
 const _getAllRoles = (props: Props): Array<{ countryIso: CountryIso }> => {
-  const { userSummary, roleName } = props
+  const { roleName, userSummary } = props
   return userSummary.roles?.filter((role) => role.role === roleName).map(({ countryIso }) => ({ countryIso })) ?? []
 }
 

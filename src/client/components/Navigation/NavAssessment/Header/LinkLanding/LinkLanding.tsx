@@ -13,21 +13,21 @@ import Icon from 'client/components/Icon'
 const LinkLanding: React.FC = () => {
   const { t } = useTranslation()
   const { pathname } = useLocation()
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams()
 
   if (!assessmentName || !cycleName) return null
 
   return (
     <NavLink
-      to={Routes.CountryHome.generatePath({ assessmentName, cycleName, countryIso })}
       className={() => {
         return classNames('nav-section__header', {
           selected: matchPath({ path: Routes.CountryHome.path.absolute, end: false }, pathname),
         })
       }}
+      to={Routes.CountryHome.generatePath({ assessmentName, cycleName, countryIso })}
     >
       <div className="nav-section__order">
-        <Icon name="icon-bar-chart" className="icon-sub icon-margin-right" />
+        <Icon className="icon-sub icon-margin-right" name="icon-bar-chart" />
       </div>
 
       <div className="nav-section__label">{t('common.dashboard')}</div>

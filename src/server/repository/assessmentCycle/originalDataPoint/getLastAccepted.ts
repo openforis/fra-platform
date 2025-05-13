@@ -14,7 +14,7 @@ type Props = {
 }
 
 export const getLastAccepted = async (props: Props, client: BaseProtocol = DB): Promise<OriginalDataPoint | null> => {
-  const { assessment, cycle, countryIso, year } = props
+  const { assessment, countryIso, cycle, year } = props
 
   const _props = { assessment, cycle, countryISOs: [countryIso], year }
 

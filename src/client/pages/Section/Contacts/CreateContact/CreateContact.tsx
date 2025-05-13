@@ -7,7 +7,7 @@ import { useOnClick } from './hooks/useOnClick'
 
 const CreateContact: React.FC = () => {
   const { t } = useTranslation()
-  const { onClick, loading } = useOnClick()
+  const { loading, onClick } = useOnClick()
 
   return (
     <div>

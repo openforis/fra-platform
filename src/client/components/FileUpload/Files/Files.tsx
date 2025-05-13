@@ -9,7 +9,7 @@ type Props = Pick<FileUploadProps, 'onChange' | 'value'> & {
   acceptedFiles: Array<File>
 }
 const Files: React.FC<Props> = (props) => {
-  const { onChange, value, acceptedFiles } = props
+  const { acceptedFiles, onChange, value } = props
   return (
     <div className="file-upload__files">
       {value.map((fileSummary) => {

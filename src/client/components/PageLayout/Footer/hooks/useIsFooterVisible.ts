@@ -7,5 +7,5 @@ export const useIsFooterVisible = (): boolean => {
   const { assessmentName, cycleName } = useCycleRouteParams()
   const { print } = useIsPrintRoute()
 
-  return useMemo<boolean>(() => !print && !!cycleName && !!assessmentName, [print, cycleName, assessmentName])
+  return useMemo<boolean>(() => !print && !!cycleName && !!assessmentName, [assessmentName, cycleName, print])
 }

@@ -14,7 +14,7 @@ type Props = {
 }
 
 export const getManyItems = async (props: Props): Promise<Array<DashboardItem<DashboardItemType>>> => {
-  const { assessment, cycle, countryIso } = props
+  const { assessment, countryIso, cycle } = props
   const isISOCountry = Areas.isISOCountry(countryIso)
   const countryDashboardItems = await NodeExtRepository.getManyDashboardItems({ assessment, cycle })
   if (isISOCountry) return countryDashboardItems

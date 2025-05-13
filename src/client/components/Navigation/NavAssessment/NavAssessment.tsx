@@ -21,7 +21,7 @@ import { Breakpoints } from 'client/utils'
 
 const NavAssessment: React.FC = () => {
   const { t } = useTranslation()
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const sections = useSections()
   const historyActive = useHistoryActivitiesIsActive()
 

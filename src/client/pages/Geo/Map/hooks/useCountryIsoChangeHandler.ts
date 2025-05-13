@@ -31,7 +31,7 @@ export const useCountryIsoChangeHandler = () => {
         )
       })
     })
-  }, [countryIso, prevCountryIso, allSectionsState, dispatch])
+  }, [allSectionsState, countryIso, dispatch, prevCountryIso])
 }
 
 export default useCountryIsoChangeHandler

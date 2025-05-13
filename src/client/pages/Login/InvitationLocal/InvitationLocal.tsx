@@ -23,7 +23,7 @@ const InvitationLocal: React.FC = () => {
   useInitInvitation()
 
   const { invitationUuid, lang } = useSearchParams<LoginInvitationQueryParams>()
-  const { assessment, invitedUser, userProviders, userInvitation } = useInvitation()
+  const { assessment, invitedUser, userInvitation, userProviders } = useInvitation()
 
   const formData = useAcceptInvitationForm()
   const errors = formData?.errors ?? {}

@@ -38,7 +38,7 @@ export const forestOwnership = (cycle: Cycle, region: boolean): DashboardPieChar
     title: { key: 'statisticalFactsheets.forestOwnership.title', params: { year: columnName } },
     table: getTable({ cycle, cols: cols[cycle.name], tableId, rowMetadata, tableName }),
     chart: {
-      cells: variables.map(({ variableName, color }) => ({
+      cells: variables.map(({ color, variableName }) => ({
         variableName,
         color,
         columnName,

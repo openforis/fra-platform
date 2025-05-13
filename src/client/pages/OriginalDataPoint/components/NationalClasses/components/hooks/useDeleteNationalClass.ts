@@ -13,13 +13,13 @@ type Props = {
 }
 
 export const useDeleteNationalClass = (props: Props) => {
-  const { originalDataPoint, index } = props
+  const { index, originalDataPoint } = props
   const dispatch = useAppDispatch()
 
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
 
   return useCallback(() => {
     const props = { assessmentName, cycleName, countryIso, originalDataPoint, index }
     dispatch(OriginalDataPointActions.deleteOriginalDataPointNationalClass(props))
-  }, [countryIso, cycleName, assessmentName, originalDataPoint, index, dispatch])
+  }, [assessmentName, countryIso, cycleName, dispatch, index, originalDataPoint])
 }

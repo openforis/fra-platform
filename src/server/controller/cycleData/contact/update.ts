@@ -21,7 +21,7 @@ type Props = {
 }
 
 export const update = async (props: Props, client: BaseProtocol = DB): Promise<void> => {
-  const { assessment, cycle, countryIso, nodeExt, raw, user } = props
+  const { assessment, countryIso, cycle, nodeExt, raw, user } = props
 
   nodeExt.value.raw = raw
 

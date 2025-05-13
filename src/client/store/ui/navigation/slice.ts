@@ -1,4 +1,5 @@
 import { createSlice, Reducer } from '@reduxjs/toolkit'
+
 import { NavigationState } from './stateType'
 
 const initialState: NavigationState = {

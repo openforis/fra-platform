@@ -10,7 +10,7 @@ import { SocketClient } from 'client/service/socket'
 
 export const useCountryStatusListener = (): void => {
   const dispatch = useAppDispatch()
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
 
   useEffect(() => {
     const eventName = Sockets.getCountryStatusUpdateEvent({
