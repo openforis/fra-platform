@@ -7,8 +7,8 @@ import { CycleUuid } from 'meta/assessment/cycle'
 import { CycledPropsObject } from 'meta/assessment/cycledObject'
 import { VariableCache } from 'meta/assessment/metaCache'
 import { Row } from 'meta/assessment/row'
-import { Unit } from 'meta/assessment/unit'
 import { VariableName } from 'meta/assessment/variable'
+import { UnitName } from 'meta/measurement/unit'
 
 export enum TableNames {
   areaAffectedByFire = 'areaAffectedByFire',
@@ -49,7 +49,7 @@ export type TableCell = {
   columnName: ColName
   variableName: VariableName
   format?: TableCellNumberFormat
-  unit?: Unit | null
+  unit?: UnitName | null
 }
 export type TableCellNames = Record<CycleUuid, Array<TableCell>>
 // array of column names indexed by cycle uuid
@@ -69,7 +69,7 @@ export interface TableProps {
   report?: Record<CycleUuid, { columnsReport?: Array<ColName>; transpose?: boolean }>
   secondary?: boolean
   style?: Record<CycleUuid, Pick<CSSProperties, 'gridTemplateColumns'>>
-  unit?: Unit
+  unit?: UnitName
 }
 
 export interface Table extends CycledPropsObject<TableProps> {

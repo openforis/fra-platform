@@ -1,4 +1,4 @@
-export enum Unit {
+export enum UnitName {
   absoluteNumber = 'absoluteNumber',
   annualNumberOfVisitsMillion = 'annualNumberOfVisitsMillion',
   cubicMeterPerHa = 'cubicMeterPerHa',
