@@ -1,24 +1,10 @@
 import { useCallback, useEffect, useRef } from 'react'
 
-import rehypeParse from 'rehype-parse'
-import rehypeRaw from 'rehype-raw'
-import rehypeSanitize, { defaultSchema } from 'rehype-sanitize'
-import rehypeStringify from 'rehype-stringify'
-import { unified } from 'unified'
 import { Objects } from 'utils/objects'
 
 import { useRepositoryLinkContext } from 'client/components/EditorWYSIWYG/repositoryLinkContext'
 
-const schema = {
-  ...defaultSchema,
-  tagNames: [...defaultSchema.tagNames, 'u'],
-}
-
-const processor = unified()
-  .use(rehypeRaw)
-  .use(rehypeSanitize, schema)
-  .use(rehypeParse, { fragment: true })
-  .use(rehypeStringify)
+import { processor } from './_sanitizer'
 
 type OnChange = (value?: string) => void
 
