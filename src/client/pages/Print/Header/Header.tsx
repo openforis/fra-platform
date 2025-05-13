@@ -20,7 +20,7 @@ const size = ButtonSize.m
 
 const Header: React.FC = () => {
   const { t } = useTranslation()
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const country = useCountry(countryIso)
   const { onlyTables } = useIsPrintRoute()
   const lang = useLanguage()

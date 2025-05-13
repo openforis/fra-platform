@@ -11,7 +11,7 @@ import { climaticDomain } from './climaticDomain'
 import { Props } from './props'
 
 export const getFraYearsData = async (props: Props) => {
-  const { assessment, cycle, countries } = props
+  const { assessment, countries, cycle } = props
   const _climaticData = await climaticDomain(props)
   const climaticData = RecordAssessmentDatas.getCycleData({
     assessmentName: assessment.props.name,
@@ -28,7 +28,7 @@ export const getFraYearsData = async (props: Props) => {
 
   const years = Years.fraYears(cycle)
 
-  return countries.flatMap(({ countryIso, regionCodes, props: { deskStudy } }) =>
+  return countries.flatMap(({ countryIso, props: { deskStudy }, regionCodes }) =>
     years.flatMap<Record<string, string>>((year: string) => {
       const base: Record<string, string> = {
         regions: regionCodes.join(';'),
@@ -42,8 +42,8 @@ export const getFraYearsData = async (props: Props) => {
         subtropical: getClimaticValue('sub_tropical', countryIso, climaticData),
       }
 
-      entries(cycle).forEach(({ variables, tableName }) => {
-        variables.forEach(({ variableName, csvColumn }) => {
+      entries(cycle).forEach(({ tableName, variables }) => {
+        variables.forEach(({ csvColumn, variableName }) => {
           let datum: string | null = null
 
           if (tableName === 'growingStockComposition2025') {

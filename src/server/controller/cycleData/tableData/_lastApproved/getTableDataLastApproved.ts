@@ -11,7 +11,7 @@ import { PropsGetLastApproved } from './_types'
 
 // Sets default values for tableData
 const _withDefaults = (props: PropsGetLastApproved & { data: RecordAssessmentData }) => {
-  const { assessment, countryISOs, cycle, tableNames, data } = props
+  const { assessment, countryISOs, cycle, data, tableNames } = props
   const [countryIso] = countryISOs
 
   const { name: assessmentName } = assessment.props
@@ -33,7 +33,7 @@ export const getTableDataLastApproved = async (
   props: PropsGetLastApproved,
   client: BaseProtocol = DB
 ): Promise<RecordAssessmentData> => {
-  const { assessment, cycle, countryISOs } = props
+  const { assessment, countryISOs, cycle } = props
   const [countryIso] = countryISOs
 
   const info = await getInfo({ assessment, cycle, countryIso })

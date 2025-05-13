@@ -19,7 +19,7 @@ export const create = async (
   },
   client: BaseProtocol = DB
 ): Promise<MessageTopic> => {
-  const { countryIso, assessment, cycle, key, type, section } = props
+  const { assessment, countryIso, cycle, key, section, type } = props
 
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
 

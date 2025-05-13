@@ -21,7 +21,7 @@ type Props = CycleDataParams & {
 export const copyPreviousDatasources = createAsyncThunk<void, Props>(
   'data/descriptions/dataSources/copy',
   async (props, { dispatch }) => {
-    const { assessmentName, cycleName, countryIso, sectionName, previousSectionName, currentValue } = props
+    const { assessmentName, countryIso, currentValue, cycleName, previousSectionName, sectionName } = props
     if (!previousSectionName) return
 
     const name = CommentableDescriptionName.dataSources

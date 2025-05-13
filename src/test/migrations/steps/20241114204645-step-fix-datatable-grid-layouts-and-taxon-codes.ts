@@ -66,7 +66,7 @@ const _addGridTemplateColumns = async (props: AddGridTemplateColumnsProps, clien
 }
 
 const _fixColumnNames = async (props: UpdateColumnNamesProps, client: BaseProtocol) => {
-  const { schemaAssessment, cycleUuid, tableName, columnNames } = props
+  const { columnNames, cycleUuid, schemaAssessment, tableName } = props
 
   return client.query(
     `update ${schemaAssessment}.table

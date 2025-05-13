@@ -29,7 +29,7 @@ export const useOnChangeNationalClass = (props: Props) => {
       const originalDataPointUpdate = ODPs.updateNationalClass(updateProps)
       updateNationalClasses(originalDataPointUpdate)
     },
-    [originalDataPoint, index, updateNationalClasses]
+    [index, originalDataPoint, updateNationalClasses]
   )
 
   const onChangeDefinition = useCallback(
@@ -46,7 +46,7 @@ export const useOnChangeNationalClass = (props: Props) => {
       const originalDataPointUpdate = ODPs.updateNationalClass(updateProps)
       updateNationalClasses(originalDataPointUpdate)
     },
-    [originalDataPoint, index, updateNationalClasses]
+    [index, originalDataPoint, updateNationalClasses]
   )
 
   const _onPaste = useOnPaste({

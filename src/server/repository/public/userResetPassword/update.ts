@@ -11,7 +11,7 @@ export const update = async (
   },
   client: BaseProtocol = DB
 ): Promise<UserResetPassword> => {
-  const { uuid, active = false } = props
+  const { active = false, uuid } = props
 
   return client.oneOrNone<UserResetPassword>(
     `

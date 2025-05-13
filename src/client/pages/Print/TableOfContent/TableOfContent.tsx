@@ -13,7 +13,7 @@ import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 const TableOfContent: React.FC = () => {
   const { t } = useTranslation()
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const cycle = useCycle()
   const country = useCountry(countryIso)
   const sections = useSections()

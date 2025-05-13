@@ -15,7 +15,7 @@ type Props = {
 }
 
 export const updateUserRoles = async (props: Props, client: BaseProtocol = DB): Promise<User> => {
-  const { cycleUuid, roles, userUuid, user } = props
+  const { cycleUuid, roles, user, userUuid } = props
 
   return client.tx(async (t) => {
     await UserRoleRepository.update({ cycleUuid, roles, userUuid }, t)

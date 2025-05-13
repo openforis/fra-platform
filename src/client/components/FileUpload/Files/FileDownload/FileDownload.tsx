@@ -12,8 +12,8 @@ type Props = {
 }
 
 const FileDownload: React.FC<Props> = (props: Props) => {
-  const { fileSummary, acceptedFiles } = props
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
+  const { acceptedFiles, fileSummary } = props
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const file = acceptedFiles.find((file) => file.name === fileSummary.name)
   const queryParams = new URLSearchParams({ assessmentName, cycleName, countryIso })
 

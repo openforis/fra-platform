@@ -33,7 +33,7 @@ type Props = {
 }
 
 const Table: React.FC<Props> = (props) => {
-  const { assessmentName, sectionName, sectionAnchor = '', table: _table, data, disabled } = props
+  const { assessmentName, data, disabled, sectionAnchor = '', sectionName, table: _table } = props
 
   const isDataLocked = useIsDataLocked()
   const canEdit = useCanEdit(sectionName)
@@ -48,7 +48,7 @@ const Table: React.FC<Props> = (props) => {
   useCellBorderCorrection({ disabled, gridRef, rowsData, rowsHeader })
 
   const withActions = withReview && canViewReview
-  const { secondary, name } = table.props
+  const { name, secondary } = table.props
   const canClearData = !print && !isDataLocked && !table.props.readonly
 
   return (

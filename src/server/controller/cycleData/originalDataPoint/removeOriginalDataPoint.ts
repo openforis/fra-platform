@@ -25,7 +25,7 @@ type Props = {
 }
 
 export const removeOriginalDataPoint = async (props: Props, client: BaseProtocol = DB): Promise<OriginalDataPoint> => {
-  const { assessment, cycle, originalDataPoint, user, country } = props
+  const { assessment, country, cycle, originalDataPoint, user } = props
   const assessmentName = assessment.props.name
   const cycleName = cycle.name
   const { countryIso } = originalDataPoint

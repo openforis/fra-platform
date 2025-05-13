@@ -8,7 +8,7 @@ import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { DashboardAreaType } from '../state'
 
 export const useDashboardItems = (): Array<DashboardItem> => {
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams()
   const key = Areas.isISOCountry(countryIso) ? DashboardAreaType.Country : DashboardAreaType.Region
   return useAppSelector((state) => MetadataSelectors.getDashboard(state, assessmentName, cycleName, key))
 }

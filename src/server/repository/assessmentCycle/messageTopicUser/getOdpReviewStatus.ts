@@ -13,7 +13,7 @@ export const getOdpReviewStatus = async (
   props: { countryIso: CountryIso; assessment: Assessment; cycle: Cycle; odpId?: string; user: User },
   client: BaseProtocol = DB
 ): Promise<Array<ReviewStatus>> => {
-  const { countryIso, assessment, cycle, odpId, user } = props
+  const { assessment, countryIso, cycle, odpId, user } = props
 
   const cycleSchema = Schemas.getNameCycle(assessment, cycle)
 

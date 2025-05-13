@@ -29,7 +29,7 @@ const getCSVColName = (variableName: string, colName: string): string => {
 }
 
 export const getNWFP = async (props: Props) => {
-  const { assessment, cycle, countries } = props
+  const { assessment, countries, cycle } = props
 
   const tableNames = ['nonwoodforestproductsremovals', 'nonwoodforestproductsremovalscurrency']
 

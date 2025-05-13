@@ -17,7 +17,7 @@ type Props = {
 }
 
 export const getCount = async (props: Props): Promise<TablePaginatedCount> => {
-  const { assessment, cycle, countryIso, sectionName, target } = props
+  const { assessment, countryIso, cycle, sectionName, target } = props
 
   const message = messages[target]
 

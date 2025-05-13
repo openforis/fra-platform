@@ -15,7 +15,7 @@ type Props = {
 }
 
 export const getMany = (props: Props, client: BaseProtocol = DB): Promise<Array<NodeValuesEstimation>> => {
-  const { assessment, cycle, countryIso, tableUuid } = props
+  const { assessment, countryIso, cycle, tableUuid } = props
 
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
 

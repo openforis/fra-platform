@@ -10,7 +10,7 @@ import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { useData } from 'client/components/Dashboard/hooks/useData'
 
 export const useHasData = (table: Table): boolean => {
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const data = useData(table)
 
   return useMemo(() => {
@@ -32,5 +32,5 @@ export const useHasData = (table: Table): boolean => {
       tableName: table.props.name,
       data,
     })
-  }, [data, assessmentName, cycleName, countryIso, table.props.name])
+  }, [assessmentName, countryIso, cycleName, data, table.props.name])
 }

@@ -14,7 +14,7 @@ type Props = {
 
 export const update = async (props: Props, client: BaseProtocol = DB): Promise<Link> => {
   const { assessment, cycle, link } = props
-  const { uuid, props: _props } = link
+  const { props: _props, uuid } = link
 
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
 

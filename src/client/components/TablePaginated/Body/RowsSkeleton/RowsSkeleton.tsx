@@ -11,7 +11,7 @@ type Props = {
 
 const RowsSkeleton: React.FC<Props> = (props) => {
   const { columns, limit, skeleton } = props
-  const { baseColor, highlightColor, Component } = skeleton
+  const { Component, baseColor, highlightColor } = skeleton
 
   return (
     <SkeletonTheme baseColor={baseColor} highlightColor={highlightColor} inline>

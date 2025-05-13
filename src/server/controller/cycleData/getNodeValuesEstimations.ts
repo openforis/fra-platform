@@ -16,7 +16,7 @@ export const getNodeValuesEstimations = async (
   },
   client: BaseProtocol = DB
 ): Promise<Record<string, NodeValuesEstimation>> => {
-  const { assessment, cycle, countryIso, tableName } = props
+  const { assessment, countryIso, cycle, tableName } = props
 
   const table = await TableRepository.getOne({ assessment, cycle, tableName })
 

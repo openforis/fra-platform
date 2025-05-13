@@ -9,7 +9,7 @@ import TextArea from 'client/components/Inputs/TextArea'
 import { PropsCell } from '../props'
 
 const Text: React.FC<PropsCell> = (props) => {
-  const { onChange, onPaste, col, nodeValue, disabled } = props
+  const { col, disabled, nodeValue, onChange, onPaste } = props
   const value = nodeValue?.raw || ''
   const { t } = useTranslation()
 

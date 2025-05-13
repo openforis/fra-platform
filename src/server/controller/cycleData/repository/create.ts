@@ -21,7 +21,7 @@ type Props = {
 }
 
 export const create = async (props: Props): Promise<RepositoryItem> => {
-  const { assessment, cycle, countryIso, user } = props
+  const { assessment, countryIso, cycle, user } = props
 
   return DB.tx(async (t: BaseProtocol) => {
     const target = await RepositoryRepository.create(props, t)

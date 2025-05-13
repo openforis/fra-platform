@@ -13,7 +13,7 @@ type Props = {
   value: string
 }
 const EditorWYSIWYGLinks: React.FC<Props> = (props: Props) => {
-  const { onChange, value, disabled, repository } = props
+  const { disabled, onChange, repository, value } = props
   const { print } = useIsPrintRoute()
 
   if (print) {

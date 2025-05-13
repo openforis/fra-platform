@@ -32,7 +32,7 @@ export const updateOriginalDataPointYear = async (
   props: Props,
   client: BaseProtocol = DB
 ): Promise<OriginalDataPoint> => {
-  const { assessment, cycle, country, user, year } = props
+  const { assessment, country, cycle, user, year } = props
   const { countryIso } = country
 
   const originalDataPoint = await OriginalDataPointRepository.getOne({ assessment, cycle, countryIso, year })

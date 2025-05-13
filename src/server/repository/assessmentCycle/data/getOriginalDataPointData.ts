@@ -15,7 +15,7 @@ type Props = {
 }
 
 export const getOriginalDataPointData = (props: Props, client: BaseProtocol = DB): Promise<RecordCountryData> => {
-  const { assessment, cycle, countryISOs } = props
+  const { assessment, countryISOs, cycle } = props
 
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
   const selectFrom = `${schemaCycle}.original_data_point_data`

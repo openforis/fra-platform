@@ -15,7 +15,7 @@ type Props = {
 
 // Only for regions
 export const getFaoEstimateData = async (props: Props, client: BaseProtocol = DB): Promise<RecordCountryData> => {
-  const { assessment, countryISOs, regionCode, cycle, tables } = props
+  const { assessment, countryISOs, cycle, regionCode, tables } = props
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
 
   return client.one<RecordCountryData>(

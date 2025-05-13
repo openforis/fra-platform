@@ -46,7 +46,7 @@ const _formatSelectValue = (nodeValue: NodeValue, col: Col, cycle: Cycle, t: TFu
 }
 
 const _formatValue = (props: FormatValueProps): string => {
-  const { nodeValue, isNumeric, row, col, cycle, t } = props
+  const { col, cycle, isNumeric, nodeValue, row, t } = props
   if (Objects.isEmpty(nodeValue?.raw)) return ''
   if (isNumeric) {
     const bigNumber = Numbers.toBigNumber(nodeValue.raw)
@@ -66,7 +66,7 @@ interface Props {
 }
 
 export const useChanges = (props: Props): Returned => {
-  const { nodeValueA, nodeValueB, row, col } = props
+  const { col, nodeValueA, nodeValueB, row } = props
   const { t } = useTranslation()
   const cycle = useCycle()
 
@@ -77,5 +77,5 @@ export const useChanges = (props: Props): Returned => {
     const textB = _formatValue({ nodeValue: nodeValueB, isNumeric, row, col, cycle, t })
 
     return Diff.diffLines(textA, textB, { ignoreCase: false })
-  }, [nodeValueA, nodeValueB, isNumeric, row, t, cycle, col])
+  }, [col, cycle, isNumeric, nodeValueA, nodeValueB, row, t])
 }

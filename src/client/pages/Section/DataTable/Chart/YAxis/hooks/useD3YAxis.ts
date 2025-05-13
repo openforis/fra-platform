@@ -12,7 +12,7 @@ type Props = Pick<ChartProps, 'width'> & {
 const replaceCommasWithSpaces = (v: number) => d3.format(',')(v).replace(/,/g, ' ')
 
 export const useD3YAxis = (props: Props): D3YAxis => {
-  const { axisRef, yScale, width } = props
+  const { axisRef, width, yScale } = props
 
   const [d3YAxis, setD3YAxis] = useState<D3YAxis>()
 

@@ -42,7 +42,7 @@ const CollaboratorPermissions = (props: Props) => {
       <div className="edit-user__form-label">{t(`userManagement.permissions`)}</div>
 
       <div className="edit-user__form-field">
-        <CollaboratorPermissionsEditor permissions={permissions} onPermissionsChange={handlePermissionsChange} />
+        <CollaboratorPermissionsEditor onPermissionsChange={handlePermissionsChange} permissions={permissions} />
       </div>
     </div>
   )

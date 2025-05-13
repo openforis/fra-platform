@@ -11,7 +11,7 @@ export const createSubSection = async (
   props: { user: User; assessment: Assessment; section: Pick<SubSection, 'props'>; parentSectionId: number },
   client: BaseProtocol = DB
 ): Promise<SubSection> => {
-  const { user, assessment, section, parentSectionId } = props
+  const { assessment, parentSectionId, section, user } = props
 
   return client.tx(async (t) => {
     const createdSection = await SectionRepository.createSubSection({ section, assessment, parentSectionId }, t)

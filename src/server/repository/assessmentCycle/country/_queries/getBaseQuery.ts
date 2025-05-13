@@ -12,7 +12,7 @@ type Props = {
 }
 
 export const getBaseQuery = (props: Props): string => {
-  const { assessment, cycle, countryIso, countryIsos } = props
+  const { assessment, countryIso, countryIsos, cycle } = props
   const cycleSchema = Schemas.getNameCycle(assessment, cycle)
 
   return `

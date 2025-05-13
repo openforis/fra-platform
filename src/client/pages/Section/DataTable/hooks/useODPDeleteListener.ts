@@ -24,7 +24,7 @@ export const useODPDeleteListener = () => {
     const nodeUpdateEvent = Sockets.getODPDeleteEvent({ assessmentName, cycleName, countryIso })
 
     const listener = (args: [{ year: string; countryIso: CountryIso }]): void => {
-      const [{ year, countryIso }] = args
+      const [{ countryIso, year }] = args
       dispatch(DataActions.deleteOriginalDataPoint({ year, countryIso, assessmentName, cycleName }))
     }
 

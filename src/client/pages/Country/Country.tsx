@@ -23,7 +23,7 @@ import { useReviewSummaryListener } from './hooks/useReviewSummaryListener'
 import { useUserRedirect } from './hooks/useUserRedirect'
 
 const Country: React.FC = () => {
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams()
 
   const assessment = useAssessment()
   const cycle = useCycle()

@@ -12,7 +12,7 @@ type Props = {
 }
 
 export const getODPYears = async (props: Props): Promise<Array<string>> => {
-  const { assessment, cycle, countryIso } = props
+  const { assessment, countryIso, cycle } = props
 
   const tables = { [TableNames.originalDataPointValue]: {} }
   const countryISOs = [countryIso]

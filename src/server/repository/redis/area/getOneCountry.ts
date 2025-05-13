@@ -24,7 +24,7 @@ const _validateCountryIso = (countryIso: CountryIso) => {
 }
 
 export const getOneCountry = async (props: Props, client: BaseProtocol = DB): Promise<Country> => {
-  const { assessment, cycle, countryIso, force = false } = props
+  const { assessment, countryIso, cycle, force = false } = props
 
   _validateCountryIso(countryIso)
 

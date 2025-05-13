@@ -14,7 +14,7 @@ type Payload = {
 }
 
 export const setNodeValueValidations = (state: Draft<DataState>, action: PayloadAction<Payload>) => {
-  const { assessmentName, cycleName, countryIso, tableValidations } = action.payload
+  const { assessmentName, countryIso, cycleName, tableValidations } = action.payload
 
   if (!state.nodeValueValidations[assessmentName]) state.nodeValueValidations[assessmentName] = {}
   // @ts-ignore

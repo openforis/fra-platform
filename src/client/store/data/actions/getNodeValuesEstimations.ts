@@ -8,7 +8,7 @@ import { NodeValuesEstimation } from 'meta/assessment/nodeValuesEstimation'
 export const getNodeValuesEstimations = createAsyncThunk<
   Record<string, NodeValuesEstimation>,
   CycleDataParams & { tableName: string }
->('section/get/estimations', async ({ assessmentName, countryIso, cycleName, tableName, sectionName }) => {
+>('section/get/estimations', async ({ assessmentName, countryIso, cycleName, sectionName, tableName }) => {
   const { data } = await axios.get(ApiEndPoint.CycleData.Table.nodeValuesEstimations(), {
     params: {
       assessmentName,

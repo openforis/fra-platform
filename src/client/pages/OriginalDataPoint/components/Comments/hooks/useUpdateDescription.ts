@@ -7,7 +7,7 @@ import { OriginalDataPointActions, useOriginalDataPoint } from 'client/store/ui/
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 export const useUpdateDescription = () => {
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams()
   const originalDataPoint = useOriginalDataPoint()
 
   const dispatch = useAppDispatch()
@@ -25,6 +25,6 @@ export const useUpdateDescription = () => {
         })
       )
     },
-    [dispatch, countryIso, cycleName, assessmentName, originalDataPoint]
+    [assessmentName, countryIso, cycleName, dispatch, originalDataPoint]
   )
 }

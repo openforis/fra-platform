@@ -11,7 +11,7 @@ type Props = CycleParams & { year: number; targetYear: number }
 export const copyNationalClasses = createAsyncThunk<OriginalDataPoint, Props>(
   'originalDataPoint/nationalClasses/copy',
   async (props: Props) => {
-    const { countryIso, assessmentName, cycleName, year, targetYear } = props
+    const { assessmentName, countryIso, cycleName, targetYear, year } = props
 
     const params = { countryIso, assessmentName, cycleName, sectionName: 'extentOfForest', year }
     const config = { params }

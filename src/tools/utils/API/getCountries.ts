@@ -9,7 +9,7 @@ export const getCountries = async (props: {
   assessmentName: string
   cycleName: string
 }): Promise<Returned> => {
-  const { source, assessmentName, cycleName } = props
+  const { assessmentName, cycleName, source } = props
   const urlParams = new URLSearchParams({ assessmentName, cycleName }).toString()
   const url = `${source}/api/area/areas?${urlParams}`
   const {

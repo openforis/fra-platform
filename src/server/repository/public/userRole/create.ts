@@ -22,13 +22,13 @@ type Props = {
 export const create = async (props: Props, client: BaseProtocol = DB): Promise<UserRole<RoleName>> => {
   const {
     assessmentUuid,
-    cycleUuid,
     countryIso,
-    userUuid,
-    role,
-    props: roleProps = {},
-    permissions = {},
+    cycleUuid,
     invitationUuid,
+    permissions = {},
+    props: roleProps = {},
+    role,
+    userUuid,
   } = props
 
   return client.one<UserRole<RoleName>>(

@@ -6,7 +6,7 @@ import { MetadataState } from 'client/store/metadata/state'
 
 export const setTableSectionsReducer = (builder: ActionReducerMapBuilder<MetadataState>) => {
   builder.addCase(setTableSections, (state, { payload }) => {
-    const { tableSections, assessmentName, cycleName } = payload
+    const { assessmentName, cycleName, tableSections } = payload
 
     Objects.setInPath({
       obj: state,

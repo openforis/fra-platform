@@ -12,20 +12,20 @@ type Props = {
 
 const _getLogKey = (props: Props): string => {
   const { context, jobId } = props
-  const { assessment, cycle, countryIso } = context
+  const { assessment, countryIso, cycle } = context
   return `[updateDependencies-queue] [${[assessment.props.name, cycle.name, countryIso].join('-')}] [job-${jobId}]`
 }
 
 export const updateCalculationDependencies = (props: Props): ContextResult => {
   const { context } = props
-  const { assessments, assessment, cycle, countryIso, data, rows } = context
+  const { assessment, assessments, countryIso, cycle, data, rows } = context
 
   const logKey = _getLogKey(props)
   Logger.debug(`${logKey} queue length ${context.queue.length}`)
 
   while (context.queue.length !== 0) {
     const variableCache = context.queue.shift()
-    const { tableName, variableName, colName } = variableCache
+    const { colName, tableName, variableName } = variableCache
 
     Logger.debug(`${logKey} processing queue item ${JSON.stringify(variableCache)}`)
 

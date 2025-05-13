@@ -6,7 +6,7 @@ import { getOne } from './getOne'
 
 export const update = async (props: { user: User }, client: BaseProtocol = DB): Promise<User> => {
   const {
-    user: { id, email, props: userProperties, status, profilePictureFileUuid },
+    user: { email, id, profilePictureFileUuid, props: userProperties, status },
   } = props
 
   await client.one<User>(

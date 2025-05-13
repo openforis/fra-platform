@@ -7,7 +7,7 @@ import { Member } from 'meta/expressions'
 
 const getCycleName = (cycleName: string, context: BaseContext) => {
   if (cycleName === Member.$prevCycle) {
-    const { assessments, assessmentName, cycleName } = context
+    const { assessmentName, assessments, cycleName } = context
     const assessment = assessments[assessmentName]
     const cycle = assessment.cycles.find((c) => c.name === cycleName)
     return Cycles.getPreviousCycle({ assessment, cycle }).name

@@ -12,7 +12,7 @@ type Returned = () => void
 export const useToggleLayer = (props: LayerMetaProps): Returned => {
   const { layerMeta, section } = props
 
-  const { key: layerKey, fetchOnSelect } = layerMeta
+  const { fetchOnSelect, key: layerKey } = layerMeta
   const { key: sectionKey } = section
 
   const dispatch = useAppDispatch()

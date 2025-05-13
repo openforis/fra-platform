@@ -30,8 +30,8 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
   const { assessmentName, cycleName } = useCycleRouteParams()
 
   const {
-    t,
     i18n: { language },
+    t,
   } = useTranslation()
   const { print } = useIsPrintRoute()
 

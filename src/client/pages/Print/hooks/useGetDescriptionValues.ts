@@ -8,7 +8,7 @@ import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 export const useGetDescriptionValues = (): void => {
   const dispatch = useAppDispatch()
-  const { assessmentName, cycleName, countryIso: _countryIso } = useCountryRouteParams()
+  const { assessmentName, countryIso: _countryIso, cycleName } = useCountryRouteParams()
   const countryIso = _countryIso as CountryIso
 
   useEffect(() => {

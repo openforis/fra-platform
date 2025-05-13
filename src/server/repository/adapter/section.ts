@@ -38,7 +38,7 @@ export const SubSectionAdapter = (subSection: SubSectionDB): SubSection => {
 
 export const SectionAdapter = (section: SectionDB): Section => {
   // eslint-disable-next-line camelcase
-  const { sub_sections, props, ...restSection } = section
+  const { props, sub_sections, ...restSection } = section
 
   return {
     ...restSection,

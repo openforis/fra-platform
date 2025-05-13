@@ -47,5 +47,5 @@ export const useSections = (): Array<CountryHomeSection> => {
     }
 
     return sections
-  }, [cycle, countryIso, user, canSeeUserActivities])
+  }, [canSeeUserActivities, countryIso, cycle, user])
 }

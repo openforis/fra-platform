@@ -2,7 +2,7 @@ import { getTableData } from '../getTableData'
 import { Props } from './props'
 
 export const getData = async (props: Props & { tableNames: Array<string> }) => {
-  const { assessment, cycle, countries, tableNames } = props
+  const { assessment, countries, cycle, tableNames } = props
   return getTableData({
     assessment,
     cycle,

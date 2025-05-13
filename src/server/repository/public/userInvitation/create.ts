@@ -19,7 +19,7 @@ type Props = {
 }
 
 export const create = async (props: Props, client: BaseProtocol = DB) => {
-  const { assessment, cycle, countryIso, invitedBy, role, user } = props
+  const { assessment, countryIso, cycle, invitedBy, role, user } = props
 
   return client.one<UserInvitation>(
     `

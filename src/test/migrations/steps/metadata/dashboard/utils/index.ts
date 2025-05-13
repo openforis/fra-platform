@@ -81,7 +81,7 @@ const getHeaderRow = (cycle: Cycle, cols: Array<string>, tableId: number): Row =
 
 type GetRowsProps = { cycle: Cycle; cols: Array<string>; tableId: number; rowMetadata: RowsMetadata }
 export const getRows = (props: GetRowsProps): Array<Row> => {
-  const { cycle, cols, tableId, rowMetadata } = props
+  const { cols, cycle, rowMetadata, tableId } = props
   const headerRow: Row = getHeaderRow(cycle, cols, tableId)
 
   const _getRow = (row: RowMetadata): Row => {
@@ -137,7 +137,7 @@ type GetTableProps = {
   tableName: string
 }
 export const getTable = (props: GetTableProps): Table => {
-  const { cycle, cols, tableId, rowMetadata, tableName } = props
+  const { cols, cycle, rowMetadata, tableId, tableName } = props
   const table: Table = {
     id: tableId,
     tableSectionId: -1,

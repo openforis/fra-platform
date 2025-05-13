@@ -23,7 +23,7 @@ const ExcelCalculatorDownload: React.FC = () => {
   const userInfo = useUser()
   const countryDomain = country?.props?.domain
 
-  const { domains, defaultSelectedDomain } = useSortedDomains()
+  const { defaultSelectedDomain, domains } = useSortedDomains()
 
   const [selectedDomain, setSelectedDomain] = useState<string>(defaultSelectedDomain)
 
@@ -44,9 +44,9 @@ const ExcelCalculatorDownload: React.FC = () => {
 
   return (
     <div className="no-print">
-      <select className="select-s" value={selectedDomain} onChange={(e) => setSelectedDomain(e.target.value)}>
+      <select className="select-s" onChange={(e) => setSelectedDomain(e.target.value)} value={selectedDomain}>
         {domains.map((domain) => (
-          <option value={domain} key={domain}>
+          <option key={domain} value={domain}>
             {t(`climaticDomain.${domain}`)}
             {domain === countryDomain && ` (${t('climaticDomain.selectDefault')})`}
           </option>

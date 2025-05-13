@@ -18,7 +18,7 @@ const ButtonEdit: React.FC<Props> = (props) => {
   if ('url' in props) {
     const { url } = props
     return (
-      <Link to={url} type="button" className="btn-s btn-link btn-edit">
+      <Link className="btn-s btn-link btn-edit" to={url} type="button">
         <Icon name="pencil" />
       </Link>
     )

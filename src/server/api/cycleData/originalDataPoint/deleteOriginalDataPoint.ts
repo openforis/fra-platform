@@ -8,7 +8,7 @@ import Requests from 'server/utils/requests'
 
 export const deleteOriginalDataPoint = async (req: CycleRequest<{ year: string }>, res: Response) => {
   try {
-    const { assessmentName, cycleName, year, countryIso } = req.query
+    const { assessmentName, countryIso, cycleName, year } = req.query
     const { country } = req.context
 
     const metaCache = true

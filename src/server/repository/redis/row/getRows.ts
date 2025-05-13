@@ -14,7 +14,7 @@ type Props = {
 }
 
 const _cacheRows = async (props: Props, client: BaseProtocol = DB): Promise<void> => {
-  const { assessment, rowKeys, force } = props
+  const { assessment, force, rowKeys } = props
 
   const redis = RedisData.getInstance()
   const key = getKeyRow(props)
@@ -41,7 +41,7 @@ const _cacheRows = async (props: Props, client: BaseProtocol = DB): Promise<void
 }
 
 export const getRows = async (props: Props, client: BaseProtocol = DB): Promise<RecordRowCache> => {
-  const { assessment, rowKeys, force } = props
+  const { assessment, force, rowKeys } = props
 
   await _cacheRows({ assessment, rowKeys, force }, client)
 

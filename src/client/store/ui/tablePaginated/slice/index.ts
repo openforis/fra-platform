@@ -18,7 +18,7 @@ export const TablePaginatedSlice = createSlice({
     ) => {
       const { filters, path } = action.payload
       filters.forEach((filter) => {
-        const { fieldName, defaultValue } = filter
+        const { defaultValue, fieldName } = filter
         if (defaultValue === undefined) return
         Objects.setInPath({ obj: state, path: [path, 'filters', fieldName], value: defaultValue })
       })
@@ -39,7 +39,7 @@ export const TablePaginatedSlice = createSlice({
       Objects.setInPath({ obj: state, path: [path, 'page'], value: 0 })
     },
     setPage: (state, action) => {
-      const { path, page } = action.payload
+      const { page, path } = action.payload
       Objects.setInPath({ obj: state, path: [path, 'page'], value: page })
     },
     resetData: (state, action: PayloadAction<{ path: string }>) => {

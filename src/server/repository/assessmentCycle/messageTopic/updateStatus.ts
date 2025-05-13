@@ -17,7 +17,7 @@ type Props = {
 }
 
 export const updateStatus = async (props: Props, client: BaseProtocol = DB): Promise<MessageTopic> => {
-  const { assessment, cycle, countryIso, key, status, includeMessages } = props
+  const { assessment, countryIso, cycle, includeMessages, key, status } = props
 
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
 

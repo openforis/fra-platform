@@ -16,7 +16,7 @@ const GeoToggle: React.FC = () => {
   const navigate = useNavigate()
   const { pathname } = useLocation()
   const previousPathname = usePrevious(pathname, pathname)
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams()
   const geoRoute = useIsGeoRoute()
   const classNameLinkGeo = useButtonClassName({ iconName, inverse, size, type: ButtonType.anonymous })
 

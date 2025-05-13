@@ -30,7 +30,7 @@ const _scheduleExternalDependantsUpdate = async (props: {
   nodeUpdates: NodeUpdates
   user: User
 }): Promise<void> => {
-  const { logKey, country, nodeUpdates, user } = props
+  const { country, logKey, nodeUpdates, user } = props
 
   const { assessmentName, cycleName } = nodeUpdates
 
@@ -50,9 +50,9 @@ const newInstance = (props: { key: string }) => {
   const worker = new Worker<UpdateDependenciesProps, UpdateDependenciesResult>(key, processor, workerOptions)
 
   worker.on('completed', async (job, result) => {
-    const { user, country } = job.data
+    const { country, user } = job.data
     const { externalDependants, nodeUpdates } = result
-    const { assessmentName, cycleName, countryIso } = nodeUpdates
+    const { assessmentName, countryIso, cycleName } = nodeUpdates
 
     const nodeUpdateEvent = Sockets.getNodeValuesUpdateEvent({ assessmentName, cycleName, countryIso })
     SocketServer.emit(nodeUpdateEvent, { nodeUpdates })

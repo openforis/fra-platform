@@ -21,7 +21,7 @@ type Props = {
 }
 
 const Title: React.FC<Props> = (props) => {
-  const { baseUnit = Unit.haThousand, resultsLoading, onUnitChange, variable } = props
+  const { baseUnit = Unit.haThousand, onUnitChange, resultsLoading, variable } = props
 
   const { t } = useTranslation()
   const { sectionName } = useParams<{ sectionName: string }>()

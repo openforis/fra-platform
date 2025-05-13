@@ -47,6 +47,7 @@ const CountrySelect: React.FC = () => {
     }
   }, [countries, getDeskStudyLabel, t])
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const filterCountriesThrottle = useCallback(Functions.throttle(filterCountries, 250, { trailing: true }), [countries])
 
   const updateSelection = (countryISOs: Array<string>): void => {
@@ -65,14 +66,14 @@ const CountrySelect: React.FC = () => {
         <h4>{t('common.country')}</h4>
         <input
           ref={inputRef}
-          type="text"
           className="text-input"
-          placeholder={t('emoji.picker.search')}
           onChange={filterCountriesThrottle}
+          placeholder={t('emoji.picker.search')}
+          type="text"
         />
         <ButtonCheckBox
-          className="btn-all"
           checked={selection.countryISOs.length > 0 && selection.countryISOs.length === countries.length}
+          className="btn-all"
           label={t(selection.countryISOs.length > 0 ? 'common.unselectAll' : 'common.selectAll')}
           onClick={() => {
             const countryISOs: Array<string> =
@@ -85,12 +86,12 @@ const CountrySelect: React.FC = () => {
       <MediaQuery maxWidth={Breakpoints.laptop - 1}>
         <select
           multiple
-          size={5}
-          value={selection.countryISOs}
           onChange={(event) => {
             const countryISOsUpdate = Array.from(event.target.selectedOptions, (option) => option.value)
             updateSelection(countryISOsUpdate)
           }}
+          size={5}
+          value={selection.countryISOs}
         >
           {countriesFiltered.map((country: Country) => {
             const { countryIso } = country
@@ -116,7 +117,6 @@ const CountrySelect: React.FC = () => {
                   key={countryIso}
                   checked={selected}
                   label={t(Areas.getTranslationKey(country.countryIso))}
-                  suffix={getDeskStudyLabel(country)}
                   onClick={() => {
                     const countryISOs = [...selection.countryISOs]
                     if (selected) countryISOs.splice(selection.countryISOs.indexOf(countryIso), 1)
@@ -124,6 +124,7 @@ const CountrySelect: React.FC = () => {
 
                     updateSelection(countryISOs)
                   }}
+                  suffix={getDeskStudyLabel(country)}
                 />
               )
             })}

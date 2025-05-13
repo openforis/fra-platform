@@ -9,7 +9,7 @@ type Query = { query: string; limit: string }
 
 export const searchTaxa = async (req: CycleRequest<Query>, res: Response) => {
   try {
-    const { query, limit = '20' } = req.query
+    const { limit = '20', query } = req.query
     const result = await ExtDataController.searchTaxa({
       limit,
       query,

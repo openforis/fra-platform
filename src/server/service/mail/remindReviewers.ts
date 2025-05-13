@@ -47,7 +47,7 @@ const _getCountryLink = (assessment: Assessment, cycle: Cycle, country: Country,
 }
 
 const createMail = async (recipient: RecipientAssessmentCycleCountries) => {
-  const { user, assessments } = recipient
+  const { assessments, user } = recipient
   const { t } = await createI18nPromise(Lang.en)
   const to = recipient.user.email
   const htmlStyle = `style="white-space: pre-line; max-width: 100%"`
@@ -60,7 +60,7 @@ const createMail = async (recipient: RecipientAssessmentCycleCountries) => {
   let messageBodyText = ''
 
   assessments.forEach((entry) => {
-    const { assessment, cycle, countries } = entry
+    const { assessment, countries, cycle } = entry
 
     const { name: assessmentName } = assessment.props
     const { name: cycleName } = cycle

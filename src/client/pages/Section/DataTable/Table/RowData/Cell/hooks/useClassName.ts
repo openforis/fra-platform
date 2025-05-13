@@ -18,7 +18,7 @@ type Props = {
 }
 
 export const useClassName = (props: Props): string => {
-  const { cycle, col, row, validation } = props
+  const { col, cycle, row, validation } = props
   const historyLastApprovedIsActive = useHistoryLastApprovedIsActive()
 
   return useMemo<string>(() => {
@@ -43,5 +43,5 @@ export const useClassName = (props: Props): string => {
         readonly: isReadOnly,
       }
     )
-  }, [col, cycle, row, validation, historyLastApprovedIsActive])
+  }, [col, cycle, historyLastApprovedIsActive, row, validation])
 }

@@ -7,7 +7,7 @@ import { Requests } from 'server/utils'
 
 export const getBiomassStockFile = async (req: BiomassStockFileRequest, res: Response) => {
   try {
-    const { language, assessmentName, cycleName, selectedDomain: domain } = req.params
+    const { assessmentName, cycleName, language, selectedDomain: domain } = req.params
     FileRepository.download(res, fileTypes.biomassStock(assessmentName, cycleName, domain), language)
   } catch (err) {
     Requests.sendErr(res, err)

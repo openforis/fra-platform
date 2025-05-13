@@ -22,7 +22,7 @@ const CountryLink = (props: Props) => {
   const url = Routes.Country.generatePath({ countryIso, cycleName, assessmentName })
 
   return (
-    <Link className="admin-countries__country-link" target="_blank" rel="noreferrer" to={url}>
+    <Link className="admin-countries__country-link" rel="noreferrer" target="_blank" to={url}>
       {t(Areas.getTranslationKey(countryIso))}
       <Icon name="external-link" />
     </Link>

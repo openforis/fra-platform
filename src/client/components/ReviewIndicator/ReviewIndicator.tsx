@@ -19,11 +19,11 @@ type Props = {
 }
 
 const ReviewIndicator = (props: Props) => {
-  const { title, subtitle, topicKey } = props
+  const { subtitle, title, topicKey } = props
 
   const dispatch = useAppDispatch()
-  const { assessmentName, cycleName, countryIso, sectionName } = useSectionRouteParams<CountryIso>()
-  const { messagesCount = 0, status = MessageTopicStatus.opened, hasUnreadMessages = false } = useReviewStatus(topicKey)
+  const { assessmentName, countryIso, cycleName, sectionName } = useSectionRouteParams<CountryIso>()
+  const { hasUnreadMessages = false, messagesCount = 0, status = MessageTopicStatus.opened } = useReviewStatus(topicKey)
 
   const openTopic = useCallback(() => {
     dispatch(

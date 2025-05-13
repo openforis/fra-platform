@@ -10,7 +10,7 @@ import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 export const useGetTableData = () => {
   const dispatch = useAppDispatch()
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const tableSections = useTableSectionsCycle()
 
   const tableNames = useMemo<Array<TableName>>(

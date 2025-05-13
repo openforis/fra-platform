@@ -16,7 +16,7 @@ type Body = {
 
 export const updateContact = async (req: CycleDataRequest<never, Body>, res: Response) => {
   try {
-    const { assessmentName, cycleName, countryIso, sectionName } = req.query
+    const { assessmentName, countryIso, cycleName, sectionName } = req.query
     const { contact, field, raw } = req.body
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })

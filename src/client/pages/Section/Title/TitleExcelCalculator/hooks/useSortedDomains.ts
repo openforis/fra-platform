@@ -17,7 +17,7 @@ type Returned = {
 }
 
 export const useSortedDomains = (): Returned => {
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const country = useCountry(countryIso)
   const data = useRecordAssessmentData()
   const dispatch = useAppDispatch()

@@ -25,7 +25,7 @@ export const useTooltipContent = (props: Props): Returned => {
   const [canDisplayTooltip, setCanDisplayTooltip] = useState(true)
 
   const valueToLabelMap = useMemo<Record<string, string>>(() => {
-    return options.reduce<Record<string, string>>((acc, { value, label }) => {
+    return options.reduce<Record<string, string>>((acc, { label, value }) => {
       return { ...acc, [value]: label }
     }, {})
   }, [options])

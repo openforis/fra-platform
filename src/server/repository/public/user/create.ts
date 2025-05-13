@@ -11,7 +11,7 @@ export const create = async (
   client: BaseProtocol = DB
 ): Promise<User> => {
   const {
-    user: { props: userProperties, email },
+    user: { email, props: userProperties },
   } = props
 
   const { id } = await client.one<User>(

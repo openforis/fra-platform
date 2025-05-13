@@ -13,7 +13,7 @@ type Props = {
 export const useCommentableDescriptionValue = (props: Props): CommentableDescriptionValue => {
   const { name, sectionName, template = { text: '' } } = props
 
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
 
   return useAppSelector(
     (state) => state.data.descriptions[assessmentName]?.[cycleName]?.[countryIso]?.[sectionName]?.[name] ?? template

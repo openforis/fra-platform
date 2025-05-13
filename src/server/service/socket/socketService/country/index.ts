@@ -14,7 +14,7 @@ type props = {
 }
 
 const notifyStatusUpdate = (props: props) => {
-  const { countryIso, assessmentName, cycleName, status, notifyClient = true } = props
+  const { assessmentName, countryIso, cycleName, notifyClient = true, status } = props
 
   if (notifyClient) {
     const eventName = Sockets.getCountryStatusUpdateEvent({ assessmentName, cycleName, countryIso })

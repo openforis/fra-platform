@@ -33,7 +33,7 @@ const Landing: React.FC = () => {
     })
   }
 
-  return <Navigate to={url} replace />
+  return <Navigate replace to={url} />
 }
 
 export default Landing

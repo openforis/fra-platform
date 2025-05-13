@@ -18,5 +18,5 @@ export const useCountries = (): Array<Country> => {
     const countryValues = Object.values(countries)
     const compareFn = (c1: Country, c2: Country) => compareListName(c1.countryIso, c2.countryIso)
     return countryValues.sort(compareFn)
-  }, [countries, compareListName])
+  }, [compareListName, countries])
 }

@@ -20,7 +20,7 @@ const AcceptInvitationButtons: React.FC = () => {
   const navigate = useNavigate()
 
   const { invitationUuid, lang } = useSearchParams<LoginInvitationQueryParams>()
-  const { assessment, invitedUser, userProviders, userInvitation } = useInvitation()
+  const { assessment, invitedUser, userInvitation, userProviders } = useInvitation()
   const { countryIso } = userInvitation
 
   const cycle = assessment?.cycles.find((cycle) => cycle.uuid === userInvitation.cycleUuid)

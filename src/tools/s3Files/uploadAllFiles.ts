@@ -45,7 +45,7 @@ const exec = async (): Promise<void> => {
   const files = await client.query(`select * from public.file`)
 
   await Promises.each(files, async (fileRecord: any) => {
-    const { id, uuid, name, file } = fileRecord
+    const { file, id, name, uuid } = fileRecord
     const fileExtension = path.extname(name).slice(1).toLowerCase()
 
     if (allowedExtensions.includes(fileExtension)) {

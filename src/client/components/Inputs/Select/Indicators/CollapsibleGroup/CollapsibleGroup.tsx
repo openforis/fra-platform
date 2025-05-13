@@ -10,7 +10,7 @@ import { Option } from 'client/components/Inputs/Select/types'
 import { useExpandGroup } from './hooks/useExpandGroup'
 
 export const CollapsibleGroup: React.FC<GroupProps<Option>> = (props: GroupProps<Option>) => {
-  const { children, cx, getClassNames, getStyles, Heading, headingProps, selectProps, theme } = props
+  const { Heading, children, cx, getClassNames, getStyles, headingProps, selectProps, theme } = props
   const { inputValue } = selectProps
 
   const { expanded, toggleExpanded } = useExpandGroup({ inputValue })

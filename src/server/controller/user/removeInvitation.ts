@@ -18,13 +18,13 @@ type Props = {
 }
 
 export const removeInvitation = async (props: Props, client: BaseProtocol = DB): Promise<UserInvitation> => {
-  const { countryIso, assessment, cycle, invitationUuid, user } = props
+  const { assessment, countryIso, cycle, invitationUuid, user } = props
 
   return client.tx(async (t) => {
     const userInvitation = await UserInvitationRepository.remove({ invitationUuid }, t)
 
     const invitedUser = await UserRepository.getOne({ uuid: userInvitation.userUuid })
-    const { userUuid, role } = userInvitation
+    const { role, userUuid } = userInvitation
 
     const target = { userUuid, user: invitedUser.props.name, role }
     const message = ActivityLogMessage.invitationRemove

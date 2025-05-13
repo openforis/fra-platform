@@ -25,7 +25,7 @@ type Props = {
 }
 
 export const getLastAcceptedActivity = (props: Props): string => {
-  const { assessment, cycle, countryISOs, year } = props
+  const { assessment, countryISOs, cycle, year } = props
   const { name: assessmentName } = assessment.props
   const { name: cycleName } = cycle
 

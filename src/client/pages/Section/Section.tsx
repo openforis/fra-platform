@@ -34,7 +34,7 @@ const Section: React.FC<Props> = (props: Props) => {
   const { section: sectionProp = undefined } = props
 
   const { t } = useTranslation()
-  const { assessmentName, cycleName, countryIso } = useSectionRouteParams()
+  const { assessmentName, countryIso, cycleName } = useSectionRouteParams()
   const cycle = useCycle()
   const subSection = useSection(sectionProp)
   const tableSections = useTableSections({ sectionName: subSection?.props.name })
@@ -43,10 +43,10 @@ const Section: React.FC<Props> = (props: Props) => {
   useGetDescriptionValues({ sectionName: subSection?.props.name })
   useGetDescriptionHistoryValues({ sectionName: subSection?.props.name })
   const canEditTableData = useIsEditTableDataEnabled(sectionProp)
-  const { print, onlyTables } = useIsPrintRoute()
+  const { onlyTables, print } = useIsPrintRoute()
   useListenNodeUpdates({ countryIso, assessmentName, cycleName: cycle.name })
 
-  const { showTitle, descriptions, name: sectionName } = subSection?.props ?? {}
+  const { descriptions, name: sectionName, showTitle } = subSection?.props ?? {}
   const contextValue = useMemo<SectionContextValue>(() => ({ sectionName }), [sectionName])
   // Hide the whole section if no tables have data
   const isSectionDataEmpty = useIsSectionDataEmpty(tableSections)

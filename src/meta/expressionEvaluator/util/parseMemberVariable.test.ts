@@ -8,7 +8,7 @@ import { contextMock as context } from '../context.mock'
 import { parseMemberVariable } from './parseMemberVariable'
 
 const getBaseContext = (context: Context): BaseContext => {
-  const { assessments, assessment, cycle } = context
+  const { assessment, assessments, cycle } = context
   const assessmentName = assessment.props.name
   const cycleName = cycle.name
   return { assessmentName, cycleName, assessments }

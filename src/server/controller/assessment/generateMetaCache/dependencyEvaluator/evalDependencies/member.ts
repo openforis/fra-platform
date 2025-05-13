@@ -33,7 +33,7 @@ export class MemberEvaluator extends ExpressionNodeEvaluator<Context, MemberExpr
   }
 
   #variableExists(variable: VariableCache): boolean {
-    const { assessments, assessmentName, cycleName } = this.context
+    const { assessmentName, assessments, cycleName } = this.context
 
     const assessment = assessments[variable.assessmentName ?? assessmentName]
     const cycle = assessment.cycles.find((c) => c.name === (variable.cycleName ?? cycleName))
@@ -43,7 +43,7 @@ export class MemberEvaluator extends ExpressionNodeEvaluator<Context, MemberExpr
   }
 
   #addDependant(variable: VariableCache): void {
-    const { assessments, assessmentName, cycleName, row, type } = this.context
+    const { assessmentName, assessments, cycleName, row, type } = this.context
 
     if (this.#variableExists(variable) && !_excludeDependant(row, variable.tableName, variable.variableName)) {
       const assessment = assessments[variable.assessmentName ?? assessmentName]
@@ -71,7 +71,7 @@ export class MemberEvaluator extends ExpressionNodeEvaluator<Context, MemberExpr
   }
 
   #addDependency(variable: VariableCache): void {
-    const { assessments, assessmentName, cycleName, row, type } = this.context
+    const { assessmentName, assessments, cycleName, row, type } = this.context
     const { tableName } = row
     const { variableName } = row.props
 

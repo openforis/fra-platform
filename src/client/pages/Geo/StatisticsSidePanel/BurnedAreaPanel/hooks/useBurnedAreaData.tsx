@@ -19,7 +19,7 @@ export const useBurnedAreaData = (): Returned => {
   const { t } = useTranslation()
   const geoBurnedAreaMODIS = useGeoBurnedAreaMODIS()
 
-  const { isLoading, error } = useGeoStatistics()
+  const { error, isLoading } = useGeoStatistics()
 
   return useMemo<Returned>(() => {
     if (isLoading) {

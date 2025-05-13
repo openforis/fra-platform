@@ -21,7 +21,7 @@ export const useGetDataSourcesLinked = (props: Props): Returned => {
   const { nationalData, sectionName } = props
 
   const dispatch = useAppDispatch()
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const linkedDataSources = useDataSourcesLinked({ sectionName })
 
   useEffect(() => {

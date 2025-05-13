@@ -8,7 +8,7 @@ import { Requests } from 'server/utils'
 
 export const getReservedYears = async (req: CycleRequest, res: Response) => {
   try {
-    const { countryIso, assessmentName, cycleName } = req.query
+    const { assessmentName, countryIso, cycleName } = req.query
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 

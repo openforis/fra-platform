@@ -1,8 +1,8 @@
 import './PercentInput.scss'
 import React from 'react'
 
-import { Numbers } from 'utils/numbers'
 import * as R from 'ramda'
+import { Numbers } from 'utils/numbers'
 
 import { Sanitizer } from 'client/utils/sanitizer'
 
@@ -16,6 +16,7 @@ type Props = {
 }
 
 export class PercentInput extends React.Component<Props, State> {
+  // eslint-disable-next-line react/static-property-placement
   static defaultProps = {
     precision: 3,
   }
@@ -27,23 +28,27 @@ export class PercentInput extends React.Component<Props, State> {
 
   render() {
     const { disabled, numberValue, onChange, onPaste, precision } = this.props
+    // eslint-disable-next-line react/destructuring-assignment
     const value = this.state.inputValue || numberValue
     return (
-      <div className="percent-input__container validation-error-sensitive-field" ref="wrapper">
+      // eslint-disable-next-line react/no-string-refs
+      <div ref="wrapper" className="percent-input__container validation-error-sensitive-field">
         <div
           className="percent-input__readonly-view"
+          // eslint-disable-next-line react/destructuring-assignment
           style={{ visibility: this.state.hasFocus ? 'hidden' : 'visible' }}
         >
           {Numbers.format(numberValue, precision)}
         </div>
         <input
-          disabled={disabled}
-          type="text"
-          maxLength={6}
-          className="percent-input__input-field no-print"
+          // eslint-disable-next-line react/no-string-refs
           ref="percentInputField"
-          value={value || ''}
-          style={{ opacity: this.state.hasFocus ? '1' : '0' }}
+          className="percent-input__input-field no-print"
+          disabled={disabled}
+          maxLength={6}
+          onBlur={() => {
+            this.setState({ hasFocus: false })
+          }}
           onChange={(e) => {
             if (!Sanitizer.acceptableAsDecimal(e.target.value)) {
               return
@@ -51,18 +56,19 @@ export class PercentInput extends React.Component<Props, State> {
             this.setState({ inputValue: e.target.value })
             if (!R.pipe(R.path(['target', 'value']), R.defaultTo(''), R.endsWith('.'))(e)) onChange(e)
           }}
-          onPaste={(e) => {
-            const pastedValue = onPaste(e)
-            this.setState({ inputValue: pastedValue })
-          }}
           onFocus={() => {
             this.setState({ hasFocus: true })
             this.setState({ inputValue: numberValue || null })
             ;(this.refs.percentInputField as any).select()
           }}
-          onBlur={() => {
-            this.setState({ hasFocus: false })
+          onPaste={(e) => {
+            const pastedValue = onPaste(e)
+            this.setState({ inputValue: pastedValue })
           }}
+          // eslint-disable-next-line react/destructuring-assignment
+          style={{ opacity: this.state.hasFocus ? '1' : '0' }}
+          type="text"
+          value={value || ''}
         />
         <div className="percent-input__sign">%</div>
       </div>

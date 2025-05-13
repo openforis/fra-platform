@@ -28,7 +28,7 @@ const opts: QueueOptions = {
 }
 
 const getInstance = (props: Props): Queue<UpdateDependenciesProps> => {
-  const { assessment, cycle, countryIso } = props
+  const { assessment, countryIso, cycle } = props
 
   const key = `persistNodeValue/dependenciesUpdate/${assessment.props.name}/${cycle.name}/${countryIso}`
   let queue = queues[key]

@@ -19,7 +19,7 @@ type Props = {
 }
 
 export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<Array<UserInvitationSummary>> => {
-  const { assessment, cycle, countryIso, limit, offset, orderBy, orderByDirection } = props
+  const { assessment, countryIso, cycle, limit, offset, orderBy, orderByDirection } = props
 
   const params: Record<string, string | number | boolean> = {
     assessmentId: assessment.id,

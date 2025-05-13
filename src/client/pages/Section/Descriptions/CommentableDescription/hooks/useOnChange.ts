@@ -18,7 +18,7 @@ type Returned = (value: CommentableDescriptionValue) => void
 export const useOnChange = (props: Props): Returned => {
   const { name, sectionName } = props
 
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const dispatch = useAppDispatch()
 
   return useCallback<Returned>(

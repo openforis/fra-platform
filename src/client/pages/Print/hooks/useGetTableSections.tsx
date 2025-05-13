@@ -8,7 +8,7 @@ import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 export const useGetTableSections = () => {
   const dispatch = useAppDispatch()
-  const { assessmentName, cycleName, countryIso: _countryIso } = useCountryRouteParams()
+  const { assessmentName, countryIso: _countryIso, cycleName } = useCountryRouteParams()
   const sections = useSections()
   const countryIso = _countryIso as CountryIso
 

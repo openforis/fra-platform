@@ -24,7 +24,7 @@ type Returned = Array<{
 }>
 
 export const getManyFiles = async (props: Props): Promise<Returned> => {
-  const { assessment, cycle, countryIso, global } = props
+  const { assessment, countryIso, cycle, global } = props
 
   const getRepositoryItemProps = { assessment, cycle, countryIso, global }
   const repositoryItems = await RepositoryRepository.getMany(getRepositoryItemProps)

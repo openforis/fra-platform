@@ -23,7 +23,7 @@ type Props = {
 }
 
 const calculateIf = (props: Props): boolean => {
-  const { assessments, assessment, cycle, countryIso, row, col, data } = props
+  const { assessment, assessments, col, countryIso, cycle, data, row } = props
   const { colName } = col.props
   const formula = row.props.calculateIf?.[cycle.uuid]
 
@@ -32,7 +32,7 @@ const calculateIf = (props: Props): boolean => {
 }
 
 const calculate = (props: Props): NodeValue | undefined => {
-  const { assessments, assessment, cycle, countryIso, tableName, row, col, data } = props
+  const { assessment, assessments, col, countryIso, cycle, data, row, tableName } = props
   const formula = Cols.getCalculateFn({ cycle, row, col })
 
   if (!formula) {

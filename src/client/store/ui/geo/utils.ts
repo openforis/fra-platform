@@ -6,7 +6,7 @@ import { LayersSectionState, LayerState } from './stateType'
 
 const _getLayerCacheLabel = (layerKey: LayerKey, layerState: LayerState): string => {
   if (Objects.isEmpty(layerState.options)) return layerKey
-  const { agreementLayer, assetId, year, gteTreeCoverPercent } = layerState.options
+  const { agreementLayer, assetId, gteTreeCoverPercent, year } = layerState.options
   switch (true) {
     case agreementLayer?.level !== undefined:
       return `${layerKey}:${agreementLayer?.level}`

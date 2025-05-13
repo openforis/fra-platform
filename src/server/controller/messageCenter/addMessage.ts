@@ -29,7 +29,7 @@ export const addMessage = async (
   },
   client: BaseProtocol = DB
 ): Promise<{ topic: MessageTopic; message: Message }> => {
-  const { message: messageText, user, countryIso, assessment, cycle, key, type, sectionName } = props
+  const { assessment, countryIso, cycle, key, message: messageText, sectionName, type, user } = props
 
   const assessmentName = assessment.props.name
   const cycleName = cycle.name

@@ -11,14 +11,14 @@ type Props =
   | { uuid: string; metaCache?: boolean }
 
 const _getCycleByName = (props: { cycleName?: string; assessment: Assessment }): Cycle | undefined => {
-  const { cycleName, assessment } = props
+  const { assessment, cycleName } = props
   if (cycleName) return assessment.cycles.find((cycle) => cycle.name === cycleName)
   // Return default cycle if cycleName not defined
   return Assessments.getLastPublishedCycle(assessment)
 }
 
 const _getCycleByUuid = (props: { cycleUuid?: string; assessment: Assessment }): Cycle | undefined => {
-  const { cycleUuid, assessment } = props
+  const { assessment, cycleUuid } = props
   if (cycleUuid) return assessment.cycles.find((cycle) => cycle.uuid === cycleUuid)
   // Return default cycle if cycleName not defined
   return Assessments.getLastPublishedCycle(assessment)

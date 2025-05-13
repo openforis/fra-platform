@@ -90,5 +90,5 @@ export const useValidate = (props: Props): void => {
         })
       )
     }
-  }, [assessment, countryIso, cycle, data, dispatch, rowsData, t, table.props.name, canEditData, print])
+  }, [assessment, canEditData, countryIso, cycle, data, dispatch, print, rowsData, t, table.props.name])
 }

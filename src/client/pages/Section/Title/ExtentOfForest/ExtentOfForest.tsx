@@ -25,7 +25,7 @@ const ExtentOfForest: React.FC<Props> = (props) => {
   const dispatch = useAppDispatch()
   const user = useUser()
   const cycle = useCycle()
-  const { print, onlyTables } = useIsPrintRoute()
+  const { onlyTables, print } = useIsPrintRoute()
   const odpYears = useOriginalDataPointYears()
   const showOdps = useShowOriginalDatapoints()
 

@@ -44,7 +44,7 @@ export class ContextResult {
   }
 
   get nodeUpdates(): NodeUpdates {
-    const { assessment, cycle, countryIso } = this.#context
+    const { assessment, countryIso, cycle } = this.#context
     const assessmentName = assessment.props.name
     const cycleName = cycle.name
     const nodes = Object.values(this.#nodes).flatMap((nodes) => nodes)
@@ -56,10 +56,10 @@ export class ContextResult {
   }
 
   push(props: { row: RowCache; col: Col; value: NodeValue }): void {
-    const { row, col, value } = props
+    const { col, row, value } = props
 
     if (!this.rowsByColUuid[col.uuid]) {
-      const { assessment, cycle, countryIso } = this.#context
+      const { assessment, countryIso, cycle } = this.#context
       const assessmentName = assessment.props.name
       const cycleName = cycle.name
       const { tableName } = row

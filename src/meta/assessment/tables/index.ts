@@ -30,7 +30,7 @@ const cloneProps = (props: { cycleSource: Cycle; cycleTarget: Cycle; table: Tabl
 }
 
 const getChartRows = (props: { table: Table; cycle: Cycle }): Array<Row> => {
-  const { table, cycle } = props
+  const { cycle, table } = props
   return table.rows.filter((row) => !Objects.isEmpty(row.props.chart?.[cycle.uuid]))
 }
 

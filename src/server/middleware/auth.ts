@@ -57,7 +57,7 @@ const requireEditData = async (req: Request, next: NextFunction) => {
   } as CycleDataParams & { permission?: CollaboratorEditPropertyType }
   const user = Requests.getUser(req)
 
-  const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+  const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
   const { country } = req.context
   const section = await MetadataController.getSubSection({ assessment, cycle, sectionName })
 
@@ -77,7 +77,7 @@ const requireEditTableData = async (req: Request, _res: Response, next: NextFunc
 }
 
 const requireView = async (req: Request, _res: Response, next: NextFunction) => {
-  const { assessment, cycle, country, countryIso, user } = await _getAuthCycleProps(req, next)
+  const { assessment, country, countryIso, cycle, user } = await _getAuthCycleProps(req, next)
 
   _next(Authorizer.canView({ assessment, country, areaCode: countryIso, cycle, user }), next)
 }
@@ -89,10 +89,10 @@ const requireAdmin = async (req: Request, _res: Response, next: NextFunction) =>
 
 const requireEditMessageTopic = async (req: Request, _res: Response, next: NextFunction) => {
   type Params = CycleParams & { key: string }
-  const { countryIso, assessmentName, cycleName, key } = { ...req.params, ...req.query, ...req.body } as Params
+  const { assessmentName, countryIso, cycleName, key } = { ...req.params, ...req.query, ...req.body } as Params
   const user = Requests.getUser(req)
 
-  const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+  const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
   const topic = await MessageCenterController.getTopic({ countryIso, assessment, cycle, key, user })
 
   if (topic) {
@@ -108,11 +108,11 @@ const requireEditMessageTopic = async (req: Request, _res: Response, next: NextF
 
 const requireDeleteTopicMessage = async (req: Request, _res: Response, next: NextFunction) => {
   const {
-    countryIso,
     assessmentName,
+    countryIso,
     cycleName,
-    topicKey: key,
     id,
+    topicKey: key,
   } = <Record<string, string>>{
     ...req.params,
     ...req.query,
@@ -120,7 +120,7 @@ const requireDeleteTopicMessage = async (req: Request, _res: Response, next: Nex
   }
   const user = Requests.getUser(req)
 
-  const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+  const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
   const topic = await MessageCenterController.getTopic({
     countryIso: countryIso as CountryIso,
@@ -165,7 +165,7 @@ const requireInviteUser = async (req: Request, _res: Response, next: NextFunctio
 }
 
 const requireViewUser = async (req: Request, _res: Response, next: NextFunction) => {
-  const { id, assessmentName, countryIso, cycleName } = { ...req.params, ...req.query, ...req.body } as CycleParams & {
+  const { assessmentName, countryIso, cycleName, id } = { ...req.params, ...req.query, ...req.body } as CycleParams & {
     id: string
   }
   const user = Requests.getUser(req)
@@ -212,8 +212,8 @@ const requireUser = async (req: Request, _res: Response, next: NextFunction) => 
 const requireViewRepositoryFile = async (req: Request, _res: Response, next: NextFunction) => {
   const {
     assessmentName,
-    cycleName,
     countryIso: areaCode,
+    cycleName,
     uuid,
   } = {
     ...req.params,
@@ -221,7 +221,7 @@ const requireViewRepositoryFile = async (req: Request, _res: Response, next: Nex
     ...req.body,
   } as CycleParams & { uuid: string }
 
-  const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+  const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
   const repositoryItem = await CycleDataController.Repository.getOne({ assessment, cycle, uuid })
   const user = Requests.getUser(req)
   const { country } = req.context
@@ -237,7 +237,7 @@ const requireViewHistory = async (req: Request, _res: Response, next: NextFuncti
   } as CycleParams & { sectionName: string }
   const user = Requests.getUser(req)
 
-  const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+  const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
   const section = await MetadataController.getSubSection({ assessment, cycle, sectionName })
 
   const { country } = req.context

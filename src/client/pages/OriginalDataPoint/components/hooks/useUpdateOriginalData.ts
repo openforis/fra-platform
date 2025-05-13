@@ -9,7 +9,7 @@ import { OriginalDataPointActions } from 'client/store/ui/originalDataPoint'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 
 export const useUpdateOriginalData = (): ((originalDataPoint: OriginalDataPoint) => void) => {
-  const { assessmentName, cycleName, countryIso, sectionName } = useSectionRouteParams()
+  const { assessmentName, countryIso, cycleName, sectionName } = useSectionRouteParams()
   const dispatch = useAppDispatch()
 
   return useCallback(

@@ -16,7 +16,7 @@ type Props = {
 }
 
 export const getOneOrNone = (props: Props, client: BaseProtocol = DB): Promise<Node | null> => {
-  const { assessment, cycle, countryIso, colName, tableName, variableName } = props
+  const { assessment, colName, countryIso, cycle, tableName, variableName } = props
   const schema = Schemas.getName(assessment)
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
 

@@ -19,7 +19,7 @@ type Props = {
 }
 
 export const updateTableDataDependencies = async (props: Props, client: BaseProtocol = DB): Promise<void> => {
-  const { assessment, cycle, country, nodes, includeSourceNodes, isODP, user } = props
+  const { assessment, country, cycle, includeSourceNodes, isODP, nodes, user } = props
   const { countryIso } = country
 
   const { name: assessmentName } = assessment.props

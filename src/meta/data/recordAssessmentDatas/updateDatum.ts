@@ -10,7 +10,7 @@ export const updateDatum = (
     value: NodeValue
   }
 ): RecordAssessmentData => {
-  const { assessmentName, cycleName, data, countryIso, tableName, variableName, colName, value } = props
+  const { assessmentName, colName, countryIso, cycleName, data, tableName, value, variableName } = props
 
   const path = [assessmentName, cycleName, countryIso, tableName, colName, variableName]
   Objects.setInPath({ obj: data, path, value })

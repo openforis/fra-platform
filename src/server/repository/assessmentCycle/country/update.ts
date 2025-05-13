@@ -19,7 +19,7 @@ type Props = {
 }
 
 export const update = async (props: Props, client: BaseProtocol = DB): Promise<Country> => {
-  const { country, assessment, cycle, lastUpdate, lastEdit, lastEditOdp, lastInStatus } = props
+  const { assessment, country, cycle, lastEdit, lastEditOdp, lastInStatus, lastUpdate } = props
   const { countryIso } = country
   const { status, ...countryProps } = country.props
 

@@ -18,10 +18,10 @@ const ToggleNavigationControl: React.FC = () => {
 
   return (
     <button
-      type="button"
       className={classNames('btn toggle-navigation-btn', { active: navigationVisible })}
       disabled={disabled}
       onClick={() => dispatch(NavigationActions.toggleNavigationVisible())}
+      type="button"
     >
       <Icon className="icon-sub" name="menu-left" />
     </button>

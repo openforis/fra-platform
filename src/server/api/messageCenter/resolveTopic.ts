@@ -13,7 +13,7 @@ import { sendRequestReviewUpdateEvents } from './sendRequestReviewUpdateEvents'
 
 export const resolveTopic = async (req: Request, res: Response) => {
   try {
-    const { countryIso, assessmentName, cycleName, key, sectionName } = req.query as {
+    const { assessmentName, countryIso, cycleName, key, sectionName } = req.query as {
       countryIso: CountryIso
       assessmentName: string
       sectionName: string

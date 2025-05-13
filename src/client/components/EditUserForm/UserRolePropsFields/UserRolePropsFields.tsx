@@ -16,7 +16,7 @@ type Props = {
 }
 
 const UserRolePropsFields: React.FC<Props> = (props) => {
-  const { role, onChange, enabled: enabledProp } = props
+  const { enabled: enabledProp, onChange, role } = props
   const { props: roleProps } = role
 
   const changeAddress = (name: string, value: string) => onChange('address', { ...roleProps.address, [name]: value })

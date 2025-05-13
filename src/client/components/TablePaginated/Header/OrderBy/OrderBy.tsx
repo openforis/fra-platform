@@ -32,7 +32,7 @@ const OrderBy = <Datum extends object>(props: Props<Datum>) => {
     if (activeAsc) orderByUpdate = { property: orderByProperty, direction: TablePaginatedOrderByDirection.desc }
 
     dispatch(TablePaginatedActions.setOrderBy({ orderBy: orderByUpdate, path }))
-  }, [active, activeAsc, orderByProperty, dispatch, path])
+  }, [active, activeAsc, dispatch, orderByProperty, path])
 
   return (
     <button className={classNames('btn-sort', { active })} onClick={onClick} type="button">

@@ -63,7 +63,7 @@ export const DataSlice = createSlice({
 
     // Table data
     builder.addCase(getTableData.pending, (state, { meta }) => {
-      const { assessmentName, cycleName, countryIso, tableNames } = meta.arg
+      const { assessmentName, countryIso, cycleName, tableNames } = meta.arg
       tableNames.forEach((tableName) => {
         const path = ['tableDataStatus', assessmentName, cycleName, countryIso, tableName]
         Objects.setInPath({ obj: state, path, value: TableDataStatus.fetching })
@@ -76,7 +76,7 @@ export const DataSlice = createSlice({
         newTableData: payload,
       })
       // update table data status
-      const { assessmentName, cycleName, countryIso, tableNames } = meta.arg
+      const { assessmentName, countryIso, cycleName, tableNames } = meta.arg
       tableNames.forEach((tableName) => {
         const path = ['tableDataStatus', assessmentName, cycleName, countryIso, tableName]
         Objects.setInPath({ obj: state, path, value: TableDataStatus.fetched })
@@ -92,7 +92,7 @@ export const DataSlice = createSlice({
     })
 
     builder.addCase(updateNodeValues.pending, (state, { meta }) => {
-      const { countryIso, tableName, values, assessmentName, cycleName } = meta.arg
+      const { assessmentName, countryIso, cycleName, tableName, values } = meta.arg
       values.forEach((valueUpdate) => {
         const { colName, value, variableName } = valueUpdate
 
@@ -120,8 +120,8 @@ export const DataSlice = createSlice({
     })
 
     // descriptions
-    builder.addCase(getDescription.fulfilled, (state, { payload, meta }) => {
-      const { assessmentName, cycleName, countryIso } = meta.arg
+    builder.addCase(getDescription.fulfilled, (state, { meta, payload }) => {
+      const { assessmentName, countryIso, cycleName } = meta.arg
 
       // merge values at section level. good enough for now
       const valuePayload = payload[countryIso]
@@ -131,14 +131,14 @@ export const DataSlice = createSlice({
     })
 
     builder.addCase(updateDescription.pending, (state, { meta }) => {
-      const { assessmentName, cycleName, countryIso, sectionName, name, value } = meta.arg
+      const { assessmentName, countryIso, cycleName, name, sectionName, value } = meta.arg
 
       const path = ['descriptions', assessmentName, cycleName, countryIso, sectionName, name]
       Objects.setInPath({ obj: state, path, value })
     })
 
     builder.addCase(deleteDataSource.pending, (state, action) => {
-      const { assessmentName, cycleName, countryIso, sectionName, uuid } = action.meta.arg
+      const { assessmentName, countryIso, cycleName, sectionName, uuid } = action.meta.arg
 
       const name = CommentableDescriptionName.dataSources
       const value = state.descriptions[assessmentName]?.[cycleName]?.[countryIso]?.[sectionName]?.[name]
@@ -152,7 +152,7 @@ export const DataSlice = createSlice({
       Objects.setInPath({ obj: state, path, value: valueUpdate })
     })
 
-    builder.addCase(getLinkedDataSources.fulfilled, (state, { payload, meta }) => {
+    builder.addCase(getLinkedDataSources.fulfilled, (state, { meta, payload }) => {
       const { dataSources, sectionName } = payload
       const { assessmentName, cycleName } = meta.arg
 
@@ -161,13 +161,13 @@ export const DataSlice = createSlice({
     })
 
     // contacts
-    builder.addCase(getContacts.fulfilled, (state, { payload, meta }) => {
-      const { assessmentName, cycleName, countryIso } = meta.arg
+    builder.addCase(getContacts.fulfilled, (state, { meta, payload }) => {
+      const { assessmentName, countryIso, cycleName } = meta.arg
       const path = ['contacts', assessmentName, cycleName, countryIso]
       Objects.setInPath({ obj: state, path, value: payload ?? [] })
     })
     builder.addCase(updateContact.pending, (state, action) => {
-      const { assessmentName, cycleName, countryIso, contact: contactAction, field, raw } = action.meta.arg
+      const { assessmentName, contact: contactAction, countryIso, cycleName, field, raw } = action.meta.arg
 
       const fieldUpdate: ContactNode = { ...contactAction[field], value: { raw } }
       const contactUpdate = { ...contactAction, [field]: fieldUpdate }
@@ -182,7 +182,7 @@ export const DataSlice = createSlice({
     })
 
     builder.addCase(deleteContact.pending, (state, action) => {
-      const { assessmentName, cycleName, countryIso, contact } = action.meta.arg
+      const { assessmentName, contact, countryIso, cycleName } = action.meta.arg
 
       const contacts = state.contacts[assessmentName][cycleName][countryIso]
 
@@ -192,14 +192,14 @@ export const DataSlice = createSlice({
     })
 
     builder.addCase(deleteContact.rejected, (state, action) => {
-      const { assessmentName, cycleName, countryIso, contact } = action.meta.arg
+      const { assessmentName, contact, countryIso, cycleName } = action.meta.arg
 
       const contacts = state.contacts[assessmentName][cycleName][countryIso]
       contacts.push(contact)
     })
 
     builder.addCase(updateContact.fulfilled, (state, action) => {
-      const { assessmentName, cycleName, countryIso, contact: contactAction } = action.meta.arg
+      const { assessmentName, contact: contactAction, countryIso, cycleName } = action.meta.arg
 
       const contacts = state.contacts[assessmentName][cycleName][countryIso]
       const contactIdx = contacts.findIndex((c) => c.uuid === contactAction.uuid)
@@ -211,7 +211,7 @@ export const DataSlice = createSlice({
     })
 
     builder.addCase(createContact.fulfilled, (state, action) => {
-      const { assessmentName, cycleName, countryIso } = action.meta.arg
+      const { assessmentName, countryIso, cycleName } = action.meta.arg
       const contactAction = action.payload
 
       const contacts = state.contacts[assessmentName][cycleName][countryIso]

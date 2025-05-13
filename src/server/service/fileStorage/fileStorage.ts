@@ -18,7 +18,7 @@ const s3Client = new S3Client({
 })
 
 const getFile = async (props: { key: string; bucket?: string; path?: string }): Promise<Readable> => {
-  const { key, bucket = ProcessEnv.s3BucketName, path = 'public' } = props
+  const { bucket = ProcessEnv.s3BucketName, key, path = 'public' } = props
   const command = new GetObjectCommand({
     Bucket: bucket,
     Key: `${path}/${key}`,
@@ -29,7 +29,7 @@ const getFile = async (props: { key: string; bucket?: string; path?: string }): 
 }
 
 const removeFile = async (props: { key: string; bucket?: string; path?: string }): Promise<void> => {
-  const { key, bucket = ProcessEnv.s3BucketName, path = 'public' } = props
+  const { bucket = ProcessEnv.s3BucketName, key, path = 'public' } = props
 
   const command = new DeleteObjectCommand({
     Bucket: bucket,
@@ -46,7 +46,7 @@ const uploadFile = async (props: {
   contentType?: string
   path?: string
 }): Promise<void> => {
-  const { key, body, bucket = ProcessEnv.s3BucketName, contentType, path = 'public' } = props
+  const { body, bucket = ProcessEnv.s3BucketName, contentType, key, path = 'public' } = props
   const command = new PutObjectCommand({
     Bucket: bucket,
     Key: `${path}/${key}`,
@@ -58,7 +58,7 @@ const uploadFile = async (props: {
 }
 
 const getFileSize = async (props: { key: string; bucket?: string; path?: string }): Promise<number> => {
-  const { key, bucket = ProcessEnv.s3BucketName, path = 'public' } = props
+  const { bucket = ProcessEnv.s3BucketName, key, path = 'public' } = props
   const command = new HeadObjectCommand({
     Bucket: bucket,
     Key: `${path}/${key}`,
@@ -69,7 +69,7 @@ const getFileSize = async (props: { key: string; bucket?: string; path?: string 
 }
 
 const fileExists = async (props: { key: string; bucket?: string; path?: string }): Promise<boolean> => {
-  const { key, bucket = ProcessEnv.s3BucketName, path = 'public' } = props
+  const { bucket = ProcessEnv.s3BucketName, key, path = 'public' } = props
   const command = new HeadObjectCommand({
     Bucket: bucket,
     Key: `${path}/${key}`,

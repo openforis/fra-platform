@@ -11,7 +11,7 @@ type Returned = (_: string, role: RoleName) => void
 
 export const useOnChange = (user: User): Returned => {
   const dispatch = useAppDispatch()
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams()
   const cycle = useCycle()
 
   return useCallback<Returned>(

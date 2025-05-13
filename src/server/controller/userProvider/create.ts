@@ -10,7 +10,7 @@ export const create = async <P>(
   },
   client: BaseProtocol = DB
 ): Promise<UserAuthProvider<P>> => {
-  const { user, provider } = props
+  const { provider, user } = props
 
   return UserProviderRepository.create<P>(
     {

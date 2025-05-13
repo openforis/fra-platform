@@ -50,7 +50,7 @@ export const messageCenterSlice = createSlice({
         meta: { arg },
       } = reducer
 
-      const { countryIso, key, title, subtitle, type } = arg
+      const { countryIso, key, subtitle, title, type } = arg
 
       if (state.topics.filter((topic) => topic.key === key).length === 0) {
         if (state.topics.length === 2) state.topics.shift()

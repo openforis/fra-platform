@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from 'express'
+import { NextFunction, Request, Response } from 'express'
 /*
  * Configures bundles which have cache-busting to have a long
  * cache-time.

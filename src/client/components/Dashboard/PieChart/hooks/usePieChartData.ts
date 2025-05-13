@@ -11,7 +11,7 @@ import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { useData } from 'client/components/Dashboard/hooks/useData'
 
 export const usePieChartData = (table: Table, chart: PieChart): Array<PieChartData> => {
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
 
   const data = useData(table)
 

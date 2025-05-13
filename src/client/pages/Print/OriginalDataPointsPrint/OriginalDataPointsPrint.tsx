@@ -22,7 +22,7 @@ const OriginalDataPointsPrint: React.FC<Props> = (props) => {
   const { sectionName } = props
 
   const i18n = useTranslation()
-  const { originalDataPoints, loading } = useOriginalDataPoints()
+  const { loading, originalDataPoints } = useOriginalDataPoints()
 
   if (loading || Objects.isEmpty(originalDataPoints)) return null
 

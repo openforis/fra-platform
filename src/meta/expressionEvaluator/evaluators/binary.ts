@@ -47,7 +47,7 @@ const binaryOperators = {
 
 export class Binary extends ExpressionNodeEvaluator<Context, BinaryExpression> {
   evaluate(expressionNode: BinaryExpression): any {
-    const { left, right, operator } = expressionNode
+    const { left, operator, right } = expressionNode
 
     const fn = binaryOperators[operator]
     if (!fn) {

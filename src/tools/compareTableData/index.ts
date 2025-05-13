@@ -165,8 +165,8 @@ const exec = async () => {
 
   await cluster.task(
     async ({
-      page,
       data: { countryIso, sectionName },
+      page,
     }: {
       page: Page
       data: { countryIso: CountryIso; sectionName: string }

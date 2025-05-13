@@ -10,7 +10,7 @@ type Props = {
 }
 
 const Icon = (props: Props) => {
-  const { name, className } = props
+  const { className, name } = props
 
   return (
     <svg className={classNames('icon', className, `icon_${name}`)} xmlns="http://www.w3.org/2000/svg">

@@ -18,7 +18,7 @@ export const getValuesLastApproved = async (
   props: Props,
   client: BaseProtocol = DB
 ): Promise<DescriptionCountryValues> => {
-  const { countryIso, assessment, cycle, sectionName } = props
+  const { assessment, countryIso, cycle, sectionName } = props
 
   const schemaName = Schemas.getNameCycle(assessment, cycle)
 

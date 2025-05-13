@@ -14,7 +14,7 @@ type Returned = {
 }
 
 export const useUpdateRepositoryItemAccess = (): Returned => {
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const dispatch = useAppDispatch()
   return useCallback<Returned>(
     (repositoryItem: RepositoryItem, value: boolean) => {

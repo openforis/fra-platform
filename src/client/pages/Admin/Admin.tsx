@@ -53,7 +53,7 @@ const Admin: React.FC = () => {
       </div>
 
       <div className="admin__page-menu">
-        {sections.map(({ name, labelKey }) => (
+        {sections.map(({ labelKey, name }) => (
           <NavLink
             key={name}
             className={(navData) =>

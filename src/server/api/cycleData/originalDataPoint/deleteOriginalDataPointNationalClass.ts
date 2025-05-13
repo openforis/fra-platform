@@ -11,7 +11,7 @@ export const deleteOriginalDataPointNationalClass = async (
   res: Response
 ) => {
   try {
-    const { assessmentName, cycleName, odpId: id, index } = req.query
+    const { assessmentName, cycleName, index, odpId: id } = req.query
     const user = Requests.getUser(req)
     const { country } = req.context
 

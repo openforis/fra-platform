@@ -11,9 +11,9 @@ type Request = CycleDataRequest<{ name?: CommentableDescriptionName }>
 
 export const getDescription = async (req: Request, res: Response) => {
   try {
-    const { assessmentName, sectionName, cycleName, countryIso, name } = req.query
+    const { assessmentName, countryIso, cycleName, name, sectionName } = req.query
 
-    const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
     const propsValues = { assessment, cycle, countryIso, sectionName, name }
     const values = await CycleDataController.Description.getDescriptionValues(propsValues)

@@ -21,7 +21,7 @@ type Props = {
 } & NodeUpdate
 
 export const persistNode = async (props: Props, client: BaseProtocol): Promise<Node> => {
-  const { assessment, countryIso, activityLogMessage, user, cycle, sectionName } = props
+  const { activityLogMessage, assessment, countryIso, cycle, sectionName, user } = props
   const node: Node = await NodeRepository.getOneOrNone(props, client)
 
   const nodeUpdated = await (node ? NodeRepository.update(props, client) : NodeRepository.create(props, client))

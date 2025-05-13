@@ -21,7 +21,7 @@ export const useOriginalDataPointYearsWithHistory = (props: Props): Array<ODPCol
   const { assessmentName, table } = props
   const { name: tableName, odp } = table.props
 
-  const { cycleName, countryIso } = useCountryRouteParams<CountryIso>()
+  const { countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const odpYears = useOriginalDataPointYears()
   const historyLastApprovedIsActive = useHistoryLastApprovedIsActive()
   const data = useLastApprovedHistoryTableData()

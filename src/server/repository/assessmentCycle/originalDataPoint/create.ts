@@ -19,13 +19,13 @@ export const create = async (
     cycle,
     originalDataPoint: {
       countryIso,
-      year,
       dataSourceAdditionalComments,
       dataSourceMethods,
       dataSourceReferences,
       description,
       nationalClasses,
       values,
+      year,
     },
   } = params
 

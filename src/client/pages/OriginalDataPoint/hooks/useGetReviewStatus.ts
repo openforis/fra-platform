@@ -14,7 +14,7 @@ export const useGetReviewStatus = () => {
   const user = useUser()
 
   const odpId = useOriginalDataPoint()?.id
-  const { assessmentName, cycleName, countryIso, sectionName } = useOriginalDataPointRouteParams()
+  const { assessmentName, countryIso, cycleName, sectionName } = useOriginalDataPointRouteParams()
 
   useEffect(() => {
     if (user) {
@@ -28,5 +28,5 @@ export const useGetReviewStatus = () => {
         })
       )
     }
-  }, [odpId, countryIso, assessmentName, cycleName, user, dispatch, sectionName])
+  }, [assessmentName, countryIso, cycleName, dispatch, odpId, sectionName, user])
 }

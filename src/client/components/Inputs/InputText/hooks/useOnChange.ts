@@ -20,7 +20,7 @@ export const useOnChange = (props: Props): OnChange => {
 
   useLayoutEffect(() => {
     inputRef.current?.setSelectionRange(cursor, cursor)
-  }, [inputRef, cursor, value])
+  }, [cursor, inputRef, value])
 
   return useCallback<OnChange>(
     (event) => {
