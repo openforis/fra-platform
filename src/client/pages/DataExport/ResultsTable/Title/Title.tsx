@@ -6,7 +6,7 @@ import { Objects } from 'utils/objects'
 
 import { Cols } from 'meta/assessment/cols'
 import { Row } from 'meta/assessment/row'
-import { Unit } from 'meta/assessment/unit'
+import { UnitName } from 'meta/assessment/unit'
 import { UnitFactors } from 'meta/dataExport'
 
 import { useCycle } from 'client/store/assessment'
@@ -14,14 +14,14 @@ import { useTableSections } from 'client/store/metadata'
 import { getUnitLabelKey } from 'client/pages/DataExport/utils'
 
 type Props = {
-  baseUnit?: Unit
-  onUnitChange: (value: Unit, variable: string) => void
+  baseUnit?: UnitName
+  onUnitChange: (value: UnitName, variable: string) => void
   resultsLoading: boolean
   variable: string
 }
 
 const Title: React.FC<Props> = (props) => {
-  const { baseUnit = Unit.haThousand, resultsLoading, onUnitChange, variable } = props
+  const { baseUnit = UnitName.haThousand, resultsLoading, onUnitChange, variable } = props
 
   const { t } = useTranslation()
   const { sectionName } = useParams<{ sectionName: string }>()
@@ -51,7 +51,7 @@ const Title: React.FC<Props> = (props) => {
             className="select-s"
             defaultValue={baseUnit}
             onChange={(event) => {
-              onUnitChange(event.target.value as Unit, variable)
+              onUnitChange(event.target.value as UnitName, variable)
             }}
           >
             <option value={baseUnit}>{t(getUnitLabelKey(baseUnit))}</option>

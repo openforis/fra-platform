@@ -1,19 +1,2 @@
-export enum Unit {
-  absoluteNumber = 'absoluteNumber',
-  annualNumberOfVisitsMillion = 'annualNumberOfVisitsMillion',
-  cubicMeterPerHa = 'cubicMeterPerHa',
-  facilityLengthIn1000Km = 'facilityLengthIn1000Km',
-  fte1000 = 'fte1000',
-  haMillion = 'haMillion',
-  haThousand = 'haThousand',
-  haThousandPerYear = 'haThousandPerYear',
-  millionNationalCurrency = 'millionNationalCurrency',
-  millionTonnes = 'millionTonnes',
-  millionsCubicMeterOverBark = 'millionsCubicMeterOverBark',
-  numberOfStudents = 'numberOfStudents',
-  thousandCubicMeter = 'thousandCubicMeter',
-  thousandCubicMeterOverBark = 'thousandCubicMeterOverBark',
-  thousandCubicMeterRWE = 'thousandCubicMeterRWE',
-  thousandPersons = 'thousandPersons',
-  tonnesPerHa = 'tonnesPerHa',
-}
+export type { Unit } from './unit'
+export { UnitName } from './unitName'

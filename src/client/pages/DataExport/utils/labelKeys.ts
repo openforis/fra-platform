@@ -1,5 +1,5 @@
 import { AssessmentName, AssessmentNames } from 'meta/assessment/assessment'
-import { Unit } from 'meta/assessment/unit'
+import { UnitName } from 'meta/assessment/unit'
 
 import { isYearWithWord } from './checks'
 
@@ -10,7 +10,7 @@ const unitLabelKeys: Record<string, string> = {
   acre1000: 'acre1000',
   acre: 'acre',
   haMillion: 'haMillion',
-  [Unit.haThousand]: Unit.haThousand,
+  [UnitName.haThousand]: UnitName.haThousand,
 }
 
 const columnLabelKeys: Record<string, string> = {

@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { Objects } from 'utils/objects'
 
 import { Areas, CountryIso } from 'meta/area'
-import { Unit } from 'meta/assessment/unit'
+import { UnitName } from 'meta/assessment/unit'
 
 import { useCycle } from 'client/store/assessment'
 import { useTableSections } from 'client/store/metadata'
@@ -40,11 +40,11 @@ const ResultsTable: React.FC<{ tableName: string }> = ({ tableName }) => {
 
   const tableRef = useRef(null)
   const [exportDisabled, setExportDisabled] = useState<boolean>(true)
-  const initialUnits: Record<string, Unit> = {}
+  const initialUnits: Record<string, UnitName> = {}
   variables.forEach((variable) => {
     initialUnits[variable] = baseUnit
   })
-  const [units, setUnits] = useState<Record<string, Unit>>(initialUnits)
+  const [units, setUnits] = useState<Record<string, UnitName>>(initialUnits)
   const { results, resultsLoading } = useFetchResults({
     assessmentName,
     cellsExportAlways,
@@ -54,7 +54,7 @@ const ResultsTable: React.FC<{ tableName: string }> = ({ tableName }) => {
     tableName,
   })
 
-  const onUnitChange = (value: Unit, variable: string) => {
+  const onUnitChange = (value: UnitName, variable: string) => {
     setExportDisabled(true)
     setUnits({ ...units, [variable]: value })
   }
