@@ -1,0 +1,9 @@
+@import 'src/client/style/partials';
+
+.explorer-filters {
+  align-items: center;
+  display: flex;
+  gap: $spacing-xxs;
+  height: 30px;
+  width: 100%;
+}
