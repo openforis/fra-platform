@@ -1,15 +1,13 @@
 import './MultiSelect.scss'
 import React from 'react'
 
-import classNames from 'classnames'
-
 import { TablePaginatedFilterType } from 'meta/tablePaginated'
 import { TooltipId } from 'meta/tooltip'
 
 import { useAppDispatch } from 'client/store'
 import { TablePaginatedActions } from 'client/store/ui/tablePaginated'
 import { useTablePaginatedFilterValue } from 'client/store/ui/tablePaginated/hooks'
-import Select from 'client/components/Inputs/Select'
+import CommonMultiSelect from 'client/components/Inputs/MultiSelect/MultiSelect'
 import { TablePaginatedFilter } from 'client/components/TablePaginated/types'
 
 import { useTooltipContent } from './hooks/useTooltipContent'
@@ -43,13 +41,7 @@ const MultiSelect: React.FC<Props> = (props: Props) => {
       data-tooltip-content={tooltipContent}
       data-tooltip-id={TooltipId.info}
     >
-      <Select
-        classNames={{
-          container: classNames('filter-multiselect__container', {
-            active: filterValue?.length > 0,
-          }),
-        }}
-        isMulti
+      <CommonMultiSelect
         multiLabelSummaryKey={multiLabelSummaryKey}
         onChange={handleChange}
         onMenuClose={showTooltip}
