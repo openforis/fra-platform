@@ -1,14 +1,11 @@
-import React, { ClipboardEventHandler } from 'react'
-
-import { Objects } from 'utils/objects'
+import { ClipboardEventHandler } from 'react'
 
 import { NodesBodyValue } from 'meta/api/request'
-import { Col, ColType } from 'meta/assessment/col'
+import { ColType } from 'meta/assessment/col'
 import { Cols } from 'meta/assessment/cols'
 import { NodeValue } from 'meta/assessment/node'
-import { Row, RowType } from 'meta/assessment/row'
-import { Table } from 'meta/assessment/table'
-import { RecordAssessmentData, RecordAssessmentDatas } from 'meta/data'
+import { RowType } from 'meta/assessment/row'
+import { RecordAssessmentDatas } from 'meta/data'
 
 import { useAppDispatch } from 'client/store'
 import { useAssessment, useCycle } from 'client/store/assessment'
@@ -17,30 +14,11 @@ import { useSection } from 'client/store/metadata'
 import { useCountryIso } from 'client/hooks'
 import { Sanitizer } from 'client/utils/sanitizer'
 
-type Props = {
-  table: Table
-  row: Row
-  col: Col
-  nodeValue: NodeValue
-  data: RecordAssessmentData
-  sectionName: string
-}
+import { Props } from './types'
+import { usePersistSanitizedValue } from './usePersistSanitizedValue'
 
-export type OnChangeNodeValue = (value: NodeValue) => void
-export type OnChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => void
-export type OnPaste = React.ClipboardEventHandler<
-  HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement | HTMLDivElement
->
-
-type Returned = {
-  onChange: OnChange
-  onChangeNodeValue: OnChangeNodeValue
-  onPaste: OnPaste
-}
-
-export default (props: Props): Returned => {
+export const useOnPaste = (props: Props) => {
   const { col, data, nodeValue: _nodeValue, row, sectionName, table } = props
-  const type = col.props.colType
 
   const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
@@ -51,54 +29,7 @@ export default (props: Props): Returned => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { calculated, estimated, estimationUuid, validation, ...nodeValue } = _nodeValue ?? ({} as NodeValue)
 
-  const _persistSanitizedValue = (value: NodeValue) => {
-    if (Sanitizer.isAcceptable({ type, value: value.raw })) {
-      const valueUpdate = Sanitizer.sanitize({
-        value: value.raw,
-        type,
-        valuePrev: nodeValue.raw,
-        options: Cols.getSelectOptions({ cycle, col }),
-      })
-      const nodeValueUpdate = { ...nodeValue, raw: valueUpdate }
-
-      if (type === ColType.taxon) {
-        if (Objects.isEmpty(value.taxonCode)) {
-          delete nodeValueUpdate.taxonCode
-        } else {
-          nodeValueUpdate.taxonCode = value.taxonCode
-        }
-      }
-
-      dispatch(
-        DataActions.updateNodeValues({
-          assessmentName: assessment.props.name,
-          cycleName: cycle.name,
-          sectionName: assessmentSection.props.name,
-          countryIso,
-          tableName: table.props.name,
-          values: [
-            {
-              colName: col.props.colName,
-              value: nodeValueUpdate,
-              variableName: row.props.variableName,
-            },
-          ],
-        })
-      )
-    }
-  }
-
-  const onChangeNodeValue = (value: NodeValue): void => {
-    _persistSanitizedValue(value)
-  }
-
-  const onChange: OnChange = (event): void => {
-    const { value } = event.target
-    onChangeNodeValue({
-      ...nodeValue,
-      raw: value,
-    })
-  }
+  const persistSanitizedValue = usePersistSanitizedValue(props)
 
   const onPaste: ClipboardEventHandler<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement> = (event) => {
     event.stopPropagation()
@@ -194,9 +125,9 @@ export default (props: Props): Returned => {
         const { selectionEnd, selectionStart, value: targetValue } = event.target
         value = `${targetValue.slice(0, selectionStart)}${value}${targetValue.slice(selectionEnd)}`
       }
-      _persistSanitizedValue({ ...nodeValue, raw: value })
+      persistSanitizedValue({ ...nodeValue, raw: value })
     }
   }
 
-  return { onChange, onChangeNodeValue, onPaste }
+  return onPaste
 }
