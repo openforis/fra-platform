@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next'
 
 const Overview: React.FC = () => {
   const {
-    t,
     i18n: { language },
+    t,
   } = useTranslation()
   return (
     <div className="pan-eu-home">
@@ -50,11 +50,11 @@ const Overview: React.FC = () => {
         <div className="partners__disclaimer">
           <div>
             {t('panEuropean.disclaimer.part1')}{' '}
-            <a href="https://www.admin.ch/gov/en/start.html" target="_blank" rel="noreferrer">
+            <a href="https://www.admin.ch/gov/en/start.html" rel="noreferrer" target="_blank">
               {t('panEuropean.disclaimer.switzerland')}
             </a>{' '}
             {t('panEuropean.disclaimer.and')}{' '}
-            <a href="https://www.skogsstyrelsen.se/en/" target="_blank" rel="noreferrer">
+            <a href="https://www.skogsstyrelsen.se/en/" rel="noreferrer" target="_blank">
               {t('panEuropean.disclaimer.sweden')}
             </a>
           </div>

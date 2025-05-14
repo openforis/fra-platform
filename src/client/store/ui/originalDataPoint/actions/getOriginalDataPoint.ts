@@ -8,7 +8,7 @@ import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
 export const getOriginalDataPoint = createAsyncThunk<OriginalDataPoint, CycleParams & { year: string }>(
   'originalDataPoint/get/byYear',
-  async ({ countryIso, assessmentName, cycleName, year }) => {
+  async ({ assessmentName, countryIso, cycleName, year }) => {
     const { data } = await axios.get(ApiEndPoint.CycleData.OriginalDataPoint.one(), {
       params: {
         countryIso,

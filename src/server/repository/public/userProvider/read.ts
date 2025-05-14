@@ -8,7 +8,7 @@ export const read = async <P>(
   props: { user: User; provider: AuthProvider },
   client: BaseProtocol = DB
 ): Promise<Array<UserAuthProvider<P>>> => {
-  const { user, provider } = props
+  const { provider, user } = props
 
   return client.map<UserAuthProvider<P>>(
     `

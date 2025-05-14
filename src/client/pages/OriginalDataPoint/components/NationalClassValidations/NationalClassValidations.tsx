@@ -14,7 +14,7 @@ type Props = {
 }
 
 const NationalClassValidations: React.FC<Props> = (props) => {
-  const { nationalClasses, nationalClassValidations, variable } = props
+  const { nationalClassValidations, nationalClasses, variable } = props
 
   const hasErrors = nationalClassValidations.some((v) => !v[variable])
 

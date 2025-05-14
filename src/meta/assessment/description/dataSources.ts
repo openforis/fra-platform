@@ -4,7 +4,7 @@ import { DataSourceVariable } from 'meta/assessment/description/nationalDataData
 import { Labels } from 'meta/assessment/labels'
 
 const getVariableLabel = (props: { variable: DataSourceVariable; t: TFunction }): string => {
-  const { variable, t } = props
+  const { t, variable } = props
   const { label: _label, prefixLabel } = variable
 
   let label = ''

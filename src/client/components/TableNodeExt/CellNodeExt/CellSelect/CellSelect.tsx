@@ -9,7 +9,7 @@ const CellSelect: React.FC<CellSelectProps> = (props) => {
 
   const value = nodeExt.value.raw
 
-  return <Select disabled={disabled} value={value} onChange={onChange} options={column.props.options} />
+  return <Select disabled={disabled} onChange={onChange} options={column.props.options} value={value} />
 }
 
 export default CellSelect

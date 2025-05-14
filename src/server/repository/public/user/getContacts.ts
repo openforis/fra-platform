@@ -24,7 +24,7 @@ const _getField = (field: ContactField, raw: string): string => `jsonb_build_obj
              )                                    as ${field}`
 
 export const getContacts = async (props: Props, client: BaseProtocol = DB): Promise<Array<Contact>> => {
-  const { countryIso, assessment, cycle } = props
+  const { assessment, countryIso, cycle } = props
 
   const roles = [RoleName.COLLABORATOR, RoleName.NATIONAL_CORRESPONDENT, RoleName.ALTERNATE_NATIONAL_CORRESPONDENT]
 

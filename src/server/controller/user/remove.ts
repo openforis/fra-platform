@@ -12,7 +12,7 @@ export const remove = async (
   },
   client: BaseProtocol = DB
 ): Promise<User> => {
-  const { userToRemove, user } = props
+  const { user, userToRemove } = props
 
   return client.tx(async (t) => {
     const removedUser = await UserRepository.remove({ user: userToRemove }, t)

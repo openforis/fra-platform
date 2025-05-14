@@ -8,7 +8,7 @@ import InputNumber from 'client/components/Inputs/InputNumber'
 import { PropsCell } from '../props'
 
 const Number: React.FC<PropsCell> = (props) => {
-  const { onChange, onPaste, col, nodeValue, disabled } = props
+  const { col, disabled, nodeValue, onChange, onPaste } = props
   const value = nodeValue?.raw ?? null
 
   const precision = col.props.colType === ColType.integer ? 0 : 2

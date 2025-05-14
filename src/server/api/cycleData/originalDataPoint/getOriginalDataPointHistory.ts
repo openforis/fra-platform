@@ -9,7 +9,7 @@ import { Requests } from 'server/utils'
 
 export const getOriginalDataPointHistory = async (req: CycleDataRequest<{ year: string }>, res: Response) => {
   try {
-    const { countryIso, assessmentName, cycleName, year } = req.query
+    const { assessmentName, countryIso, cycleName, year } = req.query
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
     const info = await CycleDataController.History.LastApproved.getInfo({ assessment, cycle, countryIso })

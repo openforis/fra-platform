@@ -24,7 +24,14 @@ module.exports = {
     jest: true,
     node: true,
   },
-  plugins: ['prettier', 'simple-import-sort', 'react-hooks', 'import'],
+  plugins: [
+    'prettier',
+    'simple-import-sort',
+    'react-hooks',
+    'import',
+    'sort-destructure-keys',
+    'sort-react-dependency-arrays',
+  ],
   rules: {
     'no-underscore-dangle': 0,
     'prettier/prettier': 1,
@@ -106,6 +113,8 @@ module.exports = {
         reservedFirst: true,
       },
     ],
+    'sort-destructure-keys/sort-destructure-keys': ['error', { caseSensitive: true }],
+    'sort-react-dependency-arrays/sort': 'error',
   },
   settings: {
     react: {

@@ -7,7 +7,7 @@ type GetFileURLProps = CountryRouteParams & {
 }
 
 const getURL = (props: GetFileURLProps) => {
-  const { repositoryItem: datum, assessmentName, cycleName, countryIso } = props
+  const { assessmentName, countryIso, cycleName, repositoryItem: datum } = props
   const queryParams = new URLSearchParams({ assessmentName, cycleName, countryIso })
 
   if (datum.link) {

@@ -32,7 +32,7 @@ const canView = (props: {
   areaCode: AreaCode
   user: User
 }): boolean => {
-  const { assessment, cycle, country, areaCode, user } = props
+  const { areaCode, assessment, country, cycle, user } = props
 
   // Country can be undefined when passed from middleware when countryIso: RegionCode
   if (country?.props.status === CountryStatus.published) return true
@@ -54,7 +54,7 @@ const canView = (props: {
  *  @returns boolean
  */
 const canViewUsers = (props: { countryIso: CountryIso; cycle: Cycle; user: User }): boolean => {
-  const { countryIso, user, cycle } = props
+  const { countryIso, cycle, user } = props
   if (Users.isAdministrator(user)) return true
   if (Areas.isGlobal(countryIso) || Areas.isRegion(countryIso)) return false
 
@@ -62,7 +62,7 @@ const canViewUsers = (props: { countryIso: CountryIso; cycle: Cycle; user: User 
 }
 
 const canEditCycleData = (props: { cycle: Cycle; country: Country; user: User }): boolean => {
-  const { cycle, country, user } = props
+  const { country, cycle, user } = props
   const { countryIso } = country ?? {}
   const status = Areas.getStatus(country)
 
@@ -194,7 +194,7 @@ const canViewRepositoryItem = (props: {
   user: User
   repositoryItem: RepositoryItem
 }): boolean => {
-  const { assessment, cycle, country, areaCode, user, repositoryItem } = props
+  const { areaCode, assessment, country, cycle, repositoryItem, user } = props
 
   if (repositoryItem?.props?.public) {
     return canView({ assessment, cycle, country, areaCode, user })
@@ -223,7 +223,7 @@ const canViewHistory = (props: {
   section: Section | SubSection
   user: User
 }): boolean => {
-  const { user, cycle, country } = props
+  const { country, cycle, user } = props
 
   if (Users.isAdministrator(user)) return true
 

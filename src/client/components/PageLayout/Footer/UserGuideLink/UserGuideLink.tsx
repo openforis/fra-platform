@@ -34,7 +34,7 @@ const UserGuideLinkInner: React.FC<Props> = (props) => {
       default:
         return ''
     }
-  }, [userGuideLinkOption, assessmentName, cycleName, language])
+  }, [assessmentName, cycleName, language, userGuideLinkOption])
 
   return (
     <>

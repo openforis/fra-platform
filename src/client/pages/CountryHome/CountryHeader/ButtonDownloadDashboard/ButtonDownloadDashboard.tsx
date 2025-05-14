@@ -15,7 +15,7 @@ const sectionName = SectionNames.Country.Home.overview
 const ButtonDownloadDashboard: React.FC = () => {
   const { pathname } = useLocation()
 
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams()
   const lang = useLanguage()
   const className = useButtonClassName({ iconName: 'icon-hit-down', label: 'L', size: ButtonSize.s })
 

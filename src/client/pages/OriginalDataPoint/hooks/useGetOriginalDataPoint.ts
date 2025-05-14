@@ -9,7 +9,7 @@ import { useOriginalDataPointRouteParams } from 'client/hooks/useRouteParams'
 export const useGetOriginalDataPoint = () => {
   const dispatch = useAppDispatch()
 
-  const { assessmentName, cycleName, countryIso, year } = useOriginalDataPointRouteParams()
+  const { assessmentName, countryIso, cycleName, year } = useOriginalDataPointRouteParams()
 
   useEffect(() => {
     if (year !== '-1') {

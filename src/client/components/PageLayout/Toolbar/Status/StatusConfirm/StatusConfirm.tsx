@@ -25,7 +25,7 @@ type Props = {
 }
 
 const StatusConfirm: React.FC<Props> = (props) => {
-  const { status, onClose } = props
+  const { onClose, status } = props
 
   const dispatch = useAppDispatch()
   const i18n = useTranslation()

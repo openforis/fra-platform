@@ -22,7 +22,7 @@ type Returned = AssessmentMetaCache | undefined
 export const getMetaCache = createAsyncThunk<Returned, Props, ThunkApiConfig>(
   'assessment/metaCache/get',
   async (props, { getState }) => {
-    const { assessmentName, cycleName, countryIso } = props
+    const { assessmentName, countryIso, cycleName } = props
 
     const assessment = AssessmentSelectors.getAssessment(getState(), assessmentName)
     const cycle = assessment.cycles.find((c) => c.name === cycleName)

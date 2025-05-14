@@ -17,7 +17,7 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
   const { t } = useTranslation()
   const cycle = useCycle()
   const odpYears = useOriginalDataPointYears()
-  const { print, onlyTables } = useIsPrintRoute()
+  const { onlyTables, print } = useIsPrintRoute()
   const hasOdps = Array.isArray(odpYears)
   const country = useAssessmentCountry()
 

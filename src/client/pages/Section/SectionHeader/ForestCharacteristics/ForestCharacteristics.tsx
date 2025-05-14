@@ -14,7 +14,7 @@ import { useSectionContext } from 'client/pages/Section/context'
 const ForestCharacteristics: React.FC = () => {
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const user = useUser()
   const country = useCountry(countryIso)
   const { sectionName } = useSectionContext()

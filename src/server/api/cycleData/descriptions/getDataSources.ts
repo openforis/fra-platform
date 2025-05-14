@@ -15,7 +15,7 @@ export const getDataSources = async (req: CycleDataRequest<{ linkedVariable: str
 
     const { assessmentName, cycleName, sectionName, tableName, variableName } = linkedVariable
 
-    const { cycle, assessment } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
     const dataSources = await CycleDataController.Description.getDataSources({
       assessment,

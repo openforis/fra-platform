@@ -7,7 +7,7 @@ import { DataActions } from 'client/store/data'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 
 export const useGetContacts = () => {
-  const { assessmentName, cycleName, countryIso: _countryIso, sectionName } = useSectionRouteParams()
+  const { assessmentName, countryIso: _countryIso, cycleName, sectionName } = useSectionRouteParams()
   const countryIso = _countryIso as CountryIso
   const dispatch = useAppDispatch()
 

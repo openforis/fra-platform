@@ -19,7 +19,7 @@ const _getLogKey = (job: UpdateDependenciesJob): string => {
 export default async (job: UpdateDependenciesJob) => {
   const logKey = _getLogKey(job)
   try {
-    const { assessment, cycle, client = DB, user, nodeUpdates } = job.data
+    const { assessment, client = DB, cycle, nodeUpdates, user } = job.data
     const time = new Date().getTime()
     Logger.info(`${logKey} started with ${job.data.nodeUpdates.nodes.length} nodes.`)
 

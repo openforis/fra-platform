@@ -16,6 +16,6 @@ export const useOnClick = (): ((uuid: string) => void) => {
       if (isChecked(uuid)) setSelectedFiles(selectedFiles.filter((selectedFile) => selectedFile.uuid !== uuid))
       else setSelectedFiles([...selectedFiles, repositoryItems.find((file) => file.uuid === uuid)])
     },
-    [repositoryItems, isChecked, selectedFiles, setSelectedFiles]
+    [isChecked, repositoryItems, selectedFiles, setSelectedFiles]
   )
 }

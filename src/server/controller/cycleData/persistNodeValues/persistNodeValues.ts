@@ -26,7 +26,7 @@ type Props = {
 }
 
 export const persistNodeValues = async (props: Props, client: BaseProtocol = DB): Promise<void> => {
-  const { assessment, cycle, user, nodeUpdates, activityLogMessage, sectionName, country } = props
+  const { activityLogMessage, assessment, country, cycle, nodeUpdates, sectionName, user } = props
   const { countryIso } = nodeUpdates
 
   await client.tx(async (client) => {
@@ -36,7 +36,7 @@ export const persistNodeValues = async (props: Props, client: BaseProtocol = DB)
       // update nodes in db
       const persistedNodes = await Promise.all<NodeUpdate>(
         nodeUpdates.nodes.map(async (nodeUpdate) => {
-          const { tableName, variableName, colName, value } = nodeUpdate
+          const { colName, tableName, value, variableName } = nodeUpdate
 
           const propsPersist = {
             assessment,

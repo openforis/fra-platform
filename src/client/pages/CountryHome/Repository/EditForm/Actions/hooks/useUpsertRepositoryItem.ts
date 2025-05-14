@@ -10,7 +10,7 @@ type Returned = () => void
 
 export const useUpsertRepositoryItem = (): Returned => {
   const dispatch = useAppDispatch()
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const repositoryItem = useRepositoryItem()
 
   return useCallback<Returned>(async () => {
@@ -20,5 +20,5 @@ export const useUpsertRepositoryItem = (): Returned => {
       .then(() => {
         dispatch(RepositoryActions.reset())
       })
-  }, [assessmentName, cycleName, countryIso, repositoryItem, dispatch])
+  }, [assessmentName, countryIso, cycleName, dispatch, repositoryItem])
 }

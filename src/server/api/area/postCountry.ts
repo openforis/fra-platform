@@ -13,7 +13,7 @@ export const postCountry = async (
   res: Response
 ) => {
   try {
-    const { countryIso, assessmentName, cycleName, notifySelf: notifySelfReq, notifyUsers: notifyUsersReq } = req.query
+    const { assessmentName, countryIso, cycleName, notifySelf: notifySelfReq, notifyUsers: notifyUsersReq } = req.query
 
     const notifyUsers = notifyUsersReq === 'true'
     const notifySelf = notifySelfReq === 'true'

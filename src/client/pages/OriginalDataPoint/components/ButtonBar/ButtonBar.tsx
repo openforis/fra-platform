@@ -19,7 +19,7 @@ const ButtonBar: React.FC = () => {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
-  const { assessmentName, cycleName, countryIso, sectionName } = useOriginalDataPointRouteParams()
+  const { assessmentName, countryIso, cycleName, sectionName } = useOriginalDataPointRouteParams()
   const originalDataPoint = useOriginalDataPoint()
   const isOriginalDataPointUpdating = useIsOriginalDataPointUpdating()
   const canEdit = useIsEditODPEnabled()

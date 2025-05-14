@@ -11,7 +11,7 @@ export const create = async (
   },
   client: BaseProtocol = DB
 ): Promise<Section> => {
-  const { section, assessment } = params
+  const { assessment, section } = params
   const schemaName = Schemas.getName(assessment)
 
   return client.one<Section>(
@@ -31,7 +31,7 @@ export const createSubSection = async (
   },
   client: BaseProtocol = DB
 ): Promise<SubSection> => {
-  const { section, assessment, parentSectionId } = params
+  const { assessment, parentSectionId, section } = params
   const schemaName = Schemas.getName(assessment)
 
   return client.one<SubSection>(

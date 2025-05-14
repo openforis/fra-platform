@@ -16,7 +16,7 @@ export const useGetTableData = (props: Props) => {
   const { sectionName } = props
 
   const dispatch = useAppDispatch()
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const canEdit = useCanEdit(sectionName)
   const { print } = useIsPrintRoute()
   const dependencies = useDependencies(props)

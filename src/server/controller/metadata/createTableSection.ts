@@ -12,7 +12,7 @@ export const createTableSection = async (
   props: { user: User; assessment: Assessment; tableSection: Pick<TableSection, 'props'> },
   client: BaseProtocol = DB
 ): Promise<TableSection> => {
-  const { user, assessment, tableSection } = props
+  const { assessment, tableSection, user } = props
 
   return client.tx(async (t) => {
     const createdTableSection = await TableSectionRepository.create({ tableSection, assessment }, t)

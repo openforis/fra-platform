@@ -37,9 +37,9 @@ const ForestCharacteristicsNaturallyRegeneratingRow: React.FC<Props> = (props) =
 
   const { i18n } = useTranslation()
 
-  const { nationalClasses, id } = originalDataPoint
+  const { id, nationalClasses } = originalDataPoint
   const nationalClass = nationalClasses[index]
-  const { name, forestNaturalForestOfWhichPrimaryForestPercent, uuid } = nationalClass
+  const { forestNaturalForestOfWhichPrimaryForestPercent, name, uuid } = nationalClass
   const target = [id, 'class', `${uuid}`, 'naturally_regenerating_forest_of_which_primary_forest'] as string[]
   const classNameRowComments = useNationalClassNameComments(target)
 

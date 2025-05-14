@@ -17,7 +17,7 @@ export const AssessmentSectionSlice = createSlice({
       state,
       action: PayloadAction<{ sectionName: SectionName; name: CommentableDescriptionName }>
     ) => {
-      const { sectionName, name } = action.payload
+      const { name, sectionName } = action.payload
 
       const editable = state.descriptionsEditEnabled?.[sectionName]?.[name] ?? false
       const path = ['descriptionsEditEnabled', sectionName, name]

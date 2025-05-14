@@ -16,8 +16,8 @@ type Props = {
 }
 
 export const useAreChartVariablesEmpty = (props: Props) => {
-  const { table, data } = props
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
+  const { data, table } = props
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const cycle = useCycle()
 
   return useMemo(() => {

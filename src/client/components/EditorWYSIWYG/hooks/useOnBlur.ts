@@ -1,24 +1,10 @@
 import { useCallback, useEffect, useRef } from 'react'
 
-import rehypeParse from 'rehype-parse'
-import rehypeRaw from 'rehype-raw'
-import rehypeSanitize, { defaultSchema } from 'rehype-sanitize'
-import rehypeStringify from 'rehype-stringify'
-import { unified } from 'unified'
 import { Objects } from 'utils/objects'
 
 import { useRepositoryLinkContext } from 'client/components/EditorWYSIWYG/repositoryLinkContext'
 
-const schema = {
-  ...defaultSchema,
-  tagNames: [...defaultSchema.tagNames, 'u'],
-}
-
-const processor = unified()
-  .use(rehypeRaw)
-  .use(rehypeSanitize, schema)
-  .use(rehypeParse, { fragment: true })
-  .use(rehypeStringify)
+import { processor } from './_sanitizer'
 
 type OnChange = (value?: string) => void
 
@@ -30,7 +16,7 @@ type Props = {
 export const useOnBlur = (props: Props): OnChange => {
   const { onChange, value } = props
 
-  const { jodit } = useRepositoryLinkContext()
+  const { jodit, repositoryOpened } = useRepositoryLinkContext()
   const valueRef = useRef<string>(value)
   const pastedHtmlRef = useRef<boolean>(false)
 
@@ -58,6 +44,8 @@ export const useOnBlur = (props: Props): OnChange => {
         return
       }
 
+      if (repositoryOpened) return
+
       if (newValue === valueRef.current) return
 
       // Sanitize user input before saving and remove initial empty rows
@@ -67,6 +55,6 @@ export const useOnBlur = (props: Props): OnChange => {
       jodit.setEditorValue(sanitizedValue)
       onChange(sanitizedValue)
     },
-    [jodit, onChange]
+    [jodit, onChange, repositoryOpened]
   )
 }

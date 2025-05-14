@@ -28,7 +28,7 @@ const getValue = async (props: {
   countryIso: CountryIso
   t: TFunction
 }): Promise<Record<string, string>> => {
-  const { base, assessment, cycle, countryIso, t } = props
+  const { assessment, base, countryIso, cycle, t } = props
   const years = await OriginalDataPointRepository.getReservedYears({ assessment, cycle, countryIso })
 
   const latestYearKey = t('bulkDownload.NDPYear.latestYear')
@@ -53,7 +53,7 @@ const getValue = async (props: {
 }
 
 export const getNDPYear = async (props: Props) => {
-  const { assessment, cycle, countries } = props
+  const { assessment, countries, cycle } = props
   const { t } = await createI18nPromise(Lang.en)
 
   const climaticData = RecordAssessmentDatas.getCycleData({

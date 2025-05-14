@@ -17,7 +17,7 @@ type Props = {
   variable: keyof NationalClassValidation
 }
 export const useNationalClassValidations = (props: Props) => {
-  const { originalDataPoint, variable, index } = props
+  const { index, originalDataPoint, variable } = props
   const country = useAssessmentCountry()
   const cycle = useCycle()
   const section = useSection()

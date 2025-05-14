@@ -32,7 +32,7 @@ const sendZip = async (
 
   archive.pipe(res)
 
-  files.forEach(({ fileName: name, file }) => {
+  files.forEach(({ file, fileName: name }) => {
     archive.append(file, { name })
   })
 

@@ -63,7 +63,7 @@ const _getDescriptionTextLinks = async (props: Props): Promise<Array<LinkToVisit
   const descriptionsByTextLinks = await DescriptionRepository.getManyWithTextLinks({ assessment, cycle })
 
   const linksToVisit: Array<LinkToVisit> = descriptionsByTextLinks.flatMap((description) => {
-    const { id, countryIso, value } = description
+    const { countryIso, id, value } = description
     return _processLinks({
       colName: 'value',
       countryIso,
@@ -86,7 +86,7 @@ const _getOriginalDataPointLinks = async (props: Props): Promise<Array<LinkToVis
   ])
 
   const linksToVisit: Array<LinkToVisit> = odpsByDescriptionsLinks.flatMap((odp) => {
-    const { id, countryIso, description } = odp
+    const { countryIso, description, id } = odp
     return _processLinks({
       colName: 'description',
       countryIso,
@@ -98,7 +98,7 @@ const _getOriginalDataPointLinks = async (props: Props): Promise<Array<LinkToVis
 
   linksToVisit.concat(
     odpsByReferenceLinks.flatMap((odp) => {
-      const { id, countryIso, dataSourceReferences } = odp
+      const { countryIso, dataSourceReferences, id } = odp
       return _processLinks({
         colName: 'data_source_references',
         countryIso,

@@ -15,7 +15,7 @@ type Props = CycleParams & {
 
 const putOriginalDataPointYear = Functions.debounce(
   async (props: Props) => {
-    const { countryIso, assessmentName, cycleName, year, targetYear, id } = props
+    const { assessmentName, countryIso, cycleName, id, targetYear, year } = props
 
     const params = { countryIso, assessmentName, cycleName, sectionName: 'extentOfForest' }
     const config = { params }

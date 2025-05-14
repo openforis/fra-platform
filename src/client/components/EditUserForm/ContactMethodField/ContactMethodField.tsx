@@ -23,7 +23,7 @@ type Props = {
 }
 
 const ContactMethodField: React.FC<Props> = (props) => {
-  const { name, value, onChange, validator, enabled } = props
+  const { enabled, name, onChange, validator, value } = props
 
   const { t } = useTranslation()
 

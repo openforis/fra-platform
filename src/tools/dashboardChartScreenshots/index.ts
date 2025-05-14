@@ -31,7 +31,7 @@ const _takeScreenshots = async (countryISOs: Array<CountryIso>) => {
     maxConcurrency: 5,
   })
 
-  await cluster.task(async ({ page, data: { countryIso, lang } }: TaskProps) => {
+  await cluster.task(async ({ data: { countryIso, lang }, page }: TaskProps) => {
     // select page we want to screenshot
     const url = `${BASE_URL}/${countryIso}/home/overview/?lang=${lang}`
     await page.goto(url, { waitUntil: 'networkidle2' })

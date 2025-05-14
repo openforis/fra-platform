@@ -9,7 +9,7 @@ import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { SocketClient } from 'client/service/socket'
 
 export const useReviewSummaryListener = (): void => {
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams()
   const dispatch = useAppDispatch()
   const editor = useCanEditCycleData()
 

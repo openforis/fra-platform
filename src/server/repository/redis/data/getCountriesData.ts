@@ -19,7 +19,7 @@ type Props = {
 }
 
 export const getCountriesData = async (props: Props, client: BaseProtocol = DB): Promise<RecordCountryData> => {
-  const { assessment, cycle, countryISOs, tables, force } = props
+  const { assessment, countryISOs, cycle, force, tables } = props
 
   const redis = RedisData.getInstance()
   const data: RecordCountryData = {}

@@ -18,7 +18,7 @@ export const markMessageDeleted = async (
   res: Response
 ) => {
   try {
-    const { countryIso, assessmentName, cycleName, topicKey, messageId, sectionName } = req.query
+    const { assessmentName, countryIso, cycleName, messageId, sectionName, topicKey } = req.query
 
     const user = Requests.getUser(req)
 

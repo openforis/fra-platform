@@ -61,7 +61,7 @@ const processCSVFiles = async () => {
           const csvData = await CSV.read<CSVData>(csvPath)
 
           csvData.forEach((csvData) => {
-            const { country_iso: countryIso, value: raw, variable_name: variableName, col_name: colName } = csvData
+            const { col_name: colName, country_iso: countryIso, value: raw, variable_name: variableName } = csvData
             const rowKey = RowCaches.getKey({ tableName, variableName })
             const row = rows[rowKey]
             const col = row.cols.find((c) => c.props.colName === colName)

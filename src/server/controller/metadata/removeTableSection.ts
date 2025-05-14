@@ -12,7 +12,7 @@ export const removeTableSection = async (
   props: { user: User; assessment: Assessment; tableSection: TableSection },
   client: BaseProtocol = DB
 ): Promise<void> => {
-  const { user, assessment, tableSection } = props
+  const { assessment, tableSection, user } = props
 
   return client.tx(async (t) => {
     const deletedTableSection = await TableSectionRepository.remove({ tableSection, assessment }, t)

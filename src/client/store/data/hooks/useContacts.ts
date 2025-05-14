@@ -7,6 +7,6 @@ import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 type Returned = Array<Contact>
 
 export const useContacts = (): Returned => {
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   return useAppSelector<Returned>((state) => state.data.contacts[assessmentName]?.[cycleName]?.[countryIso] ?? [])
 }

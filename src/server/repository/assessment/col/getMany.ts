@@ -8,7 +8,7 @@ export const getMany = (
   props: { assessment: Assessment; tableId?: number; rowId?: number },
   client: BaseProtocol = DB
 ): Promise<Array<Col>> => {
-  const { assessment, tableId, rowId } = props
+  const { assessment, rowId, tableId } = props
   if ((rowId && tableId) || (!rowId && !tableId)) {
     throw new Error(`Only and only one between rowId and tableId must be present`)
   }

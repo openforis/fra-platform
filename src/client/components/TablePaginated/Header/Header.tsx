@@ -20,7 +20,7 @@ const Header = <Datum extends object>(props: Props<Datum>) => {
         const { header: Header, key } = column
 
         return (
-          <DataColumn head key={`${key}_header`}>
+          <DataColumn key={`${key}_header`} head>
             {typeof Header === 'string' && t(Header)}
             {typeof Header !== 'string' && <Header />}
 

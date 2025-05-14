@@ -9,7 +9,7 @@ export const getDiffs = (activityLogEntries: ActivityLogEntries): Array<Diff> =>
     const { odp_id: odpId } = activityLogEntry
 
     activityLogEntry.activity_log_entries_list.forEach((activityLogEntryRow, index) => {
-      const { target: odpA, message } = activityLogEntryRow
+      const { message, target: odpA } = activityLogEntryRow
       const odpB = activityLogEntry.activity_log_entries_list[index + 1]?.target
 
       if (!odpB) {

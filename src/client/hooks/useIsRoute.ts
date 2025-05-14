@@ -5,7 +5,7 @@ import { Routes } from 'meta/routes'
 
 import { useAssessmentRouteParams } from 'client/hooks/useRouteParams'
 
-export const useIsRoute = ({ path, exact = true }: { path: string; exact?: boolean }): boolean => {
+export const useIsRoute = ({ exact = true, path }: { path: string; exact?: boolean }): boolean => {
   const { pathname } = useLocation()
   return Boolean(matchPath({ path, end: exact }, pathname))
 }

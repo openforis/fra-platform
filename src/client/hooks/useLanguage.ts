@@ -14,7 +14,7 @@ type UpdateLanguage = (props: { lang: Lang; persist?: boolean }) => Promise<void
 export const useUpdateLanguage = (): UpdateLanguage => {
   const { i18n } = useTranslation()
   const dispatch = useAppDispatch()
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams()
   const user = useUser()
 
   return useCallback<UpdateLanguage>(

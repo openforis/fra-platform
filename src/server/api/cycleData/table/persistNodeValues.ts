@@ -18,7 +18,7 @@ export const persistNodeValues = async (req: CycleDataRequest<never, NodesBody>,
     const metaCache = true
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName, metaCache })
 
-    const nodes = values.map<NodeUpdate>(({ variableName, colName, value }) => {
+    const nodes = values.map<NodeUpdate>(({ colName, value, variableName }) => {
       return { tableName, variableName, colName, value }
     })
     const nodeUpdates: NodeUpdates = { assessmentName, cycleName, countryIso, nodes }

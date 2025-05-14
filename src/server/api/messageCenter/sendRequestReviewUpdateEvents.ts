@@ -11,7 +11,7 @@ export const sendRequestReviewUpdateEvents = (props: {
   cycleName: string
   sectionName: string
 }): void => {
-  const { topic, countryIso, assessmentName, cycleName, sectionName } = props
+  const { assessmentName, countryIso, cycleName, sectionName, topic } = props
   if (topic.type === MessageTopicType.review) {
     SocketServer.emit(Sockets.getRequestReviewSummaryEvent({ countryIso, assessmentName, cycleName }))
     SocketServer.emit(Sockets.getRequestReviewStatusEvent({ countryIso, assessmentName, cycleName, sectionName }))

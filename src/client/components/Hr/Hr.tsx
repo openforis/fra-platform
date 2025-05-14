@@ -10,7 +10,7 @@ type Props = {
 }
 
 const Hr: React.FC<Props> = (props: Props) => {
-  const { className, vertical, dark } = props
+  const { className, dark, vertical } = props
   return <div className={classNames('hr', { vertical, dark }, className)} />
 }
 

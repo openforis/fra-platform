@@ -15,7 +15,7 @@ export const isTableDataEmpty = (props: {
   data: RecordAssessmentData
   tableName: TableName
 }): boolean => {
-  const { assessmentName, cycleName, data, tableName, countryIso } = props
+  const { assessmentName, countryIso, cycleName, data, tableName } = props
   const tableData = getTableData({ assessmentName, cycleName, data, tableName, countryIso })
 
   if (Objects.isEmpty(tableData)) {

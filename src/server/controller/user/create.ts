@@ -13,7 +13,7 @@ export const create = async (
   },
   client: BaseProtocol = DB
 ): Promise<User> => {
-  const { user, provider } = props
+  const { provider, user } = props
 
   return client.tx(async (t) => {
     const newUser = await UserRepository.create({ user }, t)

@@ -9,10 +9,10 @@ import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 const EmptyActivities: React.FC = () => {
   const { t } = useTranslation()
 
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams()
   return (
     <div className="landing__activity-empty">
-      <img src="/img/tucan.svg" height="72" alt="tucan" />
+      <img alt="tucan" height="72" src="/img/tucan.svg" />
       <p className="landing__activity-empty-title">{t('landing.recentActivity.noRecentActivityTitle')}</p>
       <p>{t('landing.recentActivity.noRecentActivityBody')}</p>
       <Link className="btn-s btn-primary" to={Routes.Country.generatePath({ countryIso, assessmentName, cycleName })}>

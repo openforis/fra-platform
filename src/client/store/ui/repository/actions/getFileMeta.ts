@@ -15,8 +15,8 @@ type Props = CycleParams & {
 export const getFileMeta = createAsyncThunk<FileMeta, Props, ThunkApiConfig>(
   'repositoryItem/file-meta/get',
   async (props) => {
-    const { assessmentName, cycleName, countryIso, repositoryItem } = props
-    const { uuid, fileUuid } = repositoryItem
+    const { assessmentName, countryIso, cycleName, repositoryItem } = props
+    const { fileUuid, uuid } = repositoryItem
     const url = ApiEndPoint.CycleData.Repository.fileMeta()
     const params = { assessmentName, cycleName, countryIso, uuid, fileUuid }
     const config = { params }

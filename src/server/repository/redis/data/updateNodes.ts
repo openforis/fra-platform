@@ -17,7 +17,7 @@ type Props = {
 }
 
 export const updateNodes = async (props: Props): Promise<void> => {
-  const { assessment, cycle, countryIso, nodes } = props
+  const { assessment, countryIso, cycle, nodes } = props
 
   const redis = RedisData.getInstance()
   const key = getKeyCountry({ assessment, cycle, countryIso, key: Keys.Data.data })
@@ -29,7 +29,7 @@ export const updateNodes = async (props: Props): Promise<void> => {
     const tableData = JSON.parse(data[index])
 
     nodes[tableName].forEach((node) => {
-      const { colName, variableName, value } = node
+      const { colName, value, variableName } = node
       const path = [colName, variableName]
       Objects.setInPath({ obj: tableData, path, value })
     })

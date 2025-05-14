@@ -50,7 +50,7 @@ const References: React.FC<Props> = (props: Props) => {
         type: DataRowActionType.Review,
       },
     ]
-  }, [reviewIndicator, originalDataPoint, t])
+  }, [originalDataPoint, reviewIndicator, t])
 
   return (
     <DataRow actions={actions}>

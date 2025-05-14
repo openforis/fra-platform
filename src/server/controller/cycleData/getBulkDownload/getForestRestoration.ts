@@ -21,7 +21,7 @@ const colName = 'answer'
 const tableName = 'forestRestoration'
 
 export const getForestRestoration = async (props: Props) => {
-  const { assessment, cycle, countries } = props
+  const { assessment, countries, cycle } = props
 
   const tableNames = [tableName]
 

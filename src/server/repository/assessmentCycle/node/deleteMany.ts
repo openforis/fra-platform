@@ -12,7 +12,7 @@ type Props = {
 }
 
 export const deleteMany = async (props: Props, client: BaseProtocol = DB): Promise<void> => {
-  const { assessment, cycle, countryIso, colUuids } = props
+  const { assessment, colUuids, countryIso, cycle } = props
 
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
 

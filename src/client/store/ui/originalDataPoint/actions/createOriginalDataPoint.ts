@@ -11,7 +11,7 @@ type Params = CycleParams & { originalDataPoint: OriginalDataPoint }
 export const createOriginalDataPoint = createAsyncThunk<OriginalDataPoint, Params>(
   'originalDataPoint/create',
   async (props) => {
-    const { countryIso, assessmentName, cycleName, originalDataPoint } = props
+    const { assessmentName, countryIso, cycleName, originalDataPoint } = props
 
     const { data } = await axios.post(
       ApiEndPoint.CycleData.OriginalDataPoint.one(),

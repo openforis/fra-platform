@@ -35,13 +35,13 @@ type Props = {
 }
 
 const ForestCharacteristicsPlantationRow: React.FC<Props> = (props) => {
-  const { canEditData, originalDataPoint, index } = props
+  const { canEditData, index, originalDataPoint } = props
 
   const { i18n } = useTranslation()
 
-  const { nationalClasses, id } = originalDataPoint
+  const { id, nationalClasses } = originalDataPoint
   const nationalClass = nationalClasses[index]
-  const { name, forestPlantationIntroducedPercent, uuid } = nationalClass
+  const { forestPlantationIntroducedPercent, name, uuid } = nationalClass
   const target = [id, 'class', `${uuid}`, 'plantation_forest_introduced'] as string[]
   const classNameRowComments = useNationalClassNameComments(target)
 

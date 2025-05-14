@@ -29,7 +29,7 @@ export const useTreeCoverAreaData = (): Returned => {
   const { t } = useTranslation()
 
   const fra1aLandArea = useGeoFra1aLandArea()
-  const { tabularForestEstimations: data, isLoading, error } = useGeoStatistics()
+  const { error, isLoading, tabularForestEstimations: data } = useGeoStatistics()
   const agreementLayer = useGeoLayer(LayerSectionKey.Forest, ForestKey.Agreement)
   const agreementLevel = agreementLayer?.options?.agreementLayer?.level ?? 0
   const agreementColor = agreementPalette.at(agreementLevel - 1)

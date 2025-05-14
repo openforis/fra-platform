@@ -11,7 +11,7 @@ import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 import { SocketClient } from 'client/service/socket'
 
 export const useReviewStatusListener = (): void => {
-  const { assessmentName, cycleName, countryIso, sectionName } = useSectionRouteParams<CountryIso>()
+  const { assessmentName, countryIso, cycleName, sectionName } = useSectionRouteParams<CountryIso>()
   const dispatch = useAppDispatch()
   const user = useUser()
   const editor = useCanEditCycleData()

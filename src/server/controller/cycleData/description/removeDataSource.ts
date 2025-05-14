@@ -23,7 +23,7 @@ type Props = {
 const name = CommentableDescriptionName.dataSources
 
 export const removeDataSource = async (props: Props, client: BaseProtocol = DB): Promise<void> => {
-  const { assessment, cycle, country, sectionName, uuid, user } = props
+  const { assessment, country, cycle, sectionName, user, uuid } = props
   const { countryIso } = country
 
   return client.tx(async (t) => {

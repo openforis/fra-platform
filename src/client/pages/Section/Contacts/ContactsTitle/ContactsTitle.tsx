@@ -13,7 +13,7 @@ import Button from 'client/components/Buttons/Button'
 
 const ContactsTitle: React.FC = () => {
   const { t } = useTranslation()
-  const { assessmentName, cycleName, countryIso, sectionName } = useSectionRouteParams<CountryIso>()
+  const { assessmentName, countryIso, cycleName, sectionName } = useSectionRouteParams<CountryIso>()
   const dispatch = useAppDispatch()
   const country = useCountry(countryIso)
   const user = useUser()

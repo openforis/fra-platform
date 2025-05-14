@@ -56,7 +56,7 @@ const _getFileName = (name: string): string => {
   return `${name}_${timestamp}.csv`
 }
 
-const handleResult = ({ regions, iso3, deskStudy, name, year, ...row }: Record<string, string>, i18n: i18nType) => {
+const handleResult = ({ deskStudy, iso3, name, regions, year, ...row }: Record<string, string>, i18n: i18nType) => {
   const _translate = (key: string) => i18n.t<string>(Areas.getTranslationKey(key as RegionCode | CountryIso))
 
   const _handleRegions = (regions: string): string => {

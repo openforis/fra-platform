@@ -19,7 +19,7 @@ type Props = {
 }
 
 export const isVariableDataEmpty = (props: Props): boolean => {
-  const { assessmentName, cycleName, data, tableName, countryIso, variableName } = props
+  const { assessmentName, countryIso, cycleName, data, tableName, variableName } = props
   const tableData = getTableData({ assessmentName, cycleName, data, tableName, countryIso })
 
   if (Objects.isEmpty(tableData)) {

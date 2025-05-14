@@ -14,7 +14,7 @@ type Props = CycleDataParams & {
 }
 
 const _update = async (props: Props): Promise<void> => {
-  const { assessmentName, cycleName, countryIso, sectionName, contact, field, raw } = props
+  const { assessmentName, contact, countryIso, cycleName, field, raw, sectionName } = props
 
   const body = { contact, field, raw }
   const params = { assessmentName, cycleName, countryIso, sectionName }

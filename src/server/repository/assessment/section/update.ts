@@ -11,7 +11,7 @@ export const update = async (
   },
   client: BaseProtocol = DB
 ): Promise<Section> => {
-  const { section, assessment } = params
+  const { assessment, section } = params
   const schemaName = Schemas.getName(assessment)
 
   return client.one<Section>(
@@ -32,7 +32,7 @@ export const updateSubSection = async (
   },
   client: BaseProtocol = DB
 ): Promise<SubSection> => {
-  const { section, assessment, parentSectionId } = params
+  const { assessment, parentSectionId, section } = params
   const schemaName = Schemas.getName(assessment)
   const propsValues = JSON.stringify(section.props)
   const updateParentSectionId = parentSectionId

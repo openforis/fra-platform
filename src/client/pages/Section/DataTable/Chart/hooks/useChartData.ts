@@ -25,7 +25,7 @@ type Returned = {
 export const useChartData = (props: Props): Returned => {
   const { data, table, trends } = props
 
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const cycle = useCycle()
   const { print } = useIsPrintRoute()
 

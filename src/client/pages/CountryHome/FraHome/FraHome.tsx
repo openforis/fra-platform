@@ -13,7 +13,7 @@ const FraHome: React.FC = () => {
       <CountryHeader sections={sections} />
 
       <Routes>
-        {sections.map(({ name, component }) => (
+        {sections.map(({ component, name }) => (
           <Route key={name} element={React.createElement(component, {})} path={`${name}/*`} />
         ))}
         {sections.length >= 1 && <Route element={<Navigate replace to={sections[0].name} />} index />}

@@ -10,7 +10,7 @@ import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 type Returned = () => void
 
 export const useGetRepositoryItems = (): Returned => {
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const dispatch = useAppDispatch()
 
   return useCallback<Returned>(() => {
@@ -19,5 +19,5 @@ export const useGetRepositoryItems = (): Returned => {
     const path = ApiEndPoint.CycleData.Repository.many()
     const getDataProps = { assessmentName, cycleName, countryIso, limit, page, path }
     dispatch(TablePaginatedActions.getData(getDataProps))
-  }, [assessmentName, cycleName, countryIso, dispatch])
+  }, [assessmentName, countryIso, cycleName, dispatch])
 }

@@ -14,7 +14,7 @@ type Props = {
 }
 
 export const getTableDataLastApproved = (props: Props, client: BaseProtocol = DB): Promise<RecordCountryData> => {
-  const { assessment, cycle, countryISOs, tableNames } = props
+  const { assessment, countryISOs, cycle, tableNames } = props
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
   const schemaAssessment = Schemas.getName(assessment)
 

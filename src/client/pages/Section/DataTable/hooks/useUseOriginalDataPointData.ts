@@ -23,5 +23,5 @@ export const useUseOriginalDataPointData = (props: Props): boolean => {
     if (tableName === TableNames.extentOfForest) return showOriginalDataPoints
     if (tableName === TableNames.forestCharacteristics) return useOriginalDataPoint
     return true
-  }, [useOriginalDataPoint, showOriginalDataPoints, tableName])
+  }, [showOriginalDataPoints, tableName, useOriginalDataPoint])
 }

@@ -16,7 +16,7 @@ type Props = {
 
 const FieldsOption: React.FC<Props> = (props) => {
   const { t } = useTranslation()
-  const { method, fields, setFields } = props
+  const { fields, method, setFields } = props
 
   const setField = (field: GenerateValuesField, idx: number): void => {
     const fieldsClone = [...fields]
@@ -53,7 +53,7 @@ const FieldsOption: React.FC<Props> = (props) => {
       )}
 
       {fields.map((field, fieldIdx) => {
-        const { variableName, labelKey, selected, annualChangeRates } = field
+        const { annualChangeRates, labelKey, selected, variableName } = field
         return (
           <React.Fragment key={variableName}>
             <ButtonCheckBox checked={selected} label={t(labelKey)} onClick={() => toggleSelected(fieldIdx)} />
@@ -61,16 +61,16 @@ const FieldsOption: React.FC<Props> = (props) => {
             {method === Method.annualChange && (
               <div className="annual-change-rates">
                 <input
-                  type="number"
                   className={`text-input-s${rateValidationClass(fieldIdx, 'past')}`}
-                  value={annualChangeRates.past}
                   onChange={(e) => setAnnualChangeRateValue(fieldIdx, 'past', e.target.value)}
+                  type="number"
+                  value={annualChangeRates.past}
                 />
                 <input
-                  type="number"
                   className={`text-input-s${rateValidationClass(fieldIdx, 'future')}`}
-                  value={annualChangeRates.future}
                   onChange={(e) => setAnnualChangeRateValue(fieldIdx, 'future', e.target.value)}
+                  type="number"
+                  value={annualChangeRates.future}
                 />
                 <div className="annual-change-rates__unit">{t('tableWithOdp._1000haYear')}</div>
               </div>

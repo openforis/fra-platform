@@ -16,7 +16,7 @@ const PanEuropeanHome: React.FC = () => {
       <CountryHeader sections={sections} showRegionLabel={false} />
 
       <Routes>
-        {sections.map(({ name, component }) => (
+        {sections.map(({ component, name }) => (
           <Route key={name} element={React.createElement(component, {})} path={`${name}/*`} />
         ))}
 

@@ -7,7 +7,7 @@ type Props = {
   className?: string
 }
 
-const GeoIcon: React.FC<Props> = ({ name, className }) => {
+const GeoIcon: React.FC<Props> = ({ className, name }) => {
   const svgClass = className ? `icon-geo ${className}` : 'icon-geo'
 
   return <img alt="" className={svgClass} src={`/img/geo/${name}.svg?bust=${bustString}#${name}`} />

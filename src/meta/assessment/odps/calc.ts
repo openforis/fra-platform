@@ -17,7 +17,7 @@ export const calcTotalFieldArea = (props: {
   originalDataPoint: OriginalDataPoint
   field: keyof ODPNationalClass
 }): number => {
-  const { originalDataPoint, field } = props
+  const { field, originalDataPoint } = props
   const nationalClasses = originalDataPoint.nationalClasses.filter(
     (nationalClass) => !Objects.isNil(nationalClass.area) && !Objects.isNil(nationalClass[field])
   )
@@ -32,7 +32,7 @@ export const calcTotalSubFieldArea = (props: {
   field: keyof ODPNationalClass
   subField: keyof ODPNationalClass
 }): number => {
-  const { originalDataPoint, field, subField } = props
+  const { field, originalDataPoint, subField } = props
   const nationalClasses = originalDataPoint.nationalClasses.filter(
     (nationalClass) =>
       !Objects.isNil(nationalClass.area) &&
@@ -54,7 +54,7 @@ export const calcTotalSubSubFieldArea = (props: {
   subField: keyof ODPNationalClass
   subSubField: keyof ODPNationalClass
 }): number => {
-  const { originalDataPoint, field, subField, subSubField } = props
+  const { field, originalDataPoint, subField, subSubField } = props
 
   const nationalClasses = originalDataPoint.nationalClasses.filter(
     (nationalClass) =>

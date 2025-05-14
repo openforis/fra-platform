@@ -19,7 +19,7 @@ type Props = {
 }
 
 export const create = async (props: Props, client: BaseProtocol = DB): Promise<void> => {
-  const { assessment, cycle, countryIso, contact, user } = props
+  const { assessment, contact, countryIso, cycle, user } = props
 
   await client.tx(async (t) => {
     // create contact

@@ -43,9 +43,9 @@ const ForestCharacteristicsRow: React.FC<Props> = (props) => {
 
   const { t } = useTranslation()
 
-  const { nationalClasses, id } = originalDataPoint
+  const { id, nationalClasses } = originalDataPoint
   const nationalClass = nationalClasses[index]
-  const { name, forestNaturalPercent, forestPlantationPercent, otherPlantedForestPercent, uuid } = nationalClass
+  const { forestNaturalPercent, forestPlantationPercent, name, otherPlantedForestPercent, uuid } = nationalClass
   const target = [id, 'class', `${uuid}`, 'forest_charasteristics'] as string[]
   const classNameRowComments = useNationalClassNameComments(target)
 

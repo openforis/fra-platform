@@ -13,7 +13,7 @@ type Props = {
 
 const ProfilePicture = (props: Props) => {
   const { t } = useTranslation()
-  const { onChange, userId, enabled } = props
+  const { enabled, onChange, userId } = props
 
   const profilePicture = useRef(null)
   const profilePictureFile = useRef<HTMLInputElement>(null)

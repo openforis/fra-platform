@@ -1,7 +1,7 @@
 import { isEmpty } from './isEmpty'
 
 export const setInPath = (params: { obj: any; path: string[]; value: any; excludeEmpty?: boolean }): any => {
-  const { obj, path, value, excludeEmpty } = params
+  const { excludeEmpty, obj, path, value } = params
   if (excludeEmpty && isEmpty(value)) {
     return obj
   }

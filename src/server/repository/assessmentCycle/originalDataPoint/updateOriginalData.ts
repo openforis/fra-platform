@@ -13,7 +13,7 @@ export const updateOriginalData = async (
   const {
     assessment,
     cycle,
-    originalDataPoint: { id, countryIso, year, nationalClasses, values },
+    originalDataPoint: { countryIso, id, nationalClasses, values, year },
   } = props
 
   const schemaName = Schemas.getNameCycle(assessment, cycle)

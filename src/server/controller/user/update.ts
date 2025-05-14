@@ -15,7 +15,7 @@ export const update = async (
   },
   client: BaseProtocol = DB
 ): Promise<User> => {
-  const { userToUpdate, profilePicture, user } = props
+  const { profilePicture, user, userToUpdate } = props
 
   return client.tx(async (t) => {
     if (profilePicture) {

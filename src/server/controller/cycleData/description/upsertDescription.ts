@@ -21,7 +21,7 @@ type Props = {
 }
 
 export const upsertDescription = async (props: Props, client: BaseProtocol = DB): Promise<string> => {
-  const { assessment, cycle, country, value, sectionName, name, user } = props
+  const { assessment, country, cycle, name, sectionName, user, value } = props
   const { countryIso } = country
 
   return client.tx(async (t) => {

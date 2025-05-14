@@ -22,7 +22,7 @@ export const updateOriginalDataPointDataSources = async (
   props: Props,
   client: BaseProtocol = DB
 ): Promise<OriginalDataPoint> => {
-  const { assessment, cycle, country, originalDataPoint, user } = props
+  const { assessment, country, cycle, originalDataPoint, user } = props
   const { countryIso } = originalDataPoint
 
   return client.tx(async (t) => {

@@ -23,7 +23,7 @@ const Remove: React.FC<Props> = (props: Props) => {
 
   const callback = useCallback(() => {
     toaster.error(t('userManagement.invitationDeleted'))
-  }, [toaster, t])
+  }, [t, toaster])
 
   const removeInvitation = useRemoveInvitation({ user, callback })
 

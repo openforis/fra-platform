@@ -32,7 +32,7 @@ const _getSectionNames = async (props: Pick<Props, 'assessment' | 'cycle'>): Pro
 }
 
 export const getManyMetadata = async (props: Props, client: BaseProtocol = DB): Promise<RecordMetadata> => {
-  const { assessment, cycle, sectionNames, force } = props
+  const { assessment, cycle, force, sectionNames } = props
 
   const redis = RedisData.getInstance()
   const key = getKeyCycle({ assessment, cycle, key: Keys.Section.sectionsMetadata })

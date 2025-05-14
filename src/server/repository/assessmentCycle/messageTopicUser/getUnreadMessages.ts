@@ -11,7 +11,7 @@ export const getUnreadMessages = async (
   props: { countryIso: CountryIso; assessment: Assessment; cycle: Cycle; key: string; user: User },
   client: BaseProtocol = DB
 ): Promise<{ unreadMessages: number }> => {
-  const { countryIso, assessment, cycle, key, user } = props
+  const { assessment, countryIso, cycle, key, user } = props
 
   const cycleSchema = Schemas.getNameCycle(assessment, cycle)
 

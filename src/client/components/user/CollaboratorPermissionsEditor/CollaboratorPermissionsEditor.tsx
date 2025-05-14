@@ -39,10 +39,10 @@ const CollaboratorPermissionsEditor: React.FC<Props> = (props) => {
       </button>
 
       <ModalEditor
-        open={modalOptions.open}
-        permissions={permissions}
         onClose={_onEditPermissionsClose}
         onPermissionsChange={onPermissionsChange}
+        open={modalOptions.open}
+        permissions={permissions}
       />
     </div>
   )

@@ -8,9 +8,9 @@ import { DataState } from 'client/store/data/state'
 export const setNodeValuesReducer = (builder: ActionReducerMapBuilder<DataState>) =>
   builder.addCase(setNodeValues, (state, action) => {
     const { nodeUpdates } = action.payload
-    const { countryIso, nodes, assessmentName, cycleName } = nodeUpdates
+    const { assessmentName, countryIso, cycleName, nodes } = nodeUpdates
 
-    nodes.forEach(({ tableName, variableName, colName, value }) => {
+    nodes.forEach(({ colName, tableName, value, variableName }) => {
       const data = state.tableData
       const props = { assessmentName, cycleName, countryIso, tableName, variableName, colName, data, value }
       state.tableData = RecordAssessmentDatas.updateDatum(props)

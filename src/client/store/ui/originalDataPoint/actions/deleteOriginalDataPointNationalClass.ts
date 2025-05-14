@@ -16,7 +16,7 @@ type Props = CycleParams & {
 export const deleteOriginalDataPointNationalClass = createAsyncThunk<OriginalDataPoint, Props>(
   'originalDataPoint/nationalClasses/delete',
   async (props) => {
-    const { assessmentName, cycleName, countryIso, index, originalDataPoint } = props
+    const { assessmentName, countryIso, cycleName, index, originalDataPoint } = props
     const { id: odpId } = originalDataPoint
 
     const sectionName = 'extentOfForest'

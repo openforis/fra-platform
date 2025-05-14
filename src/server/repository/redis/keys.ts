@@ -53,7 +53,7 @@ export const getKeyCycle = (props: PropsCycle): string => {
 }
 
 export const getKeyCountry = (props: PropsCountry): string => {
-  const { assessment, cycle, countryIso, key } = props
+  const { assessment, countryIso, cycle, key } = props
   return `${getKeyCycle({ assessment, cycle, key })}-${countryIso}`
 }
 

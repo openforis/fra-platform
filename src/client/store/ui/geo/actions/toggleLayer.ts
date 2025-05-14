@@ -18,7 +18,7 @@ type Params = {
 
 export const toggleLayer = createAsyncThunk<void, Params>(
   'geo/toggleLayer',
-  async ({ layerKey, sectionKey, fetchLayerParams }, { dispatch, getState }) => {
+  async ({ fetchLayerParams, layerKey, sectionKey }, { dispatch, getState }) => {
     const state = getState()
     const layerState = (state as RootState).geo?.sections?.[sectionKey]?.[layerKey]
 

@@ -35,7 +35,7 @@ export const useUserCountries = (): Array<CountryIso> => {
     if (isAdministrator) return countries
     const compareFn = (c1: CountryIso, c2: CountryIso) => compareListName(c1, c2)
     return userCountries.sort(compareFn)
-  }, [isAdministrator, countries, userCountries, compareListName])
+  }, [compareListName, countries, isAdministrator, userCountries])
 }
 
 export const useUserCycles = (): Array<Cycle> => {
@@ -90,7 +90,7 @@ export const useIsDescriptionEditable = (props: {
   sectionName: SectionName
   name: CommentableDescriptionName
 }): boolean => {
-  const { sectionName, name } = props
+  const { name, sectionName } = props
 
   const canEdit = useCanEditDescription({ sectionName })
   const editEnabled = useIsDescriptionEditEnabled({ sectionName, name })

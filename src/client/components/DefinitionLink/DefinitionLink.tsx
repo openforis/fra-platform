@@ -17,7 +17,7 @@ type Props = {
 }
 
 const DefinitionLink: React.FC<Props> = (props: Props) => {
-  const { className, document, anchor, title, lang, assessmentName, cycleName } = props
+  const { anchor, assessmentName, className, cycleName, document, lang, title } = props
   return (
     <div
       aria-hidden="true"

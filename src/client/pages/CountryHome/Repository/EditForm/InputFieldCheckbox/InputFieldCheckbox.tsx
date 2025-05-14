@@ -13,7 +13,7 @@ type Props = {
 }
 
 const InputFieldCheckbox: React.FC<Props> = (props: Props) => {
-  const { onChange, value = false, name } = props
+  const { name, onChange, value = false } = props
   const { t } = useTranslation()
   const disabled = useIsFileInUse()
 

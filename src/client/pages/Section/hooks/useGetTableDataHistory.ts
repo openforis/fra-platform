@@ -16,7 +16,7 @@ export const useGetTableDataHistory = (props: Props): void => {
   const { sectionName } = props
 
   const dispatch = useAppDispatch()
-  const { assessmentName, cycleName, countryIso: _countryIso } = useCountryRouteParams()
+  const { assessmentName, countryIso: _countryIso, cycleName } = useCountryRouteParams()
   const countryIso = _countryIso as CountryIso
   const historyLastApprovedIsActive = useHistoryLastApprovedIsActive()
 

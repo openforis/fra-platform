@@ -74,7 +74,7 @@ const hasRoleInCycle = (props: { user: User; cycle: Cycle }): boolean => {
 }
 
 const hasRoleInCountry = (props: { user: User; cycle: Cycle; countryIso: AreaCode }): boolean => {
-  const { cycle, countryIso, user } = props
+  const { countryIso, cycle, user } = props
   if (!user) return false
   if (isAdministrator(user)) return true
   return user.roles.some((role) => role.cycleUuid === cycle.uuid && role.countryIso === countryIso)

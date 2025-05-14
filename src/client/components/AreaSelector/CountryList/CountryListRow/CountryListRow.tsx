@@ -23,9 +23,9 @@ type Props = {
 
 const CountryListRow: React.FC<Props> = (props: Props) => {
   const {
-    role,
     country: { countryIso },
     onElementSelect,
+    role,
     selectedValue,
   } = props
 

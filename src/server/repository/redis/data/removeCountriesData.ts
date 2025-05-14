@@ -12,7 +12,7 @@ type PropsCache = {
 }
 
 export const removeCountriesData = async (props: PropsCache): Promise<void> => {
-  const { assessment, cycle, countryISOs } = props
+  const { assessment, countryISOs, cycle } = props
 
   const redis = RedisData.getInstance()
 

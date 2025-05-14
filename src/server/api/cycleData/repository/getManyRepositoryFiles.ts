@@ -11,7 +11,7 @@ type Request = CycleRequest & { global: string }
 
 export const getManyRepositoryFiles = async (req: Request, res: Response) => {
   try {
-    const { assessmentName, cycleName, countryIso, global = false } = req.query
+    const { assessmentName, countryIso, cycleName, global = false } = req.query
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
     const props = { assessment, cycle, countryIso, global: JSON.parse(global) }
     const files = await CycleDataController.Repository.getManyFiles(props)

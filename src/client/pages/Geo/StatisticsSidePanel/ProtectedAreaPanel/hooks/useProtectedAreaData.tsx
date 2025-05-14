@@ -36,7 +36,7 @@ export const useProtectedAreaData = (): Returned => {
   const { t } = useTranslation()
   const geoProtectedAreas = useGeoProtectedAreas()
 
-  const { isLoading, error } = useGeoStatistics()
+  const { error, isLoading } = useGeoStatistics()
 
   return useMemo<Returned>(() => {
     if (isLoading) {

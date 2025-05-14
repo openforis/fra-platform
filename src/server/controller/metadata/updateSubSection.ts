@@ -11,7 +11,7 @@ export const updateSubSection = async (
   props: { user: User; assessment: Assessment; section: SubSection; parentSectionId?: number },
   client: BaseProtocol = DB
 ): Promise<SubSection> => {
-  const { user, assessment, section, parentSectionId } = props
+  const { assessment, parentSectionId, section, user } = props
 
   return client.tx(async (t) => {
     const updatedSection = await SectionRepository.updateSubSection({ section, assessment, parentSectionId }, t)

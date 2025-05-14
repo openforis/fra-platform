@@ -48,13 +48,13 @@ const TablePaginated = <Datum extends object>(props: Props<Datum>) => {
   const { marginPagesDisplayed, pageRangeDisplayed } = props // Paginator Props
   const { columns, filters = defaults.filters, groups, limit = 30, path } = props // Base Props
   const {
-    counter = defaults.counter,
     EmptyListComponent = defaults.EmptyListComponent,
+    compareFn,
+    counter = defaults.counter,
     export: exportTable,
     header = true,
     skeleton = defaults.skeleton,
     wrapCells = true,
-    compareFn,
   } = props // Component Props
 
   const divRef = useRef<HTMLDivElement>()

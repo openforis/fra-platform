@@ -11,7 +11,7 @@ const Login: React.FC = () => {
         <div className="login">
           <Outlet />
 
-          <img alt="" src="/img/tucan.svg" className="login__tucan" />
+          <img alt="" className="login__tucan" src="/img/tucan.svg" />
         </div>
 
         <Partners />

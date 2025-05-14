@@ -7,7 +7,7 @@ import { ODPReservedYear } from 'meta/assessment/originalDataPoint'
 
 export const getOriginalDataPointReservedYears = createAsyncThunk<Array<ODPReservedYear>, CycleParams>(
   'originalDataPoint/get/reservedYears',
-  async ({ countryIso, assessmentName, cycleName }) => {
+  async ({ assessmentName, countryIso, cycleName }) => {
     const { data } = await axios.get(ApiEndPoint.CycleData.OriginalDataPoint.reservedYears(), {
       params: {
         countryIso,

@@ -135,10 +135,10 @@ export const ApiEndPoint = {
     many: () => apiPath('files'),
     biomassStock: ({
       assessmentName = ':assessmentName',
-      cycleName = ':cycleName',
       countryIso = ':countryIso',
-      sectionName = ':sectionName',
+      cycleName = ':cycleName',
       language = ':language',
+      sectionName = ':sectionName',
       selectedDomain = ':selectedDomain',
     }) =>
       apiPath('file', 'biomass-stock', assessmentName, cycleName, countryIso, sectionName, selectedDomain, language),

@@ -18,12 +18,12 @@ const DisableUser: React.FC<Props> = (props: Props) => {
     <div className="edit-user__form-item edit-user__form-item-roles">
       <div className="edit-user__form-label">{t('editUser.disabled')}</div>
       <input
-        type="checkbox"
-        name="disabled"
         checked={disabled}
+        name="disabled"
         onChange={(event) => {
           changeUser('status', event.target.checked ? UserStatus.disabled : UserStatus.active)
         }}
+        type="checkbox"
       />
     </div>
   )

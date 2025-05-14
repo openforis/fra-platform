@@ -41,7 +41,7 @@ export const useStatisticalGraphsData = (): Returned => {
 
     // if hansen, include the hansenPercent in the label
     const _getSourceKey = (entry: ForestEstimationEntry): string => {
-      const { sourceKey, hansenPercent } = entry
+      const { hansenPercent, sourceKey } = entry
       return hansenPercent ? `${sourceKey}${hansenPercent}` : sourceKey
     }
 

@@ -21,7 +21,7 @@ export type Returned = Array<DataRowAction> | undefined
 export const useRowActions = (props: Props): Returned => {
   const { contact } = props
 
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams()
   const user = useUser()
   const deleteContact = useDeleteContact({ contact })
   const { sectionName } = useSectionContext()

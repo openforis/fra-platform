@@ -37,7 +37,7 @@ const OdpHeaderCell: React.FC<Props> = (props) => {
   const { id: odpId, year } = odpYear
 
   const { t } = useTranslation()
-  const { assessmentName, cycleName, countryIso } = useCountryRouteParams<CountryIso>()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const historyLastApprovedIsActive = useHistoryLastApprovedIsActive()
   const { print } = useIsPrintRoute()
   const reviewStatus = useOdpReviewSummary(odpId)
