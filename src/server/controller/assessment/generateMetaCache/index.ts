@@ -85,7 +85,7 @@ export const generateMetaCache = async (client: BaseProtocol = DB): Promise<void
 
         row.cols.forEach((col) => {
           if (col.props.enableIf?.[cycle.uuid]) {
-            DependencyEvaluator.evalDependencies(col.props.enableIf[cycle.uuid], { ...context, type: 'enablers' })
+            DependencyEvaluator.evalDependencies(col.props.enableIf[cycle.uuid], { ...context, col, type: 'enablers' })
           }
         })
       })

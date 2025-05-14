@@ -54,6 +54,8 @@ const getCalculations = (props: CycleProps): DependencyCache => getMetaCache(pro
 
 const getValidations = (props: CycleProps): DependencyCache => getMetaCache(props).validations
 
+const getEnablers = (props: CycleProps): DependencyCache => getMetaCache(props).enablers
+
 const getCalculationsDependants = (props: VariableProps) => {
   const { assessment, cycle, tableName, variableName } = props
   return _getDependants({ dependencyCache: getCalculations({ assessment, cycle }), tableName, variableName })
@@ -72,6 +74,16 @@ const getValidationsDependants = (props: VariableProps) => {
 const getValidationsDependencies = (props: VariableProps) => {
   const { assessment, cycle, tableName, variableName } = props
   return _getDependencies({ dependencyCache: getValidations({ assessment, cycle }), tableName, variableName })
+}
+
+const getEnablersDependants = (props: VariableProps) => {
+  const { assessment, cycle, tableName, variableName } = props
+  return _getDependants({ dependencyCache: getEnablers({ assessment, cycle }), tableName, variableName })
+}
+
+const getEnablersDependencies = (props: VariableProps) => {
+  const { assessment, cycle, tableName, variableName } = props
+  return _getDependencies({ dependencyCache: getEnablers({ assessment, cycle }), tableName, variableName })
 }
 
 const getVariablesByTables = (props: CycleProps): VariablesCache => getMetaCache(props).variablesByTable
@@ -108,4 +120,7 @@ export const AssessmentMetaCaches = {
   getValidationsDependants,
   getValidationsDependencies,
   getVariablesByTables,
+  getEnablers,
+  getEnablersDependants,
+  getEnablersDependencies,
 }
