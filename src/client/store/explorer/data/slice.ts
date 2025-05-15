@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 export const ExplorerDataSlice = createSlice({
-  name: 'explorerData',
+  name: 'data',
   initialState: {},
   reducers: {},
 })

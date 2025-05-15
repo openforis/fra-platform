@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 export const ExplorerMetadataSlice = createSlice({
-  name: 'explorerMetadata',
+  name: 'metadata',
   initialState: {},
   reducers: {},
 })
