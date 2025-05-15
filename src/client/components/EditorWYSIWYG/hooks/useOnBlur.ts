@@ -16,7 +16,7 @@ type Props = {
 export const useOnBlur = (props: Props): OnChange => {
   const { onChange, value } = props
 
-  const { jodit } = useRepositoryLinkContext()
+  const { jodit, repositoryOpened } = useRepositoryLinkContext()
   const valueRef = useRef<string>(value)
   const pastedHtmlRef = useRef<boolean>(false)
 
@@ -44,6 +44,8 @@ export const useOnBlur = (props: Props): OnChange => {
         return
       }
 
+      if (repositoryOpened) return
+
       if (newValue === valueRef.current) return
 
       // Sanitize user input before saving and remove initial empty rows
@@ -53,6 +55,6 @@ export const useOnBlur = (props: Props): OnChange => {
       jodit.setEditorValue(sanitizedValue)
       onChange(sanitizedValue)
     },
-    [jodit, onChange]
+    [jodit, onChange, repositoryOpened]
   )
 }
