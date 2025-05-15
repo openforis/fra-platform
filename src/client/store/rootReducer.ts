@@ -7,6 +7,9 @@ import { RepositorySlice } from 'client/store/ui/repository'
 import AreaSlice from './area/slice'
 import AssessmentSlice from './assessment/slice'
 import DataSlice from './data/slice'
+import { ExplorerDataSlice } from './explorer/data/slice'
+import { ExplorerFilterSlice } from './explorer/filter/slice'
+import { ExplorerMetadataSlice } from './explorer/metadata/slice'
 import LoginSlice from './login/slice'
 import MetadataSlice from './metadata/slice'
 import { AreaSelectorSlice } from './ui/areaSelector'
@@ -49,4 +52,9 @@ export default {
     userManagement: UserManagementSlice,
   }),
   geo: GeoSlice,
+  explorer: combineReducers({
+    [ExplorerDataSlice.name]: ExplorerDataSlice.reducer,
+    [ExplorerFilterSlice.name]: ExplorerFilterSlice.reducer,
+    [ExplorerMetadataSlice.name]: ExplorerMetadataSlice.reducer,
+  }),
 }

@@ -1,6 +1,12 @@
 import { AreaState } from './area/state'
 import { AssessmentState } from './assessment/state'
 import { DataState } from './data/state'
+import { ExplorerDataSlice } from './explorer/data/slice'
+import { ExplorerDataState } from './explorer/data/state'
+import { ExplorerFilterSlice } from './explorer/filter/slice'
+import { ExplorerFilterState } from './explorer/filter/state'
+import { ExplorerMetadataSlice } from './explorer/metadata/slice'
+import { ExplorerMetadataState } from './explorer/metadata/state'
 import { LoginState } from './login/stateType'
 import { AreaSelectorSlice, AreaSelectorState } from './ui/areaSelector'
 import { AssessmentSectionSlice, AssessmentSectionState } from './ui/assessmentSection'
@@ -49,4 +55,10 @@ export type RootState = {
   }
 
   geo: GeoState
+
+  explorer: {
+    [ExplorerDataSlice.name]: ExplorerDataState
+    [ExplorerFilterSlice.name]: ExplorerFilterState
+    [ExplorerMetadataSlice.name]: ExplorerMetadataState
+  }
 }
