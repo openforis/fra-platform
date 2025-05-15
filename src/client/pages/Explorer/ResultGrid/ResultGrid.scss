@@ -1,0 +1,20 @@
+@import 'src/client/style/partials';
+
+.explorer-result-grid {
+  margin-top: $spacing-m;
+  width: 100%;
+
+  .data-cell {
+    align-items: center;
+    display: flex;
+    padding: $spacing-xxs;
+  }
+
+  .header-top {
+    justify-content: space-around;
+  }
+
+  .observation {
+    justify-content: end;
+  }
+}
