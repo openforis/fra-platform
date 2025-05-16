@@ -17,10 +17,20 @@ import { PdfReport } from 'server/service/pdfReport'
 import { ProcessEnv } from 'server/utils'
 import { Logger } from 'server/utils/logger'
 
-const { appUri, fraAuthToken, fraReportAssessment, fraReportCycle, fraReportSkipAtlantis } = ProcessEnv
+const { appUri: appUriEnv, fraAuthToken, fraReportAssessment, fraReportCycle, fraReportSkipAtlantis } = ProcessEnv
 const assessmentName = fraReportAssessment
 const cycleName = fraReportCycle
 const cookies = { 'fra-auth-token': fraAuthToken }
+
+// Parse --countryIso from CLI args
+const argCountryIso = process.argv.find((arg) => arg.startsWith('--countryIso='))
+const countryIsoArg = argCountryIso ? argCountryIso.split('=')[1] : undefined
+
+// Parse --appUri from CLI args
+const argAppUri = process.argv.find((arg) => arg.startsWith('--appUri='))
+const appUriArg = argAppUri ? argAppUri.split('=')[1] : undefined
+
+const appUri = appUriArg || appUriEnv
 
 const generateCountryReport = async (props: {
   countryIso: CountryIso
@@ -55,16 +65,23 @@ ToolsUtils.exec(async () => {
   await fs.mkdir(reportsDir, { recursive: true })
 
   const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
-  const countries = await AreaController.getCountries({ assessment, cycle })
 
-  await Promises.each(countries, async (country, index) => {
-    const { countryIso } = country
-    if (!fraReportSkipAtlantis || !Areas.isAtlantis(countryIso)) {
-      const lang = countryLangs[countryIso]
-      await generateCountryReport({ countryIso, lang, outputDir: reportsDir })
-      Logger.info(`    ${countryIso} (${lang}) (${index + 1}/${countries.length}) generated`)
-    } else {
-      Logger.info(`    ${countryIso} (${index + 1}/${countries.length}) skipped`)
-    }
-  })
+  if (countryIsoArg) {
+    const lang = countryLangs[countryIsoArg as CountryIso]
+    Logger.info(`Generating report for countryIso: ${countryIsoArg}, lang: ${lang}`)
+    await generateCountryReport({ countryIso: countryIsoArg as CountryIso, lang, outputDir: reportsDir })
+    Logger.info(`    ${countryIsoArg} (${lang}) generated`)
+  } else {
+    const countries = await AreaController.getCountries({ assessment, cycle })
+    await Promises.each(countries, async (country, index) => {
+      const { countryIso } = country
+      if (!fraReportSkipAtlantis || !Areas.isAtlantis(countryIso)) {
+        const lang = countryLangs[countryIso]
+        await generateCountryReport({ countryIso, lang, outputDir: reportsDir })
+        Logger.info(`    ${countryIso} (${lang}) (${index + 1}/${countries.length}) generated`)
+      } else {
+        Logger.info(`    ${countryIso} (${index + 1}/${countries.length}) skipped`)
+      }
+    })
+  }
 })
