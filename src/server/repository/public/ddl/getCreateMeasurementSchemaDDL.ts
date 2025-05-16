@@ -36,6 +36,6 @@ export const getCreateMeasurementSchemaDDL = (schemaName = 'measurement'): strin
       uuid uuid not null default uuid_generate_v4(),
       name varchar not null
     );
-    create unique index if not exists ${schemaName}_dimension_uuid_key on ${schemaName}.dimension (uuid);
+    create unique index if not exists dimension_uuid_key on ${schemaName}.dimension (uuid);
   `
 }
