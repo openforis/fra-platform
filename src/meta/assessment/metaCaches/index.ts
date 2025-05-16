@@ -120,7 +120,6 @@ export const AssessmentMetaCaches = {
   getValidationsDependants,
   getValidationsDependencies,
   getVariablesByTables,
-  getEnablers,
   getEnablersDependants,
   getEnablersDependencies,
 }
