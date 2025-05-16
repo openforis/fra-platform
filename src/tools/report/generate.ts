@@ -17,10 +17,21 @@ import { PdfReport } from 'server/service/pdfReport'
 import { ProcessEnv } from 'server/utils'
 import { Logger } from 'server/utils/logger'
 
-const { appUri, fraAuthToken, fraReportAssessment, fraReportCycle, fraReportSkipAtlantis } = ProcessEnv
+const { appUri: appUriEnv, fraAuthToken, fraReportAssessment, fraReportCycle, fraReportSkipAtlantis } = ProcessEnv
 const assessmentName = fraReportAssessment
 const cycleName = fraReportCycle
 const cookies = { 'fra-auth-token': fraAuthToken }
+
+// Parse --countryIsos from CLI args e.g. --countryIsos=FIN,GBR,DEU
+const argCountryIsos = process.argv.find((arg) => arg.startsWith('--countryIsos='))
+const countryIsosArg = argCountryIsos ? argCountryIsos.split('=')[1] : undefined
+let countryIsos: Array<CountryIso> = []
+
+// Parse --appUri from CLI args
+const argAppUri = process.argv.find((arg) => arg.startsWith('--appUri='))
+const appUriArg = argAppUri ? argAppUri.split('=')[1] : undefined
+
+const appUri = appUriArg || appUriEnv
 
 const generateCountryReport = async (props: {
   countryIso: CountryIso
@@ -54,17 +65,19 @@ ToolsUtils.exec(async () => {
   const reportsDir = path.resolve(outputDir, reportsDirName)
   await fs.mkdir(reportsDir, { recursive: true })
 
-  const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
-  const countries = await AreaController.getCountries({ assessment, cycle })
+  if (countryIsosArg) {
+    countryIsos = countryIsosArg.split(',') as Array<CountryIso>
+  } else {
+    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+    const countries = await AreaController.getCountries({ assessment, cycle })
+    countryIsos = countries
+      .map((country) => country.countryIso)
+      .filter((countryIso) => !fraReportSkipAtlantis || !Areas.isAtlantis(countryIso))
+  }
 
-  await Promises.each(countries, async (country, index) => {
-    const { countryIso } = country
-    if (!fraReportSkipAtlantis || !Areas.isAtlantis(countryIso)) {
-      const lang = countryLangs[countryIso]
-      await generateCountryReport({ countryIso, lang, outputDir: reportsDir })
-      Logger.info(`    ${countryIso} (${lang}) (${index + 1}/${countries.length}) generated`)
-    } else {
-      Logger.info(`    ${countryIso} (${index + 1}/${countries.length}) skipped`)
-    }
+  await Promises.each(countryIsos, async (countryIso, index) => {
+    const lang = countryLangs[countryIso]
+    await generateCountryReport({ countryIso, lang, outputDir: reportsDir })
+    Logger.info(`    ${countryIso} (${lang}) (${index + 1}/${countryIsos.length}) generated`)
   })
 })
