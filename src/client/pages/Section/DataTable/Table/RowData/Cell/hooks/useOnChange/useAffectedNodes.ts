@@ -23,7 +23,7 @@ const useAffectedNodes = (props: Props) => {
   const cycle = useCycle()
 
   return useCallback(
-    (value: NodeValue): VariableCache[] => {
+    (value: NodeValue): Array<VariableCache> => {
       const tableName = table.props.name
       const { variableName } = row.props
       const { colName } = col.props
