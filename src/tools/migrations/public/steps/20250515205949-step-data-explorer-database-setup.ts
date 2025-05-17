@@ -1,11 +1,14 @@
-import * as pgPromise from 'pg-promise'
-import { UUIDs } from 'utils/uuids'
+import { Objects } from 'utils/objects'
 
-import { Unit } from 'meta/measurement/unit'
+import { UUID } from 'meta/uuid'
 
 import { BaseProtocol, DB } from 'server/db'
+import { SystemOfMeasurementRepository } from 'server/repository/measurement/systemOfMeasurement'
+import { UnitRepository } from 'server/repository/measurement/unit'
 import { DDL } from 'server/repository/public/ddl'
 import { Logger } from 'server/utils/logger'
+
+import { systemsOfMeasurement } from './data/systemsOfMeasurement'
 
 const client: BaseProtocol = DB
 
@@ -22,49 +25,42 @@ export default async () => {
   // 1. Create measurement schema and tables
   await client.query(DDL.getCreateMeasurementSchemaDDL())
 
-  // 2. Insert area based units
-  const pgp = pgPromise()
-  const haThousand: Unit = { name: 'haThousand', symbol: '1000 ha', uuid: UUIDs.v4() }
-  const ha: Unit = { name: 'ha', symbol: 'ha', uuid: UUIDs.v4() }
-  const kmSq: Unit = { name: 'kmSq', symbol: 'km²', uuid: UUIDs.v4() }
-  const mileSq: Unit = { name: 'mileSq', symbol: 'mi²', uuid: UUIDs.v4() }
-  const acre1000: Unit = { name: 'acre1000', symbol: '1000 ac', uuid: UUIDs.v4() }
-  const acre: Unit = { name: 'acre', symbol: 'ac', uuid: UUIDs.v4() }
-  const haMillion: Unit = { name: 'haMillion', symbol: '1000000 ha', uuid: UUIDs.v4() }
+  // 2. Insert units and system of measurements
+  const insertTasks = Object.entries(systemsOfMeasurement).map(async ([systemOfMeasurementName, system]) => {
+    Logger.info(`Inserting ${system.units.length} units for system "${systemOfMeasurementName}"…`)
 
-  const units = [haThousand, ha, kmSq, mileSq, acre1000, acre, haMillion]
+    const dbUnits = await UnitRepository.massiveInsert({ units: system.units }, client)
 
-  const unitColumns = [
-    { name: 'uuid', prop: 'uuid' },
-    { name: 'name', prop: 'name' },
-    { name: 'symbol', prop: 'symbol' },
-  ]
-  const unitCS = new pgp.helpers.ColumnSet(unitColumns, { table: { table: 'unit', schema: 'measurement' } })
-  const insertUnitsQuery = pgp.helpers.insert(units, unitCS)
-  await client.none(insertUnitsQuery)
+    const baseUnit = system.units.find((u) => u.conversionFactor === 1)
 
-  // 2. Insert area system of measurement
-  const baseUnitUuid = haThousand.uuid
-  const conversionFactors = JSON.stringify({
-    [baseUnitUuid]: 1,
-    [ha.uuid]: 1000,
-    [kmSq.uuid]: 10,
-    [mileSq.uuid]: 3.86102,
-    [acre1000.uuid]: 2.47105,
-    [acre.uuid]: 2471.05,
-    [haMillion.uuid]: 0.001,
+    if (Objects.isEmpty(baseUnit)) {
+      return
+    }
+
+    const { name: baseUnitName } = baseUnit
+    const dbBaseUnit = dbUnits.find((u) => u.name === baseUnitName)
+
+    const conversionFactors = dbUnits.reduce<Record<UUID, number>>((acc, dbUnit) => {
+      const unitDef = system.units.find((u) => u.name === dbUnit.name)
+      const conversionFactor = unitDef?.conversionFactor
+      if (!Objects.isEmpty(conversionFactor)) {
+        acc[dbUnit.uuid] = unitDef.conversionFactor
+      }
+      return acc
+    }, {})
+
+    Logger.info(`Inserting system of measurement "${systemOfMeasurementName}"…`)
+    await SystemOfMeasurementRepository.create(
+      {
+        baseUnitUUID: dbBaseUnit.uuid,
+        conversionFactors,
+        name: systemOfMeasurementName,
+      },
+      client
+    )
   })
 
-  await client.query(
-    `
-    insert into measurement.system_of_measurement (
-      name,
-      conversion_factors,
-      base_unit_uuid
-    ) values ($1, $2::jsonb, $3);
-    `,
-    ['area', conversionFactors, baseUnitUuid]
-  )
+  await Promise.all(insertTasks)
 
   Logger.info('Measurement schema initialized')
 }
