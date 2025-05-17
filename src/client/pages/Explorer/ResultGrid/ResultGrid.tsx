@@ -1,12 +1,15 @@
 import './ResultGrid.scss'
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
+
+import { Objects } from 'utils/objects'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { Areas } from 'meta/area'
 import { RecordAssessmentDatas } from 'meta/data'
 
 import { useCountries } from 'client/store/area'
+import { useExplorerCountries } from 'client/store/explorer/filter/hooks/useExplorerCountries'
 import { useGetRequest } from 'client/hooks'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { DataCell, DataGrid } from 'client/components/DataGrid'
@@ -18,7 +21,7 @@ const ResultGrid: React.FC = () => {
   const countriesAll = useCountries()
 
   const tableName = 'extentOfForest'
-  const countryISOs = countriesAll.map((country) => country.countryIso)
+  const countryISOs = useExplorerCountries(assessmentName, cycleName)
   const measures = ['forestArea', 'otherWoodedLand', 'otherLand', 'totalLandArea']
   const dimensions = ['2010', '2015', '2020']
   const { data: results = {}, dispatch: fetchData } = useGetRequest(ApiEndPoint.CycleData.Table.tableData(), {
@@ -32,8 +35,11 @@ const ResultGrid: React.FC = () => {
       variables: measures,
     },
   })
-  const fetchRef = useRef(fetchData)
-  useEffect(() => fetchRef.current(), [fetchRef])
+  useEffect(() => {
+    if (Objects.isEmpty(countryISOs)) return
+    fetchData()
+    // eslint-disable-next-line
+  }, [countryISOs])
 
   const gridTemplateColumns = `minmax(160px, 240px) repeat(${measures.length * dimensions.length}, 1fr)`
 
@@ -66,7 +72,7 @@ const ResultGrid: React.FC = () => {
         ))
       )}
 
-      {countryISOs.map((countryIso, cIdx) => {
+      {countryISOs?.map((countryIso, cIdx) => {
         const country = countriesAll.find((c) => c.countryIso === countryIso)
         const label = t(Areas.getTranslationKey(countryIso))
         const { deskStudy } = country.props
