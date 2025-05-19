@@ -34,7 +34,9 @@ const useDisableAffectedNodes = (props: Props) => {
     (value: NodeValue) => {
       const affected = getAffectedNodes(value)
       const fields = affected.map((a) => t(`measures.${a.variableName}`)).join('\n')
-      const confirmed = window.confirm(t('common.areYouSureFollowingFieldsWillBeDisabled', { fields }))
+      const confirmed = window.confirm(
+        t('common.areYouSureFollowingFieldsWillBeDisabled', { fields, interpolation: { escapeValue: false } })
+      )
       if (!confirmed) return
 
       const updates = [
