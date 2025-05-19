@@ -3,8 +3,7 @@ import { Dimension } from 'meta/measurement/dimension'
 import { Measure } from 'meta/measurement/measure'
 
 export type ExplorerMetadata = {
-  dimesions: Array<Dimension>
+  dimensions: Array<Dimension>
   measures: Array<Measure>
-  systemOfMeasurementName: string
   tableName: TableName
 }
