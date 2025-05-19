@@ -2,42 +2,9 @@
 
 $pdf-guideline-width: 1202px;
 
-@include rtl {
-  div.editorWYSIWYG {
-    &.show-pdf-guideline {
-      &::after {
-        border-left: none !important;
-        border-right: 2px dashed $ui-edit-border-color !important;
-        left: auto !important;
-        right: $pdf-guideline-width !important;
-      }
-    }
-  }
-}
-
 div.editorWYSIWYG {
   height: 100%;
   word-break: break-word;
-
-  &.show-pdf-guideline {
-    container-name: editor;
-    container-type: inline-size;
-    position: relative;
-    width: 100%;
-
-    @container editor (min-width: #{$pdf-guideline-width}) {
-      &::after {
-        border-left: 2px dashed $ui-edit-border-color;
-        content: '';
-        top: 0;
-        // PDF Width
-        left: $pdf-guideline-width;
-        right: auto !important;
-        bottom: 0;
-        position: absolute;
-      }
-    }
-  }
 
   table {
     word-break: normal;
