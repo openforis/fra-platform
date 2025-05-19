@@ -24,7 +24,7 @@ export const generateMetaCache = async (client: BaseProtocol = DB): Promise<void
     rows[assessment.props.name] = (await RowRepository.getManyCache({ assessment }, client)).filter(
       (row) =>
         Boolean(row.props.validateFns || row.props.calculateFn) ||
-        Boolean(row.cols.find((col) => Boolean(col.props.validateFns || col.props.calculateFn)))
+        Boolean(row.cols.find((col) => Boolean(col.props.validateFns || col.props.calculateFn || col.props.enableIf)))
     )
 
     // init cycle meta cache
@@ -33,6 +33,7 @@ export const generateMetaCache = async (client: BaseProtocol = DB): Promise<void
       const metaCache: AssessmentMetaCache = {
         calculations: { dependants: {}, dependencies: {} },
         validations: { dependants: {}, dependencies: {} },
+        enablers: { dependants: {}, dependencies: {} },
         variablesByTable: { ...variables },
       }
       Objects.setInPath({ obj: assessment, path: ['metaCache', cycle.uuid], value: metaCache })
@@ -81,6 +82,12 @@ export const generateMetaCache = async (client: BaseProtocol = DB): Promise<void
             }
           })
         }
+
+        row.cols.forEach((col) => {
+          if (col.props.enableIf?.[cycle.uuid]) {
+            DependencyEvaluator.evalDependencies(col.props.enableIf[cycle.uuid], { ...context, col, type: 'enablers' })
+          }
+        })
       })
     })
   })

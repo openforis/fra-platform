@@ -31,6 +31,8 @@ const cloneProps = (props: { cycleSource: Cycle; cycleTarget: Cycle; col: Col })
     _props.style[cycleTargetUuid] = Objects.cloneDeep(_props.style[cycleSourceUuid])
   if (!Objects.isNil(_props.validateFns?.[cycleSourceUuid]))
     _props.validateFns[cycleTargetUuid] = Objects.cloneDeep(_props.validateFns[cycleSourceUuid])
+  if (!Objects.isNil(_props.enableIf?.[cycleSourceUuid]))
+    _props.enableIf[cycleTargetUuid] = Objects.cloneDeep(_props.enableIf[cycleSourceUuid])
   if (!Objects.isNil(_props.variableNo?.[cycleSourceUuid]))
     _props.variableNo[cycleTargetUuid] = Objects.cloneDeep(_props.variableNo[cycleSourceUuid])
 
@@ -73,6 +75,11 @@ const isReadOnly = (props: { cycle: Cycle; col: Col; row: Row }): boolean => {
 const getCalculateFn = (props: { cycle: Cycle; col: Col; row: Row }): string | undefined => {
   const { col, cycle, row } = props
   return col.props.calculateFn?.[cycle.uuid] ?? row.props.calculateFn?.[cycle.uuid]
+}
+
+const getEnableIf = (props: { cycle: Cycle; col: Col }): string | undefined => {
+  const { col, cycle } = props
+  return col.props.enableIf?.[cycle.uuid]
 }
 
 const getClassNames = (props: { cycle: Cycle; col: Col }): Array<string> => {
@@ -139,6 +146,7 @@ export const Cols = {
   getCalculateFn,
   getClassNames,
   getColName,
+  getEnableIf,
   getLabel,
   getSelectOptionLabel,
   getSelectOptions,

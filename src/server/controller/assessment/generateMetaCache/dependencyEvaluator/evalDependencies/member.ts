@@ -15,7 +15,8 @@ const _includesVariableCache = (variables: Array<VariableCache>, variable: Varia
         v.variableName === variable.variableName &&
         v.tableName === variable.tableName &&
         v.assessmentName === variable.assessmentName &&
-        v.cycleName === variable.cycleName
+        v.cycleName === variable.cycleName &&
+        v.colName === variable.colName
     )
   )
 
@@ -43,7 +44,7 @@ export class MemberEvaluator extends ExpressionNodeEvaluator<Context, MemberExpr
   }
 
   #addDependant(variable: VariableCache): void {
-    const { assessmentName, assessments, cycleName, row, type } = this.context
+    const { assessmentName, assessments, col, cycleName, row, type } = this.context
 
     if (this.#variableExists(variable) && !_excludeDependant(row, variable.tableName, variable.variableName)) {
       const assessment = assessments[variable.assessmentName ?? assessmentName]
@@ -51,16 +52,24 @@ export class MemberEvaluator extends ExpressionNodeEvaluator<Context, MemberExpr
       const metaCache = AssessmentMetaCaches.getMetaCache({ assessment, cycle })
 
       const propsDependants = { assessment, cycle, tableName: variable.tableName, variableName: variable.variableName }
-      const dependants =
-        type === 'calculations'
-          ? AssessmentMetaCaches.getCalculationsDependants(propsDependants)
-          : AssessmentMetaCaches.getValidationsDependants(propsDependants)
+      let dependants
+      if (type === 'calculations') {
+        dependants = AssessmentMetaCaches.getCalculationsDependants(propsDependants)
+      } else if (type === 'enablers') {
+        dependants = AssessmentMetaCaches.getEnablersDependants(propsDependants)
+      } else {
+        dependants = AssessmentMetaCaches.getValidationsDependants(propsDependants)
+      }
       const external = assessmentName !== assessment.props.name
       const dependant: VariableCache = {
         assessmentName: external ? assessmentName : undefined,
         cycleName: external ? cycleName : undefined,
         tableName: row.tableName,
         variableName: row.props.variableName,
+      }
+
+      if (col) {
+        dependant.colName = col.props.colName
       }
 
       if (!_includesVariableCache(dependants, dependant)) {
@@ -81,10 +90,14 @@ export class MemberEvaluator extends ExpressionNodeEvaluator<Context, MemberExpr
       const metaCache = AssessmentMetaCaches.getMetaCache({ assessment, cycle })
 
       const propsDependency = { assessment, cycle, tableName, variableName }
-      const dependencies =
-        type === 'calculations'
-          ? AssessmentMetaCaches.getCalculationsDependencies(propsDependency)
-          : AssessmentMetaCaches.getValidationsDependencies(propsDependency)
+      let dependencies
+      if (type === 'calculations') {
+        dependencies = AssessmentMetaCaches.getCalculationsDependencies(propsDependency)
+      } else if (type === 'enablers') {
+        dependencies = AssessmentMetaCaches.getEnablersDependencies(propsDependency)
+      } else {
+        dependencies = AssessmentMetaCaches.getValidationsDependencies(propsDependency)
+      }
 
       if (!_includesVariableCache(dependencies, variable)) {
         const path = [type, 'dependencies', tableName, variableName]

@@ -11,7 +11,18 @@ export interface ColDB {
 
 export const ColAdapter = (colDB: ColDB): Col => {
   const {
-    props: { calculateFn, classNames, labels, linkedNodes, select, style, validateFns, variableNo, ...otherProps },
+    props: {
+      calculateFn,
+      classNames,
+      enableIf,
+      labels,
+      linkedNodes,
+      select,
+      style,
+      validateFns,
+      variableNo,
+      ...otherProps
+    },
     ...col
   } = colDB
 
@@ -20,12 +31,13 @@ export const ColAdapter = (colDB: ColDB): Col => {
     props: {
       ...Objects.camelize(otherProps),
       calculateFn,
-      validateFns,
       classNames,
+      enableIf,
       labels,
       linkedNodes,
       select,
       style,
+      validateFns,
       variableNo,
     },
   }

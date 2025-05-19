@@ -18,6 +18,7 @@ import {
 import { DataCell } from 'client/components/DataGrid'
 
 import { useClassName } from './hooks/useClassName'
+import { useEnableIf } from './hooks/useEnableIf'
 import useErrorMessages from './hooks/useErrorMessages'
 import { useNodeValue } from './hooks/useNodeValue'
 import useOnChange from './hooks/useOnChange'
@@ -80,13 +81,16 @@ const Cell: React.FC<Props> = (props) => {
   } = props
 
   const cycle = useCycle()
+
+  const enabled = useEnableIf({ data, col, row, sectionName, table })
+
   const nodeValue = useNodeValue({ col, data, row, table })
   const { onChange, onChangeNodeValue, onPaste } = useOnChange({ col, data, nodeValue, row, sectionName, table })
   const validation = useNodeValueValidation({ col, row, table })
   const errorMessages = useErrorMessages({ validation })
-  const className = useClassName({ col, cycle, row, validation })
+  const className = useClassName({ col, cycle, enabled, row, validation })
 
-  const disabled = _disabled || !!nodeValue?.odpId || Cols.hasLinkedNodes({ col, cycle })
+  const disabled = _disabled || !!nodeValue?.odpId || Cols.hasLinkedNodes({ col, cycle }) || !enabled
 
   const historyLastApprovedIsActive = useHistoryLastApprovedIsActive()
   const historyLastApprovedDataTableFetched = useHistoryLastApprovedDataTableFetched(table.props.name)
