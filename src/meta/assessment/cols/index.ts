@@ -77,6 +77,11 @@ const getCalculateFn = (props: { cycle: Cycle; col: Col; row: Row }): string | u
   return col.props.calculateFn?.[cycle.uuid] ?? row.props.calculateFn?.[cycle.uuid]
 }
 
+const getEnableIf = (props: { cycle: Cycle; col: Col }): string | undefined => {
+  const { col, cycle } = props
+  return col.props.enableIf?.[cycle.uuid]
+}
+
 const getClassNames = (props: { cycle: Cycle; col: Col }): Array<string> => {
   const { col, cycle } = props
   const { classNames = {} } = col.props
@@ -141,6 +146,7 @@ export const Cols = {
   getCalculateFn,
   getClassNames,
   getColName,
+  getEnableIf,
   getLabel,
   getSelectOptionLabel,
   getSelectOptions,

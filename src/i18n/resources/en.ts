@@ -14,6 +14,7 @@ import * as geo from './en/geo.json'
 import * as history from './en/history.json'
 import * as landing from './en/landing.json'
 import * as login from './en/login.json'
+import * as measures from './en/measures.json'
 import * as nationalDataPoint from './en/nationalDataPoint.json'
 import * as other from './en/other.json'
 import * as panEuropean from './en/panEuropean/panEuropean.json'
@@ -39,6 +40,7 @@ export const enTranslation = {
   history,
   landing,
   login,
+  measures,
   nationalDataPoint,
   page: { assessmentSection },
   panEuropean,
