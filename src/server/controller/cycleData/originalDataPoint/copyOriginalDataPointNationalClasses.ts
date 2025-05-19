@@ -1,11 +1,10 @@
-import { UUIDs } from 'utils/uuids'
-
 import { Country } from 'meta/area'
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { ODPNationalClass, OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { User } from 'meta/user'
+import { UUIDs } from 'meta/uuids'
 
 import { BaseProtocol, DB } from 'server/db'
 import { OriginalDataPointRepository } from 'server/repository/assessmentCycle/originalDataPoint'
@@ -45,7 +44,7 @@ export const copyOriginalDataPointNationalClasses = async (
         nationalClasses: targetOriginalDataPoint.nationalClasses.map(
           ({ area: _, uuid: __, ...nationalClass }: ODPNationalClass) => ({
             ...nationalClass,
-            uuid: UUIDs.v4(),
+            uuid: UUIDs.getUuid(),
           })
         ),
       },

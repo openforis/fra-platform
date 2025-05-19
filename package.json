@@ -107,7 +107,6 @@
     "@types/swagger-ui-express": "^4.1.8",
     "@types/to-snake-case": "^1.0.0",
     "@types/turndown": "^5.0.1",
-    "@types/uuid": "^8.3.1",
     "@types/youtube": "^0.1.1",
     "@typescript-eslint/eslint-plugin": "^5.17.0",
     "@typescript-eslint/parser": "^5.17.0",
@@ -281,7 +280,6 @@
     "tsconfig-paths": "^3.14.1",
     "turndown-plugin-gfm": "^1.0.2",
     "unified": "^10.1.2",
-    "uuid": "^8.3.2",
     "webpack-node-externals": "^3.0.0",
     "winston": "^3.8.2"
   },

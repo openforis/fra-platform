@@ -1,10 +1,10 @@
 import { Response } from 'express'
-import { UUIDs } from 'utils/uuids'
 
 import { CycleDataRequest, EstimateBody } from 'meta/api/request'
 import { NodeValueEstimationMethod, NodeValuesEstimation } from 'meta/assessment/nodeValuesEstimation'
 import { Table, TableNames } from 'meta/assessment/table'
 import { RecordAssessmentDatas } from 'meta/data'
+import { UUIDs } from 'meta/uuids'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { CycleDataController } from 'server/controller/cycleData'
@@ -26,7 +26,7 @@ const generateSpecToEstimation = (props: { generateSpec: GenerateSpec; table: Ta
   return {
     createdAt: '',
     method: generateSpec.method as NodeValueEstimationMethod,
-    uuid: UUIDs.v4(),
+    uuid: UUIDs.getUuid(),
     tableUuid: table.uuid,
     variables,
   }
