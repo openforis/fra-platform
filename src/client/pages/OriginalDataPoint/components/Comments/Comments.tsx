@@ -63,7 +63,6 @@ const Comments: React.FC<Props> = (props) => {
               disabled={!open}
               onChange={updateDescription}
               repository
-              showPDFGuideLine
               value={originalDataPoint.description}
             />
           </div>
