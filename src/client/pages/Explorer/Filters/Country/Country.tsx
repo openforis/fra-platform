@@ -15,7 +15,7 @@ const Country: React.FC = () => {
   const homeCountriesFilter = useHomeCountriesFilter()
   const allowedCountries = homeCountriesFilter?.length > 0 ? homeCountriesFilter : undefined
 
-  const explorerCountries = useExplorerCountries(assessmentName, cycleName)
+  const explorerCountries = useExplorerCountries()
 
   useEffect(() => {
     dispatch(ExplorerFilterActions.setCountries({ assessmentName, countries: [], cycleName }))

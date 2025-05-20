@@ -21,7 +21,7 @@ const ResultGrid: React.FC = () => {
   const countriesAll = useCountries()
 
   const tableName = 'extentOfForest'
-  const countryISOs = useExplorerCountries(assessmentName, cycleName)
+  const countryISOs = useExplorerCountries()
   const measures = ['forestArea', 'otherWoodedLand', 'otherLand', 'totalLandArea']
   const dimensions = ['2010', '2015', '2020']
   const { data: results = {}, dispatch: fetchData } = useGetRequest(ApiEndPoint.CycleData.Table.tableData(), {
