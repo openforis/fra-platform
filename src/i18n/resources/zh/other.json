@@ -26,7 +26,7 @@
       "accepted": {
         "label": "已接受",
         "next": "接受",
-        "previous": ""
+        "previous": "返回已接受"
       },
       "approval": {
         "label": "等待批准",
@@ -47,6 +47,10 @@
         "label": "正在审核",
         "next": "提交审核",
         "previous": "返回审核"
+      },
+      "published": {
+        "label": "已发布",
+        "next": "发布"
       }
     },
     "statusChangeNotification": {

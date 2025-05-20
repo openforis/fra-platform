@@ -26,7 +26,7 @@
       "accepted": {
         "label": "Accepté",
         "next": "Accepter",
-        "previous": ""
+        "previous": "Retour à Accepté"
       },
       "approval": {
         "label": "Attente d'approbation",
@@ -47,6 +47,10 @@
         "label": "À l'étude",
         "next": "Transmettre pour examen",
         "previous": "Retour à examen"
+      },
+      "published": {
+        "label": "Publié",
+        "next": "Publier"
       }
     },
     "statusChangeNotification": {
