@@ -1,9 +1,8 @@
 import { useMemo } from 'react'
 
-import { UUIDs } from 'utils/uuids'
-
 import { CommentableDescriptionName, DataSource } from 'meta/assessment/descriptionValue'
 import { SectionName } from 'meta/assessment/section'
+import { UUIDs } from 'meta/uuid'
 
 import { useCommentableDescriptionValue } from 'client/store/data'
 import { useIsDescriptionEditable } from 'client/store/user/hooks'
@@ -22,7 +21,7 @@ const newPlaceholder = (): DataSource => ({
   placeholder: true,
   reference: '',
   type: '',
-  uuid: UUIDs.v4(),
+  uuid: UUIDs.getUuid(),
   variables: [],
   year: '',
 })

@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import { UUIDs } from 'utils/uuids'
+import { UUIDs } from 'meta/uuid'
 
 import { useAppDispatch } from 'client/store'
 import { NotificationActions } from 'client/store/ui/notification'
@@ -19,7 +19,7 @@ export const useToaster = (): ToasterHook => {
 
   const toaster = useMemo(() => {
     const notify = (type: string, message: string, duration?: number) =>
-      dispatch(NotificationActions.addMessage({ id: UUIDs.v4(), type, message, duration }))
+      dispatch(NotificationActions.addMessage({ id: UUIDs.getUuid(), type, message, duration }))
 
     return {
       error: (message: string, duration?: number) => notify('error', message, duration),

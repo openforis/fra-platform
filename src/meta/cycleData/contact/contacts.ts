@@ -1,9 +1,8 @@
-import { UUIDs } from 'utils/uuids'
-
 import { CountryIso } from 'meta/area'
 import { NodeValue } from 'meta/assessment/node'
 import { NodeExtType } from 'meta/nodeExt'
 import { RoleName, UserTitle } from 'meta/user'
+import { UUIDs } from 'meta/uuid'
 
 import { Contact, ContactField, ContactNode } from './contact'
 
@@ -14,7 +13,7 @@ const newContactNode = (props: {
   raw: NodeValue['raw']
 }): ContactNode => {
   const { countryIso, field, parentUuid, raw } = props
-  const uuid = UUIDs.v4()
+  const uuid = UUIDs.getUuid()
   return {
     countryIso,
     parentUuid,
@@ -28,7 +27,7 @@ const newContactNode = (props: {
 const newContact = (props: { countryIso: CountryIso; rowIndex: number }): Contact => {
   const { countryIso, rowIndex } = props
 
-  const uuid = UUIDs.v4()
+  const uuid = UUIDs.getUuid()
 
   return {
     [ContactField.appellation]: newContactNode({

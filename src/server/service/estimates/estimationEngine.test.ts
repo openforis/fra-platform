@@ -1,7 +1,6 @@
-import { UUIDs } from 'utils/uuids'
-
 import { NodeValueEstimationMethod, NodeValuesEstimation } from 'meta/assessment/nodeValuesEstimation'
 import { NodeUpdate } from 'meta/data'
+import { UUIDs } from 'meta/uuid'
 
 import { dataset1, dataset1Expected } from 'server/service/estimates/datasets/dataset1'
 import { dataset2, dataset2Expected } from 'server/service/estimates/datasets/dataset2'
@@ -32,7 +31,7 @@ const generateSpecToEstimation = (props: { generateSpec: GenerateSpec }): NodeVa
   return {
     createdAt: '',
     method: generateSpec.method as NodeValueEstimationMethod,
-    uuid: UUIDs.v4(),
+    uuid: UUIDs.getUuid(),
     tableUuid: 'fake-table-uuid',
     variables,
   }

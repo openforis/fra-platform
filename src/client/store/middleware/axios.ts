@@ -1,8 +1,8 @@
 import axios, { AxiosStatic } from 'axios'
 import { Action, Dispatch, Middleware, MiddlewareAPI } from 'redux'
-import { UUIDs } from 'utils/uuids'
 
 import { Lang } from 'meta/lang'
+import { UUIDs } from 'meta/uuid'
 
 import { NotificationActions } from 'client/store/ui/notification/slice'
 
@@ -19,7 +19,7 @@ const createAxiosMiddleware =
     axios.interceptors.response.use(null, (error: any) => {
       dispatch(
         NotificationActions.addMessage({
-          id: UUIDs.v4(),
+          id: UUIDs.getUuid(),
           type: 'error',
           message: error.response.data.error,
           params: error.response.data.params,

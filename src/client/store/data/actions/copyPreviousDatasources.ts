@@ -1,6 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
-import { UUIDs } from 'utils/uuids'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CycleDataParams } from 'meta/api/request'
@@ -9,6 +8,7 @@ import {
   CommentableDescriptionValue,
   DescriptionCountryValues,
 } from 'meta/assessment/descriptionValue'
+import { UUIDs } from 'meta/uuid'
 
 import { updateDescription } from './updateDescription'
 
@@ -32,7 +32,7 @@ export const copyPreviousDatasources = createAsyncThunk<void, Props>(
     const value = {
       ...currentValue,
       dataSources: dataSources?.map(({ variables: _variables, ...rest }) => {
-        return { ...rest, variables: [] as Array<string>, uuid: UUIDs.v4() }
+        return { ...rest, variables: [] as Array<string>, uuid: UUIDs.getUuid() }
       }),
     }
 

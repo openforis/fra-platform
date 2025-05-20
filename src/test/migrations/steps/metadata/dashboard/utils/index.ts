@@ -1,11 +1,10 @@
-import { UUIDs } from 'utils/uuids'
-
 import { Col, ColStyle, ColType } from 'meta/assessment/col'
 import { Cycle, CycleUuid } from 'meta/assessment/cycle'
 import { Label } from 'meta/assessment/label'
 import { VariableCache } from 'meta/assessment/metaCache'
 import { Row, RowType } from 'meta/assessment/row'
 import { Table } from 'meta/assessment/table'
+import { UUIDs } from 'meta/uuid'
 
 export type RowMetadata = {
   id: number
@@ -36,7 +35,7 @@ const getCols = (cycle: Cycle, cols: Array<string>, rowId: number): Array<Col> =
         colType: ColType.decimal,
         style: getStyle(cycle),
       },
-      uuid: UUIDs.v4(),
+      uuid: UUIDs.getUuid(),
     }
   })
 }
@@ -52,7 +51,7 @@ const getHeaderRow = (cycle: Cycle, cols: Array<string>, tableId: number): Row =
           index: 0,
           style: getStyle(cycle),
         },
-        uuid: UUIDs.v4(),
+        uuid: UUIDs.getUuid(),
       },
       ...cols.map((colName, index) => {
         return {
@@ -64,7 +63,7 @@ const getHeaderRow = (cycle: Cycle, cols: Array<string>, tableId: number): Row =
             colType: ColType.header,
             style: getStyle(cycle),
           },
-          uuid: UUIDs.v4(),
+          uuid: UUIDs.getUuid(),
         }
       }),
     ],
@@ -75,7 +74,7 @@ const getHeaderRow = (cycle: Cycle, cols: Array<string>, tableId: number): Row =
       cycles: [cycle.uuid],
     },
     tableId,
-    uuid: UUIDs.v4(),
+    uuid: UUIDs.getUuid(),
   }
 }
 
@@ -98,7 +97,7 @@ export const getRows = (props: GetRowsProps): Array<Row> => {
             },
             style: getStyle(cycle),
           },
-          uuid: UUIDs.v4(),
+          uuid: UUIDs.getUuid(),
         },
         ...getCols(cycle, cols, row.id),
       ],
@@ -114,7 +113,7 @@ export const getRows = (props: GetRowsProps): Array<Row> => {
         },
       },
       tableId,
-      uuid: UUIDs.v4(),
+      uuid: UUIDs.getUuid(),
     }
   }
 
@@ -153,7 +152,7 @@ export const getTable = (props: GetTableProps): Table => {
       },
     },
     rows: getRows({ cycle, cols, tableId, rowMetadata }),
-    uuid: UUIDs.v4(),
+    uuid: UUIDs.getUuid(),
   }
 
   return table
