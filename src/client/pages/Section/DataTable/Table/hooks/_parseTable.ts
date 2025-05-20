@@ -6,7 +6,7 @@ import { Col as TypeCol } from 'meta/assessment/col'
 import { Cycle } from 'meta/assessment/cycle'
 import { Row as TypeRow, RowType } from 'meta/assessment/row'
 import { Table } from 'meta/assessment/table'
-import { UUIDs } from 'meta/uuids'
+import { UUIDs } from 'meta/uuid'
 
 import { ColHeader, ODPColHeader } from 'client/pages/Section/DataTable/Table/types'
 

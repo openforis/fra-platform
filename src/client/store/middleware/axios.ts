@@ -2,7 +2,7 @@ import axios, { AxiosStatic } from 'axios'
 import { Action, Dispatch, Middleware, MiddlewareAPI } from 'redux'
 
 import { Lang } from 'meta/lang'
-import { UUIDs } from 'meta/uuids'
+import { UUIDs } from 'meta/uuid'
 
 import { NotificationActions } from 'client/store/ui/notification/slice'
 

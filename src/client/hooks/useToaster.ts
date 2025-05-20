@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import { UUIDs } from 'meta/uuids'
+import { UUIDs } from 'meta/uuid'
 
 import { useAppDispatch } from 'client/store'
 import { NotificationActions } from 'client/store/ui/notification'

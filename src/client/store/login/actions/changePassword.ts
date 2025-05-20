@@ -4,7 +4,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { UUIDs } from 'meta/uuids'
+import { UUIDs } from 'meta/uuid'
 
 import { NotificationActions, NotificationMessage } from 'client/store/ui/notification'
 

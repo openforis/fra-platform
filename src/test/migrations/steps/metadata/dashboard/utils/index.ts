@@ -4,7 +4,7 @@ import { Label } from 'meta/assessment/label'
 import { VariableCache } from 'meta/assessment/metaCache'
 import { Row, RowType } from 'meta/assessment/row'
 import { Table } from 'meta/assessment/table'
-import { UUIDs } from 'meta/uuids'
+import { UUIDs } from 'meta/uuid'
 
 export type RowMetadata = {
   id: number

@@ -2,7 +2,7 @@ import { CountryIso } from 'meta/area'
 import { NodeValue } from 'meta/assessment/node'
 import { NodeExtType } from 'meta/nodeExt'
 import { RoleName, UserTitle } from 'meta/user'
-import { UUIDs } from 'meta/uuids'
+import { UUIDs } from 'meta/uuid'
 
 import { Contact, ContactField, ContactNode } from './contact'
 
