@@ -24,7 +24,7 @@ export const useCountriesByRegionOptions = (props: Props): Returned => {
   const regionGroups = useRegionGroups()
 
   const countries = useMemo<Array<Country>>(() => {
-    if (Objects.isNil(allowedCountries)) return allCountries
+    if (Objects.isEmpty(allowedCountries)) return allCountries
     return allCountries.filter(({ countryIso }) => allowedCountries.includes(countryIso))
   }, [allCountries, allowedCountries])
 

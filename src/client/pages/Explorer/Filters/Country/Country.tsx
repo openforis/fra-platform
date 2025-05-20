@@ -12,14 +12,13 @@ import CountryMultiSelect from 'client/components/CountryMultiSelect'
 const Country: React.FC = () => {
   const { assessmentName, cycleName } = useCycleRouteParams()
   const dispatch = useAppDispatch()
-  const homeCountriesFilter = useHomeCountriesFilter()
-  const allowedCountries = homeCountriesFilter?.length > 0 ? homeCountriesFilter : undefined
+  const allowedCountries = useHomeCountriesFilter()
 
   const explorerCountries = useExplorerCountries()
 
   useEffect(() => {
     dispatch(ExplorerFilterActions.setCountries({ assessmentName, countries: [], cycleName }))
-  }, [assessmentName, cycleName, dispatch, homeCountriesFilter])
+  }, [allowedCountries, assessmentName, cycleName, dispatch])
 
   const handleChange = (value: Array<CountryIso>) => {
     dispatch(ExplorerFilterActions.setCountries({ assessmentName, countries: value, cycleName }))

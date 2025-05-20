@@ -25,7 +25,7 @@ const CountrySelector: React.FC = () => {
   const countries = useCountries()
   const countriesFilter = useHomeCountriesFilter()
   const { countryIso } = useCountryRouteParams()
-  const [selection, setSelection] = useState<Array<CountryIso>>(countriesFilter)
+  const [selection, setSelection] = useState<Array<CountryIso>>(countriesFilter ?? [])
 
   const dashboardItems = useDashboardItems()
 
