@@ -1,0 +1,13 @@
+{
+  "law_or_other_mandate": "$t(fra.forestRestoration.isThereALawOrOtherGovernmentateInSupportOfRestoration)",
+  "how_monitored": "$t(fra.forestRestoration.isThereANationalDefinitionOfRestoration)",
+  "areas_in_need_of_restoration": "$t(fra.forestRestoration.whatAreasInNeedOfRestorationHaveBeenIdentifie)",
+  "restoration_targets": "$t(fra.forestRestoration.whatAreTheTargetsSetForTheRestoration)",
+  "hectares_restored": "$t(fra.forestRestoration.howanyHectaresOfForestHaveBeenRestoredToDate)",
+  "national_definition": "$t(fra.degradedForest.whatIsDefinition)",
+  "criteriaOfDegradedForest": "$t(fra.degradedForest.criteriaOfDegradedForest)",
+  "mainMethods": "$t(fra.degradedForest.mainMethods)",
+  "monitoringScale": "$t(fra.degradedForest.monitoringScale)",
+  "yearOfLatestAssessment": "$t(fra.degradedForest.yearOfLatestAssessation)",
+  "degradedAreaForThatYear": "$t(fra.degradedForest.degradedAreaForthatYear)"
+}
