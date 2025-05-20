@@ -2,6 +2,9 @@ import './Measure.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { useCycle } from 'client/store/assessment'
+import { useSection } from 'client/store/metadata'
+import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 import useOpenDefinition from 'client/components/DefinitionLink/hooks/useOpenDefinition'
 import Icon from 'client/components/Icon'
 import MultiSelect from 'client/components/Inputs/MultiSelect/MultiSelect'
@@ -9,8 +12,12 @@ import MultiSelect from 'client/components/Inputs/MultiSelect/MultiSelect'
 const Measure: React.FC = () => {
   const { t } = useTranslation()
 
+  const { sectionName } = useSectionRouteParams()
+  const cycle = useCycle()
+  const subSection = useSection(sectionName)
+  const anchor = subSection?.props.anchors[cycle.uuid]
   const document = 'tad'
-  const openDefinition = useOpenDefinition({ document })
+  const openDefinition = useOpenDefinition({ anchor, document })
 
   const handleChange = (value: Array<string>) => {
     return value
