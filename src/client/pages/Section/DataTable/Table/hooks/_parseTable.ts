@@ -1,5 +1,4 @@
 import { Arrays } from 'utils/arrays'
-import { UUIDs } from 'utils/uuids'
 
 import { CountryIso } from 'meta/area'
 import { AssessmentName } from 'meta/assessment/assessment'
@@ -7,6 +6,7 @@ import { Col as TypeCol } from 'meta/assessment/col'
 import { Cycle } from 'meta/assessment/cycle'
 import { Row as TypeRow, RowType } from 'meta/assessment/row'
 import { Table } from 'meta/assessment/table'
+import { UUIDs } from 'meta/uuids'
 
 import { ColHeader, ODPColHeader } from 'client/pages/Section/DataTable/Table/types'
 
@@ -62,12 +62,12 @@ export const parseTable = (props: Props): { headers: Array<ColHeader>; table: Ta
       cols = headers.map<TypeCol>(({ columnName }) => {
         let col = row.cols.find((c) => c.props.colName === columnName)
         if (!col) {
-          col = { ...row.cols[1], uuid: UUIDs.v4(), props: { ...row.cols[1].props, colName: columnName } }
+          col = { ...row.cols[1], uuid: UUIDs.getUuid(), props: { ...row.cols[1].props, colName: columnName } }
         }
         return col
       })
       if (!headerData) {
-        cols = [{ ...row.cols[0], uuid: UUIDs.v4() }, ...cols]
+        cols = [{ ...row.cols[0], uuid: UUIDs.getUuid() }, ...cols]
       }
     }
 
@@ -75,7 +75,7 @@ export const parseTable = (props: Props): { headers: Array<ColHeader>; table: Ta
       cols = row.cols.map((col) => {
         const style = col.props.style[cycle.uuid]
         if (style.colSpan > 1) {
-          return { ...col, uuid: UUIDs.v4(), props: { ...col.props, colSpan: headers.length } }
+          return { ...col, uuid: UUIDs.getUuid(), props: { ...col.props, colSpan: headers.length } }
         }
         return col
       })
