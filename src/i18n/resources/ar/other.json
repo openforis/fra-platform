@@ -26,7 +26,7 @@
       "accepted": {
         "label": "مقبول",
         "next": "اقبل",
-        "previous": ""
+        "previous": "Return to Accepted"
       },
       "approval": {
         "label": "بانتظار الموافقة",
@@ -47,6 +47,10 @@
         "label": "قيد المراجعة",
         "next": "أرسل إلى المراجعة",
         "previous": "العودة إلى المراجعة"
+      },
+      "published": {
+        "label": "Published",
+        "next": "Publish"
       }
     },
     "statusChangeNotification": {
