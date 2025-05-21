@@ -5,6 +5,7 @@ $check-height: $loader-size / 2;
 $check-width: $check-height / 2;
 $check-left: ($loader-size / 6 + $loader-size / 12);
 $check-thickness: 3px;
+$pending-color: $ui-accent;
 $check-color: $ui-status-approval;
 
 .loading-indicator {
@@ -25,7 +26,7 @@ $check-color: $ui-status-approval;
 .circle-loader {
   margin-bottom: 0;
   border: 3px solid rgba(0, 0, 0, 0.2);
-  border-left-color: $check-color;
+  border-left-color: $pending-color;
   animation: loader-spin 2s infinite linear;
   position: relative;
   display: inline-block;
