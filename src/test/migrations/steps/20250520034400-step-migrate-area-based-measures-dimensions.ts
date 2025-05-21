@@ -14,7 +14,7 @@ const areaBasedTables = [
   'otherLandWithTreeCover',
   'primaryDesignatedManagementObjective',
   'specificForestCategories',
-  // 'sustainableDevelopmentAgencySubIndicator5',
+  'sustainableDevelopment15_2_1_5',
   'totalAreaWithDesignatedManagementObjective',
 ]
 
