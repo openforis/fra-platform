@@ -8,7 +8,7 @@ const _getState = (state: RootState) => state.ui.home
 
 export const getCountriesFilter = createSelector(
   [_getState],
-  (homeState): Array<CountryIso> => homeState?.countriesFilter
+  (homeState): Array<CountryIso> => homeState?.countriesFilter ?? []
 )
 
 export const HomeSelector = {

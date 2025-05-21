@@ -18,7 +18,7 @@ export const useGetTableData = (props: Props): void => {
   const homeCountriesFilter = useHomeCountriesFilter()
 
   const countryISOs = useMemo(
-    () => (homeCountriesFilter?.length > 0 ? homeCountriesFilter : [countryIso]),
+    () => (homeCountriesFilter.length > 0 ? homeCountriesFilter : [countryIso]),
     [countryIso, homeCountriesFilter]
   )
 
