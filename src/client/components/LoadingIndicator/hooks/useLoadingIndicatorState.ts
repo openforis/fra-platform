@@ -14,6 +14,8 @@ const ACTIONS = [
   DataActions.updateDescription,
   DataActions.deleteDataSource,
   DataActions.updateContact,
+  DataActions.createContact,
+  DataActions.deleteContact,
   DataActions.clearTableData,
   DataActions.postEstimate,
   DataActions.copyPreviousDatasources,
