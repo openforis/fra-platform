@@ -68,7 +68,9 @@ const Toolbar: React.FC = () => {
         </MediaQuery>
       )}
 
-      <LoadingIndicator />
+      <MediaQuery minWidth={Breakpoints.laptop}>
+        <LoadingIndicator />
+      </MediaQuery>
 
       {isCountry && (
         <MediaQuery minWidth={Breakpoints.laptop}>
