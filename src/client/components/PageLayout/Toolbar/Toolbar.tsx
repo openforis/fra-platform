@@ -14,6 +14,7 @@ import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { useShowRegions } from 'client/hooks/useShowRegions'
 import AreaSelector from 'client/components/AreaSelector/AreaSelector'
 import LinkHome from 'client/components/LinkHome'
+import LoadingIndicator from 'client/components/LoadingIndicator'
 import EditorOptions from 'client/components/PageLayout/Toolbar/EditorOptions'
 import Options from 'client/components/PageLayout/Toolbar/Options'
 import Published from 'client/components/PageLayout/Toolbar/Published'
@@ -64,6 +65,7 @@ const Toolbar: React.FC = () => {
           {editor && !geoRoute && <EditorOptions />}
           {country?.props?.deskStudy && <div className="toolbar__desk-study">({t('assessment.deskStudy')})</div>}
           {!user && <Published />}
+          <LoadingIndicator />
           <Options />
         </MediaQuery>
       )}
