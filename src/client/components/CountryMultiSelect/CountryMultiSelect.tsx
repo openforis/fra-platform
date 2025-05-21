@@ -13,14 +13,15 @@ import { useTooltipContent } from './hooks/useTooltipContent'
 import { Props } from './types'
 
 const CountryMultiSelect: React.FC<Props> = (props) => {
-  const { error, onChange, onMenuClose, placeholder, value } = props
+  const { allowedCountries, error, onChange, onMenuClose, placeholder, value } = props
 
   const { t } = useTranslation()
-  const optionGroups = useCountriesByRegionOptions()
+  const optionGroups = useCountriesByRegionOptions({ allowedCountries })
 
   const { dataTooltipId, hideTooltip, showTooltip, tooltipContent } = useTooltipContent({
-    value: (value as Array<CountryIso>) ?? [],
+    allowedCountries,
     error,
+    value: (value as Array<CountryIso>) ?? [],
   })
 
   const handleMenuOpen = () => {

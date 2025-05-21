@@ -10,7 +10,7 @@ import { SubSectionHints } from 'meta/assessment/section'
 import { SubSections } from 'meta/assessment/subSections'
 
 import { useCycle } from 'client/store/assessment'
-import { useCycleRouteParams, useSectionRouteParams } from 'client/hooks/useRouteParams'
+import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 import DefinitionLink from 'client/components/DefinitionLink'
 import { Props } from 'client/pages/Section/Title/props'
 
@@ -57,8 +57,7 @@ const Hints: React.FC<Props> = (props) => {
   const { subSection } = props
   const { hints: sectionHints } = subSection.props
 
-  const { i18n, t } = useTranslation()
-  const { assessmentName, cycleName } = useCycleRouteParams()
+  const { t } = useTranslation()
   const cycle = useCycle()
 
   const anchor = SubSections.getAnchor({ cycle, subSection })
@@ -73,17 +72,7 @@ const Hints: React.FC<Props> = (props) => {
         const show = Boolean(hints?.[key])
 
         if (show) {
-          return (
-            <DefinitionLink
-              key={key}
-              anchor={anchor}
-              assessmentName={assessmentName}
-              cycleName={cycleName}
-              document={document}
-              lang={i18n.resolvedLanguage}
-              title={t(labelKey)}
-            />
-          )
+          return <DefinitionLink key={key} anchor={anchor} document={document} title={t(labelKey)} />
         }
 
         return null
