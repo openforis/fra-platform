@@ -1,4 +1,4 @@
-import '../../tools/scriptInit'
+import '../../scriptInit'
 
 import { Promises } from 'utils/promises'
 

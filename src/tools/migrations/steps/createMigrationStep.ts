@@ -1,4 +1,4 @@
-import '../../tools/scriptInit'
+import '../../scriptInit'
 
 import * as fs from 'fs'
 import * as path from 'path'
