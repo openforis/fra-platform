@@ -2,9 +2,9 @@ import { NavigateFunction } from 'react-router-dom'
 
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
-import { UUIDs } from 'utils/uuids'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
+import { UUIDs } from 'meta/uuid'
 
 import { NotificationActions, NotificationMessage } from 'client/store/ui/notification'
 
@@ -22,7 +22,7 @@ export const changePassword = createAsyncThunk<
   if (data?.message) {
     dispatch(
       NotificationActions.addMessage({
-        id: UUIDs.v4(),
+        id: UUIDs.getUuid(),
         type: 'info',
         message: data.message,
       } as NotificationMessage)

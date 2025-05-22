@@ -35,5 +35,6 @@ export type DependencyCache = {
 export interface AssessmentMetaCache {
   calculations: DependencyCache
   validations: DependencyCache
+  enablers?: DependencyCache
   variablesByTable: VariablesCache
 }
