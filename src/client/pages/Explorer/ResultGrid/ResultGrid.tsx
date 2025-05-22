@@ -10,6 +10,7 @@ import { RecordAssessmentDatas } from 'meta/data'
 
 import { useCountries } from 'client/store/area'
 import { useExplorerCountries } from 'client/store/explorer/filter/hooks/countries'
+import { useExplorerMeasures } from 'client/store/explorer/filter/hooks/measures'
 import { useGetRequest } from 'client/hooks'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { DataCell, DataGrid } from 'client/components/DataGrid'
@@ -22,7 +23,7 @@ const ResultGrid: React.FC = () => {
 
   const tableName = 'extentOfForest'
   const countryISOs = useExplorerCountries()
-  const measures = ['forestArea', 'otherWoodedLand', 'otherLand', 'totalLandArea']
+  const measures = useExplorerMeasures() ?? []
   const dimensions = ['2010', '2015', '2020']
   const { data: results = {}, dispatch: fetchData } = useGetRequest(ApiEndPoint.CycleData.Table.tableData(), {
     params: {
@@ -37,9 +38,10 @@ const ResultGrid: React.FC = () => {
   })
   useEffect(() => {
     if (Objects.isEmpty(countryISOs)) return
+    if (Objects.isEmpty(measures)) return
     fetchData()
     // eslint-disable-next-line
-  }, [countryISOs])
+  }, [countryISOs, measures])
 
   const gridTemplateColumns = `minmax(160px, 240px) repeat(${measures.length * dimensions.length}, 1fr)`
 
