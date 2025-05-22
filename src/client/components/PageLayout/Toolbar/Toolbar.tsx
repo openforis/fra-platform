@@ -19,6 +19,7 @@ import Options from 'client/components/PageLayout/Toolbar/Options'
 import Published from 'client/components/PageLayout/Toolbar/Published'
 import { Breakpoints } from 'client/utils'
 
+import LoadingIndicator from './LoadingIndicator'
 import ToggleNavigationControl from './ToggleNavigationControl'
 
 const Toolbar: React.FC = () => {
@@ -64,6 +65,15 @@ const Toolbar: React.FC = () => {
           {editor && !geoRoute && <EditorOptions />}
           {country?.props?.deskStudy && <div className="toolbar__desk-study">({t('assessment.deskStudy')})</div>}
           {!user && <Published />}
+        </MediaQuery>
+      )}
+
+      <MediaQuery minWidth={Breakpoints.laptop}>
+        <LoadingIndicator />
+      </MediaQuery>
+
+      {isCountry && (
+        <MediaQuery minWidth={Breakpoints.laptop}>
           <Options />
         </MediaQuery>
       )}
