@@ -9,7 +9,7 @@ import { Areas } from 'meta/area'
 import { RecordAssessmentDatas } from 'meta/data'
 
 import { useCountries } from 'client/store/area'
-import { useExplorerCountries } from 'client/store/explorer/filter/hooks/useExplorerCountries'
+import { useExplorerCountries } from 'client/store/explorer/filter/hooks/countries'
 import { useGetRequest } from 'client/hooks'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { DataCell, DataGrid } from 'client/components/DataGrid'
