@@ -1,30 +1,26 @@
 import '../../scriptInit'
 
-import * as fs from 'fs'
-import * as path from 'path'
-import { tableMigrationsPublicDDL } from 'tools/migrations/public/tableMigrationsPublicDDL'
+import * as fs from 'node:fs'
+import * as path from 'node:path'
+import { MigrationUtils } from 'tools/migrations/common/utils'
 import { Promises } from 'utils/promises'
 
 import { DB } from 'server/db'
 import { Logger } from 'server/utils/logger'
 
+const tableName = 'public'
 const client = DB
 let migrationSteps: Array<string>
 let previousMigrations: Array<string> = []
 const executedMigrations: Array<string> = []
 
 const init = async () => {
-  await client.query(tableMigrationsPublicDDL)
-  previousMigrations = await client.map('select * from migrations.public', [], (row) => row.name)
+  await MigrationUtils.createTable(tableName, client)
+  previousMigrations = await MigrationUtils.getPreviousMigrations(tableName, client)
   migrationSteps = fs
     .readdirSync(path.join(__dirname, `steps`))
     .filter((file) => file !== 'template.ts' && file.endsWith('.ts') && !previousMigrations.includes(file))
     .sort((a, b) => a.localeCompare(b))
-}
-
-const close = async () => {
-  // Note: Omitted REDIS related code. Add them here if needed.
-  await DB.$pool.end()
 }
 
 const exec = async () => {
@@ -47,10 +43,16 @@ const exec = async () => {
     })
   }
 
-  await close()
+  await MigrationUtils.close(true)
 }
 
 Logger.info('Migrations starting')
-exec().then(() => {
-  Logger.info('Migrations executed')
-})
+exec()
+  .then(() => {
+    Logger.info('Migrations executed')
+  })
+  .catch(async (err) => {
+    Logger.error('Migration process failed:', err)
+    await MigrationUtils.close(true)
+    process.exit(1)
+  })

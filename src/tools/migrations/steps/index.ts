@@ -1,34 +1,18 @@
 import '../../scriptInit'
 
+import { MigrationUtils } from 'tools/migrations/common/utils'
+import { getMigrationFiles } from 'tools/migrations/steps/utils'
 import { Promises } from 'utils/promises'
 
-import { VisitCycleLinksQueueFactory } from 'server/controller/cycleData/links/visitCycleLinks/queueFactory'
-import { WorkerFactory as VisitLinksWorkerFactory } from 'server/controller/cycleData/links/visitCycleLinks/workerFactory'
-import { UpdateDependenciesQueueFactory } from 'server/controller/cycleData/updateDependencies/queueFactory'
-import { WorkerFactory } from 'server/controller/cycleData/updateDependencies/workerFactory'
 import { DB } from 'server/db'
-import { RedisData } from 'server/repository/redis/redisData'
 import { Logger } from 'server/utils/logger'
 
-import { getMigrationFiles } from './utils'
+const tableName = 'steps'
 
 const client = DB
 let migrationSteps: Array<string>
 let previousMigrations: Array<string> = []
 const executedMigrations: Array<string> = []
-
-const tableDDL = `
-    create schema if not exists migrations;
-
-    do $$ 
-    begin
-      create table if not exists migrations.steps (
-        id serial primary key,
-        name character varying(255) unique not null,
-        run_on timestamp without time zone not null default now()
-      );
-    end $$;
-`
 
 const _writeStep = async (fileName: string) => {
   executedMigrations.push(fileName)
@@ -42,25 +26,13 @@ const _writeStep = async (fileName: string) => {
 }
 
 const init = async () => {
-  await client.query(tableDDL)
-  previousMigrations = await client.map('select * from migrations.steps', [], (row) => row.name)
+  await MigrationUtils.createTable(tableName, client)
+  previousMigrations = await MigrationUtils.getPreviousMigrations(tableName, client)
   migrationSteps = getMigrationFiles(true).filter((file) => !previousMigrations.includes(file))
-}
-
-const close = async () => {
-  // quick and dirty workaround to close redis connection after running integration tests
-  // TODO: find a better strategy to handle Redis connections
-  UpdateDependenciesQueueFactory.connection.quit()
-  WorkerFactory.connection.quit()
-  VisitCycleLinksQueueFactory.connection.quit()
-  VisitLinksWorkerFactory.connection.quit()
-  await DB.$pool.end()
-  RedisData.getInstance().quit()
 }
 
 const exec = async () => {
   await init()
-
   await Promises.each(migrationSteps, async (file) => {
     await client.tx(async (t) => {
       try {
@@ -75,8 +47,7 @@ const exec = async () => {
       }
     })
   })
-
-  await close()
+  await MigrationUtils.close(true)
 }
 
 Logger.info('Migrations starting')
@@ -87,6 +58,6 @@ exec()
   })
   .catch(async (err) => {
     Logger.error('Migration process failed:', err)
-    await close()
+    await MigrationUtils.close(true)
     process.exit(1)
   })
