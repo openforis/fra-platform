@@ -1,6 +1,7 @@
 import { AssessmentNames } from 'meta/assessment/assessment'
 
 import { AssessmentController } from 'server/controller/assessment'
+import { CacheController } from 'server/controller/cache'
 import { BaseProtocol, Schemas } from 'server/db'
 
 const areaBasedTables = [
@@ -19,7 +20,11 @@ const areaBasedTables = [
 ]
 
 export default async (client: BaseProtocol) => {
-  const assessment = await AssessmentController.getOne({ assessmentName: AssessmentNames.fra }, client)
+  const { assessment, cycle } = await AssessmentController.getOneWithCycle(
+    { assessmentName: AssessmentNames.fra, cycleName: '2025' },
+    client
+  )
+
   const schemaAssessment = Schemas.getName(assessment)
   const areaBasedTablesString = areaBasedTables.map((n) => `'${n}'`).join(', ')
 
@@ -63,4 +68,6 @@ export default async (client: BaseProtocol) => {
     on conflict (name) do nothing;
     `
   )
+
+  await CacheController.generateExplorerMetadata({ assessment, cycle }, client)
 }
