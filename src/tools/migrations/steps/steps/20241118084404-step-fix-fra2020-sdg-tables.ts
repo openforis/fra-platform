@@ -4,7 +4,7 @@ import { TableNames } from 'meta/assessment/table'
 import { AssessmentController } from 'server/controller/assessment'
 import { BaseProtocol, Schemas } from 'server/db'
 
-import { updateDependencies } from 'test/migrations/steps/utils/updateDependencies'
+import { updateDependencies } from './utils/updateDependencies'
 
 const assessmentName = AssessmentNames.fra
 const cycleName = '2020'

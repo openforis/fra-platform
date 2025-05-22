@@ -4,7 +4,7 @@ import { ActivityLogMessage } from 'meta/assessment/activityLog'
 
 import { BaseProtocol } from 'server/db'
 
-import { ActivityLogEntries } from 'test/migrations/steps/step-update-activity-log-2025-odp/type'
+import { ActivityLogEntries } from './type'
 
 type Props = { idLegacy: string }
 const _getOdpFRA2020 = async (props: Props, client: BaseProtocol) => {

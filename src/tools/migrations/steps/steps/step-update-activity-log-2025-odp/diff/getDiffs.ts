@@ -1,6 +1,5 @@
-import { getDiff } from 'test/migrations/steps/step-update-activity-log-2025-odp/diff/getDiff'
-
 import { ActivityLogEntries, Diff } from '../type'
+import { getDiff } from './getDiff'
 
 export const getDiffs = (activityLogEntries: ActivityLogEntries): Array<Diff> => {
   const diffs: Array<Diff> = []
