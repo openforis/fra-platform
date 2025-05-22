@@ -1,9 +1,10 @@
 import { Objects } from 'utils/objects'
 
-import { CountryIso } from 'meta/area'
+import { Country, CountryIso } from 'meta/area'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { NodeUpdate } from 'meta/data'
+import { User } from 'meta/user'
 
 import { getOriginalDataPointVariables } from 'server/controller/cycleData/originalDataPoint/getOriginalDataPointVariables'
 import { BaseProtocol, DB, Schemas } from 'server/db'
@@ -13,10 +14,11 @@ import { updateDependencies } from './updateDependencies'
 type Props = {
   assessment: Assessment
   cycle: Cycle
+  user: User
 }
 
 export const updateODPDependencies = async (props: Props, client: BaseProtocol = DB): Promise<void> => {
-  const { assessment, cycle } = props
+  const { assessment, cycle, user } = props
   const countryNodes: Record<CountryIso, Array<NodeUpdate>> = {} as Record<CountryIso, Array<NodeUpdate>>
 
   const originalDataPointVariables = getOriginalDataPointVariables({ cycle })
@@ -42,10 +44,17 @@ export const updateODPDependencies = async (props: Props, client: BaseProtocol =
     countryNodes[countryIso].push(...opdNodes)
   })
 
-  await updateDependencies({
-    assessment,
-    cycle,
-    isODP: true,
-    countryNodes,
-  })
+  await Promise.all(
+    Object.entries(countryNodes).map(([countryIso, nodes]) => {
+      const country = { countryIso } as Country
+      return updateDependencies({
+        assessment,
+        cycle,
+        country,
+        nodes,
+        isODP: true,
+        user,
+      })
+    })
+  )
 }
