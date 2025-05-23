@@ -34,8 +34,10 @@ const _getFiles = (): Array<{ name: string; path: string }> => {
 export default async (client: BaseProtocol) => {
   // 1. Add 'path' column if it doesn't exist
   await client.query('alter table public.file add column if not exists path varchar(255);')
-  // 2. Add unique constraint on 'path' and 'name'
-  await client.query('alter table public.file add constraint unique_path_name unique (path, name);')
+
+  // Disabled: User files might have same name, but saved in S3 by UUID
+  // // 2. Add unique constraint on 'path' and 'name'
+  // await client.query('alter table public.file add constraint unique_path_name unique (path, name);')
 
   // 3. Insert file metadata
   const files = _getFiles()
@@ -46,7 +48,7 @@ export default async (client: BaseProtocol) => {
     { name: 'path', prop: 'path' },
   ]
   const cs = new pgp.helpers.ColumnSet(columns, { table: { table: 'file', schema: 'public' } })
-  const insertQuery = `${pgp.helpers.insert(files, cs)} on conflict (path, name) do nothing returning uuid, name, path;`
+  const insertQuery = `${pgp.helpers.insert(files, cs)} returning uuid, name, path;`
   const result: Array<{ uuid: string; name: string; path: string }> = await client.query(insertQuery)
 
   // 4. Upload files to s3
