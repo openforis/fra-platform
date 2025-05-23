@@ -9,7 +9,9 @@ import { Areas } from 'meta/area'
 import { RecordAssessmentDatas } from 'meta/data'
 
 import { useCountries } from 'client/store/area'
-import { useExplorerCountries } from 'client/store/explorer/filter/hooks/useExplorerCountries'
+import { useExplorerCountries } from 'client/store/explorer/filter/hooks/countries'
+import { useExplorerDimensions } from 'client/store/explorer/filter/hooks/dimensions'
+import { useExplorerMeasures } from 'client/store/explorer/filter/hooks/measures'
 import { useGetRequest } from 'client/hooks'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { DataCell, DataGrid } from 'client/components/DataGrid'
@@ -22,8 +24,9 @@ const ResultGrid: React.FC = () => {
 
   const tableName = 'extentOfForest'
   const countryISOs = useExplorerCountries()
-  const measures = ['forestArea', 'otherWoodedLand', 'otherLand', 'totalLandArea']
-  const dimensions = ['2010', '2015', '2020']
+  const measures = useExplorerMeasures() ?? []
+  const dimensions = useExplorerDimensions() ?? []
+
   const { data: results = {}, dispatch: fetchData } = useGetRequest(ApiEndPoint.CycleData.Table.tableData(), {
     params: {
       assessmentName,
@@ -37,11 +40,16 @@ const ResultGrid: React.FC = () => {
   })
   useEffect(() => {
     if (Objects.isEmpty(countryISOs)) return
+    if (Objects.isEmpty(measures)) return
+    if (Objects.isEmpty(dimensions)) return
+
     fetchData()
     // eslint-disable-next-line
-  }, [countryISOs])
+  }, [countryISOs, dimensions, measures])
 
   const gridTemplateColumns = `minmax(160px, 240px) repeat(${measures.length * dimensions.length}, 1fr)`
+
+  if (Objects.isEmpty(countryISOs) || Objects.isEmpty(measures) || Objects.isEmpty(dimensions)) return null
 
   return (
     <DataGrid className="explorer-result-grid" gridTemplateColumns={gridTemplateColumns}>

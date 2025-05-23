@@ -13,6 +13,8 @@
   "clearTable": "Clear table",
   "collaborators": "Collaborators",
   "column": "Column",
+  "column_one": "{{count}} Column",
+  "column_other": "{{count}} Columns",
   "continue": "Continue",
   "copyToClipboard": "Copy to clipboard",
   "copyLink": "Copy link",
@@ -90,6 +92,8 @@
   "updated": "Updated",
   "userGuide": "User guide",
   "variable": "FRA Variable",
+  "variable_one": "{{count}} FRA Variable",
+  "variable_other": "{{count}} FRA Variables",
   "view": "View",
   "year": "Year",
   "yes": "Yes"

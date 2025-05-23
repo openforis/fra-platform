@@ -10,6 +10,7 @@ const areaBasedTables = [
   'disturbances',
   'extentOfForest',
   'forestAreaWithinProtectedAreas',
+  'forestCharacteristics',
   'forestOwnership',
   'holderOfManagementRights',
   'otherLandWithTreeCover',

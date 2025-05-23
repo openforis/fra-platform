@@ -4,7 +4,7 @@ import { CountryIso } from 'meta/area'
 
 import { useAppDispatch } from 'client/store'
 import { ExplorerFilterActions } from 'client/store/explorer/filter/actions'
-import { useExplorerCountries } from 'client/store/explorer/filter/hooks/useExplorerCountries'
+import { useExplorerCountries } from 'client/store/explorer/filter/hooks/countries'
 import { useHomeCountriesFilter } from 'client/store/ui/home'
 import { useCycleRouteParams } from 'client/hooks/useRouteParams'
 import CountryMultiSelect from 'client/components/CountryMultiSelect'

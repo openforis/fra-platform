@@ -8,6 +8,7 @@ import { AreaApi } from './area'
 import { AuthApi } from './auth'
 import { CycleDataApi } from './cycleData'
 import { DefinitionApi } from './definitions'
+import { ExplorerApi } from './explorer'
 import { FileApi } from './file'
 import { GeoApi } from './geo'
 import { InitApi } from './init'
@@ -39,5 +40,6 @@ export const Api = {
     MetadataApi.init(express)
     GeoApi.init(express)
     KioskApi.init(express)
+    ExplorerApi.init(express)
   },
 }
