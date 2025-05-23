@@ -20,6 +20,19 @@ const getCountries = createSelector(
   }
 )
 
+const getDimensions = createSelector(
+  [
+    _getState,
+    (_state: RootState, assessmentName: AssessmentName) => assessmentName,
+    (_state: RootState, _assessmentName: AssessmentName, cycleName: CycleName) => cycleName,
+    (_state: RootState, _assessmentName: AssessmentName, _cycleName: CycleName, sectionName: SectionName) =>
+      sectionName,
+  ],
+  (filters, assessmentName, cycleName, sectionName) => {
+    return filters?.[assessmentName]?.[cycleName]?.dimensions?.[sectionName]
+  }
+)
+
 const getMeasures = createSelector(
   [
     _getState,
@@ -35,5 +48,6 @@ const getMeasures = createSelector(
 
 export const ExplorerFilterSelectors = {
   getCountries,
+  getDimensions,
   getMeasures,
 }
