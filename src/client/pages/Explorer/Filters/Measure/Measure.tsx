@@ -51,9 +51,11 @@ const Measure: React.FC = () => {
     <div className="measure-filter-container">
       <MultiSelect
         disabled={Objects.isNil(options)}
+        multiLabelSummaryKey="common.variable"
         onChange={handleChange}
-        options={options}
+        options={options ?? []}
         placeholder={t('common.variable')}
+        toggleAll
         value={explorerMeasures}
       />
       <button className="btn-definitions-info" onClick={openDefinition} type="button">
