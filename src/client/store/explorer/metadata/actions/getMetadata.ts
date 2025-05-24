@@ -10,7 +10,7 @@ type Params = CycleParams & { sectionNames: Array<string> }
 type Returned = Record<string, ExplorerMetadata>
 
 export const getMetadata = createAsyncThunk<Returned, Params>('explorer/metadata/get', async (params) => {
-  const { data } = <{ data: Returned }>await axios.get(ApiEndPoint.Explorer.sectionsMetadata(), {
+  const { data } = await axios.get<Returned>(ApiEndPoint.Explorer.sectionsMetadata(), {
     params,
   })
 
