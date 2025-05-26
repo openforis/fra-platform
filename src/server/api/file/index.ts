@@ -5,12 +5,12 @@ import { ApiEndPoint } from 'meta/api/endpoint'
 import { createManyFiles } from 'server/api/file/createManyFiles'
 import { AuthMiddleware } from 'server/middleware/auth'
 
-import { getFile } from './get'
-import { getBiomassStockFile } from './getBiomassStockFile'
 import { getBulkDownload } from './getBulkDownload'
 import { getDataDownloadFile } from './getDataDownloadFile'
 import { getHiddenFile } from './getHiddenFile'
 import { getSdgMetadata } from './getSdgMetadata'
+import { getStaticS3File } from './getStaticS3File'
+import { getStatisticalFactsheets } from './getStatisticalFactsheets'
 import { getUserGuideFile } from './getUserGuide'
 import multer = require('multer')
 
@@ -23,14 +23,12 @@ const fileFilter = (_req: any, file: Express.Multer.File, callback: multer.FileF
 export const FileApi = {
   init: (express: Express): void => {
     // Dashboard
-    express.get(ApiEndPoint.File.dashboard(), AuthMiddleware.requireView, getFile)
+    express.get(ApiEndPoint.File.dashboard(), AuthMiddleware.requireView, getStatisticalFactsheets)
     express.get(ApiEndPoint.File.dataDownload(), AuthMiddleware.requireView, getDataDownloadFile)
     express.get(ApiEndPoint.File.bulkDownload(), AuthMiddleware.requireView, getBulkDownload)
     express.get(ApiEndPoint.File.userGuide(), getUserGuideFile)
     express.get(ApiEndPoint._Legacy.File.hidden(), AuthMiddleware.requireUser, getHiddenFile)
 
-    // BiomassStock
-    express.get(ApiEndPoint.File.biomassStock({}), AuthMiddleware.requireEditTableData, getBiomassStockFile)
     // Files
     express.post(
       ApiEndPoint.File.many(),
@@ -41,5 +39,8 @@ export const FileApi = {
 
     // SDG Metadata
     express.get(ApiEndPoint.File.sdgMetadata(), AuthMiddleware.requireView, getSdgMetadata)
+
+    // Static S3 files
+    express.get(ApiEndPoint.Static.file(), getStaticS3File)
   },
 }
