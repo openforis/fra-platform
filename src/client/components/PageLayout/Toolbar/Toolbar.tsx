@@ -7,7 +7,7 @@ import { Areas, CountryIso } from 'meta/area'
 import { Users } from 'meta/user'
 
 import { useCountry } from 'client/store/area'
-import { useCycle } from 'client/store/assessment'
+import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
 import { useUser } from 'client/store/user'
 import { useIsGeoRoute, useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'

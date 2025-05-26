@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { Routes } from 'meta/routes'
 import { Users } from 'meta/user'
 
-import { useCycle } from 'client/store/assessment'
+import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
 import { useUserToEdit } from 'client/store/ui/userManagement/hooks'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 

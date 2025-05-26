@@ -6,8 +6,8 @@ import { Objects } from 'utils/objects'
 
 import { Row } from 'meta/assessment/row'
 
-import { useCycle } from 'client/store/assessment'
 import { useAppDispatch } from 'client/store/hooks'
+import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
 import { useTableSections } from 'client/store/metadata'
 import { DataExportActions, useDataExportCountries, useDataExportSelection } from 'client/store/ui/dataExport'
 import { useCountryIso } from 'client/hooks'

@@ -1,11 +1,9 @@
 import { Assessment } from 'meta/assessment/assessment'
 
-export interface AssessmentState {
-  appInitialized: boolean
+export type AssessmentState = {
   assessments: Array<Assessment>
 }
 
 export const initialState: AssessmentState = {
-  appInitialized: false,
   assessments: [],
 }

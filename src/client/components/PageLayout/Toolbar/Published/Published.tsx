@@ -6,7 +6,7 @@ import classNames from 'classnames'
 import { Dates } from 'utils/dates'
 
 import { useAssessmentCountry } from 'client/store/area'
-import { useLastPublishedCycle } from 'client/store/assessment'
+import { useLastPublishedCycle } from 'client/store/meta/assessment/hooks/cycles'
 import { useLanguage } from 'client/hooks/useLanguage'
 
 const Published: React.FC = () => {

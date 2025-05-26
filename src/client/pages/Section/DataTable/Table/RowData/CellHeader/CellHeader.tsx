@@ -11,7 +11,7 @@ import { Cols } from 'meta/assessment/cols'
 import { Row } from 'meta/assessment/row'
 import { Routes } from 'meta/routes'
 
-import { useCycle } from 'client/store/assessment'
+import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
 import { useCountryIso } from 'client/hooks'
 import { DataCell } from 'client/components/DataGrid'
 

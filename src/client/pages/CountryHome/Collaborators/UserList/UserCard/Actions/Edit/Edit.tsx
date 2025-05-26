@@ -7,7 +7,7 @@ import { Routes } from 'meta/routes'
 import { Authorizer } from 'meta/user'
 import { CountryUserSummaries } from 'meta/user/countryUserSummaries'
 
-import { useCycle } from 'client/store/assessment'
+import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
 import { useUser } from 'client/store/user'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { ButtonSize, ButtonType, useButtonClassName } from 'client/components/Buttons/Button'

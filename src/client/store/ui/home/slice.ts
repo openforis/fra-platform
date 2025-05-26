@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 import { CountryIso } from 'meta/area'
 
-import { initApp } from 'client/store/assessment/actions'
+import { ApplicationActions } from 'client/store/application/actions'
 
 import { HomeState } from './stateType'
 
@@ -17,7 +17,7 @@ export const homeSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(initApp.fulfilled, () => initialState)
+    builder.addCase(ApplicationActions.initApp.fulfilled, () => initialState)
   },
 })
 

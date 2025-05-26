@@ -4,10 +4,9 @@ import { AssessmentName } from 'meta/assessment/assessment'
 
 import { RootState } from 'client/store/types'
 
-const getAssessments = createSelector(
-  [(state: RootState) => state.assessment.assessments],
-  (assessments) => assessments
-)
+const getState = (state: RootState) => state.meta.assessment
+
+const getAssessments = createSelector([getState], (state) => state.assessments)
 
 const getAssessment = createSelector(
   [getAssessments, (_state: RootState, assessmentName: AssessmentName) => assessmentName],

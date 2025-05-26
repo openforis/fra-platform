@@ -4,7 +4,7 @@ import { Navigate } from 'react-router-dom'
 import { AssessmentNames } from 'meta/assessment/assessment'
 import { Routes } from 'meta/routes'
 
-import { useAssessments } from 'client/store/assessment'
+import { useAssessments } from 'client/store/meta/assessment/hooks/assessments'
 
 const PanEuropeanRedirect: React.FC = () => {
   const assessments = useAssessments()

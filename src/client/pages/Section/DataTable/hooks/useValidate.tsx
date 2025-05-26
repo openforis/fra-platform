@@ -13,9 +13,10 @@ import { validatorEqualToPreviousCycleForestArea } from 'meta/expressionEvaluato
 import { Authorizer } from 'meta/user'
 
 import { useCountry } from 'client/store/area'
-import { useAssessment, useCycle } from 'client/store/assessment'
 import { DataActions, RecordTableValidationsState } from 'client/store/data'
 import { useAppDispatch } from 'client/store/hooks'
+import { useAssessment } from 'client/store/meta/assessment/hooks/assessments'
+import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
 import { useSection } from 'client/store/metadata'
 import { useUser } from 'client/store/user'
 import { useCountryIso } from 'client/hooks'

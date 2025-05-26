@@ -3,8 +3,9 @@ import { useMemo } from 'react'
 import { TableNames } from 'meta/assessment/table'
 import { RecordAssessmentDatas } from 'meta/data'
 
-import { useAssessment, useCycle } from 'client/store/assessment'
 import { useRecordAssessmentData } from 'client/store/data/hooks/useRecordAssessmentData'
+import { useAssessment } from 'client/store/meta/assessment/hooks/assessments'
+import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
 import { useCountryIso } from 'client/hooks'
 
 export const useIsOdpTableDataFetched = (): boolean => {

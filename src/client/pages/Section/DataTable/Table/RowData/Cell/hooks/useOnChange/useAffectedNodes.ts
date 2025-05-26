@@ -10,7 +10,8 @@ import { RowCache } from 'meta/assessment/rowCache'
 import { RecordAssessmentDatas } from 'meta/data'
 import { ExpressionEvaluator } from 'meta/expressionEvaluator'
 
-import { useAssessment, useCycle } from 'client/store/assessment'
+import { useAssessment } from 'client/store/meta/assessment/hooks/assessments'
+import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 import { Props } from './types'

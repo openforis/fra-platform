@@ -8,23 +8,24 @@ import { CycleName } from 'meta/assessment/cycle'
 import { AssessmentMetaCache } from 'meta/assessment/metaCache'
 import { AssessmentMetaCaches } from 'meta/assessment/metaCaches'
 
-import { AssessmentSelectors } from 'client/store/assessment/selectors'
+import { AssessmentSelectors } from 'client/store/meta/assessment/selectors'
 import { ThunkApiConfig } from 'client/store/types'
 
 type Props = {
   assessmentName: AssessmentName
-  cycleName: CycleName
   countryIso: AreaCode
+  cycleName: CycleName
 }
 
 type Returned = AssessmentMetaCache | undefined
 
 export const getMetaCache = createAsyncThunk<Returned, Props, ThunkApiConfig>(
-  'assessment/metaCache/get',
+  'meta/assessment/metaCache/get',
   async (props, { getState }) => {
     const { assessmentName, countryIso, cycleName } = props
 
-    const assessment = AssessmentSelectors.getAssessment(getState(), assessmentName)
+    const state = getState()
+    const assessment = AssessmentSelectors.getAssessment(state, assessmentName)
     const cycle = assessment.cycles.find((c) => c.name === cycleName)
 
     if (!AssessmentMetaCaches.getMetaCache({ assessment, cycle })) {

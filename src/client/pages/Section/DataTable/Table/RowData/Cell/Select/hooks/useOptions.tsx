@@ -5,7 +5,7 @@ import { Col } from 'meta/assessment/col'
 import { Cols } from 'meta/assessment/cols'
 import { NodeValue } from 'meta/assessment/node'
 
-import { useCycle } from 'client/store/assessment'
+import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
 import { Option, OptionsGroup, OptionsOrGroups } from 'client/components/Inputs/Select'
 
 type Props = {

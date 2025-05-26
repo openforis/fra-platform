@@ -6,7 +6,7 @@ import { Objects } from 'utils/objects'
 import { Cols } from 'meta/assessment/cols'
 
 import { useAssessmentCountry } from 'client/store/area'
-import { useCycle } from 'client/store/assessment'
+import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
 import { useShowOriginalDatapoints } from 'client/store/ui/assessmentSection'
 import { ODPColHeader } from 'client/pages/Section/DataTable/Table/types'
 

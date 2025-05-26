@@ -5,7 +5,8 @@ import { Labels } from 'meta/assessment/labels'
 import { SectionNames } from 'meta/assessment/section'
 import { SubSections } from 'meta/assessment/subSections'
 
-import { useAssessment, useCycle } from 'client/store/assessment'
+import { useAssessment } from 'client/store/meta/assessment/hooks/assessments'
+import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
 import { useSections } from 'client/store/metadata'
 import { useRepositoryFileMeta } from 'client/store/ui/repository'
 

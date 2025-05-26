@@ -1,7 +1,7 @@
 import React from 'react'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
-import { useIsAppInitialized } from 'client/store/assessment'
+import { useIsAppInitialized } from 'client/store/application/hooks/init'
 import Toaster from 'client/components/Toaster'
 import Tooltips from 'client/components/Tooltips'
 

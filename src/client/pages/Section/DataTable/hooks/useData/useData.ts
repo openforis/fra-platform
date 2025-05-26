@@ -4,8 +4,9 @@ import { Objects } from 'utils/objects'
 
 import { RecordAssessmentData, RecordAssessmentDatas } from 'meta/data'
 
-import { useAssessment, useCycle } from 'client/store/assessment'
 import { useIsSomeTableDataFetching } from 'client/store/data'
+import { useAssessment } from 'client/store/meta/assessment/hooks/assessments'
+import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
 import { useCountryIso } from 'client/hooks'
 
 import { useRowsData } from '../useRowsData'
