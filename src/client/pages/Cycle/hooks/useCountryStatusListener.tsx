@@ -3,8 +3,8 @@ import { useEffect } from 'react'
 import { CountryIso, CountryStatus } from 'meta/area'
 import { Sockets } from 'meta/socket'
 
-import { useAppDispatch } from 'client/store'
 import { AreaActions } from 'client/store/area'
+import { useAppDispatch } from 'client/store/hooks'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { SocketClient } from 'client/service/socket'
 

@@ -6,8 +6,8 @@ import { Objects } from 'utils/objects'
 
 import { MessageTopic, MessageTopicType } from 'meta/messageCenter'
 
-import { useAppDispatch } from 'client/store'
 import { useAssessment, useCycle } from 'client/store/assessment'
+import { useAppDispatch } from 'client/store/hooks'
 import { MessageCenterActions } from 'client/store/ui/messageCenter'
 import { useCountryIso } from 'client/hooks'
 import { DataCell, DataGrid } from 'client/components/DataGrid'

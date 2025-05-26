@@ -4,7 +4,7 @@ import { CountryIso } from 'meta/area'
 import { ForestKey, LayerSectionKey } from 'meta/geo'
 import { LayerKey, LayerSource, Recipe } from 'meta/geo/layer'
 
-import { RootState } from 'client/store/RootState'
+import { RootState } from 'client/store/types'
 import { GeoActions } from 'client/store/ui/geo/slice'
 
 type Params = {

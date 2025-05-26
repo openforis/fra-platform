@@ -2,7 +2,7 @@ import { createSelector } from '@reduxjs/toolkit'
 
 import { AssessmentName } from 'meta/assessment/assessment'
 
-import { RootState } from 'client/store/RootState'
+import { RootState } from 'client/store/types'
 
 const getAssessments = createSelector(
   [(state: RootState) => state.assessment.assessments],

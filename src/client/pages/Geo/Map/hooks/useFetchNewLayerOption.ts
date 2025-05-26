@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 
 import { Layer, LayerKey, LayerSectionKey } from 'meta/geo'
 
-import { useAppDispatch } from 'client/store'
+import { useAppDispatch } from 'client/store/hooks'
 import { GeoActions, useGeoLayer } from 'client/store/ui/geo'
 import { LayerStateOptions } from 'client/store/ui/geo/stateType'
 import { useCountryIso } from 'client/hooks'

@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { useAppDispatch } from 'client/store'
+import { useAppDispatch } from 'client/store/hooks'
 import { GeoActions, useGeoMapOptions } from 'client/store/ui/geo'
 import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
 

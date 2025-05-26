@@ -4,8 +4,8 @@ import { useLocation } from 'react-router-dom'
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 
-import { useAppDispatch } from 'client/store'
 import { DataActions } from 'client/store/data'
+import { useAppDispatch } from 'client/store/hooks'
 import { TablePaginatedActions } from 'client/store/ui/tablePaginated'
 
 export const useResetHistory = () => {

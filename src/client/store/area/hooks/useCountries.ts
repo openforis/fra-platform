@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { Areas, Country } from 'meta/area'
 
 import { AreaSelectors } from 'client/store/area/selectors'
-import { useAppSelector } from 'client/store/store'
+import { useAppSelector } from 'client/store/hooks'
 import { useCycleRouteParams } from 'client/hooks/useRouteParams'
 
 export const useCountries = (): Array<Country> => {

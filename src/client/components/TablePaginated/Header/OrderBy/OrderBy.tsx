@@ -4,7 +4,7 @@ import classNames from 'classnames'
 
 import { TablePaginatedOrderBy, TablePaginatedOrderByDirection } from 'meta/tablePaginated'
 
-import { useAppDispatch } from 'client/store'
+import { useAppDispatch } from 'client/store/hooks'
 import { TablePaginatedActions, useTablePaginatedOrderBy } from 'client/store/ui/tablePaginated'
 import Icon from 'client/components/Icon'
 import { Column } from 'client/components/TablePaginated/types'

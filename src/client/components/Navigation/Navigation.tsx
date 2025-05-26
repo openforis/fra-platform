@@ -2,7 +2,7 @@ import './Navigation.scss'
 import React, { useEffect } from 'react'
 import MediaQuery from 'react-responsive'
 
-import { useAppDispatch } from 'client/store'
+import { useAppDispatch } from 'client/store/hooks'
 import { NavigationActions } from 'client/store/ui/navigation'
 import { useCountryIso } from 'client/hooks'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'

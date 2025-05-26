@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useRef } from 'react'
 
 import classNames from 'classnames'
 
-import { useAppDispatch } from 'client/store'
+import { useAppDispatch } from 'client/store/hooks'
 import { NavigationActions } from 'client/store/ui/navigation'
 import { useIsGeoRoute } from 'client/hooks'
 import NavAssessment from 'client/components/Navigation/NavAssessment'

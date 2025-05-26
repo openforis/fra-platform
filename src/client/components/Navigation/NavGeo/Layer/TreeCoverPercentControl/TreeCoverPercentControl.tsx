@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { Layer, LayerSectionKey } from 'meta/geo'
 
-import { useAppDispatch } from 'client/store'
+import { useAppDispatch } from 'client/store/hooks'
 import { GeoActions, useGeoLayer } from 'client/store/ui/geo'
 import ButtonCheckbox from 'client/components/Buttons/ButtonCheckbox'
 import OptionLabel from 'client/components/Navigation/NavGeo/Grid/OptionLabel'

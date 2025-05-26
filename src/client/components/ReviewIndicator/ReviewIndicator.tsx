@@ -6,7 +6,7 @@ import classNames from 'classnames'
 import { CountryIso } from 'meta/area'
 import { MessageTopicStatus, MessageTopicType } from 'meta/messageCenter'
 
-import { useAppDispatch } from 'client/store'
+import { useAppDispatch } from 'client/store/hooks'
 import { MessageCenterActions } from 'client/store/ui/messageCenter'
 import { useReviewStatus } from 'client/store/ui/review/hooks'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'

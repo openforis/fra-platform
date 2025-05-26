@@ -4,8 +4,8 @@ import { CountryIso } from 'meta/area'
 import { NodeValue } from 'meta/assessment/node'
 import { Contact, ContactField } from 'meta/cycleData'
 
-import { useAppDispatch } from 'client/store'
 import { DataActions } from 'client/store/data'
+import { useAppDispatch } from 'client/store/hooks'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 
 type PropsOnChange = {

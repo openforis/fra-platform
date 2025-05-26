@@ -5,8 +5,8 @@ import { CommentableDescriptionName, DataSource } from 'meta/assessment/descript
 import { SectionName } from 'meta/assessment/section'
 import { Topics } from 'meta/messageCenter'
 
-import { useAppDispatch } from 'client/store'
 import { DataActions } from 'client/store/data'
+import { useAppDispatch } from 'client/store/hooks'
 import { useCanEditDescription, useIsDescriptionEditable } from 'client/store/user/hooks'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { DataRowAction, DataRowActionType } from 'client/components/DataGrid'

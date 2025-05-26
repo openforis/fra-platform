@@ -4,7 +4,8 @@ import { isAnyOf } from '@reduxjs/toolkit'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 
-import { addAppListener, useAppDispatch } from 'client/store'
+import { useAppDispatch } from 'client/store/hooks'
+import { addAppListener } from 'client/store/middleware/listener'
 import { LinksActions } from 'client/store/ui/links'
 import { TablePaginatedActions, useTablePaginatedOrderBy, useTablePaginatedPage } from 'client/store/ui/tablePaginated'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'

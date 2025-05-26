@@ -3,7 +3,7 @@ import { useCallback } from 'react'
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CountryIso } from 'meta/area'
 
-import { useAppDispatch } from 'client/store'
+import { useAppDispatch } from 'client/store/hooks'
 import { TablePaginatedActions } from 'client/store/ui/tablePaginated'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 

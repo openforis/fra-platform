@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 
-import { useAppDispatch } from 'client/store'
+import { useAppDispatch } from 'client/store/hooks'
 import { LinksActions, useIsVerificationInProgress, useLinksChangeListener } from 'client/store/ui/links'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 import Button from 'client/components/Buttons/Button'

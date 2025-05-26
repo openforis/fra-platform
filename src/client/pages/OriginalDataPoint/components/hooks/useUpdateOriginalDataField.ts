@@ -4,7 +4,7 @@ import { CountryIso } from 'meta/area'
 import { ODPs } from 'meta/assessment/odps'
 import { ODPNationalClass } from 'meta/assessment/originalDataPoint'
 
-import { useAppDispatch } from 'client/store'
+import { useAppDispatch } from 'client/store/hooks'
 import { OriginalDataPointActions, useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 import { Sanitizer } from 'client/utils/sanitizer'

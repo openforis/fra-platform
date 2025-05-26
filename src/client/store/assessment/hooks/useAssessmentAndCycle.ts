@@ -5,7 +5,7 @@ import { Assessments } from 'meta/assessment/assessments'
 import { Cycle, CycleUuid } from 'meta/assessment/cycle'
 
 import { AssessmentSelectors } from 'client/store/assessment/selectors'
-import { useAppSelector } from 'client/store/store'
+import { useAppSelector } from 'client/store/hooks'
 import { useAssessmentRouteParams, useCycleRouteParams } from 'client/hooks/useRouteParams'
 
 export const useAssessment = (): Assessment => {

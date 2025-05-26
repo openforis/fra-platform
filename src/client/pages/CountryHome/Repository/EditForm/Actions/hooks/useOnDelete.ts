@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { CountryIso } from 'meta/area'
 
-import { useAppDispatch } from 'client/store'
+import { useAppDispatch } from 'client/store/hooks'
 import { RepositoryActions, useRepositoryItem } from 'client/store/ui/repository'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 import { useClosePanel } from 'client/pages/CountryHome/Repository/hooks/useClosePanel'

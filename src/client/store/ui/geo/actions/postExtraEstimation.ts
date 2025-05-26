@@ -6,7 +6,7 @@ import { LayerSectionKey } from 'meta/geo'
 import { ExtraEstimation, extraEstimationsApiEndpoint, extraEstimationsMetadata } from 'meta/geo/forestEstimations'
 import { ForestEstimationEntry } from 'meta/geo/geoStatistics'
 
-import { RootState } from 'client/store/RootState'
+import { RootState } from 'client/store/types'
 
 import { GeoActions } from '../slice'
 import { LayersSectionState } from '../stateType'

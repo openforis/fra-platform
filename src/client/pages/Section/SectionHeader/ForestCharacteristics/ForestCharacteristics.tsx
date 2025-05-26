@@ -3,9 +3,9 @@ import { useTranslation } from 'react-i18next'
 
 import { CountryIso } from 'meta/area'
 
-import { useAppDispatch } from 'client/store'
 import { AreaActions, useCountry, useIsUpdatingCountry } from 'client/store/area'
 import { useHasOriginalDataPointData } from 'client/store/data'
+import { useAppDispatch } from 'client/store/hooks'
 import { useIsEditTableDataEnabled, useUser } from 'client/store/user'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import Button, { ButtonSize } from 'client/components/Buttons/Button'

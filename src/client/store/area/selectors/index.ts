@@ -4,7 +4,7 @@ import { Country, CountryIso } from 'meta/area'
 import { AssessmentName } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
 
-import { RootState } from 'client/store/RootState'
+import { RootState } from 'client/store/types'
 
 const getCountries = createSelector(
   [

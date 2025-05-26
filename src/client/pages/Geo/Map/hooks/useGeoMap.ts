@@ -2,7 +2,7 @@ import { MutableRefObject, useEffect, useRef, useState } from 'react'
 
 import { CountryIso } from 'meta/area'
 
-import { useAppDispatch } from 'client/store'
+import { useAppDispatch } from 'client/store/hooks'
 import { GeoActions, useGeoMapOptions } from 'client/store/ui/geo'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { mapController } from 'client/utils'

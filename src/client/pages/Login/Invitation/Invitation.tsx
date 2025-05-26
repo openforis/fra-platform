@@ -6,7 +6,7 @@ import { Assessments } from 'meta/assessment/assessments'
 import { LoginInvitationQueryParams, Routes } from 'meta/routes'
 import { UserInvitations, Users } from 'meta/user'
 
-import { useAppDispatch } from 'client/store'
+import { useAppDispatch } from 'client/store/hooks'
 import { LoginActions, useInvitation } from 'client/store/login'
 import { useUser } from 'client/store/user'
 import { useSearchParams } from 'client/hooks/useSearchParams'

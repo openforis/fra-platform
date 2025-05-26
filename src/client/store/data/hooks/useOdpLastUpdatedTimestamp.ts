@@ -1,5 +1,5 @@
 import { useAssessment, useCycle } from 'client/store/assessment'
-import { useAppSelector } from 'client/store/store'
+import { useAppSelector } from 'client/store/hooks'
 import { useCountryIso } from 'client/hooks'
 
 export type Params = {

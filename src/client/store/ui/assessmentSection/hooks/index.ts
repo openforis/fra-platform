@@ -1,7 +1,7 @@
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 import { SectionName } from 'meta/assessment/section'
 
-import { useAppSelector } from 'client/store'
+import { useAppSelector } from 'client/store/hooks'
 import { AssessmentSectionSelectors } from 'client/store/ui/assessmentSection/selectors'
 
 export { useIsEstimationPending } from './useIsEstimatePending'

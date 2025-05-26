@@ -4,8 +4,8 @@ import { useTranslation } from 'react-i18next'
 import { CountryIso } from 'meta/area'
 import { Contact, ContactField } from 'meta/cycleData'
 
-import { useAppDispatch } from 'client/store'
 import { DataActions } from 'client/store/data'
+import { useAppDispatch } from 'client/store/hooks'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 
 type Props = {

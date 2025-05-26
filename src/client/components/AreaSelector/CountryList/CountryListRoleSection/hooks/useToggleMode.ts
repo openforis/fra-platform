@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 
-import { useAppDispatch } from 'client/store'
+import { useAppDispatch } from 'client/store/hooks'
 import { AreaSelectorActions } from 'client/store/ui/areaSelector'
 
 type Returned = () => void

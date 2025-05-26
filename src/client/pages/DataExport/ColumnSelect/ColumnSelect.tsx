@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom'
 
 import { AssessmentName } from 'meta/assessment/assessment'
 
-import { useAppDispatch } from 'client/store'
+import { useAppDispatch } from 'client/store/hooks'
 import { DataExportActions, DataExportSelection, useDataExportSelection } from 'client/store/ui/dataExport'
 import { DataExportActionType } from 'client/store/ui/dataExport/actionTypes'
 import ButtonCheckBox from 'client/components/ButtonCheckBox'
