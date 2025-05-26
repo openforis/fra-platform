@@ -60,6 +60,7 @@ module.exports = {
     'no-param-reassign': ['error', { props: true, ignorePropertyModificationsFor: ['state', 'acc'] }],
     '@typescript-eslint/no-use-before-define': ['error'],
     '@typescript-eslint/ban-ts-comment': 'off',
+    '@typescript-eslint/array-type': ['error', { default: 'generic' }],
     'no-restricted-exports': 'off',
     'react/function-component-definition': 'off',
     'react-hooks/rules-of-hooks': 'error',
