@@ -134,10 +134,6 @@ export const ApiEndPoint = {
   File: {
     many: () => apiPath('files'),
     bulkDownload: () => apiPath('file', 'bulk-download'),
-    dashboard: () => apiPath('file', 'dashboard'),
-    dataDownload: () => apiPath('file', 'data-download'),
-    sdgMetadata: () => apiPath('file', 'sdg-metadata'),
-    userGuide: (language = ':language') => apiPath('file', 'user-guide', language),
   },
 
   MessageCenter: {
@@ -202,6 +198,7 @@ export const ApiEndPoint = {
   },
 
   Static: {
-    file: (s3path = ':s3path(*)') => apiPath('static', s3path),
+    file: (s3path = ':s3path(*)') => apiPath('static', 'file', s3path),
+    files: () => apiPath('static', 'files'),
   },
 }

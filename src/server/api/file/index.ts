@@ -7,6 +7,7 @@ import { AuthMiddleware } from 'server/middleware/auth'
 
 import { getBulkDownload } from './getBulkDownload'
 import { getHiddenFile } from './getHiddenFile'
+import { getMultipleS3Files } from './getMultipleS3Files'
 import { getStaticS3File } from './getStaticS3File'
 import multer = require('multer')
 
@@ -30,6 +31,7 @@ export const FileApi = {
     )
 
     // Static S3 files
-    express.get(ApiEndPoint.Static.file(), getStaticS3File)
+    express.get(ApiEndPoint.Static.file(), AuthMiddleware.requireView, getStaticS3File)
+    express.get(ApiEndPoint.Static.files(), AuthMiddleware.requireView, getMultipleS3Files)
   },
 }
