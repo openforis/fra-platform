@@ -4,7 +4,7 @@ import { CountryIso } from 'meta/area'
 import { ODPReservedYear } from 'meta/assessment/originalDataPoint'
 import { Sockets } from 'meta/socket'
 
-import { useAppDispatch } from 'client/store'
+import { useAppDispatch } from 'client/store/hooks'
 import { OriginalDataPointActions } from 'client/store/ui/originalDataPoint'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { SocketClient } from 'client/service/socket'

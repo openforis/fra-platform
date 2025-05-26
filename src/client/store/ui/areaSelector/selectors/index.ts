@@ -1,6 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit'
 
-import { RootState } from 'client/store/RootState'
+import { RootState } from 'client/store/types'
 import { AreaSelectorSlice } from 'client/store/ui/areaSelector/slice'
 import { AreaSelectorMode } from 'client/store/ui/areaSelector/state'
 

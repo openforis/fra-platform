@@ -3,7 +3,7 @@ import { useCallback, useEffect } from 'react'
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 import { SectionName } from 'meta/assessment/section'
 
-import { useAppDispatch } from 'client/store'
+import { useAppDispatch } from 'client/store/hooks'
 import { AssessmentSectionActions, useIsDescriptionEditEnabled } from 'client/store/ui/assessmentSection'
 import { useIsDataLocked } from 'client/store/ui/dataLock'
 

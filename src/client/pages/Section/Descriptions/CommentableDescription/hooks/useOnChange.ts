@@ -4,8 +4,8 @@ import { CountryIso } from 'meta/area'
 import { CommentableDescriptionName, CommentableDescriptionValue } from 'meta/assessment/descriptionValue'
 import { SectionName } from 'meta/assessment/section'
 
-import { useAppDispatch } from 'client/store'
 import { DataActions } from 'client/store/data'
+import { useAppDispatch } from 'client/store/hooks'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 type Props = {

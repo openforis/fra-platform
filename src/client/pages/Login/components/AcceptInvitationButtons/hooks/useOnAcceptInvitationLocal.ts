@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { Routes } from 'meta/routes'
 
-import { useAppDispatch } from 'client/store'
+import { useAppDispatch } from 'client/store/hooks'
 import { LoginActions, useInvitation } from 'client/store/login'
 import { AcceptInvitationFormState } from 'client/store/login/stateType'
 import { isError, LoginValidator } from 'client/pages/Login/utils/LoginValidator'

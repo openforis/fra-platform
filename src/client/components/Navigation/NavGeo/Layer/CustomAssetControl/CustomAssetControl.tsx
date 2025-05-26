@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import { Layer, LayerSectionKey } from 'meta/geo'
 
-import { useAppDispatch } from 'client/store'
+import { useAppDispatch } from 'client/store/hooks'
 import { GeoActions, useGeoLayer } from 'client/store/ui/geo'
 import { LayerFetchStatus } from 'client/store/ui/geo/stateType'
 import { useCountryIso } from 'client/hooks'

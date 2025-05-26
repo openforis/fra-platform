@@ -3,7 +3,7 @@ import { createSelector } from '@reduxjs/toolkit'
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 import { SectionName } from 'meta/assessment/section'
 
-import { RootState } from 'client/store/RootState'
+import { RootState } from 'client/store/types'
 import { AssessmentSectionSlice } from 'client/store/ui/assessmentSection/slice'
 
 const _getState = (state: RootState) => state.ui[AssessmentSectionSlice.name]

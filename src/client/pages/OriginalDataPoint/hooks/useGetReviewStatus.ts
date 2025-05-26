@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 
 import { CountryIso } from 'meta/area'
 
-import { useAppDispatch } from 'client/store'
+import { useAppDispatch } from 'client/store/hooks'
 import { useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
 import { ReviewActions } from 'client/store/ui/review'
 import { useUser } from 'client/store/user'

@@ -3,7 +3,8 @@ import { createSelector } from '@reduxjs/toolkit'
 import { SectionName } from 'meta/assessment/section'
 import { TableSection } from 'meta/assessment/tableSection'
 
-import { RootState, useAppSelector } from 'client/store'
+import { useAppSelector } from 'client/store/hooks'
+import { RootState } from 'client/store/types'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 
 type Props = {

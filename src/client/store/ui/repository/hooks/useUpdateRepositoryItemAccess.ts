@@ -5,7 +5,7 @@ import { Objects } from 'utils/objects'
 import { CountryIso } from 'meta/area'
 import { RepositoryItem } from 'meta/cycleData'
 
-import { useAppDispatch } from 'client/store/store'
+import { useAppDispatch } from 'client/store/hooks'
 import { RepositoryActions } from 'client/store/ui/repository'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 

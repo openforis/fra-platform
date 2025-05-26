@@ -1,4 +1,4 @@
-import { useAppSelector } from 'client/store/store'
+import { useAppSelector } from 'client/store/hooks'
 import { FileUploadSelectors } from 'client/store/ui/fileUpload/selectors'
 import { FileUploadProgress } from 'client/store/ui/fileUpload/state'
 

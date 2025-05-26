@@ -2,7 +2,7 @@ import { createSelector } from '@reduxjs/toolkit'
 
 import { CountryIso } from 'meta/area'
 
-import { RootState } from 'client/store'
+import { RootState } from 'client/store/types'
 
 const _getState = (state: RootState) => state.ui.home
 

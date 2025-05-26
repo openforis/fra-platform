@@ -1,7 +1,7 @@
 import { createSelector } from '@reduxjs/toolkit'
 import { Objects } from 'utils/objects'
 
-import { RootState } from 'client/store/RootState'
+import { RootState } from 'client/store/types'
 import { TablePaginatedState } from 'client/store/ui/tablePaginated/state'
 
 const _getState = createSelector(

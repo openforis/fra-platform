@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import { LayerSectionKey } from 'meta/geo'
 
-import { useAppDispatch } from 'client/store'
+import { useAppDispatch } from 'client/store/hooks'
 import { GeoActions } from 'client/store/ui/geo'
 import { useCountryIso } from 'client/hooks'
 import InputRange from 'client/components/Inputs/InputRange'

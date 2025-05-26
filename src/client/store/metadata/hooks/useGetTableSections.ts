@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-import { useAppDispatch } from 'client/store'
+import { useAppDispatch } from 'client/store/hooks'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 
 import { MetadataActions } from '../slice'

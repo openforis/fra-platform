@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { Objects } from 'utils/objects'
 
-import { useAppDispatch } from 'client/store'
+import { useAppDispatch } from 'client/store/hooks'
 import { GeoActions, useGeoStatistics } from 'client/store/ui/geo'
 import { getForestEstimationData } from 'client/store/ui/geo/actions'
 import { useCountryIso } from 'client/hooks'

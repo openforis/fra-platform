@@ -11,8 +11,8 @@ import { TableName } from 'meta/assessment/table'
 import { VariableName } from 'meta/assessment/variable'
 import { RecordAssessmentData, RecordAssessmentDatas } from 'meta/data'
 
-import { useAppSelector } from 'client/store'
 import { DataSelector } from 'client/store/data/selectors'
+import { useAppSelector } from 'client/store/hooks'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 type PropsNodeValue = {

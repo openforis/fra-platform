@@ -1,6 +1,6 @@
 import { CountryUserSummary, User } from 'meta/user'
 
-import { useAppSelector } from 'client/store/store'
+import { useAppSelector } from 'client/store/hooks'
 
 export const useUserToEdit = (): User => useAppSelector((state) => state.ui.userManagement.user)
 

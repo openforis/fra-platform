@@ -7,9 +7,9 @@ import { CycleName } from 'meta/assessment/cycle'
 import { Row, RowType } from 'meta/assessment/row'
 import { RecordAssessmentData, RecordAssessmentDatas, RecordCountryData } from 'meta/data'
 
-import { useAppDispatch } from 'client/store'
 import { useCycle } from 'client/store/assessment'
 import { DataActions } from 'client/store/data'
+import { useAppDispatch } from 'client/store/hooks'
 import { useIsEstimationPending } from 'client/store/ui/assessmentSection'
 import { useCountryIso } from 'client/hooks'
 

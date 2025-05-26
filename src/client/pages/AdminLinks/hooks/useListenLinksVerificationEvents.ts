@@ -6,7 +6,7 @@ import { Objects } from 'utils/objects'
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { Sockets } from 'meta/socket'
 
-import { useAppDispatch } from 'client/store'
+import { useAppDispatch } from 'client/store/hooks'
 import { LinksActions, useIsVerificationInProgress } from 'client/store/ui/links'
 import {
   TablePaginatedActions,

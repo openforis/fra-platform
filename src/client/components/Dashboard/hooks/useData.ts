@@ -7,8 +7,8 @@ import { RowCache } from 'meta/assessment/rowCache'
 import { Table } from 'meta/assessment/table'
 import { RecordAssessmentData, RecordAssessmentDatas } from 'meta/data'
 
-import { useAppSelector } from 'client/store'
 import { useAssessment, useCycle } from 'client/store/assessment'
+import { useAppSelector } from 'client/store/hooks'
 import { useCountryIso } from 'client/hooks'
 import { useRowsData } from 'client/pages/Section/DataTable/hooks/useRowsData'
 

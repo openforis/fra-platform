@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import { CountryIso } from 'meta/area'
 import { Sockets } from 'meta/socket'
 
-import { useAppDispatch } from 'client/store'
+import { useAppDispatch } from 'client/store/hooks'
 import { useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
 import { ReviewActions } from 'client/store/ui/review'
 import { useCanEditCycleData, useUser } from 'client/store/user'

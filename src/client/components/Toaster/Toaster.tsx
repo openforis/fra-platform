@@ -2,7 +2,7 @@ import './Toaster.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { useAppDispatch } from 'client/store'
+import { useAppDispatch } from 'client/store/hooks'
 import { NotificationActions, NotificationMessage, useNotification } from 'client/store/ui/notification'
 import Icon from 'client/components/Icon'
 

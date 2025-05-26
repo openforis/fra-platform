@@ -6,7 +6,7 @@ import { CountryIso } from 'meta/area'
 import { MessageTopic } from 'meta/messageCenter'
 import { Users } from 'meta/user/users'
 
-import { useAppDispatch } from 'client/store'
+import { useAppDispatch } from 'client/store/hooks'
 import { MessageCenterActions } from 'client/store/ui/messageCenter'
 import { useUser } from 'client/store/user'
 import { useGetRequest } from 'client/hooks'

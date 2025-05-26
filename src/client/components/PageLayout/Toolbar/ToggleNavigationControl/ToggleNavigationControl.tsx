@@ -3,7 +3,7 @@ import React from 'react'
 
 import classNames from 'classnames'
 
-import { useAppDispatch } from 'client/store'
+import { useAppDispatch } from 'client/store/hooks'
 import { NavigationActions, useNavigationVisible } from 'client/store/ui/navigation'
 import { useIsAdminRoute, useIsCycleLandingRoute, useIsGeoRoute } from 'client/hooks'
 import Icon from 'client/components/Icon'

@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react'
 
-import { useAppDispatch } from 'client/store'
+import { useAppDispatch } from 'client/store/hooks'
 import { GeoActions, useGeoMapOptions } from 'client/store/ui/geo'
 import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
 import { mapController } from 'client/utils'

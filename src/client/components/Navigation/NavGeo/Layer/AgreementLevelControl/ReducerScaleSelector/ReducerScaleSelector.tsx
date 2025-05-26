@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { ExtraEstimation } from 'meta/geo'
 import { Layer, LayerSectionKey } from 'meta/geo/layer'
 
-import { useAppDispatch } from 'client/store'
+import { useAppDispatch } from 'client/store/hooks'
 import { GeoActions, useGeoExtraEstimation } from 'client/store/ui/geo'
 import { useCountryIso } from 'client/hooks'
 import Button, { ButtonSize } from 'client/components/Buttons/Button'

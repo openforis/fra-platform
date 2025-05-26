@@ -4,7 +4,7 @@ import { AssessmentName } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
 
 import { DashboardAreaType } from 'client/store/metadata/state'
-import { RootState } from 'client/store/RootState'
+import { RootState } from 'client/store/types'
 
 const getSections = createSelector(
   [

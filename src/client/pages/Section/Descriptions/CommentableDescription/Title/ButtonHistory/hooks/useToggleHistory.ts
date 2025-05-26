@@ -2,8 +2,8 @@ import { useCallback } from 'react'
 
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 
-import { useAppDispatch } from 'client/store'
 import { DataActions } from 'client/store/data'
+import { useAppDispatch } from 'client/store/hooks'
 
 type Returned = () => void
 

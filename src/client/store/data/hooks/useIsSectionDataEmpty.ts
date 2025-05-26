@@ -3,8 +3,8 @@ import { useEffect, useMemo, useState } from 'react'
 import { TableSection } from 'meta/assessment/tableSection'
 import { RecordAssessmentDatas } from 'meta/data'
 
-import { useAppSelector } from 'client/store'
 import { useAssessment, useCycle } from 'client/store/assessment'
+import { useAppSelector } from 'client/store/hooks'
 import { useCountryIso } from 'client/hooks'
 
 export const useIsSectionDataEmpty = (tableSections: TableSection[]) => {

@@ -4,8 +4,8 @@ import MediaQuery from 'react-responsive'
 
 import classNames from 'classnames'
 
-import { useAppDispatch } from 'client/store'
 import { DataActions, useHistoryActivitiesIsActive, useHistoryLastApprovedIsActive } from 'client/store/data'
+import { useAppDispatch } from 'client/store/hooks'
 import { useShowOriginalDatapoints } from 'client/store/ui/assessmentSection'
 import { DataLockActions, useIsDataLocked } from 'client/store/ui/dataLock'
 import { useCanEditCycleData } from 'client/store/user'

@@ -9,7 +9,7 @@ import { useAssessmentCountry } from 'client/store/area'
 import { useAssessment, useCycle } from 'client/store/assessment'
 import { useOriginalDataPointData } from 'client/store/data/hooks/useOriginalDataPointData'
 import { DataSelector } from 'client/store/data/selectors'
-import { useAppSelector } from 'client/store/store'
+import { useAppSelector } from 'client/store/hooks'
 
 export const useRecordAssessmentData = (): RecordAssessmentData =>
   useAppSelector(DataSelector.TableData.getRecordAssessmentData)

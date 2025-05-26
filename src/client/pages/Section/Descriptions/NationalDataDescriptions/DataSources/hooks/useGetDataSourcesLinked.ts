@@ -4,8 +4,8 @@ import { CountryIso } from 'meta/area'
 import { NationalDataDescription } from 'meta/assessment/description'
 import { DataSourceLinked } from 'meta/assessment/descriptionValue'
 
-import { useAppDispatch } from 'client/store'
 import { DataActions, useDataSourcesLinked } from 'client/store/data'
+import { useAppDispatch } from 'client/store/hooks'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 type Props = {

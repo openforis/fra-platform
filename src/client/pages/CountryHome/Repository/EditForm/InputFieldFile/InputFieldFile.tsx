@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { useAppDispatch } from 'client/store'
+import { useAppDispatch } from 'client/store/hooks'
 import { RepositoryActions, useRepositoryFileMeta, useRepositoryItemPropValidation } from 'client/store/ui/repository'
 import { DataCell } from 'client/components/DataGrid'
 import FileUpload, { FileUploadOnChange } from 'client/components/FileUpload'

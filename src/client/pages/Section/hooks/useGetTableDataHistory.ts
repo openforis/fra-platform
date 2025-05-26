@@ -5,8 +5,8 @@ import { Objects } from 'utils/objects'
 import { CountryIso } from 'meta/area'
 import { SectionName } from 'meta/assessment/section'
 
-import { useAppDispatch } from 'client/store'
 import { DataActions, useHistoryLastApprovedIsActive } from 'client/store/data'
+import { useAppDispatch } from 'client/store/hooks'
 import { useTableSections } from 'client/store/metadata'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
