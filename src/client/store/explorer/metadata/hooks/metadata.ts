@@ -6,10 +6,9 @@ import { CountryIso } from 'meta/area'
 import { ExplorerMetadata } from 'meta/explorer/metadata'
 
 import { useAppDispatch, useAppSelector } from 'client/store'
+import { ExplorerMetadataActions } from 'client/store/explorer/metadata/actions/index'
 import { ExplorerMetadataSelectors } from 'client/store/explorer/metadata/selectors/index'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
-
-import { ExplorerMetadataActions } from '../actions'
 
 export const useExplorerSectionMetadata = (): ExplorerMetadata => {
   const { assessmentName, cycleName, sectionName } = useSectionRouteParams()
