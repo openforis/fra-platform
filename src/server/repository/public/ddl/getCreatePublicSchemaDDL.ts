@@ -117,7 +117,6 @@ export const getCreatePublicSchemaDDL = (schemaName = 'public'): string => {
       name character varying(255) not null,
       created_at timestamp without time zone not null default now()
     );
-
     create unique index if not exists file_uuid_key on ${schemaName}.file using btree (uuid);
 
     create table if not exists ${schemaName}.users (
