@@ -1,25 +1,31 @@
+import { DataDownloadFileName } from 'meta/file/static'
+
 const resources = [
   {
     idx: 1,
-    name: 'Forest_extent_characteristics_and_changes',
+    name: DataDownloadFileName.ForestExtentCharacteristicsAndChanges,
     labelKey: 'navigation.sectionHeaders.forestExtentCharacteristicsAndChanges',
   },
   {
     idx: 2,
-    name: 'Forest_growing_stock_biomass_and_carbon',
+    name: DataDownloadFileName.ForestGrowingStockBiomassAndCarbon,
     labelKey: 'navigation.sectionHeaders.forestGrowingStockBiomassAndCarbon',
   },
   {
     idx: 3,
-    name: 'Forest_designation_and_management',
+    name: DataDownloadFileName.ForestDesignationAndManagement,
     labelKey: 'navigation.sectionHeaders.forestDesignationAndManagement',
   },
   {
     idx: 4,
-    name: 'Forest_ownership_and_management_rights',
+    name: DataDownloadFileName.ForestOwnershipAndManagementRights,
     labelKey: 'navigation.sectionHeaders.forestOwnershipAndManagementRights',
   },
-  { idx: 6, name: 'Permanent_forest_estate', labelKey: 'areaOfPermanentForestEstate.areaOfPermanentForestEstate' },
+  {
+    idx: 6,
+    name: DataDownloadFileName.PermanentForestEstate,
+    labelKey: 'areaOfPermanentForestEstate.areaOfPermanentForestEstate',
+  },
 ]
 
 export default resources

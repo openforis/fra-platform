@@ -3,30 +3,25 @@ import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
+import { Files } from 'meta/file'
 
-import { useAssessment, useCycle } from 'client/store/assessment'
-import { useCountryIso } from 'client/hooks'
 import { useLanguage } from 'client/hooks/useLanguage'
+import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import Icon from 'client/components/Icon'
 import { DOMs } from 'client/utils/dom'
 
 import resources from './resources'
 
-const _url = (baseParams: string, fileName: string, fileType: string, language: string): string =>
-  `${ApiEndPoint.File.dataDownload()}?${baseParams}&fileName=${fileName}&fileType=${fileType}&language=${language}`
-
 const DataDownload: React.FC = () => {
   const { t } = useTranslation()
   const lang = useLanguage()
-  const assessment = useAssessment()
-  const cycle = useCycle()
-  const countryIso = useCountryIso()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams()
 
   useEffect(() => {
     DOMs.scrollTo()
   }, [])
 
-  const baseParams = `assessmentName=${assessment.props.name}&cycleName=${cycle.name}&countryIso=${countryIso}`
+  const baseParams = `assessmentName=${assessmentName}&cycleName=${cycleName}&countryIso=${countryIso}`
 
   return (
     <div className="app-view__content">
@@ -50,14 +45,26 @@ const DataDownload: React.FC = () => {
             </div>
             <a
               className="btn-s btn-primary nav__bulk-download"
-              href={_url(baseParams, `${resource.idx}_${resource.name}`, 'ods', lang)}
+              href={Files.Static.getDataDownload({
+                assessmentName,
+                cycleName,
+                ext: 'ods',
+                file: resource.name,
+                language: lang,
+              })}
             >
               <Icon className="icon-sub icon-white" name="hit-down" />
               ODS
             </a>
             <a
               className="btn-s btn-primary nav__bulk-download"
-              href={_url(baseParams, `${resource.idx}_${resource.name}`, 'xlsx', lang)}
+              href={Files.Static.getDataDownload({
+                assessmentName,
+                cycleName,
+                ext: 'xlsx',
+                file: resource.name,
+                language: lang,
+              })}
             >
               <Icon className="icon-sub icon-white" name="hit-down" />
               XLS
