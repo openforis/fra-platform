@@ -28,8 +28,7 @@ export const useGetExplorerSectionData = () => {
   const countryISOs = useExplorerCountries()
   const dimensions = useExplorerDimensions()
   const measures = useExplorerMeasures()
-  const { assessmentName, countryIso: _countryIso, cycleName, sectionName } = useSectionRouteParams()
-  const countryIso = _countryIso as CountryIso
+  const { assessmentName, countryIso, cycleName, sectionName } = useSectionRouteParams<CountryIso>()
 
   const explorerSectionData = useExplorerSectionData()
 
@@ -41,7 +40,7 @@ export const useGetExplorerSectionData = () => {
 
     const getDataProps = {
       assessmentName,
-      countryIso: countryIso as CountryIso,
+      countryIso,
       countryISOs,
       cycleName,
       dimensions,
