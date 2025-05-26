@@ -1,6 +1,6 @@
 import { Numbers } from 'utils/numbers'
 
-import { Static } from './Static'
+import { Static } from 'meta/file/static'
 
 const humanReadableSize = (size: number): string => {
   const i = size === 0 ? 0 : Math.floor(Math.log(size) / Math.log(1024))
