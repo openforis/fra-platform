@@ -32,7 +32,7 @@ const UserGuideLinkInner: React.FC<Props> = (props) => {
       case UserGuideLinkOption.TutorialPage:
         return Routes.Tutorials.generatePath({ assessmentName, cycleName })
       case UserGuideLinkOption.File:
-        return Files.Static.getUserGuide({ language })
+        return Files.Static.getUserGuide({ language, assessmentName, cycleName })
       default:
         return ''
     }

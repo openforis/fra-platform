@@ -21,8 +21,14 @@ const ButtonDownloadDashboard: React.FC = () => {
   const className = useButtonClassName({ iconName: 'icon-hit-down', label: 'L', size: ButtonSize.s })
 
   const to = useMemo<string>(() => {
-    return Files.Static.getStatisticalFactsheet({ region: countryIso as RegionCode, language: lang })
-  }, [countryIso, lang])
+    return Files.Static.getStatisticalFactsheet({
+      region: countryIso as RegionCode,
+      language: lang,
+      assessmentName,
+      cycleName,
+      countryIso,
+    })
+  }, [assessmentName, countryIso, cycleName, lang])
 
   const renderButton = useMemo<boolean>(() => {
     const overviewPath = Routes.CountryHomeSection.generatePath({ assessmentName, cycleName, countryIso, sectionName })

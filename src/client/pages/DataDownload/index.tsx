@@ -48,6 +48,7 @@ const DataDownload: React.FC = () => {
               href={Files.Static.getDataDownload({
                 assessmentName,
                 cycleName,
+                countryIso,
                 ext: 'ods',
                 file: resource.name,
                 language: lang,
@@ -61,6 +62,7 @@ const DataDownload: React.FC = () => {
               href={Files.Static.getDataDownload({
                 assessmentName,
                 cycleName,
+                countryIso,
                 ext: 'xlsx',
                 file: resource.name,
                 language: lang,

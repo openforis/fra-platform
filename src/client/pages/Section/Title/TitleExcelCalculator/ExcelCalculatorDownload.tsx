@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { CountryIso } from 'meta/area'
 import { Files } from 'meta/file/files'
 import { Authorizer } from 'meta/user'
 
 import { useCountry } from 'client/store/area'
-import { useAssessment, useCycle } from 'client/store/assessment'
+import { useCycle } from 'client/store/assessment'
 import { useSection } from 'client/store/metadata'
 import { useUser } from 'client/store/user'
-import { useCountryIso } from 'client/hooks'
 import { useLanguage } from 'client/hooks/useLanguage'
+import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 import { useSortedDomains } from './hooks/useSortedDomains'
 
 const ExcelCalculatorDownload: React.FC = () => {
-  const assessment = useAssessment()
-  const countryIso = useCountryIso()
   const cycle = useCycle()
   const section = useSection()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const country = useCountry(countryIso)
 
   const { t } = useTranslation()
@@ -35,8 +35,9 @@ const ExcelCalculatorDownload: React.FC = () => {
   }, [defaultSelectedDomain])
 
   const calculatorFilePath = Files.Static.getBiomassCalculator({
-    assessmentName: assessment.props.name,
-    cycleName: cycle.name,
+    assessmentName,
+    cycleName,
+    countryIso,
     domain: selectedDomain,
     language,
   })

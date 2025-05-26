@@ -1,12 +1,18 @@
 import { ApiEndPoint } from 'meta/api/endpoint'
+import { Global } from 'meta/area'
+import { AreaCode } from 'meta/area/area'
 import { RegionCode } from 'meta/area/regionCode'
 import { AssessmentName } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
 import { Lang } from 'meta/lang'
 
-interface BiomassCalculatorProps {
+interface BaseParams {
+  countryIso?: AreaCode
   assessmentName: AssessmentName
   cycleName: CycleName
+}
+
+interface BiomassCalculatorProps extends BaseParams {
   domain: string
   language: Lang
 }
@@ -19,9 +25,7 @@ export enum DataDownloadFileName {
   PermanentForestEstate = '6 Permanent forest estate',
 }
 
-interface DataDownloadProps {
-  assessmentName: AssessmentName
-  cycleName: CycleName
+interface DataDownloadProps extends BaseParams {
   file: DataDownloadFileName
   ext: 'ods' | 'xlsx'
   language: Lang
@@ -32,12 +36,12 @@ export enum SdgMetadataFileName {
   Metadata150201 = 'Metadata-15-02-01',
 }
 
-interface SdgMetadataProps {
+interface SdgMetadataProps extends BaseParams {
   file: SdgMetadataFileName
   language: Lang
 }
 
-interface StatisticalFactsheetProps {
+interface StatisticalFactsheetProps extends BaseParams {
   region: RegionCode
   language: Lang
 }
@@ -61,16 +65,32 @@ const _getSupportedLangForFile = (fileType: string, language: Lang): Lang => {
   return supported.includes(language) ? language : Lang.en
 }
 
-const getBiomassCalculator = ({ assessmentName, cycleName, domain, language }: BiomassCalculatorProps): string => {
-  const fileType = 'BiomassCalculator'
-  const lang = _getSupportedLangForFile(fileType, language)
-  return ApiEndPoint.Static.file(`${assessmentName}/${cycleName}/biomassStock/BiomassCalculator_${domain}_${lang}.xlsx`)
+const appendBaseParams = (url: string, params: BaseParams): string => {
+  const { assessmentName, countryIso, cycleName } = params
+  const searchParams = new URLSearchParams({
+    assessmentName,
+    cycleName,
+    countryIso: countryIso ?? Global.WO,
+  })
+  return `${url}?${searchParams.toString()}`
 }
 
-const getDataDownload = ({ assessmentName, cycleName, ext, file, language }: DataDownloadProps): string => {
+const getBiomassCalculator = (props: BiomassCalculatorProps): string => {
+  const { assessmentName, countryIso, cycleName, domain, language } = props
+  const fileType = 'BiomassCalculator'
+  const lang = _getSupportedLangForFile(fileType, language)
+  const url = ApiEndPoint.Static.file(
+    `${assessmentName}/${cycleName}/biomassStock/BiomassCalculator_${domain}_${lang}.xlsx`
+  )
+  return appendBaseParams(url, { assessmentName, cycleName, countryIso })
+}
+
+const getDataDownload = (props: DataDownloadProps): string => {
+  const { assessmentName, countryIso, cycleName, ext, file, language } = props
   const fileType = file
   const lang = _getSupportedLangForFile(fileType, language)
-  return ApiEndPoint.Static.file(`${assessmentName}/${cycleName}/dataDownload/${file} ${lang}.${ext}`)
+  const url = ApiEndPoint.Static.file(`${assessmentName}/${cycleName}/dataDownload/${file} ${lang}.${ext}`)
+  return appendBaseParams(url, { assessmentName, cycleName, countryIso })
 }
 
 // const getPanEuropeanQuestionnaire = ({ language }: { language: Lang }): string => {
@@ -79,22 +99,31 @@ const getDataDownload = ({ assessmentName, cycleName, ext, file, language }: Dat
 //   return ApiEndPoint.Static.file(`panEuropeanQuestionnaire/panEuropeanQuestionnaire_${lang}.xls`)
 // }
 
-const getSdgMetadata = ({ file, language }: SdgMetadataProps): string => {
+const getSdgMetadata = ({ assessmentName, countryIso, cycleName, file, language }: SdgMetadataProps): string => {
   const fileType = file
   const lang = _getSupportedLangForFile(fileType, language)
-  return ApiEndPoint.Static.file(`sdgMetadata/${file}_${lang}.pdf`)
+  const url = ApiEndPoint.Static.file(`sdgMetadata/${file}_${lang}.pdf`)
+  return appendBaseParams(url, { assessmentName, cycleName, countryIso })
 }
 
-const getStatisticalFactsheet = ({ language, region }: StatisticalFactsheetProps): string => {
+const getStatisticalFactsheet = ({
+  assessmentName,
+  countryIso,
+  cycleName,
+  language,
+  region,
+}: StatisticalFactsheetProps): string => {
   const fileType = 'statisticalFactsheets'
   const lang = _getSupportedLangForFile(fileType, language)
-  return ApiEndPoint.Static.file(`statisticalFactsheets/Statistical Factsheets (${region})_${lang}.ods`)
+  const url = ApiEndPoint.Static.file(`statisticalFactsheets/Statistical Factsheets (${region})_${lang}.ods`)
+  return appendBaseParams(url, { assessmentName, cycleName, countryIso })
 }
 
-const getUserGuide = ({ language }: { language: Lang }): string => {
+const getUserGuide = ({ assessmentName, countryIso, cycleName, language }: BaseParams & { language: Lang }): string => {
   const fileType = 'userGuide'
   const lang = _getSupportedLangForFile(fileType, language)
-  return ApiEndPoint.Static.file(`userGuide/User Guide FRA Platform_${lang}.pdf`)
+  const url = ApiEndPoint.Static.file(`userGuide/User Guide FRA Platform_${lang}.pdf`)
+  return appendBaseParams(url, { assessmentName, cycleName, countryIso })
 }
 
 export const Static = {
