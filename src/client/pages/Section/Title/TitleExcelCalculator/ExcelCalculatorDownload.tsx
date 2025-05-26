@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { ApiEndPoint } from 'meta/api/endpoint'
+import { Files } from 'meta/file/files'
 import { Authorizer } from 'meta/user'
 
 import { useCountry } from 'client/store/area'
@@ -34,8 +34,12 @@ const ExcelCalculatorDownload: React.FC = () => {
     setSelectedDomain(defaultSelectedDomain)
   }, [defaultSelectedDomain])
 
-  const s3path = `${assessment.props.name}/${cycle.name}/biomassStock/calculator_${selectedDomain}_${language}.xlsx`
-  const calculatorFilePath = ApiEndPoint.Static.file(s3path)
+  const calculatorFilePath = Files.Static.getBiomassCalculator({
+    assessmentName: assessment.props.name,
+    cycleName: cycle.name,
+    domain: selectedDomain,
+    language,
+  })
 
   if (!Authorizer.canEditData({ country, cycle, section, user: userInfo })) return null
 
