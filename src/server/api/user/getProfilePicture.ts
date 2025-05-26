@@ -12,7 +12,7 @@ export const getProfilePicture = async (req: Request, res: Response) => {
       profilePicture.data.pipe(res)
     } else {
       const fileStream = await FileStorage.getFile({
-        path: 'static',
+        path: 'static/app',
         key: 'avatar.png',
       })
       fileStream.pipe(res)
