@@ -29,7 +29,8 @@ const getAllFiles = (): Array<FileEntry> => {
       if (entry.isDirectory()) {
         walk(entryPath, entryRelPath)
       } else if (entry.isFile()) {
-        const s3Path = `${basePath}/${path.dirname(entryRelPath)}`
+        const dir = path.dirname(entryRelPath)
+        const s3Path = dir === '.' ? basePath : `${basePath}/${dir}`
         results.push({ name: entry.name, relPath: entryRelPath, s3Path })
       }
     })

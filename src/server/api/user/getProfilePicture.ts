@@ -1,7 +1,7 @@
-import * as path from 'path'
 import { Request, Response } from 'express'
 
 import { UserController } from 'server/controller/user'
+import { FileStorage } from 'server/service/fileStorage'
 import Requests from 'server/utils/requests'
 
 export const getProfilePicture = async (req: Request, res: Response) => {
@@ -11,7 +11,11 @@ export const getProfilePicture = async (req: Request, res: Response) => {
     if (profilePicture && profilePicture.data) {
       profilePicture.data.pipe(res)
     } else {
-      res.sendFile(path.resolve(__dirname, '..', '..', 'static', 'avatar.png'))
+      const fileStream = await FileStorage.getFile({
+        path: 'static',
+        key: 'avatar.png',
+      })
+      fileStream.pipe(res)
     }
   } catch (e) {
     Requests.sendErr(res, e)
