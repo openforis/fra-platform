@@ -1,8 +1,13 @@
+import 'tsconfig-paths/register'
+import 'dotenv/config'
+
+import { ToolsUtils } from 'tools/utils/toolsUtils'
+
 import { AssessmentNames } from 'meta/assessment/assessment'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { CacheController } from 'server/controller/cache'
-import { BaseProtocol, Schemas } from 'server/db'
+import { BaseProtocol, DB, Schemas } from 'server/db'
 
 const areaBasedTables = [
   'areaAffectedByFire',
@@ -20,7 +25,9 @@ const areaBasedTables = [
   'totalAreaWithDesignatedManagementObjective',
 ]
 
-export default async (client: BaseProtocol) => {
+const client: BaseProtocol = DB
+
+const createMeasuresDimensions = async () => {
   const { assessment, cycle } = await AssessmentController.getOneWithCycle(
     { assessmentName: AssessmentNames.fra, cycleName: '2025' },
     client
@@ -72,3 +79,5 @@ export default async (client: BaseProtocol) => {
 
   await CacheController.generateExplorerMetadata({ assessment, cycle }, client)
 }
+
+ToolsUtils.exec(createMeasuresDimensions)
