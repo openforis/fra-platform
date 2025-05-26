@@ -115,7 +115,6 @@ export const getCreatePublicSchemaDDL = (schemaName = 'public'): string => {
       id bigserial primary key,
       uuid uuid not null default uuid_generate_v4(),
       name character varying(255) not null,
-      path character varying(255) not null,
       created_at timestamp without time zone not null default now()
     );
 
