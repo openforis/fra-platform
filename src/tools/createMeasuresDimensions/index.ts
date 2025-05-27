@@ -2,6 +2,7 @@ import 'tsconfig-paths/register'
 import 'dotenv/config'
 
 import * as pgPromise from 'pg-promise'
+import { systemsOfMeasurement } from 'tools/migrations/public/steps/data/systemsOfMeasurement'
 import { ToolsUtils } from 'tools/utils/toolsUtils'
 import { Objects } from 'utils/objects'
 
@@ -16,21 +17,7 @@ import { CacheController } from 'server/controller/cache'
 import { BaseProtocol, DB, Schemas } from 'server/db'
 import { SystemOfMeasurementRepository } from 'server/repository/measurement/systemOfMeasurement'
 
-const areaBasedTables = [
-  'areaAffectedByFire',
-  'areaOfPermanentForestEstate',
-  'disturbances',
-  'extentOfForest',
-  'forestAreaWithinProtectedAreas',
-  'forestCharacteristics',
-  'forestOwnership',
-  'holderOfManagementRights',
-  'otherLandWithTreeCover',
-  'primaryDesignatedManagementObjective',
-  'specificForestCategories',
-  'sustainableDevelopment15_2_1_5',
-  'totalAreaWithDesignatedManagementObjective',
-]
+const areaBasedTables = systemsOfMeasurement[SystemOfMeasurementName.area].tableNames
 
 const client: BaseProtocol = DB
 
