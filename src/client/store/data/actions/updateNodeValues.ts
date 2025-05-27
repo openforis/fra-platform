@@ -8,7 +8,7 @@ import { AssessmentMetaCaches } from 'meta/assessment/metaCaches'
 import { NodeUpdate, NodeUpdates } from 'meta/data'
 
 import { setNodeValues } from 'client/store/data/actions/setNodeValues'
-import { AssessmentSelectors } from 'client/store/meta/assessment/selectors'
+import { MetadataSelectors } from 'client/store/meta/selectors'
 import { ThunkApiConfig } from 'client/store/types'
 
 type Props = CycleDataParams & NodesBody
@@ -37,7 +37,7 @@ export const updateNodeValues = createAsyncThunk<void, Props, ThunkApiConfig>(
 
     // reset mirror variable value if available -> fasten calculations client side
     const state = getState()
-    const assessment = AssessmentSelectors.getAssessment(state, assessmentName)
+    const assessment = MetadataSelectors.getAssessment(state, assessmentName)
     const cycle = assessment.cycles.find((cycle) => cycle.name === cycleName)
     const { countryIso, tableName, values } = props
     const nodes = values.reduce<Array<NodeUpdate>>((nodesAcc, node) => {

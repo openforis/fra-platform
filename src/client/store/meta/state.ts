@@ -1,4 +1,4 @@
-import { AssessmentName } from 'meta/assessment/assessment'
+import { Assessment, AssessmentName } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
 import { Section, SectionName } from 'meta/assessment/section'
 import { TableSection } from 'meta/assessment/tableSection'
@@ -17,14 +17,16 @@ type DashboardState = Record<
   >
 >
 
-export interface MetadataState {
+export interface MetaState {
+  assessments: Array<Assessment>
+  dashboard: DashboardState
   sections: Record<AssessmentName, Record<CycleName, Array<Section>>>
   tableSections: Record<AssessmentName, Record<CycleName, Record<SectionName, Array<TableSection>>>>
-  dashboard: DashboardState
 }
 
-export const initialState: MetadataState = {
+export const initialState: MetaState = {
+  assessments: [],
+  dashboard: {},
   sections: {},
   tableSections: {},
-  dashboard: {},
 }

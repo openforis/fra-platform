@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import { CollaboratorPermissions } from 'meta/user'
 
-import { useSections } from 'client/store/metadata'
+import { useSections } from 'client/store/meta/hooks/sections'
 import ModalEditor from 'client/components/user/CollaboratorPermissionsEditor/ModalEditor'
 import Permissions from 'client/components/user/CollaboratorPermissionsEditor/Permissions'
 

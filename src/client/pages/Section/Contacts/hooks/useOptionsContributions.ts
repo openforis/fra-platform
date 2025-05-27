@@ -6,9 +6,9 @@ import { Objects } from 'utils/objects'
 import { Labels } from 'meta/assessment/labels'
 import { SubSections } from 'meta/assessment/subSections'
 
-import { useAssessment } from 'client/store/meta/assessment/hooks/assessments'
-import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
-import { useSections } from 'client/store/metadata'
+import { useAssessment } from 'client/store/meta/hooks/assessments'
+import { useCycle } from 'client/store/meta/hooks/cycles'
+import { useSections } from 'client/store/meta/hooks/sections'
 import { Option, OptionsGroup } from 'client/components/Inputs/Select'
 
 type Returned = Array<OptionsGroup>

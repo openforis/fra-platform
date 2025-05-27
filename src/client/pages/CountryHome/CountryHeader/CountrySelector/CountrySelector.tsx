@@ -8,7 +8,7 @@ import { Areas, CountryIso } from 'meta/area'
 
 import { useCountries } from 'client/store/area'
 import { useAppDispatch } from 'client/store/hooks'
-import { useDashboardItems } from 'client/store/metadata'
+import { useDashboardItems } from 'client/store/meta/hooks/dashboard'
 import { useHomeCountriesFilter } from 'client/store/ui/home'
 import { HomeActions } from 'client/store/ui/home/slice'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'

@@ -9,7 +9,7 @@ import { VariableCache } from 'meta/assessment/metaCache'
 import { TableName, TableNames } from 'meta/assessment/table'
 
 import { useCountry } from 'client/store/area'
-import { useTableSections } from 'client/store/metadata'
+import { useTableSections } from 'client/store/meta/hooks/tableSections'
 import { useCanEdit } from 'client/store/user'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { Cols } from 'meta/assessment/cols'
 
-import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
+import { useCycle } from 'client/store/meta/hooks/cycles'
 
 import { PropsCell } from '../props'
 

@@ -9,7 +9,7 @@ import { Cols } from 'meta/assessment/cols'
 import { Row, RowType } from 'meta/assessment/row'
 import { Table } from 'meta/assessment/table'
 
-import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
+import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useShowOriginalDatapoints } from 'client/store/ui/assessmentSection'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'

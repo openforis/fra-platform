@@ -12,7 +12,7 @@ import { Cycle } from 'meta/assessment/cycle'
 import { NodeValue } from 'meta/assessment/node'
 import { Row } from 'meta/assessment/row'
 
-import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
+import { useCycle } from 'client/store/meta/hooks/cycles'
 
 type Returned = Array<Change>
 

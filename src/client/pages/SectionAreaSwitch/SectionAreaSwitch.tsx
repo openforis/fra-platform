@@ -1,10 +1,10 @@
 import React from 'react'
 
-import { useGetTableSections } from 'client/store/metadata'
 import { useIsDataExportView } from 'client/hooks'
 import SectionWrapper from 'client/pages/Country/SectionWrapper'
 import DataExport from 'client/pages/DataExport'
 import Section from 'client/pages/Section'
+import { useGetTableSections } from 'client/pages/SectionAreaSwitch/SectionAreaSwitch/hooks/useGetTableSections'
 
 const SectionAreaSwitch: React.FC = () => {
   useGetTableSections()

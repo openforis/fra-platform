@@ -1,9 +1,9 @@
 import { ActionReducerMapBuilder } from '@reduxjs/toolkit'
 
 import { ApplicationActions } from 'client/store/application/actions'
-import { AssessmentState } from 'client/store/meta/assessment/state'
+import { MetaState } from 'client/store/meta/state'
 
-export const initAppReducer = (builder: ActionReducerMapBuilder<AssessmentState>) => {
+export const initAppReducer = (builder: ActionReducerMapBuilder<MetaState>) => {
   builder.addCase(ApplicationActions.initApp.fulfilled, (state, action) => {
     const { assessments } = action.payload
 

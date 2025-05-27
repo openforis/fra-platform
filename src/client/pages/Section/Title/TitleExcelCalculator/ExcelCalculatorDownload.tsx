@@ -5,9 +5,9 @@ import { ApiEndPoint } from 'meta/api/endpoint'
 import { Authorizer } from 'meta/user'
 
 import { useCountry } from 'client/store/area'
-import { useAssessment } from 'client/store/meta/assessment/hooks/assessments'
-import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
-import { useSection } from 'client/store/metadata'
+import { useAssessment } from 'client/store/meta/hooks/assessments'
+import { useCycle } from 'client/store/meta/hooks/cycles'
+import { useSection } from 'client/store/meta/hooks/sections'
 import { useUser } from 'client/store/user'
 import { useCountryIso } from 'client/hooks'
 

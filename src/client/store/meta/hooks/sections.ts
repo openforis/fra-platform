@@ -4,7 +4,7 @@ import { Section, SubSection } from 'meta/assessment/section'
 import { SubSections } from 'meta/assessment/subSections'
 
 import { useAppSelector } from 'client/store/hooks'
-import { MetadataSelectors } from 'client/store/metadata/selectors'
+import { MetadataSelectors } from 'client/store/meta/selectors'
 import { useCycleRouteParams, useSectionRouteParams } from 'client/hooks/useRouteParams'
 
 export const useSections = (): Array<Section> => {

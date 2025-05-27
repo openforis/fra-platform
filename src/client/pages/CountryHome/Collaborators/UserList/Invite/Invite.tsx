@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import { Routes } from 'meta/routes'
 import { Users } from 'meta/user'
 
-import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
+import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useUser } from 'client/store/user'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { ButtonSize, useButtonClassName } from 'client/components/Buttons/Button'

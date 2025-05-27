@@ -9,8 +9,8 @@ import { Message as MessageType, MessageTopic, MessageTopicStatus, MessageTopicT
 import { Sockets } from 'meta/socket'
 
 import { useAppDispatch } from 'client/store/hooks'
-import { useAssessment } from 'client/store/meta/assessment/hooks/assessments'
-import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
+import { useAssessment } from 'client/store/meta/hooks/assessments'
+import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useIsDataLocked } from 'client/store/ui/dataLock'
 import { MessageCenterActions } from 'client/store/ui/messageCenter'
 import { useUser } from 'client/store/user'

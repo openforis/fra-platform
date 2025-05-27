@@ -1,7 +1,10 @@
 import React from 'react'
 
-import { useDashboardItems, useGetDashboard, useSections } from 'client/store/metadata'
+import { useDashboardItems } from 'client/store/meta/hooks/dashboard'
+import { useSections } from 'client/store/meta/hooks/sections'
 import Dashboard from 'client/components/Dashboard'
+
+import { useGetDashboard } from './hooks/useGetDashboard'
 
 const Overview: React.FC = () => {
   const sections = useSections()

@@ -6,7 +6,7 @@ import { Users } from 'meta/user'
 
 import { useCountries } from 'client/store/area'
 import { useAppDispatch, useAppSelector } from 'client/store/hooks'
-import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
+import { useCycle } from 'client/store/meta/hooks/cycles'
 import { DataExportActions, DataExportSelection } from 'client/store/ui/dataExport'
 import { useHomeCountriesFilter } from 'client/store/ui/home'
 import { useUser, useUserCountries } from 'client/store/user'

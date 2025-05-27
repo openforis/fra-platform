@@ -3,9 +3,9 @@ import { useEffect } from 'react'
 import { AssessmentMetaCaches } from 'meta/assessment/metaCaches'
 
 import { useAppDispatch } from 'client/store/hooks'
-import { AssessmentActions } from 'client/store/meta/assessment/actions'
-import { useAssessment } from 'client/store/meta/assessment/hooks/assessments'
-import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
+import { MetaActions } from 'client/store/meta/actions'
+import { useAssessment } from 'client/store/meta/hooks/assessments'
+import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 export const useInitMetaCache = (): void => {
@@ -20,7 +20,7 @@ export const useInitMetaCache = (): void => {
 
   useEffect(() => {
     if (!metaCache) {
-      dispatch(AssessmentActions.getMetaCache({ assessmentName, cycleName, countryIso }))
+      dispatch(MetaActions.getMetaCache({ assessmentName, cycleName, countryIso }))
     }
   }, [assessmentName, countryIso, cycleName, dispatch, metaCache])
 }
