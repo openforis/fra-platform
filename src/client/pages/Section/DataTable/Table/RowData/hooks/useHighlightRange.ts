@@ -3,7 +3,7 @@ import { useMemo } from 'react'
 import { Col } from 'meta/assessment/col'
 import { Cols } from 'meta/assessment/cols'
 
-import { useCycle } from 'client/store/assessment'
+import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
 import { DataRowHighlightRange } from 'client/components/DataGrid/DataRow/types'
 
 type Props = {

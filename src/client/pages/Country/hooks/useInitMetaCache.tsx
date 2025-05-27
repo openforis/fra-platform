@@ -2,8 +2,10 @@ import { useEffect } from 'react'
 
 import { AssessmentMetaCaches } from 'meta/assessment/metaCaches'
 
-import { AssessmentActions, useAssessment, useCycle } from 'client/store/assessment'
 import { useAppDispatch } from 'client/store/hooks'
+import { AssessmentActions } from 'client/store/meta/assessment/actions'
+import { useAssessment } from 'client/store/meta/assessment/hooks/assessments'
+import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 export const useInitMetaCache = (): void => {

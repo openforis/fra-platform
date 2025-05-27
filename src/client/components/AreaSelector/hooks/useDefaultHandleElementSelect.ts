@@ -5,7 +5,8 @@ import { AreaCode, Areas } from 'meta/area'
 import { Routes } from 'meta/routes'
 
 import { useCountries } from 'client/store/area'
-import { useAssessment, useCycle, useLastPublishedCycle } from 'client/store/assessment'
+import { useAssessment } from 'client/store/meta/assessment/hooks/assessments'
+import { useCycle, useLastPublishedCycle } from 'client/store/meta/assessment/hooks/cycles'
 import { useUser } from 'client/store/user'
 import { useIsGeoRoute } from 'client/hooks'
 

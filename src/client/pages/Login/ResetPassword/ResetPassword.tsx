@@ -4,9 +4,10 @@ import { useNavigate } from 'react-router-dom'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 
-import { useAssessment, useCycle } from 'client/store/assessment'
 import { useAppDispatch } from 'client/store/hooks'
 import { LoginActions } from 'client/store/login'
+import { useAssessment } from 'client/store/meta/assessment/hooks/assessments'
+import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
 import { useGetRequest } from 'client/hooks'
 import { isError, LoginValidator } from 'client/pages/Login/utils/LoginValidator'
 import { Urls } from 'client/utils'

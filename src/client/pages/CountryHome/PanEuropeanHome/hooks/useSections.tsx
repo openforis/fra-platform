@@ -1,7 +1,7 @@
 import { SectionNames } from 'meta/routes'
 import { Users } from 'meta/user'
 
-import { useCycle } from 'client/store/assessment'
+import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
 import { useCanSeeUserActivities, useUser } from 'client/store/user'
 import { useCountryIso } from 'client/hooks'
 import Collaborators from 'client/pages/CountryHome/Collaborators'

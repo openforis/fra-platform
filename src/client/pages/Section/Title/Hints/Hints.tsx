@@ -9,7 +9,7 @@ import { CountryIso } from 'meta/area'
 import { SubSectionHints } from 'meta/assessment/section'
 import { SubSections } from 'meta/assessment/subSections'
 
-import { useCycle } from 'client/store/assessment'
+import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
 import { useCycleRouteParams, useSectionRouteParams } from 'client/hooks/useRouteParams'
 import DefinitionLink from 'client/components/DefinitionLink'
 import { Props } from 'client/pages/Section/Title/props'

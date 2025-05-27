@@ -10,7 +10,7 @@ import { Row } from 'meta/assessment/row'
 import { Authorizer } from 'meta/user'
 
 import { useCountry } from 'client/store/area'
-import { useCycle } from 'client/store/assessment'
+import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
 import { useSection } from 'client/store/metadata'
 import { useUser } from 'client/store/user'
 import { useCountryIso } from 'client/hooks'

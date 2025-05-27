@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 
 import { AssessmentNames } from 'meta/assessment/assessment'
 
-import { useAssessment } from 'client/store/assessment'
+import { useAssessment } from 'client/store/meta/assessment/hooks/assessments'
 
 const defaultTheme = {
   '--ui-accent-light': '#d7eef1',

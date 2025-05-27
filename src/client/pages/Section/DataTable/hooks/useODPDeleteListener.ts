@@ -4,8 +4,9 @@ import { useDispatch } from 'react-redux'
 import { CountryIso } from 'meta/area'
 import { Sockets } from 'meta/socket'
 
-import { useAssessment, useCycle } from 'client/store/assessment'
 import { DataActions } from 'client/store/data'
+import { useAssessment } from 'client/store/meta/assessment/hooks/assessments'
+import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
 import { useCountryIso } from 'client/hooks'
 import { SocketClient } from 'client/service/socket'
 
