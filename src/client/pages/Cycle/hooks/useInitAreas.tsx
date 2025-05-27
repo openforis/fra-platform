@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-import { AreaActions } from 'client/store/area/slice'
+import { AreaActions } from 'client/store/area/actions'
 import { useAppDispatch } from 'client/store/hooks'
 import { useCycleRouteParams } from 'client/hooks/useRouteParams'
 

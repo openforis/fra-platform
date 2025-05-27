@@ -6,7 +6,7 @@ import { Objects } from 'utils/objects'
 
 import { Areas, CountryIso } from 'meta/area'
 
-import { useCountries } from 'client/store/area'
+import { useCountries } from 'client/store/area/hooks/countries'
 import { useAppDispatch } from 'client/store/hooks'
 import { useDashboardItems } from 'client/store/meta/hooks/dashboard'
 import { useHomeCountriesFilter } from 'client/store/ui/home'

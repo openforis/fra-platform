@@ -8,7 +8,8 @@ import classNames from 'classnames'
 import { CountryIso } from 'meta/area'
 import { RoleName, User, UserRole, Users } from 'meta/user'
 
-import { useCountries, useExcludedRegions } from 'client/store/area'
+import { useCountries } from 'client/store/area/hooks/countries'
+import { useSecondaryRegionCodes } from 'client/store/area/hooks/regions'
 import { useAppDispatch } from 'client/store/hooks'
 import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useCycle } from 'client/store/meta/hooks/cycles'
@@ -49,7 +50,7 @@ const CountryRoles: React.FC<{ user: User }> = ({ user }) => {
   const countries = useCountries()
   const assessment = useAssessment()
   const cycle = useCycle()
-  const excludeRegions = useExcludedRegions()
+  const excludeRegions = useSecondaryRegionCodes()
 
   const initialModalState = useMemo(() => {
     return {

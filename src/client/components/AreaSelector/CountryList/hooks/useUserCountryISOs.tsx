@@ -4,7 +4,7 @@ import { Cycles } from 'meta/assessment/cycles'
 import { RoleName, Users } from 'meta/user'
 import { UserRoles } from 'meta/user/userRoles'
 
-import { useCountries } from 'client/store/area'
+import { useCountries } from 'client/store/area/hooks/countries'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useUser, useUserCountries } from 'client/store/user'
 

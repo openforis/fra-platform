@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { Authorizer } from 'meta/user'
 
-import { useCountry } from 'client/store/area'
+import { useCountry } from 'client/store/area/hooks/country'
 import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useSection } from 'client/store/meta/hooks/sections'

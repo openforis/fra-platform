@@ -7,7 +7,7 @@ import { Objects } from 'utils/objects'
 
 import { Areas } from 'meta/area'
 
-import { useAssessmentCountry } from 'client/store/area'
+import { useAssessmentCountry } from 'client/store/area/hooks/country'
 import Icon from 'client/components/Icon'
 import PopoverControl from 'client/components/PopoverControl'
 import { Breakpoints } from 'client/utils/breakpoints'

@@ -3,7 +3,8 @@ import { useTranslation } from 'react-i18next'
 
 import { CountryIso } from 'meta/area'
 
-import { AreaActions, useCountry, useIsUpdatingCountry } from 'client/store/area'
+import { AreaActions } from 'client/store/area/actions'
+import { useCountry, useIsUpdatingCountry } from 'client/store/area/hooks/country'
 import { useHasOriginalDataPointData } from 'client/store/data'
 import { useAppDispatch } from 'client/store/hooks'
 import { useIsEditTableDataEnabled, useUser } from 'client/store/user'

@@ -2,7 +2,7 @@ import { Areas, CountryStatus } from 'meta/area'
 import { MessageTopic, MessageTopicStatus, MessageTopicType } from 'meta/messageCenter'
 import { Users } from 'meta/user'
 
-import { useCountry } from 'client/store/area'
+import { useCountry } from 'client/store/area/hooks/country'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useUser } from 'client/store/user'
 import { useCountryIso } from 'client/hooks'

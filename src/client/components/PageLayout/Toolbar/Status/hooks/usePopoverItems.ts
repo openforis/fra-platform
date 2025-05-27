@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { Areas, CountryStatus } from 'meta/area'
 import { CountryStatuses } from 'meta/area/countryStatuses'
 
-import { useAssessmentCountry } from 'client/store/area'
+import { useAssessmentCountry } from 'client/store/area/hooks/country'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useIsDataLocked } from 'client/store/ui/dataLock'
 import { useUser } from 'client/store/user'

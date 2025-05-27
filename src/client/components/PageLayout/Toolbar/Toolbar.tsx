@@ -6,7 +6,7 @@ import MediaQuery from 'react-responsive'
 import { Areas, CountryIso } from 'meta/area'
 import { Users } from 'meta/user'
 
-import { useCountry } from 'client/store/area'
+import { useCountry } from 'client/store/area/hooks/country'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useUser } from 'client/store/user'
 import { useIsGeoRoute, useIsPrintRoute } from 'client/hooks/useIsRoute'
