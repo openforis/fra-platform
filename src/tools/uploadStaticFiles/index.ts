@@ -45,13 +45,13 @@ const uploadAllFiles = async () => {
   await Promises.each(files, async (file) => {
     const key = file.name
     const { s3Path } = file
-    const exists = await FileStorage.fileExists({ key, path: s3Path })
+    const exists = await FileStorage.File.exists({ key, path: s3Path })
     if (exists) {
       Logger.info(`[Skipping] ${key} already exists in ${s3Path}`)
     } else {
       Logger.info(`[Uploading] ${key} to s3 at ${s3Path}`)
       const body = fs.readFileSync(path.join(staticFilesDir, file.relPath))
-      await FileStorage.uploadFile({ key, body, path: s3Path })
+      await FileStorage.File.upload({ key, body, path: s3Path })
     }
   })
 }

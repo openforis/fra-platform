@@ -42,7 +42,7 @@ const cloneCycle = async (props: PropsClone): Promise<void> => {
   }
 
   await _cloneDir('definitions')
-  await FileStorage.copyDirectory({
+  await FileStorage.Directory.copy({
     sourcePath: `static/${assessmentName}/${cycleSourceName}`,
     targetPath: `static/${assessmentName}/${cycleTargetName}`,
   })
@@ -67,7 +67,7 @@ const removeCycle = async (props: PropsRemove): Promise<void> => {
   }
 
   await _removeDir('definitions')
-  await FileStorage.removeDirectory({ path: `static/${assessmentName}/${cycleName}` })
+  await FileStorage.Directory.remove({ path: `static/${assessmentName}/${cycleName}` })
 }
 
 const renameCycle = async (props: PropsClone): Promise<void> => {
@@ -93,11 +93,11 @@ const renameCycle = async (props: PropsClone): Promise<void> => {
   }
 
   await _renameDir('definitions')
-  await FileStorage.copyDirectory({
+  await FileStorage.Directory.copy({
     sourcePath: `static/${assessmentName}/${cycleSourceName}`,
     targetPath: `static/${assessmentName}/${cycleTargetName}`,
   })
-  await FileStorage.removeDirectory({ path: `static/${assessmentName}/${cycleSourceName}` })
+  await FileStorage.Directory.remove({ path: `static/${assessmentName}/${cycleSourceName}` })
 }
 
 export const StaticFiles = {

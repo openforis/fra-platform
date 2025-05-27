@@ -14,7 +14,7 @@ export const getProfilePicture = async (
   const userProfilePicture = await UserRepository.getProfilePicture({ id }, client)
   const key = userProfilePicture?.uuid
   if (!key) return null
-  const data = await FileStorage.getFile({ key })
+  const data = await FileStorage.File.get({ key })
   return {
     ...userProfilePicture,
     data,

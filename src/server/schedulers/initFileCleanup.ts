@@ -41,7 +41,7 @@ export const initFileCleanup = (connection: IORedis): Worker => {
         const files = await FileRepository.removeMany({ uuids })
         // Remove S3 files
         await Promises.each(files, async (file) => {
-          await FileStorage.removeFile({ key: file.uuid })
+          await FileStorage.File.remove({ key: file.uuid })
         })
 
         files.forEach((file) => {

@@ -51,7 +51,7 @@ export default async (client: BaseProtocol) => {
       [uuid, user.uuid]
     )
 
-    await FileStorage.uploadFile({
+    await FileStorage.File.upload({
       key: uuid,
       body: user.profile_picture_file,
     })

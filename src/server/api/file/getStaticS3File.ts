@@ -15,7 +15,7 @@ export const getStaticS3File = async (req: Request<{ s3path: string }>, res: Res
     const key = path.basename(s3path)
     const dir = `static/${path.dirname(s3path)}`
     const extension = path.extname(key).replace('.', '')
-    const fileStream = await FileStorage.getFile({ path: dir, key })
+    const fileStream = await FileStorage.File.get({ path: dir, key })
     Responses.sendFileStream(res, key, fileStream, FileStorageUtils.getContentType(extension))
     return
   } catch (err) {

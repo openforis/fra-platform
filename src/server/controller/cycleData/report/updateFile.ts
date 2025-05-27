@@ -35,7 +35,7 @@ export const updateFile = async (props: Props): Promise<Returned> => {
     const newFile = await FileRepository.create({ fileName: pdfMulterFile.originalname }, t)
     const { uuid: key } = newFile
     const body = pdfMulterFile.buffer
-    await FileStorage.uploadFile({ key, body })
+    await FileStorage.File.upload({ key, body })
 
     const updateRepositoryItemProps: RepositoryItem = { ...repositoryItem, fileUuid: newFile.uuid }
     const updateRepositoryProps = { assessment, cycle, repositoryItem: updateRepositoryItemProps }
