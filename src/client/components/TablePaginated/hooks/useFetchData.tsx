@@ -2,7 +2,7 @@ import { useEffect, useMemo } from 'react'
 
 import { Functions } from 'utils/functions'
 
-import { useAppDispatch } from 'client/store'
+import { useAppDispatch } from 'client/store/hooks'
 import { TablePaginatedActions, useTablePaginatedOrderBy, useTablePaginatedPage } from 'client/store/ui/tablePaginated'
 import { useIsTablePaginatedInitialized, useTablePaginatedFilters } from 'client/store/ui/tablePaginated/hooks'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'

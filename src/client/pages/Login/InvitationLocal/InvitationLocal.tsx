@@ -7,7 +7,7 @@ import { Objects } from 'utils/objects'
 import { LoginInvitationQueryParams, Routes } from 'meta/routes'
 import { AuthProvider, UserInvitations } from 'meta/user'
 
-import { useAppDispatch } from 'client/store'
+import { useAppDispatch } from 'client/store/hooks'
 import { LoginActions, useInvitation } from 'client/store/login'
 import { useAcceptInvitationForm } from 'client/store/login/hooks'
 import { useUser } from 'client/store/user'

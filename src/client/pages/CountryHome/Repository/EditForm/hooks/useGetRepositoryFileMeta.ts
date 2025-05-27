@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import { CountryIso } from 'meta/area'
 import { RepositoryItem } from 'meta/cycleData'
 
-import { useAppDispatch } from 'client/store'
+import { useAppDispatch } from 'client/store/hooks'
 import { RepositoryActions, useRepositoryFileMeta, useRepositoryItem } from 'client/store/ui/repository'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 

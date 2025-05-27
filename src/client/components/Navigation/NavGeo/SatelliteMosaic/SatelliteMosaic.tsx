@@ -2,7 +2,7 @@ import './SatelliteMosaic.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { useAppDispatch } from 'client/store'
+import { useAppDispatch } from 'client/store/hooks'
 import { GeoActions, useMosaicSelected, useMosaicStatus } from 'client/store/ui/geo'
 import { LayerFetchStatus } from 'client/store/ui/geo/stateType'
 import ToggleControl from 'client/components/Navigation/NavGeo/Layer/ToggleControl'

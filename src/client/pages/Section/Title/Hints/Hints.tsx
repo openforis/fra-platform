@@ -9,7 +9,7 @@ import { SubSections } from 'meta/assessment/subSections'
 import { Files } from 'meta/file'
 import { SdgMetadataFileName } from 'meta/file/static'
 
-import { useCycle } from 'client/store/assessment'
+import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
 import { useLanguage } from 'client/hooks/useLanguage'
 import { useCountryRouteParams, useCycleRouteParams } from 'client/hooks/useRouteParams'
 import DefinitionLink from 'client/components/DefinitionLink'

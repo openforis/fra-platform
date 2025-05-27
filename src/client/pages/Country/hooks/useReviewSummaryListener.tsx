@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 
 import { Sockets } from 'meta/socket'
 
-import { useAppDispatch } from 'client/store'
+import { useAppDispatch } from 'client/store/hooks'
 import { ReviewActions } from 'client/store/ui/review'
 import { useCanEditCycleData } from 'client/store/user'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'

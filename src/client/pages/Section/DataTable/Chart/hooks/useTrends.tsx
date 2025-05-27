@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { Table } from 'meta/assessment/table'
 import { Tables } from 'meta/assessment/tables'
 
-import { useCycle } from 'client/store/assessment'
+import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
 import { Trends } from 'client/pages/Section/DataTable/Chart/types'
 
 type Props = {

@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { CountryIso } from 'meta/area'
 import { CountryUserSummaries } from 'meta/user/countryUserSummaries'
 
-import { useAppDispatch } from 'client/store'
+import { useAppDispatch } from 'client/store/hooks'
 import { UserManagementActions } from 'client/store/ui/userManagement'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { useToaster } from 'client/hooks/useToaster'

@@ -2,9 +2,9 @@ import { useCallback, useEffect, useMemo } from 'react'
 
 import { Areas, CountryIso, RegionCode } from 'meta/area'
 
-import { useAppDispatch } from 'client/store'
 import { DataActions } from 'client/store/data'
 import type { Props as GetTableDataProps } from 'client/store/data/actions/getTableDataProps'
+import { useAppDispatch } from 'client/store/hooks'
 import { useHomeCountriesFilter } from 'client/store/ui/home'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { Props } from 'client/components/Dashboard/props'

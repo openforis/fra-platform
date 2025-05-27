@@ -3,8 +3,8 @@ import { useMemo } from 'react'
 import { Section, SubSection } from 'meta/assessment/section'
 import { SubSections } from 'meta/assessment/subSections'
 
+import { useAppSelector } from 'client/store/hooks'
 import { MetadataSelectors } from 'client/store/metadata/selectors'
-import { useAppSelector } from 'client/store/store'
 import { useCycleRouteParams, useSectionRouteParams } from 'client/hooks/useRouteParams'
 
 export const useSections = (): Array<Section> => {

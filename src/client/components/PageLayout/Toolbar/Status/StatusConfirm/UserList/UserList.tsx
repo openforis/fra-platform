@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import { CountryUserSummary, Users } from 'meta/user'
 
-import { useCycle } from 'client/store/assessment'
+import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { DataCell, DataGrid } from 'client/components/DataGrid'
 

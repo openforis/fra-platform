@@ -9,12 +9,12 @@ import { Table } from 'meta/assessment/table'
 import { RecordAssessmentData } from 'meta/data'
 import { TooltipId } from 'meta/tooltip'
 
-import { useCycle } from 'client/store/assessment'
 import {
   useHistoryLastApprovedDataTableFetched,
   useHistoryLastApprovedIsActive,
   useNodeValueValidation,
 } from 'client/store/data'
+import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
 import { DataCell } from 'client/components/DataGrid'
 
 import { useClassName } from './hooks/useClassName'

@@ -6,7 +6,7 @@ import { Files } from 'meta/file/files'
 import { Authorizer } from 'meta/user'
 
 import { useCountry } from 'client/store/area'
-import { useCycle } from 'client/store/assessment'
+import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
 import { useSection } from 'client/store/metadata'
 import { useUser } from 'client/store/user'
 import { useLanguage } from 'client/hooks/useLanguage'

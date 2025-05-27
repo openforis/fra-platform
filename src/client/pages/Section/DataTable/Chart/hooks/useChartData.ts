@@ -6,7 +6,7 @@ import { CountryIso } from 'meta/area'
 import { Table } from 'meta/assessment/table'
 import { RecordAssessmentData, RecordAssessmentDatas, RecordColumnData } from 'meta/data'
 
-import { useCycle } from 'client/store/assessment'
+import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { RecordTrendData, TrendDatum, Trends, TrendsYears } from 'client/pages/Section/DataTable/Chart/types'

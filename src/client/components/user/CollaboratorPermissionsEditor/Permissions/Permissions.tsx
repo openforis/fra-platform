@@ -7,7 +7,7 @@ import { Objects } from 'utils/objects'
 import { SubSections } from 'meta/assessment/subSections'
 import { CollaboratorPermissions } from 'meta/user'
 
-import { useCycle } from 'client/store/assessment'
+import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
 import { useSections } from 'client/store/metadata'
 
 type Props = {

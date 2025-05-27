@@ -1,7 +1,7 @@
 import { CountryIso } from 'meta/area'
 import { Contact } from 'meta/cycleData'
 
-import { useAppSelector } from 'client/store/store'
+import { useAppSelector } from 'client/store/hooks'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 type Returned = Array<Contact>

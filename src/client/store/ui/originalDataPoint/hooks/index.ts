@@ -3,7 +3,7 @@ import { Dates } from 'utils/dates'
 
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
-import { useAppSelector } from 'client/store'
+import { useAppSelector } from 'client/store/hooks'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 export const useOriginalDataPoint = (): OriginalDataPoint => {

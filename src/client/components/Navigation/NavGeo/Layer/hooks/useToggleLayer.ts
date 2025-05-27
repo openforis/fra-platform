@@ -2,7 +2,7 @@ import { useCallback } from 'react'
 
 import { CountryIso } from 'meta/area'
 
-import { useAppDispatch } from 'client/store'
+import { useAppDispatch } from 'client/store/hooks'
 import { GeoActions } from 'client/store/ui/geo'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { LayerMetaProps } from 'client/components/Navigation/NavGeo/Layer/types'

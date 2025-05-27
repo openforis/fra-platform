@@ -3,7 +3,8 @@ import { createSelector } from '@reduxjs/toolkit'
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { RepositoryItem } from 'meta/cycleData'
 
-import { RootState, useAppSelector } from 'client/store'
+import { useAppSelector } from 'client/store/hooks'
+import { RootState } from 'client/store/types'
 
 const _repositoryItemsSelector = createSelector(
   (state: RootState) => state.ui.tablePaginated,

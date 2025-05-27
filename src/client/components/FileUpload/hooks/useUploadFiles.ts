@@ -2,7 +2,7 @@ import { useCallback } from 'react'
 
 import { CountryIso } from 'meta/area'
 
-import { useAppDispatch } from 'client/store'
+import { useAppDispatch } from 'client/store/hooks'
 import { FileUploadActions } from 'client/store/ui/fileUpload'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { FileUploadProps } from 'client/components/FileUpload/types'

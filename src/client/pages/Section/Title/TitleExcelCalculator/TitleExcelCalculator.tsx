@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import { Labels } from 'meta/assessment/labels'
 
-import { useCycle } from 'client/store/assessment'
+import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 
 import { Props } from '../props'

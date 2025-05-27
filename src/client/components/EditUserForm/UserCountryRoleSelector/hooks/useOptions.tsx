@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { Users } from 'meta/user'
 
-import { useCycle } from 'client/store/assessment'
+import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
 import { useUser } from 'client/store/user'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { Option } from 'client/components/Inputs/Select'

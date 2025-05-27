@@ -1,4 +1,4 @@
-import { useAppSelector } from 'client/store'
+import { useAppSelector } from 'client/store/hooks'
 import { useCountryIso } from 'client/hooks'
 
 export const useNavigationVisible = (): boolean => {

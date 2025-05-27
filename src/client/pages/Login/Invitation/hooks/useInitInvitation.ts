@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { LoginInvitationQueryParams, Routes } from 'meta/routes'
 
-import { useAppDispatch } from 'client/store'
+import { useAppDispatch } from 'client/store/hooks'
 import { LoginActions } from 'client/store/login'
 import { useSearchParams } from 'client/hooks/useSearchParams'
 

@@ -1,12 +1,12 @@
 import { useEffect } from 'react'
 
-import { useAppDispatch } from 'client/store'
-import { AssessmentActions } from 'client/store/assessment'
+import { ApplicationActions } from 'client/store/application/actions'
+import { useAppDispatch } from 'client/store/hooks'
 
 export const useInitApp = (): void => {
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    dispatch(AssessmentActions.initApp())
+    dispatch(ApplicationActions.initApp())
   }, [dispatch])
 }

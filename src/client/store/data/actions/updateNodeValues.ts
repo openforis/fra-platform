@@ -7,8 +7,8 @@ import { CycleDataParams, NodesBody } from 'meta/api/request'
 import { AssessmentMetaCaches } from 'meta/assessment/metaCaches'
 import { NodeUpdate, NodeUpdates } from 'meta/data'
 
-import { AssessmentSelectors } from 'client/store/assessment/selectors'
 import { setNodeValues } from 'client/store/data/actions/setNodeValues'
+import { AssessmentSelectors } from 'client/store/meta/assessment/selectors'
 import { ThunkApiConfig } from 'client/store/types'
 
 type Props = CycleDataParams & NodesBody

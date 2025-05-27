@@ -4,7 +4,7 @@ import { CountryIso } from 'meta/area'
 import { Authorizer, UserInvitations, Users } from 'meta/user'
 import { CountryUserSummaries } from 'meta/user/countryUserSummaries'
 
-import { useCycle } from 'client/store/assessment'
+import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
 import { useCanSeeUserActivities, useUser } from 'client/store/user'
 import { useCanEditUserActivities } from 'client/store/user/hooks'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'

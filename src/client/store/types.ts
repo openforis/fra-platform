@@ -1,7 +1,9 @@
-import { RootState } from 'client/store/RootState'
-import { AppDispatch } from 'client/store/store'
+import store from 'client/store/store'
 
-export type ThunkApiConfig = {
-  state: RootState
-  dispatch: AppDispatch
-}
+// Get the type of our store variable
+export type AppStore = typeof store
+// Infer the `RootState` and `AppDispatch` types from the store itself
+export type RootState = ReturnType<AppStore['getState']>
+export type AppDispatch = AppStore['dispatch']
+
+export type ThunkApiConfig = { dispatch: AppDispatch; state: RootState }

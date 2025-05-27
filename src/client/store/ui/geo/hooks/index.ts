@@ -5,7 +5,8 @@ import { ExtraEstimation, GeoStatisticsState, LayerKey, LayerSectionKey, MapPane
 import { BurnedAreaModis } from 'meta/geo/forest'
 import { ExtraEstimationState } from 'meta/geo/geoStatistics'
 
-import { RootState, useAppSelector } from 'client/store'
+import { useAppSelector } from 'client/store/hooks'
+import { RootState } from 'client/store/types'
 
 import { GeoMapOptions, LayerFetchStatus, LayersSectionState, LayerState } from '../stateType'
 

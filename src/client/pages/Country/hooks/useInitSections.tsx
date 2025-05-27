@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 
 import { Objects } from 'utils/objects'
 
-import { useAppDispatch } from 'client/store'
+import { useAppDispatch } from 'client/store/hooks'
 import { MetadataActions, useSections } from 'client/store/metadata'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 

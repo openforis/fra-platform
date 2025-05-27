@@ -1,8 +1,8 @@
 import { Areas } from 'meta/area'
 import { DashboardItem } from 'meta/dashboard'
 
+import { useAppSelector } from 'client/store/hooks'
 import { MetadataSelectors } from 'client/store/metadata/selectors'
-import { useAppSelector } from 'client/store/store'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 import { DashboardAreaType } from '../state'

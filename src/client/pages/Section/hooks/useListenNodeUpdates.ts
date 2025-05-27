@@ -5,8 +5,8 @@ import { AssessmentName } from 'meta/assessment/assessment'
 import { NodeUpdates } from 'meta/data'
 import { Sockets } from 'meta/socket'
 
-import { useAppDispatch } from 'client/store'
 import { DataActions } from 'client/store/data'
+import { useAppDispatch } from 'client/store/hooks'
 import { SocketClient } from 'client/service/socket'
 
 type Props = {

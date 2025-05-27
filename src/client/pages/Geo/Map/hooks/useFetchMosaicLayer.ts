@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 
 import { MosaicLayerKey } from 'meta/geo/mosaic'
 
-import { useAppDispatch } from 'client/store'
+import { useAppDispatch } from 'client/store/hooks'
 import {
   GeoActions,
   useAppliedMosaicOptions,

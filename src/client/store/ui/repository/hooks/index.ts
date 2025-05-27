@@ -3,7 +3,7 @@ import { Objects } from 'utils/objects'
 import { RepositoryItem } from 'meta/cycleData'
 import { FileMeta } from 'meta/file'
 
-import { useAppSelector } from 'client/store/store'
+import { useAppSelector } from 'client/store/hooks'
 import { RepositorySelectors } from 'client/store/ui/repository/selectors'
 
 export const useIsRepositoryLoading = (): boolean => {

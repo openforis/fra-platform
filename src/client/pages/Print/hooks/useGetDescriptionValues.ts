@@ -2,8 +2,8 @@ import { useEffect } from 'react'
 
 import { CountryIso } from 'meta/area'
 
-import { useAppDispatch } from 'client/store'
 import { DataActions } from 'client/store/data'
+import { useAppDispatch } from 'client/store/hooks'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 export const useGetDescriptionValues = (): void => {

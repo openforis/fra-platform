@@ -5,7 +5,8 @@ import { Objects } from 'utils/objects'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 
-import { addAppListener, useAppDispatch } from 'client/store'
+import { useAppDispatch } from 'client/store/hooks'
+import { addAppListener } from 'client/store/middleware/listener'
 import { RepositoryActions } from 'client/store/ui/repository'
 import { TablePaginatedActions } from 'client/store/ui/tablePaginated'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'

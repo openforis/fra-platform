@@ -1,8 +1,8 @@
 import { ActionReducerMapBuilder } from '@reduxjs/toolkit'
 import { Objects } from 'utils/objects'
 
-import { getMetaCache } from 'client/store/assessment/actions'
-import { AssessmentState } from 'client/store/assessment/state'
+import { getMetaCache } from 'client/store/meta/assessment/actions/getMetaCache'
+import { AssessmentState } from 'client/store/meta/assessment/state'
 
 export const getMetaCacheReducer = (builder: ActionReducerMapBuilder<AssessmentState>) => {
   builder.addCase(getMetaCache.fulfilled, (state, action) => {
