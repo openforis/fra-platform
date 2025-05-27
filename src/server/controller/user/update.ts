@@ -22,7 +22,7 @@ export const update = async (
       const createdFile = await FileRepository.create({ fileName: profilePicture.originalname }, client)
       const { uuid: key } = createdFile
 
-      await FileStorage.uploadFile({ key, body: profilePicture.buffer })
+      await FileStorage.File.upload({ key, body: profilePicture.buffer })
       userToUpdate.profilePictureFileUuid = createdFile.uuid
     }
 

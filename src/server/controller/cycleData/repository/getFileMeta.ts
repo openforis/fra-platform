@@ -26,7 +26,7 @@ export const getFileMeta = async (props: Props): Promise<Returned> => {
     FileRepository.getSummary({ fileUuid: repositoryItem.fileUuid }),
   ])
 
-  summary.size = await FileStorage.getFileSize({ key: repositoryItem.fileUuid })
+  summary.size = await FileStorage.File.getSize({ key: repositoryItem.fileUuid })
 
   return {
     usages,

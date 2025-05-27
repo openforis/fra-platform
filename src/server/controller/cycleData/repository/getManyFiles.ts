@@ -35,7 +35,7 @@ export const getManyFiles = async (props: Props): Promise<Returned> => {
   await Promises.each(files, async (file) => {
     const { uuid: key } = file
     // eslint-disable-next-line no-param-reassign
-    file.file = await FileStorage.getFile({ key })
+    file.file = await FileStorage.File.get({ key })
   })
 
   return files.map((file) => {
