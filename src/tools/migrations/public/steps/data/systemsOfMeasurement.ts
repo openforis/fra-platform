@@ -43,14 +43,14 @@ export const systemsOfMeasurement: SystemOfMeasurementSeed = {
   },
   [SystemOfMeasurementName.areaPerYear]: {
     units: [{ name: 'haThousandPerYear', symbol: '1000ha/year', conversionFactor: 1 }],
-    tableNames: [],
+    tableNames: ['forestAreaChange'],
   },
   [SystemOfMeasurementName.volume]: {
     units: [{ name: 'millionCubicMeter', symbol: '1000000m³', conversionFactor: 1 }],
-    tableNames: [],
+    tableNames: ['growingStockTotal'],
   },
   [SystemOfMeasurementName.volumePerArea]: {
     units: [{ name: 'cubicMeterPerHa', symbol: 'm³/ha', conversionFactor: 1 }],
-    tableNames: [],
+    tableNames: ['growingStockAvg'],
   },
 }
