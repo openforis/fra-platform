@@ -115,14 +115,16 @@ const getStatisticalFactsheet = ({
 }: StatisticalFactsheetProps): string => {
   const fileType = 'statisticalFactsheets'
   const lang = _getSupportedLangForFile(fileType, language)
-  const url = ApiEndPoint.Static.file(`statisticalFactsheets/Statistical Factsheets (${region})_${lang}.ods`)
+  const url = ApiEndPoint.Static.file(
+    `${assessmentName}/${cycleName}/statisticalFactsheets/Statistical Factsheets (${region})_${lang}.ods`
+  )
   return appendBaseParams(url, { assessmentName, cycleName, countryIso })
 }
 
 const getUserGuide = ({ assessmentName, countryIso, cycleName, language }: BaseParams & { language: Lang }): string => {
   const fileType = 'userGuide'
   const lang = _getSupportedLangForFile(fileType, language)
-  const url = ApiEndPoint.Static.file(`userGuide/User Guide FRA Platform_${lang}.pdf`)
+  const url = ApiEndPoint.Static.file(`${assessmentName}/${cycleName}/userGuide/User Guide FRA Platform_${lang}.pdf`)
   return appendBaseParams(url, { assessmentName, cycleName, countryIso })
 }
 
