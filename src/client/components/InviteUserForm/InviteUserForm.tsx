@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import { Lang, LanguageCodes } from 'meta/lang'
 import { CollaboratorPermissions, RoleName, Users } from 'meta/user'
 
-import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
+import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useUser } from 'client/store/user'
 import { useCountryIso } from 'client/hooks'
 import { useInitialState } from 'client/components/InviteUserForm/hooks/initialState'

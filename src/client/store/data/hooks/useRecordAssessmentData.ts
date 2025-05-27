@@ -9,8 +9,8 @@ import { useAssessmentCountry } from 'client/store/area'
 import { useOriginalDataPointData } from 'client/store/data/hooks/useOriginalDataPointData'
 import { DataSelector } from 'client/store/data/selectors'
 import { useAppSelector } from 'client/store/hooks'
-import { useAssessment } from 'client/store/meta/assessment/hooks/assessments'
-import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
+import { useAssessment } from 'client/store/meta/hooks/assessments'
+import { useCycle } from 'client/store/meta/hooks/cycles'
 
 export const useRecordAssessmentData = (): RecordAssessmentData =>
   useAppSelector(DataSelector.TableData.getRecordAssessmentData)

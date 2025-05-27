@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { Table } from 'meta/assessment/table'
 
 import { useHistoryLastApprovedIsActive, useTableHasErrors } from 'client/store/data'
-import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
+import { useCycle } from 'client/store/meta/hooks/cycles'
 import Icon from 'client/components/Icon'
 
 type Props = {

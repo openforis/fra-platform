@@ -7,7 +7,7 @@ import { Cycle } from 'meta/assessment/cycle'
 import { RoleName, User } from 'meta/user'
 
 import { useAppDispatch } from 'client/store/hooks'
-import { useAssessment } from 'client/store/meta/assessment/hooks/assessments'
+import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { UserManagementActions } from 'client/store/ui/userManagement'
 import { useToaster } from 'client/hooks/useToaster'
 import { useInitialState } from 'client/components/InviteUserForm/hooks/initialState'

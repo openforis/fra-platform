@@ -5,7 +5,7 @@ import { Areas, CountryStatus } from 'meta/area'
 import { CountryStatuses } from 'meta/area/countryStatuses'
 
 import { useAssessmentCountry } from 'client/store/area'
-import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
+import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useIsDataLocked } from 'client/store/ui/dataLock'
 import { useUser } from 'client/store/user'
 import { StatusTransition } from 'client/components/PageLayout/Toolbar/Status/types'

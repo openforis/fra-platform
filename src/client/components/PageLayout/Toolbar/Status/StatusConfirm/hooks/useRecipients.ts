@@ -4,7 +4,7 @@ import { CountryIso, CountryStatus } from 'meta/area'
 import { RoleName, User, Users } from 'meta/user'
 import { UserRoles } from 'meta/user/userRoles'
 
-import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
+import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useUsers } from 'client/store/ui/userManagement'
 import { useUser } from 'client/store/user'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'

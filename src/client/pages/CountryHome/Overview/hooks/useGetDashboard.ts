@@ -1,10 +1,9 @@
 import { useEffect } from 'react'
 
 import { useAppDispatch } from 'client/store/hooks'
+import { MetaActions } from 'client/store/meta/actions'
+import { useDashboardItems } from 'client/store/meta/hooks/dashboard'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
-
-import { MetadataActions } from '../slice'
-import { useDashboardItems } from './useDashboardItems'
 
 export const useGetDashboard = () => {
   const dispatch = useAppDispatch()
@@ -13,7 +12,7 @@ export const useGetDashboard = () => {
 
   useEffect(() => {
     if (!dashboardItems) {
-      dispatch(MetadataActions.getDashboard({ assessmentName, cycleName, countryIso }))
+      dispatch(MetaActions.getDashboard({ assessmentName, cycleName, countryIso }))
     }
   }, [assessmentName, countryIso, cycleName, dashboardItems, dispatch])
 }

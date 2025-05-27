@@ -5,7 +5,7 @@ import { Objects } from 'utils/objects'
 import { ColType } from 'meta/assessment/col'
 import { Cols } from 'meta/assessment/cols'
 
-import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
+import { useCycle } from 'client/store/meta/hooks/cycles'
 import { DataRow } from 'client/components/DataGrid'
 import { RowProps } from 'client/pages/Section/DataTable/Table/types'
 

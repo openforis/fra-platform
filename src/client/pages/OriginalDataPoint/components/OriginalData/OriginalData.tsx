@@ -9,7 +9,7 @@ import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { Routes } from 'meta/routes'
 
 import { useAssessmentCountry } from 'client/store/area'
-import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
+import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useCountryIso } from 'client/hooks'
 
 import ExtentOfForest from '../ExtentOfForest'

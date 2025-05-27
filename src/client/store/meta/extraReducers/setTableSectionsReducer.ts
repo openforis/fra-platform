@@ -1,10 +1,10 @@
 import { ActionReducerMapBuilder } from '@reduxjs/toolkit'
 import { Objects } from 'utils/objects'
 
-import { setTableSections } from 'client/store/metadata/actions/setTableSections'
-import { MetadataState } from 'client/store/metadata/state'
+import { setTableSections } from 'client/store/meta/actions/setTableSections'
+import { MetaState } from 'client/store/meta/state'
 
-export const setTableSectionsReducer = (builder: ActionReducerMapBuilder<MetadataState>) => {
+export const setTableSectionsReducer = (builder: ActionReducerMapBuilder<MetaState>) => {
   builder.addCase(setTableSections, (state, { payload }) => {
     const { assessmentName, cycleName, tableSections } = payload
 

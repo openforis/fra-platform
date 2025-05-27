@@ -1,10 +1,10 @@
 import { ActionReducerMapBuilder } from '@reduxjs/toolkit'
 import { Objects } from 'utils/objects'
 
-import { getSections } from 'client/store/metadata/actions/getSections'
-import { MetadataState } from 'client/store/metadata/state'
+import { getSections } from 'client/store/meta/actions/getSections'
+import { MetaState } from 'client/store/meta/state'
 
-export const getSectionsReducer = (builder: ActionReducerMapBuilder<MetadataState>) => {
+export const getSectionsReducer = (builder: ActionReducerMapBuilder<MetaState>) => {
   builder.addCase(getSections.fulfilled, (state, action) => {
     const { assessmentName, cycleName } = action.meta.arg
     const sections = action.payload

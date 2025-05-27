@@ -6,8 +6,8 @@ import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { Authorizer } from 'meta/user'
 
 import { useAssessmentCountry } from 'client/store/area'
-import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
-import { useSection } from 'client/store/metadata'
+import { useCycle } from 'client/store/meta/hooks/cycles'
+import { useSection } from 'client/store/meta/hooks/sections'
 import { useUser } from 'client/store/user'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 

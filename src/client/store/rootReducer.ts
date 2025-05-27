@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 
 import { ApplicationSlice } from 'client/store/application/slice'
-import { AssessmentSlice } from 'client/store/meta/assessment/slice'
+import { MetaSlice } from 'client/store/meta/slice'
 import { FileUploadSlice } from 'client/store/ui/fileUpload'
 import { LinksSlice } from 'client/store/ui/links'
 import { RepositorySlice } from 'client/store/ui/repository'
@@ -9,7 +9,6 @@ import { RepositorySlice } from 'client/store/ui/repository'
 import AreaSlice from './area/slice'
 import DataSlice from './data/slice'
 import LoginSlice from './login/slice'
-import MetadataSlice from './metadata/slice'
 import { AreaSelectorSlice } from './ui/areaSelector'
 import { AssessmentSectionSlice } from './ui/assessmentSection/slice'
 import DataExportSlice from './ui/dataExport/slice'
@@ -27,14 +26,11 @@ import UserSlice from './user/slice'
 
 export default {
   [ApplicationSlice.name]: ApplicationSlice.reducer,
+  [MetaSlice.name]: MetaSlice.reducer,
   area: AreaSlice,
   data: DataSlice,
   geo: GeoSlice,
   login: LoginSlice,
-  meta: combineReducers({
-    [AssessmentSlice.name]: AssessmentSlice.reducer,
-  }),
-  metadata: MetadataSlice,
   ui: combineReducers({
     [AreaSelectorSlice.name]: AreaSelectorSlice.reducer,
     [TablePaginatedSlice.name]: TablePaginatedSlice.reducer,

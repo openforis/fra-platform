@@ -4,7 +4,7 @@ import { CountryIso } from 'meta/area'
 
 import { DataActions } from 'client/store/data'
 import { useAppDispatch } from 'client/store/hooks'
-import { AssessmentActions } from 'client/store/meta/assessment/actions'
+import { MetaActions } from 'client/store/meta/actions'
 import { useCanEdit } from 'client/store/user'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
@@ -44,7 +44,7 @@ export const useGetTableData = (props: Props) => {
           const propsFetch = { assessmentName, cycleName, countryIso, mergeOdp: true, auth }
           dispatch(DataActions.getTableData({ ...propsFetch, tableNames: Array.from(tableNames) }))
 
-          dispatch(AssessmentActions.getMetaCache({ assessmentName, cycleName, countryIso }))
+          dispatch(MetaActions.getMetaCache({ assessmentName, cycleName, countryIso }))
         })
       })
     }

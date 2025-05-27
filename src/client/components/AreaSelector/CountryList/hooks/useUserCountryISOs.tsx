@@ -5,7 +5,7 @@ import { RoleName, Users } from 'meta/user'
 import { UserRoles } from 'meta/user/userRoles'
 
 import { useCountries } from 'client/store/area'
-import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
+import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useUser, useUserCountries } from 'client/store/user'
 
 export const useUserCountryISOs = (): Record<CycleUuid, Record<string, Array<CountryIso>>> => {
