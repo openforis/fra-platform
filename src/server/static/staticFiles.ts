@@ -4,6 +4,8 @@ import * as path from 'path'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 
+import { FileStorage } from 'server/service/fileStorage/fileStorage'
+
 type PropsClone = {
   assessment: Assessment
   cycleSource: Cycle
@@ -40,7 +42,10 @@ const cloneCycle = async (props: PropsClone): Promise<void> => {
   }
 
   await _cloneDir('definitions')
-  await _cloneDir('fileRepository')
+  await FileStorage.copyDirectory({
+    sourcePath: `static/${assessmentName}/${cycleSourceName}`,
+    targetPath: `static/${assessmentName}/${cycleTargetName}`,
+  })
 }
 
 const removeCycle = async (props: PropsRemove): Promise<void> => {
@@ -62,7 +67,7 @@ const removeCycle = async (props: PropsRemove): Promise<void> => {
   }
 
   await _removeDir('definitions')
-  await _removeDir('fileRepository')
+  await FileStorage.removeDirectory({ path: `static/${assessmentName}/${cycleName}` })
 }
 
 const renameCycle = async (props: PropsClone): Promise<void> => {
@@ -88,7 +93,11 @@ const renameCycle = async (props: PropsClone): Promise<void> => {
   }
 
   await _renameDir('definitions')
-  await _renameDir('fileRepository')
+  await FileStorage.copyDirectory({
+    sourcePath: `static/${assessmentName}/${cycleSourceName}`,
+    targetPath: `static/${assessmentName}/${cycleTargetName}`,
+  })
+  await FileStorage.removeDirectory({ path: `static/${assessmentName}/${cycleSourceName}` })
 }
 
 export const StaticFiles = {
