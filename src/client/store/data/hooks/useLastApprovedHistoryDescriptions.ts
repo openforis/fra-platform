@@ -5,8 +5,8 @@ import { Objects } from 'utils/objects'
 import { CountryIso } from 'meta/area'
 import { CommentableDescriptionName, CommentableDescriptionValue } from 'meta/assessment/descriptionValue'
 
-import { useAppSelector } from 'client/store'
 import { DataSelector } from 'client/store/data/selectors'
+import { useAppSelector } from 'client/store/hooks'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 
 export const useLastApprovedHistoryDescriptions = (): Record<

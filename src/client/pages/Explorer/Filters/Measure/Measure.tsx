@@ -4,10 +4,10 @@ import { useTranslation } from 'react-i18next'
 
 import { Objects } from 'utils/objects'
 
-import { useAppDispatch } from 'client/store'
-import { useCycle } from 'client/store/assessment'
 import { ExplorerFilterActions } from 'client/store/explorer/filter/actions'
 import { useExplorerMeasures } from 'client/store/explorer/filter/hooks/measures'
+import { useAppDispatch } from 'client/store/hooks'
+import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
 import { useSection } from 'client/store/metadata'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 import useOpenDefinition from 'client/components/DefinitionLink/hooks/useOpenDefinition'

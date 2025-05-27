@@ -3,7 +3,7 @@ import { useCallback } from 'react'
 import { CountryIso } from 'meta/area'
 import { RepositoryItem } from 'meta/cycleData'
 
-import { useAppDispatch } from 'client/store'
+import { useAppDispatch } from 'client/store/hooks'
 import { RepositoryActions } from 'client/store/ui/repository'
 
 const initialRepositoryItem = (countryIso?: CountryIso): Partial<RepositoryItem> => ({

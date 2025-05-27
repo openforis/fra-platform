@@ -6,7 +6,7 @@ import { Objects } from 'utils/objects'
 
 import { TablePaginatedFilterType } from 'meta/tablePaginated'
 
-import { useAppDispatch } from 'client/store'
+import { useAppDispatch } from 'client/store/hooks'
 import { TablePaginatedActions } from 'client/store/ui/tablePaginated'
 import { useTablePaginatedFilterValue } from 'client/store/ui/tablePaginated/hooks'
 import Icon from 'client/components/Icon'

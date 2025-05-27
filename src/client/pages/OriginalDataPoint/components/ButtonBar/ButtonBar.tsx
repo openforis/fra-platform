@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 
 import { Routes } from 'meta/routes'
 
-import { useAppDispatch } from 'client/store'
+import { useAppDispatch } from 'client/store/hooks'
 import {
   OriginalDataPointActions,
   useIsOriginalDataPointUpdating,

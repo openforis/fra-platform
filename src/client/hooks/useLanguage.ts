@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { Global } from 'meta/area'
 import { Lang } from 'meta/lang'
 
-import { useAppDispatch } from 'client/store'
+import { useAppDispatch } from 'client/store/hooks'
 import { UserManagementActions } from 'client/store/ui/userManagement'
 import { useUser } from 'client/store/user'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'

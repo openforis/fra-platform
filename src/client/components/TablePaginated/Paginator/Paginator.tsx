@@ -1,7 +1,7 @@
 import './Paginator.scss'
 import React, { useCallback } from 'react'
 
-import { useAppDispatch } from 'client/store'
+import { useAppDispatch } from 'client/store/hooks'
 import { TablePaginatedActions, useTablePaginatedCount, useTablePaginatedPage } from 'client/store/ui/tablePaginated'
 import { useCycleRouteParams } from 'client/hooks/useRouteParams'
 import PaginatorComponent, { PaginatorProps } from 'client/components/Paginator'

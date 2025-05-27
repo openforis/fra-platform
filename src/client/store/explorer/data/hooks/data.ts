@@ -6,13 +6,13 @@ import { CountryIso } from 'meta/area'
 import { SectionName } from 'meta/assessment/section'
 import { RecordAssessmentData } from 'meta/data'
 
-import { useAppDispatch, useAppSelector } from 'client/store'
-import { ExplorerDataActions } from 'client/store/explorer/data/actions/index'
-import { ExplorerDataSelectors } from 'client/store/explorer/data/selectors/index'
+import { ExplorerDataActions } from 'client/store/explorer/data/actions'
+import { ExplorerDataSelectors } from 'client/store/explorer/data/selectors'
 import { useExplorerCountries } from 'client/store/explorer/filter/hooks/countries'
 import { useExplorerDimensions } from 'client/store/explorer/filter/hooks/dimensions'
 import { useExplorerMeasures } from 'client/store/explorer/filter/hooks/measures'
 import { useExplorerSectionMetadata } from 'client/store/explorer/metadata/hooks/metadata'
+import { useAppDispatch, useAppSelector } from 'client/store/hooks'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 
 export const useExplorerSectionData = (): RecordAssessmentData => {

@@ -2,7 +2,7 @@ import { Objects } from 'utils/objects'
 
 import { TablePaginatedCompareFn, TablePaginatedFilterValues, TablePaginatedOrderBy } from 'meta/tablePaginated'
 
-import { useAppSelector } from 'client/store/store'
+import { useAppSelector } from 'client/store/hooks'
 import { TablePaginatedSelectors } from 'client/store/ui/tablePaginated/selectors'
 
 export const useIsTablePaginatedInitialized = (path: string): boolean =>

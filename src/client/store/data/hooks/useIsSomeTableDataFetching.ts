@@ -2,10 +2,11 @@ import { createSelector } from '@reduxjs/toolkit'
 
 import { TableName } from 'meta/assessment/table'
 
-import { useAssessment, useCycle } from 'client/store/assessment'
 import { TableDataStatus } from 'client/store/data/state'
-import { RootState } from 'client/store/RootState'
-import { useAppSelector } from 'client/store/store'
+import { useAppSelector } from 'client/store/hooks'
+import { useAssessment } from 'client/store/meta/assessment/hooks/assessments'
+import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
+import { RootState } from 'client/store/types'
 import { useCountryIso } from 'client/hooks'
 
 export const useIsSomeTableDataFetching = (): boolean => {

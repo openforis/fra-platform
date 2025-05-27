@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { useCycle } from 'client/store/assessment'
+import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
 import { useLanguage } from 'client/hooks/useLanguage'
 import LinkHome from 'client/components/LinkHome'
 

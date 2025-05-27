@@ -2,7 +2,7 @@ import { useCallback } from 'react'
 
 import { CountryIso } from 'meta/area'
 
-import { useAppDispatch } from 'client/store'
+import { useAppDispatch } from 'client/store/hooks'
 import { OriginalDataPointActions, useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 

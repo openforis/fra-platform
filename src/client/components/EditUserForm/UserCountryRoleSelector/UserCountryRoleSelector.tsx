@@ -2,7 +2,7 @@ import React from 'react'
 
 import { User, Users } from 'meta/user'
 
-import { useCycle } from 'client/store/assessment'
+import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import SelectField from 'client/components/EditUserForm/SelectField'
 

@@ -5,7 +5,7 @@ import classNames from 'classnames'
 
 import { Layer, LayerSectionKey } from 'meta/geo'
 
-import { useAppDispatch } from 'client/store'
+import { useAppDispatch } from 'client/store/hooks'
 import { GeoActions, useGeoLayer } from 'client/store/ui/geo'
 import SelectPrimary from 'client/components/Inputs/SelectPrimary'
 import OptionLabel from 'client/components/Navigation/NavGeo/Grid/OptionLabel'

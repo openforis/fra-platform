@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import { Layer, LayerSectionKey } from 'meta/geo/layer'
 
-import { useAppDispatch } from 'client/store'
+import { useAppDispatch } from 'client/store/hooks'
 import { GeoActions } from 'client/store/ui/geo'
 import OptionLabel from 'client/components/Navigation/NavGeo/Grid/OptionLabel'
 import AgreementLevelSelector from 'client/components/Navigation/NavGeo/Layer/AgreementLevelControl/AgreementLevelSelector'

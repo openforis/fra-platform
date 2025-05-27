@@ -2,8 +2,9 @@ import { useEffect } from 'react'
 
 import { Authorizer } from 'meta/user'
 
-import { useAppDispatch } from 'client/store'
-import { useAssessment, useCycle } from 'client/store/assessment'
+import { useAppDispatch } from 'client/store/hooks'
+import { useAssessment } from 'client/store/meta/assessment/hooks/assessments'
+import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
 import { UserManagementActions } from 'client/store/ui/userManagement'
 import { useUser } from 'client/store/user'
 import { useCountryIso } from 'client/hooks'

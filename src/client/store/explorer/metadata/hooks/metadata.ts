@@ -5,9 +5,9 @@ import { Objects } from 'utils/objects'
 import { CountryIso } from 'meta/area'
 import { ExplorerMetadata } from 'meta/explorer/metadata'
 
-import { useAppDispatch, useAppSelector } from 'client/store'
 import { ExplorerMetadataActions } from 'client/store/explorer/metadata/actions/index'
 import { ExplorerMetadataSelectors } from 'client/store/explorer/metadata/selectors/index'
+import { useAppDispatch, useAppSelector } from 'client/store/hooks'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 
 export const useExplorerSectionMetadata = (): ExplorerMetadata => {

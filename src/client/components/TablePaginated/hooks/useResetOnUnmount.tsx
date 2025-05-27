@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-import { useAppDispatch } from 'client/store'
+import { useAppDispatch } from 'client/store/hooks'
 import { TablePaginatedActions } from 'client/store/ui/tablePaginated'
 
 type Props = {

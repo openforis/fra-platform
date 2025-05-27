@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { LayerSectionKey } from 'meta/geo'
 import { Recipe } from 'meta/geo/layer'
 
-import { useAppDispatch } from 'client/store'
+import { useAppDispatch } from 'client/store/hooks'
 import { GeoActions, useGeoLayerSectionRecipeName } from 'client/store/ui/geo'
 import { useCountryIso } from 'client/hooks'
 import SelectPrimary from 'client/components/Inputs/SelectPrimary'

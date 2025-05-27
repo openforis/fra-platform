@@ -2,7 +2,7 @@ import { CountryIso } from 'meta/area'
 import { TableNames } from 'meta/assessment/table'
 import { RecordAssessmentDatas, RecordColumnData } from 'meta/data'
 
-import { useAppSelector } from 'client/store'
+import { useAppSelector } from 'client/store/hooks'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 const tableName = TableNames.originalDataPointValue

@@ -1,7 +1,7 @@
 import { DimensionName } from 'meta/measurement/dimension'
 
 import { ExplorerFilterSelectors } from 'client/store/explorer/filter/selectors'
-import { useAppSelector } from 'client/store/store'
+import { useAppSelector } from 'client/store/hooks'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 
 export const useExplorerDimensions = (): Array<DimensionName> | undefined => {

@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import { Cols } from 'meta/assessment/cols'
 
-import { useCycle } from 'client/store/assessment'
+import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
 import { DataCell, DataRow } from 'client/components/DataGrid'
 import { RowProps } from 'client/pages/Section/DataTable/Table/types'
 

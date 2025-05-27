@@ -1,15 +1,16 @@
 import { combineReducers } from 'redux'
 
+import { ApplicationSlice } from 'client/store/application/slice'
+import { ExplorerDataSlice } from 'client/store/explorer/data/slice'
+import { ExplorerFilterSlice } from 'client/store/explorer/filter/slice'
+import { ExplorerMetadataSlice } from 'client/store/explorer/metadata/slice'
+import { AssessmentSlice } from 'client/store/meta/assessment/slice'
 import { FileUploadSlice } from 'client/store/ui/fileUpload'
 import { LinksSlice } from 'client/store/ui/links'
 import { RepositorySlice } from 'client/store/ui/repository'
 
 import AreaSlice from './area/slice'
-import AssessmentSlice from './assessment/slice'
 import DataSlice from './data/slice'
-import { ExplorerDataSlice } from './explorer/data/slice'
-import { ExplorerFilterSlice } from './explorer/filter/slice'
-import { ExplorerMetadataSlice } from './explorer/metadata/slice'
 import LoginSlice from './login/slice'
 import MetadataSlice from './metadata/slice'
 import { AreaSelectorSlice } from './ui/areaSelector'
@@ -28,11 +29,19 @@ import UserManagementSlice from './ui/userManagement/slice'
 import UserSlice from './user/slice'
 
 export default {
+  [ApplicationSlice.name]: ApplicationSlice.reducer,
   area: AreaSlice,
-  assessment: AssessmentSlice,
-  login: LoginSlice,
-  user: UserSlice,
   data: DataSlice,
+  explorer: combineReducers({
+    [ExplorerDataSlice.name]: ExplorerDataSlice.reducer,
+    [ExplorerFilterSlice.name]: ExplorerFilterSlice.reducer,
+    [ExplorerMetadataSlice.name]: ExplorerMetadataSlice.reducer,
+  }),
+  geo: GeoSlice,
+  login: LoginSlice,
+  meta: combineReducers({
+    [AssessmentSlice.name]: AssessmentSlice.reducer,
+  }),
   metadata: MetadataSlice,
   ui: combineReducers({
     [AreaSelectorSlice.name]: AreaSelectorSlice.reducer,
@@ -51,10 +60,5 @@ export default {
     review: ReviewSlice,
     userManagement: UserManagementSlice,
   }),
-  geo: GeoSlice,
-  explorer: combineReducers({
-    [ExplorerDataSlice.name]: ExplorerDataSlice.reducer,
-    [ExplorerFilterSlice.name]: ExplorerFilterSlice.reducer,
-    [ExplorerMetadataSlice.name]: ExplorerMetadataSlice.reducer,
-  }),
+  user: UserSlice,
 }

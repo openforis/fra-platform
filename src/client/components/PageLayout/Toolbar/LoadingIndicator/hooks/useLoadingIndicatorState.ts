@@ -2,8 +2,9 @@ import { useEffect, useRef, useState } from 'react'
 
 import { isAnyOf, isFulfilled, isPending, isRejected } from '@reduxjs/toolkit'
 
-import { addAppListener, useAppDispatch } from 'client/store'
 import { DataActions } from 'client/store/data'
+import { useAppDispatch } from 'client/store/hooks'
+import { addAppListener } from 'client/store/middleware/listener'
 import { OriginalDataPointActions } from 'client/store/ui/originalDataPoint'
 import { UserManagementActions } from 'client/store/ui/userManagement'
 

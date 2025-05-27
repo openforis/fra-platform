@@ -1,6 +1,6 @@
 import { MessageTopic } from 'meta/messageCenter'
 
-import { useAppSelector } from 'client/store'
+import { useAppSelector } from 'client/store/hooks'
 
 export const useTopics = (): Array<MessageTopic> => useAppSelector((state) => state.ui.messageCenter.topics)
 

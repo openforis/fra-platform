@@ -1,6 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit'
 
-import { RootState } from 'client/store/RootState'
+import { RootState } from 'client/store/types'
 import { RepositorySlice } from 'client/store/ui/repository/slice'
 
 const _getState = (state: RootState) => state.ui[RepositorySlice.name]

@@ -6,9 +6,9 @@ import { CountryIso } from 'meta/area'
 import { TableNames } from 'meta/assessment/table'
 import { RecordAssessmentDatas } from 'meta/data'
 
-import { useAppDispatch } from 'client/store'
 import { useCountry } from 'client/store/area'
 import { DataActions, useRecordAssessmentData } from 'client/store/data'
+import { useAppDispatch } from 'client/store/hooks'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 type Returned = {

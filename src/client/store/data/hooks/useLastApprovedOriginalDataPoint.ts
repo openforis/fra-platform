@@ -4,8 +4,8 @@ import { Objects } from 'utils/objects'
 
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
-import { useAppSelector } from 'client/store'
 import { DataSelector } from 'client/store/data/selectors'
+import { useAppSelector } from 'client/store/hooks'
 import { useOriginalDataPointRouteParams } from 'client/hooks/useRouteParams'
 
 export const useLastApprovedOriginalDataPoint = (): OriginalDataPoint => {

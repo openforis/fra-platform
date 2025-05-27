@@ -7,7 +7,7 @@ import { Objects } from 'utils/objects'
 import { Areas, CountryIso } from 'meta/area'
 import { UnitName } from 'meta/measurement/unit'
 
-import { useCycle } from 'client/store/assessment'
+import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
 import { useTableSections } from 'client/store/metadata'
 import { useDataExportCountries, useDataExportSelection } from 'client/store/ui/dataExport'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'

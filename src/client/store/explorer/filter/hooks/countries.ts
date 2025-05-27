@@ -1,7 +1,7 @@
 import { ExplorerFilter } from 'meta/explorer/filter'
 
 import { ExplorerFilterSelectors } from 'client/store/explorer/filter/selectors'
-import { useAppSelector } from 'client/store/store'
+import { useAppSelector } from 'client/store/hooks'
 import { useCycleRouteParams } from 'client/hooks/useRouteParams'
 
 export const useExplorerCountries = (): ExplorerFilter['countries'] | undefined => {

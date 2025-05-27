@@ -1,4 +1,4 @@
-import { useAppSelector } from 'client/store'
+import { useAppSelector } from 'client/store/hooks'
 import { AcceptInvitationFormState, InvitationState, LoginInformationState } from 'client/store/login/stateType'
 
 export const useAcceptInvitationForm = (): AcceptInvitationFormState | undefined =>

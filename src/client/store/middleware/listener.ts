@@ -1,15 +1,12 @@
-import type { TypedAddListener, TypedStartListening } from '@reduxjs/toolkit'
-import { addListener, createListenerMiddleware } from '@reduxjs/toolkit'
+import { type TypedAddListener, addListener, createListenerMiddleware, TypedStartListening } from '@reduxjs/toolkit'
 
-import type { RootState } from '../RootState'
-import type { AppDispatch } from '../store'
+import { AppDispatch, RootState } from 'client/store/types'
 
 export const listenerMiddleware = createListenerMiddleware()
 
 export type AppStartListening = TypedStartListening<RootState, AppDispatch>
 
 export const startAppListening = listenerMiddleware.startListening as AppStartListening
-
 export const addAppListener = addListener as TypedAddListener<RootState, AppDispatch>
 
 // Example listener for navigating or verifying user login

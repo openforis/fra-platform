@@ -5,7 +5,7 @@ import { Objects } from 'utils/objects'
 import { Areas, CountryIso } from 'meta/area'
 import { Users } from 'meta/user'
 
-import { useCycle } from 'client/store/assessment'
+import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
 import { useUser } from 'client/store/user/hooks/index'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 

@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 
 import { CountryIso } from 'meta/area'
 
-import { useAppDispatch } from 'client/store'
+import { useAppDispatch } from 'client/store/hooks'
 import { OriginalDataPointActions } from 'client/store/ui/originalDataPoint'
 import { useOriginalDataPointRouteParams } from 'client/hooks/useRouteParams'
 

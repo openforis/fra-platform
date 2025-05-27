@@ -8,7 +8,7 @@ import { Strings } from 'utils/strings'
 
 import { Areas, Country } from 'meta/area'
 
-import { useAppDispatch } from 'client/store'
+import { useAppDispatch } from 'client/store/hooks'
 import { DataExportActions, useDataExportCountries, useDataExportSelection } from 'client/store/ui/dataExport'
 import { DataExportActionType } from 'client/store/ui/dataExport/actionTypes'
 import ButtonCheckBox from 'client/components/ButtonCheckBox'

@@ -11,7 +11,7 @@ import { ActivityLog } from 'meta/assessment/activityLog'
 import { ActivityLogs } from 'meta/assessment/activityLogs'
 import { Users } from 'meta/user'
 
-import { useCycle } from 'client/store/assessment'
+import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
 import { useSection } from 'client/store/metadata'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { ColumnComponentProps } from 'client/components/TablePaginated'

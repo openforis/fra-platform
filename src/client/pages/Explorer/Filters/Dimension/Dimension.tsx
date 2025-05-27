@@ -3,9 +3,9 @@ import { useTranslation } from 'react-i18next'
 
 import { Objects } from 'utils/objects'
 
-import { useAppDispatch } from 'client/store'
 import { ExplorerFilterActions } from 'client/store/explorer/filter/actions'
 import { useExplorerDimensions } from 'client/store/explorer/filter/hooks/dimensions'
+import { useAppDispatch } from 'client/store/hooks'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 import MultiSelect from 'client/components/Inputs/MultiSelect/MultiSelect'
 

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { Collaborator, CollaboratorPermissions as CollabPermissions } from 'meta/user'
 
-import { useAppDispatch } from 'client/store'
+import { useAppDispatch } from 'client/store/hooks'
 import { UserManagementActions } from 'client/store/ui/userManagement'
 import { useCountryIso } from 'client/hooks'
 import { useCycleRouteParams } from 'client/hooks/useRouteParams'

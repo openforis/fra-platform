@@ -4,7 +4,7 @@ import React from 'react'
 import { TablePaginatedFilterType } from 'meta/tablePaginated'
 import { TooltipId } from 'meta/tooltip'
 
-import { useAppDispatch } from 'client/store'
+import { useAppDispatch } from 'client/store/hooks'
 import { TablePaginatedActions } from 'client/store/ui/tablePaginated'
 import { useTablePaginatedFilterValue } from 'client/store/ui/tablePaginated/hooks'
 import CommonMultiSelect from 'client/components/Inputs/MultiSelect/MultiSelect'

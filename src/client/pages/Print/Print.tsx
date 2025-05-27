@@ -7,7 +7,7 @@ import classNames from 'classnames'
 import { CountryIso } from 'meta/area/countryIso'
 import { Labels } from 'meta/assessment/labels'
 
-import { useCycle } from 'client/store/assessment'
+import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
 import { useSections } from 'client/store/metadata'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'

@@ -10,7 +10,7 @@ type Returned = {
   user?: User
 }
 
-export const initApp = createAsyncThunk<Returned>('assessment/init', async (params) => {
+export const initApp = createAsyncThunk<Returned>('application/init', async (params) => {
   const { data } = await axios.get(ApiEndPoint.init(), { params })
   return data
 })

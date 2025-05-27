@@ -6,7 +6,7 @@ import { CycleName } from 'meta/assessment/cycle'
 import { SectionName } from 'meta/assessment/section'
 import { HistoryTarget } from 'meta/cycleData/historyActivities'
 
-import { RootState } from 'client/store/RootState'
+import { RootState } from 'client/store/types'
 
 const getHistory = createSelector(
   (state: RootState) => state.data.history,
