@@ -28,7 +28,7 @@ export const getCreateMeasurementSchemaDDL = (schemaName = 'measurement'): strin
       id bigserial primary key,
       uuid uuid not null default uuid_generate_v4(),
       name varchar not null,
-      system_uuid uuid not null,
+      system_uuid uuid default null,
 
       foreign key (system_uuid) references ${schemaName}.system_of_measurement (uuid) on update cascade on delete cascade
     );

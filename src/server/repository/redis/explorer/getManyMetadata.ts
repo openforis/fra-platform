@@ -13,6 +13,7 @@ import { RedisData } from 'server/repository/redis/redisData'
 import { SectionRedisRepository } from 'server/repository/redis/section/index'
 
 const skipTables = ['totalAreaWithDesignatedManagementObjective', 'growingStockTotal']
+const standaloneTables = ['growingStockComposition2025']
 
 type Props = {
   assessment: Assessment
@@ -50,7 +51,10 @@ export const getManyMetadata = async (props: Props, client: BaseProtocol = DB): 
     const jobs = Object.entries(sectionsMetadata).map(async ([sectionName, tableSections]) => {
       const allSectionTables = tableSections.flatMap((ts) => ts.tables)
 
-      const table = allSectionTables.find((t) => allSystemsTableNames.includes(t.props.name))
+      const table = allSectionTables.find(
+        (t) => allSystemsTableNames.includes(t.props.name) || standaloneTables.includes(t.props.name)
+      )
+
       if (!table) return
 
       const tableName = table.props.name
