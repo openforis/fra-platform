@@ -1,7 +1,9 @@
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { SectionName } from 'meta/assessment/section'
+import { TableName } from 'meta/assessment/table'
 import { ExplorerMetadata } from 'meta/explorer/metadata'
+import { systemsOfMeasurement } from 'meta/measurement/systemOfMeasurement'
 
 import { BaseProtocol, DB } from 'server/db'
 import { DimensionRepository } from 'server/repository/measurement/dimension'
@@ -10,21 +12,7 @@ import { getKeyCycle, Keys } from 'server/repository/redis/keys'
 import { RedisData } from 'server/repository/redis/redisData'
 import { SectionRedisRepository } from 'server/repository/redis/section/index'
 
-const areaBasedTables = [
-  'areaAffectedByFire',
-  'areaOfPermanentForestEstate',
-  'disturbances',
-  'extentOfForest',
-  'forestAreaWithinProtectedAreas',
-  'forestCharacteristics',
-  'forestOwnership',
-  'holderOfManagementRights',
-  'otherLandWithTreeCover',
-  'primaryDesignatedManagementObjective',
-  'specificForestCategories',
-  'sustainableDevelopment15_2_1_5',
-  // 'totalAreaWithDesignatedManagementObjective',
-]
+const skipTables = ['totalAreaWithDesignatedManagementObjective', 'growingStockTotal']
 
 type Props = {
   assessment: Assessment
@@ -48,13 +36,21 @@ export const getManyMetadata = async (props: Props, client: BaseProtocol = DB): 
   const length = await redis.hlen(key)
 
   if (length === 0) {
+    const allSystemsTableNames = Object.values(systemsOfMeasurement).reduce<Array<TableName>>((acc, system) => {
+      system.tableNames.forEach((tableName) => {
+        if (!skipTables.includes(tableName) && !acc.includes(tableName)) {
+          acc.push(tableName)
+        }
+      })
+      return acc
+    }, [])
+
     const sectionsMetadata = await SectionRedisRepository.getManyMetadata(props, client)
 
     const jobs = Object.entries(sectionsMetadata).map(async ([sectionName, tableSections]) => {
-      // Cache only one area based table per section
       const allSectionTables = tableSections.flatMap((ts) => ts.tables)
 
-      const table = allSectionTables.find((t) => areaBasedTables.includes(t.props.name))
+      const table = allSectionTables.find((t) => allSystemsTableNames.includes(t.props.name))
       if (!table) return
 
       const tableName = table.props.name

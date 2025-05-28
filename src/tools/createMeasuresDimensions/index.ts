@@ -5,45 +5,32 @@ import * as pgPromise from 'pg-promise'
 import { ToolsUtils } from 'tools/utils/toolsUtils'
 import { Objects } from 'utils/objects'
 
-import { AssessmentNames } from 'meta/assessment/assessment'
+import { Assessment, AssessmentNames } from 'meta/assessment/assessment'
 import { TableName } from 'meta/assessment/table'
 import { VariableName } from 'meta/assessment/variable'
 import { Measures } from 'meta/measurement/measures'
-import { SystemOfMeasurementName } from 'meta/measurement/systemOfMeasurement'
+import { SystemOfMeasurementName, systemsOfMeasurement } from 'meta/measurement/systemOfMeasurement'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { CacheController } from 'server/controller/cache'
 import { BaseProtocol, DB, Schemas } from 'server/db'
 import { SystemOfMeasurementRepository } from 'server/repository/measurement/systemOfMeasurement'
 
-const areaBasedTables = [
-  'areaAffectedByFire',
-  'areaOfPermanentForestEstate',
-  'disturbances',
-  'extentOfForest',
-  'forestAreaWithinProtectedAreas',
-  'forestCharacteristics',
-  'forestOwnership',
-  'holderOfManagementRights',
-  'otherLandWithTreeCover',
-  'primaryDesignatedManagementObjective',
-  'specificForestCategories',
-  'sustainableDevelopment15_2_1_5',
-  'totalAreaWithDesignatedManagementObjective',
-]
-
 const client: BaseProtocol = DB
 
-const createMeasuresDimensions = async () => {
-  const { assessment, cycle } = await AssessmentController.getOneWithCycle(
-    { assessmentName: AssessmentNames.fra, cycleName: '2025' },
-    client
-  )
+type Props = {
+  assessment: Assessment
+  systemOfMeasurementName: SystemOfMeasurementName
+  tableNames: Array<TableName>
+}
+
+const _createMeasuresAndDimensionsForTables = async (props: Props) => {
+  const { assessment, systemOfMeasurementName, tableNames } = props
 
   const schemaAssessment = Schemas.getName(assessment)
 
-  const { uuid: areaSystemOfMeasurementUuid } = await SystemOfMeasurementRepository.getOne(
-    { systemOfMeasurementName: SystemOfMeasurementName.area },
+  const { uuid: systemOfMeasurementUuid } = await SystemOfMeasurementRepository.getOne(
+    { systemOfMeasurementName },
     client
   )
 
@@ -58,13 +45,13 @@ const createMeasuresDimensions = async () => {
       and r.props ->> 'variableName' is not null
       and r.props ->> 'variableName' <> ''
     `,
-    [areaBasedTables],
+    [tableNames],
     (res) => Objects.camelize(res)
   )
 
   const measures = variableNames.map(({ tableName, variableName }) => {
     const name = Measures.variableNameToMeasureName(tableName, variableName)
-    return { name, system_uuid: areaSystemOfMeasurementUuid }
+    return { name, system_uuid: systemOfMeasurementUuid }
   })
 
   const pgp = pgPromise()
@@ -75,9 +62,9 @@ const createMeasuresDimensions = async () => {
   const table = { table: 'measure', schema: 'measurement' }
   const cs = new pgp.helpers.ColumnSet(columns, { table })
 
-  const insertMeasures = `${pgp.helpers.insert(measures, cs)} on conflict (name) do nothing;`
+  const insertMeasuresQuery = `${pgp.helpers.insert(measures, cs)} on conflict (name) do nothing;`
 
-  await client.query(insertMeasures)
+  await client.query(insertMeasuresQuery)
 
   // 2. Migrate area based dimensions
   await client.query(
@@ -94,10 +81,29 @@ const createMeasuresDimensions = async () => {
       and t.props -> 'columnNames' is not null
     on conflict (name) do nothing;
     `,
-    [areaBasedTables]
+    [tableNames]
+  )
+}
+
+const createAllMeasuresDimensions = async () => {
+  const assessmentName = AssessmentNames.fra
+  const cycleName = '2025'
+  const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName }, client)
+
+  const systemEntries = Object.entries(systemsOfMeasurement)
+
+  await Promise.all(
+    systemEntries.map(async ([systemOfMeasurementName, config]) => {
+      const { tableNames } = config
+      await _createMeasuresAndDimensionsForTables({
+        assessment,
+        systemOfMeasurementName: systemOfMeasurementName as SystemOfMeasurementName,
+        tableNames,
+      })
+    })
   )
 
   await CacheController.generateExplorerMetadata({ assessment, cycle }, client)
 }
 
-ToolsUtils.exec(createMeasuresDimensions)
+ToolsUtils.exec(createAllMeasuresDimensions)

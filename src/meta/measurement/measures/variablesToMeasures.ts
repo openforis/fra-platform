@@ -19,6 +19,33 @@ export const variableToMeasures: Record<TableName, Record<VariableName, MeasureN
     total: 'disturbancesTotalArea',
   },
 
+  forestAreaChange: {
+    forest_expansion: 'forestExpansion',
+    natural_expansion: 'naturalExpansion',
+  },
+
+  growingStockAvg: {
+    forest: 'growingStockAvgForest',
+    naturallyRegeneratingForest: 'growingStockAvgNaturallyRegeneratingForest',
+    otherPlantedForest: 'growingStockAvgOtherPlantedForest',
+    otherWoodedLand: 'growingStockAvgOtherWoodedLand',
+    plantationForest: 'growingStockAvgPlantationForest',
+    plantationForestIntroducedArea: 'growingStockAvgPlantationForestIntroducedArea',
+    plantedForest: 'growingStockAvgPlantedForest',
+    primaryForest: 'growingStockAvgPrimaryForest',
+  },
+
+  growingStockTotal: {
+    forest: 'growingStockTotalForest',
+    naturallyRegeneratingForest: 'growingStockTotalNaturallyRegeneratingForest',
+    otherPlantedForest: 'growingStockTotalOtherPlantedForest',
+    otherWoodedLand: 'growingStockTotalOtherWoodedLand',
+    plantationForest: 'growingStockTotalPlantationForest',
+    plantationForestIntroducedArea: 'growingStockTotalPlantationForestIntroducedArea',
+    plantedForest: 'growingStockTotalPlantedForest',
+    primaryForest: 'growingStockTotalPrimaryForest',
+  },
+
   forestAreaWithinProtectedAreas: {
     forest_area_with_long_term_management_plan: 'forestAreaWithLongTermManagementPlan',
     forest_area_within_protected_areas: 'forestAreaWithinProtectedAreas',
@@ -76,3 +103,12 @@ export const variableToMeasures: Record<TableName, Record<VariableName, MeasureN
     social_services: 'totalAreaWithDesignatedManagementObjectiveSocialServices',
   },
 }
+
+export const measureToVariables: Record<MeasureName, VariableName> = Object.values(variableToMeasures).reduce<
+  Record<MeasureName, VariableName>
+>((acc, measures) => {
+  Object.entries(measures).forEach(([variableName, measureName]) => {
+    acc[measureName as MeasureName] = variableName as VariableName
+  })
+  return acc
+}, {})
