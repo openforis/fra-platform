@@ -23,6 +23,10 @@ export const activitiesLastEdit = [
 export const activitiesLastEditOdpData = [
   ActivityLogMessage.originalDataPointCreate,
   ActivityLogMessage.originalDataPointRemove,
+  ActivityLogMessage.originalDataPointUpdate,
+  ActivityLogMessage.originalDataPointUpdateDataSources,
+  ActivityLogMessage.originalDataPointUpdateDescription,
+  ActivityLogMessage.originalDataPointUpdateNationalClasses,
   ActivityLogMessage.originalDataPointUpdateOriginalData,
   ActivityLogMessage.originalDataPointUpdateYear,
 ]
