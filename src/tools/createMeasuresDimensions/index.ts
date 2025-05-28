@@ -2,7 +2,6 @@ import 'tsconfig-paths/register'
 import 'dotenv/config'
 
 import * as pgPromise from 'pg-promise'
-import { systemsOfMeasurement } from 'tools/migrations/public/steps/data/systemsOfMeasurement'
 import { ToolsUtils } from 'tools/utils/toolsUtils'
 import { Objects } from 'utils/objects'
 
@@ -10,7 +9,7 @@ import { Assessment, AssessmentNames } from 'meta/assessment/assessment'
 import { TableName } from 'meta/assessment/table'
 import { VariableName } from 'meta/assessment/variable'
 import { Measures } from 'meta/measurement/measures'
-import { SystemOfMeasurementName } from 'meta/measurement/systemOfMeasurement'
+import { SystemOfMeasurementName, systemsOfMeasurement } from 'meta/measurement/systemOfMeasurement'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { CacheController } from 'server/controller/cache'

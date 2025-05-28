@@ -1,10 +1,9 @@
-import { systemsOfMeasurement } from 'tools/migrations/public/steps/data/systemsOfMeasurement'
-
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { SectionName } from 'meta/assessment/section'
 import { TableName } from 'meta/assessment/table'
 import { ExplorerMetadata } from 'meta/explorer/metadata'
+import { systemsOfMeasurement } from 'meta/measurement/systemOfMeasurement'
 
 import { BaseProtocol, DB } from 'server/db'
 import { DimensionRepository } from 'server/repository/measurement/dimension'
