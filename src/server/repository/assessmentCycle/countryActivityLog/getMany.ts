@@ -26,6 +26,7 @@ export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<
     `
         select *
         from ${schemaCycle}.${viewName}
+        where target -> 'value' -> 'calculated' is distinct from to_jsonb(true)
         order by time desc
         limit $1 offset $2
     `,
