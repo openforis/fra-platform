@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { CountryIso } from 'meta/area'
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 
-import { useCountry } from 'client/store/area'
+import { useCountry } from 'client/store/area/hooks/country'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import Contacts from 'client/pages/Section/Contacts'
 import CommentableDescription from 'client/pages/Section/Descriptions/CommentableDescription'

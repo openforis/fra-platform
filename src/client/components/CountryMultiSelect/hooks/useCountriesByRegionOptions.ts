@@ -3,7 +3,8 @@ import { useTranslation } from 'react-i18next'
 
 import { CountryIso } from 'meta/area'
 
-import { useCountries, useRegionGroups } from 'client/store/area'
+import { useCountries } from 'client/store/area/hooks/countries'
+import { useRegionGroups } from 'client/store/area/hooks/regions'
 import { useIsPanEuropeanRoute } from 'client/hooks'
 import { Option, OptionsGroup } from 'client/components/Inputs/Select'
 

@@ -12,7 +12,7 @@ import { ExpressionEvaluator } from 'meta/expressionEvaluator'
 import { validatorEqualToPreviousCycleForestArea } from 'meta/expressionEvaluator/functions/validatorEqualToPreviousCycleForestArea'
 import { Authorizer } from 'meta/user'
 
-import { useCountry } from 'client/store/area'
+import { useCountry } from 'client/store/area/hooks/country'
 import { DataActions, RecordTableValidationsState } from 'client/store/data'
 import { useAppDispatch } from 'client/store/hooks'
 import { useAssessment } from 'client/store/meta/hooks/assessments'

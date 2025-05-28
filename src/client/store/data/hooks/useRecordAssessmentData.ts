@@ -5,7 +5,7 @@ import { Objects } from 'utils/objects'
 import { TableName, TableNames } from 'meta/assessment/table'
 import { RecordAssessmentData, RecordAssessmentDatas, RecordTableData } from 'meta/data'
 
-import { useAssessmentCountry } from 'client/store/area'
+import { useAssessmentCountry } from 'client/store/area/hooks/country'
 import { useOriginalDataPointData } from 'client/store/data/hooks/useOriginalDataPointData'
 import { DataSelector } from 'client/store/data/selectors'
 import { useAppSelector } from 'client/store/hooks'

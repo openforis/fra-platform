@@ -4,7 +4,7 @@ import { Areas, Country, RegionCode } from 'meta/area'
 import { Cycles } from 'meta/assessment/cycles'
 import { Users } from 'meta/user'
 
-import { useCountries } from 'client/store/area'
+import { useCountries } from 'client/store/area/hooks/countries'
 import { useAppDispatch, useAppSelector } from 'client/store/hooks'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { DataExportActions, DataExportSelection } from 'client/store/ui/dataExport'

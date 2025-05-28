@@ -8,7 +8,7 @@ import { i18n } from 'i18next'
 import { Areas, CountryIso, Global, Region, RegionCode, RegionGroup } from 'meta/area'
 import { UserRoles } from 'meta/user/userRoles'
 
-import { useRegionGroups } from 'client/store/area'
+import { useRegionGroups } from 'client/store/area/hooks/regions'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useIsAreaSelectorExpanded } from 'client/store/ui/areaSelector'
 import { useCountriesWithoutRole } from 'client/components/AreaSelector/CountryList/hooks/useCountriesWithoutRole'
