@@ -49,15 +49,16 @@ const UserGuideLinkInner: React.FC<Props> = (props) => {
 const UserGuideLinkComponents = {
   [AssessmentNames.fra]: {
     '2020': () => UserGuideLinkInner({ userGuideLinkOption: UserGuideLinkOption.File }),
-    '2025': () => UserGuideLinkInner({ userGuideLinkOption: UserGuideLinkOption.TutorialPage }),
   },
 }
+
+const defaultComponent = <UserGuideLinkInner userGuideLinkOption={UserGuideLinkOption.TutorialPage} />
 
 const UserGuideLink: React.FC = () => {
   const user = useUser()
   if (!user) return null
 
-  return <CycleSwitch components={UserGuideLinkComponents} />
+  return <CycleSwitch components={UserGuideLinkComponents} defaultComponent={defaultComponent} />
 }
 
 export default UserGuideLink
