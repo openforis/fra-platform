@@ -6,6 +6,7 @@ import { Objects } from 'utils/objects'
 
 import { Areas } from 'meta/area'
 import { RecordAssessmentDatas } from 'meta/data'
+import { Measures } from 'meta/measurement/measures'
 
 import { useCountries } from 'client/store/area'
 import { useExplorerSectionData, useGetExplorerSectionData } from 'client/store/explorer/data/hooks/data'
@@ -85,7 +86,7 @@ const ResultGrid: React.FC = () => {
                   cycleName,
                   data,
                   tableName,
-                  variableName: measure,
+                  variableName: Measures.measureNameToVariableName(measure),
                 })
                 return (
                   <DataCell

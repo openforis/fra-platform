@@ -103,3 +103,12 @@ export const variableToMeasures: Record<TableName, Record<VariableName, MeasureN
     social_services: 'totalAreaWithDesignatedManagementObjectiveSocialServices',
   },
 }
+
+export const measureToVariables: Record<MeasureName, VariableName> = Object.values(variableToMeasures).reduce<
+  Record<MeasureName, VariableName>
+>((acc, measures) => {
+  Object.entries(measures).forEach(([variableName, measureName]) => {
+    acc[measureName as MeasureName] = variableName as VariableName
+  })
+  return acc
+}, {})

@@ -9,6 +9,7 @@ import { TableName } from 'meta/assessment/table'
 import { RecordAssessmentData } from 'meta/data'
 import { DimensionName } from 'meta/measurement/dimension'
 import { MeasureName } from 'meta/measurement/measure'
+import { Measures } from 'meta/measurement/measures'
 
 type Props = CycleParams & {
   countryISOs: Array<CountryIso>
@@ -22,12 +23,13 @@ type Returned = RecordAssessmentData
 
 export const getData = createAsyncThunk<Returned, Props>('explorer/data/get', async (props) => {
   const { dimensions, measures, tableName } = props
+  const variables = measures.map((measureName) => Measures.measureNameToVariableName(measureName))
 
   const params = {
     ...props,
     columns: dimensions,
     tableNames: [tableName],
-    variables: measures,
+    variables,
   }
   const { data } = await axios.get<Returned>(ApiEndPoint.CycleData.Table.tableData(), { params })
 
