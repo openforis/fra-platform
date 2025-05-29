@@ -9,7 +9,7 @@ import { Objects } from 'utils/objects'
 import { Routes, SectionNames } from 'meta/routes'
 import { Users } from 'meta/user'
 
-import { useCountries } from 'client/store/area'
+import { useCountries } from 'client/store/area/hooks/countries'
 import { useUser } from 'client/store/user'
 
 type Section = {

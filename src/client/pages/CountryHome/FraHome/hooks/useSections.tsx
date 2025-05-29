@@ -5,7 +5,7 @@ import { Cycles } from 'meta/assessment/cycles'
 import { SectionNames } from 'meta/routes'
 import { Users } from 'meta/user'
 
-import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
+import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useCanSeeUserActivities, useUser } from 'client/store/user'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import Collaborators from 'client/pages/CountryHome/Collaborators'

@@ -6,7 +6,7 @@ import { CountryIso } from 'meta/area'
 import { Labels } from 'meta/assessment/labels'
 import { Users } from 'meta/user'
 
-import { useCountry } from 'client/store/area'
+import { useCountry } from 'client/store/area/hooks/country'
 import { useIsEditTableDataEnabled, useUser } from 'client/store/user'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'

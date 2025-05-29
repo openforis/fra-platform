@@ -6,9 +6,9 @@ import { NodeValue } from 'meta/assessment/node'
 
 import { DataActions } from 'client/store/data'
 import { useAppDispatch } from 'client/store/hooks'
-import { useAssessment } from 'client/store/meta/assessment/hooks/assessments'
-import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
-import { useSection } from 'client/store/metadata'
+import { useAssessment } from 'client/store/meta/hooks/assessments'
+import { useCycle } from 'client/store/meta/hooks/cycles'
+import { useSection } from 'client/store/meta/hooks/sections'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import useGetAffectedNodes from 'client/pages/Section/DataTable/Table/RowData/Cell/hooks/useOnChange/useAffectedNodes'
 

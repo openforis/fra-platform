@@ -7,8 +7,8 @@ import { Row } from 'meta/assessment/row'
 import { Table } from 'meta/assessment/table'
 
 import { useAppSelector } from 'client/store/hooks'
-import { useAssessment } from 'client/store/meta/assessment/hooks/assessments'
-import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
+import { useAssessment } from 'client/store/meta/hooks/assessments'
+import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useCountryIso } from 'client/hooks'
 
 const useCommonParams = (): { assessmentName: AssessmentName; cycleName: CycleName; countryIso: CountryIso } => {

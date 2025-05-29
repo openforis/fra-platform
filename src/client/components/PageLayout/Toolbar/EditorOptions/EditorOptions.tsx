@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import { Users } from 'meta/user'
 
-import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
+import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useUser } from 'client/store/user'
 import { useCanViewHistoryLastApproved } from 'client/store/user/hooks'
 import { useUserHasRoleInCountry } from 'client/store/user/hooks/roles'

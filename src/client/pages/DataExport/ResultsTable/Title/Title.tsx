@@ -9,8 +9,8 @@ import { Row } from 'meta/assessment/row'
 import { UnitFactors } from 'meta/dataExport'
 import { UnitName } from 'meta/measurement/unit'
 
-import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
-import { useTableSections } from 'client/store/metadata'
+import { useCycle } from 'client/store/meta/hooks/cycles'
+import { useTableSections } from 'client/store/meta/hooks/tableSections'
 import { getUnitLabelKey } from 'client/pages/DataExport/utils'
 
 type Props = {

@@ -6,7 +6,7 @@ import { Cycle } from 'meta/assessment/cycle'
 import { Cycles } from 'meta/assessment/cycles'
 import { Users } from 'meta/user'
 
-import { useAssessments } from 'client/store/meta/assessment/hooks/assessments'
+import { useAssessments } from 'client/store/meta/hooks/assessments'
 import { useUser } from 'client/store/user'
 import { useIsDataExportView } from 'client/hooks'
 import { useCycleRouteParams } from 'client/hooks/useRouteParams'

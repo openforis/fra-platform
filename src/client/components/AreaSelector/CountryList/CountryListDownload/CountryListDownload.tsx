@@ -8,7 +8,7 @@ import { Dates } from 'utils/dates'
 import { Areas } from 'meta/area'
 import { Users } from 'meta/user'
 
-import { useCountries } from 'client/store/area'
+import { useCountries } from 'client/store/area/hooks/countries'
 import { useUser } from 'client/store/user'
 import { useButtonClassName } from 'client/components/Buttons/Button'
 import Icon from 'client/components/Icon'

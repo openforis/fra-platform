@@ -9,7 +9,7 @@ import { RecordAssessmentData, RecordAssessmentDatas, RecordCountryData } from '
 
 import { DataActions } from 'client/store/data'
 import { useAppDispatch } from 'client/store/hooks'
-import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
+import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useIsEstimationPending } from 'client/store/ui/assessmentSection'
 import { useCountryIso } from 'client/hooks'
 

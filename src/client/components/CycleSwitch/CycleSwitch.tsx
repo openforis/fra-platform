@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { AssessmentName } from 'meta/assessment/assessment'
@@ -6,12 +6,13 @@ import { CycleName } from 'meta/assessment/cycle'
 
 type Props = {
   components: Record<AssessmentName, Record<CycleName, React.FC>>
+  defaultComponent?: ReactNode
 }
 
 const CycleSwitch: React.FC<Props> = (props) => {
   const { assessmentName, cycleName } = useParams()
 
-  const { components } = props
+  const { components, defaultComponent } = props
 
   const Component = components[assessmentName]?.[cycleName]
 
@@ -19,7 +20,7 @@ const CycleSwitch: React.FC<Props> = (props) => {
     return <Component />
   }
 
-  return null
+  return defaultComponent ?? null
 }
 
 export default CycleSwitch

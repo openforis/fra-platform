@@ -4,9 +4,9 @@ import { useNavigate } from 'react-router-dom'
 import { AreaCode, Areas } from 'meta/area'
 import { Routes } from 'meta/routes'
 
-import { useCountries } from 'client/store/area'
-import { useAssessment } from 'client/store/meta/assessment/hooks/assessments'
-import { useCycle, useLastPublishedCycle } from 'client/store/meta/assessment/hooks/cycles'
+import { useCountries } from 'client/store/area/hooks/countries'
+import { useAssessment } from 'client/store/meta/hooks/assessments'
+import { useCycle, useLastPublishedCycle } from 'client/store/meta/hooks/cycles'
 import { useUser } from 'client/store/user'
 import { useIsGeoRoute } from 'client/hooks'
 

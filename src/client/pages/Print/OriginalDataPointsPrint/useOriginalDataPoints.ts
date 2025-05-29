@@ -3,8 +3,8 @@ import { useEffect, useMemo } from 'react'
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
-import { useAssessment } from 'client/store/meta/assessment/hooks/assessments'
-import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
+import { useAssessment } from 'client/store/meta/hooks/assessments'
+import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useCountryIso, useGetRequest } from 'client/hooks'
 
 export const useOriginalDataPoints = (): { originalDataPoints: Array<OriginalDataPoint>; loading: boolean } => {
