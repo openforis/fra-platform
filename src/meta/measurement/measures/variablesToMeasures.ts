@@ -52,6 +52,13 @@ export const variableToMeasures: Record<TableName, Record<VariableName, MeasureN
     natural_expansion: 'naturalExpansion',
   },
 
+  forestPolicy: {
+    existence_of_traceability_system: 'forestPolicyExistenceOfTraceabilitySystem',
+    legislations_supporting_SFM: 'forestPolicyLegislationsSupportingSFM',
+    platform_for_stakeholder_participation: 'forestPolicyPlatformForStakeholderParticipation',
+    policies_supporting_SFM: 'forestPolicyPoliciesSupportingSFM',
+  },
+
   growingStockAvg: {
     forest: 'growingStockAvgForest',
     naturallyRegeneratingForest: 'growingStockAvgNaturallyRegeneratingForest',
