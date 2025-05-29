@@ -106,22 +106,26 @@ const createAllMeasuresDimensions = async () => {
 
   const systemEntries = Object.entries(systemsOfMeasurement)
 
-  await Promise.all(
-    systemEntries.map(async ([systemOfMeasurementName, config]) => {
+  await Promise.all([
+    ...systemEntries.map(([systemOfMeasurementName, config]) => {
       const { tableNames } = config
-      await _createMeasuresAndDimensionsForTables({
+      return _createMeasuresAndDimensionsForTables({
         assessment,
         systemOfMeasurementName: systemOfMeasurementName as SystemOfMeasurementName,
         tableNames,
       })
-    })
-  )
-
-  await _createMeasuresAndDimensionsForTables({
-    assessment,
-    systemOfMeasurementName: null,
-    tableNames: ['growingStockComposition2025'],
-  })
+    }),
+    _createMeasuresAndDimensionsForTables({
+      assessment,
+      systemOfMeasurementName: null,
+      tableNames: ['growingStockComposition2025'],
+    }),
+    _createMeasuresAndDimensionsForTables({
+      assessment,
+      systemOfMeasurementName: null,
+      tableNames: ['forestPolicy'],
+    }),
+  ])
 
   await CacheController.generateExplorerMetadata({ assessment, cycle }, client)
 }

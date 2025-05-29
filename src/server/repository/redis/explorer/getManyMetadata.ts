@@ -18,7 +18,7 @@ const skipTables = [
   'carbonStockAvg',
   'biomassStockTotal',
 ]
-const standaloneTables = ['growingStockComposition2025']
+const standaloneTables = ['growingStockComposition2025', 'forestPolicy']
 
 type Props = {
   assessment: Assessment
