@@ -10,7 +10,7 @@ import { Row } from 'meta/assessment/row'
 import { TableNames } from 'meta/assessment/table'
 import { RecordAssessmentData } from 'meta/data'
 
-import { useAssessmentCountry } from 'client/store/area'
+import { useAssessmentCountry } from 'client/store/area/hooks/country'
 
 import FieldsOption from './FieldsOption'
 import { Method } from './method'

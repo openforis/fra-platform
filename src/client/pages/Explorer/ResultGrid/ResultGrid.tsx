@@ -8,7 +8,7 @@ import { Areas } from 'meta/area'
 import { RecordAssessmentDatas } from 'meta/data'
 import { Measures } from 'meta/measurement/measures'
 
-import { useCountries } from 'client/store/area'
+import { useCountries } from 'client/store/area/hooks/countries'
 import { useExplorerSectionData, useGetExplorerSectionData } from 'client/store/explorer/data/hooks/data'
 import { useExplorerCountries } from 'client/store/explorer/filter/hooks/countries'
 import { useExplorerDimensions } from 'client/store/explorer/filter/hooks/dimensions'

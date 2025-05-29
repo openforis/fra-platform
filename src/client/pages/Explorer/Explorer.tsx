@@ -7,6 +7,7 @@ import ResultGrid from './ResultGrid/ResultGrid'
 
 const Explorer: React.FC = () => {
   useGetExplorerSectionMetadata()
+
   return (
     <div className="app-view__content">
       <Filters />

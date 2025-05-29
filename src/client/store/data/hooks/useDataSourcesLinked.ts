@@ -1,8 +1,8 @@
 import { DataSourceLinked } from 'meta/assessment/descriptionValue'
 
 import { useAppSelector } from 'client/store/hooks'
-import { useAssessment } from 'client/store/meta/assessment/hooks/assessments'
-import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
+import { useAssessment } from 'client/store/meta/hooks/assessments'
+import { useCycle } from 'client/store/meta/hooks/cycles'
 
 export const useDataSourcesLinked = (props: { sectionName: string }): Array<DataSourceLinked> | undefined => {
   const { sectionName } = props

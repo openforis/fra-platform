@@ -9,7 +9,7 @@ import { Users } from 'meta/user'
 
 import { useHistoryLastApprovedIsActive, useOriginalDataPointYears } from 'client/store/data'
 import { useAppDispatch } from 'client/store/hooks'
-import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
+import { useCycle } from 'client/store/meta/hooks/cycles'
 import { AssessmentSectionActions, useShowOriginalDatapoints } from 'client/store/ui/assessmentSection'
 import { useUser } from 'client/store/user'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'

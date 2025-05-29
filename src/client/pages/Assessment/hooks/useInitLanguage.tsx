@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import { AssessmentNames } from 'meta/assessment/assessment'
 import { Lang } from 'meta/lang'
 
-import { useAssessment } from 'client/store/meta/assessment/hooks/assessments'
+import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useUser } from 'client/store/user'
 import { useLanguage, useUpdateLanguage } from 'client/hooks/useLanguage'
 import { Urls } from 'client/utils'

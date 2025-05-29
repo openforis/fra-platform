@@ -10,7 +10,7 @@ import { Areas, CountryIso } from 'meta/area'
 import { Routes } from 'meta/routes'
 
 import { useHistoryActivitiesIsActive } from 'client/store/data'
-import { useSections } from 'client/store/metadata'
+import { useSections } from 'client/store/meta/hooks/sections'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import Hr from 'client/components/Hr'
 import Icon from 'client/components/Icon'

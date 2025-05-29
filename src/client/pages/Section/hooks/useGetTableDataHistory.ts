@@ -7,7 +7,7 @@ import { SectionName } from 'meta/assessment/section'
 
 import { DataActions, useHistoryLastApprovedIsActive } from 'client/store/data'
 import { useAppDispatch } from 'client/store/hooks'
-import { useTableSections } from 'client/store/metadata'
+import { useTableSections } from 'client/store/meta/hooks/tableSections'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 type Props = { sectionName: SectionName }

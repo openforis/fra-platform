@@ -3,7 +3,7 @@ import React from 'react'
 
 import { AssessmentNames } from 'meta/assessment/assessment'
 
-import { useAssessment } from 'client/store/meta/assessment/hooks/assessments'
+import { useAssessment } from 'client/store/meta/hooks/assessments'
 import MessageCenter from 'client/components/MessageCenter'
 
 import FraHome from './FraHome'

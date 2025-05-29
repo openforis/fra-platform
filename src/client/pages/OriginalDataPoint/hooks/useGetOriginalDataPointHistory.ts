@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 
 import { DataActions, useHistoryLastApprovedIsActive } from 'client/store/data'
 import { useAppDispatch } from 'client/store/hooks'
-import { useSection } from 'client/store/metadata'
+import { useSection } from 'client/store/meta/hooks/sections'
 import { useOriginalDataPointRouteParams } from 'client/hooks/useRouteParams'
 
 export const useGetOriginalDataPointHistory = () => {

@@ -8,7 +8,7 @@ import { AssessmentName } from 'meta/assessment/assessment'
 import { Users } from 'meta/user'
 
 import { useAppDispatch } from 'client/store/hooks'
-import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
+import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useUserToEdit } from 'client/store/ui//userManagement/hooks'
 import { UserManagementActions } from 'client/store/ui/userManagement'
 import { useUser } from 'client/store/user'

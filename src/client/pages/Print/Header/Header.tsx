@@ -6,7 +6,7 @@ import { ApiEndPoint } from 'meta/api/endpoint'
 // import { AssessmentStatus, CountryIso } from 'meta/area'
 import { CountryIso } from 'meta/area'
 
-import { useCountry } from 'client/store/area'
+import { useCountry } from 'client/store/area/hooks/country'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { useLanguage } from 'client/hooks/useLanguage'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
