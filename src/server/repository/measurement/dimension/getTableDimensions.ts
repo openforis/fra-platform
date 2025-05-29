@@ -16,16 +16,24 @@ export const getTableDimensions = async (props: Props, client: BaseProtocol = DB
 
   return client.map<Dimension>(
     `
-      select distinct d.*
-      from ${schemaName}."table" t
-      cross join lateral
-        jsonb_each(t.props -> 'columnNames') as cn(cycle_uuid, names)
-      cross join lateral
-        jsonb_array_elements_text(cn.names) as dim(name)
-      join measurement.dimension d
-        on d.name = dim.name
+    with extracted_dimension_names as (
+      select distinct jsonb_array_elements_text(cn.names) as name
+      from ${schemaName}."table" t,
+           jsonb_each(t.props -> 'columnNames') as cn(cycle_uuid, names)
       where t.props ->> 'name' = $1
-        and t.props -> 'columnNames' is not null;
+        and t.props -> 'columnNames' is not null
+      union
+      select distinct elem ->> 'columnName' as name
+      from ${schemaName}."table" t,
+           jsonb_each(t.props -> 'cellsExportAlways') as cea(cycle_uuid, arr),
+           jsonb_array_elements(cea.arr) as elem
+      where t.props ->> 'name' = $1
+        and t.props -> 'cellsExportAlways' is not null
+    )
+
+    select distinct d.*
+    from extracted_dimension_names edn
+    join measurement.dimension d on d.name = edn.name;
     `,
     [tableName],
     (dimension) => Objects.camelize(dimension)

@@ -20,7 +20,7 @@ const client: BaseProtocol = DB
 
 type Props = {
   assessment: Assessment
-  systemOfMeasurementName: SystemOfMeasurementName
+  systemOfMeasurementName: SystemOfMeasurementName | null // null -> no system of measurement
   tableNames: Array<TableName>
 }
 
@@ -29,10 +29,9 @@ const _createMeasuresAndDimensionsForTables = async (props: Props) => {
 
   const schemaAssessment = Schemas.getName(assessment)
 
-  const { uuid: systemOfMeasurementUuid } = await SystemOfMeasurementRepository.getOne(
-    { systemOfMeasurementName },
-    client
-  )
+  const systemOfMeasurementUuid = systemOfMeasurementName
+    ? (await SystemOfMeasurementRepository.getOne({ systemOfMeasurementName }, client))?.uuid
+    : null
 
   // 1. Migrate area based measures
   const variableNames = await client.map<{ tableName: TableName; variableName: VariableName }>(
@@ -79,6 +78,21 @@ const _createMeasuresAndDimensionsForTables = async (props: Props) => {
       jsonb_array_elements_text(cn.names) as dim(name)
     where t.props ->> 'name' in ($1:csv)
       and t.props -> 'columnNames' is not null
+    
+    union -- Include columnNames from cellsExportAlways
+
+    select distinct dim.name
+    from ${schemaAssessment}."table" t
+    cross join lateral (
+      select elem ->> 'columnName' as name
+      from jsonb_each(t.props -> 'cellsExportAlways') as cea(cycle_uuid, arr),
+          jsonb_array_elements(cea.arr) as elem
+    ) as dim
+    where t.props ->> 'name' in ($1:csv)
+      and (
+        t.props -> 'columnNames' is not null
+        or t.props -> 'cellsExportAlways' is not null
+      )
     on conflict (name) do nothing;
     `,
     [tableNames]
@@ -102,6 +116,12 @@ const createAllMeasuresDimensions = async () => {
       })
     })
   )
+
+  await _createMeasuresAndDimensionsForTables({
+    assessment,
+    systemOfMeasurementName: null,
+    tableNames: ['growingStockComposition2025'],
+  })
 
   await CacheController.generateExplorerMetadata({ assessment, cycle }, client)
 }
