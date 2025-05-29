@@ -6,6 +6,7 @@ import { Objects } from 'utils/objects'
 
 import { Areas } from 'meta/area'
 import { RecordAssessmentDatas } from 'meta/data'
+import { Dimensions } from 'meta/measurement/dimensions'
 import { Measures } from 'meta/measurement/measures'
 
 import { useCountries } from 'client/store/area/hooks/countries'
@@ -81,7 +82,7 @@ const ResultGrid: React.FC = () => {
               dimensions.map((dimension, dIdx) => {
                 const value = RecordAssessmentDatas.getDatum({
                   assessmentName,
-                  colName: dimension,
+                  colName: Dimensions.dimensionNameToColumnName(dimension),
                   countryIso,
                   cycleName,
                   data,
