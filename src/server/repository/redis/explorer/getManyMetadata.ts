@@ -12,7 +12,12 @@ import { getKeyCycle, Keys } from 'server/repository/redis/keys'
 import { RedisData } from 'server/repository/redis/redisData'
 import { SectionRedisRepository } from 'server/repository/redis/section/index'
 
-const skipTables = ['totalAreaWithDesignatedManagementObjective', 'growingStockTotal']
+const skipTables = [
+  'totalAreaWithDesignatedManagementObjective',
+  'growingStockTotal',
+  'carbonStockAvg',
+  'biomassStockTotal',
+]
 const standaloneTables = ['growingStockComposition2025']
 
 type Props = {
