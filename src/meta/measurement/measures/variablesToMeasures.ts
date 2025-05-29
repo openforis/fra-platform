@@ -13,6 +13,34 @@ export const variableToMeasures: Record<TableName, Record<VariableName, MeasureN
     area_of_permanent_forest_estate: 'areaOfPermanentForestEstate',
   },
 
+  biomassStockAvg: {
+    forest_above_ground: 'biomassStockAvgForestAboveGround',
+    forest_below_ground: 'biomassStockAvgForestBelowGround',
+    forest_deadwood: 'biomassStockAvgForestDeadwood',
+  },
+
+  biomassStockTotal: {
+    forest_above_ground: 'biomassStockTotalForestAboveGround',
+    forest_below_ground: 'biomassStockTotalForestBelowGround',
+    forest_deadwood: 'biomassStockTotalForestDeadwood',
+  },
+
+  carbonStockAvg: {
+    carbon_forest_above_ground: 'carbonStockAvgCarbonForestAboveGround',
+    carbon_forest_below_ground: 'carbonStockAvgCarbonForestBelowGround',
+    carbon_forest_deadwood: 'carbonStockAvgCarbonForestDeadwood',
+    carbon_forest_litter: 'carbonStockAvgCarbonForestLitter',
+    carbon_forest_soil: 'carbonStockAvgCarbonForestSoil',
+  },
+
+  carbonStockTotal: {
+    carbon_forest_above_ground: 'carbonStockTotalCarbonForestAboveGround',
+    carbon_forest_below_ground: 'carbonStockTotalCarbonForestBelowGround',
+    carbon_forest_deadwood: 'carbonStockTotalCarbonForestDeadwood',
+    carbon_forest_litter: 'carbonStockTotalCarbonForestLitter',
+    carbon_forest_soil: 'carbonStockTotalCarbonForestSoil',
+  },
+
   disturbances: {
     other: 'disturbancesOtherArea',
     severe_weather_events: 'severeWeatherEvents',
