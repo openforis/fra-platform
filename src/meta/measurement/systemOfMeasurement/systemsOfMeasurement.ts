@@ -45,6 +45,14 @@ export const systemsOfMeasurement: SystemOfMeasurementSeed = {
     units: [{ name: 'haThousandPerYear', symbol: '1000ha/year', conversionFactor: 1 }],
     tableNames: ['forestAreaChange'],
   },
+  [SystemOfMeasurementName.mass]: {
+    units: [{ name: 'millionTonnes', symbol: '1000000t', conversionFactor: 1 }],
+    tableNames: ['biomassStockTotal', 'carbonStockTotal'],
+  },
+  [SystemOfMeasurementName.massPerArea]: {
+    units: [{ name: 'tonnesPerHa', symbol: 't/ha', conversionFactor: 1 }],
+    tableNames: ['biomassStockAvg', 'carbonStockAvg'],
+  },
   [SystemOfMeasurementName.volume]: {
     units: [{ name: 'millionCubicMeter', symbol: '1000000m³', conversionFactor: 1 }],
     tableNames: ['growingStockTotal'],
