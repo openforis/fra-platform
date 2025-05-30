@@ -6,8 +6,10 @@ import { ToolsUtils } from 'tools/utils/toolsUtils'
 import { Objects } from 'utils/objects'
 
 import { Assessment, AssessmentNames } from 'meta/assessment/assessment'
+import { ColName } from 'meta/assessment/col'
 import { TableName } from 'meta/assessment/table'
 import { VariableName } from 'meta/assessment/variable'
+import { Dimensions } from 'meta/measurement/dimensions'
 import { Measures } from 'meta/measurement/measures'
 import { SystemOfMeasurementName, systemsOfMeasurement } from 'meta/measurement/systemOfMeasurement'
 
@@ -54,23 +56,22 @@ const _createMeasuresAndDimensionsForTables = async (props: Props) => {
   })
 
   const pgp = pgPromise()
-  const columns = [
+  const measureColumns = [
     { name: 'name', prop: 'name' },
     { name: 'system_uuid', prop: 'system_uuid' },
   ]
-  const table = { table: 'measure', schema: 'measurement' }
-  const cs = new pgp.helpers.ColumnSet(columns, { table })
+  const measureTable = { table: 'measure', schema: 'measurement' }
+  const measuresColumnSet = new pgp.helpers.ColumnSet(measureColumns, { table: measureTable })
 
-  const insertMeasuresQuery = `${pgp.helpers.insert(measures, cs)} on conflict (name) do nothing;`
+  const insertMeasuresQuery = `${pgp.helpers.insert(measures, measuresColumnSet)} on conflict (name) do nothing;`
 
   await client.query(insertMeasuresQuery)
 
   // 2. Migrate area based dimensions
-  await client.query(
+  const dimensionNames = await client.map<{ tableName: TableName; columnName: ColName }>(
     `
-    insert into measurement.dimension (name)
     select distinct
-      dim.name
+      t.props ->> 'name' as table_name, dim.name as column_name
     from ${schemaAssessment}."table" t
     cross join lateral
       jsonb_each(t.props -> 'columnNames') as cn(cycle_uuid, names)
@@ -81,7 +82,8 @@ const _createMeasuresAndDimensionsForTables = async (props: Props) => {
     
     union -- Include columnNames from cellsExportAlways
 
-    select distinct dim.name
+    select distinct
+      t.props ->> 'name' as table_name, dim.name as column_name
     from ${schemaAssessment}."table" t
     cross join lateral (
       select elem ->> 'columnName' as name
@@ -93,10 +95,20 @@ const _createMeasuresAndDimensionsForTables = async (props: Props) => {
         t.props -> 'columnNames' is not null
         or t.props -> 'cellsExportAlways' is not null
       )
-    on conflict (name) do nothing;
-    `,
-    [tableNames]
+  `,
+    [tableNames],
+    (res) => Objects.camelize(res)
   )
+  const dimensions = dimensionNames.map(({ columnName, tableName }) => ({
+    name: Dimensions.columnNameToDimensionName(tableName, columnName),
+  }))
+
+  const dimensionColumns = [{ name: 'name', prop: 'name' }]
+  const dimensionTable = { table: 'dimension', schema: 'measurement' }
+  const dimensionsColumnSet = new pgp.helpers.ColumnSet(dimensionColumns, { table: dimensionTable })
+
+  const insertDimensionsQuery = `${pgp.helpers.insert(dimensions, dimensionsColumnSet)} on conflict (name) do nothing;`
+  await client.query(insertDimensionsQuery)
 }
 
 const createAllMeasuresDimensions = async () => {

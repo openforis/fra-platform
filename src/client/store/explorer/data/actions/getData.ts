@@ -8,6 +8,7 @@ import { SectionName } from 'meta/assessment/section'
 import { TableName } from 'meta/assessment/table'
 import { RecordAssessmentData } from 'meta/data'
 import { DimensionName } from 'meta/measurement/dimension'
+import { Dimensions } from 'meta/measurement/dimensions'
 import { MeasureName } from 'meta/measurement/measure'
 import { Measures } from 'meta/measurement/measures'
 
@@ -23,11 +24,13 @@ type Returned = RecordAssessmentData
 
 export const getData = createAsyncThunk<Returned, Props>('explorer/data/get', async (props) => {
   const { dimensions, measures, tableName } = props
+
+  const columns = dimensions.map((dimensionName) => Dimensions.dimensionNameToColumnName(dimensionName))
   const variables = measures.map((measureName) => Measures.measureNameToVariableName(measureName))
 
   const params = {
     ...props,
-    columns: dimensions,
+    columns,
     tableNames: [tableName],
     variables,
   }
