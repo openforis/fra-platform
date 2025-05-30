@@ -35,6 +35,7 @@ export const useUpdateLanguage = (): UpdateLanguage => {
           UserManagementActions.updateUser({
             assessmentName,
             cycleName,
+            showIndicator: false,
             user: {
               ...user,
               props: {

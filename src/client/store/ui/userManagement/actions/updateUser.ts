@@ -13,6 +13,8 @@ type Params = {
   cycleName?: string
   user: User
   profilePicture?: File | null
+  // used to hide indicator in toolbar
+  showIndicator: boolean
 }
 
 const putUser = Functions.debounce(

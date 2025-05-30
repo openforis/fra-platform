@@ -50,13 +50,17 @@ export const useLoadingIndicatorState = () => {
           ...ACTIONS.map((action) => isRejected(action))
         ),
         effect: (action) => {
-          if (isPending(action)) {
+          // If an action is dispatch with showIndicator: false, we hide the indicator
+          // Defaults to true, showing the indicator
+          const showIndicator = action?.payload?.showIndicator ?? action?.meta?.arg?.showIndicator ?? true
+
+          if (isPending(action) && showIndicator) {
             setShow(true)
             setShowCheck(false)
             if (timeoutRef.current) {
               clearTimeout(timeoutRef.current)
             }
-          } else if (isFulfilled(action)) {
+          } else if (isFulfilled(action) && showIndicator) {
             setShowCheck(true)
             if (timeoutRef.current) {
               clearTimeout(timeoutRef.current)
