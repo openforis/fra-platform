@@ -37,13 +37,16 @@ export const removeOriginalDataPoint = async (props: Props, client: BaseProtocol
 
     const message = ActivityLogMessage.originalDataPointRemove
     const activityLog: ActivityLog<OriginalDataPoint> = { target, section: 'odp', message, countryIso, user }
-    await ActivityLogRepository.insertActivityLog({ assessment, cycle, activityLog }, t)
+    const { time: lastUpdateTimestamp } = await ActivityLogRepository.insertActivityLog(
+      { assessment, cycle, activityLog },
+      t
+    )
 
     const socketProps = { assessmentName, cycleName, countryIso }
     SocketServer.emit(Sockets.getODPDeleteEvent(socketProps), { countryIso, year: originalDataPoint.year })
     SocketServer.emit(Sockets.getRequestReviewSummaryEvent(socketProps))
 
-    await CountryService.updateLastEdit({ assessment, cycle, country, user, lastEditOdp: true }, t)
+    await CountryService.updateLastEdit({ assessment, cycle, country, user, lastEditOdp: true, lastUpdateTimestamp }, t)
 
     return target
   })
