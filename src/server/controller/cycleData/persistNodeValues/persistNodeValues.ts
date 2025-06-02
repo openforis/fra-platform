@@ -25,6 +25,10 @@ type Props = {
   country: Country
 }
 
+type PersistedNodeWithTime = NodeUpdate & {
+  time: string
+}
+
 export const persistNodeValues = async (props: Props, client: BaseProtocol = DB): Promise<void> => {
   const { activityLogMessage, assessment, country, cycle, nodeUpdates, sectionName, user } = props
   const { countryIso } = nodeUpdates
@@ -34,7 +38,7 @@ export const persistNodeValues = async (props: Props, client: BaseProtocol = DB)
       await client.func('pg_advisory_xact_lock', [1])
 
       // update nodes in db
-      const persistedNodes = await Promise.all<NodeUpdate>(
+      const persistedNodesWithTimes: Array<PersistedNodeWithTime> = await Promise.all(
         nodeUpdates.nodes.map(async (nodeUpdate) => {
           const { colName, tableName, value, variableName } = nodeUpdate
 
@@ -50,9 +54,21 @@ export const persistNodeValues = async (props: Props, client: BaseProtocol = DB)
             user,
             activityLogMessage,
           }
-          const node = await persistNode(propsPersist, client)
-          return { tableName, variableName, colName, value: node.value }
+          const { node, time } = await persistNode(propsPersist, client)
+          return { tableName, variableName, colName, value: node.value, time }
         })
+      )
+
+      const persistedNodes = persistedNodesWithTimes.map(({ colName, tableName, value, variableName }) => ({
+        tableName,
+        variableName,
+        colName,
+        value,
+      }))
+
+      const lastUpdateTimestamp = persistedNodesWithTimes.reduce<string>(
+        (max: string, { time }: { time: string }) => (time > max ? time : max),
+        ''
       )
 
       // notify updates to client
@@ -66,7 +82,7 @@ export const persistNodeValues = async (props: Props, client: BaseProtocol = DB)
         client
       )
       SocketServer.emit(nodeUpdateEvent, { nodeUpdates: nodeUpdatesMirrorReset })
-      await CountryService.updateLastEdit({ assessment, cycle, country, user }, client)
+      await CountryService.updateLastEdit({ assessment, cycle, country, user, lastUpdateTimestamp }, client)
 
       // schedule dependencies update
       await scheduleUpdateDependencies({ assessment, cycle, country, nodeUpdates: nodeUpdatesPersisted, user })
