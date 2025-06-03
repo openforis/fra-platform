@@ -3,8 +3,13 @@ import { useEffect, useMemo } from 'react'
 import { Functions } from 'utils/functions'
 
 import { useAppDispatch } from 'client/store/hooks'
-import { TablePaginatedActions, useTablePaginatedOrderBy, useTablePaginatedPage } from 'client/store/ui/tablePaginated'
-import { useIsTablePaginatedInitialized, useTablePaginatedFilters } from 'client/store/ui/tablePaginated/hooks'
+import { TablePaginatedActions } from 'client/store/tablePaginated/actions'
+import {
+  useIsTablePaginatedInitialized,
+  useTablePaginatedFilters,
+  useTablePaginatedOrderBy,
+  useTablePaginatedPage,
+} from 'client/store/tablePaginated/hooks/tablePaginated'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 import { TablePaginatedCounter } from 'client/components/TablePaginated/types'
 

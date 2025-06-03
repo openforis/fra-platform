@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { RoleName, Users } from 'meta/user'
 
-import { useTablePaginatedCount } from 'client/store/ui/tablePaginated'
+import { useTablePaginatedCount } from 'client/store/tablePaginated/hooks/tablePaginated'
 import { TablePaginatedCounterComponent } from 'client/components/TablePaginated'
 
 const UsersCount: TablePaginatedCounterComponent = () => {

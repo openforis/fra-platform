@@ -1,11 +1,11 @@
 import { createSelector } from '@reduxjs/toolkit'
 import { Objects } from 'utils/objects'
 
+import { TablePaginatedState } from 'client/store/tablePaginated/state'
 import { RootState } from 'client/store/types'
-import { TablePaginatedState } from 'client/store/ui/tablePaginated/state'
 
 const _getState = createSelector(
-  (state: RootState) => state.ui.tablePaginated,
+  (state: RootState) => state.tablePaginated,
   (tablePaginated: TablePaginatedState) => tablePaginated
 )
 

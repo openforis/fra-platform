@@ -19,7 +19,6 @@ import NavigationSlice from './ui/navigation/slice'
 import NotificationSlice from './ui/notification/slice'
 import OriginalDataPointSlice from './ui/originalDataPoint/slice'
 import ReviewSlice from './ui/review/slice'
-import { TablePaginatedSlice } from './ui/tablePaginated'
 import UserManagementSlice from './ui/userManagement/slice'
 import UserSlice from './user/slice'
 
@@ -31,7 +30,6 @@ export default {
   geo: GeoSlice,
   ui: combineReducers({
     [AreaSelectorSlice.name]: AreaSelectorSlice.reducer,
-    [TablePaginatedSlice.name]: TablePaginatedSlice.reducer,
     [AssessmentSectionSlice.name]: AssessmentSectionSlice.reducer,
     dataExport: DataExportSlice,
     dataLock: DataLockSlice,

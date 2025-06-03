@@ -3,7 +3,8 @@ import { Objects } from 'utils/objects'
 import { TablePaginatedCompareFn, TablePaginatedFilterValues, TablePaginatedOrderBy } from 'meta/tablePaginated'
 
 import { useAppSelector } from 'client/store/hooks'
-import { TablePaginatedSelectors } from 'client/store/ui/tablePaginated/selectors'
+
+import { TablePaginatedSelectors } from '../selectors'
 
 export const useIsTablePaginatedInitialized = (path: string): boolean =>
   useAppSelector((state) => TablePaginatedSelectors.isInitialized(state, path))

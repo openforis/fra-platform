@@ -4,7 +4,7 @@ import { ApiEndPoint } from 'meta/api/endpoint'
 import { CountryIso } from 'meta/area'
 
 import { useAppDispatch } from 'client/store/hooks'
-import { TablePaginatedActions } from 'client/store/ui/tablePaginated'
+import { TablePaginatedActions } from 'client/store/tablePaginated/actions'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 export const useRefetchUsers = (): (() => void) => {

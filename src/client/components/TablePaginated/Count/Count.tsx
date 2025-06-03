@@ -2,7 +2,7 @@ import './Count.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { useTablePaginatedCount } from 'client/store/ui/tablePaginated'
+import { useTablePaginatedCount } from 'client/store/tablePaginated/hooks/tablePaginated'
 import { TablePaginatedCounter, TablePaginatedCounterComponent } from 'client/components/TablePaginated/types'
 
 type Props = {

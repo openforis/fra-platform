@@ -3,8 +3,8 @@ import { useEffect } from 'react'
 import { TablePaginatedFilterType } from 'meta/tablePaginated'
 
 import { useAppDispatch } from 'client/store/hooks'
-import { TablePaginatedActions } from 'client/store/ui/tablePaginated'
-import { useIsTablePaginatedInitialized } from 'client/store/ui/tablePaginated/hooks'
+import { TablePaginatedActions } from 'client/store/tablePaginated/actions'
+import { useIsTablePaginatedInitialized } from 'client/store/tablePaginated/hooks/tablePaginated'
 import { TablePaginatedFilter } from 'client/components/TablePaginated/types'
 
 type Props = {

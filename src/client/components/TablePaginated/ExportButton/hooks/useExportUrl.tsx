@@ -4,8 +4,7 @@ import { Objects } from 'utils/objects'
 
 import { TablePaginateds } from 'meta/tablePaginated'
 
-import { useTablePaginatedOrderBy } from 'client/store/ui/tablePaginated'
-import { useTablePaginatedFilters } from 'client/store/ui/tablePaginated/hooks'
+import { useTablePaginatedFilters, useTablePaginatedOrderBy } from 'client/store/tablePaginated/hooks/tablePaginated'
 import { useLanguage } from 'client/hooks/useLanguage'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 
