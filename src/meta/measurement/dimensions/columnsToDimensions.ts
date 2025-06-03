@@ -4,9 +4,13 @@ import { DimensionName } from 'meta/measurement/dimension/dimension'
 
 // Columns omitted from this map will default to using their own names as dimension names
 export const columnToDimensions: Record<TableName, Record<ColName, DimensionName>> = {
+  areaOfPermanentForestEstate: {
+    applicable: 'areaOfPermanentForestEstateApplicable',
+  },
+
   forestPolicy: {
-    national_yes_no: 'nationalYesNo',
-    sub_national_yes_no: 'subNationalYesNo',
+    national_yes_no: 'forestPolicyNationalYesNo',
+    sub_national_yes_no: 'forestPolicySubNationalYesNo',
   },
 
   growingStockComposition2025: {

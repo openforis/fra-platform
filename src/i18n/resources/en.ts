@@ -6,6 +6,7 @@ import * as common from './en/common.json'
 import * as contentCheck from './en/contentCheck.json'
 import * as dataDownload from './en/dataDownload.json'
 import * as dataSource from './en/dataSource.json'
+import * as dimensions from './en/dimensions.json'
 import * as editUser from './en/editUser.json'
 import * as email from './en/email.json'
 import * as fra from './en/fra.json'
@@ -32,6 +33,7 @@ export const enTranslation = {
   contentCheck,
   dataDownload,
   dataSource,
+  dimensions,
   editUser,
   email,
   fra,

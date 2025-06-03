@@ -13,10 +13,10 @@ import { RedisData } from 'server/repository/redis/redisData'
 import { SectionRedisRepository } from 'server/repository/redis/section/index'
 
 const skipTables = [
-  'totalAreaWithDesignatedManagementObjective',
-  'growingStockTotal',
-  'carbonStockAvg',
   'biomassStockTotal',
+  'carbonStockTotal',
+  'growingStockAvg',
+  'totalAreaWithDesignatedManagementObjective',
 ]
 const standaloneTables = ['growingStockComposition2025', 'forestPolicy']
 
