@@ -5,7 +5,7 @@ import { MeasureName } from 'meta/measurement/measure'
 // Variables omitted from this map will default to using their own names as measure names
 export const variableToMeasures: Record<TableName, Record<VariableName, MeasureName>> = {
   areaAffectedByFire: {
-    of_which_on_forest: 'ofWhichOnForest',
+    of_which_on_forest: 'areaAffectedByFireOfWhichOnForest',
     total_land_area_affected_by_fire: 'totalLandAreaAffectedByFire',
   },
 
@@ -45,11 +45,16 @@ export const variableToMeasures: Record<TableName, Record<VariableName, MeasureN
     other: 'disturbancesOtherArea',
     severe_weather_events: 'severeWeatherEvents',
     total: 'disturbancesTotalArea',
+    totalForestArea: 'disturbancesTotalForestArea',
   },
 
   forestAreaChange: {
     forest_expansion: 'forestExpansion',
     natural_expansion: 'naturalExpansion',
+  },
+
+  forestCharacteristics: {
+    totalForestArea: 'forestCharacteristicsTotalForestArea',
   },
 
   forestPolicy: {
@@ -91,18 +96,22 @@ export const variableToMeasures: Record<TableName, Record<VariableName, MeasureN
     of_which_by_communities: 'ofWhichByCommunities',
     of_which_by_individuals: 'ofWhichByIndividuals',
     of_which_by_private_businesses: 'ofWhichByPrivateBusinesses',
-    other_or_unknown: 'otherOrUnknown',
+    other_or_unknown: 'forestOwnershipOtherOrUnknown',
     other: 'forestOwnershipOtherArea',
     private_ownership: 'privateOwnership',
     public_ownership: 'publicOwnership',
     total: 'forestOwnershipTotalArea',
+    totalForestArea: 'forestOwnershipTotalForestArea',
     unknown: 'forestOwnershipUnknownArea',
   },
 
   holderOfManagementRights: {
+    communities: 'holderOfManagementRightsCommunities',
+    individuals: 'holderOfManagementRightsIndividuals',
     other: 'holderOfManagementRightsOtherArea',
-    private_businesses: 'privateBusinesses',
-    public_administration: 'publicAdministration',
+    other2025: 'holderOfManagementRightsOtherArea2025',
+    private_businesses: 'holderOfManagementRightsPrivateBusinesses',
+    public_administration: 'holderOfManagementRightsPublicAdministration',
     unknown: 'holderOfManagementRightsUnknownArea',
   },
 
@@ -121,6 +130,7 @@ export const variableToMeasures: Record<TableName, Record<VariableName, MeasureN
     production: 'primaryDesignatedManagementObjectiveProductionArea',
     protection_of_soil_and_water: 'primaryDesignatedManagementObjectiveProtectionOfSoilAndWater',
     social_services: 'primaryDesignatedManagementObjectiveSocialServices',
+    totalForestArea: 'primaryDesignatedManagementObjectiveTotalForestArea',
     unknown: 'primaryDesignatedManagementObjectiveUnknown',
   },
 
