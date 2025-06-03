@@ -8,7 +8,6 @@ import { LinksSlice } from 'client/store/ui/links'
 import { RepositorySlice } from 'client/store/ui/repository'
 
 import DataSlice from './data/slice'
-import LoginSlice from './login/slice'
 import { AreaSelectorSlice } from './ui/areaSelector'
 import { AssessmentSectionSlice } from './ui/assessmentSection/slice'
 import DataExportSlice from './ui/dataExport/slice'
@@ -30,7 +29,6 @@ export default {
   [MetaSlice.name]: MetaSlice.reducer,
   data: DataSlice,
   geo: GeoSlice,
-  login: LoginSlice,
   ui: combineReducers({
     [AreaSelectorSlice.name]: AreaSelectorSlice.reducer,
     [TablePaginatedSlice.name]: TablePaginatedSlice.reducer,

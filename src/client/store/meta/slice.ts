@@ -8,7 +8,7 @@ import { setTableSectionsReducer } from 'client/store/meta/extraReducers/setTabl
 import { initialState } from 'client/store/meta/state'
 
 export const MetaSlice = createSlice({
-  name: 'metadata',
+  name: 'meta',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
