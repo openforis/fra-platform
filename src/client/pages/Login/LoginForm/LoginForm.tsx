@@ -8,7 +8,7 @@ import { ApiEndPoint } from 'meta/api/endpoint'
 import { Routes } from 'meta/routes'
 
 import { useAppDispatch } from 'client/store/hooks'
-import { LoginActions } from 'client/store/login'
+import { LoginActions } from 'client/store/login/actions'
 import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useUser } from 'client/store/user'
