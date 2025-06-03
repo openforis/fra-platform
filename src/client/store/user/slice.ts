@@ -1,10 +1,9 @@
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 
 import { ApplicationActions } from 'client/store/application/actions'
-import { localLogin } from 'client/store/login/actions'
+import { LoginActions } from 'client/store/login/actions'
 import { UserManagementActions } from 'client/store/ui/userManagement'
 
-import { LoginActions } from '../login'
 import { logout } from './actions'
 import { UserState } from './stateType'
 
@@ -18,7 +17,7 @@ export const userSlice = createSlice({
     builder.addCase(logout.fulfilled, () => initialState)
 
     builder.addCase(ApplicationActions.initApp.fulfilled, (_, { payload }) => payload.user)
-    builder.addCase(localLogin.fulfilled, (_, { payload }) => payload)
+    builder.addCase(LoginActions.localLogin.fulfilled, (_, { payload }) => payload)
 
     builder.addCase(UserManagementActions.updateUser.fulfilled, (state, { payload }) =>
       payload.user.id === state.id ? { ...payload.user, roles: state.roles } : state

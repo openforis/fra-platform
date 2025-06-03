@@ -41,3 +41,10 @@ export interface LoginState {
     message?: string
   }
 }
+
+export const initialState: LoginState = {
+  login: {},
+  invitation: {},
+  resetPassword: {},
+  changePassword: {},
+}

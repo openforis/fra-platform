@@ -4,8 +4,9 @@ import { useNavigate } from 'react-router-dom'
 import { Routes } from 'meta/routes'
 
 import { useAppDispatch } from 'client/store/hooks'
-import { LoginActions, useInvitation } from 'client/store/login'
-import { AcceptInvitationFormState } from 'client/store/login/stateType'
+import { LoginActions } from 'client/store/login/actions'
+import { useInvitation } from 'client/store/login/hooks/invitation'
+import { AcceptInvitationFormState } from 'client/store/login/state'
 import { isError, LoginValidator } from 'client/pages/Login/utils/LoginValidator'
 
 type Props = {

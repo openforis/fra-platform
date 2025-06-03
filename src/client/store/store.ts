@@ -1,36 +1,30 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit'
+import { combineSlices, configureStore, createSlice } from '@reduxjs/toolkit'
+import { Middleware } from 'redux'
 import createDebounce from 'redux-debounced'
+
+import { LoginState } from 'client/store/login/state'
 
 import axiosMiddleware from './middleware/axios'
 import { listenerMiddleware } from './middleware/listener'
 import rootReducer from './rootReducer'
 
-const asyncReducers: Record<string, any> = {}
-
-const createReducer = () =>
-  combineReducers({
-    ...rootReducer,
-    ...asyncReducers,
-  })
-
-const store = configureStore({
-  reducer: createReducer(),
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().prepend(listenerMiddleware.middleware).concat(createDebounce(), axiosMiddleware),
-})
-
-export const injectReducer = (key: string, asyncReducer: any) => {
-  if (!asyncReducers[key]) {
-    asyncReducers[key] = asyncReducer
-    store.replaceReducer(createReducer())
-  }
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface LazyLoadedSlices {
+  login: LoginState
 }
 
-export const removeReducer = (key: string) => {
-  if (asyncReducers[key]) {
-    delete asyncReducers[key]
-    store.replaceReducer(createReducer())
-  }
+export const reducer = combineSlices(rootReducer).withLazyLoadedSlices<LazyLoadedSlices>()
+
+const store = configureStore({
+  reducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware()
+      .prepend(listenerMiddleware.middleware)
+      .concat(createDebounce() as Middleware, axiosMiddleware),
+})
+
+export const injectSlice = (slice: ReturnType<typeof createSlice>) => {
+  reducer.inject(slice)
 }
 
 export default store
