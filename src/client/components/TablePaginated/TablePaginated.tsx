@@ -4,10 +4,7 @@ import Skeleton from 'react-loading-skeleton'
 
 import classNames from 'classnames'
 
-import { injectSlice } from 'client/store/store'
 import { useTablePaginatedCount } from 'client/store/tablePaginated/hooks/tablePaginated'
-import { TablePaginatedSlice } from 'client/store/tablePaginated/slice'
-import { useOnMount } from 'client/hooks/useOnMount'
 import DataGrid from 'client/components/DataGridDeprecated'
 import Hr from 'client/components/Hr'
 import { PaginatorProps } from 'client/components/Paginator'
@@ -73,10 +70,6 @@ const TablePaginated = <Datum extends object>(props: Props<Datum>) => {
     [columns.length, gridTemplateColumnsProps]
   )
   const withFilters = useMemo<boolean>(() => filters.filter((filter) => !filter.hidden).length > 0, [filters])
-
-  useOnMount(() => {
-    injectSlice(TablePaginatedSlice)
-  })
 
   return (
     <div ref={divRef} className={classNames('table-paginated', className)}>
