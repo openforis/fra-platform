@@ -7,8 +7,9 @@ import { useAppSelector } from 'client/store/hooks'
 import { RootState } from 'client/store/types'
 
 const _repositoryItemsSelector = createSelector(
-  (state: RootState) => state.ui.tablePaginated,
-  (tablePaginated) => tablePaginated[ApiEndPoint.CycleData.Repository.many()]?.data as unknown as Array<RepositoryItem>
+  (state: RootState) => state.tablePaginated,
+  (tablePaginated) =>
+    tablePaginated?.[ApiEndPoint.CycleData.Repository.many()]?.data as unknown as Array<RepositoryItem>
 )
 
 export const useRepositoryItems = (): Array<RepositoryItem> | undefined => {

@@ -6,8 +6,9 @@ import { ApiEndPoint } from 'meta/api/endpoint'
 
 import { useAppDispatch } from 'client/store/hooks'
 import { addAppListener } from 'client/store/middleware/listener'
+import { TablePaginatedActions } from 'client/store/tablePaginated/actions'
+import { useTablePaginatedOrderBy, useTablePaginatedPage } from 'client/store/tablePaginated/hooks/tablePaginated'
 import { LinksActions } from 'client/store/ui/links'
-import { TablePaginatedActions, useTablePaginatedOrderBy, useTablePaginatedPage } from 'client/store/ui/tablePaginated'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 export const useLinksChangeListener = () => {

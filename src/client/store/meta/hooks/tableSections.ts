@@ -19,7 +19,7 @@ export const useTableSections = (props: Props): Array<TableSection> => {
   return useAppSelector(
     createSelector(
       (state: RootState) => state,
-      (state: RootState) => state.metadata.tableSections?.[assessmentName]?.[cycleName]?.[sectionName] ?? []
+      (state: RootState) => state.meta.tableSections?.[assessmentName]?.[cycleName]?.[sectionName] ?? []
     )
   )
 }
@@ -29,7 +29,7 @@ export const useTableSectionsCycle = (): Array<TableSection> => {
 
   return useAppSelector(
     createSelector(
-      (state: RootState) => state.metadata.tableSections?.[assessmentName]?.[cycleName] ?? {},
+      (state: RootState) => state.meta.tableSections?.[assessmentName]?.[cycleName] ?? {},
       (sections: Record<SectionName, Array<TableSection>>) => {
         return Object.values(sections).reduce<Array<TableSection>>((acc, tableSections) => {
           tableSections?.forEach((tableSection) => {

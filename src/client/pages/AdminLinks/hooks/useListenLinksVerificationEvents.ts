@@ -7,13 +7,13 @@ import { ApiEndPoint } from 'meta/api/endpoint'
 import { Sockets } from 'meta/socket'
 
 import { useAppDispatch } from 'client/store/hooks'
-import { LinksActions, useIsVerificationInProgress } from 'client/store/ui/links'
+import { TablePaginatedActions } from 'client/store/tablePaginated/actions'
 import {
-  TablePaginatedActions,
   useTablePaginatedData,
   useTablePaginatedOrderBy,
   useTablePaginatedPage,
-} from 'client/store/ui/tablePaginated'
+} from 'client/store/tablePaginated/hooks/tablePaginated'
+import { LinksActions, useIsVerificationInProgress } from 'client/store/ui/links'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 import { SocketClient } from 'client/service/socket'
 

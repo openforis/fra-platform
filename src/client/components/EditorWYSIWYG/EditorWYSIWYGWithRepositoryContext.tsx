@@ -7,6 +7,9 @@ import type { IJodit } from 'jodit/esm/types/jodit'
 
 import { RepositoryItem } from 'meta/cycleData'
 
+import { injectSlice } from 'client/store/store'
+import { TablePaginatedSlice } from 'client/store/tablePaginated/slice'
+import { useOnMount } from 'client/hooks/useOnMount'
 import EditorWYSIWYG, { EditorWYSIWYGProps } from 'client/components/EditorWYSIWYG/EditorWYSIWYG'
 import { RepositoryLinkContext, RepositoryLinkContextType } from 'client/components/EditorWYSIWYG/repositoryLinkContext'
 import Icon from 'client/components/Icon'
@@ -17,6 +20,10 @@ const EditorWYSIWYGWithRepositoryContext: React.FC<EditorWYSIWYGProps> = (props)
   const [jodit, setJodit] = useState<IJodit>()
   const [repositoryOpened, setRepositoryOpened] = useState<boolean>(false)
   const [selectedFiles, setSelectedFiles] = useState<Array<RepositoryItem>>([])
+
+  useOnMount(() => {
+    injectSlice(TablePaginatedSlice)
+  })
 
   const repositoryButton = useMemo<IControlType>(() => {
     const exec = (_jodit: IJodit) => {

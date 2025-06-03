@@ -4,11 +4,12 @@ import { isAnyOf } from '@reduxjs/toolkit'
 import { Objects } from 'utils/objects'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
+import { RepositoryItem } from 'meta/cycleData'
 
 import { useAppDispatch } from 'client/store/hooks'
 import { addAppListener } from 'client/store/middleware/listener'
+import { TablePaginatedActions } from 'client/store/tablePaginated/actions'
 import { RepositoryActions } from 'client/store/ui/repository'
-import { TablePaginatedActions } from 'client/store/ui/tablePaginated'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 export const useRepositoryItemChangeListener = () => {
@@ -23,7 +24,7 @@ export const useRepositoryItemChangeListener = () => {
           RepositoryActions.upsertRepositoryItem.fulfilled
         ),
         effect: (action) => {
-          const repositoryItem = action.payload
+          const repositoryItem = action.payload as RepositoryItem
           const global = Objects.isEmpty(repositoryItem.countryIso) ? '?global=true' : ''
           const path = `${ApiEndPoint.CycleData.Repository.many()}${global}`
 
