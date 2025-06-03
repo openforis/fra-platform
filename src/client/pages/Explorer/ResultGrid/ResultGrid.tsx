@@ -50,7 +50,7 @@ const ResultGrid: React.FC = () => {
           lastCol={mIdx === measures.length - 1}
         >
           {/* TODO: Unit conversion select */}
-          {t(`measures.${measure}`)}
+          {t(Measures.getTName(measure))}
         </DataCell>
       ))}
       {measures.map((measure, mIdx) =>
@@ -61,7 +61,7 @@ const ResultGrid: React.FC = () => {
             header
             lastCol={mIdx === measures.length - 1 && dIdx === dimensions.length - 1}
           >
-            {t(`dimensions.${dimension}`, { defaultValue: dimension })}
+            {t(Dimensions.getTName(dimension), { defaultValue: dimension })}
           </DataCell>
         ))
       )}

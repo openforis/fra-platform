@@ -4,6 +4,8 @@ import { MeasureName } from 'meta/measurement/measure/measure'
 
 import { measureToVariables, variableToMeasures } from './variablesToMeasures'
 
+const getTName = (name: MeasureName): string => `measures.${name}`
+
 const measureNameToVariableName = (measureName: MeasureName): VariableName => {
   return measureToVariables[measureName] ?? measureName
 }
@@ -13,6 +15,7 @@ const variableNameToMeasureName = (tableName: TableName, variableName: VariableN
 }
 
 export const Measures = {
+  getTName,
   measureNameToVariableName,
   variableNameToMeasureName,
 }

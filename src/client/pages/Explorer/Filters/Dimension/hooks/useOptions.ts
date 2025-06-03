@@ -3,6 +3,8 @@ import { useTranslation } from 'react-i18next'
 
 import { Objects } from 'utils/objects'
 
+import { Dimensions } from 'meta/measurement/dimensions'
+
 import { useExplorerSectionMetadata } from 'client/store/explorer/metadata/hooks/metadata'
 import { Option } from 'client/components/Inputs/Select'
 
@@ -18,7 +20,7 @@ export const useOptions = (): Returned => {
     if (Objects.isNil(explorerSectionMetadata)) return undefined
     return (dimensions ?? []).map(({ name }) => {
       return {
-        label: t(`dimensions.${name}`, { defaultValue: name }),
+        label: t(Dimensions.getTName(name), { defaultValue: name }),
         value: name,
       }
     })

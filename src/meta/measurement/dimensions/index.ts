@@ -12,7 +12,10 @@ const dimensionNameToColumnName = (dimensionName: DimensionName): ColName => {
   return dimensionToColumns[dimensionName] ?? dimensionName
 }
 
+const getTName = (name: DimensionName): string => `dimensions.${name}`
+
 export const Dimensions = {
   columnNameToDimensionName,
   dimensionNameToColumnName,
+  getTName,
 }
