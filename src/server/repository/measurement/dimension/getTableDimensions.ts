@@ -21,10 +21,10 @@ export const getTableDimensions = async (props: Props, client: BaseProtocol = DB
     `
     select jsonb_array_elements_text(cn.names) as column_name
     from ${schemaName}."table" t,
-         jsonb_each(t.props -> 'columnNames') as cn(cycle_uuid, names)
+         jsonb_each(t.props -> 'columnsExport') as cn(cycle_uuid, names)
     where t.props ->> 'name' = $1
       and cn.cycle_uuid = $2
-      and t.props -> 'columnNames' is not null
+      and t.props -> 'columnsExport' is not null
     union
     select elem ->> 'columnName' as column_name
     from ${schemaName}."table" t,
