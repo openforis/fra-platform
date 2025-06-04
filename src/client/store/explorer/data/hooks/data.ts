@@ -5,6 +5,8 @@ import { Objects } from 'utils/objects'
 import { CountryIso } from 'meta/area'
 import { SectionName } from 'meta/assessment/section'
 import { RecordAssessmentData } from 'meta/data'
+import { Dimensions } from 'meta/measurement/dimensions'
+import { Measures } from 'meta/measurement/measures'
 
 import { ExplorerDataActions } from 'client/store/explorer/data/actions'
 import { ExplorerDataSelectors } from 'client/store/explorer/data/selectors'
@@ -24,7 +26,7 @@ export const useExplorerSectionData = (): RecordAssessmentData => {
 export const useGetExplorerSectionData = () => {
   const dispatch = useAppDispatch()
 
-  const { tableName } = useExplorerSectionMetadata() ?? {}
+  const { cellsExportAlways, tableName } = useExplorerSectionMetadata() ?? {}
   const countryISOs = useExplorerCountries()
   const dimensions = useExplorerDimensions()
   const measures = useExplorerMeasures()
@@ -38,13 +40,16 @@ export const useGetExplorerSectionData = () => {
   useEffect(() => {
     if ([countryISOs, dimensions, measures, tableName].some(Objects.isEmpty)) return
 
+    const measuresExportAlways = Measures.getExportAlways(cellsExportAlways)
+    const dimensionsExportAlways = Dimensions.getExportAlways(cellsExportAlways)
+
     const getDataProps = {
       assessmentName,
       countryIso,
       countryISOs,
       cycleName,
-      dimensions,
-      measures,
+      dimensions: [...dimensions, ...dimensionsExportAlways],
+      measures: [...measures, ...measuresExportAlways],
       sectionName,
       tableName,
     }
@@ -60,6 +65,7 @@ export const useGetExplorerSectionData = () => {
     lastPropsBySectionRef.current[sectionName] = currentPropsJson
   }, [
     assessmentName,
+    cellsExportAlways,
     countryIso,
     countryISOs,
     cycleName,
