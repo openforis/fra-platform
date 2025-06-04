@@ -8,7 +8,7 @@ import { DataActions, useHistoryActivitiesIsActive, useHistoryLastApprovedIsActi
 import { useAppDispatch } from 'client/store/hooks'
 import { useShowOriginalDatapoints } from 'client/store/ui/assessmentSection'
 import { DataLockActions, useIsDataLocked } from 'client/store/ui/dataLock'
-import { useCanEditCycleData } from 'client/store/user'
+import { useCanEditCycleData } from 'client/store/user/hooks/auth'
 import Icon from 'client/components/Icon'
 import { Breakpoints } from 'client/utils'
 

@@ -10,7 +10,7 @@ import { AuthProvider, UserInvitations } from 'meta/user'
 import { useAppDispatch } from 'client/store/hooks'
 import { LoginActions } from 'client/store/login/actions'
 import { useAcceptInvitationForm, useInvitation } from 'client/store/login/hooks/invitation'
-import { useUser } from 'client/store/user'
+import { useUser } from 'client/store/user/hooks/user'
 import { useSearchParams } from 'client/hooks/useSearchParams'
 import { useInitInvitation } from 'client/pages/Login/Invitation/hooks/useInitInvitation'
 

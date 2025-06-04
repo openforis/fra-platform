@@ -9,7 +9,7 @@ import { useAppDispatch, useAppSelector } from 'client/store/hooks'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { DataExportActions, DataExportSelection } from 'client/store/ui/dataExport'
 import { useHomeCountriesFilter } from 'client/store/ui/home'
-import { useUser, useUserCountries } from 'client/store/user'
+import { useUser, useUserCountries } from 'client/store/user/hooks/user'
 import { useCountryIso } from 'client/hooks'
 
 export const useDataExportCountries = (): Array<Country> => {

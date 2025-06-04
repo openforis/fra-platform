@@ -7,7 +7,7 @@ import { Lang, LanguageCodes } from 'meta/lang'
 import { CollaboratorPermissions, RoleName, Users } from 'meta/user'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
-import { useUser } from 'client/store/user'
+import { useUser } from 'client/store/user/hooks/user'
 import { useCountryIso } from 'client/hooks'
 import { useInitialState } from 'client/components/InviteUserForm/hooks/initialState'
 import InviteCollaboratorPermissions from 'client/components/InviteUserForm/InviteCollaboratorPermissions'

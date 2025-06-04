@@ -7,7 +7,7 @@ import { Topics } from 'meta/messageCenter'
 
 import { DataActions } from 'client/store/data'
 import { useAppDispatch } from 'client/store/hooks'
-import { useCanEditDescription, useIsDescriptionEditable } from 'client/store/user/hooks'
+import { useCanEditDescription, useIsDescriptionEditable } from 'client/store/user/hooks/auth'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { DataRowAction, DataRowActionType } from 'client/components/DataGrid'
 

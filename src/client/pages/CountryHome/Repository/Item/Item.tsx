@@ -6,7 +6,7 @@ import classNames from 'classnames'
 
 import { RepositoryItem, RepositoryItems } from 'meta/cycleData'
 
-import { useIsCountryRepositoryEditable, useIsGlobalRepositoryEditable } from 'client/store/user'
+import { useIsCountryRepositoryEditable, useIsGlobalRepositoryEditable } from 'client/store/user/hooks/auth'
 import Button, { ButtonSize } from 'client/components/Buttons/Button'
 import { useOpenPanel } from 'client/pages/CountryHome/Repository/hooks/useOpenPanel'
 import RepositoryLink from 'client/pages/CountryHome/Repository/RepositoryLink'

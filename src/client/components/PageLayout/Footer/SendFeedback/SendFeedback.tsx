@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { Users } from 'meta/user'
 
-import { useUser } from 'client/store/user'
+import { useUser } from 'client/store/user/hooks/user'
 /* global  __APPLICATION_VERSION__ */
 
 const SendFeedback: React.FC = () => {

@@ -4,7 +4,7 @@ import { Users } from 'meta/user'
 
 import { useCountry } from 'client/store/area/hooks/country'
 import { useCycle } from 'client/store/meta/hooks/cycles'
-import { useUser } from 'client/store/user'
+import { useUser } from 'client/store/user/hooks/user'
 import { useCountryIso } from 'client/hooks'
 
 export const useShowActions = (topic: MessageTopic) => {

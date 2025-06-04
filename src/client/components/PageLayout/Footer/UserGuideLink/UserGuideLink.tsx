@@ -5,7 +5,7 @@ import { ApiEndPoint } from 'meta/api/endpoint'
 import { AssessmentNames } from 'meta/assessment/assessment'
 import { Routes } from 'meta/routes'
 
-import { useUser } from 'client/store/user'
+import { useUser } from 'client/store/user/hooks/user'
 import { useCycleRouteParams } from 'client/hooks/useRouteParams'
 import CycleSwitch from 'client/components/CycleSwitch'
 
