@@ -5,7 +5,7 @@ import { Topics } from 'meta/messageCenter'
 import { Routes } from 'meta/routes'
 import { Users } from 'meta/user'
 
-import { useIsEditTableDataEnabled } from 'client/store/user'
+import { useIsEditTableDataEnabled } from 'client/store/user/hooks/auth'
 import { useUser } from 'client/store/user/hooks/user'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { DataRowAction, DataRowActionType } from 'client/components/DataGrid'

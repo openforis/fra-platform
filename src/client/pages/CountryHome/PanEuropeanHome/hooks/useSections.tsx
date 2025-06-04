@@ -2,7 +2,7 @@ import { SectionNames } from 'meta/routes'
 import { Users } from 'meta/user'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
-import { useCanSeeUserActivities } from 'client/store/user'
+import { useCanSeeUserActivities } from 'client/store/user/hooks/auth'
 import { useUser } from 'client/store/user/hooks/user'
 import { useCountryIso } from 'client/hooks'
 import Collaborators from 'client/pages/CountryHome/Collaborators'

@@ -1,6 +1,6 @@
 import { Areas } from 'meta/area'
 
-import { useCanSeeUserActivities } from 'client/store/user'
+import { useCanSeeUserActivities } from 'client/store/user/hooks/auth'
 import { useUser } from 'client/store/user/hooks/user'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 

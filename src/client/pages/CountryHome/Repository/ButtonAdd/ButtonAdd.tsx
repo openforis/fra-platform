@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { CountryIso } from 'meta/area'
 
-import { useIsCountryRepositoryEditable, useIsGlobalRepositoryEditable } from 'client/store/user'
+import { useIsCountryRepositoryEditable, useIsGlobalRepositoryEditable } from 'client/store/user/hooks/auth'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import Button, { ButtonSize } from 'client/components/Buttons/Button'
 import { useOpenPanel } from 'client/pages/CountryHome/Repository/hooks/useOpenPanel'

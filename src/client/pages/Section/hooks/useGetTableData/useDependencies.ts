@@ -10,7 +10,7 @@ import { TableName, TableNames } from 'meta/assessment/table'
 
 import { useCountry } from 'client/store/area/hooks/country'
 import { useTableSections } from 'client/store/meta/hooks/tableSections'
-import { useCanEdit } from 'client/store/user'
+import { useCanEdit } from 'client/store/user/hooks/auth'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 
 import { Props } from './props'

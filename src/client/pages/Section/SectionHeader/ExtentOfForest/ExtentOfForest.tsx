@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import { CountryIso } from 'meta/area'
 import { Routes } from 'meta/routes'
 
-import { useIsEditTableDataEnabled } from 'client/store/user'
+import { useIsEditTableDataEnabled } from 'client/store/user/hooks/auth'
 import { useUser } from 'client/store/user/hooks/user'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { ButtonSize, useButtonClassName } from 'client/components/Buttons/Button'

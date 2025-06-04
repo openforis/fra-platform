@@ -7,7 +7,7 @@ import { Labels } from 'meta/assessment/labels'
 import { Users } from 'meta/user'
 
 import { useCountry } from 'client/store/area/hooks/country'
-import { useIsEditTableDataEnabled } from 'client/store/user'
+import { useIsEditTableDataEnabled } from 'client/store/user/hooks/auth'
 import { useUser } from 'client/store/user/hooks/user'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'

@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { useCanEditCycleData } from 'client/store/user'
+import { useCanEditCycleData } from 'client/store/user/hooks/auth'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { EditorValidators } from 'client/components/EditorWYSIWYG'
 

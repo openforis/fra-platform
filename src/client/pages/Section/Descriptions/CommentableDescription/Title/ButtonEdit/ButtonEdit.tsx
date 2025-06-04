@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 
 import { useHistoryActivitiesIsActive } from 'client/store/data'
-import { useCanEditDescription, useIsDescriptionEditable } from 'client/store/user/hooks'
+import { useCanEditDescription, useIsDescriptionEditable } from 'client/store/user/hooks/auth'
 import Button, { ButtonSize } from 'client/components/Buttons/Button'
 import { useSectionContext } from 'client/pages/Section/context'
 import { useToggleEdit } from 'client/pages/Section/Descriptions/CommentableDescription/Title/hooks/useToggleEdit'

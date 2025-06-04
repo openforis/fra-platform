@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { Users } from 'meta/user'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
-import { useCanViewHistoryLastApproved } from 'client/store/user/hooks'
+import { useCanViewHistoryLastApproved } from 'client/store/user/hooks/auth'
 import { useUserHasRoleInCountry } from 'client/store/user/hooks/roles'
 import { useUser } from 'client/store/user/hooks/user'
 import Icon from 'client/components/Icon'

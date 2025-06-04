@@ -8,7 +8,7 @@ import {
   useHistoryLastApprovedDescriptionFetched,
   useHistoryLastApprovedIsActive,
 } from 'client/store/data'
-import { useCanEditDescription, useIsDescriptionEditable } from 'client/store/user/hooks'
+import { useCanEditDescription, useIsDescriptionEditable } from 'client/store/user/hooks/auth'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { DataCell, DataGrid, DataRow } from 'client/components/DataGrid'
 import EditorWYSIWYG from 'client/components/EditorWYSIWYG'
