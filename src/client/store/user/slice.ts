@@ -4,8 +4,7 @@ import { getApplicationReducer } from 'client/store/user/extraReducers/getApplic
 import { getLoginReducer } from 'client/store/user/extraReducers/getLoginReducer'
 import { getLogoutReducer } from 'client/store/user/extraReducers/getLogoutReducer'
 import { getUserManagementReducer } from 'client/store/user/extraReducers/getUserManagementReducer'
-
-import { UserState } from './stateType'
+import { UserState } from 'client/store/user/state'
 
 export const initialState: UserState = null
 

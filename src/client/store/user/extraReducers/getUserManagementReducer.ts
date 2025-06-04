@@ -1,7 +1,7 @@
 import { ActionReducerMapBuilder } from '@reduxjs/toolkit'
 
 import { UserManagementActions } from 'client/store/ui/userManagement'
-import { UserState } from 'client/store/user/stateType'
+import { UserState } from 'client/store/user/state'
 
 export const getUserManagementReducer = (builder: ActionReducerMapBuilder<UserState>) => {
   builder.addCase(UserManagementActions.updateUser.fulfilled, (state, { payload }) =>
