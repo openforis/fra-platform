@@ -14,15 +14,21 @@ export const useOptions = (): Returned => {
   const { t } = useTranslation()
 
   const explorerSectionMetadata = useExplorerSectionMetadata()
-  const { dimensions } = explorerSectionMetadata ?? {}
+  const { cellsExportAlways, dimensions } = explorerSectionMetadata ?? {}
 
   return useMemo<Returned>(() => {
     if (Objects.isNil(explorerSectionMetadata)) return undefined
-    return (dimensions ?? []).map(({ name }) => {
-      return {
-        label: t(Dimensions.getTName(name), { defaultValue: name }),
-        value: name,
+
+    const dimensionsExportAlways = Dimensions.getExportAlways(cellsExportAlways)
+
+    return (dimensions ?? []).reduce<Array<Option>>((acc, { name }) => {
+      if (!dimensionsExportAlways.includes(name)) {
+        acc.push({
+          label: t(Dimensions.getTName(name), { defaultValue: name }),
+          value: name,
+        })
       }
-    })
-  }, [dimensions, explorerSectionMetadata, t])
+      return acc
+    }, [])
+  }, [cellsExportAlways, dimensions, explorerSectionMetadata, t])
 }

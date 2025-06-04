@@ -1,8 +1,13 @@
 import { TableName } from 'meta/assessment/table'
 import { VariableName } from 'meta/assessment/variable'
+import { ExplorerMetadata } from 'meta/explorer/metadata'
 import { MeasureName } from 'meta/measurement/measure/measure'
 
 import { measureToVariables, variableToMeasures } from './variablesToMeasures'
+
+const getExportAlways = (cellsExportAlways: ExplorerMetadata['cellsExportAlways']): Array<MeasureName> => {
+  return cellsExportAlways.flatMap((cell) => Object.keys(cell))
+}
 
 const getTName = (name: MeasureName): string => `measures.${name}`
 
@@ -15,6 +20,7 @@ const variableNameToMeasureName = (tableName: TableName, variableName: VariableN
 }
 
 export const Measures = {
+  getExportAlways,
   getTName,
   measureNameToVariableName,
   variableNameToMeasureName,
