@@ -7,7 +7,7 @@ import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 
 import { DataActions, useCommentableDescriptionValue } from 'client/store/data'
 import { useAppDispatch } from 'client/store/hooks'
-import { usePreviousSection } from 'client/store/metadata'
+import { usePreviousSection } from 'client/store/meta/hooks/sections'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import Button from 'client/components/Buttons/Button'
 

@@ -2,7 +2,7 @@ import { MutableRefObject } from 'react'
 
 import { Objects } from 'utils/objects'
 
-import { useTablePaginatedData, useTablePaginatedPage } from 'client/store/ui/tablePaginated'
+import { useTablePaginatedData, useTablePaginatedPage } from 'client/store/tablePaginated/hooks/tablePaginated'
 import { useOnUpdate } from 'client/hooks'
 
 type Props = {

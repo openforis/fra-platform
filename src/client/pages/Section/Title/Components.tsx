@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { AssessmentNames } from 'meta/assessment/assessment'
 import { Labels } from 'meta/assessment/labels'
 
-import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
+import { useCycle } from 'client/store/meta/hooks/cycles'
 import ExtentOfForest from 'client/pages/Section/Title/ExtentOfForest'
 import ForestCharacteristics from 'client/pages/Section/Title/ForestCharacteristics'
 import TitleWithExcelCalculator from 'client/pages/Section/Title/TitleExcelCalculator'

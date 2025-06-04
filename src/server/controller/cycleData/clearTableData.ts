@@ -52,8 +52,11 @@ export const clearTableData = async (props: Props, client: BaseProtocol = DB): P
       message: ActivityLogMessage.tableValuesClear,
       user,
     }
-    await ActivityLogRepository.insertActivityLog({ activityLog, assessment, cycle }, t)
-    await CountryService.updateLastEdit({ assessment, cycle, country, user }, t)
+    const { time: lastUpdateTimestamp } = await ActivityLogRepository.insertActivityLog(
+      { activityLog, assessment, cycle },
+      t
+    )
+    await CountryService.updateLastEdit({ lastUpdateTimestamp, assessment, cycle, country, user }, t)
 
     return nodes
   })

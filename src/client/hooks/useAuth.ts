@@ -3,7 +3,7 @@ import { useMemo } from 'react'
 import { Areas, CountryIso, CountryStatus } from 'meta/area'
 import { Users } from 'meta/user'
 
-import { useCountry } from 'client/store/area'
+import { useCountry } from 'client/store/area/hooks/country'
 import { useUser } from 'client/store/user'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 

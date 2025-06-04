@@ -1,23 +1,32 @@
-import { configureStore } from '@reduxjs/toolkit'
+import { combineSlices, configureStore, createSlice } from '@reduxjs/toolkit'
+import { Middleware } from 'redux'
 import createDebounce from 'redux-debounced'
+
+import { LoginState } from 'client/store/login/state'
+import { TablePaginatedState } from 'client/store/tablePaginated/state'
 
 import axiosMiddleware from './middleware/axios'
 import { listenerMiddleware } from './middleware/listener'
 import rootReducer from './rootReducer'
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface LazyLoadedSlices {
+  login: LoginState
+  tablePaginated: TablePaginatedState
+}
+
+export const reducer = combineSlices(rootReducer).withLazyLoadedSlices<LazyLoadedSlices>()
+
 const store = configureStore({
-  reducer: rootReducer,
+  reducer,
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().prepend(listenerMiddleware.middleware).concat(createDebounce(), axiosMiddleware),
+    getDefaultMiddleware()
+      .prepend(listenerMiddleware.middleware)
+      .concat(createDebounce() as Middleware, axiosMiddleware),
 })
 
-// injectReducers has TypeScript issues. uncomment code below if injectReducers will be ever needed
-// const asyncReducers: any = {}
-
-// export const injectReducers = (name: string, asyncReducer: any) => {
-//   asyncReducers[name] = asyncReducer
-//
-//   store.replaceReducer(combineReducers({ ...rootReducer, ...asyncReducers }))
-// }
+export const injectSlice = (slice: ReturnType<typeof createSlice>) => {
+  reducer.inject(slice)
+}
 
 export default store

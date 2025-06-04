@@ -3,7 +3,7 @@ import { useCallback } from 'react'
 import { RoleName, User, Users } from 'meta/user'
 
 import { useAppDispatch } from 'client/store/hooks'
-import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
+import { useCycle } from 'client/store/meta/hooks/cycles'
 import { UserManagementActions } from 'client/store/ui/userManagement'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 

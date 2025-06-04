@@ -8,15 +8,17 @@ import { BaseProtocol, DB } from 'server/db'
 
 type Props = {
   assessment: Assessment
-  cycle: Cycle
   country: Country
+  cycle: Cycle
   user: User
+
   lastEditOdp?: boolean
   notifyClient?: boolean
+  lastUpdateTimestamp?: string
 }
 
 export const updateLastEdit = async (props: Props, client: BaseProtocol = DB) => {
-  const { assessment, country, cycle, lastEditOdp, notifyClient = true, user } = props
+  const { assessment, country, cycle, lastEditOdp, lastUpdateTimestamp, notifyClient = true, user } = props
 
   if (!country) return
 
@@ -26,7 +28,17 @@ export const updateLastEdit = async (props: Props, client: BaseProtocol = DB) =>
 
   // Client is notified through websocket in updateCountry
   await AreaController.updateCountry(
-    { assessment, cycle, country, user, lastEdit: true, lastUpdate: true, lastEditOdp, notifyClient },
+    {
+      assessment,
+      cycle,
+      country,
+      user,
+      lastEdit: true,
+      lastUpdate: true,
+      lastEditOdp,
+      notifyClient,
+      lastUpdateTimestamp,
+    },
     client
   )
 }

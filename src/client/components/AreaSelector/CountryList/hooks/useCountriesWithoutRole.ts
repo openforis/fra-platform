@@ -3,8 +3,8 @@ import { useMemo } from 'react'
 import { Areas, CountryIso } from 'meta/area'
 import { Cycles } from 'meta/assessment/cycles'
 
-import { useCountries } from 'client/store/area'
-import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
+import { useCountries } from 'client/store/area/hooks/countries'
+import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useUser, useUserCountries } from 'client/store/user'
 
 export const useCountriesWithoutRole = (): Array<CountryIso> => {

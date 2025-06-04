@@ -7,7 +7,7 @@ import classNames from 'classnames'
 import { Areas, CountryIso } from 'meta/area'
 import { Users } from 'meta/user'
 
-import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
+import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useUser } from 'client/store/user'
 import { Props } from 'client/components/AreaSelector/types'
 

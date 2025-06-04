@@ -7,7 +7,7 @@ import { Row } from 'meta/assessment/row'
 import { Table } from 'meta/assessment/table'
 import { Topics } from 'meta/messageCenter'
 
-import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
+import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useCanViewReview } from 'client/store/user/hooks'
 import { DataRowAction, DataRowActionType } from 'client/components/DataGrid'
 

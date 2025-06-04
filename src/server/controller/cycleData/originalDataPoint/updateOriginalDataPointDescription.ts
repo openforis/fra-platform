@@ -38,9 +38,12 @@ export const updateOriginalDataPointDescription = async (
       countryIso,
       user,
     }
-    await ActivityLogRepository.insertActivityLog({ activityLog, assessment, cycle }, t)
+    const { time: lastUpdateTimestamp } = await ActivityLogRepository.insertActivityLog(
+      { activityLog, assessment, cycle },
+      t
+    )
 
-    await CountryService.updateLastEdit({ assessment, cycle, country, user, lastEditOdp: true }, t)
+    await CountryService.updateLastEdit({ assessment, cycle, country, user, lastEditOdp: true, lastUpdateTimestamp }, t)
 
     return updatedOriginalDataPoint
   })

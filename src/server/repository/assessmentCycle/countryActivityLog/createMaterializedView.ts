@@ -49,5 +49,5 @@ export const createMaterializedView = async (props: Props, client: BaseProtocol 
     [countryIso, assessment.uuid, cycle.uuid, acceptedMessages, hiddenSections]
   )
 
-  await client.query(`CREATE UNIQUE INDEX ON ${schemaCycle}.${viewName} (message,target_md5,time);`)
+  // await client.query(`CREATE UNIQUE INDEX ON ${schemaCycle}.${viewName} (message,target_md5,time);`)
 }

@@ -3,7 +3,7 @@ import React, { useCallback } from 'react'
 
 import { Cols } from 'meta/assessment/cols'
 
-import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
+import { useCycle } from 'client/store/meta/hooks/cycles'
 import SelectCommon from 'client/components/Inputs/Select'
 
 import { PropsCell } from '../props'

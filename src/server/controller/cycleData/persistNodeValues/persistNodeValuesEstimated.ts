@@ -45,11 +45,21 @@ export const persistNodeValuesEstimated = async (props: Props): Promise<void> =>
   const { countryIso } = country
 
   await DB.tx(async (client) => {
-    await Promise.all([
-      persistNodeValues(getPersistNodeValuesProps(props), client),
-      NodeValueEstimationRepository.create({ assessment, countryIso, cycle, estimation }, client),
-      ActivityLogRepository.insertActivityLog({ activityLog: getActivityLog(props), assessment, cycle }, client),
-      CountryService.updateLastEdit({ assessment, cycle, country, user: props.user }, client),
-    ])
+    await persistNodeValues(getPersistNodeValuesProps(props), client)
+    await NodeValueEstimationRepository.create({ assessment, countryIso, cycle, estimation }, client)
+    const { time: lastUpdateTimestamp } = await ActivityLogRepository.insertActivityLog(
+      { activityLog: getActivityLog(props), assessment, cycle },
+      client
+    )
+    await CountryService.updateLastEdit(
+      {
+        assessment,
+        cycle,
+        country,
+        user: props.user,
+        lastUpdateTimestamp,
+      },
+      client
+    )
   })
 }

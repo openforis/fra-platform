@@ -16,10 +16,20 @@ type Props = {
   lastEdit?: boolean
   lastEditOdp?: boolean
   lastInStatus?: boolean
+  lastUpdateTimestamp?: string
 }
 
 export const update = async (props: Props, client: BaseProtocol = DB): Promise<Country> => {
-  const { assessment, country, cycle, lastEdit, lastEditOdp, lastInStatus, lastUpdate } = props
+  const {
+    assessment,
+    country,
+    cycle,
+    lastEdit,
+    lastEditOdp,
+    lastInStatus,
+    lastUpdate,
+    lastUpdateTimestamp = 'now()',
+  } = props
   const { countryIso } = country
   const { status, ...countryProps } = country.props
 
@@ -39,7 +49,7 @@ export const update = async (props: Props, client: BaseProtocol = DB): Promise<C
   const columns = [
     'props',
     'status',
-    ...timestampFields.filter(({ enabled }) => enabled).map(({ name }) => ({ name, init: () => 'now()' })),
+    ...timestampFields.filter(({ enabled }) => enabled).map(({ name }) => ({ name, init: () => lastUpdateTimestamp })),
   ]
 
   const cs = new pgp.helpers.ColumnSet(columns, {

@@ -14,7 +14,7 @@ import {
   useHistoryLastApprovedIsActive,
   useNodeValueValidation,
 } from 'client/store/data'
-import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
+import { useCycle } from 'client/store/meta/hooks/cycles'
 import { DataCell } from 'client/components/DataGrid'
 
 import { useClassName } from './hooks/useClassName'

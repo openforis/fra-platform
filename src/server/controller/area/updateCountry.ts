@@ -12,17 +12,29 @@ import { SocketService } from 'server/service/socket'
 
 type Props = {
   assessment: Assessment
-  cycle: Cycle
   country: Country
+  cycle: Cycle
   user: User
-  lastUpdate?: boolean
+
   lastEdit?: boolean
   lastEditOdp?: boolean
+  lastUpdate?: boolean
+  lastUpdateTimestamp?: string
   notifyClient?: boolean
 }
 
 export const updateCountry = async (props: Props, client: BaseProtocol = DB): Promise<Country> => {
-  const { assessment, country, cycle, lastEdit, lastEditOdp, lastUpdate = true, notifyClient = true, user } = props
+  const {
+    assessment,
+    country,
+    cycle,
+    lastEdit,
+    lastEditOdp,
+    lastUpdate = true,
+    lastUpdateTimestamp,
+    notifyClient = true,
+    user,
+  } = props
   const { countryIso } = country
 
   return client.tx(async (t) => {
@@ -30,7 +42,16 @@ export const updateCountry = async (props: Props, client: BaseProtocol = DB): Pr
     const statusUpdate = currentCountry.props.status !== country.props.status
 
     const updatedCountry = await CountryRepository.update(
-      { assessment, cycle, country, lastUpdate, lastEdit, lastEditOdp, lastInStatus: statusUpdate },
+      {
+        assessment,
+        cycle,
+        country,
+        lastUpdate,
+        lastEdit,
+        lastEditOdp,
+        lastInStatus: statusUpdate,
+        lastUpdateTimestamp,
+      },
       t
     )
 
@@ -41,14 +62,13 @@ export const updateCountry = async (props: Props, client: BaseProtocol = DB): Pr
       )
     )
 
-    // insert activity log
-    const target = { assessment: assessment.props.name, status: country.props.status }
-    const message = ActivityLogMessage.assessmentStatusUpdate
-    const activityLog = { target, section: 'assessment', message, countryIso, user }
-    await ActivityLogRepository.insertActivityLog({ activityLog, assessment, cycle }, t)
-
     // notify client
     if (statusUpdate) {
+      const target = { assessment: assessment.props.name, status: country.props.status }
+      const message = ActivityLogMessage.assessmentStatusUpdate
+      const activityLog = { target, section: 'assessment', message, countryIso, user }
+      await ActivityLogRepository.insertActivityLog({ activityLog, assessment, cycle }, t)
+
       SocketService.Country.notifyStatusUpdate({
         assessmentName: assessment.props.name,
         cycleName: cycle.name,

@@ -2,7 +2,7 @@ import './ExportButton.scss'
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-import { useTablePaginatedCount } from 'client/store/ui/tablePaginated'
+import { useTablePaginatedCount } from 'client/store/tablePaginated/hooks/tablePaginated'
 import { useButtonClassName } from 'client/components/Buttons/Button'
 import Icon from 'client/components/Icon'
 

@@ -3,9 +3,9 @@ import { useTranslation } from 'react-i18next'
 
 import { Labels } from 'meta/assessment/labels'
 
-import { useAssessmentCountry } from 'client/store/area'
+import { useAssessmentCountry } from 'client/store/area/hooks/country'
 import { useOriginalDataPointYears } from 'client/store/data'
-import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
+import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import OriginalDataPointsPrint from 'client/pages/Print/OriginalDataPointsPrint'
 

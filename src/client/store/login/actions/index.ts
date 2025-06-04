@@ -1,6 +1,17 @@
-export { acceptInvitation } from './acceptInvitation'
-export { changePassword } from './changePassword'
-export { createResetPassword } from './createResetPassword'
-export { fetchUserByInvitation } from './fetchUserByInvitation'
-export { initLogin } from './initLogin'
-export { localLogin } from './localLogin'
+import { acceptInvitation } from 'client/store/login/actions/acceptInvitation'
+import { changePassword } from 'client/store/login/actions/changePassword'
+import { createResetPassword } from 'client/store/login/actions/createResetPassword'
+import { fetchUserByInvitation } from 'client/store/login/actions/fetchUserByInvitation'
+import { initLogin } from 'client/store/login/actions/initLogin'
+import { localLogin } from 'client/store/login/actions/localLogin'
+import { LoginSlice } from 'client/store/login/slice'
+
+export const LoginActions = {
+  ...LoginSlice.actions,
+  acceptInvitation,
+  fetchUserByInvitation,
+  initLogin,
+  localLogin,
+  createResetPassword,
+  changePassword,
+}

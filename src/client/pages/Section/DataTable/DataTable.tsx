@@ -6,7 +6,7 @@ import { AssessmentName } from 'meta/assessment/assessment'
 import { Table as TableType } from 'meta/assessment/table'
 import { RecordAssessmentDatas } from 'meta/data'
 
-import { useCycle } from 'client/store/meta/assessment/hooks/cycles'
+import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useIsEditTableDataEnabled } from 'client/store/user'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'

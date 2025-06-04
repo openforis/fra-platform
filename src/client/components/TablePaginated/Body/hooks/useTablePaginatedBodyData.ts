@@ -1,6 +1,6 @@
 import { Objects } from 'utils/objects'
 
-import { useTablePaginatedData } from 'client/store/ui/tablePaginated'
+import { useTablePaginatedData } from 'client/store/tablePaginated/hooks/tablePaginated'
 import { Props as BaseProps } from 'client/components/TablePaginated/types'
 
 type Returned<Datum extends object> = Array<Datum> | Array<[PropertyKey, Array<Datum>]> | undefined

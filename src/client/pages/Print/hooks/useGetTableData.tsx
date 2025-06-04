@@ -5,7 +5,7 @@ import { TableName, TableNames } from 'meta/assessment/table'
 
 import { DataActions } from 'client/store/data'
 import { useAppDispatch } from 'client/store/hooks'
-import { useTableSectionsCycle } from 'client/store/metadata'
+import { useTableSectionsCycle } from 'client/store/meta/hooks/tableSections'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 export const useGetTableData = () => {

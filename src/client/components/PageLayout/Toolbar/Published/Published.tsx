@@ -5,8 +5,8 @@ import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
 import { Dates } from 'utils/dates'
 
-import { useAssessmentCountry } from 'client/store/area'
-import { useLastPublishedCycle } from 'client/store/meta/assessment/hooks/cycles'
+import { useAssessmentCountry } from 'client/store/area/hooks/country'
+import { useLastPublishedCycle } from 'client/store/meta/hooks/cycles'
 import { useLanguage } from 'client/hooks/useLanguage'
 
 const Published: React.FC = () => {

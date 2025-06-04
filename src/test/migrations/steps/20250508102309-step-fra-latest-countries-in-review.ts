@@ -12,7 +12,7 @@ export default async (client: BaseProtocol) => {
   })
   const schemaName = Schemas.getNameCycle(assessment, cycle)
 
-  await client.query(`update ${schemaName}.country set status = $1 where status = $2`, [
+  await client.query(`update ${schemaName}.country set status = $1 where status = $2 and country_iso not like 'X%'`, [
     CountryStatus.review,
     CountryStatus.notStarted,
   ])

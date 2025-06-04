@@ -8,7 +8,7 @@ export interface AreaState {
   updatingCountry: boolean
 }
 
-export const initialState = {
+export const initialState: AreaState = {
   countries: {},
   regionGroups: {},
   updatingCountry: false,

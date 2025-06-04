@@ -4,7 +4,7 @@ import Skeleton from 'react-loading-skeleton'
 
 import classNames from 'classnames'
 
-import { useTablePaginatedCount } from 'client/store/ui/tablePaginated'
+import { useTablePaginatedCount } from 'client/store/tablePaginated/hooks/tablePaginated'
 import DataGrid from 'client/components/DataGridDeprecated'
 import Hr from 'client/components/Hr'
 import { PaginatorProps } from 'client/components/Paginator'
