@@ -64,12 +64,14 @@ export const getManyMetadata = async (props: Props, client: BaseProtocol = DB): 
 
       const tableName = table.props.name
 
-      const [measures, dimensions] = await Promise.all([
-        MeasureRepository.getTableMeasures({ assessment, cycle, tableName }, client),
+      const [cellsExportAlways, dimensions, measures] = await Promise.all([
+        MeasureRepository.getTableCellsExportAlways({ assessment, cycle, tableName }, client),
         DimensionRepository.getTableDimensions({ assessment, cycle, tableName }, client),
+        MeasureRepository.getTableMeasures({ assessment, cycle, tableName }, client),
       ])
 
       const explorerMetadata: ExplorerMetadata = {
+        cellsExportAlways,
         dimensions,
         measures,
         tableName,
