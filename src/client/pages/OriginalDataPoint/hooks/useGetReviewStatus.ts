@@ -5,7 +5,7 @@ import { CountryIso } from 'meta/area'
 import { useAppDispatch } from 'client/store/hooks'
 import { useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
 import { ReviewActions } from 'client/store/ui/review'
-import { useUser } from 'client/store/user'
+import { useUser } from 'client/store/user/hooks/user'
 import { useOriginalDataPointRouteParams } from 'client/hooks/useRouteParams'
 
 export const useGetReviewStatus = () => {

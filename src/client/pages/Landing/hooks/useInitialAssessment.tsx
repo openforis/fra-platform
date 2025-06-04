@@ -1,7 +1,7 @@
 import { UserRoles } from 'meta/user/userRoles'
 
 import { useAssessmentDefault, useAssessments } from 'client/store/meta/hooks/assessments'
-import { useUser } from 'client/store/user'
+import { useUser } from 'client/store/user/hooks/user'
 
 export const useInitialAssessment = () => {
   const assessments = useAssessments()

@@ -7,7 +7,7 @@ import { Routes } from 'meta/routes'
 import { useCountries } from 'client/store/area/hooks/countries'
 import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useCycle, useLastPublishedCycle } from 'client/store/meta/hooks/cycles'
-import { useUser } from 'client/store/user'
+import { useUser } from 'client/store/user/hooks/user'
 import { useIsGeoRoute } from 'client/hooks'
 
 export const useDefaultHandleElementSelect = () => {

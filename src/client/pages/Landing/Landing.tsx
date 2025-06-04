@@ -5,7 +5,7 @@ import { Routes } from 'meta/routes'
 import { RoleName } from 'meta/user'
 import { UserRoles } from 'meta/user/userRoles'
 
-import { useUser } from 'client/store/user'
+import { useUser } from 'client/store/user/hooks/user'
 
 import { useRedirectAssessmentAndCycle } from './hooks/useRedirectAssessmentAndCycle'
 

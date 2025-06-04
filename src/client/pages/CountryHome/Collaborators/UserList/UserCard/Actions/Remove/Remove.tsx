@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { CountryIso } from 'meta/area'
 import { CountryUserSummaries } from 'meta/user/countryUserSummaries'
 
-import { useUser } from 'client/store/user'
+import { useUser } from 'client/store/user/hooks/user'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { useToaster } from 'client/hooks/useToaster'
 import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'

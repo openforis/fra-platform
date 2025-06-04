@@ -7,7 +7,7 @@ import { Cycles } from 'meta/assessment/cycles'
 import { Users } from 'meta/user'
 
 import { useAssessments } from 'client/store/meta/hooks/assessments'
-import { useUser } from 'client/store/user'
+import { useUser } from 'client/store/user/hooks/user'
 import { useIsDataExportView } from 'client/hooks'
 import { useCycleRouteParams } from 'client/hooks/useRouteParams'
 import { PopoverItem } from 'client/components/PopoverControl'

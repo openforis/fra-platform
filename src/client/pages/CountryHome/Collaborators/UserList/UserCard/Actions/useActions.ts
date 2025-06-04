@@ -5,8 +5,9 @@ import { Authorizer, UserInvitations, Users } from 'meta/user'
 import { CountryUserSummaries } from 'meta/user/countryUserSummaries'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
-import { useCanSeeUserActivities, useUser } from 'client/store/user'
+import { useCanSeeUserActivities } from 'client/store/user'
 import { useCanEditUserActivities } from 'client/store/user/hooks'
+import { useUser } from 'client/store/user/hooks/user'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 import { Props } from '../Props'

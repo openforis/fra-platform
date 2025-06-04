@@ -4,7 +4,7 @@ import { Areas, CountryIso, CountryStatus } from 'meta/area'
 import { Users } from 'meta/user'
 
 import { useCountry } from 'client/store/area/hooks/country'
-import { useUser } from 'client/store/user'
+import { useUser } from 'client/store/user/hooks/user'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 export const useCanEditRoleProps = (): boolean => {

@@ -1,59 +1,18 @@
 import { useMemo } from 'react'
-import { useTranslation } from 'react-i18next'
 
-import { Areas, CountryIso } from 'meta/area'
-import { Assessments } from 'meta/assessment/assessments'
-import { Cycle } from 'meta/assessment/cycle'
-import { Cycles } from 'meta/assessment/cycles'
+import { CountryIso } from 'meta/area'
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 import { SectionName } from 'meta/assessment/section'
 import { Authorizer, CollaboratorEditPropertyType, User, Users } from 'meta/user'
 
-import { useCountries } from 'client/store/area/hooks/countries'
 import { useAssessmentCountry, useCountry } from 'client/store/area/hooks/country'
-import { useAppSelector } from 'client/store/hooks'
-import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useSection } from 'client/store/meta/hooks/sections'
 import { useIsDescriptionEditEnabled } from 'client/store/ui/assessmentSection'
 import { useIsDataLocked } from 'client/store/ui/dataLock'
+import { useUser } from 'client/store/user/hooks/user'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
-
-export const useUser = (): User | undefined => useAppSelector((state) => state.user)
-
-export const useUserCountries = (): Array<CountryIso> => {
-  const { i18n } = useTranslation()
-  const cycle = useCycle()
-  const user = useUser()
-  const countries = useCountries().map((c) => c.countryIso)
-  const isAdministrator = Users.isAdministrator(user)
-  // Return only current cycle countries for user
-  const userRoles = user?.roles ?? []
-  const userCountries = userRoles.filter((role) => cycle.uuid === role.cycleUuid).map((role) => role.countryIso)
-  const compareListName = Areas.getCompareListName(i18n)
-
-  return useMemo(() => {
-    if (isAdministrator) return countries
-    const compareFn = (c1: CountryIso, c2: CountryIso) => compareListName(c1, c2)
-    return userCountries.sort(compareFn)
-  }, [compareListName, countries, isAdministrator, userCountries])
-}
-
-export const useUserCycles = (): Array<Cycle> => {
-  const assessment = useAssessment()
-  const user = useUser()
-  const isAdministrator = Users.isAdministrator(user)
-  if (isAdministrator) return assessment.cycles
-
-  // Users who are not logged in can only access the most recently published cycle
-  if (!user) return [Assessments.getLastPublishedCycle(assessment)]
-
-  // Return only current assessment cycles for user
-  return assessment.cycles.filter(
-    (cycle) => Cycles.isPublished(cycle) || user?.roles.some((role) => cycle.uuid === role.cycleUuid)
-  )
-}
 
 // TODO: move below auth hook under useAuth (future task)
 export const useCanEditCycleData = (): boolean => {

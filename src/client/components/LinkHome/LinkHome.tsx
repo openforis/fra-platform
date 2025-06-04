@@ -6,7 +6,7 @@ import { Assessments } from 'meta/assessment/assessments'
 import { Routes } from 'meta/routes'
 
 import { useAssessment } from 'client/store/meta/hooks/assessments'
-import { useUser } from 'client/store/user'
+import { useUser } from 'client/store/user/hooks/user'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import Icon from 'client/components/Icon'
 

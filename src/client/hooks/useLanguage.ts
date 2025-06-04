@@ -6,7 +6,7 @@ import { Lang } from 'meta/lang'
 
 import { useAppDispatch } from 'client/store/hooks'
 import { UserManagementActions } from 'client/store/ui/userManagement'
-import { useUser } from 'client/store/user'
+import { useUser } from 'client/store/user/hooks/user'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 type UpdateLanguage = (props: { lang: Lang; persist?: boolean }) => Promise<void>
