@@ -38,10 +38,14 @@ export const getTableMeasures = async (props: Props, client: BaseProtocol = DB):
 
   return client.map<Measure>(
     `
-      select distinct *
-      from measurement.measure
-      where name in ($1:csv);
-    `,
+      select distinct
+        m.id,
+        m.uuid,
+        m.name,
+        m.system_uuid as "systemUUID"
+      from measurement.measure m
+      where m.name in ($1:csv);
+  `,
     [measureNames],
     (measure) => Objects.camelize(measure)
   )
