@@ -1,6 +1,7 @@
 import { Objects } from 'utils/objects'
 
 import { Assessment } from 'meta/assessment/assessment'
+import { Cycle } from 'meta/assessment/cycle'
 import { Measure } from 'meta/measurement/measure'
 import { Measures } from 'meta/measurement/measures'
 
@@ -8,11 +9,12 @@ import { BaseProtocol, DB, Schemas } from 'server/db'
 
 type Props = {
   assessment: Assessment
+  cycle: Cycle
   tableName: string
 }
 
 export const getTableMeasures = async (props: Props, client: BaseProtocol = DB): Promise<Array<Measure>> => {
-  const { assessment, tableName } = props
+  const { assessment, cycle, tableName } = props
   const schemaName = Schemas.getName(assessment)
 
   const variableNames = await client.map<string>(
@@ -22,10 +24,11 @@ export const getTableMeasures = async (props: Props, client: BaseProtocol = DB):
       join ${schemaName}."table" t
         on t.id = r.table_id
       where t.props ->> 'name' = $1
+        and (r.props -> 'cycles') ? $2
         and r.props ->> 'variableName' is not null
         and r.props ->> 'variableName' <> '';
     `,
-    [tableName],
+    [tableName, cycle.uuid],
     (row) => row.variable_name
   )
 

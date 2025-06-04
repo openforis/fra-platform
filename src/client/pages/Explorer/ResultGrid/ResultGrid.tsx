@@ -24,15 +24,20 @@ const ResultGrid: React.FC = () => {
   const { t } = useTranslation()
   const countriesAll = useCountries()
 
-  const { tableName } = useExplorerSectionMetadata() ?? {}
+  const { cellsExportAlways = [], tableName } = useExplorerSectionMetadata() ?? {}
   const countryISOs = useExplorerCountries() ?? []
   const measures = useExplorerMeasures() ?? []
   const dimensions = useExplorerDimensions() ?? []
 
+  const measuresExportAlways = Measures.getExportAlways(cellsExportAlways)
+  const dimensionsExportAlways = Dimensions.getExportAlways(cellsExportAlways)
+
   useGetExplorerSectionData()
   const data = useExplorerSectionData()
 
-  const gridTemplateColumns = `minmax(160px, 240px) repeat(${measures.length * dimensions.length}, 1fr)`
+  const gridTemplateColumns = `minmax(160px, 240px) repeat(${
+    measures.length * dimensions.length + cellsExportAlways.length
+  }, 1fr)`
 
   if ([countryISOs, data, dimensions, measures, tableName].some(Objects.isEmpty)) {
     return null
@@ -41,6 +46,14 @@ const ResultGrid: React.FC = () => {
   return (
     <DataGrid className="explorer-result-grid" gridTemplateColumns={gridTemplateColumns}>
       <DataCell gridRow="span 2" header />
+      {measuresExportAlways.map((measure, idx) => {
+        const dimension = dimensionsExportAlways[idx]
+        return (
+          <DataCell key={`${measure}-${dimension}`} className="header-top" gridRow="span 2" header>
+            {t(Measures.getTName(measure))}
+          </DataCell>
+        )
+      })}
       {measures.map((measure, mIdx) => (
         <DataCell
           key={measure}
@@ -77,6 +90,24 @@ const ResultGrid: React.FC = () => {
             <DataCell header lastRow={lastRow}>
               {deskStudy ? `${label} (${t('assessment.deskStudy')})` : label}
             </DataCell>
+            {measuresExportAlways.map((measure, idx) => {
+              const dimension = dimensionsExportAlways[idx]
+              const value = RecordAssessmentDatas.getDatum({
+                assessmentName,
+                colName: Dimensions.dimensionNameToColumnName(dimension),
+                countryIso,
+                cycleName,
+                data,
+                tableName,
+                variableName: Measures.measureNameToVariableName(measure),
+              })
+              return (
+                <DataCell key={`obs-${measure}-${dimension}-${countryIso}`} className="observation" lastRow={lastRow}>
+                  {/* TODO: Add value conversion and formatting */}
+                  {value}
+                </DataCell>
+              )
+            })}
             {measures.map((measure, mIdx) =>
               dimensions.map((dimension, dIdx) => {
                 const value = RecordAssessmentDatas.getDatum({
