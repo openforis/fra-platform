@@ -6,6 +6,7 @@ import { MetaSlice } from 'client/store/meta/slice'
 import { FileUploadSlice } from 'client/store/ui/fileUpload'
 import { LinksSlice } from 'client/store/ui/links'
 import { RepositorySlice } from 'client/store/ui/repository'
+import { UserSlice } from 'client/store/user/slice'
 
 import DataSlice from './data/slice'
 import { AreaSelectorSlice } from './ui/areaSelector'
@@ -20,7 +21,6 @@ import NotificationSlice from './ui/notification/slice'
 import OriginalDataPointSlice from './ui/originalDataPoint/slice'
 import ReviewSlice from './ui/review/slice'
 import UserManagementSlice from './ui/userManagement/slice'
-import { UserSlice } from './user/slice'
 
 export default {
   [ApplicationSlice.name]: ApplicationSlice.reducer,
