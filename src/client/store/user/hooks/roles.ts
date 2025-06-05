@@ -6,8 +6,9 @@ import { Areas, CountryIso } from 'meta/area'
 import { Users } from 'meta/user'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
-import { useUser } from 'client/store/user/hooks/index'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+
+import { useUser } from './user'
 
 export const useUserHasRoleInCountry = (): boolean => {
   const { countryIso } = useCountryRouteParams<CountryIso>()

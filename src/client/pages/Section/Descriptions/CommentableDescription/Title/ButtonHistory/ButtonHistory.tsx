@@ -6,7 +6,7 @@ import { Objects } from 'utils/objects'
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 
 import { useHistoryActivities, useHistoryActivitiesIsActive, useHistoryLastApprovedIsActive } from 'client/store/data'
-import { useCanViewHistory, useIsDescriptionEditable } from 'client/store/user/hooks'
+import { useCanViewHistory, useIsDescriptionEditable } from 'client/store/user/hooks/auth'
 import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
 import { useSectionContext } from 'client/pages/Section/context'
 

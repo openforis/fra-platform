@@ -10,9 +10,9 @@ import { ThunkApiConfig } from 'client/store/types'
 type Props = CycleDataParams
 
 export const createContact = createAsyncThunk<Contact, Props, ThunkApiConfig>(
-  'contact/create',
+  'data/contacts/create',
   async (props, { getState }) => {
-    const contacts = getState().data.contacts[props.assessmentName][props.cycleName][props.countryIso]
+    const contacts = getState().data.contacts[props.assessmentName][props.cycleName][props.countryIso] as Array<Contact>
     const contact = Contacts.newContact({
       countryIso: props.countryIso,
       rowIndex: contacts.filter((c) => !c.props.readOnly).length - 1,

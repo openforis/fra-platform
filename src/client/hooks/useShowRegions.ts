@@ -4,7 +4,7 @@ import { Cycles } from 'meta/assessment/cycles'
 import { Users } from 'meta/user'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
-import { useUser } from 'client/store/user'
+import { useUser } from 'client/store/user/hooks/user'
 import { useIsGeoRoute } from 'client/hooks/useIsRoute'
 
 export const useShowRegions = () => {

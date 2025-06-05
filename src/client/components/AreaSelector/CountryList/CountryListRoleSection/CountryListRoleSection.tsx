@@ -10,7 +10,7 @@ import { UserRoles } from 'meta/user/userRoles'
 
 import { useCountries } from 'client/store/area/hooks/countries'
 import { useIsAreaSelectorExpanded } from 'client/store/ui/areaSelector'
-import { useUser } from 'client/store/user'
+import { useUser } from 'client/store/user/hooks/user'
 import CountryListRow from 'client/components/AreaSelector/CountryList/CountryListRow'
 import { checkMatch } from 'client/utils'
 

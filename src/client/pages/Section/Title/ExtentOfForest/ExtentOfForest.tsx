@@ -11,7 +11,7 @@ import { useHistoryLastApprovedIsActive, useOriginalDataPointYears } from 'clien
 import { useAppDispatch } from 'client/store/hooks'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { AssessmentSectionActions, useShowOriginalDatapoints } from 'client/store/ui/assessmentSection'
-import { useUser } from 'client/store/user'
+import { useUser } from 'client/store/user/hooks/user'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import Button from 'client/components/Buttons/Button'
 import OriginalDataPointsPrint from 'client/pages/Print/OriginalDataPointsPrint'

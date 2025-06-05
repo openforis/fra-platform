@@ -12,5 +12,5 @@ export const useDataSourcesLinked = (props: { sectionName: string }): Array<Data
   const assessmentName = assessment.props.name
   const cycleName = cycle.name
 
-  return useAppSelector((state) => state.data[assessmentName]?.[cycleName]?.linkedDataSources?.[sectionName])
+  return useAppSelector((state) => state.dataDep[assessmentName]?.[cycleName]?.linkedDataSources?.[sectionName])
 }

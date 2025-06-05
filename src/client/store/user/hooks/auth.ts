@@ -1,61 +1,20 @@
+// TODO: move below auth hook under useAuth (future task)
 import { useMemo } from 'react'
-import { useTranslation } from 'react-i18next'
 
-import { Areas, CountryIso } from 'meta/area'
-import { Assessments } from 'meta/assessment/assessments'
-import { Cycle } from 'meta/assessment/cycle'
-import { Cycles } from 'meta/assessment/cycles'
+import { CountryIso } from 'meta/area'
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 import { SectionName } from 'meta/assessment/section'
 import { Authorizer, CollaboratorEditPropertyType, User, Users } from 'meta/user'
 
-import { useCountries } from 'client/store/area/hooks/countries'
 import { useAssessmentCountry, useCountry } from 'client/store/area/hooks/country'
-import { useAppSelector } from 'client/store/hooks'
-import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useSection } from 'client/store/meta/hooks/sections'
 import { useIsDescriptionEditEnabled } from 'client/store/ui/assessmentSection'
 import { useIsDataLocked } from 'client/store/ui/dataLock'
+import { useUser } from 'client/store/user/hooks/user'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
-export const useUser = (): User | undefined => useAppSelector((state) => state.user)
-
-export const useUserCountries = (): Array<CountryIso> => {
-  const { i18n } = useTranslation()
-  const cycle = useCycle()
-  const user = useUser()
-  const countries = useCountries().map((c) => c.countryIso)
-  const isAdministrator = Users.isAdministrator(user)
-  // Return only current cycle countries for user
-  const userRoles = user?.roles ?? []
-  const userCountries = userRoles.filter((role) => cycle.uuid === role.cycleUuid).map((role) => role.countryIso)
-  const compareListName = Areas.getCompareListName(i18n)
-
-  return useMemo(() => {
-    if (isAdministrator) return countries
-    const compareFn = (c1: CountryIso, c2: CountryIso) => compareListName(c1, c2)
-    return userCountries.sort(compareFn)
-  }, [compareListName, countries, isAdministrator, userCountries])
-}
-
-export const useUserCycles = (): Array<Cycle> => {
-  const assessment = useAssessment()
-  const user = useUser()
-  const isAdministrator = Users.isAdministrator(user)
-  if (isAdministrator) return assessment.cycles
-
-  // Users who are not logged in can only access the most recently published cycle
-  if (!user) return [Assessments.getLastPublishedCycle(assessment)]
-
-  // Return only current assessment cycles for user
-  return assessment.cycles.filter(
-    (cycle) => Cycles.isPublished(cycle) || user?.roles.some((role) => cycle.uuid === role.cycleUuid)
-  )
-}
-
-// TODO: move below auth hook under useAuth (future task)
 export const useCanEditCycleData = (): boolean => {
   const user = useUser()
   const country = useAssessmentCountry()
@@ -63,7 +22,6 @@ export const useCanEditCycleData = (): boolean => {
 
   return Authorizer.canEditCycleData({ cycle, country, user })
 }
-
 export const useCanEdit = (sectionName: string, permission = CollaboratorEditPropertyType.tableData) => {
   const user = useUser()
   const section = useSection(sectionName)
@@ -72,7 +30,6 @@ export const useCanEdit = (sectionName: string, permission = CollaboratorEditPro
 
   return Authorizer.canEditData({ country, cycle, permission, section, user })
 }
-
 // edit enabled
 const useIsEditSectionEnabled = (sectionName: string, permission: CollaboratorEditPropertyType) => {
   const isDataLocked = useIsDataLocked()
@@ -81,13 +38,10 @@ const useIsEditSectionEnabled = (sectionName: string, permission: CollaboratorEd
 
   return !print && !isDataLocked && canEdit
 }
-
 export const useIsEditTableDataEnabled = (sectionName: string) =>
   useIsEditSectionEnabled(sectionName, CollaboratorEditPropertyType.tableData)
-
 export const useCanEditDescription = (props: { sectionName: SectionName }): boolean =>
   useIsEditSectionEnabled(props.sectionName, CollaboratorEditPropertyType.descriptions)
-
 export const useIsDescriptionEditable = (props: {
   sectionName: SectionName
   name: CommentableDescriptionName
@@ -99,7 +53,6 @@ export const useIsDescriptionEditable = (props: {
 
   return useMemo<boolean>(() => canEdit && editEnabled, [canEdit, editEnabled])
 }
-
 export const useIsCountryRepositoryEditable = (): boolean => {
   const { countryIso } = useCountryRouteParams<CountryIso>()
   const user = useUser()
@@ -109,14 +62,12 @@ export const useIsCountryRepositoryEditable = (): boolean => {
   const locked = useIsDataLocked()
   return !locked && canEditRepositoryItem
 }
-
 export const useIsGlobalRepositoryEditable = (): boolean => {
   const user = useUser()
   const isAdmin = Users.isAdministrator(user)
   const isCountryRepositoryEditable = useIsCountryRepositoryEditable()
   return isCountryRepositoryEditable && isAdmin
 }
-
 export const useCanViewHistory = (): boolean => {
   const user = useUser()
   const section = useSection()
@@ -125,7 +76,6 @@ export const useCanViewHistory = (): boolean => {
 
   return Authorizer.canViewHistory({ country, cycle, section, user })
 }
-
 export const useCanViewHistoryLastApproved = (): boolean => {
   const user = useUser()
   const country = useAssessmentCountry()
@@ -133,7 +83,6 @@ export const useCanViewHistoryLastApproved = (): boolean => {
 
   return Authorizer.canViewHistoryLastApproved({ country, cycle, user })
 }
-
 export const useCanViewGeo = (): boolean => {
   const cycle = useCycle()
   const { countryIso } = useCountryRouteParams()
@@ -141,7 +90,6 @@ export const useCanViewGeo = (): boolean => {
 
   return Authorizer.canViewGeo({ cycle, countryIso, user })
 }
-
 export const useCanViewReview = (sectionName: string) => {
   const isDataLocked = useIsDataLocked()
   const { print } = useIsPrintRoute()
@@ -153,7 +101,6 @@ export const useCanViewReview = (sectionName: string) => {
   const canView = Authorizer.canViewReview({ country, cycle, section, user })
   return !print && !isDataLocked && canView
 }
-
 /**
  * React hook to determine whether given user has access to edit user activities (eg. Resend or delete invitation)
  *
@@ -175,7 +122,6 @@ export const useCanEditUserActivities = (user: User) => {
   const rolesAllowedToEdit = Users.getRolesAllowedToEdit({ user, countryIso, cycle })
   return rolesAllowedToEdit.length > 0
 }
-
 /**
  * React hook to determine whether given user has access to view user activities (eg. Messaging, Recent activity, etc.)
  *

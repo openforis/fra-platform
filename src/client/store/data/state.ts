@@ -10,7 +10,6 @@ import { RecordAssessmentOriginalDataPoint } from 'meta/assessment/originalDataP
 import { SectionName } from 'meta/assessment/section'
 import { TableName } from 'meta/assessment/table'
 import { VariableName } from 'meta/assessment/variable'
-import { Contact } from 'meta/cycleData'
 import { HistoryTarget } from 'meta/cycleData/historyActivities'
 import { RecordAssessmentData } from 'meta/data'
 
@@ -43,8 +42,6 @@ export enum TableDataStatus {
   updated = 'updated',
 }
 
-export type RecordContacts = Record<AssessmentName, Record<CycleName, Record<CountryIso, Array<Contact>>>>
-
 // ==============================
 // History state types
 // ==============================
@@ -72,7 +69,6 @@ export type HistoryState = {
 
 // TODO: this has to become the only DataState (move descriptions and linkedDataSources here)
 interface TableDataState {
-  contacts: RecordContacts
   descriptions: DescriptionsState
   history: HistoryState
   nodeValueValidations: RecordAssessmentValidationsState

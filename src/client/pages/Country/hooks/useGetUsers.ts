@@ -6,7 +6,7 @@ import { useAppDispatch } from 'client/store/hooks'
 import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { UserManagementActions } from 'client/store/ui/userManagement'
-import { useUser } from 'client/store/user'
+import { useUser } from 'client/store/user/hooks/user'
 import { useCountryIso } from 'client/hooks'
 
 export default () => {
