@@ -20,7 +20,7 @@ import NotificationSlice from './ui/notification/slice'
 import OriginalDataPointSlice from './ui/originalDataPoint/slice'
 import ReviewSlice from './ui/review/slice'
 import UserManagementSlice from './ui/userManagement/slice'
-import UserSlice from './user/slice'
+import { UserSlice } from './user/slice'
 
 export default {
   [ApplicationSlice.name]: ApplicationSlice.reducer,
@@ -44,5 +44,5 @@ export default {
     review: ReviewSlice,
     userManagement: UserManagementSlice,
   }),
-  user: UserSlice,
+  [UserSlice.name]: UserSlice,
 }
