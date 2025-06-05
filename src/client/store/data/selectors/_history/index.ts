@@ -9,7 +9,7 @@ import { HistoryTarget } from 'meta/cycleData/historyActivities'
 import { RootState } from 'client/store/types'
 
 const getHistory = createSelector(
-  (state: RootState) => state.data.history,
+  (state: RootState) => state.dataDep.history,
   (history) => history
 )
 

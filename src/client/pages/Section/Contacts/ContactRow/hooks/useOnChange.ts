@@ -4,7 +4,7 @@ import { CountryIso } from 'meta/area'
 import { NodeValue } from 'meta/assessment/node'
 import { Contact, ContactField } from 'meta/cycleData'
 
-import { DataActions } from 'client/store/data'
+import { ContactsActions } from 'client/store/data/contacts/actions'
 import { useAppDispatch } from 'client/store/hooks'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 
@@ -25,7 +25,7 @@ export const useOnChange = (): Returned => {
       const { contact, field, raw } = props
 
       const upsertProps = { assessmentName, cycleName, countryIso, sectionName, contact, field, raw }
-      dispatch(DataActions.updateContact(upsertProps))
+      dispatch(ContactsActions.updateContact(upsertProps))
     },
     [assessmentName, countryIso, cycleName, dispatch, sectionName]
   )

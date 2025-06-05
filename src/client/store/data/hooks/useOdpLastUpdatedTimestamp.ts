@@ -13,6 +13,6 @@ export const useOdpLastUpdatedTimestamp = (): { time?: string } => {
   const countryIso = useCountryIso()
 
   return useAppSelector(
-    (state) => state.data.odpLastUpdatedTimestamp?.[assessment.props.name]?.[cycle.name]?.[countryIso] ?? {}
+    (state) => state.dataDep.odpLastUpdatedTimestamp?.[assessment.props.name]?.[cycle.name]?.[countryIso] ?? {}
   )
 }
