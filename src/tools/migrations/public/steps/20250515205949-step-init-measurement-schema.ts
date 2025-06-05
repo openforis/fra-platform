@@ -1,6 +1,6 @@
 import { Objects } from 'utils/objects'
 
-import { systemsOfMeasurement } from 'meta/measurement/systemOfMeasurement'
+import { SystemOfMeasurementName, systemsOfMeasurement } from 'meta/measurement/systemOfMeasurement'
 import { UUID } from 'meta/uuid'
 
 import { BaseProtocol, DB } from 'server/db'
@@ -53,7 +53,7 @@ export default async () => {
       {
         baseUnitUUID: dbBaseUnit.uuid,
         conversionFactors,
-        name: systemOfMeasurementName,
+        name: systemOfMeasurementName as SystemOfMeasurementName,
       },
       client
     )
