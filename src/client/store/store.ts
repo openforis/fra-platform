@@ -1,4 +1,4 @@
-import { combineSlices, configureStore, createSlice } from '@reduxjs/toolkit'
+import { combineSlices, configureStore } from '@reduxjs/toolkit'
 import { Middleware } from 'redux'
 import createDebounce from 'redux-debounced'
 
@@ -25,8 +25,8 @@ const store = configureStore({
       .concat(createDebounce() as Middleware, axiosMiddleware),
 })
 
-export const injectSlice = (slice: ReturnType<typeof createSlice>) => {
-  reducer.inject(slice, { overrideExisting: false })
+export const injectSlice = (slice: Parameters<typeof reducer.inject>[0]) => {
+  reducer.inject(slice)
 }
 
 export default store
