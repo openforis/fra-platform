@@ -27,7 +27,7 @@ export const useNodeValueValidation = (props: { table: Table; row: Row; col: Col
   const { assessmentName, countryIso, cycleName } = useCommonParams()
 
   return useAppSelector((state) => {
-    const { nodeValueValidations } = state.data
+    const { nodeValueValidations } = state.dataDep
     const tableName = table.props.name
     const { colName } = col.props
     const { variableName } = row.props
@@ -44,7 +44,7 @@ export const useTableHasErrors = (props: { table: Table }): boolean => {
   const { assessmentName, countryIso, cycleName } = useCommonParams()
 
   return useAppSelector((state) => {
-    const { nodeValueValidations } = state.data
+    const { nodeValueValidations } = state.dataDep
     const tableName = table.props.name
 
     const validations = nodeValueValidations[assessmentName]?.[cycleName]?.[countryIso]?.[tableName] ?? {}

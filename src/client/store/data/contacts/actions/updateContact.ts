@@ -21,6 +21,6 @@ const _update = async (props: Props): Promise<void> => {
   await axios.put(ApiEndPoint.CycleData.Contacts.one(), body, { params })
 }
 
-export const updateContact = createAsyncThunk<void, Props>('contact/update', async (props) => {
+export const updateContact = createAsyncThunk<void, Props>('data/contacts/update', async (props) => {
   Functions.debounce(_update, 1_000, `updateContact-${props.field}-${props.contact.uuid}`)(props)
 })

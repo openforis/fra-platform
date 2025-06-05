@@ -9,7 +9,7 @@ type Props = CycleDataParams & {
   contact: Contact
 }
 
-export const deleteContact = createAsyncThunk<void, Props>('contact/delete', async (props) => {
+export const deleteContact = createAsyncThunk<void, Props>('data/contacts/delete', async (props) => {
   const { contact, ...rest } = props
   const { uuid } = contact
   const params = { ...rest, uuid }

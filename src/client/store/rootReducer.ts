@@ -7,7 +7,7 @@ import { FileUploadSlice } from 'client/store/ui/fileUpload'
 import { LinksSlice } from 'client/store/ui/links'
 import { RepositorySlice } from 'client/store/ui/repository'
 
-import DataSlice from './data/slice'
+import DataDeprecatedSlice, { DataSlice } from './data/slice'
 import { AreaSelectorSlice } from './ui/areaSelector'
 import { AssessmentSectionSlice } from './ui/assessmentSection/slice'
 import DataExportSlice from './ui/dataExport/slice'
@@ -25,8 +25,9 @@ import UserSlice from './user/slice'
 export default {
   [ApplicationSlice.name]: ApplicationSlice.reducer,
   [AreaSlice.name]: AreaSlice.reducer,
+  [DataSlice.name]: DataSlice.reducer,
   [MetaSlice.name]: MetaSlice.reducer,
-  data: DataSlice,
+  dataDep: DataDeprecatedSlice,
   geo: GeoSlice,
   ui: combineReducers({
     [AreaSelectorSlice.name]: AreaSelectorSlice.reducer,

@@ -12,7 +12,7 @@ export const useIsSectionDataEmpty = (tableSections: TableSection[]) => {
   const assessment = useAssessment()
   const cycle = useCycle()
   const countryIso = useCountryIso()
-  const data = useAppSelector((state) => state.data.tableData)
+  const data = useAppSelector((state) => state.dataDep.tableData)
 
   const [sectionDataEmpty, setSectionDataEmpty] = useState(false)
   const sectionTableNames = useMemo(
