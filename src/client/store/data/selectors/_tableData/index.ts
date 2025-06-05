@@ -3,7 +3,7 @@ import { createSelector } from '@reduxjs/toolkit'
 import { RootState } from 'client/store/types'
 
 const getRecordAssessmentData = createSelector(
-  (state: RootState) => state.data.tableData,
+  (state: RootState) => state.dataDep.tableData,
   (data) => data
 )
 

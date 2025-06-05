@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 
 import { CountryIso } from 'meta/area'
 
-import { DataActions } from 'client/store/data'
+import { ContactsActions } from 'client/store/data/contacts/actions'
 import { useAppDispatch } from 'client/store/hooks'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 
@@ -12,6 +12,6 @@ export const useGetContacts = () => {
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    dispatch(DataActions.getContacts({ assessmentName, cycleName, countryIso, sectionName }))
+    dispatch(ContactsActions.getContacts({ assessmentName, cycleName, countryIso, sectionName }))
   }, [assessmentName, countryIso, cycleName, dispatch, sectionName])
 }
