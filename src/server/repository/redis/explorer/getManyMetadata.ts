@@ -3,7 +3,7 @@ import { Cycle } from 'meta/assessment/cycle'
 import { SectionName } from 'meta/assessment/section'
 import { TableName } from 'meta/assessment/table'
 import { ExplorerMetadata } from 'meta/explorer/metadata'
-import { systemsOfMeasurement } from 'meta/measurement/systemOfMeasurement'
+import { SystemOfMeasurementName, systemsOfMeasurement } from 'meta/measurement/systemOfMeasurement'
 import { SystemOfMeasurementWithUnits } from 'meta/measurement/systemOfMeasurement/systemOfMeasurement'
 
 import { SystemOfMeasurementController } from 'server/controller/measurement/systemOfMeasurement'
@@ -75,17 +75,19 @@ export const getManyMetadata = async (props: Props, client: BaseProtocol = DB): 
         MeasureRepository.getTableMeasures({ assessment, cycle, tableName }, client),
       ])
 
-      const systemUuid = measures[0]?.systemUUID
-      let systemOfMeasurement: SystemOfMeasurementWithUnits | null = null
-      if (systemUuid) {
-        systemOfMeasurement = systemsWithUnits.find((s) => s.uuid === systemUuid) ?? null
-      }
+      const systemUUIDs = [...new Set(measures.map((m) => m.systemUUID).filter(Boolean))]
+      const systemsOfMeasurementRecord: Partial<Record<SystemOfMeasurementName, SystemOfMeasurementWithUnits>> = {}
+
+      systemUUIDs.forEach((uuid) => {
+        const system = systemsWithUnits.find((s) => s.uuid === uuid)
+        if (system) systemsOfMeasurementRecord[system.name] = system
+      })
 
       const explorerMetadata: ExplorerMetadata = {
         cellsExportAlways,
         dimensions,
         measures,
-        systemOfMeasurement,
+        systemsOfMeasurement: systemsOfMeasurementRecord,
         tableName,
       }
       await redis.hset(key, sectionName, JSON.stringify(explorerMetadata))
