@@ -3,6 +3,8 @@ import { SystemOfMeasurement, SystemOfMeasurementName } from 'meta/measurement/s
 import { BaseProtocol, DB } from 'server/db'
 import { SystemOfMeasurementAdapter } from 'server/repository/adapter'
 
+import { fieldsJoined } from './fields'
+
 type Props = {
   systemOfMeasurementName: SystemOfMeasurementName
 }
@@ -12,7 +14,7 @@ export const getOne = (props: Props, client: BaseProtocol = DB): Promise<SystemO
 
   return client.one<SystemOfMeasurement>(
     `
-      select som.*
+      select ${fieldsJoined('som')}
       from measurement.system_of_measurement som
       where som.name = $1;
     `,

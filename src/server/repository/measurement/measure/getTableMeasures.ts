@@ -39,7 +39,6 @@ export const getTableMeasures = async (props: Props, client: BaseProtocol = DB):
   return client.map<Measure>(
     `
       select distinct
-        m.id,
         m.uuid,
         m.name,
         m.system_uuid as "systemUUID"
