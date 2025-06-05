@@ -44,5 +44,5 @@ export default {
     review: ReviewSlice,
     userManagement: UserManagementSlice,
   }),
-  [UserSlice.name]: UserSlice,
+  [UserSlice.name]: UserSlice.reducer,
 }
