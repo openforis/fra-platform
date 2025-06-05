@@ -1,8 +1,7 @@
-import { Objects } from 'utils/objects'
-
 import { SystemOfMeasurement, SystemOfMeasurementName } from 'meta/measurement/systemOfMeasurement'
 
 import { BaseProtocol, DB } from 'server/db'
+import { SystemOfMeasurementAdapter } from 'server/repository/adapter'
 
 type Props = {
   systemOfMeasurementName: SystemOfMeasurementName
@@ -18,6 +17,6 @@ export const getOne = (props: Props, client: BaseProtocol = DB): Promise<SystemO
       where som.name = $1;
     `,
     [systemOfMeasurementName],
-    (measure) => Objects.camelize(measure)
+    SystemOfMeasurementAdapter
   )
 }
