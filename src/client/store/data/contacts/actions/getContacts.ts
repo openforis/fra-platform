@@ -5,7 +5,7 @@ import { ApiEndPoint } from 'meta/api/endpoint'
 import { CycleDataParams } from 'meta/api/request'
 import { Contact } from 'meta/cycleData'
 
-export const getContacts = createAsyncThunk<Array<Contact>, CycleDataParams>('extNode/get/contacts', async (props) => {
+export const getContacts = createAsyncThunk<Array<Contact>, CycleDataParams>('data/contacts/get', async (props) => {
   const { assessmentName, countryIso, cycleName } = props
   const params = { countryIso, assessmentName, cycleName }
   const config = { params }

@@ -11,6 +11,12 @@ export const useOriginalDataPointData = (): RecordColumnData => {
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
 
   return useAppSelector((state) =>
-    RecordAssessmentDatas.getTableData({ assessmentName, cycleName, data: state.data.tableData, countryIso, tableName })
+    RecordAssessmentDatas.getTableData({
+      assessmentName,
+      cycleName,
+      data: state.dataDep.tableData,
+      countryIso,
+      tableName,
+    })
   )
 }

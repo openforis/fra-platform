@@ -26,7 +26,7 @@ const store = configureStore({
 })
 
 export const injectSlice = (slice: ReturnType<typeof createSlice>) => {
-  reducer.inject(slice)
+  reducer.inject(slice, { overrideExisting: false })
 }
 
 export default store
