@@ -1,6 +1,7 @@
 import { createI18nPromise } from 'i18n/i18nFactory'
 import { TFunction } from 'i18next'
 import { Dates } from 'utils/dates'
+import { Objects } from 'utils/objects'
 
 import { AreaCode, Areas, Country, CountryStatus } from 'meta/area'
 import { Assessment, AssessmentName } from 'meta/assessment/assessment'
@@ -97,7 +98,11 @@ const getReviewerRecipients = async (props: {
         assessment.cycles.map(async (cycle) => {
           const countries = await AreaController.getCountries({ assessment, cycle })
           const inReview = countries.filter((country) => {
-            const diffInDays = Dates.differenceInDays(new Date(), new Date(country.lastInReview))
+            const { lastInReview } = country
+
+            if (Objects.isNil(lastInReview)) return false
+
+            const diffInDays = Dates.differenceInDays(new Date(), new Date(lastInReview))
             return (
               country.props.status === CountryStatus.review &&
               diffInDays > 6 &&
