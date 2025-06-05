@@ -1,11 +1,12 @@
 import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { ApiEndPoint } from 'meta/api/endpoint'
 import { AssessmentNames } from 'meta/assessment/assessment'
+import { Files } from 'meta/file'
 import { Routes } from 'meta/routes'
 
 import { useUser } from 'client/store/user/hooks/user'
+import { useLanguage } from 'client/hooks/useLanguage'
 import { useCycleRouteParams } from 'client/hooks/useRouteParams'
 import CycleSwitch from 'client/components/CycleSwitch'
 
@@ -21,8 +22,9 @@ type Props = {
 const UserGuideLinkInner: React.FC<Props> = (props) => {
   const { userGuideLinkOption } = props
 
-  const { i18n, t } = useTranslation()
-  const { language } = i18n
+  const { t } = useTranslation()
+  const language = useLanguage()
+
   const { assessmentName, cycleName } = useCycleRouteParams()
 
   const userGuideLink = useMemo(() => {
@@ -30,7 +32,7 @@ const UserGuideLinkInner: React.FC<Props> = (props) => {
       case UserGuideLinkOption.TutorialPage:
         return Routes.Tutorials.generatePath({ assessmentName, cycleName })
       case UserGuideLinkOption.File:
-        return ApiEndPoint.File.userGuide(language)
+        return Files.Static.getUserGuide({ language, assessmentName, cycleName })
       default:
         return ''
     }

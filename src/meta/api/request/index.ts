@@ -36,6 +36,3 @@ export type { ForestAgreementLayerRequest, LayerRequest } from './geo/layer'
 
 // user
 export type { UsersRequest } from './admin/users'
-
-// file
-export type { BiomassStockFileRequest } from './file/biomassStockFile'

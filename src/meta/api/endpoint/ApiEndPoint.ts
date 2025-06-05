@@ -133,20 +133,7 @@ export const ApiEndPoint = {
 
   File: {
     many: () => apiPath('files'),
-    biomassStock: ({
-      assessmentName = ':assessmentName',
-      countryIso = ':countryIso',
-      cycleName = ':cycleName',
-      language = ':language',
-      sectionName = ':sectionName',
-      selectedDomain = ':selectedDomain',
-    }) =>
-      apiPath('file', 'biomass-stock', assessmentName, cycleName, countryIso, sectionName, selectedDomain, language),
     bulkDownload: () => apiPath('file', 'bulk-download'),
-    dashboard: () => apiPath('file', 'dashboard'),
-    dataDownload: () => apiPath('file', 'data-download'),
-    sdgMetadata: () => apiPath('file', 'sdg-metadata'),
-    userGuide: (language = ':language') => apiPath('file', 'user-guide', language),
   },
 
   MessageCenter: {
@@ -208,5 +195,10 @@ export const ApiEndPoint = {
       // Legacy API Endpoint to return hidden files, replaced with redirect to RepositoryAPI get file
       hidden: () => apiPath('file', 'hidden'),
     },
+  },
+
+  Static: {
+    file: (s3path = ':s3path(*)') => apiPath('static', 'file', s3path),
+    files: () => apiPath('static', 'files'),
   },
 }

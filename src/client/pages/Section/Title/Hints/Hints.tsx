@@ -4,13 +4,14 @@ import { useTranslation } from 'react-i18next'
 
 import { Objects } from 'utils/objects'
 
-import { ApiEndPoint } from 'meta/api/endpoint'
-import { CountryIso } from 'meta/area'
 import { SubSectionHints } from 'meta/assessment/section'
 import { SubSections } from 'meta/assessment/subSections'
+import { Files } from 'meta/file'
+import { SdgMetadataFileName } from 'meta/file/static'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
-import { useCycleRouteParams, useSectionRouteParams } from 'client/hooks/useRouteParams'
+import { useLanguage } from 'client/hooks/useLanguage'
+import { useCountryRouteParams, useCycleRouteParams } from 'client/hooks/useRouteParams'
 import DefinitionLink from 'client/components/DefinitionLink'
 import { Props } from 'client/pages/Section/Title/props'
 
@@ -28,23 +29,24 @@ const HINTS: Array<Hint> = [
 
 export const HintsSustainableDevelopment: React.FC<Props> = () => {
   const { t } = useTranslation()
+  const lang = useLanguage()
 
-  const routeParams = useSectionRouteParams<CountryIso>()
-  const searchParams = new URLSearchParams(routeParams)
+  const fileNames: Array<SdgMetadataFileName> = [SdgMetadataFileName.Metadata150101, SdgMetadataFileName.Metadata150201]
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams()
 
   return (
     <div className="title-hints">
-      {['Metadata-15-01-01', 'Metadata-15-02-01'].map((key) => {
-        searchParams.set('key', key)
+      {fileNames.map((key) => {
+        const href = Files.Static.getSdgMetadata({
+          file: key,
+          language: lang,
+          assessmentName,
+          cycleName,
+          countryIso,
+        })
 
         return (
-          <a
-            key={key}
-            className="definition-link no-print"
-            href={`${ApiEndPoint.File.sdgMetadata()}?${searchParams.toString()}`}
-            rel="noreferrer"
-            target="_blank"
-          >
+          <a key={key} className="definition-link no-print" href={href} rel="noreferrer" target="_blank">
             {t(`fra.sustainableDevelopment.${key}`)}
           </a>
         )

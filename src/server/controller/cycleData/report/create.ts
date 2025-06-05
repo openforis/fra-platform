@@ -35,7 +35,7 @@ export const create = async (props: Props): Promise<Returned> => {
     const file = await FileRepository.create({ fileName: pdfMulterFile.originalname }, t)
     const { uuid: key } = file
     const body = pdfMulterFile.buffer
-    await FileStorage.uploadFile({ key, body })
+    await FileStorage.File.upload({ key, body })
 
     const repositoryItemProps: Partial<RepositoryItem> = {
       countryIso,

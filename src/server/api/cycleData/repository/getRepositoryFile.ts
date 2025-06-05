@@ -28,7 +28,7 @@ export const getRepositoryFile = async (req: Request, res: Response) => {
     const fileName = `${label}.${extension}`
 
     const key = repositoryItem.fileUuid
-    const fileStream = await FileStorage.getFile({ key })
+    const fileStream = await FileStorage.File.get({ key })
 
     Responses.sendFileStream(res, fileName, fileStream, FileStorageUtils.getContentType(extension))
   } catch (e) {

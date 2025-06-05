@@ -1,8 +1,9 @@
 import React, { useMemo } from 'react'
 import { Link, matchPath, useLocation } from 'react-router-dom'
 
-import { ApiEndPoint } from 'meta/api/endpoint'
 import { Areas } from 'meta/area'
+import { RegionCode } from 'meta/area/regionCode'
+import { Files } from 'meta/file'
 import { Routes, SectionNames } from 'meta/routes'
 
 import { useLanguage } from 'client/hooks/useLanguage'
@@ -20,8 +21,13 @@ const ButtonDownloadDashboard: React.FC = () => {
   const className = useButtonClassName({ iconName: 'icon-hit-down', label: 'L', size: ButtonSize.s })
 
   const to = useMemo<string>(() => {
-    const searchParams = new URLSearchParams({ assessmentName, cycleName, countryIso, lang })
-    return `${ApiEndPoint.File.dashboard()}?${searchParams.toString()}`
+    return Files.Static.getStatisticalFactsheet({
+      region: countryIso as RegionCode,
+      language: lang,
+      assessmentName,
+      cycleName,
+      countryIso,
+    })
   }, [assessmentName, countryIso, cycleName, lang])
 
   const renderButton = useMemo<boolean>(() => {

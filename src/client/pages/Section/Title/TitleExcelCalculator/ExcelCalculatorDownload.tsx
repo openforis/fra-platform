@@ -1,26 +1,26 @@
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { ApiEndPoint } from 'meta/api/endpoint'
+import { CountryIso } from 'meta/area'
+import { Files } from 'meta/file/files'
 import { Authorizer } from 'meta/user'
 
 import { useCountry } from 'client/store/area/hooks/country'
-import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useSection } from 'client/store/meta/hooks/sections'
 import { useUser } from 'client/store/user/hooks/user'
-import { useCountryIso } from 'client/hooks'
+import { useLanguage } from 'client/hooks/useLanguage'
+import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 import { useSortedDomains } from './hooks/useSortedDomains'
 
 const ExcelCalculatorDownload: React.FC = () => {
-  const assessment = useAssessment()
-  const countryIso = useCountryIso()
   const cycle = useCycle()
   const section = useSection()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const country = useCountry(countryIso)
 
-  const { i18n, t } = useTranslation()
+  const { t } = useTranslation()
   const userInfo = useUser()
   const countryDomain = country?.props?.domain
 
@@ -28,17 +28,18 @@ const ExcelCalculatorDownload: React.FC = () => {
 
   const [selectedDomain, setSelectedDomain] = useState<string>(defaultSelectedDomain)
 
+  const language = useLanguage()
+
   useEffect(() => {
     setSelectedDomain(defaultSelectedDomain)
   }, [defaultSelectedDomain])
 
-  const calculatorFilePath = ApiEndPoint.File.biomassStock({
-    assessmentName: assessment?.props?.name,
+  const calculatorFilePath = Files.Static.getBiomassCalculator({
+    assessmentName,
+    cycleName,
     countryIso,
-    cycleName: cycle?.name,
-    sectionName: section?.props?.name,
-    selectedDomain,
-    language: i18n.resolvedLanguage,
+    domain: selectedDomain,
+    language,
   })
 
   if (!Authorizer.canEditData({ country, cycle, section, user: userInfo })) return null
