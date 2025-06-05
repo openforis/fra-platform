@@ -1,4 +1,4 @@
-import { createSlice, Reducer } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 
 import { getApplicationReducer } from 'client/store/user/extraReducers/getApplicationReducer'
 import { getLoginReducer } from 'client/store/user/extraReducers/getLoginReducer'
@@ -8,7 +8,7 @@ import { UserState } from 'client/store/user/state'
 
 export const initialState: UserState = null
 
-export const userSlice = createSlice({
+export const UserSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {},
@@ -19,5 +19,3 @@ export const userSlice = createSlice({
     getLoginReducer(builder)
   },
 })
-
-export default userSlice.reducer as Reducer<UserState>
