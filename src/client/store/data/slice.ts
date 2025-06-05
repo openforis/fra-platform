@@ -30,7 +30,6 @@ import { toggleHistoryActivitiesCompareItem } from './reducers/toggleHistoryActi
 import { toggleHistoryLastApproved } from './reducers/toggleHistoryLastApproved'
 
 const initialState: DataState = {
-  contacts: {},
   descriptions: {},
   history: {},
   nodeValueValidations: {},
