@@ -19,9 +19,9 @@ export const useOptions = (): Returned => {
   return useMemo<Returned>(() => {
     if (Objects.isNil(explorerSectionMetadata)) return undefined
 
-    const measuresExportAlways = cellsExportAlways.flatMap((cell) => Object.keys(cell))
+    const measuresExportAlways = Measures.getExportAlways(cellsExportAlways)
 
-    return (measures ?? []).reduce<Returned>((acc, { name }) => {
+    return measures.reduce<Returned>((acc, { name }) => {
       if (!measuresExportAlways.includes(name)) {
         acc.push({
           label: t(Measures.getTName(name)),
