@@ -1,1 +1,1 @@
-export type { Measure, MeasureName } from './measure'
+export type { Measure, MeasureDB, MeasureName } from './measure'

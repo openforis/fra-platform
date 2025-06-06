@@ -45,7 +45,6 @@ export const getTableDimensions = async (props: Props, client: BaseProtocol = DB
   return client.map<Dimension>(
     `
     select distinct
-      d.uuid,
       d.name
     from measurement.dimension d
     where d.name in ($1:csv);

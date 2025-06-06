@@ -1,1 +1,1 @@
-export type { Dimension, DimensionName } from './dimension'
+export type { Dimension, DimensionDB, DimensionName } from './dimension'

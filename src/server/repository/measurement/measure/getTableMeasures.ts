@@ -39,10 +39,11 @@ export const getTableMeasures = async (props: Props, client: BaseProtocol = DB):
   return client.map<Measure>(
     `
       select distinct
-        m.uuid,
         m.name,
-        m.system_uuid as "systemUUID"
+        s.name AS "system_name"
       from measurement.measure m
+      left join measurement.system_of_measurement s
+        on m.system_uuid = s.uuid
       where m.name in ($1:csv);
   `,
     [measureNames],

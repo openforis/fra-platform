@@ -8,6 +8,6 @@ export type ExplorerMetadata = {
   cellsExportAlways: Array<Record<MeasureName, DimensionName>>
   dimensions: Array<Dimension>
   measures: Array<Measure>
-  systemsOfMeasurement: Partial<Record<SystemOfMeasurementName, SystemOfMeasurement>>
+  systemsOfMeasurements: Partial<Record<SystemOfMeasurementName, SystemOfMeasurement>>
   tableName: TableName
 }

@@ -12,6 +12,6 @@ export type SystemOfMeasurementDB = {
 
 export type SystemOfMeasurement = {
   baseUnitName: UnitName
-  name: string
+  name: SystemOfMeasurementName
   units: Partial<Record<UnitName, Omit<Unit, 'uuid'> & { conversionFactor: number }>>
 }
