@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import { CountryIso } from 'meta/area'
 
 import { DataActions } from 'client/store/data'
+import { EstimationsActions } from 'client/store/data/tableData/estimations/actions'
 import { useAppDispatch } from 'client/store/hooks'
 import { MetaActions } from 'client/store/meta/actions'
 import { useCanEdit } from 'client/store/user/hooks/auth'
@@ -32,7 +33,7 @@ export const useGetTableData = (props: Props) => {
         dispatch(DataActions.getTableData({ ...propsFetch, tableNames: Array.from(tableNames) }))
 
         if (tableWithOdp && canEdit) {
-          dispatch(DataActions.getNodeValuesEstimations({ ...propsFetch, sectionName, tableName: tableWithOdp }))
+          dispatch(EstimationsActions.getNodeValuesEstimations({ ...propsFetch, sectionName, tableName: tableWithOdp }))
           dispatch(DataActions.getODPLastUpdatedTimestamp({ ...propsFetch, sectionName }))
         }
       }

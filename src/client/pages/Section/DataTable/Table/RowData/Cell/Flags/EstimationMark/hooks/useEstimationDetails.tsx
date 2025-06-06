@@ -4,7 +4,8 @@ import { useTranslation } from 'react-i18next'
 
 import { Dates } from 'utils/dates'
 
-import { useNodeValuesEstimation, useOdpLastUpdatedTimestamp } from 'client/store/data'
+import { useOdpLastUpdatedTimestamp } from 'client/store/data'
+import { useNodeValuesEstimation } from 'client/store/data/tableData/estimations/hooks/useNodeValuesEstimation'
 import Icon from 'client/components/Icon'
 
 import { Props } from '../props'
