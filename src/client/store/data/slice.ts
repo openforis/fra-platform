@@ -1,11 +1,8 @@
 import { ActionReducerMapBuilder, createSlice, Reducer } from '@reduxjs/toolkit'
-import { combineReducers } from 'redux'
 import { Objects } from 'utils/objects'
 
 import { RecordAssessmentDatas } from 'meta/data'
 
-import { ContactsSlice } from 'client/store/data/contacts/slice'
-import { DescriptionsSlice } from 'client/store/data/descriptions/slice'
 import { getTableDataHistoryReducer } from 'client/store/data/extraReducers/getTableDataHistory'
 import { DataState, TableDataStatus } from 'client/store/data/state'
 
@@ -129,11 +126,3 @@ export const DataDeprecatedSlice = createSlice({
 })
 
 export default DataDeprecatedSlice.reducer as Reducer<DataState>
-
-export const DataSlice = {
-  name: 'data',
-  reducer: combineReducers({
-    [ContactsSlice.name]: ContactsSlice.reducer,
-    [DescriptionsSlice.name]: DescriptionsSlice.reducer,
-  }),
-}

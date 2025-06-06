@@ -9,7 +9,6 @@ import axiosMiddleware from './middleware/axios'
 import { listenerMiddleware } from './middleware/listener'
 import rootReducer from './rootReducer'
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface LazyLoadedSlices {
   login: LoginState
   tablePaginated: TablePaginatedState
