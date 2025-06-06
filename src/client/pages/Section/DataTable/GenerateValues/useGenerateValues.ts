@@ -7,7 +7,7 @@ import { CycleName } from 'meta/assessment/cycle'
 import { Row, RowType } from 'meta/assessment/row'
 import { RecordAssessmentData, RecordAssessmentDatas, RecordCountryData } from 'meta/data'
 
-import { DataActions } from 'client/store/data'
+import { EstimationsActions } from 'client/store/data/tableData/estimations/actions'
 import { useAppDispatch } from 'client/store/hooks'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useIsEstimationPending } from 'client/store/ui/assessmentSection'
@@ -83,7 +83,7 @@ const useGenerateValues = (
           : null
 
       dispatch(
-        DataActions.postEstimate({
+        EstimationsActions.postEstimate({
           countryIso,
           assessmentName,
           cycleName: cycle.name,

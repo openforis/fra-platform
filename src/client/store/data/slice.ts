@@ -7,10 +7,8 @@ import { getTableDataHistoryReducer } from 'client/store/data/extraReducers/getT
 import { DataState, TableDataStatus } from 'client/store/data/state'
 
 import { getLinkedDataSources } from './actions/getLinkedDataSources'
-import { getNodeValuesEstimations } from './actions/getNodeValuesEstimations'
 import { getODPLastUpdatedTimestamp } from './actions/getODPLastUpdatedTimestamp'
 import { getTableData } from './actions/getTableData'
-import { postEstimate } from './actions/postEstimate'
 import { updateNodeValues } from './actions/updateNodeValues'
 import { getDescriptionsHistoryReducer } from './extraReducers/getDescriptionsHistory'
 import { getOriginalDataPointHistoryReducer } from './extraReducers/getOriginalDataPointHistory'
@@ -70,14 +68,6 @@ export const DataDeprecatedSlice = createSlice({
         const path = ['tableDataStatus', assessmentName, cycleName, countryIso, tableName]
         Objects.setInPath({ obj: state, path, value: TableDataStatus.fetched })
       })
-    })
-
-    builder.addCase(getNodeValuesEstimations.fulfilled, (state, { payload }) => {
-      state.nodeValuesEstimations = { ...state.nodeValuesEstimations, ...payload }
-    })
-
-    builder.addCase(postEstimate.fulfilled, (state, { payload }) => {
-      state.nodeValuesEstimations = payload.nodeValueEstimations
     })
 
     builder.addCase(updateNodeValues.pending, (state, { meta }) => {

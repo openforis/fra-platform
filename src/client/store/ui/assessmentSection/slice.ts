@@ -4,7 +4,7 @@ import { Objects } from 'utils/objects'
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 import { SectionName } from 'meta/assessment/section'
 
-import { postEstimate } from 'client/store/data/actions/postEstimate'
+import { postEstimate } from 'client/store/data/tableData/estimations/actions/postEstimate'
 
 import { initialState } from './state'
 
