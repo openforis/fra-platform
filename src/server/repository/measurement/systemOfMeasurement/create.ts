@@ -1,15 +1,15 @@
 import { Objects } from 'utils/objects'
 
-import { SystemOfMeasurement } from 'meta/measurement/systemOfMeasurement'
+import { SystemOfMeasurementDB } from 'meta/measurement/systemOfMeasurement'
 
 import { BaseProtocol, DB } from 'server/db'
 
-type Props = Omit<SystemOfMeasurement, 'uuid'>
+type Props = Omit<SystemOfMeasurementDB, 'uuid'>
 
-export const create = (props: Props, client: BaseProtocol = DB): Promise<SystemOfMeasurement> => {
+export const create = (props: Props, client: BaseProtocol = DB): Promise<SystemOfMeasurementDB> => {
   const { baseUnitUUID, conversionFactors, name } = props
 
-  return client.one<SystemOfMeasurement>(
+  return client.one<SystemOfMeasurementDB>(
     `
     insert into measurement.system_of_measurement (
       name,

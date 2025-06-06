@@ -1,14 +1,19 @@
 import { Objects } from 'utils/objects'
 
-import { SystemOfMeasurement } from 'meta/measurement/systemOfMeasurement'
+import { SystemOfMeasurementDB } from 'meta/measurement/systemOfMeasurement'
 
-interface SystemOfMeasurementDB {
-  conversion_factors: SystemOfMeasurement['conversionFactors']
+interface SystemOfMeasurementDBRaw {
+  base_unit_uuid: string
+  conversion_factors: SystemOfMeasurementDB['conversionFactors']
   id: number
   name: string
   uuid: string
 }
 
-export const SystemOfMeasurementAdapter = (systemOfMeasurement: SystemOfMeasurementDB): SystemOfMeasurement => {
-  return { ...Objects.camelize(systemOfMeasurement), conversionFactors: systemOfMeasurement.conversion_factors }
+export const SystemOfMeasurementAdapter = (systemOfMeasurement: SystemOfMeasurementDBRaw): SystemOfMeasurementDB => {
+  return {
+    ...Objects.camelize(systemOfMeasurement),
+    baseUnitUUID: systemOfMeasurement.base_unit_uuid,
+    conversionFactors: systemOfMeasurement.conversion_factors,
+  }
 }
