@@ -14,7 +14,7 @@ const dimensionNameToColumnName = (dimensionName: DimensionName): ColName => {
 }
 
 const getExportAlways = (cellsExportAlways: ExplorerMetadata['cellsExportAlways']): Array<DimensionName> => {
-  return cellsExportAlways.flatMap((cell) => Object.values(cell))
+  return (cellsExportAlways ?? []).flatMap((cell) => Object.values(cell))
 }
 
 const getTName = (name: DimensionName): string => `dimensions.${name}`

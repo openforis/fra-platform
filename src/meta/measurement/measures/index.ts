@@ -6,7 +6,7 @@ import { MeasureName } from 'meta/measurement/measure/measure'
 import { measureToVariables, variableToMeasures } from './variablesToMeasures'
 
 const getExportAlways = (cellsExportAlways: ExplorerMetadata['cellsExportAlways']): Array<MeasureName> => {
-  return cellsExportAlways.flatMap((cell) => Object.keys(cell))
+  return (cellsExportAlways ?? []).flatMap((cell) => Object.keys(cell))
 }
 
 const getTName = (name: MeasureName): string => `measures.${name}`
