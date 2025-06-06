@@ -2,21 +2,18 @@ import { ActionReducerMapBuilder, createSlice, Reducer } from '@reduxjs/toolkit'
 import { combineReducers } from 'redux'
 import { Objects } from 'utils/objects'
 
-import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 import { RecordAssessmentDatas } from 'meta/data'
 
 import { ContactsSlice } from 'client/store/data/contacts/slice'
+import { DescriptionsSlice } from 'client/store/data/descriptions/slice'
 import { getTableDataHistoryReducer } from 'client/store/data/extraReducers/getTableDataHistory'
 import { DataState, TableDataStatus } from 'client/store/data/state'
 
-import { deleteDataSource } from './actions/deleteDataSource'
-import { getDescription } from './actions/getDescription'
 import { getLinkedDataSources } from './actions/getLinkedDataSources'
 import { getNodeValuesEstimations } from './actions/getNodeValuesEstimations'
 import { getODPLastUpdatedTimestamp } from './actions/getODPLastUpdatedTimestamp'
 import { getTableData } from './actions/getTableData'
 import { postEstimate } from './actions/postEstimate'
-import { updateDescription } from './actions/updateDescription'
 import { updateNodeValues } from './actions/updateNodeValues'
 import { getDescriptionsHistoryReducer } from './extraReducers/getDescriptionsHistory'
 import { getOriginalDataPointHistoryReducer } from './extraReducers/getOriginalDataPointHistory'
@@ -30,7 +27,6 @@ import { toggleHistoryActivitiesCompareItem } from './reducers/toggleHistoryActi
 import { toggleHistoryLastApproved } from './reducers/toggleHistoryLastApproved'
 
 const initialState: DataState = {
-  descriptions: {},
   history: {},
   nodeValueValidations: {},
   nodeValuesEstimations: {},
@@ -116,37 +112,6 @@ export const DataDeprecatedSlice = createSlice({
     })
 
     // descriptions
-    builder.addCase(getDescription.fulfilled, (state, { meta, payload }) => {
-      const { assessmentName, countryIso, cycleName } = meta.arg
-
-      // merge values at section level. good enough for now
-      const valuePayload = payload[countryIso]
-      const valueStore = state.descriptions?.[assessmentName]?.[cycleName]?.[countryIso]
-      const path = ['descriptions', assessmentName, cycleName, countryIso]
-      Objects.setInPath({ obj: state, path, value: { ...valueStore, ...valuePayload } })
-    })
-
-    builder.addCase(updateDescription.pending, (state, { meta }) => {
-      const { assessmentName, countryIso, cycleName, name, sectionName, value } = meta.arg
-
-      const path = ['descriptions', assessmentName, cycleName, countryIso, sectionName, name]
-      Objects.setInPath({ obj: state, path, value })
-    })
-
-    builder.addCase(deleteDataSource.pending, (state, action) => {
-      const { assessmentName, countryIso, cycleName, sectionName, uuid } = action.meta.arg
-
-      const name = CommentableDescriptionName.dataSources
-      const value = state.descriptions[assessmentName]?.[cycleName]?.[countryIso]?.[sectionName]?.[name]
-      if (!value) {
-        throw new Error(`Unable to find data source value ${assessmentName}-${cycleName}-${countryIso}-${sectionName}}`)
-      }
-      const dataSources = value.dataSources.filter((d) => d.uuid !== uuid)
-      const valueUpdate = { ...value, dataSources }
-
-      const path = ['descriptions', assessmentName, cycleName, countryIso, sectionName, name]
-      Objects.setInPath({ obj: state, path, value: valueUpdate })
-    })
 
     builder.addCase(getLinkedDataSources.fulfilled, (state, { meta, payload }) => {
       const { dataSources, sectionName } = payload
@@ -169,5 +134,6 @@ export const DataSlice = {
   name: 'data',
   reducer: combineReducers({
     [ContactsSlice.name]: ContactsSlice.reducer,
+    [DescriptionsSlice.name]: DescriptionsSlice.reducer,
   }),
 }

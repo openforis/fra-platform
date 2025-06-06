@@ -5,7 +5,8 @@ import { useTranslation } from 'react-i18next'
 import { CountryIso } from 'meta/area'
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 
-import { DataActions, useCommentableDescriptionValue } from 'client/store/data'
+import { DescriptionsActions } from 'client/store/data/descriptions/actions'
+import { useCommentableDescriptionValue } from 'client/store/data/descriptions/hooks/descriptions'
 import { useAppDispatch } from 'client/store/hooks'
 import { usePreviousSection } from 'client/store/meta/hooks/sections'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
@@ -28,7 +29,7 @@ export const ButtonCopy: React.FC<Props> = (props: Props) => {
 
   const onClick = useCallback(() => {
     const propsCopy = { assessmentName, cycleName, countryIso, sectionName, currentValue, previousSectionName }
-    dispatch(DataActions.copyPreviousDatasources(propsCopy))
+    dispatch(DescriptionsActions.copyPreviousDatasources(propsCopy))
   }, [assessmentName, countryIso, currentValue, cycleName, dispatch, previousSectionName, sectionName])
 
   return (

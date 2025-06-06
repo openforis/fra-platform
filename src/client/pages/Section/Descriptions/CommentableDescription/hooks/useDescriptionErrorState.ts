@@ -5,7 +5,7 @@ import { Parser } from 'htmlparser2'
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 import { SectionName } from 'meta/assessment/section'
 
-import { useCommentableDescriptionValue } from 'client/store/data'
+import { useCommentableDescriptionValue } from 'client/store/data/descriptions/hooks/descriptions'
 
 const isHTMLEmpty = (html: string): boolean => {
   // Objects.isEmpty() calls trim() internally, which causes

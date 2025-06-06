@@ -69,7 +69,6 @@ export type HistoryState = {
 
 // TODO: this has to become the only DataState (move descriptions and linkedDataSources here)
 interface TableDataState {
-  descriptions: DescriptionsState
   history: HistoryState
   nodeValueValidations: RecordAssessmentValidationsState
   nodeValuesEstimations?: Record<string, NodeValuesEstimation>

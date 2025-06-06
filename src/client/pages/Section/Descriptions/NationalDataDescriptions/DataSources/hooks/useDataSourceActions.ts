@@ -5,7 +5,7 @@ import { CommentableDescriptionName, DataSource } from 'meta/assessment/descript
 import { SectionName } from 'meta/assessment/section'
 import { Topics } from 'meta/messageCenter'
 
-import { DataActions } from 'client/store/data'
+import { DescriptionsActions } from 'client/store/data/descriptions/actions'
 import { useAppDispatch } from 'client/store/hooks'
 import { useCanEditDescription, useIsDescriptionEditable } from 'client/store/user/hooks/auth'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
@@ -33,7 +33,7 @@ export const useDataSourceActions = (props: Props): Array<DataRowAction> => {
     if (editable) {
       const onDelete = () => {
         const deleteProps = { assessmentName, cycleName, countryIso, sectionName, uuid: dataSource.uuid }
-        dispatch(DataActions.deleteDataSource(deleteProps))
+        dispatch(DescriptionsActions.deleteDataSource(deleteProps))
       }
       actions.push({ type: DataRowActionType.Delete, onClick: onDelete })
     }
