@@ -6,6 +6,7 @@ import { TablePaginatedCount } from 'meta/tablePaginated'
 import { BaseProtocol, DB, Schemas } from 'server/db'
 
 import { getMaterializedViewName } from './_common/getMaterializedViewName'
+import { whereClause } from './_common/select'
 
 type Props = {
   assessment: Assessment
@@ -23,6 +24,7 @@ export const getCount = async (props: Props, client: BaseProtocol = DB): Promise
     `
         select count(*) as total
         from ${schemaCycle}.${viewName}
+        where ${whereClause}
     `,
     []
   )
