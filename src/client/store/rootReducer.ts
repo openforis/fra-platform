@@ -2,13 +2,15 @@ import { combineReducers } from 'redux'
 
 import { ApplicationSlice } from 'client/store/application/slice'
 import { AreaSlice } from 'client/store/area/slice'
+import { ContactsSlice } from 'client/store/data/contacts/slice'
+import { DescriptionsSlice } from 'client/store/data/descriptions/slice'
 import { MetaSlice } from 'client/store/meta/slice'
 import { FileUploadSlice } from 'client/store/ui/fileUpload'
 import { LinksSlice } from 'client/store/ui/links'
 import { RepositorySlice } from 'client/store/ui/repository'
 import { UserSlice } from 'client/store/user/slice'
 
-import DataDeprecatedSlice, { DataSlice } from './data/slice'
+import DataDeprecatedSlice from './data/slice'
 import { AreaSelectorSlice } from './ui/areaSelector'
 import { AssessmentSectionSlice } from './ui/assessmentSection/slice'
 import DataExportSlice from './ui/dataExport/slice'
@@ -25,7 +27,10 @@ import UserManagementSlice from './ui/userManagement/slice'
 export default {
   [ApplicationSlice.name]: ApplicationSlice.reducer,
   [AreaSlice.name]: AreaSlice.reducer,
-  [DataSlice.name]: DataSlice.reducer,
+  data: combineReducers({
+    [ContactsSlice.name]: ContactsSlice.reducer,
+    [DescriptionsSlice.name]: DescriptionsSlice.reducer,
+  }),
   [MetaSlice.name]: MetaSlice.reducer,
   dataDep: DataDeprecatedSlice,
   geo: GeoSlice,
