@@ -25,7 +25,11 @@ const Invitation: React.FC = () => {
   useInitInvitation()
 
   const { invitationUuid } = useSearchParams<LoginInvitationQueryParams>()
-  const { assessment, invitedUser, userInvitation, userProviders } = useInvitation()
+  const invitation = useInvitation()
+
+  if (!invitation) return null
+
+  const { assessment, invitedUser, userInvitation, userProviders } = invitation
 
   const cycle = assessment?.cycles.find((cycle) => cycle.uuid === userInvitation.cycleUuid)
   const assessmentName = assessment?.props.name

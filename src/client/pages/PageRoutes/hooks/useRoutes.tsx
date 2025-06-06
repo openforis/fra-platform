@@ -79,7 +79,7 @@ export const useRoutes = () => {
                     <LoginLazy />
                   </Suspense>
                 }
-                path={Routes.Login.path.relative}
+                path={`${Routes.Login.path.relative}/*`}
               />
             </Route>
           </Route>
