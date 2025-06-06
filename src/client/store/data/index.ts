@@ -1,5 +1,4 @@
 export { DataActions } from './actions'
-export { useCommentableDescriptionValue } from './hooks/useCommentableDescriptionValue'
 export { useDataSourcesLinked } from './hooks/useDataSourcesLinked'
 export { useHasOriginalDataPointData } from './hooks/useHasOriginalDataPointData'
 export { useHistoryActivities } from './hooks/useHistoryActivities'

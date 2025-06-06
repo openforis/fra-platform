@@ -4,7 +4,7 @@ import { CommentableDescriptionName, DataSource } from 'meta/assessment/descript
 import { SectionName } from 'meta/assessment/section'
 import { UUIDs } from 'meta/uuid'
 
-import { useCommentableDescriptionValue } from 'client/store/data'
+import { useCommentableDescriptionValue } from 'client/store/data/descriptions/hooks/descriptions'
 import { useIsDescriptionEditable } from 'client/store/user/hooks/auth'
 
 type Props = {

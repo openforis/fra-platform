@@ -6,7 +6,8 @@ import { CountryIso } from 'meta/area'
 import { CommentableDescriptionName, DataSource } from 'meta/assessment/descriptionValue'
 import { SectionName } from 'meta/assessment/section'
 
-import { DataActions, useCommentableDescriptionValue } from 'client/store/data'
+import { DescriptionsActions } from 'client/store/data/descriptions/actions'
+import { useCommentableDescriptionValue } from 'client/store/data/descriptions/hooks/descriptions'
 import { useAppDispatch } from 'client/store/hooks'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
@@ -48,7 +49,7 @@ export const useOnChange = (props: Props): Returned => {
       }
 
       const updateProps = { assessmentName, cycleName, countryIso, sectionName, name, value: valueUpdate }
-      dispatch(DataActions.updateDescription(updateProps))
+      dispatch(DescriptionsActions.updateDescription(updateProps))
     },
     [assessmentName, countryIso, cycleName, dataSource, dispatch, sectionName, value]
   )

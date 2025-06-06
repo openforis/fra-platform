@@ -1,9 +1,6 @@
 import { DataDeprecatedSlice } from 'client/store/data/slice'
 
 import { clearTableData } from './clearTableData'
-import { copyPreviousDatasources } from './copyPreviousDatasources'
-import { deleteDataSource } from './deleteDataSource'
-import { getDescription } from './getDescription'
 import { getDescriptionsHistory } from './getDescriptionsHistory'
 import { getLinkedDataSources } from './getLinkedDataSources'
 import { getNodeValuesEstimations } from './getNodeValuesEstimations'
@@ -13,7 +10,6 @@ import { getTableData } from './getTableData'
 import { getTableDataHistory } from './getTableDataHistory'
 import { postEstimate } from './postEstimate'
 import { setNodeValues } from './setNodeValues'
-import { updateDescription } from './updateDescription'
 import { updateNodeValues } from './updateNodeValues'
 
 export const DataActions = {
@@ -34,10 +30,6 @@ export const DataActions = {
   postEstimate,
 
   // Descriptions
-  getDescription,
-  updateDescription,
-  copyPreviousDatasources,
-  deleteDataSource,
   getLinkedDataSources,
   getDescriptionsHistory,
 }

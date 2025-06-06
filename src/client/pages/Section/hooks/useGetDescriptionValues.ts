@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 
 import { CountryIso } from 'meta/area'
 
-import { DataActions } from 'client/store/data'
+import { DescriptionsActions } from 'client/store/data/descriptions/actions'
 import { useAppDispatch } from 'client/store/hooks'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
@@ -19,7 +19,7 @@ export const useGetDescriptionValues = (props: Props): void => {
 
   useEffect(() => {
     if (!print) {
-      dispatch(DataActions.getDescription({ countryIso, assessmentName, cycleName, sectionName }))
+      dispatch(DescriptionsActions.getDescription({ countryIso, assessmentName, cycleName, sectionName }))
     }
   }, [assessmentName, countryIso, cycleName, dispatch, print, sectionName])
 }

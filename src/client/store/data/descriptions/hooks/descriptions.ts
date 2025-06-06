@@ -1,6 +1,7 @@
 import { CountryIso } from 'meta/area'
 import { CommentableDescriptionName, CommentableDescriptionValue } from 'meta/assessment/descriptionValue'
 
+import { DescriptionsSelectors } from 'client/store/data/descriptions/selectors'
 import { useAppSelector } from 'client/store/hooks'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
@@ -15,7 +16,8 @@ export const useCommentableDescriptionValue = (props: Props): CommentableDescrip
 
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
 
-  return useAppSelector(
-    (state) => state.dataDep.descriptions[assessmentName]?.[cycleName]?.[countryIso]?.[sectionName]?.[name] ?? template
+  return useAppSelector<CommentableDescriptionValue>(
+    (state) =>
+      DescriptionsSelectors.getDescriptions(state, assessmentName, cycleName, countryIso, sectionName, name) ?? template
   )
 }

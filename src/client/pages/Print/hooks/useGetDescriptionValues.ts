@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 
 import { CountryIso } from 'meta/area'
 
-import { DataActions } from 'client/store/data'
+import { DescriptionsActions } from 'client/store/data/descriptions/actions'
 import { useAppDispatch } from 'client/store/hooks'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
@@ -12,6 +12,6 @@ export const useGetDescriptionValues = (): void => {
   const countryIso = _countryIso as CountryIso
 
   useEffect(() => {
-    dispatch(DataActions.getDescription({ countryIso, assessmentName, cycleName }))
+    dispatch(DescriptionsActions.getDescription({ countryIso, assessmentName, cycleName }))
   }, [assessmentName, countryIso, cycleName, dispatch])
 }
