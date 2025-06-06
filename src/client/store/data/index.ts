@@ -12,7 +12,6 @@ export { useLastApprovedHistoryDescriptions } from './hooks/useLastApprovedHisto
 export { useHistoryLastApprovedDescriptionFetched } from './hooks/useLastApprovedHistoryDescriptions'
 export { useHistoryLastApprovedDataTableFetched } from './hooks/useLastApprovedHistoryTableData'
 export { useHistoryLastApprovedODPFetched } from './hooks/useLastApprovedOriginalDataPoint'
-export { useNodeValuesEstimation } from './hooks/useNodeValuesEstimation'
 export { useNodeValueValidation, useTableHasErrors } from './hooks/useNodeValueValidations'
 export { useOdpLastUpdatedTimestamp } from './hooks/useOdpLastUpdatedTimestamp'
 export { useOriginalDataPointYears } from './hooks/useOriginalDataPointYears'

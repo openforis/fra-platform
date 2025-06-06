@@ -5,6 +5,7 @@ import { isAnyOf, isFulfilled, isPending, isRejected } from '@reduxjs/toolkit'
 import { DataActions } from 'client/store/data'
 import { ContactsActions } from 'client/store/data/contacts/actions'
 import { DescriptionsActions } from 'client/store/data/descriptions/actions'
+import { EstimationsActions } from 'client/store/data/tableData/estimations/actions'
 import { useAppDispatch } from 'client/store/hooks'
 import { addAppListener } from 'client/store/middleware/listener'
 import { OriginalDataPointActions } from 'client/store/ui/originalDataPoint'
@@ -20,7 +21,7 @@ const ACTIONS = [
   ContactsActions.createContact,
   ContactsActions.deleteContact,
   DataActions.clearTableData,
-  DataActions.postEstimate,
+  EstimationsActions.postEstimate,
   DescriptionsActions.copyPreviousDatasources,
   // OriginalDataPointActions
   OriginalDataPointActions.updateOriginalDataPointDescription,
