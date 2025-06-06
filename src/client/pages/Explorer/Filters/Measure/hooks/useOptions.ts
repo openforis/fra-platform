@@ -14,7 +14,7 @@ export const useOptions = (): Returned => {
   const { t } = useTranslation()
 
   const explorerSectionMetadata = useExplorerSectionMetadata()
-  const { cellsExportAlways, measures } = explorerSectionMetadata ?? {}
+  const { cellsExportAlways, measures = [] } = explorerSectionMetadata ?? {}
 
   return useMemo<Returned>(() => {
     if (Objects.isNil(explorerSectionMetadata)) return undefined
