@@ -5,8 +5,9 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'
+import { SQLs } from 'server/db/SQLs'
 
-import { fieldsJoined } from './fields'
+import { fields } from './fields'
 
 type Props = {
   assessment: Assessment
@@ -21,7 +22,7 @@ export const getOneOrNone = async (props: Props, client: BaseProtocol = DB): Pro
 
   return client.oneOrNone<CountrySummary>(
     `
-        select ${fieldsJoined('cs')}, c.status
+        select ${SQLs.fieldsJoined(fields, 'cs')}, c.status
         from ${schemaCycle}.country_summary cs
                     left join ${schemaCycle}.country c using (country_iso)
         where cs.country_iso = $1

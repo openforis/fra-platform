@@ -1,23 +1,17 @@
+import { Unit, UnitName } from 'meta/measurement/unit'
 import { UUID } from 'meta/uuid'
 
-export type SystemOfMeasurement = {
+import { SystemOfMeasurementName } from './systemOfMeasurementName'
+
+export type SystemOfMeasurementDB = {
   baseUnitUUID: UUID
   conversionFactors: Record<UUID, number> // conversion factor of each unit in relation to base unit
-  name: string
+  name: SystemOfMeasurementName
   uuid: UUID
 }
 
-// export type SystemOfMeasurementDB = {
-//   baseUnitUUID: UUID
-//   conversionFactors: Record<UUID, number> // conversion factor of each unit in relation to base unit
-//   name: string
-//   uuid: UUID
-// }
-//
-// // FE:
-// export type SystemOfMeasurement = {
-//   baseUnitName: UnitName
-//   name: string
-//   units: Record<UnitName, Unit & { conversionFactor: number }>
-//   // conversionFactors:Record<UUID, number>
-// }
+export type SystemOfMeasurement = {
+  baseUnitName: UnitName
+  name: SystemOfMeasurementName
+  units: Partial<Record<UnitName, Omit<Unit, 'uuid'> & { conversionFactor: number }>>
+}

@@ -3,8 +3,10 @@ import { Cycle } from 'meta/assessment/cycle'
 import { SectionName } from 'meta/assessment/section'
 import { TableName } from 'meta/assessment/table'
 import { ExplorerMetadata } from 'meta/explorer/metadata'
-import { systemsOfMeasurement } from 'meta/measurement/systemOfMeasurement'
+import { SystemOfMeasurementName, systemsOfMeasurement } from 'meta/measurement/systemOfMeasurement'
+import { SystemOfMeasurement } from 'meta/measurement/systemOfMeasurement/systemOfMeasurement'
 
+import { SystemOfMeasurementController } from 'server/controller/measurement/systemOfMeasurement'
 import { BaseProtocol, DB } from 'server/db'
 import { DimensionRepository } from 'server/repository/measurement/dimension'
 import { MeasureRepository } from 'server/repository/measurement/measure'
@@ -51,7 +53,10 @@ export const getManyMetadata = async (props: Props, client: BaseProtocol = DB): 
       return acc
     }, [])
 
-    const sectionsMetadata = await SectionRedisRepository.getManyMetadata(props, client)
+    const [sectionsMetadata, systemsWithUnits] = await Promise.all([
+      SectionRedisRepository.getManyMetadata(props, client),
+      SystemOfMeasurementController.getAllWithUnits(client),
+    ])
 
     const jobs = Object.entries(sectionsMetadata).map(async ([sectionName, tableSections]) => {
       const allSectionTables = tableSections.flatMap((ts) => ts.tables)
@@ -70,10 +75,19 @@ export const getManyMetadata = async (props: Props, client: BaseProtocol = DB): 
         MeasureRepository.getTableMeasures({ assessment, cycle, tableName }, client),
       ])
 
+      const systemNames = [...new Set(measures.map((m) => m.systemName).filter(Boolean))]
+      const systemsOfMeasurementRecord: Partial<Record<SystemOfMeasurementName, SystemOfMeasurement>> = {}
+
+      systemNames.forEach((name) => {
+        const system = systemsWithUnits.find((s) => s.name === name)
+        if (system) systemsOfMeasurementRecord[system.name] = system
+      })
+
       const explorerMetadata: ExplorerMetadata = {
         cellsExportAlways,
         dimensions,
         measures,
+        systemsOfMeasurements: systemsOfMeasurementRecord,
         tableName,
       }
       await redis.hset(key, sectionName, JSON.stringify(explorerMetadata))

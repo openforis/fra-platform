@@ -44,9 +44,10 @@ export const getTableDimensions = async (props: Props, client: BaseProtocol = DB
 
   return client.map<Dimension>(
     `
-      select distinct *
-      from measurement.dimension
-      where name in ($1:csv);
+    select distinct
+      d.name
+    from measurement.dimension d
+    where d.name in ($1:csv);
     `,
     [dimensionNames],
     (dimension) => Objects.camelize(dimension)
