@@ -11,7 +11,7 @@ import { TableName } from 'meta/assessment/table'
 import { VariableName } from 'meta/assessment/variable'
 import { RecordAssessmentData, RecordAssessmentDatas } from 'meta/data'
 
-import { DataSelector } from 'client/store/data/selectors'
+import { HistorySelectors } from 'client/store/data/history/selectors'
 import { useAppSelector } from 'client/store/hooks'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
@@ -25,7 +25,7 @@ type PropsNodeValue = {
 }
 
 export const useLastApprovedHistoryTableData = (): RecordAssessmentData => {
-  return useAppSelector((state) => DataSelector.History.getLastApprovedTableData(state))
+  return useAppSelector((state) => HistorySelectors.getLastApprovedTableData(state))
 }
 
 export const useLastApprovedHistoryNodeValue = (props: PropsNodeValue): NodeValue => {

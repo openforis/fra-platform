@@ -6,7 +6,7 @@ import classNames from 'classnames'
 import { CountryIso } from 'meta/area'
 import { Cols } from 'meta/assessment/cols'
 
-import { useLastApprovedHistoryNodeValue } from 'client/store/data/hooks/useLastApprovedHistoryTableData'
+import { useLastApprovedHistoryNodeValue } from 'client/store/data/history/hooks/lastApprovedTableData'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import DiffText from 'client/components/DiffText'
 

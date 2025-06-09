@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom'
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 
-import { DataActions } from 'client/store/data'
+import { HistoryActions } from 'client/store/data/history/actions'
 import { useAppDispatch } from 'client/store/hooks'
 import { TablePaginatedActions } from 'client/store/tablePaginated/actions'
 
@@ -19,7 +19,7 @@ export const useResetHistory = () => {
       dispatch(TablePaginatedActions.resetPaths({ paths: [pathDataSources] }))
 
       // reset history
-      dispatch(DataActions.resetHistoryActivities())
+      dispatch(HistoryActions.resetActivities())
     }
   }, [dispatch, location.pathname])
 }

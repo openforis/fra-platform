@@ -12,7 +12,7 @@ import { Table } from 'meta/assessment/table'
 import { Routes } from 'meta/routes'
 import { TooltipId } from 'meta/tooltip'
 
-import { useHistoryLastApprovedIsActive } from 'client/store/data'
+import { useHistoryLastApprovedIsActive } from 'client/store/data/history/hooks/lastApproved'
 import { useOdpReviewSummary } from 'client/store/ui/review/hooks'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'

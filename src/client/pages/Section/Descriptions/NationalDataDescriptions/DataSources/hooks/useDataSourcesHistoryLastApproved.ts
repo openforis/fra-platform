@@ -2,7 +2,8 @@ import { useMemo } from 'react'
 
 import { CommentableDescriptionName, DataSource } from 'meta/assessment/descriptionValue'
 
-import { useHistoryLastApprovedIsActive, useLastApprovedHistoryDescriptions } from 'client/store/data'
+import { useHistoryLastApprovedIsActive } from 'client/store/data/history/hooks/lastApproved'
+import { useLastApprovedHistoryDescriptions } from 'client/store/data/history/hooks/lastApprovedDescriptions'
 
 import { DataSourceHistoryCompare } from '../types'
 import { getDataSourceHistoryCompares } from './_getDataSourceHistoryCompares'

@@ -2,8 +2,8 @@ import React from 'react'
 
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 
-import { useLastApprovedHistoryDescriptions } from 'client/store/data'
 import { useCommentableDescriptionValue } from 'client/store/data/descriptions/hooks/descriptions'
+import { useLastApprovedHistoryDescriptions } from 'client/store/data/history/hooks/lastApprovedDescriptions'
 import DiffDOM from 'client/components/DiffDOM'
 import { useSectionContext } from 'client/pages/Section/context'
 

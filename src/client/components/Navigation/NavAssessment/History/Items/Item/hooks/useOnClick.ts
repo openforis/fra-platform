@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 
-import { DataActions } from 'client/store/data'
+import { HistoryActions } from 'client/store/data/history/actions'
 import { useAppDispatch } from 'client/store/hooks'
 
 import { Props } from '../props'
@@ -13,6 +13,6 @@ export const useOnClick = (props: Props): Returned => {
   const dispatch = useAppDispatch()
 
   return useCallback<Returned>(() => {
-    dispatch(DataActions.toggleHistoryActivitiesCompareItem({ datum, target }))
+    dispatch(HistoryActions.toggleActivitiesCompareItem({ datum, target }))
   }, [datum, dispatch, target])
 }

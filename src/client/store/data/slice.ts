@@ -3,24 +3,16 @@ import { Objects } from 'utils/objects'
 
 import { RecordAssessmentDatas } from 'meta/data'
 
-import { getTableDataHistoryReducer } from 'client/store/data/extraReducers/getTableDataHistory'
 import { DataState, TableDataStatus } from 'client/store/data/state'
 
 import { getODPLastUpdatedTimestamp } from './actions/getODPLastUpdatedTimestamp'
 import { getTableData } from './actions/getTableData'
 import { updateNodeValues } from './actions/updateNodeValues'
-import { getDescriptionsHistoryReducer } from './extraReducers/getDescriptionsHistory'
-import { getOriginalDataPointHistoryReducer } from './extraReducers/getOriginalDataPointHistory'
 import { setNodeValuesReducer } from './extraReducers/setNodeValues'
 import { deleteOriginalDataPoint } from './reducers/deleteOriginalDataPoint'
-import { resetHistoryActivities } from './reducers/resetHistoryActivities'
 import { setValue } from './reducers/setValue'
-import { toggleHistoryActivities } from './reducers/toggleHistoryActivities'
-import { toggleHistoryActivitiesCompareItem } from './reducers/toggleHistoryActivitiesCompareItem'
-import { toggleHistoryLastApproved } from './reducers/toggleHistoryLastApproved'
 
 const initialState: DataState = {
-  history: {},
   nodeValuesEstimations: {},
   odpLastUpdatedTimestamp: {},
   tableData: {},
@@ -33,12 +25,6 @@ export const DataDeprecatedSlice = createSlice({
   reducers: {
     deleteOriginalDataPoint,
     setValue,
-    // -- history activities
-    toggleHistoryActivitiesCompareItem,
-    resetHistoryActivities,
-    toggleHistoryActivities,
-    // -- history last approved
-    toggleHistoryLastApproved,
   },
 
   extraReducers: (builder: ActionReducerMapBuilder<DataState>) => {
@@ -93,11 +79,6 @@ export const DataDeprecatedSlice = createSlice({
         value: { time },
       })
     })
-
-    // == History reducers
-    getDescriptionsHistoryReducer(builder)
-    getTableDataHistoryReducer(builder)
-    getOriginalDataPointHistoryReducer(builder)
   },
 })
 
