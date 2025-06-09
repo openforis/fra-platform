@@ -22,7 +22,7 @@ type Returned = {
 }
 
 export const getLinkedDataSources = createAsyncThunk<Returned, Params>(
-  'section/description/linkedDataSources/get',
+  'data/linkedDataSources/get',
   async ({ assessmentName, countryIso, cycleName, linkedVariables, sectionName }) => {
     const responses = await Promise.all(
       linkedVariables.map((linkedVariable) =>

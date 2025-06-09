@@ -3,19 +3,14 @@ import { ActivityLog } from 'meta/assessment/activityLog'
 import { AssessmentName } from 'meta/assessment/assessment'
 import { ColName } from 'meta/assessment/col'
 import { CycleName } from 'meta/assessment/cycle'
-import { DataSourceLinked, DescriptionCountryValues } from 'meta/assessment/descriptionValue'
+import { DescriptionCountryValues } from 'meta/assessment/descriptionValue'
 import { NodeValuesEstimation } from 'meta/assessment/nodeValuesEstimation'
 import { NodeValueValidation } from 'meta/assessment/nodeValueValidation'
 import { RecordAssessmentOriginalDataPoint } from 'meta/assessment/originalDataPoint'
-import { SectionName } from 'meta/assessment/section'
 import { TableName } from 'meta/assessment/table'
 import { VariableName } from 'meta/assessment/variable'
 import { HistoryTarget } from 'meta/cycleData/historyActivities'
 import { RecordAssessmentData } from 'meta/data'
-
-export interface DataBaseState {
-  linkedDataSources: Record<SectionName, Array<DataSourceLinked>>
-}
 
 // data state
 type DescriptionsState = Record<AssessmentName, Record<CycleName, DescriptionCountryValues>>
@@ -77,6 +72,4 @@ interface TableDataState {
   tableDataStatus: TableDataStatusState
 }
 
-type BaseState = Record<AssessmentName, Record<CycleName, DataBaseState>>
-
-export type DataState = TableDataState & BaseState
+export type DataState = TableDataState

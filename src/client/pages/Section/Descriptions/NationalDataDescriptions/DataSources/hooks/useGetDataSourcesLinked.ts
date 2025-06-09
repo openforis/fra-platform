@@ -4,7 +4,8 @@ import { CountryIso } from 'meta/area'
 import { NationalDataDescription } from 'meta/assessment/description'
 import { DataSourceLinked } from 'meta/assessment/descriptionValue'
 
-import { DataActions, useDataSourcesLinked } from 'client/store/data'
+import { LinkedDataSourcesActions } from 'client/store/data/linkedDataSources/actions'
+import { useDataSourcesLinked } from 'client/store/data/linkedDataSources/hooks/linkedDataSources'
 import { useAppDispatch } from 'client/store/hooks'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
@@ -28,9 +29,8 @@ export const useGetDataSourcesLinked = (props: Props): Returned => {
     const linkedVariables = nationalData?.dataSources?.linkedVariables ?? []
 
     if (linkedVariables.length) {
-      dispatch(
-        DataActions.getLinkedDataSources({ assessmentName, cycleName, countryIso, sectionName, linkedVariables })
-      )
+      const _props = { assessmentName, cycleName, countryIso, sectionName, linkedVariables }
+      dispatch(LinkedDataSourcesActions.getLinkedDataSources(_props))
     }
   }, [assessmentName, countryIso, cycleName, dispatch, nationalData?.dataSources?.linkedVariables, sectionName])
 
