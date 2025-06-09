@@ -1,16 +1,12 @@
 import { CountryIso } from 'meta/area'
-import { ActivityLog } from 'meta/assessment/activityLog'
 import { AssessmentName } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
-import { DescriptionCountryValues } from 'meta/assessment/descriptionValue'
 import { NodeValuesEstimation } from 'meta/assessment/nodeValuesEstimation'
-import { RecordAssessmentOriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { TableName } from 'meta/assessment/table'
-import { HistoryTarget } from 'meta/cycleData/historyActivities'
 import { RecordAssessmentData } from 'meta/data'
 
 // data state
-type DescriptionsState = Record<AssessmentName, Record<CycleName, DescriptionCountryValues>>
+
 export type TableDataStatusState = Record<
   AssessmentName,
   Record<CycleName, Record<CountryIso, Record<TableName, TableDataStatus>>>
@@ -28,34 +24,8 @@ export enum TableDataStatus {
   updated = 'updated',
 }
 
-// ==============================
-// History state types
-// ==============================
-export type HistoryActivitiesItemState = {
-  labelKey: string
-  target: HistoryTarget
-}
-
-export type HistoryActivitiesState = {
-  items?: Record<HistoryTarget, HistoryActivitiesItemState>
-  compareItem?: Record<HistoryTarget, ActivityLog<never>>
-}
-
-export type HistoryLastApprovedState = {
-  active?: boolean
-  descriptions?: DescriptionsState
-  originalDataPoints?: RecordAssessmentOriginalDataPoint
-  tableData?: RecordAssessmentData
-}
-
-export type HistoryState = {
-  activities?: HistoryActivitiesState
-  lastApproved?: HistoryLastApprovedState
-}
-
 // TODO: this has to become the only DataState (move descriptions and linkedDataSources here)
 interface TableDataState {
-  history: HistoryState
   nodeValuesEstimations?: Record<string, NodeValuesEstimation>
   odpLastUpdatedTimestamp: ODPLastUpdatedTimestampState
   tableData?: RecordAssessmentData

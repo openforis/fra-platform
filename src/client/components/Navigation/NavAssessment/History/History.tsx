@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { useHistoryActivities } from 'client/store/data'
+import { useHistoryActivities } from 'client/store/data/history/hooks/activities'
 import Items from 'client/components/Navigation/NavAssessment/History/Items'
 
 import { useResetHistory } from './hooks/useResetHistory'

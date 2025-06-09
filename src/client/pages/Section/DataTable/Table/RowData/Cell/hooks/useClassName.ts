@@ -8,7 +8,7 @@ import { Cycle } from 'meta/assessment/cycle'
 import { NodeValueValidation } from 'meta/assessment/nodeValueValidation'
 import { Row } from 'meta/assessment/row'
 
-import { useHistoryLastApprovedIsActive } from 'client/store/data'
+import { useHistoryLastApprovedIsActive } from 'client/store/data/history/hooks/lastApproved'
 
 type Props = {
   col: Col

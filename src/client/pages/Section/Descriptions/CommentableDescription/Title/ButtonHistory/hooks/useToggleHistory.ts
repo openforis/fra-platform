@@ -2,7 +2,7 @@ import { useCallback } from 'react'
 
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 
-import { DataActions } from 'client/store/data'
+import { HistoryActions } from 'client/store/data/history/actions'
 import { useAppDispatch } from 'client/store/hooks'
 
 type Returned = () => void
@@ -16,6 +16,6 @@ export const useToggleHistory = (props: Props): Returned => {
   const dispatch = useAppDispatch()
 
   return useCallback(() => {
-    dispatch(DataActions.toggleHistoryActivities({ labelKey: 'description.dataSourcesPlus', target }))
+    dispatch(HistoryActions.toggleActivities({ labelKey: 'description.dataSourcesPlus', target }))
   }, [dispatch, target])
 }

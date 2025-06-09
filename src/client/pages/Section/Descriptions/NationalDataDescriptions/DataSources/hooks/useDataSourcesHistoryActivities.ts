@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 
 import { CommentableDescription, CommentableDescriptionName, DataSource } from 'meta/assessment/descriptionValue'
 
-import { useHistoryActivitiesCompareItem } from 'client/store/data'
+import { useHistoryActivitiesCompareItem } from 'client/store/data/history/hooks/activities'
 
 import { DataSourceHistoryCompare } from '../types'
 import { getDataSourceHistoryCompares } from './_getDataSourceHistoryCompares'

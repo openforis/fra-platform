@@ -8,7 +8,7 @@ import { RecordAssessmentData } from 'meta/data'
 import { Props } from 'client/store/data/actions/getTableDataProps'
 
 export const getTableDataHistory = createAsyncThunk<RecordAssessmentData, Props & { sectionName: SectionName }>(
-  'data/tableData/history/get',
+  'data/history/tableData/get',
   async (props) => {
     const { assessmentName, countryISOs, countryIso, cycleName, sectionName, tableNames } = props
 

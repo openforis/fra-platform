@@ -9,7 +9,7 @@ import { ApiEndPoint } from 'meta/api/endpoint'
 import { ActivityLogs } from 'meta/assessment/activityLogs'
 import { Users } from 'meta/user'
 
-import { useHistoryActivitiesCompareItem } from 'client/store/data'
+import { useHistoryActivitiesCompareItem } from 'client/store/data/history/hooks/activities'
 import Icon from 'client/components/Icon'
 
 import { useOnClick } from './hooks/useOnClick'

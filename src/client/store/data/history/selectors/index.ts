@@ -9,7 +9,7 @@ import { HistoryTarget } from 'meta/cycleData/historyActivities'
 import { RootState } from 'client/store/types'
 
 const getHistory = createSelector(
-  (state: RootState) => state.dataDep.history,
+  (state: RootState) => state.data.history,
   (history) => history
 )
 
@@ -47,13 +47,12 @@ const getLastApprovedOriginalDataPoint = createSelector(
 
 const getLastApprovedTableData = createSelector(getHistoryLastApproved, (lastApproved) => lastApproved?.tableData)
 
-export const History = {
-  getHistory,
-  // activities
+export const HistorySelectors = {
+  // ==== activities
   getHistoryActivities,
   getHistoryCompareItem,
   getHistoryItems,
-  // lastApproved
+  // === lastApproved
   isHistoryLastApprovedActive,
   // descriptions
   getLastApprovedDescriptions,

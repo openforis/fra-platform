@@ -7,7 +7,7 @@ import { Objects } from 'utils/objects'
 import { NationalDataDescription } from 'meta/assessment/description'
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 
-import { useHistoryLastApprovedDescriptionFetched } from 'client/store/data'
+import { useHistoryLastApprovedDescriptionFetched } from 'client/store/data/history/hooks/lastApprovedDescriptions'
 import { useCanEditDescription, useIsDescriptionEditable } from 'client/store/user/hooks/auth'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { useCycleRouteParams } from 'client/hooks/useRouteParams'

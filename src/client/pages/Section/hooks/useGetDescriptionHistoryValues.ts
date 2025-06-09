@@ -2,7 +2,8 @@ import { useEffect } from 'react'
 
 import { CountryIso } from 'meta/area'
 
-import { DataActions, useHistoryLastApprovedIsActive } from 'client/store/data'
+import { HistoryActions } from 'client/store/data/history/actions'
+import { useHistoryLastApprovedIsActive } from 'client/store/data/history/hooks/lastApproved'
 import { useAppDispatch } from 'client/store/hooks'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
@@ -20,7 +21,7 @@ export const useGetDescriptionHistoryValues = (props: Props): void => {
 
   useEffect(() => {
     if (!print && historyLastApprovedIsActive) {
-      dispatch(DataActions.getDescriptionsHistory({ countryIso, assessmentName, cycleName, sectionName }))
+      dispatch(HistoryActions.getDescriptionsHistory({ countryIso, assessmentName, cycleName, sectionName }))
     }
   }, [assessmentName, countryIso, cycleName, dispatch, historyLastApprovedIsActive, print, sectionName])
 }

@@ -4,7 +4,7 @@ import { Objects } from 'utils/objects'
 
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
-import { DataSelector } from 'client/store/data/selectors'
+import { HistorySelectors } from 'client/store/data/history/selectors'
 import { useAppSelector } from 'client/store/hooks'
 import { useOriginalDataPointRouteParams } from 'client/hooks/useRouteParams'
 
@@ -12,7 +12,7 @@ export const useLastApprovedOriginalDataPoint = (): OriginalDataPoint => {
   const { assessmentName, countryIso, cycleName, year } = useOriginalDataPointRouteParams()
 
   return useAppSelector((state) =>
-    DataSelector.History.getLastApprovedOriginalDataPoint(state, {
+    HistorySelectors.getLastApprovedOriginalDataPoint(state, {
       assessmentName,
       countryIso,
       cycleName,

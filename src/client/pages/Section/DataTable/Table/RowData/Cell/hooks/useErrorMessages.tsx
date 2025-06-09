@@ -4,7 +4,7 @@ import { TFunction, useTranslation } from 'react-i18next'
 
 import { NodeValueValidation, NodeValueValidationMessageParam } from 'meta/assessment/nodeValueValidation'
 
-import { useHistoryLastApprovedIsActive } from 'client/store/data'
+import { useHistoryLastApprovedIsActive } from 'client/store/data/history/hooks/lastApproved'
 
 type Props = {
   validation: NodeValueValidation

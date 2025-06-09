@@ -11,7 +11,7 @@ type Props = CycleParams & { sectionName: SectionName; year: string }
 type Returned = OriginalDataPoint
 
 export const getOriginalDataPointHistory = createAsyncThunk<Returned, Props>(
-  'data/originalDataPoint/history/get',
+  'data/history/originalDataPoint/get',
   async ({ assessmentName, countryIso, cycleName, sectionName, year }) => {
     const { data } = await axios.get(ApiEndPoint.CycleData.OriginalDataPoint.history(), {
       params: {

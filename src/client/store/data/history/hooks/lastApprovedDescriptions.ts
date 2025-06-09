@@ -5,7 +5,7 @@ import { Objects } from 'utils/objects'
 import { CountryIso } from 'meta/area'
 import { CommentableDescriptionName, CommentableDescriptionValue } from 'meta/assessment/descriptionValue'
 
-import { DataSelector } from 'client/store/data/selectors'
+import { HistorySelectors } from 'client/store/data/history/selectors'
 import { useAppSelector } from 'client/store/hooks'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 
@@ -16,7 +16,7 @@ export const useLastApprovedHistoryDescriptions = (): Record<
   const { assessmentName, countryIso, cycleName, sectionName } = useSectionRouteParams<CountryIso>()
 
   return useAppSelector((state) =>
-    DataSelector.History.getLastApprovedDescriptions(state, { assessmentName, cycleName, countryIso, sectionName })
+    HistorySelectors.getLastApprovedDescriptions(state, { assessmentName, cycleName, countryIso, sectionName })
   )
 }
 
