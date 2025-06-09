@@ -5,6 +5,7 @@ import { AreaSlice } from 'client/store/area/slice'
 import { ContactsSlice } from 'client/store/data/contacts/slice'
 import { DescriptionsSlice } from 'client/store/data/descriptions/slice'
 import { EstimationsSlice } from 'client/store/data/tableData/estimations/slice'
+import { ValidationsReducer } from 'client/store/data/tableData/validations/slice'
 import { MetaSlice } from 'client/store/meta/slice'
 import { FileUploadSlice } from 'client/store/ui/fileUpload'
 import { LinksSlice } from 'client/store/ui/links'
@@ -33,7 +34,7 @@ export default {
     [DescriptionsSlice.name]: DescriptionsSlice.reducer,
     tableData: combineReducers({
       [EstimationsSlice.name]: EstimationsSlice.reducer,
-      // validatiosn
+      [ValidationsReducer.name]: ValidationsReducer.reducer,
       // values
     }),
   }),
