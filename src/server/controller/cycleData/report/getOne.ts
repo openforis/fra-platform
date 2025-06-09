@@ -29,7 +29,7 @@ export const getOne = async (props: Props): Promise<Returned> => {
     const fileRepositoryProps = { fileUuid: repositoryItem.fileUuid }
     const fileSummary = await FileRepository.getOne(fileRepositoryProps)
     const { uuid: key } = fileSummary
-    const fileData = await FileStorage.getFile({ key })
+    const fileData = await FileStorage.File.get({ key })
     const file = { ...fileSummary, file: fileData }
 
     return { file, repositoryItem }

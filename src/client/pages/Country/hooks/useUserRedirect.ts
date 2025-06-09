@@ -9,7 +9,7 @@ import { Users } from 'meta/user'
 
 import { useAssessmentCountry } from 'client/store/area/hooks/country'
 import { useCycle, useLastPublishedCycle } from 'client/store/meta/hooks/cycles'
-import { useUser } from 'client/store/user'
+import { useUser } from 'client/store/user/hooks/user'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 export const useUserRedirect = (): void => {

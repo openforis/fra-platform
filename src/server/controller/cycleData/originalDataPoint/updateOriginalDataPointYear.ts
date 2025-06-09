@@ -44,9 +44,12 @@ export const updateOriginalDataPointYear = async (
     // --- 2. Update activity log
     const message = ActivityLogMessage.originalDataPointUpdateYear
     const activityLog = { target: updatedOriginalDataPoint, section: 'odp', message, countryIso, user }
-    await ActivityLogRepository.insertActivityLog({ activityLog, assessment, cycle }, t)
+    const { time: lastUpdateTimestamp } = await ActivityLogRepository.insertActivityLog(
+      { activityLog, assessment, cycle },
+      t
+    )
 
-    await CountryService.updateLastEdit({ assessment, cycle, country, user, lastEditOdp: true }, t)
+    await CountryService.updateLastEdit({ assessment, cycle, country, user, lastEditOdp: true, lastUpdateTimestamp }, t)
 
     return updatedOriginalDataPoint
   })

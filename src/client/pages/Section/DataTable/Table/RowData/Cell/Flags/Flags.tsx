@@ -12,7 +12,7 @@ import { Authorizer } from 'meta/user'
 import { useCountry } from 'client/store/area/hooks/country'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useSection } from 'client/store/meta/hooks/sections'
-import { useUser } from 'client/store/user'
+import { useUser } from 'client/store/user/hooks/user'
 import { useCountryIso } from 'client/hooks'
 
 import EstimationMark from './EstimationMark'

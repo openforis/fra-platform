@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react'
 
 import { CountryIso } from 'meta/area'
 
-import { DataActions } from 'client/store/data'
+import { ContactsActions } from 'client/store/data/contacts/actions'
 import { useAppDispatch } from 'client/store/hooks'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 
@@ -19,7 +19,7 @@ export const useOnClick = (): Returned => {
     const params = { assessmentName, cycleName, countryIso, sectionName }
 
     try {
-      await dispatch(DataActions.createContact(params))
+      await dispatch(ContactsActions.createContact(params))
       setLoading(false)
     } catch (error) {
       setLoading(false)

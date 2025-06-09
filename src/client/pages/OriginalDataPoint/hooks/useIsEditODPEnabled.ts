@@ -1,5 +1,5 @@
 import { useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
-import { useIsEditTableDataEnabled } from 'client/store/user'
+import { useIsEditTableDataEnabled } from 'client/store/user/hooks/auth'
 import { useOriginalDataPointRouteParams } from 'client/hooks/useRouteParams'
 
 export const useIsEditODPEnabled = () => {

@@ -5,6 +5,7 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'
+import { whereClause } from 'server/repository/assessmentCycle/countryActivityLog/_common/select'
 
 import { getMaterializedViewName } from './_common/getMaterializedViewName'
 
@@ -26,7 +27,7 @@ export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<
     `
         select *
         from ${schemaCycle}.${viewName}
-        where target -> 'value' -> 'calculated' is distinct from to_jsonb(true)
+        where ${whereClause}
         order by time desc
         limit $1 offset $2
     `,

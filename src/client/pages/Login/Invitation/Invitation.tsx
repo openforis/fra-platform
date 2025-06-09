@@ -7,8 +7,9 @@ import { LoginInvitationQueryParams, Routes } from 'meta/routes'
 import { UserInvitations, Users } from 'meta/user'
 
 import { useAppDispatch } from 'client/store/hooks'
-import { LoginActions, useInvitation } from 'client/store/login'
-import { useUser } from 'client/store/user'
+import { LoginActions } from 'client/store/login/actions'
+import { useInvitation } from 'client/store/login/hooks/invitation'
+import { useUser } from 'client/store/user/hooks/user'
 import { useSearchParams } from 'client/hooks/useSearchParams'
 import AcceptInvitationButtons from 'client/pages/Login/components/AcceptInvitationButtons'
 import AccessLimited from 'client/pages/Login/components/AccessLimited'
@@ -24,7 +25,11 @@ const Invitation: React.FC = () => {
   useInitInvitation()
 
   const { invitationUuid } = useSearchParams<LoginInvitationQueryParams>()
-  const { assessment, invitedUser, userInvitation, userProviders } = useInvitation()
+  const invitation = useInvitation()
+
+  if (!invitation) return null
+
+  const { assessment, invitedUser, userInvitation, userProviders } = invitation
 
   const cycle = assessment?.cycles.find((cycle) => cycle.uuid === userInvitation.cycleUuid)
   const assessmentName = assessment?.props.name

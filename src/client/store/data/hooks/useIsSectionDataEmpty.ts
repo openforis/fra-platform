@@ -8,11 +8,11 @@ import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useCountryIso } from 'client/hooks'
 
-export const useIsSectionDataEmpty = (tableSections: TableSection[]) => {
+export const useIsSectionDataEmpty = (tableSections: Array<TableSection>) => {
   const assessment = useAssessment()
   const cycle = useCycle()
   const countryIso = useCountryIso()
-  const data = useAppSelector((state) => state.data.tableData)
+  const data = useAppSelector((state) => state.dataDep.tableData)
 
   const [sectionDataEmpty, setSectionDataEmpty] = useState(false)
   const sectionTableNames = useMemo(

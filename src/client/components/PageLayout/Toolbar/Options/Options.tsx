@@ -3,7 +3,7 @@ import React from 'react'
 
 import classNames from 'classnames'
 
-import { useCanViewGeo } from 'client/store/user/hooks'
+import { useCanViewGeo } from 'client/store/user/hooks/auth'
 import { useIsGeoRoute } from 'client/hooks'
 import GeoOptions from 'client/components/PageLayout/Toolbar/Options/GeoOptions'
 import LinkPrint from 'client/components/PageLayout/Toolbar/Options/LinkPrint'

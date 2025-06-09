@@ -3,12 +3,9 @@ import React from 'react'
 
 import { CommentableDescriptionName, CommentableDescriptionValue } from 'meta/assessment/descriptionValue'
 
-import {
-  useCommentableDescriptionValue,
-  useHistoryLastApprovedDescriptionFetched,
-  useHistoryLastApprovedIsActive,
-} from 'client/store/data'
-import { useCanEditDescription, useIsDescriptionEditable } from 'client/store/user/hooks'
+import { useHistoryLastApprovedDescriptionFetched, useHistoryLastApprovedIsActive } from 'client/store/data'
+import { useCommentableDescriptionValue } from 'client/store/data/descriptions/hooks/descriptions'
+import { useCanEditDescription, useIsDescriptionEditable } from 'client/store/user/hooks/auth'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { DataCell, DataGrid, DataRow } from 'client/components/DataGrid'
 import EditorWYSIWYG from 'client/components/EditorWYSIWYG'

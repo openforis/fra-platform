@@ -47,7 +47,7 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
 
   const nationalClass = originalDataPoint.nationalClasses[index]
   const { area, forestPercent, name, otherWoodedLandPercent, uuid } = nationalClass
-  const target = [originalDataPoint.id, 'class', `${uuid}`, 'value'] as string[]
+  const target = [originalDataPoint.id, 'class', `${uuid}`, 'value'] as Array<string>
   const classNameRowComments = useNationalClassNameComments(target)
 
   const displayHistory = useODPDisplayHistory()

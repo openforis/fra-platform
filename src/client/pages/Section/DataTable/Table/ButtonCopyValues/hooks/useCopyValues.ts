@@ -5,7 +5,7 @@ import { Objects } from 'utils/objects'
 
 import { TableNames } from 'meta/assessment/table'
 
-import { useUser } from 'client/store/user'
+import { useUser } from 'client/store/user/hooks/user'
 import { useCycleRouteParams } from 'client/hooks/useRouteParams'
 import { getDataGridData } from 'client/components/DataGrid/utils'
 import { CopyValuesProps } from 'client/pages/Section/DataTable/Table/ButtonCopyValues/types'

@@ -5,7 +5,7 @@ import { Cycles } from 'meta/assessment/cycles'
 
 import { useCountries } from 'client/store/area/hooks/countries'
 import { useCycle } from 'client/store/meta/hooks/cycles'
-import { useUser, useUserCountries } from 'client/store/user'
+import { useUser, useUserCountries } from 'client/store/user/hooks/user'
 
 export const useCountriesWithoutRole = (): Array<CountryIso> => {
   const cycle = useCycle()

@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { Suspense, useMemo } from 'react'
 import { createRoutesFromElements, Navigate, Route } from 'react-router-dom'
 
 import { RegionCode } from 'meta/area'
@@ -19,7 +19,6 @@ import CycleHome from 'client/pages/CycleHome'
 import DataDownload from 'client/pages/DataDownload'
 import Geo from 'client/pages/Geo'
 import Landing from 'client/pages/Landing'
-import Login, { LoginForm, LoginInvitation, LoginInvitationLocal, LoginResetPassword } from 'client/pages/Login'
 import OriginalDataPoint from 'client/pages/OriginalDataPoint'
 import PanEuropeanRedirect from 'client/pages/PanEuropeanRedirect'
 import Print from 'client/pages/Print'
@@ -28,6 +27,8 @@ import Tutorials from 'client/pages/Tutorials'
 import User from 'client/pages/User'
 
 import { KioskRoutes } from './_KioskRoutes'
+
+const LoginLazy = React.lazy(() => import('client/pages/Login'))
 
 export const useRoutes = () => {
   return useMemo(() => {
@@ -72,13 +73,14 @@ export const useRoutes = () => {
               </Route>
 
               {/* Login */}
-              <Route element={<Login />} path={Routes.Login.path.relative}>
-                <Route element={<LoginForm />} index />
-                <Route element={<LoginInvitation />} path={Routes.LoginInvitation.path.relative}>
-                  <Route element={<LoginInvitationLocal />} path={Routes.LoginInvitationLocal.path.relative} />
-                </Route>
-                <Route element={<LoginResetPassword />} path={Routes.LoginResetPassword.path.relative} />
-              </Route>
+              <Route
+                element={
+                  <Suspense>
+                    <LoginLazy />
+                  </Suspense>
+                }
+                path={`${Routes.Login.path.relative}/*`}
+              />
             </Route>
           </Route>
           <Route element={<PanEuropeanRedirect />} path={`/${RegionCode.FE}/*`} />

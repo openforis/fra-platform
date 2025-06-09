@@ -34,7 +34,7 @@ const _allFilesExist = async (files: Array<FileSummary>): Promise<boolean> => {
   const batches = Arrays.chunk(files, BATCH_SIZE)
   const batchResults = await Promises.each(batches, async (batch) => {
     return Promises.each(batch, async ({ uuid: key }) => {
-      const exists = await FileStorage.fileExists({ key })
+      const exists = await FileStorage.File.exists({ key })
       if (!exists) Logger.info(`Missing file in S3: ${key}`)
       return exists
     })

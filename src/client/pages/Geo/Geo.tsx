@@ -4,7 +4,7 @@ import { Navigate } from 'react-router-dom'
 
 import { Routes } from 'meta/routes'
 
-import { useCanViewGeo } from 'client/store/user/hooks'
+import { useCanViewGeo } from 'client/store/user/hooks/auth'
 import Loading from 'client/components/Loading'
 
 const MapWrapper = React.lazy(() => import('./MapWrapper'))

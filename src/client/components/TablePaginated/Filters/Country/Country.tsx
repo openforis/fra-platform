@@ -4,8 +4,8 @@ import { CountryIso } from 'meta/area'
 import { TablePaginatedFilterType } from 'meta/tablePaginated'
 
 import { useAppDispatch } from 'client/store/hooks'
-import { TablePaginatedActions } from 'client/store/ui/tablePaginated'
-import { useTablePaginatedFilterValue } from 'client/store/ui/tablePaginated/hooks'
+import { TablePaginatedActions } from 'client/store/tablePaginated/actions'
+import { useTablePaginatedFilterValue } from 'client/store/tablePaginated/hooks/tablePaginated'
 import CountryMultiSelect from 'client/components/CountryMultiSelect'
 import { TablePaginatedFilter } from 'client/components/TablePaginated/types'
 

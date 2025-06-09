@@ -6,7 +6,7 @@ import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 
 import { DataActions } from 'client/store/data'
 import { useAppDispatch } from 'client/store/hooks'
-import { TablePaginatedActions } from 'client/store/ui/tablePaginated'
+import { TablePaginatedActions } from 'client/store/tablePaginated/actions'
 
 export const useResetHistory = () => {
   const location = useLocation()

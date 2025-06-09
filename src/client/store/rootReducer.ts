@@ -2,6 +2,9 @@ import { combineReducers } from 'redux'
 
 import { ApplicationSlice } from 'client/store/application/slice'
 import { AreaSlice } from 'client/store/area/slice'
+import { ContactsSlice } from 'client/store/data/contacts/slice'
+import { DescriptionsSlice } from 'client/store/data/descriptions/slice'
+import { EstimationsSlice } from 'client/store/data/tableData/estimations/slice'
 import { ExplorerDataSlice } from 'client/store/explorer/data/slice'
 import { ExplorerFilterSlice } from 'client/store/explorer/filter/slice'
 import { ExplorerMetadataSlice } from 'client/store/explorer/metadata/slice'
@@ -9,9 +12,9 @@ import { MetaSlice } from 'client/store/meta/slice'
 import { FileUploadSlice } from 'client/store/ui/fileUpload'
 import { LinksSlice } from 'client/store/ui/links'
 import { RepositorySlice } from 'client/store/ui/repository'
+import { UserSlice } from 'client/store/user/slice'
 
-import DataSlice from './data/slice'
-import LoginSlice from './login/slice'
+import DataDeprecatedSlice from './data/slice'
 import { AreaSelectorSlice } from './ui/areaSelector'
 import { AssessmentSectionSlice } from './ui/assessmentSection/slice'
 import DataExportSlice from './ui/dataExport/slice'
@@ -23,25 +26,30 @@ import NavigationSlice from './ui/navigation/slice'
 import NotificationSlice from './ui/notification/slice'
 import OriginalDataPointSlice from './ui/originalDataPoint/slice'
 import ReviewSlice from './ui/review/slice'
-import { TablePaginatedSlice } from './ui/tablePaginated'
 import UserManagementSlice from './ui/userManagement/slice'
-import UserSlice from './user/slice'
 
 export default {
   [ApplicationSlice.name]: ApplicationSlice.reducer,
   [AreaSlice.name]: AreaSlice.reducer,
-  [MetaSlice.name]: MetaSlice.reducer,
-  data: DataSlice,
+  data: combineReducers({
+    [ContactsSlice.name]: ContactsSlice.reducer,
+    [DescriptionsSlice.name]: DescriptionsSlice.reducer,
+    tableData: combineReducers({
+      [EstimationsSlice.name]: EstimationsSlice.reducer,
+      // validatiosn
+      // values
+    }),
+  }),
   explorer: combineReducers({
     [ExplorerDataSlice.name]: ExplorerDataSlice.reducer,
     [ExplorerFilterSlice.name]: ExplorerFilterSlice.reducer,
     [ExplorerMetadataSlice.name]: ExplorerMetadataSlice.reducer,
   }),
+  [MetaSlice.name]: MetaSlice.reducer,
+  dataDep: DataDeprecatedSlice,
   geo: GeoSlice,
-  login: LoginSlice,
   ui: combineReducers({
     [AreaSelectorSlice.name]: AreaSelectorSlice.reducer,
-    [TablePaginatedSlice.name]: TablePaginatedSlice.reducer,
     [AssessmentSectionSlice.name]: AssessmentSectionSlice.reducer,
     dataExport: DataExportSlice,
     dataLock: DataLockSlice,
@@ -56,5 +64,5 @@ export default {
     review: ReviewSlice,
     userManagement: UserManagementSlice,
   }),
-  user: UserSlice,
+  [UserSlice.name]: UserSlice.reducer,
 }

@@ -4,7 +4,7 @@ import { Objects } from 'utils/objects'
 
 import { TablePaginatedFilterType } from 'meta/tablePaginated'
 
-import { useTablePaginatedFilterValue } from 'client/store/ui/tablePaginated/hooks'
+import { useTablePaginatedFilterValue } from 'client/store/tablePaginated/hooks/tablePaginated'
 import { TablePaginatedFilter } from 'client/components/TablePaginated/types'
 
 type Props = {

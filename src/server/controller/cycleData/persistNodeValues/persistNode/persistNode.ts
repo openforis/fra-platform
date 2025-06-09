@@ -20,7 +20,7 @@ type Props = {
   activityLogMessage?: ActivityLogMessage
 } & NodeUpdate
 
-export const persistNode = async (props: Props, client: BaseProtocol): Promise<Node> => {
+export const persistNode = async (props: Props, client: BaseProtocol): Promise<{ node: Node; time: string }> => {
   const { activityLogMessage, assessment, countryIso, cycle, sectionName, user } = props
   const node: Node = await NodeRepository.getOneOrNone(props, client)
 
@@ -34,6 +34,6 @@ export const persistNode = async (props: Props, client: BaseProtocol): Promise<N
     target: nodeUpdated,
     user,
   }
-  await ActivityLogRepository.insertActivityLog({ activityLog, assessment, cycle }, client)
-  return nodeUpdated
+  const { time } = await ActivityLogRepository.insertActivityLog({ activityLog, assessment, cycle }, client)
+  return { node: nodeUpdated, time }
 }

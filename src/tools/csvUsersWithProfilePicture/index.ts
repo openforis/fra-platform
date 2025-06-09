@@ -120,7 +120,7 @@ const downloadProfilePictures = async () => {
 
             downloadedFiles.add(user.fileName)
             const fileUuid = path.parse(user.fileName).name.split('_').pop()
-            const fileStream = await FileStorage.getFile({ key: fileUuid })
+            const fileStream = await FileStorage.File.get({ key: fileUuid })
             const name = user.fileName
             archive.append(fileStream, { name })
           } catch (error) {

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { AssessmentNames } from 'meta/assessment/assessment'
 
-import { useUser } from 'client/store/user'
+import { useUser } from 'client/store/user/hooks/user'
 import { useLanguage } from 'client/hooks/useLanguage'
 import CycleSwitch from 'client/components/CycleSwitch'
 

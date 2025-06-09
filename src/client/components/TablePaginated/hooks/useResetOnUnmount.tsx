@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 
 import { useAppDispatch } from 'client/store/hooks'
-import { TablePaginatedActions } from 'client/store/ui/tablePaginated'
+import { TablePaginatedActions } from 'client/store/tablePaginated/actions'
 
 type Props = {
   path: string

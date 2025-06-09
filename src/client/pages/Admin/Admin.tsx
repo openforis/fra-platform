@@ -10,7 +10,7 @@ import { Routes, SectionNames } from 'meta/routes'
 import { Users } from 'meta/user'
 
 import { useCountries } from 'client/store/area/hooks/countries'
-import { useUser } from 'client/store/user'
+import { useUser } from 'client/store/user/hooks/user'
 
 type Section = {
   labelKey: string

@@ -12,7 +12,7 @@ import { Users } from 'meta/user'
 import { AreaActions } from 'client/store/area/actions'
 import { useAssessmentCountry } from 'client/store/area/hooks/country'
 import { useAppDispatch } from 'client/store/hooks'
-import { useUser } from 'client/store/user'
+import { useUser } from 'client/store/user/hooks/user'
 import { useCountryIso } from 'client/hooks'
 import { Modal, ModalBody, ModalClose, ModalFooter, ModalHeader } from 'client/components/Modal'
 

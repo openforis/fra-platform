@@ -8,7 +8,7 @@ import { Authorizer } from 'meta/user'
 import { CountryUserSummaries } from 'meta/user/countryUserSummaries'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
-import { useUser } from 'client/store/user'
+import { useUser } from 'client/store/user/hooks/user'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { ButtonSize, ButtonType, useButtonClassName } from 'client/components/Buttons/Button'
 import Icon from 'client/components/Icon'

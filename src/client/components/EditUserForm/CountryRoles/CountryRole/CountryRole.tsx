@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import { RoleName, User, UserRole, Users } from 'meta/user'
 
-import { useUser } from 'client/store/user'
+import { useUser } from 'client/store/user/hooks/user'
 
 type Props = {
   onClick: MouseEventHandler<HTMLButtonElement>

@@ -18,7 +18,7 @@ export const useData = (table: Table) => {
   const assessment = useAssessment()
   const cycle = useCycle()
   const countryIso = useCountryIso()
-  const dataStore = useAppSelector((state) => state.data.tableData)
+  const dataStore = useAppSelector((state) => state.dataDep.tableData)
   const [dataState, setDataState] = useState<RecordAssessmentData>(dataStore)
   const rowsData = useRowsData({ table })
 

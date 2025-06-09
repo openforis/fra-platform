@@ -50,10 +50,10 @@ const exec = async (): Promise<void> => {
 
     if (allowedExtensions.includes(fileExtension)) {
       const s3Key = `${uuid}`
-      const fileExists = await FileStorage.fileExists({ key: s3Key })
+      const fileExists = await FileStorage.File.exists({ key: s3Key })
 
       if (!fileExists) {
-        await FileStorage.uploadFile({
+        await FileStorage.File.upload({
           key: s3Key,
           body: Buffer.from(file),
           bucket: ProcessEnv.s3BucketName,

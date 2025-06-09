@@ -3,6 +3,9 @@ import { useEffect, useRef, useState } from 'react'
 import { isAnyOf, isFulfilled, isPending, isRejected } from '@reduxjs/toolkit'
 
 import { DataActions } from 'client/store/data'
+import { ContactsActions } from 'client/store/data/contacts/actions'
+import { DescriptionsActions } from 'client/store/data/descriptions/actions'
+import { EstimationsActions } from 'client/store/data/tableData/estimations/actions'
 import { useAppDispatch } from 'client/store/hooks'
 import { addAppListener } from 'client/store/middleware/listener'
 import { OriginalDataPointActions } from 'client/store/ui/originalDataPoint'
@@ -12,14 +15,14 @@ import { UserManagementActions } from 'client/store/ui/userManagement'
 const ACTIONS = [
   // DataActions
   DataActions.updateNodeValues,
-  DataActions.updateDescription,
-  DataActions.deleteDataSource,
-  DataActions.updateContact,
-  DataActions.createContact,
-  DataActions.deleteContact,
+  DescriptionsActions.updateDescription,
+  DescriptionsActions.deleteDataSource,
+  ContactsActions.updateContact,
+  ContactsActions.createContact,
+  ContactsActions.deleteContact,
   DataActions.clearTableData,
-  DataActions.postEstimate,
-  DataActions.copyPreviousDatasources,
+  EstimationsActions.postEstimate,
+  DescriptionsActions.copyPreviousDatasources,
   // OriginalDataPointActions
   OriginalDataPointActions.updateOriginalDataPointDescription,
   OriginalDataPointActions.updateOriginalDataPointDataSources,
@@ -50,13 +53,17 @@ export const useLoadingIndicatorState = () => {
           ...ACTIONS.map((action) => isRejected(action))
         ),
         effect: (action) => {
-          if (isPending(action)) {
+          // If an action is dispatch with showIndicator: false, we hide the indicator
+          // Defaults to true, showing the indicator
+          const showIndicator = action?.payload?.showIndicator ?? action?.meta?.arg?.showIndicator ?? true
+
+          if (isPending(action) && showIndicator) {
             setShow(true)
             setShowCheck(false)
             if (timeoutRef.current) {
               clearTimeout(timeoutRef.current)
             }
-          } else if (isFulfilled(action)) {
+          } else if (isFulfilled(action) && showIndicator) {
             setShowCheck(true)
             if (timeoutRef.current) {
               clearTimeout(timeoutRef.current)

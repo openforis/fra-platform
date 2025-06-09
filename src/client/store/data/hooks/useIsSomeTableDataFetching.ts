@@ -19,7 +19,7 @@ export const useIsSomeTableDataFetching = (): boolean => {
   return useAppSelector(
     createSelector(
       (state: RootState) => state,
-      (state: RootState) => state.data.tableDataStatus[assessmentName]?.[cycleName]?.[countryIso] ?? {},
+      (state: RootState) => state.dataDep.tableDataStatus[assessmentName]?.[cycleName]?.[countryIso] ?? {},
       (_, recordTableStatus: Record<TableName, TableDataStatus>) =>
         Object.values(recordTableStatus).some((status) => status === TableDataStatus.fetching)
     )

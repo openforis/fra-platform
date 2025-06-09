@@ -7,7 +7,7 @@ import { CommentableDescriptionName, DataSource } from 'meta/assessment/descript
 import { SectionName } from 'meta/assessment/section'
 import { TooltipId } from 'meta/tooltip'
 
-import { useIsDescriptionEditable } from 'client/store/user/hooks'
+import { useIsDescriptionEditable } from 'client/store/user/hooks/auth'
 import { DataCell, DataRow } from 'client/components/DataGrid'
 import Comments from 'client/pages/Section/Descriptions/NationalDataDescriptions/DataSources/Columns/Comments'
 import Reference from 'client/pages/Section/Descriptions/NationalDataDescriptions/DataSources/Columns/Reference'
