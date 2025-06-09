@@ -12,17 +12,8 @@ export { useLastApprovedHistoryDescriptions } from './hooks/useLastApprovedHisto
 export { useHistoryLastApprovedDescriptionFetched } from './hooks/useLastApprovedHistoryDescriptions'
 export { useHistoryLastApprovedDataTableFetched } from './hooks/useLastApprovedHistoryTableData'
 export { useHistoryLastApprovedODPFetched } from './hooks/useLastApprovedOriginalDataPoint'
-export { useNodeValueValidation, useTableHasErrors } from './hooks/useNodeValueValidations'
 export { useOdpLastUpdatedTimestamp } from './hooks/useOdpLastUpdatedTimestamp'
 export { useOriginalDataPointYears } from './hooks/useOriginalDataPointYears'
 export { useRecordAssessmentData, useRecordAssessmentDataWithOdp } from './hooks/useRecordAssessmentData'
-export type {
-  DataState,
-  HistoryActivitiesItemState,
-  RecordAssessmentValidationsState,
-  RecordCountryValidationsState,
-  RecordCycleValidationsState,
-  RecordTableValidationsState,
-  TableDataStatusState,
-} from './state'
+export type { DataState, HistoryActivitiesItemState, TableDataStatusState } from './state'
 export { TableDataStatus } from './state'
