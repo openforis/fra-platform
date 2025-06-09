@@ -29,8 +29,15 @@ export const useGetDataSourcesLinked = (props: Props): Returned => {
     const linkedVariables = nationalData?.dataSources?.linkedVariables ?? []
 
     if (linkedVariables.length) {
-      const _props = { assessmentName, cycleName, countryIso, sectionName, linkedVariables }
-      dispatch(LinkedDataSourcesActions.getLinkedDataSources(_props))
+      dispatch(
+        LinkedDataSourcesActions.getLinkedDataSources({
+          assessmentName,
+          cycleName,
+          countryIso,
+          sectionName,
+          linkedVariables,
+        })
+      )
     }
   }, [assessmentName, countryIso, cycleName, dispatch, nationalData?.dataSources?.linkedVariables, sectionName])
 
