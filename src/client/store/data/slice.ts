@@ -6,7 +6,6 @@ import { RecordAssessmentDatas } from 'meta/data'
 import { getTableDataHistoryReducer } from 'client/store/data/extraReducers/getTableDataHistory'
 import { DataState, TableDataStatus } from 'client/store/data/state'
 
-import { getLinkedDataSources } from './actions/getLinkedDataSources'
 import { getODPLastUpdatedTimestamp } from './actions/getODPLastUpdatedTimestamp'
 import { getTableData } from './actions/getTableData'
 import { updateNodeValues } from './actions/updateNodeValues'
@@ -93,16 +92,6 @@ export const DataDeprecatedSlice = createSlice({
         path: [assessmentName, cycleName, countryIso],
         value: { time },
       })
-    })
-
-    // descriptions
-
-    builder.addCase(getLinkedDataSources.fulfilled, (state, { meta, payload }) => {
-      const { dataSources, sectionName } = payload
-      const { assessmentName, cycleName } = meta.arg
-
-      const path = [assessmentName, cycleName, 'linkedDataSources', sectionName]
-      Objects.setInPath({ obj: state, path, value: dataSources })
     })
 
     // == History reducers

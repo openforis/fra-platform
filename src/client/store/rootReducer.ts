@@ -4,6 +4,7 @@ import { ApplicationSlice } from 'client/store/application/slice'
 import { AreaSlice } from 'client/store/area/slice'
 import { ContactsSlice } from 'client/store/data/contacts/slice'
 import { DescriptionsSlice } from 'client/store/data/descriptions/slice'
+import { LinkedDataSourcesSlice } from 'client/store/data/linkedDataSources/slice'
 import { EstimationsSlice } from 'client/store/data/tableData/estimations/slice'
 import { ValidationsReducer } from 'client/store/data/tableData/validations/slice'
 import { MetaSlice } from 'client/store/meta/slice'
@@ -32,6 +33,7 @@ export default {
   data: combineReducers({
     [ContactsSlice.name]: ContactsSlice.reducer,
     [DescriptionsSlice.name]: DescriptionsSlice.reducer,
+    [LinkedDataSourcesSlice.name]: LinkedDataSourcesSlice.reducer,
     tableData: combineReducers({
       [EstimationsSlice.name]: EstimationsSlice.reducer,
       [ValidationsReducer.name]: ValidationsReducer.reducer,

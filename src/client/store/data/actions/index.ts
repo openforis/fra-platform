@@ -2,7 +2,6 @@ import { DataDeprecatedSlice } from 'client/store/data/slice'
 
 import { clearTableData } from './clearTableData'
 import { getDescriptionsHistory } from './getDescriptionsHistory'
-import { getLinkedDataSources } from './getLinkedDataSources'
 import { getODPLastUpdatedTimestamp } from './getODPLastUpdatedTimestamp'
 import { getOriginalDataPointHistory } from './getOriginalDataPointHistory'
 import { getTableData } from './getTableData'
@@ -24,6 +23,5 @@ export const DataActions = {
   getOriginalDataPointHistory,
 
   // Descriptions
-  getLinkedDataSources,
   getDescriptionsHistory,
 }
