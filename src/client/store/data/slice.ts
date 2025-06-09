@@ -14,7 +14,6 @@ import { getOriginalDataPointHistoryReducer } from './extraReducers/getOriginalD
 import { setNodeValuesReducer } from './extraReducers/setNodeValues'
 import { deleteOriginalDataPoint } from './reducers/deleteOriginalDataPoint'
 import { resetHistoryActivities } from './reducers/resetHistoryActivities'
-import { setNodeValueValidations } from './reducers/setNodeValueValidations'
 import { setValue } from './reducers/setValue'
 import { toggleHistoryActivities } from './reducers/toggleHistoryActivities'
 import { toggleHistoryActivitiesCompareItem } from './reducers/toggleHistoryActivitiesCompareItem'
@@ -22,7 +21,6 @@ import { toggleHistoryLastApproved } from './reducers/toggleHistoryLastApproved'
 
 const initialState: DataState = {
   history: {},
-  nodeValueValidations: {},
   nodeValuesEstimations: {},
   odpLastUpdatedTimestamp: {},
   tableData: {},
@@ -34,7 +32,6 @@ export const DataDeprecatedSlice = createSlice({
   initialState,
   reducers: {
     deleteOriginalDataPoint,
-    setNodeValueValidations,
     setValue,
     // -- history activities
     toggleHistoryActivitiesCompareItem,

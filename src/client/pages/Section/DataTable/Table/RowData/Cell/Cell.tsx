@@ -9,11 +9,8 @@ import { Table } from 'meta/assessment/table'
 import { RecordAssessmentData } from 'meta/data'
 import { TooltipId } from 'meta/tooltip'
 
-import {
-  useHistoryLastApprovedDataTableFetched,
-  useHistoryLastApprovedIsActive,
-  useNodeValueValidation,
-} from 'client/store/data'
+import { useHistoryLastApprovedDataTableFetched, useHistoryLastApprovedIsActive } from 'client/store/data'
+import { useNodeValueValidation } from 'client/store/data/tableData/validations/hooks/validations'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { DataCell } from 'client/components/DataGrid'
 

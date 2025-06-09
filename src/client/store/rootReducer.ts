@@ -6,6 +6,7 @@ import { ContactsSlice } from 'client/store/data/contacts/slice'
 import { DescriptionsSlice } from 'client/store/data/descriptions/slice'
 import { LinkedDataSourcesSlice } from 'client/store/data/linkedDataSources/slice'
 import { EstimationsSlice } from 'client/store/data/tableData/estimations/slice'
+import { ValidationsReducer } from 'client/store/data/tableData/validations/slice'
 import { MetaSlice } from 'client/store/meta/slice'
 import { FileUploadSlice } from 'client/store/ui/fileUpload'
 import { LinksSlice } from 'client/store/ui/links'
@@ -35,7 +36,7 @@ export default {
     [LinkedDataSourcesSlice.name]: LinkedDataSourcesSlice.reducer,
     tableData: combineReducers({
       [EstimationsSlice.name]: EstimationsSlice.reducer,
-      // validatiosn
+      [ValidationsReducer.name]: ValidationsReducer.reducer,
       // values
     }),
   }),
