@@ -3,7 +3,7 @@ import { createSelector } from '@reduxjs/toolkit'
 import { SectionName } from 'meta/assessment/section'
 
 import { ExplorerDataSlice } from 'client/store/explorer/data/slice'
-import { RootState } from 'client/store/RootState'
+import { RootState } from 'client/store/types'
 
 const _getState = (state: RootState) => state.explorer[ExplorerDataSlice.name]
 

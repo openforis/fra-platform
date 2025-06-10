@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next'
 
 import { Objects } from 'utils/objects'
 
-import { ExplorerFilterActions } from 'client/store/explorer/filter/actions'
-import { useExplorerDimensions } from 'client/store/explorer/filter/hooks/dimensions'
+import { ExplorerSelectionActions } from 'client/store/explorer/selection/actions'
+import { useExplorerDimensions } from 'client/store/explorer/selection/hooks/dimensions'
 import { useAppDispatch } from 'client/store/hooks'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 import MultiSelect from 'client/components/Inputs/MultiSelect/MultiSelect'
@@ -25,7 +25,7 @@ const Dimension: React.FC = () => {
   const handleChange = useCallback<HandleChange>(
     (value) => {
       dispatch(
-        ExplorerFilterActions.setDimensions({
+        ExplorerSelectionActions.setDimensions({
           assessmentName,
           cycleName,
           dimensions: value,

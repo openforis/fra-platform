@@ -6,8 +6,8 @@ import { ContactsSlice } from 'client/store/data/contacts/slice'
 import { DescriptionsSlice } from 'client/store/data/descriptions/slice'
 import { EstimationsSlice } from 'client/store/data/tableData/estimations/slice'
 import { ExplorerDataSlice } from 'client/store/explorer/data/slice'
-import { ExplorerFilterSlice } from 'client/store/explorer/filter/slice'
 import { ExplorerMetadataSlice } from 'client/store/explorer/metadata/slice'
+import { ExplorerSelectionSlice } from 'client/store/explorer/selection/slice'
 import { MetaSlice } from 'client/store/meta/slice'
 import { FileUploadSlice } from 'client/store/ui/fileUpload'
 import { LinksSlice } from 'client/store/ui/links'
@@ -42,7 +42,7 @@ export default {
   }),
   explorer: combineReducers({
     [ExplorerDataSlice.name]: ExplorerDataSlice.reducer,
-    [ExplorerFilterSlice.name]: ExplorerFilterSlice.reducer,
+    [ExplorerSelectionSlice.name]: ExplorerSelectionSlice.reducer,
     [ExplorerMetadataSlice.name]: ExplorerMetadataSlice.reducer,
   }),
   [MetaSlice.name]: MetaSlice.reducer,

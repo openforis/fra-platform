@@ -11,10 +11,10 @@ import { Measures } from 'meta/measurement/measures'
 
 import { useCountries } from 'client/store/area/hooks/countries'
 import { useExplorerSectionData, useGetExplorerSectionData } from 'client/store/explorer/data/hooks/data'
-import { useExplorerCountries } from 'client/store/explorer/filter/hooks/countries'
-import { useExplorerDimensions } from 'client/store/explorer/filter/hooks/dimensions'
-import { useExplorerMeasures } from 'client/store/explorer/filter/hooks/measures'
 import { useExplorerSectionMetadata } from 'client/store/explorer/metadata/hooks/metadata'
+import { useExplorerCountries } from 'client/store/explorer/selection/hooks/countries'
+import { useExplorerDimensions } from 'client/store/explorer/selection/hooks/dimensions'
+import { useExplorerMeasures } from 'client/store/explorer/selection/hooks/measures'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 import { DataCell, DataGrid } from 'client/components/DataGrid'
 

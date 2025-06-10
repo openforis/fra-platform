@@ -6,7 +6,7 @@ import { CycleName } from 'meta/assessment/cycle'
 import { SectionName } from 'meta/assessment/section'
 import { DimensionName } from 'meta/measurement/dimension'
 
-import { ExplorerFilterState } from 'client/store/explorer/filter/state'
+import { ExplorerSelectionState } from 'client/store/explorer/selection/state'
 
 type Payload = {
   assessmentName: AssessmentName
@@ -15,7 +15,7 @@ type Payload = {
   sectionName: SectionName
 }
 
-export const setDimensions = (state: Draft<ExplorerFilterState>, action: PayloadAction<Payload>) => {
+export const setDimensions = (state: Draft<ExplorerSelectionState>, action: PayloadAction<Payload>) => {
   const { assessmentName, cycleName, dimensions, sectionName } = action.payload
 
   Objects.setInPath({

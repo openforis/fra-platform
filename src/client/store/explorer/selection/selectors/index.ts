@@ -4,10 +4,10 @@ import { AssessmentName } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
 import { SectionName } from 'meta/assessment/section'
 
-import { ExplorerFilterSlice } from 'client/store/explorer/filter/slice'
-import { RootState } from 'client/store/RootState'
+import { ExplorerSelectionSlice } from 'client/store/explorer/selection/slice'
+import { RootState } from 'client/store/types'
 
-const _getState = (state: RootState) => state.explorer[ExplorerFilterSlice.name]
+const _getState = (state: RootState) => state.explorer[ExplorerSelectionSlice.name]
 
 const getCountries = createSelector(
   [
@@ -46,7 +46,7 @@ const getMeasures = createSelector(
   }
 )
 
-export const ExplorerFilterSelectors = {
+export const ExplorerSelectionSelectors = {
   getCountries,
   getDimensions,
   getMeasures,
