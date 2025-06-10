@@ -4,12 +4,12 @@ import { Link, useNavigate } from 'react-router-dom'
 
 import { Routes } from 'meta/routes'
 
-import { useAppDispatch } from 'client/store/hooks'
+import { OriginalDataPointActions } from 'client/store/data/originalDataPoint/actions'
 import {
-  OriginalDataPointActions,
   useIsOriginalDataPointUpdating,
   useOriginalDataPoint,
-} from 'client/store/ui/originalDataPoint'
+} from 'client/store/data/originalDataPoint/hooks/originalDataPoint'
+import { useAppDispatch } from 'client/store/hooks'
 import { useOriginalDataPointRouteParams } from 'client/hooks/useRouteParams'
 import Button, { ButtonSize, ButtonType, useButtonClassName } from 'client/components/Buttons/Button'
 import Icon from 'client/components/Icon'

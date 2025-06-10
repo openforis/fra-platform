@@ -4,8 +4,8 @@ import { useTranslation } from 'react-i18next'
 import { CountryIso } from 'meta/area'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
+import { OriginalDataPointActions } from 'client/store/data/originalDataPoint/actions'
 import { useAppDispatch } from 'client/store/hooks'
-import { OriginalDataPointActions } from 'client/store/ui/originalDataPoint'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 export const useOnCopyClick = (params: {

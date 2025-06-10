@@ -1,14 +1,20 @@
 import { Arrays } from 'utils/arrays'
 import { Dates } from 'utils/dates'
 
-import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
+import { ODPReservedYear, OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
 import { useAppSelector } from 'client/store/hooks'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
+import { OriginalDataPointSelectors } from '../selectors'
+
+interface ReservedYear {
+  year: number
+}
+
 export const useOriginalDataPoint = (): OriginalDataPoint => {
   const { countryIso } = useCountryRouteParams()
-  const originalDataPoint = useAppSelector((state) => state.ui.originalDataPoint?.data)
+  const originalDataPoint = useAppSelector(OriginalDataPointSelectors.getOriginalDataPoint)
   const originalDataPointTemplate = {
     countryIso,
     year: -1,
@@ -22,16 +28,17 @@ export const useOriginalDataPoint = (): OriginalDataPoint => {
   return originalDataPoint ?? originalDataPointTemplate
 }
 
-export const useIsOriginalDataPointUpdating = () => useAppSelector((state) => state.ui.originalDataPoint?.updating)
+export const useIsOriginalDataPointUpdating = (): boolean =>
+  useAppSelector(OriginalDataPointSelectors.isOriginalDataPointUpdating)
 
-export const useOriginalDataPointReservedYears = () =>
-  useAppSelector((state) => state.ui.originalDataPoint?.reservedYears)
+export const useOriginalDataPointReservedYears = (): Array<ODPReservedYear> =>
+  useAppSelector(OriginalDataPointSelectors.getOriginalDataPointReservedYears)
 
 export const useODPYears = (): { years: Array<number>; reservedYears: Array<number> } => {
   const reservedYears = useOriginalDataPointReservedYears() ?? []
 
   return {
     years: Arrays.reverse(Arrays.range(1950, Dates.getCurrentYear())),
-    reservedYears: reservedYears.map((reservedYear) => reservedYear.year),
+    reservedYears: reservedYears.map((reservedYear: ReservedYear) => reservedYear.year),
   }
 }

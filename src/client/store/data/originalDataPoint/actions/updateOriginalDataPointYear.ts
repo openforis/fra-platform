@@ -8,9 +8,9 @@ import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
 type Props = CycleParams & {
   originalDataPoint: OriginalDataPoint
-  id: string
-  year: string
-  targetYear: string
+  id: string | number
+  year: string | number
+  targetYear: string | number
 }
 
 const putOriginalDataPointYear = Functions.debounce(
