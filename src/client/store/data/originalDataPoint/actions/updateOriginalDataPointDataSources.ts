@@ -37,7 +37,7 @@ const putOriginalDataPointDataSources = Functions.debounce(
 )
 
 export const updateOriginalDataPointDataSources = createAsyncThunk<OriginalDataPoint, Props>(
-  'originalDataPoint/dataSources/update',
+  'data/originalDataPoint/dataSources/update',
   async (props) => {
     putOriginalDataPointDataSources(props)
     return props.originalDataPoint

@@ -27,7 +27,7 @@ const putOriginalDataPointDescription = Functions.debounce(
 )
 
 export const updateOriginalDataPointDescription = createAsyncThunk<OriginalDataPoint, Props>(
-  'originalDataPoint/description/update',
+  'data/originalDataPoint/description/update',
   async (props) => {
     putOriginalDataPointDescription(props)
     return props.originalDataPoint

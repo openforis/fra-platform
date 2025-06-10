@@ -37,7 +37,7 @@ const putOriginalDataPointNationalClasses = Functions.debounce(
 )
 
 export const updateOriginalDataPointNationalClasses = createAsyncThunk<OriginalDataPoint, Props>(
-  'originalDataPoint/nationalClasses/update',
+  'data/originalDataPoint/nationalClasses/update',
   async (props) => {
     putOriginalDataPointNationalClasses(props)
     return props.originalDataPoint
