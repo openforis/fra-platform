@@ -12,11 +12,5 @@ export type CountrySummary = {
   usersCount: number
 } & Pick<
   Country,
-  | 'lastInAccepted'
-  | 'lastEdit'
-  | 'lastInApproval'
-  | 'lastInReview'
-  | 'lastInPublished'
-  | 'lastUpdate'
-  | 'lastEditOdpData'
+  'lastInAccepted' | 'lastEdit' | 'lastInApproval' | 'lastInReview' | 'lastInPublished' | 'lastUpdate' | 'lastEditOdp'
 >

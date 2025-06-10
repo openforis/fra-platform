@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-import { CountryIso, CountryStatus } from 'meta/area'
+import { Country, CountryIso } from 'meta/area'
 import { Sockets } from 'meta/socket'
 
 import { AreaActions } from 'client/store/area/actions'
@@ -8,32 +8,31 @@ import { useAppDispatch } from 'client/store/hooks'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { SocketClient } from 'client/service/socket'
 
-export const useCountryStatusListener = (): void => {
+export const useCountryUpdateListener = (): void => {
   const dispatch = useAppDispatch()
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
 
   useEffect(() => {
-    const eventName = Sockets.getCountryStatusUpdateEvent({
+    const eventName = Sockets.getCountryUpdateEvent({
       assessmentName,
       cycleName,
       countryIso,
     })
 
-    const handleStatusUpdate = (args: [{ status: CountryStatus }]) => {
-      const [{ status }] = args
+    const handleUpdate = (args: [{ country: Country }]) => {
+      const [{ country }] = args
       dispatch(
-        AreaActions.updateCountryStatus({
+        AreaActions.setCountry({
           assessmentName,
           cycleName,
-          countryIso,
-          status,
+          country,
         })
       )
     }
 
-    SocketClient.on(eventName, handleStatusUpdate)
+    SocketClient.on(eventName, handleUpdate)
     return () => {
-      SocketClient.off(eventName, handleStatusUpdate)
+      SocketClient.off(eventName, handleUpdate)
     }
   }, [assessmentName, countryIso, cycleName, dispatch])
 }

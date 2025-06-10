@@ -1,8 +1,9 @@
 import { createSelector } from '@reduxjs/toolkit'
 
+import { OriginalDataPointState } from 'client/store/data/originalDataPoint/state'
 import { RootState } from 'client/store/types'
 
-const getState = (state: RootState) => state.data.originalDataPoint
+const getState = (state: RootState): OriginalDataPointState => state.data.originalDataPoint
 
 const getOriginalDataPoint = createSelector(getState, (state) => state?.data)
 

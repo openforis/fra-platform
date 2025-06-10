@@ -13,17 +13,17 @@ import { updateOriginalDataPointOriginalData } from 'client/store/data/originalD
 import { updateOriginalDataPointYear } from 'client/store/data/originalDataPoint/actions/updateOriginalDataPointYear'
 
 export const OriginalDataPointActions = {
-  updateOriginalDataPointYear,
-  updateOriginalDataPointDataSources,
-  getOriginalDataPointReservedYears,
-  deleteOriginalDataPoint,
   copyNationalClasses,
-  updateOriginalDataPointDescription,
-  deleteOriginalDataPointNationalClass,
-  updateOriginalDataPointNationalClasses,
-  updateOriginalDataPointOriginalData,
   createOriginalDataPoint,
+  deleteOriginalDataPoint,
+  deleteOriginalDataPointNationalClass,
   getOriginalDataPoint,
+  getOriginalDataPointReservedYears,
   reset,
   setReservedYears,
+  updateOriginalDataPointDataSources,
+  updateOriginalDataPointDescription,
+  updateOriginalDataPointNationalClasses,
+  updateOriginalDataPointOriginalData,
+  updateOriginalDataPointYear,
 }

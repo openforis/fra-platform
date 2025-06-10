@@ -34,7 +34,6 @@ export const useGetTableData = (props: Props) => {
 
         if (tableWithOdp && canEdit) {
           dispatch(EstimationsActions.getNodeValuesEstimations({ ...propsFetch, sectionName, tableName: tableWithOdp }))
-          dispatch(DataActions.getODPLastUpdatedTimestamp({ ...propsFetch, sectionName }))
         }
       }
 

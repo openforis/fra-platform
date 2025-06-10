@@ -2,12 +2,13 @@ import './Cycle.scss'
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 
-import { useCountryStatusListener } from './hooks/useCountryStatusListener'
+import { useCountryUpdateListener } from 'client/pages/Cycle/hooks/useCountryUpdateListener'
+
 import { useInitAreas } from './hooks/useInitAreas'
 
 const Cycle: React.FC = () => {
   useInitAreas()
-  useCountryStatusListener()
+  useCountryUpdateListener()
 
   return <Outlet />
 }
