@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { TableSection } from 'meta/assessment/tableSection'
 import { RecordAssessmentDatas } from 'meta/data'
 
-import { useAppSelector } from 'client/store/hooks'
+import { useRecordAssessmentData } from 'client/store/data/tableData/nodeValues/hooks/data'
 import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useCountryIso } from 'client/hooks'
@@ -12,7 +12,7 @@ export const useIsSectionDataEmpty = (tableSections: Array<TableSection>) => {
   const assessment = useAssessment()
   const cycle = useCycle()
   const countryIso = useCountryIso()
-  const data = useAppSelector((state) => state.dataDep.tableData)
+  const data = useRecordAssessmentData()
 
   const [sectionDataEmpty, setSectionDataEmpty] = useState(false)
   const sectionTableNames = useMemo(

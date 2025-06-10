@@ -7,7 +7,7 @@ import { NodeValue } from 'meta/assessment/node'
 import { RowType } from 'meta/assessment/row'
 import { RecordAssessmentDatas } from 'meta/data'
 
-import { DataActions } from 'client/store/data'
+import { NodeValuesActions } from 'client/store/data/tableData/nodeValues/actions'
 import { useAppDispatch } from 'client/store/hooks'
 import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useCycle } from 'client/store/meta/hooks/cycles'
@@ -110,7 +110,7 @@ export const useOnPaste = (props: Props) => {
 
         if (values.length > 0) {
           dispatch(
-            DataActions.updateNodeValues({
+            NodeValuesActions.updateNodeValues({
               assessmentName: assessment.props.name,
               cycleName: cycle.name,
               sectionName: assessmentSection?.props.name,

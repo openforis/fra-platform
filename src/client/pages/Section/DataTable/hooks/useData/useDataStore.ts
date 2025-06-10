@@ -2,7 +2,10 @@ import { useMemo } from 'react'
 
 import { RecordAssessmentData } from 'meta/data'
 
-import { useRecordAssessmentData, useRecordAssessmentDataWithOdp } from 'client/store/data'
+import {
+  useRecordAssessmentData,
+  useRecordAssessmentDataWithOdp,
+} from 'client/store/data/tableData/nodeValues/hooks/data'
 
 import { useUseOriginalDataPointData } from '../useUseOriginalDataPointData'
 import { Props } from './props'

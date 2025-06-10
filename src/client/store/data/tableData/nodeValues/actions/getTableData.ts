@@ -2,25 +2,27 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { SectionName } from 'meta/assessment/section'
 import { RecordAssessmentData } from 'meta/data'
 
 import { Props } from 'client/store/data/tableData/nodeValues/actions/getTableDataProps'
 
-export const getTableDataHistory = createAsyncThunk<RecordAssessmentData, Props & { sectionName: SectionName }>(
-  'data/history/tableData/get',
+export const getTableData = createAsyncThunk<RecordAssessmentData, Props>(
+  'data/tableData/nodeValues/get',
   async (props) => {
-    const { assessmentName, countryISOs, countryIso, cycleName, sectionName, tableNames } = props
+    const { assessmentName, auth, countryISOs, countryIso, cycleName, mergeOdp = false, regionCode, tableNames } = props
 
+    const authContext = auth ? encodeURIComponent(JSON.stringify(auth)) : undefined
     const params = {
       assessmentName,
       countryIso,
       cycleName,
       tableNames,
+      regionCode,
       countryISOs: countryISOs ?? [countryIso],
-      sectionName,
+      mergeOdp,
+      authContext,
     }
-    const { data } = await axios.get(ApiEndPoint.CycleData.Table.tableDataHistory(), { params })
+    const { data } = await axios.get(ApiEndPoint.CycleData.Table.tableData(), { params })
 
     return data
   }

@@ -7,7 +7,8 @@ import { TableNames } from 'meta/assessment/table'
 import { RecordAssessmentDatas } from 'meta/data'
 
 import { useCountry } from 'client/store/area/hooks/country'
-import { DataActions, useRecordAssessmentData } from 'client/store/data'
+import { NodeValuesActions } from 'client/store/data/tableData/nodeValues/actions'
+import { useRecordAssessmentData } from 'client/store/data/tableData/nodeValues/hooks/data'
 import { useAppDispatch } from 'client/store/hooks'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
@@ -25,7 +26,7 @@ export const useSortedDomains = (): Returned => {
   useEffect(() => {
     const tableNames = [TableNames.climaticDomain]
     const propsFetch = { assessmentName, countryIso, cycleName, tableNames }
-    dispatch(DataActions.getTableData(propsFetch))
+    dispatch(NodeValuesActions.getTableData(propsFetch))
   }, [assessmentName, countryIso, cycleName, dispatch])
 
   return useMemo<Returned>(() => {

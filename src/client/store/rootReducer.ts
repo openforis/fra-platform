@@ -7,6 +7,7 @@ import { DescriptionsSlice } from 'client/store/data/descriptions/slice'
 import { HistorySlice } from 'client/store/data/history/slice'
 import { LinkedDataSourcesSlice } from 'client/store/data/linkedDataSources/slice'
 import { EstimationsSlice } from 'client/store/data/tableData/estimations/slice'
+import { NodeValuesSlice } from 'client/store/data/tableData/nodeValues/slice'
 import { ValidationsReducer } from 'client/store/data/tableData/validations/slice'
 import { MetaSlice } from 'client/store/meta/slice'
 import { FileUploadSlice } from 'client/store/ui/fileUpload'
@@ -39,8 +40,8 @@ export default {
     [OriginalDataPointSlice.name]: OriginalDataPointSlice.reducer,
     tableData: combineReducers({
       [EstimationsSlice.name]: EstimationsSlice.reducer,
+      [NodeValuesSlice.name]: NodeValuesSlice.reducer,
       [ValidationsReducer.name]: ValidationsReducer.reducer,
-      // values
     }),
   }),
   [MetaSlice.name]: MetaSlice.reducer,

@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import { CountryIso } from 'meta/area'
 import { Sockets } from 'meta/socket'
 
-import { DataActions } from 'client/store/data'
+import { NodeValuesActions } from 'client/store/data/tableData/nodeValues/actions'
 import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useCountryIso } from 'client/hooks'
@@ -26,7 +26,7 @@ export const useODPDeleteListener = () => {
 
     const listener = (args: [{ year: string; countryIso: CountryIso }]): void => {
       const [{ countryIso, year }] = args
-      dispatch(DataActions.deleteOriginalDataPoint({ year, countryIso, assessmentName, cycleName }))
+      dispatch(NodeValuesActions.removeOriginalDataPoint({ year, countryIso, assessmentName, cycleName }))
     }
 
     SocketClient.on(nodeUpdateEvent, listener)

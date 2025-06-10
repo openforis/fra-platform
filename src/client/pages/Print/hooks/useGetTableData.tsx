@@ -3,7 +3,7 @@ import { useEffect, useMemo } from 'react'
 import { CountryIso } from 'meta/area'
 import { TableName, TableNames } from 'meta/assessment/table'
 
-import { DataActions } from 'client/store/data'
+import { NodeValuesActions } from 'client/store/data/tableData/nodeValues/actions'
 import { useAppDispatch } from 'client/store/hooks'
 import { useTableSectionsCycle } from 'client/store/meta/hooks/tableSections'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
@@ -30,7 +30,7 @@ export const useGetTableData = () => {
   useEffect(() => {
     if (tableNames.length > 0) {
       const propsFetch = { assessmentName, cycleName, countryIso, tableNames }
-      dispatch(DataActions.getTableData(propsFetch))
+      dispatch(NodeValuesActions.getTableData(propsFetch))
     }
   }, [assessmentName, countryIso, cycleName, dispatch, tableNames])
 }

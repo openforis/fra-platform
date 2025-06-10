@@ -7,7 +7,7 @@ import { RowCache } from 'meta/assessment/rowCache'
 import { Table } from 'meta/assessment/table'
 import { RecordAssessmentData, RecordAssessmentDatas } from 'meta/data'
 
-import { useAppSelector } from 'client/store/hooks'
+import { useRecordAssessmentData } from 'client/store/data/tableData/nodeValues/hooks/data'
 import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useCountryIso } from 'client/hooks'
@@ -18,7 +18,7 @@ export const useData = (table: Table) => {
   const assessment = useAssessment()
   const cycle = useCycle()
   const countryIso = useCountryIso()
-  const dataStore = useAppSelector((state) => state.dataDep.tableData)
+  const dataStore = useRecordAssessmentData()
   const [dataState, setDataState] = useState<RecordAssessmentData>(dataStore)
   const rowsData = useRowsData({ table })
 

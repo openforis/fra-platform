@@ -3,7 +3,7 @@ import { useMemo } from 'react'
 import { TableNames } from 'meta/assessment/table'
 import { RecordAssessmentDatas } from 'meta/data'
 
-import { useRecordAssessmentData } from 'client/store/data/hooks/useRecordAssessmentData'
+import { useRecordAssessmentData } from 'client/store/data/tableData/nodeValues/hooks/data'
 import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useCountryIso } from 'client/hooks'
