@@ -13,33 +13,23 @@ type Props = CycleParams & {
   originalDataPoint: OriginalDataPoint
 }
 
-const putOriginalDataPointDataSources = Functions.debounce(
+const putOriginalDataPointDescription = Functions.debounce(
   async (props: Props) => {
     const { assessmentName, countryIso, cycleName, originalDataPoint } = props
 
-    await axios.put(
-      ApiEndPoint.CycleData.OriginalDataPoint.dataSources(),
-      {
-        originalDataPoint: ODPs.removeNationalClassPlaceHolder(originalDataPoint),
-      },
-      {
-        params: {
-          countryIso,
-          assessmentName,
-          cycleName,
-          sectionName: 'extentOfForest',
-        },
-      }
-    )
+    const params = { countryIso, assessmentName, cycleName, sectionName: 'extentOfForest' }
+    const config = { params }
+    const data = { originalDataPoint: ODPs.removeNationalClassPlaceHolder(originalDataPoint) }
+    await axios.put(ApiEndPoint.CycleData.OriginalDataPoint.description(), data, config)
   },
   1000,
-  'updateOriginalDataPointDataSources'
+  'updateOriginalDataPointDescription'
 )
 
-export const updateOriginalDataPointDataSources = createAsyncThunk<OriginalDataPoint, Props>(
-  'originalDataPoint/dataSources/update',
+export const updateOriginalDataPointDescription = createAsyncThunk<OriginalDataPoint, Props>(
+  'data/originalDataPoint/description/update',
   async (props) => {
-    putOriginalDataPointDataSources(props)
+    putOriginalDataPointDescription(props)
     return props.originalDataPoint
   }
 )

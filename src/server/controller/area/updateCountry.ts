@@ -68,15 +68,14 @@ export const updateCountry = async (props: Props, client: BaseProtocol = DB): Pr
       const message = ActivityLogMessage.assessmentStatusUpdate
       const activityLog = { target, section: 'assessment', message, countryIso, user }
       await ActivityLogRepository.insertActivityLog({ activityLog, assessment, cycle }, t)
-
-      SocketService.Country.notifyStatusUpdate({
-        assessmentName: assessment.props.name,
-        cycleName: cycle.name,
-        countryIso,
-        status: country.props.status,
-        notifyClient,
-      })
     }
+
+    SocketService.Country.notifyUpdate({
+      assessmentName: assessment.props.name,
+      cycleName: cycle.name,
+      country: updatedCountry,
+      notifyClient,
+    })
 
     return updatedCountry
   })

@@ -5,10 +5,10 @@ import { isAnyOf, isFulfilled, isPending, isRejected } from '@reduxjs/toolkit'
 import { DataActions } from 'client/store/data'
 import { ContactsActions } from 'client/store/data/contacts/actions'
 import { DescriptionsActions } from 'client/store/data/descriptions/actions'
+import { OriginalDataPointActions } from 'client/store/data/originalDataPoint/actions'
 import { EstimationsActions } from 'client/store/data/tableData/estimations/actions'
 import { useAppDispatch } from 'client/store/hooks'
 import { addAppListener } from 'client/store/middleware/listener'
-import { OriginalDataPointActions } from 'client/store/ui/originalDataPoint'
 import { UserManagementActions } from 'client/store/ui/userManagement'
 
 // List of actions to show the loading indicator for

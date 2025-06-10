@@ -3,7 +3,7 @@ import React, { useCallback } from 'react'
 import { ODPs } from 'meta/assessment/odps'
 import { ODPNationalClass } from 'meta/assessment/originalDataPoint'
 
-import { useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
+import { useOriginalDataPoint } from 'client/store/data/originalDataPoint/hooks/originalDataPoint'
 import { Columns, useOnPaste } from 'client/pages/OriginalDataPoint/components/hooks/useOnPaste'
 import { useUpdateNationalClasses } from 'client/pages/OriginalDataPoint/components/NationalClasses/components/hooks/useUpdateNationalClasses'
 

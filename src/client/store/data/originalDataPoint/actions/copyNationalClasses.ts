@@ -9,7 +9,7 @@ import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 type Props = CycleParams & { year: number; targetYear: number }
 
 export const copyNationalClasses = createAsyncThunk<OriginalDataPoint, Props>(
-  'originalDataPoint/nationalClasses/copy',
+  'data/originalDataPoint/nationalClasses/copy',
   async (props: Props) => {
     const { assessmentName, countryIso, cycleName, targetYear, year } = props
 

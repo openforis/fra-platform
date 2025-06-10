@@ -14,6 +14,7 @@ import { LinksSlice } from 'client/store/ui/links'
 import { RepositorySlice } from 'client/store/ui/repository'
 import { UserSlice } from 'client/store/user/slice'
 
+import { OriginalDataPointSlice } from './data/originalDataPoint/slice'
 import DataDeprecatedSlice from './data/slice'
 import { AreaSelectorSlice } from './ui/areaSelector'
 import { AssessmentSectionSlice } from './ui/assessmentSection/slice'
@@ -24,7 +25,6 @@ import HomeSlice from './ui/home/slice'
 import MessageCenterSlice from './ui/messageCenter/slice'
 import NavigationSlice from './ui/navigation/slice'
 import NotificationSlice from './ui/notification/slice'
-import OriginalDataPointSlice from './ui/originalDataPoint/slice'
 import ReviewSlice from './ui/review/slice'
 import UserManagementSlice from './ui/userManagement/slice'
 
@@ -36,6 +36,7 @@ export default {
     [DescriptionsSlice.name]: DescriptionsSlice.reducer,
     [HistorySlice.name]: HistorySlice.reducer,
     [LinkedDataSourcesSlice.name]: LinkedDataSourcesSlice.reducer,
+    [OriginalDataPointSlice.name]: OriginalDataPointSlice.reducer,
     tableData: combineReducers({
       [EstimationsSlice.name]: EstimationsSlice.reducer,
       [ValidationsReducer.name]: ValidationsReducer.reducer,
@@ -56,7 +57,6 @@ export default {
     messageCenter: MessageCenterSlice,
     navigation: NavigationSlice,
     notification: NotificationSlice,
-    originalDataPoint: OriginalDataPointSlice,
     [RepositorySlice.name]: RepositorySlice.reducer,
     review: ReviewSlice,
     userManagement: UserManagementSlice,

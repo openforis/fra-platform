@@ -7,7 +7,7 @@ import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { SectionNames } from 'meta/assessment/section'
 
 export const deleteOriginalDataPoint = createAsyncThunk<void, CycleParams & { originalDataPoint: OriginalDataPoint }>(
-  'originalDataPoint/delete',
+  'data/originalDataPoint/delete',
   async ({ assessmentName, countryIso, cycleName, originalDataPoint: { year } }) => {
     const sectionName = SectionNames.extentOfForest
     await axios.delete(ApiEndPoint.CycleData.OriginalDataPoint.one(), {

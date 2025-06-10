@@ -9,7 +9,7 @@ import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 type Params = CycleParams & { originalDataPoint: OriginalDataPoint }
 
 export const createOriginalDataPoint = createAsyncThunk<OriginalDataPoint, Params>(
-  'originalDataPoint/create',
+  'data/originalDataPoint/create',
   async (props) => {
     const { assessmentName, countryIso, cycleName, originalDataPoint } = props
 

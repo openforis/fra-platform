@@ -5,7 +5,7 @@ import classNames from 'classnames'
 
 import { ODPs } from 'meta/assessment/odps'
 
-import { useODPYears, useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
+import { useODPYears, useOriginalDataPoint } from 'client/store/data/originalDataPoint/hooks/originalDataPoint'
 import { useIsEditTableDataEnabled } from 'client/store/user/hooks/auth'
 import { useOriginalDataPointRouteParams } from 'client/hooks/useRouteParams'
 

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
-import { useIsOriginalDataPointUpdating } from 'client/store/ui/originalDataPoint'
+import { useIsOriginalDataPointUpdating } from 'client/store/data/originalDataPoint/hooks/originalDataPoint'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 
 import { useOnCopyClick } from './hooks/useOnCopyClick'

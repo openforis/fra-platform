@@ -2,6 +2,8 @@ import { ODPReservedYear, OriginalDataPoint } from 'meta/assessment/originalData
 
 export type OriginalDataPointState = {
   data?: OriginalDataPoint
-  reservedYears: Array<ODPReservedYear>
+  reservedYears?: Array<ODPReservedYear>
   updating?: boolean
 }
+
+export const initialState: OriginalDataPointState = {}

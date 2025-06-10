@@ -29,7 +29,6 @@ import { copyOriginalDataPointNationalClasses } from './originalDataPoint/copyOr
 import { createOriginalDataPoint } from './originalDataPoint/createOriginalDataPoint'
 import { deleteOriginalDataPoint } from './originalDataPoint/deleteOriginalDataPoint'
 import { deleteOriginalDataPointNationalClass } from './originalDataPoint/deleteOriginalDataPointNationalClass'
-import { getLastUpdatedTimestamp } from './originalDataPoint/getLastUpdatedTimestamp'
 import { getOriginalDataPoint } from './originalDataPoint/getOdp'
 import { getOriginalDataPointHistory } from './originalDataPoint/getOriginalDataPointHistory'
 import { getOriginalDataPoints } from './originalDataPoint/getOriginalDataPoints'
@@ -141,12 +140,6 @@ export const CycleDataApi = {
       ApiEndPoint.CycleData.OriginalDataPoint.nationalClass(),
       AuthMiddleware.requireEditTableData,
       deleteOriginalDataPointNationalClass
-    )
-
-    express.get(
-      ApiEndPoint.CycleData.OriginalDataPoint.lastUpdatedTimestamp(),
-      AuthMiddleware.requireEditTableData,
-      getLastUpdatedTimestamp
     )
 
     express.get(ApiEndPoint.CycleData.OriginalDataPoint.many(), AuthMiddleware.requireView, getOriginalDataPoints)

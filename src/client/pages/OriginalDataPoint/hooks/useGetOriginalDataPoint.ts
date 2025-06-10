@@ -2,8 +2,8 @@ import { useEffect } from 'react'
 
 import { CountryIso } from 'meta/area'
 
+import { OriginalDataPointActions } from 'client/store/data/originalDataPoint/actions'
 import { useAppDispatch } from 'client/store/hooks'
-import { OriginalDataPointActions } from 'client/store/ui/originalDataPoint'
 import { useOriginalDataPointRouteParams } from 'client/hooks/useRouteParams'
 
 export const useGetOriginalDataPoint = () => {

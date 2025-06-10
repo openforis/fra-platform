@@ -8,9 +8,9 @@ import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
 type Props = CycleParams & {
   originalDataPoint: OriginalDataPoint
-  id: string
-  year: string
-  targetYear: string
+  id: string | number
+  year: string | number
+  targetYear: string | number
 }
 
 const putOriginalDataPointYear = Functions.debounce(
@@ -27,7 +27,7 @@ const putOriginalDataPointYear = Functions.debounce(
 )
 
 export const updateOriginalDataPointYear = createAsyncThunk<OriginalDataPoint, Props>(
-  'originalDataPoint/year/update',
+  'data/originalDataPoint/year/update',
   async (props) => {
     putOriginalDataPointYear(props)
     return props.originalDataPoint

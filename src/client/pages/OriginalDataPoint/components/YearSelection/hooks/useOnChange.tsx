@@ -3,8 +3,9 @@ import { SelectHTMLAttributes, useCallback } from 'react'
 import { CountryIso } from 'meta/area'
 import { Routes, SectionRouteParams } from 'meta/routes'
 
+import { OriginalDataPointActions } from 'client/store/data/originalDataPoint/actions'
+import { useOriginalDataPoint } from 'client/store/data/originalDataPoint/hooks/originalDataPoint'
 import { useAppDispatch } from 'client/store/hooks'
-import { OriginalDataPointActions, useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 
 type Returned = SelectHTMLAttributes<HTMLSelectElement>['onChange']

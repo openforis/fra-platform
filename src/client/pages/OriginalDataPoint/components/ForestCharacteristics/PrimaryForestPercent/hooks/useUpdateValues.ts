@@ -2,7 +2,7 @@ import { useCallback } from 'react'
 
 import { Objects } from 'utils/objects'
 
-import { useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
+import { useOriginalDataPoint } from 'client/store/data/originalDataPoint/hooks/originalDataPoint'
 import { useUpdateOriginalData } from 'client/pages/OriginalDataPoint/components/hooks/useUpdateOriginalData'
 
 type Props = { field: string; value: string }

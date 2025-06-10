@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { Topics } from 'meta/messageCenter'
 
-import { useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
+import { useOriginalDataPoint } from 'client/store/data/originalDataPoint/hooks/originalDataPoint'
 import { DataRowAction, DataRowActionType } from 'client/components/DataGrid'
 import { useShowReviewIndicator } from 'client/pages/OriginalDataPoint/hooks/useShowReviewIndicator'
 

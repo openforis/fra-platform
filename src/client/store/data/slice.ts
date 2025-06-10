@@ -5,7 +5,6 @@ import { RecordAssessmentDatas } from 'meta/data'
 
 import { DataState, TableDataStatus } from 'client/store/data/state'
 
-import { getODPLastUpdatedTimestamp } from './actions/getODPLastUpdatedTimestamp'
 import { getTableData } from './actions/getTableData'
 import { updateNodeValues } from './actions/updateNodeValues'
 import { setNodeValuesReducer } from './extraReducers/setNodeValues'
@@ -14,7 +13,6 @@ import { setValue } from './reducers/setValue'
 
 const initialState: DataState = {
   nodeValuesEstimations: {},
-  odpLastUpdatedTimestamp: {},
   tableData: {},
   tableDataStatus: {},
 }
@@ -67,16 +65,6 @@ export const DataDeprecatedSlice = createSlice({
           variableName,
           value,
         })
-      })
-    })
-
-    builder.addCase(getODPLastUpdatedTimestamp.fulfilled, (state, { payload }) => {
-      const { assessmentName, countryIso, cycleName, time } = payload
-
-      Objects.setInPath({
-        obj: state.odpLastUpdatedTimestamp,
-        path: [assessmentName, cycleName, countryIso],
-        value: { time },
       })
     })
   },

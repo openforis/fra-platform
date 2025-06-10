@@ -12,9 +12,6 @@ export type TableDataStatusState = Record<
   Record<CycleName, Record<CountryIso, Record<TableName, TableDataStatus>>>
 >
 
-// odpLastUpdatedTimestamp state type
-type ODPLastUpdatedTimestampState = Record<AssessmentName, Record<CycleName, Record<CountryIso, { time?: string }>>>
-
 // table data status
 export enum TableDataStatus {
   idle = 'idle',
@@ -27,7 +24,6 @@ export enum TableDataStatus {
 // TODO: this has to become the only DataState (move descriptions and linkedDataSources here)
 interface TableDataState {
   nodeValuesEstimations?: Record<string, NodeValuesEstimation>
-  odpLastUpdatedTimestamp: ODPLastUpdatedTimestampState
   tableData?: RecordAssessmentData
   tableDataStatus: TableDataStatusState
 }
