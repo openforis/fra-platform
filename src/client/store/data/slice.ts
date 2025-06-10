@@ -1,34 +1,20 @@
 import { ActionReducerMapBuilder, createSlice, Reducer } from '@reduxjs/toolkit'
 import { Objects } from 'utils/objects'
 
-import { RecordAssessmentDatas } from 'meta/data'
-
 import { DataState, TableDataStatus } from 'client/store/data/state'
-
-import { getTableData } from './actions/getTableData'
-import { updateNodeValues } from './actions/updateNodeValues'
-import { setNodeValuesReducer } from './extraReducers/setNodeValues'
-import { deleteOriginalDataPoint } from './reducers/deleteOriginalDataPoint'
-import { setValue } from './reducers/setValue'
+import { getTableData } from 'client/store/data/tableData/nodeValues/actions/getTableData'
 
 const initialState: DataState = {
-  nodeValuesEstimations: {},
-  tableData: {},
   tableDataStatus: {},
 }
 
 export const DataDeprecatedSlice = createSlice({
   name: 'dataDep',
   initialState,
-  reducers: {
-    deleteOriginalDataPoint,
-    setValue,
-  },
+  reducers: {},
 
   extraReducers: (builder: ActionReducerMapBuilder<DataState>) => {
-    setNodeValuesReducer(builder)
-
-    // Table data
+    // Table data status
     builder.addCase(getTableData.pending, (state, { meta }) => {
       const { assessmentName, countryIso, cycleName, tableNames } = meta.arg
       tableNames.forEach((tableName) => {
@@ -36,35 +22,13 @@ export const DataDeprecatedSlice = createSlice({
         Objects.setInPath({ obj: state, path, value: TableDataStatus.fetching })
       })
     })
-    builder.addCase(getTableData.fulfilled, (state, { meta, payload }) => {
-      // update table data
-      state.tableData = RecordAssessmentDatas.mergeData({
-        tableData: state.tableData,
-        newTableData: payload,
-      })
+
+    builder.addCase(getTableData.fulfilled, (state, { meta }) => {
       // update table data status
       const { assessmentName, countryIso, cycleName, tableNames } = meta.arg
       tableNames.forEach((tableName) => {
         const path = ['tableDataStatus', assessmentName, cycleName, countryIso, tableName]
         Objects.setInPath({ obj: state, path, value: TableDataStatus.fetched })
-      })
-    })
-
-    builder.addCase(updateNodeValues.pending, (state, { meta }) => {
-      const { assessmentName, countryIso, cycleName, tableName, values } = meta.arg
-      values.forEach((valueUpdate) => {
-        const { colName, value, variableName } = valueUpdate
-
-        state.tableData = RecordAssessmentDatas.updateDatum({
-          assessmentName,
-          cycleName,
-          colName,
-          countryIso,
-          tableName,
-          data: state.tableData,
-          variableName,
-          value,
-        })
       })
     })
   },

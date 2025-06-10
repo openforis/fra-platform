@@ -5,7 +5,7 @@ import { AssessmentName } from 'meta/assessment/assessment'
 import { NodeUpdates } from 'meta/data'
 import { Sockets } from 'meta/socket'
 
-import { DataActions } from 'client/store/data'
+import { NodeValuesActions } from 'client/store/data/tableData/nodeValues/actions'
 import { useAppDispatch } from 'client/store/hooks'
 import { SocketClient } from 'client/service/socket'
 
@@ -22,7 +22,7 @@ export const useListenNodeUpdates = (props: Props): void => {
   useEffect(() => {
     const listener = (args: [{ nodeUpdates: NodeUpdates }]): void => {
       const [{ nodeUpdates }] = args
-      dispatch(DataActions.setNodeValues({ nodeUpdates }))
+      dispatch(NodeValuesActions.setNodeValues({ nodeUpdates }))
     }
 
     SocketClient.on(nodeUpdateEvent, listener)

@@ -2,8 +2,8 @@ import { useCallback, useEffect, useMemo } from 'react'
 
 import { Areas, CountryIso, RegionCode } from 'meta/area'
 
-import { DataActions } from 'client/store/data'
-import type { Props as GetTableDataProps } from 'client/store/data/actions/getTableDataProps'
+import { NodeValuesActions } from 'client/store/data/tableData/nodeValues/actions'
+import type { Props as GetTableDataProps } from 'client/store/data/tableData/nodeValues/actions/getTableDataProps'
 import { useAppDispatch } from 'client/store/hooks'
 import { useHomeCountriesFilter } from 'client/store/ui/home'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
@@ -31,7 +31,7 @@ export const useGetTableData = (props: Props): void => {
       if (!Areas.isISOCountry(countryIso)) {
         propsFetch.regionCode = countryIso as RegionCode
       }
-      dispatch(DataActions.getTableData({ ...propsFetch, countryISOs }))
+      dispatch(NodeValuesActions.getTableData({ ...propsFetch, countryISOs }))
     }
   }, [assessmentName, countryIso, countryISOs, cycleName, dependencies, dispatch])
 

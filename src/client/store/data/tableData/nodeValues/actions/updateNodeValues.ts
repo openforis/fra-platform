@@ -7,7 +7,7 @@ import { CycleDataParams, NodesBody } from 'meta/api/request'
 import { AssessmentMetaCaches } from 'meta/assessment/metaCaches'
 import { NodeUpdate, NodeUpdates } from 'meta/data'
 
-import { setNodeValues } from 'client/store/data/actions/setNodeValues'
+import { setNodeValues } from 'client/store/data/tableData/nodeValues/actions/setNodeValues'
 import { MetadataSelectors } from 'client/store/meta/selectors'
 import { ThunkApiConfig } from 'client/store/types'
 
@@ -30,7 +30,7 @@ const getDebounceId = (props: Props) =>
   `${props.countryIso}-${props.tableName}-${props.values[0].variableName}-${props.values[0].colName}`
 
 export const updateNodeValues = createAsyncThunk<void, Props, ThunkApiConfig>(
-  'section/nodeValues/update',
+  'data/tableData/nodeValues/update',
   (props, { dispatch, getState }) => {
     const { assessmentName, cycleName } = props
     patchNodeValues(getDebounceId(props))(props)

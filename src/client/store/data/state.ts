@@ -1,9 +1,7 @@
 import { CountryIso } from 'meta/area'
 import { AssessmentName } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
-import { NodeValuesEstimation } from 'meta/assessment/nodeValuesEstimation'
 import { TableName } from 'meta/assessment/table'
-import { RecordAssessmentData } from 'meta/data'
 
 // data state
 
@@ -23,8 +21,6 @@ export enum TableDataStatus {
 
 // TODO: this has to become the only DataState (move descriptions and linkedDataSources here)
 interface TableDataState {
-  nodeValuesEstimations?: Record<string, NodeValuesEstimation>
-  tableData?: RecordAssessmentData
   tableDataStatus: TableDataStatusState
 }
 
