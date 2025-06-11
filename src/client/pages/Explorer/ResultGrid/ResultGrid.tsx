@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next'
 import { Objects } from 'utils/objects'
 
 import { Areas } from 'meta/area'
-import { RecordAssessmentDatas } from 'meta/data'
 import { Dimensions } from 'meta/measurement/dimensions'
 import { Measures } from 'meta/measurement/measures'
 
@@ -15,11 +14,11 @@ import { useExplorerSectionMetadata } from 'client/store/explorer/metadata/hooks
 import { useExplorerCountries } from 'client/store/explorer/selection/hooks/countries'
 import { useExplorerDimensions } from 'client/store/explorer/selection/hooks/dimensions'
 import { useExplorerMeasures } from 'client/store/explorer/selection/hooks/measures'
-import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 import { DataCell, DataGrid } from 'client/components/DataGrid'
+import MeasureTitle from 'client/pages/Explorer/ResultGrid/MeasureTitle/MeasureTitle'
+import Observation from 'client/pages/Explorer/ResultGrid/Observation/Observation'
 
 const ResultGrid: React.FC = () => {
-  const { assessmentName, cycleName } = useSectionRouteParams()
   const date = new Date()
   const { t } = useTranslation()
   const countriesAll = useCountries()
@@ -46,35 +45,34 @@ const ResultGrid: React.FC = () => {
   return (
     <DataGrid className="explorer-result-grid" gridTemplateColumns={gridTemplateColumns}>
       <DataCell gridRow="span 2" header />
-      {measuresExportAlways.map((measure, idx) => {
+      {measuresExportAlways.map((measureName, idx) => {
         const dimension = dimensionsExportAlways[idx]
         return (
-          <DataCell key={`${measure}-${dimension}`} className="header-top" gridRow="span 2" header>
-            {t(Measures.getTName(measure))}
+          <DataCell key={`${measureName}-${dimension}`} className="header-top" gridRow="span 2" header>
+            {t(Measures.getTName(measureName))}
           </DataCell>
         )
       })}
-      {measures.map((measure, mIdx) => (
+      {measures.map((measureName, mIdx) => (
         <DataCell
-          key={measure}
+          key={measureName}
           className="header-top"
           gridColumn={`span ${dimensions.length}`}
           header
           lastCol={mIdx === measures.length - 1}
         >
-          {/* TODO: Unit conversion select */}
-          {t(Measures.getTName(measure))}
+          <MeasureTitle measureName={measureName} />
         </DataCell>
       ))}
-      {measures.map((measure, mIdx) =>
-        dimensions.map((dimension, dIdx) => (
+      {measures.map((measureName, mIdx) =>
+        dimensions.map((dimensionName, dIdx) => (
           <DataCell
-            key={`${measure}-${dimension}`}
+            key={`${measureName}-${dimensionName}`}
             className="header-top"
             header
             lastCol={mIdx === measures.length - 1 && dIdx === dimensions.length - 1}
           >
-            {t(Dimensions.getTName(dimension), { defaultValue: dimension })}
+            {t(Dimensions.getTName(dimensionName), { defaultValue: dimensionName })}
           </DataCell>
         ))
       )}
@@ -90,45 +88,31 @@ const ResultGrid: React.FC = () => {
             <DataCell header lastRow={lastRow}>
               {deskStudy ? `${label} (${t('assessment.deskStudy')})` : label}
             </DataCell>
-            {measuresExportAlways.map((measure, idx) => {
+            {measuresExportAlways.map((measureName, idx) => {
               const dimension = dimensionsExportAlways[idx]
-              const value = RecordAssessmentDatas.getDatum({
-                assessmentName,
-                colName: Dimensions.dimensionNameToColumnName(dimension),
-                countryIso,
-                cycleName,
-                data,
-                tableName,
-                variableName: Measures.measureNameToVariableName(measure),
-              })
               return (
-                <DataCell key={`obs-${measure}-${dimension}-${countryIso}`} className="observation" lastRow={lastRow}>
-                  {/* TODO: Add value conversion and formatting */}
-                  {value}
-                </DataCell>
+                <Observation
+                  countryIso={countryIso}
+                  data={data}
+                  dimensionName={dimension}
+                  lastRow={lastRow}
+                  measureName={measureName}
+                  tableName={tableName}
+                />
               )
             })}
-            {measures.map((measure, mIdx) =>
-              dimensions.map((dimension, dIdx) => {
-                const value = RecordAssessmentDatas.getDatum({
-                  assessmentName,
-                  colName: Dimensions.dimensionNameToColumnName(dimension),
-                  countryIso,
-                  cycleName,
-                  data,
-                  tableName,
-                  variableName: Measures.measureNameToVariableName(measure),
-                })
+            {measures.map((measureName, mIdx) =>
+              dimensions.map((dimensionName, dIdx) => {
                 return (
-                  <DataCell
-                    key={`obs-${measure}-${dimension}-${countryIso}`}
-                    className="observation"
+                  <Observation
+                    countryIso={countryIso}
+                    data={data}
+                    dimensionName={dimensionName}
                     lastCol={mIdx === measures.length - 1 && dIdx === dimensions.length - 1}
                     lastRow={lastRow}
-                  >
-                    {/* TODO: Add value conversion and formatting */}
-                    {value}
-                  </DataCell>
+                    measureName={measureName}
+                    tableName={tableName}
+                  />
                 )
               })
             )}
