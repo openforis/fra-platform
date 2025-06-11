@@ -135,3 +135,5 @@ export const useOriginalDataPointYears = (): Array<{ year: string; id: number }>
     id: data.totalLandArea.odpId,
   }))
 }
+
+export const useHasOriginalDataPointData = (): boolean => Object.keys(useOriginalDataPointData()).length > 0
