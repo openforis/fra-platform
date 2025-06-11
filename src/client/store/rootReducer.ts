@@ -8,6 +8,7 @@ import { HistorySlice } from 'client/store/data/history/slice'
 import { LinkedDataSourcesSlice } from 'client/store/data/linkedDataSources/slice'
 import { EstimationsSlice } from 'client/store/data/tableData/estimations/slice'
 import { NodeValuesSlice } from 'client/store/data/tableData/nodeValues/slice'
+import { TableDataStatusSlice } from 'client/store/data/tableData/status/slice'
 import { ValidationsReducer } from 'client/store/data/tableData/validations/slice'
 import { MetaSlice } from 'client/store/meta/slice'
 import { FileUploadSlice } from 'client/store/ui/fileUpload'
@@ -16,7 +17,6 @@ import { RepositorySlice } from 'client/store/ui/repository'
 import { UserSlice } from 'client/store/user/slice'
 
 import { OriginalDataPointSlice } from './data/originalDataPoint/slice'
-import DataDeprecatedSlice from './data/slice'
 import { AreaSelectorSlice } from './ui/areaSelector'
 import { AssessmentSectionSlice } from './ui/assessmentSection/slice'
 import DataExportSlice from './ui/dataExport/slice'
@@ -41,11 +41,11 @@ export default {
     tableData: combineReducers({
       [EstimationsSlice.name]: EstimationsSlice.reducer,
       [NodeValuesSlice.name]: NodeValuesSlice.reducer,
+      [TableDataStatusSlice.name]: TableDataStatusSlice.reducer,
       [ValidationsReducer.name]: ValidationsReducer.reducer,
     }),
   }),
   [MetaSlice.name]: MetaSlice.reducer,
-  dataDep: DataDeprecatedSlice,
   geo: GeoSlice,
   ui: combineReducers({
     [AreaSelectorSlice.name]: AreaSelectorSlice.reducer,

@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 
-import { HistoryActivitiesItemState } from 'client/store/data'
+import { HistoryActivitiesItemState } from 'client/store/data/history/state'
 import { ItemSkeleton } from 'client/components/Navigation/NavAssessment/History/Items/Item'
 import TablePaginated, { TablePaginatedCounterComponent } from 'client/components/TablePaginated'
 

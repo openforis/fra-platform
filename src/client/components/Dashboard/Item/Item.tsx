@@ -3,7 +3,7 @@ import React from 'react'
 import { DashboardItem, DashboardItemType, DashboardTable } from 'meta/dashboard'
 import { DashboardBarChart, DashboardPieChart } from 'meta/dashboard/dashboard'
 
-import { useIsSomeTableDataFetching } from 'client/store/data'
+import { useIsSomeTableDataFetching } from 'client/store/data/tableData/status/hooks/tableDataStatus'
 import BarChart from 'client/components/Dashboard/BarChart'
 import { useHasData } from 'client/components/Dashboard/hooks/useHasData'
 import NoData from 'client/components/Dashboard/NoData'

@@ -3,6 +3,7 @@ import { Dates } from 'utils/dates'
 
 import { ODPReservedYear, OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
+import { useOriginalDataPointData } from 'client/store/data/tableData/nodeValues/hooks/data'
 import { useAppSelector } from 'client/store/hooks'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
@@ -42,3 +43,4 @@ export const useODPYears = (): { years: Array<number>; reservedYears: Array<numb
     reservedYears: reservedYears.map((reservedYear: ReservedYear) => reservedYear.year),
   }
 }
+export const useHasOriginalDataPointData = (): boolean => Object.keys(useOriginalDataPointData()).length > 0

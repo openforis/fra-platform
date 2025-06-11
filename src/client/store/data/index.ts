@@ -1,7 +1,0 @@
-export { useHasOriginalDataPointData } from './hooks/useHasOriginalDataPointData'
-export { useIsOdpTableDataFetched } from './hooks/useIsOdpTableDataFetched'
-export { useIsSectionDataEmpty } from './hooks/useIsSectionDataEmpty'
-export { useIsSomeTableDataFetching } from './hooks/useIsSomeTableDataFetching'
-export { useOriginalDataPointYears } from './hooks/useOriginalDataPointYears'
-export type { DataState, TableDataStatusState } from './state'
-export { TableDataStatus } from './state'

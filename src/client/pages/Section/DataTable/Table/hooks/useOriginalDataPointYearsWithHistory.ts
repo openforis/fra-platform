@@ -7,9 +7,9 @@ import { AssessmentName } from 'meta/assessment/assessment'
 import { Table } from 'meta/assessment/table'
 import { RecordAssessmentDatas } from 'meta/data'
 
-import { useOriginalDataPointYears } from 'client/store/data'
 import { useHistoryLastApprovedIsActive } from 'client/store/data/history/hooks/lastApproved'
 import { useLastApprovedHistoryTableData } from 'client/store/data/history/hooks/lastApprovedTableData'
+import { useOriginalDataPointYears } from 'client/store/data/tableData/nodeValues/hooks/data'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { ODPColHeader } from 'client/pages/Section/DataTable/Table/types'
 

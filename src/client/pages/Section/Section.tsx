@@ -7,7 +7,7 @@ import { Labels } from 'meta/assessment/labels'
 import { SubSections } from 'meta/assessment/subSections'
 import { Routes } from 'meta/routes'
 
-import { useIsSectionDataEmpty } from 'client/store/data'
+import { useIsSectionDataEmpty } from 'client/store/data/tableData/nodeValues/hooks/data'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useSection } from 'client/store/meta/hooks/sections'
 import { useTableSections } from 'client/store/meta/hooks/tableSections'
