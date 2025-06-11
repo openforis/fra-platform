@@ -28,7 +28,7 @@ const MeasureTitle: React.FC<Props> = (props) => {
     [measureName, measures]
   )
   const system = systemsOfMeasurements?.[measure.systemName]
-  const selectedUnit = selectedUnits?.[measureName] ?? system.baseUnitName
+  const selectedUnit = selectedUnits?.[measureName] ?? system?.baseUnitName
 
   const onUnitChange = useOnUnitChange({ measureName })
   const unitOptions = useUnitOptions({ measureName })
@@ -36,7 +36,7 @@ const MeasureTitle: React.FC<Props> = (props) => {
   return (
     <div className="measure-title">
       <span>{t(Measures.getTName(measureName))}</span>
-      {unitOptions.length > 1 && (
+      {system && unitOptions.length > 1 && (
         <SelectPrimary isClearable={false} onChange={onUnitChange} options={unitOptions} value={selectedUnit} />
       )}
     </div>
