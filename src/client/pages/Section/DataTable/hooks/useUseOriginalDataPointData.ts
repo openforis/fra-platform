@@ -3,7 +3,7 @@ import { useMemo } from 'react'
 import { Table, TableNames } from 'meta/assessment/table'
 
 import { useCountry } from 'client/store/area/hooks/country'
-import { useShowOriginalDatapoints } from 'client/store/ui/assessmentSection'
+import { useShowOriginalDatapoints } from 'client/store/ui/assessmentSection/hooks/originalDataPoints'
 import { useCountryIso } from 'client/hooks'
 
 type Props = {

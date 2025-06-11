@@ -9,7 +9,7 @@ import { Authorizer, CollaboratorEditPropertyType, User, Users } from 'meta/user
 import { useAssessmentCountry, useCountry } from 'client/store/area/hooks/country'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useSection } from 'client/store/meta/hooks/sections'
-import { useIsDescriptionEditEnabled } from 'client/store/ui/assessmentSection'
+import { useIsDescriptionEditEnabled } from 'client/store/ui/assessmentSection/hooks/descriptions'
 import { useIsDataLocked } from 'client/store/ui/dataLock'
 import { useUser } from 'client/store/user/hooks/user'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'

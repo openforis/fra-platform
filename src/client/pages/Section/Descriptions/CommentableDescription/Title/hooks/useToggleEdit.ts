@@ -4,7 +4,8 @@ import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 import { SectionName } from 'meta/assessment/section'
 
 import { useAppDispatch } from 'client/store/hooks'
-import { AssessmentSectionActions, useIsDescriptionEditEnabled } from 'client/store/ui/assessmentSection'
+import { AssessmentSectionActions } from 'client/store/ui/assessmentSection/actions'
+import { useIsDescriptionEditEnabled } from 'client/store/ui/assessmentSection/hooks/descriptions'
 import { useIsDataLocked } from 'client/store/ui/dataLock'
 
 type Props = {

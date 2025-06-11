@@ -4,15 +4,12 @@ import { Objects } from 'utils/objects'
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 import { SectionName } from 'meta/assessment/section'
 
-import { postEstimate } from 'client/store/data/tableData/estimations/actions/postEstimate'
-
 import { initialState } from './state'
 
 export const AssessmentSectionSlice = createSlice({
   name: 'section',
   initialState,
   reducers: {
-    reset: () => initialState,
     toggleEditDescription: (
       state,
       action: PayloadAction<{ sectionName: SectionName; name: CommentableDescriptionName }>
@@ -26,14 +23,5 @@ export const AssessmentSectionSlice = createSlice({
     toggleShowOriginalDataPoint: (state) => {
       state.showOriginalDataPoint = !state.showOriginalDataPoint
     },
-  },
-  extraReducers: (builder) => {
-    builder.addCase(postEstimate.pending, (state) => {
-      state.estimationPending = true
-    })
-
-    builder.addCase(postEstimate.fulfilled, (state) => {
-      state.estimationPending = false
-    })
   },
 })
