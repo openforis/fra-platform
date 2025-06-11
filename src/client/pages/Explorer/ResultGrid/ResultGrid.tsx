@@ -89,12 +89,13 @@ const ResultGrid: React.FC = () => {
               {deskStudy ? `${label} (${t('assessment.deskStudy')})` : label}
             </DataCell>
             {measuresExportAlways.map((measureName, idx) => {
-              const dimension = dimensionsExportAlways[idx]
+              const dimensionName = dimensionsExportAlways[idx]
               return (
                 <Observation
+                  key={`${countryIso}-${measureName}-${dimensionName}`}
                   countryIso={countryIso}
                   data={data}
-                  dimensionName={dimension}
+                  dimensionName={dimensionName}
                   lastRow={lastRow}
                   measureName={measureName}
                   tableName={tableName}
@@ -105,6 +106,7 @@ const ResultGrid: React.FC = () => {
               dimensions.map((dimensionName, dIdx) => {
                 return (
                   <Observation
+                    key={`${countryIso}-${measureName}-${dimensionName}`}
                     countryIso={countryIso}
                     data={data}
                     dimensionName={dimensionName}
