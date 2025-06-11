@@ -46,8 +46,22 @@ const getMeasures = createSelector(
   }
 )
 
+const getUnits = createSelector(
+  [
+    _getState,
+    (_state: RootState, assessmentName: AssessmentName) => assessmentName,
+    (_state: RootState, _assessmentName: AssessmentName, cycleName: CycleName) => cycleName,
+    (_state: RootState, _assessmentName: AssessmentName, _cycleName: CycleName, sectionName: SectionName) =>
+      sectionName,
+  ],
+  (filters, assessmentName, cycleName, sectionName) => {
+    return filters?.[assessmentName]?.[cycleName]?.units?.[sectionName]
+  }
+)
+
 export const ExplorerSelectionSelectors = {
   getCountries,
   getDimensions,
   getMeasures,
+  getUnits,
 }
