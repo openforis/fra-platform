@@ -15,3 +15,11 @@ export interface DataExportState {
   countries: Array<Country>
   selection: DataExportSelection
 }
+
+export const initialState: DataExportState = {
+  countries: [],
+  selection: {
+    countryISOs: [],
+    sections: {},
+  },
+}

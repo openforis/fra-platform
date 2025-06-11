@@ -6,10 +6,11 @@ import { Objects } from 'utils/objects'
 
 import { Row } from 'meta/assessment/row'
 
+import { DataExportActions } from 'client/store/dataExport/actions'
+import { useDataExportCountries, useDataExportSelection } from 'client/store/dataExport/hooks/dataExport'
 import { useAppDispatch } from 'client/store/hooks'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useTableSections } from 'client/store/meta/hooks/tableSections'
-import { DataExportActions, useDataExportCountries, useDataExportSelection } from 'client/store/ui/dataExport'
 import { useCountryIso } from 'client/hooks'
 
 import ColumnSelect from './ColumnSelect'

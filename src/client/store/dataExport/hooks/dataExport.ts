@@ -5,9 +5,11 @@ import { Cycles } from 'meta/assessment/cycles'
 import { Users } from 'meta/user'
 
 import { useCountries } from 'client/store/area/hooks/countries'
+import { DataExportActions } from 'client/store/dataExport/actions'
+import { DataExportSelectors } from 'client/store/dataExport/selectors'
+import { DataExportSelection } from 'client/store/dataExport/state'
 import { useAppDispatch, useAppSelector } from 'client/store/hooks'
 import { useCycle } from 'client/store/meta/hooks/cycles'
-import { DataExportActions, DataExportSelection } from 'client/store/ui/dataExport'
 import { useHomeCountriesFilter } from 'client/store/ui/home'
 import { useUser, useUserCountries } from 'client/store/user/hooks/user'
 import { useCountryIso } from 'client/hooks'
@@ -15,7 +17,7 @@ import { useCountryIso } from 'client/hooks'
 export const useDataExportCountries = (): Array<Country> => {
   const dispatch = useAppDispatch()
   // const assessmentType = useAssessmentType()
-  const countries = useAppSelector((state) => state.ui?.dataExport?.countries)
+  const countries = useAppSelector((state) => DataExportSelectors.getCountries(state))
 
   // if (assessmentType === AssessmentType.panEuropean) {
   //   return useCountriesPanEuropean()
@@ -48,7 +50,7 @@ export const useDataExportCountries = (): Array<Country> => {
 }
 
 export const useDataExportSelection = (assessmentSection: string): DataExportSelection => {
-  const selection = useAppSelector((state) => state.ui?.dataExport?.selection)
+  const selection = useAppSelector((state) => DataExportSelectors.getSelection(state))
   if (!selection.sections[assessmentSection])
     return { ...selection, sections: { ...selection.sections, [assessmentSection]: { columns: [], variables: [] } } }
   return selection

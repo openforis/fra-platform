@@ -10,6 +10,7 @@ import { EstimationsSlice } from 'client/store/data/tableData/estimations/slice'
 import { NodeValuesSlice } from 'client/store/data/tableData/nodeValues/slice'
 import { TableDataStatusSlice } from 'client/store/data/tableData/status/slice'
 import { ValidationsReducer } from 'client/store/data/tableData/validations/slice'
+import { DataExportSlice } from 'client/store/dataExport/slice'
 import { MetaSlice } from 'client/store/meta/slice'
 import { FileUploadSlice } from 'client/store/ui/fileUpload'
 import { LinksSlice } from 'client/store/ui/links'
@@ -19,7 +20,6 @@ import { UserSlice } from 'client/store/user/slice'
 import { OriginalDataPointSlice } from './data/originalDataPoint/slice'
 import { AreaSelectorSlice } from './ui/areaSelector'
 import { AssessmentSectionSlice } from './ui/assessmentSection/slice'
-import DataExportSlice from './ui/dataExport/slice'
 import DataLockSlice from './ui/dataLock/slice'
 import GeoSlice from './ui/geo/slice'
 import HomeSlice from './ui/home/slice'
@@ -45,12 +45,12 @@ export default {
       [ValidationsReducer.name]: ValidationsReducer.reducer,
     }),
   }),
+  [DataExportSlice.name]: DataExportSlice.reducer,
   [MetaSlice.name]: MetaSlice.reducer,
   geo: GeoSlice,
   ui: combineReducers({
     [AreaSelectorSlice.name]: AreaSelectorSlice.reducer,
     [AssessmentSectionSlice.name]: AssessmentSectionSlice.reducer,
-    dataExport: DataExportSlice,
     dataLock: DataLockSlice,
     [FileUploadSlice.name]: FileUploadSlice.reducer,
     home: HomeSlice,
