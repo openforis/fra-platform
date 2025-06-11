@@ -8,7 +8,7 @@ import { Labels } from 'meta/assessment/labels'
 import { Users } from 'meta/user'
 
 import { useHistoryLastApprovedIsActive } from 'client/store/data/history/hooks/lastApproved'
-import { useOriginalDataPointYears } from 'client/store/data/tableData/nodeValues/hooks/data'
+import { useOriginalDataPointYears } from 'client/store/data/tableData/nodeValues/hooks/originalDataPointData'
 import { useAppDispatch } from 'client/store/hooks'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { AssessmentSectionActions, useShowOriginalDatapoints } from 'client/store/ui/assessmentSection'
