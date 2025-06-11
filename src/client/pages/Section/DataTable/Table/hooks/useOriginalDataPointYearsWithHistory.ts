@@ -9,7 +9,7 @@ import { RecordAssessmentDatas } from 'meta/data'
 
 import { useHistoryLastApprovedIsActive } from 'client/store/data/history/hooks/lastApproved'
 import { useLastApprovedHistoryTableData } from 'client/store/data/history/hooks/lastApprovedTableData'
-import { useOriginalDataPointYears } from 'client/store/data/tableData/nodeValues/hooks/data'
+import { useOriginalDataPointYears } from 'client/store/data/tableData/nodeValues/hooks/originalDataPointData'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { ODPColHeader } from 'client/pages/Section/DataTable/Table/types'
 

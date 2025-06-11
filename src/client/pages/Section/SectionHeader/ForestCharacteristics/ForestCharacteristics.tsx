@@ -5,7 +5,7 @@ import { CountryIso } from 'meta/area'
 
 import { AreaActions } from 'client/store/area/actions'
 import { useCountry, useIsUpdatingCountry } from 'client/store/area/hooks/country'
-import { useHasOriginalDataPointData } from 'client/store/data/tableData/nodeValues/hooks/data'
+import { useHasOriginalDataPointData } from 'client/store/data/tableData/nodeValues/hooks/originalDataPointData'
 import { useAppDispatch } from 'client/store/hooks'
 import { useIsEditTableDataEnabled } from 'client/store/user/hooks/auth'
 import { useUser } from 'client/store/user/hooks/user'

@@ -10,17 +10,14 @@ import { RecordAssessmentData, RecordAssessmentDatas, RecordCountryData } from '
 import { EstimationsActions } from 'client/store/data/tableData/estimations/actions'
 import { useAppDispatch } from 'client/store/hooks'
 import { useCycle } from 'client/store/meta/hooks/cycles'
-import { useIsEstimationPending } from 'client/store/ui/assessmentSection'
 import { useCountryIso } from 'client/hooks'
-
-import { GenerateValuesField } from './field'
-import { Method, Methods } from './method'
+import { GenerateValuesField } from 'client/pages/Section/DataTable/GenerateValues/field'
+import { Method, Methods } from 'client/pages/Section/DataTable/GenerateValues/method'
 
 export interface UseGenerateValues {
   method: Method
   fields: Array<GenerateValuesField>
   generateValues: () => void
-  isEstimationPending: boolean
   setFields: (fields: Array<GenerateValuesField>) => void
   setMethod: (method: Method) => void
   valid: boolean
@@ -36,7 +33,7 @@ const isTableWithOdpEmpty = (data: RecordCountryData) => {
   )
 }
 
-const useGenerateValues = (
+export const useGenerateValues = (
   assessmentName: AssessmentName,
   cycleName: CycleName,
   sectionName: string,
@@ -48,7 +45,6 @@ const useGenerateValues = (
   const countryIso = useCountryIso()
   const cycle = useCycle()
   const i18n = useTranslation()
-  const isEstimationPending = useIsEstimationPending()
 
   const [method, setMethod] = useState<Method>(null)
   const [fields, setFields] = useState<Array<GenerateValuesField>>(
@@ -110,9 +106,6 @@ const useGenerateValues = (
     fields,
     setFields,
     valid,
-    isEstimationPending,
     generateValues,
   }
 }
-
-export default useGenerateValues

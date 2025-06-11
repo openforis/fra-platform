@@ -4,8 +4,6 @@ import { SectionName } from 'meta/assessment/section'
 import { useAppSelector } from 'client/store/hooks'
 import { AssessmentSectionSelectors } from 'client/store/ui/assessmentSection/selectors'
 
-export { useIsEstimationPending } from './useIsEstimatePending'
-
 export const useIsDescriptionEditEnabled = (props: {
   sectionName: SectionName
   name: CommentableDescriptionName
@@ -13,5 +11,3 @@ export const useIsDescriptionEditEnabled = (props: {
   const { name, sectionName } = props
   return useAppSelector((state) => AssessmentSectionSelectors.isDescriptionEditEnabled(state, sectionName, name))
 }
-
-export const useShowOriginalDatapoints = (): boolean => useAppSelector(AssessmentSectionSelectors.showOriginalDataPoint)

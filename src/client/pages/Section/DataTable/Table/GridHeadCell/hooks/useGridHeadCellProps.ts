@@ -7,7 +7,7 @@ import { Cols } from 'meta/assessment/cols'
 
 import { useAssessmentCountry } from 'client/store/area/hooks/country'
 import { useCycle } from 'client/store/meta/hooks/cycles'
-import { useShowOriginalDatapoints } from 'client/store/ui/assessmentSection'
+import { useShowOriginalDatapoints } from 'client/store/ui/assessmentSection/hooks/originalDataPoints'
 import { ODPColHeader } from 'client/pages/Section/DataTable/Table/types'
 
 import { useOriginalDataPointYearsWithHistory } from '../../hooks/useOriginalDataPointYearsWithHistory'
