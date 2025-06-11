@@ -4,19 +4,19 @@ import { useTranslation } from 'react-i18next'
 
 import { Objects } from 'utils/objects'
 
-import { Areas } from 'meta/area'
 import { Dimensions } from 'meta/measurement/dimensions'
 import { Measures } from 'meta/measurement/measures'
 
 import { useCountries } from 'client/store/area/hooks/countries'
 import { useExplorerSectionData, useGetExplorerSectionData } from 'client/store/explorer/data/hooks/data'
 import { useExplorerSectionMetadata } from 'client/store/explorer/metadata/hooks/metadata'
-import { useExplorerCountries } from 'client/store/explorer/selection/hooks/countries'
 import { useExplorerDimensions } from 'client/store/explorer/selection/hooks/dimensions'
 import { useExplorerMeasures } from 'client/store/explorer/selection/hooks/measures'
 import { DataCell, DataGrid } from 'client/components/DataGrid'
 import MeasureTitle from 'client/pages/Explorer/ResultGrid/MeasureTitle/MeasureTitle'
 import Observation from 'client/pages/Explorer/ResultGrid/Observation/Observation'
+
+import { useCountryEntries } from './hooks/useCountryEntries'
 
 const ResultGrid: React.FC = () => {
   const date = new Date()
@@ -24,7 +24,7 @@ const ResultGrid: React.FC = () => {
   const countriesAll = useCountries()
 
   const { cellsExportAlways = [], tableName } = useExplorerSectionMetadata() ?? {}
-  const countryISOs = useExplorerCountries() ?? []
+  const countryEntries = useCountryEntries()
   const measures = useExplorerMeasures() ?? []
   const dimensions = useExplorerDimensions() ?? []
 
@@ -38,7 +38,7 @@ const ResultGrid: React.FC = () => {
     measures.length * dimensions.length + cellsExportAlways.length
   }, 1fr)`
 
-  if ([countryISOs, data, dimensions, measures, tableName].some(Objects.isEmpty)) {
+  if ([countryEntries, data, dimensions, measures, tableName].some(Objects.isEmpty)) {
     return null
   }
 
@@ -77,11 +77,10 @@ const ResultGrid: React.FC = () => {
         ))
       )}
 
-      {countryISOs?.map((countryIso, cIdx) => {
+      {countryEntries.map(({ countryIso, label }, idx) => {
         const country = countriesAll.find((c) => c.countryIso === countryIso)
-        const label = t(Areas.getTranslationKey(countryIso))
-        const { deskStudy } = country.props
-        const lastRow = cIdx === countryISOs.length - 1
+        const { deskStudy } = country?.props ?? {}
+        const lastRow = idx === countryEntries.length - 1
 
         return (
           <React.Fragment key={countryIso}>
@@ -103,20 +102,18 @@ const ResultGrid: React.FC = () => {
               )
             })}
             {measures.map((measureName, mIdx) =>
-              dimensions.map((dimensionName, dIdx) => {
-                return (
-                  <Observation
-                    key={`${countryIso}-${measureName}-${dimensionName}`}
-                    countryIso={countryIso}
-                    data={data}
-                    dimensionName={dimensionName}
-                    lastCol={mIdx === measures.length - 1 && dIdx === dimensions.length - 1}
-                    lastRow={lastRow}
-                    measureName={measureName}
-                    tableName={tableName}
-                  />
-                )
-              })
+              dimensions.map((dimensionName, dIdx) => (
+                <Observation
+                  key={`${countryIso}-${measureName}-${dimensionName}`}
+                  countryIso={countryIso}
+                  data={data}
+                  dimensionName={dimensionName}
+                  lastCol={mIdx === measures.length - 1 && dIdx === dimensions.length - 1}
+                  lastRow={lastRow}
+                  measureName={measureName}
+                  tableName={tableName}
+                />
+              ))
             )}
           </React.Fragment>
         )
