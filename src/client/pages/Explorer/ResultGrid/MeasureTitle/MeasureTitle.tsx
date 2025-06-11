@@ -2,6 +2,8 @@ import './MeasureTitle.scss'
 import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { Objects } from 'utils/objects'
+
 import { Measure, MeasureName } from 'meta/measurement/measure'
 import { Measures } from 'meta/measurement/measures'
 
@@ -38,6 +40,9 @@ const MeasureTitle: React.FC<Props> = (props) => {
       <span>{t(Measures.getTName(measureName))}</span>
       {system && unitOptions.length > 1 && (
         <SelectPrimary isClearable={false} onChange={onUnitChange} options={unitOptions} value={selectedUnit} />
+      )}
+      {!Objects.isEmpty(system?.baseUnitName) && unitOptions.length <= 1 && (
+        <span>{` (${t(`unit.${system.baseUnitName}`)})`}</span>
       )}
     </div>
   )

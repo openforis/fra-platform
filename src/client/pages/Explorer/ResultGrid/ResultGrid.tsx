@@ -49,7 +49,7 @@ const ResultGrid: React.FC = () => {
         const dimension = dimensionsExportAlways[idx]
         return (
           <DataCell key={`${measureName}-${dimension}`} className="header-top" gridRow="span 2" header>
-            {t(Measures.getTName(measureName))}
+            <MeasureTitle measureName={measureName} />
           </DataCell>
         )
       })}
