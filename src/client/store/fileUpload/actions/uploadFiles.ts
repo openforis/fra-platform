@@ -5,8 +5,8 @@ import { ApiEndPoint } from 'meta/api/endpoint'
 import { CycleParams } from 'meta/api/request'
 import { FileSummary } from 'meta/file'
 
+import { FileUploadActions } from 'client/store/fileUpload/actions'
 import { ThunkApiConfig } from 'client/store/types'
-import { FileUploadActions } from 'client/store/ui/fileUpload/actions/index'
 
 type Props = CycleParams & {
   files: Array<File>

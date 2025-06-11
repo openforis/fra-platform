@@ -1,6 +1,6 @@
+import { FileUploadSelectors } from 'client/store/fileUpload/selectors'
+import { FileUploadProgress } from 'client/store/fileUpload/state'
 import { useAppSelector } from 'client/store/hooks'
-import { FileUploadSelectors } from 'client/store/ui/fileUpload/selectors'
-import { FileUploadProgress } from 'client/store/ui/fileUpload/state'
 
 export const useFileUploadProgress = (): FileUploadProgress => {
   return useAppSelector(FileUploadSelectors.getProgress)

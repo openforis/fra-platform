@@ -1,9 +1,8 @@
 import { createSelector } from '@reduxjs/toolkit'
 
 import { RootState } from 'client/store/types'
-import { FileUploadSlice } from 'client/store/ui/fileUpload'
 
-const _getState = (state: RootState) => state.ui[FileUploadSlice.name]
+const _getState = (state: RootState) => state.fileUpload
 const isLoading = createSelector(_getState, (fileUpload) => fileUpload.loading)
 const getProgress = createSelector(_getState, (fileUpload) => fileUpload.progress)
 
