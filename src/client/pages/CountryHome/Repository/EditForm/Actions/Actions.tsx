@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import { Objects } from 'utils/objects'
 
-import { useIsFileUploadLoading } from 'client/store/ui/fileUpload'
+import { useIsFileUploadLoading } from 'client/store/fileUpload/hooks/fileUpload'
 import {
   useIsFileInUse,
   useIsRepositoryItemValid,
