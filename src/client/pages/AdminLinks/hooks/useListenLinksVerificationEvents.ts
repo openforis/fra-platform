@@ -6,6 +6,8 @@ import { Objects } from 'utils/objects'
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { Sockets } from 'meta/socket'
 
+import { LinksActions } from 'client/store/admin/links/actions'
+import { useIsVerificationInProgress } from 'client/store/admin/links/hooks/verification'
 import { useAppDispatch } from 'client/store/hooks'
 import { TablePaginatedActions } from 'client/store/tablePaginated/actions'
 import {
@@ -13,7 +15,6 @@ import {
   useTablePaginatedOrderBy,
   useTablePaginatedPage,
 } from 'client/store/tablePaginated/hooks/tablePaginated'
-import { LinksActions, useIsVerificationInProgress } from 'client/store/ui/links'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 import { SocketClient } from 'client/service/socket'
 

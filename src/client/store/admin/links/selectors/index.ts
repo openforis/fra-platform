@@ -1,9 +1,10 @@
 import { createSelector } from '@reduxjs/toolkit'
 
+import { LinksSlice } from 'client/store/admin/links/slice'
+import { AdminSliceName } from 'client/store/admin/slice'
 import { RootState } from 'client/store/types'
-import { LinksSlice } from 'client/store/ui/links/slice'
 
-const _getState = (state: RootState) => state.ui[LinksSlice.name]
+const _getState = (state: RootState) => state[AdminSliceName][LinksSlice.name]
 const isVerificationInProgress = createSelector(_getState, (links) => links.isVerificationInProgress)
 
 export const LinksSelectors = {

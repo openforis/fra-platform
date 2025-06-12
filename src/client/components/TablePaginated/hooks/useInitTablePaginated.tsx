@@ -2,12 +2,10 @@ import { useEffect } from 'react'
 
 import { TablePaginatedFilterType } from 'meta/tablePaginated'
 
-import { useAppDispatch } from 'client/store/hooks'
-import { injectSlice } from 'client/store/store'
+import { useAppDispatch, useInjectSlice } from 'client/store/hooks'
 import { TablePaginatedActions } from 'client/store/tablePaginated/actions'
 import { useIsTablePaginatedInitialized } from 'client/store/tablePaginated/hooks/tablePaginated'
 import { TablePaginatedSlice } from 'client/store/tablePaginated/slice'
-import { useOnMount } from 'client/hooks/useOnMount'
 import { TablePaginatedFilter } from 'client/components/TablePaginated/types'
 
 type Props = {
@@ -19,10 +17,7 @@ export const useInitTablePaginated = (props: Props) => {
   const { filters, path } = props
   const dispatch = useAppDispatch()
   const isInitialized = useIsTablePaginatedInitialized(path)
-
-  useOnMount(() => {
-    injectSlice(TablePaginatedSlice)
-  })
+  useInjectSlice(TablePaginatedSlice)
 
   useEffect(() => {
     if (!isInitialized) {

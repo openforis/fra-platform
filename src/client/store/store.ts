@@ -2,6 +2,7 @@ import { combineSlices, configureStore } from '@reduxjs/toolkit'
 import { Middleware } from 'redux'
 import createDebounce from 'redux-debounced'
 
+import { LinksState } from 'client/store/admin/links/state'
 import { LoginState } from 'client/store/login/state'
 import { TablePaginatedState } from 'client/store/tablePaginated/state'
 
@@ -10,6 +11,9 @@ import { listenerMiddleware } from './middleware/listener'
 import rootReducer from './rootReducer'
 
 export interface LazyLoadedSlices {
+  admin: {
+    links: LinksState
+  }
   login: LoginState
   tablePaginated: TablePaginatedState
 }
