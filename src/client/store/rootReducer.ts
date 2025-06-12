@@ -8,7 +8,6 @@ import { HistorySlice } from 'client/store/data/history/slice'
 import { LinkedDataSourcesSlice } from 'client/store/data/linkedDataSources/slice'
 import { EstimationsSlice } from 'client/store/data/tableData/estimations/slice'
 import { NodeValuesSlice } from 'client/store/data/tableData/nodeValues/slice'
-import { TableDataStatusSlice } from 'client/store/data/tableData/status/slice'
 import { ValidationsReducer } from 'client/store/data/tableData/validations/slice'
 import { DataExportSlice } from 'client/store/dataExport/slice'
 import { FileUploadSlice } from 'client/store/fileUpload/slice'
@@ -41,7 +40,6 @@ export default {
     tableData: combineReducers({
       [EstimationsSlice.name]: EstimationsSlice.reducer,
       [NodeValuesSlice.name]: NodeValuesSlice.reducer,
-      [TableDataStatusSlice.name]: TableDataStatusSlice.reducer,
       [ValidationsReducer.name]: ValidationsReducer.reducer,
     }),
   }),
