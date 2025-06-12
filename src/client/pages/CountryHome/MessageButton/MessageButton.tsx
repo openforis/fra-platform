@@ -7,7 +7,7 @@ import { MessageTopic } from 'meta/messageCenter'
 import { Users } from 'meta/user/users'
 
 import { useAppDispatch } from 'client/store/hooks'
-import { MessageCenterActions } from 'client/store/ui/messageCenter'
+import { MessageCenterActions } from 'client/store/messageCenter/actions'
 import { useUser } from 'client/store/user/hooks/user'
 import { useGetRequest } from 'client/hooks'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
