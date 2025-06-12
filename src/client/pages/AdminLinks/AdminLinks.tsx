@@ -3,13 +3,15 @@ import { useTranslation } from 'react-i18next'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 
+import { LinksActions } from 'client/store/admin/links/actions'
+import { useIsVerificationInProgress } from 'client/store/admin/links/hooks/verification'
 import { useAppDispatch } from 'client/store/hooks'
-import { LinksActions, useIsVerificationInProgress, useLinksChangeListener } from 'client/store/ui/links'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 import Button from 'client/components/Buttons/Button'
 import TablePaginated from 'client/components/TablePaginated'
 
 import { useColumns } from './hooks/useColumns'
+import { useLinksChangeListener } from './hooks/useLinksChangeListener'
 import { useListenLinksVerificationEvents } from './hooks/useListenLinksVerificationEvents'
 
 const AdminLinks: React.FC = () => {
@@ -23,7 +25,6 @@ const AdminLinks: React.FC = () => {
   }
 
   const verifyLinksInProgress = useIsVerificationInProgress(assessmentName, cycleName)
-
   useLinksChangeListener()
   useListenLinksVerificationEvents()
 

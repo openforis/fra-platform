@@ -1,11 +1,11 @@
-import { createSlice, PayloadAction, Reducer } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Objects } from 'utils/objects'
 
 import { AssessmentName } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
 
-import { getIsVerificationInProgress } from './actions/getIsVerificationInProgress'
-import { initialState, LinksState } from './state'
+import { getIsVerificationInProgress } from 'client/store/admin/links/actions/getIsVerificationInProgress'
+import { initialState, LinksState } from 'client/store/admin/links/state'
 
 export const LinksSlice = createSlice({
   name: 'links',
@@ -35,5 +35,3 @@ export const LinksSlice = createSlice({
     })
   },
 })
-
-export default LinksSlice.reducer as Reducer<LinksState>

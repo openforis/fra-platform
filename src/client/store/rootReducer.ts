@@ -13,7 +13,6 @@ import { DataExportSlice } from 'client/store/dataExport/slice'
 import { FileUploadSlice } from 'client/store/fileUpload/slice'
 import { MetaSlice } from 'client/store/meta/slice'
 import { AreaSelectorSlice } from 'client/store/ui/areaSelector/slice'
-import { LinksSlice } from 'client/store/ui/links'
 import { RepositorySlice } from 'client/store/ui/repository'
 import { UserSlice } from 'client/store/user/slice'
 
@@ -48,7 +47,6 @@ export default {
   ui: combineReducers({
     [AreaSelectorSlice.name]: AreaSelectorSlice.reducer,
     [CountryReportSlice.name]: CountryReportSlice.reducer,
-    [LinksSlice.name]: LinksSlice.reducer,
     messageCenter: MessageCenterSlice,
     navigation: NavigationSlice,
     notification: NotificationSlice,
