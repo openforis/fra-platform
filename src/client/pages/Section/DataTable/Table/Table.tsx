@@ -7,7 +7,7 @@ import { AssessmentName } from 'meta/assessment/assessment'
 import { Table as TableType } from 'meta/assessment/table'
 import { RecordAssessmentData } from 'meta/data'
 
-import { useIsDataLocked } from 'client/store/ui/dataLock'
+import { useIsDataLocked } from 'client/store/ui/countryReport/hooks/datalock'
 import { useCanEdit, useCanViewReview } from 'client/store/user/hooks/auth'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { ButtonGridExport, DataGrid } from 'client/components/DataGrid'

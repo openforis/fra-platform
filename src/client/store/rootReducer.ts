@@ -18,8 +18,7 @@ import { RepositorySlice } from 'client/store/ui/repository'
 import { UserSlice } from 'client/store/user/slice'
 
 import { OriginalDataPointSlice } from './data/originalDataPoint/slice'
-import { AssessmentSectionSlice } from './ui/assessmentSection/slice'
-import DataLockSlice from './ui/dataLock/slice'
+import { CountryReportSlice } from './ui/countryReport/slice'
 import GeoSlice from './ui/geo/slice'
 import HomeSlice from './ui/home/slice'
 import MessageCenterSlice from './ui/messageCenter/slice'
@@ -49,8 +48,7 @@ export default {
   geo: GeoSlice,
   ui: combineReducers({
     [AreaSelectorSlice.name]: AreaSelectorSlice.reducer,
-    [AssessmentSectionSlice.name]: AssessmentSectionSlice.reducer,
-    dataLock: DataLockSlice,
+    [CountryReportSlice.name]: CountryReportSlice.reducer,
     home: HomeSlice,
     [LinksSlice.name]: LinksSlice.reducer,
     messageCenter: MessageCenterSlice,

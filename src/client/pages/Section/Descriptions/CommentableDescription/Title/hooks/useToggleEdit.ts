@@ -4,9 +4,9 @@ import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 import { SectionName } from 'meta/assessment/section'
 
 import { useAppDispatch } from 'client/store/hooks'
-import { AssessmentSectionActions } from 'client/store/ui/assessmentSection/actions'
-import { useIsDescriptionEditEnabled } from 'client/store/ui/assessmentSection/hooks/descriptions'
-import { useIsDataLocked } from 'client/store/ui/dataLock'
+import { CountryReportActions } from 'client/store/ui/countryReport/actions'
+import { useIsDataLocked } from 'client/store/ui/countryReport/hooks/datalock'
+import { useIsDescriptionEditEnabled } from 'client/store/ui/countryReport/hooks/descriptions'
 
 type Props = {
   name: CommentableDescriptionName
@@ -23,7 +23,7 @@ export const useToggleEdit = (props: Props) => {
   const editEnabled = useIsDescriptionEditEnabled({ sectionName, name })
 
   const toggleEdit = useCallback<Returned>(() => {
-    dispatch(AssessmentSectionActions.toggleEditDescription({ sectionName, name }))
+    dispatch(CountryReportActions.toggleEditDescription({ sectionName, name }))
   }, [dispatch, name, sectionName])
 
   useEffect(() => {

@@ -4,9 +4,11 @@ import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 import { SectionName } from 'meta/assessment/section'
 
 import { RootState } from 'client/store/types'
-import { AssessmentSectionSlice } from 'client/store/ui/assessmentSection/slice'
+import { CountryReportSlice } from 'client/store/ui/countryReport/slice'
 
-const _getState = (state: RootState) => state.ui[AssessmentSectionSlice.name]
+const _getState = (state: RootState) => state.ui[CountryReportSlice.name]
+
+const isDataLocked = createSelector(_getState, (state) => state.locked)
 
 const isDescriptionEditEnabled = createSelector(
   [_getState, (_, sectionName: SectionName) => sectionName, (_, __, name: CommentableDescriptionName) => name],
@@ -15,7 +17,8 @@ const isDescriptionEditEnabled = createSelector(
 
 const showOriginalDataPoint = createSelector(_getState, (state) => state.showOriginalDataPoint)
 
-export const AssessmentSectionSelectors = {
+export const CountryReportSelector = {
+  isDataLocked,
   isDescriptionEditEnabled,
   showOriginalDataPoint,
 }

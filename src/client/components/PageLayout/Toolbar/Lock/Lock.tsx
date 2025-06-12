@@ -8,8 +8,9 @@ import { HistoryActions } from 'client/store/data/history/actions'
 import { useHistoryActivitiesIsActive } from 'client/store/data/history/hooks/activities'
 import { useHistoryLastApprovedIsActive } from 'client/store/data/history/hooks/lastApproved'
 import { useAppDispatch } from 'client/store/hooks'
-import { useShowOriginalDatapoints } from 'client/store/ui/assessmentSection/hooks/originalDataPoints'
-import { DataLockActions, useIsDataLocked } from 'client/store/ui/dataLock'
+import { CountryReportActions } from 'client/store/ui/countryReport/actions'
+import { useIsDataLocked } from 'client/store/ui/countryReport/hooks/datalock'
+import { useShowOriginalDatapoints } from 'client/store/ui/countryReport/hooks/originalDataPoints'
 import { useCanEditCycleData } from 'client/store/user/hooks/auth'
 import Icon from 'client/components/Icon'
 import { Breakpoints } from 'client/utils'
@@ -32,7 +33,7 @@ const Lock: React.FC = () => {
     if (locked && historyLastApprovedActive) {
       dispatch(HistoryActions.toggleLastApproved())
     }
-    dispatch(DataLockActions.toggleDataLock())
+    dispatch(CountryReportActions.toggleDataLock())
   }, [dispatch, historyLastApprovedActive, locked])
 
   useEffect(() => {
