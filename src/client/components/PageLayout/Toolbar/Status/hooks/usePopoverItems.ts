@@ -6,7 +6,7 @@ import { CountryStatuses } from 'meta/area/countryStatuses'
 
 import { useAssessmentCountry } from 'client/store/area/hooks/country'
 import { useCycle } from 'client/store/meta/hooks/cycles'
-import { useIsDataLocked } from 'client/store/ui/dataLock'
+import { useIsDataLocked } from 'client/store/ui/countryReport/hooks/datalock'
 import { useUser } from 'client/store/user/hooks/user'
 import { StatusTransition } from 'client/components/PageLayout/Toolbar/Status/types'
 import { PopoverItem } from 'client/components/PopoverControl'
