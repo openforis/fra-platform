@@ -9,10 +9,10 @@ import { Message as MessageType, MessageTopic, MessageTopicStatus, MessageTopicT
 import { Sockets } from 'meta/socket'
 
 import { useAppDispatch } from 'client/store/hooks'
+import { MessageCenterActions } from 'client/store/messageCenter/actions'
 import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useIsDataLocked } from 'client/store/ui/countryReport/hooks/datalock'
-import { MessageCenterActions } from 'client/store/ui/messageCenter'
 import { useUser } from 'client/store/user/hooks/user'
 import { useCountryIso } from 'client/hooks'
 import Icon from 'client/components/Icon'

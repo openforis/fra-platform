@@ -3,7 +3,7 @@ import React from 'react'
 
 import { Objects } from 'utils/objects'
 
-import { useTopics } from 'client/store/ui/messageCenter'
+import { useTopics } from 'client/store/messageCenter/hooks/messagecenter'
 
 import Topic from './Topic'
 
