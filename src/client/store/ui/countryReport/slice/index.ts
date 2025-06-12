@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
+import { setGlobalCountriesReducer } from 'client/store/ui/countryReport/slice/extraReducers/setGlobalCountriesReducer'
 import { toggleDataLockReducer } from 'client/store/ui/countryReport/slice/extraReducers/toggleDataLockReducer'
 import { toggleEditDescriptionReducer } from 'client/store/ui/countryReport/slice/extraReducers/toggleEditDescriptionReducer'
 import { toggleShowOriginalDataPointReducer } from 'client/store/ui/countryReport/slice/extraReducers/toggleShowOriginalDataPointReducer'
@@ -10,6 +11,7 @@ export const CountryReportSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
+    setGlobalCountriesReducer(builder)
     toggleDataLockReducer(builder)
     toggleEditDescriptionReducer(builder)
     toggleShowOriginalDataPointReducer(builder)

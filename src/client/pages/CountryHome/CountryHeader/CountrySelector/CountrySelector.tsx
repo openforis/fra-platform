@@ -9,8 +9,8 @@ import { Areas, CountryIso } from 'meta/area'
 import { useCountries } from 'client/store/area/hooks/countries'
 import { useAppDispatch } from 'client/store/hooks'
 import { useDashboardItems } from 'client/store/meta/hooks/dashboard'
-import { useHomeCountriesFilter } from 'client/store/ui/home'
-import { HomeActions } from 'client/store/ui/home/slice'
+import { CountryReportActions } from 'client/store/ui/countryReport/actions'
+import { useGlobalCountries } from 'client/store/ui/countryReport/hooks/globalCountries'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import CountryMultiSelect from 'client/components/CountryMultiSelect'
 import Hr from 'client/components/Hr'
@@ -23,7 +23,7 @@ const CountrySelector: React.FC = () => {
   const dispatch = useAppDispatch()
 
   const countries = useCountries()
-  const countriesFilter = useHomeCountriesFilter()
+  const countriesFilter = useGlobalCountries()
   const { countryIso } = useCountryRouteParams()
   const [selection, setSelection] = useState<Array<CountryIso>>(countriesFilter)
 
@@ -32,7 +32,7 @@ const CountrySelector: React.FC = () => {
   const error = selection.length > 0 && selection.length < __MIN_COUNTRIES__
 
   const onMenuClose = () => {
-    if (!error) dispatch(HomeActions.updateCountriesFilter(selection))
+    if (!error) dispatch(CountryReportActions.setGlobalCountries(selection))
   }
 
   if (Objects.isEmpty(countries)) return null

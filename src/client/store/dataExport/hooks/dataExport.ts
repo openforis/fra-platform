@@ -10,7 +10,7 @@ import { DataExportSelectors } from 'client/store/dataExport/selectors'
 import { DataExportSelection } from 'client/store/dataExport/state'
 import { useAppDispatch, useAppSelector } from 'client/store/hooks'
 import { useCycle } from 'client/store/meta/hooks/cycles'
-import { useHomeCountriesFilter } from 'client/store/ui/home'
+import { useGlobalCountries } from 'client/store/ui/countryReport/hooks/globalCountries'
 import { useUser, useUserCountries } from 'client/store/user/hooks/user'
 import { useCountryIso } from 'client/hooks'
 
@@ -25,7 +25,7 @@ export const useDataExportCountries = (): Array<Country> => {
 
   const countryIso = useCountryIso()
   const countriesAll = useCountries()
-  const countriesFilter = useHomeCountriesFilter()
+  const countriesFilter = useGlobalCountries()
   const cycle = useCycle()
   const user = useUser()
   const userCountries = useUserCountries()

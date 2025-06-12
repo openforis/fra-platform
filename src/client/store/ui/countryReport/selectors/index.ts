@@ -8,6 +8,8 @@ import { CountryReportSlice } from 'client/store/ui/countryReport/slice'
 
 const _getState = (state: RootState) => state.ui[CountryReportSlice.name]
 
+const getGlobalCountries = createSelector(_getState, (state) => state.globalCountries ?? [])
+
 const isDataLocked = createSelector(_getState, (state) => state.locked)
 
 const isDescriptionEditEnabled = createSelector(
@@ -17,7 +19,8 @@ const isDescriptionEditEnabled = createSelector(
 
 const showOriginalDataPoint = createSelector(_getState, (state) => state.showOriginalDataPoint)
 
-export const CountryReportSelector = {
+export const CountryReportSelectors = {
+  getGlobalCountries,
   isDataLocked,
   isDescriptionEditEnabled,
   showOriginalDataPoint,
