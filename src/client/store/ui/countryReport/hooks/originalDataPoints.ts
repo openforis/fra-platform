@@ -1,4 +1,4 @@
 import { useAppSelector } from 'client/store/hooks'
-import { CountryReportSelector } from 'client/store/ui/countryReport/selectors'
+import { CountryReportSelectors } from 'client/store/ui/countryReport/selectors'
 
-export const useShowOriginalDatapoints = (): boolean => useAppSelector(CountryReportSelector.showOriginalDataPoint)
+export const useShowOriginalDatapoints = (): boolean => useAppSelector(CountryReportSelectors.showOriginalDataPoint)

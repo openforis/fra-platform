@@ -5,7 +5,7 @@ import { Areas, CountryIso, RegionCode } from 'meta/area'
 import { NodeValuesActions } from 'client/store/data/tableData/nodeValues/actions'
 import type { Props as GetTableDataProps } from 'client/store/data/tableData/nodeValues/actions/getTableDataProps'
 import { useAppDispatch } from 'client/store/hooks'
-import { useHomeCountriesFilter } from 'client/store/ui/home'
+import { useGlobalCountries } from 'client/store/ui/countryReport/hooks/globalCountries'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { Props } from 'client/components/Dashboard/props'
 
@@ -15,7 +15,7 @@ export const useGetTableData = (props: Props): void => {
   const dispatch = useAppDispatch()
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const dependencies = useDependencies(props)
-  const homeCountriesFilter = useHomeCountriesFilter()
+  const homeCountriesFilter = useGlobalCountries()
 
   const countryISOs = useMemo(
     () => (homeCountriesFilter.length > 0 ? homeCountriesFilter : [countryIso]),
