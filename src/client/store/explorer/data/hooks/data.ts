@@ -10,10 +10,10 @@ import { Measures } from 'meta/measurement/measures'
 
 import { ExplorerDataActions } from 'client/store/explorer/data/actions'
 import { ExplorerDataSelectors } from 'client/store/explorer/data/selectors'
-import { useExplorerCountries } from 'client/store/explorer/filter/hooks/countries'
-import { useExplorerDimensions } from 'client/store/explorer/filter/hooks/dimensions'
-import { useExplorerMeasures } from 'client/store/explorer/filter/hooks/measures'
 import { useExplorerSectionMetadata } from 'client/store/explorer/metadata/hooks/metadata'
+import { useExplorerCountries } from 'client/store/explorer/selection/hooks/countries'
+import { useExplorerDimensions } from 'client/store/explorer/selection/hooks/dimensions'
+import { useExplorerMeasures } from 'client/store/explorer/selection/hooks/measures'
 import { useAppDispatch, useAppSelector } from 'client/store/hooks'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 

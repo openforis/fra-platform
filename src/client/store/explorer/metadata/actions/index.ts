@@ -1,8 +1,8 @@
-import { ExplorerFilterSlice } from 'client/store/explorer/filter/slice'
+import { ExplorerMetadataSlice } from 'client/store/explorer/metadata/slice'
 
 import { getMetadata } from './getMetadata'
 
 export const ExplorerMetadataActions = {
-  ...ExplorerFilterSlice.actions,
+  ...ExplorerMetadataSlice.actions,
   getMetadata,
 }

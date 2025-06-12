@@ -2,8 +2,8 @@ import React, { useEffect } from 'react'
 
 import { CountryIso } from 'meta/area'
 
-import { ExplorerFilterActions } from 'client/store/explorer/filter/actions'
-import { useExplorerCountries } from 'client/store/explorer/filter/hooks/countries'
+import { ExplorerSelectionActions } from 'client/store/explorer/selection/actions'
+import { useExplorerCountries } from 'client/store/explorer/selection/hooks/countries'
 import { useAppDispatch } from 'client/store/hooks'
 import { useHomeCountriesFilter } from 'client/store/ui/home'
 import { useCycleRouteParams } from 'client/hooks/useRouteParams'
@@ -18,11 +18,11 @@ const Country: React.FC = () => {
   const explorerCountries = useExplorerCountries()
 
   useEffect(() => {
-    dispatch(ExplorerFilterActions.setCountries({ assessmentName, countries: [], cycleName }))
+    dispatch(ExplorerSelectionActions.setCountries({ assessmentName, countries: [], cycleName }))
   }, [assessmentName, cycleName, dispatch, homeCountriesFilter])
 
   const handleChange = (value: Array<CountryIso>) => {
-    dispatch(ExplorerFilterActions.setCountries({ assessmentName, countries: value, cycleName }))
+    dispatch(ExplorerSelectionActions.setCountries({ assessmentName, countries: value, cycleName }))
   }
 
   return <CountryMultiSelect allowedCountries={allowedCountries} onChange={handleChange} value={explorerCountries} />

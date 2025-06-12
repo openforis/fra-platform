@@ -4,8 +4,8 @@ import { useTranslation } from 'react-i18next'
 
 import { Objects } from 'utils/objects'
 
-import { ExplorerFilterActions } from 'client/store/explorer/filter/actions'
-import { useExplorerMeasures } from 'client/store/explorer/filter/hooks/measures'
+import { ExplorerSelectionActions } from 'client/store/explorer/selection/actions'
+import { useExplorerMeasures } from 'client/store/explorer/selection/hooks/measures'
 import { useAppDispatch } from 'client/store/hooks'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useSection } from 'client/store/meta/hooks/sections'
@@ -36,7 +36,7 @@ const Measure: React.FC = () => {
   const handleChange = useCallback<HandleChange>(
     (value) => {
       dispatch(
-        ExplorerFilterActions.setMeasures({
+        ExplorerSelectionActions.setMeasures({
           assessmentName,
           cycleName,
           measures: value,

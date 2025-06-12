@@ -5,7 +5,7 @@ import { CountryIso } from 'meta/area'
 import { AssessmentName } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
 
-import { ExplorerFilterState } from 'client/store/explorer/filter/state'
+import { ExplorerSelectionState } from 'client/store/explorer/selection/state'
 
 type Payload = {
   assessmentName: AssessmentName
@@ -13,7 +13,7 @@ type Payload = {
   cycleName: CycleName
 }
 
-export const setCountries = (state: Draft<ExplorerFilterState>, action: PayloadAction<Payload>) => {
+export const setCountries = (state: Draft<ExplorerSelectionState>, action: PayloadAction<Payload>) => {
   const { assessmentName, countries, cycleName } = action.payload
 
   Objects.setInPath({

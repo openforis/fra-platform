@@ -4,7 +4,7 @@ import { AssessmentName } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
 
 import { ExplorerMetadataSlice } from 'client/store/explorer/metadata/slice'
-import { RootState } from 'client/store/RootState'
+import { RootState } from 'client/store/types'
 
 const _getState = (state: RootState) => state.explorer[ExplorerMetadataSlice.name]
 

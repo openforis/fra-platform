@@ -23,14 +23,17 @@ type Props = CycleParams & {
 type Returned = RecordAssessmentData
 
 export const getData = createAsyncThunk<Returned, Props>('explorer/data/get', async (props) => {
-  const { dimensions, measures, tableName } = props
+  const { assessmentName, countryISOs, countryIso, cycleName, dimensions, measures, tableName } = props
 
   const columns = dimensions.map((dimensionName) => Dimensions.dimensionNameToColumnName(dimensionName))
   const variables = measures.map((measureName) => Measures.measureNameToVariableName(measureName))
 
   const params = {
-    ...props,
+    assessmentName,
     columns,
+    countryIso,
+    countryISOs,
+    cycleName,
     tableNames: [tableName],
     variables,
   }

@@ -135,7 +135,7 @@ export const variableToMeasures: Record<TableName, Record<VariableName, MeasureN
   },
 
   specificForestCategories: {
-    primary_forest: 'primaryForest',
+    primary_forest: 'specificForestCategoriesPrimaryForest',
     rubber_wood: 'rubberWood',
     temporarily_unstocked: 'temporarilyUnstocked',
   },
