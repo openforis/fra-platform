@@ -4,7 +4,7 @@ import { Objects } from 'utils/objects'
 
 import { RecordAssessmentData, RecordAssessmentDatas } from 'meta/data'
 
-import { useIsSomeTableDataFetching } from 'client/store/data/tableData/status/hooks/tableDataStatus'
+import { useTableDataStatusListener } from 'client/store/data/tableData/hooks/useTableDataStatusListener'
 import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useCountryIso } from 'client/hooks'
@@ -22,12 +22,12 @@ export const useData = (props: Props): RecordAssessmentData => {
   const countryIso = useCountryIso()
   const dataStore = useDataStore({ table })
   const rowsData = useRowsData({ table })
-  const tableDataFetching = useIsSomeTableDataFetching()
+  const { someTableFetching } = useTableDataStatusListener()
   const [dataState, setDataState] = useState<RecordAssessmentData>(dataStore)
 
   useEffect(() => {
     // do not update calculated variables if some tableData is still fetching
-    if (tableDataFetching) return
+    if (someTableFetching) return
 
     const assessmentName = assessment.props.name
     const cycleName = cycle.name
@@ -59,7 +59,7 @@ export const useData = (props: Props): RecordAssessmentData => {
     //   })
     // })
     // setDataState(data)
-  }, [assessment, countryIso, cycle, dataStore, rowsData, tableDataFetching, tableName])
+  }, [assessment, countryIso, cycle, dataStore, rowsData, someTableFetching, tableName])
 
   return dataState
 }
