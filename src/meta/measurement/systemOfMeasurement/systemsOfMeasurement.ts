@@ -54,7 +54,7 @@ export const systemsOfMeasurement: SystemOfMeasurementSeed = {
     tableNames: ['biomassStockAvg', 'carbonStockAvg'],
   },
   [SystemOfMeasurementName.volume]: {
-    units: [{ name: UnitName.millionCubicMeter, symbol: '1000000m³', conversionFactor: 1 }],
+    units: [{ name: UnitName.millionsCubicMeterOverBark, symbol: '1000000m³', conversionFactor: 1 }],
     tableNames: ['growingStockTotal'],
   },
   [SystemOfMeasurementName.volumePerArea]: {
