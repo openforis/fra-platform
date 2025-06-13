@@ -4,7 +4,7 @@ import React, { useCallback, useEffect, useRef } from 'react'
 import classNames from 'classnames'
 
 import { useAppDispatch } from 'client/store/hooks'
-import { NavigationActions } from 'client/store/ui/navigation'
+import { CountryReportActions } from 'client/store/ui/countryReport/actions'
 import { useIsGeoRoute } from 'client/hooks'
 import NavAssessment from 'client/components/Navigation/NavAssessment'
 import NavGeo from 'client/components/Navigation/NavGeo'
@@ -20,7 +20,7 @@ const NavigationDesktop: React.FC = () => {
 
   // Show navigation on first mount (ex. returning from Mobile view)
   useEffect(() => {
-    dispatch(NavigationActions.updateNavigationVisible(true))
+    dispatch(CountryReportActions.setNavigationVisible(true))
   }, [dispatch])
 
   const toggleExpanded = useCallback(() => {

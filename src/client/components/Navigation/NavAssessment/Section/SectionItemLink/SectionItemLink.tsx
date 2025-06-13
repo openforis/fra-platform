@@ -13,7 +13,7 @@ import { Routes } from 'meta/routes'
 import { useAppDispatch } from 'client/store/hooks'
 import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useCycle } from 'client/store/meta/hooks/cycles'
-import { NavigationActions } from 'client/store/ui/navigation'
+import { CountryReportActions } from 'client/store/ui/countryReport/actions'
 import { useSectionReviewSummary } from 'client/store/ui/review/hooks'
 import { useCountryIso, useIsDataExportView } from 'client/hooks'
 import ReviewSummaryIndicator from 'client/components/ReviewSummaryIndicator'
@@ -48,7 +48,7 @@ const SectionItemLink: React.FC<Props> = (props) => {
       }
       onClick={() => {
         if (!laptop) {
-          dispatch(NavigationActions.toggleNavigationVisible())
+          dispatch(CountryReportActions.setNavigationVisible())
         }
       }}
       to={Routes.Section.generatePath({

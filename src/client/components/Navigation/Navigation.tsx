@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import MediaQuery from 'react-responsive'
 
 import { useAppDispatch } from 'client/store/hooks'
-import { NavigationActions } from 'client/store/ui/navigation'
+import { CountryReportActions } from 'client/store/ui/countryReport/actions'
 import { useCountryIso } from 'client/hooks'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { Breakpoints } from 'client/utils'
@@ -17,7 +17,7 @@ const Navigation: React.FC = () => {
   const { print } = useIsPrintRoute()
 
   useEffect(() => {
-    if (print) dispatch(NavigationActions.updateNavigationVisible(false))
+    if (print) dispatch(CountryReportActions.setNavigationVisible(false))
   }, [dispatch, print])
 
   if (!countryIso || print) return <div />

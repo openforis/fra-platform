@@ -9,10 +9,12 @@ export type CountryReportState = {
   globalCountries?: Array<CountryIso>
   locked: boolean
   showOriginalDataPoint?: boolean
+  navigationVisible?: boolean
 }
 
 export const initialState: CountryReportState = {
   descriptionsEditEnabled: {},
   locked: true,
   showOriginalDataPoint: true,
+  navigationVisible: true,
 }

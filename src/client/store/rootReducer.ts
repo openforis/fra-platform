@@ -20,7 +20,6 @@ import { OriginalDataPointSlice } from './data/originalDataPoint/slice'
 import { MessageCenterSlice } from './messageCenter/slice'
 import { CountryReportSlice } from './ui/countryReport/slice'
 import GeoSlice from './ui/geo/slice'
-import NavigationSlice from './ui/navigation/slice'
 import NotificationSlice from './ui/notification/slice'
 import ReviewSlice from './ui/review/slice'
 import UserManagementSlice from './ui/userManagement/slice'
@@ -49,7 +48,6 @@ export default {
   ui: combineReducers({
     [AreaSelectorSlice.name]: AreaSelectorSlice.reducer,
     [CountryReportSlice.name]: CountryReportSlice.reducer,
-    navigation: NavigationSlice,
     notification: NotificationSlice,
     [RepositorySlice.name]: RepositorySlice.reducer,
     review: ReviewSlice,
