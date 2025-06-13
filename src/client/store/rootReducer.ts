@@ -13,6 +13,7 @@ import { DataExportSlice } from 'client/store/dataExport/slice'
 import { FileUploadSlice } from 'client/store/fileUpload/slice'
 import { MetaSlice } from 'client/store/meta/slice'
 import { AreaSelectorSlice } from 'client/store/ui/areaSelector/slice'
+import { NotificationSlice } from 'client/store/ui/notification/slice'
 import { RepositorySlice } from 'client/store/ui/repository'
 import { UserSlice } from 'client/store/user/slice'
 
@@ -20,7 +21,6 @@ import { OriginalDataPointSlice } from './data/originalDataPoint/slice'
 import { MessageCenterSlice } from './messageCenter/slice'
 import { CountryReportSlice } from './ui/countryReport/slice'
 import GeoSlice from './ui/geo/slice'
-import NotificationSlice from './ui/notification/slice'
 import ReviewSlice from './ui/review/slice'
 import UserManagementSlice from './ui/userManagement/slice'
 
@@ -48,7 +48,7 @@ export default {
   ui: combineReducers({
     [AreaSelectorSlice.name]: AreaSelectorSlice.reducer,
     [CountryReportSlice.name]: CountryReportSlice.reducer,
-    notification: NotificationSlice,
+    [NotificationSlice.name]: NotificationSlice.reducer,
     [RepositorySlice.name]: RepositorySlice.reducer,
     review: ReviewSlice,
     userManagement: UserManagementSlice,
