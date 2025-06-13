@@ -1,4 +1,5 @@
 import { useAppSelector } from 'client/store/hooks'
-import { NotificationState } from 'client/store/ui/notification/stateType'
+import { NotificationSelectors } from 'client/store/ui/notification/selectors'
+import { NotificationState } from 'client/store/ui/notification/state'
 
-export const useNotification = (): NotificationState => useAppSelector((state) => state.ui.notification)
+export const useNotification = (): NotificationState => useAppSelector(NotificationSelectors.getState)

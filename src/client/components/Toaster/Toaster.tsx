@@ -3,7 +3,9 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { useAppDispatch } from 'client/store/hooks'
-import { NotificationActions, NotificationMessage, useNotification } from 'client/store/ui/notification'
+import { NotificationActions } from 'client/store/ui/notification/actions'
+import { useNotification } from 'client/store/ui/notification/hooks'
+import { NotificationMessage } from 'client/store/ui/notification/state'
 import Icon from 'client/components/Icon'
 
 type ToastProps = {

@@ -4,7 +4,7 @@ import { Action, Dispatch, Middleware, MiddlewareAPI } from 'redux'
 import { Lang } from 'meta/lang'
 import { UUIDs } from 'meta/uuid'
 
-import { NotificationActions } from 'client/store/ui/notification/slice'
+import { NotificationActions } from 'client/store/ui/notification/actions'
 
 const createAxiosMiddleware =
   (axios: AxiosStatic): Middleware =>

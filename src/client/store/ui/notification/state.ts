@@ -9,3 +9,7 @@ export interface NotificationMessage {
 export interface NotificationState {
   notifications: Array<NotificationMessage>
 }
+
+export const initialState: NotificationState = {
+  notifications: [],
+}
