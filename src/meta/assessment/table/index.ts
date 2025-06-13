@@ -55,6 +55,11 @@ export type TableCellNames = Record<CycleUuid, Array<TableCell>>
 // array of column names indexed by cycle uuid
 export type TableColumnNames = Record<CycleUuid, Array<ColName>>
 export type TableName = string
+export enum TableVisibility {
+  print = 'print',
+  private = 'private',
+  public = 'public',
+}
 
 export interface TableProps {
   cellsExportAlways?: TableCellNames
@@ -70,6 +75,7 @@ export interface TableProps {
   secondary?: boolean
   style?: Record<CycleUuid, Pick<CSSProperties, 'gridTemplateColumns'>>
   unit?: Unit
+  visibility?: Record<CycleUuid, Array<TableVisibility>>
 }
 
 export interface Table extends CycledPropsObject<TableProps> {
