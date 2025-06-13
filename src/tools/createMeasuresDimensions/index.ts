@@ -29,6 +29,8 @@ type Props = {
 const _createMeasuresAndDimensionsForTables = async (props: Props) => {
   const { assessment, systemOfMeasurementName, tableNames } = props
 
+  if (Objects.isEmpty(tableNames)) return
+
   const schemaAssessment = Schemas.getName(assessment)
 
   const systemOfMeasurementUuid = systemOfMeasurementName

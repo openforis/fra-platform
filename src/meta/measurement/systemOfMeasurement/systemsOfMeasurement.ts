@@ -61,4 +61,8 @@ export const systemsOfMeasurement: SystemOfMeasurementSeed = {
     units: [{ name: UnitName.cubicMeterPerHa, symbol: 'm³/ha', conversionFactor: 1 }],
     tableNames: ['growingStockAvg'],
   },
+  [SystemOfMeasurementName.percent]: {
+    units: [{ name: UnitName.percent, symbol: '%', conversionFactor: 1 }],
+    tableNames: [],
+  },
 }
