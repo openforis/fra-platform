@@ -12,6 +12,8 @@ const getGlobalCountries = createSelector(_getState, (state) => state.globalCoun
 
 const isDataLocked = createSelector(_getState, (state) => state.locked)
 
+const isNavigationVisible = createSelector(_getState, (state) => state.navigationVisible)
+
 const isDescriptionEditEnabled = createSelector(
   [_getState, (_, sectionName: SectionName) => sectionName, (_, __, name: CommentableDescriptionName) => name],
   (state, sectionName, name) => state.descriptionsEditEnabled?.[sectionName]?.[name] ?? false
@@ -23,5 +25,6 @@ export const CountryReportSelectors = {
   getGlobalCountries,
   isDataLocked,
   isDescriptionEditEnabled,
+  isNavigationVisible,
   showOriginalDataPoint,
 }

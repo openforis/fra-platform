@@ -4,7 +4,8 @@ import React from 'react'
 import classNames from 'classnames'
 
 import { useAppDispatch } from 'client/store/hooks'
-import { NavigationActions, useNavigationVisible } from 'client/store/ui/navigation'
+import { CountryReportActions } from 'client/store/ui/countryReport/actions'
+import { useNavigationVisible } from 'client/store/ui/countryReport/hooks/navigation'
 import { useIsAdminRoute, useIsCycleLandingRoute, useIsGeoRoute } from 'client/hooks'
 import Icon from 'client/components/Icon'
 
@@ -20,7 +21,7 @@ const ToggleNavigationControl: React.FC = () => {
     <button
       className={classNames('btn toggle-navigation-btn', { active: navigationVisible })}
       disabled={disabled}
-      onClick={() => dispatch(NavigationActions.toggleNavigationVisible())}
+      onClick={() => dispatch(CountryReportActions.setNavigationVisible())}
       type="button"
     >
       <Icon className="icon-sub" name="menu-left" />
