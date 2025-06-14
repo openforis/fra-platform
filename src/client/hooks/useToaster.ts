@@ -3,7 +3,7 @@ import { useMemo } from 'react'
 import { UUIDs } from 'meta/uuid'
 
 import { useAppDispatch } from 'client/store/hooks'
-import { NotificationActions } from 'client/store/ui/notification'
+import { NotificationActions } from 'client/store/ui/notification/actions'
 
 export type ToasterHook = {
   toaster: {

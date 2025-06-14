@@ -6,7 +6,8 @@ import axios from 'axios'
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { UUIDs } from 'meta/uuid'
 
-import { NotificationActions, NotificationMessage } from 'client/store/ui/notification'
+import { NotificationActions } from 'client/store/ui/notification/actions'
+import { NotificationMessage } from 'client/store/ui/notification/state'
 
 export const changePassword = createAsyncThunk<
   { message?: string; error?: string },
