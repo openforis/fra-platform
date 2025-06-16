@@ -8,7 +8,7 @@ export const useReviewStatus = (key: string): ReviewStatus =>
   useAppSelector((state) => ReviewSelectors.getStatus(state, key) || ({} as ReviewStatus))
 
 export const useOdpReviewSummary = (odpId: number): ReviewStatus => {
-  const statuses = useAppSelector((state) => Object.values(Object.fromEntries(Object.entries(state.review.status))))
+  const statuses = useAppSelector(ReviewSelectors.getStatuses)
 
   return statuses.reduce(
     (acc, curr) =>
@@ -26,11 +26,7 @@ export const useOdpReviewSummary = (odpId: number): ReviewStatus => {
 }
 
 export const useSectionReviewSummary = (sectionId: number): ReviewStatus => {
-  const sections = useAppSelector((state) =>
-    state.review.summary.filter(
-      (reviewSummary) => reviewSummary.parentId === sectionId || reviewSummary.subSectionId === sectionId
-    )
-  )
+  const sections = useAppSelector((state) => ReviewSelectors.getSummariesBySectionId(state, sectionId))
 
   return sections.reduce(
     (curr, acc) => {
