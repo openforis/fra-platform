@@ -17,6 +17,7 @@ export enum UnitName {
   millionsCubicMeterOverBark = 'millionsCubicMeterOverBark',
   millionTonnes = 'millionTonnes',
   numberOfStudents = 'numberOfStudents',
+  percent = 'percent',
   thousandCubicMeter = 'thousandCubicMeter',
   thousandCubicMeterOverBark = 'thousandCubicMeterOverBark',
   thousandCubicMeterRWE = 'thousandCubicMeterRWE',

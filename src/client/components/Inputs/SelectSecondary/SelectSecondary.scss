@@ -1,0 +1,62 @@
+@use 'sass:color';
+
+@import 'src/client/style/partials';
+
+$btnHeight: $spacing-s;
+
+div.select-secondary__container {
+  background-color: white;
+  border-radius: 2px;
+  border: 1px solid $ui-accent;
+  min-width: 100px;
+
+  div.select__control {
+    min-height: $btnHeight;
+    padding: 0 $spacing-xxs;
+  }
+
+  div.select__valueContainer {
+    font-size: $font-xs;
+    font-weight: 400;
+  }
+
+  div.select__singleValue {
+    color: $text-body;
+  }
+
+  div.select__dropdownIndicator {
+    svg {
+      color: $text-body;
+      height: 12px;
+      width: 12px;
+    }
+  }
+
+  // menu and options
+  div.select__menu {
+    border-color: $ui-accent;
+    font-size: $font-xs;
+
+    &.bottom {
+      margin-top: 1px;
+    }
+
+    &.top {
+      margin-bottom: 1px;
+    }
+  }
+
+  div.select__option {
+    font-weight: normal;
+    padding: $spacing-xxxs 6px;
+
+    &.isFocused {
+      background-color: rgba($ui-accent, 0.1);
+    }
+
+    &.isSelected {
+      color: $text-body;
+      font-weight: 600;
+    }
+  }
+}

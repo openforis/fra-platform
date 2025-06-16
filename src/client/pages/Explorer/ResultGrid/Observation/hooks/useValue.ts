@@ -6,6 +6,8 @@ import { RecordAssessmentDatas } from 'meta/data'
 import { Dimensions } from 'meta/measurement/dimensions'
 import { Measure } from 'meta/measurement/measure'
 import { Measures } from 'meta/measurement/measures'
+import { Observations } from 'meta/measurement/observations'
+import { SystemOfMeasurementName } from 'meta/measurement/systemOfMeasurement'
 import { Units } from 'meta/measurement/units'
 
 import { useExplorerSectionMetadata } from 'client/store/explorer/metadata/hooks/metadata'
@@ -30,7 +32,7 @@ export const useValue = (props: ObservationProps): Returned => {
   )
 
   return useMemo<Returned>(() => {
-    const value = RecordAssessmentDatas.getDatum({
+    const rawValue = RecordAssessmentDatas.getDatum({
       assessmentName,
       colName: Dimensions.dimensionNameToColumnName(dimensionName),
       countryIso,
@@ -40,15 +42,26 @@ export const useValue = (props: ObservationProps): Returned => {
       variableName: Measures.measureNameToVariableName(measureName),
     })
 
-    if (Objects.isEmpty(measure)) return value
+    if (Objects.isEmpty(rawValue)) return rawValue
 
-    const system = systemsOfMeasurements?.[measure.systemName]
-    if (Objects.isEmpty(system)) return value
-    if (Object.keys(system.units).length === 1) return value
+    let valueToFormat = rawValue
+    let systemName: SystemOfMeasurementName | undefined
 
-    const unitName = selectedUnits?.[measureName] ?? system.baseUnitName
+    if (!Objects.isEmpty(measure)) {
+      const system = systemsOfMeasurements?.[measure.systemName]
+      if (!Objects.isEmpty(system)) {
+        const unitName = selectedUnits?.[measureName] ?? system.baseUnitName
+        valueToFormat = Units.convertValue(rawValue, unitName, system)
+        systemName = system.name
+      }
+    }
 
-    return Units.convertValue(value, unitName, system)
+    // TODO: Handle special case: growingStockPercent
+    if (dimensionName === 'growingStockPercent') {
+      systemName = SystemOfMeasurementName.percent
+    }
+
+    return Observations.formatValue({ systemName, value: valueToFormat })
   }, [
     assessmentName,
     countryIso,

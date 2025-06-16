@@ -3,6 +3,7 @@ export enum SystemOfMeasurementName {
   areaPerYear = 'area/year',
   mass = 'mass',
   massPerArea = 'mass/area',
+  percent = 'percent',
   volume = 'volume',
   volumePerArea = 'volume/area',
 }
