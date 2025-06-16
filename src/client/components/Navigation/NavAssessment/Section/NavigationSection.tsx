@@ -9,7 +9,7 @@ import { Routes } from 'meta/routes'
 
 import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useCycle } from 'client/store/meta/hooks/cycles'
-import { useSectionReviewSummary } from 'client/store/ui/review/hooks'
+import { useSectionReviewSummary } from 'client/store/review/hooks/review'
 import { useCountryIso, useIsDataExportView } from 'client/hooks'
 import SectionItemLink from 'client/components/Navigation/NavAssessment/Section/SectionItemLink'
 import ReviewSummaryIndicator from 'client/components/ReviewSummaryIndicator'

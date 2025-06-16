@@ -6,23 +6,22 @@ import { ContactsSlice } from 'client/store/data/contacts/slice'
 import { DescriptionsSlice } from 'client/store/data/descriptions/slice'
 import { HistorySlice } from 'client/store/data/history/slice'
 import { LinkedDataSourcesSlice } from 'client/store/data/linkedDataSources/slice'
+import { OriginalDataPointSlice } from 'client/store/data/originalDataPoint/slice'
 import { EstimationsSlice } from 'client/store/data/tableData/estimations/slice'
 import { NodeValuesSlice } from 'client/store/data/tableData/nodeValues/slice'
 import { ValidationsReducer } from 'client/store/data/tableData/validations/slice'
 import { DataExportSlice } from 'client/store/dataExport/slice'
 import { FileUploadSlice } from 'client/store/fileUpload/slice'
+import { MessageCenterSlice } from 'client/store/messageCenter/slice'
 import { MetaSlice } from 'client/store/meta/slice'
 import { RepositorySlice } from 'client/store/repository/slice'
+import { ReviewSlice } from 'client/store/review/slice'
 import { AreaSelectorSlice } from 'client/store/ui/areaSelector/slice'
+import { CountryReportSlice } from 'client/store/ui/countryReport/slice'
+import GeoSlice from 'client/store/ui/geo/slice'
 import { NotificationSlice } from 'client/store/ui/notification/slice'
+import UserManagementSlice from 'client/store/ui/userManagement/slice'
 import { UserSlice } from 'client/store/user/slice'
-
-import { OriginalDataPointSlice } from './data/originalDataPoint/slice'
-import { MessageCenterSlice } from './messageCenter/slice'
-import { CountryReportSlice } from './ui/countryReport/slice'
-import GeoSlice from './ui/geo/slice'
-import ReviewSlice from './ui/review/slice'
-import UserManagementSlice from './ui/userManagement/slice'
 
 export default {
   [ApplicationSlice.name]: ApplicationSlice.reducer,
@@ -44,13 +43,13 @@ export default {
   [MetaSlice.name]: MetaSlice.reducer,
   [MessageCenterSlice.name]: MessageCenterSlice.reducer,
   [RepositorySlice.name]: RepositorySlice.reducer,
+  [ReviewSlice.name]: ReviewSlice.reducer,
 
   geo: GeoSlice,
   ui: combineReducers({
     [AreaSelectorSlice.name]: AreaSelectorSlice.reducer,
     [CountryReportSlice.name]: CountryReportSlice.reducer,
     [NotificationSlice.name]: NotificationSlice.reducer,
-    review: ReviewSlice,
     userManagement: UserManagementSlice,
   }),
   [UserSlice.name]: UserSlice.reducer,

@@ -13,7 +13,7 @@ import { Routes } from 'meta/routes'
 import { TooltipId } from 'meta/tooltip'
 
 import { useHistoryLastApprovedIsActive } from 'client/store/data/history/hooks/lastApproved'
-import { useOdpReviewSummary } from 'client/store/ui/review/hooks'
+import { useOdpReviewSummary } from 'client/store/review/hooks/review'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { DataCell } from 'client/components/DataGrid'
