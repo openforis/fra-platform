@@ -8,8 +8,8 @@ import { RepositoryItem } from 'meta/cycleData'
 
 import { useAppDispatch } from 'client/store/hooks'
 import { addAppListener } from 'client/store/middleware/listener'
+import { RepositoryActions } from 'client/store/repository/actions'
 import { TablePaginatedActions } from 'client/store/tablePaginated/actions'
-import { RepositoryActions } from 'client/store/ui/repository'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 export const useRepositoryItemChangeListener = () => {

@@ -4,7 +4,7 @@ import { RepositoryItem } from 'meta/cycleData'
 import { FileMeta } from 'meta/file'
 
 import { useAppSelector } from 'client/store/hooks'
-import { RepositorySelectors } from 'client/store/ui/repository/selectors'
+import { RepositorySelectors } from 'client/store/repository/selectors'
 
 export const useIsRepositoryLoading = (): boolean => {
   return useAppSelector(RepositorySelectors.isLoading)

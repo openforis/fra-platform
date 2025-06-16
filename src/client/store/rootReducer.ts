@@ -12,9 +12,9 @@ import { ValidationsReducer } from 'client/store/data/tableData/validations/slic
 import { DataExportSlice } from 'client/store/dataExport/slice'
 import { FileUploadSlice } from 'client/store/fileUpload/slice'
 import { MetaSlice } from 'client/store/meta/slice'
+import { RepositorySlice } from 'client/store/repository/slice'
 import { AreaSelectorSlice } from 'client/store/ui/areaSelector/slice'
 import { NotificationSlice } from 'client/store/ui/notification/slice'
-import { RepositorySlice } from 'client/store/ui/repository'
 import { UserSlice } from 'client/store/user/slice'
 
 import { OriginalDataPointSlice } from './data/originalDataPoint/slice'
@@ -43,13 +43,13 @@ export default {
   [FileUploadSlice.name]: FileUploadSlice.reducer,
   [MetaSlice.name]: MetaSlice.reducer,
   [MessageCenterSlice.name]: MessageCenterSlice.reducer,
+  [RepositorySlice.name]: RepositorySlice.reducer,
 
   geo: GeoSlice,
   ui: combineReducers({
     [AreaSelectorSlice.name]: AreaSelectorSlice.reducer,
     [CountryReportSlice.name]: CountryReportSlice.reducer,
     [NotificationSlice.name]: NotificationSlice.reducer,
-    [RepositorySlice.name]: RepositorySlice.reducer,
     review: ReviewSlice,
     userManagement: UserManagementSlice,
   }),
