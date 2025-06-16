@@ -8,7 +8,7 @@ import { MessageTopicStatus, MessageTopicType } from 'meta/messageCenter'
 
 import { useAppDispatch } from 'client/store/hooks'
 import { MessageCenterActions } from 'client/store/messageCenter/actions'
-import { useReviewStatus } from 'client/store/ui/review/hooks'
+import { useReviewStatus } from 'client/store/review/hooks/review'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 import Icon from 'client/components/Icon'
 
