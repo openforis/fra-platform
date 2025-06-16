@@ -56,6 +56,11 @@ export const useValue = (props: ObservationProps): Returned => {
       }
     }
 
+    // TODO: Handle special case: growingStockPercent
+    if (dimensionName === 'growingStockPercent') {
+      systemName = SystemOfMeasurementName.percent
+    }
+
     return Observations.formatValue({ systemName, value: valueToFormat })
   }, [
     assessmentName,

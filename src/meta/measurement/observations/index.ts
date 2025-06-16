@@ -17,6 +17,7 @@ const formatValue = (props: FormatValueProps): string => {
       SystemOfMeasurementName.mass,
       SystemOfMeasurementName.massPerArea,
       SystemOfMeasurementName.percent,
+      SystemOfMeasurementName.percent,
       SystemOfMeasurementName.volume,
       SystemOfMeasurementName.volumePerArea,
     ].includes(systemName)
