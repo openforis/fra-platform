@@ -1,9 +1,9 @@
 import { ActionReducerMapBuilder, isAnyOf, isFulfilled, isPending, isRejected } from '@reduxjs/toolkit'
 
-import { getFileMeta } from 'client/store/ui/repository/actions/getFileMeta'
-import { removeRepositoryItem } from 'client/store/ui/repository/actions/removeRepositoryItem'
-import { upsertRepositoryItem } from 'client/store/ui/repository/actions/upsertRepositoryItem'
-import { RepositoryState } from 'client/store/ui/repository/state'
+import { getFileMeta } from 'client/store/repository/actions/getFileMeta'
+import { removeRepositoryItem } from 'client/store/repository/actions/removeRepositoryItem'
+import { upsertRepositoryItem } from 'client/store/repository/actions/upsertRepositoryItem'
+import { RepositoryState } from 'client/store/repository/state'
 
 export const repositoryReducer = (builder: ActionReducerMapBuilder<RepositoryState>) => {
   builder.addMatcher(

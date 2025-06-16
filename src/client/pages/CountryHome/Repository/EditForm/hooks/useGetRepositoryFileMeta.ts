@@ -4,7 +4,8 @@ import { CountryIso } from 'meta/area'
 import { RepositoryItem } from 'meta/cycleData'
 
 import { useAppDispatch } from 'client/store/hooks'
-import { RepositoryActions, useRepositoryFileMeta, useRepositoryItem } from 'client/store/ui/repository'
+import { RepositoryActions } from 'client/store/repository/actions'
+import { useRepositoryFileMeta, useRepositoryItem } from 'client/store/repository/hooks/repository'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 export const useGetRepositoryFileMeta = () => {

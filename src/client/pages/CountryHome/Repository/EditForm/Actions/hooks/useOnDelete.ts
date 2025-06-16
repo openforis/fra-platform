@@ -4,7 +4,8 @@ import { useTranslation } from 'react-i18next'
 import { CountryIso } from 'meta/area'
 
 import { useAppDispatch } from 'client/store/hooks'
-import { RepositoryActions, useRepositoryItem } from 'client/store/ui/repository'
+import { RepositoryActions } from 'client/store/repository/actions'
+import { useRepositoryItem } from 'client/store/repository/hooks/repository'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 import { useClosePanel } from 'client/pages/CountryHome/Repository/hooks/useClosePanel'
 

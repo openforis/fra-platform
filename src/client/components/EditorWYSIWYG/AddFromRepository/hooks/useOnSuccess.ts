@@ -5,7 +5,7 @@ import { RepositoryItem } from 'meta/cycleData'
 import { File } from 'meta/file'
 
 import { useAppDispatch } from 'client/store/hooks'
-import { RepositoryActions } from 'client/store/ui/repository'
+import { RepositoryActions } from 'client/store/repository/actions'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 import { useGetRepositoryItems } from './useGetRepositoryItems'
