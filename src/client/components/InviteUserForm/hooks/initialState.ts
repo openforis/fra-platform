@@ -1,9 +1,19 @@
 import { useMemo } from 'react'
 
-import { useLanguage } from 'client/hooks/useLanguage'
-import { UserToInvite } from 'client/components/InviteUserForm/userToInvite'
+import { Lang } from 'meta/lang'
 
-export const useInitialState = (): UserToInvite => {
-  const language = useLanguage()
-  return useMemo(() => ({ name: '', surname: '', email: '', role: '', lang: language }), [language])
+import { useLanguage } from 'client/hooks/useLanguage'
+
+export const useInitialState = () => {
+  const currentLanguage = useLanguage()
+  return useMemo(
+    () => ({
+      name: '',
+      surname: '',
+      email: '',
+      role: '',
+      language: currentLanguage || Lang.en,
+    }),
+    [currentLanguage]
+  )
 }
