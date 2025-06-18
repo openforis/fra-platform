@@ -3,35 +3,12 @@ import { useTranslation } from 'react-i18next'
 
 import { z } from 'zod'
 
-import { CountryIso } from 'meta/area'
-import { LanguageCodes } from 'meta/lang'
-import { RoleName, Users } from 'meta/user'
+import { RoleName } from 'meta/user'
 
-import { useCycle } from 'client/store/meta/hooks/cycles'
-import { useUser } from 'client/store/user/hooks/user'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { FieldDefinition, FormDefinition, FormFieldType } from 'client/components/Form/types'
-import { Option } from 'client/components/Inputs/Select'
 
 export const useFormDefinition = (): FormDefinition => {
   const { t } = useTranslation()
-  const { countryIso } = useCountryRouteParams<CountryIso>()
-  const user = useUser()
-  const cycle = useCycle()
-
-  const roleOptions = useMemo<Array<Option>>(() => {
-    return Users.getRolesAllowedToEdit({ user, countryIso, cycle }).map((role: RoleName) => ({
-      label: t(Users.getI18nRoleLabelKey(role)),
-      value: role,
-    }))
-  }, [countryIso, cycle, t, user])
-
-  const languageOptions = useMemo<Array<Option>>(() => {
-    return LanguageCodes.map((lang) => ({
-      label: t(`language.${lang}`),
-      value: lang,
-    }))
-  }, [t])
 
   return useMemo<FormDefinition>(() => {
     const fields: Array<FieldDefinition> = [
@@ -57,18 +34,16 @@ export const useFormDefinition = (): FormDefinition => {
       },
       {
         name: 'role',
-        type: FormFieldType.select,
+        type: FormFieldType.userRole,
         validation: z.string().min(1, t('form.errors.required', { field: t('editUser.role') })),
         label: 'common.role',
-        options: roleOptions,
         placeholder: t('userManagement.placeholder'),
       },
       {
         name: 'language',
-        type: FormFieldType.select,
+        type: FormFieldType.language,
         validation: z.string().min(1, t('form.errors.required', { field: t('common.language') })),
         label: 'common.language',
-        options: languageOptions,
       },
       {
         name: 'permissions',
@@ -79,5 +54,5 @@ export const useFormDefinition = (): FormDefinition => {
     ]
 
     return { fields }
-  }, [languageOptions, roleOptions, t])
+  }, [t])
 }

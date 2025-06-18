@@ -3,9 +3,11 @@ import { z } from 'zod'
 import { Option } from 'client/components/Inputs/Select'
 
 export enum FormFieldType {
+  language = 'language',
   permissions = 'permissions',
   select = 'select',
   text = 'text',
+  userRole = 'userRole',
 }
 
 export type FieldDefinition = {
