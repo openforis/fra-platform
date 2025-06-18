@@ -11,7 +11,8 @@ import { DataGrid } from 'client/components/DataGrid'
 import FormFields from './FormFields'
 import { FormProps } from './types'
 
-const Form: React.FC<FormProps> = ({ defaultValues, formDefinition, onCancel, onSubmit }) => {
+const Form: React.FC<FormProps> = (props) => {
+  const { defaultValues, formDefinition, onCancel, onSubmit } = props
   const { t } = useTranslation()
 
   const formSchemaObject = formDefinition.reduce((acc, curr) => {
