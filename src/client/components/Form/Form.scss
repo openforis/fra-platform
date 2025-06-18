@@ -1,0 +1,30 @@
+@use 'sass:color';
+@import 'src/client/style/partials';
+
+.form-grid {
+  //grid-template-columns: 0.3fr 1fr;
+  grid-column-gap: $spacing-xs;
+  grid-row-gap: $spacing-l;
+  margin: 0 auto;
+  max-width: 50%;
+}
+
+.form-cell-label {
+  align-self: center;
+  justify-self: right;
+
+  label {
+    color: color.adjust($text-mute, $lightness: 10%, $space: hsl);
+    font-size: $font-xs;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+}
+
+.form-cell-error {
+  //text-transform: uppercase;
+  font-weight: bold;
+  //color: $ui-destructive;
+  font-size: $font-xxxs;
+  position: absolute;
+}
