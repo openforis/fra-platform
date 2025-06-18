@@ -6,6 +6,7 @@ import { useLanguage } from 'client/hooks/useLanguage'
 
 export const useInitialState = () => {
   const currentLanguage = useLanguage()
+
   return useMemo(
     () => ({
       name: '',

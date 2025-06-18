@@ -2,11 +2,13 @@
 @import 'src/client/style/partials';
 
 .form-grid {
-  //grid-template-columns: 0.3fr 1fr;
+  border-radius: 2px;
+  box-shadow: 0 0 5px 0 $ui-border;
   grid-column-gap: $spacing-xs;
   grid-row-gap: $spacing-l;
   margin: 0 auto;
   max-width: 50%;
+  padding: $spacing-m $spacing-s;
 }
 
 .form-cell-label {
@@ -34,5 +36,5 @@
   justify-content: center;
   gap: $spacing-m;
   grid-column: 1 / -1;
-  margin-top: $spacing-l;
+  margin-top: $spacing-xs;
 }

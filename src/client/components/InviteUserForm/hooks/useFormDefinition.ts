@@ -10,71 +10,74 @@ import { RoleName, Users } from 'meta/user'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useUser } from 'client/store/user/hooks/user'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
-import { FormDefinition, FormType } from 'client/components/Form'
+import { FieldDefinition, FormDefinition, FormFieldType } from 'client/components/Form/types'
+import { Option } from 'client/components/Inputs/Select'
 
-export const useFormDefinition = (): Array<FormDefinition> => {
-  const { countryIso } = useCountryRouteParams<CountryIso>()
-
+export const useFormDefinition = (): FormDefinition => {
   const { t } = useTranslation()
+  const { countryIso } = useCountryRouteParams<CountryIso>()
   const user = useUser()
   const cycle = useCycle()
 
-  const roleOptions = useMemo(() => {
+  const roleOptions = useMemo<Array<Option>>(() => {
     return Users.getRolesAllowedToEdit({ user, countryIso, cycle }).map((role: RoleName) => ({
       label: t(Users.getI18nRoleLabelKey(role)),
       value: role,
     }))
   }, [countryIso, cycle, t, user])
 
-  const languageOptions = useMemo(() => {
+  const languageOptions = useMemo<Array<Option>>(() => {
     return LanguageCodes.map((lang) => ({
       label: t(`language.${lang}`),
       value: lang,
     }))
   }, [t])
 
-  return useMemo(
-    () => [
+  return useMemo<FormDefinition>(() => {
+    const fields: Array<FieldDefinition> = [
       {
         name: 'name',
-        type: FormType.text,
-        validation: z.string().min(2, 'Name must be at least 2 characters.'),
+        type: FormFieldType.text,
+        validation: z.string().min(2, t('form.errors.mustBeAtLeastNCharacters', { field: t('common.name'), n: 2 })),
         label: 'common.name',
       },
       {
         name: 'surname',
-        type: FormType.text,
-        validation: z.string().min(2, 'Surname must be at least 2 characters.'),
+        type: FormFieldType.text,
+        validation: z
+          .string()
+          .min(2, t('form.errors.mustBeAtLeastNCharacters', { field: t('editUser.surname'), n: 2 })),
         label: 'editUser.surname',
       },
       {
         name: 'email',
-        type: FormType.text,
-        validation: z.string().email('Please enter a valid email address.'),
+        type: FormFieldType.text,
+        validation: z.string().email(t('form.errors.invalid', { field: t('common.email') })),
         label: 'editUser.email',
       },
       {
         name: 'role',
-        type: FormType.select,
-        validation: z.string().min(1, 'Please select a role.'),
+        type: FormFieldType.select,
+        validation: z.string().min(1, t('form.errors.required', { field: t('editUser.role') })),
         label: 'common.role',
         options: roleOptions,
         placeholder: t('userManagement.placeholder'),
       },
       {
         name: 'language',
-        type: FormType.select,
-        validation: z.string().min(1, 'Please select a language.'),
+        type: FormFieldType.select,
+        validation: z.string().min(1, t('form.errors.required', { field: t('common.language') })),
         label: 'common.language',
         options: languageOptions,
       },
       {
         name: 'permissions',
-        type: FormType.permissions,
+        type: FormFieldType.permissions,
         label: 'userManagement.permissions',
         shouldShow: (watchValues) => watchValues.role === RoleName.COLLABORATOR,
       },
-    ],
-    [languageOptions, roleOptions, t]
-  )
+    ]
+
+    return { fields }
+  }, [languageOptions, roleOptions, t])
 }

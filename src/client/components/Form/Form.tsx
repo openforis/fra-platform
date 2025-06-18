@@ -1,67 +1,47 @@
 import './Form.scss'
 import React from 'react'
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import { z, ZodOptional } from 'zod'
 
 import { DataGrid } from 'client/components/DataGrid'
 
+import { useFormValidationSchema } from './hooks/useFormValidationSchema'
 import Buttons from './Buttons'
-import FormFields from './FormFields'
+import FormField from './FormFields'
 import { FormProps } from './types'
 
 const Form: React.FC<FormProps> = (props) => {
   const { defaultValues, formDefinition, onCancel, onSubmit } = props
+  const { fields } = formDefinition
 
-  const formSchemaObject = formDefinition.reduce((acc, curr) => {
-    if (curr.validation) {
-      return {
-        ...acc,
-        [curr.name]: curr.validation,
-      }
-    }
-    return acc
-  }, {})
+  const formValidationSchema = useFormValidationSchema({ formDefinition })
+  // type FormValues = z.infer<typeof formSchema>
 
-  const formSchema = z.object(formSchemaObject)
-
-  type FormValues = z.infer<typeof formSchema>
-
-  const {
-    formState: { errors, isSubmitting },
-    handleSubmit,
-    register,
-    setValue,
-    watch,
-  } = useForm<FormValues>({
-    resolver: zodResolver(formSchema),
-    defaultValues,
-  })
-
-  const gridTemplateColumns = '0.3fr 1fr'
+  const resolver = zodResolver(formValidationSchema)
+  const { formState, handleSubmit, register, setValue, watch } = useForm({ resolver, defaultValues })
+  const { errors, isSubmitting } = formState
 
   return (
-    <form onSubmit={handleSubmit(onSubmit as SubmitHandler<FormValues>)}>
-      <DataGrid className="form-grid" gridTemplateColumns={gridTemplateColumns}>
-        {formDefinition.map((formField) => {
-          const Component = FormFields[formField.type]
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <DataGrid className="form-grid" gridTemplateColumns="min-content 1fr">
+        {fields.map((fieldDefinition) => {
+          const { name, shouldShow } = fieldDefinition
+          const fieldValidationSchema = formValidationSchema.shape[name]
+          const watchValues = watch()
 
-          const schema = formSchema.shape[formField.name as keyof typeof formSchema.shape] as z.ZodTypeAny
-          const isOptional = schema instanceof ZodOptional
+          if (shouldShow && !shouldShow(watchValues)) {
+            return null
+          }
 
           return (
-            <Component
-              key={formField.name}
-              errors={errors}
-              label={formField.label}
-              name={formField.name}
-              options={formField.options}
-              placeholder={formField.placeholder}
+            <FormField
+              key={name}
+              error={errors[name]}
+              fieldDefinition={fieldDefinition}
+              fieldValidationSchema={fieldValidationSchema}
               register={register}
-              required={!isOptional}
               setValue={setValue}
-              shouldShow={formField.shouldShow}
               watch={watch}
             />
           )

@@ -1,24 +1,30 @@
 import { z } from 'zod'
 
-export enum FormType {
-  'text' = 'text',
-  'select' = 'select',
-  'permissions' = 'permissions',
+import { Option } from 'client/components/Inputs/Select'
+
+export enum FormFieldType {
+  permissions = 'permissions',
+  select = 'select',
+  text = 'text',
+}
+
+export type FieldDefinition = {
+  label: string
+  name: string
+  options?: Array<Option>
+  placeholder?: string
+  shouldShow?: (watchValues: Record<string, unknown>) => boolean
+  type: FormFieldType
+  validation?: z.ZodTypeAny
 }
 
 export type FormDefinition = {
-  name: string
-  label: string
-  validation?: z.ZodTypeAny
-  type: FormType
-  options?: Array<{ label: string; value: string }>
-  placeholder?: string
-  shouldShow?: (watchValues: Record<string, unknown>) => boolean
+  fields: Array<FieldDefinition>
 }
 
 export type FormProps = {
-  onSubmit: (data: unknown) => void
-  onCancel: () => void
-  formDefinition: Array<FormDefinition>
   defaultValues: object
+  formDefinition: FormDefinition
+  onCancel: () => void
+  onSubmit: (data: unknown) => void
 }

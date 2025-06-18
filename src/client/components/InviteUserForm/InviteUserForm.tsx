@@ -2,9 +2,10 @@ import React, { useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import Form from 'client/components/Form'
-import { useInitialState } from 'client/components/InviteUserForm/hooks/initialState'
-import { useFormDefinition } from 'client/components/InviteUserForm/hooks/useFormDefinition'
-import { useOnSubmit } from 'client/components/InviteUserForm/hooks/useOnSubmit'
+
+import { useInitialState } from './hooks/initialState'
+import { useFormDefinition } from './hooks/useFormDefinition'
+import { useOnSubmit } from './hooks/useOnSubmit'
 
 const InviteUserForm: React.FC = () => {
   const navigate = useNavigate()
