@@ -5,10 +5,10 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import { DataGrid } from 'client/components/DataGrid'
+import { FormFields } from 'client/components/Form/FormFields/FormFields'
 
 import { useFormValidationSchema } from './hooks/useFormValidationSchema'
 import Buttons from './Buttons'
-import FormField from './FormFields'
 import { FormProps } from './types'
 
 const Form: React.FC<FormProps> = (props) => {
@@ -26,7 +26,8 @@ const Form: React.FC<FormProps> = (props) => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <DataGrid className="form-grid" gridTemplateColumns="min-content 1fr">
         {fields.map((fieldDefinition) => {
-          const { name, shouldShow } = fieldDefinition
+          const { name, shouldShow, type } = fieldDefinition
+          const Component = FormFields[type]
           const fieldValidationSchema = formValidationSchema.shape[name]
           const watchValues = watch()
 
@@ -35,7 +36,7 @@ const Form: React.FC<FormProps> = (props) => {
           }
 
           return (
-            <FormField
+            <Component
               key={name}
               error={errors[name]}
               fieldDefinition={fieldDefinition}

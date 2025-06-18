@@ -1,25 +1,18 @@
-import React from 'react'
-import { FieldError, FieldErrorsImpl, Merge } from 'react-hook-form'
+import React, { PropsWithChildren } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Objects } from 'utils/objects'
-import { ZodOptional, ZodTypeAny } from 'zod'
+import { ZodOptional } from 'zod'
 
 import { DataCell, DataRow } from 'client/components/DataGrid'
 import { FieldProps } from 'client/components/Form/FormFields/types'
 import Icon from 'client/components/Icon'
 
-import { FormFields } from './FormFields'
-
-type Props = FieldProps & {
-  error?: FieldError | Merge<FieldError, FieldErrorsImpl>
-  fieldValidationSchema?: ZodTypeAny
-}
+type Props = PropsWithChildren<FieldProps>
 
 const FormField: React.FC<Props> = (props) => {
-  const { error, fieldDefinition, fieldValidationSchema, register, setValue, watch } = props
-  const { label, name, type } = fieldDefinition
-  const Component = FormFields[type]
+  const { children, error, fieldDefinition, fieldValidationSchema, noBorder } = props
+  const { label, name } = fieldDefinition
   const required = !Objects.isNil(fieldValidationSchema) && !(fieldValidationSchema instanceof ZodOptional)
 
   const { t } = useTranslation()
@@ -33,8 +26,8 @@ const FormField: React.FC<Props> = (props) => {
         </label>
       </DataCell>
 
-      <DataCell editable lastCol lastRow>
-        <Component key={name} fieldDefinition={fieldDefinition} register={register} setValue={setValue} watch={watch} />
+      <DataCell editable lastCol lastRow noBorder={noBorder}>
+        {React.Children.toArray(children)}
 
         {error && (
           <div className="form-cell-error">

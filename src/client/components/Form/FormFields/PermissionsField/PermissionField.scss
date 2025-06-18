@@ -1,0 +1,11 @@
+@use 'sass:color';
+@import 'src/client/style/partials';
+
+.form-field-permissions {
+  gap: $spacing-xs;
+  width: 100%;
+}
+
+.form-field-permissions__container {
+  height: 32px;
+}
