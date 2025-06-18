@@ -1,19 +1,18 @@
 import './Form.scss'
 import React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { useTranslation } from 'react-i18next'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z, ZodOptional } from 'zod'
 
 import { DataGrid } from 'client/components/DataGrid'
 
+import Buttons from './Buttons'
 import FormFields from './FormFields'
 import { FormProps } from './types'
 
 const Form: React.FC<FormProps> = (props) => {
   const { defaultValues, formDefinition, onCancel, onSubmit } = props
-  const { t } = useTranslation()
 
   const formSchemaObject = formDefinition.reduce((acc, curr) => {
     if (curr.validation) {
@@ -68,15 +67,7 @@ const Form: React.FC<FormProps> = (props) => {
           )
         })}
 
-        <div className="edit-user__form-item button-container">
-          <button className="btn btn-secondary" onClick={onCancel} type="button">
-            {t('common.cancel')}
-          </button>
-
-          <button className="btn btn-primary" disabled={isSubmitting} type="submit">
-            {isSubmitting ? t('common.submitting') : t('common.submit')}
-          </button>
-        </div>
+        <Buttons isSubmitting={isSubmitting} onCancel={onCancel} />
       </DataGrid>
     </form>
   )

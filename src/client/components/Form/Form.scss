@@ -28,3 +28,11 @@
   font-size: $font-xxxs;
   position: absolute;
 }
+
+.form-button-container {
+  display: flex;
+  justify-content: center;
+  gap: $spacing-m;
+  grid-column: 1 / -1;
+  margin-top: $spacing-l;
+}
