@@ -7,6 +7,7 @@ import { ZodOptional, ZodTypeAny } from 'zod'
 
 import { DataCell, DataRow } from 'client/components/DataGrid'
 import { FieldProps } from 'client/components/Form/FormFields/types'
+import Icon from 'client/components/Icon'
 
 import { FormFields } from './FormFields'
 
@@ -35,7 +36,12 @@ const FormField: React.FC<Props> = (props) => {
       <DataCell editable lastCol lastRow>
         <Component key={name} fieldDefinition={fieldDefinition} register={register} setValue={setValue} watch={watch} />
 
-        {error && <div className="form-cell-error">{error?.message as string}</div>}
+        {error && (
+          <div className="form-cell-error">
+            <Icon name="alert" />
+            {error?.message as string}
+          </div>
+        )}
       </DataCell>
     </DataRow>
   )

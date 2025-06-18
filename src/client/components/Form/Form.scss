@@ -24,17 +24,25 @@
 }
 
 .form-cell-error {
-  //text-transform: uppercase;
-  font-weight: bold;
-  //color: $ui-destructive;
-  font-size: $font-xxxs;
+  align-items: center;
+  display: flex;
+  font-size: $font-xxs;
+  font-weight: 600;
+  gap: $spacing-xxxxs;
   position: absolute;
+  top: calc(100% + 4px);
+
+  svg {
+    color: $ui-destructive;
+    height: 12px;
+    width: 12px;
+  }
 }
 
 .form-button-container {
   display: flex;
-  justify-content: center;
   gap: $spacing-m;
   grid-column: 1 / -1;
+  justify-content: center;
   margin-top: $spacing-xs;
 }
