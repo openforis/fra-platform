@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import { z, ZodOptional, ZodString } from 'zod'
+import { z, ZodOptional } from 'zod'
 
 import { CountryIso } from 'meta/area'
 import { LanguageCodes } from 'meta/lang'
@@ -23,17 +23,21 @@ import InviteCollaboratorPermissions from 'client/components/InviteUserForm/Invi
 
 enum FormType {
   'text' = 'text',
+  'select' = 'select',
+  'permissions' = 'permissions',
 }
 
 type FieldProps<T extends Record<string, unknown> = Record<string, unknown>> = {
   errors: FieldErrors<T>
-  register: UseFormRegister<T>
-  setValue: UseFormSetValue<T>
-  watch: UseFormWatch<T>
-
-  name: string
   label: string
-  required: boolean
+  name: string
+  options?: Array<{ label: string; value: string }>
+  placeholder?: string
+  register?: UseFormRegister<T>
+  required?: boolean
+  setValue: UseFormSetValue<T>
+  shouldShow?: (watchValues: Record<string, unknown>) => boolean
+  watch: UseFormWatch<T>
 }
 
 const TextField = (props: FieldProps) => {
@@ -56,14 +60,75 @@ const TextField = (props: FieldProps) => {
   )
 }
 
+const SelectField = (props: FieldProps) => {
+  const { errors, label, name, options = [], placeholder, required, setValue, watch } = props
+  const { t } = useTranslation()
+
+  return (
+    <DataRow>
+      <DataCell className="form-cell-label" noBorder>
+        <label htmlFor={name}>
+          {t(label)}
+          {required ? '*' : ''}
+        </label>
+      </DataCell>
+      <DataCell editable lastCol lastRow>
+        <Select
+          isClearable={false}
+          onChange={(value) => setValue(name, value as string)}
+          options={options}
+          placeholder={placeholder}
+          value={watch(name) as string}
+        />
+        {errors[name] && <div className="form-cell-error">{errors[name].message}</div>}
+      </DataCell>
+    </DataRow>
+  )
+}
+
+const PermissionsField = (props: FieldProps) => {
+  const { errors, label, name, setValue, shouldShow, watch } = props
+  const { t } = useTranslation()
+  const watchValues = watch()
+
+  if (shouldShow && !shouldShow(watchValues)) {
+    return null
+  }
+
+  return (
+    <DataRow>
+      <DataCell className="form-cell-label" noBorder>
+        <label htmlFor={name}>{t(label)}</label>
+      </DataCell>
+      <DataCell editable lastCol lastRow>
+        <InviteCollaboratorPermissions
+          onPermissionsChange={(permissions) => setValue(name, permissions)}
+          permissions={watch(name) as CollaboratorPermissions}
+        />
+        {errors[name] && <div className="form-cell-error">{errors[name].message}</div>}
+      </DataCell>
+    </DataRow>
+  )
+}
+
 const FormFields: Record<FormType, React.FC<FieldProps>> = {
   [FormType.text]: TextField,
+  [FormType.select]: SelectField,
+  [FormType.permissions]: PermissionsField,
 }
 
 type Props = {
   onSubmit: SubmitHandler<unknown>
   onCancel: () => void
-  formDefinition: Array<{ name: string; label: string; validation: ZodString; type: FormType }>
+  formDefinition: Array<{
+    name: string
+    label: string
+    validation: z.ZodTypeAny
+    type: FormType
+    options?: Array<{ label: string; value: string }>
+    placeholder?: string
+    shouldShow?: (watchValues: Record<string, unknown>) => boolean
+  }>
   defaultValues: object
 }
 
@@ -105,12 +170,16 @@ const Form: React.FC<Props> = ({ defaultValues, formDefinition, onCancel, onSubm
 
           return (
             <Component
+              key={formField.name}
               errors={errors}
               label={formField.label}
               name={formField.name}
+              options={formField.options}
+              placeholder={formField.placeholder}
               register={register}
               required={!isOptional}
               setValue={setValue}
+              shouldShow={formField.shouldShow}
               watch={watch}
             />
           )
@@ -130,17 +199,6 @@ const Form: React.FC<Props> = ({ defaultValues, formDefinition, onCancel, onSubm
   )
 }
 
-const formSchema = z.object({
-  name: z.string().min(2, 'Name must be at least 2 characters.'),
-  surname: z.string().min(2, 'Surame must be at least 2 characters.'),
-  email: z.string().email('Please enter a valid email address.'),
-  role: z.string().min(1, 'Please select a role.'),
-  language: z.string().min(1, 'Please select a language.'),
-  permissions: z.custom<CollaboratorPermissions>().optional(),
-})
-
-type FormValues = z.infer<typeof formSchema>
-
 const InviteUserForm: React.FC = () => {
   const { countryIso } = useCountryRouteParams<CountryIso>()
   const { t } = useTranslation()
@@ -152,22 +210,9 @@ const InviteUserForm: React.FC = () => {
   const defaultValues = useInitialState()
   const onSubmit = useOnSubmit()
 
-  const handleCancel = useCallback(() => {
+  const onCancel = useCallback(() => {
     navigate(-1)
   }, [navigate])
-
-  const onCancel = handleCancel
-
-  const {
-    formState: { errors, isSubmitting },
-    handleSubmit,
-    register,
-    setValue,
-    watch,
-  } = useForm<FormValues>({
-    resolver: zodResolver(formSchema),
-    defaultValues,
-  })
 
   const roleOptions = Users.getRolesAllowedToEdit({ user, countryIso, cycle }).map((role: RoleName) => ({
     label: t(Users.getI18nRoleLabelKey(role)),
@@ -178,13 +223,6 @@ const InviteUserForm: React.FC = () => {
     label: t(`language.${lang}`),
     value: lang,
   }))
-
-  const gridTemplateColumns = '0.3fr 1fr'
-
-  const permissionsSchema = formSchema.shape.permissions
-  const isOptional = permissionsSchema instanceof ZodOptional
-
-  console.log(isOptional)
 
   return (
     <div className="app-view__content">
@@ -197,102 +235,44 @@ const InviteUserForm: React.FC = () => {
             validation: z.string().min(2, 'Name must be at least 2 characters.'),
             label: 'common.name',
           },
+          {
+            name: 'surname',
+            type: FormType.text,
+            validation: z.string().min(2, 'Surame must be at least 2 characters.'),
+            label: 'editUser.surname',
+          },
+          {
+            name: 'email',
+            type: FormType.text,
+            validation: z.string().email('Please enter a valid email address.'),
+            label: 'editUser.email',
+          },
+          {
+            name: 'role',
+            type: FormType.select,
+            validation: z.string().min(1, 'Please select a role.'),
+            label: 'common.role',
+            options: roleOptions,
+            placeholder: t('userManagement.placeholder'),
+          },
+          {
+            name: 'language',
+            type: FormType.select,
+            validation: z.string().min(1, 'Please select a language.'),
+            label: 'common.language',
+            options: languageOptions,
+          },
+          {
+            name: 'permissions',
+            type: FormType.permissions,
+            validation: z.custom<CollaboratorPermissions>().optional(),
+            label: 'userManagement.permissions',
+            shouldShow: (watchValues) => watchValues.role === RoleName.COLLABORATOR,
+          },
         ]}
         onCancel={onCancel}
         onSubmit={onSubmit}
       />
-
-      <hr />
-
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <DataGrid className="form-grid" gridTemplateColumns={gridTemplateColumns}>
-          <DataRow>
-            <DataCell className="form-cell-label" noBorder>
-              <label htmlFor="name">{t('common.name')}*</label>
-            </DataCell>
-            <DataCell editable lastCol lastRow>
-              <InputText id="name" name="name" {...register('name')} />
-              {errors.name && <div className="form-cell-error">{errors.name.message}</div>}
-            </DataCell>
-          </DataRow>
-
-          <DataRow>
-            <DataCell className="form-cell-label" noBorder>
-              <label htmlFor="surname">{t('editUser.surname')}*</label>
-            </DataCell>
-            <DataCell editable lastCol lastRow>
-              <InputText id="surname" name="surname" {...register('surname')} />
-              {errors.surname && <div className="form-cell-error">{errors.surname.message}</div>}
-            </DataCell>
-          </DataRow>
-
-          <DataRow>
-            <DataCell className="form-cell-label" noBorder>
-              <label htmlFor="role">{t('common.role')}*</label>
-            </DataCell>
-            <DataCell editable lastCol lastRow>
-              <Select
-                isClearable={false}
-                onChange={(value) => setValue('role', value as string)}
-                options={roleOptions}
-                placeholder={t('userManagement.placeholder')}
-                value={watch('role')}
-              />
-              {errors.role && <div className="form-cell-error">{errors.role.message}</div>}
-            </DataCell>
-          </DataRow>
-
-          <DataRow>
-            <DataCell className="form-cell-label" noBorder>
-              <label htmlFor="email">{t('editUser.email')}*</label>
-            </DataCell>
-            <DataCell editable lastCol lastRow>
-              <InputText id="email" name="email" {...register('email')} />
-              {errors.email && <div className="form-cell-error">{errors.email.message}</div>}
-            </DataCell>
-          </DataRow>
-
-          <DataRow>
-            <DataCell className="form-cell-label" noBorder>
-              <label htmlFor="language">{t('common.language')}*</label>
-            </DataCell>
-            <DataCell editable lastCol lastRow>
-              <Select
-                isClearable={false}
-                onChange={(value) => setValue('language', value as string)}
-                options={languageOptions}
-                value={watch('language')}
-              />
-              {errors.language && <div className="form-cell-error">{errors.language.message}</div>}
-            </DataCell>
-          </DataRow>
-
-          {watch('role') === RoleName.COLLABORATOR && (
-            <DataRow>
-              <DataCell className="form-cell-label" noBorder>
-                <label>{t('userManagement.permissions')}</label>
-              </DataCell>
-              <DataCell editable lastCol lastRow>
-                <InviteCollaboratorPermissions
-                  onPermissionsChange={(permissions) => setValue('permissions', permissions)}
-                  permissions={watch('permissions')}
-                />
-                {errors.permissions && <div className="form-cell-error">{errors.permissions.message}</div>}
-              </DataCell>
-            </DataRow>
-          )}
-        </DataGrid>
-
-        <div className="edit-user__form-item button-container">
-          <button className="btn btn-secondary" onClick={handleCancel} type="button">
-            {t('common.cancel')}
-          </button>
-
-          <button className="btn btn-primary" disabled={isSubmitting} type="submit">
-            {isSubmitting ? t('common.submitting') : t('common.submit')}
-          </button>
-        </div>
-      </form>
     </div>
   )
 }
