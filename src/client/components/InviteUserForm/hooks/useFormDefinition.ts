@@ -49,6 +49,7 @@ export const useFormDefinition = (): FormDefinition => {
         name: 'permissions',
         type: FormFieldType.permissions,
         label: 'userManagement.permissions',
+        validation: z.any().optional(),
         shouldShow: (watchValues) => watchValues.role === RoleName.COLLABORATOR,
       },
     ]

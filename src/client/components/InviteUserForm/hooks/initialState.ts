@@ -14,6 +14,7 @@ export const useInitialState = () => {
       email: '',
       role: '',
       language: currentLanguage || Lang.en,
+      permissions: { tableData: ['all'], descriptions: ['all'] },
     }),
     [currentLanguage]
   )
