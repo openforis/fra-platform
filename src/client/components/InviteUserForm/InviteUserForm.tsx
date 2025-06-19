@@ -9,7 +9,6 @@ import { useOnSubmit } from './hooks/useOnSubmit'
 
 const InviteUserForm: React.FC = () => {
   const navigate = useNavigate()
-
   const defaultValues = useInitialState()
   const onSubmit = useOnSubmit()
   const formDefinition = useFormDefinition()

@@ -1,3 +1,4 @@
+import './Buttons.scss'
 import React from 'react'
 
 import Cancel from './Cancel'
