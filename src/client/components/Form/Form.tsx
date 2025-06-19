@@ -7,6 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { DataGrid } from 'client/components/DataGrid'
 import { FormFields } from 'client/components/Form/FormFields/FormFields'
 
+import { useFieldReset } from './hooks/useFieldReset'
 import { useFormValidationSchema } from './hooks/useFormValidationSchema'
 import Buttons from './Buttons'
 import { FormProps } from './types'
@@ -22,6 +23,10 @@ const Form: React.FC<FormProps> = (props) => {
   const { formState, handleSubmit, register, setValue, watch } = useForm({ resolver, defaultValues })
   const { errors, isSubmitting } = formState
 
+  const watchValues = watch()
+
+  useFieldReset({ fields, watchValues, setValue, defaultValues })
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <DataGrid className="form-grid" gridTemplateColumns="min-content 1fr">
@@ -29,7 +34,6 @@ const Form: React.FC<FormProps> = (props) => {
           const { name, shouldShow, type } = fieldDefinition
           const Component = FormFields[type]
           const fieldValidationSchema = formValidationSchema.shape[name]
-          const watchValues = watch()
 
           if (shouldShow && !shouldShow(watchValues)) {
             return null

@@ -25,7 +25,7 @@ export type FormDefinition = {
 }
 
 export type FormProps = {
-  defaultValues: object
+  defaultValues: Record<string, unknown>
   formDefinition: FormDefinition
   onCancel: () => void
   onSubmit: (data: unknown) => void
