@@ -3,6 +3,7 @@ import { createSelector } from '@reduxjs/toolkit'
 import { AssessmentName } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
 import { SectionName } from 'meta/assessment/section'
+import { AxisType } from 'meta/explorer/selection'
 
 import { ExplorerSelectionSlice } from 'client/store/explorer/selection/slice'
 import { RootState } from 'client/store/types'
@@ -20,46 +21,35 @@ const getCountries = createSelector(
   }
 )
 
-const getDimensions = createSelector(
-  [
-    _getState,
-    (_state: RootState, assessmentName: AssessmentName) => assessmentName,
-    (_state: RootState, _assessmentName: AssessmentName, cycleName: CycleName) => cycleName,
-    (_state: RootState, _assessmentName: AssessmentName, _cycleName: CycleName, sectionName: SectionName) =>
-      sectionName,
-  ],
-  (filters, assessmentName, cycleName, sectionName) => {
-    return filters?.[assessmentName]?.[cycleName]?.dimensions?.[sectionName]
-  }
-)
+const _baseSelectors = [
+  _getState,
+  (_state: RootState, assessmentName: AssessmentName) => assessmentName,
+  (_state: RootState, _assessmentName: AssessmentName, cycleName: CycleName) => cycleName,
+  (_state: RootState, _assessmentName: AssessmentName, _cycleName: CycleName, sectionName: SectionName) => sectionName,
+]
+const getAxisSelection = createSelector(_baseSelectors, (filters, assessmentName, cycleName, sectionName) => {
+  return (
+    filters?.[assessmentName]?.[cycleName]?.axis?.[sectionName] ?? {
+      x: [AxisType.measures, AxisType.dimensions],
+      y: [AxisType.countries],
+    }
+  )
+})
 
-const getMeasures = createSelector(
-  [
-    _getState,
-    (_state: RootState, assessmentName: AssessmentName) => assessmentName,
-    (_state: RootState, _assessmentName: AssessmentName, cycleName: CycleName) => cycleName,
-    (_state: RootState, _assessmentName: AssessmentName, _cycleName: CycleName, sectionName: SectionName) =>
-      sectionName,
-  ],
-  (filters, assessmentName, cycleName, sectionName) => {
-    return filters?.[assessmentName]?.[cycleName]?.measures?.[sectionName]
-  }
-)
+const getDimensions = createSelector(_baseSelectors, (filters, assessmentName, cycleName, sectionName) => {
+  return filters?.[assessmentName]?.[cycleName]?.dimensions?.[sectionName] ?? []
+})
 
-const getUnits = createSelector(
-  [
-    _getState,
-    (_state: RootState, assessmentName: AssessmentName) => assessmentName,
-    (_state: RootState, _assessmentName: AssessmentName, cycleName: CycleName) => cycleName,
-    (_state: RootState, _assessmentName: AssessmentName, _cycleName: CycleName, sectionName: SectionName) =>
-      sectionName,
-  ],
-  (filters, assessmentName, cycleName, sectionName) => {
-    return filters?.[assessmentName]?.[cycleName]?.units?.[sectionName]
-  }
-)
+const getMeasures = createSelector(_baseSelectors, (filters, assessmentName, cycleName, sectionName) => {
+  return filters?.[assessmentName]?.[cycleName]?.measures?.[sectionName] ?? []
+})
+
+const getUnits = createSelector(_baseSelectors, (filters, assessmentName, cycleName, sectionName) => {
+  return filters?.[assessmentName]?.[cycleName]?.units?.[sectionName]
+})
 
 export const ExplorerSelectionSelectors = {
+  getAxisSelection,
   getCountries,
   getDimensions,
   getMeasures,

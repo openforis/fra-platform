@@ -1,1 +1,2 @@
-export type { ExplorerSelection } from './selection'
+export type { AxisSelection, ExplorerSelection } from './selection'
+export { AxisType } from './selection'
