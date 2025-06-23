@@ -11,8 +11,8 @@ export enum AxisType {
 }
 
 export type AxisSelection = {
-  x: [AxisType]
-  y: [AxisType]
+  x: [AxisType] | [AxisType, AxisType]
+  y: [AxisType] | [AxisType, AxisType]
 }
 
 export type ExplorerSelection = {
