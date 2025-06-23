@@ -1,4 +1,5 @@
 import React from 'react'
+import { Controller } from 'react-hook-form'
 
 import FormField from 'client/components/Form/FormFields/FormField'
 import Select from 'client/components/Inputs/Select'
@@ -6,19 +7,26 @@ import Select from 'client/components/Inputs/Select'
 import { FieldProps } from '../types'
 
 const SelectField = (props: FieldProps) => {
-  const { fieldDefinition, setValue, watch } = props
+  const { control, fieldDefinition } = props
 
-  const { name, options, placeholder } = fieldDefinition
+  const { defaultValue, name, options, placeholder } = fieldDefinition
 
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
     <FormField {...props}>
-      <Select
-        isClearable={false}
-        onChange={(value) => setValue(name, value as string)}
-        options={options}
-        placeholder={placeholder}
-        value={watch(name) as string}
+      <Controller
+        control={control}
+        defaultValue={defaultValue}
+        name={name}
+        render={({ field: { onChange, value } }) => (
+          <Select
+            isClearable={false}
+            onChange={onChange}
+            options={options}
+            placeholder={placeholder}
+            value={value as string}
+          />
+        )}
       />
     </FormField>
   )
