@@ -8,7 +8,7 @@ import { SubSections } from 'meta/assessment/subSections'
 import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useSections } from 'client/store/meta/hooks/sections'
-import { useRepositoryFileMeta } from 'client/store/ui/repository'
+import { useRepositoryFileMeta } from 'client/store/repository/hooks/repository'
 
 type Returned = Array<{
   section: string

@@ -6,3 +6,4 @@ export type ReviewState = {
   }
   summary: Array<ReviewSummary>
 }
+export const initialState: ReviewState = { status: {}, summary: [] }

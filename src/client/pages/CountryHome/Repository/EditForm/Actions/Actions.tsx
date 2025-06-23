@@ -10,7 +10,7 @@ import {
   useIsRepositoryItemValid,
   useIsRepositoryLoading,
   useRepositoryItem,
-} from 'client/store/ui/repository'
+} from 'client/store/repository/hooks/repository'
 import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
 import { DataCell } from 'client/components/DataGrid'
 

@@ -5,7 +5,7 @@ import { Sockets } from 'meta/socket'
 
 import { useOriginalDataPoint } from 'client/store/data/originalDataPoint/hooks/originalDataPoint'
 import { useAppDispatch } from 'client/store/hooks'
-import { ReviewActions } from 'client/store/ui/review'
+import { ReviewActions } from 'client/store/review/actions'
 import { useCanEditCycleData } from 'client/store/user/hooks/auth'
 import { useUser } from 'client/store/user/hooks/user'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
