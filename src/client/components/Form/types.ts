@@ -11,6 +11,7 @@ export enum FormFieldType {
 }
 
 export type FieldDefinition = {
+  defaultValue?: unknown
   label: string
   name: string
   options?: Array<Option>
@@ -25,7 +26,6 @@ export type FormDefinition = {
 }
 
 export type FormProps = {
-  defaultValues: Record<string, unknown>
   formDefinition: FormDefinition
   onCancel: () => void
   onSubmit: (data: unknown) => void
