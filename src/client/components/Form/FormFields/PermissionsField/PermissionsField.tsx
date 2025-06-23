@@ -1,28 +1,21 @@
 import './PermissionField.scss'
 import React from 'react'
+import { Controller } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
-import { ActionMeta } from 'react-select'
 
 import { DataCell, DataGrid } from 'client/components/DataGrid'
 import FormField from 'client/components/Form/FormFields/FormField'
 import MultiSelect from 'client/components/Inputs/MultiSelect'
-import { Option } from 'client/components/Inputs/Select'
 
 import { FieldProps } from '../types'
 import { useGetValue } from './hooks/useGetValue'
 import { useOptions } from './hooks/useOptions'
 
-interface PermissionsValue {
-  tableData: Array<string>
-  descriptions: Array<string>
-}
-
 const PermissionsField: React.FC<FieldProps> = (props) => {
-  const { fieldDefinition, setValue, watch } = props
+  const { control, fieldDefinition } = props
   const { name } = fieldDefinition
 
   const { t } = useTranslation()
-  const currentPermissions = watch(name) as PermissionsValue
   const options = useOptions()
   const getValue = useGetValue()
 
@@ -32,25 +25,33 @@ const PermissionsField: React.FC<FieldProps> = (props) => {
       <DataGrid className="form-field-permissions" gridTemplateColumns="repeat(2, auto)">
         <DataCell editable lastCol lastRow>
           <div className="form-field-permissions__label">{t('userManagement.permissionNames.tableData')}</div>
-          <MultiSelect
-            classNames={{ container: 'form-field-permissions__container' }}
-            onChange={(selectedValues: Array<string>, actionMeta: ActionMeta<Option>) => {
-              setValue(name, getValue(currentPermissions, 'tableData', selectedValues, actionMeta))
-            }}
-            options={options}
-            value={currentPermissions?.tableData}
+          <Controller
+            control={control}
+            name={`${name}.tableData`}
+            render={({ field: { onChange, value } }) => (
+              <MultiSelect
+                classNames={{ container: 'form-field-permissions__container' }}
+                onChange={(selectedValues: Array<string>, actionMeta) => onChange(getValue(selectedValues, actionMeta))}
+                options={options}
+                value={value}
+              />
+            )}
           />
         </DataCell>
 
         <DataCell editable lastCol lastRow>
           <div className="form-field-permissions__label">{t('userManagement.permissionNames.descriptions')}</div>
-          <MultiSelect
-            classNames={{ container: 'form-field-permissions__container' }}
-            onChange={(selectedValues: Array<string>, actionMeta: ActionMeta<Option>) => {
-              setValue(name, getValue(currentPermissions, 'descriptions', selectedValues, actionMeta))
-            }}
-            options={options}
-            value={currentPermissions?.descriptions}
+          <Controller
+            control={control}
+            name={`${name}.descriptions`}
+            render={({ field: { onChange, value } }) => (
+              <MultiSelect
+                classNames={{ container: 'form-field-permissions__container' }}
+                onChange={(selectedValues: Array<string>, actionMeta) => onChange(getValue(selectedValues, actionMeta))}
+                options={options}
+                value={value}
+              />
+            )}
           />
         </DataCell>
       </DataGrid>

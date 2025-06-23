@@ -20,7 +20,7 @@ const Form: React.FC<FormProps> = (props) => {
   // type FormValues = z.infer<typeof formSchema>
 
   const resolver = zodResolver(formValidationSchema)
-  const { formState, handleSubmit, register, setValue, watch } = useForm({ resolver, defaultValues })
+  const { control, formState, handleSubmit, register, setValue, watch } = useForm({ resolver, defaultValues })
   const { errors, isSubmitting } = formState
 
   const watchValues = watch()
@@ -42,6 +42,7 @@ const Form: React.FC<FormProps> = (props) => {
           return (
             <Component
               key={name}
+              control={control}
               error={errors[name]}
               fieldDefinition={fieldDefinition}
               fieldValidationSchema={fieldValidationSchema}
