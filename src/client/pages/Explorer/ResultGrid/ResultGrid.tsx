@@ -1,42 +1,55 @@
 import './ResultGrid.scss'
 import React from 'react'
-import { useTranslation } from 'react-i18next'
 
 import { Objects } from 'utils/objects'
 
-import { Dimensions } from 'meta/measurement/dimensions'
-import { Measures } from 'meta/measurement/measures'
+import { CountryIso } from 'meta/area'
+import { AxisType } from 'meta/explorer/selection'
 
-import { useCountries } from 'client/store/area/hooks/countries'
 import { useExplorerSectionData, useGetExplorerSectionData } from 'client/store/explorer/data/hooks/data'
 import { useExplorerSectionMetadata } from 'client/store/explorer/metadata/hooks/metadata'
+import { useExplorerAxisSelection } from 'client/store/explorer/selection/hooks/axisSelection'
 import { useExplorerDimensions } from 'client/store/explorer/selection/hooks/dimensions'
 import { useExplorerMeasures } from 'client/store/explorer/selection/hooks/measures'
 import { DataCell, DataGrid } from 'client/components/DataGrid'
-import MeasureTitle from 'client/pages/Explorer/ResultGrid/MeasureTitle/MeasureTitle'
 import Observation from 'client/pages/Explorer/ResultGrid/Observation/Observation'
 
+import { useAxisValues } from './hooks/useAxisValues'
+import { useCombinations } from './hooks/useCombinations'
 import { useCountryEntries } from './hooks/useCountryEntries'
+import { useGridTemplateColumns } from './hooks/useGridTemplateColumns'
+import { useRenderLabel } from './hooks/useRenderLabel'
+import { CountryEntry } from './types'
 
-const ResultGrid: React.FC = () => {
+const _getCombinationStringValue = <T extends string = string>(value: string | CountryEntry): T => {
+  if (typeof value === 'string') return value as T
+  if (!Objects.isEmpty(value?.countryIso)) return value.countryIso as T
+  return null
+}
+
+export const ResultGrid: React.FC = () => {
   const date = new Date()
-  const { t } = useTranslation()
-  const countriesAll = useCountries()
 
-  const { cellsExportAlways = [], tableName } = useExplorerSectionMetadata() ?? {}
+  const { tableName } = useExplorerSectionMetadata() ?? {}
+  // TODO: cellsExportAlways const { cellsExportAlways = [], tableName } = useExplorerSectionMetadata() ?? {}
+
   const countryEntries = useCountryEntries()
-  const measures = useExplorerMeasures() ?? []
-  const dimensions = useExplorerDimensions() ?? []
+  const measures = useExplorerMeasures()
+  const dimensions = useExplorerDimensions()
 
-  const measuresExportAlways = Measures.getExportAlways(cellsExportAlways)
-  const dimensionsExportAlways = Dimensions.getExportAlways(cellsExportAlways)
+  // const measuresExportAlways = Measures.getExportAlways(cellsExportAlways)
+  // const dimensionsExportAlways = Dimensions.getExportAlways(cellsExportAlways)
 
   useGetExplorerSectionData()
   const data = useExplorerSectionData()
 
-  const gridTemplateColumns = `minmax(160px, 240px) repeat(${
-    measures.length * dimensions.length + cellsExportAlways.length
-  }, 1fr)`
+  const { x: xAxisSelection, y: yAxisSelection } = useExplorerAxisSelection()
+
+  const axisValues = useAxisValues()
+  const { uniquePrimaryX, xCombinations, yCombinations } = useCombinations({ axisValues })
+  const gridTemplateColumns = useGridTemplateColumns({ axisValues })
+
+  const renderLabel = useRenderLabel()
 
   if ([countryEntries, data, dimensions, measures, tableName].some(Objects.isEmpty)) {
     return null
@@ -44,77 +57,80 @@ const ResultGrid: React.FC = () => {
 
   return (
     <DataGrid className="explorer-result-grid" gridTemplateColumns={gridTemplateColumns}>
-      <DataCell gridRow="span 2" header />
-      {measuresExportAlways.map((measureName, idx) => {
-        const dimension = dimensionsExportAlways[idx]
-        return (
-          <DataCell key={`${measureName}-${dimension}`} className="header-top" gridRow="span 2" header>
-            <MeasureTitle measureName={measureName} />
+      <DataCell gridColumn={`span ${yAxisSelection.length}`} gridRow={`span ${xAxisSelection.length}`} header />
+      {xAxisSelection.length === 2 &&
+        uniquePrimaryX.map((value, idx) => (
+          <DataCell
+            key={`${xAxisSelection[0]}-${_getCombinationStringValue(value)}-primary-x-variable-header`}
+            className="header-top"
+            gridColumn={`span ${axisValues[xAxisSelection[1]].length}`}
+            header
+            lastCol={idx === uniquePrimaryX.length - 1}
+          >
+            {renderLabel({ axisType: xAxisSelection[0], value })}
           </DataCell>
-        )
-      })}
-      {measures.map((measureName, mIdx) => (
+        ))}
+
+      {xCombinations.map((combination, idx) => (
         <DataCell
-          key={measureName}
+          key={`${combination.map(_getCombinationStringValue).join('-')}-x-header`}
           className="header-top"
-          gridColumn={`span ${dimensions.length}`}
           header
-          lastCol={mIdx === measures.length - 1}
+          lastCol={idx === xCombinations.length - 1}
         >
-          <MeasureTitle measureName={measureName} />
+          {renderLabel({
+            axisType: xAxisSelection.length === 2 ? xAxisSelection[1] : xAxisSelection[0],
+            value: combination[xAxisSelection.length - 1],
+          })}
         </DataCell>
       ))}
-      {measures.map((measureName, mIdx) =>
-        dimensions.map((dimensionName, dIdx) => (
-          <DataCell
-            key={`${measureName}-${dimensionName}`}
-            className="header-top"
-            header
-            lastCol={mIdx === measures.length - 1 && dIdx === dimensions.length - 1}
-          >
-            {t(Dimensions.getTName(dimensionName), { defaultValue: dimensionName })}
-          </DataCell>
-        ))
-      )}
 
-      {countryEntries.map(({ countryIso, label }, idx) => {
-        const country = countriesAll.find((c) => c.countryIso === countryIso)
-        const { deskStudy } = country?.props ?? {}
-        const lastRow = idx === countryEntries.length - 1
+      {yCombinations.map((rowCombination, idx) => {
+        const isLastRow = idx === yCombinations.length - 1
+        const rowMap = Object.fromEntries(yAxisSelection.map((axis, i) => [axis, rowCombination[i]])) as Record<
+          AxisType,
+          string | CountryEntry
+        >
 
         return (
-          <React.Fragment key={countryIso}>
-            <DataCell header lastRow={lastRow}>
-              {deskStudy ? `${label} (${t('assessment.deskStudy')})` : label}
-            </DataCell>
-            {measuresExportAlways.map((measureName, idx) => {
-              const dimensionName = dimensionsExportAlways[idx]
+          <React.Fragment key={`${rowCombination.map(_getCombinationStringValue).join('-')}-fragment`}>
+            {yAxisSelection.map((axisType, i) => (
+              <DataCell
+                key={`${axisType}-${_getCombinationStringValue(rowCombination[i])}-header`}
+                header
+                lastCol={i === yAxisSelection.length - 1}
+                lastRow={isLastRow}
+              >
+                {renderLabel({ axisType, value: rowMap[axisType] })}
+              </DataCell>
+            ))}
+
+            {xCombinations.map((colCombination, colIdx) => {
+              const colMap = Object.fromEntries(xAxisSelection.map((axis, i) => [axis, colCombination[i]])) as Record<
+                AxisType,
+                string | CountryEntry
+              >
+              const countryIso = _getCombinationStringValue<CountryIso>(
+                colMap[AxisType.countries] ?? rowMap[AxisType.countries]
+              )
+              const measureName = _getCombinationStringValue(colMap[AxisType.measures] ?? rowMap[AxisType.measures])
+              const dimensionName = _getCombinationStringValue(
+                colMap[AxisType.dimensions] ?? rowMap[AxisType.dimensions]
+              )
+
               return (
                 <Observation
-                  key={`${countryIso}-${measureName}-${dimensionName}`}
+                  key={`${countryIso}-${measureName}-${dimensionName}-observation`}
                   countryIso={countryIso}
                   data={data}
                   dimensionName={dimensionName}
-                  lastRow={lastRow}
+                  lastCol={colIdx === xCombinations.length - 1}
+                  lastRow={isLastRow}
                   measureName={measureName}
                   tableName={tableName}
                 />
               )
             })}
-            {measures.map((measureName, mIdx) =>
-              dimensions.map((dimensionName, dIdx) => (
-                <Observation
-                  key={`${countryIso}-${measureName}-${dimensionName}`}
-                  countryIso={countryIso}
-                  data={data}
-                  dimensionName={dimensionName}
-                  lastCol={mIdx === measures.length - 1 && dIdx === dimensions.length - 1}
-                  lastRow={lastRow}
-                  measureName={measureName}
-                  tableName={tableName}
-                />
-              ))
-            )}
           </React.Fragment>
         )
       })}

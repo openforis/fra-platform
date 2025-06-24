@@ -1,0 +1,31 @@
+import { useMemo } from 'react'
+
+import { useExplorerAxisSelection } from 'client/store/explorer/selection/hooks/axisSelection'
+import { AxisValues } from 'client/pages/Explorer/ResultGrid/types'
+
+type Props = {
+  axisValues: AxisValues
+}
+
+type Returned = string
+
+export const useGridTemplateColumns = (props: Props): Returned => {
+  const { axisValues } = props
+  const { x: xAxisSelection, y: yAxisSelection } = useExplorerAxisSelection()
+
+  return useMemo<Returned>(() => {
+    const headerCols = yAxisSelection.map(() => 'minmax(160px, 240px)').join(' ')
+    const selectedXAxisA = xAxisSelection[0]
+    const selectedXAxisB = xAxisSelection[1]
+    let xAxisColCount = 0
+    if (xAxisSelection.length === 2) {
+      const lengthA = axisValues[selectedXAxisA]?.length ?? 0
+      const lengthB = axisValues[selectedXAxisB]?.length ?? 0
+      xAxisColCount = lengthA * lengthB
+    } else if (xAxisSelection.length === 1) {
+      xAxisColCount = axisValues[selectedXAxisA]?.length ?? 0
+    }
+    const bodyCols = `repeat(${xAxisColCount}, 1fr)`
+    return `${headerCols} ${bodyCols}`
+  }, [axisValues, xAxisSelection, yAxisSelection])
+}
