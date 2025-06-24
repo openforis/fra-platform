@@ -1,37 +1,23 @@
 import { Response } from 'express'
 
 import { CycleRequest } from 'meta/api/request'
-import { Lang } from 'meta/lang'
-import { RoleName } from 'meta/user'
-import { CollaboratorPermissionsNEW } from 'meta/user/userRole'
+import { UserInvitationForm } from 'meta/form/userInvitation'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { UserController } from 'server/controller/user'
 import { Requests } from 'server/utils'
 
-type InviteUserRequest = CycleRequest<
-  {
-    email: string
-    lang: Lang
-    name: string
-    role: RoleName
-    surname: string
-  },
-  { permissions?: CollaboratorPermissionsNEW }
->
+type InviteUserRequest = CycleRequest<unknown, { userInvitation: UserInvitationForm }>
 
 export const invite = async (req: InviteUserRequest, res: Response) => {
   try {
-    const { assessmentName, countryIso, cycleName, email, lang, name, role: roleName, surname } = req.query
-
-    const { permissions } = req.body
-
+    const { assessmentName, countryIso, cycleName } = req.query
+    const { userInvitation } = req.body
     const user = Requests.getUser(req)
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
-    const props = { assessment, countryIso, cycle, email, lang, name, permissions, roleName, surname, user }
-    const { user: invitedUser } = await UserController.invite(props)
+    const { user: invitedUser } = await UserController.invite({ assessment, countryIso, cycle, user, userInvitation })
 
     Requests.sendOk(res, invitedUser)
   } catch (e) {

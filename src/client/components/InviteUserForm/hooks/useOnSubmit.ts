@@ -1,55 +1,37 @@
+import { useCallback } from 'react'
 import { SubmitHandler } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
 import { CountryIso } from 'meta/area'
-import { Lang } from 'meta/lang'
-import { CollaboratorPermissions, RoleName } from 'meta/user'
+import { UserInvitationForm } from 'meta/form/userInvitation'
 
 import { useAppDispatch } from 'client/store/hooks'
 import { UserManagementActions } from 'client/store/ui/userManagement'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { useToaster } from 'client/hooks/useToaster'
 
-interface FormValues {
-  name: string
-  surname: string
-  email: string
-  role: string
-  language: string
-  permissions?: CollaboratorPermissions
-}
+type Returned = SubmitHandler<UserInvitationForm>
 
-export const useOnSubmit = (): SubmitHandler<FormValues> => {
+export const useOnSubmit = (): Returned => {
   const dispatch = useAppDispatch()
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const navigate = useNavigate()
   const { t } = useTranslation()
   const { toaster } = useToaster()
 
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
-    dispatch(
-      UserManagementActions.inviteUser({
-        assessmentName,
-        cycleName,
-        countryIso,
-        email: data.email,
-        lang: data.language as Lang,
-        name: data.name,
-        permissions: data.permissions,
-        role: data.role as RoleName,
-        surname: data.surname,
-      })
-    )
-      .unwrap()
-      .then(() => {
-        toaster.info(t('userManagement.userAdded', { email: data.email }))
-        navigate(-1)
-      })
-      .catch(() => {
-        // Error handled by server
-      })
-  }
-
-  return onSubmit
+  return useCallback<Returned>(
+    (userInvitation: UserInvitationForm) => {
+      dispatch(UserManagementActions.inviteUser({ assessmentName, cycleName, countryIso, userInvitation }))
+        .unwrap()
+        .then(() => {
+          toaster.info(t('userManagement.userAdded', { email: userInvitation.email }))
+          navigate(-1)
+        })
+        .catch(() => {
+          // Error handled by server
+        })
+    },
+    [assessmentName, countryIso, cycleName, dispatch, navigate, t, toaster]
+  )
 }

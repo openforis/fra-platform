@@ -53,7 +53,11 @@ export type UserRoleExtendedProps = UserRoleBaseProps & {
   contactPreference?: UserContactPreference
 }
 
-export interface UserRole<Name extends RoleName, Props extends UserRoleBaseProps = undefined, Permissions = undefined> {
+export interface UserRole<
+  Name extends RoleName = RoleName,
+  Props extends UserRoleBaseProps = undefined,
+  Permissions = undefined
+> {
   assessmentUuid?: string
   countryIso?: CountryIso
   createdAt: string
