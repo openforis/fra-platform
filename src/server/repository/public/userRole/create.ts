@@ -4,7 +4,7 @@ import { CountryIso } from 'meta/area'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { RoleName, User, UserInvitation, UserRole } from 'meta/user'
-import { CollaboratorPermissions, UserRoleBaseProps, UserRoleExtendedProps } from 'meta/user/userRole'
+import { CollaboratorPermissionsNEW, UserRoleBaseProps, UserRoleExtendedProps } from 'meta/user/userRole'
 
 import { BaseProtocol, DB } from 'server/db'
 
@@ -15,7 +15,7 @@ type Props = {
   userUuid: User['uuid']
   role: UserInvitation['role']
   props?: UserRoleBaseProps | UserRoleExtendedProps
-  permissions?: CollaboratorPermissions
+  permissions?: CollaboratorPermissionsNEW
   invitationUuid?: UserInvitation['uuid']
 }
 

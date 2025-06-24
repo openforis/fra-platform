@@ -40,7 +40,8 @@ export const acceptInvitation = async (props: Props, client: BaseProtocol = DB):
     const userUuid = user.uuid
     const { role } = userInvitation
     const invitationUuid = userInvitation.uuid
-    const userRoleCreateProps = { assessmentUuid, cycleUuid, countryIso, userUuid, role, invitationUuid }
+    const permissions = userInvitation.props?.permissions
+    const userRoleCreateProps = { assessmentUuid, cycleUuid, countryIso, userUuid, role, invitationUuid, permissions }
 
     const userRole = await UserRoleRepository.create(userRoleCreateProps, t)
 
