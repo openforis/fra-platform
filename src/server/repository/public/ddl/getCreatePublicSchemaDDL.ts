@@ -38,7 +38,7 @@ export const getUsersInvitationDDL = (schemaName = 'public'): string => {
       role ${schemaName}.user_role not null,
       invited_at timestamp with time zone default now(),
       accepted_at timestamp with time zone,
-      props jsonb not null default '{}'::jsonb,
+      permissions jsonb
 
       foreign key (assessment_uuid) references ${schemaName}.assessment (uuid) on update cascade on delete cascade,
       foreign key (user_uuid) references ${schemaName}.users (uuid) on update cascade on delete cascade,
