@@ -7,20 +7,29 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { DataGrid } from 'client/components/DataGrid'
 import { FormFields } from 'client/components/Form/FormFields/FormFields'
 
+import { useDefaultValues } from './hooks/useDefaultValues'
 import { useFormValidationSchema } from './hooks/useFormValidationSchema'
 import Buttons from './Buttons'
 import { FormProps } from './types'
 
 const Form: React.FC<FormProps> = (props) => {
-  const { defaultValues, formDefinition, onCancel, onSubmit } = props
+  const { formDefinition, onCancel, onSubmit } = props
   const { fields } = formDefinition
+
+  const defaultValues = useDefaultValues(fields)
 
   const formValidationSchema = useFormValidationSchema({ formDefinition })
   // type FormValues = z.infer<typeof formSchema>
 
   const resolver = zodResolver(formValidationSchema)
-  const { formState, handleSubmit, register, setValue, watch } = useForm({ resolver, defaultValues })
+  const { control, formState, handleSubmit, register, setValue, watch } = useForm({
+    resolver,
+    defaultValues,
+    shouldUnregister: true,
+  })
   const { errors, isSubmitting } = formState
+
+  const watchValues = watch()
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -29,15 +38,13 @@ const Form: React.FC<FormProps> = (props) => {
           const { name, shouldShow, type } = fieldDefinition
           const Component = FormFields[type]
           const fieldValidationSchema = formValidationSchema.shape[name]
-          const watchValues = watch()
 
-          if (shouldShow && !shouldShow(watchValues)) {
-            return null
-          }
+          if (shouldShow && !shouldShow(watchValues)) return null
 
           return (
             <Component
               key={name}
+              control={control}
               error={errors[name]}
               fieldDefinition={fieldDefinition}
               fieldValidationSchema={fieldValidationSchema}

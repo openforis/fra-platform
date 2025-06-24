@@ -3,13 +3,11 @@ import { useNavigate } from 'react-router-dom'
 
 import Form from 'client/components/Form'
 
-import { useInitialState } from './hooks/initialState'
 import { useFormDefinition } from './hooks/useFormDefinition'
 import { useOnSubmit } from './hooks/useOnSubmit'
 
 const InviteUserForm: React.FC = () => {
   const navigate = useNavigate()
-  const defaultValues = useInitialState()
   const onSubmit = useOnSubmit()
   const formDefinition = useFormDefinition()
 
@@ -19,7 +17,7 @@ const InviteUserForm: React.FC = () => {
 
   return (
     <div className="app-view__content">
-      <Form defaultValues={defaultValues} formDefinition={formDefinition} onCancel={onCancel} onSubmit={onSubmit} />
+      <Form formDefinition={formDefinition} onCancel={onCancel} onSubmit={onSubmit} />
     </div>
   )
 }
