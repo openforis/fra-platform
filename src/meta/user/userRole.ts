@@ -1,4 +1,5 @@
 import { CountryIso } from 'meta/area'
+import { Section } from 'meta/assessment/section'
 
 export enum RoleName {
   ADMINISTRATOR = 'ADMINISTRATOR',
@@ -79,6 +80,9 @@ export enum CollaboratorEditPropertyType {
   descriptions = 'descriptions',
 }
 
+/**
+ * @deprecated - will be removed
+ */
 export type CollaboratorSectionsPermission =
   /**
    * all = all sections enabled for editing
@@ -87,8 +91,16 @@ export type CollaboratorSectionsPermission =
    */
   'all' | 'none' | Record<string, { [key in keyof typeof CollaboratorEditPropertyType]?: boolean }>
 
+/**
+ * @deprecated - will be removed
+ */
 export type CollaboratorPermissions = {
   sections: CollaboratorSectionsPermission
 }
 
 export type Collaborator = UserRole<RoleName.COLLABORATOR, UserRoleBaseProps, CollaboratorPermissions>
+
+export type CollaboratorPermissionsNEW = {
+  tableData: Array<Section['uuid']> | ['all'] | ['none']
+  descriptions: Array<Section['uuid']> | ['all'] | ['none']
+}

@@ -2,7 +2,8 @@ import { Response } from 'express'
 
 import { CycleRequest } from 'meta/api/request'
 import { Lang } from 'meta/lang'
-import { CollaboratorPermissions, RoleName } from 'meta/user'
+import { RoleName } from 'meta/user'
+import { CollaboratorPermissionsNEW } from 'meta/user/userRole'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { UserController } from 'server/controller/user'
@@ -16,7 +17,7 @@ type InviteUserRequest = CycleRequest<
     role: RoleName
     surname: string
   },
-  { permissions?: CollaboratorPermissions }
+  { permissions?: CollaboratorPermissionsNEW }
 >
 
 export const invite = async (req: InviteUserRequest, res: Response) => {

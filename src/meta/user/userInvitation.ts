@@ -1,5 +1,5 @@
 import { CountryIso } from 'meta/area'
-import { RoleName } from 'meta/user/userRole'
+import { CollaboratorPermissionsNEW, RoleName } from 'meta/user/userRole'
 
 export interface UserInvitation {
   acceptedAt?: string
@@ -9,7 +9,7 @@ export interface UserInvitation {
   id: number
   invitedAt: string
   invitedByUserUuid: string
-  props: never // default {}
+  props: { permissions?: CollaboratorPermissionsNEW }
   role: RoleName
   userUuid: string
   uuid: string

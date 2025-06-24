@@ -4,6 +4,7 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { Lang } from 'meta/lang'
 import { RoleName, User, UserInvitation } from 'meta/user'
+import { CollaboratorPermissionsNEW } from 'meta/user/userRole'
 
 import { BaseProtocol, DB } from 'server/db'
 import { ActivityLogRepository } from 'server/repository/public/activityLog'
@@ -24,6 +25,7 @@ type Props = {
   cycle: Cycle
   user: User
   roleName: RoleName
+  permissions?: CollaboratorPermissionsNEW
 } & UserProps
 
 type Returned = { userInvitation: UserInvitation; user: User }
@@ -44,12 +46,20 @@ const _getOrCreateUserToInvite = async (props: UserProps, client: BaseProtocol):
 }
 
 export const invite = async (props: Props, client: BaseProtocol = DB): Promise<Returned> => {
-  const { assessment, countryIso, cycle, email, lang, name, roleName, surname, user } = props
+  const { assessment, countryIso, cycle, email, lang, name, permissions, roleName, surname, user } = props
 
   return client.tx(async (t) => {
     const userToInvite = await _getOrCreateUserToInvite({ email, name, surname, lang }, t)
 
-    const userInvitationProps = { assessment, countryIso, cycle, invitedBy: user, role: roleName, user: userToInvite }
+    const userInvitationProps = {
+      assessment,
+      countryIso,
+      cycle,
+      invitedBy: user,
+      role: roleName,
+      user: userToInvite,
+      permissions,
+    }
     const userInvitation: UserInvitation = await UserInvitationRepository.create(userInvitationProps, t)
 
     const { role, userUuid } = userInvitation
