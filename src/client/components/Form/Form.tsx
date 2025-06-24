@@ -31,17 +31,15 @@ const Form: React.FC<FormProps> = (props) => {
 
   const watchValues = watch()
 
-  const visibleFields = fields.filter((fieldDefinition) => {
-    return fieldDefinition.shouldShow?.(watchValues) ?? true
-  })
-
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <DataGrid className="form-grid" gridTemplateColumns="min-content 1fr">
-        {visibleFields.map((fieldDefinition) => {
-          const { name, type } = fieldDefinition
+        {fields.map((fieldDefinition) => {
+          const { name, shouldShow, type } = fieldDefinition
           const Component = FormFields[type]
           const fieldValidationSchema = formValidationSchema.shape[name]
+
+          if (shouldShow && !shouldShow(watchValues)) return null
 
           return (
             <Component
