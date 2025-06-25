@@ -11,4 +11,4 @@ type UserRoleDB = Pick<UserRole, 'id' | 'uuid' | 'role' | 'props' | 'permissions
   created_at: string
 }
 
-export const UserRoleAdapter = (role: UserRoleDB) => Objects.camelize(role)
+export const UserRoleAdapter = (role: UserRoleDB): UserRole => Objects.camelize(role)
