@@ -9,7 +9,7 @@ export const getUsersRoleDDL = (schemaName = 'public'): string => {
       user_uuid uuid not null,
       role ${schemaName}.user_role not null,
       props jsonb not null default '{}'::jsonb,
-      permissions jsonb not null default '{}'::jsonb,
+      permissions jsonb,
       invitation_uuid uuid,
       created_at timestamp with time zone default now(),
 
