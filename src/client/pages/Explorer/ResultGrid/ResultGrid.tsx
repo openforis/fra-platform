@@ -55,10 +55,14 @@ export const ResultGrid: React.FC = () => {
     return null
   }
 
+  const yAxisVariableCount = yAxisSelection.length
+  const xAxisVariableCount = xAxisSelection.length
+
   return (
     <DataGrid className="explorer-result-grid" gridTemplateColumns={gridTemplateColumns}>
-      <DataCell gridColumn={`span ${yAxisSelection.length}`} gridRow={`span ${xAxisSelection.length}`} header />
-      {xAxisSelection.length === 2 &&
+      <DataCell gridColumn={`span ${yAxisVariableCount}`} gridRow={`span ${xAxisVariableCount}`} header />
+      {/*  Render only the primary X axis variable headers if multiple selected */}
+      {xAxisVariableCount === 2 &&
         uniquePrimaryX.map((value, idx) => (
           <DataCell
             key={`${xAxisSelection[0]}-${_getCombinationStringValue(value)}-primary-x-variable-header`}
@@ -79,14 +83,21 @@ export const ResultGrid: React.FC = () => {
           lastCol={idx === xCombinations.length - 1}
         >
           {renderLabel({
-            axisType: xAxisSelection.length === 2 ? xAxisSelection[1] : xAxisSelection[0],
-            value: combination[xAxisSelection.length - 1],
+            // If there are two X variables selected, render only the secondary variable header
+            axisType: xAxisVariableCount === 2 ? xAxisSelection[1] : xAxisSelection[0],
+            value: combination[xAxisVariableCount - 1],
           })}
         </DataCell>
       ))}
 
-      {yCombinations.map((rowCombination, idx) => {
-        const isLastRow = idx === yCombinations.length - 1
+      {yCombinations.map((rowCombination, rowIdx) => {
+        const numSecondaryYRows = yAxisVariableCount === 2 ? axisValues[yAxisSelection[1]].length : 1
+        const isPrimaryVariableStart = yAxisVariableCount === 2 && rowIdx % numSecondaryYRows === 0
+        const isLastRow = rowIdx === yCombinations.length - 1
+        const isPrimaryHeaderLastRow = isPrimaryVariableStart && yCombinations.length - numSecondaryYRows === rowIdx
+        const primaryVariable = rowCombination[0]
+        const secondaryVariable = rowCombination[1]
+
         const rowMap = Object.fromEntries(yAxisSelection.map((axis, i) => [axis, rowCombination[i]])) as Record<
           AxisType,
           string | CountryEntry
@@ -94,16 +105,30 @@ export const ResultGrid: React.FC = () => {
 
         return (
           <React.Fragment key={`${rowCombination.map(_getCombinationStringValue).join('-')}-fragment`}>
-            {yAxisSelection.map((axisType, i) => (
+            {isPrimaryVariableStart && (
               <DataCell
-                key={`${axisType}-${_getCombinationStringValue(rowCombination[i])}-header`}
+                key={`${yAxisSelection[0]}-${_getCombinationStringValue(primaryVariable)}-header`}
+                gridRow={`span ${numSecondaryYRows}`}
                 header
-                lastCol={i === yAxisSelection.length - 1}
-                lastRow={isLastRow}
+                lastRow={isPrimaryHeaderLastRow}
               >
-                {renderLabel({ axisType, value: rowMap[axisType] })}
+                {renderLabel({
+                  axisType: yAxisSelection[0],
+                  value: primaryVariable,
+                })}
               </DataCell>
-            ))}
+            )}
+
+            <DataCell
+              key={`${rowCombination.map(_getCombinationStringValue).join('-')}-y-header`}
+              header
+              lastRow={isLastRow}
+            >
+              {renderLabel({
+                axisType: yAxisSelection[yAxisVariableCount - 1],
+                value: yAxisVariableCount === 2 ? secondaryVariable : primaryVariable,
+              })}
+            </DataCell>
 
             {xCombinations.map((colCombination, colIdx) => {
               const colMap = Object.fromEntries(xAxisSelection.map((axis, i) => [axis, colCombination[i]])) as Record<
