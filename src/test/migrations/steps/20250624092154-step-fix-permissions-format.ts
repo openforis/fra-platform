@@ -1,22 +1,44 @@
-import { CollaboratorPermissions, CollaboratorSectionsPermission } from 'meta/user'
 import { CollaboratorPermissionsNEW } from 'meta/user/userRole'
 
-import { BaseProtocol } from 'server/db'
+import { BaseProtocol, DB } from 'server/db'
 import { Logger } from 'server/utils/logger'
-//
-// const _fixInvitations = async () => {
-//   await DB.query(`
-//     alter table public.users_invitation add permissions jsonb;
-//     alter table public.users_invitation drop column props;
-//   `)
-// }
 
-const _fixPermissions = (permission: CollaboratorPermissions): CollaboratorPermissionsNEW => {
+/*
+ Deprecated types - needed for when deleted from meta
+ */
+
+export enum CollaboratorEditPropertyType {
+  tableData = 'tableData',
+  descriptions = 'descriptions',
+}
+
+type PermissionsBySection = Record<string, { [key in keyof typeof CollaboratorEditPropertyType]?: boolean }>
+
+export type CollaboratorSectionsPermission =
+  /**
+   * all = all sections enabled for editing
+   * none = no sections enabled for editing
+   * Record<string, { tableData: boolean, descriptions: boolean }> = key is sectionUuid, value contains an object which specifies permission by key
+   */
+  'all' | 'none' | PermissionsBySection
+
+export type CollaboratorPermissionsDeprecated = {
+  sections: CollaboratorSectionsPermission
+}
+
+const _fixInvitations = async () => {
+  await DB.query(`
+    alter table public.users_invitation add permissions jsonb;
+    alter table public.users_invitation drop column props;
+  `)
+}
+
+const _fixPermissions = (permission: CollaboratorPermissionsDeprecated): CollaboratorPermissionsNEW => {
   // -- Cases:
   // -- {"sections": "all"}
   // -- {"sections": "none"}
   // -- {"sections": {"edaa5b7c7dbb44b29614Fb379c145af2": {"tableData": true, "descriptions": true}}}
-  // -- If: all or none => { tableData: 'all' or 'none', descriptions: 'all' or 'none' }
+  // -- If: all or none => { tableData: ['all'] or ['none'], descriptions: ['all'] or ['none'] }
   // -- If typeof sections === 'object' then
   // -- 1. const fixedKey = sectionUuid.replace(/(.{8})(.{4})(.{4})(.{4})(.{12})/g, '$1-$2-$3-$4-$5')
   // -- 2. convert to format: { tableData: [sectionUuid..], descriptions: [sectionUuid2..] }
@@ -46,7 +68,8 @@ const _fixPermissions = (permission: CollaboratorPermissions): CollaboratorPermi
       // Fix UUID format: add dashes
       const fixedKey = sectionUuid.replace(/(.{8})(.{4})(.{4})(.{4})(.{12})/g, '$1-$2-$3-$4-$5')
 
-      const sectionPerms = (permission.sections as CollaboratorSectionsPermission)[sectionUuid]
+      const { sections } = permission
+      const sectionPerms = (sections as PermissionsBySection)[sectionUuid]
       if (sectionPerms.tableData) {
         tableDataSections.push(fixedKey)
       }
@@ -71,29 +94,32 @@ const _getRoles = (client: BaseProtocol) => {
 
 const _fixRoles = async (client: BaseProtocol) => {
   const roles = await _getRoles(client)
-  if (roles.length === 0) {
-    Logger.info(`Info: users_role table has been already updated. No roles found.`)
+  const lenRoles = roles.length
+
+  if (lenRoles === 0) {
+    Logger.info(`Info:\tusers_role table has been already updated. No roles found.`)
     return
   }
 
-  // Todo write db:
-  // await Promise.all or each
+  Logger.info(`Info:\tStarting update of ${lenRoles} roles with new permissions format`)
 
-  roles.forEach((role) => {
-    const { permissions } = role
-    const fixedPermissions = _fixPermissions(permissions)
+  await Promise.all(
+    roles.map(async (role, i) => {
+      const { id, permissions } = role
+      const fixedPermissions = _fixPermissions(permissions)
 
-    console.log('-----------------------------------------------------------------------------')
-    console.log('broken permissions')
-    console.log(permissions)
-    console.log('-----------------------------------------------------------------------------')
-    console.log('fixed permissions')
-    console.log(fixedPermissions)
-    console.log('-----------------------------------------------------------------------------')
-  })
+      Logger.info(
+        `Info:\t[${i + 1}/${lenRoles}]\tUpdating\t${role.user_uuid}\tfor role\t${role.role}\tx\t${role.country_iso}`
+      )
+
+      return client.none('update users_role set permissions = $1 where id = $2', [JSON.stringify(fixedPermissions), id])
+    })
+  )
+
+  Logger.info(`Successfully updated ${lenRoles} roles`)
 }
 
 export default async (client: BaseProtocol) => {
-  // await _fixInvitations()
+  await _fixInvitations()
   await _fixRoles(client)
 }
