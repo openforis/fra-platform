@@ -43,7 +43,8 @@
     "percentOfForestArea": "% de área de bosque"
   },
   "contactPersons": {
-    "expectedYearForNextCountryReportUpdate": "Año previsto de la próxima actualización del informe nacional"
+    "expectedYearForNextCountryReportUpdate": "Año previsto de la próxima actualización del informe nacional",
+    "reportLastUpdate": "Este informe fue actualizado en:"
   },
   "degradedForest": {
     "biome": "Bioma",

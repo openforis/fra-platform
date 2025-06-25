@@ -12,6 +12,7 @@ export interface ColDB {
 export const ColAdapter = (colDB: ColDB): Col => {
   const {
     props: {
+      calculateClientSide,
       calculateFn,
       classNames,
       enableIf,
@@ -30,6 +31,7 @@ export const ColAdapter = (colDB: ColDB): Col => {
     ...Objects.camelize(col),
     props: {
       ...Objects.camelize(otherProps),
+      calculateClientSide,
       calculateFn,
       classNames,
       enableIf,

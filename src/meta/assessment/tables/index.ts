@@ -1,8 +1,10 @@
 import { Objects } from 'utils/objects'
 
+import { Country } from 'meta/area'
 import { Cycle } from 'meta/assessment/cycle'
 import { Row } from 'meta/assessment/row'
-import { Table } from 'meta/assessment/table'
+import { Table, TableVisibility } from 'meta/assessment/table'
+import { User, Users } from 'meta/user'
 
 const cloneProps = (props: { cycleSource: Cycle; cycleTarget: Cycle; table: Table }): Table['props'] => {
   const { cycleSource, cycleTarget, table } = props
@@ -34,7 +36,20 @@ const getChartRows = (props: { table: Table; cycle: Cycle }): Array<Row> => {
   return table.rows.filter((row) => !Objects.isEmpty(row.props.chart?.[cycle.uuid]))
 }
 
+const isVisible = (props: { country: Country; cycle: Cycle; print: boolean; table: Table; user: User }): boolean => {
+  const { country, cycle, print, table, user } = props
+  const { countryIso } = country
+  const visibility = table.props.visibility?.[cycle.uuid]
+
+  if (!visibility) return true
+  if (print && visibility.includes(TableVisibility.print)) return true
+  if (user && visibility.includes(TableVisibility.private) && Users.hasRoleInCountry({ user, cycle, countryIso }))
+    return true
+  return !user && visibility.includes(TableVisibility.public)
+}
+
 export const Tables = {
   cloneProps,
   getChartRows,
+  isVisible,
 }
