@@ -33,6 +33,12 @@ const _fixInvitations = async () => {
   `)
 }
 
+const _fixUsersRole = async () => {
+  await DB.query(`alter table users_role
+                  alter column permissions drop not null,
+                  alter column permissions drop default;`)
+}
+
 const _fixPermissions = (permission: CollaboratorPermissionsDeprecated): CollaboratorPermissionsNEW => {
   // -- Cases:
   // -- {"sections": "all"}
@@ -121,5 +127,6 @@ const _fixRoles = async (client: BaseProtocol) => {
 
 export default async (client: BaseProtocol) => {
   await _fixInvitations()
+  await _fixUsersRole()
   await _fixRoles(client)
 }
