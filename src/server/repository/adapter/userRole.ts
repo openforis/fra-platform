@@ -2,7 +2,7 @@ import { Objects } from 'utils/objects'
 
 import { UserRole } from 'meta/user'
 
-type UserRoleDB = Pick<UserRole, 'id' | 'uuid' | 'role' | 'props' | 'permissions'> & {
+export type UserRoleDB = Pick<UserRole, 'id' | 'uuid' | 'role' | 'props' | 'permissions'> & {
   assessment_uuid: string
   cycle_uuid: string
   country_iso: string

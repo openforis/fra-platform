@@ -25,7 +25,7 @@ export const create = async (props: Props, client: BaseProtocol = DB): Promise<U
     countryIso,
     cycleUuid,
     invitationUuid,
-    permissions = {},
+    permissions,
     props: roleProps = {},
     role,
     userUuid,

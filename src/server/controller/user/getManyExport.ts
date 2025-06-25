@@ -5,7 +5,6 @@ import { Areas } from 'meta/area'
 import { Lang } from 'meta/lang'
 import { CountryUserSummary, RoleName, User, Users } from 'meta/user'
 
-import { UserRoleAdapter } from 'server/repository/adapter'
 import { UserRepository, UsersGetManyProps } from 'server/repository/public/user'
 import { UserQueryParams } from 'server/repository/public/user/UserQueryParams'
 
@@ -40,14 +39,10 @@ export const getManyExport = async (props: Props): Promise<Returned> => {
   }
 
   const rowTransformer = (rawUser: CountryUserSummary): Record<string, string> => {
-    const { roles, ...user } = rawUser
-    const userRow: CountryUserSummary = {
-      ...Objects.camelize(user),
-      roles: roles.map(UserRoleAdapter),
-    }
+    const user: CountryUserSummary = Objects.camelize(rawUser)
 
     const getRoleCountries = (roleName: RoleName) => {
-      const roleCountries = userRow.roles
+      const roleCountries = user.roles
         .filter((role) => role.role === roleName)
         .map((role) =>
           role.role === RoleName.ADMINISTRATOR
@@ -58,8 +53,7 @@ export const getManyExport = async (props: Props): Promise<Returned> => {
       return roleCountries
     }
 
-    const name = userRow.fullName
-    const { email } = user
+    const { email, fullName: name } = user
 
     const rowData: Record<string, string> = {
       [nameHeader]: name,
