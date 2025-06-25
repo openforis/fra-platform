@@ -1,5 +1,4 @@
 import { CountryIso } from 'meta/area'
-import { Section } from 'meta/assessment/section'
 
 export enum RoleName {
   ADMINISTRATOR = 'ADMINISTRATOR',
@@ -102,9 +101,9 @@ export type CollaboratorPermissions = {
   sections: CollaboratorSectionsPermission
 }
 
-export type Collaborator = UserRole<RoleName.COLLABORATOR, UserRoleBaseProps, CollaboratorPermissions>
+export type Collaborator = UserRole<RoleName.COLLABORATOR, UserRoleBaseProps, CollaboratorPermissionsNEW>
 
 export type CollaboratorPermissionsNEW = {
-  tableData: Array<Section['uuid']> | ['all'] | ['none']
-  descriptions: Array<Section['uuid']> | ['all'] | ['none']
+  tableData: Array<string>
+  descriptions: Array<string>
 }
