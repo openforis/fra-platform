@@ -1,11 +1,14 @@
 import { Objects } from 'utils/objects'
 
-import { CollaboratorPermissions, RoleName, UserRole } from 'meta/user'
+import { UserRole } from 'meta/user'
 
-export const UserRoleAdapter = <N extends RoleName>({ permissions, ...role }: any): UserRole<N> => ({
-  ...Objects.camelize(role),
-  permissions: {
-    ...Objects.camelize(permissions),
-    sections: (permissions as CollaboratorPermissions).sections,
-  },
-})
+export type UserRoleDB = Pick<UserRole, 'id' | 'uuid' | 'role' | 'props' | 'permissions'> & {
+  assessment_uuid: string
+  cycle_uuid: string
+  country_iso: string
+  user_uuid: string
+  invitation_uuid: string
+  created_at: string
+}
+
+export const UserRoleAdapter = (role: UserRoleDB): UserRole => Objects.camelize(role)

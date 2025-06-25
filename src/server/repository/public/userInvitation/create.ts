@@ -22,13 +22,11 @@ type Props = {
 export const create = async (props: Props, client: BaseProtocol = DB) => {
   const { assessment, countryIso, cycle, invitedBy, permissions, role, user } = props
 
-  const invitationProps = permissions ? { permissions } : {}
-
   return client.one<UserInvitation>(
     `
-    insert into users_invitation (assessment_uuid, cycle_uuid, country_iso, invited_by_user_uuid, user_uuid, role, props) values ($1, $2, $3, $4, $5, $6, $7) returning *;
+    insert into users_invitation (assessment_uuid, cycle_uuid, country_iso, invited_by_user_uuid, user_uuid, role, permissions) values ($1, $2, $3, $4, $5, $6, $7) returning *;
     `,
-    [assessment.uuid, cycle.uuid, countryIso, invitedBy.uuid, user.uuid, role, invitationProps],
+    [assessment.uuid, cycle.uuid, countryIso, invitedBy.uuid, user.uuid, role, permissions],
     (row) => Objects.camelize(row)
   )
 }

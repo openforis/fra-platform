@@ -1,9 +1,7 @@
-import { Objects } from 'utils/objects'
-
 import { User, UserStatus } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db'
-import { UserRoleAdapter } from 'server/repository/adapter'
+import { UserAdapter } from 'server/repository/adapter/user'
 
 import { fields } from './fields'
 
@@ -51,22 +49,12 @@ export const getOne = async (props: Props, client: BaseProtocol = DB): Promise<U
     where.push(`and u.status in (${allowed.map((status) => `'${status}'`).join(',')})`)
   }
 
-  return client
-    .oneOrNone<User>(
-      `
-        select ${selectFields}, jsonb_agg(to_jsonb(ur.*)) as roles
-        from public.users u
-        left join users_role ur on u.uuid = ur.user_uuid ${join}
-        where ${where.join(' ')}
-        group by ${selectFields}
-    `,
-      values
-    )
-    .then((data) => {
-      if (!data) return null
-      return {
-        ...Objects.camelize(data),
-        roles: (data.roles[0] !== null ? data.roles : []).map(UserRoleAdapter),
-      }
-    })
+  const query = `
+    select ${selectFields}, jsonb_agg(to_jsonb(ur.*)) filter ( where ur.uuid is not null ) as roles
+    from public.users u
+           left join users_role ur on u.uuid = ur.user_uuid ${join}
+    where ${where.join(' ')}
+    group by ${selectFields}
+  `
+  return client.oneOrNone<User>(query, values, UserAdapter)
 }

@@ -9,7 +9,7 @@ export interface UserInvitation {
   id: number
   invitedAt: string
   invitedByUserUuid: string
-  props: { permissions?: CollaboratorPermissionsNEW }
+  permissions?: CollaboratorPermissionsNEW
   role: RoleName
   userUuid: string
   uuid: string
