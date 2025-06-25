@@ -44,7 +44,7 @@ export const toggleAxis = (state: Draft<ExplorerSelectionState>, action: Payload
 
   // Deselect the type from the other axis to avoid X and Y selected at the same time
   const cleanedOther = current[otherAxis].filter((v) => v !== axisType)
-  const newOtherAxis = [...cleanedOther, ...toSwitch] // Append the overlflowed type
+  const newOtherAxis = [...cleanedOther, ...toSwitch] // Append the overflowed type
 
   const newSelection: AxisSelection = {
     [axis]: newAxis,
