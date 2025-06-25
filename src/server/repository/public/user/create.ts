@@ -1,9 +1,8 @@
-import { Objects } from 'utils/objects'
-
 import { User } from 'meta/user'
 import { UserProps } from 'meta/user/user'
 
 import { BaseProtocol, DB } from 'server/db'
+import { UserAdapter } from 'server/repository/adapter/user'
 import { getOne } from 'server/repository/public/user/getOne'
 
 export const create = async (
@@ -19,7 +18,7 @@ export const create = async (
         insert into public.users (email, props) values ($1, $2) returning *;
     `,
     [email, userProperties],
-    Objects.camelize
+    UserAdapter
   )
 
   return getOne({ id }, client)

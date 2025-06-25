@@ -49,15 +49,12 @@ export const getOne = async (props: Props, client: BaseProtocol = DB): Promise<U
     where.push(`and u.status in (${allowed.map((status) => `'${status}'`).join(',')})`)
   }
 
-  return client.oneOrNone<User>(
-    `
-        select ${selectFields}, jsonb_agg(to_jsonb(ur.*)) as roles
-        from public.users u
-        left join users_role ur on u.uuid = ur.user_uuid ${join}
-        where ${where.join(' ')}
-        group by ${selectFields}
-    `,
-    values,
-    UserAdapter
-  )
+  const query = `
+    select ${selectFields}, jsonb_agg(to_jsonb(ur.*)) filter ( where ur.uuid is not null ) as roles
+    from public.users u
+           left join users_role ur on u.uuid = ur.user_uuid ${join}
+    where ${where.join(' ')}
+    group by ${selectFields}
+  `
+  return client.oneOrNone<User>(query, values, UserAdapter)
 }
