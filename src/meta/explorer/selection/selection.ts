@@ -4,6 +4,11 @@ import { DimensionName } from 'meta/measurement/dimension'
 import { MeasureName } from 'meta/measurement/measure'
 import { UnitName } from 'meta/measurement/unit'
 
+export enum Axis {
+  x = 'x',
+  y = 'y',
+}
+
 export enum AxisType {
   countries = 'countries',
   dimensions = 'dimensions',

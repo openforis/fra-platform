@@ -4,6 +4,7 @@ import { setCountries } from './reducers/setCountries'
 import { setDimensions } from './reducers/setDimensions'
 import { setMeasures } from './reducers/setMeasures'
 import { setUnits } from './reducers/setUnits'
+import { toggleAxis } from './reducers/toggleAxis'
 
 export const ExplorerSelectionSlice = createSlice({
   name: 'selection',
@@ -13,5 +14,6 @@ export const ExplorerSelectionSlice = createSlice({
     setDimensions,
     setMeasures,
     setUnits,
+    toggleAxis,
   },
 })

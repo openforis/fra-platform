@@ -1,0 +1,10 @@
+@import 'src/client/style/partials';
+
+.axis-selection {
+  display: flex;
+  gap: $spacing-xxs;
+
+  &.first-element {
+    grid-column: 3 / span 1;
+  }
+}
