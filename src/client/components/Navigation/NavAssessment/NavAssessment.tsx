@@ -9,7 +9,7 @@ import { Objects } from 'utils/objects'
 import { Areas, CountryIso } from 'meta/area'
 import { Routes } from 'meta/routes'
 
-import { useHistoryActivitiesIsActive } from 'client/store/data'
+import { useHistoryActivitiesIsActive } from 'client/store/data/history/hooks/activities'
 import { useSections } from 'client/store/meta/hooks/sections'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import Hr from 'client/components/Hr'

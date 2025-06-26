@@ -2,9 +2,11 @@ import './ButtonHistory.scss'
 import React, { useCallback } from 'react'
 import MediaQuery from 'react-responsive'
 
-import { DataActions, useHistoryLastApprovedIsActive } from 'client/store/data'
+import { HistoryActions } from 'client/store/data/history/actions'
+import { useHistoryLastApprovedIsActive } from 'client/store/data/history/hooks/lastApproved'
 import { useAppDispatch } from 'client/store/hooks'
-import { DataLockActions, useIsDataLocked } from 'client/store/ui/dataLock'
+import { CountryReportActions } from 'client/store/ui/countryReport/actions'
+import { useIsDataLocked } from 'client/store/ui/countryReport/hooks/datalock'
 import { useOnUpdate } from 'client/hooks'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
@@ -19,15 +21,15 @@ const ButtonHistory: React.FC = () => {
   const toggleHistory = useCallback(() => {
     // if activating historyLastApproved and data edit is unlocked -> lock data edit
     if (!historyActive && !locked) {
-      dispatch(DataLockActions.toggleDataLock())
+      dispatch(CountryReportActions.toggleDataLock())
     }
-    dispatch(DataActions.resetHistoryActivities())
-    dispatch(DataActions.toggleHistoryLastApproved())
+    dispatch(HistoryActions.resetActivities())
+    dispatch(HistoryActions.toggleLastApproved())
   }, [dispatch, historyActive, locked])
 
   // if navigating to a different country, close history lastApproved
   useOnUpdate(() => {
-    dispatch(DataActions.toggleHistoryLastApproved(false))
+    dispatch(HistoryActions.toggleLastApproved(false))
   }, [countryIso])
 
   return (

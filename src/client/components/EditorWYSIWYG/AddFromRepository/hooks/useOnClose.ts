@@ -4,7 +4,7 @@ import { CountryIso } from 'meta/area'
 import { RepositoryItem, RepositoryItems } from 'meta/cycleData'
 import { Translations } from 'meta/translation'
 
-import { useUpdateRepositoryItemsAccess } from 'client/store/ui/repository'
+import { useUpdateRepositoryItemsAccess } from 'client/store/repository/hooks/useUpdateRepositoryItemAccess'
 import { useLanguage } from 'client/hooks/useLanguage'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { useRepositoryLinkContext } from 'client/components/EditorWYSIWYG/repositoryLinkContext'

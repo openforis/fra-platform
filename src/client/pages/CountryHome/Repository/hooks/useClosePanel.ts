@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 
 import { useAppDispatch } from 'client/store/hooks'
-import { RepositoryActions } from 'client/store/ui/repository'
+import { RepositoryActions } from 'client/store/repository/actions'
 
 type Returned = () => void
 

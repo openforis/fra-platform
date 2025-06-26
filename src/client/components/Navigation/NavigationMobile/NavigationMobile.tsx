@@ -4,7 +4,8 @@ import React, { useEffect } from 'react'
 import classNames from 'classnames'
 
 import { useAppDispatch } from 'client/store/hooks'
-import { NavigationActions, useNavigationVisible } from 'client/store/ui/navigation'
+import { CountryReportActions } from 'client/store/ui/countryReport/actions'
+import { useNavigationVisible } from 'client/store/ui/countryReport/hooks/navigation'
 import Icon from 'client/components/Icon'
 
 import NavAssessment from '../NavAssessment'
@@ -15,14 +16,14 @@ const NavigationMobile: React.FC = () => {
 
   // Hide navigation on first mount
   useEffect(() => {
-    dispatch(NavigationActions.updateNavigationVisible(false))
+    dispatch(CountryReportActions.setNavigationVisible(false))
   }, [dispatch])
 
   return (
     <div className={classNames('navM', 'no-print', { open: navigationVisible })}>
       <button
         className="btn btn-s btn-secondary navM__btnClose"
-        onClick={() => dispatch(NavigationActions.updateNavigationVisible(false))}
+        onClick={() => dispatch(CountryReportActions.setNavigationVisible(false))}
         type="button"
       >
         <Icon className="icon-close icon-24" name="remove" />

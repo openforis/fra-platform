@@ -2,9 +2,9 @@ import { useEffect } from 'react'
 
 import { CountryIso } from 'meta/area'
 
+import { useOriginalDataPoint } from 'client/store/data/originalDataPoint/hooks/originalDataPoint'
 import { useAppDispatch } from 'client/store/hooks'
-import { useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
-import { ReviewActions } from 'client/store/ui/review'
+import { ReviewActions } from 'client/store/review/actions'
 import { useUser } from 'client/store/user/hooks/user'
 import { useOriginalDataPointRouteParams } from 'client/hooks/useRouteParams'
 
@@ -14,13 +14,13 @@ export const useGetReviewStatus = () => {
   const user = useUser()
 
   const odpId = useOriginalDataPoint()?.id
-  const { assessmentName, countryIso, cycleName, sectionName } = useOriginalDataPointRouteParams()
+  const { assessmentName, countryIso, cycleName, sectionName } = useOriginalDataPointRouteParams<CountryIso>()
 
   useEffect(() => {
     if (user) {
       dispatch(
         ReviewActions.getReviewStatus({
-          countryIso: countryIso as CountryIso,
+          countryIso,
           assessmentName,
           cycleName,
           sectionName,

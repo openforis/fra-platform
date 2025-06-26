@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 
-import { useRepositoryItemChangeListener } from 'client/store/ui/repository'
+import { useRepositoryItemChangeListener } from 'client/store/repository/hooks/useRepositoryItemChangeListener'
 import { useIsPanEuropeanRoute } from 'client/hooks'
 import Hr from 'client/components/Hr'
 import TablePaginated from 'client/components/TablePaginated'

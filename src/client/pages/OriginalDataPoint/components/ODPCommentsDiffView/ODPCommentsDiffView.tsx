@@ -1,7 +1,7 @@
 import React from 'react'
 
-import { useLastApprovedOriginalDataPoint } from 'client/store/data/hooks/useLastApprovedOriginalDataPoint'
-import { useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
+import { useLastApprovedOriginalDataPoint } from 'client/store/data/history/hooks/lastApprovedOriginalDataPoint'
+import { useOriginalDataPoint } from 'client/store/data/originalDataPoint/hooks/originalDataPoint'
 import DiffDOM from 'client/components/DiffDOM'
 
 const ODPCommentsDiffView: React.FC = () => {

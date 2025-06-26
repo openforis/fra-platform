@@ -24,7 +24,7 @@ export type Country = {
 
   /* last timestamp strings */
   lastEdit: string
-  lastEditOdpData: string
+  lastEditOdp: string
   lastInAccepted: string
   lastInApproval: string
   lastInPublished: string

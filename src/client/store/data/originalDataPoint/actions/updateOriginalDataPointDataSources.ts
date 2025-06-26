@@ -1,0 +1,45 @@
+import { createAsyncThunk } from '@reduxjs/toolkit'
+import axios from 'axios'
+import { Functions } from 'utils/functions'
+
+import { ApiEndPoint } from 'meta/api/endpoint'
+import { CycleParams } from 'meta/api/request'
+import { CountryIso } from 'meta/area'
+import { ODPs } from 'meta/assessment/odps'
+import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
+
+type Props = CycleParams & {
+  countryIso: CountryIso
+  originalDataPoint: OriginalDataPoint
+}
+
+const putOriginalDataPointDataSources = Functions.debounce(
+  async (props: Props) => {
+    const { assessmentName, countryIso, cycleName, originalDataPoint } = props
+
+    await axios.put(
+      ApiEndPoint.CycleData.OriginalDataPoint.dataSources(),
+      {
+        originalDataPoint: ODPs.removeNationalClassPlaceHolder(originalDataPoint),
+      },
+      {
+        params: {
+          countryIso,
+          assessmentName,
+          cycleName,
+          sectionName: 'extentOfForest',
+        },
+      }
+    )
+  },
+  1000,
+  'updateOriginalDataPointDataSources'
+)
+
+export const updateOriginalDataPointDataSources = createAsyncThunk<OriginalDataPoint, Props>(
+  'data/originalDataPoint/dataSources/update',
+  async (props) => {
+    putOriginalDataPointDataSources(props)
+    return props.originalDataPoint
+  }
+)

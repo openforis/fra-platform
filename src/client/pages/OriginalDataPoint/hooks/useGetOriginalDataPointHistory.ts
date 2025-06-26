@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 
-import { DataActions, useHistoryLastApprovedIsActive } from 'client/store/data'
+import { HistoryActions } from 'client/store/data/history/actions'
+import { useHistoryLastApprovedIsActive } from 'client/store/data/history/hooks/lastApproved'
 import { useAppDispatch } from 'client/store/hooks'
 import { useSection } from 'client/store/meta/hooks/sections'
 import { useOriginalDataPointRouteParams } from 'client/hooks/useRouteParams'
@@ -19,7 +20,7 @@ export const useGetOriginalDataPointHistory = () => {
     if (!historyLastApprovedIsActive) return
 
     dispatch(
-      DataActions.getOriginalDataPointHistory({
+      HistoryActions.getOriginalDataPointHistory({
         assessmentName,
         countryIso,
         cycleName,

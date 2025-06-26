@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { TableNames } from 'meta/assessment/table'
 
-import { useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
+import { useOriginalDataPoint } from 'client/store/data/originalDataPoint/hooks/originalDataPoint'
 import { useIsEditTableDataEnabled } from 'client/store/user/hooks/auth'
 import { useCountryIso } from 'client/hooks'
 

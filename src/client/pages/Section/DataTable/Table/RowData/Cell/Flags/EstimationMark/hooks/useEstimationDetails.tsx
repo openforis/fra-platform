@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import { Dates } from 'utils/dates'
 
-import { useOdpLastUpdatedTimestamp } from 'client/store/data'
+import { useAssessmentCountry } from 'client/store/area/hooks/country'
 import { useNodeValuesEstimation } from 'client/store/data/tableData/estimations/hooks/useNodeValuesEstimation'
 import Icon from 'client/components/Icon'
 
@@ -20,7 +20,9 @@ export const useEstimationDetails = (props: Props): Returned => {
 
   const { t } = useTranslation()
   const tableEstimation = useNodeValuesEstimation({ estimationUuid })
-  const { time: odpLastUpdatedTimestamp } = useOdpLastUpdatedTimestamp()
+  const country = useAssessmentCountry()
+  const odpLastUpdatedTimestamp = country.lastEditOdp
+
   if (!tableEstimation) {
     return { node: '', tooltipContent: undefined }
   }

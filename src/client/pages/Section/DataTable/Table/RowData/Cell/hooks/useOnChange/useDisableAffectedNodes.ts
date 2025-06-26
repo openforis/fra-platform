@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { CountryIso } from 'meta/area'
 import { NodeValue } from 'meta/assessment/node'
 
-import { DataActions } from 'client/store/data'
+import { NodeValuesActions } from 'client/store/data/tableData/nodeValues/actions'
 import { useAppDispatch } from 'client/store/hooks'
 import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useCycle } from 'client/store/meta/hooks/cycles'
@@ -54,7 +54,7 @@ const useDisableAffectedNodes = (props: Props) => {
       ]
 
       dispatch(
-        DataActions.updateNodeValues({
+        NodeValuesActions.updateNodeValues({
           assessmentName: assessment.props.name,
           cycleName: cycle.name,
           sectionName: assessmentSection?.props.name,

@@ -5,9 +5,10 @@ import { useParams } from 'react-router-dom'
 
 import { AssessmentName } from 'meta/assessment/assessment'
 
+import { DataExportActions } from 'client/store/dataExport/actions'
+import { useDataExportSelection } from 'client/store/dataExport/hooks/dataExport'
+import { DataExportSelection } from 'client/store/dataExport/state'
 import { useAppDispatch } from 'client/store/hooks'
-import { DataExportActions, DataExportSelection, useDataExportSelection } from 'client/store/ui/dataExport'
-import { DataExportActionType } from 'client/store/ui/dataExport/actionTypes'
 import ButtonCheckBox from 'client/components/ButtonCheckBox'
 import { getColumnLabelKeys } from 'client/pages/DataExport/utils'
 import { Breakpoints } from 'client/utils/breakpoints'
@@ -37,7 +38,6 @@ const ColumnSelect: React.FC<{ columns: Array<string> }> = ({ columns }) => {
       DataExportActions.updateSelection({
         sectionName,
         selection: selectionUpdate,
-        type: DataExportActionType.selectionUpdate,
       })
     )
   }

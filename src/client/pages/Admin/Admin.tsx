@@ -9,7 +9,9 @@ import { Objects } from 'utils/objects'
 import { Routes, SectionNames } from 'meta/routes'
 import { Users } from 'meta/user'
 
+import { AdminSlice, AdminSliceName } from 'client/store/admin/slice'
 import { useCountries } from 'client/store/area/hooks/countries'
+import { useInjectSlice } from 'client/store/hooks'
 import { useUser } from 'client/store/user/hooks/user'
 
 type Section = {
@@ -41,6 +43,7 @@ const Admin: React.FC = () => {
   const { t } = useTranslation()
   const countries = useCountries()
   const user = useUser()
+  useInjectSlice({ reducerPath: AdminSliceName, reducer: AdminSlice })
 
   if (!Users.isAdministrator(user)) return <Navigate replace to={Routes.Root.path.absolute} />
 

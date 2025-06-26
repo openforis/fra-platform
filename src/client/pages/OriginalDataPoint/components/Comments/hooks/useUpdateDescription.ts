@@ -2,8 +2,9 @@ import { useCallback } from 'react'
 
 import { CountryIso } from 'meta/area'
 
+import { OriginalDataPointActions } from 'client/store/data/originalDataPoint/actions'
+import { useOriginalDataPoint } from 'client/store/data/originalDataPoint/hooks/originalDataPoint'
 import { useAppDispatch } from 'client/store/hooks'
-import { OriginalDataPointActions, useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 export const useUpdateDescription = () => {

@@ -1,7 +1,8 @@
 import { useCallback } from 'react'
 
 import { useAppDispatch } from 'client/store/hooks'
-import { RepositoryActions, useRepositoryItem } from 'client/store/ui/repository'
+import { RepositoryActions } from 'client/store/repository/actions'
+import { useRepositoryItem } from 'client/store/repository/hooks/repository'
 
 type OnChange = (name: string, value: string | boolean) => void
 

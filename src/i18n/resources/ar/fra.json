@@ -43,7 +43,8 @@
     "percentOfForestArea": "٪ من مساحة الغابات"
   },
   "contactPersons": {
-    "expectedYearForNextCountryReportUpdate": "العام المتوقع للتحديث القادم للتقاريرالدولة"
+    "expectedYearForNextCountryReportUpdate": "العام المتوقع للتحديث القادم للتقاريرالدولة",
+    "reportLastUpdate": "تم تحديث هذا التقرير في:"
   },
   "degradedForest": {
     "biome": "منطقة حيوية",

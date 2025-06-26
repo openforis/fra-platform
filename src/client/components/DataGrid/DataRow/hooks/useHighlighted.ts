@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 
 import { Objects } from 'utils/objects'
 
-import { useTopicKeys } from 'client/store/ui/messageCenter/hooks'
+import { useTopicKeys } from 'client/store/messageCenter/hooks/messagecenter'
 import { DataRowAction, DataRowActionType, Review } from 'client/components/DataGrid'
 
 type Props = {

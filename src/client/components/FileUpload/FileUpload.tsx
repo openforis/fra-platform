@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
 
-import { useFileUploadProgress } from 'client/store/ui/fileUpload'
+import { useFileUploadProgress } from 'client/store/fileUpload/hooks/fileUpload'
 import Files from 'client/components/FileUpload/Files'
 import { FileUploadProps } from 'client/components/FileUpload/types'
 import ProgressBar from 'client/components/ProgressBar'

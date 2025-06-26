@@ -3,7 +3,7 @@ import React from 'react'
 import { DashboardItem, DashboardItemType, DashboardTable } from 'meta/dashboard'
 import { DashboardBarChart, DashboardPieChart } from 'meta/dashboard/dashboard'
 
-import { useIsSomeTableDataFetching } from 'client/store/data'
+import { useTableDataStatusListener } from 'client/store/data/tableData/hooks/useTableDataStatusListener'
 import BarChart from 'client/components/Dashboard/BarChart'
 import { useHasData } from 'client/components/Dashboard/hooks/useHasData'
 import NoData from 'client/components/Dashboard/NoData'
@@ -24,14 +24,14 @@ const Component: React.FC<Props> = (props: Props) => {
   const { item } = props
   const { table } = item
   const hasData = useHasData(table)
-  const isFetching = useIsSomeTableDataFetching()
+  const { someTableFetching } = useTableDataStatusListener()
 
   const Component = Components[item.type]
 
   return (
     <div className="dashboard__item">
-      {!hasData && !isFetching && <NoData />}
-      {hasData && !isFetching && <Component item={item} />}
+      {!hasData && !someTableFetching && <NoData />}
+      {hasData && !someTableFetching && <Component item={item} />}
     </div>
   )
 }

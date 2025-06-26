@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import { useOriginalDataPointReservedYears } from 'client/store/ui/originalDataPoint'
+import { useOriginalDataPointReservedYears } from 'client/store/data/originalDataPoint/hooks/originalDataPoint'
 
 export const useReservedYearsWithClasses = (year: number) => {
   const reservedYears = useOriginalDataPointReservedYears()

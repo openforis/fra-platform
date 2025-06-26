@@ -2,8 +2,8 @@ import React, { useCallback } from 'react'
 
 import { ODPNationalClass, OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
-import { useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
-import handlePaste from 'client/store/ui/originalDataPoint/actions/handlePaste'
+import handlePaste from 'client/store/data/originalDataPoint/actions/handlePaste'
+import { useOriginalDataPoint } from 'client/store/data/originalDataPoint/hooks/originalDataPoint'
 import { readPasteClipboard } from 'client/utils/copyPasteUtil'
 
 export type Columns = Array<{ name: keyof ODPNationalClass; type: string; precision?: number }>

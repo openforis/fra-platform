@@ -7,8 +7,9 @@ import { Objects } from 'utils/objects'
 
 import { Link as LinkType } from 'meta/cycleData'
 
+import { LinksActions } from 'client/store/admin/links/actions'
+import { useIsVerificationInProgress } from 'client/store/admin/links/hooks/verification'
 import { useAppDispatch } from 'client/store/hooks'
-import { LinksActions, useIsVerificationInProgress } from 'client/store/ui/links'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
 

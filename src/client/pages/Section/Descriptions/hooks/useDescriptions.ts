@@ -1,7 +1,7 @@
 import { Description } from 'meta/assessment/description'
 
 import { useAssessmentCountry } from 'client/store/area/hooks/country'
-import { useHasOriginalDataPointData } from 'client/store/data'
+import { useHasOriginalDataPointData } from 'client/store/data/tableData/nodeValues/hooks/originalDataPointData'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { useSectionContext } from 'client/pages/Section/context'
 

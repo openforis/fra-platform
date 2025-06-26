@@ -2,7 +2,7 @@ import './InputField.scss'
 import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { useRepositoryItemPropValidation } from 'client/store/ui/repository'
+import { useRepositoryItemPropValidation } from 'client/store/repository/hooks/repository'
 import { DataCell } from 'client/components/DataGrid'
 import InputText from 'client/components/Inputs/InputText'
 

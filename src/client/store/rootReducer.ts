@@ -4,29 +4,27 @@ import { ApplicationSlice } from 'client/store/application/slice'
 import { AreaSlice } from 'client/store/area/slice'
 import { ContactsSlice } from 'client/store/data/contacts/slice'
 import { DescriptionsSlice } from 'client/store/data/descriptions/slice'
+import { HistorySlice } from 'client/store/data/history/slice'
+import { LinkedDataSourcesSlice } from 'client/store/data/linkedDataSources/slice'
+import { OriginalDataPointSlice } from 'client/store/data/originalDataPoint/slice'
 import { EstimationsSlice } from 'client/store/data/tableData/estimations/slice'
+import { NodeValuesSlice } from 'client/store/data/tableData/nodeValues/slice'
+import { ValidationsReducer } from 'client/store/data/tableData/validations/slice'
+import { DataExportSlice } from 'client/store/dataExport/slice'
 import { ExplorerDataSlice } from 'client/store/explorer/data/slice'
 import { ExplorerMetadataSlice } from 'client/store/explorer/metadata/slice'
 import { ExplorerSelectionSlice } from 'client/store/explorer/selection/slice'
+import { FileUploadSlice } from 'client/store/fileUpload/slice'
+import { MessageCenterSlice } from 'client/store/messageCenter/slice'
 import { MetaSlice } from 'client/store/meta/slice'
-import { FileUploadSlice } from 'client/store/ui/fileUpload'
-import { LinksSlice } from 'client/store/ui/links'
-import { RepositorySlice } from 'client/store/ui/repository'
+import { RepositorySlice } from 'client/store/repository/slice'
+import { ReviewSlice } from 'client/store/review/slice'
+import { AreaSelectorSlice } from 'client/store/ui/areaSelector/slice'
+import { CountryReportSlice } from 'client/store/ui/countryReport/slice'
+import GeoSlice from 'client/store/ui/geo/slice'
+import { NotificationSlice } from 'client/store/ui/notification/slice'
+import UserManagementSlice from 'client/store/ui/userManagement/slice'
 import { UserSlice } from 'client/store/user/slice'
-
-import DataDeprecatedSlice from './data/slice'
-import { AreaSelectorSlice } from './ui/areaSelector'
-import { AssessmentSectionSlice } from './ui/assessmentSection/slice'
-import DataExportSlice from './ui/dataExport/slice'
-import DataLockSlice from './ui/dataLock/slice'
-import GeoSlice from './ui/geo/slice'
-import HomeSlice from './ui/home/slice'
-import MessageCenterSlice from './ui/messageCenter/slice'
-import NavigationSlice from './ui/navigation/slice'
-import NotificationSlice from './ui/notification/slice'
-import OriginalDataPointSlice from './ui/originalDataPoint/slice'
-import ReviewSlice from './ui/review/slice'
-import UserManagementSlice from './ui/userManagement/slice'
 
 export default {
   [ApplicationSlice.name]: ApplicationSlice.reducer,
@@ -34,10 +32,13 @@ export default {
   data: combineReducers({
     [ContactsSlice.name]: ContactsSlice.reducer,
     [DescriptionsSlice.name]: DescriptionsSlice.reducer,
+    [HistorySlice.name]: HistorySlice.reducer,
+    [LinkedDataSourcesSlice.name]: LinkedDataSourcesSlice.reducer,
+    [OriginalDataPointSlice.name]: OriginalDataPointSlice.reducer,
     tableData: combineReducers({
       [EstimationsSlice.name]: EstimationsSlice.reducer,
-      // validatiosn
-      // values
+      [NodeValuesSlice.name]: NodeValuesSlice.reducer,
+      [ValidationsReducer.name]: ValidationsReducer.reducer,
     }),
   }),
   explorer: combineReducers({
@@ -45,23 +46,18 @@ export default {
     [ExplorerSelectionSlice.name]: ExplorerSelectionSlice.reducer,
     [ExplorerMetadataSlice.name]: ExplorerMetadataSlice.reducer,
   }),
+  [DataExportSlice.name]: DataExportSlice.reducer,
+  [FileUploadSlice.name]: FileUploadSlice.reducer,
   [MetaSlice.name]: MetaSlice.reducer,
-  dataDep: DataDeprecatedSlice,
+  [MessageCenterSlice.name]: MessageCenterSlice.reducer,
+  [RepositorySlice.name]: RepositorySlice.reducer,
+  [ReviewSlice.name]: ReviewSlice.reducer,
+
   geo: GeoSlice,
   ui: combineReducers({
     [AreaSelectorSlice.name]: AreaSelectorSlice.reducer,
-    [AssessmentSectionSlice.name]: AssessmentSectionSlice.reducer,
-    dataExport: DataExportSlice,
-    dataLock: DataLockSlice,
-    [FileUploadSlice.name]: FileUploadSlice.reducer,
-    home: HomeSlice,
-    [LinksSlice.name]: LinksSlice.reducer,
-    messageCenter: MessageCenterSlice,
-    navigation: NavigationSlice,
-    notification: NotificationSlice,
-    originalDataPoint: OriginalDataPointSlice,
-    [RepositorySlice.name]: RepositorySlice.reducer,
-    review: ReviewSlice,
+    [CountryReportSlice.name]: CountryReportSlice.reducer,
+    [NotificationSlice.name]: NotificationSlice.reducer,
     userManagement: UserManagementSlice,
   }),
   [UserSlice.name]: UserSlice.reducer,

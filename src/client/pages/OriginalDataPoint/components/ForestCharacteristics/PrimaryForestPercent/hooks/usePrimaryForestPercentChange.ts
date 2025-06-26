@@ -4,7 +4,7 @@ import * as Diff from 'diff'
 import { Change } from 'diff'
 import { Numbers } from 'utils/numbers'
 
-import { useLastApprovedOriginalDataPoint } from 'client/store/data/hooks/useLastApprovedOriginalDataPoint'
+import { useLastApprovedOriginalDataPoint } from 'client/store/data/history/hooks/lastApprovedOriginalDataPoint'
 import { useODPDisplayHistory } from 'client/pages/OriginalDataPoint/components/hooks/useODPDisplayHistory'
 
 type Props = {

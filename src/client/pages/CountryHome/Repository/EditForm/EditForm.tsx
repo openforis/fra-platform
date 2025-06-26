@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import { Objects } from 'utils/objects'
 
-import { useIsFileInUse, useRepositoryItem } from 'client/store/ui/repository'
+import { useIsFileInUse, useRepositoryItem } from 'client/store/repository/hooks/repository'
 import { DataGrid } from 'client/components/DataGrid'
 import Hr from 'client/components/Hr'
 import SlidingPanel from 'client/components/SlidingPanel'

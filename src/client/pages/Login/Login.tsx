@@ -4,9 +4,8 @@ import { Route, Routes as RouterRoutes } from 'react-router-dom'
 
 import { Routes } from 'meta/routes'
 
+import { useInjectSlice } from 'client/store/hooks'
 import { LoginSlice } from 'client/store/login/slice'
-import { injectSlice } from 'client/store/store'
-import { useOnMount } from 'client/hooks/useOnMount'
 import Partners from 'client/pages/CycleHome/Partners'
 import Invitation from 'client/pages/Login/Invitation'
 import InvitationLocal from 'client/pages/Login/InvitationLocal'
@@ -14,9 +13,7 @@ import LoginForm from 'client/pages/Login/LoginForm'
 import ResetPassword from 'client/pages/Login/ResetPassword'
 
 const Login: React.FC = () => {
-  useOnMount(() => {
-    injectSlice(LoginSlice)
-  })
+  useInjectSlice(LoginSlice)
 
   return (
     <div className="login-view">

@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
 
-import { useIsDataLocked } from 'client/store/ui/dataLock'
-import { useOriginalDataPoint } from 'client/store/ui/originalDataPoint'
+import { useOriginalDataPoint } from 'client/store/data/originalDataPoint/hooks/originalDataPoint'
+import { useIsDataLocked } from 'client/store/ui/countryReport/hooks/datalock'
 import Button, { ButtonSize } from 'client/components/Buttons/Button'
 import { DataCell, DataGrid, DataRow } from 'client/components/DataGrid'
 import EditorWYSIWYG from 'client/components/EditorWYSIWYG'

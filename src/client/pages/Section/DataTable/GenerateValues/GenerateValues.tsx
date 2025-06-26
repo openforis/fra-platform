@@ -12,9 +12,10 @@ import { RecordAssessmentData } from 'meta/data'
 
 import { useAssessmentCountry } from 'client/store/area/hooks/country'
 
+import { useEstimationStatusListener } from './hooks/useEstimationStatusListener'
+import { useGenerateValues } from './hooks/useGenerateValues'
 import FieldsOption from './FieldsOption'
 import { Method } from './method'
-import useGenerateValues from './useGenerateValues'
 
 type Props = {
   assessmentName: AssessmentName
@@ -32,7 +33,7 @@ const GenerateValues: React.FC<Props> = (props) => {
   const country = useAssessmentCountry()
   const useOriginalDataPoint = country?.props?.forestCharacteristics?.useOriginalDataPoint
 
-  const { fields, generateValues, isEstimationPending, method, setFields, setMethod, valid } = useGenerateValues(
+  const { fields, generateValues, method, setFields, setMethod, valid } = useGenerateValues(
     assessmentName,
     cycleName,
     sectionName,
@@ -40,6 +41,7 @@ const GenerateValues: React.FC<Props> = (props) => {
     rows,
     data
   )
+  const isEstimationPending = useEstimationStatusListener()
   const [buttonEnabled, setButtonEnabled] = useState<boolean>(true)
 
   // When ODPs are hidden, don't show generate values in table 1b

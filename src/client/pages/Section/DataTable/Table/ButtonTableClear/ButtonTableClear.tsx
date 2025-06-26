@@ -4,9 +4,9 @@ import { useTranslation } from 'react-i18next'
 import { CountryIso } from 'meta/area'
 import { Table } from 'meta/assessment/table'
 
-import { DataActions } from 'client/store/data'
+import { NodeValuesActions } from 'client/store/data/tableData/nodeValues/actions'
 import { useAppDispatch } from 'client/store/hooks'
-import { useIsDataLocked } from 'client/store/ui/dataLock'
+import { useIsDataLocked } from 'client/store/ui/countryReport/hooks/datalock'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import Button, { ButtonType } from 'client/components/Buttons/Button'
@@ -30,7 +30,7 @@ const ButtonTableClear: React.FC<Props> = (props) => {
 
   const _onClick = useCallback(() => {
     if (window.confirm(t('common.areYouSureYouWantToDeleteAllTableData'))) {
-      dispatch(DataActions.clearTableData({ countryIso, assessmentName, cycleName, sectionName, tableName }))
+      dispatch(NodeValuesActions.clearTableData({ countryIso, assessmentName, cycleName, sectionName, tableName }))
     }
   }, [assessmentName, countryIso, cycleName, dispatch, sectionName, t, tableName])
 

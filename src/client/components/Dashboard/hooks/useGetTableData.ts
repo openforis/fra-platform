@@ -2,10 +2,10 @@ import { useCallback, useEffect, useMemo } from 'react'
 
 import { Areas, CountryIso, RegionCode } from 'meta/area'
 
-import { DataActions } from 'client/store/data'
-import type { Props as GetTableDataProps } from 'client/store/data/actions/getTableDataProps'
+import { NodeValuesActions } from 'client/store/data/tableData/nodeValues/actions'
+import type { Props as GetTableDataProps } from 'client/store/data/tableData/nodeValues/actions/getTableDataProps'
 import { useAppDispatch } from 'client/store/hooks'
-import { useHomeCountriesFilter } from 'client/store/ui/home'
+import { useGlobalCountries } from 'client/store/ui/countryReport/hooks/globalCountries'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { Props } from 'client/components/Dashboard/props'
 
@@ -15,7 +15,7 @@ export const useGetTableData = (props: Props): void => {
   const dispatch = useAppDispatch()
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const dependencies = useDependencies(props)
-  const homeCountriesFilter = useHomeCountriesFilter()
+  const homeCountriesFilter = useGlobalCountries()
 
   const countryISOs = useMemo(
     () => (homeCountriesFilter.length > 0 ? homeCountriesFilter : [countryIso]),
@@ -31,7 +31,7 @@ export const useGetTableData = (props: Props): void => {
       if (!Areas.isISOCountry(countryIso)) {
         propsFetch.regionCode = countryIso as RegionCode
       }
-      dispatch(DataActions.getTableData({ ...propsFetch, countryISOs }))
+      dispatch(NodeValuesActions.getTableData({ ...propsFetch, countryISOs }))
     }
   }, [assessmentName, countryIso, countryISOs, cycleName, dependencies, dispatch])
 

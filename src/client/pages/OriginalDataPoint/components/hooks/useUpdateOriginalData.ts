@@ -4,8 +4,8 @@ import { CountryIso } from 'meta/area'
 import { ODPs } from 'meta/assessment/odps'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
+import { OriginalDataPointActions } from 'client/store/data/originalDataPoint/actions'
 import { useAppDispatch } from 'client/store/hooks'
-import { OriginalDataPointActions } from 'client/store/ui/originalDataPoint'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 
 export const useUpdateOriginalData = (): ((originalDataPoint: OriginalDataPoint) => void) => {

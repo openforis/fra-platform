@@ -7,10 +7,12 @@ import classNames from 'classnames'
 import { Labels } from 'meta/assessment/labels'
 import { Users } from 'meta/user'
 
-import { useHistoryLastApprovedIsActive, useOriginalDataPointYears } from 'client/store/data'
+import { useHistoryLastApprovedIsActive } from 'client/store/data/history/hooks/lastApproved'
+import { useOriginalDataPointYears } from 'client/store/data/tableData/nodeValues/hooks/originalDataPointData'
 import { useAppDispatch } from 'client/store/hooks'
 import { useCycle } from 'client/store/meta/hooks/cycles'
-import { AssessmentSectionActions, useShowOriginalDatapoints } from 'client/store/ui/assessmentSection'
+import { CountryReportActions } from 'client/store/ui/countryReport/actions'
+import { useShowOriginalDatapoints } from 'client/store/ui/countryReport/hooks/originalDataPoints'
 import { useUser } from 'client/store/user/hooks/user'
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
 import Button from 'client/components/Buttons/Button'
@@ -37,12 +39,12 @@ const ExtentOfForest: React.FC<Props> = (props) => {
 
   useEffect(() => {
     if (historyLastApprovedIsActive && !showOdps) {
-      dispatch(AssessmentSectionActions.toggleShowOriginalDataPoint())
+      dispatch(CountryReportActions.toggleShowOriginalDataPoint())
     }
   }, [dispatch, historyLastApprovedIsActive, showOdps])
 
   const onClick = useCallback(() => {
-    dispatch(AssessmentSectionActions.toggleShowOriginalDataPoint())
+    dispatch(CountryReportActions.toggleShowOriginalDataPoint())
   }, [dispatch])
 
   return (

@@ -7,11 +7,12 @@ import { AssessmentName, AssessmentNames } from 'meta/assessment/assessment'
 import { Labels } from 'meta/assessment/labels'
 import { Row } from 'meta/assessment/row'
 
+import { DataExportActions } from 'client/store/dataExport/actions'
+import { useDataExportSelection } from 'client/store/dataExport/hooks/dataExport'
+import { DataExportSelection } from 'client/store/dataExport/state'
 import { useAppDispatch } from 'client/store/hooks'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useSection } from 'client/store/meta/hooks/sections'
-import { DataExportActions, DataExportSelection, useDataExportSelection } from 'client/store/ui/dataExport'
-import { DataExportActionType } from 'client/store/ui/dataExport/actionTypes'
 import ButtonCheckBox from 'client/components/ButtonCheckBox'
 import DefinitionLink from 'client/components/DefinitionLink'
 import { Breakpoints } from 'client/utils/breakpoints'
@@ -48,7 +49,6 @@ const VariableSelect: React.FC<{ variables: Array<Row> }> = ({ variables }) => {
       DataExportActions.updateSelection({
         sectionName,
         selection: selectionUpdate,
-        type: DataExportActionType.selectionUpdate,
       })
     )
   }

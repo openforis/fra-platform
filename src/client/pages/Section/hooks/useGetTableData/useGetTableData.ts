@@ -2,8 +2,8 @@ import { useEffect } from 'react'
 
 import { CountryIso } from 'meta/area'
 
-import { DataActions } from 'client/store/data'
 import { EstimationsActions } from 'client/store/data/tableData/estimations/actions'
+import { NodeValuesActions } from 'client/store/data/tableData/nodeValues/actions'
 import { useAppDispatch } from 'client/store/hooks'
 import { MetaActions } from 'client/store/meta/actions'
 import { useCanEdit } from 'client/store/user/hooks/auth'
@@ -30,11 +30,10 @@ export const useGetTableData = (props: Props) => {
       if (tableNames.size > 0) {
         const propsFetch = { assessmentName, cycleName, countryIso, mergeOdp: !tableWithOdp }
 
-        dispatch(DataActions.getTableData({ ...propsFetch, tableNames: Array.from(tableNames) }))
+        dispatch(NodeValuesActions.getTableData({ ...propsFetch, tableNames: Array.from(tableNames) }))
 
         if (tableWithOdp && canEdit) {
           dispatch(EstimationsActions.getNodeValuesEstimations({ ...propsFetch, sectionName, tableName: tableWithOdp }))
-          dispatch(DataActions.getODPLastUpdatedTimestamp({ ...propsFetch, sectionName }))
         }
       }
 
@@ -43,7 +42,7 @@ export const useGetTableData = (props: Props) => {
       Object.entries(external).forEach(([assessmentName, cycleDependencies]) => {
         Object.entries(cycleDependencies).forEach(([cycleName, tableNames]) => {
           const propsFetch = { assessmentName, cycleName, countryIso, mergeOdp: true, auth }
-          dispatch(DataActions.getTableData({ ...propsFetch, tableNames: Array.from(tableNames) }))
+          dispatch(NodeValuesActions.getTableData({ ...propsFetch, tableNames: Array.from(tableNames) }))
 
           dispatch(MetaActions.getMetaCache({ assessmentName, cycleName, countryIso }))
         })

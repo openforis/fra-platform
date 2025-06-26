@@ -8,9 +8,9 @@ import { Strings } from 'utils/strings'
 
 import { Areas, Country } from 'meta/area'
 
+import { DataExportActions } from 'client/store/dataExport/actions'
+import { useDataExportCountries, useDataExportSelection } from 'client/store/dataExport/hooks/dataExport'
 import { useAppDispatch } from 'client/store/hooks'
-import { DataExportActions, useDataExportCountries, useDataExportSelection } from 'client/store/ui/dataExport'
-import { DataExportActionType } from 'client/store/ui/dataExport/actionTypes'
 import ButtonCheckBox from 'client/components/ButtonCheckBox'
 import { Breakpoints } from 'client/utils/breakpoints'
 
@@ -55,7 +55,6 @@ const CountrySelect: React.FC = () => {
       DataExportActions.updateSelection({
         sectionName,
         selection: { ...selection, countryISOs },
-        type: DataExportActionType.selectionUpdate,
       })
     )
   }

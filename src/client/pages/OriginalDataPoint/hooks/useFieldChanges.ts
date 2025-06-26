@@ -6,7 +6,7 @@ import { Change } from 'diff'
 import { Numbers } from 'utils/numbers'
 import { Objects } from 'utils/objects'
 
-import { useLastApprovedOriginalDataPoint } from 'client/store/data/hooks/useLastApprovedOriginalDataPoint'
+import { useLastApprovedOriginalDataPoint } from 'client/store/data/history/hooks/lastApprovedOriginalDataPoint'
 import { ODPDiffTextProps } from 'client/pages/OriginalDataPoint/components/ODPDiffText/types'
 import { DOMs } from 'client/utils/dom'
 

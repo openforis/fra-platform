@@ -4,10 +4,13 @@ import MediaQuery from 'react-responsive'
 
 import classNames from 'classnames'
 
-import { DataActions, useHistoryActivitiesIsActive, useHistoryLastApprovedIsActive } from 'client/store/data'
+import { HistoryActions } from 'client/store/data/history/actions'
+import { useHistoryActivitiesIsActive } from 'client/store/data/history/hooks/activities'
+import { useHistoryLastApprovedIsActive } from 'client/store/data/history/hooks/lastApproved'
 import { useAppDispatch } from 'client/store/hooks'
-import { useShowOriginalDatapoints } from 'client/store/ui/assessmentSection'
-import { DataLockActions, useIsDataLocked } from 'client/store/ui/dataLock'
+import { CountryReportActions } from 'client/store/ui/countryReport/actions'
+import { useIsDataLocked } from 'client/store/ui/countryReport/hooks/datalock'
+import { useShowOriginalDatapoints } from 'client/store/ui/countryReport/hooks/originalDataPoints'
 import { useCanEditCycleData } from 'client/store/user/hooks/auth'
 import Icon from 'client/components/Icon'
 import { Breakpoints } from 'client/utils'
@@ -28,9 +31,9 @@ const Lock: React.FC = () => {
   const toggleLock = useCallback(() => {
     // if unlocking for editing and historyLastApproved is Active -> close history
     if (locked && historyLastApprovedActive) {
-      dispatch(DataActions.toggleHistoryLastApproved())
+      dispatch(HistoryActions.toggleLastApproved())
     }
-    dispatch(DataLockActions.toggleDataLock())
+    dispatch(CountryReportActions.toggleDataLock())
   }, [dispatch, historyLastApprovedActive, locked])
 
   useEffect(() => {

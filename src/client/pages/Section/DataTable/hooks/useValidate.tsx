@@ -13,7 +13,8 @@ import { validatorEqualToPreviousCycleForestArea } from 'meta/expressionEvaluato
 import { Authorizer } from 'meta/user'
 
 import { useCountry } from 'client/store/area/hooks/country'
-import { DataActions, RecordTableValidationsState } from 'client/store/data'
+import { ValidationsActions } from 'client/store/data/tableData/validations/actions'
+import { RecordTableValidationsState } from 'client/store/data/tableData/validations/state'
 import { useAppDispatch } from 'client/store/hooks'
 import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useCycle } from 'client/store/meta/hooks/cycles'
@@ -82,8 +83,9 @@ export const useValidate = (props: Props): void => {
           }
         })
       })
+
       dispatch(
-        DataActions.setNodeValueValidations({
+        ValidationsActions.setNodeValueValidations({
           assessmentName: assessment.props.name,
           cycleName: cycle.name,
           countryIso,
