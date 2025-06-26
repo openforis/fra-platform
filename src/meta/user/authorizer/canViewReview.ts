@@ -1,11 +1,9 @@
-import { Objects } from 'utils/objects'
-
 import { Areas, Country, CountryStatus } from 'meta/area'
 import { Cycle } from 'meta/assessment/cycle'
 import { Section, SubSection } from 'meta/assessment/section'
 import { User } from 'meta/user/user'
 
-import { Collaborator, CollaboratorEditPropertyType, CollaboratorSectionsPermission, RoleName } from '../userRole'
+import { Collaborator, CollaboratorEditPropertyType, RoleName } from '../userRole'
 import { Users } from '../users'
 
 export type AuthProps = {
@@ -25,11 +23,11 @@ const hasCollaboratorEditSectionPermission = (props: AuthProps) => {
   if (isCollaborator) {
     const userRole = Users.getRole(user, countryIso, cycle) as Collaborator
 
-    const userSections: CollaboratorSectionsPermission = userRole.permissions?.sections ?? {}
-    if (Objects.isEmpty(userSections)) return true
-    if (userSections === 'none') return false
-    if (userSections === 'all') return true
-    return userSections[section.uuid]?.[permission] === true
+    const userPermissions = userRole.permissions?.[permission]
+    if (!userPermissions || userPermissions.length === 0) return true
+    if (userPermissions.includes('none')) return false
+    if (userPermissions.includes('all')) return true
+    return userPermissions.includes(section.uuid)
   }
   return true
 }

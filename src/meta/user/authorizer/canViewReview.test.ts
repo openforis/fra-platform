@@ -67,15 +67,15 @@ describe('canViewReview', () => {
   })
 
   test.each([
-    ['all sections', 'all', true],
-    ['no sections', 'none', false],
-    ['specific section', { [mockSection.uuid]: { tableData: true, descriptions: true } }, true],
-    ['different section', { differentSection: { tableData: true, descriptions: true } }, false],
-  ])('should return %s for collaborator with %s permission', (_, sections, expected) => {
+    ['all sections', { tableData: ['all'], descriptions: ['all'] }, true],
+    ['no sections', { tableData: ['none'], descriptions: ['none'] }, false],
+    ['specific section', { tableData: [mockSection.uuid], descriptions: [mockSection.uuid] }, true],
+    ['different section', { tableData: ['differentSection'], descriptions: ['differentSection'] }, false],
+  ])('should return %s for collaborator with %s permission', (_, permissions, expected) => {
     ;(Users.isCollaborator as jest.Mock).mockReturnValue(true)
     ;(Users.getRole as jest.Mock).mockReturnValue({
       role: RoleName.COLLABORATOR,
-      permissions: { sections },
+      permissions,
     })
     expect(canViewReview({ country: mockCountry, section: mockSection, user: mockUser, cycle: mockCycle })).toBe(
       expected
@@ -87,9 +87,8 @@ describe('canViewReview', () => {
     ;(Users.getRole as jest.Mock).mockReturnValue({
       role: RoleName.COLLABORATOR,
       permissions: {
-        sections: {
-          section1: { tableData: true, descriptions: true },
-        },
+        tableData: ['section1'],
+        descriptions: ['section1'],
       },
     })
 
