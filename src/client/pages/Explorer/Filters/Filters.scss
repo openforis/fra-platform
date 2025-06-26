@@ -2,8 +2,10 @@
 
 .explorer-filters {
   align-items: center;
-  display: flex;
-  gap: $spacing-xxs;
-  height: 30px;
-  width: 100%;
+  column-gap: $spacing-xxs;
+  display: grid;
+  grid-auto-rows: 30px;
+  grid-template-columns: repeat(5, 1fr);
+  row-gap: $spacing-xxxxs;
+  width: min-content;
 }

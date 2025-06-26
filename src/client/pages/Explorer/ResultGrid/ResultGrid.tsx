@@ -51,12 +51,15 @@ export const ResultGrid: React.FC = () => {
 
   const renderLabel = useRenderLabel()
 
-  if ([countryEntries, data, dimensions, measures, tableName].some(Objects.isEmpty)) {
+  const xAxisVariableCount = xAxisSelection.length
+  const yAxisVariableCount = yAxisSelection.length
+
+  if (
+    [countryEntries, data, dimensions, measures, tableName].some(Objects.isEmpty) ||
+    xAxisVariableCount + yAxisVariableCount < 3
+  ) {
     return null
   }
-
-  const yAxisVariableCount = yAxisSelection.length
-  const xAxisVariableCount = xAxisSelection.length
 
   return (
     <DataGrid className="explorer-result-grid" gridTemplateColumns={gridTemplateColumns}>

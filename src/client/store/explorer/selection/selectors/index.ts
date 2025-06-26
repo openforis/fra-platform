@@ -3,9 +3,9 @@ import { createSelector } from '@reduxjs/toolkit'
 import { AssessmentName } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
 import { SectionName } from 'meta/assessment/section'
-import { AxisType } from 'meta/explorer/selection'
 
 import { ExplorerSelectionSlice } from 'client/store/explorer/selection/slice'
+import { defaultAxisSelection } from 'client/store/explorer/selection/state'
 import { RootState } from 'client/store/types'
 
 const _getState = (state: RootState) => state.explorer[ExplorerSelectionSlice.name]
@@ -28,12 +28,7 @@ const _baseSelectors = [
   (_state: RootState, _assessmentName: AssessmentName, _cycleName: CycleName, sectionName: SectionName) => sectionName,
 ]
 const getAxisSelection = createSelector(_baseSelectors, (filters, assessmentName, cycleName, sectionName) => {
-  return (
-    filters?.[assessmentName]?.[cycleName]?.axis?.[sectionName] ?? {
-      x: [AxisType.measures, AxisType.dimensions],
-      y: [AxisType.countries],
-    }
-  )
+  return filters?.[assessmentName]?.[cycleName]?.axis?.[sectionName] ?? defaultAxisSelection
 })
 
 const getDimensions = createSelector(_baseSelectors, (filters, assessmentName, cycleName, sectionName) => {
