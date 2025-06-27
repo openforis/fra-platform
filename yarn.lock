@@ -3651,13 +3651,6 @@
   dependencies:
     "@types/lodash" "*"
 
-"@types/lodash.isnil@^4.0.6":
-  version "4.0.9"
-  resolved "https://registry.yarnpkg.com/@types/lodash.isnil/-/lodash.isnil-4.0.9.tgz#4c38197fde6bb25c18baf065fd0eb6c8b60c9131"
-  integrity sha512-NruIMLXRJL8sOm1RZkzFBfoMIkLZ7hCNWaAXzzHiBTxf4JvQowcaP1l4eTr02jGJqCSEags/bPFN3ypUKMpgFw==
-  dependencies:
-    "@types/lodash" "*"
-
 "@types/lodash.merge@^4.6.9":
   version "4.6.9"
   resolved "https://registry.yarnpkg.com/@types/lodash.merge/-/lodash.merge-4.6.9.tgz#93e94796997ed9a3ebe9ccf071ccaec4c6bc8fb8"

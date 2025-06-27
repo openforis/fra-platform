@@ -29,14 +29,16 @@ const _collaboratorSectionPermissions = (
   return userPermissions.includes(section.uuid)
 }
 
-export const canEditCycleData = (props: {
-  cycle: Cycle
-  country: Country
-  user: User
-  section?: Section | SubSection
-  permission?: CollaboratorEditPropertyType
+type Props = {
   allowedStatuses?: Array<CountryStatus>
-}): boolean => {
+  country: Country
+  cycle: Cycle
+  permission?: CollaboratorEditPropertyType
+  section?: Section | SubSection
+  user: User
+}
+
+export const canEditCycleData = (props: Props): boolean => {
   const { allowedStatuses, country, cycle, permission = CollaboratorEditPropertyType.tableData, section, user } = props
   const { countryIso } = country ?? {}
   const status = Areas.getStatus(country)
