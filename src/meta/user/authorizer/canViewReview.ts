@@ -2,36 +2,52 @@ import { Areas, Country, CountryStatus } from 'meta/area'
 import { Cycle } from 'meta/assessment/cycle'
 import { Section, SubSection } from 'meta/assessment/section'
 import { User } from 'meta/user/user'
+import { CollaboratorEditPropertyType, RoleName } from 'meta/user/userRole'
+import { Users } from 'meta/user/users'
 
-import { CollaboratorEditPropertyType } from '../userRole'
-import { canEditCycleData } from './canEditCycleData'
+import { areCanEditDataPropsValid } from './_canEditData/areCanEditDataPropsValid'
+import { canCollaboratorEditData } from './_canEditData/canCollaboratorEditData'
 
 export type AuthProps = {
-  cycle: Cycle
   country: Country
-  user: User
-  section?: Section | SubSection
+  cycle: Cycle
   permission?: CollaboratorEditPropertyType
+  section?: Section | SubSection
+  user: User
 }
+
+const allowedStatuses = [CountryStatus.notStarted, CountryStatus.editing, CountryStatus.review]
+
+const allowedRolesWithoutPermissions = [
+  RoleName.REVIEWER,
+  RoleName.NATIONAL_CORRESPONDENT,
+  RoleName.ALTERNATE_NATIONAL_CORRESPONDENT,
+]
 
 /**
  * CanViewReview - Determines if user can view review indicators for specific sections
- *
- * @param props - Authorization properties
- * @param props.permission - Type of permission (tableData or descriptions)
- * @returns boolean indicating if user can view the review for specified section
  */
 export const canViewReview = (props: AuthProps): boolean => {
-  const { country, cycle, permission = CollaboratorEditPropertyType.tableData, section, user } = props
+  const { country, cycle, permission, section, user } = props
+  if (areCanEditDataPropsValid({ country, cycle, user })) {
+    const { countryIso } = country
+    const status = Areas.getStatus(country)
 
-  if (!country || !section || !user || !Areas.isISOCountry(country.countryIso)) return false
+    const isAdministrator = Users.isAdministrator(user)
+    const isCollaborator = Users.isCollaborator(user, countryIso, cycle)
+    const role = Users.getRole(user, countryIso, cycle)
 
-  return canEditCycleData({
-    cycle,
-    country,
-    user,
-    section,
-    permission,
-    allowedStatuses: [CountryStatus.notStarted, CountryStatus.editing, CountryStatus.review],
-  })
+    if (isAdministrator) return true
+
+    if (allowedStatuses.includes(status)) {
+      if (allowedRolesWithoutPermissions.includes(role.role)) {
+        return true
+      }
+      if (isCollaborator) {
+        return canCollaboratorEditData({ country, cycle, permission, section, user })
+      }
+    }
+  }
+
+  return false
 }

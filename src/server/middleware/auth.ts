@@ -61,7 +61,7 @@ const requireEditData = async (req: Request, next: NextFunction) => {
   const { country } = req.context
   const section = await MetadataController.getSubSection({ assessment, cycle, sectionName })
 
-  _next(Authorizer.canEditData({ country, cycle, permission, section, user }), next)
+  _next(Authorizer.canEditSectionData({ country, cycle, permission, section, user }), next)
 }
 
 const requireEditDescriptions = async (req: Request, _res: Response, next: NextFunction) => {

@@ -42,7 +42,7 @@ const ExcelCalculatorDownload: React.FC = () => {
     language,
   })
 
-  if (!Authorizer.canEditData({ country, cycle, section, user: userInfo })) return null
+  if (!Authorizer.canEditSectionData({ country, cycle, section, user: userInfo })) return null
 
   return (
     <div className="no-print">

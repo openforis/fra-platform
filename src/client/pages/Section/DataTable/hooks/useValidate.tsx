@@ -45,7 +45,7 @@ export const useValidate = (props: Props): void => {
   const rowsData = useRowsData({ table })
   const { print } = useIsPrintRoute()
 
-  const canEditData = Authorizer.canEditData({ country, cycle, section, user })
+  const canEditData = Authorizer.canEditSectionData({ country, cycle, section, user })
 
   useEffect(() => {
     const tableValidations: RecordTableValidationsState = { [table.props.name]: {} }

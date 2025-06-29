@@ -35,7 +35,7 @@ const Flags: React.FC<Props> = (props) => {
   const section = useSection(sectionName)
   const cycle = useCycle()
 
-  const canEditData = Authorizer.canEditData({ country, cycle, section, user })
+  const canEditData = Authorizer.canEditSectionData({ country, cycle, section, user })
   const linkedNode = col.props.linkedNodes?.[cycle.uuid]
   const withEstimation = canEditData && nodeValue?.estimationUuid && !Objects.isEmpty(nodeValue?.raw) && !linkedNode
 
