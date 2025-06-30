@@ -119,7 +119,7 @@ describe('canEditSomeData', () => {
         expect(canEditSomeData({ cycle: mockCycle, country: mockCountry, user: mockUser })).toBe(true)
       })
 
-      test('should return false when tableData includes none', () => {
+      test('should return true when tableData includes none but descriptions has access', () => {
         ;(Users.getRole as jest.Mock).mockReturnValue({
           role: RoleName.COLLABORATOR,
           permissions: {
@@ -128,19 +128,7 @@ describe('canEditSomeData', () => {
           },
         })
 
-        expect(canEditSomeData({ cycle: mockCycle, country: mockCountry, user: mockUser })).toBe(false)
-      })
-
-      test('should return false when descriptions includes none', () => {
-        ;(Users.getRole as jest.Mock).mockReturnValue({
-          role: RoleName.COLLABORATOR,
-          permissions: {
-            tableData: ['section1'],
-            descriptions: ['none'],
-          },
-        })
-
-        expect(canEditSomeData({ cycle: mockCycle, country: mockCountry, user: mockUser })).toBe(false)
+        expect(canEditSomeData({ cycle: mockCycle, country: mockCountry, user: mockUser })).toBe(true)
       })
 
       test('should return false when both tableData and descriptions include none', () => {
@@ -155,19 +143,23 @@ describe('canEditSomeData', () => {
         expect(canEditSomeData({ cycle: mockCycle, country: mockCountry, user: mockUser })).toBe(false)
       })
 
-      test('should return true when permissions are undefined', () => {
+      test('should return true when permissions have all access', () => {
         ;(Users.getRole as jest.Mock).mockReturnValue({
           role: RoleName.COLLABORATOR,
-          permissions: undefined,
+          permissions: {
+            tableData: ['all'],
+            descriptions: ['all'],
+          },
         })
 
         expect(canEditSomeData({ cycle: mockCycle, country: mockCountry, user: mockUser })).toBe(true)
       })
 
-      test('should return true when tableData is undefined', () => {
+      test('should return true when permissions have specific sections', () => {
         ;(Users.getRole as jest.Mock).mockReturnValue({
           role: RoleName.COLLABORATOR,
           permissions: {
+            tableData: ['section1', 'section2'],
             descriptions: ['section1'],
           },
         })
@@ -175,11 +167,12 @@ describe('canEditSomeData', () => {
         expect(canEditSomeData({ cycle: mockCycle, country: mockCountry, user: mockUser })).toBe(true)
       })
 
-      test('should return true when descriptions is undefined', () => {
+      test('should return true when user can edit descriptions but not tableData', () => {
         ;(Users.getRole as jest.Mock).mockReturnValue({
           role: RoleName.COLLABORATOR,
           permissions: {
-            tableData: ['section1'],
+            tableData: ['none'],
+            descriptions: ['section1'],
           },
         })
 
