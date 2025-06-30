@@ -101,9 +101,9 @@ export type CollaboratorPermissions = {
   sections: CollaboratorSectionsPermission
 }
 
-export type Collaborator = UserRole<RoleName.COLLABORATOR, UserRoleBaseProps, CollaboratorPermissions>
-
 export type CollaboratorPermissionsNEW = {
-  tableData: Array<string>
-  descriptions: Array<string>
+  [CollaboratorEditPropertyType.tableData]: Array<string>
+  [CollaboratorEditPropertyType.descriptions]: Array<string>
 }
+
+export type Collaborator = UserRole<RoleName.COLLABORATOR, UserRoleBaseProps, CollaboratorPermissionsNEW>
