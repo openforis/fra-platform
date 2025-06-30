@@ -57,7 +57,22 @@ export const useFormDefinition = (): FormDefinition => {
         name: 'permissions',
         type: FormFieldType.permissions,
         label: 'userManagement.permissions',
-        validation: z.any().optional(),
+        validation: z
+          .object({
+            tableData: z
+              .array(z.string())
+              .min(
+                1,
+                t('form.errors.atLeastOneItemRequired', { field: t('userManagement.permissionNames.tableData') })
+              ),
+            descriptions: z
+              .array(z.string())
+              .min(
+                1,
+                t('form.errors.atLeastOneItemRequired', { field: t('userManagement.permissionNames.descriptions') })
+              ),
+          })
+          .optional(),
         shouldShow: (watchValues) => watchValues.role === RoleName.COLLABORATOR,
         defaultValue: { tableData: ['all'], descriptions: ['all'] },
       },
