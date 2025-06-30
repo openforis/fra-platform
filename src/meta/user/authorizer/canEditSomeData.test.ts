@@ -119,7 +119,7 @@ describe('canEditSomeData', () => {
         expect(canEditSomeData({ cycle: mockCycle, country: mockCountry, user: mockUser })).toBe(true)
       })
 
-      test('should return false when tableData includes none', () => {
+      test('should return true when tableData includes none but descriptions has access', () => {
         ;(Users.getRole as jest.Mock).mockReturnValue({
           role: RoleName.COLLABORATOR,
           permissions: {
@@ -128,19 +128,7 @@ describe('canEditSomeData', () => {
           },
         })
 
-        expect(canEditSomeData({ cycle: mockCycle, country: mockCountry, user: mockUser })).toBe(false)
-      })
-
-      test('should return false when descriptions includes none', () => {
-        ;(Users.getRole as jest.Mock).mockReturnValue({
-          role: RoleName.COLLABORATOR,
-          permissions: {
-            tableData: ['section1'],
-            descriptions: ['none'],
-          },
-        })
-
-        expect(canEditSomeData({ cycle: mockCycle, country: mockCountry, user: mockUser })).toBe(false)
+        expect(canEditSomeData({ cycle: mockCycle, country: mockCountry, user: mockUser })).toBe(true)
       })
 
       test('should return false when both tableData and descriptions include none', () => {
@@ -179,16 +167,16 @@ describe('canEditSomeData', () => {
         expect(canEditSomeData({ cycle: mockCycle, country: mockCountry, user: mockUser })).toBe(true)
       })
 
-      test('should return false when only one permission type has none', () => {
+      test('should return true when user can edit descriptions but not tableData', () => {
         ;(Users.getRole as jest.Mock).mockReturnValue({
           role: RoleName.COLLABORATOR,
           permissions: {
-            tableData: ['section1'],
-            descriptions: ['none'],
+            tableData: ['none'],
+            descriptions: ['section1'],
           },
         })
 
-        expect(canEditSomeData({ cycle: mockCycle, country: mockCountry, user: mockUser })).toBe(false)
+        expect(canEditSomeData({ cycle: mockCycle, country: mockCountry, user: mockUser })).toBe(true)
       })
     })
 

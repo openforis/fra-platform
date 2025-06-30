@@ -11,7 +11,7 @@ export const canCollaboratorEditData = (props: CanEditDataProps): boolean => {
 
   if (Objects.isNil(section)) {
     return (
-      !role.permissions[CollaboratorEditPropertyType.descriptions].includes('none') &&
+      !role.permissions[CollaboratorEditPropertyType.descriptions].includes('none') ||
       !role.permissions[CollaboratorEditPropertyType.tableData].includes('none')
     )
   }
