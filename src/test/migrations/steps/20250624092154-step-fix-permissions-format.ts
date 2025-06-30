@@ -1,4 +1,4 @@
-import { CollaboratorPermissionsNEW } from 'meta/user/userRole'
+import { CollaboratorPermissionsNEW, RoleName } from 'meta/user/userRole'
 
 import { BaseProtocol, DB } from 'server/db'
 import { Logger } from 'server/utils/logger'
@@ -41,13 +41,24 @@ const _fixUsersRole = async () => {
 
 const _fixPermissions = (permission: CollaboratorPermissionsDeprecated): CollaboratorPermissionsNEW => {
   // -- Cases:
+  // -- {} (empty object - default to all permissions)
   // -- {"sections": "all"}
   // -- {"sections": "none"}
   // -- {"sections": {"edaa5b7c7dbb44b29614Fb379c145af2": {"tableData": true, "descriptions": true}}}
+  // -- If: empty object => default to { tableData: ['all'], descriptions: ['all'] }
   // -- If: all or none => { tableData: ['all'] or ['none'], descriptions: ['all'] or ['none'] }
   // -- If typeof sections === 'object' then
   // -- 1. const fixedKey = sectionUuid.replace(/(.{8})(.{4})(.{4})(.{4})(.{12})/g, '$1-$2-$3-$4-$5')
   // -- 2. convert to format: { tableData: [sectionUuid..], descriptions: [sectionUuid2..] }
+  // -- 3. if either array is empty, default to ['all'] to ensure permissions are never empty
+
+  // Case 0: empty permissions object - default to all permissions
+  if (!permission || !permission.sections) {
+    return {
+      tableData: ['all'],
+      descriptions: ['all'],
+    }
+  }
 
   // Case 1: all permissions
   if (permission.sections === 'all') {
@@ -85,8 +96,8 @@ const _fixPermissions = (permission: CollaboratorPermissionsDeprecated): Collabo
     })
 
     return {
-      tableData: tableDataSections,
-      descriptions: descriptionsSections,
+      tableData: tableDataSections.length > 0 ? tableDataSections : ['all'],
+      descriptions: descriptionsSections.length > 0 ? descriptionsSections : ['all'],
     }
   }
 
@@ -95,7 +106,7 @@ const _fixPermissions = (permission: CollaboratorPermissionsDeprecated): Collabo
 }
 
 const _getRoles = (client: BaseProtocol) => {
-  return client.manyOrNone(`select * from users_role ur where permissions ->> 'sections' is not null`)
+  return client.manyOrNone(`select * from users_role ur where role = '${RoleName.COLLABORATOR}'`)
 }
 
 const _fixRoles = async (client: BaseProtocol) => {
