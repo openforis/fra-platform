@@ -1,16 +1,16 @@
 import { Areas, Country, CountryIso, CountryStatus } from 'meta/area'
 import { Cycle } from 'meta/assessment/cycle'
 import { Section } from 'meta/assessment/section'
+import { canEditSectionData } from 'meta/user/authorizer/canEditSectionData'
 
 import { User } from '../user'
 import { CollaboratorEditPropertyType, RoleName } from '../userRole'
 import { Users } from '../users'
-import { canEditData } from './canEditData'
 
 jest.mock('meta/area')
 jest.mock('../users')
 
-describe('canEditData', () => {
+describe('canEditSectionData', () => {
   const mockSection: Section = { uuid: 'section1' } as Section
 
   let mockUser: User
@@ -45,7 +45,7 @@ describe('canEditData', () => {
   describe('Basic validation', () => {
     test('should return false when country is null', () => {
       expect(
-        canEditData({
+        canEditSectionData({
           country: null as any,
           cycle: mockCycle,
           section: mockSection,
@@ -58,7 +58,7 @@ describe('canEditData', () => {
       ;(Areas.isISOCountry as jest.Mock).mockReturnValue(false)
 
       expect(
-        canEditData({
+        canEditSectionData({
           country: mockCountry,
           cycle: mockCycle,
           section: mockSection,
@@ -76,7 +76,7 @@ describe('canEditData', () => {
 
     test('should return true for administrator regardless of status', () => {
       expect(
-        canEditData({
+        canEditSectionData({
           country: mockCountry,
           cycle: mockCycle,
           section: mockSection,
@@ -89,7 +89,7 @@ describe('canEditData', () => {
       ;(Areas.getStatus as jest.Mock).mockReturnValue(CountryStatus.accepted)
 
       expect(
-        canEditData({
+        canEditSectionData({
           country: mockCountry,
           cycle: mockCycle,
           section: mockSection,
@@ -107,7 +107,7 @@ describe('canEditData', () => {
 
     test('should return false for viewer', () => {
       expect(
-        canEditData({
+        canEditSectionData({
           country: mockCountry,
           cycle: mockCycle,
           section: mockSection,
@@ -132,7 +132,7 @@ describe('canEditData', () => {
       ;(Areas.getStatus as jest.Mock).mockReturnValue(status)
 
       expect(
-        canEditData({
+        canEditSectionData({
           country: mockCountry,
           cycle: mockCycle,
           section: mockSection,
@@ -157,7 +157,7 @@ describe('canEditData', () => {
       ;(Areas.getStatus as jest.Mock).mockReturnValue(status)
 
       expect(
-        canEditData({
+        canEditSectionData({
           country: mockCountry,
           cycle: mockCycle,
           section: mockSection,
@@ -176,7 +176,7 @@ describe('canEditData', () => {
       ;(Areas.getStatus as jest.Mock).mockReturnValue(CountryStatus.review)
 
       expect(
-        canEditData({
+        canEditSectionData({
           country: mockCountry,
           cycle: mockCycle,
           section: mockSection,
@@ -189,7 +189,7 @@ describe('canEditData', () => {
       ;(Areas.getStatus as jest.Mock).mockReturnValue(CountryStatus.accepted)
 
       expect(
-        canEditData({
+        canEditSectionData({
           country: mockCountry,
           cycle: mockCycle,
           section: mockSection,
@@ -213,7 +213,7 @@ describe('canEditData', () => {
         })
 
         expect(
-          canEditData({
+          canEditSectionData({
             country: mockCountry,
             cycle: mockCycle,
             section: mockSection,
@@ -232,7 +232,7 @@ describe('canEditData', () => {
         })
 
         expect(
-          canEditData({
+          canEditSectionData({
             country: mockCountry,
             cycle: mockCycle,
             section: mockSection,
@@ -251,7 +251,7 @@ describe('canEditData', () => {
         })
 
         expect(
-          canEditData({
+          canEditSectionData({
             country: mockCountry,
             cycle: mockCycle,
             section: mockSection,
@@ -270,7 +270,7 @@ describe('canEditData', () => {
         })
 
         expect(
-          canEditData({
+          canEditSectionData({
             country: mockCountry,
             cycle: mockCycle,
             section: mockSection,
@@ -289,7 +289,7 @@ describe('canEditData', () => {
         })
 
         expect(
-          canEditData({
+          canEditSectionData({
             country: mockCountry,
             cycle: mockCycle,
             section: mockSection,
@@ -309,7 +309,7 @@ describe('canEditData', () => {
         })
 
         expect(
-          canEditData({
+          canEditSectionData({
             country: mockCountry,
             cycle: mockCycle,
             section: mockSection,
@@ -330,7 +330,7 @@ describe('canEditData', () => {
           })
 
           expect(
-            canEditData({
+            canEditSectionData({
               country: mockCountry,
               cycle: mockCycle,
               section: mockSection,
@@ -350,7 +350,7 @@ describe('canEditData', () => {
           })
 
           expect(
-            canEditData({
+            canEditSectionData({
               country: mockCountry,
               cycle: mockCycle,
               section: mockSection,
@@ -378,7 +378,7 @@ describe('canEditData', () => {
       ;(Areas.getStatus as jest.Mock).mockReturnValue(status)
 
       expect(
-        canEditData({
+        canEditSectionData({
           country: mockCountry,
           cycle: mockCycle,
           section: mockSection,

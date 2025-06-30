@@ -1,15 +1,15 @@
 import { Areas, Country, CountryIso, CountryStatus } from 'meta/area'
 import { Cycle } from 'meta/assessment/cycle'
+import { canEditSomeData } from 'meta/user/authorizer/canEditSomeData'
 
 import { User } from '../user'
 import { RoleName } from '../userRole'
 import { Users } from '../users'
-import { canEditCycleData } from './canEditCycleData'
 
 jest.mock('meta/area')
 jest.mock('../users')
 
-describe('canEditCycleData', () => {
+describe('canEditSomeData', () => {
   let mockUser: User
   let mockCountry: Country
   let mockCycle: Cycle
@@ -24,6 +24,7 @@ describe('canEditCycleData', () => {
     } as Country
     mockCycle = { uuid: '2020' } as Cycle
     ;(Areas.getStatus as jest.Mock).mockReturnValue(CountryStatus.editing)
+    ;(Areas.isISOCountry as jest.Mock).mockReturnValue(true)
     ;(Users.isViewer as jest.Mock).mockReturnValue(false)
     ;(Users.isAdministrator as jest.Mock).mockReturnValue(false)
     ;(Users.isNationalCorrespondent as jest.Mock).mockReturnValue(false)
@@ -34,17 +35,17 @@ describe('canEditCycleData', () => {
   })
 
   test('should return false when user is null', () => {
-    expect(canEditCycleData({ cycle: mockCycle, country: mockCountry, user: null })).toBe(false)
+    expect(canEditSomeData({ cycle: mockCycle, country: mockCountry, user: null })).toBe(false)
   })
 
   test('should return false for viewer', () => {
     ;(Users.isViewer as jest.Mock).mockReturnValue(true)
-    expect(canEditCycleData({ cycle: mockCycle, country: mockCountry, user: mockUser })).toBe(false)
+    expect(canEditSomeData({ cycle: mockCycle, country: mockCountry, user: mockUser })).toBe(false)
   })
 
   test('should return true for administrator', () => {
     ;(Users.isAdministrator as jest.Mock).mockReturnValue(true)
-    expect(canEditCycleData({ cycle: mockCycle, country: mockCountry, user: mockUser })).toBe(true)
+    expect(canEditSomeData({ cycle: mockCycle, country: mockCountry, user: mockUser })).toBe(true)
   })
 
   describe('National Correspondent', () => {
@@ -59,7 +60,7 @@ describe('canEditCycleData', () => {
       [false, CountryStatus.accepted],
     ])('should return %s when country status is %s', (expected, status) => {
       ;(Areas.getStatus as jest.Mock).mockReturnValue(status)
-      expect(canEditCycleData({ cycle: mockCycle, country: mockCountry, user: mockUser })).toBe(expected)
+      expect(canEditSomeData({ cycle: mockCycle, country: mockCountry, user: mockUser })).toBe(expected)
     })
   })
 
@@ -75,7 +76,7 @@ describe('canEditCycleData', () => {
       [false, CountryStatus.accepted],
     ])('should return %s when country status is %s', (expected, status) => {
       ;(Areas.getStatus as jest.Mock).mockReturnValue(status)
-      expect(canEditCycleData({ cycle: mockCycle, country: mockCountry, user: mockUser })).toBe(expected)
+      expect(canEditSomeData({ cycle: mockCycle, country: mockCountry, user: mockUser })).toBe(expected)
     })
   })
 
@@ -93,12 +94,12 @@ describe('canEditCycleData', () => {
 
     test('should return false when country status is review', () => {
       ;(Areas.getStatus as jest.Mock).mockReturnValue(CountryStatus.review)
-      expect(canEditCycleData({ cycle: mockCycle, country: mockCountry, user: mockUser })).toBe(false)
+      expect(canEditSomeData({ cycle: mockCycle, country: mockCountry, user: mockUser })).toBe(false)
     })
 
     test('should return false when country status is accepted', () => {
       ;(Areas.getStatus as jest.Mock).mockReturnValue(CountryStatus.accepted)
-      expect(canEditCycleData({ cycle: mockCycle, country: mockCountry, user: mockUser })).toBe(false)
+      expect(canEditSomeData({ cycle: mockCycle, country: mockCountry, user: mockUser })).toBe(false)
     })
 
     describe('with editing status', () => {
@@ -115,7 +116,7 @@ describe('canEditCycleData', () => {
           },
         })
 
-        expect(canEditCycleData({ cycle: mockCycle, country: mockCountry, user: mockUser })).toBe(true)
+        expect(canEditSomeData({ cycle: mockCycle, country: mockCountry, user: mockUser })).toBe(true)
       })
 
       test('should return false when tableData includes none', () => {
@@ -127,7 +128,7 @@ describe('canEditCycleData', () => {
           },
         })
 
-        expect(canEditCycleData({ cycle: mockCycle, country: mockCountry, user: mockUser })).toBe(false)
+        expect(canEditSomeData({ cycle: mockCycle, country: mockCountry, user: mockUser })).toBe(false)
       })
 
       test('should return false when descriptions includes none', () => {
@@ -139,7 +140,7 @@ describe('canEditCycleData', () => {
           },
         })
 
-        expect(canEditCycleData({ cycle: mockCycle, country: mockCountry, user: mockUser })).toBe(false)
+        expect(canEditSomeData({ cycle: mockCycle, country: mockCountry, user: mockUser })).toBe(false)
       })
 
       test('should return false when both tableData and descriptions include none', () => {
@@ -151,7 +152,7 @@ describe('canEditCycleData', () => {
           },
         })
 
-        expect(canEditCycleData({ cycle: mockCycle, country: mockCountry, user: mockUser })).toBe(false)
+        expect(canEditSomeData({ cycle: mockCycle, country: mockCountry, user: mockUser })).toBe(false)
       })
 
       test('should return true when permissions are undefined', () => {
@@ -160,7 +161,7 @@ describe('canEditCycleData', () => {
           permissions: undefined,
         })
 
-        expect(canEditCycleData({ cycle: mockCycle, country: mockCountry, user: mockUser })).toBe(true)
+        expect(canEditSomeData({ cycle: mockCycle, country: mockCountry, user: mockUser })).toBe(true)
       })
 
       test('should return true when tableData is undefined', () => {
@@ -171,7 +172,7 @@ describe('canEditCycleData', () => {
           },
         })
 
-        expect(canEditCycleData({ cycle: mockCycle, country: mockCountry, user: mockUser })).toBe(true)
+        expect(canEditSomeData({ cycle: mockCycle, country: mockCountry, user: mockUser })).toBe(true)
       })
 
       test('should return true when descriptions is undefined', () => {
@@ -182,7 +183,7 @@ describe('canEditCycleData', () => {
           },
         })
 
-        expect(canEditCycleData({ cycle: mockCycle, country: mockCountry, user: mockUser })).toBe(true)
+        expect(canEditSomeData({ cycle: mockCycle, country: mockCountry, user: mockUser })).toBe(true)
       })
     })
 
@@ -200,7 +201,7 @@ describe('canEditCycleData', () => {
           },
         })
 
-        expect(canEditCycleData({ cycle: mockCycle, country: mockCountry, user: mockUser })).toBe(true)
+        expect(canEditSomeData({ cycle: mockCycle, country: mockCountry, user: mockUser })).toBe(true)
       })
     })
   })
@@ -217,11 +218,11 @@ describe('canEditCycleData', () => {
       [false, CountryStatus.accepted],
     ])('should return %s when country status is %s', (expected, status) => {
       ;(Areas.getStatus as jest.Mock).mockReturnValue(status)
-      expect(canEditCycleData({ cycle: mockCycle, country: mockCountry, user: mockUser })).toBe(expected)
+      expect(canEditSomeData({ cycle: mockCycle, country: mockCountry, user: mockUser })).toBe(expected)
     })
   })
 
   test('should return false for unknown role', () => {
-    expect(canEditCycleData({ cycle: mockCycle, country: mockCountry, user: mockUser })).toBe(false)
+    expect(canEditSomeData({ cycle: mockCycle, country: mockCountry, user: mockUser })).toBe(false)
   })
 })

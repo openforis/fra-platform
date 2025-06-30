@@ -4,11 +4,11 @@ import { Cycle } from 'meta/assessment/cycle'
 import { Cycles } from 'meta/assessment/cycles'
 import { Section, SubSection } from 'meta/assessment/section'
 import { RepositoryItem } from 'meta/cycleData'
-import { canEditCycleData } from 'meta/user/authorizer/canEditCycleData'
-import { canEditData } from 'meta/user/authorizer/canEditData'
 import { User } from 'meta/user/user'
 import { Users } from 'meta/user/users'
 
+import { canEditSectionData } from './canEditSectionData'
+import { canEditSomeData } from './canEditSomeData'
 import { canEditUser, canEditUserRole } from './canEditUser'
 import { canViewReview } from './canViewReview'
 
@@ -145,7 +145,7 @@ const canViewHistory = (props: {
 
   if (Users.isAdministrator(user)) return true
 
-  return Users.isReviewer(user, country.countryIso, cycle) && canEditCycleData(props)
+  return Users.isReviewer(user, country.countryIso, cycle) && canEditSomeData(props)
 }
 
 /**
@@ -168,9 +168,9 @@ export const canViewGeo = (props: { cycle: Cycle; countryIso: AreaCode; user: Us
 
 export const Authorizer = {
   canEditCountryProps,
-  canEditCycleData,
-  canEditData,
   canEditRepositoryItem,
+  canEditSectionData,
+  canEditSomeData,
   canView,
   canViewGeo,
   canViewHistory,
