@@ -77,7 +77,7 @@ const _fixPermissions = (permission: CollaboratorPermissionsDeprecated): Collabo
   }
 
   // Case 3: object with section UUIDs
-  if (typeof permission.sections === 'object' && permission.sections !== null) {
+  if (typeof permission.sections === 'object') {
     const tableDataSections: Array<string> = []
     const descriptionsSections: Array<string> = []
 
