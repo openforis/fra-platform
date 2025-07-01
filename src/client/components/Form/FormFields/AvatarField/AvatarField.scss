@@ -1,0 +1,16 @@
+@import 'src/client/style/partials';
+
+.form-field-avatar {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-s;
+
+  .form-field-avatar-img {
+    border: 2px solid $ui-border;
+    border-radius: 50%;
+    height: 80px;
+    object-fit: cover;
+    width: 80px;
+  }
+}

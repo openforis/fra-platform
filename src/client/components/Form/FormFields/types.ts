@@ -17,6 +17,7 @@ export type FieldProps<FIELD_VALUES extends Record<string, unknown> = Record<str
   error?: FieldError | Merge<FieldError, FieldErrorsImpl<FIELD_VALUES>>
   fieldDefinition: FieldDefinition
   fieldValidationSchema?: ZodTypeAny
+  fullWidth?: boolean
   noBorder?: boolean
   register?: UseFormRegister<FIELD_VALUES>
   setValue: UseFormSetValue<FIELD_VALUES>
