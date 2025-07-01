@@ -5,12 +5,13 @@ import { AxisValues } from 'client/pages/Explorer/ResultGrid/types'
 
 type Props = {
   axisValues: AxisValues
+  extraCols: number
 }
 
 type Returned = string
 
 export const useGridTemplateColumns = (props: Props): Returned => {
-  const { axisValues } = props
+  const { axisValues, extraCols } = props
   const { x: xAxisSelection, y: yAxisSelection } = useExplorerAxisSelection()
 
   return useMemo<Returned>(() => {
@@ -25,7 +26,7 @@ export const useGridTemplateColumns = (props: Props): Returned => {
     } else if (xAxisSelection.length === 1) {
       xAxisColCount = axisValues[selectedXAxisA]?.length ?? 0
     }
-    const bodyCols = `repeat(${xAxisColCount}, 1fr)`
+    const bodyCols = `repeat(${xAxisColCount + extraCols}, 1fr)`
     return `${headerCols} ${bodyCols}`
-  }, [axisValues, xAxisSelection, yAxisSelection])
+  }, [axisValues, extraCols, xAxisSelection, yAxisSelection])
 }
