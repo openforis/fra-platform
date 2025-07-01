@@ -8,7 +8,7 @@ import { useResizeStyle } from './hooks/useResizeStyle'
 import { InputTextProps } from './types'
 
 const InputText = forwardRef<HTMLInputElement, InputTextProps>((props, outerRef) => {
-  const { className, disabled, id, onBlur, onChange, onFocus, onPaste, placeholder, resize, value } = props
+  const { className, disabled, id, onBlur, onChange, onFocus, onPaste, placeholder, resize, value, ...rest } = props
 
   const inputRef = useRef<HTMLInputElement>(null)
   useImperativeHandle(outerRef, () => inputRef.current!, [])
@@ -22,6 +22,7 @@ const InputText = forwardRef<HTMLInputElement, InputTextProps>((props, outerRef)
 
   return (
     <input
+      {...rest}
       ref={inputRef}
       className={classNames('input-text', className)}
       id={id}

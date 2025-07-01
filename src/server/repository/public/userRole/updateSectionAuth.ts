@@ -12,15 +12,14 @@ export const updateSectionAuth = async (
 ): Promise<UserRole<RoleName>> => {
   const { id, sections } = props
 
-  return client
-    .one<UserRole<RoleName>>(
-      `
+  return client.one<UserRole<RoleName>>(
+    `
         update users_role
         set permissions = permissions || jsonb_build_object('sections', $1::jsonb)
         where id = $2
         returning *;
     `,
-      [JSON.stringify(sections), id]
-    )
-    .then((data) => UserRoleAdapter(data))
+    [JSON.stringify(sections), id],
+    UserRoleAdapter
+  )
 }

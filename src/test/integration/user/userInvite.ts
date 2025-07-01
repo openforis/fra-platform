@@ -36,10 +36,14 @@ export default (): void =>
         assessment,
         countryIso: 'X01',
         cycle,
-        email: userMockUnknown.email,
-        roleName: RoleName.COLLABORATOR,
         user,
-        lang: Lang.en,
+        userInvitation: {
+          email: userMockUnknown.email,
+          language: Lang.en,
+          name: userMockUnknown.props.name,
+          role: RoleName.COLLABORATOR,
+          surname: userMockUnknown.props.surname,
+        },
       })
 
       // verify user invitation exists and fields are correct
@@ -73,10 +77,14 @@ export default (): void =>
         assessment,
         countryIso: 'X02',
         cycle,
-        email: userMockUnknown.email,
-        roleName: RoleName.NATIONAL_CORRESPONDENT,
         user,
-        lang: Lang.en,
+        userInvitation: {
+          name: userMockUnknown.props.name,
+          surname: userMockUnknown.props.name,
+          email: userMockUnknown.email,
+          language: Lang.en,
+          role: RoleName.NATIONAL_CORRESPONDENT,
+        },
       })
 
       // Save userInvitation in testContext for next test
@@ -106,10 +114,14 @@ export default (): void =>
           assessment,
           countryIso: 'X02',
           cycle,
-          email: userMockUnknown.email,
-          roleName: RoleName.REVIEWER,
           user,
-          lang: Lang.en,
+          userInvitation: {
+            name: userMockUnknown.props.name,
+            surname: userMockUnknown.props.name,
+            email: userMockUnknown.email,
+            language: Lang.en,
+            role: RoleName.REVIEWER,
+          },
         })
       ).rejects.toThrowError('duplicate key')
     })

@@ -6,7 +6,7 @@ import { isNil } from 'utils/objects/isNil'
  * @param {any} value - Value to
  * @returns {boolean} True if the specified value is empty, false otherwise.
  */
-export const isEmpty = (value: any): boolean =>
+export const isEmpty = <T>(value: T): boolean =>
   isNil(value) ||
   Number.isNaN(value) ||
   (typeof value === 'object' && Object.keys(value).length === 0) ||

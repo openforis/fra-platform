@@ -1,0 +1,8 @@
+{
+  "errors": {
+    "invalid": "{{field}} is invalid.",
+    "mustBeAtLeastNCharacters": "{{field}} must be at least {{n}} characters.",
+    "required": "{{field}} is required.",
+    "atLeastOneItemRequired": "{{field}} must have at least one item selected."
+  }
+}

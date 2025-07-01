@@ -27,7 +27,7 @@ export const useNationalClassValidations = (props: Props) => {
 
   const { t } = useTranslation()
 
-  const canEditData = Authorizer.canEditData({ country, cycle, section, user })
+  const canEditData = Authorizer.canEditSectionData({ country, cycle, section, user })
 
   // don't show errors if user is not logged in or if it is print view
   if (print || !canEditData) {

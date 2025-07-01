@@ -36,11 +36,9 @@ export const acceptInvitation = async (props: Props, client: BaseProtocol = DB):
     const userInvitation = await UserInvitationRepository.accept({ userInvitation: userInvitationProp }, t)
     const assessmentUuid = assessment.uuid
     const cycleUuid = cycle.uuid
-    const { countryIso } = userInvitation
     const userUuid = user.uuid
-    const { role } = userInvitation
-    const invitationUuid = userInvitation.uuid
-    const userRoleCreateProps = { assessmentUuid, cycleUuid, countryIso, userUuid, role, invitationUuid }
+    const { countryIso, permissions, role, uuid: invitationUuid } = userInvitation
+    const userRoleCreateProps = { assessmentUuid, cycleUuid, countryIso, userUuid, role, invitationUuid, permissions }
 
     const userRole = await UserRoleRepository.create(userRoleCreateProps, t)
 

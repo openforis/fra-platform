@@ -52,7 +52,11 @@ export type UserRoleExtendedProps = UserRoleBaseProps & {
   contactPreference?: UserContactPreference
 }
 
-export interface UserRole<Name extends RoleName, Props extends UserRoleBaseProps = undefined, Permissions = undefined> {
+export interface UserRole<
+  Name extends RoleName = RoleName,
+  Props extends UserRoleBaseProps = undefined,
+  Permissions = undefined
+> {
   assessmentUuid?: string
   countryIso?: CountryIso
   createdAt: string
@@ -79,6 +83,9 @@ export enum CollaboratorEditPropertyType {
   descriptions = 'descriptions',
 }
 
+/**
+ * @deprecated - will be removed
+ */
 export type CollaboratorSectionsPermission =
   /**
    * all = all sections enabled for editing
@@ -87,8 +94,16 @@ export type CollaboratorSectionsPermission =
    */
   'all' | 'none' | Record<string, { [key in keyof typeof CollaboratorEditPropertyType]?: boolean }>
 
+/**
+ * @deprecated - will be removed
+ */
 export type CollaboratorPermissions = {
   sections: CollaboratorSectionsPermission
 }
 
-export type Collaborator = UserRole<RoleName.COLLABORATOR, UserRoleBaseProps, CollaboratorPermissions>
+export type CollaboratorPermissionsNEW = {
+  [CollaboratorEditPropertyType.tableData]: Array<string>
+  [CollaboratorEditPropertyType.descriptions]: Array<string>
+}
+
+export type Collaborator = UserRole<RoleName.COLLABORATOR, UserRoleBaseProps, CollaboratorPermissionsNEW>
