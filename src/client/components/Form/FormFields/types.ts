@@ -12,13 +12,13 @@ import { ZodTypeAny } from 'zod'
 
 import { FieldDefinition } from 'client/components/Form/types'
 
-export type FieldProps<T extends Record<string, unknown> = Record<string, unknown>> = {
-  control: Control<T>
-  error?: FieldError | Merge<FieldError, FieldErrorsImpl>
+export type FieldProps<FIELD_VALUES extends Record<string, unknown> = Record<string, unknown>> = {
+  control: Control<FIELD_VALUES>
+  error?: FieldError | Merge<FieldError, FieldErrorsImpl<FIELD_VALUES>>
   fieldDefinition: FieldDefinition
   fieldValidationSchema?: ZodTypeAny
   noBorder?: boolean
-  register?: UseFormRegister<T>
-  setValue: UseFormSetValue<T>
-  watch: UseFormWatch<T>
+  register?: UseFormRegister<FIELD_VALUES>
+  setValue: UseFormSetValue<FIELD_VALUES>
+  watch: UseFormWatch<FIELD_VALUES>
 }
