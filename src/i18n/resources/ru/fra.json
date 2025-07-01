@@ -43,7 +43,8 @@
     "percentOfForestArea": "% площади лесов"
   },
   "contactPersons": {
-    "expectedYearForNextCountryReportUpdate": "Ожидаемый год для следующего обновления отчета страны "
+    "expectedYearForNextCountryReportUpdate": "Ожидаемый год для следующего обновления отчета страны ",
+    "reportLastUpdate": "Данный отчет был обновлен в:"
   },
   "degradedForest": {
     "biome": "Биом",
