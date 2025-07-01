@@ -8,35 +8,19 @@ import Button, { ButtonSize } from 'client/components/Buttons/Button'
 import FormField from 'client/components/Form/FormFields/FormField'
 
 import { FieldProps } from '../types'
+import { useOnChange } from './hooks/useOnChange'
 
 const AvatarField = (props: FieldProps) => {
   const { t } = useTranslation()
   const { fieldDefinition, register, setValue, watch } = props
   const { name } = fieldDefinition
 
-  const profilePicture = useRef(null)
-  const profilePictureFile = useRef<HTMLInputElement>(null)
+  const profilePictureRef = useRef<HTMLImageElement>(null)
+  const profilePictureInputRef = useRef<HTMLInputElement>(null)
 
   const userId = watch('userId') as number
-
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const currentFile = e.target.files?.[0]
-    const pictureRef = profilePicture?.current
-
-    setValue(name, currentFile)
-
-    if (currentFile && pictureRef) {
-      const reader = new FileReader()
-      reader.onload = (event) => {
-        pictureRef.src = event.target?.result as string
-      }
-      reader.readAsDataURL(currentFile)
-    }
-  }
-
-  const onClick = () => {
-    profilePictureFile?.current?.click()
-  }
+  const onChange = useOnChange({ name, setValue, profilePictureRef })
+  const onClick = () => profilePictureInputRef?.current?.click()
 
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
@@ -49,10 +33,10 @@ const AvatarField = (props: FieldProps) => {
           // eslint-disable-next-line react/jsx-props-no-spreading
           {...register(name, { onChange })}
           ref={(e) => {
-            profilePictureFile.current = e
+            profilePictureInputRef.current = e
           }}
         />
-        <img ref={profilePicture} alt="" className="form-field-avatar-img" src={Users.profilePictureUri(userId)} />
+        <img ref={profilePictureRef} alt="" className="form-field-avatar-img" src={Users.profilePictureUri(userId)} />
         <Button label={t('editUser.chooseProfilePicture')} onClick={onClick} size={ButtonSize.xs} />
       </div>
     </FormField>
