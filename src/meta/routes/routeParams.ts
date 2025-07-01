@@ -19,7 +19,7 @@ export type CountryHomeRouteParams = CountryRouteParams & {
   sectionName?: string
 }
 
-export type CountryUserRouteParams = CountryRouteParams & {
+export type CountryUserRouteParams<T = AreaCode> = CountryRouteParams<T> & {
   id: number
 }
 
