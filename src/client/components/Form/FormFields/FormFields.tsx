@@ -1,5 +1,6 @@
 import React from 'react'
 
+import AvatarField from 'client/components/Form/FormFields/AvatarField'
 import HiddenField from 'client/components/Form/FormFields/HiddenField'
 import LanguageField from 'client/components/Form/FormFields/LanguageField'
 import PermissionsField from 'client/components/Form/FormFields/PermissionsField'
@@ -10,6 +11,7 @@ import UserRoleField from 'client/components/Form/FormFields/UserRoleField'
 import { FormFieldType } from 'client/components/Form/types'
 
 export const FormFields: Record<FormFieldType, React.FC<FieldProps>> = {
+  [FormFieldType.avatar]: AvatarField,
   [FormFieldType.hidden]: HiddenField,
   [FormFieldType.language]: LanguageField,
   [FormFieldType.permissions]: PermissionsField,
