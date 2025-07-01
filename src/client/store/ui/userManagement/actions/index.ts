@@ -1,3 +1,4 @@
+export { editUser } from './editUser'
 export { getUsers } from './getUsers'
 export { getUserToEdit } from './getUserToEdit'
 export { inviteUser } from './inviteUser'

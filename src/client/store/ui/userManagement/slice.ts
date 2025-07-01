@@ -3,6 +3,7 @@ import { createSlice, Reducer } from '@reduxjs/toolkit'
 import { RoleName, UserRole } from 'meta/user'
 
 import {
+  editUser,
   getUsers,
   getUserToEdit,
   inviteUser,
@@ -72,8 +73,9 @@ export const userManagementSlice = createSlice({
 
 export const UserManagementActions = {
   ...userManagementSlice.actions,
-  getUsers,
+  editUser,
   getUserToEdit,
+  getUsers,
   inviteUser,
   removeInvitation,
   sendInvitationEmail,
