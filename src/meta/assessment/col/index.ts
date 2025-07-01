@@ -51,6 +51,7 @@ export type ColLinkedNode = {
 
 export interface ColProps {
   calculateFn?: Record<CycleUuid, string>
+  calculateClientSide?: Record<CycleUuid, boolean>
   classNames?: Record<CycleUuid, Array<string>>
   colName?: ColName
   colType: ColType

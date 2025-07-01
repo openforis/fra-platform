@@ -5,6 +5,7 @@ import { AssessmentMetaCaches } from 'meta/assessment/metaCaches'
 import { RecordAssessmentDatas } from 'meta/data'
 import { BaseContext } from 'meta/expressionEvaluator/util/_types'
 import { parseMemberVariable } from 'meta/expressionEvaluator/util/parseMemberVariable'
+import { Member } from 'meta/expressions'
 
 import { Context } from '../context'
 
@@ -23,6 +24,12 @@ export class MemberEvaluator extends ArenaMemberEvaluator<Context> {
       assessments,
       assessmentName: assessmentContext.props.name,
       cycleName: cycleContext.name,
+    }
+
+    // @ts-ignore
+    if (expressionNode.object.name === Member.$country) {
+      // @ts-ignore
+      return this.context.country[expressionNode.property.name]
     }
 
     const memberVariable = parseMemberVariable(expressionNode, baseContext)
