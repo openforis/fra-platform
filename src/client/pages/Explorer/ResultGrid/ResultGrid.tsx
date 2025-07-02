@@ -4,7 +4,7 @@ import React from 'react'
 import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area'
-import { AxisType } from 'meta/explorer/selection'
+import { Axis, AxisType } from 'meta/explorer/selection'
 
 import { useExplorerSectionData, useGetExplorerSectionData } from 'client/store/explorer/data/hooks/data'
 import { useExplorerSectionMetadata } from 'client/store/explorer/metadata/hooks/metadata'
@@ -12,9 +12,11 @@ import { useExplorerAxisSelection } from 'client/store/explorer/selection/hooks/
 import { useExplorerDimensions } from 'client/store/explorer/selection/hooks/dimensions'
 import { useExplorerMeasures } from 'client/store/explorer/selection/hooks/measures'
 import { DataCell, DataGrid } from 'client/components/DataGrid'
+import MeasureTitle from 'client/pages/Explorer/ResultGrid/MeasureTitle/MeasureTitle'
 import Observation from 'client/pages/Explorer/ResultGrid/Observation/Observation'
 
 import { useAxisValues } from './hooks/useAxisValues'
+import { useCellsExportAlways } from './hooks/useCellsExportAlways'
 import { useCombinations } from './hooks/useCombinations'
 import { useCountryEntries } from './hooks/useCountryEntries'
 import { useGridTemplateColumns } from './hooks/useGridTemplateColumns'
@@ -31,14 +33,10 @@ export const ResultGrid: React.FC = () => {
   const date = new Date()
 
   const { tableName } = useExplorerSectionMetadata() ?? {}
-  // TODO: cellsExportAlways const { cellsExportAlways = [], tableName } = useExplorerSectionMetadata() ?? {}
-
+  const { cellsExportAlways, cellsExportAlwaysAxis, extraCols } = useCellsExportAlways()
   const countryEntries = useCountryEntries()
   const measures = useExplorerMeasures()
   const dimensions = useExplorerDimensions()
-
-  // const measuresExportAlways = Measures.getExportAlways(cellsExportAlways)
-  // const dimensionsExportAlways = Dimensions.getExportAlways(cellsExportAlways)
 
   useGetExplorerSectionData()
   const data = useExplorerSectionData()
@@ -47,7 +45,7 @@ export const ResultGrid: React.FC = () => {
 
   const axisValues = useAxisValues()
   const { uniquePrimaryX, xCombinations, yCombinations } = useCombinations({ axisValues })
-  const gridTemplateColumns = useGridTemplateColumns({ axisValues })
+  const gridTemplateColumns = useGridTemplateColumns({ axisValues, extraCols })
 
   const renderLabel = useRenderLabel()
 
@@ -64,6 +62,22 @@ export const ResultGrid: React.FC = () => {
   return (
     <DataGrid className="explorer-result-grid" gridTemplateColumns={gridTemplateColumns}>
       <DataCell gridColumn={`span ${yAxisVariableCount}`} gridRow={`span ${xAxisVariableCount}`} header />
+
+      {/* Cells export always on the X axis - Headers */}
+      {!Objects.isEmpty(cellsExportAlways) &&
+        cellsExportAlwaysAxis === Axis.x &&
+        cellsExportAlways.map(({ dimensionName, measureName }) => {
+          return (
+            <DataCell
+              key={`${measureName}-${dimensionName}-x-cell-export-always-header`}
+              className="header-top"
+              gridRow="span 2"
+              header
+            >
+              <MeasureTitle measureName={measureName} />
+            </DataCell>
+          )
+        })}
       {/*  Render only the primary X axis variable headers if multiple selected */}
       {xAxisVariableCount === 2 &&
         uniquePrimaryX.map((value, idx) => (
@@ -93,10 +107,38 @@ export const ResultGrid: React.FC = () => {
         </DataCell>
       ))}
 
+      {/* Cells export always on the Y axis */}
+      {!Objects.isEmpty(cellsExportAlways) &&
+        cellsExportAlwaysAxis === Axis.y &&
+        cellsExportAlways.map(({ dimensionName, measureName }) => {
+          const countries = axisValues[AxisType.countries]
+          return (
+            <React.Fragment key={`${measureName}-${dimensionName}-cell-export-always`}>
+              <DataCell gridColumn="span 2" header>
+                <MeasureTitle measureName={measureName} />
+              </DataCell>
+
+              {countries.map(({ countryIso }, colIdx) => {
+                return (
+                  <Observation
+                    key={`${countryIso}-${measureName}-${dimensionName}`}
+                    countryIso={countryIso}
+                    data={data}
+                    dimensionName={dimensionName}
+                    lastCol={colIdx === countries.length - 1}
+                    measureName={measureName}
+                    tableName={tableName}
+                  />
+                )
+              })}
+            </React.Fragment>
+          )
+        })}
+
       {yCombinations.map((rowCombination, rowIdx) => {
         const numSecondaryYRows = yAxisVariableCount === 2 ? axisValues[yAxisSelection[1]].length : 1
         const isPrimaryVariableStart = yAxisVariableCount === 2 && rowIdx % numSecondaryYRows === 0
-        const isLastRow = rowIdx === yCombinations.length - 1
+        const lastRow = rowIdx === yCombinations.length - 1
         const isPrimaryHeaderLastRow = isPrimaryVariableStart && yCombinations.length - numSecondaryYRows === rowIdx
         const primaryVariable = rowCombination[0]
         const secondaryVariable = rowCombination[1]
@@ -125,13 +167,32 @@ export const ResultGrid: React.FC = () => {
             <DataCell
               key={`${rowCombination.map(_getCombinationStringValue).join('-')}-y-header`}
               header
-              lastRow={isLastRow}
+              lastRow={lastRow}
             >
               {renderLabel({
                 axisType: yAxisSelection[yAxisVariableCount - 1],
                 value: yAxisVariableCount === 2 ? secondaryVariable : primaryVariable,
               })}
             </DataCell>
+
+            {/* Cells export always on the X axis - Observations */}
+            {!Objects.isEmpty(cellsExportAlways) &&
+              cellsExportAlwaysAxis === Axis.x &&
+              cellsExportAlways.map(({ dimensionName, measureName }) => {
+                const countryIso = _getCombinationStringValue<CountryIso>(rowMap[AxisType.countries])
+
+                return (
+                  <Observation
+                    key={`${countryIso}-${measureName}-${dimensionName}`}
+                    countryIso={countryIso}
+                    data={data}
+                    dimensionName={dimensionName}
+                    lastRow={lastRow}
+                    measureName={measureName}
+                    tableName={tableName}
+                  />
+                )
+              })}
 
             {xCombinations.map((colCombination, colIdx) => {
               const colMap = Object.fromEntries(xAxisSelection.map((axis, i) => [axis, colCombination[i]])) as Record<
@@ -153,7 +214,7 @@ export const ResultGrid: React.FC = () => {
                   data={data}
                   dimensionName={dimensionName}
                   lastCol={colIdx === xCombinations.length - 1}
-                  lastRow={isLastRow}
+                  lastRow={lastRow}
                   measureName={measureName}
                   tableName={tableName}
                 />
