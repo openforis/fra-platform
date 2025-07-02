@@ -4,6 +4,10 @@
   margin-top: $spacing-m;
   width: 100%;
 
+  .country-header {
+    min-width: 200px;
+  }
+
   .data-cell {
     align-items: center;
     display: flex;

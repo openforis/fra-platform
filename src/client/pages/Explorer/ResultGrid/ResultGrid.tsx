@@ -1,6 +1,7 @@
 import './ResultGrid.scss'
 import React from 'react'
 
+import classNames from 'classnames'
 import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area'
@@ -80,32 +81,38 @@ export const ResultGrid: React.FC = () => {
         })}
       {/*  Render only the primary X axis variable headers if multiple selected */}
       {xAxisVariableCount === 2 &&
-        uniquePrimaryX.map((value, idx) => (
-          <DataCell
-            key={`${xAxisSelection[0]}-${_getCombinationStringValue(value)}-primary-x-variable-header`}
-            className="header-top"
-            gridColumn={`span ${axisValues[xAxisSelection[1]].length}`}
-            header
-            lastCol={idx === uniquePrimaryX.length - 1}
-          >
-            {renderLabel({ axisType: xAxisSelection[0], value })}
-          </DataCell>
-        ))}
+        uniquePrimaryX.map((value, idx) => {
+          const axisType = xAxisSelection[0]
+          return (
+            <DataCell
+              key={`${axisType}-${_getCombinationStringValue(value)}-primary-x-variable-header`}
+              className={classNames('header-top', { 'country-header': axisType === AxisType.countries })}
+              gridColumn={`span ${axisValues[xAxisSelection[1]].length}`}
+              header
+              lastCol={idx === uniquePrimaryX.length - 1}
+            >
+              {renderLabel({ axisType, value })}
+            </DataCell>
+          )
+        })}
 
-      {xCombinations.map((combination, idx) => (
-        <DataCell
-          key={`${combination.map(_getCombinationStringValue).join('-')}-x-header`}
-          className="header-top"
-          header
-          lastCol={idx === xCombinations.length - 1}
-        >
-          {renderLabel({
-            // If there are two X variables selected, render only the secondary variable header
-            axisType: xAxisVariableCount === 2 ? xAxisSelection[1] : xAxisSelection[0],
-            value: combination[xAxisVariableCount - 1],
-          })}
-        </DataCell>
-      ))}
+      {xCombinations.map((combination, idx) => {
+        const axisType = xAxisVariableCount === 2 ? xAxisSelection[1] : xAxisSelection[0]
+        return (
+          <DataCell
+            key={`${combination.map(_getCombinationStringValue).join('-')}-x-header`}
+            className={classNames('header-top', { 'country-header': axisType === AxisType.countries })}
+            header
+            lastCol={idx === xCombinations.length - 1}
+          >
+            {renderLabel({
+              // If there are two X variables selected, render only the secondary variable header
+              axisType,
+              value: combination[xAxisVariableCount - 1],
+            })}
+          </DataCell>
+        )
+      })}
 
       {/* Cells export always on the Y axis */}
       {!Objects.isEmpty(cellsExportAlways) &&
@@ -153,6 +160,7 @@ export const ResultGrid: React.FC = () => {
             {isPrimaryVariableStart && (
               <DataCell
                 key={`${yAxisSelection[0]}-${_getCombinationStringValue(primaryVariable)}-header`}
+                className={classNames({ 'country-header': yAxisSelection[0] === AxisType.countries })}
                 gridRow={`span ${numSecondaryYRows}`}
                 header
                 lastRow={isPrimaryHeaderLastRow}
@@ -166,6 +174,9 @@ export const ResultGrid: React.FC = () => {
 
             <DataCell
               key={`${rowCombination.map(_getCombinationStringValue).join('-')}-y-header`}
+              className={classNames({
+                'country-header': yAxisSelection[yAxisVariableCount - 1] === AxisType.countries,
+              })}
               header
               lastRow={lastRow}
             >
