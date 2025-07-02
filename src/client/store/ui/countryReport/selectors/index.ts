@@ -5,10 +5,11 @@ import { SectionName } from 'meta/assessment/section'
 
 import { RootState } from 'client/store/types'
 import { CountryReportSlice } from 'client/store/ui/countryReport/slice'
+import { defaultGlobalCountries } from 'client/store/ui/countryReport/state'
 
 const _getState = (state: RootState) => state.ui[CountryReportSlice.name]
 
-const getGlobalCountries = createSelector(_getState, (state) => state.globalCountries ?? [])
+const getGlobalCountries = createSelector(_getState, (state) => state.globalCountries ?? defaultGlobalCountries)
 
 const isDataLocked = createSelector(_getState, (state) => state.locked)
 

@@ -18,3 +18,5 @@ export const initialState: CountryReportState = {
   showOriginalDataPoint: true,
   navigationVisible: true,
 }
+
+export const defaultGlobalCountries: Array<CountryIso> = []
