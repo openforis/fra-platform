@@ -19,7 +19,7 @@ export const useGridTemplateColumns = (props: Props): Returned => {
   return useMemo<Returned>(() => {
     const headerCols = yAxisSelection
       .map((axisType) => {
-        return axisType === AxisType.countries ? '1fr' : 'minmax(160px, 240px)'
+        return axisType !== AxisType.dimensions ? '1fr' : 'minmax(160px, 240px)'
       })
       .join(' ')
     const selectedXAxisA = xAxisSelection[0]
