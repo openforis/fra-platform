@@ -50,6 +50,7 @@ const Measure: React.FC = () => {
   return (
     <div className="measure-filter-container">
       <MultiSelect
+        classNames={{ container: 'measure-multiselect' }}
         disabled={Objects.isNil(options)}
         multiLabelSummaryKey="common.variable"
         onChange={handleChange}

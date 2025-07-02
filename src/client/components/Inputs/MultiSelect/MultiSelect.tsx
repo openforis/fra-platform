@@ -12,6 +12,8 @@ const MultiSelect: React.FC<Props> = (props: Props) => {
 
   return (
     <Select
+      // eslint-disable-next-line react/jsx-props-no-spreading
+      {...props}
       classNames={{
         container: classNames(
           'multiselect__container',
@@ -22,8 +24,6 @@ const MultiSelect: React.FC<Props> = (props: Props) => {
         ),
       }}
       isMulti
-      // eslint-disable-next-line react/jsx-props-no-spreading
-      {...props}
     />
   )
 }
