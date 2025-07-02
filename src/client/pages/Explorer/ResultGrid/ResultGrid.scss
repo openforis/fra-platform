@@ -2,6 +2,7 @@
 
 .explorer-result-grid {
   margin-top: $spacing-m;
+  overflow-x: auto;
   width: 100%;
 
   .country-header {
@@ -14,7 +15,19 @@
     padding: $spacing-xxs;
   }
 
+  .firstCol {
+    left: 0;
+    position: sticky;
+    z-index: $z-index-results-grid-sticky-y-header-cell;
+  }
+
   .header-top {
     justify-content: space-around;
+  }
+
+  .secondary-y-header {
+    left: var(--first-col-width);
+    position: sticky;
+    z-index: $z-index-results-grid-sticky-y-header-cell;
   }
 }
