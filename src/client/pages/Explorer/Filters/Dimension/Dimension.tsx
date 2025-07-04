@@ -1,4 +1,3 @@
-import './Dimension.scss'
 import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -39,7 +38,7 @@ const Dimension: React.FC = () => {
 
   return (
     <MultiSelect
-      classNames={{ container: 'dimension-multiselect' }}
+      classNames={{ container: 'explorer-filters__multiselect' }}
       disabled={Objects.isNil(options)}
       multiLabelSummaryKey="common.column"
       onChange={handleChange}
