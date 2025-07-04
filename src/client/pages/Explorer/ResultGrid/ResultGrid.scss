@@ -33,4 +33,11 @@
     position: sticky;
     z-index: $z-index-results-grid-sticky-y-header-cell;
   }
+
+  // Raise the z-index for cells with an active select to prevent
+  // the dropdown from being hidden behind sibling sticky cells.
+  .firstCol:has(.select__container .select__menu),
+  .secondary-y-header:has(.select__container .select__menu) {
+    z-index: $z-index-select-dropdown;
+  }
 }
