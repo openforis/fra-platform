@@ -18,14 +18,15 @@ export const useRedirectUrl = (): string => {
   let countryIso: CountryIso
 
   // if admin, cycle -> last created cycle
-  if (Users.isAdministrator(user)) {
+  const admin = Users.isAdministrator(user)
+  if (admin) {
     cycle = Assessments.getLastCreatedCycle(assessment)
   }
   // if other users, assessment, cycle, countryIso -> from last role
   const userLastRole = UserRoles.getLastRole({ user })
-  if (!Objects.isNil(userLastRole)) {
-    assessment = assessments.find((a) => a.uuid === userLastRole.assessmentUuid) ?? assessment
-    cycle = assessment.cycles.find((c) => c.uuid === userLastRole.cycleUuid) ?? cycle
+  if (!admin && !Objects.isNil(userLastRole)) {
+    assessment = assessments.find((a) => a.uuid === userLastRole.assessmentUuid)
+    cycle = assessment.cycles.find((c) => c.uuid === userLastRole.cycleUuid)
     countryIso = userLastRole.countryIso
   }
 
