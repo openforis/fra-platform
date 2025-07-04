@@ -1,5 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit'
 
+import { CountryIso } from 'meta/area'
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 import { SectionName } from 'meta/assessment/section'
 
@@ -8,7 +9,9 @@ import { CountryReportSlice } from 'client/store/ui/countryReport/slice'
 
 const _getState = (state: RootState) => state.ui[CountryReportSlice.name]
 
-const getGlobalCountries = createSelector(_getState, (state) => state.globalCountries ?? [])
+const _defaultGlobalCountries: Array<CountryIso> = []
+
+const getGlobalCountries = createSelector(_getState, (state) => state.globalCountries ?? _defaultGlobalCountries)
 
 const isDataLocked = createSelector(_getState, (state) => state.locked)
 

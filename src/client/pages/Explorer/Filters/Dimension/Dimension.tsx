@@ -38,6 +38,7 @@ const Dimension: React.FC = () => {
 
   return (
     <MultiSelect
+      classNames={{ container: 'explorer-filters__multiselect' }}
       disabled={Objects.isNil(options)}
       multiLabelSummaryKey="common.column"
       onChange={handleChange}

@@ -1,6 +1,7 @@
 import './ResultGrid.scss'
-import React from 'react'
+import React, { useRef } from 'react'
 
+import classNames from 'classnames'
 import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area'
@@ -21,6 +22,7 @@ import { useCombinations } from './hooks/useCombinations'
 import { useCountryEntries } from './hooks/useCountryEntries'
 import { useGridTemplateColumns } from './hooks/useGridTemplateColumns'
 import { useRenderLabel } from './hooks/useRenderLabel'
+import { useTrackFirstColWidth } from './hooks/useTrackFirstColWidth'
 import { CountryEntry } from './types'
 
 const _getCombinationStringValue = <T extends string = string>(value: string | CountryEntry): T => {
@@ -31,6 +33,8 @@ const _getCombinationStringValue = <T extends string = string>(value: string | C
 
 export const ResultGrid: React.FC = () => {
   const date = new Date()
+
+  const gridRef = useRef<HTMLDivElement>(null)
 
   const { tableName } = useExplorerSectionMetadata() ?? {}
   const { cellsExportAlways, cellsExportAlwaysAxis, extraCols } = useCellsExportAlways()
@@ -52,16 +56,17 @@ export const ResultGrid: React.FC = () => {
   const xAxisVariableCount = xAxisSelection.length
   const yAxisVariableCount = yAxisSelection.length
 
-  if (
+  const hideGrid =
     [countryEntries, data, dimensions, measures, tableName].some(Objects.isEmpty) ||
     xAxisVariableCount + yAxisVariableCount < 3
-  ) {
-    return null
-  }
+
+  useTrackFirstColWidth({ gridRef, gridTemplateColumns, hideGrid, yAxisVariableCount })
+
+  if (hideGrid) return null
 
   return (
-    <DataGrid className="explorer-result-grid" gridTemplateColumns={gridTemplateColumns}>
-      <DataCell gridColumn={`span ${yAxisVariableCount}`} gridRow={`span ${xAxisVariableCount}`} header />
+    <DataGrid ref={gridRef} className="explorer-result-grid" gridTemplateColumns={gridTemplateColumns}>
+      <DataCell firstCol gridColumn={`span ${yAxisVariableCount}`} gridRow={`span ${xAxisVariableCount}`} header />
 
       {/* Cells export always on the X axis - Headers */}
       {!Objects.isEmpty(cellsExportAlways) &&
@@ -80,32 +85,38 @@ export const ResultGrid: React.FC = () => {
         })}
       {/*  Render only the primary X axis variable headers if multiple selected */}
       {xAxisVariableCount === 2 &&
-        uniquePrimaryX.map((value, idx) => (
-          <DataCell
-            key={`${xAxisSelection[0]}-${_getCombinationStringValue(value)}-primary-x-variable-header`}
-            className="header-top"
-            gridColumn={`span ${axisValues[xAxisSelection[1]].length}`}
-            header
-            lastCol={idx === uniquePrimaryX.length - 1}
-          >
-            {renderLabel({ axisType: xAxisSelection[0], value })}
-          </DataCell>
-        ))}
+        uniquePrimaryX.map((value, idx) => {
+          const axisType = xAxisSelection[0]
+          return (
+            <DataCell
+              key={`${axisType}-${_getCombinationStringValue(value)}-primary-x-variable-header`}
+              className={classNames('header-top', { 'country-header': axisType === AxisType.countries })}
+              gridColumn={`span ${axisValues[xAxisSelection[1]].length}`}
+              header
+              lastCol={idx === uniquePrimaryX.length - 1}
+            >
+              {renderLabel({ axisType, value })}
+            </DataCell>
+          )
+        })}
 
-      {xCombinations.map((combination, idx) => (
-        <DataCell
-          key={`${combination.map(_getCombinationStringValue).join('-')}-x-header`}
-          className="header-top"
-          header
-          lastCol={idx === xCombinations.length - 1}
-        >
-          {renderLabel({
-            // If there are two X variables selected, render only the secondary variable header
-            axisType: xAxisVariableCount === 2 ? xAxisSelection[1] : xAxisSelection[0],
-            value: combination[xAxisVariableCount - 1],
-          })}
-        </DataCell>
-      ))}
+      {xCombinations.map((combination, idx) => {
+        const axisType = xAxisVariableCount === 2 ? xAxisSelection[1] : xAxisSelection[0]
+        return (
+          <DataCell
+            key={`${combination.map(_getCombinationStringValue).join('-')}-x-header`}
+            className={classNames('header-top', { 'country-header': axisType === AxisType.countries })}
+            header
+            lastCol={idx === xCombinations.length - 1}
+          >
+            {renderLabel({
+              // If there are two X variables selected, render only the secondary variable header
+              axisType,
+              value: combination[xAxisVariableCount - 1],
+            })}
+          </DataCell>
+        )
+      })}
 
       {/* Cells export always on the Y axis */}
       {!Objects.isEmpty(cellsExportAlways) &&
@@ -114,7 +125,7 @@ export const ResultGrid: React.FC = () => {
           const countries = axisValues[AxisType.countries]
           return (
             <React.Fragment key={`${measureName}-${dimensionName}-cell-export-always`}>
-              <DataCell gridColumn="span 2" header>
+              <DataCell firstCol gridColumn="span 2" header>
                 <MeasureTitle measureName={measureName} />
               </DataCell>
 
@@ -153,6 +164,8 @@ export const ResultGrid: React.FC = () => {
             {isPrimaryVariableStart && (
               <DataCell
                 key={`${yAxisSelection[0]}-${_getCombinationStringValue(primaryVariable)}-header`}
+                className={classNames({ 'country-header': yAxisSelection[0] === AxisType.countries })}
+                firstCol
                 gridRow={`span ${numSecondaryYRows}`}
                 header
                 lastRow={isPrimaryHeaderLastRow}
@@ -166,6 +179,11 @@ export const ResultGrid: React.FC = () => {
 
             <DataCell
               key={`${rowCombination.map(_getCombinationStringValue).join('-')}-y-header`}
+              className={classNames({
+                'country-header': yAxisSelection[yAxisVariableCount - 1] === AxisType.countries,
+                'secondary-y-header': yAxisVariableCount === 2,
+              })}
+              firstCol={yAxisVariableCount === 1}
               header
               lastRow={lastRow}
             >
@@ -224,7 +242,7 @@ export const ResultGrid: React.FC = () => {
         )
       })}
 
-      <DataCell gridColumn="1/-1" noBorder>
+      <DataCell firstCol noBorder>
         &copy; FRA {`${date.getFullYear()}`}
       </DataCell>
     </DataGrid>
