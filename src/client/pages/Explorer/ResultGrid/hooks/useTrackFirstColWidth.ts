@@ -7,6 +7,11 @@ type Props = {
   yAxisVariableCount: number
 }
 
+/**
+ * Tracks the computed width of the first grid column and writes it to
+ * `--first-col-width`, so the secondary Y-header (which is sticky)
+ * can use that value for its `left` offset and stay aligned when scrolling.
+ */
 export const useTrackFirstColWidth = (props: Props) => {
   const { gridRef, gridTemplateColumns, hideGrid, yAxisVariableCount } = props
 
