@@ -35,8 +35,8 @@ const Invitation: React.FC = () => {
   const assessmentName = assessment?.props.name
   const cycleName = cycle?.name
 
-  const onAccept = () => {
-    dispatch(LoginActions.acceptInvitation({ invitationUuid }))
+  const onAccept = async () => {
+    await dispatch(LoginActions.acceptInvitation({ invitationUuid })).unwrap()
     navigate(Routes.Root.generatePath())
   }
 
