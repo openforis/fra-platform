@@ -26,6 +26,9 @@
   }
 
   .secondary-y-header {
+    // Offsets the length of the first column so both headers
+    // are sticky together and the first column is not cut off.
+    // --first-col-width is calculated in useTrackFirstColWidth.
     left: var(--first-col-width);
     position: sticky;
     z-index: $z-index-results-grid-sticky-y-header-cell;
