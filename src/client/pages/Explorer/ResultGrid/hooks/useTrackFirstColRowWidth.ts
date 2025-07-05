@@ -12,7 +12,7 @@ type Props = {
  * `--first-col-width`, so the secondary Y-header (which is sticky)
  * can use that value for its `left` offset and stay aligned when scrolling.
  */
-export const useTrackFirstColWidth = (props: Props) => {
+export const useTrackFirstColRowWidth = (props: Props) => {
   const { gridRef, gridTemplateColumns, hideGrid, yAxisVariableCount } = props
 
   useLayoutEffect(() => {

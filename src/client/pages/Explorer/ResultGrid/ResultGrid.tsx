@@ -22,7 +22,7 @@ import { useCombinations } from './hooks/useCombinations'
 import { useCountryEntries } from './hooks/useCountryEntries'
 import { useGridTemplateColumns } from './hooks/useGridTemplateColumns'
 import { useRenderLabel } from './hooks/useRenderLabel'
-import { useTrackFirstColWidth } from './hooks/useTrackFirstColWidth'
+import { useTrackFirstColRowWidth } from './hooks/useTrackFirstColRowWidth'
 import { CountryEntry } from './types'
 
 const _getCombinationStringValue = <T extends string = string>(value: string | CountryEntry): T => {
@@ -60,7 +60,7 @@ export const ResultGrid: React.FC = () => {
     [countryEntries, data, dimensions, measures, tableName].some(Objects.isEmpty) ||
     xAxisVariableCount + yAxisVariableCount < 3
 
-  useTrackFirstColWidth({ gridRef, gridTemplateColumns, hideGrid, yAxisVariableCount })
+  useTrackFirstColRowWidth({ gridRef, gridTemplateColumns, hideGrid, yAxisVariableCount })
 
   if (hideGrid) return null
 
