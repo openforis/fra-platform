@@ -3,7 +3,7 @@
 @import 'src/client/style/partials';
 
 .tooltip-container {
-  z-index: 1;
+  z-index: $z-index-tooltip;
 
   .react-tooltip {
     ul {
