@@ -4,45 +4,61 @@ type Props = {
   gridRef: React.RefObject<HTMLElement>
   gridTemplateColumns: string
   hideGrid: boolean
-  yAxisVariableCount: number
 }
 
 /**
- * Tracks the computed width of the first grid column and writes it to
- * `--first-col-width`, so the secondary Y-header (which is sticky)
- * can use that value for its `left` offset and stay aligned when scrolling.
+ * Tracks the computed width of the first grid column and
+ * the computed height of the first grid row, writing them to
+ * `--first-col-width` and `--first-row-height` respectively.
  */
 export const useTrackFirstColRowWidth = (props: Props) => {
-  const { gridRef, gridTemplateColumns, hideGrid, yAxisVariableCount } = props
+  const { gridRef, gridTemplateColumns, hideGrid } = props
 
   useLayoutEffect(() => {
     if (hideGrid) return undefined
-    if (yAxisVariableCount !== 2) return undefined
 
     const grid = gridRef.current
     if (!grid) return undefined
 
-    const updateFirstColWidth = () => {
-      const cols = getComputedStyle(grid).gridTemplateColumns.trim().split(/\s+/)
+    const updateFirstDims = () => {
+      const style = getComputedStyle(grid)
+
+      // first column width
+      const cols = style.gridTemplateColumns.trim().split(/\s+/)
       const firstColWidth = cols[0] ?? '0px'
       grid.style.setProperty('--first-col-width', firstColWidth)
+
+      // first row height
+      const rows = style.gridTemplateRows.trim().split(/\s+/)
+      const firstRowHeight = rows[0] ?? '0px'
+      grid.style.setProperty('--first-row-height', firstRowHeight)
     }
 
-    updateFirstColWidth()
+    updateFirstDims()
 
-    const gridRO = new ResizeObserver(updateFirstColWidth)
+    const gridRO = new ResizeObserver(updateFirstDims)
     gridRO.observe(grid)
 
-    const firstCell = grid.querySelector<HTMLElement>('.firstCol')
+    const firstColCell = grid.querySelector<HTMLElement>('.firstCol')
     let cellRO: ResizeObserver | undefined
-    if (firstCell) {
-      cellRO = new ResizeObserver(updateFirstColWidth)
-      cellRO.observe(firstCell)
+    if (firstColCell) {
+      cellRO = new ResizeObserver(updateFirstDims)
+      cellRO.observe(firstColCell)
+    }
+
+    const firstRowCell = grid.querySelector<HTMLElement>('.primary-x-header')
+    let rowObserver: ResizeObserver | undefined
+    if (firstRowCell) {
+      rowObserver = new ResizeObserver(() => {
+        grid.style.setProperty('--first-row-height', `${firstRowCell.offsetHeight}px`)
+      })
+      rowObserver.observe(firstRowCell)
     }
 
     return () => {
       gridRO.disconnect()
       cellRO?.disconnect()
+      rowObserver?.disconnect()
     }
-  }, [gridRef, gridTemplateColumns, hideGrid, yAxisVariableCount])
+  }, [gridRef, gridTemplateColumns, hideGrid])
 }
