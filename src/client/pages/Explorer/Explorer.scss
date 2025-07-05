@@ -1,0 +1,13 @@
+@import 'src/client/style/partials';
+
+$container-paddings: 2 * $spacing-s;
+$filters-height: 62px;
+$grid-margin-top: $spacing-m;
+$footer-height: 108px;
+
+.explorer-result-grid {
+  height: calc(
+    100dvh - $ui-app-header-height - $ui-app-toolbar-height - $container-paddings - $filters-height - $grid-margin-top -
+      $footer-height
+  );
+}
