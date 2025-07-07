@@ -1,3 +1,5 @@
+import type { FieldValues, FormProps as ReactHookFormProps } from 'react-hook-form'
+
 import { z } from 'zod'
 
 import { Option } from 'client/components/Inputs/Select'
@@ -27,8 +29,10 @@ export type FormDefinition = {
   fields: Array<FieldDefinition>
 }
 
-export type FormProps = {
+export type FormProps<FIELD_VALUES = FieldValues> = {
+  action: ReactHookFormProps<unknown>['action']
   formDefinition: FormDefinition
+  method: ReactHookFormProps<unknown>['method']
   onCancel: () => void
-  onSubmit: (data: unknown) => void
+  onSuccess?: (values: FIELD_VALUES) => void
 }

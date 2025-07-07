@@ -1,9 +1,13 @@
 import './Form.scss'
 import React from 'react'
-import { useForm } from 'react-hook-form'
+import { Form as ReactHookForm, useForm } from 'react-hook-form'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 
+import { UUIDs } from 'meta/uuid'
+
+import { useAppDispatch } from 'client/store/hooks'
+import { NotificationActions } from 'client/store/ui/notification/actions'
 import { DataGrid } from 'client/components/DataGrid'
 import { FormFields } from 'client/components/Form/FormFields/FormFields'
 
@@ -13,7 +17,9 @@ import Buttons from './Buttons'
 import { FormProps } from './types'
 
 const Form: React.FC<FormProps> = (props) => {
-  const { formDefinition, onCancel, onSubmit } = props
+  const { action, formDefinition, method, onCancel, onSuccess } = props
+  const dispatch = useAppDispatch()
+
   const { fields } = formDefinition
 
   const defaultValues = useDefaultValues(fields)
@@ -22,17 +28,21 @@ const Form: React.FC<FormProps> = (props) => {
   // type FormValues = z.infer<typeof formSchema>
 
   const resolver = zodResolver(formValidationSchema)
-  const { control, formState, handleSubmit, register, setValue, watch } = useForm({
-    resolver,
-    defaultValues,
-    shouldUnregister: true,
-  })
+  const { control, formState, register, setValue, watch } = useForm({ resolver, defaultValues, shouldUnregister: true })
   const { errors, isSubmitting } = formState
-
   const watchValues = watch()
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <ReactHookForm
+      action={action}
+      control={control}
+      method={method}
+      onError={async ({ response }) => {
+        const { error: message, params } = await response.json()
+        dispatch(NotificationActions.addMessage({ id: UUIDs.getUuid(), type: 'error', message, params }))
+      }}
+      onSuccess={() => onSuccess?.(watchValues)}
+    >
       <DataGrid className="form-grid" gridTemplateColumns="min-content 1fr">
         {fields.map((fieldDefinition) => {
           const { name, shouldShow, type } = fieldDefinition
@@ -57,7 +67,7 @@ const Form: React.FC<FormProps> = (props) => {
 
         <Buttons isSubmitting={isSubmitting} onCancel={onCancel} />
       </DataGrid>
-    </form>
+    </ReactHookForm>
   )
 }
 
