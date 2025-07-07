@@ -13,6 +13,7 @@ import { FormFields } from 'client/components/Form/FormFields/FormFields'
 
 import { useDefaultValues } from './hooks/useDefaultValues'
 import { useFormValidationSchema } from './hooks/useFormValidationSchema'
+import { useOnSubmit } from './hooks/useOnSubmit'
 import Buttons from './Buttons'
 import { FormProps } from './types'
 
@@ -23,6 +24,7 @@ const Form: React.FC<FormProps> = (props) => {
   const { fields } = formDefinition
 
   const defaultValues = useDefaultValues(fields)
+  const onSubmit = useOnSubmit(props)
 
   const formValidationSchema = useFormValidationSchema({ formDefinition })
   // type FormValues = z.infer<typeof formSchema>
@@ -41,6 +43,7 @@ const Form: React.FC<FormProps> = (props) => {
         const { error: message, params } = await response.json()
         dispatch(NotificationActions.addMessage({ id: UUIDs.getUuid(), type: 'error', message, params }))
       }}
+      onSubmit={onSubmit}
       onSuccess={() => onSuccess?.(watchValues)}
     >
       <DataGrid className="form-grid" gridTemplateColumns="min-content 1fr">
