@@ -1,4 +1,3 @@
-export { editUser } from './editUser'
 export { getUsers } from './getUsers'
 export { getUserToEdit } from './getUserToEdit'
 export { removeInvitation } from './removeInvitation'

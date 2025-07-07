@@ -6,7 +6,6 @@ import { ApiEndPoint } from 'meta/api/endpoint'
 import { AuthMiddleware } from 'server/middleware/auth'
 
 import { acceptInvitation } from './acceptInvitation'
-import { editUser } from './editUser'
 import { getInvitation } from './getInvitation'
 import { getMany } from './getMany'
 import { getProfilePicture } from './getProfilePicture'
@@ -23,7 +22,6 @@ import { updateUserRoles } from './updateUserRoles'
 
 export const UserApi = {
   init: (express: Express): void => {
-    express.post(ApiEndPoint.User.one(), multer().single('profilePicture'), AuthMiddleware.requireEditUser, editUser)
     express.put(ApiEndPoint.User.one(), multer().single('profilePicture'), AuthMiddleware.requireEditUser, updateUser)
     express.get(ApiEndPoint.User.many(), AuthMiddleware.requireViewUsers, getMany)
     express.get(ApiEndPoint.User.one(), AuthMiddleware.requireViewUser, getUser)

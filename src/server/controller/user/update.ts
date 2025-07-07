@@ -1,5 +1,7 @@
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
+import { UserEditForm } from 'meta/form/userEdit'
 import { User } from 'meta/user'
+import { UserProps } from 'meta/user/user'
 
 import { BaseProtocol, DB } from 'server/db'
 import { ActivityLogRepository } from 'server/repository/public/activityLog'
@@ -7,15 +9,26 @@ import { FileRepository } from 'server/repository/public/file'
 import { UserRepository } from 'server/repository/public/user'
 import { FileStorage } from 'server/service/fileStorage'
 
-export const update = async (
-  props: {
-    userToUpdate: User
-    profilePicture?: Express.Multer.File | null
-    user: User
-  },
-  client: BaseProtocol = DB
-): Promise<User> => {
-  const { profilePicture, user, userToUpdate } = props
+type Props = {
+  userEditForm: UserEditForm
+  profilePicture?: Express.Multer.File | null
+  user: User
+}
+
+export const update = async (props: Props, client: BaseProtocol = DB): Promise<User> => {
+  const { profilePicture, user, userEditForm } = props
+
+  const userProps: Partial<UserProps> = {
+    title: userEditForm.title,
+    name: userEditForm.name,
+    surname: userEditForm.surname,
+  }
+
+  const userToUpdate: Partial<Omit<User, 'props'> & { props: Partial<UserProps> }> = {
+    id: userEditForm.userId,
+    email: userEditForm.email,
+    props: userProps,
+  }
 
   return client.tx(async (t) => {
     if (profilePicture) {
