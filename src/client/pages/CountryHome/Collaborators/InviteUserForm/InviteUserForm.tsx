@@ -14,7 +14,6 @@ import { useOnSuccess } from './hooks/useOnSuccess'
 const InviteUserForm: React.FC = () => {
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const navigate = useNavigate()
-  // const onSubmit = useOnSubmit()
   const onSuccess = useOnSuccess()
   const formDefinition = useFormDefinition()
 
