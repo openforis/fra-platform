@@ -37,7 +37,8 @@ const Invitation: React.FC = () => {
 
   const onAccept = async () => {
     await dispatch(LoginActions.acceptInvitation({ invitationUuid })).unwrap()
-    navigate(Routes.Root.generatePath())
+    const { countryIso } = userInvitation
+    navigate(Routes.Country.generatePath({ assessmentName, cycleName, countryIso }))
   }
 
   // If the invitation has been accepted...
