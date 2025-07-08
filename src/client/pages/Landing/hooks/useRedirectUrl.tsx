@@ -1,19 +1,22 @@
 import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area'
+import { Assessment } from 'meta/assessment/assessment'
 import { Assessments } from 'meta/assessment/assessments'
 import { Routes } from 'meta/routes'
 import { Users } from 'meta/user'
 import { UserRoles } from 'meta/user/userRoles'
 
-import { useAssessmentDefault, useAssessments } from 'client/store/meta/hooks/assessments'
 import { useUser } from 'client/store/user/hooks/user'
 
-export const useRedirectUrl = (): string => {
-  const user = useUser()
-  const assessments = useAssessments()
+type Props = {
+  assessment: Assessment
+}
 
-  let assessment = useAssessmentDefault()
+export const useRedirectUrl = (props: Props): string => {
+  const { assessment } = props
+  const user = useUser()
+
   let cycle = Assessments.getLastPublishedCycle(assessment)
   let countryIso: CountryIso
 
@@ -23,9 +26,8 @@ export const useRedirectUrl = (): string => {
     cycle = Assessments.getLastCreatedCycle(assessment)
   }
   // if other users, assessment, cycle, countryIso -> from last role
-  const userLastRole = UserRoles.getLastRole({ user })
+  const userLastRole = UserRoles.getLastRole({ assessment, user })
   if (!admin && !Objects.isNil(userLastRole)) {
-    assessment = assessments.find((a) => a.uuid === userLastRole.assessmentUuid)
     cycle = assessment.cycles.find((c) => c.uuid === userLastRole.cycleUuid)
     countryIso = userLastRole.countryIso
   }
