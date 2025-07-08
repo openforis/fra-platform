@@ -1,3 +1,4 @@
+import './Explorer.scss'
 import React from 'react'
 
 import { useGetExplorerSectionMetadata } from 'client/store/explorer/metadata/hooks/metadata'

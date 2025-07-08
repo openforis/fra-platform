@@ -4,6 +4,8 @@ import { useTranslation } from 'react-i18next'
 
 import { Objects } from 'utils/objects'
 
+import { TooltipId } from 'meta/tooltip'
+
 import { ExplorerSelectionActions } from 'client/store/explorer/selection/actions'
 import { useExplorerMeasures } from 'client/store/explorer/selection/hooks/measures'
 import { useAppDispatch } from 'client/store/hooks'
@@ -59,7 +61,15 @@ const Measure: React.FC = () => {
         toggleAll
         value={explorerMeasures}
       />
-      <button className="btn-definitions-info" onClick={openDefinition} type="button">
+      <button
+        className="btn-definitions-info"
+        data-tooltip-content={t('definition.definitionLabel')}
+        data-tooltip-delay-show={80}
+        data-tooltip-id={TooltipId.info}
+        data-tooltip-place="bottom"
+        onClick={openDefinition}
+        type="button"
+      >
         <Icon name="round-e-info" />
       </button>
     </div>
