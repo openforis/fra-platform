@@ -1,12 +1,12 @@
 import { Response } from 'express'
 
 import { CycleRequest } from 'meta/api/request'
-import { UserEditForm } from 'meta/form/userEdit/form'
+import { UserEditCountryForm } from 'meta/form/userEdit/form'
 
 import { UserController } from 'server/controller/user'
 import { Requests } from 'server/utils'
 
-type EditUserRequest = CycleRequest<unknown, UserEditForm>
+type EditUserRequest = CycleRequest<unknown, UserEditCountryForm>
 
 export const updateUser = async (req: EditUserRequest, res: Response) => {
   try {

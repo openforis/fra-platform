@@ -56,8 +56,9 @@ const Form: React.FC<FormProps> = (props) => {
           if (shouldShow && !shouldShow(watchValues)) return null
 
           const Component = FormFields[type]
-          const fieldValidationSchema = Objects.getInPath(validationSchema, ['shape', name])
-          const error = errors[name]
+          const path = name.split('.')
+          const fieldValidationSchema = Objects.getInPath(validationSchema, ['shape', ...path])
+          const error = Objects.getInPath(errors, path)
 
           return (
             <Component

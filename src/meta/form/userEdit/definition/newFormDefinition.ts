@@ -15,7 +15,7 @@ export const newFormDefinition = (props: Props): FormDefinition => {
 
   const fields: Array<FieldDefinition> = [
     {
-      name: 'user_id',
+      name: 'user.id',
       type: FormFieldType.hidden,
       label: '',
       defaultValue: targetUser?.id,
@@ -27,25 +27,25 @@ export const newFormDefinition = (props: Props): FormDefinition => {
       label: '',
     },
     {
-      name: 'user_email',
+      name: 'user.email',
       type: FormFieldType.text,
       label: 'editUser.email',
       defaultValue: targetUser?.email || '',
     },
     {
-      name: 'user_props_name',
+      name: 'user.props.name',
       type: FormFieldType.text,
       label: 'common.name',
       defaultValue: targetUser?.props?.name || '',
     },
     {
-      name: 'user_props_surname',
+      name: 'user.props.surname',
       type: FormFieldType.text,
       label: 'editUser.surname',
       defaultValue: targetUser?.props?.surname || '',
     },
     {
-      name: 'user_props_title',
+      name: 'user.props.title',
       type: FormFieldType.select,
       options: Contacts.appellations.map((appellation) => {
         const label = t(`editUser.${appellation}`)
