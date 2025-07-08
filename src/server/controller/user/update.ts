@@ -1,6 +1,6 @@
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
-import { UserEditForm } from 'meta/form/userEdit'
-import { User } from 'meta/user'
+import { UserEditForm } from 'meta/form/userEdit/form'
+import { User, Users } from 'meta/user'
 import { UserProps } from 'meta/user/user'
 
 import { BaseProtocol, DB } from 'server/db'
@@ -15,20 +15,41 @@ type Props = {
   user: User
 }
 
+export type UserEditProps = {
+  user: Pick<User, 'id'> & {
+    email?: string
+    profilePictureFileUuid?: string
+    props: Pick<UserProps, 'name' | 'surname' | 'title'>
+  }
+  // role?: Pick<UserRole, 'id' | 'role'> & { props: Partial<UserRole['props']> }
+}
+
+const toUserEditProps = (props: Props): UserEditProps => {
+  const { user, userEditForm } = props
+
+  const userEditProps: UserEditProps = {
+    user: {
+      id: userEditForm.user_id,
+      props: {
+        name: userEditForm.user_props_name,
+        surname: userEditForm.user_props_surname,
+        title: userEditForm.user_props_title,
+      },
+    },
+  }
+
+  // only admin can update the email
+  if (Users.isAdministrator(user)) {
+    userEditProps.user.email = userEditForm.user_email
+  }
+
+  return userEditProps
+}
+
 export const update = async (props: Props, client: BaseProtocol = DB): Promise<User> => {
-  const { profilePicture, user, userEditForm } = props
+  const { profilePicture, user } = props
 
-  const userProps: Partial<UserProps> = {
-    title: userEditForm.title,
-    name: userEditForm.name,
-    surname: userEditForm.surname,
-  }
-
-  const userToUpdate: Partial<Omit<User, 'props'> & { props: Partial<UserProps> }> = {
-    id: userEditForm.userId,
-    email: userEditForm.email,
-    props: userProps,
-  }
+  const { user: userToUpdate } = toUserEditProps(props)
 
   return client.tx(async (t) => {
     if (profilePicture) {

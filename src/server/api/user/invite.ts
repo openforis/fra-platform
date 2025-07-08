@@ -1,7 +1,7 @@
 import { Response } from 'express'
 
 import { CycleRequest } from 'meta/api/request'
-import { UserInvitationForm } from 'meta/form/userInvitation'
+import { UserInvitationForm } from 'meta/form/userInvitation/form'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { UserController } from 'server/controller/user'

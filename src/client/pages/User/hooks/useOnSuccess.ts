@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { UserEditForm } from 'meta/form/userEdit'
+import { UserEditForm } from 'meta/form/userEdit/form'
 
 import { useToaster } from 'client/hooks/useToaster'
 import { FormProps } from 'client/components/Form/types'
@@ -12,7 +12,7 @@ export const useOnSuccess = (): FormProps<UserEditForm>['onSuccess'] => {
 
   return useCallback<FormProps<UserEditForm>['onSuccess']>(
     (userEditForm) => {
-      toaster.info(t('userManagement.userUpdated', { email: userEditForm.email }))
+      toaster.info(t('userManagement.userUpdated', { email: userEditForm.user_email }))
     },
     [t, toaster]
   )

@@ -1,7 +1,7 @@
 import { Response } from 'express'
 
 import { CycleRequest } from 'meta/api/request'
-import { UserEditForm } from 'meta/form/userEdit'
+import { UserEditForm } from 'meta/form/userEdit/form'
 
 import { UserController } from 'server/controller/user'
 import { Requests } from 'server/utils'
@@ -14,11 +14,7 @@ export const updateUser = async (req: EditUserRequest, res: Response) => {
     const userEditForm = req.body
     const user = Requests.getUser(req)
 
-    const updatedUser = await UserController.update({
-      userEditForm,
-      profilePicture,
-      user,
-    })
+    const updatedUser = await UserController.update({ userEditForm, profilePicture, user })
 
     Requests.sendOk(res, updatedUser)
   } catch (e) {

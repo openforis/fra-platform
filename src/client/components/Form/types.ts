@@ -1,6 +1,6 @@
 import type { FieldValues, FormProps as ReactHookFormProps } from 'react-hook-form'
 
-import { z } from 'zod'
+import { ZodObject, ZodRawShape } from 'zod'
 
 import { Option } from 'client/components/Inputs/Select'
 
@@ -22,12 +22,13 @@ export type FieldDefinition = {
   placeholder?: string
   shouldShow?: (watchValues: Record<string, unknown>) => boolean
   type: FormFieldType
-  validation?: z.ZodTypeAny
 }
 
 export type FormDefinition = {
   fields: Array<FieldDefinition>
 }
+
+export type FormValidationSchema = ZodObject<ZodRawShape>
 
 export type FormProps<FIELD_VALUES = FieldValues> = {
   action: ReactHookFormProps<unknown>['action']
@@ -35,4 +36,5 @@ export type FormProps<FIELD_VALUES = FieldValues> = {
   method: ReactHookFormProps<unknown>['method']
   onCancel: () => void
   onSuccess?: (values: FIELD_VALUES) => void
+  validationSchema?: FormValidationSchema
 }

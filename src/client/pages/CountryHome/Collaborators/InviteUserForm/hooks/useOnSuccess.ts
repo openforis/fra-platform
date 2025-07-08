@@ -2,7 +2,7 @@ import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
-import { UserInvitationForm } from 'meta/form/userInvitation'
+import { UserInvitationForm } from 'meta/form/userInvitation/form'
 
 import { useToaster } from 'client/hooks/useToaster'
 import { FormProps } from 'client/components/Form/types'
