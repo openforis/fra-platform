@@ -23,7 +23,7 @@ const AvatarField = (props: FieldProps) => {
 
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
-    <FormField fullWidth noBorder {...props}>
+    <FormField disabled={disabled} fullWidth noBorder {...props}>
       <div className="form-field-avatar">
         <input
           accept="image/*"

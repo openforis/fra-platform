@@ -29,6 +29,12 @@
   }
 }
 
-.full-width {
+.form-field__cell-field {
+  &.disabled {
+    background-color: rgba($ui-bg, 0.8);
+  }
+}
+
+.form-field__full-width {
   grid-column: 1 / 3;
 }

@@ -25,9 +25,9 @@ export const UserApi = {
   init: (express: Express): void => {
     express.put(
       ApiEndPoint.User.one(),
-      AuthMiddleware.requireEditUser,
       multer().single('profilePicture'),
       FormDataBodyMiddleware.parseBody,
+      AuthMiddleware.requireEditUser,
       updateUser
     )
     express.get(ApiEndPoint.User.many(), AuthMiddleware.requireViewUsers, getMany)
@@ -46,6 +46,10 @@ export const UserApi = {
     express.post(ApiEndPoint.User.roles(), AuthMiddleware.requireAdmin, updateUserRoles)
     express.post(ApiEndPoint.User.adminRole(), AuthMiddleware.requireAdmin, updateUserAdminRole)
     express.post(ApiEndPoint.User.sectionAuth(), AuthMiddleware.requireInviteUser, updateSectionAuth)
+
+    /**
+     * @deprecated. all user edits are in one endpoint
+     */
     express.post(ApiEndPoint.User.roleProps(), AuthMiddleware.requireEditUser, updateRoleProps)
   },
 }

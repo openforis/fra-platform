@@ -10,10 +10,12 @@ import { DataCell, DataRow } from 'client/components/DataGrid'
 import { FieldProps } from 'client/components/Form/FormFields/types'
 import Icon from 'client/components/Icon'
 
-type Props = PropsWithChildren<FieldProps>
+type Props = PropsWithChildren<FieldProps> & {
+  disabled?: boolean
+}
 
 const FormField: React.FC<Props> = (props) => {
-  const { children, error, fieldDefinition, fieldValidationSchema, fullWidth, noBorder } = props
+  const { children, disabled, error, fieldDefinition, fieldValidationSchema, fullWidth, noBorder } = props
   const { label, name } = fieldDefinition
   const required = !Objects.isNil(fieldValidationSchema) && !(fieldValidationSchema instanceof ZodOptional)
 
@@ -28,7 +30,13 @@ const FormField: React.FC<Props> = (props) => {
         </label>
       </DataCell>
 
-      <DataCell className={classNames({ 'full-width': fullWidth })} editable lastCol lastRow noBorder={noBorder}>
+      <DataCell
+        className={classNames('form-field__cell-field', { disabled, 'form-field__full-width': fullWidth })}
+        editable
+        lastCol
+        lastRow
+        noBorder={noBorder}
+      >
         {React.Children.toArray(children)}
 
         {error && (

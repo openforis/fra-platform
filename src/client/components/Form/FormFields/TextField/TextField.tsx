@@ -14,21 +14,16 @@ const TextField = (props: FieldProps) => {
   const { name, placeholder } = fieldDefinition
   const disabled = useIsFieldDisabled(props)
 
-  if (disabled) {
-    return (
-      // eslint-disable-next-line react/jsx-props-no-spreading
-      <FormField {...props}>
-        {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-        <input className={classNames('input-text disabled')} {...register(name, { disabled })} />
-      </FormField>
-    )
-  }
-
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
-    <FormField {...props}>
+    <FormField disabled={disabled} {...props}>
       {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-      <InputText disabled={disabled} id={name} name={name} placeholder={placeholder} {...register(name)} />
+      {disabled && <input className={classNames('input-text disabled')} {...register(name, { disabled })} />}
+
+      {!disabled && (
+        // eslint-disable-next-line react/jsx-props-no-spreading
+        <InputText disabled={disabled} id={name} name={name} placeholder={placeholder} {...register(name)} />
+      )}
     </FormField>
   )
 }

@@ -4,6 +4,7 @@ import { AreaCode, CountryIso, Global, RegionCode } from 'meta/area'
 import {
   AssessmentRouteParams,
   CountryRouteParams,
+  CountryUserRouteParams,
   CycleRouteParams,
   OriginalDataPointRouteParams,
   SectionRouteParams,
@@ -15,6 +16,9 @@ export const useCycleRouteParams = () => useParams<CycleRouteParams>()
 
 export const useCountryRouteParams = <T extends CountryIso | RegionCode | Global.WO = AreaCode>() =>
   useParams<CountryRouteParams<T>>()
+
+export const useCountryUserRouteParams = <T extends CountryIso | RegionCode | Global.WO = AreaCode>() =>
+  useParams<CountryUserRouteParams<T>>()
 
 export const useSectionRouteParams = <T extends CountryIso | RegionCode | Global.WO = AreaCode>() =>
   useParams<SectionRouteParams<T>>()

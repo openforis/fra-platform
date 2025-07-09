@@ -15,7 +15,7 @@ const SelectField = (props: FieldProps) => {
 
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
-    <FormField {...props}>
+    <FormField disabled={disabled} {...props}>
       <Controller
         control={control}
         defaultValue={defaultValue}
