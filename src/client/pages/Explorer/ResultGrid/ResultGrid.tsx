@@ -14,6 +14,8 @@ import { DataCell, DataGrid } from 'client/components/DataGrid'
 import { useHideGrid } from 'client/pages/Explorer/hooks/useHideGrid'
 import MeasureTitle from 'client/pages/Explorer/ResultGrid/MeasureTitle/MeasureTitle'
 import Observation from 'client/pages/Explorer/ResultGrid/Observation/Observation'
+import { CountryEntry } from 'client/pages/Explorer/ResultGrid/types'
+import { ExplorerGridProps } from 'client/pages/Explorer/types'
 
 import { useAxisValues } from './hooks/useAxisValues'
 import { useCellsExportAlways } from './hooks/useCellsExportAlways'
@@ -21,7 +23,6 @@ import { useCombinations } from './hooks/useCombinations'
 import { useGridTemplateColumns } from './hooks/useGridTemplateColumns'
 import { useRenderLabel } from './hooks/useRenderLabel'
 import { useTrackFirstColWidth } from './hooks/useTrackFirstColWidth'
-import { CountryEntry } from './types'
 
 const _getCombinationStringValue = <T extends string = string>(value: string | CountryEntry): T => {
   if (typeof value === 'string') return value as T
@@ -29,11 +30,7 @@ const _getCombinationStringValue = <T extends string = string>(value: string | C
   return null
 }
 
-type Props = {
-  gridRef: React.RefObject<HTMLDivElement>
-}
-
-export const ResultGrid: React.FC<Props> = (props: Props) => {
+export const ResultGrid: React.FC<ExplorerGridProps> = (props: ExplorerGridProps) => {
   const { gridRef } = props
   const date = new Date()
 

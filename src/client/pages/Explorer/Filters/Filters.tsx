@@ -7,12 +7,9 @@ import AxisSelection from 'client/pages/Explorer/Filters/AxisSelection/AxisSelec
 import Country from 'client/pages/Explorer/Filters/Country/Country'
 import Dimension from 'client/pages/Explorer/Filters/Dimension/Dimension'
 import Measure from 'client/pages/Explorer/Filters/Measure/Measure'
+import { ExplorerGridProps } from 'client/pages/Explorer/types'
 
-type Props = {
-  gridRef: React.RefObject<HTMLDivElement>
-}
-
-const Filters: React.FC<Props> = (props: Props) => {
+const Filters: React.FC<ExplorerGridProps> = (props: ExplorerGridProps) => {
   const { gridRef } = props
 
   return (
