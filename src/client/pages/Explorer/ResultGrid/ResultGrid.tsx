@@ -22,7 +22,7 @@ import { useCellsExportAlways } from './hooks/useCellsExportAlways'
 import { useCombinations } from './hooks/useCombinations'
 import { useGridTemplateColumns } from './hooks/useGridTemplateColumns'
 import { useRenderLabel } from './hooks/useRenderLabel'
-import { useTrackFirstColWidth } from './hooks/useTrackFirstColWidth'
+import { useTrackFirstColRowWidth } from './hooks/useTrackFirstColRowWidth'
 
 const _getCombinationStringValue = <T extends string = string>(value: string | CountryEntry): T => {
   if (typeof value === 'string') return value as T
@@ -53,13 +53,19 @@ export const ResultGrid: React.FC<ExplorerGridProps> = (props: ExplorerGridProps
 
   const hideGrid = useHideGrid()
 
-  useTrackFirstColWidth({ gridRef, gridTemplateColumns, hideGrid, yAxisVariableCount })
+  useTrackFirstColRowWidth({ gridRef, gridTemplateColumns, hideGrid })
 
   if (hideGrid) return null
 
   return (
     <DataGrid ref={gridRef} className="explorer-result-grid" gridTemplateColumns={gridTemplateColumns}>
-      <DataCell firstCol gridColumn={`span ${yAxisVariableCount}`} gridRow={`span ${xAxisVariableCount}`} header />
+      <DataCell
+        className="corner-cell"
+        firstCol
+        gridColumn={`span ${yAxisVariableCount}`}
+        gridRow={`span ${xAxisVariableCount}`}
+        header
+      />
 
       {/* Cells export always on the X axis - Headers */}
       {!Objects.isEmpty(cellsExportAlways) &&
@@ -68,7 +74,7 @@ export const ResultGrid: React.FC<ExplorerGridProps> = (props: ExplorerGridProps
           return (
             <DataCell
               key={`${measureName}-${dimensionName}-x-cell-export-always-header`}
-              className="header-top"
+              className="export-always-x-header"
               gridRow="span 2"
               header
             >
@@ -83,7 +89,7 @@ export const ResultGrid: React.FC<ExplorerGridProps> = (props: ExplorerGridProps
           return (
             <DataCell
               key={`${axisType}-${_getCombinationStringValue(value)}-primary-x-variable-header`}
-              className={classNames('header-top', { 'country-header': axisType === AxisType.countries })}
+              className={classNames('primary-x-header', { 'country-header': axisType === AxisType.countries })}
               gridColumn={`span ${axisValues[xAxisSelection[1]].length}`}
               header
               lastCol={idx === uniquePrimaryX.length - 1}
@@ -94,11 +100,16 @@ export const ResultGrid: React.FC<ExplorerGridProps> = (props: ExplorerGridProps
         })}
 
       {xCombinations.map((combination, idx) => {
-        const axisType = xAxisVariableCount === 2 ? xAxisSelection[1] : xAxisSelection[0]
+        const isPrimaryVariable = xAxisVariableCount === 1
+        const axisType = xAxisSelection[isPrimaryVariable ? 0 : 1]
         return (
           <DataCell
             key={`${combination.map(_getCombinationStringValue).join('-')}-x-header`}
-            className={classNames('header-top', { 'country-header': axisType === AxisType.countries })}
+            className={classNames(
+              { 'primary-x-header': isPrimaryVariable },
+              { 'secondary-x-header': !isPrimaryVariable },
+              { 'country-header': axisType === AxisType.countries }
+            )}
             header
             lastCol={idx === xCombinations.length - 1}
           >

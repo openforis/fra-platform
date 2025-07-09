@@ -6,8 +6,10 @@
   display: grid;
   grid-auto-rows: 30px;
   grid-template-columns: repeat(5, 1fr);
+  position: relative;
   row-gap: $spacing-xxxxs;
   width: min-content;
+  z-index: $z-index-explorer-filters; // Needed to show selectors above result grid sticky headers
 }
 
 .explorer-filters__multiselect {
