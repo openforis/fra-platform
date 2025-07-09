@@ -11,7 +11,7 @@ export const useDefaultValues = (fields: Array<FieldDefinition>): Returned => {
     const values: Returned = {}
     fields.forEach((field) => {
       if (!Objects.isNil(field.defaultValue)) {
-        values[field.name] = field.defaultValue
+        Objects.setInPath({ obj: values, path: field.name.split('.'), value: field.defaultValue })
       }
     })
     return values

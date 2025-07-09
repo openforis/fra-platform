@@ -1,26 +1,47 @@
 import { User } from 'meta/user'
+import { UserProps } from 'meta/user/user'
 
 import { BaseProtocol, DB } from 'server/db'
 
 import { getOne } from './getOne'
 
-export const update = async (props: { user: User }, client: BaseProtocol = DB): Promise<User> => {
-  const {
-    user: { email, id, profilePictureFileUuid, props: userProperties, status },
-  } = props
+type Props = { user: Partial<Omit<User, 'props'> & { props: Partial<UserProps> }> }
+
+export const update = async (props: Props, client: BaseProtocol = DB): Promise<User> => {
+  const { user } = props
+
+  const values: Record<string, string | Partial<UserProps> | number> = { id: user.id }
+  const setParts: Array<string> = []
+
+  if (user.email) {
+    values.email = user.email
+    setParts.push('email = $(email)')
+  }
+
+  if (user.props) {
+    values.props = user.props
+    setParts.push('props = $(props)')
+  }
+
+  if (user.status) {
+    values.status = user.status
+    setParts.push('status = $(status)')
+  }
+
+  if (user.profilePictureFileUuid) {
+    values.profilePictureFileUuid = user.profilePictureFileUuid
+    setParts.push('profile_picture_file_uuid = $(profilePictureFileUuid)')
+  }
 
   await client.one<User>(
     `
-        update users set
-                      email = $1,
-                      props = $2,
-                      status = $3,
-                      profile_picture_file_uuid = $4
-        where id = $5
-        returning *
+    update users set
+    ${setParts.join(', ')}
+    where id = $(id)
+    returning *
     `,
-    [email, userProperties, status, profilePictureFileUuid, id]
+    values
   )
 
-  return getOne({ email, allowDisabled: true }, client)
+  return getOne({ id: user.id, allowDisabled: true }, client)
 }

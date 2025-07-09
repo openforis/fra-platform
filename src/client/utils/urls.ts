@@ -4,6 +4,12 @@ const getRequestParam = (name: string) => {
   return params.get(name)
 }
 
+const withSearchParams = (url: string, params: ConstructorParameters<typeof URLSearchParams>[0]) => {
+  const urlParams = new URLSearchParams(params)
+  return `${url}?${urlParams.toString()}`
+}
+
 export const Urls = {
   getRequestParam,
+  withSearchParams,
 }

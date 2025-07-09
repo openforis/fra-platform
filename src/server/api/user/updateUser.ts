@@ -1,29 +1,20 @@
-import { Request, Response } from 'express'
+import { Response } from 'express'
 
-import { Users } from 'meta/user'
+import { CycleRequest } from 'meta/api/request'
+import { UserEditCountryForm } from 'meta/form/userEdit/form'
 
 import { UserController } from 'server/controller/user'
 import { Requests } from 'server/utils'
 
-export const updateUser = async (req: Request, res: Response) => {
+type EditUserRequest = CycleRequest<unknown, UserEditCountryForm>
+
+export const updateUser = async (req: EditUserRequest, res: Response) => {
   try {
     const profilePicture = req.file
-    const userToUpdate = JSON.parse(req.body.user)
+    const userEditForm = req.body
     const user = Requests.getUser(req)
 
-    if (!Users.isAdministrator(user) && userToUpdate.id !== user.id) {
-      const {
-        props: { name },
-      } = await UserController.getOne({ id: userToUpdate.id })
-
-      userToUpdate.name = name
-    }
-
-    const updatedUser = await UserController.update({
-      userToUpdate,
-      profilePicture,
-      user,
-    })
+    const updatedUser = await UserController.update({ userEditForm, profilePicture, user })
 
     Requests.sendOk(res, updatedUser)
   } catch (e) {

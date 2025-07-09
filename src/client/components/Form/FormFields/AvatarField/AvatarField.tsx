@@ -2,8 +2,6 @@ import './AvatarField.scss'
 import React, { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Users } from 'meta/user'
-
 import Button, { ButtonSize } from 'client/components/Buttons/Button'
 import FormField from 'client/components/Form/FormFields/FormField'
 
@@ -12,13 +10,12 @@ import { useOnChange } from './hooks/useOnChange'
 
 const AvatarField = (props: FieldProps) => {
   const { t } = useTranslation()
-  const { fieldDefinition, register, setValue, watch } = props
-  const { name } = fieldDefinition
+  const { fieldDefinition, register, setValue } = props
+  const { defaultValue, name } = fieldDefinition
 
   const profilePictureRef = useRef<HTMLImageElement>(null)
   const profilePictureInputRef = useRef<HTMLInputElement>(null)
 
-  const userId = watch('userId') as number
   const onChange = useOnChange({ name, setValue, profilePictureRef })
   const onClick = () => profilePictureInputRef?.current?.click()
 
@@ -36,7 +33,7 @@ const AvatarField = (props: FieldProps) => {
             profilePictureInputRef.current = e
           }}
         />
-        <img ref={profilePictureRef} alt="" className="form-field-avatar-img" src={Users.profilePictureUri(userId)} />
+        <img ref={profilePictureRef} alt="" className="form-field-avatar-img" src={defaultValue as string} />
         <Button label={t('editUser.chooseProfilePicture')} onClick={onClick} size={ButtonSize.xs} />
       </div>
     </FormField>
