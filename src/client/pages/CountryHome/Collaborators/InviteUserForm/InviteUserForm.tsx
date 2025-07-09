@@ -1,26 +1,23 @@
-import React, { useCallback, useMemo } from 'react'
-import { useTranslation } from 'react-i18next'
+import React, { useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CountryIso } from 'meta/area'
-import { UserInvitationForms } from 'meta/form/userInvitation/forms'
 
-import { useLanguage } from 'client/hooks/useLanguage'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import Form from 'client/components/Form'
 import { Urls } from 'client/utils'
 
+import { useFormDefinition } from './hooks/useFormDefinition'
 import { useOnSuccess } from './hooks/useOnSuccess'
+import { useValidationSchema } from './hooks/useValidationSchema'
 
 const InviteUserForm: React.FC = () => {
-  const { t } = useTranslation()
-  const language = useLanguage()
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const navigate = useNavigate()
+  const formDefinition = useFormDefinition()
+  const validationSchema = useValidationSchema()
   const onSuccess = useOnSuccess()
-  const formDefinition = useMemo(() => UserInvitationForms.newFormDefinition({ language, t }), [language, t])
-  const validationSchema = useMemo(() => UserInvitationForms.newValidationSchema({ t }), [t])
 
   const onCancel = useCallback(() => {
     navigate(-1)
