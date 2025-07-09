@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import Button, { ButtonSize } from 'client/components/Buttons/Button'
 import FormField from 'client/components/Form/FormFields/FormField'
+import { useIsFieldDisabled } from 'client/components/Form/FormFields/hooks/useIsFieldDisabled'
 
 import { FieldProps } from '../types'
 import { useOnChange } from './hooks/useOnChange'
@@ -18,6 +19,7 @@ const AvatarField = (props: FieldProps) => {
 
   const onChange = useOnChange({ name, setValue, profilePictureRef })
   const onClick = () => profilePictureInputRef?.current?.click()
+  const disabled = useIsFieldDisabled(props)
 
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
@@ -25,6 +27,7 @@ const AvatarField = (props: FieldProps) => {
       <div className="form-field-avatar">
         <input
           accept="image/*"
+          disabled={disabled}
           style={{ display: 'none' }}
           type="file"
           // eslint-disable-next-line react/jsx-props-no-spreading
@@ -34,7 +37,7 @@ const AvatarField = (props: FieldProps) => {
           }}
         />
         <img ref={profilePictureRef} alt="" className="form-field-avatar-img" src={defaultValue as string} />
-        <Button label={t('editUser.chooseProfilePicture')} onClick={onClick} size={ButtonSize.xs} />
+        {!disabled && <Button label={t('editUser.chooseProfilePicture')} onClick={onClick} size={ButtonSize.xs} />}
       </div>
     </FormField>
   )
