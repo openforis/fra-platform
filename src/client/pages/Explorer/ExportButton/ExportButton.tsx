@@ -1,24 +1,18 @@
 import './ExportButton.scss'
 import React from 'react'
-import { Link } from 'react-router-dom'
 
-import { useButtonClassName } from 'client/components/Buttons/Button'
-import Icon from 'client/components/Icon'
+import { useSectionRouteParams } from 'client/hooks/useRouteParams'
+import { ButtonGridExport } from 'client/components/DataGrid'
+import { useHideGrid } from 'client/pages/Explorer/hooks/useHideGrid'
+import { ExplorerGridProps } from 'client/pages/Explorer/types'
 
-const ExportButton: React.FC = () => {
-  const disabled = true
-  const exportUrl = ''
+const ExportButton: React.FC<ExplorerGridProps> = (props: ExplorerGridProps) => {
+  const { gridRef } = props
+  const { sectionName } = useSectionRouteParams()
+  const filename = `dataExport-${sectionName}`
+  const hideGrid = useHideGrid()
 
-  const className = useButtonClassName({ disabled, iconName: 'hit-down' })
-
-  return (
-    <div className="explorer-export-button">
-      <Link className={className} target="_blank" to={exportUrl}>
-        <Icon className="icon-sub icon-white" name="hit-down" />
-        CSV
-      </Link>
-    </div>
-  )
+  return <ButtonGridExport disabled={hideGrid} filename={filename} gridRef={gridRef} />
 }
 
 export default ExportButton
