@@ -2,18 +2,22 @@ import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Contacts } from 'meta/cycleData'
-import { Users } from 'meta/user'
+import { User, Users } from 'meta/user'
 
-import { useUser } from 'client/store/user/hooks/user'
 import { FieldDefinition, FormDefinition, FormFieldType } from 'client/components/Form/types'
+import { EditUserRules } from 'client/pages/User/hooks/useEditUserRules'
 
-import { useTargetUser } from './useTargetUser'
+type Props = {
+  editUserRules: EditUserRules
+  targetUser: User
+}
 
-export const useFormDefinition = (): FormDefinition => {
+export const useFormDefinition = (props: Props): FormDefinition => {
+  const { editUserRules, targetUser } = props
+
   const { t } = useTranslation()
-  const user = useUser()
-  const targetUser = useTargetUser()
-  const administrator = Users.isAdministrator(user)
+
+  const { emailDisabled } = editUserRules
 
   return useMemo<FormDefinition>(() => {
     const fields: Array<FieldDefinition> = [
@@ -34,7 +38,7 @@ export const useFormDefinition = (): FormDefinition => {
         type: FormFieldType.text,
         label: 'editUser.email',
         defaultValue: targetUser?.email || '',
-        isDisabled: () => !administrator,
+        isDisabled: () => emailDisabled,
       },
       {
         name: 'user.props.name',
@@ -62,6 +66,10 @@ export const useFormDefinition = (): FormDefinition => {
       },
     ]
 
+    // if (rolePropsAvailable) {
+    //   fields.push(...roleFields)
+    // }
+
     return { fields }
-  }, [administrator, t, targetUser])
+  }, [emailDisabled, t, targetUser])
 }

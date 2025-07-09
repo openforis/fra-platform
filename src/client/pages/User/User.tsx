@@ -9,14 +9,19 @@ import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import Form from 'client/components/Form'
 import { Urls } from 'client/utils'
 
+import { useEditUserRules } from './hooks/useEditUserRules'
 import { useFormDefinition } from './hooks/useFormDefinition'
 import { useOnSuccess } from './hooks/useOnSuccess'
+import { useTargetUser } from './hooks/useTargetUser'
 import { useValidationSchema } from './hooks/useValidationSchema'
 
 const User: React.FC = () => {
   const navigate = useNavigate()
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
-  const formDefinition = useFormDefinition()
+
+  const targetUser = useTargetUser()
+  const editUserRules = useEditUserRules({ targetUser })
+  const formDefinition = useFormDefinition({ editUserRules, targetUser })
   const validationSchema = useValidationSchema()
   const onSuccess = useOnSuccess()
 
