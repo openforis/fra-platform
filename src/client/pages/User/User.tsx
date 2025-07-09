@@ -32,6 +32,8 @@ const User: React.FC = () => {
   const params = { assessmentName, cycleName, countryIso }
   const action = Urls.withSearchParams(ApiEndPoint.User.one(), params)
 
+  if (!targetUser) return null
+
   return (
     <div className="app-view__content user-container">
       <Form

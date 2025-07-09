@@ -14,6 +14,7 @@ type Props = {
 
 export type EditUserRules = {
   emailDisabled: boolean // only admin can edit email
+  permissionsAvailable: boolean // admin/nc/anc edits a collaborator in country page
   roleNameAvailable: boolean // admin edits a user in country page
   rolePropsAvailable: boolean // nc/anc/c role props (address, etc..) -> themselves or admin edits them in country page
   rolesAvailable: boolean // admin edits a user in admin page
@@ -31,6 +32,7 @@ export const useEditUserRules = (props: Props): EditUserRules => {
   return useMemo<EditUserRules>(() => {
     const rules: EditUserRules = {
       emailDisabled: true,
+      permissionsAvailable: false,
       roleNameAvailable: false,
       rolePropsAvailable: false,
       rolesAvailable: false,
