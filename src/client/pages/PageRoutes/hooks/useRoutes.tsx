@@ -11,6 +11,7 @@ import AdminCountries from 'client/pages/AdminCountries'
 import AdminInvitations from 'client/pages/AdminInvitations'
 import AdminLinks from 'client/pages/AdminLinks'
 import Assessment from 'client/pages/Assessment'
+import AssessmentHome from 'client/pages/AssessmentHome'
 import Country from 'client/pages/Country'
 import SectionWrapper from 'client/pages/Country/SectionWrapper'
 import CountryHome from 'client/pages/CountryHome'
@@ -38,6 +39,7 @@ export const useRoutes = () => {
           <Route element={<Landing />} index />
 
           <Route element={<Assessment />} path={Routes.Assessment.path.relative}>
+            <Route element={<AssessmentHome />} index />
             <Route element={<Cycle />} path={Routes.Cycle.path.relative}>
               <Route element={<CycleHome />} index />
 
