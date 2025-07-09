@@ -16,6 +16,7 @@ export enum FormFieldType {
 
 export type FieldDefinition = {
   defaultValue?: unknown
+  isDisabled?: (values: FieldValues) => boolean
   label: string
   name: string
   options?: Array<Option>

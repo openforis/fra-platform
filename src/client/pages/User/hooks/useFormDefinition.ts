@@ -4,13 +4,16 @@ import { useTranslation } from 'react-i18next'
 import { Contacts } from 'meta/cycleData'
 import { Users } from 'meta/user'
 
+import { useUser } from 'client/store/user/hooks/user'
 import { FieldDefinition, FormDefinition, FormFieldType } from 'client/components/Form/types'
 
 import { useTargetUser } from './useTargetUser'
 
 export const useFormDefinition = (): FormDefinition => {
   const { t } = useTranslation()
+  const user = useUser()
   const targetUser = useTargetUser()
+  const administrator = Users.isAdministrator(user)
 
   return useMemo<FormDefinition>(() => {
     const fields: Array<FieldDefinition> = [
@@ -31,6 +34,7 @@ export const useFormDefinition = (): FormDefinition => {
         type: FormFieldType.text,
         label: 'editUser.email',
         defaultValue: targetUser?.email || '',
+        isDisabled: () => !administrator,
       },
       {
         name: 'user.props.name',
@@ -59,5 +63,5 @@ export const useFormDefinition = (): FormDefinition => {
     ]
 
     return { fields }
-  }, [t, targetUser])
+  }, [administrator, t, targetUser])
 }
