@@ -8,10 +8,16 @@ import Country from 'client/pages/Explorer/Filters/Country/Country'
 import Dimension from 'client/pages/Explorer/Filters/Dimension/Dimension'
 import Measure from 'client/pages/Explorer/Filters/Measure/Measure'
 
-const Filters: React.FC = () => {
+type Props = {
+  gridRef: React.RefObject<HTMLDivElement>
+}
+
+const Filters: React.FC<Props> = (props: Props) => {
+  const { gridRef } = props
+
   return (
     <div className="explorer-filters">
-      <ExportButton />
+      <ExportButton gridRef={gridRef} />
       <Hr vertical />
       <Country />
       <Measure />

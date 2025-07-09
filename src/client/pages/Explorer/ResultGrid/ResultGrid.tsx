@@ -1,5 +1,5 @@
 import './ResultGrid.scss'
-import React, { useRef } from 'react'
+import React from 'react'
 
 import classNames from 'classnames'
 import { Objects } from 'utils/objects'
@@ -10,16 +10,14 @@ import { Axis, AxisType } from 'meta/explorer/selection'
 import { useExplorerSectionData, useGetExplorerSectionData } from 'client/store/explorer/data/hooks/data'
 import { useExplorerSectionMetadata } from 'client/store/explorer/metadata/hooks/metadata'
 import { useExplorerAxisSelection } from 'client/store/explorer/selection/hooks/axisSelection'
-import { useExplorerDimensions } from 'client/store/explorer/selection/hooks/dimensions'
-import { useExplorerMeasures } from 'client/store/explorer/selection/hooks/measures'
 import { DataCell, DataGrid } from 'client/components/DataGrid'
+import { useHideGrid } from 'client/pages/Explorer/hooks/useHideGrid'
 import MeasureTitle from 'client/pages/Explorer/ResultGrid/MeasureTitle/MeasureTitle'
 import Observation from 'client/pages/Explorer/ResultGrid/Observation/Observation'
 
 import { useAxisValues } from './hooks/useAxisValues'
 import { useCellsExportAlways } from './hooks/useCellsExportAlways'
 import { useCombinations } from './hooks/useCombinations'
-import { useCountryEntries } from './hooks/useCountryEntries'
 import { useGridTemplateColumns } from './hooks/useGridTemplateColumns'
 import { useRenderLabel } from './hooks/useRenderLabel'
 import { useTrackFirstColWidth } from './hooks/useTrackFirstColWidth'
@@ -31,16 +29,16 @@ const _getCombinationStringValue = <T extends string = string>(value: string | C
   return null
 }
 
-export const ResultGrid: React.FC = () => {
-  const date = new Date()
+type Props = {
+  gridRef: React.RefObject<HTMLDivElement>
+}
 
-  const gridRef = useRef<HTMLDivElement>(null)
+export const ResultGrid: React.FC<Props> = (props: Props) => {
+  const { gridRef } = props
+  const date = new Date()
 
   const { tableName } = useExplorerSectionMetadata() ?? {}
   const { cellsExportAlways, cellsExportAlwaysAxis, extraCols } = useCellsExportAlways()
-  const countryEntries = useCountryEntries()
-  const measures = useExplorerMeasures()
-  const dimensions = useExplorerDimensions()
 
   useGetExplorerSectionData()
   const data = useExplorerSectionData()
@@ -56,9 +54,7 @@ export const ResultGrid: React.FC = () => {
   const xAxisVariableCount = xAxisSelection.length
   const yAxisVariableCount = yAxisSelection.length
 
-  const hideGrid =
-    [countryEntries, data, dimensions, measures, tableName].some(Objects.isEmpty) ||
-    xAxisVariableCount + yAxisVariableCount < 3
+  const hideGrid = useHideGrid()
 
   useTrackFirstColWidth({ gridRef, gridTemplateColumns, hideGrid, yAxisVariableCount })
 
