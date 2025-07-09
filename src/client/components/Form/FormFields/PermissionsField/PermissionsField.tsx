@@ -36,7 +36,7 @@ const PermissionsField: React.FC<Props> = (props) => {
 
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
-    <FormField {...props} error={undefined} noBorder>
+    <FormField disabled={disabled} {...props} error={undefined} noBorder>
       <DataGrid className="form-field-permissions" gridTemplateColumns="repeat(2, 1fr)">
         <DataCell editable lastCol lastRow>
           <div className="form-field-permissions__label">{t('userManagement.permissionNames.tableData')}</div>

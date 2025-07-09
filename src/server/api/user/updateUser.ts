@@ -1,14 +1,11 @@
 import { Response } from 'express'
 
-import { CycleRequest } from 'meta/api/request'
-import { UserEditCountryForm } from 'meta/form/userEdit/form'
+import { UserEditRequest } from 'meta/api/request/user/edit'
 
 import { UserController } from 'server/controller/user'
 import { Requests } from 'server/utils'
 
-type EditUserRequest = CycleRequest<unknown, UserEditCountryForm>
-
-export const updateUser = async (req: EditUserRequest, res: Response) => {
+export const updateUser = async (req: UserEditRequest, res: Response) => {
   try {
     const profilePicture = req.file
     const userEditForm = req.body
