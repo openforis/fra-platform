@@ -13,8 +13,10 @@ export const update = async (props: Props, client: BaseProtocol = DB): Promise<U
   const values: Record<string, string | Partial<UserProps> | number> = { id: user.id }
   const setParts: Array<string> = []
 
-  values.email = user.email
-  setParts.push('email = $(email)')
+  if (user.email) {
+    values.email = user.email
+    setParts.push('email = $(email)')
+  }
 
   if (user.props) {
     values.props = user.props
@@ -41,5 +43,5 @@ export const update = async (props: Props, client: BaseProtocol = DB): Promise<U
     values
   )
 
-  return getOne({ email: user.email, allowDisabled: true }, client)
+  return getOne({ id: user.id, allowDisabled: true }, client)
 }

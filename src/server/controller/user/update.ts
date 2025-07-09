@@ -1,7 +1,6 @@
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
-import { UserEditForm } from 'meta/form/userEdit'
-import { User } from 'meta/user'
-import { UserProps } from 'meta/user/user'
+import { UserEditCountryForm, UserForm } from 'meta/form/userEdit/form'
+import { User, Users } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db'
 import { ActivityLogRepository } from 'server/repository/public/activityLog'
@@ -10,25 +9,30 @@ import { UserRepository } from 'server/repository/public/user'
 import { FileStorage } from 'server/service/fileStorage'
 
 type Props = {
-  userEditForm: UserEditForm
+  userEditForm: UserEditCountryForm
   profilePicture?: Express.Multer.File | null
   user: User
 }
 
+export type UserEditProps = UserEditCountryForm & {
+  user: UserForm & { profilePictureFileUuid?: string }
+}
+
+const toUserEditProps = (props: Props): UserEditProps => {
+  const { user, userEditForm } = props
+
+  // only admin can update the email
+  if (!Users.isAdministrator(user)) {
+    delete userEditForm.user.email
+  }
+
+  return userEditForm
+}
+
 export const update = async (props: Props, client: BaseProtocol = DB): Promise<User> => {
-  const { profilePicture, user, userEditForm } = props
+  const { profilePicture, user } = props
 
-  const userProps: Partial<UserProps> = {
-    title: userEditForm.title,
-    name: userEditForm.name,
-    surname: userEditForm.surname,
-  }
-
-  const userToUpdate: Partial<Omit<User, 'props'> & { props: Partial<UserProps> }> = {
-    id: userEditForm.userId,
-    email: userEditForm.email,
-    props: userProps,
-  }
+  const { user: userToUpdate } = toUserEditProps(props)
 
   return client.tx(async (t) => {
     if (profilePicture) {

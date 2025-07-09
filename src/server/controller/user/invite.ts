@@ -2,7 +2,7 @@ import { CountryIso } from 'meta/area'
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { UserInvitationForm } from 'meta/form/userInvitation'
+import { UserInvitationForm } from 'meta/form/userInvitation/form'
 import { User, UserInvitation } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db'

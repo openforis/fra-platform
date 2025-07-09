@@ -10,12 +10,14 @@ import { Urls } from 'client/utils'
 
 import { useFormDefinition } from './hooks/useFormDefinition'
 import { useOnSuccess } from './hooks/useOnSuccess'
+import { useValidationSchema } from './hooks/useValidationSchema'
 
 const InviteUserForm: React.FC = () => {
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const navigate = useNavigate()
-  const onSuccess = useOnSuccess()
   const formDefinition = useFormDefinition()
+  const validationSchema = useValidationSchema()
+  const onSuccess = useOnSuccess()
 
   const onCancel = useCallback(() => {
     navigate(-1)
@@ -26,7 +28,14 @@ const InviteUserForm: React.FC = () => {
 
   return (
     <div className="app-view__content">
-      <Form action={action} formDefinition={formDefinition} method="post" onCancel={onCancel} onSuccess={onSuccess} />
+      <Form
+        action={action}
+        formDefinition={formDefinition}
+        method="post"
+        onCancel={onCancel}
+        onSuccess={onSuccess}
+        validationSchema={validationSchema}
+      />
     </div>
   )
 }

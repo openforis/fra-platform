@@ -7,17 +7,18 @@ import { CountryIso } from 'meta/area'
 
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import Form from 'client/components/Form'
-import { useOnSuccess } from 'client/pages/User/hooks/useOnSuccess'
 import { Urls } from 'client/utils'
 
 import { useFormDefinition } from './hooks/useFormDefinition'
+import { useOnSuccess } from './hooks/useOnSuccess'
+import { useValidationSchema } from './hooks/useValidationSchema'
 
 const User: React.FC = () => {
-  const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const navigate = useNavigate()
-  // const onSubmit = useOnSubmit()
-  const onSuccess = useOnSuccess()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const formDefinition = useFormDefinition()
+  const validationSchema = useValidationSchema()
+  const onSuccess = useOnSuccess()
 
   const onCancel = useCallback(() => {
     navigate(-1)
@@ -28,7 +29,14 @@ const User: React.FC = () => {
 
   return (
     <div className="app-view__content user-container">
-      <Form action={action} formDefinition={formDefinition} method="put" onCancel={onCancel} onSuccess={onSuccess} />
+      <Form
+        action={action}
+        formDefinition={formDefinition}
+        method="put"
+        onCancel={onCancel}
+        onSuccess={onSuccess}
+        validationSchema={validationSchema}
+      />
     </div>
   )
 }
