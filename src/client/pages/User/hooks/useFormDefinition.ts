@@ -1,23 +1,26 @@
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { Objects } from 'utils/objects'
+
 import { Contacts } from 'meta/cycleData'
 import { Users } from 'meta/user'
 
 import { FieldDefinition, FormDefinition, FormFieldType } from 'client/components/Form/types'
-import { Props } from 'client/pages/User/hooks/props'
+import { PropsFormDefinition } from 'client/pages/User/hooks/types'
 import { useRolePropsFields } from 'client/pages/User/hooks/useRolePropsFields'
 
-export const useFormDefinition = (props: Props): FormDefinition => {
+export const useFormDefinition = (props: PropsFormDefinition): FormDefinition | undefined => {
   const { editUserRules, targetUser } = props
 
   const { t } = useTranslation()
+  const rolePropsFields = useRolePropsFields(props)
 
   const { emailDisabled } = editUserRules
 
-  const rolePropsFields = useRolePropsFields(props)
-
   return useMemo<FormDefinition>(() => {
+    if (Objects.isNil(targetUser)) return undefined
+
     const fields: Array<FieldDefinition> = [
       {
         name: 'user.id',
@@ -67,14 +70,5 @@ export const useFormDefinition = (props: Props): FormDefinition => {
     fields.push(...rolePropsFields)
 
     return { fields }
-  }, [
-    emailDisabled,
-    rolePropsFields,
-    t,
-    targetUser?.email,
-    targetUser?.id,
-    targetUser?.props?.name,
-    targetUser?.props?.surname,
-    targetUser?.props?.title,
-  ])
+  }, [emailDisabled, rolePropsFields, t, targetUser])
 }

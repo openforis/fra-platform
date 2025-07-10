@@ -49,7 +49,7 @@ const Form: React.FC<FormProps> = (props) => {
       onSubmit={onSubmit}
       onSuccess={() => onSuccess?.(watchValues)}
     >
-      <DataGrid className="form-grid" gridTemplateColumns="min-content 1fr">
+      <DataGrid className="form-grid" gridTemplateColumns="max-content 1fr">
         {fields.map((fieldDefinition) => {
           const { name, shouldShow, type } = fieldDefinition
 
