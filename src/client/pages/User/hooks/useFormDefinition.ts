@@ -2,15 +2,11 @@ import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Contacts } from 'meta/cycleData'
-import { User, Users } from 'meta/user'
+import { Users } from 'meta/user'
 
 import { FieldDefinition, FormDefinition, FormFieldType } from 'client/components/Form/types'
-import { EditUserRules } from 'client/pages/User/hooks/useEditUserRules'
-
-type Props = {
-  editUserRules: EditUserRules
-  targetUser: User
-}
+import { Props } from 'client/pages/User/hooks/props'
+import { useRolePropsFields } from 'client/pages/User/hooks/useRolePropsFields'
 
 export const useFormDefinition = (props: Props): FormDefinition => {
   const { editUserRules, targetUser } = props
@@ -18,6 +14,8 @@ export const useFormDefinition = (props: Props): FormDefinition => {
   const { t } = useTranslation()
 
   const { emailDisabled } = editUserRules
+
+  const rolePropsFields = useRolePropsFields(props)
 
   return useMemo<FormDefinition>(() => {
     const fields: Array<FieldDefinition> = [
@@ -66,10 +64,17 @@ export const useFormDefinition = (props: Props): FormDefinition => {
       },
     ]
 
-    // if (rolePropsAvailable) {
-    //   fields.push(...roleFields)
-    // }
+    fields.push(...rolePropsFields)
 
     return { fields }
-  }, [emailDisabled, t, targetUser])
+  }, [
+    emailDisabled,
+    rolePropsFields,
+    t,
+    targetUser?.email,
+    targetUser?.id,
+    targetUser?.props?.name,
+    targetUser?.props?.surname,
+    targetUser?.props?.title,
+  ])
 }

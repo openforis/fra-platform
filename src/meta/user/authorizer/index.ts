@@ -4,6 +4,7 @@ import { Cycle } from 'meta/assessment/cycle'
 import { Cycles } from 'meta/assessment/cycles'
 import { Section, SubSection } from 'meta/assessment/section'
 import { RepositoryItem } from 'meta/cycleData'
+import { canEditUserRoleProps } from 'meta/user/authorizer/canEditUserRoleProps'
 import { User } from 'meta/user/user'
 import { Users } from 'meta/user/users'
 
@@ -178,7 +179,8 @@ export const Authorizer = {
   canViewRepositoryItem,
   canViewReview,
   // user
-  canViewUsers,
   canEditUser,
   canEditUserRole,
+  canEditUserRoleProps,
+  canViewUsers,
 }
