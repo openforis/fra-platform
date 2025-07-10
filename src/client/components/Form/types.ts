@@ -12,6 +12,7 @@ export enum FormFieldType {
   permissions = 'permissions',
   select = 'select',
   text = 'text',
+  textLink = 'textLink',
   userRole = 'userRole',
 }
 

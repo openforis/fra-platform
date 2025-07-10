@@ -9,6 +9,8 @@ import * as merge from 'lodash.merge'
 // @ts-ignore
 import * as pick from 'lodash.pick'
 // @ts-ignore
+import * as set from 'lodash.set'
+// @ts-ignore
 import * as unset from 'lodash.unset'
 
 import { camelize } from './camelize'
@@ -31,6 +33,7 @@ export const Objects = {
   merge,
   pick,
   propertyOf,
+  set,
   setInPath,
   unset,
 }

@@ -47,7 +47,7 @@ export const useRolePropsFields = (props: PropsFormDefinition): FormDefinition['
       },
       {
         name: 'role.props.organization',
-        type: FormFieldType.text,
+        type: FormFieldType.textLink,
         label: 'editUser.organization',
         defaultValue: role?.props?.organization || '',
       },
