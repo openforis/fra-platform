@@ -1,7 +1,7 @@
 import { Objects } from 'utils/objects'
 
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
-import { RoleName, User } from 'meta/user'
+import { Authorizer, RoleName, User } from 'meta/user'
 import { UserRoleExtended } from 'meta/user/userRole'
 
 import { BaseProtocol } from 'server/db'
@@ -15,12 +15,14 @@ type UpdateRoleProps = Props & {
 }
 
 export const updateRole = async (props: UpdateRoleProps, client: BaseProtocol): Promise<void> => {
-  const { targetUser, user, userEditForm } = props
+  const { cycle, targetUser, user, userEditForm } = props
   const { role } = userEditForm
 
   if (!role) return
 
   const existingRole: UserRoleExtended<RoleName> = targetUser.roles.find((r) => role.uuid === r.uuid)
+  if (!Authorizer.canEditUserRoleProps({ user, countryIso: existingRole.countryIso, cycle, target: targetUser })) return
+
   const updatedRole = Objects.merge(existingRole, role)
 
   await UserRoleRepository.updateProps({ id: existingRole.id, props: updatedRole.props }, client)
