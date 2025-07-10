@@ -3,6 +3,7 @@ import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
+import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area'
 
@@ -12,8 +13,12 @@ import { useCountriesByRegionOptions } from './hooks/useCountriesByRegionOptions
 import { useTooltipContent } from './hooks/useTooltipContent'
 import { Props } from './types'
 
+const defaults: Readonly<Partial<Props>> = {
+  isMulti: true,
+}
+
 const CountryMultiSelect: React.FC<Props> = (props) => {
-  const { error, onChange, onMenuClose, placeholder, value } = props
+  const { error, isMulti = defaults.isMulti, onChange, onMenuClose, placeholder, value } = props
 
   const { t } = useTranslation()
   const optionGroups = useCountriesByRegionOptions()
@@ -32,7 +37,7 @@ const CountryMultiSelect: React.FC<Props> = (props) => {
     onMenuClose?.()
   }
 
-  const active = useMemo(() => Array.isArray(value) && value.length > 0, [value])
+  const active = useMemo(() => !Objects.isEmpty(value), [value])
   const container = classNames('country-multiselect__container', { active, error })
   return (
     <div
@@ -46,7 +51,7 @@ const CountryMultiSelect: React.FC<Props> = (props) => {
       <Select
         classNames={{ container }}
         collapsibleGroups
-        isMulti
+        isMulti={isMulti}
         multiLabelSummaryKey="admin.country"
         onChange={onChange}
         onMenuClose={handleMenuClose}

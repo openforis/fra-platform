@@ -11,11 +11,12 @@ import { FieldProps } from 'client/components/Form/FormFields/types'
 import Icon from 'client/components/Icon'
 
 type Props = PropsWithChildren<FieldProps> & {
+  classes?: { cellField?: string }
   disabled?: boolean
 }
 
 const FormField: React.FC<Props> = (props) => {
-  const { children, disabled, error, fieldDefinition, fieldValidationSchema, fullWidth, noBorder } = props
+  const { children, classes, disabled, error, fieldDefinition, fieldValidationSchema, fullWidth, noBorder } = props
   const { label, name } = fieldDefinition
   const required = !Objects.isNil(fieldValidationSchema) && !(fieldValidationSchema instanceof ZodOptional)
 
@@ -31,7 +32,7 @@ const FormField: React.FC<Props> = (props) => {
       </DataCell>
 
       <DataCell
-        className={classNames('form-field__cell-field', { disabled, 'form-field__full-width': fullWidth })}
+        className={classNames('form-cell-field', classes?.cellField, { disabled, 'form-field__full-width': fullWidth })}
         editable
         lastCol
         lastRow

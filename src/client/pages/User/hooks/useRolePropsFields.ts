@@ -70,9 +70,10 @@ export const useRolePropsFields = (props: Props): FormDefinition['fields'] => {
       },
       {
         name: 'role.props.address.countryIso',
-        type: FormFieldType.text,
+        type: FormFieldType.country,
         label: 'editUser.countryIso',
         defaultValue: role?.props?.address?.countryIso || '',
+        placeholder: '',
       },
       {
         name: 'role.props.secondaryEmail',
