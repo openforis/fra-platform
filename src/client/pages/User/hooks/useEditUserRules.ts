@@ -29,9 +29,11 @@ export const useEditUserRules = (props: Props): EditUserRules => {
   const cycle = useCycle()
 
   const isAdministrator = Users.isAdministrator(user)
-  const isCollaborator = Users.isCollaborator(user, countryIso, cycle)
-  const isNationalCorrespondent = Users.isNationalCorrespondent(user, countryIso, cycle)
-  const isAlternateNationalCorrespondent = Users.isAlternateNationalCorrespondent(user, countryIso, cycle)
+
+  const isTargetCollaborator = Users.isCollaborator(targetUser, countryIso, cycle)
+  const isTargetNationalCorrespondent = Users.isNationalCorrespondent(targetUser, countryIso, cycle)
+  const isTargetAlternateNationalCorrespondent = Users.isAlternateNationalCorrespondent(targetUser, countryIso, cycle)
+
   const isCountryPage = Areas.isISOCountry(countryIso)
   const isSelf = user.id === targetUser?.id
 
@@ -49,18 +51,19 @@ export const useEditUserRules = (props: Props): EditUserRules => {
 
     if (isAdministrator) rules.emailDisabled = false
 
-    const rolePropsRoles =
-      isAdministrator && isAlternateNationalCorrespondent && isCollaborator && isNationalCorrespondent
-    if ((rolePropsRoles || isSelf) && isCountryPage) rules.rolePropsAvailable = true
+    const targetUserHasRoleProps =
+      isTargetAlternateNationalCorrespondent || isTargetCollaborator || isTargetNationalCorrespondent
+
+    if ((isAdministrator || isSelf) && targetUserHasRoleProps && isCountryPage) rules.rolePropsAvailable = true
 
     return rules
   }, [
     isAdministrator,
-    isAlternateNationalCorrespondent,
-    isCollaborator,
     isCountryPage,
-    isNationalCorrespondent,
     isSelf,
+    isTargetAlternateNationalCorrespondent,
+    isTargetCollaborator,
+    isTargetNationalCorrespondent,
     targetUser,
   ])
 }
