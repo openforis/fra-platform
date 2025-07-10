@@ -8,16 +8,17 @@ import { CountryIso } from 'meta/area'
 import { TooltipId } from 'meta/tooltip'
 
 import { useIsPanEuropeanRoute } from 'client/hooks'
+import { Props as CountrySelectProps } from 'client/components/CountryMultiSelect/types'
 import { OptionsGroup } from 'client/components/Inputs/Select'
 
 import { useCountriesByRegionOptions } from './useCountriesByRegionOptions'
 
-interface Props {
+type Props = Pick<CountrySelectProps, 'isMulti'> & {
   value: Array<CountryIso>
   error?: string
 }
 
-interface Returned {
+type Returned = {
   hideTooltip: () => void
   showTooltip: () => void
   tooltipContent: string | null
@@ -25,7 +26,7 @@ interface Returned {
 }
 
 export const useTooltipContent = (props: Props): Returned => {
-  const { error, value } = props
+  const { error, isMulti, value } = props
   const [canDisplayTooltip, setCanDisplayTooltip] = useState<boolean>(true)
   const { t } = useTranslation()
 
@@ -33,7 +34,7 @@ export const useTooltipContent = (props: Props): Returned => {
   const isPanEuropean = useIsPanEuropeanRoute()
 
   const tooltipContent = useMemo<string | null>(() => {
-    if (Objects.isEmpty(value)) return null
+    if (Objects.isEmpty(value) || !isMulti) return null
     if (!canDisplayTooltip) return null
 
     if (error) {
@@ -98,7 +99,7 @@ export const useTooltipContent = (props: Props): Returned => {
         ))}
       </div>
     )
-  }, [canDisplayTooltip, countryOptionGroups, error, isPanEuropean, t, value])
+  }, [canDisplayTooltip, countryOptionGroups, error, isMulti, isPanEuropean, t, value])
 
   const hideTooltip = useCallback(() => setCanDisplayTooltip(false), [])
   const showTooltip = useCallback(() => setCanDisplayTooltip(true), [])

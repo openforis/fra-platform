@@ -1,0 +1,18 @@
+@import 'src/client/style/partials';
+
+.form-cell-field_country {
+  height: $spacing-l;
+
+  .country-multiselect__container {
+    font-size: $font-s;
+    width: 100%;
+
+    &.active {
+      border: unset;
+    }
+  }
+
+  .select__control {
+    padding: $spacing-xxs;
+  }
+}

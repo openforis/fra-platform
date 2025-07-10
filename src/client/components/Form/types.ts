@@ -6,6 +6,7 @@ import { Option } from 'client/components/Inputs/Select'
 
 export enum FormFieldType {
   avatar = 'avatar',
+  country = 'country',
   hidden = 'hidden',
   language = 'language',
   permissions = 'permissions',
