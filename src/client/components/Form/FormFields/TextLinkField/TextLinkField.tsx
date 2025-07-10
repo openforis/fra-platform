@@ -22,14 +22,7 @@ const TextLinkField = (props: FieldProps) => {
         disabled={disabled}
         name={name}
         render={({ field: { onChange, value } }) => (
-          <EditorWYSIWYGLinks
-            disabled={disabled}
-            // isClearable={false}
-            onChange={onChange}
-            // options={options}
-            // placeholder={placeholder}
-            value={value as string}
-          />
+          <EditorWYSIWYGLinks disabled={disabled} onChange={onChange} value={value as string} />
         )}
       />
     </FormField>
