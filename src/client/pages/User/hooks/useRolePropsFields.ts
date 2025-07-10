@@ -111,17 +111,17 @@ export const useRolePropsFields = (props: PropsFormDefinition): FormDefinition['
         type: FormFieldType.select,
         label: 'editUser.contactPreference',
         defaultValue: role?.props?.contactPreference?.method || '',
-        options: Object.values(UserContactPreferenceMethod).map<Option>(
-          (value) => ({ label: t(`editUser.${value}`), value }),
-          {}
-        ),
+        options: Object.values(UserContactPreferenceMethod).map<Option>((value) => ({
+          label: t(`editUser.${value}`),
+          value,
+        })),
       },
       {
         name: 'role.props.contactPreference.options.phone',
         type: FormFieldType.select,
         label: '',
         defaultValue: role?.props?.contactPreference?.options?.phone || '',
-        options: Object.values(UserContactPreferencePhoneOption).map<Option>((value) => ({ label: value, value }), {}),
+        options: Object.values(UserContactPreferencePhoneOption).map<Option>((value) => ({ label: value, value })),
         shouldShow: (values) => {
           const contactPreference = Objects.getInPath(values, ['role', 'props', 'contactPreference', 'method'])
 
