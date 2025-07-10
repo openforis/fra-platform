@@ -18,6 +18,8 @@ export const updateRole = async (props: UpdateRoleProps, client: BaseProtocol): 
   const { targetUser, user, userEditForm } = props
   const { role } = userEditForm
 
+  if (!role) return
+
   const existingRole: UserRoleExtended<RoleName> = targetUser.roles.find((r) => role.uuid === r.uuid)
   const updatedRole = Objects.merge(existingRole, role)
 
