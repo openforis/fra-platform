@@ -1,21 +1,28 @@
 import { useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
+
+import { Objects } from 'utils/objects'
 
 import { RoleName, Users } from 'meta/user'
-import { UserRoleExtended } from 'meta/user/userRole'
+import { UserContactPreferenceMethod, UserContactPreferencePhoneOption, UserRoleExtended } from 'meta/user/userRole'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { FormDefinition, FormFieldType } from 'client/components/Form/types'
-import { Props } from 'client/pages/User/hooks/props'
+import { Option } from 'client/components/Inputs/Select'
+import { PropsFormDefinition } from 'client/pages/User/hooks/types'
 
-export const useRolePropsFields = (props: Props): FormDefinition['fields'] => {
+export const useRolePropsFields = (props: PropsFormDefinition): FormDefinition['fields'] => {
   const { editUserRules, targetUser } = props
 
+  const { t } = useTranslation()
   const { countryIso } = useCountryRouteParams()
   const cycle = useCycle()
 
+  const { rolePropsAvailable } = editUserRules
+
   return useMemo<FormDefinition['fields']>(() => {
-    if (!editUserRules.rolePropsAvailable) return []
+    if (Objects.isNil(targetUser) || !rolePropsAvailable) return []
 
     const role = Users.getRole(targetUser, countryIso, cycle) as UserRoleExtended<RoleName>
 
@@ -100,11 +107,30 @@ export const useRolePropsFields = (props: Props): FormDefinition['fields'] => {
         defaultValue: role?.props?.skype || '',
       },
       {
-        name: 'role.props.contactPreference',
-        type: FormFieldType.text,
+        name: 'role.props.contactPreference.method',
+        type: FormFieldType.select,
         label: 'editUser.contactPreference',
-        defaultValue: role?.props?.contactPreference || '',
+        defaultValue: role?.props?.contactPreference?.method || '',
+        options: Object.values(UserContactPreferenceMethod).map<Option>(
+          (value) => ({ label: t(`editUser.${value}`), value }),
+          {}
+        ),
+      },
+      {
+        name: 'role.props.contactPreference.options.phone',
+        type: FormFieldType.select,
+        label: '',
+        defaultValue: role?.props?.contactPreference?.options?.phone || '',
+        options: Object.values(UserContactPreferencePhoneOption).map<Option>((value) => ({ label: value, value }), {}),
+        shouldShow: (values) => {
+          const contactPreference = Objects.getInPath(values, ['role', 'props', 'contactPreference', 'method'])
+
+          return [
+            UserContactPreferenceMethod.primaryPhoneNumber,
+            UserContactPreferenceMethod.secondaryPhoneNumber,
+          ].includes(contactPreference)
+        },
       },
     ]
-  }, [countryIso, cycle, editUserRules.rolePropsAvailable, targetUser])
+  }, [countryIso, cycle, rolePropsAvailable, t, targetUser])
 }
