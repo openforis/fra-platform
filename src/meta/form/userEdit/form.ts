@@ -1,14 +1,14 @@
-import { User } from 'meta/user'
+import { User, UserRole } from 'meta/user'
 import { UserProps } from 'meta/user/user'
 
-export type UserForm = Pick<User, 'email' | 'id'> & {
+export type UserForm = Pick<User, 'email' | 'id' | 'uuid'> & {
   props: Pick<UserProps, 'name' | 'surname' | 'title'>
 }
 
 export type UserEditCountryForm = {
   profilePicture?: File
   user: UserForm
-  // role?: Pick<UserRole, 'id' | 'role'> & { props: Partial<UserRole['props']> }
+  role?: Pick<UserRole, 'uuid' | 'role'> & { props: Partial<UserRole['props']> }
 }
 
 // export type UserAdminForm = UserForm & { status: UserStatus.active | UserStatus.disabled }

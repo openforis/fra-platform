@@ -20,11 +20,12 @@ const User: React.FC = () => {
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
 
   const targetUser = useTargetUser()
+
   const editUserRules = useEditUserRules({ targetUser })
   const formDefinition = useFormDefinition({ editUserRules, targetUser })
   const validationSchema = useValidationSchema()
-  const onSuccess = useOnSuccess()
 
+  const onSuccess = useOnSuccess()
   const onCancel = useCallback(() => {
     navigate(-1)
   }, [navigate])
