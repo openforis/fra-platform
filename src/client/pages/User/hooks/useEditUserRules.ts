@@ -2,9 +2,10 @@ import { useMemo } from 'react'
 
 import { Objects } from 'utils/objects'
 
-import { Areas } from 'meta/area'
+import { Areas, CountryIso } from 'meta/area'
 import { User, Users } from 'meta/user'
 
+import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useUser } from 'client/store/user/hooks/user'
 import { useCountryUserRouteParams } from 'client/hooks/useRouteParams'
 
@@ -24,10 +25,13 @@ export const useEditUserRules = (props: Props): EditUserRules => {
   const { targetUser } = props
 
   const user = useUser()
-  const { countryIso } = useCountryUserRouteParams()
+  const { countryIso } = useCountryUserRouteParams<CountryIso>()
+  const cycle = useCycle()
 
-  // const isReviewer = Users.isReviewer(user, countryIso, cycle)
   const isAdministrator = Users.isAdministrator(user)
+  const isCollaborator = Users.isCollaborator(user, countryIso, cycle)
+  const isNationalCorrespondent = Users.isNationalCorrespondent(user, countryIso, cycle)
+  const isAlternateNationalCorrespondent = Users.isAlternateNationalCorrespondent(user, countryIso, cycle)
   const isCountryPage = Areas.isISOCountry(countryIso)
   const isSelf = user.id === targetUser?.id
 
@@ -45,8 +49,18 @@ export const useEditUserRules = (props: Props): EditUserRules => {
 
     if (isAdministrator) rules.emailDisabled = false
 
-    if ((isAdministrator || isSelf) && isCountryPage /* && !isReviewer */) rules.rolePropsAvailable = true
+    const rolePropsRoles =
+      isAdministrator && isAlternateNationalCorrespondent && isCollaborator && isNationalCorrespondent
+    if ((rolePropsRoles || isSelf) && isCountryPage) rules.rolePropsAvailable = true
 
     return rules
-  }, [isAdministrator, isCountryPage, isSelf, targetUser])
+  }, [
+    isAdministrator,
+    isAlternateNationalCorrespondent,
+    isCollaborator,
+    isCountryPage,
+    isNationalCorrespondent,
+    isSelf,
+    targetUser,
+  ])
 }
