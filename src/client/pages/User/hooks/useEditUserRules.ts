@@ -22,12 +22,14 @@ export type EditUserRules = {
 
 export const useEditUserRules = (props: Props): EditUserRules => {
   const { targetUser } = props
+
   const user = useUser()
   const { countryIso } = useCountryUserRouteParams()
 
-  const administrator = Users.isAdministrator(user)
-  const countryPage = Areas.isISOCountry(countryIso)
-  const editingSelf = user.id === targetUser?.id
+  // const isReviewer = Users.isReviewer(user, countryIso, cycle)
+  const isAdministrator = Users.isAdministrator(user)
+  const isCountryPage = Areas.isISOCountry(countryIso)
+  const isSelf = user.id === targetUser?.id
 
   return useMemo<EditUserRules>(() => {
     const rules: EditUserRules = {
@@ -41,10 +43,10 @@ export const useEditUserRules = (props: Props): EditUserRules => {
     // still loading targetUser
     if (Objects.isNil(targetUser)) return rules
 
-    if (administrator) rules.emailDisabled = false
+    if (isAdministrator) rules.emailDisabled = false
 
-    if ((administrator || editingSelf) && countryPage) rules.rolePropsAvailable = true
+    if ((isAdministrator || isSelf) && isCountryPage /* && !isReviewer */) rules.rolePropsAvailable = true
 
     return rules
-  }, [administrator, countryPage, editingSelf, targetUser])
+  }, [isAdministrator, isCountryPage, isSelf, targetUser])
 }
