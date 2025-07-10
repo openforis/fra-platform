@@ -10,7 +10,7 @@ import { useUser } from 'client/store/user/hooks/user'
 import { useCountryUserRouteParams } from 'client/hooks/useRouteParams'
 
 type Props = {
-  targetUser: User
+  targetUser?: User
 }
 
 export type EditUserRules = {
