@@ -10,7 +10,7 @@ import { Users } from 'meta/user/users'
 
 import { canEditSectionData } from './canEditSectionData'
 import { canEditSomeData } from './canEditSomeData'
-import { canEditUser, canEditUserRole } from './canEditUser'
+import { canEditUser, canEditUserRoleName } from './canEditUser'
 import { canViewReview } from './canViewReview'
 
 /**
@@ -180,7 +180,7 @@ export const Authorizer = {
   canViewReview,
   // user
   canEditUser,
-  canEditUserRole,
+  canEditUserRoleName,
   canEditUserRoleProps,
   canViewUsers,
 }
