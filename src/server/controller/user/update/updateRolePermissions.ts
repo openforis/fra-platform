@@ -12,32 +12,24 @@ type UpdateRoleProps = Props & {
   targetUser: User
 }
 
-export const updateRoleName = async (props: UpdateRoleProps, client: BaseProtocol): Promise<User> => {
+export const updateRolePermissions = async (props: UpdateRoleProps, client: BaseProtocol): Promise<void> => {
   const { cycle, targetUser, user, userEditForm } = props
   const { role } = userEditForm
 
-  if (!role.role) return targetUser
+  if (!role?.permissions) return
 
   const existingRole: UserRoleExtended<RoleName> = targetUser.roles.find((r) => role.uuid === r.uuid)
-  if (
-    !Authorizer.canEditUserRoleName({ user, countryIso: existingRole.countryIso, cycle, target: targetUser }) ||
-    existingRole.role === role.role
+  if (!Authorizer.canEditUserRolePermissions({ user, countryIso: existingRole.countryIso, cycle, target: targetUser }))
+    return
+
+  const updatedRole = await UserRoleRepository.updateProps(
+    { id: existingRole.id, permissions: role.permissions },
+    client
   )
-    return targetUser
 
-  const updatedRole = await UserRoleRepository.updateProps({ id: existingRole.id, role: role.role }, client)
-
-  // activity log
   const target = { roles: [updatedRole], userUuid: targetUser.uuid }
-  const message = ActivityLogMessage.userRoleUpdateRole
+  const message = ActivityLogMessage.userRoleUpdatePermissions
   const activityLog = { target, section: 'users', message, user }
 
   await ActivityLogRepository.insertActivityLog({ activityLog }, client)
-
-  // return targetUser with updated role name
-  targetUser.roles = targetUser.roles.map((r) => {
-    if (r.uuid === updatedRole.uuid) return updatedRole
-    return r
-  })
-  return targetUser
 }

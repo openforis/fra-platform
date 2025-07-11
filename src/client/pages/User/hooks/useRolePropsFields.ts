@@ -5,7 +5,7 @@ import { Objects } from 'utils/objects'
 
 import { Areas, CountryIso } from 'meta/area'
 import { UserEditCountryForm } from 'meta/form/userEdit/form'
-import { Authorizer, RoleName, Users } from 'meta/user'
+import { Authorizer, RoleName, User, Users } from 'meta/user'
 import { UserContactPreferenceMethod, UserContactPreferencePhoneOption, UserRoleExtended } from 'meta/user/userRole'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
@@ -26,11 +26,11 @@ export const useRolePropsFields = (props: PropsFormDefinition): FormDefinition['
   return useMemo<FormDefinition['fields']>(() => {
     if (Objects.isNil(targetUser)) return []
 
+    const isCountryPage = Areas.isISOCountry(countryIso)
     const role = Users.getRole(targetUser, countryIso, cycle) as UserRoleExtended<RoleName>
     const rolesAllowedToEdit = Users.getRolesAllowedToEdit({ user, countryIso, cycle })
 
-    const shouldShowRoleProps = (values?: UserEditCountryForm): boolean => {
-      // const shouldShow = (): boolean => {
+    const getTargetUserWithFormRole = (values?: UserEditCountryForm): User => {
       const target = { ...targetUser }
       if (values?.role && Object.hasOwn(values.role, 'role')) {
         target.roles = target.roles.map((role) => {
@@ -41,13 +41,22 @@ export const useRolePropsFields = (props: PropsFormDefinition): FormDefinition['
           return roleUpdate
         })
       }
-      return Authorizer.canEditUserRoleProps({ cycle, countryIso, target, user })
+      return target
+    }
+    const shouldShowRoleProps = (values?: UserEditCountryForm): boolean => {
+      const target = getTargetUserWithFormRole(values)
+      return isCountryPage && Authorizer.canEditUserRoleProps({ cycle, countryIso, target, user })
     }
 
     const shouldShowRoleName = () => {
-      const countryPage = Areas.isISOCountry(countryIso)
-      return countryPage && Authorizer.canEditUserRoleName({ cycle, countryIso, target: targetUser, user })
+      return isCountryPage && Authorizer.canEditUserRoleName({ cycle, countryIso, target: targetUser, user })
     }
+
+    const shouldShowPermissions = (values?: UserEditCountryForm): boolean => {
+      const target = getTargetUserWithFormRole(values)
+      return isCountryPage && Authorizer.canEditUserRolePermissions({ cycle, countryIso, target, user })
+    }
+
     return [
       {
         name: 'role.uuid',
@@ -178,6 +187,15 @@ export const useRolePropsFields = (props: PropsFormDefinition): FormDefinition['
             UserContactPreferenceMethod.secondaryPhoneNumber,
           ].includes(contactPreference)
         },
+      },
+      {
+        name: 'role.permissions',
+        type: FormFieldType.permissions,
+        label: 'userManagement.permissions',
+        shouldShow: shouldShowPermissions,
+        defaultValue: Objects.isEmpty(role?.permissions)
+          ? { tableData: ['all'], descriptions: ['all'] }
+          : role.permissions,
       },
     ]
   }, [countryIso, cycle, t, targetUser, user])

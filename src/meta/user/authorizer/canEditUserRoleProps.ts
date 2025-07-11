@@ -20,5 +20,5 @@ export const canEditUserRoleProps = (props: Props) => {
   const targetUserHasRoleProps =
     isTargetAlternateNationalCorrespondent || isTargetCollaborator || isTargetNationalCorrespondent
 
-  return (isAdministrator || isSelf) && targetUserHasRoleProps && isISOCountry
+  return isISOCountry && (isAdministrator || isSelf) && targetUserHasRoleProps
 }

@@ -28,7 +28,7 @@ export const updateRoleProps = async (props: UpdateRoleProps, client: BaseProtoc
   await UserRoleRepository.updateProps({ id: existingRole.id, props: updatedRole.props }, client)
 
   const target = { roles: [updatedRole], userUuid: targetUser.uuid }
-  const message = ActivityLogMessage.userRolesUpdate
+  const message = ActivityLogMessage.userRoleUpdateProps
   const activityLog = { target, section: 'users', message, user }
 
   await ActivityLogRepository.insertActivityLog({ activityLog }, client)

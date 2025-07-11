@@ -6,6 +6,8 @@ import { z } from 'zod'
 
 import { RoleName, UserContactPreferenceMethod, UserContactPreferencePhoneOption } from 'meta/user/userRole'
 
+import { FormSchemas } from 'client/components/Form/formSchemas'
+
 export const useRoleValidationSchema = () => {
   const { t } = useTranslation()
 
@@ -21,6 +23,7 @@ export const useRoleValidationSchema = () => {
     return z.object({
       role: z.enum(allowedRoles).optional(),
       uuid: z.string(),
+      permissions: FormSchemas.getPermissions(t),
       props: z
         .object({
           professionalTitle: z.string().optional(),
