@@ -10,24 +10,25 @@ export const useValidationSchema = (): FormValidationSchema => {
 
   return useMemo<FormValidationSchema>(() => {
     return z.object({
-      name: z.string().min(2, t('form.errors.mustBeAtLeastNCharacters', { field: t('common.name'), n: 2 })),
-      email: z.string().email(t('form.errors.invalid', { field: t('common.email') })),
-      language: z.string().min(1, t('form.errors.required', { field: t('common.language') })),
+      name: z.string().min(2, { error: t('form.errors.mustBeAtLeastNCharacters', { field: t('common.name'), n: 2 }) }),
+      email: z.email(t('form.errors.invalid', { field: t('common.email') })),
+      language: z.string().min(1, { error: t('form.errors.required', { field: t('common.language') }) }),
       permissions: z
         .object({
-          tableData: z
-            .array(z.string())
-            .min(1, t('form.errors.atLeastOneItemRequired', { field: t('userManagement.permissionNames.tableData') })),
-          descriptions: z
-            .array(z.string())
-            .min(
-              1,
-              t('form.errors.atLeastOneItemRequired', { field: t('userManagement.permissionNames.descriptions') })
-            ),
+          tableData: z.array(z.string()).min(1, {
+            error: t('form.errors.atLeastOneItemRequired', { field: t('userManagement.permissionNames.tableData') }),
+          }),
+          descriptions: z.array(z.string()).min(1, {
+            error: t('form.errors.atLeastOneItemRequired', {
+              field: t('userManagement.permissionNames.descriptions'),
+            }),
+          }),
         })
         .optional(),
-      role: z.string().min(1, t('form.errors.required', { field: t('editUser.role') })),
-      surname: z.string().min(2, t('form.errors.mustBeAtLeastNCharacters', { field: t('editUser.surname'), n: 2 })),
+      role: z.string().min(1, { error: t('form.errors.required', { field: t('editUser.role') }) }),
+      surname: z
+        .string()
+        .min(2, { error: t('form.errors.mustBeAtLeastNCharacters', { field: t('editUser.surname'), n: 2 }) }),
     })
   }, [t])
 }

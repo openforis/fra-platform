@@ -16,10 +16,15 @@ import { FormFields } from 'client/components/Form/FormFields/FormFields'
 import { useDefaultValues } from './hooks/useDefaultValues'
 import { useOnSubmit } from './hooks/useOnSubmit'
 import Buttons from './Buttons'
-import { FormProps } from './types'
+import { FormProps, FormValidationSchema } from './types'
 
 const defaults = {
   validationSchema: z.any(),
+}
+
+const getSchemaFieldPath = (schema: FormValidationSchema | z.ZodAny, fieldPath: Array<string>) => {
+  const schemaPath = fieldPath.flatMap((field) => ['shape', field])
+  return Objects.getInPath(schema, schemaPath)
 }
 
 const Form: React.FC<FormProps> = (props) => {
@@ -57,7 +62,7 @@ const Form: React.FC<FormProps> = (props) => {
 
           const Component = FormFields[type]
           const path = name.split('.')
-          const fieldValidationSchema = Objects.getInPath(validationSchema, ['shape', ...path])
+          const fieldValidationSchema = getSchemaFieldPath(validationSchema, path)
           const error = Objects.getInPath(errors, path)
 
           return (
