@@ -24,6 +24,7 @@ const UnitsSelection: React.FC<Props> = (props: Props) => {
 
   return (
     <>
+      <h2 className="options-title">{t('common.unit')}</h2>
       <div className="units-selection">
         {unitSelectors.map(({ measureName, onChange, options, selectedUnit }) => (
           <>

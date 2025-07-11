@@ -6,7 +6,7 @@ $select-width: 120px;
   column-gap: $spacing-xs;
   display: grid;
   grid-template-columns: auto 1fr;
-  margin-top: $spacing-xs;
+  margin-top: 12px;
   row-gap: $spacing-xxs;
 
   .select-secondary__container {
