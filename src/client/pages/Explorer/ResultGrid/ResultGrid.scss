@@ -11,7 +11,17 @@
   }
 }
 
+// Grid height
+$container-paddings: 2 * $spacing-s;
+$filters-height: 30px;
+$grid-margin-top: $spacing-s;
+$footer-height: 108px;
+
 .explorer-result-grid {
+  max-height: calc(
+    100dvh - $ui-app-header-height - $ui-app-toolbar-height - $container-paddings - $filters-height - $grid-margin-top -
+      $footer-height
+  );
   margin-top: $spacing-s;
   overflow-x: auto;
   width: 100%;
