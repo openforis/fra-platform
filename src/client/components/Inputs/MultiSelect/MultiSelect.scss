@@ -16,6 +16,10 @@ div.multiselect__container {
     min-height: unset;
     padding: 0 6px;
 
+    &.isDisabled {
+      align-content: unset;
+    }
+
     div.select__indicatorsContainer {
       div.select__clearIndicator {
         height: unset;
