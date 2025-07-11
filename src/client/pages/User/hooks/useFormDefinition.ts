@@ -14,9 +14,10 @@ export const useFormDefinition = (props: PropsFormDefinition): FormDefinition | 
   const { editUserRules, targetUser } = props
 
   const { t } = useTranslation()
+
   const rolePropsFields = useRolePropsFields(props)
 
-  const { emailDisabled } = editUserRules
+  const { emailDisabled, userDisabled } = editUserRules
 
   return useMemo<FormDefinition>(() => {
     if (Objects.isNil(targetUser)) return undefined
@@ -33,25 +34,28 @@ export const useFormDefinition = (props: PropsFormDefinition): FormDefinition | 
         name: 'profilePicture',
         type: FormFieldType.avatar,
         label: '',
+        isDisabled: () => userDisabled,
       },
       {
         name: 'user.email',
         type: FormFieldType.text,
         label: 'editUser.email',
         defaultValue: targetUser?.email || '',
-        isDisabled: () => emailDisabled,
+        isDisabled: () => userDisabled || emailDisabled,
       },
       {
         name: 'user.props.name',
         type: FormFieldType.text,
         label: 'common.name',
         defaultValue: targetUser?.props?.name || '',
+        isDisabled: () => userDisabled,
       },
       {
         name: 'user.props.surname',
         type: FormFieldType.text,
         label: 'editUser.surname',
         defaultValue: targetUser?.props?.surname || '',
+        isDisabled: () => userDisabled,
       },
       {
         name: 'user.props.title',
@@ -64,11 +68,12 @@ export const useFormDefinition = (props: PropsFormDefinition): FormDefinition | 
         label: 'editUser.title',
         placeholder: t('editUser.title'),
         defaultValue: targetUser?.props?.title || '',
+        isDisabled: () => userDisabled,
       },
     ]
 
     fields.push(...rolePropsFields)
 
     return { fields }
-  }, [emailDisabled, rolePropsFields, t, targetUser])
+  }, [emailDisabled, rolePropsFields, t, targetUser, userDisabled])
 }
