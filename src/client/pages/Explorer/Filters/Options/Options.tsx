@@ -1,5 +1,5 @@
 import './Options.scss'
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
@@ -15,18 +15,19 @@ const Options: React.FC = () => {
 
   const { applyAxisSelection, axisSelection, resetAxisSelection, toggleAxis } = useToggleAxis()
 
-  const openPanel = () => setOpened(true)
-  const closePanel = () => setOpened(false)
+  const openPanel = useCallback(() => setOpened(true), [setOpened])
 
-  const handleCancel = () => {
+  const closePanel = useCallback(() => setOpened(false), [setOpened])
+
+  const handleCancel = useCallback(() => {
     resetAxisSelection()
     closePanel()
-  }
+  }, [closePanel, resetAxisSelection])
 
-  const handleApply = () => {
+  const handleApply = useCallback(() => {
     applyAxisSelection()
     closePanel()
-  }
+  }, [applyAxisSelection, closePanel])
 
   return (
     <div>
