@@ -5,7 +5,7 @@ export const parseBody: RequestHandler = (req, _res, next) => {
   if (!Objects.isEmpty(req.body)) {
     const body = {}
     Object.entries(req.body).forEach(([key, value]) => {
-      Objects.setInPath({ obj: body, path: key.split('.'), value })
+      Objects.set(body, key, value)
     })
     // eslint-disable-next-line no-param-reassign
     req.body = body
