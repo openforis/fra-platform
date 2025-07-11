@@ -1,0 +1,14 @@
+@import 'src/client/style/partials';
+
+.axis-selection {
+  column-gap: $spacing-xs;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  row-gap: $spacing-xxs;
+}
+
+.axis-selection-buttons {
+  display: grid;
+  gap: $spacing-xxs;
+  grid-template-columns: min-content min-content;
+}
