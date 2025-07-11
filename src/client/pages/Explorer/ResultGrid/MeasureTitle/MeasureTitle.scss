@@ -5,8 +5,10 @@
   display: flex;
   gap: $spacing-xxs;
   justify-content: space-around;
+}
 
-  .select-primary__container {
-    min-width: 120px;
-  }
+.measure-unit {
+  display: inline-block;
+  white-space: nowrap;
+  width: auto;
 }

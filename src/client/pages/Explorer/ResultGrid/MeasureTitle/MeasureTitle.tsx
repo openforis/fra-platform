@@ -9,10 +9,6 @@ import { Measures } from 'meta/measurement/measures'
 
 import { useExplorerSectionMetadata } from 'client/store/explorer/metadata/hooks/metadata'
 import { useExplorerUnits } from 'client/store/explorer/selection/hooks/units'
-import SelectSecondary from 'client/components/Inputs/SelectSecondary'
-
-import { useOnUnitChange } from './hooks/useOnUnitChange'
-import { useUnitOptions } from './hooks/useUnitOptions'
 
 type Props = {
   measureName: MeasureName
@@ -32,18 +28,10 @@ const MeasureTitle: React.FC<Props> = (props) => {
   const system = systemsOfMeasurements?.[measure.systemName]
   const selectedUnit = selectedUnits?.[measureName] ?? system?.baseUnitName
 
-  const onUnitChange = useOnUnitChange({ measureName })
-  const unitOptions = useUnitOptions({ measureName })
-
   return (
     <div className="measure-title">
       <span>{t(Measures.getTName(measureName))}</span>
-      {system && unitOptions.length > 1 && (
-        <SelectSecondary isClearable={false} onChange={onUnitChange} options={unitOptions} value={selectedUnit} />
-      )}
-      {!Objects.isEmpty(system?.baseUnitName) && unitOptions.length <= 1 && (
-        <span>{` (${t(`unit.${system.baseUnitName}`)})`}</span>
-      )}
+      {!Objects.isEmpty(selectedUnit) && <span className="measure-unit">{` (${t(`unit.${selectedUnit}`)})`}</span>}
     </div>
   )
 }
