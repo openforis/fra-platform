@@ -4,15 +4,15 @@ import { useTranslation } from 'react-i18next'
 import { z } from 'zod'
 
 import { FormValidationSchema } from 'client/components/Form/types'
-import { useCollaboratorPropsValidationSchema } from 'client/pages/User/hooks/useCollaboratorPropsValidationSchema'
+import { useRoleValidationSchema } from 'client/pages/User/hooks/useRoleValidationSchema'
 
 export const useValidationSchema = (): FormValidationSchema => {
   const { t } = useTranslation()
 
-  const collaboratorPropsSchema = useCollaboratorPropsValidationSchema()
+  const roleSchema = useRoleValidationSchema()
 
   return useMemo<FormValidationSchema>(() => {
-    const baseSchema = z.object({
+    return z.object({
       profilePicture: z.any().optional(),
       user: z.object({
         email: z.email(t('form.errors.invalid', { field: t('common.email') })),
@@ -27,12 +27,7 @@ export const useValidationSchema = (): FormValidationSchema => {
           title: z.string().min(1, { error: t('form.errors.required', { field: t('editUser.title') }) }),
         }),
       }),
+      role: roleSchema.optional(),
     })
-
-    // if (editUserRules.rolePropsAvailable) {
-    return baseSchema.extend(collaboratorPropsSchema.shape)
-    // }
-
-    // return baseSchema
-  }, [collaboratorPropsSchema, t])
+  }, [roleSchema, t])
 }

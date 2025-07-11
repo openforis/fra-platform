@@ -4,16 +4,25 @@ import { useTranslation } from 'react-i18next'
 import { Objects } from 'utils/objects'
 import { z } from 'zod'
 
-import { UserContactPreferenceMethod, UserContactPreferencePhoneOption } from 'meta/user/userRole'
+import { RoleName, UserContactPreferenceMethod, UserContactPreferencePhoneOption } from 'meta/user/userRole'
 
-export const useCollaboratorPropsValidationSchema = () => {
+export const useRoleValidationSchema = () => {
   const { t } = useTranslation()
 
   return useMemo(() => {
+    const allowedRoles = [
+      RoleName.REVIEWER,
+      RoleName.NATIONAL_CORRESPONDENT,
+      RoleName.ALTERNATE_NATIONAL_CORRESPONDENT,
+      RoleName.COLLABORATOR,
+      RoleName.VIEWER,
+    ] as const
+
     return z.object({
-      role: z.object({
-        uuid: z.string(),
-        props: z.object({
+      role: z.enum(allowedRoles).optional(),
+      uuid: z.string(),
+      props: z
+        .object({
           professionalTitle: z.string().optional(),
           organizationalUnit: z.string().optional(),
           organization: z.string().min(1, { error: t('form.errors.required', { field: t('editUser.organization') }) }),
@@ -71,8 +80,8 @@ export const useCollaboratorPropsValidationSchema = () => {
               }
             )
             .optional(),
-        }),
-      }),
+        })
+        .optional(),
     })
   }, [t])
 }

@@ -45,13 +45,19 @@ export const useRolePropsFields = (props: PropsFormDefinition): FormDefinition['
       return Authorizer.canEditUserRoleProps({ cycle, countryIso, target, user })
     }
 
+    const shouldShowRoleName = () => {
+      const countryPage = Areas.isISOCountry(countryIso)
+      return countryPage && !editingSelf && rolesAllowedToEdit.length > 0
+    }
     return [
       {
         name: 'role.uuid',
         type: FormFieldType.hidden,
         label: '',
         defaultValue: role?.uuid || '',
-        shouldShow,
+        shouldShow: (values: UserEditCountryForm) => {
+          return shouldShowRoleName() || shouldShow(values)
+        },
       },
       {
         name: 'role.role',
@@ -61,10 +67,7 @@ export const useRolePropsFields = (props: PropsFormDefinition): FormDefinition['
         options: rolesAllowedToEdit.map<Option>((roleName) => {
           return { label: t(Users.getI18nRoleLabelKey(roleName)), value: roleName }
         }),
-        shouldShow: () => {
-          const countryPage = Areas.isISOCountry(countryIso)
-          return countryPage && !editingSelf && rolesAllowedToEdit.length > 0
-        },
+        shouldShow: shouldShowRoleName,
       },
       {
         name: 'role.props.professionalTitle',
