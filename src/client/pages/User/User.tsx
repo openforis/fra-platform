@@ -23,7 +23,7 @@ const User: React.FC = () => {
 
   const editUserRules = useEditUserRules({ targetUser })
   const formDefinition = useFormDefinition({ editUserRules, targetUser })
-  const validationSchema = useValidationSchema({ editUserRules })
+  const validationSchema = useValidationSchema()
 
   const onSuccess = useOnSuccess()
   const onCancel = useCallback(() => {

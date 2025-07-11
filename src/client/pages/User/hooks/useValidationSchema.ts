@@ -5,14 +5,8 @@ import { z } from 'zod'
 
 import { FormValidationSchema } from 'client/components/Form/types'
 import { useCollaboratorPropsValidationSchema } from 'client/pages/User/hooks/useCollaboratorPropsValidationSchema'
-import { EditUserRules } from 'client/pages/User/hooks/useEditUserRules'
 
-type Props = {
-  editUserRules: EditUserRules
-}
-
-export const useValidationSchema = (props: Props): FormValidationSchema => {
-  const { editUserRules } = props
+export const useValidationSchema = (): FormValidationSchema => {
   const { t } = useTranslation()
 
   const collaboratorPropsSchema = useCollaboratorPropsValidationSchema()
@@ -35,10 +29,10 @@ export const useValidationSchema = (props: Props): FormValidationSchema => {
       }),
     })
 
-    if (editUserRules.rolePropsAvailable) {
-      return baseSchema.extend(collaboratorPropsSchema.shape)
-    }
+    // if (editUserRules.rolePropsAvailable) {
+    return baseSchema.extend(collaboratorPropsSchema.shape)
+    // }
 
-    return baseSchema
-  }, [collaboratorPropsSchema, editUserRules.rolePropsAvailable, t])
+    // return baseSchema
+  }, [collaboratorPropsSchema, t])
 }
