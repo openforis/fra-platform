@@ -12,18 +12,19 @@ import { ExplorerSelectionState } from 'client/store/explorer/selection/state'
 type Payload = {
   assessmentName: AssessmentName
   cycleName: CycleName
-  measureName: MeasureName
   sectionName: SectionName
-  unitName: UnitName
+  units: Array<{ measureName: MeasureName; unitName: UnitName }>
 }
 
 export const setUnits = (state: Draft<ExplorerSelectionState>, action: PayloadAction<Payload>) => {
-  const { assessmentName, cycleName, measureName, sectionName, unitName } = action.payload
+  const { assessmentName, cycleName, sectionName, units } = action.payload
 
-  Objects.setInPath({
-    obj: state,
-    path: [assessmentName, cycleName, 'units', sectionName, measureName],
-    value: unitName,
+  units.forEach(({ measureName, unitName }) => {
+    Objects.setInPath({
+      obj: state,
+      path: [assessmentName, cycleName, 'units', sectionName, measureName],
+      value: unitName,
+    })
   })
 
   return state

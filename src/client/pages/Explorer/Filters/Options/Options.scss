@@ -1,9 +1,5 @@
 @import 'src/client/style/partials';
 
-.options-label {
-  font-weight: 700;
-}
-
 $btn-width: 128px;
 
 .options-actions {
@@ -11,6 +7,12 @@ $btn-width: 128px;
   gap: $spacing-xs;
   grid-template-columns: repeat(2, $btn-width);
   justify-self: center;
+}
+
+.options-container {
+  .select__container {
+    z-index: auto;
+  }
 }
 
 .options-hr {
