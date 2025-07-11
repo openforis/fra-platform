@@ -30,7 +30,7 @@ const Options: React.FC = () => {
 
   return (
     <div>
-      <Button label={t('common.options')} onClick={openPanel} />
+      <Button iconName="hit-up" onClick={openPanel} />
       <SlidingPanel closePanel={closePanel} opened={opened} size={45}>
         <AxisSelection axisSelection={axisSelection} toggleAxis={toggleAxis} />
 
