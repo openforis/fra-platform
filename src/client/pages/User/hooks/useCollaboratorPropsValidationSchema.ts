@@ -22,12 +22,19 @@ export const useCollaboratorPropsValidationSchema = () => {
             countryIso: z.string().optional(),
           }),
           secondaryEmail: z
-            .string()
             .email(t('form.errors.invalid', { field: t('editUser.secondaryEmail') }))
             .optional()
             .or(z.literal('')),
-          primaryPhoneNumber: z.string().min(1, t('form.errors.required', { field: t('editUser.primaryPhoneNumber') })),
-          secondaryPhoneNumber: z.string().optional(),
+          primaryPhoneNumber: z
+            .string()
+            .min(1, t('form.errors.required', { field: t('editUser.primaryPhoneNumber') }))
+            .refine((val) => z.e164().safeParse(val).success, {
+              message: t('form.errors.invalid', { field: t('editUser.primaryPhoneNumber') }),
+            }),
+          secondaryPhoneNumber: z
+            .e164(t('form.errors.invalid', { field: t('editUser.secondaryPhoneNumber') }))
+            .optional()
+            .or(z.literal('')),
           skype: z.string().optional(),
           contactPreference: z.string().optional(),
         }),
