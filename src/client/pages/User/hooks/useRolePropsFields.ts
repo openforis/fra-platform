@@ -119,7 +119,7 @@ export const useRolePropsFields = (props: PropsFormDefinition): FormDefinition['
       {
         name: 'role.props.contactPreference.options.phone',
         type: FormFieldType.select,
-        label: '',
+        label: 'editUser.channel',
         defaultValue: role?.props?.contactPreference?.options?.phone || '',
         options: Object.values(UserContactPreferencePhoneOption).map<Option>((value) => ({ label: value, value })),
         shouldShow: (values) => {
