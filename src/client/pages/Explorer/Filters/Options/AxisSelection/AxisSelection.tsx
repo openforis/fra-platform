@@ -27,7 +27,7 @@ const AxisSelection: React.FC<Props> = (props: Props) => {
     <div className="axis-selection">
       {axisSelectors.map(({ axisType, labelKey }) => (
         <React.Fragment key={axisType}>
-          <span className="options-label">{t(labelKey)}:</span>
+          <span>{t(labelKey)}:</span>
           <div className="axis-selection-buttons">
             {axes.map((axis) => (
               <ButtonCheckbox
