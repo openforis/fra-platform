@@ -50,7 +50,7 @@ const Options: React.FC = () => {
         <div className="options-actions">
           <Button iconName="undo" inverse label={t('common.cancel')} onClick={handleCancel} size={ButtonSize.m} />
           <Button
-            iconName="hit-up"
+            iconName="checkbox"
             label={t('common.apply')}
             onClick={handleApply}
             size={ButtonSize.m}
