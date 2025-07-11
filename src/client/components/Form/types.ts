@@ -35,6 +35,7 @@ export type FormValidationSchema = ZodObject<ZodRawShape>
 
 export type FormProps<FIELD_VALUES = FieldValues> = {
   action: ReactHookFormProps<unknown>['action']
+  disabled?: boolean
   formDefinition: FormDefinition
   method: ReactHookFormProps<unknown>['method']
   onCancel: () => void

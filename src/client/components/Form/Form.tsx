@@ -28,7 +28,15 @@ const getSchemaFieldPath = (schema: FormValidationSchema | z.ZodAny, fieldPath: 
 }
 
 const Form: React.FC<FormProps> = (props) => {
-  const { action, formDefinition, method, onCancel, onSuccess, validationSchema = defaults.validationSchema } = props
+  const {
+    action,
+    disabled,
+    formDefinition,
+    method,
+    onCancel,
+    onSuccess,
+    validationSchema = defaults.validationSchema,
+  } = props
   const dispatch = useAppDispatch()
 
   const { fields } = formDefinition
@@ -79,7 +87,7 @@ const Form: React.FC<FormProps> = (props) => {
           )
         })}
 
-        <Buttons isSubmitting={isSubmitting} onCancel={onCancel} />
+        <Buttons disabled={disabled} isSubmitting={isSubmitting} onCancel={onCancel} />
       </DataGrid>
     </ReactHookForm>
   )

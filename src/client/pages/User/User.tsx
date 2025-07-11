@@ -39,6 +39,7 @@ const User: React.FC = () => {
     <div className="app-view__content user-container">
       <Form
         action={action}
+        disabled={editUserRules.userDisabled}
         formDefinition={formDefinition}
         method="put"
         onCancel={onCancel}

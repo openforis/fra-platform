@@ -8,18 +8,18 @@ import { User } from 'meta/user'
 import { useCountryUserRouteParams } from 'client/hooks/useRouteParams'
 
 export const useTargetUser = (): User | undefined => {
-  const { assessmentName, cycleName, id } = useCountryUserRouteParams()
+  const { assessmentName, countryIso, cycleName, id } = useCountryUserRouteParams()
 
   const [user, setUser] = useState<User>()
 
   useEffect(() => {
     setUser(undefined)
 
-    const params = { assessmentName, cycleName, id }
+    const params = { assessmentName, cycleName, countryIso, id }
     axios.get<User>(ApiEndPoint.User.one(), { params }).then((response) => {
       setUser(response.data)
     })
-  }, [assessmentName, cycleName, id])
+  }, [assessmentName, countryIso, cycleName, id])
 
   return user
 }
