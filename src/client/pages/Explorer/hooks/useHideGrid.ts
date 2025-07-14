@@ -5,13 +5,13 @@ import { Objects } from 'utils/objects'
 import { useExplorerSectionData } from 'client/store/explorer/data/hooks/data'
 import { useExplorerSectionMetadata } from 'client/store/explorer/metadata/hooks/metadata'
 import { useExplorerAxisSelection } from 'client/store/explorer/selection/hooks/axisSelection'
+import { useExplorerCountries } from 'client/store/explorer/selection/hooks/countries'
 import { useExplorerDimensions } from 'client/store/explorer/selection/hooks/dimensions'
 import { useExplorerMeasures } from 'client/store/explorer/selection/hooks/measures'
-import { useCountryEntries } from 'client/pages/Explorer/ResultGrid/hooks/useCountryEntries'
 
 export const useHideGrid = (): boolean => {
   const { tableName } = useExplorerSectionMetadata() ?? {}
-  const countryEntries = useCountryEntries()
+  const explorerCountryIsos = useExplorerCountries()
   const measures = useExplorerMeasures()
   const dimensions = useExplorerDimensions()
 
@@ -24,9 +24,9 @@ export const useHideGrid = (): boolean => {
 
   const hideGrid = useMemo<boolean>(
     () =>
-      [countryEntries, data, dimensions, measures, tableName].some(Objects.isEmpty) ||
+      [explorerCountryIsos, data, dimensions, measures, tableName].some(Objects.isEmpty) ||
       xAxisVariableCount + yAxisVariableCount < 3,
-    [countryEntries, data, dimensions, measures, tableName, xAxisVariableCount, yAxisVariableCount]
+    [data, dimensions, explorerCountryIsos, measures, tableName, xAxisVariableCount, yAxisVariableCount]
   )
 
   return hideGrid

@@ -24,23 +24,26 @@ const AxisSelection: React.FC<Props> = (props: Props) => {
   const { t } = useTranslation()
 
   return (
-    <div className="axis-selection">
-      {axisSelectors.map(({ axisType, labelKey }) => (
-        <React.Fragment key={axisType}>
-          <span className="options-label">{t(labelKey)}:</span>
-          <div className="axis-selection-buttons">
-            {axes.map((axis) => (
-              <ButtonCheckbox
-                key={axis}
-                checked={axisSelection[axis].includes(axisType)}
-                label={axis.toUpperCase()}
-                onClick={() => toggleAxis({ axis, axisType })}
-              />
-            ))}
-          </div>
-        </React.Fragment>
-      ))}
-    </div>
+    <>
+      <h2 className="options-title">{t('common.axis')}</h2>
+      <div className="axis-selection">
+        {axisSelectors.map(({ axisType, labelKey }) => (
+          <React.Fragment key={axisType}>
+            <span>{t(labelKey)}:</span>
+            <div className="axis-selection-buttons">
+              {axes.map((axis) => (
+                <ButtonCheckbox
+                  key={axis}
+                  checked={axisSelection[axis].includes(axisType)}
+                  label={axis.toUpperCase()}
+                  onClick={() => toggleAxis({ axis, axisType })}
+                />
+              ))}
+            </div>
+          </React.Fragment>
+        ))}
+      </div>
+    </>
   )
 }
 
