@@ -42,10 +42,9 @@ const isVisible = (props: { country: Country; cycle: Cycle; print: boolean; tabl
   const visibility = table.props.visibility?.[cycle.uuid]
 
   if (!visibility) return true
-  if (print && visibility.includes(TableVisibility.print)) return true
-  if (user && visibility.includes(TableVisibility.private) && Users.hasRoleInCountry({ user, cycle, countryIso }))
-    return true
-  return !user && visibility.includes(TableVisibility.public)
+  if (print) return visibility.includes(TableVisibility.print)
+  if (user) return visibility.includes(TableVisibility.private) && Users.hasRoleInCountry({ user, cycle, countryIso })
+  return visibility.includes(TableVisibility.public)
 }
 
 export const Tables = {
