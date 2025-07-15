@@ -15,7 +15,7 @@ const CycleSwitcher = () => {
   const { cycleName } = useCycleRouteParams()
   const popoverItems = usePopoverItems()
 
-  if (popoverItems.length < 1) return null
+  if (popoverItems.length < 1) return <div>{cycleName}</div>
 
   const latestCycle = Assessments.getLastCreatedCycle(assessment)
   const displayName = latestCycle.name === cycleName ? '' : cycleName

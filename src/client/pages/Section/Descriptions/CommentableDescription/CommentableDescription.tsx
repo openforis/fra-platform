@@ -3,7 +3,10 @@ import React from 'react'
 
 import { CommentableDescriptionName, CommentableDescriptionValue } from 'meta/assessment/descriptionValue'
 
-import { useCommentableDescriptionValue } from 'client/store/data/descriptions/hooks/descriptions'
+import {
+  useAreDescriptionsFetched,
+  useCommentableDescriptionValue,
+} from 'client/store/data/descriptions/hooks/descriptions'
 import { useHistoryLastApprovedIsActive } from 'client/store/data/history/hooks/lastApproved'
 import { useHistoryLastApprovedDescriptionFetched } from 'client/store/data/history/hooks/lastApprovedDescriptions'
 import { useCanEditDescription, useIsDescriptionEditable } from 'client/store/user/hooks/auth'
@@ -29,11 +32,11 @@ const CommentableDescription: React.FC<Props> = (props) => {
   const { print } = useIsPrintRoute()
   const { sectionName } = useSectionContext()
   const value = useCommentableDescriptionValue({ name, sectionName, template })
+  const descriptionsFetched = useAreDescriptionsFetched({ sectionName })
   const { empty } = useDescriptionErrorState({ name, sectionName })
-
   const historyLastApprovedIsActive = useHistoryLastApprovedIsActive()
   const historyLastApprovedDescriptionFetched = useHistoryLastApprovedDescriptionFetched()
-  const displayHistory = historyLastApprovedIsActive && historyLastApprovedDescriptionFetched
+  const displayHistory = historyLastApprovedIsActive && historyLastApprovedDescriptionFetched && descriptionsFetched
 
   const canEdit = useCanEditDescription({ sectionName })
   const editable = useIsDescriptionEditable({ sectionName, name })
