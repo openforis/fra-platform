@@ -24,8 +24,9 @@ const CountryMultiSelect: React.FC<Props> = (props) => {
   const optionGroups = useCountriesByRegionOptions()
 
   const { dataTooltipId, hideTooltip, showTooltip, tooltipContent } = useTooltipContent({
-    value: (value as Array<CountryIso>) ?? [],
     error,
+    isMulti,
+    value: (value as Array<CountryIso>) ?? [],
   })
 
   const handleMenuOpen = () => {

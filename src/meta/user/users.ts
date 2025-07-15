@@ -20,6 +20,11 @@ const isAdministrator = (user: User) => {
   return user?.roles?.some((role) => role?.role === RoleName.ADMINISTRATOR)
 }
 
+const getCycleRoles = (props: { cycle: Cycle; user: User }): Array<UserRole> => {
+  const { cycle, user } = props
+  return user?.roles.filter((role) => role.cycleUuid === cycle.uuid) ?? []
+}
+
 const getRole = (user: User, countryIso: AreaCode, cycle: Cycle): UserRole<RoleName> => {
   if (isAdministrator(user)) return user.roles[0]
 
@@ -196,6 +201,7 @@ const isPersonalInfoRequired = (user: User, role: UserRole<RoleName, any>) => {
 const getFullName = (user: User) => [user.props.name, user.props.surname].join(' ').trim()
 
 export const Users = {
+  getCycleRoles,
   getRole,
   getFullName,
 

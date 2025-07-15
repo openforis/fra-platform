@@ -11,7 +11,7 @@ import { FieldProps } from '../types'
 const CountryField = (props: FieldProps) => {
   const { control, fieldDefinition } = props
 
-  const { defaultValue, name, placeholder } = fieldDefinition
+  const { defaultValue, isMulti = false, name, placeholder } = fieldDefinition
   const disabled = useIsFieldDisabled(props)
 
   return (
@@ -29,10 +29,10 @@ const CountryField = (props: FieldProps) => {
             <CountryMultiSelect
               disabled={disabled}
               isClearable={false}
-              isMulti={false}
+              isMulti={isMulti}
               onChange={onChange}
               placeholder={placeholder}
-              value={value as string}
+              value={value as string | Array<string>}
             />
           )
         }}

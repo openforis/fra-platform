@@ -7,8 +7,10 @@ import { Contacts } from 'meta/cycleData'
 import { Users } from 'meta/user'
 
 import { FieldDefinition, FormDefinition, FormFieldType } from 'client/components/Form/types'
-import { PropsFormDefinition } from 'client/pages/User/hooks/types'
-import { useRolePropsFields } from 'client/pages/User/hooks/useRolePropsFields'
+
+import { PropsFormDefinition } from './types'
+import { useRolePropsFields } from './useRolePropsFields'
+import { useRolesFields } from './useRolesFields'
 
 export const useFormDefinition = (props: PropsFormDefinition): FormDefinition | undefined => {
   const { editUserRules, targetUser } = props
@@ -16,6 +18,7 @@ export const useFormDefinition = (props: PropsFormDefinition): FormDefinition | 
   const { t } = useTranslation()
 
   const rolePropsFields = useRolePropsFields(props)
+  const rolesFields = useRolesFields(props)
 
   const { emailDisabled, userDisabled } = editUserRules
 
@@ -73,7 +76,8 @@ export const useFormDefinition = (props: PropsFormDefinition): FormDefinition | 
     ]
 
     fields.push(...rolePropsFields)
+    fields.push(...rolesFields)
 
     return { fields }
-  }, [emailDisabled, rolePropsFields, t, targetUser, userDisabled])
+  }, [emailDisabled, rolePropsFields, rolesFields, t, targetUser, userDisabled])
 }
