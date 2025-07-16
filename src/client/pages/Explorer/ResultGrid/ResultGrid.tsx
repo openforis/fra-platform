@@ -7,9 +7,8 @@ import { Objects } from 'utils/objects'
 import { CountryIso } from 'meta/area'
 import { Axis, AxisType } from 'meta/explorer/selection'
 
-import { useExplorerSectionData, useGetExplorerSectionData } from 'client/store/explorer/data/hooks/data'
+import { useGetExplorerSectionData } from 'client/store/explorer/data/hooks/data'
 import { useExplorerSectionMetadata } from 'client/store/explorer/metadata/hooks/metadata'
-import { useExplorerAxisSelection } from 'client/store/explorer/selection/hooks/axisSelection'
 import { DataCell, DataGrid } from 'client/components/DataGrid'
 import { useHideGrid } from 'client/pages/Explorer/hooks/useHideGrid'
 import MeasureTitle from 'client/pages/Explorer/ResultGrid/MeasureTitle/MeasureTitle'
@@ -17,10 +16,8 @@ import Observation from 'client/pages/Explorer/ResultGrid/Observation/Observatio
 import { CountryEntry } from 'client/pages/Explorer/ResultGrid/types'
 import { ExplorerGridProps } from 'client/pages/Explorer/types'
 
-import { useAxisValues } from './hooks/useAxisValues'
 import { useCellsExportAlways } from './hooks/useCellsExportAlways'
-import { useCombinations } from './hooks/useCombinations'
-import { useGridTemplateColumns } from './hooks/useGridTemplateColumns'
+import { useDeferredGridData } from './hooks/useDeferredGridData'
 import { useRenderLabel } from './hooks/useRenderLabel'
 import { useTrackFirstColRowWidth } from './hooks/useTrackFirstColRowWidth'
 
@@ -35,17 +32,19 @@ export const ResultGrid: React.FC<ExplorerGridProps> = (props: ExplorerGridProps
   const date = new Date()
 
   const { tableName } = useExplorerSectionMetadata() ?? {}
-  const { cellsExportAlways, cellsExportAlwaysAxis, extraCols } = useCellsExportAlways()
+  const { cellsExportAlways, cellsExportAlwaysAxis } = useCellsExportAlways()
 
   useGetExplorerSectionData()
-  const data = useExplorerSectionData()
-
-  const { x: xAxisSelection, y: yAxisSelection } = useExplorerAxisSelection()
-
-  const axisValues = useAxisValues()
-  const { uniquePrimaryX, xCombinations, yCombinations } = useCombinations({ axisValues })
-  const gridTemplateColumns = useGridTemplateColumns({ axisValues, extraCols })
-
+  const {
+    axisValues,
+    data,
+    gridTemplateColumns,
+    uniquePrimaryX,
+    xAxisSelection,
+    xCombinations,
+    yAxisSelection,
+    yCombinations,
+  } = useDeferredGridData()
   const renderLabel = useRenderLabel()
 
   const xAxisVariableCount = xAxisSelection.length
@@ -134,13 +133,17 @@ export const ResultGrid: React.FC<ExplorerGridProps> = (props: ExplorerGridProps
               </DataCell>
 
               {countries.map(({ countryIso }, colIdx) => {
+                const key = `${countryIso}-${measureName}-${dimensionName}-observation`
+                const lastCol = colIdx === countries.length - 1
+                if (Objects.isEmpty(data)) return <DataCell key={key} lastCol={lastCol} />
+
                 return (
                   <Observation
-                    key={`${countryIso}-${measureName}-${dimensionName}`}
+                    key={key}
                     countryIso={countryIso}
                     data={data}
                     dimensionName={dimensionName}
-                    lastCol={colIdx === countries.length - 1}
+                    lastCol={lastCol}
                     measureName={measureName}
                     tableName={tableName}
                   />
@@ -202,6 +205,8 @@ export const ResultGrid: React.FC<ExplorerGridProps> = (props: ExplorerGridProps
               cellsExportAlwaysAxis === Axis.x &&
               cellsExportAlways.map(({ dimensionName, measureName }) => {
                 const countryIso = _getCombinationStringValue<CountryIso>(rowMap[AxisType.countries])
+                const key = `${countryIso}-${measureName}-${dimensionName}`
+                if (Objects.isEmpty(data)) return <DataCell key={key} lastRow={lastRow} />
 
                 return (
                   <Observation
@@ -229,13 +234,17 @@ export const ResultGrid: React.FC<ExplorerGridProps> = (props: ExplorerGridProps
                 colMap[AxisType.dimensions] ?? rowMap[AxisType.dimensions]
               )
 
+              const key = `${countryIso}-${measureName}-${dimensionName}-observation`
+              const lastCol = colIdx === xCombinations.length - 1
+              if (Objects.isEmpty(data)) return <DataCell key={key} lastCol={lastCol} lastRow={lastRow} />
+
               return (
                 <Observation
-                  key={`${countryIso}-${measureName}-${dimensionName}-observation`}
+                  key={key}
                   countryIso={countryIso}
                   data={data}
                   dimensionName={dimensionName}
-                  lastCol={colIdx === xCombinations.length - 1}
+                  lastCol={lastCol}
                   lastRow={lastRow}
                   measureName={measureName}
                   tableName={tableName}
