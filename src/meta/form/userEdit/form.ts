@@ -7,7 +7,7 @@ export type UserForm = Pick<User, 'email' | 'id' | 'uuid'> & {
   props: Pick<UserProps, 'name' | 'surname' | 'title'>
 }
 
-type UserEditFormRoles = {
+export type UserEditFormRoles = {
   [key in
     | RoleName.REVIEWER
     | RoleName.NATIONAL_CORRESPONDENT

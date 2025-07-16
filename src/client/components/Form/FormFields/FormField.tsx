@@ -10,6 +10,8 @@ import { DataCell, DataRow } from 'client/components/DataGrid'
 import { FieldProps } from 'client/components/Form/FormFields/types'
 import Icon from 'client/components/Icon'
 
+import { useTriggerOnChange } from './hooks/useTriggerOnChange'
+
 type Props = PropsWithChildren<FieldProps> & {
   classes?: { cellField?: string }
   disabled?: boolean
@@ -21,6 +23,7 @@ const FormField: React.FC<Props> = (props) => {
   const required = !Objects.isNil(fieldValidationSchema) && !(fieldValidationSchema instanceof ZodOptional)
 
   const { t } = useTranslation()
+  useTriggerOnChange(props)
 
   return (
     <DataRow>

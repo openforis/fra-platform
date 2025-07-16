@@ -19,6 +19,7 @@ export enum FormFieldType {
 
 export type FieldDefinition = {
   defaultValue?: unknown
+  errorField?: string
   isDisabled?: (values: FieldValues) => boolean
   isMulti?: boolean
   label: string
@@ -26,6 +27,7 @@ export type FieldDefinition = {
   options?: Array<Option>
   placeholder?: string
   shouldShow?: (watchValues: Record<string, unknown>) => boolean
+  triggerOnChange?: Array<string>
   type: FormFieldType
 }
 

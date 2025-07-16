@@ -35,47 +35,37 @@ export const useRolesFields = (props: PropsFormDefinition): Returned => {
       return isAdminPage && isAdmin
     }
 
+    const triggerOnChange = ['roles']
     const fields: Returned = [
-      // {
-      //   // errorField: `roles`,
-      //   name: `roles`,
-      //   label: ``,
-      //   type: FormFieldType.hidden,
-      //   // isMulti: true,
-      //   shouldShow: shouldShowRoles,
-      //   defaultValue: {},
-      // },
-    ]
-    fields.push(
-      ...[
-        RoleName.REVIEWER,
-        RoleName.NATIONAL_CORRESPONDENT,
-        RoleName.ALTERNATE_NATIONAL_CORRESPONDENT,
-        RoleName.COLLABORATOR,
-        RoleName.VIEWER,
-      ].map((roleName) => {
-        return {
-          name: `roles.${roleName}`,
-          label: `user.roles.${roleName}`,
-          type: FormFieldType.country,
-          isMulti: true,
-          shouldShow: shouldShowRoles,
-          defaultValue: userRoles.filter((role) => role.role === roleName).map((role) => role.countryIso),
-          isDisabled: (values: UserEditCountryForm) => {
-            return values.roles?.[RoleName.ADMINISTRATOR] === true
-          },
-        }
-      })
-    )
+      RoleName.REVIEWER,
+      RoleName.NATIONAL_CORRESPONDENT,
+      RoleName.ALTERNATE_NATIONAL_CORRESPONDENT,
+      RoleName.COLLABORATOR,
+      RoleName.VIEWER,
+    ].map((roleName) => {
+      return {
+        name: `roles.${roleName}`,
+        label: `user.roles.${roleName}`,
+        type: FormFieldType.country,
+        isMulti: true,
+        shouldShow: shouldShowRoles,
+        defaultValue: userRoles.filter((role) => role.role === roleName).map((role) => role.countryIso),
+        isDisabled: (values: UserEditCountryForm) => {
+          return values.roles?.[RoleName.ADMINISTRATOR] === true
+        },
+        triggerOnChange,
+      }
+    })
 
     fields.push({
-      // errorField: `__error`,
+      errorField: `roles`,
       name: `roles.${RoleName.ADMINISTRATOR}`,
       label: `user.roles.${RoleName.ADMINISTRATOR}`,
       type: FormFieldType.checkbox,
       isMulti: true,
       shouldShow: shouldShowRoles,
       defaultValue: isAdmin,
+      triggerOnChange,
     })
 
     return fields

@@ -37,16 +37,16 @@ const Form: React.FC<FormProps> = (props) => {
     onSuccess,
     validationSchema = defaults.validationSchema,
   } = props
-  const dispatch = useAppDispatch()
-
   const { fields } = formDefinition
 
+  const dispatch = useAppDispatch()
+  // type FormValues = z.infer<typeof formSchema>
   const defaultValues = useDefaultValues(fields)
+  const resolver = zodResolver(validationSchema)
+  const form = useForm({ resolver, defaultValues, shouldUnregister: true })
   const onSubmit = useOnSubmit(props)
 
-  // type FormValues = z.infer<typeof formSchema>
-  const resolver = zodResolver(validationSchema)
-  const { control, formState, register, setValue, watch } = useForm({ resolver, defaultValues, shouldUnregister: true })
+  const { control, formState, register, setValue, trigger, watch } = form
   const { errors, isSubmitting } = formState
   const watchValues = watch()
 
@@ -64,14 +64,15 @@ const Form: React.FC<FormProps> = (props) => {
     >
       <DataGrid className="form-grid" gridTemplateColumns="max-content 1fr">
         {fields.map((fieldDefinition) => {
-          const { name, shouldShow, type } = fieldDefinition
+          const { errorField, name, shouldShow, type } = fieldDefinition
 
           if (shouldShow && !shouldShow(watchValues)) return null
 
           const Component = FormFields[type]
           const path = name.split('.')
           const fieldValidationSchema = getSchemaFieldPath(validationSchema, path)
-          const error = Objects.getInPath(errors, path)
+          const error = Objects.getInPath(errors, errorField ? errorField.split('.') : path)
+          const value = Objects.getInPath(watchValues, path)
 
           return (
             <Component
@@ -80,8 +81,11 @@ const Form: React.FC<FormProps> = (props) => {
               error={error}
               fieldDefinition={fieldDefinition}
               fieldValidationSchema={fieldValidationSchema}
+              formState={formState}
               register={register}
               setValue={setValue}
+              trigger={trigger}
+              value={value}
               watch={watch}
             />
           )
