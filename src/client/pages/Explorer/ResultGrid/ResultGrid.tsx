@@ -133,17 +133,13 @@ export const ResultGrid: React.FC<ExplorerGridProps> = (props: ExplorerGridProps
               </DataCell>
 
               {countries.map(({ countryIso }, colIdx) => {
-                const key = `${countryIso}-${measureName}-${dimensionName}-observation`
-                const lastCol = colIdx === countries.length - 1
-                if (Objects.isEmpty(data)) return <DataCell key={key} lastCol={lastCol} />
-
                 return (
                   <Observation
-                    key={key}
+                    key={`${countryIso}-${measureName}-${dimensionName}`}
                     countryIso={countryIso}
                     data={data}
                     dimensionName={dimensionName}
-                    lastCol={lastCol}
+                    lastCol={colIdx === countries.length - 1}
                     measureName={measureName}
                     tableName={tableName}
                   />
@@ -205,8 +201,6 @@ export const ResultGrid: React.FC<ExplorerGridProps> = (props: ExplorerGridProps
               cellsExportAlwaysAxis === Axis.x &&
               cellsExportAlways.map(({ dimensionName, measureName }) => {
                 const countryIso = _getCombinationStringValue<CountryIso>(rowMap[AxisType.countries])
-                const key = `${countryIso}-${measureName}-${dimensionName}`
-                if (Objects.isEmpty(data)) return <DataCell key={key} lastRow={lastRow} />
 
                 return (
                   <Observation
@@ -234,17 +228,13 @@ export const ResultGrid: React.FC<ExplorerGridProps> = (props: ExplorerGridProps
                 colMap[AxisType.dimensions] ?? rowMap[AxisType.dimensions]
               )
 
-              const key = `${countryIso}-${measureName}-${dimensionName}-observation`
-              const lastCol = colIdx === xCombinations.length - 1
-              if (Objects.isEmpty(data)) return <DataCell key={key} lastCol={lastCol} lastRow={lastRow} />
-
               return (
                 <Observation
-                  key={key}
+                  key={`${countryIso}-${measureName}-${dimensionName}-observation`}
                   countryIso={countryIso}
                   data={data}
                   dimensionName={dimensionName}
-                  lastCol={lastCol}
+                  lastCol={colIdx === xCombinations.length - 1}
                   lastRow={lastRow}
                   measureName={measureName}
                   tableName={tableName}
