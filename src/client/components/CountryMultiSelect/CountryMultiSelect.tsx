@@ -18,7 +18,7 @@ const defaults: Readonly<Partial<Props>> = {
 }
 
 const CountryMultiSelect: React.FC<Props> = (props) => {
-  const { error, isMulti = defaults.isMulti, onChange, onMenuClose, placeholder, value } = props
+  const { error, isMulti = defaults.isMulti, onChange, onMenuClose, placeholder, value, ...otherProps } = props
 
   const { t } = useTranslation()
   const optionGroups = useCountriesByRegionOptions()
@@ -50,6 +50,8 @@ const CountryMultiSelect: React.FC<Props> = (props) => {
       data-tooltip-place="bottom"
     >
       <Select
+        // eslint-disable-next-line react/jsx-props-no-spreading
+        {...otherProps}
         classNames={{ container }}
         collapsibleGroups
         isMulti={isMulti}
