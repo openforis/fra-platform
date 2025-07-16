@@ -3,18 +3,12 @@ import { useMemo } from 'react'
 import { Objects } from 'utils/objects'
 
 import { Axis, AxisType } from 'meta/explorer/selection'
-import { DimensionName } from 'meta/measurement/dimension'
 import { Dimensions } from 'meta/measurement/dimensions'
-import { MeasureName } from 'meta/measurement/measure'
 import { Measures } from 'meta/measurement/measures'
 
 import { useExplorerSectionMetadata } from 'client/store/explorer/metadata/hooks/metadata'
 import { useExplorerAxisSelection } from 'client/store/explorer/selection/hooks/axisSelection'
-
-type CellExportAlways = {
-  dimensionName: DimensionName
-  measureName: MeasureName
-}
+import { CellExportAlways } from 'client/pages/Explorer/ResultGrid/types'
 
 type Returned = {
   cellsExportAlways: Array<CellExportAlways>

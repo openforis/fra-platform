@@ -1,11 +1,11 @@
 import { useDeferredValue } from 'react'
 
 import { RecordAssessmentData } from 'meta/data'
-import { AxisSelection } from 'meta/explorer/selection'
+import { Axis, AxisSelection } from 'meta/explorer/selection'
 
 import { useExplorerSectionData } from 'client/store/explorer/data/hooks/data'
 import { useExplorerAxisSelection } from 'client/store/explorer/selection/hooks/axisSelection'
-import { AxisValues, Combination, UniquePrimaryAxis } from 'client/pages/Explorer/ResultGrid/types'
+import { AxisValues, CellExportAlways, Combination, UniquePrimaryAxis } from 'client/pages/Explorer/ResultGrid/types'
 
 import { useAxisValues } from './useAxisValues'
 import { useCellsExportAlways } from './useCellsExportAlways'
@@ -21,10 +21,19 @@ type Returned = {
   xCombinations: Array<Combination>
   yAxisSelection: AxisSelection['y']
   yCombinations: Array<Combination>
+  cellsExportAlways: Array<CellExportAlways>
+  cellsExportAlwaysAxis: Axis
 }
 
 export const useDeferredGridData = (): Returned => {
-  const { extraCols } = useCellsExportAlways()
+  const {
+    cellsExportAlways: rawCellsExportAlways,
+    cellsExportAlwaysAxis: rawCellsExportAlwaysAxis,
+    extraCols,
+  } = useCellsExportAlways()
+
+  const cellsExportAlways = useDeferredValue(rawCellsExportAlways)
+  const cellsExportAlwaysAxis = useDeferredValue(rawCellsExportAlwaysAxis)
 
   const rawData = useExplorerSectionData()
   const data = useDeferredValue(rawData)
@@ -50,6 +59,8 @@ export const useDeferredGridData = (): Returned => {
 
   return {
     axisValues,
+    cellsExportAlways,
+    cellsExportAlwaysAxis,
     data,
     gridTemplateColumns,
     uniquePrimaryX,

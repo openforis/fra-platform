@@ -16,7 +16,6 @@ import Observation from 'client/pages/Explorer/ResultGrid/Observation/Observatio
 import { CountryEntry } from 'client/pages/Explorer/ResultGrid/types'
 import { ExplorerGridProps } from 'client/pages/Explorer/types'
 
-import { useCellsExportAlways } from './hooks/useCellsExportAlways'
 import { useDeferredGridData } from './hooks/useDeferredGridData'
 import { useRenderLabel } from './hooks/useRenderLabel'
 import { useTrackFirstColRowWidth } from './hooks/useTrackFirstColRowWidth'
@@ -32,11 +31,12 @@ export const ResultGrid: React.FC<ExplorerGridProps> = (props: ExplorerGridProps
   const date = new Date()
 
   const { tableName } = useExplorerSectionMetadata() ?? {}
-  const { cellsExportAlways, cellsExportAlwaysAxis } = useCellsExportAlways()
 
   useGetExplorerSectionData()
   const {
     axisValues,
+    cellsExportAlways,
+    cellsExportAlwaysAxis,
     data,
     gridTemplateColumns,
     uniquePrimaryX,
