@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState, useTransition } from 'react'
 
 import { MeasureName } from 'meta/measurement/measure'
 import { UnitName } from 'meta/measurement/unit'
@@ -24,6 +24,7 @@ type Returned = {
 export const useMeasuresUnitSelectors = (): Returned => {
   const dispatch = useAppDispatch()
   const { assessmentName, cycleName, sectionName } = useSectionRouteParams()
+  const [, startTransition] = useTransition()
 
   const measuresOptions = useAllMeasuresUnitOptions()
   const storeSelectedUnits = useExplorerUnits()
@@ -67,14 +68,16 @@ export const useMeasuresUnitSelectors = (): Returned => {
       return acc
     }, [])
 
-    dispatch(
-      ExplorerSelectionActions.setUnits({
-        assessmentName,
-        cycleName,
-        sectionName,
-        units: unitsArray,
-      })
-    )
+    startTransition(() => {
+      dispatch(
+        ExplorerSelectionActions.setUnits({
+          assessmentName,
+          cycleName,
+          sectionName,
+          units: unitsArray,
+        })
+      )
+    })
   }, [assessmentName, cycleName, dispatch, sectionName, unitSelections])
 
   return {
