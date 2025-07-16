@@ -13,10 +13,9 @@ const Observation: React.FC<ObservationProps> = (props: ObservationProps) => {
 
   return (
     <DataCell className="observation" lastCol={lastCol} lastRow={lastRow}>
-      {/* TODO: Add formatting */}
       {value}
     </DataCell>
   )
 }
 
-export default Observation
+export default React.memo(Observation)

@@ -32,6 +32,8 @@ export const useValue = (props: ObservationProps): Returned => {
   )
 
   return useMemo<Returned>(() => {
+    if (Objects.isEmpty(data)) return ''
+
     const rawValue = RecordAssessmentDatas.getDatum({
       assessmentName,
       colName: Dimensions.dimensionNameToColumnName(dimensionName),

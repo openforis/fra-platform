@@ -39,7 +39,7 @@ const Options: React.FC = () => {
 
   return (
     <div className="options-container">
-      <Button disabled={hideGrid} iconName="hit-up" onClick={openPanel} />
+      <Button disabled={hideGrid} iconName="equalizer" onClick={openPanel} />
       <SlidingPanel closePanel={closePanel} opened={opened} size={45}>
         <UnitsSelection unitSelectors={unitSelectors} />
 

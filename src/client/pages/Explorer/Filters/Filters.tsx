@@ -14,13 +14,13 @@ const Filters: React.FC<ExplorerGridProps> = (props: ExplorerGridProps) => {
 
   return (
     <div className="explorer-filters">
-      <ExportButton gridRef={gridRef} />
-      <Hr vertical />
       <Country />
       <Measure />
       <Dimension />
       <Hr vertical />
       <Options />
+      <Hr vertical />
+      <ExportButton gridRef={gridRef} />
     </div>
   )
 }

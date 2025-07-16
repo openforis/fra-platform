@@ -7,9 +7,8 @@ import { Objects } from 'utils/objects'
 import { CountryIso } from 'meta/area'
 import { Axis, AxisType } from 'meta/explorer/selection'
 
-import { useExplorerSectionData, useGetExplorerSectionData } from 'client/store/explorer/data/hooks/data'
+import { useGetExplorerSectionData } from 'client/store/explorer/data/hooks/data'
 import { useExplorerSectionMetadata } from 'client/store/explorer/metadata/hooks/metadata'
-import { useExplorerAxisSelection } from 'client/store/explorer/selection/hooks/axisSelection'
 import { DataCell, DataGrid } from 'client/components/DataGrid'
 import { useHideGrid } from 'client/pages/Explorer/hooks/useHideGrid'
 import MeasureTitle from 'client/pages/Explorer/ResultGrid/MeasureTitle/MeasureTitle'
@@ -17,10 +16,7 @@ import Observation from 'client/pages/Explorer/ResultGrid/Observation/Observatio
 import { CountryEntry } from 'client/pages/Explorer/ResultGrid/types'
 import { ExplorerGridProps } from 'client/pages/Explorer/types'
 
-import { useAxisValues } from './hooks/useAxisValues'
-import { useCellsExportAlways } from './hooks/useCellsExportAlways'
-import { useCombinations } from './hooks/useCombinations'
-import { useGridTemplateColumns } from './hooks/useGridTemplateColumns'
+import { useDeferredGridData } from './hooks/useDeferredGridData'
 import { useRenderLabel } from './hooks/useRenderLabel'
 import { useTrackFirstColRowWidth } from './hooks/useTrackFirstColRowWidth'
 
@@ -35,17 +31,20 @@ export const ResultGrid: React.FC<ExplorerGridProps> = (props: ExplorerGridProps
   const date = new Date()
 
   const { tableName } = useExplorerSectionMetadata() ?? {}
-  const { cellsExportAlways, cellsExportAlwaysAxis, extraCols } = useCellsExportAlways()
 
   useGetExplorerSectionData()
-  const data = useExplorerSectionData()
-
-  const { x: xAxisSelection, y: yAxisSelection } = useExplorerAxisSelection()
-
-  const axisValues = useAxisValues()
-  const { uniquePrimaryX, xCombinations, yCombinations } = useCombinations({ axisValues })
-  const gridTemplateColumns = useGridTemplateColumns({ axisValues, extraCols })
-
+  const {
+    axisValues,
+    cellsExportAlways,
+    cellsExportAlwaysAxis,
+    data,
+    gridTemplateColumns,
+    uniquePrimaryX,
+    xAxisSelection,
+    xCombinations,
+    yAxisSelection,
+    yCombinations,
+  } = useDeferredGridData()
   const renderLabel = useRenderLabel()
 
   const xAxisVariableCount = xAxisSelection.length
