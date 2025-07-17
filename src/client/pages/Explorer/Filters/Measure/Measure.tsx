@@ -1,14 +1,12 @@
 import './Measure.scss'
-import React, { useCallback } from 'react'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Objects } from 'utils/objects'
 
 import { TooltipId } from 'meta/tooltip'
 
-import { ExplorerSelectionActions } from 'client/store/explorer/selection/actions'
 import { useExplorerMeasures } from 'client/store/explorer/selection/hooks/measures'
-import { useAppDispatch } from 'client/store/hooks'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useSection } from 'client/store/meta/hooks/sections'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
@@ -16,16 +14,13 @@ import useOpenDefinition from 'client/components/DefinitionLink/hooks/useOpenDef
 import Icon from 'client/components/Icon'
 import MultiSelect from 'client/components/Inputs/MultiSelect/MultiSelect'
 
+import { useOnChange } from './hooks/useOnChange'
 import { useOptions } from './hooks/useOptions'
-
-type HandleChange = (value: Array<string>) => void
 
 const Measure: React.FC = () => {
   const { t } = useTranslation()
 
-  const dispatch = useAppDispatch()
-
-  const { assessmentName, cycleName, sectionName } = useSectionRouteParams()
+  const { sectionName } = useSectionRouteParams()
   const cycle = useCycle()
   const subSection = useSection(sectionName)
   const anchor = subSection?.props.anchors[cycle.uuid]
@@ -35,19 +30,7 @@ const Measure: React.FC = () => {
   const options = useOptions()
   const explorerMeasures = useExplorerMeasures()
 
-  const handleChange = useCallback<HandleChange>(
-    (value) => {
-      dispatch(
-        ExplorerSelectionActions.setMeasures({
-          assessmentName,
-          cycleName,
-          measures: value,
-          sectionName,
-        })
-      )
-    },
-    [assessmentName, cycleName, dispatch, sectionName]
-  )
+  const onChange = useOnChange({ options })
 
   return (
     <div className="measure-filter-container">
@@ -55,7 +38,7 @@ const Measure: React.FC = () => {
         classNames={{ container: 'explorer-filters__multiselect' }}
         disabled={Objects.isNil(options)}
         multiLabelSummaryKey="common.variable"
-        onChange={handleChange}
+        onChange={onChange}
         options={options ?? []}
         placeholder={t('common.variable')}
         toggleAll

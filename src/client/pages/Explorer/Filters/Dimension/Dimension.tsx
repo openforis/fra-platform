@@ -1,47 +1,29 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Objects } from 'utils/objects'
 
-import { ExplorerSelectionActions } from 'client/store/explorer/selection/actions'
 import { useExplorerDimensions } from 'client/store/explorer/selection/hooks/dimensions'
-import { useAppDispatch } from 'client/store/hooks'
-import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 import MultiSelect from 'client/components/Inputs/MultiSelect/MultiSelect'
 
+import { useOnChange } from './hooks/useOnChange'
 import { useOptions } from './hooks/useOptions'
-
-type HandleChange = (value: Array<string>) => void
 
 const Dimension: React.FC = () => {
   const { t } = useTranslation()
-  const dispatch = useAppDispatch()
 
-  const { assessmentName, cycleName, sectionName } = useSectionRouteParams()
   const options = useOptions()
 
   const explorerDimensions = useExplorerDimensions()
 
-  const handleChange = useCallback<HandleChange>(
-    (value) => {
-      dispatch(
-        ExplorerSelectionActions.setDimensions({
-          assessmentName,
-          cycleName,
-          dimensions: value,
-          sectionName,
-        })
-      )
-    },
-    [assessmentName, cycleName, dispatch, sectionName]
-  )
+  const onChange = useOnChange({ options })
 
   return (
     <MultiSelect
       classNames={{ container: 'explorer-filters__multiselect' }}
       disabled={Objects.isNil(options)}
       multiLabelSummaryKey="common.column"
-      onChange={handleChange}
+      onChange={onChange}
       options={options ?? []}
       placeholder={t('common.column')}
       toggleAll
