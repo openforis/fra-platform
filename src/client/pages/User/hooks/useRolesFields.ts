@@ -9,10 +9,18 @@ import { RoleName, UserRole, Users } from 'meta/user'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useUser } from 'client/store/user/hooks/user'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
-import { FieldDefinition, FormDefinition, FormFieldType } from 'client/components/Form/types'
+import { FieldDefinition, FormDefinition, FormFieldType, WatchCallback } from 'client/components/Form/types'
 import { PropsFormDefinition } from 'client/pages/User/hooks/types'
 
 type Returned = FormDefinition['fields']
+
+const rolesWithCountries = [
+  RoleName.REVIEWER,
+  RoleName.NATIONAL_CORRESPONDENT,
+  RoleName.ALTERNATE_NATIONAL_CORRESPONDENT,
+  RoleName.COLLABORATOR,
+  RoleName.VIEWER,
+]
 
 export const useRolesFields = (props: PropsFormDefinition): Returned => {
   const { targetUser } = props
@@ -36,13 +44,12 @@ export const useRolesFields = (props: PropsFormDefinition): Returned => {
     }
 
     const triggerFields = ['roles']
-    const fields = [
-      RoleName.REVIEWER,
-      RoleName.NATIONAL_CORRESPONDENT,
-      RoleName.ALTERNATE_NATIONAL_CORRESPONDENT,
-      RoleName.COLLABORATOR,
-      RoleName.VIEWER,
-    ].map<FieldDefinition<UserEditCountryForm>>((roleName) => {
+
+    const fields = rolesWithCountries.map<FieldDefinition<UserEditCountryForm>>((roleName) => {
+      const isAdminWatch: WatchCallback<UserEditCountryForm, boolean> = (props) => {
+        const { values } = props
+        return values.roles?.[RoleName.ADMINISTRATOR] === true
+      }
       return {
         name: `roles.${roleName}`,
         label: `user.roles.${roleName}`,
@@ -58,10 +65,8 @@ export const useRolesFields = (props: PropsFormDefinition): Returned => {
               return [...acc, ...(value as Array<string>)]
             }, [])
           },
-          isDisabled: (props) => {
-            const { values } = props
-            return values.roles?.[RoleName.ADMINISTRATOR] === true
-          },
+          isDisabled: isAdminWatch,
+          resetIf: isAdminWatch,
           triggerFields,
         },
       }

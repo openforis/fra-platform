@@ -34,6 +34,7 @@ export type FieldDefinition<FIELD_VALUES = FieldValues> = {
   watches?: {
     getDisabledOptions?: WatchCallback<FIELD_VALUES, Array<string>>
     isDisabled?: WatchCallback<FIELD_VALUES, boolean>
+    resetIf?: WatchCallback<FIELD_VALUES, boolean>
     triggerFields?: Array<string>
   }
 }

@@ -46,7 +46,7 @@ const Form: React.FC<FormProps> = (props) => {
   const form = useForm({ resolver, defaultValues, shouldUnregister: true })
   const onSubmit = useOnSubmit(props)
 
-  const { control, formState, register, setValue, trigger, watch } = form
+  const { control, formState, register, resetField, setValue, trigger, watch } = form
   const { errors, isSubmitting } = formState
   const watchValues = watch()
 
@@ -82,6 +82,7 @@ const Form: React.FC<FormProps> = (props) => {
               fieldValidationSchema={fieldValidationSchema}
               formState={formState}
               register={register}
+              resetField={resetField}
               setValue={setValue}
               trigger={trigger}
               watch={watch}

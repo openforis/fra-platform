@@ -4,6 +4,7 @@ import {
   FieldErrorsImpl,
   Merge,
   UseFormRegister,
+  UseFormResetField,
   UseFormSetValue,
   UseFormStateReturn,
   UseFormTrigger,
@@ -23,6 +24,7 @@ export type FieldProps<FIELD_VALUES extends Record<string, unknown> = Record<str
   fullWidth?: boolean
   noBorder?: boolean
   register?: UseFormRegister<FIELD_VALUES>
+  resetField: UseFormResetField<FIELD_VALUES>
   setValue: UseFormSetValue<FIELD_VALUES>
   trigger: UseFormTrigger<FIELD_VALUES>
   watch: UseFormWatch<FIELD_VALUES>
