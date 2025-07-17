@@ -72,7 +72,6 @@ const Form: React.FC<FormProps> = (props) => {
           const path = name.split('.')
           const fieldValidationSchema = getSchemaFieldPath(validationSchema, path)
           const error = Objects.getInPath(errors, errorField ? errorField.split('.') : path)
-          const value = Objects.getInPath(watchValues, path)
 
           return (
             <Component
@@ -85,7 +84,6 @@ const Form: React.FC<FormProps> = (props) => {
               register={register}
               setValue={setValue}
               trigger={trigger}
-              value={value}
               watch={watch}
             />
           )

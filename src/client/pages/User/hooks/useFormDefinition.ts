@@ -37,28 +37,36 @@ export const useFormDefinition = (props: PropsFormDefinition): FormDefinition | 
         name: 'profilePicture',
         type: FormFieldType.avatar,
         label: '',
-        isDisabled: () => userDisabled,
+        watches: {
+          isDisabled: () => userDisabled,
+        },
       },
       {
         name: 'user.email',
         type: FormFieldType.text,
         label: 'editUser.email',
         defaultValue: targetUser?.email || '',
-        isDisabled: () => userDisabled || emailDisabled,
+        watches: {
+          isDisabled: () => userDisabled || emailDisabled,
+        },
       },
       {
         name: 'user.props.name',
         type: FormFieldType.text,
         label: 'common.name',
         defaultValue: targetUser?.props?.name || '',
-        isDisabled: () => userDisabled,
+        watches: {
+          isDisabled: () => userDisabled,
+        },
       },
       {
         name: 'user.props.surname',
         type: FormFieldType.text,
         label: 'editUser.surname',
         defaultValue: targetUser?.props?.surname || '',
-        isDisabled: () => userDisabled,
+        watches: {
+          isDisabled: () => userDisabled,
+        },
       },
       {
         name: 'user.props.title',
@@ -71,7 +79,9 @@ export const useFormDefinition = (props: PropsFormDefinition): FormDefinition | 
         label: 'editUser.title',
         placeholder: t('editUser.title'),
         defaultValue: targetUser?.props?.title || '',
-        isDisabled: () => userDisabled,
+        watches: {
+          isDisabled: () => userDisabled,
+        },
       },
     ]
 

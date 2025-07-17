@@ -10,8 +10,7 @@ import { DataCell, DataRow } from 'client/components/DataGrid'
 import { FieldProps } from 'client/components/Form/FormFields/types'
 import Icon from 'client/components/Icon'
 
-import { useIsFieldDisabled } from './hooks/useIsFieldDisabled'
-import { useTriggerOnChange } from './hooks/useTriggerOnChange'
+import { useWatches } from './hooks/useWatches'
 
 type Props = FieldProps & {
   classes?: { cellField?: string }
@@ -24,8 +23,7 @@ const FormField: React.FC<Props> = (props) => {
   const required = !Objects.isNil(fieldValidationSchema) && !(fieldValidationSchema instanceof ZodOptional)
 
   const { t } = useTranslation()
-  const disabled = useIsFieldDisabled(props)
-  useTriggerOnChange(props)
+  const { disabled } = useWatches(props)
 
   return (
     <DataRow>

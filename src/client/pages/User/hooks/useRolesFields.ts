@@ -3,13 +3,12 @@ import { useMemo } from 'react'
 import { Objects } from 'utils/objects'
 
 import { Areas, CountryIso } from 'meta/area'
-import { UserEditCountryForm } from 'meta/form/userEdit/form'
 import { RoleName, UserRole, Users } from 'meta/user'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useUser } from 'client/store/user/hooks/user'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
-import { FormDefinition, FormFieldType } from 'client/components/Form/types'
+import { FieldDefinition, FormDefinition, FormFieldType } from 'client/components/Form/types'
 import { PropsFormDefinition } from 'client/pages/User/hooks/types'
 
 type Returned = FormDefinition['fields']
@@ -35,14 +34,14 @@ export const useRolesFields = (props: PropsFormDefinition): Returned => {
       return isAdminPage && isAdmin
     }
 
-    const triggerOnChange = ['roles']
-    const fields: Returned = [
+    const triggerFields = ['roles']
+    const fields = [
       RoleName.REVIEWER,
       RoleName.NATIONAL_CORRESPONDENT,
       RoleName.ALTERNATE_NATIONAL_CORRESPONDENT,
       RoleName.COLLABORATOR,
       RoleName.VIEWER,
-    ].map((roleName) => {
+    ].map<FieldDefinition>((roleName) => {
       return {
         name: `roles.${roleName}`,
         label: `user.roles.${roleName}`,
@@ -50,10 +49,13 @@ export const useRolesFields = (props: PropsFormDefinition): Returned => {
         isMulti: true,
         shouldShow: shouldShowRoles,
         defaultValue: userRoles.filter((role) => role.role === roleName).map((role) => role.countryIso),
-        isDisabled: (values: UserEditCountryForm) => {
-          return values.roles?.[RoleName.ADMINISTRATOR] === true
+        watches: {
+          isDisabled: (props) => {
+            const { values } = props
+            return values.roles?.[RoleName.ADMINISTRATOR] === true
+          },
+          triggerFields,
         },
-        triggerOnChange,
       }
     })
 
@@ -62,10 +64,11 @@ export const useRolesFields = (props: PropsFormDefinition): Returned => {
       name: `roles.${RoleName.ADMINISTRATOR}`,
       label: `user.roles.${RoleName.ADMINISTRATOR}`,
       type: FormFieldType.checkbox,
-      isMulti: true,
       shouldShow: shouldShowRoles,
       defaultValue: isAdmin,
-      triggerOnChange,
+      watches: {
+        triggerFields,
+      },
     })
 
     return fields

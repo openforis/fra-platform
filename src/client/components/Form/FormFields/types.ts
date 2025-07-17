@@ -2,7 +2,6 @@ import {
   Control,
   FieldError,
   FieldErrorsImpl,
-  FieldValue,
   Merge,
   UseFormRegister,
   UseFormSetValue,
@@ -15,10 +14,7 @@ import { ZodTypeAny } from 'zod'
 
 import { FieldDefinition } from 'client/components/Form/types'
 
-export type FieldProps<
-  FIELD_VALUES extends Record<string, unknown> = Record<string, unknown>,
-  FIELD_VALUE = unknown
-> = {
+export type FieldProps<FIELD_VALUES extends Record<string, unknown> = Record<string, unknown>> = {
   control: Control<FIELD_VALUES>
   error?: FieldError | Merge<FieldError, FieldErrorsImpl<FIELD_VALUES>>
   fieldDefinition: FieldDefinition
@@ -29,6 +25,5 @@ export type FieldProps<
   register?: UseFormRegister<FIELD_VALUES>
   setValue: UseFormSetValue<FIELD_VALUES>
   trigger: UseFormTrigger<FIELD_VALUES>
-  value: FieldValue<FIELD_VALUE>
   watch: UseFormWatch<FIELD_VALUES>
 }
