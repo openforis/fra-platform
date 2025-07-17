@@ -1,5 +1,5 @@
 import './FormField.scss'
-import React, { PropsWithChildren } from 'react'
+import React, { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
@@ -10,19 +10,21 @@ import { DataCell, DataRow } from 'client/components/DataGrid'
 import { FieldProps } from 'client/components/Form/FormFields/types'
 import Icon from 'client/components/Icon'
 
+import { useIsFieldDisabled } from './hooks/useIsFieldDisabled'
 import { useTriggerOnChange } from './hooks/useTriggerOnChange'
 
-type Props = PropsWithChildren<FieldProps> & {
+type Props = FieldProps & {
   classes?: { cellField?: string }
-  disabled?: boolean
+  renderInput: (props: { disabled: boolean }) => ReactNode
 }
 
 const FormField: React.FC<Props> = (props) => {
-  const { children, classes, disabled, error, fieldDefinition, fieldValidationSchema, fullWidth, noBorder } = props
+  const { classes, error, fieldDefinition, fieldValidationSchema, fullWidth, noBorder, renderInput } = props
   const { label, name } = fieldDefinition
   const required = !Objects.isNil(fieldValidationSchema) && !(fieldValidationSchema instanceof ZodOptional)
 
   const { t } = useTranslation()
+  const disabled = useIsFieldDisabled(props)
   useTriggerOnChange(props)
 
   return (
@@ -41,7 +43,7 @@ const FormField: React.FC<Props> = (props) => {
         lastRow
         noBorder={noBorder}
       >
-        {React.Children.toArray(children)}
+        {renderInput({ disabled })}
 
         {error && (
           <div className="form-cell-error">
