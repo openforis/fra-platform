@@ -52,7 +52,7 @@ export const ResultGrid: React.FC<ExplorerGridProps> = (props: ExplorerGridProps
 
   const hideGrid = useHideGrid()
 
-  useTrackFirstColRowWidth({ gridRef, gridTemplateColumns, hideGrid })
+  useTrackFirstColRowWidth({ gridRef, gridTemplateColumns, hideGrid, xAxisSelection, yAxisSelection })
 
   if (hideGrid) return null
 
