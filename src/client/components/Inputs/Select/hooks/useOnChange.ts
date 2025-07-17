@@ -7,7 +7,7 @@ import { Option, OptionsGroup, SelectProps } from 'client/components/Inputs/Sele
 type Returned = (option?: Option | Array<Option>, actionMeta?: ActionMeta<Option>) => void
 
 export const useOnChange = (props: SelectProps): Returned => {
-  const { isMulti, onChange, options: selectOptions, toggleAll } = props
+  const { isMulti, isOptionDisabled, onChange, options: selectOptions, toggleAll } = props
 
   return useCallback<Returned>(
     (option?: Option | Array<Option>, actionMeta?: ActionMeta<Option>) => {
@@ -24,18 +24,25 @@ export const useOnChange = (props: SelectProps): Returned => {
 
         // If "Select All" is toggled with no selection, select all original options
         if (selectedValues.length === 1) {
-          const allValues = selectOptions.flatMap((optionOrGroup) => {
+          const allOptions = selectOptions.flatMap<Option>((optionOrGroup) => {
             if (Object.hasOwn(optionOrGroup, 'options')) {
-              return (optionOrGroup as OptionsGroup).options.map(({ value }) => value)
+              return (optionOrGroup as OptionsGroup).options // .map(({ value }) => value)
             }
-            return (optionOrGroup as Option).value
+            return optionOrGroup as Option // .value
           })
+          const allValues = allOptions.reduce<Array<Option['value']>>((agg, option) => {
+            if (!isOptionDisabled || !isOptionDisabled(option, null)) {
+              agg.push(option.value)
+            }
+            return agg
+          }, [])
+
           return onChange(allValues, actionMeta!)
         }
       }
       // Handle Single-Select
       return onChange((option as Option)?.value ?? null, actionMeta!)
     },
-    [isMulti, onChange, selectOptions, toggleAll]
+    [isMulti, isOptionDisabled, onChange, selectOptions, toggleAll]
   )
 }

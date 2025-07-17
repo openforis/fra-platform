@@ -19,6 +19,7 @@ const Select: React.FC<SelectProps> = (props) => {
     isClearable = true,
     isCreatable,
     isMulti,
+    isOptionDisabled,
     isValidNewOption,
     maxMenuHeight,
     onBlur,
@@ -53,6 +54,7 @@ const Select: React.FC<SelectProps> = (props) => {
         isClearable={isClearable}
         isDisabled={disabled}
         isMulti={isMulti}
+        isOptionDisabled={isOptionDisabled}
         isSearchable
         isValidNewOption={isValidNewOption}
         maxMenuHeight={maxMenuHeight}
