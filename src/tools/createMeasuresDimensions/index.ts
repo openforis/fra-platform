@@ -115,8 +115,12 @@ const _createMeasuresAndDimensionsForTables = async (props: Props) => {
 
 const createAllMeasuresDimensions = async () => {
   const assessmentName = AssessmentNames.fra
-  const cycleName = '2025'
-  const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName }, client)
+
+  const { assessment, cycle: cycle2025 } = await AssessmentController.getOneWithCycle(
+    { assessmentName, cycleName: '2025' },
+    client
+  )
+  const cycleLatest = assessment.cycles.find((c) => c.name === 'latest')
 
   const systemEntries = Object.entries(systemsOfMeasurement)
 
@@ -141,7 +145,8 @@ const createAllMeasuresDimensions = async () => {
     }),
   ])
 
-  await CacheController.generateExplorerMetadata({ assessment, cycle }, client)
+  await CacheController.generateExplorerMetadata({ assessment, cycle: cycle2025 }, client)
+  await CacheController.generateExplorerMetadata({ assessment, cycle: cycleLatest }, client)
 }
 
 ToolsUtils.exec(createAllMeasuresDimensions)

@@ -17,8 +17,8 @@ const SectionAreaSwitch: React.FC = () => {
 
   const { assessmentName, cycleName } = useCycleRouteParams()
   const isFra2025 = assessmentName === AssessmentNames.fra && cycleName === '2025'
-
-  const DataComponent = isFra2025 ? Explorer : DataExport
+  const isFraLatest = assessmentName === AssessmentNames.fra && cycleName === 'latest'
+  const DataComponent = isFra2025 || isFraLatest ? Explorer : DataExport
   const Component = isDataExportView ? DataComponent : Section
 
   return (
