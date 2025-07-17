@@ -1,5 +1,5 @@
 import './FormField.scss'
-import React, { ReactNode } from 'react'
+import React, { PropsWithChildren, ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
@@ -12,9 +12,9 @@ import Icon from 'client/components/Icon'
 
 import { useWatches } from './hooks/useWatches'
 
-type Props = FieldProps & {
+type Props = PropsWithChildren<FieldProps> & {
   classes?: { cellField?: string }
-  renderInput: (props: { disabled: boolean }) => ReactNode
+  renderInput: (props: { disabled: boolean; disabledOptions: Array<string> }) => ReactNode
 }
 
 const FormField: React.FC<Props> = (props) => {
@@ -23,10 +23,10 @@ const FormField: React.FC<Props> = (props) => {
   const required = !Objects.isNil(fieldValidationSchema) && !(fieldValidationSchema instanceof ZodOptional)
 
   const { t } = useTranslation()
-  const { disabled } = useWatches(props)
+  const { disabled, disabledOptions } = useWatches(props)
 
   return (
-    <DataRow>
+    <DataRow key={name}>
       <DataCell className="form-cell-label" noBorder>
         <label htmlFor={name}>
           {t(label)}
@@ -41,7 +41,7 @@ const FormField: React.FC<Props> = (props) => {
         lastRow
         noBorder={noBorder}
       >
-        {renderInput({ disabled })}
+        {renderInput({ disabled, disabledOptions })}
 
         {error && (
           <div className="form-cell-error">

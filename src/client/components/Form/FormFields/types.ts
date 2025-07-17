@@ -17,7 +17,7 @@ import { FieldDefinition } from 'client/components/Form/types'
 export type FieldProps<FIELD_VALUES extends Record<string, unknown> = Record<string, unknown>> = {
   control: Control<FIELD_VALUES>
   error?: FieldError | Merge<FieldError, FieldErrorsImpl<FIELD_VALUES>>
-  fieldDefinition: FieldDefinition
+  fieldDefinition: FieldDefinition<FIELD_VALUES>
   fieldValidationSchema?: ZodTypeAny
   formState: UseFormStateReturn<FIELD_VALUES>
   fullWidth?: boolean

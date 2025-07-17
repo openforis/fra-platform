@@ -3,6 +3,7 @@ import { useMemo } from 'react'
 import { Objects } from 'utils/objects'
 
 import { Areas, CountryIso } from 'meta/area'
+import { UserEditCountryForm } from 'meta/form/userEdit/form'
 import { RoleName, UserRole, Users } from 'meta/user'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
@@ -41,7 +42,7 @@ export const useRolesFields = (props: PropsFormDefinition): Returned => {
       RoleName.ALTERNATE_NATIONAL_CORRESPONDENT,
       RoleName.COLLABORATOR,
       RoleName.VIEWER,
-    ].map<FieldDefinition>((roleName) => {
+    ].map<FieldDefinition<UserEditCountryForm>>((roleName) => {
       return {
         name: `roles.${roleName}`,
         label: `user.roles.${roleName}`,
@@ -50,6 +51,13 @@ export const useRolesFields = (props: PropsFormDefinition): Returned => {
         shouldShow: shouldShowRoles,
         defaultValue: userRoles.filter((role) => role.role === roleName).map((role) => role.countryIso),
         watches: {
+          getDisabledOptions: (props) => {
+            const { values } = props
+            return Object.entries(values.roles).reduce<Array<string>>((acc, [key, value]) => {
+              if ([RoleName.ADMINISTRATOR, roleName].includes(key as RoleName)) return acc
+              return [...acc, ...(value as Array<string>)]
+            }, [])
+          },
           isDisabled: (props) => {
             const { values } = props
             return values.roles?.[RoleName.ADMINISTRATOR] === true

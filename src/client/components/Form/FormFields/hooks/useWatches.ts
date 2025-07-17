@@ -1,38 +1,23 @@
-import { useEffect, useState } from 'react'
-
-import { Objects } from 'utils/objects'
-
-import { useOnUpdate } from 'client/hooks'
 import { FieldProps } from 'client/components/Form/FormFields/types'
 
+import { useDisabledOptions } from './watches/useDisabledOptions'
+import { useIsDisabled } from './watches/useIsDisabled'
+import { useTriggerFields } from './watches/useTriggerFields'
+
 type Returned = {
+  disabledOptions: Array<string>
   disabled: boolean
 }
 
 export const useWatches = (props: FieldProps): Returned => {
-  const { fieldDefinition, formState, trigger, watch } = props
-  const { name, watches = {} } = fieldDefinition
-  const { isDisabled, triggerFields } = watches
+  const { watch, ...rest } = props
 
   const values = watch()
-  const path = name.split('.')
-  const value = Objects.getInPath(values, path)
 
-  const [disabled, setDisabled] = useState<boolean>(false)
+  const propsWatch = { ...rest, values }
+  const disabled = useIsDisabled(propsWatch)
+  const disabledOptions = useDisabledOptions(propsWatch)
+  useTriggerFields(propsWatch)
 
-  useEffect(() => {
-    if (isDisabled) {
-      setDisabled(isDisabled({ values }))
-    }
-  }, [isDisabled, values])
-
-  useOnUpdate(() => {
-    if (formState.isSubmitted) {
-      triggerFields?.forEach((propName) => {
-        trigger(propName)
-      })
-    }
-  }, [value, triggerFields])
-
-  return { disabled }
+  return { disabled, disabledOptions }
 }

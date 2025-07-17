@@ -17,7 +17,7 @@ const CountryField = (props: FieldProps) => {
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...props}
       classes={{ cellField: 'form-cell-field_country' }}
-      renderInput={({ disabled }) => {
+      renderInput={({ disabled, disabledOptions }) => {
         return (
           <Controller
             control={control}
@@ -30,6 +30,7 @@ const CountryField = (props: FieldProps) => {
               return (
                 <CountryMultiSelect
                   disabled={disabled}
+                  disabledOptions={disabledOptions}
                   isClearable={false}
                   isMulti={isMulti}
                   onChange={onChange}
