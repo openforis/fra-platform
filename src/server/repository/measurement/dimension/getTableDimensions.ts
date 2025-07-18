@@ -25,7 +25,7 @@ export const getTableDimensions = async (props: Props, client: BaseProtocol = DB
     where t.props ->> 'name' = $1
       and cn.cycle_uuid = $2
       and t.props -> 'columnsExport' is not null
-    union
+    union all
     select elem ->> 'columnName' as column_name
     from ${schemaName}."table" t,
          jsonb_each(t.props -> 'cellsExportAlways') as cea(cycle_uuid, arr),
@@ -44,10 +44,14 @@ export const getTableDimensions = async (props: Props, client: BaseProtocol = DB
 
   return client.map<Dimension>(
     `
-    select distinct
-      d.name
-    from measurement.dimension d
-    where d.name in ($1:csv);
+    with dimensions as (
+      select *
+      from unnest($1::text[]) with ordinality as dimensions(name, ord)
+    )
+    select d.name
+    from dimensions
+      join measurement.dimension d on d.name = dimensions.name
+    order by dimensions.ord
     `,
     [dimensionNames],
     (dimension) => Objects.camelize(dimension)

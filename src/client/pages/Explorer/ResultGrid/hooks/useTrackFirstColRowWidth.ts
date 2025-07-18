@@ -1,9 +1,13 @@
 import { useLayoutEffect } from 'react'
 
+import { AxisSelection } from 'meta/explorer/selection'
+
 type Props = {
   gridRef: React.RefObject<HTMLElement>
   gridTemplateColumns: string
   hideGrid: boolean
+  xAxisSelection: AxisSelection['x']
+  yAxisSelection: AxisSelection['y']
 }
 
 /**
@@ -12,7 +16,7 @@ type Props = {
  * `--first-col-width` and `--first-row-height` respectively.
  */
 export const useTrackFirstColRowWidth = (props: Props) => {
-  const { gridRef, gridTemplateColumns, hideGrid } = props
+  const { gridRef, gridTemplateColumns, hideGrid, xAxisSelection, yAxisSelection } = props
 
   useLayoutEffect(() => {
     if (hideGrid) return undefined
@@ -60,5 +64,5 @@ export const useTrackFirstColRowWidth = (props: Props) => {
       cellRO?.disconnect()
       rowObserver?.disconnect()
     }
-  }, [gridRef, gridTemplateColumns, hideGrid])
+  }, [gridRef, gridTemplateColumns, hideGrid, xAxisSelection, yAxisSelection])
 }
