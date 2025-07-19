@@ -18,14 +18,14 @@ type Props = Pick<CountrySelectProps, 'isMulti'> & {
   error?: string
 }
 
-type Returned = {
+export type TooltipContent = {
   hideTooltip: () => void
   showTooltip: () => void
   tooltipContent: string | null
   dataTooltipId: TooltipId
 }
 
-export const useTooltipContent = (props: Props): Returned => {
+export const useTooltipContent = (props: Props): TooltipContent => {
   const { error, isMulti, value } = props
   const [canDisplayTooltip, setCanDisplayTooltip] = useState<boolean>(true)
   const { t } = useTranslation()

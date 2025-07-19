@@ -21,6 +21,7 @@ type SelectBaseProps =
       | 'inputValue'
       | 'isClearable'
       | 'isMulti'
+      | 'isOptionDisabled'
       | 'maxMenuHeight'
       | 'onBlur'
       | 'onFocus'

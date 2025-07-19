@@ -13,6 +13,10 @@
     }
   }
 
+  div.select__control.isDisabled {
+    align-content: center;
+  }
+
   .select__control {
     padding: $spacing-xxs;
   }

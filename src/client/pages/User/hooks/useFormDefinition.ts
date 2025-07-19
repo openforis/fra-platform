@@ -7,8 +7,10 @@ import { Contacts } from 'meta/cycleData'
 import { Users } from 'meta/user'
 
 import { FieldDefinition, FormDefinition, FormFieldType } from 'client/components/Form/types'
-import { PropsFormDefinition } from 'client/pages/User/hooks/types'
-import { useRolePropsFields } from 'client/pages/User/hooks/useRolePropsFields'
+
+import { PropsFormDefinition } from './types'
+import { useRolePropsFields } from './useRolePropsFields'
+import { useRolesFields } from './useRolesFields'
 
 export const useFormDefinition = (props: PropsFormDefinition): FormDefinition | undefined => {
   const { editUserRules, targetUser } = props
@@ -16,6 +18,7 @@ export const useFormDefinition = (props: PropsFormDefinition): FormDefinition | 
   const { t } = useTranslation()
 
   const rolePropsFields = useRolePropsFields(props)
+  const rolesFields = useRolesFields(props)
 
   const { emailDisabled, userDisabled } = editUserRules
 
@@ -34,28 +37,36 @@ export const useFormDefinition = (props: PropsFormDefinition): FormDefinition | 
         name: 'profilePicture',
         type: FormFieldType.avatar,
         label: '',
-        isDisabled: () => userDisabled,
+        watches: {
+          isDisabled: () => userDisabled,
+        },
       },
       {
         name: 'user.email',
         type: FormFieldType.text,
         label: 'editUser.email',
         defaultValue: targetUser?.email || '',
-        isDisabled: () => userDisabled || emailDisabled,
+        watches: {
+          isDisabled: () => userDisabled || emailDisabled,
+        },
       },
       {
         name: 'user.props.name',
         type: FormFieldType.text,
         label: 'common.name',
         defaultValue: targetUser?.props?.name || '',
-        isDisabled: () => userDisabled,
+        watches: {
+          isDisabled: () => userDisabled,
+        },
       },
       {
         name: 'user.props.surname',
         type: FormFieldType.text,
         label: 'editUser.surname',
         defaultValue: targetUser?.props?.surname || '',
-        isDisabled: () => userDisabled,
+        watches: {
+          isDisabled: () => userDisabled,
+        },
       },
       {
         name: 'user.props.title',
@@ -68,12 +79,15 @@ export const useFormDefinition = (props: PropsFormDefinition): FormDefinition | 
         label: 'editUser.title',
         placeholder: t('editUser.title'),
         defaultValue: targetUser?.props?.title || '',
-        isDisabled: () => userDisabled,
+        watches: {
+          isDisabled: () => userDisabled,
+        },
       },
     ]
 
     fields.push(...rolePropsFields)
+    fields.push(...rolesFields)
 
     return { fields }
-  }, [emailDisabled, rolePropsFields, t, targetUser, userDisabled])
+  }, [emailDisabled, rolePropsFields, rolesFields, t, targetUser, userDisabled])
 }

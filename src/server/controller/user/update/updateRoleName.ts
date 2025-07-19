@@ -16,7 +16,7 @@ export const updateRoleName = async (props: UpdateRoleProps, client: BaseProtoco
   const { cycle, targetUser, user, userEditForm } = props
   const { role } = userEditForm
 
-  if (!role.role) return targetUser
+  if (!role?.role) return targetUser
 
   const existingRole: UserRoleExtended<RoleName> = targetUser.roles.find((r) => role.uuid === r.uuid)
   if (

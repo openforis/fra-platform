@@ -4,12 +4,15 @@ import { useTranslation } from 'react-i18next'
 import { z } from 'zod'
 
 import { FormValidationSchema } from 'client/components/Form/types'
-import { useRoleValidationSchema } from 'client/pages/User/hooks/useRoleValidationSchema'
+
+import { useRolesValidationSchema } from './useRolesValidationSchema'
+import { useRoleValidationSchema } from './useRoleValidationSchema'
 
 export const useValidationSchema = (): FormValidationSchema => {
   const { t } = useTranslation()
 
   const roleSchema = useRoleValidationSchema()
+  const rolesSchema = useRolesValidationSchema()
 
   return useMemo<FormValidationSchema>(() => {
     return z.object({
@@ -28,6 +31,7 @@ export const useValidationSchema = (): FormValidationSchema => {
         }),
       }),
       role: roleSchema.optional(),
+      roles: rolesSchema.optional(),
     })
-  }, [roleSchema, t])
+  }, [roleSchema, rolesSchema, t])
 }

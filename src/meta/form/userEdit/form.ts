@@ -1,9 +1,21 @@
+import { CountryIso } from 'meta/area'
 import { RoleName, User, UserRole } from 'meta/user'
 import { UserProps } from 'meta/user/user'
 import { CollaboratorPermissionsNEW } from 'meta/user/userRole'
 
 export type UserForm = Pick<User, 'email' | 'id' | 'uuid'> & {
   props: Pick<UserProps, 'name' | 'surname' | 'title'>
+}
+
+export type UserEditFormRoles = {
+  [key in
+    | RoleName.REVIEWER
+    | RoleName.NATIONAL_CORRESPONDENT
+    | RoleName.ALTERNATE_NATIONAL_CORRESPONDENT
+    | RoleName.COLLABORATOR
+    | RoleName.VIEWER]: Array<CountryIso>
+} & {
+  [RoleName.ADMINISTRATOR]: boolean
 }
 
 export type UserEditCountryForm = {
@@ -14,11 +26,5 @@ export type UserEditCountryForm = {
     props?: Partial<UserRole['props']>
     role?: RoleName
   }
+  roles?: UserEditFormRoles
 }
-
-// export type UserAdminForm = UserForm & { status: UserStatus.active | UserStatus.disabled }
-// export type UserEditAdminForm = {
-//   profilePicture?: File
-//   user: UserAdminForm
-//   roles: { [roleName in RoleName]?: Array<CountryIso> }
-// }

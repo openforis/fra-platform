@@ -64,7 +64,7 @@ export const useRolePropsFields = (props: PropsFormDefinition): FormDefinition['
         label: '',
         defaultValue: role?.uuid || '',
         shouldShow: (values: UserEditCountryForm) => {
-          return shouldShowRoleName() || shouldShowRoleProps(values)
+          return shouldShowRoleName() || shouldShowRoleProps(values) || shouldShowPermissions(values)
         },
       },
       {

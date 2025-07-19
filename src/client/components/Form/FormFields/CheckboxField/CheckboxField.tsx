@@ -1,12 +1,12 @@
 import React from 'react'
 import { Controller } from 'react-hook-form'
 
-import { EditorWYSIWYGLinks } from 'client/components/EditorWYSIWYG'
+import ButtonCheckbox from 'client/components/Buttons/ButtonCheckbox'
 import FormField from 'client/components/Form/FormFields/FormField'
 
 import { FieldProps } from '../types'
 
-const TextLinkField = (props: FieldProps) => {
+const CheckboxField = (props: FieldProps) => {
   const { control, fieldDefinition } = props
 
   const { defaultValue, name } = fieldDefinition
@@ -15,6 +15,7 @@ const TextLinkField = (props: FieldProps) => {
     <FormField
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...props}
+      noBorder
       renderInput={({ disabled }) => {
         return (
           <Controller
@@ -23,7 +24,7 @@ const TextLinkField = (props: FieldProps) => {
             disabled={disabled}
             name={name}
             render={({ field: { onChange, value } }) => (
-              <EditorWYSIWYGLinks disabled={disabled} onChange={onChange} value={value as string} />
+              <ButtonCheckbox checked={value === true} disabled={disabled} onClick={() => onChange(!value)} />
             )}
           />
         )
@@ -32,4 +33,4 @@ const TextLinkField = (props: FieldProps) => {
   )
 }
 
-export default TextLinkField
+export default CheckboxField
