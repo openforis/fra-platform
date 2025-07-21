@@ -1,16 +1,20 @@
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Areas, Country } from 'meta/area'
+import { Areas, Country, CountryIso } from 'meta/area'
 
 import { AreaSelectors } from 'client/store/area/selectors'
 import { useAppSelector } from 'client/store/hooks'
 import { useCycleRouteParams } from 'client/hooks/useRouteParams'
 
-export const useCountries = (): Array<Country> => {
+export const useCountriesRecord = (): Record<CountryIso, Country> => {
   const { assessmentName, cycleName } = useCycleRouteParams()
 
-  const countries = useAppSelector((state) => AreaSelectors.getCountries(state, assessmentName, cycleName))
+  return useAppSelector((state) => AreaSelectors.getCountries(state, assessmentName, cycleName))
+}
+
+export const useCountries = (): Array<Country> => {
+  const countries = useCountriesRecord()
   const { i18n } = useTranslation()
   const compareListName = Areas.getCompareListName(i18n)
 

@@ -22,11 +22,16 @@ enum Area {
   regionGroups = 'area:regionGroups',
 }
 
+enum Explorer {
+  metadata = 'explorer:metadata',
+}
+
 export const Keys = {
   Data,
   Row,
   Section,
   Area,
+  Explorer,
 }
 
 // ===== Getters

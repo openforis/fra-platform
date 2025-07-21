@@ -1,3 +1,3 @@
-import { Unit } from 'meta/assessment/unit'
+import { UnitName } from 'meta/measurement/unit'
 
-export const unit = (region: boolean): string => `unit.${region ? Unit.haMillion : Unit.haThousand}`
+export const unit = (region: boolean): string => `unit.${region ? UnitName.haMillion : UnitName.haThousand}`

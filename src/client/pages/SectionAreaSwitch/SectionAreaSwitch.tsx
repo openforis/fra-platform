@@ -1,16 +1,25 @@
 import React from 'react'
 
+import { AssessmentNames } from 'meta/assessment/assessment'
+
 import { useIsDataExportView } from 'client/hooks'
+import { useCycleRouteParams } from 'client/hooks/useRouteParams'
 import SectionWrapper from 'client/pages/Country/SectionWrapper'
 import DataExport from 'client/pages/DataExport'
+import Explorer from 'client/pages/Explorer'
 import Section from 'client/pages/Section'
-import { useGetTableSections } from 'client/pages/SectionAreaSwitch/SectionAreaSwitch/hooks/useGetTableSections'
+
+import { useGetTableSections } from './hooks/useGetTableSections'
 
 const SectionAreaSwitch: React.FC = () => {
   useGetTableSections()
   const isDataExportView = useIsDataExportView()
 
-  const Component = isDataExportView ? DataExport : Section
+  const { assessmentName, cycleName } = useCycleRouteParams()
+  const isFra2025 = assessmentName === AssessmentNames.fra && cycleName === '2025'
+  const isFraLatest = assessmentName === AssessmentNames.fra && cycleName === 'latest'
+  const DataComponent = isFra2025 || isFraLatest ? Explorer : DataExport
+  const Component = isDataExportView ? DataComponent : Section
 
   return (
     <SectionWrapper>

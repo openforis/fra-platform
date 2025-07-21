@@ -1,0 +1,73 @@
+@import 'src/client/style/partials';
+
+@mixin sticky-header($base-z: $z-index-results-grid-sticky-header-cell) {
+  position: sticky;
+  z-index: $base-z;
+
+  // Raise the z-index for cells with an active select to prevent
+  // the dropdown from being hidden behind sibling sticky cells.
+  &:has(.select__container .select__menu) {
+    z-index: $z-index-select-dropdown;
+  }
+}
+
+// Grid height
+$container-paddings: 2 * $spacing-s;
+$filters-height: 30px;
+$grid-margin-top: $spacing-s;
+$footer-height: 108px;
+
+.explorer-result-grid {
+  max-height: calc(
+    100dvh - $ui-app-header-height - $ui-app-toolbar-height - $container-paddings - $filters-height - $grid-margin-top -
+      $footer-height
+  );
+  margin-top: $spacing-s;
+  overflow-x: auto;
+  width: 100%;
+
+  .country-header {
+    min-width: 200px;
+  }
+
+  .data-cell {
+    align-items: center;
+    display: flex;
+    padding: $spacing-xxs;
+  }
+
+  .firstCol {
+    @include sticky-header();
+    left: 0;
+  }
+
+  .primary-x-header,
+  .export-always-x-header {
+    @include sticky-header();
+    top: 0;
+    justify-content: space-around;
+  }
+
+  .secondary-x-header {
+    @include sticky-header();
+    // Offsets the length of the first row so both headers
+    // are sticky together and the first row is not cut off.
+    // --first-row-height is calculated in useTrackFirstColRowWidth.
+    top: var(--first-row-height);
+    justify-content: space-around;
+  }
+
+  .secondary-y-header {
+    @include sticky-header();
+    // Offsets the length of the first column so both headers
+    // are sticky together and the first column is not cut off.
+    // --first-col-width is calculated in useTrackFirstColRowWidth.
+    left: var(--first-col-width);
+  }
+
+  .header.corner-cell {
+    @include sticky-header($z-index-results-grid-sticky-corner-header-cell);
+    top: 0;
+    left: 0;
+  }
+}

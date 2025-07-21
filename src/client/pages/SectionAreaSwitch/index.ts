@@ -1,2 +1,2 @@
 export { default } from './SectionAreaSwitch'
-export { useGetTableSections } from 'client/pages/SectionAreaSwitch/SectionAreaSwitch/hooks/useGetTableSections'
+export { useGetTableSections } from 'client/pages/SectionAreaSwitch/hooks/useGetTableSections'
