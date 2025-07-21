@@ -1,5 +1,4 @@
-import 'tsconfig-paths/register'
-import 'dotenv/config'
+import '../scriptInit'
 
 import * as pgPromise from 'pg-promise'
 import { ToolsUtils } from 'tools/utils/toolsUtils'
