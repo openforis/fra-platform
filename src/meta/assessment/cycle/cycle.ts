@@ -12,6 +12,7 @@ export type CycleProps = {
   dateDraft: string
   dateEditing?: string
   datePublished?: string
+  disabledReviewerEmailReminders?: boolean
   status: CycleStatus
 }
 
