@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { Lang } from 'meta/lang'
 import { RoleName } from 'meta/user'
+import { UserRoles } from 'meta/user/userRoles'
 
 import { useLanguage } from 'client/hooks/useLanguage'
 import { FieldDefinition, FormDefinition, FormFieldType } from 'client/components/Form/types'
@@ -49,7 +50,7 @@ export const useFormDefinition = (): FormDefinition => {
         type: FormFieldType.permissions,
         label: 'userManagement.permissions',
         shouldShow: (watchValues) => watchValues.role === RoleName.COLLABORATOR,
-        defaultValue: { tableData: ['all'], descriptions: ['all'] },
+        defaultValue: UserRoles.getDefaultCollaboratorPermissions(),
       },
     ]
 

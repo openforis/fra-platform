@@ -61,7 +61,7 @@ export const useRolesFields = (props: PropsFormDefinition): Returned => {
           getDisabledOptions: (props) => {
             const { values } = props
             return Object.entries(values.roles).reduce<Array<string>>((acc, [key, value]) => {
-              if ([RoleName.ADMINISTRATOR, roleName].includes(key as RoleName)) return acc
+              if ([RoleName.ADMINISTRATOR, roleName].includes(key as RoleName) || !value) return acc
               return [...acc, ...(value as Array<string>)]
             }, [])
           },
@@ -78,7 +78,7 @@ export const useRolesFields = (props: PropsFormDefinition): Returned => {
       label: `user.roles.${RoleName.ADMINISTRATOR}`,
       type: FormFieldType.checkbox,
       shouldShow: shouldShowRoles,
-      defaultValue: isAdmin,
+      defaultValue: Users.isAdministrator(targetUser),
       watches: {
         triggerFields,
       },

@@ -7,6 +7,7 @@ import { Areas, CountryIso } from 'meta/area'
 import { UserEditCountryForm } from 'meta/form/userEdit/form'
 import { Authorizer, RoleName, User, Users } from 'meta/user'
 import { UserContactPreferenceMethod, UserContactPreferencePhoneOption, UserRoleExtended } from 'meta/user/userRole'
+import { UserRoles } from 'meta/user/userRoles'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useUser } from 'client/store/user/hooks/user'
@@ -194,7 +195,7 @@ export const useRolePropsFields = (props: PropsFormDefinition): FormDefinition['
         label: 'userManagement.permissions',
         shouldShow: shouldShowPermissions,
         defaultValue: Objects.isEmpty(role?.permissions)
-          ? { tableData: ['all'], descriptions: ['all'] }
+          ? UserRoles.getDefaultCollaboratorPermissions()
           : role.permissions,
       },
     ]

@@ -13,7 +13,7 @@ type UpdateRoleProps = Props & {
 }
 
 export const updateRolePermissions = async (props: UpdateRoleProps, client: BaseProtocol): Promise<void> => {
-  const { cycle, targetUser, user, userEditForm } = props
+  const { assessment, cycle, targetUser, user, userEditForm } = props
   const { role } = userEditForm
 
   if (!role?.permissions) return
@@ -31,5 +31,5 @@ export const updateRolePermissions = async (props: UpdateRoleProps, client: Base
   const message = ActivityLogMessage.userRoleUpdatePermissions
   const activityLog = { target, section: 'users', message, user }
 
-  await ActivityLogRepository.insertActivityLog({ activityLog }, client)
+  await ActivityLogRepository.insertActivityLog({ assessment, cycle, activityLog }, client)
 }
