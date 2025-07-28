@@ -14,8 +14,8 @@ export const updateUser = async (req: UserEditRequest, res: Response) => {
     const userEditForm = req.body
     const profilePicture = req.file
 
-    const { cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
-    const updatedUser = await UserController.update({ cycle, profilePicture, user, userEditForm })
+    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+    const updatedUser = await UserController.update({ assessment, cycle, profilePicture, user, userEditForm })
 
     Requests.sendOk(res, updatedUser)
   } catch (e) {
