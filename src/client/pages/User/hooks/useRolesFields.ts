@@ -58,6 +58,13 @@ export const useRolesFields = (props: PropsFormDefinition): Returned => {
         shouldShow: shouldShowRoles,
         defaultValue: userRoles.filter((role) => role.role === roleName).map((role) => role.countryIso),
         watches: {
+          clearIf: (props) => {
+            const { values } = props
+            return {
+              shouldClear: values.roles?.[RoleName.ADMINISTRATOR] === true,
+              clearValue: [],
+            }
+          },
           getDisabledOptions: (props) => {
             const { values } = props
             return Object.entries(values.roles).reduce<Array<string>>((acc, [key, value]) => {

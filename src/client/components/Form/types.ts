@@ -32,6 +32,7 @@ export type FieldDefinition<FIELD_VALUES = FieldValues> = {
   shouldShow?: (watchValues: FIELD_VALUES) => boolean
   type: FormFieldType
   watches?: {
+    clearIf?: WatchCallback<FIELD_VALUES, { shouldClear: boolean; clearValue: unknown }>
     getDisabledOptions?: WatchCallback<FIELD_VALUES, Array<string>>
     isDisabled?: WatchCallback<FIELD_VALUES, boolean>
     resetIf?: WatchCallback<FIELD_VALUES, boolean>

@@ -1,5 +1,6 @@
 import { FieldProps } from 'client/components/Form/FormFields/types'
 
+import { useClearIf } from './watches/useClearIf'
 import { useDisabledOptions } from './watches/useDisabledOptions'
 import { useIsDisabled } from './watches/useIsDisabled'
 import { useResetIf } from './watches/useResetIf'
@@ -18,6 +19,7 @@ export const useWatches = (props: FieldProps): Returned => {
   const propsWatch = { ...rest, values }
   const disabled = useIsDisabled(propsWatch)
   const disabledOptions = useDisabledOptions(propsWatch)
+  useClearIf(propsWatch)
   useResetIf(propsWatch)
   useTriggerFields(propsWatch)
 
