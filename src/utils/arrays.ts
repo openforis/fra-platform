@@ -18,9 +18,10 @@ import { Objects } from './objects'
 const difference = <T1, T2>(array1: Array<T1>, array2: Array<T2>): Array<T1> =>
   differenceWith<T1, T2>(array1, array2, Objects.isEqual)
 
-const intersection = <T>(array1: T[], array2: T[]): T[] => array1.filter((item) => array2.indexOf(item) !== -1)
+const intersection = <T>(array1: Array<T>, array2: Array<T>): Array<T> =>
+  array1.filter((item) => array2.indexOf(item) !== -1)
 
-const startsWith = <T>(list: T[], start: T[]): boolean => start.every((item, index) => list[index] === item)
+const startsWith = <T>(list: Array<T>, start: Array<T>): boolean => start.every((item, index) => list[index] === item)
 
 const unique = <T>(array: Array<T>): Array<T> => uniqWith(array, Objects.isEqual)
 

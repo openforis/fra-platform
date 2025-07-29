@@ -24,8 +24,9 @@ export const useDisabledOptions = (props: PropsWatch): Array<string> => {
 
     const disabledOptionsUpdate = getDisabledOptions({ values })
     const difference = Arrays.difference(disabledOptionsUpdate, disabledOptionsRef.current)
+    const difference1 = Arrays.difference(disabledOptionsRef.current, disabledOptionsUpdate)
 
-    if (difference.length > 0) {
+    if (difference.length > 0 || difference1.length > 0) {
       setDisabledOptions(disabledOptionsUpdate)
     }
   }, [getDisabledOptions, values])

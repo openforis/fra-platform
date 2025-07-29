@@ -73,7 +73,6 @@ export const useRolesFields = (props: PropsFormDefinition): Returned => {
             }, [])
           },
           isDisabled: isAdminWatch,
-          resetIf: isAdminWatch,
           triggerFields,
         },
       }
