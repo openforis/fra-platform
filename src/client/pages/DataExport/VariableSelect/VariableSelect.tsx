@@ -24,7 +24,7 @@ const Heading: Record<string, string> = {
 
 const VariableSelect: React.FC<{ variables: Array<Row> }> = ({ variables }) => {
   const dispatch = useAppDispatch()
-  const { i18n, t } = useTranslation()
+  const { t } = useTranslation()
   const { assessmentName, sectionName } = useParams<{
     assessmentName: AssessmentName
     sectionName: string
@@ -60,11 +60,8 @@ const VariableSelect: React.FC<{ variables: Array<Row> }> = ({ variables }) => {
           <h4>{t(Heading[assessmentName])}</h4>
           <DefinitionLink
             anchor={subSection.props.anchors[cycle.uuid]}
-            assessmentName={assessmentName}
             className="margin-right-big"
-            cycleName={cycle.name}
             document="tad"
-            lang={i18n.resolvedLanguage}
             title={`(${t('definition.definitionLabel')})`}
           />
         </div>

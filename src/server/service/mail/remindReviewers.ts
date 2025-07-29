@@ -96,6 +96,8 @@ const getReviewerRecipients = async (props: {
     assessments.map(async (assessment) => {
       return Promise.all(
         assessment.cycles.map(async (cycle) => {
+          if (cycle.props.disabledReviewerEmailReminders) return
+
           const countries = await AreaController.getCountries({ assessment, cycle })
           const inReview = countries.filter((country) => {
             const { lastInReview } = country

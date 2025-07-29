@@ -27,12 +27,9 @@ type Props = {
 const ForestCharacteristics: React.FC<Props> = (props) => {
   const { canEditData, originalDataPoint } = props
   const { year } = originalDataPoint
-  const { assessmentName, cycleName } = useCycleRouteParams()
+  const { cycleName } = useCycleRouteParams()
 
-  const {
-    i18n: { language },
-    t,
-  } = useTranslation()
+  const { t } = useTranslation()
   const { print } = useIsPrintRoute()
 
   const totalForestPercentArea = Numbers.format(ODPs.calcTotalFieldArea({ originalDataPoint, field: 'forestPercent' }))
@@ -100,14 +97,7 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
 
           <h3 className="subhead">{t('nationalDataPoint.forestCharacteristics')}</h3>
 
-          <DefinitionLink
-            anchor="1b"
-            assessmentName={assessmentName}
-            cycleName={cycleName}
-            document="tad"
-            lang={language}
-            title={t('definition.definitionLabel')}
-          />
+          <DefinitionLink anchor="1b" document="tad" title={t('definition.definitionLabel')} />
         </div>
       )}
 

@@ -5,11 +5,6 @@ export const fields: Array<string> = [
   'users_count',
 ]
 
-export const fieldsJoined = (prefix = '') => {
-  const prefixString = prefix ? `${prefix}.` : ''
-  return fields.map((field) => `${prefixString}${field}`).join(', ')
-}
-
 /**
  * @deprecated - this will be removed
  */

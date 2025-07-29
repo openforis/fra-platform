@@ -55,17 +55,22 @@ $ui-app-review-width: 288px;
 $ui-app-header-height: 64px;
 $ui-app-area-select-height: 50px;
 $ui-app-navigation-width: 340px;
+$ui-app-toolbar-height: 50px;
 
 $ui-geo-menu-button-width: 200px;
 $ui-geo-menu-button-spacing: $spacing-m;
 
 $z-index-table-grid-sticky-cell: 1;
+$z-index-results-grid-sticky-header-cell: 1;
+$z-index-results-grid-sticky-corner-header-cell: 2;
 $z-index-select-dropdown: 2;
+$z-index-explorer-filters: 3;
 $z-index-print-header-toolbar: 3;
 $z-index-geo-menu-layers: 9;
 $z-index-area-selector: 10;
 $z-index-panel-review: 15;
 $z-index-popover: 20;
+$z-index-tooltip: 21;
 $z-index-toaster: 25;
 $z-index-loader: 9999;
 

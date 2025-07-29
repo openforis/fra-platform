@@ -11,6 +11,9 @@ import { EstimationsSlice } from 'client/store/data/tableData/estimations/slice'
 import { NodeValuesSlice } from 'client/store/data/tableData/nodeValues/slice'
 import { ValidationsReducer } from 'client/store/data/tableData/validations/slice'
 import { DataExportSlice } from 'client/store/dataExport/slice'
+import { ExplorerDataSlice } from 'client/store/explorer/data/slice'
+import { ExplorerMetadataSlice } from 'client/store/explorer/metadata/slice'
+import { ExplorerSelectionSlice } from 'client/store/explorer/selection/slice'
 import { FileUploadSlice } from 'client/store/fileUpload/slice'
 import { MessageCenterSlice } from 'client/store/messageCenter/slice'
 import { MetaSlice } from 'client/store/meta/slice'
@@ -37,6 +40,11 @@ export default {
       [NodeValuesSlice.name]: NodeValuesSlice.reducer,
       [ValidationsReducer.name]: ValidationsReducer.reducer,
     }),
+  }),
+  explorer: combineReducers({
+    [ExplorerDataSlice.name]: ExplorerDataSlice.reducer,
+    [ExplorerSelectionSlice.name]: ExplorerSelectionSlice.reducer,
+    [ExplorerMetadataSlice.name]: ExplorerMetadataSlice.reducer,
   }),
   [DataExportSlice.name]: DataExportSlice.reducer,
   [FileUploadSlice.name]: FileUploadSlice.reducer,

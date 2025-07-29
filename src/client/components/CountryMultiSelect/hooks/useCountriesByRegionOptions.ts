@@ -1,22 +1,33 @@
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { CountryIso } from 'meta/area'
+import { Objects } from 'utils/objects'
+
+import { Country, CountryIso } from 'meta/area'
 
 import { useCountries } from 'client/store/area/hooks/countries'
 import { useRegionGroups } from 'client/store/area/hooks/regions'
 import { useIsPanEuropeanRoute } from 'client/hooks'
+import { Props as CountrySelectProps } from 'client/components/CountryMultiSelect/types'
 import { Option, OptionsGroup } from 'client/components/Inputs/Select'
+
+type Props = Pick<CountrySelectProps, 'allowedCountries'>
 
 type Returned = Array<Option> | Array<OptionsGroup>
 
-export const useCountriesByRegionOptions = (): Returned => {
-  const countries = useCountries()
+export const useCountriesByRegionOptions = (props: Props): Returned => {
+  const { allowedCountries } = props
+  const allCountries = useCountries()
   const isPanEuropean = useIsPanEuropeanRoute()
 
   const { t } = useTranslation()
 
   const regionGroups = useRegionGroups()
+
+  const countries = useMemo<Array<Country>>(() => {
+    if (Objects.isNil(allowedCountries)) return allCountries
+    return allCountries.filter(({ countryIso }) => allowedCountries.includes(countryIso))
+  }, [allCountries, allowedCountries])
 
   return useMemo<Returned>(() => {
     const getCountryOption = (countryIso: CountryIso): Option => {

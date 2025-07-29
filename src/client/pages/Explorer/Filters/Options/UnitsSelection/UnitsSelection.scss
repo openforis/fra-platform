@@ -1,0 +1,15 @@
+@import 'src/client/style/partials';
+
+$select-width: 120px;
+
+.units-selection {
+  column-gap: $spacing-xs;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  margin-top: 12px;
+  row-gap: $spacing-xxs;
+
+  .select-secondary__container {
+    max-width: $select-width;
+  }
+}

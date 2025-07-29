@@ -13,7 +13,7 @@ import { OptionsGroup } from 'client/components/Inputs/Select'
 
 import { useCountriesByRegionOptions } from './useCountriesByRegionOptions'
 
-type Props = Pick<CountrySelectProps, 'isMulti'> & {
+type Props = Pick<CountrySelectProps, 'allowedCountries' | 'isMulti'> & {
   value: Array<CountryIso>
   error?: string
 }
@@ -26,11 +26,11 @@ export type TooltipContent = {
 }
 
 export const useTooltipContent = (props: Props): TooltipContent => {
-  const { error, isMulti, value } = props
+  const { allowedCountries, error, isMulti, value } = props
   const [canDisplayTooltip, setCanDisplayTooltip] = useState<boolean>(true)
   const { t } = useTranslation()
 
-  const countryOptionGroups = useCountriesByRegionOptions()
+  const countryOptionGroups = useCountriesByRegionOptions({ allowedCountries })
   const isPanEuropean = useIsPanEuropeanRoute()
 
   const tooltipContent = useMemo<string | null>(() => {

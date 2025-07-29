@@ -188,6 +188,10 @@ export const ApiEndPoint = {
     sectionsMetadata: () => apiPath('metadata', 'sections', 'metadata'),
   },
 
+  Explorer: {
+    sectionsMetadata: () => apiPath('explorer', 'sections', 'metadata'),
+  },
+
   _Legacy: {
     File: {
       // Note: Some users might use this still

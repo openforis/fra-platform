@@ -1,0 +1,36 @@
+@import 'src/client/style/partials';
+
+.measure-title {
+  min-width: 160px;
+  text-align: left;
+
+  &.with-unit {
+    padding-top: $spacing-xxxs;
+  }
+
+  &.x-axis {
+    text-align: center;
+  }
+}
+
+.measure-unit {
+  display: inline-block;
+  font-size: $font-xs;
+  font-weight: 400;
+  position: absolute;
+  right: 2px;
+  top: -2px;
+  white-space: nowrap;
+  width: auto;
+}
+
+@include rtl {
+  .measure-title {
+    text-align: right;
+  }
+
+  .measure-unit {
+    left: 2px;
+    right: unset;
+  }
+}

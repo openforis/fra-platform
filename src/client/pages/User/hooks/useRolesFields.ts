@@ -86,10 +86,13 @@ export const useRolesFields = (props: PropsFormDefinition): Returned => {
       shouldShow: shouldShowRoles,
       defaultValue: Users.isAdministrator(targetUser),
       watches: {
+        isDisabled: () => {
+          return String(targetUser.id) === String(user.id)
+        },
         triggerFields,
       },
     })
 
     return fields
-  }, [isAdmin, isAdminPage, targetUser, userRoles])
+  }, [isAdmin, isAdminPage, targetUser, user.id, userRoles])
 }

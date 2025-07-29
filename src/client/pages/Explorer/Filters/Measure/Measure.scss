@@ -1,0 +1,27 @@
+@import 'src/client/style/partials';
+
+.measure-filter-container {
+  align-items: center;
+  display: flex;
+  gap: $spacing-xxxs;
+  height: 100%;
+}
+
+.btn-definitions-info {
+  all: unset;
+  display: flex;
+
+  svg {
+    color: $ui-accent;
+    height: $spacing-xs;
+    transition: all 0.1s ease-out;
+    width: $spacing-xs;
+  }
+
+  &:hover {
+    svg {
+      color: $ui-accent;
+      transform: scale(1.1);
+    }
+  }
+}

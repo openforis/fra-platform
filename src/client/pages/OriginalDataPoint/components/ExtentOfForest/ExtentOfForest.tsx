@@ -24,12 +24,9 @@ type Props = {
 const ExtentOfForest: React.FC<Props> = (props) => {
   const { canEditData, originalDataPoint } = props
   const { year } = originalDataPoint
-  const { assessmentName, cycleName } = useCycleRouteParams()
+  const { cycleName } = useCycleRouteParams()
 
-  const {
-    i18n: { language },
-    t,
-  } = useTranslation()
+  const { t } = useTranslation()
   const { print } = useIsPrintRoute()
 
   const nationalClasses = originalDataPoint.nationalClasses.filter((nationalClass) => !nationalClass.placeHolder)
@@ -63,14 +60,7 @@ const ExtentOfForest: React.FC<Props> = (props) => {
           <h3 className="subhead">
             {t(`nationalDataPoint.forestCategoriesLabel${cycleName !== '2020' ? '2025' : ''}`)}
           </h3>
-          <DefinitionLink
-            anchor="1a"
-            assessmentName={assessmentName}
-            cycleName={cycleName}
-            document="tad"
-            lang={language}
-            title={t('definition.definitionLabel')}
-          />
+          <DefinitionLink anchor="1a" document="tad" title={t('definition.definitionLabel')} />
         </div>
       )}
       <div className="fra-table__container">
