@@ -22,7 +22,6 @@ const CountryField = (props: FieldProps) => {
           <Controller
             control={control}
             defaultValue={defaultValue}
-            disabled={disabled}
             name={name}
             render={({ field }) => {
               const { onChange, value } = field
