@@ -4,6 +4,7 @@ import { UserProps } from 'meta/user/user'
 import { CollaboratorPermissionsNEW } from 'meta/user/userRole'
 
 export type UserForm = Pick<User, 'email' | 'id' | 'uuid'> & {
+  disabled?: boolean
   props: Pick<UserProps, 'name' | 'surname' | 'title'>
 }
 

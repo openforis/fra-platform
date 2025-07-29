@@ -4,7 +4,7 @@ import { Objects } from 'utils/objects'
 
 import { Areas, CountryIso } from 'meta/area'
 import { UserEditCountryForm } from 'meta/form/userEdit/form'
-import { RoleName, UserRole, Users } from 'meta/user'
+import { RoleName, UserRole, Users, UserStatus } from 'meta/user'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useUser } from 'client/store/user/hooks/user'
@@ -39,11 +39,18 @@ export const useRolesFields = (props: PropsFormDefinition): Returned => {
   return useMemo<Returned>(() => {
     if (Objects.isNil(targetUser)) return []
 
-    const shouldShowRoles = (): boolean => {
+    const triggerFields = ['roles']
+
+    const shouldShow = (): boolean => {
       return isAdminPage && isAdmin
     }
+    const isSelfWatch: WatchCallback<UserEditCountryForm, boolean> = () => {
+      return String(targetUser.id) === String(user.id)
+    }
 
-    const triggerFields = ['roles']
+    const isTargetDisabledWatch: WatchCallback<UserEditCountryForm, boolean> = ({ values }) => {
+      return values.user.disabled
+    }
 
     const fields = rolesWithCountries.map<FieldDefinition<UserEditCountryForm>>((roleName) => {
       const isAdminWatch: WatchCallback<UserEditCountryForm, boolean> = (props) => {
@@ -55,7 +62,7 @@ export const useRolesFields = (props: PropsFormDefinition): Returned => {
         label: `user.roles.${roleName}`,
         type: FormFieldType.country,
         isMulti: true,
-        shouldShow: shouldShowRoles,
+        shouldShow,
         defaultValue: userRoles.filter((role) => role.role === roleName).map((role) => role.countryIso),
         watches: {
           clearIf: (props) => {
@@ -72,7 +79,7 @@ export const useRolesFields = (props: PropsFormDefinition): Returned => {
               return [...acc, ...(value as Array<string>)]
             }, [])
           },
-          isDisabled: isAdminWatch,
+          isDisabled: (values) => isAdminWatch(values) || isTargetDisabledWatch(values),
           triggerFields,
         },
       }
@@ -83,13 +90,22 @@ export const useRolesFields = (props: PropsFormDefinition): Returned => {
       name: `roles.${RoleName.ADMINISTRATOR}`,
       label: `user.roles.${RoleName.ADMINISTRATOR}`,
       type: FormFieldType.checkbox,
-      shouldShow: shouldShowRoles,
+      shouldShow,
       defaultValue: Users.isAdministrator(targetUser),
       watches: {
-        isDisabled: () => {
-          return String(targetUser.id) === String(user.id)
-        },
+        isDisabled: (values) => isSelfWatch(values) || isTargetDisabledWatch(values),
         triggerFields,
+      },
+    })
+
+    fields.push({
+      name: `user.disabled`,
+      label: `editUser.disabled`,
+      type: FormFieldType.checkbox,
+      shouldShow,
+      defaultValue: targetUser.status === UserStatus.disabled,
+      watches: {
+        isDisabled: isSelfWatch,
       },
     })
 

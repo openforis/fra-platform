@@ -1,6 +1,8 @@
+import { Objects } from 'utils/objects'
+
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { UserEditCountryForm, UserForm } from 'meta/form/userEdit/form'
-import { User, Users } from 'meta/user'
+import { User, Users, UserStatus } from 'meta/user'
 
 import { BaseProtocol } from 'server/db'
 import { ActivityLogRepository } from 'server/repository/public/activityLog'
@@ -11,18 +13,25 @@ import { FileStorage } from 'server/service/fileStorage'
 import { Props } from './props'
 
 export type UserEditProps = UserEditCountryForm & {
-  user: UserForm & { profilePictureFileUuid?: string }
+  user: Omit<UserForm, 'disabled'> & { status?: UserStatus; profilePictureFileUuid?: string }
 }
 
 const toUserEditProps = (props: Props): UserEditProps => {
   const { user, userEditForm } = props
+  const userEditProps: UserEditProps = { ...userEditForm }
 
   // only admin can update the email
   if (!Users.isAdministrator(user)) {
-    delete userEditForm.user.email
+    delete userEditProps.user.email
+  }
+  const { disabled } = userEditForm.user
+  if (Users.isAdministrator(user) && !Objects.isNil(disabled)) {
+    userEditProps.user.status = disabled ? UserStatus.disabled : UserStatus.active
   }
 
-  return userEditForm
+  delete userEditProps.user.disabled
+
+  return userEditProps
 }
 
 export const updateUser = async (props: Props, client: BaseProtocol): Promise<User> => {
