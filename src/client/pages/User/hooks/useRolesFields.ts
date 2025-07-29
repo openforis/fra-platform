@@ -44,7 +44,7 @@ export const useRolesFields = (props: PropsFormDefinition): Returned => {
     const shouldShow = (): boolean => {
       return isAdminPage && isAdmin
     }
-    const isSelfWatch: WatchCallback<UserEditCountryForm, boolean> = () => {
+    const isSelfWatch: WatchCallback<UserEditCountryForm, boolean> = (_props) => {
       return String(targetUser.id) === String(user.id)
     }
 
