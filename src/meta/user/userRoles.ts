@@ -5,7 +5,7 @@ import { Areas, CountryStatus } from 'meta/area'
 import { Assessment } from 'meta/assessment/assessment'
 import { User } from 'meta/user/user'
 
-import { RoleName, UserRole } from './userRole'
+import { CollaboratorEditPropertyType, CollaboratorPermissionsNEW, RoleName, UserRole } from './userRole'
 
 const noRole = { role: 'NONE', labelKey: 'user.roles.noRole' }
 
@@ -71,9 +71,14 @@ const sortRolesByRolesAndCountry = (
   roleNamesOrder.indexOf(roleA) - roleNamesOrder.indexOf(roleB) ||
   (i18n.t(Areas.getTranslationKey(countryIsoA)) < i18n.t(Areas.getTranslationKey(countryIsoB)) ? -1 : 1)
 
+const getDefaultCollaboratorPermissions = (): CollaboratorPermissionsNEW => {
+  return { [CollaboratorEditPropertyType.descriptions]: ['all'], [CollaboratorEditPropertyType.tableData]: ['all'] }
+}
+
 export const UserRoles = {
   noRole,
   getRecipientRoles,
   getLastRole,
   sortRolesByRolesAndCountry,
+  getDefaultCollaboratorPermissions,
 }

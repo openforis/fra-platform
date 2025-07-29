@@ -5,7 +5,6 @@ import { RoleName, UserRole } from 'meta/user'
 import {
   getUsers,
   getUserToEdit,
-  inviteUser,
   removeInvitation,
   sendInvitationEmail,
   updateRoleProps,
@@ -72,9 +71,8 @@ export const userManagementSlice = createSlice({
 
 export const UserManagementActions = {
   ...userManagementSlice.actions,
-  getUsers,
   getUserToEdit,
-  inviteUser,
+  getUsers,
   removeInvitation,
   sendInvitationEmail,
   updateSectionAuth,

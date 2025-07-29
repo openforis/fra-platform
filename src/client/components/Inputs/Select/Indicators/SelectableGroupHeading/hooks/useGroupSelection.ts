@@ -11,9 +11,10 @@ type Returned = {
 
 export const useGroupSelection = (props: Props): Returned => {
   const { data, selectProps } = props
-  const { onChange, value } = selectProps
+  const { isOptionDisabled, onChange, value } = selectProps
 
-  const groupValues = useMemo<Array<string>>(() => data.options.map((option) => option.value), [data.options])
+  const dataOptions = isOptionDisabled ? data.options.filter((option) => !isOptionDisabled(option, null)) : data.options
+  const groupValues = useMemo<Array<string>>(() => dataOptions.map((option) => option.value), [dataOptions])
 
   const handleGroupSelectionToggle = useCallback(() => {
     const selectedOptions = value === null ? [] : (value as MultiValue<Option>)
@@ -22,15 +23,15 @@ export const useGroupSelection = (props: Props): Returned => {
 
     const selectedInGroupCount = groupValues.filter((val) => selectedValues.includes(val)).length
 
-    if (selectedInGroupCount === 0 && selectedInGroupCount !== data.options.length) {
-      const newSelectedOptions = [...selectedOptions, ...data.options]
+    if (selectedInGroupCount === 0 && selectedInGroupCount !== dataOptions.length) {
+      const newSelectedOptions = [...selectedOptions, ...dataOptions]
       onChange?.(newSelectedOptions, { action: 'select-option', option: undefined })
     } else {
       // Unselect group options
       const remainingSelectedOptions = selectedOptions.filter((option) => !groupValues.includes(option.value))
       onChange?.(remainingSelectedOptions, { action: 'deselect-option', option: undefined })
     }
-  }, [data.options, groupValues, onChange, value])
+  }, [dataOptions, groupValues, onChange, value])
 
   return { handleGroupSelectionToggle }
 }

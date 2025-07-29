@@ -33,54 +33,69 @@ const PermissionsField: React.FC<Props> = (props) => {
   const descriptionsError = error?.descriptions
 
   return (
-    // eslint-disable-next-line react/jsx-props-no-spreading
-    <FormField {...props} error={undefined} noBorder>
-      <DataGrid className="form-field-permissions" gridTemplateColumns="repeat(2, 1fr)">
-        <DataCell editable lastCol lastRow>
-          <div className="form-field-permissions__label">{t('userManagement.permissionNames.tableData')}</div>
-          <Controller
-            control={control}
-            name={`${name}.tableData`}
-            render={({ field: { onChange, value } }) => (
-              <MultiSelect
-                classNames={{ container: 'form-field-permissions__container' }}
-                onChange={(selectedValues: Array<string>, actionMeta) => onChange(getValue(selectedValues, actionMeta))}
-                options={options}
-                value={value}
+    <FormField
+      // eslint-disable-next-line react/jsx-props-no-spreading
+      {...props}
+      error={undefined}
+      noBorder
+      renderInput={({ disabled }) => {
+        return (
+          <DataGrid className="form-field-permissions" gridTemplateColumns="repeat(2, 1fr)">
+            <DataCell editable lastCol lastRow>
+              <div className="form-field-permissions__label">{t('userManagement.permissionNames.tableData')}</div>
+              <Controller
+                control={control}
+                disabled={disabled}
+                name={`${name}.tableData`}
+                render={({ field: { onChange, value } }) => (
+                  <MultiSelect
+                    classNames={{ container: 'form-field-permissions__container' }}
+                    disabled={disabled}
+                    onChange={(selectedValues: Array<string>, actionMeta) =>
+                      onChange(getValue(selectedValues, actionMeta))
+                    }
+                    options={options}
+                    value={value}
+                  />
+                )}
               />
-            )}
-          />
-          {tableDataError && (
-            <div className="form-cell-error">
-              <Icon name="alert" />
-              {tableDataError.message}
-            </div>
-          )}
-        </DataCell>
+              {tableDataError && (
+                <div className="form-cell-error">
+                  <Icon name="alert" />
+                  {tableDataError.message}
+                </div>
+              )}
+            </DataCell>
 
-        <DataCell editable lastCol lastRow>
-          <div className="form-field-permissions__label">{t('userManagement.permissionNames.descriptions')}</div>
-          <Controller
-            control={control}
-            name={`${name}.descriptions`}
-            render={({ field: { onChange, value } }) => (
-              <MultiSelect
-                classNames={{ container: 'form-field-permissions__container' }}
-                onChange={(selectedValues: Array<string>, actionMeta) => onChange(getValue(selectedValues, actionMeta))}
-                options={options}
-                value={value}
+            <DataCell editable lastCol lastRow>
+              <div className="form-field-permissions__label">{t('userManagement.permissionNames.descriptions')}</div>
+              <Controller
+                control={control}
+                disabled={disabled}
+                name={`${name}.descriptions`}
+                render={({ field: { onChange, value } }) => (
+                  <MultiSelect
+                    classNames={{ container: 'form-field-permissions__container' }}
+                    disabled={disabled}
+                    onChange={(selectedValues: Array<string>, actionMeta) =>
+                      onChange(getValue(selectedValues, actionMeta))
+                    }
+                    options={options}
+                    value={value}
+                  />
+                )}
               />
-            )}
-          />
-          {descriptionsError && (
-            <div className="form-cell-error">
-              <Icon name="alert" />
-              {descriptionsError.message}
-            </div>
-          )}
-        </DataCell>
-      </DataGrid>
-    </FormField>
+              {descriptionsError && (
+                <div className="form-cell-error">
+                  <Icon name="alert" />
+                  {descriptionsError.message}
+                </div>
+              )}
+            </DataCell>
+          </DataGrid>
+        )
+      }}
+    />
   )
 }
 

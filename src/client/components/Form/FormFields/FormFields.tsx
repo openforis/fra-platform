@@ -1,17 +1,27 @@
 import React from 'react'
 
+import AvatarField from 'client/components/Form/FormFields/AvatarField'
+import CheckboxField from 'client/components/Form/FormFields/CheckboxField'
+import CountryField from 'client/components/Form/FormFields/CountryField'
+import HiddenField from 'client/components/Form/FormFields/HiddenField'
 import LanguageField from 'client/components/Form/FormFields/LanguageField'
 import PermissionsField from 'client/components/Form/FormFields/PermissionsField'
 import SelectField from 'client/components/Form/FormFields/SelectField'
 import TextField from 'client/components/Form/FormFields/TextField'
+import TextLinkField from 'client/components/Form/FormFields/TextLinkField'
 import { FieldProps } from 'client/components/Form/FormFields/types'
 import UserRoleField from 'client/components/Form/FormFields/UserRoleField'
 import { FormFieldType } from 'client/components/Form/types'
 
 export const FormFields: Record<FormFieldType, React.FC<FieldProps>> = {
+  [FormFieldType.avatar]: AvatarField,
+  [FormFieldType.checkbox]: CheckboxField,
+  [FormFieldType.country]: CountryField,
+  [FormFieldType.hidden]: HiddenField,
   [FormFieldType.language]: LanguageField,
   [FormFieldType.permissions]: PermissionsField,
   [FormFieldType.select]: SelectField,
   [FormFieldType.text]: TextField,
+  [FormFieldType.textLink]: TextLinkField,
   [FormFieldType.userRole]: UserRoleField,
 }

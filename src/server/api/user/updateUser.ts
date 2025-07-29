@@ -1,29 +1,21 @@
-import { Request, Response } from 'express'
+import { Response } from 'express'
 
-import { Users } from 'meta/user'
+import { UserEditRequest } from 'meta/api/request/user/edit'
 
+import { AssessmentController } from 'server/controller/assessment'
 import { UserController } from 'server/controller/user'
 import { Requests } from 'server/utils'
 
-export const updateUser = async (req: Request, res: Response) => {
+export const updateUser = async (req: UserEditRequest, res: Response) => {
   try {
-    const profilePicture = req.file
-    const userToUpdate = JSON.parse(req.body.user)
+    const { assessmentName, cycleName } = req.query
     const user = Requests.getUser(req)
 
-    if (!Users.isAdministrator(user) && userToUpdate.id !== user.id) {
-      const {
-        props: { name },
-      } = await UserController.getOne({ id: userToUpdate.id })
+    const userEditForm = req.body
+    const profilePicture = req.file
 
-      userToUpdate.name = name
-    }
-
-    const updatedUser = await UserController.update({
-      userToUpdate,
-      profilePicture,
-      user,
-    })
+    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+    const updatedUser = await UserController.update({ assessment, cycle, profilePicture, user, userEditForm })
 
     Requests.sendOk(res, updatedUser)
   } catch (e) {

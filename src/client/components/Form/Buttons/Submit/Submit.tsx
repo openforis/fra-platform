@@ -10,8 +10,10 @@ const Submit: React.FC<SubmitProps> = (props) => {
   const { disabled = false, isSubmitting = false } = props
   const { t } = useTranslation()
 
+  if (disabled) return null
+
   return (
-    <button className="btn btn-primary" disabled={disabled || isSubmitting} type="submit">
+    <button className="btn btn-primary" disabled={isSubmitting} type="submit">
       {isSubmitting ? t('common.submitting') : t('common.submit')}
     </button>
   )

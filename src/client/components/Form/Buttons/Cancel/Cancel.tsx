@@ -1,17 +1,19 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-interface CancelProps {
+import { FormProps } from 'client/components/Form/types'
+
+type CancelProps = Pick<FormProps, 'disabled'> & {
   onClick: () => void
 }
 
 const Cancel: React.FC<CancelProps> = (props) => {
-  const { onClick } = props
+  const { disabled, onClick } = props
   const { t } = useTranslation()
 
   return (
     <button className="btn btn-secondary" onClick={onClick} type="button">
-      {t('common.cancel')}
+      {t(disabled ? 'common.back' : 'common.cancel')}
     </button>
   )
 }

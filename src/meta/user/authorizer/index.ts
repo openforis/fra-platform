@@ -4,13 +4,14 @@ import { Cycle } from 'meta/assessment/cycle'
 import { Cycles } from 'meta/assessment/cycles'
 import { Section, SubSection } from 'meta/assessment/section'
 import { RepositoryItem } from 'meta/cycleData'
+import { canEditSectionData } from 'meta/user/authorizer/canEditSectionData'
+import { canEditSomeData } from 'meta/user/authorizer/canEditSomeData'
+import { canEditUser, canEditUserRoleName } from 'meta/user/authorizer/canEditUser'
+import { canEditUserRolePermissions } from 'meta/user/authorizer/canEditUserRolePermissions'
+import { canEditUserRoleProps } from 'meta/user/authorizer/canEditUserRoleProps'
+import { canViewReview } from 'meta/user/authorizer/canViewReview'
 import { User } from 'meta/user/user'
 import { Users } from 'meta/user/users'
-
-import { canEditSectionData } from './canEditSectionData'
-import { canEditSomeData } from './canEditSomeData'
-import { canEditUser, canEditUserRole } from './canEditUser'
-import { canViewReview } from './canViewReview'
 
 /**
  *  CanView
@@ -178,7 +179,9 @@ export const Authorizer = {
   canViewRepositoryItem,
   canViewReview,
   // user
-  canViewUsers,
   canEditUser,
-  canEditUserRole,
+  canEditUserRoleName,
+  canEditUserRolePermissions,
+  canEditUserRoleProps,
+  canViewUsers,
 }

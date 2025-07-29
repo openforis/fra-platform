@@ -1,21 +1,23 @@
 import './Buttons.scss'
 import React from 'react'
 
+import { FormProps } from 'client/components/Form/types'
+
 import Cancel from './Cancel'
 import Submit from './Submit'
 
-interface ButtonsProps {
+type ButtonsProps = Pick<FormProps, 'disabled'> & {
   isSubmitting?: boolean
   onCancel: () => void
 }
 
 const Buttons: React.FC<ButtonsProps> = (props) => {
-  const { isSubmitting = false, onCancel } = props
+  const { disabled, isSubmitting = false, onCancel } = props
 
   return (
     <div className="form-button-container">
-      <Cancel onClick={onCancel} />
-      <Submit isSubmitting={isSubmitting} />
+      <Cancel disabled={disabled} onClick={onCancel} />
+      <Submit disabled={disabled} isSubmitting={isSubmitting} />
     </div>
   )
 }

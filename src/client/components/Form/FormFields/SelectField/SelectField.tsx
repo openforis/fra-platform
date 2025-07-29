@@ -12,23 +12,30 @@ const SelectField = (props: FieldProps) => {
   const { defaultValue, name, options, placeholder } = fieldDefinition
 
   return (
-    // eslint-disable-next-line react/jsx-props-no-spreading
-    <FormField {...props}>
-      <Controller
-        control={control}
-        defaultValue={defaultValue}
-        name={name}
-        render={({ field: { onChange, value } }) => (
-          <Select
-            isClearable={false}
-            onChange={onChange}
-            options={options}
-            placeholder={placeholder}
-            value={value as string}
+    <FormField
+      // eslint-disable-next-line react/jsx-props-no-spreading
+      {...props}
+      renderInput={({ disabled }) => {
+        return (
+          <Controller
+            control={control}
+            defaultValue={defaultValue}
+            disabled={disabled}
+            name={name}
+            render={({ field: { onChange, value } }) => (
+              <Select
+                disabled={disabled}
+                isClearable={false}
+                onChange={onChange}
+                options={options}
+                placeholder={placeholder}
+                value={value as string}
+              />
+            )}
           />
-        )}
-      />
-    </FormField>
+        )
+      }}
+    />
   )
 }
 
