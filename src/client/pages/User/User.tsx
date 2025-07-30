@@ -3,7 +3,7 @@ import React, { useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { CountryIso } from 'meta/area'
+import { Areas, CountryIso } from 'meta/area'
 
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import Form from 'client/components/Form'
@@ -41,6 +41,7 @@ const User: React.FC = () => {
         action={action}
         disabled={editUserRules.userDisabled}
         formDefinition={formDefinition}
+        hideCancel={Areas.isGlobal(countryIso)}
         method="put"
         onCancel={onCancel}
         onSuccess={onSuccess}

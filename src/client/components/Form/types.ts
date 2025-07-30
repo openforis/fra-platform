@@ -50,6 +50,7 @@ export type FormProps<FIELD_VALUES = FieldValues> = {
   action: ReactHookFormProps<unknown>['action']
   disabled?: boolean
   formDefinition: FormDefinition<FIELD_VALUES>
+  hideCancel?: boolean
   method: ReactHookFormProps<unknown>['method']
   onCancel: () => void
   onSuccess?: (values: FIELD_VALUES) => void

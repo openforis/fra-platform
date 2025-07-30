@@ -32,6 +32,7 @@ const Form: React.FC<FormProps> = (props) => {
     action,
     disabled,
     formDefinition,
+    hideCancel,
     method,
     onCancel,
     onSuccess,
@@ -47,7 +48,7 @@ const Form: React.FC<FormProps> = (props) => {
   const onSubmit = useOnSubmit(props)
 
   const { control, formState, register, resetField, setValue, trigger, watch } = form
-  const { errors, isSubmitting } = formState
+  const { errors, isDirty, isSubmitting } = formState
   const watchValues = watch()
 
   return (
@@ -90,7 +91,13 @@ const Form: React.FC<FormProps> = (props) => {
           )
         })}
 
-        <Buttons disabled={disabled} isSubmitting={isSubmitting} onCancel={onCancel} />
+        <Buttons
+          disabled={disabled}
+          hideCancel={hideCancel}
+          isDirty={isDirty}
+          isSubmitting={isSubmitting}
+          onCancel={onCancel}
+        />
       </DataGrid>
     </ReactHookForm>
   )
