@@ -46,15 +46,17 @@ export const useFormDefinition = (props: PropsFormDefinition): FormDefinition | 
         type: FormFieldType.text,
         label: 'editUser.email',
         defaultValue: targetUser?.email || '',
+        required: true,
         watches: {
           isDisabled: () => userDisabled || emailDisabled,
         },
       },
       {
-        name: 'user.props.name',
-        type: FormFieldType.text,
-        label: 'common.name',
         defaultValue: targetUser?.props?.name || '',
+        label: 'common.name',
+        name: 'user.props.name',
+        required: true,
+        type: FormFieldType.text,
         watches: {
           isDisabled: () => userDisabled,
         },
@@ -64,6 +66,7 @@ export const useFormDefinition = (props: PropsFormDefinition): FormDefinition | 
         type: FormFieldType.text,
         label: 'editUser.surname',
         defaultValue: targetUser?.props?.surname || '',
+        required: true,
         watches: {
           isDisabled: () => userDisabled,
         },
@@ -79,6 +82,7 @@ export const useFormDefinition = (props: PropsFormDefinition): FormDefinition | 
         label: 'editUser.title',
         placeholder: t('editUser.title'),
         defaultValue: targetUser?.props?.title || '',
+        required: true,
         watches: {
           isDisabled: () => userDisabled,
         },

@@ -19,18 +19,21 @@ export const useFormDefinition = (): FormDefinition => {
         type: FormFieldType.text,
         label: 'common.name',
         defaultValue: '',
+        required: true,
       },
       {
         name: 'surname',
         type: FormFieldType.text,
         label: 'editUser.surname',
         defaultValue: '',
+        required: true,
       },
       {
         name: 'email',
         type: FormFieldType.text,
         label: 'editUser.email',
         defaultValue: '',
+        required: true,
       },
       {
         name: 'role',
@@ -38,12 +41,14 @@ export const useFormDefinition = (): FormDefinition => {
         label: 'common.role',
         placeholder: t('userManagement.placeholder'),
         defaultValue: '',
+        required: true,
       },
       {
         name: 'language',
         type: FormFieldType.language,
         label: 'common.language',
         defaultValue: language || Lang.en,
+        required: true,
       },
       {
         name: 'permissions',
@@ -51,6 +56,7 @@ export const useFormDefinition = (): FormDefinition => {
         label: 'userManagement.permissions',
         shouldShow: (watchValues) => watchValues.role === RoleName.COLLABORATOR,
         defaultValue: UserRoles.getDefaultCollaboratorPermissions(),
+        required: true,
       },
     ]
 

@@ -73,6 +73,7 @@ export const useRolePropsFields = (props: PropsFormDefinition): FormDefinition['
         type: FormFieldType.select,
         label: 'editUser.role',
         defaultValue: role?.role || '',
+        required: true,
         options: rolesAllowedToEdit.map<Option>((roleName) => {
           return { label: t(Users.getI18nRoleLabelKey(roleName)), value: roleName }
         }),
@@ -97,6 +98,7 @@ export const useRolePropsFields = (props: PropsFormDefinition): FormDefinition['
         type: FormFieldType.textLink,
         label: 'editUser.organization',
         defaultValue: role?.props?.organization || '',
+        required: true,
         shouldShow: shouldShowRoleProps,
       },
       {
@@ -105,6 +107,7 @@ export const useRolePropsFields = (props: PropsFormDefinition): FormDefinition['
         label: 'editUser.street',
         defaultValue: role?.props?.address?.street || '',
         shouldShow: shouldShowRoleProps,
+        required: true,
       },
       {
         name: 'role.props.address.zipCode',
@@ -112,6 +115,7 @@ export const useRolePropsFields = (props: PropsFormDefinition): FormDefinition['
         label: 'editUser.zipCode',
         defaultValue: role?.props?.address?.zipCode || '',
         shouldShow: shouldShowRoleProps,
+        required: true,
       },
       {
         name: 'role.props.address.poBox',
@@ -126,6 +130,7 @@ export const useRolePropsFields = (props: PropsFormDefinition): FormDefinition['
         label: 'editUser.city',
         defaultValue: role?.props?.address?.city || '',
         shouldShow: shouldShowRoleProps,
+        required: true,
       },
       {
         name: 'role.props.address.countryIso',
@@ -134,6 +139,7 @@ export const useRolePropsFields = (props: PropsFormDefinition): FormDefinition['
         defaultValue: role?.props?.address?.countryIso || '',
         placeholder: '',
         shouldShow: shouldShowRoleProps,
+        required: true,
       },
       {
         name: 'role.props.secondaryEmail',
@@ -148,6 +154,7 @@ export const useRolePropsFields = (props: PropsFormDefinition): FormDefinition['
         label: 'editUser.primaryPhoneNumber',
         defaultValue: role?.props?.primaryPhoneNumber || '',
         shouldShow: shouldShowRoleProps,
+        required: true,
       },
       {
         name: 'role.props.secondaryPhoneNumber',
@@ -173,6 +180,7 @@ export const useRolePropsFields = (props: PropsFormDefinition): FormDefinition['
           value,
         })),
         shouldShow: shouldShowRoleProps,
+        required: true,
       },
       {
         name: 'role.props.contactPreference.options.phone',
@@ -194,6 +202,7 @@ export const useRolePropsFields = (props: PropsFormDefinition): FormDefinition['
         type: FormFieldType.permissions,
         label: 'userManagement.permissions',
         shouldShow: shouldShowPermissions,
+        required: true,
         defaultValue: Objects.isEmpty(role?.permissions)
           ? UserRoles.getDefaultCollaboratorPermissions()
           : role.permissions,

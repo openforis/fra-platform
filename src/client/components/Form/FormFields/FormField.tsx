@@ -3,8 +3,6 @@ import React, { PropsWithChildren, ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
-import { Objects } from 'utils/objects'
-import { ZodOptional } from 'zod'
 
 import { DataCell, DataRow } from 'client/components/DataGrid'
 import { FieldProps } from 'client/components/Form/FormFields/types'
@@ -18,9 +16,8 @@ type Props = PropsWithChildren<FieldProps> & {
 }
 
 const FormField: React.FC<Props> = (props) => {
-  const { classes, error, fieldDefinition, fieldValidationSchema, fullWidth, noBorder, renderInput } = props
-  const { label, name } = fieldDefinition
-  const required = !Objects.isNil(fieldValidationSchema) && !(fieldValidationSchema instanceof ZodOptional)
+  const { classes, error, fieldDefinition, fullWidth, noBorder, renderInput } = props
+  const { label, name, required } = fieldDefinition
 
   const { t } = useTranslation()
   const { disabled, disabledOptions } = useWatches(props)

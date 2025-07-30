@@ -29,6 +29,7 @@ export type FieldDefinition<FIELD_VALUES = FieldValues> = {
   name: string
   options?: Array<Option>
   placeholder?: string
+  required?: boolean
   shouldShow?: (watchValues: FIELD_VALUES) => boolean
   type: FormFieldType
   watches?: {
