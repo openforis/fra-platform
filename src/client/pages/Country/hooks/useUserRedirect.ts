@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 import { Areas } from 'meta/area'
 import { AssessmentNames } from 'meta/assessment/assessment'
@@ -21,11 +21,11 @@ export const useUserRedirect = (): void => {
   const user = useUser()
   const userRole = Users.getRole(user, countryIso, cycle)
   const navigate = useNavigate()
+  const { pathname } = useLocation()
 
   useEffect(() => {
     const personalInfoRequired = Users.isPersonalInfoRequired(user, userRole)
     const isFra = assessmentName === AssessmentNames.fra
-
     // When user is not logged in, redirect to last published (e.g. when accessing older cycles)
     // Disable this if you want to allow non-logged users to access older cycles
     const shouldRedirectToLastPublished = !user && country && cycleName !== country?.lastPublishedInfo.cycleName
@@ -44,7 +44,7 @@ export const useUserRedirect = (): void => {
     const shouldRedirectToProfile = Boolean(personalInfoRequired && navigate && isFra)
 
     if (shouldRedirectToProfile) {
-      const params = { assessmentName, cycleName, countryIso, id: user.id }
+      const params = { assessmentName, cycleName, countryIso, id: String(user.id) }
       const routeParams = { assessmentName, cycleName, countryIso }
       const state = { userLastRole: userRole, personalInfoRequired, routeParams }
       navigate(Routes.CountryUser.generatePath(params), { state })
@@ -54,5 +54,16 @@ export const useUserRedirect = (): void => {
     if (!Cycles.isPublished(cycle) && !Users.isAdministrator(user) && !Areas.isISOCountry(countryIso)) {
       navigate(Routes.Cycle.generatePath({ assessmentName, cycleName }))
     }
-  }, [assessmentName, country, countryIso, cycle, cycleName, lastPublishedCycle.name, navigate, user, userRole])
+  }, [
+    assessmentName,
+    country,
+    countryIso,
+    cycle,
+    cycleName,
+    lastPublishedCycle.name,
+    navigate,
+    pathname,
+    user,
+    userRole,
+  ])
 }

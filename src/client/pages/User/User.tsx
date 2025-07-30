@@ -1,11 +1,13 @@
 // import './User.scss'
-import React, { useCallback } from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { useCallback, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { Areas, CountryIso } from 'meta/area'
 
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useToaster } from 'client/hooks/useToaster'
 import Form from 'client/components/Form'
 import { Urls } from 'client/utils'
 
@@ -16,11 +18,13 @@ import { useTargetUser } from './hooks/useTargetUser'
 import { useValidationSchema } from './hooks/useValidationSchema'
 
 const User: React.FC = () => {
+  const location = useLocation()
   const navigate = useNavigate()
+  const { t } = useTranslation()
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
+  const { toaster } = useToaster()
 
   const targetUser = useTargetUser()
-
   const editUserRules = useEditUserRules({ targetUser })
   const formDefinition = useFormDefinition({ editUserRules, targetUser })
   const validationSchema = useValidationSchema()
@@ -32,6 +36,12 @@ const User: React.FC = () => {
 
   const params = { assessmentName, cycleName, countryIso }
   const action = Urls.withSearchParams(ApiEndPoint.User.one(), params)
+
+  useEffect(() => {
+    if (location?.state?.personalInfoRequired) {
+      toaster.info(t('userManagement.personalInfoRequired'))
+    }
+  }, [location?.state?.personalInfoRequired, t, toaster])
 
   if (!formDefinition) return null
 
