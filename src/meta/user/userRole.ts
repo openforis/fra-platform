@@ -83,24 +83,6 @@ export enum CollaboratorEditPropertyType {
   descriptions = 'descriptions',
 }
 
-/**
- * @deprecated - will be removed
- */
-export type CollaboratorSectionsPermission =
-  /**
-   * all = all sections enabled for editing
-   * none = no sections enabled for editing
-   * Record<string, { tableData: boolean, descriptions: boolean }> = key is sectionUuid, value contains an object which specifies permission by key
-   */
-  'all' | 'none' | Record<string, { [key in keyof typeof CollaboratorEditPropertyType]?: boolean }>
-
-/**
- * @deprecated - will be removed
- */
-export type CollaboratorPermissions = {
-  sections: CollaboratorSectionsPermission
-}
-
 export type CollaboratorPermissionsNEW = {
   [CollaboratorEditPropertyType.tableData]: Array<string>
   [CollaboratorEditPropertyType.descriptions]: Array<string>

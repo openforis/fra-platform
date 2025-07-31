@@ -1,12 +1,15 @@
-import { CollaboratorSectionsPermission, RoleName, UserRole } from 'meta/user'
+import { RoleName, UserRole } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db'
 import { UserRoleAdapter } from 'server/repository/adapter'
 
+/**
+ * @deprecated TODO: Is this file used?
+ */
 export const updateSectionAuth = async (
   props: {
     id: string
-    sections: CollaboratorSectionsPermission
+    sections: any // CollaboratorSectionsPermission
   },
   client: BaseProtocol = DB
 ): Promise<UserRole<RoleName>> => {
