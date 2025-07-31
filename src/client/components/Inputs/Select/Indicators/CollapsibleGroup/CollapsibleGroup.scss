@@ -29,3 +29,8 @@
   position: sticky;
   top: 0;
 }
+
+.select__group-label--clickable {
+  all: unset;
+  cursor: pointer;
+}

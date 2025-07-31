@@ -5,15 +5,18 @@ import { GroupProps } from 'react-select'
 import classNames from 'classnames'
 
 import Icon from 'client/components/Icon'
-import { Option } from 'client/components/Inputs/Select/types'
+import { Option, OptionsGroup } from 'client/components/Inputs/Select/types'
 
+import { useGroupSelection } from '../SelectableGroupHeading/hooks/useGroupSelection'
 import { useExpandGroup } from './hooks/useExpandGroup'
 
 export const CollapsibleGroup: React.FC<GroupProps<Option>> = (props: GroupProps<Option>) => {
   const { Heading, children, cx, getClassNames, getStyles, headingProps, selectProps, theme } = props
-  const { inputValue } = selectProps
+  const { inputValue, isMulti } = selectProps
+  const { disabled } = headingProps.data as OptionsGroup
 
   const { expanded, toggleExpanded } = useExpandGroup({ inputValue })
+  const { handleGroupSelectionToggle } = useGroupSelection({ data: headingProps.data, selectProps })
 
   return (
     <div>
@@ -27,7 +30,17 @@ export const CollapsibleGroup: React.FC<GroupProps<Option>> = (props: GroupProps
           selectProps={selectProps}
           theme={theme}
         >
-          {headingProps.data.label}
+          {isMulti && !disabled ? (
+            <button
+              className={classNames('select__group-label', 'select__group-label--clickable')}
+              onClick={handleGroupSelectionToggle}
+              type="button"
+            >
+              {headingProps.data.label}
+            </button>
+          ) : (
+            <span className="select__group-label">{headingProps.data.label}</span>
+          )}
           <button
             className={classNames('select__group-collapse-button', { expanded })}
             onClick={toggleExpanded}
