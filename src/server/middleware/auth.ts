@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 
 import { CycleDataParams, CycleParams } from 'meta/api/request'
+import { UserEditRequest } from 'meta/api/request/user/edit'
 import { AreaCode, Country, CountryIso } from 'meta/area'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
@@ -12,6 +13,7 @@ import { AssessmentController } from 'server/controller/assessment'
 import { CycleDataController } from 'server/controller/cycleData'
 import { MessageCenterController } from 'server/controller/messageCenter'
 import { MetadataController } from 'server/controller/metadata'
+import { UserController } from 'server/controller/user'
 import { tryCatch } from 'server/middleware/tryCatch'
 import { Requests } from 'server/utils'
 
@@ -61,7 +63,7 @@ const requireEditData = async (req: Request, next: NextFunction) => {
   const { country } = req.context
   const section = await MetadataController.getSubSection({ assessment, cycle, sectionName })
 
-  _next(Authorizer.canEditData({ country, cycle, permission, section, user }), next)
+  _next(Authorizer.canEditSectionData({ country, cycle, permission, section, user }), next)
 }
 
 const requireEditDescriptions = async (req: Request, _res: Response, next: NextFunction) => {
@@ -147,13 +149,14 @@ const requireResolveTopic = async (req: Request, _res: Response, next: NextFunct
   _next(Users.isAdministrator(user) || Users.isReviewer(user, countryIso, cycle), next)
 }
 
-const requireEditUser = async (req: Request, _res: Response, next: NextFunction) => {
-  const { id } = { ...req.params, ...req.query, ...req.body } as { id: string }
+const requireEditUser = async (req: UserEditRequest, _res: Response, next: NextFunction) => {
+  const { assessmentName, countryIso, cycleName } = req.query
   const user = Requests.getUser(req)
-  const isAdministrator = Users.isAdministrator(user)
-  const isSelf = String(user?.id) === String(id)
+  const userEditForm = req.body
+  const { cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+  const target = await UserController.getOne({ id: userEditForm.user.id })
 
-  _next(isAdministrator || isSelf, next)
+  _next(Authorizer.canEditUser({ cycle, countryIso, target, user }), next)
 }
 
 const requireInviteUser = async (req: Request, _res: Response, next: NextFunction) => {
@@ -174,7 +177,8 @@ const requireViewUser = async (req: Request, _res: Response, next: NextFunction)
 
   const { cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
-  _next(isAdministrator || isSelf || Users.getRolesAllowedToView({ user, countryIso, cycle }).length > 0, next)
+  const rolesAllowedToView = Users.getRolesAllowedToView({ user, countryIso, cycle })
+  _next(isAdministrator || isSelf || rolesAllowedToView.length > 0, next)
 }
 
 const requireViewUsers = async (req: Request, _res: Response, next: NextFunction) => {

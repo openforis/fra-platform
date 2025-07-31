@@ -1,26 +1,52 @@
 import { Objects } from 'utils/objects'
 
-import { RoleName, UserRole, UserRoleBaseProps, UserRoleExtendedProps } from 'meta/user/userRole'
+import { User } from 'meta/user/user'
+import {
+  CollaboratorPermissionsNEW,
+  RoleName,
+  UserRole,
+  UserRoleBaseProps,
+  UserRoleExtendedProps,
+} from 'meta/user/userRole'
 
 import { BaseProtocol, DB } from 'server/db'
 
-export const updateProps = async (
-  props: {
-    id: number
-    props: UserRoleBaseProps | UserRoleExtendedProps
-  },
-  client: BaseProtocol = DB
-): Promise<UserRole<RoleName>> => {
-  const { id, props: properties } = props
+type Props = {
+  id: number
+  permissions?: CollaboratorPermissionsNEW
+  role?: RoleName
+  props?: UserRoleBaseProps | UserRoleExtendedProps
+}
+
+export const updateProps = async (props: Props, client: BaseProtocol = DB): Promise<UserRole<RoleName>> => {
+  const { id, permissions, props: properties, role } = props
+
+  const values: Record<
+    string,
+    string | Partial<User> | number | UserRoleBaseProps | UserRoleExtendedProps | CollaboratorPermissionsNEW
+  > = { id }
+  const setParts: Array<string> = []
+
+  if (permissions) {
+    values.permissions = permissions
+    setParts.push('permissions = $(permissions)')
+  }
+  if (properties) {
+    values.props = properties
+    setParts.push('props = $(props)')
+  }
+  if (role) {
+    values.role = role
+    setParts.push('role = $(role)')
+  }
 
   return client.one<UserRole<RoleName>>(
     `
-        update users_role
-        set props = $1::jsonb
-        where id = $2
-        returning *;
+      update users_role
+      set ${setParts.join(', ')}
+      where id = $(id) returning *
     `,
-    [JSON.stringify(properties), id],
+    values,
     Objects.camelize
   )
 }

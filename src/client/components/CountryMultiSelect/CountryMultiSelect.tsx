@@ -3,38 +3,35 @@ import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
+import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area'
 
 import Select from 'client/components/Inputs/Select'
 
 import { useCountriesByRegionOptions } from './hooks/useCountriesByRegionOptions'
+import { useIsOptionDisabled } from './hooks/useIsOptionDisabled'
+import { useMenuActions } from './hooks/useMenuActions'
 import { useTooltipContent } from './hooks/useTooltipContent'
 import { Props } from './types'
 
+const defaults: Readonly<Partial<Props>> = {
+  isMulti: true,
+}
+
 const CountryMultiSelect: React.FC<Props> = (props) => {
-  const { allowedCountries, error, onChange, onMenuClose, placeholder, value } = props
+  const { allowedCountries, error, isMulti = defaults.isMulti, onChange, placeholder, value, ...otherProps } = props
 
   const { t } = useTranslation()
   const optionGroups = useCountriesByRegionOptions({ allowedCountries })
+  const isOptionDisabled = useIsOptionDisabled(props)
+  const tooltip = useTooltipContent({ allowedCountries, error, isMulti, value: (value as Array<CountryIso>) ?? [] })
+  const { onMenuClose, onMenuOpen } = useMenuActions({ ...props, tooltip })
 
-  const { dataTooltipId, hideTooltip, showTooltip, tooltipContent } = useTooltipContent({
-    allowedCountries,
-    error,
-    value: (value as Array<CountryIso>) ?? [],
-  })
-
-  const handleMenuOpen = () => {
-    hideTooltip()
-  }
-
-  const handleMenuClose = () => {
-    showTooltip()
-    onMenuClose?.()
-  }
-
-  const active = useMemo(() => Array.isArray(value) && value.length > 0, [value])
+  const active = useMemo(() => !Objects.isEmpty(value), [value])
   const container = classNames('country-multiselect__container', { active, error })
+  const { dataTooltipId, tooltipContent } = tooltip
+
   return (
     <div
       className="country-multiselect__tooltip-trigger"
@@ -45,13 +42,16 @@ const CountryMultiSelect: React.FC<Props> = (props) => {
       data-tooltip-place="bottom"
     >
       <Select
+        // eslint-disable-next-line react/jsx-props-no-spreading
+        {...otherProps}
         classNames={{ container }}
         collapsibleGroups
-        isMulti
+        isMulti={isMulti}
+        isOptionDisabled={isOptionDisabled}
         multiLabelSummaryKey="admin.country"
         onChange={onChange}
-        onMenuClose={handleMenuClose}
-        onMenuOpen={handleMenuOpen}
+        onMenuClose={onMenuClose}
+        onMenuOpen={onMenuOpen}
         options={optionGroups}
         placeholder={placeholder ?? t('common.countries')}
         selectableGroups

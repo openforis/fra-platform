@@ -59,23 +59,34 @@ describe('canViewReview', () => {
     ['reviewer', 'isReviewer', RoleName.REVIEWER],
     ['national correspondent', 'isNationalCorrespondent', RoleName.NATIONAL_CORRESPONDENT],
     ['alternate national correspondent', 'isAlternateNationalCorrespondent', RoleName.ALTERNATE_NATIONAL_CORRESPONDENT],
-    ['collaborator', 'isCollaborator', RoleName.COLLABORATOR],
   ])('should return true for %s in review status', (_, roleFn, roleName) => {
     ;(Users[roleFn as keyof typeof Users] as jest.Mock).mockReturnValue(true)
     ;(Users.getRole as jest.Mock).mockReturnValue({ role: roleName })
     expect(canViewReview({ country: mockCountry, section: mockSection, user: mockUser, cycle: mockCycle })).toBe(true)
   })
 
-  test.each([
-    ['all sections', 'all', true],
-    ['no sections', 'none', false],
-    ['specific section', { [mockSection.uuid]: { tableData: true, descriptions: true } }, true],
-    ['different section', { differentSection: { tableData: true, descriptions: true } }, false],
-  ])('should return %s for collaborator with %s permission', (_, sections, expected) => {
+  test('should return true for collaborator in review status with proper permissions', () => {
     ;(Users.isCollaborator as jest.Mock).mockReturnValue(true)
     ;(Users.getRole as jest.Mock).mockReturnValue({
       role: RoleName.COLLABORATOR,
-      permissions: { sections },
+      permissions: {
+        tableData: ['all'],
+        descriptions: ['all'],
+      },
+    })
+    expect(canViewReview({ country: mockCountry, section: mockSection, user: mockUser, cycle: mockCycle })).toBe(true)
+  })
+
+  test.each([
+    ['all sections', { tableData: ['all'], descriptions: ['all'] }, true],
+    ['no sections', { tableData: ['none'], descriptions: ['none'] }, false],
+    ['specific section', { tableData: [mockSection.uuid], descriptions: [mockSection.uuid] }, true],
+    ['different section', { tableData: ['differentSection'], descriptions: ['differentSection'] }, false],
+  ])('should return %s for collaborator with %s permission', (_, permissions, expected) => {
+    ;(Users.isCollaborator as jest.Mock).mockReturnValue(true)
+    ;(Users.getRole as jest.Mock).mockReturnValue({
+      role: RoleName.COLLABORATOR,
+      permissions,
     })
     expect(canViewReview({ country: mockCountry, section: mockSection, user: mockUser, cycle: mockCycle })).toBe(
       expected
@@ -87,9 +98,8 @@ describe('canViewReview', () => {
     ;(Users.getRole as jest.Mock).mockReturnValue({
       role: RoleName.COLLABORATOR,
       permissions: {
-        sections: {
-          section1: { tableData: true, descriptions: true },
-        },
+        tableData: ['section1'],
+        descriptions: ['section1'],
       },
     })
 

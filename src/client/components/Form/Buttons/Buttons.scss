@@ -1,0 +1,13 @@
+@import 'src/client/style/partials';
+
+.form-button-container {
+  display: flex;
+  gap: $spacing-m;
+  grid-column: 1 / -1;
+  justify-content: center;
+  margin-top: $spacing-xs;
+
+  button {
+    min-width: 150px;
+  }
+}

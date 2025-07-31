@@ -1,4 +1,4 @@
-import { Props as ReactSelectProps } from 'react-select'
+import { ActionMeta, Props as ReactSelectProps } from 'react-select'
 import { CreatableProps } from 'react-select/creatable'
 
 export type Option = {
@@ -11,7 +11,7 @@ export type OptionsGroup = {
   options: Array<Option>
 }
 
-export type OptionsOrGroups = readonly (Option | OptionsGroup)[]
+export type OptionsOrGroups = ReadonlyArray<Option | OptionsGroup>
 
 export type ValueInput = string | Array<string> | null
 
@@ -21,6 +21,7 @@ type SelectBaseProps =
       | 'inputValue'
       | 'isClearable'
       | 'isMulti'
+      | 'isOptionDisabled'
       | 'maxMenuHeight'
       | 'onBlur'
       | 'onFocus'
@@ -46,7 +47,7 @@ export type SelectProps = SelectBaseProps &
     inputHidden?: boolean
     isCreatable?: boolean
     multiLabelSummaryKey?: string
-    onChange: (value: string | Array<string> | null) => void
+    onChange: (value: string | Array<string> | null, actionMeta: ActionMeta<Option>) => void
     onPaste?: React.ClipboardEventHandler<HTMLDivElement>
     options: OptionsOrGroups
     selectableGroups?: boolean

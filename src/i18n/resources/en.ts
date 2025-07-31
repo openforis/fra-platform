@@ -9,6 +9,7 @@ import * as dataSource from './en/dataSource.json'
 import * as dimensions from './en/dimensions.json'
 import * as editUser from './en/editUser.json'
 import * as email from './en/email.json'
+import * as form from './en/form.json'
 import * as fra from './en/fra.json'
 import * as generalValidation from './en/generalValidation.json'
 import * as geo from './en/geo.json'
@@ -36,6 +37,7 @@ export const enTranslation = {
   dimensions,
   editUser,
   email,
+  form,
   fra,
   generalValidation,
   geo,

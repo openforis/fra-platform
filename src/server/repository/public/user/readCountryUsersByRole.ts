@@ -1,10 +1,9 @@
-import { Objects } from 'utils/objects'
-
 import { CountryIso } from 'meta/area'
 import { Cycle } from 'meta/assessment/cycle'
 import { RoleName, User } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db'
+import { UserAdapter } from 'server/repository/adapter/user'
 
 import { fields } from './fields'
 
@@ -30,6 +29,6 @@ export const readCountryUsersByRole = async (
 
     `,
     [countryISOs, roles, cycle.uuid],
-    (row) => Objects.camelize(row)
+    UserAdapter
   )
 }

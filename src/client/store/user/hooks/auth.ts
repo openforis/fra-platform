@@ -20,15 +20,16 @@ export const useCanEditCycleData = (): boolean => {
   const country = useAssessmentCountry()
   const cycle = useCycle()
 
-  return Authorizer.canEditCycleData({ cycle, country, user })
+  return Authorizer.canEditSomeData({ cycle, country, user })
 }
+
 export const useCanEdit = (sectionName: string, permission = CollaboratorEditPropertyType.tableData) => {
   const user = useUser()
   const section = useSection(sectionName)
   const country = useAssessmentCountry()
   const cycle = useCycle()
 
-  return Authorizer.canEditData({ country, cycle, permission, section, user })
+  return Authorizer.canEditSectionData({ country, cycle, permission, section, user })
 }
 // edit enabled
 const useIsEditSectionEnabled = (sectionName: string, permission: CollaboratorEditPropertyType) => {

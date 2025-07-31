@@ -1,19 +1,19 @@
-import { Objects } from 'utils/objects'
-
 import { RoleName, User, UserStatus } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db'
-import { UserRoleAdapter } from 'server/repository/adapter'
+import { UserAdapter } from 'server/repository/adapter/user'
 
 import { fields } from './fields'
 
 const selectFields = fields.map((f) => `u.${f}`).join(',')
 
-export const getAdmins = async (
-  props: { statuses?: Array<UserStatus> } = {},
-  client: BaseProtocol = DB
-): Promise<Array<User>> => {
+type Props = {
+  statuses?: Array<UserStatus>
+}
+
+export const getAdmins = async (props: Props = {}, client: BaseProtocol = DB): Promise<Array<User>> => {
   const { statuses = [UserStatus.active] } = props
+
   return client.map<User>(
     `
       select ${selectFields}, jsonb_agg(to_jsonb(ur.*) - 'props') as roles
@@ -24,12 +24,6 @@ export const getAdmins = async (
       group by ${selectFields}
     `,
     [statuses],
-    (row) => {
-      const { roles, ...user } = row
-      return {
-        ...Objects.camelize(user),
-        roles: roles.map(UserRoleAdapter),
-      }
-    }
+    UserAdapter
   )
 }

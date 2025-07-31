@@ -1,4 +1,1 @@
-// @ts-expect-error
-import * as isNil from 'lodash.isnil'
-
-export { isNil }
+export const isNil = <T>(value: T): value is null | undefined => value === null || value === undefined

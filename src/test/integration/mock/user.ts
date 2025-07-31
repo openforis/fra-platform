@@ -17,5 +17,6 @@ export const userMockUnknown: Pick<User, 'email' | 'props'> = {
   props: {
     lang: Lang.en,
     name: 'Unknown User',
+    surname: 'Unknown Surname',
   },
 }
