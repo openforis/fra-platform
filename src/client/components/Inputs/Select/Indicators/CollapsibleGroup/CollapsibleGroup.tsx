@@ -20,7 +20,8 @@ export const CollapsibleGroup: React.FC<GroupProps<Option>> = (props: GroupProps
 
   return (
     <div>
-      <div className="select__group-collapsible-heading">
+      {/* eslint-disable-next-line  */}
+      <div className="select__group-collapsible-heading" onClick={toggleExpanded}>
         <Heading
           cx={cx}
           data={headingProps.data}
