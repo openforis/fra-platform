@@ -18,10 +18,24 @@ export const CollapsibleGroup: React.FC<GroupProps<Option>> = (props: GroupProps
   const { expanded, toggleExpanded } = useExpandGroup({ inputValue })
   const { handleGroupSelectionToggle } = useGroupSelection({ data: headingProps.data, selectProps })
 
+  const handleBackgroundClick = (e: React.MouseEvent) => {
+    const target = e.target as HTMLElement
+    if (
+      target.tagName === 'BUTTON' ||
+      target.closest('button') ||
+      target.tagName === 'INPUT' ||
+      target.closest('input[type="checkbox"]')
+    ) {
+      return
+    }
+
+    toggleExpanded()
+  }
+
   return (
-    <div>
-      {/* eslint-disable-next-line  */}
-      <div className="select__group-collapsible-heading" onClick={toggleExpanded}>
+    // eslint-disable-next-line
+    <div onClick={handleBackgroundClick}>
+      <div className="select__group-collapsible-heading">
         <Heading
           cx={cx}
           data={headingProps.data}
