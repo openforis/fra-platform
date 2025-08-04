@@ -72,7 +72,7 @@ const StatusConfirm: React.FC<Props> = (props) => {
             {i18n.t('navigation.doNotNotifyUsers')}
           </div>
         )}
-        {notifyUsers && hasRecipients && <UserList users={recipients} />}
+        {notifyUsers && <UserList status={status} />}
         <div
           className="nav-assessment-status-confirm__notify-self"
           onClick={() => setNotifySelf(!notifySelf)}

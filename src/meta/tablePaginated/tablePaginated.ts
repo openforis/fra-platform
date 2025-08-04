@@ -1,5 +1,6 @@
 import { CountryIso } from 'meta/area'
 import { RoleName, UserStatus } from 'meta/user'
+import { UUID } from 'meta/uuid'
 
 export enum TablePaginatedOrderByDirection {
   asc = 'asc',
@@ -32,4 +33,5 @@ export type UserFilters = {
   invitations?: boolean
   roles?: Array<RoleName>
   statuses?: Array<UserStatus>
+  excludeUuids?: Array<UUID>
 }
