@@ -51,8 +51,6 @@ const initialMosaicOptions: MosaicOptions = {
 const initialState: GeoState = {
   sections: {} as Record<LayerSectionKey, LayersSectionState>,
   recipes: {} as Record<LayerSectionKey, string>,
-  isMapAvailable: false,
-  selectedPanel: null,
   mapOptions: {
     // @ts-expect-error
     mapTypeId: 'roadmap',
@@ -193,9 +191,6 @@ export const geoSlice = createSlice({
       const options = action.payload
       state.mapOptions = { ...state.mapOptions, ...options }
     },
-    setMapAvailability: (state, { payload }: PayloadAction<boolean>) => {
-      state.isMapAvailable = payload
-    },
     applyMosaicOptions: (state) => {
       state.mosaicOptions.url = {}
       state.mosaicOptions.status = LayerFetchStatus.Unfetched
@@ -222,9 +217,6 @@ export const geoSlice = createSlice({
     },
     setMosaicSnowMasking: (state, { payload }: PayloadAction<boolean>) => {
       state.mosaicOptions.ui.snowMasking = payload
-    },
-    updateSelectedPanel: (state, { payload }) => {
-      state.selectedPanel = payload
     },
     setForestEstimations: (state, { payload }: PayloadAction<ForestEstimations>) => {
       state.geoStatistics.forestEstimations = payload

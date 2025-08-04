@@ -3,7 +3,7 @@ import { MutableRefObject, useEffect, useRef, useState } from 'react'
 import { CountryIso } from 'meta/area'
 
 import { useAppDispatch } from 'client/store/hooks'
-import { GeoActions, useGeoMapOptions } from 'client/store/ui/geo'
+import { useGeoMapOptions } from 'client/store/ui/geo'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { mapController } from 'client/utils'
 
@@ -51,7 +51,6 @@ export const useGeoMap = (props: Props): Returned => {
 
     mapController.setMap(mapSetup)
     setMap(mapSetup)
-    dispatch(GeoActions.setMapAvailability(true))
   }, [countryIso, dispatch, map, mapTypeId, maxZoom, minZoom, ref, viewport, zoom])
 
   // Move and center the map to the new country location.

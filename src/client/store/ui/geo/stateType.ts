@@ -1,5 +1,5 @@
 import { CountryIso } from 'meta/area'
-import { GeoStatisticsState, LayerKey, LayerSectionKey, MapPanel, MosaicOptions } from 'meta/geo'
+import { GeoStatisticsState, LayerKey, LayerSectionKey, MosaicOptions } from 'meta/geo'
 
 export enum LayerFetchStatus {
   Loading = 'Loading',
@@ -44,8 +44,6 @@ export type GeoState = {
   mapOptions: GeoMapOptions
   sections: Record<LayerSectionKey, LayersSectionState>
   recipes: Record<LayerSectionKey, string>
-  isMapAvailable: boolean
-  selectedPanel: MapPanel
   mosaicOptions: {
     applied: MosaicOptions
     selected?: boolean
