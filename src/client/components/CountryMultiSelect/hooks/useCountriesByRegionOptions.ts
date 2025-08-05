@@ -11,12 +11,12 @@ import { useIsPanEuropeanRoute } from 'client/hooks'
 import { Props as CountrySelectProps } from 'client/components/CountryMultiSelect/types'
 import { Option, OptionsGroup } from 'client/components/Inputs/Select'
 
-type Props = Pick<CountrySelectProps, 'allowedCountries'>
+type Props = Pick<CountrySelectProps, 'allowedCountries' | 'disabledOptions'>
 
 type Returned = Array<Option> | Array<OptionsGroup>
 
 export const useCountriesByRegionOptions = (props: Props): Returned => {
-  const { allowedCountries } = props
+  const { allowedCountries, disabledOptions } = props
   const allCountries = useCountries()
   const isPanEuropean = useIsPanEuropeanRoute()
 
@@ -60,10 +60,15 @@ export const useCountriesByRegionOptions = (props: Props): Returned => {
     })
 
     return Array.from(regionCountriesMap.entries())
-      .map(([regionCode, options]) => ({
-        label: t(`area.${regionCode}.listName`),
-        options,
-      }))
+      .map(([regionCode, options]) => {
+        const allChildrenDisabled = options.every((option) => disabledOptions?.includes(option.value))
+
+        return {
+          label: t(`area.${regionCode}.listName`),
+          options,
+          disabled: allChildrenDisabled,
+        }
+      })
       .sort((a, b) => a.label.localeCompare(b.label))
-  }, [countries, isPanEuropean, regionGroups, t])
+  }, [countries, disabledOptions, isPanEuropean, regionGroups, t])
 }
