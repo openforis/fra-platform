@@ -9,30 +9,17 @@ type Props = TablePaginatedBaseParams & {
   limit: number
   orderBy?: TablePaginatedOrderBy
   page: number
-  params: Record<string, unknown>
   path: string
 }
 
 type Returned = Array<never>
 
 export const getData = createAsyncThunk<Returned, Props>('tablePaginated/data/get', async (props) => {
-  const {
-    assessmentName,
-    countryIso,
-    cycleName,
-    filters,
-    limit,
-    orderBy,
-    page,
-    params: paramsProp,
-    path,
-    sectionName,
-  } = props
+  const { assessmentName, countryIso, cycleName, filters, limit, orderBy, page, path, sectionName } = props
 
   const encodedFilters = TablePaginateds.encodeFilters(filters)
 
   const params: TablePaginatedDataRequestParams = {
-    ...paramsProp,
     assessmentName,
     countryIso,
     cycleName,

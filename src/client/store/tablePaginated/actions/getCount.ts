@@ -7,7 +7,6 @@ import { TablePaginatedFilterValues, TablePaginateds } from 'meta/tablePaginated
 type Props = TablePaginatedBaseParams & {
   filters?: Record<string, TablePaginatedFilterValues>
   path: string
-  params: Record<string, unknown>
 }
 
 type Returned = {
@@ -15,12 +14,11 @@ type Returned = {
 }
 
 export const getCount = createAsyncThunk<Returned, Props>('tablePaginated/count/get', async (props) => {
-  const { assessmentName, countryIso, cycleName, filters, params: paramsProp, path, sectionName } = props
+  const { assessmentName, countryIso, cycleName, filters, path, sectionName } = props
 
   const encodedFilters = TablePaginateds.encodeFilters(filters)
 
   const params: Record<string, string> = {
-    ...paramsProp,
     assessmentName,
     countryIso,
     cycleName,

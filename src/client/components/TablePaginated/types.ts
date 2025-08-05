@@ -21,7 +21,6 @@ export type Props<Datum extends object> = {
   groups?: { headerLabel: (key: PropertyKey) => string; keySelector: (datum: Datum) => PropertyKey }
   limit?: number
   path: string
-  params?: Record<string, unknown>
   skeleton?: TablePaginatedSkeleton
   wrapCells?: boolean
 }
@@ -55,7 +54,7 @@ type MultiSelectItem = {
   value: string
 }
 
-type MultiSelectFilter = BaseTablePaginatedFilter<TablePaginatedFilterType.MULTI_SELECT> & {
+export type MultiSelectFilter = BaseTablePaginatedFilter<TablePaginatedFilterType.MULTI_SELECT> & {
   multiLabelSummaryKey: string
   options: Array<MultiSelectItem>
 }

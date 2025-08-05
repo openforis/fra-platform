@@ -46,7 +46,7 @@ const defaults: Readonly<Partial<Props<object>>> = {
 const TablePaginated = <Datum extends object>(props: Props<Datum>) => {
   const { className, gridTemplateColumns: gridTemplateColumnsProps } = props // HTMLDivElement Props
   const { marginPagesDisplayed, pageRangeDisplayed } = props // Paginator Props
-  const { columns, filters = defaults.filters, groups, limit = 30, params, path } = props // Base Props
+  const { columns, filters = defaults.filters, groups, limit = 30, path } = props // Base Props
   const {
     EmptyListComponent = defaults.EmptyListComponent,
     compareFn,
@@ -60,7 +60,7 @@ const TablePaginated = <Datum extends object>(props: Props<Datum>) => {
   const divRef = useRef<HTMLDivElement>()
 
   useInitTablePaginated({ filters, path })
-  useFetchData({ counter, limit, path, params })
+  useFetchData({ counter, limit, path })
   useResetOnUnmount({ path })
   useScrollToTopOnPageUpdate({ divRef, path })
   const count = useTablePaginatedCount(path)

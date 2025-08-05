@@ -17,11 +17,10 @@ type Props = {
   counter: TablePaginatedCounter
   limit: number
   path: string
-  params: Record<string, unknown>
 }
 
 export const useFetchData = (props: Props): void => {
-  const { counter, limit, params: paramsProp, path } = props
+  const { counter, limit, path } = props
 
   const dispatch = useAppDispatch()
   const { assessmentName, countryIso, cycleName, sectionName } = useSectionRouteParams()
@@ -57,7 +56,7 @@ export const useFetchData = (props: Props): void => {
 
   useEffect(() => {
     if (isInitialized && counter?.show) {
-      const _props = { assessmentName, countryIso, cycleName, filters, path, params: paramsProp, sectionName }
+      const _props = { assessmentName, countryIso, cycleName, filters, path, sectionName }
       throttledGetCount(_props)
     }
   }, [
@@ -67,7 +66,6 @@ export const useFetchData = (props: Props): void => {
     cycleName,
     filters,
     isInitialized,
-    paramsProp,
     path,
     sectionName,
     throttledGetCount,
@@ -84,7 +82,6 @@ export const useFetchData = (props: Props): void => {
         orderBy,
         page,
         path,
-        params: paramsProp,
         sectionName,
       }
       throttledGetData(_props)
@@ -104,7 +101,6 @@ export const useFetchData = (props: Props): void => {
     limit,
     orderBy,
     page,
-    paramsProp,
     path,
     sectionName,
     throttledGetData,
