@@ -73,17 +73,7 @@ export const useFetchData = (props: Props): void => {
 
   useEffect(() => {
     if (isInitialized) {
-      const _props = {
-        assessmentName,
-        countryIso,
-        cycleName,
-        filters,
-        limit,
-        orderBy,
-        page,
-        path,
-        sectionName,
-      }
+      const _props = { assessmentName, countryIso, cycleName, filters, limit, orderBy, page, path, sectionName }
       throttledGetData(_props)
 
       return () => {
