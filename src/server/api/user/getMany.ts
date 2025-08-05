@@ -1,22 +1,31 @@
 import { Response } from 'express'
 
-import { CycleRequest } from 'meta/api/request'
-import { UserFilters } from 'meta/tablePaginated'
-import { RoleName, UserStatus } from 'meta/user'
+import { UsersRequest } from 'meta/api/request'
+import { CountryIso } from 'meta/area'
+import { TablePaginateds, UserFilters } from 'meta/tablePaginated'
+import { UserStatus } from 'meta/user'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { UserController } from 'server/controller/user'
 import { ProcessEnv } from 'server/utils'
 import Requests from 'server/utils/requests'
 
-export const getMany = async (req: CycleRequest<{ print: string; roles: Array<RoleName> }>, res: Response) => {
+type Request = UsersRequest<{
+  print: string
+}>
+
+export const getMany = async (req: Request, res: Response) => {
   try {
-    const { assessmentName, countryIso, cycleName, print, roles } = req.query
+    const { assessmentName, countryIso, cycleName, filters: filtersReq, print } = req.query
+    const filters = TablePaginateds.decodeFilters<UserFilters>(filtersReq)
+
+    if (!filters.statuses) {
+      filters.statuses = [UserStatus.active, UserStatus.invitationPending]
+    }
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
-    const filters: UserFilters = { statuses: [UserStatus.active, UserStatus.invitationPending], roles }
-    let users = await UserController.getMany({ assessment, cycle, countryIso, filters })
+    let users = await UserController.getMany({ assessment, cycle, countryIso: countryIso as CountryIso, filters })
 
     if (print && print === 'true')
       users = users.filter((user) => !ProcessEnv.fraReportCollaboratorsExcluded.includes(user.email))
