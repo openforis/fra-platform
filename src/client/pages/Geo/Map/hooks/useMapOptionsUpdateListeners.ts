@@ -1,4 +1,4 @@
-import { useGeoMapOptions } from 'client/store/ui/geo'
+import { useGeoMapOptions } from 'client/store/geo/map/hooks/map'
 import { useOnUpdate } from 'client/hooks'
 import { mapController } from 'client/utils'
 

@@ -7,8 +7,7 @@ import { ExtraEstimationState } from 'meta/geo/geoStatistics'
 
 import { useAppSelector } from 'client/store/hooks'
 import { RootState } from 'client/store/types'
-
-import { GeoMapOptions, LayerFetchStatus, LayersSectionState, LayerState } from '../stateType'
+import { LayerFetchStatus, LayersSectionState, LayerState } from 'client/store/ui/geo/stateType'
 
 export const useMosaicUrl = (countryIso: CountryIso): string | undefined =>
   useAppSelector((state) => state.geo?.mosaicOptions.url[countryIso])
@@ -69,5 +68,3 @@ export const useGeoExtraEstimation = (
 
 export const useGeoFra1aLandArea = (): number | undefined =>
   useAppSelector((state) => state.geo?.geoStatistics?.forestEstimations?.data?.fra1aLandArea)
-
-export const useGeoMapOptions = (): GeoMapOptions => useAppSelector((state) => state.geo.mapOptions)

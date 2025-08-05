@@ -32,7 +32,6 @@ import { mapController } from 'client/utils'
 
 import {
   AgreementLevelState,
-  GeoMapOptions,
   GeoState,
   LayerFetchStatus,
   LayersSectionState,
@@ -51,13 +50,6 @@ const initialMosaicOptions: MosaicOptions = {
 const initialState: GeoState = {
   sections: {} as Record<LayerSectionKey, LayersSectionState>,
   recipes: {} as Record<LayerSectionKey, string>,
-  mapOptions: {
-    // @ts-expect-error
-    mapTypeId: 'roadmap',
-    maxZoom: 15,
-    minZoom: 3,
-    zoom: 6,
-  },
   mosaicOptions: {
     applied: { ...initialMosaicOptions },
     ui: { ...initialMosaicOptions },
@@ -187,10 +179,6 @@ export const geoSlice = createSlice({
   name: 'geo',
   initialState,
   reducers: {
-    setMapOptions: (state, action: PayloadAction<Partial<GeoMapOptions>>) => {
-      const options = action.payload
-      state.mapOptions = { ...state.mapOptions, ...options }
-    },
     applyMosaicOptions: (state) => {
       state.mosaicOptions.url = {}
       state.mosaicOptions.status = LayerFetchStatus.Unfetched

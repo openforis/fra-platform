@@ -5,7 +5,6 @@ export {
   useGeoLayerSection,
   useGeoLayerSectionRecipeName,
   useGeoLayerSections,
-  useGeoMapOptions,
   useGeoStatistics,
   useMosaicSelected,
   useMosaicStatus,

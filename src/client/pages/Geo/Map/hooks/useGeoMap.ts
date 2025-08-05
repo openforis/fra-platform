@@ -2,8 +2,8 @@ import { MutableRefObject, useEffect, useRef, useState } from 'react'
 
 import { CountryIso } from 'meta/area'
 
+import { useGeoMapOptions } from 'client/store/geo/map/hooks/map'
 import { useAppDispatch } from 'client/store/hooks'
-import { useGeoMapOptions } from 'client/store/ui/geo'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { mapController } from 'client/utils'
 
@@ -18,7 +18,7 @@ type Returned = {
   map: google.maps.Map
 }
 
-const baseMapOptions = {
+const baseMapOptions: google.maps.MapOptions = {
   center: { lat: 0, lng: 0 },
   disableDefaultUI: true,
   fullscreenControl: false,
