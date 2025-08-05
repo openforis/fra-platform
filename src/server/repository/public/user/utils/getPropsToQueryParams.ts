@@ -55,7 +55,7 @@ export const getPropsToQueryParams = (props: UsersGetManyProps): Returned => {
     )`,
     countryIso && `country_iso = $(countryIso)`,
     hasCountries && `country_iso in ($(countries:list))`,
-    hasExcludeUUIDs && `uuid not in ($(excludeUuids))`,
+    hasExcludeUUIDs && `uuid::text not in ($(excludeUuids:list))`,
     `status in ($(statuses:list))`,
   ].filter(Boolean)
 
