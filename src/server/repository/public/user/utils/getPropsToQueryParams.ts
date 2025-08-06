@@ -14,7 +14,6 @@ export const getPropsToQueryParams = (props: UsersGetManyProps): Returned => {
     administrators,
     countries,
     disabled,
-    excludeUuids,
     fullName,
     invitations = true,
     roles,
@@ -30,8 +29,6 @@ export const getPropsToQueryParams = (props: UsersGetManyProps): Returned => {
   if (countryIso) queryParams.countryIso = countryIso
   const hasCountries = !Objects.isEmpty(countries)
   if (hasCountries) queryParams.countries = countries
-  const hasExcludeUUIDs = !Objects.isEmpty(excludeUuids)
-  if (hasExcludeUUIDs) queryParams.excludeUuids = excludeUuids
 
   const allRoles = administrators
     ? Object.values(RoleName)
@@ -55,7 +52,6 @@ export const getPropsToQueryParams = (props: UsersGetManyProps): Returned => {
     )`,
     countryIso && `country_iso = $(countryIso)`,
     hasCountries && `country_iso in ($(countries:list))`,
-    hasExcludeUUIDs && `uuid::text not in ($(excludeUuids:list))`,
     `status in ($(statuses:list))`,
   ].filter(Boolean)
 
