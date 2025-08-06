@@ -12,12 +12,23 @@ export const useIsTablePaginatedInitialized = (path: string): boolean =>
 export const useTablePaginatedCount = (path: string): { total: number } =>
   useAppSelector((state) => TablePaginatedSelectors.getCount(state, path))
 
-export const useTablePaginatedData = <Datum extends object>(
-  path: string,
+type UseTablePaginatedDataProps<Datum extends object> = {
+  path: string
   compareFn?: TablePaginatedCompareFn<Datum>
+  filterFn?: (datum: Datum) => boolean
+}
+
+export const useTablePaginatedData = <Datum extends object>(
+  props: UseTablePaginatedDataProps<Datum>
 ): Array<Datum> | undefined => {
-  const data = useAppSelector((state) => TablePaginatedSelectors.getData(state, path) as Array<Datum> | undefined)
-  if (!Objects.isEmpty(data) && !Objects.isNil(compareFn)) return [...data].sort(compareFn)
+  const { compareFn, filterFn, path } = props
+  let data = useAppSelector((state) => TablePaginatedSelectors.getData(state, path) as Array<Datum> | undefined)
+
+  if (!Objects.isEmpty(data)) {
+    if (!Objects.isNil(filterFn)) data = data.filter(filterFn)
+    if (!Objects.isNil(compareFn)) data = [...data].sort(compareFn)
+  }
+
   return data
 }
 

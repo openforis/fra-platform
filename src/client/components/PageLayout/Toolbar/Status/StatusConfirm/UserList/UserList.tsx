@@ -7,7 +7,7 @@ import TablePaginated from 'client/components/TablePaginated'
 
 import { useColumns } from './hooks/useColumns'
 import { useCompareFn } from './hooks/useCompareFn'
-import { useFilters } from './hooks/useFilters'
+import { useFilterFn } from './hooks/useFilterFn'
 
 type Props = {
   status: StatusTransition
@@ -18,14 +18,14 @@ const UserList: React.FC<Props> = (props) => {
 
   const columns = useColumns()
   const compareFn = useCompareFn()
-  const filters = useFilters({ status })
+  const filterFn = useFilterFn({ status })
 
   return (
     <TablePaginated
       columns={columns}
       compareFn={compareFn}
       counter={{ show: false }}
-      filters={filters}
+      filterFn={filterFn}
       path={`${ApiEndPoint.User.many()}#recipients`}
     />
   )
