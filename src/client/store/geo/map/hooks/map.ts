@@ -2,6 +2,5 @@ import { GeoMapSelectors } from 'client/store/geo/map/selectors'
 import { GeoMapOptions } from 'client/store/geo/map/state'
 import { useAppSelector } from 'client/store/hooks'
 
-export const useGeoMapOptions = (): Partial<GeoMapOptions> => {
-  return useAppSelector((state) => GeoMapSelectors.getOptions(state))
-}
+export const useGeoMapOptions = (): Partial<GeoMapOptions> =>
+  useAppSelector((state) => GeoMapSelectors.getOptions(state))
