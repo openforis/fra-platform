@@ -4,7 +4,9 @@ import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 
 import classNames from 'classnames'
+import { Objects } from 'utils/objects'
 
+import { ApiEndPoint } from 'meta/api/endpoint'
 import { CountryStatus } from 'meta/area/status'
 import { AssessmentName } from 'meta/assessment/assessment'
 import { Users } from 'meta/user'
@@ -12,12 +14,12 @@ import { Users } from 'meta/user'
 import { AreaActions } from 'client/store/area/actions'
 import { useAssessmentCountry } from 'client/store/area/hooks/country'
 import { useAppDispatch } from 'client/store/hooks'
+import { useTablePaginatedData } from 'client/store/tablePaginated/hooks/tablePaginated'
 import { useUser } from 'client/store/user/hooks/user'
 import { useCountryIso } from 'client/hooks'
 import { Modal, ModalBody, ModalClose, ModalFooter, ModalHeader } from 'client/components/Modal'
 
 import { StatusTransition } from '../types'
-import { useRecipients } from './hooks/useRecipients'
 import UserList from './UserList'
 
 type Props = {
@@ -40,8 +42,8 @@ const StatusConfirm: React.FC<Props> = (props) => {
   const [textareaValue, setTextareaValue] = useState<string>('')
   const { assessmentName, cycleName } = useParams<{ assessmentName: AssessmentName; cycleName: string }>()
 
-  const recipients = useRecipients({ status })
-  const hasRecipients = recipients.length > 0
+  const recipients = useTablePaginatedData({ path: `${ApiEndPoint.User.many()}#recipients` })
+  const hasRecipients = !Objects.isEmpty(recipients)
 
   return (
     <Modal isOpen>
