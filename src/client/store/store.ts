@@ -3,12 +3,12 @@ import { Middleware } from 'redux'
 import createDebounce from 'redux-debounced'
 
 import { LinksState } from 'client/store/admin/links/state'
-import { AdminSliceName } from 'client/store/admin/slice'
+import { AdminSliceName } from 'client/store/admin/name'
 import { GeoMapState } from 'client/store/geo/map/state'
-import { GeoSliceName } from 'client/store/geo/slice'
-import { LoginSlice } from 'client/store/login/slice'
+import { GeoSliceName } from 'client/store/geo/slice/name'
+import { LoginSliceName } from 'client/store/login/name'
 import { LoginState } from 'client/store/login/state'
-import { TablePaginatedSlice } from 'client/store/tablePaginated/slice'
+import { TablePaginatedSliceName } from 'client/store/tablePaginated/name'
 import { TablePaginatedState } from 'client/store/tablePaginated/state'
 
 import axiosMiddleware from './middleware/axios'
@@ -22,8 +22,8 @@ export interface LazyLoadedSlices {
   [GeoSliceName]: {
     map: GeoMapState
   }
-  [LoginSlice.name]: LoginState
-  [TablePaginatedSlice.name]: TablePaginatedState
+  [LoginSliceName]: LoginState
+  [TablePaginatedSliceName]: TablePaginatedState
 }
 
 export const reducer = combineSlices(rootReducer).withLazyLoadedSlices<LazyLoadedSlices>()

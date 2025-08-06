@@ -2,7 +2,7 @@ import { createSelector } from '@reduxjs/toolkit'
 
 import { GeoMapSlice } from 'client/store/geo/map/slice'
 import { GeoMapOptions } from 'client/store/geo/map/state'
-import { GeoSliceName } from 'client/store/geo/slice'
+import { GeoSliceName } from 'client/store/geo/slice/name'
 import { RootState } from 'client/store/types'
 
 const _getState = (state: RootState) => state[GeoSliceName]?.[GeoMapSlice.name]
