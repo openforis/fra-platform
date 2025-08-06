@@ -1,9 +1,12 @@
 import { useCallback, useMemo } from 'react'
-import { GroupHeadingProps, MultiValue } from 'react-select'
+import type { Props as SelectProps } from 'react-select'
+import { GroupBase, GroupHeadingProps, MultiValue } from 'react-select'
 
 import { Option } from 'client/components/Inputs/Select/types'
 
-type Props = GroupHeadingProps<Option, true>
+type Props =
+  | GroupHeadingProps<Option, true>
+  | { data: GroupBase<Option>; selectProps: SelectProps<Option, boolean, GroupBase<Option>> }
 
 type Returned = {
   handleGroupSelectionToggle: () => void

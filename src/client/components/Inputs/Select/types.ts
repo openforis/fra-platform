@@ -7,6 +7,7 @@ export type Option = {
 }
 
 export type OptionsGroup = {
+  disabled?: boolean
   label?: string
   options: Array<Option>
 }
