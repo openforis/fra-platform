@@ -55,7 +55,7 @@ type MultiSelectItem = {
   value: string
 }
 
-export type MultiSelectFilter = BaseTablePaginatedFilter<TablePaginatedFilterType.MULTI_SELECT> & {
+type MultiSelectFilter = BaseTablePaginatedFilter<TablePaginatedFilterType.MULTI_SELECT> & {
   multiLabelSummaryKey: string
   options: Array<MultiSelectItem>
 }
