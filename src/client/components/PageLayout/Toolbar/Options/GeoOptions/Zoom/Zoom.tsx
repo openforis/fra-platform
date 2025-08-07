@@ -13,7 +13,7 @@ const Zoom: React.FC = () => {
   const setZoom = useCallback(
     (_zoom: number) => {
       if (_zoom >= minZoom && _zoom <= maxZoom) {
-        dispatch(GeoMapActions.setOptions({ zoom: _zoom }))
+        dispatch(GeoMapActions.setOptions({ datum: { zoom: _zoom } }))
       }
     },
     [dispatch, maxZoom, minZoom]

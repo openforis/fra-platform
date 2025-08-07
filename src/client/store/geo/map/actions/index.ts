@@ -1,5 +1,5 @@
-import { GeoMapSlice } from 'client/store/geo/map/slice'
+import { setOptions } from 'client/store/geo/map/actions/setOptions'
 
 export const GeoMapActions = {
-  ...GeoMapSlice.actions,
+  setOptions,
 }

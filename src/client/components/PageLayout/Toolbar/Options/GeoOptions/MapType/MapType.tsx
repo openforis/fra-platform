@@ -13,7 +13,7 @@ const MapType: React.FC = () => {
 
   const setMapTypeId = useCallback(
     (_mapTypeId: google.maps.MapTypeId) => {
-      dispatch(GeoMapActions.setOptions({ mapTypeId: _mapTypeId }))
+      dispatch(GeoMapActions.setOptions({ datum: { mapTypeId: _mapTypeId } }))
     },
     [dispatch]
   )
