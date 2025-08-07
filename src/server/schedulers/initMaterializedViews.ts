@@ -75,10 +75,6 @@ export const initMaterializedViews = (connection: IORedis): Worker => {
             await CountryActivityLogRepository.refreshMaterializedView({ assessment, cycle, countryIso })
             Logger.info(`[${name}:CountryActivityLog] ${assessment.props.name} ${cycle.name} ${countryIso} refreshed`)
           })
-
-          // 2. refresh country summary
-          await AreaController.refreshSummaries({ assessment, cycle })
-          Logger.info(`[${name}:CountrySummary] ${assessment.props.name} ${cycle.name} refreshed`)
         })
       )
 
