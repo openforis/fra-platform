@@ -10,10 +10,11 @@ import { resetPaths } from './reducers/resetPaths'
 import { setFilterValue } from './reducers/setFilterValue'
 import { setOrderBy } from './reducers/setOrderBy'
 import { setPage } from './reducers/setPage'
+import { TablePaginatedSliceName } from './name'
 import { initialState } from './state'
 
 export const TablePaginatedSlice = createSlice({
-  name: 'tablePaginated',
+  name: TablePaginatedSliceName,
   initialState,
   reducers: {
     init,

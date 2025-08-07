@@ -3,9 +3,10 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { AcceptInvitationErrors, AcceptInvitationFormFields, initialState } from 'client/store/login/state'
 
 import { LoginActions } from './actions'
+import { LoginSliceName } from './name'
 
 export const LoginSlice = createSlice({
-  name: 'login',
+  name: LoginSliceName,
   initialState,
   reducers: {
     resetLogin: () => initialState,

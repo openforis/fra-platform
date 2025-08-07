@@ -1,14 +1,13 @@
 import { createSelector } from '@reduxjs/toolkit'
 
 import { CountryIso } from 'meta/area'
-import { ExtraEstimation, GeoStatisticsState, LayerKey, LayerSectionKey, MapPanel, MosaicOptions } from 'meta/geo'
+import { ExtraEstimation, GeoStatisticsState, LayerKey, LayerSectionKey, MosaicOptions } from 'meta/geo'
 import { BurnedAreaModis } from 'meta/geo/forest'
 import { ExtraEstimationState } from 'meta/geo/geoStatistics'
 
 import { useAppSelector } from 'client/store/hooks'
 import { RootState } from 'client/store/types'
-
-import { GeoMapOptions, LayerFetchStatus, LayersSectionState, LayerState } from '../stateType'
+import { LayerFetchStatus, LayersSectionState, LayerState } from 'client/store/ui/geo/stateType'
 
 export const useMosaicUrl = (countryIso: CountryIso): string | undefined =>
   useAppSelector((state) => state.geo?.mosaicOptions.url[countryIso])
@@ -21,10 +20,6 @@ export const useMosaicStatus = (): LayerFetchStatus | undefined =>
 export const useUiMosaicOptions = (): MosaicOptions => useAppSelector((state) => state.geo?.mosaicOptions.ui)
 
 export const useAppliedMosaicOptions = (): MosaicOptions => useAppSelector((state) => state.geo?.mosaicOptions.applied)
-
-export const useSelectedPanel = (): MapPanel => useAppSelector((state) => state.geo?.selectedPanel)
-
-export const useIsGeoMapAvailable = (): boolean => useAppSelector((state) => state.geo?.isMapAvailable)
 
 export const useGeoStatistics = (): GeoStatisticsState => useAppSelector((state) => state.geo?.geoStatistics)
 
@@ -73,5 +68,3 @@ export const useGeoExtraEstimation = (
 
 export const useGeoFra1aLandArea = (): number | undefined =>
   useAppSelector((state) => state.geo?.geoStatistics?.forestEstimations?.data?.fra1aLandArea)
-
-export const useGeoMapOptions = (): GeoMapOptions => useAppSelector((state) => state.geo.mapOptions)
