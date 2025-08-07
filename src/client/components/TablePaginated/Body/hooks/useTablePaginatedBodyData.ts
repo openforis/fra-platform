@@ -6,9 +6,9 @@ import { Props as BaseProps } from 'client/components/TablePaginated/types'
 type Returned<Datum extends object> = Array<Datum> | Array<[PropertyKey, Array<Datum>]> | undefined
 
 export const useTablePaginatedBodyData = <Datum extends object>(props: BaseProps<Datum>): Returned<Datum> => {
-  const { compareFn, groups, path } = props
+  const { compareFn, filterFn, groups, path } = props
 
-  const data = useTablePaginatedData<Datum>(path, compareFn)
+  const data = useTablePaginatedData<Datum>({ path, compareFn, filterFn })
 
   if (Objects.isNil(data) || Objects.isNil(groups)) {
     return data
