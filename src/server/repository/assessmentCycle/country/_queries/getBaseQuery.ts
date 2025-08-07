@@ -30,8 +30,6 @@ export const getBaseQuery = (props: Props): string => {
     from ${cycleSchema}.country c
              left join ${cycleSchema}.country_region cr
                        on c.country_iso = cr.country_iso
-             left join ${cycleSchema}.country_summary cs
-                       on c.country_iso = cs.country_iso
     ${countryIso ? 'where c.country_iso = $1' : ''}
     ${countryIsos?.length > 0 ? 'where c.country_iso in ($1:list)' : ''}
     group by c.country_iso, 

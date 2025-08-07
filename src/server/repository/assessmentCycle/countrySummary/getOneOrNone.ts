@@ -4,10 +4,9 @@ import { CountryIso, CountrySummary } from 'meta/area'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 
-import { BaseProtocol, DB, Schemas } from 'server/db'
-import { SQLs } from 'server/db/SQLs'
+import { BaseProtocol, DB } from 'server/db'
 
-import { fields } from './fields'
+import { getBaseQuery } from './_queries/getBaseQuery'
 
 type Props = {
   assessment: Assessment
@@ -18,14 +17,14 @@ type Props = {
 export const getOneOrNone = async (props: Props, client: BaseProtocol = DB): Promise<CountrySummary | null> => {
   const { assessment, countryIso, cycle } = props
 
-  const schemaCycle = Schemas.getNameCycle(assessment, cycle)
+  const baseQuery = getBaseQuery({ assessment, cycle })
 
   return client.oneOrNone<CountrySummary>(
     `
-        select ${SQLs.fieldsJoined(fields, 'cs')}, c.status
-        from ${schemaCycle}.country_summary cs
-                    left join ${schemaCycle}.country c using (country_iso)
-        where cs.country_iso = $1
+      ${baseQuery}
+      select *
+      from country_summary
+      where country_iso = $1
     `,
     [countryIso],
     Objects.camelize
