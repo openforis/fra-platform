@@ -5,11 +5,9 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { TablePaginatedOrderByDirection } from 'meta/tablePaginated'
 
-import { BaseProtocol, DB, Schemas } from 'server/db'
-import { SQLs } from 'server/db/SQLs'
+import { BaseProtocol, DB } from 'server/db'
 
 import { getBaseQuery } from './_queries/getBaseQuery'
-import { fields, fieldsFromCountryJoined } from './fields'
 
 type Props = {
   assessment: Assessment
@@ -23,14 +21,12 @@ type Props = {
 export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<Array<CountrySummary>> => {
   const { assessment, cycle, limit, offset, orderBy, orderByDirection } = props
 
-  const schemaCycle = Schemas.getNameCycle(assessment, cycle)
   const baseQuery = getBaseQuery({ assessment, cycle })
 
   const query = `
     ${baseQuery}
-    select ${SQLs.fieldsJoined(fields, 'cs')}, ${fieldsFromCountryJoined('c')}, c.status
-    from country_summary cs
-         left join ${schemaCycle}.country c using (country_iso)
+    select *
+    from country_summary
     order by ${orderBy ?? 'country_iso'} ${orderByDirection ?? TablePaginatedOrderByDirection.asc} nulls last
     ${limit ? 'limit $1' : ''} ${offset ? 'offset $2' : ''}
     ;
