@@ -15,11 +15,7 @@ import { getUser } from './getUser'
 import { invite } from './invite'
 import { removeInvitation } from './removeInvitation'
 import { sendInvitationEmail } from './sendInvitationEmail'
-import { updateRoleProps } from './updateRoleProps'
-import { updateSectionAuth } from './updateSectionAuth'
 import { updateUser } from './updateUser'
-import { updateUserAdminRole } from './updateUserAdminRole'
-import { updateUserRoles } from './updateUserRoles'
 
 export const UserApi = {
   init: (express: Express): void => {
@@ -48,14 +44,5 @@ export const UserApi = {
     express.get(ApiEndPoint.User.resetPassword(), getResetPassword)
 
     express.get(ApiEndPoint.User.profilePicture(), getProfilePicture)
-
-    express.post(ApiEndPoint.User.roles(), AuthMiddleware.requireAdmin, updateUserRoles)
-    express.post(ApiEndPoint.User.adminRole(), AuthMiddleware.requireAdmin, updateUserAdminRole)
-    express.post(ApiEndPoint.User.sectionAuth(), AuthMiddleware.requireInviteUser, updateSectionAuth)
-
-    /**
-     * @deprecated. all user edits are in one endpoint
-     */
-    express.post(ApiEndPoint.User.roleProps(), AuthMiddleware.requireEditUser, updateRoleProps)
   },
 }
