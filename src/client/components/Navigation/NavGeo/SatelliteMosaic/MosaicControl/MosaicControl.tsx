@@ -1,9 +1,9 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { MosaicActions } from 'client/store/geo/mosaic/actions'
 import { useMosaicStatus, useUiMosaicOptions } from 'client/store/geo/mosaic/hooks/mosaic'
 import { useAppDispatch } from 'client/store/hooks'
-import { GeoActions } from 'client/store/ui/geo'
 import { LayerFetchStatus } from 'client/store/ui/geo/stateType'
 import Button, { ButtonSize } from 'client/components/Buttons/Button'
 import ButtonCheckbox from 'client/components/Buttons/ButtonCheckbox'
@@ -26,28 +26,31 @@ const MosaicControl: React.FC = () => {
     <OptionsGrid>
       <OptionLabel>{t('common.sources')}</OptionLabel>
       <div className="geo-options-grid__flex">
-        {sources.map(({ key, label }) => (
-          <ButtonCheckbox
-            key={key}
-            checked={uiMosaicOptions.sources.includes(key)}
-            label={label}
-            onClick={() => dispatch(GeoActions.toggleMosaicSource(key))}
-          />
-        ))}
+        {sources.map(({ key, label }) => {
+          const checked = uiMosaicOptions.sources?.[key] ?? false
+          return (
+            <ButtonCheckbox
+              key={key}
+              checked={checked}
+              label={label}
+              onClick={() => dispatch(MosaicActions.setUiOptions({ datum: { sources: { [key]: !checked } } }))}
+            />
+          )
+        })}
       </div>
 
       <OptionLabel>{t('common.year')}</OptionLabel>
       <SelectPrimary
         isClearable={false}
         maxMenuHeight={126} // 4 options with 28px height each, plus half of another option
-        onChange={(value) => dispatch(GeoActions.setMosaicYear(Number(value)))}
+        onChange={(value) => dispatch(MosaicActions.setUiOptions({ datum: { year: Number(value) } }))}
         options={yearOptions}
         value={uiMosaicOptions.year.toString()}
       />
 
       <OptionLabel>{t('geo.maxCloudCoverage')}</OptionLabel>
       <InputRange
-        onChange={(e) => dispatch(GeoActions.setMosaicMaxCloudCoverage(Number(e.target.value)))}
+        onChange={(e) => dispatch(MosaicActions.setUiOptions({ datum: { maxCloudCoverage: Number(e.target.value) } }))}
         unit="%"
         value={uiMosaicOptions.maxCloudCoverage}
       />
@@ -56,14 +59,14 @@ const MosaicControl: React.FC = () => {
         checked={uiMosaicOptions.snowMasking}
         className="geo-options-grid__one-col"
         label={t('geo.snowMasking')}
-        onClick={() => dispatch(GeoActions.setMosaicSnowMasking(!uiMosaicOptions.snowMasking))}
+        onClick={() => dispatch(MosaicActions.setUiOptions({ datum: { snowMasking: !uiMosaicOptions.snowMasking } }))}
       />
 
       <Button
         className="geo-options-grid__one-col centered"
         disabled={!optionsHaveChanged}
         label={t('common.apply')}
-        onClick={() => dispatch(GeoActions.applyMosaicOptions())}
+        onClick={() => dispatch(MosaicActions.applyOptions())}
         size={ButtonSize.s}
       />
 

@@ -14,7 +14,7 @@ export type MosaicState = {
 const initialMosaicOptions: MosaicOptions = {
   maxCloudCoverage: 30,
   snowMasking: false,
-  sources: ['landsat'],
+  sources: { landsat: true },
   year: 2020,
 }
 

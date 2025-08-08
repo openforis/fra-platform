@@ -1,7 +1,7 @@
 export interface MosaicOptions {
   maxCloudCoverage: number
   snowMasking: boolean
-  sources: MosaicSource[]
+  sources: Partial<Record<MosaicSource, boolean>>
   year: number
 }
 
