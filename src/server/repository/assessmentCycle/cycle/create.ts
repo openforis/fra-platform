@@ -6,7 +6,6 @@ import { getOneWithCycle } from 'server/controller/assessment/getOne'
 import { BaseProtocol, DB, Schemas } from 'server/db'
 import { AssessmentRepository } from 'server/repository/assessment/assessment'
 import { getCreateOrReplaceViewCountryUserSummary } from 'server/repository/assessment/assessment/getCreateSchemaDDL'
-import { CountrySummaryRepository } from 'server/repository/assessmentCycle/countrySummary'
 
 type Props = {
   assessment: Assessment
@@ -62,9 +61,6 @@ export const create = async (params: Props, client: BaseProtocol = DB): Returned
       from country
   `)
   }
-
-  // Init country_summary view
-  await CountrySummaryRepository.createMaterializedView({ assessment, cycle })
 
   // Init country user summary view
   await client.query(getCreateOrReplaceViewCountryUserSummary({ assessment, cycle }))

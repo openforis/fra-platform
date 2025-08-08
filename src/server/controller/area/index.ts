@@ -10,6 +10,5 @@ export const AreaController = {
   getCountrySummaries: CountrySummaryRepository.getMany,
   getCountrySummariesCount: CountrySummaryRepository.getCount,
   getRegionGroups: AreaRedisRepository.getManyRegionGroups,
-  refreshSummaries: CountrySummaryRepository.refreshMaterializedView,
   updateCountry,
 }

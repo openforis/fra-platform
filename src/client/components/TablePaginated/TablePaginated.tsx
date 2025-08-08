@@ -46,7 +46,7 @@ const defaults: Readonly<Partial<Props<object>>> = {
 const TablePaginated = <Datum extends object>(props: Props<Datum>) => {
   const { className, gridTemplateColumns: gridTemplateColumnsProps } = props // HTMLDivElement Props
   const { marginPagesDisplayed, pageRangeDisplayed } = props // Paginator Props
-  const { columns, filters = defaults.filters, groups, limit = 30, path } = props // Base Props
+  const { columns, filterFn, filters = defaults.filters, groups, limit = 30, path } = props // Base Props
   const {
     EmptyListComponent = defaults.EmptyListComponent,
     compareFn,
@@ -87,6 +87,7 @@ const TablePaginated = <Datum extends object>(props: Props<Datum>) => {
           <Body
             columns={columns}
             compareFn={compareFn}
+            filterFn={filterFn}
             groups={groups}
             limit={limit}
             path={path}

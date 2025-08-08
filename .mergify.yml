@@ -2,8 +2,10 @@ queue_rules:
   - name: default
     queue_conditions:
       - "#approved-reviews-by>=1"
-    merge_conditions: []
+    merge_conditions:
+      - "#approved-reviews-by>=1"
     merge_method: squash
+    update_method: rebase
 
 pull_request_rules:
   - name: Automatic branch update
@@ -11,7 +13,6 @@ pull_request_rules:
       - -conflict # skip PRs with conflicts
       - -draft # filter-out GH draft PRs
       - head!=production
-      - head!=staging
     actions:
       update: {}
   - name: Delete head branch after merge
@@ -21,6 +22,10 @@ pull_request_rules:
       delete_head_branch:
         force: true
   - name: Automatic merge using squash
-    conditions: []
+    conditions:
+      - "#approved-reviews-by>=1"
+      - -conflict
+      - -draft
+      - head!=production
     actions:
       queue:
