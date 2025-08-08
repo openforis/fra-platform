@@ -1,25 +1,12 @@
 import { createSelector } from '@reduxjs/toolkit'
 
-import { CountryIso } from 'meta/area'
-import { ExtraEstimation, GeoStatisticsState, LayerKey, LayerSectionKey, MosaicOptions } from 'meta/geo'
+import { ExtraEstimation, GeoStatisticsState, LayerKey, LayerSectionKey } from 'meta/geo'
 import { BurnedAreaModis } from 'meta/geo/forest'
 import { ExtraEstimationState } from 'meta/geo/geoStatistics'
 
 import { useAppSelector } from 'client/store/hooks'
 import { RootState } from 'client/store/types'
-import { LayerFetchStatus, LayersSectionState, LayerState } from 'client/store/ui/geo/stateType'
-
-export const useMosaicUrl = (countryIso: CountryIso): string | undefined =>
-  useAppSelector((state) => state.geo?.mosaicOptions.url[countryIso])
-
-export const useMosaicSelected = (): boolean | undefined => useAppSelector((state) => state.geo?.mosaicOptions.selected)
-
-export const useMosaicStatus = (): LayerFetchStatus | undefined =>
-  useAppSelector((state) => state.geo?.mosaicOptions.status)
-
-export const useUiMosaicOptions = (): MosaicOptions => useAppSelector((state) => state.geo?.mosaicOptions.ui)
-
-export const useAppliedMosaicOptions = (): MosaicOptions => useAppSelector((state) => state.geo?.mosaicOptions.applied)
+import { LayersSectionState, LayerState } from 'client/store/ui/geo/stateType'
 
 export const useGeoStatistics = (): GeoStatisticsState => useAppSelector((state) => state.geo?.geoStatistics)
 

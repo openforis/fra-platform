@@ -2,14 +2,14 @@ import { useEffect } from 'react'
 
 import { MosaicLayerKey } from 'meta/geo/mosaic'
 
-import { useAppDispatch } from 'client/store/hooks'
 import {
-  GeoActions,
-  useAppliedMosaicOptions,
+  useMosaicCountryUrl,
+  useMosaicOptions,
   useMosaicSelected,
   useMosaicStatus,
-  useMosaicUrl,
-} from 'client/store/ui/geo'
+} from 'client/store/geo/mosaic/hooks/mosaic'
+import { useAppDispatch } from 'client/store/hooks'
+import { GeoActions } from 'client/store/ui/geo'
 import { LayerFetchStatus } from 'client/store/ui/geo/stateType'
 import { useCountryIso } from 'client/hooks'
 import { mapController } from 'client/utils'
@@ -17,10 +17,10 @@ import { mapController } from 'client/utils'
 export const useFetchMosaicLayer = () => {
   const dispatch = useAppDispatch()
 
-  const appliedMosaicOptions = useAppliedMosaicOptions()
+  const mosaicOptions = useMosaicOptions()
   const countryIso = useCountryIso()
   const layerKey: MosaicLayerKey = 'mosaic'
-  const mosaicUrl = useMosaicUrl(countryIso)
+  const mosaicUrl = useMosaicCountryUrl(countryIso)
   const selected = useMosaicSelected()
   const status = useMosaicStatus()
 
@@ -36,8 +36,8 @@ export const useFetchMosaicLayer = () => {
       mapController.addSepalLayer(layerKey, mosaicUrl)
       return
     }
-    if (appliedMosaicOptions.sources.length > 0) {
-      dispatch(GeoActions.postMosaicOptions({ mosaicOptions: appliedMosaicOptions, countryIso }))
+    if (mosaicOptions.sources.length > 0) {
+      dispatch(GeoActions.postMosaicOptions({ mosaicOptions, countryIso }))
     }
-  }, [appliedMosaicOptions, countryIso, dispatch, mosaicUrl, selected, status])
+  }, [countryIso, dispatch, mosaicOptions, mosaicUrl, selected, status])
 }

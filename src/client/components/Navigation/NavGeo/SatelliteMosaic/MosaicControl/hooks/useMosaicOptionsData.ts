@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { MosaicOptions, MosaicSource } from 'meta/geo'
 import { mosaicYearRange } from 'meta/geo/mosaic'
 
-import { useAppliedMosaicOptions, useUiMosaicOptions } from 'client/store/ui/geo'
+import { useMosaicOptions, useUiMosaicOptions } from 'client/store/geo/mosaic/hooks/mosaic'
 import { Option } from 'client/components/Inputs/Select'
 
 type Sources = {
@@ -22,7 +22,7 @@ const useMosaicOptionsData = (): Returned => {
   const { t } = useTranslation()
 
   const uiMosaicOptions = useUiMosaicOptions()
-  const appliedMosaicOptions = useAppliedMosaicOptions()
+  const mosaicOptions = useMosaicOptions()
 
   const yearOptions = useMemo<Array<Option>>(() => {
     const { endYear, startYear } = mosaicYearRange
@@ -45,12 +45,12 @@ const useMosaicOptionsData = (): Returned => {
   ]
 
   const optionsHaveChanged = Object.entries(uiMosaicOptions).some(
-    ([key, uiValue]: [keyof MosaicOptions, MosaicOptions[keyof MosaicOptions]]) => {
-      const appliedValue = appliedMosaicOptions[key]
-      if (Array.isArray(uiValue) && Array.isArray(appliedValue)) {
-        return appliedValue.length !== uiValue.length || appliedValue.some((val) => !uiValue.includes(val))
+    ([key, uiOption]: [keyof MosaicOptions, MosaicOptions[keyof MosaicOptions]]) => {
+      const currentOption = mosaicOptions[key]
+      if (Array.isArray(uiOption) && Array.isArray(currentOption)) {
+        return currentOption.length !== uiOption.length || currentOption.some((val) => !uiOption.includes(val))
       }
-      return appliedMosaicOptions[key] !== uiValue
+      return mosaicOptions[key] !== uiOption
     }
   )
 
