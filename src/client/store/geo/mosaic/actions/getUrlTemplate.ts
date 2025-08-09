@@ -12,19 +12,11 @@ type Props = {
   mosaicOptions: MosaicOptions
 }
 
-type Returned = {
-  countryIso: CountryIso
-  urlTemplate: string
-}
-
-export const getUrlTemplate = createAsyncThunk<Returned, Props>('geo/mosaic/getUrlTemplate', async (params) => {
+export const getUrlTemplate = createAsyncThunk<string, Props>('geo/mosaic/getUrlTemplate', async (params) => {
   const { countryIso, mosaicOptions } = params
   const body = _getUrlTemplateReqBody(mosaicOptions, countryIso)
   const { data } = await axios.post(`${ApiEndPoint.Geo.sepalProxy()}/preview`, body)
   const { urlTemplate } = data
 
-  return {
-    countryIso,
-    urlTemplate,
-  }
+  return urlTemplate
 })

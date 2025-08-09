@@ -8,6 +8,6 @@ export const applyOptionsReducer = (builder: ActionReducerMapBuilder<MosaicState
   builder.addCase(applyOptions, (state) => {
     state.options = { ...state.ui }
     state.status = LayerFetchStatus.Unfetched
-    state.url = {}
+    delete state.urlTemplate
   })
 }

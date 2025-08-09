@@ -1,12 +1,11 @@
-import { CountryIso } from 'meta/area'
 import { MosaicOptions } from 'meta/geo'
 
 import { MosaicSelectors } from 'client/store/geo/mosaic/selectors'
 import { useAppSelector } from 'client/store/hooks'
 import { LayerFetchStatus } from 'client/store/ui/geo/stateType'
 
-export const useMosaicCountryUrl = (countryIso: CountryIso): string | undefined =>
-  useAppSelector((state) => MosaicSelectors.getCountryUrl(state, countryIso))
+export const useMosaicUrlTemplate = (): string | undefined =>
+  useAppSelector((state) => MosaicSelectors.getUrlTemplate(state))
 
 export const useMosaicOptions = (): MosaicOptions => useAppSelector((state) => MosaicSelectors.getOptions(state))
 

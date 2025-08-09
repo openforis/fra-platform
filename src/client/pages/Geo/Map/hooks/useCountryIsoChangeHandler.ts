@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 
 import { LayerKey, LayerSectionKey } from 'meta/geo'
 
+import { MosaicActions } from 'client/store/geo/mosaic/actions'
 import { useAppDispatch } from 'client/store/hooks'
 import { GeoActions, useGeoLayerSections } from 'client/store/ui/geo'
 import { useCountryIso, usePrevious } from 'client/hooks'
@@ -16,6 +17,7 @@ export const useCountryIsoChangeHandler = () => {
     if (prevCountryIso === countryIso) return
 
     dispatch(GeoActions.resetAllLayersStatus())
+    dispatch(MosaicActions.resetUrlTemplate())
 
     Object.keys(allSectionsState ?? {}).forEach((sectionKey) => {
       Object.keys(allSectionsState[sectionKey as LayerSectionKey]).forEach((layerKey) => {

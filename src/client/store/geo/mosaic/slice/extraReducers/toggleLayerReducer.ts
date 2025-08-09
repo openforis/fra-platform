@@ -10,6 +10,15 @@ export const toggleLayerReducer = (builder: ActionReducerMapBuilder<MosaicState>
   builder.addCase(toggleLayer, (state) => {
     const currentSelected = state.selected ?? false
     state.selected = !currentSelected
-    if (currentSelected) mapController.removeLayer(MOSAIC_LAYER_KEY)
+
+    if (currentSelected) {
+      mapController.removeLayer(MOSAIC_LAYER_KEY)
+      return
+    }
+
+    const { urlTemplate } = state
+    if (urlTemplate) {
+      mapController.addSepalLayer(MOSAIC_LAYER_KEY, urlTemplate)
+    }
   })
 }

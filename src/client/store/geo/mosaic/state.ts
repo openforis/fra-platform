@@ -1,4 +1,3 @@
-import { CountryIso } from 'meta/area'
 import { MosaicOptions } from 'meta/geo'
 
 import { LayerFetchStatus } from 'client/store/ui/geo/stateType'
@@ -8,7 +7,7 @@ export type MosaicState = {
   selected?: boolean
   status?: LayerFetchStatus
   ui: MosaicOptions
-  url: Partial<Record<CountryIso, string>>
+  urlTemplate?: string
 }
 
 const initialMosaicOptions: MosaicOptions = {
@@ -21,5 +20,4 @@ const initialMosaicOptions: MosaicOptions = {
 export const initialState: MosaicState = {
   options: initialMosaicOptions,
   ui: initialMosaicOptions,
-  url: {},
 }
