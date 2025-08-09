@@ -27,13 +27,16 @@ const MosaicControl: React.FC = () => {
       <OptionLabel>{t('common.sources')}</OptionLabel>
       <div className="geo-options-grid__flex">
         {sources.map(({ key, label }) => {
-          const checked = uiMosaicOptions.sources?.[key] ?? false
+          const uiSources = uiMosaicOptions.sources ?? {}
+          const checked = uiSources[key] ?? false
           return (
             <ButtonCheckbox
               key={key}
               checked={checked}
               label={label}
-              onClick={() => dispatch(MosaicActions.setUiOptions({ datum: { sources: { [key]: !checked } } }))}
+              onClick={() =>
+                dispatch(MosaicActions.setUiOption({ key: 'sources', value: { ...uiSources, [key]: !checked } }))
+              }
             />
           )
         })}
@@ -43,14 +46,16 @@ const MosaicControl: React.FC = () => {
       <SelectPrimary
         isClearable={false}
         maxMenuHeight={126} // 4 options with 28px height each, plus half of another option
-        onChange={(value) => dispatch(MosaicActions.setUiOptions({ datum: { year: Number(value) } }))}
+        onChange={(value) => dispatch(MosaicActions.setUiOption({ key: 'year', value: Number(value) }))}
         options={yearOptions}
         value={uiMosaicOptions.year.toString()}
       />
 
       <OptionLabel>{t('geo.maxCloudCoverage')}</OptionLabel>
       <InputRange
-        onChange={(e) => dispatch(MosaicActions.setUiOptions({ datum: { maxCloudCoverage: Number(e.target.value) } }))}
+        onChange={(e) =>
+          dispatch(MosaicActions.setUiOption({ key: 'maxCloudCoverage', value: Number(e.target.value) }))
+        }
         unit="%"
         value={uiMosaicOptions.maxCloudCoverage}
       />
@@ -59,7 +64,7 @@ const MosaicControl: React.FC = () => {
         checked={uiMosaicOptions.snowMasking}
         className="geo-options-grid__one-col"
         label={t('geo.snowMasking')}
-        onClick={() => dispatch(MosaicActions.setUiOptions({ datum: { snowMasking: !uiMosaicOptions.snowMasking } }))}
+        onClick={() => dispatch(MosaicActions.setUiOption({ key: 'snowMasking', value: !uiMosaicOptions.snowMasking }))}
       />
 
       <Button
