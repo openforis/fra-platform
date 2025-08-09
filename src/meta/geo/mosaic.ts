@@ -7,7 +7,9 @@ export interface MosaicOptions {
 
 export type MosaicSource = 'sentinel' | 'landsat'
 
-export type MosaicLayerKey = 'mosaic'
+export const MOSAIC_LAYER_KEY = 'mosaic' as const
+
+export type MosaicLayerKey = typeof MOSAIC_LAYER_KEY
 
 export type MosaicYearRange = {
   endYear: number

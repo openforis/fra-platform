@@ -1,9 +1,8 @@
-import { CountryIso } from 'meta/area'
-import { GeoStatisticsState, LayerKey, LayerSectionKey, MosaicOptions } from 'meta/geo'
+import { GeoStatisticsState, LayerKey, LayerSectionKey } from 'meta/geo'
 
 export enum LayerFetchStatus {
-  Loading = 'Loading',
   Failed = 'Failed',
+  Loading = 'Loading',
   Ready = 'Ready',
   Unfetched = 'Unfetched',
 }
@@ -36,12 +35,5 @@ export type LayersSectionState = Record<LayerKey, LayerState>
 export type GeoState = {
   sections: Record<LayerSectionKey, LayersSectionState>
   recipes: Record<LayerSectionKey, string>
-  mosaicOptions: {
-    applied: MosaicOptions
-    selected?: boolean
-    status?: LayerFetchStatus
-    ui: MosaicOptions
-    url: Partial<Record<CountryIso, string>>
-  }
   geoStatistics: GeoStatisticsState
 }

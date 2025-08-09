@@ -1,11 +1,7 @@
-import { createAsyncThunk } from '@reduxjs/toolkit'
-import axios from 'axios'
-
-import { ApiEndPoint } from 'meta/api/endpoint'
 import { CountryIso } from 'meta/area'
 import { MosaicOptions } from 'meta/geo'
 
-const getReqBody = (mosaicOptions: MosaicOptions, countryIso: CountryIso) => {
+export const _getUrlTemplateReqBody = (mosaicOptions: MosaicOptions, countryIso: CountryIso) => {
   const { maxCloudCoverage, snowMasking, sources, year } = mosaicOptions
   const body = {
     recipe: {
@@ -22,8 +18,8 @@ const getReqBody = (mosaicOptions: MosaicOptions, countryIso: CountryIso) => {
         },
         sources: {
           dataSets: {
-            ...(sources.includes('sentinel') ? { SENTINEL: ['SENTINEL_2'] } : {}),
-            ...(sources.includes('landsat') ? { LANDSAT: ['LANDSAT_7', 'LANDSAT_8'] } : {}),
+            ...(sources.sentinel ? { SENTINEL: ['SENTINEL_2'] } : {}),
+            ...(sources.landsat ? { LANDSAT: ['LANDSAT_7', 'LANDSAT_8'] } : {}),
           },
           cloudPercentageThreshold: maxCloudCoverage,
         },
@@ -60,21 +56,3 @@ const getReqBody = (mosaicOptions: MosaicOptions, countryIso: CountryIso) => {
 
   return body
 }
-
-interface PostMosaicOptionsProps {
-  mosaicOptions: MosaicOptions
-  countryIso: CountryIso
-}
-
-export const postMosaicOptions = createAsyncThunk<
-  { urlTemplate: string; countryIso: CountryIso },
-  PostMosaicOptionsProps
->('geo/post/mosaic', async ({ countryIso, mosaicOptions }) => {
-  const body = getReqBody(mosaicOptions, countryIso)
-  const { data } = await axios.post(`${ApiEndPoint.Geo.sepalProxy()}/preview`, body)
-
-  return {
-    urlTemplate: data.urlTemplate,
-    countryIso,
-  }
-})
