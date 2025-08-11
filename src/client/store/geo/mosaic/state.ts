@@ -6,7 +6,6 @@ export type MosaicState = {
   options: MosaicOptions
   selected?: boolean
   status?: LayerFetchStatus
-  ui: MosaicOptions
   urlTemplate?: string
 }
 
@@ -19,5 +18,4 @@ const initialMosaicOptions: MosaicOptions = {
 
 export const initialState: MosaicState = {
   options: initialMosaicOptions,
-  ui: initialMosaicOptions,
 }

@@ -14,5 +14,3 @@ export const useMosaicSelected = (): boolean | undefined =>
 
 export const useMosaicStatus = (): LayerFetchStatus | undefined =>
   useAppSelector((state) => MosaicSelectors.getStatus(state))
-
-export const useUiMosaicOptions = (): MosaicOptions => useAppSelector((state) => MosaicSelectors.getUiOptions(state))

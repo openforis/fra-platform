@@ -7,4 +7,4 @@ type Params<K extends keyof MosaicOptions = keyof MosaicOptions> = {
   value: MosaicOptions[K]
 }
 
-export const setUiOption = createAction<Params>('geo/mosaic/ui/set')
+export const setOption = createAction<Params>('geo/mosaic/options/set')

@@ -12,14 +12,11 @@ const getSelected = createSelector(_getState, (state) => state?.selected)
 
 const getStatus = createSelector(_getState, (state) => state?.status)
 
-const getUiOptions = createSelector(_getState, (state) => state?.ui)
-
 const getUrlTemplate = createSelector(_getState, (state) => state?.urlTemplate)
 
 export const MosaicSelectors = {
   getOptions,
   getSelected,
   getStatus,
-  getUiOptions,
   getUrlTemplate,
 }

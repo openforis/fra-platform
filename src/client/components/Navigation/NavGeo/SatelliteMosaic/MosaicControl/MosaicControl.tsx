@@ -2,7 +2,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { MosaicActions } from 'client/store/geo/mosaic/actions'
-import { useMosaicStatus, useUiMosaicOptions } from 'client/store/geo/mosaic/hooks/mosaic'
+import { useMosaicOptions, useMosaicStatus } from 'client/store/geo/mosaic/hooks/mosaic'
 import { useAppDispatch } from 'client/store/hooks'
 import { LayerFetchStatus } from 'client/store/ui/geo/stateType'
 import Button, { ButtonSize } from 'client/components/Buttons/Button'
@@ -18,7 +18,7 @@ const MosaicControl: React.FC = () => {
   const dispatch = useAppDispatch()
   const { t } = useTranslation()
 
-  const uiMosaicOptions = useUiMosaicOptions()
+  const mosaicOptions = useMosaicOptions()
   const status = useMosaicStatus()
   const { optionsHaveChanged, sources, yearOptions } = useMosaicOptionsData()
 
@@ -27,7 +27,7 @@ const MosaicControl: React.FC = () => {
       <OptionLabel>{t('common.sources')}</OptionLabel>
       <div className="geo-options-grid__flex">
         {sources.map(({ key, label }) => {
-          const uiSources = uiMosaicOptions.sources ?? {}
+          const uiSources = mosaicOptions.sources ?? {}
           const checked = uiSources[key] ?? false
           return (
             <ButtonCheckbox
@@ -35,7 +35,7 @@ const MosaicControl: React.FC = () => {
               checked={checked}
               label={label}
               onClick={() =>
-                dispatch(MosaicActions.setUiOption({ key: 'sources', value: { ...uiSources, [key]: !checked } }))
+                dispatch(MosaicActions.setOption({ key: 'sources', value: { ...uiSources, [key]: !checked } }))
               }
             />
           )
@@ -46,25 +46,23 @@ const MosaicControl: React.FC = () => {
       <SelectPrimary
         isClearable={false}
         maxMenuHeight={126} // 4 options with 28px height each, plus half of another option
-        onChange={(value) => dispatch(MosaicActions.setUiOption({ key: 'year', value: Number(value) }))}
+        onChange={(value) => dispatch(MosaicActions.setOption({ key: 'year', value: Number(value) }))}
         options={yearOptions}
-        value={uiMosaicOptions.year.toString()}
+        value={mosaicOptions.year.toString()}
       />
 
       <OptionLabel>{t('geo.maxCloudCoverage')}</OptionLabel>
       <InputRange
-        onChange={(e) =>
-          dispatch(MosaicActions.setUiOption({ key: 'maxCloudCoverage', value: Number(e.target.value) }))
-        }
+        onChange={(e) => dispatch(MosaicActions.setOption({ key: 'maxCloudCoverage', value: Number(e.target.value) }))}
         unit="%"
-        value={uiMosaicOptions.maxCloudCoverage}
+        value={mosaicOptions.maxCloudCoverage}
       />
 
       <ButtonCheckbox
-        checked={uiMosaicOptions.snowMasking}
+        checked={mosaicOptions.snowMasking}
         className="geo-options-grid__one-col"
         label={t('geo.snowMasking')}
-        onClick={() => dispatch(MosaicActions.setUiOption({ key: 'snowMasking', value: !uiMosaicOptions.snowMasking }))}
+        onClick={() => dispatch(MosaicActions.setOption({ key: 'snowMasking', value: !mosaicOptions.snowMasking }))}
       />
 
       <Button
