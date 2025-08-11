@@ -180,7 +180,7 @@
     "archiver": "^6.0.2",
     "assert": "^2.0.0",
     "axios": "^0.25.0",
-    "bcrypt": "^5.0.1",
+    "bcrypt": "^5.1.1",
     "bignumber.js": "^9.0.1",
     "bluebird": "^3.7.2",
     "body-parser": "^1.19.2",
@@ -289,7 +289,6 @@
     "zod": "^4.0.2"
   },
   "overrides": {
-    "bcrypt": "5.0.1",
     "string-width": "4.2.3"
   },
   "browserslist": [
