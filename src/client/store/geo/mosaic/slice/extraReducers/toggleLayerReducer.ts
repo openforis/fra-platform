@@ -1,4 +1,5 @@
 import { ActionReducerMapBuilder } from '@reduxjs/toolkit'
+import { Objects } from 'utils/objects'
 
 import { MOSAIC_LAYER_KEY } from 'meta/geo/mosaic'
 
@@ -7,18 +8,16 @@ import { MosaicState } from 'client/store/geo/mosaic/state'
 import { mapController } from 'client/utils'
 
 export const toggleLayerReducer = (builder: ActionReducerMapBuilder<MosaicState>) => {
-  builder.addCase(toggleLayer, (state) => {
-    const currentSelected = state.selected ?? false
-    state.selected = !currentSelected
+  builder.addCase(toggleLayer.fulfilled, (state, action) => {
+    const { selected } = action.payload
+    state.selected = selected
 
-    if (currentSelected) {
+    if (!selected) {
       mapController.removeLayer(MOSAIC_LAYER_KEY)
       return
     }
 
-    const { urlTemplate } = state
-    if (urlTemplate) {
-      mapController.addSepalLayer(MOSAIC_LAYER_KEY, urlTemplate)
-    }
+    const url = state.urlTemplateData?.url
+    if (!Objects.isEmpty(url)) mapController.addSepalLayer(MOSAIC_LAYER_KEY, url)
   })
 }

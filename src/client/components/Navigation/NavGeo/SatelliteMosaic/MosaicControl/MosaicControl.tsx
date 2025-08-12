@@ -12,6 +12,7 @@ import SelectPrimary from 'client/components/Inputs/SelectPrimary'
 import OptionLabel from 'client/components/Navigation/NavGeo/Grid/OptionLabel'
 import OptionsGrid from 'client/components/Navigation/NavGeo/Grid/OptionsGrid'
 
+import useApplyOptions from './hooks/useApplyOptions'
 import useMosaicOptionsData from './hooks/useMosaicOptionsData'
 
 const MosaicControl: React.FC = () => {
@@ -20,7 +21,8 @@ const MosaicControl: React.FC = () => {
 
   const mosaicOptions = useMosaicOptions()
   const status = useMosaicStatus()
-  const { optionsHaveChanged, sources, yearOptions } = useMosaicOptionsData()
+  const { sources, yearOptions } = useMosaicOptionsData()
+  const { applyOptions, disabled } = useApplyOptions()
 
   return (
     <OptionsGrid>
@@ -67,9 +69,9 @@ const MosaicControl: React.FC = () => {
 
       <Button
         className="geo-options-grid__one-col centered"
-        disabled={!optionsHaveChanged}
+        disabled={disabled}
         label={t('common.apply')}
-        onClick={() => dispatch(MosaicActions.applyOptions())}
+        onClick={applyOptions}
         size={ButtonSize.s}
       />
 

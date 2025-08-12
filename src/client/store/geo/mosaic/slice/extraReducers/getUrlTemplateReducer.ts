@@ -9,24 +9,23 @@ import { mapController } from 'client/utils'
 
 export const getUrlTemplateReducer = (builder: ActionReducerMapBuilder<MosaicState>) => {
   builder.addCase(getUrlTemplate.pending, (state) => {
-    delete state.urlTemplate
+    delete state.urlTemplateData
     state.status = LayerFetchStatus.Loading
     mapController.removeLayer(MOSAIC_LAYER_KEY)
   })
 
   builder.addCase(getUrlTemplate.rejected, (state) => {
-    delete state.urlTemplate
+    delete state.urlTemplateData
     state.status = LayerFetchStatus.Failed
     mapController.removeLayer(MOSAIC_LAYER_KEY)
   })
 
   builder.addCase(getUrlTemplate.fulfilled, (state, action) => {
-    const urlTemplate = action.payload
-    state.urlTemplate = urlTemplate
+    state.urlTemplateData = action.payload
     state.status = LayerFetchStatus.Ready
 
     if (state.selected) {
-      mapController.addSepalLayer(MOSAIC_LAYER_KEY, urlTemplate)
+      mapController.addSepalLayer(MOSAIC_LAYER_KEY, state.urlTemplateData.url)
     } else {
       mapController.removeLayer(MOSAIC_LAYER_KEY)
     }

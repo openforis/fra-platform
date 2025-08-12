@@ -2,11 +2,16 @@ import { MosaicOptions } from 'meta/geo'
 
 import { LayerFetchStatus } from 'client/store/ui/geo/stateType'
 
+export type MosaicUrlTemplateData = {
+  requestOptions: MosaicOptions
+  url: string
+}
+
 export type MosaicState = {
   options: MosaicOptions
   selected?: boolean
   status?: LayerFetchStatus
-  urlTemplate?: string
+  urlTemplateData?: MosaicUrlTemplateData
 }
 
 const initialMosaicOptions: MosaicOptions = {
