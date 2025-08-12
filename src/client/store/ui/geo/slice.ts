@@ -2,15 +2,7 @@ import type { Draft, PayloadAction } from '@reduxjs/toolkit'
 import { createSlice, Reducer } from '@reduxjs/toolkit'
 import { Objects } from 'utils/objects'
 
-import {
-  ExtraEstimation,
-  ForestEstimations,
-  LayerKey,
-  LayerSectionKey,
-  MapLayerKey,
-  MosaicOptions,
-  MosaicSource,
-} from 'meta/geo'
+import { ExtraEstimation, ForestEstimations, LayerKey, LayerSectionKey, MapLayerKey } from 'meta/geo'
 import {
   ExtraEstimationSectionState,
   ExtraEstimationState,
@@ -27,7 +19,6 @@ import {
   setSectionGlobalOpacity,
   toggleLayer,
 } from 'client/store/ui/geo/actions'
-import { postMosaicOptions } from 'client/store/ui/geo/actions/postMosaicOptions'
 import { mapController } from 'client/utils'
 
 import {
@@ -40,21 +31,9 @@ import {
 } from './stateType'
 import { getAgreementLayerCacheKey } from './utils'
 
-const initialMosaicOptions: MosaicOptions = {
-  maxCloudCoverage: 30,
-  snowMasking: false,
-  sources: ['landsat'],
-  year: 2020,
-}
-
 const initialState: GeoState = {
   sections: {} as Record<LayerSectionKey, LayersSectionState>,
   recipes: {} as Record<LayerSectionKey, string>,
-  mosaicOptions: {
-    applied: { ...initialMosaicOptions },
-    ui: { ...initialMosaicOptions },
-    url: {},
-  },
   geoStatistics: {
     forestEstimations: null,
     tabularForestEstimations: [],
@@ -179,33 +158,6 @@ export const geoSlice = createSlice({
   name: 'geo',
   initialState,
   reducers: {
-    applyMosaicOptions: (state) => {
-      state.mosaicOptions.url = {}
-      state.mosaicOptions.status = LayerFetchStatus.Unfetched
-      state.mosaicOptions.applied = { ...state.mosaicOptions.ui }
-    },
-    toggleMosaicLayer: (state) => {
-      const currentSelected = state.mosaicOptions.selected ?? false
-      state.mosaicOptions.selected = !currentSelected
-      if (currentSelected) mapController.removeLayer('mosaic')
-    },
-    toggleMosaicSource: (state, { payload }: PayloadAction<MosaicSource>) => {
-      const i = state.mosaicOptions.ui.sources.findIndex((key) => key === payload)
-      if (i === -1) {
-        state.mosaicOptions.ui.sources.push(payload)
-      } else {
-        state.mosaicOptions.ui.sources.splice(i, 1)
-      }
-    },
-    setMosaicYear: (state, { payload }: PayloadAction<number>) => {
-      state.mosaicOptions.ui.year = payload
-    },
-    setMosaicMaxCloudCoverage: (state, { payload }: PayloadAction<number>) => {
-      state.mosaicOptions.ui.maxCloudCoverage = payload
-    },
-    setMosaicSnowMasking: (state, { payload }: PayloadAction<boolean>) => {
-      state.mosaicOptions.ui.snowMasking = payload
-    },
     setForestEstimations: (state, { payload }: PayloadAction<ForestEstimations>) => {
       state.geoStatistics.forestEstimations = payload
       state.geoStatistics.isLoading = false
@@ -364,21 +316,6 @@ export const geoSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(postMosaicOptions.fulfilled, (state, { payload }) => {
-        const { countryIso, urlTemplate } = payload
-        state.mosaicOptions.url[countryIso] = urlTemplate
-        state.mosaicOptions.status = LayerFetchStatus.Ready
-      })
-      .addCase(postMosaicOptions.pending, (state) => {
-        state.mosaicOptions.url = initialState.mosaicOptions.url
-        state.mosaicOptions.status = LayerFetchStatus.Loading
-        mapController.removeLayer('mosaic')
-      })
-      .addCase(postMosaicOptions.rejected, (state) => {
-        state.mosaicOptions.url = initialState.mosaicOptions.url
-        state.mosaicOptions.status = LayerFetchStatus.Failed
-        mapController.removeLayer('mosaic')
-      })
       .addCase(getForestEstimationData.fulfilled, (state, { payload: forestEstimations }) => {
         state.geoStatistics.forestEstimations = forestEstimations
         state.geoStatistics.isLoading = false
@@ -429,7 +366,6 @@ export const geoSlice = createSlice({
 export const GeoActions = {
   postExtraEstimation,
   postLayer,
-  postMosaicOptions,
   setLayerOpacity,
   setLayerSectionRecipe,
   setSectionGlobalOpacity,

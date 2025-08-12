@@ -2,6 +2,8 @@ import { useEffect } from 'react'
 
 import { LayerKey, LayerSectionKey } from 'meta/geo'
 
+import { MosaicActions } from 'client/store/geo/mosaic/actions'
+import { useMosaicSelected } from 'client/store/geo/mosaic/hooks/mosaic'
 import { useAppDispatch } from 'client/store/hooks'
 import { GeoActions, useGeoLayerSections } from 'client/store/ui/geo'
 import { useCountryIso, usePrevious } from 'client/hooks'
@@ -11,6 +13,7 @@ export const useCountryIsoChangeHandler = () => {
   const prevCountryIso = usePrevious(countryIso)
   const dispatch = useAppDispatch()
   const allSectionsState = useGeoLayerSections()
+  const mosaicSelected = useMosaicSelected()
 
   useEffect(() => {
     if (prevCountryIso === countryIso) return
@@ -32,6 +35,13 @@ export const useCountryIsoChangeHandler = () => {
       })
     })
   }, [allSectionsState, countryIso, dispatch, prevCountryIso])
+
+  useEffect(() => {
+    if (prevCountryIso === countryIso) return
+    dispatch(MosaicActions.resetUrlTemplateData())
+    if (!mosaicSelected) return
+    dispatch(MosaicActions.getUrlTemplate({ countryIso }))
+  }, [countryIso, dispatch, mosaicSelected, prevCountryIso])
 }
 
 export default useCountryIsoChangeHandler
