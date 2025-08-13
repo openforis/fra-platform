@@ -1,3 +1,14 @@
-src/tools/*
-!src/tools/migrations/
-
+src/tools/compareTableData
+src/tools/createMeasuresDimensions
+src/tools/createUser
+src/tools/csvNodeImport
+src/tools/csvUsersWithProfilePicture
+src/tools/cycles
+src/tools/dashboardChartScreenshots
+src/tools/db
+src/tools/generateCache
+src/tools/geo
+src/tools/report
+src/tools/s3Files
+src/tools/uploadStaticFiles
+src/tools/generatePasswordHash.ts
