@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
+import { getLayerMapIdReducer } from 'client/store/geo/layers/slice/extraReducers/getLayerMapIdReducer'
 import { setOpacityReducer } from 'client/store/geo/layers/slice/extraReducers/setOpacityReducer'
 import { setOptionsPropertyReducer } from 'client/store/geo/layers/slice/extraReducers/setOptionsPropertyReducer'
 import { setPropertyReducer } from 'client/store/geo/layers/slice/extraReducers/setPropertyReducer'
@@ -12,6 +13,7 @@ export const LayersSlice = createSlice({
   name: LayersSliceName,
   reducers: {},
   extraReducers: (builder) => {
+    getLayerMapIdReducer(builder)
     setOpacityReducer(builder)
     setOptionsPropertyReducer(builder)
     setPropertyReducer(builder)
