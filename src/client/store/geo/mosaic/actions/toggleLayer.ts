@@ -19,7 +19,7 @@ export const toggleLayer = createAsyncThunk<Returned, Params, ThunkApiConfig>(
   'geo/mosaic/toggle',
   async (params, { dispatch, getState }) => {
     const state = getState()
-    const currentSelected = MosaicSelectors.getSelected(state) ?? false
+    const currentSelected = MosaicSelectors.getSelected(state)
     const selected = !currentSelected
     const { countryIso } = params
 

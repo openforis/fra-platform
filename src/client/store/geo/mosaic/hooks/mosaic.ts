@@ -10,8 +10,7 @@ export const useMosaicUrlTemplateData = (): MosaicUrlTemplateData | undefined =>
 
 export const useMosaicOptions = (): MosaicOptions => useAppSelector((state) => MosaicSelectors.getOptions(state))
 
-export const useMosaicSelected = (): boolean | undefined =>
-  useAppSelector((state) => MosaicSelectors.getSelected(state))
+export const useMosaicSelected = (): boolean => useAppSelector((state) => MosaicSelectors.getSelected(state))
 
 export const useMosaicStatus = (): LayerFetchStatus | undefined =>
   useAppSelector((state) => MosaicSelectors.getStatus(state))

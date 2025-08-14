@@ -8,7 +8,7 @@ const _getState = (state: RootState) => state[GeoSliceName]?.[MosaicSliceName]
 
 const getOptions = createSelector(_getState, (state) => state?.options)
 
-const getSelected = createSelector(_getState, (state) => state?.selected)
+const getSelected = createSelector(_getState, (state) => state?.selected ?? false)
 
 const getStatus = createSelector(_getState, (state) => state?.status)
 
