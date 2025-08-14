@@ -1,4 +1,4 @@
-import { Col } from 'meta/assessment/col'
+import { Col, ColName } from 'meta/assessment/col'
 import { CycleUuid } from 'meta/assessment/cycle'
 import { CycledPropsObject } from 'meta/assessment/cycledObject'
 import { VariableCache } from 'meta/assessment/metaCache'
@@ -54,6 +54,7 @@ export interface RowProps {
   label?: RowLabel // TODO: remove? (check if used - probably not)
   linkToSection?: Record<CycleUuid, string>
   readonly?: boolean
+  sortableBy?: Record<CycleUuid, Array<ColName>>
   type: RowType
   validateFns?: Record<CycleUuid, Array<string>>
   variableName?: VariableName
