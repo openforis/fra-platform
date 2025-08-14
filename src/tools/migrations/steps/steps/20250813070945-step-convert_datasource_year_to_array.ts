@@ -1,4 +1,5 @@
 import * as pgPromise from 'pg-promise'
+import { Objects } from 'utils/objects'
 import { Promises } from 'utils/promises'
 
 import { Assessment } from 'meta/assessment/assessment'
@@ -32,12 +33,13 @@ const _isValidYearFormat = (year: string): boolean => {
   return /^[\d,\s]+$/.test(year)
 }
 
-const _fixDataSourceYear = (year: string): Array<string> => {
+const _fixDataSourceYear = (year: string | Array<string>): Array<string> => {
+  // In case double running the step:
   if (Array.isArray(year)) {
     return year
   }
 
-  if (!year || year === '') return []
+  if (Objects.isEmpty(year)) return []
 
   if (!_isValidYearFormat(year)) {
     return [year]
