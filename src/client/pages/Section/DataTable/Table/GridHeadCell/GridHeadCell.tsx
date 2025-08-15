@@ -7,15 +7,22 @@ import { useCycle } from 'client/store/meta/hooks/cycles'
 import { DataCell } from 'client/components/DataGrid'
 import OdpHeaderCell from 'client/pages/Section/DataTable/Table/GridHeadCell/OdpHeaderCell'
 
+import { SortOrder } from '../hooks/useTableSorting'
 import { useGridHeadCellProps } from './hooks/useGridHeadCellProps'
 import { GridHeadCellProps } from './types'
 
 const GridHeadCell: React.FC<GridHeadCellProps> = (props) => {
-  const { col, firstCol, table } = props
+  const { col, firstCol, onSort, sortState, table } = props
 
   const { t } = useTranslation()
   const cycle = useCycle()
   const { className, gridColumn, gridRow, lastCol, odpYear } = useGridHeadCellProps(props)
+
+  const sortColName = col.props.sortable?.[cycle.uuid]
+
+  const { colName } = col.props
+  const isCurrentlySorted = sortState?.colName === colName
+  const sortOrder = isCurrentlySorted ? sortState.order : SortOrder.NONE
 
   if (odpYear) {
     return (
@@ -32,6 +39,35 @@ const GridHeadCell: React.FC<GridHeadCellProps> = (props) => {
     )
   }
 
+  const handleClick = () => {
+    if (sortColName) onSort?.(sortColName)
+  }
+
+  // TODO: Separate component
+  const getSortButton = () => {
+    if (!sortColName) return null
+
+    let icon = '↕'
+
+    if (sortOrder === SortOrder.ASC) icon = '▲'
+    if (sortOrder === SortOrder.DESC) icon = '▼'
+
+    return (
+      <button
+        onClick={(e) => {
+          e.preventDefault()
+          e.stopPropagation()
+          handleClick()
+        }}
+        style={{ cursor: 'pointer', marginLeft: '4px', userSelect: 'none', padding: '2px' }}
+        title="Click to sort"
+        type="button"
+      >
+        {icon}
+      </button>
+    )
+  }
+
   return (
     <DataCell
       key={col.uuid}
@@ -43,6 +79,7 @@ const GridHeadCell: React.FC<GridHeadCellProps> = (props) => {
       lastCol={lastCol}
     >
       {Cols.getLabel({ cycle, col, t })}
+      {getSortButton()}
     </DataCell>
   )
 }
