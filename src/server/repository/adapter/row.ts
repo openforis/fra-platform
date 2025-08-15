@@ -15,7 +15,17 @@ export interface RowDB {
 
 export const RowAdapter = (rowDB: RowDB): Row => {
   const {
-    props: { calculateFn, calculateIf, chart, excludeFromDataExport, linkToSection, validateFns, withReview, ...rest },
+    props: {
+      calculateFn,
+      calculateIf,
+      chart,
+      excludeFromDataExport,
+      linkToSection,
+      sortableBy,
+      validateFns,
+      withReview,
+      ...rest
+    },
     ...row
   } = rowDB
 
@@ -28,6 +38,7 @@ export const RowAdapter = (rowDB: RowDB): Row => {
       chart,
       excludeFromDataExport,
       linkToSection,
+      sortableBy,
       validateFns,
       withReview,
     },
