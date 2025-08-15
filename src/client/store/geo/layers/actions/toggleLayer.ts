@@ -1,22 +1,46 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
+import { Objects } from 'utils/objects'
 
-import { LayerKey } from 'meta/geo/layer'
+import { CountryIso } from 'meta/area'
+import { LayerKey, LayerSectionKey, LayerSource } from 'meta/geo/layer'
 
 import { LayersActions } from 'client/store/geo/layers/actions'
 import { LayersSelectors } from 'client/store/geo/layers/selectors'
 import { ThunkApiConfig } from 'client/store/types'
 
 type Params = {
+  fetchLayerParams?: {
+    countryIso: CountryIso
+    layerSource?: LayerSource
+  }
   layerKey: LayerKey
+  sectionKey: LayerSectionKey
 }
 
 export const toggleLayer = createAsyncThunk<void, Params, ThunkApiConfig>(
   'geo/layers/toggleLayer',
   async (params, { dispatch, getState }) => {
-    const { layerKey } = params
+    const { fetchLayerParams, layerKey, sectionKey } = params
     const state = getState()
     const layerState = LayersSelectors.getLayer(state, layerKey)
-    const selected = layerState?.selected ?? false
-    dispatch(LayersActions.setProperty({ layerKey, propertyKey: 'selected', value: !selected }))
+    const currentSelected = layerState?.selected ?? false
+    dispatch(LayersActions.setProperty({ layerKey, propertyKey: 'selected', value: !currentSelected }))
+
+    // If the layer is now selected, doesn't have a mapId cached and is visible, fetch it
+    const currentMapId = layerState?.mapId
+    if (currentSelected || currentMapId) return
+    if (layerState?.opacity === 0) return
+
+    if (Objects.isEmpty(fetchLayerParams)) return
+
+    const { countryIso, layerSource } = fetchLayerParams
+    dispatch(
+      LayersActions.getLayerMapId({
+        countryIso,
+        layerKey,
+        layerSource,
+        sectionKey,
+      })
+    )
   }
 )

@@ -2,7 +2,8 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 import { CountryIso } from 'meta/area'
-import { Layer, LayerKey, LayerSectionKey, LayerSource, sectionsApiEndpoint } from 'meta/geo'
+import { LayerKey, LayerSectionKey, LayerSource, sectionsApiEndpoint } from 'meta/geo'
+import { sectionsMap } from 'meta/geo/sections'
 
 import { _getLayerRequestBody } from 'client/store/geo/layers/actions/_getLayerRequestBody'
 import { LayersSelectors } from 'client/store/geo/layers/selectors'
@@ -15,25 +16,23 @@ type Params = {
   layerKey: LayerKey
   layerSource?: LayerSource
   sectionKey: LayerSectionKey
-  sectionLayers: Array<Layer>
 }
 
 type Returned = {
   layerKey: LayerKey
   mapId: string
-  sectionKey: LayerSectionKey
 }
 
 export const getLayerMapId = createAsyncThunk<Returned, Params, ThunkApiConfig>(
   'geo/layers/getLayerMapId',
   async (params, { getState }) => {
-    const { countryIso, layerKey, layerSource, sectionKey, sectionLayers } = params
+    const { countryIso, layerKey, layerSource, sectionKey } = params
     const url = sectionsApiEndpoint[sectionKey]
 
     if (layerSource !== undefined) {
       const body = { countryIso, layer: layerSource }
       const response = await axios.post(url, body)
-      return { layerKey, mapId: response.data.mapId, sectionKey }
+      return { layerKey, mapId: response.data.mapId }
     }
 
     const rootState = getState()
@@ -41,8 +40,9 @@ export const getLayerMapId = createAsyncThunk<Returned, Params, ThunkApiConfig>(
 
     const layerState = LayersSelectors.getLayer(rootState, layerKey)
 
+    const sectionLayers = sectionsMap[sectionKey].layers
     const body = _getLayerRequestBody(countryIso, layerKey, layerState, layersState, sectionLayers)
     const response = await axios.post(url, body)
-    return { layerKey, mapId: response.data.mapId, sectionKey }
+    return { layerKey, mapId: response.data.mapId }
   }
 )

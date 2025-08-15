@@ -1,24 +1,38 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
-import { Layer } from 'meta/geo/layer'
+import { CountryIso } from 'meta/area'
+import { ForestKey } from 'meta/geo'
+import { LayerSectionKey } from 'meta/geo/layer'
+import { sectionsMap } from 'meta/geo/sections'
 
 import { LayersActions } from 'client/store/geo/layers/actions'
 import { LayersSelectors } from 'client/store/geo/layers/selectors'
 import { ThunkApiConfig } from 'client/store/types'
 
 type Params = {
-  layers: Array<Layer>
+  countryIso: CountryIso
   opacity: number
+  sectionKey: LayerSectionKey
 }
 
 export const setSectionGlobalOpacity = createAsyncThunk<void, Params, ThunkApiConfig>(
   'geo/layers/setSectionGlobalOpacity',
   async (params, { dispatch, getState }) => {
-    const { layers, opacity } = params
+    const { countryIso, opacity, sectionKey } = params
+    const sectionLayers = sectionsMap[sectionKey].layers
+
     const state = getState()
-    layers.forEach((layer) => {
-      const layerState = LayersSelectors.getLayer(state, layer.key)
-      if (layerState?.selected) dispatch(LayersActions.setOpacity({ layerKey: layer.key, opacity }))
+
+    sectionLayers.forEach((layer) => {
+      const layerKey = layer.key
+
+      if (layerKey === ForestKey.Agreement) return
+
+      const layerState = LayersSelectors.getLayer(state, layerKey)
+
+      if (layerState === undefined || !layerState?.selected) return // Ignore non-selected layers
+
+      dispatch(LayersActions.setOpacity({ countryIso, layerKey, opacity, sectionKey }))
     })
   }
 )
