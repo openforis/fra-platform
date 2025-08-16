@@ -6,8 +6,8 @@ import { LayersState } from 'client/store/geo/layers/state'
 
 export const setPropertyReducer = (builder: ActionReducerMapBuilder<LayersState>) => {
   builder.addCase(setProperty, (state, action) => {
-    const { layerKey, propertyKey, value } = action.payload
+    const { key, layerKey, value } = action.payload
 
-    Objects.setInPath({ obj: state, path: [layerKey, propertyKey], value })
+    Objects.setInPath({ obj: state, path: [layerKey, key], value })
   })
 }
