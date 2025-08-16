@@ -21,6 +21,7 @@ type Params = {
 type Returned = {
   layerKey: LayerKey
   mapId: string
+  sectionKey: LayerSectionKey
 }
 
 export const getLayerMapId = createAsyncThunk<Returned, Params, ThunkApiConfig>(
@@ -32,7 +33,7 @@ export const getLayerMapId = createAsyncThunk<Returned, Params, ThunkApiConfig>(
     if (layerSource !== undefined) {
       const body = { countryIso, layer: layerSource }
       const response = await axios.post(url, body)
-      return { layerKey, mapId: response.data.mapId }
+      return { layerKey, mapId: response.data.mapId, sectionKey }
     }
 
     const rootState = getState()
@@ -43,6 +44,6 @@ export const getLayerMapId = createAsyncThunk<Returned, Params, ThunkApiConfig>(
     const sectionLayers = sectionsMap[sectionKey].layers
     const body = _getLayerRequestBody(countryIso, layerKey, layerState, layersState, sectionLayers)
     const response = await axios.post(url, body)
-    return { layerKey, mapId: response.data.mapId }
+    return { layerKey, mapId: response.data.mapId, sectionKey }
   }
 )
