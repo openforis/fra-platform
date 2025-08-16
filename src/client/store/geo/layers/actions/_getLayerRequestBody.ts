@@ -1,3 +1,5 @@
+import { Objects } from 'utils/objects'
+
 import { LayerRequestBody } from 'meta/api/request/geo/layer'
 import { CountryIso } from 'meta/area'
 import { ForestKey, Layer, LayerKey, LayerSource } from 'meta/geo'
@@ -5,10 +7,13 @@ import { ForestKey, Layer, LayerKey, LayerSource } from 'meta/geo'
 import { LayerFetchStatus, LayersSectionState, LayersState, LayerState } from 'client/store/geo/layers/state'
 
 export const buildLayerData = (layerKey: LayerKey, layerState: LayerState): LayerSource => {
-  return {
-    key: layerKey,
-    ...(layerState?.options && { options: { ...layerState.options } }),
+  const data: LayerSource = { key: layerKey }
+
+  if (!Objects.isEmpty(layerState?.options)) {
+    data.options = Objects.cloneDeep(layerState.options)
   }
+
+  return data
 }
 
 const _buildAgreementLayerData = (
