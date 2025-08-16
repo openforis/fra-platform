@@ -4,7 +4,8 @@ import { Objects } from 'utils/objects'
 import { CountryIso } from 'meta/area'
 import { LayerKey, LayerSectionKey, LayerSource } from 'meta/geo/layer'
 
-import { LayersActions } from 'client/store/geo/layers/actions'
+import { getLayerMapId } from 'client/store/geo/layers/actions/getLayerMapId'
+import { setProperty } from 'client/store/geo/layers/actions/setProperty'
 import { LayersSelectors } from 'client/store/geo/layers/selectors'
 import { ThunkApiConfig } from 'client/store/types'
 
@@ -24,7 +25,7 @@ export const toggleLayer = createAsyncThunk<void, Params, ThunkApiConfig>(
     const state = getState()
     const layerState = LayersSelectors.getLayer(state, layerKey)
     const currentSelected = layerState?.selected ?? false
-    dispatch(LayersActions.setProperty({ layerKey, propertyKey: 'selected', value: !currentSelected }))
+    dispatch(setProperty({ layerKey, propertyKey: 'selected', value: !currentSelected }))
 
     // If the layer is now selected, doesn't have a mapId cached and is visible, fetch it
     const currentMapId = layerState?.mapId
@@ -34,13 +35,6 @@ export const toggleLayer = createAsyncThunk<void, Params, ThunkApiConfig>(
     if (Objects.isEmpty(fetchLayerParams)) return
 
     const { countryIso, layerSource } = fetchLayerParams
-    dispatch(
-      LayersActions.getLayerMapId({
-        countryIso,
-        layerKey,
-        layerSource,
-        sectionKey,
-      })
-    )
+    dispatch(getLayerMapId({ countryIso, layerKey, layerSource, sectionKey }))
   }
 )

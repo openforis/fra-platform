@@ -3,7 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import { CountryIso } from 'meta/area'
 import { LayerKey, LayerSectionKey } from 'meta/geo/layer'
 
-import { LayersActions } from 'client/store/geo/layers/actions'
+import { getLayerMapId } from 'client/store/geo/layers/actions/getLayerMapId'
 import { LayersSelectors } from 'client/store/geo/layers/selectors'
 import { LayerFetchStatus } from 'client/store/geo/layers/state'
 import { ThunkApiConfig } from 'client/store/types'
@@ -26,7 +26,7 @@ export const setOpacity = createAsyncThunk<Returned, Params, ThunkApiConfig>(
     const layerState = LayersSelectors.getLayer(state, layerKey)
 
     if (layerState?.status === undefined || layerState?.status === LayerFetchStatus.Unfetched) {
-      dispatch(LayersActions.getLayerMapId({ countryIso, layerKey, sectionKey }))
+      dispatch(getLayerMapId({ countryIso, layerKey, sectionKey }))
     }
 
     return params

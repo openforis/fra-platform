@@ -5,7 +5,7 @@ import { ForestKey } from 'meta/geo'
 import { LayerSectionKey } from 'meta/geo/layer'
 import { sectionsMap } from 'meta/geo/sections'
 
-import { LayersActions } from 'client/store/geo/layers/actions'
+import { setOpacity } from 'client/store/geo/layers/actions/setOpacity'
 import { LayersSelectors } from 'client/store/geo/layers/selectors'
 import { ThunkApiConfig } from 'client/store/types'
 
@@ -32,7 +32,7 @@ export const setSectionGlobalOpacity = createAsyncThunk<void, Params, ThunkApiCo
 
       if (layerState === undefined || !layerState?.selected) return // Ignore non-selected layers
 
-      dispatch(LayersActions.setOpacity({ countryIso, layerKey, opacity, sectionKey }))
+      dispatch(setOpacity({ countryIso, layerKey, opacity, sectionKey }))
     })
   }
 )
