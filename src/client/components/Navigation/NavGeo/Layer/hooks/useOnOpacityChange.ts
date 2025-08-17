@@ -2,8 +2,8 @@ import React, { useCallback } from 'react'
 
 import { CountryIso } from 'meta/area'
 
+import { LayersActions } from 'client/store/geo/layers/actions'
 import { useAppDispatch } from 'client/store/hooks'
-import { GeoActions } from 'client/store/ui/geo'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { LayerMetaProps } from 'client/components/Navigation/NavGeo/Layer/types'
 
@@ -20,7 +20,7 @@ export const useOnOpacityChange = (props: LayerMetaProps): Returned => {
   return useCallback<Returned>(
     (event) => {
       const newOpacity = Math.round(Number(event.currentTarget.value) / 10) / 10
-      dispatch(GeoActions.setLayerOpacity({ countryIso, layerKey, opacity: newOpacity, sectionKey }))
+      dispatch(LayersActions.setOpacity({ countryIso, layerKey, opacity: newOpacity, sectionKey }))
     },
     [countryIso, dispatch, layerKey, sectionKey]
   )

@@ -25,14 +25,15 @@ const _buildAgreementLayerData = (
   const layers: Array<LayerSource> = []
   // Build an array of the selected layers, ignoring agreement
   sectionLayers.forEach(({ key: layerKey }) => {
+    const layerState = layersState[layerKey]
+    if (Objects.isEmpty(layerState)) return
     if (layerKey === ForestKey.Agreement) return
-    const layerState = layersState[layerKey as LayerKey]
     if (
       layerState.selected &&
       (layerKey !== ForestKey.CustomFnF ||
         (layerState.options?.assetId && layerState.status === LayerFetchStatus.Ready))
     ) {
-      layers.push(buildLayerData(layerKey as LayerKey, layerState))
+      layers.push(buildLayerData(layerKey, layerState))
     }
   })
   return {

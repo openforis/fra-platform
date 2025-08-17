@@ -23,7 +23,7 @@ export const useCountSectionSelectedLayers = (props: Props) => {
 
     section.layers.forEach(({ key: layerKey }) => {
       if (layerKey === ForestKey.Agreement && ignoreAgreementLayer) return
-      if (layersState[layerKey].selected) {
+      if (layersState[layerKey]?.selected) {
         count += 1
       }
     })

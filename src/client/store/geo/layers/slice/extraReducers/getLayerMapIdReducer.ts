@@ -64,9 +64,11 @@ export const getLayerMapIdReducer = (builder: ActionReducerMapBuilder<LayersStat
 
     const layerState = state[layerKey]
 
-    const opacity = layerState.opacity ?? 1
+    if (Objects.isEmpty(layerState.opacity)) {
+      layerState.opacity = 1
+    }
     if (layerState.selected) {
-      mapController.addOrUpdateEarthEngineLayer(layerKey, mapId, opacity)
+      mapController.addOrUpdateEarthEngineLayer(layerKey, mapId, layerState.opacity)
     } else {
       mapController.removeLayer(layerKey)
     }

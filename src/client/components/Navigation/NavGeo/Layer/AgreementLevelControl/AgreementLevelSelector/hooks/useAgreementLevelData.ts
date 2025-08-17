@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 
 import { Layer, LayerSectionKey } from 'meta/geo'
 
-import { useGeoLayer } from 'client/store/ui/geo'
+import { useGeoLayer } from 'client/store/geo/layers/hooks/layers'
 import { useCountSectionSelectedLayers } from 'client/pages/Geo/Map/hooks/useCountSectionSelectedLayers'
 
 type Props = {
@@ -20,7 +20,7 @@ export const useAgreementLevelSelectorData = (props: Props): Returned => {
   const { layer, sectionKey } = props
   const layerKey = layer.key
 
-  const layerState = useGeoLayer(sectionKey, layerKey)
+  const layerState = useGeoLayer(layerKey)
   const currentSelectedLevel = layerState?.options?.agreementLayer?.level
 
   const agreementPalette = layer.metadata?.palette
@@ -29,7 +29,6 @@ export const useAgreementLevelSelectorData = (props: Props): Returned => {
   return useMemo<Returned>(() => {
     let eligiblePalette: Array<string> = []
     if (agreementPalette && currentSelectedLevel !== undefined) {
-      // eligiblePalette = agreementPalette.slice(currentSelectedLevel - 1, selectedLayersCount)
       eligiblePalette = agreementPalette
     }
 
