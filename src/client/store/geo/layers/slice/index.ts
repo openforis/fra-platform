@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 import { getLayerMapIdReducer } from 'client/store/geo/layers/slice/extraReducers/getLayerMapIdReducer'
-import { resetAllLayersStatusReducer } from 'client/store/geo/layers/slice/extraReducers/resetAllLayersStatusReducer'
+import { resetLayerStatusReducer } from 'client/store/geo/layers/slice/extraReducers/resetLayerStatusReducer'
 import { setAgreementPropertyReducer } from 'client/store/geo/layers/slice/extraReducers/setAgreementPropertyReducer'
 import { setOpacityReducer } from 'client/store/geo/layers/slice/extraReducers/setOpacityReducer'
 import { setOptionsPropertyReducer } from 'client/store/geo/layers/slice/extraReducers/setOptionsPropertyReducer'
@@ -16,7 +16,7 @@ export const LayersSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     getLayerMapIdReducer(builder)
-    resetAllLayersStatusReducer(builder)
+    resetLayerStatusReducer(builder)
     setAgreementPropertyReducer(builder)
     setOpacityReducer(builder)
     setOptionsPropertyReducer(builder)
