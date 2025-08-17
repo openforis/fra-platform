@@ -14,6 +14,7 @@ import * as set from 'lodash.set'
 import * as unset from 'lodash.unset'
 
 import { camelize } from './camelize'
+import { flatten } from './flatten'
 import { getDiff } from './getDiff'
 import { getInPath } from './getInPath'
 import { isEmpty } from './isEmpty'
@@ -24,6 +25,7 @@ import { setInPath } from './setInPath'
 export const Objects = {
   camelize,
   cloneDeep,
+  flatten,
   getDiff,
   getInPath,
   isEmpty,
