@@ -1,8 +1,11 @@
 import { useMemo } from 'react'
 
-import { ForestKey, LayerKey, LayerSectionKey } from 'meta/geo'
+import { Objects } from 'utils/objects'
 
-import { useGeoLayerSection } from 'client/store/ui/geo'
+import { ForestKey, LayerSectionKey } from 'meta/geo'
+import { sectionsMap } from 'meta/geo/sections'
+
+import { useGeoLayers } from 'client/store/geo/layers/hooks/layers'
 
 type Props = {
   ignoreAgreementLayer?: boolean
@@ -11,19 +14,19 @@ type Props = {
 
 export const useCountSectionSelectedLayers = (props: Props) => {
   const { ignoreAgreementLayer = false, sectionKey } = props
-  const sectionState = useGeoLayerSection(sectionKey)
+  const section = sectionsMap[sectionKey]
+  const layersState = useGeoLayers()
 
   return useMemo<number>(() => {
-    if (sectionState === undefined) return 0
+    if (Objects.isEmpty(layersState)) return 0
     let count = 0
 
-    Object.keys(sectionState).forEach((layerKey) => {
-      if (ignoreAgreementLayer && layerKey === ForestKey.Agreement) return
-
-      if (sectionState[layerKey as LayerKey].selected) {
+    section.layers.forEach(({ key: layerKey }) => {
+      if (layerKey === ForestKey.Agreement && ignoreAgreementLayer) return
+      if (layersState[layerKey].selected) {
         count += 1
       }
     })
     return count
-  }, [ignoreAgreementLayer, sectionState])
+  }, [ignoreAgreementLayer, layersState, section])
 }
