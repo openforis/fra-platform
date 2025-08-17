@@ -2,19 +2,18 @@ import { useMemo } from 'react'
 
 import { LayerControlType } from 'meta/geo/layer'
 
-import { useGeoLayer } from 'client/store/ui/geo'
-import { LayerFetchStatus, LayerState } from 'client/store/ui/geo/stateType'
+import { useGeoLayer } from 'client/store/geo/layers/hooks/layers'
+import { LayerFetchStatus, LayerState } from 'client/store/geo/layers/state'
 import { LayerMetaProps, LayerUi } from 'client/components/Navigation/NavGeo/Layer/types'
 
 const defaultLayerState: LayerState = { opacity: 1, selected: false, status: LayerFetchStatus.Unfetched }
 
 export const useLayerUi = (props: LayerMetaProps): LayerUi => {
-  const { layerMeta, section } = props
+  const { layerMeta } = props
   const { key: layerKey, metadata, type: layerType } = layerMeta
   const { palette } = metadata ?? {}
-  const { key: sectionKey } = section
 
-  const layerState = useGeoLayer(sectionKey, layerKey)
+  const layerState = useGeoLayer(layerKey)
   const { opacity, options, selected, status } = layerState ?? defaultLayerState
   const { agreementLayer } = { agreementLayer: { level: 1 }, ...options }
 

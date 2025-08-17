@@ -1,12 +1,13 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
 
 import { Layer, LayerSectionKey } from 'meta/geo'
 
+import { LayersActions } from 'client/store/geo/layers/actions'
+import { useGeoLayer } from 'client/store/geo/layers/hooks/layers'
 import { useAppDispatch } from 'client/store/hooks'
-import { GeoActions, useGeoLayer } from 'client/store/ui/geo'
 import SelectPrimary from 'client/components/Inputs/SelectPrimary'
 import OptionLabel from 'client/components/Navigation/NavGeo/Grid/OptionLabel'
 import OptionsGrid from 'client/components/Navigation/NavGeo/Grid/OptionsGrid'
@@ -25,15 +26,16 @@ const YearControl: React.FC<Props> = (props) => {
   const dispatch = useAppDispatch()
   const { t } = useTranslation()
 
-  const layerState = useGeoLayer(sectionKey, layerKey)
+  const layerState = useGeoLayer(layerKey)
 
   useFetchNewLayerOption(sectionKey, layerKey, 'year', layer)
 
   const options = useYearOptions({ years: layer.options?.years ?? [] })
 
-  const handleYearChange = (year: string) => {
-    dispatch(GeoActions.setLayerYear({ layerKey, sectionKey, year: parseInt(year, 10) }))
-  }
+  const handleYearChange = useCallback<(year: string) => void>(
+    (year) => dispatch(LayersActions.setOptionsProperty({ layerKey, key: 'year', value: parseInt(year, 10) })),
+    [dispatch, layerKey]
+  )
 
   return (
     <OptionsGrid
