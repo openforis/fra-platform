@@ -14,7 +14,7 @@ export const write = async (arr: Array<unknown>, fileName: string): Promise<void
     fs.mkdirSync(dir)
   }
 
-  fs.writeFileSync(`${dir}/${filename}`, `${header}\n${csv.join('\n')}`)
+  fs.writeFileSync(`${dir}/${filename}`, `\ufeff${header}\n${csv.join('\n')}`)
 
   Logger.debug(`CSV file written: ${dir}/${filename}`)
 }
