@@ -29,6 +29,7 @@ export enum TableNames {
   growingStockAvg = 'growingStockAvg',
   growingStockTotal = 'growingStockTotal',
   growingStock_growingStockStatus = 'growingStock_growingStockStatus',
+  nonWoodForestProductsRemovals = 'nonWoodForestProductsRemovals',
   primaryDesignatedManagementObjective = 'primaryDesignatedManagementObjective',
   specificForestCategories = 'specificForestCategories',
   sustainableDevelopment15_2_1_1 = 'sustainableDevelopment15_2_1_1',
