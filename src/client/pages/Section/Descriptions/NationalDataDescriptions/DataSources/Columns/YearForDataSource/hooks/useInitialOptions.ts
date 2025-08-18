@@ -4,7 +4,12 @@ import { Option } from 'client/components/Inputs/Select'
 
 import { useDefaultOptions } from './useDefaultOptions'
 
-export const useInitialOptions = (dataSource: DataSource) => {
+type Props = {
+  dataSource: DataSource
+}
+
+export const useInitialOptions = (props: Props): Array<Option> => {
+  const { dataSource } = props
   const defaultOptions = useDefaultOptions()
   const customOptions: Array<Option> = []
 

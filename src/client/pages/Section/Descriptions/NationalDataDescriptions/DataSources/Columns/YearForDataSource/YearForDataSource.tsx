@@ -20,13 +20,13 @@ type Props = {
 const YearForDataSource: React.FC<Props> = (props: Props) => {
   const { dataSource, disabled, sectionName } = props
 
-  const initialOptions = useInitialOptions(dataSource)
+  const initialOptions = useInitialOptions({ dataSource })
 
   const [options, setOptions] = useState<Array<Option>>(initialOptions)
   const [values, setValues] = useState<Array<string>>(dataSource.year)
 
   const onChange = useOnChange({ sectionName, dataSource })
-  const onCreateOption = useCreateOption(options, setOptions, values, setValues)
+  const onCreateOption = useCreateOption({ options, setOptions, values, setValues })
 
   return (
     <MultiSelect

@@ -2,12 +2,17 @@ import { Option } from 'client/components/Inputs/Select'
 
 import { useDefaultOptions } from './useDefaultOptions'
 
-export const useCreateOption = (
-  options: Array<Option>,
-  setOptions: (options: Array<Option>) => void,
-  values: Array<string>,
+type Props = {
+  options: Array<Option>
+  setOptions: (options: Array<Option>) => void
+  values: Array<string>
   setValues: (values: Array<string>) => void
-) => {
+}
+
+type Returned = (value: string) => void
+
+export const useCreateOption = (props: Props): Returned => {
+  const { options, setOptions, setValues, values } = props
   const defaultOptions = useDefaultOptions()
 
   return (value: string) => {
