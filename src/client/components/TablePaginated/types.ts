@@ -17,6 +17,7 @@ export type Column<Datum> = {
 export type Props<Datum extends object> = {
   columns: Array<Column<Datum>>
   compareFn?: TablePaginatedCompareFn<Datum>
+  filterFn?: (datum: Datum) => boolean
   filters?: Array<TablePaginatedFilter<TablePaginatedFilterType>>
   groups?: { headerLabel: (key: PropertyKey) => string; keySelector: (datum: Datum) => PropertyKey }
   limit?: number

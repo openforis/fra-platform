@@ -2,7 +2,7 @@
   "license": "UNLICENSED",
   "name": "fra-platform",
   "engines": {
-    "node": "20.11.1",
+    "node": "22.18.0",
     "yarn": "^1.22.22"
   },
   "scripts": {
@@ -19,7 +19,7 @@
     "migration-steps:create": "ts-node src/tools/migrations/steps/createMigrationStep.ts",
     "migration-steps:reset": "ts-node src/tools/migrations/steps/reset.ts",
     "migration-steps:run": "ts-node src/tools/migrations/steps/",
-    "migration-steps:watch": "ts-node-dev --respawn --transpile-only --exit-child --watch src/tools/migrations/steps/ src/test/migrations/ -- --watch",
+    "migration-steps:watch": "ts-node-dev --respawn --transpile-only --exit-child --watch src/tools/migrations/steps/ src/tools/migrations/steps/ -- --watch",
     "run:dev": "run-p run:dev:client run:dev:server",
     "run:dev:client": "cross-env NODE_ENV=development webpack serve --config webpack.config.babel.js",
     "run:dev:server": "yarn migration-public:run && ts-node-dev --files --exit-child src/server/start",
@@ -180,7 +180,7 @@
     "archiver": "^6.0.2",
     "assert": "^2.0.0",
     "axios": "^0.25.0",
-    "bcrypt": "^5.0.1",
+    "bcrypt": "^5.1.1",
     "bignumber.js": "^9.0.1",
     "bluebird": "^3.7.2",
     "body-parser": "^1.19.2",
@@ -289,13 +289,12 @@
     "zod": "^4.0.2"
   },
   "overrides": {
-    "bcrypt": "5.0.1",
     "string-width": "4.2.3"
   },
   "browserslist": [
     "last 2 versions"
   ],
-  "version": "3.12.0",
+  "version": "3.13.0",
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"

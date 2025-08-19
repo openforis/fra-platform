@@ -61,6 +61,7 @@ module.exports = {
     '@typescript-eslint/no-use-before-define': ['error'],
     '@typescript-eslint/ban-ts-comment': 'off',
     '@typescript-eslint/array-type': ['error', { default: 'generic' }],
+    '@typescript-eslint/explicit-function-return-type': 'error',
     'no-restricted-exports': 'off',
     'react/function-component-definition': 'off',
     'react-hooks/rules-of-hooks': 'error',

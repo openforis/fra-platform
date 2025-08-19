@@ -22,8 +22,8 @@ export interface DataSource {
   reference: string
   type: string
   uuid?: string
-  variables?: string[]
-  year: string
+  variables?: Array<string>
+  year: Array<string>
 }
 
 export interface CommentableDescriptionValue {

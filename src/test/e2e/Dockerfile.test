@@ -1,4 +1,4 @@
-FROM node:20.11.1
+FROM node:22.18.0
 
 RUN rm -rf /usr/local/bin/yarn \
     && rm -rf /usr/local/bin/yarnpkg \

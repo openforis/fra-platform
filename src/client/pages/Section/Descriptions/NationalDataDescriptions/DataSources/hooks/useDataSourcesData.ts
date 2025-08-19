@@ -23,7 +23,7 @@ const newPlaceholder = (): DataSource => ({
   type: '',
   uuid: UUIDs.getUuid(),
   variables: [],
-  year: '',
+  year: [],
 })
 const name = CommentableDescriptionName.dataSources
 
