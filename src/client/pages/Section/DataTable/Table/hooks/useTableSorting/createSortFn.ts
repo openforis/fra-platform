@@ -21,7 +21,7 @@ interface Props {
   tableName: TableName
 }
 
-const _containsColName = (row: Row, cycleUuid: CycleUuid, colName: ColName) => {
+const _containsColName = (row: Row, cycleUuid: CycleUuid, colName: ColName): boolean => {
   return row.props.sortableBy?.[cycleUuid]?.includes(colName)
 }
 
@@ -36,7 +36,7 @@ const _compareValues = (a: string, b: string): number => {
   return a.localeCompare(b)
 }
 
-export const createSortFn = (props: Props) => {
+export const createSortFn = (props: Props): ((rowA: Row, rowB: Row) => number) => {
   const { assessmentName, colName, countryIso, cycle, data, sortOrder, tableName } = props
 
   return (rowA: Row, rowB: Row): number => {

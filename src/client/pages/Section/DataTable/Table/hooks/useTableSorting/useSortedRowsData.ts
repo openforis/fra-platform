@@ -20,7 +20,7 @@ interface Props {
   sortState: SortState
 }
 
-export const useSortedRowsData = (props: Props) => {
+export const useSortedRowsData = (props: Props): Array<Row> => {
   const { data, rowsData, sortState, table } = props
   const tableName = table.props.name
 

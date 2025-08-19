@@ -8,7 +8,7 @@ interface Props {
   setSortState: Dispatch<SetStateAction<SortState>>
 }
 
-export const useHandleSort = (props: Props) => {
+export const useHandleSort = (props: Props): ((colName: ColName) => void) => {
   const { setSortState } = props
 
   const handleSort = useCallback(
