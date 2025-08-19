@@ -1,15 +1,12 @@
 import './YearForDataSource.scss'
-import React, { useState } from 'react'
+import React from 'react'
 
 import { DataSource } from 'meta/assessment/descriptionValue'
 import { SectionName } from 'meta/assessment/section'
 
 import MultiSelect from 'client/components/Inputs/MultiSelect'
-import { Option } from 'client/components/Inputs/Select'
 
-import { useOnChange } from '../hook/useOnChange'
-import { useCreateOption } from './hooks/useCreateOption'
-import { useInitialOptions } from './hooks/useInitialOptions'
+import { useYearOptions } from './hooks/useYearOptions'
 
 type Props = {
   dataSource: DataSource
@@ -20,13 +17,7 @@ type Props = {
 const YearForDataSource: React.FC<Props> = (props: Props) => {
   const { dataSource, disabled, sectionName } = props
 
-  const initialOptions = useInitialOptions({ dataSource })
-
-  const [options, setOptions] = useState<Array<Option>>(initialOptions)
-  const [values, setValues] = useState<Array<string>>(dataSource.year)
-
-  const onChange = useOnChange({ sectionName, dataSource })
-  const onCreateOption = useCreateOption({ options, setOptions, values, setValues })
+  const { onChange, onCreateOption, options, values } = useYearOptions({ dataSource, sectionName })
 
   return (
     <MultiSelect
@@ -35,8 +26,7 @@ const YearForDataSource: React.FC<Props> = (props: Props) => {
       createOptionPosition="first"
       disabled={disabled}
       isCreatable
-      onBlur={() => onChange('year', values)}
-      onChange={(values: Array<string>) => setValues(values)}
+      onChange={onChange}
       onCreateOption={onCreateOption}
       options={options}
       value={values}
