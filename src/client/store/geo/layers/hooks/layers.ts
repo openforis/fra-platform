@@ -1,9 +1,8 @@
 import { LayerKey } from 'meta/geo'
 
 import { LayersSelectors } from 'client/store/geo/layers/selectors'
-import { initialState, LayersState } from 'client/store/geo/layers/state'
+import { initialState, LayersState, LayerState } from 'client/store/geo/layers/state'
 import { useAppSelector } from 'client/store/hooks'
-import { LayerState } from 'client/store/ui/geo/stateType'
 
 export const useGeoLayers = (): LayersState => useAppSelector(LayersSelectors.getLayers) ?? initialState
 

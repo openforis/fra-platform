@@ -1,17 +1,11 @@
 import { useMemo } from 'react'
 
 import { BarChart as BarChartType, BarChartData } from 'meta/chart'
-import {
-  agreementPalette,
-  ExtraEstimation,
-  extraEstimationsMetadata,
-  ForestKey,
-  forestLayersMetadata,
-  LayerSectionKey,
-} from 'meta/geo'
+import { agreementPalette, ExtraEstimation, extraEstimationsMetadata, ForestKey, forestLayersMetadata } from 'meta/geo'
 import { ForestEstimationEntry } from 'meta/geo/geoStatistics'
 
-import { useGeoLayer, useGeoStatistics } from 'client/store/ui/geo/hooks'
+import { useGeoLayer } from 'client/store/geo/layers/hooks/layers'
+import { useGeoStatistics } from 'client/store/ui/geo/hooks'
 
 type Returned = {
   chart: BarChartType
@@ -23,7 +17,7 @@ type Returned = {
 export const useStatisticalGraphsData = (): Returned => {
   const { error, isLoading, tabularForestEstimations } = useGeoStatistics()
 
-  const agreementLayer = useGeoLayer(LayerSectionKey.Forest, ForestKey.Agreement)
+  const agreementLayer = useGeoLayer(ForestKey.Agreement)
   const agreementLevel = agreementLayer?.options?.agreementLayer?.level ?? 0
   const agreementColor = agreementPalette.at(agreementLevel - 1)
 

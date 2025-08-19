@@ -1,9 +1,9 @@
 import { MosaicOptions } from 'meta/geo'
 
+import { LayerFetchStatus } from 'client/store/geo/layers/state'
 import { MosaicSelectors } from 'client/store/geo/mosaic/selectors'
 import { MosaicUrlTemplateData } from 'client/store/geo/mosaic/state'
 import { useAppSelector } from 'client/store/hooks'
-import { LayerFetchStatus } from 'client/store/ui/geo/stateType'
 
 export const useMosaicUrlTemplateData = (): MosaicUrlTemplateData | undefined =>
   useAppSelector(MosaicSelectors.getUrlTemplateData)

@@ -1,9 +1,2 @@
-export {
-  useGeoExtraEstimation,
-  useGeoLayer,
-  useGeoLayerSection,
-  useGeoLayerSectionRecipeName,
-  useGeoLayerSections,
-  useGeoStatistics,
-} from './hooks'
+export { useGeoExtraEstimation, useGeoStatistics } from './hooks'
 export { GeoActions } from './slice'

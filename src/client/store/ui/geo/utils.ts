@@ -2,7 +2,7 @@ import { Objects } from 'utils/objects'
 
 import { LayerKey } from 'meta/geo/layer'
 
-import { LayersSectionState, LayerState } from './stateType'
+import { LayersSectionState, LayerState } from 'client/store/geo/layers/state'
 
 const _getLayerCacheLabel = (layerKey: LayerKey, layerState: LayerState): string => {
   if (Objects.isEmpty(layerState.options)) return layerKey
@@ -22,7 +22,7 @@ const _getLayerCacheLabel = (layerKey: LayerKey, layerState: LayerState): string
 }
 
 export const getAgreementLayerCacheKey = (sectionState: LayersSectionState): string => {
-  const layersCacheLabels: string[] = []
+  const layersCacheLabels: Array<string> = []
 
   Object.keys(sectionState).forEach((layerKey) => {
     const layerState = sectionState[layerKey as LayerKey]

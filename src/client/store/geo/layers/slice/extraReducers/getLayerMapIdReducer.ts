@@ -5,8 +5,7 @@ import { LayerKey, LayerSectionKey } from 'meta/geo'
 
 import { getLayerMapId } from 'client/store/geo/layers/actions/getLayerMapId'
 import { getAgreementLayerCacheKey } from 'client/store/geo/layers/slice/utils'
-import { LayersState } from 'client/store/geo/layers/state'
-import { LayerFetchStatus } from 'client/store/ui/geo/stateType'
+import { LayerFetchStatus, LayersState } from 'client/store/geo/layers/state'
 import { mapController } from 'client/utils'
 
 const _setLayerCache = (state: LayersState, sectionKey: LayerSectionKey, layerKey: LayerKey, mapId: string) => {
