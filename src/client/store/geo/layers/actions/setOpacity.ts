@@ -20,12 +20,12 @@ type Returned = Params
 export const setOpacity = createAsyncThunk<Returned, Params, ThunkApiConfig>(
   'geo/layers/setOpacity',
   async (params, { dispatch, getState }) => {
-    const { countryIso, layerKey, sectionKey } = params
+    const { countryIso, layerKey, opacity, sectionKey } = params
     const state = getState()
 
     const layerState = LayersSelectors.getLayer(state, layerKey)
-
-    if (layerState?.status === undefined || layerState?.status === LayerFetchStatus.Unfetched) {
+    const status = layerState?.status
+    if (opacity > 0 && (status === undefined || status === LayerFetchStatus.Unfetched)) {
       dispatch(getLayerMapId({ countryIso, layerKey, sectionKey }))
     }
 

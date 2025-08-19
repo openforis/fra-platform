@@ -13,8 +13,8 @@ export const useLayerUi = (props: LayerMetaProps): LayerUi => {
   const { key: layerKey, metadata, type: layerType } = layerMeta
   const { palette } = metadata ?? {}
 
-  const layerState = useGeoLayer(layerKey)
-  const { opacity, options, selected, status } = layerState ?? defaultLayerState
+  const layerState: LayerState = { ...defaultLayerState, ...useGeoLayer(layerKey) }
+  const { opacity, options, selected, status } = layerState
   const { agreementLayer } = { agreementLayer: { level: 1 }, ...options }
 
   return useMemo<LayerUi>(() => {

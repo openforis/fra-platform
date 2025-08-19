@@ -16,12 +16,8 @@ const _handleMapId = (state: LayersState, layerKey: LayerKey, mapId: string | nu
 
 const _handleSelected = (state: LayersState, layerKey: LayerKey, selected: boolean): void => {
   const layerState = state[layerKey]
-  if (Objects.isEmpty(layerState.opacity)) {
-    Objects.setInPath({ obj: state, path: [layerKey, 'opacity'], value: 1 })
-  }
-
   if (selected) {
-    mapController.addOrUpdateEarthEngineLayer(layerKey, layerState.mapId, layerState.opacity)
+    mapController.addOrUpdateEarthEngineLayer(layerKey, layerState.mapId, layerState.opacity ?? 1)
   } else {
     mapController.removeLayer(layerKey)
   }
