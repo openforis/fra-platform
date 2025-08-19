@@ -5,7 +5,20 @@
 .select__groupHeading-selectable {
   display: flex;
 
-  &:hover {
+  &:hover:not(.disabled) {
     background-color: color.adjust($ui-accent-light-extra, $lightness: 3%, $space: hsl);
+  }
+
+  &.disabled {
+    color: $text-disabled;
+    cursor: default;
+
+    .select__toggleAllOption-checkbox {
+      cursor: default;
+    }
+  }
+
+  .select__toggleAllOption-checkbox {
+    cursor: pointer;
   }
 }
