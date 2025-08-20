@@ -75,7 +75,9 @@ export const useChanges = (props: Props): Returned => {
       : Diff.diffChars(variablesHistory ?? '', variablesData ?? '')
 
     // year
-    const year = Diff.diffChars(historyItem?.year ?? '', dataItem?.year ?? '')
+    const yearData = dataItem?.year.join('\n\r') ?? ''
+    const yearHistory = Array.isArray(historyItem?.year) ? historyItem.year.join(', ') : historyItem?.year ?? ''
+    const year = Diff.diffChars(yearHistory, yearData)
 
     return { comments, reference, type, variables, year }
   }, [dataItem, historyItem, meta, t])
