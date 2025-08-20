@@ -19,22 +19,11 @@ const ButtonSort: React.FC<Props> = (props) => {
   const isCurrentlySorted = sortState?.colName === sortColName
   const sortOrder = isCurrentlySorted ? sortState.order : SortOrder.NONE
 
-  // TODO: Separate component
   if (!sortColName) return null
 
-  // let icon = '↕'
-
-  // if using symbols, we can use:
-  // if (sortOrder === SortOrder.ASC) icon = '▲' // or: '↑'
-  // if (sortOrder === SortOrder.DESC) icon = '▼' // or: '↓'
-
-  // but it would be better to:
-  // TODO: Find better icons
-  // let iconName = 'icon-select-arrows'
-  let iconName
-
-  if (sortOrder === SortOrder.ASC) iconName = 'sort-amount-asc'
-  if (sortOrder === SortOrder.DESC) iconName = 'sort-amount-desc'
+  let label = '↕'
+  if (sortOrder === SortOrder.ASC) label = '↑'
+  if (sortOrder === SortOrder.DESC) label = '↓'
 
   const onClick: MouseEventHandler<HTMLButtonElement> = (e): void => {
     e.preventDefault()
@@ -45,8 +34,8 @@ const ButtonSort: React.FC<Props> = (props) => {
   return (
     <Button
       className="grid-header-cell__button-sort"
-      iconName={iconName}
-      label={iconName ? '' : '↕'}
+      // iconName={iconName}
+      label={label}
       onClick={onClick}
       size={ButtonSize.m}
       type={ButtonType.transparent}
