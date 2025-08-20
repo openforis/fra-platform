@@ -2,6 +2,8 @@ import { i18n } from 'i18next'
 import { Strings } from 'utils/strings'
 
 import { AreaCode, Country, CountryIso, Global, RegionCode } from 'meta/area'
+import { getCountryIso2 } from 'meta/area/areas/getCountryIso2'
+import { getCountryIsoFromCallingCode } from 'meta/area/areas/getCountryIsoFromCallingCode'
 import { fraRegionCodes } from 'meta/area/regionCode'
 import { CountryStatus } from 'meta/area/status'
 
@@ -13,7 +15,7 @@ const getCountryBackgroundImg = (isoCode: AreaCode): string =>
 const getTranslationKey = (isoCode: AreaCode): string => `area.${isoCode}.listName`
 
 const isAtlantis = (countryIso: CountryIso): boolean => countryIso.startsWith('X')
-const isGlobal = (isoCode: CountryIso | RegionCode | Global) => Global.WO === isoCode
+const isGlobal = (isoCode: CountryIso | RegionCode | Global): boolean => Global.WO === isoCode
 const isISOCountry = (isoCode: string): boolean => /^[a-zA-Z0-9]{3}$/.test(isoCode)
 const isISOGlobal = (isoCode: string): boolean => isoCode === Global.WO
 const isRegion = (isoCode: string): boolean => Object.values(RegionCode).includes(isoCode as RegionCode)
@@ -45,6 +47,8 @@ const getCompareListName =
 export const Areas = {
   getCompareListName,
   getCountryBackgroundImg,
+  getCountryIso2,
+  getCountryIsoFromCallingCode,
   getStatus,
   getTranslationKey,
   isAtlantis,
