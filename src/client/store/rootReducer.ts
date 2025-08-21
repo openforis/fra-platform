@@ -21,7 +21,6 @@ import { RepositorySlice } from 'client/store/repository/slice'
 import { ReviewSlice } from 'client/store/review/slice'
 import { AreaSelectorSlice } from 'client/store/ui/areaSelector/slice'
 import { CountryReportSlice } from 'client/store/ui/countryReport/slice'
-import GeoSlice from 'client/store/ui/geo/slice'
 import { NotificationSlice } from 'client/store/ui/notification/slice'
 import UserManagementSlice from 'client/store/ui/userManagement/slice'
 import { UserSlice } from 'client/store/user/slice'
@@ -53,7 +52,6 @@ export default {
   [RepositorySlice.name]: RepositorySlice.reducer,
   [ReviewSlice.name]: ReviewSlice.reducer,
 
-  geo: GeoSlice,
   ui: combineReducers({
     [AreaSelectorSlice.name]: AreaSelectorSlice.reducer,
     [CountryReportSlice.name]: CountryReportSlice.reducer,
