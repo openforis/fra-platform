@@ -1,11 +1,12 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { ExtraEstimation } from 'meta/geo'
 import { Layer, LayerSectionKey } from 'meta/geo/layer'
 
+import { GeoStatisticsActions } from 'client/store/geo/statistics/actions'
+import { useGeoExtraEstimation } from 'client/store/geo/statistics/hooks/statistics'
 import { useAppDispatch } from 'client/store/hooks'
-import { GeoActions, useGeoExtraEstimation } from 'client/store/ui/geo'
 import { useCountryIso } from 'client/hooks'
 import Button, { ButtonSize } from 'client/components/Buttons/Button'
 import SelectPrimary from 'client/components/Inputs/SelectPrimary'
@@ -32,23 +33,16 @@ const ReducerScaleSelector: React.FC<Props> = (props) => {
 
   const extraEstimation = ExtraEstimation.CustomRecipe
   const extraEstimationState = useGeoExtraEstimation(sectionKey, extraEstimation)
-  const { errorKey, isLoading } = extraEstimationState ?? {}
+  const { errorKey, loading } = extraEstimationState ?? {}
 
-  const handleScaleChange = (value: string) => {
+  const handleScaleChange = useCallback<(value: string) => void>((value) => {
     setSelectedScale(value)
-  }
+  }, [])
 
-  const handleSubmit = () => {
+  const handleSubmit = useCallback<() => void>(() => {
     const scale = parseInt(selectedScale, 10)
-    dispatch(
-      GeoActions.postExtraEstimation({
-        countryIso,
-        extraEstimation,
-        scale,
-        sectionKey,
-      })
-    )
-  }
+    dispatch(GeoStatisticsActions.getExtraEstimation({ countryIso, extraEstimation, scale, sectionKey }))
+  }, [countryIso, dispatch, extraEstimation, sectionKey, selectedScale])
 
   if (scales.length === 0) return null
 
@@ -63,7 +57,7 @@ const ReducerScaleSelector: React.FC<Props> = (props) => {
 
       <Button
         className="geo-options-grid__one-col centered"
-        disabled={isLoading || false}
+        disabled={loading || false}
         label={t('common.calculate')}
         onClick={handleSubmit}
         size={ButtonSize.s}

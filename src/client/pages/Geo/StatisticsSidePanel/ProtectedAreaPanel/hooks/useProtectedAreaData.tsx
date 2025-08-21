@@ -5,13 +5,13 @@ import { Numbers } from 'utils/numbers'
 
 import { ExtraEstimation, extraEstimationsMetadata, ForestKey, forestLayersMetadata } from 'meta/geo'
 
-import { useGeoProtectedAreas, useGeoStatistics } from 'client/store/ui/geo/hooks'
+import { useGeoProtectedAreas, useGeoStatistics } from 'client/store/geo/statistics/hooks/statistics'
 import { StatisticsTableData } from 'client/pages/Geo/StatisticsSidePanel/StatisticsTable/types'
 
 type Returned = {
   columns: Array<string>
-  error?: string
-  isLoading: boolean
+  errorKey?: string
+  loading: boolean
   tableData: StatisticsTableData
   units: Array<string>
 }
@@ -36,14 +36,14 @@ export const useProtectedAreaData = (): Returned => {
   const { t } = useTranslation()
   const geoProtectedAreas = useGeoProtectedAreas()
 
-  const { error, isLoading } = useGeoStatistics()
+  const { errorKey, loading } = useGeoStatistics()
 
   return useMemo<Returned>(() => {
-    if (isLoading) {
+    if (loading) {
       return {
         columns: [],
-        error,
-        isLoading,
+        errorKey,
+        loading,
         tableData: [],
         units: [],
         title: '',
@@ -62,10 +62,10 @@ export const useProtectedAreaData = (): Returned => {
 
     return {
       columns,
-      error,
-      isLoading,
+      errorKey,
+      loading,
       tableData: formattedTableData,
       units,
     }
-  }, [error, geoProtectedAreas, isLoading, t])
+  }, [errorKey, geoProtectedAreas, loading, t])
 }

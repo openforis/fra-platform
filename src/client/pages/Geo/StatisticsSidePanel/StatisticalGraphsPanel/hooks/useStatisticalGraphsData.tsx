@@ -5,17 +5,17 @@ import { agreementPalette, ExtraEstimation, extraEstimationsMetadata, ForestKey,
 import { ForestEstimationEntry } from 'meta/geo/geoStatistics'
 
 import { useGeoLayer } from 'client/store/geo/layers/hooks/layers'
-import { useGeoStatistics } from 'client/store/ui/geo/hooks'
+import { useGeoStatistics } from 'client/store/geo/statistics/hooks/statistics'
 
 type Returned = {
   chart: BarChartType
   data: BarChartData
-  error?: string
-  isLoading: boolean
+  errorKey?: string
+  loading: boolean
 }
 
 export const useStatisticalGraphsData = (): Returned => {
-  const { error, isLoading, tabularForestEstimations } = useGeoStatistics()
+  const { errorKey, forestEstimationsTableData, loading } = useGeoStatistics()
 
   const agreementLayer = useGeoLayer(ForestKey.Agreement)
   const agreementLevel = agreementLayer?.options?.agreementLayer?.level ?? 0
@@ -39,7 +39,7 @@ export const useStatisticalGraphsData = (): Returned => {
       return hansenPercent ? `${sourceKey}${hansenPercent}` : sourceKey
     }
 
-    const cells = tabularForestEstimations.map((entry) => {
+    const cells = forestEstimationsTableData.map((entry) => {
       const { hansenPercent, sourceLabelKey } = entry
       const sourceKey = _getSourceKey(entry)
 
@@ -66,7 +66,7 @@ export const useStatisticalGraphsData = (): Returned => {
     } as BarChartType
 
     const data: BarChartData = [
-      tabularForestEstimations.reduce<Record<string, number>>((acc, entry) => {
+      forestEstimationsTableData.reduce<Record<string, number>>((acc, entry) => {
         const { area } = entry
         const sourceKey = _getSourceKey(entry)
         // eslint-disable-next-line no-param-reassign
@@ -76,6 +76,6 @@ export const useStatisticalGraphsData = (): Returned => {
       }, {}),
     ]
 
-    return { data, error, isLoading, chart }
-  }, [agreementColor, error, isLoading, tabularForestEstimations])
+    return { data, errorKey, loading, chart }
+  }, [agreementColor, errorKey, forestEstimationsTableData, loading])
 }
