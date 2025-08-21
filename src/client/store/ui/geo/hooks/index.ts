@@ -1,20 +1,13 @@
 import { createSelector } from '@reduxjs/toolkit'
 
-import { ExtraEstimation, GeoStatisticsState, LayerKey, LayerSectionKey } from 'meta/geo'
+import { ExtraEstimation, GeoStatisticsState, LayerSectionKey } from 'meta/geo'
 import { BurnedAreaModis } from 'meta/geo/forest'
 import { ExtraEstimationState } from 'meta/geo/geoStatistics'
 
 import { useAppSelector } from 'client/store/hooks'
 import { RootState } from 'client/store/types'
-import { LayersSectionState, LayerState } from 'client/store/ui/geo/stateType'
 
 export const useGeoStatistics = (): GeoStatisticsState => useAppSelector((state) => state.geo?.geoStatistics)
-
-export const useGeoLayerSection = (sectionKey: LayerSectionKey): LayersSectionState | undefined =>
-  useAppSelector((state) => state.geo.sections[sectionKey])
-
-export const useGeoLayer = (sectionKey: LayerSectionKey, layerKey: LayerKey): LayerState | undefined =>
-  useAppSelector((state) => state.geo.sections[sectionKey]?.[layerKey])
 
 export const useGeoBurnedAreaMODIS = (): BurnedAreaModis =>
   useAppSelector((state) => state.geo?.geoStatistics?.forestEstimations?.data?.burnedAreaMODIS)
@@ -40,12 +33,6 @@ export const useGeoProtectedAreas = () => {
     )
   )
 }
-
-export const useGeoLayerSectionRecipeName = (sectionKey: LayerSectionKey): string | undefined =>
-  useAppSelector((state) => state.geo.recipes[sectionKey])
-
-export const useGeoLayerSections = (): Record<LayerSectionKey, LayersSectionState> | undefined =>
-  useAppSelector((state) => state.geo?.sections)
 
 export const useGeoExtraEstimation = (
   sectionKey: LayerSectionKey,

@@ -27,6 +27,11 @@ export const toggleLayer = createAsyncThunk<void, Params, ThunkApiConfig>(
     const currentSelected = layerState?.selected ?? false
     dispatch(setProperty({ key: 'selected', layerKey, value: !currentSelected }))
 
+    // if the layer is not selected and has no opacity, set it to 1
+    if (!currentSelected && Objects.isEmpty(layerState?.opacity)) {
+      dispatch(setProperty({ key: 'opacity', layerKey, value: 1 }))
+    }
+
     // If the layer is now selected, doesn't have a mapId cached and is visible, fetch it
     const currentMapId = layerState?.mapId
     if (currentSelected || currentMapId) return

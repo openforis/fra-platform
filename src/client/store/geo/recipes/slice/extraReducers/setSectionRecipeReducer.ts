@@ -4,7 +4,7 @@ import { setSectionRecipe } from 'client/store/geo/recipes/actions/setSectionRec
 import { GeoRecipesState } from 'client/store/geo/recipes/state'
 
 export const setSectionRecipeReducer = (builder: ActionReducerMapBuilder<GeoRecipesState>) => {
-  builder.addCase(setSectionRecipe, (state, action) => {
+  builder.addCase(setSectionRecipe.fulfilled, (state, action) => {
     const { recipeName, sectionKey } = action.payload
     state[sectionKey] = recipeName
   })

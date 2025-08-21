@@ -2,15 +2,15 @@ import { ForestAgreementAreaEstimationRequestBody } from 'meta/api/request/geo/l
 import { CountryIso } from 'meta/area'
 import { ForestKey, LayerKey, LayerSource } from 'meta/geo'
 
-import { LayersSectionState } from '../stateType'
-import { buildLayerData } from './_getLayerRequestBody'
+import { buildLayerData } from 'client/store/geo/layers/actions/_getLayerRequestBody'
+import { LayersSectionState } from 'client/store/geo/layers/state'
 
 export const _getExtraEstimationRequestBody = (
   countryIso: CountryIso,
   scale: number,
   sectionState: LayersSectionState
 ): ForestAgreementAreaEstimationRequestBody => {
-  const layers: LayerSource[] = []
+  const layers: Array<LayerSource> = []
   let agreementLevel = 1 // Default agreement level
   Object.keys(sectionState).forEach((layerKey) => {
     const layerState = sectionState[layerKey as LayerKey]

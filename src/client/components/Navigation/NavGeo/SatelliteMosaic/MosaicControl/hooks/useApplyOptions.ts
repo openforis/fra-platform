@@ -2,6 +2,7 @@ import { useCallback, useMemo } from 'react'
 
 import { Objects } from 'utils/objects'
 
+import { LayerFetchStatus } from 'client/store/geo/layers/state'
 import { MosaicActions } from 'client/store/geo/mosaic/actions'
 import {
   useMosaicOptions,
@@ -10,7 +11,6 @@ import {
   useMosaicUrlTemplateData,
 } from 'client/store/geo/mosaic/hooks/mosaic'
 import { useAppDispatch } from 'client/store/hooks'
-import { LayerFetchStatus } from 'client/store/ui/geo/stateType'
 import { useCountryIso } from 'client/hooks'
 
 type Returned = {

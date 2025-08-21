@@ -1,8 +1,2 @@
-export { _getLayerRequestBody } from './_getLayerRequestBody'
 export { getForestEstimationData } from './getForestEstimationData'
 export { postExtraEstimation } from './postExtraEstimation'
-export { postLayer } from './postLayer'
-export { setLayerOpacity } from './setLayerOpacity'
-export { setLayerSectionRecipe } from './setLayerSectionRecipe'
-export { setSectionGlobalOpacity } from './setSectionGlobalOpacity'
-export { toggleLayer } from './toggleLayer'
