@@ -2,8 +2,6 @@ import { i18n } from 'i18next'
 import { Strings } from 'utils/strings'
 
 import { AreaCode, Country, CountryIso, Global, RegionCode } from 'meta/area'
-import { getCountryIso2 } from 'meta/area/areas/getCountryIso2'
-import { getCountryIsoFromCallingCode } from 'meta/area/areas/getCountryIsoFromCallingCode'
 import { fraRegionCodes } from 'meta/area/regionCode'
 import { CountryStatus } from 'meta/area/status'
 
@@ -47,8 +45,6 @@ const getCompareListName =
 export const Areas = {
   getCompareListName,
   getCountryBackgroundImg,
-  getCountryIso2,
-  getCountryIsoFromCallingCode,
   getStatus,
   getTranslationKey,
   isAtlantis,
