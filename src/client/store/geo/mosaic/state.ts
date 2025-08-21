@@ -1,6 +1,6 @@
 import { MosaicOptions } from 'meta/geo'
 
-import { LayerFetchStatus } from 'client/store/ui/geo/stateType'
+import { LayerFetchStatus } from 'client/store/geo/layers/state'
 
 export type MosaicUrlTemplateData = {
   requestOptions: MosaicOptions

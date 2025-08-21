@@ -1,12 +1,13 @@
 import './CustomAssetControl.scss'
-import React, { ChangeEvent, useRef, useState } from 'react'
+import React, { ChangeEvent, useCallback, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Layer, LayerSectionKey } from 'meta/geo'
 
+import { LayersActions } from 'client/store/geo/layers/actions'
+import { useGeoLayer } from 'client/store/geo/layers/hooks/layers'
+import { LayerFetchStatus } from 'client/store/geo/layers/state'
 import { useAppDispatch } from 'client/store/hooks'
-import { GeoActions, useGeoLayer } from 'client/store/ui/geo'
-import { LayerFetchStatus } from 'client/store/ui/geo/stateType'
 import { useCountryIso } from 'client/hooks'
 import Button, { ButtonSize } from 'client/components/Buttons/Button'
 import { DataCell, DataGrid } from 'client/components/DataGrid'
@@ -24,30 +25,33 @@ const CustomAssetControl: React.FC<Props> = (props) => {
   const dispatch = useAppDispatch()
   const { t } = useTranslation()
   const countryIso = useCountryIso()
-  const layerState = useGeoLayer(sectionKey, layerKey)
+  const layerState = useGeoLayer(layerKey)
 
   const inputRef = useRef<HTMLInputElement>(null)
   const [inputValue, setInputValue] = useState(layerState?.options?.assetId ?? '')
   const [inputError, setInputError] = useState(false)
 
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    setInputValue(event.target.value)
-    if (event.target.value.trim() !== '') {
-      setInputError(false)
-    }
-  }
+  const handleInputChange = useCallback<(event: ChangeEvent<HTMLInputElement>) => void>(
+    (event) => {
+      setInputValue(event.target.value)
+      if (event.target.value.trim() !== '') {
+        setInputError(false)
+      }
+    },
+    [setInputError, setInputValue]
+  )
 
-  const handleSubmit = (): void => {
+  const handleSubmit = useCallback<() => void>(() => {
     const assetId = inputValue.trim()
     if (assetId === '') {
       setInputError(true)
       inputRef.current?.focus()
     } else {
       setInputError(false)
-      dispatch(GeoActions.setAssetId({ sectionKey, layerKey, assetId }))
-      dispatch(GeoActions.postLayer({ countryIso, sectionKey, layerKey }))
+      dispatch(LayersActions.setOptionsProperty({ layerKey, key: 'assetId', value: assetId }))
+      dispatch(LayersActions.getLayerMapId({ countryIso, layerKey, sectionKey }))
     }
-  }
+  }, [countryIso, dispatch, inputValue, layerKey, sectionKey])
 
   return (
     <DataGrid className="geo-custom-assest-control" gridTemplateColumns="200px auto">

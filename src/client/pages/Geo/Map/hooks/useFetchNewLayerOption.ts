@@ -2,9 +2,10 @@ import { useEffect } from 'react'
 
 import { Layer, LayerKey, LayerSectionKey } from 'meta/geo'
 
+import { LayersActions } from 'client/store/geo/layers/actions'
+import { useGeoLayer } from 'client/store/geo/layers/hooks/layers'
+import { LayerStateOptions } from 'client/store/geo/layers/state'
 import { useAppDispatch } from 'client/store/hooks'
-import { GeoActions, useGeoLayer } from 'client/store/ui/geo'
-import { LayerStateOptions } from 'client/store/ui/geo/stateType'
 import { useCountryIso } from 'client/hooks'
 
 export const useFetchNewLayerOption = (
@@ -15,7 +16,7 @@ export const useFetchNewLayerOption = (
 ) => {
   const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
-  const layerState = useGeoLayer(sectionKey, layerKey)
+  const layerState = useGeoLayer(layerKey)
   const layerOptionValue = layerState?.options?.[layerOptionKey]
 
   useEffect(
@@ -24,19 +25,21 @@ export const useFetchNewLayerOption = (
       if (layerOptionValue === undefined) {
         if (layerOptionKey === 'gteTreeCoverPercent') {
           const gteTreeCoverPercent = layer.options.gteTreeCoverPercent.at(0)
-          dispatch(GeoActions.setLayerGteTreeCoverPercent({ sectionKey, layerKey, gteTreeCoverPercent }))
+          dispatch(
+            LayersActions.setOptionsProperty({ layerKey, key: 'gteTreeCoverPercent', value: gteTreeCoverPercent })
+          )
         }
         return
       }
       const cachedMapId = layerState.cache?.[layerOptionValue]
       if (cachedMapId === undefined) {
         if (layerState?.opacity > 0) {
-          dispatch(GeoActions.postLayer({ countryIso, sectionKey, layerKey }))
+          dispatch(LayersActions.getLayerMapId({ countryIso, layerKey, sectionKey }))
         } else {
-          dispatch(GeoActions.resetLayerStatus({ sectionKey, layerKey }))
+          dispatch(LayersActions.resetLayerStatus({ layerKey }))
         }
       } else {
-        dispatch(GeoActions.setLayerMapId({ sectionKey, layerKey, mapId: cachedMapId, drawLayer: true }))
+        dispatch(LayersActions.setProperty({ key: 'mapId', layerKey, value: cachedMapId }))
       }
     },
     // Ignore opacity changes:

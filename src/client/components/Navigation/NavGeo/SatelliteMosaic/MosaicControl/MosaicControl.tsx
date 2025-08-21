@@ -1,10 +1,10 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { LayerFetchStatus } from 'client/store/geo/layers/state'
 import { MosaicActions } from 'client/store/geo/mosaic/actions'
 import { useMosaicOptions, useMosaicStatus } from 'client/store/geo/mosaic/hooks/mosaic'
 import { useAppDispatch } from 'client/store/hooks'
-import { LayerFetchStatus } from 'client/store/ui/geo/stateType'
 import Button, { ButtonSize } from 'client/components/Buttons/Button'
 import ButtonCheckbox from 'client/components/Buttons/ButtonCheckbox'
 import InputRange from 'client/components/Inputs/InputRange'

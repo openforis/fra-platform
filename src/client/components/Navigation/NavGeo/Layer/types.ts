@@ -1,7 +1,7 @@
 import { Layer, LayerSection } from 'meta/geo'
 import { LayerControlType } from 'meta/geo/layer'
 
-import { LayerFetchStatus } from 'client/store/ui/geo/stateType'
+import { LayerFetchStatus } from 'client/store/geo/layers/state'
 
 export type LayerProps = {
   layer: Layer

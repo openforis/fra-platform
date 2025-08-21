@@ -1,11 +1,11 @@
 import './AgreementLevelControl.scss'
-import React from 'react'
+import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Layer, LayerSectionKey } from 'meta/geo/layer'
 
+import { LayersActions } from 'client/store/geo/layers/actions'
 import { useAppDispatch } from 'client/store/hooks'
-import { GeoActions } from 'client/store/ui/geo'
 import OptionLabel from 'client/components/Navigation/NavGeo/Grid/OptionLabel'
 import AgreementLevelSelector from 'client/components/Navigation/NavGeo/Layer/AgreementLevelControl/AgreementLevelSelector'
 import ReducerScaleSelector from 'client/components/Navigation/NavGeo/Layer/AgreementLevelControl/ReducerScaleSelector'
@@ -25,9 +25,12 @@ const AgreementLevelControl: React.FC<Props> = (props) => {
 
   useFetchAgreementLevelLayer(sectionKey, layerKey)
 
-  const handleAgreementLevelChange = (level: number) => {
-    dispatch(GeoActions.setAgreementLevel({ layerKey, level, sectionKey }))
-  }
+  const handleAgreementLevelChange = useCallback<(value: number) => void>(
+    (value) => {
+      dispatch(LayersActions.setAgreementProperty({ key: 'level', layerKey, value }))
+    },
+    [dispatch, layerKey]
+  )
 
   return (
     <>

@@ -6,12 +6,17 @@ import { LayersSliceName } from 'client/store/geo/layers/slice/name'
 import { GeoSliceName } from 'client/store/geo/slice/name'
 import { RootState } from 'client/store/types'
 
-const _getState = (state: RootState) => state[GeoSliceName]?.[LayersSliceName]
+const getLayers = createSelector(
+  (state: RootState) => state[GeoSliceName]?.[LayersSliceName],
+  (layersState) => layersState
+)
 
-const getLayer = createSelector([_getState, (_state: RootState, layerKey: LayerKey) => layerKey], (state, layerKey) => {
-  return state[layerKey]
-})
+const getLayer = createSelector(
+  [getLayers, (_state: RootState, layerKey: LayerKey) => layerKey],
+  (layersState, layerKey) => layersState?.[layerKey]
+)
 
 export const LayersSelectors = {
   getLayer,
+  getLayers,
 }
