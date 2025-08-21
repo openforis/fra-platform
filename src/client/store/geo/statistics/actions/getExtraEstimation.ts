@@ -6,8 +6,7 @@ import { LayerSectionKey } from 'meta/geo'
 import { ExtraEstimation, extraEstimationsApiEndpoint, extraEstimationsMetadata } from 'meta/geo/forestEstimations'
 import { ForestEstimationEntry } from 'meta/geo/geoStatistics'
 
-// import { LayersSelectors } from 'client/store/geo/layers/selectors'
-import { LayersState } from 'client/store/geo/layers/state'
+import { LayersSelectors } from 'client/store/geo/layers/selectors'
 import { GeoSliceName } from 'client/store/geo/slice/name'
 import { GeoStatisticsSliceName } from 'client/store/geo/statistics/slice/name'
 import { ThunkApiConfig } from 'client/store/types'
@@ -36,9 +35,8 @@ export const getExtraEstimation = createAsyncThunk<Returned, Params, ThunkApiCon
       const url = extraEstimationsApiEndpoint[extraEstimation]
 
       const rootState = getState()
-      // TODO: uncomment when layers PR is merged
-      // const layersState = LayersSelectors.getLayers(rootState)
-      const layersState = {} as LayersState
+
+      const layersState = LayersSelectors.getLayers(rootState)
 
       const body = _getExtraEstimationRequestBody(countryIso, scale, layersState, sectionKey)
       const response = await axios.post(url, body)
