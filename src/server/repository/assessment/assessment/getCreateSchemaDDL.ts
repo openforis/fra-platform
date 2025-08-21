@@ -139,6 +139,7 @@ export const getCreateSchemaCycleDDL = (assessmentSchemaName: string, assessment
               constraint country_fk
                   references country
                   on update cascade on delete cascade,
+          calling_code varchar(10),
           props jsonb default '{}'::jsonb,
           status varchar(16) default '${CountryStatus.notStarted}'::varchar,
           last_update timestamptz,
@@ -343,7 +344,7 @@ export const getCreateSchemaCycleOriginalDataPointViewDDL = (assessmentCycleSche
   `
 }
 
-export const getCreateOrReplaceViewCountryUserSummary = (props: { assessment: Assessment; cycle: Cycle }) => {
+export const getCreateOrReplaceViewCountryUserSummary = (props: { assessment: Assessment; cycle: Cycle }): string => {
   const { assessment, cycle } = props
   const schemaName = Schemas.getNameCycle(assessment, cycle)
   return `
