@@ -15,6 +15,7 @@ const Select: React.FC<SelectProps> = (props) => {
   const {
     createOptionPosition,
     disabled,
+    formatOptionLabel,
     inputValue,
     isClearable = true,
     isCreatable,
@@ -49,6 +50,7 @@ const Select: React.FC<SelectProps> = (props) => {
         components={components}
         createOptionPosition={createOptionPosition}
         formatCreateLabel={formatCreateLabel}
+        formatOptionLabel={formatOptionLabel}
         hideSelectedOptions={false}
         inputValue={inputValue}
         isClearable={isClearable}

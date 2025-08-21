@@ -1,8 +1,14 @@
+import { ReactElement } from 'react'
 import { ActionMeta, Props as ReactSelectProps } from 'react-select'
 import { CreatableProps } from 'react-select/creatable'
 
 export type Option = {
   label: string
+  value: string
+}
+
+export type OptionElement = {
+  label: ReactElement
   value: string
 }
 
@@ -12,13 +18,14 @@ export type OptionsGroup = {
   options: Array<Option>
 }
 
-export type OptionsOrGroups = ReadonlyArray<Option | OptionsGroup>
+export type OptionsOrGroups = ReadonlyArray<Option | OptionsGroup | OptionElement>
 
 export type ValueInput = string | Array<string> | null
 
 type SelectBaseProps =
   | Pick<
       ReactSelectProps,
+      | 'formatOptionLabel'
       | 'inputValue'
       | 'isClearable'
       | 'isMulti'
