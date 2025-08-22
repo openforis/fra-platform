@@ -139,6 +139,7 @@ export const getCreateSchemaCycleDDL = (assessmentSchemaName: string, assessment
               constraint country_fk
                   references country
                   on update cascade on delete cascade,
+          country_iso2 varchar(2),
           calling_code varchar(10),
           props jsonb default '{}'::jsonb,
           status varchar(16) default '${CountryStatus.notStarted}'::varchar,

@@ -11,7 +11,7 @@ import { AssessmentController } from 'server/controller/assessment'
 import { CacheController } from 'server/controller/cache'
 import { DB, Schemas } from 'server/db'
 
-const columns = ['country_iso', 'calling_code']
+const columns = ['country_iso', 'country_iso2', 'calling_code']
 const pgp = pgPromise()
 
 // Get calling codes and iso2
@@ -33,18 +33,21 @@ const getISOMapArray = (countryISOs: Array<string>): Array<Record<string, string
 
   return countryISOs.map((countryIso: string) => ({
     country_iso: countryIso,
+    country_iso2: map[countryIso]?.iso2,
     calling_code: map[countryIso]?.callingCode,
   }))
 }
 
 const _updateDDL = async (allCycles: Array<{ assessment: Assessment; cycle: Cycle }>): Promise<void> => {
   // Update public.country table
+  await DB.none(`alter table public.country add column if not exists country_iso2 varchar(2)`)
   await DB.none(`alter table public.country add column if not exists calling_code varchar(10)`)
   // Update cycle.country tables
   await Promise.all(
     allCycles.map(({ assessment, cycle }) => {
       const schemaName = Schemas.getNameCycle(assessment, cycle)
       return Promise.all([
+        DB.none(`alter table ${schemaName}.country add column if not exists country_iso2 varchar(2)`),
         DB.none(`alter table ${schemaName}.country add column if not exists calling_code varchar(10)`),
       ])
     })
