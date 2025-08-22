@@ -1,4 +1,8 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
+
+import { Objects } from 'utils/objects'
+
+import { Country } from 'meta/area'
 
 import { useCountries } from 'client/store/area/hooks/countries'
 
@@ -33,6 +37,41 @@ export const useHandleCountryChange = (props: Props): Returned => {
   const [selectedCountry, setSelectedCountry] = useState<string | null>(null)
   const [manualCode, setManualCode] = useState(value || '')
 
+  const findMatchingCountry = useCallback(
+    (callingCode: string): Country | undefined => {
+      // In case of duplicate codes
+      const priorityMatch = countries.find(
+        (country) => country.callingCode === callingCode && priorityList.includes(country.countryIso)
+      )
+
+      return priorityMatch ?? countries.find((country) => country.callingCode === callingCode)
+    },
+    [countries]
+  )
+
+  const updateManualCode = useCallback(
+    (newCode: string): void => {
+      setManualCode(newCode)
+
+      if (newCode) {
+        const matchingCountry = findMatchingCountry(newCode)
+        const countryValue = matchingCountry ? `${newCode}:${matchingCountry.countryIso}` : null
+        setSelectedCountry(countryValue)
+      } else {
+        setSelectedCountry(null)
+      }
+
+      onChange?.(newCode)
+    },
+    [findMatchingCountry, onChange]
+  )
+
+  useEffect(() => {
+    if (!Objects.isEmpty(value)) {
+      updateManualCode(value)
+    }
+  }, [updateManualCode, value])
+
   const handleCountryChange = useCallback(
     (countryValue: string | null): void => {
       setSelectedCountry(countryValue)
@@ -53,28 +92,9 @@ export const useHandleCountryChange = (props: Props): Returned => {
     (e: React.ChangeEvent<HTMLInputElement>): void => {
       // strip all non-numbers
       const digits = e.target.value.replace(/\D/g, '')
-
-      setManualCode(digits)
-
-      let matchingCountry = null
-      if (digits) {
-        // First try to find a prioritized country
-        matchingCountry = countries.find(
-          (country) => country.callingCode === digits && priorityList.includes(country.countryIso)
-        )
-        // If no priority match, use the first available match
-        if (!matchingCountry) {
-          matchingCountry = countries.find((country) => country.callingCode === digits)
-        }
-      }
-
-      let countryValue = null
-      if (matchingCountry) countryValue = `${digits}:${matchingCountry.countryIso}`
-
-      setSelectedCountry(countryValue)
-      onChange?.(digits)
+      updateManualCode(digits)
     },
-    [countries, onChange]
+    [updateManualCode]
   )
 
   return {
