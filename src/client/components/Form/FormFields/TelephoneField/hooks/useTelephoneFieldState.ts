@@ -40,9 +40,9 @@ export const useTelephoneFieldState = (props: Props): Returned => {
   useEffect(() => {
     if (phoneNumber) {
       const value = callingCode ? `+${callingCode} ${phoneNumber}` : phoneNumber
-      setValue(fieldName, value)
+      setValue(fieldName, value, { shouldDirty: true, shouldTouch: true })
     } else {
-      setValue(fieldName, '')
+      setValue(fieldName, '', { shouldDirty: true, shouldTouch: true })
     }
   }, [callingCode, fieldName, phoneNumber, setValue])
 
