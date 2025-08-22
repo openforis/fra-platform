@@ -7,8 +7,10 @@ import { CycleName } from 'meta/assessment/cycle'
 import { getIsVerificationInProgress } from 'client/store/admin/links/actions/getIsVerificationInProgress'
 import { initialState, LinksState } from 'client/store/admin/links/state'
 
+import { LinksSliceName } from './name'
+
 export const LinksSlice = createSlice({
-  name: 'links',
+  name: LinksSliceName,
   initialState,
   reducers: {
     reset: () => initialState,
