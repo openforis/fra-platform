@@ -22,6 +22,7 @@ export const _getExtraEstimationRequestBody = (
     const layerState = layersState[layerKey]
     if (Objects.isEmpty(layerState)) return
     if (!layerState?.selected) return
+    if (layerKey === ForestKey.Agreement) return
     layers.push(buildLayerData(layerKey, layerState))
   })
 
