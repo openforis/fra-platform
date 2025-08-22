@@ -44,7 +44,7 @@ export const getExtraEstimation = createAsyncThunk<Returned, Params, ThunkApiCon
 
       const geoStatisticsState = rootState[GeoSliceName]?.[GeoStatisticsSliceName]
       const { fra1aLandArea = null } = geoStatisticsState?.forestEstimations?.data || {}
-      const percentage = fra1aLandArea != null ? (area * 100) / (fra1aLandArea * 1000) : 0
+      const percentage = fra1aLandArea != null && fra1aLandArea !== 0 ? (area * 100) / (fra1aLandArea * 1000) : 0
       const sourceLabelKey = extraEstimationsMetadata[extraEstimation].titleKey
       const entry: ForestEstimationEntry = {
         area: Number(area.toFixed(2)),
