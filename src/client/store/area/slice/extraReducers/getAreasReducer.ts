@@ -4,7 +4,7 @@ import { Objects } from 'utils/objects'
 import { getAreas } from 'client/store/area/actions/getAreas'
 import { AreaState } from 'client/store/area/state'
 
-export const getAreasReducer = (builder: ActionReducerMapBuilder<AreaState>) => {
+export const getAreasReducer = (builder: ActionReducerMapBuilder<AreaState>): void => {
   builder.addCase(getAreas.fulfilled, (state, { meta, payload }) => {
     const { assessmentName, cycleName } = meta.arg
     const { countries, regionGroups } = payload

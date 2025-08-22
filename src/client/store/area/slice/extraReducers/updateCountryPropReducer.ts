@@ -4,7 +4,7 @@ import { Objects } from 'utils/objects'
 import { updateCountryProp } from 'client/store/area/actions/updateCountryProp'
 import { AreaState } from 'client/store/area/state'
 
-export const updateCountryPropReducer = (builder: ActionReducerMapBuilder<AreaState>) => {
+export const updateCountryPropReducer = (builder: ActionReducerMapBuilder<AreaState>): void => {
   builder.addCase(updateCountryProp.pending, (state) => {
     state.updatingCountry = true
   })
