@@ -4,7 +4,7 @@ import { Objects } from 'utils/objects'
 import { getMetadata } from 'client/store/explorer/metadata/actions/getMetadata'
 import { ExplorerMetadataState } from 'client/store/explorer/metadata/state'
 
-export const getMetadataReducer = (builder: ActionReducerMapBuilder<ExplorerMetadataState>) => {
+export const getMetadataReducer = (builder: ActionReducerMapBuilder<ExplorerMetadataState>): void => {
   builder.addCase(getMetadata.fulfilled, (state, action) => {
     const { assessmentName, cycleName, sectionNames } = action.meta.arg
     const sectionName = sectionNames[0]

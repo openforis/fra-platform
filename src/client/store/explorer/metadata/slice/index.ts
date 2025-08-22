@@ -1,9 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-import { getMetadataReducer } from 'client/store/explorer/metadata/extraReducers/getMetadataReducer'
+import { getMetadataReducer } from 'client/store/explorer/metadata/slice/extraReducers/getMetadataReducer'
+
+import { ExplorerMetadataSliceName } from './name'
 
 export const ExplorerMetadataSlice = createSlice({
-  name: 'metadata',
+  name: ExplorerMetadataSliceName,
   initialState: {},
   reducers: {},
   extraReducers: (builder) => {
