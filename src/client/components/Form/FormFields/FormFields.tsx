@@ -7,6 +7,7 @@ import HiddenField from 'client/components/Form/FormFields/HiddenField'
 import LanguageField from 'client/components/Form/FormFields/LanguageField'
 import PermissionsField from 'client/components/Form/FormFields/PermissionsField'
 import SelectField from 'client/components/Form/FormFields/SelectField'
+import TelephoneField from 'client/components/Form/FormFields/TelephoneField'
 import TextField from 'client/components/Form/FormFields/TextField'
 import TextLinkField from 'client/components/Form/FormFields/TextLinkField'
 import { FieldProps } from 'client/components/Form/FormFields/types'
@@ -21,6 +22,7 @@ export const FormFields: Record<FormFieldType, React.FC<FieldProps>> = {
   [FormFieldType.language]: LanguageField,
   [FormFieldType.permissions]: PermissionsField,
   [FormFieldType.select]: SelectField,
+  [FormFieldType.telephone]: TelephoneField,
   [FormFieldType.text]: TextField,
   [FormFieldType.textLink]: TextLinkField,
   [FormFieldType.userRole]: UserRoleField,
