@@ -4,7 +4,7 @@ import { Objects } from 'utils/objects'
 import { getData } from 'client/store/explorer/data/actions/getData'
 import { ExplorerDataState } from 'client/store/explorer/data/state'
 
-export const getDataReducer = (builder: ActionReducerMapBuilder<ExplorerDataState>) => {
+export const getDataReducer = (builder: ActionReducerMapBuilder<ExplorerDataState>): void => {
   builder.addCase(getData.fulfilled, (state, { meta, payload }) => {
     const { sectionName } = meta.arg
 
