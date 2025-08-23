@@ -13,7 +13,7 @@ type Payload = {
   cycleName: CycleName
 }
 
-export const setCountries = (state: Draft<ExplorerSelectionState>, action: PayloadAction<Payload>) => {
+export const setCountries = (state: Draft<ExplorerSelectionState>, action: PayloadAction<Payload>): void => {
   const { assessmentName, countries, cycleName } = action.payload
 
   Objects.setInPath({
@@ -21,6 +21,4 @@ export const setCountries = (state: Draft<ExplorerSelectionState>, action: Paylo
     path: [assessmentName, cycleName, 'countries'],
     value: countries,
   })
-
-  return state
 }

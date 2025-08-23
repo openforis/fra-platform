@@ -16,7 +16,7 @@ type Payload = {
   units: Array<{ measureName: MeasureName; unitName: UnitName }>
 }
 
-export const setUnits = (state: Draft<ExplorerSelectionState>, action: PayloadAction<Payload>) => {
+export const setUnits = (state: Draft<ExplorerSelectionState>, action: PayloadAction<Payload>): void => {
   const { assessmentName, cycleName, sectionName, units } = action.payload
 
   units.forEach(({ measureName, unitName }) => {
@@ -26,6 +26,4 @@ export const setUnits = (state: Draft<ExplorerSelectionState>, action: PayloadAc
       value: unitName,
     })
   })
-
-  return state
 }

@@ -4,25 +4,21 @@ import { Objects } from 'utils/objects'
 import { AssessmentName } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
 import { SectionName } from 'meta/assessment/section'
-import { DimensionName } from 'meta/measurement/dimension'
+import { AxisSelection } from 'meta/explorer/selection'
 
 import { ExplorerSelectionState } from 'client/store/explorer/selection/state'
 
 type Payload = {
   assessmentName: AssessmentName
+  axisSelection: AxisSelection
   cycleName: CycleName
-  dimensions: Array<DimensionName>
   sectionName: SectionName
 }
 
-export const setDimensions = (state: Draft<ExplorerSelectionState>, action: PayloadAction<Payload>) => {
-  const { assessmentName, cycleName, dimensions, sectionName } = action.payload
+export const setAxisSelection = (state: Draft<ExplorerSelectionState>, action: PayloadAction<Payload>): void => {
+  const { assessmentName, axisSelection, cycleName, sectionName } = action.payload
 
-  Objects.setInPath({
-    obj: state,
-    path: [assessmentName, cycleName, 'dimensions', sectionName],
-    value: dimensions,
-  })
+  const path = [assessmentName, cycleName, 'axis', sectionName]
 
-  return state
+  Objects.setInPath({ obj: state, path, value: axisSelection })
 }
