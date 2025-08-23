@@ -18,7 +18,6 @@ import { useIsGeoRoute } from 'client/hooks'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import Navigation from 'client/components/Navigation'
 
-import useGetUsers from './hooks/useGetUsers'
 import { useInitMetaCache } from './hooks/useInitMetaCache'
 import { useInitSections } from './hooks/useInitSections'
 import { useReviewSummaryListener } from './hooks/useReviewSummaryListener'
@@ -37,7 +36,6 @@ const Country: React.FC = () => {
   // const isDataExportView = useIsDataExportView()
   useInitSections()
   useInitMetaCache()
-  useGetUsers()
   useReviewSummaryListener()
   useUserRedirect()
 

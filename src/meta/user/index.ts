@@ -8,16 +8,7 @@ export type { UserInvitation } from './userInvitation'
 export { UserInvitations } from './userInvitations'
 export type { UserInvitationSummary } from './userInvitationSummary'
 export type { UserResetPassword } from './userResetPassword'
-export type {
-  Administrator,
-  Collaborator,
-  CollaboratorPermissions,
-  CollaboratorSectionsPermission,
-  NationalCorrespondent,
-  Reviewer,
-  UserRole,
-  Viewer,
-} from './userRole'
+export type { Administrator, Collaborator, NationalCorrespondent, Reviewer, UserRole, Viewer } from './userRole'
 export { CollaboratorEditPropertyType, RoleName } from './userRole'
 export { Users } from './users'
 export { UsersEmail } from './usersEmail'

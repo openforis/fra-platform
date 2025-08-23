@@ -1,11 +1,13 @@
 import { useCallback, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import axios from 'axios'
+import { Objects } from 'utils/objects'
+
+import { ApiEndPoint } from 'meta/api/endpoint'
 import { Global } from 'meta/area'
 import { Lang } from 'meta/lang'
 
-import { useAppDispatch } from 'client/store/hooks'
-import { UserManagementActions } from 'client/store/ui/userManagement'
 import { useUser } from 'client/store/user/hooks/user'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
@@ -13,7 +15,6 @@ type UpdateLanguage = (props: { lang: Lang; persist?: boolean }) => Promise<void
 
 export const useUpdateLanguage = (): UpdateLanguage => {
   const { i18n } = useTranslation()
-  const dispatch = useAppDispatch()
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams()
   const user = useUser()
 
@@ -31,24 +32,13 @@ export const useUpdateLanguage = (): UpdateLanguage => {
 
       // If the user is logged in, update their language preference
       if (persist && user) {
-        dispatch(
-          UserManagementActions.updateUser({
-            assessmentName,
-            cycleName,
-            showIndicator: false,
-            user: {
-              ...user,
-              props: {
-                ...user.props,
-                lang,
-              },
-            },
-            countryIso: countryIso ?? Global.WO,
-          })
-        )
+        const updatedUser = Objects.setInPath({ obj: user, path: ['props', 'lang'], value: lang })
+
+        const params = { assessmentName, cycleName, countryIso: countryIso ?? Global.WO }
+        await axios.put(ApiEndPoint.User.one(), { user: updatedUser }, { params })
       }
     },
-    [assessmentName, countryIso, cycleName, dispatch, i18n, user]
+    [assessmentName, countryIso, cycleName, i18n, user]
   )
 }
 
