@@ -1,13 +1,14 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+import MediaQuery from 'react-responsive'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useLanguage } from 'client/hooks/useLanguage'
 import LinkHome from 'client/components/LinkHome'
-
-import CycleSwitcher from '../CycleSwitcher'
-import LanguageSelector, { LanguageSelectorMobile } from '../LanguageSelector'
-import UserLinks from '../UserLinks'
+import CycleSwitcher from 'client/components/PageLayout/Header/CycleSwitcher'
+import LanguageSelector, { LanguageSelectorMobile } from 'client/components/PageLayout/Header/LanguageSelector'
+import UserLinks from 'client/components/PageLayout/Header/UserLinks'
+import { Breakpoints } from 'client/utils'
 
 const FraHeader: React.FC = () => {
   const { t } = useTranslation()
@@ -24,7 +25,9 @@ const FraHeader: React.FC = () => {
         {cycle && <CycleSwitcher />}
       </div>
 
-      <LanguageSelectorMobile />
+      <MediaQuery maxWidth={Breakpoints.laptop - 1}>
+        <LanguageSelectorMobile />
+      </MediaQuery>
 
       <div className="app-header__menu">
         <LanguageSelector />
