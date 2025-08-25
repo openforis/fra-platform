@@ -6,10 +6,11 @@ import { LayerSectionKey } from 'meta/geo'
 import { ExtraEstimation, extraEstimationsApiEndpoint, extraEstimationsMetadata } from 'meta/geo/forestEstimations'
 import { ForestEstimationEntry } from 'meta/geo/geoStatistics'
 
-import { RootState } from 'client/store/types'
+import { LayersSelectors } from 'client/store/geo/layers/selectors'
+import { GeoSliceName } from 'client/store/geo/slice/name'
+import { GeoStatisticsSliceName } from 'client/store/geo/statistics/slice/name'
+import { ThunkApiConfig } from 'client/store/types'
 
-import { GeoActions } from '../slice'
-import { LayersSectionState } from '../stateType'
 import { _getExtraEstimationRequestBody } from './_getExtraEstimationRequestBody'
 
 type Params = {
@@ -19,21 +20,31 @@ type Params = {
   sectionKey: LayerSectionKey
 }
 
-export const postExtraEstimation = createAsyncThunk<[ExtraEstimation, LayerSectionKey, number], Params>(
-  'geo/post/extraEstimation',
-  async ({ countryIso, extraEstimation, scale, sectionKey }, { dispatch, getState, rejectWithValue }) => {
+type Returned = {
+  entry: ForestEstimationEntry
+  extraEstimation: ExtraEstimation
+  scale: number
+  sectionKey: LayerSectionKey
+}
+
+export const getExtraEstimation = createAsyncThunk<Returned, Params, ThunkApiConfig & { rejectValue: string }>(
+  'geo/statistics/getExtraEstimation',
+  async (params, { getState, rejectWithValue }) => {
+    const { countryIso, extraEstimation, scale, sectionKey } = params
     try {
       const url = extraEstimationsApiEndpoint[extraEstimation]
 
-      const state = getState()
-      const sectionState = (state as RootState).geo.sections?.[sectionKey] ?? ({} as LayersSectionState)
-      const body = _getExtraEstimationRequestBody(countryIso, scale, sectionState)
+      const rootState = getState()
 
+      const layersState = LayersSelectors.getLayers(rootState)
+
+      const body = _getExtraEstimationRequestBody(countryIso, scale, layersState, sectionKey)
       const response = await axios.post(url, body)
       const area = response.data.areaHa
 
-      const fra1ALandArea = (state as RootState).geo?.geoStatistics?.forestEstimations?.data?.fra1aLandArea ?? null
-      const percentage = fra1ALandArea != null ? (area * 100) / (fra1ALandArea * 1000) : 0
+      const geoStatisticsState = rootState[GeoSliceName]?.[GeoStatisticsSliceName]
+      const { fra1aLandArea = null } = geoStatisticsState?.forestEstimations?.data || {}
+      const percentage = fra1aLandArea != null && fra1aLandArea !== 0 ? (area * 100) / (fra1aLandArea * 1000) : 0
       const sourceLabelKey = extraEstimationsMetadata[extraEstimation].titleKey
       const entry: ForestEstimationEntry = {
         area: Number(area.toFixed(2)),
@@ -42,11 +53,9 @@ export const postExtraEstimation = createAsyncThunk<[ExtraEstimation, LayerSecti
         sourceLabelKey,
       }
 
-      dispatch(GeoActions.insertTabularEstimationEntry([-1, entry]))
-      return [extraEstimation, sectionKey, scale]
+      return { entry, extraEstimation, scale, sectionKey }
     } catch (error) {
       if (axios.isAxiosError(error)) return rejectWithValue('geo.error.extraEstimation.failedToRetrieve')
-
       return rejectWithValue('geo.error.extraEstimation.unexpectedDuringProcessing')
     }
   }

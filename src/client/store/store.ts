@@ -14,6 +14,7 @@ import { LoginState } from 'client/store/login/state'
 import { TablePaginatedSliceName } from 'client/store/tablePaginated/name'
 import { TablePaginatedState } from 'client/store/tablePaginated/state'
 
+import { GeoStatisticsState } from './geo/statistics/state'
 import axiosMiddleware from './middleware/axios'
 import { listenerMiddleware } from './middleware/listener'
 import rootReducer from './rootReducer'
@@ -27,6 +28,7 @@ export interface LazyLoadedSlices {
     map: GeoMapState
     mosaic: MosaicState
     recipes: GeoRecipesState
+    statistics: GeoStatisticsState
   }
   [LoginSliceName]: LoginState
   [TablePaginatedSliceName]: TablePaginatedState
@@ -42,7 +44,7 @@ const store = configureStore({
       .concat(createDebounce() as Middleware, axiosMiddleware),
 })
 
-export const injectSlice = (slice: Parameters<typeof reducer.inject>[0]) => {
+export const injectSlice = (slice: Parameters<typeof reducer.inject>[0]): void => {
   reducer.inject(slice)
 }
 

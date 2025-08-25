@@ -6,15 +6,15 @@ import { Numbers } from 'utils/numbers'
 import { agreementPalette, ExtraEstimation, extraEstimationsMetadata, ForestKey, forestLayersMetadata } from 'meta/geo'
 
 import { useGeoLayer } from 'client/store/geo/layers/hooks/layers'
-import { useGeoFra1aLandArea, useGeoStatistics } from 'client/store/ui/geo/hooks'
+import { useGeoFra1aLandArea, useGeoStatistics } from 'client/store/geo/statistics/hooks/statistics'
 import { CSVData } from 'client/pages/Geo/ButtonCSVExport/types'
 import { StatisticsTableData } from 'client/pages/Geo/StatisticsSidePanel/StatisticsTable/types'
 
 type Returned = {
   columns: Array<string>
   csvData?: CSVData
-  error?: string
-  isLoading: boolean
+  errorKey?: string
+  loading: boolean
   tableData: StatisticsTableData
   units: Array<string>
 }
@@ -23,17 +23,17 @@ export const useTreeCoverAreaData = (): Returned => {
   const { t } = useTranslation()
 
   const fra1aLandArea = useGeoFra1aLandArea()
-  const { error, isLoading, tabularForestEstimations: data } = useGeoStatistics()
+  const { errorKey, forestEstimationsTableData: data = [], loading } = useGeoStatistics()
   const agreementLayer = useGeoLayer(ForestKey.Agreement)
   const agreementLevel = agreementLayer?.options?.agreementLayer?.level ?? 0
   const agreementColor = agreementPalette.at(agreementLevel - 1)
 
   return useMemo<Returned>(() => {
-    if (isLoading) {
+    if (loading) {
       return {
         columns: [],
-        error,
-        isLoading,
+        errorKey,
+        loading,
         tableData: [],
         units: [],
       }
@@ -92,10 +92,10 @@ export const useTreeCoverAreaData = (): Returned => {
     return {
       columns,
       csvData: customCsvData,
-      error,
-      isLoading,
+      errorKey,
+      loading,
       tableData: formattedTableData,
       units,
     }
-  }, [agreementColor, data, error, fra1aLandArea, isLoading, t])
+  }, [agreementColor, data, errorKey, fra1aLandArea, loading, t])
 }
