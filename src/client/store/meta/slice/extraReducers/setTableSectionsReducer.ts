@@ -4,7 +4,7 @@ import { Objects } from 'utils/objects'
 import { setTableSections } from 'client/store/meta/actions/setTableSections'
 import { MetaState } from 'client/store/meta/state'
 
-export const setTableSectionsReducer = (builder: ActionReducerMapBuilder<MetaState>) => {
+export const setTableSectionsReducer = (builder: ActionReducerMapBuilder<MetaState>): void => {
   builder.addCase(setTableSections, (state, { payload }) => {
     const { assessmentName, cycleName, tableSections } = payload
 

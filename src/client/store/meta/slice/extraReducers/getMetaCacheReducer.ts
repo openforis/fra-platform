@@ -4,7 +4,7 @@ import { Objects } from 'utils/objects'
 import { getMetaCache } from 'client/store/meta/actions/getMetaCache'
 import { MetaState } from 'client/store/meta/state'
 
-export const getMetaCacheReducer = (builder: ActionReducerMapBuilder<MetaState>) => {
+export const getMetaCacheReducer = (builder: ActionReducerMapBuilder<MetaState>): void => {
   builder.addCase(getMetaCache.fulfilled, (state, action) => {
     const metaCache = action.payload
     if (metaCache) {
