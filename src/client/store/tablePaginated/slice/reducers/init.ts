@@ -9,7 +9,7 @@ import { TablePaginatedFilter } from 'client/components/TablePaginated/types'
 export const init = (
   state: Draft<TablePaginatedState>,
   action: PayloadAction<{ path: string; filters: Array<TablePaginatedFilter<TablePaginatedFilterType>> }>
-) => {
+): void => {
   const { filters, path } = action.payload
   filters.forEach((filter) => {
     const { defaultValue, fieldName } = filter

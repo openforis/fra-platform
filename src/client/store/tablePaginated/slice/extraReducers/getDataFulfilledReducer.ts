@@ -1,10 +1,10 @@
 import { ActionReducerMapBuilder } from '@reduxjs/toolkit'
 import { Objects } from 'utils/objects'
 
-import { getData } from '../actions/getData'
-import { TablePaginatedState } from '../state'
+import { getData } from 'client/store/tablePaginated/actions/getData'
+import { TablePaginatedState } from 'client/store/tablePaginated/state'
 
-const getDataFulfilledReducer = (builder: ActionReducerMapBuilder<TablePaginatedState>) => {
+const getDataFulfilledReducer = (builder: ActionReducerMapBuilder<TablePaginatedState>): void => {
   builder.addCase(getData.fulfilled, (state, action) => {
     const { path } = action.meta.arg
     const data = action.payload
