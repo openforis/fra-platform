@@ -2,7 +2,6 @@ import { useCallback, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import axios from 'axios'
-import { Objects } from 'utils/objects'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { Global } from 'meta/area'
@@ -32,10 +31,12 @@ export const useUpdateLanguage = (): UpdateLanguage => {
 
       // If the user is logged in, update their language preference
       if (persist && user) {
-        const updatedUser = Objects.setInPath({ obj: user, path: ['props', 'lang'], value: lang })
+        const formData = new FormData()
+        formData.append('user.id', String(user.id))
+        formData.append('user.props', JSON.stringify({ lang }))
 
         const params = { assessmentName, cycleName, countryIso: countryIso ?? Global.WO }
-        await axios.put(ApiEndPoint.User.one(), { user: updatedUser }, { params })
+        await axios.put(ApiEndPoint.User.one(), formData, { params })
       }
     },
     [assessmentName, countryIso, cycleName, i18n, user]
