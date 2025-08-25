@@ -1,6 +1,18 @@
+@import 'src/client/styles/config';
+
 .grid-header-cell__button-sort {
   position: absolute;
   right: 0px;
   top: 50%;
   transform: translateY(-50%);
+
+  svg {
+    color: $text-body;
+  }
+
+  &.active {
+    svg {
+      color: $ui-accent;
+    }
+  }
 }
