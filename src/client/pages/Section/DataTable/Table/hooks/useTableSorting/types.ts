@@ -14,7 +14,7 @@ export interface SortState {
   order: SortOrder
 }
 
-export interface Props {
+export interface PropsSort {
   rowsData: Array<Row>
   data: RecordAssessmentData
   table: Table
