@@ -1,14 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-import { getApplicationReducer } from 'client/store/user/extraReducers/getApplicationReducer'
-import { getLoginReducer } from 'client/store/user/extraReducers/getLoginReducer'
-import { getLogoutReducer } from 'client/store/user/extraReducers/getLogoutReducer'
+import { getApplicationReducer } from 'client/store/user/slice/extraReducers/getApplicationReducer'
+import { getLoginReducer } from 'client/store/user/slice/extraReducers/getLoginReducer'
+import { getLogoutReducer } from 'client/store/user/slice/extraReducers/getLogoutReducer'
 import { UserState } from 'client/store/user/state'
+
+import { UserSliceName } from './name'
 
 export const initialState: UserState = null
 
 export const UserSlice = createSlice({
-  name: 'user',
+  name: UserSliceName,
   initialState,
   reducers: {},
   extraReducers: (builder) => {

@@ -4,6 +4,6 @@ import { logout } from 'client/store/user/actions/logout'
 import { initialState } from 'client/store/user/slice'
 import { UserState } from 'client/store/user/state'
 
-export const getLogoutReducer = (builder: ActionReducerMapBuilder<UserState>) => {
+export const getLogoutReducer = (builder: ActionReducerMapBuilder<UserState>): void => {
   builder.addCase(logout.fulfilled, () => initialState)
 }
