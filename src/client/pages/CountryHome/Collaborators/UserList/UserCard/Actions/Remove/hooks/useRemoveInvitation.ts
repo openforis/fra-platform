@@ -1,11 +1,12 @@
 import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import axios from 'axios'
+
+import { ApiEndPoint } from 'meta/api/endpoint'
 import { CountryIso } from 'meta/area'
 import { CountryUserSummaries } from 'meta/user/countryUserSummaries'
 
-import { useAppDispatch } from 'client/store/hooks'
-import { UserManagementActions } from 'client/store/ui/userManagement'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 import type { Props as BaseProps } from '../../../Props'
@@ -20,20 +21,18 @@ export const useRemoveInvitation = (props: Props) => {
 
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const { t } = useTranslation()
-  const dispatch = useAppDispatch()
   const refetchInvitations = useRefetchUsers()
 
-  return useCallback(() => {
+  return useCallback(async () => {
     const { fullName } = user
     const { invitation } = CountryUserSummaries.getCountryRoleAndInvitation(user, countryIso)
     const { uuid: invitationUuid } = invitation
     // eslint-disable-next-line no-alert
     if (window.confirm(t('userManagement.confirmDelete', { user: fullName }))) {
       const params = { assessmentName, cycleName, countryIso, invitationUuid }
-      dispatch(UserManagementActions.removeInvitation(params)).then(() => {
-        refetchInvitations()
-        callback()
-      })
+      await axios.delete(ApiEndPoint.User.invitation(), { params })
+      refetchInvitations()
+      callback()
     }
-  }, [assessmentName, callback, countryIso, cycleName, dispatch, refetchInvitations, t, user])
+  }, [assessmentName, callback, countryIso, cycleName, refetchInvitations, t, user])
 }
