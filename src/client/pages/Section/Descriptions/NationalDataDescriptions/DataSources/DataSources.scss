@@ -17,3 +17,17 @@
     text-transform: uppercase;
   }
 }
+
+.data-source div.multiselect__container div.select__control {
+  padding: $spacing-xxs;
+}
+
+.data-source div.select__multiValueLabel {
+  color: $text-body;
+  font-size: $font-m;
+  padding: unset;
+
+  &.isDisabled {
+    white-space: break-spaces;
+  }
+}
