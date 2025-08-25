@@ -18,12 +18,9 @@
   }
 }
 
-.data-source div.multiselect__container div.select__control.isDisabled,
+.data-source div.multiselect__container div.select__control,
 .data-source div.select__control {
   align-content: start;
-}
-
-.data-source div.multiselect__container div.select__control {
   padding: $spacing-xxs;
 }
 
