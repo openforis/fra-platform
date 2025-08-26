@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import { UseFormSetValue, UseFormWatch } from 'react-hook-form'
 
+import { useOnMount } from 'client/hooks/useOnMount'
+
 type Props = {
   fieldName: string
   setValue: UseFormSetValue<any>
@@ -23,7 +25,7 @@ export const useTelephoneFieldState = (props: Props): Returned => {
   const formValue = watch(fieldName)
 
   // Set initial state by parsing formValue
-  useEffect(() => {
+  useOnMount(() => {
     if (formValue && !callingCode && !phoneNumber) {
       const match = formValue.match(/^\+(\d+)\s+(.+)$/)
 
@@ -32,9 +34,11 @@ export const useTelephoneFieldState = (props: Props): Returned => {
         const number = match.at(2)
         setCallingCode(code)
         setPhoneNumber(number)
+      } else {
+        setPhoneNumber(formValue)
       }
     }
-  }, [callingCode, formValue, phoneNumber])
+  })
 
   // Update form on phone number change - NOTE: Calling code not required (e.g. internal numbers: 06123)
   useEffect(() => {
@@ -46,10 +50,5 @@ export const useTelephoneFieldState = (props: Props): Returned => {
     }
   }, [callingCode, fieldName, phoneNumber, setValue])
 
-  return {
-    callingCode,
-    phoneNumber,
-    setCallingCode,
-    setPhoneNumber,
-  }
+  return { callingCode, phoneNumber, setCallingCode, setPhoneNumber }
 }
