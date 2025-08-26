@@ -7,8 +7,10 @@ import { toggleEditDescriptionReducer } from 'client/store/ui/countryReport/slic
 import { toggleShowOriginalDataPointReducer } from 'client/store/ui/countryReport/slice/extraReducers/toggleShowOriginalDataPointReducer'
 import { initialState } from 'client/store/ui/countryReport/state'
 
+import { CountryReportSliceName } from './name'
+
 export const CountryReportSlice = createSlice({
-  name: 'countryReport',
+  name: CountryReportSliceName,
   initialState,
   reducers: {},
   extraReducers: (builder) => {

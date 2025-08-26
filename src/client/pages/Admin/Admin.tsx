@@ -60,7 +60,7 @@ const Admin: React.FC = () => {
         {sections.map(({ labelKey, name }) => (
           <NavLink
             key={name}
-            className={(navData) =>
+            className={(navData): string =>
               classNames('btn admin__page-menu-button', {
                 disabled: navData.isActive,
               })

@@ -5,8 +5,10 @@ import { statusReducer } from 'client/store/review/slice/extraReducers/statusRed
 import { summaryReducer } from 'client/store/review/slice/extraReducers/summaryReducer'
 import { initialState } from 'client/store/review/state'
 
+import { ReviewSliceName } from './name'
+
 export const ReviewSlice = createSlice({
-  name: 'review',
+  name: ReviewSliceName,
   initialState,
   reducers: {},
   extraReducers: (builder) => {
