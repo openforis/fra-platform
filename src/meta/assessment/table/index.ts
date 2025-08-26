@@ -74,6 +74,7 @@ export interface TableProps {
   readonly?: boolean
   report?: Record<CycleUuid, { columnsReport?: Array<ColName>; transpose?: boolean }>
   secondary?: boolean
+  sort?: Record<CycleUuid, { columnNames: Array<ColName>; rowNames: Array<VariableName> }>
   style?: Record<CycleUuid, Pick<CSSProperties, 'gridTemplateColumns'>>
   unit?: UnitName
   visibility?: Record<CycleUuid, Array<TableVisibility>>

@@ -62,7 +62,6 @@ export interface ColProps {
   linkedNodes?: Record<CycleUuid, ColLinkedNode>
   readonly?: boolean
   select?: Record<CycleUuid, ColSelectProps>
-  sortable?: Record<CycleUuid, ColName>
   style?: Record<CycleUuid, ColStyle>
   validateFns?: Record<CycleUuid, Array<string>>
   variableNo?: Record<CycleUuid, string>
