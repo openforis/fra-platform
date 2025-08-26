@@ -5,8 +5,10 @@ import { updateCountriesReducer } from 'client/store/dataExport/slice/extraReduc
 import { updateSelectionReducer } from 'client/store/dataExport/slice/extraReducers/updateSelectionReducer'
 import { DataExportState, initialState } from 'client/store/dataExport/state'
 
+import { DataExportSliceName } from './name'
+
 export const DataExportSlice = createSlice({
-  name: 'dataExport',
+  name: DataExportSliceName,
   initialState,
   reducers: {},
   extraReducers: (builder: ActionReducerMapBuilder<DataExportState>) => {

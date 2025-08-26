@@ -4,8 +4,10 @@ import { setProgressReducer } from 'client/store/fileUpload/slice/extraReducers/
 import { uploadFilesReducer } from 'client/store/fileUpload/slice/extraReducers/uploadFilesReducer'
 import { initialState } from 'client/store/fileUpload/state'
 
+import { FileUploadSliceName } from './name'
+
 export const FileUploadSlice = createSlice({
-  name: 'fileUpload',
+  name: FileUploadSliceName,
   initialState,
   reducers: {},
   extraReducers: (builder) => {
