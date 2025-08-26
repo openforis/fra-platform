@@ -1,6 +1,5 @@
 import { UserRepository } from 'server/repository/public/user'
 import { UserInvitationRepository } from 'server/repository/public/userInvitation'
-import { UserRoleRepository } from 'server/repository/public/userRole'
 
 import { acceptInvitation } from './acceptInvitation'
 import { changePassword } from './changePassword'
@@ -16,7 +15,6 @@ import { remove } from './remove'
 import { removeInvitation } from './removeInvitation'
 import { sendInvitationEmail } from './sendInvitationEmail'
 import { update } from './update'
-import { updateUserRoles } from './updateUserRoles'
 
 export const UserController = {
   create,
@@ -38,8 +36,5 @@ export const UserController = {
   sendInvitationEmail,
   createResetPassword,
   changePassword,
-  updateRoleProps: UserRoleRepository.updateProps,
-  updateSectionAuth: UserRoleRepository.updateSectionAuth,
-  updateUserRoles,
   mergeUsers,
 }

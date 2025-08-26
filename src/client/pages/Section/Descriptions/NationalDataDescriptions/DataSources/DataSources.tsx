@@ -69,6 +69,7 @@ export const DataSources: React.FC<Props> = (props: Props) => {
           {editable && <ButtonCopy disabled={dataSources.length !== 1} sectionName={sectionName} />}
 
           <DataGrid
+            className="data-source"
             gridColumn={canEdit ? `1/3` : undefined}
             gridTemplateColumns="minmax(200px, 1fr) minmax(200px, 1fr) minmax(200px, 1fr) minmax(150px, 1fr) minmax(150px, 1fr)"
             withActions={canEdit}
@@ -124,7 +125,7 @@ export const DataSources: React.FC<Props> = (props: Props) => {
             <div className="data-sources__readOnlyText">
               <h5>{t('nationalDataPoint.dataSource2025ExplanatoryText')}</h5>
               <div className="description__editor-container">
-                <EditorWYSIWYG disabled onChange={() => ({})} value={text} />
+                <EditorWYSIWYG disabled onChange={(): object => ({})} value={text} />
               </div>
             </div>
           )}

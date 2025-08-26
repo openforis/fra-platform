@@ -4,8 +4,10 @@ import { addNotificationReducer } from 'client/store/ui/notification/slice/extra
 import { removeNotificationReducer } from 'client/store/ui/notification/slice/extraReducers/removeNotificationReducer'
 import { initialState } from 'client/store/ui/notification/state'
 
+import { NotificationSliceName } from './name'
+
 export const NotificationSlice = createSlice({
-  name: 'notification',
+  name: NotificationSliceName,
   initialState,
   reducers: {},
   extraReducers: (builder) => {

@@ -7,8 +7,10 @@ import { activitiesReducer } from 'client/store/data/history/slice/reducers/acti
 import { lastApprovedReducer } from 'client/store/data/history/slice/reducers/lastApproved'
 import { initialState } from 'client/store/data/history/state'
 
+import { HistorySliceName } from './name'
+
 export const HistorySlice = createSlice({
-  name: 'history',
+  name: HistorySliceName,
   initialState,
   reducers: {},
   extraReducers: (builder) => {

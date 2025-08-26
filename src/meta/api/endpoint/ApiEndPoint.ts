@@ -155,10 +155,6 @@ export const ApiEndPoint = {
     resetPassword: () => apiPath('users', 'reset-password'),
 
     profilePicture: (id = ':id') => apiPath('users', 'profile-picture', id),
-    roles: () => apiPath('users', 'roles'),
-    adminRole: () => apiPath('users', 'admin-role'),
-    sectionAuth: () => apiPath('users', 'section-auth'),
-    roleProps: () => apiPath('users', 'role', 'props'),
   },
 
   Geo: {

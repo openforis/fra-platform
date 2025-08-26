@@ -8,8 +8,10 @@ import { openTopicReducer } from 'client/store/messageCenter/slice/extraReducers
 import { resetReducer } from 'client/store/messageCenter/slice/extraReducers/resetReducer'
 import { initialState } from 'client/store/messageCenter/state'
 
+import { MessageCenterSliceName } from './name'
+
 export const MessageCenterSlice = createSlice({
-  name: 'messageCenter',
+  name: MessageCenterSliceName,
   initialState,
   reducers: {},
   extraReducers: (builder) => {

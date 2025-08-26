@@ -9,7 +9,6 @@ import { EstimationsActions } from 'client/store/data/tableData/estimations/acti
 import { NodeValuesActions } from 'client/store/data/tableData/nodeValues/actions'
 import { useAppDispatch } from 'client/store/hooks'
 import { addAppListener } from 'client/store/middleware/listener'
-import { UserManagementActions } from 'client/store/ui/userManagement'
 
 // List of actions to show the loading indicator for
 const ACTIONS = [
@@ -30,12 +29,6 @@ const ACTIONS = [
   OriginalDataPointActions.updateOriginalDataPointOriginalData,
   OriginalDataPointActions.updateOriginalDataPointYear,
   OriginalDataPointActions.deleteOriginalDataPoint,
-  // UserManagementActions
-  UserManagementActions.updateUser,
-  UserManagementActions.updateUserAdminRole,
-  UserManagementActions.updateUserRoles,
-  UserManagementActions.updateRoleProps,
-  UserManagementActions.updateSectionAuth,
 ]
 
 export const useLoadingIndicatorState = () => {
