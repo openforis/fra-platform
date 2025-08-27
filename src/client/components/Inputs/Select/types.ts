@@ -2,7 +2,7 @@ import { ActionMeta, Props as ReactSelectProps } from 'react-select'
 import { CreatableProps } from 'react-select/creatable'
 
 export type Option = {
-  label: string | React.ReactNode
+  label: React.ReactNode
   value: string
 }
 
