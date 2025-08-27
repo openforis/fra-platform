@@ -2,7 +2,7 @@ import { ActionMeta, Props as ReactSelectProps } from 'react-select'
 import { CreatableProps } from 'react-select/creatable'
 
 export type Option = {
-  label: string
+  label: React.ReactNode
   value: string
 }
 
@@ -19,6 +19,7 @@ export type ValueInput = string | Array<string> | null
 type SelectBaseProps =
   | Pick<
       ReactSelectProps,
+      | 'formatOptionLabel'
       | 'inputValue'
       | 'isClearable'
       | 'isMulti'

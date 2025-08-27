@@ -49,7 +49,7 @@ export const useRolePropsFields = (props: PropsFormDefinition): FormDefinition['
       return isCountryPage && Authorizer.canEditUserRoleProps({ cycle, countryIso, target, user })
     }
 
-    const shouldShowRoleName = () => {
+    const shouldShowRoleName = (): boolean => {
       return isCountryPage && Authorizer.canEditUserRoleName({ cycle, countryIso, target: targetUser, user })
     }
 
@@ -64,7 +64,7 @@ export const useRolePropsFields = (props: PropsFormDefinition): FormDefinition['
         type: FormFieldType.hidden,
         label: '',
         defaultValue: role?.uuid || '',
-        shouldShow: (values: UserEditCountryForm) => {
+        shouldShow: (values: UserEditCountryForm): boolean => {
           return shouldShowRoleName() || shouldShowRoleProps(values) || shouldShowPermissions(values)
         },
       },
@@ -150,7 +150,7 @@ export const useRolePropsFields = (props: PropsFormDefinition): FormDefinition['
       },
       {
         name: 'role.props.primaryPhoneNumber',
-        type: FormFieldType.text,
+        type: FormFieldType.telephone,
         label: 'editUser.primaryPhoneNumber',
         defaultValue: role?.props?.primaryPhoneNumber || '',
         shouldShow: shouldShowRoleProps,
@@ -158,7 +158,7 @@ export const useRolePropsFields = (props: PropsFormDefinition): FormDefinition['
       },
       {
         name: 'role.props.secondaryPhoneNumber',
-        type: FormFieldType.text,
+        type: FormFieldType.telephone,
         label: 'editUser.secondaryPhoneNumber',
         defaultValue: role?.props?.secondaryPhoneNumber || '',
         shouldShow: shouldShowRoleProps,
@@ -188,7 +188,7 @@ export const useRolePropsFields = (props: PropsFormDefinition): FormDefinition['
         label: 'editUser.channel',
         defaultValue: role?.props?.contactPreference?.options?.phone || '',
         options: Object.values(UserContactPreferencePhoneOption).map<Option>((value) => ({ label: value, value })),
-        shouldShow: (values) => {
+        shouldShow: (values): boolean => {
           const contactPreference = Objects.getInPath(values, ['role', 'props', 'contactPreference', 'method'])
 
           return [
