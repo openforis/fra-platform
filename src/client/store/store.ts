@@ -6,7 +6,7 @@ import { LinksState } from 'client/store/admin/links/state'
 import { AdminSliceName } from 'client/store/admin/name'
 import { GeoLayersState } from 'client/store/geo/layers/state'
 import { GeoMapState } from 'client/store/geo/map/state'
-import { MosaicState } from 'client/store/geo/mosaic/state'
+import { GeoMosaicState } from 'client/store/geo/mosaic/state'
 import { GeoRecipesState } from 'client/store/geo/recipes/state'
 import { GeoSliceName } from 'client/store/geo/slice/name'
 import { LoginSliceName } from 'client/store/login/name'
@@ -26,7 +26,7 @@ export interface LazyLoadedSlices {
   [GeoSliceName]: {
     layers: GeoLayersState
     map: GeoMapState
-    mosaic: MosaicState
+    mosaic: GeoMosaicState
     recipes: GeoRecipesState
     statistics: GeoStatisticsState
   }

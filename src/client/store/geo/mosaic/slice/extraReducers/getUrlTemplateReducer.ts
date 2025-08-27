@@ -4,10 +4,10 @@ import { MOSAIC_LAYER_KEY } from 'meta/geo/mosaic'
 
 import { LayerFetchStatus } from 'client/store/geo/layers/state'
 import { getUrlTemplate } from 'client/store/geo/mosaic/actions/getUrlTemplate'
-import { MosaicState } from 'client/store/geo/mosaic/state'
+import { GeoMosaicState } from 'client/store/geo/mosaic/state'
 import { mapController } from 'client/utils'
 
-export const getUrlTemplateReducer = (builder: ActionReducerMapBuilder<MosaicState>) => {
+export const getUrlTemplateReducer = (builder: ActionReducerMapBuilder<GeoMosaicState>): void => {
   builder.addCase(getUrlTemplate.pending, (state) => {
     delete state.urlTemplateData
     state.status = LayerFetchStatus.Loading

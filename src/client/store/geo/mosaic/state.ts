@@ -7,7 +7,7 @@ export type MosaicUrlTemplateData = {
   url: string
 }
 
-export type MosaicState = {
+export type GeoMosaicState = {
   options: MosaicOptions
   selected?: boolean
   status?: LayerFetchStatus
@@ -21,6 +21,6 @@ const initialMosaicOptions: MosaicOptions = {
   year: 2020,
 }
 
-export const initialState: MosaicState = {
+export const initialState: GeoMosaicState = {
   options: initialMosaicOptions,
 }
