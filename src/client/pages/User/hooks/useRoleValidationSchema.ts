@@ -43,14 +43,7 @@ export const useRoleValidationSchema = () => {
           primaryPhoneNumber: z
             .string()
             .min(1, { error: t('form.errors.required', { field: t('editUser.primaryPhoneNumber') }) }),
-          // .refine((val) => z.e164().safeParse(val).success, {
-          //   error: t('form.errors.invalid', { field: t('editUser.primaryPhoneNumber') }),
-          // })
-          secondaryPhoneNumber: z
-            // .e164(t('form.errors.invalid', { field: t('editUser.secondaryPhoneNumber') }))
-            .string()
-            .optional()
-            .or(z.literal('')),
+          secondaryPhoneNumber: z.string().optional().or(z.literal('')),
           skype: z.string().optional(),
           contactPreference: z
             .object({
