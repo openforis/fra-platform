@@ -4,7 +4,7 @@ import createDebounce from 'redux-debounced'
 
 import { LinksState } from 'client/store/admin/links/state'
 import { AdminSliceName } from 'client/store/admin/name'
-import { LayersState } from 'client/store/geo/layers/state'
+import { GeoLayersState } from 'client/store/geo/layers/state'
 import { GeoMapState } from 'client/store/geo/map/state'
 import { MosaicState } from 'client/store/geo/mosaic/state'
 import { GeoRecipesState } from 'client/store/geo/recipes/state'
@@ -24,7 +24,7 @@ export interface LazyLoadedSlices {
     links: LinksState
   }
   [GeoSliceName]: {
-    layers: LayersState
+    layers: GeoLayersState
     map: GeoMapState
     mosaic: MosaicState
     recipes: GeoRecipesState

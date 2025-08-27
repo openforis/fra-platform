@@ -30,6 +30,6 @@ export type LayerState = {
 
 export type LayersSectionState = Record<LayerKey, LayerState>
 
-export type LayersState = Record<LayerKey, LayerState>
+export type GeoLayersState = Record<LayerKey, LayerState>
 
-export const initialState = {} as LayersState
+export const initialState = {} as GeoLayersState

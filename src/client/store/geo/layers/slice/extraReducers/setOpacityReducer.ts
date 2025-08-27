@@ -2,10 +2,10 @@ import { ActionReducerMapBuilder } from '@reduxjs/toolkit'
 import { Objects } from 'utils/objects'
 
 import { setOpacity } from 'client/store/geo/layers/actions/setOpacity'
-import { LayersState } from 'client/store/geo/layers/state'
+import { GeoLayersState } from 'client/store/geo/layers/state'
 import { mapController } from 'client/utils'
 
-export const setOpacityReducer = (builder: ActionReducerMapBuilder<LayersState>) => {
+export const setOpacityReducer = (builder: ActionReducerMapBuilder<GeoLayersState>): void => {
   builder.addCase(setOpacity.fulfilled, (state, action) => {
     const { layerKey, opacity } = action.payload
 
