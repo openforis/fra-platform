@@ -1,1 +1,1 @@
-export const MosaicSliceName = 'mosaic'
+export const GeoMosaicSliceName = 'mosaic'

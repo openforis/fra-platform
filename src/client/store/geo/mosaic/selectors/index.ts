@@ -1,10 +1,11 @@
 import { createSelector } from '@reduxjs/toolkit'
 
-import { MosaicSliceName } from 'client/store/geo/mosaic/slice/name'
+import { GeoMosaicSliceName } from 'client/store/geo/mosaic/slice/name'
+import { GeoMosaicState } from 'client/store/geo/mosaic/state'
 import { GeoSliceName } from 'client/store/geo/slice/name'
 import { RootState } from 'client/store/types'
 
-const _getState = (state: RootState) => state[GeoSliceName]?.[MosaicSliceName]
+const _getState = (state: RootState): GeoMosaicState => state[GeoSliceName]?.[GeoMosaicSliceName]
 
 const getOptions = createSelector(_getState, (state) => state?.options)
 

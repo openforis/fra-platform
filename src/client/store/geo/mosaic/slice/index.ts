@@ -6,11 +6,11 @@ import { setOptionReducer } from 'client/store/geo/mosaic/slice/extraReducers/se
 import { toggleLayerReducer } from 'client/store/geo/mosaic/slice/extraReducers/toggleLayerReducer'
 import { initialState } from 'client/store/geo/mosaic/state'
 
-import { MosaicSliceName } from './name'
+import { GeoMosaicSliceName } from './name'
 
-export const MosaicSlice = createSlice({
+export const GeoMosaicSlice = createSlice({
   initialState,
-  name: MosaicSliceName,
+  name: GeoMosaicSliceName,
   reducers: {},
   extraReducers: (builder) => {
     getUrlTemplateReducer(builder)
