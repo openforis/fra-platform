@@ -1,1 +1,1 @@
-export const LayersSliceName = 'layers'
+export const GeoLayersSliceName = 'layers'

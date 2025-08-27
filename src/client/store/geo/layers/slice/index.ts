@@ -8,11 +8,11 @@ import { setOptionsPropertyReducer } from 'client/store/geo/layers/slice/extraRe
 import { setPropertyReducer } from 'client/store/geo/layers/slice/extraReducers/setPropertyReducer'
 import { initialState } from 'client/store/geo/layers/state'
 
-import { LayersSliceName } from './name'
+import { GeoLayersSliceName } from './name'
 
-export const LayersSlice = createSlice({
+export const GeoLayersSlice = createSlice({
   initialState,
-  name: LayersSliceName,
+  name: GeoLayersSliceName,
   reducers: {},
   extraReducers: (builder) => {
     getLayerMapIdReducer(builder)
