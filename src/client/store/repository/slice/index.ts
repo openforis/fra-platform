@@ -7,8 +7,10 @@ import { setFileReducer } from 'client/store/repository/slice/extraReducers/setF
 import { setRepositoryItemReducer } from 'client/store/repository/slice/extraReducers/setRepositoryItemReducer'
 import { initialState } from 'client/store/repository/state'
 
+import { RepositorySliceName } from './name'
+
 export const RepositorySlice = createSlice({
-  name: 'repository',
+  name: RepositorySliceName,
   initialState,
   reducers: {},
   extraReducers: (builder) => {

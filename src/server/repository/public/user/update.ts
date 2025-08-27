@@ -20,7 +20,7 @@ export const update = async (props: Props, client: BaseProtocol = DB): Promise<U
 
   if (user.props) {
     values.props = user.props
-    setParts.push('props = $(props)')
+    setParts.push('props = props || $(props)::jsonb')
   }
 
   if (user.status) {

@@ -16,8 +16,4 @@
       opacity: 1;
     }
   }
-
-  @include min-width($laptop) {
-    display: none;
-  }
 }
