@@ -6,8 +6,10 @@ import { getContactsReducer } from 'client/store/data/contacts/slice/extraReduce
 import { updateContactsReducer } from 'client/store/data/contacts/slice/extraReducers/updateContactsReducer'
 import { initialState } from 'client/store/data/contacts/state'
 
+import { ContactsSliceName } from './name'
+
 export const ContactsSlice = createSlice({
-  name: 'contacts',
+  name: ContactsSliceName,
   initialState,
   reducers: {},
   extraReducers: (builder) => {

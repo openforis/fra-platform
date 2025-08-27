@@ -8,7 +8,7 @@ import { useColumns } from './hooks/useColumns'
 import { useFilters } from './hooks/useFilters'
 import UsersCount from './UsersCount'
 
-const UserManagement: React.FC = () => {
+const AdminCollaborators: React.FC = () => {
   const columns = useColumns()
   const filters = useFilters()
 
@@ -27,4 +27,4 @@ const UserManagement: React.FC = () => {
   )
 }
 
-export default UserManagement
+export default AdminCollaborators

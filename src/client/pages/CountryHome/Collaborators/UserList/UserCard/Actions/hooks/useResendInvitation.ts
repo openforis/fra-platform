@@ -1,11 +1,12 @@
 import { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import axios from 'axios'
+
+import { ApiEndPoint } from 'meta/api/endpoint'
 import { CountryIso } from 'meta/area'
 import { CountryUserSummaries } from 'meta/user/countryUserSummaries'
 
-import { useAppDispatch } from 'client/store/hooks'
-import { UserManagementActions } from 'client/store/ui/userManagement'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { useToaster } from 'client/hooks/useToaster'
 
@@ -30,21 +31,24 @@ export const useResendInvitation = (props: Props): Returned => {
   const { t } = useTranslation()
   const { toaster } = useToaster()
 
-  const dispatch = useAppDispatch()
   const refetchUsers = useRefetchUsers()
 
-  const resendInvitation = useCallback(() => {
+  const resendInvitation = useCallback(async () => {
     setIsLoading(true)
-    const { invitation } = CountryUserSummaries.getCountryRoleAndInvitation(user, countryIso)
-    const { uuid: invitationUuid } = invitation
-    const params = { assessmentName, countryIso, cycleName, invitationUuid }
-    dispatch(UserManagementActions.sendInvitationEmail(params)).then(() => {
+    try {
+      const { invitation } = CountryUserSummaries.getCountryRoleAndInvitation(user, countryIso)
+      const { uuid: invitationUuid } = invitation
+      const params = { assessmentName, countryIso, cycleName, invitationUuid }
+
+      await axios.get(ApiEndPoint.User.invitationSendEmail(), { params })
+
       refetchUsers()
       toaster.success(t('userManagement.invitationEmailSent'))
-      setIsLoading(false)
       callback?.()
-    })
-  }, [assessmentName, callback, countryIso, cycleName, dispatch, refetchUsers, t, toaster, user])
+    } finally {
+      setIsLoading(false)
+    }
+  }, [assessmentName, callback, countryIso, cycleName, refetchUsers, t, toaster, user])
 
   return { resendInvitation, isLoading }
 }
