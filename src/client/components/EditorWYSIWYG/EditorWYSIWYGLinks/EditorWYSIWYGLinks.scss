@@ -1,0 +1,14 @@
+// Editor with links: Display toolbar to the right when displaying inline editor
+.editor-wysiwyg-links .jodit-container.jodit {
+  align-items: center;
+  display: grid !important;
+  grid-template-columns: 1fr auto !important;
+  justify-content: center;
+}
+
+.editor-wysiwyg-links .jodit-container.jodit .jodit-toolbar__box {
+  background-color: transparent !important;
+  border: unset !important;
+  // Move toolbar to end of the row
+  order: 1;
+}
