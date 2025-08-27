@@ -1,4 +1,4 @@
-import '../EditorWYSIWYG.scss'
+import './EditorWYSIWYGLinks.scss'
 import React from 'react'
 
 import { useIsPrintRoute } from 'client/hooks/useIsRoute'
@@ -22,6 +22,7 @@ const EditorWYSIWYGLinks: React.FC<Props> = (props: Props) => {
 
   return (
     <EditorWYSIWYGWithRepositoryContext
+      className="editor-wysiwyg-links"
       disabled={disabled}
       onChange={onChange}
       onlyLinks

@@ -19,10 +19,11 @@ export type EditorWYSIWYGProps = {
   onlyLinks?: boolean
   repository?: boolean
   value: string
+  className?: string
 }
 
 const EditorWYSIWYG: React.FC<EditorWYSIWYGProps> = (props: EditorWYSIWYGProps) => {
-  const { disabled, onChange, onlyLinks, options, repository, value } = props
+  const { className, disabled, onChange, onlyLinks, options, repository, value } = props
 
   const { configs } = useConfigs({ onlyLinks, options, repository })
   const onBlur = useOnBlur({ onChange, value })
@@ -31,7 +32,11 @@ const EditorWYSIWYG: React.FC<EditorWYSIWYGProps> = (props: EditorWYSIWYGProps) 
   return (
     <>
       <div
-        className={classNames('editorWYSIWYG', { disabled }, { 'validation-error': validationError.length > 0 })}
+        className={classNames(
+          'editorWYSIWYG',
+          { disabled, [className]: className },
+          { 'validation-error': validationError.length > 0 }
+        )}
         data-tooltip-content={validationError}
         data-tooltip-id={TooltipId.error}
       >

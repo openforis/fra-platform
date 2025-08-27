@@ -1,0 +1,11 @@
+@import 'src/client/style/partials';
+
+.calling-code__input-wrapper {
+  display: flex;
+  align-items: center;
+
+  .calling-code__manual-input {
+    flex: 1;
+    padding-left: $spacing-xxxs;
+  }
+}
