@@ -1,14 +1,8 @@
-import { ReactElement } from 'react'
 import { ActionMeta, Props as ReactSelectProps } from 'react-select'
 import { CreatableProps } from 'react-select/creatable'
 
 export type Option = {
-  label: string
-  value: string
-}
-
-export type OptionElement = {
-  label: ReactElement
+  label: string | React.ReactNode
   value: string
 }
 
@@ -18,7 +12,7 @@ export type OptionsGroup = {
   options: Array<Option>
 }
 
-export type OptionsOrGroups = ReadonlyArray<Option | OptionsGroup | OptionElement>
+export type OptionsOrGroups = ReadonlyArray<Option | OptionsGroup>
 
 export type ValueInput = string | Array<string> | null
 
