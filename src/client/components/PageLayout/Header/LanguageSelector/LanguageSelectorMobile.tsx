@@ -6,9 +6,11 @@ import classNames from 'classnames'
 
 import { Lang, LanguageCodes } from 'meta/lang'
 
+import { useUpdateLanguage } from 'client/hooks/useLanguage'
+
 const LanguageSelectorMobile: React.FC = () => {
-  // const dispatch = useAppDispatch()
   const { i18n } = useTranslation()
+  const updateLanguage = useUpdateLanguage()
 
   return (
     <div className="lang-selector" style={{ gridTemplateColumns: `repeat(${LanguageCodes.length},auto)` }}>
@@ -17,7 +19,7 @@ const LanguageSelectorMobile: React.FC = () => {
           key={lang}
           className={classNames('btn', 'btn-xs')}
           disabled={i18n.resolvedLanguage === lang}
-          // onClick={() => dispatch(AppActions.switchLanguage(lang))}
+          onClick={(): Promise<void> => updateLanguage({ lang })}
           type="button"
         >
           {i18n.t<string>(`language.${lang}`)}
@@ -26,4 +28,5 @@ const LanguageSelectorMobile: React.FC = () => {
     </div>
   )
 }
+
 export default LanguageSelectorMobile

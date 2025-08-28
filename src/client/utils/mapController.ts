@@ -93,7 +93,7 @@ export class MapController {
   addSepalLayer(mapLayerKey: MapLayerKey, urlTemplate: string) {
     if (this.#map === null) return
 
-    if (this.getLayer(mapLayerKey)) return // prevent duplicates
+    this.removeLayer(mapLayerKey) // prevent duplicates
 
     const layer = new google.maps.ImageMapType({
       name: mapLayerKey,

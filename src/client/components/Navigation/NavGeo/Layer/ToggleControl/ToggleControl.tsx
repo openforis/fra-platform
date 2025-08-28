@@ -3,7 +3,7 @@ import React from 'react'
 
 import classNames from 'classnames'
 
-import { LayerFetchStatus } from 'client/store/ui/geo/stateType'
+import { LayerFetchStatus } from 'client/store/geo/layers/state'
 import ButtonCheckbox from 'client/components/Buttons/ButtonCheckbox'
 
 type Props = {

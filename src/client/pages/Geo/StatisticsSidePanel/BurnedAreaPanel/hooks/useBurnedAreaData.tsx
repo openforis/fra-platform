@@ -3,13 +3,13 @@ import { useTranslation } from 'react-i18next'
 
 import { Numbers } from 'utils/numbers'
 
-import { useGeoBurnedAreaMODIS, useGeoStatistics } from 'client/store/ui/geo/hooks'
+import { useGeoBurnedAreaMODIS, useGeoStatistics } from 'client/store/geo/statistics/hooks/statistics'
 import { StatisticsTableData } from 'client/pages/Geo/StatisticsSidePanel/StatisticsTable/types'
 
 type Returned = {
   columns: Array<string>
-  error?: string
-  isLoading: boolean
+  errorKey?: string
+  loading: boolean
   tableData: StatisticsTableData
   title: string
   units: Array<string>
@@ -19,14 +19,14 @@ export const useBurnedAreaData = (): Returned => {
   const { t } = useTranslation()
   const geoBurnedAreaMODIS = useGeoBurnedAreaMODIS()
 
-  const { error, isLoading } = useGeoStatistics()
+  const { errorKey, loading } = useGeoStatistics()
 
   return useMemo<Returned>(() => {
-    if (isLoading) {
+    if (loading) {
       return {
         columns: [],
-        error,
-        isLoading,
+        errorKey,
+        loading,
         tableData: [],
         title: '',
         units: [],
@@ -38,7 +38,7 @@ export const useBurnedAreaData = (): Returned => {
     const units = ['', '', '']
 
     const formattedTableData: StatisticsTableData = []
-    geoBurnedAreaMODIS.forEach(({ ba: area, year }) => {
+    geoBurnedAreaMODIS?.forEach(({ ba: area, year }) => {
       const sourceName = t('geo.sections.burnedArea.layerTitles.modis')
       const formatedArea = Numbers.format(area, 0)
       formattedTableData.push([{ value: sourceName }, { value: year }, { value: formatedArea }])
@@ -46,11 +46,11 @@ export const useBurnedAreaData = (): Returned => {
 
     return {
       columns,
-      error,
-      isLoading,
+      errorKey,
+      loading,
       tableData: formattedTableData,
       title,
       units,
     }
-  }, [error, geoBurnedAreaMODIS, isLoading, t])
+  }, [errorKey, geoBurnedAreaMODIS, loading, t])
 }

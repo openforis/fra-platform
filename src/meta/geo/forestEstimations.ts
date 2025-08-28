@@ -1,7 +1,22 @@
 import { ApiEndPoint } from 'meta/api/endpoint/ApiEndPoint'
 import { CountryIso } from 'meta/area'
 
-export interface ForestEstimationsData {
+export interface ProtectedAreaEstimations {
+  faHansen10Protected: number
+  faCopernicusProtected: number
+  faEsa2009Protected: number
+  faEsa2020Protected: number
+  faEsriProtected: number
+  faGlobelandProtected: number
+  faHansen20Protected: number
+  faHansen30Protected: number
+  faJaxaProtected: number
+  faJrc2020Protected: number
+  faTandemxProtected: number
+  fra3bProtected: number
+}
+
+export interface ForestEstimationsData extends ProtectedAreaEstimations {
   faAgreementEsriEsaGloHansen10Gte1: number
   faAgreementEsriEsaGloHansen10Gte2: number
   faAgreementEsriEsaGloHansen10Gte3: number
@@ -46,20 +61,8 @@ export interface ForestEstimationsData {
   faJaxa: number
   faTandemx: number
   faJrc2020: number
-  faCopernicusProtected: number
-  faEsa2009Protected: number
-  faEsa2020Protected: number
-  faEsriProtected: number
-  faGlobelandProtected: number
-  faHansen10Protected: number
-  faHansen20Protected: number
-  faHansen30Protected: number
-  faJaxaProtected: number
-  faTandemxProtected: number
-  faJrc2020Protected: number
   fra1aForestArea: number
   fra1aLandArea: number
-  fra3bProtected: number
   totalAreaHa: number
   burnedAreaMODIS: [{ year: number; ba: number; fbaHansen10: number }]
 }

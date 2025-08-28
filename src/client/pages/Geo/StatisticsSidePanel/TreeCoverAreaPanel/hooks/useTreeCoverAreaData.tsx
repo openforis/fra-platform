@@ -3,24 +3,18 @@ import { useTranslation } from 'react-i18next'
 
 import { Numbers } from 'utils/numbers'
 
-import {
-  agreementPalette,
-  ExtraEstimation,
-  extraEstimationsMetadata,
-  ForestKey,
-  forestLayersMetadata,
-  LayerSectionKey,
-} from 'meta/geo'
+import { agreementPalette, ExtraEstimation, extraEstimationsMetadata, ForestKey, forestLayersMetadata } from 'meta/geo'
 
-import { useGeoFra1aLandArea, useGeoLayer, useGeoStatistics } from 'client/store/ui/geo/hooks'
+import { useGeoLayer } from 'client/store/geo/layers/hooks/layers'
+import { useGeoFra1aLandArea, useGeoStatistics } from 'client/store/geo/statistics/hooks/statistics'
 import { CSVData } from 'client/pages/Geo/ButtonCSVExport/types'
 import { StatisticsTableData } from 'client/pages/Geo/StatisticsSidePanel/StatisticsTable/types'
 
 type Returned = {
   columns: Array<string>
   csvData?: CSVData
-  error?: string
-  isLoading: boolean
+  errorKey?: string
+  loading: boolean
   tableData: StatisticsTableData
   units: Array<string>
 }
@@ -29,17 +23,17 @@ export const useTreeCoverAreaData = (): Returned => {
   const { t } = useTranslation()
 
   const fra1aLandArea = useGeoFra1aLandArea()
-  const { error, isLoading, tabularForestEstimations: data } = useGeoStatistics()
-  const agreementLayer = useGeoLayer(LayerSectionKey.Forest, ForestKey.Agreement)
+  const { errorKey, forestEstimationsTableData: data = [], loading } = useGeoStatistics()
+  const agreementLayer = useGeoLayer(ForestKey.Agreement)
   const agreementLevel = agreementLayer?.options?.agreementLayer?.level ?? 0
   const agreementColor = agreementPalette.at(agreementLevel - 1)
 
   return useMemo<Returned>(() => {
-    if (isLoading) {
+    if (loading) {
       return {
         columns: [],
-        error,
-        isLoading,
+        errorKey,
+        loading,
         tableData: [],
         units: [],
       }
@@ -57,7 +51,7 @@ export const useTreeCoverAreaData = (): Returned => {
       { label: t('geo.forestArea', { unit: t('unit.haThousand') }), key: 'forestAreaHa' },
       { label: t('geo.statistics.forestArea.forestAreaPercentOfLandArea'), key: 'forestAreaPercentage' },
     ]
-    const csvData: { source: string; landArea: string; forestAreaHa: string; forestAreaPercentage: string }[] = []
+    const csvData: Array<{ source: string; landArea: string; forestAreaHa: string; forestAreaPercentage: string }> = []
 
     const units = ['', '', '%']
 
@@ -98,10 +92,10 @@ export const useTreeCoverAreaData = (): Returned => {
     return {
       columns,
       csvData: customCsvData,
-      error,
-      isLoading,
+      errorKey,
+      loading,
       tableData: formattedTableData,
       units,
     }
-  }, [agreementColor, data, error, fra1aLandArea, isLoading, t])
+  }, [agreementColor, data, errorKey, fra1aLandArea, loading, t])
 }

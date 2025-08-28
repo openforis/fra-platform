@@ -5,9 +5,13 @@ import { useTranslation } from 'react-i18next'
 import { Status, Wrapper, WrapperProps } from '@googlemaps/react-wrapper'
 import { TFunction } from 'i18next'
 
+import { GeoSlice } from 'client/store/geo/slice'
+import { GeoSliceName } from 'client/store/geo/slice/name'
+import { useInjectSlice } from 'client/store/hooks'
 import Loading from 'client/components/Loading'
 import Map from 'client/pages/Geo/Map'
 import StatisticsSidePanel from 'client/pages/Geo/StatisticsSidePanel'
+
 // import StatisticsSidePanel from 'client/pages/Geo/StatisticsSidePanel'
 
 // @ts-ignore
@@ -31,6 +35,7 @@ const Components: Record<Status, React.FC<{ t: TFunction }>> = {
 
 const MapWrapper: React.FC = () => {
   const { t } = useTranslation()
+  useInjectSlice({ reducerPath: GeoSliceName, reducer: GeoSlice })
 
   const render: WrapperProps['render'] = (status) => {
     const Component = Components[status]

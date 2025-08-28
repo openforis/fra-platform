@@ -2,8 +2,8 @@ import { useCallback } from 'react'
 
 import { CountryIso } from 'meta/area'
 
+import { LayersActions } from 'client/store/geo/layers/actions'
 import { useAppDispatch } from 'client/store/hooks'
-import { GeoActions } from 'client/store/ui/geo'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { LayerMetaProps } from 'client/components/Navigation/NavGeo/Layer/types'
 
@@ -20,9 +20,9 @@ export const useToggleLayer = (props: LayerMetaProps): Returned => {
 
   return useCallback<Returned>(() => {
     if (fetchOnSelect) {
-      dispatch(GeoActions.toggleLayer({ fetchLayerParams: { countryIso }, layerKey, sectionKey }))
+      dispatch(LayersActions.toggleLayer({ fetchLayerParams: { countryIso }, layerKey, sectionKey }))
     } else {
-      dispatch(GeoActions.toggleLayer({ layerKey, sectionKey }))
+      dispatch(LayersActions.toggleLayer({ layerKey, sectionKey }))
     }
   }, [countryIso, dispatch, fetchOnSelect, layerKey, sectionKey])
 }

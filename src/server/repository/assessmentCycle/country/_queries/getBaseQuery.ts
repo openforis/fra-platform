@@ -17,6 +17,8 @@ export const getBaseQuery = (props: Props): string => {
 
   return `
     select c.country_iso,
+           c.country_iso2,
+           c.calling_code,
            props || jsonb_build_object('status', c.status) as props, 
            c.last_edit,
            c.last_edit_odp,
@@ -32,7 +34,9 @@ export const getBaseQuery = (props: Props): string => {
                        on c.country_iso = cr.country_iso
     ${countryIso ? 'where c.country_iso = $1' : ''}
     ${countryIsos?.length > 0 ? 'where c.country_iso in ($1:list)' : ''}
-    group by c.country_iso, 
+    group by c.country_iso,
+             c.country_iso2, 
+             c.calling_code,
              props || jsonb_build_object('status', c.status),
             c.last_edit,
             c.last_edit_odp,

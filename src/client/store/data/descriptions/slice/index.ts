@@ -5,8 +5,10 @@ import { getDescriptionReducer } from 'client/store/data/descriptions/slice/extr
 import { updateDescriptionReducer } from 'client/store/data/descriptions/slice/extraReducers/updateDescriptionReducer'
 import { initialState } from 'client/store/data/descriptions/state'
 
+import { DescriptionsSliceName } from './name'
+
 export const DescriptionsSlice = createSlice({
-  name: 'descriptions',
+  name: DescriptionsSliceName,
   initialState,
   reducers: {},
   extraReducers: (builder) => {

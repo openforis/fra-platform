@@ -1,11 +1,11 @@
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 
 import { LayerKey, LayerSectionKey } from 'meta/geo'
 
+import { LayersActions } from 'client/store/geo/layers/actions'
+import { useGeoLayers } from 'client/store/geo/layers/hooks/layers'
+import { getAgreementLayerCacheKey } from 'client/store/geo/layers/slice/utils'
 import { useAppDispatch } from 'client/store/hooks'
-import { GeoActions, useGeoLayerSection } from 'client/store/ui/geo'
-import { LayersSectionState } from 'client/store/ui/geo/stateType'
-import { getAgreementLayerCacheKey } from 'client/store/ui/geo/utils'
 import { useCountryIso } from 'client/hooks'
 
 import { useCountSectionSelectedLayers } from './useCountSectionSelectedLayers'
@@ -13,34 +13,34 @@ import { useCountSectionSelectedLayers } from './useCountSectionSelectedLayers'
 export const useFetchAgreementLevelLayer = (sectionKey: LayerSectionKey, layerKey: LayerKey) => {
   const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
-  const sectionState = useGeoLayerSection(sectionKey)
-  const layerState = sectionState?.[layerKey]
+  const layersState = useGeoLayers()
+  const layerState = layersState?.[layerKey]
   const agreementLevel = layerState?.options?.agreementLayer?.level
   const countSelectedLayers = useCountSectionSelectedLayers({ sectionKey, ignoreAgreementLayer: true })
-  const cacheKey = getAgreementLayerCacheKey(sectionState ?? ({} as LayersSectionState))
+  const cacheKey = useMemo<string>(() => getAgreementLayerCacheKey(layersState, sectionKey), [layersState, sectionKey])
 
   useEffect(
     () => {
       if (!layerState?.selected) return
       if (agreementLevel === undefined) {
-        dispatch(GeoActions.setAgreementLevel({ sectionKey, layerKey, level: 1 }))
+        dispatch(LayersActions.setAgreementProperty({ key: 'level', layerKey, value: 1 }))
         return
       }
       if (countSelectedLayers < 2 || agreementLevel > countSelectedLayers) {
-        dispatch(GeoActions.setLayerSelected({ sectionKey, layerKey, selected: false }))
-        dispatch(GeoActions.setAgreementLevel({ sectionKey, layerKey, level: 1 }))
+        dispatch(LayersActions.setProperty({ key: 'selected', layerKey, value: false }))
+        dispatch(LayersActions.setAgreementProperty({ key: 'level', layerKey, value: 1 }))
         return
       }
 
       const cachedMapId = layerState?.cache?.[cacheKey]
       if (cachedMapId === undefined) {
         if (layerState?.opacity > 0) {
-          dispatch(GeoActions.postLayer({ countryIso, sectionKey, layerKey }))
+          dispatch(LayersActions.getLayerMapId({ countryIso, layerKey, sectionKey }))
         } else {
-          dispatch(GeoActions.resetLayerStatus({ sectionKey, layerKey }))
+          dispatch(LayersActions.resetLayerStatus({ layerKey }))
         }
       } else {
-        dispatch(GeoActions.setLayerMapId({ sectionKey, layerKey, mapId: cachedMapId, drawLayer: true }))
+        dispatch(LayersActions.setProperty({ key: 'mapId', layerKey, value: cachedMapId }))
       }
     },
     // Ignore opacity changes:

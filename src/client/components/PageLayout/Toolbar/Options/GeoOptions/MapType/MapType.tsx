@@ -1,8 +1,9 @@
 import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { GeoMapActions } from 'client/store/geo/map/actions'
+import { useGeoMapOptions } from 'client/store/geo/map/hooks/map'
 import { useAppDispatch } from 'client/store/hooks'
-import { GeoActions, useGeoMapOptions } from 'client/store/ui/geo'
 import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
 
 const MapType: React.FC = () => {
@@ -12,7 +13,7 @@ const MapType: React.FC = () => {
 
   const setMapTypeId = useCallback(
     (_mapTypeId: google.maps.MapTypeId) => {
-      dispatch(GeoActions.setMapOptions({ mapTypeId: _mapTypeId }))
+      dispatch(GeoMapActions.setOptions({ datum: { mapTypeId: _mapTypeId } }))
     },
     [dispatch]
   )

@@ -9,7 +9,8 @@ import { Objects } from 'utils/objects'
 import { Routes, SectionNames } from 'meta/routes'
 import { Users } from 'meta/user'
 
-import { AdminSlice, AdminSliceName } from 'client/store/admin/slice'
+import { AdminSliceName } from 'client/store/admin/name'
+import { AdminSlice } from 'client/store/admin/slice'
 import { useCountries } from 'client/store/area/hooks/countries'
 import { useInjectSlice } from 'client/store/hooks'
 import { useUser } from 'client/store/user/hooks/user'
@@ -59,7 +60,7 @@ const Admin: React.FC = () => {
         {sections.map(({ labelKey, name }) => (
           <NavLink
             key={name}
-            className={(navData) =>
+            className={(navData): string =>
               classNames('btn admin__page-menu-button', {
                 disabled: navData.isActive,
               })
