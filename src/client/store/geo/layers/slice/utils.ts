@@ -3,7 +3,7 @@ import { Objects } from 'utils/objects'
 import { LayerKey, LayerSectionKey } from 'meta/geo/layer'
 import { sectionsMap } from 'meta/geo/sections'
 
-import { LayersState, LayerState } from 'client/store/geo/layers/state'
+import { GeoLayersState, LayerState } from 'client/store/geo/layers/state'
 
 const _getLayerCacheKey = (layerKey: LayerKey, layerState: LayerState): string => {
   if (Objects.isEmpty(layerState?.options)) return layerKey
@@ -22,7 +22,7 @@ const _getLayerCacheKey = (layerKey: LayerKey, layerState: LayerState): string =
   }
 }
 
-export const getAgreementLayerCacheKey = (state: LayersState, sectionKey: LayerSectionKey): string => {
+export const getAgreementLayerCacheKey = (state: GeoLayersState, sectionKey: LayerSectionKey): string => {
   const layerCacheKeys: Array<string> = []
   const sectionLayers = sectionsMap[sectionKey].layers
 

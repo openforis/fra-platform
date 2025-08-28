@@ -4,10 +4,10 @@ import { Objects } from 'utils/objects'
 import { MOSAIC_LAYER_KEY } from 'meta/geo/mosaic'
 
 import { toggleLayer } from 'client/store/geo/mosaic/actions/toggleLayer'
-import { MosaicState } from 'client/store/geo/mosaic/state'
+import { GeoMosaicState } from 'client/store/geo/mosaic/state'
 import { mapController } from 'client/utils'
 
-export const toggleLayerReducer = (builder: ActionReducerMapBuilder<MosaicState>) => {
+export const toggleLayerReducer = (builder: ActionReducerMapBuilder<GeoMosaicState>): void => {
   builder.addCase(toggleLayer.fulfilled, (state, action) => {
     const { selected } = action.payload
     state.selected = selected

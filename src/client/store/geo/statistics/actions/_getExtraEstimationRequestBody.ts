@@ -6,12 +6,12 @@ import { ForestKey, LayerSectionKey, LayerSource } from 'meta/geo'
 import { sectionsMap } from 'meta/geo/sections'
 
 import { buildLayerData } from 'client/store/geo/layers/actions/_getLayerRequestBody'
-import { LayersState } from 'client/store/geo/layers/state'
+import { GeoLayersState } from 'client/store/geo/layers/state'
 
 export const _getExtraEstimationRequestBody = (
   countryIso: CountryIso,
   scale: number,
-  layersState: LayersState,
+  layersState: GeoLayersState,
   sectionKey: LayerSectionKey
 ): ForestAgreementAreaEstimationRequestBody => {
   const layers: Array<LayerSource> = []

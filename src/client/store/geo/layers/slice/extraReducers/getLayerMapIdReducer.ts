@@ -5,10 +5,15 @@ import { LayerKey, LayerSectionKey } from 'meta/geo'
 
 import { getLayerMapId } from 'client/store/geo/layers/actions/getLayerMapId'
 import { getAgreementLayerCacheKey } from 'client/store/geo/layers/slice/utils'
-import { LayerFetchStatus, LayersState } from 'client/store/geo/layers/state'
+import { GeoLayersState, LayerFetchStatus } from 'client/store/geo/layers/state'
 import { mapController } from 'client/utils'
 
-const _setLayerCache = (state: LayersState, sectionKey: LayerSectionKey, layerKey: LayerKey, mapId: string) => {
+const _setLayerCache = (
+  state: GeoLayersState,
+  sectionKey: LayerSectionKey,
+  layerKey: LayerKey,
+  mapId: string
+): void => {
   state[layerKey].options ??= {}
   const layerOptions = state[layerKey].options
 
@@ -31,7 +36,7 @@ const _setLayerCache = (state: LayersState, sectionKey: LayerSectionKey, layerKe
   }
 }
 
-export const getLayerMapIdReducer = (builder: ActionReducerMapBuilder<LayersState>) => {
+export const getLayerMapIdReducer = (builder: ActionReducerMapBuilder<GeoLayersState>): void => {
   builder.addCase(getLayerMapId.pending, (state, { meta }) => {
     const { layerKey } = meta.arg
     Objects.setInPath({ obj: state, path: [layerKey, 'status'], value: LayerFetchStatus.Loading })

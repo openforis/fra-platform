@@ -4,7 +4,7 @@ import { LayerRequestBody } from 'meta/api/request/geo/layer'
 import { CountryIso } from 'meta/area'
 import { ForestKey, Layer, LayerKey, LayerSource } from 'meta/geo'
 
-import { LayerFetchStatus, LayersSectionState, LayersState, LayerState } from 'client/store/geo/layers/state'
+import { GeoLayersState, LayerFetchStatus, LayersSectionState, LayerState } from 'client/store/geo/layers/state'
 
 export const buildLayerData = (layerKey: LayerKey, layerState: LayerState): LayerSource => {
   const data: LayerSource = { key: layerKey }
@@ -51,7 +51,7 @@ export const _getLayerRequestBody = (
   countryIso: CountryIso,
   layerKey: LayerKey,
   layerState: LayerState,
-  layersState: LayersState = null,
+  layersState: GeoLayersState = null,
   sectionLayers: Array<Layer> = []
 ): LayerRequestBody => {
   const requestBody: LayerRequestBody = {

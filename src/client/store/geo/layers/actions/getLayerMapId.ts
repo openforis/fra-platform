@@ -7,7 +7,7 @@ import { sectionsMap } from 'meta/geo/sections'
 
 import { _getLayerRequestBody } from 'client/store/geo/layers/actions/_getLayerRequestBody'
 import { LayersSelectors } from 'client/store/geo/layers/selectors'
-import { LayersSliceName } from 'client/store/geo/layers/slice/name'
+import { GeoLayersSliceName } from 'client/store/geo/layers/slice/name'
 import { GeoSliceName } from 'client/store/geo/slice/name'
 import { ThunkApiConfig } from 'client/store/types'
 
@@ -37,7 +37,7 @@ export const getLayerMapId = createAsyncThunk<Returned, Params, ThunkApiConfig>(
     }
 
     const rootState = getState()
-    const layersState = rootState[GeoSliceName]?.[LayersSliceName]
+    const layersState = rootState[GeoSliceName]?.[GeoLayersSliceName]
 
     const layerState = LayersSelectors.getLayer(rootState, layerKey)
 
