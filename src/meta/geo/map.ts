@@ -1,4 +1,4 @@
-import { LayerKey, LayerSectionKey } from './layer'
+import { LayerKey } from './layer'
 import { MosaicLayerKey } from './mosaic'
 
-export type MapLayerKey = `${LayerSectionKey}-${LayerKey}` | MosaicLayerKey
+export type MapLayerKey = LayerKey | MosaicLayerKey

@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Layer, LayerSectionKey } from 'meta/geo'
 
+import { LayersActions } from 'client/store/geo/layers/actions'
+import { useGeoLayer } from 'client/store/geo/layers/hooks/layers'
 import { useAppDispatch } from 'client/store/hooks'
-import { GeoActions, useGeoLayer } from 'client/store/ui/geo'
 import ButtonCheckbox from 'client/components/Buttons/ButtonCheckbox'
 import OptionLabel from 'client/components/Navigation/NavGeo/Grid/OptionLabel'
 import { useFetchNewLayerOption } from 'client/pages/Geo/Map/hooks'
@@ -21,12 +22,14 @@ const TreeCoverPercentControl: React.FC<Props> = (props) => {
   const dispatch = useAppDispatch()
   const { t } = useTranslation()
 
-  const layerState = useGeoLayer(sectionKey, layerKey)
+  const layerState = useGeoLayer(layerKey)
   useFetchNewLayerOption(sectionKey, layerKey, 'gteTreeCoverPercent', layer)
 
-  const handlePercentageChange = (percentage: number) => {
-    dispatch(GeoActions.setLayerGteTreeCoverPercent({ sectionKey, layerKey, gteTreeCoverPercent: percentage }))
-  }
+  const handlePercentageChange = useCallback<(percentage: number) => void>(
+    (percentage) =>
+      dispatch(LayersActions.setOptionsProperty({ layerKey, key: 'gteTreeCoverPercent', value: percentage })),
+    [dispatch, layerKey]
+  )
 
   return (
     <>
