@@ -4,9 +4,9 @@ import { Objects } from 'utils/objects'
 import { CountryIso } from 'meta/area'
 import { AssessmentName } from 'meta/assessment/assessment'
 import { ColName } from 'meta/assessment/col'
-import { Cycle, CycleUuid } from 'meta/assessment/cycle'
+import { Cycle } from 'meta/assessment/cycle'
 import { Row } from 'meta/assessment/row'
-import { TableName } from 'meta/assessment/table'
+import { Table } from 'meta/assessment/table'
 import { RecordAssessmentData, RecordAssessmentDatas } from 'meta/data'
 
 import { SortOrder } from './types'
@@ -18,11 +18,11 @@ interface Props {
   cycle: Cycle
   data: RecordAssessmentData
   sortOrder: SortOrder
-  tableName: TableName
+  table: Table
 }
 
-const _containsColName = (row: Row, cycleUuid: CycleUuid, colName: ColName): boolean => {
-  return row.props.sortableBy?.[cycleUuid]?.includes(colName)
+const _containsRow = (table: Table, row: Row, cycle: Cycle): boolean => {
+  return table.props.sort[cycle.uuid].rowNames.includes(row.props.variableName)
 }
 
 const _compareValues = (a: string, b: string): number => {
@@ -37,17 +37,18 @@ const _compareValues = (a: string, b: string): number => {
 }
 
 export const createSortFn = (props: Props): ((rowA: Row, rowB: Row) => number) => {
-  const { assessmentName, colName, countryIso, cycle, data, sortOrder, tableName } = props
+  const { assessmentName, colName, countryIso, cycle, data, sortOrder, table } = props
 
   return (rowA: Row, rowB: Row): number => {
     // Don't sort the row if either missing the prop or not included in this sorting
-    if (!_containsColName(rowA, cycle.uuid, colName) || !_containsColName(rowB, cycle.uuid, colName)) {
+    if (!_containsRow(table, rowA, cycle) || !_containsRow(table, rowB, cycle)) {
       return 0
     }
 
     const variableNameA = rowA.props.variableName
     const variableNameB = rowB.props.variableName
 
+    const tableName = table.props.name
     const baseProps = { assessmentName, colName, countryIso, cycleName: cycle.name, data, tableName }
 
     const valueA = RecordAssessmentDatas.getDatum({ ...baseProps, variableName: variableNameA })

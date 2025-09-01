@@ -54,6 +54,7 @@ export interface ColProps {
   calculateClientSide?: Record<CycleUuid, boolean>
   classNames?: Record<CycleUuid, Array<string>>
   colName?: ColName
+  colNameSort?: string
   colType: ColType
   enableIf?: Record<CycleUuid, string>
   index?: number | string

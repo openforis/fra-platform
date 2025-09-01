@@ -22,29 +22,22 @@ interface Props {
 
 export const useSortedRowsData = (props: Props): Array<Row> => {
   const { data, rowsData, sortState, table } = props
-  const tableName = table.props.name
 
   const { assessmentName, countryIso } = useCountryRouteParams<CountryIso>()
   const cycle = useCycle()
 
+  const { colName } = sortState
   const sortedRowsData = useMemo(() => {
     // If no sorting, return the original order
-    if (sortState.order === SortOrder.NONE || !sortState.colName) return rowsData
+    if (sortState.order === SortOrder.NONE || !colName) return rowsData
 
     const clonedRows = Objects.cloneDeep(rowsData)
 
-    const _sortFn = createSortFn({
-      assessmentName,
-      colName: sortState.colName,
-      countryIso,
-      cycle,
-      data,
-      sortOrder: sortState.order,
-      tableName,
-    })
+    const params = { assessmentName, colName, countryIso, cycle, data, sortOrder: sortState.order, table }
+    const _sortFn = createSortFn(params)
 
     return clonedRows.sort(_sortFn)
-  }, [assessmentName, countryIso, cycle, data, rowsData, sortState.colName, sortState.order, tableName])
+  }, [assessmentName, colName, countryIso, cycle, data, rowsData, sortState.order, table])
 
   return sortedRowsData
 }

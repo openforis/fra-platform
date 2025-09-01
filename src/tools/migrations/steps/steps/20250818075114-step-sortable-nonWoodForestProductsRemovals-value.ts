@@ -5,24 +5,37 @@ import { Cycle } from 'meta/assessment/cycle'
 import { TableNames } from 'meta/assessment/table'
 
 import { AssessmentController } from 'server/controller/assessment'
-import { BaseProtocol } from 'server/db'
+import { BaseProtocol, Schemas } from 'server/db'
+import { ColRepository } from 'server/repository/assessment/col'
 import { TableRepository } from 'server/repository/assessment/table'
 import { TableRedisRepository } from 'server/repository/redis/table'
 
 const assessmentName = AssessmentNames.fra
 const cycleName = 'latest'
+
+const colNameSort = 'value'
+const label = 'nonWoodForestProductsRemovals.value'
 const tableName = TableNames.nonWoodForestProductsRemovals
-const colName = 'value'
 const variableNames = Arrays.range(1, 11).map((i) => `product_${i}`)
 
 const sortObject = {
-  columnNames: [colName],
+  columnNames: [colNameSort],
   rowNames: variableNames,
 }
 
 type BaseProps = {
   assessment: Assessment
   cycle: Cycle
+}
+
+const _updateCol = async (props: BaseProps, client: BaseProtocol): Promise<void> => {
+  const { assessment, cycle } = props
+
+  const schema = Schemas.getName(assessment)
+  const { id: colId } = await client.one(
+    `select id from ${schema}.col where props -> 'labels' -> '${cycle.uuid}' ->> 'key' = '${label}' `
+  )
+  await ColRepository.update({ assessment, colId, colProps: { colNameSort } })
 }
 
 const _updateTable = async (props: BaseProps, client: BaseProtocol): Promise<void> => {
@@ -34,6 +47,7 @@ const _updateTable = async (props: BaseProps, client: BaseProtocol): Promise<voi
 
 export default async (client: BaseProtocol): Promise<void> => {
   const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName }, client)
+  await _updateCol({ assessment, cycle }, client)
   await _updateTable({ assessment, cycle }, client)
   await AssessmentController.generateMetadataCache({ assessment }, client)
 }
