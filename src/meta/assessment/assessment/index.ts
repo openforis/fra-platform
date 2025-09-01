@@ -14,14 +14,20 @@ export type AssessmentProps = {
   default?: boolean
 }
 
-export interface Assessment {
-  cycleIndexesByName: Record<CycleName, number>
-  cycleIndexesByUuid: Record<CycleUuid, number>
+export interface AssessmentBase {
   cycles: Array<Cycle>
   id: number
-  metaCache?: Record<CycleUuid, AssessmentMetaCache>
   props: AssessmentProps
   uuid: string
+}
+
+export interface Assessment extends AssessmentBase {
+  cycleIndexesByName: Record<CycleName, number>
+  cycleIndexesByUuid: Record<CycleUuid, number>
+  /**
+   * @deprecated
+   */
+  metaCache?: Record<CycleUuid, AssessmentMetaCache>
 }
 
 export type RecordAssessments = Record<AssessmentName, Assessment>
