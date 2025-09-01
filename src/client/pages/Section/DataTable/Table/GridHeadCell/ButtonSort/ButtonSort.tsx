@@ -3,6 +3,7 @@ import React, { MouseEventHandler } from 'react'
 
 import classNames from 'classnames'
 
+import { useCycle } from 'client/store/meta/hooks/cycles'
 import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
 import { GridHeadCellProps } from 'client/pages/Section/DataTable/Table/GridHeadCell/types'
 
@@ -12,13 +13,14 @@ type Props = Pick<GridHeadCellProps, 'col' | 'onSort' | 'sortState'>
 
 const ButtonSort: React.FC<Props> = (props) => {
   const { col, onSort, sortState } = props
+  const cycle = useCycle()
 
-  const sortColName = col.props.colNameSort
+  const sortColName = col.props.colNameSort?.[cycle.uuid]
+
+  if (!sortColName) return null
 
   const isCurrentlySorted = sortState?.colName === sortColName
   const sortOrder = isCurrentlySorted ? sortState.order : SortOrder.NONE
-
-  if (!sortColName) return null
 
   let iconName = 'sort-amount-asc'
   if (sortOrder === SortOrder.ASC) iconName = 'sort-amount-asc'

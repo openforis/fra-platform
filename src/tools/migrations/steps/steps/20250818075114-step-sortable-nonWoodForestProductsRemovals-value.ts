@@ -2,7 +2,7 @@ import { Arrays } from 'utils/arrays'
 
 import { Assessment, AssessmentNames } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { TableNames } from 'meta/assessment/table'
+import { TableNames, TableProps } from 'meta/assessment/table'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { BaseProtocol, Schemas } from 'server/db'
@@ -11,7 +11,7 @@ import { TableRepository } from 'server/repository/assessment/table'
 import { TableRedisRepository } from 'server/repository/redis/table'
 
 const assessmentName = AssessmentNames.fra
-const cycleName = 'latest'
+const cycleNames = ['2025', 'latest']
 
 const colNameSort = 'value'
 const label = 'nonWoodForestProductsRemovals.value'
@@ -25,29 +25,51 @@ const sortObject = {
 
 type BaseProps = {
   assessment: Assessment
-  cycle: Cycle
+  cycles: Array<Cycle>
 }
 
 const _updateCol = async (props: BaseProps, client: BaseProtocol): Promise<void> => {
-  const { assessment, cycle } = props
+  const { assessment, cycles } = props
 
   const schema = Schemas.getName(assessment)
   const { id: colId } = await client.one(
-    `select id from ${schema}.col where props -> 'labels' -> '${cycle.uuid}' ->> 'key' = '${label}' `
+    `select id from ${schema}.col where props -> 'labels' -> '${cycles.at(0).uuid}' ->> 'key' = '${label}' `
   )
-  await ColRepository.update({ assessment, colId, colProps: { colNameSort } })
+  const colNameSortRecord = cycles.reduce<Record<string, string>>((acc, cycle) => {
+    acc[cycle.uuid] = colNameSort
+    return acc
+  }, {})
+  await ColRepository.update({ assessment, colId, colProps: { colNameSort: colNameSortRecord } })
+}
+
+type UpdateTableProps = {
+  tableProps: TableProps
+  cycles: Array<Cycle>
+}
+
+const _updateTableProps = (props: UpdateTableProps): TableProps => {
+  const { cycles, tableProps } = props
+  const sort = cycles.reduce<TableProps['sort']>((acc, cycle) => {
+    acc[cycle.uuid] = sortObject
+    return acc
+  }, {})
+
+  return { ...tableProps, sort }
 }
 
 const _updateTable = async (props: BaseProps, client: BaseProtocol): Promise<void> => {
-  const { assessment, cycle } = props
-  const table = await TableRedisRepository.getOne({ assessment, cycle, tableName })
-  const tableProps = { sort: { [cycle.uuid]: sortObject } }
+  const { assessment, cycles } = props
+  const table = await TableRedisRepository.getOne({ assessment, cycle: cycles.at(0), tableName })
+  const tableProps = _updateTableProps({ tableProps: table.props, cycles })
   await TableRepository.update({ assessment, tableId: table.id, tableProps }, client)
 }
 
 export default async (client: BaseProtocol): Promise<void> => {
-  const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName }, client)
-  await _updateCol({ assessment, cycle }, client)
-  await _updateTable({ assessment, cycle }, client)
+  const assessment = await AssessmentController.getOne({ assessmentName }, client)
+  const cycles = assessment.cycles.filter((c) => cycleNames.includes(c.name))
+
+  await _updateCol({ assessment, cycles }, client)
+  await _updateTable({ assessment, cycles }, client)
+
   await AssessmentController.generateMetadataCache({ assessment }, client)
 }
