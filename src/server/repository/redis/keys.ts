@@ -1,15 +1,30 @@
 import { CountryIso } from 'meta/area'
-import { Assessment } from 'meta/assessment/assessment'
+import { Assessment as AssessmentType } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 
 // ===== Keys
 
+enum Area {
+  country = 'area:country',
+  regionGroups = 'area:regionGroups',
+}
+
+enum Assessments {
+  assessments = 'assessments',
+}
+
 enum Data {
   data = 'data',
 }
+
+enum Explorer {
+  metadata = 'explorer:metadata',
+}
+
 enum Row {
   row = 'row',
 }
+
 enum Section {
   sections = 'sections',
   sectionsIndex = 'sectionsIndex',
@@ -17,16 +32,8 @@ enum Section {
   subSectionsIndex = 'subSectionsIndex',
 }
 
-enum Area {
-  country = 'area:country',
-  regionGroups = 'area:regionGroups',
-}
-
-enum Explorer {
-  metadata = 'explorer:metadata',
-}
-
 export const Keys = {
+  Assessments,
   Data,
   Row,
   Section,
@@ -36,9 +43,11 @@ export const Keys = {
 
 // ===== Getters
 
+type Key = string
+
 type PropsAssessment = {
-  assessment: Assessment
-  key: string
+  assessment: AssessmentType
+  key: Key
 }
 type PropsCycle = PropsAssessment & {
   cycle: Cycle
@@ -62,5 +71,9 @@ export const getKeyCountry = (props: PropsCountry): string => {
   return `${getKeyCycle({ assessment, cycle, key })}-${countryIso}`
 }
 
-export const getKeyRow = (props: { assessment: Assessment }): string =>
+export const getKeyRow = (props: { assessment: AssessmentType }): string =>
   getKeyAssessment({ assessment: props.assessment, key: Keys.Row.row })
+
+export const getKeysAssessments = (): string => {
+  return Keys.Assessments.assessments
+}
