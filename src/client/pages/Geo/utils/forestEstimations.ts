@@ -23,6 +23,11 @@ export const buildForestEstimationsDataTable = (
   const fra1ALandArea = fetchedForestEstimations.data.fra1aLandArea
   const reportedFra1aForestArea = fetchedForestEstimations.data.fra1aForestArea
 
+  const _calculateSourcePercent = (area: number): number => {
+    if (fra1ALandArea === 0) return 0
+    return Number(((area * 100) / (fra1ALandArea * 1000)).toFixed(2))
+  }
+
   Object.keys(forestLayersMetadata).forEach((key: ForestKey) => {
     const metadata = forestLayersMetadata[key]
 
@@ -36,10 +41,9 @@ export const buildForestEstimationsDataTable = (
 
       if (typeof area === 'undefined') return
 
-      const percentage = (area * 100) / (fra1ALandArea * 1000)
       estimationsData.push({
         area: Number(area.toFixed(2)),
-        fra1ALandAreaPercentage: Number(percentage.toFixed(2)),
+        fra1ALandAreaPercentage: _calculateSourcePercent(area),
         sourceKey: key,
         sourceLabelKey,
       })
@@ -52,10 +56,9 @@ export const buildForestEstimationsDataTable = (
 
         if (typeof area === 'undefined') return
 
-        const percentage = (area * 100) / (fra1ALandArea * 1000)
         estimationsData.push({
           area: Number(area.toFixed(2)),
-          fra1ALandAreaPercentage: Number(percentage.toFixed(2)),
+          fra1ALandAreaPercentage: _calculateSourcePercent(area),
           hansenPercent: number,
           sourceKey: key,
           sourceLabelKey,
@@ -67,10 +70,9 @@ export const buildForestEstimationsDataTable = (
   // Adding the reported Forest Area to the data.
   const reportedToFraLabelKey = extraEstimationsMetadata[ExtraEstimation.ReportedToFRA2020].titleKey
   const reportedFra1aForestAreaHa = reportedFra1aForestArea * 1000 // Normalize to Ha. Instead of Thousands of Ha.
-  const fra1aForestAreaPercentage = (reportedFra1aForestAreaHa * 100) / (fra1ALandArea * 1000)
   estimationsData.push({
     area: reportedFra1aForestAreaHa,
-    fra1ALandAreaPercentage: Number(fra1aForestAreaPercentage.toFixed(2)),
+    fra1ALandAreaPercentage: _calculateSourcePercent(reportedFra1aForestAreaHa),
     sourceKey: ExtraEstimation.ReportedToFRA2020,
     sourceLabelKey: reportedToFraLabelKey,
   })

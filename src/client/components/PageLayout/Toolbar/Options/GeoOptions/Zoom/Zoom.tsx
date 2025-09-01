@@ -1,7 +1,8 @@
 import React, { useCallback } from 'react'
 
+import { GeoMapActions } from 'client/store/geo/map/actions'
+import { useGeoMapOptions } from 'client/store/geo/map/hooks/map'
 import { useAppDispatch } from 'client/store/hooks'
-import { GeoActions, useGeoMapOptions } from 'client/store/ui/geo'
 import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
 import { mapController } from 'client/utils'
 
@@ -12,7 +13,7 @@ const Zoom: React.FC = () => {
   const setZoom = useCallback(
     (_zoom: number) => {
       if (_zoom >= minZoom && _zoom <= maxZoom) {
-        dispatch(GeoActions.setMapOptions({ zoom: _zoom }))
+        dispatch(GeoMapActions.setOptions({ datum: { zoom: _zoom } }))
       }
     },
     [dispatch, maxZoom, minZoom]

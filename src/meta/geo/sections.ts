@@ -13,3 +13,11 @@ export const sectionsApiEndpoint: SectionsApiEndpoint = {
   [LayerSectionKey.BurnedArea]: ApiEndPoint.Geo.Layers.burnedArea(),
   [LayerSectionKey.ProtectedArea]: ApiEndPoint.Geo.Layers.protectedArea(),
 }
+
+export type SectionsMap = Record<LayerSectionKey, LayerSection>
+
+export const sectionsMap: SectionsMap = {
+  [LayerSectionKey.BurnedArea]: burnedAreaLayers,
+  [LayerSectionKey.Forest]: forestLayers,
+  [LayerSectionKey.ProtectedArea]: protectedAreaLayers,
+}
