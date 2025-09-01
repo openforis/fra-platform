@@ -56,11 +56,6 @@ type PropsCountry = PropsCycle & {
   countryIso: CountryIso
 }
 
-// Identity function
-export const getKeyId = ({ key }: { key: Key }): Key => {
-  return key
-}
-
 export const getKeyAssessment = (props: PropsAssessment): string => {
   const { assessment, key } = props
   return `${key}:${assessment.props.name}`
