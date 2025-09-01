@@ -5,7 +5,7 @@ import { CycleName, CycleUuid } from 'meta/assessment/cycle'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { BaseProtocol, DB } from 'server/db'
-import { Keys } from 'server/repository/redis/keys'
+import { getKeysAssessments } from 'server/repository/redis/keys'
 import { RedisData } from 'server/repository/redis/redisData'
 
 type Props = {
@@ -39,9 +39,8 @@ const _cacheAssessments = async (client: BaseProtocol): Promise<AssessmentMap> =
     return Objects.setInPath({ path: [assessment.props.name], obj: acc, value })
   }, {})
 
-  const key = Keys.Assessment.assessment
+  const key = getKeysAssessments()
   await _setCache({ key, assessmentMap })
-  // TODO: Next: Add meta cache generation to './generateMetacCache'
 
   return assessmentMap
 }
@@ -50,7 +49,7 @@ export const getAssessmentMap = async (props: Props, client: BaseProtocol = DB):
   const { force = false } = props
 
   const redis = RedisData.getInstance()
-  const key = Keys.Assessment.assessment
+  const key = getKeysAssessments()
 
   const cachedData = await redis.hgetall(key)
   const cachedKeys = Object.keys(cachedData)

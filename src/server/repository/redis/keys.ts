@@ -9,8 +9,8 @@ enum Area {
   regionGroups = 'area:regionGroups',
 }
 
-enum Assessment {
-  assessment = 'assessment',
+enum Assessments {
+  assessments = 'assessments',
 }
 
 enum Data {
@@ -33,7 +33,7 @@ enum Section {
 }
 
 export const Keys = {
-  Assessment,
+  Assessments,
   Data,
   Row,
   Section,
@@ -73,3 +73,7 @@ export const getKeyCountry = (props: PropsCountry): string => {
 
 export const getKeyRow = (props: { assessment: AssessmentType }): string =>
   getKeyAssessment({ assessment: props.assessment, key: Keys.Row.row })
+
+export const getKeysAssessments = (): string => {
+  return Keys.Assessments.assessments
+}
