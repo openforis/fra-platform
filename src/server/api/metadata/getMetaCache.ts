@@ -5,7 +5,7 @@ import { CycleRequest } from 'meta/api/request'
 import { AssessmentController } from 'server/controller/assessment'
 import Requests from 'server/utils/requests'
 
-export const getMetaCache = async (req: CycleRequest, res: Response) => {
+export const getMetaCache = async (req: CycleRequest, res: Response): Promise<void> => {
   const { assessmentName, cycleName } = req.query
   try {
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })

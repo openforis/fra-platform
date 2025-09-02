@@ -24,6 +24,9 @@ const _getCycleByUuid = (props: { cycleUuid?: string; assessment: Assessment }):
   return Assessments.getLastPublishedCycle(assessment)
 }
 
+/**
+ * @deprecated
+ */
 export const getOneWithCycle = async (
   props: Props & { cycleName?: string; cycleUuid?: string },
   client: BaseProtocol = DB

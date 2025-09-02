@@ -1,5 +1,7 @@
+import { NodeUpdates } from 'meta/data'
+
 import { DB } from 'server/db'
-import { CountryRepository } from 'server/repository/assessmentCycle/country'
+import { AreaRedisRepository } from 'server/repository/redis/area'
 import { Logger } from 'server/utils/logger'
 
 import { ContextFactory } from './context'
@@ -16,7 +18,12 @@ const _getLogKey = (job: UpdateDependenciesJob): string => {
   return `[updateDependencies-workerThread] [${[assessmentName, cycleName, countryIso].join('-')}] [job-${job.id}]`
 }
 
-export default async (job: UpdateDependenciesJob) => {
+type Returned = {
+  externalDependants: Array<NodeUpdates>
+  nodeUpdates: NodeUpdates
+}
+
+export default async (job: UpdateDependenciesJob): Promise<Returned> => {
   const logKey = _getLogKey(job)
   try {
     const { assessment, client = DB, cycle, nodeUpdates, user } = job.data
@@ -24,7 +31,7 @@ export default async (job: UpdateDependenciesJob) => {
     Logger.info(`${logKey} started with ${job.data.nodeUpdates.nodes.length} nodes.`)
 
     const { countryIso } = nodeUpdates
-    const country = await CountryRepository.getOne({ assessment, cycle, countryIso }, client)
+    const country = await AreaRedisRepository.getOneCountry({ assessment, cycle, countryIso }, client)
 
     const context = await ContextFactory.newInstance({ ...job.data, country })
     const result = updateCalculationDependencies({ context, jobId: job.id })

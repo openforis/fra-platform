@@ -1,6 +1,6 @@
 import { Assessment, AssessmentBase, CycleIndexes } from 'meta/assessment/assessment'
 
-import { getKeyAssessments } from 'server/repository/redis/keys'
+import { getKeyAssessments, getKeyAssessmentsUuid } from 'server/repository/redis/keys'
 import { RedisData } from 'server/repository/redis/redisData'
 
 type Props = { assessmentBase: AssessmentBase }
@@ -23,10 +23,14 @@ export const _cacheAssessment = async (props: Props): Promise<Assessment> => {
   const assessment: Assessment = { ...assessmentBase, cycleIndexes }
   const { name: assessmentName } = assessment.props
 
-  // put assessment in redis
-  const key = getKeyAssessments()
   const redis = RedisData.getInstance()
-  await redis.hmset(key, assessmentName, JSON.stringify(assessment))
+  // store assessment in redis
+  const keyAssessments = getKeyAssessments()
+  await redis.hmset(keyAssessments, assessmentName, JSON.stringify(assessment))
+  // store assessments uuid mapping
+  const keyAssessmentsUuid = getKeyAssessmentsUuid()
+  await redis.hmset(keyAssessmentsUuid, assessment.uuid, assessmentName)
 
+  // return assessment
   return assessment
 }
