@@ -5,6 +5,7 @@ import { Cycle } from 'meta/assessment/cycle'
 import { TableNames, TableProps } from 'meta/assessment/table'
 
 import { AssessmentController } from 'server/controller/assessment'
+import { CacheController } from 'server/controller/cache'
 import { BaseProtocol, Schemas } from 'server/db'
 import { ColRepository } from 'server/repository/assessment/col'
 import { TableRepository } from 'server/repository/assessment/table'
@@ -71,5 +72,5 @@ export default async (client: BaseProtocol): Promise<void> => {
   await _updateCol({ assessment, cycles }, client)
   await _updateTable({ assessment, cycles }, client)
 
-  await AssessmentController.generateMetadataCache({ assessment }, client)
+  await CacheController.generateMetadata({ assessment }, client)
 }

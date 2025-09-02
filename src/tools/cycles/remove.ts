@@ -6,6 +6,7 @@ import { ToolsUtils } from 'tools/utils/toolsUtils'
 import { Assessment, AssessmentNames } from 'meta/assessment/assessment'
 
 import { AssessmentController } from 'server/controller/assessment'
+import { CacheController } from 'server/controller/cache'
 import { UserController } from 'server/controller/user'
 import { DB, Schemas } from 'server/db'
 
@@ -30,7 +31,7 @@ const _removeColumns = async (props: { assessment: Assessment }): Promise<void> 
              where c.props ->> 'colName' = '2024'
                and t.props ->> 'name' in ('areaAffectedByFire', 'disturbances'))
   `)
-  await AssessmentController.generateMetadataCache({ assessment }, client)
+  await CacheController.generateMetadata({ assessment }, client)
 }
 
 export const removeCycle = async (): Promise<void> => {
