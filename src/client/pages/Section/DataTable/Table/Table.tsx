@@ -51,7 +51,7 @@ const Table: React.FC<Props> = (props) => {
   const canClearData = !print && !isDataLocked && !table.props.readonly
 
   return (
-    <div className={classNames('table-grid-container', { 'secondary-table': secondary })} translate="no">
+    <div className={classNames('table-grid-container', { 'secondary-table': secondary })}>
       <div className="table-grid-actions">
         {!print && (
           <ButtonGridExport filename={`${sectionAnchor ? `${sectionAnchor} ` : ''}${name}`} gridRef={gridRef} />
