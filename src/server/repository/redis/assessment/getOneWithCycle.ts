@@ -47,7 +47,7 @@ export const getOneWithCycle = async (props: Props, client: BaseProtocol = DB): 
 
   // 3. get metaCache
   if ('metaCache' in props && props.metaCache) {
-    const metaCache = MetaCacheRedisRepository.getMetaCache({ assessment, cycle })
+    const metaCache = await MetaCacheRedisRepository.getMetaCache({ assessment, cycle })
     Objects.setInPath({ obj: assessment, path: ['metaCache', cycle.uuid], value: metaCache })
   }
 
