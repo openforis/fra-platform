@@ -3,6 +3,7 @@ import { generateAssessment } from 'server/controller/cache/generateAssessment'
 import { generateData } from 'server/controller/cache/generateData'
 import { generateExplorerMetadata } from 'server/controller/cache/generateExplorerMetadata'
 import { generateMetadata } from 'server/controller/cache/generateMetadata'
+import { MetaCacheRedisRepository } from 'server/repository/redis/metaCache'
 
 export const CacheController = {
   generateArea,
@@ -10,4 +11,5 @@ export const CacheController = {
   generateData,
   generateExplorerMetadata,
   generateMetadata,
+  generateMetaCache: MetaCacheRedisRepository.generateMetaCache,
 }

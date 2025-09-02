@@ -11,6 +11,8 @@ enum Area {
 
 enum Assessments {
   assessments = 'assessments',
+  assessmentsUuid = 'assessments:uuid',
+  metaCache = 'assessments:metaCache',
 }
 
 enum Data {
@@ -76,4 +78,12 @@ export const getKeyRow = (props: { assessment: AssessmentType }): string =>
 
 export const getKeyAssessments = (): string => {
   return Keys.Assessments.assessments
+}
+
+export const getKeyAssessmentsUuid = (): string => {
+  return Keys.Assessments.assessmentsUuid
+}
+
+export const getKeyMetaCache = (): string => {
+  return Keys.Assessments.metaCache
 }
