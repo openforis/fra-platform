@@ -165,3 +165,17 @@
 .button__type-primary {
   @include withTheme($ui-accent, 60%);
 }
+
+.button__type-transparent {
+  @include withTheme(transparent, 0, $ui-black-map);
+  border-color: transparent;
+
+  &:hover {
+    background-color: transparent;
+    color: $ui-black-map;
+
+    svg {
+      color: $ui-black-map;
+    }
+  }
+}
