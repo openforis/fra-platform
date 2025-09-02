@@ -3,7 +3,7 @@ name: Run test all (unit, integration and e2e)
 on:
   pull_request:
     branches:
-      - 'development'
+      - '*'
     workflow_dispatch:
       inputs:
         force_refresh:
