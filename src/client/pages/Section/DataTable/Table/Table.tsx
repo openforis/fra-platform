@@ -20,6 +20,7 @@ import RowNoticeMessage from 'client/pages/Section/DataTable/Table/RowNoticeMess
 import { useCellBorderCorrection } from './hooks/useCellBorderCorrection'
 import { useGridTemplateColumns } from './hooks/useGridTemplateColumns'
 import { useParsedTable } from './hooks/useParsedTable'
+import { useTableSorting } from './hooks/useTableSorting'
 import DataValidations from './DataValidations'
 
 type Props = {
@@ -42,9 +43,11 @@ const Table: React.FC<Props> = (props) => {
   const parsedTable = useParsedTable({ assessmentName, table: _table })
   const { firstHeaderRowSpan, headers, noticeMessages, rowsData, rowsHeader, table, withReview } = parsedTable
 
+  const { handleSort, sortState, sortedRowsData } = useTableSorting({ rowsData, data, table })
+
   const gridTemplateColumns = useGridTemplateColumns({ headers, table })
   const gridRef = useRef<HTMLDivElement>(null)
-  useCellBorderCorrection({ disabled, gridRef, rowsData, rowsHeader })
+  useCellBorderCorrection({ disabled, gridRef, rowsData: sortedRowsData, rowsHeader })
 
   const withActions = withReview && canViewReview
   const { name, secondary } = table.props
@@ -59,7 +62,6 @@ const Table: React.FC<Props> = (props) => {
         <ButtonCopyValues gridRef={gridRef} table={table} />
         {canClearData && <ButtonTableClear disabled={disabled} sectionName={sectionName} table={table} />}
       </div>
-
       <DataGrid
         ref={gridRef}
         className="table-grid"
@@ -79,8 +81,10 @@ const Table: React.FC<Props> = (props) => {
                   colIndex={colIndex}
                   firstCol={firstCol}
                   headers={headers}
+                  onSort={handleSort}
                   row={row}
                   rowIndex={rowIndex}
+                  sortState={sortState}
                   table={table}
                 />
               )
@@ -89,15 +93,15 @@ const Table: React.FC<Props> = (props) => {
           </React.Fragment>
         ))}
 
-        {rowsData.map((row, index) => (
+        {sortedRowsData.map((row, index) => (
           <RowData
             key={row.uuid}
             assessmentName={assessmentName}
             data={data}
             disabled={disabled}
-            lastRow={index === rowsData.length - 1}
+            lastRow={index === sortedRowsData.length - 1}
             row={row}
-            rowCount={rowsHeader.length + rowsData.length}
+            rowCount={rowsHeader.length + sortedRowsData.length}
             rowIndex={rowsHeader.length + index}
             sectionName={sectionName}
             table={table}
