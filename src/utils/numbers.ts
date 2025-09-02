@@ -95,6 +95,15 @@ const countDecimals = (value: number): number => {
   return value.toString().split('.')[1].length ?? 0
 }
 
+const compare = (x: BigNumberInput, y: BigNumberInput): number => {
+  const xNum = toBigNumber(x)
+  const yNum = toBigNumber(y)
+
+  if (!xNum.isFinite() || !yNum.isFinite()) return 0
+
+  return xNum.comparedTo(yNum)
+}
+
 const { max, min } = BigNumber
 
 export const Numbers = {
@@ -119,6 +128,7 @@ export const Numbers = {
   min,
 
   // logical
+  compare,
   greaterThan,
   lessThan,
   eq,

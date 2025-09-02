@@ -4,6 +4,8 @@ import { Table } from 'meta/assessment/table'
 
 import { ColHeader } from 'client/pages/Section/DataTable/Table/types'
 
+import { SortState } from '../hooks/useTableSorting'
+
 export type GridHeadCellProps = {
   assessmentName: string
   col: Col
@@ -13,4 +15,6 @@ export type GridHeadCellProps = {
   row: Row
   rowIndex: number
   table: Table
+  onSort?: (columnUuid: string) => void
+  sortState?: SortState
 }

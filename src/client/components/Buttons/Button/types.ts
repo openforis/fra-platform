@@ -12,6 +12,7 @@ export enum ButtonType {
   black = 'black',
   danger = 'danger',
   primary = 'primary',
+  transparent = 'transparent',
 }
 
 export type ButtonProps = Pick<InputHTMLAttributes<HTMLButtonElement>, 'className' | 'disabled' | 'onClick'> & {
