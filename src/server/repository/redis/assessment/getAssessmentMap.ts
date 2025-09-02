@@ -14,8 +14,10 @@ type Props = {
 
 type AssessmentMap = Record<AssessmentName, Assessment>
 
-const _setCache = async (props: { key: string; assessmentMap: AssessmentMap }): Promise<void> => {
-  const { assessmentMap, key } = props
+const _setCache = async (props: { assessmentMap: AssessmentMap }): Promise<void> => {
+  const { assessmentMap } = props
+  const key = getKeysAssessments()
+
   const redis = RedisData.getInstance()
   await redis.hmset(
     key,
@@ -39,8 +41,7 @@ const _cacheAssessments = async (client: BaseProtocol): Promise<AssessmentMap> =
     return Objects.setInPath({ path: [assessment.props.name], obj: acc, value })
   }, {})
 
-  const key = getKeysAssessments()
-  await _setCache({ key, assessmentMap })
+  await _setCache({ assessmentMap })
 
   return assessmentMap
 }
