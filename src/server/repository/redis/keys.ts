@@ -74,6 +74,6 @@ export const getKeyCountry = (props: PropsCountry): string => {
 export const getKeyRow = (props: { assessment: AssessmentType }): string =>
   getKeyAssessment({ assessment: props.assessment, key: Keys.Row.row })
 
-export const getKeysAssessments = (): string => {
+export const getKeyAssessments = (): string => {
   return Keys.Assessments.assessments
 }

@@ -21,9 +21,13 @@ export interface AssessmentBase {
   uuid: string
 }
 
+export type CycleIndexes = {
+  name: Record<CycleName, number>
+  uuid: Record<CycleUuid, number>
+}
+
 export interface Assessment extends AssessmentBase {
-  cycleIndexesByName: Record<CycleName, number>
-  cycleIndexesByUuid: Record<CycleUuid, number>
+  cycleIndexes: CycleIndexes
   /**
    * @deprecated
    */
