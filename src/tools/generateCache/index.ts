@@ -9,7 +9,7 @@ const exec = async (): Promise<void> => {
   await RedisData.getInstance().flushall()
 
   const assessments = await CacheController.generateAssessments()
-  await CacheController.generateMetaCache()
+  await CacheController.generateMetaCache({})
 
   await Promise.all(
     Object.values(assessments).map(async (assessment) => {

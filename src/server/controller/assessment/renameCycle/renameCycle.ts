@@ -35,7 +35,7 @@ export const renameCycle = async (props: Props, client: BaseProtocol = DB): Prom
     const propsRename = { assessment, cycleSource, cycleTarget }
 
     // update cache
-    await CacheController.generateMetaCache(t)
+    await CacheController.generateMetaCache({}, t)
     await renameMetadataCache(propsRename, t)
     await renameDataCache(propsRename, t)
     // rename static files

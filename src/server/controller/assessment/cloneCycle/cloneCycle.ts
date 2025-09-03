@@ -43,7 +43,7 @@ export const cloneCycle = async (props: Props, client: BaseProtocol = DB): Promi
     await StaticFiles.cloneCycle(cloneProps)
 
     // update cache
-    await CacheController.generateMetaCache(t)
+    await CacheController.generateMetaCache({}, t)
     await CacheController.generateMetadata({ assessment }, t)
     await CacheController.generateData({ assessment, cycle: cycleTarget }, t)
 
