@@ -14,6 +14,8 @@ type BaseType = {
   countryIso?: CountryIso
 }
 
+const metaCache = true
+
 const initContext = async (req: Request, _: Response, next: NextFunction): Promise<void> => {
   try {
     const params = { ...req.params, ...req.query, ...req.body } as BaseType
@@ -22,8 +24,9 @@ const initContext = async (req: Request, _: Response, next: NextFunction): Promi
     Objects.setInPath({ obj: req, path: ['context'], value: {} })
 
     if (assessmentName && cycleName) {
-      const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+      const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName, metaCache })
       Objects.setInPath({ obj: req, path: ['context', 'assessment'], value: assessment })
+      Objects.setInPath({ obj: req, path: ['context', 'cycle'], value: cycle })
 
       if (countryIso && Areas.isISOCountry(countryIso)) {
         const country = await AreaController.getCountry({ assessment, cycle, countryIso })

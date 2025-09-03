@@ -8,7 +8,6 @@ import { AssessmentMetaCaches } from 'meta/assessment/metaCaches'
 import { TableName } from 'meta/assessment/table'
 import { RecordAssessmentData } from 'meta/data'
 
-import { AssessmentController } from 'server/controller/assessment'
 import { getTableData } from 'server/controller/cycleData/getTableData'
 
 import { BaseContextBuilder } from './baseContextBuilder'
@@ -39,9 +38,10 @@ export class DataContextBuilder extends BaseContextBuilder {
     const assessmentName = variable.assessmentName ?? this.props.assessment.props.name
     const cycleName = variable.cycleName ?? this.props.cycle.name
 
-    if (!this.#assessments[assessmentName]) {
-      this.#assessments[assessmentName] = await AssessmentController.getOne({ assessmentName, metaCache: true })
-    }
+    // TODO: investigate later on during this refactor why assessment is not defined?
+    // if (!this.#assessments[assessmentName]) {
+    //   this.#assessments[assessmentName] = await AssessmentController.getOne({ assessmentName, metaCache: true })
+    // }
 
     if (!this.#tables[assessmentName]?.[cycleName]) {
       const assessment = this.#assessments[assessmentName]
