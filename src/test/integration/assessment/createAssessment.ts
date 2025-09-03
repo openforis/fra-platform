@@ -6,16 +6,11 @@ import { UserController } from 'server/controller/user'
 import { assessmentCycleName, assessmentParams } from 'test/integration/mock/assessment'
 import { userMockTest } from 'test/integration/mock/user'
 
-export default () =>
+export default (): void =>
   test('Expect assessment to be created', async () => {
-    const user = await UserController.getOne({
-      email: userMockTest.email,
-    })
+    const user = await UserController.getOne({ email: userMockTest.email })
 
-    const assessment = await AssessmentController.create({
-      assessment: assessmentParams,
-      user,
-    })
+    const assessment = await AssessmentController.create({ assessment: assessmentParams, user })
 
     const { assessment: assessmentCycle, cycle } = await AssessmentController.createCycle({
       assessment,

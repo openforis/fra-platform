@@ -1,14 +1,15 @@
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
-import { Assessment, AssessmentBase } from 'meta/assessment/assessment'
+import { Assessment } from 'meta/assessment/assessment'
 import { User } from 'meta/user'
 
+import { CacheController } from 'server/controller/cache'
 import { BaseProtocol, DB } from 'server/db'
 import { AssessmentRepository } from 'server/repository/assessment/assessment'
 import { ActivityLogRepository } from 'server/repository/public/activityLog'
 
 type Props = { user: User; assessment: Pick<Assessment, 'props'> }
 
-export const create = async (props: Props, client: BaseProtocol = DB): Promise<AssessmentBase> => {
+export const create = async (props: Props, client: BaseProtocol = DB): Promise<Assessment> => {
   const { assessment, user } = props
   await AssessmentRepository.createAssessmentSchema({ assessment })
 
@@ -18,6 +19,10 @@ export const create = async (props: Props, client: BaseProtocol = DB): Promise<A
     const message = ActivityLogMessage.assessmentCreate
     const activityLog = { target: createdAssessment, section: 'assessment', message, user }
     await ActivityLogRepository.insertActivityLog({ activityLog, assessment: createdAssessment }, t)
-    return createdAssessment
+    const cachedAssessment = await CacheController.generateAssessment(
+      { assessmentName: createdAssessment.props.name },
+      t
+    )
+    return cachedAssessment
   })
 }
