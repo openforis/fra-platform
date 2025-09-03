@@ -1,6 +1,6 @@
 import * as pgPromise from 'pg-promise'
 
-import { Assessment } from 'meta/assessment/assessment'
+import { AssessmentBase } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { Row } from 'meta/assessment/row'
 import { Rows } from 'meta/assessment/rows'
@@ -8,7 +8,7 @@ import { Rows } from 'meta/assessment/rows'
 import { BaseProtocol, DB, Schemas } from 'server/db'
 
 type Props = {
-  assessment: Assessment
+  assessment: AssessmentBase
   cycleSource: Cycle
   cycleTarget: Cycle
   rows: Array<Row>

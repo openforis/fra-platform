@@ -1,5 +1,5 @@
 import { CountryIso } from 'meta/area'
-import { Assessment as AssessmentType } from 'meta/assessment/assessment'
+import { AssessmentBase } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 
 // ===== Keys
@@ -48,7 +48,7 @@ export const Keys = {
 type Key = string
 
 type PropsAssessment = {
-  assessment: AssessmentType
+  assessment: AssessmentBase
   key: Key
 }
 type PropsCycle = PropsAssessment & {
@@ -73,7 +73,7 @@ export const getKeyCountry = (props: PropsCountry): string => {
   return `${getKeyCycle({ assessment, cycle, key })}-${countryIso}`
 }
 
-export const getKeyRow = (props: { assessment: AssessmentType }): string =>
+export const getKeyRow = (props: { assessment: AssessmentBase }): string =>
   getKeyAssessment({ assessment: props.assessment, key: Keys.Row.row })
 
 export const getKeyAssessments = (): string => {

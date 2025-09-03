@@ -1,11 +1,11 @@
 import { CountryIso } from 'meta/area'
-import { Assessment } from 'meta/assessment/assessment'
+import { AssessmentBase } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 
 import { Schemas } from 'server/db'
 
 type Props = {
-  assessment: Assessment
+  assessment: AssessmentBase
   cycle: Cycle
   countryIso?: CountryIso
   countryIsos?: Array<CountryIso>

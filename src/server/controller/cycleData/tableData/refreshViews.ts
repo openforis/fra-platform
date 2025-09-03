@@ -1,4 +1,4 @@
-import { Assessment } from 'meta/assessment/assessment'
+import { AssessmentBase } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 
 import { BaseProtocol, DB } from 'server/db'
@@ -6,7 +6,7 @@ import { TableRepository } from 'server/repository/assessment/table'
 import { DataRepository } from 'server/repository/assessmentCycle/data'
 
 type Props = {
-  assessment: Assessment
+  assessment: AssessmentBase
   cycle: Cycle
 }
 

@@ -1,4 +1,4 @@
-import { Assessment } from 'meta/assessment/assessment'
+import { AssessmentBase } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { Table } from 'meta/assessment/table'
 
@@ -6,7 +6,7 @@ import { BaseProtocol, DB, Schemas } from 'server/db'
 import { CustomDataView } from 'server/repository/assessmentCycle/data/ddl/customDataView'
 
 type Props = {
-  assessment: Assessment
+  assessment: AssessmentBase
   cycle: Cycle
   table: Table
 }

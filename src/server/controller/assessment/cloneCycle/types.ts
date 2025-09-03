@@ -1,8 +1,8 @@
-import { Assessment } from 'meta/assessment/assessment'
+import { AssessmentBase } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 
 export type CloneProps = {
-  assessment: Assessment
+  assessment: AssessmentBase
   cycleSource: Cycle
   cycleTarget: Cycle
 }

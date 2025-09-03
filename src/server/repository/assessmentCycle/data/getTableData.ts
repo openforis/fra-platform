@@ -1,7 +1,7 @@
 import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area'
-import { Assessment } from 'meta/assessment/assessment'
+import { AssessmentBase } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { VariableCache } from 'meta/assessment/metaCache'
 import { RecordCountryData, TablesCondition } from 'meta/data'
@@ -9,7 +9,7 @@ import { RecordCountryData, TablesCondition } from 'meta/data'
 import { BaseProtocol, DB, Schemas } from 'server/db'
 
 type Props = {
-  assessment: Assessment
+  assessment: AssessmentBase
   countryISOs: Array<CountryIso>
   cycle: Cycle
   /**
@@ -24,7 +24,7 @@ type Props = {
   dependencies?: Array<VariableCache>
 }
 
-const asQueryStringArray = (arr: any[]) => `(${arr.map((v) => `'${v}'`).join(',')})`
+const asQueryStringArray = (arr: Array<string>): string => `(${arr.map((v) => `'${v}'`).join(',')})`
 
 const mergeDependencies = (props: Props): TablesCondition => {
   const { dependencies, tables } = props

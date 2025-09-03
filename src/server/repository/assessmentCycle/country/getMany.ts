@@ -1,7 +1,7 @@
 import { Objects } from 'utils/objects'
 
 import { Country, CountryIso, RecordCountries } from 'meta/area'
-import { Assessment } from 'meta/assessment/assessment'
+import { AssessmentBase } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 
 import { BaseProtocol, DB } from 'server/db'
@@ -9,7 +9,7 @@ import { BaseProtocol, DB } from 'server/db'
 import { getBaseQuery } from './_queries/getBaseQuery'
 
 type Props = {
-  assessment: Assessment
+  assessment: AssessmentBase
   cycle: Cycle
   countryIsos?: Array<CountryIso>
 }

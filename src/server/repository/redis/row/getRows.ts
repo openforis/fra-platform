@@ -1,4 +1,4 @@
-import { Assessment } from 'meta/assessment/assessment'
+import { AssessmentBase } from 'meta/assessment/assessment'
 import { RecordRowCache, RowCacheKey } from 'meta/assessment/rowCache'
 import { RowCaches } from 'meta/assessment/rowCaches'
 
@@ -8,7 +8,7 @@ import { getKeyRow } from 'server/repository/redis/keys'
 import { RedisData } from 'server/repository/redis/redisData'
 
 type Props = {
-  assessment: Assessment
+  assessment: AssessmentBase
   rowKeys?: Array<RowCacheKey>
   force?: boolean
 }

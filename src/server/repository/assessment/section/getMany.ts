@@ -1,4 +1,4 @@
-import { Assessment } from 'meta/assessment/assessment'
+import { AssessmentBase } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { Section } from 'meta/assessment/section'
 
@@ -6,7 +6,7 @@ import { BaseProtocol, DB, Schemas } from 'server/db'
 import { SectionAdapter } from 'server/repository/adapter'
 
 type Props = {
-  assessment: Assessment
+  assessment: AssessmentBase
   cycle: Cycle
   showHidden?: boolean
 }

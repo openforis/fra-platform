@@ -1,6 +1,6 @@
 import { Promises } from 'utils/promises'
 
-import { Assessment } from 'meta/assessment/assessment'
+import { AssessmentBase } from 'meta/assessment/assessment'
 
 import { BaseProtocol, DB } from 'server/db'
 import { RowRedisRepository } from 'server/repository/redis/row'
@@ -8,7 +8,7 @@ import { SectionRedisRepository } from 'server/repository/redis/section'
 import { Logger } from 'server/utils/logger'
 
 type Props = {
-  assessment: Assessment
+  assessment: AssessmentBase
 }
 
 export const generateMetadata = async (props: Props, client: BaseProtocol = DB): Promise<void> => {

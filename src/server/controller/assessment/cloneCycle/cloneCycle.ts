@@ -1,4 +1,4 @@
-import { Assessment } from 'meta/assessment/assessment'
+import { Assessment, AssessmentBase } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { User } from 'meta/user'
 
@@ -22,14 +22,14 @@ type Props = {
 }
 
 type Returned = {
-  assessment: Assessment
+  assessment: AssessmentBase
   cycle: Cycle
 }
 
 export const cloneCycle = async (props: Props, client: BaseProtocol = DB): Promise<Returned> => {
   const { cycle: cycleSource } = props
 
-  return client.tx(async (t) => {
+  return client.tx(async (t): Promise<Returned> => {
     const { assessment, cycle: cycleTarget } = await createCycle({ ...props, cycleSource }, t)
 
     const cloneProps: CloneProps = { assessment, cycleSource, cycleTarget }

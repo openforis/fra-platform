@@ -1,5 +1,5 @@
 import { CountryIso } from 'meta/area'
-import { Assessment } from 'meta/assessment/assessment'
+import { AssessmentBase } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { TableName, TableNames } from 'meta/assessment/table'
 
@@ -9,7 +9,7 @@ import { getKeyCountry, Keys } from 'server/repository/redis/keys'
 import { RedisData } from 'server/repository/redis/redisData'
 
 type PropsCache = {
-  assessment: Assessment
+  assessment: AssessmentBase
   cycle: Cycle
   countryIso: CountryIso
   tableName: TableName

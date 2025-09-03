@@ -1,5 +1,5 @@
 import { CountryIso } from 'meta/area'
-import { Assessment } from 'meta/assessment/assessment'
+import { AssessmentBase } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'
@@ -9,7 +9,7 @@ import { getMaterializedViewName } from './_common/getMaterializedViewName'
 import { hiddenSections } from './_common/hiddenSections'
 
 type Props = {
-  assessment: Assessment
+  assessment: AssessmentBase
   cycle: Cycle
   countryIso: CountryIso
 }

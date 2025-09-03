@@ -1,4 +1,4 @@
-import { Assessment, AssessmentNames } from 'meta/assessment/assessment'
+import { AssessmentBase, AssessmentNames } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { TableNames } from 'meta/assessment/table'
 import { RecordCountryData, TablesCondition } from 'meta/data'
@@ -9,7 +9,7 @@ import { DataRedisRepository } from 'server/repository/redis/data'
 import { Logger } from 'server/utils/logger'
 
 type Props = {
-  assessment: Assessment
+  assessment: AssessmentBase
   cycle: Cycle
   force?: boolean
 }

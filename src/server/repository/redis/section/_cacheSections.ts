@@ -1,4 +1,4 @@
-import { Assessment } from 'meta/assessment/assessment'
+import { AssessmentBase } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 
 import { BaseProtocol, DB } from 'server/db'
@@ -7,12 +7,12 @@ import { getKeyCycle, Keys } from 'server/repository/redis/keys'
 import { RedisData } from 'server/repository/redis/redisData'
 
 type Props = {
-  assessment: Assessment
+  assessment: AssessmentBase
   cycle: Cycle
   force?: boolean
 }
 
-export const _cacheSections = async (props: Props, client: BaseProtocol = DB) => {
+export const _cacheSections = async (props: Props, client: BaseProtocol = DB): Promise<void> => {
   const { assessment, cycle, force } = props
 
   const redis = RedisData.getInstance()

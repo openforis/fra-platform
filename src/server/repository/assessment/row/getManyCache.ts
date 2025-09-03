@@ -1,11 +1,11 @@
-import { Assessment } from 'meta/assessment/assessment'
+import { AssessmentBase } from 'meta/assessment/assessment'
 import { RowCache } from 'meta/assessment/rowCache'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'
 import { RowCacheAdapter } from 'server/repository/adapter'
 
 type Props = {
-  assessment: Assessment
+  assessment: AssessmentBase
 }
 
 export const getManyCache = (props: Props, client: BaseProtocol = DB): Promise<Array<RowCache>> => {

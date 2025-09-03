@@ -1,7 +1,7 @@
 import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area'
-import { Assessment } from 'meta/assessment/assessment'
+import { AssessmentBase } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { RecordCountryData } from 'meta/data'
 
@@ -9,7 +9,7 @@ import { BaseProtocol, DB, Schemas } from 'server/db'
 import { OriginalDataPointQueries } from 'server/repository/assessmentCycle/originalDataPoint/queries'
 
 type Props = {
-  assessment: Assessment
+  assessment: AssessmentBase
   countryISOs: Array<CountryIso>
   cycle: Cycle
 }

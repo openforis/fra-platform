@@ -1,4 +1,4 @@
-import { Assessment } from 'meta/assessment/assessment'
+import { AssessmentBase } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { Section } from 'meta/assessment/section'
 
@@ -8,7 +8,7 @@ import { RedisData } from 'server/repository/redis/redisData'
 import { _cacheSections } from 'server/repository/redis/section/_cacheSections'
 
 type Props = {
-  assessment: Assessment
+  assessment: AssessmentBase
   cycle: Cycle
   force?: boolean
 }
