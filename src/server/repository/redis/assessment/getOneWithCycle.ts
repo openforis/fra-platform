@@ -23,7 +23,6 @@ export const getOneWithCycle = async (props: Props, client: BaseProtocol = DB): 
   let assessmentName: AssessmentName
   if ('assessmentName' in props) {
     assessmentName = props.assessmentName
-    // assessment = await getOne({ assessmentName: props.assessmentName }, client)
   } else if ('uuid' in props) {
     const keyAssessmentsUuid = getKeyAssessmentsUuid()
     assessmentName = await redis.hget(keyAssessmentsUuid, props.uuid)
