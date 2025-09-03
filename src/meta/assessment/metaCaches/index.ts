@@ -5,44 +5,52 @@ import {
   AssessmentMetaCache,
   DependencyCache,
   DependencyRecord,
+  TableDependencyRecord,
   VariableCache,
   VariablesCache,
 } from 'meta/assessment/metaCache'
+import { TableName } from 'meta/assessment/table'
+import { VariableName } from 'meta/assessment/variable'
 
 type CycleProps = {
   assessment: Assessment
   cycle: Cycle
 }
 
-type VariableProps = CycleProps & {
-  tableName: string
-  variableName: string
+type TableProps = CycleProps & {
+  tableName: TableName
+}
+type VariableProps = TableProps & {
+  variableName: VariableName
 }
 
-type DependencyCacheProps = Pick<VariableProps, 'tableName' | 'variableName'> & {
-  dependencyCache: DependencyCache
-}
+type DependencyTableCacheProps = Pick<VariableProps, 'tableName'> & { dependencyCache: DependencyCache }
+type DependencyCacheProps = Pick<VariableProps, 'variableName'> & DependencyTableCacheProps
 
-type DependencyRecordProps = Pick<VariableProps, 'tableName' | 'variableName'> & {
-  dependencyRecord: DependencyRecord
-}
+type DependencyTableRecordProps = Pick<VariableProps, 'tableName'> & { dependencyRecord: DependencyRecord }
+// type DependencyRecordProps = Pick<VariableProps, 'variableName'> & DependencyTableRecordProps
+
+type VariableCacheList = Array<VariableCache>
 
 // ****==== utils
-const _getDeps = (props: DependencyRecordProps): Array<VariableCache> => {
-  const { dependencyRecord, tableName, variableName } = props
-  const dependants = dependencyRecord[tableName]?.[variableName]
-  return [...(dependants ?? [])]
+const _getTableDeps = (props: DependencyTableRecordProps): TableDependencyRecord | undefined => {
+  const { dependencyRecord, tableName } = props
+  return dependencyRecord[tableName]
 }
 
-const _getDependants = (props: DependencyCacheProps) => {
-  const { dependencyCache, tableName, variableName } = props
-  return _getDeps({ dependencyRecord: dependencyCache.dependants, tableName, variableName })
+const _getTableDependants = (props: DependencyTableCacheProps): TableDependencyRecord => {
+  const { dependencyCache, tableName } = props
+  return _getTableDeps({ dependencyRecord: dependencyCache.dependants, tableName }) ?? {}
 }
+const _getDependants = (props: DependencyCacheProps): VariableCacheList =>
+  _getTableDependants(props)?.[props.variableName] ?? []
 
-const _getDependencies = (props: DependencyCacheProps) => {
-  const { dependencyCache, tableName, variableName } = props
-  return _getDeps({ dependencyRecord: dependencyCache.dependencies, tableName, variableName })
+const _getTableDependencies = (props: DependencyTableCacheProps): TableDependencyRecord => {
+  const { dependencyCache, tableName } = props
+  return _getTableDeps({ dependencyRecord: dependencyCache.dependencies, tableName }) ?? {}
 }
+const _getDependencies = (props: DependencyCacheProps): VariableCacheList =>
+  _getTableDependencies(props)?.[props.variableName] ?? []
 
 // ****==== getters
 const getMetaCache = (props: CycleProps): AssessmentMetaCache => {
@@ -56,32 +64,40 @@ const getValidations = (props: CycleProps): DependencyCache => getMetaCache(prop
 
 const getEnablers = (props: CycleProps): DependencyCache => getMetaCache(props).enablers
 
-const getCalculationsDependants = (props: VariableProps) => {
-  const { assessment, cycle, tableName, variableName } = props
-  return _getDependants({ dependencyCache: getCalculations({ assessment, cycle }), tableName, variableName })
+const getTableCalculationsDependants = (props: TableProps): TableDependencyRecord => {
+  const { assessment, cycle, tableName } = props
+  return _getTableDependants({ dependencyCache: getCalculations({ assessment, cycle }), tableName }) ?? {}
 }
+const getCalculationsDependants = (props: VariableProps): VariableCacheList =>
+  getTableCalculationsDependants(props)?.[props.variableName] ?? []
 
-const getCalculationsDependencies = (props: VariableProps) => {
-  const { assessment, cycle, tableName, variableName } = props
-  return _getDependencies({ dependencyCache: getCalculations({ assessment, cycle }), tableName, variableName })
+const getTableCalculationsDependencies = (props: TableProps): TableDependencyRecord => {
+  const { assessment, cycle, tableName } = props
+  return _getTableDependencies({ dependencyCache: getCalculations({ assessment, cycle }), tableName }) ?? {}
 }
+const getCalculationsDependencies = (props: VariableProps): VariableCacheList =>
+  getTableCalculationsDependencies(props)?.[props.variableName] ?? []
 
-const getValidationsDependants = (props: VariableProps) => {
-  const { assessment, cycle, tableName, variableName } = props
-  return _getDependants({ dependencyCache: getValidations({ assessment, cycle }), tableName, variableName })
+const getTableValidationsDependants = (props: TableProps): TableDependencyRecord => {
+  const { assessment, cycle, tableName } = props
+  return _getTableDependants({ dependencyCache: getValidations({ assessment, cycle }), tableName }) ?? {}
 }
+const getValidationsDependants = (props: VariableProps): VariableCacheList =>
+  getTableValidationsDependants(props)?.[props.variableName] ?? []
 
-const getValidationsDependencies = (props: VariableProps) => {
-  const { assessment, cycle, tableName, variableName } = props
-  return _getDependencies({ dependencyCache: getValidations({ assessment, cycle }), tableName, variableName })
+const getTableValidationsDependencies = (props: TableProps): TableDependencyRecord => {
+  const { assessment, cycle, tableName } = props
+  return _getTableDependencies({ dependencyCache: getValidations({ assessment, cycle }), tableName }) ?? {}
 }
+const getValidationsDependencies = (props: VariableProps): VariableCacheList =>
+  getTableValidationsDependencies(props)?.[props.variableName] ?? []
 
-const getEnablersDependants = (props: VariableProps) => {
+const getEnablersDependants = (props: VariableProps): VariableCacheList => {
   const { assessment, cycle, tableName, variableName } = props
   return _getDependants({ dependencyCache: getEnablers({ assessment, cycle }), tableName, variableName })
 }
 
-const getEnablersDependencies = (props: VariableProps) => {
+const getEnablersDependencies = (props: VariableProps): VariableCacheList => {
   const { assessment, cycle, tableName, variableName } = props
   return _getDependencies({ dependencyCache: getEnablers({ assessment, cycle }), tableName, variableName })
 }
@@ -122,4 +138,6 @@ export const AssessmentMetaCaches = {
   getVariablesByTables,
   getEnablersDependants,
   getEnablersDependencies,
+  getTableCalculationsDependencies,
+  getTableValidationsDependencies,
 }

@@ -12,13 +12,13 @@ export const useCycle = (cycleUuid?: CycleUuid): Cycle => {
 
   return useMemo<Cycle>(() => {
     if (!assessment) return undefined
-    if (cycleUuid) return assessment.cycles.find((cycle) => cycle.uuid === cycleUuid)
-    if (cycleName) return assessment.cycles.find((cycle) => cycle.name === cycleName)
+    if (cycleUuid) return assessment.cycles[assessment.cycleIndexes.uuid[cycleUuid]]
+    if (cycleName) return assessment.cycles[assessment.cycleIndexes.name[cycleName]]
     return Assessments.getLastPublishedCycle(assessment)
   }, [assessment, cycleName, cycleUuid])
 }
 
-export const useLastPublishedCycle = () => {
+export const useLastPublishedCycle = (): Cycle => {
   const assessment = useAssessment()
   return Assessments.getLastPublishedCycle(assessment)
 }
