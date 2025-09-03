@@ -2,7 +2,7 @@ import { Assessment, AssessmentNames } from 'meta/assessment/assessment'
 import { Cycle, CycleProps, CycleStatus } from 'meta/assessment/cycle'
 import { AssessmentMetaCache } from 'meta/assessment/metaCache'
 
-import { getOneWithCycle } from 'server/controller/assessment/getOne'
+import { getOneWithCycle } from 'server/controller/assessment/getOneWithCycle'
 import { BaseProtocol, DB, Schemas } from 'server/db'
 import { AssessmentRepository } from 'server/repository/assessment/assessment'
 import { getCreateOrReplaceViewCountryUserSummary } from 'server/repository/assessment/assessment/getCreateSchemaDDL'
@@ -36,6 +36,9 @@ const getDefaultProps = (): CycleProps => {
   }
 }
 
+/**
+ * @deprecated
+ */
 export const create = async (params: Props, client: BaseProtocol = DB): Returned => {
   const { assessment, cycleSource, name, withCountries } = params
 

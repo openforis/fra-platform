@@ -1,3 +1,4 @@
+import { getOneWithCycle } from 'server/controller/assessment/getOneWithCycle'
 import { AssessmentRepository } from 'server/repository/assessment/assessment'
 import { CycleRepository } from 'server/repository/assessmentCycle/cycle'
 import { AssessmentRedisRepository } from 'server/repository/redis/assessment'
@@ -16,7 +17,7 @@ export const AssessmentController = {
   create,
   getAll: AssessmentRedisRepository.getAssessmentsList,
   getOne: AssessmentRepository.getOne,
-  getOneWithCycle: AssessmentRedisRepository.getOneWithCycle,
+  getOneWithCycle,
   remove,
 
   // cycle
