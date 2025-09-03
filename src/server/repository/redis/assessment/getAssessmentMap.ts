@@ -1,13 +1,13 @@
 import { AssessmentNames, RecordAssessments } from 'meta/assessment/assessment'
 
 import { BaseProtocol, DB } from 'server/db'
+import { PropsGetAssessments } from 'server/repository/redis/assessment/_propsGetAssessments'
 import { getOne } from 'server/repository/redis/assessment/getOne'
 
-type Props = {
-  force: boolean
-}
-
-export const getAssessmentMap = async (props: Props, client: BaseProtocol = DB): Promise<RecordAssessments> => {
+export const getAssessmentMap = async (
+  props: PropsGetAssessments,
+  client: BaseProtocol = DB
+): Promise<RecordAssessments> => {
   const { force = false } = props
 
   const assessmentMap: RecordAssessments = {}

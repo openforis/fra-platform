@@ -1,6 +1,5 @@
 import '../scriptInit'
 
-import { AssessmentController } from 'server/controller/assessment'
 import { CacheController } from 'server/controller/cache'
 import { DB } from 'server/db'
 import { RedisData } from 'server/repository/redis/redisData'
@@ -9,13 +8,11 @@ import { Logger } from 'server/utils/logger'
 const exec = async (): Promise<void> => {
   await RedisData.getInstance().flushall()
 
-  await CacheController.generateAssessments()
-  await AssessmentController.generateMetaCache()
-
-  const assessments = await AssessmentController.getAll({})
+  const assessments = await CacheController.generateAssessments()
+  await CacheController.generateMetaCache()
 
   await Promise.all(
-    assessments.map(async (assessment) => {
+    Object.values(assessments).map(async (assessment) => {
       // assessment and cycles metadata cache
       await CacheController.generateMetadata({ assessment })
       // cycles data cache

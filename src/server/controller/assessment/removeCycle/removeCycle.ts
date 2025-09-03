@@ -3,10 +3,10 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { User } from 'meta/user'
 
-import { generateMetaCache } from 'server/controller/assessment/generateMetaCache'
 import { removeDataCache } from 'server/controller/assessment/removeCycle/removeDataCache'
 import { removeMetadata } from 'server/controller/assessment/removeCycle/removeMetadata'
 import { removeMetadataCache } from 'server/controller/assessment/removeCycle/removeMetadataCache'
+import { CacheController } from 'server/controller/cache'
 import { BaseProtocol, DB } from 'server/db'
 import { AssessmentRepository } from 'server/repository/assessment/assessment'
 import { CycleRepository } from 'server/repository/assessmentCycle/cycle'
@@ -33,7 +33,7 @@ export const removeCycle = async (props: Props, client: BaseProtocol = DB): Prom
     await removeMetadata({ assessment, cycle }, t)
 
     // update cache
-    await generateMetaCache(t)
+    await CacheController.generateMetaCache(t)
     await removeMetadataCache({ assessment, cycle }, t)
     await removeDataCache({ assessment, cycle }, t)
     // remove static files
