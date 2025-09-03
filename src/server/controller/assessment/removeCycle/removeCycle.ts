@@ -33,7 +33,7 @@ export const removeCycle = async (props: Props, client: BaseProtocol = DB): Prom
     await removeMetadata({ assessment, cycle }, t)
 
     // update cache
-    await CacheController.generateMetaCache(t)
+    await CacheController.generateMetaCache({}, t)
     await removeMetadataCache({ assessment, cycle }, t)
     await removeDataCache({ assessment, cycle }, t)
     // remove static files

@@ -1,7 +1,7 @@
 import { Objects } from 'utils/objects'
 import { Promises } from 'utils/promises'
 
-import { AssessmentName } from 'meta/assessment/assessment'
+import { Assessment, AssessmentName } from 'meta/assessment/assessment'
 import { Assessments } from 'meta/assessment/assessments'
 import { AssessmentMetaCache } from 'meta/assessment/metaCache'
 import { RowCache } from 'meta/assessment/rowCache'
@@ -17,9 +17,13 @@ import { Logger } from 'server/utils/logger'
 
 import { DependencyEvaluator } from './dependencyEvaluator'
 
-export const generateMetaCache = async (client: BaseProtocol = DB): Promise<void> => {
+type Props = {
+  assessments?: Array<Assessment>
+}
+
+export const generateMetaCache = async (props: Props, client: BaseProtocol = DB): Promise<void> => {
   // 1. init assessments meta cache and rows
-  const assessments = await AssessmentRedisRepository.getAssessmentsList({}, client)
+  const assessments = props.assessments ?? (await AssessmentRedisRepository.getAssessmentsList({}, client))
   const rows: Record<AssessmentName, Array<RowCache>> = {}
   await Promises.each(assessments, async (assessment) => {
     rows[assessment.props.name] = (await RowRepository.getManyCache({ assessment }, client)).filter(

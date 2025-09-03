@@ -41,7 +41,7 @@ export const getOne = async (props: Props, client: BaseProtocol = DB): Promise<A
   return client.one(
     `
     select ${selectFields},
-           jsonb_agg(to_jsonb(ac.*)) as cycles
+           coalesce(jsonb_agg(to_jsonb(ac.*)) filter ( where ac.uuid is not null ), '[]') as cycles
            ${metaCache ? ', meta_cache' : ''}
     from assessment a
     left join assessment_cycle ac on a.id = ac.assessment_id

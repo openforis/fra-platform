@@ -26,7 +26,7 @@ export const createCycle = async (props: Props, client: BaseProtocol = DB): Prom
     const cycle = await CycleRepository.create({ assessment, cycleSource, name, withCountries }, t)
     const { name: assessmentName } = assessment.props
     const { name: cycleName } = cycle
-    await CacheController.generateMetaCache(t)
+    await CacheController.generateMetaCache({}, t)
     const updatedAssessment = await CacheController.generateAssessment({ assessmentName }, t)
 
     const message = ActivityLogMessage.assessmentCycleCreate
