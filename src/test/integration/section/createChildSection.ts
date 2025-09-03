@@ -6,13 +6,13 @@ import { assessmentParams } from 'test/integration/mock/assessment'
 import { subSectionParams } from 'test/integration/mock/section'
 import { userMockTest } from 'test/integration/mock/user'
 
-export default () =>
+export default (): void =>
   test('Expect Child section to be created', async () => {
     const user = await UserController.getOne({
       email: userMockTest.email,
     })
 
-    const { assessment, cycle } = await AssessmentController.getOneWithCycle({
+    const { assessment, cycle } = await AssessmentController.getOneWithCycleDeprecated({
       assessmentName: assessmentParams.props.name,
       cycleName: '2020',
     })

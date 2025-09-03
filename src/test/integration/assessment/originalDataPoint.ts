@@ -21,7 +21,7 @@ export default (): void =>
     let gotOriginalDataPoint: OriginalDataPoint
 
     beforeAll(async () => {
-      ;({ assessment, cycle } = await AssessmentController.getOneWithCycle({
+      ;({ assessment, cycle } = await AssessmentController.getOneWithCycleDeprecated({
         assessmentName: assessmentParams.props.name,
         cycleName: assessmentCycleName,
         metaCache: true,

@@ -6,7 +6,7 @@ import { cloneCycle } from './cloneCycle'
 import { create } from './create'
 import { createCycle } from './createCycle'
 import { generateMetaCache } from './generateMetaCache'
-// import { getOneWithCycle } from './getOne'
+import { getOneWithCycle } from './getOne'
 import { publishCycle } from './publishCycle'
 import { remove } from './remove'
 import { removeCycle } from './removeCycle'
@@ -17,6 +17,10 @@ export const AssessmentController = {
   create,
   getAll: AssessmentRepository.getAll,
   getOne: AssessmentRepository.getOne,
+  /**
+   * @deprecated
+   */
+  getOneWithCycleDeprecated: getOneWithCycle,
   getOneWithCycle: AssessmentRedisRepository.getOneWithCycle,
   remove,
 

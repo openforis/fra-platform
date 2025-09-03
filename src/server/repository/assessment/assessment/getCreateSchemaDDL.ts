@@ -1,5 +1,5 @@
 import { CountryStatus } from 'meta/area'
-import { Assessment } from 'meta/assessment/assessment'
+import { AssessmentBase } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 
 import { Schemas } from 'server/db'
@@ -345,7 +345,10 @@ export const getCreateSchemaCycleOriginalDataPointViewDDL = (assessmentCycleSche
   `
 }
 
-export const getCreateOrReplaceViewCountryUserSummary = (props: { assessment: Assessment; cycle: Cycle }): string => {
+export const getCreateOrReplaceViewCountryUserSummary = (props: {
+  assessment: AssessmentBase
+  cycle: Cycle
+}): string => {
   const { assessment, cycle } = props
   const schemaName = Schemas.getNameCycle(assessment, cycle)
   return `

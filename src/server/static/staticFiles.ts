@@ -1,19 +1,19 @@
 import * as fs from 'fs/promises'
 import * as path from 'path'
 
-import { Assessment } from 'meta/assessment/assessment'
+import { AssessmentBase } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 
 import { FileStorage } from 'server/service/fileStorage/fileStorage'
 
 type PropsClone = {
-  assessment: Assessment
+  assessment: AssessmentBase
   cycleSource: Cycle
   cycleTarget: Cycle
 }
 
 type PropsRemove = {
-  assessment: Assessment
+  assessment: AssessmentBase
   cycle: Cycle
 }
 

@@ -7,13 +7,13 @@ import { tableParams } from 'test/integration/mock/table'
 import { userMockTest } from 'test/integration/mock/user'
 
 // test to remove table
-export default () =>
+export default (): void =>
   test('Expect table to be removed', async () => {
     const user = await UserController.getOne({
       email: userMockTest.email,
     })
 
-    const { assessment, cycle } = await AssessmentController.getOneWithCycle({
+    const { assessment, cycle } = await AssessmentController.getOneWithCycleDeprecated({
       assessmentName: assessmentParams.props.name,
     })
 

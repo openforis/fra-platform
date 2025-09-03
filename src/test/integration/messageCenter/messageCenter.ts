@@ -18,7 +18,7 @@ export default (): void =>
     let user: User
 
     beforeAll(async () => {
-      ;({ assessment, cycle } = await AssessmentController.getOneWithCycle({
+      ;({ assessment, cycle } = await AssessmentController.getOneWithCycleDeprecated({
         assessmentName: assessmentParams.props.name,
         cycleName: assessmentCycleName,
       }))
