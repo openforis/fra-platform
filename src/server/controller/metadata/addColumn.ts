@@ -1,4 +1,4 @@
-import { Assessment } from 'meta/assessment/assessment'
+import { AssessmentBase } from 'meta/assessment/assessment'
 import { ColProps } from 'meta/assessment/col'
 import { Cycle } from 'meta/assessment/cycle'
 import { Row } from 'meta/assessment/row'
@@ -9,7 +9,7 @@ import { ColRepository } from 'server/repository/assessment/col'
 import { TableRepository } from 'server/repository/assessment/table'
 
 type Props = {
-  assessment: Assessment
+  assessment: AssessmentBase
   cycles: Array<Cycle>
   table: Table
   colProps: ColProps

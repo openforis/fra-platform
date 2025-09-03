@@ -3,7 +3,7 @@ import 'dotenv/config'
 
 import { ToolsUtils } from 'tools/utils/toolsUtils'
 
-import { Assessment, AssessmentNames } from 'meta/assessment/assessment'
+import { AssessmentBase, AssessmentNames } from 'meta/assessment/assessment'
 import { ColProps, ColType } from 'meta/assessment/col'
 import { Cycle } from 'meta/assessment/cycle'
 import { Table } from 'meta/assessment/table'
@@ -21,7 +21,7 @@ const assessmentName = AssessmentNames.fra
 const cycleName = '2025'
 const cycleNameClone = 'latest'
 
-const _addColumns = async (props: { assessment: Assessment; cycle: Cycle }): Promise<void> => {
+const _addColumns = async (props: { assessment: AssessmentBase; cycle: Cycle }): Promise<void> => {
   const { assessment, cycle } = props
   // add 2024 column to disturbances and areaAffectedByFire tables
   const tables = await Promise.all([

@@ -1,11 +1,11 @@
-import { Assessment } from 'meta/assessment/assessment'
+import { AssessmentBase } from 'meta/assessment/assessment'
 import { Col } from 'meta/assessment/col'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'
 import { ColAdapter } from 'server/repository/adapter'
 
 type Props = {
-  assessment: Assessment
+  assessment: AssessmentBase
   colId: number
   colProps: Partial<Col['props']>
 }

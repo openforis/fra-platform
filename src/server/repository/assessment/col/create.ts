@@ -1,4 +1,4 @@
-import { Assessment } from 'meta/assessment/assessment'
+import { AssessmentBase } from 'meta/assessment/assessment'
 import { Col, ColProps } from 'meta/assessment/col'
 import { Cycle } from 'meta/assessment/cycle'
 import { Row } from 'meta/assessment/row'
@@ -7,7 +7,7 @@ import { BaseProtocol, DB, Schemas } from 'server/db'
 import { ColAdapter } from 'server/repository/adapter'
 
 type Props = {
-  assessment: Assessment
+  assessment: AssessmentBase
   cycles: Array<Cycle>
   row: Row
   colProps: ColProps

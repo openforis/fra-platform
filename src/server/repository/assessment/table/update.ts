@@ -1,11 +1,11 @@
-import { Assessment } from 'meta/assessment/assessment'
+import { AssessmentBase } from 'meta/assessment/assessment'
 import { Table, TableProps } from 'meta/assessment/table'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'
 import { TableAdapter } from 'server/repository/adapter'
 
 type Props = {
-  assessment: Assessment
+  assessment: AssessmentBase
   tableId: number
   tableProps: Partial<TableProps>
 }

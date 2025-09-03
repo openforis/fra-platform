@@ -1,4 +1,4 @@
-import { Assessment } from 'meta/assessment/assessment'
+import { AssessmentBase } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { Table, TableName } from 'meta/assessment/table'
 import { TableSection } from 'meta/assessment/tableSection'
@@ -6,7 +6,7 @@ import { TableSection } from 'meta/assessment/tableSection'
 import { SectionRedisRepository } from 'server/repository/redis/section'
 
 type Props = {
-  assessment: Assessment
+  assessment: AssessmentBase
   cycle: Cycle
   tableName: TableName
 }
@@ -23,7 +23,7 @@ const findTable = (tableSections: Array<TableSection>, tableName: TableName): Ta
  * Retrieves the table metadata from redis for a given assessment, cycle, and table name.
  *
  * @param {Object} props - The properties object.
- * @param {Assessment} props.assessment - Assessment
+ * @param {AssessmentBase} props.assessment - AssessmentBase
  * @param {Cycle} props.cycle - Cycle
  * @param {string} props.tableName - Table name
  *
