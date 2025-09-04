@@ -3,13 +3,13 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { User } from 'meta/user'
 
-import { getOneWithCycle } from 'server/controller/assessment/getOneWithCycle'
 import { renameDataCache } from 'server/controller/assessment/renameCycle/renameDataCache'
 import { renameMetadataCache } from 'server/controller/assessment/renameCycle/renameMetadataCache'
 import { CacheController } from 'server/controller/cache'
 import { BaseProtocol, DB } from 'server/db'
 import { CycleRepository } from 'server/repository/assessmentCycle/cycle'
 import { ActivityLogRepository } from 'server/repository/public/activityLog'
+import { AssessmentRedisRepository } from 'server/repository/redis/assessment'
 import { StaticFiles } from 'server/static/staticFiles'
 
 type Props = {
@@ -45,6 +45,6 @@ export const renameCycle = async (props: Props, client: BaseProtocol = DB): Prom
     const activityLog = { target: cycleTarget, section: 'assessment', message, user }
     await ActivityLogRepository.insertActivityLog({ activityLog, assessment }, t)
 
-    return getOneWithCycle({ assessmentName, cycleUuid, force: true }, t)
+    return AssessmentRedisRepository.getOneWithCycle({ assessmentName, cycleUuid, force: true }, t)
   })
 }
