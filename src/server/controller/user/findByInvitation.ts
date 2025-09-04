@@ -2,10 +2,10 @@ import { Assessment } from 'meta/assessment/assessment'
 import { AuthProvider, User, UserInvitation } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db'
-import { AssessmentRepository } from 'server/repository/assessment/assessment'
 import { UserRepository } from 'server/repository/public/user'
 import { UserInvitationRepository } from 'server/repository/public/userInvitation'
 import { UserProviderRepository } from 'server/repository/public/userProvider'
+import { AssessmentRedisRepository } from 'server/repository/redis/assessment'
 
 type Props = {
   invitationUuid: string
@@ -24,7 +24,7 @@ export const findByInvitation = async (props: Props, client: BaseProtocol = DB):
   const userInvitation = await UserInvitationRepository.getOne({ invitationUuid }, client)
   const user = await UserRepository.getOne({ uuid: userInvitation.userUuid }, client)
   const userProviders = await UserProviderRepository.getUserProviders({ user }, client)
-  const assessment = await AssessmentRepository.getOne({ uuid: userInvitation.assessmentUuid }, client)
+  const assessment = await AssessmentRedisRepository.getOne({ uuid: userInvitation.assessmentUuid }, client)
 
   return {
     assessment,
