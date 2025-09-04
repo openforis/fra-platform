@@ -66,28 +66,28 @@ const getEnablers = (props: CycleProps): DependencyCache => getMetaCache(props).
 
 const getTableCalculationsDependants = (props: TableProps): TableDependencyRecord => {
   const { assessment, cycle, tableName } = props
-  return _getTableDependants({ dependencyCache: getCalculations({ assessment, cycle }), tableName }) ?? {}
+  return _getTableDependants({ dependencyCache: getCalculations({ assessment, cycle }), tableName })
 }
 const getCalculationsDependants = (props: VariableProps): VariableCacheList =>
   getTableCalculationsDependants(props)?.[props.variableName] ?? []
 
 const getTableCalculationsDependencies = (props: TableProps): TableDependencyRecord => {
   const { assessment, cycle, tableName } = props
-  return _getTableDependencies({ dependencyCache: getCalculations({ assessment, cycle }), tableName }) ?? {}
+  return _getTableDependencies({ dependencyCache: getCalculations({ assessment, cycle }), tableName })
 }
 const getCalculationsDependencies = (props: VariableProps): VariableCacheList =>
   getTableCalculationsDependencies(props)?.[props.variableName] ?? []
 
 const getTableValidationsDependants = (props: TableProps): TableDependencyRecord => {
   const { assessment, cycle, tableName } = props
-  return _getTableDependants({ dependencyCache: getValidations({ assessment, cycle }), tableName }) ?? {}
+  return _getTableDependants({ dependencyCache: getValidations({ assessment, cycle }), tableName })
 }
 const getValidationsDependants = (props: VariableProps): VariableCacheList =>
   getTableValidationsDependants(props)?.[props.variableName] ?? []
 
 const getTableValidationsDependencies = (props: TableProps): TableDependencyRecord => {
   const { assessment, cycle, tableName } = props
-  return _getTableDependencies({ dependencyCache: getValidations({ assessment, cycle }), tableName }) ?? {}
+  return _getTableDependencies({ dependencyCache: getValidations({ assessment, cycle }), tableName })
 }
 const getValidationsDependencies = (props: VariableProps): VariableCacheList =>
   getTableValidationsDependencies(props)?.[props.variableName] ?? []
