@@ -8,9 +8,9 @@ import { removeMetadata } from 'server/controller/assessment/removeCycle/removeM
 import { removeMetadataCache } from 'server/controller/assessment/removeCycle/removeMetadataCache'
 import { CacheController } from 'server/controller/cache'
 import { BaseProtocol, DB } from 'server/db'
-import { AssessmentRepository } from 'server/repository/assessment/assessment'
 import { CycleRepository } from 'server/repository/assessmentCycle/cycle'
 import { ActivityLogRepository } from 'server/repository/public/activityLog'
+import { AssessmentRedisRepository } from 'server/repository/redis/assessment'
 import { StaticFiles } from 'server/static/staticFiles'
 
 type Props = {
@@ -43,10 +43,8 @@ export const removeCycle = async (props: Props, client: BaseProtocol = DB): Prom
     const activityLog = { target: cycle, section: 'assessment', message, user }
     await ActivityLogRepository.insertActivityLog({ activityLog, assessment }, t)
 
-    return {
-      assessment: await AssessmentRepository.getOne({ assessmentName: assessment.props.name }, t),
-      cycle,
-    }
+    const { name: assessmentName } = assessment.props
+    return { assessment: await AssessmentRedisRepository.getOne({ assessmentName, force: true }, t), cycle }
   })
 
   await CycleRepository.removeSchema({ assessment, cycle: cycleProps })

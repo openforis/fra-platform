@@ -11,6 +11,7 @@ import { CloneProps } from 'server/controller/assessment/cloneCycle/types'
 import { createCycle } from 'server/controller/assessment/createCycle'
 import { CacheController } from 'server/controller/cache'
 import { BaseProtocol, DB } from 'server/db'
+import { AssessmentRedisRepository } from 'server/repository/redis/assessment'
 import { StaticFiles } from 'server/static/staticFiles'
 
 type Props = {
@@ -47,6 +48,10 @@ export const cloneCycle = async (props: Props, client: BaseProtocol = DB): Promi
     await CacheController.generateMetadata({ assessment }, t)
     await CacheController.generateData({ assessment, cycle: cycleTarget }, t)
 
-    return { assessment, cycle: cycleTarget }
+    const { name: assessmentName } = assessment.props
+    return {
+      assessment: await AssessmentRedisRepository.getOne({ assessmentName, force: true }, t),
+      cycle: cycleTarget,
+    }
   })
 }

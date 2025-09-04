@@ -45,6 +45,6 @@ export const renameCycle = async (props: Props, client: BaseProtocol = DB): Prom
     const activityLog = { target: cycleTarget, section: 'assessment', message, user }
     await ActivityLogRepository.insertActivityLog({ activityLog, assessment }, t)
 
-    return getOneWithCycle({ assessmentName, cycleUuid }, t)
+    return getOneWithCycle({ assessmentName, cycleUuid, force: true }, t)
   })
 }
