@@ -28,9 +28,6 @@ export type CycleIndexes = {
 
 export interface Assessment extends AssessmentBase {
   cycleIndexes: CycleIndexes
-  /**
-   * @deprecated
-   */
   metaCache?: Record<CycleUuid, AssessmentMetaCache>
 }
 

@@ -6,9 +6,12 @@ import { CountryIso } from 'meta/area'
 import { AssessmentName } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
 import { VariableCache } from 'meta/assessment/metaCache'
+import { AssessmentMetaCaches } from 'meta/assessment/metaCaches'
 import { TableName, TableNames } from 'meta/assessment/table'
 
 import { useCountry } from 'client/store/area/hooks/country'
+import { useAssessment } from 'client/store/meta/hooks/assessments'
+import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useTableSections } from 'client/store/meta/hooks/tableSections'
 import { useCanEdit } from 'client/store/user/hooks/auth'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
@@ -33,6 +36,8 @@ export const useDependencies = (props: Props): Returned => {
   const { sectionName } = props
 
   const { assessmentName, countryIso, cycleName } = useSectionRouteParams()
+  const assessment = useAssessment()
+  const cycle = useCycle()
   const tableSections = useTableSections({ sectionName })
   const canEdit = useCanEdit(sectionName)
   const country = useCountry(countryIso as CountryIso)
@@ -74,15 +79,18 @@ export const useDependencies = (props: Props): Returned => {
           internal.tableWithOdp = tableName
         }
 
-        if (table.calculationDependencies) {
-          addDependencies(Object.values(table.calculationDependencies))
+        const propsDeps = { assessment, cycle, tableName }
+        const calculationDependencies = AssessmentMetaCaches.getTableCalculationsDependencies(propsDeps)
+        const validationDependencies = AssessmentMetaCaches.getTableValidationsDependencies(propsDeps)
+        if (calculationDependencies) {
+          addDependencies(Object.values(calculationDependencies))
         }
-        if (canEdit && table.validationDependencies) {
-          addDependencies(Object.values(table.validationDependencies))
+        if (canEdit && validationDependencies) {
+          addDependencies(Object.values(validationDependencies))
         }
       })
     })
 
     return { external, internal }
-  }, [assessmentName, canEdit, cycleName, forestCharacteristicsUseOdp, tableSections])
+  }, [assessment, assessmentName, canEdit, cycle, cycleName, forestCharacteristicsUseOdp, tableSections])
 }

@@ -31,7 +31,7 @@ type CSVData = {
   value: string
 }
 
-const processCSVFiles = async () => {
+const processCSVFiles = async (): Promise<void> => {
   try {
     const user = await UserController.getOne({ email: UsersEmail.robot, allowDisabled: true })
     const assessments = await AssessmentController.getAll({ metaCache: true })

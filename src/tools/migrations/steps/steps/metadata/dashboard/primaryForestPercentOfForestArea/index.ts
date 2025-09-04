@@ -1,6 +1,7 @@
 import { getTable, RowsMetadata } from 'tools/migrations/steps/steps/metadata/dashboard/utils'
 import { unit } from 'tools/migrations/steps/steps/metadata/dashboard/utils/unit'
 
+import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { TableNames } from 'meta/assessment/table'
 import { ChartColor } from 'meta/chart'
@@ -22,7 +23,11 @@ const variableNames: Record<string, string> = {
   '2025': 'primaryForest',
 }
 
-export const primaryForestPercentOfForestArea = (cycle: Cycle, region: boolean): DashboardPieChart => {
+export const primaryForestPercentOfForestArea = (
+  assessment: Assessment,
+  cycle: Cycle,
+  region: boolean
+): DashboardPieChart => {
   const columnName = cols[cycle.name][0]
   const tableName = tableNames[cycle.name]
   const variableName = variableNames[cycle.name]
@@ -84,7 +89,14 @@ export const primaryForestPercentOfForestArea = (cycle: Cycle, region: boolean):
   return {
     type: DashboardItemType.pieChart,
     title: { key: 'statisticalFactsheets.primaryForest.title', params: { year: cols[cycle.name].at(0) } },
-    table: getTable({ cycle, cols: cols[cycle.name], tableId, rowMetadata: rowMetadata[cycle.name], tableName }),
+    table: getTable({
+      assessment,
+      cycle,
+      cols: cols[cycle.name],
+      tableId,
+      rowMetadata: rowMetadata[cycle.name],
+      tableName,
+    }),
     chart: {
       cells: [
         {

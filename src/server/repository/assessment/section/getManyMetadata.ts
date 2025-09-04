@@ -24,27 +24,7 @@ export const getManyMetadata = async (props: Props, client: BaseProtocol = DB): 
     `
         with "row" as (select s.props ->> 'name' as section_name,
                               to_jsonb(ts.*)     as table_section,
-                              to_jsonb(t.*)
-                                  ||
-                              jsonb_build_object(
-                                      'validationDependencies',
-                                      jsonb_extract_path(
-                                              a.meta_cache,
-                                              '${cycle.uuid}',
-                                              'validations',
-                                              'dependencies', t.props ->> 'name'
-                                          )
-                                  ) 
-                                  ||
-                              jsonb_build_object(
-                                      'calculationDependencies',
-                                      jsonb_extract_path(
-                                              a.meta_cache,
-                                              '${cycle.uuid}',
-                                              'calculations',
-                                              'dependencies', t.props ->> 'name'
-                                          )
-                                  )  as "table",
+                              to_jsonb(t.*)      as "table",
                               jsonb_set(
                                       to_jsonb(r.*),
                                       '{"cols"}',
@@ -55,7 +35,6 @@ export const getManyMetadata = async (props: Props, client: BaseProtocol = DB): 
                                 left join ${schemaName}."table" t on t.id = r.table_id
                                 left join ${schemaName}.table_section ts on ts.id = t.table_section_id
                                 left join ${schemaName}.section s on ts.section_id = s.id
-                                left join public.assessment a on a.uuid = '${assessment.uuid}'
                        where ts.props -> 'cycles' ? $2
                          and t.props -> 'cycles' ? $2
                          and r.props -> 'cycles' ? $2
@@ -68,8 +47,7 @@ export const getManyMetadata = async (props: Props, client: BaseProtocol = DB): 
                                 to_jsonb(ts.*),
                                 to_jsonb(t.*),
                                 to_jsonb(r.*),
-                                t.props,
-                                a.meta_cache),
+                                t.props),
              "table" as (select r.section_name,
                                 r.table_section,
                                 jsonb_set(
