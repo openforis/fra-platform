@@ -1,12 +1,13 @@
 import { Assessment, AssessmentBase, CycleIndexes } from 'meta/assessment/assessment'
 
+import { getAssessmentWithMetaCache } from 'server/repository/redis/assessment/_assessmentWithMetaCache'
 import { getKeyAssessments, getKeyAssessmentsUuid } from 'server/repository/redis/keys'
 import { RedisData } from 'server/repository/redis/redisData'
 
-type Props = { assessmentBase: AssessmentBase }
+type Props = { assessmentBase: AssessmentBase; metaCache?: boolean }
 
 export const _cacheAssessment = async (props: Props): Promise<Assessment> => {
-  const { assessmentBase } = props
+  const { assessmentBase, metaCache } = props
 
   // create cycleIndexes
   const cycleIndexes = assessmentBase.cycles.reduce<CycleIndexes>(
@@ -31,6 +32,6 @@ export const _cacheAssessment = async (props: Props): Promise<Assessment> => {
   const keyAssessmentsUuid = getKeyAssessmentsUuid()
   await redis.hmset(keyAssessmentsUuid, assessment.uuid, assessmentName)
 
-  // return assessment
-  return assessment
+  // return
+  return getAssessmentWithMetaCache({ assessment, metaCache })
 }
