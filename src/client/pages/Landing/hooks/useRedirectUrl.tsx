@@ -28,7 +28,7 @@ export const useRedirectUrl = (props: Props): string => {
   // if other users, assessment, cycle, countryIso -> from last role
   const userLastRole = UserRoles.getLastRole({ assessment, user })
   if (!admin && !Objects.isNil(userLastRole)) {
-    cycle = assessment.cycles.find((c) => c.uuid === userLastRole.cycleUuid)
+    cycle = Assessments.getCycle({ assessment, cycleUuid: userLastRole.cycleUuid })
     countryIso = userLastRole.countryIso
   }
 

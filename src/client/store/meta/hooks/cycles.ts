@@ -12,8 +12,8 @@ export const useCycle = (cycleUuid?: CycleUuid): Cycle => {
 
   return useMemo<Cycle>(() => {
     if (!assessment) return undefined
-    if (cycleUuid) return assessment.cycles[assessment.cycleIndexes.uuid[cycleUuid]]
-    if (cycleName) return assessment.cycles[assessment.cycleIndexes.name[cycleName]]
+    if (cycleUuid) return Assessments.getCycle({ assessment, cycleUuid })
+    if (cycleName) return Assessments.getCycle({ assessment, cycleName })
     return Assessments.getLastPublishedCycle(assessment)
   }, [assessment, cycleName, cycleUuid])
 }

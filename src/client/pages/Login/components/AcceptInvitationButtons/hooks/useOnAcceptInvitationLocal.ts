@@ -1,6 +1,7 @@
 import { useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+import { Assessments } from 'meta/assessment/assessments'
 import { Routes } from 'meta/routes'
 
 import { useAppDispatch } from 'client/store/hooks'
@@ -26,7 +27,7 @@ export const useOnAcceptInvitationLocal = (props: Props): Returned => {
 
   const { assessment, userInvitation } = useInvitation()
   const { countryIso } = userInvitation
-  const cycle = assessment?.cycles.find((cycle) => cycle.uuid === userInvitation.cycleUuid)
+  const cycle = Assessments.getCycle({ assessment, cycleUuid: userInvitation.cycleUuid })
   const assessmentName = assessment?.props.name
   const cycleName = cycle?.name
   const redirectUrl = Routes.Country.generatePath({ assessmentName, countryIso, cycleName })
