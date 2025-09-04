@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
+import { Assessments } from 'meta/assessment/assessments'
 import { LoginInvitationQueryParams, Routes } from 'meta/routes'
 import { AuthProvider } from 'meta/user'
 
@@ -23,7 +24,7 @@ const AcceptInvitationButtons: React.FC = () => {
   const { assessment, invitedUser, userInvitation, userProviders } = useInvitation()
   const { countryIso } = userInvitation
 
-  const cycle = assessment?.cycles.find((cycle) => cycle.uuid === userInvitation.cycleUuid)
+  const cycle = Assessments.getCycle({ assessment, cycleUuid: userInvitation.cycleUuid })
   const assessmentName = assessment?.props.name
   const cycleName = cycle?.name
 
@@ -37,7 +38,7 @@ const AcceptInvitationButtons: React.FC = () => {
 
   const onAcceptInvitationLocal = useOnAcceptInvitationLocal({ formData, invitationUuid, showPassword2 })
 
-  const goToAcceptInvitationLocal = () => {
+  const goToAcceptInvitationLocal = (): void => {
     navigate(Routes.LoginInvitationLocal.generatePath({ assessmentName, cycleName }, { invitationUuid, lang }))
   }
 

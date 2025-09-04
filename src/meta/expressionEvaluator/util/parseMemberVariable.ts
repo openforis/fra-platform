@@ -1,15 +1,17 @@
 import { MemberExpression } from '@openforis/arena-core'
 
+import { Assessments } from 'meta/assessment/assessments'
+import { CycleName } from 'meta/assessment/cycle'
 import { Cycles } from 'meta/assessment/cycles'
 import { VariableCache } from 'meta/assessment/metaCache'
 import { BaseContext } from 'meta/expressionEvaluator/util/_types'
 import { Member } from 'meta/expressions'
 
-const getCycleName = (cycleName: string, context: BaseContext) => {
+const getCycleName = (cycleName: string, context: BaseContext): CycleName => {
   if (cycleName === Member.$prevCycle) {
     const { assessmentName, assessments, cycleName } = context
     const assessment = assessments[assessmentName]
-    const cycle = assessment.cycles.find((c) => c.name === cycleName)
+    const cycle = Assessments.getCycle({ assessment, cycleName })
     return Cycles.getPreviousCycle({ assessment, cycle }).name
   }
   return cycleName
