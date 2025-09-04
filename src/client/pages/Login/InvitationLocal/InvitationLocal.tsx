@@ -29,7 +29,7 @@ const InvitationLocal: React.FC = () => {
   const formData = useAcceptInvitationForm()
   const errors = formData?.errors ?? {}
 
-  const cycle = Assessments.getCycle({ assessment, cycleUuid: userInvitation.cycleUuid })
+  const cycle = Assessments.getCycle({ assessment, cycleUuid: userInvitation?.cycleUuid })
   const assessmentName = assessment?.props.name
   const cycleName = cycle?.name
 
