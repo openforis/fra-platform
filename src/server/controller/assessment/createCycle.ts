@@ -3,11 +3,11 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { User } from 'meta/user'
 
-import { getOneWithCycle } from 'server/controller/assessment/getOneWithCycle'
 import { CacheController } from 'server/controller/cache'
 import { BaseProtocol, DB } from 'server/db'
 import { CycleRepository } from 'server/repository/assessmentCycle/cycle'
 import { ActivityLogRepository } from 'server/repository/public/activityLog'
+import { AssessmentRedisRepository } from 'server/repository/redis/assessment'
 
 type Props = {
   assessment: Assessment
@@ -33,6 +33,6 @@ export const createCycle = async (props: Props, client: BaseProtocol = DB): Prom
     const activityLog = { target: updatedAssessment, section: 'assessment', message, user }
     await ActivityLogRepository.insertActivityLog({ activityLog, assessment: updatedAssessment, cycle }, t)
 
-    return getOneWithCycle({ assessmentName, cycleName }, t)
+    return AssessmentRedisRepository.getOneWithCycle({ assessmentName, cycleName, force: true }, t)
   })
 }

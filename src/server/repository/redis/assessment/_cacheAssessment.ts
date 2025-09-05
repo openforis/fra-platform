@@ -1,12 +1,16 @@
-import { Assessment, AssessmentBase, CycleIndexes } from 'meta/assessment/assessment'
+import { Assessment, AssessmentName, CycleIndexes } from 'meta/assessment/assessment'
 
+import { BaseProtocol, DB } from 'server/db'
+import { AssessmentRepository } from 'server/repository/assessment/assessment'
 import { getKeyAssessments, getKeyAssessmentsUuid } from 'server/repository/redis/keys'
 import { RedisData } from 'server/repository/redis/redisData'
 
-type Props = { assessmentBase: AssessmentBase }
+type Props = { assessmentName: AssessmentName }
 
-export const _cacheAssessment = async (props: Props): Promise<Assessment> => {
-  const { assessmentBase } = props
+export const _cacheAssessment = async (props: Props, client: BaseProtocol = DB): Promise<Assessment> => {
+  const { assessmentName } = props
+
+  const assessmentBase = await AssessmentRepository.getOne({ assessmentName }, client)
 
   // create cycleIndexes
   const cycleIndexes = assessmentBase.cycles.reduce<CycleIndexes>(
@@ -21,7 +25,6 @@ export const _cacheAssessment = async (props: Props): Promise<Assessment> => {
 
   // init assessment
   const assessment: Assessment = { ...assessmentBase, cycleIndexes }
-  const { name: assessmentName } = assessment.props
 
   const redis = RedisData.getInstance()
   // store assessment in redis

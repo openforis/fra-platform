@@ -4,7 +4,6 @@ import { Assessment, AssessmentName } from 'meta/assessment/assessment'
 import { UUID } from 'meta/uuid'
 
 import { BaseProtocol, DB } from 'server/db'
-import { AssessmentRepository } from 'server/repository/assessment/assessment'
 import {
   getAssessmentWithMetaCache,
   PropsMetaCacheCycle,
@@ -28,13 +27,10 @@ export const getOne = async (props: PropsGetOneAssessment, client: BaseProtocol 
 
   const assessmentCache = await redis.hget(key, assessmentName)
 
-  let assessment: Assessment
-  if (Objects.isEmpty(assessmentCache) || force) {
-    const assessmentBase = await AssessmentRepository.getOne({ assessmentName }, client)
-    assessment = await _cacheAssessment({ assessmentBase, ...propsCache })
-  } else {
-    assessment = JSON.parse(assessmentCache)
-  }
+  const assessment: Assessment =
+    Objects.isEmpty(assessmentCache) || force
+      ? await _cacheAssessment({ assessmentName, ...propsCache }, client)
+      : JSON.parse(assessmentCache)
 
   return getAssessmentWithMetaCache({ assessment, ...propsCache })
 }
