@@ -2,21 +2,16 @@ import { Response } from 'express'
 
 import { CycleRequest } from 'meta/api/request'
 
-import { AssessmentController } from 'server/controller/assessment'
 import { CycleDataController } from 'server/controller/cycleData'
 import Requests from 'server/utils/requests'
 
-export const deleteOriginalDataPointNationalClass = async (
-  req: CycleRequest<never, { id: string; index: number }>,
-  res: Response
-) => {
-  try {
-    const { assessmentName, cycleName, index, odpId: id } = req.query
-    const user = Requests.getUser(req)
-    const { country } = req.context
+type Request = CycleRequest<never, { id: string; index: number }>
 
-    const metaCache = true
-    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName, metaCache })
+export const deleteOriginalDataPointNationalClass = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { index, odpId: id } = req.query
+    const user = Requests.getUser(req)
+    const { assessment, country, cycle } = req.context
 
     const propsDelete = { assessment, cycle, country, index, id, user }
     const returnedOriginalDataPoint = await CycleDataController.deleteOriginalDataPointNationalClass(propsDelete)
