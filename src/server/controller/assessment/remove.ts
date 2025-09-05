@@ -5,21 +5,21 @@ import { AssessmentRepository } from 'server/repository/assessment/assessment'
 import { CycleRepository } from 'server/repository/assessmentCycle/cycle'
 import { AssessmentRedisRepository } from 'server/repository/redis/assessment'
 
-export const remove = async (
-  props: { assessment: Assessment },
-  client: BaseProtocol = DB
-): Promise<{ schemaName: string; cycleSchemaNames: Array<string> }> => {
+type Props = { assessment: Assessment }
+
+type Returned = { schemaName: string; cycleSchemaNames: Array<string> }
+
+export const remove = async (props: Props, client: BaseProtocol = DB): Promise<Returned> => {
   const { assessment } = props
+
+  await AssessmentRedisRepository.removeOne({ assessment }, client)
+  await AssessmentRepository.removeAssessment({ assessment }, client)
 
   const schemaName = await AssessmentRepository.removeAssessmentSchema({ assessment })
 
   const cycleSchemaNames = await Promise.all(
     assessment.cycles.map((cycle) => CycleRepository.removeSchema({ assessment, cycle }))
   )
-
-  await AssessmentRepository.removeAssessment({ assessment }, client)
-
-  await AssessmentRedisRepository.removeOne({ assessment }, client)
 
   return {
     schemaName,

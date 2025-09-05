@@ -1,4 +1,5 @@
 import { getOneCountry } from 'server/repository/redis/area/getOneCountry'
+import { removeAreas } from 'server/repository/redis/area/removeAreas'
 
 import { getCountriesMap } from './getCountriesMap'
 import { getManyCountries } from './getManyCountries'
@@ -9,4 +10,5 @@ export const AreaRedisRepository = {
   getManyCountries,
   getManyRegionGroups,
   getOneCountry,
+  removeAreas,
 }
