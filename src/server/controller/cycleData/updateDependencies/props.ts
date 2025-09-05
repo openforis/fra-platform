@@ -1,4 +1,4 @@
-import { Job } from 'bullmq'
+import { Job, Worker } from 'bullmq'
 
 import { Country } from 'meta/area'
 import { Assessment } from 'meta/assessment/assessment'
@@ -25,3 +25,5 @@ export type UpdateDependenciesResult = {
 }
 
 export type UpdateDependenciesJob = Job<UpdateDependenciesProps, UpdateDependenciesResult>
+
+export type UpdateDependenciesWorker = Worker<UpdateDependenciesProps, UpdateDependenciesResult>

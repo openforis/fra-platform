@@ -2,15 +2,15 @@ import { Response } from 'express'
 
 import { CycleDataRequest } from 'meta/api/request'
 
-import { AssessmentController } from 'server/controller/assessment'
 import { CycleDataController } from 'server/controller/cycleData'
 import { Requests } from 'server/utils'
 
-export const getOriginalDataPoint = async (req: CycleDataRequest<{ year: string }>, res: Response) => {
-  try {
-    const { assessmentName, countryIso, cycleName, year } = req.query
+type Request = CycleDataRequest<{ year: string }>
 
-    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+export const getOriginalDataPoint = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { countryIso, year } = req.query
+    const { assessment, cycle } = req.context
 
     const odp = await CycleDataController.getOriginalDataPoint({ assessment, cycle, year, countryIso })
 

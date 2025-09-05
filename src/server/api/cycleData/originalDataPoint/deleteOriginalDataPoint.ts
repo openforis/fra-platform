@@ -2,17 +2,16 @@ import { Response } from 'express'
 
 import { CycleRequest } from 'meta/api/request'
 
-import { AssessmentController } from 'server/controller/assessment'
 import { CycleDataController } from 'server/controller/cycleData'
 import Requests from 'server/utils/requests'
 
-export const deleteOriginalDataPoint = async (req: CycleRequest<{ year: string }>, res: Response) => {
-  try {
-    const { assessmentName, countryIso, cycleName, year } = req.query
-    const { country } = req.context
+type Request = CycleRequest<{ year: string }>
 
-    const metaCache = true
-    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName, metaCache })
+export const deleteOriginalDataPoint = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { countryIso, year } = req.query
+    const { assessment, country, cycle } = req.context
+
     const originalDataPoint = await CycleDataController.getOriginalDataPoint({ assessment, cycle, year, countryIso })
 
     const user = Requests.getUser(req)

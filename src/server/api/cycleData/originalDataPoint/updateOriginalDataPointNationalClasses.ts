@@ -3,22 +3,16 @@ import { Response } from 'express'
 import { CycleRequest } from 'meta/api/request'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
-import { AssessmentController } from 'server/controller/assessment'
 import { CycleDataController } from 'server/controller/cycleData'
 import Requests from 'server/utils/requests'
 
-export const updateOriginalDataPointNationalClasses = async (
-  req: CycleRequest<never, { originalDataPoint: OriginalDataPoint }>,
-  res: Response
-) => {
+type Request = CycleRequest<never, { originalDataPoint: OriginalDataPoint }>
+
+export const updateOriginalDataPointNationalClasses = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { assessmentName, cycleName } = req.query
     const { originalDataPoint } = req.body
     const user = Requests.getUser(req)
-    const { country } = req.context
-
-    const metaCache = true
-    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName, metaCache })
+    const { assessment, country, cycle } = req.context
 
     const propsUpdate = { assessment, cycle, country, originalDataPoint, user }
     const returnedOriginalDataPoint = await CycleDataController.updateOriginalDataPointNationalClasses(propsUpdate)
