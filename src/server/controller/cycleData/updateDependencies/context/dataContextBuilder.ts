@@ -39,11 +39,6 @@ export class DataContextBuilder extends BaseContextBuilder {
     const assessmentName = variable.assessmentName ?? this.props.assessment.props.name
     const cycleName = variable.cycleName ?? this.props.cycle.name
 
-    // TODO: investigate later on during this refactor why assessment is not defined?
-    // if (!this.#assessments[assessmentName]) {
-    //   this.#assessments[assessmentName] = await AssessmentController.getOne({ assessmentName, metaCache: true })
-    // }
-
     if (!this.#tables[assessmentName]?.[cycleName]) {
       const assessment = this.#assessments[assessmentName]
       const cycle = Assessments.getCycle({ assessment, cycleName })

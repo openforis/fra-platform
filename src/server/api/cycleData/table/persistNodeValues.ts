@@ -3,20 +3,16 @@ import { Response } from 'express'
 import { CycleDataRequest, NodesBody } from 'meta/api/request'
 import { NodeUpdate, NodeUpdates } from 'meta/data'
 
-import { AssessmentController } from 'server/controller/assessment'
 import { CycleDataController } from 'server/controller/cycleData'
 import Requests from 'server/utils/requests'
 
-export const persistNodeValues = async (req: CycleDataRequest<never, NodesBody>, res: Response) => {
+export const persistNodeValues = async (req: CycleDataRequest<never, NodesBody>, res: Response): Promise<void> => {
   try {
     const { assessmentName, cycleName, sectionName } = req.query
     const { tableName, values } = req.body
-    const { country } = req.context
+    const { assessment, country, cycle } = req.context
     const { countryIso } = country
-
     const user = Requests.getUser(req)
-    const metaCache = true
-    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName, metaCache })
 
     const nodes = values.map<NodeUpdate>(({ colName, value, variableName }) => {
       return { tableName, variableName, colName, value }

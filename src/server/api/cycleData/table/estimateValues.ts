@@ -6,7 +6,6 @@ import { Table, TableNames } from 'meta/assessment/table'
 import { RecordAssessmentDatas } from 'meta/data'
 import { UUIDs } from 'meta/uuid'
 
-import { AssessmentController } from 'server/controller/assessment'
 import { CycleDataController } from 'server/controller/cycleData'
 import { MetadataController } from 'server/controller/metadata'
 import { EstimationEngine, GenerateSpec, GenerateSpecMethod } from 'server/service/estimates/estimationEngine'
@@ -33,17 +32,13 @@ const generateSpecToEstimation = (props: { generateSpec: GenerateSpec; table: Ta
 }
 
 // TODO: future task -> request body should be NodeValuesEstimation
-export const estimateValues = async (req: CycleDataRequest<never, EstimateBody>, res: Response) => {
+export const estimateValues = async (req: CycleDataRequest<never, EstimateBody>, res: Response): Promise<void> => {
   try {
     const { assessmentName, cycleName, sectionName } = req.query
-    const { country } = req.context
-    const { countryIso } = country
-
+    const { assessment, country, cycle } = req.context
     const { fields, method, tableName } = req.body
     const user = Requests.getUser(req)
-
-    const metaCache = true
-    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName, metaCache })
+    const { countryIso } = country
 
     const tableNameOdp = TableNames.originalDataPointValue
     const [table, data] = await Promise.all([
