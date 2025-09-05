@@ -5,7 +5,6 @@ import { Assessment } from 'meta/assessment/assessment'
 import { BaseProtocol, DB } from 'server/db'
 import { CycleRedisRepository } from 'server/repository/redis/cycle'
 import { getKeyAssessments, getKeyAssessmentsUuid } from 'server/repository/redis/keys'
-import { MetaCacheRedisRepository } from 'server/repository/redis/metaCache'
 import { RedisData } from 'server/repository/redis/redisData'
 
 type Props = {
@@ -25,7 +24,4 @@ export const removeOne = async (props: Props, client: BaseProtocol = DB): Promis
   await Promises.each(assessment.cycles, async (cycle) => {
     await CycleRedisRepository.removeOne({ assessment, cycle }, client)
   })
-
-  // generate metaCache
-  await MetaCacheRedisRepository.generateMetaCache({}, client)
 }
