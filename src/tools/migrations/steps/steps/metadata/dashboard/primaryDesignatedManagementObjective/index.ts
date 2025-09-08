@@ -5,7 +5,7 @@ import { DashboardItemType, DashboardTable } from 'meta/dashboard'
 
 const cols: Record<string, Array<string>> = {
   '2020': ['1990', '2000', '2010', '2020'],
-  '2025': ['1990', '2000', '2010', '2020', '2025'],
+  '2025': ['1990', '2000', '2015', '2025'],
 }
 
 const baseVariables = [

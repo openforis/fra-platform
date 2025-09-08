@@ -7,11 +7,9 @@ import { TableNames } from 'meta/assessment/table'
 import { ChartColor } from 'meta/chart'
 import { DashboardBarChart, DashboardItemType } from 'meta/dashboard'
 
-const commonColumns = ['1990', '2000', '2010', '2020']
-
 const cols: Record<string, Array<string>> = {
-  '2020': commonColumns,
-  '2025': [...commonColumns, '2025'],
+  '2020': ['1990', '2000', '2010', '2020'],
+  '2025': ['1990', '2000', '2015', '2025'],
 }
 
 const tableName = TableNames.forestCharacteristics
