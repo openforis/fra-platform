@@ -3,14 +3,12 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { User } from 'meta/user'
 
-import { removeDataCache } from 'server/controller/assessment/removeCycle/removeDataCache'
 import { removeMetadata } from 'server/controller/assessment/removeCycle/removeMetadata'
-import { removeMetadataCache } from 'server/controller/assessment/removeCycle/removeMetadataCache'
-import { CacheController } from 'server/controller/cache'
 import { BaseProtocol, DB } from 'server/db'
 import { CycleRepository } from 'server/repository/assessmentCycle/cycle'
 import { ActivityLogRepository } from 'server/repository/public/activityLog'
 import { AssessmentRedisRepository } from 'server/repository/redis/assessment'
+import { CycleRedisRepository } from 'server/repository/redis/cycle'
 import { StaticFiles } from 'server/static/staticFiles'
 
 type Props = {
@@ -32,10 +30,6 @@ export const removeCycle = async (props: Props, client: BaseProtocol = DB): Prom
 
     await removeMetadata({ assessment, cycle }, t)
 
-    // update cache
-    await CacheController.generateMetaCache({}, t)
-    await removeMetadataCache({ assessment, cycle }, t)
-    await removeDataCache({ assessment, cycle }, t)
     // remove static files
     await StaticFiles.removeCycle({ assessment, cycle })
     // insert activity log
@@ -43,8 +37,12 @@ export const removeCycle = async (props: Props, client: BaseProtocol = DB): Prom
     const activityLog = { target: cycle, section: 'assessment', message, user }
     await ActivityLogRepository.insertActivityLog({ activityLog, assessment }, t)
 
+    // update cache
     const { name: assessmentName } = assessment.props
-    return { assessment: await AssessmentRedisRepository.getOne({ assessmentName, force: true }, t), cycle }
+    const assessmentCache = await AssessmentRedisRepository.getOne({ assessmentName, force: true }, t)
+    await CycleRedisRepository.removeOne({ assessment: assessmentCache, cycle }, t)
+
+    return { assessment: assessmentCache, cycle }
   })
 
   await CycleRepository.removeSchema({ assessment, cycle: cycleProps })

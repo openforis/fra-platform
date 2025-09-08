@@ -1,3 +1,5 @@
+import { Objects } from 'utils/objects'
+
 import { Assessment } from 'meta/assessment/assessment'
 import { RecordRowCache, RowCacheKey } from 'meta/assessment/rowCache'
 import { RowCaches } from 'meta/assessment/rowCaches'
@@ -36,7 +38,9 @@ const _cacheRows = async (props: Props, client: BaseProtocol = DB): Promise<void
       return { ...acc, [rowKey]: JSON.stringify(row) }
     }, {})
 
-    await redis.hmset(key, recordRows)
+    if (!Objects.isEmpty(recordRows)) {
+      await redis.hmset(key, recordRows)
+    }
   }
 }
 
@@ -49,7 +53,7 @@ export const getRows = async (props: Props, client: BaseProtocol = DB): Promise<
 
   const key = getKeyRow({ assessment })
   const keys = rowKeys?.length ? rowKeys : await redis.hkeys(key)
-  const values = await redis.hmget(key, ...keys)
+  const values = Objects.isEmpty(keys) ? [] : await redis.hmget(key, ...keys)
 
   return keys.reduce<RecordRowCache>(
     (acc, key, index) => ({
