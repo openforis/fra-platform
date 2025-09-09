@@ -26,7 +26,7 @@ export const useSections = (): Array<CountryHomeSection> => {
 
     if (!cycle) return null
     const isCountry = Areas.isISOCountry(countryIso)
-    const showRegionDashboard = !Areas.isISOCountry(countryIso) && cycle.props.dashboard.region
+    const showRegionDashboard = !Areas.isISOCountry(countryIso) && cycle.props.dashboard?.region
     const showOverview = showRegionDashboard || Areas.isISOCountry(countryIso)
     const hasRoleInCountry = user && isCountry && Users.hasRoleInCountry({ countryIso, cycle, user })
 
