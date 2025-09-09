@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
 import { Objects } from 'utils/objects'
 
+import { CountryIso } from 'meta/area'
 import { Message as MessageType, MessageTopic, MessageTopicStatus, MessageTopicType } from 'meta/messageCenter'
 import { Sockets } from 'meta/socket'
 
@@ -14,7 +15,7 @@ import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useIsDataLocked } from 'client/store/ui/countryReport/hooks/datalock'
 import { useUser } from 'client/store/user/hooks/user'
-import { useCountryIso } from 'client/hooks'
+import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 import Icon from 'client/components/Icon'
 import Resizable from 'client/components/Resizable'
 import { SocketClient } from 'client/service/socket'
@@ -31,30 +32,34 @@ const Topic: React.FC<TopicProps> = (props) => {
 
   const { i18n } = useTranslation()
   const dispatch = useAppDispatch()
-  const countryIso = useCountryIso()
-
+  const { countryIso, sectionName } = useSectionRouteParams<CountryIso>()
   const assessment = useAssessment()
   const cycle = useCycle()
   const user = useUser()
   const dataLocked = useIsDataLocked()
 
+  const { name: assessmentName } = assessment.props
+  const { name: cycleName } = cycle
+  const { key: topicKey } = topic
+
   const closeTopic = useCallback(() => {
-    dispatch(MessageCenterActions.closeTopic({ key: topic.key }))
-  }, [dispatch, topic])
+    dispatch(MessageCenterActions.closeTopic({ key: topicKey }))
+  }, [dispatch, topicKey])
 
   const deleteMessage = useCallback(
-    (id: number) =>
+    (messageId: number) => {
       dispatch(
         MessageCenterActions.markMessageDeleted({
+          assessmentName,
           countryIso,
-          assessmentName: assessment.props.name,
-          cycleName: cycle.name,
-          topicKey: topic.key,
-          messageId: id,
-          sectionName: topic.type !== MessageTopicType.review ? topic.type : undefined,
+          cycleName,
+          messageId,
+          sectionName: topic.type !== MessageTopicType.review ? topic.type : sectionName,
+          topicKey,
         })
-      ),
-    [assessment, countryIso, cycle, dispatch, topic]
+      )
+    },
+    [assessmentName, countryIso, cycleName, dispatch, sectionName, topic.type, topicKey]
   )
 
   useEffect(() => {
@@ -62,17 +67,17 @@ const Topic: React.FC<TopicProps> = (props) => {
     const messageDeleteEvent = Sockets.getTopicMessageDeleteEvent({ assessment, cycle, topic })
     const statusEvent = Sockets.getTopicStatusEvent({ assessment, cycle, topic })
 
-    const newMessageEventHandler = (args: [message: MessageType]) => {
+    const newMessageEventHandler = (args: [message: MessageType]): void => {
       const [message] = args
       dispatch(MessageCenterActions.addMessage({ message, topic }))
     }
 
-    const deleteMessageEventHandler = (args: [arg: { messageId: number; topicKey: string }]) => {
+    const deleteMessageEventHandler = (args: [arg: { messageId: number; topicKey: string }]): void => {
       const { messageId, topicKey } = args[0]
       dispatch(MessageCenterActions.deleteMessage({ messageId, topicKey }))
     }
 
-    const changeStatusEventHandler = (args: [status: MessageTopicStatus]) => {
+    const changeStatusEventHandler = (args: [status: MessageTopicStatus]): void => {
       const [status] = args
       dispatch(MessageCenterActions.changeStatus({ status, topic }))
     }
@@ -108,7 +113,7 @@ const Topic: React.FC<TopicProps> = (props) => {
     >
       <div className="topic-header">
         <div className="topic-title">
-          {topic.title || topic.key}
+          {topic.title || topicKey}
           {topic.subtitle && <div className="topic-subtitle">{topic.subtitle}</div>}
         </div>
         <div className="topic-close" onClick={closeTopic} onKeyDown={closeTopic} role="button" tabIndex={0}>
