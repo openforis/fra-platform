@@ -82,10 +82,7 @@ const _writeDb = async (values: Array<ValueType>): Promise<void> => {
 const processCSVFiles = async (): Promise<void> => {
   const fileNames = _getFileNames()
   const values = await _getValues(fileNames)
-
-  Logger.info('Total:', values.length)
-  // console.log('Sample:', values.slice(0, 3))
-
   await _writeDb(values)
 }
+
 ToolsUtils.exec(processCSVFiles)

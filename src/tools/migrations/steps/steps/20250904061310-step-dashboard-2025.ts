@@ -45,4 +45,16 @@ export default async (client: BaseProtocol): Promise<void> => {
     `update ${schemaName}.node_ext set value = $1::jsonb where type ='dashboard' and props ->> 'region' = 'true' `,
     [JSON.stringify(regionDashboardItemsPartial)]
   )
+
+  // Set fra 2020, 2025 cycle metadata
+  await client.query(`
+    update public.assessment_cycle ac
+    set props = props || '{"dashboard": { "region": true }}'
+    where ac.id in (select ac.id
+                    from public.assessment_cycle ac
+                           left join public.assessment a on ac.assessment_id = a.id
+                    where ac.name in ('2020', '2025')
+                      and a.props ->> 'name' = 'fra'
+    )
+  `)
 }

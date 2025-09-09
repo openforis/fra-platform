@@ -8,6 +8,7 @@ export enum CycleStatus {
 }
 
 export type CycleProps = {
+  dashboard?: { region?: boolean }
   dateCreated: string
   dateDraft: string
   dateEditing?: string
