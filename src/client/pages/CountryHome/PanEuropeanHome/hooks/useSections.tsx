@@ -1,10 +1,7 @@
 import { SectionNames } from 'meta/routes'
-import { Users } from 'meta/user'
 
-import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useCanSeeUserActivities } from 'client/store/user/hooks/auth'
 import { useUser } from 'client/store/user/hooks/user'
-import { useCountryIso } from 'client/hooks'
 import Collaborators from 'client/pages/CountryHome/Collaborators'
 import RecentActivity from 'client/pages/CountryHome/FraHome/RecentActivity'
 import Repository from 'client/pages/CountryHome/Repository'
@@ -14,20 +11,18 @@ import Overview from '../Overview'
 
 export const useSections = (): Array<CountryHomeSection> => {
   const user = useUser()
-  const countryIso = useCountryIso()
-  const cycle = useCycle()
-  const canSeeActivities = useCanSeeUserActivities(user)
+  const canSeeUserActivities = useCanSeeUserActivities(user)
 
   const sections: Array<CountryHomeSection> = [{ name: SectionNames.Country.Home.overview, component: Overview }]
 
   if (user) {
     sections.push({ name: SectionNames.Country.Home.repository, component: Repository })
   }
-  if (Users.getRolesAllowedToEdit({ user, countryIso, cycle }).length > 0) {
+  if (canSeeUserActivities) {
     sections.splice(2, 0, { name: SectionNames.Country.Home.collaborators, component: Collaborators })
   }
 
-  if (canSeeActivities) {
+  if (canSeeUserActivities) {
     sections.push({ name: SectionNames.Country.Home.recentActivity, component: RecentActivity })
   }
 
