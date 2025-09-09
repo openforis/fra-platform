@@ -167,65 +167,53 @@ const requireInviteUser = async (req: Request, _res: Response, next: NextFunctio
   _next(Users.getRolesAllowedToEdit({ user, countryIso, cycle }).length > 0, next)
 }
 
-const requireViewUser = async (req: Request, _res: Response, next: NextFunction) => {
-  const { assessmentName, countryIso, cycleName, id } = { ...req.params, ...req.query, ...req.body } as CycleParams & {
+const requireViewUser = async (req: Request, _res: Response, next: NextFunction): Promise<void> => {
+  const { countryIso, id } = { ...req.params, ...req.query, ...req.body } as CycleParams & {
     id: string
   }
   const user = Requests.getUser(req)
   const isAdministrator = Users.isAdministrator(user)
   const isSelf = String(user?.id) === String(id)
 
-  const { cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+  const { cycle } = req.context
 
   const rolesAllowedToView = Users.getRolesAllowedToView({ user, countryIso, cycle })
   _next(isAdministrator || isSelf || rolesAllowedToView.length > 0, next)
 }
 
-const requireViewUsers = async (req: Request, _res: Response, next: NextFunction) => {
-  const { assessmentName, countryIso, cycleName, print } = {
+const requireViewUsers = async (req: Request, _res: Response, next: NextFunction): Promise<void> => {
+  const { countryIso, print } = {
     ...req.params,
     ...req.query,
     ...req.body,
   } as CycleParams & { print?: string }
   const user = Requests.getUser(req)
-  const { cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+  const { cycle } = req.context
 
   _next((print === 'true' && Cycles.isPublished(cycle)) || Authorizer.canViewUsers({ user, countryIso, cycle }), next)
 }
 
-const requireEditRepositoryItem = async (req: Request, _res: Response, next: NextFunction) => {
-  const { assessmentName, cycleName } = {
-    ...req.params,
-    ...req.query,
-    ...req.body,
-  } as CycleParams
+const requireEditRepositoryItem = async (req: Request, _res: Response, next: NextFunction): Promise<void> => {
   const user = Requests.getUser(req)
 
-  const { cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
-  const { country } = req.context
-
+  const { country, cycle } = req.context
   _next(Authorizer.canEditRepositoryItem({ country, cycle, user }), next)
 }
 
-const requireUser = async (req: Request, _res: Response, next: NextFunction) => {
+const requireUser = async (req: Request, _res: Response, next: NextFunction): Promise<void> => {
   const user = Requests.getUser(req)
 
   _next(Boolean(user), next)
 }
 
-const requireViewRepositoryFile = async (req: Request, _res: Response, next: NextFunction) => {
-  const {
-    assessmentName,
-    countryIso: areaCode,
-    cycleName,
-    uuid,
-  } = {
+const requireViewRepositoryFile = async (req: Request, _res: Response, next: NextFunction): Promise<void> => {
+  const { countryIso: areaCode, uuid } = {
     ...req.params,
     ...req.query,
     ...req.body,
   } as CycleParams & { uuid: string }
 
-  const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+  const { assessment, cycle } = req.context
   const repositoryItem = await CycleDataController.Repository.getOne({ assessment, cycle, uuid })
   const user = Requests.getUser(req)
   const { country } = req.context
@@ -233,15 +221,15 @@ const requireViewRepositoryFile = async (req: Request, _res: Response, next: Nex
   _next(Authorizer.canViewRepositoryItem({ assessment, cycle, country, areaCode, user, repositoryItem }), next)
 }
 
-const requireViewHistory = async (req: Request, _res: Response, next: NextFunction) => {
-  const { assessmentName, cycleName, sectionName } = {
+const requireViewHistory = async (req: Request, _res: Response, next: NextFunction): Promise<void> => {
+  const { sectionName } = {
     ...req.params,
     ...req.query,
     ...req.body,
   } as CycleParams & { sectionName: string }
   const user = Requests.getUser(req)
 
-  const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+  const { assessment, cycle } = req.context
   const section = await MetadataController.getSubSection({ assessment, cycle, sectionName })
 
   const { country } = req.context
