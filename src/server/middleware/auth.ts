@@ -9,7 +9,6 @@ import { Cycles } from 'meta/assessment/cycles'
 import { MessageTopicStatus } from 'meta/messageCenter'
 import { Authorizer, CollaboratorEditPropertyType, User, Users } from 'meta/user'
 
-import { AssessmentController } from 'server/controller/assessment'
 import { CycleDataController } from 'server/controller/cycleData'
 import { MessageCenterController } from 'server/controller/messageCenter'
 import { MetadataController } from 'server/controller/metadata'
@@ -34,67 +33,64 @@ const _getAuthCycleProps = async (req: Request, next: NextFunction): Promise<Aut
     next(new Error(`missingParam ${JSON.stringify({ countryIso, assessmentName, cycleName })}`))
   }
 
-  const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
-  const { country } = req.context
+  const { assessment, country, cycle } = req.context
+
   const user = Requests.getUser(req)
 
   return { assessment, cycle, country, countryIso, user }
 }
 
-const requireEditCountryProps = async (req: Request, _res: Response, next: NextFunction) => {
-  const { assessmentName, cycleName } = { ...req.params, ...req.query, ...req.body } as CycleParams
+const requireEditCountryProps = async (req: Request, _res: Response, next: NextFunction): Promise<void> => {
   const user = Requests.getUser(req)
 
-  const { cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
-  const { country } = req.context
+  const { country, cycle } = req.context
 
   _next(Authorizer.canEditCountryProps({ country, cycle, user }), next)
 }
 
-const requireEditData = async (req: Request, next: NextFunction) => {
-  const { assessmentName, cycleName, permission, sectionName } = {
+const requireEditData = async (req: Request, next: NextFunction): Promise<void> => {
+  const { permission, sectionName } = {
     ...req.params,
     ...req.query,
     ...req.body,
   } as CycleDataParams & { permission?: CollaboratorEditPropertyType }
   const user = Requests.getUser(req)
 
-  const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
-  const { country } = req.context
+  const { assessment, country, cycle } = req.context
   const section = await MetadataController.getSubSection({ assessment, cycle, sectionName })
 
   _next(Authorizer.canEditSectionData({ country, cycle, permission, section, user }), next)
 }
 
-const requireEditDescriptions = async (req: Request, _res: Response, next: NextFunction) => {
+const requireEditDescriptions = async (req: Request, _res: Response, next: NextFunction): Promise<void> => {
   const _req = req
   _req.body.permission = CollaboratorEditPropertyType.descriptions
   return requireEditData(_req, next)
 }
 
-const requireEditTableData = async (req: Request, _res: Response, next: NextFunction) => {
+const requireEditTableData = async (req: Request, _res: Response, next: NextFunction): Promise<void> => {
   const _req = req
   _req.body.permission = CollaboratorEditPropertyType.tableData
   return requireEditData(_req, next)
 }
 
-const requireView = async (req: Request, _res: Response, next: NextFunction) => {
+const requireView = async (req: Request, _res: Response, next: NextFunction): Promise<void> => {
   const { assessment, country, countryIso, cycle, user } = await _getAuthCycleProps(req, next)
 
   _next(Authorizer.canView({ assessment, country, areaCode: countryIso, cycle, user }), next)
 }
 
-const requireAdmin = async (req: Request, _res: Response, next: NextFunction) => {
+const requireAdmin = async (req: Request, _res: Response, next: NextFunction): Promise<void> => {
   const user = Requests.getUser(req)
   _next(Users.isAdministrator(user), next)
 }
 
-const requireEditMessageTopic = async (req: Request, _res: Response, next: NextFunction) => {
+const requireEditMessageTopic = async (req: Request, _res: Response, next: NextFunction): Promise<void> => {
   type Params = CycleParams & { key: string }
-  const { assessmentName, countryIso, cycleName, key } = { ...req.params, ...req.query, ...req.body } as Params
+  const { countryIso, key } = { ...req.params, ...req.query, ...req.body } as Params
   const user = Requests.getUser(req)
 
-  const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+  const { assessment, cycle } = req.context
   const topic = await MessageCenterController.getTopic({ countryIso, assessment, cycle, key, user })
 
   if (topic) {
@@ -108,11 +104,9 @@ const requireEditMessageTopic = async (req: Request, _res: Response, next: NextF
   }
 }
 
-const requireDeleteTopicMessage = async (req: Request, _res: Response, next: NextFunction) => {
+const requireDeleteTopicMessage = async (req: Request, _res: Response, next: NextFunction): Promise<void> => {
   const {
-    assessmentName,
     countryIso,
-    cycleName,
     id,
     topicKey: key,
   } = <Record<string, string>>{
@@ -122,7 +116,7 @@ const requireDeleteTopicMessage = async (req: Request, _res: Response, next: Nex
   }
   const user = Requests.getUser(req)
 
-  const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+  const { assessment, cycle } = req.context
 
   const topic = await MessageCenterController.getTopic({
     countryIso: countryIso as CountryIso,
@@ -141,28 +135,29 @@ const requireDeleteTopicMessage = async (req: Request, _res: Response, next: Nex
   }
 }
 
-const requireResolveTopic = async (req: Request, _res: Response, next: NextFunction) => {
-  const { assessmentName, countryIso, cycleName } = { ...req.params, ...req.query, ...req.body } as CycleParams
+const requireResolveTopic = async (req: Request, _res: Response, next: NextFunction): Promise<void> => {
+  const { countryIso } = { ...req.params, ...req.query, ...req.body } as CycleParams
   const user = Requests.getUser(req)
-  const { cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+  const { cycle } = req.context
 
   _next(Users.isAdministrator(user) || Users.isReviewer(user, countryIso, cycle), next)
 }
 
-const requireEditUser = async (req: UserEditRequest, _res: Response, next: NextFunction) => {
-  const { assessmentName, countryIso, cycleName } = req.query
+const requireEditUser = async (req: UserEditRequest, _res: Response, next: NextFunction): Promise<void> => {
+  const { countryIso } = req.query
   const user = Requests.getUser(req)
   const userEditForm = req.body
-  const { cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+  const { cycle } = req.context
+
   const target = await UserController.getOne({ id: userEditForm.user.id })
 
   _next(Authorizer.canEditUser({ cycle, countryIso, target, user }), next)
 }
 
-const requireInviteUser = async (req: Request, _res: Response, next: NextFunction) => {
-  const { assessmentName, countryIso, cycleName } = { ...req.params, ...req.query, ...req.body } as CycleParams
+const requireInviteUser = async (req: Request, _res: Response, next: NextFunction): Promise<void> => {
+  const { countryIso } = { ...req.params, ...req.query, ...req.body } as CycleParams
   const user = Requests.getUser(req)
-  const { cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+  const { cycle } = req.context
 
   _next(Users.getRolesAllowedToEdit({ user, countryIso, cycle }).length > 0, next)
 }
