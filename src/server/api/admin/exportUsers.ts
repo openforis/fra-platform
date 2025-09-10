@@ -8,7 +8,7 @@ import { UserController } from 'server/controller/user'
 import { ExportService } from 'server/service/export'
 import Requests from 'server/utils/requests'
 
-export const exportUsers = async (req: UsersRequest, res: Response) => {
+export const exportUsers = async (req: UsersRequest, res: Response): Promise<void> => {
   try {
     const props = await getUsersGetManyPropsFromRequest(req)
 
