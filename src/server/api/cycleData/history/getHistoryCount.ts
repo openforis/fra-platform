@@ -2,15 +2,14 @@ import { Response } from 'express'
 
 import { TablePaginatedDataRequest } from 'meta/api/request/tablePaginated'
 
-import { AssessmentController } from 'server/controller/assessment'
 import { CycleDataController } from 'server/controller/cycleData'
 import Requests from 'server/utils/requests'
 
-export const getHistoryCount = async (req: TablePaginatedDataRequest, res: Response) => {
+export const getHistoryCount = async (req: TablePaginatedDataRequest, res: Response): Promise<void> => {
   try {
-    const { assessmentName, countryIso, cycleName, sectionName } = req.query
+    const { assessment, cycle } = req.context
+    const { countryIso, sectionName } = req.query
     const { target } = req.params
-    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
     const props = { assessment, cycle, countryIso, sectionName, target }
     const count = await CycleDataController.History.Activities.getCount(props)

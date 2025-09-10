@@ -3,20 +3,18 @@ import { Response } from 'express'
 import { CycleDataRequest } from 'meta/api/request'
 import { CommentableDescriptionName, CommentableDescriptionValue } from 'meta/assessment/descriptionValue'
 
-import { AssessmentController } from 'server/controller/assessment'
 import { CycleDataController } from 'server/controller/cycleData'
 import Requests from 'server/utils/requests'
 
 type Request = CycleDataRequest<{ name: CommentableDescriptionName }, { value: CommentableDescriptionValue }>
 
-export const upsertDescription = async (req: Request, res: Response) => {
+export const upsertDescription = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { assessmentName, cycleName, name, sectionName } = req.query
-    const { value } = req.body
     const user = Requests.getUser(req)
+    const { assessment, cycle } = req.context
     const { country } = req.context
-
-    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+    const { name, sectionName } = req.query
+    const { value } = req.body
 
     const propsUpsert = { assessment, cycle, country, sectionName, name, value, user }
     const description = await CycleDataController.Description.upsertDescription(propsUpsert)
