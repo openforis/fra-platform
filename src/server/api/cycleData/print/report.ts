@@ -6,7 +6,6 @@ import { Promises } from 'utils/promises'
 import { CycleRequest } from 'meta/api/request'
 import { Lang } from 'meta/lang'
 
-import { AssessmentController } from 'server/controller/assessment'
 import { CycleDataController } from 'server/controller/cycleData'
 import Requests from 'server/utils/requests'
 import { Responses } from 'server/utils/responses'
@@ -46,9 +45,9 @@ const buildPdf = async (req: Request): Promise<Buffer> => {
 }
 
 const getPdf = async (req: Request, fileName: string): Promise<Buffer> => {
-  const { assessmentName, countryIso, cycleName, force } = req.query
+  const { countryIso, force } = req.query
 
-  const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+  const { assessment, cycle } = req.context
 
   const [cachedPdfInfo, countrySummary] = await Promise.all([
     CycleDataController.Report.getOne({ assessment, cycle, fileName }),
@@ -85,7 +84,7 @@ const getPdf = async (req: Request, fileName: string): Promise<Buffer> => {
   return Buffer.concat(chunks)
 }
 
-export const report = async (req: Request, res: Response) => {
+export const report = async (req: Request, res: Response): Promise<void> => {
   try {
     const { assessmentName, countryIso, cycleName, lang, onlyTables } = req.query
 

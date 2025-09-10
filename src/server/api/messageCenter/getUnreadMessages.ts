@@ -2,16 +2,15 @@ import { Response } from 'express'
 
 import { CycleRequest } from 'meta/api/request'
 
-import { AssessmentController } from 'server/controller/assessment'
 import { MessageCenterController } from 'server/controller/messageCenter'
 import Requests from 'server/utils/requests'
 
-export const getUnreadMessages = async (req: CycleRequest<{ key: string }>, res: Response) => {
+export const getUnreadMessages = async (req: CycleRequest<{ key: string }>, res: Response): Promise<void> => {
   try {
-    const { assessmentName, countryIso, cycleName, key } = req.query
+    const { countryIso, key } = req.query
     const user = Requests.getUser(req)
 
-    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+    const { assessment, cycle } = req.context
 
     const { unreadMessages } = await MessageCenterController.getUnreadMessages({
       countryIso,
