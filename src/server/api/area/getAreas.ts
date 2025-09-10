@@ -3,14 +3,11 @@ import { Response } from 'express'
 import { InitRequest } from 'meta/api/request'
 
 import { AreaController } from 'server/controller/area'
-import { AssessmentController } from 'server/controller/assessment'
 import Requests from 'server/utils/requests'
 
-export const getAreas = async (req: InitRequest, res: Response) => {
+export const getAreas = async (req: InitRequest, res: Response): Promise<void> => {
   try {
-    const { assessmentName, cycleName } = req.query
-
-    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+    const { assessment, cycle } = req.context
 
     const [countries, regionGroups] = await Promise.all([
       AreaController.getCountries({ assessment, cycle }),
