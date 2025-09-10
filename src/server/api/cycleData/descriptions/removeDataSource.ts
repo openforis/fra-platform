@@ -3,21 +3,18 @@ import { Response } from 'express'
 import { CycleDataRequest } from 'meta/api/request'
 import { Sockets } from 'meta/socket'
 
-import { AssessmentController } from 'server/controller/assessment'
 import { CycleDataController } from 'server/controller/cycleData'
 import { SocketServer } from 'server/service/socket'
 import Requests from 'server/utils/requests'
 
 type Request = CycleDataRequest<{ uuid: string }>
 
-export const removeDataSource = async (req: Request, res: Response) => {
+export const removeDataSource = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { assessmentName, cycleName, sectionName, uuid } = req.query
-    const { country } = req.context
-    const { countryIso } = country
-
     const user = Requests.getUser(req)
-    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+    const { assessmentName, cycleName, sectionName, uuid } = req.query
+    const { assessment, country, cycle } = req.context
+    const { countryIso } = country
 
     const propsDelete = { assessment, cycle, country, sectionName, uuid, user }
     await CycleDataController.Description.removeDataSource(propsDelete)
