@@ -27,7 +27,7 @@ const Invitation: React.FC = () => {
   const { invitationUuid } = useSearchParams<LoginInvitationQueryParams>()
   const invitation = useInvitation()
 
-  if (!invitation) return null
+  if (!invitation || !invitation.assessment) return null
 
   const { assessment, invitedUser, userInvitation, userProviders } = invitation
 

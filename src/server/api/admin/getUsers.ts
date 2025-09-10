@@ -6,7 +6,7 @@ import { getUsersGetManyPropsFromRequest } from 'server/api/admin/_getUsersGetMa
 import { UserController } from 'server/controller/user'
 import Requests from 'server/utils/requests'
 
-export const getUsers = async (req: UsersRequest, res: Response) => {
+export const getUsers = async (req: UsersRequest, res: Response): Promise<void> => {
   try {
     const props = await getUsersGetManyPropsFromRequest(req)
 
