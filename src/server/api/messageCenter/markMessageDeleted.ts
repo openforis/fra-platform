@@ -3,7 +3,6 @@ import { Response } from 'express'
 import { CycleDataRequest } from 'meta/api/request'
 import { Sockets } from 'meta/socket'
 
-import { AssessmentController } from 'server/controller/assessment'
 import { MessageCenterController } from 'server/controller/messageCenter'
 import { SocketServer } from 'server/service/socket'
 import Requests from 'server/utils/requests'
@@ -16,13 +15,11 @@ export const markMessageDeleted = async (
     messageId: string
   }>,
   res: Response
-) => {
+): Promise<void> => {
   try {
-    const { assessmentName, countryIso, cycleName, messageId, sectionName, topicKey } = req.query
-
     const user = Requests.getUser(req)
-
-    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+    const { assessment, cycle } = req.context
+    const { countryIso, messageId, sectionName, topicKey } = req.query
 
     await MessageCenterController.markMessageDeleted({
       user,
@@ -45,6 +42,10 @@ export const markMessageDeleted = async (
       topicKey,
       messageId,
     })
+
+    const assessmentName = assessment.props.name
+    const cycleName = cycle.name
+
     sendRequestReviewUpdateEvents({ topic, countryIso, assessmentName, cycleName, sectionName })
 
     Requests.sendOk(res)

@@ -3,17 +3,16 @@ import { Response } from 'express'
 import { CycleRequest } from 'meta/api/request'
 import { Users } from 'meta/user'
 
-import { AssessmentController } from 'server/controller/assessment'
 import { UserController } from 'server/controller/user'
 import Requests from 'server/utils/requests'
 
-export const getUser = async (req: CycleRequest<{ id: string }>, res: Response) => {
+export const getUser = async (req: CycleRequest<{ id: string }>, res: Response): Promise<void> => {
   try {
-    const { assessmentName, cycleName, id } = req.query
+    const { id } = req.query
 
     let cycleUuid = null
-    if (assessmentName && cycleName) {
-      const { cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+    const { assessment, cycle } = req.context
+    if (assessment && cycle) {
       cycleUuid = cycle.uuid
     }
 
