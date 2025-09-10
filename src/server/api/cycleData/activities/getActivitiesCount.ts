@@ -2,15 +2,14 @@ import { Response } from 'express'
 
 import { CycleDataRequest } from 'meta/api/request'
 
-import { AssessmentController } from 'server/controller/assessment'
 import { CycleDataController } from 'server/controller/cycleData'
 import Requests from 'server/utils/requests'
 
-export const getActivitiesCount = async (req: CycleDataRequest, res: Response) => {
+export const getActivitiesCount = async (req: CycleDataRequest, res: Response): Promise<void> => {
   try {
-    const { assessmentName, countryIso, cycleName } = req.query
+    const { assessment, cycle } = req.context
+    const { countryIso } = req.query
 
-    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
     const activitiesCount = await CycleDataController.getActivitiesCount({ assessment, cycle, countryIso })
 
     Requests.sendOk(res, activitiesCount)
