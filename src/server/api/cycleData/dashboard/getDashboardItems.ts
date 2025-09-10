@@ -2,15 +2,13 @@ import { Response } from 'express'
 
 import { CycleRequest } from 'meta/api/request'
 
-import { AssessmentController } from 'server/controller/assessment'
 import { DashboardController } from 'server/controller/cycleData/dashboard'
 import Requests from 'server/utils/requests'
 
-export const getDashboardItems = async (req: CycleRequest, res: Response) => {
+export const getDashboardItems = async (req: CycleRequest, res: Response): Promise<void> => {
   try {
-    const { assessmentName, countryIso, cycleName } = req.query
-
-    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+    const { assessment, cycle } = req.context
+    const { countryIso } = req.query
 
     const result = await DashboardController.getManyItems({ assessment, cycle, countryIso })
     Requests.send(res, result)
