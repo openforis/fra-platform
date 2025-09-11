@@ -87,7 +87,7 @@ export class MemberEvaluator extends ExpressionNodeEvaluator<Context, MemberExpr
 
     if (this.#variableExists(variable)) {
       const assessment = assessments[assessmentName]
-      const cycle = Assessments.getCycle({ assessment, cycleName: variable.cycleName ?? cycleName })
+      const cycle = Assessments.getCycle({ assessment, cycleName })
       const metaCache = AssessmentMetaCaches.getMetaCache({ assessment, cycle })
 
       const propsDependency = { assessment, cycle, tableName, variableName }
