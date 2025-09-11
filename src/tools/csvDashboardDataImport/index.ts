@@ -53,6 +53,14 @@ const _handleRow = (row: CSVData): Array<ValueType> => {
     return []
   }
 
+  // Ignore country values for given variable if any of the values are empty.
+  // These variables are omitted from regional sums - so we don't insert them in the database
+  const anyEmpty = Object.values(yearData).some((a) => Objects.isEmpty(a))
+
+  if (anyEmpty) {
+    return []
+  }
+
   return Object.entries(yearData).map(([colName, raw]) => ({
     // eslint-disable-next-line camelcase
     country_iso,
