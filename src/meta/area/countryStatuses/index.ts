@@ -43,7 +43,7 @@ type PropsAllowedTransition = {
 export const CountryStatuses = {
   getAllowedTransition: (props: PropsAllowedTransition): CountryStatusTransition => {
     const { country, cycle, user } = props
-    const { countryIso } = country
+    const { countryIso } = country ?? {}
 
     const status = Areas.getStatus(country)
     const roleName = Users.getRole(user, countryIso, cycle)?.role

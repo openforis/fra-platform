@@ -22,7 +22,7 @@ type Props = {
   }>
 }
 
-export const notifyClientUpdate = async (props: Props) => {
+export const notifyClientUpdate = async (props: Props): Promise<void> => {
   const { assessment, countryIso, cycle, originalDataPoints, sectionName } = props
   const { name: assessmentName } = assessment.props
   const { name: cycleName } = cycle

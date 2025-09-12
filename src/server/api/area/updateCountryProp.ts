@@ -7,7 +7,8 @@ import { NodeUpdates, RecordAssessmentDatas } from 'meta/data'
 
 import { AreaController } from 'server/controller/area'
 import { CycleDataController } from 'server/controller/cycleData'
-import { scheduleUpdateDependencies } from 'server/controller/cycleData/updateDependencies'
+import { updateDependents } from 'server/controller/cycleData/updateDependencies/updateDependents'
+import { DB } from 'server/db'
 import Requests from 'server/utils/requests'
 
 type Body = { countryProp: Partial<CountryProps> }
@@ -51,7 +52,7 @@ export const updateCountryProp = async (req: Request, res: Response): Promise<vo
         },
         { assessmentName, cycleName, countryIso, nodes: [] }
       )
-      await scheduleUpdateDependencies({ assessment, cycle, country: updatedCountry, nodeUpdates, user })
+      await updateDependents({ assessment, cycle, country: updatedCountry, nodeUpdates, user }, DB)
     }
 
     // 4. send updated country to client
