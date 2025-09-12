@@ -1,15 +1,15 @@
 import { Response } from 'express'
 
 import { CycleRequest } from 'meta/api/request'
+import { AssessmentMetaCaches } from 'meta/assessment/metaCaches'
 
-import { AssessmentController } from 'server/controller/assessment'
 import Requests from 'server/utils/requests'
 
-export const getMetaCache = async (req: CycleRequest, res: Response) => {
-  const { assessmentName, cycleName } = req.query
+export const getMetaCache = async (req: CycleRequest, res: Response): Promise<void> => {
+  const { assessment, cycle } = req.context
+
   try {
-    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
-    const metaCache = await AssessmentController.getMetaCache({ assessment, cycle })
+    const metaCache = AssessmentMetaCaches.getMetaCache({ assessment, cycle })
 
     Requests.send(res, metaCache)
   } catch (e) {

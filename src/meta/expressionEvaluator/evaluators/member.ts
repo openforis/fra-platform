@@ -1,6 +1,7 @@
 import { MemberExpression } from '@openforis/arena-core'
 import { MemberEvaluator as ArenaMemberEvaluator } from '@openforis/arena-core/dist/expression/javascript/node/member'
 
+import { Assessments } from 'meta/assessment/assessments'
 import { AssessmentMetaCaches } from 'meta/assessment/metaCaches'
 import { RecordAssessmentDatas } from 'meta/data'
 import { BaseContext } from 'meta/expressionEvaluator/util/_types'
@@ -43,7 +44,7 @@ export class MemberEvaluator extends ArenaMemberEvaluator<Context> {
     )
 
     const assessment = externalVariable ? this.context.assessments[memberAssessmentName] : assessmentContext
-    const cycle = externalVariable ? assessment.cycles.find((c) => c.name === memberCycleName) : cycleContext
+    const cycle = externalVariable ? Assessments.getCycle({ assessment, cycleName: memberCycleName }) : cycleContext
 
     // client side validations: metaCache can be null if not fetched yet
     if (!AssessmentMetaCaches.getMetaCache({ assessment, cycle })) {

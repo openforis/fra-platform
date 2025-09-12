@@ -1,28 +1,21 @@
-import { Request, Response } from 'express'
+import { Response } from 'express'
 
-import { CountryIso } from 'meta/area'
+import { CycleDataRequest } from 'meta/api/request'
 import { MessageTopicStatus } from 'meta/messageCenter'
 import { Sockets } from 'meta/socket'
 
-import { AssessmentController } from 'server/controller/assessment'
 import { MessageCenterController } from 'server/controller/messageCenter'
 import { SocketServer } from 'server/service/socket'
 import Requests from 'server/utils/requests'
 
 import { sendRequestReviewUpdateEvents } from './sendRequestReviewUpdateEvents'
 
-export const resolveTopic = async (req: Request, res: Response) => {
+export const resolveTopic = async (req: CycleDataRequest, res: Response): Promise<void> => {
   try {
-    const { assessmentName, countryIso, cycleName, key, sectionName } = req.query as {
-      countryIso: CountryIso
-      assessmentName: string
-      sectionName: string
-      cycleName: string
-      key: string
-    }
+    const { countryIso, key, sectionName } = req.query
     const user = Requests.getUser(req)
 
-    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+    const { assessment, cycle } = req.context
 
     const topic = await MessageCenterController.updateTopicStatus({
       user,
@@ -48,6 +41,9 @@ export const resolveTopic = async (req: Request, res: Response) => {
     })
 
     SocketServer.emit(Sockets.getTopicMessageAddEvent({ assessment, cycle, topic }), message)
+
+    const assessmentName = assessment.props.name
+    const cycleName = cycle.name
 
     sendRequestReviewUpdateEvents({ topic, countryIso, assessmentName, cycleName, sectionName })
 

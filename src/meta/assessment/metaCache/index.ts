@@ -25,7 +25,8 @@ export interface VariableCache {
  */
 export type VariablesCache = Record<TableName, Record<VariableName, VariableCache>>
 
-export type DependencyRecord = Record<TableName, Record<VariableName, Array<VariableCache>>>
+export type TableDependencyRecord = Record<VariableName, Array<VariableCache>>
+export type DependencyRecord = Record<TableName, TableDependencyRecord>
 
 export type DependencyCache = {
   dependencies: DependencyRecord

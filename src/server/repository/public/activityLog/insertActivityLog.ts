@@ -1,7 +1,7 @@
 import { Objects } from 'utils/objects'
 
 import { ActivityLog } from 'meta/assessment/activityLog'
-import { Assessment } from 'meta/assessment/assessment'
+import { AssessmentBase } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 
 import { BaseProtocol, DB } from 'server/db'
@@ -9,7 +9,7 @@ import { BaseProtocol, DB } from 'server/db'
 export const insertActivityLog = async (
   params: {
     activityLog: ActivityLog<any>
-    assessment?: Assessment
+    assessment?: AssessmentBase
     cycle?: Cycle
   },
   client: BaseProtocol = DB

@@ -1,10 +1,11 @@
 import { Dates } from 'utils/dates'
 
 import { Assessment, AssessmentName, RecordAssessments } from 'meta/assessment/assessment'
-import { Cycle } from 'meta/assessment/cycle'
+import { Cycle, CycleName } from 'meta/assessment/cycle'
 import { Cycles } from 'meta/assessment/cycles'
+import { UUID } from 'meta/uuid'
 
-const getShortLabel = (assessmentName: AssessmentName) => `${assessmentName}.labels.short`
+const getShortLabel = (assessmentName: AssessmentName): string => `${assessmentName}.labels.short`
 
 /**
  * Retrieves the most recently published cycle from an assessment.
@@ -24,6 +25,15 @@ const getLastPublishedCycle = (assessment: Assessment): Cycle | undefined => {
     const currentDate = new Date(current.props.datePublished)
     return Dates.isAfter(currentDate, lastDate) ? current : last
   })
+}
+
+const getCycle = (props: { assessment: Assessment } & ({ cycleName: CycleName } | { cycleUuid: UUID })): Cycle => {
+  const { assessment, ...rest } = props
+
+  if ('cycleUuid' in props) return assessment.cycles[assessment.cycleIndexes.uuid[props.cycleUuid]]
+  if ('cycleName' in props) return assessment.cycles[assessment.cycleIndexes.name[props.cycleName]]
+
+  throw new Error(`Cycle not found ${assessment.props.name}-${JSON.stringify(rest)}`)
 }
 
 /**
@@ -48,6 +58,7 @@ const getRecordAssessments = (assessments: Array<Assessment>): RecordAssessments
 }
 
 export const Assessments = {
+  getCycle,
   getShortLabel,
   getLastPublishedCycle,
   getLastCreatedCycle,

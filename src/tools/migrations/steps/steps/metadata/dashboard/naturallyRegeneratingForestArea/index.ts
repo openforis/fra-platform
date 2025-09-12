@@ -2,6 +2,7 @@ import type { RowsMetadata } from 'tools/migrations/steps/steps/metadata/dashboa
 import { getTable } from 'tools/migrations/steps/steps/metadata/dashboard/utils'
 import { unit } from 'tools/migrations/steps/steps/metadata/dashboard/utils/unit'
 
+import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { TableNames } from 'meta/assessment/table'
 import { ChartColor } from 'meta/chart'
@@ -16,7 +17,11 @@ const cols: Record<string, Array<string>> = {
 
 const tableName = TableNames.forestCharacteristics
 const tableId = 8
-export const naturallyRegeneratingForestArea = (cycle: Cycle, region: boolean): DashboardBarChart => {
+export const naturallyRegeneratingForestArea = (
+  assessment: Assessment,
+  cycle: Cycle,
+  region: boolean
+): DashboardBarChart => {
   const cells = [
     {
       variableName: 'naturalForestArea',
@@ -49,7 +54,14 @@ export const naturallyRegeneratingForestArea = (cycle: Cycle, region: boolean): 
       key: 'statisticalFactsheets.naturallyRegeneratingForest.title',
       params: { startYear: cols[cycle.name].at(0), endYear: cols[cycle.name].at(-1), unit: unit(region) },
     },
-    table: getTable({ cycle, cols: cols[cycle.name], tableId, rowMetadata: rowMetadata(region), tableName }),
+    table: getTable({
+      assessment,
+      cycle,
+      cols: cols[cycle.name],
+      tableId,
+      rowMetadata: rowMetadata(region),
+      tableName,
+    }),
     chart: {
       columns: cols[cycle.name],
       cells,

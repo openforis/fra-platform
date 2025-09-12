@@ -4,6 +4,7 @@ import axios from 'axios'
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { AreaCode } from 'meta/area'
 import { AssessmentName } from 'meta/assessment/assessment'
+import { Assessments } from 'meta/assessment/assessments'
 import { CycleName } from 'meta/assessment/cycle'
 import { AssessmentMetaCache } from 'meta/assessment/metaCache'
 import { AssessmentMetaCaches } from 'meta/assessment/metaCaches'
@@ -26,7 +27,7 @@ export const getMetaCache = createAsyncThunk<Returned, Props, ThunkApiConfig>(
 
     const state = getState()
     const assessment = MetadataSelectors.getAssessment(state, assessmentName)
-    const cycle = assessment.cycles.find((c) => c.name === cycleName)
+    const cycle = Assessments.getCycle({ assessment, cycleName })
 
     if (!AssessmentMetaCaches.getMetaCache({ assessment, cycle })) {
       const params = { assessmentName, cycleName, countryIso }

@@ -1,4 +1,4 @@
-import { Cycle, CycleUuid } from 'meta/assessment/cycle'
+import { Cycle, CycleName, CycleUuid } from 'meta/assessment/cycle'
 import { AssessmentMetaCache } from 'meta/assessment/metaCache'
 
 export type AssessmentName = string
@@ -14,11 +14,20 @@ export type AssessmentProps = {
   default?: boolean
 }
 
-export interface Assessment {
-  id: number
-  uuid: string
+export interface AssessmentBase {
   cycles: Array<Cycle>
+  id: number
   props: AssessmentProps
+  uuid: string
+}
+
+export type CycleIndexes = {
+  name: Record<CycleName, number>
+  uuid: Record<CycleUuid, number>
+}
+
+export interface Assessment extends AssessmentBase {
+  cycleIndexes: CycleIndexes
   metaCache?: Record<CycleUuid, AssessmentMetaCache>
 }
 

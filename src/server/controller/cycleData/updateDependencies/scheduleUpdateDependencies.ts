@@ -22,13 +22,12 @@ export const scheduleUpdateDependencies = (
 
   Logger.debug(`[scheduleUpdateDependencies] ${countryIso} ${nodes.length} nodes added to updateDependencies queue`)
 
-  // avoid adding to queue when updating single node with no dependants. (the queue will be empty)
-  if (nodes.length === 1) {
-    const { tableName, variableName } = nodes[0]
-    const dependants = AssessmentMetaCaches.getCalculationsDependants({ assessment, cycle, tableName, variableName })
-    if (dependants.length === 0) {
-      return undefined
-    }
+  // avoid adding to queue when updating nodes without dependants. (the queue will be empty)
+  const dependants = nodes.flatMap(({ tableName, variableName }) =>
+    AssessmentMetaCaches.getCalculationsDependants({ assessment, cycle, tableName, variableName })
+  )
+  if (dependants.length === 0) {
+    return undefined
   }
 
   const queue = UpdateDependenciesQueueFactory.getInstance({ assessment, cycle, countryIso })

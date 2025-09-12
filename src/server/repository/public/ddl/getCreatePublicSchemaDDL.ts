@@ -84,8 +84,7 @@ export const getCreatePublicSchemaDDL = (schemaName = 'public'): string => {
     create table if not exists ${schemaName}.assessment (
       id bigserial primary key,
       uuid uuid default uuid_generate_v4(),
-      props jsonb default '{}'::jsonb,
-      meta_cache jsonb default '{}'::jsonb
+      props jsonb default '{}'::jsonb
     );
     create unique index if not exists assessment_uuid_key on ${schemaName}.assessment using btree (uuid);
 

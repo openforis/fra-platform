@@ -7,7 +7,10 @@ import { AssessmentController } from 'server/controller/assessment'
 import { CycleDataController } from 'server/controller/cycleData'
 import Requests from 'server/utils/requests'
 
-export const getDataSources = async (req: CycleDataRequest<{ linkedVariable: string }>, res: Response) => {
+export const getDataSources = async (
+  req: CycleDataRequest<{ linkedVariable: string }>,
+  res: Response
+): Promise<void> => {
   try {
     const { countryIso, linkedVariable: linkedVariableStr } = req.query
 

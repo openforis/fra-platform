@@ -1,6 +1,7 @@
 import { ExpressionNodeEvaluator, MemberExpression } from '@openforis/arena-core'
 import { Objects } from 'utils/objects'
 
+import { Assessments } from 'meta/assessment/assessments'
 import { VariableCache } from 'meta/assessment/metaCache'
 import { AssessmentMetaCaches } from 'meta/assessment/metaCaches'
 import { RowCache } from 'meta/assessment/rowCache'
@@ -37,7 +38,7 @@ export class MemberEvaluator extends ExpressionNodeEvaluator<Context, MemberExpr
     const { assessmentName, assessments, cycleName } = this.context
 
     const assessment = assessments[variable.assessmentName ?? assessmentName]
-    const cycle = assessment.cycles.find((c) => c.name === (variable.cycleName ?? cycleName))
+    const cycle = Assessments.getCycle({ assessment, cycleName: variable.cycleName ?? cycleName })
     const variablesCache = AssessmentMetaCaches.getVariablesByTables({ assessment, cycle })
 
     return Boolean(variablesCache[variable.tableName])
@@ -48,7 +49,7 @@ export class MemberEvaluator extends ExpressionNodeEvaluator<Context, MemberExpr
 
     if (this.#variableExists(variable) && !_excludeDependant(row, variable.tableName, variable.variableName)) {
       const assessment = assessments[variable.assessmentName ?? assessmentName]
-      const cycle = assessment.cycles.find((c) => c.name === (variable.cycleName ?? cycleName))
+      const cycle = Assessments.getCycle({ assessment, cycleName: variable.cycleName ?? cycleName })
       const metaCache = AssessmentMetaCaches.getMetaCache({ assessment, cycle })
 
       const propsDependants = { assessment, cycle, tableName: variable.tableName, variableName: variable.variableName }
@@ -86,7 +87,7 @@ export class MemberEvaluator extends ExpressionNodeEvaluator<Context, MemberExpr
 
     if (this.#variableExists(variable)) {
       const assessment = assessments[assessmentName]
-      const cycle = assessment.cycles.find((cycle) => cycle.name === cycleName)
+      const cycle = Assessments.getCycle({ assessment, cycleName })
       const metaCache = AssessmentMetaCaches.getMetaCache({ assessment, cycle })
 
       const propsDependency = { assessment, cycle, tableName, variableName }

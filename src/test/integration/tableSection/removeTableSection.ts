@@ -2,19 +2,18 @@ import { AssessmentController } from 'server/controller/assessment'
 import { MetadataController } from 'server/controller/metadata'
 import { UserController } from 'server/controller/user'
 
-import { assessmentParams } from 'test/integration/mock/assessment'
+import { assessmentCycleName, assessmentParams } from 'test/integration/mock/assessment'
 import { tableSectionParams } from 'test/integration/mock/tableSection'
 import { userMockTest } from 'test/integration/mock/user'
 
 // test remove table section
-export default () =>
+export default (): void =>
   test('Expect table section to be removed', async () => {
-    const user = await UserController.getOne({
-      email: userMockTest.email,
-    })
+    const user = await UserController.getOne({ email: userMockTest.email })
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({
       assessmentName: assessmentParams.props.name,
+      cycleName: assessmentCycleName,
     })
 
     const tableSection = await MetadataController.createTableSection({
