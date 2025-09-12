@@ -20,7 +20,6 @@
   "country": "Страна",
   "custom": "Настроить",
   "cycleLabel": "$t({{assessmentName}}.labels.short)–{{cycleName}}",
-  "cycleLatestLabel": "$t(common.latest) $t({{assessmentName}}.labels.short)",
   "dashboard": "Панель управления",
   "dataExport": "Экспорт данных",
   "delete": "Удалить",

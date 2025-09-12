@@ -20,7 +20,6 @@
   "country": "国家",
   "custom": "自定义",
   "cycleLabel": "$t({{assessmentName}}.labels.short) {{cycleName}}",
-  "cycleLatestLabel": "$t({{assessmentName}}.labels.short) $t(common.latest)",
   "dashboard": "主界面",
   "dataExport": "数据输出",
   "delete": "删除",

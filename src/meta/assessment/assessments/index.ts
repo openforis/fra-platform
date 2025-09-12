@@ -57,10 +57,22 @@ const getRecordAssessments = (assessments: Array<Assessment>): RecordAssessments
   }, {})
 }
 
+const getCycleTranslationKey = (props: { cycle: Cycle }): string => {
+  const { cycle } = props
+  const { name: cycleName } = cycle
+
+  if (cycleName === 'latest') {
+    return 'common.latest'
+  }
+
+  return cycleName
+}
+
 export const Assessments = {
   getCycle,
-  getShortLabel,
-  getLastPublishedCycle,
+  getCycleTranslationKey,
   getLastCreatedCycle,
+  getLastPublishedCycle,
   getRecordAssessments,
+  getShortLabel,
 }
