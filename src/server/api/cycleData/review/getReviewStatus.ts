@@ -2,18 +2,16 @@ import { Response } from 'express'
 
 import { CycleDataRequest } from 'meta/api/request'
 
-import { AssessmentController } from 'server/controller/assessment'
 import { CycleDataController } from 'server/controller/cycleData'
 import Requests from 'server/utils/requests'
 
-export const getReviewStatus = async (req: CycleDataRequest<{ odpId: string }>, res: Response) => {
+export const getReviewStatus = async (req: CycleDataRequest<{ odpId: string }>, res: Response): Promise<void> => {
   try {
-    const { assessmentName, countryIso, cycleName, odpId, sectionName } = req.query
-
-    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+    const { assessment, cycle } = req.context
+    const { countryIso, odpId, sectionName } = req.query
 
     const user = Requests.getUser(req)
-    const reviewstatus = await CycleDataController.getReviewStatus({
+    const reviewStatus = await CycleDataController.getReviewStatus({
       assessment,
       cycle,
       countryIso,
@@ -22,7 +20,7 @@ export const getReviewStatus = async (req: CycleDataRequest<{ odpId: string }>, 
       odpId,
     })
 
-    Requests.send(res, reviewstatus)
+    Requests.send(res, reviewStatus)
   } catch (e) {
     Requests.sendErr(res, e)
   }

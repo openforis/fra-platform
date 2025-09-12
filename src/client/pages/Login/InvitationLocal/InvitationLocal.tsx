@@ -4,6 +4,7 @@ import { Link, Navigate } from 'react-router-dom'
 
 import { Objects } from 'utils/objects'
 
+import { Assessments } from 'meta/assessment/assessments'
 import { LoginInvitationQueryParams, Routes } from 'meta/routes'
 import { AuthProvider, UserInvitations } from 'meta/user'
 
@@ -28,7 +29,7 @@ const InvitationLocal: React.FC = () => {
   const formData = useAcceptInvitationForm()
   const errors = formData?.errors ?? {}
 
-  const cycle = assessment?.cycles.find((cycle) => cycle.uuid === userInvitation.cycleUuid)
+  const cycle = Assessments.getCycle({ assessment, cycleUuid: userInvitation?.cycleUuid })
   const assessmentName = assessment?.props.name
   const cycleName = cycle?.name
 
@@ -63,8 +64,12 @@ const InvitationLocal: React.FC = () => {
         <input
           disabled={!!invitedUser}
           name="email"
-          onChange={(event) => dispatch(LoginActions.updateAcceptInvitationForm({ email: event.target.value }))}
-          onFocus={() => LoginActions.updateAcceptInvitationFormErrors({ email: null })}
+          onChange={(event): void => {
+            dispatch(LoginActions.updateAcceptInvitationForm({ email: event.target.value }))
+          }}
+          onFocus={(): void => {
+            LoginActions.updateAcceptInvitationFormErrors({ email: null })
+          }}
           placeholder={t('login.email')}
           type="text"
           value={formData?.email ?? ''}
@@ -72,8 +77,12 @@ const InvitationLocal: React.FC = () => {
         {errors.email?.length > 0 && <span className="login__field-error">{t(errors.email)}</span>}
 
         <input
-          onChange={(event) => dispatch(LoginActions.updateAcceptInvitationForm({ password: event.target.value }))}
-          onFocus={() => LoginActions.updateAcceptInvitationFormErrors({ password: null })}
+          onChange={(event): void => {
+            dispatch(LoginActions.updateAcceptInvitationForm({ password: event.target.value }))
+          }}
+          onFocus={(): void => {
+            LoginActions.updateAcceptInvitationFormErrors({ password: null })
+          }}
           placeholder={t('login.password')}
           type="password"
           value={formData?.password ?? ''}
@@ -83,8 +92,12 @@ const InvitationLocal: React.FC = () => {
         {showPassword2 && (
           <>
             <input
-              onChange={(event) => dispatch(LoginActions.updateAcceptInvitationForm({ password2: event.target.value }))}
-              onFocus={() => LoginActions.updateAcceptInvitationFormErrors({ password2: null })}
+              onChange={(event): void => {
+                dispatch(LoginActions.updateAcceptInvitationForm({ password2: event.target.value }))
+              }}
+              onFocus={(): void => {
+                LoginActions.updateAcceptInvitationFormErrors({ password2: null })
+              }}
               placeholder={t('login.repeatPassword')}
               type="password"
               value={formData?.password2 ?? ''}

@@ -5,6 +5,7 @@ import { ToolsUtils } from 'tools/utils/toolsUtils'
 import { Objects } from 'utils/objects'
 
 import { Assessment, AssessmentNames } from 'meta/assessment/assessment'
+import { Assessments } from 'meta/assessment/assessments'
 import { ColName } from 'meta/assessment/col'
 import { TableName } from 'meta/assessment/table'
 import { VariableName } from 'meta/assessment/variable'
@@ -25,7 +26,7 @@ type Props = {
   tableNames: Array<TableName>
 }
 
-const _createMeasuresAndDimensionsForTables = async (props: Props) => {
+const _createMeasuresAndDimensionsForTables = async (props: Props): Promise<void> => {
   const { assessment, systemOfMeasurementName, tableNames } = props
 
   if (Objects.isEmpty(tableNames)) return
@@ -112,14 +113,14 @@ const _createMeasuresAndDimensionsForTables = async (props: Props) => {
   await client.query(insertDimensionsQuery)
 }
 
-const createAllMeasuresDimensions = async () => {
+const createAllMeasuresDimensions = async (): Promise<void> => {
   const assessmentName = AssessmentNames.fra
 
   const { assessment, cycle: cycle2025 } = await AssessmentController.getOneWithCycle(
     { assessmentName, cycleName: '2025' },
     client
   )
-  const cycleLatest = assessment.cycles.find((c) => c.name === 'latest')
+  const cycleLatest = Assessments.getCycle({ assessment, cycleName: 'latest' })
 
   const systemEntries = Object.entries(systemsOfMeasurement)
 

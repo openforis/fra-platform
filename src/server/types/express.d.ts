@@ -1,8 +1,10 @@
 import { Country } from 'meta/area'
+import { Assessment } from 'meta/assessment/assessment'
+import { Cycle } from 'meta/assessment/cycle'
 
 export interface RequestContext {
-  // assessment?: Assessment
-  // cycle?: Cycle
+  assessment?: Assessment
+  cycle?: Cycle
   country?: Country
 }
 
@@ -12,4 +14,4 @@ declare module 'express' {
   }
 }
 
-export {}
+// export {}

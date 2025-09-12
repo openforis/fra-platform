@@ -11,7 +11,7 @@ type Props = {
   cycle: Cycle
 }
 
-export const removeMetadataCache = async (props: Props, client: BaseProtocol = DB) => {
+export const removeMetadataCache = async (props: Props, client: BaseProtocol = DB): Promise<void> => {
   const { assessment, cycle } = props
   const { name: assessmentName } = assessment.props
   const { name: cycleName } = cycle

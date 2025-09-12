@@ -1,9 +1,12 @@
+import { Assessment } from 'meta/assessment/assessment'
 import { Col, ColStyle, ColType } from 'meta/assessment/col'
 import { Cycle, CycleUuid } from 'meta/assessment/cycle'
 import { Label } from 'meta/assessment/label'
 import { VariableCache } from 'meta/assessment/metaCache'
+import { AssessmentMetaCaches } from 'meta/assessment/metaCaches'
 import { Row, RowType } from 'meta/assessment/row'
 import { Table } from 'meta/assessment/table'
+import { VariableName } from 'meta/assessment/variable'
 import { UUIDs } from 'meta/uuid'
 
 export type RowMetadata = {
@@ -120,27 +123,36 @@ export const getRows = (props: GetRowsProps): Array<Row> => {
   return [headerRow, ...rowMetadata.map(_getRow)]
 }
 
-export const getCalculationDependencies = (rowMetadata: RowsMetadata): Record<string, VariableCache[]> => {
-  const r: Record<string, VariableCache[]> = {}
-  rowMetadata.forEach((row) => {
-    r[row.variableName] = row.calculationDependencies
-  })
-  return r
-}
-
 type GetTableProps = {
+  assessment: Assessment
   cycle: Cycle
   cols: Array<string>
   tableId: number
   rowMetadata: RowsMetadata
   tableName: string
 }
-export const getTable = (props: GetTableProps): Table => {
-  const { cols, cycle, rowMetadata, tableId, tableName } = props
-  const table: Table = {
+
+export const getCalculationDependencies = (
+  props: Pick<GetTableProps, 'assessment' | 'cycle' | 'rowMetadata' | 'tableName'>
+): Record<string, Array<VariableCache>> => {
+  const { assessment, cycle, rowMetadata, tableName } = props
+  const r: Record<string, Array<VariableCache>> = {}
+  rowMetadata.forEach((row) => {
+    const { variableName } = row
+
+    const propsDeps = { assessment, cycle, tableName, variableName }
+    r[row.variableName] = AssessmentMetaCaches.getCalculationsDependencies(propsDeps)
+  })
+  return r
+}
+
+type Returned = Table & { calculationDependencies: Record<VariableName, Array<VariableCache>> }
+export const getTable = (props: GetTableProps): Returned => {
+  const { assessment, cols, cycle, rowMetadata, tableId, tableName } = props
+  const table: Returned = {
     id: tableId,
     tableSectionId: -1,
-    calculationDependencies: getCalculationDependencies(rowMetadata),
+    calculationDependencies: getCalculationDependencies({ assessment, cycle, rowMetadata, tableName }),
     props: {
       odp: false,
       readonly: true,

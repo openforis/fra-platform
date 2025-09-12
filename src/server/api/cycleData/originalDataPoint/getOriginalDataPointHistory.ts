@@ -3,15 +3,16 @@ import { Objects } from 'utils/objects'
 
 import { CycleDataRequest } from 'meta/api/request'
 
-import { AssessmentController } from 'server/controller/assessment'
 import { CycleDataController } from 'server/controller/cycleData'
 import { Requests } from 'server/utils'
 
-export const getOriginalDataPointHistory = async (req: CycleDataRequest<{ year: string }>, res: Response) => {
-  try {
-    const { assessmentName, countryIso, cycleName, year } = req.query
+type Request = CycleDataRequest<{ year: string }>
 
-    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+export const getOriginalDataPointHistory = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { countryIso, year } = req.query
+    const { assessment, cycle } = req.context
+
     const info = await CycleDataController.History.LastApproved.getInfo({ assessment, cycle, countryIso })
 
     if (Objects.isNil(info)) {

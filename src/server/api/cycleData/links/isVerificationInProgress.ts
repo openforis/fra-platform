@@ -2,17 +2,14 @@ import { Response } from 'express'
 
 import { CycleRequest } from 'meta/api/request'
 
-import { AssessmentController } from 'server/controller/assessment'
 import { CycleDataController } from 'server/controller/cycleData'
 import Requests from 'server/utils/requests'
 
 type Request = CycleRequest
 
-export const isVerificationInProgress = async (req: Request, res: Response) => {
+export const isVerificationInProgress = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { assessmentName, cycleName } = req.query
-
-    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+    const { assessment, cycle } = req.context
 
     const activeJobs = await CycleDataController.Links.getActiveVerifyJobs({ assessment, cycle })
     const isVerificationInProgress = activeJobs.length > 0

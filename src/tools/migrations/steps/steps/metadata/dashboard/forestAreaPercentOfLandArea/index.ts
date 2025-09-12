@@ -2,6 +2,7 @@ import type { RowsMetadata } from 'tools/migrations/steps/steps/metadata/dashboa
 import { getTable } from 'tools/migrations/steps/steps/metadata/dashboard/utils'
 import { unit } from 'tools/migrations/steps/steps/metadata/dashboard/utils/unit'
 
+import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { ChartColor } from 'meta/chart'
 import { DashboardItemType } from 'meta/dashboard'
@@ -42,10 +43,14 @@ const rowMetadata = (region: boolean): RowsMetadata => [
   },
 ]
 
-export const forestAreaPercentOfLandArea = (cycle: Cycle, region: boolean): DashboardPieChart => ({
+export const forestAreaPercentOfLandArea = (
+  assessment: Assessment,
+  cycle: Cycle,
+  region: boolean
+): DashboardPieChart => ({
   type: DashboardItemType.pieChart,
   title: { key: 'statisticalFactsheets.forestAreaPercent.title', params: { year: cols[cycle.name].at(0) } },
-  table: getTable({ cycle, cols: cols[cycle.name], tableId, rowMetadata: rowMetadata(region), tableName }),
+  table: getTable({ assessment, cycle, cols: cols[cycle.name], tableId, rowMetadata: rowMetadata(region), tableName }),
   chart: {
     cells: [
       {

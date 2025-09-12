@@ -1,24 +1,29 @@
 import { Objects } from 'utils/objects'
 import { Promises } from 'utils/promises'
 
-import { AssessmentName } from 'meta/assessment/assessment'
+import { Assessment, AssessmentName } from 'meta/assessment/assessment'
 import { Assessments } from 'meta/assessment/assessments'
 import { AssessmentMetaCache } from 'meta/assessment/metaCache'
 import { RowCache } from 'meta/assessment/rowCache'
 
-import { Context } from 'server/controller/assessment/generateMetaCache/dependencyEvaluator/evalDependencies/context'
 import { BaseProtocol, DB } from 'server/db'
-import { AssessmentRepository } from 'server/repository/assessment/assessment'
 import { RowRepository } from 'server/repository/assessment/row'
+import { AssessmentRedisRepository } from 'server/repository/redis/assessment'
+import { getKeyMetaCache } from 'server/repository/redis/keys'
+import { getMetaCacheEntryKey } from 'server/repository/redis/metaCache/generateMetaCache/_getMetaCacheEntryKey'
+import { Context } from 'server/repository/redis/metaCache/generateMetaCache/dependencyEvaluator/evalDependencies/context'
+import { RedisData } from 'server/repository/redis/redisData'
+import { Logger } from 'server/utils/logger'
 
 import { DependencyEvaluator } from './dependencyEvaluator'
 
-/**
- * This method generates meta cache for all assessments
- */
-export const generateMetaCache = async (client: BaseProtocol = DB): Promise<void> => {
+type Props = {
+  assessments?: Array<Assessment>
+}
+
+export const generateMetaCache = async (props: Props, client: BaseProtocol = DB): Promise<void> => {
   // 1. init assessments meta cache and rows
-  const assessments = await AssessmentRepository.getAll({}, client)
+  const assessments = props.assessments ?? (await AssessmentRedisRepository.getAssessmentsList({}, client))
   const rows: Record<AssessmentName, Array<RowCache>> = {}
   await Promises.each(assessments, async (assessment) => {
     rows[assessment.props.name] = (await RowRepository.getManyCache({ assessment }, client)).filter(
@@ -92,16 +97,15 @@ export const generateMetaCache = async (client: BaseProtocol = DB): Promise<void
     })
   })
 
-  await Promise.all(
-    assessments.map((assessment) =>
-      client.query<void>(
-        `
-        update assessment
-        set meta_cache = $1::jsonb
-        where id = $2
-    `,
-        [assessment.metaCache, assessment.id]
-      )
-    )
-  )
+  // set redis entries
+  const redis = RedisData.getInstance()
+  const key = getKeyMetaCache()
+  await Promises.each(assessments, async (assessment) => {
+    await Promises.each(assessment.cycles, async (cycle) => {
+      const keyEntry = getMetaCacheEntryKey({ assessment, cycle })
+      await redis.hmset(key, keyEntry, JSON.stringify(assessment.metaCache[cycle.uuid]))
+
+      Logger.info(`Assessment metaCache generated: ${keyEntry}`)
+    })
+  })
 }

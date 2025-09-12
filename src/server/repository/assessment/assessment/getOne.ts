@@ -8,15 +8,12 @@ import { selectFields } from './selectFields'
 type Props =
   | {
       assessmentName: string
-      metaCache?: boolean
     }
   | {
       id: number
-      metaCache?: boolean
     }
   | {
       uuid: string
-      metaCache?: boolean
     }
 
 export const getOne = async (props: Props, client: BaseProtocol = DB): Promise<Assessment> => {
@@ -36,13 +33,10 @@ export const getOne = async (props: Props, client: BaseProtocol = DB): Promise<A
     throw new Error('At least one of assessmentName, id, or uuid must be provided')
   }
 
-  const { metaCache } = props
-
   return client.one(
     `
     select ${selectFields},
-           jsonb_agg(to_jsonb(ac.*)) as cycles
-           ${metaCache ? ', meta_cache' : ''}
+           coalesce(jsonb_agg(to_jsonb(ac.*)) filter ( where ac.uuid is not null ), '[]') as cycles
     from assessment a
     left join assessment_cycle ac on a.id = ac.assessment_id
     where ${whereClause}

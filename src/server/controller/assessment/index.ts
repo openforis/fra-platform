@@ -1,13 +1,10 @@
-import { AssessmentRepository } from 'server/repository/assessment/assessment'
 import { CycleRepository } from 'server/repository/assessmentCycle/cycle'
+import { AssessmentRedisRepository } from 'server/repository/redis/assessment'
+import { MetaCacheRedisRepository } from 'server/repository/redis/metaCache'
 
 import { cloneCycle } from './cloneCycle'
 import { create } from './create'
 import { createCycle } from './createCycle'
-import { generateDataCache } from './generateDataCache'
-import { generateMetaCache } from './generateMetaCache'
-import { generateMetadataCache } from './generateMetadataCache'
-import { getOneWithCycle } from './getOne'
 import { publishCycle } from './publishCycle'
 import { remove } from './remove'
 import { removeCycle } from './removeCycle'
@@ -16,9 +13,9 @@ import { renameCycle } from './renameCycle'
 export const AssessmentController = {
   // assessment
   create,
-  getAll: AssessmentRepository.getAll,
-  getOne: AssessmentRepository.getOne,
-  getOneWithCycle,
+  getAll: AssessmentRedisRepository.getAssessmentsList,
+  getOne: AssessmentRedisRepository.getOne,
+  getOneWithCycle: AssessmentRedisRepository.getOneWithCycle,
   remove,
 
   // cycle
@@ -29,11 +26,6 @@ export const AssessmentController = {
   publishCycle,
   updateCycle: CycleRepository.update,
 
-  // data cache
-  generateDataCache,
-  // metadata cache
-  generateMetadataCache,
   // meta cache
-  getMetaCache: AssessmentRepository.getMetaCache,
-  generateMetaCache,
+  getMetaCache: MetaCacheRedisRepository.getMetaCache,
 }

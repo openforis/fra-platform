@@ -6,6 +6,7 @@ import { Objects } from 'utils/objects'
 import { Promises } from 'utils/promises'
 
 import { CountryIso } from 'meta/area'
+import { Assessments } from 'meta/assessment/assessments'
 import { NodeValue } from 'meta/assessment/node'
 import { RowCaches } from 'meta/assessment/rowCaches'
 import { NodeUpdate } from 'meta/data'
@@ -31,7 +32,7 @@ type CSVData = {
   value: string
 }
 
-const processCSVFiles = async () => {
+const processCSVFiles = async (): Promise<void> => {
   try {
     const user = await UserController.getOne({ email: UsersEmail.robot, allowDisabled: true })
     const assessments = await AssessmentController.getAll({ metaCache: true })
@@ -44,7 +45,7 @@ const processCSVFiles = async () => {
       const rows = await RowRedisRepository.getRows({ assessment })
 
       await Promises.each(cycles, async (cycleName) => {
-        const cycle = assessment.cycles.find((c) => c.name === cycleName)
+        const cycle = Assessments.getCycle({ assessment, cycleName })
         const cyclePath = path.join(assessmentPath, cycleName)
         const csvFiles = fs
           .readdirSync(cyclePath)

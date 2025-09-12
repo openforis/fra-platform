@@ -9,10 +9,9 @@ import { cloneUserRoles } from 'server/controller/assessment/cloneCycle/_cloneUs
 import { generateMaterializedViews } from 'server/controller/assessment/cloneCycle/_generateMaterializedViews'
 import { CloneProps } from 'server/controller/assessment/cloneCycle/types'
 import { createCycle } from 'server/controller/assessment/createCycle'
-import { generateDataCache } from 'server/controller/assessment/generateDataCache'
-import { generateMetaCache } from 'server/controller/assessment/generateMetaCache'
-import { generateMetadataCache } from 'server/controller/assessment/generateMetadataCache'
+import { CacheController } from 'server/controller/cache'
 import { BaseProtocol, DB } from 'server/db'
+import { AssessmentRedisRepository } from 'server/repository/redis/assessment'
 import { StaticFiles } from 'server/static/staticFiles'
 
 type Props = {
@@ -45,10 +44,14 @@ export const cloneCycle = async (props: Props, client: BaseProtocol = DB): Promi
     await StaticFiles.cloneCycle(cloneProps)
 
     // update cache
-    await generateMetaCache(t)
-    await generateMetadataCache({ assessment }, t)
-    await generateDataCache({ assessment, cycle: cycleTarget }, t)
+    await CacheController.generateMetaCache({}, t)
+    await CacheController.generateMetadata({ assessment }, t)
+    await CacheController.generateData({ assessment, cycle: cycleTarget }, t)
 
-    return { assessment, cycle: cycleTarget }
+    const { name: assessmentName } = assessment.props
+    return {
+      assessment: await AssessmentRedisRepository.getOne({ assessmentName, force: true }, t),
+      cycle: cycleTarget,
+    }
   })
 }
