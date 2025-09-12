@@ -5,6 +5,7 @@ import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { User } from 'meta/user'
 
 import { updateOriginalDataPointsDependentNodes } from 'server/controller/cycleData/originalDataPoint/updateDependants/updateOriginalDataPointsDependentNodes'
+import { BaseProtocol } from 'server/db'
 
 type Props = {
   assessment: Assessment
@@ -16,10 +17,11 @@ type Props = {
   notifyClient?: boolean
 }
 
-export const updateOriginalDataPointDependentNodes = async (props: Props): Promise<void> => {
+export const updateOriginalDataPointDependentNodes = async (props: Props, client: BaseProtocol): Promise<void> => {
   const { notifyClient, originalDataPoint } = props
   const { year } = originalDataPoint
   if (!year) throw new Error(`OriginalDataPoint ${originalDataPoint.id} is missing year`)
 
-  await updateOriginalDataPointsDependentNodes({ ...props, originalDataPoints: [{ originalDataPoint, notifyClient }] })
+  const originalDataPoints = [{ originalDataPoint, notifyClient }]
+  await updateOriginalDataPointsDependentNodes({ ...props, originalDataPoints }, client)
 }

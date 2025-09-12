@@ -9,6 +9,7 @@ import { AssessmentMetaCaches } from 'meta/assessment/metaCaches'
 import { TableName } from 'meta/assessment/table'
 import { RecordAssessmentData } from 'meta/data'
 
+import { AssessmentController } from 'server/controller/assessment'
 import { getTableData } from 'server/controller/cycleData/getTableData'
 
 import { BaseContextBuilder } from './baseContextBuilder'
@@ -38,6 +39,11 @@ export class DataContextBuilder extends BaseContextBuilder {
 
     const assessmentName = variable.assessmentName ?? this.props.assessment.props.name
     const cycleName = variable.cycleName ?? this.props.cycle.name
+
+    // External dependents update might reference an assessment different to the context one
+    if (!this.#assessments[assessmentName]) {
+      this.#assessments[assessmentName] = await AssessmentController.getOne({ assessmentName, metaCache: true })
+    }
 
     if (!this.#tables[assessmentName]?.[cycleName]) {
       const assessment = this.#assessments[assessmentName]

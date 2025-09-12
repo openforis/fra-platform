@@ -7,7 +7,7 @@ import { Sockets } from 'meta/socket'
 import { User } from 'meta/user'
 
 import { resetMirrorNodes } from 'server/controller/cycleData/resetMirrorNodes'
-import { scheduleUpdateDependencies } from 'server/controller/cycleData/updateDependencies'
+import { updateDependents } from 'server/controller/cycleData/updateDependencies/updateDependents'
 import { BaseProtocol, DB } from 'server/db'
 import { CountryService } from 'server/service/country'
 import { SocketServer } from 'server/service/socket'
@@ -85,7 +85,7 @@ export const persistNodeValues = async (props: Props, client: BaseProtocol = DB)
       await CountryService.updateLastEdit({ assessment, cycle, country, user, lastUpdateTimestamp }, client)
 
       // schedule dependencies update
-      await scheduleUpdateDependencies({ assessment, cycle, country, nodeUpdates: nodeUpdatesPersisted, user })
+      await updateDependents({ assessment, cycle, country, nodeUpdates: nodeUpdatesPersisted, user }, client)
     } catch (error) {
       Logger.error(error)
       throw error

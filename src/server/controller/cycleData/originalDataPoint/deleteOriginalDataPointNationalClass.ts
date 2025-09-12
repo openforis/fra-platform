@@ -28,7 +28,7 @@ export const deleteOriginalDataPointNationalClass = async (
 ): Promise<OriginalDataPoint> => {
   const { assessment, country, cycle, id, index, user } = props
 
-  const odpReturn = await client.tx(async (t) => {
+  return client.tx(async (t) => {
     const originalDataPoint = await OriginalDataPointRepository.deleteNationalClass({ assessment, cycle, id, index }, t)
     const updatedOriginalDataPoint = await OriginalDataPointRepository.updateOriginalData(
       { assessment, cycle, originalDataPoint: ODPs.calculateValues(originalDataPoint) },
@@ -46,10 +46,10 @@ export const deleteOriginalDataPointNationalClass = async (
 
     await CountryService.updateLastEdit({ assessment, cycle, country, user, lastEditOdp: true, lastUpdateTimestamp }, t)
 
+    await updateOriginalDataPointDependentNodes(
+      { assessment, cycle, country, originalDataPoint: updatedOriginalDataPoint, user },
+      t
+    )
     return updatedOriginalDataPoint
   })
-
-  await updateOriginalDataPointDependentNodes({ assessment, cycle, country, originalDataPoint: odpReturn, user })
-
-  return odpReturn
 }

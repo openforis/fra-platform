@@ -37,7 +37,7 @@ export const updateOriginalDataPointYear = async (
 
   const originalDataPoint = await OriginalDataPointRepository.getOne({ assessment, cycle, countryIso, year })
 
-  const updatedOriginalDataPoint = await client.tx(async (t) => {
+  return client.tx(async (t) => {
     // --- 1. Update ODP year
     const updatedOriginalDataPoint = await OriginalDataPointRepository.updateYear({ ...props, countryIso }, t)
 
@@ -51,30 +51,25 @@ export const updateOriginalDataPointYear = async (
 
     await CountryService.updateLastEdit({ assessment, cycle, country, user, lastEditOdp: true, lastUpdateTimestamp }, t)
 
-    return updatedOriginalDataPoint
-  })
+    // --- 3 Notify client about delete
+    const { name: assessmentName } = assessment.props
+    const { name: cycleName } = cycle
+    const odpDeleteEvent = Sockets.getODPDeleteEvent({ assessmentName, cycleName, countryIso })
+    SocketServer.emit(odpDeleteEvent, { countryIso, year: originalDataPoint.year })
 
-  // --- 3 Notify client about delete
-  const { name: assessmentName } = assessment.props
-  const { name: cycleName } = cycle
-  const odpDeleteEvent = Sockets.getODPDeleteEvent({ assessmentName, cycleName, countryIso })
-  SocketServer.emit(odpDeleteEvent, { countryIso, year: originalDataPoint.year })
-
-  // --- 4 Update dependents
-  const commonProps = { assessment, cycle, user }
-  await updateOriginalDataPointsDependentNodes({
-    ...commonProps,
-    country,
-    originalDataPoints: [
+    // --- 4 Update dependents
+    const commonProps = { assessment, cycle, user }
+    const originalDataPoints = [
       { originalDataPoint, notifyClient: false },
       { originalDataPoint: updatedOriginalDataPoint, notifyClient: true },
-    ],
+    ]
+    await updateOriginalDataPointsDependentNodes({ ...commonProps, country, originalDataPoints }, t)
+
+    // 5 --- Notify about reserved years
+    const odpReservedYearsEvent = Sockets.getODPReservedYearsEvent({ assessmentName, cycleName, countryIso })
+    const years = await CycleDataController.getOriginalDataPointReservedYears({ assessment, cycle, countryIso }, t)
+    SocketServer.emit(odpReservedYearsEvent, { years })
+
+    return updatedOriginalDataPoint
   })
-
-  // 5 --- Notify about reserved years
-  const odpReservedYearsEvent = Sockets.getODPReservedYearsEvent({ assessmentName, cycleName, countryIso })
-  const years = await CycleDataController.getOriginalDataPointReservedYears({ assessment, cycle, countryIso })
-  SocketServer.emit(odpReservedYearsEvent, { years })
-
-  return updatedOriginalDataPoint
 }
