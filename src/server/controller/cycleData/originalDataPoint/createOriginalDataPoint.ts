@@ -28,7 +28,7 @@ export const createOriginalDataPoint = async (props: Props, client: BaseProtocol
   const { assessment, country, cycle, notifyClient = true, originalDataPoint, sectionName, user } = props
   const { countryIso } = originalDataPoint
 
-  const odpReturn = await client.tx(async (t) => {
+  return client.tx(async (t) => {
     const createdOriginalDataPoint = await OriginalDataPointRepository.create(
       { assessment, cycle, originalDataPoint },
       t
@@ -51,19 +51,20 @@ export const createOriginalDataPoint = async (props: Props, client: BaseProtocol
       t
     )
 
+    if (ProcessEnv.nodeEnv !== NodeEnv.test) {
+      await updateOriginalDataPointDependentNodes(
+        {
+          assessment,
+          cycle,
+          country,
+          sectionName,
+          originalDataPoint: createdOriginalDataPoint,
+          user,
+        },
+        t
+      )
+    }
+
     return createdOriginalDataPoint
   })
-
-  if (ProcessEnv.nodeEnv !== NodeEnv.test) {
-    await updateOriginalDataPointDependentNodes({
-      assessment,
-      cycle,
-      country,
-      sectionName,
-      originalDataPoint: odpReturn,
-      user,
-    })
-  }
-
-  return odpReturn
 }

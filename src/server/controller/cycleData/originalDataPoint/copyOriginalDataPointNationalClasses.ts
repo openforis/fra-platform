@@ -29,7 +29,7 @@ export const copyOriginalDataPointNationalClasses = async (
   const { assessment, country, cycle, targetYear, user, year } = props
   const { countryIso } = country
 
-  const odpReturn = await client.tx(async (t) => {
+  return client.tx(async (t) => {
     const commonProps = { assessment, cycle, countryIso }
     const [originalDataPoint, targetOriginalDataPoint] = await Promise.all([
       OriginalDataPointRepository.getOne({ ...commonProps, year }, t),
@@ -66,13 +66,14 @@ export const copyOriginalDataPointNationalClasses = async (
 
     await CountryService.updateLastEdit({ assessment, cycle, country, user, lastEditOdp: true, lastUpdateTimestamp }, t)
 
+    // Note: When copying one or more national classes,
+    // we must update the dependent nodes of the original data point.
+    // The new value for copied original data for each national class is always null or undefined, as we don't copy values.
+    await updateOriginalDataPointDependentNodes(
+      { assessment, cycle, country, originalDataPoint: updatedOriginalDataPoint, user },
+      t
+    )
+
     return updatedOriginalDataPoint
   })
-
-  // Note: When copying one or more national classes,
-  // we must update the dependent nodes of the original data point.
-  // The new value for copied original data for each national class is always null or undefined, as we don't copy values.
-  await updateOriginalDataPointDependentNodes({ assessment, cycle, country, originalDataPoint: odpReturn, user })
-
-  return odpReturn
 }
