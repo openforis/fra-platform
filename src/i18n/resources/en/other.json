@@ -251,6 +251,10 @@
     "review": {
       "commentDeleteNotOwner": "Error: User {{user}} tried to delete a comment that doesn’t own",
       "commentEnterResolvedIssue": "Error: User {{user}} tried to enter a comment for a resolved issue"
+    },
+    "userInvitation": {
+      "userIsDisabled": "The operation cannot be completed because the invited user is disabled.",
+      "userAlreadyRoleInCountry": "The operation cannot be completed because the invited user already has a role for this country."
     }
   },
   "extentOfForest": {

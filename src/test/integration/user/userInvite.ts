@@ -123,7 +123,7 @@ export default (): void =>
             role: RoleName.REVIEWER,
           },
         })
-      ).rejects.toThrowError('duplicate key')
+      ).rejects.toThrowError('error.userInvitation.userAlreadyRoleInCountry')
     })
 
     it('User accept invitation as National Correspondant', async () => {
