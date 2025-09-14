@@ -1,5 +1,6 @@
 export type { TablePaginatedCompareFn } from './sortFn'
 export type {
+  InvitationFilters,
   TablePaginatedCount,
   TablePaginatedFilterValues,
   TablePaginatedOrderBy,

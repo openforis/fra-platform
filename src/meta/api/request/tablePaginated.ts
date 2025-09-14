@@ -30,4 +30,4 @@ export type TablePaginatedDataRequest<OptionalParams extends Record<string, unkn
   TablePaginatedDataRequestParams & OptionalParams
 >
 
-export type TablePaginatedCountRequest = Request<never, never, never, TablePaginatedBaseParams>
+export type TablePaginatedCountRequest = Request<never, never, never, TablePaginatedBaseParams & { filters?: string }>

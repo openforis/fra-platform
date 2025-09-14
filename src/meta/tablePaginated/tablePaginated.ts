@@ -33,3 +33,10 @@ export type UserFilters = {
   roles?: Array<RoleName>
   statuses?: Array<UserStatus>
 }
+
+export type InvitationFilters = {
+  accepted?: boolean
+  countries?: Array<CountryIso>
+  expired?: boolean
+  roles?: Array<RoleName>
+}
