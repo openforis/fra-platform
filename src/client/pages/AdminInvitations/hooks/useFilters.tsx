@@ -12,13 +12,19 @@ export const useFilters = (): Returned => {
   const { t } = useTranslation()
 
   return useMemo<Returned>(() => {
-    const roleOptions: Array<{
-      label: string
-      value: RoleName
-    }> = Object.values(RoleName).map((roleName) => ({
-      label: t(Users.getI18nRoleLabelKey(roleName)),
-      value: roleName,
-    }))
+    const roleOptions = Object.values(RoleName).reduce<
+      Array<{
+        label: string
+        value: RoleName
+      }>
+    >((acc, roleName) => {
+      if (roleName === RoleName.ADMINISTRATOR) return acc
+      acc.push({
+        label: t(Users.getI18nRoleLabelKey(roleName)),
+        value: roleName,
+      })
+      return acc
+    }, [])
 
     return [
       {
