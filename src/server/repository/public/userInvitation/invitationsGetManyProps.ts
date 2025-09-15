@@ -1,6 +1,7 @@
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { InvitationFilters, TablePaginatedOrderByDirection } from 'meta/tablePaginated'
+import { TablePaginatedOrderByDirection } from 'meta/tablePaginated'
+import { InvitationFilters } from 'meta/tablePaginated/invitations'
 
 export type InvitationsGetManyProps = {
   assessment: Assessment

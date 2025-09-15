@@ -1,6 +1,6 @@
 import { UsersRequest } from 'meta/api/request'
 import { TablePaginateds } from 'meta/tablePaginated'
-import { InvitationFilters } from 'meta/tablePaginated/tablePaginated'
+import { InvitationFilters } from 'meta/tablePaginated/invitations'
 
 import { InvitationsGetManyProps } from 'server/repository/public/userInvitation/invitationsGetManyProps'
 

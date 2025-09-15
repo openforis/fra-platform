@@ -11,12 +11,12 @@ export type TablePaginatedBaseParams = {
   assessmentName: AssessmentName
   countryIso?: AreaCode
   cycleName: CycleName
+  filters?: string
   lang?: Lang
   sectionName?: SectionName
 }
 
 export type TablePaginatedDataRequestParams = TablePaginatedBaseParams & {
-  filters?: string
   limit: string
   offset: string
   orderBy?: string
@@ -30,4 +30,4 @@ export type TablePaginatedDataRequest<OptionalParams extends Record<string, unkn
   TablePaginatedDataRequestParams & OptionalParams
 >
 
-export type TablePaginatedCountRequest = Request<never, never, never, TablePaginatedBaseParams & { filters?: string }>
+export type TablePaginatedCountRequest = Request<never, never, never, TablePaginatedBaseParams>

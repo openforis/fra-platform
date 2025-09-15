@@ -1,7 +1,8 @@
 import { Response } from 'express'
 
 import { TablePaginatedCountRequest } from 'meta/api/request/tablePaginated'
-import { InvitationFilters, TablePaginateds } from 'meta/tablePaginated'
+import { TablePaginateds } from 'meta/tablePaginated'
+import { InvitationFilters } from 'meta/tablePaginated/invitations'
 
 import { UserController } from 'server/controller/user'
 import Requests from 'server/utils/requests'
