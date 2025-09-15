@@ -8,10 +8,19 @@ import { ToolsUtils } from 'tools/utils/toolsUtils'
 import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area'
+import { NodeValue } from 'meta/assessment/node'
 import { NodeExtType } from 'meta/nodeExt'
 
 import { DB } from 'server/db'
 import { Logger } from 'server/utils/logger'
+
+const totalLandAreaFile = 'total_land_area.csv' as const
+
+const pgp = pgPromise()
+
+const columns = ['country_iso', { name: 'props', cast: 'jsonb' }, { name: 'value', cast: 'jsonb' }, 'type']
+const table = { table: 'node_ext', schema: 'assessment_fra_2025' }
+const cs = new pgp.helpers.ColumnSet(columns, { table })
 
 type CSVData = {
   country_iso: CountryIso
@@ -26,10 +35,7 @@ type ValueType = {
     tableName: string
     variableName: string
   }
-  value: {
-    raw: string
-    faoEstimate: boolean
-  }
+  value: NodeValue
   type: NodeExtType
 }
 
@@ -61,11 +67,22 @@ const _handleRow = (row: CSVData): Array<ValueType> => {
     return []
   }
 
-  return Object.entries(yearData).map(([colName, raw]) => ({
+  const _getValue = (value: string): NodeValue => {
+    const raw = Objects.isEmpty(value) ? null : value
+    const obj: NodeValue = { raw }
+
+    const faoEstimate = variableName !== 'totalLandArea'
+    if (faoEstimate) {
+      obj.faoEstimate = true
+    }
+    return obj
+  }
+
+  return Object.entries(yearData).map(([colName, value]) => ({
     // eslint-disable-next-line camelcase
     country_iso,
     props: { colName, tableName, variableName },
-    value: { raw: Objects.isEmpty(raw) ? null : raw, faoEstimate: true },
+    value: _getValue(value),
     type: NodeExtType.node,
   }))
 }
@@ -76,21 +93,34 @@ const _getValues = async (fileNames: Array<string>): Promise<Array<ValueType>> =
 }
 
 const _writeDb = async (values: Array<ValueType>): Promise<void> => {
-  const pgp = pgPromise()
-  const columns = ['country_iso', { name: 'props', cast: 'jsonb' }, { name: 'value', cast: 'jsonb' }, 'type']
-  const table = { table: 'node_ext', schema: 'assessment_fra_2025' }
-  const cs = new pgp.helpers.ColumnSet(columns, { table })
-
   const query = pgp.helpers.insert(values, cs)
   await DB.query(query)
 
   Logger.info(`Inserted ${values.length} records into database`)
 }
 
+const _totalLandArea = async (): Promise<void> => {
+  const values = await _getValues([totalLandAreaFile])
+
+  const query = `${pgp.helpers.update(values, cs)}
+    where v.country_iso = t.country_iso
+      and v.props->>'tableName' = t.props->>'tableName'
+      and v.props->>'variableName' = t.props->>'variableName'
+      and v.props->>'colName' = t.props->>'colName'`
+
+  await DB.query(query)
+
+  Logger.info(`Updated ${values.length} records into database`)
+}
+
 const processCSVFiles = async (): Promise<void> => {
-  const fileNames = _getFileNames()
+  // Inset new values
+  const fileNames = _getFileNames().filter((n) => n !== totalLandAreaFile)
   const values = await _getValues(fileNames)
   await _writeDb(values)
+
+  // Update total land area values
+  await _totalLandArea()
 }
 
 ToolsUtils.exec(processCSVFiles)
