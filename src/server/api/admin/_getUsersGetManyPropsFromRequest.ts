@@ -1,5 +1,6 @@
 import { UsersRequest } from 'meta/api/request'
-import { TablePaginateds, UserFilters } from 'meta/tablePaginated'
+import { TablePaginateds } from 'meta/tablePaginated'
+import { UserFilters } from 'meta/tablePaginated/users'
 
 import { UsersGetManyProps } from 'server/repository/public/user'
 
