@@ -130,8 +130,10 @@ const processCSVFiles = async (): Promise<void> => {
     await _totalLandArea(client)
 
     // Update data cache to display total land area updates around the platform (e.g. Table 1A)
+    Logger.info('Starting data cache update')
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName }, client)
     await CacheController.generateData({ assessment, cycle, force: true }, client)
+    Logger.info('Completed data cache update')
   })
 }
 
