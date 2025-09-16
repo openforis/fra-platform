@@ -1,9 +1,7 @@
-import { Assessment } from 'meta/assessment/assessment'
 import { Col, ColStyle, ColType } from 'meta/assessment/col'
 import { Cycle, CycleUuid } from 'meta/assessment/cycle'
 import { Label } from 'meta/assessment/label'
 import { VariableCache } from 'meta/assessment/metaCache'
-import { AssessmentMetaCaches } from 'meta/assessment/metaCaches'
 import { Row, RowType } from 'meta/assessment/row'
 import { Table } from 'meta/assessment/table'
 import { VariableName } from 'meta/assessment/variable'
@@ -124,7 +122,6 @@ export const getRows = (props: GetRowsProps): Array<Row> => {
 }
 
 type GetTableProps = {
-  assessment: Assessment
   cycle: Cycle
   cols: Array<string>
   tableId: number
@@ -133,26 +130,23 @@ type GetTableProps = {
 }
 
 export const getCalculationDependencies = (
-  props: Pick<GetTableProps, 'assessment' | 'cycle' | 'rowMetadata' | 'tableName'>
+  props: Pick<GetTableProps, 'rowMetadata'>
 ): Record<string, Array<VariableCache>> => {
-  const { assessment, cycle, rowMetadata, tableName } = props
+  const { rowMetadata } = props
   const r: Record<string, Array<VariableCache>> = {}
   rowMetadata.forEach((row) => {
-    const { variableName } = row
-
-    const propsDeps = { assessment, cycle, tableName, variableName }
-    r[row.variableName] = AssessmentMetaCaches.getCalculationsDependencies(propsDeps)
+    r[row.variableName] = row.calculationDependencies
   })
   return r
 }
 
 type Returned = Table & { calculationDependencies: Record<VariableName, Array<VariableCache>> }
 export const getTable = (props: GetTableProps): Returned => {
-  const { assessment, cols, cycle, rowMetadata, tableId, tableName } = props
+  const { cols, cycle, rowMetadata, tableId, tableName } = props
   const table: Returned = {
     id: tableId,
     tableSectionId: -1,
-    calculationDependencies: getCalculationDependencies({ assessment, cycle, rowMetadata, tableName }),
+    calculationDependencies: getCalculationDependencies({ rowMetadata }),
     props: {
       odp: false,
       readonly: true,

@@ -1,6 +1,5 @@
 import { getTable, RowsMetadata } from 'tools/migrations/steps/steps/metadata/dashboard/utils'
 
-import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { DashboardItemType, DashboardTable } from 'meta/dashboard'
 
@@ -40,11 +39,7 @@ const rowMetadata = (cycle: Cycle, region: boolean): RowsMetadata =>
     calculationDependencies: [{ tableName, variableName }],
   }))
 
-export const primaryDesignatedManagementObjectiveDashboard = (
-  assessment: Assessment,
-  cycle: Cycle,
-  region: boolean
-): DashboardTable => ({
+export const primaryDesignatedManagementObjectiveDashboard = (cycle: Cycle, region: boolean): DashboardTable => ({
   type: DashboardItemType.table,
   title: {
     key: 'statisticalFactsheets.primaryDesignatedManagementObjective.title',
@@ -55,7 +50,6 @@ export const primaryDesignatedManagementObjectiveDashboard = (
     },
   },
   table: getTable({
-    assessment,
     cycle,
     cols: cols[cycle.name],
     tableId,

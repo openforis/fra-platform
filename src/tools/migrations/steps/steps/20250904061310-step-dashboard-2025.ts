@@ -33,8 +33,8 @@ export default async (client: BaseProtocol): Promise<void> => {
     naturallyRegeneratingForestArea,
   ]
 
-  const countryDashboardItems = fns.map((fn) => fn(assessment, cycle, false))
-  const regionDashboardItems = fns.map((fn) => fn(assessment, cycle, true))
+  const countryDashboardItems = fns.map((fn) => fn(cycle, false))
+  const regionDashboardItems = fns.map((fn) => fn(cycle, true))
   const regionDashboardItemsPartial = countryDashboardItems.map((countryDashboardItem, i) => {
     return Objects.getDiff(countryDashboardItem, regionDashboardItems[i])
   })

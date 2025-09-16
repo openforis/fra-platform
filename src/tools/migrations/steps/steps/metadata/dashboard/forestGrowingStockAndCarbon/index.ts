@@ -1,6 +1,5 @@
 import { getTable, RowsMetadata } from 'tools/migrations/steps/steps/metadata/dashboard/utils'
 
-import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { TableNames } from 'meta/assessment/table'
 import { DashboardItemType, DashboardTable } from 'meta/dashboard'
@@ -116,18 +115,13 @@ ${TableNames.carbonStock}.carbon_forest_soil
   ],
 }
 
-export const forestGrowingStockAndCarbonDashboard = (
-  assessment: Assessment,
-  cycle: Cycle,
-  region: boolean
-): DashboardTable => ({
+export const forestGrowingStockAndCarbonDashboard = (cycle: Cycle, region: boolean): DashboardTable => ({
   type: DashboardItemType.table,
   title: {
     key: 'statisticalFactsheets.carbonAndGrowingStock.title',
     params: { startYear: cols[cycle.name].at(0), endYear: cols[cycle.name].at(-1) },
   },
   table: getTable({
-    assessment,
     cycle,
     cols: cols[cycle.name],
     tableId,
