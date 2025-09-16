@@ -4,7 +4,6 @@ import { CycleRequest } from 'meta/api/request'
 import { Lang } from 'meta/lang'
 import { Translations } from 'meta/translation'
 
-import { AssessmentController } from 'server/controller/assessment'
 import { CycleDataController } from 'server/controller/cycleData'
 import { FileStorage, FileStorageUtils } from 'server/service/fileStorage'
 import Requests from 'server/utils/requests'
@@ -12,12 +11,10 @@ import { Responses } from 'server/utils/responses'
 
 type Request = CycleRequest
 
-export const getRepositoryFile = async (req: Request, res: Response) => {
+export const getRepositoryFile = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { assessmentName, cycleName } = req.query
+    const { assessment, cycle } = req.context
     const { uuid } = req.params
-
-    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
     const props = { assessment, cycle, uuid }
     const { file, repositoryItem } = await CycleDataController.Repository.getOneFile(props)

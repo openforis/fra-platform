@@ -20,7 +20,6 @@
   "country": "País",
   "custom": "Personalizado",
   "cycleLabel": "$t({{assessmentName}}.labels.short) {{cycleName}}",
-  "cycleLatestLabel": "$t({{assessmentName}}.labels.short) $t(common.latest)",
   "dashboard": "Cuadro de mandos",
   "dataExport": "Exportación de datos",
   "delete": "Borrar",

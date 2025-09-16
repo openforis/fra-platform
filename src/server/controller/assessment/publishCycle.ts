@@ -9,11 +9,21 @@ import { CountryRepository } from 'server/repository/assessmentCycle/country'
 import { CycleRepository } from 'server/repository/assessmentCycle/cycle'
 import { ActivityLogDb, ActivityLogRepository } from 'server/repository/public/activityLog'
 import { AreaRedisRepository } from 'server/repository/redis/area'
+import { AssessmentRedisRepository } from 'server/repository/redis/assessment'
 
-export const publishCycle = async (
-  props: { user: User; assessment: Assessment; cycle: Cycle },
-  client: BaseProtocol = DB
-): Promise<{ cycle: Cycle; countries: Array<Country> }> => {
+type Props = {
+  assessment: Assessment
+  cycle: Cycle
+  user: User
+}
+
+type Returned = {
+  assessment: Assessment
+  countries: Array<Country>
+  cycle: Cycle
+}
+
+export const publishCycle = async (props: Props, client: BaseProtocol = DB): Promise<Returned> => {
   const { assessment, cycle, user } = props
 
   return client.tx(async (t) => {
@@ -30,7 +40,7 @@ export const publishCycle = async (
     const activityLog = { target: cycle, section: 'cycle', message: ActivityLogMessage.cyclePublish, user }
     await ActivityLogRepository.insertActivityLog({ activityLog, assessment, cycle }, t)
 
-    // Activity log for all non-published countries
+    // Activity log for all published countries
     const activityLogs = publishedCountries.map<ActivityLogDb<Country>>((country: Country) => {
       const message = ActivityLogMessage.assessmentStatusUpdate
       return {
@@ -44,6 +54,12 @@ export const publishCycle = async (
       }
     })
     await ActivityLogRepository.massiveInsert({ activityLogs }, client)
-    return { cycle, countries: publishedCountries }
+
+    const { name: assessmentName } = assessment.props
+    const { name: cycleName } = cycle
+    return {
+      ...(await AssessmentRedisRepository.getOneWithCycle({ assessmentName, cycleName }, t)),
+      countries: publishedCountries,
+    }
   })
 }

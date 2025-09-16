@@ -13,7 +13,7 @@ import { ProcessEnv } from 'server/utils'
 import { Logger } from 'server/utils/logger'
 import { NodeEnv } from 'server/utils/processEnv'
 
-import { UpdateDependenciesProps, UpdateDependenciesResult } from './props'
+import { UpdateDependenciesWorker } from './props'
 import workerProcessor from './worker'
 
 const connection = new IORedis(ProcessEnv.redisQueueUrl)
@@ -43,11 +43,11 @@ const _scheduleExternalDependantsUpdate = async (props: {
   }
 }
 
-const newInstance = (props: { key: string }) => {
+const newInstance = (props: { key: string }): UpdateDependenciesWorker => {
   const { key } = props
 
   const processor = ProcessEnv.nodeEnv === NodeEnv.development ? workerProcessor : `${__dirname}/worker`
-  const worker = new Worker<UpdateDependenciesProps, UpdateDependenciesResult>(key, processor, workerOptions)
+  const worker: UpdateDependenciesWorker = new Worker(key, processor, workerOptions)
 
   worker.on('completed', async (job, result) => {
     const { country, user } = job.data

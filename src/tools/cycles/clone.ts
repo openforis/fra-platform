@@ -9,6 +9,7 @@ import { Cycle } from 'meta/assessment/cycle'
 import { Table } from 'meta/assessment/table'
 
 import { AssessmentController } from 'server/controller/assessment'
+import { CacheController } from 'server/controller/cache'
 import { MetadataController } from 'server/controller/metadata'
 import { UserController } from 'server/controller/user'
 import { DB, Schemas } from 'server/db'
@@ -40,7 +41,7 @@ const _addColumns = async (props: { assessment: Assessment; cycle: Cycle }): Pro
       await TableRepository.update({ assessment, tableId: table.id, tableProps }, client)
     })
   )
-  await AssessmentController.generateMetadataCache({ assessment }, client)
+  await CacheController.generateMetadata({ assessment }, client)
 }
 
 export const cloneCycle = async (): Promise<void> => {

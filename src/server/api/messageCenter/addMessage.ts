@@ -4,20 +4,22 @@ import { CycleDataRequest } from 'meta/api/request'
 import { MessageTopicStatus, MessageTopicType } from 'meta/messageCenter'
 import { Sockets } from 'meta/socket'
 
-import { AssessmentController } from 'server/controller/assessment'
 import { MessageCenterController } from 'server/controller/messageCenter'
 import { SocketServer } from 'server/service/socket'
 import Requests from 'server/utils/requests'
 
 import { sendRequestReviewUpdateEvents } from './sendRequestReviewUpdateEvents'
 
-export const addMessage = async (req: CycleDataRequest<{ key: string; type: MessageTopicType }>, res: Response) => {
+export const addMessage = async (
+  req: CycleDataRequest<{ key: string; type: MessageTopicType }>,
+  res: Response
+): Promise<void> => {
   try {
     const { assessmentName, countryIso, cycleName, key, sectionName, type } = req.query
     const user = Requests.getUser(req)
     const { message } = req.body
 
-    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+    const { assessment, cycle } = req.context
 
     const { message: messageCreated, topic } = await MessageCenterController.addMessage({
       message,

@@ -8,7 +8,8 @@ import { User } from 'meta/user'
 
 import { getOriginalDataPointVariables } from 'server/controller/cycleData/originalDataPoint/getOriginalDataPointVariables'
 import { notifyClientUpdate } from 'server/controller/cycleData/originalDataPoint/updateDependants/notifyClientUpdate'
-import { scheduleUpdateDependencies } from 'server/controller/cycleData/updateDependencies'
+import { updateDependents } from 'server/controller/cycleData/updateDependencies/updateDependents'
+import { BaseProtocol } from 'server/db'
 import { DataRedisRepository } from 'server/repository/redis/data'
 
 type Props = {
@@ -20,7 +21,7 @@ type Props = {
   user: User
 }
 
-export const updateOriginalDataPointsDependentNodes = async (props: Props): Promise<void> => {
+export const updateOriginalDataPointsDependentNodes = async (props: Props, client: BaseProtocol): Promise<void> => {
   const { assessment, country, cycle, originalDataPoints, sectionName, user } = props
   const assessmentName = assessment.props.name
   const cycleName = cycle.name
@@ -34,7 +35,7 @@ export const updateOriginalDataPointsDependentNodes = async (props: Props): Prom
 
   // 1. update cache
   const tableName = TableNames.originalDataPointValue
-  await DataRedisRepository.cacheCountryTable({ assessment, cycle, countryIso, tableName, force: true })
+  await DataRedisRepository.cacheCountryTable({ assessment, cycle, countryIso, tableName, force: true }, client)
 
   // 2. schedule dependencies update
   const nodes: Array<NodeUpdate> = []
@@ -51,7 +52,7 @@ export const updateOriginalDataPointsDependentNodes = async (props: Props): Prom
 
   const nodeUpdates = { assessmentName, cycleName, countryIso, nodes }
   const propsDeps = { assessment, cycle, country, isODP: true, nodeUpdates, user }
-  await scheduleUpdateDependencies(propsDeps)
+  await updateDependents(propsDeps, client)
 
   // 3. notifies client
   await notifyClientUpdate({ cycle, sectionName, assessment, countryIso, originalDataPoints })

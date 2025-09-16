@@ -1,34 +1,29 @@
 import { Objects } from 'utils/objects'
 
-import { CountryIso } from 'meta/area'
-import { Assessment } from 'meta/assessment/assessment'
-import { Cycle } from 'meta/assessment/cycle'
 import { TablePaginatedOrderByDirection } from 'meta/tablePaginated'
 import { UserInvitationSummary } from 'meta/user/userInvitationSummary'
 
 import { BaseProtocol, DB } from 'server/db'
+import { InvitationsGetManyProps } from 'server/repository/public/userInvitation/invitationsGetManyProps'
+import { getPropsToQueryParams } from 'server/repository/public/userInvitation/utils/getPropsToQueryParams'
 
-type Props = {
-  assessment: Assessment
-  cycle: Cycle
-  countryIso?: CountryIso
-  limit?: string
-  offset?: string
-  orderBy?: string
-  orderByDirection?: TablePaginatedOrderByDirection
+const _getOrderClause = (
+  orderBy: string | undefined = 'country_iso',
+  orderByDirection: TablePaginatedOrderByDirection = TablePaginatedOrderByDirection.asc
+): string => {
+  return `order by
+    ${orderBy} ${orderByDirection} nulls last`
 }
 
-export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<Array<UserInvitationSummary>> => {
-  const { assessment, countryIso, cycle, limit, offset, orderBy, orderByDirection } = props
+export const getMany = async (
+  props: InvitationsGetManyProps,
+  client: BaseProtocol = DB
+): Promise<Array<UserInvitationSummary>> => {
+  const { orderBy, orderByDirection } = props
 
-  const params: Record<string, string | number | boolean> = {
-    assessmentId: assessment.id,
-    cycleId: cycle.id,
-  }
+  const order = _getOrderClause(orderBy, orderByDirection)
 
-  if (countryIso) params.countryIso = countryIso
-  if (limit) params.limit = limit
-  if (offset) params.offset = offset
+  const { queryParams, whereConditions } = getPropsToQueryParams(props)
 
   return client.map<UserInvitationSummary>(
     `
@@ -40,14 +35,12 @@ export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<
                  left join public.users u on ui.user_uuid = u.uuid
                  left join public.assessment a on ui.assessment_uuid = a.uuid
                  left join public.assessment_cycle ac on ui.cycle_uuid = ac.uuid and a.id = ac.assessment_id
-        where a.id = $(assessmentId)
-          and ac.id = $(cycleId)
-          ${countryIso ? 'and ui.country_iso = $(countryIso)' : ''}
-        order by ${orderBy ?? 'country_iso'} ${orderByDirection ?? TablePaginatedOrderByDirection.asc} nulls last
-        ${limit ? 'limit $(limit)' : ''}
-        ${offset ? 'offset $(offset)' : ''}
+        where ${whereConditions.join(' and ')}
+        ${order}
+        ${queryParams.limit ? `limit $(limit)` : ''}
+        ${queryParams.offset ? `offset $(offset)` : ''}
     `,
-    params,
+    queryParams,
     (row) => Objects.camelize(row)
   )
 }

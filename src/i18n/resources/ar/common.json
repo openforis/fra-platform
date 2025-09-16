@@ -20,7 +20,6 @@
   "country": "البلد",
   "custom": "مخصص",
   "cycleLabel": "$t({{assessmentName}}.labels.short) {{cycleName}}",
-  "cycleLatestLabel": "$t({{assessmentName}}.labels.short) $t(common.latest)",
   "dashboard": "لوحة التحكم",
   "dataExport": "تصدير البيانات",
   "delete": "حذف",

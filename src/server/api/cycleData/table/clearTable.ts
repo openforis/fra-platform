@@ -2,21 +2,14 @@ import { Response } from 'express'
 
 import { CycleDataRequest } from 'meta/api/request'
 
-import { AssessmentController } from 'server/controller/assessment'
 import { CycleDataController } from 'server/controller/cycleData'
 import Requests from 'server/utils/requests'
 
-export const clearTable = async (req: CycleDataRequest, res: Response) => {
+export const clearTable = async (req: CycleDataRequest, res: Response): Promise<void> => {
   try {
-    const { assessmentName, cycleName, sectionName, tableName } = req.query
+    const { sectionName, tableName } = req.query
     const user = Requests.getUser(req)
-    const { country } = req.context
-
-    const { assessment, cycle } = await AssessmentController.getOneWithCycle({
-      assessmentName,
-      cycleName,
-      metaCache: true,
-    })
+    const { assessment, country, cycle } = req.context
 
     const nodes = await CycleDataController.clearTableData({ assessment, country, cycle, sectionName, tableName, user })
 

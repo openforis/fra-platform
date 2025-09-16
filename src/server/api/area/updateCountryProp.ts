@@ -6,28 +6,25 @@ import { TableNames } from 'meta/assessment/table'
 import { NodeUpdates, RecordAssessmentDatas } from 'meta/data'
 
 import { AreaController } from 'server/controller/area'
-import { AssessmentController } from 'server/controller/assessment'
 import { CycleDataController } from 'server/controller/cycleData'
-import { scheduleUpdateDependencies } from 'server/controller/cycleData/updateDependencies'
+import { updateDependents } from 'server/controller/cycleData/updateDependencies/updateDependents'
+import { DB } from 'server/db'
 import Requests from 'server/utils/requests'
 
 type Body = { countryProp: Partial<CountryProps> }
 type Request = CycleDataRequest<never, Body>
 
-const metaCache = true
 const tableName = TableNames.forestCharacteristics
 const tableNames = [tableName]
 
-export const updateCountryProp = async (req: Request, res: Response) => {
+export const updateCountryProp = async (req: Request, res: Response): Promise<void> => {
   try {
     const { assessmentName, countryIso, cycleName } = req.query
+    const { assessment, country: countrySource, cycle } = req.context
     const { countryProp } = req.body
     const user = Requests.getUser(req)
 
-    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName, metaCache })
-
     // 1. update database country prop
-    const countrySource = req.context.country
     const country: Country = { ...countrySource, props: { ...countrySource.props, ...countryProp } }
     const updatedCountry = await AreaController.updateCountry({
       assessment,
@@ -55,7 +52,7 @@ export const updateCountryProp = async (req: Request, res: Response) => {
         },
         { assessmentName, cycleName, countryIso, nodes: [] }
       )
-      await scheduleUpdateDependencies({ assessment, cycle, country: updatedCountry, nodeUpdates, user })
+      await updateDependents({ assessment, cycle, country: updatedCountry, nodeUpdates, user }, DB)
     }
 
     // 4. send updated country to client

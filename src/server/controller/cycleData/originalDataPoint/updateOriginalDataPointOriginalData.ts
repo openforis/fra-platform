@@ -28,7 +28,7 @@ export const updateOriginalDataPointOriginalData = async (
   const { assessment, country, cycle, originalDataPoint, sectionName, user } = props
   const { countryIso } = originalDataPoint
 
-  const odpReturn = await client.tx(async (t) => {
+  return client.tx(async (t) => {
     const updatedOriginalDataPoint = await OriginalDataPointRepository.updateOriginalData(
       { assessment, cycle, originalDataPoint },
       t
@@ -47,17 +47,18 @@ export const updateOriginalDataPointOriginalData = async (
     )
     await CountryService.updateLastEdit({ assessment, cycle, country, user, lastEditOdp: true, lastUpdateTimestamp }, t)
 
+    await updateOriginalDataPointDependentNodes(
+      {
+        assessment,
+        cycle,
+        country,
+        sectionName,
+        originalDataPoint: updatedOriginalDataPoint,
+        user,
+      },
+      t
+    )
+
     return updatedOriginalDataPoint
   })
-
-  await updateOriginalDataPointDependentNodes({
-    assessment,
-    cycle,
-    country,
-    sectionName,
-    originalDataPoint: odpReturn,
-    user,
-  })
-
-  return odpReturn
 }

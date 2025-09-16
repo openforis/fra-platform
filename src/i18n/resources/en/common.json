@@ -24,7 +24,6 @@
   "country": "Country",
   "custom": "Custom",
   "cycleLabel": "$t({{assessmentName}}.labels.short) {{cycleName}}",
-  "cycleLatestLabel": "$t({{assessmentName}}.labels.short) $t(common.latest)",
   "dashboard": "Dashboard",
   "dataExport": "Data Export",
   "delete": "Delete",

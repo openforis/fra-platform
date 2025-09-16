@@ -1,6 +1,7 @@
 import { getTable, RowsMetadata } from 'tools/migrations/steps/steps/metadata/dashboard/utils'
 import { unit } from 'tools/migrations/steps/steps/metadata/dashboard/utils/unit'
 
+import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { TableNames } from 'meta/assessment/table'
 import { ChartColor } from 'meta/chart'
@@ -16,7 +17,11 @@ const tableId = 5
 const tableName = 'forestAreaWithinProtectedAreas'
 const variableName = 'forest_area_within_protected_areas'
 
-export const forestAreaWithinProtectedAreas = (cycle: Cycle, region: boolean): DashboardPieChart => {
+export const forestAreaWithinProtectedAreas = (
+  assessment: Assessment,
+  cycle: Cycle,
+  region: boolean
+): DashboardPieChart => {
   const columnName = cols[cycle.name][0]
   const rowMetadata: RowsMetadata = [
     {
@@ -48,7 +53,7 @@ export const forestAreaWithinProtectedAreas = (cycle: Cycle, region: boolean): D
   return {
     type: DashboardItemType.pieChart,
     title: { key: 'statisticalFactsheets.forestAreaWithinProtectedAreas.title', params: { year: columnName } },
-    table: getTable({ cycle, cols: cols[cycle.name], tableId, rowMetadata, tableName }),
+    table: getTable({ assessment, cycle, cols: cols[cycle.name], tableId, rowMetadata, tableName }),
     chart: {
       cells: [
         {

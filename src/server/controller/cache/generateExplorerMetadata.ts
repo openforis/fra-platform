@@ -7,7 +7,7 @@ import { Logger } from 'server/utils/logger'
 
 type Props = { assessment: Assessment; cycle: Cycle }
 
-export const generateExplorerMetadata = async (props: Props, client: BaseProtocol = DB) => {
+export const generateExplorerMetadata = async (props: Props, client: BaseProtocol = DB): Promise<void> => {
   const { assessment, cycle } = props
   const { name: assessmentName } = assessment.props
   const { name: cycleName } = cycle

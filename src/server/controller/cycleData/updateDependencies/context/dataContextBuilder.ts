@@ -2,6 +2,7 @@ import { Objects } from 'utils/objects'
 import { Promises } from 'utils/promises'
 
 import { Assessment, AssessmentName, RecordAssessments } from 'meta/assessment/assessment'
+import { Assessments } from 'meta/assessment/assessments'
 import { Cycle, CycleName } from 'meta/assessment/cycle'
 import { VariableCache } from 'meta/assessment/metaCache'
 import { AssessmentMetaCaches } from 'meta/assessment/metaCaches'
@@ -39,13 +40,14 @@ export class DataContextBuilder extends BaseContextBuilder {
     const assessmentName = variable.assessmentName ?? this.props.assessment.props.name
     const cycleName = variable.cycleName ?? this.props.cycle.name
 
+    // External dependents update might reference an assessment different to the context one
     if (!this.#assessments[assessmentName]) {
       this.#assessments[assessmentName] = await AssessmentController.getOne({ assessmentName, metaCache: true })
     }
 
     if (!this.#tables[assessmentName]?.[cycleName]) {
       const assessment = this.#assessments[assessmentName]
-      const cycle = assessment.cycles.find((c) => c.name === cycleName)
+      const cycle = Assessments.getCycle({ assessment, cycleName })
       const value: TablesFetch = { assessment, cycle, tableNames: new Set<TableName>() }
 
       Objects.setInPath({ obj: this.#tables, path: [assessmentName, cycleName], value })

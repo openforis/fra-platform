@@ -1,19 +1,18 @@
 import { Response } from 'express'
 
 import { CycleRequest } from 'meta/api/request'
-import { UserFilters } from 'meta/tablePaginated'
+import { UserFilters } from 'meta/tablePaginated/users'
 import { UserStatus } from 'meta/user'
 
-import { AssessmentController } from 'server/controller/assessment'
 import { UserController } from 'server/controller/user'
 import { ProcessEnv } from 'server/utils'
 import Requests from 'server/utils/requests'
 
-export const getMany = async (req: CycleRequest<{ print: string }>, res: Response) => {
+export const getMany = async (req: CycleRequest<{ print: string }>, res: Response): Promise<void> => {
   try {
-    const { assessmentName, countryIso, cycleName, print } = req.query
+    const { countryIso, print } = req.query
 
-    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+    const { assessment, cycle } = req.context
 
     const filters: UserFilters = { statuses: [UserStatus.active, UserStatus.invitationPending] }
     let users = await UserController.getMany({ assessment, cycle, countryIso, filters })

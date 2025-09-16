@@ -1,8 +1,6 @@
 import { Assessment, AssessmentNames } from 'meta/assessment/assessment'
 import { Cycle, CycleProps, CycleStatus } from 'meta/assessment/cycle'
-import { AssessmentMetaCache } from 'meta/assessment/metaCache'
 
-import { getOneWithCycle } from 'server/controller/assessment/getOne'
 import { BaseProtocol, DB, Schemas } from 'server/db'
 import { AssessmentRepository } from 'server/repository/assessment/assessment'
 import { getCreateOrReplaceViewCountryUserSummary } from 'server/repository/assessment/assessment/getCreateSchemaDDL'
@@ -14,16 +12,11 @@ type Props = {
   withCountries?: boolean
 }
 
-type Returned = Promise<{
-  assessment: Assessment
-  cycle: Cycle
-}>
-
-const defaultMetaCache: AssessmentMetaCache = {
-  calculations: { dependants: {}, dependencies: {} },
-  validations: { dependants: {}, dependencies: {} },
-  variablesByTable: {},
-}
+// const defaultMetaCache: AssessmentMetaCache = {
+//   calculations: { dependants: {}, dependencies: {} },
+//   validations: { dependants: {}, dependencies: {} },
+//   variablesByTable: {},
+// }
 
 const getDefaultProps = (): CycleProps => {
   const dateCreated = new Date().toISOString()
@@ -36,7 +29,7 @@ const getDefaultProps = (): CycleProps => {
   }
 }
 
-export const create = async (params: Props, client: BaseProtocol = DB): Returned => {
+export const create = async (params: Props, client: BaseProtocol = DB): Promise<Cycle> => {
   const { assessment, cycleSource, name, withCountries } = params
 
   const schemaAssessment = Schemas.getName(assessment)
@@ -65,19 +58,5 @@ export const create = async (params: Props, client: BaseProtocol = DB): Returned
   // Init country user summary view
   await client.query(getCreateOrReplaceViewCountryUserSummary({ assessment, cycle }))
 
-  // Initialise meta_cache for assessment on cycle creation
-  // cycle.uuid is required to initialise meta_cache
-  await client.none(
-    `
-        update assessment a
-        set meta_cache = jsonb_set(
-                a.meta_cache,
-                '{${cycle.uuid}}',
-                $1::jsonb)
-        where a.id = $2
-    `,
-    [JSON.stringify(defaultMetaCache), assessment.id]
-  )
-
-  return getOneWithCycle({ assessmentName: assessment.props.name, cycleName: cycle.name }, client)
+  return cycle
 }

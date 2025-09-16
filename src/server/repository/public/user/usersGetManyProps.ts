@@ -1,7 +1,8 @@
 import { CountryIso } from 'meta/area'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { TablePaginatedOrderByDirection, UserFilters } from 'meta/tablePaginated'
+import { TablePaginatedOrderByDirection } from 'meta/tablePaginated'
+import { UserFilters } from 'meta/tablePaginated/users'
 
 export type UsersGetManyProps = {
   assessment?: Assessment

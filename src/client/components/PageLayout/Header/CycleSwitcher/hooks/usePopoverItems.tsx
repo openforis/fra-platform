@@ -57,13 +57,9 @@ export const usePopoverItems = (): Array<PopoverItem> => {
           const canViewCycle = (hasRoleInAssessment && Cycles.isPublished(cycle)) || hasRoleInCycle
 
           const assessmentName = assessment.props.name
-          const cycleName = cycle.name
-          const isLatestCycle = Assessments.getLastCreatedCycle(assessment)?.name === cycleName
+          const cycleName = t(Assessments.getCycleTranslationKey({ cycle }))
           const isCurrentRoute = assessmentName === routeParams.assessmentName && cycleName === routeParams.cycleName
-          const content = t(isLatestCycle ? 'common.cycleLatestLabel' : 'common.cycleLabel', {
-            assessmentName,
-            cycleName,
-          })
+          const content = t('common.cycleLabel', { assessmentName, cycleName })
 
           if (canViewCycle && !isCurrentRoute) {
             const item: PopoverItem = {

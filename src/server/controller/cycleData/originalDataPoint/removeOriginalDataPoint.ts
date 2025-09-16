@@ -30,7 +30,7 @@ export const removeOriginalDataPoint = async (props: Props, client: BaseProtocol
   const cycleName = cycle.name
   const { countryIso } = originalDataPoint
 
-  const odpReturn = await client.tx(async (t) => {
+  return client.tx(async (t) => {
     const target = await OriginalDataPointRepository.remove({ assessment, cycle, originalDataPoint }, t)
     const keyPrefix = Topics.getOdpReviewTopicKeyPrefix(originalDataPoint.id)
     await MessageTopicRepository.removeMany({ assessment, cycle, keyPrefix }, t)
@@ -48,17 +48,18 @@ export const removeOriginalDataPoint = async (props: Props, client: BaseProtocol
 
     await CountryService.updateLastEdit({ assessment, cycle, country, user, lastEditOdp: true, lastUpdateTimestamp }, t)
 
+    await updateOriginalDataPointDependentNodes(
+      {
+        assessment,
+        cycle,
+        country,
+        originalDataPoint,
+        user,
+        notifyClient: false,
+      },
+      t
+    )
+
     return target
   })
-
-  await updateOriginalDataPointDependentNodes({
-    assessment,
-    cycle,
-    country,
-    originalDataPoint,
-    user,
-    notifyClient: false,
-  })
-
-  return odpReturn
 }

@@ -11,7 +11,7 @@ type Props = {
   assessment: Assessment
 }
 
-export const generateMetadataCache = async (props: Props, client: BaseProtocol = DB) => {
+export const generateMetadata = async (props: Props, client: BaseProtocol = DB): Promise<void> => {
   const { assessment } = props
   const assessmentName = assessment.props.name
 

@@ -7,7 +7,7 @@ import { Sockets } from 'meta/socket'
 import { User } from 'meta/user'
 
 import { resetMirrorNodes } from 'server/controller/cycleData/resetMirrorNodes'
-import { scheduleUpdateDependencies } from 'server/controller/cycleData/updateDependencies'
+import { updateDependents } from 'server/controller/cycleData/updateDependencies/updateDependents'
 import { BaseProtocol, DB } from 'server/db'
 import { DataRepository } from 'server/repository/assessmentCycle/data'
 import { ActivityLogRepository } from 'server/repository/public/activityLog'
@@ -42,7 +42,7 @@ export const clearTableData = async (props: Props, client: BaseProtocol = DB): P
     SocketServer.emit(nodeUpdateEvent, { nodeUpdates: nodeUpdatesMirrorReset })
 
     // schedule dependencies update
-    await scheduleUpdateDependencies({ assessment, cycle, country, isODP: true, nodeUpdates, user })
+    await updateDependents({ assessment, cycle, country, isODP: true, nodeUpdates, user }, t)
 
     // persist activity log
     const activityLog = {

@@ -2,15 +2,16 @@ import { Response } from 'express'
 
 import { CycleDataRequest } from 'meta/api/request'
 
-import { AssessmentController } from 'server/controller/assessment'
 import { CycleDataController } from 'server/controller/cycleData'
 import Requests from 'server/utils/requests'
 
-export const getNodeValuesEstimations = async (req: CycleDataRequest<{ tableName: string }>, res: Response) => {
+export const getNodeValuesEstimations = async (
+  req: CycleDataRequest<{ tableName: string }>,
+  res: Response
+): Promise<void> => {
   try {
-    const { assessmentName, countryIso, cycleName, tableName } = req.query
-
-    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+    const { assessment, cycle } = req.context
+    const { countryIso, tableName } = req.query
 
     const nodeValueEstimations = await CycleDataController.getNodeValuesEstimations({
       assessment,
