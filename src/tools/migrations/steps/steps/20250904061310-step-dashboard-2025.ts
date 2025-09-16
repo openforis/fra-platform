@@ -17,7 +17,10 @@ const assessmentName = AssessmentNames.fra
 const cycleName = '2025'
 
 export default async (client: BaseProtocol): Promise<void> => {
-  const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName }, client)
+  const { assessment, cycle } = await AssessmentController.getOneWithCycle(
+    { assessmentName, cycleName, metaCache: true },
+    client
+  )
 
   const fns = [
     forestArea,
@@ -30,8 +33,8 @@ export default async (client: BaseProtocol): Promise<void> => {
     naturallyRegeneratingForestArea,
   ]
 
-  const countryDashboardItems = fns.map((fn) => fn(cycle, false))
-  const regionDashboardItems = fns.map((fn) => fn(cycle, true))
+  const countryDashboardItems = fns.map((fn) => fn(assessment, cycle, false))
+  const regionDashboardItems = fns.map((fn) => fn(assessment, cycle, true))
   const regionDashboardItemsPartial = countryDashboardItems.map((countryDashboardItem, i) => {
     return Objects.getDiff(countryDashboardItem, regionDashboardItems[i])
   })
