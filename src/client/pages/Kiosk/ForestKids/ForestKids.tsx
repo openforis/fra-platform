@@ -6,7 +6,7 @@ const ForestKids: React.FC = () => {
     <object
       aria-label="Forest Kids video game"
       className="kiosk-content__embedded-object"
-      data="https://www.fao.org/forest-resources-assessment/ForestKids/"
+      data="https://forestkids.herokuapp.com"
       type="text/html"
     />
   )
