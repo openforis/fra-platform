@@ -11,7 +11,9 @@ import { CountryIso } from 'meta/area'
 import { NodeValue } from 'meta/assessment/node'
 import { NodeExtType } from 'meta/nodeExt'
 
-import { DB } from 'server/db'
+import { AssessmentController } from 'server/controller/assessment'
+import { CacheController } from 'server/controller/cache'
+import { BaseProtocol, DB } from 'server/db'
 import { Logger } from 'server/utils/logger'
 
 const totalLandAreaFile = 'total_land_area.csv' as const
@@ -19,7 +21,10 @@ const totalLandAreaFile = 'total_land_area.csv' as const
 const pgp = pgPromise()
 
 const columns = ['country_iso', { name: 'props', cast: 'jsonb' }, { name: 'value', cast: 'jsonb' }, 'type']
-const table = { table: 'node_ext', schema: 'assessment_fra_2025' }
+const assessmentName = 'fra'
+const cycleName = '2025'
+const schema = `assessment_${assessmentName}_${cycleName}`
+const table = { table: 'node_ext', schema }
 const cs = new pgp.helpers.ColumnSet(columns, { table })
 
 type CSVData = {
@@ -92,14 +97,14 @@ const _getValues = async (fileNames: Array<string>): Promise<Array<ValueType>> =
   return csvDataArrays.flat().flatMap(_handleRow)
 }
 
-const _writeDb = async (values: Array<ValueType>): Promise<void> => {
+const _writeDb = async (values: Array<ValueType>, client: BaseProtocol): Promise<void> => {
   const query = pgp.helpers.insert(values, cs)
-  await DB.query(query)
+  await client.query(query)
 
   Logger.info(`Inserted ${values.length} records into database`)
 }
 
-const _totalLandArea = async (): Promise<void> => {
+const _totalLandArea = async (client: BaseProtocol): Promise<void> => {
   const values = await _getValues([totalLandAreaFile])
 
   const query = `${pgp.helpers.update(values, cs)}
@@ -108,7 +113,7 @@ const _totalLandArea = async (): Promise<void> => {
       and v.props->>'variableName' = t.props->>'variableName'
       and v.props->>'colName' = t.props->>'colName'`
 
-  await DB.query(query)
+  await client.query(query)
 
   Logger.info(`Updated ${values.length} records into database`)
 }
@@ -117,10 +122,17 @@ const processCSVFiles = async (): Promise<void> => {
   // Inset new values
   const fileNames = _getFileNames().filter((n) => n !== totalLandAreaFile)
   const values = await _getValues(fileNames)
-  await _writeDb(values)
 
-  // Update total land area values
-  await _totalLandArea()
+  await DB.tx(async (client) => {
+    await _writeDb(values, client)
+
+    // Update total land area values
+    await _totalLandArea(client)
+
+    // Update data cache to display total land area updates around the platform (e.g. Table 1A)
+    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName }, client)
+    await CacheController.generateData({ assessment, cycle, force: true }, client)
+  })
 }
 
 ToolsUtils.exec(processCSVFiles)
