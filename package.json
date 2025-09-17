@@ -294,7 +294,7 @@
   "browserslist": [
     "last 2 versions"
   ],
-  "version": "3.14.0",
+  "version": "3.14.1",
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
