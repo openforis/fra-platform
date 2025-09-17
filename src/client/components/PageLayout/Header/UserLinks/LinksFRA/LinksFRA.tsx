@@ -2,52 +2,53 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useNavigate } from 'react-router-dom'
 
-import { TFunction } from 'i18next'
-
-import { CountryIso, Global } from 'meta/area'
-import { Assessment } from 'meta/assessment/assessment'
+import { Global } from 'meta/area'
 import { Assessments } from 'meta/assessment/assessments'
-import { Cycle } from 'meta/assessment/cycle'
 import { Routes } from 'meta/routes'
-import { User, Users } from 'meta/user'
+import { Users } from 'meta/user'
 import { UserRoles } from 'meta/user/userRoles'
 
 import { useAppDispatch } from 'client/store/hooks'
 import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useCycle } from 'client/store/meta/hooks/cycles'
-import { AppDispatch } from 'client/store/types'
 import { UserActions } from 'client/store/user/actions'
 import { useUser } from 'client/store/user/hooks/user'
 import { useCountryIso, useIsLoginRoute } from 'client/hooks'
-import { ToasterHook, useToaster } from 'client/hooks/useToaster'
+import { useToaster } from 'client/hooks/useToaster'
 import Icon from 'client/components/Icon'
 import PopoverControl, { PopoverItem } from 'client/components/PopoverControl'
 
-const getLinks = (
-  t: TFunction,
-  assessment: Assessment,
-  countryIso: CountryIso,
-  cycle: Cycle,
-  user: User,
-  dispatch: AppDispatch,
-  toaster: ToasterHook,
-  navigate: ReturnType<typeof useNavigate>
-) => {
+const useUserLinks = (): Array<PopoverItem> => {
+  const { t } = useTranslation()
+  const assessment = useAssessment()
+  const countryIso = useCountryIso()
+  const cycle = useCycle()
+  const dispatch = useAppDispatch()
+  const user = useUser()
+  const toaster = useToaster()
+  const navigate = useNavigate()
+
   const assessmentName = assessment.props.name
   const cycleName = cycle.name
   const userCountryIso = countryIso ?? UserRoles.getLastRole({ assessment, user })?.countryIso ?? Global.WO
+
+  if (!user) return []
+
+  const userProfileProps = { assessmentName, cycleName, countryIso: userCountryIso, id: String(user.id) }
   const items: Array<PopoverItem> = [
     {
       content: t<string>('header.editProfile'),
-      link: Routes.CountryUser.generatePath({ assessmentName, cycleName, countryIso: userCountryIso, id: user.id }),
+      link: Routes.CountryUser.generatePath(userProfileProps),
     },
   ]
+
   if (Users.isAdministrator(user)) {
     items.push({
       content: t<string>('admin.admin'),
       link: Routes.Admin.generatePath({ assessmentName, cycleName }),
     })
   }
+
   items.push(
     {
       divider: true,
@@ -58,26 +59,22 @@ const getLinks = (
         await dispatch(UserActions.logout()).unwrap()
         toaster.toaster.info(t('login.logoutSuccessful'))
         const lastPublishedCycleName = Assessments.getLastPublishedCycle(assessment).name
-        const assessmentName = assessment.props.name
         const path = Routes.Cycle.generatePath({ assessmentName, cycleName: lastPublishedCycleName })
         navigate(path)
       },
     }
   )
+
   return items
 }
 
 const LinksFRA: React.FC = () => {
-  const assessment = useAssessment()
-  const countryIso = useCountryIso()
-  const cycle = useCycle()
-  const dispatch = useAppDispatch()
-  const user = useUser()
-  const toaster = useToaster()
-  const navigate = useNavigate()
-
   const { t } = useTranslation()
+  const assessment = useAssessment()
+  const cycle = useCycle()
+  const user = useUser()
   const isLogin = useIsLoginRoute()
+  const userLinks = useUserLinks()
 
   const assessmentName = assessment.props.name
   const cycleName = cycle.name
@@ -85,7 +82,7 @@ const LinksFRA: React.FC = () => {
   return (
     <>
       {user && (
-        <PopoverControl items={getLinks(t, assessment, countryIso, cycle, user, dispatch, toaster, navigate)}>
+        <PopoverControl items={userLinks}>
           <div className="app-header__menu-item">
             {Users.getFullName(user)}
             <Icon className="icon-middle" name="small-down" />
@@ -105,4 +102,5 @@ const LinksFRA: React.FC = () => {
     </>
   )
 }
+
 export default LinksFRA
