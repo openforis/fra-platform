@@ -29,7 +29,7 @@ export const useListenLinksVerificationEvents = (): void => {
   const orderBy = useTablePaginatedOrderBy(path)
 
   const verifyLinksInProgress = useIsVerificationInProgress(assessmentName, cycleName)
-  const linksTableData = useTablePaginatedData(path)
+  const linksTableData = useTablePaginatedData({ path })
 
   useEffect(() => {
     const listener = (args: [{ event: keyof WorkerListener }]): void => {
@@ -56,7 +56,7 @@ export const useListenLinksVerificationEvents = (): void => {
 
   useEffect(() => {
     if (verifyLinksInProgress && !Objects.isEmpty(linksTableData)) {
-      dispatch(TablePaginatedActions.resetPaths({ paths: [path] }))
+      dispatch(TablePaginatedActions.resetData({ path }))
     }
   }, [dispatch, linksTableData, path, verifyLinksInProgress])
 }
