@@ -36,7 +36,7 @@ export default async (job: VisitCycleLinksJob): Promise<void> => {
 
     const [linksToVisit, approvedLinks] = await Promise.all([
       CycleDataController.Links.getAllLinksToVisit({ assessment, cycle }),
-      LinkRepository.getMany({ assessment, cycle, approved: true }),
+      LinkRepository.getMany({ assessment, cycle, filters: { approved: true } }),
     ])
 
     const mergedLinks = mergeLinks({ linksToVisit })

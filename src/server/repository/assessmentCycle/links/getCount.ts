@@ -1,34 +1,24 @@
 import { Objects } from 'utils/objects'
 
-import { Assessment } from 'meta/assessment/assessment'
-import { Cycle } from 'meta/assessment/cycle'
 import { TablePaginatedCount } from 'meta/tablePaginated'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'
+import { LinksGetManyProps } from 'server/repository/assessmentCycle/links/linksGetManyProps'
+import { getPropsToQueryParams } from 'server/repository/assessmentCycle/links/utils/getPropsToQueryParams'
 
-type Props = {
-  assessment: Assessment
-  cycle: Cycle
-  excludeDeleted?: boolean
-}
+export const getCount = async (props: LinksGetManyProps, client: BaseProtocol = DB): Promise<TablePaginatedCount> => {
+  const { queryParams, whereConditions } = getPropsToQueryParams(props)
 
-export const getCount = async (props: Props, client: BaseProtocol = DB): Promise<TablePaginatedCount> => {
-  const { assessment, cycle, excludeDeleted = true } = props
-
+  const { assessment, cycle } = props
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
-
-  let where = ''
-  if (excludeDeleted) {
-    where = "where (props->>'deleted')::boolean is distinct from true"
-  }
 
   return client.one(
     `
         select count(l.id) as total
         from ${schemaCycle}.link l
-        ${where}
+        where ${whereConditions.join(' and ')}
     `,
-    [],
+    queryParams,
     (res) => Objects.camelize(res)
   )
 }
