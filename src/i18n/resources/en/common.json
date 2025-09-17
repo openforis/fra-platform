@@ -73,6 +73,8 @@
   "source": "Source",
   "sources": "Sources",
   "statisticalFactsheets": "Statistical factsheets",
+  "status_one": "{{count}} Status",
+  "status_other": "{{count}} Statuses",
   "status": "Status",
   "submit": "Submit",
   "submitting": "Submitting...",

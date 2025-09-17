@@ -1,22 +1,11 @@
 import { Objects } from 'utils/objects'
 
-import { Assessment } from 'meta/assessment/assessment'
-import { Cycle } from 'meta/assessment/cycle'
 import { Link } from 'meta/cycleData'
 import { TablePaginatedOrderByDirection } from 'meta/tablePaginated'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'
-
-type Props = {
-  approved?: boolean
-  assessment: Assessment
-  cycle: Cycle
-  excludeDeleted?: boolean
-  limit?: number
-  offset?: number
-  orderBy?: string
-  orderByDirection?: TablePaginatedOrderByDirection
-}
+import { LinksGetManyProps } from 'server/repository/assessmentCycle/links/linksGetManyProps'
+import { getPropsToQueryParams } from 'server/repository/assessmentCycle/links/utils/getPropsToQueryParams'
 
 const _getOrderClause = (
   orderBy: string | undefined,
@@ -31,45 +20,25 @@ const _getOrderClause = (
   return `order by ${orderBy} ${direction}`
 }
 
-export const getMany = (props: Props, client: BaseProtocol = DB): Promise<Array<Link>> => {
-  const {
-    approved,
-    assessment,
-    cycle,
-    excludeDeleted = true,
-    limit: limitProp,
-    offset: offsetProp,
-    orderBy,
-    orderByDirection,
-  } = props
+export const getMany = (props: LinksGetManyProps, client: BaseProtocol = DB): Promise<Array<Link>> => {
+  const { assessment, cycle, orderBy, orderByDirection } = props
+
+  const order = _getOrderClause(orderBy, orderByDirection)
+
+  const { queryParams, whereConditions } = getPropsToQueryParams(props)
 
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
-
-  let where = ''
-  if (!Objects.isEmpty(approved)) {
-    where = `where jsonb_exists(props, 'approved') AND (props ->> 'approved')::boolean = $1`
-  }
-  if (excludeDeleted) {
-    if (where.length > 0) {
-      where += " and (props->>'deleted')::boolean is distinct from true"
-    } else {
-      where = "where (props->>'deleted')::boolean is distinct from true"
-    }
-  }
-  const limit = !Objects.isEmpty(limitProp) ? 'limit $2' : ''
-  const offset = !Objects.isEmpty(offsetProp) ? 'offset $3' : ''
-  const order = _getOrderClause(orderBy, orderByDirection)
 
   return client.map<Link>(
     `
         select *
         from ${schemaCycle}.link
-        ${where}
+        where ${whereConditions.join(' and ')}
         ${order}
-        ${limit}
-        ${offset}
+        ${queryParams.limit ? `limit $(limit)` : ''}
+        ${queryParams.offset ? `offset $(offset)` : ''}
      `,
-    [approved, limitProp, offsetProp],
+    queryParams,
     (row) => Objects.camelize(row)
   )
 }

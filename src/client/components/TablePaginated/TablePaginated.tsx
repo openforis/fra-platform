@@ -6,11 +6,9 @@ import classNames from 'classnames'
 
 import { useTablePaginatedCount } from 'client/store/tablePaginated/hooks/tablePaginated'
 import DataGrid from 'client/components/DataGridDeprecated'
-import Hr from 'client/components/Hr'
 import { PaginatorProps } from 'client/components/Paginator'
-import Filters from 'client/components/TablePaginated/Filters/Filters'
+import Actions from 'client/components/TablePaginated/Actions'
 
-import ExportButton from './ExportButton/ExportButton'
 import { useFetchData } from './hooks/useFetchData'
 import { useInitTablePaginated } from './hooks/useInitTablePaginated'
 import { useResetOnUnmount } from './hooks/useResetOnUnmount'
@@ -28,7 +26,6 @@ type Props<Datum extends object> = Pick<HTMLAttributes<HTMLDivElement>, 'classNa
   BaseProps<Datum> & {
     counter?: TablePaginatedCounter
     EmptyListComponent?: React.FC
-    export?: boolean
     header?: boolean
   }
 
@@ -43,7 +40,7 @@ const defaults: Readonly<Partial<Props<object>>> = {
   },
 }
 
-const TablePaginated = <Datum extends object>(props: Props<Datum>) => {
+const TablePaginated = <Datum extends object>(props: Props<Datum>): React.ReactElement => {
   const { className, gridTemplateColumns: gridTemplateColumnsProps } = props // HTMLDivElement Props
   const { marginPagesDisplayed, pageRangeDisplayed } = props // Paginator Props
   const { columns, filterFn, filters = defaults.filters, groups, limit = 30, path } = props // Base Props
@@ -52,6 +49,7 @@ const TablePaginated = <Datum extends object>(props: Props<Datum>) => {
     compareFn,
     counter = defaults.counter,
     export: exportTable,
+    extraActions,
     header = true,
     skeleton = defaults.skeleton,
     wrapCells = true,
@@ -69,18 +67,11 @@ const TablePaginated = <Datum extends object>(props: Props<Datum>) => {
     () => gridTemplateColumnsProps ?? `repeat(${columns.length}, auto)`,
     [columns.length, gridTemplateColumnsProps]
   )
-  const withFilters = useMemo<boolean>(() => filters.filter((filter) => !filter.hidden).length > 0, [filters])
 
   return (
     <div ref={divRef} className={classNames('table-paginated', className)}>
       <div>
-        {(exportTable || withFilters) && (
-          <div className="table-paginated-actions">
-            {exportTable && <ExportButton path={path} />}
-            {exportTable && withFilters && <Hr vertical />}
-            {withFilters && <Filters filters={filters} path={path} />}
-          </div>
-        )}
+        <Actions export={exportTable} extraActions={extraActions} filters={filters} path={path} />
         <DataGrid className="table-paginated-datagrid" style={{ gridTemplateColumns }}>
           {header && <Header columns={columns} path={path} />}
           {count?.total === 0 && <EmptyListComponent />}

@@ -4,7 +4,7 @@ import axios from 'axios'
 import { TablePaginatedBaseParams } from 'meta/api/request/tablePaginated'
 import { TablePaginatedFilterValues, TablePaginateds } from 'meta/tablePaginated'
 
-type Props = TablePaginatedBaseParams & {
+type Props = Omit<TablePaginatedBaseParams, 'filters'> & {
   filters?: Record<string, TablePaginatedFilterValues>
   path: string
 }
