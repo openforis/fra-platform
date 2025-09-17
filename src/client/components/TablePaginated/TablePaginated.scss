@@ -7,15 +7,6 @@
   grid-row-gap: $spacing-xs;
 }
 
-.table-paginated-actions {
-  align-items: center;
-  display: flex;
-  gap: $spacing-xs;
-  height: $spacing-l;
-  padding: $spacing-xxxs;
-  z-index: 1;
-}
-
 .table-paginated-datagrid {
   .data-grid-column {
     border: none;

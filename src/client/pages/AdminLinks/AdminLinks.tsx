@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react'
+import './AdminLinks.scss'
+import React, { useCallback, useEffect, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
@@ -22,9 +23,9 @@ const AdminLinks: React.FC = () => {
   const { t } = useTranslation()
   const { assessmentName, cycleName } = useSectionRouteParams()
 
-  const handleVerifyLinks = (): void => {
+  const handleVerifyLinks = useCallback<() => void>(() => {
     dispatch(LinksActions.verifyLinks({ assessmentName, cycleName }))
-  }
+  }, [assessmentName, cycleName, dispatch])
 
   const verifyLinksInProgress = useIsVerificationInProgress(assessmentName, cycleName)
   useLinksChangeListener()
@@ -34,18 +35,29 @@ const AdminLinks: React.FC = () => {
     dispatch(LinksActions.getIsVerificationInProgress({ assessmentName, cycleName }))
   }, [assessmentName, cycleName, dispatch])
 
-  return (
-    <>
+  const extraActions = useMemo<Array<React.ReactElement>>(
+    () => [
       <div>
-        <Button disabled={verifyLinksInProgress ?? true} label={t('admin.verifyLinks')} onClick={handleVerifyLinks} />
-      </div>
-      <TablePaginated
-        columns={columns}
-        filters={filters}
-        gridTemplateColumns="auto min-content min-content"
-        path={ApiEndPoint.CycleData.Links.many()}
-      />
-    </>
+        <Button
+          key="verify-links"
+          className="verify-links-button"
+          disabled={verifyLinksInProgress ?? true}
+          label={t('admin.verifyLinks')}
+          onClick={handleVerifyLinks}
+        />
+      </div>,
+    ],
+    [handleVerifyLinks, t, verifyLinksInProgress]
+  )
+
+  return (
+    <TablePaginated
+      columns={columns}
+      extraActions={extraActions}
+      filters={filters}
+      gridTemplateColumns="auto min-content min-content"
+      path={ApiEndPoint.CycleData.Links.many()}
+    />
   )
 }
 
