@@ -3,6 +3,7 @@ import '../scriptInit'
 import * as fs from 'node:fs'
 import * as path from 'node:path'
 import * as pgPromise from 'pg-promise'
+import { TotalLandAreaUpdateData, updateTotalLandArea } from 'tools/migrations/steps/steps/utils/updateTotalLandArea'
 import { CSV } from 'tools/utils/CSV'
 import { ToolsUtils } from 'tools/utils/toolsUtils'
 import { Objects } from 'utils/objects'
@@ -11,8 +12,7 @@ import { CountryIso } from 'meta/area'
 import { NodeValue } from 'meta/assessment/node'
 import { NodeExtType } from 'meta/nodeExt'
 
-import { AssessmentController } from 'server/controller/assessment'
-import { CacheController } from 'server/controller/cache'
+import { UserController } from 'server/controller/user'
 import { BaseProtocol, DB } from 'server/db'
 import { Logger } from 'server/utils/logger'
 
@@ -107,15 +107,18 @@ const _writeDb = async (values: Array<ValueType>, client: BaseProtocol): Promise
 const _totalLandArea = async (client: BaseProtocol): Promise<void> => {
   const values = await _getValues([totalLandAreaFile])
 
-  const query = `${pgp.helpers.update(values, cs)}
-    where v.country_iso = t.country_iso
-      and v.props->>'tableName' = t.props->>'tableName'
-      and v.props->>'variableName' = t.props->>'variableName'
-      and v.props->>'colName' = t.props->>'colName'`
+  const user = await UserController.getUserRobot(client)
+  const data = values.reduce<TotalLandAreaUpdateData>((acc, valueType) => {
+    // eslint-disable-next-line camelcase
+    const { country_iso, props, value } = valueType
+    // eslint-disable-next-line camelcase
+    const countryIso = country_iso as CountryIso
+    if (!acc[countryIso]) acc[countryIso] = []
+    acc[countryIso].push({ year: Number(props.colName), value: Number(value.raw) })
+    return acc
+  }, {})
 
-  await client.query(query)
-
-  Logger.info(`Updated ${values.length} records into database`)
+  await updateTotalLandArea({ cycleName, data, user }, client)
 }
 
 const processCSVFiles = async (): Promise<void> => {
@@ -128,12 +131,6 @@ const processCSVFiles = async (): Promise<void> => {
 
     // Update total land area values
     await _totalLandArea(client)
-
-    // Update data cache to display total land area updates around the platform (e.g. Table 1A)
-    Logger.info('Starting data cache update')
-    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName }, client)
-    await CacheController.generateData({ assessment, cycle, force: true }, client)
-    Logger.info('Completed data cache update')
   })
 }
 
