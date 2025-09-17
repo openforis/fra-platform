@@ -11,6 +11,7 @@ import { Objects } from 'utils/objects'
 import { AssessmentNames } from 'meta/assessment/assessment'
 
 import { AssessmentController } from 'server/controller/assessment'
+import { CacheController } from 'server/controller/cache'
 import { BaseProtocol, Schemas } from 'server/db'
 
 const assessmentName = AssessmentNames.fra
@@ -60,4 +61,6 @@ export default async (client: BaseProtocol): Promise<void> => {
                       and a.props ->> 'name' = 'fra'
     )
   `)
+
+  await CacheController.generateAssessments(client)
 }
