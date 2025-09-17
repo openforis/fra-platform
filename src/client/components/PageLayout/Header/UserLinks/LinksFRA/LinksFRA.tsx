@@ -1,11 +1,12 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import { TFunction } from 'i18next'
 
 import { CountryIso, Global } from 'meta/area'
 import { Assessment } from 'meta/assessment/assessment'
+import { Assessments } from 'meta/assessment/assessments'
 import { Cycle } from 'meta/assessment/cycle'
 import { Routes } from 'meta/routes'
 import { User, Users } from 'meta/user'
@@ -29,7 +30,8 @@ const getLinks = (
   cycle: Cycle,
   user: User,
   dispatch: AppDispatch,
-  toaster: ToasterHook
+  toaster: ToasterHook,
+  navigate: ReturnType<typeof useNavigate>
 ) => {
   const assessmentName = assessment.props.name
   const cycleName = cycle.name
@@ -52,8 +54,13 @@ const getLinks = (
     },
     {
       content: t<string>('header.logout'),
-      onClick: () => {
-        dispatch(UserActions.logout()).then(() => toaster.toaster.info(t('login.logoutSuccessful')))
+      onClick: async () => {
+        await dispatch(UserActions.logout()).unwrap()
+        toaster.toaster.info(t('login.logoutSuccessful'))
+        const lastPublishedCycleName = Assessments.getLastPublishedCycle(assessment).name
+        const assessmentName = assessment.props.name
+        const path = Routes.Cycle.generatePath({ assessmentName, cycleName: lastPublishedCycleName })
+        navigate(path)
       },
     }
   )
@@ -67,6 +74,7 @@ const LinksFRA: React.FC = () => {
   const dispatch = useAppDispatch()
   const user = useUser()
   const toaster = useToaster()
+  const navigate = useNavigate()
 
   const { t } = useTranslation()
   const isLogin = useIsLoginRoute()
@@ -77,7 +85,7 @@ const LinksFRA: React.FC = () => {
   return (
     <>
       {user && (
-        <PopoverControl items={getLinks(t, assessment, countryIso, cycle, user, dispatch, toaster)}>
+        <PopoverControl items={getLinks(t, assessment, countryIso, cycle, user, dispatch, toaster, navigate)}>
           <div className="app-header__menu-item">
             {Users.getFullName(user)}
             <Icon className="icon-middle" name="small-down" />
