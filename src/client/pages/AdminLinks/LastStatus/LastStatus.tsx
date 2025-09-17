@@ -4,7 +4,8 @@ import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
 
-import { Link as LinkType, LinkValidationStatusCode } from 'meta/cycleData'
+import { Link as LinkType } from 'meta/cycleData'
+import { Links } from 'meta/cycleData/links/links'
 
 type Props = {
   link: LinkType
@@ -15,13 +16,9 @@ const LastStatus: React.FC<Props> = (props) => {
   const { t } = useTranslation()
   const code = link.visits?.at(-1).code
 
-  let label = ''
-  if ([LinkValidationStatusCode.success, LinkValidationStatusCode.empty].includes(code)) {
-    label = t(`common.${code}`)
-  } else {
-    label = t(`admin.${code}`)
-  }
+  const labelKey = Links.getI18nValidationStatusLabelKey(code)
 
-  return <span className={classNames('last-status', code)}>{label}</span>
+  return <span className={classNames('last-status', code)}>{t(labelKey)}</span>
 }
+
 export default LastStatus
