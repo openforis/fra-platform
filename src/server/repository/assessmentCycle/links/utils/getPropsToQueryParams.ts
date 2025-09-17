@@ -10,10 +10,9 @@ export const getPropsToQueryParams = (props: LinksGetManyProps): Returned => {
 
   const { approved, codes, excludeDeleted = true } = filters
 
-  const queryParams: LinksQueryParams = {}
+  const queryParams: LinksQueryParams = { excludeDeleted }
 
   if (!Objects.isNil(approved)) queryParams.approved = approved
-  if (!Objects.isNil(excludeDeleted)) queryParams.excludeDeleted = excludeDeleted
 
   const hasCodes = !Objects.isEmpty(codes)
   if (hasCodes) queryParams.codes = codes
