@@ -2,8 +2,8 @@ import './Actions.scss'
 import React, { useMemo } from 'react'
 
 import Hr from 'client/components/Hr'
-import ExportButton from 'client/components/TablePaginated/ExportButton/ExportButton'
-import Filters from 'client/components/TablePaginated/Filters/Filters'
+import ExportButton from 'client/components/TablePaginated/ExportButton'
+import Filters from 'client/components/TablePaginated/Filters'
 import { Props as BaseProps } from 'client/components/TablePaginated/types'
 
 type Props = Pick<BaseProps<object>, 'export' | 'extraActions' | 'filters' | 'path'>

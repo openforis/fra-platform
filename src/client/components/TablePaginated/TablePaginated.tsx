@@ -7,7 +7,7 @@ import classNames from 'classnames'
 import { useTablePaginatedCount } from 'client/store/tablePaginated/hooks/tablePaginated'
 import DataGrid from 'client/components/DataGridDeprecated'
 import { PaginatorProps } from 'client/components/Paginator'
-import Actions from 'client/components/TablePaginated/Actions/Actions'
+import Actions from 'client/components/TablePaginated/Actions'
 
 import { useFetchData } from './hooks/useFetchData'
 import { useInitTablePaginated } from './hooks/useInitTablePaginated'
