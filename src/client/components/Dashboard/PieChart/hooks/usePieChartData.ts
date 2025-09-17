@@ -1,18 +1,23 @@
 import { useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area'
+import { Labels } from 'meta/assessment/labels'
 import { Table } from 'meta/assessment/table'
 import { PieChart, PieChartData } from 'meta/chart'
 import { RecordAssessmentDatas } from 'meta/data'
 
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { DashboardCSVData } from 'client/components/Dashboard/ButtonDataExport/ButtonDataExport'
 import { useData } from 'client/components/Dashboard/hooks/useData'
 
-export const usePieChartData = (table: Table, chart: PieChart): Array<PieChartData> => {
-  const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
+type Returned = { data: Array<PieChartData>; csvData: Array<DashboardCSVData> }
 
+export const usePieChartData = (table: Table, chart: PieChart): Returned => {
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
+  const { t } = useTranslation()
   const data = useData(table)
 
   const tableData = RecordAssessmentDatas.getTableData({
@@ -23,15 +28,26 @@ export const usePieChartData = (table: Table, chart: PieChart): Array<PieChartDa
     data,
   })
 
-  return useMemo<Array<PieChartData>>(() => {
-    if (Objects.isEmpty(tableData)) return []
+  return useMemo<Returned>((): Returned => {
+    if (Objects.isEmpty(tableData)) return { data: [], csvData: [] }
 
-    if (Objects.isEmpty(tableData)) return []
-    return chart.cells.map((cell) => {
+    const data = chart.cells.map((cell) => {
       return {
         ...cell,
         value: parseFloat(tableData[cell.columnName][cell.variableName].raw),
       }
     })
-  }, [chart.cells, tableData])
+
+    const csvData = data.map((pieData) => {
+      const { columnName, label, unit, value } = pieData
+      return {
+        variable: Labels.getLabel({ label, t }),
+        column: columnName,
+        value,
+        unit: t(unit),
+      }
+    })
+
+    return { data, csvData }
+  }, [chart.cells, t, tableData])
 }
