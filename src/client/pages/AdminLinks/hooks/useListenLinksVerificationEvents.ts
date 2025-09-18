@@ -12,6 +12,7 @@ import { useAppDispatch } from 'client/store/hooks'
 import { TablePaginatedActions } from 'client/store/tablePaginated/actions'
 import {
   useTablePaginatedData,
+  useTablePaginatedFilters,
   useTablePaginatedOrderBy,
   useTablePaginatedPage,
 } from 'client/store/tablePaginated/hooks/tablePaginated'
@@ -27,9 +28,10 @@ export const useListenLinksVerificationEvents = (): void => {
   const path = ApiEndPoint.CycleData.Links.many()
   const page = useTablePaginatedPage(path)
   const orderBy = useTablePaginatedOrderBy(path)
+  const filters = useTablePaginatedFilters(path)
 
   const verifyLinksInProgress = useIsVerificationInProgress(assessmentName, cycleName)
-  const linksTableData = useTablePaginatedData(path)
+  const linksTableData = useTablePaginatedData({ path })
 
   useEffect(() => {
     const listener = (args: [{ event: keyof WorkerListener }]): void => {
@@ -42,7 +44,7 @@ export const useListenLinksVerificationEvents = (): void => {
         dispatch(
           LinksActions.setIsVerificationInProgress({ assessmentName, cycleName, isVerificationInProgress: false })
         )
-        const getDataProps = { assessmentName, cycleName, limit: 30, orderBy, page, path }
+        const getDataProps = { assessmentName, cycleName, filters, limit: 30, orderBy, page, path }
         dispatch(TablePaginatedActions.getData(getDataProps))
         dispatch(TablePaginatedActions.getCount(getDataProps))
       }
@@ -52,11 +54,11 @@ export const useListenLinksVerificationEvents = (): void => {
     return () => {
       SocketClient.off(linksVerificationEvent, listener)
     }
-  }, [assessmentName, cycleName, dispatch, linksVerificationEvent, orderBy, page, path])
+  }, [assessmentName, cycleName, dispatch, filters, linksVerificationEvent, orderBy, page, path])
 
   useEffect(() => {
     if (verifyLinksInProgress && !Objects.isEmpty(linksTableData)) {
-      dispatch(TablePaginatedActions.resetPaths({ paths: [path] }))
+      dispatch(TablePaginatedActions.resetData({ path }))
     }
   }, [dispatch, linksTableData, path, verifyLinksInProgress])
 }

@@ -1,2 +1,2 @@
-export type { Link, LinkLocation, LinkProps, LinkToVisit, LinkVisit, VisitedLink } from './links'
-export { LinkValidationStatusCode } from './links'
+export type { Link, LinkLocation, LinkProps, LinkToVisit, LinkVisit, VisitedLink } from './link'
+export { LinkValidationStatusCode } from './link'

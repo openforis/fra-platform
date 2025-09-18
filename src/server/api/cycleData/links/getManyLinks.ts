@@ -1,25 +1,23 @@
 import { Response } from 'express'
 
-import { CycleRequest } from 'meta/api/request'
-import { TablePaginatedOrderByDirection } from 'meta/tablePaginated'
+import { TablePaginatedDataRequest } from 'meta/api/request/tablePaginated'
+import { TablePaginateds } from 'meta/tablePaginated'
+import { LinksFilters } from 'meta/tablePaginated/links'
 
 import { CycleDataController } from 'server/controller/cycleData'
 import Requests from 'server/utils/requests'
 
-type Request = CycleRequest & {
-  approved?: boolean
-  limit?: number
-  offset?: number
-  orderBy?: string
-  orderByDirection?: TablePaginatedOrderByDirection
-}
-
-export const getManyLinks = async (req: Request, res: Response): Promise<void> => {
+export const getManyLinks = async (req: TablePaginatedDataRequest, res: Response): Promise<void> => {
   try {
-    const { approved, limit, offset, orderBy, orderByDirection } = req.query
-    const { assessment, cycle } = req.context
+    const { filters: filtersReq, limit: limitReq, offset: offsetReq, orderBy, orderByDirection } = req.query
 
-    const props = { approved, assessment, cycle, limit, offset, orderBy, orderByDirection }
+    const filters = TablePaginateds.decodeFilters<LinksFilters>(filtersReq)
+    const limit = limitReq && Number(limitReq)
+    const offset = offsetReq && Number(offsetReq)
+
+    const { assessment, cycle } = req.context
+    const props = { assessment, cycle, filters, limit, offset, orderBy, orderByDirection }
+
     const links = await CycleDataController.Links.getMany(props)
 
     Requests.send(res, links)
