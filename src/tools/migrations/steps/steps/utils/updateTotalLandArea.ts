@@ -5,9 +5,13 @@ import { AssessmentNames } from 'meta/assessment/assessment'
 import { ColName } from 'meta/assessment/col'
 import { CycleName } from 'meta/assessment/cycle'
 import { TableNames } from 'meta/assessment/table'
+import { NodeUpdate, NodeUpdates } from 'meta/data'
 import { NodeExtType } from 'meta/nodeExt'
+import { User } from 'meta/user'
 
+import { AreaController } from 'server/controller/area'
 import { AssessmentController } from 'server/controller/assessment'
+import { updateDependents } from 'server/controller/cycleData/updateDependencies/updateDependents'
 import { BaseProtocol, Schemas } from 'server/db'
 import { DataRedisRepository } from 'server/repository/redis/data'
 
@@ -18,6 +22,7 @@ export type TotalLandAreaUpdateData = {
 type Props = {
   cycleName: CycleName
   data: TotalLandAreaUpdateData
+  user: User
 }
 
 type Meta = Record<ColName, { colUuid: string; rowUuid: string }>
@@ -27,9 +32,12 @@ const tableName = TableNames.extentOfForest
 const variableName = 'totalLandArea'
 
 export const updateTotalLandArea = async (props: Props, client: BaseProtocol): Promise<void> => {
-  const { cycleName, data } = props
+  const { cycleName, data, user } = props
 
-  const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName }, client)
+  const { assessment, cycle } = await AssessmentController.getOneWithCycle(
+    { assessmentName, cycleName, metaCache: true },
+    client
+  )
   const schemaAssessment = Schemas.getName(assessment)
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
 
@@ -139,5 +147,19 @@ export const updateTotalLandArea = async (props: Props, client: BaseProtocol): P
     const propsCache = { assessment, cycle, countryIso: countryIso as CountryIso, force: true }
     await DataRedisRepository.cacheCountryTable({ ...propsCache, tableName }, client)
     await DataRedisRepository.cacheCountryTable({ ...propsCache, tableName: TableNames.originalDataPointValue }, client)
+  })
+
+  // 6. update dependents
+  await Promises.each(dataEntries, async ([_countryIso, values]) => {
+    const countryIso = _countryIso as CountryIso
+    const country = await AreaController.getCountry({ assessment, countryIso, cycle }, client)
+    const nodes = values.reduce<Array<NodeUpdate>>((acc, value) => {
+      const { value: raw, year } = value
+      const colName = String(year)
+      acc.push({ tableName, variableName, colName, value: { raw } })
+      return acc
+    }, [])
+    const nodeUpdates: NodeUpdates = { assessmentName, cycleName, countryIso, nodes }
+    await updateDependents({ assessment, cycle, country, nodeUpdates, notifyClients: false, user }, client)
   })
 }

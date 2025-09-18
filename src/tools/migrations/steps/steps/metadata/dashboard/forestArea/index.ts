@@ -1,7 +1,6 @@
 import { getTable, RowsMetadata } from 'tools/migrations/steps/steps/metadata/dashboard/utils'
 import { unit } from 'tools/migrations/steps/steps/metadata/dashboard/utils/unit'
 
-import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { ChartColor } from 'meta/chart'
 import { DashboardBarChart, DashboardItemType } from 'meta/dashboard'
@@ -26,13 +25,13 @@ const rowMetadata = (region: boolean): RowsMetadata => [
   },
 ]
 
-export const forestArea = (assessment: Assessment, cycle: Cycle, region: boolean): DashboardBarChart => ({
+export const forestArea = (cycle: Cycle, region: boolean): DashboardBarChart => ({
   type: DashboardItemType.barChart,
   title: {
     key: 'statisticalFactsheets.forestArea.title',
     params: { startYear: cols[cycle.name].at(0), endYear: cols[cycle.name].at(-1), unit: unit(region) },
   },
-  table: getTable({ assessment, cycle, cols: cols[cycle.name], tableId, rowMetadata: rowMetadata(region), tableName }),
+  table: getTable({ cycle, cols: cols[cycle.name], tableId, rowMetadata: rowMetadata(region), tableName }),
   chart: {
     columns: cols[cycle.name],
     cells: [

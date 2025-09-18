@@ -17,7 +17,7 @@ type Props = {
   force?: boolean
 }
 
-const _validateCountryIso = (countryIso: CountryIso) => {
+const _validateCountryIso = (countryIso: CountryIso): void => {
   if (!Areas.isISOCountry(countryIso)) {
     throw new Error(`Error: Expected a valid area: country iso\nInstead received: "${countryIso}"`)
   }

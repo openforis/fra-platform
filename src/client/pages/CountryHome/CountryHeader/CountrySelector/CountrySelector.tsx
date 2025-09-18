@@ -31,7 +31,7 @@ const CountrySelector: React.FC = () => {
 
   const error = selection.length > 0 && selection.length < __MIN_COUNTRIES__
 
-  const onMenuClose = () => {
+  const onMenuClose = (): void => {
     if (!error) dispatch(CountryReportActions.setGlobalCountries(selection))
   }
 
@@ -50,8 +50,9 @@ const CountrySelector: React.FC = () => {
       <div className="country-selector">
         <Icon name="filter" />
         <CountryMultiSelect
+          allowAtlantis={false}
           error={errorMessage}
-          onChange={(value) => setSelection(value as Array<CountryIso>)}
+          onChange={(value): void => setSelection(value as Array<CountryIso>)}
           onMenuClose={onMenuClose}
           placeholder={t('common.filterCountries')}
           value={selection}

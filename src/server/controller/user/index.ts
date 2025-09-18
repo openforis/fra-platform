@@ -1,3 +1,6 @@
+import { User, UsersEmail } from 'meta/user'
+
+import { BaseProtocol, DB } from 'server/db'
 import { UserRepository } from 'server/repository/public/user'
 import { UserInvitationRepository } from 'server/repository/public/userInvitation'
 
@@ -16,6 +19,10 @@ import { removeInvitation } from './removeInvitation'
 import { sendInvitationEmail } from './sendInvitationEmail'
 import { update } from './update'
 
+const getUserRobot = async (client: BaseProtocol = DB): Promise<User> => {
+  return UserRepository.getOne({ allowDisabled: true, email: UsersEmail.robot }, client)
+}
+
 export const UserController = {
   create,
   count: UserRepository.count,
@@ -27,6 +34,7 @@ export const UserController = {
   getCountInvitations: UserInvitationRepository.getCount,
   getOne: UserRepository.getOne,
   getProfilePicture,
+  getUserRobot,
   remove,
   invite,
   acceptInvitation,

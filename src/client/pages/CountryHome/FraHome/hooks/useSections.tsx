@@ -1,7 +1,6 @@
 import { useMemo } from 'react'
 
 import { Areas } from 'meta/area'
-import { Cycles } from 'meta/assessment/cycles'
 import { SectionNames } from 'meta/routes'
 import { Users } from 'meta/user'
 
@@ -27,7 +26,8 @@ export const useSections = (): Array<CountryHomeSection> => {
 
     if (!cycle) return null
     const isCountry = Areas.isISOCountry(countryIso)
-    const showOverview = Cycles.isPublished(cycle) || Areas.isISOCountry(countryIso)
+    const showRegionDashboard = !Areas.isISOCountry(countryIso) && cycle.props.dashboard?.region
+    const showOverview = showRegionDashboard || Areas.isISOCountry(countryIso)
     const hasRoleInCountry = user && isCountry && Users.hasRoleInCountry({ countryIso, cycle, user })
 
     if (showOverview) {
