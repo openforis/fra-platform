@@ -21,6 +21,7 @@ const defaults: Readonly<Partial<Props>> = {
 
 const CountryMultiSelect: React.FC<Props> = (props) => {
   const {
+    allowAtlantis = true,
     allowedCountries,
     disabledOptions,
     error,
@@ -32,7 +33,7 @@ const CountryMultiSelect: React.FC<Props> = (props) => {
   } = props
 
   const { t } = useTranslation()
-  const optionGroups = useCountriesByRegionOptions({ allowedCountries, disabledOptions })
+  const optionGroups = useCountriesByRegionOptions({ allowedCountries, allowAtlantis, disabledOptions })
   const isOptionDisabled = useIsOptionDisabled(props)
   const tooltip = useTooltipContent({ allowedCountries, error, isMulti, value: (value as Array<CountryIso>) ?? [] })
   const { onMenuClose, onMenuOpen } = useMenuActions({ ...props, tooltip })
