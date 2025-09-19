@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 import { Link as LinkType } from 'meta/cycleData'
 
 import Button, { ButtonSize } from 'client/components/Buttons/Button'
-import Icon from 'client/components/Icon'
+import { useGetLocationLabel } from 'client/pages/AdminLinks/Locations/hooks/useGetLocationLabel'
 
 type Props = {
   link: LinkType
@@ -17,7 +17,7 @@ const Locations: React.FC<Props> = (props) => {
   const { t } = useTranslation()
 
   const { locations } = link
-
+  const getLabel = useGetLocationLabel()
   const [showLocations, setShowLocations] = useState(false)
 
   const onClick = useCallback<() => void>(() => {
@@ -39,16 +39,15 @@ const Locations: React.FC<Props> = (props) => {
 
       {showLocations && (
         <div className="locations">
-          {locations?.map(({ id, url }, idx) => (
+          {locations?.map((location, idx) => (
             <Link
-              key={`${String(idx)}-${id}`}
+              key={`${String(idx)}-${location.id}`}
               className="locations-link"
               rel="noreferrer"
               target="_blank"
-              to={String(url)}
+              to={String(location.url)}
             >
-              {`${t('common.link')} ${idx + 1}`}
-              <Icon name="external-link" />
+              • {getLabel(location)}
             </Link>
           ))}
         </div>

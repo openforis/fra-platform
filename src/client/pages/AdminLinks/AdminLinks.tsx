@@ -11,6 +11,7 @@ import { useSectionRouteParams } from 'client/hooks/useRouteParams'
 import Button from 'client/components/Buttons/Button'
 import TablePaginated from 'client/components/TablePaginated'
 import { useFilters } from 'client/pages/AdminLinks/hooks/useFilters'
+import { useInitSections } from 'client/pages/Country/hooks/useInitSections'
 
 import { useColumns } from './hooks/useColumns'
 import { useLinksChangeListener } from './hooks/useLinksChangeListener'
@@ -22,6 +23,8 @@ const AdminLinks: React.FC = () => {
   const dispatch = useAppDispatch()
   const { t } = useTranslation()
   const { assessmentName, cycleName } = useSectionRouteParams()
+
+  useInitSections()
 
   const handleVerifyLinks = useCallback<() => void>(() => {
     dispatch(LinksActions.verifyLinks({ assessmentName, cycleName }))

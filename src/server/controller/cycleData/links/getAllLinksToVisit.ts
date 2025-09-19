@@ -2,7 +2,7 @@ import { CountryIso } from 'meta/area'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { SectionNames } from 'meta/assessment/section'
-import { LinkToVisit } from 'meta/cycleData'
+import { LinkLocation, LinkToVisit } from 'meta/cycleData'
 import { Routes } from 'meta/routes'
 
 import { DescriptionRepository } from 'server/repository/assessmentCycle/descriptions'
@@ -11,22 +11,19 @@ import { OriginalDataPointRepository } from 'server/repository/assessmentCycle/o
 import { getLinksFromHtml } from './utils/getLinksFromHtml'
 
 type ProcessLinksProps = {
-  colName: string
   countryIso: CountryIso
   html: string
-  id: number
-  path?: Array<string>
-  tableName: string
-  url: string
-  uuid?: string
-}
+} & LinkLocation
 
 const _processLinks = (props: ProcessLinksProps): Array<LinkToVisit> => {
-  const { colName, countryIso, html, id, path, tableName, url, uuid } = props
+  const { countryIso, html, ...location } = props
+
   const links = getLinksFromHtml(html)
+
+  const locations = [location]
+
   return links.map((linkInfo) => {
     const { link, name } = linkInfo
-    const locations = [{ colName, id, path, tableName, url, uuid }]
     return { countryIso, link, locations, name }
   })
 }
@@ -42,7 +39,7 @@ const _getDescriptionDataSourcesLinks = async (props: Props): Promise<Array<Link
   const descriptionsByDataSourcesLinks = await DescriptionRepository.getManyWithDataSourcesLinks({ assessment, cycle })
 
   const linksToVisit: Array<LinkToVisit> = descriptionsByDataSourcesLinks.flatMap((description) => {
-    const { countryIso, id, sectionName, value } = description
+    const { countryIso, id, name, sectionName, value } = description
     return value.dataSources?.flatMap((dataSource) => {
       const { reference, uuid } = dataSource
       const urlParams = { assessmentName: assessment.props.name, cycleName: cycle.name, countryIso, sectionName }
@@ -50,9 +47,11 @@ const _getDescriptionDataSourcesLinks = async (props: Props): Promise<Array<Link
       return _processLinks({
         colName: 'value',
         countryIso,
+        descriptionName: name,
         html: reference,
         id,
         path: ['dataSources', 'reference'],
+        sectionName,
         tableName: 'descriptions',
         url,
         uuid,
@@ -69,15 +68,17 @@ const _getDescriptionTextLinks = async (props: Props): Promise<Array<LinkToVisit
   const descriptionsByTextLinks = await DescriptionRepository.getManyWithTextLinks({ assessment, cycle })
 
   const linksToVisit: Array<LinkToVisit> = descriptionsByTextLinks.flatMap((description) => {
-    const { countryIso, id, sectionName, value } = description
+    const { countryIso, id, name, sectionName, value } = description
     const urlParams = { assessmentName: assessment.props.name, countryIso, cycleName: cycle.name, sectionName }
     const url = Routes.Section.generatePath(urlParams)
     return _processLinks({
       colName: 'value',
       countryIso,
+      descriptionName: name,
       html: value.text,
       id,
       path: ['text'],
+      sectionName,
       tableName: 'descriptions',
       url,
     })
@@ -108,6 +109,7 @@ const _getOriginalDataPointLinks = async (props: Props): Promise<Array<LinkToVis
       id,
       tableName: 'original_data_point',
       url,
+      year,
     })
   })
 
@@ -123,6 +125,7 @@ const _getOriginalDataPointLinks = async (props: Props): Promise<Array<LinkToVis
         id,
         tableName: 'original_data_point',
         url,
+        year,
       })
     })
   )

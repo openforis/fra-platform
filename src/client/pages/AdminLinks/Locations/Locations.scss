@@ -4,6 +4,8 @@
   display: flex;
   flex-direction: column;
   margin-top: $spacing-xxs;
+  min-width: 240px;
+  white-space: normal;
 }
 
 .locations-count {
@@ -14,19 +16,9 @@
 .locations-link {
   align-items: center;
   color: $text-body;
-  display: grid;
-  grid-column-gap: $spacing-xxxs;
-  grid-template-columns: repeat(2, auto);
-  justify-content: start;
-  justify-items: start;
   text-decoration: none;
-  width: min-content;
 
   &:hover {
     text-decoration: underline;
-
-    svg {
-      color: $ui-accent;
-    }
   }
 }
