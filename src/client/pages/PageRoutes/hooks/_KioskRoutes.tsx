@@ -20,11 +20,11 @@ const ForestKids = React.lazy(
       'client/pages/Kiosk/ForestKids'
     )
 )
-const Fra2020DataPlatform = React.lazy(
+const FraDataPlatform = React.lazy(
   () =>
     import(
       /* webpackChunkName: "kiosk" */
-      'client/pages/Kiosk/Fra2020DataPlatform'
+      'client/pages/Kiosk/FraDataPlatform'
     )
 )
 const FraProcess = React.lazy(
@@ -97,7 +97,7 @@ export const KioskRoutes: React.ReactElement = (
     <Route element={<FraProcess />} path={Routes.FraProcess.path.relative} />
     <Route element={<LatestActivities />} path={Routes.LatestActivities.path.relative} />
     <Route element={<RecentHighlights />} path={Routes.RecentHighlights.path.relative} />
-    <Route element={<Fra2020DataPlatform />} path={Routes.Fra2020DataPlatform.path.relative} />
+    <Route element={<FraDataPlatform />} path={Routes.FraDataPlatform.path.relative} />
 
     <Route path={Routes.InteractiveStories.path.relative}>
       <Route element={<InteractiveStories />} index />
