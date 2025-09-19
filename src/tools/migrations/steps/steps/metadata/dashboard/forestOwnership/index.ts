@@ -1,7 +1,6 @@
 import { getTable, RowsMetadata } from 'tools/migrations/steps/steps/metadata/dashboard/utils'
 import { unit } from 'tools/migrations/steps/steps/metadata/dashboard/utils/unit'
 
-import { Assessment } from 'meta/assessment/assessment'
 import { Cycle, CycleName } from 'meta/assessment/cycle'
 import { ChartColor } from 'meta/chart'
 import { DashboardItemType, DashboardPieChart } from 'meta/dashboard'
@@ -22,7 +21,7 @@ const cols: Record<CycleName, Array<string>> = {
   '2025': ['2020'],
 }
 
-export const forestOwnership = (assessment: Assessment, cycle: Cycle, region: boolean): DashboardPieChart => {
+export const forestOwnership = (cycle: Cycle, region: boolean): DashboardPieChart => {
   const columnName = cols[cycle.name][0]
   const variables = variableNames.filter(({ cycleName }) => !cycleName || cycleName === cycle.name)
 
@@ -37,7 +36,7 @@ export const forestOwnership = (assessment: Assessment, cycle: Cycle, region: bo
   return {
     type: DashboardItemType.pieChart,
     title: { key: 'statisticalFactsheets.forestOwnership.title', params: { year: columnName } },
-    table: getTable({ assessment, cycle, cols: cols[cycle.name], tableId, rowMetadata, tableName }),
+    table: getTable({ cycle, cols: cols[cycle.name], tableId, rowMetadata, tableName }),
     chart: {
       cells: variables.map(({ color, variableName }) => ({
         variableName,

@@ -11,8 +11,12 @@ import { Logger } from 'server/utils/logger'
 
 import { UpdateDependenciesJob, UpdateDependenciesProps } from './props'
 
-export const updateDependents = async (props: UpdateDependenciesProps, client: BaseProtocol): Promise<void> => {
-  const { assessment, cycle, includeSourceNodes, user } = props
+type Props = Omit<UpdateDependenciesProps, 'client'> & {
+  notifyClients?: boolean
+}
+
+export const updateDependents = async (props: Props, client: BaseProtocol): Promise<void> => {
+  const { assessment, cycle, includeSourceNodes, notifyClients = true, user } = props
   const { countryIso, nodes } = props.nodeUpdates
   const { name: assessmentName } = assessment.props
   const { name: cycleName } = cycle
@@ -34,8 +38,10 @@ export const updateDependents = async (props: UpdateDependenciesProps, client: B
   const { externalDependants, nodeUpdates } = await worker(job)
 
   // 2. notify client
-  const nodeUpdateEvent = Sockets.getNodeValuesUpdateEvent({ assessmentName, cycleName, countryIso })
-  SocketServer.emit(nodeUpdateEvent, { nodeUpdates })
+  if (notifyClients) {
+    const nodeUpdateEvent = Sockets.getNodeValuesUpdateEvent({ assessmentName, cycleName, countryIso })
+    SocketServer.emit(nodeUpdateEvent, { nodeUpdates })
+  }
 
   Logger.debug(`[updateDependencies] [job-${job.id}] completed with ${nodeUpdates.nodes.length} nodes updated`)
 
@@ -44,7 +50,7 @@ export const updateDependents = async (props: UpdateDependenciesProps, client: B
     Logger.debug(
       `[updateDependencies] [job-${job.id}] scheduling ${externalNodeUpdates.nodes.length} external dependents`
     )
-    await updateExternalDependents({ countryIso, nodeUpdates: externalNodeUpdates, user }, client)
+    await updateExternalDependents({ countryIso, nodeUpdates: externalNodeUpdates, notifyClients, user }, client)
   })
 
   // 4. end

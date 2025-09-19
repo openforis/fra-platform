@@ -10,19 +10,24 @@ import { BaseProtocol } from 'server/db'
 type Props = {
   countryIso: CountryIso
   nodeUpdates: NodeUpdates
+  notifyClients?: boolean
   user: User
 }
 
 export const updateExternalDependents = async (props: Props, client: BaseProtocol): Promise<void> => {
-  const { countryIso, nodeUpdates, user } = props
+  const { countryIso, nodeUpdates, notifyClients = true, user } = props
 
   const { assessmentName, cycleName } = nodeUpdates
 
   const propsAssessment = { assessmentName, cycleName, metaCache: true }
-  const { assessment, cycle } = await AssessmentController.getOneWithCycle(propsAssessment)
-  const country = await AreaController.getCountry({ assessment, cycle, countryIso })
+  const { assessment, cycle } = await AssessmentController.getOneWithCycle(propsAssessment, client)
+  const countriesMap = await AreaController.getCountriesMap({ assessment, cycle }, client)
+  const country = countriesMap[countryIso]
 
   if (country) {
-    await updateDependents({ assessment, cycle, country, nodeUpdates, includeSourceNodes: true, user }, client)
+    await updateDependents(
+      { assessment, cycle, country, nodeUpdates, notifyClients, includeSourceNodes: true, user },
+      client
+    )
   }
 }
