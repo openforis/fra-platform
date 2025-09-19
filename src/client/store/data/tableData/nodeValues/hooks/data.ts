@@ -43,17 +43,11 @@ export const useRecordAssessmentDataWithOdp = (): RecordAssessmentData => {
       return recordTableData
     }
 
-    return {
-      [assessmentName]: {
-        ...(data[assessmentName] || {}),
-        [cycleName]: {
-          ...(data[assessmentName][cycleName] || {}),
-          [countryIso]: {
-            ...(data[assessmentName][cycleName][countryIso] || {}),
-            ...tableNames.reduce<RecordTableData>(reducer, {}),
-          },
-        },
-      },
-    }
+    const path = [assessmentName, cycleName, countryIso]
+    const newTableData = Objects.setInPath({ obj: {}, path, value: tableNames.reduce<RecordTableData>(reducer, {}) })
+
+    const tableData = Objects.cloneDeep(data)
+
+    return RecordAssessmentDatas.mergeData({ newTableData, tableData })
   }, [assessmentName, country.props.forestCharacteristics.useOriginalDataPoint, countryIso, cycleName, data, odpData])
 }
