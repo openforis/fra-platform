@@ -88,6 +88,13 @@
     "medium": "Medium",
     "notSelected": ""
   },
+  "tooltip": {
+    "lockEditing": "Lock editing",
+    "print": "Print",
+    "printOnlyTables": "Print only tables",
+    "unlockEditing": "Unlock editing",
+    "viewHistory": "View history"
+  },
   "total": "Total",
   "totalPercentage": "Total percentage",
   "trend": "Trend",

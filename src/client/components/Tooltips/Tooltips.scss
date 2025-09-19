@@ -50,5 +50,45 @@
         border-right: 1px solid $ui-accent;
       }
     }
+
+    &.success-tooltip {
+      color: color.adjust($ui-status-approval, $lightness: -15%, $space: hsl);
+      background-color: color.adjust($ui-status-approval, $lightness: 40%, $space: hsl);
+      border: 1px solid color.adjust($ui-status-approval, $lightness: -10%, $space: hsl);
+
+      max-width: 240px;
+      opacity: 0.95;
+
+      .success-tooltip-arrow {
+        border-bottom: 1px solid color.adjust($ui-status-approval, $lightness: -10%, $space: hsl);
+        border-right: 1px solid color.adjust($ui-status-approval, $lightness: -10%, $space: hsl);
+      }
+    }
+
+    &.black-tooltip {
+      color: white;
+      border: white solid 1px;
+      background-color: $ui-black-map;
+      max-width: 240px;
+      opacity: 0.95;
+
+      .black-tooltip-arrow {
+        border-bottom: 1px solid darken($text-body, 4%);
+        border-right: 1px solid darken($text-body, 4%);
+      }
+    }
+
+    &.white-tooltip {
+      color: $ui-black-map;
+      border: $ui-black-map solid 1px;
+      background-color: white;
+      max-width: 240px;
+      opacity: 0.95;
+
+      .white-tooltip-arrow {
+        border-bottom: 1px solid darken($text-body, 4%);
+        border-right: 1px solid darken($text-body, 4%);
+      }
+    }
   }
 }
