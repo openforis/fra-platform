@@ -1,8 +1,11 @@
 import './Lock.scss'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import MediaQuery from 'react-responsive'
 
 import classNames from 'classnames'
+
+import { TooltipId } from 'meta/tooltip'
 
 import { HistoryActions } from 'client/store/data/history/actions'
 import { useHistoryActivitiesIsActive } from 'client/store/data/history/hooks/activities'
@@ -12,10 +15,12 @@ import { CountryReportActions } from 'client/store/ui/countryReport/actions'
 import { useIsDataLocked } from 'client/store/ui/countryReport/hooks/datalock'
 import { useShowOriginalDatapoints } from 'client/store/ui/countryReport/hooks/originalDataPoints'
 import { useCanEditCycleData } from 'client/store/user/hooks/auth'
+import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
 import Icon from 'client/components/Icon'
 import { Breakpoints } from 'client/utils'
 
 const Lock: React.FC = () => {
+  const { t } = useTranslation()
   const dispatch = useAppDispatch()
 
   const canEditCycleData = useCanEditCycleData()
@@ -55,21 +60,23 @@ const Lock: React.FC = () => {
     }
   }, [canEditCycleData, historyActivitiesActive, locked, showOdps, toggleLock])
 
+  const iconName = (locked && !over) || (!locked && over) ? 'lock-circle' : 'lock-circle-open'
+
   return (
     <MediaQuery minWidth={Breakpoints.laptop}>
-      <button
+      <Button
+        key={`lock-button-${locked ? 'active' : 'inactive'}`}
         className={classNames('btn-lock', { locked })}
+        dataTooltipContent={locked ? t('common.tooltip.unlockPlatform') : t('common.tooltip.lockPlatform')}
+        dataTooltipId={locked ? TooltipId.error : TooltipId.success}
         disabled={disabled}
+        icon={<Icon className="icon-no-margin icon-sub" name={iconName} />}
         onClick={toggleLock}
-        onMouseEnter={() => setOver(true)}
-        onMouseLeave={() => setOver(false)}
-        type="button"
-      >
-        <Icon
-          className="icon-no-margin icon-sub"
-          name={(locked && !over) || (!locked && over) ? 'lock-circle' : 'lock-circle-open'}
-        />
-      </button>
+        onMouseEnter={(): void => setOver(true)}
+        onMouseLeave={(): void => setOver(false)}
+        size={ButtonSize.m}
+        type={ButtonType.black}
+      />
     </MediaQuery>
   )
 }

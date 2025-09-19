@@ -1,5 +1,7 @@
 import React, { InputHTMLAttributes } from 'react'
 
+import { TooltipId } from 'meta/tooltip'
+
 export enum ButtonSize {
   xs = 'xs',
   s = 's',
@@ -15,13 +17,18 @@ export enum ButtonType {
   transparent = 'transparent',
 }
 
-export type ButtonProps = Pick<InputHTMLAttributes<HTMLButtonElement>, 'className' | 'disabled' | 'onClick'> & {
+export type ButtonProps = Pick<
+  InputHTMLAttributes<HTMLButtonElement>,
+  'className' | 'disabled' | 'onClick' | 'onMouseEnter' | 'onMouseLeave'
+> & {
+  dataTooltipContent?: string | null
+  dataTooltipId?: TooltipId
   icon?: React.ReactNode
   iconName?: string
   inverse?: boolean
   label?: React.ReactNode
+  noBorder?: boolean
   noPrint?: boolean
   size?: ButtonSize
   type?: ButtonType
-  noBorder?: boolean
 }
