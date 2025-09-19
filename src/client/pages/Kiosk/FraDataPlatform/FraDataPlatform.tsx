@@ -1,10 +1,10 @@
 import 'client/pages/Kiosk/Kiosk.scss'
 import React from 'react'
 
-const Fra2020DataPlatform: React.FC = () => {
+const FraDataPlatform: React.FC = () => {
   return (
     <object
-      aria-label="FRA 2020 data platform"
+      aria-label="FRA data platform"
       className="kiosk-content__embedded-object"
       data="https://fra-data.fao.org/assessments/fra/2020"
       type="text/html"
@@ -12,4 +12,4 @@ const Fra2020DataPlatform: React.FC = () => {
   )
 }
 
-export default Fra2020DataPlatform
+export default FraDataPlatform

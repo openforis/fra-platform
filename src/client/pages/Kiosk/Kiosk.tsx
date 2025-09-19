@@ -20,10 +20,10 @@ const cards: Array<KioskCardProps> = [
     title: 'Recent \n highlights',
   },
   {
-    altText: 'FRA2020 data platform',
+    altText: 'FRA data platform',
     imageUrl: '/img/map.png',
-    link: Routes.Fra2020DataPlatform.path.relative,
-    title: 'FRA2020 \n data platform',
+    link: Routes.FraDataPlatform.path.relative,
+    title: 'FRA \n data platform',
   },
   {
     altText: 'Latest activities',
