@@ -89,10 +89,10 @@
     "notSelected": ""
   },
   "tooltip": {
-    "lockPlatform": "Lock the platform",
+    "lockEditing": "Lock editing",
     "print": "Print",
     "printOnlyTables": "Print only tables",
-    "unlockPlatform": "Unlock the platform",
+    "unlockEditing": "Unlock editing",
     "viewHistory": "View history"
   },
   "total": "Total",
