@@ -16,7 +16,7 @@ const Tooltips: React.FC = () => (
     />
 
     {tooltips.map((tooltip) => {
-      return <Tooltip className={tooltip} classNameArrow={`${tooltip}-arrow`} id={tooltip} />
+      return <Tooltip key={tooltip} className={tooltip} classNameArrow={`${tooltip}-arrow`} id={tooltip} />
     })}
   </div>
 )
