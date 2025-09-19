@@ -6,7 +6,7 @@ const FraDataPlatform: React.FC = () => {
     <object
       aria-label="FRA data platform"
       className="kiosk-content__embedded-object"
-      data="https://fra-data.fao.org/assessments/fra/2020"
+      data="https://fra-data.fao.org/"
       type="text/html"
     />
   )
