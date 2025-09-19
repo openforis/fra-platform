@@ -2,7 +2,7 @@
 
 @import 'src/client/style/partials';
 
-button.btn-lock {
+.button.btn-lock {
   align-items: center;
   background-color: color.adjust($ui-status-approval, $lightness: 40%, $space: hsl);
   border-radius: 2px;
