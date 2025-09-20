@@ -1,40 +1,44 @@
 import { Objects } from 'utils/objects'
 
 import { CountrySummary } from 'meta/area'
-import { Assessment } from 'meta/assessment/assessment'
-import { Cycle } from 'meta/assessment/cycle'
 import { TablePaginatedOrderByDirection } from 'meta/tablePaginated'
 
 import { BaseProtocol, DB } from 'server/db'
+import { CountrySummaryGetManyProps } from 'server/repository/assessmentCycle/countrySummary/countrySummaryGetManyProps'
+import { getPropsToQueryParams } from 'server/repository/assessmentCycle/countrySummary/utils/getPropsToQueryParams'
 
 import { getBaseQuery } from './_queries/getBaseQuery'
 
-type Props = {
-  assessment: Assessment
-  cycle: Cycle
-  limit?: string
-  offset?: string
-  orderBy?: string
-  orderByDirection?: TablePaginatedOrderByDirection
+const _getOrderClause = (
+  orderBy: string | undefined,
+  orderByDirection: TablePaginatedOrderByDirection | undefined
+): string => {
+  const direction = orderByDirection ?? TablePaginatedOrderByDirection.asc
+  if (Objects.isEmpty(orderBy)) return `order by country_iso ${direction} nulls last`
+  return `order by ${orderBy} ${direction} nulls last`
 }
 
-export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<Array<CountrySummary>> => {
-  const { assessment, cycle, limit, offset, orderBy, orderByDirection } = props
+export const getMany = async (
+  props: CountrySummaryGetManyProps,
+  client: BaseProtocol = DB
+): Promise<Array<CountrySummary>> => {
+  const { assessment, cycle, orderBy, orderByDirection } = props
 
   const baseQuery = getBaseQuery({ assessment, cycle })
+  const order = _getOrderClause(orderBy, orderByDirection)
+
+  const { queryParams, whereConditions } = getPropsToQueryParams(props)
 
   const query = `
     ${baseQuery}
     select *
     from country_summary
-    order by ${orderBy ?? 'country_iso'} ${orderByDirection ?? TablePaginatedOrderByDirection.asc} nulls last
-    ${limit ? 'limit $1' : ''} ${offset ? 'offset $2' : ''}
+    ${!Objects.isEmpty(whereConditions) ? `where ${whereConditions.join(' and ')}` : ''}
+    ${order}
+    ${queryParams.limit ? `limit $(limit)` : ''}
+    ${queryParams.offset ? `offset $(offset)` : ''}
     ;
   `
 
-  const params = []
-  if (limit) params.push(limit)
-  if (offset) params.push(offset)
-
-  return client.map(query, params, (rows) => Objects.camelize(rows))
+  return client.map(query, queryParams, (rows) => Objects.camelize(rows))
 }
