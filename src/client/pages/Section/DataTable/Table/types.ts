@@ -7,6 +7,7 @@ export type RowProps = {
   assessmentName: AssessmentName
   data: RecordAssessmentData
   disabled: boolean
+  hideReview?: boolean
   lastRow?: boolean
   row: Row
   rowCount: number

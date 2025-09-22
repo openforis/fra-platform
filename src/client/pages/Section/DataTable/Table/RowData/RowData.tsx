@@ -15,11 +15,11 @@ import Cell from './Cell'
 import CellHeader from './CellHeader'
 
 const RowData: React.FC<RowProps> = (props) => {
-  const { assessmentName, data, disabled, lastRow, row, rowCount, rowIndex, sectionName, table } = props
+  const { assessmentName, data, disabled, hideReview, lastRow, row, rowCount, rowIndex, sectionName, table } = props
 
   const { cols } = row
   const colHeader = [ColType.placeholder, ColType.header].includes(cols[0].props.colType) ? cols[0] : undefined
-  const actions = useRowActions({ colHeader, row, sectionName, table })
+  const actions = useRowActions({ colHeader, hideReview, row, sectionName, table })
   const highlightRange = useHighlightRange({ cols })
   const cycle = useCycle()
 
