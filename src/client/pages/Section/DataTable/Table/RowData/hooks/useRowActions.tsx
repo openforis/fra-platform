@@ -13,6 +13,7 @@ import { DataRowAction, DataRowActionType } from 'client/components/DataGrid'
 
 type Props = {
   colHeader?: Col
+  hideReview?: boolean
   row: Row
   sectionName: string
   table: Table
@@ -21,12 +22,12 @@ type Props = {
 type Returned = Array<DataRowAction>
 
 export const useRowActions = (props: Props): Returned => {
-  const { colHeader, row, sectionName, table } = props
+  const { colHeader, hideReview, row, sectionName, table } = props
 
   const { t } = useTranslation()
   const cycle = useCycle()
 
-  const withReview = !table.props.secondary || row.props.withReview?.[cycle.uuid]
+  const withReview = (!table.props.secondary || row.props.withReview?.[cycle.uuid]) && !hideReview
   const canViewReview = useCanViewReview(sectionName)
 
   return useMemo<Returned>(() => {

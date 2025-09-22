@@ -24,6 +24,7 @@ const Table: React.FC<Props> = (props: Props) => {
       assessmentName={assessmentName}
       data={data}
       disabled={disabled}
+      hideReview
       sectionName={sectionName}
       table={table}
     />
