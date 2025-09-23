@@ -13,7 +13,9 @@ type Props = {
   status: StatusTransition
 }
 
-export const useFilterFn = (props: Props) => {
+type Returned = (userSummary: CountryUserSummary) => boolean
+
+export const useFilterFn = (props: Props): Returned => {
   const { status } = props
   const user = useUser()
   const cycle = useCycle()
@@ -26,7 +28,7 @@ export const useFilterFn = (props: Props) => {
       const recipientRoles = UserRoles.getRecipientRoles(status)
       const role = Users.getRole(datum, countryIso, cycle)
 
-      return recipientRoles.includes(role.role)
+      return recipientRoles.includes(role?.role)
     },
     [countryIso, cycle, status, user.uuid]
   )
