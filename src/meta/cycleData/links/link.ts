@@ -1,12 +1,12 @@
 import { CountryIso } from 'meta/area'
 
 type LinkLocationBase = {
-  colName: string
   id: number
   url: string
 }
 
 type DescriptionsLocation = LinkLocationBase & {
+  colName: string
   descriptionName: string
   path: Array<string>
   sectionName: string
@@ -15,6 +15,7 @@ type DescriptionsLocation = LinkLocationBase & {
 
 type OriginalDataPointLocation = LinkLocationBase & {
   sectionName: 'originalDataPoint'
+  odpSection: string
   year: number
 }
 

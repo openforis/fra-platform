@@ -101,10 +101,10 @@ const _getOriginalDataPointLinks = async (props: Props): Promise<Array<LinkToVis
     const urlParams = { assessmentName, countryIso, cycleName, sectionName, year: String(year) }
     const url = Routes.OriginalDataPoint.generatePath(urlParams)
     return _processLinks({
-      colName: 'description',
       countryIso,
       html: description,
       id,
+      odpSection: 'description',
       sectionName: 'originalDataPoint',
       url,
       year,
@@ -117,10 +117,10 @@ const _getOriginalDataPointLinks = async (props: Props): Promise<Array<LinkToVis
       const urlParams = { assessmentName, countryIso, cycleName, sectionName, year: String(year) }
       const url = Routes.OriginalDataPoint.generatePath(urlParams)
       return _processLinks({
-        colName: 'data_source_references',
         countryIso,
         html: dataSourceReferences,
         id,
+        odpSection: 'data_source_references',
         sectionName: 'originalDataPoint',
         url,
         year,

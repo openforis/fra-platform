@@ -22,8 +22,9 @@ export const useGetLocationLabel = (): Returned => {
     (location) => {
       const { sectionName } = location
       if ('year' in location) {
-        const { colName, year } = location
-        const descriptionLabelKey = colName === 'description' ? 'dataSource.comments' : 'nationalDataPoint.dataSources'
+        const { odpSection, year } = location
+        const descriptionLabelKey =
+          odpSection === 'description' ? 'dataSource.comments' : 'nationalDataPoint.dataSources'
         return `${year} ${t('nationalDataPoint.nationalDataPoint')} - ${t(descriptionLabelKey)}`
       }
 
