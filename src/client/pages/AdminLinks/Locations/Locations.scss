@@ -1,0 +1,22 @@
+@import 'src/client/style/partials';
+
+.locations {
+  min-width: 240px;
+  white-space: normal;
+  padding-left: $spacing-s;
+}
+
+.locations-count {
+  display: flex;
+  gap: $spacing-xxs;
+}
+
+.locations-link {
+  align-items: center;
+  color: $text-body;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
