@@ -1,6 +1,25 @@
 import { CountryIso } from 'meta/area'
 
-export type LinkLocation = Record<string, Array<string> | number | string>
+type LinkLocationBase = {
+  id: number
+  url: string
+}
+
+type DescriptionsLocation = LinkLocationBase & {
+  colName: string
+  descriptionName: string
+  path: Array<string>
+  sectionName: string
+  uuid?: string
+}
+
+type OriginalDataPointLocation = LinkLocationBase & {
+  sectionName: 'originalDataPoint'
+  odpSection: string
+  year: number
+}
+
+export type LinkLocation = DescriptionsLocation | OriginalDataPointLocation
 
 export enum LinkValidationStatusCode {
   empty = 'empty',

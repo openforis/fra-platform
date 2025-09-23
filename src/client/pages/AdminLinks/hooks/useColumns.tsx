@@ -6,13 +6,7 @@ import { Link as LinkType } from 'meta/cycleData'
 import { Column } from 'client/components/TablePaginated'
 import LastStatus from 'client/pages/AdminLinks/LastStatus'
 import LinkItem from 'client/pages/AdminLinks/Link'
-
-const LocationsCount: React.FC<{ link: LinkType }> = (props) => {
-  const { link } = props
-  const { locations } = link
-
-  return <span>{locations?.length}</span>
-}
+import Locations from 'client/pages/AdminLinks/Locations'
 
 export const useColumns = (): Array<Column<LinkType>> => {
   const { t } = useTranslation()
@@ -32,7 +26,7 @@ export const useColumns = (): Array<Column<LinkType>> => {
         orderByProperty: 'code',
       },
       {
-        component: ({ datum }) => <LocationsCount link={datum} />,
+        component: ({ datum }) => <Locations link={datum} />,
         header: t('admin.locationsCount'),
         key: 'locationsCount',
       },
