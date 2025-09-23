@@ -72,9 +72,7 @@ export const primaryForestPercentOfForestArea = (cycle: Cycle, region: boolean):
         label: { key: `statisticalFactsheets.rowName.otherArea` },
         calculateFn: region
           ? `(${TableNames.extentOfForest}.forestArea__primaryForest- ${tableName}.${variableName}) / 1000`
-          : `${TableNames.extentOfForest}.forestArea ${region ? '/ 1000' : ''} - ${tableName}.${variableName} ${
-              region ? '/ 1000' : ''
-            }`,
+          : `${TableNames.extentOfForest}.forestArea - ${tableName}.${variableName}`,
         calculationDependencies: [
           { tableName, variableName },
           { tableName: TableNames.extentOfForest, variableName: `forestArea${region ? '__primaryForest' : ''}` },
