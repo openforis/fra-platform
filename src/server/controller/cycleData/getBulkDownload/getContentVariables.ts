@@ -1,5 +1,7 @@
 import { Promises } from 'utils/promises'
 
+import { ColName } from 'meta/assessment/col'
+import { CycleName } from 'meta/assessment/cycle'
 import { TableNames } from 'meta/assessment/table'
 import { Years } from 'meta/assessment/years'
 import { RecordAssessmentDatas } from 'meta/data'
@@ -14,8 +16,15 @@ import { TableRepository } from 'server/repository/assessment/table'
 import { getMetadata } from './utils/getMetadata'
 
 type Entries = Array<{ tableName: string; variables: Array<{ csvColumn: string; variableName: string }> }>
+type Returned = Array<{ fileName: string; content: Array<Record<string, string>> }>
 
-export const getContentVariables = async (props: Props & { fileName: string; entries: Entries }) => {
+const forestAreaColName: Record<CycleName, ColName> = {
+  '2020': '2020',
+  '2025': '2025',
+  latest: '2025',
+} as const
+
+export const getContentVariables = async (props: Props & { fileName: string; entries: Entries }): Promise<Returned> => {
   const { assessment, countries, cycle, entries, fileName } = props
   const isFRAYears = fileName === 'FRA_Years'
   const _climaticData = await climaticDomain(props)
@@ -64,6 +73,8 @@ export const getContentVariables = async (props: Props & { fileName: string; ent
       const content = countries.map((country) => {
         const { countryIso, regionCodes } = country
 
+        const forestAreaColumn = forestAreaColName[cycleName]
+
         const forestAreaProps = {
           assessmentName,
           cycleName,
@@ -71,7 +82,7 @@ export const getContentVariables = async (props: Props & { fileName: string; ent
           countryIso,
           tableName: TableNames.extentOfForest,
           variableName: 'forestArea',
-          colName: cycleName,
+          colName: forestAreaColumn,
         }
         const forestArea = RecordAssessmentDatas.getDatum(forestAreaProps)
 
@@ -79,7 +90,7 @@ export const getContentVariables = async (props: Props & { fileName: string; ent
           regions: regionCodes.join(';'),
           iso3: countryIso,
           name: countryIso,
-          [`forest area ${cycleName}`]: forestArea,
+          [`forest area ${forestAreaColumn}`]: forestArea,
           boreal: getClimaticValue('boreal', countryIso, climaticData),
           temperate: getClimaticValue('temperate', countryIso, climaticData),
           tropical: getClimaticValue('tropical', countryIso, climaticData),
