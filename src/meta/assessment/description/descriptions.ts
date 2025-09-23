@@ -5,7 +5,7 @@ type GetLabelKeyProps = {
   name: CommentableDescriptionName
 }
 
-const getI18nCommentableDescriptionLabelKey = (props: GetLabelKeyProps): string => {
+const getLabelKey = (props: GetLabelKeyProps): string => {
   const { isPanEuropean, name } = props
   switch (name) {
     case CommentableDescriptionName.dataSources:
@@ -28,5 +28,5 @@ const getI18nCommentableDescriptionLabelKey = (props: GetLabelKeyProps): string 
 }
 
 export const Descriptions = {
-  getI18nCommentableDescriptionLabelKey,
+  getLabelKey,
 }

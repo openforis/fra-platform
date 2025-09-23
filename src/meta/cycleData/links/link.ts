@@ -10,12 +10,11 @@ type DescriptionsLocation = LinkLocationBase & {
   descriptionName: string
   path: Array<string>
   sectionName: string
-  tableName: 'descriptions'
   uuid?: string
 }
 
 type OriginalDataPointLocation = LinkLocationBase & {
-  tableName: 'original_data_point'
+  sectionName: 'originalDataPoint'
   year: number
 }
 

@@ -20,18 +20,18 @@ export const useGetLocationLabel = (): Returned => {
 
   return useCallback<Returned>(
     (location) => {
-      const { tableName } = location
-      if (tableName === 'original_data_point') {
+      const { sectionName } = location
+      if ('year' in location) {
         const { colName, year } = location
         const descriptionLabelKey = colName === 'description' ? 'dataSource.comments' : 'nationalDataPoint.dataSources'
         return `${year} ${t('nationalDataPoint.nationalDataPoint')} - ${t(descriptionLabelKey)}`
       }
 
-      const { descriptionName, path, sectionName } = location
+      const { descriptionName, path } = location
 
       const descriptionLabelKey = path.includes('reference')
         ? 'dataSource.referenceToTataSource'
-        : Descriptions.getI18nCommentableDescriptionLabelKey({
+        : Descriptions.getLabelKey({
             name: descriptionName as CommentableDescriptionName,
             isPanEuropean,
           })

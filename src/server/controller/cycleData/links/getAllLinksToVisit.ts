@@ -52,7 +52,6 @@ const _getDescriptionDataSourcesLinks = async (props: Props): Promise<Array<Link
         id,
         path: ['dataSources', 'reference'],
         sectionName,
-        tableName: 'descriptions',
         url,
         uuid,
       })
@@ -79,7 +78,6 @@ const _getDescriptionTextLinks = async (props: Props): Promise<Array<LinkToVisit
       id,
       path: ['text'],
       sectionName,
-      tableName: 'descriptions',
       url,
     })
   })
@@ -107,13 +105,13 @@ const _getOriginalDataPointLinks = async (props: Props): Promise<Array<LinkToVis
       countryIso,
       html: description,
       id,
-      tableName: 'original_data_point',
+      sectionName: 'originalDataPoint',
       url,
       year,
     })
   })
 
-  linksToVisit.concat(
+  return linksToVisit.concat(
     odpsByReferenceLinks.flatMap((odp) => {
       const { countryIso, dataSourceReferences, id, year } = odp
       const urlParams = { assessmentName, countryIso, cycleName, sectionName, year: String(year) }
@@ -123,14 +121,12 @@ const _getOriginalDataPointLinks = async (props: Props): Promise<Array<LinkToVis
         countryIso,
         html: dataSourceReferences,
         id,
-        tableName: 'original_data_point',
+        sectionName: 'originalDataPoint',
         url,
         year,
       })
     })
   )
-
-  return linksToVisit
 }
 
 export const getAllLinksToVisit = async (props: Props): Promise<Array<LinkToVisit>> => {
