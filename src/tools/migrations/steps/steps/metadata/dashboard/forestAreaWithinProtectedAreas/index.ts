@@ -18,6 +18,7 @@ const variableName = 'forest_area_within_protected_areas'
 
 export const forestAreaWithinProtectedAreas = (cycle: Cycle, region: boolean): DashboardPieChart => {
   const columnName = cols[cycle.name][0]
+  const is2025 = cycle.name === '2025'
   const rowMetadata: RowsMetadata = [
     {
       id: 1,
@@ -34,13 +35,13 @@ export const forestAreaWithinProtectedAreas = (cycle: Cycle, region: boolean): D
       id: 2,
       variableName: 'forestArea',
       label: { key: `statisticalFactsheets.rowName.other` },
-      calculateFn: `${TableNames.extentOfForest}.forestArea ${region ? '/ 1000' : ''} - ${tableName}.${variableName} ${
+      calculateFn: `${TableNames.extentOfForest}.forestArea${is2025 ? '__protectedArea' : ''} ${
         region ? '/ 1000' : ''
-      }`,
+      } - ${tableName}.${variableName} ${region ? '/ 1000' : ''}`,
       // calculateFn: `100 - 100 * ${tableName}.${variableName} / ${TableNames.extentOfForest}.forestArea`,
       calculationDependencies: [
         { tableName, variableName },
-        { tableName: TableNames.extentOfForest, variableName: 'forestArea' },
+        { tableName: TableNames.extentOfForest, variableName: `forestArea${is2025 ? '__protectedArea' : ''}` },
       ],
     },
   ]

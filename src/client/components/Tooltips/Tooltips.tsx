@@ -4,18 +4,20 @@ import { Tooltip } from 'react-tooltip'
 
 import { TooltipId } from 'meta/tooltip'
 
+const tooltips = [TooltipId.black, TooltipId.error, TooltipId.info, TooltipId.success, TooltipId.white]
+
 const Tooltips: React.FC = () => (
   <div className="tooltip-container">
-    <Tooltip className={TooltipId.error} classNameArrow={`${TooltipId.error}-arrow`} id={TooltipId.error} />
-
-    <Tooltip className={TooltipId.info} classNameArrow={`${TooltipId.info}-arrow`} id={TooltipId.info} />
-
     <Tooltip
       className={TooltipId.info}
       classNameArrow={`${TooltipId.info}-arrow`}
       clickable
       id={TooltipId.infoClickable}
     />
+
+    {tooltips.map((tooltip) => {
+      return <Tooltip key={tooltip} className={tooltip} classNameArrow={`${tooltip}-arrow`} id={tooltip} />
+    })}
   </div>
 )
 

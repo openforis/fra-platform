@@ -1,6 +1,9 @@
 import './ButtonHistory.scss'
 import React, { useCallback } from 'react'
+import { useTranslation } from 'react-i18next'
 import MediaQuery from 'react-responsive'
+
+import { TooltipId } from 'meta/tooltip'
 
 import { HistoryActions } from 'client/store/data/history/actions'
 import { useHistoryLastApprovedIsActive } from 'client/store/data/history/hooks/lastApproved'
@@ -13,6 +16,7 @@ import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button
 import { Breakpoints } from 'client/utils'
 
 const ButtonHistory: React.FC = () => {
+  const { t } = useTranslation()
   const { countryIso } = useCountryRouteParams()
   const dispatch = useAppDispatch()
   const locked = useIsDataLocked()
@@ -35,10 +39,13 @@ const ButtonHistory: React.FC = () => {
   return (
     <MediaQuery minWidth={Breakpoints.laptop}>
       <Button
+        key={`history-button-${historyActive ? 'active' : 'inactive'}`}
         className="btn-history-last-approved"
+        dataTooltipContent={t('common.tooltip.viewHistory')}
+        dataTooltipId={historyActive ? TooltipId.black : TooltipId.white}
         iconName="history"
         inverse={!historyActive}
-        onClick={() => toggleHistory()}
+        onClick={(): void => toggleHistory()}
         size={ButtonSize.m}
         type={ButtonType.black}
       />

@@ -97,11 +97,80 @@ const _getValues = async (fileNames: Array<string>): Promise<Array<ValueType>> =
   return csvDataArrays.flat().flatMap(_handleRow)
 }
 
-const _writeDb = async (values: Array<ValueType>, client: BaseProtocol): Promise<void> => {
-  const query = pgp.helpers.insert(values, cs)
-  await client.query(query)
+type ExistingNode = {
+  country_iso: string
+  table_name: string
+  variable_name: string
+  col_name: string
+  value: NodeValue
+  type: string
+}
 
-  Logger.info(`Inserted ${values.length} records into database`)
+const _writeDb = async (values: Array<ValueType>, client: BaseProtocol): Promise<void> => {
+  const existingNodes: Array<ExistingNode> = await client.query(`
+    select
+      country_iso,
+      props->>'tableName' as table_name,
+      props->>'variableName' as variable_name,
+      props->>'colName' as col_name,
+      value,
+      type
+    from ${schema}.node_ext
+    where type = 'node' and props->>'variableName' != 'totalLandArea'
+  `)
+
+  const { insert, update } = values.reduce(
+    (acc, value) => {
+      const matchFn = (node: ExistingNode): boolean =>
+        node.country_iso === value.country_iso &&
+        node.table_name === value.props.tableName &&
+        node.variable_name === value.props.variableName &&
+        node.col_name === value.props.colName
+
+      const existingNode = existingNodes.find(matchFn)
+
+      if (existingNode) {
+        // Only update existing nodes IFF
+        if (existingNode.value.raw !== value.value.raw) {
+          acc.update.push(value)
+        }
+      } else {
+        acc.insert.push(value)
+      }
+
+      return acc
+    },
+    { update: [], insert: [] }
+  )
+
+  Logger.info(`Insert: ${insert.length}, Update: ${update.length}`)
+  Logger.info('Existing nodes count:', existingNodes.length)
+
+  if (insert.length > 0) {
+    const insertQuery = pgp.helpers.insert(insert, cs)
+    await client.query(insertQuery)
+    Logger.info(`Inserted ${insert.length} new records`)
+  }
+
+  if (update.length > 0) {
+    const _update = pgp.helpers.update(update, cs)
+    const updateQuery = `${_update}
+      where v.country_iso = t.country_iso and
+            v.props->>'tableName' = t.props->>'tableName' and
+            v.props->>'variableName' = t.props->>'variableName' and
+            v.props->>'colName' = t.props->>'colName'`
+    await client.query(updateQuery)
+    Logger.info(`Updated ${update.length} existing records`)
+  }
+
+  Logger.info(
+    `
+    Total processed:\t${values.length}\tnodes
+    Inserted:\t\t${insert.length}\tnodes
+    Updated:\t\t${update.length}\tnodes
+    Skipped:\t\t${values.length - insert.length - update.length}\tnodes
+    `
+  )
 }
 
 const _totalLandArea = async (client: BaseProtocol): Promise<void> => {
@@ -122,7 +191,7 @@ const _totalLandArea = async (client: BaseProtocol): Promise<void> => {
 }
 
 const processCSVFiles = async (): Promise<void> => {
-  // Inset new values
+  // Upsert new values
   const fileNames = _getFileNames().filter((n) => n !== totalLandAreaFile)
   const values = await _getValues(fileNames)
 

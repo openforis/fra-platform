@@ -25,15 +25,16 @@ import DataValidations from './DataValidations'
 
 type Props = {
   assessmentName: AssessmentName
-  sectionName: string
-  sectionAnchor?: string
-  table: TableType
   data: RecordAssessmentData
   disabled: boolean
+  hideReview?: boolean
+  sectionAnchor?: string
+  sectionName: string
+  table: TableType
 }
 
 const Table: React.FC<Props> = (props) => {
-  const { assessmentName, data, disabled, sectionAnchor = '', sectionName, table: _table } = props
+  const { assessmentName, data, disabled, hideReview, sectionAnchor = '', sectionName, table: _table } = props
 
   const isDataLocked = useIsDataLocked()
   const canEdit = useCanEdit(sectionName)
@@ -49,7 +50,7 @@ const Table: React.FC<Props> = (props) => {
   const gridRef = useRef<HTMLDivElement>(null)
   useCellBorderCorrection({ disabled, gridRef, rowsData: sortedRowsData, rowsHeader })
 
-  const withActions = withReview && canViewReview
+  const withActions = withReview && canViewReview && !hideReview
   const { name, secondary } = table.props
   const canClearData = !print && !isDataLocked && !table.props.readonly
 
@@ -99,6 +100,7 @@ const Table: React.FC<Props> = (props) => {
             assessmentName={assessmentName}
             data={data}
             disabled={disabled}
+            hideReview={hideReview}
             lastRow={index === sortedRowsData.length - 1}
             row={row}
             rowCount={rowsHeader.length + sortedRowsData.length}
