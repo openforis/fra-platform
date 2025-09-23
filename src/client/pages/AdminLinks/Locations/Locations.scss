@@ -1,11 +1,9 @@
 @import 'src/client/style/partials';
 
 .locations {
-  display: flex;
-  flex-direction: column;
-  margin-top: $spacing-xxs;
   min-width: 240px;
   white-space: normal;
+  padding-left: $spacing-s;
 }
 
 .locations-count {

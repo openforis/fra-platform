@@ -25,7 +25,7 @@ const Locations: React.FC<Props> = (props) => {
   }, [])
 
   return (
-    <div>
+    <>
       <div className="locations-count">
         <span>{locations?.length}</span>
         <Button
@@ -38,21 +38,17 @@ const Locations: React.FC<Props> = (props) => {
       </div>
 
       {showLocations && (
-        <div className="locations">
+        <ol className="locations">
           {locations?.map((location, idx) => (
-            <Link
-              key={`${String(idx)}-${location.id}`}
-              className="locations-link"
-              rel="noreferrer"
-              target="_blank"
-              to={String(location.url)}
-            >
-              • {getLabel(location)}
-            </Link>
+            <li key={`${String(idx)}-${location.id}`}>
+              <Link className="locations-link" rel="noreferrer" target="_blank" to={String(location.url)}>
+                {getLabel(location)}
+              </Link>
+            </li>
           ))}
-        </div>
+        </ol>
       )}
-    </div>
+    </>
   )
 }
 

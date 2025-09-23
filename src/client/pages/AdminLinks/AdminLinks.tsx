@@ -58,7 +58,7 @@ const AdminLinks: React.FC = () => {
       columns={columns}
       extraActions={extraActions}
       filters={filters}
-      gridTemplateColumns="auto min-content min-content"
+      gridTemplateColumns="2fr min-content minmax(264px, 1fr)" // 264px: Location width with padding
       path={ApiEndPoint.CycleData.Links.many()}
     />
   )
