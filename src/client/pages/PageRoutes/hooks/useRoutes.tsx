@@ -1,5 +1,5 @@
 import React, { Suspense, useMemo } from 'react'
-import { createRoutesFromElements, Navigate, Route } from 'react-router-dom'
+import { createRoutesFromElements, Navigate, Route, RouteObject } from 'react-router-dom'
 
 import { RegionCode } from 'meta/area'
 import { Routes } from 'meta/routes/routes'
@@ -20,7 +20,6 @@ import CycleHome from 'client/pages/CycleHome'
 import DataDownload from 'client/pages/DataDownload'
 import Geo from 'client/pages/Geo'
 import Landing from 'client/pages/Landing'
-import OriginalDataPoint from 'client/pages/OriginalDataPoint'
 import PanEuropeanRedirect from 'client/pages/PanEuropeanRedirect'
 import Print from 'client/pages/Print'
 import SectionAreaSwitch from 'client/pages/SectionAreaSwitch'
@@ -30,8 +29,9 @@ import User from 'client/pages/User'
 import { KioskRoutes } from './_KioskRoutes'
 
 const LoginLazy = React.lazy(() => import('client/pages/Login'))
+const OriginalDataPointLazy = React.lazy(() => import('client/pages/OriginalDataPoint'))
 
-export const useRoutes = () => {
+export const useRoutes = (): Array<RouteObject> => {
   return useMemo(() => {
     const children = (
       <>
@@ -65,7 +65,9 @@ export const useRoutes = () => {
                 <Route
                   element={
                     <SectionWrapper>
-                      <OriginalDataPoint />
+                      <Suspense>
+                        <OriginalDataPointLazy />
+                      </Suspense>
                     </SectionWrapper>
                   }
                   path={Routes.OriginalDataPoint.path.relative}

@@ -7,8 +7,11 @@ import { useNavigate } from 'react-router-dom'
 import { TableNames } from 'meta/assessment/table'
 
 import { useOriginalDataPoint } from 'client/store/data/originalDataPoint/hooks/originalDataPoint'
+import { OriginalDataPointSlice } from 'client/store/data/originalDataPoint/slice'
+import { injectDataSlice } from 'client/store/data/reducer'
 import { useIsEditTableDataEnabled } from 'client/store/user/hooks/auth'
 import { useCountryIso } from 'client/hooks'
+import { useOnMount } from 'client/hooks/useOnMount'
 
 import ButtonBar from './components/ButtonBar'
 import Comments from './components/Comments'
@@ -22,6 +25,10 @@ import { useGetReviewStatus } from './hooks/useGetReviewStatus'
 import { useReservedYears } from './hooks/useReservedYears'
 
 const OriginalDataPoint: React.FC = () => {
+  useOnMount(() => {
+    injectDataSlice(OriginalDataPointSlice)
+  })
+
   const { i18n } = useTranslation()
   const navigate = useNavigate()
   const countryIso = useCountryIso()
