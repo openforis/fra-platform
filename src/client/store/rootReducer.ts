@@ -2,14 +2,8 @@ import { combineReducers } from 'redux'
 
 import { ApplicationSlice } from 'client/store/application/slice'
 import { AreaSlice } from 'client/store/area/slice'
-import { ContactsSlice } from 'client/store/data/contacts/slice'
-import { DescriptionsSlice } from 'client/store/data/descriptions/slice'
-import { HistorySlice } from 'client/store/data/history/slice'
-import { LinkedDataSourcesSlice } from 'client/store/data/linkedDataSources/slice'
-import { OriginalDataPointSlice } from 'client/store/data/originalDataPoint/slice'
-import { EstimationsSlice } from 'client/store/data/tableData/estimations/slice'
-import { NodeValuesSlice } from 'client/store/data/tableData/nodeValues/slice'
-import { ValidationsReducer } from 'client/store/data/tableData/validations/slice'
+import { DataSliceName } from 'client/store/data/name'
+import { dataReducer } from 'client/store/data/reducer'
 import { DataExportSlice } from 'client/store/dataExport/slice'
 import { ExplorerDataSlice } from 'client/store/explorer/data/slice'
 import { ExplorerMetadataSlice } from 'client/store/explorer/metadata/slice'
@@ -27,18 +21,7 @@ import { UserSlice } from 'client/store/user/slice'
 export default {
   [ApplicationSlice.name]: ApplicationSlice.reducer,
   [AreaSlice.name]: AreaSlice.reducer,
-  data: combineReducers({
-    [ContactsSlice.name]: ContactsSlice.reducer,
-    [DescriptionsSlice.name]: DescriptionsSlice.reducer,
-    [HistorySlice.name]: HistorySlice.reducer,
-    [LinkedDataSourcesSlice.name]: LinkedDataSourcesSlice.reducer,
-    [OriginalDataPointSlice.name]: OriginalDataPointSlice.reducer,
-    tableData: combineReducers({
-      [EstimationsSlice.name]: EstimationsSlice.reducer,
-      [NodeValuesSlice.name]: NodeValuesSlice.reducer,
-      [ValidationsReducer.name]: ValidationsReducer.reducer,
-    }),
-  }),
+  [DataSliceName]: dataReducer,
   explorer: combineReducers({
     [ExplorerDataSlice.name]: ExplorerDataSlice.reducer,
     [ExplorerSelectionSlice.name]: ExplorerSelectionSlice.reducer,
