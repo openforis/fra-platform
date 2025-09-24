@@ -4,10 +4,6 @@ import { ApplicationSlice } from 'client/store/application/slice'
 import { AreaSlice } from 'client/store/area/slice'
 import { DataSliceName } from 'client/store/data/name'
 import { dataReducer } from 'client/store/data/reducer'
-import { DataExportSlice } from 'client/store/dataExport/slice'
-import { ExplorerDataSlice } from 'client/store/explorer/data/slice'
-import { ExplorerMetadataSlice } from 'client/store/explorer/metadata/slice'
-import { ExplorerSelectionSlice } from 'client/store/explorer/selection/slice'
 import { FileUploadSlice } from 'client/store/fileUpload/slice'
 import { MessageCenterSlice } from 'client/store/messageCenter/slice'
 import { MetaSlice } from 'client/store/meta/slice'
@@ -22,12 +18,6 @@ export default {
   [ApplicationSlice.name]: ApplicationSlice.reducer,
   [AreaSlice.name]: AreaSlice.reducer,
   [DataSliceName]: dataReducer,
-  explorer: combineReducers({
-    [ExplorerDataSlice.name]: ExplorerDataSlice.reducer,
-    [ExplorerSelectionSlice.name]: ExplorerSelectionSlice.reducer,
-    [ExplorerMetadataSlice.name]: ExplorerMetadataSlice.reducer,
-  }),
-  [DataExportSlice.name]: DataExportSlice.reducer,
   [FileUploadSlice.name]: FileUploadSlice.reducer,
   [MetaSlice.name]: MetaSlice.reducer,
   [MessageCenterSlice.name]: MessageCenterSlice.reducer,

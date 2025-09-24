@@ -4,6 +4,12 @@ import createDebounce from 'redux-debounced'
 
 import { LinksState } from 'client/store/admin/links/state'
 import { AdminSliceName } from 'client/store/admin/name'
+import { DataExportSliceName } from 'client/store/dataExport/slice/name'
+import { DataExportState } from 'client/store/dataExport/state'
+import { ExplorerDataState } from 'client/store/explorer/data/state'
+import { ExplorerMetadataState } from 'client/store/explorer/metadata/state'
+import { ExplorerSelectionState } from 'client/store/explorer/selection/state'
+import { ExplorerSliceName } from 'client/store/explorer/slice/name'
 import { GeoLayersState } from 'client/store/geo/layers/state'
 import { GeoMapState } from 'client/store/geo/map/state'
 import { GeoMosaicState } from 'client/store/geo/mosaic/state'
@@ -22,6 +28,12 @@ import rootReducer from './rootReducer'
 export interface LazyLoadedSlices {
   [AdminSliceName]: {
     links: LinksState
+  }
+  [DataExportSliceName]: DataExportState
+  [ExplorerSliceName]: {
+    data: ExplorerDataState
+    metadata: ExplorerMetadataState
+    selection: ExplorerSelectionState
   }
   [GeoSliceName]: {
     layers: GeoLayersState
