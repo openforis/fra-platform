@@ -5,7 +5,6 @@ import { RegionCode } from 'meta/area'
 import { Routes } from 'meta/routes/routes'
 
 import PageLayout from 'client/components/PageLayout'
-import Admin from 'client/pages/Admin'
 import AdminCollaborators from 'client/pages/AdminCollaborators'
 import AdminCountries from 'client/pages/AdminCountries'
 import AdminInvitations from 'client/pages/AdminInvitations'
@@ -24,12 +23,13 @@ import PanEuropeanRedirect from 'client/pages/PanEuropeanRedirect'
 import Print from 'client/pages/Print'
 import SectionAreaSwitch from 'client/pages/SectionAreaSwitch'
 import Tutorials from 'client/pages/Tutorials'
-import User from 'client/pages/User'
 
 import { KioskRoutes } from './_KioskRoutes'
 
 const LoginLazy = React.lazy(() => import('client/pages/Login'))
 const OriginalDataPointLazy = React.lazy(() => import('client/pages/OriginalDataPoint'))
+const AdminLazy = React.lazy(() => import('client/pages/Admin'))
+const UserLazy = React.lazy(() => import('client/pages/User'))
 
 export const useRoutes = (): Array<RouteObject> => {
   return useMemo(() => {
@@ -44,7 +44,14 @@ export const useRoutes = (): Array<RouteObject> => {
               <Route element={<CycleHome />} index />
 
               {/* Admin */}
-              <Route element={<Admin />} path={Routes.Admin.path.relative}>
+              <Route
+                element={
+                  <Suspense>
+                    <AdminLazy />
+                  </Suspense>
+                }
+                path={Routes.Admin.path.relative}
+              >
                 <Route element={<Navigate replace to={Routes.AdminCountries.path.relative} />} index />
                 <Route element={<AdminCountries />} path={Routes.AdminCountries.path.relative} />
                 <Route element={<AdminInvitations />} path={Routes.AdminInvitations.path.relative} />
@@ -59,7 +66,14 @@ export const useRoutes = (): Array<RouteObject> => {
               <Route element={<Country />} path={Routes.Country.path.relative}>
                 <Route element={<Navigate replace to={Routes.CountryHome.path.relative} />} index />
                 <Route element={<CountryHome />} path={`${Routes.CountryHome.path.relative}/*`} />
-                <Route element={<User />} path={Routes.CountryUser.path.relative} />
+                <Route
+                  element={
+                    <Suspense>
+                      <UserLazy />
+                    </Suspense>
+                  }
+                  path={Routes.CountryUser.path.relative}
+                />
                 <Route element={<DataDownload />} path={Routes.CountryDataDownload.path.relative} />
                 <Route element={<Geo />} path={Routes.Geo.path.relative} />
                 <Route
