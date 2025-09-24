@@ -16,8 +16,6 @@ import SectionWrapper from 'client/pages/Country/SectionWrapper'
 import CountryHome from 'client/pages/CountryHome'
 import Cycle from 'client/pages/Cycle'
 import CycleHome from 'client/pages/CycleHome'
-import DataDownload from 'client/pages/DataDownload'
-import Geo from 'client/pages/Geo'
 import Landing from 'client/pages/Landing'
 import PanEuropeanRedirect from 'client/pages/PanEuropeanRedirect'
 import Print from 'client/pages/Print'
@@ -30,6 +28,8 @@ const LoginLazy = React.lazy(() => import('client/pages/Login'))
 const OriginalDataPointLazy = React.lazy(() => import('client/pages/OriginalDataPoint'))
 const AdminLazy = React.lazy(() => import('client/pages/Admin'))
 const UserLazy = React.lazy(() => import('client/pages/User'))
+const GeoLazy = React.lazy(() => import('client/pages/Geo'))
+const DataDownloadLazy = React.lazy(() => import('client/pages/DataDownload'))
 
 export const useRoutes = (): Array<RouteObject> => {
   return useMemo(() => {
@@ -74,8 +74,22 @@ export const useRoutes = (): Array<RouteObject> => {
                   }
                   path={Routes.CountryUser.path.relative}
                 />
-                <Route element={<DataDownload />} path={Routes.CountryDataDownload.path.relative} />
-                <Route element={<Geo />} path={Routes.Geo.path.relative} />
+                <Route
+                  element={
+                    <Suspense>
+                      <DataDownloadLazy />
+                    </Suspense>
+                  }
+                  path={Routes.CountryDataDownload.path.relative}
+                />
+                <Route
+                  element={
+                    <Suspense>
+                      <GeoLazy />
+                    </Suspense>
+                  }
+                  path={Routes.Geo.path.relative}
+                />
                 <Route
                   element={
                     <SectionWrapper>
