@@ -7,7 +7,7 @@ import { AreaController } from 'server/controller/area'
 import { MailService } from 'server/service'
 import Requests from 'server/utils/requests'
 
-export const postCountry = async (
+export const updateCountry = async (
   req: CycleRequest<{ notifySelf: string; notifyUsers: string }, { country: Country; message: string }>,
   res: Response
 ): Promise<void> => {
