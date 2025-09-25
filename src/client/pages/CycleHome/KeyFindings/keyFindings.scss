@@ -24,6 +24,8 @@
   grid-row: 1 / span 2;
 
   .map {
+    mix-blend-mode: multiply; // blend to background: removes white background
+    max-height: 620px;
     width: 100%;
   }
 
