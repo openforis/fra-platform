@@ -1,11 +1,10 @@
 import React, { Suspense, useMemo } from 'react'
-import { createRoutesFromElements, Navigate, Route } from 'react-router-dom'
+import { createRoutesFromElements, Navigate, Route, RouteObject } from 'react-router-dom'
 
 import { RegionCode } from 'meta/area'
 import { Routes } from 'meta/routes/routes'
 
 import PageLayout from 'client/components/PageLayout'
-import Admin from 'client/pages/Admin'
 import AdminCollaborators from 'client/pages/AdminCollaborators'
 import AdminCountries from 'client/pages/AdminCountries'
 import AdminInvitations from 'client/pages/AdminInvitations'
@@ -17,21 +16,22 @@ import SectionWrapper from 'client/pages/Country/SectionWrapper'
 import CountryHome from 'client/pages/CountryHome'
 import Cycle from 'client/pages/Cycle'
 import CycleHome from 'client/pages/CycleHome'
-import DataDownload from 'client/pages/DataDownload'
-import Geo from 'client/pages/Geo'
 import Landing from 'client/pages/Landing'
-import OriginalDataPoint from 'client/pages/OriginalDataPoint'
 import PanEuropeanRedirect from 'client/pages/PanEuropeanRedirect'
 import Print from 'client/pages/Print'
 import SectionAreaSwitch from 'client/pages/SectionAreaSwitch'
 import Tutorials from 'client/pages/Tutorials'
-import User from 'client/pages/User'
 
 import { KioskRoutes } from './_KioskRoutes'
 
 const LoginLazy = React.lazy(() => import('client/pages/Login'))
+const OriginalDataPointLazy = React.lazy(() => import('client/pages/OriginalDataPoint'))
+const AdminLazy = React.lazy(() => import('client/pages/Admin'))
+const UserLazy = React.lazy(() => import('client/pages/User'))
+const GeoLazy = React.lazy(() => import('client/pages/Geo'))
+const DataDownloadLazy = React.lazy(() => import('client/pages/DataDownload'))
 
-export const useRoutes = () => {
+export const useRoutes = (): Array<RouteObject> => {
   return useMemo(() => {
     const children = (
       <>
@@ -44,7 +44,14 @@ export const useRoutes = () => {
               <Route element={<CycleHome />} index />
 
               {/* Admin */}
-              <Route element={<Admin />} path={Routes.Admin.path.relative}>
+              <Route
+                element={
+                  <Suspense>
+                    <AdminLazy />
+                  </Suspense>
+                }
+                path={Routes.Admin.path.relative}
+              >
                 <Route element={<Navigate replace to={Routes.AdminCountries.path.relative} />} index />
                 <Route element={<AdminCountries />} path={Routes.AdminCountries.path.relative} />
                 <Route element={<AdminInvitations />} path={Routes.AdminInvitations.path.relative} />
@@ -59,13 +66,36 @@ export const useRoutes = () => {
               <Route element={<Country />} path={Routes.Country.path.relative}>
                 <Route element={<Navigate replace to={Routes.CountryHome.path.relative} />} index />
                 <Route element={<CountryHome />} path={`${Routes.CountryHome.path.relative}/*`} />
-                <Route element={<User />} path={Routes.CountryUser.path.relative} />
-                <Route element={<DataDownload />} path={Routes.CountryDataDownload.path.relative} />
-                <Route element={<Geo />} path={Routes.Geo.path.relative} />
+                <Route
+                  element={
+                    <Suspense>
+                      <UserLazy />
+                    </Suspense>
+                  }
+                  path={Routes.CountryUser.path.relative}
+                />
+                <Route
+                  element={
+                    <Suspense>
+                      <DataDownloadLazy />
+                    </Suspense>
+                  }
+                  path={Routes.CountryDataDownload.path.relative}
+                />
+                <Route
+                  element={
+                    <Suspense>
+                      <GeoLazy />
+                    </Suspense>
+                  }
+                  path={Routes.Geo.path.relative}
+                />
                 <Route
                   element={
                     <SectionWrapper>
-                      <OriginalDataPoint />
+                      <Suspense>
+                        <OriginalDataPointLazy />
+                      </Suspense>
                     </SectionWrapper>
                   }
                   path={Routes.OriginalDataPoint.path.relative}
