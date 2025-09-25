@@ -15,10 +15,10 @@ type Props = {
   notifyUsers?: boolean
 }
 
-export const updateCountry = createAsyncThunk<Country, Props>('assessment/post/country', async (props) => {
+export const updateCountry = createAsyncThunk<Country, Props>('assessment/patch/country', async (props) => {
   const { assessmentName, country, countryIso, cycleName, message, notifySelf, notifyUsers } = props
 
   const params = { assessmentName, countryIso, cycleName, notifySelf, notifyUsers }
-  const { data } = await axios.post(ApiEndPoint.Area.country(), { country, message }, { params })
+  const { data } = await axios.patch(ApiEndPoint.Area.country(), { country, message }, { params })
   return data
 })
