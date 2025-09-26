@@ -23,6 +23,7 @@ const KeyFindings: React.FC = () => {
     <div className="home-key-findings">
       <div className="home-key-findings__map">
         <img
+          key={cycleName}
           alt={t(`home.mapAltText.${cycleName}`)}
           className="map"
           src={ApiEndPoint.Static.file(`fra/${cycleName}/landing/map.png?${searchParams.toString()}`)}
