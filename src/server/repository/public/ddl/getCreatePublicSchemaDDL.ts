@@ -109,6 +109,7 @@ export const getCreatePublicSchemaDDL = (schemaName = 'public'): string => {
       country_iso character varying(3) primary key not null,
       country_iso2 character varying(2),
       calling_code character varying(10),
+      labels jsonb not null default '{}'::jsonb,
       config jsonb not null default '{}'::jsonb
     );
 
@@ -157,7 +158,8 @@ export const getCreatePublicSchemaDDL = (schemaName = 'public'): string => {
 
     create table if not exists ${schemaName}.region (
       region_code text primary key not null,
-      name text
+      name text,
+      labels jsonb not null default '{}'::jsonb
     );
 
     create table if not exists ${schemaName}.users_auth_provider (

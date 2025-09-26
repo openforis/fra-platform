@@ -143,6 +143,7 @@ export const getCreateSchemaCycleDDL = (assessmentSchemaName: string, assessment
           calling_code varchar(10),
           props jsonb default '{}'::jsonb,
           status varchar(16) default '${CountryStatus.notStarted}'::varchar,
+          labels jsonb not null default '{}'::jsonb,
           last_update timestamptz,
           last_edit timestamptz,
           last_edit_odp timestamptz,
@@ -165,6 +166,7 @@ export const getCreateSchemaCycleDDL = (assessmentSchemaName: string, assessment
       (
         region_group_id bigint references ${assessmentCycleSchemaName}.region_group (id) on update cascade on delete cascade,
         region_code varchar references region on update cascade on delete cascade,
+        labels jsonb not null default '{}'::jsonb,
           unique (region_code, region_group_id)
       );
       
