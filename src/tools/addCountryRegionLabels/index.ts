@@ -80,9 +80,11 @@ const _updateRegionTable = async (regionLabels: Array<RegionLabelUpdate>, client
 const addCountryRegionLabels = async (): Promise<void> => {
   await _updateDDL()
 
-  const i18nInstances = await _createI18nInstances()
-  const countryIsos = await _getPublicCountryIsos()
-  const regionCodes = await _getPublicRegionCodes()
+  const [i18nInstances, countryIsos, regionCodes] = await Promise.all([
+    _createI18nInstances(),
+    _getPublicCountryIsos(),
+    _getPublicRegionCodes(),
+  ])
 
   const countryLabels: Array<CountryLabelUpdate> = countryIsos.map((countryIso) => {
     const labels = {} as Record<Lang, string>
