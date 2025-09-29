@@ -9,6 +9,7 @@ import { Cycles } from 'meta/assessment/cycles'
 import { MessageTopicStatus } from 'meta/messageCenter'
 import { Authorizer, CollaboratorEditPropertyType, User, Users } from 'meta/user'
 
+import { AssessmentController } from 'server/controller/assessment'
 import { CycleDataController } from 'server/controller/cycleData'
 import { MessageCenterController } from 'server/controller/messageCenter'
 import { MetadataController } from 'server/controller/metadata'
@@ -33,9 +34,15 @@ const _getAuthCycleProps = async (req: Request, next: NextFunction): Promise<Aut
     next(new Error(`missingParam ${JSON.stringify({ countryIso, assessmentName, cycleName })}`))
   }
 
-  const { assessment, country, cycle } = req.context
-
+  let { assessment, cycle } = req.context
+  const { country } = req.context
   const user = Requests.getUser(req)
+
+  if (assessmentName !== assessment.props.name || cycleName !== cycle.name) {
+    const assessmentCycle = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+    assessment = assessmentCycle.assessment
+    cycle = assessmentCycle.cycle
+  }
 
   return { assessment, cycle, country, countryIso, user }
 }
