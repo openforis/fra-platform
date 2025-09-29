@@ -15,6 +15,7 @@ import { useShowRegions } from 'client/hooks/useShowRegions'
 import AreaSelector from 'client/components/AreaSelector/AreaSelector'
 import LinkHome from 'client/components/LinkHome'
 import EditorOptions from 'client/components/PageLayout/Toolbar/EditorOptions'
+import LinkDataDownload from 'client/components/PageLayout/Toolbar/LinkDataDownload'
 import Options from 'client/components/PageLayout/Toolbar/Options'
 import Published from 'client/components/PageLayout/Toolbar/Published'
 import { Breakpoints } from 'client/utils'
@@ -72,6 +73,13 @@ const Toolbar: React.FC = () => {
         <LoadingIndicator />
       </MediaQuery>
 
+      {!isCountry && (
+        <MediaQuery minWidth={Breakpoints.laptop}>
+          <div className="toolbar-options">
+            <LinkDataDownload />
+          </div>
+        </MediaQuery>
+      )}
       {isCountry && (
         <MediaQuery minWidth={Breakpoints.laptop}>
           <Options />

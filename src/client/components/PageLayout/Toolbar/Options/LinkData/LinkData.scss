@@ -1,0 +1,32 @@
+@use 'sass:color';
+
+@import 'src/client/style/partials';
+
+// reset button style
+button.toolbar__data-link {
+  background: none;
+  border: none;
+}
+
+a.toolbar__data-link,
+button.toolbar__data-link {
+  text-decoration: none;
+  color: $text-link;
+  font-size: $font-m;
+  font-weight: 500;
+  outline: none;
+  margin: $spacing-xxxs;
+
+  &:hover {
+    color: $ui-accent;
+  }
+
+  &.disabled {
+    $disabledColor: color.adjust($text-link, $lightness: 25%, $space: hsl);
+    color: $disabledColor;
+    cursor: default;
+    &:hover {
+      color: $disabledColor;
+    }
+  }
+}

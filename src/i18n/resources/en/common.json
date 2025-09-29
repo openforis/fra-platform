@@ -93,7 +93,9 @@
     "print": "Print",
     "printOnlyTables": "Print only tables",
     "unlockEditing": "Unlock editing",
-    "viewHistory": "View history"
+    "viewHistory": "View history",
+    "dataExplorer": "Find and compare data between countries",
+    "dataDownload": "Download global data"
   },
   "total": "Total",
   "totalPercentage": "Total percentage",
@@ -106,6 +108,7 @@
   "variable": "FRA Variable",
   "variable_one": "{{count}} FRA Variable",
   "variable_other": "{{count}} FRA Variables",
+  "variableData": "Variable data",
   "view": "View",
   "year": "Year",
   "yes": "Yes"
