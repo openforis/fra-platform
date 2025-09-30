@@ -1,6 +1,7 @@
 import './LinkData.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+import MediaQuery from 'react-responsive'
 import { useNavigate } from 'react-router-dom'
 
 import classNames from 'classnames'
@@ -12,7 +13,8 @@ import { TooltipId } from 'meta/tooltip'
 
 import { useIsCountryRoute, useIsGeoRoute } from 'client/hooks'
 import { useSectionRouteParams } from 'client/hooks/useRouteParams'
-import LinkDataDownload from 'client/components/PageLayout/Toolbar/LinkDataDownload'
+import LinkDataDownload from 'client/components/PageLayout/LinkDataDownload'
+import { Breakpoints } from 'client/utils'
 
 const LinkData: React.FC = () => {
   const { t } = useTranslation()
@@ -50,7 +52,11 @@ const LinkData: React.FC = () => {
         {t('common.variableData')}
       </button>
 
-      {isCountryRoute && <div className="toolbar__separator" />}
+      {isCountryRoute && (
+        <MediaQuery minWidth={Breakpoints.laptop}>
+          <div className="toolbar__separator" />
+        </MediaQuery>
+      )}
     </>
   )
 }
