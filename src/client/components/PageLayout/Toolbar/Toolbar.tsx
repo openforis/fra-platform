@@ -75,7 +75,7 @@ const Toolbar: React.FC = () => {
 
       {!isCountry && (
         <MediaQuery minWidth={Breakpoints.laptop}>
-          <div className="toolbar-options">
+          <div className="toolbar-options data-link">
             <LinkDataDownload />
           </div>
         </MediaQuery>
