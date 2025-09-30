@@ -8,15 +8,19 @@ import { Global } from 'meta/area'
 import { Routes } from 'meta/routes'
 import { TooltipId } from 'meta/tooltip'
 
-import { useCycleRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import Icon from 'client/components/Icon'
 
 const LinkDataDownload: React.FC = () => {
-  const { assessmentName, cycleName } = useCycleRouteParams()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams()
   const baseParams = { assessmentName, cycleName, countryIso: Global.WO }
   const { pathname } = useLocation()
 
   const { t } = useTranslation()
+
+  if (!countryIso) {
+    return null
+  }
 
   return (
     <>
