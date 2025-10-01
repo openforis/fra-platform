@@ -16,6 +16,10 @@
       border-color: $ui-border;
     }
   }
+
+  &.data-link {
+    margin-right: $spacing-xs;
+  }
 }
 
 .toolbar-options__group {

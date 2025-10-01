@@ -1,3 +1,5 @@
+import { useLocation } from 'react-router-dom'
+
 import { Objects } from 'utils/objects'
 
 import { Areas, Country, RegionCode } from 'meta/area'
@@ -51,7 +53,13 @@ export const useDataExportCountries = (): Array<Country> => {
 
 export const useDataExportSelection = (assessmentSection: string): DataExportSelection => {
   const selection = useAppSelector((state) => DataExportSelectors.getSelection(state))
+  const location = useLocation()
+
   if (!selection.sections[assessmentSection])
-    return { ...selection, sections: { ...selection.sections, [assessmentSection]: { columns: [], variables: [] } } }
+    return {
+      // Pick countries from redirect or default to empty array
+      countryISOs: [...selection.countryISOs, ...(location?.state?.countryISOs || [])],
+      sections: { ...selection.sections, [assessmentSection]: { columns: [], variables: [] } },
+    }
   return selection
 }
