@@ -32,7 +32,7 @@ jobs:
           curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo gpg --dearmor -o /usr/share/keyrings/postgresql-keyring.gpg
           echo "deb [signed-by=/usr/share/keyrings/postgresql-keyring.gpg] http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" | sudo tee /etc/apt/sources.list.d/postgresql.list
           sudo apt-get update
-          sudo apt-get install -y postgresql-client-15
+          sudo apt-get install -y postgresql-client-16
 
       - name: Verify PostgreSQL version
         run: pg_dump --version
@@ -43,7 +43,7 @@ jobs:
           HEROKU_APP: ${{ github.event.inputs.environment == 'production' && secrets.HEROKU_APP_NAME_PRODUCTION || secrets.HEROKU_APP_NAME_DEVELOPMENT }}
           BACKUP_DIR: ./backups
         run: |
-          export PATH="/usr/lib/postgresql/15/bin:$PATH"
+          export PATH="/usr/lib/postgresql/16/bin:$PATH"
           mkdir -p $BACKUP_DIR
           ./src/tools/heroku/partial-backup.sh
 
