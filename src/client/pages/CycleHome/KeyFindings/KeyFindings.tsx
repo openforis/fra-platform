@@ -2,16 +2,15 @@ import './keyFindings.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { ApiEndPoint } from 'meta/api/endpoint'
-import { Global } from 'meta/area'
 import { CycleName } from 'meta/assessment/cycle'
 
 import { useCycleRouteParams } from 'client/hooks/useRouteParams'
+import MapLegend from 'client/pages/CycleHome/KeyFindings/MapLegend'
 
 const climaticDomains: Record<CycleName, Record<string, number>> = {
-  '2020': { boreal: 27, subtropical: 11, temperate: 16, tropical: 45 },
-  '2025': { boreal: 28, subtropical: 11, temperate: 17, tropical: 45 },
-  latest: { boreal: 28, subtropical: 11, temperate: 17, tropical: 45 },
+  '2020': { tropical: 45, boreal: 27, temperate: 16, subtropical: 11 },
+  '2025': { tropical: 45, boreal: 28, temperate: 17, subtropical: 11 },
+  latest: { tropical: 45, boreal: 28, temperate: 17, subtropical: 11 },
 } as const
 
 const translationParameters: Record<CycleName, Record<string, string | number>> = {
@@ -44,7 +43,6 @@ const altText: Record<CycleName, string> = {
 const KeyFindings: React.FC = () => {
   const { t } = useTranslation()
   const { assessmentName, cycleName } = useCycleRouteParams()
-  const searchParams = new URLSearchParams({ assessmentName, cycleName, countryIso: Global.WO })
 
   return (
     <div className="home-key-findings">
@@ -53,7 +51,7 @@ const KeyFindings: React.FC = () => {
           key={cycleName}
           alt={t(altText[cycleName])}
           className="map"
-          src={ApiEndPoint.Static.file(`fra/${cycleName}/landing/map.png?${searchParams.toString()}`)}
+          src={`/img/${assessmentName}/${cycleName}/landing/map.png`}
         />
       </div>
 
@@ -61,11 +59,7 @@ const KeyFindings: React.FC = () => {
 
       <div className="home-key-findings__map-legend">
         {Object.entries(climaticDomains[cycleName]).map(([key, value]) => (
-          <div key={key} className="legend">
-            <img alt="" className="legend-icon" src={`/img/mapLegend_${key}.svg`} />
-            <div className="legend-key">{t(`climaticDomain.${key}`)}</div>
-            <div className="legend-value">{value}%</div>
-          </div>
+          <MapLegend key={key} name={key} value={value} />
         ))}
       </div>
     </div>
