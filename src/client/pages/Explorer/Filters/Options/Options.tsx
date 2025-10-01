@@ -1,12 +1,14 @@
 import './Options.scss'
 import React, { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useMediaQuery } from 'react-responsive'
 
 import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
 import Hr from 'client/components/Hr'
 import SlidingPanel from 'client/components/SlidingPanel'
 import AxisSelection from 'client/pages/Explorer/Filters/Options/AxisSelection/AxisSelection'
 import { useHideGrid } from 'client/pages/Explorer/hooks/useHideGrid'
+import { Breakpoints } from 'client/utils'
 
 import { useMeasuresUnitSelectors } from './hooks/useMeasuresUnitSelectors'
 import { useToggleAxis } from './hooks/useToggleAxis'
@@ -37,10 +39,13 @@ const Options: React.FC = () => {
     closePanel()
   }, [applyAxisSelection, applyUnitSelection, closePanel])
 
+  const isMinLaptop = useMediaQuery({ minWidth: Breakpoints.laptop })
+  const panelSize = isMinLaptop ? 45 : 100
+
   return (
     <div className="options-container">
       <Button disabled={hideGrid} iconName="equalizer" onClick={openPanel} />
-      <SlidingPanel closePanel={closePanel} opened={opened} size={45}>
+      <SlidingPanel closePanel={closePanel} opened={opened} size={panelSize}>
         <UnitsSelection unitSelectors={unitSelectors} />
 
         <AxisSelection axisSelection={axisSelection} toggleAxis={toggleAxis} />

@@ -1,20 +1,42 @@
 @import 'src/client/style/partials';
 
 .explorer-filters {
-  align-items: center;
   column-gap: $spacing-xxs;
   display: grid;
   grid-auto-rows: 30px;
-  grid-template-columns: repeat(7, 1fr);
+  grid-template-columns: auto;
+  justify-items: start;
   position: relative;
-  row-gap: $spacing-xxxxs;
+  row-gap: $spacing-xxs;
   width: min-content;
 
-  .select__container {
-    z-index: $z-index-explorer-filters; // Needed to show selectors above result grid sticky headers
+  z-index: $z-index-explorer-filters;
+
+  @include min-width($laptop) {
+    align-items: center;
+    grid-template-columns: repeat(7, 1fr);
+    justify-items: stretch;
+    row-gap: $spacing-xxxxs;
+    z-index: unset;
+
+    .select__container {
+      z-index: $z-index-explorer-filters; // Needed to show selectors above result grid sticky headers
+    }
   }
+}
+
+.explorer-filters:has(.sliding-panel-container.active) {
+  z-index: unset; // Remove z-index so it doesn't interfere with the sliding panel
 }
 
 .explorer-filters__multiselect {
   width: 235px;
+}
+
+.explorer-filters__actions {
+  align-items: center;
+  display: flex;
+  gap: $spacing-xxs;
+  height: 100%;
+  width: 100%;
 }
