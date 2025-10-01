@@ -1,6 +1,7 @@
 import React, { useCallback, useMemo, useState } from 'react'
 import ReactDOMServer from 'react-dom/server'
 import { useTranslation } from 'react-i18next'
+import { useMediaQuery } from 'react-responsive'
 
 import { Objects } from 'utils/objects'
 
@@ -10,6 +11,7 @@ import { TooltipId } from 'meta/tooltip'
 import { useIsPanEuropeanRoute } from 'client/hooks'
 import { Props as CountrySelectProps } from 'client/components/CountryMultiSelect/types'
 import { OptionsGroup } from 'client/components/Inputs/Select'
+import { Breakpoints } from 'client/utils'
 
 import { useCountriesByRegionOptions } from './useCountriesByRegionOptions'
 
@@ -32,8 +34,10 @@ export const useTooltipContent = (props: Props): TooltipContent => {
 
   const countryOptionGroups = useCountriesByRegionOptions({ allowedCountries })
   const isPanEuropean = useIsPanEuropeanRoute()
+  const isMinLaptop = useMediaQuery({ minWidth: Breakpoints.laptop })
 
   const tooltipContent = useMemo<string | null>(() => {
+    if (!isMinLaptop) return null
     if (Objects.isEmpty(value) || !isMulti) return null
     if (!canDisplayTooltip) return null
 
@@ -68,7 +72,7 @@ export const useTooltipContent = (props: Props): TooltipContent => {
 
         if (selectedCountriesInRegion.length > 0) {
           selectedRegions.push({
-            regionLabel: group.label,
+            regionLabel: String(group.label),
             selectedCountries: selectedCountriesInRegion
               .map((country) => t(`area.${country}.listName`))
               .sort((a, b) => a.localeCompare(b)),
@@ -99,7 +103,7 @@ export const useTooltipContent = (props: Props): TooltipContent => {
         ))}
       </div>
     )
-  }, [canDisplayTooltip, countryOptionGroups, error, isMulti, isPanEuropean, t, value])
+  }, [canDisplayTooltip, countryOptionGroups, error, isMinLaptop, isMulti, isPanEuropean, t, value])
 
   const hideTooltip = useCallback(() => setCanDisplayTooltip(false), [])
   const showTooltip = useCallback(() => setCanDisplayTooltip(true), [])
