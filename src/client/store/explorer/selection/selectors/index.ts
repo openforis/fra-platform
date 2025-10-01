@@ -8,7 +8,7 @@ import { ExplorerSelectionSlice } from 'client/store/explorer/selection/slice'
 import { defaultAxisSelection } from 'client/store/explorer/selection/state'
 import { RootState } from 'client/store/types'
 
-const _getState = (state: RootState) => state.explorer[ExplorerSelectionSlice.name]
+const _getState = (state: RootState) => state.explorer?.[ExplorerSelectionSlice.name]
 
 const getCountries = createSelector(
   [

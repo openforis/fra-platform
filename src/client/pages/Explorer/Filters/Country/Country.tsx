@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 
 import { CountryIso } from 'meta/area'
 
@@ -10,6 +11,7 @@ import { useCycleRouteParams } from 'client/hooks/useRouteParams'
 import CountryMultiSelect from 'client/components/CountryMultiSelect'
 
 const Country: React.FC = () => {
+  const { state } = useLocation()
   const { assessmentName, cycleName } = useCycleRouteParams()
   const dispatch = useAppDispatch()
   const homeCountriesFilter = useGlobalCountries()
@@ -18,10 +20,12 @@ const Country: React.FC = () => {
   const explorerCountries = useExplorerCountries()
 
   useEffect(() => {
-    dispatch(ExplorerSelectionActions.setCountries({ assessmentName, countries: [], cycleName }))
-  }, [assessmentName, cycleName, dispatch, homeCountriesFilter])
+    // Pick countries from redirect or default to empty array
+    const countries = state?.countryISOs || []
+    dispatch(ExplorerSelectionActions.setCountries({ assessmentName, countries, cycleName }))
+  }, [assessmentName, cycleName, dispatch, homeCountriesFilter, state?.countryISOs])
 
-  const handleChange = (value: Array<CountryIso>) => {
+  const handleChange = (value: Array<CountryIso>): void => {
     dispatch(ExplorerSelectionActions.setCountries({ assessmentName, countries: value, cycleName }))
   }
 
