@@ -2,6 +2,7 @@ import { CountryIso } from 'meta/area/countryIso'
 import { RegionCode } from 'meta/area/regionCode'
 import { CountryStatus } from 'meta/area/status'
 import { CycleName } from 'meta/assessment/cycle'
+import { Lang } from 'meta/lang'
 
 type CallingCode = string
 type CountryIso2 = string
@@ -26,6 +27,7 @@ export type Country = {
   callingCode: CallingCode
   props?: CountryProps
   regionCodes?: Array<RegionCode>
+  labels: Record<Lang, string>
 
   /* last timestamp strings */
   lastEdit: string
