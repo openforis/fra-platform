@@ -19,8 +19,8 @@ export const getBaseQuery = (props: Props): string => {
     select c.country_iso,
            c.country_iso2,
            c.calling_code,
-           props || jsonb_build_object('status', c.status) as props, 
-           c.labels,
+           props || jsonb_build_object('status', c.status) as props,
+           pc.labels,
            c.last_edit,
            c.last_edit_odp,
            c.last_in_editing,
@@ -31,6 +31,8 @@ export const getBaseQuery = (props: Props): string => {
            c.last_update,
            jsonb_agg(cr.region_code) as region_codes
     from ${cycleSchema}.country c
+             left join public.country pc
+                       on pc.country_iso = c.country_iso
              left join ${cycleSchema}.country_region cr
                        on c.country_iso = cr.country_iso
     ${countryIso ? 'where c.country_iso = $1' : ''}
@@ -39,7 +41,7 @@ export const getBaseQuery = (props: Props): string => {
              c.country_iso2, 
              c.calling_code,
              props || jsonb_build_object('status', c.status),
-            c.labels,
+             pc.labels,
             c.last_edit,
             c.last_edit_odp,
             c.last_in_editing,

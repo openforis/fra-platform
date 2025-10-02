@@ -8,7 +8,7 @@ import { Lang, LanguageCodes } from 'meta/lang'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { CacheController } from 'server/controller/cache'
-import { BaseProtocol, DB, Schemas } from 'server/db'
+import { BaseProtocol, DB } from 'server/db'
 
 const pgp = pgPromise()
 
@@ -69,10 +69,13 @@ const getRegionLabels = async (
   return regionLabels
 }
 
-type UpdateProps = { countryLabels: Array<CountryLabelUpdate>; regionLabels: Array<RegionLabelUpdate>; schema: string }
+type UpdateProps = { countryLabels: Array<CountryLabelUpdate>; regionLabels: Array<RegionLabelUpdate> }
 
 const _updateCountryRegionLabels = async (props: UpdateProps, client: BaseProtocol): Promise<void> => {
-  const { countryLabels, regionLabels, schema } = props
+  const { countryLabels, regionLabels } = props
+
+  const schema = 'public'
+
   const countryCS = new pgp.helpers.ColumnSet(
     [
       { name: 'country_iso', prop: 'countryIso', cnd: true },
@@ -106,17 +109,9 @@ export const addCountryRegionLabels = async (client: BaseProtocol = DB): Promise
   ])
 
   // update public
-  await _updateCountryRegionLabels({ countryLabels, regionLabels, schema: 'public' }, client)
+  await _updateCountryRegionLabels({ countryLabels, regionLabels }, client)
 
   const allCycles = assessments.flatMap((assessment) => assessment.cycles.map((cycle) => ({ assessment, cycle })))
-
-  // update cycles
-  await Promise.all(
-    allCycles.map(async ({ assessment, cycle }) => {
-      const schema = Schemas.getNameCycle(assessment, cycle)
-      return _updateCountryRegionLabels({ countryLabels, regionLabels, schema }, client)
-    })
-  )
 
   // update cache
   await Promises.each(allCycles, async ({ assessment, cycle }) => {
