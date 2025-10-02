@@ -24,6 +24,7 @@
   grid-row: 1 / span 2;
 
   .map {
+    max-height: 620px;
     width: 100%;
   }
 
@@ -36,31 +37,6 @@
   display: grid;
   grid-row-gap: $spacing-xs;
   grid-template-columns: repeat(2, auto);
-
-  .legend {
-    display: grid;
-    align-items: center;
-    justify-items: center;
-    grid-row-gap: 8px;
-  }
-
-  .legend-icon {
-    height: 45px;
-  }
-
-  .legend-key {
-    color: #272727;
-    font-size: $font-s;
-    font-weight: 600;
-    text-transform: uppercase;
-  }
-
-  .legend-value {
-    font-size: 23px;
-    font-weight: bold;
-    color: #707070;
-  }
-
   @include min-width($laptop) {
     grid-template-columns: repeat(4, auto);
   }

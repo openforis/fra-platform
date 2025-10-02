@@ -448,7 +448,8 @@
     "totalPublicOwnership": "Total public ownership"
   },
   "home": {
-    "keyFindings": "The world has a total forest area of 4.06 billion hectares (ha), which is 31 percent \nof the total land area. This area is equivalent to 0.52 ha per person - although \nforests are not distributed equally among the world's peoples or geographically. \nThe tropical domain has the largest proportion of the world's forests (45 percent), \nfollowed by the boreal, temperate and subtropical domains."
+    "keyFindings": "The world has a total forest area of {{forestArea}} billion hectares (ha), which is {{totalLandArea}} percent \nof the total land area. This area is equivalent to {{forestPerPerson}} ha per person - although \nforests are not distributed equally among the world's peoples or geographically. \nThe tropical domain has the largest proportion of the world's forests ({{tropicalArea}} percent), \nfollowed by the boreal, temperate and subtropical domains.",
+    "mapAltText": "Sources: Bourgoin, C., Ameztoy, I., Verhegghen, A., Desclée, B., Carboni, S., Bastin, J., Beuchle, R., et al. 2024. Mapping global forest cover of the year 2020 to\nsupport the EU regulation on deforestation-free supply chains. JRC136960. Luxembourg, Publications Office of the European Union and the Joint Research Centre\nof the European Commission. https://data.europa.eu/doi/10.2760/262532. FAO. 2012. Global ecological zones for FAO forest reporting: 2010 update. Rome. https://openknowledge.fao.org/handle/20.500.14283/ap861e"
   },
   "language": {
     "ar": "العربية",

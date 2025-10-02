@@ -444,7 +444,7 @@
     "totalPublicOwnership": "Propriété publique totale"
   },
   "home": {
-    "keyFindings": "Le monde compte une superficie forestière totale de 4,06 milliards d'hectares\n(ha), ce qui correspond à 31 pour cent de la superficie totale des terres. Cela\néquivaut à 0,52 ha par personne - bien que les forêts ne soient pas également\nréparties entre les populations du monde ou sur le plan géographique. Le domaine\ntropical compte la plus grande part de forêts du monde (45 pour cent), suivi\ndes domaines boréal, tempéré et sous-tropical"
+    "keyFindings": "Le monde compte une superficie forestière totale de {{forestArea}} milliards d'hectares\n(ha), ce qui correspond à {{totalLandArea}} pour cent de la superficie totale des terres. Cela\néquivaut à {{forestPerPerson}} ha par personne - bien que les forêts ne soient pas également\nréparties entre les populations du monde ou sur le plan géographique. Le domaine\ntropical compte la plus grande part de forêts du monde ({{tropicalArea}} pour cent), suivi\ndes domaines boréal, tempéré et sous-tropical"
   },
   "language": {
     "ar": "العربية",
