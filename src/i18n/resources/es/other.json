@@ -444,7 +444,7 @@
     "totalPublicOwnership": "Propiedad pública total"
   },
   "home": {
-    "keyFindings": "El área total de bosques en el mundo es de 4 060 millones de hectáreas (ha),\nque corresponde al 31 por ciento de la superficie total de la tierra. Esta área\nes equivalente a 0,52 ha por persona\n, aunque los bosques no están distribuidos\nde manera equitativa por población mundial o situación geográfica. Las zonas\ntropicales poseen la mayor proporción de los bosques del mundo (45 por ciento),\nel resto está localizado en las regiones boreales, templadas y subtropicales."
+    "keyFindings": "El área total de bosques en el mundo es de {{forestArea}} millones de hectáreas (ha),\nque corresponde al {{totalLandArea}} por ciento de la superficie total de la tierra. Esta área\nes equivalente a {{forestPerPerson}} ha por persona\n, aunque los bosques no están distribuidos\nde manera equitativa por población mundial o situación geográfica. Las zonas\ntropicales poseen la mayor proporción de los bosques del mundo ({{tropicalArea}} por ciento),\nel resto está localizado en las regiones boreales, templadas y subtropicales."
   },
   "language": {
     "ar": "العربية",

@@ -21,7 +21,7 @@ const cards: Array<KioskCardProps> = [
   },
   {
     altText: 'FRA data platform',
-    imageUrl: '/img/map.png',
+    imageUrl: '/img/fra/latest/landing/map.png',
     link: Routes.FraDataPlatform.path.relative,
     title: 'FRA \n data platform',
   },
