@@ -23,7 +23,7 @@ export const getRegionGroups = async (
                              'name', rg.name,
                              'order', rg."order",
                              'regions', jsonb_agg(
-                                     jsonb_build_object('region_code', r2.region_code, 'name', r2.name)
+                                     jsonb_build_object('region_code', r2.region_code, 'name', r2.name, 'labels', r2.labels)
                                      order by r2.region_code
                                  )
                          ) as region_group
