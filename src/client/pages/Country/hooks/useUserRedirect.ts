@@ -5,14 +5,16 @@ import { Areas } from 'meta/area'
 import { AssessmentNames } from 'meta/assessment/assessment'
 import { Cycles } from 'meta/assessment/cycles'
 import { Routes } from 'meta/routes'
-import { Users } from 'meta/user'
+import { Authorizer, Users } from 'meta/user'
 
 import { useAssessmentCountry } from 'client/store/area/hooks/country'
+import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useCycle, useLastPublishedCycle } from 'client/store/meta/hooks/cycles'
 import { useUser } from 'client/store/user/hooks/user'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 export const useUserRedirect = (): void => {
+  const assessment = useAssessment()
   const cycle = useCycle()
   const lastPublishedCycle = useLastPublishedCycle()
   const cycleName = cycle.name
@@ -24,6 +26,13 @@ export const useUserRedirect = (): void => {
   const { pathname } = useLocation()
 
   useEffect(() => {
+    const countryExists = !Areas.isISOCountry(countryIso) || country
+    const isAuthorized = Authorizer.canView({ assessment, cycle, areaCode: countryIso, country, user })
+
+    if (!countryExists || !isAuthorized) {
+      navigate(Routes.Cycle.generatePath({ assessmentName, cycleName }))
+      return
+    }
     const personalInfoRequired = Users.isPersonalInfoRequired(user, userRole)
     const isFra = assessmentName === AssessmentNames.fra
     // When user is not logged in, redirect to last published (e.g. when accessing older cycles)
@@ -39,6 +48,7 @@ export const useUserRedirect = (): void => {
         countryIso,
       })
       navigate(route)
+      return
     }
 
     const shouldRedirectToProfile = Boolean(personalInfoRequired && navigate && isFra)
@@ -48,6 +58,7 @@ export const useUserRedirect = (): void => {
       const routeParams = { assessmentName, cycleName, countryIso }
       const state = { userLastRole: userRole, personalInfoRequired, routeParams }
       navigate(Routes.CountryUser.generatePath(params), { state })
+      return
     }
 
     // Redirect non admin users to the cycle page if the cycle is not published when accessing regions
@@ -55,6 +66,7 @@ export const useUserRedirect = (): void => {
       navigate(Routes.Cycle.generatePath({ assessmentName, cycleName }))
     }
   }, [
+    assessment,
     assessmentName,
     country,
     countryIso,
