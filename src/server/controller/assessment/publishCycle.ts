@@ -30,6 +30,8 @@ export const publishCycle = async (props: Props, client: BaseProtocol = DB): Pro
     cycle.props.status = CycleStatus.published
     cycle.props.datePublished = new Date(Date.now()).toISOString()
     await CycleRepository.update({ cycle }, t)
+    // Update Assessment cache
+    await AssessmentRedisRepository.getAssessmentsMap({ force: true }, t)
 
     // Update countries db
     const publishedCountries = await CountryRepository.publishAllAccepted({ assessment, cycle })

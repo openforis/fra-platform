@@ -1,0 +1,22 @@
+import 'tsconfig-paths/register'
+import 'dotenv/config'
+
+import { ToolsUtils } from 'tools/utils/toolsUtils'
+
+import { AssessmentNames } from 'meta/assessment/assessment'
+
+import { AssessmentController } from 'server/controller/assessment'
+import { UserController } from 'server/controller/user'
+import { DB } from 'server/db'
+
+const client = DB
+const assessmentName = AssessmentNames.fra
+const cycleName = '2025'
+
+export const publishCycle = async (): Promise<void> => {
+  const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName }, client)
+  const user = await UserController.getUserRobot(client)
+  await AssessmentController.publishCycle({ assessment, cycle, user }, client)
+}
+
+ToolsUtils.exec(publishCycle)
