@@ -15,41 +15,48 @@ const SidePanel: React.FC = () => {
 
   const isKioskHomeRoute = useIsRoute({ path: Routes.Kiosk.path.absolute, exact: true })
 
-  const goBack = useCallback(() => {
+  const goBack = useCallback((): void => {
     navigate(-1)
   }, [navigate])
 
   return (
     <div className="kiosk-side-panel">
       <div className="kiosk-side-panel__header">
-        <img alt="FAO" src="/img/fao/FAOen_3_lines.svg" />
+        <img alt="FAO" src="/img/fao/FAOen_2_lines_blue.png" />
         <button
           className="kiosk-side-panel__home-button"
-          onClick={() => startTransition(() => navigate(Routes.Kiosk.path.absolute))}
+          onClick={(): void => startTransition(() => navigate(Routes.Kiosk.path.absolute))}
           type="button"
         >
-          <Icon name="home-circle" />
+          <Icon name="kiosk-home" />
         </button>
       </div>
-      <div className="kiosk-side-panel__quiz">
-        {/* <h1>Get to know FRA and test your knowledge!</h1> */}
-        <div className="kiosk-side-panel__quiz-img-container">
-          {/* <div className="kiosk-side-panel__quiz-title">FRA quiz</div> */}
-          <img alt="quiz" className="kiosk-side-panel__quiz-img" src="/img/kiosk/quiz-bubbles.png" />
+      <div className="kiosk-side-panel__content">
+        <h1 className="kiosk-side-panel__title">Global Forest Resources Assessment</h1>
+        <div className="kiosk-side-panel__language-buttons">
+          <button className="kiosk-side-panel__language-button" type="button">
+            English
+          </button>
+          <button className="kiosk-side-panel__language-button" type="button">
+            Français
+          </button>
+          <button className="kiosk-side-panel__language-button" type="button">
+            Español
+          </button>
         </div>
       </div>
       <div className="kiosk-side-panel__footer">
         <p>
-          <i>Created with the financial support of:</i>
+          <i>With financial support of:</i>
         </p>
         <div className="kiosk-side-panel__partners">
-          <img alt="EU" className="kiosk-side-panel__partners-eu" src="/img/partners/EU.jpg" />
           <img alt="NICFI" className="kiosk-side-panel__partners-nicfi" src="/img/partners/NICFI.png" />
+          <img alt="EU" className="kiosk-side-panel__partners-eu" src="/img/partners/EU.jpg" />
 
           {/* No conditional rendering here to avoid layout shifting in certain screen sizes */}
           <button
             className={classNames('kiosk-side-panel__back-button', { visible: !isKioskHomeRoute })}
-            onClick={() => startTransition(() => goBack())}
+            onClick={(): void => startTransition(() => goBack())}
             type="button"
           >
             <Icon name="arrow-back" />

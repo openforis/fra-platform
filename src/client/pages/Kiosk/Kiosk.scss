@@ -1,5 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Chau+Philomene+One:ital@0;1&display=swap');
+
 .kiosk-content {
   align-items: center;
+  background-color: #61a2d8;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -18,9 +21,10 @@
 }
 
 .kiosk-content__title {
-  color: #ef7a2d;
+  color: white;
   font-size: min(3.33dvw, 5.925dvh);
   font-weight: 900;
+  font-family: 'Chau Philomene One', sans-serif;
   margin-bottom: min(3.2dvw, 6dvh);
   text-align: center;
 }
