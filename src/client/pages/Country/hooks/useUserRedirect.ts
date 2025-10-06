@@ -9,14 +9,13 @@ import { Authorizer, Users } from 'meta/user'
 
 import { useAssessmentCountry } from 'client/store/area/hooks/country'
 import { useAssessment } from 'client/store/meta/hooks/assessments'
-import { useCycle, useLastPublishedCycle } from 'client/store/meta/hooks/cycles'
+import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useUser } from 'client/store/user/hooks/user'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 export const useUserRedirect = (): void => {
   const assessment = useAssessment()
   const cycle = useCycle()
-  const lastPublishedCycle = useLastPublishedCycle()
   const cycleName = cycle.name
   const { assessmentName, countryIso } = useCountryRouteParams()
   const country = useAssessmentCountry()
@@ -26,15 +25,13 @@ export const useUserRedirect = (): void => {
   const { pathname } = useLocation()
 
   useEffect(() => {
-    const countryExists = !Areas.isISOCountry(countryIso) || country
     const isAuthorized = Authorizer.canView({ assessment, cycle, areaCode: countryIso, country, user })
 
-    if (!countryExists || !isAuthorized) {
-      navigate(Routes.Cycle.generatePath({ assessmentName, cycleName }))
+    if (!isAuthorized) {
+      navigate(Routes.Assessment.generatePath({ assessmentName }))
       return
     }
-    const personalInfoRequired = Users.isPersonalInfoRequired(user, userRole)
-    const isFra = assessmentName === AssessmentNames.fra
+
     // When user is not logged in, redirect to last published (e.g. when accessing older cycles)
     // Disable this if you want to allow non-logged users to access older cycles
     const shouldRedirectToLastPublished = !user && country && cycleName !== country?.lastPublishedInfo.cycleName
@@ -42,15 +39,13 @@ export const useUserRedirect = (): void => {
     if (shouldRedirectToLastPublished) {
       const _cycleName = country?.lastPublishedInfo.cycleName
 
-      const route = Routes.Country.generatePath({
-        assessmentName,
-        cycleName: _cycleName,
-        countryIso,
-      })
+      const route = Routes.Country.generatePath({ assessmentName, cycleName: _cycleName, countryIso })
       navigate(route)
       return
     }
 
+    const personalInfoRequired = Users.isPersonalInfoRequired(user, userRole)
+    const isFra = assessmentName === AssessmentNames.fra
     const shouldRedirectToProfile = Boolean(personalInfoRequired && navigate && isFra)
 
     if (shouldRedirectToProfile) {
@@ -65,17 +60,5 @@ export const useUserRedirect = (): void => {
     if (!Cycles.isPublished(cycle) && !Users.isAdministrator(user) && !Areas.isISOCountry(countryIso)) {
       navigate(Routes.Cycle.generatePath({ assessmentName, cycleName }))
     }
-  }, [
-    assessment,
-    assessmentName,
-    country,
-    countryIso,
-    cycle,
-    cycleName,
-    lastPublishedCycle.name,
-    navigate,
-    pathname,
-    user,
-    userRole,
-  ])
+  }, [assessment, assessmentName, country, countryIso, cycle, cycleName, navigate, pathname, user, userRole])
 }
