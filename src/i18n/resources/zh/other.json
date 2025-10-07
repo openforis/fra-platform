@@ -251,6 +251,10 @@
     "review": {
       "commentDeleteNotOwner": "错误: 用户{{user}}试图删除他人评论",
       "commentEnterResolvedIssue": "错误: 用户{{user}}试图对已解决的问题发表评论"
+    },
+    "userInvitation": {
+      "userIsDisabled": "由于被邀请的用户已被禁用，操作无法完成。",
+      "userAlreadyRoleInCountry": "无法完成操作，因为邀请的用户已经为这个国家指定了角色。"
     }
   },
   "extentOfForest": {
@@ -444,7 +448,8 @@
     "totalPublicOwnership": "公有合计"
   },
   "home": {
-    "keyFindings": "全球森林面积共计{{forestArea}}亿公顷，占陆地总面积的{{totalLandArea}}%。根据这一森林总面积计算得出的人均森林面积为{{forestPerPerson}}公顷。\n\t森林在各民族或地理区域间分布并不均匀，热带地区拥有的森林面积最大，占比{{tropicalArea}}%，其次是寒带、温带和亚热带。"
+    "keyFindings": "全球森林面积共计{{forestArea}}亿公顷，占陆地总面积的{{totalLandArea}}%。根据这一森林总面积计算得出的人均森林面积为{{forestPerPerson}}公顷。\\n\\t森林在各民族或地理区域间分布并不均匀，热带地区拥有的森林面积最大，占比{{tropicalArea}}%，其次是寒带、温带和亚热带。",
+    "mapAltText": "资料来源：Bourgoin, C., Ameztoy, I., Verhegghen, A., Desclee, B., Carboni, S., Bastin, J., Beuchle, R., et al. 2024. 将2020年全球森林覆盖率描绘成\n支持欧盟关于无毁林供应链的条例。 JRC136960。 Luxembourg, Publications Office of the European Union and the Joint Research Centre\nof the European Commission. https://data.europa.eu/doi/10. 760/262532. FAO. 2012, Global ecological zone for FAO forest reporting: 2010 update. Rome. https://openknowledge.fao.org/handle/20500.14283/ap861e"
   },
   "language": {
     "ar": "العربية",
@@ -692,7 +697,8 @@
     "remove": "移除",
     "sendInvitation": "发送邀请邮件",
     "userAdded": "{{email}}已被添加",
-    "userModified": "用户{{user}}已被修改"
+    "userModified": "用户{{user}}已被修改",
+    "userUpdated": "{{email}} 已更新"
   },
   "yesNoTextSelect": {
     "no": "否",

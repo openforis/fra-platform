@@ -44,7 +44,7 @@
   },
   "contactPersons": {
     "expectedYearForNextCountryReportUpdate": "Ожидаемый год для следующего обновления отчета страны ",
-    "reportLastUpdate": "Данный отчет был обновлен в:"
+    "reportLastUpdate": "Это сообщение было обновлено через:"
   },
   "degradedForest": {
     "biome": "Биом",
