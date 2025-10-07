@@ -1,0 +1,9 @@
+{
+  "errors": {
+    "invalid": "{{field}} غير صالح.",
+    "mustBeAtLeastNCharacters": "يجب أن يتكون {{field}} من {{n}} حرفًا على الأقل.",
+    "required": "مطلوب {{field}}.",
+    "atLeastOneItemRequired": "يجب تحديد عنصر واحد على الأقل في {{field}}.",
+    "atLeastOneRoleRequired": "دور واحد على الأقل مطلوب"
+  }
+}

@@ -251,6 +251,10 @@
     "review": {
       "commentDeleteNotOwner": "Ошибка: Пользователь {{user}} попытался удалить чужой комментарий",
       "commentEnterResolvedIssue": "Ошибка: Пользователь {{user}} попытался добавить комментарий к разрешенной проблеме"
+    },
+    "userInvitation": {
+      "userIsDisabled": "Операция не может быть завершена, так как приглашенный пользователь отключен.",
+      "userAlreadyRoleInCountry": "Операция не может быть завершена, так как у приглашенного пользователя уже есть роль для этой страны."
     }
   },
   "extentOfForest": {
@@ -444,7 +448,8 @@
     "totalPublicOwnership": "Общая площадь в государственной собственности"
   },
   "home": {
-    "keyFindings": "Общая площадь лесов в мире составляет {{forestArea}} млрд гектаров (га), или {{totalLandArea}} процент от общей площади суши. Это значит, что на душу населения приходится по {{forestPerPerson}} га, однако леса неравномерно распределены между народами и регионами мира. Наибольшая часть лесов ({{tropicalArea}} процентов) находится в тропическом поясе, далее следуют бореальный, умеренный и субтропический пояса."
+    "keyFindings": "Общая площадь лесов в мире составляет {{forestArea}} млрд гектаров (га), или {{totalLandArea}} процент от общей площади суши. Это значит, что на душу населения приходится по {{forestPerPerson}} га, однако леса неравномерно распределены между народами и регионами мира. Наибольшая часть лесов ({{tropicalArea}} процентов) находится в тропическом поясе, далее следуют бореальный, умеренный и субтропический пояса.",
+    "mapAltText": "Sources: Bourgoin, C., Ameztoy, I., Verhegghen, A., Desclée, B., Carboni, S., Bastin, J., Beuchle, R., et al. 2024. Mapping global forest cover of the year 2020 to\nsupport the EU regulation on deforestation-free supply chains. JRC136960. Luxembourg, Publications Office of the European Union and the Joint Research Centre\nof the European Commission. https://data.europa.eu/doi/10.2760/262532. FAO. 2012. Global ecological zones for FAO forest reporting: 2010 update. Rome. https://openknowledge.fao.org/handle/20.500.14283/ap861e"
   },
   "language": {
     "ar": "العربية",
@@ -692,7 +697,8 @@
     "remove": "Удалить",
     "sendInvitation": "Направить приглашение по электронной почте",
     "userAdded": "{{email}} был добавлен",
-    "userModified": "{{user}} был изменен"
+    "userModified": "{{user}} был изменен",
+    "userUpdated": "{{email}} был обновлен"
   },
   "yesNoTextSelect": {
     "no": "Нет",
