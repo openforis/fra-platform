@@ -54,14 +54,14 @@ $title: #fff;
   display: flex;
   justify-content: space-between;
   padding: 6%;
+}
 
-  img {
-    height: min-content;
-    margin-left: -10px;
-    margin-top: -20px;
-    object-fit: contain;
-    width: 80%;
-  }
+.kiosk-side-panel__header-logo {
+  height: min-content;
+  margin-left: -10px;
+  margin-top: -20px;
+  object-fit: contain;
+  width: 80%;
 }
 
 .kiosk-side-panel__content {
@@ -134,6 +134,12 @@ $title: #fff;
     height: 100%;
     width: 100%;
   }
+}
+
+.kiosk-side-panel__home-icon {
+  display: block;
+  height: 100%;
+  width: 100%;
 }
 
 .kiosk-side-panel__back-button {

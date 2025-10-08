@@ -22,14 +22,14 @@ const SidePanel: React.FC = () => {
   return (
     <div className="kiosk-side-panel">
       <div className="kiosk-side-panel__header">
-        <img alt="FAO" src="/img/fao/FAOen_2_lines_blue.png" />
+        <img alt="FAO" className="kiosk-side-panel__header-logo" src="/img/fao/FAOen_2_lines_blue.png" />
         <div className="kiosk-side-panel__buttons">
           <button
             className="kiosk-side-panel__home-button"
             onClick={(): void => startTransition(() => navigate(Routes.Kiosk.path.absolute))}
             type="button"
           >
-            <Icon name="kiosk-home" />
+            <img alt="Go to kiosk home" className="kiosk-side-panel__home-icon" src="/img/kiosk/home-button.svg" />
           </button>
           {/* No conditional rendering here to avoid layout shifting in certain screen sizes */}
           <button
