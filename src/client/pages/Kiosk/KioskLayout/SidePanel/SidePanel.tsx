@@ -1,5 +1,6 @@
 import './SidePanel.scss'
 import React, { useCallback, useTransition } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
 import classNames from 'classnames'
@@ -9,9 +10,25 @@ import { Routes } from 'meta/routes'
 import { useIsRoute } from 'client/hooks/useIsRoute'
 import Icon from 'client/components/Icon'
 
+const languageOptions = [
+  { code: 'en', label: 'English' },
+  { code: 'fr', label: 'Français' },
+  { code: 'es', label: 'Español' },
+] as const
+
 const SidePanel: React.FC = () => {
   const navigate = useNavigate()
   const [, startTransition] = useTransition()
+  const { i18n } = useTranslation()
+
+  const handleLanguageChange = useCallback<(l: string) => void>(
+    (language: string): void => {
+      startTransition(() => {
+        i18n.changeLanguage(language)
+      })
+    },
+    [i18n, startTransition]
+  )
 
   const isKioskHomeRoute = useIsRoute({ path: Routes.Kiosk.path.absolute, exact: true })
 
@@ -44,15 +61,16 @@ const SidePanel: React.FC = () => {
       <div className="kiosk-side-panel__content">
         <h1 className="kiosk-side-panel__title">Global Forest Resources Assessment</h1>
         <div className="kiosk-side-panel__language-buttons">
-          <button className="kiosk-side-panel__language-button" type="button">
-            English
-          </button>
-          <button className="kiosk-side-panel__language-button" type="button">
-            Français
-          </button>
-          <button className="kiosk-side-panel__language-button" type="button">
-            Español
-          </button>
+          {languageOptions.map(({ code, label }) => (
+            <button
+              key={code}
+              className="kiosk-side-panel__language-button"
+              onClick={(): void => handleLanguageChange(code)}
+              type="button"
+            >
+              {label}
+            </button>
+          ))}
         </div>
       </div>
       <div className="kiosk-side-panel__footer">
@@ -63,10 +81,10 @@ const SidePanel: React.FC = () => {
         </p>
         <div className="kiosk-side-panel__partners">
           <img alt="EU" src="/img/partners/EU.jpg" />
-          <img alt="Ministry for Foreign Affairs of Finland" src="/img/partners/mfafi_black.png" />
+          <img alt="Ministry for Foreign Affairs of Finland" src="/img/kiosk/partners/mfafi_black.png" />
           <img alt="NICFI" src="/img/partners/NICFI.png" />
           <img alt="CHE" src="/img/partners/CHE.png" />
-          <img alt="GEF" src="/img/partners/GEF_fullname.png" />
+          <img alt="GEF" src="/img/kiosk/partners/GEF_fullname.png" />
         </div>
       </div>
     </div>

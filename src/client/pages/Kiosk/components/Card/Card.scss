@@ -32,10 +32,10 @@
   display: flex;
   font-size: min(2.5dvw, 4.44dvh);
   font-weight: bold;
-  height: 33%;
   justify-content: center;
   left: 0;
   line-height: 1.25;
+  min-height: 33%;
   position: absolute;
   text-align: center;
   text-shadow: min(0.1dvw, 0.18dvh) min(0.1dvw, 0.18dvh) 0px rgba(0, 0, 0, 0.7);
