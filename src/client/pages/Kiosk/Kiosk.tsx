@@ -49,7 +49,11 @@ const Kiosk: React.FC = () => {
   return (
     <div className="kiosk-content">
       <div>
-        <h1 className="kiosk-content__title">Global Forest Resources Assessment</h1>
+        <h1 className="kiosk-content__title">
+          Global Forest Resources
+          <br />
+          Assessment (FRA)
+        </h1>
         <div className="kiosk-content__grid-container">
           {cards.map(({ altText, imageUrl, link, title }) => (
             <Card key={title} altText={altText} imageUrl={imageUrl} link={link} title={title} />

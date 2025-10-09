@@ -3,12 +3,13 @@
   aspect-ratio: 1 / 1;
   background-color: #dcf0f5;
   border-radius: min(2dvw, 3.7dvh);
+  border: min(0.6dvw, 1.05dvh) solid #ccdce9;
   box-shadow: 0 min(0.2dvw, 0.37dvh) min(0.3125dvw, 0.555dvh) rgba(0, 0, 0, 0.1);
   display: block;
   overflow: hidden;
   position: relative;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  width: min(20dvw, 35dvh);
+  width: min(19.4dvw, 33.95dvh);
 }
 
 .kiosk-content__card-button:hover,

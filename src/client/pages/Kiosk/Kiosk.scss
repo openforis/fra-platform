@@ -5,8 +5,7 @@
   background-color: #61a2d8;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  padding: min(2.5dvw, 4.44dvh);
+  padding: min(1.25dvw, 2.22dvh);
 }
 
 .kiosk-content__embedded-object {
@@ -16,15 +15,16 @@
 
 .kiosk-content__grid-container {
   display: grid;
-  gap: min(3.33dvw, 5.925dvh);
+  gap: min(1.665dvw, 2.9625dvh) min(3.33dvw, 5.925dvh);
   grid-template-columns: repeat(3, 1fr);
 }
 
 .kiosk-content__title {
   color: white;
-  font-size: min(3.33dvw, 5.925dvh);
-  font-weight: 900;
   font-family: 'Chau Philomene One', sans-serif;
-  margin-bottom: min(3.2dvw, 6dvh);
-  text-align: center;
+  font-size: min(3.33dvw, 5.925dvh);
+  font-weight: normal;
+  margin-bottom: min(1.28dvw, 2.4dvh);
+  text-align: left;
+  text-shadow: rgba(0, 0, 0, 0.25) 0 min(0.25dvw, 0.45dvh) min(0.75dvw, 1.3dvh);
 }
