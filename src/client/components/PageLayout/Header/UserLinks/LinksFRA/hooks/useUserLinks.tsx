@@ -2,7 +2,6 @@ import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
 import { Global } from 'meta/area'
-import { Assessments } from 'meta/assessment/assessments'
 import { Routes } from 'meta/routes'
 import { Users } from 'meta/user'
 import { UserRoles } from 'meta/user/userRoles'
@@ -56,8 +55,7 @@ export const useUserLinks = (): Array<PopoverItem> => {
       onClick: async () => {
         await dispatch(UserActions.logout()).unwrap()
         toaster.toaster.info(t('login.logoutSuccessful'))
-        const lastPublishedCycleName = Assessments.getLastPublishedCycle(assessment).name
-        const path = Routes.Cycle.generatePath({ assessmentName, cycleName: lastPublishedCycleName })
+        const path = Routes.Assessment.generatePath({ assessmentName })
         navigate(path)
       },
     }
