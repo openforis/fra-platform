@@ -1,6 +1,7 @@
 import './InteractiveStories.scss'
 import 'client/pages/Kiosk/Kiosk.scss'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { Routes } from 'meta/routes'
 
@@ -35,10 +36,12 @@ const cards: Array<KioskCardProps> = [
 ]
 
 const InteractiveStories: React.FC = () => {
+  const { t } = useTranslation()
+
   return (
     <div className="kiosk-content">
       <div>
-        <h1 className="kiosk-content__title">Interactive Stories</h1>
+        <h1 className="kiosk-content__title kiosk-interactive-stories__title">{t('kiosk.interactiveStories')}</h1>
         <div className="kiosk-interactive-stories__grid-container">
           {cards.map(({ altText, imageUrl, link, title }) => (
             <Card key={title} altText={altText} imageUrl={imageUrl} link={link} title={title} />
