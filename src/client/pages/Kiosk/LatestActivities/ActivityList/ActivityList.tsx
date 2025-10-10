@@ -1,9 +1,12 @@
 import './ActivityList.scss'
-import React from 'react'
+import React, { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+
+import classNames from 'classnames'
 
 import { Activity } from 'meta/kiosk'
 
+import Icon from 'client/components/Icon'
 import ActivityListItem from 'client/pages/Kiosk/LatestActivities/ActivityListItem'
 
 type Props = {
@@ -16,22 +19,41 @@ type Props = {
 const ActivityList: React.FC<Props> = (props: Props) => {
   const { activities, expandedActivity, handleExpand, map } = props
   const { t } = useTranslation()
+  const [isOpen, setIsOpen] = useState(true)
+
+  const toggleList = useCallback<() => void>(() => {
+    setIsOpen((prevIsOpen) => !prevIsOpen)
+  }, [])
 
   return (
     <div className="kiosk-latest-activities__list">
-      <div className="kiosk-latest-activities__list-title-container">
+      <button
+        aria-expanded={isOpen}
+        className={classNames('kiosk-latest-activities__list-title-container', { 'is-open': isOpen })}
+        onClick={toggleList}
+        type="button"
+      >
+        <span className="kiosk-latest-activities__toggle-button-icon">
+          <Icon name="arrow-back" />
+        </span>
         <h1 className="kiosk-latest-activities__list-title">{t('kiosk.latestEvents')}</h1>
-      </div>
-      <div className="kiosk-latest-activities__list-container">
-        {activities?.map((activity) => (
-          <ActivityListItem
-            key={activity.startDate}
-            activity={activity}
-            expanded={expandedActivity === activity.id}
-            handleExpand={handleExpand}
-            map={map}
-          />
-        ))}
+      </button>
+      <div
+        aria-hidden={!isOpen}
+        className={classNames('kiosk-latest-activities__list-wrapper', { 'is-open': isOpen })}
+        id="kiosk-latest-activities__items"
+      >
+        <div className="kiosk-latest-activities__list-container">
+          {activities?.map((activity) => (
+            <ActivityListItem
+              key={activity.startDate}
+              activity={activity}
+              expanded={expandedActivity === activity.id}
+              handleExpand={handleExpand}
+              map={map}
+            />
+          ))}
+        </div>
       </div>
     </div>
   )
