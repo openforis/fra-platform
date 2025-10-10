@@ -1,0 +1,10 @@
+{
+  "areaOfPermanentForestEstateApplicable": "$t(areaOfPermanentForestEstate.applicable)",
+  "commonName": "$t(growingStockComposition.commonName)",
+  "forestPolicyNationalYesNo": "$t(forestPolicy.national)",
+  "forestPolicySubNationalYesNo": "$t(forestPolicy.subnational)",
+  "growingStockMillionCubicMeter": "$t(growingStockComposition.millionCubicMeter)",
+  "growingStockPercent": "$t(growingStockComposition.growingStockPercent)",
+  "mostRecentYear": "$t(growingStockComposition.mostRecentYear)",
+  "scientificName": "$t(growingStockComposition.scientificName)"
+}

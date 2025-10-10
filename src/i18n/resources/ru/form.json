@@ -1,0 +1,9 @@
+{
+  "errors": {
+    "invalid": "{{field}} неверен.",
+    "mustBeAtLeastNCharacters": "{{field}} должен быть не менее {{n}} символов.",
+    "required": "{{field}} обязателен.",
+    "atLeastOneItemRequired": "{{field}} должен иметь по крайней мере один элемент выбран.",
+    "atLeastOneRoleRequired": "Требуется хотя бы одна роль"
+  }
+}

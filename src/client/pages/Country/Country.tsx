@@ -4,16 +4,8 @@ import { Outlet } from 'react-router-dom'
 
 import classNames from 'classnames'
 
-import { Areas, CountryIso } from 'meta/area'
-import { Routes } from 'meta/routes'
-import { Authorizer } from 'meta/user'
-
 import { useCountries } from 'client/store/area/hooks/countries'
-import { useCountry } from 'client/store/area/hooks/country'
-import { useAssessment } from 'client/store/meta/hooks/assessments'
-import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useNavigationVisible } from 'client/store/ui/countryReport/hooks/navigation'
-import { useUser } from 'client/store/user/hooks/user'
 import { useIsGeoRoute } from 'client/hooks'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import Navigation from 'client/components/Navigation'
@@ -24,14 +16,10 @@ import { useReviewSummaryListener } from './hooks/useReviewSummaryListener'
 import { useUserRedirect } from './hooks/useUserRedirect'
 
 const Country: React.FC = () => {
-  const { assessmentName, countryIso, cycleName } = useCountryRouteParams()
+  const { countryIso } = useCountryRouteParams()
 
-  const assessment = useAssessment()
-  const cycle = useCycle()
-  const user = useUser()
   const navigationVisible = useNavigationVisible()
   const countries = useCountries()
-  const country = useCountry(countryIso as CountryIso) // TODO: revisit useCountry Hook
   const geoRoute = useIsGeoRoute()
   // const isDataExportView = useIsDataExportView()
   useInitSections()
@@ -42,12 +30,6 @@ const Country: React.FC = () => {
   if (!countryIso) return null
 
   if (countries?.length === 0) return null
-
-  if (
-    (Areas.isISOCountry(countryIso) && !country) ||
-    !Authorizer.canView({ assessment, cycle, areaCode: countryIso, country, user })
-  )
-    window.location.href = Routes.Cycle.generatePath({ assessmentName, cycleName })
 
   return (
     <div className={classNames('app-view', { 'navigation-on': navigationVisible && !geoRoute })}>

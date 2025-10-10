@@ -251,6 +251,10 @@
     "review": {
       "commentDeleteNotOwner": "Erreur: L'utilisateur {{user}} a essayé de supprimer un commentaire qui ne lui appartient pas",
       "commentEnterResolvedIssue": "Erreur: L'utilisateur {{user}} a essayé de saisir un commentaire sur une question résolue"
+    },
+    "userInvitation": {
+      "userIsDisabled": "L'opération ne peut pas être terminée car l'utilisateur invité est désactivé.",
+      "userAlreadyRoleInCountry": "L'opération ne peut pas être complétée car l'utilisateur invité a déjà un rôle pour ce pays."
     }
   },
   "extentOfForest": {
@@ -444,7 +448,8 @@
     "totalPublicOwnership": "Propriété publique totale"
   },
   "home": {
-    "keyFindings": "Le monde compte une superficie forestière totale de {{forestArea}} milliards d'hectares\n(ha), ce qui correspond à {{totalLandArea}} pour cent de la superficie totale des terres. Cela\néquivaut à {{forestPerPerson}} ha par personne - bien que les forêts ne soient pas également\nréparties entre les populations du monde ou sur le plan géographique. Le domaine\ntropical compte la plus grande part de forêts du monde ({{tropicalArea}} pour cent), suivi\ndes domaines boréal, tempéré et sous-tropical"
+    "keyFindings": "Le monde compte une superficie forestière totale de {{forestArea}} milliards d'hectares\\n(ha), ce qui correspond à {{totalLandArea}} pour cent de la superficie totale des terres. Cela\\néquivaut à {{forestPerPerson}} ha par personne - bien que les forêts ne soient pas également\\nréparties entre les populations du monde ou sur le plan géographique. Le domaine\\ntropical compte la plus grande part de forêts du monde ({{tropicalArea}} pour cent), suivi\\ndes domaines boréal, tempéré et sous-tropical.",
+    "mapAltText": "Sources : Bourgoin, C., Ameztoy, I., Verhegghen, A., Desclée, B., Carboni, S., Bastin, J., Beuchle, R., et al. 2024. La cartographie de la couverture forestière mondiale de l'année 2020 à\nsoutient le règlement de l'UE sur les chaînes d'approvisionnement sans déforestation. JRC136960. Luxembourg, Bureau des publications de l'Union européenne et Centre commun de recherche\nde la Commission Européenne. https://data.europa.eu/doi/10. 760/262532. FAO. 2012. Zones écologiques mondiales pour le rapport de la FAO sur les forêts: mise à jour 2010. Rome. https://openknowledge.fao.org/handle/20.500.14283/ap861e"
   },
   "language": {
     "ar": "العربية",
@@ -692,7 +697,8 @@
     "remove": "Éliminer",
     "sendInvitation": "Envoyer un email d'invitation",
     "userAdded": "{{email}} a été ajouté",
-    "userModified": "{{user}} a été modifié"
+    "userModified": "{{user}} a été modifié",
+    "userUpdated": "{{email}} a été mis à jour"
   },
   "yesNoTextSelect": {
     "no": "Non",
