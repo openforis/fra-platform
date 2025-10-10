@@ -1,5 +1,6 @@
 import './ActivityList.scss'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { Activity } from 'meta/kiosk'
 
@@ -14,11 +15,12 @@ type Props = {
 
 const ActivityList: React.FC<Props> = (props: Props) => {
   const { activities, expandedActivity, handleExpand, map } = props
+  const { t } = useTranslation()
 
   return (
     <div className="kiosk-latest-activities__list">
       <div className="kiosk-latest-activities__list-title-container">
-        <h1>Latest Activities</h1>
+        <h1 className="kiosk-latest-activities__list-title">{t('kiosk.latestEvents')}</h1>
       </div>
       <div className="kiosk-latest-activities__list-container">
         {activities?.map((activity) => (

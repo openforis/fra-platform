@@ -1,20 +1,34 @@
 import './FraProcess.scss'
 import 'client/pages/Kiosk/Kiosk.scss'
 import React, { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import Button, { ButtonType } from 'client/components/Buttons/Button'
 
 import { useYouTubePlayer } from './hooks/useYouTubePlayer' // adjust import path
 
-const FRA_PROCESS_VIDEO_ID = 'SmMyfNlZ-jQ'
+const LANGUAGE_VIDEO_IDS: Record<string, string> = {
+  en: 'SmMyfNlZ-jQ',
+  fr: 'inJOU45yBbY',
+  es: 'bNZNZdtuCOM',
+}
 
-const FraProcess: React.FC = () => {
-  const { player, ref } = useYouTubePlayer({ videoId: FRA_PROCESS_VIDEO_ID })
+type FraProcessVideoProps = {
+  videoId: string
+}
+
+const FraProcessVideo: React.FC<FraProcessVideoProps> = (props) => {
+  const { videoId } = props
+  const { player, ref } = useYouTubePlayer({ videoId })
   const [isEnded, setIsEnded] = useState(false)
 
   useEffect(() => {
+    setIsEnded(false)
+  }, [videoId])
+
+  useEffect(() => {
     if (!player) return undefined
-    const onStateChange = (event: YT.OnStateChangeEvent) => {
+    const onStateChange = (event: YT.OnStateChangeEvent): void => {
       if (event.data === YT.PlayerState.ENDED) {
         setIsEnded(true)
       }
@@ -29,7 +43,7 @@ const FraProcess: React.FC = () => {
     }
   }, [player])
 
-  const handleReplay = () => {
+  const handleReplay = (): void => {
     if (player) {
       player.seekTo(0, false)
       player.playVideo()
@@ -54,6 +68,14 @@ const FraProcess: React.FC = () => {
       )}
     </div>
   )
+}
+
+const FraProcess: React.FC = () => {
+  const { i18n } = useTranslation()
+  const languageCode = i18n.resolvedLanguage ?? i18n.language
+  const videoId = LANGUAGE_VIDEO_IDS[languageCode]
+
+  return <FraProcessVideo key={videoId} videoId={videoId} />
 }
 
 export default FraProcess

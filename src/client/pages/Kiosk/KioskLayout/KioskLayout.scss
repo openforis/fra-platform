@@ -3,4 +3,11 @@
   grid-template-columns: 22dvw 1fr;
   height: 100dvh;
   width: 100%;
+
+  h1 {
+    color: white;
+    font-family: 'Chau Philomene One', sans-serif;
+    font-weight: normal;
+    text-shadow: rgba(0, 0, 0, 0.25) 0 min(0.25dvw, 0.45dvh) min(0.75dvw, 1.3dvh);
+  }
 }

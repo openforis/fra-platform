@@ -14,6 +14,7 @@ import * as fra from './en/fra.json'
 import * as generalValidation from './en/generalValidation.json'
 import * as geo from './en/geo.json'
 import * as history from './en/history.json'
+import * as kiosk from './en/kiosk.json'
 import * as landing from './en/landing.json'
 import * as login from './en/login.json'
 import * as measures from './en/measures.json'
@@ -42,6 +43,7 @@ export const enTranslation = {
   generalValidation,
   geo,
   history,
+  kiosk,
   landing,
   login,
   measures,
