@@ -1,4 +1,4 @@
-import './RecentHighlights.scss'
+import './RecentHighlightsButton.scss'
 import React, { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -6,7 +6,7 @@ import classNames from 'classnames'
 
 import SlidingPanel from 'client/components/SlidingPanel'
 
-const RecentHighlights: React.FC = () => {
+const RecentHighlightsButton: React.FC = () => {
   const { t } = useTranslation()
 
   const [opened, setOpened] = useState(false)
@@ -36,4 +36,4 @@ const RecentHighlights: React.FC = () => {
   )
 }
 
-export default RecentHighlights
+export default RecentHighlightsButton
