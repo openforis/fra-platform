@@ -4,6 +4,7 @@ import React, { useCallback, useState } from 'react'
 import { Activity } from 'meta/kiosk'
 
 import ActivityList from 'client/pages/Kiosk/LatestActivities/ActivityList'
+import RecentHighlights from 'client/pages/Kiosk/LatestActivities/RecentHighlights'
 
 import { useFetchAndMarkActivities } from './hooks/useFetchAndMarkActivities'
 import { useLatestActivitiesMap } from './hooks/useLatestActivitiesMap'
@@ -23,7 +24,10 @@ const Map: React.FC = () => {
     <>
       <div ref={ref} className="kiosk-latest-activities__map" />
       {map !== null && (
-        <ActivityList activities={data} expandedActivity={expandedActivity} handleExpand={handleExpand} map={map} />
+        <>
+          <ActivityList activities={data} expandedActivity={expandedActivity} handleExpand={handleExpand} map={map} />
+          <RecentHighlights />
+        </>
       )}
     </>
   )

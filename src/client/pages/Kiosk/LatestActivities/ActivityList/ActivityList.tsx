@@ -6,7 +6,6 @@ import classNames from 'classnames'
 
 import { Activity } from 'meta/kiosk'
 
-import Icon from 'client/components/Icon'
 import ActivityListItem from 'client/pages/Kiosk/LatestActivities/ActivityListItem'
 
 type Props = {
@@ -29,14 +28,11 @@ const ActivityList: React.FC<Props> = (props: Props) => {
     <div className="kiosk-latest-activities__list">
       <button
         aria-expanded={isOpen}
-        className={classNames('kiosk-latest-activities__list-title-container', { 'is-open': isOpen })}
+        className={classNames('kiosk-latest-activities__map-button', { 'is-open': isOpen })}
         onClick={toggleList}
         type="button"
       >
-        <span className="kiosk-latest-activities__toggle-button-icon">
-          <Icon name="arrow-back" />
-        </span>
-        <h1 className="kiosk-latest-activities__list-title">{t('kiosk.latestEvents')}</h1>
+        <h1>{t('kiosk.latestEvents')}</h1>
       </button>
       <div
         aria-hidden={!isOpen}
