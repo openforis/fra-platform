@@ -6,7 +6,7 @@ import classNames from 'classnames'
 
 import { Activity } from 'meta/kiosk'
 
-import ActivityListItem from 'client/pages/Kiosk/LatestActivities/ActivityListItem'
+import ActivityListItem from 'client/pages/Kiosk/RecentHighlights/ActivityListItem'
 
 type Props = {
   activities: Array<Activity> | undefined

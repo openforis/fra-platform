@@ -3,8 +3,8 @@ import React, { useCallback, useState } from 'react'
 
 import { Activity } from 'meta/kiosk'
 
-import ActivityList from 'client/pages/Kiosk/LatestActivities/ActivityList'
-import RecentHighlights from 'client/pages/Kiosk/LatestActivities/RecentHighlights'
+import ActivityList from 'client/pages/Kiosk/RecentHighlights/ActivityList'
+import RecentHighlights from 'client/pages/Kiosk/RecentHighlights/RecentHighlights'
 
 import { useFetchAndMarkActivities } from './hooks/useFetchAndMarkActivities'
 import { useLatestActivitiesMap } from './hooks/useLatestActivitiesMap'

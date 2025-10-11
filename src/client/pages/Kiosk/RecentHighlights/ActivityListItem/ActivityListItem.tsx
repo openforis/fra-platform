@@ -31,7 +31,7 @@ const ActivityListItem: React.FC<Props> = (props: Props) => {
           className="kiosk-latest-activities__list-item-button"
           inverse={!expanded}
           label={_getActivityLabel(activity.startDate, activity.countryName)}
-          onClick={() => {
+          onClick={(): void => {
             handleExpand(activity, map)
           }}
           type={ButtonType.black}

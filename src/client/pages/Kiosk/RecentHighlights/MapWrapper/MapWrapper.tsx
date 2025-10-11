@@ -4,7 +4,7 @@ import React from 'react'
 import { Status, Wrapper, WrapperProps } from '@googlemaps/react-wrapper'
 
 import Loading from 'client/components/Loading'
-import Map from 'client/pages/Kiosk/LatestActivities/Map'
+import Map from 'client/pages/Kiosk/RecentHighlights/Map'
 
 // @ts-ignore
 // from webpack DefinePlugin
