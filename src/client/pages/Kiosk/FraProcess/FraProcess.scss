@@ -25,7 +25,7 @@
 }
 
 .kiosk-fra-process__yt-video-overlay-button {
-  background-color: #5aa955;
+  background-color: #61a2d8;
   border-radius: 30px;
   display: flex;
   font-size: min(1.78dvw, 3dvh);
@@ -35,6 +35,6 @@
   padding: min(1.8dvw, 2.55dvh);
 
   &:hover {
-    background-color: color.adjust(#ef7a2d, $lightness: 5%, $space: hsl);
+    background-color: color.adjust(#61a2d8, $lightness: 5%, $space: hsl);
   }
 }
