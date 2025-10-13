@@ -22,6 +22,7 @@
   "copyLink": "Copy link",
   "countries": "Countries",
   "country": "Country",
+  "csvAllTables": "CSV All Tables",
   "custom": "Custom",
   "cycleLabel": "$t({{assessmentName}}.labels.short) {{cycleName}}",
   "dashboard": "Dashboard",

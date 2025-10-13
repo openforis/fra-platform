@@ -251,6 +251,10 @@
     "review": {
       "commentDeleteNotOwner": "Error: El usuario {{user}} intentó borrar un comentario que no es suyo",
       "commentEnterResolvedIssue": "Error: El usuario {{user}} intentó introducir un comentario a un asunto que ya se había resuelto"
+    },
+    "userInvitation": {
+      "userIsDisabled": "La operación no se puede completar porque el usuario invitado está deshabilitado.",
+      "userAlreadyRoleInCountry": "La operación no se puede completar porque el usuario invitado ya tiene un rol para este país."
     }
   },
   "extentOfForest": {
@@ -444,7 +448,8 @@
     "totalPublicOwnership": "Propiedad pública total"
   },
   "home": {
-    "keyFindings": "El área total de bosques en el mundo es de {{forestArea}} millones de hectáreas (ha),\nque corresponde al {{totalLandArea}} por ciento de la superficie total de la tierra. Esta área\nes equivalente a {{forestPerPerson}} ha por persona\n, aunque los bosques no están distribuidos\nde manera equitativa por población mundial o situación geográfica. Las zonas\ntropicales poseen la mayor proporción de los bosques del mundo ({{tropicalArea}} por ciento),\nel resto está localizado en las regiones boreales, templadas y subtropicales."
+    "keyFindings": "El área total de bosques en el mundo es de {{forestArea}} millones de hectáreas (ha),\nque corresponde al {{totalLandArea}} por ciento de la superficie total de la tierra. Esta área\nes equivalente a {{forestPerPerson}} ha por persona, aunque los bosques no están distribuidos\nde manera equitativa por población mundial o situación geográfica. Las zonas\ntropicales poseen la mayor proporción de los bosques del mundo ({{tropicalArea}} por ciento),\nel resto está localizado en las regiones boreales, templadas y subtropicales.",
+    "mapAltText": "Fuentes: Bourgoin, C., Ameztoy, I., Ver.Ughen, A., Desclée, B., Carboni, S., Bastin, J., Beuchle, R., et al. 2024. El mapeo de la cubierta forestal mundial del año 2020 a\napoya la regulación de la UE sobre las cadenas de suministro sin deforestación. JRC136960. Luxemburgo, Oficina de Publicaciones de la Unión Europea y Centro Común de Investigación\nde la Comisión Europea. https://data.europa.eu/doi/10. 760/262532. FAO. 2012. Zonas ecológicas mundiales para los informes forestales de la FAO: 2010 actualización. Roma. https://openknowledge.fao.org/handle/20.500.14283/ap861e"
   },
   "language": {
     "ar": "العربية",
@@ -692,7 +697,8 @@
     "remove": "Eliminar",
     "sendInvitation": "Enviar correo electrónico de invitación",
     "userAdded": "El email {{email}} ha sido añadido",
-    "userModified": "El usuario {{usuario}} ha sido modificado"
+    "userModified": "{{user}} ha sido modificado",
+    "userUpdated": "{{email}} ha sido actualizado"
   },
   "yesNoTextSelect": {
     "no": "No",

@@ -1,0 +1,9 @@
+{
+  "errors": {
+    "invalid": "El {{field}} no es válido.",
+    "mustBeAtLeastNCharacters": "{{field}} debe tener al menos {{n}} caracteres.",
+    "required": "Se requiere {{field}}.",
+    "atLeastOneItemRequired": "{{field}} debe tener al menos un elemento seleccionado.",
+    "atLeastOneRoleRequired": "Se requiere al menos un rol"
+  }
+}

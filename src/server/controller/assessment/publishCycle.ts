@@ -30,11 +30,13 @@ export const publishCycle = async (props: Props, client: BaseProtocol = DB): Pro
     cycle.props.status = CycleStatus.published
     cycle.props.datePublished = new Date(Date.now()).toISOString()
     await CycleRepository.update({ cycle }, t)
+    // Update Assessment cache
+    await AssessmentRedisRepository.getAssessmentsMap({ force: true }, t)
 
     // Update countries db
-    const publishedCountries = await CountryRepository.publishAllAccepted({ assessment, cycle })
+    const publishedCountries = await CountryRepository.publishAllAccepted({ assessment, cycle }, t)
     // Update countries cache
-    await AreaRedisRepository.getCountriesMap({ assessment, cycle, force: true })
+    await AreaRedisRepository.getCountriesMap({ assessment, cycle, force: true }, t)
 
     // Activity log cycle
     const activityLog = { target: cycle, section: 'cycle', message: ActivityLogMessage.cyclePublish, user }
@@ -53,7 +55,7 @@ export const publishCycle = async (props: Props, client: BaseProtocol = DB): Pro
         user_id: user.id,
       }
     })
-    await ActivityLogRepository.massiveInsert({ activityLogs }, client)
+    await ActivityLogRepository.massiveInsert({ activityLogs }, t)
 
     const { name: assessmentName } = assessment.props
     const { name: cycleName } = cycle
