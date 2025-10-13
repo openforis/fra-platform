@@ -2,12 +2,11 @@
 
 .section__title {
   margin-bottom: $spacing-xs;
-
 }
 
 .section__title__header {
-    display: flex;
-    align-items: center;
-    gap: $spacing-xxxs;
-    margin-bottom: $spacing-xxxs;
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+  margin-bottom: $spacing-xxxs;
 }

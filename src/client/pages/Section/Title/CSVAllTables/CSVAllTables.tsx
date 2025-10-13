@@ -53,7 +53,7 @@ const CSVAllTables: React.FC<Props> = (props) => {
   return (
     <button className={className} onClick={handleClick} type="button">
       <Icon className="icon-sub icon-white" name="hit-down" />
-      {isDownloading ? t('common.downloading') : t('common.csvAll')}
+      {t('common.csvAllTables')}
     </button>
   )
 }

@@ -29,8 +29,8 @@ const Title: React.FC<Props> = (props) => {
   return (
     <div className="section__title">
       <div className="section__title__header">
-        {!print && <CSVAllTables />}
         {React.createElement(Component, { subSection })}
+        {!print && <CSVAllTables />}
       </div>
       {!print && <HintsComponent subSection={subSection} />}
     </div>
