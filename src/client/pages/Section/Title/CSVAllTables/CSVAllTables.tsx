@@ -21,7 +21,6 @@ const CSVAllTables: React.FC<Props> = (props) => {
   const className = useButtonClassName({
     disabled: disabled || isDownloading,
     iconName: 'hit-down',
-    label: isDownloading ? t('common.downloading') : t('common.csvAll'),
     size: ButtonSize.s,
     className: 'btn-csv-download-all',
   })
