@@ -5,20 +5,16 @@ import { UserFilters } from 'meta/tablePaginated/users'
 import { UserStatus } from 'meta/user'
 
 import { UserController } from 'server/controller/user'
-import { ProcessEnv } from 'server/utils'
 import Requests from 'server/utils/requests'
 
-export const getMany = async (req: CycleRequest<{ print: string }>, res: Response): Promise<void> => {
+export const getMany = async (req: CycleRequest, res: Response): Promise<void> => {
   try {
-    const { countryIso, print } = req.query
+    const { countryIso } = req.query
 
     const { assessment, cycle } = req.context
 
     const filters: UserFilters = { statuses: [UserStatus.active, UserStatus.invitationPending] }
-    let users = await UserController.getMany({ assessment, cycle, countryIso, filters })
-
-    if (print && print === 'true')
-      users = users.filter((user) => !ProcessEnv.fraReportCollaboratorsExcluded.includes(user.email))
+    const users = await UserController.getMany({ assessment, cycle, countryIso, filters })
 
     Requests.sendOk(res, users)
   } catch (e) {
