@@ -29,9 +29,9 @@ const cards: Array<KioskCardConfig> = [
     titleKey: 'exploreFraData',
   },
   {
-    altText: 'Latest activities',
+    altText: 'Remote sensing survey',
     imageUrl: '/img/kiosk/latest-activities.png',
-    link: Routes.LatestActivities.path.relative,
+    link: Routes.RemoteSensingSurvey.path.relative,
     titleKey: 'remoteSensingSurvey',
   },
   {

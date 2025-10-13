@@ -11,7 +11,13 @@ type Props = {
   map: google.maps.Map
 }
 
-export const useFetchAndMarkActivities = (props: Props) => {
+type Returned = {
+  data: Array<Activity>
+  error: string | null
+  isLoading: boolean
+}
+
+export const useFetchAndMarkActivities = (props: Props): Returned => {
   const { addMarkers, map } = props
 
   const [data, setData] = useState<Array<Activity> | null>(null)
@@ -22,7 +28,7 @@ export const useFetchAndMarkActivities = (props: Props) => {
   useEffect(() => {
     if (!Objects.isNil(data) || isLoading || !Objects.isNil(error)) return
 
-    const fetchLatestActivities = async () => {
+    const fetchLatestActivities = async (): Promise<void> => {
       setIsLoading(true)
       setError(null)
 

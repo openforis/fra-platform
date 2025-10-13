@@ -58,7 +58,7 @@ const Kiosk = createRoute({ path: 'kiosk', parent: Root })
 const ForestKids = createRoute({ path: 'forest-kids', parent: Kiosk })
 const FraDataPlatform = createRoute({ path: 'fra-data-platform', parent: Kiosk })
 const FraProcess = createRoute({ path: 'fra-process', parent: Kiosk })
-const LatestActivities = createRoute({ path: 'latest-activities', parent: Kiosk })
+const RemoteSensingSurvey = createRoute({ path: 'remote-sensing-survey', parent: Kiosk })
 const RecentHighlights = createRoute({ path: 'recent-highlights', parent: Kiosk })
 const InteractiveStories = createRoute({ path: 'interactive-stories', parent: Kiosk })
 const AFreshPerspective = createRoute({ path: 'a-fresh-perspective', parent: InteractiveStories })
@@ -103,7 +103,7 @@ export const Routes = {
   ForestKids,
   FraDataPlatform,
   FraProcess,
-  LatestActivities,
+  RemoteSensingSurvey,
   RecentHighlights,
   InteractiveStories,
   AFreshPerspective,

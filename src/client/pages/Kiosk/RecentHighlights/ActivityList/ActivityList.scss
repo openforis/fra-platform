@@ -17,15 +17,17 @@ $activities-bg: #61a2d8;
   padding: min(0.8dvw, 1.5dvh);
 }
 
-.kiosk-latest-activities__list-title-container {
-  background-color: rgba($activities-bg, 0.8);
-  display: flex;
-  justify-content: center;
+.kiosk-latest-activities__list-wrapper {
+  max-height: 0;
+  opacity: 0;
+  overflow: auto;
+  pointer-events: none;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
   width: 100%;
-}
 
-.kiosk-latest-activities__list-title {
-  font-size: min(2.331dvw, 4.1475dvh);
-  margin: min(0.8dvw, 1.5dvh) 0;
-  text-align: center;
+  &.is-open {
+    max-height: 80dvh;
+    opacity: 1;
+    pointer-events: auto;
+  }
 }
