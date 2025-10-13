@@ -23,7 +23,13 @@ const ButtonGridExport: React.FC<Props> = (props) => {
   const { print } = useIsPrintRoute()
   const isLocked = useIsDataLocked()
 
-  const className = useButtonClassName({ disabled: !isLocked || disabled, iconName: 'hit-down', label: 'CSV', size })
+  const className = useButtonClassName({
+    disabled: !isLocked || disabled,
+    iconName: 'hit-down',
+    label: 'CSV',
+    size,
+    className: 'btn-csv-download',
+  })
   const filename = useFilename(_filename)
 
   if (print) return null
