@@ -54,6 +54,8 @@ const Table: React.FC<Props> = (props) => {
   const { name, secondary } = table.props
   const canClearData = !print && !isDataLocked && !table.props.readonly
 
+  const tableId = `tableId_${table.id}_tableName_${table.props.name}`
+
   return (
     <div className={classNames('table-grid-container', { 'secondary-table': secondary })}>
       <div className="table-grid-actions">
@@ -67,6 +69,7 @@ const Table: React.FC<Props> = (props) => {
         ref={gridRef}
         className="table-grid"
         gridTemplateColumns={gridTemplateColumns}
+        id={tableId}
         withActions={withActions}
       >
         {rowsHeader.map((row, rowIndex) => (
