@@ -50,14 +50,18 @@ const cards: Array<KioskCardConfig> = [
 
 const Kiosk: React.FC = () => {
   const { t } = useTranslation()
+  const title = t('kiosk.globalForestResourcesAssessmentFra')
 
   return (
     <div className="kiosk-content">
       <div>
         <h1 className="kiosk-content__title">
-          Global Forest Resources
-          <br />
-          Assessment (FRA)
+          {title.split('\n').map((line) => (
+            <React.Fragment key={line}>
+              {line}
+              <br />
+            </React.Fragment>
+          ))}
         </h1>
         <div className="kiosk-content__grid-container">
           {cards.map(({ altText, imageUrl, link, titleKey }) => (

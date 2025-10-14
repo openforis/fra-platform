@@ -19,7 +19,7 @@ const languageOptions = [
 const SidePanel: React.FC = () => {
   const navigate = useNavigate()
   const [, startTransition] = useTransition()
-  const { i18n } = useTranslation()
+  const { i18n, t } = useTranslation()
 
   const handleLanguageChange = useCallback<(l: string) => void>(
     (language: string): void => {
@@ -76,7 +76,7 @@ const SidePanel: React.FC = () => {
       <div className="kiosk-side-panel__footer">
         <p>
           <strong>
-            <i>With the assistance of:</i>
+            <i>{t('kiosk.withTheAssistanceOf')}</i>
           </strong>
         </p>
         <div className="kiosk-side-panel__partners">
