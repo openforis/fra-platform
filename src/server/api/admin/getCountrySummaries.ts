@@ -1,6 +1,7 @@
 import { Response } from 'express'
 
 import { TablePaginatedDataRequest } from 'meta/api/request/tablePaginated'
+import { Lang } from 'meta/lang'
 import { TablePaginateds } from 'meta/tablePaginated'
 import { CountriesFilters } from 'meta/tablePaginated/countries'
 
@@ -11,13 +12,16 @@ export const getCountrySummaries = async (req: TablePaginatedDataRequest, res: R
   try {
     const { filters: filtersReq, limit: limitReq, offset: offsetReq, orderBy, orderByDirection } = req.query
 
+    const user = Requests.getUser(req)
+    const lang = user.props.lang ?? Lang.en
+
     const filters = TablePaginateds.decodeFilters<CountriesFilters>(filtersReq)
     const limit = limitReq && Number(limitReq)
     const offset = offsetReq && Number(offsetReq)
 
     const { assessment, cycle } = req.context
 
-    const props = { assessment, cycle, filters, limit, offset, orderBy, orderByDirection }
+    const props = { assessment, cycle, filters, lang, limit, offset, orderBy, orderByDirection }
     const countrySummaries = await AreaController.getCountrySummaries(props)
 
     Requests.sendOk(res, countrySummaries)
