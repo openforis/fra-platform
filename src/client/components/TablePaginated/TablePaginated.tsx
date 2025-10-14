@@ -5,7 +5,7 @@ import Skeleton from 'react-loading-skeleton'
 import classNames from 'classnames'
 
 import { useTablePaginatedCount } from 'client/store/tablePaginated/hooks/tablePaginated'
-import DataGrid from 'client/components/DataGridDeprecated'
+import { DataGrid } from 'client/components/DataGrid'
 import { PaginatorProps } from 'client/components/Paginator'
 import Actions from 'client/components/TablePaginated/Actions'
 
@@ -72,7 +72,7 @@ const TablePaginated = <Datum extends object>(props: Props<Datum>): React.ReactE
     <div ref={divRef} className={classNames('table-paginated', className)}>
       <div>
         <Actions export={exportTable} extraActions={extraActions} filters={filters} path={path} />
-        <DataGrid className="table-paginated-datagrid" style={{ gridTemplateColumns }}>
+        <DataGrid className="table-paginated-datagrid" gridTemplateColumns={gridTemplateColumns}>
           {header && <Header columns={columns} path={path} />}
           {count?.total === 0 && <EmptyListComponent />}
           <Body

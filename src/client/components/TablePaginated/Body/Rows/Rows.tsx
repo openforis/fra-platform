@@ -1,15 +1,15 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 
 import classNames from 'classnames'
 
-import DataColumn from 'client/components/DataGridDeprecated/DataColumn'
+import { DataCell } from 'client/components/DataGrid'
 import { Props as BaseProps } from 'client/components/TablePaginated/types'
 
 type Props<Datum extends object> = Pick<BaseProps<Datum>, 'columns' | 'wrapCells'> & {
   data: Array<Datum>
 }
 
-const Rows = <Datum extends object>(props: Props<Datum>) => {
+const Rows = <Datum extends object>(props: Props<Datum>): Array<ReactElement> => {
   const { columns, data, wrapCells } = props
 
   return data.map((datum, rowIndex) => (
@@ -19,9 +19,9 @@ const Rows = <Datum extends object>(props: Props<Datum>) => {
 
         if (wrapCells) {
           return (
-            <DataColumn key={key} className={classNames({ withBorder: rowIndex !== 0 })}>
+            <DataCell key={key} className={classNames({ withBorder: rowIndex !== 0 })}>
               <Component datum={datum} rowIndex={rowIndex} />
-            </DataColumn>
+            </DataCell>
           )
         }
 
