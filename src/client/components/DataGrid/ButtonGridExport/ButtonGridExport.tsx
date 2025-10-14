@@ -39,8 +39,8 @@ const ButtonGridExport: React.FC<Props> = (props) => {
       asyncOnClick
       className={className}
       data={data}
-      filename={`${filename}.csv`}
-      onClick={(_, done) => {
+      filename={filename}
+      onClick={(_, done): void => {
         setData(getDataGridData(gridRef.current))
         done()
       }}
