@@ -57,7 +57,7 @@
 .admin__page-content {
   padding: $spacing-xs 0;
 
-  .table-paginated-datagrid .data-grid-column.head {
+  .table-paginated-datagrid .data-cell.header {
     position: sticky;
     top: 42px;
   }
@@ -67,7 +67,7 @@
     position: sticky;
     top: 42px;
 
-    + .table-paginated-datagrid .data-grid-column.head {
+    + .table-paginated-datagrid .data-cell.header {
       position: sticky;
       top: 82px;
     }
