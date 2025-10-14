@@ -14,6 +14,7 @@ import { Routes } from 'meta/routes'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useCountryIso } from 'client/hooks'
 import { DataCell } from 'client/components/DataGrid'
+import { useCellId } from 'client/pages/Section/DataTable/Table/hooks/useCellId'
 
 type Props = {
   assessmentName: AssessmentName
@@ -43,6 +44,7 @@ const CellHeader: React.FC<Props> = (props) => {
 
   const headerCell = row.cols.every((col) => Cols.isReadOnly({ cycle, row, col }))
   const subcategory = row.props.categoryLevel > 0
+  const id = useCellId({ col, row })
 
   return (
     <DataCell
@@ -61,6 +63,7 @@ const CellHeader: React.FC<Props> = (props) => {
       gridRow={gridRow}
       header
       highlighted={highlighted}
+      id={id}
       lastCol={lastCol}
       lastHighlightCol={lastHighlightCol}
       lastRow={lastRow}
