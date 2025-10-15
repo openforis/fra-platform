@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { useIsGeoRoute } from 'client/hooks'
+import { useIsGeoRoute } from 'client/hooks/routes'
 import Center from 'client/components/PageLayout/Toolbar/Options/GeoOptions/Center'
 import GeoToggle from 'client/components/PageLayout/Toolbar/Options/GeoOptions/GeoToggle'
 import MapType from 'client/components/PageLayout/Toolbar/Options/GeoOptions/MapType'

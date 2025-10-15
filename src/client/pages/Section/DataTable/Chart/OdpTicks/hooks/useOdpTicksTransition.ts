@@ -2,7 +2,7 @@ import { RefObject, useLayoutEffect } from 'react'
 
 import * as d3 from 'd3'
 
-import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import { useIsPrintRoute } from 'client/hooks/routes'
 import { Charts } from 'client/pages/Section/DataTable/Chart/charts'
 import { D3ChartAxisScale, TrendData, TrendDatum } from 'client/pages/Section/DataTable/Chart/types'
 

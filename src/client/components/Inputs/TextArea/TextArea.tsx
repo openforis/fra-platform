@@ -1,7 +1,7 @@
 import './TextArea.scss'
 import React, { forwardRef, TextareaHTMLAttributes, useImperativeHandle, useRef } from 'react'
 
-import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import { useIsPrintRoute } from 'client/hooks/routes'
 
 import useResize from './hooks/useResize'
 

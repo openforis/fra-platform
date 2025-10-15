@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 import { Routes } from 'meta/routes'
 
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 
 const EmptyActivities: React.FC = () => {
   const { t } = useTranslation()

@@ -6,7 +6,7 @@ import { LayersActions } from 'client/store/geo/layers/actions'
 import { useGeoLayer } from 'client/store/geo/layers/hooks/layers'
 import { LayerStateOptions } from 'client/store/geo/layers/state'
 import { useAppDispatch } from 'client/store/hooks'
-import { useCountryIso } from 'client/hooks'
+import { useCountryIso } from 'client/hooks/country'
 
 export const useFetchNewLayerOption = (
   sectionKey: LayerSectionKey,

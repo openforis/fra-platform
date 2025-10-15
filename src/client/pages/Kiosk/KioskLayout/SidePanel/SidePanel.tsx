@@ -6,7 +6,7 @@ import classNames from 'classnames'
 
 import { Routes } from 'meta/routes'
 
-import { useIsRoute } from 'client/hooks/useIsRoute'
+import { useIsRoute } from 'client/hooks/routes'
 import Icon from 'client/components/Icon'
 
 const SidePanel: React.FC = () => {

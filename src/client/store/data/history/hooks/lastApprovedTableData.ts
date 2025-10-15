@@ -13,7 +13,7 @@ import { RecordAssessmentData, RecordAssessmentDatas } from 'meta/data'
 
 import { HistorySelectors } from 'client/store/data/history/selectors'
 import { useAppSelector } from 'client/store/hooks'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 
 type PropsNodeValue = {
   assessmentName: AssessmentName

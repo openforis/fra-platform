@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom'
 
 import { Routes } from 'meta/routes'
 
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 
 const LinkGeo: React.FC = () => {
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams()

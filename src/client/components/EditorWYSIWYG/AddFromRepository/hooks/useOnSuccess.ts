@@ -6,7 +6,7 @@ import { File } from 'meta/file'
 
 import { useAppDispatch } from 'client/store/hooks'
 import { RepositoryActions } from 'client/store/repository/actions'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 
 import { useGetRepositoryItems } from './useGetRepositoryItems'
 

@@ -6,7 +6,8 @@ import { TableCell } from 'meta/assessment/table'
 import { RecordAssessmentData } from 'meta/data'
 
 import { useDataExportSelection } from 'client/store/dataExport/hooks/dataExport'
-import { useCountryIso, useGetRequest } from 'client/hooks'
+import { useCountryIso } from 'client/hooks/country'
+import { useGetRequest } from 'client/hooks/getRequest'
 
 type Props = {
   assessmentName: AssessmentName

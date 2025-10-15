@@ -5,7 +5,7 @@ import { CountryIso } from 'meta/area'
 import { useAppDispatch } from 'client/store/hooks'
 import { RepositoryActions } from 'client/store/repository/actions'
 import { useRepositoryItem } from 'client/store/repository/hooks/repository'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 
 type Returned = () => void
 

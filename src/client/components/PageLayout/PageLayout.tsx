@@ -1,7 +1,7 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 
-import { useIsAdminRoute, useIsLoginRoute, useIsPrintRoute } from 'client/hooks/useIsRoute'
+import { useIsAdminRoute, useIsLoginRoute, useIsPrintRoute } from 'client/hooks/routes'
 
 import Footer from './Footer'
 import Header from './Header'

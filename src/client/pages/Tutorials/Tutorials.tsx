@@ -2,7 +2,7 @@ import './Tutorials.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { useLanguage } from 'client/hooks/useLanguage'
+import { useLanguage } from 'client/hooks/language'
 import Icon from 'client/components/Icon'
 import GuidelinesAndSpecifications from 'client/pages/Tutorials/GuidelinesAndSpecifications'
 

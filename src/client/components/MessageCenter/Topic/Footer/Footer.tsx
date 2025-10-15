@@ -10,7 +10,7 @@ import { useAppDispatch } from 'client/store/hooks'
 import { MessageCenterActions } from 'client/store/messageCenter/actions'
 import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useCycle } from 'client/store/meta/hooks/cycles'
-import { useCountryIso } from 'client/hooks'
+import { useCountryIso } from 'client/hooks/country'
 import { DataCell, DataGrid } from 'client/components/DataGrid'
 import TextArea from 'client/components/Inputs/TextArea'
 

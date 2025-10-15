@@ -8,7 +8,7 @@ import { Objects } from 'utils/objects'
 import { CountryIso } from 'meta/area'
 import { TooltipId } from 'meta/tooltip'
 
-import { useIsPanEuropeanRoute } from 'client/hooks'
+import { useIsPanEuropeanRoute } from 'client/hooks/routes'
 import { Props as CountrySelectProps } from 'client/components/CountryMultiSelect/types'
 import { OptionsGroup } from 'client/components/Inputs/Select'
 import { Breakpoints } from 'client/utils'

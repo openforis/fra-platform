@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { ApiEndPoint } from 'meta/api/endpoint'
 
 import { useRepositoryItemChangeListener } from 'client/store/repository/hooks/useRepositoryItemChangeListener'
-import { useIsPanEuropeanRoute } from 'client/hooks'
+import { useIsPanEuropeanRoute } from 'client/hooks/routes'
 import Hr from 'client/components/Hr'
 import TablePaginated from 'client/components/TablePaginated'
 import ButtonAdd from 'client/pages/CountryHome/Repository/ButtonAdd'

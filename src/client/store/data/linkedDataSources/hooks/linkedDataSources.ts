@@ -4,7 +4,7 @@ import { SectionName } from 'meta/assessment/section'
 
 import { LinkedDataSourcesSelectors } from 'client/store/data/linkedDataSources/selectors'
 import { useAppSelector } from 'client/store/hooks'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 
 type Props = { sectionName: SectionName }
 

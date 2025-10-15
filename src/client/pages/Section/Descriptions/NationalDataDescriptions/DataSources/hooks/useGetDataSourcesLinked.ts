@@ -7,7 +7,7 @@ import { DataSourceLinked } from 'meta/assessment/descriptionValue'
 import { LinkedDataSourcesActions } from 'client/store/data/linkedDataSources/actions'
 import { useDataSourcesLinked } from 'client/store/data/linkedDataSources/hooks/linkedDataSources'
 import { useAppDispatch } from 'client/store/hooks'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 
 type Props = {
   nationalData: NationalDataDescription

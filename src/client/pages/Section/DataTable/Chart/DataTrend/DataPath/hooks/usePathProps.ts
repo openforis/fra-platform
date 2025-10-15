@@ -3,7 +3,8 @@ import { RefObject, useCallback, useMemo } from 'react'
 import * as d3 from 'd3'
 import { Arrays } from 'utils/arrays'
 
-import { useIsMounted, usePrevious } from 'client/hooks'
+import { useIsMounted } from 'client/hooks/mounted'
+import { usePrevious } from 'client/hooks/previous'
 import { Charts } from 'client/pages/Section/DataTable/Chart/charts'
 import { D3ChartAxisScale, Trend, TrendData, TrendDatum } from 'client/pages/Section/DataTable/Chart/types'
 

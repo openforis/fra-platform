@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { UserEditCountryForm } from 'meta/form/userEdit/form'
 
-import { useToaster } from 'client/hooks/useToaster'
+import { useToaster } from 'client/hooks/toaster'
 import { FormProps } from 'client/components/Form/types'
 
 export const useOnSuccess = (): FormProps<UserEditCountryForm>['onSuccess'] => {

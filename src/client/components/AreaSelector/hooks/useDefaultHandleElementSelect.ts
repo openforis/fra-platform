@@ -8,7 +8,7 @@ import { useCountries } from 'client/store/area/hooks/countries'
 import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useCycle, useLastPublishedCycle } from 'client/store/meta/hooks/cycles'
 import { useUser } from 'client/store/user/hooks/user'
-import { useIsGeoRoute } from 'client/hooks'
+import { useIsGeoRoute } from 'client/hooks/routes'
 
 export const useDefaultHandleElementSelect = () => {
   const navigate = useNavigate()

@@ -6,7 +6,7 @@ import { Objects } from 'utils/objects'
 import { GeoStatisticsActions } from 'client/store/geo/statistics/actions'
 import { useGeoStatistics } from 'client/store/geo/statistics/hooks/statistics'
 import { useAppDispatch } from 'client/store/hooks'
-import { useCountryIso } from 'client/hooks'
+import { useCountryIso } from 'client/hooks/country'
 import { buildForestEstimationsDataTable } from 'client/pages/Geo/utils/forestEstimations'
 
 type Props = {

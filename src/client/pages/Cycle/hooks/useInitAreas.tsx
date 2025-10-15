@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 
 import { AreaActions } from 'client/store/area/actions'
 import { useAppDispatch } from 'client/store/hooks'
-import { useCycleRouteParams } from 'client/hooks/useRouteParams'
+import { useCycleRouteParams } from 'client/hooks/routeParams'
 
 export const useInitAreas = (): void => {
   const dispatch = useAppDispatch()

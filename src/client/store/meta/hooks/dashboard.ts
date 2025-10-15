@@ -4,7 +4,7 @@ import { DashboardItem } from 'meta/dashboard/dashboard'
 import { useAppSelector } from 'client/store/hooks'
 import { MetadataSelectors } from 'client/store/meta/selectors'
 import { DashboardAreaType } from 'client/store/meta/state'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 
 export const useDashboardItems = (): Array<DashboardItem> => {
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams()

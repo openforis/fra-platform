@@ -2,7 +2,7 @@ import './partners.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { useLanguage } from 'client/hooks/useLanguage'
+import { useLanguage } from 'client/hooks/language'
 
 const Partners: React.FC = () => {
   const { t } = useTranslation()

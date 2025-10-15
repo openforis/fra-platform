@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { Promises } from 'utils/promises'
 
-import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import { useIsPrintRoute } from 'client/hooks/routes'
 import { ButtonSize, useButtonClassName } from 'client/components/Buttons/Button'
 import Icon from 'client/components/Icon'
 

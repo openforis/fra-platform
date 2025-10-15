@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { CountryUserSummary, Users } from 'meta/user'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { Column } from 'client/components/TablePaginated'
 
 const RoleCell: React.FC<{ datum: CountryUserSummary }> = ({ datum }) => {

@@ -7,7 +7,7 @@ import { ExplorerSelectionActions } from 'client/store/explorer/selection/action
 import { useExplorerCountries } from 'client/store/explorer/selection/hooks/countries'
 import { useAppDispatch } from 'client/store/hooks'
 import { useGlobalCountries } from 'client/store/ui/countryReport/hooks/globalCountries'
-import { useCycleRouteParams } from 'client/hooks/useRouteParams'
+import { useCycleRouteParams } from 'client/hooks/routeParams'
 import CountryMultiSelect from 'client/components/CountryMultiSelect'
 
 const Country: React.FC = () => {

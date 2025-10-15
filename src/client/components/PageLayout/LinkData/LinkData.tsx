@@ -11,8 +11,8 @@ import { CountryIso, Global } from 'meta/area'
 import { Routes } from 'meta/routes'
 import { TooltipId } from 'meta/tooltip'
 
-import { useIsCountryRoute, useIsGeoRoute } from 'client/hooks'
-import { useSectionRouteParams } from 'client/hooks/useRouteParams'
+import { useIsCountryRoute, useIsGeoRoute } from 'client/hooks/routes'
+import { useSectionRouteParams } from 'client/hooks/routeParams'
 import LinkDataDownload from 'client/components/PageLayout/LinkDataDownload'
 import { Breakpoints } from 'client/utils'
 

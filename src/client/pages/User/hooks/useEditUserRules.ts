@@ -7,7 +7,7 @@ import { Authorizer, User, Users } from 'meta/user'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useUser } from 'client/store/user/hooks/user'
-import { useCountryUserRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryUserRouteParams } from 'client/hooks/routeParams'
 
 type Props = {
   targetUser?: User
