@@ -45,7 +45,7 @@ const WatchingOverOurForests = React.lazy(
   () =>
     import(
       /* webpackChunkName: "kiosk" */
-      'client/pages/Kiosk/InteractiveStories/AFreshPerspective'
+      'client/pages/Kiosk/InteractiveStories/WatchingOverOurForests'
     )
 )
 const HiddenInPlainSight = React.lazy(
