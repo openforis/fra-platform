@@ -9,28 +9,30 @@ const _getState = createSelector(
   (tablePaginated: TablePaginatedState) => tablePaginated
 )
 
-const getCount = createSelector([_getState, (_state, path: string) => path], (state, path) => state?.[path]?.count)
+const getPathState = createSelector(
+  [_getState, (_state: RootState, path: string): string => path],
+  (state, path) => state?.[path]
+)
 
-const getData = createSelector([_getState, (_state, path: string) => path], (state, path) => state?.[path]?.data)
+const getCount = createSelector([getPathState], (state) => state?.count)
 
-const getFilters = createSelector([_getState, (_state, path: string) => path], (state, path) => state?.[path]?.filters)
+const getData = createSelector([getPathState], (state) => state?.data)
+
+const getFilters = createSelector([getPathState], (state) => state?.filters)
 
 const getFilterValue = createSelector(
-  [getFilters, (_state, _path: string, fieldName: string) => fieldName],
+  [getFilters, (_state: RootState, _path: string, fieldName: string): string => fieldName],
   (filters, fieldName) => {
     if (Objects.isEmpty(filters)) return undefined
     return filters[fieldName]
   }
 )
 
-const getOrderBy = createSelector([_getState, (_state, path: string) => path], (state, path) => state?.[path]?.orderBy)
+const getOrderBy = createSelector([getPathState], (state) => state?.orderBy)
 
-const getPage = createSelector([_getState, (_state, path: string) => path], (state, path) => state?.[path]?.page ?? 0)
+const getPage = createSelector([getPathState], (state) => state?.page ?? 0)
 
-const isInitialized = createSelector(
-  [_getState, (_state, path: string) => path],
-  (state, path) => state?.[path]?.initialized ?? false
-)
+const isInitialized = createSelector([getPathState], (state) => state?.initialized ?? false)
 
 export const TablePaginatedSelectors = {
   getCount,
@@ -39,5 +41,6 @@ export const TablePaginatedSelectors = {
   getFilterValue,
   getOrderBy,
   getPage,
+  getPathState,
   isInitialized,
 }

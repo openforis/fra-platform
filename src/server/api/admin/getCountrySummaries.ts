@@ -13,7 +13,8 @@ export const getCountrySummaries = async (req: TablePaginatedDataRequest, res: R
     const { filters: filtersReq, limit: limitReq, offset: offsetReq, orderBy, orderByDirection } = req.query
 
     const user = Requests.getUser(req)
-    const lang = user.props.lang ?? Lang.en
+    const queryLang = req.query?.lang
+    const lang = queryLang ?? user.props.lang ?? Lang.en
 
     const filters = TablePaginateds.decodeFilters<CountriesFilters>(filtersReq)
     const limit = limitReq && Number(limitReq)
