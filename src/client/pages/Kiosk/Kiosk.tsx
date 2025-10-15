@@ -48,21 +48,43 @@ const cards: Array<KioskCardConfig> = [
   },
 ]
 
+const qrCodeSources: Record<string, string> = {
+  en: '/img/kiosk/qr_code_FRA_website_en.png',
+  es: '/img/kiosk/qr_code_FRA_website_es.png',
+  fr: '/img/kiosk/qr_code_FRA_website_fr.png',
+}
+
 const Kiosk: React.FC = () => {
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
   const title = t('kiosk.globalForestResourcesAssessmentFra')
+  const language = i18n.language ?? 'en'
+  const qrCodeSrc = qrCodeSources[language] ?? qrCodeSources.en
+  const qrCodeLabel = t('kiosk.forMoreInformation')
 
   return (
     <div className="kiosk-content">
       <div>
-        <h1 className="kiosk-content__title">
-          {title.split('\n').map((line) => (
-            <React.Fragment key={line}>
-              {line}
-              <br />
-            </React.Fragment>
-          ))}
-        </h1>
+        <div className="kiosk-content__header">
+          <h1 className="kiosk-content__title">
+            {title.split('\n').map((line) => (
+              <React.Fragment key={line}>
+                {line}
+                <br />
+              </React.Fragment>
+            ))}
+          </h1>
+          <div className="kiosk-content__qr">
+            <img alt={qrCodeLabel} className="kiosk-content__qr-image" src={qrCodeSrc} />
+            <span className="kiosk-content__qr-label">
+              {qrCodeLabel.split('\n').map((line) => (
+                <React.Fragment key={line}>
+                  {line}
+                  <br />
+                </React.Fragment>
+              ))}
+            </span>
+          </div>
+        </div>
         <div className="kiosk-content__grid-container">
           {cards.map(({ altText, imageUrl, link, titleKey }) => (
             <Card key={titleKey} altText={altText} imageUrl={imageUrl} link={link} title={t(`kiosk.${titleKey}`)} />
