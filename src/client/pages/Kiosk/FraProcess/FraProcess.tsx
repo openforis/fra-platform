@@ -21,6 +21,7 @@ const FraProcessVideo: React.FC<FraProcessVideoProps> = (props) => {
   const { videoId } = props
   const { player, ref } = useYouTubePlayer({ videoId })
   const [isEnded, setIsEnded] = useState(false)
+  const { t } = useTranslation()
 
   useEffect(() => {
     setIsEnded(false)
@@ -59,7 +60,7 @@ const FraProcessVideo: React.FC<FraProcessVideoProps> = (props) => {
           <div className="kiosk-latest-activities__list-item-header">
             <Button
               className="kiosk-fra-process__yt-video-overlay-button"
-              label="Replay video"
+              label={t('kiosk.replayVideo')}
               onClick={handleReplay}
               type={ButtonType.primary}
             />
