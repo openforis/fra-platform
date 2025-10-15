@@ -11,7 +11,7 @@ import { OriginalDataPointSlice } from 'client/store/data/originalDataPoint/slic
 import { injectDataSlice } from 'client/store/data/reducer'
 import { useIsEditTableDataEnabled } from 'client/store/user/hooks/auth'
 import { useCountryIso } from 'client/hooks/country'
-import { useOnMount } from 'client/hooks/useOnMount'
+import { useOnMount } from 'client/hooks/onMount'
 
 import ButtonBar from './components/ButtonBar'
 import Comments from './components/Comments'
