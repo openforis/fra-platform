@@ -2,9 +2,11 @@ queue_rules:
   - name: default
     queue_conditions:
       - "#approved-reviews-by>=1"
+      - check-success=tests-all
     merge_conditions:
       - "#approved-reviews-by>=1"
-    merge_method: squash
+      - check-success=tests-all
+    merge_method: merge
     update_method: rebase
 
 pull_request_rules:
