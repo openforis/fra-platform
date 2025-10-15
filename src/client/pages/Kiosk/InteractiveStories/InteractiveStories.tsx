@@ -16,7 +16,7 @@ const cards: Array<InteractiveStoryCard> = [
   {
     altText: 'Watching over our forests',
     imageUrl: '/img/kiosk/watching-over-out-forests.png',
-    link: Routes.AFreshPerspective.path.relative,
+    link: Routes.WatchingOverOurForests.path.relative,
     titleKey: 'watchingOverOurForests',
   },
   {

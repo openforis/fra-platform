@@ -41,7 +41,7 @@ const InteractiveStories = React.lazy(
       'client/pages/Kiosk/InteractiveStories'
     )
 )
-const AFreshPerspective = React.lazy(
+const WatchingOverOurForests = React.lazy(
   () =>
     import(
       /* webpackChunkName: "kiosk" */
@@ -101,7 +101,7 @@ export const KioskRoutes: React.ReactElement = (
 
     <Route path={Routes.InteractiveStories.path.relative}>
       <Route element={<InteractiveStories />} index />
-      <Route element={<AFreshPerspective />} path={Routes.AFreshPerspective.path.relative} />
+      <Route element={<WatchingOverOurForests />} path={Routes.WatchingOverOurForests.path.relative} />
       <Route element={<ExploringOurForests />} path={Routes.ExploringOurForests.path.relative} />
       <Route element={<HiddenInPlainSight />} path={Routes.HiddenInPlainSight.path.relative} />
       <Route element={<TheSecretsOfMangroves />} path={Routes.TheSecretsOfMangroves.path.relative} />
