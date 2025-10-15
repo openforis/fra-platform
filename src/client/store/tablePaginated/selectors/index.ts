@@ -9,30 +9,43 @@ const _getState = createSelector(
   (tablePaginated: TablePaginatedState) => tablePaginated
 )
 
-const getPathState = createSelector(
-  [_getState, (_state: RootState, path: string): string => path],
-  (state, path) => state?.[path]
+const getCount = createSelector(
+  [_getState, (_state, path: string): string => path],
+  (state, path) => state?.[path]?.count
 )
 
-const getCount = createSelector([getPathState], (state) => state?.count)
+const getData = createSelector(
+  [_getState, (_state, path: string): string => path],
+  (state, path) => state?.[path]?.data
+)
 
-const getData = createSelector([getPathState], (state) => state?.data)
-
-const getFilters = createSelector([getPathState], (state) => state?.filters)
+const getFilters = createSelector(
+  [_getState, (_state, path: string): string => path],
+  (state, path) => state?.[path]?.filters
+)
 
 const getFilterValue = createSelector(
-  [getFilters, (_state: RootState, _path: string, fieldName: string): string => fieldName],
+  [getFilters, (_state, _path: string, fieldName: string): string => fieldName],
   (filters, fieldName) => {
     if (Objects.isEmpty(filters)) return undefined
     return filters[fieldName]
   }
 )
 
-const getOrderBy = createSelector([getPathState], (state) => state?.orderBy)
+const getOrderBy = createSelector(
+  [_getState, (_state, path: string): string => path],
+  (state, path) => state?.[path]?.orderBy
+)
 
-const getPage = createSelector([getPathState], (state) => state?.page ?? 0)
+const getPage = createSelector(
+  [_getState, (_state, path: string): string => path],
+  (state, path) => state?.[path]?.page ?? 0
+)
 
-const isInitialized = createSelector([getPathState], (state) => state?.initialized ?? false)
+const isInitialized = createSelector(
+  [_getState, (_state, path: string): string => path],
+  (state, path) => state?.[path]?.initialized ?? false
+)
 
 export const TablePaginatedSelectors = {
   getCount,
@@ -41,6 +54,5 @@ export const TablePaginatedSelectors = {
   getFilterValue,
   getOrderBy,
   getPage,
-  getPathState,
   isInitialized,
 }
