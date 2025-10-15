@@ -15,7 +15,7 @@ type InteractiveStoryCard = Omit<KioskCardProps, 'title'> & {
 const cards: Array<InteractiveStoryCard> = [
   {
     altText: 'Watching over our forests',
-    imageUrl: '/img/kiosk/interactive-stories.png',
+    imageUrl: '/img/kiosk/watching-over-out-forests.png',
     link: Routes.AFreshPerspective.path.relative,
     titleKey: 'watchingOverOurForests',
   },
@@ -33,7 +33,7 @@ const cards: Array<InteractiveStoryCard> = [
   },
   {
     altText: 'The secrets of mangroves',
-    imageUrl: '/img/kiosk/the-secrets-of-mangroves.png',
+    imageUrl: '/img/kiosk/the-secrets-of-mangroves.jpg',
     link: Routes.TheSecretsOfMangroves.path.relative,
     titleKey: 'theSecretsOfMangroves',
   },
