@@ -9,7 +9,7 @@ import { Users } from 'meta/user/users'
 import { useAppDispatch } from 'client/store/hooks'
 import { MessageCenterActions } from 'client/store/messageCenter/actions'
 import { useUser } from 'client/store/user/hooks/user'
-import { useGetRequest } from 'client/hooks'
+import { useGetRequest } from 'client/hooks/getRequest'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import Button, { ButtonProps } from 'client/components/Buttons/Button'
 

@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 import { Routes } from 'meta/routes'
 
-import { usePrevious } from 'client/hooks'
+import { usePrevious } from 'client/hooks/previous'
 import { useIsGeoRoute } from 'client/hooks/routes'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import Button, { ButtonSize, ButtonType, useButtonClassName } from 'client/components/Buttons/Button'

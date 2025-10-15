@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 
-import { useOnUpdate } from 'client/hooks'
+import { useOnUpdate } from 'client/hooks/onUpdate'
 
 import { PropsWatch } from './types'
 

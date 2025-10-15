@@ -8,7 +8,7 @@ import { useAppDispatch } from 'client/store/hooks'
 import { LoginActions } from 'client/store/login/actions'
 import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useCycle } from 'client/store/meta/hooks/cycles'
-import { useGetRequest } from 'client/hooks'
+import { useGetRequest } from 'client/hooks/getRequest'
 import { isError, LoginValidator } from 'client/pages/Login/utils/LoginValidator'
 import { Urls } from 'client/utils'
 

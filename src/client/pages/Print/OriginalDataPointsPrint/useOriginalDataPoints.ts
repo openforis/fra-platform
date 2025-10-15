@@ -5,8 +5,8 @@ import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
 import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useCycle } from 'client/store/meta/hooks/cycles'
-import { useGetRequest } from 'client/hooks'
 import { useCountryIso } from 'client/hooks/country'
+import { useGetRequest } from 'client/hooks/getRequest'
 
 export const useOriginalDataPoints = (): { originalDataPoints: Array<OriginalDataPoint>; loading: boolean } => {
   const assessment = useAssessment()

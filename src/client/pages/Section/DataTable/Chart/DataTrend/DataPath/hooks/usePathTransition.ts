@@ -4,7 +4,7 @@ import * as d3 from 'd3'
 import { interpolatePath } from 'd3-interpolate-path'
 import { Functions } from 'utils/functions'
 
-import { useOnUpdate } from 'client/hooks'
+import { useOnUpdate } from 'client/hooks/onUpdate'
 import { useIsPrintRoute } from 'client/hooks/routes'
 import { Charts } from 'client/pages/Section/DataTable/Chart/charts'
 import { D3ChartAxisScale, Trend, TrendData } from 'client/pages/Section/DataTable/Chart/types'
