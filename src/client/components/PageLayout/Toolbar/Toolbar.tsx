@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import MediaQuery from 'react-responsive'
 
 import { Areas, CountryIso } from 'meta/area'
+import { AssessmentNames } from 'meta/assessment/assessment'
 import { Users } from 'meta/user'
 
 import { useCountry } from 'client/store/area/hooks/country'
@@ -26,7 +27,8 @@ import ToggleNavigationControl from './ToggleNavigationControl'
 const Toolbar: React.FC = () => {
   const { t } = useTranslation()
   const cycle = useCycle()
-  const { countryIso } = useCountryRouteParams()
+  const { assessmentName, countryIso } = useCountryRouteParams()
+  const isFRA = assessmentName === AssessmentNames.fra
   const country = useCountry(countryIso as CountryIso)
   const { print } = useIsPrintRoute()
   const user = useUser()
@@ -73,7 +75,7 @@ const Toolbar: React.FC = () => {
         <LoadingIndicator />
       </MediaQuery>
 
-      {!isCountry && (
+      {!isCountry && isFRA && (
         <MediaQuery minWidth={Breakpoints.laptop}>
           <div className="toolbar-options data-link">
             <LinkDataDownload />
