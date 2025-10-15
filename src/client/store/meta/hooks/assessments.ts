@@ -2,7 +2,7 @@ import { Assessment } from 'meta/assessment/assessment'
 
 import { useAppSelector } from 'client/store/hooks'
 import { MetadataSelectors } from 'client/store/meta/selectors'
-import { useAssessmentRouteParams } from 'client/hooks/useRouteParams'
+import { useAssessmentRouteParams } from 'client/hooks/routeParams'
 
 export const useAssessment = (): Assessment => {
   const { assessmentName } = useAssessmentRouteParams()

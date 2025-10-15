@@ -5,7 +5,7 @@ import classNames from 'classnames'
 
 import { useAppDispatch } from 'client/store/hooks'
 import { CountryReportActions } from 'client/store/ui/countryReport/actions'
-import { useIsGeoRoute } from 'client/hooks'
+import { useIsGeoRoute } from 'client/hooks/routes'
 import NavAssessment from 'client/components/Navigation/NavAssessment'
 import NavGeo from 'client/components/Navigation/NavGeo'
 

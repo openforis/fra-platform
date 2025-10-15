@@ -5,9 +5,9 @@ import { Users } from 'meta/user'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useUser } from 'client/store/user/hooks/user'
-import { useIsGeoRoute } from 'client/hooks/useIsRoute'
+import { useIsGeoRoute } from 'client/hooks/routes'
 
-export const useShowRegions = () => {
+export const useShowRegions = (): boolean => {
   const cycle = useCycle()
   const user = useUser()
   const geoRoute = useIsGeoRoute()

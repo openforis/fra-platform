@@ -7,7 +7,7 @@ import { CountryUserSummaries } from 'meta/user/countryUserSummaries'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useCanEditUserActivities, useCanSeeUserActivities } from 'client/store/user/hooks/auth'
 import { useUser } from 'client/store/user/hooks/user'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 
 import { Props } from '../Props'
 import CopyLink from './CopyLink'

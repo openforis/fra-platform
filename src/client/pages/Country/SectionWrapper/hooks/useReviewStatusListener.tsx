@@ -8,7 +8,7 @@ import { useAppDispatch } from 'client/store/hooks'
 import { ReviewActions } from 'client/store/review/actions'
 import { useCanEditCycleData } from 'client/store/user/hooks/auth'
 import { useUser } from 'client/store/user/hooks/user'
-import { useSectionRouteParams } from 'client/hooks/useRouteParams'
+import { useSectionRouteParams } from 'client/hooks/routeParams'
 import { SocketClient } from 'client/service/socket'
 
 export const useReviewStatusListener = (): void => {

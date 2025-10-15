@@ -7,7 +7,7 @@ import { Sockets } from 'meta/socket'
 import { NodeValuesActions } from 'client/store/data/tableData/nodeValues/actions'
 import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useCycle } from 'client/store/meta/hooks/cycles'
-import { useCountryIso } from 'client/hooks'
+import { useCountryIso } from 'client/hooks/country'
 import { SocketClient } from 'client/service/socket'
 
 // Listen to websocket updates for deleting an odp

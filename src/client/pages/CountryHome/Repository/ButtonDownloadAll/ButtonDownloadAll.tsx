@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CountryIso } from 'meta/area'
 
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { ButtonSize, useButtonClassName } from 'client/components/Buttons/Button'
 import Icon from 'client/components/Icon'
 

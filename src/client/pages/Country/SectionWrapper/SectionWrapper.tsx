@@ -2,7 +2,7 @@ import React, { PropsWithChildren, useLayoutEffect } from 'react'
 
 import { useSections } from 'client/store/meta/hooks/sections'
 import { useTableSections } from 'client/store/meta/hooks/tableSections'
-import { useSectionRouteParams } from 'client/hooks/useRouteParams'
+import { useSectionRouteParams } from 'client/hooks/routeParams'
 import MessageCenter from 'client/components/MessageCenter'
 import { DOMs } from 'client/utils/dom'
 

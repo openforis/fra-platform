@@ -4,7 +4,7 @@ import { CountryIso } from 'meta/area'
 
 import { LayersActions } from 'client/store/geo/layers/actions'
 import { useAppDispatch } from 'client/store/hooks'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { LayerMetaProps } from 'client/components/Navigation/NavGeo/Layer/types'
 
 type Returned = () => void

@@ -6,7 +6,7 @@ import { UnitName } from 'meta/measurement/unit'
 import { ExplorerSelectionActions } from 'client/store/explorer/selection/actions'
 import { useExplorerUnits } from 'client/store/explorer/selection/hooks/units'
 import { useAppDispatch } from 'client/store/hooks'
-import { useSectionRouteParams } from 'client/hooks/useRouteParams'
+import { useSectionRouteParams } from 'client/hooks/routeParams'
 import { useAllMeasuresUnitOptions } from 'client/pages/Explorer/Filters/Options/hooks/useAllMeasuresUnitOptions'
 import { UnitSelectorItem } from 'client/pages/Explorer/Filters/Options/types'
 

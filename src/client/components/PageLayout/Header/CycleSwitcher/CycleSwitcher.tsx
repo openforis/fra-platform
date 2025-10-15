@@ -4,7 +4,7 @@ import React from 'react'
 import { Assessments } from 'meta/assessment/assessments'
 
 import { useAssessment } from 'client/store/meta/hooks/assessments'
-import { useCycleRouteParams } from 'client/hooks/useRouteParams'
+import { useCycleRouteParams } from 'client/hooks/routeParams'
 import Icon from 'client/components/Icon'
 import PopoverControl from 'client/components/PopoverControl'
 

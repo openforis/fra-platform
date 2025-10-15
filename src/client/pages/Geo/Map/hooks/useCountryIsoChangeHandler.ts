@@ -9,7 +9,8 @@ import { useGeoLayers } from 'client/store/geo/layers/hooks/layers'
 import { MosaicActions } from 'client/store/geo/mosaic/actions'
 import { useMosaicSelected } from 'client/store/geo/mosaic/hooks/mosaic'
 import { useAppDispatch } from 'client/store/hooks'
-import { useCountryIso, usePrevious } from 'client/hooks'
+import { useCountryIso } from 'client/hooks/country'
+import { usePrevious } from 'client/hooks/previous'
 
 export const useCountryIsoChangeHandler = () => {
   const countryIso = useCountryIso()

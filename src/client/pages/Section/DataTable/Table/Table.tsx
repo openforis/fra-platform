@@ -9,7 +9,7 @@ import { RecordAssessmentData } from 'meta/data'
 
 import { useIsDataLocked } from 'client/store/ui/countryReport/hooks/datalock'
 import { useCanEdit, useCanViewReview } from 'client/store/user/hooks/auth'
-import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import { useIsPrintRoute } from 'client/hooks/routes'
 import { ButtonGridExport, DataGrid } from 'client/components/DataGrid'
 import ButtonCopyValues from 'client/pages/Section/DataTable/Table/ButtonCopyValues'
 import ButtonTableClear from 'client/pages/Section/DataTable/Table/ButtonTableClear'

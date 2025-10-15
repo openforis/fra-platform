@@ -7,7 +7,7 @@ import { Areas, Country, CountryIso } from 'meta/area'
 
 import { useCountries } from 'client/store/area/hooks/countries'
 import { useRegionGroups } from 'client/store/area/hooks/regions'
-import { useIsPanEuropeanRoute } from 'client/hooks'
+import { useIsPanEuropeanRoute } from 'client/hooks/routes'
 import { Props as CountrySelectProps } from 'client/components/CountryMultiSelect/types'
 import { Option, OptionsGroup } from 'client/components/Inputs/Select'
 

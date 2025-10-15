@@ -5,7 +5,7 @@ import { Lang } from 'meta/lang'
 import { RoleName } from 'meta/user'
 import { UserRoles } from 'meta/user/userRoles'
 
-import { useLanguage } from 'client/hooks/useLanguage'
+import { useLanguage } from 'client/hooks/language'
 import { FieldDefinition, FormDefinition, FormFieldType } from 'client/components/Form/types'
 
 export const useFormDefinition = (): FormDefinition => {

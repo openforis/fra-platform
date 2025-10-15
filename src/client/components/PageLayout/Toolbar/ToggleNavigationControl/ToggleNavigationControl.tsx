@@ -6,7 +6,7 @@ import classNames from 'classnames'
 import { useAppDispatch } from 'client/store/hooks'
 import { CountryReportActions } from 'client/store/ui/countryReport/actions'
 import { useNavigationVisible } from 'client/store/ui/countryReport/hooks/navigation'
-import { useIsAdminRoute, useIsCycleLandingRoute, useIsGeoRoute } from 'client/hooks'
+import { useIsAdminRoute, useIsCycleLandingRoute, useIsGeoRoute } from 'client/hooks/routes'
 import Icon from 'client/components/Icon'
 
 const ToggleNavigationControl: React.FC = () => {

@@ -1,8 +1,8 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { useIsPrintRoute } from 'client/hooks/useIsRoute'
-import { useCycleRouteParams } from 'client/hooks/useRouteParams'
+import { useIsPrintRoute } from 'client/hooks/routes'
+import { useCycleRouteParams } from 'client/hooks/routeParams'
 import { ButtonGridExport } from 'client/components/DataGrid'
 
 type Props = {

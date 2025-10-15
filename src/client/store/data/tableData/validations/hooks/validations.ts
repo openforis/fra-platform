@@ -8,7 +8,7 @@ import { Table } from 'meta/assessment/table'
 
 import { ValidationsSelectors } from 'client/store/data/tableData/validations/selectors'
 import { useAppSelector } from 'client/store/hooks'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 
 export const useNodeValueValidation = (props: { table: Table; row: Row; col: Col }): NodeValueValidation => {
   const { col, row, table } = props

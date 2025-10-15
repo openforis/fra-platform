@@ -12,7 +12,7 @@ import { Units } from 'meta/measurement/units'
 
 import { useExplorerSectionMetadata } from 'client/store/explorer/metadata/hooks/metadata'
 import { useExplorerUnits } from 'client/store/explorer/selection/hooks/units'
-import { useSectionRouteParams } from 'client/hooks/useRouteParams'
+import { useSectionRouteParams } from 'client/hooks/routeParams'
 import { ObservationProps } from 'client/pages/Explorer/ResultGrid/Observation/types'
 
 type Returned = string

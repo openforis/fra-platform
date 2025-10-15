@@ -10,7 +10,7 @@ import { useAssessmentCountry } from 'client/store/area/hooks/country'
 import { useOriginalDataPointData } from 'client/store/data/tableData/nodeValues/hooks/originalDataPointData'
 import { NodeValuesSelectors } from 'client/store/data/tableData/nodeValues/selectors'
 import { useAppSelector } from 'client/store/hooks'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 
 export const useRecordAssessmentData = (): RecordAssessmentData =>
   useAppSelector(NodeValuesSelectors.getRecordAssessmentData)

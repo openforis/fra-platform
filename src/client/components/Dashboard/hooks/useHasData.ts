@@ -6,7 +6,7 @@ import { CountryIso } from 'meta/area'
 import { Table } from 'meta/assessment/table'
 import { RecordAssessmentDatas } from 'meta/data'
 
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { useData } from 'client/components/Dashboard/hooks/useData'
 
 export const useHasData = (table: Table): boolean => {

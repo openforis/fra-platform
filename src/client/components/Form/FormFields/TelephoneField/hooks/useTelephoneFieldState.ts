@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { UseFormSetValue, UseFormWatch } from 'react-hook-form'
 
-import { useOnMount } from 'client/hooks/useOnMount'
+import { useOnMount } from 'client/hooks/onMount'
 
 type Props = {
   fieldName: string

@@ -6,7 +6,7 @@ import { Contact, ContactField } from 'meta/cycleData'
 
 import { ContactsActions } from 'client/store/data/contacts/actions'
 import { useAppDispatch } from 'client/store/hooks'
-import { useSectionRouteParams } from 'client/hooks/useRouteParams'
+import { useSectionRouteParams } from 'client/hooks/routeParams'
 
 type Props = {
   contact: Contact

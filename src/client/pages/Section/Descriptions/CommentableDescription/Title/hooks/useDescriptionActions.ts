@@ -5,7 +5,7 @@ import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 import { Topics } from 'meta/messageCenter'
 
 import { useCanEditDescription } from 'client/store/user/hooks/auth'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { DataRowAction, DataRowActionType } from 'client/components/DataGrid'
 import { useSectionContext } from 'client/pages/Section/context'
 

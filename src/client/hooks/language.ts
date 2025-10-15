@@ -8,7 +8,7 @@ import { Global } from 'meta/area'
 import { Lang } from 'meta/lang'
 
 import { useUser } from 'client/store/user/hooks/user'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 
 type UpdateLanguage = (props: { lang: Lang; persist?: boolean }) => Promise<void>
 

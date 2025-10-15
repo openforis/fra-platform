@@ -10,7 +10,7 @@ import { useAppDispatch } from 'client/store/hooks'
 import { LoginActions } from 'client/store/login/actions'
 import { useInvitation } from 'client/store/login/hooks/invitation'
 import { useUser } from 'client/store/user/hooks/user'
-import { useSearchParams } from 'client/hooks/useSearchParams'
+import { useSearchParams } from 'client/hooks/searchParams'
 import AcceptInvitationButtons from 'client/pages/Login/components/AcceptInvitationButtons'
 import AccessLimited from 'client/pages/Login/components/AccessLimited'
 

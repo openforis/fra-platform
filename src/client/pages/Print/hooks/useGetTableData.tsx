@@ -6,7 +6,7 @@ import { TableName, TableNames } from 'meta/assessment/table'
 import { NodeValuesActions } from 'client/store/data/tableData/nodeValues/actions'
 import { useAppDispatch } from 'client/store/hooks'
 import { useTableSectionsCycle } from 'client/store/meta/hooks/tableSections'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 
 export const useGetTableData = () => {
   const dispatch = useAppDispatch()

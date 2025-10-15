@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import { Routes } from 'meta/routes'
 import { TooltipId } from 'meta/tooltip'
 
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { ButtonSize, ButtonType, useButtonClassName } from 'client/components/Buttons/Button'
 import Icon from 'client/components/Icon'
 

@@ -8,7 +8,7 @@ import { RoleName, UserRole, Users, UserStatus } from 'meta/user'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useUser } from 'client/store/user/hooks/user'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { FieldDefinition, FormDefinition, FormFieldType, WatchCallback } from 'client/components/Form/types'
 import { PropsFormDefinition } from 'client/pages/User/hooks/types'
 
