@@ -8,7 +8,7 @@ import { Users } from 'meta/user'
 
 import { useAssessments } from 'client/store/meta/hooks/assessments'
 import { useUser } from 'client/store/user/hooks/user'
-import { useIsDataExportView } from 'client/hooks'
+import { useIsDataExportView } from 'client/hooks/dataExport'
 import { useCycleRouteParams } from 'client/hooks/useRouteParams'
 import { PopoverItem } from 'client/components/PopoverControl'
 

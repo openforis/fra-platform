@@ -5,7 +5,7 @@ import { CountryIso } from 'meta/area'
 import { HistoryActions } from 'client/store/data/history/actions'
 import { useHistoryLastApprovedIsActive } from 'client/store/data/history/hooks/lastApproved'
 import { useAppDispatch } from 'client/store/hooks'
-import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import { useIsPrintRoute } from 'client/hooks/routes'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 type Props = { sectionName: string }

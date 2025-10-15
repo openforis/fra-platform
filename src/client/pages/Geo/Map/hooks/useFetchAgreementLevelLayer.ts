@@ -6,7 +6,7 @@ import { LayersActions } from 'client/store/geo/layers/actions'
 import { useGeoLayers } from 'client/store/geo/layers/hooks/layers'
 import { getAgreementLayerCacheKey } from 'client/store/geo/layers/slice/utils'
 import { useAppDispatch } from 'client/store/hooks'
-import { useCountryIso } from 'client/hooks'
+import { useCountryIso } from 'client/hooks/country'
 
 import { useCountSectionSelectedLayers } from './useCountSectionSelectedLayers'
 

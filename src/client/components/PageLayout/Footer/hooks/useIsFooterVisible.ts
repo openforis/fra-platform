@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import { useIsPrintRoute } from 'client/hooks/routes'
 import { useCycleRouteParams } from 'client/hooks/useRouteParams'
 
 export const useIsFooterVisible = (): boolean => {

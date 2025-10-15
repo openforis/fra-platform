@@ -10,7 +10,7 @@ import { UserRoles } from 'meta/user/userRoles'
 
 import { useCountry } from 'client/store/area/hooks/country'
 import { useIsAreaSelectorExpanded } from 'client/store/ui/areaSelector/hooks/areaSelector'
-import { useIsCycleLandingRoute } from 'client/hooks'
+import { useIsCycleLandingRoute } from 'client/hooks/routes'
 import { useOnMount } from 'client/hooks/useOnMount'
 import CountryStatusIndicator from 'client/components/CountryStatusIndicator'
 

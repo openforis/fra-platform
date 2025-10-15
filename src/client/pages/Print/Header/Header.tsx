@@ -7,7 +7,7 @@ import { ApiEndPoint } from 'meta/api/endpoint'
 import { CountryIso } from 'meta/area'
 
 import { useCountry } from 'client/store/area/hooks/country'
-import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import { useIsPrintRoute } from 'client/hooks/routes'
 import { useLanguage } from 'client/hooks/useLanguage'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { ButtonSize, useButtonClassName } from 'client/components/Buttons/Button'

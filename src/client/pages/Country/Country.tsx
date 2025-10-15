@@ -6,7 +6,7 @@ import classNames from 'classnames'
 
 import { useCountries } from 'client/store/area/hooks/countries'
 import { useNavigationVisible } from 'client/store/ui/countryReport/hooks/navigation'
-import { useIsGeoRoute } from 'client/hooks'
+import { useIsGeoRoute } from 'client/hooks/routes'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import Navigation from 'client/components/Navigation'
 

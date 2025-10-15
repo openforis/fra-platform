@@ -7,7 +7,7 @@ import { Table } from 'meta/assessment/table'
 import { NodeValuesActions } from 'client/store/data/tableData/nodeValues/actions'
 import { useAppDispatch } from 'client/store/hooks'
 import { useIsDataLocked } from 'client/store/ui/countryReport/hooks/datalock'
-import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import { useIsPrintRoute } from 'client/hooks/routes'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import Button, { ButtonType } from 'client/components/Buttons/Button'
 

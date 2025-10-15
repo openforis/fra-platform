@@ -11,7 +11,7 @@ import {
   useMosaicUrlTemplateData,
 } from 'client/store/geo/mosaic/hooks/mosaic'
 import { useAppDispatch } from 'client/store/hooks'
-import { useCountryIso } from 'client/hooks'
+import { useCountryIso } from 'client/hooks/country'
 
 type Returned = {
   applyOptions: () => void

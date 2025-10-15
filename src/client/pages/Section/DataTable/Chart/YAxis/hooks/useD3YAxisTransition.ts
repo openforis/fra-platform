@@ -3,7 +3,7 @@ import { RefObject, useLayoutEffect, useMemo } from 'react'
 import * as d3 from 'd3'
 import { Objects } from 'utils/objects'
 
-import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import { useIsPrintRoute } from 'client/hooks/routes'
 import { Charts } from 'client/pages/Section/DataTable/Chart/charts'
 import { D3YAxis, RecordTrendData } from 'client/pages/Section/DataTable/Chart/types'
 

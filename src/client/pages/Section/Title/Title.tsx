@@ -3,7 +3,7 @@ import React from 'react'
 
 import { SectionName } from 'meta/assessment/section'
 
-import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import { useIsPrintRoute } from 'client/hooks/routes'
 import { useCycleRouteParams } from 'client/hooks/useRouteParams'
 import { Components, TitleDefault } from 'client/pages/Section/Title/Components'
 import CSVAllTables from 'client/pages/Section/Title/CSVAllTables'

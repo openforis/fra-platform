@@ -7,7 +7,7 @@ import { Global } from 'meta/area'
 import { useAppDispatch } from 'client/store/hooks'
 import { MetaActions } from 'client/store/meta/actions'
 import { useSections } from 'client/store/meta/hooks/sections'
-import { useIsAdminRoute } from 'client/hooks'
+import { useIsAdminRoute } from 'client/hooks/routes'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 export const useInitSections = (): void => {

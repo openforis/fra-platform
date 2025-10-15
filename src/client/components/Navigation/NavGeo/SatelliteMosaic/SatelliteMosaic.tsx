@@ -6,7 +6,7 @@ import { LayerFetchStatus } from 'client/store/geo/layers/state'
 import { MosaicActions } from 'client/store/geo/mosaic/actions'
 import { useMosaicSelected, useMosaicStatus } from 'client/store/geo/mosaic/hooks/mosaic'
 import { useAppDispatch } from 'client/store/hooks'
-import { useCountryIso } from 'client/hooks'
+import { useCountryIso } from 'client/hooks/country'
 import ToggleControl from 'client/components/Navigation/NavGeo/Layer/ToggleControl'
 import MosaicControl from 'client/components/Navigation/NavGeo/SatelliteMosaic/MosaicControl'
 

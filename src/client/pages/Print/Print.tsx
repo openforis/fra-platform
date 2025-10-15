@@ -9,7 +9,7 @@ import { Labels } from 'meta/assessment/labels'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useSections } from 'client/store/meta/hooks/sections'
-import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import { useIsPrintRoute } from 'client/hooks/routes'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import Loading from 'client/components/Loading'
 import Header from 'client/pages/Print/Header'

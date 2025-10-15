@@ -11,7 +11,7 @@ import { Table } from 'meta/assessment/table'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useShowOriginalDatapoints } from 'client/store/ui/countryReport/hooks/originalDataPoints'
-import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import { useIsPrintRoute } from 'client/hooks/routes'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { ColHeader } from 'client/pages/Section/DataTable/Table/types'
 

@@ -3,7 +3,7 @@ import { useMemo } from 'react'
 import { ContactField, contactFields } from 'meta/cycleData'
 import { NodeExtCellType } from 'meta/nodeExt'
 
-import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import { useIsPrintRoute } from 'client/hooks/routes'
 import { useOptionsAppellation } from 'client/hooks/useOptionsAppellation'
 import { NodeExtCell, NodeExtCellSelect } from 'client/components/TableNodeExt/types'
 import { Columns, Fields } from 'client/pages/Section/Contacts/types'

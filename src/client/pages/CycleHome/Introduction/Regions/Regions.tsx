@@ -1,10 +1,10 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { useShowRegions } from 'client/hooks/useShowRegions'
+import { useShowRegions } from 'client/hooks/showRegions'
 import AreaSelector from 'client/components/AreaSelector/AreaSelector'
 
-const Regions = () => {
+const Regions: React.FC = () => {
   const { t } = useTranslation()
   const showRegions = useShowRegions()
 

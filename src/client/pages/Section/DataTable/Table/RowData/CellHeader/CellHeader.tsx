@@ -12,7 +12,7 @@ import { Row } from 'meta/assessment/row'
 import { Routes } from 'meta/routes'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
-import { useCountryIso } from 'client/hooks'
+import { useCountryIso } from 'client/hooks/country'
 import { DataCell } from 'client/components/DataGrid'
 import { useCellId } from 'client/pages/Section/DataTable/Table/hooks/useCellId'
 

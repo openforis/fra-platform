@@ -10,7 +10,7 @@ import { Routes } from 'meta/routes'
 
 import { useAssessmentCountry } from 'client/store/area/hooks/country'
 import { useCycle } from 'client/store/meta/hooks/cycles'
-import { useCountryIso } from 'client/hooks'
+import { useCountryIso } from 'client/hooks/country'
 
 import ExtentOfForest from '../ExtentOfForest'
 import ForestCharacteristics from '../ForestCharacteristics'

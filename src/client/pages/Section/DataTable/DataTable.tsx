@@ -8,7 +8,7 @@ import { RecordAssessmentDatas } from 'meta/data'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useIsEditTableDataEnabled } from 'client/store/user/hooks/auth'
-import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import { useIsPrintRoute } from 'client/hooks/routes'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 import { useAreChartVariablesEmpty } from './hooks/useAreChartVariablesEmpty'

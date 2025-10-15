@@ -13,7 +13,7 @@ import { useCountry } from 'client/store/area/hooks/country'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useSection } from 'client/store/meta/hooks/sections'
 import { useUser } from 'client/store/user/hooks/user'
-import { useCountryIso } from 'client/hooks'
+import { useCountryIso } from 'client/hooks/country'
 
 import EstimationMark from './EstimationMark'
 import Flag from './Flag'

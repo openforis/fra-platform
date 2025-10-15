@@ -12,7 +12,7 @@ import { useSection } from 'client/store/meta/hooks/sections'
 import { useIsDataLocked } from 'client/store/ui/countryReport/hooks/datalock'
 import { useIsDescriptionEditEnabled } from 'client/store/ui/countryReport/hooks/descriptions'
 import { useUser } from 'client/store/user/hooks/user'
-import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import { useIsPrintRoute } from 'client/hooks/routes'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 export const useCanEditCycleData = (): boolean => {
@@ -23,7 +23,7 @@ export const useCanEditCycleData = (): boolean => {
   return Authorizer.canEditSomeData({ cycle, country, user })
 }
 
-export const useCanEdit = (sectionName: string, permission = CollaboratorEditPropertyType.tableData) => {
+export const useCanEdit = (sectionName: string, permission = CollaboratorEditPropertyType.tableData): boolean => {
   const user = useUser()
   const section = useSection(sectionName)
   const country = useAssessmentCountry()
@@ -32,14 +32,14 @@ export const useCanEdit = (sectionName: string, permission = CollaboratorEditPro
   return Authorizer.canEditSectionData({ country, cycle, permission, section, user })
 }
 // edit enabled
-const useIsEditSectionEnabled = (sectionName: string, permission: CollaboratorEditPropertyType) => {
+const useIsEditSectionEnabled = (sectionName: string, permission: CollaboratorEditPropertyType): boolean => {
   const isDataLocked = useIsDataLocked()
   const { print } = useIsPrintRoute()
   const canEdit = useCanEdit(sectionName, permission)
 
   return !print && !isDataLocked && canEdit
 }
-export const useIsEditTableDataEnabled = (sectionName: string) =>
+export const useIsEditTableDataEnabled = (sectionName: string): boolean =>
   useIsEditSectionEnabled(sectionName, CollaboratorEditPropertyType.tableData)
 export const useCanEditDescription = (props: { sectionName: SectionName }): boolean =>
   useIsEditSectionEnabled(props.sectionName, CollaboratorEditPropertyType.descriptions)
@@ -91,7 +91,7 @@ export const useCanViewGeo = (): boolean => {
 
   return Authorizer.canViewGeo({ cycle, countryIso, user })
 }
-export const useCanViewReview = (sectionName: string) => {
+export const useCanViewReview = (sectionName: string): boolean => {
   const isDataLocked = useIsDataLocked()
   const { print } = useIsPrintRoute()
   const user = useUser()
@@ -116,7 +116,7 @@ export const useCanViewReview = (sectionName: string) => {
  *   // Hide activities UI (eg invitation actions)
  * }
  */
-export const useCanEditUserActivities = (user: User) => {
+export const useCanEditUserActivities = (user: User): boolean => {
   const { countryIso } = useCountryRouteParams()
   const cycle = useCycle()
 
@@ -137,7 +137,7 @@ export const useCanEditUserActivities = (user: User) => {
  *   // Hide activities UI
  * }
  */
-export const useCanSeeUserActivities = (user: User) => {
+export const useCanSeeUserActivities = (user: User): boolean => {
   const { countryIso } = useCountryRouteParams<CountryIso>()
   const cycle = useCycle()
 

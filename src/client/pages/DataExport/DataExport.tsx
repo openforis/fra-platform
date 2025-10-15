@@ -11,7 +11,7 @@ import { useDataExportCountries, useDataExportSelection } from 'client/store/dat
 import { useAppDispatch } from 'client/store/hooks'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useTableSections } from 'client/store/meta/hooks/tableSections'
-import { useCountryIso } from 'client/hooks'
+import { useCountryIso } from 'client/hooks/country'
 
 import ColumnSelect from './ColumnSelect'
 import CountrySelect from './CountrySelect'

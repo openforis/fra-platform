@@ -7,7 +7,7 @@ import { Cycles } from 'meta/assessment/cycles'
 import { Routes } from 'meta/routes'
 import { User, Users } from 'meta/user'
 
-import { useIsAdminRoute } from 'client/hooks'
+import { useIsAdminRoute } from 'client/hooks/routes'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 export const useNavigateTo = () => {

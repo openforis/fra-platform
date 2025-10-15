@@ -4,7 +4,7 @@ import { CountryIso } from 'meta/area'
 
 import { DescriptionsActions } from 'client/store/data/descriptions/actions'
 import { useAppDispatch } from 'client/store/hooks'
-import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import { useIsPrintRoute } from 'client/hooks/routes'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 type Props = { sectionName: string }

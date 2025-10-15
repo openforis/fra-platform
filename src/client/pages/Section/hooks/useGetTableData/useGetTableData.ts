@@ -7,7 +7,7 @@ import { NodeValuesActions } from 'client/store/data/tableData/nodeValues/action
 import { useAppDispatch } from 'client/store/hooks'
 import { MetaActions } from 'client/store/meta/actions'
 import { useCanEdit } from 'client/store/user/hooks/auth'
-import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import { useIsPrintRoute } from 'client/hooks/routes'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 import { Props } from './props'

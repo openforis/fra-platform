@@ -2,7 +2,7 @@ import { Country, CountryIso } from 'meta/area'
 
 import { AreaSelectors } from 'client/store/area/selectors'
 import { useAppSelector } from 'client/store/hooks'
-import { useCountryIso } from 'client/hooks'
+import { useCountryIso } from 'client/hooks/country'
 import { useCycleRouteParams } from 'client/hooks/useRouteParams'
 
 export const useCountry = (countryIso: CountryIso): Country => {

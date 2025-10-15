@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import { useIsPrintRoute } from 'client/hooks/routes'
 import { Field } from 'client/pages/Section/Contacts/types'
 
 type Props = {

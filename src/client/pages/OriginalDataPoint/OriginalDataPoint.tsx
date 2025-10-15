@@ -10,7 +10,7 @@ import { useOriginalDataPoint } from 'client/store/data/originalDataPoint/hooks/
 import { OriginalDataPointSlice } from 'client/store/data/originalDataPoint/slice'
 import { injectDataSlice } from 'client/store/data/reducer'
 import { useIsEditTableDataEnabled } from 'client/store/user/hooks/auth'
-import { useCountryIso } from 'client/hooks'
+import { useCountryIso } from 'client/hooks/country'
 import { useOnMount } from 'client/hooks/useOnMount'
 
 import ButtonBar from './components/ButtonBar'

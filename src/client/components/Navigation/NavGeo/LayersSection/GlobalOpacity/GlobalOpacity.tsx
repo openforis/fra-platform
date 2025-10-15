@@ -6,7 +6,7 @@ import { LayerSectionKey } from 'meta/geo'
 
 import { LayersActions } from 'client/store/geo/layers/actions'
 import { useAppDispatch } from 'client/store/hooks'
-import { useCountryIso } from 'client/hooks'
+import { useCountryIso } from 'client/hooks/country'
 import InputRange from 'client/components/Inputs/InputRange'
 import OptionLabel from 'client/components/Navigation/NavGeo/Grid/OptionLabel'
 import OptionsGrid from 'client/components/Navigation/NavGeo/Grid/OptionsGrid'

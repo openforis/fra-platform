@@ -14,7 +14,7 @@ import { TooltipId } from 'meta/tooltip'
 
 import { useHistoryLastApprovedIsActive } from 'client/store/data/history/hooks/lastApproved'
 import { useOdpReviewSummary } from 'client/store/review/hooks/review'
-import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import { useIsPrintRoute } from 'client/hooks/routes'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { DataCell } from 'client/components/DataGrid'
 import ReviewSummaryIndicator from 'client/components/ReviewSummaryIndicator'

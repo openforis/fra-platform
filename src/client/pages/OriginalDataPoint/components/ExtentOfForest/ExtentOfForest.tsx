@@ -6,7 +6,7 @@ import { Numbers } from 'utils/numbers'
 import { ODPs } from 'meta/assessment/odps'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
-import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import { useIsPrintRoute } from 'client/hooks/routes'
 import { useCycleRouteParams } from 'client/hooks/useRouteParams'
 import ButtonTableExport from 'client/components/ButtonTableExport'
 import DefinitionLink from 'client/components/DefinitionLink'

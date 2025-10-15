@@ -9,7 +9,7 @@ import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 
 import { useHistoryLastApprovedDescriptionFetched } from 'client/store/data/history/hooks/lastApprovedDescriptions'
 import { useCanEditDescription, useIsDescriptionEditable } from 'client/store/user/hooks/auth'
-import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import { useIsPrintRoute } from 'client/hooks/routes'
 import { useCycleRouteParams } from 'client/hooks/useRouteParams'
 import { DataCell, DataGrid } from 'client/components/DataGrid'
 import EditorWYSIWYG from 'client/components/EditorWYSIWYG'
