@@ -12,7 +12,7 @@ import { useCycle } from 'client/store/meta/hooks/cycles'
 import { UserActions } from 'client/store/user/actions'
 import { useUser } from 'client/store/user/hooks/user'
 import { useCountryIso } from 'client/hooks/country'
-import { useToaster } from 'client/hooks/useToaster'
+import { useToaster } from 'client/hooks/toaster'
 import { PopoverItem } from 'client/components/PopoverControl'
 
 export const useUserLinks = (): Array<PopoverItem> => {

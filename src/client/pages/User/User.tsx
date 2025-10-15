@@ -7,7 +7,7 @@ import { ApiEndPoint } from 'meta/api/endpoint'
 import { Areas, CountryIso } from 'meta/area'
 
 import { useCountryRouteParams } from 'client/hooks/routeParams'
-import { useToaster } from 'client/hooks/useToaster'
+import { useToaster } from 'client/hooks/toaster'
 import Form from 'client/components/Form'
 import { Urls } from 'client/utils'
 
