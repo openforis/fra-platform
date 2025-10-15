@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { AssessmentNames } from 'meta/assessment/assessment'
 
 import { useUser } from 'client/store/user/hooks/user'
-import { useLanguage } from 'client/hooks/useLanguage'
+import { useLanguage } from 'client/hooks/language'
 import CycleSwitch from 'client/components/CycleSwitch'
 
 export const userGuideUrls: Record<string, string> = {

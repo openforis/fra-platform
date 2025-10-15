@@ -9,7 +9,7 @@ import { useCountry } from 'client/store/area/hooks/country'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useSection } from 'client/store/meta/hooks/sections'
 import { useUser } from 'client/store/user/hooks/user'
-import { useLanguage } from 'client/hooks/useLanguage'
+import { useLanguage } from 'client/hooks/language'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 import { useSortedDomains } from './hooks/useSortedDomains'

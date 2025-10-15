@@ -6,7 +6,7 @@ import { RegionCode } from 'meta/area/regionCode'
 import { Files } from 'meta/file'
 import { Routes, SectionNames } from 'meta/routes'
 
-import { useLanguage } from 'client/hooks/useLanguage'
+import { useLanguage } from 'client/hooks/language'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import { ButtonSize, useButtonClassName } from 'client/components/Buttons/Button'
 import Icon from 'client/components/Icon'

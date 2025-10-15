@@ -4,7 +4,7 @@ import React from 'react'
 import { RepositoryItem, RepositoryItems } from 'meta/cycleData'
 import { Translations } from 'meta/translation'
 
-import { useLanguage } from 'client/hooks/useLanguage'
+import { useLanguage } from 'client/hooks/language'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 
 type Props = {

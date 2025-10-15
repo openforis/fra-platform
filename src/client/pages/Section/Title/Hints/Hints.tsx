@@ -10,7 +10,7 @@ import { Files } from 'meta/file'
 import { SdgMetadataFileName } from 'meta/file/static'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
-import { useLanguage } from 'client/hooks/useLanguage'
+import { useLanguage } from 'client/hooks/language'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import DefinitionLink from 'client/components/DefinitionLink'
 import { Props } from 'client/pages/Section/Title/props'

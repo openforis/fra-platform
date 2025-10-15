@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { RepositoryItems } from 'meta/cycleData'
 import { Translations } from 'meta/translation'
 
-import { useLanguage } from 'client/hooks/useLanguage'
+import { useLanguage } from 'client/hooks/language'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import ButtonCheckBox from 'client/components/ButtonCheckBox'
 import { useRepositoryLinkContext } from 'client/components/EditorWYSIWYG/repositoryLinkContext'

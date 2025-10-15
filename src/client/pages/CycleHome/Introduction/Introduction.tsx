@@ -2,7 +2,7 @@ import './introduction.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { useLanguage } from 'client/hooks/useLanguage'
+import { useLanguage } from 'client/hooks/language'
 
 import Countries from './Countries'
 import Global from './Global'

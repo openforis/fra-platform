@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { Files } from 'meta/file'
 
-import { useLanguage } from 'client/hooks/useLanguage'
+import { useLanguage } from 'client/hooks/language'
 import { useCountryRouteParams } from 'client/hooks/useRouteParams'
 import Icon from 'client/components/Icon'
 import { DOMs } from 'client/utils/dom'
