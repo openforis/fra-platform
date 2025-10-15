@@ -490,7 +490,8 @@
     "forestEurope": "FOREST EUROPE",
     "govSwitzerland": "Government of Switzerland",
     "part1": "The website has been produced with the assistance of the governments of",
-    "platformDeveloped": "This platform was developed jointly by",
+    "platformDeveloped.2020": "This platform was developed jointly by",
+    "platformDeveloped.2025": "Developed by",
     "sweden": "Sweden",
     "switzerland": "Switzerland",
     "technicalSupport": "with the technical support of",
@@ -709,7 +710,9 @@
   "home": {
     "description1": "This platform provides comprehensive information on forests and the environmental, economic, and social dimensions of sustainable forest management in the Pan-European region (FOREST EUROPE signatory countries).",
     "description2": "The Joint Pan-European Data Collection is the joint initiative by UNECE, FAO, and FOREST EUROPE, carried out in parallel to the FAO Global Forest Resources Assessment (FRA).",
-    "title": "Joint Pan-European Data Collection"
+    "description3": "for the Joint Pan-European Data Collection 2025 (JPDC 2025) - the joint initiative by UNECE, FAO, and FOREST EUROPE, carried out in parallel to the FAO Global Forest Resources Assessment 2025 (FRA 2025).",
+    "title.2020": "Joint Pan-European Data Collection",
+    "title.2025": "Joint UNECE/FAO Data Collection Interface"
   },
   "incrementAndFellings": {
     "_of_which_forest_available_for_wood_supply": "... of which: Forest available for wood supply - {{year}}",
