@@ -7,7 +7,7 @@ import { ODPs } from 'meta/assessment/odps'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
 import { useIsPrintRoute } from 'client/hooks/routes'
-import { useCycleRouteParams } from 'client/hooks/useRouteParams'
+import { useCycleRouteParams } from 'client/hooks/routeParams'
 import ButtonTableExport from 'client/components/ButtonTableExport'
 import DefinitionLink from 'client/components/DefinitionLink'
 import DiffText from 'client/components/DiffText'

@@ -4,7 +4,7 @@ import { CountryIso } from 'meta/area'
 
 import { FileUploadActions } from 'client/store/fileUpload/actions'
 import { useAppDispatch } from 'client/store/hooks'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { FileUploadProps } from 'client/components/FileUpload/types'
 
 type Returned = (files: Array<File>) => void

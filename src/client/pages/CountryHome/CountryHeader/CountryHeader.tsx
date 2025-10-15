@@ -6,7 +6,7 @@ import { NavLink } from 'react-router-dom'
 import { Areas } from 'meta/area'
 import { MessageTopicType, Topics } from 'meta/messageCenter'
 
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { ButtonSize, ButtonType, useButtonClassName } from 'client/components/Buttons/Button'
 import MessageButton from 'client/pages/CountryHome/MessageButton'
 import { CountryHomeSection } from 'client/pages/CountryHome/types'

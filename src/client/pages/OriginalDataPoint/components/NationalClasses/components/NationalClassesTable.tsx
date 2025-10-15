@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
 import { useIsPrintRoute } from 'client/hooks/routes'
-import { useCycleRouteParams } from 'client/hooks/useRouteParams'
+import { useCycleRouteParams } from 'client/hooks/routeParams'
 import { DataCell, DataGrid } from 'client/components/DataGrid'
 import NationalClass from 'client/pages/OriginalDataPoint/components/NationalClasses/components/NationalClass'
 import { useIsEditODPEnabled } from 'client/pages/OriginalDataPoint/hooks/useIsEditODPEnabled'

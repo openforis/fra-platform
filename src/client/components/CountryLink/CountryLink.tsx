@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 import { Areas, CountryIso } from 'meta/area'
 import { Routes } from 'meta/routes'
 
-import { useCycleRouteParams } from 'client/hooks/useRouteParams'
+import { useCycleRouteParams } from 'client/hooks/routeParams'
 import Icon from 'client/components/Icon'
 
 type Props = {

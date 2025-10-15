@@ -8,7 +8,7 @@ import { NodeValuesActions } from 'client/store/data/tableData/nodeValues/action
 import { useAppDispatch } from 'client/store/hooks'
 import { useIsDataLocked } from 'client/store/ui/countryReport/hooks/datalock'
 import { useIsPrintRoute } from 'client/hooks/routes'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 import Button, { ButtonType } from 'client/components/Buttons/Button'
 
 type Props = {

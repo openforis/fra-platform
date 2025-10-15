@@ -2,7 +2,7 @@ import React from 'react'
 
 import { AssessmentNames } from 'meta/assessment/assessment'
 
-import { useAssessmentRouteParams } from 'client/hooks/useRouteParams'
+import { useAssessmentRouteParams } from 'client/hooks/routeParams'
 import { useSectionContext } from 'client/pages/Section/context'
 
 import ExtentOfForest from './ExtentOfForest'

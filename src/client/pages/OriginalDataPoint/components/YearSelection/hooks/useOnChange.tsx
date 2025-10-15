@@ -6,7 +6,7 @@ import { Routes, SectionRouteParams } from 'meta/routes'
 import { OriginalDataPointActions } from 'client/store/data/originalDataPoint/actions'
 import { useOriginalDataPoint } from 'client/store/data/originalDataPoint/hooks/originalDataPoint'
 import { useAppDispatch } from 'client/store/hooks'
-import { useSectionRouteParams } from 'client/hooks/useRouteParams'
+import { useSectionRouteParams } from 'client/hooks/routeParams'
 
 type Returned = SelectHTMLAttributes<HTMLSelectElement>['onChange']
 

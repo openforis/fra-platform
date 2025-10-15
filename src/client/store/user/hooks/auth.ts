@@ -13,7 +13,7 @@ import { useIsDataLocked } from 'client/store/ui/countryReport/hooks/datalock'
 import { useIsDescriptionEditEnabled } from 'client/store/ui/countryReport/hooks/descriptions'
 import { useUser } from 'client/store/user/hooks/user'
 import { useIsPrintRoute } from 'client/hooks/routes'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 
 export const useCanEditCycleData = (): boolean => {
   const user = useUser()

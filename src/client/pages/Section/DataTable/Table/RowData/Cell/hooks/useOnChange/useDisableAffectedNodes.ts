@@ -9,7 +9,7 @@ import { useAppDispatch } from 'client/store/hooks'
 import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useSection } from 'client/store/meta/hooks/sections'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 import useGetAffectedNodes from 'client/pages/Section/DataTable/Table/RowData/Cell/hooks/useOnChange/useAffectedNodes'
 
 import { Props } from './types'

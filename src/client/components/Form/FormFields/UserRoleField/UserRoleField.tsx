@@ -6,7 +6,7 @@ import { RoleName, Users } from 'meta/user'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useUser } from 'client/store/user/hooks/user'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 import SelectField from 'client/components/Form/FormFields/SelectField'
 import { FieldDefinition } from 'client/components/Form/types'
 import { Option } from 'client/components/Inputs/Select'

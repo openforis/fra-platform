@@ -8,7 +8,7 @@ import { Topics } from 'meta/messageCenter'
 import { DescriptionsActions } from 'client/store/data/descriptions/actions'
 import { useAppDispatch } from 'client/store/hooks'
 import { useCanEditDescription, useIsDescriptionEditable } from 'client/store/user/hooks/auth'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { DataRowAction, DataRowActionType } from 'client/components/DataGrid'
 
 type Props = {

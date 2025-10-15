@@ -6,7 +6,7 @@ import { Routes } from 'meta/routes'
 import { UserInvitations as UserInvitationMeta } from 'meta/user'
 import { CountryUserSummaries } from 'meta/user/countryUserSummaries'
 
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { useToaster } from 'client/hooks/useToaster'
 import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
 

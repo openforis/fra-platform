@@ -2,7 +2,7 @@ import { AxisSelection } from 'meta/explorer/selection'
 
 import { ExplorerSelectionSelectors } from 'client/store/explorer/selection/selectors'
 import { useAppSelector } from 'client/store/hooks'
-import { useSectionRouteParams } from 'client/hooks/useRouteParams'
+import { useSectionRouteParams } from 'client/hooks/routeParams'
 
 export const useExplorerAxisSelection = (): AxisSelection => {
   const { assessmentName, cycleName, sectionName } = useSectionRouteParams()

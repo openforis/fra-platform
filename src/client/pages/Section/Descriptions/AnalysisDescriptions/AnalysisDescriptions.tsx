@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { AnalysisAndProcessingDescription } from 'meta/assessment/description'
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 
-import { useCycleRouteParams } from 'client/hooks/useRouteParams'
+import { useCycleRouteParams } from 'client/hooks/routeParams'
 import CommentableDescription from 'client/pages/Section/Descriptions/CommentableDescription'
 
 type Props = {

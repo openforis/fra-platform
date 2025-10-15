@@ -8,7 +8,7 @@ import { Table } from 'meta/assessment/table'
 import { RecordAssessmentData } from 'meta/data'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 
 import { createSortFn } from './createSortFn'
 import { SortOrder, SortState } from './types'

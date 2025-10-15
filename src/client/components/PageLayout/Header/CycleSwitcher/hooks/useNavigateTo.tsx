@@ -8,7 +8,7 @@ import { Routes } from 'meta/routes'
 import { User, Users } from 'meta/user'
 
 import { useIsAdminRoute } from 'client/hooks/routes'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 
 export const useNavigateTo = () => {
   const navigate = useNavigate()

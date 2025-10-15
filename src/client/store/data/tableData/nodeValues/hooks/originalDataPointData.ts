@@ -6,7 +6,7 @@ import { RecordAssessmentDatas, RecordColumnData } from 'meta/data'
 
 import { NodeValuesSelectors } from 'client/store/data/tableData/nodeValues/selectors'
 import { useAppSelector } from 'client/store/hooks'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 
 export const useOriginalDataPointData = (): RecordColumnData => {
   const tableName = TableNames.originalDataPointValue

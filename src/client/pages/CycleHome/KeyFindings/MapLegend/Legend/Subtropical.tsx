@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { useCycleRouteParams } from 'client/hooks/useRouteParams'
+import { useCycleRouteParams } from 'client/hooks/routeParams'
 
 import { LegendColors } from './colors'
 

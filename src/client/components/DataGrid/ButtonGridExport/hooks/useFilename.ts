@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 
 import { Dates } from 'utils/dates'
 
-import { useCycleRouteParams } from 'client/hooks/useRouteParams'
+import { useCycleRouteParams } from 'client/hooks/routeParams'
 
 export const useFilename = (filename: string): string => {
   const { assessmentName, cycleName } = useCycleRouteParams()

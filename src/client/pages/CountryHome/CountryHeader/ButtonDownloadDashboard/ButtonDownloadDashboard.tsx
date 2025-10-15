@@ -7,7 +7,7 @@ import { Files } from 'meta/file'
 import { Routes, SectionNames } from 'meta/routes'
 
 import { useLanguage } from 'client/hooks/language'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { ButtonSize, useButtonClassName } from 'client/components/Buttons/Button'
 import Icon from 'client/components/Icon'
 

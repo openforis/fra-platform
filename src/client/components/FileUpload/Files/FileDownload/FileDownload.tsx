@@ -4,7 +4,7 @@ import { ApiEndPoint } from 'meta/api/endpoint'
 import { CountryIso } from 'meta/area'
 import { Files, FileSummary } from 'meta/file'
 
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 
 type Props = {
   fileSummary: FileSummary

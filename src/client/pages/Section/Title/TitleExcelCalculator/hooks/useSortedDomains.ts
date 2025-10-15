@@ -10,7 +10,7 @@ import { useCountry } from 'client/store/area/hooks/country'
 import { NodeValuesActions } from 'client/store/data/tableData/nodeValues/actions'
 import { useRecordAssessmentData } from 'client/store/data/tableData/nodeValues/hooks/data'
 import { useAppDispatch } from 'client/store/hooks'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 
 type Returned = {
   domains: Array<string>

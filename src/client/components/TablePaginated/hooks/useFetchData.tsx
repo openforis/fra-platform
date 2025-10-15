@@ -10,7 +10,7 @@ import {
   useTablePaginatedOrderBy,
   useTablePaginatedPage,
 } from 'client/store/tablePaginated/hooks/tablePaginated'
-import { useSectionRouteParams } from 'client/hooks/useRouteParams'
+import { useSectionRouteParams } from 'client/hooks/routeParams'
 import { TablePaginatedCounter } from 'client/components/TablePaginated/types'
 
 type Props = {

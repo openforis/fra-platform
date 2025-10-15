@@ -3,7 +3,7 @@ import React from 'react'
 import { AssessmentNames } from 'meta/assessment/assessment'
 
 import { useIsDataExportView } from 'client/hooks/dataExport'
-import { useCycleRouteParams } from 'client/hooks/useRouteParams'
+import { useCycleRouteParams } from 'client/hooks/routeParams'
 import SectionWrapper from 'client/pages/Country/SectionWrapper'
 import Section from 'client/pages/Section'
 

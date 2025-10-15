@@ -3,7 +3,7 @@ import { Country, CountryIso } from 'meta/area'
 import { AreaSelectors } from 'client/store/area/selectors'
 import { useAppSelector } from 'client/store/hooks'
 import { useCountryIso } from 'client/hooks/country'
-import { useCycleRouteParams } from 'client/hooks/useRouteParams'
+import { useCycleRouteParams } from 'client/hooks/routeParams'
 
 export const useCountry = (countryIso: CountryIso): Country => {
   const { assessmentName, cycleName } = useCycleRouteParams()

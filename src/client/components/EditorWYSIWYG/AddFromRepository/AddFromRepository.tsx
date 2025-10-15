@@ -6,7 +6,7 @@ import { RepositoryItems } from 'meta/cycleData'
 import { Translations } from 'meta/translation'
 
 import { useLanguage } from 'client/hooks/language'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 import ButtonCheckBox from 'client/components/ButtonCheckBox'
 import { useRepositoryLinkContext } from 'client/components/EditorWYSIWYG/repositoryLinkContext'
 import FileUpload from 'client/components/FileUpload'

@@ -7,7 +7,7 @@ import { Routes } from 'meta/routes'
 
 import { useUser } from 'client/store/user/hooks/user'
 import { useLanguage } from 'client/hooks/language'
-import { useCycleRouteParams } from 'client/hooks/useRouteParams'
+import { useCycleRouteParams } from 'client/hooks/routeParams'
 import CycleSwitch from 'client/components/CycleSwitch'
 
 enum UserGuideLinkOption {

@@ -5,7 +5,7 @@ import { Routes } from 'meta/routes'
 
 import { usePrevious } from 'client/hooks/previous'
 import { useIsGeoRoute } from 'client/hooks/routes'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 import Button, { ButtonSize, ButtonType, useButtonClassName } from 'client/components/Buttons/Button'
 import Icon from 'client/components/Icon'
 

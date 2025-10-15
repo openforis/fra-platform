@@ -7,7 +7,7 @@ import { RepositoryItem } from 'meta/cycleData'
 
 import { useAppDispatch } from 'client/store/hooks'
 import { RepositoryActions } from 'client/store/repository/actions'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 
 type Returned = {
   (repositoryItem: RepositoryItem, value: boolean): void

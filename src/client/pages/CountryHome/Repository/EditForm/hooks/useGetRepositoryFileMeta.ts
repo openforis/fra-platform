@@ -6,7 +6,7 @@ import { RepositoryItem } from 'meta/cycleData'
 import { useAppDispatch } from 'client/store/hooks'
 import { RepositoryActions } from 'client/store/repository/actions'
 import { useRepositoryFileMeta, useRepositoryItem } from 'client/store/repository/hooks/repository'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 
 export const useGetRepositoryFileMeta = () => {
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()

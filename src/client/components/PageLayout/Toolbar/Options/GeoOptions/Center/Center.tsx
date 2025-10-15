@@ -2,7 +2,7 @@ import React from 'react'
 
 import { CountryIso } from 'meta/area'
 
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
 import { mapController } from 'client/utils'
 

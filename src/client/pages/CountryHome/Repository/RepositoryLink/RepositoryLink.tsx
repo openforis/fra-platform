@@ -5,7 +5,7 @@ import { RepositoryItem, RepositoryItems } from 'meta/cycleData'
 import { Translations } from 'meta/translation'
 
 import { useLanguage } from 'client/hooks/language'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 
 type Props = {
   datum: RepositoryItem

@@ -5,7 +5,7 @@ import axios from 'axios'
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { User } from 'meta/user'
 
-import { useCountryUserRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryUserRouteParams } from 'client/hooks/routeParams'
 
 export const useTargetUser = (): User | undefined => {
   const { assessmentName, countryIso, cycleName, id } = useCountryUserRouteParams()

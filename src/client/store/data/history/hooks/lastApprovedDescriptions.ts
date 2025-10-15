@@ -7,7 +7,7 @@ import { CommentableDescriptionName, CommentableDescriptionValue } from 'meta/as
 
 import { HistorySelectors } from 'client/store/data/history/selectors'
 import { useAppSelector } from 'client/store/hooks'
-import { useSectionRouteParams } from 'client/hooks/useRouteParams'
+import { useSectionRouteParams } from 'client/hooks/routeParams'
 
 export const useLastApprovedHistoryDescriptions = (): Record<
   CommentableDescriptionName,

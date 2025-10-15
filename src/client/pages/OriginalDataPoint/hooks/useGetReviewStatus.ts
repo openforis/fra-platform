@@ -6,7 +6,7 @@ import { useOriginalDataPoint } from 'client/store/data/originalDataPoint/hooks/
 import { useAppDispatch } from 'client/store/hooks'
 import { ReviewActions } from 'client/store/review/actions'
 import { useUser } from 'client/store/user/hooks/user'
-import { useOriginalDataPointRouteParams } from 'client/hooks/useRouteParams'
+import { useOriginalDataPointRouteParams } from 'client/hooks/routeParams'
 
 export const useGetReviewStatus = () => {
   const dispatch = useAppDispatch()

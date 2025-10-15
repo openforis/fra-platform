@@ -5,7 +5,7 @@ import { Sockets } from 'meta/socket'
 
 import { AreaActions } from 'client/store/area/actions'
 import { useAppDispatch } from 'client/store/hooks'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { SocketClient } from 'client/service/socket'
 
 export const useCountryUpdateListener = (): void => {

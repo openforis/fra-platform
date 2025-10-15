@@ -8,7 +8,7 @@ import { useAppDispatch } from 'client/store/hooks'
 import { MetaActions } from 'client/store/meta/actions'
 import { useSections } from 'client/store/meta/hooks/sections'
 import { useIsAdminRoute } from 'client/hooks/routes'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 
 export const useInitSections = (): void => {
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams()

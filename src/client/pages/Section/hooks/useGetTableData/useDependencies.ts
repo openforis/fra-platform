@@ -14,7 +14,7 @@ import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useTableSections } from 'client/store/meta/hooks/tableSections'
 import { useCanEdit } from 'client/store/user/hooks/auth'
-import { useSectionRouteParams } from 'client/hooks/useRouteParams'
+import { useSectionRouteParams } from 'client/hooks/routeParams'
 
 import { Props } from './props'
 

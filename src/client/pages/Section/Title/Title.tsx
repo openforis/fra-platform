@@ -4,7 +4,7 @@ import React from 'react'
 import { SectionName } from 'meta/assessment/section'
 
 import { useIsPrintRoute } from 'client/hooks/routes'
-import { useCycleRouteParams } from 'client/hooks/useRouteParams'
+import { useCycleRouteParams } from 'client/hooks/routeParams'
 import { Components, TitleDefault } from 'client/pages/Section/Title/Components'
 import CSVAllTables from 'client/pages/Section/Title/CSVAllTables'
 import Hints, { HintsSustainableDevelopment } from 'client/pages/Section/Title/Hints'

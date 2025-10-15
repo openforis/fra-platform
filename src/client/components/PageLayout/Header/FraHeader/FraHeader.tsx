@@ -4,7 +4,7 @@ import MediaQuery from 'react-responsive'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useLanguage } from 'client/hooks/language'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 import LinkHome from 'client/components/LinkHome'
 import CycleSwitcher from 'client/components/PageLayout/Header/CycleSwitcher'
 import LanguageSelector, { LanguageSelectorMobile } from 'client/components/PageLayout/Header/LanguageSelector'

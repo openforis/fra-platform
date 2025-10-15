@@ -5,7 +5,7 @@ import { CountryIso } from 'meta/area'
 
 import { useAppDispatch } from 'client/store/hooks'
 import { TablePaginatedActions } from 'client/store/tablePaginated/actions'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 
 export const useRefetchUsers = (): (() => void) => {
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()

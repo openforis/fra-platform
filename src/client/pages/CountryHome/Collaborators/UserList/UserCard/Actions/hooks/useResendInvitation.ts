@@ -7,7 +7,7 @@ import { ApiEndPoint } from 'meta/api/endpoint'
 import { CountryIso } from 'meta/area'
 import { CountryUserSummaries } from 'meta/user/countryUserSummaries'
 
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { useToaster } from 'client/hooks/useToaster'
 
 import type { Props as BaseProps } from '../../Props'

@@ -8,7 +8,7 @@ import { SectionName } from 'meta/assessment/section'
 
 import { DescriptionsSelectors } from 'client/store/data/descriptions/selectors'
 import { useAppSelector } from 'client/store/hooks'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 
 type Props = {
   name: CommentableDescriptionName

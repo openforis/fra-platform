@@ -6,7 +6,7 @@ import { Global as GlobalType } from 'meta/area'
 import { Routes } from 'meta/routes'
 
 import { useShowRegions } from 'client/hooks/showRegions'
-import { useCycleRouteParams } from 'client/hooks/useRouteParams'
+import { useCycleRouteParams } from 'client/hooks/routeParams'
 
 const Global: React.FC = () => {
   const { assessmentName, cycleName } = useCycleRouteParams()

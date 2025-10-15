@@ -8,7 +8,7 @@ import { Tables } from 'meta/assessment/tables'
 import { RecordAssessmentData, RecordAssessmentDatas } from 'meta/data'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 
 type Props = {
   table: Table

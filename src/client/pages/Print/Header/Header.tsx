@@ -9,7 +9,7 @@ import { CountryIso } from 'meta/area'
 import { useCountry } from 'client/store/area/hooks/country'
 import { useLanguage } from 'client/hooks/language'
 import { useIsPrintRoute } from 'client/hooks/routes'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { ButtonSize, useButtonClassName } from 'client/components/Buttons/Button'
 import Icon from 'client/components/Icon'
 

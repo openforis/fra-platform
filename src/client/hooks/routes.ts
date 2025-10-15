@@ -3,7 +3,7 @@ import { matchPath, useLocation } from 'react-router-dom'
 import { AssessmentNames } from 'meta/assessment/assessment'
 import { Routes } from 'meta/routes'
 
-import { useAssessmentRouteParams } from 'client/hooks/useRouteParams'
+import { useAssessmentRouteParams } from 'client/hooks/routeParams'
 
 export const useIsRoute = ({ exact = true, path }: { path: string; exact?: boolean }): boolean => {
   const { pathname } = useLocation()

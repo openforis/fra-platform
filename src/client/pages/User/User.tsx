@@ -6,7 +6,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { Areas, CountryIso } from 'meta/area'
 
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { useToaster } from 'client/hooks/useToaster'
 import Form from 'client/components/Form'
 import { Urls } from 'client/utils'

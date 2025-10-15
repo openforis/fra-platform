@@ -6,7 +6,7 @@ import { UserRoles } from 'meta/user/userRoles'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useUser } from 'client/store/user/hooks/user'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { StatusTransition } from 'client/components/PageLayout/Toolbar/Status/types'
 
 type Props = {
