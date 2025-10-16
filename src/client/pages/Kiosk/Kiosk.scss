@@ -43,8 +43,33 @@
   grid-template-columns: repeat(3, 1fr);
 }
 
+.kiosk-content__header {
+  align-items: flex-start;
+  display: flex;
+  justify-content: space-between;
+}
+
 .kiosk-content__title {
   font-size: min(3.33dvw, 5.925dvh);
   margin-bottom: min(1.28dvw, 2.4dvh);
   text-align: left;
+}
+
+.kiosk-content__qr {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: min(0.5dvw, 0.885dvh);
+  text-align: center;
+}
+
+.kiosk-content__qr-image {
+  height: auto;
+  width: min(6dvw, 10.665dvh);
+}
+
+.kiosk-content__qr-label {
+  font-size: min(1.11dvw, 1.975dvh);
+  font-weight: 600;
+  color: #fff;
 }
