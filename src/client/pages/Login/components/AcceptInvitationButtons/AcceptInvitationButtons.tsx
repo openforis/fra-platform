@@ -9,8 +9,8 @@ import { AuthProvider } from 'meta/user'
 
 import { useAcceptInvitationForm, useInvitation } from 'client/store/login/hooks/invitation'
 import { useLoginInfo } from 'client/store/login/hooks/login'
-import { useIsInvitationLocalRoute } from 'client/hooks/useIsRoute'
-import { useSearchParams } from 'client/hooks/useSearchParams'
+import { useIsInvitationLocalRoute } from 'client/hooks/routes'
+import { useSearchParams } from 'client/hooks/searchParams'
 import Icon from 'client/components/Icon'
 import { videoResources } from 'client/pages/Tutorials'
 

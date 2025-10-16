@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import DataColumn from 'client/components/DataGridDeprecated/DataColumn'
+import { DataCell } from 'client/components/DataGrid'
 import OrderBy from 'client/components/TablePaginated/Header/OrderBy'
 import { Column } from 'client/components/TablePaginated/types'
 
@@ -10,7 +10,7 @@ type Props<Datum> = {
   path: string
 }
 
-const Header = <Datum extends object>(props: Props<Datum>) => {
+const Header = <Datum extends object>(props: Props<Datum>): ReactElement => {
   const { columns, path } = props
   const { t } = useTranslation()
 
@@ -20,12 +20,12 @@ const Header = <Datum extends object>(props: Props<Datum>) => {
         const { header: Header, key } = column
 
         return (
-          <DataColumn key={`${key}_header`} head>
+          <DataCell key={`${key}_header`} header>
             {typeof Header === 'string' && t(Header)}
             {typeof Header !== 'string' && <Header />}
 
             {column.orderByProperty && <OrderBy column={column} path={path} />}
-          </DataColumn>
+          </DataCell>
         )
       })}
     </>

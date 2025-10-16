@@ -12,7 +12,7 @@ import { useAppDispatch } from 'client/store/hooks'
 import { LoginActions } from 'client/store/login/actions'
 import { useAcceptInvitationForm, useInvitation } from 'client/store/login/hooks/invitation'
 import { useUser } from 'client/store/user/hooks/user'
-import { useSearchParams } from 'client/hooks/useSearchParams'
+import { useSearchParams } from 'client/hooks/searchParams'
 import { useInitInvitation } from 'client/pages/Login/Invitation/hooks/useInitInvitation'
 
 const InvitationLocal: React.FC = () => {

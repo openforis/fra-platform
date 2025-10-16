@@ -5,7 +5,7 @@ import { TableSection } from 'meta/assessment/tableSection'
 
 import { useAppSelector } from 'client/store/hooks'
 import { RootState } from 'client/store/types'
-import { useSectionRouteParams } from 'client/hooks/useRouteParams'
+import { useSectionRouteParams } from 'client/hooks/routeParams'
 
 type Props = {
   sectionName: string

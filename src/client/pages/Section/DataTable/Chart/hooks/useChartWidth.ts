@@ -2,7 +2,7 @@ import { RefObject, useLayoutEffect, useState } from 'react'
 
 import { Functions } from 'utils/functions'
 
-import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import { useIsPrintRoute } from 'client/hooks/routes'
 
 const printWidth = 960
 

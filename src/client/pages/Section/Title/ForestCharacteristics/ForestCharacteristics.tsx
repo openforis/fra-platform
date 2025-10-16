@@ -6,7 +6,7 @@ import { Labels } from 'meta/assessment/labels'
 import { useAssessmentCountry } from 'client/store/area/hooks/country'
 import { useOriginalDataPointYears } from 'client/store/data/tableData/nodeValues/hooks/originalDataPointData'
 import { useCycle } from 'client/store/meta/hooks/cycles'
-import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import { useIsPrintRoute } from 'client/hooks/routes'
 import OriginalDataPointsPrint from 'client/pages/Print/OriginalDataPointsPrint'
 
 import { Props } from '../props'

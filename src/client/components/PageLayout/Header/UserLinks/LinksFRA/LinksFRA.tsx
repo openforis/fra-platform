@@ -8,7 +8,7 @@ import { Users } from 'meta/user'
 import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useUser } from 'client/store/user/hooks/user'
-import { useIsLoginRoute } from 'client/hooks'
+import { useIsLoginRoute } from 'client/hooks/routes'
 import Icon from 'client/components/Icon'
 import PopoverControl from 'client/components/PopoverControl'
 

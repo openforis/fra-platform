@@ -3,7 +3,7 @@ import React, { useCallback, useMemo, useState } from 'react'
 
 import { sections } from 'meta/geo'
 
-import { useOnUpdate } from 'client/hooks'
+import { useOnUpdate } from 'client/hooks/onUpdate'
 import Icon from 'client/components/Icon'
 import GeoSection from 'client/components/Navigation/NavGeo/GeoSection'
 import LayersSection from 'client/components/Navigation/NavGeo/LayersSection'

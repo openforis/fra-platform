@@ -16,7 +16,7 @@ import {
   useTablePaginatedOrderBy,
   useTablePaginatedPage,
 } from 'client/store/tablePaginated/hooks/tablePaginated'
-import { useSectionRouteParams } from 'client/hooks/useRouteParams'
+import { useSectionRouteParams } from 'client/hooks/routeParams'
 import { SocketClient } from 'client/service/socket'
 
 export const useListenLinksVerificationEvents = (): void => {

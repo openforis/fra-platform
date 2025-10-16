@@ -10,7 +10,7 @@ import { RecordAssessmentData, RecordAssessmentDatas, RecordCountryData } from '
 import { EstimationsActions } from 'client/store/data/tableData/estimations/actions'
 import { useAppDispatch } from 'client/store/hooks'
 import { useCycle } from 'client/store/meta/hooks/cycles'
-import { useCountryIso } from 'client/hooks'
+import { useCountryIso } from 'client/hooks/country'
 import { GenerateValuesField } from 'client/pages/Section/DataTable/GenerateValues/field'
 import { Method, Methods } from 'client/pages/Section/DataTable/GenerateValues/method'
 

@@ -16,7 +16,7 @@ import { useAssessmentCountry } from 'client/store/area/hooks/country'
 import { useAppDispatch } from 'client/store/hooks'
 import { useTablePaginatedData } from 'client/store/tablePaginated/hooks/tablePaginated'
 import { useUser } from 'client/store/user/hooks/user'
-import { useCountryIso } from 'client/hooks'
+import { useCountryIso } from 'client/hooks/country'
 import { Modal, ModalBody, ModalClose, ModalFooter, ModalHeader } from 'client/components/Modal'
 
 import { StatusTransition } from '../types'

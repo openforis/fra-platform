@@ -11,7 +11,7 @@ import { Routes } from 'meta/routes'
 
 import { useHistoryActivitiesIsActive } from 'client/store/data/history/hooks/activities'
 import { useSections } from 'client/store/meta/hooks/sections'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 import Hr from 'client/components/Hr'
 import Icon from 'client/components/Icon'
 import Header from 'client/components/Navigation/NavAssessment/Header'

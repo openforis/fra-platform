@@ -1,7 +1,7 @@
 import { TFunction } from 'i18next'
 import type { IJodit } from 'jodit/esm/types/jodit'
 
-import { ToasterHook } from 'client/hooks/useToaster'
+import { ToasterHook } from 'client/hooks/toaster'
 
 export const _processPaste = (toaster: ToasterHook['toaster'], t: TFunction) => (_: IJodit, html: string) => {
   try {

@@ -5,7 +5,7 @@ import { Axis, AxisSelection, AxisType } from 'meta/explorer/selection'
 import { ExplorerSelectionActions } from 'client/store/explorer/selection/actions'
 import { useExplorerAxisSelection } from 'client/store/explorer/selection/hooks/axisSelection'
 import { useAppDispatch } from 'client/store/hooks'
-import { useSectionRouteParams } from 'client/hooks/useRouteParams'
+import { useSectionRouteParams } from 'client/hooks/routeParams'
 
 type Props = {
   axis: Axis

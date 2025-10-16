@@ -7,7 +7,7 @@ import classNames from 'classnames'
 
 import { Routes } from 'meta/routes'
 
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 import Icon from 'client/components/Icon'
 
 const LinkLanding: React.FC = () => {

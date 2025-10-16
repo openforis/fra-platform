@@ -10,7 +10,7 @@ import { UnitName } from 'meta/measurement/unit'
 import { useDataExportCountries, useDataExportSelection } from 'client/store/dataExport/hooks/dataExport'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useTableSections } from 'client/store/meta/hooks/tableSections'
-import { useSectionRouteParams } from 'client/hooks/useRouteParams'
+import { useSectionRouteParams } from 'client/hooks/routeParams'
 import ButtonTableExport from 'client/components/ButtonTableExport'
 import { convertValue, formatValue, getColumnLabelKeys } from 'client/pages/DataExport/utils'
 

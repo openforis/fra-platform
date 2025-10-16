@@ -3,8 +3,9 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 import { Routes } from 'meta/routes'
 
-import { useIsGeoRoute, usePrevious } from 'client/hooks'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { usePrevious } from 'client/hooks/previous'
+import { useIsGeoRoute } from 'client/hooks/routes'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 import Button, { ButtonSize, ButtonType, useButtonClassName } from 'client/components/Buttons/Button'
 import Icon from 'client/components/Icon'
 

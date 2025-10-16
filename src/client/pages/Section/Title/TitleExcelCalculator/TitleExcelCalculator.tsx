@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { Labels } from 'meta/assessment/labels'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
-import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import { useIsPrintRoute } from 'client/hooks/routes'
 
 import { Props } from '../props'
 import ExcelCalculatorDownload from './ExcelCalculatorDownload'

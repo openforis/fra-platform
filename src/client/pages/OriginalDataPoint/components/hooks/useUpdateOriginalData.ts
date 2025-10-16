@@ -6,7 +6,7 @@ import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
 import { OriginalDataPointActions } from 'client/store/data/originalDataPoint/actions'
 import { useAppDispatch } from 'client/store/hooks'
-import { useSectionRouteParams } from 'client/hooks/useRouteParams'
+import { useSectionRouteParams } from 'client/hooks/routeParams'
 
 export const useUpdateOriginalData = (): ((originalDataPoint: OriginalDataPoint) => void) => {
   const { assessmentName, countryIso, cycleName, sectionName } = useSectionRouteParams()

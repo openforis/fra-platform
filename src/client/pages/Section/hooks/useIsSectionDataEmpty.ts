@@ -5,7 +5,7 @@ import { TableSection } from 'meta/assessment/tableSection'
 import { RecordAssessmentDatas } from 'meta/data'
 
 import { useRecordAssessmentData } from 'client/store/data/tableData/nodeValues/hooks/data'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 
 export const useIsSectionDataEmpty = (tableSections: Array<TableSection>) => {
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()

@@ -6,7 +6,7 @@ import { Sockets } from 'meta/socket'
 
 import { OriginalDataPointActions } from 'client/store/data/originalDataPoint/actions'
 import { useAppDispatch } from 'client/store/hooks'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { SocketClient } from 'client/service/socket'
 
 export const useListenReservedYearsChange = (): void => {

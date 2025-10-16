@@ -5,7 +5,7 @@ import { TablePaginatedCompareFn } from 'meta/tablePaginated'
 import { CountryUserSummary, RoleName } from 'meta/user'
 import { CountryUserSummaries } from 'meta/user/countryUserSummaries'
 
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 
 const ranks: Record<RoleName, number> = {
   [RoleName.ADMINISTRATOR]: 5,

@@ -2,8 +2,8 @@ import { useCallback } from 'react'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 
-import { useLanguage } from 'client/hooks/useLanguage'
-import { useCycleRouteParams } from 'client/hooks/useRouteParams'
+import { useLanguage } from 'client/hooks/language'
+import { useCycleRouteParams } from 'client/hooks/routeParams'
 
 type Props = {
   anchor?: string

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { CountryIso } from 'meta/area'
 
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 import StatisticsTable from 'client/pages/Geo/StatisticsSidePanel/StatisticsTable'
 
 import { useProtectedAreaData } from './hooks/useProtectedAreaData'

@@ -8,17 +8,19 @@ import classNames from 'classnames'
 import { Objects } from 'utils/objects'
 
 import { CountryIso, Global } from 'meta/area'
+import { AssessmentNames } from 'meta/assessment/assessment'
 import { Routes } from 'meta/routes'
 import { TooltipId } from 'meta/tooltip'
 
-import { useIsCountryRoute, useIsGeoRoute } from 'client/hooks'
-import { useSectionRouteParams } from 'client/hooks/useRouteParams'
+import { useIsCountryRoute, useIsGeoRoute } from 'client/hooks/routes'
+import { useSectionRouteParams } from 'client/hooks/routeParams'
 import LinkDataDownload from 'client/components/PageLayout/LinkDataDownload'
 import { Breakpoints } from 'client/utils'
 
 const LinkData: React.FC = () => {
   const { t } = useTranslation()
   const { assessmentName, countryIso, cycleName, sectionName } = useSectionRouteParams<CountryIso>()
+  const isFRA = assessmentName === AssessmentNames.fra
   const isCountryRoute = useIsCountryRoute()
   const baseParams = { assessmentName, cycleName, countryIso: Global.WO, sectionName }
   const isGeoRoute = useIsGeoRoute()
@@ -27,7 +29,7 @@ const LinkData: React.FC = () => {
 
   const navigate = useNavigate()
 
-  if (isGeoRoute) {
+  if (isGeoRoute || !isFRA) {
     return null
   }
 

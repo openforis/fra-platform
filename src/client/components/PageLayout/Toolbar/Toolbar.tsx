@@ -4,14 +4,15 @@ import { useTranslation } from 'react-i18next'
 import MediaQuery from 'react-responsive'
 
 import { Areas, CountryIso } from 'meta/area'
+import { AssessmentNames } from 'meta/assessment/assessment'
 import { Users } from 'meta/user'
 
 import { useCountry } from 'client/store/area/hooks/country'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useUser } from 'client/store/user/hooks/user'
-import { useIsGeoRoute, useIsPrintRoute } from 'client/hooks/useIsRoute'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
-import { useShowRegions } from 'client/hooks/useShowRegions'
+import { useIsGeoRoute, useIsPrintRoute } from 'client/hooks/routes'
+import { useShowRegions } from 'client/hooks/showRegions'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 import AreaSelector from 'client/components/AreaSelector/AreaSelector'
 import LinkHome from 'client/components/LinkHome'
 import LinkDataDownload from 'client/components/PageLayout/LinkDataDownload'
@@ -26,7 +27,8 @@ import ToggleNavigationControl from './ToggleNavigationControl'
 const Toolbar: React.FC = () => {
   const { t } = useTranslation()
   const cycle = useCycle()
-  const { countryIso } = useCountryRouteParams()
+  const { assessmentName, countryIso } = useCountryRouteParams()
+  const isFRA = assessmentName === AssessmentNames.fra
   const country = useCountry(countryIso as CountryIso)
   const { print } = useIsPrintRoute()
   const user = useUser()
@@ -73,7 +75,7 @@ const Toolbar: React.FC = () => {
         <LoadingIndicator />
       </MediaQuery>
 
-      {!isCountry && (
+      {!isCountry && isFRA && (
         <MediaQuery minWidth={Breakpoints.laptop}>
           <div className="toolbar-options data-link">
             <LinkDataDownload />

@@ -4,7 +4,7 @@ import { Dates } from 'utils/dates'
 import { ODPReservedYear, OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
 import { useAppSelector } from 'client/store/hooks'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 
 import { OriginalDataPointSelectors } from '../selectors'
 

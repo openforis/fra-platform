@@ -1,6 +1,6 @@
 import { Objects } from 'utils/objects'
 
-import { useOnUpdate } from 'client/hooks'
+import { useOnUpdate } from 'client/hooks/onUpdate'
 
 import { PropsWatch } from './types'
 

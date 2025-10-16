@@ -6,7 +6,7 @@ import classNames from 'classnames'
 
 import { Lang, LanguageCodes } from 'meta/lang'
 
-import { useUpdateLanguage } from 'client/hooks/useLanguage'
+import { useUpdateLanguage } from 'client/hooks/language'
 
 const LanguageSelectorMobile: React.FC = () => {
   const { i18n } = useTranslation()

@@ -2,7 +2,7 @@ import { Areas } from 'meta/area'
 
 import { useCanSeeUserActivities } from 'client/store/user/hooks/auth'
 import { useUser } from 'client/store/user/hooks/user'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 
 export const useShowCountryMessageButton = (): boolean => {
   const user = useUser()

@@ -8,7 +8,7 @@ import { LinkLocation } from 'meta/cycleData'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useSections } from 'client/store/meta/hooks/sections'
-import { useIsPanEuropeanRoute } from 'client/hooks'
+import { useIsPanEuropeanRoute } from 'client/hooks/routes'
 
 type Returned = (location: LinkLocation) => string
 

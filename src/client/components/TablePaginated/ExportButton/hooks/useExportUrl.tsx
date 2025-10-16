@@ -5,8 +5,8 @@ import { Objects } from 'utils/objects'
 import { TablePaginateds } from 'meta/tablePaginated'
 
 import { useTablePaginatedFilters, useTablePaginatedOrderBy } from 'client/store/tablePaginated/hooks/tablePaginated'
-import { useLanguage } from 'client/hooks/useLanguage'
-import { useSectionRouteParams } from 'client/hooks/useRouteParams'
+import { useLanguage } from 'client/hooks/language'
+import { useSectionRouteParams } from 'client/hooks/routeParams'
 
 type Props = {
   path: string

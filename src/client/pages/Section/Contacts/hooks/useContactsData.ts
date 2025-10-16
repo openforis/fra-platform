@@ -8,7 +8,7 @@ import { RoleName } from 'meta/user'
 
 import { useContacts } from 'client/store/data/contacts/hooks/contacts'
 import { useIsEditTableDataEnabled } from 'client/store/user/hooks/auth'
-import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import { useIsPrintRoute } from 'client/hooks/routes'
 import { useSectionContext } from 'client/pages/Section/context'
 
 type Returned = Array<Contact>

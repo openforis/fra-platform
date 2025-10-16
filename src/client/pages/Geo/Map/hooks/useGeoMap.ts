@@ -4,7 +4,7 @@ import { CountryIso } from 'meta/area'
 
 import { useGeoMapOptions } from 'client/store/geo/map/hooks/map'
 import { useAppDispatch } from 'client/store/hooks'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { mapController } from 'client/utils'
 
 import { styles } from './styles'

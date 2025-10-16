@@ -5,7 +5,7 @@ import { Cycle } from 'meta/assessment/cycle'
 import { RoleName, User, Users } from 'meta/user'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 
 const approvalRolesOrder: Partial<Record<RoleName, number>> = {
   [RoleName.ADMINISTRATOR]: 0,

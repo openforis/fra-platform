@@ -4,7 +4,7 @@ import { Table, TableNames } from 'meta/assessment/table'
 
 import { useCountry } from 'client/store/area/hooks/country'
 import { useShowOriginalDatapoints } from 'client/store/ui/countryReport/hooks/originalDataPoints'
-import { useCountryIso } from 'client/hooks'
+import { useCountryIso } from 'client/hooks/country'
 
 type Props = {
   table: Table

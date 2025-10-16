@@ -8,7 +8,7 @@ import { RecordAssessmentData, RecordAssessmentDatas } from 'meta/data'
 
 import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useCycle } from 'client/store/meta/hooks/cycles'
-import { useCountryIso } from 'client/hooks'
+import { useCountryIso } from 'client/hooks/country'
 
 type Props = {
   col: Col

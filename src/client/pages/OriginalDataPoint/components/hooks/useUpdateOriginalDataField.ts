@@ -7,7 +7,7 @@ import { ODPNationalClass } from 'meta/assessment/originalDataPoint'
 import { OriginalDataPointActions } from 'client/store/data/originalDataPoint/actions'
 import { useOriginalDataPoint } from 'client/store/data/originalDataPoint/hooks/originalDataPoint'
 import { useAppDispatch } from 'client/store/hooks'
-import { useSectionRouteParams } from 'client/hooks/useRouteParams'
+import { useSectionRouteParams } from 'client/hooks/routeParams'
 import { Sanitizer } from 'client/utils/sanitizer'
 
 type Props = {
