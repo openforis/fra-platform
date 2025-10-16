@@ -14,8 +14,10 @@ const _getOrderClause = (
   orderByDirection: TablePaginatedOrderByDirection | undefined
 ): string => {
   const direction = orderByDirection ?? TablePaginatedOrderByDirection.asc
-  if (Objects.isEmpty(orderBy)) return `order by country_iso ${direction} nulls last`
-  return `order by ${orderBy} ${direction} nulls last`
+
+  if (Objects.isEmpty(orderBy) || orderBy === 'country_name') return `order by cs.country_name ${direction} nulls last`
+
+  return `order by cs.${orderBy} ${direction} nulls last`
 }
 
 export const getMany = async (
@@ -31,8 +33,20 @@ export const getMany = async (
 
   const query = `
     ${baseQuery}
-    select *
-    from country_summary
+    select
+     cs.country_iso,
+     cs.status,
+     cs.last_update,
+     cs.last_edit,
+     cs.last_edit_odp,
+     cs.last_in_editing,
+     cs.last_in_review,
+     cs.last_in_approval,
+     cs.last_in_accepted,
+     cs.invitations_accepted_count,
+     cs.invitations_sent_count,
+     cs.users_count
+    from country_summary cs
     ${!Objects.isEmpty(whereConditions) ? `where ${whereConditions.join(' and ')}` : ''}
     ${order}
     ${queryParams.limit ? `limit $(limit)` : ''}
