@@ -11,7 +11,7 @@ import { AreaActions } from 'client/store/area/actions'
 import { useAssessmentCountry } from 'client/store/area/hooks/country'
 import { useAppDispatch } from 'client/store/hooks'
 import { useUser } from 'client/store/user/hooks/user'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { PopoverItem } from 'client/components/PopoverControl'
 
 export const useAdminPopoverItems = (): Array<PopoverItem> => {

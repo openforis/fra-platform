@@ -3,7 +3,7 @@ import { MutableRefObject } from 'react'
 import { Objects } from 'utils/objects'
 
 import { useTablePaginatedData, useTablePaginatedPage } from 'client/store/tablePaginated/hooks/tablePaginated'
-import { useOnUpdate } from 'client/hooks'
+import { useOnUpdate } from 'client/hooks/onUpdate'
 
 type Props = {
   divRef: MutableRefObject<HTMLDivElement>

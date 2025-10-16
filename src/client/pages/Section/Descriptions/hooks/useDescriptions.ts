@@ -2,7 +2,7 @@ import { Description } from 'meta/assessment/description'
 
 import { useAssessmentCountry } from 'client/store/area/hooks/country'
 import { useHasOriginalDataPointData } from 'client/store/data/tableData/nodeValues/hooks/originalDataPointData'
-import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import { useIsPrintRoute } from 'client/hooks/routes'
 import { useSectionContext } from 'client/pages/Section/context'
 
 type Props = {

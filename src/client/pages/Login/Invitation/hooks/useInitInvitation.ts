@@ -5,7 +5,7 @@ import { LoginInvitationQueryParams, Routes } from 'meta/routes'
 
 import { useAppDispatch } from 'client/store/hooks'
 import { LoginActions } from 'client/store/login/actions'
-import { useSearchParams } from 'client/hooks/useSearchParams'
+import { useSearchParams } from 'client/hooks/searchParams'
 
 export const useInitInvitation = (): void => {
   const { invitationUuid } = useSearchParams<LoginInvitationQueryParams>()

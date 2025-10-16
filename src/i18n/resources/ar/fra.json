@@ -107,7 +107,7 @@
     "extentOfForest2025": "$t(extentOfForest.extentOfForest)",
     "otherWoodedLand": "$t(fraClass.otherWoodedLand)",
     "remainingLandArea": "مساحة الأرض المتبقية",
-    "totalLandArea2025": "$t(extentOfForest.totalLandArea)"
+    "totalLandArea2025": "المساحة الأرضية"
   },
   "extentOfForest_forestAreaStatusAndTrend_Description": {
     "footer1": "البيانات المستخدمة لا تزيد عمرها عن ٥ سنوات من سنة تقديم التقارير (البيانات أحدث من عام ٢٠١٨ لتقارير برنامج التقييم العالمي للغابات ٢٠٢٥)¹.",

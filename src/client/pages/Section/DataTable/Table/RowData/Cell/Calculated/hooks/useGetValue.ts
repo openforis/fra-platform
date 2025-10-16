@@ -12,7 +12,7 @@ import { useAssessmentCountry } from 'client/store/area/hooks/country'
 import { useRecordAssessmentDataWithOdp } from 'client/store/data/tableData/nodeValues/hooks/data'
 import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useCycle } from 'client/store/meta/hooks/cycles'
-import { useSectionRouteParams } from 'client/hooks/useRouteParams'
+import { useSectionRouteParams } from 'client/hooks/routeParams'
 import { PropsCell } from 'client/pages/Section/DataTable/Table/RowData/Cell/props'
 
 export const useGetValue = (props: PropsCell) => {

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { LanguageCodes } from 'meta/lang'
 
-import { useLanguage, useUpdateLanguage } from 'client/hooks/useLanguage'
+import { useLanguage, useUpdateLanguage } from 'client/hooks/language'
 import Icon from 'client/components/Icon'
 import PopoverControl from 'client/components/PopoverControl'
 

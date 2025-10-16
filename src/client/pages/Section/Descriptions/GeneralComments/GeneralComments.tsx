@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { AssessmentNames } from 'meta/assessment/assessment'
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 
-import { useAssessmentRouteParams } from 'client/hooks/useRouteParams'
+import { useAssessmentRouteParams } from 'client/hooks/routeParams'
 import CommentableDescription from 'client/pages/Section/Descriptions/CommentableDescription'
 
 const GeneralComments: React.FC = () => {

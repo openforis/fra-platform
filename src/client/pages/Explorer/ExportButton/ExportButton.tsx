@@ -1,7 +1,7 @@
 import './ExportButton.scss'
 import React from 'react'
 
-import { useSectionRouteParams } from 'client/hooks/useRouteParams'
+import { useSectionRouteParams } from 'client/hooks/routeParams'
 import { ButtonGridExport } from 'client/components/DataGrid'
 import { useHideGrid } from 'client/pages/Explorer/hooks/useHideGrid'
 import { ExplorerGridProps } from 'client/pages/Explorer/types'

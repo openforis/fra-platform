@@ -5,7 +5,7 @@ import { Lang } from 'meta/lang'
 
 import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useUser } from 'client/store/user/hooks/user'
-import { useLanguage, useUpdateLanguage } from 'client/hooks/useLanguage'
+import { useLanguage, useUpdateLanguage } from 'client/hooks/language'
 import { Urls } from 'client/utils'
 
 export const useInitLanguage = (): void => {

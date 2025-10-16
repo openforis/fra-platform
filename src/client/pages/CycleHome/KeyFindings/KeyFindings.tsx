@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import { CycleName } from 'meta/assessment/cycle'
 
-import { useCycleRouteParams } from 'client/hooks/useRouteParams'
+import { useCycleRouteParams } from 'client/hooks/routeParams'
 import MapLegend from 'client/pages/CycleHome/KeyFindings/MapLegend'
 
 const climaticDomains: Record<CycleName, Record<string, number>> = {

@@ -107,7 +107,7 @@
     "extentOfForest2025": "$t(extentOfForest.extentOfForest)",
     "otherWoodedLand": "$t(fraClass.otherWoodedLand)",
     "remainingLandArea": "其他土地",
-    "totalLandArea2025": "土地面积总和"
+    "totalLandArea2025": "土地面积"
   },
   "extentOfForest_forestAreaStatusAndTrend_Description": {
     "footer1": "¹ 从提交报告的年份起不超过5年的数据（对于2025年全球森林资源评估国家报告，年份应在2018年或之后）",

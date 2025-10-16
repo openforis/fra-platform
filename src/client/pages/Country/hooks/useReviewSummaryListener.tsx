@@ -5,7 +5,7 @@ import { Sockets } from 'meta/socket'
 import { useAppDispatch } from 'client/store/hooks'
 import { ReviewActions } from 'client/store/review/actions'
 import { useCanEditCycleData } from 'client/store/user/hooks/auth'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { SocketClient } from 'client/service/socket'
 
 export const useReviewSummaryListener = (): void => {

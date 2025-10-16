@@ -5,7 +5,7 @@ import { CountryIso } from 'meta/area'
 import { useAppDispatch } from 'client/store/hooks'
 import { MetaActions } from 'client/store/meta/actions'
 import { useTableSections } from 'client/store/meta/hooks/tableSections'
-import { useSectionRouteParams } from 'client/hooks/useRouteParams'
+import { useSectionRouteParams } from 'client/hooks/routeParams'
 
 export const useGetTableSections = () => {
   const dispatch = useAppDispatch()

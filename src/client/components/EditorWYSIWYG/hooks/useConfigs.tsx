@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import type { IJodit } from 'jodit/esm/types/jodit'
 
-import { useToaster } from 'client/hooks/useToaster'
+import { useToaster } from 'client/hooks/toaster'
 import { _processPaste } from 'client/components/EditorWYSIWYG/hooks/_processPaste'
 import { useRepositoryLinkContext } from 'client/components/EditorWYSIWYG/repositoryLinkContext'
 import { EditorConfig } from 'client/components/EditorWYSIWYG/types'

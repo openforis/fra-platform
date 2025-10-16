@@ -11,7 +11,7 @@ import { useAssessmentCountry } from 'client/store/area/hooks/country'
 import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useUser } from 'client/store/user/hooks/user'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 
 export const useUserRedirect = (): void => {
   const assessment = useAssessment()

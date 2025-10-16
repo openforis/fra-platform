@@ -5,10 +5,10 @@ import { Link } from 'react-router-dom'
 import { Global as GlobalType } from 'meta/area'
 import { Routes } from 'meta/routes'
 
-import { useCycleRouteParams } from 'client/hooks/useRouteParams'
-import { useShowRegions } from 'client/hooks/useShowRegions'
+import { useShowRegions } from 'client/hooks/showRegions'
+import { useCycleRouteParams } from 'client/hooks/routeParams'
 
-const Global = () => {
+const Global: React.FC = () => {
   const { assessmentName, cycleName } = useCycleRouteParams()
   const { t } = useTranslation()
 

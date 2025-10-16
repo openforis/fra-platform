@@ -9,7 +9,7 @@ import { useAssessmentCountry } from 'client/store/area/hooks/country'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useSection } from 'client/store/meta/hooks/sections'
 import { useUser } from 'client/store/user/hooks/user'
-import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import { useIsPrintRoute } from 'client/hooks/routes'
 
 type Props = {
   originalDataPoint: OriginalDataPoint

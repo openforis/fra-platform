@@ -12,7 +12,7 @@ import { LoginActions } from 'client/store/login/actions'
 import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useUser } from 'client/store/user/hooks/user'
-import { useToaster } from 'client/hooks/useToaster'
+import { useToaster } from 'client/hooks/toaster'
 import { isError, LoginValidator } from 'client/pages/Login/utils/LoginValidator'
 import { Urls } from 'client/utils/urls'
 

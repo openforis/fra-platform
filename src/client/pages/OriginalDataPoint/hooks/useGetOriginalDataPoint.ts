@@ -4,7 +4,7 @@ import { CountryIso } from 'meta/area'
 
 import { OriginalDataPointActions } from 'client/store/data/originalDataPoint/actions'
 import { useAppDispatch } from 'client/store/hooks'
-import { useOriginalDataPointRouteParams } from 'client/hooks/useRouteParams'
+import { useOriginalDataPointRouteParams } from 'client/hooks/routeParams'
 
 export const useGetOriginalDataPoint = () => {
   const dispatch = useAppDispatch()

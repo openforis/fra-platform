@@ -9,7 +9,7 @@ import { AreaActions } from 'client/store/area/actions'
 import { useCountry } from 'client/store/area/hooks/country'
 import { useAppDispatch } from 'client/store/hooks'
 import { useUser } from 'client/store/user/hooks/user'
-import { useSectionRouteParams } from 'client/hooks/useRouteParams'
+import { useSectionRouteParams } from 'client/hooks/routeParams'
 import Button from 'client/components/Buttons/Button'
 
 const ContactsTitle: React.FC = () => {

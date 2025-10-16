@@ -5,7 +5,7 @@ import { SubSections } from 'meta/assessment/subSections'
 
 import { useAppSelector } from 'client/store/hooks'
 import { MetadataSelectors } from 'client/store/meta/selectors'
-import { useCycleRouteParams, useSectionRouteParams } from 'client/hooks/useRouteParams'
+import { useCycleRouteParams, useSectionRouteParams } from 'client/hooks/routeParams'
 
 export const useSections = (): Array<Section> => {
   const { assessmentName, cycleName } = useCycleRouteParams()

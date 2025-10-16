@@ -4,7 +4,7 @@ import { Assessments } from 'meta/assessment/assessments'
 import { Cycle, CycleUuid } from 'meta/assessment/cycle'
 
 import { useAssessment } from 'client/store/meta/hooks/assessments'
-import { useCycleRouteParams } from 'client/hooks/useRouteParams'
+import { useCycleRouteParams } from 'client/hooks/routeParams'
 
 export const useCycle = (cycleUuid?: CycleUuid): Cycle => {
   const { cycleName } = useCycleRouteParams()

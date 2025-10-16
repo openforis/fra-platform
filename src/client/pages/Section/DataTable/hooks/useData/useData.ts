@@ -7,7 +7,7 @@ import { RecordAssessmentData, RecordAssessmentDatas } from 'meta/data'
 import { useTableDataStatusListener } from 'client/store/data/tableData/hooks/useTableDataStatusListener'
 import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useCycle } from 'client/store/meta/hooks/cycles'
-import { useCountryIso } from 'client/hooks'
+import { useCountryIso } from 'client/hooks/country'
 
 import { useRowsData } from '../useRowsData'
 import { Props } from './props'

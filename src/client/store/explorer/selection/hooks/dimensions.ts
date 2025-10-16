@@ -2,7 +2,7 @@ import { DimensionName } from 'meta/measurement/dimension'
 
 import { ExplorerSelectionSelectors } from 'client/store/explorer/selection/selectors'
 import { useAppSelector } from 'client/store/hooks'
-import { useSectionRouteParams } from 'client/hooks/useRouteParams'
+import { useSectionRouteParams } from 'client/hooks/routeParams'
 
 export const useExplorerDimensions = (): Array<DimensionName> | undefined => {
   const { assessmentName, cycleName, sectionName } = useSectionRouteParams()

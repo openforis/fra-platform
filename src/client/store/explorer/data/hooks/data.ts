@@ -15,7 +15,7 @@ import { useExplorerCountries } from 'client/store/explorer/selection/hooks/coun
 import { useExplorerDimensions } from 'client/store/explorer/selection/hooks/dimensions'
 import { useExplorerMeasures } from 'client/store/explorer/selection/hooks/measures'
 import { useAppDispatch, useAppSelector } from 'client/store/hooks'
-import { useSectionRouteParams } from 'client/hooks/useRouteParams'
+import { useSectionRouteParams } from 'client/hooks/routeParams'
 
 export const useExplorerSectionData = (): RecordAssessmentData => {
   const { sectionName } = useSectionRouteParams()

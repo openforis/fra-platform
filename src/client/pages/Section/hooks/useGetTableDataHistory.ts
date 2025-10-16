@@ -9,7 +9,7 @@ import { HistoryActions } from 'client/store/data/history/actions'
 import { useHistoryLastApprovedIsActive } from 'client/store/data/history/hooks/lastApproved'
 import { useAppDispatch } from 'client/store/hooks'
 import { useTableSections } from 'client/store/meta/hooks/tableSections'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 
 type Props = { sectionName: SectionName }
 

@@ -20,8 +20,8 @@ import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useSection } from 'client/store/meta/hooks/sections'
 import { useUser } from 'client/store/user/hooks/user'
-import { useCountryIso } from 'client/hooks'
-import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import { useCountryIso } from 'client/hooks/country'
+import { useIsPrintRoute } from 'client/hooks/routes'
 
 import { useRowsData } from './useRowsData'
 

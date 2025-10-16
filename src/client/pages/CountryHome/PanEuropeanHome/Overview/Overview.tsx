@@ -1,38 +1,25 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { AssessmentNames } from 'meta/assessment/assessment'
+
+import CycleSwitch from 'client/components/CycleSwitch'
+
+import Description2020 from './Description2020'
+import Description2025 from './Description2025'
+
+const components = {
+  [AssessmentNames.panEuropean]: {
+    '2020': Description2020,
+    '2025': Description2025,
+  },
+}
+
 const Overview: React.FC = () => {
-  const {
-    i18n: { language },
-    t,
-  } = useTranslation()
+  const { t } = useTranslation()
   return (
     <div className="pan-eu-home">
-      <div className="description">
-        <h1>{t('panEuropean.home.title')}</h1>
-      </div>
-      <div className="description">{t('panEuropean.home.description1')}</div>
-      <div className="description">{t('panEuropean.home.description2')}</div>
-
-      <div className="partners">
-        <div className="partners__disclaimer">
-          <div>
-            {t('panEuropean.disclaimer.platformDeveloped')}{' '}
-            <a href={`http://www.fao.org/home/${language}/`} rel="noreferrer" target="_blank">
-              {t('panEuropean.disclaimer.fao')}
-            </a>{' '}
-            {t('panEuropean.disclaimer.and')}{' '}
-            <a href="https://unece.org" rel="noreferrer" target="_blank">
-              {t('panEuropean.disclaimer.unece')}
-            </a>
-          </div>
-        </div>
-
-        <div className="partners__disclaimerLogos">
-          <img alt="" src="/img/partners/UNECE.gif" />
-          <img alt="" src={`/img/fao/FAO${language}_blue.svg`} />
-        </div>
-      </div>
+      <CycleSwitch components={components} />
 
       <div className="partners__disclaimer">
         <div>

@@ -5,7 +5,7 @@ import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
 import { OriginalDataPointActions } from 'client/store/data/originalDataPoint/actions'
 import { useAppDispatch } from 'client/store/hooks'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 
 type Props = {
   originalDataPoint: OriginalDataPoint

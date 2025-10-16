@@ -8,7 +8,7 @@ import { CountryIso } from 'meta/area'
 import { UserInvitations } from 'meta/user'
 import { CountryUserSummaries } from 'meta/user/countryUserSummaries'
 
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 
 import type { Props } from '../Props'
 

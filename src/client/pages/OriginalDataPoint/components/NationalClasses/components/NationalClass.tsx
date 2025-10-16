@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { ODPs } from 'meta/assessment/odps'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
-import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import { useIsPrintRoute } from 'client/hooks/routes'
 import { DataCell, DataRow } from 'client/components/DataGrid'
 import InputText from 'client/components/Inputs/InputText'
 import TextArea from 'client/components/Inputs/TextArea'

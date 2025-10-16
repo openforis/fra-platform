@@ -10,8 +10,8 @@ import { useHistoryLastApprovedIsActive } from 'client/store/data/history/hooks/
 import { useAppDispatch } from 'client/store/hooks'
 import { CountryReportActions } from 'client/store/ui/countryReport/actions'
 import { useIsDataLocked } from 'client/store/ui/countryReport/hooks/datalock'
-import { useOnUpdate } from 'client/hooks'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useOnUpdate } from 'client/hooks/onUpdate'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
 import { Breakpoints } from 'client/utils'
 

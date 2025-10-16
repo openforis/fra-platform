@@ -6,7 +6,7 @@ import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
 import { HistorySelectors } from 'client/store/data/history/selectors'
 import { useAppSelector } from 'client/store/hooks'
-import { useOriginalDataPointRouteParams } from 'client/hooks/useRouteParams'
+import { useOriginalDataPointRouteParams } from 'client/hooks/routeParams'
 
 export const useLastApprovedOriginalDataPoint = (): OriginalDataPoint => {
   const { assessmentName, countryIso, cycleName, year } = useOriginalDataPointRouteParams()

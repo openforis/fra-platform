@@ -1,6 +1,6 @@
 import { useReducer } from 'react'
 
-import { useIsMounted } from './useIsMounted'
+import { useIsMounted } from 'client/hooks/mounted'
 
 const useAsyncActionHandlers = [
   (data: any) => ({
@@ -19,7 +19,6 @@ const useAsyncActionHandlers = [
     loaded: false,
   }),
 ]
-
 export const useAsync = (promiseFn: any, promiseArgs: any) => {
   const [state, _dispatch] = useReducer(
     (_state: any, { payload, type }: any) => useAsyncActionHandlers[type](payload),
@@ -28,6 +27,7 @@ export const useAsync = (promiseFn: any, promiseArgs: any) => {
       loaded: false,
     }
   )
+
   const isMounted = useIsMounted()
 
   const dispatch = () => {
