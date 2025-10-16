@@ -7,8 +7,10 @@ import classNames from 'classnames'
 import { Areas, CountryIso } from 'meta/area'
 import { Users } from 'meta/user'
 
+import { useCountriesRegionsRecord } from 'client/store/area/hooks/regions'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useUser } from 'client/store/user/hooks/user'
+import { useLanguage } from 'client/hooks/useLanguage'
 import { Props } from 'client/components/AreaSelector/types'
 
 import Icon from '../Icon'
@@ -35,6 +37,9 @@ const AreaSelector: React.FC<Props> = (props) => {
   // The user should remain in the maps page when changing countries.
   const isCountry = Areas.isISOCountry(selectedValue)
 
+  const countriesRegionsRecord = useCountriesRegionsRecord()
+  const lang = useLanguage()
+
   const [open, setOpen] = useState(false)
   const [query, setQuery] = useState('')
 
@@ -50,7 +55,7 @@ const AreaSelector: React.FC<Props> = (props) => {
   const handleElementSelect = onElementSelect ?? defaultHandleElementSelect
 
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
+    const handleClickOutside = (event: MouseEvent): void => {
       if (buttonRef.current && !buttonRef.current.contains(event.target)) {
         setOpen(false)
       }
@@ -73,7 +78,7 @@ const AreaSelector: React.FC<Props> = (props) => {
       ref={buttonRef}
       className="btn-country-select no-print"
       disabled={disabled}
-      onClick={() => setOpen((prevState) => !prevState)}
+      onClick={(): void => setOpen((prevState) => !prevState)}
       type="button"
     >
       <div>
@@ -94,7 +99,7 @@ const AreaSelector: React.FC<Props> = (props) => {
               <div className="flag" style={{ backgroundImage: Areas.getCountryBackgroundImg(selectedValue) }} />
             )}
             <div className="name-container">
-              <div className="name">{t(Areas.getTranslationKey(selectedValue))}</div>
+              <div className="name">{Areas.getName(countriesRegionsRecord[selectedValue], lang)}</div>
               {showCountryRole && user && isCountry && (
                 <div className="user-role">
                   {t(Users.getI18nRoleLabelKey(Users.getRole(user, selectedValue as CountryIso, cycle)?.role))}
