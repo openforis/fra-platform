@@ -6,7 +6,7 @@ import { CountryIso } from 'meta/area'
 import { useAppDispatch } from 'client/store/hooks'
 import { RepositoryActions } from 'client/store/repository/actions'
 import { useRepositoryItem } from 'client/store/repository/hooks/repository'
-import { useSectionRouteParams } from 'client/hooks/useRouteParams'
+import { useSectionRouteParams } from 'client/hooks/routeParams'
 import { useClosePanel } from 'client/pages/CountryHome/Repository/hooks/useClosePanel'
 
 type Returned = () => void

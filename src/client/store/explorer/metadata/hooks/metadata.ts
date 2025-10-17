@@ -8,7 +8,7 @@ import { ExplorerMetadata } from 'meta/explorer/metadata'
 import { ExplorerMetadataActions } from 'client/store/explorer/metadata/actions/index'
 import { ExplorerMetadataSelectors } from 'client/store/explorer/metadata/selectors/index'
 import { useAppDispatch, useAppSelector } from 'client/store/hooks'
-import { useSectionRouteParams } from 'client/hooks/useRouteParams'
+import { useSectionRouteParams } from 'client/hooks/routeParams'
 
 export const useExplorerSectionMetadata = (): ExplorerMetadata => {
   const { assessmentName, cycleName, sectionName } = useSectionRouteParams()

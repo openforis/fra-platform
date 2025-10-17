@@ -7,7 +7,7 @@ import { CountryIso } from 'meta/area'
 import { Cols } from 'meta/assessment/cols'
 
 import { useLastApprovedHistoryNodeValue } from 'client/store/data/history/hooks/lastApprovedTableData'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 import DiffText from 'client/components/DiffText'
 
 import { PropsCell } from '../props'

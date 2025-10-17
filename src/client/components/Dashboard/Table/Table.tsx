@@ -2,7 +2,7 @@ import React from 'react'
 
 import { DashboardTable } from 'meta/dashboard'
 
-import { useSectionRouteParams } from 'client/hooks/useRouteParams'
+import { useSectionRouteParams } from 'client/hooks/routeParams'
 import TableComponent from 'client/pages/Section/DataTable/Table'
 
 import { useData } from '../hooks/useData'

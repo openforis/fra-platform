@@ -7,8 +7,8 @@ import { Table } from 'meta/assessment/table'
 import { RecordAssessmentData, RecordAssessmentDatas, RecordColumnData } from 'meta/data'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
-import { useIsPrintRoute } from 'client/hooks/useIsRoute'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useIsPrintRoute } from 'client/hooks/routes'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { RecordTrendData, TrendDatum, Trends, TrendsYears } from 'client/pages/Section/DataTable/Chart/types'
 
 type Props = {

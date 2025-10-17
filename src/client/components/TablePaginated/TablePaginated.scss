@@ -8,7 +8,7 @@
 }
 
 .table-paginated-datagrid {
-  .data-grid-column {
+  .data-cell {
     border: none;
     text-align: left;
     padding: $spacing-xxs;
@@ -19,7 +19,7 @@
     }
   }
 
-  .data-grid-column.head {
+  .data-cell.header {
     background-color: $ui-bg;
     font-size: $font-m;
     padding: $spacing-xxs;

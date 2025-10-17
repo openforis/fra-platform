@@ -14,6 +14,7 @@ import { useHistoryLastApprovedDataTableFetched } from 'client/store/data/histor
 import { useNodeValueValidation } from 'client/store/data/tableData/validations/hooks/validations'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { DataCell } from 'client/components/DataGrid'
+import { useCellId } from 'client/pages/Section/DataTable/Table/hooks/useCellId'
 
 import { useClassName } from './hooks/useClassName'
 import { useEnableIf } from './hooks/useEnableIf'
@@ -98,6 +99,8 @@ const Cell: React.FC<Props> = (props) => {
   const { gridColumn, gridRow, ...style } = Cols.getStyle({ col, cycle })
   const isInput = ![ColType.calculated, ColType.placeholder].includes(col.props.colType)
 
+  const id = useCellId({ col, row })
+
   if (!Component) return null
 
   return (
@@ -111,6 +114,7 @@ const Cell: React.FC<Props> = (props) => {
       gridColumn={gridColumn}
       gridRow={gridRow}
       highlighted={highlighted}
+      id={id}
       lastCol={lastCol}
       lastHighlightCol={lastHighlightCol}
       lastRow={lastRow}

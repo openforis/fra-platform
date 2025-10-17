@@ -7,7 +7,7 @@ import { Routes } from 'meta/routes'
 
 import { useIsEditTableDataEnabled } from 'client/store/user/hooks/auth'
 import { useUser } from 'client/store/user/hooks/user'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { ButtonSize, useButtonClassName } from 'client/components/Buttons/Button'
 import Icon from 'client/components/Icon'
 import { useSectionContext } from 'client/pages/Section/context'

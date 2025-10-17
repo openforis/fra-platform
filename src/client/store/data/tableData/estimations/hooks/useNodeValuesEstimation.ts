@@ -3,7 +3,7 @@ import { NodeValuesEstimation } from 'meta/assessment/nodeValuesEstimation'
 
 import { EstimationsSelectors } from 'client/store/data/tableData/estimations/selectors'
 import { useAppSelector } from 'client/store/hooks'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 
 type Props = { estimationUuid: NodeValuesEstimation['uuid'] }
 

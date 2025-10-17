@@ -1,7 +1,7 @@
 import './EditorWYSIWYGLinks.scss'
 import React from 'react'
 
-import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import { useIsPrintRoute } from 'client/hooks/routes'
 import EditorWYSIWYGReadOnly from 'client/components/EditorWYSIWYG/EditorWYSIWYGReadOnly'
 
 import EditorWYSIWYGWithRepositoryContext from '../EditorWYSIWYGWithRepositoryContext'

@@ -4,8 +4,8 @@ import MediaQuery from 'react-responsive'
 
 import { useAppDispatch } from 'client/store/hooks'
 import { CountryReportActions } from 'client/store/ui/countryReport/actions'
-import { useCountryIso } from 'client/hooks'
-import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import { useCountryIso } from 'client/hooks/country'
+import { useIsPrintRoute } from 'client/hooks/routes'
 import { Breakpoints } from 'client/utils'
 
 import NavigationDesktop from './NavigationDesktop'

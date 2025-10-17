@@ -14,7 +14,7 @@ import { useCycle } from 'client/store/meta/hooks/cycles'
 import { CountryReportActions } from 'client/store/ui/countryReport/actions'
 import { useShowOriginalDatapoints } from 'client/store/ui/countryReport/hooks/originalDataPoints'
 import { useUser } from 'client/store/user/hooks/user'
-import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import { useIsPrintRoute } from 'client/hooks/routes'
 import Button from 'client/components/Buttons/Button'
 import OriginalDataPointsPrint from 'client/pages/Print/OriginalDataPointsPrint'
 

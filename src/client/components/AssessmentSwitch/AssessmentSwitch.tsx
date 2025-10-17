@@ -2,7 +2,7 @@ import React from 'react'
 
 import { AssessmentNames } from 'meta/assessment/assessment'
 
-import { useAssessmentRouteParams } from 'client/hooks/useRouteParams'
+import { useAssessmentRouteParams } from 'client/hooks/routeParams'
 
 type Props = {
   components: Record<string, React.FC<{ query?: string }>>

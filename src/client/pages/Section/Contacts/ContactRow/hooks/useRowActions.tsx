@@ -7,7 +7,7 @@ import { Users } from 'meta/user'
 
 import { useIsEditTableDataEnabled } from 'client/store/user/hooks/auth'
 import { useUser } from 'client/store/user/hooks/user'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { DataRowAction, DataRowActionType } from 'client/components/DataGrid'
 import { useSectionContext } from 'client/pages/Section/context'
 

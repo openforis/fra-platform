@@ -4,7 +4,7 @@ import React, { useCallback } from 'react'
 import { useAppDispatch } from 'client/store/hooks'
 import { TablePaginatedActions } from 'client/store/tablePaginated/actions'
 import { useTablePaginatedCount, useTablePaginatedPage } from 'client/store/tablePaginated/hooks/tablePaginated'
-import { useCycleRouteParams } from 'client/hooks/useRouteParams'
+import { useCycleRouteParams } from 'client/hooks/routeParams'
 import PaginatorComponent, { PaginatorProps } from 'client/components/Paginator'
 import { DOMs } from 'client/utils/dom'
 

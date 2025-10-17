@@ -10,7 +10,7 @@ import { useAppDispatch } from 'client/store/hooks'
 import { addAppListener } from 'client/store/middleware/listener'
 import { RepositoryActions } from 'client/store/repository/actions'
 import { TablePaginatedActions } from 'client/store/tablePaginated/actions'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 
 export const useRepositoryItemChangeListener = () => {
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams()

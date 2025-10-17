@@ -4,7 +4,7 @@ import { RegionCode, RegionGroup } from 'meta/area'
 
 import { AreaSelectors } from 'client/store/area/selectors'
 import { useAppSelector } from 'client/store/hooks'
-import { useCycleRouteParams } from 'client/hooks/useRouteParams'
+import { useCycleRouteParams } from 'client/hooks/routeParams'
 
 export const useRegionGroups = (): Record<string, RegionGroup> => {
   const { assessmentName, cycleName } = useCycleRouteParams()

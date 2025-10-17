@@ -7,7 +7,7 @@ import { Dates } from 'utils/dates'
 
 import { useAssessmentCountry } from 'client/store/area/hooks/country'
 import { useLastPublishedCycle } from 'client/store/meta/hooks/cycles'
-import { useLanguage } from 'client/hooks/useLanguage'
+import { useLanguage } from 'client/hooks/language'
 
 const Published: React.FC = () => {
   const { t } = useTranslation()

@@ -9,7 +9,7 @@ import { useAppDispatch } from 'client/store/hooks'
 import { addAppListener } from 'client/store/middleware/listener'
 import { TablePaginatedActions } from 'client/store/tablePaginated/actions'
 import { useTablePaginatedOrderBy, useTablePaginatedPage } from 'client/store/tablePaginated/hooks/tablePaginated'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 
 export const useLinksChangeListener = () => {
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams()

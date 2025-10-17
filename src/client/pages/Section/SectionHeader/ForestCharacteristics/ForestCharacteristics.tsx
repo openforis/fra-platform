@@ -9,7 +9,7 @@ import { useHasOriginalDataPointData } from 'client/store/data/tableData/nodeVal
 import { useAppDispatch } from 'client/store/hooks'
 import { useIsEditTableDataEnabled } from 'client/store/user/hooks/auth'
 import { useUser } from 'client/store/user/hooks/user'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 import Button, { ButtonSize } from 'client/components/Buttons/Button'
 import { useSectionContext } from 'client/pages/Section/context'
 

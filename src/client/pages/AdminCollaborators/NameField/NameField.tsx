@@ -6,7 +6,7 @@ import { Global } from 'meta/area'
 import { Routes } from 'meta/routes'
 import { CountryUserSummary } from 'meta/user'
 
-import { useCycleRouteParams } from 'client/hooks/useRouteParams'
+import { useCycleRouteParams } from 'client/hooks/routeParams'
 import Icon from 'client/components/Icon'
 
 type Props = {

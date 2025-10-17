@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
 import { useIsOriginalDataPointUpdating } from 'client/store/data/originalDataPoint/hooks/originalDataPoint'
-import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import { useIsPrintRoute } from 'client/hooks/routes'
 
 import { useOnCopyClick } from './hooks/useOnCopyClick'
 import { useReservedYearsWithClasses } from './hooks/useReservedYearsWithClasses'

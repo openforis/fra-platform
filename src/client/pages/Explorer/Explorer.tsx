@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState, useTransition } from 'react'
 
 import { useGetExplorerSectionMetadata } from 'client/store/explorer/metadata/hooks/metadata'
-import { useSectionRouteParams } from 'client/hooks/useRouteParams'
+import { useSectionRouteParams } from 'client/hooks/routeParams'
 import Filters from 'client/pages/Explorer/Filters/Filters'
 
 import ResultGrid from './ResultGrid/ResultGrid'

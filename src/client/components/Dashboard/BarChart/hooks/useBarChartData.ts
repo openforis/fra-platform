@@ -9,7 +9,7 @@ import { Table } from 'meta/assessment/table'
 import { BarChart, BarChartData } from 'meta/chart'
 import { RecordAssessmentDatas } from 'meta/data'
 
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { DashboardCSVData } from 'client/components/Dashboard/ButtonDataExport/ButtonDataExport'
 import { useData } from 'client/components/Dashboard/hooks/useData'
 

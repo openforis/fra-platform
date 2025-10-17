@@ -4,7 +4,7 @@ import { CountryIso } from 'meta/area'
 
 import { ContactsActions } from 'client/store/data/contacts/actions'
 import { useAppDispatch } from 'client/store/hooks'
-import { useSectionRouteParams } from 'client/hooks/useRouteParams'
+import { useSectionRouteParams } from 'client/hooks/routeParams'
 
 export const useGetContacts = () => {
   const { assessmentName, countryIso: _countryIso, cycleName, sectionName } = useSectionRouteParams()

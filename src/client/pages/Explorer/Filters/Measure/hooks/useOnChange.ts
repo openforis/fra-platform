@@ -4,7 +4,7 @@ import { Objects } from 'utils/objects'
 
 import { ExplorerSelectionActions } from 'client/store/explorer/selection/actions'
 import { useAppDispatch } from 'client/store/hooks'
-import { useSectionRouteParams } from 'client/hooks/useRouteParams'
+import { useSectionRouteParams } from 'client/hooks/routeParams'
 import { Option } from 'client/components/Inputs/Select'
 
 type Props = {

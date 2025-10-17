@@ -9,7 +9,7 @@ import { RecordAssessmentData } from 'meta/data'
 
 import { useIsDataLocked } from 'client/store/ui/countryReport/hooks/datalock'
 import { useCanEdit, useCanViewReview } from 'client/store/user/hooks/auth'
-import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import { useIsPrintRoute } from 'client/hooks/routes'
 import { ButtonGridExport, DataGrid } from 'client/components/DataGrid'
 import ButtonCopyValues from 'client/pages/Section/DataTable/Table/ButtonCopyValues'
 import ButtonTableClear from 'client/pages/Section/DataTable/Table/ButtonTableClear'
@@ -54,6 +54,8 @@ const Table: React.FC<Props> = (props) => {
   const { name, secondary } = table.props
   const canClearData = !print && !isDataLocked && !table.props.readonly
 
+  const tableId = `tableId_${table.id}_tableName_${table.props.name}`
+
   return (
     <div className={classNames('table-grid-container', { 'secondary-table': secondary })}>
       <div className="table-grid-actions">
@@ -67,6 +69,7 @@ const Table: React.FC<Props> = (props) => {
         ref={gridRef}
         className="table-grid"
         gridTemplateColumns={gridTemplateColumns}
+        id={tableId}
         withActions={withActions}
       >
         {rowsHeader.map((row, rowIndex) => (

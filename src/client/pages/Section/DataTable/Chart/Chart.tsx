@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import { useIsPrintRoute } from 'client/hooks/routes'
 import DataTrend from 'client/pages/Section/DataTable/Chart/DataTrend'
 import Legend from 'client/pages/Section/DataTable/Chart/Legend'
 import NoDataPlaceholder from 'client/pages/Section/DataTable/Chart/NoDataPlaceholder'

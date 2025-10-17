@@ -10,7 +10,7 @@ import { RecordAssessmentData, RecordAssessmentDatas } from 'meta/data'
 import { useRecordAssessmentData } from 'client/store/data/tableData/nodeValues/hooks/data'
 import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useCycle } from 'client/store/meta/hooks/cycles'
-import { useCountryIso } from 'client/hooks'
+import { useCountryIso } from 'client/hooks/country'
 import { useRowsData } from 'client/pages/Section/DataTable/hooks/useRowsData'
 
 export const useData = (table: Table) => {

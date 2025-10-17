@@ -3,13 +3,13 @@ import React, { CSSProperties, forwardRef, HTMLAttributes, PropsWithChildren, us
 
 import classNames from 'classnames'
 
-type Props = PropsWithChildren<Pick<HTMLAttributes<HTMLDivElement>, 'className'>> &
+type Props = PropsWithChildren<Pick<HTMLAttributes<HTMLDivElement>, 'className' | 'id'>> &
   Pick<HTMLAttributes<HTMLDivElement>['style'], 'gridColumn' | 'gridTemplateColumns'> & {
     withActions?: boolean
   }
 
 const DataGrid = forwardRef<HTMLDivElement, Props>((props, outerRef) => {
-  const { children, className, gridColumn, gridTemplateColumns = '1fr', withActions } = props
+  const { children, className, gridColumn, gridTemplateColumns = '1fr', id, withActions } = props
 
   const style = useMemo<CSSProperties>(() => {
     const _gridTemplateColumns = withActions ? `${gridTemplateColumns} auto` : gridTemplateColumns
@@ -17,7 +17,7 @@ const DataGrid = forwardRef<HTMLDivElement, Props>((props, outerRef) => {
   }, [gridColumn, gridTemplateColumns, withActions])
 
   return (
-    <div ref={outerRef} className={classNames('data-grid', className)} style={style}>
+    <div ref={outerRef} className={classNames('data-grid', className)} id={id} style={style}>
       {React.Children.toArray(children)}
     </div>
   )

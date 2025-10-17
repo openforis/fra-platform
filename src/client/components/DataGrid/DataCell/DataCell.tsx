@@ -6,7 +6,7 @@ import classNames from 'classnames'
 type Props = PropsWithChildren<
   Pick<
     HTMLAttributes<HTMLDivElement>,
-    'className' | 'data-tooltip-content' | 'data-tooltip-html' | 'data-tooltip-id' | 'style'
+    'className' | 'data-tooltip-content' | 'data-tooltip-html' | 'data-tooltip-id' | 'id' | 'style'
   >
 > &
   Pick<HTMLAttributes<HTMLDivElement>['style'], 'gridColumn' | 'gridRow'> & {
@@ -35,6 +35,7 @@ const DataCell: React.FC<Props> = (props) => {
     firstHighlightCol,
     header,
     highlighted,
+    id,
     lastCol,
     lastHighlightCol,
     lastRow,
@@ -70,6 +71,7 @@ const DataCell: React.FC<Props> = (props) => {
       data-tooltip-content={dataTooltipContent}
       data-tooltip-html={dataTooltipHtml}
       data-tooltip-id={tooltipId}
+      id={id}
       style={{ gridColumn, gridRow, ...style }}
     >
       {React.Children.toArray(children)}

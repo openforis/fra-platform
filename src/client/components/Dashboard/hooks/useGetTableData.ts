@@ -6,7 +6,7 @@ import { NodeValuesActions } from 'client/store/data/tableData/nodeValues/action
 import type { Props as GetTableDataProps } from 'client/store/data/tableData/nodeValues/actions/getTableDataProps'
 import { useAppDispatch } from 'client/store/hooks'
 import { useGlobalCountries } from 'client/store/ui/countryReport/hooks/globalCountries'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { Props } from 'client/components/Dashboard/props'
 
 import { useDependencies } from './useDependencies'

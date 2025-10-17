@@ -3,7 +3,7 @@ import { Contact } from 'meta/cycleData'
 
 import { ContactsSelectors } from 'client/store/data/contacts/selectors'
 import { useAppSelector } from 'client/store/hooks'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 
 type Returned = Array<Contact>
 

@@ -2,7 +2,7 @@ import React, { MutableRefObject, useState } from 'react'
 import { CSVLink } from 'react-csv'
 
 import { useIsDataLocked } from 'client/store/ui/countryReport/hooks/datalock'
-import { useIsPrintRoute } from 'client/hooks/useIsRoute'
+import { useIsPrintRoute } from 'client/hooks/routes'
 import { ButtonProps, useButtonClassName } from 'client/components/Buttons/Button'
 import { getDataGridData } from 'client/components/DataGrid/utils'
 import Icon from 'client/components/Icon'
@@ -39,8 +39,8 @@ const ButtonGridExport: React.FC<Props> = (props) => {
       asyncOnClick
       className={className}
       data={data}
-      filename={`${filename}.csv`}
-      onClick={(_, done) => {
+      filename={filename}
+      onClick={(_, done): void => {
         setData(getDataGridData(gridRef.current))
         done()
       }}

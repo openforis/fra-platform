@@ -2,7 +2,7 @@ import { useRef, useState } from 'react'
 
 import { Arrays } from 'utils/arrays'
 
-import { useOnUpdate } from 'client/hooks'
+import { useOnUpdate } from 'client/hooks/onUpdate'
 
 import { PropsWatch } from './types'
 

@@ -7,7 +7,7 @@ import { Routes } from 'meta/routes'
 
 import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useUser } from 'client/store/user/hooks/user'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 import Icon from 'client/components/Icon'
 
 const LinkHome: React.FC = () => {

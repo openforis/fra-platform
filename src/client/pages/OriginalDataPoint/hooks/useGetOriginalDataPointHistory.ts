@@ -4,7 +4,7 @@ import { HistoryActions } from 'client/store/data/history/actions'
 import { useHistoryLastApprovedIsActive } from 'client/store/data/history/hooks/lastApproved'
 import { useAppDispatch } from 'client/store/hooks'
 import { useSection } from 'client/store/meta/hooks/sections'
-import { useOriginalDataPointRouteParams } from 'client/hooks/useRouteParams'
+import { useOriginalDataPointRouteParams } from 'client/hooks/routeParams'
 
 export const useGetOriginalDataPointHistory = () => {
   const { assessmentName, countryIso, cycleName, year } = useOriginalDataPointRouteParams()

@@ -8,7 +8,7 @@ import { RecordAssessmentDatas } from 'meta/data'
 
 import { useHistoryLastApprovedIsActive } from 'client/store/data/history/hooks/lastApproved'
 import { useLastApprovedHistoryTableData } from 'client/store/data/history/hooks/lastApprovedTableData'
-import { useCountryRouteParams } from 'client/hooks/useRouteParams'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { ODPColHeader } from 'client/pages/Section/DataTable/Table/types'
 
 type Props = {
