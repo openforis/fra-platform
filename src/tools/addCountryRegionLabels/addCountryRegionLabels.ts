@@ -2,9 +2,9 @@ import { createI18nPromise } from 'i18n/i18nFactory'
 import { i18n } from 'i18next'
 import * as pgPromise from 'pg-promise'
 import { Promises } from 'utils/promises'
+import { Strings } from 'utils/strings'
 
 import { CountryIso, RegionCode } from 'meta/area'
-import { Areas } from 'meta/area/areas'
 import { Lang, LanguageCodes } from 'meta/lang'
 
 import { AssessmentController } from 'server/controller/assessment'
@@ -13,7 +13,23 @@ import { BaseProtocol, DB } from 'server/db'
 
 const pgp = pgPromise()
 
+const _getLocale = (isoCode: string): string => {
+  if (isoCode.includes('zh')) return 'zh-CN'
+  return isoCode
+}
+
+const _getListName = (isoCode: string, i18n: i18n): string => i18n.t(`area.${isoCode}.listName`)
+
 type CompareFn = (isoCode1: string, isoCode2: string) => number
+
+const _getCompareListNameByIsoCode =
+  (i18n: i18n): CompareFn =>
+  (isoCode1: string, isoCode2: string): number => {
+    const country1 = Strings.normalize(_getListName(isoCode1, i18n))
+    const country2 = Strings.normalize(_getListName(isoCode2, i18n))
+    const locale = _getLocale(i18n.resolvedLanguage)
+    return country1.localeCompare(country2, locale)
+  }
 
 type I18nInstances = Record<Lang, { compareListName: CompareFn }>
 
@@ -22,7 +38,7 @@ const _createI18nInstances = async (): Promise<I18nInstances> => {
     LanguageCodes.map(async (lang) => {
       const i18nInstance = await createI18nPromise(lang)
       const i18n = { ...i18nInstance, resolvedLanguage: i18nInstance.language }
-      const compareListName = Areas.getCompareListNameByIsoCode(i18n as i18n)
+      const compareListName = _getCompareListNameByIsoCode(i18n as i18n)
       return [lang, { compareListName }] as const
     })
   )

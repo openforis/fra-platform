@@ -1,6 +1,3 @@
-import { i18n } from 'i18next'
-import { Strings } from 'utils/strings'
-
 import { AreaCode, Country, CountryIso, Global, RegionCode } from 'meta/area'
 import { Region } from 'meta/area/region'
 import { fraRegionCodes } from 'meta/area/regionCode'
@@ -26,24 +23,6 @@ const getStatus = (country: Country): CountryStatus => {
   return status
 }
 
-const getLocale = (isoCode: string): string => {
-  if (isoCode.includes('zh')) return 'zh-CN'
-  return isoCode
-}
-
-const getListName = (isoCode: string, i18n: i18n): string => i18n.t(`area.${isoCode}.listName`)
-
-type CompareFn = (isoCode1: string, isoCode2: string) => number
-
-const getCompareListNameByIsoCode =
-  (i18n: i18n): CompareFn =>
-  (isoCode1: string, isoCode2: string): number => {
-    const country1 = Strings.normalize(getListName(isoCode1, i18n))
-    const country2 = Strings.normalize(getListName(isoCode2, i18n))
-    const locale = getLocale(i18n.resolvedLanguage)
-    return country1.localeCompare(country2, locale)
-  }
-
 const _getSortIndex = (area: Country | Region, lang: Lang): number => {
   const { sortIndex } = area
   const langValue = sortIndex?.[lang]
@@ -61,7 +40,6 @@ const getCompareListName = <T extends Country | Region>(area1: T, area2: T, lang
 
 export const Areas = {
   getCompareListName,
-  getCompareListNameByIsoCode,
   getCountryBackgroundImg,
   getStatus,
   getTranslationKey,
