@@ -29,18 +29,23 @@ const CSVAllTables: React.FC<Props> = (props) => {
     setIsDownloading(true)
 
     try {
-      const delay = (ms: number): Promise<void> =>
-        new Promise<void>((resolve) => {
-          setTimeout(resolve, ms)
-        })
-
       const csvButtons = Array.from(document.querySelectorAll('.btn-csv-download'))
       await Promises.each(csvButtons, async (button) => {
         if (button instanceof HTMLElement) {
+          // Create a promise that resolves when the download is completed
+          const downloadCompleted = new Promise<void>((resolve) => {
+            const handleDownloadComplete = (): void => {
+              button.removeEventListener('csv-download-completed', handleDownloadComplete)
+              resolve()
+            }
+            button.addEventListener('csv-download-completed', handleDownloadComplete)
+          })
+
+          // Click the button to start the download
           button.click()
 
-          // NOTE: Delay is required to avoid malformed data
-          await delay(500)
+          // Wait for the download to complete before continuing to the next button
+          await downloadCompleted
         }
       })
     } finally {
