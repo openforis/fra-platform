@@ -25,6 +25,9 @@ export const useUserRedirect = (): void => {
   const { pathname } = useLocation()
 
   useEffect(() => {
+    // Wait for country data to load before checking authorization
+    if (!country) return
+
     const isAuthorized = Authorizer.canView({ assessment, cycle, areaCode: countryIso, country, user })
 
     if (!isAuthorized) {
