@@ -37,10 +37,10 @@ export const useUserRedirect = (): void => {
 
     // When user is not logged in, redirect to last published (e.g. when accessing older cycles)
     // Disable this if you want to allow non-logged users to access older cycles
-    const shouldRedirectToLastPublished = !user && country && cycleName !== country?.lastPublishedInfo.cycleName
+    const shouldRedirectToLastPublished = !user && cycleName !== country.lastPublishedInfo.cycleName
 
     if (shouldRedirectToLastPublished) {
-      const _cycleName = country?.lastPublishedInfo.cycleName
+      const _cycleName = country.lastPublishedInfo.cycleName
 
       const route = Routes.Country.generatePath({ assessmentName, cycleName: _cycleName, countryIso })
       navigate(route)
