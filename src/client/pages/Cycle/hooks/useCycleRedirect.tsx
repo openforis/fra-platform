@@ -3,17 +3,15 @@ import { useMatch, useNavigate } from 'react-router-dom'
 
 import { Routes } from 'meta/routes'
 
-import { useCycle, useLastPublishedCycle } from 'client/store/meta/hooks/cycles'
+import { useLastPublishedCycle } from 'client/store/meta/hooks/cycles'
 import { useUser } from 'client/store/user/hooks/user'
-import { useAssessmentRouteParams } from 'client/hooks/routeParams'
+import { useCycleRouteParams } from 'client/hooks/routeParams'
 
 export const useCycleRedirect = (): void => {
   const navigate = useNavigate()
   const user = useUser()
-  const cycle = useCycle()
   const lastPublishedCycle = useLastPublishedCycle()
-  const { assessmentName } = useAssessmentRouteParams()
-  const cycleName = cycle?.name
+  const { assessmentName, cycleName } = useCycleRouteParams()
 
   // Only match the exact cycle home route, not nested routes
   const isExactCycleHome = useMatch(Routes.Cycle.path.absolute)
