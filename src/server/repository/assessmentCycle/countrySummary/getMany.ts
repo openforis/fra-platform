@@ -15,7 +15,7 @@ const _getOrderClause = (
 ): string => {
   const direction = orderByDirection ?? TablePaginatedOrderByDirection.asc
 
-  if (Objects.isEmpty(orderBy) || orderBy === 'country_name') return `order by cs.country_name ${direction} nulls last`
+  if (Objects.isEmpty(orderBy) || orderBy === 'country_name') return `order by cs.sort_index ${direction} nulls last`
 
   return `order by cs.${orderBy} ${direction} nulls last`
 }

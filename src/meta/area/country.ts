@@ -22,12 +22,12 @@ export type LastPublishedInfo = {
 }
 
 export type Country = {
+  callingCode: CallingCode
   countryIso: CountryIso
   countryIso2?: CountryIso2
-  callingCode: CallingCode
   props?: CountryProps
   regionCodes?: Array<RegionCode>
-  labels: Record<Lang, string>
+  sortIndex: Record<Lang, number>
 
   /* last timestamp strings */
   lastEdit: string

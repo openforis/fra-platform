@@ -3,7 +3,7 @@ import { Lang } from 'meta/lang'
 import { RegionCode } from './regionCode'
 
 export interface Region {
-  regionCode: RegionCode
   name: string
-  labels: Record<Lang, string>
+  regionCode: RegionCode
+  sortIndex: Record<Lang, number>
 }

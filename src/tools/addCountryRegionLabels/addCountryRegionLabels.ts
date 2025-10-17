@@ -1,9 +1,10 @@
 import { createI18nPromise } from 'i18n/i18nFactory'
-import { TFunction } from 'i18next'
+import { i18n } from 'i18next'
 import * as pgPromise from 'pg-promise'
 import { Promises } from 'utils/promises'
 
 import { CountryIso, RegionCode } from 'meta/area'
+import { Areas } from 'meta/area/areas'
 import { Lang, LanguageCodes } from 'meta/lang'
 
 import { AssessmentController } from 'server/controller/assessment'
@@ -12,89 +13,109 @@ import { BaseProtocol, DB } from 'server/db'
 
 const pgp = pgPromise()
 
-type I18nInstances = Record<Lang, { language: Lang; t: TFunction }>
+type CompareFn = (isoCode1: string, isoCode2: string) => number
+
+type I18nInstances = Record<Lang, { compareListName: CompareFn }>
 
 const _createI18nInstances = async (): Promise<I18nInstances> => {
   const entries = await Promise.all(
     LanguageCodes.map(async (lang) => {
-      const i18n = await createI18nPromise(lang)
-      return [lang, i18n] as const
+      const i18nInstance = await createI18nPromise(lang)
+      const i18n = { ...i18nInstance, resolvedLanguage: i18nInstance.language }
+      const compareListName = Areas.getCompareListName(i18n as i18n)
+      return [lang, { compareListName }] as const
     })
   )
 
   return Object.fromEntries(entries) as I18nInstances
 }
 
-type CountryLabelUpdate = {
+type SortIndex = Record<Lang, number>
+
+const _buildSortIndexes = (codes: Array<string>, i18nInstances: I18nInstances): Record<string, SortIndex> => {
+  const sortIndexes: Record<string, SortIndex> = {}
+
+  codes.forEach((code) => {
+    sortIndexes[code] = {} as SortIndex
+  })
+
+  LanguageCodes.forEach((lang) => {
+    const { compareListName } = i18nInstances[lang]
+    const sortedCodes = Array.from(codes).sort((codeA, codeB) => compareListName(codeA, codeB))
+
+    sortedCodes.forEach((code, index) => {
+      sortIndexes[code][lang] = index
+    })
+  })
+
+  return sortIndexes
+}
+
+type CountrySortIndexUpdate = {
   countryIso: CountryIso
-  labels: Record<Lang, string>
+  sortIndex: SortIndex
 }
 
-const getCountryLabels = async (
+const getCountrySortIndexes = async (
   i18nInstances: I18nInstances,
   client: BaseProtocol = DB
-): Promise<Array<CountryLabelUpdate>> => {
+): Promise<Array<CountrySortIndexUpdate>> => {
   const countryIsos = await client.map(`select country_iso from public.country`, [], (row) => row.country_iso)
+  const sortIndexes = _buildSortIndexes(countryIsos, i18nInstances)
 
-  const countryLabels = countryIsos.map((countryIso) => {
-    const labels = {} as Record<Lang, string>
-    LanguageCodes.forEach((lang) => {
-      labels[lang] = i18nInstances[lang].t(`area.${countryIso}.listName`)
-    })
-    return { countryIso, labels }
-  })
-
-  return countryLabels
+  return countryIsos.map((countryIso) => ({
+    countryIso,
+    sortIndex: sortIndexes[countryIso],
+  }))
 }
 
-type RegionLabelUpdate = {
-  labels: Record<Lang, string>
+type RegionSortIndexUpdate = {
   regionCode: RegionCode
+  sortIndex: SortIndex
 }
 
-const getRegionLabels = async (
+const getRegionSortIndexes = async (
   i18nInstances: I18nInstances,
   client: BaseProtocol = DB
-): Promise<Array<RegionLabelUpdate>> => {
+): Promise<Array<RegionSortIndexUpdate>> => {
   const regionCodes = await client.map(`select region_code from public.region`, [], (row) => row.region_code)
+  const sortIndexes = _buildSortIndexes(regionCodes, i18nInstances)
 
-  const regionLabels = regionCodes.map((regionCode) => {
-    const labels = {} as Record<Lang, string>
-    LanguageCodes.forEach((lang) => {
-      labels[lang] = i18nInstances[lang].t(`area.${regionCode}.listName`)
-    })
-    return { labels, regionCode }
-  })
-
-  return regionLabels
+  return regionCodes.map((regionCode) => ({
+    regionCode,
+    sortIndex: sortIndexes[regionCode],
+  }))
 }
 
-type UpdateProps = { countryLabels: Array<CountryLabelUpdate>; regionLabels: Array<RegionLabelUpdate> }
+type UpdateProps = {
+  countrySortIndexes: Array<CountrySortIndexUpdate>
+  regionSortIndexes: Array<RegionSortIndexUpdate>
+}
 
-const _updateCountryRegionLabels = async (props: UpdateProps, client: BaseProtocol): Promise<void> => {
-  const { countryLabels, regionLabels } = props
+const _updateCountryRegionSortIndexes = async (props: UpdateProps, client: BaseProtocol): Promise<void> => {
+  const { countrySortIndexes, regionSortIndexes } = props
 
   const schema = 'public'
 
   const countryCS = new pgp.helpers.ColumnSet(
     [
       { name: 'country_iso', prop: 'countryIso', cnd: true },
-      { name: 'labels', cast: 'jsonb' },
+      { name: 'sort_index', prop: 'sortIndex', cast: 'jsonb' },
     ],
     { table: { table: 'country', schema } }
   )
 
-  const countryQuery = `${pgp.helpers.update(countryLabels, countryCS)} where v.country_iso = t.country_iso`
+  const countryQuery = `${pgp.helpers.update(countrySortIndexes, countryCS)} where v.country_iso = t.country_iso`
 
   const regionCS = new pgp.helpers.ColumnSet(
     [
       { name: 'region_code', prop: 'regionCode', cnd: true },
-      { name: 'labels', cast: 'jsonb' },
+      { name: 'sort_index', prop: 'sortIndex', cast: 'jsonb' },
     ],
     { table: { table: 'region', schema } }
   )
 
-  const regionQuery = `${pgp.helpers.update(regionLabels, regionCS)} where v.region_code = t.region_code`
+  const regionQuery = `${pgp.helpers.update(regionSortIndexes, regionCS)} where v.region_code = t.region_code`
 
   await Promise.all([client.none(countryQuery), client.none(regionQuery)])
 }
@@ -102,14 +123,14 @@ const _updateCountryRegionLabels = async (props: UpdateProps, client: BaseProtoc
 export const addCountryRegionLabels = async (client: BaseProtocol = DB): Promise<void> => {
   const i18nInstances = await _createI18nInstances()
 
-  const [countryLabels, regionLabels, assessments] = await Promise.all([
-    getCountryLabels(i18nInstances, client),
-    getRegionLabels(i18nInstances, client),
+  const [countrySortIndexes, regionSortIndexes, assessments] = await Promise.all([
+    getCountrySortIndexes(i18nInstances, client),
+    getRegionSortIndexes(i18nInstances, client),
     AssessmentController.getAll({}, client),
   ])
 
   // update public
-  await _updateCountryRegionLabels({ countryLabels, regionLabels }, client)
+  await _updateCountryRegionSortIndexes({ countrySortIndexes, regionSortIndexes }, client)
 
   const allCycles = assessments.flatMap((assessment) => assessment.cycles.map((cycle) => ({ assessment, cycle })))
 
