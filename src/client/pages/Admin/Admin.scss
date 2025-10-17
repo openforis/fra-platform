@@ -28,6 +28,7 @@
   padding-top: $spacing-xxs;
   position: sticky;
   top: 0;
+  z-index: 1;
 
   .admin__page-menu-button {
     border-radius: unset;
@@ -60,6 +61,7 @@
   .table-paginated-datagrid .data-cell.header {
     position: sticky;
     top: 42px;
+    z-index: 1;
   }
 
   .table-paginated-actions {
