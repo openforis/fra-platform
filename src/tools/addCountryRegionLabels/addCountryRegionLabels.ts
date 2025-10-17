@@ -22,7 +22,7 @@ const _createI18nInstances = async (): Promise<I18nInstances> => {
     LanguageCodes.map(async (lang) => {
       const i18nInstance = await createI18nPromise(lang)
       const i18n = { ...i18nInstance, resolvedLanguage: i18nInstance.language }
-      const compareListName = Areas.getCompareListName(i18n as i18n)
+      const compareListName = Areas.getCompareListNameByIsoCode(i18n as i18n)
       return [lang, { compareListName }] as const
     })
   )
