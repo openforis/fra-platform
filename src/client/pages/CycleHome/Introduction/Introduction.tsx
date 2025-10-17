@@ -2,19 +2,31 @@ import './introduction.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { CycleName } from 'meta/assessment/cycle'
+
 import { useLanguage } from 'client/hooks/language'
+import { useCycleRouteParams } from 'client/hooks/routeParams'
 
 import Countries from './Countries'
 import Global from './Global'
 import Regions from './Regions'
 
+const videURLs: Record<CycleName, string> = {
+  '2020': '/video/FRA2020_Web.mp4',
+  '2025': '/video/FRA2025_Web.mp4',
+  latest: '/video/FRA2025_Web.mp4',
+}
+
 const Introduction: React.FC = () => {
   const { t } = useTranslation()
   const language = useLanguage()
+  const { cycleName } = useCycleRouteParams()
+
+  const videoURL = videURLs[cycleName]
 
   return (
     <div className="home-introduction">
-      <video autoPlay className="home-introduction__video" loop muted playsInline src="/video/FRA2020_Web.mp4" />
+      <video autoPlay className="home-introduction__video" loop muted playsInline src={videoURL} />
 
       <div className="home-introduction__about-fra">
         <div className="header">{t('common.globalFRA')}</div>
