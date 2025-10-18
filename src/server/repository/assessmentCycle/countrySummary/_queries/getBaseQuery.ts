@@ -59,6 +59,7 @@ export const getBaseQuery = (props: Props): string => {
     ),
     country_summary as (
       select c.country_iso,
+             coalesce((pc.sort_index ->> $(lang))::int, (pc.sort_index ->> 'en')::int) as sort_index,
              coalesce(us.invitations_accepted_count, 0) as invitations_accepted_count,
              coalesce(us.invitations_sent_count, 0) as invitations_sent_count,
              coalesce(us.users_count, 0) as users_count,
@@ -71,6 +72,7 @@ export const getBaseQuery = (props: Props): string => {
              c.last_in_approval,
              c.last_in_accepted
       from country c
+           left join public.country pc on pc.country_iso = c.country_iso
            left join user_summary us on c.country_iso = us.country_iso
     )
   `

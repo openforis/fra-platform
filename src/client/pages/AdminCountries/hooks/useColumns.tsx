@@ -27,6 +27,7 @@ export const useColumns = (): Returned => {
         component: ({ datum }) => <CountryLink countryIso={datum.countryIso} />,
         header: t('common.country'),
         key: 'country',
+        orderByProperty: 'country_name',
       },
       {
         component: ({ datum: { status } }) => <CountryStatusIndicator status={status} />,
