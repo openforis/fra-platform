@@ -6,7 +6,7 @@ declare global {
   }
 }
 
-const _loadYouTubeAPI = (() => {
+const _loadYouTubeAPI = ((): (() => Promise<typeof YT>) => {
   let isAPILoaded = false
   let ytAPIPromise: Promise<typeof YT>
 
@@ -17,7 +17,7 @@ const _loadYouTubeAPI = (() => {
 
     if (!ytAPIPromise) {
       ytAPIPromise = new Promise((resolve) => {
-        window.onYouTubeIframeAPIReady = () => {
+        window.onYouTubeIframeAPIReady = (): void => {
           isAPILoaded = true
           resolve(window.YT)
         }

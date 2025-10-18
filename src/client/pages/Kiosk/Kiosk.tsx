@@ -36,7 +36,7 @@ const cards: Array<KioskCardConfig> = [
   },
   {
     altText: 'Interactive stories',
-    imageUrl: '/img/kiosk/interactive-stories.png',
+    imageUrl: '/img/kiosk/watching-over-out-forests.png',
     link: Routes.InteractiveStories.path.relative,
     titleKey: 'interactiveStories',
   },
