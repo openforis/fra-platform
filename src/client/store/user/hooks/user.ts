@@ -1,29 +1,39 @@
 import { useMemo } from 'react'
-import { useTranslation } from 'react-i18next'
 
-import { Areas, CountryIso } from 'meta/area'
+import { Areas, Country, CountryIso } from 'meta/area'
 import { User, Users } from 'meta/user'
 
-import { useCountries } from 'client/store/area/hooks/countries'
+import { useCountriesRecord } from 'client/store/area/hooks/countries'
 import { useAppSelector } from 'client/store/hooks'
 import { useCycle } from 'client/store/meta/hooks/cycles'
+import { useLanguage } from 'client/hooks/language'
 
 export const useUser = (): User | undefined => useAppSelector((state) => state.user)
 
 export const useUserCountries = (): Array<CountryIso> => {
-  const { i18n } = useTranslation()
+  const language = useLanguage()
   const cycle = useCycle()
   const user = useUser()
-  const countries = useCountries().map((c) => c.countryIso)
+  const countriesRecord = useCountriesRecord()
   const isAdministrator = Users.isAdministrator(user)
-  // Return only current cycle countries for user
-  const userRoles = user?.roles ?? []
-  const userCountries = userRoles.filter((role) => cycle.uuid === role.cycleUuid).map((role) => role.countryIso)
-  const compareListName = Areas.getCompareListName(i18n)
 
-  return useMemo(() => {
-    if (isAdministrator) return countries
-    const compareFn = (c1: CountryIso, c2: CountryIso) => compareListName(c1, c2)
-    return userCountries.sort(compareFn)
-  }, [compareListName, countries, isAdministrator, userCountries])
+  return useMemo<Array<CountryIso>>(() => {
+    const compareFn = (c1: Country, c2: Country): number => Areas.getCompareListName(c1, c2, language)
+
+    if (isAdministrator) {
+      return Object.values(countriesRecord)
+        .slice()
+        .sort(compareFn)
+        .map((c) => c.countryIso)
+    }
+
+    const userCountryIsos = (user?.roles ?? []).filter((r) => r.cycleUuid === cycle.uuid).map((r) => r.countryIso)
+
+    const userCountries = userCountryIsos.map((countryIso) => countriesRecord[countryIso])
+
+    return userCountries
+      .slice()
+      .sort(compareFn)
+      .map((c) => c.countryIso)
+  }, [countriesRecord, cycle.uuid, isAdministrator, language, user?.roles])
 }

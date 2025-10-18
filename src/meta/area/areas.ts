@@ -1,9 +1,8 @@
-import { i18n } from 'i18next'
-import { Strings } from 'utils/strings'
-
 import { AreaCode, Country, CountryIso, Global, RegionCode } from 'meta/area'
+import { Region } from 'meta/area/region'
 import { fraRegionCodes } from 'meta/area/regionCode'
 import { CountryStatus } from 'meta/area/status'
+import { Lang } from 'meta/lang'
 
 const getCountryBackgroundImg = (isoCode: AreaCode): string =>
   isoCode.startsWith('X')
@@ -24,23 +23,20 @@ const getStatus = (country: Country): CountryStatus => {
   return status
 }
 
-const getLocale = (isoCode: string): string => {
-  if (isoCode.includes('zh')) return 'zh-CN'
-  return isoCode
+const _getSortIndex = (area: Country | Region, lang: Lang): number => {
+  const { sortIndex } = area
+  const langValue = sortIndex?.[lang]
+  if (langValue !== undefined) return langValue
+
+  const fallbackValue = sortIndex?.[Lang.en]
+  if (fallbackValue !== undefined) return fallbackValue
+
+  return Number.MAX_SAFE_INTEGER
 }
 
-const getListName = (isoCode: string, i18n: i18n): string => i18n.t(`area.${isoCode}.listName`)
-
-type CompareFn = (isoCode1: string, isoCode2: string) => number
-
-const getCompareListName =
-  (i18n: i18n): CompareFn =>
-  (isoCode1: string, isoCode2: string): number => {
-    const country1 = Strings.normalize(getListName(isoCode1, i18n))
-    const country2 = Strings.normalize(getListName(isoCode2, i18n))
-    const locale = getLocale(i18n.resolvedLanguage)
-    return country1.localeCompare(country2, locale)
-  }
+const getCompareListName = <T extends Country | Region>(area1: T, area2: T, lang: Lang): number => {
+  return _getSortIndex(area1, lang) - _getSortIndex(area2, lang)
+}
 
 export const Areas = {
   getCompareListName,
