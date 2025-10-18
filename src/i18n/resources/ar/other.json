@@ -287,16 +287,6 @@
     "dragAndDropOrClick": "اسحب و ضع الملفات هنا, او اضغط لاختيار الملف ",
     "dropFilesHere": "ضع الملف هنا"
   },
-  "footer": {
-    "contactUs": "تواصل معنا",
-    "licenses": "التراخيص",
-    "platformVersion": "إصدار المنصة",
-    "reportMisconduct": "تبليغ عن سوء تصرف",
-    "scamAlert": "تبليغ عن احتيال",
-    "sendFeedback": "أرسل رأيك",
-    "termsAndConditions": "الأحكام والشروط",
-    "tutorials": "الفيديو"
-  },
   "forestAreaChange": {
     "areaUnitLabel": "المساحة (1000 هـ/العام)",
     "categoryHeader": "فئات تقييم الموارد الحرجية",

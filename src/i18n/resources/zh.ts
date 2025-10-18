@@ -7,6 +7,7 @@ import * as dataDownload from './zh/dataDownload.json'
 import * as dataSource from './zh/dataSource.json'
 import * as editUser from './zh/editUser.json'
 import * as email from './zh/email.json'
+import * as footer from './zh/footer.json'
 import * as fra from './zh/fra.json'
 import * as generalValidation from './zh/generalValidation.json'
 import * as geo from './zh/geo.json'
@@ -28,6 +29,7 @@ export const zhTranslation = {
   dataSource,
   editUser,
   email,
+  footer,
   fra,
   generalValidation,
   geo,
