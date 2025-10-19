@@ -15,7 +15,7 @@ const FraProcess: React.FC = () => {
   const languageCode = i18n.resolvedLanguage ?? i18n.language
   const videoId = LANGUAGE_VIDEO_IDS[languageCode] ?? LANGUAGE_VIDEO_IDS.en
 
-  return <Video videoId={videoId} />
+  return <Video key={i18n.language} videoId={videoId} />
 }
 
 export default FraProcess
