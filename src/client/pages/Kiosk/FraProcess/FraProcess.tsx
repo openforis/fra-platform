@@ -1,7 +1,7 @@
 import 'client/pages/Kiosk/Kiosk.scss'
 import React from 'react'
-import { useTranslation } from 'react-i18next'
 
+import { useLanguage } from 'client/hooks/language'
 import Video from 'client/pages/Kiosk/components/Video'
 
 const LANGUAGE_VIDEO_IDS: Record<string, string> = {
@@ -11,11 +11,10 @@ const LANGUAGE_VIDEO_IDS: Record<string, string> = {
 }
 
 const FraProcess: React.FC = () => {
-  const { i18n } = useTranslation()
-  const languageCode = i18n.resolvedLanguage ?? i18n.language
-  const videoId = LANGUAGE_VIDEO_IDS[languageCode] ?? LANGUAGE_VIDEO_IDS.en
+  const lang = useLanguage()
+  const videoId = LANGUAGE_VIDEO_IDS[lang] ?? LANGUAGE_VIDEO_IDS.en
 
-  return <Video videoId={videoId} />
+  return <Video key={lang} videoId={videoId} />
 }
 
 export default FraProcess
