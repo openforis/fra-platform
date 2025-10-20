@@ -1,4 +1,4 @@
-import { ExpressionFunction } from '@openforis/arena-core/dist/expression/function'
+import { ExpressionFunction } from 'meta/expressions/function'
 
 import { Context } from '../context'
 import { calculatorForestAreaAsProportionOfTotalLandArea } from './calculations/calculatorForestAreaAsProportionOfTotalLandArea'

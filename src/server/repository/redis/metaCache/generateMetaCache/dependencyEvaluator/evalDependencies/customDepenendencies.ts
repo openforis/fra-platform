@@ -1,4 +1,5 @@
-import { ExpressionNodeType, IdentifierExpression, MemberExpression } from '@openforis/arena-core'
+import { ExpressionNodeType } from 'meta/expressions/expressionNode'
+import { IdentifierExpression, MemberExpression } from 'meta/expressions/node'
 
 export const customDepenendencies: Record<string, MemberExpression> = {
   maxForestArea: {

@@ -1,4 +1,6 @@
-import { ExpressionNodeType, JavascriptExpressionEvaluator } from '@openforis/arena-core'
+import { JavascriptExpressionEvaluator } from '@openforis/arena-core'
+
+import { ExpressionNodeType } from 'meta/expressions/expressionNode'
 
 import { ArrayEvaluator } from './array'
 import { Binary } from './binary'

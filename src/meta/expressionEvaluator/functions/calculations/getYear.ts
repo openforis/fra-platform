@@ -1,6 +1,5 @@
-import { ExpressionFunction } from '@openforis/arena-core/dist/expression/function'
-
 import { Context } from 'meta/expressionEvaluator/context'
+import { ExpressionFunction } from 'meta/expressions/function'
 
 export const getYear: ExpressionFunction<Context> = {
   name: 'getYear',

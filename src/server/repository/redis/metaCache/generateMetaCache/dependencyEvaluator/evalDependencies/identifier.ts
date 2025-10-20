@@ -1,4 +1,6 @@
-import { ExpressionNodeEvaluator, IdentifierExpression } from '@openforis/arena-core'
+import { ExpressionNodeEvaluator } from '@openforis/arena-core'
+
+import { IdentifierExpression } from 'meta/expressions/node'
 
 import { Context } from './context'
 
