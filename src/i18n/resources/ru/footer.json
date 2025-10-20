@@ -1,10 +1,13 @@
 {
-  "contactUs": "Связь с нами",
-  "licenses": "Лицензирование",
+  "contactUs": "Свяжитесь с нами",
+  "ccDescription1": "Эта работа доступна по международной лицензии Creative Commons Attribution-4.0",
+  "ccDescription2": "Используя эту базу данных, вы соглашаетесь с условиями этой лицензии и",
+  "faoTerms": "Условия использования статистической базы данных ФАО",
+  "licenses": "Лицензии",
   "platformVersion": "Версия платформы",
-  "reportMisconduct": "Сообщить о нарушении",
-  "scamAlert": "Опасайтесь мошенников",
-  "sendFeedback": "Направить отзыв",
-  "termsAndConditions": "Положения и условия",
-  "tutorials": "Видео"
+  "reportMisconduct": "Сообщить о проступках",
+  "scamAlert": "Предупреждение о мошенничестве",
+  "sendFeedback": "Отправить отзыв",
+  "termsAndConditions": "Правила и Условия",
+  "tutorials": "Уроки"
 }

@@ -1,10 +1,13 @@
 {
-  "contactUs": "تواصل معنا",
+  "contactUs": "اتصل بنا",
+  "ccDescription1": "ويتاح هذا العمل بموجب ترخيص المشاع الإبداعي إسناد 4.0 الدولي.",
+  "ccDescription2": "باستخدام قاعدة البيانات هذه، فإنك توافق على أن تكون مقيداً بشروط هذه الرخصة و",
+  "faoTerms": "شروط الاستخدام في قاعدة البيانات الإحصائية للفاو",
   "licenses": "التراخيص",
   "platformVersion": "إصدار المنصة",
-  "reportMisconduct": "تبليغ عن سوء تصرف",
-  "scamAlert": "تبليغ عن احتيال",
-  "sendFeedback": "أرسل رأيك",
+  "reportMisconduct": "الإبلاغ عن سوء السلوك",
+  "scamAlert": "تنبيه الذاكرة",
+  "sendFeedback": "إرسال الملاحظات",
   "termsAndConditions": "الأحكام والشروط",
-  "tutorials": "الفيديو"
+  "tutorials": "دروس"
 }

@@ -1,10 +1,13 @@
 {
-  "contactUs": "Contacto",
+  "contactUs": "Contáctenos",
+  "ccDescription1": "Esta obra está disponible bajo la licencia Creative Commons Attribution-4.0 International",
+  "ccDescription2": "Al utilizar esta base de datos, usted acepta estar obligado por los términos de esta licencia y el",
+  "faoTerms": "Condiciones de uso de la base de datos estadística de la FAO",
   "licenses": "Licencias",
   "platformVersion": "Versión de la plataforma",
-  "reportMisconduct": "Reportar mala conducta",
-  "scamAlert": "Alerta de estafa",
+  "reportMisconduct": "Informe Misconduct",
+  "scamAlert": "Alerta de Escama",
   "sendFeedback": "Enviar comentarios",
-  "termsAndConditions": "Términos y condiciones",
-  "tutorials": "Vídeo"
+  "termsAndConditions": "Términos y Condiciones",
+  "tutorials": "Tutoriales"
 }

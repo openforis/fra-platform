@@ -107,7 +107,7 @@
     "extentOfForest2025": "$t(extentOfForest.extentOfForest)",
     "otherWoodedLand": "$t(fraClass.otherWoodedLand)",
     "remainingLandArea": "Terres restantes",
-    "totalLandArea2025": "Superficie des terres"
+    "totalLandArea2025": "Land area"
   },
   "extentOfForest_forestAreaStatusAndTrend_Description": {
     "footer1": "¹ Données ne remontant pas à plus de 5 ans à compter de l’année de soumission du rapport (2018 ou plus récent pour les rapports nationaux de FRA 2025)",
