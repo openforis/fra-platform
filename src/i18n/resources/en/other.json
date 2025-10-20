@@ -287,16 +287,6 @@
     "dragAndDropOrClick": "Drag and drop some files here, or click to select files",
     "dropFilesHere": "Drop files here"
   },
-  "footer": {
-    "contactUs": "Contact us",
-    "licenses": "Licenses",
-    "platformVersion": "Platform version",
-    "reportMisconduct": "Report Misconduct",
-    "scamAlert": "Scam Alert",
-    "sendFeedback": "Send feedback",
-    "termsAndConditions": "Terms and Conditions",
-    "tutorials": "Tutorials"
-  },
   "forestAreaChange": {
     "areaUnitLabel": "Area (1000 ha/year)",
     "categoryHeader": "FRA categories",

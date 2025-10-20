@@ -1,16 +1,18 @@
 import { Objects } from 'utils/objects'
 
+import { Lang } from 'meta/lang'
+
 import { CountrySummaryGetManyProps } from 'server/repository/assessmentCycle/countrySummary/countrySummaryGetManyProps'
 import { CountrySummaryQueryParams } from 'server/repository/assessmentCycle/countrySummary/CountrySummaryQueryParams'
 
 type Returned = { whereConditions: Array<string>; queryParams: CountrySummaryQueryParams }
 
 export const getPropsToQueryParams = (props: CountrySummaryGetManyProps): Returned => {
-  const { filters = {}, limit, offset } = props
+  const { filters = {}, lang = Lang.en, limit, offset } = props
 
   const { countries, statuses } = filters
 
-  const queryParams: CountrySummaryQueryParams = {}
+  const queryParams: CountrySummaryQueryParams = { lang }
 
   const hasCountries = !Objects.isEmpty(countries)
   if (hasCountries) queryParams.countries = countries

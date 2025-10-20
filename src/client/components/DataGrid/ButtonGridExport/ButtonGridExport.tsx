@@ -1,5 +1,6 @@
 import React, { MutableRefObject, useState } from 'react'
 import { CSVLink } from 'react-csv'
+import { flushSync } from 'react-dom'
 
 import { useIsDataLocked } from 'client/store/ui/countryReport/hooks/datalock'
 import { useIsPrintRoute } from 'client/hooks/routes'
@@ -41,7 +42,9 @@ const ButtonGridExport: React.FC<Props> = (props) => {
       data={data}
       filename={filename}
       onClick={(_, done): void => {
-        setData(getDataGridData(gridRef.current))
+        flushSync(() => {
+          setData(getDataGridData(gridRef.current))
+        })
         done()
       }}
       target="_blank"

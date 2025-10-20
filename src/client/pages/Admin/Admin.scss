@@ -68,6 +68,7 @@
     background-color: #ffffff;
     position: sticky;
     top: 42px;
+    z-index: 2;
 
     + .table-paginated-datagrid .data-cell.header {
       position: sticky;
