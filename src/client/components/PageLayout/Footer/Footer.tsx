@@ -2,6 +2,8 @@ import './Footer.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { useLanguage } from 'client/hooks/language'
+
 import { useIsFooterVisible } from './hooks/useIsFooterVisible'
 import SendFeedback from './SendFeedback'
 import UserGuideLink from './UserGuideLink'
@@ -26,8 +28,8 @@ const links = [
 ]
 
 const Footer: React.FC = () => {
-  const { i18n, t } = useTranslation()
-  const { language } = i18n
+  const { t } = useTranslation()
+  const language = useLanguage()
 
   // @ts-ignore
   const buildVersion = `${__APPLICATION_VERSION__} | ${__BUILD_DATE__}`
@@ -35,6 +37,8 @@ const Footer: React.FC = () => {
   const isFooterVisible = useIsFooterVisible()
 
   if (!isFooterVisible) return null
+
+  const faoTermsHref = `https://www.fao.org/contact-us/terms/db-terms-of-use/${language}`
 
   return (
     <footer>
@@ -57,12 +61,32 @@ const Footer: React.FC = () => {
 
         <div className="separator" />
 
-        <a href={`https://www.fao.org/contact-us/terms/db-terms-of-use/${language}`} rel="noreferrer" target="_blank">
+        <a href={faoTermsHref} rel="noreferrer" target="_blank">
           {t('footer.licenses')}
         </a>
       </div>
 
       <span className="copyright">&copy; FAO, {new Date().getFullYear()}</span>
+
+      <div className="footer__ccBy">
+        <img alt="CC BY" src="/img/creativeCommonsBy.png" />
+        <div>
+          <div>
+            {t('footer.ccDescription1')} (CC BY 4.0;{' '}
+            <a href="https://creativecommons.org/licenses/by/4.0/legalcode.en" rel="noreferrer" target="_blank">
+              https://creativecommons.org/licenses/by/4.0/legalcode.en
+            </a>
+            ).
+          </div>
+          <div>
+            {t('footer.ccDescription2')}{' '}
+            <a href={faoTermsHref} rel="noreferrer" target="_blank">
+              {t('footer.faoTerms')}
+            </a>
+            .
+          </div>
+        </div>
+      </div>
 
       <div className="footer__version">
         <span className="build-version">
