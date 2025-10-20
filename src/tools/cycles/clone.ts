@@ -1,5 +1,4 @@
-import 'tsconfig-paths/register'
-import 'dotenv/config'
+import '../scriptInit'
 
 import { ToolsUtils } from 'tools/utils/toolsUtils'
 
