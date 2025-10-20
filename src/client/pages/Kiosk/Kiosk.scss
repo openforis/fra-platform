@@ -1,9 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Chau+Philomene+One:ital@0;1&display=swap');
+
 .kiosk-content {
   align-items: center;
+  background-color: #61a2d8;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  padding: min(2.5dvw, 4.44dvh);
+  padding: min(1.25dvw, 2.22dvh);
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(10%, -40%);
+    width: 50%;
+    aspect-ratio: 1;
+    background-color: #acc5db;
+    pointer-events: none;
+    -webkit-mask-image: url('/img/kiosk/boreal-biome-emblem.png');
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: contain;
+    -webkit-mask-mode: luminance;
+    mask-image: url('/img/kiosk/boreal-biome-emblem.png');
+    mask-repeat: no-repeat;
+    mask-size: contain;
+    mask-mode: luminance;
+  }
+
+  div {
+    z-index: 1;
+  }
 }
 
 .kiosk-content__embedded-object {
@@ -13,14 +39,37 @@
 
 .kiosk-content__grid-container {
   display: grid;
-  gap: min(3.33dvw, 5.925dvh);
+  gap: min(1.665dvw, 2.9625dvh) min(3.33dvw, 5.925dvh);
   grid-template-columns: repeat(3, 1fr);
 }
 
+.kiosk-content__header {
+  align-items: flex-start;
+  display: flex;
+  justify-content: space-between;
+}
+
 .kiosk-content__title {
-  color: #ef7a2d;
   font-size: min(3.33dvw, 5.925dvh);
-  font-weight: 900;
-  margin-bottom: min(3.2dvw, 6dvh);
+  margin-bottom: min(1.28dvw, 2.4dvh);
+  text-align: left;
+}
+
+.kiosk-content__qr {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: min(0.5dvw, 0.885dvh);
   text-align: center;
+}
+
+.kiosk-content__qr-image {
+  height: auto;
+  width: min(6dvw, 10.665dvh);
+}
+
+.kiosk-content__qr-label {
+  font-size: min(1.11dvw, 1.975dvh);
+  font-weight: 600;
+  color: #fff;
 }

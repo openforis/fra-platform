@@ -12,6 +12,7 @@ import * as fra from './es/fra.json'
 import * as generalValidation from './es/generalValidations.json'
 import * as geo from './es/geo.json'
 import * as history from './es/history.json'
+import * as kiosk from './es/kiosk.json'
 import * as landing from './es/landing.json'
 import * as login from './es/login.json'
 import * as nationalDataPoint from './es/nationalDataPoint.json'
@@ -34,6 +35,7 @@ export const esTranslation = {
   generalValidation,
   geo,
   history,
+  kiosk,
   landing,
   login,
   nationalDataPoint,

@@ -41,11 +41,11 @@ const InteractiveStories = React.lazy(
       'client/pages/Kiosk/InteractiveStories'
     )
 )
-const AFreshPerspective = React.lazy(
+const WatchingOverOurForests = React.lazy(
   () =>
     import(
       /* webpackChunkName: "kiosk" */
-      'client/pages/Kiosk/InteractiveStories/AFreshPerspective'
+      'client/pages/Kiosk/InteractiveStories/WatchingOverOurForests'
     )
 )
 const HiddenInPlainSight = React.lazy(
@@ -76,11 +76,11 @@ const Kiosk = React.lazy(
       'client/pages/Kiosk/Kiosk'
     )
 )
-const LatestActivities = React.lazy(
+const RemoteSensingSurvey = React.lazy(
   () =>
     import(
       /* webpackChunkName: "kiosk" */
-      'client/pages/Kiosk/LatestActivities'
+      'client/pages/Kiosk/RemoteSensingSurvey'
     )
 )
 const RecentHighlights = React.lazy(
@@ -95,13 +95,13 @@ export const KioskRoutes: React.ReactElement = (
   <Route element={<KioskLayout />} path={Routes.Kiosk.path.relative}>
     <Route element={<Kiosk />} index />
     <Route element={<FraProcess />} path={Routes.FraProcess.path.relative} />
-    <Route element={<LatestActivities />} path={Routes.LatestActivities.path.relative} />
+    <Route element={<RemoteSensingSurvey />} path={Routes.RemoteSensingSurvey.path.relative} />
     <Route element={<RecentHighlights />} path={Routes.RecentHighlights.path.relative} />
     <Route element={<FraDataPlatform />} path={Routes.FraDataPlatform.path.relative} />
 
     <Route path={Routes.InteractiveStories.path.relative}>
       <Route element={<InteractiveStories />} index />
-      <Route element={<AFreshPerspective />} path={Routes.AFreshPerspective.path.relative} />
+      <Route element={<WatchingOverOurForests />} path={Routes.WatchingOverOurForests.path.relative} />
       <Route element={<ExploringOurForests />} path={Routes.ExploringOurForests.path.relative} />
       <Route element={<HiddenInPlainSight />} path={Routes.HiddenInPlainSight.path.relative} />
       <Route element={<TheSecretsOfMangroves />} path={Routes.TheSecretsOfMangroves.path.relative} />

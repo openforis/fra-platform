@@ -58,10 +58,10 @@ const Kiosk = createRoute({ path: 'kiosk', parent: Root })
 const ForestKids = createRoute({ path: 'forest-kids', parent: Kiosk })
 const FraDataPlatform = createRoute({ path: 'fra-data-platform', parent: Kiosk })
 const FraProcess = createRoute({ path: 'fra-process', parent: Kiosk })
-const LatestActivities = createRoute({ path: 'latest-activities', parent: Kiosk })
+const RemoteSensingSurvey = createRoute({ path: 'remote-sensing-survey', parent: Kiosk })
 const RecentHighlights = createRoute({ path: 'recent-highlights', parent: Kiosk })
 const InteractiveStories = createRoute({ path: 'interactive-stories', parent: Kiosk })
-const AFreshPerspective = createRoute({ path: 'a-fresh-perspective', parent: InteractiveStories })
+const WatchingOverOurForests = createRoute({ path: 'watching-over-our-forests', parent: InteractiveStories })
 const ExploringOurForests = createRoute({ path: 'exploring-our-forests', parent: InteractiveStories })
 const HiddenInPlainSight = createRoute({ path: 'hidden-in-plain-sight', parent: InteractiveStories })
 const TheSecretsOfMangroves = createRoute({ path: 'the-secrets-of-mangroves', parent: InteractiveStories })
@@ -103,10 +103,10 @@ export const Routes = {
   ForestKids,
   FraDataPlatform,
   FraProcess,
-  LatestActivities,
+  RemoteSensingSurvey,
   RecentHighlights,
   InteractiveStories,
-  AFreshPerspective,
+  WatchingOverOurForests,
   ExploringOurForests,
   HiddenInPlainSight,
   TheSecretsOfMangroves,

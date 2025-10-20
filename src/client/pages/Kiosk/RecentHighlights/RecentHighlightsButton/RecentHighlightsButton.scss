@@ -1,0 +1,23 @@
+.kiosk-recent-highlights {
+  position: absolute;
+  right: 1%;
+  top: 1%;
+
+  .sliding-panel__close {
+    height: 50px;
+    width: 50px;
+
+    .icon {
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  .panel-container {
+    height: 100%;
+  }
+
+  .sliding-panel {
+    padding-top: 65px;
+  }
+}

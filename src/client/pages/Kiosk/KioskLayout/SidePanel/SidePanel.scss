@@ -1,24 +1,20 @@
-$side-panel-bg: #c7e2c5;
-$title: #ef7a2d;
+$side-panel-bg: #61a2d8;
+$title: #fff;
 
 .kiosk-side-panel__partners {
-  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  display: grid;
   gap: 6%;
+  grid-template-columns: repeat(5, 1fr);
+  position: relative;
   width: 100%;
-}
 
-.kiosk-side-panel__partners-eu,
-.kiosk-side-panel__partners-nicfi {
-  height: auto;
-  object-fit: contain;
-}
-
-.kiosk-side-panel__partners-eu {
-  width: 25%;
-}
-
-.kiosk-side-panel__partners-nicfi {
-  width: 35%;
+  img {
+    height: auto;
+    object-fit: contain;
+    width: 100%;
+  }
 }
 
 .kiosk-side-panel__footer {
@@ -27,51 +23,29 @@ $title: #ef7a2d;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin-bottom: 5%;
+  margin-top: auto;
+  padding: min(0.6dvw, 1.1dvh) min(0.8dvw, 1.4dvh);
+  position: relative;
+  row-gap: 1dvh;
+  width: 100%;
+
+  &::before {
+    background-color: rgba(255, 255, 255, 0.7);
+    content: '';
+    inset: 0;
+    pointer-events: none;
+    position: absolute;
+  }
+
+  > * {
+    position: relative;
+    z-index: 1;
+  }
 
   p {
     font-size: min(0.89dvw, 1.5dvh);
     font-weight: 300;
-  }
-}
-
-.kiosk-side-panel__quiz-title {
-  align-items: center;
-  background-color: $side-panel-bg;
-  color: $title;
-  display: flex;
-  font-size: min(1.66dvw, 3dvh);
-  font-weight: 900;
-  height: 15%;
-  justify-content: center;
-  left: 50%;
-  pointer-events: none;
-  position: absolute;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 70%;
-}
-
-.kiosk-side-panel__quiz-img {
-  height: auto;
-  width: 100%;
-}
-
-.kiosk-side-panel__quiz-img-container {
-  display: inline-block;
-  position: relative;
-}
-
-.kiosk-side-panel__quiz {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75dvh;
-  text-align: center;
-
-  h1 {
-    color: black;
-    font-size: min(1.46dvw, 2.6dvh);
-    font-weight: 700;
-    line-height: 1.25;
     margin: 0;
   }
 }
@@ -79,11 +53,69 @@ $title: #ef7a2d;
 .kiosk-side-panel__header {
   display: flex;
   justify-content: space-between;
+  padding: 6%;
+}
 
-  img {
-    height: min-content;
-    object-fit: contain;
-    width: 60%;
+.kiosk-side-panel__header-logo {
+  height: min-content;
+  margin-left: -10px;
+  margin-top: -20px;
+  object-fit: contain;
+  width: 80%;
+}
+
+.kiosk-side-panel__content {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 4dvh;
+  padding: 0 min(1.5dvw, 2.7dvh);
+  text-align: left;
+  margin-top: 6dvh;
+}
+
+.kiosk-side-panel__title {
+  font-size: min(2.6dvw, 4.6dvh);
+  font-weight: bold;
+  line-height: 1.2;
+  margin-left: 10%;
+}
+
+.kiosk-side-panel__language-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: min(1dvw, 1.7dvh);
+  justify-content: center;
+  width: 100%;
+}
+
+.kiosk-side-panel__language-button {
+  background-color: #5ba3dc;
+  border-radius: 10px;
+  border: min(0.15dvw, 0.26dvh) solid #3d4f67;
+  box-shadow: 0 min(0.15dvw, 0.25dvh) 0 rgba(255, 255, 255, 0.2) inset, 0 0 min(0.2dvw, 0.35dvh) rgba(14, 35, 64, 0.35);
+  color: white;
+  cursor: pointer;
+  font-size: min(1.15dvw, 2dvh);
+  font-weight: 500;
+  padding: min(0.65dvw, 1.15dvh) min(1.25dvw, 2.2dvh);
+  text-transform: none;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+
+  &:hover,
+  &:focus {
+    background-color: #5597cb;
+    border-color: #35465c;
+  }
+}
+
+.kiosk-side-panel__buttons {
+  display: grid;
+  row-gap: 1dvh;
+  width: 25%;
+
+  button {
+    width: 100%;
   }
 }
 
@@ -95,10 +127,16 @@ $title: #ef7a2d;
   height: auto;
 
   .icon {
-    color: $title;
+    color: #5597cb;
     height: 100%;
     width: 100%;
   }
+}
+
+.kiosk-side-panel__home-icon {
+  display: block;
+  height: 100%;
+  width: 100%;
 }
 
 .kiosk-side-panel__back-button {
@@ -111,19 +149,13 @@ $title: #ef7a2d;
   }
 }
 
-.kiosk-side-panel__home-button {
-  width: 35%;
-
-  .icon {
-    margin-top: -10px;
-  }
-}
-
 .kiosk-side-panel {
-  background-color: $side-panel-bg;
+  background-color: #d6e8f9;
+  background-image: url('/img/kiosk/FRA-web-banner-boreal.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   display: flex;
   flex-direction: column;
   height: 100%;
-  justify-content: space-between;
-  padding: 6%;
 }

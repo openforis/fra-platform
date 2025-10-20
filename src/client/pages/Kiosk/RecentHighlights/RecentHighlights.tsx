@@ -1,15 +1,9 @@
-import 'client/pages/Kiosk/Kiosk.scss'
 import React from 'react'
 
+import MapWrapper from 'client/pages/Kiosk/RecentHighlights/MapWrapper'
+
 const RecentHighlights: React.FC = () => {
-  return (
-    <object
-      aria-label="FAO Newsletter"
-      className="kiosk-content__embedded-object"
-      data="https://bit.ly/42aEUpk"
-      type="text/html"
-    />
-  )
+  return <MapWrapper />
 }
 
 export default RecentHighlights

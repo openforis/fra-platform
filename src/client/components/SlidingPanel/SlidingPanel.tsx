@@ -7,18 +7,20 @@ import ButtonClose from 'client/components/Buttons/ButtonClose'
 
 type Props = {
   closePanel: () => void
+  noBackdrop?: boolean
   opened: boolean
   size?: number
 }
 
 const SlidingPanel: React.FC<React.PropsWithChildren<Props>> = (props) => {
-  const { children, closePanel, opened, size = 30 } = props
+  const { children, closePanel, noBackdrop = false, opened, size = 30 } = props
   const panelType = 'right'
 
   return (
     <SlidingPanelComponent
       backdropClicked={closePanel}
       isOpen={opened}
+      noBackdrop={noBackdrop}
       panelClassName="sliding-panel"
       size={size}
       type={panelType}

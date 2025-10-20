@@ -1,0 +1,33 @@
+$activities-bg: #61a2d8;
+
+.kiosk-latest-activities__list {
+  background-color: rgba($activities-bg, 0.6);
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  left: 1%;
+  max-height: 95dvh;
+  overflow: auto;
+  position: absolute;
+  top: 1%;
+  width: 25%;
+}
+
+.kiosk-latest-activities__list-container {
+  padding: min(0.8dvw, 1.5dvh);
+}
+
+.kiosk-latest-activities__list-wrapper {
+  max-height: 0;
+  opacity: 0;
+  overflow: auto;
+  pointer-events: none;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+  width: 100%;
+
+  &.is-open {
+    max-height: 80dvh;
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
