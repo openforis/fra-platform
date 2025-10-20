@@ -287,16 +287,6 @@
     "dragAndDropOrClick": "Переместите некоторые файлы сюда или нажмите для выбора файлов",
     "dropFilesHere": "Загрузить файлы"
   },
-  "footer": {
-    "contactUs": "Связь с нами",
-    "licenses": "Лицензирование",
-    "platformVersion": "Версия платформы",
-    "reportMisconduct": "Сообщить о нарушении",
-    "scamAlert": "Опасайтесь мошенников",
-    "sendFeedback": "Направить отзыв",
-    "termsAndConditions": "Положения и условия",
-    "tutorials": "Видео"
-  },
   "forestAreaChange": {
     "areaUnitLabel": "Площадь лесов (1000 га/год)",
     "categoryHeader": "Категории ОЛР",

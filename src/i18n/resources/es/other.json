@@ -287,16 +287,6 @@
     "dragAndDropOrClick": "Arrastre y coloque los archivos aquí, o haga clic en \"Seleccionar archivos\"",
     "dropFilesHere": "Coloque aquí los archivos"
   },
-  "footer": {
-    "contactUs": "Contacto",
-    "licenses": "Licencias",
-    "platformVersion": "Versión de la plataforma",
-    "reportMisconduct": "Reportar mala conducta",
-    "scamAlert": "Alerta de estafa",
-    "sendFeedback": "Enviar comentarios",
-    "termsAndConditions": "Términos y condiciones",
-    "tutorials": "Vídeo"
-  },
   "forestAreaChange": {
     "areaUnitLabel": "Área (1000 ha/año)",
     "categoryHeader": "Categorías de FRA",

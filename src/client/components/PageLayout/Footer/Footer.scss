@@ -5,12 +5,13 @@ footer {
   display: grid;
   align-items: center;
   grid-template-columns: 1fr auto;
-  grid-column-gap: $spacing-xs;
+  gap: $spacing-xs;
   padding: $spacing-xs;
   border-top: $ui-thin-border;
   font-size: $font-xxs;
 
   @include min-width($laptop) {
+    gap: $spacing-s;
     padding: $spacing-s;
   }
 }
@@ -23,8 +24,7 @@ footer {
 
 .footer__version {
   display: flex;
-  grid-column: span 3;
-  padding-top: $spacing-xs;
+  grid-column: span 2;
   justify-content: center;
 
   .build-version {
@@ -33,6 +33,29 @@ footer {
   }
 }
 
+.footer__ccBy {
+  display: grid;
+  grid-row-gap: $spacing-xxxs;
+  grid-column: span 2;
+  justify-items: center;
+  justify-self: center;
+
+  a,
+  a:hover {
+    color: $ui-accent-dark;
+  }
+
+  a:hover {
+    border-bottom-color: $ui-accent;
+  }
+
+  img {
+    height: 32px;
+  }
+  @include min-width($laptop) {
+    text-align: center;
+  }
+}
 footer a {
   text-decoration: none;
   font-size: $font-xxs - 1;

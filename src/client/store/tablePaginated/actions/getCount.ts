@@ -20,7 +20,12 @@ export const getCount = createAsyncThunk<Returned, Props>('tablePaginated/count/
 
   const params: Record<string, string> = { assessmentName, countryIso, cycleName, filters: encodedFilters, sectionName }
 
-  const { data } = await axios.get<Returned>(`${path}/count`, { params })
+  const [basePath, queryString] = path.split(/\?(.+)/)
+  let querySuffix = ''
+  if (queryString) querySuffix = `?${queryString}`
+  const countPath = `${basePath}/count${querySuffix}`
+
+  const { data } = await axios.get<Returned>(countPath, { params })
 
   return data
 })
