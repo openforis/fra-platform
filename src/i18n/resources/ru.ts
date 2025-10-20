@@ -7,6 +7,7 @@ import * as dataDownload from './ru/dataDownload.json'
 import * as dataSource from './ru/dataSource.json'
 import * as editUser from './ru/editUser.json'
 import * as email from './ru/email.json'
+import * as footer from './ru/footer.json'
 import * as fra from './ru/fra.json'
 import * as generalValidation from './ru/generalValidation.json'
 import * as geo from './ru/geo.json'
@@ -28,6 +29,7 @@ export const ruTranslation = {
   dataSource,
   editUser,
   email,
+  footer,
   fra,
   generalValidation,
   geo,

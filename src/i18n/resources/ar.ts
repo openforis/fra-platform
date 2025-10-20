@@ -8,6 +8,7 @@ import * as dataDownload from './ar/dataDownload.json'
 import * as dataSource from './ar/dataSource.json'
 import * as editUser from './ar/editUser.json'
 import * as email from './ar/email.json'
+import * as footer from './ar/footer.json'
 import * as fra from './ar/fra.json'
 import * as generalValidation from './ar/generalValidation.json'
 import * as geo from './ar/geo.json'
@@ -30,6 +31,7 @@ export const arTranslation = {
   dataSource,
   editUser,
   email,
+  footer,
   fra,
   generalValidation,
   geo,
