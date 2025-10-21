@@ -22,6 +22,7 @@
   "copyLink": "复制链接",
   "countries": "国家",
   "country": "国家",
+  "csvAllTables": "CSV 所有表",
   "custom": "自定义",
   "cycleLabel": "$t({{assessmentName}}.labels.short) {{cycleName}}",
   "dashboard": "主界面",
