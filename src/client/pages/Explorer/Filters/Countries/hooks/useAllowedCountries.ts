@@ -14,9 +14,12 @@ export const useAllowedCountries = (): Array<CountryIso> | undefined => {
   }
 
   if (Areas.isRegion(countryIso)) {
-    return countries
-      .filter((country) => country.regionCodes.includes(countryIso as RegionCode))
-      .map((country) => country.countryIso)
+    return countries.reduce<Array<CountryIso>>((acc, country) => {
+      if (country.regionCodes.includes(countryIso as RegionCode)) {
+        acc.push(country.countryIso)
+      }
+      return acc
+    }, [])
   }
 
   return undefined
