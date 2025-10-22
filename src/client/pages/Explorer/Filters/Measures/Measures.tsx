@@ -1,4 +1,4 @@
-import './Measure.scss'
+import 'client/pages/Explorer/Filters/Measures/Measures.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -17,7 +17,7 @@ import MultiSelect from 'client/components/Inputs/MultiSelect/MultiSelect'
 import { useOnChange } from './hooks/useOnChange'
 import { useOptions } from './hooks/useOptions'
 
-const Measure: React.FC = () => {
+const Measures: React.FC = () => {
   const { t } = useTranslation()
 
   const { sectionName } = useSectionRouteParams()
@@ -59,4 +59,4 @@ const Measure: React.FC = () => {
   )
 }
 
-export default Measure
+export default Measures

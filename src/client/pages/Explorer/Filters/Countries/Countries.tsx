@@ -10,14 +10,15 @@ import { useGlobalCountries } from 'client/store/ui/countryReport/hooks/globalCo
 import { useCycleRouteParams } from 'client/hooks/routeParams'
 import CountryMultiSelect from 'client/components/CountryMultiSelect'
 
-const Country: React.FC = () => {
+import { useAllowedCountries } from './hooks/useAllowedCountries'
+
+const Countries: React.FC = () => {
   const { state } = useLocation()
   const { assessmentName, cycleName } = useCycleRouteParams()
   const dispatch = useAppDispatch()
   const homeCountriesFilter = useGlobalCountries()
-  const allowedCountries = homeCountriesFilter?.length > 0 ? homeCountriesFilter : undefined
-
   const explorerCountries = useExplorerCountries()
+  const allowedCountries = useAllowedCountries()
 
   useEffect(() => {
     // Pick countries from redirect or default to empty array
@@ -32,4 +33,4 @@ const Country: React.FC = () => {
   return <CountryMultiSelect allowedCountries={allowedCountries} onChange={handleChange} value={explorerCountries} />
 }
 
-export default Country
+export default Countries
