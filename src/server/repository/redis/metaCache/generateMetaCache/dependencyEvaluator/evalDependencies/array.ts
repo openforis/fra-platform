@@ -1,7 +1,5 @@
-import { ExpressionNodeEvaluator } from '@openforis/arena-core'
-
-import { ExpressionContext } from 'meta/expressions/context'
-import { ArrayExpression } from 'meta/expressions/node'
+import { ExpressionContext } from 'lib/expressionEvaluator/context'
+import { ArrayExpression, ExpressionNodeEvaluator } from 'lib/expressionEvaluator/node'
 
 export class ArrayEvaluator<C extends ExpressionContext> extends ExpressionNodeEvaluator<C, ArrayExpression> {
   evaluate(expressionNode: ArrayExpression): any {
