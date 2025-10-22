@@ -1,8 +1,8 @@
+import { ExpressionFunction } from 'lib/expressionEvaluator/function'
 import { Numbers } from 'utils/numbers'
 import { Objects } from 'utils/objects'
 
 import { NodeValueValidation, NodeValueValidationMessage } from 'meta/assessment/nodeValueValidation'
-import { ExpressionFunction } from 'meta/expressions/function'
 
 import { Context } from '../context'
 

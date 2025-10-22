@@ -1,4 +1,4 @@
-import { ExpressionFunction } from 'meta/expressions/function'
+import { ExpressionFunction } from 'lib/expressionEvaluator/function'
 
 import { Context } from '../context'
 import { calculatorForestAreaAsProportionOfTotalLandArea } from './calculations/calculatorForestAreaAsProportionOfTotalLandArea'

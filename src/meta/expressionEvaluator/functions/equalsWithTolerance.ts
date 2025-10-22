@@ -1,7 +1,7 @@
+import { ExpressionFunction } from 'lib/expressionEvaluator/function'
 import { Numbers } from 'utils/numbers'
 
 import { Context } from 'meta/expressionEvaluator/context'
-import { ExpressionFunction } from 'meta/expressions/function'
 
 export const equalsWithTolerance: ExpressionFunction<Context> = {
   name: 'equalsWithTolerance',
