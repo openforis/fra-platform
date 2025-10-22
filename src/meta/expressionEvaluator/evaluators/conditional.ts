@@ -1,6 +1,4 @@
-import { ExpressionNodeEvaluator } from '@openforis/arena-core'
-
-import { ConditionalExpression } from 'meta/expressions/node'
+import { ConditionalExpression, ExpressionNodeEvaluator } from 'lib/expressionEvaluator/node'
 
 import { Context } from '../context'
 
