@@ -7,14 +7,14 @@ import { ExplorerSelectionActions } from 'client/store/explorer/selection/action
 import { useExplorerCountries } from 'client/store/explorer/selection/hooks/countries'
 import { useAppDispatch } from 'client/store/hooks'
 import { useGlobalCountries } from 'client/store/ui/countryReport/hooks/globalCountries'
-import { useCountryRouteParams } from 'client/hooks/routeParams'
+import { useCycleRouteParams } from 'client/hooks/routeParams'
 import CountryMultiSelect from 'client/components/CountryMultiSelect'
 
 import { useAllowedCountries } from './hooks/useAllowedCountries'
 
 const Countries: React.FC = () => {
   const { state } = useLocation()
-  const { assessmentName, cycleName } = useCountryRouteParams()
+  const { assessmentName, cycleName } = useCycleRouteParams()
   const dispatch = useAppDispatch()
   const homeCountriesFilter = useGlobalCountries()
   const explorerCountries = useExplorerCountries()
