@@ -9,7 +9,7 @@ import MultiSelect from 'client/components/Inputs/MultiSelect/MultiSelect'
 import { useOnChange } from './hooks/useOnChange'
 import { useOptions } from './hooks/useOptions'
 
-const Dimension: React.FC = () => {
+const Dimensions: React.FC = () => {
   const { t } = useTranslation()
 
   const options = useOptions()
@@ -32,4 +32,4 @@ const Dimension: React.FC = () => {
   )
 }
 
-export default Dimension
+export default Dimensions
