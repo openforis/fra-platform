@@ -54,6 +54,11 @@ const queries: Array<Query> = [
   { expression: `isEmpty('')`, result: true },
   { expression: 'isEmpty(1)', result: false },
   { expression: 'isEmpty(0)', result: false },
+  // object literals
+  { expression: '{a: 1, b: 2}', result: { a: 1, b: 2 } },
+  { expression: `{name: 'test', value: 34}`, result: { name: 'test', value: 34 } },
+  { expression: '{x: 1 + 1, y: 2 * 3}', result: { x: 2, y: 6 } },
+  { expression: '{nested: {a: 1, b: 2}}', result: { nested: { a: 1, b: 2 } } },
 ]
 
 describe('JavascriptExpressionEvaluator test', () => {

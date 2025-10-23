@@ -10,6 +10,7 @@ export enum ExpressionNodeType {
   Identifier = 'Identifier',
   Literal = 'Literal',
   Member = 'MemberExpression',
+  Object = 'ObjectExpression',
   Sequence = 'SequenceExpression',
   This = 'ThisExpression',
   Unary = 'UnaryExpression',
@@ -50,6 +51,17 @@ export interface MemberExpression extends ExpressionNode<ExpressionNodeType.Memb
   property: ExpressionNode<ExpressionNodeType>
   optional?: boolean
 }
+
+export interface ObjectExpression extends ExpressionNode<ExpressionNodeType.Object> {
+  properties: Array<{
+    type: 'Property'
+    // Enable this to support computed keys, e.g. [x]: 1
+    // computed: boolean
+    key: ExpressionNode<ExpressionNodeType>
+    value: ExpressionNode<ExpressionNodeType>
+  }>
+}
+
 export interface SequenceExpression extends ExpressionNode<ExpressionNodeType.Sequence> {
   expression: ExpressionNode<ExpressionNodeType>
 }

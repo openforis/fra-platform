@@ -10,6 +10,7 @@ import { ConditionalEvaluator } from './node/conditional'
 import { IdentifierEvaluator } from './node/identifier'
 import { LiteralEvaluator } from './node/literal'
 import { MemberEvaluator } from './node/member'
+import { ObjectEvaluator } from './node/object'
 import { SequenceEvaluator } from './node/sequence'
 import { ThisEvaluator } from './node/this'
 import { UnaryEvaluator } from './node/unary'
@@ -29,6 +30,7 @@ const defaultEvaluators = {
   [ExpressionNodeType.Identifier]: IdentifierEvaluator,
   [ExpressionNodeType.Literal]: LiteralEvaluator,
   [ExpressionNodeType.Member]: MemberEvaluator,
+  [ExpressionNodeType.Object]: ObjectEvaluator,
   [ExpressionNodeType.Sequence]: SequenceEvaluator,
   [ExpressionNodeType.This]: ThisEvaluator,
   [ExpressionNodeType.Unary]: UnaryEvaluator,
