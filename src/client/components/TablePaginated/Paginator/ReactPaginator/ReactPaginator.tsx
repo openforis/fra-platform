@@ -9,7 +9,7 @@ export type PaginatorProps = Pick<
   onPageChange(pageNumber: number): void
 }
 
-const Paginator: React.FC<PaginatorProps> = (props: PaginatorProps) => {
+const ReactPaginator: React.FC<PaginatorProps> = (props: PaginatorProps) => {
   const { className, forcePage, marginPagesDisplayed, onPageChange, pageCount, pageRangeDisplayed } = props
 
   return (
@@ -19,7 +19,7 @@ const Paginator: React.FC<PaginatorProps> = (props: PaginatorProps) => {
       forcePage={forcePage}
       marginPagesDisplayed={marginPagesDisplayed}
       nextLabel=">"
-      onPageChange={({ selected: pageNumber }) => onPageChange(pageNumber)}
+      onPageChange={({ selected: pageNumber }): void => onPageChange(pageNumber)}
       pageCount={pageCount}
       pageRangeDisplayed={pageRangeDisplayed}
       previousLabel="<"
@@ -28,4 +28,4 @@ const Paginator: React.FC<PaginatorProps> = (props: PaginatorProps) => {
   )
 }
 
-export default Paginator
+export default ReactPaginator
