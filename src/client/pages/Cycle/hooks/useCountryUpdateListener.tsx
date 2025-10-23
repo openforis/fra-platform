@@ -13,21 +13,11 @@ export const useCountryUpdateListener = (): void => {
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
 
   useEffect(() => {
-    const eventName = Sockets.getCountryUpdateEvent({
-      assessmentName,
-      cycleName,
-      countryIso,
-    })
+    const eventName = Sockets.getCountryUpdateEvent({ assessmentName, cycleName, countryIso })
 
-    const handleUpdate = (args: [{ country: Country }]) => {
+    const handleUpdate = (args: [{ country: Country }]): void => {
       const [{ country }] = args
-      dispatch(
-        AreaActions.setCountry({
-          assessmentName,
-          cycleName,
-          country,
-        })
-      )
+      dispatch(AreaActions.setCountry({ assessmentName, cycleName, country }))
     }
 
     SocketClient.on(eventName, handleUpdate)

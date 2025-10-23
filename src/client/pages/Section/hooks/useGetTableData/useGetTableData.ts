@@ -7,13 +7,13 @@ import { NodeValuesActions } from 'client/store/data/tableData/nodeValues/action
 import { useAppDispatch } from 'client/store/hooks'
 import { MetaActions } from 'client/store/meta/actions'
 import { useCanEdit } from 'client/store/user/hooks/auth'
-import { useIsPrintRoute } from 'client/hooks/routes'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
+import { useIsPrintRoute } from 'client/hooks/routes'
 
 import { Props } from './props'
 import { useDependencies } from './useDependencies'
 
-export const useGetTableData = (props: Props) => {
+export const useGetTableData = (props: Props): void => {
   const { sectionName } = props
 
   const dispatch = useAppDispatch()
@@ -25,6 +25,7 @@ export const useGetTableData = (props: Props) => {
   useEffect(() => {
     const { external, internal } = dependencies
     const { tableNames, tableWithOdp } = internal
+
     if (!print) {
       // fetch internal dependencies
       if (tableNames.size > 0) {
@@ -44,7 +45,7 @@ export const useGetTableData = (props: Props) => {
           const propsFetch = { assessmentName, cycleName, countryIso, mergeOdp: true, auth }
           dispatch(NodeValuesActions.getTableData({ ...propsFetch, tableNames: Array.from(tableNames) }))
 
-          dispatch(MetaActions.getMetaCache({ assessmentName, cycleName, countryIso }))
+          dispatch(MetaActions.getMetaCache({ assessmentName, cycleName }))
         })
       })
     }

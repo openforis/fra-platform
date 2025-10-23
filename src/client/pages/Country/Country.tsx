@@ -6,11 +6,10 @@ import classNames from 'classnames'
 
 import { useCountries } from 'client/store/area/hooks/countries'
 import { useNavigationVisible } from 'client/store/ui/countryReport/hooks/navigation'
-import { useIsGeoRoute } from 'client/hooks/routes'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
+import { useIsGeoRoute } from 'client/hooks/routes'
 import Navigation from 'client/components/Navigation'
 
-import { useInitMetaCache } from './hooks/useInitMetaCache'
 import { useInitSections } from './hooks/useInitSections'
 import { useReviewSummaryListener } from './hooks/useReviewSummaryListener'
 import { useUserRedirect } from './hooks/useUserRedirect'
@@ -21,9 +20,7 @@ const Country: React.FC = () => {
   const navigationVisible = useNavigationVisible()
   const countries = useCountries()
   const geoRoute = useIsGeoRoute()
-  // const isDataExportView = useIsDataExportView()
   useInitSections()
-  useInitMetaCache()
   useReviewSummaryListener()
   useUserRedirect()
 
