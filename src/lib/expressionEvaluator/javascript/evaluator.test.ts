@@ -59,6 +59,19 @@ const queries: Array<Query> = [
   { expression: `{name: 'test', value: 34}`, result: { name: 'test', value: 34 } },
   { expression: '{x: 1 + 1, y: 2 * 3}', result: { x: 2, y: 6 } },
   { expression: '{nested: {a: 1, b: 2}}', result: { nested: { a: 1, b: 2 } } },
+  { expression: '{a: [1, 2, 3]}', result: { a: [1, 2, 3] } },
+  // array literals
+  { expression: '[1, 2, 3]', result: [1, 2, 3] },
+  { expression: `['a', 'b', 'c']`, result: ['a', 'b', 'c'] },
+  { expression: '[1 + 1, 2 * 3, 10 / 2]', result: [2, 6, 5] },
+  {
+    expression: '[[1, 2], [3, 4]]',
+    result: [
+      [1, 2],
+      [3, 4],
+    ],
+  },
+  { expression: '[{a: 1}, {b: 2}]', result: [{ a: 1 }, { b: 2 }] },
 ]
 
 describe('JavascriptExpressionEvaluator test', () => {
