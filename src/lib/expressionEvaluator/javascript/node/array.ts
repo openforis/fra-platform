@@ -2,8 +2,8 @@ import { ExpressionContext } from '../../context'
 import { ArrayExpression, ExpressionNodeEvaluator } from '../../node'
 
 export class ArrayEvaluator<C extends ExpressionContext> extends ExpressionNodeEvaluator<C, ArrayExpression> {
-  // eslint-disable-next-line class-methods-use-this
-  evaluate(): any {
-    throw new Error('array expression not supported')
+  evaluate(expressionNode: ArrayExpression): Array<unknown> {
+    const { elements } = expressionNode
+    return elements.map((element) => this.evaluator.evaluateNode(element, this.context))
   }
 }
