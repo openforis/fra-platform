@@ -40,8 +40,6 @@ services:
     build:
       context: ../../..
       dockerfile: src/test/e2e/Dockerfile.test
-      args:
-        - NPM_GITHUB_TOKEN=${NPM_GITHUB_TOKEN}
     depends_on:
       postgres:
         condition: service_healthy
@@ -56,7 +54,6 @@ services:
       - SMTP_HOST=mailhog
       - SMTP_PORT=1025
       - NODE_ENV=test
-      - NPM_GITHUB_TOKEN=${NPM_GITHUB_TOKEN}
       - REDIS_QUEUE_URL=redis://redis-queue:6379
       - REDIS_DATA_URL=redis://redis-data:6379
       - PORT=9001
@@ -77,8 +74,6 @@ services:
     build:
       context: ../../..
       dockerfile: src/test/e2e/Dockerfile.playwright
-      args:
-        - NPM_GITHUB_TOKEN=${NPM_GITHUB_TOKEN}
     depends_on:
       web:
         condition: service_healthy
@@ -86,7 +81,6 @@ services:
         condition: service_healthy
     environment:
       - BASE_URL=http://web:9001
-      - NPM_GITHUB_TOKEN=${NPM_GITHUB_TOKEN}
     ports:
       - '9323:9323'
     volumes:
