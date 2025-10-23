@@ -171,6 +171,7 @@
     "@googlemaps/js-api-loader": "^1.13.10",
     "@googlemaps/react-wrapper": "^1.1.29",
     "@hookform/resolvers": "^5.1.1",
+    "@jsep-plugin/object": "^1.2.2",
     "@openforis/arena-core": "^0.0.79",
     "@reduxjs/toolkit": "^2.8.2",
     "@socket.io/redis-streams-adapter": "^0.1.0",

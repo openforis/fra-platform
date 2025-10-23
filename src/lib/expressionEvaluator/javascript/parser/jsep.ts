@@ -1,7 +1,12 @@
+import * as jsepObjectImport from '@jsep-plugin/object'
 import * as jsepImport from 'jsep'
 
 // @ts-ignore
 const jsep = jsepImport.default || jsepImport
+// @ts-ignore
+const jsepObject = jsepObjectImport.default || jsepObjectImport
+
+jsep.plugins.register(jsepObject)
 
 // Add exponentiation operator (right-to-left)
 jsep.addBinaryOp('**', 11, true)

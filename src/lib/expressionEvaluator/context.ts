@@ -1,4 +1,4 @@
-export interface ExpressionContext {
-  object?: any
+export interface ExpressionContext<T = unknown> {
+  object?: T
   evaluateToNode?: boolean
 }
