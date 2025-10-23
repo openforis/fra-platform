@@ -59,9 +59,8 @@ const _updateOriginalDataPointTable = async (props: UpdateTableProps): Promise<v
 
   if (!hasForestCharacteristicsComments) {
     await client.none(`alter table ${tableName} add column comments_forest_characteristics text`)
+    await client.none(`update ${tableName} set comments_forest_characteristics = comments_extent_of_forest`)
   }
-
-  await client.none(`update ${tableName} set comments_forest_characteristics = comments_extent_of_forest`)
 }
 
 export default async (client: BaseProtocol): Promise<void> => {
