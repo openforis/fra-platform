@@ -123,8 +123,8 @@ export const getCreateSchemaCycleDDL = (assessmentSchemaName: string, assessment
           data_source_additional_comments varchar,
           data_source_methods             jsonb,
           data_source_references          text,
-          comments_extentOfForest         text,
-          comments_forestCharacteristics  text,
+          comments_extent_of_forest       text,
+          comments_forest_characteristics text,
           national_classes                jsonb,
           values                          jsonb,
           id_legacy                       bigint
