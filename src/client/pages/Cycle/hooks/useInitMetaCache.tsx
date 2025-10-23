@@ -20,7 +20,7 @@ export const useInitMetaCache = (): void => {
 
   useEffect(() => {
     if (!metaCache) {
-      dispatch(MetaActions.getMetaCache({ assessmentName, cycleName, countryIso }))
+      dispatch(MetaActions.getMetaCache({ assessmentName, cycleName }))
     }
   }, [assessmentName, countryIso, cycleName, dispatch, metaCache])
 }

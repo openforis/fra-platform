@@ -2,7 +2,6 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { AreaCode } from 'meta/area'
 import { AssessmentName } from 'meta/assessment/assessment'
 import { Assessments } from 'meta/assessment/assessments'
 import { CycleName } from 'meta/assessment/cycle'
@@ -14,7 +13,6 @@ import { ThunkApiConfig } from 'client/store/types'
 
 type Props = {
   assessmentName: AssessmentName
-  countryIso: AreaCode
   cycleName: CycleName
 }
 
@@ -23,14 +21,14 @@ type Returned = AssessmentMetaCache | undefined
 export const getMetaCache = createAsyncThunk<Returned, Props, ThunkApiConfig>(
   'meta/assessment/metaCache/get',
   async (props, { getState }) => {
-    const { assessmentName, countryIso, cycleName } = props
+    const { assessmentName, cycleName } = props
 
     const state = getState()
     const assessment = MetadataSelectors.getAssessment(state, assessmentName)
     const cycle = Assessments.getCycle({ assessment, cycleName })
 
     if (!AssessmentMetaCaches.getMetaCache({ assessment, cycle })) {
-      const params = { assessmentName, cycleName, countryIso }
+      const params = { assessmentName, cycleName }
       const { data } = await axios.get(ApiEndPoint.MetaData.metaCache(), { params })
       return data
     }
