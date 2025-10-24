@@ -35,13 +35,16 @@ export const forestAreaWithinProtectedAreas = (cycle: Cycle, region: boolean): D
       id: 2,
       variableName: 'forestArea',
       label: { key: `statisticalFactsheets.rowName.other` },
-      calculateFn: `${TableNames.extentOfForest}.forestArea${is2025 ? '__protectedArea' : ''} ${
+      calculateFn: `${TableNames.extentOfForest}.forestArea${is2025 && region ? '__protectedArea' : ''} ${
         region ? '/ 1000' : ''
       } - ${tableName}.${variableName} ${region ? '/ 1000' : ''}`,
       // calculateFn: `100 - 100 * ${tableName}.${variableName} / ${TableNames.extentOfForest}.forestArea`,
       calculationDependencies: [
         { tableName, variableName },
-        { tableName: TableNames.extentOfForest, variableName: `forestArea${is2025 ? '__protectedArea' : ''}` },
+        {
+          tableName: TableNames.extentOfForest,
+          variableName: `forestArea${is2025 && region ? '__protectedArea' : ''}`,
+        },
       ],
     },
   ]
