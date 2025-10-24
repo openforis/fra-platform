@@ -17,7 +17,7 @@ import { swaggerInit } from './swagger/swaggerInit'
 import { sendErr } from './utils/requests'
 import * as resourceCacheControl from './resourceCacheControl'
 
-export const serverInit = () => {
+export const serverInit = (): void => {
   const app = express()
   Proxy.init(app)
   app.use(wwwhisper(false))
