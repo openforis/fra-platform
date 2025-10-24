@@ -1,7 +1,7 @@
-import { ExpressionFunction } from 'lib/expressionEvaluator/function'
-
 import { NodeValueValidation } from 'meta/assessment/nodeValueValidation'
 import { validatorNotGreaterThanForest } from 'meta/expressionEvaluator/functions/validatorNotGreaterThanForest'
+
+import { ExpressionFunction } from 'lib/expressionEvaluator/function'
 
 import { Context } from '../context'
 import { validatorNotGreaterThanMaxForest } from './validatorNotGreaterThanMaxForest'

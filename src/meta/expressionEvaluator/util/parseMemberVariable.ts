@@ -1,11 +1,11 @@
-import { MemberExpression } from 'lib/expressionEvaluator/node'
-
 import { Assessments } from 'meta/assessment/assessments'
 import { CycleName } from 'meta/assessment/cycle'
 import { Cycles } from 'meta/assessment/cycles'
 import { VariableCache } from 'meta/assessment/metaCache'
 import { BaseContext } from 'meta/expressionEvaluator/util/_types'
 import { Member } from 'meta/expressions'
+
+import { MemberExpression } from 'lib/expressionEvaluator/node'
 
 const getCycleName = (cycleName: string, context: BaseContext): CycleName => {
   if (cycleName === Member.$prevCycle) {

@@ -1,4 +1,3 @@
-import { ExpressionNodeEvaluator, MemberExpression } from 'lib/expressionEvaluator/node'
 import { Objects } from 'utils/objects'
 
 import { Assessments } from 'meta/assessment/assessments'
@@ -6,6 +5,8 @@ import { VariableCache } from 'meta/assessment/metaCache'
 import { AssessmentMetaCaches } from 'meta/assessment/metaCaches'
 import { RowCache } from 'meta/assessment/rowCache'
 import { ExpressionEvaluator } from 'meta/expressionEvaluator'
+
+import { ExpressionNodeEvaluator, MemberExpression } from 'lib/expressionEvaluator/node'
 
 import { Context } from './context'
 
