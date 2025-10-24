@@ -5,7 +5,7 @@ import { Users } from 'meta/user/users'
 
 type Props = { countryIso: CountryIso; cycle: Cycle; user: User; target: User }
 
-export const canEditUserRoleName = (props: Props) => {
+export const canEditUserRoleName = (props: Props): boolean => {
   const { countryIso, cycle, target, user } = props
 
   if (Users.isAdministrator(user)) return true
@@ -15,7 +15,7 @@ export const canEditUserRoleName = (props: Props) => {
   return rolesAllowedToEdit.includes(Users.getRole(target, countryIso, cycle)?.role)
 }
 
-export const canEditUser = (props: Props) => {
+export const canEditUser = (props: Props): boolean => {
   const { target, user } = props
 
   if (Users.isAdministrator(user)) return true

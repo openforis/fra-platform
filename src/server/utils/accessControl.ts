@@ -1,4 +1,4 @@
-export function AccessControlException(key: any, values: any) {
+export function AccessControlException(key: any, values: any): void {
   // @ts-ignore
   this.error = { key, values }
   // @ts-ignore

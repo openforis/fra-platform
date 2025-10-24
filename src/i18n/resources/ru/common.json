@@ -22,6 +22,7 @@
   "copyLink": "Копировать ссылку",
   "countries": "Страны",
   "country": "Страна",
+  "csvAllTables": "CSV все таблицы",
   "custom": "Настроить",
   "cycleLabel": "$t({{assessmentName}}.labels.short)–{{cycleName}}",
   "dashboard": "Панель управления",
