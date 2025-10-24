@@ -11,6 +11,7 @@
     "build:prod:server": "yarn tsc --project tsconfig.server.json && tsc-alias -p tsconfig.server.json",
     "build:prod:server:resources": "shx cp -Rf web-resources dist/ && shx cp -Rf src/server/static dist/server/",
     "build:prod:report": "cross-env NODE_ENV=production BUILD_REPORT=true webpack --display-error-details -p --config webpack.config.babel.js",
+    "cache:generate": "ts-node src/tools/generateCache/",
     "clean": "shx rm -rf dist/",
     "heroku-cleanup": "cd node_modules/bcrypt && node-pre-gyp install --fallback-to-build",
     "migration-public:create": "src/tools/migrations/public/create-migration-step.sh",
