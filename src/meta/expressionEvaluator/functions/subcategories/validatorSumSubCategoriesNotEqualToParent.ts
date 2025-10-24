@@ -1,9 +1,10 @@
-import { ExpressionFunction } from 'lib/expressionEvaluator/function'
 import { Numbers } from 'utils/numbers'
 import { Objects } from 'utils/objects'
 
 import { NodeValueValidation } from 'meta/assessment/nodeValueValidation'
 import { Context } from 'meta/expressionEvaluator/context'
+
+import { ExpressionFunction } from 'lib/expressionEvaluator/function'
 
 import { calculateCategoriesSum, getValidationMessage } from './utils'
 

@@ -1,8 +1,9 @@
-import { ExpressionFunction } from 'lib/expressionEvaluator/function'
 import { Numbers } from 'utils/numbers'
 
 import { TableNames } from 'meta/assessment/table'
 import { RecordAssessmentDatas } from 'meta/data'
+
+import { ExpressionFunction } from 'lib/expressionEvaluator/function'
 
 import { Context } from '../context'
 

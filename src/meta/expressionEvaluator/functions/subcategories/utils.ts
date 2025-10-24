@@ -10,8 +10,8 @@ export const calculateCategoriesSum = (
   categoryValues: Array<string | undefined>,
   categoryLabelKeys: Array<string>
 ): number => {
-  const nonEmptyCategories: CategoryInfo[] = categoryValues.reduce(
-    (acc: CategoryInfo[], value: string | undefined, currentIndex: number) => {
+  const nonEmptyCategories: Array<CategoryInfo> = categoryValues.reduce(
+    (acc: Array<CategoryInfo>, value: string | undefined, currentIndex: number) => {
       if (!Objects.isEmpty(value)) acc.push({ labelKey: categoryLabelKeys[currentIndex], value })
       return acc
     },

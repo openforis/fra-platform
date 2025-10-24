@@ -1,6 +1,6 @@
-import { ExpressionFunction } from 'lib/expressionEvaluator/function'
-
 import { Context } from 'meta/expressionEvaluator/context'
+
+import { ExpressionFunction } from 'lib/expressionEvaluator/function'
 
 export const getYear: ExpressionFunction<Context> = {
   name: 'getYear',
