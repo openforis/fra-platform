@@ -58,7 +58,7 @@ jobs:
         run: mkdir -p playwright-report
 
       - name: Generate cache
-        run: docker compose -f src/test/e2e/docker-compose.test.yml exec -T web ts-node src/tools/generateCache/
+        run: docker compose -f src/test/e2e/docker-compose.test.yml exec -T web yarn cache:generate
 
       - name: Run database migrations
         run: docker compose -f src/test/e2e/docker-compose.test.yml exec -T web yarn migration-steps:run
