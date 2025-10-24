@@ -1,7 +1,7 @@
 import { Promises } from 'utils/promises'
 
 import { AssessmentController } from 'server/controller/assessment'
-import { BaseProtocol, Schemas } from 'server/db'
+import { BaseProtocol, DB, Schemas } from 'server/db'
 
 const TABLE = 'original_data_point'
 
@@ -38,7 +38,7 @@ const _updateOriginalDataPointTable = async (props: UpdateTableProps): Promise<v
 
   const hasDescription = await _columnExists({ client, columnName: 'description', schemaName })
   if (hasDescription) {
-    await client.none(`alter table ${tableName} rename column description to comments_extent_of_forest`)
+    await DB.none(`alter table ${tableName} rename column description to comments_extent_of_forest`)
   }
 
   const hasExtentOfForestComments = await _columnExists({
@@ -58,7 +58,7 @@ const _updateOriginalDataPointTable = async (props: UpdateTableProps): Promise<v
   })
 
   if (!hasForestCharacteristicsComments) {
-    await client.none(`alter table ${tableName} add column comments_forest_characteristics text`)
+    await DB.none(`alter table ${tableName} add column comments_forest_characteristics text`)
     await client.none(`update ${tableName} set comments_forest_characteristics = comments_extent_of_forest`)
   }
 }
