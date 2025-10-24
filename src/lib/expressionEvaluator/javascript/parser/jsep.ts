@@ -8,9 +8,6 @@ const jsepObject = jsepObjectImport.default || jsepObjectImport
 
 jsep.plugins.register(jsepObject)
 
-// Add exponentiation operator (right-to-left)
-jsep.addBinaryOp('**', 11, true)
-
 const OPEN_PARENTHESIS_CODE = 40 // (
 const CLOSE_PARENTHESIS_CODE = 41 // )
 
