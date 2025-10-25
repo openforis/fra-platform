@@ -17,7 +17,7 @@ export const updateDescription = async (
   const {
     assessment,
     cycle,
-    originalDataPoint: { countryIso, description, id, year },
+    originalDataPoint: { commentsExtentOfForest, commentsForestCharacteristics, countryIso, id, year },
   } = props
 
   const schemaName = Schemas.getNameCycle(assessment, cycle)
@@ -25,11 +25,12 @@ export const updateDescription = async (
   await client.one<OriginalDataPoint>(
     `
       update ${schemaName}.original_data_point
-      set description = $2
+      set comments_extent_of_forest = $2,
+          comments_forest_characteristics = $3
       where id = $1
       returning *
   `,
-    [id, description]
+    [id, commentsExtentOfForest || '', commentsForestCharacteristics || '']
   )
 
   return getOne({ assessment, cycle, countryIso, year: String(year) }, client)
