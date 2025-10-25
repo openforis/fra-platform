@@ -12,6 +12,7 @@ const webpackTestConfig = {
     alias: {
       i18n: path.resolve(__dirname, 'src/i18n/'),
       client: path.resolve(__dirname, 'src/client/'),
+      lib: path.resolve(__dirname, 'src/lib/'),
       meta: path.resolve(__dirname, 'src/meta/'),
       server: path.resolve(__dirname, 'src/server/'),
       test: path.resolve(__dirname, 'src/test/'),

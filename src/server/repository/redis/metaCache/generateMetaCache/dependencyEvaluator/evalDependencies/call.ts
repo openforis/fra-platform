@@ -1,11 +1,6 @@
-import {
-  CallExpression,
-  ExpressionContext,
-  ExpressionNode,
-  ExpressionNodeEvaluator,
-  ExpressionNodeType,
-  IdentifierExpression,
-} from '@openforis/arena-core'
+import { ExpressionContext } from 'lib/expressionEvaluator/context'
+import type { CallExpression, ExpressionNode, IdentifierExpression } from 'lib/expressionEvaluator/node'
+import { ExpressionNodeEvaluator, ExpressionNodeType } from 'lib/expressionEvaluator/node'
 
 import { customDepenendencies } from './customDepenendencies'
 

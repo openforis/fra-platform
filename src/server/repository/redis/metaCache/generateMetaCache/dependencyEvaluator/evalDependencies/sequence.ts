@@ -1,4 +1,4 @@
-import { ExpressionNodeEvaluator, SequenceExpression } from '@openforis/arena-core'
+import { ExpressionNodeEvaluator, SequenceExpression } from 'lib/expressionEvaluator/node'
 
 import { Context } from './context'
 

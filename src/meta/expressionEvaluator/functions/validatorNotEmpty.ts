@@ -1,7 +1,8 @@
-import { ExpressionFunction } from '@openforis/arena-core/dist/expression/function'
 import { Objects } from 'utils/objects'
 
 import { NodeValueValidation, NodeValueValidationMessage } from 'meta/assessment/nodeValueValidation'
+
+import { ExpressionFunction } from 'lib/expressionEvaluator/function'
 
 import { Context } from '../context'
 

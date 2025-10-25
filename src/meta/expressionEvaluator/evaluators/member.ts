@@ -1,12 +1,12 @@
-import { MemberExpression } from '@openforis/arena-core'
-import { MemberEvaluator as ArenaMemberEvaluator } from '@openforis/arena-core/dist/expression/javascript/node/member'
-
 import { Assessments } from 'meta/assessment/assessments'
 import { AssessmentMetaCaches } from 'meta/assessment/metaCaches'
 import { RecordAssessmentDatas } from 'meta/data'
 import { BaseContext } from 'meta/expressionEvaluator/util/_types'
 import { parseMemberVariable } from 'meta/expressionEvaluator/util/parseMemberVariable'
 import { Member } from 'meta/expressions'
+
+import { MemberEvaluator as ArenaMemberEvaluator } from 'lib/expressionEvaluator/javascript/node/member'
+import { MemberExpression } from 'lib/expressionEvaluator/node'
 
 import { Context } from '../context'
 
