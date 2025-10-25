@@ -22,15 +22,16 @@ export interface OriginalDataPointValues {
 }
 
 export interface OriginalDataPoint {
-  id: number
+  commentsExtentOfForest?: string
+  commentsForestCharacteristics?: string
   countryIso: CountryIso
-  year?: number
   dataSourceAdditionalComments?: string
   dataSourceMethods?: Array<ODPDataSourceMethod>
   dataSourceReferences?: string
-  description?: string
+  id: number
   nationalClasses?: Array<ODPNationalClass>
   values: OriginalDataPointValues
+  year?: number
   // editStatus?: ODPEditStatus
   // reservedYears?: Array<number>
   // validationStatus?: ODPValidation
