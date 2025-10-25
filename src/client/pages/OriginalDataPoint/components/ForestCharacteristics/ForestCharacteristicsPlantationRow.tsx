@@ -11,7 +11,7 @@ import { Topics } from 'meta/messageCenter'
 import { TooltipId } from 'meta/tooltip'
 
 import DiffText from 'client/components/DiffText'
-import PercentInput from 'client/components/PercentInput'
+import InputPercent from 'client/components/Inputs/InputPercent'
 import ReviewIndicator from 'client/components/ReviewIndicator'
 import { useODPDisplayHistory } from 'client/pages/OriginalDataPoint/components/hooks/useODPDisplayHistory'
 import { Columns, useOnPaste } from 'client/pages/OriginalDataPoint/components/hooks/useOnPaste'
@@ -23,7 +23,7 @@ import { useShowReviewIndicator } from 'client/pages/OriginalDataPoint/hooks/use
 import { useNationalClassNameComments } from '../../hooks'
 import { usePlantationForestPercentAndAreaChange } from './hooks/usePlantationForestPercentAndAreaChange'
 
-const allowedClass = (nc: ODPNationalClass) =>
+const allowedClass = (nc: ODPNationalClass): boolean =>
   nc.forestPlantationPercent !== null && Number(nc.forestPlantationPercent) > 0 && Number(nc.forestPercent) > 0
 
 const columns: Columns = [{ name: 'forestPlantationIntroducedPercent', type: 'decimal', precision: 3 }]
@@ -42,7 +42,7 @@ const ForestCharacteristicsPlantationRow: React.FC<Props> = (props) => {
   const { id, nationalClasses } = originalDataPoint
   const nationalClass = nationalClasses[index]
   const { forestPlantationIntroducedPercent, name, uuid } = nationalClass
-  const target = [id, 'class', `${uuid}`, 'plantation_forest_introduced'] as string[]
+  const target = [id, 'class', `${uuid}`, 'plantation_forest_introduced'] as Array<string>
   const classNameRowComments = useNationalClassNameComments(target)
 
   const plantationIntroduced = ODPs.calculateNationalClassPlantationForestPercentArea(nationalClass)
@@ -88,9 +88,7 @@ const ForestCharacteristicsPlantationRow: React.FC<Props> = (props) => {
         )}
       </th>
       <td
-        className={classNames('fra-table__cell', {
-          error: Boolean(validationErrorMessage),
-        })}
+        className={classNames('fra-table__cell', { 'validation-error': Boolean(validationErrorMessage) })}
         data-tooltip-content={validationErrorMessage}
         data-tooltip-id={TooltipId.error}
       >
@@ -100,18 +98,18 @@ const ForestCharacteristicsPlantationRow: React.FC<Props> = (props) => {
             <span>%</span>
           </div>
         ) : (
-          <PercentInput
+          <InputPercent
             disabled={!canEditData || isZeroOrNullPlantationIntroduced}
-            numberValue={forestPlantationIntroducedPercent}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+            onChange={(event): void => {
               const { value } = event.target
               const updateProps = { field: columns[0].name, index, precision: columns[0].precision, value }
               updateOriginalDataField(updateProps)
             }}
-            onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
+            onPaste={(event): void => {
               const updatedODP = _onPaste({ event, colIndex: 0 })
               updateOriginalData(updatedODP)
             }}
+            value={forestPlantationIntroducedPercent}
           />
         )}
       </td>

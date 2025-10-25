@@ -12,7 +12,7 @@ import { TooltipId } from 'meta/tooltip'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import DiffText from 'client/components/DiffText'
 import InputNumber from 'client/components/Inputs/InputNumber'
-import PercentInput from 'client/components/PercentInput'
+import InputPercent from 'client/components/Inputs/InputPercent'
 import ReviewIndicator from 'client/components/ReviewIndicator'
 import { useODPDisplayHistory } from 'client/pages/OriginalDataPoint/components/hooks/useODPDisplayHistory'
 import { Columns, useOnPaste } from 'client/pages/OriginalDataPoint/components/hooks/useOnPaste'
@@ -84,7 +84,7 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
       </th>
       <td
         className={classNames(`fra-table__cell fra-table__divider`, {
-          error: !nationalClassValidation.validArea,
+          'validation-error': !nationalClassValidation.validArea,
         })}
       >
         {displayHistory ? (
@@ -112,9 +112,7 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
       </td>
 
       <td
-        className={classNames('fra-table__cell', {
-          error: Boolean(validationErrorMessage),
-        })}
+        className={classNames('fra-table__cell', { 'validation-error': Boolean(validationErrorMessage) })}
         data-tooltip-content={validationErrorMessage}
         data-tooltip-id={TooltipId.error}
       >
@@ -128,24 +126,24 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
             <span>%</span>
           </div>
         ) : (
-          <PercentInput
+          <InputPercent
             disabled={!canEditData}
-            numberValue={forestPercent}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
+            onChange={(event): void => {
               const { value } = event.target
               const updateProps = { field: columns[1].name, index, precision: columns[1].precision, value }
               updateOriginalDataField(updateProps)
             }}
-            onPaste={(event: React.ClipboardEvent<HTMLInputElement>): void => {
+            onPaste={(event): void => {
               const odp = _onPaste({ event, colIndex: 1 })
               updateOriginalData(odp)
             }}
+            value={forestPercent}
           />
         )}
       </td>
 
       <td
-        className={classNames('fra-table__cell', { error: Boolean(validationErrorMessage) })}
+        className={classNames('fra-table__cell', { 'validation-error': Boolean(validationErrorMessage) })}
         data-tooltip-content={validationErrorMessage}
         data-tooltip-id={TooltipId.error}
       >
@@ -159,18 +157,18 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
             <span>%</span>
           </div>
         ) : (
-          <PercentInput
+          <InputPercent
             disabled={!canEditData}
-            numberValue={otherWoodedLandPercent}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
+            onChange={(event): void => {
               const { value } = event.target
               const updateProps = { field: columns[2].name, index, precision: columns[2].precision, value }
               updateOriginalDataField(updateProps)
             }}
-            onPaste={(event: React.ClipboardEvent<HTMLInputElement>): void => {
+            onPaste={(event): void => {
               const odp = _onPaste({ event, colIndex: 2 })
               updateOriginalData(odp)
             }}
+            value={otherWoodedLandPercent}
           />
         )}
       </td>
