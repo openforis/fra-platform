@@ -3,6 +3,7 @@ import { Objects } from 'utils/objects'
 import { CountryIso, CountrySummary } from 'meta/area'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
+import { Lang } from 'meta/lang'
 
 import { BaseProtocol, DB } from 'server/db'
 
@@ -12,10 +13,11 @@ type Props = {
   assessment: Assessment
   countryIso: CountryIso
   cycle: Cycle
+  lang?: Lang
 }
 
 export const getOneOrNone = async (props: Props, client: BaseProtocol = DB): Promise<CountrySummary | null> => {
-  const { assessment, countryIso, cycle } = props
+  const { assessment, countryIso, cycle, lang = Lang.en } = props
 
   const baseQuery = getBaseQuery({ assessment, cycle })
 
@@ -24,9 +26,9 @@ export const getOneOrNone = async (props: Props, client: BaseProtocol = DB): Pro
       ${baseQuery}
       select *
       from country_summary
-      where country_iso = $1
+      where country_iso = $(countryIso)
     `,
-    [countryIso],
+    { countryIso, lang },
     Objects.camelize
   )
 }
