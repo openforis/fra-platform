@@ -6,14 +6,22 @@ import { OriginalDataPointActions } from 'client/store/data/originalDataPoint/ac
 import { useOriginalDataPoint } from 'client/store/data/originalDataPoint/hooks/originalDataPoint'
 import { useAppDispatch } from 'client/store/hooks'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
+import { ODPCommentField } from 'client/pages/OriginalDataPoint/components/Comments/types'
 
-export const useUpdateDescription = () => {
+type Props = {
+  field: ODPCommentField
+}
+
+type Returned = (value: string) => void
+
+export const useUpdateComment = (props: Props): Returned => {
+  const { field } = props
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams()
   const originalDataPoint = useOriginalDataPoint()
 
   const dispatch = useAppDispatch()
-  return useCallback(
-    (value: string) => {
+  return useCallback<Returned>(
+    (value) => {
       dispatch(
         OriginalDataPointActions.updateOriginalDataPointDescription({
           countryIso: countryIso as CountryIso,
@@ -21,11 +29,11 @@ export const useUpdateDescription = () => {
           assessmentName,
           originalDataPoint: {
             ...originalDataPoint,
-            description: value,
+            [field]: value,
           },
         })
       )
     },
-    [assessmentName, countryIso, cycleName, dispatch, originalDataPoint]
+    [assessmentName, countryIso, cycleName, dispatch, field, originalDataPoint]
   )
 }
