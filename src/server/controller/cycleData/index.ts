@@ -5,7 +5,6 @@ import { Report } from 'server/controller/cycleData/report'
 import { Repository } from 'server/controller/cycleData/repository'
 import { TableData } from 'server/controller/cycleData/tableData'
 import { CountryActivityLogRepository } from 'server/repository/assessmentCycle/countryActivityLog'
-import { CountrySummaryRepository } from 'server/repository/assessmentCycle/countrySummary'
 import { MessageTopicUserRepository } from 'server/repository/assessmentCycle/messageTopicUser'
 import { OriginalDataPointRepository } from 'server/repository/assessmentCycle/originalDataPoint'
 
@@ -48,7 +47,6 @@ export const CycleDataController = {
   removeOriginalDataPoint,
 
   // data
-  getCountrySummary: CountrySummaryRepository.getOneOrNone,
   updateOriginalDataPointOriginalData,
   // data sources
   updateOriginalDataPointDataSources,
