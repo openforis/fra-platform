@@ -6,6 +6,7 @@ import { Promises } from 'utils/promises'
 import { CycleRequest } from 'meta/api/request'
 import { Lang } from 'meta/lang'
 
+import { AreaController } from 'server/controller/area'
 import { CycleDataController } from 'server/controller/cycleData'
 import Requests from 'server/utils/requests'
 import { Responses } from 'server/utils/responses'
@@ -49,11 +50,11 @@ const getPdf = async (req: Request, fileName: string): Promise<Buffer> => {
 
   const { assessment, cycle } = req.context
 
-  const [cachedPdfInfo, countrySummary] = await Promise.all([
+  const [cachedPdfInfo, country] = await Promise.all([
     CycleDataController.Report.getOne({ assessment, cycle, fileName }),
-    CycleDataController.getCountrySummary({ assessment, countryIso, cycle }),
+    AreaController.getCountry({ assessment, countryIso, cycle }),
   ])
-  const countryCycleLastUpdate = countrySummary?.lastUpdate
+  const countryCycleLastUpdate = country?.lastUpdate
 
   if (Objects.isEmpty(cachedPdfInfo)) {
     const pdfBuffer = await buildPdf(req)
