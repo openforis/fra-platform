@@ -109,7 +109,6 @@ export const getCreatePublicSchemaDDL = (schemaName = 'public'): string => {
       country_iso character varying(3) primary key not null,
       country_iso2 character varying(2),
       calling_code character varying(10),
-      config jsonb not null default '{}'::jsonb,
       sort_index jsonb not null default '{}'::jsonb
     );
 
