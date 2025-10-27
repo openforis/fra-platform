@@ -24,15 +24,15 @@ export const getTableDataLastApproved = (props: Props, client: BaseProtocol = DB
             select al.country_iso,
                    t.props ->> 'name' as table_name,
                    r.props ->> 'variableName' as variable_name,
-                   c.props ->> 'colName' as col_name,
+                   col.props ->> 'colName' as col_name,
                    al.target -> 'value' as value,
                    row_number() over (partition by al.target ->> 'colUuid' order by al.time desc) as row_number
             from public.activity_log al
-            left join ${schemaCycle}.country c on al.country_iso = c.country_iso
+            left join ${schemaCycle}.country c          on al.country_iso = c.country_iso
             left join public.assessment a               on al.assessment_uuid = a.uuid
             left join public.assessment_cycle ac        on a.id = ac.assessment_id and al.cycle_uuid = ac.uuid
-            left join ${schemaAssessment}.col c         on (al.target ->> 'colUuid')::uuid = c.uuid
-            left join ${schemaAssessment}.row r         on c.row_id = r.id
+            left join ${schemaAssessment}.col col       on (al.target ->> 'colUuid')::uuid = col.uuid
+            left join ${schemaAssessment}.row r         on col.row_id = r.id
             left join ${schemaAssessment}.table t       on r.table_id = t.id
             where al.message in ('${ActivityLogMessage.nodeValueCalculatedUpdate}', '${ActivityLogMessage.nodeValueEstimate}', '${ActivityLogMessage.nodeValueUpdate}')
               and al.country_iso in ($1:csv)
