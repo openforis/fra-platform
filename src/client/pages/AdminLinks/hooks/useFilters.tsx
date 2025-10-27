@@ -23,6 +23,11 @@ export const useFilters = (): Returned => {
 
     return [
       {
+        fieldName: 'countries',
+        label: t('common.countries'),
+        type: TablePaginatedFilterType.COUNTRY,
+      },
+      {
         fieldName: 'codes',
         label: t('admin.lastStatus'),
         multiLabelSummaryKey: 'common.status',
