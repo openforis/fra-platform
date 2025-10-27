@@ -1,7 +1,7 @@
 import { NodeUpdates } from 'meta/data'
 
 import { DB } from 'server/db'
-import { AreaRedisRepository } from 'server/repository/redis/area'
+import { AreaRedisRepository } from 'server/cache/repository/area'
 import { Logger } from 'server/utils/logger'
 
 import { ContextFactory } from './context'

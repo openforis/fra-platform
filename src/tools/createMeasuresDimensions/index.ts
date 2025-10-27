@@ -13,9 +13,9 @@ import { Dimensions } from 'meta/measurement/dimensions'
 import { Measures } from 'meta/measurement/measures'
 import { SystemOfMeasurementName, systemsOfMeasurement } from 'meta/measurement/systemOfMeasurement'
 
-import { AssessmentController } from 'server/controller/assessment'
-import { CacheController } from 'server/controller/cache'
 import { BaseProtocol, DB, Schemas } from 'server/db'
+import { AssessmentController } from 'server/controller/assessment'
+import { CacheController } from 'server/cache/controller'
 import { SystemOfMeasurementRepository } from 'server/repository/measurement/systemOfMeasurement'
 
 const client: BaseProtocol = DB

@@ -1,6 +1,6 @@
+import { AssessmentRedisRepository } from 'server/cache/repository/assessment'
+import { MetaCacheRedisRepository } from 'server/cache/repository/metaCache'
 import { CycleRepository } from 'server/repository/assessmentCycle/cycle'
-import { AssessmentRedisRepository } from 'server/repository/redis/assessment'
-import { MetaCacheRedisRepository } from 'server/repository/redis/metaCache'
 
 import { cloneCycle } from './cloneCycle'
 import { create } from './create'
