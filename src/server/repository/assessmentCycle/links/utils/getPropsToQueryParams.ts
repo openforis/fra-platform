@@ -8,7 +8,7 @@ type Returned = { whereConditions: Array<string>; queryParams: LinksQueryParams 
 export const getPropsToQueryParams = (props: LinksGetManyProps): Returned => {
   const { filters = {}, limit, offset } = props
 
-  const { approved, codes, excludeDeleted = true } = filters
+  const { approved, codes, countries, excludeDeleted = true } = filters
 
   const queryParams: LinksQueryParams = { excludeDeleted }
 
@@ -16,6 +16,9 @@ export const getPropsToQueryParams = (props: LinksGetManyProps): Returned => {
 
   const hasCodes = !Objects.isEmpty(codes)
   if (hasCodes) queryParams.codes = codes
+
+  const hasCountries = !Objects.isEmpty(countries)
+  if (hasCountries) queryParams.countries = countries
 
   if (!Objects.isNil(limit)) queryParams.limit = limit
   if (!Objects.isNil(offset)) queryParams.offset = offset
@@ -30,6 +33,7 @@ export const getPropsToQueryParams = (props: LinksGetManyProps): Returned => {
       order by (v->>'timestamp')::bigint desc 
       limit 1
     ) in ($(codes:list))`,
+    hasCountries && `country_iso in ($(countries:list))`,
   ].filter(Boolean)
 
   return { queryParams, whereConditions }
