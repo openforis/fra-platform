@@ -7,7 +7,7 @@ import { countries } from './data/countries'
 export default async (): Promise<void> => {
   const pgp = pgPromise()
 
-  const cs = new pgp.helpers.ColumnSet(['country_iso', 'config'], { table: 'country' })
+  const cs = new pgp.helpers.ColumnSet(['country_iso'], { table: 'country' })
   const query = `${pgp.helpers.insert(countries, cs)} ON CONFLICT (country_iso) DO NOTHING`
 
   await DB.none(query)
