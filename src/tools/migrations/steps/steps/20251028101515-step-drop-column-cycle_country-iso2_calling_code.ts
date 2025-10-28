@@ -1,6 +1,5 @@
 import { Promises } from 'utils/promises'
 
-import { CacheController } from 'server/cache/controller'
 import { AssessmentController } from 'server/controller/assessment'
 import { DB } from 'server/db/db'
 import { Schemas } from 'server/db/schemas'
@@ -15,8 +14,6 @@ export default async (): Promise<void> => {
       const schemaCycle = Schemas.getNameCycle(assessment, cycle)
       await client.none(`alter table ${schemaCycle}.country drop column if exists country_iso2;`)
       await client.none(`alter table ${schemaCycle}.country drop column if exists calling_code;`)
-
-      await CacheController.generateArea({ assessment, cycle }, client)
     })
   })
 }
