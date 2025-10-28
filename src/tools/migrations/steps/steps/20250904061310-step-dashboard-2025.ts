@@ -10,9 +10,9 @@ import { Objects } from 'utils/objects'
 
 import { AssessmentNames } from 'meta/assessment/assessment'
 
-import { AssessmentController } from 'server/controller/assessment'
-import { CacheController } from 'server/controller/cache'
 import { BaseProtocol, Schemas } from 'server/db'
+import { AssessmentController } from 'server/controller/assessment'
+import { CacheController } from 'server/cache/controller'
 
 const assessmentName = AssessmentNames.fra
 const cycleName = '2025'

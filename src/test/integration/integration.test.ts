@@ -1,11 +1,11 @@
 import 'dotenv/config'
 
+import { DB } from 'server/db'
 import { VisitCycleLinksQueueFactory } from 'server/controller/cycleData/links/visitCycleLinks/queueFactory'
 import { WorkerFactory as VisitLinksWorkerFactory } from 'server/controller/cycleData/links/visitCycleLinks/workerFactory'
 import { UpdateDependenciesQueueFactory } from 'server/controller/cycleData/updateDependencies/queueFactory'
 import { WorkerFactory } from 'server/controller/cycleData/updateDependencies/workerFactory'
-import { DB } from 'server/db'
-import { RedisData } from 'server/repository/redis/redisData'
+import { RedisData } from 'server/cache/repository/redisData'
 
 import assessmentCreate from 'test/integration/assessment/createAssessment'
 import originalDataPoint from 'test/integration/assessment/originalDataPoint'

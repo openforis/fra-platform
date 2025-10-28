@@ -1,4 +1,4 @@
-import { ExplorerRedisRepository } from 'server/repository/redis/explorer'
+import { ExplorerRedisRepository } from 'server/cache/repository/explorer'
 
 export const ExplorerController = {
   getMetadata: ExplorerRedisRepository.getManyMetadata,

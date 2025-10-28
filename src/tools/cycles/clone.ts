@@ -7,13 +7,13 @@ import { ColProps, ColType } from 'meta/assessment/col'
 import { Cycle } from 'meta/assessment/cycle'
 import { Table } from 'meta/assessment/table'
 
+import { DB, Schemas } from 'server/db'
 import { AssessmentController } from 'server/controller/assessment'
-import { CacheController } from 'server/controller/cache'
 import { MetadataController } from 'server/controller/metadata'
 import { UserController } from 'server/controller/user'
-import { DB, Schemas } from 'server/db'
+import { CacheController } from 'server/cache/controller'
+import { TableRedisRepository } from 'server/cache/repository/table'
 import { TableRepository } from 'server/repository/assessment/table'
-import { TableRedisRepository } from 'server/repository/redis/table'
 
 const client = DB
 const assessmentName = AssessmentNames.fra

@@ -5,9 +5,9 @@ import { Cycle } from 'meta/assessment/cycle'
 import { User } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db'
+import { AreaRedisRepository } from 'server/cache/repository/area'
 import { CountryRepository } from 'server/repository/assessmentCycle/country'
 import { ActivityLogRepository } from 'server/repository/public/activityLog'
-import { AreaRedisRepository } from 'server/repository/redis/area'
 import { SocketService } from 'server/service/socket'
 
 type Props = {
