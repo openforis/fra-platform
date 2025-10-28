@@ -33,7 +33,7 @@ export const queryToCsvStream = <QueryResultRow>(
     if (rowTransformer) {
       transformStream = new Transform({
         objectMode: true,
-        transform(row: QueryResultRow, _encoding, callback) {
+        transform(row: QueryResultRow, _encoding, callback): void {
           try {
             const transformedRow = rowTransformer(row)
             callback(null, transformedRow)
@@ -47,8 +47,10 @@ export const queryToCsvStream = <QueryResultRow>(
     client
       .stream(queryStream, (stream) => {
         // pipeline requires a cb function to be passed, even if it does nothing.
-        const pipelineCallBack = (_err: NodeJS.ErrnoException) => {
-          Logger.error(_err)
+        const pipelineCallBack = (err?: NodeJS.ErrnoException | null): void => {
+          if (err) {
+            Logger.error(err)
+          }
         }
         if (transformStream) {
           resolve(pipeline(stream, transformStream, csvStream, pipelineCallBack))
