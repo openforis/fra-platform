@@ -1,8 +1,8 @@
 import { CycleStatus } from 'meta/assessment/cycle'
 
 import { AssessmentController } from 'server/controller/assessment'
-import { CacheController } from 'server/controller/cache'
 import { UserController } from 'server/controller/user'
+import { CacheController } from 'server/cache/controller'
 
 import { assessmentCycleName, assessmentParams } from 'test/integration/mock/assessment'
 import { userMockTest } from 'test/integration/mock/user'

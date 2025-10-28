@@ -4,10 +4,10 @@ import { ToolsUtils } from 'tools/utils/toolsUtils'
 
 import { Assessment, AssessmentNames } from 'meta/assessment/assessment'
 
-import { AssessmentController } from 'server/controller/assessment'
-import { CacheController } from 'server/controller/cache'
-import { UserController } from 'server/controller/user'
 import { DB, Schemas } from 'server/db'
+import { AssessmentController } from 'server/controller/assessment'
+import { UserController } from 'server/controller/user'
+import { CacheController } from 'server/cache/controller'
 
 const client = DB
 const assessmentName = AssessmentNames.fra

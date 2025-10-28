@@ -1,7 +1,7 @@
 import { Promises } from 'utils/promises'
 
-import { CacheController } from 'server/controller/cache'
 import { BaseProtocol, DB } from 'server/db'
+import { CacheController } from 'server/cache/controller'
 
 export default async (client: BaseProtocol): Promise<void> => {
   await DB.query(`alter table public.assessment drop column if exists meta_cache;`)

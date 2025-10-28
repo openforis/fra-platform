@@ -12,7 +12,7 @@ import { isODPVariable } from 'server/controller/cycleData/originalDataPoint/get
 import { BaseContextBuilder } from 'server/controller/cycleData/updateDependencies/context/baseContextBuilder'
 import { ContextBuilderProps } from 'server/controller/cycleData/updateDependencies/context/contextBuilderProps'
 import { DataContextBuilder } from 'server/controller/cycleData/updateDependencies/context/dataContextBuilder'
-import { RowRedisRepository } from 'server/repository/redis/row'
+import { RowRedisRepository } from 'server/cache/repository/row'
 
 import { Context } from './context'
 

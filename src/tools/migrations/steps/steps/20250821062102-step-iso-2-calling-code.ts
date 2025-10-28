@@ -5,9 +5,9 @@ import { Promises } from 'utils/promises'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 
-import { AssessmentController } from 'server/controller/assessment'
-import { CacheController } from 'server/controller/cache'
 import { DB, Schemas } from 'server/db'
+import { AssessmentController } from 'server/controller/assessment'
+import { CacheController } from 'server/cache/controller'
 
 const csv = `
 iso3,iso2,calling_code

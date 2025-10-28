@@ -2,8 +2,8 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 
 import { BaseProtocol, DB } from 'server/db'
-import { RowRedisRepository } from 'server/repository/redis/row'
-import { SectionRedisRepository } from 'server/repository/redis/section'
+import { RowRedisRepository } from 'server/cache/repository/row'
+import { SectionRedisRepository } from 'server/cache/repository/section'
 import { Logger } from 'server/utils/logger'
 
 type Props = {
@@ -12,7 +12,7 @@ type Props = {
   cycleTarget: Cycle
 }
 
-export const renameMetadataCache = async (props: Props, client: BaseProtocol = DB) => {
+export const renameMetadataCache = async (props: Props, client: BaseProtocol = DB): Promise<void> => {
   const { assessment, cycleSource, cycleTarget } = props
   const { name: assessmentName } = assessment.props
   const { name: cycleName } = cycleTarget
