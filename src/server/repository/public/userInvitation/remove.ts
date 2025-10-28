@@ -2,14 +2,13 @@ import { Objects } from 'utils/objects'
 
 import { UserInvitation } from 'meta/user'
 
-import { BaseProtocol } from 'server/db'
-import { DB } from 'server/db/db'
+import { BaseProtocol, DB } from 'server/db/db'
 
 type Props = {
   invitationUuid: UserInvitation['uuid']
 }
 
-export const remove = async (props: Props, client: BaseProtocol = DB) => {
+export const remove = async (props: Props, client: BaseProtocol = DB): Promise<UserInvitation> => {
   const { invitationUuid } = props
 
   return client.one<UserInvitation>(

@@ -12,8 +12,8 @@ import { CountryIso } from 'meta/area'
 import { NodeValue } from 'meta/assessment/node'
 import { NodeExtType } from 'meta/nodeExt'
 
+import { BaseProtocol, DB } from 'server/db/db'
 import { UserController } from 'server/controller/user'
-import { BaseProtocol, DB } from 'server/db'
 import { Logger } from 'server/utils/logger'
 
 const totalLandAreaFile = 'total_land_area.csv' as const

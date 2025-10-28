@@ -7,7 +7,8 @@ import { Cycle } from 'meta/assessment/cycle'
 import { Cycles } from 'meta/assessment/cycles'
 import { RecordAssessmentData } from 'meta/data'
 
-import { BaseProtocol, DB, Schemas } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
+import { Schemas } from 'server/db/schemas'
 import { NodeExtQueries } from 'server/repository/assessmentCycle/nodeExt/queries'
 import { OriginalDataPointQueries } from 'server/repository/assessmentCycle/originalDataPoint/queries'
 

@@ -1,7 +1,7 @@
 import { CountryIso } from 'meta/area'
 import { Bounds } from 'meta/geo'
 
-import { BaseProtocol, DB } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
 import { BoundsRepository } from 'server/repository/geo/bounds'
 
 type Props = { countryIso: CountryIso }

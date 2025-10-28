@@ -3,7 +3,7 @@ import { Objects } from 'utils/objects'
 
 import { Unit } from 'meta/measurement/unit'
 
-import { BaseProtocol, DB } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
 
 type Props = {
   units: Array<Omit<Unit, 'uuid'>>

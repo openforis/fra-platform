@@ -3,7 +3,7 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { NodeValuesEstimation } from 'meta/assessment/nodeValuesEstimation'
 
-import { BaseProtocol, DB } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
 import { TableRepository } from 'server/repository/assessment/table'
 import { NodeValueEstimationRepository } from 'server/repository/assessmentCycle/nodeValueEstimationRepository'
 

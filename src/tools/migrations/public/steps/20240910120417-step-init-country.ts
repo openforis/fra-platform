@@ -1,6 +1,6 @@
 import * as pgPromise from 'pg-promise'
 
-import { DB } from 'server/db'
+import { DB } from 'server/db/db'
 
 import { countries } from './data/countries'
 

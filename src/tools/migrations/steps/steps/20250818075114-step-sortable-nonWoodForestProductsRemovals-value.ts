@@ -4,12 +4,13 @@ import { Assessment, AssessmentNames } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { TableNames, TableProps } from 'meta/assessment/table'
 
+import { BaseProtocol } from 'server/db/db'
+import { Schemas } from 'server/db/schemas'
 import { AssessmentController } from 'server/controller/assessment'
-import { CacheController } from 'server/controller/cache'
-import { BaseProtocol, Schemas } from 'server/db'
+import { CacheController } from 'server/cache/controller'
+import { TableRedisRepository } from 'server/cache/repository/table'
 import { ColRepository } from 'server/repository/assessment/col'
 import { TableRepository } from 'server/repository/assessment/table'
-import { TableRedisRepository } from 'server/repository/redis/table'
 
 const assessmentName = AssessmentNames.fra
 const cycleNames = ['2025', 'latest']

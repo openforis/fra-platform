@@ -5,7 +5,8 @@ import { Cycle } from 'meta/assessment/cycle'
 import { Message, MessageTopic } from 'meta/messageCenter'
 import { User } from 'meta/user'
 
-import { BaseProtocol, DB, Schemas } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
+import { Schemas } from 'server/db/schemas'
 
 export const create = async (
   props: { assessment: Assessment; cycle: Cycle; message: string; topic: MessageTopic; user: User },

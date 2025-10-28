@@ -2,7 +2,7 @@ import { Objects } from 'utils/objects'
 
 import { SystemOfMeasurementDB } from 'meta/measurement/systemOfMeasurement'
 
-import { BaseProtocol, DB } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
 
 type Props = Omit<SystemOfMeasurementDB, 'uuid'>
 

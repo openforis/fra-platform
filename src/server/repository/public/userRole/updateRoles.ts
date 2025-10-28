@@ -9,7 +9,7 @@ import { User } from 'meta/user/user'
 import { RoleName, UserRole } from 'meta/user/userRole'
 import { UserRoles } from 'meta/user/userRoles'
 
-import { BaseProtocol, DB } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
 import { UserRoleAdapter } from 'server/repository/adapter'
 
 type Props = {

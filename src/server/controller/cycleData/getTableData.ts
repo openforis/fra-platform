@@ -1,7 +1,7 @@
 import { RecordAssessmentData } from 'meta/data'
 
-import { BaseProtocol, DB } from 'server/db'
-import { DataRedisRepository } from 'server/repository/redis/data'
+import { BaseProtocol, DB } from 'server/db/db'
+import { DataRedisRepository } from 'server/cache/repository/data'
 
 import { mergeOdpCountryData } from './tableData/_mergeOdpCountryData'
 import { getTablesCondition } from './tableData/_tablesCondition'

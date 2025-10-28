@@ -3,7 +3,8 @@ import { Cycle } from 'meta/assessment/cycle'
 import { Row, RowProps } from 'meta/assessment/row'
 import { Table } from 'meta/assessment/table'
 
-import { BaseProtocol, DB, Schemas } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
+import { Schemas } from 'server/db/schemas'
 import { RowAdapter } from 'server/repository/adapter'
 
 type Props = {

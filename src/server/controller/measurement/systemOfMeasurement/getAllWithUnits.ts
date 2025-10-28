@@ -1,6 +1,6 @@
 import { SystemOfMeasurement } from 'meta/measurement/systemOfMeasurement/systemOfMeasurement'
 
-import { BaseProtocol, DB } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
 import { SystemOfMeasurementRepository } from 'server/repository/measurement/systemOfMeasurement'
 import { UnitRepository } from 'server/repository/measurement/unit'
 

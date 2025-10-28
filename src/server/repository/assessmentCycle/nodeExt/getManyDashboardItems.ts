@@ -3,7 +3,8 @@ import { Cycle } from 'meta/assessment/cycle'
 import { DashboardItem, DashboardItemType } from 'meta/dashboard'
 import { NodeExtType } from 'meta/nodeExt'
 
-import { BaseProtocol, DB, Schemas } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
+import { Schemas } from 'server/db/schemas'
 
 type Props = { assessment: Assessment; cycle: Cycle; region?: boolean }
 

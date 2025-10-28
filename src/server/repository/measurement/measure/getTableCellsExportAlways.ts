@@ -7,7 +7,8 @@ import { ExplorerMetadata } from 'meta/explorer/metadata'
 import { Dimensions } from 'meta/measurement/dimensions'
 import { Measures } from 'meta/measurement/measures'
 
-import { BaseProtocol, DB, Schemas } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
+import { Schemas } from 'server/db/schemas'
 
 type Props = {
   assessment: Assessment

@@ -2,7 +2,7 @@ import { Objects } from 'utils/objects'
 
 import { UserInvitation } from 'meta/user'
 
-import { BaseProtocol, DB } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
 
 export const getOne = async (props: { invitationUuid: string }, client: BaseProtocol = DB): Promise<UserInvitation> => {
   const { invitationUuid } = props

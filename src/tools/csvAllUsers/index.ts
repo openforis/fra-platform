@@ -7,9 +7,9 @@ import { Objects } from 'utils/objects'
 import { AssessmentNames } from 'meta/assessment/assessment'
 import { RoleName, User } from 'meta/user'
 
+import { BaseProtocol, DB } from 'server/db/db'
 import { AssessmentController } from 'server/controller/assessment'
 import { UserController } from 'server/controller/user'
-import { BaseProtocol, DB } from 'server/db'
 
 const client: BaseProtocol = DB
 
@@ -36,7 +36,7 @@ const _flattenUsers = (user: User): Array<Record<string, unknown>> => {
     })
 }
 
-const _removeFields = (userFlat: Record<string, unknown>) => {
+const _removeFields = (userFlat: Record<string, unknown>): Record<string, unknown> => {
   const fieldsToRemove = [
     'id',
     'uuid',
@@ -66,7 +66,7 @@ const _escapeCSVField = (field: unknown): string => {
   return str
 }
 
-const _normalizeData = (data: Array<Record<string, unknown>>) => {
+const _normalizeData = (data: Array<Record<string, unknown>>): Array<Record<string, unknown>> => {
   const allKeys = new Set<string>()
 
   data.forEach((obj) => {
@@ -82,7 +82,7 @@ const _normalizeData = (data: Array<Record<string, unknown>>) => {
   })
 }
 
-const main = async () => {
+const main = async (): Promise<void> => {
   const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName }, client)
 
   const users = await UserController.getMany({ assessment, cycle, filters: { roles } })

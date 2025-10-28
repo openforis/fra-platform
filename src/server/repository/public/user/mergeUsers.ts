@@ -1,7 +1,8 @@
 import { Assessment } from 'meta/assessment/assessment'
 import { User } from 'meta/user'
 
-import { BaseProtocol, DB, Schemas } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
+import { Schemas } from 'server/db/schemas'
 import { getOne } from 'server/repository/public/user/getOne'
 import { remove } from 'server/repository/public/user/remove'
 

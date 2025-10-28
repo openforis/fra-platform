@@ -1,8 +1,8 @@
 import '../scriptInit'
 
-import { CacheController } from 'server/controller/cache'
-import { DB } from 'server/db'
-import { RedisData } from 'server/repository/redis/redisData'
+import { DB } from 'server/db/db'
+import { CacheController } from 'server/cache/controller'
+import { RedisData } from 'server/cache/repository/redisData'
 import { Logger } from 'server/utils/logger'
 
 const exec = async (): Promise<void> => {

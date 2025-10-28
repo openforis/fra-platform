@@ -5,7 +5,7 @@ import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 import { Topics } from 'meta/messageCenter'
 import { User } from 'meta/user'
 
-import { BaseProtocol, DB } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
 import { DescriptionRepository } from 'server/repository/assessmentCycle/descriptions'
 import { MessageTopicRepository } from 'server/repository/assessmentCycle/messageTopic'
 

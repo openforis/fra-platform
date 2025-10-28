@@ -2,7 +2,7 @@ import { Objects } from 'utils/objects'
 
 import { User } from 'meta/user'
 
-import { BaseProtocol, DB } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
 
 // TODO: handle selection by id
 export const remove = async (props: { user: Pick<User, 'email'> }, client: BaseProtocol = DB): Promise<User> => {

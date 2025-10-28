@@ -3,13 +3,13 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { User } from 'meta/user'
 
+import { BaseProtocol, DB } from 'server/db/db'
 import { renameDataCache } from 'server/controller/assessment/renameCycle/renameDataCache'
 import { renameMetadataCache } from 'server/controller/assessment/renameCycle/renameMetadataCache'
-import { CacheController } from 'server/controller/cache'
-import { BaseProtocol, DB } from 'server/db'
+import { CacheController } from 'server/cache/controller'
+import { AssessmentRedisRepository } from 'server/cache/repository/assessment'
 import { CycleRepository } from 'server/repository/assessmentCycle/cycle'
 import { ActivityLogRepository } from 'server/repository/public/activityLog'
-import { AssessmentRedisRepository } from 'server/repository/redis/assessment'
 import { StaticFiles } from 'server/static/staticFiles'
 
 type Props = {

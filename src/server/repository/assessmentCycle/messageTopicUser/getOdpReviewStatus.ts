@@ -7,7 +7,8 @@ import { ReviewStatus } from 'meta/assessment/review'
 import { Topics } from 'meta/messageCenter'
 import { User } from 'meta/user'
 
-import { BaseProtocol, DB, Schemas } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
+import { Schemas } from 'server/db/schemas'
 
 export const getOdpReviewStatus = async (
   props: { countryIso: CountryIso; assessment: Assessment; cycle: Cycle; odpId?: string; user: User },

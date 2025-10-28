@@ -1,7 +1,8 @@
 import { Assessment } from 'meta/assessment/assessment'
 import { RowCache } from 'meta/assessment/rowCache'
 
-import { BaseProtocol, DB, Schemas } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
+import { Schemas } from 'server/db/schemas'
 import { RowCacheAdapter } from 'server/repository/adapter'
 
 type Props = {

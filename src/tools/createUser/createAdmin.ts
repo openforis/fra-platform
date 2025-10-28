@@ -1,8 +1,8 @@
 import 'tsconfig-paths/register'
 import 'dotenv/config'
 
+import { DB } from 'server/db/db'
 import { passwordHash } from 'server/api/auth/utils/passwordUtils'
-import { DB } from 'server/db'
 import { Logger } from 'server/utils/logger'
 
 const ADMIN = {
@@ -11,7 +11,7 @@ const ADMIN = {
   password: 'admin1234',
 }
 
-const exec = async () => {
+const exec = async (): Promise<void> => {
   const password = await passwordHash(ADMIN.password)
   const user = await DB.one(
     `

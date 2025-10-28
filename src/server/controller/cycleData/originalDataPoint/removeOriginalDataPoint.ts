@@ -7,7 +7,7 @@ import { Topics } from 'meta/messageCenter'
 import { Sockets } from 'meta/socket'
 import { User } from 'meta/user'
 
-import { BaseProtocol, DB } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
 import { MessageTopicRepository } from 'server/repository/assessmentCycle/messageTopic'
 import { OriginalDataPointRepository } from 'server/repository/assessmentCycle/originalDataPoint'
 import { ActivityLogRepository } from 'server/repository/public/activityLog'

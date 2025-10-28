@@ -6,7 +6,8 @@ import { Section, SubSection } from 'meta/assessment/section'
 import { Sections } from 'meta/assessment/sections'
 import { SubSections } from 'meta/assessment/subSections'
 
-import { BaseProtocol, DB, Schemas } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
+import { Schemas } from 'server/db/schemas'
 
 type Props = {
   assessment: Assessment

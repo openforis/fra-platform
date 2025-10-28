@@ -1,6 +1,6 @@
 import { Assessment } from 'meta/assessment/assessment'
 
-import { BaseProtocol, DB } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
 
 export const removeAssessment = async (
   params: {

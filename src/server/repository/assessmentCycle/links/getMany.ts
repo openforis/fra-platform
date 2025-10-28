@@ -3,9 +3,13 @@ import { Objects } from 'utils/objects'
 import { Link } from 'meta/cycleData'
 import { TablePaginatedOrderByDirection } from 'meta/tablePaginated'
 
-import { BaseProtocol, DB, Schemas } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
+import { Schemas } from 'server/db/schemas'
 import { LinksGetManyProps } from 'server/repository/assessmentCycle/links/linksGetManyProps'
+import { LinksQueryParams } from 'server/repository/assessmentCycle/links/LinksQueryParams'
 import { getPropsToQueryParams } from 'server/repository/assessmentCycle/links/utils/getPropsToQueryParams'
+
+type BuildQueryReturned = { query: string; queryParams: LinksQueryParams }
 
 const _getOrderClause = (
   orderBy: string | undefined,
@@ -20,7 +24,7 @@ const _getOrderClause = (
   return `order by ${orderBy} ${direction}`
 }
 
-export const getMany = (props: LinksGetManyProps, client: BaseProtocol = DB): Promise<Array<Link>> => {
+export const buildGetManyQuery = (props: LinksGetManyProps): BuildQueryReturned => {
   const { assessment, cycle, orderBy, orderByDirection } = props
 
   const order = _getOrderClause(orderBy, orderByDirection)
@@ -28,17 +32,20 @@ export const getMany = (props: LinksGetManyProps, client: BaseProtocol = DB): Pr
   const { queryParams, whereConditions } = getPropsToQueryParams(props)
 
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
-
-  return client.map<Link>(
-    `
+  const query = `
         select *
         from ${schemaCycle}.link
         where ${whereConditions.join(' and ')}
         ${order}
         ${queryParams.limit ? `limit $(limit)` : ''}
         ${queryParams.offset ? `offset $(offset)` : ''}
-     `,
-    queryParams,
-    (row) => Objects.camelize(row)
-  )
+     `
+
+  return { query, queryParams }
+}
+
+export const getMany = (props: LinksGetManyProps, client: BaseProtocol = DB): Promise<Array<Link>> => {
+  const { query, queryParams } = buildGetManyQuery(props)
+
+  return client.map<Link>(query, queryParams, (row) => Objects.camelize(row))
 }

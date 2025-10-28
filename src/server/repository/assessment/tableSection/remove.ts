@@ -3,7 +3,8 @@ import { Objects } from 'utils/objects'
 import { Assessment } from 'meta/assessment/assessment'
 import { TableSection } from 'meta/assessment/tableSection'
 
-import { BaseProtocol, DB, Schemas } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
+import { Schemas } from 'server/db/schemas'
 
 // remove item from table_section table
 export const remove = async (

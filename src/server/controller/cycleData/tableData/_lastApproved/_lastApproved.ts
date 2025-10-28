@@ -3,7 +3,7 @@ import { Objects } from 'utils/objects'
 import { TableNames } from 'meta/assessment/table'
 import { RecordAssessmentData } from 'meta/data'
 
-import { BaseProtocol } from 'server/db'
+import { BaseProtocol } from 'server/db/db'
 import { DataRepository } from 'server/repository/assessmentCycle/data'
 
 import { mergeOdpCountryData } from '../_mergeOdpCountryData'

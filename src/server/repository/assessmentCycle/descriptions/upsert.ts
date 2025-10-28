@@ -5,7 +5,8 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { CommentableDescriptionName, CommentableDescriptionValue } from 'meta/assessment/descriptionValue'
 
-import { BaseProtocol, DB, Schemas } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
+import { Schemas } from 'server/db/schemas'
 
 export const upsert = async (
   props: {
