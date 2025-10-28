@@ -1,4 +1,4 @@
-import { DB } from 'server/db'
+import { DB } from 'server/db/db'
 
 export default async (): Promise<void> => {
   // drop paneuropean 2020 odp tables/views
