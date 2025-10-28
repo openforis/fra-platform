@@ -31,7 +31,7 @@ const init = async (server: http.Server): Promise<void> => {
   })
 }
 
-const emit = (event: string, ...args: any[]) => {
+const emit = (event: string, ...args: Array<any>): void => {
   io.emit(event, args)
 }
 

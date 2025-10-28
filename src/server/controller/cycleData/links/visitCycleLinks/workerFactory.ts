@@ -7,7 +7,7 @@ import { Cycle } from 'meta/assessment/cycle'
 import { SectionNames } from 'meta/routes/sectionNames'
 import { Sockets } from 'meta/socket'
 
-import { ActivityLogRepository } from 'server/repository/public/activityLog'
+import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 import { SocketServer } from 'server/service/socket'
 import { ProcessEnv } from 'server/utils'
 import { Logger } from 'server/utils/logger'
@@ -30,7 +30,7 @@ type EmitEventProps = {
   event: keyof WorkerListener
 }
 
-const _emitEvent = (props: EmitEventProps) => {
+const _emitEvent = (props: EmitEventProps): void => {
   const { assessment, cycle, event } = props
   const linksVerificationEvent = Sockets.getLinksVerificationEvent({
     assessmentName: assessment.props.name,
@@ -39,7 +39,7 @@ const _emitEvent = (props: EmitEventProps) => {
   SocketServer.emit(linksVerificationEvent, { event })
 }
 
-const newInstance = (props: { key: string }) => {
+const newInstance = (props: { key: string }): Worker<VisitCycleLinksProps> => {
   const { key } = props
 
   const worker = new Worker<VisitCycleLinksProps>(key, workerProcessor, workerOptions)

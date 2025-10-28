@@ -5,7 +5,7 @@ import { LayerRequest } from 'meta/api/request'
 import { GeoController } from 'server/controller/geo'
 import Requests from 'server/utils/requests'
 
-export const getProtectedAreaLayer = async (req: LayerRequest, res: Response) => {
+export const getProtectedAreaLayer = async (req: LayerRequest, res: Response): Promise<void> => {
   try {
     const layer = await GeoController.getProtectedAreaLayer(req.body)
     Requests.sendOk(res, layer)

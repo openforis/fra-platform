@@ -16,7 +16,7 @@ export const oneToOneMessage = async (props: {
   recipient: User
   sender: User
   url: string
-}) => {
+}): Promise<void> => {
   const { assessmentName, countryIso, cycleName, recipient, sender, url } = props
 
   const i18n = await createI18nPromise(Lang.en)

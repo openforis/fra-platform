@@ -1,8 +1,8 @@
 import { User, UsersEmail } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db/db'
-import { UserRepository } from 'server/repository/public/user'
-import { UserInvitationRepository } from 'server/repository/public/userInvitation'
+import { UserRepository } from 'server/db/repository/public/user'
+import { UserInvitationRepository } from 'server/db/repository/public/userInvitation'
 
 import { acceptInvitation } from './acceptInvitation'
 import { changePassword } from './changePassword'

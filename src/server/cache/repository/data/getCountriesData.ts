@@ -5,10 +5,10 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { RecordColumnData, RecordCountryData, TablesCondition } from 'meta/data'
 
-import { BaseProtocol, DB } from 'server/db/db'
 import { cacheCountryTable } from 'server/cache/repository/data/cacheCountryTable'
 import { getKeyCountry, Keys } from 'server/cache/repository/keys'
 import { RedisData } from 'server/cache/repository/redisData'
+import { BaseProtocol, DB } from 'server/db/db'
 
 type Props = {
   assessment: Assessment

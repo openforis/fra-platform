@@ -5,7 +5,7 @@ import { LayerRequest } from 'meta/api/request'
 import { GeoController } from 'server/controller/geo'
 import Requests from 'server/utils/requests'
 
-export const getBurnedAreaLayer = async (req: LayerRequest, res: Response) => {
+export const getBurnedAreaLayer = async (req: LayerRequest, res: Response): Promise<void> => {
   try {
     const layer = await GeoController.getBurnedAreaLayer(req.body)
     Requests.sendOk(res, layer)

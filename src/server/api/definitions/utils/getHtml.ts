@@ -2,7 +2,7 @@ import * as fs from 'fs'
 import { marked } from 'marked'
 
 type Props = { assessmentName: string; cycleName: string; lang: string; name: string }
-const getDefinition = (props: Props) => {
+const getDefinition = (props: Props): Promise<string> => {
   const { assessmentName, cycleName, lang, name } = props
   return fs.promises.readFile(
     `${__dirname}/../../../static/definitions/${assessmentName}/${cycleName}/${lang}/${name}.md`,
@@ -28,7 +28,7 @@ export const getHtml = async (props: Props): Promise<string> => {
 
   const toc: Array<Record<string, string>> = []
   const renderer = new marked.Renderer()
-  renderer.heading = function (text: string, level: number) {
+  renderer.heading = function (text: string, level: number): string {
     if (level < 3) {
       const { anchor, text: newText } = _getAnchorAndTextFromHeader(text)
       toc.push({

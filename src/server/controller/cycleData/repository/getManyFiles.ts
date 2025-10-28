@@ -7,8 +7,8 @@ import { Cycle } from 'meta/assessment/cycle'
 import { Lang } from 'meta/lang'
 import { Translations } from 'meta/translation'
 
-import { RepositoryRepository } from 'server/repository/assessmentCycle/repository'
-import { FileRepository } from 'server/repository/public/file'
+import { RepositoryRepository } from 'server/db/repository/assessmentCycle/repository'
+import { FileRepository } from 'server/db/repository/public/file'
 import { FileStorage } from 'server/service/fileStorage'
 
 type Props = {

@@ -42,7 +42,7 @@ export const visitLinks = async (links: Array<LinkToVisit>): Promise<Array<Visit
   const visitedLinks: Array<VisitedLink> = []
   const BATCH_SIZE = 50 // Preventing thousands of dns lookups at the same time
 
-  const visitBatch = async (batch: Array<LinkToVisit>) => {
+  const visitBatch = async (batch: Array<LinkToVisit>): Promise<any> => {
     const promises = batch.map(async (link) => {
       const cachedStatusCode = dnsLookupCache.get(link.link)
       if (cachedStatusCode !== undefined) {

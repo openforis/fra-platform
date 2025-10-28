@@ -1,10 +1,10 @@
 import { ActivityLog, ActivityLogMessage } from 'meta/assessment/activityLog'
 import { User } from 'meta/user'
 
-import { DB } from 'server/db/db'
 import { AssessmentRedisRepository } from 'server/cache/repository/assessment'
-import { ActivityLogRepository } from 'server/repository/public/activityLog'
-import { UserRepository } from 'server/repository/public/user'
+import { DB } from 'server/db/db'
+import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
+import { UserRepository } from 'server/db/repository/public/user'
 
 type Props = {
   user: User

@@ -9,7 +9,7 @@ import { Routes } from 'meta/routes'
 import { RoleName, User, Users } from 'meta/user'
 import { UserRoles } from 'meta/user/userRoles'
 
-import { UserRepository } from 'server/repository/public/user'
+import { UserRepository } from 'server/db/repository/public/user'
 import { ProcessEnv } from 'server/utils'
 
 import { sendMail } from './mail'
@@ -24,7 +24,9 @@ type CreateMailProps = {
   countryIso: CountryIso
   cycleName: string
 }
-const createMail = async (props: CreateMailProps) => {
+const createMail = async (
+  props: CreateMailProps
+): Promise<{ html: string; subject: string; text: string; to: string }> => {
   const { assessmentName, countryIso, cycleName, message, recipient, status, url, user } = props
 
   const i18n = await createI18nPromise(recipient.props.lang ?? Lang.en)
@@ -51,8 +53,7 @@ const createMail = async (props: CreateMailProps) => {
     emailLocalizationParameters
   )}</p>`
 
-  const mail = { to, subject, text, html }
-  return mail
+  return { to, subject, text, html }
 }
 
 const getCountryUsers = async (props: {
@@ -72,7 +73,7 @@ const getRecipients = async (props: {
   notifySelf: boolean
   notifyUsers: boolean
   user: User
-}) => {
+}): Promise<Array<User>> => {
   const { countryISOs, cycle, notifySelf, notifyUsers, status, user } = props
   if (!notifyUsers) {
     return notifySelf ? [user] : []
@@ -84,7 +85,7 @@ const getRecipients = async (props: {
   const adminsPromise = roles.includes(RoleName.ADMINISTRATOR) ? UserRepository.getAdmins() : undefined
   const [recipients, admins = []] = await Promise.all([recipientsPromise, adminsPromise])
 
-  let uniqueRecipients: User[] = Arrays.uniqueBy([...recipients, ...(admins ?? [])], 'id')
+  let uniqueRecipients: Array<User> = Arrays.uniqueBy([...recipients, ...(admins ?? [])], 'id')
 
   if (!notifySelf) {
     uniqueRecipients = uniqueRecipients.filter((recipient) => recipient.id !== user.id)
@@ -104,7 +105,7 @@ export const assessmentNotifyUsers = async (props: {
   cycle: Cycle
   notifySelf: boolean
   notifyUsers: boolean
-}) => {
+}): Promise<void> => {
   const {
     assessmentName,
     country: {

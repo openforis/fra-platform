@@ -8,9 +8,9 @@ import { Sockets } from 'meta/socket'
 import { User } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db/db'
-import { MessageTopicRepository } from 'server/repository/assessmentCycle/messageTopic'
-import { OriginalDataPointRepository } from 'server/repository/assessmentCycle/originalDataPoint'
-import { ActivityLogRepository } from 'server/repository/public/activityLog'
+import { MessageTopicRepository } from 'server/db/repository/assessmentCycle/messageTopic'
+import { OriginalDataPointRepository } from 'server/db/repository/assessmentCycle/originalDataPoint'
+import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 import { CountryService } from 'server/service/country'
 import { SocketServer } from 'server/service/socket'
 

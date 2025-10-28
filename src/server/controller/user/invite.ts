@@ -6,9 +6,9 @@ import { UserInvitationForm } from 'meta/form/userInvitation/form'
 import { User, UserInvitation } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db/db'
-import { ActivityLogRepository } from 'server/repository/public/activityLog'
-import { UserRepository } from 'server/repository/public/user'
-import { UserInvitationRepository } from 'server/repository/public/userInvitation'
+import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
+import { UserRepository } from 'server/db/repository/public/user'
+import { UserInvitationRepository } from 'server/db/repository/public/userInvitation'
 import { MailService } from 'server/service'
 
 type Props = {

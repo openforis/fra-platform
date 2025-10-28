@@ -2,7 +2,8 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { User } from 'meta/user'
 
-import { BaseProtocol, DB } from 'server/db/db'
+import { CacheController } from 'server/cache/controller'
+import { AssessmentRedisRepository } from 'server/cache/repository/assessment'
 import { cloneAreas } from 'server/controller/assessment/cloneCycle/_cloneAreas'
 import { cloneData } from 'server/controller/assessment/cloneCycle/_cloneData'
 import { cloneMetadata } from 'server/controller/assessment/cloneCycle/_cloneMetadata'
@@ -10,8 +11,7 @@ import { cloneUserRoles } from 'server/controller/assessment/cloneCycle/_cloneUs
 import { generateMaterializedViews } from 'server/controller/assessment/cloneCycle/_generateMaterializedViews'
 import { CloneProps } from 'server/controller/assessment/cloneCycle/types'
 import { createCycle } from 'server/controller/assessment/createCycle'
-import { CacheController } from 'server/cache/controller'
-import { AssessmentRedisRepository } from 'server/cache/repository/assessment'
+import { BaseProtocol, DB } from 'server/db/db'
 import { StaticFiles } from 'server/static/staticFiles'
 
 type Props = {

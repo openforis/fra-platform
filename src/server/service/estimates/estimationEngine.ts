@@ -11,7 +11,7 @@ import { NodeUpdate, RecordCountryData } from 'meta/data'
  * @deprecated
  * TODO: add api middleware to validate estimation in request.body
  */
-const assert = (condition: any, message: string) => {
+const assert = (condition: any, message: string): void => {
   if (!condition) {
     throw message
   }
@@ -89,12 +89,12 @@ export const linearExtrapolationBackwards = (
   yb: BigNumberInput
 ): BigNumber => Numbers.add(yb, Numbers.mul(Numbers.div(Numbers.sub(xb, x), Numbers.sub(xb, xa)), Numbers.sub(ya, yb)))
 
-export const getNextValues = (year: number, values: ValueArray) =>
+export const getNextValues = (year: number, values: ValueArray): Array<Deprecated_TableDatum> =>
   values
     .filter((v: Deprecated_TableDatum) => v.year > year)
     .sort((a: Deprecated_TableDatum, b: Deprecated_TableDatum) => a.year - b.year)
 
-export const getPreviousValues = (year: number, values: ValueArray) =>
+export const getPreviousValues = (year: number, values: ValueArray): Array<Deprecated_TableDatum> =>
   values.filter((v) => v.year < year).sort((a, b) => b.year - a.year)
 
 export const applyEstimationFunction = (
@@ -102,7 +102,7 @@ export const applyEstimationFunction = (
   pointA: Deprecated_TableDatum,
   pointB: Deprecated_TableDatum,
   field: Field,
-  estFunction: (...params: any[]) => BigNumber
+  estFunction: (...params: Array<any>) => BigNumber
 ): number => {
   const estimated = estFunction(year, pointA.year, pointA[field], pointB.year, pointB[field])
 
@@ -163,7 +163,7 @@ export const annualChangeExtrapolation = (
   return null
 }
 
-export const generateMethods: Record<string, (...params: any[]) => number> = {
+export const generateMethods: Record<string, (...params: Array<any>) => number> = {
   linear: linearExtrapolation,
   repeatLast: repeatLastExtrapolation,
   annualChange: annualChangeExtrapolation,
@@ -175,7 +175,7 @@ export const extrapolate = (
   odpValues: ODPValueArray,
   field: keyof Deprecated_TableDatum,
   generateSpec: Partial<GenerateSpec>
-) => {
+): number => {
   const extrapolationMethod = generateMethods[generateSpec.method]
   assert(extrapolationMethod, `Invalid extrapolation method: ${generateSpec.method}`)
   return extrapolationMethod(year, values, odpValues, field, generateSpec)
@@ -211,10 +211,10 @@ export const estimateFraValue = (
   odpValues: ODPValueArray,
   generateSpec: Partial<GenerateSpec>
 ): Deprecated_TableDatum => {
-  const estimateFieldReducer = (newFraObj: Deprecated_TableDatum, field: Field) => {
+  const estimateFieldReducer = (newFraObj: Deprecated_TableDatum, field: Field): any => {
     const fraEstimatedYears = values.filter((v) => v.store).map((v) => v.year)
 
-    const isEstimatedOdp = (v: Deprecated_TableDatum) => v.type === 'odp' && fraEstimatedYears.includes(v.year)
+    const isEstimatedOdp = (v: Deprecated_TableDatum): boolean => v.type === 'odp' && fraEstimatedYears.includes(v.year)
 
     // Filtering out objects with field value null or already estimated
     const fieldValues = values.filter((v: Deprecated_TableDatum) => !v[field] || !isEstimatedOdp(v))
@@ -239,11 +239,11 @@ export const estimateFraValue = (
 /**
  * @deprecated
  */
-const translateObjectToOldFormat = (x: any) => {
+const translateObjectToOldFormat = (x: any): any => {
   const newData: any = []
   Object.entries(x).forEach(([countryIso, countryValues]) => {
     Object.entries(countryValues).forEach(([_section, sectionValues]) => {
-      Object.entries(sectionValues).forEach(([year, yearValues]: any[]) => {
+      Object.entries(sectionValues).forEach(([year, yearValues]: Array<any>) => {
         newData.push({
           countryIso,
           year: Number(year),
@@ -268,9 +268,9 @@ const translateObjectToOldFormat = (x: any) => {
  * @deprecated
  */
 const formatArray = (
-  arr: Deprecated_TableDatum[],
+  arr: Array<Deprecated_TableDatum>,
   tableName: string,
-  fields: string[],
+  fields: Array<string>,
   estimation: NodeValuesEstimation
 ): Array<NodeUpdate> => {
   const res: Array<NodeUpdate> = []
@@ -303,7 +303,7 @@ export const estimateValues = (
   estimation: NodeValuesEstimation
 ): Array<NodeUpdate> => {
   const translatedData = translateObjectToOldFormat(values)
-  const result: Deprecated_TableDatum[] = years
+  const result: Array<Deprecated_TableDatum> = years
     .reduce<ValueArray>((values, year) => {
       const newValue = estimateFraValue(year, values, translatedData, generateSpec)
       return [...values, newValue]

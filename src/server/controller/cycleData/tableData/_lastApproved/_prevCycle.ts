@@ -4,10 +4,10 @@ import { TableName } from 'meta/assessment/table'
 import { HistoryLastApprovedInfo } from 'meta/cycleData/historyLastApproved'
 import { RecordAssessmentData, RecordAssessmentDatas } from 'meta/data'
 
-import { BaseProtocol, DB } from 'server/db/db'
+import { TableRedisRepository } from 'server/cache/repository/table'
 import { getTableData } from 'server/controller/cycleData/getTableData'
 import { PropsGetTableData } from 'server/controller/cycleData/tableData/props'
-import { TableRedisRepository } from 'server/cache/repository/table'
+import { BaseProtocol, DB } from 'server/db/db'
 
 import { PropsGetLastApproved } from './_types'
 

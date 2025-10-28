@@ -6,7 +6,7 @@ import { UserController } from 'server/controller/user'
 import { Requests } from 'server/utils'
 import { validPassword } from 'server/utils/validPassword'
 
-export const postChangePassword = async (req: Request, res: Response) => {
+export const postChangePassword = async (req: Request, res: Response): Promise<void> => {
   try {
     const { email, password, uuid } = req.body
 

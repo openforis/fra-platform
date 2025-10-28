@@ -1,6 +1,8 @@
 import { Cycle } from 'meta/assessment/cycle'
 
-export const entries = (cycle: Cycle) => {
+type Returned = Array<{ tableName: string; variables: Array<{ csvColumn: string; variableName: string }> }>
+
+export const entries = (cycle: Cycle): Returned => {
   const arr = [
     {
       tableName: 'forestAreaChange',

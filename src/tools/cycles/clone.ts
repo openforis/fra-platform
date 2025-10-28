@@ -8,13 +8,13 @@ import { Cycle } from 'meta/assessment/cycle'
 import { Table } from 'meta/assessment/table'
 
 import { DB } from 'server/db/db'
+import { TableRepository } from 'server/db/repository/assessment/table'
 import { Schemas } from 'server/db/schemas'
 import { AssessmentController } from 'server/controller/assessment'
 import { MetadataController } from 'server/controller/metadata'
 import { UserController } from 'server/controller/user'
 import { CacheController } from 'server/cache/controller'
 import { TableRedisRepository } from 'server/cache/repository/table'
-import { TableRepository } from 'server/repository/assessment/table'
 
 const client = DB
 const assessmentName = AssessmentNames.fra

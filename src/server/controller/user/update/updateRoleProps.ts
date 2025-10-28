@@ -5,8 +5,8 @@ import { Authorizer, RoleName, User } from 'meta/user'
 import { UserRoleExtended } from 'meta/user/userRole'
 
 import { BaseProtocol } from 'server/db/db'
-import { ActivityLogRepository } from 'server/repository/public/activityLog'
-import { UserRoleRepository } from 'server/repository/public/userRole'
+import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
+import { UserRoleRepository } from 'server/db/repository/public/userRole'
 
 import { Props } from './props'
 

@@ -10,7 +10,7 @@ import { getData } from 'server/controller/cycleData/getBulkDownload/getData'
 import { climaticDomain } from './climaticDomain'
 import { Props } from './props'
 
-export const getFraYearsData = async (props: Props) => {
+export const getFraYearsData = async (props: Props): Promise<Array<Record<string, string>>> => {
   const { assessment, countries, cycle } = props
   const _climaticData = await climaticDomain(props)
   const climaticData = RecordAssessmentDatas.getCycleData({

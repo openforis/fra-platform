@@ -12,7 +12,7 @@ type props = {
   notifyClient?: boolean
 }
 
-const notifyUpdate = (props: props) => {
+const notifyUpdate = (props: props): void => {
   const { assessmentName, country, cycleName, notifyClient = true } = props
   const { countryIso } = country
 

@@ -7,8 +7,8 @@ import { SectionNames } from 'meta/routes'
 import { User } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db/db'
-import { RepositoryRepository } from 'server/repository/assessmentCycle/repository'
-import { ActivityLogRepository } from 'server/repository/public/activityLog'
+import { RepositoryRepository } from 'server/db/repository/assessmentCycle/repository'
+import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 
 type Props = {
   assessment: Assessment

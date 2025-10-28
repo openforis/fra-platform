@@ -6,7 +6,7 @@ import { AssessmentController } from 'server/controller/assessment'
 import { UserController } from 'server/controller/user'
 import { Requests } from 'server/utils'
 
-export const removeInvitation = async (req: CycleRequest<{ invitationUuid: string }>, res: Response) => {
+export const removeInvitation = async (req: CycleRequest<{ invitationUuid: string }>, res: Response): Promise<void> => {
   try {
     const { countryIso, invitationUuid } = req.query
 

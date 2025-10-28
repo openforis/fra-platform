@@ -2,10 +2,10 @@ import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { Node } from 'meta/assessment/node'
 import { User } from 'meta/user'
 
-import { BaseProtocol, DB } from 'server/db/db'
 import { DataRedisRepository } from 'server/cache/repository/data'
-import { NodeRepository } from 'server/repository/assessmentCycle/node'
-import { ActivityLogDb, ActivityLogRepository } from 'server/repository/public/activityLog'
+import { BaseProtocol, DB } from 'server/db/db'
+import { NodeRepository } from 'server/db/repository/assessmentCycle/node'
+import { ActivityLogDb, ActivityLogRepository } from 'server/db/repository/public/activityLog'
 
 import { ContextResult } from '../context'
 

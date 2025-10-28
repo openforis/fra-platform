@@ -16,7 +16,7 @@ export const getLinksFromHtml = (html: string): Returned => {
   let currentLink: LinkInfo | null = null
   const parser = new Parser(
     {
-      onopentag(name, attributes) {
+      onopentag(name, attributes): void {
         if (name === 'a') {
           currentLink = {
             link: attributes.href ?? null,
@@ -24,12 +24,12 @@ export const getLinksFromHtml = (html: string): Returned => {
           }
         }
       },
-      ontext(text) {
+      ontext(text): void {
         if (currentLink) {
           currentLink.name += text
         }
       },
-      onclosetag(tagname) {
+      onclosetag(tagname): void {
         if (tagname === 'a' && currentLink) {
           links.push(currentLink)
           currentLink = null

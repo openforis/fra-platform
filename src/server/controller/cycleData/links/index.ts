@@ -1,4 +1,4 @@
-import { LinkRepository } from 'server/repository/assessmentCycle/links'
+import { LinkRepository } from 'server/db/repository/assessmentCycle/links'
 
 import { getActiveVerifyJobs } from './getActiveVerifyJobs'
 import { getAllLinksToVisit } from './getAllLinksToVisit'
