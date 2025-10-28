@@ -16,7 +16,7 @@ import { AreaController } from 'server/controller/area'
 import { AssessmentController } from 'server/controller/assessment'
 import { CycleDataController } from 'server/controller/cycleData'
 import { UserController } from 'server/controller/user'
-import { RowRedisRepository } from 'server/repository/redis/row'
+import { RowRedisRepository } from 'server/cache/repository/row'
 import { Logger } from 'server/utils/logger'
 
 import { CSV } from '../utils/CSV'

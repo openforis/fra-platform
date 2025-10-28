@@ -3,12 +3,12 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { User } from 'meta/user'
 
-import { removeMetadata } from 'server/controller/assessment/removeCycle/removeMetadata'
 import { BaseProtocol, DB } from 'server/db'
+import { removeMetadata } from 'server/controller/assessment/removeCycle/removeMetadata'
+import { AssessmentRedisRepository } from 'server/cache/repository/assessment'
+import { CycleRedisRepository } from 'server/cache/repository/cycle'
 import { CycleRepository } from 'server/repository/assessmentCycle/cycle'
 import { ActivityLogRepository } from 'server/repository/public/activityLog'
-import { AssessmentRedisRepository } from 'server/repository/redis/assessment'
-import { CycleRedisRepository } from 'server/repository/redis/cycle'
 import { StaticFiles } from 'server/static/staticFiles'
 
 type Props = {

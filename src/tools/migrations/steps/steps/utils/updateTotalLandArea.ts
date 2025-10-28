@@ -9,11 +9,11 @@ import { NodeUpdate, NodeUpdates } from 'meta/data'
 import { NodeExtType } from 'meta/nodeExt'
 import { User } from 'meta/user'
 
+import { BaseProtocol, Schemas } from 'server/db'
 import { AreaController } from 'server/controller/area'
 import { AssessmentController } from 'server/controller/assessment'
 import { updateDependents } from 'server/controller/cycleData/updateDependencies/updateDependents'
-import { BaseProtocol, Schemas } from 'server/db'
-import { DataRedisRepository } from 'server/repository/redis/data'
+import { DataRedisRepository } from 'server/cache/repository/data'
 
 export type TotalLandAreaUpdateData = {
   [countryIso in CountryIso]?: Array<{ year: number; value: number }>
