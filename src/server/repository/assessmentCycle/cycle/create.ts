@@ -49,8 +49,8 @@ export const create = async (params: Props, client: BaseProtocol = DB): Promise<
   if (withCountries) {
     // Init countries
     await client.query(`
-      insert into ${schemaCycle}.country (country_iso, props)
-      select country_iso, config
+      insert into ${schemaCycle}.country (country_iso)
+      select country_iso
       from country
   `)
   }
