@@ -1,6 +1,6 @@
 import { Country } from 'meta/area'
 
-import { BaseProtocol, DB } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
 import { getCountriesMap } from 'server/cache/repository/area/getCountriesMap'
 import { Props } from 'server/cache/repository/area/props'
 

@@ -1,7 +1,7 @@
 import { AssessmentName } from 'meta/assessment/assessment'
 import { User, UserResetPassword } from 'meta/user'
 
-import { BaseProtocol, DB } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
 import { UserResetPasswordRepository } from 'server/repository/public/userResetPassword'
 import { MailService } from 'server/service'
 import { ProcessEnv } from 'server/utils'

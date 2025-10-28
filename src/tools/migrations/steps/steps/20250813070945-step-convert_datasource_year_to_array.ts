@@ -5,8 +5,9 @@ import { Promises } from 'utils/promises'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 
+import { BaseProtocol } from 'server/db/db'
+import { Schemas } from 'server/db/schemas'
 import { AssessmentController } from 'server/controller/assessment'
-import { BaseProtocol, Schemas } from 'server/db'
 
 type DataSourceDB<T = string> = {
   type?: string
@@ -98,7 +99,7 @@ const _fixAssessmentCycleDescriptions = async (
   })
 }
 
-export default async (client: BaseProtocol) => {
+export default async (client: BaseProtocol): Promise<void> => {
   const assessments = await AssessmentController.getAll({}, client)
   await Promises.each(assessments, (assessment) =>
     Promises.each(assessment.cycles, async (cycle) => {

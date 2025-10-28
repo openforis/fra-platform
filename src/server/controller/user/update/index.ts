@@ -1,6 +1,6 @@
 import { User } from 'meta/user'
 
-import { BaseProtocol, DB } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
 import { UserRepository } from 'server/repository/public/user'
 
 import { Props } from './props'

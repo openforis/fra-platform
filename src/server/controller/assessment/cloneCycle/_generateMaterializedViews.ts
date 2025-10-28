@@ -1,6 +1,6 @@
+import { BaseProtocol } from 'server/db/db'
 import { CloneProps } from 'server/controller/assessment/cloneCycle/types'
 import { TableData } from 'server/controller/cycleData/tableData'
-import { BaseProtocol } from 'server/db'
 import { CountryRepository } from 'server/repository/assessmentCycle/country'
 import { CountryActivityLogRepository } from 'server/repository/assessmentCycle/countryActivityLog'
 

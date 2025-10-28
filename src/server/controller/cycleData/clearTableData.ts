@@ -6,7 +6,7 @@ import { NodeUpdate } from 'meta/data'
 import { Sockets } from 'meta/socket'
 import { User } from 'meta/user'
 
-import { BaseProtocol, DB } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
 import { resetMirrorNodes } from 'server/controller/cycleData/resetMirrorNodes'
 import { updateDependents } from 'server/controller/cycleData/updateDependencies/updateDependents'
 import { DataRedisRepository } from 'server/cache/repository/data'

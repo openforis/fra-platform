@@ -4,7 +4,7 @@ import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { UserEditCountryForm, UserForm } from 'meta/form/userEdit/form'
 import { User, Users, UserStatus } from 'meta/user'
 
-import { BaseProtocol } from 'server/db'
+import { BaseProtocol } from 'server/db/db'
 import { ActivityLogRepository } from 'server/repository/public/activityLog'
 import { FileRepository } from 'server/repository/public/file'
 import { UserRepository } from 'server/repository/public/user'

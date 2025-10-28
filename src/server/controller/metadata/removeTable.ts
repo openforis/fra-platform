@@ -3,7 +3,7 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Table } from 'meta/assessment/table'
 import { User } from 'meta/user'
 
-import { BaseProtocol, DB } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
 import { TableRepository } from 'server/repository/assessment/table'
 import { ActivityLogRepository } from 'server/repository/public/activityLog'
 

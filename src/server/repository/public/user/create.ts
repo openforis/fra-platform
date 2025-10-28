@@ -1,7 +1,7 @@
 import { User } from 'meta/user'
 import { UserProps } from 'meta/user/user'
 
-import { BaseProtocol, DB } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
 import { UserAdapter } from 'server/repository/adapter/user'
 import { getOne } from 'server/repository/public/user/getOne'
 

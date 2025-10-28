@@ -1,7 +1,7 @@
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 
-import { BaseProtocol, DB } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
 import { AreaRedisRepository } from 'server/cache/repository/area'
 import { Logger } from 'server/utils/logger'
 

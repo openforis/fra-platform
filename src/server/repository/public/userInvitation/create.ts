@@ -6,8 +6,7 @@ import { Cycle } from 'meta/assessment/cycle'
 import { RoleName, User, UserInvitation } from 'meta/user'
 import { CollaboratorPermissionsNEW } from 'meta/user/userRole'
 
-import { BaseProtocol } from 'server/db'
-import { DB } from 'server/db/db'
+import { BaseProtocol, DB } from 'server/db/db'
 
 type Props = {
   assessment: Assessment
@@ -19,7 +18,7 @@ type Props = {
   permissions?: CollaboratorPermissionsNEW
 }
 
-export const create = async (props: Props, client: BaseProtocol = DB) => {
+export const create = async (props: Props, client: BaseProtocol = DB): Promise<UserInvitation> => {
   const { assessment, countryIso, cycle, invitedBy, permissions, role, user } = props
 
   return client.one<UserInvitation>(

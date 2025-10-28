@@ -3,7 +3,7 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { User } from 'meta/user'
 
-import { BaseProtocol, DB } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
 import { removeMetadata } from 'server/controller/assessment/removeCycle/removeMetadata'
 import { AssessmentRedisRepository } from 'server/cache/repository/assessment'
 import { CycleRedisRepository } from 'server/cache/repository/cycle'

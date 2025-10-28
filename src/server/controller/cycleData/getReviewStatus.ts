@@ -4,7 +4,7 @@ import { Cycle } from 'meta/assessment/cycle'
 import { ReviewStatus } from 'meta/assessment/review'
 import { User } from 'meta/user'
 
-import { BaseProtocol, DB } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
 import { MessageTopicUserRepository } from 'server/repository/assessmentCycle/messageTopicUser'
 
 export const getReviewStatus = async (

@@ -7,7 +7,7 @@ import { SectionNames } from 'meta/assessment/section'
 import { ContactNode } from 'meta/cycleData'
 import { User } from 'meta/user'
 
-import { BaseProtocol, DB } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
 import { NodeExtRepository } from 'server/repository/assessmentCycle/nodeExt'
 import { ActivityLogRepository } from 'server/repository/public/activityLog'
 

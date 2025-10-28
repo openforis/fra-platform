@@ -6,9 +6,10 @@ import { CountryIso } from 'meta/area'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 
+import { BaseProtocol, DB } from 'server/db/db'
+import { Schemas } from 'server/db/schemas'
 import { AreaController } from 'server/controller/area'
 import { AssessmentController } from 'server/controller/assessment'
-import { BaseProtocol, DB, Schemas } from 'server/db'
 import { CountryActivityLogRepository } from 'server/repository/assessmentCycle/countryActivityLog'
 import {
   activitiesLastEdit,

@@ -1,7 +1,8 @@
 import { Areas, CountryIso } from 'meta/area'
 import { RoleName } from 'meta/user'
 
-import { BaseProtocol, DB, Schemas } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
+import { Schemas } from 'server/db/schemas'
 
 import { getPropsToQueryParams } from './utils/getPropsToQueryParams'
 import { UsersGetManyProps } from './usersGetManyProps'

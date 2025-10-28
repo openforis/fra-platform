@@ -5,7 +5,7 @@ import { Link } from 'meta/cycleData'
 import { SectionNames } from 'meta/routes'
 import { User } from 'meta/user'
 
-import { BaseProtocol, DB } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
 import { LinkRepository } from 'server/repository/assessmentCycle/links'
 import { ActivityLogRepository } from 'server/repository/public/activityLog'
 

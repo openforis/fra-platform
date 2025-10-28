@@ -6,7 +6,7 @@ import { Cycle } from 'meta/assessment/cycle'
 import { RoleName, User, UserInvitation, UserRole } from 'meta/user'
 import { CollaboratorPermissionsNEW, UserRoleBaseProps, UserRoleExtendedProps } from 'meta/user/userRole'
 
-import { BaseProtocol, DB } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
 
 type Props = {
   assessmentUuid: Assessment['uuid']

@@ -5,7 +5,8 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { RecordCountryData } from 'meta/data'
 
-import { BaseProtocol, DB, Schemas } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
+import { Schemas } from 'server/db/schemas'
 import { OriginalDataPointQueries } from 'server/repository/assessmentCycle/originalDataPoint/queries'
 
 type Props = {

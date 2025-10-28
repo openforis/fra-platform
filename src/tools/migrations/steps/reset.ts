@@ -3,7 +3,7 @@ import '../../scriptInit'
 import * as fs from 'fs'
 import * as path from 'path'
 
-import { DB } from 'server/db'
+import { DB } from 'server/db/db'
 import { Logger } from 'server/utils/logger'
 
 import { createMigrationStep } from './createMigrationStep'
@@ -14,7 +14,7 @@ const _confirmReset = async (): Promise<boolean> => {
   return answer.toLowerCase() === 'reset'
 }
 
-const checkAllMigrationsRan = async () => {
+const checkAllMigrationsRan = async (): Promise<boolean> => {
   const files = getMigrationFiles()
 
   const dbMigrations = await DB.manyOrNone('select * from migrations.steps;')
@@ -30,7 +30,7 @@ const checkAllMigrationsRan = async () => {
   return true
 }
 
-const deleteOldMigrationFiles = (latestResetStep: string) => {
+const deleteOldMigrationFiles = (latestResetStep: string): void => {
   const stepsDir = path.join(__dirname, 'steps')
   const filesToRemove = getFilesToRemove(latestResetStep)
 
@@ -40,7 +40,7 @@ const deleteOldMigrationFiles = (latestResetStep: string) => {
   })
 }
 
-const resetMigrationSteps = async () => {
+const resetMigrationSteps = async (): Promise<void> => {
   try {
     // === 1. Check if all migrations ran
     const allMigrationsRan = await checkAllMigrationsRan()

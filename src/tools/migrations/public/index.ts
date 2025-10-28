@@ -5,7 +5,7 @@ import * as path from 'path'
 import { tableMigrationsPublicDDL } from 'tools/migrations/public/tableMigrationsPublicDDL'
 import { Promises } from 'utils/promises'
 
-import { DB } from 'server/db'
+import { DB } from 'server/db/db'
 import { Logger } from 'server/utils/logger'
 
 const client = DB
@@ -13,7 +13,7 @@ let migrationSteps: Array<string>
 let previousMigrations: Array<string> = []
 const executedMigrations: Array<string> = []
 
-const init = async () => {
+const init = async (): Promise<void> => {
   await client.query(tableMigrationsPublicDDL)
   previousMigrations = await client.map('select * from migrations.public', [], (row) => row.name)
   migrationSteps = fs
@@ -22,12 +22,12 @@ const init = async () => {
     .sort((a, b) => a.localeCompare(b))
 }
 
-const close = async () => {
+const close = async (): Promise<void> => {
   // Note: Omitted REDIS related code. Add them here if needed.
   await DB.$pool.end()
 }
 
-const exec = async () => {
+const exec = async (): Promise<void> => {
   await init()
 
   await Promises.each(migrationSteps, async (file) => {

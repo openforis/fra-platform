@@ -6,7 +6,7 @@ import { Cycle } from 'meta/assessment/cycle'
 import { Contact, ContactField } from 'meta/cycleData'
 import { RoleName } from 'meta/user'
 
-import { BaseProtocol, DB } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
 
 type Props = {
   assessment: Assessment

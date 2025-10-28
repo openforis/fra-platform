@@ -7,7 +7,7 @@ import * as pgPromise from 'pg-promise'
 
 import { CountryIso } from 'meta/area'
 
-import { DB } from 'server/db'
+import { DB } from 'server/db/db'
 
 type Response = {
   features: Array<{

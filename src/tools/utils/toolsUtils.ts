@@ -1,7 +1,7 @@
-import { DB } from 'server/db'
+import { DB } from 'server/db/db'
 import { Logger } from 'server/utils/logger'
 
-const close = async () => {
+const close = async (): Promise<void> => {
   await DB.$pool.end()
 }
 

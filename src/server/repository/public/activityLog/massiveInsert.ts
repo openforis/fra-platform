@@ -1,6 +1,6 @@
 import * as pgPromise from 'pg-promise'
 
-import { BaseProtocol, DB } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
 
 import { ActivityLogDb } from './activityLogDb'
 

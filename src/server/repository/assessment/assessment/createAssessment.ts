@@ -2,7 +2,7 @@ import { Objects } from 'utils/objects'
 
 import { AssessmentBase } from 'meta/assessment/assessment'
 
-import { BaseProtocol, DB } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
 import { getOne } from 'server/repository/assessment/assessment/getOne'
 
 type Props = { assessment: Pick<AssessmentBase, 'props'> }

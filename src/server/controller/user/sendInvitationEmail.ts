@@ -1,6 +1,6 @@
 import { UserInvitation, UserInvitations } from 'meta/user'
 
-import { BaseProtocol, DB } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
 import { UserRepository } from 'server/repository/public/user'
 import { UserInvitationRepository } from 'server/repository/public/userInvitation'
 import { MailService } from 'server/service'

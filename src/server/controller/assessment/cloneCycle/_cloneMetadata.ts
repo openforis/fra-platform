@@ -3,7 +3,7 @@ import { Row } from 'meta/assessment/row'
 import { Table } from 'meta/assessment/table'
 import { TableSection } from 'meta/assessment/tableSection'
 
-import { BaseProtocol } from 'server/db'
+import { BaseProtocol } from 'server/db/db'
 import { CloneProps } from 'server/controller/assessment/cloneCycle/types'
 import { SectionRedisRepository } from 'server/cache/repository/section'
 import { ColRepository } from 'server/repository/assessment/col'

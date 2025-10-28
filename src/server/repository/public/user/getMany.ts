@@ -3,7 +3,8 @@ import { Objects } from 'utils/objects'
 import { TablePaginatedOrderByDirection } from 'meta/tablePaginated'
 import { User } from 'meta/user'
 
-import { BaseProtocol, DB, Schemas } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
+import { Schemas } from 'server/db/schemas'
 import { UsersGetManyProps } from 'server/repository/public/user/usersGetManyProps'
 import { getPropsToQueryParams } from 'server/repository/public/user/utils/getPropsToQueryParams'
 

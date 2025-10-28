@@ -4,8 +4,8 @@ import { Cycle } from 'meta/assessment/cycle'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { User } from 'meta/user'
 
+import { BaseProtocol } from 'server/db/db'
 import { updateOriginalDataPointsDependentNodes } from 'server/controller/cycleData/originalDataPoint/updateDependants/updateOriginalDataPointsDependentNodes'
-import { BaseProtocol } from 'server/db'
 
 type Props = {
   assessment: Assessment

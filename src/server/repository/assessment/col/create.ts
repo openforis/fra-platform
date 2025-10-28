@@ -3,7 +3,8 @@ import { Col, ColProps } from 'meta/assessment/col'
 import { Cycle } from 'meta/assessment/cycle'
 import { Row } from 'meta/assessment/row'
 
-import { BaseProtocol, DB, Schemas } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
+import { Schemas } from 'server/db/schemas'
 import { ColAdapter } from 'server/repository/adapter'
 
 type Props = {

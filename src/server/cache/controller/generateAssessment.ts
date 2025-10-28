@@ -1,6 +1,6 @@
 import { Assessment, AssessmentName } from 'meta/assessment/assessment'
 
-import { BaseProtocol, DB } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
 import { AssessmentRedisRepository } from 'server/cache/repository/assessment'
 import { Logger } from 'server/utils/logger'
 

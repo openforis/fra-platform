@@ -2,7 +2,7 @@ import { CountryIso } from 'meta/area'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 
-import { Schemas } from 'server/db'
+import { Schemas } from 'server/db/schemas'
 
 type Props = {
   assessment: Assessment

@@ -1,7 +1,8 @@
 import { Assessment } from 'meta/assessment/assessment'
 import { Col } from 'meta/assessment/col'
 
-import { BaseProtocol, DB, Schemas } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
+import { Schemas } from 'server/db/schemas'
 import { ColAdapter } from 'server/repository/adapter'
 
 type Props = {

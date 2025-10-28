@@ -1,6 +1,6 @@
 import { CollaboratorPermissionsNEW, RoleName } from 'meta/user/userRole'
 
-import { BaseProtocol, DB } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
 import { Logger } from 'server/utils/logger'
 
 /*
@@ -26,14 +26,14 @@ export type CollaboratorPermissionsDeprecated = {
   sections: CollaboratorSectionsPermission
 }
 
-const _fixInvitations = async () => {
+const _fixInvitations = async (): Promise<void> => {
   await DB.query(`
     alter table public.users_invitation add permissions jsonb;
     alter table public.users_invitation drop column props;
   `)
 }
 
-const _fixUsersRole = async () => {
+const _fixUsersRole = async (): Promise<void> => {
   await DB.query(`alter table users_role
                   alter column permissions drop not null,
                   alter column permissions drop default;`)
@@ -105,11 +105,11 @@ const _fixPermissions = (permission: CollaboratorPermissionsDeprecated): Collabo
   throw new Error('Permission update failed')
 }
 
-const _getRoles = (client: BaseProtocol) => {
+const _getRoles = (client: BaseProtocol): Promise<Array<any>> => {
   return client.manyOrNone(`select * from users_role ur where role = '${RoleName.COLLABORATOR}'`)
 }
 
-const _fixRoles = async (client: BaseProtocol) => {
+const _fixRoles = async (client: BaseProtocol): Promise<void> => {
   const roles = await _getRoles(client)
   const lenRoles = roles.length
 
@@ -136,7 +136,7 @@ const _fixRoles = async (client: BaseProtocol) => {
   Logger.info(`Successfully updated ${lenRoles} roles`)
 }
 
-export default async (client: BaseProtocol) => {
+export default async (client: BaseProtocol): Promise<void> => {
   await _fixInvitations()
   await _fixUsersRole()
   await _fixRoles(client)

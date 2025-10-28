@@ -1,7 +1,8 @@
 import { Assessment } from 'meta/assessment/assessment'
 import { Section, SubSection } from 'meta/assessment/section'
 
-import { BaseProtocol, DB, Schemas } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
+import { Schemas } from 'server/db/schemas'
 import { SectionAdapter, SubSectionAdapter } from 'server/repository/adapter'
 
 export const update = async (

@@ -5,7 +5,8 @@ import { Promises } from 'utils/promises'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 
-import { DB, Schemas } from 'server/db'
+import { DB } from 'server/db/db'
+import { Schemas } from 'server/db/schemas'
 import { AssessmentController } from 'server/controller/assessment'
 import { CacheController } from 'server/cache/controller'
 

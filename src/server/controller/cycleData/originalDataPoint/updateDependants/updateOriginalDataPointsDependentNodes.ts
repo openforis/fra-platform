@@ -6,7 +6,7 @@ import { TableNames } from 'meta/assessment/table'
 import { NodeUpdate } from 'meta/data'
 import { User } from 'meta/user'
 
-import { BaseProtocol } from 'server/db'
+import { BaseProtocol } from 'server/db/db'
 import { getOriginalDataPointVariables } from 'server/controller/cycleData/originalDataPoint/getOriginalDataPointVariables'
 import { notifyClientUpdate } from 'server/controller/cycleData/originalDataPoint/updateDependants/notifyClientUpdate'
 import { updateDependents } from 'server/controller/cycleData/updateDependencies/updateDependents'

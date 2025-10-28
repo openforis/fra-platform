@@ -9,7 +9,7 @@ import {
   UserRoleExtendedProps,
 } from 'meta/user/userRole'
 
-import { BaseProtocol, DB } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
 
 type Props = {
   id: number

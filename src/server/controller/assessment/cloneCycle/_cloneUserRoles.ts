@@ -1,5 +1,5 @@
+import { BaseProtocol } from 'server/db/db'
 import { CloneProps } from 'server/controller/assessment/cloneCycle/types'
-import { BaseProtocol } from 'server/db'
 
 export const cloneUserRoles = async (props: CloneProps, client: BaseProtocol): Promise<void> => {
   const { assessment, cycleSource, cycleTarget } = props
