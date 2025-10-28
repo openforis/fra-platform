@@ -1,21 +1,16 @@
 import React from 'react'
-import { useTranslation } from 'react-i18next'
-
-import { Labels } from 'meta/assessment/labels'
 
 import { useAssessmentCountry } from 'client/store/area/hooks/country'
 import { useOriginalDataPointYears } from 'client/store/data/tableData/nodeValues/hooks/originalDataPointData'
-import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useIsPrintRoute } from 'client/hooks/routes'
 import OriginalDataPointsPrint from 'client/pages/Print/OriginalDataPointsPrint'
+import { TitleDefault } from 'client/pages/Section/Title/Components'
 
 import { Props } from '../props'
 
 const ForestCharacteristics: React.FC<Props> = (props) => {
   const { subSection } = props
 
-  const { t } = useTranslation()
-  const cycle = useCycle()
   const odpYears = useOriginalDataPointYears()
   const { onlyTables, print } = useIsPrintRoute()
   const hasOdps = Array.isArray(odpYears)
@@ -24,7 +19,7 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
   const { useOriginalDataPoint } = country.props.forestCharacteristics
   return (
     <>
-      <h2 className="headline no-print">{Labels.getCycleLabel({ cycle, labels: subSection.props.labels, t })}</h2>
+      <TitleDefault subSection={subSection} />
 
       {useOriginalDataPoint && hasOdps && print && !onlyTables && (
         <OriginalDataPointsPrint sectionName={subSection.props.name} />

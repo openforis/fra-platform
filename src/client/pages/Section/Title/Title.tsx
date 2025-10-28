@@ -3,10 +3,9 @@ import React from 'react'
 
 import { SectionName } from 'meta/assessment/section'
 
-import { useIsPrintRoute } from 'client/hooks/routes'
 import { useCycleRouteParams } from 'client/hooks/routeParams'
+import { useIsPrintRoute } from 'client/hooks/routes'
 import { Components, TitleDefault } from 'client/pages/Section/Title/Components'
-import CSVAllTables from 'client/pages/Section/Title/CSVAllTables'
 import Hints, { HintsSustainableDevelopment } from 'client/pages/Section/Title/Hints'
 
 import { Props } from './props'
@@ -20,7 +19,6 @@ const Title: React.FC<Props> = (props) => {
   const { name: sectionName } = subSection.props
 
   const { assessmentName } = useCycleRouteParams()
-
   const { print } = useIsPrintRoute()
 
   const Component = Components[assessmentName]?.[sectionName] ?? TitleDefault
@@ -28,10 +26,8 @@ const Title: React.FC<Props> = (props) => {
 
   return (
     <div className="section__title">
-      <div className="section__title__header">
-        {React.createElement(Component, { subSection })}
-        {!print && <CSVAllTables />}
-      </div>
+      {React.createElement(Component, { subSection })}
+
       {!print && <HintsComponent subSection={subSection} />}
     </div>
   )
