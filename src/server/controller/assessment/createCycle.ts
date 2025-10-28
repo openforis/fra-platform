@@ -3,11 +3,11 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { User } from 'meta/user'
 
+import { CacheController } from 'server/cache/controller'
+import { AssessmentRedisRepository } from 'server/cache/repository/assessment'
 import { BaseProtocol, DB } from 'server/db/db'
 import { CycleRepository } from 'server/db/repository/assessmentCycle/cycle'
 import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
-import { CacheController } from 'server/cache/controller'
-import { AssessmentRedisRepository } from 'server/cache/repository/assessment'
 
 type Props = {
   assessment: Assessment

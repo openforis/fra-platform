@@ -1,11 +1,11 @@
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 
-import { BaseProtocol, DB } from 'server/db/db'
 import { AreaRedisRepository } from 'server/cache/repository/area'
 import { removeDataCache } from 'server/cache/repository/cycle/removeDataCache'
 import { removeMetadataCache } from 'server/cache/repository/cycle/removeMetadataCache'
 import { MetaCacheRedisRepository } from 'server/cache/repository/metaCache'
+import { BaseProtocol, DB } from 'server/db/db'
 
 type Props = {
   assessment: Assessment

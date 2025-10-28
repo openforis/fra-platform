@@ -1,9 +1,9 @@
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 import { NodeExtType } from 'meta/nodeExt'
 
+import { CloneProps } from 'server/controller/assessment/cloneCycle/types'
 import { BaseProtocol } from 'server/db/db'
 import { Schemas } from 'server/db/schemas'
-import { CloneProps } from 'server/controller/assessment/cloneCycle/types'
 
 /**
  * Clones all data from cycleSource to cycleTarget.

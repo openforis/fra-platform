@@ -6,10 +6,10 @@ import { Node } from 'meta/assessment/node'
 import { NodeUpdate } from 'meta/data'
 import { User } from 'meta/user'
 
+import { DataRedisRepository } from 'server/cache/repository/data'
 import { BaseProtocol } from 'server/db/db'
 import { NodeRepository } from 'server/db/repository/assessmentCycle/node'
 import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
-import { DataRedisRepository } from 'server/cache/repository/data'
 
 type Props = {
   assessment: Assessment

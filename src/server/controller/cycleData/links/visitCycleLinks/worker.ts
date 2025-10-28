@@ -1,9 +1,9 @@
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { SectionNames } from 'meta/routes'
 
+import { CycleDataController } from 'server/controller/cycleData'
 import { LinkRepository } from 'server/db/repository/assessmentCycle/links'
 import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
-import { CycleDataController } from 'server/controller/cycleData'
 import { Logger } from 'server/utils/logger'
 
 import { filterLinks } from './utils/filterLinks'

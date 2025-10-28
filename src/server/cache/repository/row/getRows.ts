@@ -4,10 +4,10 @@ import { Assessment } from 'meta/assessment/assessment'
 import { RecordRowCache, RowCacheKey } from 'meta/assessment/rowCache'
 import { RowCaches } from 'meta/assessment/rowCaches'
 
-import { BaseProtocol, DB } from 'server/db/db'
-import { RowRepository } from 'server/db/repository/assessment/row'
 import { getKeyRow } from 'server/cache/repository/keys'
 import { RedisData } from 'server/cache/repository/redisData'
+import { BaseProtocol, DB } from 'server/db/db'
+import { RowRepository } from 'server/db/repository/assessment/row'
 
 type Props = {
   assessment: Assessment

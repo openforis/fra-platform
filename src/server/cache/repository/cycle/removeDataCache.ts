@@ -1,9 +1,9 @@
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 
+import { DataRedisRepository } from 'server/cache/repository/data'
 import { BaseProtocol, DB } from 'server/db/db'
 import { CountryRepository } from 'server/db/repository/assessmentCycle/country'
-import { DataRedisRepository } from 'server/cache/repository/data'
 import { Logger } from 'server/utils/logger'
 
 type Props = {

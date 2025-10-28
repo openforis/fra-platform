@@ -3,10 +3,10 @@ import * as passport from 'passport'
 
 import { User } from 'meta/user'
 
-import { UserRepository } from 'server/db/repository/public/user'
 import { googleStrategy } from 'server/api/auth/strategy/google'
 import { jwtStrategy } from 'server/api/auth/strategy/jwt'
 import { localStrategy } from 'server/api/auth/strategy/local'
+import { UserRepository } from 'server/db/repository/public/user'
 
 export const AuthConfig = {
   init: (app: Express): void => {

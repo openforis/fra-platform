@@ -5,9 +5,9 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { DescriptionCountryValues } from 'meta/assessment/descriptionValue'
 
+import { getInfo } from 'server/controller/cycleData/history/lastApproved'
 import { BaseProtocol, DB } from 'server/db/db'
 import { DescriptionRepository } from 'server/db/repository/assessmentCycle/descriptions'
-import { getInfo } from 'server/controller/cycleData/history/lastApproved'
 
 type Props = {
   assessment: Assessment

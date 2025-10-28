@@ -6,12 +6,12 @@ import { TableNames } from 'meta/assessment/table'
 import { Years } from 'meta/assessment/years'
 import { RecordAssessmentDatas } from 'meta/data'
 
-import { TableRepository } from 'server/db/repository/assessment/table'
 import { climaticDomain } from 'server/controller/cycleData/getBulkDownload/climaticDomain'
 import { formatDatum } from 'server/controller/cycleData/getBulkDownload/formatDatum'
 import { getClimaticValue } from 'server/controller/cycleData/getBulkDownload/getClimaticValue'
 import { getData } from 'server/controller/cycleData/getBulkDownload/getData'
 import { Props } from 'server/controller/cycleData/getBulkDownload/props'
+import { TableRepository } from 'server/db/repository/assessment/table'
 
 import { getMetadata } from './utils/getMetadata'
 

@@ -3,14 +3,14 @@ import { Row } from 'meta/assessment/row'
 import { Table } from 'meta/assessment/table'
 import { TableSection } from 'meta/assessment/tableSection'
 
+import { SectionRedisRepository } from 'server/cache/repository/section'
+import { CloneProps } from 'server/controller/assessment/cloneCycle/types'
 import { BaseProtocol } from 'server/db/db'
 import { ColRepository } from 'server/db/repository/assessment/col'
 import { RowRepository } from 'server/db/repository/assessment/row'
 import { SectionRepository } from 'server/db/repository/assessment/section'
 import { TableRepository } from 'server/db/repository/assessment/table'
 import { TableSectionRepository } from 'server/db/repository/assessment/tableSection'
-import { CloneProps } from 'server/controller/assessment/cloneCycle/types'
-import { SectionRedisRepository } from 'server/cache/repository/section'
 
 export const cloneMetadata = async (props: CloneProps, client: BaseProtocol): Promise<void> => {
   const { assessment, cycleSource, cycleTarget } = props

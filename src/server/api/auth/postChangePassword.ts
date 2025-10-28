@@ -1,8 +1,8 @@
 import { Request, Response } from 'express'
 import { Objects } from 'utils/objects'
 
-import { UserController } from 'server/controller/user'
 import { passwordHash } from 'server/api/auth/utils/passwordUtils'
+import { UserController } from 'server/controller/user'
 import { Requests } from 'server/utils'
 import { validPassword } from 'server/utils/validPassword'
 

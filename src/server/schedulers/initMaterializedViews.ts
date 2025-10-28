@@ -6,6 +6,8 @@ import { CountryIso } from 'meta/area'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 
+import { AreaController } from 'server/controller/area'
+import { AssessmentController } from 'server/controller/assessment'
 import { BaseProtocol, DB } from 'server/db/db'
 import { CountryActivityLogRepository } from 'server/db/repository/assessmentCycle/countryActivityLog'
 import {
@@ -13,8 +15,6 @@ import {
   activitiesLastEditOdpData,
 } from 'server/db/repository/assessmentCycle/countrySummary/_lastEditActivities'
 import { Schemas } from 'server/db/schemas'
-import { AreaController } from 'server/controller/area'
-import { AssessmentController } from 'server/controller/assessment'
 import { Logger } from 'server/utils/logger'
 
 const client: BaseProtocol = DB

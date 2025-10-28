@@ -93,7 +93,7 @@ module.exports = {
           ['^client\\/store(\\/\\w)*', '^client\\/hooks(\\/\\w)*', '^client\\components(\\/\\w)*', '^client(\\/\\w)*'],
           ['^lib(\\/\\w)*'],
           ['^docs(\\/\\w)*'],
-          ['^server\\/db(\\/\\w)*', '^server\\/controller(\\/\\w)*', '^server\\cache(\\/\\w)*', '^server(\\/\\w)*'],
+          ['^server(\\/\\w)*'],
           ['^test(\\/\\w)*'],
           [
             '^\\.\\.(?!/?$)',

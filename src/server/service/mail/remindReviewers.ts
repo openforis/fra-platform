@@ -11,8 +11,8 @@ import { Routes } from 'meta/routes'
 import { User, Users } from 'meta/user'
 import { UserRoles } from 'meta/user/userRoles'
 
-import { UserRepository } from 'server/db/repository/public/user'
 import { AreaController } from 'server/controller/area'
+import { UserRepository } from 'server/db/repository/public/user'
 import { sendMail } from 'server/service/mail/mail'
 import { ProcessEnv } from 'server/utils'
 

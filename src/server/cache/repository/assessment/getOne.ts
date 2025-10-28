@@ -3,7 +3,6 @@ import { Objects } from 'utils/objects'
 import { Assessment, AssessmentName } from 'meta/assessment/assessment'
 import { UUID } from 'meta/uuid'
 
-import { BaseProtocol, DB } from 'server/db/db'
 import {
   getAssessmentWithMetaCache,
   PropsMetaCacheCycle,
@@ -11,6 +10,7 @@ import {
 import { _cacheAssessment } from 'server/cache/repository/assessment/_cacheAssessment'
 import { getKeyAssessments, getKeyAssessmentsUuid } from 'server/cache/repository/keys'
 import { RedisData } from 'server/cache/repository/redisData'
+import { BaseProtocol, DB } from 'server/db/db'
 
 type PropsBase = { assessmentName: AssessmentName } | { uuid: UUID }
 export type PropsGetOneAssessment = PropsBase & PropsMetaCacheCycle & { force?: boolean }

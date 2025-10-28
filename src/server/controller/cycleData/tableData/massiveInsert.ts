@@ -11,12 +11,12 @@ import { TableName } from 'meta/assessment/table'
 import { NodeUpdate } from 'meta/data'
 import { User } from 'meta/user'
 
+import { DataRedisRepository } from 'server/cache/repository/data'
+import { RowRedisRepository } from 'server/cache/repository/row'
+import { updateTableDataDependencies } from 'server/controller/cycleData/tableData/updateTableDataDependencies'
 import { DB } from 'server/db/db'
 import { NodeDb, NodeRepository } from 'server/db/repository/assessmentCycle/node'
 import { ActivityLogDb, ActivityLogRepository } from 'server/db/repository/public/activityLog'
-import { updateTableDataDependencies } from 'server/controller/cycleData/tableData/updateTableDataDependencies'
-import { DataRedisRepository } from 'server/cache/repository/data'
-import { RowRedisRepository } from 'server/cache/repository/row'
 
 type Props = {
   assessment: Assessment

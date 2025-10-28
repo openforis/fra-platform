@@ -1,9 +1,9 @@
 import { Assessment } from 'meta/assessment/assessment'
 
+import { AssessmentRedisRepository } from 'server/cache/repository/assessment'
 import { BaseProtocol, DB } from 'server/db/db'
 import { AssessmentRepository } from 'server/db/repository/assessment/assessment'
 import { CycleRepository } from 'server/db/repository/assessmentCycle/cycle'
-import { AssessmentRedisRepository } from 'server/cache/repository/assessment'
 
 type Props = { assessment: Assessment }
 

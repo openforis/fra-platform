@@ -6,10 +6,10 @@ import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { Sockets } from 'meta/socket'
 import { User } from 'meta/user'
 
+import { CycleDataController } from 'server/controller/cycleData/index'
 import { BaseProtocol, DB } from 'server/db/db'
 import { OriginalDataPointRepository } from 'server/db/repository/assessmentCycle/originalDataPoint'
 import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
-import { CycleDataController } from 'server/controller/cycleData/index'
 import { CountryService } from 'server/service/country'
 import { SocketServer } from 'server/service/socket'
 

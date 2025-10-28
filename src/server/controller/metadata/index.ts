@@ -1,9 +1,9 @@
+import { SectionRedisRepository } from 'server/cache/repository/section'
 import { ColRepository } from 'server/db/repository/assessment/col'
 import { RowRepository } from 'server/db/repository/assessment/row'
 import { SectionRepository } from 'server/db/repository/assessment/section'
 import { TableRepository } from 'server/db/repository/assessment/table'
 import { TableSectionRepository } from 'server/db/repository/assessment/tableSection'
-import { SectionRedisRepository } from 'server/cache/repository/section'
 
 import { addColumn } from './addColumn'
 import { createSection } from './createSection'

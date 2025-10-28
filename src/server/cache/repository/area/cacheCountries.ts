@@ -3,10 +3,10 @@ import { LastPublishedInfo } from 'meta/area/country'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 
-import { BaseProtocol } from 'server/db/db'
-import { CountryRepository } from 'server/db/repository/assessmentCycle/country'
 import { getKeyCycle, Keys } from 'server/cache/repository/keys'
 import { RedisData } from 'server/cache/repository/redisData'
+import { BaseProtocol } from 'server/db/db'
+import { CountryRepository } from 'server/db/repository/assessmentCycle/country'
 
 type Props = {
   assessment: Assessment

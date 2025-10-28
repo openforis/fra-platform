@@ -6,8 +6,6 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { Lang } from 'meta/lang'
 
-import { CountryRepository } from 'server/db/repository/assessmentCycle/country'
-import { RegionRepository } from 'server/db/repository/assessmentCycle/region'
 import { getContent } from 'server/controller/cycleData/getBulkDownload/getContent'
 import { getContentVariables } from 'server/controller/cycleData/getBulkDownload/getContentVariables'
 import { getDegradedForest } from 'server/controller/cycleData/getBulkDownload/getDegradedForest'
@@ -16,6 +14,8 @@ import { getForestRestoration } from 'server/controller/cycleData/getBulkDownloa
 import { getFraYearsData } from 'server/controller/cycleData/getBulkDownload/getFRAYearsData'
 import { getNWFP } from 'server/controller/cycleData/getBulkDownload/getNWFP'
 import { getTierData } from 'server/controller/cycleData/getBulkDownload/getTierData'
+import { CountryRepository } from 'server/db/repository/assessmentCycle/country'
+import { RegionRepository } from 'server/db/repository/assessmentCycle/region'
 
 import { entries as annualEntries } from './entries/AnnualData'
 import { entries as FRAEntries } from './entries/FRAYears'

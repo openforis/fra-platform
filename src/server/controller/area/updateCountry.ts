@@ -4,10 +4,10 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { User } from 'meta/user'
 
+import { AreaRedisRepository } from 'server/cache/repository/area'
 import { BaseProtocol, DB } from 'server/db/db'
 import { CountryRepository } from 'server/db/repository/assessmentCycle/country'
 import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
-import { AreaRedisRepository } from 'server/cache/repository/area'
 import { SocketService } from 'server/service/socket'
 
 type Props = {

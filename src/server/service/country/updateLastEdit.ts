@@ -3,8 +3,8 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { User } from 'meta/user'
 
-import { BaseProtocol, DB } from 'server/db/db'
 import { AreaController } from 'server/controller/area'
+import { BaseProtocol, DB } from 'server/db/db'
 
 type Props = {
   assessment: Assessment
