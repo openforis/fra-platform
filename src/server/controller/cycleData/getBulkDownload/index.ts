@@ -119,7 +119,10 @@ const _getCountries = async (assessment: Assessment, cycle: Cycle): Promise<Arra
   }, [])
 }
 
-export const getBulkDownload = async (props: { assessment: Assessment; cycle: Cycle }): Promise<any> => {
+export const getBulkDownload = async (props: {
+  assessment: Assessment
+  cycle: Cycle
+}): Promise<Array<{ fileName: string; content: string }>> => {
   const { assessment, cycle } = props
   const countries = await _getCountries(assessment, cycle)
 
