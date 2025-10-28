@@ -4,7 +4,8 @@ import { ToolsUtils } from 'tools/utils/toolsUtils'
 
 import { Assessment, AssessmentNames } from 'meta/assessment/assessment'
 
-import { DB, Schemas } from 'server/db'
+import { DB } from 'server/db/db'
+import { Schemas } from 'server/db/schemas'
 import { AssessmentController } from 'server/controller/assessment'
 import { UserController } from 'server/controller/user'
 import { CacheController } from 'server/cache/controller'

@@ -5,7 +5,8 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { MessageTopic } from 'meta/messageCenter'
 
-import { BaseProtocol, DB, Schemas } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
+import { Schemas } from 'server/db/schemas'
 
 type PropsKey = { key: string }
 type PropsId = { id: number }

@@ -3,7 +3,7 @@ import { Objects } from 'utils/objects'
 import { TablePaginatedOrderByDirection } from 'meta/tablePaginated'
 import { UserInvitationSummary } from 'meta/user/userInvitationSummary'
 
-import { BaseProtocol, DB } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
 import { InvitationsGetManyProps } from 'server/repository/public/userInvitation/invitationsGetManyProps'
 import { getPropsToQueryParams } from 'server/repository/public/userInvitation/utils/getPropsToQueryParams'
 

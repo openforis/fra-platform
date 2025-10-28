@@ -1,6 +1,6 @@
 import * as path from 'path'
 
-import { BaseProtocol } from 'server/db'
+import { BaseProtocol } from 'server/db/db'
 import { Logger } from 'server/utils/logger'
 
 export default async (client: BaseProtocol, fileName: string = path.basename(__filename)): Promise<void> => {

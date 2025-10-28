@@ -6,7 +6,7 @@ import { Cycle } from 'meta/assessment/cycle'
 import { Cycles } from 'meta/assessment/cycles'
 import { HistoryLastApprovedInfo } from 'meta/cycleData/historyLastApproved'
 
-import { BaseProtocol, DB } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
 import { CountryRepository } from 'server/repository/assessmentCycle/country'
 
 type Props = {

@@ -7,7 +7,7 @@ import { Strings } from 'utils/strings'
 import { CountryIso, RegionCode } from 'meta/area'
 import { Lang, LanguageCodes } from 'meta/lang'
 
-import { BaseProtocol, DB } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
 import { AssessmentController } from 'server/controller/assessment'
 import { CacheController } from 'server/cache/controller'
 

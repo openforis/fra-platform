@@ -4,7 +4,7 @@ import { Image, Reducer } from '@google/earthengine'
 import { CountryIso } from 'meta/area'
 import { ForestEstimations, LayerSource } from 'meta/geo'
 
-import { BaseProtocol, DB } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
 import { ForestEstimationsRepository } from 'server/repository/geo/forestEstimations'
 
 import { AssetsController } from './assets'

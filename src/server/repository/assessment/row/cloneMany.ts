@@ -5,7 +5,8 @@ import { Cycle } from 'meta/assessment/cycle'
 import { Row } from 'meta/assessment/row'
 import { Rows } from 'meta/assessment/rows'
 
-import { BaseProtocol, DB, Schemas } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
+import { Schemas } from 'server/db/schemas'
 
 type Props = {
   assessment: Assessment

@@ -2,10 +2,10 @@ import { CountryIso } from 'meta/area'
 import { NodeUpdates } from 'meta/data'
 import { User } from 'meta/user'
 
+import { BaseProtocol } from 'server/db/db'
 import { AreaController } from 'server/controller/area'
 import { AssessmentController } from 'server/controller/assessment'
 import { updateDependents } from 'server/controller/cycleData/updateDependencies/updateDependents'
-import { BaseProtocol } from 'server/db'
 
 type Props = {
   countryIso: CountryIso

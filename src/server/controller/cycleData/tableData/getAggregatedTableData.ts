@@ -1,7 +1,7 @@
 import { RegionCode } from 'meta/area'
 import { RecordAssessmentData } from 'meta/data'
 
-import { BaseProtocol, DB } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
 import { CountryRepository } from 'server/repository/assessmentCycle/country'
 import { DataRepository } from 'server/repository/assessmentCycle/data'
 

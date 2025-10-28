@@ -3,7 +3,7 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { TableName, TableNames } from 'meta/assessment/table'
 
-import { BaseProtocol, DB } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
 import { getKeyCountry, Keys } from 'server/cache/repository/keys'
 import { RedisData } from 'server/cache/repository/redisData'
 import { DataRepository } from 'server/repository/assessmentCycle/data'

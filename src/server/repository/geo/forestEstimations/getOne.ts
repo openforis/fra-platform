@@ -3,7 +3,7 @@ import { Objects } from 'utils/objects'
 import { CountryIso } from 'meta/area'
 import { ForestEstimations } from 'meta/geo'
 
-import { BaseProtocol, DB } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
 
 export const getOne = async (
   props: { countryIso: CountryIso; year: number },

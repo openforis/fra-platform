@@ -1,7 +1,7 @@
 import { ActivityLog, ActivityLogMessage } from 'meta/assessment/activityLog'
 import { User, Users } from 'meta/user'
 
-import { BaseProtocol } from 'server/db'
+import { BaseProtocol } from 'server/db/db'
 import { ActivityLogRepository } from 'server/repository/public/activityLog'
 import { UserRoleRepository } from 'server/repository/public/userRole'
 

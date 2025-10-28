@@ -2,7 +2,8 @@ import { CountryIso, CountryStatus } from 'meta/area'
 import { LastPublishedInfo } from 'meta/area/country'
 import { Assessment } from 'meta/assessment/assessment'
 
-import { BaseProtocol, DB, Schemas } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
+import { Schemas } from 'server/db/schemas'
 
 type Props = { assessment: Assessment; countryIso?: CountryIso }
 

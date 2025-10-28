@@ -1,6 +1,6 @@
 import { User, UserStatus } from 'meta/user'
 
-import { BaseProtocol, DB } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
 import { UserAdapter } from 'server/repository/adapter/user'
 
 import { fields } from './fields'

@@ -1,6 +1,6 @@
 import { AssessmentNames, RecordAssessments } from 'meta/assessment/assessment'
 
-import { BaseProtocol, DB } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
 import { PropsGetAssessments } from 'server/cache/repository/assessment/_propsGetAssessments'
 import { getOne } from 'server/cache/repository/assessment/getOne'
 

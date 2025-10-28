@@ -2,7 +2,7 @@ import { Objects } from 'utils/objects'
 
 import { Taxon } from 'meta/extData'
 
-import { BaseProtocol, DB } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
 
 export const search = async (
   props: { query: string; limit: string },

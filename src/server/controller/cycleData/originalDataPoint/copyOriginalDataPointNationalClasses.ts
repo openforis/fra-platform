@@ -6,7 +6,7 @@ import { ODPNationalClass, OriginalDataPoint } from 'meta/assessment/originalDat
 import { User } from 'meta/user'
 import { UUIDs } from 'meta/uuid'
 
-import { BaseProtocol, DB } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
 import { OriginalDataPointRepository } from 'server/repository/assessmentCycle/originalDataPoint'
 import { ActivityLogRepository } from 'server/repository/public/activityLog'
 import { CountryService } from 'server/service/country'

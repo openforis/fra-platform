@@ -3,7 +3,8 @@ import { Cycle } from 'meta/assessment/cycle'
 import { SectionName } from 'meta/assessment/section'
 import { TableSection } from 'meta/assessment/tableSection'
 
-import { BaseProtocol, DB, Schemas } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
+import { Schemas } from 'server/db/schemas'
 import { TableSectionAdapter } from 'server/repository/adapter'
 
 type Props = {

@@ -1,6 +1,6 @@
 import { SystemOfMeasurementDB, SystemOfMeasurementName } from 'meta/measurement/systemOfMeasurement'
 
-import { BaseProtocol, DB } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
 import { SQLs } from 'server/db/SQLs'
 import { SystemOfMeasurementAdapter } from 'server/repository/adapter'
 

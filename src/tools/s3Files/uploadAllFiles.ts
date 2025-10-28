@@ -3,7 +3,7 @@ import '../scriptInit'
 import * as path from 'node:path'
 import { Promises } from 'utils/promises'
 
-import { BaseProtocol, DB } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
 import { FileStorage, FileStorageUtils } from 'server/service/fileStorage'
 import { ProcessEnv } from 'server/utils'
 import { Logger } from 'server/utils/logger'

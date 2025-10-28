@@ -1,6 +1,6 @@
 import { Promises } from 'utils/promises'
 
-import { BaseProtocol, DB } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
 import { CacheController } from 'server/cache/controller'
 
 export default async (client: BaseProtocol): Promise<void> => {

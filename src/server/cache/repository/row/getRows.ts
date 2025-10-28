@@ -4,7 +4,7 @@ import { Assessment } from 'meta/assessment/assessment'
 import { RecordRowCache, RowCacheKey } from 'meta/assessment/rowCache'
 import { RowCaches } from 'meta/assessment/rowCaches'
 
-import { BaseProtocol, DB } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
 import { getKeyRow } from 'server/cache/repository/keys'
 import { RedisData } from 'server/cache/repository/redisData'
 import { RowRepository } from 'server/repository/assessment/row'

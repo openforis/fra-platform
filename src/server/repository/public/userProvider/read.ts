@@ -2,7 +2,7 @@ import { Objects } from 'utils/objects'
 
 import { AuthProvider, User, UserAuthProvider } from 'meta/user'
 
-import { BaseProtocol, DB } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
 
 export const read = async <P>(
   props: { user: User; provider: AuthProvider },

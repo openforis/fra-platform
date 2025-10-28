@@ -1,6 +1,7 @@
 import { Assessment } from 'meta/assessment/assessment'
 
-import { BaseProtocol, DB, Schemas } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
+import { Schemas } from 'server/db/schemas'
 import { getCreateSchemaDDL } from 'server/repository/assessment/assessment/getCreateSchemaDDL'
 
 const client: BaseProtocol = DB

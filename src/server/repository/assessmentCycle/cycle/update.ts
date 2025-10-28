@@ -1,6 +1,6 @@
 import { Cycle } from 'meta/assessment/cycle'
 
-import { BaseProtocol, DB } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
 
 type Props = {
   cycle: Cycle

@@ -1,7 +1,8 @@
 import { Assessment } from 'meta/assessment/assessment'
 import { Table, TableProps } from 'meta/assessment/table'
 
-import { BaseProtocol, DB, Schemas } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
+import { Schemas } from 'server/db/schemas'
 import { TableAdapter } from 'server/repository/adapter'
 
 type Props = {

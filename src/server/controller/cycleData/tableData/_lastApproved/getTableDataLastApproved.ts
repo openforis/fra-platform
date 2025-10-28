@@ -2,15 +2,15 @@ import { Objects } from 'utils/objects'
 
 import { RecordAssessmentData, RecordAssessmentDatas } from 'meta/data'
 
+import { BaseProtocol, DB } from 'server/db/db'
 import { getInfo } from 'server/controller/cycleData/history/lastApproved'
 import { mergeWithLastApproved } from 'server/controller/cycleData/tableData/_lastApproved/_lastApproved'
-import { BaseProtocol, DB } from 'server/db'
 
 import { getTableDataPrevCycle } from './_prevCycle'
 import { PropsGetLastApproved } from './_types'
 
 // Sets default values for tableData
-const _withDefaults = (props: PropsGetLastApproved & { data: RecordAssessmentData }) => {
+const _withDefaults = (props: PropsGetLastApproved & { data: RecordAssessmentData }): RecordAssessmentData => {
   const { assessment, countryISOs, cycle, data, tableNames } = props
   const [countryIso] = countryISOs
 

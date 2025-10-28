@@ -2,7 +2,7 @@ import { Objects } from 'utils/objects'
 
 import { Country, CountryIso } from 'meta/area'
 
-import { BaseProtocol, DB } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
 import { _cacheCountries } from 'server/cache/repository/area/cacheCountries'
 import { Props } from 'server/cache/repository/area/props'
 import { getKeyCycle, Keys } from 'server/cache/repository/keys'

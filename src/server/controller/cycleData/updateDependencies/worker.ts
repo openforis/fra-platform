@@ -1,6 +1,6 @@
 import { NodeUpdates } from 'meta/data'
 
-import { DB } from 'server/db'
+import { DB } from 'server/db/db'
 import { AreaRedisRepository } from 'server/cache/repository/area'
 import { Logger } from 'server/utils/logger'
 

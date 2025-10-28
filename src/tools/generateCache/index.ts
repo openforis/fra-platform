@@ -1,6 +1,6 @@
 import '../scriptInit'
 
-import { DB } from 'server/db'
+import { DB } from 'server/db/db'
 import { CacheController } from 'server/cache/controller'
 import { RedisData } from 'server/cache/repository/redisData'
 import { Logger } from 'server/utils/logger'

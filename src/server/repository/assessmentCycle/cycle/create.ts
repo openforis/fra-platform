@@ -1,7 +1,8 @@
 import { Assessment, AssessmentNames } from 'meta/assessment/assessment'
 import { Cycle, CycleProps, CycleStatus } from 'meta/assessment/cycle'
 
-import { BaseProtocol, DB, Schemas } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
+import { Schemas } from 'server/db/schemas'
 import { AssessmentRepository } from 'server/repository/assessment/assessment'
 import { getCreateOrReplaceViewCountryUserSummary } from 'server/repository/assessment/assessment/getCreateSchemaDDL'
 

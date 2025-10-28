@@ -4,9 +4,9 @@ import { ToolsUtils } from 'tools/utils/toolsUtils'
 
 import { AssessmentNames } from 'meta/assessment/assessment'
 
+import { DB } from 'server/db/db'
 import { AssessmentController } from 'server/controller/assessment'
 import { UserController } from 'server/controller/user'
-import { DB } from 'server/db'
 
 const client = DB
 const assessmentName = AssessmentNames.fra

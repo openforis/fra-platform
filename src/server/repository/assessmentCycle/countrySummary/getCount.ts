@@ -2,7 +2,7 @@ import { Objects } from 'utils/objects'
 
 import { TablePaginatedCount } from 'meta/tablePaginated'
 
-import { BaseProtocol, DB } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
 import { CountrySummaryGetManyProps } from 'server/repository/assessmentCycle/countrySummary/countrySummaryGetManyProps'
 import { getPropsToQueryParams } from 'server/repository/assessmentCycle/countrySummary/utils/getPropsToQueryParams'
 

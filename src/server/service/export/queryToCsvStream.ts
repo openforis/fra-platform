@@ -4,7 +4,7 @@ import * as fastCsv from 'fast-csv'
 import { ParserRow } from 'fast-csv'
 import * as pgPromise from 'pg-promise'
 
-import { BaseProtocol, DB } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
 import { Logger } from 'server/utils/logger'
 
 export type QueryToCsvStreamProps<QueryResultRow> = {

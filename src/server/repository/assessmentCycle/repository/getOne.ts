@@ -4,7 +4,8 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { RepositoryItem } from 'meta/cycleData'
 
-import { BaseProtocol, DB, Schemas } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
+import { Schemas } from 'server/db/schemas'
 
 type Props = {
   assessment: Assessment
@@ -15,7 +16,7 @@ export const getOne = async (props: Props, client: BaseProtocol = DB): Promise<R
   const { assessment, cycle } = props
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
 
-  let values: string[]
+  let values: Array<string>
   let where: string
 
   if ('uuid' in props) {

@@ -2,7 +2,7 @@ import { Promises } from 'utils/promises'
 
 import { Assessment } from 'meta/assessment/assessment'
 
-import { BaseProtocol, DB } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
 import { CycleRedisRepository } from 'server/cache/repository/cycle'
 import { getKeyAssessments, getKeyAssessmentsUuid } from 'server/cache/repository/keys'
 import { RedisData } from 'server/cache/repository/redisData'

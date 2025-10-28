@@ -1,6 +1,6 @@
 import type { File, FileSummary } from 'meta/file'
 
-import { BaseProtocol, DB } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
 import { FileAdapter } from 'server/repository/adapter'
 import { fieldsFileSummary } from 'server/repository/public/file/fields'
 

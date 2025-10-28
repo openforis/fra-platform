@@ -3,7 +3,8 @@ import { Objects } from 'utils/objects'
 import { Assessment } from 'meta/assessment/assessment'
 import { Table } from 'meta/assessment/table'
 
-import { BaseProtocol, DB, Schemas } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
+import { Schemas } from 'server/db/schemas'
 
 // create Table
 export const create = async (

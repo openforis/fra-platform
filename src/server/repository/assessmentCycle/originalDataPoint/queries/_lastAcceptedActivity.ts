@@ -5,7 +5,7 @@ import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 
-import { Schemas } from 'server/db'
+import { Schemas } from 'server/db/schemas'
 
 const activityMessages = [
   ActivityLogMessage.originalDataPointCreate,

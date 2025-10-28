@@ -3,7 +3,7 @@ import { Objects } from 'utils/objects'
 import { User, UserAuthProvider } from 'meta/user'
 import { AuthProvider, AuthProviderLocalProps } from 'meta/user/userAuth'
 
-import { BaseProtocol, DB } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
 
 export const update = async (
   props: { user: Pick<User, 'id'>; password: string },

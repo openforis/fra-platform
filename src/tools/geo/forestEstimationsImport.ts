@@ -7,7 +7,7 @@ import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area'
 
-import { DB } from 'server/db'
+import { DB } from 'server/db/db'
 
 type Response = {
   features: Array<{

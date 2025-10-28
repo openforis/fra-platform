@@ -6,7 +6,8 @@ import { Cycle } from 'meta/assessment/cycle'
 import { VariableCache } from 'meta/assessment/metaCache'
 import { RecordCountryData, TablesCondition } from 'meta/data'
 
-import { BaseProtocol, DB, Schemas } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
+import { Schemas } from 'server/db/schemas'
 
 type Props = {
   assessment: Assessment
@@ -24,7 +25,7 @@ type Props = {
   dependencies?: Array<VariableCache>
 }
 
-const asQueryStringArray = (arr: any[]) => `(${arr.map((v) => `'${v}'`).join(',')})`
+const asQueryStringArray = (arr: Array<any>): string => `(${arr.map((v) => `'${v}'`).join(',')})`
 
 const mergeDependencies = (props: Props): TablesCondition => {
   const { dependencies, tables } = props

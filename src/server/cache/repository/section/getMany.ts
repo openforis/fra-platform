@@ -2,7 +2,7 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { Section } from 'meta/assessment/section'
 
-import { BaseProtocol, DB } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
 import { getKeyCycle, Keys } from 'server/cache/repository/keys'
 import { RedisData } from 'server/cache/repository/redisData'
 import { _cacheSections } from 'server/cache/repository/section/_cacheSections'

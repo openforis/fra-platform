@@ -3,7 +3,7 @@ import { Cycle } from 'meta/assessment/cycle'
 import { SectionName } from 'meta/assessment/section'
 import { TableSection } from 'meta/assessment/tableSection'
 
-import { BaseProtocol, DB } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
 import { getKeyCycle, Keys } from 'server/cache/repository/keys'
 import { RedisData } from 'server/cache/repository/redisData'
 import { SectionRedisRepository } from 'server/cache/repository/section/index'

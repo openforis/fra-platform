@@ -3,7 +3,7 @@ import { Objects } from 'utils/objects'
 import { Assessment, AssessmentName } from 'meta/assessment/assessment'
 import { UUID } from 'meta/uuid'
 
-import { BaseProtocol, DB } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
 import {
   getAssessmentWithMetaCache,
   PropsMetaCacheCycle,

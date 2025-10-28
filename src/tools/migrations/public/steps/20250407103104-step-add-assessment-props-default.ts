@@ -1,6 +1,6 @@
-import { DB } from 'server/db'
+import { DB } from 'server/db/db'
 
-export default async () => {
+export default async (): Promise<void> => {
   await DB.query(`
     with settings_id as (
       select default_assessment_id

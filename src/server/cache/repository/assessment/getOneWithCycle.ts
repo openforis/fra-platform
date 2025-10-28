@@ -3,7 +3,7 @@ import { Assessments } from 'meta/assessment/assessments'
 import { Cycle, CycleName } from 'meta/assessment/cycle'
 import { UUID } from 'meta/uuid'
 
-import { BaseProtocol, DB } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
 import { getOne, PropsGetOneAssessment } from 'server/cache/repository/assessment/getOne'
 
 type Props = PropsGetOneAssessment & ({ cycleName: CycleName } | { cycleUuid: UUID })

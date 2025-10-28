@@ -3,9 +3,9 @@ import { Promises } from 'utils/promises'
 import { AssessmentMetaCaches } from 'meta/assessment/metaCaches'
 import { Sockets } from 'meta/socket'
 
+import { BaseProtocol } from 'server/db/db'
 import { updateExternalDependents } from 'server/controller/cycleData/updateDependencies/updateExternalDependents'
 import worker from 'server/controller/cycleData/updateDependencies/worker'
-import { BaseProtocol } from 'server/db'
 import { SocketServer } from 'server/service/socket'
 import { Logger } from 'server/utils/logger'
 

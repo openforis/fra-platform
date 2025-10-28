@@ -10,7 +10,8 @@ import { Objects } from 'utils/objects'
 
 import { AssessmentNames } from 'meta/assessment/assessment'
 
-import { BaseProtocol, Schemas } from 'server/db'
+import { BaseProtocol } from 'server/db/db'
+import { Schemas } from 'server/db/schemas'
 import { AssessmentController } from 'server/controller/assessment'
 import { CacheController } from 'server/cache/controller'
 

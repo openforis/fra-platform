@@ -1,16 +1,16 @@
 import * as pgPromise from 'pg-promise'
 
-import { Logger } from '../utils/logger'
-import { ProcessEnv } from '../utils/processEnv'
+import { ProcessEnv } from 'server/utils'
+import { Logger } from 'server/utils/logger'
 
 const debugOptions = {
-  query: (e: pgPromise.IEventContext) => {
+  query: (e: pgPromise.IEventContext): void => {
     Logger.debug(`QUERY: ${e.query}`)
     if (e.params) {
       Logger.debug(`PARAMS: ${JSON.stringify(e.params)}`)
     }
   },
-  error: (err: Error, e: pgPromise.IEventContext) => {
+  error: (err: Error, e: pgPromise.IEventContext): void => {
     Logger.error(
       `\x1b[31mDB ERROR: ${err.message}\x1b[0m ${JSON.stringify(
         {
@@ -66,6 +66,6 @@ const config = ProcessEnv.dbUrl
       ...configCommon,
     }
 
-export type BaseProtocol<T = any> = pgPromise.IBaseProtocol<T>
+export type BaseProtocol<T = unknown> = pgPromise.IBaseProtocol<T>
 
 export const DB = pgp(config)
