@@ -11,7 +11,7 @@ import { formatDatum } from 'server/controller/cycleData/getBulkDownload/formatD
 import { getClimaticValue } from 'server/controller/cycleData/getBulkDownload/getClimaticValue'
 import { getData } from 'server/controller/cycleData/getBulkDownload/getData'
 import { Props } from 'server/controller/cycleData/getBulkDownload/props'
-import { TableRepository } from 'server/repository/assessment/table'
+import { TableRepository } from 'server/db/repository/assessment/table'
 
 import { getMetadata } from './utils/getMetadata'
 

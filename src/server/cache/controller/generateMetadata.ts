@@ -2,9 +2,9 @@ import { Promises } from 'utils/promises'
 
 import { Assessment } from 'meta/assessment/assessment'
 
-import { BaseProtocol, DB } from 'server/db/db'
 import { RowRedisRepository } from 'server/cache/repository/row'
 import { SectionRedisRepository } from 'server/cache/repository/section'
+import { BaseProtocol, DB } from 'server/db/db'
 import { Logger } from 'server/utils/logger'
 
 type Props = {

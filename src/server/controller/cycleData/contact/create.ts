@@ -7,8 +7,8 @@ import { Contact, contactFields } from 'meta/cycleData'
 import { User } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db/db'
-import { NodeExtRepository } from 'server/repository/assessmentCycle/nodeExt'
-import { ActivityLogRepository } from 'server/repository/public/activityLog'
+import { NodeExtRepository } from 'server/db/repository/assessmentCycle/nodeExt'
+import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 
 type Props = {
   assessment: Assessment

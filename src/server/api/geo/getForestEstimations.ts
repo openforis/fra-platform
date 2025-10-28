@@ -7,7 +7,7 @@ import { ForestKey, LayerSource } from 'meta/geo'
 import { GeoController } from 'server/controller/geo'
 import Requests from 'server/utils/requests'
 
-export const getForestEstimations = async (req: ForestEstimationsRequest, res: Response) => {
+export const getForestEstimations = async (req: ForestEstimationsRequest, res: Response): Promise<void> => {
   try {
     const layer = await GeoController.getForestEstimations(req.query)
     Requests.sendOk(res, layer)
@@ -16,7 +16,7 @@ export const getForestEstimations = async (req: ForestEstimationsRequest, res: R
   }
 }
 
-export const estimateImageArea = async (req: ForestAgreementAreaEstimationRequest, res: Response) => {
+export const estimateImageArea = async (req: ForestAgreementAreaEstimationRequest, res: Response): Promise<void> => {
   try {
     const agreementLayer = {
       countryIso: req.body.countryIso,
@@ -51,7 +51,7 @@ export const estimateIntersectionArea = async (
     never
   >,
   res: Response
-) => {
+): Promise<void> => {
   try {
     const areaHa = await GeoController.estimateIntersectionArea(req.body)
     Requests.sendOk(res, areaHa)

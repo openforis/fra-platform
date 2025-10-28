@@ -7,8 +7,8 @@ import { User } from 'meta/user'
 import { UUIDs } from 'meta/uuid'
 
 import { BaseProtocol, DB } from 'server/db/db'
-import { OriginalDataPointRepository } from 'server/repository/assessmentCycle/originalDataPoint'
-import { ActivityLogRepository } from 'server/repository/public/activityLog'
+import { OriginalDataPointRepository } from 'server/db/repository/assessmentCycle/originalDataPoint'
+import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 import { CountryService } from 'server/service/country'
 
 import { updateOriginalDataPointDependentNodes } from './updateDependants/updateOriginalDataPointDependentNodes'

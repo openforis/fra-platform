@@ -1,8 +1,8 @@
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 
-import { BaseProtocol, DB } from 'server/db/db'
 import { ExplorerRedisRepository } from 'server/cache/repository/explorer'
+import { BaseProtocol, DB } from 'server/db/db'
 import { Logger } from 'server/utils/logger'
 
 type Props = { assessment: Assessment; cycle: Cycle }

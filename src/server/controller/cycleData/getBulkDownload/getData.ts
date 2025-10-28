@@ -1,7 +1,9 @@
+import { RecordAssessmentData } from 'meta/data'
+
 import { getTableData } from '../getTableData'
 import { Props } from './props'
 
-export const getData = async (props: Props & { tableNames: Array<string> }) => {
+export const getData = async (props: Props & { tableNames: Array<string> }): Promise<RecordAssessmentData> => {
   const { assessment, countries, cycle, tableNames } = props
   return getTableData({
     assessment,

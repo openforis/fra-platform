@@ -17,7 +17,7 @@ export const userInvite = async (props: {
   cycleName: string
   userInvitation: UserInvitation
   userToInvite: User
-}) => {
+}): Promise<void> => {
   const { assessmentName, countryIso, cycleName, userInvitation, userToInvite } = props
 
   const url = ProcessEnv.appUri

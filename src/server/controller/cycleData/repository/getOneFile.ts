@@ -3,8 +3,8 @@ import { Cycle } from 'meta/assessment/cycle'
 import { RepositoryItem } from 'meta/cycleData'
 import { File } from 'meta/file'
 
-import { RepositoryRepository } from 'server/repository/assessmentCycle/repository'
-import { FileRepository } from 'server/repository/public/file'
+import { RepositoryRepository } from 'server/db/repository/assessmentCycle/repository'
+import { FileRepository } from 'server/db/repository/public/file'
 
 type Props = {
   assessment: Assessment

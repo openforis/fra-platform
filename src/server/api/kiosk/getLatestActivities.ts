@@ -5,7 +5,7 @@ import { KioskController } from 'server/controller/kiosk'
 import { ProcessEnv } from 'server/utils'
 import Requests from 'server/utils/requests'
 
-export const getLatestActivities = async (_req: Request, res: Response) => {
+export const getLatestActivities = async (_req: Request, res: Response): Promise<void> => {
   try {
     const sheetUrl = ProcessEnv.kioskActivitiesSheetUrl
     const response = await axios.get(sheetUrl, { responseType: 'text' })

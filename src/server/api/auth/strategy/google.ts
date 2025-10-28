@@ -86,7 +86,7 @@ const googleStrategyVerifyCallback = async (
   }
 }
 
-export const googleStrategy = (passport: PassportStatic) => {
+export const googleStrategy = (passport: PassportStatic): void => {
   passport.use(
     new GoogleStrategy.OAuth2Strategy(
       {

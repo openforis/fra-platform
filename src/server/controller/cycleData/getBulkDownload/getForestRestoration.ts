@@ -20,7 +20,7 @@ const variableToCsvColumn: Record<string, string> = {
 const colName = 'answer'
 const tableName = 'forestRestoration'
 
-export const getForestRestoration = async (props: Props) => {
+export const getForestRestoration = async (props: Props): Promise<Array<Record<string, string>>> => {
   const { assessment, countries, cycle } = props
 
   const tableNames = [tableName]

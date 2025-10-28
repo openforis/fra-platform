@@ -4,12 +4,12 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle, CycleStatus } from 'meta/assessment/cycle'
 import { User } from 'meta/user'
 
-import { BaseProtocol, DB } from 'server/db/db'
 import { AreaRedisRepository } from 'server/cache/repository/area'
 import { AssessmentRedisRepository } from 'server/cache/repository/assessment'
-import { CountryRepository } from 'server/repository/assessmentCycle/country'
-import { CycleRepository } from 'server/repository/assessmentCycle/cycle'
-import { ActivityLogDb, ActivityLogRepository } from 'server/repository/public/activityLog'
+import { BaseProtocol, DB } from 'server/db/db'
+import { CountryRepository } from 'server/db/repository/assessmentCycle/country'
+import { CycleRepository } from 'server/db/repository/assessmentCycle/cycle'
+import { ActivityLogDb, ActivityLogRepository } from 'server/db/repository/public/activityLog'
 
 type Props = {
   assessment: Assessment

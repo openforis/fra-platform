@@ -4,7 +4,7 @@ import { getData } from 'server/controller/cycleData/getBulkDownload/getData'
 
 import { Props } from './props'
 
-const toTitleCase = (str: string) => {
+const toTitleCase = (str: string): string => {
   return str
     .split('_')
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
@@ -28,7 +28,7 @@ const getCSVColName = (variableName: string, colName: string): string => {
   return `${toTitleCase(variableName)} ${toTitleCase(colName)}`
 }
 
-export const getNWFP = async (props: Props) => {
+export const getNWFP = async (props: Props): Promise<Array<Record<string, string>>> => {
   const { assessment, countries, cycle } = props
 
   const tableNames = ['nonwoodforestproductsremovals', 'nonwoodforestproductsremovalscurrency']

@@ -10,7 +10,7 @@ type Variable = {
   variableName: string
 }
 
-export const getOriginalDataPointVariables = (props: { cycle: Cycle; sectionName?: string }) => {
+export const getOriginalDataPointVariables = (props: { cycle: Cycle; sectionName?: string }): Array<Variable> => {
   const { cycle, sectionName } = props
   const originalDataPointVariables: Array<Variable> = [
     // 1a

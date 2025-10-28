@@ -1,7 +1,7 @@
 import { User } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db/db'
-import { UserRepository } from 'server/repository/public/user'
+import { UserRepository } from 'server/db/repository/public/user'
 
 import { Props } from './props'
 import { updateRoleName } from './updateRoleName'

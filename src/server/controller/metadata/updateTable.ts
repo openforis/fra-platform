@@ -4,8 +4,8 @@ import { Table, TableProps } from 'meta/assessment/table'
 import { User } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db/db'
-import { TableRepository } from 'server/repository/assessment/table'
-import { ActivityLogRepository } from 'server/repository/public/activityLog'
+import { TableRepository } from 'server/db/repository/assessment/table'
+import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 
 type Props = {
   assessment: Assessment

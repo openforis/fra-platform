@@ -5,7 +5,7 @@ import { ReviewStatus } from 'meta/assessment/review'
 import { User } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db/db'
-import { MessageTopicUserRepository } from 'server/repository/assessmentCycle/messageTopicUser'
+import { MessageTopicUserRepository } from 'server/db/repository/assessmentCycle/messageTopicUser'
 
 export const getReviewStatus = async (
   props: {

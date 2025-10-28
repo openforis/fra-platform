@@ -6,7 +6,7 @@ import { Cycle } from 'meta/assessment/cycle'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { HistoryLastApprovedInfo } from 'meta/cycleData/historyLastApproved'
 
-import { OriginalDataPointRepository } from 'server/repository/assessmentCycle/originalDataPoint'
+import { OriginalDataPointRepository } from 'server/db/repository/assessmentCycle/originalDataPoint'
 
 type Props = {
   assessment: Assessment

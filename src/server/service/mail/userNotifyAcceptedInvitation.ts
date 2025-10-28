@@ -19,7 +19,7 @@ export const userNotifyAcceptedInvitation = async (props: {
   invitedUser: User
   invitedUserRole: UserRole<RoleName>
   recipient: User
-}) => {
+}): Promise<void> => {
   const { assessmentName, countryIso, cycleName, invitedUser, invitedUserRole, recipient } = props
 
   const url = ProcessEnv.appUri
