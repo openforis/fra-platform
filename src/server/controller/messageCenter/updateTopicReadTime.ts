@@ -4,7 +4,7 @@ import { MessageTopic } from 'meta/messageCenter'
 import { User } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db/db'
-import { MessageTopicUserRepository } from 'server/repository/assessmentCycle/messageTopicUser'
+import { MessageTopicUserRepository } from 'server/db/repository/assessmentCycle/messageTopicUser'
 
 export const updateTopicReadTime = async (
   props: {

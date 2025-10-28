@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express'
 import { ValidationChain, validationResult } from 'express-validator'
 
 const validateRequest = (checks: Array<ValidationChain>) => {
-  return async (req: Request, res: Response, next: NextFunction) => {
+  return async (req: Request, res: Response, next: NextFunction): Promise<any> => {
     await Promise.all(checks.map((check: ValidationChain) => check.run(req)))
 
     const result = validationResult(req)

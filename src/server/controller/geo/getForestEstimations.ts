@@ -5,7 +5,7 @@ import { CountryIso } from 'meta/area'
 import { ForestEstimations, LayerSource } from 'meta/geo'
 
 import { BaseProtocol, DB } from 'server/db/db'
-import { ForestEstimationsRepository } from 'server/repository/geo/forestEstimations'
+import { ForestEstimationsRepository } from 'server/db/repository/geo/forestEstimations'
 
 import { AssetsController } from './assets'
 

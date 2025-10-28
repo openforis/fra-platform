@@ -18,7 +18,7 @@ type GetPrivateFileRequest = Request<never, never, never, { assessmentName: Asse
  * @param res - Response
  * @returns void
  */
-export const getHiddenFile = async (req: GetPrivateFileRequest, res: Response) => {
+export const getHiddenFile = async (req: GetPrivateFileRequest, res: Response): Promise<void> => {
   try {
     const { assessmentName, fileName } = req.query
     const cycleName = '2025'

@@ -12,7 +12,7 @@ import Requests from 'server/utils/requests'
 
 import { setAuthToken } from './utils/setAuthToken'
 
-export const postLocalLogin = async (req: Request, res: Response, next: NextFunction) => {
+export const postLocalLogin = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   passport.authenticate('local', { session: false }, (err: any, user: User, info: any) => {
     if (err) return next(err)
 
@@ -26,7 +26,7 @@ export const postLocalLogin = async (req: Request, res: Response, next: NextFunc
   })(req, res, next)
 }
 
-export const getGoogleLogin = (req: LoginRequest, res: Response) => {
+export const getGoogleLogin = (req: LoginRequest, res: Response): void => {
   passport.authenticate('google', {
     scope: ['https://www.googleapis.com/auth/plus.login', 'profile', 'email'],
     state: JSON.stringify({
@@ -38,7 +38,7 @@ export const getGoogleLogin = (req: LoginRequest, res: Response) => {
   })(req, res)
 }
 
-export const getGoogleCallback = (req: Request, res: Response, next: NextFunction) => {
+export const getGoogleCallback = (req: Request, res: Response, next: NextFunction): void => {
   passport.authenticate('google', { session: false }, (err: any, user: User, msg: any) => {
     const state = JSON.parse(req.query.state as string) ?? {}
     const { assessmentName, countryIso, cycleName } = state

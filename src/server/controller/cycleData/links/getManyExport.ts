@@ -6,10 +6,10 @@ import { Link } from 'meta/cycleData'
 import { Links } from 'meta/cycleData/links/links'
 import { Lang } from 'meta/lang'
 
+import { LinkRepository } from 'server/db/repository/assessmentCycle/links'
+import { LinksGetManyProps } from 'server/db/repository/assessmentCycle/links/linksGetManyProps'
+import { LinksQueryParams } from 'server/db/repository/assessmentCycle/links/LinksQueryParams'
 import { MetadataController } from 'server/controller/metadata'
-import { LinkRepository } from 'server/repository/assessmentCycle/links'
-import { LinksGetManyProps } from 'server/repository/assessmentCycle/links/linksGetManyProps'
-import { LinksQueryParams } from 'server/repository/assessmentCycle/links/LinksQueryParams'
 import { ProcessEnv } from 'server/utils'
 
 type Props = LinksGetManyProps & {

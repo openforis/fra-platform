@@ -3,9 +3,9 @@ import { Assessment } from 'meta/assessment/assessment'
 import { User } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db/db'
+import { AssessmentRepository } from 'server/db/repository/assessment/assessment'
+import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 import { AssessmentRedisRepository } from 'server/cache/repository/assessment'
-import { AssessmentRepository } from 'server/repository/assessment/assessment'
-import { ActivityLogRepository } from 'server/repository/public/activityLog'
 
 type Props = { user: User; assessment: Pick<Assessment, 'props'> }
 

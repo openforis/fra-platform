@@ -5,8 +5,8 @@ import { Areas } from 'meta/area'
 import { Lang } from 'meta/lang'
 import { CountryUserSummary, RoleName, User, Users } from 'meta/user'
 
-import { UserRepository, UsersGetManyProps } from 'server/repository/public/user'
-import { UserQueryParams } from 'server/repository/public/user/UserQueryParams'
+import { UserRepository, UsersGetManyProps } from 'server/db/repository/public/user'
+import { UserQueryParams } from 'server/db/repository/public/user/UserQueryParams'
 
 type Props = UsersGetManyProps & {
   lang: Lang
@@ -41,7 +41,7 @@ export const getManyExport = async (props: Props): Promise<Returned> => {
   const rowTransformer = (rawUser: CountryUserSummary): Record<string, string> => {
     const user: CountryUserSummary = Objects.camelize(rawUser)
 
-    const getRoleCountries = (roleName: RoleName) => {
+    const getRoleCountries = (roleName: RoleName): string => {
       const roleCountries = user.roles
         .filter((role) => role.role === roleName)
         .map((role) =>

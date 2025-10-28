@@ -7,7 +7,7 @@ import { Cycles } from 'meta/assessment/cycles'
 import { HistoryLastApprovedInfo } from 'meta/cycleData/historyLastApproved'
 
 import { BaseProtocol, DB } from 'server/db/db'
-import { CountryRepository } from 'server/repository/assessmentCycle/country'
+import { CountryRepository } from 'server/db/repository/assessmentCycle/country'
 
 type Props = {
   assessment: Assessment

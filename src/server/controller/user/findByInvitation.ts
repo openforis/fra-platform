@@ -2,10 +2,10 @@ import { Assessment } from 'meta/assessment/assessment'
 import { AuthProvider, User, UserInvitation } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db/db'
+import { UserRepository } from 'server/db/repository/public/user'
+import { UserInvitationRepository } from 'server/db/repository/public/userInvitation'
+import { UserProviderRepository } from 'server/db/repository/public/userProvider'
 import { AssessmentRedisRepository } from 'server/cache/repository/assessment'
-import { UserRepository } from 'server/repository/public/user'
-import { UserInvitationRepository } from 'server/repository/public/userInvitation'
-import { UserProviderRepository } from 'server/repository/public/userProvider'
 
 type Props = {
   invitationUuid: string

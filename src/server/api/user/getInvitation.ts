@@ -5,7 +5,7 @@ import { CycleRequest } from 'meta/api/request'
 import { UserController } from 'server/controller/user'
 import { Requests } from 'server/utils'
 
-export const getInvitation = async (req: CycleRequest<{ invitationUuid: string }>, res: Response) => {
+export const getInvitation = async (req: CycleRequest<{ invitationUuid: string }>, res: Response): Promise<void> => {
   try {
     const { invitationUuid } = req.query
 

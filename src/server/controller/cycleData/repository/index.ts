@@ -1,5 +1,5 @@
+import { RepositoryRepository } from 'server/db/repository/assessmentCycle/repository'
 import { getOneFile } from 'server/controller/cycleData/repository/getOneFile'
-import { RepositoryRepository } from 'server/repository/assessmentCycle/repository'
 
 import { create } from './create'
 import { getFileMeta } from './getFileMeta'

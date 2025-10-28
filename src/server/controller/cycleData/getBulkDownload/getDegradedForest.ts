@@ -23,7 +23,7 @@ const variableToCsvColumn: Record<string, Record<string, string>> = {
   },
 }
 
-export const getDegradedForest = async (props: Props) => {
+export const getDegradedForest = async (props: Props): Promise<Array<Record<string, string>>> => {
   const { assessment, countries, cycle } = props
 
   const tableNames = Object.keys(variableToCsvColumn)

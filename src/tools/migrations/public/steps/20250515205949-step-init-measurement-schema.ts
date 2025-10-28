@@ -4,9 +4,9 @@ import { SystemOfMeasurementName, systemsOfMeasurement } from 'meta/measurement/
 import { UUID } from 'meta/uuid'
 
 import { BaseProtocol, DB } from 'server/db/db'
-import { SystemOfMeasurementRepository } from 'server/repository/measurement/systemOfMeasurement'
-import { UnitRepository } from 'server/repository/measurement/unit'
-import { DDL } from 'server/repository/public/ddl'
+import { SystemOfMeasurementRepository } from 'server/db/repository/measurement/systemOfMeasurement'
+import { UnitRepository } from 'server/db/repository/measurement/unit'
+import { DDL } from 'server/db/repository/public/ddl'
 import { Logger } from 'server/utils/logger'
 
 const client: BaseProtocol = DB

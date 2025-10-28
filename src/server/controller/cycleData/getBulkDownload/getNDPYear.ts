@@ -9,7 +9,7 @@ import { ODPDataSourceMethod } from 'meta/assessment/originalDataPoint'
 import { RecordAssessmentDatas } from 'meta/data'
 import { Lang } from 'meta/lang'
 
-import { OriginalDataPointRepository } from 'server/repository/assessmentCycle/originalDataPoint'
+import { OriginalDataPointRepository } from 'server/db/repository/assessmentCycle/originalDataPoint'
 
 import { climaticDomain } from './climaticDomain'
 import { getClimaticValue } from './getClimaticValue'
@@ -18,7 +18,7 @@ import { Props } from './props'
 
 const METHODS = Object.values(ODPDataSourceMethod)
 
-const getMethodKey = (method: ODPDataSourceMethod, t: TFunction) =>
+const getMethodKey = (method: ODPDataSourceMethod, t: TFunction): string =>
   method === ODPDataSourceMethod.other ? t('common.other') : t(`nationalDataPoint.dataSourceMethodsOptions.${method}`)
 
 const getValue = async (props: {
@@ -52,7 +52,7 @@ const getValue = async (props: {
   return base
 }
 
-export const getNDPYear = async (props: Props) => {
+export const getNDPYear = async (props: Props): Promise<Array<Record<string, string>>> => {
   const { assessment, countries, cycle } = props
   const { t } = await createI18nPromise(Lang.en)
 

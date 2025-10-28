@@ -3,9 +3,9 @@ import IORedis from 'ioredis'
 import { Promises } from 'utils/promises'
 
 import { BaseProtocol, DB } from 'server/db/db'
+import { FileRepository } from 'server/db/repository/public/file'
 import { Schemas } from 'server/db/schemas'
 import { AssessmentController } from 'server/controller/assessment'
-import { FileRepository } from 'server/repository/public/file'
 import { FileStorage } from 'server/service/fileStorage'
 import { Logger } from 'server/utils/logger'
 

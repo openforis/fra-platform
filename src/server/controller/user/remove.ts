@@ -2,8 +2,8 @@ import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { User } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db/db'
-import { ActivityLogRepository } from 'server/repository/public/activityLog'
-import { UserRepository } from 'server/repository/public/user'
+import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
+import { UserRepository } from 'server/db/repository/public/user'
 
 export const remove = async (
   props: {

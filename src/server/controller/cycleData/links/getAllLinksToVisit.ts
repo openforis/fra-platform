@@ -5,8 +5,8 @@ import { SectionNames } from 'meta/assessment/section'
 import { LinkLocation, LinkToVisit } from 'meta/cycleData'
 import { Routes } from 'meta/routes'
 
-import { DescriptionRepository } from 'server/repository/assessmentCycle/descriptions'
-import { OriginalDataPointRepository } from 'server/repository/assessmentCycle/originalDataPoint'
+import { DescriptionRepository } from 'server/db/repository/assessmentCycle/descriptions'
+import { OriginalDataPointRepository } from 'server/db/repository/assessmentCycle/originalDataPoint'
 
 import { getLinksFromHtml } from './utils/getLinksFromHtml'
 

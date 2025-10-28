@@ -7,9 +7,9 @@ import { Sockets } from 'meta/socket'
 import { User } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db/db'
+import { OriginalDataPointRepository } from 'server/db/repository/assessmentCycle/originalDataPoint'
+import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 import { CycleDataController } from 'server/controller/cycleData/index'
-import { OriginalDataPointRepository } from 'server/repository/assessmentCycle/originalDataPoint'
-import { ActivityLogRepository } from 'server/repository/public/activityLog'
 import { CountryService } from 'server/service/country'
 import { SocketServer } from 'server/service/socket'
 

@@ -2,9 +2,9 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 
 import { BaseProtocol, DB } from 'server/db/db'
+import { SectionRepository } from 'server/db/repository/assessment/section'
 import { getKeyCycle, Keys } from 'server/cache/repository/keys'
 import { RedisData } from 'server/cache/repository/redisData'
-import { SectionRepository } from 'server/repository/assessment/section'
 
 type Props = {
   assessment: Assessment

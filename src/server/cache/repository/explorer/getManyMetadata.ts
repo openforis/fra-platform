@@ -7,12 +7,12 @@ import { SystemOfMeasurementName, systemsOfMeasurement } from 'meta/measurement/
 import { SystemOfMeasurement } from 'meta/measurement/systemOfMeasurement/systemOfMeasurement'
 
 import { BaseProtocol, DB } from 'server/db/db'
+import { DimensionRepository } from 'server/db/repository/measurement/dimension'
+import { MeasureRepository } from 'server/db/repository/measurement/measure'
 import { SystemOfMeasurementController } from 'server/controller/measurement/systemOfMeasurement'
 import { getKeyCycle, Keys } from 'server/cache/repository/keys'
 import { RedisData } from 'server/cache/repository/redisData'
 import { SectionRedisRepository } from 'server/cache/repository/section'
-import { DimensionRepository } from 'server/repository/measurement/dimension'
-import { MeasureRepository } from 'server/repository/measurement/measure'
 
 const skipTables = [
   'biomassStockTotal',

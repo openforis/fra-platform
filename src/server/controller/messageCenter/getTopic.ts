@@ -5,7 +5,7 @@ import { MessageTopic } from 'meta/messageCenter'
 import { User } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db/db'
-import { MessageTopicRepository } from 'server/repository/assessmentCycle/messageTopic'
+import { MessageTopicRepository } from 'server/db/repository/assessmentCycle/messageTopic'
 
 import { updateTopicReadTime } from './updateTopicReadTime'
 

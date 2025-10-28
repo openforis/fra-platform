@@ -1,12 +1,12 @@
 import { Request, Response } from 'express'
 import { Objects } from 'utils/objects'
 
-import { passwordHash } from 'server/api/auth/utils/passwordUtils'
 import { UserController } from 'server/controller/user'
+import { passwordHash } from 'server/api/auth/utils/passwordUtils'
 import { Requests } from 'server/utils'
 import { validPassword } from 'server/utils/validPassword'
 
-export const postChangePassword = async (req: Request, res: Response) => {
+export const postChangePassword = async (req: Request, res: Response): Promise<void> => {
   try {
     const { email, password, uuid } = req.body
 

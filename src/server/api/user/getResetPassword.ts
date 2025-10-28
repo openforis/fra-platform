@@ -6,7 +6,7 @@ import { Requests } from 'server/utils'
 export const getResetPassword = async (
   req: Request<never, never, never, { resetPasswordUuid: string }>,
   res: Response
-) => {
+): Promise<void> => {
   try {
     const { resetPasswordUuid } = req.query
 

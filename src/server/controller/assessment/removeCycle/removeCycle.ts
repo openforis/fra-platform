@@ -4,11 +4,11 @@ import { Cycle } from 'meta/assessment/cycle'
 import { User } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db/db'
+import { CycleRepository } from 'server/db/repository/assessmentCycle/cycle'
+import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 import { removeMetadata } from 'server/controller/assessment/removeCycle/removeMetadata'
 import { AssessmentRedisRepository } from 'server/cache/repository/assessment'
 import { CycleRedisRepository } from 'server/cache/repository/cycle'
-import { CycleRepository } from 'server/repository/assessmentCycle/cycle'
-import { ActivityLogRepository } from 'server/repository/public/activityLog'
 import { StaticFiles } from 'server/static/staticFiles'
 
 type Props = {

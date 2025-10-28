@@ -6,8 +6,8 @@ import { CommentableDescriptionName, CommentableDescriptionValue } from 'meta/as
 import { User } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db/db'
-import { DescriptionRepository } from 'server/repository/assessmentCycle/descriptions'
-import { ActivityLogRepository } from 'server/repository/public/activityLog'
+import { DescriptionRepository } from 'server/db/repository/assessmentCycle/descriptions'
+import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 import { CountryService } from 'server/service/country'
 
 type Props = {

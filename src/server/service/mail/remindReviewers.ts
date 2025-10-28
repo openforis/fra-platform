@@ -11,8 +11,8 @@ import { Routes } from 'meta/routes'
 import { User, Users } from 'meta/user'
 import { UserRoles } from 'meta/user/userRoles'
 
+import { UserRepository } from 'server/db/repository/public/user'
 import { AreaController } from 'server/controller/area'
-import { UserRepository } from 'server/repository/public/user'
 import { sendMail } from 'server/service/mail/mail'
 import { ProcessEnv } from 'server/utils'
 
@@ -27,27 +27,29 @@ type RecipientAssessmentCycleCountries = {
 
 type RecordRecipientAssessmentCycleCountries = Record<string, RecipientAssessmentCycleCountries>
 
-const _getCountryUrl = (countryIso: AreaCode, assessmentName: AssessmentName, cycleName: CycleName) => {
+const _getCountryUrl = (countryIso: AreaCode, assessmentName: AssessmentName, cycleName: CycleName): string => {
   const routeParams = { assessmentName, cycleName, countryIso }
   return `    ${ProcessEnv.appUri}${Routes.CountryHome.generatePath(routeParams)}`
 }
 
-const _getLastInReview = (country: Country) => {
+const _getLastInReview = (country: Country): string => {
   return Dates.format(new Date(country.lastInReview), 'dd MMMM yyyy')
 }
 
-const _getCountryName = (country: Country, t: TFunction) => {
+const _getCountryName = (country: Country, t: TFunction): string => {
   return t(`area.${country.countryIso}.listName`)
 }
 
-const _getCountryLink = (assessment: Assessment, cycle: Cycle, country: Country, t: TFunction) => {
+const _getCountryLink = (assessment: Assessment, cycle: Cycle, country: Country, t: TFunction): string => {
   return `<a href="${_getCountryUrl(country.countryIso, assessment.props.name, cycle.name)}">${_getCountryName(
     country,
     t
   )} (${_getLastInReview(country)})</a>`
 }
 
-const createMail = async (recipient: RecipientAssessmentCycleCountries) => {
+const createMail = async (
+  recipient: RecipientAssessmentCycleCountries
+): Promise<{ html: string; subject: string; text: string; to: string }> => {
   const { assessments, user } = recipient
   const { t } = await createI18nPromise(Lang.en)
   const to = recipient.user.email
@@ -81,9 +83,7 @@ const createMail = async (recipient: RecipientAssessmentCycleCountries) => {
   const text = `${messageHeader}\n\n${messageBodyText}\n\n${messageFooter}`
   const html = `<p ${htmlStyle} >${messageHeader}${messageBodyHTML}${messageFooter}</p>`
 
-  const mail = { to, subject, text, html }
-
-  return mail
+  return { to, subject, text, html }
 }
 
 const getReviewerRecipients = async (props: {
@@ -139,7 +139,7 @@ const getReviewerRecipients = async (props: {
   return assessmentsByReviewer
 }
 
-export const remindReviewers = async (props: { assessments: Array<Assessment> }) => {
+export const remindReviewers = async (props: { assessments: Array<Assessment> }): Promise<void> => {
   const { assessments } = props
   const recipients = await getReviewerRecipients({ assessments })
 

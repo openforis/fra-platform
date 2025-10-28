@@ -41,7 +41,7 @@ const _estimateWithDefaults = (
   dataset: any,
   method: GenerateSpecMethod,
   changeRates: Record<string, { rateFuture: number; ratePast: number }> = undefined
-) => {
+): Array<NodeUpdate> => {
   const generateSpec = {
     method,
     changeRates,

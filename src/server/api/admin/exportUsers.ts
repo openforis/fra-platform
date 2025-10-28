@@ -3,8 +3,8 @@ import { Response } from 'express'
 import { UsersRequest } from 'meta/api/request'
 import { User } from 'meta/user'
 
-import { getUsersGetManyPropsFromRequest } from 'server/api/admin/_getUsersGetManyPropsFromRequest'
 import { UserController } from 'server/controller/user'
+import { getUsersGetManyPropsFromRequest } from 'server/api/admin/_getUsersGetManyPropsFromRequest'
 import { ExportService } from 'server/service/export'
 import Requests from 'server/utils/requests'
 

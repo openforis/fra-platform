@@ -1,8 +1,8 @@
 import { SystemOfMeasurement } from 'meta/measurement/systemOfMeasurement/systemOfMeasurement'
 
 import { BaseProtocol, DB } from 'server/db/db'
-import { SystemOfMeasurementRepository } from 'server/repository/measurement/systemOfMeasurement'
-import { UnitRepository } from 'server/repository/measurement/unit'
+import { SystemOfMeasurementRepository } from 'server/db/repository/measurement/systemOfMeasurement'
+import { UnitRepository } from 'server/db/repository/measurement/unit'
 
 export const getAllWithUnits = async (client: BaseProtocol = DB): Promise<Array<SystemOfMeasurement>> => {
   const systemsOfMeasurement = await SystemOfMeasurementRepository.getAll(client)

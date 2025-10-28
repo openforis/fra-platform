@@ -6,10 +6,10 @@ import { Message, MessageTopic, MessageTopicType, Topics } from 'meta/messageCen
 import { User } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db/db'
-import { SectionRepository } from 'server/repository/assessment/section'
-import { MessageRepository } from 'server/repository/assessmentCycle/message'
-import { MessageTopicRepository } from 'server/repository/assessmentCycle/messageTopic'
-import { ActivityLogRepository } from 'server/repository/public/activityLog'
+import { SectionRepository } from 'server/db/repository/assessment/section'
+import { MessageRepository } from 'server/db/repository/assessmentCycle/message'
+import { MessageTopicRepository } from 'server/db/repository/assessmentCycle/messageTopic'
+import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 import { MailService } from 'server/service'
 import { ProcessEnv } from 'server/utils'
 

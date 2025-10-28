@@ -7,8 +7,8 @@ import { AssessmentNames } from 'meta/assessment/assessment'
 
 import { swaggerOptions } from 'docs/api/swagger.config'
 
+import { CountryRepository } from 'server/db/repository/assessmentCycle/country'
 import { AssessmentController } from 'server/controller/assessment'
-import { CountryRepository } from 'server/repository/assessmentCycle/country'
 
 const swaggerSpec = swaggerJSDoc(swaggerOptions) as OpenAPIV3.Document
 

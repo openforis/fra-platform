@@ -7,7 +7,7 @@ import { TableNames } from 'meta/assessment/table'
 import { RecordCountryData, TablesCondition } from 'meta/data'
 
 import { BaseProtocol } from 'server/db/db'
-import { CountryRepository } from 'server/repository/assessmentCycle/country'
+import { CountryRepository } from 'server/db/repository/assessmentCycle/country'
 
 type Props = {
   assessment: Assessment

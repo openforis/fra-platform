@@ -4,7 +4,7 @@ import { NextFunction, Request, Response } from 'express'
 
 const geePrivateKey = JSON.parse(process.env.GEE_PRIVATE_KEY ?? '{}')
 
-const authenticateToGee = async function () {
+const authenticateToGee = async function (): Promise<void> {
   return new Promise((resolve, reject) => {
     data.authenticateViaPrivateKey(
       geePrivateKey,
@@ -27,7 +27,7 @@ const authenticateToGee = async function () {
   })
 }
 
-const requireLogin = async (_req: Request, _res: Response, next: NextFunction) => {
+const requireLogin = async (_req: Request, _res: Response, next: NextFunction): Promise<void> => {
   try {
     if (data.getAuthToken() === null) await authenticateToGee()
     next()

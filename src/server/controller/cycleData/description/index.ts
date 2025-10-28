@@ -1,5 +1,5 @@
+import { DescriptionRepository } from 'server/db/repository/assessmentCycle/descriptions'
 import { getDescriptionsLastApproved } from 'server/controller/cycleData/description/getDescriptionsLastApproved'
-import { DescriptionRepository } from 'server/repository/assessmentCycle/descriptions'
 
 import { removeDataSource } from './removeDataSource'
 import { upsertDescription } from './upsertDescription'

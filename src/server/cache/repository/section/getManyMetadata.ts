@@ -4,10 +4,10 @@ import { SectionName } from 'meta/assessment/section'
 import { TableSection } from 'meta/assessment/tableSection'
 
 import { BaseProtocol, DB } from 'server/db/db'
+import { SectionRepository } from 'server/db/repository/assessment/section'
 import { getKeyCycle, Keys } from 'server/cache/repository/keys'
 import { RedisData } from 'server/cache/repository/redisData'
 import { SectionRedisRepository } from 'server/cache/repository/section/index'
-import { SectionRepository } from 'server/repository/assessment/section'
 
 type Props = {
   assessment: Assessment

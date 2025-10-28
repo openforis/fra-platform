@@ -4,9 +4,9 @@ import { TableNames } from 'meta/assessment/table'
 import { RecordCountryData, TablesCondition } from 'meta/data'
 
 import { BaseProtocol, DB } from 'server/db/db'
+import { CountryRepository } from 'server/db/repository/assessmentCycle/country'
 import { Schemas } from 'server/db/schemas'
 import { DataRedisRepository } from 'server/cache/repository/data'
-import { CountryRepository } from 'server/repository/assessmentCycle/country'
 import { Logger } from 'server/utils/logger'
 
 type Props = {

@@ -8,7 +8,7 @@ import { RowCache } from 'meta/assessment/rowCache'
 import { TableName } from 'meta/assessment/table'
 import { NodeUpdate, NodeUpdates } from 'meta/data'
 
-import { NodeDb } from 'server/repository/assessmentCycle/node'
+import { NodeDb } from 'server/db/repository/assessmentCycle/node'
 
 import { Context } from './context'
 
