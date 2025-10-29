@@ -12,6 +12,7 @@ describe('OriginalDataPoint test:', () => {
   it('calculates correct total forest amount', () => {
     const originalDataPoint: OriginalDataPoint = {
       id: 1,
+      comments: {},
       countryIso,
       nationalClasses: [
         { area: '200', forestPercent: '50' },
@@ -28,6 +29,7 @@ describe('OriginalDataPoint test:', () => {
   xit('rounds decimals to nearest integer', () => {
     const originalDataPoint: OriginalDataPoint = {
       id: 1,
+      comments: {},
       countryIso,
       nationalClasses: [
         { area: '200', forestPercent: '50' },
@@ -41,6 +43,7 @@ describe('OriginalDataPoint test:', () => {
 
     const originalDataPoint2: OriginalDataPoint = {
       id: 2,
+      comments: {},
       countryIso,
       nationalClasses: [
         { area: '200', forestPercent: '50' },
@@ -56,6 +59,7 @@ describe('OriginalDataPoint test:', () => {
   it('allows copying values only for empty odp', () => {
     const originalDataPoint: OriginalDataPoint = {
       id: 1,
+      comments: {},
       countryIso,
       nationalClasses: [{ name: '' }],
       values: {},
@@ -66,6 +70,7 @@ describe('OriginalDataPoint test:', () => {
   it('disallows copying of values if odp has named national classes', () => {
     const originalDataPoint: OriginalDataPoint = {
       id: 1,
+      comments: {},
       countryIso,
       nationalClasses: [{ name: 'national class 1' }],
       values: {},
