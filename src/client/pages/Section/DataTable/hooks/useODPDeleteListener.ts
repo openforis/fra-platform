@@ -8,11 +8,11 @@ import { NodeValuesActions } from 'client/store/data/tableData/nodeValues/action
 import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useCountryIso } from 'client/hooks/country'
-import { SocketClient } from 'client/service/socket'
+import { SocketClient } from 'client/service/socket/client'
 
 // Listen to websocket updates for deleting an odp
 // ODP deleted from data by countryIso, year
-export const useODPDeleteListener = () => {
+export const useODPDeleteListener = (): void => {
   const dispatch = useDispatch()
   const assessment = useAssessment()
   const cycle = useCycle()
@@ -30,7 +30,7 @@ export const useODPDeleteListener = () => {
     }
 
     SocketClient.on(nodeUpdateEvent, listener)
-    return () => {
+    return (): void => {
       SocketClient.off(nodeUpdateEvent, listener)
     }
   }, [assessmentName, countryIso, cycleName, dispatch])

@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-import { SocketClient } from 'client/service/socket'
+import { SocketClient } from 'client/service/socket/client'
 
 export const useOpenSocket = (): void => {
   useEffect(() => {

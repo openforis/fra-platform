@@ -7,7 +7,7 @@ import { Sockets } from 'meta/socket'
 import { OriginalDataPointActions } from 'client/store/data/originalDataPoint/actions'
 import { useAppDispatch } from 'client/store/hooks'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
-import { SocketClient } from 'client/service/socket'
+import { SocketClient } from 'client/service/socket/client'
 
 export const useListenReservedYearsChange = (): void => {
   const dispatch = useAppDispatch()
@@ -28,7 +28,7 @@ export const useListenReservedYearsChange = (): void => {
   }, [dispatch, odpReservedYearsEvent])
 }
 
-export const useReservedYears = () => {
+export const useReservedYears = (): void => {
   const dispatch = useAppDispatch()
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams()
 

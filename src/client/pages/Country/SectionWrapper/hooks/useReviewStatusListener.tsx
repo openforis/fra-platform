@@ -9,7 +9,7 @@ import { ReviewActions } from 'client/store/review/actions'
 import { useCanEditCycleData } from 'client/store/user/hooks/auth'
 import { useUser } from 'client/store/user/hooks/user'
 import { useSectionRouteParams } from 'client/hooks/routeParams'
-import { SocketClient } from 'client/service/socket'
+import { SocketClient } from 'client/service/socket/client'
 
 export const useReviewStatusListener = (): void => {
   const { assessmentName, countryIso, cycleName, sectionName } = useSectionRouteParams<CountryIso>()
@@ -26,7 +26,7 @@ export const useReviewStatusListener = (): void => {
     const eventProps = { assessmentName, cycleName, countryIso, sectionName }
     const reviewStatusEvent = Sockets.getRequestReviewStatusEvent(eventProps)
 
-    const getReviewStatus = () => {
+    const getReviewStatus = (): void => {
       dispatch(ReviewActions.getReviewStatus({ ...eventProps, odpId }))
     }
 

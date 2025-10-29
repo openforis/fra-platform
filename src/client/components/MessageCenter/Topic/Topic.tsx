@@ -18,7 +18,7 @@ import { useUser } from 'client/store/user/hooks/user'
 import { useSectionRouteParams } from 'client/hooks/routeParams'
 import Icon from 'client/components/Icon'
 import Resizable from 'client/components/Resizable'
-import { SocketClient } from 'client/service/socket'
+import { SocketClient } from 'client/service/socket/client'
 
 import Footer from './Footer'
 import Message from './Message'
