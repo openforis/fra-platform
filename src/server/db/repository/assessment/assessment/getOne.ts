@@ -37,7 +37,7 @@ export const getOne = async (props: Props, client: BaseProtocol = DB): Promise<A
     select ${selectFields},
            coalesce(jsonb_agg(to_jsonb(ac.*)) filter ( where ac.uuid is not null ), '[]') as cycles
     from assessment a
-    left join assessment_cycle ac on a.id = ac.assessment_id
+    left join assessment_cycle ac on a.uuid = ac.assessment_uuid
     where ${whereClause}
     group by ${selectFields}
     `,

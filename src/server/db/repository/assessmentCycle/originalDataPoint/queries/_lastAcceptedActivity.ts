@@ -37,7 +37,7 @@ export const getLastAcceptedActivity = (props: Props): string => {
                , row_number() over (partition by al.target ->> 'year' order by al.time desc) as row_number
           from public.activity_log al
                    left join public.assessment a on al.assessment_uuid = a.uuid
-                   left join public.assessment_cycle ac on a.id = ac.assessment_id and al.cycle_uuid = ac.uuid
+                   left join public.assessment_cycle ac on a.uuid = ac.assessment_uuid and al.cycle_uuid = ac.uuid
                    left join ${schemaCycle}.country c on al.country_iso = c.country_iso
           where a.props ->> 'name' = '${assessmentName}'
             and ac.name = '${cycleName}'

@@ -31,7 +31,7 @@ export const getTableDataLastApproved = (props: Props, client: BaseProtocol = DB
             from public.activity_log al
             left join ${schemaCycle}.country c          on al.country_iso = c.country_iso
             left join public.assessment a               on al.assessment_uuid = a.uuid
-            left join public.assessment_cycle ac        on a.id = ac.assessment_id and al.cycle_uuid = ac.uuid
+            left join public.assessment_cycle ac        on a.uuid = ac.assessment_uuid and al.cycle_uuid = ac.uuid
             left join ${schemaAssessment}.col col       on (al.target ->> 'colUuid')::uuid = col.uuid
             left join ${schemaAssessment}.row r         on col.row_id = r.id
             left join ${schemaAssessment}.table t       on r.table_id = t.id

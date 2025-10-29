@@ -90,12 +90,12 @@ export const getCreatePublicSchemaDDL = (schemaName = 'public'): string => {
 
     create table if not exists ${schemaName}.assessment_cycle (
       id bigserial primary key,
-      assessment_id bigint not null,
+      assessment_uuid uuid not null,
       uuid uuid default uuid_generate_v4(),
       name character varying default '',
       props jsonb default '{}'::jsonb not null,
       cycle_uuid_source uuid,
-      foreign key (assessment_id) references ${schemaName}.assessment (id)
+      foreign key (assessment_uuid) references ${schemaName}.assessment (uuid)
         on update cascade on delete cascade
     );
     create unique index if not exists assessment_cycle_uuid_key on ${schemaName}.assessment_cycle using btree (uuid);
