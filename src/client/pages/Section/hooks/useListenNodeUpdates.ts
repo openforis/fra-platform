@@ -7,7 +7,7 @@ import { Sockets } from 'meta/socket'
 
 import { NodeValuesActions } from 'client/store/data/tableData/nodeValues/actions'
 import { useAppDispatch } from 'client/store/hooks'
-import { SocketClient } from 'client/service/socket'
+import { SocketClient } from 'client/service/socket/client'
 
 type Props = {
   countryIso: AreaCode
