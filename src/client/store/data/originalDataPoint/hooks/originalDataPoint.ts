@@ -16,8 +16,7 @@ export const useOriginalDataPoint = (): OriginalDataPoint => {
   const { countryIso } = useCountryRouteParams()
   const originalDataPoint = useAppSelector(OriginalDataPointSelectors.getOriginalDataPoint)
   const originalDataPointTemplate = {
-    commentsExtentOfForest: '',
-    commentsForestCharacteristics: '',
+    comments: {},
     countryIso,
     dataSourceAdditionalComments: '',
     dataSourceMethods: [],

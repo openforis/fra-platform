@@ -3,12 +3,13 @@ import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
 
+import { OriginalDataPointCommentKey } from 'meta/assessment/originalDataPoint'
+
 import { useOriginalDataPoint } from 'client/store/data/originalDataPoint/hooks/originalDataPoint'
 import { useIsDataLocked } from 'client/store/ui/countryReport/hooks/datalock'
 import Button, { ButtonSize } from 'client/components/Buttons/Button'
 import { DataCell, DataGrid, DataRow } from 'client/components/DataGrid'
 import EditorWYSIWYG from 'client/components/EditorWYSIWYG'
-import { ODPCommentField } from 'client/pages/OriginalDataPoint/components/Comments/types'
 import { useODPDisplayHistory } from 'client/pages/OriginalDataPoint/components/hooks/useODPDisplayHistory'
 import ODPCommentsDiffView from 'client/pages/OriginalDataPoint/components/ODPCommentsDiffView/ODPCommentsDiffView'
 
@@ -17,7 +18,7 @@ import { useCommentsActions } from './useCommentsActions'
 
 type Props = {
   canEditData: boolean
-  field: ODPCommentField
+  field: OriginalDataPointCommentKey
 }
 
 const Comments: React.FC<Props> = (props) => {
@@ -61,7 +62,12 @@ const Comments: React.FC<Props> = (props) => {
           <ODPCommentsDiffView field={field} />
         ) : (
           <div className={classNames('description__editor-container', { editable: open })}>
-            <EditorWYSIWYG disabled={!open} onChange={updateComment} repository value={originalDataPoint[field]} />
+            <EditorWYSIWYG
+              disabled={!open}
+              onChange={updateComment}
+              repository
+              value={originalDataPoint.comments?.[field] ?? ''}
+            />
           </div>
         )}
       </DataCell>

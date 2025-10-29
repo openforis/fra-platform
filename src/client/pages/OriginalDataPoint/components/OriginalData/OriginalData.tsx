@@ -6,6 +6,7 @@ import classNames from 'classnames'
 
 import { AssessmentName } from 'meta/assessment/assessment'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
+import { TableNames } from 'meta/assessment/table'
 import { Routes } from 'meta/routes'
 
 import { useAssessmentCountry } from 'client/store/area/hooks/country'
@@ -93,7 +94,7 @@ const OriginalData: React.FC<Props> = (props) => {
 
       <Comments
         canEditData={canEditData}
-        field={isExtentOfForestSection ? 'commentsExtentOfForest' : 'commentsForestCharacteristics'}
+        field={isExtentOfForestSection ? TableNames.extentOfForest : TableNames.forestCharacteristics}
       />
     </div>
   )
