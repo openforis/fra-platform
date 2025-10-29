@@ -1,5 +1,7 @@
 import { Promises } from 'utils/promises'
 
+import { TableNames } from 'meta/assessment/table'
+
 import { AssessmentController } from 'server/controller/assessment'
 import { BaseProtocol, DB, Schemas } from 'server/db'
 
@@ -36,30 +38,26 @@ const _updateOriginalDataPointTable = async (props: UpdateTableProps): Promise<v
   const { client, schemaName } = props
   const tableName = `${schemaName}.${TABLE}`
 
+  const hasComments = await _columnExists({ client, columnName: 'comments', schemaName })
+  if (!hasComments) {
+    await DB.query(`alter table ${tableName} add column comments jsonb not null default '{}'::jsonb`)
+  }
+
   const hasDescription = await _columnExists({ client, columnName: 'description', schemaName })
   if (hasDescription) {
-    await DB.none(`alter table ${tableName} rename column description to comments_extent_of_forest`)
-  }
-
-  const hasExtentOfForestComments = await _columnExists({
-    client,
-    columnName: 'comments_extent_of_forest',
-    schemaName,
-  })
-
-  if (!hasExtentOfForestComments) {
-    throw new Error(`Column comments_extent_of_forest not found in ${tableName}`)
-  }
-
-  const hasForestCharacteristicsComments = await _columnExists({
-    client,
-    columnName: 'comments_forest_characteristics',
-    schemaName,
-  })
-
-  if (!hasForestCharacteristicsComments) {
-    await DB.none(`alter table ${tableName} add column comments_forest_characteristics text`)
-    await client.none(`update ${tableName} set comments_forest_characteristics = comments_extent_of_forest`)
+    await DB.none(`
+        update ${tableName}
+        set comments = jsonb_strip_nulls(
+          jsonb_build_object(
+            '${TableNames.extentOfForest}',
+            description,
+            '${TableNames.forestCharacteristics}',
+            description
+          )
+        )
+        where description is not null
+    `)
+    await DB.query(`alter table ${tableName} drop column description`)
   }
 }
 
