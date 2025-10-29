@@ -17,7 +17,7 @@ export const getCount = async (
         select count(ui.uuid) as total
         from users_invitation ui
                  left join public.assessment a on ui.assessment_uuid = a.uuid
-                 left join public.assessment_cycle ac on ui.cycle_uuid = ac.uuid and a.id = ac.assessment_id
+                 left join public.assessment_cycle ac on ui.cycle_uuid = ac.uuid and a.uuid = ac.assessment_uuid
         where ${whereConditions.join(' and ')}
     `,
     queryParams,
