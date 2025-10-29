@@ -1,13 +1,15 @@
-import { BaseProtocol } from 'server/db/db'
+import { CacheController } from 'server/cache/controller'
+import { BaseProtocol, DB } from 'server/db/db'
 
 // Update table_id to table_uuid for:
 // - assessment_cycle -> assessment
 
-export default async (client: BaseProtocol): Promise<void> => {
-  // Add new UUIDs
-  await client.none(`alter table public.assessment_cycle add column if not exists assessment_uuid uuid`)
+const client: BaseProtocol = DB
+export default async (): Promise<void> => {
+  // Add new UUIDs column
+  await DB.none(`alter table public.assessment_cycle add column if not exists assessment_uuid uuid`)
 
-  // Populate
+  // Populate new columns
   await client.none(
     `update public.assessment_cycle ac
              set assessment_uuid = a.uuid
@@ -15,7 +17,7 @@ export default async (client: BaseProtocol): Promise<void> => {
              where ac.assessment_id = a.id`
   )
 
-  // Update column: not null and add foreign key constraint
+  // Update columns DDL: not null and add foreign key constraint
   await client.none(`
     alter table public.assessment_cycle
       alter column assessment_uuid set not null,
@@ -26,8 +28,10 @@ export default async (client: BaseProtocol): Promise<void> => {
         on delete cascade
   `)
 
-  // Drop deprecated column
+  // Drop deprecated columns
   await client.none(`
     alter table public.assessment_cycle drop column if exists assessment_id
   `)
+
+  await CacheController.generateAssessments(client)
 }
