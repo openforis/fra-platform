@@ -1,4 +1,5 @@
 import { CountryIso } from 'meta/area'
+import { TableNames } from 'meta/assessment/table'
 
 import { ODPDataSourceMethod } from './odpDataSource' // import { ODPEditStatus } from './odpEditStatus'
 import { ODPNationalClass } from './odpNationalClass' // import { ODPValidation } from './odpValidation'
@@ -21,16 +22,20 @@ export interface OriginalDataPointValues {
   totalForestArea?: string
 }
 
+export type OriginalDataPointCommentKey = TableNames.extentOfForest | TableNames.forestCharacteristics
+
+export type OriginalDataPointComments = Partial<Record<OriginalDataPointCommentKey, string>>
+
 export interface OriginalDataPoint {
-  id: number
+  comments: OriginalDataPointComments
   countryIso: CountryIso
-  year?: number
   dataSourceAdditionalComments?: string
   dataSourceMethods?: Array<ODPDataSourceMethod>
   dataSourceReferences?: string
-  description?: string
+  id: number
   nationalClasses?: Array<ODPNationalClass>
   values: OriginalDataPointValues
+  year?: number
   // editStatus?: ODPEditStatus
   // reservedYears?: Array<number>
   // validationStatus?: ODPValidation

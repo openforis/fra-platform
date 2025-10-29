@@ -16,14 +16,14 @@ export const useOriginalDataPoint = (): OriginalDataPoint => {
   const { countryIso } = useCountryRouteParams()
   const originalDataPoint = useAppSelector(OriginalDataPointSelectors.getOriginalDataPoint)
   const originalDataPointTemplate = {
+    comments: {},
     countryIso,
-    year: -1,
     dataSourceAdditionalComments: '',
     dataSourceMethods: [],
     dataSourceReferences: '',
-    description: '',
     nationalClasses: [],
     values: {},
+    year: -1,
   } as OriginalDataPoint
   return originalDataPoint ?? originalDataPointTemplate
 }

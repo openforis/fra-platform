@@ -14,7 +14,6 @@ import { useCountryIso } from 'client/hooks/country'
 import { useOnMount } from 'client/hooks/onMount'
 
 import ButtonBar from './components/ButtonBar'
-import Comments from './components/Comments'
 import DataSources from './components/DataSources'
 import NationalClasses from './components/NationalClasses'
 import OriginalData from './components/OriginalData'
@@ -55,7 +54,6 @@ const OriginalDataPoint: React.FC = () => {
       <DataSources originalDataPoint={originalDataPoint} />
       <NationalClasses canEditData={canEditData} originalDataPoint={originalDataPoint} />
       <OriginalData canEditData={canEditData} originalDataPoint={originalDataPoint} />
-      <Comments canEditData={canEditData} />
 
       <div className="odp__bottom-buttons">
         <ButtonBar />

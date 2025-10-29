@@ -1,7 +1,9 @@
 import { CountryIso } from 'meta/area'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
+import { OriginalDataPointCommentKey } from 'meta/assessment/originalDataPoint'
 import { SectionNames } from 'meta/assessment/section'
+import { TableNames } from 'meta/assessment/table'
 import { LinkLocation, LinkToVisit } from 'meta/cycleData'
 import { Routes } from 'meta/routes'
 
@@ -97,17 +99,28 @@ const _getOriginalDataPointLinks = async (props: Props): Promise<Array<LinkToVis
   ])
 
   const linksToVisit: Array<LinkToVisit> = odpsByDescriptionsLinks.flatMap((odp) => {
-    const { countryIso, description, id, year } = odp
+    const { comments, countryIso, id, year } = odp
     const urlParams = { assessmentName, countryIso, cycleName, sectionName, year: String(year) }
     const url = Routes.OriginalDataPoint.generatePath(urlParams)
-    return _processLinks({
-      countryIso,
-      html: description,
-      id,
-      odpSection: 'description',
-      sectionName: 'originalDataPoint',
-      url,
-      year,
+
+    const commentFields: Array<OriginalDataPointCommentKey> = [
+      TableNames.extentOfForest,
+      TableNames.forestCharacteristics,
+    ]
+
+    return commentFields.flatMap((field) => {
+      const html = comments[field]
+      if (!html) return []
+
+      return _processLinks({
+        countryIso,
+        html,
+        id,
+        odpSection: field,
+        sectionName: 'originalDataPoint',
+        url,
+        year,
+      })
     })
   })
 

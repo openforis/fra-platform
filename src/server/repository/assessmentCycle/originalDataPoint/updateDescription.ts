@@ -1,6 +1,6 @@
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
+import { OriginalDataPoint, OriginalDataPointCommentKey } from 'meta/assessment/originalDataPoint'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'
 
@@ -10,6 +10,7 @@ export const updateDescription = async (
   props: {
     assessment: Assessment
     cycle: Cycle
+    field: OriginalDataPointCommentKey
     originalDataPoint: OriginalDataPoint
   },
   client: BaseProtocol = DB
@@ -17,19 +18,22 @@ export const updateDescription = async (
   const {
     assessment,
     cycle,
-    originalDataPoint: { countryIso, description, id, year },
+    field,
+    originalDataPoint: { comments, countryIso, id, year },
   } = props
 
   const schemaName = Schemas.getNameCycle(assessment, cycle)
+  const value = comments?.[field] ?? ''
+  const path = `{${field}}`
 
   await client.one<OriginalDataPoint>(
     `
       update ${schemaName}.original_data_point
-      set description = $2
+      set comments = jsonb_set(coalesce(comments, '{}'::jsonb), $2::text[], to_jsonb($3::text), true)
       where id = $1
       returning *
   `,
-    [id, description]
+    [id, path, value]
   )
 
   return getOne({ assessment, cycle, countryIso, year: String(year) }, client)

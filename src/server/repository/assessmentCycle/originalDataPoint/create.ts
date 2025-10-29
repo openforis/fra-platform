@@ -18,11 +18,11 @@ export const create = async (
     assessment,
     cycle,
     originalDataPoint: {
+      comments,
       countryIso,
       dataSourceAdditionalComments,
       dataSourceMethods,
       dataSourceReferences,
-      description,
       nationalClasses,
       values,
       year,
@@ -31,7 +31,6 @@ export const create = async (
 
   const schemaName = Schemas.getNameCycle(assessment, cycle)
 
-  // TODO: Add comments_extent_of_forest and comments_forest_characteristics
   return client.one<OriginalDataPoint>(
     `
         insert into ${schemaName}.original_data_point (
@@ -40,16 +39,17 @@ export const create = async (
           data_source_additional_comments,
           data_source_methods,
           data_source_references,
+          comments,
           national_classes,
           values
-        ) values ($1, $2, $3, $4::jsonb, $5, $7::jsonb, $8::jsonb) returning *;`,
+        ) values ($1, $2, $3, $4::jsonb, $5, $6::jsonb, $7::jsonb, $8::jsonb) returning *;`,
     [
       countryIso,
       year,
       dataSourceAdditionalComments || '',
       dataSourceMethods ? JSON.stringify(dataSourceMethods) : '[]',
       dataSourceReferences || '',
-      description || '',
+      JSON.stringify(comments ?? {}),
       nationalClasses ? JSON.stringify(nationalClasses) : '[]',
       values ? JSON.stringify(values) : '{}',
     ],

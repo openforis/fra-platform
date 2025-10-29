@@ -3,6 +3,8 @@ import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
 
+import { OriginalDataPointCommentKey } from 'meta/assessment/originalDataPoint'
+
 import { useOriginalDataPoint } from 'client/store/data/originalDataPoint/hooks/originalDataPoint'
 import { useIsDataLocked } from 'client/store/ui/countryReport/hooks/datalock'
 import Button, { ButtonSize } from 'client/components/Buttons/Button'
@@ -11,20 +13,21 @@ import EditorWYSIWYG from 'client/components/EditorWYSIWYG'
 import { useODPDisplayHistory } from 'client/pages/OriginalDataPoint/components/hooks/useODPDisplayHistory'
 import ODPCommentsDiffView from 'client/pages/OriginalDataPoint/components/ODPCommentsDiffView/ODPCommentsDiffView'
 
-import { useUpdateDescription } from './hooks/useUpdateDescription'
+import { useUpdateComment } from './hooks/useUpdateDescription'
 import { useCommentsActions } from './useCommentsActions'
 
 type Props = {
   canEditData: boolean
+  field: OriginalDataPointCommentKey
 }
 
 const Comments: React.FC<Props> = (props) => {
-  const { canEditData } = props
+  const { canEditData, field } = props
 
   const { t } = useTranslation()
   const originalDataPoint = useOriginalDataPoint()
   const isDataLocked = useIsDataLocked()
-  const updateDescription = useUpdateDescription()
+  const updateComment = useUpdateComment({ field })
   const actions = useCommentsActions()
   const [open, setOpen] = useState<boolean>(false)
   const displayHistory = useODPDisplayHistory()
@@ -47,7 +50,7 @@ const Comments: React.FC<Props> = (props) => {
             <Button
               inverse={!open}
               label={open ? t('description.done') : t('description.edit')}
-              onClick={() => setOpen(!open)}
+              onClick={(): void => setOpen(!open)}
               size={ButtonSize.xs}
             />
           )}
@@ -56,14 +59,14 @@ const Comments: React.FC<Props> = (props) => {
 
       <DataCell editable={open} gridColumn={canEditData ? `1/-1` : undefined} lastCol lastRow noBorder={!open}>
         {displayHistory ? (
-          <ODPCommentsDiffView />
+          <ODPCommentsDiffView field={field} />
         ) : (
           <div className={classNames('description__editor-container', { editable: open })}>
             <EditorWYSIWYG
               disabled={!open}
-              onChange={updateDescription}
+              onChange={updateComment}
               repository
-              value={originalDataPoint.description}
+              value={originalDataPoint.comments?.[field] ?? ''}
             />
           </div>
         )}
