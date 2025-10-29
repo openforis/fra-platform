@@ -3,6 +3,7 @@ import { Objects } from 'utils/objects'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
+import { TableNames } from 'meta/assessment/table'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'
 
@@ -22,7 +23,8 @@ export const getManyWithDescriptionLinks = async (
   return client.map<OriginalDataPoint>(
     `
         select * from ${schemaName}.original_data_point
-        where description ilike '%href%'
+        where coalesce(comments ->> '${TableNames.extentOfForest}', '') ilike '%href%'
+           or coalesce(comments ->> '${TableNames.forestCharacteristics}', '') ilike '%href%'
     `,
     [],
     (row) => Objects.camelize(row)

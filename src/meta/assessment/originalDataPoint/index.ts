@@ -4,7 +4,7 @@ export type { ODPNationalClass } from './odpNationalClass'
 export { ODPNationalClassFactory } from './odpNationalClass'
 export type { ODPReservedYear } from './odpReservedYear'
 export type { ODPValidation, ODPValidationNationalClass, ODPValidationYear } from './odpValidation'
-export type { OriginalDataPoint, OriginalDataPointCommentKey } from './originalDataPoint'
+export type { OriginalDataPoint, OriginalDataPointCommentKey, OriginalDataPointComments } from './originalDataPoint'
 export type {
   RecordAssessmentOriginalDataPoint,
   RecordCountryOriginalDataPoint,
