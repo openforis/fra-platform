@@ -1,4 +1,13 @@
-const elementOffset = (element: Element) => {
+type ElementOffset = {
+  height: number
+  left: number
+  top: number
+  width: number
+  x: number
+  y: number
+}
+
+const elementOffset = (element: Element): ElementOffset | object => {
   if (element) {
     const rect = element.getBoundingClientRect()
     const scrollLeft = window.scrollX ?? document.documentElement.scrollLeft

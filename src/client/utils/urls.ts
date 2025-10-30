@@ -1,10 +1,10 @@
-const getRequestParam = (name: string) => {
+const getRequestParam = (name: string): string => {
   const url = new URL(window.location.href)
   const params = new URLSearchParams(url.href.substring(url.href.indexOf('?') + 1))
   return params.get(name)
 }
 
-const withSearchParams = (url: string, params: ConstructorParameters<typeof URLSearchParams>[0]) => {
+const withSearchParams = (url: string, params: ConstructorParameters<typeof URLSearchParams>[0]): string => {
   const urlParams = new URLSearchParams(params)
   return `${url}?${urlParams.toString()}`
 }

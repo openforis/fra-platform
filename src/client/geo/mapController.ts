@@ -90,14 +90,14 @@ export class MapController {
     return true
   }
 
-  addSepalLayer(mapLayerKey: MapLayerKey, urlTemplate: string) {
+  addSepalLayer(mapLayerKey: MapLayerKey, urlTemplate: string): void {
     if (this.#map === null) return
 
     this.removeLayer(mapLayerKey) // prevent duplicates
 
     const layer = new google.maps.ImageMapType({
       name: mapLayerKey,
-      getTileUrl: (coord: google.maps.Point, zoom: number) => {
+      getTileUrl: (coord: google.maps.Point, zoom: number): string => {
         const url = urlTemplate
           .replace('{x}', String(coord.x))
           .replace('{y}', String(coord.y))
@@ -122,4 +122,4 @@ export class MapController {
   }
 }
 
-export default MapController
+export const mapController = new MapController()

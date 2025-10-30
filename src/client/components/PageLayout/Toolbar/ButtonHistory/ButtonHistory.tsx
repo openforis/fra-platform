@@ -13,7 +13,7 @@ import { useIsDataLocked } from 'client/store/ui/countryReport/hooks/datalock'
 import { useOnUpdate } from 'client/hooks/onUpdate'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
-import { Breakpoints } from 'client/utils'
+import { Breakpoints } from 'client/utils/breakpoints'
 
 const ButtonHistory: React.FC = () => {
   const { t } = useTranslation()

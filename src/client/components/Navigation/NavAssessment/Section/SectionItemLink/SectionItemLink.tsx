@@ -18,7 +18,7 @@ import { CountryReportActions } from 'client/store/ui/countryReport/actions'
 import { useCountryIso } from 'client/hooks/country'
 import { useIsDataExportView } from 'client/hooks/dataExport'
 import ReviewSummaryIndicator from 'client/components/ReviewSummaryIndicator'
-import { Breakpoints } from 'client/utils'
+import { Breakpoints } from 'client/utils/breakpoints'
 
 type Props = {
   subSection: SubSection
@@ -42,12 +42,12 @@ const SectionItemLink: React.FC<Props> = (props) => {
 
   return (
     <NavLink
-      className={(navData) =>
+      className={(navData): string =>
         classNames('nav-section__item', {
           selected: navData.isActive,
         })
       }
-      onClick={() => {
+      onClick={(): void => {
         if (!laptop) {
           dispatch(CountryReportActions.setNavigationVisible())
         }

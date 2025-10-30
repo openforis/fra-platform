@@ -5,7 +5,7 @@ import { LayerKey } from 'meta/geo'
 
 import { setProperty } from 'client/store/geo/layers/actions/setProperty'
 import { GeoLayersState } from 'client/store/geo/layers/state'
-import { mapController } from 'client/utils'
+import { mapController } from 'client/geo/mapController'
 
 const _handleMapId = (state: GeoLayersState, layerKey: LayerKey, mapId: string | null): void => {
   if (mapId === null) return
