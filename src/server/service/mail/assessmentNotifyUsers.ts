@@ -3,6 +3,7 @@ import { Arrays } from 'utils/arrays'
 
 import { Country, CountryIso, CountryStatus } from 'meta/area'
 import { AssessmentName } from 'meta/assessment/assessment'
+import { Assessments } from 'meta/assessment/assessments'
 import { Cycle } from 'meta/assessment/cycle'
 import { Lang } from 'meta/lang'
 import { Routes } from 'meta/routes'
@@ -33,13 +34,14 @@ const createMail = async (
 
   const serverUrl = `${url}${Routes.Country.generatePath({ assessmentName, countryIso, cycleName })}`
 
+  const cycleLabel = i18n.t(Assessments.getCycleTranslationKey({ cycleName }))
   const emailLocalizationParameters = {
     country: i18n.t(`area.${countryIso}.listName`),
     serverUrl,
     recipientName: Users.getFullName(recipient),
     status: i18n.t(`assessment.status.${status}.label`),
     changer: Users.getFullName(user),
-    assessment: i18n.t(`assessment.${assessmentName}`),
+    assessment: i18n.t('common.cycleLabel', { assessmentName, cycleName: cycleLabel }),
     message,
   }
 

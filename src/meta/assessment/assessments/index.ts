@@ -57,9 +57,8 @@ const getRecordAssessments = (assessments: Array<Assessment>): RecordAssessments
   }, {})
 }
 
-const getCycleTranslationKey = (props: { cycle: Cycle }): string => {
-  const { cycle } = props
-  const { name: cycleName } = cycle
+const getCycleTranslationKey = (props: { cycleName: CycleName }): string => {
+  const { cycleName } = props
 
   if (cycleName === 'latest') {
     return 'common.latest'
