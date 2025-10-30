@@ -10,7 +10,7 @@ import CycleSwitcher from 'client/components/PageLayout/Header/CycleSwitcher'
 import LanguageSelector, { LanguageSelectorMobile } from 'client/components/PageLayout/Header/LanguageSelector'
 import UserLinks from 'client/components/PageLayout/Header/UserLinks'
 import LinkData from 'client/components/PageLayout/LinkData'
-import { Breakpoints } from 'client/utils'
+import { Breakpoints } from 'client/utils/breakpoints'
 
 const FraHeader: React.FC = () => {
   const { t } = useTranslation()

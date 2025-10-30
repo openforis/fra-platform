@@ -4,7 +4,8 @@ import { ODPNationalClass, OriginalDataPoint } from 'meta/assessment/originalDat
 
 import handlePaste from 'client/store/data/originalDataPoint/actions/handlePaste'
 import { useOriginalDataPoint } from 'client/store/data/originalDataPoint/hooks/originalDataPoint'
-import { readPasteClipboard } from 'client/utils/copyPasteUtil'
+
+import { readPasteClipboard } from './copyPasteUtil'
 
 export type Columns = Array<{ name: keyof ODPNationalClass; type: string; precision?: number }>
 
@@ -21,7 +22,7 @@ type PropsCallback = {
 }
 
 export const useOnPaste = (props: Props): ((propsCallback: PropsCallback) => OriginalDataPoint) => {
-  const { allowGrow = false, allowedClass = () => true, columns, index } = props
+  const { allowGrow = false, allowedClass = (): boolean => true, columns, index } = props
   const originalDataPoint = useOriginalDataPoint()
 
   return useCallback(

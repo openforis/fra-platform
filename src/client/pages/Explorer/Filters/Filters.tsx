@@ -9,7 +9,7 @@ import Dimensions from 'client/pages/Explorer/Filters/Dimensions'
 import Measures from 'client/pages/Explorer/Filters/Measures'
 import Options from 'client/pages/Explorer/Filters/Options'
 import { ExplorerGridProps } from 'client/pages/Explorer/types'
-import { Breakpoints } from 'client/utils'
+import { Breakpoints } from 'client/utils/breakpoints'
 
 const Filters: React.FC<ExplorerGridProps> = (props: ExplorerGridProps) => {
   const { gridRef } = props

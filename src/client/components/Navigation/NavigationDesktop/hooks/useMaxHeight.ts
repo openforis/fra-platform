@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useMediaQuery } from 'react-responsive'
 
-import { Breakpoints } from 'client/utils'
+import { Breakpoints } from 'client/utils/breakpoints'
 
 // document height - toolbar - header
 const baseHeight = `100dvh - 50px - 64px`

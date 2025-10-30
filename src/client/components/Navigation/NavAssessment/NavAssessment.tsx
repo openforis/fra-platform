@@ -17,7 +17,7 @@ import Icon from 'client/components/Icon'
 import Header from 'client/components/Navigation/NavAssessment/Header'
 import History from 'client/components/Navigation/NavAssessment/History'
 import NavigationSection from 'client/components/Navigation/NavAssessment/Section'
-import { Breakpoints } from 'client/utils'
+import { Breakpoints } from 'client/utils/breakpoints'
 
 const NavAssessment: React.FC = () => {
   const { t } = useTranslation()

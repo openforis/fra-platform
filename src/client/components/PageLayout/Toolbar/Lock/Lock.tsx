@@ -17,7 +17,7 @@ import { useShowOriginalDatapoints } from 'client/store/ui/countryReport/hooks/o
 import { useCanEditCycleData } from 'client/store/user/hooks/auth'
 import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
 import Icon from 'client/components/Icon'
-import { Breakpoints } from 'client/utils'
+import { Breakpoints } from 'client/utils/breakpoints'
 
 const Lock: React.FC = () => {
   const { t } = useTranslation()

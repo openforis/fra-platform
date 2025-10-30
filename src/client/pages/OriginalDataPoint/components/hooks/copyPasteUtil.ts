@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Sanitizer } from 'client/utils/sanitizer'
 
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 const parseValue = (raw: any, type: any) => {
   if (type === 'integer') {
     return Sanitizer.acceptNextInteger(raw, null)
@@ -11,6 +11,7 @@ const parseValue = (raw: any, type: any) => {
   return raw
 }
 
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 const readHtmlElem = (elem: any, type: any) => {
   const rows = elem.getElementsByTagName('tr')
   return [...rows].map((row: any) => {
@@ -19,17 +20,20 @@ const readHtmlElem = (elem: any, type: any) => {
   })
 }
 
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 const readExcelClipboard = (evt: any, type = 'integer') => {
   const el = document.createElement('html')
   el.innerHTML = evt.clipboardData.getData('text/html')
   return readHtmlElem(el, type)
 }
 
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 const readPlainTextClipboard = (evt: any, type = 'integer') => {
   const raw = evt.clipboardData.getData('text/plain')
   return [[parseValue(raw, type)]]
 }
 
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export const readPasteClipboard = (evt: any, type: any) => {
   evt.stopPropagation()
   evt.preventDefault()

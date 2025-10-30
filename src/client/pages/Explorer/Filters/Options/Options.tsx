@@ -8,7 +8,7 @@ import Hr from 'client/components/Hr'
 import SlidingPanel from 'client/components/SlidingPanel'
 import AxisSelection from 'client/pages/Explorer/Filters/Options/AxisSelection/AxisSelection'
 import { useHideGrid } from 'client/pages/Explorer/hooks/useHideGrid'
-import { Breakpoints } from 'client/utils'
+import { Breakpoints } from 'client/utils/breakpoints'
 
 import { useMeasuresUnitSelectors } from './hooks/useMeasuresUnitSelectors'
 import { useToggleAxis } from './hooks/useToggleAxis'
