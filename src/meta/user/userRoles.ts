@@ -28,12 +28,7 @@ const getRecipientRoles = (props: { status: CountryStatus }): Array<RoleName> =>
     case CountryStatus.accepted:
       return [RoleName.REVIEWER, RoleName.NATIONAL_CORRESPONDENT]
     case CountryStatus.published:
-      return [
-        RoleName.ADMINISTRATOR,
-        RoleName.NATIONAL_CORRESPONDENT,
-        RoleName.ALTERNATE_NATIONAL_CORRESPONDENT,
-        RoleName.COLLABORATOR,
-      ]
+      return [RoleName.ADMINISTRATOR, RoleName.NATIONAL_CORRESPONDENT, RoleName.ALTERNATE_NATIONAL_CORRESPONDENT]
     default:
       return []
   }
