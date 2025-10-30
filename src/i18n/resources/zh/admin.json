@@ -9,6 +9,7 @@
   "invitationsAcceptedCount": "已接受的邀请数量",
   "invitationsSentCount": "已发送的邀请数量",
   "lastStatus": "最新状态",
+  "locations": "地点",
   "locationsCount": "N处位置",
   "role_one": "{{count}} 个角色",
   "role_other": "{{count}} 个角色",
