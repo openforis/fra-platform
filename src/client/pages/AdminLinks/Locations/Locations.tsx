@@ -42,7 +42,7 @@ const Locations: React.FC<Props> = (props) => {
           {locations?.map((location, idx) => (
             <li key={`${String(idx)}-${location.id}`}>
               <Link className="locations-link" rel="noreferrer" target="_blank" to={String(location.url)}>
-                {getLabel(location)}
+                {getLabel({ countryIso: link.countryIso, location })}
               </Link>
             </li>
           ))}
