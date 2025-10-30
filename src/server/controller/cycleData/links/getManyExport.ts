@@ -44,6 +44,7 @@ export const getManyExport = async (props: Props): Promise<Returned> => {
     const formattedLocations = (link.locations ?? [])
       .map((location, index) => {
         const label = Links.getLocationLabel({
+          countryIso: link.countryIso,
           cycle,
           isPanEuropean,
           location,
