@@ -138,7 +138,7 @@
     "seeReportingNotes": "见报告说明"
   },
   "degradedForest": {
-    "degradedForest": "退化的森林"
+    "degradedForest": "退化林"
   },
   "description": {
     "analysisAndProcessing": "国家数据分析和处理",
@@ -160,17 +160,17 @@
     "areaUnitLabel": "森林面积(1000公顷)",
     "biodiversityConservation": "生物多样性养护",
     "categoryHeader": "FRA 2020类别",
-    "designatedManagementObjective": "指定管理目标",
+    "designatedManagementObjective": "指定经营目标",
     "multipleUse": "多重用途",
     "other": "其他 (请在评论中注明)",
-    "primaryDesignatedManagementObjective": "主要指定管理目标",
-    "primaryDesignatedManagementObjectiveSupport": "主要指定管理目标比其他管理目标重要得多。各项主要指定管理目标之间具有“排他性”，在一个主要指定管理目标下报告的面积不应再报告给任何其他的主要指定管理目标。不同管理目标下所报告面积的总和应等于森林面积。",
+    "primaryDesignatedManagementObjective": "主要指定经营目标",
+    "primaryDesignatedManagementObjectiveSupport": "主要指定经营目标比其他经营目标重要得多。各项主要指定经营目标之间具有“排他性”，在一个主要指定经营目标下报告的面积不应再报告给任何其他的主要指定经营目标。不同经营目标下所报告面积的总和应等于森林面积。",
     "production": "生产",
     "socialServices": "社会服务",
     "soilWaterProtection": "水土保持",
     "total": "总和",
-    "totalAreaWithDesignatedManagementObjective": "指定管理目标所涉面积总和",
-    "totalAreaWithDesignatedManagementObjectiveSupport": "指定管理目标，包括主要和非主要目标。不同的指定类别之间“无排他性”，因此，面积数据可在多个目标下重复报告，例如，作为主要管理目标“多用途”报告的森林面积应在每个管理目标下报告。因此，不同管理目标下报告的面积总和可以大于森林总面积。",
+    "totalAreaWithDesignatedManagementObjective": "指定经营目标所涉面积总和",
+    "totalAreaWithDesignatedManagementObjectiveSupport": "指定经营目标，包括主要和非主要目标。不同的指定类别之间“无排他性”，因此，面积数据可在多个目标下重复报告，例如，作为主要经营目标“多用途”报告的森林面积应在每个经营目标下报告。因此，不同经营目标下报告的面积总和可以大于森林总面积。",
     "totalForestArea": "森林总面积",
     "unknown": "无/未知"
   },
@@ -290,8 +290,8 @@
   "forestAreaChange": {
     "areaUnitLabel": "面积(1000公顷/年)",
     "categoryHeader": "FRA类别",
-    "deforestation": "砍伐",
-    "forestAreaChange": "年度森林扩张、砍伐和净变化",
+    "deforestation": "毁林",
+    "forestAreaChange": "年度森林扩张、毁林和净变化",
     "forestAreaNetChange": "森林面积净变化",
     "forestAreaNetChangeFrom1a": "从表1a计算得出的森林面积净变化",
     "forestExpansion": "森林扩张",
@@ -302,10 +302,10 @@
   "forestAreaWithinProtectedAreas": {
     "areaUnitLabel": "面积(1000公顷)",
     "categoryHeader": "FRA类别",
-    "forestAreaWithLongTermManagementPlan": "纳入长期森林管理计划的森林面积",
-    "forestAreaWithinProtectedAreas": "保护区内森林面积和纳入长期管理计划的森林面积",
+    "forestAreaWithLongTermManagementPlan": "纳入长期森林经营计划的森林面积",
+    "forestAreaWithinProtectedAreas": "保护区内森林面积和纳入长期经营计划的森林面积",
     "header": "保护区内森林面积",
-    "ofWhichInProtectedAreas": "保护区内纳入长期森林管理计划的森林面积"
+    "ofWhichInProtectedAreas": "保护区内纳入长期森林经营计划的森林面积"
   },
   "forestCharacteristics": {
     "categoryHeader": "FRA类别",
@@ -338,7 +338,7 @@
     "areaUnitLabel": "布尔值 (是/否)",
     "categoryHeader": "是否存在",
     "existenceOfTraceabilitySystem": "木材产品追溯系统",
-    "forestPolicy": "政策、法律和鼓励利益相关者参与森林政策制定的国家平台",
+    "forestPolicy": "政策、立法和鼓励利益相关者参与森林政策制定的国家平台",
     "legislationsSFM": "支持可持续森林管理的法律法规",
     "national": "国家",
     "policiesSFM": "支持可持续森林管理的政策",
@@ -428,7 +428,7 @@
     "areaUnitLabel": "森林面积(1000公顷)",
     "categoryHeader": "FRA类别",
     "communities": "本地、部落和土著社区",
-    "holderOfManagementRights": "公有森林管理权",
+    "holderOfManagementRights": "公有森林经营权",
     "individuals": "个人",
     "other": "未知/其他(在评论中注明)",
     "privateBusinesses": "私营企业实体和机构",
@@ -463,12 +463,12 @@
     "notifySelf": "将副本发送给自己",
     "sectionHeaders": {
       "employmentEducationAndNwfp": "就业、教育和非木质林产品",
-      "forestDesignationAndManagement": "森林的指定用途和管理",
+      "forestDesignationAndManagement": "森林的指定用途和经营",
       "forestDisturbances": "森林遭到的干扰",
       "forestExtentCharacteristicsAndChanges": "森林面积、特征和变化",
       "forestGrowingStockBiomassAndCarbon": "森林立木蓄积量、生物量和碳储量",
-      "forestOwnershipAndManagementRights": "森林所有权和管理权",
-      "forestPolicyAndLegislation": "森林政策和法律",
+      "forestOwnershipAndManagementRights": "森林所有权和经营权",
+      "forestPolicyAndLegislation": "森林政策和立法",
       "introduction": "引言",
       "panEuropeanIndicators": "泛欧洲指标",
       "sustainableDevelopment": "可持续发展目标15"
@@ -557,7 +557,7 @@
     "categoryHeader": "FRA类别",
     "exceedsNaturallyRegeneratingForest": "超过天然再生林(1b)",
     "mangroves": "红树林",
-    "primaryForest": "原生林",
+    "primaryForest": "原始林",
     "rubberWood": "橡胶种植林",
     "specificForestCategories": "原始林和特殊森林类别",
     "temporarilyUnstocked": "暂时无储量或近期恢复的"
@@ -567,13 +567,13 @@
     "forestArea1000Ha": "森林面积(1000公顷)",
     "forestAreaAnnualNetChangeRate": "森林面积年度净变化率",
     "forestAreaProportionLandArea2015": "森林面积占陆地总面积的比例（陆地总面积以2015年数据为基准）",
-    "forestAreaVerifiedForestManagement": "基于独立验证的森林管理认证计划下的森林面积",
+    "forestAreaVerifiedForestManagement": "基于独立验证的森林经营认证计划下的森林面积",
     "indicator": "指标",
     "nameOfAgencyResponsible": "负责机构名称",
     "percent": "百分比",
     "percent2015ForestAreaBaseline": "百分比（森林面积以2015年数据为基准）",
     "proportionForestAreaLegallyEstablishedProtectedAreas": "依法设立的保护区内森林面积占比",
-    "proportionForestAreaLongTermForestManagement": "纳入长期森林管理计划的森林面积占比",
+    "proportionForestAreaLongTermForestManagement": "纳入长期森林经营计划的森林面积占比",
     "sdgIndicator1": "可持续发展目标指标 15.1.1 森林面积占陆地总面积的比例",
     "sdgIndicator2": "可持续发展目标指标15.2.1 实施可持续森林管理取得的进展",
     "subIndicator": "细化指标 {{no}}",
