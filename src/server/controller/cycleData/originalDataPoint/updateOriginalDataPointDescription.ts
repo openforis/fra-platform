@@ -20,6 +20,11 @@ type Props = {
   user: User
 }
 
+const ACTIVITY_LOG_MESSAGE_BY_FIELD: Record<OriginalDataPointCommentKey, ActivityLogMessage> = {
+  [TableNames.extentOfForest]: ActivityLogMessage.originalDataPointUpdateCommentExtentOfForest,
+  [TableNames.forestCharacteristics]: ActivityLogMessage.originalDataPointUpdateCommentForestCharacteristics,
+}
+
 export const updateOriginalDataPointDescription = async (
   props: Props,
   client: BaseProtocol = DB
@@ -33,10 +38,7 @@ export const updateOriginalDataPointDescription = async (
       t
     )
 
-    const message =
-      field === TableNames.extentOfForest
-        ? ActivityLogMessage.originalDataPointUpdateCommentExtentOfForest
-        : ActivityLogMessage.originalDataPointUpdateCommentForestCharacteristics
+    const message = ACTIVITY_LOG_MESSAGE_BY_FIELD[field]
 
     const activityLog = {
       target: updatedOriginalDataPoint,

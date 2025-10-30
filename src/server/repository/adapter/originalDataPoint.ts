@@ -1,19 +1,19 @@
 import { Objects } from 'utils/objects'
 
-import {
-  ODP_COMMENT_COLUMN_EXTENT,
-  ODP_COMMENT_COLUMN_FOREST_CHARACTERISTICS,
-  OriginalDataPoint,
-  OriginalDataPointComments,
-} from 'meta/assessment/originalDataPoint'
+import { OriginalDataPoint, OriginalDataPointComments } from 'meta/assessment/originalDataPoint'
 import { TableNames } from 'meta/assessment/table'
+
+import { ODP_COMMENT_COLUMNS_RECORD } from 'server/repository/assessmentCycle/originalDataPoint/commentColumns'
 
 type OriginalDataPointDB = Record<string, unknown>
 
+const commentColumnExtent = ODP_COMMENT_COLUMNS_RECORD[TableNames.extentOfForest]
+const commentColumnForestCharacteristics = ODP_COMMENT_COLUMNS_RECORD[TableNames.forestCharacteristics]
+
 export const OriginalDataPointAdapter = (row: OriginalDataPointDB): OriginalDataPoint => {
   const {
-    [ODP_COMMENT_COLUMN_EXTENT]: commentsExtentOfForest,
-    [ODP_COMMENT_COLUMN_FOREST_CHARACTERISTICS]: commentsForestCharacteristics,
+    [commentColumnExtent]: commentsExtentOfForest,
+    [commentColumnForestCharacteristics]: commentsForestCharacteristics,
     ...rest
   } = row as Record<string, unknown>
 

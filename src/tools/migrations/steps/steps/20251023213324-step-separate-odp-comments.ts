@@ -2,11 +2,11 @@ import { Promises } from 'utils/promises'
 
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { AssessmentNames } from 'meta/assessment/assessment'
-import { ODP_COMMENT_COLUMN_EXTENT, ODP_COMMENT_COLUMN_FOREST_CHARACTERISTICS } from 'meta/assessment/originalDataPoint'
 import { TableNames } from 'meta/assessment/table'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { BaseProtocol, DB, Schemas } from 'server/db'
+import { ODP_COMMENT_COLUMNS_RECORD } from 'server/repository/assessmentCycle/originalDataPoint/commentColumns'
 
 const TABLE = 'original_data_point'
 
@@ -40,33 +40,33 @@ type UpdateTableProps = {
 const _updateOriginalDataPointTable = async (props: UpdateTableProps): Promise<void> => {
   const { client, schemaName } = props
   const tableName = `${schemaName}.${TABLE}`
+  const commentColumnExtent = ODP_COMMENT_COLUMNS_RECORD[TableNames.extentOfForest]
+  const commentColumnForestCharacteristics = ODP_COMMENT_COLUMNS_RECORD[TableNames.forestCharacteristics]
 
   const hasDescription = await _columnExists({ client, columnName: 'description', schemaName })
   if (hasDescription) {
-    await DB.none(`alter table ${tableName} rename column description to ${ODP_COMMENT_COLUMN_EXTENT}`)
+    await DB.none(`alter table ${tableName} rename column description to ${commentColumnExtent}`)
   }
 
   const hasExtentOfForestComments = await _columnExists({
     client,
-    columnName: ODP_COMMENT_COLUMN_EXTENT,
+    columnName: commentColumnExtent,
     schemaName,
   })
 
   if (!hasExtentOfForestComments) {
-    throw new Error(`Column ${ODP_COMMENT_COLUMN_EXTENT} not found in ${tableName}`)
+    throw new Error(`Column ${commentColumnExtent} not found in ${tableName}`)
   }
 
   const hasForestCharacteristicsComments = await _columnExists({
     client,
-    columnName: ODP_COMMENT_COLUMN_FOREST_CHARACTERISTICS,
+    columnName: commentColumnForestCharacteristics,
     schemaName,
   })
 
   if (!hasForestCharacteristicsComments) {
-    await DB.none(`alter table ${tableName} add column ${ODP_COMMENT_COLUMN_FOREST_CHARACTERISTICS} text`)
-    await client.none(
-      `update ${tableName} set ${ODP_COMMENT_COLUMN_FOREST_CHARACTERISTICS} = ${ODP_COMMENT_COLUMN_EXTENT}`
-    )
+    await DB.none(`alter table ${tableName} add column ${commentColumnForestCharacteristics} text`)
+    await client.none(`update ${tableName} set ${commentColumnForestCharacteristics} = ${commentColumnExtent}`)
   }
 }
 

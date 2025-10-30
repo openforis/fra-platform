@@ -1,14 +1,11 @@
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import {
-  ODP_COMMENT_COLUMN_EXTENT,
-  ODP_COMMENT_COLUMN_FOREST_CHARACTERISTICS,
-  OriginalDataPoint,
-} from 'meta/assessment/originalDataPoint'
+import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { TableNames } from 'meta/assessment/table'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'
 import { OriginalDataPointAdapter } from 'server/repository/adapter'
+import { ODP_COMMENT_COLUMNS_RECORD } from 'server/repository/assessmentCycle/originalDataPoint/commentColumns'
 
 export const create = async (
   params: {
@@ -35,6 +32,9 @@ export const create = async (
 
   const schemaName = Schemas.getNameCycle(assessment, cycle)
 
+  const commentColumnExtent = ODP_COMMENT_COLUMNS_RECORD[TableNames.extentOfForest]
+  const commentColumnForestCharacteristics = ODP_COMMENT_COLUMNS_RECORD[TableNames.forestCharacteristics]
+
   return client.one<OriginalDataPoint>(
     `
         insert into ${schemaName}.original_data_point (
@@ -43,8 +43,8 @@ export const create = async (
           data_source_additional_comments,
           data_source_methods,
           data_source_references,
-          ${ODP_COMMENT_COLUMN_EXTENT},
-          ${ODP_COMMENT_COLUMN_FOREST_CHARACTERISTICS},
+          ${commentColumnExtent},
+          ${commentColumnForestCharacteristics},
           national_classes,
           values
         ) values ($1, $2, $3, $4::jsonb, $5, $6, $7, $8::jsonb, $9::jsonb) returning *;`,

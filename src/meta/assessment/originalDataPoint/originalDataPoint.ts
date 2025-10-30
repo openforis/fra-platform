@@ -40,6 +40,3 @@ export interface OriginalDataPoint {
   // reservedYears?: Array<number>
   // validationStatus?: ODPValidation
 }
-
-export const ODP_COMMENT_COLUMN_EXTENT = `comments_${TableNames.extentOfForest.toLocaleLowerCase()}`
-export const ODP_COMMENT_COLUMN_FOREST_CHARACTERISTICS = `comments_${TableNames.forestCharacteristics.toLocaleLowerCase()}`
