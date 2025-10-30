@@ -49,18 +49,18 @@
   "degradedForest": {
     "biome": "生物群落级",
     "changeInForestStructureDecreaseInForestCanopy": "森林结构的变化/森林冠层的减少",
-    "criteriaOfDegradedForest": "定义“退化的森林”时采用的标准",
+    "criteriaOfDegradedForest": "定义“退化林”时采用的标准",
     "criteriaOfDegradedForest2025": "$t(fra.degradedForest.criteriaOfDegradedForest)",
     "degradedAreaForThatYear": "当年的退化森林面积（单位：1 000公顷）",
-    "degradedForest": "退化的森林",
-    "degradedForestDefinition": "退化的森林定义",
+    "degradedForest": "退化林",
+    "degradedForestDefinition": "退化林定义",
     "doesYourCountryMonitor": "贵国是否监测退化森林的面积？",
     "expertOpinion": "专家意见",
     "fieldInventoryAndObservations": "实地调查和观测",
     "forestDegradationMonitoringAndAssessment": "森林退化监测和评估",
     "forestDisturbances": "森林受到干扰",
     "forestManagementPlanReport": "森林经营计划报告",
-    "hasNationalDefinitionOfDegradedForest": "贵国是否有 \"退化的森林 \"的国家定义？",
+    "hasNationalDefinitionOfDegradedForest": "贵国是否有 \"退化林 \"的国家定义？",
     "hasNationalLevelData": "如果有国家一级的数据",
     "howMonitored": "描述监测过程和结果",
     "ifYes": "如果 \"是\"",
@@ -80,7 +80,7 @@
     "subnational": "次国家级",
     "underDevelopment": "开发中",
     "wallToWallRemoteSensingMapping": "连续的遥感测绘",
-    "whatIsDefinition": "国家对 \"退化的森林 \"的定义是什么？",
+    "whatIsDefinition": "国家对 \"退化林 \"的定义是什么？",
     "yearOfLatestAssessment": "最近一次评估的年份"
   },
   "description": {
@@ -127,12 +127,12 @@
   },
   "forestArea100HaYear": "森林面积(1000公顷)",
   "forestAreaChange": {
-    "forestAreaChange2025": "年度森林扩张、砍伐和净变化",
+    "forestAreaChange2025": "年度森林扩张、毁林和净变化",
     "forestAreaNetChange2025": "$t(forestAreaChange.forestAreaNetChange)",
     "forestExpansion2025": "森林扩张"
   },
   "forestAreaWithinProtectedAreas": {
-    "forestAreaWithLongTermManagementPlan2025": "有长期管理计划的森林面积",
+    "forestAreaWithLongTermManagementPlan2025": "有长期经营计划的森林面积",
     "forestAreaWithinProtectedAreas2025": "$t(forestAreaWithinProtectedAreas.forestAreaWithinProtectedAreas)"
   },
   "forestCharacteristics": {
@@ -140,7 +140,7 @@
     "ofWhichOtherPlantedForest": "$t(growingStock.otherPlantedForest)",
     "ofWhichPlantationForest": "$t(growingStock.plantationForest)",
     "plantationForestIntroducedArea2025": "...其中引进树种",
-    "primaryForest": "...其中原生林"
+    "primaryForest": "...其中原始林"
   },
   "forestOwnership": {
     "forestOwnership2025": "森林所有权",
@@ -162,7 +162,7 @@
     "hasYourCountryForestRestorationCommitments": "贵国是否有森林恢复的承诺？",
     "howManyHectaresOfForestHaveBeenRestoredToDate": "到目前为止，有多少公顷的森林得到了恢复？",
     "ifYes": "如果 \"是\"",
-    "isThereALawOrOtherGovernmentMandateInSupportOfRestoration": "是否有支持森林恢复的法律或其他政府授权？",
+    "isThereALawOrOtherGovernmentMandateInSupportOfRestoration": "是否有支持森林恢复的立法或其他政府授权？",
     "isThereANationalDefinitionOfRestoration": "是否有 \"森林恢复 \"的国家定义，如果有，请提供该定义、监测过程和结果。",
     "whatAreTheTargetsSetForTheRestoration": "为恢复工作设定的目标是什么？例如：xxxx公顷，到yyyy年。",
     "whatAreasInNeedOfRestorationHaveBeenIdentified": "已确定哪些地区需要森林恢复，是如何确定的？"
@@ -216,11 +216,11 @@
   "navigation": {
     "sectionHeaders": {
       "employmentEducationAndNwfp2025": "非木材林产品采集和价值 2020",
-      "forestDesignationAndManagement2025": "森林的指定用途和管理",
+      "forestDesignationAndManagement2025": "森林的指定用途和经营",
       "forestDisturbances2025": "森林干扰",
       "forestExtentCharacteristicsAndChanges2025": "$t(navigation.sectionHeaders.forestExtentCharacteristicsAndChanges)",
       "forestGrowingStockBiomassAndCarbon2025": "森林立木蓄积量、生物量和碳储量",
-      "forestOwnershipAndManagementRights2025": "森林所有权和管理权",
+      "forestOwnershipAndManagementRights2025": "森林所有权和经营权",
       "forestPolicyAndLegislation2025": "$t(navigation.sectionHeaders.forestPolicyAndLegislation)"
     }
   },
@@ -241,11 +241,11 @@
   },
   "primaryForestByClimaticDomain": {
     "primaryForestArea100Ha": "原生森林面积 ($t(unit.haThousand))",
-    "primaryForestBoreal": "......其中北方原生林",
-    "primaryForestByClimaticDomain": "按气候区划划分的原生林",
-    "primaryForestSubTropical": "...其中亚热带原生林",
-    "primaryForestTemperate": "...其中温带原生林",
-    "primaryForestTropical": "...其中热带原生林",
+    "primaryForestBoreal": "......其中北方原始林",
+    "primaryForestByClimaticDomain": "按气候区划划分的原始林",
+    "primaryForestSubTropical": "...其中亚热带原始林",
+    "primaryForestTemperate": "...其中温带原始林",
+    "primaryForestTropical": "...其中热带原始林",
     "totalPrimaryForest": "共计"
   },
   "print": {

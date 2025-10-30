@@ -11,10 +11,10 @@
     "bamboo": "$t(specificForestCategories.bamboo)",
     "certified_area": "经认证的森林面积(1000公顷)",
     "forest_area": "森林(1000公顷)",
-    "management_plan_percent": "有管理计划的森林面积(占森林的百分比)",
+    "management_plan_percent": "有经营计划的森林面积(占森林的百分比)",
     "mangroves": "$t(specificForestCategories.mangroves)",
     "other_wooded_land": "其它林地(1000公顷)",
-    "primary_forest_percent": "原生林(占森林的百分比)",
+    "primary_forest_percent": "原始林(占森林的百分比)",
     "protected_forest_percent": "保护区内的森林(占森林的百分比)",
     "title": "范围"
   },
@@ -48,7 +48,7 @@
     "other": "$t(holderOfManagementRights.other)",
     "private_businesses": "$t(holderOfManagementRights.privateBusinesses)",
     "public_administration": "$t(holderOfManagementRights.publicAdministration)",
-    "title": "公有森林的管理权"
+    "title": "公有森林的经营权"
   },
   "periodicChangeRate": {
     "forest_area_annual_net_change": "森林面积年净变化(1000公顷)",
@@ -59,8 +59,8 @@
     "other_wooded_land_annual_net_change_rate": "其它林地面积年净变化率(百分比)",
     "planted_forest_annual_net_change": "人工林年净变化",
     "planted_forest_annual_net_change_rate": "人工林变化率(百分比)",
-    "primary_forest_annual_net_change": "原生林面积年净变化（1000公顷）",
-    "primary_forest_annual_net_change_rate": "原生林面积变化率(百分比)",
+    "primary_forest_annual_net_change": "原始林面积年净变化（1000公顷）",
+    "primary_forest_annual_net_change_rate": "原始林面积变化率(百分比)",
     "title": "周期性变化率(年率)"
   },
   "primaryDesignatedManagementObjective": {
@@ -71,7 +71,7 @@
     "production": "$t(designatedManagementObjective.production)",
     "protection_of_soil_and_water": "$t(designatedManagementObjective.soilWaterProtection)",
     "social_services": "$t(designatedManagementObjective.socialServices)",
-    "title": "首要指定管理目标"
+    "title": "首要指定经营目标"
   },
-  "totalAreaDesignatedManagementObjective": "指定管理目标的总面积"
+  "totalAreaDesignatedManagementObjective": "指定经营目标的总面积"
 }
