@@ -1,6 +1,7 @@
 import { useCallback, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { CountryIso } from 'meta/area'
 import { SubSection } from 'meta/assessment/section'
 import { LinkLocation } from 'meta/cycleData'
 import { Links } from 'meta/cycleData/links/links'
@@ -9,7 +10,12 @@ import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useSections } from 'client/store/meta/hooks/sections'
 import { useIsPanEuropeanRoute } from 'client/hooks/routes'
 
-type Returned = (location: LinkLocation) => string
+type GetLabelProps = {
+  countryIso: CountryIso
+  location: LinkLocation
+}
+
+type Returned = (props: GetLabelProps) => string
 
 export const useGetLocationLabel = (): Returned => {
   const { t } = useTranslation()
@@ -23,8 +29,9 @@ export const useGetLocationLabel = (): Returned => {
   )
 
   return useCallback<Returned>(
-    (location) => {
+    ({ countryIso, location }) => {
       return Links.getLocationLabel({
+        countryIso,
         cycle,
         isPanEuropean,
         location,
