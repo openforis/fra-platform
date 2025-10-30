@@ -1,7 +1,9 @@
 import { Promises } from 'utils/promises'
 
+import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { AssessmentNames } from 'meta/assessment/assessment'
 import { ODP_COMMENT_COLUMN_EXTENT, ODP_COMMENT_COLUMN_FOREST_CHARACTERISTICS } from 'meta/assessment/originalDataPoint'
+import { TableNames } from 'meta/assessment/table'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { BaseProtocol, DB, Schemas } from 'server/db'
@@ -68,7 +70,55 @@ const _updateOriginalDataPointTable = async (props: UpdateTableProps): Promise<v
   }
 }
 
+type UpdateActivityLogProps = {
+  client: BaseProtocol
+}
+
+const _updateActivityLog = async (props: UpdateActivityLogProps): Promise<void> => {
+  const { client } = props
+
+  const odpActivityMessagesSql = [
+    ActivityLogMessage.originalDataPointCreate,
+    ActivityLogMessage.originalDataPointRemove,
+    ActivityLogMessage.originalDataPointUpdate,
+    ActivityLogMessage.originalDataPointUpdateCommentExtentOfForest,
+    ActivityLogMessage.originalDataPointUpdateCommentForestCharacteristics,
+    ActivityLogMessage.originalDataPointUpdateDataSources,
+    ActivityLogMessage.originalDataPointUpdateNationalClasses,
+    ActivityLogMessage.originalDataPointUpdateOriginalData,
+    ActivityLogMessage.originalDataPointUpdateYear,
+    'originalDataPointUpdateDescription',
+  ]
+    .map((message) => `'${message}'`)
+    .join(',')
+
+  await client.none(`
+    update public.activity_log al
+    set message = '${ActivityLogMessage.originalDataPointUpdateCommentExtentOfForest}'
+    where al.message = 'originalDataPointUpdateDescription'
+  `)
+
+  await client.none(`
+    update public.activity_log al
+    set target = jsonb_set(
+                  jsonb_set(
+                    coalesce(al.target, '{}'::jsonb) - 'description',
+                    '{comments,${TableNames.extentOfForest}}',
+                    to_jsonb(coalesce(coalesce(al.target, '{}'::jsonb) ->> 'description', '')),
+                    true
+                  ),
+                  '{comments,${TableNames.forestCharacteristics}}',
+                  to_jsonb(coalesce(coalesce(al.target, '{}'::jsonb) ->> 'description', '')),
+                  true
+                )
+    where coalesce(al.target, '{}'::jsonb) ? 'description'
+      and al.message in (${odpActivityMessagesSql})
+  `)
+}
+
 export default async (client: BaseProtocol): Promise<void> => {
+  await _updateActivityLog({ client })
+
   const assessments = await AssessmentController.getAll({}, client)
 
   await Promises.each(assessments, async (assessment) => {
