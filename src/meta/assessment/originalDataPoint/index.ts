@@ -5,6 +5,7 @@ export { ODPNationalClassFactory } from './odpNationalClass'
 export type { ODPReservedYear } from './odpReservedYear'
 export type { ODPValidation, ODPValidationNationalClass, ODPValidationYear } from './odpValidation'
 export type { OriginalDataPoint, OriginalDataPointCommentKey, OriginalDataPointComments } from './originalDataPoint'
+export { ODP_COMMENT_COLUMN_EXTENT, ODP_COMMENT_COLUMN_FOREST_CHARACTERISTICS } from './originalDataPoint'
 export type {
   RecordAssessmentOriginalDataPoint,
   RecordCountryOriginalDataPoint,

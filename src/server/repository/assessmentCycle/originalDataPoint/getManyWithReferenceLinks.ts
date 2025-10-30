@@ -1,10 +1,9 @@
-import { Objects } from 'utils/objects'
-
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'
+import { OriginalDataPointAdapter } from 'server/repository/adapter'
 
 type Props = {
   assessment: Assessment
@@ -25,6 +24,6 @@ export const getManyWithReferenceLinks = async (
         where data_source_references ilike '%href%'
     `,
     [],
-    (row) => Objects.camelize(row)
+    OriginalDataPointAdapter
   )
 }
