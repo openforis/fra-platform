@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { CountryUserSummaries } from 'meta/user/countryUserSummaries'
 
 import { useCountryRouteParams } from 'client/hooks/routeParams'

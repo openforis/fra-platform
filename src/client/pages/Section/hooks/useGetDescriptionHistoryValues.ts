@@ -1,12 +1,12 @@
 import { useEffect } from 'react'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 
 import { HistoryActions } from 'client/store/data/history/actions'
 import { useHistoryLastApprovedIsActive } from 'client/store/data/history/hooks/lastApproved'
 import { useAppDispatch } from 'client/store/hooks'
-import { useIsPrintRoute } from 'client/hooks/routes'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
+import { useIsPrintRoute } from 'client/hooks/routes'
 
 type Props = { sectionName: string }
 

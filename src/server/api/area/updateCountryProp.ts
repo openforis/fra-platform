@@ -1,7 +1,7 @@
 import { Response } from 'express'
 
 import { CycleDataRequest } from 'meta/api/request'
-import { Country, CountryProps } from 'meta/area'
+import { Country, CountryProps } from 'meta/area/country'
 import { TableNames } from 'meta/assessment/table'
 import { NodeUpdates, RecordAssessmentDatas } from 'meta/data'
 

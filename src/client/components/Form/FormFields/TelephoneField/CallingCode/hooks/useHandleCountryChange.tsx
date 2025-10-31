@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 
 import { Objects } from 'utils/objects'
 
-import { Country } from 'meta/area'
+import { Country } from 'meta/area/country'
 
 import { useCountries } from 'client/store/area/hooks/countries'
 

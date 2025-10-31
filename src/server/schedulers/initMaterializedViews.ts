@@ -2,7 +2,7 @@ import { Job, Queue, Worker } from 'bullmq'
 import IORedis from 'ioredis'
 import { Promises } from 'utils/promises'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 

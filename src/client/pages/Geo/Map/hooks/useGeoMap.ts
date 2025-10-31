@@ -1,6 +1,6 @@
 import { MutableRefObject, useEffect, useRef, useState } from 'react'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 
 import { useGeoMapOptions } from 'client/store/geo/map/hooks/map'
 import { useAppDispatch } from 'client/store/hooks'

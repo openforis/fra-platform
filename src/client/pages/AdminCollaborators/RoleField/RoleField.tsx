@@ -4,7 +4,8 @@ import { useTranslation } from 'react-i18next'
 
 import { TFunction } from 'i18next'
 
-import { Areas, CountryIso } from 'meta/area'
+import { Areas } from 'meta/area/areas'
+import { CountryIso } from 'meta/area/countryIso'
 import { TooltipId } from 'meta/tooltip'
 import { CountryUserSummary, RoleName, Users } from 'meta/user'
 

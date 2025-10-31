@@ -1,6 +1,6 @@
 import * as pgPromise from 'pg-promise'
 
-import { Country } from 'meta/area'
+import { Country } from 'meta/area/country'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 

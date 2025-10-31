@@ -1,4 +1,4 @@
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { TableName } from 'meta/assessment/table'
 import { RecordAssessmentData } from 'meta/data'
 import { DimensionName } from 'meta/measurement/dimension'

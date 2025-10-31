@@ -1,4 +1,4 @@
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { NodeValueValidation } from 'meta/assessment/nodeValueValidation'
 
 export interface NodeValue {

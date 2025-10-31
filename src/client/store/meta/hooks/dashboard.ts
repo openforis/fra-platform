@@ -1,4 +1,4 @@
-import { Areas } from 'meta/area'
+import { Areas } from 'meta/area/areas'
 import { DashboardItem } from 'meta/dashboard/dashboard'
 
 import { useAppSelector } from 'client/store/hooks'

@@ -1,11 +1,12 @@
-import { Areas, CountryIso } from 'meta/area'
+import { Areas } from 'meta/area/areas'
+import { CountryIso } from 'meta/area/countryIso'
 import { Cycle } from 'meta/assessment/cycle'
 import { User } from 'meta/user/user'
 import { Users } from 'meta/user/users'
 
 type Props = { countryIso: CountryIso; cycle: Cycle; user: User; target: User }
 
-export const canEditUserRolePermissions = (props: Props) => {
+export const canEditUserRolePermissions = (props: Props): boolean => {
   const { countryIso, cycle, target, user } = props
 
   const isAdministrator = Users.isAdministrator(user)

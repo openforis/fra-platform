@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 
 import { useCountry } from 'client/store/area/hooks/country'

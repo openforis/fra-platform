@@ -1,4 +1,4 @@
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { NodeValue } from 'meta/assessment/node'
 import { NodeExtType } from 'meta/nodeExt'
 import { RoleName, UserTitle } from 'meta/user'

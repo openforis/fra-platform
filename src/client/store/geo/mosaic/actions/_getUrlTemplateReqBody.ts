@@ -1,7 +1,7 @@
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { MosaicOptions } from 'meta/geo'
 
-export const _getUrlTemplateReqBody = (mosaicOptions: MosaicOptions, countryIso: CountryIso) => {
+export const _getUrlTemplateReqBody = (mosaicOptions: MosaicOptions, countryIso: CountryIso): any => {
   const { maxCloudCoverage, snowMasking, sources, year } = mosaicOptions
   const body = {
     recipe: {

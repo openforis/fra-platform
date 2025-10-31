@@ -4,7 +4,8 @@ import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
 import { Objects } from 'utils/objects'
 
-import { Country, CountryIso } from 'meta/area'
+import { Country } from 'meta/area/country'
+import { CountryIso } from 'meta/area/countryIso'
 import { Users } from 'meta/user'
 
 import { AreaActions } from 'client/store/area/actions'
@@ -25,7 +26,7 @@ export const useAdminPopoverItems = (): Array<PopoverItem> => {
   return useMemo<Array<PopoverItem>>(() => {
     if (Objects.isNil(country) || !Users.isAdministrator(user)) return []
 
-    const toggleDeskStudy = () => {
+    const toggleDeskStudy = (): void => {
       const countryUpdate: Country = { ...country, props: { ...country.props, deskStudy: !country.props.deskStudy } }
       dispatch(AreaActions.updateCountry({ country: countryUpdate, countryIso, cycleName, assessmentName }))
     }

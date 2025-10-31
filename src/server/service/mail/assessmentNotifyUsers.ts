@@ -1,7 +1,9 @@
 import { createI18nPromise } from 'i18n/i18nFactory'
 import { Arrays } from 'utils/arrays'
 
-import { Country, CountryIso, CountryStatus } from 'meta/area'
+import { Country } from 'meta/area/country'
+import { CountryIso } from 'meta/area/countryIso'
+import { CountryStatus } from 'meta/area/countryStatus'
 import { AssessmentName } from 'meta/assessment/assessment'
 import { Assessments } from 'meta/assessment/assessments'
 import { Cycle } from 'meta/assessment/cycle'

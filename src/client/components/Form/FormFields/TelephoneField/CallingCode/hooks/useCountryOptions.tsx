@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Areas } from 'meta/area'
+import { Areas } from 'meta/area/areas'
 
 import { useCountries } from 'client/store/area/hooks/countries'
 import Option from 'client/components/Form/FormFields/TelephoneField/CallingCode/Option'

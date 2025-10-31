@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { Authorizer, UserInvitations, Users } from 'meta/user'
 import { CountryUserSummaries } from 'meta/user/countryUserSummaries'
 

@@ -1,6 +1,6 @@
 import { Request } from 'express'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { AssessmentName } from 'meta/assessment/assessment'
 
 export type LoginRequest = Request<

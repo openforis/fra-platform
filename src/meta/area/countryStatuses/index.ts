@@ -3,7 +3,7 @@ import { Objects } from 'utils/objects'
 
 import { Areas } from 'meta/area/areas'
 import { Country } from 'meta/area/country'
-import { CountryStatus } from 'meta/area/status'
+import { CountryStatus } from 'meta/area/countryStatus'
 import { Cycle } from 'meta/assessment/cycle'
 import { Cycles } from 'meta/assessment/cycles'
 import { RoleName, User, Users } from 'meta/user'

@@ -1,5 +1,6 @@
 import { CycleParams } from 'meta/api/request'
-import { CountryIso, RegionCode } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
+import { RegionCode } from 'meta/area/regionCode'
 import { AssessmentName } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
 

@@ -1,6 +1,7 @@
 import { Promises } from 'utils/promises'
 
-import { Country, CountryIso } from 'meta/area'
+import { Country } from 'meta/area/country'
+import { CountryIso } from 'meta/area/countryIso'
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'

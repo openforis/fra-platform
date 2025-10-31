@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { CommentableDescriptionName, DataSource } from 'meta/assessment/descriptionValue'
 import { SectionName } from 'meta/assessment/section'
 import { Topics } from 'meta/messageCenter'
@@ -31,7 +31,7 @@ export const useDataSourceActions = (props: Props): Array<DataRowAction> => {
     if (readOnly || !canEdit || dataSource.placeholder) return actions
 
     if (editable) {
-      const onDelete = () => {
+      const onDelete = (): void => {
         const deleteProps = { assessmentName, cycleName, countryIso, sectionName, uuid: dataSource.uuid }
         dispatch(DescriptionsActions.deleteDataSource(deleteProps))
       }

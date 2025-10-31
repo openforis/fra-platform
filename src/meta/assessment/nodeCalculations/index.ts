@@ -1,6 +1,6 @@
 import { Objects } from 'utils/objects'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { Assessment, RecordAssessments } from 'meta/assessment/assessment'
 import { Col } from 'meta/assessment/col'
 import { Cols } from 'meta/assessment/cols'

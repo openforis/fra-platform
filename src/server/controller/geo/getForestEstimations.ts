@@ -1,7 +1,7 @@
 // @ts-ignore
 import { Image, Reducer } from '@google/earthengine'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { ForestEstimations, LayerSource } from 'meta/geo'
 
 import { BaseProtocol, DB } from 'server/db/db'

@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import { Areas } from 'meta/area'
+import { Areas } from 'meta/area/areas'
 import { SectionNames } from 'meta/routes'
 import { Users } from 'meta/user'
 

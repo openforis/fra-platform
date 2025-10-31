@@ -1,7 +1,7 @@
 import { Objects } from 'utils/objects'
 
 import { LayerRequestBody } from 'meta/api/request/geo/layer'
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { ForestKey, Layer, LayerKey, LayerSource } from 'meta/geo'
 
 import { GeoLayersState, LayerFetchStatus, LayersSectionState, LayerState } from 'client/store/geo/layers/state'

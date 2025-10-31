@@ -1,6 +1,7 @@
 import { createSelector } from '@reduxjs/toolkit'
 
-import { Country, CountryIso } from 'meta/area'
+import { Country } from 'meta/area/country'
+import { CountryIso } from 'meta/area/countryIso'
 import { AssessmentName } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
 

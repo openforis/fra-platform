@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import axios from 'axios'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { Global } from 'meta/area'
+import { Global } from 'meta/area/global'
 import { Lang } from 'meta/lang'
 
 import { useUser } from 'client/store/user/hooks/user'

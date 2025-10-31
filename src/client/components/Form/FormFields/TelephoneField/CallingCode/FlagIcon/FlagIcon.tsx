@@ -1,7 +1,7 @@
 import './FlagIcon.scss'
 import React from 'react'
 
-import { Areas } from 'meta/area'
+import { Areas } from 'meta/area/areas'
 import { CountryIso } from 'meta/area/countryIso'
 
 type FlagIconProps = {

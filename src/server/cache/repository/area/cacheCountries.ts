@@ -1,5 +1,5 @@
-import { Country, CountryIso } from 'meta/area'
-import { LastPublishedInfo } from 'meta/area/country'
+import { Country, LastPublishedInfo } from 'meta/area/country'
+import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 

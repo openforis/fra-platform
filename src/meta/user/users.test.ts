@@ -1,4 +1,4 @@
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { Cycle } from 'meta/assessment/cycle'
 
 import { User } from './user'
@@ -8,7 +8,7 @@ import { Users } from './users'
 const countryIso = 'ATL' as CountryIso
 const cycleUuid = '123-XXX-123'
 
-const getUserInfo = (countryIso: CountryIso, role: RoleName) =>
+const getUserInfo = (countryIso: CountryIso, role: RoleName): User =>
   ({ id: 1, roles: [{ countryIso, role, cycleUuid }] } as User)
 const cycle = { uuid: cycleUuid } as Cycle
 

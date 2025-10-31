@@ -3,7 +3,7 @@ import axios from 'axios'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CycleParams } from 'meta/api/request'
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { SectionName } from 'meta/assessment/section'
 import { TableName } from 'meta/assessment/table'
 import { RecordAssessmentData } from 'meta/data'

@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 
 import { useAppDispatch } from 'client/store/hooks'
 import { RepositoryActions } from 'client/store/repository/actions'

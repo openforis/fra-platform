@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 
 import { EstimationsActions } from 'client/store/data/tableData/estimations/actions'
 import { NodeValuesActions } from 'client/store/data/tableData/nodeValues/actions'
