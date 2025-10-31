@@ -119,6 +119,14 @@ module.exports = {
     'sort-destructure-keys/sort-destructure-keys': ['error', { caseSensitive: true }],
     'sort-react-dependency-arrays/sort': 'error',
   },
+  overrides: [
+    {
+      files: ['src/client/store/**/selectors/**/*.ts'],
+      rules: {
+        '@typescript-eslint/explicit-function-return-type': 'off',
+      },
+    },
+  ],
   settings: {
     react: {
       version: 'detect',

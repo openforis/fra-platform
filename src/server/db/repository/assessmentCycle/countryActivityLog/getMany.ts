@@ -1,6 +1,7 @@
 import { Objects } from 'utils/objects'
 
-import { AreaCode, CountrySummary } from 'meta/area'
+import { AreaCode } from 'meta/area/areaCode'
+import { CountrySummary } from 'meta/area/countrySummary'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 

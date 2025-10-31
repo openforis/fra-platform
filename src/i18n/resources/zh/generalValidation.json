@@ -13,7 +13,7 @@
   "mustBeEqualToForestArea": "自然再生林和人工林的总和与总森林面积不相等",
   "mustBeEqualToForestExpansion": "子类别的总和应该等于森林扩张",
   "mustBeEqualToPlantedForest": "子类别的总和应该等于人工林",
-  "mustBeEqualToPrimaryForest": "子类别的总和应该等于原生林",
+  "mustBeEqualToPrimaryForest": "子类别的总和应该等于原始林",
   "mustBeEqualToPrivateOwnership": "子类别的总和应该等于私有所有权",
   "mustBeEqualToTotalGrowingStock": "总和应该等于总森林面积",
   "mustBeLessThanPrivateOwnership": "子类别的总和应小于私有所有权",

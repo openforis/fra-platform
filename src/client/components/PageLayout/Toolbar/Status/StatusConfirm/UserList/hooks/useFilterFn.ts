@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { CountryUserSummary, Users } from 'meta/user'
 import { UserRoles } from 'meta/user/userRoles'
 

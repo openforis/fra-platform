@@ -1,6 +1,6 @@
 import { useMatch, useParams } from 'react-router-dom'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 
 import { useIsAdminRoute, useIsCycleLandingRoute, useIsLoginRoute } from 'client/hooks/routes'
 

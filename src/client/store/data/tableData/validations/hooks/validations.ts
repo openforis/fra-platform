@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { Col } from 'meta/assessment/col'
 import { NodeValueValidation } from 'meta/assessment/nodeValueValidation'
 import { Row } from 'meta/assessment/row'

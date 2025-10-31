@@ -1,6 +1,9 @@
 import { useParams } from 'react-router-dom'
 
-import { AreaCode, CountryIso, Global, RegionCode } from 'meta/area'
+import { AreaCode } from 'meta/area/areaCode'
+import { CountryIso } from 'meta/area/countryIso'
+import { Global } from 'meta/area/global'
+import { RegionCode } from 'meta/area/regionCode'
 import {
   AssessmentRouteParams,
   CountryRouteParams,
@@ -10,17 +13,22 @@ import {
   SectionRouteParams,
 } from 'meta/routes'
 
-export const useAssessmentRouteParams = () => useParams<AssessmentRouteParams>()
+export const useAssessmentRouteParams = (): Readonly<Partial<AssessmentRouteParams>> =>
+  useParams<AssessmentRouteParams>()
 
-export const useCycleRouteParams = () => useParams<CycleRouteParams>()
+export const useCycleRouteParams = (): Readonly<Partial<CycleRouteParams>> => useParams<CycleRouteParams>()
 
-export const useCountryRouteParams = <T extends CountryIso | RegionCode | Global.WO = AreaCode>() =>
-  useParams<CountryRouteParams<T>>()
+export const useCountryRouteParams = <T extends CountryIso | RegionCode | Global.WO = AreaCode>(): Readonly<
+  Partial<CountryRouteParams<T>>
+> => useParams<CountryRouteParams<T>>()
 
-export const useCountryUserRouteParams = <T extends CountryIso | RegionCode | Global.WO = AreaCode>() =>
-  useParams<CountryUserRouteParams<T>>()
+export const useCountryUserRouteParams = <T extends CountryIso | RegionCode | Global.WO = AreaCode>(): Readonly<
+  Partial<CountryUserRouteParams<T>>
+> => useParams<CountryUserRouteParams<T>>()
 
-export const useSectionRouteParams = <T extends CountryIso | RegionCode | Global.WO = AreaCode>() =>
-  useParams<SectionRouteParams<T>>()
+export const useSectionRouteParams = <T extends CountryIso | RegionCode | Global.WO = AreaCode>(): Readonly<
+  Partial<SectionRouteParams<T>>
+> => useParams<SectionRouteParams<T>>()
 
-export const useOriginalDataPointRouteParams = () => useParams<OriginalDataPointRouteParams>()
+export const useOriginalDataPointRouteParams = (): Readonly<Partial<OriginalDataPointRouteParams>> =>
+  useParams<OriginalDataPointRouteParams>()

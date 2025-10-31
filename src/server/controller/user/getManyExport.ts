@@ -1,7 +1,7 @@
 import { createI18nPromise } from 'i18n/i18nFactory'
 import { Objects } from 'utils/objects'
 
-import { Areas } from 'meta/area'
+import { Areas } from 'meta/area/areas'
 import { Lang } from 'meta/lang'
 import { CountryUserSummary, RoleName, User, Users } from 'meta/user'
 

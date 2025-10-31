@@ -1,4 +1,4 @@
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { UUID } from 'meta/uuid'
 
 export type ObservationValue<VALUE> = {

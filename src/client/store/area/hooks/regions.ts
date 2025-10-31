@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 
-import { RegionCode, RegionGroup } from 'meta/area'
+import { RegionCode } from 'meta/area/regionCode'
+import { RegionGroup } from 'meta/area/regionGroup'
 
 import { AreaSelectors } from 'client/store/area/selectors'
 import { useAppSelector } from 'client/store/hooks'

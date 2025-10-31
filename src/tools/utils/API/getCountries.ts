@@ -1,6 +1,7 @@
 import { API } from 'tools/utils/API/API'
 
-import { Country, RegionGroup } from 'meta/area'
+import { Country } from 'meta/area/country'
+import { RegionGroup } from 'meta/area/regionGroup'
 
 type Returned = { countries: Array<Country>; regionGroups: Record<string, RegionGroup> }
 

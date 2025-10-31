@@ -1,4 +1,5 @@
-import { Areas, CountryStatus } from 'meta/area'
+import { Areas } from 'meta/area/areas'
+import { CountryStatus } from 'meta/area/countryStatus'
 import { areCanEditDataPropsValid } from 'meta/user/authorizer/_canEditData/areCanEditDataPropsValid'
 import { canCollaboratorEditData } from 'meta/user/authorizer/_canEditData/canCollaboratorEditData'
 import { CanEditDataProps } from 'meta/user/authorizer/_canEditData/types'

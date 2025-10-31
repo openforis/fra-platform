@@ -1,4 +1,4 @@
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { NodeValuesEstimation } from 'meta/assessment/nodeValuesEstimation'
 
 import { EstimationsSelectors } from 'client/store/data/tableData/estimations/selectors'

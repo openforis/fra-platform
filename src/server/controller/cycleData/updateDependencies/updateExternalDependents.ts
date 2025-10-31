@@ -1,4 +1,4 @@
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { NodeUpdates } from 'meta/data'
 import { User } from 'meta/user'
 

@@ -1,4 +1,5 @@
-import { Areas, CountryIso } from 'meta/area'
+import { Areas } from 'meta/area/areas'
+import { CountryIso } from 'meta/area/countryIso'
 import { RoleName } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db/db'

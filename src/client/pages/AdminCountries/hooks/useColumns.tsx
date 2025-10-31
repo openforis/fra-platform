@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { Dates } from 'utils/dates'
 
-import { CountrySummary } from 'meta/area'
+import { CountrySummary } from 'meta/area/countrySummary'
 
 import CountryLink from 'client/components/CountryLink'
 import CountryStatusIndicator from 'client/components/CountryStatusIndicator'

@@ -2,7 +2,7 @@ import './NameField.scss'
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-import { Global } from 'meta/area'
+import { Global } from 'meta/area/global'
 import { Routes } from 'meta/routes'
 import { CountryUserSummary } from 'meta/user'
 

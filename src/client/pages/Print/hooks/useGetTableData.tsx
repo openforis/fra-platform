@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from 'react'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { TableName, TableNames } from 'meta/assessment/table'
 
 import { NodeValuesActions } from 'client/store/data/tableData/nodeValues/actions'
@@ -8,7 +8,7 @@ import { useAppDispatch } from 'client/store/hooks'
 import { useTableSectionsCycle } from 'client/store/meta/hooks/tableSections'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 
-export const useGetTableData = () => {
+export const useGetTableData = (): void => {
   const dispatch = useAppDispatch()
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const tableSections = useTableSectionsCycle()

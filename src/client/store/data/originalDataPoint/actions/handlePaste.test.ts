@@ -1,9 +1,9 @@
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { ODPNationalClass, OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
 import handlePaste from './handlePaste'
 
-const pick = (o: Record<string, string>, props: Array<string>) =>
+const pick = (o: Record<string, string>, props: Array<string>): Record<string, unknown> =>
   Object.assign({}, ...props.map((prop) => ({ [prop]: o[prop] })))
 
 const countryIso = 'ATL' as CountryIso
@@ -31,10 +31,14 @@ const pasteDataForClasses = [
   ['Open forest', 'Open def'],
 ]
 
-const digOnlyCertainFieldsOutOfOdp = (rowCount: number, odp: OriginalDataPoint, fields: Array<string>) =>
+const digOnlyCertainFieldsOutOfOdp = (
+  rowCount: number,
+  odp: OriginalDataPoint,
+  fields: Array<string>
+): Array<Record<string, unknown>> =>
   odp.nationalClasses.slice(0, rowCount).map((nc: ODPNationalClass) => pick(nc as Record<string, string>, fields))
 
-const digOnlyClassDataOutOfOdp = (rowCount: number, odp: OriginalDataPoint) =>
+const digOnlyClassDataOutOfOdp = (rowCount: number, odp: OriginalDataPoint): Array<Record<string, unknown>> =>
   digOnlyCertainFieldsOutOfOdp(rowCount, odp, ['name', 'definition'])
 
 describe('OriginalDataPoint paste test:', () => {

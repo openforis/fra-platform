@@ -4,7 +4,7 @@ import { GeoMapActions } from 'client/store/geo/map/actions'
 import { useGeoMapOptions } from 'client/store/geo/map/hooks/map'
 import { useAppDispatch } from 'client/store/hooks'
 import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
-import { mapController } from 'client/utils'
+import { mapController } from 'client/geo/mapController'
 
 const Zoom: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -24,7 +24,7 @@ const Zoom: React.FC = () => {
       <Button
         iconName="plus-dashed"
         inverse
-        onClick={() => {
+        onClick={(): void => {
           setZoom(mapController.getMap().getZoom() + 1)
         }}
         size={ButtonSize.m}
@@ -33,7 +33,7 @@ const Zoom: React.FC = () => {
       <Button
         iconName="minus-dashed"
         inverse
-        onClick={() => {
+        onClick={(): void => {
           setZoom(mapController.getMap().getZoom() - 1)
         }}
         size={ButtonSize.m}

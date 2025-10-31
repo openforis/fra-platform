@@ -1,4 +1,6 @@
-import { Areas, Country, CountryStatus } from 'meta/area'
+import { Areas } from 'meta/area/areas'
+import { Country } from 'meta/area/country'
+import { CountryStatus } from 'meta/area/countryStatus'
 import { Cycle } from 'meta/assessment/cycle'
 import { Section, SubSection } from 'meta/assessment/section'
 import { User } from 'meta/user/user'

@@ -1,6 +1,6 @@
 import { Arrays } from 'utils/arrays'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { AssessmentName } from 'meta/assessment/assessment'
 import { Col as TypeCol } from 'meta/assessment/col'
 import { Cycle } from 'meta/assessment/cycle'

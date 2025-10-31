@@ -1,4 +1,4 @@
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { ForestKey, LayerConfig, LayerSource } from 'meta/geo'
 
 import { AssetsController } from 'server/controller/geo/assets'

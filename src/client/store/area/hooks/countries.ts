@@ -1,6 +1,8 @@
 import { useMemo } from 'react'
 
-import { Areas, Country, CountryIso } from 'meta/area'
+import { Areas } from 'meta/area/areas'
+import { Country } from 'meta/area/country'
+import { CountryIso } from 'meta/area/countryIso'
 
 import { AreaSelectors } from 'client/store/area/selectors'
 import { useAppSelector } from 'client/store/hooks'

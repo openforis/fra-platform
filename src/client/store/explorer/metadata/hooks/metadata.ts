@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 
 import { Objects } from 'utils/objects'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { ExplorerMetadata } from 'meta/explorer/metadata'
 
 import { ExplorerMetadataActions } from 'client/store/explorer/metadata/actions/index'
@@ -18,7 +18,7 @@ export const useExplorerSectionMetadata = (): ExplorerMetadata => {
   )
 }
 
-export const useGetExplorerSectionMetadata = () => {
+export const useGetExplorerSectionMetadata = (): void => {
   const dispatch = useAppDispatch()
 
   const { assessmentName, countryIso: _countryIso, cycleName, sectionName } = useSectionRouteParams()

@@ -2,7 +2,7 @@ import './MessageButton.scss'
 import React, { useCallback, useEffect, useRef } from 'react'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { MessageTopic } from 'meta/messageCenter'
 import { Users } from 'meta/user/users'
 

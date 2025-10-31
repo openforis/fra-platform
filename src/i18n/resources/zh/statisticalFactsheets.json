@@ -38,7 +38,7 @@
     "unknown": "$t(fra.designatedManagementObjective.unknown2025)"
   },
   "primaryForest": {
-    "title": "原生林占森林面积百分比, {{year}}"
+    "title": "原始林占森林面积百分比, {{year}}"
   },
   "rowName": {
     "area": "面积",

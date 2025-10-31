@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useMemo } from 'react'
 
-import { Areas, CountryIso, RegionCode } from 'meta/area'
+import { Areas } from 'meta/area/areas'
+import { CountryIso } from 'meta/area/countryIso'
+import { RegionCode } from 'meta/area/regionCode'
 
 import { NodeValuesActions } from 'client/store/data/tableData/nodeValues/actions'
 import type { Props as GetTableDataProps } from 'client/store/data/tableData/nodeValues/actions/getTableDataProps'

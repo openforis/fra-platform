@@ -1,4 +1,4 @@
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { RoleName, UserStatus } from 'meta/user'
 
 export type UserFilters = {

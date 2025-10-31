@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 
 import { isAnyOf, isFulfilled, isPending, isRejected } from '@reduxjs/toolkit'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { TableName } from 'meta/assessment/table'
 
 import { NodeValuesActions } from 'client/store/data/tableData/nodeValues/actions'

@@ -1,6 +1,6 @@
 import { Objects } from 'utils/objects'
 
-import { RegionGroup } from 'meta/area'
+import { RegionGroup } from 'meta/area/regionGroup'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 

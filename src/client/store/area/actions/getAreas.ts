@@ -2,7 +2,8 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { Country, RegionGroup } from 'meta/area'
+import { Country } from 'meta/area/country'
+import { RegionGroup } from 'meta/area/regionGroup'
 import { AssessmentName } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
 

@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { RepositoryItem, RepositoryItems } from 'meta/cycleData'
 import { Translations } from 'meta/translation'
 
@@ -21,7 +21,7 @@ export const useOnClose = (): Returned => {
     setRepositoryOpened(false)
     if (!selectedFiles.length) return
 
-    const mapFunction = (repositoryItem: RepositoryItem) => {
+    const mapFunction = (repositoryItem: RepositoryItem): string => {
       const url = RepositoryItems.getURL({ repositoryItem, assessmentName, cycleName, countryIso })
       return `<a href="${url}" target="_blank">${Translations.getLabel({
         translation: repositoryItem.props.translation,

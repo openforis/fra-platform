@@ -1,4 +1,4 @@
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { AssessmentName } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
 import { CommentableDescriptionName, DataSource } from 'meta/assessment/descriptionValue'
@@ -16,7 +16,7 @@ const getDataSourceReviewTopicKey = (dataSource: DataSource): string => `dataSou
 const getDataReviewTopicKey = (row: Row): string => `dataRow_${row.uuid}`
 
 // odp
-const getOdpReviewTopicKeyPrefix = (odpId: number | string) => `odp-${odpId}-`
+const getOdpReviewTopicKeyPrefix = (odpId: number | string): string => `odp-${odpId}-`
 
 const getOdpClassReviewTopicKey = (odpId: number, uuid: string, rowId: string): string =>
   `${getOdpReviewTopicKeyPrefix(odpId)}class-${uuid}-${rowId}`

@@ -1,7 +1,7 @@
 import { Queue, QueueOptions, Worker } from 'bullmq'
 import IORedis from 'ioredis'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 

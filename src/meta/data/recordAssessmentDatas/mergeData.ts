@@ -5,13 +5,18 @@
  */
 import { Objects } from 'utils/objects'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { AssessmentName } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
 
 import { RecordAssessmentData } from '../RecordAssessmentData'
 
-export const mergeData = (props: { newTableData: RecordAssessmentData; tableData: RecordAssessmentData }) => {
+type Props = {
+  newTableData: RecordAssessmentData
+  tableData: RecordAssessmentData
+}
+
+export const mergeData = (props: Props): RecordAssessmentData => {
   const { newTableData, tableData } = props
 
   Object.keys(newTableData).forEach((assessmentName: AssessmentName) => {

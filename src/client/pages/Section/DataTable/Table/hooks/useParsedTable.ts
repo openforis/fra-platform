@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { Objects } from 'utils/objects'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { AssessmentName } from 'meta/assessment/assessment'
 import { Cols } from 'meta/assessment/cols'
 import { Row, RowType } from 'meta/assessment/row'
@@ -11,8 +11,8 @@ import { Table } from 'meta/assessment/table'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useShowOriginalDatapoints } from 'client/store/ui/countryReport/hooks/originalDataPoints'
-import { useIsPrintRoute } from 'client/hooks/routes'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
+import { useIsPrintRoute } from 'client/hooks/routes'
 import { ColHeader } from 'client/pages/Section/DataTable/Table/types'
 
 import { transposeTable } from './_transpose/_transposeTable'

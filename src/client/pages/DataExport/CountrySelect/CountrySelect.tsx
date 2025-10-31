@@ -6,7 +6,8 @@ import { useParams } from 'react-router-dom'
 import { Functions } from 'utils/functions'
 import { Strings } from 'utils/strings'
 
-import { Areas, Country } from 'meta/area'
+import { Areas } from 'meta/area/areas'
+import { Country } from 'meta/area/country'
 
 import { DataExportActions } from 'client/store/dataExport/actions'
 import { useDataExportCountries, useDataExportSelection } from 'client/store/dataExport/hooks/dataExport'
@@ -74,7 +75,7 @@ const CountrySelect: React.FC = () => {
           checked={selection.countryISOs.length > 0 && selection.countryISOs.length === countries.length}
           className="btn-all"
           label={t(selection.countryISOs.length > 0 ? 'common.unselectAll' : 'common.selectAll')}
-          onClick={() => {
+          onClick={(): void => {
             const countryISOs: Array<string> =
               selection.countryISOs.length > 0 ? [] : countries.map((country) => country.countryIso)
             updateSelection(countryISOs)
@@ -85,7 +86,7 @@ const CountrySelect: React.FC = () => {
       <MediaQuery maxWidth={Breakpoints.laptop - 1}>
         <select
           multiple
-          onChange={(event) => {
+          onChange={(event): void => {
             const countryISOsUpdate = Array.from(event.target.selectedOptions, (option) => option.value)
             updateSelection(countryISOsUpdate)
           }}
@@ -116,7 +117,7 @@ const CountrySelect: React.FC = () => {
                   key={countryIso}
                   checked={selected}
                   label={t(Areas.getTranslationKey(country.countryIso))}
-                  onClick={() => {
+                  onClick={(): void => {
                     const countryISOs = [...selection.countryISOs]
                     if (selected) countryISOs.splice(selection.countryISOs.indexOf(countryIso), 1)
                     else countryISOs.push(countryIso)

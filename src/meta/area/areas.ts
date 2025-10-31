@@ -1,7 +1,11 @@
-import { AreaCode, Country, CountryIso, Global, RegionCode } from 'meta/area'
+import { AreaCode } from 'meta/area/areaCode'
+import { Country } from 'meta/area/country'
+import { CountryIso } from 'meta/area/countryIso'
+import { CountryStatus } from 'meta/area/countryStatus'
+import { fraRegionCodes } from 'meta/area/fraRegionCodes'
+import { Global } from 'meta/area/global'
 import { Region } from 'meta/area/region'
-import { fraRegionCodes } from 'meta/area/regionCode'
-import { CountryStatus } from 'meta/area/status'
+import { RegionCode } from 'meta/area/regionCode'
 import { Lang } from 'meta/lang'
 
 const getCountryBackgroundImg = (isoCode: AreaCode): string =>

@@ -1,13 +1,13 @@
 import { useEffect, useMemo, useState } from 'react'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { TableSection } from 'meta/assessment/tableSection'
 import { RecordAssessmentDatas } from 'meta/data'
 
 import { useRecordAssessmentData } from 'client/store/data/tableData/nodeValues/hooks/data'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 
-export const useIsSectionDataEmpty = (tableSections: Array<TableSection>) => {
+export const useIsSectionDataEmpty = (tableSections: Array<TableSection>): boolean => {
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
 
   const data = useRecordAssessmentData()
