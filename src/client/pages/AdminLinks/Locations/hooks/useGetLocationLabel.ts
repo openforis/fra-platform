@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { SubSection } from 'meta/assessment/section'
 import { LinkLocation } from 'meta/cycleData'
 import { Links } from 'meta/cycleData/links/links'

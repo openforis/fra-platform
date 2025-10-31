@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { CountryUserSummaries } from 'meta/user/countryUserSummaries'
 
 import { useUser } from 'client/store/user/hooks/user'

@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 
 import { Objects } from 'utils/objects'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { SectionName } from 'meta/assessment/section'
 import { RecordAssessmentData } from 'meta/data'
 import { Dimensions } from 'meta/measurement/dimensions'
@@ -23,7 +23,7 @@ export const useExplorerSectionData = (): RecordAssessmentData => {
   return useAppSelector((state) => ExplorerDataSelectors.getSectionData(state, sectionName))
 }
 
-export const useGetExplorerSectionData = () => {
+export const useGetExplorerSectionData = (): void => {
   const dispatch = useAppDispatch()
 
   const { cellsExportAlways, tableName } = useExplorerSectionMetadata() ?? {}

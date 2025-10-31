@@ -1,7 +1,8 @@
 import { useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { AreaCode, Areas } from 'meta/area'
+import { AreaCode } from 'meta/area/areaCode'
+import { Areas } from 'meta/area/areas'
 import { Routes } from 'meta/routes'
 
 import { useCountries } from 'client/store/area/hooks/countries'
@@ -10,7 +11,9 @@ import { useCycle, useLastPublishedCycle } from 'client/store/meta/hooks/cycles'
 import { useUser } from 'client/store/user/hooks/user'
 import { useIsGeoRoute } from 'client/hooks/routes'
 
-export const useDefaultHandleElementSelect = () => {
+type Returned = (areaCode: AreaCode) => void
+
+export const useDefaultHandleElementSelect = (): Returned => {
   const navigate = useNavigate()
   const user = useUser()
 

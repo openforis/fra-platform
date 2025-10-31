@@ -1,7 +1,7 @@
 // TODO: move below auth hook under useAuth (future task)
 import { useMemo } from 'react'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 import { SectionName } from 'meta/assessment/section'
 import { Authorizer, CollaboratorEditPropertyType, User, Users } from 'meta/user'
@@ -12,8 +12,8 @@ import { useSection } from 'client/store/meta/hooks/sections'
 import { useIsDataLocked } from 'client/store/ui/countryReport/hooks/datalock'
 import { useIsDescriptionEditEnabled } from 'client/store/ui/countryReport/hooks/descriptions'
 import { useUser } from 'client/store/user/hooks/user'
-import { useIsPrintRoute } from 'client/hooks/routes'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
+import { useIsPrintRoute } from 'client/hooks/routes'
 
 export const useCanEditCycleData = (): boolean => {
   const user = useUser()

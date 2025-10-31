@@ -5,7 +5,7 @@ import * as path from 'path'
 import * as pgPromise from 'pg-promise'
 import { Objects } from 'utils/objects'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 
 import { DB } from 'server/db/db'
 

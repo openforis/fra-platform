@@ -3,13 +3,13 @@ import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-// import { AssessmentStatus, CountryIso } from 'meta/area'
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 
+// import { AssessmentStatus, CountryIso } from 'meta/area'
 import { useCountry } from 'client/store/area/hooks/country'
 import { useLanguage } from 'client/hooks/language'
-import { useIsPrintRoute } from 'client/hooks/routes'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
+import { useIsPrintRoute } from 'client/hooks/routes'
 import { ButtonSize, useButtonClassName } from 'client/components/Buttons/Button'
 import Icon from 'client/components/Icon'
 

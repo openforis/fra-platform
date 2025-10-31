@@ -1,5 +1,5 @@
 import { ApiEndPoint } from 'meta/api/endpoint/ApiEndPoint'
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 
 export interface ProtectedAreaEstimations {
   faHansen10Protected: number

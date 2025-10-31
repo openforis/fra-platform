@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { ODPReservedYear } from 'meta/assessment/originalDataPoint'
 import { Sockets } from 'meta/socket'
 

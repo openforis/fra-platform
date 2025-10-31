@@ -1,4 +1,4 @@
-import { RegionCode } from 'meta/area'
+import { RegionCode } from 'meta/area/regionCode'
 import { RecordAssessmentData } from 'meta/data'
 
 import { BaseProtocol, DB } from 'server/db/db'

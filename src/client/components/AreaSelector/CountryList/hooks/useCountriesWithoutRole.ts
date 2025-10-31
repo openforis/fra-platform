@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 
-import { Areas, CountryIso } from 'meta/area'
+import { Areas } from 'meta/area/areas'
+import { CountryIso } from 'meta/area/countryIso'
 import { Cycles } from 'meta/assessment/cycles'
 
 import { useCountries } from 'client/store/area/hooks/countries'

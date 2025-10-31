@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 
-import { Country, CountryIso } from 'meta/area'
+import { Country } from 'meta/area/country'
+import { CountryIso } from 'meta/area/countryIso'
 import { Sockets } from 'meta/socket'
 
 import { AreaActions } from 'client/store/area/actions'

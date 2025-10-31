@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 import { Link, matchPath, useLocation } from 'react-router-dom'
 
-import { Areas } from 'meta/area'
+import { Areas } from 'meta/area/areas'
 import { RegionCode } from 'meta/area/regionCode'
 import { Files } from 'meta/file'
 import { Routes, SectionNames } from 'meta/routes'

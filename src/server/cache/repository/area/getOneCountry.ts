@@ -1,6 +1,8 @@
 import { Objects } from 'utils/objects'
 
-import { Areas, Country, CountryIso } from 'meta/area'
+import { Areas } from 'meta/area/areas'
+import { Country } from 'meta/area/country'
+import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 

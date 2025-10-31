@@ -5,7 +5,10 @@ import classNames from 'classnames'
 import { Dates } from 'utils/dates'
 import { Objects } from 'utils/objects'
 
-import { Areas, CountryIso, Global, RegionCode } from 'meta/area'
+import { Areas } from 'meta/area/areas'
+import { CountryIso } from 'meta/area/countryIso'
+import { Global } from 'meta/area/global'
+import { RegionCode } from 'meta/area/regionCode'
 import { UserRoles } from 'meta/user/userRoles'
 
 import { useCountry } from 'client/store/area/hooks/country'
@@ -52,7 +55,7 @@ const CountryListRow: React.FC<Props> = (props: Props) => {
     <div
       aria-hidden="true"
       className={classNames('country-selection-list__row', role, { expanded, selected })}
-      onClick={(e) => {
+      onClick={(e): void => {
         e.preventDefault()
         onElementSelect(countryIso)
       }}

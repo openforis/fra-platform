@@ -1,3 +1,5 @@
+export type CountryIso2 = string
+
 export type CountryIso =
   | 'ABW'
   | 'AFG'

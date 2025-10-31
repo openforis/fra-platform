@@ -1,5 +1,4 @@
 import { Country } from 'meta/area/country'
-import { CountryStatus } from 'meta/area/status'
 
 export type CountrySummary = {
   status: CountryStatus

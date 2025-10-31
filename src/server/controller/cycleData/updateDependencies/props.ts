@@ -1,6 +1,6 @@
 import { Job, Worker } from 'bullmq'
 
-import { Country } from 'meta/area'
+import { Country } from 'meta/area/country'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { NodeUpdates } from 'meta/data'

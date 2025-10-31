@@ -1,7 +1,7 @@
 import { Objects } from 'utils/objects'
 
 import { ForestAgreementAreaEstimationRequestBody } from 'meta/api/request/geo/layer'
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { ForestKey, LayerSectionKey, LayerSource } from 'meta/geo'
 import { sectionsMap } from 'meta/geo/sections'
 

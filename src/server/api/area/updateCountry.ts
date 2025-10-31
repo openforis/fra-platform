@@ -1,7 +1,7 @@
 import { Response } from 'express'
 
 import { CycleRequest } from 'meta/api/request'
-import { Country } from 'meta/area'
+import { Country } from 'meta/area/country'
 
 import { AreaController } from 'server/controller/area'
 import { MailService } from 'server/service'

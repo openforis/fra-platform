@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { Objects } from 'utils/objects'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { Labels } from 'meta/assessment/labels'
 import { Table } from 'meta/assessment/table'
 import { BarChart, BarChartData } from 'meta/chart'

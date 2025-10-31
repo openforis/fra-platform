@@ -1,4 +1,4 @@
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { DataSourceDescription } from 'meta/assessment/description'
 import { SectionName } from 'meta/assessment/section'
 

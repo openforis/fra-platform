@@ -2,7 +2,7 @@ import { createI18nPromise } from 'i18n/i18nFactory'
 import { TFunction } from 'i18next'
 import { Promises } from 'utils/promises'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { ODPDataSourceMethod } from 'meta/assessment/originalDataPoint'

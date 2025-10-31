@@ -1,4 +1,4 @@
-import { Areas } from 'meta/area'
+import { Areas } from 'meta/area/areas'
 
 import { useCanSeeUserActivities } from 'client/store/user/hooks/auth'
 import { useUser } from 'client/store/user/hooks/user'

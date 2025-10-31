@@ -1,10 +1,11 @@
 import { TFunction } from 'i18next'
 
-import { Country, CountryIso } from 'meta/area'
+import { Country } from 'meta/area/country'
+import { CountryIso } from 'meta/area/countryIso'
 import { Assessment, RecordAssessments } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { Row } from 'meta/assessment/row'
-import { RecordCountryData } from 'meta/data'
+import { RecordAssessmentData } from 'meta/data'
 
 import { ExpressionContext } from 'lib/expressionEvaluator/context'
 
@@ -15,7 +16,7 @@ export interface Context extends ExpressionContext {
   colName: string
   countryIso: CountryIso
   country?: Country
-  data: RecordCountryData
+  data: RecordAssessmentData
   formula: string
   row: Row
   t?: TFunction

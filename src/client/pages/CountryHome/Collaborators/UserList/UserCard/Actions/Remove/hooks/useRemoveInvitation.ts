@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import axios from 'axios'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { CountryUserSummaries } from 'meta/user/countryUserSummaries'
 
 import { useCountryRouteParams } from 'client/hooks/routeParams'
@@ -16,7 +16,9 @@ type Props = BaseProps & {
   callback: () => void
 }
 
-export const useRemoveInvitation = (props: Props) => {
+type Returned = () => Promise<void>
+
+export const useRemoveInvitation = (props: Props): Returned => {
   const { callback, user } = props
 
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()

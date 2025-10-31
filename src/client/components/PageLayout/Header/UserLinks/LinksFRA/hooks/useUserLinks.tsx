@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
-import { Global } from 'meta/area'
+import { Global } from 'meta/area/global'
 import { Routes } from 'meta/routes'
 import { Users } from 'meta/user'
 import { UserRoles } from 'meta/user/userRoles'

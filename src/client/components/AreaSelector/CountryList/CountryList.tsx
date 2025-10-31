@@ -5,7 +5,12 @@ import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
 import { i18n } from 'i18next'
 
-import { Areas, CountryIso, Global, Region, RegionCode, RegionGroup } from 'meta/area'
+import { Areas } from 'meta/area/areas'
+import { CountryIso } from 'meta/area/countryIso'
+import { Global } from 'meta/area/global'
+import { Region } from 'meta/area/region'
+import { RegionCode } from 'meta/area/regionCode'
+import { RegionGroup } from 'meta/area/regionGroup'
 import { UserRoles } from 'meta/user/userRoles'
 
 import { useRegionGroups } from 'client/store/area/hooks/regions'

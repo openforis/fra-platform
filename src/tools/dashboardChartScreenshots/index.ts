@@ -8,7 +8,7 @@ import { Page } from 'puppeteer'
 import { Cluster } from 'puppeteer-cluster'
 import { APIUtil } from 'tools/utils/API'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { Lang } from 'meta/lang'
 
 const HOST = 'https://fra-data.fao.org'
@@ -19,13 +19,13 @@ const DIR = path.join(__dirname, 'ss')
 
 const languages = Object.values(Lang)
 
-const _mkDir = () => {
+const _mkDir = (): void => {
   if (!fs.existsSync(DIR)) fs.mkdirSync(DIR)
 }
 
 type TaskProps = { page: Page; data: { countryIso: CountryIso; lang: Lang } }
 
-const _takeScreenshots = async (countryISOs: Array<CountryIso>) => {
+const _takeScreenshots = async (countryISOs: Array<CountryIso>): Promise<void> => {
   const cluster = await Cluster.launch({
     concurrency: Cluster.CONCURRENCY_CONTEXT,
     maxConcurrency: 5,
@@ -77,7 +77,7 @@ const _takeScreenshots = async (countryISOs: Array<CountryIso>) => {
   await cluster.close()
 }
 
-const exec = async () => {
+const exec = async (): Promise<void> => {
   _mkDir()
   const { countries } = await APIUtil.getCountries({
     source: HOST,

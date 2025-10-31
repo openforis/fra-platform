@@ -4,7 +4,8 @@ import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { Areas, CountryIso } from 'meta/area'
+import { Areas } from 'meta/area/areas'
+import { CountryIso } from 'meta/area/countryIso'
 
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { useToaster } from 'client/hooks/toaster'

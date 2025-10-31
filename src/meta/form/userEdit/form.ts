@@ -1,4 +1,4 @@
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { RoleName, User, UserRole } from 'meta/user'
 import { UserProps } from 'meta/user/user'
 import { CollaboratorPermissionsNEW } from 'meta/user/userRole'

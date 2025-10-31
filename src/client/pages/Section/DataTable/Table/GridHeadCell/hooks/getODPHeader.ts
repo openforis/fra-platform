@@ -1,4 +1,4 @@
-import { Country } from 'meta/area'
+import { Country } from 'meta/area/country'
 import { Col } from 'meta/assessment/col'
 import { Table, TableNames } from 'meta/assessment/table'
 

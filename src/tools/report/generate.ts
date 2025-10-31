@@ -8,7 +8,8 @@ import { ToolsUtils } from 'tools/utils/toolsUtils'
 import { Dates } from 'utils/dates'
 import { Promises } from 'utils/promises'
 
-import { Areas, CountryIso } from 'meta/area'
+import { Areas } from 'meta/area/areas'
+import { CountryIso } from 'meta/area/countryIso'
 import { Lang } from 'meta/lang'
 
 import { AreaController } from 'server/controller/area'

@@ -1,7 +1,7 @@
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso' // import { ODPValidation } from './odpValidation'
 
 import { ODPDataSourceMethod } from './odpDataSource' // import { ODPEditStatus } from './odpEditStatus'
-import { ODPNationalClass } from './odpNationalClass' // import { ODPValidation } from './odpValidation'
+import { ODPNationalClass } from './odpNationalClass'
 // import { ODPValidation } from './odpValidation'
 
 export interface OriginalDataPointValues {

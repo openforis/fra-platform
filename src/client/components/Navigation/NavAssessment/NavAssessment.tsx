@@ -6,7 +6,8 @@ import { Link } from 'react-router-dom'
 
 import { Objects } from 'utils/objects'
 
-import { Areas, CountryIso } from 'meta/area'
+import { Areas } from 'meta/area/areas'
+import { CountryIso } from 'meta/area/countryIso'
 import { Routes } from 'meta/routes'
 
 import { useHistoryActivitiesIsActive } from 'client/store/data/history/hooks/activities'

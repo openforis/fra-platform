@@ -1,4 +1,4 @@
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { LinkValidationStatusCode } from 'meta/cycleData'
 
 export type LinksFilters = {

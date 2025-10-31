@@ -1,7 +1,8 @@
 import i18n from 'i18next'
 import { Dates } from 'utils/dates'
 
-import { Areas, CountryStatus } from 'meta/area'
+import { Areas } from 'meta/area/areas'
+import { CountryStatus } from 'meta/area/countryStatus'
 import { Assessment } from 'meta/assessment/assessment'
 import { User } from 'meta/user/user'
 

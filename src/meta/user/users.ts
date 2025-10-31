@@ -1,7 +1,9 @@
 import { Objects } from 'utils/objects'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { AreaCode, Areas, CountryIso } from 'meta/area'
+import { AreaCode } from 'meta/area/areaCode'
+import { Areas } from 'meta/area/areas'
+import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 
@@ -16,7 +18,7 @@ import {
 } from './userRole'
 import { UserRoles } from './userRoles'
 
-const isAdministrator = (user: User) => {
+const isAdministrator = (user: User): boolean => {
   return user?.roles?.some((role) => role?.role === RoleName.ADMINISTRATOR)
 }
 
@@ -33,13 +35,13 @@ const getRole = (user: User, countryIso: AreaCode, cycle: Cycle): UserRole<RoleN
   )
 }
 
-const isRole = (user: User, role: RoleName, countryIso: AreaCode, cycle: Cycle) =>
+const isRole = (user: User, role: RoleName, countryIso: AreaCode, cycle: Cycle): boolean =>
   Boolean(getRole(user, countryIso, cycle)?.role === role)
 
-const isCollaborator = (user: User, countryIso: CountryIso, cycle: Cycle) =>
+const isCollaborator = (user: User, countryIso: CountryIso, cycle: Cycle): boolean =>
   isRole(user, RoleName.COLLABORATOR, countryIso, cycle)
 
-const isReviewer = (user: User, countryIso: AreaCode, cycle: Cycle) =>
+const isReviewer = (user: User, countryIso: AreaCode, cycle: Cycle): boolean =>
   isRole(user, RoleName.REVIEWER, countryIso, cycle)
 
 const isAReviewer = (user: User, cycle: Cycle): boolean => {
@@ -48,13 +50,14 @@ const isAReviewer = (user: User, cycle: Cycle): boolean => {
   )
 }
 
-const isNationalCorrespondent = (user: User, countryIso: AreaCode, cycle: Cycle) =>
+const isNationalCorrespondent = (user: User, countryIso: AreaCode, cycle: Cycle): boolean =>
   isRole(user, RoleName.NATIONAL_CORRESPONDENT, countryIso, cycle)
 
-const isAlternateNationalCorrespondent = (user: User, countryIso: AreaCode, cycle: Cycle) =>
+const isAlternateNationalCorrespondent = (user: User, countryIso: AreaCode, cycle: Cycle): boolean =>
   isRole(user, RoleName.ALTERNATE_NATIONAL_CORRESPONDENT, countryIso, cycle)
 
-const isViewer = (user: User, countryIso: CountryIso, cycle: Cycle) => isRole(user, RoleName.VIEWER, countryIso, cycle)
+const isViewer = (user: User, countryIso: CountryIso, cycle: Cycle): boolean =>
+  isRole(user, RoleName.VIEWER, countryIso, cycle)
 
 const hasEditorRole = (props: { user: User; countryIso: AreaCode; cycle: Cycle }): boolean => {
   const { countryIso, cycle, user } = props
@@ -120,28 +123,28 @@ const getRolesAllowedToView = (props: { user: User; countryIso: AreaCode; cycle:
 const getI18nRoleLabelKey = (role: RoleName | string): string =>
   role ? `user.roles.${role}` : UserRoles.noRole.labelKey
 
-export const profilePictureUri = (userId: number) => ApiEndPoint.User.profilePicture(String(userId))
+export const profilePictureUri = (userId: number): string => ApiEndPoint.User.profilePicture(String(userId))
 
 // max 1Mb
-export const validProfilePicture = (file: File) => !file || file.size <= 1000000
+export const validProfilePicture = (file: File): boolean => !file || file.size <= 1000000
 
 // validation methods
-export const validName = (props: Partial<UserProps>) => !Objects.isEmpty(props.name)
-export const validRole = (user: Partial<User>) => !Objects.isEmpty(user.roles)
+export const validName = (props: Partial<UserProps>): boolean => !Objects.isEmpty(props.name)
+export const validRole = (user: Partial<User>): boolean => !Objects.isEmpty(user.roles)
 
 // const regexEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 const regexEmail = /.+@.+/
 
-const validEmail = (user: Partial<User>) => regexEmail.test(user.email)
+const validEmail = (user: Partial<User>): boolean => regexEmail.test(user.email)
 
-const validEmailField = (email: string) => regexEmail.test(email)
+const validEmailField = (email: string): boolean => regexEmail.test(email)
 
-const validateFields = (user: User) => ({
+const validateFields = (user: User): { email: boolean; name: boolean } => ({
   email: validEmail(user),
   name: validName(user.props),
 })
 
-const validate = (user: User) => {
+const validate = (user: User): { isError: boolean; email: boolean; name: boolean } => {
   const fields = validateFields(user)
   return {
     ...fields,
@@ -149,7 +152,7 @@ const validate = (user: User) => {
   }
 }
 
-const isPersonalInfoRequired = (user: User, role: UserRole<RoleName, any>) => {
+const isPersonalInfoRequired = (user: User, role: UserRole): boolean => {
   // If no user or user is administrator, not required to fill information
   if (!user || isAdministrator(user) || !role) return false
 
@@ -172,10 +175,10 @@ const isPersonalInfoRequired = (user: User, role: UserRole<RoleName, any>) => {
 
   const roleExtendedProps = roleBaseProps.concat(['address', 'primaryPhoneNumber'])
 
-  const validateAddress = (prop: any) =>
+  const validateAddress = (prop: any): boolean =>
     ['street', 'zipCode', 'city'].some((propName) => Objects.isEmpty(prop?.[propName]))
 
-  const validateContactPreference = (prop: UserContactPreference) => {
+  const validateContactPreference = (prop: UserContactPreference): boolean => {
     return (
       ([UserContactPreferenceMethod.primaryPhoneNumber, UserContactPreferenceMethod.secondaryPhoneNumber].includes(
         prop?.method
@@ -185,20 +188,22 @@ const isPersonalInfoRequired = (user: User, role: UserRole<RoleName, any>) => {
     )
   }
 
-  const validateExtendedProps = (prop: any, propName: string) => {
+  const validateExtendedProps = (prop: any, propName: string): boolean => {
     if (propName === 'address') return validateAddress(prop)
     if (propName === 'contactPreference') return validateContactPreference(prop)
     return Objects.isEmpty(prop)
   }
 
   const missingRoleProperties = hasExtendedRoleProps
-    ? roleExtendedProps.some((prop: keyof UserRoleExtendedProps) => validateExtendedProps(role.props[prop], prop))
-    : roleBaseProps.some((prop: keyof UserRoleBaseProps) => Objects.isEmpty(role.props[prop]))
+    ? roleExtendedProps.some((prop: keyof UserRoleExtendedProps) =>
+        validateExtendedProps((role.props as UserRoleExtendedProps)[prop], prop)
+      )
+    : roleBaseProps.some((prop: keyof UserRoleBaseProps) => Objects.isEmpty((role.props as UserRoleBaseProps)[prop]))
 
   return hasCorrectRole && (!validEmail(user) || missingUserProperties || missingRoleProperties)
 }
 
-const getFullName = (user: User) => [user.props.name, user.props.surname].join(' ').trim()
+const getFullName = (user: User): string => [user.props.name, user.props.surname].join(' ').trim()
 
 export const Users = {
   getCycleRoles,

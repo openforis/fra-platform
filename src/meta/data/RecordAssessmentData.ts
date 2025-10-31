@@ -1,4 +1,4 @@
-import { AreaCode } from 'meta/area'
+import { AreaCode } from 'meta/area/areaCode'
 import { AssessmentName } from 'meta/assessment/assessment'
 import { ColName } from 'meta/assessment/col'
 import { CycleName } from 'meta/assessment/cycle'

@@ -4,7 +4,11 @@ import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
 import { TFunction } from 'i18next'
 
-import { Areas, Country, CountryIso, Global, RegionCode } from 'meta/area'
+import { Areas } from 'meta/area/areas'
+import { Country } from 'meta/area/country'
+import { CountryIso } from 'meta/area/countryIso'
+import { Global } from 'meta/area/global'
+import { RegionCode } from 'meta/area/regionCode'
 import { RoleName, Users } from 'meta/user'
 import { UserRoles } from 'meta/user/userRoles'
 

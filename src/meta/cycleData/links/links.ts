@@ -1,6 +1,6 @@
 import { TFunction } from 'i18next'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { Cycle } from 'meta/assessment/cycle'
 import { Descriptions } from 'meta/assessment/description/descriptions'
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'

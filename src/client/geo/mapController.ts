@@ -1,7 +1,7 @@
 // @ts-ignore
 import ee from '@google/earthengine'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { MapLayerKey } from 'meta/geo'
 
 import { getCountryBounds } from 'client/pages/Geo/utils/countryBounds'
