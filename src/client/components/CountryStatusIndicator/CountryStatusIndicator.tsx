@@ -6,7 +6,7 @@ import { CountryStatus } from 'meta/area/countryStatus'
 
 type Props = { status: CountryStatus }
 
-const CountryStatusIndicator: React.FC = (props: Props) => {
+const CountryStatusIndicator: React.FC<Props> = (props: Props) => {
   const { status } = props
 
   const { t } = useTranslation()
