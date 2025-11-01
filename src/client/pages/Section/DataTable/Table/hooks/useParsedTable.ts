@@ -10,7 +10,6 @@ import { Row, RowType } from 'meta/assessment/row'
 import { Table, TableNames } from 'meta/assessment/table'
 
 import { useCountry } from 'client/store/area/hooks/country'
-import { useHistoryLastApprovedIsActive } from 'client/store/data/history/hooks/lastApproved'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useShowOriginalDatapoints } from 'client/store/ui/countryReport/hooks/originalDataPoints'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
@@ -40,22 +39,20 @@ export const useParsedTable = (props: Props): Returned => {
   const { assessmentName, table: _table } = props
 
   const { t } = useTranslation()
+  const { print } = useIsPrintRoute()
   const { countryIso } = useCountryRouteParams<CountryIso>()
   const cycle = useCycle()
-  const showODP = useShowOriginalDatapoints()
   const country = useCountry(countryIso)
   const odpYears = useOriginalDataPointYearsWithHistory({ assessmentName, table: _table })
-  const historyLastApprovedIsActive = useHistoryLastApprovedIsActive()
-
-  const { print } = useIsPrintRoute()
+  const showOriginalDatapoints = useShowOriginalDatapoints()
+  const showODP1a = _table.props.name === TableNames.extentOfForest && showOriginalDatapoints
+  const showODP1b =
+    _table.props.name === TableNames.forestCharacteristics &&
+    country?.props?.forestCharacteristics?.useOriginalDataPoint
+  const showODP = showODP1a || showODP1b
 
   return useMemo<Returned>(() => {
-    const ignoreOdpYears =
-      _table.props.name === TableNames.forestCharacteristics &&
-      !historyLastApprovedIsActive &&
-      !country?.props?.forestCharacteristics?.useOriginalDataPoint
-
-    const _props = { cycle, odpYears: ignoreOdpYears ? [] : odpYears, showODP, table: _table, print }
+    const _props = { cycle, odpYears, showODP, table: _table, print }
     const { headers, table } = parseTable(_props)
 
     const rowsData: Array<Row> = []
@@ -89,5 +86,5 @@ export const useParsedTable = (props: Props): Returned => {
     }
 
     return { firstHeaderRowSpan, headers, noticeMessages, rowsData, rowsHeader, table, withReview }
-  }, [_table, country, cycle, historyLastApprovedIsActive, odpYears, print, showODP, t])
+  }, [_table, cycle, odpYears, print, showODP, t])
 }
