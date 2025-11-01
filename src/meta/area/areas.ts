@@ -1,3 +1,5 @@
+import { Dates } from 'utils/dates'
+
 import { AreaCode } from 'meta/area/areaCode'
 import { Country } from 'meta/area/country'
 import { CountryIso } from 'meta/area/countryIso'
@@ -6,6 +8,8 @@ import { fraRegionCodes } from 'meta/area/fraRegionCodes'
 import { Global } from 'meta/area/global'
 import { Region } from 'meta/area/region'
 import { RegionCode } from 'meta/area/regionCode'
+import { Assessment } from 'meta/assessment/assessment'
+import { Assessments } from 'meta/assessment/assessments'
 import { Lang } from 'meta/lang'
 
 const getCountryBackgroundImg = (isoCode: AreaCode): string =>
@@ -42,6 +46,22 @@ const getCompareListName = <T extends Country | Region>(area1: T, area2: T, lang
   return _getSortIndex(area1, lang) - _getSortIndex(area2, lang)
 }
 
+const isPublishedAfterLastPublishedCycle = (props: { assessment?: Assessment; country?: Country }): boolean => {
+  const { assessment, country } = props
+
+  if (!assessment || !country?.lastPublishedInfo?.lastPublished) return false
+
+  const lastPublishedCycle = Assessments.getLastPublishedCycle(assessment)
+  const { datePublished } = lastPublishedCycle?.props ?? {}
+
+  if (!datePublished) return false
+
+  const countryDate = Dates.parseISO(country.lastPublishedInfo.lastPublished)
+  const cycleDate = Dates.parseISO(datePublished)
+
+  return Dates.isAfter(countryDate, cycleDate)
+}
+
 export const Areas = {
   getCompareListName,
   getCountryBackgroundImg,
@@ -52,5 +72,6 @@ export const Areas = {
   isGlobal,
   isISOCountry,
   isISOGlobal,
+  isPublishedAfterLastPublishedCycle,
   isRegion,
 }
