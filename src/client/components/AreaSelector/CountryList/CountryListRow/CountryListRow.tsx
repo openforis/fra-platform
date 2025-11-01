@@ -15,7 +15,7 @@ import { useCountry } from 'client/store/area/hooks/country'
 import { useIsAreaSelectorExpanded } from 'client/store/ui/areaSelector/hooks/areaSelector'
 import { useOnMount } from 'client/hooks/onMount'
 import { useIsCycleLandingRoute } from 'client/hooks/routes'
-import { usePublishedAfterLabel } from 'client/components/AreaSelector/CountryList/hooks/usePublishedAfterLabel'
+import { usePublishedAfterLabel } from 'client/components/AreaSelector/CountryList/CountryListRow/hooks/usePublishedAfterLabel'
 import CountryStatusIndicator from 'client/components/CountryStatusIndicator'
 
 type Props = {
@@ -68,7 +68,7 @@ const CountryListRow: React.FC<Props> = (props: Props) => {
       }}
     >
       <div ref={countryNameRef}>{i18n.t<string>(Areas.getTranslationKey(countryIso))}</div>
-      {lastPublishedLabel && <div className="country-selection-list__published-date">{lastPublishedLabel}</div>}
+      {lastPublishedLabel && <div>{lastPublishedLabel}</div>}
 
       {hasRole && !Objects.isEmpty(country) && (
         <>

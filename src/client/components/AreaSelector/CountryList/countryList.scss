@@ -55,7 +55,7 @@
   padding: $spacing-xxs $spacing-xs;
 
   &.hasLastPublishedLabel {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr auto;
   }
 }
 
@@ -67,10 +67,6 @@
   &.expanded {
     grid-template-columns: 220px 128px repeat(4, 180px);
   }
-}
-
-.country-selection-list__published-date {
-  justify-self: end;
 }
 
 .country-selection-list__header {
