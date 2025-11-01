@@ -12,10 +12,7 @@ import { RegionCode } from 'meta/area/regionCode'
 import { UserRoles } from 'meta/user/userRoles'
 
 import { useCountry } from 'client/store/area/hooks/country'
-import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useIsAreaSelectorExpanded } from 'client/store/ui/areaSelector/hooks/areaSelector'
-import { useUser } from 'client/store/user/hooks/user'
-import { useLanguage } from 'client/hooks/language'
 import { useOnMount } from 'client/hooks/onMount'
 import { useIsCycleLandingRoute } from 'client/hooks/routes'
 import { usePublishedAfterLabel } from 'client/components/AreaSelector/CountryList/hooks/usePublishedAfterLabel'
@@ -40,9 +37,6 @@ const CountryListRow: React.FC<Props> = (props: Props) => {
   const country = useCountry(countryIso as CountryIso)
   const isCycleLanding = useIsCycleLandingRoute()
   const expanded = useIsAreaSelectorExpanded()
-  const assessment = useAssessment()
-  const user = useUser()
-  const lang = useLanguage()
 
   const countryNameRef = useRef(null)
 
@@ -52,7 +46,7 @@ const CountryListRow: React.FC<Props> = (props: Props) => {
 
   const formatDate = useCallback((date?: string): string => (date ? Dates.getRelativeDate(date, i18n) : '-'), [i18n])
 
-  const lastPublishedLabel = usePublishedAfterLabel({ assessment, country, lang, user })
+  const lastPublishedLabel = usePublishedAfterLabel({ country })
 
   useOnMount(() => {
     if (selected) {

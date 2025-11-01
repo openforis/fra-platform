@@ -4,21 +4,22 @@ import { Dates } from 'utils/dates'
 
 import { Areas } from 'meta/area/areas'
 import { Country } from 'meta/area/country'
-import { Assessment } from 'meta/assessment/assessment'
-import { Lang } from 'meta/lang'
-import { User } from 'meta/user/user'
+
+import { useAssessment } from 'client/store/meta/hooks/assessments'
+import { useUser } from 'client/store/user/hooks/user'
+import { useLanguage } from 'client/hooks/language'
 
 type Props = {
-  assessment?: Assessment
-  country?: Country
-  lang: Lang
-  user?: User
+  country: Country
 }
 
 type Returned = string | null
 
 export const usePublishedAfterLabel = (props: Props): Returned => {
-  const { assessment, country, lang, user } = props
+  const { country } = props
+  const assessment = useAssessment()
+  const user = useUser()
+  const lang = useLanguage()
 
   return useMemo<Returned>(() => {
     if (user) return null
