@@ -18,7 +18,7 @@ export const CollapsibleGroup: React.FC<GroupProps<Option>> = (props: GroupProps
   const { expanded, toggleExpanded } = useExpandGroup({ inputValue })
   const { handleGroupSelectionToggle } = useGroupSelection({ data: headingProps.data, selectProps })
 
-  const handleBackgroundClick = (e: React.MouseEvent) => {
+  const handleHeadingClick = (e: React.MouseEvent): void => {
     const target = e.target as HTMLElement
     if (
       target.tagName === 'BUTTON' ||
@@ -33,9 +33,9 @@ export const CollapsibleGroup: React.FC<GroupProps<Option>> = (props: GroupProps
   }
 
   return (
-    // eslint-disable-next-line
-    <div onClick={handleBackgroundClick}>
-      <div className="select__group-collapsible-heading">
+    <div>
+      {/* eslint-disable-next-line */}
+      <div className="select__group-collapsible-heading" onClick={handleHeadingClick}>
         <Heading
           cx={cx}
           data={headingProps.data}
