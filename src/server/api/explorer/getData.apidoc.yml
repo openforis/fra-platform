@@ -1,27 +1,14 @@
 openapi: 3.0.0
 paths:
-  /cycle-data/table/table-data:
+  /explorer/data:
     get:
       tags:
-        - Cycle data
-      summary: Get table data
+        - Published data
+      summary: Get latest countries published table data
       parameters:
         - $ref: '#/components/parameters/assessmentName'
-        - $ref: '#/components/parameters/countryIso'
-        - $ref: '#/components/parameters/cycleName'
         - $ref: '#/components/parameters/columns'
         - $ref: '#/components/parameters/countryISOs'
-        - in: query
-          name: mergeOdp
-          description: A flag indicating whether to merge ODP data. Defaults to "true" if omitted.
-          required: false
-          schema:
-            type: string
-            enum:
-              - "true"
-              - "false"
-            default: "true"
-            example: "true"
         - $ref: '#/components/parameters/fra2025tableNames'
         - $ref: '#/components/parameters/variables'
       responses:
@@ -38,7 +25,7 @@ paths:
                     FIN:
                       extentOfForest:
                         "1990":
-                          total:
+                          forestArea:
                             odp: true
                             raw: "21875.33"
                             odpId: 231
@@ -46,9 +33,7 @@ paths:
                             odp: true
                             raw: "7589.76999"
                             odpId: 231
-                          forestArea:
+                          totalLandArea:
                             odp: true
-                            raw: "21875.33"
+                            raw: "30459"
                             odpId: 231
-        '401':
-          description: Unauthorized access.
