@@ -23,7 +23,7 @@ const Countries: React.FC = () => {
   const allowedCountries = useAllowedCountries()
   const user = useUser()
 
-  const administrator = Users.isAdministrator(user)
+  const allowAtlantis = user && Users.isAdministrator(user)
 
   useEffect(() => {
     // Pick countries from redirect or default to empty array
@@ -37,7 +37,7 @@ const Countries: React.FC = () => {
 
   return (
     <CountryMultiSelect
-      allowAtlantis={administrator}
+      allowAtlantis={allowAtlantis}
       allowedCountries={allowedCountries}
       onChange={handleChange}
       value={explorerCountries}
