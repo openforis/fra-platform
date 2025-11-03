@@ -10,6 +10,7 @@ import { Region } from 'meta/area/region'
 import { RegionCode } from 'meta/area/regionCode'
 import { Assessment } from 'meta/assessment/assessment'
 import { Assessments } from 'meta/assessment/assessments'
+import { Cycle } from 'meta/assessment/cycle'
 import { Lang } from 'meta/lang'
 
 const getCountryBackgroundImg = (isoCode: AreaCode): string =>
@@ -62,11 +63,25 @@ const isPublishedAfterLastPublishedCycle = (props: { assessment?: Assessment; co
   return Dates.isAfter(countryDate, cycleDate)
 }
 
+const hasVoluntaryUpdates = (props: { country: Country; cycle: Cycle }): boolean => {
+  const { country, cycle } = props
+
+  if (!country?.lastPublishedInfo.lastPublished || !cycle.props.datePublished) {
+    return false
+  }
+
+  return Dates.isAfter(
+    Dates.parseISO(country.lastPublishedInfo.lastPublished),
+    Dates.parseISO(cycle.props.datePublished)
+  )
+}
+
 export const Areas = {
   getCompareListName,
   getCountryBackgroundImg,
   getStatus,
   getTranslationKey,
+  hasVoluntaryUpdates,
   isAtlantis,
   isFRARegion,
   isGlobal,
