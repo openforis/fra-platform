@@ -21,7 +21,7 @@ const createAxiosMiddleware =
         NotificationActions.addMessage({
           id: UUIDs.getUuid(),
           type: 'error',
-          message: error.response.data.error,
+          message: error.response.data.error ?? error,
           params: error.response.data.params,
         })
       )

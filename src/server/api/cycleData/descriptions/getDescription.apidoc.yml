@@ -3,7 +3,7 @@ paths:
   /cycle-data/descriptions:
     get:
       tags:
-        - Data
+        - Cycle data
       summary: Get Descriptions by cycle and country
       parameters:
         - $ref: '#/components/parameters/assessmentName'

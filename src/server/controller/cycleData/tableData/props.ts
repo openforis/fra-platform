@@ -11,6 +11,7 @@ export type PropsGetTableData = {
   variables?: Array<string>
   columns?: Array<string>
   mergeOdp?: boolean
+  excludeOdpTable?: boolean
   /**
    * @deprecated
    * Merge dependencies to tables condition
