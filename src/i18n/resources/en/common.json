@@ -23,6 +23,8 @@
   "countries": "Countries",
   "country": "Country",
   "csvAllTables": "CSV All Tables",
+  "csvDisclaimer": "Disclaimer",
+  "csvDisclaimerText": "This report was published as part of {{assessmentName}} {{cycleName}} and updated in {{month}}/{{year}}",
   "custom": "Custom",
   "cycleLabel": "$t({{assessmentName}}.labels.short) {{cycleName}}",
   "dashboard": "Dashboard",
