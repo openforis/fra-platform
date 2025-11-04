@@ -23,6 +23,8 @@
   "countries": "البلدان",
   "country": "البلد",
   "csvAllTables": "CSV جميع الجداول",
+  "csvDisclaimer": "إخلاء المسؤولية",
+  "csvDisclaimerText": "تم نشر هذا التقرير كجزء من {{assessmentName}} {{cycleName}} وتم تحديثه في {{month}}/{{year}}",
   "custom": "مخصص",
   "cycleLabel": "$t({{assessmentName}}.labels.short) {{cycleName}}",
   "dashboard": "لوحة التحكم",
