@@ -2,19 +2,24 @@ import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { Assessment } from 'meta/assessment/assessment'
 import { SubSection } from 'meta/assessment/section'
 import { User } from 'meta/user'
+import { UUID } from 'meta/uuid'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { SectionRepository } from 'server/db/repository/assessment/section'
 import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 
-export const updateSubSection = async (
-  props: { user: User; assessment: Assessment; section: SubSection; parentSectionId?: number },
-  client: BaseProtocol = DB
-): Promise<SubSection> => {
-  const { assessment, parentSectionId, section, user } = props
+type Props = {
+  assessment: Assessment
+  parentSectionUuid?: UUID
+  section: SubSection
+  user: User
+}
+
+export const updateSubSection = async (props: Props, client: BaseProtocol = DB): Promise<SubSection> => {
+  const { assessment, parentSectionUuid, section, user } = props
 
   return client.tx(async (t) => {
-    const updatedSection = await SectionRepository.updateSubSection({ section, assessment, parentSectionId }, t)
+    const updatedSection = await SectionRepository.updateSubSection({ section, assessment, parentSectionUuid }, t)
 
     await ActivityLogRepository.insertActivityLog(
       {
