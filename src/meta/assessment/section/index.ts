@@ -2,6 +2,7 @@ import { CycleUuid } from 'meta/assessment/cycle'
 import { CycledPropsObject } from 'meta/assessment/cycledObject'
 import { Descriptions } from 'meta/assessment/description'
 import { Label } from 'meta/assessment/label'
+import { UUID } from 'meta/uuid'
 
 export type SectionName = string
 
@@ -36,9 +37,9 @@ export interface SubSectionProps extends SectionProps {
 
 export interface Section extends CycledPropsObject<SectionProps> {
   subSections?: Array<SubSection>
-  parentId?: null
+  parentUuid?: null
 }
 
 export interface SubSection extends CycledPropsObject<SubSectionProps> {
-  parentId?: number
+  parentUuid?: UUID
 }

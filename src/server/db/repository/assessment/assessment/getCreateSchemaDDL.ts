@@ -28,7 +28,7 @@ create table ${schemaName}.section
 (
     id            bigserial NOT NULL,
     uuid          uuid  default uuid_generate_v4(),
-    parent_id     bigint   references ${schemaName}.section (id) on update cascade on delete cascade,
+    parent_uuid   uuid   references ${schemaName}.section (uuid) on update cascade on delete cascade,
     props         jsonb default '{}'::jsonb,
     PRIMARY KEY (id),
     unique(uuid)

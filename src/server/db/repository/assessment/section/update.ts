@@ -1,5 +1,6 @@
 import { Assessment } from 'meta/assessment/assessment'
 import { Section, SubSection } from 'meta/assessment/section'
+import { UUID } from 'meta/uuid'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { SectionAdapter, SubSectionAdapter } from 'server/db/repository/adapter'
@@ -29,21 +30,21 @@ export const updateSubSection = async (
   params: {
     section: SubSection
     assessment: Assessment
-    parentSectionId?: number
+    parentSectionUuid?: UUID
   },
   client: BaseProtocol = DB
 ): Promise<SubSection> => {
-  const { assessment, parentSectionId, section } = params
+  const { assessment, parentSectionUuid, section } = params
   const schemaName = Schemas.getName(assessment)
   const propsValues = JSON.stringify(section.props)
-  const updateParentSectionId = parentSectionId
-    ? `props = '${propsValues}'::JSONB, parent_id = ${parentSectionId}`
+  const updateParentSectionUuid = parentSectionUuid
+    ? `props = '${propsValues}'::JSONB, parent_uuid = '${parentSectionUuid}'`
     : `props = '${propsValues}'::JSONB`
 
   return client.one<SubSection>(
     `
       update ${schemaName}.section
-      set ${updateParentSectionId}
+      set ${updateParentSectionUuid}
       where id = ${section.id} returning *;`,
     [],
     SubSectionAdapter
