@@ -45,7 +45,7 @@ export const useOnClick = (props: Props): AsyncClickHandler => {
 
         const params = { assessmentName: _assessmentName, cycleName, month, year }
 
-        const disclaimerRows = [[t('common.csvDisclaimer')], [t('common.csvDisclaimerText', params)], []]
+        const disclaimerRows = [[t('common.csvDisclaimer')], [t('common.csvDisclaimerText', params)], [], [], []]
         csvData = [...disclaimerRows, ...csvData]
       }
 
