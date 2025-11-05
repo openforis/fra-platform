@@ -3,7 +3,7 @@ import { Cycle } from 'meta/assessment/cycle'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'
-import { OriginalDataPointAdapter } from 'server/repository/adapter'
+import { OriginalDataPointAdapter } from 'server/repository/adapter/originalDataPoint'
 
 type Props = {
   assessment: Assessment

@@ -4,8 +4,8 @@ import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { TableNames } from 'meta/assessment/table'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'
-import { OriginalDataPointAdapter } from 'server/repository/adapter'
-import { ODP_COMMENT_COLUMNS_RECORD } from 'server/repository/assessmentCycle/originalDataPoint/commentColumns'
+import { OriginalDataPointAdapter } from 'server/repository/adapter/originalDataPoint'
+import { ODPCommentColumns } from 'server/repository/assessmentCycle/originalDataPoint/commentColumns'
 
 export const create = async (
   params: {
@@ -32,8 +32,8 @@ export const create = async (
 
   const schemaName = Schemas.getNameCycle(assessment, cycle)
 
-  const commentColumnExtent = ODP_COMMENT_COLUMNS_RECORD[TableNames.extentOfForest]
-  const commentColumnForestCharacteristics = ODP_COMMENT_COLUMNS_RECORD[TableNames.forestCharacteristics]
+  const commentColumnExtent = ODPCommentColumns[TableNames.extentOfForest]
+  const commentColumnForestCharacteristics = ODPCommentColumns[TableNames.forestCharacteristics]
 
   return client.one<OriginalDataPoint>(
     `

@@ -4,9 +4,9 @@ import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { TableNames } from 'meta/assessment/table'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'
-import { OriginalDataPointAdapter } from 'server/repository/adapter'
+import { OriginalDataPointAdapter } from 'server/repository/adapter/originalDataPoint'
 
-import { ODP_COMMENT_COLUMNS_RECORD } from './commentColumns'
+import { ODPCommentColumns } from './commentColumns'
 
 type Props = {
   assessment: Assessment
@@ -21,8 +21,8 @@ export const getManyWithDescriptionLinks = async (
 
   const schemaName = Schemas.getNameCycle(assessment, cycle)
 
-  const commentColumnExtent = ODP_COMMENT_COLUMNS_RECORD[TableNames.extentOfForest]
-  const commentColumnForestCharacteristics = ODP_COMMENT_COLUMNS_RECORD[TableNames.forestCharacteristics]
+  const commentColumnExtent = ODPCommentColumns[TableNames.extentOfForest]
+  const commentColumnForestCharacteristics = ODPCommentColumns[TableNames.forestCharacteristics]
 
   return client.map<OriginalDataPoint>(
     `

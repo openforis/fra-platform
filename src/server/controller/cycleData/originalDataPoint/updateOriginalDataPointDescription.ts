@@ -20,7 +20,7 @@ type Props = {
   user: User
 }
 
-const ACTIVITY_LOG_MESSAGE_BY_FIELD: Record<OriginalDataPointCommentKey, ActivityLogMessage> = {
+const activities: Record<OriginalDataPointCommentKey, ActivityLogMessage> = {
   [TableNames.extentOfForest]: ActivityLogMessage.originalDataPointUpdateCommentExtentOfForest,
   [TableNames.forestCharacteristics]: ActivityLogMessage.originalDataPointUpdateCommentForestCharacteristics,
 }
@@ -38,7 +38,7 @@ export const updateOriginalDataPointDescription = async (
       t
     )
 
-    const message = ACTIVITY_LOG_MESSAGE_BY_FIELD[field]
+    const message = activities[field]
 
     const activityLog = {
       target: updatedOriginalDataPoint,

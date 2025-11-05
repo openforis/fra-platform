@@ -6,7 +6,7 @@ import { TableNames } from 'meta/assessment/table'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { BaseProtocol, DB, Schemas } from 'server/db'
-import { ODP_COMMENT_COLUMNS_RECORD } from 'server/repository/assessmentCycle/originalDataPoint/commentColumns'
+import { ODPCommentColumns } from 'server/repository/assessmentCycle/originalDataPoint/commentColumns'
 
 const TABLE = 'original_data_point'
 
@@ -40,8 +40,8 @@ type UpdateTableProps = {
 const _updateOriginalDataPointTable = async (props: UpdateTableProps): Promise<void> => {
   const { client, schemaName } = props
   const tableName = `${schemaName}.${TABLE}`
-  const commentColumnExtent = ODP_COMMENT_COLUMNS_RECORD[TableNames.extentOfForest]
-  const commentColumnForestCharacteristics = ODP_COMMENT_COLUMNS_RECORD[TableNames.forestCharacteristics]
+  const commentColumnExtent = ODPCommentColumns[TableNames.extentOfForest]
+  const commentColumnForestCharacteristics = ODPCommentColumns[TableNames.forestCharacteristics]
 
   const hasDescription = await _columnExists({ client, columnName: 'description', schemaName })
   if (hasDescription) {

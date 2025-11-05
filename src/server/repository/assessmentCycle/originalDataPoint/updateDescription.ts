@@ -3,9 +3,9 @@ import { Cycle } from 'meta/assessment/cycle'
 import { OriginalDataPoint, OriginalDataPointCommentKey } from 'meta/assessment/originalDataPoint'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'
-import { OriginalDataPointAdapter } from 'server/repository/adapter'
+import { OriginalDataPointAdapter } from 'server/repository/adapter/originalDataPoint'
 
-import { ODP_COMMENT_COLUMNS_RECORD } from './commentColumns'
+import { ODPCommentColumns } from './commentColumns'
 import { getOne } from './getOne'
 
 export const updateDescription = async (
@@ -25,7 +25,7 @@ export const updateDescription = async (
   } = props
 
   const schemaName = Schemas.getNameCycle(assessment, cycle)
-  const columnName = ODP_COMMENT_COLUMNS_RECORD[field]
+  const columnName = ODPCommentColumns[field]
   const value = comments?.[field] ?? ''
 
   await client.one<OriginalDataPoint>(

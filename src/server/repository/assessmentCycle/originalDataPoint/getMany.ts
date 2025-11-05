@@ -4,7 +4,7 @@ import { Cycle } from 'meta/assessment/cycle'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
 import { BaseProtocol, DB, Schemas } from 'server/db'
-import { OriginalDataPointAdapter } from 'server/repository/adapter'
+import { OriginalDataPointAdapter } from 'server/repository/adapter/originalDataPoint'
 
 export const getMany = async (
   props: { assessment: Assessment; cycle: Cycle; countryIso: CountryIso },
