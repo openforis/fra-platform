@@ -1,5 +1,6 @@
 import { ReviewStatus } from 'meta/assessment/review'
 import { MessageTopicStatus, Topics } from 'meta/messageCenter'
+import { UUID } from 'meta/uuid'
 
 import { useAppSelector } from 'client/store/hooks'
 import { ReviewSelectors } from 'client/store/review/selectors'
@@ -25,8 +26,8 @@ export const useOdpReviewSummary = (odpId: number): ReviewStatus => {
   )
 }
 
-export const useSectionReviewSummary = (sectionId: number): ReviewStatus => {
-  const sections = useAppSelector((state) => ReviewSelectors.getSummariesBySectionId(state, sectionId))
+export const useSectionReviewSummary = (sectionUuid: UUID): ReviewStatus => {
+  const sections = useAppSelector((state) => ReviewSelectors.getSummariesBySectionUuid(state, sectionUuid))
 
   return sections.reduce(
     (curr, acc) => {

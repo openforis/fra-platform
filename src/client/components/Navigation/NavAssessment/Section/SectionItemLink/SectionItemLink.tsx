@@ -27,7 +27,7 @@ type Props = {
 const SectionItemLink: React.FC<Props> = (props) => {
   const { subSection } = props
 
-  const { id } = subSection
+  const { uuid } = subSection
   const { name: sectionName } = subSection.props
 
   const assessment = useAssessment()
@@ -38,7 +38,7 @@ const SectionItemLink: React.FC<Props> = (props) => {
   const { t } = useTranslation()
   const isDataExport = useIsDataExportView()
   const laptop = useMediaQuery({ minWidth: Breakpoints.laptop })
-  const reviewStatus = useSectionReviewSummary(id)
+  const reviewStatus = useSectionReviewSummary(uuid)
 
   return (
     <NavLink
