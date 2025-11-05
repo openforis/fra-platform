@@ -14,6 +14,7 @@ type Props = {
   cycle: Cycle
   countryISOs: Array<CountryIso>
   data: RecordCountryData
+  excludeOdpTable?: boolean
   tables: TablesCondition
 }
 
@@ -34,7 +35,7 @@ const _mergeODPTable = (props: PropsInnerMerge): void => {
 }
 
 export const mergeOdpCountryData = async (props: Props, client: BaseProtocol): Promise<void> => {
-  const { assessment, countryISOs, cycle, data, tables } = props
+  const { assessment, countryISOs, cycle, data, excludeOdpTable, tables } = props
 
   // TODO: add country cache and add AreaRedisRepository.getCountriesRecord()
   const countries = await CountryRepository.getManyRecord({ assessment, cycle }, client)
@@ -46,6 +47,9 @@ export const mergeOdpCountryData = async (props: Props, client: BaseProtocol): P
     }
     if (tables[TableNames.forestCharacteristics] && country.props.forestCharacteristics.useOriginalDataPoint) {
       _mergeODPTable({ countryIso, data, tableName: TableNames.forestCharacteristics })
+    }
+    if (excludeOdpTable) {
+      Objects.unset(data, [countryIso, TableNames.originalDataPointValue])
     }
   })
 }
