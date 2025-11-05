@@ -45,7 +45,12 @@ const _updateOriginalDataPointTable = async (props: UpdateTableProps): Promise<v
 
   const hasDescription = await _columnExists({ client, columnName: 'description', schemaName })
   if (hasDescription) {
-    await DB.none(`alter table ${tableName} rename column description to ${commentColumnExtent}`)
+    await DB.none(`
+      alter table ${tableName} rename column description to ${commentColumnExtent};
+      alter table ${tableName}
+        alter column ${commentColumnExtent} type text using coalesce(${commentColumnExtent}, ''),
+        alter column ${commentColumnExtent} set default '',
+        alter column ${commentColumnExtent} set not null;`)
   }
 
   const hasExtentOfForestComments = await _columnExists({
@@ -65,7 +70,7 @@ const _updateOriginalDataPointTable = async (props: UpdateTableProps): Promise<v
   })
 
   if (!hasForestCharacteristicsComments) {
-    await DB.none(`alter table ${tableName} add column ${commentColumnForestCharacteristics} text`)
+    await DB.none(`alter table ${tableName} add column ${commentColumnForestCharacteristics} text default '' not null`)
     await client.none(`update ${tableName} set ${commentColumnForestCharacteristics} = ${commentColumnExtent}`)
   }
 }

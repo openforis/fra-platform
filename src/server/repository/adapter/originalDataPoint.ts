@@ -38,14 +38,9 @@ export const OriginalDataPointAdapter = (row: OriginalDataPointDB): OriginalData
     ...rest
   } = row
 
-  const comments: OriginalDataPointComments = {}
-
-  if (!Objects.isNil(commentsExtentOfForest)) {
-    comments[TableNames.extentOfForest] = commentsExtentOfForest as string
-  }
-
-  if (!Objects.isNil(commentsForestCharacteristics)) {
-    comments[TableNames.forestCharacteristics] = commentsForestCharacteristics as string
+  const comments: OriginalDataPointComments = {
+    [TableNames.extentOfForest]: commentsExtentOfForest,
+    [TableNames.forestCharacteristics]: commentsForestCharacteristics,
   }
 
   return {
