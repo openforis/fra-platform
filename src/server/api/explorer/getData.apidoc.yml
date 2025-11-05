@@ -1,0 +1,39 @@
+openapi: 3.0.0
+paths:
+  /explorer/data:
+    get:
+      tags:
+        - Published data
+      summary: Get latest countries published table data
+      parameters:
+        - $ref: '#/components/parameters/assessmentName'
+        - $ref: '#/components/parameters/columns'
+        - $ref: '#/components/parameters/countryISOs'
+        - $ref: '#/components/parameters/fra2025tableNames'
+        - $ref: '#/components/parameters/variables'
+      responses:
+        '200':
+          description: Successful operation.
+          content:
+            application/json:
+              schema:
+                description: The resulting table data.
+                $ref: '#/components/schemas/RecordAssessmentData'
+              example:
+                fra:
+                  "2025":
+                    FIN:
+                      extentOfForest:
+                        "1990":
+                          forestArea:
+                            odp: true
+                            raw: "21875.33"
+                            odpId: 231
+                          otherLand:
+                            odp: true
+                            raw: "7589.76999"
+                            odpId: 231
+                          totalLandArea:
+                            odp: true
+                            raw: "30459"
+                            odpId: 231

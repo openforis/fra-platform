@@ -8,7 +8,7 @@ import { Files } from 'meta/file'
 import { useLanguage } from 'client/hooks/language'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import Icon from 'client/components/Icon'
-import { DOMs } from 'client/utils/dom'
+import { DOMs } from 'client/utils/doms'
 
 import resources from './resources'
 

@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { RoleName, Users } from 'meta/user'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
@@ -13,7 +13,7 @@ import { Option } from 'client/components/Inputs/Select'
 
 import { FieldProps } from '../types'
 
-const UserRoleField = (props: FieldProps) => {
+const UserRoleField: React.FC = (props: FieldProps) => {
   const { fieldDefinition: _fieldDefinition } = props
 
   const { t } = useTranslation()

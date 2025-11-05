@@ -4,7 +4,8 @@ import { useTranslation } from 'react-i18next'
 
 import { Objects } from 'utils/objects'
 
-import { Areas, CountryIso } from 'meta/area'
+import { Areas } from 'meta/area/areas'
+import { CountryIso } from 'meta/area/countryIso'
 
 import { useCountries } from 'client/store/area/hooks/countries'
 import { useAppDispatch } from 'client/store/hooks'

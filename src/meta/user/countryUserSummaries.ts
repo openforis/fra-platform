@@ -1,4 +1,4 @@
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { CountryUserSummary } from 'meta/user/countryUserSummary'
 import { UserInvitation } from 'meta/user/userInvitation'
 import { RoleName, UserRole } from 'meta/user/userRole'
@@ -6,8 +6,8 @@ import { RoleName, UserRole } from 'meta/user/userRole'
 const getCountryRoleAndInvitation = (
   countryUserSummary: CountryUserSummary,
   countryIso: CountryIso
-): { role?: UserRole<RoleName>; invitation?: UserInvitation } => {
-  const f = (role: UserRole<RoleName> | UserInvitation) => role.countryIso === countryIso
+): { role?: UserRole; invitation?: UserInvitation } => {
+  const f = (role: UserRole | UserInvitation): boolean => role.countryIso === countryIso
   return {
     role: countryUserSummary.roles.find(f),
     invitation: countryUserSummary.invitations.find(f),
@@ -19,7 +19,7 @@ const getRoleName = (countryUserSummary: CountryUserSummary, countryIso: Country
   return invitation?.role ?? role?.role
 }
 
-const isInvitation = (countryUserSummary: CountryUserSummary, countryIso: CountryIso) => {
+const isInvitation = (countryUserSummary: CountryUserSummary, countryIso: CountryIso): boolean => {
   const { invitation, role } = getCountryRoleAndInvitation(countryUserSummary, countryIso)
 
   return Boolean(!role && invitation)

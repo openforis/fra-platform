@@ -1,6 +1,7 @@
 import { Objects } from 'utils/objects'
 
-import { Country, CountryIso } from 'meta/area'
+import { Country } from 'meta/area/country'
+import { CountryIso } from 'meta/area/countryIso'
 
 import { _cacheCountries } from 'server/cache/repository/area/cacheCountries'
 import { Props } from 'server/cache/repository/area/props'

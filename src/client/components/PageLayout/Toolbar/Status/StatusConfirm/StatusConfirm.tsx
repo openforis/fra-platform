@@ -7,7 +7,7 @@ import classNames from 'classnames'
 import { Objects } from 'utils/objects'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { CountryStatus } from 'meta/area/status'
+import { CountryStatus } from 'meta/area/countryStatus'
 import { AssessmentName } from 'meta/assessment/assessment'
 import { Users } from 'meta/user'
 
@@ -56,7 +56,7 @@ const StatusConfirm: React.FC<Props> = (props) => {
         <div style={{ height: '160px' }}>
           <textarea
             className="nav-assessment-status-confirm__message"
-            onChange={({ target: { value } }) => setTextareaValue(value)}
+            onChange={({ target: { value } }): void => setTextareaValue(value)}
             placeholder={i18n.t('navigation.changeStatusTextPlaceholder')}
             value={textareaValue}
           />
@@ -65,8 +65,8 @@ const StatusConfirm: React.FC<Props> = (props) => {
         {status.status !== CountryStatus.approval && Users.isAdministrator(user) && hasRecipients && (
           <div
             className="nav-assessment-status-confirm__notify-users"
-            onClick={() => setNotifyUsers(!notifyUsers)}
-            onKeyDown={() => setNotifyUsers(!notifyUsers)}
+            onClick={(): void => setNotifyUsers(!notifyUsers)}
+            onKeyDown={(): void => setNotifyUsers(!notifyUsers)}
             role="button"
             tabIndex={0}
           >
@@ -77,8 +77,8 @@ const StatusConfirm: React.FC<Props> = (props) => {
         {notifyUsers && <UserList status={status} />}
         <div
           className="nav-assessment-status-confirm__notify-self"
-          onClick={() => setNotifySelf(!notifySelf)}
-          onKeyDown={() => setNotifySelf(!notifySelf)}
+          onClick={(): void => setNotifySelf(!notifySelf)}
+          onKeyDown={(): void => setNotifySelf(!notifySelf)}
           role="button"
           tabIndex={0}
         >
@@ -93,7 +93,7 @@ const StatusConfirm: React.FC<Props> = (props) => {
         </button>
         <button
           className="btn btn-primary modal-footer__item"
-          onClick={() => {
+          onClick={(): void => {
             dispatch(
               AreaActions.updateCountry({
                 notifyUsers,

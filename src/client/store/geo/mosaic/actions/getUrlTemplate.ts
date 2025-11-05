@@ -3,7 +3,7 @@ import axios from 'axios'
 import { Objects } from 'utils/objects'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 
 import { MosaicSelectors } from 'client/store/geo/mosaic/selectors'
 import { MosaicUrlTemplateData } from 'client/store/geo/mosaic/state'

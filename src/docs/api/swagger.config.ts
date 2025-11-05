@@ -14,5 +14,6 @@ export const swaggerOptions: Options = {
         url: '/api',
       },
     ],
+    tags: [{ name: 'Published data' }, { name: 'Cycle data' }],
   },
 }

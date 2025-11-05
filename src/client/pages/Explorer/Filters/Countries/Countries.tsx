@@ -1,12 +1,14 @@
 import React, { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
+import { Users } from 'meta/user'
 
 import { ExplorerSelectionActions } from 'client/store/explorer/selection/actions'
 import { useExplorerCountries } from 'client/store/explorer/selection/hooks/countries'
 import { useAppDispatch } from 'client/store/hooks'
 import { useGlobalCountries } from 'client/store/ui/countryReport/hooks/globalCountries'
+import { useUser } from 'client/store/user/hooks/user'
 import { useCycleRouteParams } from 'client/hooks/routeParams'
 import CountryMultiSelect from 'client/components/CountryMultiSelect'
 
@@ -19,6 +21,9 @@ const Countries: React.FC = () => {
   const homeCountriesFilter = useGlobalCountries()
   const explorerCountries = useExplorerCountries()
   const allowedCountries = useAllowedCountries()
+  const user = useUser()
+
+  const allowAtlantis = user && Users.isAdministrator(user)
 
   useEffect(() => {
     // Pick countries from redirect or default to empty array
@@ -30,7 +35,14 @@ const Countries: React.FC = () => {
     dispatch(ExplorerSelectionActions.setCountries({ assessmentName, countries: value, cycleName }))
   }
 
-  return <CountryMultiSelect allowedCountries={allowedCountries} onChange={handleChange} value={explorerCountries} />
+  return (
+    <CountryMultiSelect
+      allowAtlantis={allowAtlantis}
+      allowedCountries={allowedCountries}
+      onChange={handleChange}
+      value={explorerCountries}
+    />
+  )
 }
 
 export default Countries

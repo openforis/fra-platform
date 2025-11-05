@@ -1,6 +1,6 @@
 import { Objects } from 'utils/objects'
 
-import { CountrySummary } from 'meta/area'
+import { CountrySummary } from 'meta/area/countrySummary'
 import { TablePaginatedOrderByDirection } from 'meta/tablePaginated'
 
 import { BaseProtocol, DB } from 'server/db/db'

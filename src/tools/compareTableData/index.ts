@@ -8,7 +8,7 @@ import { Cluster } from 'puppeteer-cluster'
 import { APIUtil } from 'tools/utils/API'
 import { cookies } from 'tools/utils/API/cookie'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { Section, SubSection } from 'meta/assessment/section'
 
 import { Logger } from 'server/utils/logger'
@@ -48,7 +48,7 @@ const _takeScreenshots = async (
   countryIso: CountryIso,
   tableName: string,
   page: Page
-) => {
+): Promise<void> => {
   // make dir if not exist
   if (!fs.existsSync(screenshotDir)) {
     fs.mkdirSync(screenshotDir)
@@ -139,7 +139,7 @@ const compareTableData = async (countryIso: CountryIso, sectionName: string, pag
   return isEqual.every((value) => value)
 }
 
-const exec = async () => {
+const exec = async (): Promise<void> => {
   const cluster = await Cluster.launch({
     concurrency: Cluster.CONCURRENCY_CONTEXT,
     maxConcurrency: 5,

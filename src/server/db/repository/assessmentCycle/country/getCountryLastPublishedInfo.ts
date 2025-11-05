@@ -1,5 +1,6 @@
-import { CountryIso, CountryStatus } from 'meta/area'
 import { LastPublishedInfo } from 'meta/area/country'
+import { CountryIso } from 'meta/area/countryIso'
+import { CountryStatus } from 'meta/area/countryStatus'
 import { Assessment } from 'meta/assessment/assessment'
 
 import { BaseProtocol, DB } from 'server/db/db'

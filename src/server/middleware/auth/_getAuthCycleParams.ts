@@ -1,7 +1,8 @@
 import { NextFunction, Request } from 'express'
 
 import { CycleParams } from 'meta/api/request'
-import { AreaCode, Country } from 'meta/area'
+import { AreaCode } from 'meta/area/areaCode'
+import { Country } from 'meta/area/country'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { User } from 'meta/user'

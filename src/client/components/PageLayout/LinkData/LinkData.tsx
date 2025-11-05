@@ -7,15 +7,16 @@ import { useNavigate } from 'react-router-dom'
 import classNames from 'classnames'
 import { Objects } from 'utils/objects'
 
-import { CountryIso, Global } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
+import { Global } from 'meta/area/global'
 import { AssessmentNames } from 'meta/assessment/assessment'
 import { Routes } from 'meta/routes'
 import { TooltipId } from 'meta/tooltip'
 
-import { useIsCountryRoute, useIsGeoRoute } from 'client/hooks/routes'
 import { useSectionRouteParams } from 'client/hooks/routeParams'
+import { useIsCountryRoute, useIsGeoRoute } from 'client/hooks/routes'
 import LinkDataDownload from 'client/components/PageLayout/LinkDataDownload'
-import { Breakpoints } from 'client/utils'
+import { Breakpoints } from 'client/utils/breakpoints'
 
 const LinkData: React.FC = () => {
   const { t } = useTranslation()

@@ -1,4 +1,4 @@
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { LinkValidationStatusCode } from 'meta/cycleData'
 import { TablePaginatedOrderByDirection } from 'meta/tablePaginated'
 

@@ -1,8 +1,10 @@
 import { NextFunction, Request, Response } from 'express'
 import { Objects } from 'utils/objects'
 
-import { Areas, CountryIso } from 'meta/area'
-import { AssessmentName } from 'meta/assessment/assessment'
+import { Areas } from 'meta/area/areas'
+import { CountryIso } from 'meta/area/countryIso'
+import { Assessment, AssessmentName } from 'meta/assessment/assessment'
+import { Assessments } from 'meta/assessment/assessments'
 import { CycleName } from 'meta/assessment/cycle'
 
 import { AreaController } from 'server/controller/area'
@@ -23,9 +25,14 @@ const initContext = async (req: Request, _: Response, next: NextFunction): Promi
 
     Objects.setInPath({ obj: req, path: ['context'], value: {} })
 
-    if (assessmentName && cycleName) {
-      const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName, metaCache })
+    let assessment: Assessment
+    if (assessmentName) {
+      assessment = await AssessmentController.getOne({ assessmentName, metaCache })
       Objects.setInPath({ obj: req, path: ['context', 'assessment'], value: assessment })
+    }
+
+    if (assessment && cycleName) {
+      const cycle = Assessments.getCycle({ assessment, cycleName })
       Objects.setInPath({ obj: req, path: ['context', 'cycle'], value: cycle })
 
       if (countryIso && Areas.isISOCountry(countryIso)) {

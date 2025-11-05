@@ -1,4 +1,5 @@
-import { CountryIso, CountryStatus } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
+import { CountryStatus } from 'meta/area/countryStatus'
 import { Lang } from 'meta/lang'
 import { TablePaginatedOrderByDirection } from 'meta/tablePaginated'
 

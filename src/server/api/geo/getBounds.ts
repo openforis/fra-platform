@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 
 import { GeoController } from 'server/controller/geo'
 import Requests from 'server/utils/requests'

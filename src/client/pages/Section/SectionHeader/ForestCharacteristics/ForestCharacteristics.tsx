@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 
 import { AreaActions } from 'client/store/area/actions'
 import { useCountry, useIsUpdatingCountry } from 'client/store/area/hooks/country'
@@ -46,9 +46,9 @@ const ForestCharacteristics: React.FC = () => {
               ? t('forestCharacteristics.dontUseOriginalDataPoints')
               : t('forestCharacteristics.useOriginalDataPoints')
           }
-          onClick={() =>
+          onClick={(): void => {
             dispatch(AreaActions.updateCountryProp({ assessmentName, cycleName, countryIso, sectionName, countryProp }))
-          }
+          }}
           size={ButtonSize.m}
         />
       </div>

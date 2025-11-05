@@ -1,4 +1,6 @@
-import { Areas, CountryIso, RegionCode } from 'meta/area'
+import { Areas } from 'meta/area/areas'
+import { CountryIso } from 'meta/area/countryIso'
+import { RegionCode } from 'meta/area/regionCode'
 
 import { useCountries } from 'client/store/area/hooks/countries'
 import { useGlobalCountries } from 'client/store/ui/countryReport/hooks/globalCountries'

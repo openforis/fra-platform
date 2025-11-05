@@ -1,7 +1,8 @@
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Areas, Country } from 'meta/area'
+import { Areas } from 'meta/area/areas'
+import { Country } from 'meta/area/country'
 
 import { useCountriesRecord } from 'client/store/area/hooks/countries'
 import { useExplorerCountries } from 'client/store/explorer/selection/hooks/countries'

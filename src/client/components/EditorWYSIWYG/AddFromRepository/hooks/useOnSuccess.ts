@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { RepositoryItem } from 'meta/cycleData'
 import { File } from 'meta/file'
 
@@ -10,7 +10,9 @@ import { useCountryRouteParams } from 'client/hooks/routeParams'
 
 import { useGetRepositoryItems } from './useGetRepositoryItems'
 
-export const useOnSuccess = () => {
+type Returned = (files: Array<File>) => void
+
+export const useOnSuccess = (): Returned => {
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const dispatch = useAppDispatch()
   const getRepositoryItems = useGetRepositoryItems()

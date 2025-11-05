@@ -1,4 +1,4 @@
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { Contact } from 'meta/cycleData'
 
 import { ContactsSelectors } from 'client/store/data/contacts/selectors'

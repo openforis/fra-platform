@@ -2,11 +2,11 @@ import './CountryStatusIndicator.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { CountryStatus } from 'meta/area'
+import { CountryStatus } from 'meta/area/countryStatus'
 
 type Props = { status: CountryStatus }
 
-const CountryStatusIndicator = (props: Props) => {
+const CountryStatusIndicator: React.FC<Props> = (props: Props) => {
   const { status } = props
 
   const { t } = useTranslation()

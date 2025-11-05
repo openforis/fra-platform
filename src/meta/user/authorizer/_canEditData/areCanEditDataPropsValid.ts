@@ -1,6 +1,6 @@
 import { Objects } from 'utils/objects'
 
-import { Areas } from 'meta/area'
+import { Areas } from 'meta/area/areas'
 import { CanEditDataProps } from 'meta/user/authorizer/_canEditData/types'
 
 export const areCanEditDataPropsValid = (props: Pick<CanEditDataProps, 'country' | 'cycle' | 'user'>): boolean => {

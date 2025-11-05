@@ -3,7 +3,7 @@ import { Objects } from 'utils/objects'
 
 import { setOpacity } from 'client/store/geo/layers/actions/setOpacity'
 import { GeoLayersState } from 'client/store/geo/layers/state'
-import { mapController } from 'client/utils'
+import { mapController } from 'client/geo/mapController'
 
 export const setOpacityReducer = (builder: ActionReducerMapBuilder<GeoLayersState>): void => {
   builder.addCase(setOpacity.fulfilled, (state, action) => {

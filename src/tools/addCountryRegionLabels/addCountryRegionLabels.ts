@@ -4,12 +4,13 @@ import * as pgPromise from 'pg-promise'
 import { Promises } from 'utils/promises'
 import { Strings } from 'utils/strings'
 
-import { CountryIso, RegionCode } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
+import { RegionCode } from 'meta/area/regionCode'
 import { Lang, LanguageCodes } from 'meta/lang'
 
-import { BaseProtocol, DB } from 'server/db/db'
-import { AssessmentController } from 'server/controller/assessment'
 import { CacheController } from 'server/cache/controller'
+import { AssessmentController } from 'server/controller/assessment'
+import { BaseProtocol, DB } from 'server/db/db'
 
 const pgp = pgPromise()
 

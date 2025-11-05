@@ -1,4 +1,4 @@
-import { Country } from 'meta/area'
+import { Country } from 'meta/area/country'
 
 import { getCountriesMap } from 'server/cache/repository/area/getCountriesMap'
 import { Props } from 'server/cache/repository/area/props'

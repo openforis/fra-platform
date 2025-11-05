@@ -4,15 +4,19 @@ import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
 import { TFunction } from 'i18next'
 
-import { Areas, Country, CountryIso, Global, RegionCode } from 'meta/area'
+import { Areas } from 'meta/area/areas'
+import { Country } from 'meta/area/country'
+import { CountryIso } from 'meta/area/countryIso'
+import { Global } from 'meta/area/global'
+import { RegionCode } from 'meta/area/regionCode'
 import { RoleName, Users } from 'meta/user'
 import { UserRoles } from 'meta/user/userRoles'
 
 import { useCountries } from 'client/store/area/hooks/countries'
 import { useIsAreaSelectorExpanded } from 'client/store/ui/areaSelector/hooks/areaSelector'
 import { useUser } from 'client/store/user/hooks/user'
+import { checkMatch } from 'client/components/AreaSelector/CountryList/checkMatch'
 import CountryListRow from 'client/components/AreaSelector/CountryList/CountryListRow'
-import { checkMatch } from 'client/utils'
 
 import { useToggleMode } from './hooks/useToggleMode'
 
@@ -64,7 +68,7 @@ const CountryListRoleSection: React.FC<Props> = (props: Props) => {
           {admin && (
             <button
               className="btn btn-s btn-transparent country-selection-list__btn-show-more"
-              onClick={(event) => {
+              onClick={(event): void => {
                 event.stopPropagation()
                 toggleMode()
               }}

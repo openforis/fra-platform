@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { Sockets } from 'meta/socket'
 
 import { NodeValuesActions } from 'client/store/data/tableData/nodeValues/actions'

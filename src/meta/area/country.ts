@@ -1,11 +1,10 @@
-import { CountryIso } from 'meta/area/countryIso'
+import { CountryIso, CountryIso2 } from 'meta/area/countryIso'
+import { CountryStatus } from 'meta/area/countryStatus'
 import { RegionCode } from 'meta/area/regionCode'
-import { CountryStatus } from 'meta/area/status'
 import { CycleName } from 'meta/assessment/cycle'
 import { Lang } from 'meta/lang'
 
-type CallingCode = string
-type CountryIso2 = string
+export type CallingCode = string
 
 export type CountryProps = {
   deskStudy: boolean

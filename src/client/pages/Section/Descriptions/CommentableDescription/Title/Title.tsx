@@ -7,7 +7,7 @@ import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 import { DataCell, DataRow } from 'client/components/DataGrid'
 import ButtonEdit from 'client/pages/Section/Descriptions/CommentableDescription/Title/ButtonEdit'
 import ButtonHistory from 'client/pages/Section/Descriptions/CommentableDescription/Title/ButtonHistory'
-import { Breakpoints } from 'client/utils'
+import { Breakpoints } from 'client/utils/breakpoints'
 
 import { useDescriptionActions } from './hooks/useDescriptionActions'
 

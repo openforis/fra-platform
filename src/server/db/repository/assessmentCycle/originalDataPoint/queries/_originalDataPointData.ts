@@ -1,6 +1,6 @@
 import { Objects } from 'utils/objects'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 
 export const getOriginalDataPointData = (props: { selectFrom: string; countryISOs?: Array<CountryIso> }): string => {
   const { countryISOs, selectFrom } = props

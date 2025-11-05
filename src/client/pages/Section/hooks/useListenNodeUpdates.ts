@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-import { AreaCode } from 'meta/area'
+import { AreaCode } from 'meta/area/areaCode'
 import { AssessmentName } from 'meta/assessment/assessment'
 import { NodeUpdates } from 'meta/data'
 import { Sockets } from 'meta/socket'

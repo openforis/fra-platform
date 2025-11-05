@@ -1,4 +1,4 @@
-import { CountryStatus } from 'meta/area'
+import { CountryStatus } from 'meta/area/countryStatus'
 
 import { CloneProps } from 'server/controller/assessment/cloneCycle/types'
 import { BaseProtocol } from 'server/db/db'

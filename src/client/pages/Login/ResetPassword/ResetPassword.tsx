@@ -10,7 +10,7 @@ import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useGetRequest } from 'client/hooks/getRequest'
 import { isError, LoginValidator } from 'client/pages/Login/utils/LoginValidator'
-import { Urls } from 'client/utils'
+import { Urls } from 'client/utils/urls'
 
 const ResetPassword: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -40,7 +40,7 @@ const ResetPassword: React.FC = () => {
     if (data?.user?.email) setEmail(data.user.email)
   }, [data])
 
-  const onResetPassword = async () => {
+  const onResetPassword = async (): Promise<void> => {
     const fieldErrors = LoginValidator.resetPasswordValidate(email)
     setErrors(fieldErrors)
 
@@ -56,12 +56,12 @@ const ResetPassword: React.FC = () => {
     }
   }
 
-  const onChangePassword = async () => {
+  const onChangePassword = async (): Promise<void> => {
     const fieldErrors = LoginValidator.invitationValidate(email, password, password2)
     setErrors(fieldErrors)
 
     if (!isError(fieldErrors)) {
-      await dispatch(LoginActions.changePassword({ email, password, resetPasswordUuid, navigate }))
+      await dispatch(LoginActions.changePassword({ email, password, resetPasswordUuid, navigate })).unwrap()
     }
   }
 
@@ -79,8 +79,8 @@ const ResetPassword: React.FC = () => {
       <input
         disabled={!!resetPasswordUuid}
         name="email"
-        onChange={(event) => setEmail(event.target.value)}
-        onFocus={() => setErrors({ ...errors, email: null })}
+        onChange={(event): void => setEmail(event.target.value)}
+        onFocus={(): void => setErrors({ ...errors, email: null })}
         placeholder={t('login.email')}
         type="text"
         value={email}
@@ -90,8 +90,8 @@ const ResetPassword: React.FC = () => {
       {resetPasswordUuid && (
         <>
           <input
-            onChange={(event) => setPassword(event.target.value)}
-            onFocus={() => setErrors({ ...errors, password: null })}
+            onChange={(event): void => setPassword(event.target.value)}
+            onFocus={(): void => setErrors({ ...errors, password: null })}
             placeholder={t('login.password')}
             type="password"
             value={password}
@@ -99,8 +99,8 @@ const ResetPassword: React.FC = () => {
           {errors.password && <span className="login__field-error">{t(errors.password)}</span>}
 
           <input
-            onChange={(event) => setPassword2(event.target.value)}
-            onFocus={() => setErrors({ ...errors, password2: null })}
+            onChange={(event): void => setPassword2(event.target.value)}
+            onFocus={(): void => setErrors({ ...errors, password2: null })}
             placeholder={t('login.repeatPassword')}
             type="password"
             value={password2}
@@ -108,7 +108,7 @@ const ResetPassword: React.FC = () => {
           {errors.password2 && <span className="login__field-error">{t(errors.password2)}</span>}
 
           <div style={{ textAlign: 'center' }}>
-            <button className="btn" onClick={() => navigate(-1)} type="button">
+            <button className="btn" onClick={(): void => navigate(-1)} type="button">
               {t('login.cancel')}
             </button>
 
@@ -121,7 +121,7 @@ const ResetPassword: React.FC = () => {
 
       {!resetPasswordUuid && (
         <div style={{ textAlign: 'center' }}>
-          <button className="btn" onClick={() => navigate(-1)} type="button">
+          <button className="btn" onClick={(): void => navigate(-1)} type="button">
             {t('login.cancel')}
           </button>
 

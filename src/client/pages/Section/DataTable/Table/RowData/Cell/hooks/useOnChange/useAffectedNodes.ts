@@ -2,7 +2,7 @@ import { useCallback } from 'react'
 
 import { Objects } from 'utils/objects'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { VariableCache } from 'meta/assessment/metaCache'
 import { AssessmentMetaCaches } from 'meta/assessment/metaCaches'
 import { NodeValue } from 'meta/assessment/node'
@@ -16,7 +16,9 @@ import { useCountryRouteParams } from 'client/hooks/routeParams'
 
 import { Props } from './types'
 
-const useAffectedNodes = (props: Props) => {
+type Returned = (value: NodeValue) => Array<VariableCache>
+
+const useAffectedNodes = (props: Props): Returned => {
   const { col, data, row, table } = props
 
   const { countryIso } = useCountryRouteParams<CountryIso>()

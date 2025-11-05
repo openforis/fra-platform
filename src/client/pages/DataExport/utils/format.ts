@@ -1,10 +1,10 @@
 import { Numbers } from 'utils/numbers'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { AssessmentName, AssessmentNames } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
 import { TableCellNumberFormat } from 'meta/assessment/table'
-import { RecordAssessmentDatas, RecordCountryData } from 'meta/data'
+import { RecordAssessmentData, RecordAssessmentDatas } from 'meta/data'
 import { UnitConverter, UnitFactors } from 'meta/dataExport'
 import { UnitName } from 'meta/measurement/unit'
 
@@ -30,7 +30,7 @@ type FormatValueProps = {
   colName: string
   countryIso: CountryIso
   cycleName: CycleName
-  data: RecordCountryData
+  data: RecordAssessmentData
   tableName: string
   variableName: string
   format?: TableCellNumberFormat

@@ -1,4 +1,4 @@
-import { CountryStatus } from 'meta/area'
+import { CountryStatus } from 'meta/area/countryStatus'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 

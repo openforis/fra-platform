@@ -1,15 +1,15 @@
 import './DataTable.scss'
 import React from 'react'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { AssessmentName } from 'meta/assessment/assessment'
 import { Table as TableType } from 'meta/assessment/table'
 import { RecordAssessmentDatas } from 'meta/data'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useIsEditTableDataEnabled } from 'client/store/user/hooks/auth'
-import { useIsPrintRoute } from 'client/hooks/routes'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
+import { useIsPrintRoute } from 'client/hooks/routes'
 
 import { useAreChartVariablesEmpty } from './hooks/useAreChartVariablesEmpty'
 import { useData } from './hooks/useData'

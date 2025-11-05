@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 
 import { MessageCenterController } from 'server/controller/messageCenter'
 import { _getRequestParams } from 'server/middleware/auth/_getRequestParams'

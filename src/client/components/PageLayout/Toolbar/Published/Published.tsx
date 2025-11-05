@@ -5,6 +5,8 @@ import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
 import { Dates } from 'utils/dates'
 
+import { Areas } from 'meta/area/areas'
+
 import { useAssessmentCountry } from 'client/store/area/hooks/country'
 import { useLastPublishedCycle } from 'client/store/meta/hooks/cycles'
 import { useLanguage } from 'client/hooks/language'
@@ -23,11 +25,9 @@ const Published: React.FC = () => {
   }, [country?.lastPublishedInfo?.lastPublished, lang])
 
   const publishedAfter = useMemo(() => {
-    return Dates.isAfter(
-      Dates.parseISO(country?.lastPublishedInfo?.lastPublished),
-      Dates.parseISO(lastPublishedCycle.props.datePublished)
-    )
-  }, [country?.lastPublishedInfo?.lastPublished, lastPublishedCycle.props.datePublished])
+    if (!country) return false
+    return Areas.hasVoluntaryUpdates({ country, cycle: lastPublishedCycle })
+  }, [country, lastPublishedCycle])
 
   if (!country) return null
 

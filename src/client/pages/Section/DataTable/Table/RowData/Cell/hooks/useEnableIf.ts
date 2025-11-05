@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { Col } from 'meta/assessment/col'
 import { Row } from 'meta/assessment/row'
 import { RowCache } from 'meta/assessment/rowCache'

@@ -2,7 +2,8 @@ import { useMemo } from 'react'
 
 import { Objects } from 'utils/objects'
 
-import { Areas, CountryIso } from 'meta/area'
+import { Areas } from 'meta/area/areas'
+import { CountryIso } from 'meta/area/countryIso'
 import { UserEditCountryForm } from 'meta/form/userEdit/form'
 import { RoleName, UserRole, Users, UserStatus } from 'meta/user'
 

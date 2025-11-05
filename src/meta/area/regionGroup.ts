@@ -1,4 +1,4 @@
-import { Region } from './region'
+import { Region } from 'meta/area/region'
 
 export enum RegionGroupName {
   'fra2020' = 'fra2020',
