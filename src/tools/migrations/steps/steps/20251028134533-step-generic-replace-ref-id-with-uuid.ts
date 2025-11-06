@@ -5,14 +5,13 @@ import { BaseProtocol, DB } from 'server/db/db'
 import { Schemas } from 'server/db/schemas'
 
 // Update table_id to table_uuid for:
-// - assessment_cycle -> assessment
+// - assessment_cycle.assessment_id -> assessment_cycle.assessment_uuid
 // - section.parent_id -> section.parent_uuid
 // - table_section.section_id -> section.section_uuid
 
 const client: BaseProtocol = DB
 export default async (): Promise<void> => {
-  // ====== Public schema
-  // ============= assessment_cycle -> assessment
+  // ============= - assessment_cycle.assessment_id -> assessment_cycle.assessment_uuid
 
   // Add new UUIDs column
   await DB.none(`alter table public.assessment_cycle add column if not exists assessment_uuid uuid`)
