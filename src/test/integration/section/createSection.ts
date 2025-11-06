@@ -5,8 +5,9 @@ import { UserController } from 'server/controller/user'
 import { assessmentParams } from 'test/integration/mock/assessment'
 import { sectionParams } from 'test/integration/mock/section'
 import { userMockTest } from 'test/integration/mock/user'
+import { testContext } from 'test/integration/testContext'
 
-export default () =>
+export default (): void =>
   test('Expect section to be created', async () => {
     const user = await UserController.getOne({
       email: userMockTest.email,
@@ -17,11 +18,7 @@ export default () =>
       cycleName: '2020',
     })
 
-    const section = await MetadataController.createSection({
-      assessment,
-      user,
-      section: sectionParams(cycle.uuid),
-    })
+    const section = await MetadataController.createSection({ assessment, user, section: sectionParams(cycle.uuid) })
 
     expect(section).toHaveProperty('id')
     expect(section.id).toBeTruthy()
@@ -31,4 +28,7 @@ export default () =>
     expect(section).toHaveProperty('props')
     expect(section).toHaveProperty('props.index')
     expect(section.props.index).toBe(sectionParams(cycle.uuid).props.index)
+
+    // Note: Persist created section to be used in future tests
+    testContext.section = section
   })

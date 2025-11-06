@@ -57,7 +57,7 @@ const getAnchorsByUuid = (props: { cycle: Cycle; sections: Array<Section> }): Re
 const getPrevious = (props: { subSection: SubSection; sections: Array<Section> }): SubSection => {
   const { sections, subSection } = props
   const sectionIsFirstOfParent = subSection.props.index === 0
-  const parentIndex = sections.findIndex((s) => s.id === subSection.parentId)
+  const parentIndex = sections.findIndex((s: Section) => s.uuid === subSection.parentUuid)
   if (sectionIsFirstOfParent) {
     return sections[parentIndex - 1]?.subSections?.[sections[parentIndex - 1].subSections.length - 1]
   }

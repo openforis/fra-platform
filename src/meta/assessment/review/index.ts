@@ -1,4 +1,5 @@
 import { MessageTopicStatus } from 'meta/messageCenter'
+import { UUID } from 'meta/uuid'
 
 export interface ReviewStatus {
   hasUnreadMessages: boolean
@@ -12,7 +13,7 @@ export interface ReviewSummary {
   hasUnreadMessages: boolean
   lastMessageCreatedTime: string
   lastOpenTime: string
-  parentId: number
+  parentUuid: UUID
   status: MessageTopicStatus
-  subSectionId: number
+  subSectionUuid: UUID
 }

@@ -29,7 +29,7 @@ const NavigationSection: React.FC<Props> = (props) => {
   const cycle = useCycle()
   const isDataExport = useIsDataExportView()
   const { pathname } = useLocation()
-  const reviewStatus = useSectionReviewSummary(section.id)
+  const reviewStatus = useSectionReviewSummary(section.uuid)
 
   const [expanded, setExpanded] = useState(false)
 
@@ -71,8 +71,8 @@ const NavigationSection: React.FC<Props> = (props) => {
       <div
         aria-label={sectionLabel}
         className="nav-section__header"
-        onClick={() => setExpanded(!expanded)}
-        onKeyDown={() => setExpanded(!expanded)}
+        onClick={(): void => setExpanded(!expanded)}
+        onKeyDown={(): void => setExpanded(!expanded)}
         role="button"
         tabIndex={0}
       >
