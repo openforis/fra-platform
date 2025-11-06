@@ -12,7 +12,7 @@ import { ODPCommentColumns } from 'server/repository/assessmentCycle/originalDat
 
 type ODPCommentColName<K extends OriginalDataPointCommentKey = OriginalDataPointCommentKey> = `comments_${Lowercase<K>}`
 
-type OriginalDataPointDB = {
+export type OriginalDataPointDB = {
   [K in ODPCommentColName]: string
 } & {
   country_iso: CountryIso
