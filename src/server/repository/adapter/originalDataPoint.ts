@@ -32,6 +32,8 @@ const commentColumnForestCharacteristics = ODPCommentColumns[
 ] as ODPCommentColName<TableNames.forestCharacteristics>
 
 export const OriginalDataPointAdapter = (row: OriginalDataPointDB): OriginalDataPoint => {
+  if (Objects.isNil(row)) return null
+
   const {
     [commentColumnExtent]: commentsExtentOfForest,
     [commentColumnForestCharacteristics]: commentsForestCharacteristics,
