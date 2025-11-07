@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { OriginalDataPointCommentKey } from 'meta/assessment/originalDataPoint'
 
 import { OriginalDataPointActions } from 'client/store/data/originalDataPoint/actions'

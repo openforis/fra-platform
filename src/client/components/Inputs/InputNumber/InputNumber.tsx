@@ -27,12 +27,14 @@ const InputNumber = forwardRef<HTMLInputElement, InputNumberProps>((props, outer
       className={className}
       disabled={disabled}
       id={id}
-      onBlur={(e) => {
+      onBlur={(e): void => {
         _onBlur(e)
         setFocused(false)
       }}
       onChange={_onChange}
-      onFocus={() => setFocused(true)}
+      onFocus={(): void => {
+        setFocused(true)
+      }}
       onPaste={onPaste}
       placeholder={placeholder}
       resize={resize}

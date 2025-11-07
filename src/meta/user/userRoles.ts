@@ -1,7 +1,8 @@
 import i18n from 'i18next'
 import { Dates } from 'utils/dates'
 
-import { Areas, CountryStatus } from 'meta/area'
+import { Areas } from 'meta/area/areas'
+import { CountryStatus } from 'meta/area/countryStatus'
 import { Assessment } from 'meta/assessment/assessment'
 import { User } from 'meta/user/user'
 
@@ -10,7 +11,7 @@ import { CollaboratorEditPropertyType, CollaboratorPermissionsNEW, RoleName, Use
 const noRole = { role: 'NONE', labelKey: 'user.roles.noRole' }
 
 // Return roles to receive email on country assessment status change
-const getRecipientRoles = (props: { status: CountryStatus }) => {
+const getRecipientRoles = (props: { status: CountryStatus }): Array<RoleName> => {
   const { status } = props
 
   switch (status) {
@@ -28,13 +29,13 @@ const getRecipientRoles = (props: { status: CountryStatus }) => {
     case CountryStatus.accepted:
       return [RoleName.REVIEWER, RoleName.NATIONAL_CORRESPONDENT]
     case CountryStatus.published:
-      return [RoleName.ADMINISTRATOR]
+      return [RoleName.ADMINISTRATOR, RoleName.NATIONAL_CORRESPONDENT, RoleName.ALTERNATE_NATIONAL_CORRESPONDENT]
     default:
       return []
   }
 }
 
-const getLastRole = (params: { assessment?: Assessment; user: User }) => {
+const getLastRole = (params: { assessment?: Assessment; user: User }): UserRole => {
   const { assessment, user } = params
 
   if (!user || !user.roles) return undefined
@@ -65,9 +66,9 @@ const roleNamesOrder = [
 ]
 
 const sortRolesByRolesAndCountry = (
-  { countryIso: countryIsoA, role: roleA }: UserRole<RoleName>,
-  { countryIso: countryIsoB, role: roleB }: UserRole<RoleName>
-) =>
+  { countryIso: countryIsoA, role: roleA }: UserRole,
+  { countryIso: countryIsoB, role: roleB }: UserRole
+): number =>
   roleNamesOrder.indexOf(roleA) - roleNamesOrder.indexOf(roleB) ||
   (i18n.t(Areas.getTranslationKey(countryIsoA)) < i18n.t(Areas.getTranslationKey(countryIsoB)) ? -1 : 1)
 

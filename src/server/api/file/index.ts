@@ -11,7 +11,7 @@ import { getMultipleS3Files } from './getMultipleS3Files'
 import { getStaticS3File } from './getStaticS3File'
 import multer = require('multer')
 
-const fileFilter = (_req: any, file: Express.Multer.File, callback: multer.FileFilterCallback) => {
+const fileFilter = (_req: any, file: Express.Multer.File, callback: multer.FileFilterCallback): void => {
   // eslint-disable-next-line no-param-reassign
   file.originalname = Buffer.from(file.originalname, 'latin1').toString('utf8')
   callback(null, true)

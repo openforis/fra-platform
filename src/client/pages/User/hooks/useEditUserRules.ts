@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 
 import { Objects } from 'utils/objects'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { Authorizer, User, Users } from 'meta/user'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'

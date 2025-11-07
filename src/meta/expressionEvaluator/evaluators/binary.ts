@@ -1,7 +1,8 @@
-import { BinaryExpression, ExpressionNodeEvaluator } from '@openforis/arena-core'
 import BigNumber from 'bignumber.js'
 import { Numbers } from 'utils/numbers'
 import { Objects } from 'utils/objects'
+
+import { BinaryExpression, ExpressionNodeEvaluator } from 'lib/expressionEvaluator/node'
 
 import { Context } from '../context'
 

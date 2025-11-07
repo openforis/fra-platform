@@ -2,13 +2,13 @@ import { useEffect } from 'react'
 
 import { Objects } from 'utils/objects'
 
-import { Global } from 'meta/area'
+import { Global } from 'meta/area/global'
 
 import { useAppDispatch } from 'client/store/hooks'
 import { MetaActions } from 'client/store/meta/actions'
 import { useSections } from 'client/store/meta/hooks/sections'
-import { useIsAdminRoute } from 'client/hooks/routes'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
+import { useIsAdminRoute } from 'client/hooks/routes'
 
 export const useInitSections = (): void => {
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams()

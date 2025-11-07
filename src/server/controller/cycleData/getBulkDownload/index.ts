@@ -1,7 +1,10 @@
 import { createI18nPromise } from 'i18n/i18nFactory'
 import { i18n as i18nType } from 'i18next'
 
-import { Areas, CountryIso, RegionCode, RegionGroupName } from 'meta/area'
+import { Areas } from 'meta/area/areas'
+import { CountryIso } from 'meta/area/countryIso'
+import { RegionCode } from 'meta/area/regionCode'
+import { RegionGroupName } from 'meta/area/regionGroup'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { Lang } from 'meta/lang'
@@ -14,8 +17,8 @@ import { getForestRestoration } from 'server/controller/cycleData/getBulkDownloa
 import { getFraYearsData } from 'server/controller/cycleData/getBulkDownload/getFRAYearsData'
 import { getNWFP } from 'server/controller/cycleData/getBulkDownload/getNWFP'
 import { getTierData } from 'server/controller/cycleData/getBulkDownload/getTierData'
-import { CountryRepository } from 'server/repository/assessmentCycle/country'
-import { RegionRepository } from 'server/repository/assessmentCycle/region'
+import { CountryRepository } from 'server/db/repository/assessmentCycle/country'
+import { RegionRepository } from 'server/db/repository/assessmentCycle/region'
 
 import { entries as annualEntries } from './entries/AnnualData'
 import { entries as FRAEntries } from './entries/FRAYears'
@@ -56,8 +59,11 @@ const _getFileName = (name: string): string => {
   return `${name}_${timestamp}.csv`
 }
 
-const handleResult = ({ deskStudy, iso3, name, regions, year, ...row }: Record<string, string>, i18n: i18nType) => {
-  const _translate = (key: string) => i18n.t<string>(Areas.getTranslationKey(key as RegionCode | CountryIso))
+const handleResult = (
+  { deskStudy, iso3, name, regions, year, ...row }: Record<string, string>,
+  i18n: i18nType
+): Record<string, string> => {
+  const _translate = (key: string): string => i18n.t<string>(Areas.getTranslationKey(key as RegionCode | CountryIso))
 
   const _handleRegions = (regions: string): string => {
     return `"${regions.split(';').map(_translate).join(', ')}"`
@@ -87,7 +93,7 @@ const handleResult = ({ deskStudy, iso3, name, regions, year, ...row }: Record<s
   return fixed
 }
 
-const handleContent = async (content: Array<Record<string, string>>) => {
+const handleContent = async (content: Array<Record<string, string>>): Promise<string> => {
   const i18n = (await createI18nPromise(Lang.en)) as i18nType
   // sort content by country iso and then by year
   content.sort((a, b) => {
@@ -101,7 +107,7 @@ const handleContent = async (content: Array<Record<string, string>>) => {
   return _convertToCSV(res)
 }
 
-const _getCountries = async (assessment: Assessment, cycle: Cycle) => {
+const _getCountries = async (assessment: Assessment, cycle: Cycle): Promise<Array<any>> => {
   const regionGroups = await RegionRepository.getRegionGroups({ assessment, cycle })
   const fraRegions = Object.values(regionGroups).find((rg) => rg.name === RegionGroupName.fra2020)
   const allowedRegions = fraRegions?.regions.map((r) => r.regionCode)
@@ -116,7 +122,10 @@ const _getCountries = async (assessment: Assessment, cycle: Cycle) => {
   }, [])
 }
 
-export const getBulkDownload = async (props: { assessment: Assessment; cycle: Cycle }) => {
+export const getBulkDownload = async (props: {
+  assessment: Assessment
+  cycle: Cycle
+}): Promise<Array<{ fileName: string; content: string }>> => {
   const { assessment, cycle } = props
   const countries = await _getCountries(assessment, cycle)
 

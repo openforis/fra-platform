@@ -12,8 +12,13 @@ import { AssessmentController } from 'server/controller/assessment'
 import { UserController } from 'server/controller/user'
 import { UserProviderController } from 'server/controller/userProvider'
 
-const localStrategyVerifyCallback = async (req: Request, email: string, password: string, done: VerifiedCallback) => {
-  const sendErr = (message: string) => done(null, false, { message })
+const localStrategyVerifyCallback = async (
+  req: Request,
+  email: string,
+  password: string,
+  done: VerifiedCallback
+): Promise<void> => {
+  const sendErr = (message: string): void => done(null, false, { message })
 
   try {
     if (!Users.validEmail({ email })) {
@@ -87,7 +92,7 @@ const localStrategyVerifyCallback = async (req: Request, email: string, password
   }
 }
 
-export const localStrategy = (passport: PassportStatic) => {
+export const localStrategy = (passport: PassportStatic): void => {
   const LocalStrategy = passportLocal.Strategy
 
   passport.use(

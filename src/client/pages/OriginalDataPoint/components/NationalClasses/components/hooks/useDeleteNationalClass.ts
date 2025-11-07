@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
 import { OriginalDataPointActions } from 'client/store/data/originalDataPoint/actions'
@@ -12,7 +12,9 @@ type Props = {
   index: number
 }
 
-export const useDeleteNationalClass = (props: Props) => {
+type Returned = () => void
+
+export const useDeleteNationalClass = (props: Props): Returned => {
   const { index, originalDataPoint } = props
   const dispatch = useAppDispatch()
 

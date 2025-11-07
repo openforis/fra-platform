@@ -1,6 +1,5 @@
+import { RegionCode } from 'meta/area/regionCode'
 import { Lang } from 'meta/lang'
-
-import { RegionCode } from './regionCode'
 
 export interface Region {
   name: string

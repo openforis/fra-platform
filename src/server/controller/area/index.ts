@@ -1,5 +1,5 @@
-import { CountrySummaryRepository } from 'server/repository/assessmentCycle/countrySummary'
-import { AreaRedisRepository } from 'server/repository/redis/area'
+import { AreaRedisRepository } from 'server/cache/repository/area'
+import { CountrySummaryRepository } from 'server/db/repository/assessmentCycle/countrySummary'
 
 import { updateCountry } from './updateCountry'
 

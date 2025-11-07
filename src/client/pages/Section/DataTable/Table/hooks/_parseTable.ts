@@ -1,7 +1,5 @@
 import { Arrays } from 'utils/arrays'
 
-import { CountryIso } from 'meta/area'
-import { AssessmentName } from 'meta/assessment/assessment'
 import { Col as TypeCol } from 'meta/assessment/col'
 import { Cycle } from 'meta/assessment/cycle'
 import { Row as TypeRow, RowType } from 'meta/assessment/row'
@@ -11,8 +9,6 @@ import { UUIDs } from 'meta/uuid'
 import { ColHeader, ODPColHeader } from 'client/pages/Section/DataTable/Table/types'
 
 type Props = {
-  assessmentName: AssessmentName
-  countryIso: CountryIso
   cycle: Cycle
   odpYears: Array<ODPColHeader>
   showODP: boolean

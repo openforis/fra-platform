@@ -1,4 +1,4 @@
-import { Areas } from 'meta/area'
+import { Areas } from 'meta/area/areas'
 
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 

@@ -5,7 +5,7 @@ import { useAppDispatch } from 'client/store/hooks'
 import { TablePaginatedActions } from 'client/store/tablePaginated/actions'
 import { useTablePaginatedCount, useTablePaginatedPage } from 'client/store/tablePaginated/hooks/tablePaginated'
 import ReactPaginator, { PaginatorProps } from 'client/components/TablePaginated/Paginator/ReactPaginator'
-import { DOMs } from 'client/utils/dom'
+import { DOMs } from 'client/utils/doms'
 
 type Props = Pick<PaginatorProps, 'marginPagesDisplayed' | 'pageRangeDisplayed'> & {
   limit: number

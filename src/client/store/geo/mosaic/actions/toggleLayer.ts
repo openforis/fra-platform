@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { Objects } from 'utils/objects'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 
 import { MosaicActions } from 'client/store/geo/mosaic/actions'
 import { MosaicSelectors } from 'client/store/geo/mosaic/selectors'

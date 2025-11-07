@@ -1,8 +1,8 @@
 import { User, UserResetPassword } from 'meta/user'
 
-import { BaseProtocol, DB } from 'server/db'
-import { UserRepository } from 'server/repository/public/user'
-import { UserResetPasswordRepository } from 'server/repository/public/userResetPassword'
+import { BaseProtocol, DB } from 'server/db/db'
+import { UserRepository } from 'server/db/repository/public/user'
+import { UserResetPasswordRepository } from 'server/db/repository/public/userResetPassword'
 
 export const findByResetPassword = async (
   props: { resetPasswordUuid: string },

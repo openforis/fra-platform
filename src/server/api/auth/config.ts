@@ -6,10 +6,10 @@ import { User } from 'meta/user'
 import { googleStrategy } from 'server/api/auth/strategy/google'
 import { jwtStrategy } from 'server/api/auth/strategy/jwt'
 import { localStrategy } from 'server/api/auth/strategy/local'
-import { UserRepository } from 'server/repository/public/user'
+import { UserRepository } from 'server/db/repository/public/user'
 
 export const AuthConfig = {
-  init: (app: Express) => {
+  init: (app: Express): void => {
     app.use(passport.initialize())
 
     // Strategies: google, local, jwt

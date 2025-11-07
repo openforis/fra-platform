@@ -1,4 +1,4 @@
-import { Country } from 'meta/area'
+import { Country } from 'meta/area/country'
 import { Cycle } from 'meta/assessment/cycle'
 import { Section, SubSection } from 'meta/assessment/section'
 import { User } from 'meta/user/user'

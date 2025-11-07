@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { Routes } from 'meta/routes'
 import { UserInvitations as UserInvitationMeta } from 'meta/user'
 import { CountryUserSummaries } from 'meta/user/countryUserSummaries'

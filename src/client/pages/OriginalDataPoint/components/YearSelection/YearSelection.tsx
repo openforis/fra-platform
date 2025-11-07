@@ -24,9 +24,9 @@ const YearSelection: React.FC = () => {
   return (
     <div className="odp__section">
       <h3 className="subhead">{t('nationalDataPoint.referenceYearData')}</h3>
-      <div className={classNames('odp__year-selection', { error: !validYear })}>
+      <div className="odp__year-selection">
         <select
-          className="select validation-error-sensitive-field"
+          className={classNames('select', { 'validation-error': !validYear })}
           disabled={disabled}
           onChange={onChange}
           value={originalDataPoint.year || ''}

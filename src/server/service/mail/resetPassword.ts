@@ -13,7 +13,7 @@ export const resetPassword = async (props: {
   url: string
   user: User
   userResetPassword: UserResetPassword
-}) => {
+}): Promise<void> => {
   const { assessmentName, cycleName, url, user, userResetPassword } = props
 
   const i18n = await createI18nPromise(Lang.en)

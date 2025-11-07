@@ -1,7 +1,8 @@
-import { ExpressionFunction } from '@openforis/arena-core/dist/expression/function'
 import { Objects } from 'utils/objects'
 
 import { Context } from 'meta/expressionEvaluator/context'
+
+import { ExpressionFunction } from 'lib/expressionEvaluator/function'
 
 type Year = number
 type Data = Record<Year, Record<'extentOfForest' | 'totalLandArea', number>>

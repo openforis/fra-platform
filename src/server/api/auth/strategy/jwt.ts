@@ -7,14 +7,14 @@ import { User } from 'meta/user'
 
 import { UserController } from 'server/controller/user'
 
-const jwtFromRequest = (req: Request) => {
+const jwtFromRequest = (req: Request): string | null => {
   let token = null
   if (req && req.cookies) token = req.cookies[AuthToken.fraAuthToken]
   return token
 }
 
-const jwtStrategyVerifyCallback = async (_req: Request, { uuid }: User, done: VerifiedCallback) => {
-  const sendErr = (message: string) => done(null, false, { message })
+const jwtStrategyVerifyCallback = async (_req: Request, { uuid }: User, done: VerifiedCallback): Promise<void> => {
+  const sendErr = (message: string): void => done(null, false, { message })
   try {
     const user = await UserController.getOne({ uuid })
 
@@ -24,7 +24,7 @@ const jwtStrategyVerifyCallback = async (_req: Request, { uuid }: User, done: Ve
   }
 }
 
-export const jwtStrategy = (passport: PassportStatic) => {
+export const jwtStrategy = (passport: PassportStatic): void => {
   passport.use(
     new Strategy(
       {

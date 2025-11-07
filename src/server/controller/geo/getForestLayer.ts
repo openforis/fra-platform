@@ -1,4 +1,4 @@
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { ForestKey, LayerConfig, LayerSource } from 'meta/geo'
 
 import { AssetsController } from 'server/controller/geo/assets'
@@ -14,7 +14,7 @@ export const getForestLayer = async (props: Props): Promise<LayerConfig> => {
   const { countryIso, layer } = props
 
   const asset = AssetsController.getForestAssetData(layer)
-  let style: { palette: string[]; min?: number; max?: number }
+  let style: { palette: Array<string>; min?: number; max?: number }
 
   if (layer.key === ForestKey.Agreement) {
     style = {

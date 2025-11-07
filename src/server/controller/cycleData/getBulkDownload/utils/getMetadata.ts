@@ -7,7 +7,7 @@ import { Cycle } from 'meta/assessment/cycle'
 import { Labels } from 'meta/assessment/labels'
 import { Lang } from 'meta/lang'
 
-import { TableRedisRepository } from 'server/repository/redis/table'
+import { TableRedisRepository } from 'server/cache/repository/table'
 
 type Props = {
   assessment: Assessment
@@ -23,8 +23,8 @@ type Props = {
  * @param {Cycle} cycle - The cycle.
  * @returns {string[]} An array representing the path to the unit in the metadata.
  */
-const getUnitLabelPath = (tableName: string, cycle: Cycle): string[] => {
-  const pathMap: Record<string, string[]> = {
+const getUnitLabelPath = (tableName: string, cycle: Cycle): Array<string> => {
+  const pathMap: Record<string, Array<string>> = {
     growingStockComposition2025: ['1', 'cols', '0', 'props', 'labels', cycle.uuid],
     carbonStockSoilDepth: ['0', 'cols', '0', 'props', 'labels', cycle.uuid],
   }

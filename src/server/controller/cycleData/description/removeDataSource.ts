@@ -1,13 +1,13 @@
-import { Country } from 'meta/area'
+import { Country } from 'meta/area/country'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 import { Topics } from 'meta/messageCenter'
 import { User } from 'meta/user'
 
-import { BaseProtocol, DB } from 'server/db'
-import { DescriptionRepository } from 'server/repository/assessmentCycle/descriptions'
-import { MessageTopicRepository } from 'server/repository/assessmentCycle/messageTopic'
+import { BaseProtocol, DB } from 'server/db/db'
+import { DescriptionRepository } from 'server/db/repository/assessmentCycle/descriptions'
+import { MessageTopicRepository } from 'server/db/repository/assessmentCycle/messageTopic'
 
 import { upsertDescription } from './upsertDescription'
 

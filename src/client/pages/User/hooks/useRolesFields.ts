@@ -2,7 +2,8 @@ import { useMemo } from 'react'
 
 import { Objects } from 'utils/objects'
 
-import { Areas, CountryIso } from 'meta/area'
+import { Areas } from 'meta/area/areas'
+import { CountryIso } from 'meta/area/countryIso'
 import { UserEditCountryForm } from 'meta/form/userEdit/form'
 import { RoleName, UserRole, Users, UserStatus } from 'meta/user'
 
@@ -30,6 +31,7 @@ export const useRolesFields = (props: PropsFormDefinition): Returned => {
   const user = useUser()
 
   const isAdminPage = Areas.isGlobal(countryIso)
+  const isTargetUserAdmin = Users.isAdministrator(targetUser)
   const isAdmin = Users.isAdministrator(user)
   const userRoles = useMemo<Array<UserRole>>(
     () => Users.getCycleRoles({ cycle, user: targetUser }),
@@ -40,6 +42,13 @@ export const useRolesFields = (props: PropsFormDefinition): Returned => {
     if (Objects.isNil(targetUser)) return []
 
     const triggerFields = ['roles']
+
+    const shouldShownAdminCheckbox = (): boolean => {
+      // Show Admin checkbox if:
+      // - current user is admin, and we are in the admin page
+      // - targetUser is admin, no matter which page we are in
+      return (isAdminPage && isAdmin) || isTargetUserAdmin
+    }
 
     const shouldShow = (): boolean => {
       return isAdminPage && isAdmin
@@ -65,14 +74,14 @@ export const useRolesFields = (props: PropsFormDefinition): Returned => {
         shouldShow,
         defaultValue: userRoles.filter((role) => role.role === roleName).map((role) => role.countryIso),
         watches: {
-          clearIf: (props) => {
+          clearIf: (props): ReturnType<FieldDefinition['watches']['clearIf']> => {
             const { values } = props
             return {
               shouldClear: values.roles?.[RoleName.ADMINISTRATOR] === true,
               clearValue: [],
             }
           },
-          getDisabledOptions: (props) => {
+          getDisabledOptions: (props): Array<string> => {
             const { values } = props
             return Object.entries(values.roles).reduce<Array<string>>((acc, [key, value]) => {
               if ([RoleName.ADMINISTRATOR, roleName].includes(key as RoleName) || !value) return acc
@@ -90,7 +99,7 @@ export const useRolesFields = (props: PropsFormDefinition): Returned => {
       name: `roles.${RoleName.ADMINISTRATOR}`,
       label: `user.roles.${RoleName.ADMINISTRATOR}`,
       type: FormFieldType.checkbox,
-      shouldShow,
+      shouldShow: shouldShownAdminCheckbox,
       defaultValue: Users.isAdministrator(targetUser),
       watches: {
         isDisabled: (values) => isSelfWatch(values) || isTargetDisabledWatch(values),
@@ -110,5 +119,5 @@ export const useRolesFields = (props: PropsFormDefinition): Returned => {
     })
 
     return fields
-  }, [isAdmin, isAdminPage, targetUser, user.id, userRoles])
+  }, [isAdmin, isAdminPage, isTargetUserAdmin, targetUser, user.id, userRoles])
 }

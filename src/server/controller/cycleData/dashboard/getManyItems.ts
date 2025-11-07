@@ -1,11 +1,12 @@
 import { Objects } from 'utils/objects'
 
-import { AreaCode, Areas } from 'meta/area'
+import { AreaCode } from 'meta/area/areaCode'
+import { Areas } from 'meta/area/areas'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { DashboardItem, DashboardItemType } from 'meta/dashboard'
 
-import { NodeExtRepository } from 'server/repository/assessmentCycle/nodeExt'
+import { NodeExtRepository } from 'server/db/repository/assessmentCycle/nodeExt'
 
 type Props = {
   assessment: Assessment

@@ -1,7 +1,7 @@
 import { RecordAssessmentData } from 'meta/data'
 
-import { BaseProtocol, DB } from 'server/db'
-import { DataRedisRepository } from 'server/repository/redis/data'
+import { DataRedisRepository } from 'server/cache/repository/data'
+import { BaseProtocol, DB } from 'server/db/db'
 
 import { mergeOdpCountryData } from './tableData/_mergeOdpCountryData'
 import { getTablesCondition } from './tableData/_tablesCondition'
@@ -11,7 +11,7 @@ export const getTableData = async (
   props: PropsGetTableData,
   client: BaseProtocol = DB
 ): Promise<RecordAssessmentData> => {
-  const { assessment, columns, countryISOs, cycle, mergeOdp, tableNames, variables } = props
+  const { assessment, columns, countryISOs, cycle, excludeOdpTable, mergeOdp, tableNames, variables } = props
   const { name: assessmentName } = assessment.props
   const { name: cycleName } = cycle
 
@@ -19,7 +19,7 @@ export const getTableData = async (
   const data = await DataRedisRepository.getCountriesData({ assessment, cycle, tables, countryISOs })
 
   if (mergeOdp) {
-    await mergeOdpCountryData({ assessment, cycle, countryISOs, data, tables }, client)
+    await mergeOdpCountryData({ assessment, cycle, countryISOs, data, excludeOdpTable, tables }, client)
   }
 
   return { [assessmentName]: { [cycleName]: data } }

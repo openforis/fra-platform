@@ -3,7 +3,8 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
-import { Areas, CountryIso } from 'meta/area'
+import { Areas } from 'meta/area/areas'
+import { CountryIso } from 'meta/area/countryIso'
 import { Routes } from 'meta/routes'
 
 import { useCycleRouteParams } from 'client/hooks/routeParams'
@@ -13,7 +14,7 @@ type Props = {
   countryIso: CountryIso
 }
 
-const CountryLink = (props: Props) => {
+const CountryLink: React.FC = (props: Props) => {
   const { countryIso } = props
 
   const { t } = useTranslation()

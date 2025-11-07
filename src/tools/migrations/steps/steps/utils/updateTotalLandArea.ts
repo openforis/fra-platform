@@ -1,6 +1,6 @@
 import { Promises } from 'utils/promises'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { AssessmentNames } from 'meta/assessment/assessment'
 import { ColName } from 'meta/assessment/col'
 import { CycleName } from 'meta/assessment/cycle'
@@ -9,11 +9,12 @@ import { NodeUpdate, NodeUpdates } from 'meta/data'
 import { NodeExtType } from 'meta/nodeExt'
 import { User } from 'meta/user'
 
+import { DataRedisRepository } from 'server/cache/repository/data'
 import { AreaController } from 'server/controller/area'
 import { AssessmentController } from 'server/controller/assessment'
 import { updateDependents } from 'server/controller/cycleData/updateDependencies/updateDependents'
-import { BaseProtocol, Schemas } from 'server/db'
-import { DataRedisRepository } from 'server/repository/redis/data'
+import { BaseProtocol } from 'server/db/db'
+import { Schemas } from 'server/db/schemas'
 
 export type TotalLandAreaUpdateData = {
   [countryIso in CountryIso]?: Array<{ year: number; value: number }>

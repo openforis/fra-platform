@@ -1,8 +1,8 @@
 import { Assessment, AssessmentNames } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 
+import { BaseProtocol } from 'server/db/db'
 import { AssessmentController } from 'server/controller/assessment'
-import { BaseProtocol } from 'server/db'
 
 const getFra2025 = async (client: BaseProtocol): Promise<{ assessment: Assessment; cycle: Cycle }> => {
   return AssessmentController.getOneWithCycle(

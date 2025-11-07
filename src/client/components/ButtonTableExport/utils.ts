@@ -2,9 +2,9 @@
 //
 import { Objects } from 'utils/objects'
 
-import { DOMs } from 'client/utils/dom'
+import { DOMs } from 'client/utils/doms'
 
-const normalizeString = (string = '') => string.trim().replace(/\s/g, ' ')
+const normalizeString = (string = ''): string => string.trim().replace(/\s/g, ' ')
 
 const _getElementText = (element: HTMLElement): string => {
   const { children, innerText } = element

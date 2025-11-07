@@ -2,11 +2,11 @@ import React, { useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import Form from 'client/components/Form'
-import { Urls } from 'client/utils'
+import { Urls } from 'client/utils/urls'
 
 import { useFormDefinition } from './hooks/useFormDefinition'
 import { useOnSuccess } from './hooks/useOnSuccess'

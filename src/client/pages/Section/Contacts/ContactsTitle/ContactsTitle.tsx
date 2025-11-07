@@ -2,7 +2,8 @@ import 'client/pages/Section/Contacts/ContactsTitle/ContactsTitle.scss'
 import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { CountryIso, CountryProps } from 'meta/area'
+import { CountryProps } from 'meta/area/country'
+import { CountryIso } from 'meta/area/countryIso'
 import { Users } from 'meta/user'
 
 import { AreaActions } from 'client/store/area/actions'

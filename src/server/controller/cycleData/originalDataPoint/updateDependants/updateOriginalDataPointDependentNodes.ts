@@ -1,11 +1,11 @@
-import { Country } from 'meta/area'
+import { Country } from 'meta/area/country'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { User } from 'meta/user'
 
 import { updateOriginalDataPointsDependentNodes } from 'server/controller/cycleData/originalDataPoint/updateDependants/updateOriginalDataPointsDependentNodes'
-import { BaseProtocol } from 'server/db'
+import { BaseProtocol } from 'server/db/db'
 
 type Props = {
   assessment: Assessment

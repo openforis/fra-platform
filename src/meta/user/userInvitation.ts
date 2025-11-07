@@ -1,4 +1,4 @@
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { CollaboratorPermissionsNEW, RoleName } from 'meta/user/userRole'
 
 export interface UserInvitation {

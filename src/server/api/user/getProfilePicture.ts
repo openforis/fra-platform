@@ -4,7 +4,7 @@ import { UserController } from 'server/controller/user'
 import { FileStorage } from 'server/service/fileStorage'
 import Requests from 'server/utils/requests'
 
-export const getProfilePicture = async (req: Request, res: Response) => {
+export const getProfilePicture = async (req: Request, res: Response): Promise<void> => {
   const { id } = req.params
   try {
     const profilePicture = await UserController.getProfilePicture({ id: Number(id) })

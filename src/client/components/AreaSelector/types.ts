@@ -1,4 +1,6 @@
-import { CountryIso, Global, RegionCode } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
+import { Global } from 'meta/area/global'
+import { RegionCode } from 'meta/area/regionCode'
 
 export type Props = {
   enableDownload?: boolean

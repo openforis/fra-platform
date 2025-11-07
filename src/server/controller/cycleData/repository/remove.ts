@@ -1,14 +1,14 @@
-import { AreaCode } from 'meta/area'
+import { AreaCode } from 'meta/area/areaCode'
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { SectionNames } from 'meta/routes'
 import { User } from 'meta/user'
 
-import { BaseProtocol, DB } from 'server/db'
-import { RepositoryRepository } from 'server/repository/assessmentCycle/repository'
-import { ActivityLogRepository } from 'server/repository/public/activityLog'
-import { FileRepository } from 'server/repository/public/file'
+import { BaseProtocol, DB } from 'server/db/db'
+import { RepositoryRepository } from 'server/db/repository/assessmentCycle/repository'
+import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
+import { FileRepository } from 'server/db/repository/public/file'
 import { FileStorage } from 'server/service/fileStorage'
 
 type Props = {

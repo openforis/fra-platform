@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { Bounds } from 'meta/geo'
 
 type CountryBounds = { [key in CountryIso]?: Bounds }

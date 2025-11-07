@@ -12,11 +12,11 @@ const options = {
     [ApiEndPoint.Geo.sepalProxy()]: '/api/gee',
   },
   connection: 'keep-alive',
-  onProxyReq: (proxyReq: any) => {
+  onProxyReq: (proxyReq: any): void => {
     proxyReq.setHeader('authorization', authString)
   },
 
-  onError: (_err: Error, _req: Request, res: Response) => {
+  onError: (_err: Error, _req: Request, res: Response): void => {
     res.status(500)
     res.end('Sepal proxy error')
   },

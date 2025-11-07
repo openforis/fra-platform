@@ -1,13 +1,13 @@
 import { useEffect } from 'react'
 
-import { AreaCode } from 'meta/area'
+import { AreaCode } from 'meta/area/areaCode'
 import { AssessmentName } from 'meta/assessment/assessment'
 import { NodeUpdates } from 'meta/data'
 import { Sockets } from 'meta/socket'
 
 import { NodeValuesActions } from 'client/store/data/tableData/nodeValues/actions'
 import { useAppDispatch } from 'client/store/hooks'
-import { SocketClient } from 'client/service/socket'
+import { SocketClient } from 'client/service/socket/client'
 
 type Props = {
   countryIso: AreaCode

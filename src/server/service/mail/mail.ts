@@ -43,7 +43,7 @@ export interface MailServiceEmail {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const sendMail = async (email: MailServiceEmail) => {
+export const sendMail = async (email: MailServiceEmail): Promise<void> => {
   if (ProcessEnv.nodeEnv !== NodeEnv.test && ProcessEnv.fraMailEnabled) {
     await new Promise<void>((resolve, reject) => {
       mailTransport.sendMail({ ...emailDefaults, ...email }, (error: Error | any, _info) => {

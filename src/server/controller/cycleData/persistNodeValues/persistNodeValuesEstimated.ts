@@ -1,4 +1,4 @@
-import { Country } from 'meta/area'
+import { Country } from 'meta/area/country'
 import { ActivityLog, ActivityLogMessage } from 'meta/assessment/activityLog'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
@@ -6,9 +6,9 @@ import { NodeValuesEstimation } from 'meta/assessment/nodeValuesEstimation'
 import { NodeUpdate } from 'meta/data'
 import { User } from 'meta/user'
 
-import { DB } from 'server/db'
-import { NodeValueEstimationRepository } from 'server/repository/assessmentCycle/nodeValueEstimationRepository'
-import { ActivityLogRepository } from 'server/repository/public/activityLog'
+import { DB } from 'server/db/db'
+import { NodeValueEstimationRepository } from 'server/db/repository/assessmentCycle/nodeValueEstimationRepository'
+import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 import { CountryService } from 'server/service/country'
 
 import { persistNodeValues } from './persistNodeValues'

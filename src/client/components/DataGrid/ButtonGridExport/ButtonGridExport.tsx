@@ -1,14 +1,13 @@
 import React, { MutableRefObject, useState } from 'react'
 import { CSVLink } from 'react-csv'
-import { flushSync } from 'react-dom'
 
 import { useIsDataLocked } from 'client/store/ui/countryReport/hooks/datalock'
 import { useIsPrintRoute } from 'client/hooks/routes'
 import { ButtonProps, useButtonClassName } from 'client/components/Buttons/Button'
-import { getDataGridData } from 'client/components/DataGrid/utils'
 import Icon from 'client/components/Icon'
 
 import { useFilename } from './hooks/useFilename'
+import { useOnClick } from './hooks/useOnClick'
 
 type Props = Pick<ButtonProps, 'size'> & {
   disabled?: boolean
@@ -32,23 +31,12 @@ const ButtonGridExport: React.FC<Props> = (props) => {
     className: 'btn-csv-download',
   })
   const filename = useFilename(_filename)
+  const onClick = useOnClick({ gridRef, setData })
 
   if (print) return null
 
   return (
-    <CSVLink
-      asyncOnClick
-      className={className}
-      data={data}
-      filename={filename}
-      onClick={(_, done): void => {
-        flushSync(() => {
-          setData(getDataGridData(gridRef.current))
-        })
-        done()
-      }}
-      target="_blank"
-    >
+    <CSVLink asyncOnClick className={className} data={data} filename={filename} onClick={onClick} target="_blank">
       <Icon className="icon-sub icon-white" name="hit-down" />
       CSV
     </CSVLink>

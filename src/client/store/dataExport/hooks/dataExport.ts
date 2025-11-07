@@ -2,7 +2,9 @@ import { useLocation } from 'react-router-dom'
 
 import { Objects } from 'utils/objects'
 
-import { Areas, Country, RegionCode } from 'meta/area'
+import { Areas } from 'meta/area/areas'
+import { Country } from 'meta/area/country'
+import { RegionCode } from 'meta/area/regionCode'
 import { Cycles } from 'meta/assessment/cycles'
 import { Users } from 'meta/user'
 

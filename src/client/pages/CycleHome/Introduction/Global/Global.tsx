@@ -2,11 +2,11 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
-import { Global as GlobalType } from 'meta/area'
+import { Global as GlobalType } from 'meta/area/global'
 import { Routes } from 'meta/routes'
 
-import { useShowRegions } from 'client/hooks/showRegions'
 import { useCycleRouteParams } from 'client/hooks/routeParams'
+import { useShowRegions } from 'client/hooks/showRegions'
 
 const Global: React.FC = () => {
   const { assessmentName, cycleName } = useCycleRouteParams()

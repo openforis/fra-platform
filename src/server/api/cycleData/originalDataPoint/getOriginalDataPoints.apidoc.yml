@@ -3,7 +3,7 @@ paths:
   /cycle-data/original-data-points:
     get:
       tags:
-        - Data
+        - Cycle data
       summary: Get all Original Data Points for a given country and cycle
       parameters:
         - $ref: '#/components/parameters/assessmentName'

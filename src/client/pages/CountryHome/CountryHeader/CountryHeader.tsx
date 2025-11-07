@@ -3,7 +3,7 @@ import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { NavLink } from 'react-router-dom'
 
-import { Areas } from 'meta/area'
+import { Areas } from 'meta/area/areas'
 import { MessageTopicType, Topics } from 'meta/messageCenter'
 
 import { useCountryRouteParams } from 'client/hooks/routeParams'
@@ -73,7 +73,7 @@ const CountryHeader: React.FC<Props> = (props) => {
               {index !== 0 && <div className="toolbar__separator" />}
               <NavLink
                 key={name}
-                className={({ isActive }) => (isActive ? sectionActiveClassName : sectionClassName)}
+                className={({ isActive }): string => (isActive ? sectionActiveClassName : sectionClassName)}
                 to={name}
               >
                 {t(`landing.sections.${name}`)}

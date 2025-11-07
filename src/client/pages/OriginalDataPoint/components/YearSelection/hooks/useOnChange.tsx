@@ -1,6 +1,6 @@
 import { SelectHTMLAttributes, useCallback } from 'react'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { Routes, SectionRouteParams } from 'meta/routes'
 
 import { OriginalDataPointActions } from 'client/store/data/originalDataPoint/actions'

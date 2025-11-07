@@ -3,7 +3,7 @@ import React, { useMemo } from 'react'
 
 import classNames from 'classnames'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { Cols } from 'meta/assessment/cols'
 
 import { useLastApprovedHistoryNodeValue } from 'client/store/data/history/hooks/lastApprovedTableData'

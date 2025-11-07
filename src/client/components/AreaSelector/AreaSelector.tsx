@@ -4,7 +4,8 @@ import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
 
-import { Areas, CountryIso } from 'meta/area'
+import { Areas } from 'meta/area/areas'
+import { CountryIso } from 'meta/area/countryIso'
 import { Users } from 'meta/user'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
@@ -50,7 +51,7 @@ const AreaSelector: React.FC<Props> = (props) => {
   const handleElementSelect = onElementSelect ?? defaultHandleElementSelect
 
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
+    const handleClickOutside = (event: MouseEvent): void => {
       if (buttonRef.current && !buttonRef.current.contains(event.target)) {
         setOpen(false)
       }
@@ -73,7 +74,7 @@ const AreaSelector: React.FC<Props> = (props) => {
       ref={buttonRef}
       className="btn-country-select no-print"
       disabled={disabled}
-      onClick={() => setOpen((prevState) => !prevState)}
+      onClick={(): void => setOpen((prevState) => !prevState)}
       type="button"
     >
       <div>

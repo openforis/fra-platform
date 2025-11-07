@@ -1,0 +1,27 @@
+import { Objects } from 'utils/objects'
+
+import { Assessment } from 'meta/assessment/assessment'
+import { Cycle } from 'meta/assessment/cycle'
+import { MessageTopic } from 'meta/messageCenter'
+import { User } from 'meta/user'
+
+import { BaseProtocol, DB } from 'server/db/db'
+import { Schemas } from 'server/db/schemas'
+
+export const getOneOrNone = async (
+  props: { assessment: Assessment; cycle: Cycle; topic: MessageTopic; user: User },
+  client: BaseProtocol = DB
+): Promise<{ lastOpenTime: string } | null> => {
+  const { assessment, cycle, topic, user } = props
+
+  const cycleSchema = Schemas.getNameCycle(assessment, cycle)
+
+  return client.oneOrNone<{ lastOpenTime: string } | null>(
+    `
+      select last_open_time from ${cycleSchema}.message_topic_user
+      where topic_id = $1 and user_id = $2
+    `,
+    [topic.id, user.id],
+    Objects.camelize
+  )
+}

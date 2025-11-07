@@ -5,11 +5,11 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { User, UserInvitation, UserInvitations, UserStatus } from 'meta/user'
 
-import { BaseProtocol, DB } from 'server/db'
-import { ActivityLogRepository } from 'server/repository/public/activityLog'
-import { UserRepository } from 'server/repository/public/user'
-import { UserInvitationRepository } from 'server/repository/public/userInvitation'
-import { UserRoleRepository } from 'server/repository/public/userRole'
+import { BaseProtocol, DB } from 'server/db/db'
+import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
+import { UserRepository } from 'server/db/repository/public/user'
+import { UserInvitationRepository } from 'server/db/repository/public/userInvitation'
+import { UserRoleRepository } from 'server/db/repository/public/userRole'
 import { MailService } from 'server/service'
 
 // Accept invitation flow:

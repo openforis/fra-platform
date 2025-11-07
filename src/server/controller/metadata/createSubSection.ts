@@ -3,9 +3,9 @@ import { Assessment } from 'meta/assessment/assessment'
 import { SubSection } from 'meta/assessment/section'
 import { User } from 'meta/user'
 
-import { BaseProtocol, DB } from 'server/db'
-import { SectionRepository } from 'server/repository/assessment/section'
-import { ActivityLogRepository } from 'server/repository/public/activityLog'
+import { BaseProtocol, DB } from 'server/db/db'
+import { SectionRepository } from 'server/db/repository/assessment/section'
+import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 
 export const createSubSection = async (
   props: { user: User; assessment: Assessment; section: Pick<SubSection, 'props'>; parentSectionId: number },

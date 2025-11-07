@@ -1,7 +1,8 @@
 import { Response } from 'express'
 
 import { CycleDataRequest } from 'meta/api/request'
-import { CountryIso, RegionCode } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
+import { RegionCode } from 'meta/area/regionCode'
 
 import { CycleDataController } from 'server/controller/cycleData'
 import Requests from 'server/utils/requests'

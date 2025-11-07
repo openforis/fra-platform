@@ -1,4 +1,4 @@
-import { Country } from 'meta/area'
+import { Country } from 'meta/area/country'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { NodeUpdate } from 'meta/data'
@@ -6,7 +6,7 @@ import { User } from 'meta/user'
 
 import { UpdateDependenciesJob } from 'server/controller/cycleData/updateDependencies/props'
 import worker from 'server/controller/cycleData/updateDependencies/worker'
-import { BaseProtocol, DB } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
 
 type Props = {
   assessment: Assessment

@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { ForestKey } from 'meta/geo'
 import { LayerSectionKey } from 'meta/geo/layer'
 import { sectionsMap } from 'meta/geo/sections'

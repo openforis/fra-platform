@@ -1,10 +1,10 @@
 import React from 'react'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
-import { mapController } from 'client/utils'
+import { mapController } from 'client/geo/mapController'
 
 const Center: React.FC = () => {
   const { countryIso } = useCountryRouteParams<CountryIso>()
@@ -14,7 +14,7 @@ const Center: React.FC = () => {
       <Button
         iconName="gps-not-fixed"
         inverse
-        onClick={() => {
+        onClick={(): void => {
           mapController.panToCountry(countryIso)
         }}
         size={ButtonSize.m}

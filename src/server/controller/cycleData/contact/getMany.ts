@@ -1,10 +1,10 @@
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { Contact } from 'meta/cycleData'
 
-import { NodeExtRepository } from 'server/repository/assessmentCycle/nodeExt'
-import { UserRepository } from 'server/repository/public/user'
+import { NodeExtRepository } from 'server/db/repository/assessmentCycle/nodeExt'
+import { UserRepository } from 'server/db/repository/public/user'
 
 type Props = {
   assessment: Assessment

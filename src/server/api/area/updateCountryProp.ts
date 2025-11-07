@@ -1,14 +1,14 @@
 import { Response } from 'express'
 
 import { CycleDataRequest } from 'meta/api/request'
-import { Country, CountryProps } from 'meta/area'
+import { Country, CountryProps } from 'meta/area/country'
 import { TableNames } from 'meta/assessment/table'
 import { NodeUpdates, RecordAssessmentDatas } from 'meta/data'
 
 import { AreaController } from 'server/controller/area'
 import { CycleDataController } from 'server/controller/cycleData'
 import { updateDependents } from 'server/controller/cycleData/updateDependencies/updateDependents'
-import { DB } from 'server/db'
+import { DB } from 'server/db/db'
 import Requests from 'server/utils/requests'
 
 type Body = { countryProp: Partial<CountryProps> }

@@ -1,4 +1,4 @@
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { RoleName } from 'meta/user'
 
 export type InvitationFilters = {

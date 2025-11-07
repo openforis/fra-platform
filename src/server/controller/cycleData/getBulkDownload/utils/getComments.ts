@@ -1,6 +1,6 @@
 import { Parser } from 'htmlparser2'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
@@ -29,16 +29,16 @@ type Props = {
  * output text:
  * Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum (https://www.lipsum.com/) dolor sit amet.
  */
-const _extractTextAndLinks = (html: string) => {
+const _extractTextAndLinks = (html: string): string => {
   let extractedText = ''
   const parser = new Parser(
     {
-      onopentag(name, attributes) {
+      onopentag(name, attributes): void {
         if (name === 'a') {
           extractedText += ` (${attributes.href})`
         }
       },
-      ontext(text) {
+      ontext(text): void {
         extractedText += text
       },
     },

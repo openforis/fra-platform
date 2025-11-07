@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { Objects } from 'utils/objects'
 
-import { Areas } from 'meta/area'
+import { Areas } from 'meta/area/areas'
 import { NodeValueValidation } from 'meta/assessment/nodeValueValidation'
 import { NodeValueValidations } from 'meta/assessment/nodeValueValidations'
 import { Table } from 'meta/assessment/table'

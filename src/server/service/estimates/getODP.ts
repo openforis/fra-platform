@@ -5,7 +5,7 @@
 const _defaultOtherWoodedLand = '20.00'
 
 // Helper function to create ODP from values for forestArea and otherWoodedLand
-export const getODP = (forestArea: string, otherWoodedLand: string = _defaultOtherWoodedLand) => ({
+export const getODP = (forestArea: string, otherWoodedLand: string = _defaultOtherWoodedLand): any => ({
   forestArea: {
     odp: true,
     raw: forestArea,

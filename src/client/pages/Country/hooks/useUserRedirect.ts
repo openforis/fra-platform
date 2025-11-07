@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
-import { Areas } from 'meta/area'
+import { Areas } from 'meta/area/areas'
 import { AssessmentNames } from 'meta/assessment/assessment'
 import { Cycles } from 'meta/assessment/cycles'
 import { Routes } from 'meta/routes'

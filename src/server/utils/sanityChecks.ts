@@ -1,7 +1,7 @@
 import { Request } from 'express'
 import { Objects } from 'utils/objects'
 
-function InvalidParameterException(key: string, values: Array<any>) {
+function InvalidParameterException(key: string, values: Array<any>): void {
   this.error = { key, values }
   Error.captureStackTrace(this, InvalidParameterException)
 }

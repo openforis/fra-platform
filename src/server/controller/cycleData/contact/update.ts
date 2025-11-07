@@ -1,4 +1,4 @@
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
@@ -7,9 +7,9 @@ import { SectionNames } from 'meta/assessment/section'
 import { ContactNode } from 'meta/cycleData'
 import { User } from 'meta/user'
 
-import { BaseProtocol, DB } from 'server/db'
-import { NodeExtRepository } from 'server/repository/assessmentCycle/nodeExt'
-import { ActivityLogRepository } from 'server/repository/public/activityLog'
+import { BaseProtocol, DB } from 'server/db/db'
+import { NodeExtRepository } from 'server/db/repository/assessmentCycle/nodeExt'
+import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 
 type Props = {
   assessment: Assessment

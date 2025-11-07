@@ -1,7 +1,8 @@
-import { CountryStatus } from 'meta/area'
+import { CountryStatus } from 'meta/area/countryStatus'
 
 import { CloneProps } from 'server/controller/assessment/cloneCycle/types'
-import { BaseProtocol, Schemas } from 'server/db'
+import { BaseProtocol } from 'server/db/db'
+import { Schemas } from 'server/db/schemas'
 
 export const cloneAreas = async (props: CloneProps, client: BaseProtocol): Promise<void> => {
   const { assessment, cycleSource, cycleTarget } = props

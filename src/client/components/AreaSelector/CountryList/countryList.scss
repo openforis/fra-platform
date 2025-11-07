@@ -53,6 +53,10 @@
   display: grid;
   line-height: $spacing-xs;
   padding: $spacing-xxs $spacing-xs;
+
+  &.hasLastPublishedLabel {
+    grid-template-columns: 1fr auto;
+  }
 }
 
 .country-selection-list__header,

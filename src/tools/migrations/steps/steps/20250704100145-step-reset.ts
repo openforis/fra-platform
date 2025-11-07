@@ -1,9 +1,9 @@
 import * as path from 'path'
 
-import { BaseProtocol } from 'server/db'
+import { BaseProtocol } from 'server/db/db'
 import { Logger } from 'server/utils/logger'
 
-export default async (client: BaseProtocol, fileName: string = path.basename(__filename)) => {
+export default async (client: BaseProtocol, fileName: string = path.basename(__filename)): Promise<void> => {
   try {
     // === 1. Truncate migration_steps table and reset the primary key
     await client.none('truncate table migrations.steps restart identity')

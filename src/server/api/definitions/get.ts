@@ -4,7 +4,7 @@ import { getHtml } from 'server/api/definitions/utils/getHtml'
 
 import { readAllowedParameter, readParameterWithAllowedValues } from '../../utils/sanityChecks'
 
-export const getDefinition = async (req: Request, res: Response) => {
+export const getDefinition = async (req: Request, res: Response): Promise<void> => {
   try {
     const lang = readParameterWithAllowedValues(req, 'lang', ['en', 'es', 'fr', 'ru', 'ar', 'zh'])
     const name = readAllowedParameter(req, 'name', (x) => /^[a-z0-9]+$/i.test(x))

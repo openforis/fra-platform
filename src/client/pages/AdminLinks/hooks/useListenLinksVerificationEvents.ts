@@ -17,7 +17,7 @@ import {
   useTablePaginatedPage,
 } from 'client/store/tablePaginated/hooks/tablePaginated'
 import { useSectionRouteParams } from 'client/hooks/routeParams'
-import { SocketClient } from 'client/service/socket'
+import { SocketClient } from 'client/service/socket/client'
 
 export const useListenLinksVerificationEvents = (): void => {
   const dispatch = useAppDispatch()

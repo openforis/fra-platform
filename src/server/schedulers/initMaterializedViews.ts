@@ -2,18 +2,19 @@ import { Job, Queue, Worker } from 'bullmq'
 import IORedis from 'ioredis'
 import { Promises } from 'utils/promises'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 
 import { AreaController } from 'server/controller/area'
 import { AssessmentController } from 'server/controller/assessment'
-import { BaseProtocol, DB, Schemas } from 'server/db'
-import { CountryActivityLogRepository } from 'server/repository/assessmentCycle/countryActivityLog'
+import { BaseProtocol, DB } from 'server/db/db'
+import { CountryActivityLogRepository } from 'server/db/repository/assessmentCycle/countryActivityLog'
 import {
   activitiesLastEdit,
   activitiesLastEditOdpData,
-} from 'server/repository/assessmentCycle/countrySummary/_lastEditActivities'
+} from 'server/db/repository/assessmentCycle/countrySummary/_lastEditActivities'
+import { Schemas } from 'server/db/schemas'
 import { Logger } from 'server/utils/logger'
 
 const client: BaseProtocol = DB

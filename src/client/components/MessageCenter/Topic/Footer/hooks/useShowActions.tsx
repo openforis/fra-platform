@@ -1,4 +1,5 @@
-import { Areas, CountryStatus } from 'meta/area'
+import { Areas } from 'meta/area/areas'
+import { CountryStatus } from 'meta/area/countryStatus'
 import { MessageTopic, MessageTopicStatus, MessageTopicType } from 'meta/messageCenter'
 import { Users } from 'meta/user'
 
@@ -7,7 +8,9 @@ import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useUser } from 'client/store/user/hooks/user'
 import { useCountryIso } from 'client/hooks/country'
 
-export const useShowActions = (topic: MessageTopic) => {
+type Returned = { canResolve: boolean; canPostMessage: boolean }
+
+export const useShowActions = (topic: MessageTopic): Returned => {
   const cycle = useCycle()
   const user = useUser()
   const countryIso = useCountryIso()

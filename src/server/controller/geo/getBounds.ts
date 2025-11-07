@@ -1,8 +1,8 @@
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { Bounds } from 'meta/geo'
 
-import { BaseProtocol, DB } from 'server/db'
-import { BoundsRepository } from 'server/repository/geo/bounds'
+import { BaseProtocol, DB } from 'server/db/db'
+import { BoundsRepository } from 'server/db/repository/geo/bounds'
 
 type Props = { countryIso: CountryIso }
 

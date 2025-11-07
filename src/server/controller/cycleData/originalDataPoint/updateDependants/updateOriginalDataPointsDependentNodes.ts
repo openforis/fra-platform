@@ -1,4 +1,4 @@
-import { Country } from 'meta/area'
+import { Country } from 'meta/area/country'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
@@ -6,11 +6,11 @@ import { TableNames } from 'meta/assessment/table'
 import { NodeUpdate } from 'meta/data'
 import { User } from 'meta/user'
 
+import { DataRedisRepository } from 'server/cache/repository/data'
 import { getOriginalDataPointVariables } from 'server/controller/cycleData/originalDataPoint/getOriginalDataPointVariables'
 import { notifyClientUpdate } from 'server/controller/cycleData/originalDataPoint/updateDependants/notifyClientUpdate'
 import { updateDependents } from 'server/controller/cycleData/updateDependencies/updateDependents'
-import { BaseProtocol } from 'server/db'
-import { DataRedisRepository } from 'server/repository/redis/data'
+import { BaseProtocol } from 'server/db/db'
 
 type Props = {
   assessment: Assessment

@@ -1,8 +1,8 @@
-import { MemberExpression } from '@openforis/arena-core'
-
 import { Context } from 'meta/expressionEvaluator/context'
 import { BaseContext } from 'meta/expressionEvaluator/util/_types'
 import { Member } from 'meta/expressions'
+
+import { MemberExpression } from 'lib/expressionEvaluator/node'
 
 import { contextMock as context } from '../context.mock'
 import { parseMemberVariable } from './parseMemberVariable'

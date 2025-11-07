@@ -1,6 +1,6 @@
 import { Objects } from 'utils/objects'
 
-import { Country } from 'meta/area'
+import { Country } from 'meta/area/country'
 import { Cycle } from 'meta/assessment/cycle'
 import { Row } from 'meta/assessment/row'
 import { Table, TableVisibility } from 'meta/assessment/table'

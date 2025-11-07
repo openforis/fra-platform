@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { TablePaginatedCompareFn } from 'meta/tablePaginated'
 import { CountryUserSummary, RoleName } from 'meta/user'
 import { CountryUserSummaries } from 'meta/user/countryUserSummaries'

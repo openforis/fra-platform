@@ -1,4 +1,4 @@
-import { Country } from 'meta/area'
+import { Country } from 'meta/area/country'
 import { AssessmentName, RecordAssessments } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
 

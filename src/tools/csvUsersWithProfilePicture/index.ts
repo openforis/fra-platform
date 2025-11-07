@@ -8,8 +8,9 @@ import { ToolsUtils } from 'tools/utils/toolsUtils'
 
 import { Files } from 'meta/file'
 
+import { BaseProtocol, DB } from 'server/db/db'
+import { Schemas } from 'server/db/schemas'
 import { AssessmentController } from 'server/controller/assessment'
-import { BaseProtocol, DB, Schemas } from 'server/db'
 import { FileStorage } from 'server/service/fileStorage'
 import { Logger } from 'server/utils/logger'
 
@@ -48,7 +49,7 @@ const transformUser = (user: DBUser, role: DBRole): CSVUser => {
 const assessmentName = 'fra'
 const cycleName = '2025'
 
-const downloadProfilePictures = async () => {
+const downloadProfilePictures = async (): Promise<void> => {
   const users = await client.tx<Array<CSVUser>>(async (tx) => {
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName }, tx)
     const schemaName = Schemas.getNameCycle(assessment, cycle)

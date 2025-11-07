@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 
 import { Objects } from 'utils/objects'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { Table } from 'meta/assessment/table'
 import { Tables } from 'meta/assessment/tables'
 import { RecordAssessmentData, RecordAssessmentDatas } from 'meta/data'
@@ -15,7 +15,7 @@ type Props = {
   data: RecordAssessmentData
 }
 
-export const useAreChartVariablesEmpty = (props: Props) => {
+export const useAreChartVariablesEmpty = (props: Props): boolean => {
   const { data, table } = props
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const cycle = useCycle()

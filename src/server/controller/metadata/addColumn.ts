@@ -4,9 +4,9 @@ import { Cycle } from 'meta/assessment/cycle'
 import { Row } from 'meta/assessment/row'
 import { Table, TableProps } from 'meta/assessment/table'
 
-import { BaseProtocol, DB } from 'server/db'
-import { ColRepository } from 'server/repository/assessment/col'
-import { TableRepository } from 'server/repository/assessment/table'
+import { BaseProtocol, DB } from 'server/db/db'
+import { ColRepository } from 'server/db/repository/assessment/col'
+import { TableRepository } from 'server/db/repository/assessment/table'
 
 type Props = {
   assessment: Assessment

@@ -2,7 +2,7 @@ import './TableOfContent.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { AssessmentNames } from 'meta/assessment/assessment'
 import { Labels } from 'meta/assessment/labels'
 

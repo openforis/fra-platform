@@ -1,17 +1,17 @@
 import { Country } from 'meta/area/country'
 import { CountryIso } from 'meta/area/countryIso'
+import { CountryStatus } from 'meta/area/countryStatus'
 import { CountryStatuses, CountryStatusTransition } from 'meta/area/countryStatuses/index'
-import { CountryStatus } from 'meta/area/status'
 import { Cycle, CycleStatus } from 'meta/assessment/cycle'
 import { RoleName, User } from 'meta/user'
 
 const countryIso = 'ATL' as CountryIso
 const cycleUuid = '123-XXX-123'
 
-const getUserInfo = (countryIso: CountryIso, role: RoleName) =>
+const getUserInfo = (countryIso: CountryIso, role: RoleName): User =>
   ({ id: 1, roles: [{ countryIso, role, cycleUuid }] } as User)
 
-const getCountry = (countryIso: CountryIso, status: CountryStatus) =>
+const getCountry = (countryIso: CountryIso, status: CountryStatus): Country =>
   ({ countryIso, props: { status }, lastEdit: new Date().toString() } as Country)
 
 const cycle = { uuid: cycleUuid, props: { status: CycleStatus.editing } } as Cycle

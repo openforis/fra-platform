@@ -7,7 +7,7 @@ import { UserController } from 'server/controller/user'
 import { UserProviderController } from 'server/controller/userProvider'
 import { Requests } from 'server/utils'
 
-export const postResetPassword = async (req: Request, res: Response) => {
+export const postResetPassword = async (req: Request, res: Response): Promise<void> => {
   try {
     const { assessmentName, cycleName, email } = req.body
 

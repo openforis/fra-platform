@@ -1,10 +1,10 @@
-import { AreaCode } from 'meta/area'
+import { AreaCode } from 'meta/area/areaCode'
 import { ActivityLog } from 'meta/assessment/activityLog'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { SectionName } from 'meta/assessment/section'
 
-import { ActivityLogRepository } from 'server/repository/public/activityLog'
+import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 
 import { messages } from './messages'
 

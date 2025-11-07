@@ -1,0 +1,43 @@
+import { Objects } from 'utils/objects'
+
+import { RegionGroup } from 'meta/area/regionGroup'
+import { Assessment } from 'meta/assessment/assessment'
+import { Cycle } from 'meta/assessment/cycle'
+
+import { BaseProtocol, DB } from 'server/db/db'
+import { Schemas } from 'server/db/schemas'
+
+export const getRegionGroups = async (
+  props: { assessment: Assessment; cycle: Cycle },
+  client: BaseProtocol = DB
+): Promise<Array<RegionGroup>> => {
+  const { assessment, cycle } = props
+  const assessmentName = Schemas.getNameCycle(assessment, cycle)
+
+  const { regionGroups } = await client
+    .one<RegionGroup>(
+      `
+          with r as (
+              select rg."order",
+                     jsonb_build_object(
+                             'id', rg.id,
+                             'name', rg.name,
+                             'order', rg."order",
+                             'regions', jsonb_agg(
+                                     jsonb_build_object('region_code', r2.region_code, 'name', r2.name, 'sort_index', r2.sort_index)
+                                     order by r2.region_code
+                                 )
+                         ) as region_group
+              from ${assessmentName}.region r
+                       join ${assessmentName}.region_group rg on r.region_group_id = rg.id
+                       left join region r2 on r.region_code = r2.region_code
+              group by rg.order, rg.id
+          )
+          select jsonb_object_agg(r."order", r.region_group) as region_groups
+          from r;
+    `
+    )
+    .then((data) => Objects.camelize(data))
+
+  return regionGroups
+}

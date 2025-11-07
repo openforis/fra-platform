@@ -9,7 +9,7 @@ import { Props } from 'server/controller/cycleData/getBulkDownload/props'
 
 export const getContent = async (
   props: Props & {
-    entries: { tableName: string; variables: { csvColumn: string; variableName: string }[] }[]
+    entries: Array<{ tableName: string; variables: Array<{ csvColumn: string; variableName: string }> }>
     intervals?: boolean
   }
 ): Promise<Array<Record<string, string>>> => {
