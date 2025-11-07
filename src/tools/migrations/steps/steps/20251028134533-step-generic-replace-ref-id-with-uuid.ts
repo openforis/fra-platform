@@ -94,5 +94,7 @@ export default async (): Promise<void> => {
     `)
 
     await client.none(`alter table ${schemaName}.table_section drop column if exists section_id`)
+
+    await CacheController.generateMetadata({ assessment }, client)
   })
 }

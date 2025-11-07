@@ -22,7 +22,7 @@ export const getManyCache = (props: Props, client: BaseProtocol = DB): Promise<A
         from ${schema}.row r
                  left join ${schema}."table" t on r.table_id = t.id
                  left join ${schema}.table_section ts on t.table_section_id = ts.id
-                 left join ${schema}.section s on ts.section_id = s.id
+                 left join ${schema}.section s on ts.section_uuid = s.uuid
                  left join ${schema}.col c on r.id = c.row_id
         where r.props ->> 'variableName' is not null
         group by r.id, r.uuid, r.props, t.props ->> 'name', s.props ->> 'name'
