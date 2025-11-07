@@ -1,6 +1,6 @@
 import { TFunction } from 'i18next'
 
-import { AreaCode, CountryStatus } from 'meta/area'
+import { AreaCode } from 'meta/area'
 import { ActivityLog, ActivityLogMessage } from 'meta/assessment/activityLog'
 import { AssessmentName } from 'meta/assessment/assessment'
 import { Cycle, CycleName } from 'meta/assessment/cycle'
@@ -8,14 +8,6 @@ import { Labels } from 'meta/assessment/labels'
 import { SectionName, SectionNames, SubSection } from 'meta/assessment/section'
 import { Routes } from 'meta/routes'
 import { RoleName, Users } from 'meta/user'
-
-type ActivityLogTarget = {
-  assessment?: AssessmentName
-  file?: string
-  role?: RoleName
-  status?: CountryStatus
-  user?: string
-}
 
 const messageToKey: { [key in keyof typeof ActivityLogMessage]?: string } = {
   [ActivityLogMessage.assessmentStatusUpdate]: 'updateAssessmentStatus',
@@ -38,7 +30,7 @@ const messageToKey: { [key in keyof typeof ActivityLogMessage]?: string } = {
   [ActivityLogMessage.topicStatusChange]: 'resolved',
 }
 
-const _getLabelActionKey = (activity: ActivityLog<ActivityLogTarget>): string => {
+const _getLabelActionKey = (activity: ActivityLog<unknown>): string => {
   const { message } = activity
 
   const key = messageToKey[message]
@@ -48,28 +40,33 @@ const _getLabelActionKey = (activity: ActivityLog<ActivityLogTarget>): string =>
   return 'landing.recentActivity.actions.edited'
 }
 
-const _getLabelActionParams = (
-  activity: ActivityLog<ActivityLogTarget>,
-  t: TFunction
-): Record<string, string | null> => {
+const _getLabelActionParams = (activity: ActivityLog<unknown>, t: TFunction): Record<string, string | null> => {
   const { target } = activity
   let params: Record<string, string | null> = {}
-  const { assessment, file, role, status, user } = target ?? {}
-  if (user)
-    params = {
-      user,
-      role: role ? t(Users.getI18nRoleLabelKey(role)) : null,
+
+  if (target && typeof target === 'object') {
+    if ('user' in target && target.user) {
+      const { role, user } = target as { user: string; role?: RoleName }
+      params = {
+        user,
+        role: role ? t(Users.getI18nRoleLabelKey(role)) : null,
+      }
+    } else if ('assessment' in target && target.assessment) {
+      const { assessment, status } = target as { assessment: string; status: string }
+      params = {
+        assessment: t(`assessment.${assessment}`),
+        status: t(`assessment.status.${status}.label`),
+      }
+    } else if ('file' in target && target.file) {
+      const { file } = target as { file: string }
+      params = { file }
     }
-  else if (assessment)
-    params = {
-      assessment: t(`assessment.${assessment}`),
-      status: t(`assessment.status.${status}.label`),
-    }
-  else if (file) params = { file }
+  }
+
   return params
 }
 
-const getLabelAction = (props: { activity: ActivityLog<ActivityLogTarget>; t: TFunction }): string => {
+const getLabelAction = (props: { activity: ActivityLog<unknown>; t: TFunction }): string => {
   const { activity, t } = props
   const labelActionKey = _getLabelActionKey(activity)
   const messageParams = _getLabelActionParams(activity, t)
@@ -77,7 +74,7 @@ const getLabelAction = (props: { activity: ActivityLog<ActivityLogTarget>; t: TF
   return label !== labelActionKey ? label : t('landing.recentActivity.actions.edited')
 }
 
-const getLabelSectionKey = (activity: ActivityLog<ActivityLogTarget>): string => {
+const getLabelSectionKey = (activity: ActivityLog<unknown>): string => {
   const { section } = activity
   if (section.indexOf('odp') !== -1) {
     return 'nationalDataPoint.nationalDataPoint'
@@ -90,19 +87,19 @@ const getLabelSectionKey = (activity: ActivityLog<ActivityLogTarget>): string =>
   return `${section}.${section}`
 }
 
-const hasSectionLink = (activity: ActivityLog<ActivityLogTarget>): boolean => {
+const hasSectionLink = (activity: ActivityLog<unknown>): boolean => {
   const { section } = activity
   return !['users', 'assessment'].includes(section)
 }
 
-const isSectionLinkDisabled = (activity: ActivityLog<ActivityLogTarget>): boolean => {
+const isSectionLinkDisabled = (activity: ActivityLog<unknown>): boolean => {
   const { section } = activity
   const labelSectionKey = getLabelSectionKey(activity)
   return ['fileRepository', 'messageBoard', 'odp'].includes(section) || labelSectionKey === 'dashboard.actions.deleted'
 }
 
 const getLabelSection = (props: {
-  activity: ActivityLog<ActivityLogTarget>
+  activity: ActivityLog<unknown>
   cycle: Cycle
   section?: SubSection
   t: TFunction
