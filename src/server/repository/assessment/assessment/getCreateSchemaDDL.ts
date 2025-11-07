@@ -1,9 +1,11 @@
 import { CountryStatus } from 'meta/area'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
+import { TableNames } from 'meta/assessment/table'
 
 import { Schemas } from 'server/db'
 import { NodeExtQueries } from 'server/repository/assessmentCycle/nodeExt/queries'
+import { ODPCommentColumns } from 'server/repository/assessmentCycle/originalDataPoint/commentColumns'
 import { OriginalDataPointQueries } from 'server/repository/assessmentCycle/originalDataPoint/queries'
 
 export const getCreateSchemaDDL = (schemaName: string): string => {
@@ -123,7 +125,8 @@ export const getCreateSchemaCycleDDL = (assessmentSchemaName: string, assessment
           data_source_additional_comments varchar,
           data_source_methods             jsonb,
           data_source_references          text,
-          comments                        jsonb not null default '{}'::jsonb,
+          ${ODPCommentColumns[TableNames.extentOfForest]}        text default '' not null,
+          ${ODPCommentColumns[TableNames.forestCharacteristics]} text default '' not null,
           national_classes                jsonb,
           values                          jsonb,
           id_legacy                       bigint

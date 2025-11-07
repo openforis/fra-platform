@@ -3,6 +3,7 @@ import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { OriginalDataPoint, OriginalDataPointCommentKey } from 'meta/assessment/originalDataPoint'
+import { TableNames } from 'meta/assessment/table'
 import { User } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db'
@@ -19,6 +20,11 @@ type Props = {
   user: User
 }
 
+const activities: Record<OriginalDataPointCommentKey, ActivityLogMessage> = {
+  [TableNames.extentOfForest]: ActivityLogMessage.originalDataPointUpdateCommentExtentOfForest,
+  [TableNames.forestCharacteristics]: ActivityLogMessage.originalDataPointUpdateCommentForestCharacteristics,
+}
+
 export const updateOriginalDataPointDescription = async (
   props: Props,
   client: BaseProtocol = DB
@@ -32,10 +38,12 @@ export const updateOriginalDataPointDescription = async (
       t
     )
 
+    const message = activities[field]
+
     const activityLog = {
       target: updatedOriginalDataPoint,
       section: 'odp',
-      message: ActivityLogMessage.originalDataPointUpdateDescription,
+      message,
       countryIso,
       user,
     }

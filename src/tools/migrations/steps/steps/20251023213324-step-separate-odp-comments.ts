@@ -1,9 +1,12 @@
 import { Promises } from 'utils/promises'
 
+import { ActivityLogMessage } from 'meta/assessment/activityLog'
+import { AssessmentNames } from 'meta/assessment/assessment'
 import { TableNames } from 'meta/assessment/table'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { BaseProtocol, DB, Schemas } from 'server/db'
+import { ODPCommentColumns } from 'server/repository/assessmentCycle/originalDataPoint/commentColumns'
 
 const TABLE = 'original_data_point'
 
@@ -37,37 +40,97 @@ type UpdateTableProps = {
 const _updateOriginalDataPointTable = async (props: UpdateTableProps): Promise<void> => {
   const { client, schemaName } = props
   const tableName = `${schemaName}.${TABLE}`
-
-  const hasComments = await _columnExists({ client, columnName: 'comments', schemaName })
-  if (!hasComments) {
-    await DB.query(`alter table ${tableName} add column comments jsonb not null default '{}'::jsonb`)
-  }
+  const commentColumnExtent = ODPCommentColumns[TableNames.extentOfForest]
+  const commentColumnForestCharacteristics = ODPCommentColumns[TableNames.forestCharacteristics]
 
   const hasDescription = await _columnExists({ client, columnName: 'description', schemaName })
   if (hasDescription) {
     await DB.none(`
-        update ${tableName}
-        set comments = jsonb_strip_nulls(
-          jsonb_build_object(
-            '${TableNames.extentOfForest}',
-            description,
-            '${TableNames.forestCharacteristics}',
-            description
-          )
-        )
-        where description is not null
-    `)
-    await DB.query(`alter table ${tableName} drop column description`)
+      alter table ${tableName} rename column description to ${commentColumnExtent};
+      alter table ${tableName}
+        alter column ${commentColumnExtent} type text using coalesce(${commentColumnExtent}, ''),
+        alter column ${commentColumnExtent} set default '',
+        alter column ${commentColumnExtent} set not null;`)
+  }
+
+  const hasExtentOfForestComments = await _columnExists({
+    client,
+    columnName: commentColumnExtent,
+    schemaName,
+  })
+
+  if (!hasExtentOfForestComments) {
+    throw new Error(`Column ${commentColumnExtent} not found in ${tableName}`)
+  }
+
+  const hasForestCharacteristicsComments = await _columnExists({
+    client,
+    columnName: commentColumnForestCharacteristics,
+    schemaName,
+  })
+
+  if (!hasForestCharacteristicsComments) {
+    await DB.none(`alter table ${tableName} add column ${commentColumnForestCharacteristics} text default '' not null`)
+    await client.none(`update ${tableName} set ${commentColumnForestCharacteristics} = ${commentColumnExtent}`)
   }
 }
 
+type UpdateActivityLogProps = {
+  client: BaseProtocol
+}
+
+const _updateActivityLog = async (props: UpdateActivityLogProps): Promise<void> => {
+  const { client } = props
+
+  const odpActivityMessagesSql = [
+    ActivityLogMessage.originalDataPointCreate,
+    ActivityLogMessage.originalDataPointRemove,
+    ActivityLogMessage.originalDataPointUpdate,
+    ActivityLogMessage.originalDataPointUpdateCommentExtentOfForest,
+    ActivityLogMessage.originalDataPointUpdateCommentForestCharacteristics,
+    ActivityLogMessage.originalDataPointUpdateDataSources,
+    ActivityLogMessage.originalDataPointUpdateNationalClasses,
+    ActivityLogMessage.originalDataPointUpdateOriginalData,
+    ActivityLogMessage.originalDataPointUpdateYear,
+    'originalDataPointUpdateDescription',
+  ]
+    .map((message) => `'${message}'`)
+    .join(',')
+
+  await client.none(`
+    update public.activity_log al
+    set message = '${ActivityLogMessage.originalDataPointUpdateCommentExtentOfForest}'
+    where al.message = 'originalDataPointUpdateDescription'
+  `)
+
+  await client.none(`
+    update public.activity_log al
+    set target = jsonb_set(
+                  jsonb_set(
+                    coalesce(al.target, '{}'::jsonb) - 'description',
+                    '{comments,${TableNames.extentOfForest}}',
+                    to_jsonb(coalesce(coalesce(al.target, '{}'::jsonb) ->> 'description', '')),
+                    true
+                  ),
+                  '{comments,${TableNames.forestCharacteristics}}',
+                  to_jsonb(coalesce(coalesce(al.target, '{}'::jsonb) ->> 'description', '')),
+                  true
+                )
+    where coalesce(al.target, '{}'::jsonb) ? 'description'
+      and al.message in (${odpActivityMessagesSql})
+  `)
+}
+
 export default async (client: BaseProtocol): Promise<void> => {
+  await _updateActivityLog({ client })
+
   const assessments = await AssessmentController.getAll({}, client)
 
-  await Promises.each(assessments, async (assessment) =>
-    Promises.each(assessment.cycles, async (cycle) => {
+  await Promises.each(assessments, async (assessment) => {
+    if (assessment.props.name === AssessmentNames.panEuropean) return
+    await Promises.each(assessment.cycles, async (cycle) => {
       const schemaName = Schemas.getNameCycle(assessment, cycle)
       await _updateOriginalDataPointTable({ client, schemaName })
     })
-  )
+  })
 }
