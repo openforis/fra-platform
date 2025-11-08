@@ -19,9 +19,9 @@ export const create = async (
 
   return client.one<TableSection>(
     `
-      insert into ${schemaName}.table_section (props, section_id)
+      insert into ${schemaName}.table_section (props, section_uuid)
       values ($1::JSONB, $2) returning *;`,
-    [JSON.stringify(tableSection.props), +tableSection.sectionId],
+    [JSON.stringify(tableSection.props), tableSection.sectionUuid],
     Objects.camelize
   )
 }

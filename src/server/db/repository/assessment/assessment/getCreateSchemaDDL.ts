@@ -36,10 +36,10 @@ create table ${schemaName}.section
 
 create table ${schemaName}.table_section
 (
-    id         bigserial NOT NULL,
-    uuid       uuid  default uuid_generate_v4(),
-    props      jsonb default '{}'::jsonb,
-    section_id bigint   not null references ${schemaName}.section (id) on update cascade on delete cascade,
+    id           bigserial NOT NULL,
+    uuid         uuid default uuid_generate_v4(),
+    props        jsonb default '{}'::jsonb,
+    section_uuid uuid not null references ${schemaName}.section (uuid) on update cascade on delete cascade,
     PRIMARY KEY (id),
     unique(uuid)
 );

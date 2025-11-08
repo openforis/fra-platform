@@ -5,12 +5,13 @@ import { BaseProtocol, DB } from 'server/db/db'
 import { Schemas } from 'server/db/schemas'
 
 // Update table_id to table_uuid for:
-// - assessment_cycle -> assessment
+// - assessment_cycle.assessment_id -> assessment_cycle.assessment_uuid
 // - section.parent_id -> section.parent_uuid
+// - table_section.section_id -> section.section_uuid
 
 const client: BaseProtocol = DB
 export default async (): Promise<void> => {
-  // ====== Public schema
+  // ============= - assessment_cycle.assessment_id -> assessment_cycle.assessment_uuid
 
   // Add new UUIDs column
   await DB.none(`alter table public.assessment_cycle add column if not exists assessment_uuid uuid`)
@@ -42,9 +43,10 @@ export default async (): Promise<void> => {
   const assessments = await CacheController.generateAssessments(client)
 
   // ====== Assessment schema
-  // Same pattern for assessment_{assessmentName}.section.parent_id -> parent_uuid
   await Promises.each(Object.values(assessments), async (assessment) => {
     const schemaName = Schemas.getName(assessment)
+
+    // ============= section.parent_id -> section.parent_uuid
 
     // Add new parent_uuid column
     await client.none(`alter table ${schemaName}.section add column if not exists parent_uuid uuid`)
@@ -69,5 +71,30 @@ export default async (): Promise<void> => {
 
     // Drop deprecated column
     await client.none(`alter table ${schemaName}.section drop column if exists parent_id`)
+
+    // ============= table_section.section_id -> section.section_uuid
+
+    await client.none(`alter table ${schemaName}.table_section add column if not exists section_uuid uuid`)
+
+    await client.none(`
+      update ${schemaName}.table_section ts
+        set section_uuid = s.uuid
+      from ${schemaName}.section s
+      where ts.section_id = s.id
+    `)
+
+    await client.none(`
+      alter table ${schemaName}.table_section
+        alter column section_uuid set not null,
+        add constraint table_section_section_uuid_fk
+          foreign key (section_uuid)
+          references ${schemaName}.section (uuid)
+          on update cascade
+          on delete cascade
+    `)
+
+    await client.none(`alter table ${schemaName}.table_section drop column if exists section_id`)
+
+    await CacheController.generateMetadata({ assessment }, client)
   })
 }

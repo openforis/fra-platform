@@ -5,9 +5,10 @@ import { UserController } from 'server/controller/user'
 import { assessmentParams } from 'test/integration/mock/assessment'
 import { tableSectionParams } from 'test/integration/mock/tableSection'
 import { userMockTest } from 'test/integration/mock/user'
+import { testContext } from 'test/integration/testContext'
 
 // test create table section
-export default () =>
+export default (): void =>
   test('Expect table section to be created', async () => {
     const user = await UserController.getOne({
       email: userMockTest.email,
@@ -17,10 +18,13 @@ export default () =>
       assessmentName: assessmentParams.props.name,
     })
 
+    const { section: parentSection } = testContext
+    expect(parentSection?.uuid).toBeTruthy()
+
     const tableSection = await MetadataController.createTableSection({
       assessment,
       user,
-      tableSection: tableSectionParams,
+      tableSection: { ...tableSectionParams, sectionUuid: parentSection.uuid },
     })
 
     expect(tableSection).toHaveProperty('id')
@@ -28,7 +32,7 @@ export default () =>
     expect(tableSection).toHaveProperty('uuid')
     expect(tableSection.uuid).toBeTruthy()
 
-    expect(tableSection).toHaveProperty('sectionId')
+    expect(tableSection).toHaveProperty('sectionUuid')
     expect(tableSection).toHaveProperty('props.descriptions')
-    expect(+tableSection.sectionId).toBe(tableSectionParams.sectionId)
+    expect(tableSection.sectionUuid).toBe(parentSection.uuid)
   })
