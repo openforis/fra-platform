@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { Files } from 'meta/file/files'
 import { Authorizer } from 'meta/user'
 
@@ -46,7 +46,7 @@ const ExcelCalculatorDownload: React.FC = () => {
 
   return (
     <div className="no-print">
-      <select className="select-s" onChange={(e) => setSelectedDomain(e.target.value)} value={selectedDomain}>
+      <select className="select-s" onChange={(e): void => setSelectedDomain(e.target.value)} value={selectedDomain}>
         {domains.map((domain) => (
           <option key={domain} value={domain}>
             {t(`climaticDomain.${domain}`)}

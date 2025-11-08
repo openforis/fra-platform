@@ -1,6 +1,6 @@
 import { createI18nPromise } from 'i18n/i18nFactory'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { AssessmentName } from 'meta/assessment/assessment'
 import { Assessments } from 'meta/assessment/assessments'
 import { CycleName } from 'meta/assessment/cycle'
@@ -19,7 +19,7 @@ export const userNotifyAcceptedInvitation = async (props: {
   invitedUser: User
   invitedUserRole: UserRole<RoleName>
   recipient: User
-}) => {
+}): Promise<void> => {
   const { assessmentName, countryIso, cycleName, invitedUser, invitedUserRole, recipient } = props
 
   const url = ProcessEnv.appUri

@@ -1,13 +1,13 @@
 import { useEffect } from 'react'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 
 import { useAppDispatch } from 'client/store/hooks'
 import { MetaActions } from 'client/store/meta/actions'
 import { useTableSections } from 'client/store/meta/hooks/tableSections'
 import { useSectionRouteParams } from 'client/hooks/routeParams'
 
-export const useGetTableSections = () => {
+export const useGetTableSections = (): void => {
   const dispatch = useAppDispatch()
   const { assessmentName, countryIso, cycleName, sectionName } = useSectionRouteParams<CountryIso>()
   const tableSections = useTableSections({ sectionName })

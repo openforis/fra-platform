@@ -23,6 +23,8 @@
   "countries": "Страны",
   "country": "Страна",
   "csvAllTables": "CSV все таблицы",
+  "csvDisclaimer": "Оговорка",
+  "csvDisclaimerText": "Этот отчет был опубликован как часть {{assessmentName}} {{cycleName}} и обновлен в {{month}}/{{year}}",
   "custom": "Настроить",
   "cycleLabel": "$t({{assessmentName}}.labels.short)–{{cycleName}}",
   "dashboard": "Панель управления",

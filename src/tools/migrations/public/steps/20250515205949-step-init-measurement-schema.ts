@@ -3,15 +3,15 @@ import { Objects } from 'utils/objects'
 import { SystemOfMeasurementName, systemsOfMeasurement } from 'meta/measurement/systemOfMeasurement'
 import { UUID } from 'meta/uuid'
 
-import { BaseProtocol, DB } from 'server/db'
-import { SystemOfMeasurementRepository } from 'server/repository/measurement/systemOfMeasurement'
-import { UnitRepository } from 'server/repository/measurement/unit'
-import { DDL } from 'server/repository/public/ddl'
+import { BaseProtocol, DB } from 'server/db/db'
+import { SystemOfMeasurementRepository } from 'server/db/repository/measurement/systemOfMeasurement'
+import { UnitRepository } from 'server/db/repository/measurement/unit'
+import { DDL } from 'server/db/repository/public/ddl'
 import { Logger } from 'server/utils/logger'
 
 const client: BaseProtocol = DB
 
-export default async () => {
+export default async (): Promise<void> => {
   // 0. Avoid re-running
   const { exists } = await client.one<{ exists: boolean }>(
     `select exists(select 1 from information_schema.schemata where schema_name = 'measurement') as exists;`

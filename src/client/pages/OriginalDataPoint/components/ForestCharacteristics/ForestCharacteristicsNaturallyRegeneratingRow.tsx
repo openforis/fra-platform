@@ -11,7 +11,7 @@ import { Topics } from 'meta/messageCenter'
 import { TooltipId } from 'meta/tooltip'
 
 import DiffText from 'client/components/DiffText'
-import PercentInput from 'client/components/PercentInput'
+import InputPercent from 'client/components/Inputs/InputPercent'
 import ReviewIndicator from 'client/components/ReviewIndicator'
 import { useODPDisplayHistory } from 'client/pages/OriginalDataPoint/components/hooks/useODPDisplayHistory'
 import { Columns, useOnPaste } from 'client/pages/OriginalDataPoint/components/hooks/useOnPaste'
@@ -40,7 +40,7 @@ const ForestCharacteristicsNaturallyRegeneratingRow: React.FC<Props> = (props) =
   const { id, nationalClasses } = originalDataPoint
   const nationalClass = nationalClasses[index]
   const { forestNaturalForestOfWhichPrimaryForestPercent, name, uuid } = nationalClass
-  const target = [id, 'class', `${uuid}`, 'naturally_regenerating_forest_of_which_primary_forest'] as string[]
+  const target = [id, 'class', `${uuid}`, 'naturally_regenerating_forest_of_which_primary_forest'] as Array<string>
   const classNameRowComments = useNationalClassNameComments(target)
 
   const ofWhichPrimary = ODPs.calculateNationalClassNaturalForestPercentArea(nationalClass)
@@ -88,9 +88,7 @@ const ForestCharacteristicsNaturallyRegeneratingRow: React.FC<Props> = (props) =
         {displayHistory ? <DiffText changes={changes?.naturalForestPercentArea} /> : Numbers.format(ofWhichPrimary)}
       </th>
       <td
-        className={classNames(`fra-table__cell`, {
-          error: Boolean(validationErrorMessage),
-        })}
+        className={classNames(`fra-table__cell`, { 'validation-error': Boolean(validationErrorMessage) })}
         data-tooltip-content={validationErrorMessage}
         data-tooltip-id={TooltipId.error}
       >
@@ -100,18 +98,18 @@ const ForestCharacteristicsNaturallyRegeneratingRow: React.FC<Props> = (props) =
             <span>%</span>
           </div>
         ) : (
-          <PercentInput
+          <InputPercent
             disabled={!canEditData || isZeroOrNullPrimaryForest}
-            numberValue={isZeroOrNullPrimaryForest ? 0 : forestNaturalForestOfWhichPrimaryForestPercent}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+            onChange={(event): void => {
               const { value } = event.target
               const updateProps = { field: columns[0].name, index, precision: columns[0].precision, value }
               updateOriginalDataField(updateProps)
             }}
-            onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
+            onPaste={(event): void => {
               const odp = _onPaste({ event, colIndex: 0 })
               updateOriginalData(odp)
             }}
+            value={isZeroOrNullPrimaryForest ? 0 : forestNaturalForestOfWhichPrimaryForestPercent}
           />
         )}
       </td>

@@ -1,7 +1,7 @@
 import { UserProfilePicture } from 'meta/user/userProfilePicture'
 
-import { BaseProtocol, DB } from 'server/db'
-import { UserRepository } from 'server/repository/public/user'
+import { BaseProtocol, DB } from 'server/db/db'
+import { UserRepository } from 'server/db/repository/public/user'
 import { FileStorage } from 'server/service/fileStorage'
 
 export const getProfilePicture = async (

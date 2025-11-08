@@ -1,11 +1,8 @@
 import './TitleExcelCalculator.scss'
 import React from 'react'
-import { useTranslation } from 'react-i18next'
 
-import { Labels } from 'meta/assessment/labels'
-
-import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useIsPrintRoute } from 'client/hooks/routes'
+import { TitleDefault } from 'client/pages/Section/Title/Components'
 
 import { Props } from '../props'
 import ExcelCalculatorDownload from './ExcelCalculatorDownload'
@@ -13,12 +10,11 @@ import ExcelCalculatorDownload from './ExcelCalculatorDownload'
 const TitleExcelCalculator: React.FC<Props> = (props) => {
   const { subSection } = props
   const { print } = useIsPrintRoute()
-  const { t } = useTranslation()
-  const cycle = useCycle()
 
   return (
     <div className="title-with-excel-calculator">
-      <h2 className="headline no-print">{Labels.getCycleLabel({ cycle, labels: subSection.props.labels, t })}</h2>
+      <TitleDefault subSection={subSection} />
+
       {!print && <ExcelCalculatorDownload />}
     </div>
   )

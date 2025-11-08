@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { NodeValue } from 'meta/assessment/node'
 
 import { NodeValuesActions } from 'client/store/data/tableData/nodeValues/actions'
@@ -14,7 +14,9 @@ import useGetAffectedNodes from 'client/pages/Section/DataTable/Table/RowData/Ce
 
 import { Props } from './types'
 
-const useDisableAffectedNodes = (props: Props) => {
+type Returned = (value: NodeValue) => void
+
+const useDisableAffectedNodes = (props: Props): Returned => {
   const { col, row, sectionName, table } = props
 
   const { colName } = col.props

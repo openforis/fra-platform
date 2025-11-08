@@ -2,12 +2,12 @@ import '../../scriptInit'
 
 import { Promises } from 'utils/promises'
 
+import { DB } from 'server/db/db'
 import { VisitCycleLinksQueueFactory } from 'server/controller/cycleData/links/visitCycleLinks/queueFactory'
 import { WorkerFactory as VisitLinksWorkerFactory } from 'server/controller/cycleData/links/visitCycleLinks/workerFactory'
 import { UpdateDependenciesQueueFactory } from 'server/controller/cycleData/updateDependencies/queueFactory'
 import { WorkerFactory } from 'server/controller/cycleData/updateDependencies/workerFactory'
-import { DB } from 'server/db'
-import { RedisData } from 'server/repository/redis/redisData'
+import { RedisData } from 'server/cache/repository/redisData'
 import { Logger } from 'server/utils/logger'
 
 import { getMigrationFiles } from './utils'
@@ -30,7 +30,7 @@ const tableDDL = `
     end $$;
 `
 
-const _writeStep = async (fileName: string) => {
+const _writeStep = async (fileName: string): Promise<void> => {
   executedMigrations.push(fileName)
 
   const isWatch = process.argv.includes('--watch')
@@ -41,13 +41,13 @@ const _writeStep = async (fileName: string) => {
   if (shouldWrite) await client.query('insert into migrations.steps (name) values ($1)', [fileName])
 }
 
-const init = async () => {
+const init = async (): Promise<void> => {
   await client.query(tableDDL)
   previousMigrations = await client.map('select * from migrations.steps', [], (row) => row.name)
   migrationSteps = getMigrationFiles(true).filter((file) => !previousMigrations.includes(file))
 }
 
-const close = async () => {
+const close = async (): Promise<void> => {
   // quick and dirty workaround to close redis connection after running integration tests
   // TODO: find a better strategy to handle Redis connections
   UpdateDependenciesQueueFactory.connection.quit()
@@ -58,7 +58,7 @@ const close = async () => {
   RedisData.getInstance().quit()
 }
 
-const exec = async () => {
+const exec = async (): Promise<void> => {
   await init()
 
   await Promises.each(migrationSteps, async (file) => {

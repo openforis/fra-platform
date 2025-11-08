@@ -6,7 +6,7 @@ import { useAppDispatch } from 'client/store/hooks'
 import { CountryReportActions } from 'client/store/ui/countryReport/actions'
 import { useCountryIso } from 'client/hooks/country'
 import { useIsPrintRoute } from 'client/hooks/routes'
-import { Breakpoints } from 'client/utils'
+import { Breakpoints } from 'client/utils/breakpoints'
 
 import NavigationDesktop from './NavigationDesktop'
 import NavigationMobile from './NavigationMobile'

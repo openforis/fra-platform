@@ -1,13 +1,13 @@
-import { Country } from 'meta/area'
+import { Country } from 'meta/area/country'
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { CommentableDescriptionName, CommentableDescriptionValue } from 'meta/assessment/descriptionValue'
 import { User } from 'meta/user'
 
-import { BaseProtocol, DB } from 'server/db'
-import { DescriptionRepository } from 'server/repository/assessmentCycle/descriptions'
-import { ActivityLogRepository } from 'server/repository/public/activityLog'
+import { BaseProtocol, DB } from 'server/db/db'
+import { DescriptionRepository } from 'server/db/repository/assessmentCycle/descriptions'
+import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 import { CountryService } from 'server/service/country'
 
 type Props = {

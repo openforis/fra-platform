@@ -1,7 +1,7 @@
 // @ts-ignore
 import { Image } from '@google/earthengine'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 
 import { AssetsController } from 'server/controller/geo/assets'
 

@@ -1,15 +1,9 @@
 // Validation
 
-@mixin mixin-validation-error(){
+@mixin mixin-validation-error() {
   background-color: rgba($ui-destructive, 0.1) !important;
 }
 
 .validation-error {
   background-color: rgba($ui-destructive, 0.1) !important;
-}
-
-.error {
-  .validation-error-sensitive-field {
-  @include mixin-validation-error;
-  }
 }

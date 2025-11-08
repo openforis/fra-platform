@@ -5,8 +5,9 @@ import { AssessmentNames } from 'meta/assessment/assessment'
 import { TableNames } from 'meta/assessment/table'
 
 import { AssessmentController } from 'server/controller/assessment'
-import { BaseProtocol, DB, Schemas } from 'server/db'
-import { ODPCommentColumns } from 'server/repository/assessmentCycle/originalDataPoint/commentColumns'
+import { BaseProtocol, DB } from 'server/db/db'
+import { ODPCommentColumns } from 'server/db/repository/assessmentCycle/originalDataPoint/commentColumns'
+import { Schemas } from 'server/db/schemas'
 
 const TABLE = 'original_data_point'
 

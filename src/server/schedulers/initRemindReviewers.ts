@@ -2,7 +2,7 @@ import { Queue, Worker } from 'bullmq'
 import IORedis from 'ioredis'
 
 import { AssessmentController } from 'server/controller/assessment'
-import { BaseProtocol, DB } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
 import { MailService } from 'server/service'
 import { Logger } from 'server/utils/logger'
 

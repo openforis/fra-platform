@@ -1,6 +1,6 @@
 import { Response } from 'express'
 
-import { BaseProtocol, DB } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
 import Requests from 'server/utils/requests'
 
 import { queryToCsvStream, QueryToCsvStreamProps } from './queryToCsvStream'
@@ -13,7 +13,7 @@ type Props<QueryResultRow> = QueryToCsvStreamProps<QueryResultRow> & {
 export const queryToCsvResponseStream = async <QueryResultRow>(
   props: Props<QueryResultRow>,
   client: BaseProtocol = DB
-) => {
+): Promise<void> => {
   const { fileName, query, queryParams, res, rowTransformer } = props
 
   res.setHeader('Content-Disposition', `attachment; filename="${fileName}"`)

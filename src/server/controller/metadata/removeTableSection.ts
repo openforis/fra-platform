@@ -3,9 +3,9 @@ import { Assessment } from 'meta/assessment/assessment'
 import { TableSection } from 'meta/assessment/tableSection'
 import { User } from 'meta/user'
 
-import { BaseProtocol, DB } from 'server/db'
-import { TableSectionRepository } from 'server/repository/assessment/tableSection'
-import { ActivityLogRepository } from 'server/repository/public/activityLog'
+import { BaseProtocol, DB } from 'server/db/db'
+import { TableSectionRepository } from 'server/db/repository/assessment/tableSection'
+import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 
 // Controller to remove TableSection
 export const removeTableSection = async (

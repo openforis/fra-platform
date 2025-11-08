@@ -1,14 +1,14 @@
 import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { Table } from 'meta/assessment/table'
 
 import { NodeValuesActions } from 'client/store/data/tableData/nodeValues/actions'
 import { useAppDispatch } from 'client/store/hooks'
 import { useIsDataLocked } from 'client/store/ui/countryReport/hooks/datalock'
-import { useIsPrintRoute } from 'client/hooks/routes'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
+import { useIsPrintRoute } from 'client/hooks/routes'
 import Button, { ButtonType } from 'client/components/Buttons/Button'
 
 type Props = {

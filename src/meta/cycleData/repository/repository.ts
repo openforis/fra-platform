@@ -1,4 +1,4 @@
-import { AreaCode } from 'meta/area'
+import { AreaCode } from 'meta/area/areaCode'
 import { Translation } from 'meta/translation'
 
 export interface RepositoryItemProps {

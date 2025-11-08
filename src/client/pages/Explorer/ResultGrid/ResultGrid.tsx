@@ -4,7 +4,7 @@ import React from 'react'
 import classNames from 'classnames'
 import { Objects } from 'utils/objects'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { Axis, AxisType } from 'meta/explorer/selection'
 
 import { useGetExplorerSectionData } from 'client/store/explorer/data/hooks/data'

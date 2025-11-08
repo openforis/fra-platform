@@ -1,10 +1,11 @@
-import { Country, CountryStatus } from 'meta/area'
+import { Country } from 'meta/area/country'
+import { CountryStatus } from 'meta/area/countryStatus'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { User } from 'meta/user'
 
 import { AreaController } from 'server/controller/area'
-import { BaseProtocol, DB } from 'server/db'
+import { BaseProtocol, DB } from 'server/db/db'
 
 type Props = {
   assessment: Assessment
@@ -17,7 +18,7 @@ type Props = {
   lastUpdateTimestamp?: string
 }
 
-export const updateLastEdit = async (props: Props, client: BaseProtocol = DB) => {
+export const updateLastEdit = async (props: Props, client: BaseProtocol = DB): Promise<void> => {
   const { assessment, country, cycle, lastEditOdp, lastUpdateTimestamp, notifyClient = true, user } = props
 
   if (!country) return

@@ -47,8 +47,6 @@ jobs:
 
       - name: Build and start containers
         run: docker compose -f src/test/e2e/docker-compose.test.yml up -d
-        env:
-          NPM_GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
 
       - name: Wait for services to be ready
         run: |
@@ -65,16 +63,12 @@ jobs:
 
       - name: Run unit and integration tests
         run: docker compose -f src/test/e2e/docker-compose.test.yml exec -T web yarn test
-        env:
-          NPM_GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
 
       - name: Run E2E tests
         if: always()
         run: |
           docker compose -f src/test/e2e/docker-compose.test.yml run \
             playwright npm run test:e2e
-        env:
-          NPM_GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
 
       - name: Zip test results
         if: always()

@@ -1,13 +1,13 @@
 import { Objects } from 'utils/objects'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { DescriptionCountryValues } from 'meta/assessment/descriptionValue'
 
 import { getInfo } from 'server/controller/cycleData/history/lastApproved'
-import { BaseProtocol, DB } from 'server/db'
-import { DescriptionRepository } from 'server/repository/assessmentCycle/descriptions'
+import { BaseProtocol, DB } from 'server/db/db'
+import { DescriptionRepository } from 'server/db/repository/assessmentCycle/descriptions'
 
 type Props = {
   assessment: Assessment

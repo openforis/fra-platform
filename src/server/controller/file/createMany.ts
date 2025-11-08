@@ -4,9 +4,9 @@ import { Cycle } from 'meta/assessment/cycle'
 import { FileSummary } from 'meta/file'
 import { User } from 'meta/user'
 
-import { BaseProtocol, DB } from 'server/db'
-import { ActivityLogRepository } from 'server/repository/public/activityLog'
-import { FileRepository } from 'server/repository/public/file'
+import { BaseProtocol, DB } from 'server/db/db'
+import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
+import { FileRepository } from 'server/db/repository/public/file'
 import { FileStorage } from 'server/service/fileStorage'
 
 type Props = {

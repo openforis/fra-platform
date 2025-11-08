@@ -1,4 +1,4 @@
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { MessageTopic, MessageTopicType } from 'meta/messageCenter'
 import { Sockets } from 'meta/socket'
 

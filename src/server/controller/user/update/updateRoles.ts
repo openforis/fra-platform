@@ -1,9 +1,9 @@
 import { ActivityLog, ActivityLogMessage } from 'meta/assessment/activityLog'
 import { User, Users } from 'meta/user'
 
-import { BaseProtocol } from 'server/db'
-import { ActivityLogRepository } from 'server/repository/public/activityLog'
-import { UserRoleRepository } from 'server/repository/public/userRole'
+import { BaseProtocol } from 'server/db/db'
+import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
+import { UserRoleRepository } from 'server/db/repository/public/userRole'
 
 import { Props } from './props'
 

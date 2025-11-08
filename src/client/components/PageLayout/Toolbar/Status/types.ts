@@ -1,4 +1,4 @@
-import { CountryStatus } from 'meta/area'
+import { CountryStatus } from 'meta/area/countryStatus'
 
 export interface StatusTransition {
   status: CountryStatus

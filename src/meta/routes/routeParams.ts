@@ -1,4 +1,5 @@
-import { AreaCode, CountryIso } from 'meta/area'
+import { AreaCode } from 'meta/area/areaCode'
+import { CountryIso } from 'meta/area/countryIso'
 import { AssessmentName } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
 import { SectionName } from 'meta/assessment/section'

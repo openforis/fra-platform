@@ -56,6 +56,7 @@ const AdminLinks: React.FC = () => {
   return (
     <TablePaginated
       columns={columns}
+      export
       extraActions={extraActions}
       filters={filters}
       gridTemplateColumns="2fr minmax(min-content, 1fr) minmax(264px, 1fr)" // 264px: Location width with padding

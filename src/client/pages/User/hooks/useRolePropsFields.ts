@@ -3,7 +3,8 @@ import { useTranslation } from 'react-i18next'
 
 import { Objects } from 'utils/objects'
 
-import { Areas, CountryIso } from 'meta/area'
+import { Areas } from 'meta/area/areas'
+import { CountryIso } from 'meta/area/countryIso'
 import { UserEditCountryForm } from 'meta/form/userEdit/form'
 import { Authorizer, RoleName, User, Users } from 'meta/user'
 import { UserContactPreferenceMethod, UserContactPreferencePhoneOption, UserRoleExtended } from 'meta/user/userRole'
@@ -27,6 +28,7 @@ export const useRolePropsFields = (props: PropsFormDefinition): FormDefinition['
   return useMemo<FormDefinition['fields']>(() => {
     if (Objects.isNil(targetUser)) return []
 
+    const isTargetUserAdmin = Users.isAdministrator(targetUser)
     const isCountryPage = Areas.isISOCountry(countryIso)
     const role = Users.getRole(targetUser, countryIso, cycle) as UserRoleExtended<RoleName>
     const rolesAllowedToEdit = Users.getRolesAllowedToEdit({ user, countryIso, cycle })
@@ -50,6 +52,8 @@ export const useRolePropsFields = (props: PropsFormDefinition): FormDefinition['
     }
 
     const shouldShowRoleName = (): boolean => {
+      // If the target user is admin, don't show dropdown for the user role
+      if (isTargetUserAdmin) return false
       return isCountryPage && Authorizer.canEditUserRoleName({ cycle, countryIso, target: targetUser, user })
     }
 

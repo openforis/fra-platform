@@ -1,6 +1,6 @@
 import { addCountryRegionLabels } from 'tools/addCountryRegionLabels/addCountryRegionLabels'
 
-import { DB } from 'server/db'
+import { DB } from 'server/db/db'
 
 const _updateDDL = async (): Promise<void> => {
   // Update public.country/region tables

@@ -3,7 +3,7 @@ import React, { useCallback } from 'react'
 
 import classNames from 'classnames'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { MessageTopicStatus, MessageTopicType } from 'meta/messageCenter'
 
 import { useAppDispatch } from 'client/store/hooks'
@@ -18,7 +18,7 @@ type Props = {
   topicKey: string
 }
 
-const ReviewIndicator = (props: Props) => {
+const ReviewIndicator: React.FC = (props: Props) => {
   const { subtitle, title, topicKey } = props
 
   const dispatch = useAppDispatch()

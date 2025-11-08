@@ -3,8 +3,8 @@ import { Cycle } from 'meta/assessment/cycle'
 import { MessageTopic } from 'meta/messageCenter'
 import { User } from 'meta/user'
 
-import { BaseProtocol, DB } from 'server/db'
-import { MessageTopicUserRepository } from 'server/repository/assessmentCycle/messageTopicUser'
+import { BaseProtocol, DB } from 'server/db/db'
+import { MessageTopicUserRepository } from 'server/db/repository/assessmentCycle/messageTopicUser'
 
 export const updateTopicReadTime = async (
   props: {

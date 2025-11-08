@@ -5,7 +5,7 @@ import { Sockets } from 'meta/socket'
 
 import { updateExternalDependents } from 'server/controller/cycleData/updateDependencies/updateExternalDependents'
 import worker from 'server/controller/cycleData/updateDependencies/worker'
-import { BaseProtocol } from 'server/db'
+import { BaseProtocol } from 'server/db/db'
 import { SocketServer } from 'server/service/socket'
 import { Logger } from 'server/utils/logger'
 

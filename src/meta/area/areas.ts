@@ -1,7 +1,16 @@
-import { AreaCode, Country, CountryIso, Global, RegionCode } from 'meta/area'
+import { Dates } from 'utils/dates'
+
+import { AreaCode } from 'meta/area/areaCode'
+import { Country } from 'meta/area/country'
+import { CountryIso } from 'meta/area/countryIso'
+import { CountryStatus } from 'meta/area/countryStatus'
+import { fraRegionCodes } from 'meta/area/fraRegionCodes'
+import { Global } from 'meta/area/global'
 import { Region } from 'meta/area/region'
-import { fraRegionCodes } from 'meta/area/regionCode'
-import { CountryStatus } from 'meta/area/status'
+import { RegionCode } from 'meta/area/regionCode'
+import { Assessment } from 'meta/assessment/assessment'
+import { Assessments } from 'meta/assessment/assessments'
+import { Cycle } from 'meta/assessment/cycle'
 import { Lang } from 'meta/lang'
 
 const getCountryBackgroundImg = (isoCode: AreaCode): string =>
@@ -38,15 +47,46 @@ const getCompareListName = <T extends Country | Region>(area1: T, area2: T, lang
   return _getSortIndex(area1, lang) - _getSortIndex(area2, lang)
 }
 
+const isPublishedAfterLastPublishedCycle = (props: { assessment?: Assessment; country?: Country }): boolean => {
+  const { assessment, country } = props
+
+  if (!assessment || !country?.lastPublishedInfo?.lastPublished) return false
+
+  const lastPublishedCycle = Assessments.getLastPublishedCycle(assessment)
+  const { datePublished } = lastPublishedCycle?.props ?? {}
+
+  if (!datePublished) return false
+
+  const countryDate = Dates.parseISO(country.lastPublishedInfo.lastPublished)
+  const cycleDate = Dates.parseISO(datePublished)
+
+  return Dates.isAfter(countryDate, cycleDate)
+}
+
+const hasVoluntaryUpdates = (props: { country: Country; cycle: Cycle }): boolean => {
+  const { country, cycle } = props
+
+  if (!country?.lastPublishedInfo.lastPublished || !cycle.props.datePublished) {
+    return false
+  }
+
+  return Dates.isAfter(
+    Dates.parseISO(country.lastPublishedInfo.lastPublished),
+    Dates.parseISO(cycle.props.datePublished)
+  )
+}
+
 export const Areas = {
   getCompareListName,
   getCountryBackgroundImg,
   getStatus,
   getTranslationKey,
+  hasVoluntaryUpdates,
   isAtlantis,
   isFRARegion,
   isGlobal,
   isISOCountry,
   isISOGlobal,
+  isPublishedAfterLastPublishedCycle,
   isRegion,
 }

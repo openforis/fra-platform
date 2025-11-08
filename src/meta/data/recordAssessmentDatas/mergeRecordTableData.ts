@@ -1,6 +1,6 @@
 import { Objects } from 'utils/objects'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { RecordCountryData } from 'meta/data/RecordAssessmentData'
 
 export const mergeRecordTableData = (data: RecordCountryData, newData: RecordCountryData): RecordCountryData => {

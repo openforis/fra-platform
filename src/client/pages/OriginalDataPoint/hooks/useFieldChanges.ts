@@ -8,7 +8,7 @@ import { Objects } from 'utils/objects'
 
 import { useLastApprovedOriginalDataPoint } from 'client/store/data/history/hooks/lastApprovedOriginalDataPoint'
 import { ODPDiffTextProps } from 'client/pages/OriginalDataPoint/components/ODPDiffText/types'
-import { DOMs } from 'client/utils/dom'
+import { DOMs } from 'client/utils/doms'
 
 type Returned = Array<Change>
 

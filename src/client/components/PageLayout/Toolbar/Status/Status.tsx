@@ -5,7 +5,7 @@ import MediaQuery from 'react-responsive'
 
 import { Objects } from 'utils/objects'
 
-import { Areas } from 'meta/area'
+import { Areas } from 'meta/area/areas'
 
 import { useAssessmentCountry } from 'client/store/area/hooks/country'
 import Icon from 'client/components/Icon'
@@ -27,7 +27,7 @@ const Status: React.FC = () => {
 
   return (
     <>
-      {targetStatus && <StatusConfirm onClose={() => setTargetStatus(null)} status={targetStatus} />}
+      {targetStatus && <StatusConfirm onClose={(): void => setTargetStatus(null)} status={targetStatus} />}
       <MediaQuery maxWidth={Breakpoints.laptop - 1}>
         <div className={`nav-header__status status-${status}`}>
           <span>{t<string>(`assessment.status.${status}.label`)}</span>

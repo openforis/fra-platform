@@ -1,7 +1,7 @@
 import React, { Suspense, useMemo } from 'react'
 import { createRoutesFromElements, Navigate, Route, RouteObject } from 'react-router-dom'
 
-import { RegionCode } from 'meta/area'
+import { RegionCode } from 'meta/area/regionCode'
 import { Routes } from 'meta/routes/routes'
 
 import PageLayout from 'client/components/PageLayout'

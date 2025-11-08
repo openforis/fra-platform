@@ -7,8 +7,9 @@ import { Promises } from 'utils/promises'
 import { Link } from 'meta/cycleData'
 import { FileSummary } from 'meta/file'
 
+import { DB } from 'server/db/db'
+import { Schemas } from 'server/db/schemas'
 import { AssessmentController } from 'server/controller/assessment'
-import { DB, Schemas } from 'server/db'
 import { FileStorage } from 'server/service/fileStorage'
 import { ProcessEnv } from 'server/utils'
 import { Logger } from 'server/utils/logger'
@@ -27,7 +28,7 @@ const TEST_LINKS = false
 const BATCH_SIZE = 25
 
 // eslint-disable-next-line no-promise-executor-return
-const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
+const sleep = (ms: number): Promise<unknown> => new Promise((resolve) => setTimeout(resolve, ms))
 
 const _allFilesExist = async (files: Array<FileSummary>): Promise<boolean> => {
   if (!TEST_S3_FILES) return true

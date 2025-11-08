@@ -1,6 +1,7 @@
 import { Promises } from 'utils/promises'
 
-import { Country, CountryIso } from 'meta/area'
+import { Country } from 'meta/area/country'
+import { CountryIso } from 'meta/area/countryIso'
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
@@ -11,12 +12,12 @@ import { TableName } from 'meta/assessment/table'
 import { NodeUpdate } from 'meta/data'
 import { User } from 'meta/user'
 
+import { DataRedisRepository } from 'server/cache/repository/data'
+import { RowRedisRepository } from 'server/cache/repository/row'
 import { updateTableDataDependencies } from 'server/controller/cycleData/tableData/updateTableDataDependencies'
-import { DB } from 'server/db'
-import { NodeDb, NodeRepository } from 'server/repository/assessmentCycle/node'
-import { ActivityLogDb, ActivityLogRepository } from 'server/repository/public/activityLog'
-import { DataRedisRepository } from 'server/repository/redis/data'
-import { RowRedisRepository } from 'server/repository/redis/row'
+import { DB } from 'server/db/db'
+import { NodeDb, NodeRepository } from 'server/db/repository/assessmentCycle/node'
+import { ActivityLogDb, ActivityLogRepository } from 'server/db/repository/public/activityLog'
 
 type Props = {
   assessment: Assessment

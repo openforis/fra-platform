@@ -17,6 +17,7 @@ components:
       schema:
         type: string
         enum: ["2020", "2025", "latest"]
+        example: 2025
 
     countryIso:
       name: countryIso

@@ -1,0 +1,28 @@
+import { Objects } from 'utils/objects'
+
+import { Assessment } from 'meta/assessment/assessment'
+import { TableSection } from 'meta/assessment/tableSection'
+
+import { BaseProtocol, DB } from 'server/db/db'
+import { Schemas } from 'server/db/schemas'
+
+// Update table_section in database
+export const update = async (
+  params: {
+    tableSection: TableSection
+    assessment: Assessment
+  },
+  client: BaseProtocol = DB
+): Promise<TableSection> => {
+  const { assessment, tableSection } = params
+  const schemaName = Schemas.getName(assessment)
+
+  return client.one<TableSection>(
+    `
+      update ${schemaName}.table_section
+      set props = $1::jsonb, section_id = $2
+      where id = $3 returning *;`,
+    [JSON.stringify(tableSection.props), +tableSection.sectionId, +tableSection.id],
+    Objects.camelize
+  )
+}

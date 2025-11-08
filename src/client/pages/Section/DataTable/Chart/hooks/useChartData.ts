@@ -2,13 +2,13 @@ import { useMemo } from 'react'
 
 import { Objects } from 'utils/objects'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { Table } from 'meta/assessment/table'
 import { RecordAssessmentData, RecordAssessmentDatas, RecordColumnData } from 'meta/data'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
-import { useIsPrintRoute } from 'client/hooks/routes'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
+import { useIsPrintRoute } from 'client/hooks/routes'
 import { RecordTrendData, TrendDatum, Trends, TrendsYears } from 'client/pages/Section/DataTable/Chart/types'
 
 type Props = {

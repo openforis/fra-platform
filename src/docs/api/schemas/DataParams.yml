@@ -1,0 +1,40 @@
+components:
+  parameters:
+    columns:
+      name: columns[]
+      in: query
+      description: Array of columns to retrieve. For example, ["1990", "2000"].
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+        example: [ "1990", "2000" ]
+      style: form
+      explode: true
+
+    countryISOs:
+      name: countryISOs[]
+      in: query
+      description: Array of country ISO codes. For example, ["FIN", "ITA"].
+      required: true
+      schema:
+        type: array
+        items:
+          type: string
+        example: [ "FIN", "ITA" ]
+      style: form
+      explode: true
+
+    variables:
+      name: variables[]
+      in: query
+      description: Array of variable names to retrieve. For example, ["forestArea", "otherWoodedLand"].
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+        example: [ "forestArea", "otherWoodedLand" ]
+      style: form
+      explode: true

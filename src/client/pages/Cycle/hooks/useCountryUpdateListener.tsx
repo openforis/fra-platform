@@ -1,12 +1,13 @@
 import { useEffect } from 'react'
 
-import { Country, CountryIso } from 'meta/area'
+import { Country } from 'meta/area/country'
+import { CountryIso } from 'meta/area/countryIso'
 import { Sockets } from 'meta/socket'
 
 import { AreaActions } from 'client/store/area/actions'
 import { useAppDispatch } from 'client/store/hooks'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
-import { SocketClient } from 'client/service/socket'
+import { SocketClient } from 'client/service/socket/client'
 
 export const useCountryUpdateListener = (): void => {
   const dispatch = useAppDispatch()

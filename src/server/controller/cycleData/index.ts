@@ -4,10 +4,9 @@ import { deleteOriginalDataPointNationalClass } from 'server/controller/cycleDat
 import { Report } from 'server/controller/cycleData/report'
 import { Repository } from 'server/controller/cycleData/repository'
 import { TableData } from 'server/controller/cycleData/tableData'
-import { CountryActivityLogRepository } from 'server/repository/assessmentCycle/countryActivityLog'
-import { CountrySummaryRepository } from 'server/repository/assessmentCycle/countrySummary'
-import { MessageTopicUserRepository } from 'server/repository/assessmentCycle/messageTopicUser'
-import { OriginalDataPointRepository } from 'server/repository/assessmentCycle/originalDataPoint'
+import { CountryActivityLogRepository } from 'server/db/repository/assessmentCycle/countryActivityLog'
+import { MessageTopicUserRepository } from 'server/db/repository/assessmentCycle/messageTopicUser'
+import { OriginalDataPointRepository } from 'server/db/repository/assessmentCycle/originalDataPoint'
 
 import { copyOriginalDataPointNationalClasses } from './originalDataPoint/copyOriginalDataPointNationalClasses'
 import { createOriginalDataPoint } from './originalDataPoint/createOriginalDataPoint'
@@ -48,7 +47,6 @@ export const CycleDataController = {
   removeOriginalDataPoint,
 
   // data
-  getCountrySummary: CountrySummaryRepository.getOneOrNone,
   updateOriginalDataPointOriginalData,
   // data sources
   updateOriginalDataPointDataSources,

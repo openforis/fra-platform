@@ -1,4 +1,4 @@
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { OriginalDataPointCommentKey } from 'meta/assessment/originalDataPoint'
@@ -7,8 +7,8 @@ import { TableNames } from 'meta/assessment/table'
 import { LinkLocation, LinkToVisit } from 'meta/cycleData'
 import { Routes } from 'meta/routes'
 
-import { DescriptionRepository } from 'server/repository/assessmentCycle/descriptions'
-import { OriginalDataPointRepository } from 'server/repository/assessmentCycle/originalDataPoint'
+import { DescriptionRepository } from 'server/db/repository/assessmentCycle/descriptions'
+import { OriginalDataPointRepository } from 'server/db/repository/assessmentCycle/originalDataPoint'
 
 import { getLinksFromHtml } from './utils/getLinksFromHtml'
 

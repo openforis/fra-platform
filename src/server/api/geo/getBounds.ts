@@ -1,11 +1,14 @@
 import { Request, Response } from 'express'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 
 import { GeoController } from 'server/controller/geo'
 import Requests from 'server/utils/requests'
 
-export const getBounds = async (req: Request<never, never, never, { countryIso: CountryIso }>, res: Response) => {
+export const getBounds = async (
+  req: Request<never, never, never, { countryIso: CountryIso }>,
+  res: Response
+): Promise<void> => {
   try {
     const bounds = await GeoController.getBounds(req.query)
     Requests.sendOk(res, bounds)

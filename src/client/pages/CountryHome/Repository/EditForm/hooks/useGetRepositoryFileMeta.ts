@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { RepositoryItem } from 'meta/cycleData'
 
 import { useAppDispatch } from 'client/store/hooks'
@@ -8,7 +8,7 @@ import { RepositoryActions } from 'client/store/repository/actions'
 import { useRepositoryFileMeta, useRepositoryItem } from 'client/store/repository/hooks/repository'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 
-export const useGetRepositoryFileMeta = () => {
+export const useGetRepositoryFileMeta = (): void => {
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
 
   const dispatch = useAppDispatch()

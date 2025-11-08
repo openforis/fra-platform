@@ -9,6 +9,7 @@
   "invitationsAcceptedCount": "Nombre d'invitations acceptées",
   "invitationsSentCount": "Nombre d'invitations envoyées",
   "lastStatus": "Dernier statut",
+  "locations": "Emplacements",
   "locationsCount": "Nº d'emplacements",
   "role_one": "Rôle {{count}}",
   "role_other": "Rôles {{count}}",

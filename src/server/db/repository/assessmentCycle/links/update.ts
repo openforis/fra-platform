@@ -1,0 +1,32 @@
+import { Objects } from 'utils/objects'
+
+import { Assessment } from 'meta/assessment/assessment'
+import { Cycle } from 'meta/assessment/cycle'
+import { Link } from 'meta/cycleData'
+
+import { BaseProtocol, DB } from 'server/db/db'
+import { Schemas } from 'server/db/schemas'
+
+type Props = {
+  assessment: Assessment
+  cycle: Cycle
+  link: Link
+}
+
+export const update = async (props: Props, client: BaseProtocol = DB): Promise<Link> => {
+  const { assessment, cycle, link } = props
+  const { props: _props, uuid } = link
+
+  const schemaCycle = Schemas.getNameCycle(assessment, cycle)
+
+  return client.one<Link>(
+    `
+      update ${schemaCycle}.link
+      set props = $1
+      where uuid = $2
+      returning *
+    `,
+    [_props, uuid],
+    (row) => Objects.camelize(row)
+  )
+}

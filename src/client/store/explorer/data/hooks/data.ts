@@ -2,7 +2,8 @@ import { useEffect, useRef } from 'react'
 
 import { Objects } from 'utils/objects'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
+import { Assessments } from 'meta/assessment/assessments'
 import { SectionName } from 'meta/assessment/section'
 import { RecordAssessmentData } from 'meta/data'
 import { Dimensions } from 'meta/measurement/dimensions'
@@ -15,6 +16,7 @@ import { useExplorerCountries } from 'client/store/explorer/selection/hooks/coun
 import { useExplorerDimensions } from 'client/store/explorer/selection/hooks/dimensions'
 import { useExplorerMeasures } from 'client/store/explorer/selection/hooks/measures'
 import { useAppDispatch, useAppSelector } from 'client/store/hooks'
+import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useSectionRouteParams } from 'client/hooks/routeParams'
 
 export const useExplorerSectionData = (): RecordAssessmentData => {
@@ -23,9 +25,9 @@ export const useExplorerSectionData = (): RecordAssessmentData => {
   return useAppSelector((state) => ExplorerDataSelectors.getSectionData(state, sectionName))
 }
 
-export const useGetExplorerSectionData = () => {
+export const useGetExplorerSectionData = (): void => {
   const dispatch = useAppDispatch()
-
+  const assessment = useAssessment()
   const { cellsExportAlways, tableName } = useExplorerSectionMetadata() ?? {}
   const countryISOs = useExplorerCountries()
   const dimensions = useExplorerDimensions()
@@ -36,6 +38,8 @@ export const useGetExplorerSectionData = () => {
 
   const dataExists = !Objects.isEmpty(explorerSectionData)
   const lastPropsBySectionRef = useRef<Record<SectionName, string>>({})
+  const lastPublishedCycle = Assessments.getLastPublishedCycle(assessment)
+  const fetchLastPublished = cycleName === lastPublishedCycle?.name
 
   useEffect(() => {
     if ([countryISOs, dimensions, measures, tableName].some(Objects.isEmpty)) return
@@ -61,7 +65,7 @@ export const useGetExplorerSectionData = () => {
       return
     }
 
-    dispatch(ExplorerDataActions.getData(getDataProps))
+    dispatch(ExplorerDataActions.getData({ ...getDataProps, fetchLastPublished }))
     lastPropsBySectionRef.current[sectionName] = currentPropsJson
   }, [
     assessmentName,
@@ -72,6 +76,7 @@ export const useGetExplorerSectionData = () => {
     dataExists,
     dimensions,
     dispatch,
+    fetchLastPublished,
     measures,
     sectionName,
     tableName,

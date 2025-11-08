@@ -1,4 +1,4 @@
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { VariableCache } from 'meta/assessment/metaCache'
@@ -11,6 +11,7 @@ export type PropsGetTableData = {
   variables?: Array<string>
   columns?: Array<string>
   mergeOdp?: boolean
+  excludeOdpTable?: boolean
   /**
    * @deprecated
    * Merge dependencies to tables condition

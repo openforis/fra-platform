@@ -1,8 +1,8 @@
-import { UserRepository } from 'server/repository/public/user'
+import { UserRepository } from 'server/db/repository/public/user'
 
 import { userMockTest } from 'test/integration/mock/user'
 
-export default () =>
+export default (): void =>
   test('Expect user to be removed', async () => {
     const user = await UserRepository.getOne({
       email: userMockTest.email,

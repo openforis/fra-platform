@@ -1,4 +1,7 @@
-import { Areas, Country, CountryIso, CountryStatus } from 'meta/area'
+import { Areas } from 'meta/area/areas'
+import { Country } from 'meta/area/country'
+import { CountryIso } from 'meta/area/countryIso'
+import { CountryStatus } from 'meta/area/countryStatus'
 import { Cycle } from 'meta/assessment/cycle'
 import { Section } from 'meta/assessment/section'
 
@@ -7,7 +10,7 @@ import { RoleName } from '../userRole'
 import { Users } from '../users'
 import { canViewReview } from './canViewReview'
 
-jest.mock('meta/area')
+jest.mock('meta/area/areas')
 jest.mock('../users')
 
 describe('canViewReview', () => {

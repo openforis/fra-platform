@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { Numbers } from 'utils/numbers'
 import { Objects } from 'utils/objects'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { RowCache } from 'meta/assessment/rowCache'
 import { ExpressionEvaluator } from 'meta/expressionEvaluator'
 
@@ -15,7 +15,7 @@ import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useSectionRouteParams } from 'client/hooks/routeParams'
 import { PropsCell } from 'client/pages/Section/DataTable/Table/RowData/Cell/props'
 
-export const useGetValue = (props: PropsCell) => {
+export const useGetValue = (props: PropsCell): string => {
   const { col, nodeValue, row, table } = props
 
   const { countryIso, sectionName } = useSectionRouteParams<CountryIso>()

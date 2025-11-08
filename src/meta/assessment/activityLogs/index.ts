@@ -1,6 +1,6 @@
 import { TFunction } from 'i18next'
 
-import { AreaCode } from 'meta/area'
+import { AreaCode } from 'meta/area/areaCode'
 import { ActivityLog, ActivityLogMessage } from 'meta/assessment/activityLog'
 import { AssessmentName } from 'meta/assessment/assessment'
 import { Cycle, CycleName } from 'meta/assessment/cycle'

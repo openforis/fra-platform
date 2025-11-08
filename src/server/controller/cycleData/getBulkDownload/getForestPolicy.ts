@@ -30,7 +30,7 @@ const variableNames = Array.from(
   )
 )
 
-export const getForestPolicy = async (props: Props) => {
+export const getForestPolicy = async (props: Props): Promise<Array<Record<string, string>>> => {
   const { assessment, countries, cycle } = props
 
   const tableNames = [tableName]

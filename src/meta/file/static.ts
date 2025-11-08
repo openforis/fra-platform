@@ -1,6 +1,6 @@
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { Global } from 'meta/area'
-import { AreaCode } from 'meta/area/area'
+import { AreaCode } from 'meta/area/areaCode'
+import { Global } from 'meta/area/global'
 import { RegionCode } from 'meta/area/regionCode'
 import { AssessmentName } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'

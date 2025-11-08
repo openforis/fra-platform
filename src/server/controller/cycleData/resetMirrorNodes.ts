@@ -6,9 +6,9 @@ import { AssessmentMetaCaches } from 'meta/assessment/metaCaches'
 import { NodeValue } from 'meta/assessment/node'
 import { NodeUpdate, NodeUpdates } from 'meta/data'
 
-import { BaseProtocol } from 'server/db'
-import { NodeRepository } from 'server/repository/assessmentCycle/node'
-import { DataRedisRepository } from 'server/repository/redis/data'
+import { DataRedisRepository } from 'server/cache/repository/data'
+import { BaseProtocol } from 'server/db/db'
+import { NodeRepository } from 'server/db/repository/assessmentCycle/node'
 
 type Props = {
   assessment: Assessment

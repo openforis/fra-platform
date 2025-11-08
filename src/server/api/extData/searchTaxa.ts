@@ -7,7 +7,7 @@ import Requests from 'server/utils/requests'
 
 type Query = { query: string; limit: string }
 
-export const searchTaxa = async (req: CycleRequest<Query>, res: Response) => {
+export const searchTaxa = async (req: CycleRequest<Query>, res: Response): Promise<void> => {
   try {
     const { limit = '20', query } = req.query
     const result = await ExtDataController.searchTaxa({

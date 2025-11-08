@@ -5,6 +5,8 @@ import { AssessmentNames } from 'meta/assessment/assessment'
 import { Labels } from 'meta/assessment/labels'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
+import { useIsPrintRoute } from 'client/hooks/routes'
+import CSVAllTables from 'client/pages/Section/Title/CSVAllTables'
 import ExtentOfForest from 'client/pages/Section/Title/ExtentOfForest'
 import ForestCharacteristics from 'client/pages/Section/Title/ForestCharacteristics'
 import TitleWithExcelCalculator from 'client/pages/Section/Title/TitleExcelCalculator'
@@ -23,8 +25,14 @@ export const Components: Record<string, Record<string, React.FC<Props>>> = {
 export const TitleDefault: React.FC<Props> = (props) => {
   const { subSection } = props
 
-  const cycle = useCycle()
   const { t } = useTranslation()
+  const cycle = useCycle()
+  const { print } = useIsPrintRoute()
 
-  return <h2 className="headline no-print">{Labels.getCycleLabel({ cycle, labels: subSection.props.labels, t })}</h2>
+  return (
+    <div className="section__title__header">
+      <h2 className="headline no-print">{Labels.getCycleLabel({ cycle, labels: subSection.props.labels, t })}</h2>
+      {!print && <CSVAllTables />}
+    </div>
+  )
 }

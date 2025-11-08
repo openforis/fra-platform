@@ -1,6 +1,6 @@
-import { JavascriptExpressionEvaluator } from '@openforis/arena-core'
-
 import { parseMemberVariable } from 'meta/expressionEvaluator/util/parseMemberVariable'
+
+import { JavascriptExpressionEvaluator } from 'lib/expressionEvaluator/javascript/evaluator'
 
 import { Context } from './context'
 import { evaluators } from './evaluators'

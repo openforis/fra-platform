@@ -1,11 +1,11 @@
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { MessageTopic } from 'meta/messageCenter'
 import { User } from 'meta/user'
 
-import { BaseProtocol, DB } from 'server/db'
-import { MessageTopicRepository } from 'server/repository/assessmentCycle/messageTopic'
+import { BaseProtocol, DB } from 'server/db/db'
+import { MessageTopicRepository } from 'server/db/repository/assessmentCycle/messageTopic'
 
 import { updateTopicReadTime } from './updateTopicReadTime'
 

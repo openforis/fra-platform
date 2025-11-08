@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { TablePaginatedFilterType } from 'meta/tablePaginated'
 
 import { useAppDispatch } from 'client/store/hooks'
@@ -18,13 +18,13 @@ const Country: React.FC<Props> = (props: Props) => {
   const dispatch = useAppDispatch()
   const filterValue = useTablePaginatedFilterValue<Array<string>>(path, fieldName)
 
-  const handleChange = (value: Array<string>) => {
+  const handleChange = (value: Array<string>): void => {
     dispatch(TablePaginatedActions.setFilterValue({ fieldName, path, value }))
   }
 
   return (
     <CountryMultiSelect
-      onChange={(value) => handleChange(value as Array<CountryIso>)}
+      onChange={(value): void => handleChange(value as Array<CountryIso>)}
       placeholder={label}
       value={filterValue}
     />

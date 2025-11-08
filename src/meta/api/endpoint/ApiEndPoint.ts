@@ -1,203 +1,37 @@
-const joinPaths = (...parts: Array<string>): string => `/${parts.join('/')}`
-const apiPath = (...parts: Array<string>): string => joinPaths('api', ...parts)
+import { apiPath, joinPaths } from 'meta/api/endpoint/_utils'
+import { Admin } from 'meta/api/endpoint/admin'
+import { Area } from 'meta/api/endpoint/area'
+import { Auth } from 'meta/api/endpoint/auth'
+import { CycleData } from 'meta/api/endpoint/cycleData'
+import { Explorer } from 'meta/api/endpoint/explorer'
+import { ExtData } from 'meta/api/endpoint/extData'
+import { File } from 'meta/api/endpoint/file'
+import { Geo } from 'meta/api/endpoint/geo'
+import { Kiosk } from 'meta/api/endpoint/kiosk'
+import { _Legacy } from 'meta/api/endpoint/legacy'
+import { MessageCenter } from 'meta/api/endpoint/messageCenter'
+import { MetaData } from 'meta/api/endpoint/metaData'
+import { Static } from 'meta/api/endpoint/static'
+import { User } from 'meta/api/endpoint/user'
 
 export const ApiEndPoint = {
-  init: () => apiPath('init'),
-  definitions: (lang = ':lang', name = ':name', assessmentName = ':assessmentName', cycleName = ':cycleName') =>
+  init: (): string => apiPath('init'),
+
+  definitions: (lang = ':lang', name = ':name', assessmentName = ':assessmentName', cycleName = ':cycleName'): string =>
     joinPaths('definitions', assessmentName, cycleName, lang, name),
 
-  Admin: {
-    countries: () => apiPath('admin', 'countries'),
-    countriesCount: () => apiPath('admin', 'countries', 'count'),
-    invitations: () => apiPath('admin', 'invitations'),
-    invitationsCount: () => apiPath('admin', 'invitations', 'count'),
-    users: () => apiPath('admin', 'users'),
-    usersCount: () => apiPath('admin', 'users', 'count'),
-    usersExport: () => apiPath('admin', 'users', 'export'),
-  },
-
-  Area: {
-    country: () => apiPath('area', 'country'),
-    countryProp: () => apiPath('area', 'country', 'prop'),
-    areas: () => apiPath('area', 'areas'),
-  },
-
-  Auth: {
-    changePassword: () => apiPath('auth', 'change-password'),
-    google: () => apiPath('auth', 'google'),
-    googleCallback: () => apiPath('auth', 'google', 'callback'),
-    login: () => joinPaths('auth', 'login'),
-    logout: () => joinPaths('auth', 'logout'),
-    resetPassword: () => joinPaths('auth', 'local', 'reset-password'),
-  },
-
-  CycleData: {
-    activities: () => apiPath('cycle-data', 'activities'),
-    activitiesCount: () => apiPath('cycle-data', 'activities', 'count'),
-
-    Dashboard: {
-      one: () => apiPath('cycle-data', 'dashboard'),
-    },
-
-    Descriptions: {
-      many: () => apiPath('cycle-data', 'descriptions'),
-      history: () => apiPath('cycle-data', 'descriptions', 'history'),
-
-      DataSources: {
-        many: () => apiPath('cycle-data', 'descriptions', 'data-sources'),
-        one: () => apiPath('cycle-data', 'descriptions', 'data-sources', 'data-source'),
-      },
-    },
-    DescriptionDataSources: {
-      many: () => apiPath('cycle-data', 'descriptions', 'data-sources'),
-      one: () => apiPath('cycle-data', 'descriptions', 'data-sources', 'data-source'),
-    },
-
-    Contacts: {
-      many: () => apiPath('cycle-data', 'contacts'),
-      one: () => apiPath('cycle-data', 'contacts', 'contact'),
-    },
-
-    History: {
-      Activities: {
-        one: (target = ':target') => apiPath('cycle-data', 'history', 'activities', target),
-        count: (target = ':target') => apiPath('cycle-data', 'history', 'activities', target, 'count'),
-      },
-    },
-
-    Links: {
-      count: () => apiPath('cycle-data', 'links', 'count'),
-      many: () => apiPath('cycle-data', 'links'),
-      one: () => apiPath('cycle-data', 'links', 'link'),
-      verify: () => apiPath('cycle-data', 'links', 'verify'),
-      verifyStatus: () => apiPath('cycle-data', 'links', 'verify', 'status'),
-    },
-
-    OriginalDataPoint: {
-      one: () => apiPath('cycle-data', 'original-data-points', 'original-data-point'),
-      many: () => apiPath('cycle-data', 'original-data-points'),
-      history: () => apiPath('cycle-data', 'original-data-points', 'original-data-point', 'history'),
-
-      dataSources: () => apiPath('cycle-data', 'original-data-points', 'original-data-point', 'data-sources'),
-      description: () => apiPath('cycle-data', 'original-data-points', 'original-data-point', 'description'),
-      originalData: () => apiPath('cycle-data', 'original-data-points', 'original-data-point', 'original-data'),
-      nationalClasses: () => apiPath('cycle-data', 'original-data-points', 'original-data-point', 'national-classes'),
-      nationalClass: () => apiPath('cycle-data', 'original-data-points', 'original-data-point', 'national-class'),
-      year: () => apiPath('cycle-data', 'original-data-points', 'original-data-point', 'year'),
-
-      copyNationalClasses: () =>
-        apiPath('cycle-data', 'original-data-points', 'original-data-point', 'copy-national-classes'),
-
-      // Table Data (1a, 1b)
-      reservedYears: () => apiPath('cycle-data', 'original-data-points', 'reserved-years'),
-    },
-
-    Print: {
-      Report: {
-        one: () => apiPath('cycle-data', 'print', 'report'),
-      },
-    },
-
-    Repository: {
-      File: {
-        one: (uuid = ':uuid') => apiPath('cycle-data', 'repository', 'file', uuid),
-        many: () => apiPath('cycle-data', 'repository', 'files'),
-      },
-
-      many: () => apiPath('cycle-data', 'repository', 'items'),
-      one: () => apiPath('cycle-data', 'repository', 'items', 'item'),
-      fileMeta: () => apiPath('cycle-data', 'repository', 'items', 'item', 'file-meta'),
-    },
-
-    Review: {
-      status: () => apiPath('cycle-data', 'review', 'status'),
-      summary: () => apiPath('cycle-data', 'review', 'summary'),
-    },
-
-    Table: {
-      estimate: () => apiPath('cycle-data', 'table', 'estimate'),
-      nodes: () => apiPath('cycle-data', 'table', 'nodes'),
-      tableData: () => apiPath('cycle-data', 'table', 'table-data'),
-      tableDataHistory: () => apiPath('cycle-data', 'table', 'table-data', 'history'),
-      tableClear: () => apiPath('cycle-data', 'table', 'clear'),
-      nodeValuesEstimations: () => apiPath('cycle-data', 'table', 'node-values-estimations'),
-    },
-  },
-
-  ExtData: {
-    Taxa: {
-      search: () => apiPath('ext-data', 'taxa', 'search'),
-    },
-  },
-
-  File: {
-    many: () => apiPath('files'),
-    bulkDownload: () => apiPath('file', 'bulk-download'),
-  },
-
-  MessageCenter: {
-    topic: () => apiPath('message-center', 'topic'),
-    topicMessage: () => apiPath('message-center', 'topic', 'message'),
-    topicResolve: () => apiPath('message-center', 'topic', 'resolve'),
-    topicUnreadMessages: () => apiPath('message-center', 'topic', 'unread-messages'),
-  },
-
-  User: {
-    many: () => apiPath('users'),
-    one: () => apiPath('users', 'user'),
-
-    invite: () => apiPath('users', 'invite'),
-    invitation: () => apiPath('users', 'invitation'),
-
-    invitationAccept: () => apiPath('users', 'invitation', 'accept'),
-    invitationSendEmail: () => apiPath('users', 'invitation', 'send-email'),
-
-    resetPassword: () => apiPath('users', 'reset-password'),
-
-    profilePicture: (id = ':id') => apiPath('users', 'profile-picture', id),
-  },
-
-  Geo: {
-    bounds: () => apiPath('geo', 'bounds'),
-    sepalProxy: () => apiPath('geo', 'sepal'),
-    Layers: {
-      forest: () => apiPath('geo', 'layers', 'forest'),
-      forestAgreement: () => apiPath('geo', 'layers', 'forest-agreement'),
-      protectedArea: () => apiPath('geo', 'layers', 'protected-area'),
-      burnedArea: () => apiPath('geo', 'layers', 'burned-area'),
-      boundaries: () => apiPath('geo', 'layers', 'boundaries'),
-    },
-    Estimations: {
-      forest: () => apiPath('geo', 'estimations', 'forest'),
-      forestAgreement: () => apiPath('geo', 'estimations', 'forest-agreement'),
-      intersectionArea: () => apiPath('geo', 'estimations', 'intersection-area'),
-    },
-  },
-
-  Kiosk: {
-    latestActivities: () => apiPath('kiosk', 'latest-activities'),
-  },
-
-  MetaData: {
-    metaCache: () => apiPath('metadata', 'metaCache'),
-    sections: () => apiPath('metadata', 'sections'),
-    sectionsMetadata: () => apiPath('metadata', 'sections', 'metadata'),
-  },
-
-  Explorer: {
-    sectionsMetadata: () => apiPath('explorer', 'sections', 'metadata'),
-  },
-
-  _Legacy: {
-    File: {
-      // Note: Some users might use this still
-      // Legacy API Endpoint to return hidden files, replaced with redirect to RepositoryAPI get file
-      hidden: () => apiPath('file', 'hidden'),
-    },
-  },
-
-  Static: {
-    file: (s3path = ':s3path(*)') => apiPath('static', 'file', s3path),
-    files: () => apiPath('static', 'files'),
-  },
+  Admin,
+  Area,
+  Auth,
+  CycleData,
+  Explorer,
+  ExtData,
+  File,
+  Geo,
+  Kiosk,
+  MessageCenter,
+  MetaData,
+  Static,
+  User,
+  _Legacy,
 }

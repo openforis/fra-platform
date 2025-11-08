@@ -1,4 +1,4 @@
-import { AreaCode } from 'meta/area'
+import { AreaCode } from 'meta/area/areaCode'
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
@@ -6,9 +6,9 @@ import { RepositoryItem } from 'meta/cycleData'
 import { SectionNames } from 'meta/routes'
 import { User } from 'meta/user'
 
-import { BaseProtocol, DB } from 'server/db'
-import { RepositoryRepository } from 'server/repository/assessmentCycle/repository'
-import { ActivityLogRepository } from 'server/repository/public/activityLog'
+import { BaseProtocol, DB } from 'server/db/db'
+import { RepositoryRepository } from 'server/db/repository/assessmentCycle/repository'
+import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 
 type Props = {
   assessment: Assessment

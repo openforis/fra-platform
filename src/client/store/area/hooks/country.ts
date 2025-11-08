@@ -1,4 +1,5 @@
-import { Country, CountryIso } from 'meta/area'
+import { Country } from 'meta/area/country'
+import { CountryIso } from 'meta/area/countryIso'
 
 import { AreaSelectors } from 'client/store/area/selectors'
 import { useAppSelector } from 'client/store/hooks'

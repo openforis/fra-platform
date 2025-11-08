@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import { CountryIso } from 'meta/area'
+import { CountryIso } from 'meta/area/countryIso'
 import { Cycle } from 'meta/assessment/cycle'
 import { RoleName, User, Users } from 'meta/user'
 
@@ -33,7 +33,7 @@ const approvalStatusSort = (props: { userA: User; userB: User; countryIso: Count
   return userA.props?.name?.localeCompare(userB.props?.name) || 0
 }
 
-export const useCompareFn = () => {
+export const useCompareFn = (): Parameters<typeof Array.prototype.sort>[0] => {
   const cycle = useCycle()
   const { countryIso } = useCountryRouteParams<CountryIso>()
 

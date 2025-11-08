@@ -7,7 +7,7 @@ import { Numbers } from 'utils/numbers'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
 import DiffText from 'client/components/DiffText'
-import PercentInput from 'client/components/PercentInput'
+import InputPercent from 'client/components/Inputs/InputPercent'
 import { useODPDisplayHistory } from 'client/pages/OriginalDataPoint/components/hooks/useODPDisplayHistory'
 
 import { usePrimaryForestPercentChange } from './hooks/usePrimaryForestPercentChange'
@@ -52,19 +52,19 @@ const PrimaryForestPercent: React.FC<Props> = (props) => {
         ) : (
           <>
             {useTotal && (
-              <PercentInput
+              <InputPercent
                 disabled={!canEditData}
-                numberValue={originalDataPoint.values.primaryForestPercent}
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                onChange={(event): void => {
                   const { value } = event.target
                   const updateProps = { field, value }
                   updateValues(updateProps)
                 }}
-                onPaste={(event: React.ClipboardEvent<HTMLInputElement>) => {
+                onPaste={(event): void => {
                   const value = event.clipboardData.getData('text')
                   const updateProps = { field, value }
                   updateValues(updateProps)
                 }}
+                value={originalDataPoint.values.primaryForestPercent}
               />
             )}
             {!useTotal && <>{Numbers.toFixed(originalDataPoint.values[field], 3)} %</>}
