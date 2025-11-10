@@ -3,25 +3,17 @@ import { MetadataController } from 'server/controller/metadata'
 import { UserController } from 'server/controller/user'
 
 import { assessmentParams } from 'test/integration/mock/assessment'
-import { tableSectionParams } from 'test/integration/mock/tableSection'
 import { userMockTest } from 'test/integration/mock/user'
+import { testContext } from 'test/integration/testContext'
 
 // test to update table section
-export default () =>
+export default (): void =>
   test('Expect table section to be updated', async () => {
-    const user = await UserController.getOne({
-      email: userMockTest.email,
-    })
+    const user = await UserController.getOne({ email: userMockTest.email })
+    const assessment = await AssessmentController.getOne({ assessmentName: assessmentParams.props.name })
 
-    const assessment = await AssessmentController.getOne({
-      assessmentName: assessmentParams.props.name,
-    })
-
-    const tableSection = await MetadataController.createTableSection({
-      assessment,
-      user,
-      tableSection: tableSectionParams,
-    })
+    const { tableSection } = testContext
+    expect(tableSection?.uuid).toBeTruthy()
 
     const tableSectionUpdated = await MetadataController.updateTableSection({
       assessment,

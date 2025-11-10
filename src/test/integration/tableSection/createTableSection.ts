@@ -35,4 +35,6 @@ export default (): void =>
     expect(tableSection).toHaveProperty('sectionUuid')
     expect(tableSection).toHaveProperty('props.descriptions')
     expect(tableSection.sectionUuid).toBe(parentSection.uuid)
+
+    testContext.tableSection = tableSection
   })

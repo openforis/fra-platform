@@ -25,7 +25,7 @@ export const getReviewSummary = async (
                             left join ${schemaName}."table" t
                                       on t.id = r.table_id
                             left join ${schemaName}.table_section ts
-                                      on ts.id = t.table_section_id
+                                      on ts.uuid = t.table_section_uuid
                             left join ${schemaName}.section s
                                       on s.uuid = ts.section_uuid
                    where r.props -> 'cycles' ? $1),

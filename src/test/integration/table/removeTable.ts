@@ -5,6 +5,7 @@ import { UserController } from 'server/controller/user'
 import { assessmentCycleName, assessmentParams } from 'test/integration/mock/assessment'
 import { tableParams } from 'test/integration/mock/table'
 import { userMockTest } from 'test/integration/mock/user'
+import { testContext } from 'test/integration/testContext'
 
 // test to remove table
 export default (): void =>
@@ -18,10 +19,13 @@ export default (): void =>
       cycleName: assessmentCycleName,
     })
 
+    const { tableSection } = testContext
+    expect(tableSection?.uuid).toBeTruthy()
+
     const table = await MetadataController.createTable({
       assessment,
       user,
-      table: tableParams,
+      table: { ...tableParams, tableSectionUuid: tableSection.uuid },
     })
 
     await MetadataController.removeTable({
