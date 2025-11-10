@@ -5,6 +5,7 @@ import { UserController } from 'server/controller/user'
 import { assessmentCycleName, assessmentParams } from 'test/integration/mock/assessment'
 import { tableSectionParams } from 'test/integration/mock/tableSection'
 import { userMockTest } from 'test/integration/mock/user'
+import { testContext } from 'test/integration/testContext'
 
 // test remove table section
 export default (): void =>
@@ -16,10 +17,13 @@ export default (): void =>
       cycleName: assessmentCycleName,
     })
 
+    const { section: parentSection } = testContext
+    expect(parentSection?.uuid).toBeTruthy()
+
     const tableSection = await MetadataController.createTableSection({
       assessment,
       user,
-      tableSection: tableSectionParams,
+      tableSection: { ...tableSectionParams, sectionUuid: parentSection.uuid },
     })
 
     await MetadataController.removeTableSection({
