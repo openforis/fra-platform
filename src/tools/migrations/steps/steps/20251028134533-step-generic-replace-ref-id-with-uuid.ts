@@ -7,7 +7,8 @@ import { Schemas } from 'server/db/schemas'
 // Update table_id to table_uuid for:
 // - assessment_cycle.assessment_id -> assessment_cycle.assessment_uuid
 // - section.parent_id -> section.parent_uuid
-// - table_section.section_id -> section.section_uuid
+// - table_section.section_id -> table_section.section_uuid
+// - table.table_section_id -> table.table_section_uuid
 
 const client: BaseProtocol = DB
 export default async (): Promise<void> => {
@@ -95,6 +96,30 @@ export default async (): Promise<void> => {
 
     await client.none(`alter table ${schemaName}.table_section drop column if exists section_id`)
 
+    // ============= table.table_section_id -> table_section.table_section_uuid
+
+    await client.none(`alter table ${schemaName}.table add column if not exists table_section_uuid uuid`)
+
+    await client.none(`
+      update ${schemaName}.table t
+        set table_section_uuid = ts.uuid
+      from ${schemaName}.table_section ts
+      where t.table_section_id = ts.id
+    `)
+
+    await client.none(`
+      alter table ${schemaName}.table
+        alter column table_section_uuid set not null,
+        add constraint table_table_section_uuid_fk
+          foreign key (table_section_uuid)
+          references ${schemaName}.table_section (uuid)
+          on update cascade
+          on delete cascade
+    `)
+
+    await client.none(`alter table ${schemaName}.table drop column if exists table_section_id`)
+
+    // Generate caches
     await CacheController.generateMetadata({ assessment }, client)
   })
 }
