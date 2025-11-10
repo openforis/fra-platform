@@ -9,6 +9,7 @@ import { Schemas } from 'server/db/schemas'
 // - section.parent_id -> section.parent_uuid
 // - table_section.section_id -> table_section.section_uuid
 // - table.table_section_id -> table.table_section_uuid
+// - row.table_id -> row.table_uuid
 
 const client: BaseProtocol = DB
 export default async (): Promise<void> => {
@@ -119,7 +120,30 @@ export default async (): Promise<void> => {
 
     await client.none(`alter table ${schemaName}.table drop column if exists table_section_id`)
 
-    // Generate caches
+    // ============= row.table_id -> table.table_uuid
+
+    await client.none(`alter table ${schemaName}.row add column if not exists table_uuid uuid`)
+
+    await client.none(`
+      update ${schemaName}.row r
+        set table_uuid = t.uuid
+      from ${schemaName}.table t
+      where r.table_id = t.id
+    `)
+
+    await client.none(`
+      alter table ${schemaName}.row
+        alter column table_uuid set not null,
+        add constraint row_table_uuid_fk
+          foreign key (table_uuid)
+          references ${schemaName}.table (uuid)
+          on update cascade
+          on delete cascade
+    `)
+
+    await client.none(`alter table ${schemaName}.row drop column if exists table_id`)
+
+    // Regenerate metadata cache (sections, sectionsMetadata, rows)
     await CacheController.generateMetadata({ assessment }, client)
   })
 }

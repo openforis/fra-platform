@@ -13,7 +13,7 @@ export const CustomDataView: Record<
         from ${schemaCycle}.node n
                  left join ${schemaAssessment}.row r on r.uuid = n.row_uuid
                  left join ${schemaAssessment}.col c on c.uuid = n.col_uuid
-                 left join ${schemaAssessment}."table" t on t.id = r.table_id
+                 left join ${schemaAssessment}."table" t on t.uuid = r.table_uuid
         where t.props ->> 'name' = '${tableName}'
           and r.props ->> 'type' in ('data', 'calculated'))
         select * from eof
