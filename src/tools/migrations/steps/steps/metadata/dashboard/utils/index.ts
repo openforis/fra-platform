@@ -5,7 +5,7 @@ import { VariableCache } from 'meta/assessment/metaCache'
 import { Row, RowType } from 'meta/assessment/row'
 import { Table } from 'meta/assessment/table'
 import { VariableName } from 'meta/assessment/variable'
-import { UUIDs } from 'meta/uuid'
+import { UUID, UUIDs } from 'meta/uuid'
 
 export type RowMetadata = {
   id: number
@@ -145,7 +145,7 @@ export const getTable = (props: GetTableProps): Returned => {
   const { cols, cycle, rowMetadata, tableId, tableName } = props
   const table: Returned = {
     id: tableId,
-    tableSectionId: -1,
+    tableSectionUuid: '00000000-0000-0000-0000-000000000000' as UUID,
     calculationDependencies: getCalculationDependencies({ rowMetadata }),
     props: {
       odp: false,
