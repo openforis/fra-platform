@@ -58,10 +58,10 @@ create table ${schemaName}.table
 
 create table ${schemaName}.row
 (
-    id       bigserial NOT NULL,
-    uuid     uuid  default uuid_generate_v4(),
-    props    jsonb default '{}'::jsonb,
-    table_id bigint   not null references ${schemaName}.table (id) on update cascade on delete cascade,
+    id         bigserial NOT NULL,
+    uuid       uuid default uuid_generate_v4(),
+    props      jsonb default '{}'::jsonb,
+    table_uuid uuid not null references ${schemaName}.table (uuid) on update cascade on delete cascade,
     PRIMARY KEY (id),
     unique(uuid)
 );
