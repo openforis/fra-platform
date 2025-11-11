@@ -29,7 +29,7 @@ export const clearTableData = async (props: Props, client: BaseProtocol = DB): P
                          c.uuid                     as col_id,
                          r.uuid                     as row_id
                   from ${schemaAssessment}.table t
-                           join ${schemaAssessment}.row r on (t.id = r.table_id)
+                           join ${schemaAssessment}.row r on (t.uuid = r.table_uuid)
                            join ${schemaAssessment}.col c on (r.id = c.row_id)
                   where t.props ->> 'name' = $2 and t.props ->> 'readonly' is distinct from 'true'
                     and r.props ->> 'readonly' is distinct from 'true' and r.props ->> 'type' = 'data'

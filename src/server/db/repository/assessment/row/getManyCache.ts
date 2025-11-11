@@ -20,7 +20,7 @@ export const getManyCache = (props: Props, client: BaseProtocol = DB): Promise<A
              , s.props ->> 'name' as section_name
              , coalesce(jsonb_agg(c.*) filter (where c.uuid is not null), '[]') as cols
         from ${schema}.row r
-                 left join ${schema}."table" t on r.table_id = t.id
+                 left join ${schema}."table" t on r.table_uuid = t.uuid
                  left join ${schema}.table_section ts on t.table_section_uuid = ts.uuid
                  left join ${schema}.section s on ts.section_uuid = s.uuid
                  left join ${schema}.col c on r.id = c.row_id

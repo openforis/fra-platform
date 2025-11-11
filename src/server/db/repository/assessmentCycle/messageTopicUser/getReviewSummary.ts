@@ -23,7 +23,7 @@ export const getReviewSummary = async (
         with r as (select r.uuid as row_uuid, s.uuid as sub_section_uuid, s.parent_uuid, s.uuid as section_uuid
                    from ${schemaName}.row r
                             left join ${schemaName}."table" t
-                                      on t.id = r.table_id
+                                      on t.uuid = r.table_uuid
                             left join ${schemaName}.table_section ts
                                       on ts.uuid = t.table_section_uuid
                             left join ${schemaName}.section s

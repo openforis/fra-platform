@@ -33,7 +33,7 @@ export const getManyMetadata = async (props: Props, client: BaseProtocol = DB): 
                                   )              as row
                        from ${schemaName}.col c
                                 left join ${schemaName}.row r on r.id = c.row_id
-                                left join ${schemaName}."table" t on t.id = r.table_id
+                                left join ${schemaName}."table" t on t.uuid = r.table_uuid
                                 left join ${schemaName}.table_section ts on ts.uuid = t.table_section_uuid
                                 left join ${schemaName}.section s on ts.section_uuid = s.uuid
                        where ts.props -> 'cycles' ? $2

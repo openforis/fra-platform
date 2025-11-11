@@ -33,7 +33,7 @@ export const update = (props: Props, client: BaseProtocol = DB): Promise<Node> =
                        left join ${schema}.row r
                                  on r.id = c.row_id
                        left join ${schema}."table" t
-                                 on r.table_id = t.id
+                                 on r.table_uuid = t.uuid
               where r.props ->> 'variableName' = $2
                 and c.props ->> 'colName' = $3
                 and n.country_iso = $4

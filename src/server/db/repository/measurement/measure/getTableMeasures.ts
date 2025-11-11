@@ -25,7 +25,7 @@ export const getTableMeasures = async (props: Props, client: BaseProtocol = DB):
         (r.props ->> 'index')::int as idx
       from ${schemaName}.row r
       join ${schemaName}."table" t
-        on t.id = r.table_id
+        on t.uuid = r.table_uuid
       where t.props ->> 'name' = $1
         and (r.props -> 'cycles') ? $2
         and r.props ->> 'variableName' is not null
