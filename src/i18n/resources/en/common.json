@@ -22,6 +22,7 @@
   "copyLink": "Copy link",
   "countries": "Countries",
   "country": "Country",
+  "countryCode": "Country code",
   "csvAllTables": "CSV All Tables",
   "csvDisclaimer": "Disclaimer",
   "csvDisclaimerText": "This report was published as part of {{assessmentName}} {{cycleName}} and updated in {{month}}/{{year}}",
