@@ -35,9 +35,9 @@ export const useUserRedirect = (): void => {
       return
     }
 
-    // When user is not logged in, redirect to last published (e.g. when accessing older cycles)
-    // Disable this if you want to allow non-logged users to access older cycles
-    const shouldRedirectToLastPublished = !user && cycleName !== country.lastPublishedInfo.cycleName
+    // When user is not logged in and is not authorized to access the cycle
+    // -> redirect to last published (e.g. when accessing non-published cycles)
+    const shouldRedirectToLastPublished = !user && !isAuthorized && cycleName !== country.lastPublishedInfo.cycleName
 
     if (shouldRedirectToLastPublished) {
       const _cycleName = country.lastPublishedInfo.cycleName
