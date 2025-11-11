@@ -4,8 +4,10 @@ import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { AssessmentNames } from 'meta/assessment/assessment'
 import { TableNames } from 'meta/assessment/table'
 
+import { AreaController } from 'server/controller/area'
 import { AssessmentController } from 'server/controller/assessment'
 import { BaseProtocol, DB } from 'server/db/db'
+import { CountryActivityLogRepository } from 'server/db/repository/assessmentCycle/countryActivityLog'
 import { ODPCommentColumns } from 'server/db/repository/assessmentCycle/originalDataPoint/commentColumns'
 import { Schemas } from 'server/db/schemas'
 
@@ -132,6 +134,13 @@ export default async (client: BaseProtocol): Promise<void> => {
     await Promises.each(assessment.cycles, async (cycle) => {
       const schemaName = Schemas.getNameCycle(assessment, cycle)
       await _updateOriginalDataPointTable({ client, schemaName })
+
+      // Update activity log materialized views to include new odp comment columns logs
+      const countries = await AreaController.getCountries({ assessment, cycle }, client)
+      await Promises.each(countries, async ({ countryIso }) => {
+        await CountryActivityLogRepository.dropMaterializedView({ assessment, cycle, countryIso }, client)
+        await CountryActivityLogRepository.createMaterializedView({ assessment, cycle, countryIso }, client)
+      })
     })
   })
 }

@@ -1,8 +1,10 @@
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
+import { TableNames } from 'meta/assessment/table'
 import { NodeExtType } from 'meta/nodeExt'
 
 import { CloneProps } from 'server/controller/assessment/cloneCycle/types'
 import { BaseProtocol } from 'server/db/db'
+import { ODPCommentColumns } from 'server/db/repository/assessmentCycle/originalDataPoint/commentColumns'
 import { Schemas } from 'server/db/schemas'
 
 /**
@@ -14,6 +16,8 @@ export const cloneData = async (props: CloneProps, client: BaseProtocol): Promis
 
   const schemaCycleSource = Schemas.getNameCycle(assessment, cycleSource)
   const schemaCycleTarget = Schemas.getNameCycle(assessment, cycleTarget)
+  const commentColumnExtentOfForest = ODPCommentColumns[TableNames.extentOfForest]
+  const commentColumnForestCharacteristics = ODPCommentColumns[TableNames.forestCharacteristics]
 
   await client.query(`
       insert into ${schemaCycleTarget}.node (uuid, country_iso, row_uuid, col_uuid, value)
@@ -37,14 +41,15 @@ export const cloneData = async (props: CloneProps, client: BaseProtocol): Promis
       from ${schemaCycleSource}.node_values_estimation;
 
       insert into ${schemaCycleTarget}.original_data_point
-      (country_iso, year, data_source_additional_comments, data_source_methods, data_source_references, description,
-       national_classes, values, id_legacy)
+      (country_iso, year, data_source_additional_comments, data_source_methods, data_source_references,
+       ${commentColumnExtentOfForest}, ${commentColumnForestCharacteristics}, national_classes, values, id_legacy)
       select country_iso,
              year,
              data_source_additional_comments,
              data_source_methods,
              data_source_references,
-             description,
+             ${commentColumnExtentOfForest},
+             ${commentColumnForestCharacteristics},
              national_classes,
              values,
              id_legacy
