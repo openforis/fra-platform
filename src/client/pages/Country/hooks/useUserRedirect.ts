@@ -30,16 +30,9 @@ export const useUserRedirect = (): void => {
 
     const isAuthorized = Authorizer.canView({ assessment, cycle, areaCode: countryIso, country, user })
 
+    // When user is not authorized to access the cycle/country page
+    // -> redirect to last published (e.g. when accessing non-published cycles)
     if (!isAuthorized) {
-      navigate(Routes.Assessment.generatePath({ assessmentName }))
-      return
-    }
-
-    // When user is not logged in, redirect to last published (e.g. when accessing older cycles)
-    // Disable this if you want to allow non-logged users to access older cycles
-    const shouldRedirectToLastPublished = !user && cycleName !== country.lastPublishedInfo.cycleName
-
-    if (shouldRedirectToLastPublished) {
       const _cycleName = country.lastPublishedInfo.cycleName
 
       const route = Routes.Country.generatePath({ assessmentName, cycleName: _cycleName, countryIso })
