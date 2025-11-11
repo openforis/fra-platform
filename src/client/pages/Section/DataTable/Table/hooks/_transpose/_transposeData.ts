@@ -8,7 +8,7 @@ import { PropsTranspose, ReturnedTranspose } from './_types'
 export const _transposeData = (props: PropsTranspose): Pick<ReturnedTranspose, 'rowsData'> => {
   const { cycle, headers, rowsData: _rowsData, table } = props
   const { uuid: cycleUUID } = cycle
-  const { id: tableId } = table
+  const { uuid: tableUUID } = table
 
   const rowsData: Array<Row> = []
 
@@ -17,7 +17,7 @@ export const _transposeData = (props: PropsTranspose): Pick<ReturnedTranspose, '
     const cycles = [cycleUUID]
 
     const rowProps: Row['props'] = { cycles, index, type: RowType.data }
-    const row: Row = { id: index, props: rowProps, tableId, uuid: `row-uuid-${index}` }
+    const row: Row = { id: index, props: rowProps, tableUuid: tableUUID, uuid: `row-uuid-${index}` }
 
     const labels = { [cycleUUID]: { label: columnName } }
     const colHeaderProps: Col['props'] = { colType: ColType.placeholder, cycles, labels }
