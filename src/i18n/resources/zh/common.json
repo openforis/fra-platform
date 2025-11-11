@@ -22,6 +22,7 @@
   "copyLink": "复制链接",
   "countries": "国家",
   "country": "国家",
+  "countryCode": "国家代码",
   "csvAllTables": "CSV 所有表",
   "csvDisclaimer": "免责声明",
   "csvDisclaimerText": "本报告作为{{assessmentName}} {{cycleName}}的一部分发布，并于{{month}}/{{year}}更新",
