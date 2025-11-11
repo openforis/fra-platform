@@ -30,7 +30,7 @@ export const create = (props: Props, client: BaseProtocol = DB): Promise<Node> =
                  left join ${schema}.row r
                            on r.id = c.row_id
                  left join ${schema}."table" t
-                           on r.table_id = t.id
+                           on r.table_uuid = t.uuid
         where r.props ->> 'variableName' = $3
           and c.props ->> 'colName' = $4
           and t.props ->> 'name' = $5
