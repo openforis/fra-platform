@@ -3,9 +3,8 @@ import { Cycle } from 'meta/assessment/cycle'
 import { OriginalDataPoint, OriginalDataPointCommentKey } from 'meta/assessment/originalDataPoint'
 
 import { BaseProtocol, DB } from 'server/db/db'
-import { getOne } from 'server/db/repository/assessmentCycle/originalDataPoint/getOne'
 import { ODPCommentColumns } from 'server/db/repository/assessmentCycle/originalDataPoint/commentColumns'
-import { OriginalDataPointAdapter } from 'server/db/repository/adapter/originalDataPoint'
+import { getOne } from 'server/db/repository/assessmentCycle/originalDataPoint/getOne'
 import { Schemas } from 'server/db/schemas'
 
 export const updateDescription = async (
@@ -35,8 +34,7 @@ export const updateDescription = async (
       where id = $1
       returning *
   `,
-    [id, value],
-    OriginalDataPointAdapter
+    [id, value]
   )
 
   return getOne({ assessment, cycle, countryIso, year: String(year) }, client)
