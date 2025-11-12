@@ -39,7 +39,9 @@ export const useCommentsActions = (props: Props): Array<DataRowAction> => {
         ? t('nationalDataPoint.forestCharacteristics')
         : t('extentOfForest.extentOfForest')
     const title = `${t('nationalDataPoint.nationalDataPoint')} – ${sectionLabel}`
+    const subtitle = t('review.comments')
+
     const topicKey = Topics.getOdpReviewTopicKey(originalDataPoint.id, commentTopicSuffix[field])
-    return [{ type: DataRowActionType.Review, title, topicKey }]
+    return [{ subtitle, title, topicKey, type: DataRowActionType.Review }]
   }, [field, originalDataPoint.id, showReviewIndicator, t])
 }
