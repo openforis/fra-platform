@@ -1,7 +1,9 @@
 import React from 'react'
 
-import { DashboardItem, DashboardItemType, DashboardTable } from 'meta/dashboard'
-import { DashboardBarChart, DashboardPieChart } from 'meta/dashboard/dashboard'
+import { DashboardBarChart } from 'meta/dashboard/barChart'
+import { DashboardItem, DashboardItemType } from 'meta/dashboard/item'
+import { DashboardPieChart } from 'meta/dashboard/pieChart'
+import { DashboardTable } from 'meta/dashboard/table'
 
 import { useTableDataStatusListener } from 'client/store/data/tableData/hooks/useTableDataStatusListener'
 import BarChart from 'client/components/Dashboard/BarChart'
