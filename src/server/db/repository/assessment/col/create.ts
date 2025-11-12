@@ -23,10 +23,10 @@ export const create = async (props: Props, client: BaseProtocol = DB): Promise<C
 
   return client.one<Col>(
     `
-        insert into ${schemaName}.col (props, row_id)
+        insert into ${schemaName}.col (props, row_uuid)
         values ($1::jsonb, $2)
         returning *`,
-    [JSON.stringify(colProps), +row.id],
+    [JSON.stringify(colProps), row.uuid],
     ColAdapter
   )
 }

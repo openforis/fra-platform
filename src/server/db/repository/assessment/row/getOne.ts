@@ -22,7 +22,7 @@ export const getOne = (props: Props, client: BaseProtocol = DB): Promise<Row> =>
                ${includeCols ? `, coalesce(jsonb_agg(c.*)    filter (where c.uuid is not null), '[]')     as cols` : ''}
         from ${schema}.row r
                 left join ${schema}."table" t on r.table_uuid = t.uuid
-                ${includeCols ? `left join ${schema}.col c on r.id = c.row_id` : ''}
+                ${includeCols ? `left join ${schema}.col c on r.uuid = c.row_uuid` : ''}
         where r.props ->> 'variableName' = $1
             and t.props ->> 'name' = $2
         ${includeCols ? `group by r.id, r.uuid, r.props` : ''}

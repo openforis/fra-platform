@@ -21,15 +21,15 @@ export const _transposeData = (props: PropsTranspose): Pick<ReturnedTranspose, '
 
     const labels = { [cycleUUID]: { label: columnName } }
     const colHeaderProps: Col['props'] = { colType: ColType.placeholder, cycles, labels }
-    const rowId = row.id
-    const colHeader: Col = { id: (index + 1) * rowsData.length, uuid: `col-${index}-0`, props: colHeaderProps, rowId }
+    const rowUuid = row.uuid
+    const colHeader: Col = { id: (index + 1) * rowsData.length, uuid: `col-${index}-0`, props: colHeaderProps, rowUuid }
 
     const colsData = _rowsData.map<Col>((rowData) => {
       const col = rowData.cols.find((c) => c.props.colName === columnName)
       const { variableName } = rowData.props
       const colProps = { ...Objects.cloneDeep(col.props), variableName }
 
-      return { id: col.id, uuid: col.uuid, props: colProps, rowId }
+      return { id: col.id, uuid: col.uuid, props: colProps, rowUuid }
     })
     row.cols = [colHeader, ...colsData]
 
