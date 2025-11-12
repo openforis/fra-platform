@@ -4,11 +4,11 @@ import { ToolsUtils } from 'tools/utils/toolsUtils'
 
 import { Assessment, AssessmentNames } from 'meta/assessment/assessment'
 
-import { DB } from 'server/db/db'
-import { Schemas } from 'server/db/schemas'
+import { CacheController } from 'server/cache/controller'
 import { AssessmentController } from 'server/controller/assessment'
 import { UserController } from 'server/controller/user'
-import { CacheController } from 'server/cache/controller'
+import { DB } from 'server/db/db'
+import { Schemas } from 'server/db/schemas'
 
 const client = DB
 const assessmentName = AssessmentNames.fra
@@ -26,8 +26,8 @@ const _removeColumns = async (props: { assessment: Assessment }): Promise<void> 
       where id in
             (select c.id
              from ${schemaAssessment}.col c
-                      left join ${schemaAssessment}.row r on r.id = c.row_id
-                      left join ${schemaAssessment}."table" t on r.table_id = t.id
+                      left join ${schemaAssessment}.row r on r.uuid = c.row_uuid
+                      left join ${schemaAssessment}."table" t on r.table_uuid = t.uuid
              where c.props ->> 'colName' = '2024'
                and t.props ->> 'name' in ('areaAffectedByFire', 'disturbances'))
   `)

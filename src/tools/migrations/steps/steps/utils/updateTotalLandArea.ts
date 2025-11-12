@@ -55,8 +55,8 @@ export const updateTotalLandArea = async (props: Props, client: BaseProtocol): P
                     (select n.id
                      from ${schemaCycle}.node n
                               left join ${schemaAssessment}.col c on n.col_uuid = c.uuid
-                              left join ${schemaAssessment}.row r on r.id = c.row_id
-                              left join ${schemaAssessment}."table" t on t.id = r.table_id
+                              left join ${schemaAssessment}.row r on r.uuid = c.row_uuid
+                              left join ${schemaAssessment}."table" t on t.uuid = r.table_uuid
                      where n.country_iso = '${countryIso}'
                        and t.props ->> 'name' = '${tableName}'
                        and r.props ->> 'variableName' = '${variableName}'
@@ -98,7 +98,7 @@ export const updateTotalLandArea = async (props: Props, client: BaseProtocol): P
                    ) as meta
             from ${schemaAssessment}.col c
                      left join ${schemaAssessment}.row r on r.id = c.row_id
-                     left join ${schemaAssessment}."table" t on t.id = r.table_id
+                     left join ${schemaAssessment}."table" t on t.uuid = r.table_uuid
             where t.props ->> 'name' = '${tableName}'
               and r.props ->> 'variableName' = '${variableName}'
               and c.props ->> 'colName' in (${years})

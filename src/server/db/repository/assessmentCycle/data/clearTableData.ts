@@ -26,8 +26,8 @@ export const clearTableData = async (props: Props, client: BaseProtocol = DB): P
           with rc as (select c.props ->> 'colName'      as col_name,
                          r.props ->> 'variableName' as variable_name,
                          t.props ->> 'name'         as table_name,
-                         c.uuid                     as col_id,
-                         r.uuid                     as row_id
+                         c.uuid                     as col_uuid,
+                         r.uuid                     as row_uuid
                   from ${schemaAssessment}.table t
                            join ${schemaAssessment}.row r on (t.uuid = r.table_uuid)
                            join ${schemaAssessment}.col c on (r.uuid = c.row_uuid)
@@ -38,10 +38,10 @@ export const clearTableData = async (props: Props, client: BaseProtocol = DB): P
             select n.uuid
             from rc
                      join ${schemaCycle}.node n
-                          on (rc.col_id = n.col_uuid and rc.row_id = n.row_uuid)
+                          on (rc.col_uuid = n.col_uuid and rc.row_uuid = n.row_uuid)
             where country_iso in ($1:csv))
             returning *)
-      select rc.col_name, rc.variable_name, rc.table_name from deleted_nodes dn left join rc on dn.col_uuid = rc.col_id and dn.row_uuid = rc.row_id;
+      select rc.col_name, rc.variable_name, rc.table_name from deleted_nodes dn left join rc on dn.col_uuid = rc.col_uuid and dn.row_uuid = rc.row_uuid;
     `,
     [countryISOs, tableName],
     (row) => {
