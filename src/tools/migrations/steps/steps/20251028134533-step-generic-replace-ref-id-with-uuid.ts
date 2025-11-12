@@ -1,6 +1,7 @@
 import { Promises } from 'utils/promises'
 
 import { CacheController } from 'server/cache/controller'
+import { TableData } from 'server/controller/cycleData/tableData'
 import { BaseProtocol, DB } from 'server/db/db'
 import { Schemas } from 'server/db/schemas'
 
@@ -10,6 +11,7 @@ import { Schemas } from 'server/db/schemas'
 // - table_section.section_id -> table_section.section_uuid
 // - table.table_section_id -> table.table_section_uuid
 // - row.table_id -> row.table_uuid
+// - col.row_id -> col.row_uuid
 
 const client: BaseProtocol = DB
 export default async (): Promise<void> => {
@@ -47,6 +49,9 @@ export default async (): Promise<void> => {
   // ====== Assessment schema
   await Promises.each(Object.values(assessments), async (assessment) => {
     const schemaName = Schemas.getName(assessment)
+
+    // Drop all table data views in cycle schemas (they depend on columns we edit later (row.id, etc.))
+    await Promise.all(assessment.cycles.map((cycle) => TableData.dropViews({ assessment, cycle }, client)))
 
     // ============= section.parent_id -> section.parent_uuid
 
@@ -143,7 +148,32 @@ export default async (): Promise<void> => {
 
     await client.none(`alter table ${schemaName}.row drop column if exists table_id`)
 
-    // Regenerate metadata cache (sections, sectionsMetadata, rows)
+    // ============= col.row_id -> row.row_uuid
+
+    await client.none(`alter table ${schemaName}.col add column if not exists row_uuid uuid`)
+
+    await client.none(`
+      update ${schemaName}.col c
+        set row_uuid = r.uuid
+      from ${schemaName}.row r
+      where c.row_id = r.id
+    `)
+
+    await client.none(`
+      alter table ${schemaName}.col
+        alter column row_uuid set not null,
+        add constraint col_row_uuid_fk
+          foreign key (row_uuid)
+          references ${schemaName}.row (uuid)
+          on update cascade
+          on delete cascade
+    `)
+
+    await client.none(`alter table ${schemaName}.col drop column if exists row_id`)
+
     await CacheController.generateMetadata({ assessment }, client)
+
+    // recreate dropped views
+    await Promise.all(assessment.cycles.map((cycle) => TableData.refreshViews({ assessment, cycle }, client)))
   })
 }
