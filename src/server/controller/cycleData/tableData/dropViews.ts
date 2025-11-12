@@ -18,7 +18,7 @@ export const dropViews = async (props: Props, client: BaseProtocol = DB): Promis
   await Promise.all(
     tables.map((table) => {
       const tableName = table.props.name.toLowerCase()
-      return client.none(`drop view if exists ${schemaCycle}.${tableName} cascade`)
+      return DB.none(`drop view if exists ${schemaCycle}.${tableName} cascade`)
     })
   )
 }
