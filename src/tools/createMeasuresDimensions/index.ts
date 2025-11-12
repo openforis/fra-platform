@@ -13,11 +13,11 @@ import { Dimensions } from 'meta/measurement/dimensions'
 import { Measures } from 'meta/measurement/measures'
 import { SystemOfMeasurementName, systemsOfMeasurement } from 'meta/measurement/systemOfMeasurement'
 
+import { CacheController } from 'server/cache/controller'
+import { AssessmentController } from 'server/controller/assessment'
 import { BaseProtocol, DB } from 'server/db/db'
 import { SystemOfMeasurementRepository } from 'server/db/repository/measurement/systemOfMeasurement'
 import { Schemas } from 'server/db/schemas'
-import { AssessmentController } from 'server/controller/assessment'
-import { CacheController } from 'server/cache/controller'
 
 const client: BaseProtocol = DB
 
@@ -44,7 +44,7 @@ const _createMeasuresAndDimensionsForTables = async (props: Props): Promise<void
     select distinct t.props ->> 'name' as table_name, r.props ->> 'variableName' AS variable_name
     from ${schemaAssessment}.row r
     join ${schemaAssessment}."table" t
-      on t.id = r.table_id
+      on t.uuid = r.table_uuid
     where t.props ->> 'name' in ($1:csv)
       and r.props ->> 'variableName' is not null
       and r.props ->> 'variableName' <> ''
