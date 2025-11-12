@@ -22,6 +22,7 @@
   "copyLink": "نسخ الرابط",
   "countries": "البلدان",
   "country": "البلد",
+  "countryCode": "رمز البلد",
   "csvAllTables": "CSV جميع الجداول",
   "csvDisclaimer": "إخلاء المسؤولية",
   "csvDisclaimerText": "تم نشر هذا التقرير كجزء من {{assessmentName}} {{cycleName}} وتم تحديثه في {{month}}/{{year}}",
