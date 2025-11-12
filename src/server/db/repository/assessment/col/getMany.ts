@@ -9,29 +9,29 @@ import { Schemas } from 'server/db/schemas'
 type Props = {
   assessment: Assessment
   tableUuid?: UUID
-  rowId?: number
+  rowUuid?: UUID
 }
 
 export const getMany = (props: Props, client: BaseProtocol = DB): Promise<Array<Col>> => {
-  const { assessment, rowId, tableUuid } = props
-  if ((rowId && tableUuid) || (!rowId && !tableUuid)) {
-    throw new Error(`Either rowId or tableUuid must be present`)
+  const { assessment, rowUuid, tableUuid } = props
+  if ((rowUuid && tableUuid) || (!rowUuid && !tableUuid)) {
+    throw new Error(`Either rowUuid or tableUuid must be present`)
   }
   const schema = Schemas.getName(assessment)
   const where = tableUuid
-    ? `where c.row_id in (
-         select r.id
+    ? `where c.row_uuid in (
+         select r.uuid
          from ${schema}.row r
          where r.table_uuid = $1
      )`
-    : `where c.row_id = $1`
+    : `where c.row_uuid = $1`
 
   return client.map<Col>(
     `select *
      from ${schema}.col c
      ${where}
        and c.props ->> 'colType' not in ('${ColType.header}', '${ColType.noticeMessage}')`,
-    [tableUuid ?? rowId],
+    [tableUuid ?? rowUuid],
     ColAdapter
   )
 }
