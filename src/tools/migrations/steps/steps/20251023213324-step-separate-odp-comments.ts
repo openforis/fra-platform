@@ -78,6 +78,19 @@ const _updateOriginalDataPointTable = async (props: UpdateTableProps): Promise<v
   }
 }
 
+const _updateOdpMessageTopics = async (props: UpdateTableProps): Promise<void> => {
+  const { client, schemaName } = props
+  const oldSuffix = 'nationalDataPointComments'
+  const newSuffix = 'nationalDataPointExtentOfForestComments'
+
+  await client.none(`
+      update ${schemaName}.message_topic
+      set key = regexp_replace(key, '${oldSuffix}$', '${newSuffix}')
+      where key like '%${oldSuffix}'
+        and key like 'odp-%'
+    `)
+}
+
 type UpdateActivityLogProps = {
   client: BaseProtocol
 }
@@ -134,6 +147,7 @@ export default async (client: BaseProtocol): Promise<void> => {
     await Promises.each(assessment.cycles, async (cycle) => {
       const schemaName = Schemas.getNameCycle(assessment, cycle)
       await _updateOriginalDataPointTable({ client, schemaName })
+      await _updateOdpMessageTopics({ client, schemaName })
 
       // Update activity log materialized views to include new odp comment columns logs
       const countries = await AreaController.getCountries({ assessment, cycle }, client)
