@@ -3,7 +3,7 @@ import { getTable } from 'tools/migrations/steps/steps/metadata/dashboard/utils'
 import { unit } from 'tools/migrations/steps/steps/metadata/dashboard/utils/unit'
 
 import { Cycle } from 'meta/assessment/cycle'
-import { ChartColor } from 'meta/chart'
+import { ChartColor } from 'meta/chart/color'
 import { DashboardItemType } from 'meta/dashboard'
 import { DashboardPieChart } from 'meta/dashboard/dashboard'
 

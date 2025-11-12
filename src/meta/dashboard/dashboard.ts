@@ -2,7 +2,8 @@ import { Label } from 'meta/assessment/label'
 import { VariableCache } from 'meta/assessment/metaCache'
 import { Table } from 'meta/assessment/table'
 import { VariableName } from 'meta/assessment/variable'
-import { BarChart, PieChart } from 'meta/chart'
+import { BarChart } from 'meta/chart/bar'
+import { PieChart } from 'meta/chart/pie'
 
 export enum DashboardItemType {
   table = 'table',

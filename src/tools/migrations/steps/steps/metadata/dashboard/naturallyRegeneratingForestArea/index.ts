@@ -4,7 +4,7 @@ import { unit } from 'tools/migrations/steps/steps/metadata/dashboard/utils/unit
 
 import { Cycle } from 'meta/assessment/cycle'
 import { TableNames } from 'meta/assessment/table'
-import { ChartColor } from 'meta/chart'
+import { ChartColor } from 'meta/chart/color'
 import { DashboardBarChart, DashboardItemType } from 'meta/dashboard'
 
 const cols: Record<string, Array<string>> = {

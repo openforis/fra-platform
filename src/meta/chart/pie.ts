@@ -1,5 +1,5 @@
 import { Label } from 'meta/assessment/label'
-import { ChartColor } from 'meta/chart'
+import { ChartColor } from 'meta/chart/color'
 
 type PieCell = {
   color: ChartColor

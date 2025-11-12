@@ -14,7 +14,7 @@ import {
 } from 'recharts'
 
 import { Labels } from 'meta/assessment/labels'
-import { BarChart as BarChartType, BarChartData } from 'meta/chart'
+import { BarChart as BarChartType, BarChartData } from 'meta/chart/bar'
 
 import { cursor } from '../utils/cursor'
 import Tooltip from './Tooltip'
@@ -29,7 +29,7 @@ type Props = {
 
 const SPACING = 8
 
-const Bar = (props: Props) => {
+const Bar: React.FC<Props> = (props) => {
   const { t } = useTranslation()
   const { chart, data, showLabels = true, showLegend = true, stacked } = props
 
@@ -55,7 +55,7 @@ const Bar = (props: Props) => {
         <YAxis
           label={yAxisLabel}
           stroke="#7f7f7f"
-          tickFormatter={(value) => {
+          tickFormatter={(value): string => {
             return value.toLocaleString()
           }}
         />

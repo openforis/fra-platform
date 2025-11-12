@@ -6,7 +6,7 @@ import { Objects } from 'utils/objects'
 import { CountryIso } from 'meta/area/countryIso'
 import { Labels } from 'meta/assessment/labels'
 import { Table } from 'meta/assessment/table'
-import { BarChart, BarChartData } from 'meta/chart'
+import { BarChart, BarChartData } from 'meta/chart/bar'
 import { RecordAssessmentDatas } from 'meta/data'
 
 import { useCountryRouteParams } from 'client/hooks/routeParams'
