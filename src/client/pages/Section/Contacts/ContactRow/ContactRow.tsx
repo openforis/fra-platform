@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Contact } from 'meta/cycleData'
+import { Contact } from 'meta/cycleData/contact/contact'
 
 import { useIsEditTableDataEnabled } from 'client/store/user/hooks/auth'
 import { DataCell, DataRow } from 'client/components/DataGrid'
@@ -44,7 +44,7 @@ const ContactRow: React.FC<Props> = (props) => {
                 column={column}
                 disabled={disabled}
                 nodeExt={nodeExt}
-                onChange={(raw) => {
+                onChange={(raw): void => {
                   onChange({ contact, field, raw })
                 }}
               />
