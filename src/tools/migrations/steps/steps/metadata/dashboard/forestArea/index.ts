@@ -3,7 +3,8 @@ import { unit } from 'tools/migrations/steps/steps/metadata/dashboard/utils/unit
 
 import { Cycle } from 'meta/assessment/cycle'
 import { ChartColor } from 'meta/chart/color'
-import { DashboardBarChart, DashboardItemType } from 'meta/dashboard'
+import { DashboardBarChart } from 'meta/dashboard/barChart'
+import { DashboardItemType } from 'meta/dashboard/item'
 
 const commonColumns = ['1990', '2000', '2010', '2020']
 

@@ -5,7 +5,7 @@ import { ApiEndPoint } from 'meta/api/endpoint'
 import { AreaCode } from 'meta/area/areaCode'
 import { AssessmentName } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
-import { DashboardItem } from 'meta/dashboard'
+import { DashboardItem } from 'meta/dashboard/item'
 
 type Returned = Array<DashboardItem>
 
