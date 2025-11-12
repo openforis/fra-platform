@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 
-import { Contact, ContactField } from 'meta/cycleData'
+import { Contact } from 'meta/cycleData/contact/contact'
+import { ContactField } from 'meta/cycleData/contact/field'
 import { Topics } from 'meta/messageCenter'
 import { Routes } from 'meta/routes'
 import { Users } from 'meta/user'
@@ -44,7 +45,7 @@ export const useRowActions = (props: Props): Returned => {
           assessmentName,
           cycleName,
           countryIso,
-          id: contact.props.userId,
+          id: String(contact.props.userId),
         }),
       })
     }

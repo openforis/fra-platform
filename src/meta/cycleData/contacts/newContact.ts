@@ -1,30 +1,16 @@
 import { CountryIso } from 'meta/area/countryIso'
-import { NodeValue } from 'meta/assessment/node'
+import { Contact } from 'meta/cycleData/contact/contact'
+import { ContactField } from 'meta/cycleData/contact/field'
+import { newContactNode } from 'meta/cycleData/contacts/newContactNode'
 import { NodeExtType } from 'meta/nodeExt'
-import { RoleName, UserTitle } from 'meta/user'
 import { UUIDs } from 'meta/uuid'
 
-import { Contact, ContactField, ContactNode } from './contact'
-
-const newContactNode = (props: {
+type Props = {
   countryIso: CountryIso
-  field: ContactField
-  parentUuid: string
-  raw: NodeValue['raw']
-}): ContactNode => {
-  const { countryIso, field, parentUuid, raw } = props
-  const uuid = UUIDs.getUuid()
-  return {
-    countryIso,
-    parentUuid,
-    props: { field },
-    type: NodeExtType.contact,
-    uuid,
-    value: { raw },
-  }
+  rowIndex: number
 }
 
-const newContact = (props: { countryIso: CountryIso; rowIndex: number }): Contact => {
+export const newContact = (props: Props): Contact => {
   const { countryIso, rowIndex } = props
 
   const uuid = UUIDs.getUuid()
@@ -58,20 +44,4 @@ const newContact = (props: { countryIso: CountryIso; rowIndex: number }): Contac
     uuid,
     value: null,
   }
-}
-
-const allowedRoles = [RoleName.NATIONAL_CORRESPONDENT, RoleName.ALTERNATE_NATIONAL_CORRESPONDENT, RoleName.COLLABORATOR]
-
-const appellations = Object.values(UserTitle)
-
-const getFieldValue = (props: { contact: Contact; field: ContactField }): NodeValue['raw'] => {
-  const { contact, field } = props
-  return contact[field].value.raw
-}
-
-export const Contacts = {
-  appellations,
-  allowedRoles,
-  getFieldValue,
-  newContact,
 }

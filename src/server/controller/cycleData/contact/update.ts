@@ -4,7 +4,7 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { NodeValue } from 'meta/assessment/node'
 import { SectionNames } from 'meta/assessment/section'
-import { ContactNode } from 'meta/cycleData'
+import { ContactNode } from 'meta/cycleData/contact/node'
 import { User } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db/db'
