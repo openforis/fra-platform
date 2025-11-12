@@ -26,10 +26,10 @@ const getStyle = (cycle: Cycle): Record<CycleUuid, ColStyle> => {
   }
 }
 
-const getCols = (cycle: Cycle, cols: Array<string>, rowId: number): Array<Col> => {
+const getCols = (cycle: Cycle, cols: Array<string>, rowUuid: UUID): Array<Col> => {
   return cols.map((col) => {
     return {
-      rowId,
+      rowUuid,
       props: {
         cycles: [cycle.uuid],
         colName: col,
@@ -42,10 +42,11 @@ const getCols = (cycle: Cycle, cols: Array<string>, rowId: number): Array<Col> =
 }
 
 const getHeaderRow = (cycle: Cycle, cols: Array<string>, tableUuid: UUID): Row => {
+  const rowUuid = UUIDs.getUuid()
   return {
     cols: [
       {
-        rowId: 1,
+        rowUuid,
         props: {
           colType: ColType.header,
           cycles: [cycle.uuid],
@@ -56,7 +57,7 @@ const getHeaderRow = (cycle: Cycle, cols: Array<string>, tableUuid: UUID): Row =
       },
       ...cols.map((colName, index) => {
         return {
-          rowId: 1,
+          rowUuid,
           props: {
             index: index + 1,
             cycles: [cycle.uuid],
@@ -75,7 +76,7 @@ const getHeaderRow = (cycle: Cycle, cols: Array<string>, tableUuid: UUID): Row =
       cycles: [cycle.uuid],
     },
     tableUuid,
-    uuid: UUIDs.getUuid(),
+    uuid: rowUuid,
   }
 }
 
@@ -85,10 +86,11 @@ export const getRows = (props: GetRowsProps): Array<Row> => {
   const headerRow: Row = getHeaderRow(cycle, cols, tableUuid)
 
   const _getRow = (row: RowMetadata): Row => {
+    const rowUuid = UUIDs.getUuid()
     return {
       cols: [
         {
-          rowId: row.id,
+          rowUuid,
           props: {
             colType: ColType.header,
             cycles: [cycle.uuid],
@@ -100,7 +102,7 @@ export const getRows = (props: GetRowsProps): Array<Row> => {
           },
           uuid: UUIDs.getUuid(),
         },
-        ...getCols(cycle, cols, row.id),
+        ...getCols(cycle, cols, rowUuid),
       ],
       id: row.id,
       props: {
@@ -114,7 +116,7 @@ export const getRows = (props: GetRowsProps): Array<Row> => {
         },
       },
       tableUuid,
-      uuid: UUIDs.getUuid(),
+      uuid: rowUuid,
     }
   }
 

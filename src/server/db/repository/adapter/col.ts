@@ -1,12 +1,13 @@
 import { Objects } from 'utils/objects'
 
 import { Col, ColProps } from 'meta/assessment/col'
+import { UUID } from 'meta/uuid'
 
 export interface ColDB {
   id: number
   uuid: string
   props: ColProps
-  row_id: number
+  row_uuid: UUID
 }
 
 export const ColAdapter = (colDB: ColDB): Col => {
