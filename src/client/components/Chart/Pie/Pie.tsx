@@ -5,7 +5,7 @@ import { Cell, Legend, Pie as PieComponent, PieChart, ResponsiveContainer, Toolt
 import { Numbers } from 'utils/numbers'
 
 import { Labels } from 'meta/assessment/labels'
-import { PieChartData } from 'meta/chart'
+import { PieChartData } from 'meta/chart/pie'
 
 import { cursor } from '../utils/cursor'
 import Tooltip from './Tooltip'
@@ -14,7 +14,7 @@ type Props = {
   data: Array<PieChartData>
 }
 
-const Pie = (props: Props) => {
+const Pie: React.FC<Props> = (props) => {
   const { data } = props
 
   const { t } = useTranslation()
@@ -43,7 +43,7 @@ const Pie = (props: Props) => {
         <Legend
           align="center"
           // @ts-ignore
-          formatter={(value, entry: { payload: { percent: number } }) => {
+          formatter={(value, entry: { payload: { percent: number } }): string => {
             return `${value} (${Numbers.format(entry.payload.percent * 100, 0)}%)`
           }}
           layout="horizontal"

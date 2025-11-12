@@ -6,7 +6,7 @@ import { Objects } from 'utils/objects'
 import { CountryIso } from 'meta/area/countryIso'
 import { Labels } from 'meta/assessment/labels'
 import { Table } from 'meta/assessment/table'
-import { PieChart, PieChartData } from 'meta/chart'
+import { PieChart, PieChartData } from 'meta/chart/pie'
 import { RecordAssessmentDatas } from 'meta/data'
 
 import { useCountryRouteParams } from 'client/hooks/routeParams'
