@@ -171,9 +171,9 @@ export default async (): Promise<void> => {
 
     await client.none(`alter table ${schemaName}.col drop column if exists row_id`)
 
-    await CacheController.generateMetadata({ assessment }, client)
-
     // recreate dropped views
     await Promise.all(assessment.cycles.map((cycle) => TableData.refreshViews({ assessment, cycle }, client)))
+
+    await CacheController.generateMetadata({ assessment }, client)
   })
 }
