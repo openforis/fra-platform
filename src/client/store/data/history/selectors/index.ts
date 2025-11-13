@@ -4,7 +4,7 @@ import { CountryIso } from 'meta/area/countryIso'
 import { AssessmentName } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
 import { SectionName } from 'meta/assessment/section'
-import { HistoryTarget } from 'meta/cycleData/historyActivities'
+import { HistoryTarget } from 'meta/cycleData/history/activities'
 
 import { RootState } from 'client/store/types'
 
