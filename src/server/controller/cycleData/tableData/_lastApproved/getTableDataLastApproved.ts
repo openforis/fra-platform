@@ -1,6 +1,7 @@
 import { Objects } from 'utils/objects'
 
-import { RecordAssessmentData, RecordAssessmentDatas } from 'meta/data'
+import { RecordAssessmentData } from 'meta/data/recordData'
+import { RecordAssessmentDatas } from 'meta/data/recordDatas'
 
 import { getInfo } from 'server/controller/cycleData/history/lastApproved'
 import { mergeWithLastApproved } from 'server/controller/cycleData/tableData/_lastApproved/_lastApproved'

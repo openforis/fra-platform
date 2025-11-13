@@ -9,7 +9,7 @@ import { CountryIso } from 'meta/area/countryIso'
 import { Assessments } from 'meta/assessment/assessments'
 import { NodeValue } from 'meta/assessment/node'
 import { RowCaches } from 'meta/assessment/rowCaches'
-import { NodeUpdate } from 'meta/data'
+import { NodeUpdate } from 'meta/data/nodeUpdates'
 import { UsersEmail } from 'meta/user'
 
 import { RowRedisRepository } from 'server/cache/repository/row'

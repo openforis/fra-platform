@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react'
 
 import { Objects } from 'utils/objects'
 
-import { RecordAssessmentData, RecordAssessmentDatas } from 'meta/data'
+import { RecordAssessmentData } from 'meta/data/recordData'
+import { RecordAssessmentDatas } from 'meta/data/recordDatas'
 
 import { useTableDataStatusListener } from 'client/store/data/tableData/hooks/useTableDataStatusListener'
 import { useAssessment } from 'client/store/meta/hooks/assessments'

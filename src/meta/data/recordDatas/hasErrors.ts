@@ -3,8 +3,8 @@ import { AssessmentName } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
 import { NodeValueValidations } from 'meta/assessment/nodeValueValidations'
 import { TableName } from 'meta/assessment/table'
-import { RecordAssessmentData } from 'meta/data'
-import { getTableData } from 'meta/data/recordAssessmentDatas/getTableData'
+import { RecordAssessmentData } from 'meta/data/recordData'
+import { getTableData } from 'meta/data/recordDatas/getTableData'
 
 export const hasErrors = (props: {
   assessmentName: AssessmentName

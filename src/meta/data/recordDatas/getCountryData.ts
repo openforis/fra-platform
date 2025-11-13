@@ -1,4 +1,5 @@
-import { RecordTableData } from '../RecordAssessmentData'
+import { RecordTableData } from 'meta/data/recordData'
+
 import { getCycleData } from './getCycleData'
 import { Props } from './props'
 

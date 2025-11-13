@@ -1,7 +1,7 @@
 import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area/countryIso'
-import { RecordCountryData } from 'meta/data/RecordAssessmentData'
+import { RecordCountryData } from 'meta/data/recordData'
 
 export const mergeRecordTableData = (data: RecordCountryData, newData: RecordCountryData): RecordCountryData => {
   return Object.keys(newData).reduce<RecordCountryData>((acc, countryIso: CountryIso) => {

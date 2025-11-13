@@ -1,5 +1,5 @@
 import { Years } from 'meta/assessment/years'
-import { RecordAssessmentDatas } from 'meta/data'
+import { RecordAssessmentDatas } from 'meta/data/recordDatas'
 
 import { entries } from 'server/controller/cycleData/getBulkDownload/entries/FRAYears'
 import { formatDatum } from 'server/controller/cycleData/getBulkDownload/formatDatum'

@@ -5,7 +5,7 @@ import { Col } from 'meta/assessment/col'
 import { Row } from 'meta/assessment/row'
 import { RowCache } from 'meta/assessment/rowCache'
 import { Table } from 'meta/assessment/table'
-import { RecordAssessmentData } from 'meta/data'
+import { RecordAssessmentData } from 'meta/data/recordData'
 import { ExpressionEvaluator } from 'meta/expressionEvaluator'
 
 import { useAssessment } from 'client/store/meta/hooks/assessments'

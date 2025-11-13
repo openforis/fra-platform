@@ -4,8 +4,8 @@ import { CountryIso } from 'meta/area/countryIso'
 import { AssessmentName } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
 import { TableName } from 'meta/assessment/table'
+import { RecordAssessmentData } from 'meta/data/recordData'
 
-import { RecordAssessmentData } from '../RecordAssessmentData'
 import { getTableData } from './getTableData'
 
 export const isTableDataEmpty = (props: {

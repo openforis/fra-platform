@@ -1,7 +1,7 @@
 import { Objects } from 'utils/objects'
 
 import { TableNames } from 'meta/assessment/table'
-import { RecordAssessmentData } from 'meta/data'
+import { RecordAssessmentData } from 'meta/data/recordData'
 
 import { BaseProtocol } from 'server/db/db'
 import { DataRepository } from 'server/db/repository/assessmentCycle/data'

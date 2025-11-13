@@ -3,7 +3,8 @@ import { BigNumberInput, Numbers } from 'utils/numbers'
 import { Objects } from 'utils/objects'
 
 import { NodeValuesEstimation } from 'meta/assessment/nodeValuesEstimation'
-import { NodeUpdate, RecordCountryData } from 'meta/data'
+import { NodeUpdate } from 'meta/data/nodeUpdates'
+import { RecordCountryData } from 'meta/data/recordData'
 
 // TODO: refactor everything
 

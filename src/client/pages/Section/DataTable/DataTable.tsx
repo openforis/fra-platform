@@ -4,7 +4,7 @@ import React from 'react'
 import { CountryIso } from 'meta/area/countryIso'
 import { AssessmentName } from 'meta/assessment/assessment'
 import { Table as TableType } from 'meta/assessment/table'
-import { RecordAssessmentDatas } from 'meta/data'
+import { RecordAssessmentDatas } from 'meta/data/recordDatas'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useIsEditTableDataEnabled } from 'client/store/user/hooks/auth'

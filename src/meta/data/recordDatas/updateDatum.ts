@@ -1,8 +1,8 @@
 import { Objects } from 'utils/objects'
 
 import { NodeValue } from 'meta/assessment/node'
+import { RecordAssessmentData } from 'meta/data/recordData'
 
-import { RecordAssessmentData } from '../RecordAssessmentData'
 import { Props } from './props'
 
 export const updateDatum = (
