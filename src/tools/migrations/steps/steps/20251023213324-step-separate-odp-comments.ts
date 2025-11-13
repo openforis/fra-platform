@@ -78,38 +78,9 @@ const _updateOriginalDataPointTable = async (props: UpdateTableProps): Promise<v
   }
 }
 
-const _updateOdpLinkLocations = async (props: UpdateTableProps): Promise<void> => {
+const _truncateAdminLinks = async (props: UpdateTableProps): Promise<void> => {
   const { client, schemaName } = props
-  const commentColumnExtent = ODPCommentColumns[TableNames.extentOfForest]
-
-  // Replace all odp link locations to use new comment columns instead of "description"
-  await client.none(
-    `with updated_links as (
-        select l.id,
-               jsonb_agg(
-                 case
-                   when location ->> 'sectionName' = 'originalDataPoint'
-                    and location ->> 'odpSection' = 'description'
-                     then jsonb_set(location, '{odpSection}', '"${commentColumnExtent}"'::jsonb, false)
-                   else location
-                 end
-                 order by ord
-               ) as new_locations
-        from ${schemaName}.link l
-             cross join lateral jsonb_array_elements(l.locations)
-             with ordinality as t(location, ord)
-        where jsonb_path_exists(
-                l.locations,
-                '$[*] ? (@.sectionName == "originalDataPoint" && @.odpSection == "description")'
-              )
-        group by l.id
-    )
-    update ${schemaName}.link as l
-    set locations = u.new_locations
-    from updated_links as u
-    where l.id = u.id
-      and l.locations is distinct from u.new_locations`
-  )
+  await client.none(`truncate table ${schemaName}.link`)
 }
 
 type UpdateActivityLogProps = {
@@ -168,7 +139,7 @@ export default async (client: BaseProtocol): Promise<void> => {
     await Promises.each(assessment.cycles, async (cycle) => {
       const schemaName = Schemas.getNameCycle(assessment, cycle)
       await _updateOriginalDataPointTable({ client, schemaName })
-      await _updateOdpLinkLocations({ client, schemaName })
+      await _truncateAdminLinks({ client, schemaName })
 
       // Update activity log materialized views to include new odp comment columns logs
       const countries = await AreaController.getCountries({ assessment, cycle }, client)
