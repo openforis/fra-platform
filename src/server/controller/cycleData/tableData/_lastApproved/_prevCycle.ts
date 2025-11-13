@@ -1,7 +1,7 @@
 import { Objects } from 'utils/objects'
 
 import { TableName } from 'meta/assessment/table'
-import { HistoryLastApprovedInfo } from 'meta/cycleData/historyLastApproved'
+import { HistoryLastApprovedInfo } from 'meta/cycleData/history/lastApproved'
 import { RecordAssessmentData, RecordAssessmentDatas } from 'meta/data'
 
 import { TableRedisRepository } from 'server/cache/repository/table'

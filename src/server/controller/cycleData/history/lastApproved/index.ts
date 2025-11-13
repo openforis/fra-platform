@@ -4,7 +4,7 @@ import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { Cycles } from 'meta/assessment/cycles'
-import { HistoryLastApprovedInfo } from 'meta/cycleData/historyLastApproved'
+import { HistoryLastApprovedInfo } from 'meta/cycleData/history/lastApproved'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { CountryRepository } from 'server/db/repository/assessmentCycle/country'
