@@ -1,6 +1,6 @@
 import { NodeValue } from 'meta/assessment/node'
+import { RecordAssessmentData } from 'meta/data/recordData'
 
-import { RecordAssessmentData } from '../RecordAssessmentData'
 import { getNodeValue } from './getNodeValue'
 import { Props } from './props'
 import { updateDatum } from './updateDatum'

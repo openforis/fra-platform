@@ -1,4 +1,5 @@
-import { RecordColumnData } from '../RecordAssessmentData'
+import { RecordColumnData } from 'meta/data/recordData'
+
 import { getCountryData } from './getCountryData'
 import { Props } from './props'
 

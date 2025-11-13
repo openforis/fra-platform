@@ -7,7 +7,7 @@ import { VariableCache } from 'meta/assessment/metaCache'
 import { AssessmentMetaCaches } from 'meta/assessment/metaCaches'
 import { NodeValue } from 'meta/assessment/node'
 import { RowCache } from 'meta/assessment/rowCache'
-import { RecordAssessmentDatas } from 'meta/data'
+import { RecordAssessmentDatas } from 'meta/data/recordDatas'
 import { ExpressionEvaluator } from 'meta/expressionEvaluator'
 
 import { useAssessment } from 'client/store/meta/hooks/assessments'

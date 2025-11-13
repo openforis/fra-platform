@@ -3,7 +3,7 @@ import { Objects } from 'utils/objects'
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { NodeUpdate } from 'meta/data'
+import { NodeUpdate } from 'meta/data/nodeUpdates'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { Schemas } from 'server/db/schemas'

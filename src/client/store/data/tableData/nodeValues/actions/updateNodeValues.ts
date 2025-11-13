@@ -6,7 +6,7 @@ import { ApiEndPoint } from 'meta/api/endpoint'
 import { CycleDataParams, NodesBody } from 'meta/api/request'
 import { Assessments } from 'meta/assessment/assessments'
 import { AssessmentMetaCaches } from 'meta/assessment/metaCaches'
-import { NodeUpdate, NodeUpdates } from 'meta/data'
+import { NodeUpdate, NodeUpdates } from 'meta/data/nodeUpdates'
 
 import { setNodeValues } from 'client/store/data/tableData/nodeValues/actions/setNodeValues'
 import { MetadataSelectors } from 'client/store/meta/selectors'

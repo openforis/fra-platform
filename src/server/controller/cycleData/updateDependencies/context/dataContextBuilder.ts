@@ -7,7 +7,7 @@ import { Cycle, CycleName } from 'meta/assessment/cycle'
 import { VariableCache } from 'meta/assessment/metaCache'
 import { AssessmentMetaCaches } from 'meta/assessment/metaCaches'
 import { TableName } from 'meta/assessment/table'
-import { RecordAssessmentData } from 'meta/data'
+import { RecordAssessmentData } from 'meta/data/recordData'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { getTableData } from 'server/controller/cycleData/getTableData'

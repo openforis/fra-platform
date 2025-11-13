@@ -1,12 +1,12 @@
 import { ActionReducerMapBuilder } from '@reduxjs/toolkit'
 
-import { RecordAssessmentDatas } from 'meta/data'
+import { RecordAssessmentDatas } from 'meta/data/recordDatas'
 
 import { setNodeValues } from 'client/store/data/tableData/nodeValues/actions/setNodeValues'
 import { updateNodeValues } from 'client/store/data/tableData/nodeValues/actions/updateNodeValues'
 import { NodeValuesState } from 'client/store/data/tableData/nodeValues/state'
 
-export const nodeValuesReducer = (builder: ActionReducerMapBuilder<NodeValuesState>) => {
+export const nodeValuesReducer = (builder: ActionReducerMapBuilder<NodeValuesState>): void => {
   builder.addCase(setNodeValues, (state, action) => {
     const { nodeUpdates } = action.payload
     const { assessmentName, countryIso, cycleName, nodes } = nodeUpdates

@@ -4,7 +4,7 @@ import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area/countryIso'
 import { TableNames } from 'meta/assessment/table'
-import { RecordAssessmentDatas } from 'meta/data'
+import { RecordAssessmentDatas } from 'meta/data/recordDatas'
 
 import { useCountry } from 'client/store/area/hooks/country'
 import { NodeValuesActions } from 'client/store/data/tableData/nodeValues/actions'

@@ -1,4 +1,4 @@
-import { RecordAssessmentData } from 'meta/data'
+import { RecordAssessmentData } from 'meta/data/recordData'
 
 import { DataRedisRepository } from 'server/cache/repository/data'
 import { BaseProtocol, DB } from 'server/db/db'

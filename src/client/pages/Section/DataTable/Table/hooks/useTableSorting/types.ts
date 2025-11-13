@@ -1,7 +1,7 @@
 import { ColName } from 'meta/assessment/col'
 import { Row } from 'meta/assessment/row'
 import { Table } from 'meta/assessment/table'
-import { RecordAssessmentData } from 'meta/data'
+import { RecordAssessmentData } from 'meta/data/recordData'
 
 export enum SortOrder {
   ASC = 'asc',

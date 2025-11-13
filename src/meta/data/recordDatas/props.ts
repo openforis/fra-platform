@@ -1,8 +1,7 @@
 import { CountryIso } from 'meta/area/countryIso'
 import { AssessmentName } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
-
-import { RecordAssessmentData } from '../RecordAssessmentData'
+import { RecordAssessmentData } from 'meta/data/recordData'
 
 export type Props = {
   assessmentName: AssessmentName

@@ -1,6 +1,6 @@
 import { Assessments } from 'meta/assessment/assessments'
 import { AssessmentMetaCaches } from 'meta/assessment/metaCaches'
-import { RecordAssessmentDatas } from 'meta/data'
+import { RecordAssessmentDatas } from 'meta/data/recordDatas'
 import { BaseContext } from 'meta/expressionEvaluator/util/_types'
 import { parseMemberVariable } from 'meta/expressionEvaluator/util/parseMemberVariable'
 import { Member } from 'meta/expressions'

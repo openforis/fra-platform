@@ -4,7 +4,7 @@ import { Col } from 'meta/assessment/col'
 import { NodeValue } from 'meta/assessment/node'
 import { Row } from 'meta/assessment/row'
 import { Table } from 'meta/assessment/table'
-import { RecordAssessmentData } from 'meta/data'
+import { RecordAssessmentData } from 'meta/data/recordData'
 
 export type Props = {
   col: Col
