@@ -2,7 +2,7 @@ import axios from 'axios'
 import { Objects } from 'utils/objects'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { Taxon } from 'meta/extData'
+import { Taxon } from 'meta/extData/taxon'
 
 type Returned = Array<Taxon>
 
