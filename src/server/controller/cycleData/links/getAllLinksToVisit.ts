@@ -2,7 +2,7 @@ import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { SectionNames } from 'meta/assessment/section'
-import { LinkLocation, LinkToVisit } from 'meta/cycleData'
+import { LinkLocation, LinkToVisit } from 'meta/cycleData/links/link'
 import { Routes } from 'meta/routes'
 
 import { DescriptionRepository } from 'server/db/repository/assessmentCycle/descriptions'

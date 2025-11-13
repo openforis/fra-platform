@@ -3,7 +3,7 @@ import React, { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
-import { Link as LinkType } from 'meta/cycleData'
+import { Link as LinkType } from 'meta/cycleData/links/link'
 
 import Button, { ButtonSize } from 'client/components/Buttons/Button'
 import { useGetLocationLabel } from 'client/pages/AdminLinks/Locations/hooks/useGetLocationLabel'
