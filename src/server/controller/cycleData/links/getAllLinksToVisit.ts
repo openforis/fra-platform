@@ -9,6 +9,7 @@ import { Routes } from 'meta/routes'
 
 import { DescriptionRepository } from 'server/db/repository/assessmentCycle/descriptions'
 import { OriginalDataPointRepository } from 'server/db/repository/assessmentCycle/originalDataPoint'
+import { ODPCommentColumns } from 'server/db/repository/assessmentCycle/originalDataPoint/commentColumns'
 
 import { getLinksFromHtml } from './utils/getLinksFromHtml'
 
@@ -116,7 +117,7 @@ const _getOriginalDataPointLinks = async (props: Props): Promise<Array<LinkToVis
         countryIso,
         html,
         id,
-        odpSection: field,
+        odpSection: ODPCommentColumns[field],
         sectionName: 'originalDataPoint',
         url,
         year,
