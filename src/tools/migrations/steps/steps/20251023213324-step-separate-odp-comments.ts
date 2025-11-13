@@ -82,6 +82,7 @@ const _updateOdpLinkLocations = async (props: UpdateTableProps): Promise<void> =
   const { client, schemaName } = props
   const commentColumnExtent = ODPCommentColumns[TableNames.extentOfForest]
 
+  // Replace all odp link locations to use new comment columns instead of "description"
   await client.none(
     `with updated_links as (
         select l.id,
