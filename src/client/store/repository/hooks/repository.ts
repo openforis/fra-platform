@@ -1,6 +1,6 @@
 import { Objects } from 'utils/objects'
 
-import { RepositoryItem } from 'meta/cycleData'
+import { RepositoryItem } from 'meta/cycleData/repository/item'
 import { FileMeta } from 'meta/file'
 
 import { useAppSelector } from 'client/store/hooks'

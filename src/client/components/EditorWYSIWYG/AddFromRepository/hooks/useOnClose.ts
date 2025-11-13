@@ -1,7 +1,8 @@
 import { useCallback } from 'react'
 
 import { CountryIso } from 'meta/area/countryIso'
-import { RepositoryItem, RepositoryItems } from 'meta/cycleData'
+import { RepositoryItem } from 'meta/cycleData/repository/item'
+import { RepositoryItems } from 'meta/cycleData/repository/items'
 import { Translations } from 'meta/translation'
 
 import { useUpdateRepositoryItemsAccess } from 'client/store/repository/hooks/useUpdateRepositoryItemAccess'

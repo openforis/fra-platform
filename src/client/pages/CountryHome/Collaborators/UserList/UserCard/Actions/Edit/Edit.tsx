@@ -36,7 +36,7 @@ const Edit: React.FC<Props> = (props: Props) => {
     return null
   }
 
-  const to = Routes.CountryUser.generatePath({ countryIso, assessmentName, cycleName, id })
+  const to = Routes.CountryUser.generatePath({ countryIso, assessmentName, cycleName, id: String(id) })
 
   return (
     <Link className={className} to={to} type="button">

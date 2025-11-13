@@ -19,7 +19,7 @@ const NameField: React.FC<Props> = (props: Props) => {
 
   const { assessmentName, cycleName } = useCycleRouteParams()
 
-  const url = Routes.CountryUser.generatePath({ assessmentName, countryIso: Global.WO, cycleName, id })
+  const url = Routes.CountryUser.generatePath({ assessmentName, countryIso: Global.WO, cycleName, id: String(id) })
 
   return (
     <Link className="admin-user-management__user-link" rel="noreferrer" target="_blank" to={url}>

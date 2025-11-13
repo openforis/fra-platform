@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 
 import { CountryIso } from 'meta/area/countryIso'
-import { RepositoryItem } from 'meta/cycleData'
+import { RepositoryItem } from 'meta/cycleData/repository/item'
 
 import { useAppDispatch } from 'client/store/hooks'
 import { RepositoryActions } from 'client/store/repository/actions'

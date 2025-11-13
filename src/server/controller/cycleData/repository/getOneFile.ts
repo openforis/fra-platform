@@ -1,6 +1,6 @@
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { RepositoryItem } from 'meta/cycleData'
+import { RepositoryItem } from 'meta/cycleData/repository/item'
 import { File } from 'meta/file'
 
 import { RepositoryRepository } from 'server/db/repository/assessmentCycle/repository'
@@ -9,7 +9,6 @@ import { FileRepository } from 'server/db/repository/public/file'
 type Props = {
   assessment: Assessment
   cycle: Cycle
-
   uuid: string
 }
 
