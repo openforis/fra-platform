@@ -1,5 +1,3 @@
-import { Numbers } from 'utils/numbers'
-
 export interface UnitFactor extends Record<string, number> {
   haThousand: number
   ha: number
@@ -20,9 +18,4 @@ export const UnitFactors: Record<string, UnitFactor> = {
     acre: 2471.05,
     haMillion: 0.001,
   },
-}
-
-export const UnitConverter = {
-  convertValue: (value: number | string, unit: string, factor: string): string =>
-    Numbers.format(Numbers.mul(value, UnitFactors[unit][factor])) as string,
 }
