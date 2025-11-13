@@ -1,9 +1,14 @@
+import { ExportedTableData } from 'meta/metadata/export'
+
 import { BaseProtocol, DB } from 'server/db/db'
 
-import { ExportedTableData, ExportTableProps } from './types'
+export type ExportTableProps = {
+  schema: string
+  table: string
+  orderBy?: string
+}
 
-// Returns all columns from given table, sorted by id
-export const _exportTable = async (props: ExportTableProps, client: BaseProtocol = DB): Promise<ExportedTableData> => {
+export const exportTable = async (props: ExportTableProps, client: BaseProtocol = DB): Promise<ExportedTableData> => {
   const { orderBy = 'id', schema, table } = props
 
   const rows = await client.manyOrNone(`select * from ${schema}.${table} order by ${orderBy}`)

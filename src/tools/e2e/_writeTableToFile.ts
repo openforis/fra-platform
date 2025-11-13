@@ -1,9 +1,9 @@
 import * as fs from 'fs'
 import * as path from 'path'
 
-import { Logger } from 'server/utils/logger'
+import { ExportedTableData } from 'meta/metadata/export'
 
-import { ExportedTableData } from './types'
+import { Logger } from 'server/utils/logger'
 
 // Exports to baseDir/schema/table.json
 export const _writeTableToFile = (data: ExportedTableData, baseDir: string): void => {
