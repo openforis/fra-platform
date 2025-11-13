@@ -1,13 +1,13 @@
 import { ActionReducerMapBuilder, PayloadAction } from '@reduxjs/toolkit'
 import { Objects } from 'utils/objects'
 
-import { RepositoryItemValidator } from 'meta/cycleData'
+import { RepositoryItemValidator } from 'meta/cycleData/repository/itemValidator'
 import { FileSummary } from 'meta/file'
 
 import { setFile } from 'client/store/repository/actions/setFile'
 import { RepositoryState } from 'client/store/repository/state'
 
-export const setFileReducer = (builder: ActionReducerMapBuilder<RepositoryState>) => {
+export const setFileReducer = (builder: ActionReducerMapBuilder<RepositoryState>): void => {
   builder.addCase(setFile, (state, action: PayloadAction<FileSummary | undefined>) => {
     const fileSummary = action.payload
 

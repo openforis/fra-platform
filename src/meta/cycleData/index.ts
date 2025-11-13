@@ -1,5 +1,2 @@
 export type { Link, LinkLocation, LinkProps, LinkToVisit, LinkVisit, VisitedLink } from './links'
 export { LinkValidationStatusCode } from './links'
-export type { RepositoryItem, RepositoryItemProps } from './repository'
-export { RepositoryItems } from './repository'
-export { RepositoryItemValidator } from './repository'

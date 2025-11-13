@@ -1,12 +1,12 @@
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { RepositoryItem } from 'meta/cycleData/repository/repository'
+import { RepositoryItem } from 'meta/cycleData/repository/item'
 import { CountryRouteParams } from 'meta/routes'
 
 type GetFileURLProps = CountryRouteParams & {
   repositoryItem: RepositoryItem
 }
 
-const getURL = (props: GetFileURLProps) => {
+const getURL = (props: GetFileURLProps): string => {
   const { assessmentName, countryIso, cycleName, repositoryItem: datum } = props
   const queryParams = new URLSearchParams({ assessmentName, cycleName, countryIso })
 

@@ -2,7 +2,7 @@ import { createContext, Dispatch, SetStateAction, useContext } from 'react'
 
 import type { IControlType, IJodit } from 'jodit/types'
 
-import { RepositoryItem } from 'meta/cycleData'
+import { RepositoryItem } from 'meta/cycleData/repository/item'
 
 export type RepositoryLinkContextType = {
   jodit?: IJodit
@@ -10,8 +10,8 @@ export type RepositoryLinkContextType = {
   repositoryButton: IControlType
   repositoryOpened: boolean
   setRepositoryOpened: Dispatch<SetStateAction<boolean>>
-  selectedFiles: RepositoryItem[]
-  setSelectedFiles: Dispatch<SetStateAction<RepositoryItem[]>>
+  selectedFiles: Array<RepositoryItem>
+  setSelectedFiles: Dispatch<SetStateAction<Array<RepositoryItem>>>
 }
 
 export const RepositoryLinkContext = createContext<RepositoryLinkContextType | undefined>(undefined)
