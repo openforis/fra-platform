@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 
-import { ContactField, contactFields } from 'meta/cycleData'
+import { ContactField } from 'meta/cycleData/contact/field'
+import { contactFields } from 'meta/cycleData/contact/fields'
 import { NodeExtCellType } from 'meta/nodeExt'
 
 import { useIsPrintRoute } from 'client/hooks/routes'

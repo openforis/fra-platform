@@ -6,7 +6,7 @@ import { AssessmentMetaCaches } from 'meta/assessment/metaCaches'
 import { RowCacheKey } from 'meta/assessment/rowCache'
 import { RowCaches } from 'meta/assessment/rowCaches'
 import { TableNames } from 'meta/assessment/table'
-import { NodeUpdate, NodeUpdates } from 'meta/data'
+import { NodeUpdate, NodeUpdates } from 'meta/data/nodeUpdates'
 
 import { RowRedisRepository } from 'server/cache/repository/row'
 import { isODPVariable } from 'server/controller/cycleData/originalDataPoint/getOriginalDataPointVariables'

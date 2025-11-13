@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit'
 
-import { FileSummary } from 'meta/file'
+import { FileSummary } from 'meta/file/file'
 
 export const setFile = createAction<FileSummary | undefined>('repository/file/set')

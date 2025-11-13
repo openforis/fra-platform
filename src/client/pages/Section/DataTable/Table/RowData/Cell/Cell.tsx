@@ -6,7 +6,7 @@ import { Col, ColType } from 'meta/assessment/col'
 import { Cols } from 'meta/assessment/cols'
 import { Row } from 'meta/assessment/row'
 import { Table } from 'meta/assessment/table'
-import { RecordAssessmentData } from 'meta/data'
+import { RecordAssessmentData } from 'meta/data/recordData'
 import { TooltipId } from 'meta/tooltip'
 
 import { useHistoryLastApprovedIsActive } from 'client/store/data/history/hooks/lastApproved'
@@ -59,7 +59,7 @@ type Props = {
   table: Table
 }
 
-const emptyFn = () => ({})
+const emptyFn = (): object => ({})
 
 const Cell: React.FC<Props> = (props) => {
   const {

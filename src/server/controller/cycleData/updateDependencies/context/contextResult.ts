@@ -6,7 +6,7 @@ import { Cycle } from 'meta/assessment/cycle'
 import { NodeValue } from 'meta/assessment/node'
 import { RowCache } from 'meta/assessment/rowCache'
 import { TableName } from 'meta/assessment/table'
-import { NodeUpdate, NodeUpdates } from 'meta/data'
+import { NodeUpdate, NodeUpdates } from 'meta/data/nodeUpdates'
 
 import { NodeDb } from 'server/db/repository/assessmentCycle/node'
 

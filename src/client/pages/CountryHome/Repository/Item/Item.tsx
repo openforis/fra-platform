@@ -4,7 +4,8 @@ import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
 
-import { RepositoryItem, RepositoryItems } from 'meta/cycleData'
+import { RepositoryItem } from 'meta/cycleData/repository/item'
+import { RepositoryItems } from 'meta/cycleData/repository/items'
 
 import { useIsCountryRepositoryEditable, useIsGlobalRepositoryEditable } from 'client/store/user/hooks/auth'
 import Button, { ButtonSize } from 'client/components/Buttons/Button'

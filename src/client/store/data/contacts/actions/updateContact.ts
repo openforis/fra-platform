@@ -5,7 +5,8 @@ import { Functions } from 'utils/functions'
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CycleDataParams } from 'meta/api/request'
 import { NodeValue } from 'meta/assessment/node'
-import { Contact, ContactField } from 'meta/cycleData'
+import { Contact } from 'meta/cycleData/contact/contact'
+import { ContactField } from 'meta/cycleData/contact/field'
 
 type Props = CycleDataParams & {
   contact: Contact

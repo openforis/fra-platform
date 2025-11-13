@@ -1,12 +1,13 @@
 import { ActionReducerMapBuilder, PayloadAction } from '@reduxjs/toolkit'
 
-import { RepositoryItem, RepositoryItemValidator } from 'meta/cycleData'
+import { RepositoryItem } from 'meta/cycleData/repository/item'
+import { RepositoryItemValidator } from 'meta/cycleData/repository/itemValidator'
 
 import { setRepositoryItem } from 'client/store/repository/actions/setRepositoryItem'
 import { setRepositoryItemProps } from 'client/store/repository/actions/setRepositoryItemProps'
 import { RepositoryState } from 'client/store/repository/state'
 
-export const setRepositoryItemReducer = (builder: ActionReducerMapBuilder<RepositoryState>) => {
+export const setRepositoryItemReducer = (builder: ActionReducerMapBuilder<RepositoryState>): void => {
   builder.addCase(setRepositoryItem, (state, action: PayloadAction<Partial<RepositoryItem>>) => {
     state.repositoryItem = action.payload
     state.repositoryItemValidation = undefined

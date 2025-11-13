@@ -1,4 +1,4 @@
-import { Link, LinkToVisit } from 'meta/cycleData'
+import { Link, LinkToVisit } from 'meta/cycleData/links/link'
 
 type Props = {
   approvedLinks: Array<Link>

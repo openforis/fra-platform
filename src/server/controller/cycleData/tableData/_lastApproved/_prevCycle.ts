@@ -1,8 +1,9 @@
 import { Objects } from 'utils/objects'
 
 import { TableName } from 'meta/assessment/table'
-import { HistoryLastApprovedInfo } from 'meta/cycleData/historyLastApproved'
-import { RecordAssessmentData, RecordAssessmentDatas } from 'meta/data'
+import { HistoryLastApprovedInfo } from 'meta/cycleData/history/lastApproved'
+import { RecordAssessmentData } from 'meta/data/recordData'
+import { RecordAssessmentDatas } from 'meta/data/recordDatas'
 
 import { TableRedisRepository } from 'server/cache/repository/table'
 import { getTableData } from 'server/controller/cycleData/getTableData'

@@ -2,8 +2,9 @@ import { getTable, RowsMetadata } from 'tools/migrations/steps/steps/metadata/da
 import { unit } from 'tools/migrations/steps/steps/metadata/dashboard/utils/unit'
 
 import { Cycle, CycleName } from 'meta/assessment/cycle'
-import { ChartColor } from 'meta/chart'
-import { DashboardItemType, DashboardPieChart } from 'meta/dashboard'
+import { ChartColor } from 'meta/chart/color'
+import { DashboardItemType } from 'meta/dashboard/item'
+import { DashboardPieChart } from 'meta/dashboard/pieChart'
 
 const tableId = 6
 const tableName = 'forestOwnership'

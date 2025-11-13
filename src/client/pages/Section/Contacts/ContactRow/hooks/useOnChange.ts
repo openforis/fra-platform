@@ -2,7 +2,8 @@ import { useCallback } from 'react'
 
 import { CountryIso } from 'meta/area/countryIso'
 import { NodeValue } from 'meta/assessment/node'
-import { Contact, ContactField } from 'meta/cycleData'
+import { Contact } from 'meta/cycleData/contact/contact'
+import { ContactField } from 'meta/cycleData/contact/field'
 
 import { ContactsActions } from 'client/store/data/contacts/actions'
 import { useAppDispatch } from 'client/store/hooks'

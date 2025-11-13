@@ -1,6 +1,6 @@
 import { Objects } from 'utils/objects'
 
-import { Link } from 'meta/cycleData'
+import { Link } from 'meta/cycleData/links/link'
 import { TablePaginatedOrderByDirection } from 'meta/tablePaginated'
 
 import { BaseProtocol, DB } from 'server/db/db'

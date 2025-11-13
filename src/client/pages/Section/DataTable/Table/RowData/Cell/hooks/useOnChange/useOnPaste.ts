@@ -5,7 +5,7 @@ import { ColType } from 'meta/assessment/col'
 import { Cols } from 'meta/assessment/cols'
 import { NodeValue } from 'meta/assessment/node'
 import { RowType } from 'meta/assessment/row'
-import { RecordAssessmentDatas } from 'meta/data'
+import { RecordAssessmentDatas } from 'meta/data/recordDatas'
 
 import { NodeValuesActions } from 'client/store/data/tableData/nodeValues/actions'
 import { useAppDispatch } from 'client/store/hooks'
@@ -18,7 +18,7 @@ import { Sanitizer } from 'client/utils/sanitizer'
 import { OnPaste, Props } from './types'
 import { usePersistSanitizedValue } from './usePersistSanitizedValue'
 
-export const useOnPaste = (props: Props) => {
+export const useOnPaste = (props: Props): void => {
   const { col, data, nodeValue: _nodeValue, row, sectionName, table } = props
 
   const dispatch = useAppDispatch()

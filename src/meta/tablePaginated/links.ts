@@ -1,5 +1,5 @@
 import { CountryIso } from 'meta/area/countryIso'
-import { LinkValidationStatusCode } from 'meta/cycleData'
+import { LinkValidationStatusCode } from 'meta/cycleData/links/link'
 
 export type LinksFilters = {
   approved?: boolean

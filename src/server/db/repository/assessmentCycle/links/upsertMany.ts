@@ -3,7 +3,7 @@ import { Objects } from 'utils/objects'
 
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { Link, LinkProps, VisitedLink } from 'meta/cycleData'
+import { Link, LinkProps, VisitedLink } from 'meta/cycleData/links/link'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { Schemas } from 'server/db/schemas'

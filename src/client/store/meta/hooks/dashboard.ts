@@ -1,5 +1,5 @@
 import { Areas } from 'meta/area/areas'
-import { DashboardItem } from 'meta/dashboard/dashboard'
+import { DashboardItem } from 'meta/dashboard/item'
 
 import { useAppSelector } from 'client/store/hooks'
 import { MetadataSelectors } from 'client/store/meta/selectors'

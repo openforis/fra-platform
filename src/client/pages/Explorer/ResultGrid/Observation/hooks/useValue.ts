@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 
 import { Objects } from 'utils/objects'
 
-import { RecordAssessmentDatas } from 'meta/data'
+import { RecordAssessmentDatas } from 'meta/data/recordDatas'
 import { Dimensions } from 'meta/measurement/dimensions'
 import { Measure } from 'meta/measurement/measure'
 import { Measures } from 'meta/measurement/measures'

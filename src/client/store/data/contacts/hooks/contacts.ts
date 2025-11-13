@@ -1,5 +1,5 @@
 import { CountryIso } from 'meta/area/countryIso'
-import { Contact } from 'meta/cycleData'
+import { Contact } from 'meta/cycleData/contact/contact'
 
 import { ContactsSelectors } from 'client/store/data/contacts/selectors'
 import { useAppSelector } from 'client/store/hooks'

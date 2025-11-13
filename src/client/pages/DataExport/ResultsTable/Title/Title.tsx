@@ -6,7 +6,7 @@ import { Objects } from 'utils/objects'
 
 import { Cols } from 'meta/assessment/cols'
 import { Row } from 'meta/assessment/row'
-import { UnitFactors } from 'meta/dataExport'
+import { UnitFactors } from 'meta/dataExport/unitFactor'
 import { UnitName } from 'meta/measurement/unit'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
@@ -50,7 +50,7 @@ const Title: React.FC<Props> = (props) => {
           <select
             className="select-s"
             defaultValue={baseUnit}
-            onChange={(event) => {
+            onChange={(event): void => {
               onUnitChange(event.target.value as UnitName, variable)
             }}
           >

@@ -4,7 +4,7 @@ import { ColName } from 'meta/assessment/col'
 import { CycleName } from 'meta/assessment/cycle'
 import { TableNames } from 'meta/assessment/table'
 import { Years } from 'meta/assessment/years'
-import { RecordAssessmentDatas } from 'meta/data'
+import { RecordAssessmentDatas } from 'meta/data/recordDatas'
 
 import { climaticDomain } from 'server/controller/cycleData/getBulkDownload/climaticDomain'
 import { formatDatum } from 'server/controller/cycleData/getBulkDownload/formatDatum'

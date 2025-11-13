@@ -5,7 +5,7 @@ import { AssessmentNames } from 'meta/assessment/assessment'
 import { ColName } from 'meta/assessment/col'
 import { CycleName } from 'meta/assessment/cycle'
 import { TableNames } from 'meta/assessment/table'
-import { NodeUpdate, NodeUpdates } from 'meta/data'
+import { NodeUpdate, NodeUpdates } from 'meta/data/nodeUpdates'
 import { NodeExtType } from 'meta/nodeExt'
 import { User } from 'meta/user'
 
