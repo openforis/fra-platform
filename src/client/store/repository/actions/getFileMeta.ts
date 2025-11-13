@@ -4,7 +4,7 @@ import axios from 'axios'
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CycleParams } from 'meta/api/request'
 import { RepositoryItem } from 'meta/cycleData/repository/item'
-import { FileMeta } from 'meta/file'
+import { FileMeta } from 'meta/file/meta'
 
 import { ThunkApiConfig } from 'client/store/types'
 

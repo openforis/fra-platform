@@ -3,7 +3,7 @@ import axios from 'axios'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CycleParams } from 'meta/api/request'
-import { FileSummary } from 'meta/file'
+import { FileSummary } from 'meta/file/file'
 
 import { FileUploadActions } from 'client/store/fileUpload/actions'
 import { ThunkApiConfig } from 'client/store/types'
@@ -22,7 +22,7 @@ export const uploadFiles = createAsyncThunk<Array<FileSummary>, Props, ThunkApiC
 
     const headers = { 'Content-Type': 'multipart/form-data' }
     const params = { assessmentName, cycleName, countryIso }
-    const onUploadProgress = (progressEvent: ProgressEvent) => {
+    const onUploadProgress = (progressEvent: ProgressEvent): void => {
       const { loaded, total } = progressEvent
       dispatch(FileUploadActions.setProgress({ loaded, total }))
     }

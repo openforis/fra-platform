@@ -2,7 +2,7 @@ import { ActionReducerMapBuilder, PayloadAction } from '@reduxjs/toolkit'
 import { Objects } from 'utils/objects'
 
 import { RepositoryItemValidator } from 'meta/cycleData/repository/itemValidator'
-import { FileSummary } from 'meta/file'
+import { FileSummary } from 'meta/file/file'
 
 import { setFile } from 'client/store/repository/actions/setFile'
 import { RepositoryState } from 'client/store/repository/state'
