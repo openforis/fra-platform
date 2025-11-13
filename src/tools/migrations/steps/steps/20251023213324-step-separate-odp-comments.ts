@@ -78,6 +78,11 @@ const _updateOriginalDataPointTable = async (props: UpdateTableProps): Promise<v
   }
 }
 
+const _truncateAdminLinks = async (props: UpdateTableProps): Promise<void> => {
+  const { client, schemaName } = props
+  await client.none(`truncate table ${schemaName}.link`)
+}
+
 const _updateOdpMessageTopics = async (props: UpdateTableProps): Promise<void> => {
   const { client, schemaName } = props
   const oldSuffix = 'nationalDataPointComments'
@@ -147,6 +152,7 @@ export default async (client: BaseProtocol): Promise<void> => {
     await Promises.each(assessment.cycles, async (cycle) => {
       const schemaName = Schemas.getNameCycle(assessment, cycle)
       await _updateOriginalDataPointTable({ client, schemaName })
+      await _truncateAdminLinks({ client, schemaName })
       await _updateOdpMessageTopics({ client, schemaName })
 
       // Update activity log materialized views to include new odp comment columns logs
