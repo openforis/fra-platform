@@ -28,7 +28,7 @@ const Comments: React.FC<Props> = (props) => {
   const originalDataPoint = useOriginalDataPoint()
   const isDataLocked = useIsDataLocked()
   const updateComment = useUpdateComment({ field })
-  const actions = useCommentsActions()
+  const actions = useCommentsActions({ field })
   const [open, setOpen] = useState<boolean>(false)
   const displayHistory = useODPDisplayHistory()
 
