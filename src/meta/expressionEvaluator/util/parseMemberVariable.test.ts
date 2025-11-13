@@ -1,6 +1,6 @@
 import { Context } from 'meta/expressionEvaluator/context'
+import { Member } from 'meta/expressionEvaluator/member'
 import { BaseContext } from 'meta/expressionEvaluator/util/_types'
-import { Member } from 'meta/expressions'
 
 import { MemberExpression } from 'lib/expressionEvaluator/node'
 
