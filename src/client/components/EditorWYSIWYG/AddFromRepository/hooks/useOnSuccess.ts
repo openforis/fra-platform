@@ -2,7 +2,7 @@ import { useCallback } from 'react'
 
 import { CountryIso } from 'meta/area/countryIso'
 import { RepositoryItem } from 'meta/cycleData/repository/item'
-import { File } from 'meta/file'
+import { File } from 'meta/file/file'
 
 import { useAppDispatch } from 'client/store/hooks'
 import { RepositoryActions } from 'client/store/repository/actions'

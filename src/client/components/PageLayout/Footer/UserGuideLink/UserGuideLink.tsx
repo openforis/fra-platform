@@ -1,8 +1,8 @@
-import React, { useMemo } from 'react'
+import React, { ReactNode, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { AssessmentNames } from 'meta/assessment/assessment'
-import { Files } from 'meta/file'
+import { Files } from 'meta/file/files'
 import { Routes } from 'meta/routes'
 
 import { useUser } from 'client/store/user/hooks/user'
@@ -50,7 +50,7 @@ const UserGuideLinkInner: React.FC<Props> = (props) => {
 
 const UserGuideLinkComponents = {
   [AssessmentNames.fra]: {
-    '2020': () => UserGuideLinkInner({ userGuideLinkOption: UserGuideLinkOption.File }),
+    '2020': (): ReactNode => UserGuideLinkInner({ userGuideLinkOption: UserGuideLinkOption.File }),
   },
 }
 

@@ -2,7 +2,7 @@ import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { RepositoryItem } from 'meta/cycleData/repository/item'
-import { FileSummary } from 'meta/file'
+import { FileSummary } from 'meta/file/file'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { RepositoryRepository } from 'server/db/repository/assessmentCycle/repository'

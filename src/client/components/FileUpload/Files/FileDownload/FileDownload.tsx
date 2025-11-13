@@ -2,7 +2,8 @@ import React from 'react'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CountryIso } from 'meta/area/countryIso'
-import { Files, FileSummary } from 'meta/file'
+import { FileSummary } from 'meta/file/file'
+import { Files } from 'meta/file/files'
 
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 
