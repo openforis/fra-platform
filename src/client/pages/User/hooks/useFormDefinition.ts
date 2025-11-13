@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { Objects } from 'utils/objects'
 
-import { Contacts } from 'meta/cycleData'
+import { Contacts } from 'meta/cycleData/contacts'
 import { Users } from 'meta/user'
 
 import { FieldDefinition, FormDefinition, FormFieldType } from 'client/components/Form/types'

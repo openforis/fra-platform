@@ -1,7 +1,8 @@
 import './RepositoryLink.scss'
 import React from 'react'
 
-import { RepositoryItem, RepositoryItems } from 'meta/cycleData'
+import { RepositoryItem } from 'meta/cycleData/repository/item'
+import { RepositoryItems } from 'meta/cycleData/repository/items'
 import { Translations } from 'meta/translation'
 
 import { useLanguage } from 'client/hooks/language'
@@ -11,7 +12,7 @@ type Props = {
   datum: RepositoryItem
 }
 
-const RepositoryLink = (props: Props) => {
+const RepositoryLink: React.FC<Props> = (props) => {
   const { datum } = props
 
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams()

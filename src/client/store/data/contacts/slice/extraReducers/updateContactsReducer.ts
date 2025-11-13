@@ -1,11 +1,11 @@
 import { ActionReducerMapBuilder } from '@reduxjs/toolkit'
 
-import { ContactNode } from 'meta/cycleData'
+import { ContactNode } from 'meta/cycleData/contact/node'
 
 import { updateContact } from 'client/store/data/contacts/actions/updateContact'
 import { ContactsState } from 'client/store/data/contacts/state'
 
-export const updateContactsReducer = (builder: ActionReducerMapBuilder<ContactsState>) => {
+export const updateContactsReducer = (builder: ActionReducerMapBuilder<ContactsState>): void => {
   builder.addCase(updateContact.pending, (state, action) => {
     const { assessmentName, contact: contactAction, countryIso, cycleName, field, raw } = action.meta.arg
 

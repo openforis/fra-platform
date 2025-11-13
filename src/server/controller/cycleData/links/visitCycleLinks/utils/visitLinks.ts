@@ -1,7 +1,7 @@
 import * as dns from 'dns'
 import { Objects } from 'utils/objects'
 
-import { LinkToVisit, LinkValidationStatusCode, VisitedLink } from 'meta/cycleData'
+import { LinkToVisit, LinkValidationStatusCode, VisitedLink } from 'meta/cycleData/links/link'
 
 const _visitLink = async (link: string | null): Promise<LinkValidationStatusCode> => {
   if (Objects.isEmpty(link)) return LinkValidationStatusCode.empty

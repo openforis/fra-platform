@@ -1,7 +1,7 @@
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { Contact } from 'meta/cycleData'
+import { Contact } from 'meta/cycleData/contact/contact'
 
 import { NodeExtRepository } from 'server/db/repository/assessmentCycle/nodeExt'
 import { UserRepository } from 'server/db/repository/public/user'

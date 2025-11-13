@@ -1,5 +1,5 @@
-import { RepositoryItem } from 'meta/cycleData'
-import { RepositoryItemValidation } from 'meta/cycleData/repository'
+import { RepositoryItem } from 'meta/cycleData/repository/item'
+import { RepositoryItemValidation } from 'meta/cycleData/repository/itemValidation'
 import { FileMeta } from 'meta/file'
 
 export type RepositoryState = {

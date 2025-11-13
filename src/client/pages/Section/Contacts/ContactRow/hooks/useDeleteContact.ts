@@ -2,7 +2,8 @@ import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { CountryIso } from 'meta/area/countryIso'
-import { Contact, ContactField } from 'meta/cycleData'
+import { Contact } from 'meta/cycleData/contact/contact'
+import { ContactField } from 'meta/cycleData/contact/field'
 
 import { ContactsActions } from 'client/store/data/contacts/actions'
 import { useAppDispatch } from 'client/store/hooks'

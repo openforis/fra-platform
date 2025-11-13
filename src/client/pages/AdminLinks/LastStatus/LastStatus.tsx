@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
 
-import { Link as LinkType } from 'meta/cycleData'
+import { Link as LinkType } from 'meta/cycleData/links/link'
 import { Links } from 'meta/cycleData/links/links'
 
 type Props = {

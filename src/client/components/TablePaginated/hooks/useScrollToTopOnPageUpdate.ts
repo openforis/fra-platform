@@ -13,7 +13,7 @@ type Props = {
 export const useScrollToTopOnPageUpdate = (props: Props): void => {
   const { divRef, path } = props
 
-  const data = useTablePaginatedData(path)
+  const data = useTablePaginatedData({ path })
   const page = useTablePaginatedPage(path)
 
   useOnUpdate(() => {

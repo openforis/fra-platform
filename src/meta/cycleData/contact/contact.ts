@@ -1,21 +1,6 @@
+import { ContactField } from 'meta/cycleData/contact/field'
+import { ContactNode } from 'meta/cycleData/contact/node'
 import { NodeExt } from 'meta/nodeExt'
-
-export enum ContactField {
-  appellation = 'appellation',
-  contributions = 'contributions',
-  institution = 'institution',
-  name = 'name',
-  role = 'role',
-  surname = 'surname',
-}
-
-export type ContactNodeProps = {
-  field: ContactField
-}
-
-export type ContactNode = NodeExt<ContactNodeProps> & {
-  parentUuid: string
-}
 
 export type ContactProps = {
   readOnly?: boolean
@@ -31,12 +16,3 @@ export type Contact = NodeExt<ContactProps, null> & {
   [ContactField.role]: ContactNode
   [ContactField.surname]: ContactNode
 }
-
-export const contactFields: Array<ContactField> = [
-  ContactField.appellation,
-  ContactField.name,
-  ContactField.surname,
-  ContactField.role,
-  ContactField.institution,
-  ContactField.contributions,
-]

@@ -4,7 +4,7 @@ import { isAnyOf } from '@reduxjs/toolkit'
 import { Objects } from 'utils/objects'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { RepositoryItem } from 'meta/cycleData'
+import { RepositoryItem } from 'meta/cycleData/repository/item'
 
 import { useAppDispatch } from 'client/store/hooks'
 import { addAppListener } from 'client/store/middleware/listener'
@@ -12,7 +12,7 @@ import { RepositoryActions } from 'client/store/repository/actions'
 import { TablePaginatedActions } from 'client/store/tablePaginated/actions'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 
-export const useRepositoryItemChangeListener = () => {
+export const useRepositoryItemChangeListener = (): void => {
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams()
   const dispatch = useAppDispatch()
 

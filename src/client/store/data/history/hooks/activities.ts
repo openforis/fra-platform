@@ -1,7 +1,7 @@
 import { Objects } from 'utils/objects'
 
 import { ActivityLog } from 'meta/assessment/activityLog'
-import { HistoryTarget } from 'meta/cycleData/historyActivities'
+import { HistoryTarget } from 'meta/cycleData/history/activities'
 
 import { HistorySelectors } from 'client/store/data/history/selectors'
 import { HistoryActivitiesState } from 'client/store/data/history/state'

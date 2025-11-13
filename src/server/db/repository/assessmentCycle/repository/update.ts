@@ -2,7 +2,7 @@ import { Objects } from 'utils/objects'
 
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { RepositoryItem } from 'meta/cycleData'
+import { RepositoryItem } from 'meta/cycleData/repository/item'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { Schemas } from 'server/db/schemas'
@@ -10,7 +10,6 @@ import { Schemas } from 'server/db/schemas'
 type Props = {
   assessment: Assessment
   cycle: Cycle
-
   repositoryItem: RepositoryItem
 }
 

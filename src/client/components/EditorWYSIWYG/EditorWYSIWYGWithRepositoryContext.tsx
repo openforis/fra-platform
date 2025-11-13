@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import type { IControlType } from 'jodit/esm/types'
 import type { IJodit } from 'jodit/esm/types/jodit'
 
-import { RepositoryItem } from 'meta/cycleData'
+import { RepositoryItem } from 'meta/cycleData/repository/item'
 
 import { useInjectSlice } from 'client/store/hooks'
 import { TablePaginatedSlice } from 'client/store/tablePaginated/slice'
@@ -23,7 +23,7 @@ const EditorWYSIWYGWithRepositoryContext: React.FC<EditorWYSIWYGProps> = (props)
   useInjectSlice(TablePaginatedSlice)
 
   const repositoryButton = useMemo<IControlType>(() => {
-    const exec = (_jodit: IJodit) => {
+    const exec = (_jodit: IJodit): void => {
       // setJodit(_jodit)
       setRepositoryOpened(true)
     }
