@@ -6,6 +6,7 @@ import { TableRepository } from 'server/db/repository/assessment/table'
 import { TableSectionRepository } from 'server/db/repository/assessment/tableSection'
 
 import { exportAll } from './export/exportAll'
+import { importAll } from './export/importAll'
 import { addColumn } from './addColumn'
 import { createSection } from './createSection'
 import { createSubSection } from './createSubSection'
@@ -22,6 +23,7 @@ import { updateTableSection } from './updateTableSection'
 export const MetadataController = {
   // export
   exportAll,
+  importAll,
 
   // section
   getSection: SectionRepository.getOne,
