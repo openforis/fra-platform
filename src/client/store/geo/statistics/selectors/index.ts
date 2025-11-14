@@ -1,9 +1,10 @@
 import { createSelector } from '@reduxjs/toolkit'
 import { Objects } from 'utils/objects'
 
-import { ExtraEstimation, LayerSectionKey } from 'meta/geo'
-import { ProtectedAreaEstimations } from 'meta/geo/forestEstimations'
-import { protectedAreaKeys } from 'meta/geo/protectedAreaSource'
+import { ExtraEstimation } from 'meta/geo/extraEstimation/extraEstimation'
+import { LayerSectionKey } from 'meta/geo/layer/sectionKey'
+import { ProtectedAreaEstimations } from 'meta/geo/protectedArea/estimations'
+import { protectedAreaKeys } from 'meta/geo/protectedArea/sources'
 
 import { GeoSliceName } from 'client/store/geo/slice/name'
 import { GeoStatisticsSliceName } from 'client/store/geo/statistics/slice/name'

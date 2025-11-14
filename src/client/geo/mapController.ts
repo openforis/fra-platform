@@ -2,7 +2,7 @@
 import ee from '@google/earthengine'
 
 import { CountryIso } from 'meta/area/countryIso'
-import { MapLayerKey } from 'meta/geo'
+import { MapLayerKey } from 'meta/geo/map'
 
 import { getCountryBounds } from 'client/pages/Geo/utils/countryBounds'
 

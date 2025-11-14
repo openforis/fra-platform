@@ -1,20 +1,5 @@
-import { ApiEndPoint } from 'meta/api/endpoint/ApiEndPoint'
 import { CountryIso } from 'meta/area/countryIso'
-
-export interface ProtectedAreaEstimations {
-  faHansen10Protected: number
-  faCopernicusProtected: number
-  faEsa2009Protected: number
-  faEsa2020Protected: number
-  faEsriProtected: number
-  faGlobelandProtected: number
-  faHansen20Protected: number
-  faHansen30Protected: number
-  faJaxaProtected: number
-  faJrc2020Protected: number
-  faTandemxProtected: number
-  fra3bProtected: number
-}
+import { ProtectedAreaEstimations } from 'meta/geo/protectedArea/estimations'
 
 export interface ForestEstimationsData extends ProtectedAreaEstimations {
   faAgreementEsriEsaGloHansen10Gte1: number
@@ -71,36 +56,4 @@ export interface ForestEstimations {
   countryIso: CountryIso
   data: ForestEstimationsData
   year: number
-}
-
-export enum ExtraEstimation {
-  CustomRecipe = 'Custom agreement area',
-  PrecalculatedRecipe = 'Forest agreement selected',
-  ReportedToFRA2020 = 'Reported to FRA 2020',
-}
-
-export type ExtraEstimationMetadata = {
-  palette?: Array<string>
-  titleKey: string
-}
-
-export const extraEstimationsMetadata: Record<ExtraEstimation, ExtraEstimationMetadata> = {
-  [ExtraEstimation.CustomRecipe]: {
-    palette: ['#FF00FF'], // fuchsia
-    titleKey: 'geo.customAgreementArea',
-  },
-  [ExtraEstimation.PrecalculatedRecipe]: {
-    palette: ['#FF00FF'], // fuchsia
-    titleKey: 'geo.treeCoverAgreementSelected',
-  },
-  [ExtraEstimation.ReportedToFRA2020]: {
-    palette: ['#000000'], // black
-    titleKey: 'geo.reportedToFra2020',
-  },
-}
-
-export type ExtraEstimationsApiEndpoint = Partial<Record<ExtraEstimation, string>>
-
-export const extraEstimationsApiEndpoint: ExtraEstimationsApiEndpoint = {
-  [ExtraEstimation.CustomRecipe]: ApiEndPoint.Geo.Estimations.forestAgreement(),
 }

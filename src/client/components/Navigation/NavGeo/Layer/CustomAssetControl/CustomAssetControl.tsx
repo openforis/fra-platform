@@ -2,7 +2,8 @@ import './CustomAssetControl.scss'
 import React, { ChangeEvent, useCallback, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Layer, LayerSectionKey } from 'meta/geo'
+import { Layer } from 'meta/geo/layer/layer'
+import { LayerSectionKey } from 'meta/geo/layer/sectionKey'
 
 import { LayersActions } from 'client/store/geo/layers/actions'
 import { useGeoLayer } from 'client/store/geo/layers/hooks/layers'

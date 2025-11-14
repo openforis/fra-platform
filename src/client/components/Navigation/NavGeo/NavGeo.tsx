@@ -1,7 +1,7 @@
 import './NavGeo.scss'
 import React, { useCallback, useMemo, useState } from 'react'
 
-import { sections } from 'meta/geo'
+import { sections } from 'meta/geo/sections'
 
 import { useOnUpdate } from 'client/hooks/onUpdate'
 import Icon from 'client/components/Icon'

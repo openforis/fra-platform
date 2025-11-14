@@ -1,5 +1,6 @@
-import { Layer, LayerSection } from 'meta/geo'
-import { LayerControlType } from 'meta/geo/layer'
+import { LayerControlType } from 'meta/geo/layer/controlType'
+import { Layer } from 'meta/geo/layer/layer'
+import { LayerSection } from 'meta/geo/layer/section'
 
 import { LayerFetchStatus } from 'client/store/geo/layers/state'
 

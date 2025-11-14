@@ -1,6 +1,6 @@
 import { createAction } from '@reduxjs/toolkit'
 
-import { MosaicOptions } from 'meta/geo'
+import { MosaicOptions } from 'meta/geo/mosaic/options'
 
 type Params = KeyedValue<MosaicOptions>
 

@@ -1,7 +1,7 @@
 import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area/countryIso'
-import { Bounds } from 'meta/geo'
+import { Bounds } from 'meta/geo/bounds'
 
 import { BaseProtocol, DB } from 'server/db/db'
 

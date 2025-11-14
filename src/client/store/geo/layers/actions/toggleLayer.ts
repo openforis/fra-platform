@@ -2,7 +2,9 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area/countryIso'
-import { LayerKey, LayerSectionKey, LayerSource } from 'meta/geo/layer'
+import { LayerKey } from 'meta/geo/layer/key'
+import { LayerSectionKey } from 'meta/geo/layer/sectionKey'
+import { LayerSource } from 'meta/geo/layer/source'
 
 import { getLayerMapId } from 'client/store/geo/layers/actions/getLayerMapId'
 import { setProperty } from 'client/store/geo/layers/actions/setProperty'

@@ -1,5 +1,7 @@
 import { CountryIso } from 'meta/area/countryIso'
-import { LayerConfig, LayerSource, ProtectedAreaKey } from 'meta/geo'
+import { LayerConfig } from 'meta/geo/layer/config'
+import { LayerSource } from 'meta/geo/layer/source'
+import { ProtectedAreaKey } from 'meta/geo/protectedArea/key'
 
 import { AssetsController } from 'server/controller/geo/assets'
 

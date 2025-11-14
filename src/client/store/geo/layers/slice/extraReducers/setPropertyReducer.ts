@@ -1,7 +1,7 @@
 import { ActionReducerMapBuilder } from '@reduxjs/toolkit'
 import { Objects } from 'utils/objects'
 
-import { LayerKey } from 'meta/geo'
+import { LayerKey } from 'meta/geo/layer/key'
 
 import { setProperty } from 'client/store/geo/layers/actions/setProperty'
 import { GeoLayersState } from 'client/store/geo/layers/state'

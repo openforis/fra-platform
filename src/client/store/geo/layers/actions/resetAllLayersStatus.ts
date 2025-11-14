@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
-import { LayerKey } from 'meta/geo'
+import { LayerKey } from 'meta/geo/layer/key'
 
 import { resetLayerStatus } from 'client/store/geo/layers/actions/resetLayerStatus'
 import { LayersSelectors } from 'client/store/geo/layers/selectors'

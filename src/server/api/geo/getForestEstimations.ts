@@ -2,7 +2,8 @@ import { Request, Response } from 'express'
 
 import { ForestAgreementAreaEstimationRequest, ForestEstimationsRequest } from 'meta/api/request/geo/layer'
 import { CountryIso } from 'meta/area/countryIso'
-import { ForestKey, LayerSource } from 'meta/geo'
+import { ForestKey } from 'meta/geo/forest/key'
+import { LayerSource } from 'meta/geo/layer/source'
 
 import { GeoController } from 'server/controller/geo'
 import Requests from 'server/utils/requests'

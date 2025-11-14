@@ -1,5 +1,5 @@
 import { CountryIso } from 'meta/area/countryIso'
-import { LayerConfig } from 'meta/geo'
+import { LayerConfig } from 'meta/geo/layer/config'
 
 import { AssetsController } from 'server/controller/geo/assets'
 
