@@ -1,7 +1,7 @@
 import './LayersSection.scss'
 import React from 'react'
 
-import { LayerSection } from 'meta/geo'
+import { LayerSection } from 'meta/geo/layer/section'
 
 import OptionsGrid from 'client/components/Navigation/NavGeo/Grid/OptionsGrid'
 import Layer from 'client/components/Navigation/NavGeo/Layer/Layer'

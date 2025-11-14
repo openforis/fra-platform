@@ -1,7 +1,9 @@
 // @ts-ignore
 import { Image, ImageCollection } from '@google/earthengine'
 
-import { ForestKey, forestLayersMetadata, LayerSource } from 'meta/geo'
+import { ForestKey } from 'meta/geo/forest/key'
+import { forestLayersMetadata } from 'meta/geo/forest/layersMetadata'
+import { LayerSource } from 'meta/geo/layer/source'
 
 export const getForestAssetData = (layer: LayerSource): { year?: number; img: Image; metadata: any } => {
   let asset = {} as { year?: number; img: Image; metadata: any }

@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import { LayerControlType } from 'meta/geo/layer'
+import { LayerControlType } from 'meta/geo/layer/controlType'
 
 import { useGeoLayer } from 'client/store/geo/layers/hooks/layers'
 import { LayerFetchStatus, LayerState } from 'client/store/geo/layers/state'

@@ -1,6 +1,6 @@
 import { createAction } from '@reduxjs/toolkit'
 
-import { LayerKey } from 'meta/geo'
+import { LayerKey } from 'meta/geo/layer/key'
 
 import { LayerStateOptions } from 'client/store/geo/layers/state'
 

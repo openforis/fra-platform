@@ -1,6 +1,7 @@
-import { ExtraEstimation, LayerSectionKey } from 'meta/geo'
-import { BurnedAreaModis } from 'meta/geo/forest'
-import { ProtectedAreaEstimations } from 'meta/geo/forestEstimations'
+import { BurnedAreaModis } from 'meta/geo/burnedArea/modis'
+import { ExtraEstimation } from 'meta/geo/extraEstimation/extraEstimation'
+import { LayerSectionKey } from 'meta/geo/layer/sectionKey'
+import { ProtectedAreaEstimations } from 'meta/geo/protectedArea/estimations'
 
 import { GeoStatisticsSelectors } from 'client/store/geo/statistics/selectors'
 import { ExtraEstimationState, GeoStatisticsState } from 'client/store/geo/statistics/state'

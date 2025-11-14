@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next'
 
 import { Numbers } from 'utils/numbers'
 
-import { ProtectedAreaEstimations } from 'meta/geo/forestEstimations'
-import { protectedAreaSources } from 'meta/geo/protectedAreaSource'
+import { ProtectedAreaEstimations } from 'meta/geo/protectedArea/estimations'
+import { protectedAreaSources } from 'meta/geo/protectedArea/sources'
 
 import { useGeoProtectedAreas, useGeoStatistics } from 'client/store/geo/statistics/hooks/statistics'
 import { StatisticsTableData } from 'client/pages/Geo/StatisticsSidePanel/StatisticsTable/types'

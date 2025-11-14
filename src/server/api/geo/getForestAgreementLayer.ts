@@ -1,7 +1,7 @@
 import { Response } from 'express'
 
 import { ForestAgreementLayerRequest } from 'meta/api/request'
-import { ForestKey } from 'meta/geo'
+import { ForestKey } from 'meta/geo/forest/key'
 
 import { GeoController } from 'server/controller/geo'
 import Requests from 'server/utils/requests'

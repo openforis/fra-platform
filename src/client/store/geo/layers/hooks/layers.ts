@@ -1,4 +1,4 @@
-import { LayerKey } from 'meta/geo'
+import { LayerKey } from 'meta/geo/layer/key'
 
 import { LayersSelectors } from 'client/store/geo/layers/selectors'
 import { GeoLayersState, initialState, LayerState } from 'client/store/geo/layers/state'

@@ -2,8 +2,10 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 import { CountryIso } from 'meta/area/countryIso'
-import { LayerKey, LayerSectionKey, LayerSource, sectionsApiEndpoint } from 'meta/geo'
-import { sectionsMap } from 'meta/geo/sections'
+import { LayerKey } from 'meta/geo/layer/key'
+import { LayerSectionKey } from 'meta/geo/layer/sectionKey'
+import { LayerSource } from 'meta/geo/layer/source'
+import { sectionsApiEndpoint, sectionsMap } from 'meta/geo/sections'
 
 import { _getLayerRequestBody } from 'client/store/geo/layers/actions/_getLayerRequestBody'
 import { LayersSelectors } from 'client/store/geo/layers/selectors'

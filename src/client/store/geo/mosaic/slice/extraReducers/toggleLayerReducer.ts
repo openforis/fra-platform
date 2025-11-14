@@ -1,7 +1,7 @@
 import { ActionReducerMapBuilder } from '@reduxjs/toolkit'
 import { Objects } from 'utils/objects'
 
-import { MOSAIC_LAYER_KEY } from 'meta/geo/mosaic'
+import { MOSAIC_LAYER_KEY } from 'meta/geo/mosaic/layerKey'
 
 import { toggleLayer } from 'client/store/geo/mosaic/actions/toggleLayer'
 import { GeoMosaicState } from 'client/store/geo/mosaic/state'

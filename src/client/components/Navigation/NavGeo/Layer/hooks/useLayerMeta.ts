@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { LayerControlType } from 'meta/geo/layer'
+import { LayerControlType } from 'meta/geo/layer/controlType'
 
 import { LayerMeta, LayerProps } from 'client/components/Navigation/NavGeo/Layer/types'
 

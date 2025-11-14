@@ -1,18 +1,9 @@
 import { Arrays } from 'utils/arrays'
 
-import { LayerMetadata, LayerSection, LayerSectionKey } from './layer'
-
-export enum BurnedAreaKey {
-  MODIS_FIRE = 'MODIS_FIRE',
-}
-
-export const burnedAreaLayersMetadata: Record<BurnedAreaKey, LayerMetadata> = {
-  [BurnedAreaKey.MODIS_FIRE]: {
-    palette: ['#980101'],
-    scale: 500,
-    titleKey: 'geo.sections.burnedArea.layerTitles.modis',
-  },
-}
+import { BurnedAreaKey } from 'meta/geo/burnedArea/key'
+import { burnedAreaLayersMetadata } from 'meta/geo/burnedArea/layersMetadata'
+import { LayerSection } from 'meta/geo/layer/section'
+import { LayerSectionKey } from 'meta/geo/layer/sectionKey'
 
 export const burnedAreaLayers: LayerSection = {
   key: LayerSectionKey.BurnedArea,
