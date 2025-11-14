@@ -35,7 +35,9 @@ paths:
                   Example Reference Title, 2021.
                   Organization Name. Example Publisher.
                   http://example.com/resource
-                description: "<div>Original Data Point HTML-formatted comments</div>"
+                comments:
+                  extentOfForest: "<div>Extent of forest HTML-formatted comments</div>"
+                  forestCharacteristics: "<div>Forest characteristics HTML-formatted comments</div>"
                 nationalClasses:
                   - area: 1813.24
                     name: "Other Wooded Land"
