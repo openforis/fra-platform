@@ -1,6 +1,30 @@
 import { TableName } from 'meta/assessment/table'
-import { SystemOfMeasurementName } from 'meta/measurement/systemOfMeasurement'
-import { Unit, UnitName } from 'meta/measurement/unit'
+import { Unit } from 'meta/measurement/unit'
+import { UnitName } from 'meta/measurement/unitName'
+import { UUID } from 'meta/uuid'
+
+export type SystemOfMeasurementDB = {
+  baseUnitUUID: UUID
+  conversionFactors: Record<UUID, number> // conversion factor of each unit in relation to base unit
+  name: SystemOfMeasurementName
+  uuid: UUID
+}
+
+export type SystemOfMeasurement = {
+  baseUnitName: UnitName
+  name: SystemOfMeasurementName
+  units: Partial<Record<UnitName, Omit<Unit, 'uuid'> & { conversionFactor: number }>>
+}
+
+export enum SystemOfMeasurementName {
+  area = 'area',
+  areaPerYear = 'area/year',
+  mass = 'mass',
+  massPerArea = 'mass/area',
+  percent = 'percent',
+  volume = 'volume',
+  volumePerArea = 'volume/area',
+}
 
 type UnitWithFactor = Omit<Unit, 'uuid'> & {
   conversionFactor?: number

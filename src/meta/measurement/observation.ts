@@ -20,8 +20,10 @@ type BaseObservation<VALUE> = {
 }
 
 export type QualitativeObservation = BaseObservation<string>
+
 /**
  * Quantitative Observation is always collected in the base unit of the measure system (measure.systemUUID->system.baseUnit)
  */
 export type QuantitativeObservation = BaseObservation<number>
+
 export type Observation = QuantitativeObservation | QualitativeObservation
