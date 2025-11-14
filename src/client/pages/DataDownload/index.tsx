@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { Files } from 'meta/file'
+import { Files } from 'meta/file/files'
 
 import { useLanguage } from 'client/hooks/language'
 import { useCountryRouteParams } from 'client/hooks/routeParams'

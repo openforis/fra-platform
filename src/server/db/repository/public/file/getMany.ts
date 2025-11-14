@@ -1,4 +1,4 @@
-import type { File } from 'meta/file'
+import { File } from 'meta/file/file'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { FileAdapter } from 'server/db/repository/adapter'

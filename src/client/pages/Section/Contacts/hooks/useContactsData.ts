@@ -3,7 +3,9 @@ import { useTranslation } from 'react-i18next'
 
 import { Objects } from 'utils/objects'
 
-import { Contact, ContactField, Contacts } from 'meta/cycleData'
+import { Contact } from 'meta/cycleData/contact/contact'
+import { ContactField } from 'meta/cycleData/contact/field'
+import { Contacts } from 'meta/cycleData/contacts'
 import { RoleName } from 'meta/user'
 
 import { useContacts } from 'client/store/data/contacts/hooks/contacts'

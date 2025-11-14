@@ -1,7 +1,8 @@
 import { getTable, RowsMetadata } from 'tools/migrations/steps/steps/metadata/dashboard/utils'
 
 import { Cycle } from 'meta/assessment/cycle'
-import { DashboardItemType, DashboardTable } from 'meta/dashboard'
+import { DashboardItemType } from 'meta/dashboard/item'
+import { DashboardTable } from 'meta/dashboard/table'
 
 const cols: Record<string, Array<string>> = {
   '2020': ['1990', '2000', '2010', '2020'],

@@ -1,7 +1,7 @@
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { FileSummary } from 'meta/file'
+import { FileSummary } from 'meta/file/file'
 import { User } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db/db'

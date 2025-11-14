@@ -2,7 +2,7 @@ import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Labels } from 'meta/assessment/labels'
-import { DashboardPieChart } from 'meta/dashboard/dashboard'
+import { DashboardPieChart } from 'meta/dashboard/pieChart'
 
 import Pie from 'client/components/Chart/Pie'
 import ButtonDataExport from 'client/components/Dashboard/ButtonDataExport'

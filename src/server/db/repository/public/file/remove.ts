@@ -1,4 +1,4 @@
-import { FileSummary } from 'meta/file'
+import { FileSummary } from 'meta/file/file'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { FileAdapter } from 'server/db/repository/adapter'

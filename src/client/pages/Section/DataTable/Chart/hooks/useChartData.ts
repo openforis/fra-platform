@@ -4,7 +4,8 @@ import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area/countryIso'
 import { Table } from 'meta/assessment/table'
-import { RecordAssessmentData, RecordAssessmentDatas, RecordColumnData } from 'meta/data'
+import { RecordAssessmentData, RecordColumnData } from 'meta/data/recordData'
+import { RecordAssessmentDatas } from 'meta/data/recordDatas'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useCountryRouteParams } from 'client/hooks/routeParams'

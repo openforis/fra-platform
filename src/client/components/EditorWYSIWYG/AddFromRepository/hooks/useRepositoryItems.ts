@@ -1,7 +1,7 @@
 import { createSelector } from '@reduxjs/toolkit'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { RepositoryItem } from 'meta/cycleData'
+import { RepositoryItem } from 'meta/cycleData/repository/item'
 
 import { useAppSelector } from 'client/store/hooks'
 import { RootState } from 'client/store/types'

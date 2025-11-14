@@ -1,7 +1,7 @@
 import { createAction } from '@reduxjs/toolkit'
 
 import { ActivityLog } from 'meta/assessment/activityLog'
-import { HistoryTarget } from 'meta/cycleData/historyActivities'
+import { HistoryTarget } from 'meta/cycleData/history/activities'
 
 import { HistoryActivitiesItemState } from 'client/store/data/history/state'
 

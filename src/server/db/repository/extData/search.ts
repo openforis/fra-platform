@@ -1,6 +1,6 @@
 import { Objects } from 'utils/objects'
 
-import { Taxon } from 'meta/extData'
+import { Taxon } from 'meta/extData/taxon'
 
 import { BaseProtocol, DB } from 'server/db/db'
 

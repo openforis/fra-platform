@@ -1,5 +1,5 @@
 import { TableNames } from 'meta/assessment/table'
-import { TablesCondition } from 'meta/data'
+import { TablesCondition } from 'meta/data/tableCondition'
 
 import { PropsGetTableData } from './props'
 

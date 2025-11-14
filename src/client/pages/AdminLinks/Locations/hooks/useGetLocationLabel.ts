@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { CountryIso } from 'meta/area/countryIso'
 import { SubSection } from 'meta/assessment/section'
-import { LinkLocation } from 'meta/cycleData'
+import { LinkLocation } from 'meta/cycleData/links/link'
 import { Links } from 'meta/cycleData/links/links'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'

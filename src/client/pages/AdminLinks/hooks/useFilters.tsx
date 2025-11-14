@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { LinkValidationStatusCode } from 'meta/cycleData'
+import { LinkValidationStatusCode } from 'meta/cycleData/links/link'
 import { Links } from 'meta/cycleData/links/links'
 import { TablePaginatedFilterType } from 'meta/tablePaginated'
 

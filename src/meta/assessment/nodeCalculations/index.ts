@@ -8,7 +8,8 @@ import { Cycle } from 'meta/assessment/cycle'
 import { NodeValue } from 'meta/assessment/node'
 import { RowCache } from 'meta/assessment/rowCache'
 import { TableName } from 'meta/assessment/table'
-import { RecordAssessmentDatas, RecordCountryData } from 'meta/data'
+import { RecordCountryData } from 'meta/data/recordData'
+import { RecordAssessmentDatas } from 'meta/data/recordDatas'
 import { ExpressionEvaluator } from 'meta/expressionEvaluator'
 
 type Props = {

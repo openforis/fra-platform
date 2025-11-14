@@ -3,7 +3,8 @@ import { Assessment, RecordAssessments } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { VariableCache } from 'meta/assessment/metaCache'
 import { RecordRowCache } from 'meta/assessment/rowCache'
-import { NodeUpdates, RecordAssessmentData, RecordCountryData } from 'meta/data'
+import { NodeUpdates } from 'meta/data/nodeUpdates'
+import { RecordAssessmentData, RecordCountryData } from 'meta/data/recordData'
 
 import { ContextResult } from './contextResult'
 

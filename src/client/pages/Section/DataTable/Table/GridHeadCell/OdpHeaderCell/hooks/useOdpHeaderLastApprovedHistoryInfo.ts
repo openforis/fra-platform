@@ -4,7 +4,7 @@ import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area/countryIso'
 import { Table } from 'meta/assessment/table'
-import { RecordAssessmentDatas } from 'meta/data'
+import { RecordAssessmentDatas } from 'meta/data/recordDatas'
 
 import { useHistoryLastApprovedIsActive } from 'client/store/data/history/hooks/lastApproved'
 import { useLastApprovedHistoryTableData } from 'client/store/data/history/hooks/lastApprovedTableData'

@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import { BarChart as BarChartType, BarChartData } from 'meta/chart'
+import { BarChart as BarChartType, BarChartData } from 'meta/chart/bar'
 import { agreementPalette, ExtraEstimation, extraEstimationsMetadata, ForestKey, forestLayersMetadata } from 'meta/geo'
 import { ForestEstimationEntry } from 'meta/geo/geoStatistics'
 

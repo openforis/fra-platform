@@ -4,7 +4,7 @@ import { AreaCode } from 'meta/area/areaCode'
 import { Areas } from 'meta/area/areas'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { DashboardItem, DashboardItemType } from 'meta/dashboard'
+import { DashboardItem, DashboardItemType } from 'meta/dashboard/item'
 
 import { NodeExtRepository } from 'server/db/repository/assessmentCycle/nodeExt'
 

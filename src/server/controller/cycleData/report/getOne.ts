@@ -2,8 +2,8 @@ import { errors as pgErrors } from 'pg-promise'
 
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { RepositoryItem } from 'meta/cycleData'
-import { File } from 'meta/file'
+import { RepositoryItem } from 'meta/cycleData/repository/item'
+import { File } from 'meta/file/file'
 
 import { RepositoryRepository } from 'server/db/repository/assessmentCycle/repository'
 import { FileRepository } from 'server/db/repository/public/file'
@@ -15,14 +15,12 @@ type Props = {
   fileName: string
 }
 
-type Returned =
-  | {
-      file: File
-      repositoryItem: RepositoryItem
-    }
-  | undefined
+type Returned = {
+  file: File
+  repositoryItem: RepositoryItem
+}
 
-export const getOne = async (props: Props): Promise<Returned> => {
+export const getOne = async (props: Props): Promise<Returned | undefined> => {
   try {
     const repositoryItem = await RepositoryRepository.getOne(props)
 

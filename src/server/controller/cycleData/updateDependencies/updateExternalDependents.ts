@@ -1,5 +1,5 @@
 import { CountryIso } from 'meta/area/countryIso'
-import { NodeUpdates } from 'meta/data'
+import { NodeUpdates } from 'meta/data/nodeUpdates'
 import { User } from 'meta/user'
 
 import { AreaController } from 'server/controller/area'

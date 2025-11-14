@@ -6,11 +6,11 @@ import * as archiver from 'archiver'
 import { CSV } from 'tools/utils/CSV'
 import { ToolsUtils } from 'tools/utils/toolsUtils'
 
-import { Files } from 'meta/file'
+import { Files } from 'meta/file/files'
 
+import { AssessmentController } from 'server/controller/assessment'
 import { BaseProtocol, DB } from 'server/db/db'
 import { Schemas } from 'server/db/schemas'
-import { AssessmentController } from 'server/controller/assessment'
 import { FileStorage } from 'server/service/fileStorage'
 import { Logger } from 'server/utils/logger'
 

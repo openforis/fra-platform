@@ -1,4 +1,4 @@
-import { FileSummary } from 'meta/file'
+import { FileSummary } from 'meta/file/file'
 
 export type FileUploadOnChange = (filesSummaries: Array<FileSummary>) => void
 

@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
 import { Objects } from 'utils/objects'
 
-import { Link as LinkType } from 'meta/cycleData'
+import { Link as LinkType } from 'meta/cycleData/links/link'
 
 import { LinksActions } from 'client/store/admin/links/actions'
 import { useIsVerificationInProgress } from 'client/store/admin/links/hooks/verification'
@@ -29,7 +29,7 @@ const Link: React.FC<Props> = (props) => {
   const approved = linkInfo.props?.approved
   const withApprovalBadge = approved ?? false
 
-  const handleUpdateLink = async () => {
+  const handleUpdateLink = async (): Promise<void> => {
     const newApproved = Objects.isEmpty(approved) ? true : !approved
     const newProps = { ...linkInfo.props, approved: newApproved }
     const newLink = { ...linkInfo, props: newProps }

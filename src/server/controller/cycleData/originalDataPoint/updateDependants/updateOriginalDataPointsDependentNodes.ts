@@ -3,7 +3,7 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { TableNames } from 'meta/assessment/table'
-import { NodeUpdate } from 'meta/data'
+import { NodeUpdate } from 'meta/data/nodeUpdates'
 import { User } from 'meta/user'
 
 import { DataRedisRepository } from 'server/cache/repository/data'
