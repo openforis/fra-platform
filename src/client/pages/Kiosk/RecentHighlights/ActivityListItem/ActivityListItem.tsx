@@ -3,14 +3,14 @@ import React from 'react'
 
 import classNames from 'classnames'
 
-import { Activity } from 'meta/kiosk'
+import { KioskActivity } from 'meta/kiosk/activity'
 
 import Button, { ButtonType } from 'client/components/Buttons/Button'
 
 type Props = {
-  activity: Activity
+  activity: KioskActivity
   expanded: boolean
-  handleExpand: (activity: Activity, map: google.maps.Map) => void
+  handleExpand: (activity: KioskActivity, map: google.maps.Map) => void
   map: google.maps.Map
 }
 

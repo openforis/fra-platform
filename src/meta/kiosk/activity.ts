@@ -1,6 +1,6 @@
 import { CountryIso } from 'meta/area/countryIso'
 
-export type Activity = {
+export type KioskActivity = {
   countryIso: CountryIso
   countryName: string
   description: string
