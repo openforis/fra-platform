@@ -1,7 +1,8 @@
 import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Layer, LayerSectionKey } from 'meta/geo'
+import { Layer } from 'meta/geo/layer/layer'
+import { LayerSectionKey } from 'meta/geo/layer/sectionKey'
 
 import { LayersActions } from 'client/store/geo/layers/actions'
 import { useGeoLayer } from 'client/store/geo/layers/hooks/layers'
@@ -43,7 +44,7 @@ const TreeCoverPercentControl: React.FC<Props> = (props) => {
               key={`${sectionKey}-${layerKey}-${percentage}`}
               checked={layerState?.options?.gteTreeCoverPercent === percentage}
               label={`${percentage} %`}
-              onClick={() => handlePercentageChange(percentage)}
+              onClick={(): void => handlePercentageChange(percentage)}
             />
           )
         })}

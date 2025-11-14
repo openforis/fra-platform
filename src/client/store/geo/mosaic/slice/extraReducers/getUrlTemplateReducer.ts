@@ -1,6 +1,6 @@
 import { ActionReducerMapBuilder } from '@reduxjs/toolkit'
 
-import { MOSAIC_LAYER_KEY } from 'meta/geo/mosaic'
+import { MOSAIC_LAYER_KEY } from 'meta/geo/mosaic/layerKey'
 
 import { LayerFetchStatus } from 'client/store/geo/layers/state'
 import { getUrlTemplate } from 'client/store/geo/mosaic/actions/getUrlTemplate'

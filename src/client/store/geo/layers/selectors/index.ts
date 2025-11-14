@@ -1,6 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit'
 
-import { LayerKey } from 'meta/geo'
+import { LayerKey } from 'meta/geo/layer/key'
 
 import { GeoLayersSliceName } from 'client/store/geo/layers/slice/name'
 import { GeoSliceName } from 'client/store/geo/slice/name'

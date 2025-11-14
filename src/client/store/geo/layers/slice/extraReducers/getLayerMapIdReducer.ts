@@ -1,7 +1,8 @@
 import { ActionReducerMapBuilder } from '@reduxjs/toolkit'
 import { Objects } from 'utils/objects'
 
-import { LayerKey, LayerSectionKey } from 'meta/geo'
+import { LayerKey } from 'meta/geo/layer/key'
+import { LayerSectionKey } from 'meta/geo/layer/sectionKey'
 
 import { getLayerMapId } from 'client/store/geo/layers/actions/getLayerMapId'
 import { getAgreementLayerCacheKey } from 'client/store/geo/layers/slice/utils'

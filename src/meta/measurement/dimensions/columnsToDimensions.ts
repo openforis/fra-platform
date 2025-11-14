@@ -1,6 +1,6 @@
 import { ColName } from 'meta/assessment/col'
 import { TableName } from 'meta/assessment/table'
-import { DimensionName } from 'meta/measurement/dimension/dimension'
+import { DimensionName } from 'meta/measurement/dimension'
 
 // Columns omitted from this map will default to using their own names as dimension names
 export const columnToDimensions: Record<TableName, Record<ColName, DimensionName>> = {

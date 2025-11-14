@@ -6,7 +6,7 @@ import { Objects } from 'utils/objects'
 
 import { Areas } from 'meta/area/areas'
 import { CountryIso } from 'meta/area/countryIso'
-import { UnitName } from 'meta/measurement/unit'
+import { UnitName } from 'meta/measurement/unitName'
 
 import { useDataExportCountries, useDataExportSelection } from 'client/store/dataExport/hooks/dataExport'
 import { useCycle } from 'client/store/meta/hooks/cycles'

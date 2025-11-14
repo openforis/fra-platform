@@ -1,4 +1,4 @@
-import { LayerSectionKey } from 'meta/geo'
+import { LayerSectionKey } from 'meta/geo/layer/sectionKey'
 
 export type GeoRecipesState = Record<LayerSectionKey, string>
 

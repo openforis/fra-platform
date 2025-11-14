@@ -1,5 +1,5 @@
 import { CountryIso } from 'meta/area/countryIso'
-import { MosaicOptions } from 'meta/geo'
+import { MosaicOptions } from 'meta/geo/mosaic/options'
 
 export const _getUrlTemplateReqBody = (mosaicOptions: MosaicOptions, countryIso: CountryIso): any => {
   const { maxCloudCoverage, snowMasking, sources, year } = mosaicOptions

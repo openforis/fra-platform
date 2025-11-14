@@ -2,7 +2,8 @@ import './AgreementLevelControl.scss'
 import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Layer, LayerSectionKey } from 'meta/geo/layer'
+import { Layer } from 'meta/geo/layer/layer'
+import { LayerSectionKey } from 'meta/geo/layer/sectionKey'
 
 import { LayersActions } from 'client/store/geo/layers/actions'
 import { useAppDispatch } from 'client/store/hooks'

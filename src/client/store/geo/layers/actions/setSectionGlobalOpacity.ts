@@ -1,8 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
 import { CountryIso } from 'meta/area/countryIso'
-import { ForestKey } from 'meta/geo'
-import { LayerSectionKey } from 'meta/geo/layer'
+import { ForestKey } from 'meta/geo/forest/key'
+import { LayerSectionKey } from 'meta/geo/layer/sectionKey'
 import { sectionsMap } from 'meta/geo/sections'
 
 import { setOpacity } from 'client/store/geo/layers/actions/setOpacity'

@@ -1,4 +1,4 @@
-import { LayerKey } from 'meta/geo'
+import { LayerKey } from 'meta/geo/layer/key'
 
 export type AgreementLevelState = {
   level: number

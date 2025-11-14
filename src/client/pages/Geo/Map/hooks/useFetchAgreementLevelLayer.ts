@@ -1,6 +1,7 @@
 import { useEffect, useMemo } from 'react'
 
-import { LayerKey, LayerSectionKey } from 'meta/geo'
+import { LayerKey } from 'meta/geo/layer/key'
+import { LayerSectionKey } from 'meta/geo/layer/sectionKey'
 
 import { LayersActions } from 'client/store/geo/layers/actions'
 import { useGeoLayers } from 'client/store/geo/layers/hooks/layers'
@@ -10,7 +11,7 @@ import { useCountryIso } from 'client/hooks/country'
 
 import { useCountSectionSelectedLayers } from './useCountSectionSelectedLayers'
 
-export const useFetchAgreementLevelLayer = (sectionKey: LayerSectionKey, layerKey: LayerKey) => {
+export const useFetchAgreementLevelLayer = (sectionKey: LayerSectionKey, layerKey: LayerKey): void => {
   const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
   const layersState = useGeoLayers()

@@ -1,6 +1,8 @@
 import { useEffect } from 'react'
 
-import { Layer, LayerKey, LayerSectionKey } from 'meta/geo'
+import { LayerKey } from 'meta/geo/layer/key'
+import { Layer } from 'meta/geo/layer/layer'
+import { LayerSectionKey } from 'meta/geo/layer/sectionKey'
 
 import { LayersActions } from 'client/store/geo/layers/actions'
 import { useGeoLayer } from 'client/store/geo/layers/hooks/layers'
@@ -13,7 +15,7 @@ export const useFetchNewLayerOption = (
   layerKey: LayerKey,
   layerOptionKey: keyof Omit<LayerStateOptions, 'agreementLayer'>,
   layer: Layer
-) => {
+): void => {
   const dispatch = useAppDispatch()
   const countryIso = useCountryIso()
   const layerState = useGeoLayer(layerKey)

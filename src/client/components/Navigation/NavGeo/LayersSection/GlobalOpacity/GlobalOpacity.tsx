@@ -2,7 +2,7 @@ import './GlobalOpacity.scss'
 import React, { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { LayerSectionKey } from 'meta/geo'
+import { LayerSectionKey } from 'meta/geo/layer/sectionKey'
 
 import { LayersActions } from 'client/store/geo/layers/actions'
 import { useAppDispatch } from 'client/store/hooks'

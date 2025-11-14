@@ -3,8 +3,11 @@ import { Cycle } from 'meta/assessment/cycle'
 import { SectionName } from 'meta/assessment/section'
 import { TableName } from 'meta/assessment/table'
 import { ExplorerMetadata } from 'meta/explorer/metadata'
-import { SystemOfMeasurementName, systemsOfMeasurement } from 'meta/measurement/systemOfMeasurement'
-import { SystemOfMeasurement } from 'meta/measurement/systemOfMeasurement/systemOfMeasurement'
+import {
+  SystemOfMeasurement,
+  SystemOfMeasurementName,
+  systemsOfMeasurement,
+} from 'meta/measurement/systemOfMeasurement'
 
 import { getKeyCycle, Keys } from 'server/cache/repository/keys'
 import { RedisData } from 'server/cache/repository/redisData'

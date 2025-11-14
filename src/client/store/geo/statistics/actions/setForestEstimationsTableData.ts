@@ -1,6 +1,6 @@
 import { createAction } from '@reduxjs/toolkit'
 
-import { ForestEstimationEntry } from 'meta/geo/geoStatistics'
+import { ForestEstimationEntry } from 'meta/geo/forest/estimationEntry'
 
 type Params = {
   forestEstimationsTableData: Array<ForestEstimationEntry>

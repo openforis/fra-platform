@@ -1,7 +1,7 @@
 import { Request } from 'express'
 
 import { CountryIso } from 'meta/area/countryIso'
-import { LayerSource } from 'meta/geo'
+import { LayerSource } from 'meta/geo/layer/source'
 
 export type LayerRequestBody = {
   countryIso: CountryIso

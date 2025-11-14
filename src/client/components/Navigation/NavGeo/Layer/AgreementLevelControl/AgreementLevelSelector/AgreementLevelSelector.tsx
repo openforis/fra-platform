@@ -3,7 +3,8 @@ import React from 'react'
 
 import classNames from 'classnames'
 
-import { Layer, LayerSectionKey } from 'meta/geo/layer'
+import { Layer } from 'meta/geo/layer/layer'
+import { LayerSectionKey } from 'meta/geo/layer/sectionKey'
 
 import OptionLabel from 'client/components/Navigation/NavGeo/Grid/OptionLabel'
 
@@ -39,7 +40,7 @@ const AgreementLevelSelector: React.FC<Props> = (props) => {
                 className="geo-agreement-level-selector__checkbox"
                 disabled={disabled}
                 id={id}
-                onChange={() => onChange(level)}
+                onChange={(): void => onChange(level)}
                 style={style}
                 type="checkbox"
               />

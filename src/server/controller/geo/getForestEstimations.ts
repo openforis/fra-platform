@@ -2,7 +2,8 @@
 import { Image, Reducer } from '@google/earthengine'
 
 import { CountryIso } from 'meta/area/countryIso'
-import { ForestEstimations, LayerSource } from 'meta/geo'
+import { ForestEstimations } from 'meta/geo/forest/estimations'
+import { LayerSource } from 'meta/geo/layer/source'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { ForestEstimationsRepository } from 'server/db/repository/geo/forestEstimations'

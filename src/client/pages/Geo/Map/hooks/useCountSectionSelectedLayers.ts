@@ -2,7 +2,8 @@ import { useMemo } from 'react'
 
 import { Objects } from 'utils/objects'
 
-import { ForestKey, LayerSectionKey } from 'meta/geo'
+import { ForestKey } from 'meta/geo/forest/key'
+import { LayerSectionKey } from 'meta/geo/layer/sectionKey'
 import { sectionsMap } from 'meta/geo/sections'
 
 import { useGeoLayers } from 'client/store/geo/layers/hooks/layers'
@@ -12,7 +13,7 @@ type Props = {
   sectionKey: LayerSectionKey
 }
 
-export const useCountSectionSelectedLayers = (props: Props) => {
+export const useCountSectionSelectedLayers = (props: Props): number => {
   const { ignoreAgreementLayer = false, sectionKey } = props
   const section = sectionsMap[sectionKey]
   const layersState = useGeoLayers()

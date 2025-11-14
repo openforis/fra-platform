@@ -1,14 +1,14 @@
 import { MutableRefObject, useCallback, useEffect, useRef, useState } from 'react'
 
-import { Activity } from 'meta/kiosk'
+import { KioskActivity } from 'meta/kiosk/activity'
 
 type Props = {
   expandedActivity: string | null
-  handleExpand: (activity: Activity, map: google.maps.Map) => void
+  handleExpand: (activity: KioskActivity, map: google.maps.Map) => void
 }
 
 type Returned = {
-  addMarkers: (activities: Array<Activity>) => void
+  addMarkers: (activities: Array<KioskActivity>) => void
   map: google.maps.Map
   ref: MutableRefObject<HTMLDivElement>
 }
@@ -58,7 +58,7 @@ export const useLatestActivitiesMap = (props: Props): Returned => {
   }, [map, ref])
 
   const addMarkers = useCallback<Returned['addMarkers']>(
-    (activities: Array<Activity>) => {
+    (activities: Array<KioskActivity>) => {
       if (!map) return
 
       const markers = markersRef.current
