@@ -1,6 +1,6 @@
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { DashboardItem, DashboardItemType } from 'meta/dashboard'
+import { DashboardItem, DashboardItemType } from 'meta/dashboard/item'
 import { NodeExtType } from 'meta/nodeExt'
 
 import { BaseProtocol, DB } from 'server/db/db'

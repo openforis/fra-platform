@@ -2,7 +2,7 @@ import './AddFromRepository.scss'
 import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { RepositoryItems } from 'meta/cycleData'
+import { RepositoryItems } from 'meta/cycleData/repository/items'
 import { Translations } from 'meta/translation'
 
 import { useLanguage } from 'client/hooks/language'
@@ -52,7 +52,7 @@ const AddFromRepository: React.FC = () => {
           <span>{t('nationalDataPoint.fileAddedWillBecomePublic')}</span>
         </div>
         <ModalClose
-          onClose={() => {
+          onClose={(): void => {
             setSelectedFiles([])
             onClose()
           }}
@@ -74,7 +74,7 @@ const AddFromRepository: React.FC = () => {
                   <ButtonCheckBox
                     checked={isChecked(repositoryItem.uuid)}
                     label={label}
-                    onClick={() => onClick(repositoryItem.uuid)}
+                    onClick={(): void => onClick(repositoryItem.uuid)}
                   />
                   <a href={url}>
                     <Icon className="icon-sub " name="hit-down" />

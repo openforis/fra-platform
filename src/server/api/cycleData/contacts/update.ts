@@ -2,7 +2,8 @@ import { Response } from 'express'
 
 import { CycleDataRequest } from 'meta/api/request'
 import { NodeValue } from 'meta/assessment/node'
-import { Contact, ContactField } from 'meta/cycleData'
+import { Contact } from 'meta/cycleData/contact/contact'
+import { ContactField } from 'meta/cycleData/contact/field'
 
 import { CycleDataController } from 'server/controller/cycleData'
 import Requests from 'server/utils/requests'

@@ -1,7 +1,7 @@
 import { Response } from 'express'
 
 import { TablePaginatedDataRequest } from 'meta/api/request/tablePaginated'
-import { Link } from 'meta/cycleData'
+import { Link } from 'meta/cycleData/links/link'
 import { Lang } from 'meta/lang'
 import { TablePaginateds } from 'meta/tablePaginated'
 import { LinksFilters } from 'meta/tablePaginated/links'

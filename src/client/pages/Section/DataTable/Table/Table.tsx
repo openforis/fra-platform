@@ -5,7 +5,7 @@ import classNames from 'classnames'
 
 import { AssessmentName } from 'meta/assessment/assessment'
 import { Table as TableType } from 'meta/assessment/table'
-import { RecordAssessmentData } from 'meta/data'
+import { RecordAssessmentData } from 'meta/data/recordData'
 
 import { useIsDataLocked } from 'client/store/ui/countryReport/hooks/datalock'
 import { useCanEdit, useCanViewReview } from 'client/store/user/hooks/auth'

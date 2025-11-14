@@ -4,7 +4,7 @@ import { CycleName } from 'meta/assessment/cycle'
 import { CommentableDescriptionName, DataSource } from 'meta/assessment/descriptionValue'
 import { Row } from 'meta/assessment/row'
 import { SectionName } from 'meta/assessment/section'
-import { Contact } from 'meta/cycleData'
+import { Contact } from 'meta/cycleData/contact/contact'
 import { User } from 'meta/user'
 
 import { MessageTopic, MessageTopicType } from './messageTopic'

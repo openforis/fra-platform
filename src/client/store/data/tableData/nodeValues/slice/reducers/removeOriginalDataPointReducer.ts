@@ -1,12 +1,12 @@
 import { ActionReducerMapBuilder } from '@reduxjs/toolkit'
 
 import { TableNames } from 'meta/assessment/table'
-import { RecordAssessmentDatas } from 'meta/data'
+import { RecordAssessmentDatas } from 'meta/data/recordDatas'
 
 import { removeOriginalDataPoint } from 'client/store/data/tableData/nodeValues/actions/removeOriginalDataPoint'
 import { NodeValuesState } from 'client/store/data/tableData/nodeValues/state'
 
-export const removeOriginalDataPointReducer = (builder: ActionReducerMapBuilder<NodeValuesState>) => {
+export const removeOriginalDataPointReducer = (builder: ActionReducerMapBuilder<NodeValuesState>): void => {
   builder.addCase(removeOriginalDataPoint, (state, action) => {
     // Delete reference from state for deleted ODP
     const { assessmentName, countryIso, cycleName, year } = action.payload

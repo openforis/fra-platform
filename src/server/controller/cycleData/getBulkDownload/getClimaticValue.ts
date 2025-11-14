@@ -1,5 +1,5 @@
 import { CountryIso } from 'meta/area/countryIso'
-import { RecordCountryData } from 'meta/data'
+import { RecordCountryData } from 'meta/data/recordData'
 
 export const getClimaticValue = (
   name: string,

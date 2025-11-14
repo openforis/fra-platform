@@ -2,8 +2,8 @@ import { Assessments } from 'meta/assessment/assessments'
 import { CycleName } from 'meta/assessment/cycle'
 import { Cycles } from 'meta/assessment/cycles'
 import { VariableCache } from 'meta/assessment/metaCache'
+import { Member } from 'meta/expressionEvaluator/member'
 import { BaseContext } from 'meta/expressionEvaluator/util/_types'
-import { Member } from 'meta/expressions'
 
 import { MemberExpression } from 'lib/expressionEvaluator/node'
 

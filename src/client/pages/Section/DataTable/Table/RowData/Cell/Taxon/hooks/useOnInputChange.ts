@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 
 import { NodeValue } from 'meta/assessment/node'
-import { Taxon } from 'meta/extData'
+import { Taxon } from 'meta/extData/taxon'
 
 import { SelectProps } from 'client/components/Inputs/Select'
 

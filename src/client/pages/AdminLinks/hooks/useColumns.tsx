@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Link as LinkType } from 'meta/cycleData'
+import { Link as LinkType } from 'meta/cycleData/links/link'
 
 import { Column } from 'client/components/TablePaginated'
 import LastStatus from 'client/pages/AdminLinks/LastStatus'

@@ -6,7 +6,7 @@ import { Objects } from 'utils/objects'
 
 import { SubSectionHints } from 'meta/assessment/section'
 import { SubSections } from 'meta/assessment/subSections'
-import { Files } from 'meta/file'
+import { Files } from 'meta/file/files'
 import { SdgMetadataFileName } from 'meta/file/static'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'

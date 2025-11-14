@@ -5,7 +5,7 @@ import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { Cycles } from 'meta/assessment/cycles'
-import { RecordAssessmentData } from 'meta/data'
+import { RecordAssessmentData } from 'meta/data/recordData'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { NodeExtQueries } from 'server/db/repository/assessmentCycle/nodeExt/queries'

@@ -5,7 +5,8 @@ import { AssessmentName } from 'meta/assessment/assessment'
 import { ColType } from 'meta/assessment/col'
 import { CycleName } from 'meta/assessment/cycle'
 import { Row, RowType } from 'meta/assessment/row'
-import { RecordAssessmentData, RecordAssessmentDatas, RecordCountryData } from 'meta/data'
+import { RecordAssessmentData, RecordCountryData } from 'meta/data/recordData'
+import { RecordAssessmentDatas } from 'meta/data/recordDatas'
 
 import { EstimationsActions } from 'client/store/data/tableData/estimations/actions'
 import { useAppDispatch } from 'client/store/hooks'
@@ -23,7 +24,7 @@ export interface UseGenerateValues {
   valid: boolean
 }
 
-const isTableWithOdpEmpty = (data: RecordCountryData) => {
+const isTableWithOdpEmpty = (data: RecordCountryData): boolean => {
   return (
     Object.values(data).flatMap((section) =>
       Object.values(section).flatMap((year) =>
@@ -63,7 +64,7 @@ export const useGenerateValues = (
       })
   )
 
-  const generateValues = () => {
+  const generateValues = (): void => {
     if (
       isTableWithOdpEmpty(RecordAssessmentDatas.getCycleData({ data, assessmentName, cycleName })) ||
       window.confirm(i18n.t('tableWithOdp.confirmGenerateFraValues'))

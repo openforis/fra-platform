@@ -1,7 +1,7 @@
 import { Numbers } from 'utils/numbers'
 
 import { TableNames } from 'meta/assessment/table'
-import { RecordAssessmentDatas } from 'meta/data'
+import { RecordAssessmentDatas } from 'meta/data/recordDatas'
 
 import { ExpressionFunction } from 'lib/expressionEvaluator/function'
 

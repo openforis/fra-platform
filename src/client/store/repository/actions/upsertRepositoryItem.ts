@@ -3,7 +3,10 @@ import axios from 'axios'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CycleParams } from 'meta/api/request'
-import { RepositoryItem } from 'meta/cycleData'
+import { CountryIso } from 'meta/area/countryIso'
+import { AssessmentName } from 'meta/assessment/assessment'
+import { CycleName } from 'meta/assessment/cycle'
+import { RepositoryItem } from 'meta/cycleData/repository/item'
 
 import { ThunkApiConfig } from 'client/store/types'
 
@@ -11,7 +14,9 @@ type Props = CycleParams & {
   repositoryItem: Partial<RepositoryItem>
 }
 
-const _getParamsConfig = (props: Props) => {
+const _getParamsConfig = (
+  props: Props
+): { params: { assessmentName: AssessmentName; cycleName: CycleName; countryIso: CountryIso } } => {
   const { assessmentName, countryIso, cycleName } = props
   const params = { countryIso, assessmentName, cycleName }
   return { params }

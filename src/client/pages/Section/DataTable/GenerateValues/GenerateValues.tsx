@@ -8,7 +8,7 @@ import { AssessmentName } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
 import { Row } from 'meta/assessment/row'
 import { TableNames } from 'meta/assessment/table'
-import { RecordAssessmentData } from 'meta/data'
+import { RecordAssessmentData } from 'meta/data/recordData'
 
 import { useAssessmentCountry } from 'client/store/area/hooks/country'
 
@@ -54,7 +54,11 @@ const GenerateValues: React.FC<Props> = (props) => {
   return (
     <div className="app-view__section-toolbar no-print">
       <div className="data-table-generate-values">
-        <select className="select-s" onChange={(evt) => setMethod(evt.target.value as Method)} value={method ?? ''}>
+        <select
+          className="select-s"
+          onChange={(evt): void => setMethod(evt.target.value as Method)}
+          value={method ?? ''}
+        >
           <option disabled value="">
             {t('tableWithOdp.placeholderSelect')}
           </option>
@@ -66,7 +70,7 @@ const GenerateValues: React.FC<Props> = (props) => {
         <button
           className="btn-s btn-primary"
           disabled={isEstimationPending || !valid || !buttonEnabled}
-          onClick={() => {
+          onClick={(): void => {
             setButtonEnabled(false)
             generateValues()
             setTimeout(() => {

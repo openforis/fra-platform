@@ -1,6 +1,6 @@
 import { useDeferredValue } from 'react'
 
-import { RecordAssessmentData } from 'meta/data'
+import { RecordAssessmentData } from 'meta/data/recordData'
 import { Axis, AxisSelection } from 'meta/explorer/selection'
 
 import { useExplorerSectionData } from 'client/store/explorer/data/hooks/data'

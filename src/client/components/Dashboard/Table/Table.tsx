@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { DashboardTable } from 'meta/dashboard'
+import { DashboardTable } from 'meta/dashboard/table'
 
 import { useSectionRouteParams } from 'client/hooks/routeParams'
 import TableComponent from 'client/pages/Section/DataTable/Table'

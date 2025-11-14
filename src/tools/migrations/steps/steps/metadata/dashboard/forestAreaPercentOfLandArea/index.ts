@@ -3,9 +3,9 @@ import { getTable } from 'tools/migrations/steps/steps/metadata/dashboard/utils'
 import { unit } from 'tools/migrations/steps/steps/metadata/dashboard/utils/unit'
 
 import { Cycle } from 'meta/assessment/cycle'
-import { ChartColor } from 'meta/chart'
-import { DashboardItemType } from 'meta/dashboard'
-import { DashboardPieChart } from 'meta/dashboard/dashboard'
+import { ChartColor } from 'meta/chart/color'
+import { DashboardItemType } from 'meta/dashboard/item'
+import { DashboardPieChart } from 'meta/dashboard/pieChart'
 
 const cols: Record<string, Array<string>> = {
   '2020': ['2020'],

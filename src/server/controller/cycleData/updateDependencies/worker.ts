@@ -1,4 +1,4 @@
-import { NodeUpdates } from 'meta/data'
+import { NodeUpdates } from 'meta/data/nodeUpdates'
 
 import { AreaRedisRepository } from 'server/cache/repository/area'
 import { DB } from 'server/db/db'

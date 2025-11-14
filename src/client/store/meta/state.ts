@@ -2,7 +2,7 @@ import { Assessment, AssessmentName } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
 import { Section, SectionName } from 'meta/assessment/section'
 import { TableSection } from 'meta/assessment/tableSection'
-import { DashboardItem } from 'meta/dashboard'
+import { DashboardItem } from 'meta/dashboard/item'
 
 export enum DashboardAreaType {
   Region = 'region',

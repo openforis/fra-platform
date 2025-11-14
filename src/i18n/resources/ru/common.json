@@ -22,6 +22,7 @@
   "copyLink": "Копировать ссылку",
   "countries": "Страны",
   "country": "Страна",
+  "countryCode": "Код страны",
   "csvAllTables": "CSV все таблицы",
   "csvDisclaimer": "Оговорка",
   "csvDisclaimerText": "Этот отчет был опубликован как часть {{assessmentName}} {{cycleName}} и обновлен в {{month}}/{{year}}",

@@ -3,7 +3,7 @@ import axios from 'axios'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { SectionName } from 'meta/assessment/section'
-import { RecordAssessmentData } from 'meta/data'
+import { RecordAssessmentData } from 'meta/data/recordData'
 
 import { Props } from 'client/store/data/tableData/nodeValues/actions/getTableDataProps'
 

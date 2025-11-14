@@ -28,6 +28,7 @@ const CountryListDownload: React.FC = () => {
 
     return {
       name: t(`area.${country.countryIso}.listName`),
+      countryIso: country.countryIso,
       status: t(`assessment.status.${status}.label`),
       lastEdit: formatDate(country.lastEdit),
       lastInReview: formatDate(country.lastInReview),
@@ -39,6 +40,7 @@ const CountryListDownload: React.FC = () => {
 
   const headers = [
     { label: t('common.country'), key: 'name' },
+    { label: t('common.countryCode'), key: 'countryIso' },
     { label: t('common.status'), key: 'status' },
     { label: t('audit.edited'), key: 'lastEdit' },
     { label: t('common.submittedToReview'), key: 'lastInReview' },

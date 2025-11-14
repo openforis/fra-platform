@@ -6,7 +6,7 @@ import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { ODPDataSourceMethod } from 'meta/assessment/originalDataPoint'
-import { RecordAssessmentDatas } from 'meta/data'
+import { RecordAssessmentDatas } from 'meta/data/recordDatas'
 import { Lang } from 'meta/lang'
 
 import { OriginalDataPointRepository } from 'server/db/repository/assessmentCycle/originalDataPoint'

@@ -1,7 +1,7 @@
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { Link } from 'meta/cycleData'
+import { Link } from 'meta/cycleData/links/link'
 import { SectionNames } from 'meta/routes'
 import { User } from 'meta/user'
 
