@@ -1,10 +1,10 @@
 import '../scriptInit'
 
 import * as path from 'path'
+import { ToolsUtils } from 'tools/utils/toolsUtils'
 
 import { MetadataController } from 'server/controller/metadata'
 import { DB } from 'server/db/db'
-import { Logger } from 'server/utils/logger'
 
 import { _writeTableToFile } from './_writeTableToFile'
 
@@ -20,10 +20,4 @@ const exec = async (): Promise<void> => {
   })
 }
 
-Logger.debug(`========== START EXPORT DATABASE`)
-
-exec().then(() => {
-  Logger.debug(`========== END EXPORT DATABASE`)
-  DB.$pool.end()
-  process.exit(0)
-})
+ToolsUtils.exec(exec)
