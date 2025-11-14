@@ -4,14 +4,14 @@ import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
 
-import { Activity } from 'meta/kiosk'
+import { KioskActivity } from 'meta/kiosk/activity'
 
 import ActivityListItem from 'client/pages/Kiosk/RecentHighlights/ActivityListItem'
 
 type Props = {
-  activities: Array<Activity> | undefined
+  activities: Array<KioskActivity> | undefined
   expandedActivity: string | null
-  handleExpand: (activity: Activity, map: google.maps.Map) => void
+  handleExpand: (activity: KioskActivity, map: google.maps.Map) => void
   map: google.maps.Map
 }
 

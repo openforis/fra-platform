@@ -1,16 +1,16 @@
 import { parseString } from 'fast-csv'
 
-import { Activity } from 'meta/kiosk'
+import { KioskActivity } from 'meta/kiosk/activity'
 
 type Props = {
   csvData: string
 }
 
-export const getLatestActivitiesFromCsv = async (props: Props): Promise<Array<Activity>> => {
+export const getLatestActivitiesFromCsv = async (props: Props): Promise<Array<KioskActivity>> => {
   const { csvData } = props
 
   return new Promise((resolve, reject) => {
-    const activities: Array<Activity> = []
+    const activities: Array<KioskActivity> = []
     let rowIndex = 0
 
     parseString(csvData, { headers: true, ignoreEmpty: true })
@@ -18,7 +18,7 @@ export const getLatestActivitiesFromCsv = async (props: Props): Promise<Array<Ac
         reject(error)
       })
       .on('data', (row) => {
-        const activity: Activity = {
+        const activity: KioskActivity = {
           countryIso: row.ISO3,
           countryName: row.Country,
           description: row.Description,

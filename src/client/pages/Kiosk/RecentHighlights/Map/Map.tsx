@@ -1,7 +1,7 @@
 import './Map.scss'
 import React, { useCallback, useState } from 'react'
 
-import { Activity } from 'meta/kiosk'
+import { KioskActivity } from 'meta/kiosk/activity'
 
 import ActivityList from 'client/pages/Kiosk/RecentHighlights/ActivityList'
 import RecentHighlightsButton from 'client/pages/Kiosk/RecentHighlights/RecentHighlightsButton'
@@ -12,7 +12,7 @@ import { useLatestActivitiesMap } from './hooks/useLatestActivitiesMap'
 const Map: React.FC = () => {
   const [expandedActivity, setExpandedActivity] = useState<string | null>(null)
 
-  const handleExpand = useCallback((activity: Activity, map: google.maps.Map) => {
+  const handleExpand = useCallback((activity: KioskActivity, map: google.maps.Map) => {
     setExpandedActivity((prev) => (prev === activity.id ? null : activity.id))
     map?.panTo({ lat: activity.lat, lng: activity.lng })
   }, [])
