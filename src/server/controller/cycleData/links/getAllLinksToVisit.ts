@@ -92,26 +92,24 @@ const _getOriginalDataPointLinks = async (props: Props): Promise<Array<LinkToVis
   const { assessment, cycle } = props
   const assessmentName = assessment.props.name
   const cycleName = cycle.name
-  const sectionName = SectionNames.extentOfForest
-
   const [odpsByDescriptionsLinks, odpsByReferenceLinks] = await Promise.all([
     OriginalDataPointRepository.getManyWithDescriptionLinks({ assessment, cycle }),
     OriginalDataPointRepository.getManyWithReferenceLinks({ assessment, cycle }),
   ])
 
+  const commentFieldConfigs: Array<{ field: OriginalDataPointCommentKey; sectionName: SectionNames }> = [
+    { field: TableNames.extentOfForest, sectionName: SectionNames.extentOfForest },
+    { field: TableNames.forestCharacteristics, sectionName: SectionNames.forestCharacteristics },
+  ]
+
   const linksToVisit: Array<LinkToVisit> = odpsByDescriptionsLinks.flatMap((odp) => {
     const { comments, countryIso, id, year } = odp
-    const urlParams = { assessmentName, countryIso, cycleName, sectionName, year: String(year) }
-    const url = Routes.OriginalDataPoint.generatePath(urlParams)
 
-    const commentFields: Array<OriginalDataPointCommentKey> = [
-      TableNames.extentOfForest,
-      TableNames.forestCharacteristics,
-    ]
-
-    return commentFields.flatMap((field) => {
+    return commentFieldConfigs.flatMap(({ field, sectionName }) => {
       const html = comments[field]
       if (!html) return []
+      const urlParams = { assessmentName, countryIso, cycleName, sectionName, year: String(year) }
+      const url = Routes.OriginalDataPoint.generatePath(urlParams)
 
       return _processLinks({
         countryIso,
@@ -128,6 +126,7 @@ const _getOriginalDataPointLinks = async (props: Props): Promise<Array<LinkToVis
   return linksToVisit.concat(
     odpsByReferenceLinks.flatMap((odp) => {
       const { countryIso, dataSourceReferences, id, year } = odp
+      const sectionName = SectionNames.extentOfForest
       const urlParams = { assessmentName, countryIso, cycleName, sectionName, year: String(year) }
       const url = Routes.OriginalDataPoint.generatePath(urlParams)
       return _processLinks({
