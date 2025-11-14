@@ -7,7 +7,7 @@ import { CycleUuid } from 'meta/assessment/cycle'
 import { CycledPropsObject } from 'meta/assessment/cycledObject'
 import { Row } from 'meta/assessment/row'
 import { VariableName } from 'meta/assessment/variable'
-import { UnitName } from 'meta/measurement/unit'
+import { UnitName } from 'meta/measurement/unitName'
 
 export enum TableNames {
   areaAffectedByFire = 'areaAffectedByFire',

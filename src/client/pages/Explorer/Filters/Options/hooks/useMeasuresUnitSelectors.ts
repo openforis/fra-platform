@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState, useTransition } from 'react'
 
 import { MeasureName } from 'meta/measurement/measure'
-import { UnitName } from 'meta/measurement/unit'
+import { UnitName } from 'meta/measurement/unitName'
 
 import { ExplorerSelectionActions } from 'client/store/explorer/selection/actions'
 import { useExplorerUnits } from 'client/store/explorer/selection/hooks/units'

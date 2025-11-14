@@ -7,7 +7,7 @@ import { Objects } from 'utils/objects'
 import { Cols } from 'meta/assessment/cols'
 import { Row } from 'meta/assessment/row'
 import { UnitFactors } from 'meta/dataExport/unitFactor'
-import { UnitName } from 'meta/measurement/unit'
+import { UnitName } from 'meta/measurement/unitName'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useTableSections } from 'client/store/meta/hooks/tableSections'

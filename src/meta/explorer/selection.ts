@@ -2,7 +2,7 @@ import { CountryIso } from 'meta/area/countryIso'
 import { SectionName } from 'meta/assessment/section'
 import { DimensionName } from 'meta/measurement/dimension'
 import { MeasureName } from 'meta/measurement/measure'
-import { UnitName } from 'meta/measurement/unit'
+import { UnitName } from 'meta/measurement/unitName'
 
 export enum Axis {
   x = 'x',

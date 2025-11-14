@@ -1,5 +1,5 @@
 import { MeasureName } from 'meta/measurement/measure'
-import { UnitName } from 'meta/measurement/unit'
+import { UnitName } from 'meta/measurement/unitName'
 
 import { Option } from 'client/components/Inputs/Select'
 

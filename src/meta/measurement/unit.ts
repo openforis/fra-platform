@@ -1,6 +1,5 @@
+import { UnitName } from 'meta/measurement/unitName'
 import { UUID } from 'meta/uuid'
-
-import { UnitName } from './unitName'
 
 export type Unit = {
   name: UnitName

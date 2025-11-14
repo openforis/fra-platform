@@ -8,7 +8,7 @@ import { RecordAssessmentData } from 'meta/data/recordData'
 import { RecordAssessmentDatas } from 'meta/data/recordDatas'
 import { UnitConverter } from 'meta/dataExport/unitConverter'
 import { UnitFactors } from 'meta/dataExport/unitFactor'
-import { UnitName } from 'meta/measurement/unit'
+import { UnitName } from 'meta/measurement/unitName'
 
 // import { getPanEuropeanTableMapping } from 'client/pages/DataExport/utils/panEuropean'
 
