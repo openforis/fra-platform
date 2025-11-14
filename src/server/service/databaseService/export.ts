@@ -1,7 +1,7 @@
 import { ExportedTableData } from 'meta/metadata/export'
 
 import { BaseProtocol, DB } from 'server/db/db'
-import { TABLES } from 'server/service/databaseService/TABLES'
+import { EXPORT_TABLES } from 'server/service/databaseService/EXPORT_TABLES'
 
 export type ExportTableProps = {
   schema: string
@@ -24,5 +24,5 @@ const exportTable = async (props: ExportTableProps, client: BaseProtocol = DB): 
 }
 
 export const exportTables = async (client: BaseProtocol = DB): Promise<Array<ExportedTableData>> => {
-  return Promise.all(TABLES.map((tableConfig) => exportTable(tableConfig, client)))
+  return Promise.all(EXPORT_TABLES.map((tableConfig) => exportTable(tableConfig, client)))
 }
