@@ -2,7 +2,8 @@ import { Country } from 'meta/area/country'
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
+import { OriginalDataPoint, OriginalDataPointCommentKey } from 'meta/assessment/originalDataPoint'
+import { TableNames } from 'meta/assessment/table'
 import { User } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db/db'
@@ -14,27 +15,35 @@ type Props = {
   assessment: Assessment
   cycle: Cycle
   country: Country
+  field: OriginalDataPointCommentKey
   originalDataPoint: OriginalDataPoint
   user: User
+}
+
+const activities: Record<OriginalDataPointCommentKey, ActivityLogMessage> = {
+  [TableNames.extentOfForest]: ActivityLogMessage.originalDataPointUpdateCommentExtentOfForest,
+  [TableNames.forestCharacteristics]: ActivityLogMessage.originalDataPointUpdateCommentForestCharacteristics,
 }
 
 export const updateOriginalDataPointDescription = async (
   props: Props,
   client: BaseProtocol = DB
 ): Promise<OriginalDataPoint> => {
-  const { assessment, country, cycle, originalDataPoint, user } = props
+  const { assessment, country, cycle, field, originalDataPoint, user } = props
   const { countryIso } = originalDataPoint
 
   return client.tx(async (t) => {
     const updatedOriginalDataPoint = await OriginalDataPointRepository.updateDescription(
-      { assessment, cycle, originalDataPoint },
+      { assessment, cycle, field, originalDataPoint },
       t
     )
+
+    const message = activities[field]
 
     const activityLog = {
       target: updatedOriginalDataPoint,
       section: 'odp',
-      message: ActivityLogMessage.originalDataPointUpdateDescription,
+      message,
       countryIso,
       user,
     }

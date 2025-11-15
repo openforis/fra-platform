@@ -1,10 +1,11 @@
-import { Objects } from 'utils/objects'
-
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
+import { TableNames } from 'meta/assessment/table'
 
 import { BaseProtocol, DB } from 'server/db/db'
+import { OriginalDataPointAdapter } from 'server/db/repository/adapter/originalDataPoint'
+import { ODPCommentColumns } from 'server/db/repository/assessmentCycle/originalDataPoint/commentColumns'
 import { Schemas } from 'server/db/schemas'
 
 type Props = {
@@ -20,12 +21,16 @@ export const getManyWithDescriptionLinks = async (
 
   const schemaName = Schemas.getNameCycle(assessment, cycle)
 
+  const commentColumnExtent = ODPCommentColumns[TableNames.extentOfForest]
+  const commentColumnForestCharacteristics = ODPCommentColumns[TableNames.forestCharacteristics]
+
   return client.map<OriginalDataPoint>(
     `
         select * from ${schemaName}.original_data_point
-        where description ilike '%href%'
+        where coalesce(${commentColumnExtent}, '') ilike '%href%'
+           or coalesce(${commentColumnForestCharacteristics}, '') ilike '%href%'
     `,
     [],
-    (row) => Objects.camelize(row)
+    OriginalDataPointAdapter
   )
 }

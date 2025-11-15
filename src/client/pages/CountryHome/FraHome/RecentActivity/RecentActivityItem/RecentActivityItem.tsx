@@ -40,7 +40,7 @@ const RecentActivityItem: React.FC<ColumnComponentProps<ActivityLog<never>>> = (
         {ActivityLogs.hasSectionLink(activity) && (
           <Link
             className={classNames('link', { disabled: ActivityLogs.isSectionLinkDisabled(activity) })}
-            to={ActivityLogs.getSectionLink({ countryIso, assessmentName, cycleName, sectionName })}
+            to={ActivityLogs.getSectionLink({ activity, assessmentName, countryIso, cycleName, sectionName })}
           >
             {anchor ? `${anchor} ` : ''}
             {ActivityLogs.getLabelSection({ cycle, section, activity, t })}

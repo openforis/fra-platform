@@ -1,12 +1,15 @@
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
+import { OriginalDataPointCommentKey } from 'meta/assessment/originalDataPoint'
 import { SectionNames } from 'meta/assessment/section'
+import { TableNames } from 'meta/assessment/table'
 import { LinkLocation, LinkToVisit } from 'meta/cycleData/links/link'
 import { Routes } from 'meta/routes'
 
 import { DescriptionRepository } from 'server/db/repository/assessmentCycle/descriptions'
 import { OriginalDataPointRepository } from 'server/db/repository/assessmentCycle/originalDataPoint'
+import { ODPCommentColumns } from 'server/db/repository/assessmentCycle/originalDataPoint/commentColumns'
 
 import { getLinksFromHtml } from './utils/getLinksFromHtml'
 
@@ -89,31 +92,41 @@ const _getOriginalDataPointLinks = async (props: Props): Promise<Array<LinkToVis
   const { assessment, cycle } = props
   const assessmentName = assessment.props.name
   const cycleName = cycle.name
-  const sectionName = SectionNames.extentOfForest
-
   const [odpsByDescriptionsLinks, odpsByReferenceLinks] = await Promise.all([
     OriginalDataPointRepository.getManyWithDescriptionLinks({ assessment, cycle }),
     OriginalDataPointRepository.getManyWithReferenceLinks({ assessment, cycle }),
   ])
 
+  const commentFieldConfigs: Array<{ field: OriginalDataPointCommentKey; sectionName: SectionNames }> = [
+    { field: TableNames.extentOfForest, sectionName: SectionNames.extentOfForest },
+    { field: TableNames.forestCharacteristics, sectionName: SectionNames.forestCharacteristics },
+  ]
+
   const linksToVisit: Array<LinkToVisit> = odpsByDescriptionsLinks.flatMap((odp) => {
-    const { countryIso, description, id, year } = odp
-    const urlParams = { assessmentName, countryIso, cycleName, sectionName, year: String(year) }
-    const url = Routes.OriginalDataPoint.generatePath(urlParams)
-    return _processLinks({
-      countryIso,
-      html: description,
-      id,
-      odpSection: 'description',
-      sectionName: 'originalDataPoint',
-      url,
-      year,
+    const { comments, countryIso, id, year } = odp
+
+    return commentFieldConfigs.flatMap(({ field, sectionName }) => {
+      const html = comments[field]
+      if (!html) return []
+      const urlParams = { assessmentName, countryIso, cycleName, sectionName, year: String(year) }
+      const url = Routes.OriginalDataPoint.generatePath(urlParams)
+
+      return _processLinks({
+        countryIso,
+        html,
+        id,
+        odpSection: ODPCommentColumns[field],
+        sectionName: 'originalDataPoint',
+        url,
+        year,
+      })
     })
   })
 
   return linksToVisit.concat(
     odpsByReferenceLinks.flatMap((odp) => {
       const { countryIso, dataSourceReferences, id, year } = odp
+      const sectionName = SectionNames.extentOfForest
       const urlParams = { assessmentName, countryIso, cycleName, sectionName, year: String(year) }
       const url = Routes.OriginalDataPoint.generatePath(urlParams)
       return _processLinks({

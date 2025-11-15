@@ -5,7 +5,7 @@ export const commonProps = {
   dataSourceAdditionalComments: 'Add comments here',
   dataSourceMethods: ['nationalForestInventory'],
   dataSourceReferences: '',
-  description: '',
+  comments: {},
   idLegacy: null as unknown,
   values: {},
 }

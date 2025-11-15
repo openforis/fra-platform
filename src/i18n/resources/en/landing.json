@@ -56,6 +56,7 @@
       "deleted": "deleted",
       "deletedFile": "deleted {{file}}",
       "edited": "edited",
+      "linkOriginalDataPointComments": "Original data point {{year}}: {{section}} comments",
       "removeInvitation": "removed invitation of {{user}} as {{role}}",
       "removeUser": "removed {{user}}",
       "resolved": "resolved issue in",

@@ -6,7 +6,10 @@ import { Descriptions } from 'meta/assessment/description/descriptions'
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 import { Labels } from 'meta/assessment/labels'
 import { SubSection } from 'meta/assessment/section'
+import { TableNames } from 'meta/assessment/table'
 import { LinkLocation, LinkValidationStatusCode } from 'meta/cycleData/links/link'
+
+import { ODPCommentColumns } from 'server/db/repository/assessmentCycle/originalDataPoint/commentColumns'
 
 const getI18nValidationStatusLabelKey = (code: LinkValidationStatusCode): string => {
   if ([LinkValidationStatusCode.success, LinkValidationStatusCode.empty].includes(code)) {
@@ -32,8 +35,18 @@ const getLocationLabel = (props: GetLocationLabelProps): string => {
   // is an ODP location
   if ('year' in location) {
     const { odpSection, year } = location
-    const descriptionLabelKey = odpSection === 'description' ? 'dataSource.comments' : 'nationalDataPoint.dataSources'
-    const label = `${year} ${t('nationalDataPoint.nationalDataPoint')} - ${t(descriptionLabelKey)}`
+
+    const commentColumnsLabel = {
+      [ODPCommentColumns[TableNames.extentOfForest]]: t('extentOfForest.extentOfForest'),
+      [ODPCommentColumns[TableNames.forestCharacteristics]]: t('nationalDataPoint.forestCharacteristics'),
+    }
+
+    const sectionLabel =
+      commentColumnsLabel[odpSection] !== undefined
+        ? `${commentColumnsLabel[odpSection]} ${t('dataSource.comments')}`
+        : t('nationalDataPoint.dataSources')
+
+    const label = `${year} ${t('nationalDataPoint.nationalDataPoint')} - ${sectionLabel}`
     return `${countryIso} - ${label}`
   }
 

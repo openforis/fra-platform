@@ -1,10 +1,11 @@
-import { Objects } from 'utils/objects'
-
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
+import { TableNames } from 'meta/assessment/table'
 
 import { BaseProtocol, DB } from 'server/db/db'
+import { ODPCommentColumns } from 'server/db/repository/assessmentCycle/originalDataPoint/commentColumns'
+import { OriginalDataPointAdapter } from 'server/db/repository/adapter/originalDataPoint'
 import { Schemas } from 'server/db/schemas'
 
 export const create = async (
@@ -19,11 +20,11 @@ export const create = async (
     assessment,
     cycle,
     originalDataPoint: {
+      comments,
       countryIso,
       dataSourceAdditionalComments,
       dataSourceMethods,
       dataSourceReferences,
-      description,
       nationalClasses,
       values,
       year,
@@ -31,6 +32,9 @@ export const create = async (
   } = params
 
   const schemaName = Schemas.getNameCycle(assessment, cycle)
+
+  const commentColumnExtent = ODPCommentColumns[TableNames.extentOfForest]
+  const commentColumnForestCharacteristics = ODPCommentColumns[TableNames.forestCharacteristics]
 
   return client.one<OriginalDataPoint>(
     `
@@ -40,20 +44,22 @@ export const create = async (
           data_source_additional_comments,
           data_source_methods,
           data_source_references,
-          description,
+          ${commentColumnExtent},
+          ${commentColumnForestCharacteristics},
           national_classes,
           values
-        ) values ($1, $2, $3, $4::jsonb, $5, $6, $7::jsonb, $8::jsonb) returning *;`,
+        ) values ($1, $2, $3, $4::jsonb, $5, $6, $7, $8::jsonb, $9::jsonb) returning *;`,
     [
       countryIso,
       year,
       dataSourceAdditionalComments || '',
       dataSourceMethods ? JSON.stringify(dataSourceMethods) : '[]',
       dataSourceReferences || '',
-      description || '',
+      comments?.[TableNames.extentOfForest] ?? '',
+      comments?.[TableNames.forestCharacteristics] ?? '',
       nationalClasses ? JSON.stringify(nationalClasses) : '[]',
       values ? JSON.stringify(values) : '{}',
     ],
-    Objects.camelize
+    OriginalDataPointAdapter
   )
 }
