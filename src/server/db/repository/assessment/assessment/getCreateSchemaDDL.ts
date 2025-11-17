@@ -10,16 +10,16 @@ export const getCreateSchemaDDL = (schemaName: string): string => {
   const query = `
 create schema ${schemaName};
 
-do $$ 
+do $$
 begin
-    create type message_topic_status as enum ('opened', 'resolved');
+    create type ${schemaName}.message_topic_status as enum ('opened', 'resolved');
 exception
     when duplicate_object then null;
 end $$;
 
-do $$ 
+do $$
 begin
-    create type message_topic_type as enum ('review', 'chat', 'messageboard');
+    create type ${schemaName}.message_topic_type as enum ('review', 'chat', 'messageboard');
 exception
     when duplicate_object then null;
 end $$;
