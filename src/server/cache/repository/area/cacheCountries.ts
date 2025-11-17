@@ -25,8 +25,9 @@ const _mergeCountry = (country: Country, lastPublishedInfo: Record<CountryIso, L
 const _setCache = async (key: string, countries: Array<Country>): Promise<void> => {
   const redis = RedisData.getInstance()
   const countryEntries = countries.reduce<Array<string>>((acc, country) => {
-    if (!Objects.isEmpty(country.countryIso)) {
-      acc.push(country.countryIso, JSON.stringify(country))
+    const { countryIso } = country
+    if (!Objects.isEmpty(countryIso)) {
+      acc.push(countryIso, JSON.stringify(country))
     }
     return acc
   }, [])
