@@ -4,15 +4,14 @@ import * as fs from 'fs'
 import * as path from 'path'
 import { ToolsUtils } from 'tools/utils/toolsUtils'
 
-import { MetadataController } from 'server/controller/metadata'
 import { DB } from 'server/db/db'
+import { DatabaseService } from 'server/service/databaseService'
 
 import { _readTableFromFile } from './_readTableFromFile'
 
-// Import files expected to be in ./fixtures/schemaName/tableName.json
 const INPUT_DIR = path.join(__dirname, 'fixtures')
 
-const importData = async (): Promise<void> => {
+const exec = async (): Promise<void> => {
   const files = await fs.promises.readdir(INPUT_DIR, { recursive: true })
 
   await DB.tx(async (t) => {
@@ -23,8 +22,8 @@ const importData = async (): Promise<void> => {
     }, [])
     const allData = schemaTables.map(([schema, table]) => _readTableFromFile(schema, table, INPUT_DIR))
 
-    await MetadataController.importAll(allData, t)
+    await DatabaseService.importTables(allData, t)
   })
 }
 
-ToolsUtils.exec(importData)
+ToolsUtils.exec(exec)
