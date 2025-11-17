@@ -31,8 +31,10 @@ const _getCountries = async (
 ): Promise<Array<Country>> => {
   const { assessment, countryIso, cycle } = props
 
-  const params = countryIso ? { assessment, countryIso } : { assessment }
-  const lastPublishedInfo = await CountryRepository.getCountryLastPublishedInfo(params, client)
+  const lastPublishedInfo = await CountryRepository.getCountryLastPublishedInfo(
+    { assessment, countryIso, cycle },
+    client
+  )
 
   if (countryIso) {
     const country = await CountryRepository.getOne({ assessment, cycle, countryIso }, client)
