@@ -1,15 +1,18 @@
+import { AssessmentNames } from 'meta/assessment/assessment'
+
+import { Schemas } from 'server/db/schemas'
 import { ExportTableProps } from 'server/service/databaseService/export'
 
-// const EXPORT_ASSESSMENTS = [AssessmentNames.fra, AssessmentNames.panEuropean]
-// // Tables ordered by foreign key dependencies
-// const EXPORT_ASSESSMENT_TABLES = ['section', 'table_section', 'table', 'row', 'col']
-//
-// const ASSESSMENT_TABLES = EXPORT_ASSESSMENTS.flatMap((assessmentName) =>
-//   EXPORT_ASSESSMENT_TABLES.map((tableName) => ({
-//     schema: Schemas.getName({ props: { name: assessmentName } }),
-//     table: tableName,
-//   }))
-// )
+const EXPORT_ASSESSMENTS = [AssessmentNames.fra, AssessmentNames.panEuropean]
+// Tables ordered by foreign key dependencies
+const EXPORT_ASSESSMENT_TABLES = ['section', 'table_section', 'table', 'row', 'col']
+
+const ASSESSMENT_TABLES = EXPORT_ASSESSMENTS.flatMap((assessmentName) =>
+  EXPORT_ASSESSMENT_TABLES.map((tableName) => ({
+    schema: Schemas.getName({ props: { name: assessmentName } }),
+    table: tableName,
+  }))
+)
 
 export const EXPORT_TABLES: Array<ExportTableProps> = [
   // ===== Schema: Public
@@ -19,5 +22,5 @@ export const EXPORT_TABLES: Array<ExportTableProps> = [
   { schema: 'public', table: 'region', orderBy: 'region_code' },
 
   // ===== Schema: Assessment
-  // ...ASSESSMENT_TABLES,
+  ...ASSESSMENT_TABLES,
 ]
