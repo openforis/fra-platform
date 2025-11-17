@@ -15,7 +15,7 @@ export const EXPORT_TABLES: Array<ExportTableProps> = [
   // ===== Schema: Public
   { schema: 'public', table: 'assessment' },
   { schema: 'public', table: 'assessment_cycle' },
-  // { schema: 'public', table: 'country' }, // omitted: import via public migration step
+  { schema: 'public', table: 'country', orderBy: 'country_iso' },
   { schema: 'public', table: 'region', orderBy: 'region_code' },
 
   // ===== Schema: Assessment
