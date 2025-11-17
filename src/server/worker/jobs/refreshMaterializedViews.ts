@@ -1,5 +1,3 @@
-import { Job, Queue, Worker } from 'bullmq'
-import IORedis from 'ioredis'
 import { Promises } from 'utils/promises'
 
 import { CountryIso } from 'meta/area/countryIso'
@@ -18,6 +16,7 @@ import { Schemas } from 'server/db/schemas'
 import { Logger } from 'server/utils/logger'
 
 const client: BaseProtocol = DB
+const name = 'Scheduler-MaterializedViews'
 
 const _getCountryISOsOutOfSync = async (props: {
   assessment: Assessment
@@ -56,40 +55,22 @@ const _getCountryISOsOutOfSync = async (props: {
   return res
 }
 
-export const initMaterializedViews = (connection: IORedis): Worker => {
-  const name = 'Scheduler-MaterializedViews'
-  const queue = new Queue<void>(name, { connection, streams: { events: { maxLen: 1 } } })
+export const refreshMaterializedViews = async (): Promise<void> => {
+  Logger.info(`[${name}] ** started`)
 
-  const worker = new Worker(
-    name,
-    async (_job: Job) => {
-      Logger.info(`[${name}] ** started`)
+  const assessments = await AssessmentController.getAll({}, client)
 
-      const assessments = await AssessmentController.getAll({}, client)
-
-      await Promises.each(assessments, (assessment) =>
-        Promises.each(assessment.cycles, async (cycle) => {
-          // 1. refresh countries activity log
-          const countryISOs = await _getCountryISOsOutOfSync({ assessment, cycle })
-          await Promises.each(countryISOs, async (countryIso) => {
-            Logger.debug(`[${name}:CountryActivityLog] ${assessment.props.name} ${cycle.name} ${countryIso} refreshing`)
-            await CountryActivityLogRepository.refreshMaterializedView({ assessment, cycle, countryIso })
-            Logger.info(`[${name}:CountryActivityLog] ${assessment.props.name} ${cycle.name} ${countryIso} refreshed`)
-          })
-        })
-      )
-
-      Logger.info(`[${name}] ** terminated`)
-    },
-    { concurrency: 1, connection, lockDuration: 10_000, maxStalledCount: 0 }
+  await Promises.each(assessments, (assessment) =>
+    Promises.each(assessment.cycles, async (cycle) => {
+      // 1. refresh countries activity log
+      const countryISOs = await _getCountryISOsOutOfSync({ assessment, cycle })
+      await Promises.each(countryISOs, async (countryIso) => {
+        Logger.debug(`[${name}:CountryActivityLog] ${assessment.props.name} ${cycle.name} ${countryIso} refreshing`)
+        await CountryActivityLogRepository.refreshMaterializedView({ assessment, cycle, countryIso })
+        Logger.info(`[${name}:CountryActivityLog] ${assessment.props.name} ${cycle.name} ${countryIso} refreshed`)
+      })
+    })
   )
 
-  queue.add(`${name}-immediate`, undefined, { removeOnComplete: true, removeOnFail: false })
-  queue.add(`${name}-scheduler`, undefined, {
-    repeat: { every: 1000 * 60 * 60 },
-    removeOnComplete: true,
-    removeOnFail: false,
-  })
-
-  return worker
+  Logger.info(`[${name}] ** terminated`)
 }
