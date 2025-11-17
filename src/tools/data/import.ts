@@ -1,26 +1,33 @@
 import '../scriptInit'
 
-import * as fs from 'fs'
 import * as path from 'path'
 import { ToolsUtils } from 'tools/utils/toolsUtils'
 
+import { AssessmentNames } from 'meta/assessment/assessment'
+
 import { DB } from 'server/db/db'
+import { AssessmentRepository } from 'server/db/repository/assessment/assessment'
 import { DatabaseService } from 'server/service/databaseService'
+import { EXPORT_TABLES } from 'server/service/databaseService/EXPORT_TABLES'
 
 import { _readTableFromFile } from './_readTableFromFile'
 
 const INPUT_DIR = path.join(__dirname, 'fixtures')
 
 const exec = async (): Promise<void> => {
-  const files = await fs.promises.readdir(INPUT_DIR, { recursive: true })
+  // Create assessment schemas
+  await Promise.all(
+    [AssessmentNames.fra, AssessmentNames.panEuropean].map((assessmentName) => {
+      return AssessmentRepository.createAssessmentSchema({ assessmentName })
+    })
+  )
 
   await DB.tx(async (t) => {
-    // array of [[schema, table], ..]
-    const schemaTables = files.reduce((acc, file) => {
-      if (file.endsWith('json')) acc.push(file.split('/'))
-      return acc
-    }, [])
-    const allData = schemaTables.map(([schema, table]) => _readTableFromFile(schema, table, INPUT_DIR))
+    // Use EXPORT_TABLES order to respect foreign key dependencies
+    const allData = EXPORT_TABLES.map((tableConfig) => {
+      const { schema, table } = tableConfig
+      return _readTableFromFile(schema, table, INPUT_DIR)
+    })
 
     await DatabaseService.importTables(allData, t)
   })
