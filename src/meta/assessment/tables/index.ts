@@ -4,7 +4,8 @@ import { Country } from 'meta/area/country'
 import { Cycle } from 'meta/assessment/cycle'
 import { Row } from 'meta/assessment/row'
 import { Table, TableVisibility } from 'meta/assessment/table'
-import { User, Users } from 'meta/user'
+import { User } from 'meta/user/user'
+import { Users } from 'meta/user/users'
 
 const cloneProps = (props: { cycleSource: Cycle; cycleTarget: Cycle; table: Table }): Table['props'] => {
   const { cycleSource, cycleTarget, table } = props

@@ -2,7 +2,8 @@ import { NextFunction, Request, Response } from 'express'
 
 import { CountryParams } from 'meta/api/request/country'
 import { Cycles } from 'meta/assessment/cycles'
-import { Authorizer, Users } from 'meta/user'
+import { Authorizer } from 'meta/auth/authorizer'
+import { Users } from 'meta/user/users'
 
 import { _getRequestParams } from 'server/middleware/auth/_getRequestParams'
 import { _next } from 'server/middleware/auth/_next'

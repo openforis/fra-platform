@@ -1,11 +1,11 @@
-import { AuthProvider, UserStatus } from 'meta/user'
-import { AuthProviderLocalProps } from 'meta/user/userAuth'
+import { AuthProvider, AuthProviderLocalProps } from 'meta/user/auth'
+import { UserStatus } from 'meta/user/user'
 
 import { UserController } from 'server/controller/user'
 
 import { userMockTest, userMockTestPassword } from 'test/integration/mock/user'
 
-export default () =>
+export default (): void =>
   test('Expect user to be created', async () => {
     const user = await UserController.create({
       user: userMockTest,

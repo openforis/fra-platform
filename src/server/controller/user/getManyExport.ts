@@ -3,7 +3,10 @@ import { Objects } from 'utils/objects'
 
 import { Areas } from 'meta/area/areas'
 import { Lang } from 'meta/lang'
-import { CountryUserSummary, RoleName, User, Users } from 'meta/user'
+import { UserCountrySummary } from 'meta/user/countrySummary'
+import { RoleName } from 'meta/user/role/name'
+import { User } from 'meta/user/user'
+import { Users } from 'meta/user/users'
 
 import { UserRepository, UsersGetManyProps } from 'server/db/repository/public/user'
 import { UserQueryParams } from 'server/db/repository/public/user/UserQueryParams'
@@ -38,8 +41,8 @@ export const getManyExport = async (props: Props): Promise<Returned> => {
     [RoleName.VIEWER]: i18n.t(Users.getI18nRoleLabelKey(RoleName.VIEWER)),
   }
 
-  const rowTransformer = (rawUser: CountryUserSummary): Record<string, string> => {
-    const user: CountryUserSummary = Objects.camelize(rawUser)
+  const rowTransformer = (rawUser: UserCountrySummary): Record<string, string> => {
+    const user: UserCountrySummary = Objects.camelize(rawUser)
 
     const getRoleCountries = (roleName: RoleName): string => {
       const roleCountries = user.roles

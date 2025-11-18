@@ -1,7 +1,7 @@
 import { Response } from 'express'
 
 import { CountryRequest } from 'meta/api/request/country'
-import { Users } from 'meta/user'
+import { Users } from 'meta/user/users'
 
 import { UserController } from 'server/controller/user'
 import Requests from 'server/utils/requests'

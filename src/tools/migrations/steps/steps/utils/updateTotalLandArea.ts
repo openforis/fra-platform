@@ -7,7 +7,7 @@ import { CycleName } from 'meta/assessment/cycle'
 import { TableNames } from 'meta/assessment/table'
 import { NodeUpdate, NodeUpdates } from 'meta/data/nodeUpdates'
 import { NodeExtType } from 'meta/nodeExt/nodeExt'
-import { User } from 'meta/user'
+import { User } from 'meta/user/user'
 
 import { DataRedisRepository } from 'server/cache/repository/data'
 import { AreaController } from 'server/controller/area'

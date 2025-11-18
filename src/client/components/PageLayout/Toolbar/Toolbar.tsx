@@ -6,7 +6,7 @@ import MediaQuery from 'react-responsive'
 import { Areas } from 'meta/area/areas'
 import { CountryIso } from 'meta/area/countryIso'
 import { AssessmentNames } from 'meta/assessment/assessment'
-import { Users } from 'meta/user'
+import { Users } from 'meta/user/users'
 
 import { useCountry } from 'client/store/area/hooks/country'
 import { useCycle } from 'client/store/meta/hooks/cycles'

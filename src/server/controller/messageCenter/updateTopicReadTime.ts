@@ -1,7 +1,7 @@
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { MessageTopic } from 'meta/messageCenter/messageTopic'
-import { User } from 'meta/user'
+import { User } from 'meta/user/user'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { MessageTopicUserRepository } from 'server/db/repository/assessmentCycle/messageTopicUser'

@@ -1,4 +1,5 @@
-import { CollaboratorPermissionsNEW, RoleName } from 'meta/user/userRole'
+import { CollaboratorPermissions } from 'meta/user/role/collaborator'
+import { RoleName } from 'meta/user/role/name'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { Logger } from 'server/utils/logger'
@@ -39,7 +40,7 @@ const _fixUsersRole = async (): Promise<void> => {
                   alter column permissions drop default;`)
 }
 
-const _fixPermissions = (permission: CollaboratorPermissionsDeprecated): CollaboratorPermissionsNEW => {
+const _fixPermissions = (permission: CollaboratorPermissionsDeprecated): CollaboratorPermissions => {
   // -- Cases:
   // -- {} (empty object - default to all permissions)
   // -- {"sections": "all"}

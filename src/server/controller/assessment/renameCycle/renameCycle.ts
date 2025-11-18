@@ -1,7 +1,7 @@
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { User } from 'meta/user'
+import { User } from 'meta/user/user'
 
 import { CacheController } from 'server/cache/controller'
 import { AssessmentRedisRepository } from 'server/cache/repository/assessment'

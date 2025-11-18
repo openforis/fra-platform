@@ -5,8 +5,8 @@ import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
 
 import { CountryIso } from 'meta/area/countryIso'
-import { UserInvitations } from 'meta/user'
-import { CountryUserSummaries } from 'meta/user/countryUserSummaries'
+import { UserCountrySummaries } from 'meta/user/countrySummaries'
+import { UserInvitations } from 'meta/user/invitations'
 
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 
@@ -17,8 +17,8 @@ const Info: React.FC<Props> = (props: Props) => {
   const { t } = useTranslation()
   const { countryIso } = useCountryRouteParams<CountryIso>()
 
-  const { invitation } = CountryUserSummaries.getCountryRoleAndInvitation(user, countryIso)
-  const isInvitation = CountryUserSummaries.isInvitation(user, countryIso)
+  const { invitation } = UserCountrySummaries.getCountryRoleAndInvitation(user, countryIso)
+  const isInvitation = UserCountrySummaries.isInvitation(user, countryIso)
   const expired = invitation && UserInvitations.isExpired(invitation)
 
   return (

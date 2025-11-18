@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 
 import { CountryParams } from 'meta/api/request/country'
-import { Authorizer } from 'meta/user'
+import { Authorizer } from 'meta/auth/authorizer'
 
 import { CycleDataController } from 'server/controller/cycleData'
 import { _getRequestParams } from 'server/middleware/auth/_getRequestParams'

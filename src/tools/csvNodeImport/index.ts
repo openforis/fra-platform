@@ -10,7 +10,7 @@ import { Assessments } from 'meta/assessment/assessments'
 import { NodeValue } from 'meta/assessment/node'
 import { RowCaches } from 'meta/assessment/rowCaches'
 import { NodeUpdate } from 'meta/data/nodeUpdates'
-import { UsersEmail } from 'meta/user'
+import { UserEmails } from 'meta/user/emails'
 
 import { RowRedisRepository } from 'server/cache/repository/row'
 import { AreaController } from 'server/controller/area'
@@ -34,7 +34,7 @@ type CSVData = {
 
 const processCSVFiles = async (): Promise<void> => {
   try {
-    const user = await UserController.getOne({ email: UsersEmail.robot, allowDisabled: true })
+    const user = await UserController.getOne({ email: UserEmails.robot, allowDisabled: true })
     const assessments = await AssessmentController.getAll({ metaCache: true })
     const assessmentNames = getDirectories(__dirname)
 

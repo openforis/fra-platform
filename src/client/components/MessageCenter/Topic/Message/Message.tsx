@@ -7,7 +7,7 @@ import { getRelativeDate } from 'utils/dates'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { Message as MessageType } from 'meta/messageCenter/message'
-import { Users } from 'meta/user'
+import { Users } from 'meta/user/users'
 
 import Icon from 'client/components/Icon'
 
@@ -38,7 +38,7 @@ const Message: React.FC<MessageProps> = (props) => {
           {isMine && !deleted && message.message !== 'Marked as resolved' && (
             <button
               className="btn-xs btn-secondary btn-remove-msg"
-              onClick={() => deleteFunc(message.id)}
+              onClick={(): void => deleteFunc(message.id)}
               type="button"
             >
               <Icon name="trash-simple" />

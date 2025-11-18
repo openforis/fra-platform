@@ -7,7 +7,7 @@ import { Dates } from 'utils/dates'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { ActivityLogs } from 'meta/assessment/activityLogs'
-import { Users } from 'meta/user'
+import { Users } from 'meta/user/users'
 
 import { useHistoryActivitiesCompareItem } from 'client/store/data/history/hooks/activities'
 import Icon from 'client/components/Icon'

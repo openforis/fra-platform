@@ -2,7 +2,7 @@ import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { CountryIso } from 'meta/area/countryIso'
-import { CountryUserSummaries } from 'meta/user/countryUserSummaries'
+import { UserCountrySummaries } from 'meta/user/countrySummaries'
 
 import { useUser } from 'client/store/user/hooks/user'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
@@ -27,7 +27,7 @@ const Remove: React.FC<Props> = (props: Props) => {
 
   const removeInvitation = useRemoveInvitation({ user, callback })
 
-  if (!CountryUserSummaries.isInvitation(user, countryIso)) {
+  if (!UserCountrySummaries.isInvitation(user, countryIso)) {
     return null
   }
 

@@ -3,8 +3,12 @@ import { Objects } from 'utils/objects'
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { RoleName, User, UserInvitation, UserRole } from 'meta/user'
-import { CollaboratorPermissionsNEW, UserRoleBaseProps, UserRoleExtendedProps } from 'meta/user/userRole'
+import { UserInvitation } from 'meta/user/invitation'
+import { CollaboratorPermissions } from 'meta/user/role/collaborator'
+import { RoleName } from 'meta/user/role/name'
+import { UserRoleBaseProps, UserRoleExtendedProps } from 'meta/user/role/props'
+import { UserRole } from 'meta/user/role/role'
+import { User } from 'meta/user/user'
 
 import { BaseProtocol, DB } from 'server/db/db'
 
@@ -15,7 +19,7 @@ type Props = {
   userUuid: User['uuid']
   role: UserInvitation['role']
   props?: UserRoleBaseProps | UserRoleExtendedProps
-  permissions?: CollaboratorPermissionsNEW
+  permissions?: CollaboratorPermissions
   invitationUuid?: UserInvitation['uuid']
 }
 

@@ -5,7 +5,9 @@ import { AssessmentName } from 'meta/assessment/assessment'
 import { Assessments } from 'meta/assessment/assessments'
 import { Lang } from 'meta/lang'
 import { Routes } from 'meta/routes/routes'
-import { User, UserInvitation, Users } from 'meta/user'
+import { UserInvitation } from 'meta/user/invitation'
+import { User } from 'meta/user/user'
+import { Users } from 'meta/user/users'
 
 import { ProcessEnv } from 'server/utils'
 

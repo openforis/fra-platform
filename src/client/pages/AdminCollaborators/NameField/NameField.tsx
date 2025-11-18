@@ -4,13 +4,13 @@ import { Link } from 'react-router-dom'
 
 import { Global } from 'meta/area/global'
 import { Routes } from 'meta/routes/routes'
-import { CountryUserSummary } from 'meta/user'
+import { UserCountrySummary } from 'meta/user/countrySummary'
 
 import { useCycleRouteParams } from 'client/hooks/routeParams'
 import Icon from 'client/components/Icon'
 
 type Props = {
-  userSummary: CountryUserSummary
+  userSummary: UserCountrySummary
 }
 
 const NameField: React.FC<Props> = (props: Props) => {

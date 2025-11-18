@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 
 import { Areas } from 'meta/area/areas'
 import { SectionNames } from 'meta/routes/sectionNames'
-import { Users } from 'meta/user'
+import { Users } from 'meta/user/users'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useCanSeeUserActivities } from 'client/store/user/hooks/auth'

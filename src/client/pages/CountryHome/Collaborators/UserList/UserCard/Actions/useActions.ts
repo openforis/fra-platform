@@ -1,8 +1,10 @@
 import React, { useMemo } from 'react'
 
 import { CountryIso } from 'meta/area/countryIso'
-import { Authorizer, UserInvitations, Users } from 'meta/user'
-import { CountryUserSummaries } from 'meta/user/countryUserSummaries'
+import { Authorizer } from 'meta/auth/authorizer'
+import { UserCountrySummaries } from 'meta/user/countrySummaries'
+import { UserInvitations } from 'meta/user/invitations'
+import { Users } from 'meta/user/users'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useCanEditUserActivities, useCanSeeUserActivities } from 'client/store/user/hooks/auth'
@@ -31,8 +33,8 @@ export const useActions = (props: Props): Array<ActionType> => {
   const canCurrentUserViewActivities = useCanSeeUserActivities(currentUser)
   const canTargetUserViewActivities = useCanSeeUserActivities(user)
 
-  const { invitation } = CountryUserSummaries.getCountryRoleAndInvitation(user, countryIso)
-  const isInvitation = CountryUserSummaries.isInvitation(user, countryIso)
+  const { invitation } = UserCountrySummaries.getCountryRoleAndInvitation(user, countryIso)
+  const isInvitation = UserCountrySummaries.isInvitation(user, countryIso)
   const expired = invitation && UserInvitations.isExpired(invitation)
 
   return useMemo<Array<ActionType>>(() => {

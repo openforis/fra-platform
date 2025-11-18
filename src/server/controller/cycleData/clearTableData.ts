@@ -4,7 +4,7 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { NodeUpdate } from 'meta/data/nodeUpdates'
 import { Sockets } from 'meta/socket/sockets'
-import { User } from 'meta/user'
+import { User } from 'meta/user/user'
 
 import { DataRedisRepository } from 'server/cache/repository/data'
 import { resetMirrorNodes } from 'server/controller/cycleData/resetMirrorNodes'

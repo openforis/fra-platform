@@ -4,8 +4,7 @@ import * as GoogleStrategy from 'passport-google-oauth'
 import { Profile, VerifyFunction } from 'passport-google-oauth'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { AuthProvider } from 'meta/user'
-import { AuthProviderGoogleProps } from 'meta/user/userAuth'
+import { AuthProvider, AuthProviderGoogleProps } from 'meta/user/auth'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { UserController } from 'server/controller/user'
