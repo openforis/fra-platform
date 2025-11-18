@@ -1,4 +1,3 @@
-// data source
 import { getChatRecipientId } from 'meta/messageCenter/topics/chat'
 import { getContactKey } from 'meta/messageCenter/topics/contact'
 import { getDataSourceReviewTopicKey } from 'meta/messageCenter/topics/dataSource'
