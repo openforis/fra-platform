@@ -1,7 +1,7 @@
 import { Objects } from 'utils/objects'
 
-import { RoleName } from 'meta/user'
-import { invitationDefaultExpiryPeriodDays } from 'meta/user/userInvitations'
+import { invitationDefaultExpiryPeriodDays } from 'meta/user/invitations'
+import { RoleName } from 'meta/user/role/name'
 
 import { InvitationQueryParams } from 'server/db/repository/public/userInvitation/InvitationQueryParams'
 import { InvitationsGetManyProps } from 'server/db/repository/public/userInvitation/invitationsGetManyProps'

@@ -6,7 +6,7 @@ import { ApiEndPoint } from 'meta/api/endpoint'
 import { Assessments } from 'meta/assessment/assessments'
 import { LoginInvitationQueryParams } from 'meta/routes/queryParams/invitation'
 import { Routes } from 'meta/routes/routes'
-import { AuthProvider } from 'meta/user'
+import { AuthProvider } from 'meta/user/auth'
 
 import { useAcceptInvitationForm, useInvitation } from 'client/store/login/hooks/invitation'
 import { useLoginInfo } from 'client/store/login/hooks/login'

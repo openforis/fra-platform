@@ -1,7 +1,7 @@
 import { Response } from 'express'
 
 import { AdminUsersRequest } from 'meta/api/request/admin/users'
-import { User } from 'meta/user'
+import { User } from 'meta/user/user'
 
 import { getUsersGetManyPropsFromRequest } from 'server/api/admin/_getUsersGetManyPropsFromRequest'
 import { UserController } from 'server/controller/user'

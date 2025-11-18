@@ -6,7 +6,7 @@ import { Areas } from 'meta/area/areas'
 import { Country } from 'meta/area/country'
 import { RegionCode } from 'meta/area/regionCode'
 import { Cycles } from 'meta/assessment/cycles'
-import { Users } from 'meta/user'
+import { Users } from 'meta/user/users'
 
 import { useCountries } from 'client/store/area/hooks/countries'
 import { DataExportActions } from 'client/store/dataExport/actions'

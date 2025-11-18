@@ -4,8 +4,8 @@ import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Assessments } from 'meta/assessment/assessments'
 import { Routes } from 'meta/routes/routes'
-import { Users } from 'meta/user'
-import { UserRoles } from 'meta/user/userRoles'
+import { UserRoles } from 'meta/user/roles'
+import { Users } from 'meta/user/users'
 
 import { useUser } from 'client/store/user/hooks/user'
 

@@ -4,7 +4,7 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { Message } from 'meta/messageCenter/message'
 import { MessageTopic } from 'meta/messageCenter/messageTopic'
-import { User } from 'meta/user'
+import { User } from 'meta/user/user'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { Schemas } from 'server/db/schemas'

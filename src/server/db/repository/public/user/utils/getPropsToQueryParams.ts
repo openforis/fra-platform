@@ -1,6 +1,7 @@
 import { Objects } from 'utils/objects'
 
-import { RoleName, UserStatus } from 'meta/user'
+import { RoleName } from 'meta/user/role/name'
+import { UserStatus } from 'meta/user/user'
 
 import { UserQueryParams } from 'server/db/repository/public/user/UserQueryParams'
 import { UsersGetManyProps } from 'server/db/repository/public/user/usersGetManyProps'

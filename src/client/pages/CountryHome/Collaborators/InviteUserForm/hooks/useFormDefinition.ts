@@ -2,8 +2,8 @@ import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Lang } from 'meta/lang'
-import { RoleName } from 'meta/user'
-import { UserRoles } from 'meta/user/userRoles'
+import { RoleName } from 'meta/user/role/name'
+import { UserRoles } from 'meta/user/roles'
 
 import { useLanguage } from 'client/hooks/language'
 import { FieldDefinition, FormDefinition, FormFieldType } from 'client/components/Form/types'

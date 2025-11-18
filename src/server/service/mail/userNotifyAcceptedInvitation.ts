@@ -7,7 +7,10 @@ import { CycleName } from 'meta/assessment/cycle'
 import { Lang } from 'meta/lang'
 import { Routes } from 'meta/routes/routes'
 import { SectionNames } from 'meta/routes/sectionNames'
-import { RoleName, User, UserRole, Users } from 'meta/user'
+import { RoleName } from 'meta/user/role/name'
+import { UserRole } from 'meta/user/role/role'
+import { User } from 'meta/user/user'
+import { Users } from 'meta/user/users'
 
 import { ProcessEnv } from 'server/utils'
 

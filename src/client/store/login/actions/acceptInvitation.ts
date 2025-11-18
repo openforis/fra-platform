@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { User } from 'meta/user'
+import { User } from 'meta/user/user'
 
 export const acceptInvitation = createAsyncThunk<User, { invitationUuid: string }>(
   'user/invitation/accept',

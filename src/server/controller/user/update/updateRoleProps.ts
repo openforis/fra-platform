@@ -1,8 +1,10 @@
 import { Objects } from 'utils/objects'
 
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
-import { Authorizer, RoleName, User } from 'meta/user'
-import { UserRoleExtended } from 'meta/user/userRole'
+import { Authorizer } from 'meta/auth/authorizer'
+import { RoleName } from 'meta/user/role/name'
+import { UserRoleExtended } from 'meta/user/role/role'
+import { User } from 'meta/user/user'
 
 import { BaseProtocol } from 'server/db/db'
 import { ActivityLogRepository } from 'server/db/repository/public/activityLog'

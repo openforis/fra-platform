@@ -1,7 +1,9 @@
 import { Request, Response } from 'express'
 import { Objects } from 'utils/objects'
+import { RegExps } from 'utils/regExps'
 
-import { AuthProvider, Users, UserStatus } from 'meta/user'
+import { AuthProvider } from 'meta/user/auth'
+import { UserStatus } from 'meta/user/user'
 
 import { UserController } from 'server/controller/user'
 import { UserProviderController } from 'server/controller/userProvider'
@@ -12,7 +14,7 @@ export const postResetPassword = async (req: Request, res: Response): Promise<vo
     const { assessmentName, cycleName, email } = req.body
 
     if (Objects.isEmpty(email?.trim())) return Requests.send400(res, 'login.emptyEmail')
-    if (!Users.validEmail({ email })) return Requests.send400(res, 'login.invalidEmail')
+    if (!RegExps.validEmail({ email })) return Requests.send400(res, 'login.invalidEmail')
 
     const user = await UserController.getOne({ email })
     if (!user) return Requests.send400(res, 'login.noMatchingEmail')

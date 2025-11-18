@@ -2,7 +2,7 @@ import { Response } from 'express'
 
 import { CountryRequest } from 'meta/api/request/country'
 import { UserFilters } from 'meta/tablePaginated/filters/users'
-import { UserStatus } from 'meta/user'
+import { UserStatus } from 'meta/user/user'
 
 import { UserController } from 'server/controller/user'
 import Requests from 'server/utils/requests'

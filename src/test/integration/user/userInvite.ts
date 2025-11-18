@@ -1,7 +1,9 @@
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { Lang } from 'meta/lang'
-import { RoleName, User, UserInvitation, UserStatus } from 'meta/user'
+import { UserInvitation } from 'meta/user/invitation'
+import { RoleName } from 'meta/user/role/name'
+import { User, UserStatus } from 'meta/user/user'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { UserController } from 'server/controller/user'

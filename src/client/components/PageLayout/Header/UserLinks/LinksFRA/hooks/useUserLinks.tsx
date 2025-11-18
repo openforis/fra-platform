@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom'
 
 import { Global } from 'meta/area/global'
 import { Routes } from 'meta/routes/routes'
-import { Users } from 'meta/user'
-import { UserRoles } from 'meta/user/userRoles'
+import { UserRoles } from 'meta/user/roles'
+import { Users } from 'meta/user/users'
 
 import { useAppDispatch } from 'client/store/hooks'
 import { useAssessment } from 'client/store/meta/hooks/assessments'

@@ -1,7 +1,7 @@
 import { Objects } from 'utils/objects'
 
 import { TablePaginatedOrderByDirection } from 'meta/tablePaginated/orderBy'
-import { User } from 'meta/user'
+import { User } from 'meta/user/user'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { UserQueryParams } from 'server/db/repository/public/user/UserQueryParams'

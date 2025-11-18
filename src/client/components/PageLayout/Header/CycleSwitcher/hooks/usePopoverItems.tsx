@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { Assessments } from 'meta/assessment/assessments'
 import { Cycle } from 'meta/assessment/cycle'
 import { Cycles } from 'meta/assessment/cycles'
-import { Users } from 'meta/user'
+import { Users } from 'meta/user/users'
 
 import { useAssessments } from 'client/store/meta/hooks/assessments'
 import { useUser } from 'client/store/user/hooks/user'

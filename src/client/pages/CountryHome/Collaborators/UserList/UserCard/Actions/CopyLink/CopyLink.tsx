@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next'
 
 import { CountryIso } from 'meta/area/countryIso'
 import { Routes } from 'meta/routes/routes'
-import { UserInvitations as UserInvitationMeta } from 'meta/user'
-import { CountryUserSummaries } from 'meta/user/countryUserSummaries'
+import { UserCountrySummaries } from 'meta/user/countrySummaries'
+import { UserInvitations as UserInvitationMeta } from 'meta/user/invitations'
 
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { useToaster } from 'client/hooks/toaster'
@@ -19,7 +19,7 @@ const CopyLink: React.FC<Props> = (props: Props) => {
   const { t } = useTranslation()
   const { toaster } = useToaster()
 
-  const { invitation } = CountryUserSummaries.getCountryRoleAndInvitation(user, countryIso)
+  const { invitation } = UserCountrySummaries.getCountryRoleAndInvitation(user, countryIso)
 
   const onClick = useCallback(() => {
     const { lang } = user
@@ -34,7 +34,7 @@ const CopyLink: React.FC<Props> = (props: Props) => {
     })
   }, [assessmentName, cycleName, invitation, t, toaster, user])
 
-  const isInvitation = CountryUserSummaries.isInvitation(user, countryIso)
+  const isInvitation = UserCountrySummaries.isInvitation(user, countryIso)
 
   if (!isInvitation || UserInvitationMeta.isExpired(invitation)) {
     return null

@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next'
 
 import { Objects } from 'utils/objects'
 
+import { ApiEndPoint } from 'meta/api/endpoint'
 import { Contacts } from 'meta/cycleData/contacts'
-import { Users } from 'meta/user'
 
 import { FieldDefinition, FormDefinition, FormFieldType } from 'client/components/Form/types'
 
@@ -33,7 +33,7 @@ export const useFormDefinition = (props: PropsFormDefinition): FormDefinition | 
         defaultValue: targetUser?.id,
       },
       {
-        defaultValue: Users.profilePictureUri(targetUser?.id),
+        defaultValue: ApiEndPoint.User.profilePicture(String(targetUser?.id)),
         name: 'profilePicture',
         type: FormFieldType.avatar,
         label: '',

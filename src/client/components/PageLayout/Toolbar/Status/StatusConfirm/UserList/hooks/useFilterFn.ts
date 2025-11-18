@@ -1,8 +1,9 @@
 import { useCallback } from 'react'
 
 import { CountryIso } from 'meta/area/countryIso'
-import { CountryUserSummary, Users } from 'meta/user'
-import { UserRoles } from 'meta/user/userRoles'
+import { UserCountrySummary } from 'meta/user/countrySummary'
+import { UserRoles } from 'meta/user/roles'
+import { Users } from 'meta/user/users'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useUser } from 'client/store/user/hooks/user'
@@ -13,7 +14,7 @@ type Props = {
   status: StatusTransition
 }
 
-type Returned = (userSummary: CountryUserSummary) => boolean
+type Returned = (userSummary: UserCountrySummary) => boolean
 
 export const useFilterFn = (props: Props): Returned => {
   const { status } = props
@@ -22,7 +23,7 @@ export const useFilterFn = (props: Props): Returned => {
   const { countryIso } = useCountryRouteParams<CountryIso>()
 
   return useCallback(
-    (datum: CountryUserSummary) => {
+    (datum: UserCountrySummary) => {
       if (datum.uuid === user.uuid) return false
 
       const recipientRoles = UserRoles.getRecipientRoles(status)

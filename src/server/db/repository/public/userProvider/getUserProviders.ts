@@ -1,4 +1,5 @@
-import { AuthProvider, User } from 'meta/user'
+import { AuthProvider } from 'meta/user/auth'
+import { User } from 'meta/user/user'
 
 import { BaseProtocol, DB } from 'server/db/db'
 
