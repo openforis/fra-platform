@@ -2,7 +2,7 @@ import { Response } from 'express'
 
 import { TablePaginatedDataRequest } from 'meta/api/request/tablePaginated'
 import { InvitationFilters } from 'meta/tablePaginated/filters/invitations'
-import { TablePaginateds } from 'meta/tablePaginated/tablePaginateds/tablePaginateds'
+import { TablePaginateds } from 'meta/tablePaginated/tablePaginateds'
 
 import { UserController } from 'server/controller/user'
 import Requests from 'server/utils/requests'

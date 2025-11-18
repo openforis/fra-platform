@@ -2,7 +2,7 @@ import { Response } from 'express'
 
 import { TablePaginatedDataRequest } from 'meta/api/request/tablePaginated'
 import { LinksFilters } from 'meta/tablePaginated/filters/links'
-import { TablePaginateds } from 'meta/tablePaginated/tablePaginateds/tablePaginateds'
+import { TablePaginateds } from 'meta/tablePaginated/tablePaginateds'
 
 import { CycleDataController } from 'server/controller/cycleData'
 import Requests from 'server/utils/requests'

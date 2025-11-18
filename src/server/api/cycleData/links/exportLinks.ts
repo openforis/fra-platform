@@ -4,7 +4,7 @@ import { TablePaginatedDataRequest } from 'meta/api/request/tablePaginated'
 import { Link } from 'meta/cycleData/links/link'
 import { Lang } from 'meta/lang'
 import { LinksFilters } from 'meta/tablePaginated/filters/links'
-import { TablePaginateds } from 'meta/tablePaginated/tablePaginateds/tablePaginateds'
+import { TablePaginateds } from 'meta/tablePaginated/tablePaginateds'
 
 import { CycleDataController } from 'server/controller/cycleData'
 import { ExportService } from 'server/service/export'

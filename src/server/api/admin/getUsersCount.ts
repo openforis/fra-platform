@@ -2,7 +2,7 @@ import { Response } from 'express'
 
 import { UsersRequest } from 'meta/api/request'
 import { UserFilters } from 'meta/tablePaginated/filters/users'
-import { TablePaginateds } from 'meta/tablePaginated/tablePaginateds/tablePaginateds'
+import { TablePaginateds } from 'meta/tablePaginated/tablePaginateds'
 
 import { UserController } from 'server/controller/user'
 import Requests from 'server/utils/requests'

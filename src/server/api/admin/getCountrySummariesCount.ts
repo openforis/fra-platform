@@ -2,7 +2,7 @@ import { Response } from 'express'
 
 import { TablePaginatedCountRequest } from 'meta/api/request/tablePaginated'
 import { CountriesFilters } from 'meta/tablePaginated/filters/countries'
-import { TablePaginateds } from 'meta/tablePaginated/tablePaginateds/tablePaginateds'
+import { TablePaginateds } from 'meta/tablePaginated/tablePaginateds'
 
 import { AreaController } from 'server/controller/area'
 import Requests from 'server/utils/requests'

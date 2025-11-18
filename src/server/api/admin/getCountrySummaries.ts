@@ -3,7 +3,7 @@ import { Response } from 'express'
 import { TablePaginatedDataRequest } from 'meta/api/request/tablePaginated'
 import { Lang } from 'meta/lang'
 import { CountriesFilters } from 'meta/tablePaginated/filters/countries'
-import { TablePaginateds } from 'meta/tablePaginated/tablePaginateds/tablePaginateds'
+import { TablePaginateds } from 'meta/tablePaginated/tablePaginateds'
 
 import { AreaController } from 'server/controller/area'
 import Requests from 'server/utils/requests'
