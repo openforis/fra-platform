@@ -1,6 +1,8 @@
 import { Objects } from 'utils/objects'
 
-import { TablePaginatedCompareFn, TablePaginatedFilterValues, TablePaginatedOrderBy } from 'meta/tablePaginated'
+import { TablePaginatedCompareFn } from 'meta/tablePaginated/compareFn'
+import { TablePaginatedFilterValues } from 'meta/tablePaginated/filters/filter'
+import { TablePaginatedOrderBy } from 'meta/tablePaginated/orderBy'
 
 import { useAppSelector } from 'client/store/hooks'
 

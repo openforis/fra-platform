@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 
 import { CountryIso } from 'meta/area/countryIso'
-import { TablePaginatedCompareFn } from 'meta/tablePaginated'
+import { TablePaginatedCompareFn } from 'meta/tablePaginated/compareFn'
 import { CountryUserSummary, RoleName } from 'meta/user'
 import { CountryUserSummaries } from 'meta/user/countryUserSummaries'
 

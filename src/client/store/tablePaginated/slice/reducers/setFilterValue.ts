@@ -1,7 +1,7 @@
 import { Draft, PayloadAction } from '@reduxjs/toolkit'
 import { Objects } from 'utils/objects'
 
-import { TablePaginatedFilterValues } from 'meta/tablePaginated'
+import { TablePaginatedFilterValues } from 'meta/tablePaginated/filters/filter'
 
 import { TablePaginatedState } from 'client/store/tablePaginated/state'
 

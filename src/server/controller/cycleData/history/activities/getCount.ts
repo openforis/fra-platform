@@ -2,7 +2,7 @@ import { AreaCode } from 'meta/area/areaCode'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { SectionName } from 'meta/assessment/section'
-import { TablePaginatedCount } from 'meta/tablePaginated'
+import { TablePaginatedCount } from 'meta/tablePaginated/count'
 
 import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 

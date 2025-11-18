@@ -1,7 +1,7 @@
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { TablePaginatedOrderByDirection } from 'meta/tablePaginated'
-import { LinksFilters } from 'meta/tablePaginated/links'
+import { LinksFilters } from 'meta/tablePaginated/filters/links'
+import { TablePaginatedOrderByDirection } from 'meta/tablePaginated/orderBy'
 
 export type LinksGetManyProps = {
   assessment: Assessment

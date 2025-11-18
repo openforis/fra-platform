@@ -4,7 +4,7 @@ import React from 'react'
 import classNames from 'classnames'
 import { Objects } from 'utils/objects'
 
-import { TablePaginatedFilterType } from 'meta/tablePaginated'
+import { TablePaginatedFilterType } from 'meta/tablePaginated/filters/filter'
 
 import { useAppDispatch } from 'client/store/hooks'
 import { TablePaginatedActions } from 'client/store/tablePaginated/actions'
@@ -17,13 +17,13 @@ type Props = TablePaginatedFilter<TablePaginatedFilterType.TEXT> & {
   path: string
 }
 
-const Text = (props: Props) => {
+const Text: React.FC<Props> = (props) => {
   const { fieldName, label, path } = props
   const dispatch = useAppDispatch()
 
   const filterValue = useTablePaginatedFilterValue<string>(path, fieldName)
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const { value } = event.target
     dispatch(
       TablePaginatedActions.setFilterValue({
@@ -34,7 +34,7 @@ const Text = (props: Props) => {
     )
   }
 
-  const handleClearInput = () => {
+  const handleClearInput = (): void => {
     dispatch(TablePaginatedActions.resetFilter({ fieldName, path }))
   }
 

@@ -1,7 +1,7 @@
 import { Draft, PayloadAction } from '@reduxjs/toolkit'
 import { Objects } from 'utils/objects'
 
-import { TablePaginatedOrderBy } from 'meta/tablePaginated'
+import { TablePaginatedOrderBy } from 'meta/tablePaginated/orderBy'
 
 import { TablePaginatedState } from 'client/store/tablePaginated/state'
 

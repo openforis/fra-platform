@@ -3,7 +3,7 @@ import React from 'react'
 import classNames from 'classnames'
 import { Objects } from 'utils/objects'
 
-import { TablePaginatedFilterType } from 'meta/tablePaginated'
+import { TablePaginatedFilterType } from 'meta/tablePaginated/filters/filter'
 
 import { useAppDispatch } from 'client/store/hooks'
 import { TablePaginatedActions } from 'client/store/tablePaginated/actions'
@@ -15,13 +15,13 @@ type Props = TablePaginatedFilter<TablePaginatedFilterType.SWITCH> & {
   path: string
 }
 
-const Switch = (props: Props) => {
+const Switch: React.FC<Props> = (props) => {
   const { fieldName, label, path } = props
   const dispatch = useAppDispatch()
 
   const filterValue = useTablePaginatedFilterValue<boolean>(path, fieldName)
 
-  const handleChange = () => {
+  const handleChange = (): void => {
     const value = !filterValue
     dispatch(TablePaginatedActions.setFilterValue({ fieldName, path, value }))
   }

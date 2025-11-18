@@ -1,7 +1,7 @@
 import { Response } from 'express'
 
 import { CycleRequest } from 'meta/api/request'
-import { UserFilters } from 'meta/tablePaginated/users'
+import { UserFilters } from 'meta/tablePaginated/filters/users'
 import { UserStatus } from 'meta/user'
 
 import { UserController } from 'server/controller/user'

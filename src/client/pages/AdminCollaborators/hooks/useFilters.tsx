@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { TablePaginatedFilterType } from 'meta/tablePaginated'
+import { TablePaginatedFilterType } from 'meta/tablePaginated/filters/filter'
 import { RoleName, Users } from 'meta/user'
 
 import { TablePaginatedFilter } from 'client/components/TablePaginated/types'

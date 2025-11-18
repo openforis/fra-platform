@@ -2,7 +2,7 @@ import { AreaCode } from 'meta/area/areaCode'
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { TablePaginatedCount } from 'meta/tablePaginated'
+import { TablePaginatedCount } from 'meta/tablePaginated/count'
 
 import { BaseProtocol, DB } from 'server/db/db'
 

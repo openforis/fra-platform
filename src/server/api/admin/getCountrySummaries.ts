@@ -2,8 +2,8 @@ import { Response } from 'express'
 
 import { TablePaginatedDataRequest } from 'meta/api/request/tablePaginated'
 import { Lang } from 'meta/lang'
-import { TablePaginateds } from 'meta/tablePaginated'
-import { CountriesFilters } from 'meta/tablePaginated/countries'
+import { CountriesFilters } from 'meta/tablePaginated/filters/countries'
+import { TablePaginateds } from 'meta/tablePaginated/tablePaginateds'
 
 import { AreaController } from 'server/controller/area'
 import Requests from 'server/utils/requests'
