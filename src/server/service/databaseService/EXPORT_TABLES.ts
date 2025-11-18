@@ -5,8 +5,8 @@ import { Schemas } from 'server/db/schemas'
 import { ExportTableProps } from 'server/service/databaseService/export'
 
 export const EXPORT_ASSESSMENTS_CYCLES: { [key in AssessmentNames]?: Array<CycleName> } = {
-  [AssessmentNames.fra]: ['2020', '2025', 'latest'],
-  [AssessmentNames.panEuropean]: ['2020', '2025'],
+  [AssessmentNames.fra]: ['2020', '2025' /* 'latest' */],
+  [AssessmentNames.panEuropean]: ['2020' /* '2025' */],
 }
 
 export const EXPORT_ASSESSMENTS = Object.keys(EXPORT_ASSESSMENTS_CYCLES) as Array<AssessmentNames>
