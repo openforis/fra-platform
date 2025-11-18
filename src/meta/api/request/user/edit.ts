@@ -1,4 +1,4 @@
-import { CycleRequest } from 'meta/api/request/index'
+import { CountryRequest } from 'meta/api/request/country'
 import { UserEditCountryForm } from 'meta/form/userEdit/form'
 
-export type UserEditRequest = CycleRequest<unknown, UserEditCountryForm>
+export type UserEditRequest = CountryRequest<unknown, UserEditCountryForm>

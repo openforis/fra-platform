@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 
-import { CycleDataParams } from 'meta/api/request'
+import { CycleDataParams } from 'meta/api/request/cycleData/cycleData'
 import { Authorizer, CollaboratorEditPropertyType } from 'meta/user'
 
 import { MetadataController } from 'server/controller/metadata'

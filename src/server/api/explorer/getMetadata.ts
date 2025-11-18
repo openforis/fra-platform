@@ -1,11 +1,11 @@
 import { Response } from 'express'
 
-import { CycleRequest } from 'meta/api/request'
+import { CountryRequest } from 'meta/api/request/country'
 
 import { ExplorerController } from 'server/controller/explorer'
 import Requests from 'server/utils/requests'
 
-type Request = CycleRequest<{ sectionNames: Array<string> }>
+type Request = CountryRequest<{ sectionNames: Array<string> }>
 
 export const getMetadata = async (req: Request, res: Response): Promise<void> => {
   try {

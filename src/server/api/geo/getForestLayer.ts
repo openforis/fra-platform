@@ -1,6 +1,6 @@
 import { Response } from 'express'
 
-import { LayerRequest } from 'meta/api/request'
+import { LayerRequest } from 'meta/api/request/geo/layer'
 
 import { GeoController } from 'server/controller/geo'
 import Requests from 'server/utils/requests'

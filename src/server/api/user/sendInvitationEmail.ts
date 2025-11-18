@@ -1,12 +1,12 @@
 import { Response } from 'express'
 
-import { CycleRequest } from 'meta/api/request'
+import { CountryRequest } from 'meta/api/request/country'
 
 import { UserController } from 'server/controller/user'
 import { Requests } from 'server/utils'
 
 export const sendInvitationEmail = async (
-  req: CycleRequest<{ invitationUuid: string }>,
+  req: CountryRequest<{ invitationUuid: string }>,
   res: Response
 ): Promise<void> => {
   try {

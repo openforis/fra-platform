@@ -1,11 +1,11 @@
 import { Response } from 'express'
 
-import { CycleRequest } from 'meta/api/request'
+import { CountryRequest } from 'meta/api/request/country'
 
 import { FileController } from 'server/controller/file'
 import { Requests } from 'server/utils'
 
-type Request = CycleRequest & {
+type Request = CountryRequest & {
   files: Array<Express.Multer.File>
 }
 

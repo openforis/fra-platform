@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { CycleParams } from 'meta/api/request'
+import { CountryParams } from 'meta/api/request/country'
 import { CountryIso } from 'meta/area/countryIso'
 import { AssessmentName } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
@@ -10,7 +10,7 @@ import { RepositoryItem } from 'meta/cycleData/repository/item'
 
 import { ThunkApiConfig } from 'client/store/types'
 
-type Props = CycleParams & {
+type Props = CountryParams & {
   repositoryItem: Partial<RepositoryItem>
 }
 

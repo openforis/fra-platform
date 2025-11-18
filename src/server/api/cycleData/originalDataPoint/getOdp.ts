@@ -1,6 +1,6 @@
 import { Response } from 'express'
 
-import { CycleDataRequest } from 'meta/api/request'
+import { CycleDataRequest } from 'meta/api/request/cycleData/cycleData'
 
 import { CycleDataController } from 'server/controller/cycleData'
 import { Requests } from 'server/utils'

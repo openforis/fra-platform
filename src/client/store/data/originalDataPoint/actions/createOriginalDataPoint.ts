@@ -2,11 +2,11 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { CycleParams } from 'meta/api/request'
+import { CountryParams } from 'meta/api/request/country'
 import { ODPs } from 'meta/assessment/odps'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
-type Params = CycleParams & { originalDataPoint: OriginalDataPoint }
+type Params = CountryParams & { originalDataPoint: OriginalDataPoint }
 
 export const createOriginalDataPoint = createAsyncThunk<OriginalDataPoint, Params>(
   'data/originalDataPoint/create',

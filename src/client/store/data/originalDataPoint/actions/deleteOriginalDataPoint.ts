@@ -2,11 +2,11 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { CycleParams } from 'meta/api/request'
+import { CountryParams } from 'meta/api/request/country'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { SectionNames } from 'meta/assessment/section'
 
-export const deleteOriginalDataPoint = createAsyncThunk<void, CycleParams & { originalDataPoint: OriginalDataPoint }>(
+export const deleteOriginalDataPoint = createAsyncThunk<void, CountryParams & { originalDataPoint: OriginalDataPoint }>(
   'data/originalDataPoint/delete',
   async ({ assessmentName, countryIso, cycleName, originalDataPoint: { year } }) => {
     const sectionName = SectionNames.extentOfForest
