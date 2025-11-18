@@ -1,6 +1,6 @@
 import { Objects } from 'utils/objects'
 
-import { TablePaginatedFilterValues } from 'meta/tablePaginated'
+import { TablePaginatedFilterValues } from 'meta/tablePaginated/filters/filter'
 
 type FiltersBase = Record<string, TablePaginatedFilterValues>
 

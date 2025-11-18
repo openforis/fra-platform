@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { LinkValidationStatusCode } from 'meta/cycleData/links/link'
 import { Links } from 'meta/cycleData/links/links'
-import { TablePaginatedFilterType } from 'meta/tablePaginated'
+import { TablePaginatedFilterType } from 'meta/tablePaginated/filters/filter'
 
 import { TablePaginatedFilter } from 'client/components/TablePaginated/types'
 

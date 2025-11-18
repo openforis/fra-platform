@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 
 import { Objects } from 'utils/objects'
 
-import { TablePaginateds } from 'meta/tablePaginated'
+import { TablePaginateds } from 'meta/tablePaginated/tablePaginateds/tablePaginateds'
 
 import { useTablePaginatedFilters, useTablePaginatedOrderBy } from 'client/store/tablePaginated/hooks/tablePaginated'
 import { useLanguage } from 'client/hooks/language'

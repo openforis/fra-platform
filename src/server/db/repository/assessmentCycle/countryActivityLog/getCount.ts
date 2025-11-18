@@ -1,7 +1,7 @@
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { TablePaginatedCount } from 'meta/tablePaginated'
+import { TablePaginatedCount } from 'meta/tablePaginated/count'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { getMaterializedViewName } from 'server/db/repository/assessmentCycle/countryActivityLog/_common/getMaterializedViewName'

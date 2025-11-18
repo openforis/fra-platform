@@ -2,7 +2,7 @@ import { useCallback, useMemo, useState } from 'react'
 
 import { Objects } from 'utils/objects'
 
-import { TablePaginatedFilterType } from 'meta/tablePaginated'
+import { TablePaginatedFilterType } from 'meta/tablePaginated/filters/filter'
 
 import { useTablePaginatedFilterValue } from 'client/store/tablePaginated/hooks/tablePaginated'
 import { TablePaginatedFilter } from 'client/components/TablePaginated/types'

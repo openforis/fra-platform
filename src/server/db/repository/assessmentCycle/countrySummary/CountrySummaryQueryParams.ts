@@ -1,7 +1,7 @@
 import { CountryIso } from 'meta/area/countryIso'
 import { CountryStatus } from 'meta/area/countryStatus'
 import { Lang } from 'meta/lang'
-import { TablePaginatedOrderByDirection } from 'meta/tablePaginated'
+import { TablePaginatedOrderByDirection } from 'meta/tablePaginated/orderBy'
 
 export interface CountrySummaryQueryParams {
   countries?: Array<CountryIso>

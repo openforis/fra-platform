@@ -1,8 +1,8 @@
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { Lang } from 'meta/lang'
-import { TablePaginatedOrderByDirection } from 'meta/tablePaginated'
-import { CountriesFilters } from 'meta/tablePaginated/countries'
+import { CountriesFilters } from 'meta/tablePaginated/filters/countries'
+import { TablePaginatedOrderByDirection } from 'meta/tablePaginated/orderBy'
 
 export type CountrySummaryGetManyProps = {
   assessment: Assessment

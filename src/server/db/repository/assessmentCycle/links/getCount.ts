@@ -1,6 +1,6 @@
 import { Objects } from 'utils/objects'
 
-import { TablePaginatedCount } from 'meta/tablePaginated'
+import { TablePaginatedCount } from 'meta/tablePaginated/count'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { LinksGetManyProps } from 'server/db/repository/assessmentCycle/links/linksGetManyProps'
