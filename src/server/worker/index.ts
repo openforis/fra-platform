@@ -1,11 +1,13 @@
 import cron from 'node-cron'
 
 import { cleanUpFiles } from 'server/worker/jobs/cleanUpFiles'
-import { refreshMaterializedViews } from 'server/worker/jobs/refreshMaterializedViews'
+import { RefreshMaterializedViews } from 'server/worker/jobs/refreshMaterializedViews'
 import { remindReviewers } from 'server/worker/jobs/remindReviewers'
 
+const refreshMaterializedViews = new RefreshMaterializedViews()
+
 // every hour, at minute 0
-cron.schedule('0 * * * *', refreshMaterializedViews)
+cron.schedule('34 * * * *', refreshMaterializedViews.run.bind(refreshMaterializedViews))
 
 // every Sunday at 00:00 (midnight)
 cron.schedule('0 0 * * 0', cleanUpFiles)
