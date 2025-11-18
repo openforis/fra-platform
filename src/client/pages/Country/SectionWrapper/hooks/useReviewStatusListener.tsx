@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 
 import { CountryIso } from 'meta/area/countryIso'
-import { Sockets } from 'meta/socket'
+import { Sockets } from 'meta/socket/sockets'
 
 import { useOriginalDataPoint } from 'client/store/data/originalDataPoint/hooks/originalDataPoint'
 import { useAppDispatch } from 'client/store/hooks'

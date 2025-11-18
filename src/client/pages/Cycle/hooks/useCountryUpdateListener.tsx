@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 
 import { Country } from 'meta/area/country'
 import { CountryIso } from 'meta/area/countryIso'
-import { Sockets } from 'meta/socket'
+import { Sockets } from 'meta/socket/sockets'
 
 import { AreaActions } from 'client/store/area/actions'
 import { useAppDispatch } from 'client/store/hooks'

@@ -3,7 +3,7 @@ import IORedis from 'ioredis'
 
 import { Country } from 'meta/area/country'
 import { NodeUpdates } from 'meta/data/nodeUpdates'
-import { Sockets } from 'meta/socket'
+import { Sockets } from 'meta/socket/sockets'
 import { User } from 'meta/user'
 
 import { AssessmentController } from 'server/controller/assessment'

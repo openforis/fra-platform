@@ -4,7 +4,7 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { Topics } from 'meta/messageCenter/topics'
-import { Sockets } from 'meta/socket'
+import { Sockets } from 'meta/socket/sockets'
 import { User } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db/db'
