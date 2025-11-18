@@ -1,6 +1,6 @@
 import React, { InputHTMLAttributes } from 'react'
 
-import { TooltipId } from 'meta/tooltip'
+import { TooltipId } from 'meta/tooltip/id'
 
 export enum ButtonSize {
   xs = 'xs',
