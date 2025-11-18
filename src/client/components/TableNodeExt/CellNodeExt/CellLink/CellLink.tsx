@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { NodeExtCellType } from 'meta/nodeExt'
+import { NodeExtCellType } from 'meta/nodeExt/cellType'
 
 import { EditorWYSIWYGLinks } from 'client/components/EditorWYSIWYG'
 import { NodeExtCell } from 'client/components/TableNodeExt/types'

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { NodeExtCellType } from 'meta/nodeExt'
+import { NodeExtCellType } from 'meta/nodeExt/cellType'
 
 import CellLink from 'client/components/TableNodeExt/CellNodeExt/CellLink'
 import CellMultiselect from 'client/components/TableNodeExt/CellNodeExt/CellMultiselect'

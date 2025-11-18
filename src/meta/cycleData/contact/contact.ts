@@ -1,6 +1,6 @@
 import { ContactField } from 'meta/cycleData/contact/field'
 import { ContactNode } from 'meta/cycleData/contact/node'
-import { NodeExt } from 'meta/nodeExt'
+import { NodeExt } from 'meta/nodeExt/nodeExt'
 
 export type ContactProps = {
   readOnly?: boolean

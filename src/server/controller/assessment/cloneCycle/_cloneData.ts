@@ -1,6 +1,6 @@
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 import { TableNames } from 'meta/assessment/table'
-import { NodeExtType } from 'meta/nodeExt'
+import { NodeExtType } from 'meta/nodeExt/nodeExt'
 
 import { CloneProps } from 'server/controller/assessment/cloneCycle/types'
 import { BaseProtocol } from 'server/db/db'

@@ -1,5 +1,5 @@
 import { ContactField } from 'meta/cycleData/contact/field'
-import { NodeExtCellType } from 'meta/nodeExt'
+import { NodeExtCellType } from 'meta/nodeExt/cellType'
 
 import { NodeExtCell } from 'client/components/TableNodeExt/types'
 
