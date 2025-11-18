@@ -1,8 +1,8 @@
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { MosaicSource } from 'meta/geo'
-import { mosaicYearRange } from 'meta/geo/mosaic'
+import { MosaicSource } from 'meta/geo/mosaic/source'
+import { mosaicYearRange } from 'meta/geo/mosaic/yearRange'
 
 import { Option } from 'client/components/Inputs/Select'
 

@@ -3,7 +3,7 @@ import { Objects } from 'utils/objects'
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Assessments } from 'meta/assessment/assessments'
-import { Routes } from 'meta/routes'
+import { Routes } from 'meta/routes/routes'
 import { Users } from 'meta/user'
 import { UserRoles } from 'meta/user/userRoles'
 

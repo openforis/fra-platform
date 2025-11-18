@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 
 import { Objects } from 'utils/objects'
 
-import { sections } from 'meta/geo'
+import { sections } from 'meta/geo/sections'
 
 import { LayersActions } from 'client/store/geo/layers/actions'
 import { useGeoLayers } from 'client/store/geo/layers/hooks/layers'
@@ -12,7 +12,7 @@ import { useAppDispatch } from 'client/store/hooks'
 import { useCountryIso } from 'client/hooks/country'
 import { usePrevious } from 'client/hooks/previous'
 
-export const useCountryIsoChangeHandler = () => {
+export const useCountryIsoChangeHandler = (): void => {
   const countryIso = useCountryIso()
   const prevCountryIso = usePrevious(countryIso)
   const dispatch = useAppDispatch()

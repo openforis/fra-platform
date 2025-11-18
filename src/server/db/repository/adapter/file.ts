@@ -1,6 +1,6 @@
 import { Objects } from 'utils/objects'
 
-import { File } from 'meta/file'
+import { File } from 'meta/file/file'
 
 export type FileDB = {
   created_at: string

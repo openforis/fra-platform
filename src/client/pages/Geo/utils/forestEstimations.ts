@@ -1,13 +1,10 @@
-import {
-  ExtraEstimation,
-  extraEstimationsMetadata,
-  ForestEstimations,
-  ForestEstimationsData,
-  ForestKey,
-  forestLayersMetadata,
-} from 'meta/geo'
-import { hansenPercentages } from 'meta/geo/forest'
-import { ForestEstimationEntry } from 'meta/geo/geoStatistics'
+import { ExtraEstimation } from 'meta/geo/extraEstimation/extraEstimation'
+import { extraEstimationsMetadata } from 'meta/geo/extraEstimation/metadata'
+import { ForestEstimationEntry } from 'meta/geo/forest/estimationEntry'
+import { ForestEstimations, ForestEstimationsData } from 'meta/geo/forest/estimations'
+import { ForestKey } from 'meta/geo/forest/key'
+import { forestLayersMetadata } from 'meta/geo/forest/layersMetadata'
+import { hansenPercentages } from 'meta/geo/hansen'
 
 /**
  * Turns the Forest Estimations object into a table, and adds the area reported

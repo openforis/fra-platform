@@ -5,7 +5,7 @@ import { Arrays } from 'utils/arrays'
 import { Promises } from 'utils/promises'
 
 import { Link } from 'meta/cycleData/links/link'
-import { FileSummary } from 'meta/file'
+import { FileSummary } from 'meta/file/file'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { DB } from 'server/db/db'

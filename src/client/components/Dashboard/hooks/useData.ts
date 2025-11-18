@@ -5,7 +5,8 @@ import { Objects } from 'utils/objects'
 import { NodeCalculations } from 'meta/assessment/nodeCalculations'
 import { RowCache } from 'meta/assessment/rowCache'
 import { Table } from 'meta/assessment/table'
-import { RecordAssessmentData, RecordAssessmentDatas } from 'meta/data'
+import { RecordAssessmentData } from 'meta/data/recordData'
+import { RecordAssessmentDatas } from 'meta/data/recordDatas'
 
 import { useRecordAssessmentData } from 'client/store/data/tableData/nodeValues/hooks/data'
 import { useAssessment } from 'client/store/meta/hooks/assessments'
@@ -13,7 +14,7 @@ import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useCountryIso } from 'client/hooks/country'
 import { useRowsData } from 'client/pages/Section/DataTable/hooks/useRowsData'
 
-export const useData = (table: Table) => {
+export const useData = (table: Table): RecordAssessmentData => {
   const tableName = table.props.name
   const assessment = useAssessment()
   const cycle = useCycle()

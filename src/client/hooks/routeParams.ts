@@ -4,14 +4,11 @@ import { AreaCode } from 'meta/area/areaCode'
 import { CountryIso } from 'meta/area/countryIso'
 import { Global } from 'meta/area/global'
 import { RegionCode } from 'meta/area/regionCode'
-import {
-  AssessmentRouteParams,
-  CountryRouteParams,
-  CountryUserRouteParams,
-  CycleRouteParams,
-  OriginalDataPointRouteParams,
-  SectionRouteParams,
-} from 'meta/routes'
+import { AssessmentRouteParams } from 'meta/routes/routeParams/assessment'
+import { CountryRouteParams, CountryUserRouteParams } from 'meta/routes/routeParams/country'
+import { CycleRouteParams } from 'meta/routes/routeParams/cycle'
+import { OriginalDataPointRouteParams } from 'meta/routes/routeParams/originalDataPoint'
+import { SectionRouteParams } from 'meta/routes/routeParams/section'
 
 export const useAssessmentRouteParams = (): Readonly<Partial<AssessmentRouteParams>> =>
   useParams<AssessmentRouteParams>()

@@ -1,4 +1,4 @@
-import { SectionNames } from 'meta/routes'
+import { SectionNames } from 'meta/routes/sectionNames'
 
 import { useCanSeeUserActivities } from 'client/store/user/hooks/auth'
 import { useUser } from 'client/store/user/hooks/user'

@@ -1,8 +1,12 @@
 import { useMemo } from 'react'
 
 import { BarChart as BarChartType, BarChartData } from 'meta/chart/bar'
-import { agreementPalette, ExtraEstimation, extraEstimationsMetadata, ForestKey, forestLayersMetadata } from 'meta/geo'
-import { ForestEstimationEntry } from 'meta/geo/geoStatistics'
+import { agreementPalette } from 'meta/geo/agreementPalette'
+import { ExtraEstimation } from 'meta/geo/extraEstimation/extraEstimation'
+import { extraEstimationsMetadata } from 'meta/geo/extraEstimation/metadata'
+import { ForestEstimationEntry } from 'meta/geo/forest/estimationEntry'
+import { ForestKey } from 'meta/geo/forest/key'
+import { forestLayersMetadata } from 'meta/geo/forest/layersMetadata'
 
 import { useGeoLayer } from 'client/store/geo/layers/hooks/layers'
 import { useGeoStatistics } from 'client/store/geo/statistics/hooks/statistics'

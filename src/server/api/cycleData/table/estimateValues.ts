@@ -3,7 +3,7 @@ import { Response } from 'express'
 import { CycleDataRequest, EstimateBody } from 'meta/api/request'
 import { NodeValueEstimationMethod, NodeValuesEstimation } from 'meta/assessment/nodeValuesEstimation'
 import { Table, TableNames } from 'meta/assessment/table'
-import { RecordAssessmentDatas } from 'meta/data'
+import { RecordAssessmentDatas } from 'meta/data/recordDatas'
 import { UUIDs } from 'meta/uuid'
 
 import { CycleDataController } from 'server/controller/cycleData'

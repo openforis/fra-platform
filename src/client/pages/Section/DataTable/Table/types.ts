@@ -1,7 +1,7 @@
 import { AssessmentName } from 'meta/assessment/assessment'
 import { Row } from 'meta/assessment/row'
 import { Table } from 'meta/assessment/table'
-import { RecordAssessmentData } from 'meta/data'
+import { RecordAssessmentData } from 'meta/data/recordData'
 
 export type RowProps = {
   assessmentName: AssessmentName

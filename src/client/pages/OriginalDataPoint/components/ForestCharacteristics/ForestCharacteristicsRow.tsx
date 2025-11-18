@@ -6,7 +6,7 @@ import classNames from 'classnames'
 import { ODPs } from 'meta/assessment/odps'
 import { ODPNationalClass, OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { SectionNames } from 'meta/assessment/section'
-import { Topics } from 'meta/messageCenter'
+import { Topics } from 'meta/messageCenter/topics'
 import { TooltipId } from 'meta/tooltip'
 
 import DiffText from 'client/components/DiffText'

@@ -7,7 +7,8 @@ import { ColName } from 'meta/assessment/col'
 import { Cycle } from 'meta/assessment/cycle'
 import { Row } from 'meta/assessment/row'
 import { Table } from 'meta/assessment/table'
-import { RecordAssessmentData, RecordAssessmentDatas } from 'meta/data'
+import { RecordAssessmentData } from 'meta/data/recordData'
+import { RecordAssessmentDatas } from 'meta/data/recordDatas'
 
 import { SortOrder } from './types'
 

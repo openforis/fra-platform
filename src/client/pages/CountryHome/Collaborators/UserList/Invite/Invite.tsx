@@ -2,7 +2,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
-import { Routes } from 'meta/routes'
+import { Routes } from 'meta/routes/routes'
 import { Users } from 'meta/user'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'

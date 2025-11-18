@@ -3,7 +3,8 @@ import { useTranslation } from 'react-i18next'
 import { Navigate, Outlet, useNavigate } from 'react-router-dom'
 
 import { Assessments } from 'meta/assessment/assessments'
-import { LoginInvitationQueryParams, Routes } from 'meta/routes'
+import { LoginInvitationQueryParams } from 'meta/routes/queryParams/invitation'
+import { Routes } from 'meta/routes/routes'
 import { UserInvitations, Users } from 'meta/user'
 
 import { useAppDispatch } from 'client/store/hooks'

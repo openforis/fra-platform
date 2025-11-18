@@ -3,7 +3,7 @@ import { ActivityLog, ActivityLogMessage } from 'meta/assessment/activityLog'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
-import { Topics } from 'meta/messageCenter'
+import { Topics } from 'meta/messageCenter/topics'
 import { Sockets } from 'meta/socket'
 import { User } from 'meta/user'
 

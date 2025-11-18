@@ -2,7 +2,7 @@ import { Objects } from 'utils/objects'
 
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { Message } from 'meta/messageCenter'
+import { Message } from 'meta/messageCenter/message'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { Schemas } from 'server/db/schemas'

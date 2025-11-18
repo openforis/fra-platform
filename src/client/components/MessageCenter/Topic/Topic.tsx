@@ -6,7 +6,8 @@ import classNames from 'classnames'
 import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area/countryIso'
-import { Message as MessageType, MessageTopic, MessageTopicStatus, MessageTopicType } from 'meta/messageCenter'
+import { Message as MessageType } from 'meta/messageCenter/message'
+import { MessageTopic, MessageTopicStatus, MessageTopicType } from 'meta/messageCenter/messageTopic'
 import { Sockets } from 'meta/socket'
 
 import { useAppDispatch } from 'client/store/hooks'

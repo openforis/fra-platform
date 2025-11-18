@@ -1,5 +1,5 @@
 import { CountryIso } from 'meta/area/countryIso'
-import { Bounds } from 'meta/geo'
+import { Bounds } from 'meta/geo/bounds'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { BoundsRepository } from 'server/db/repository/geo/bounds'

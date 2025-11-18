@@ -3,7 +3,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 import { Global } from 'meta/area/global'
-import { Routes } from 'meta/routes'
+import { Routes } from 'meta/routes/routes'
 import { CountryUserSummary } from 'meta/user'
 
 import { useCycleRouteParams } from 'client/hooks/routeParams'

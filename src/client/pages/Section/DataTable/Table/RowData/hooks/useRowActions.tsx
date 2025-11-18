@@ -5,7 +5,7 @@ import { Col } from 'meta/assessment/col'
 import { Cols } from 'meta/assessment/cols'
 import { Row } from 'meta/assessment/row'
 import { Table } from 'meta/assessment/table'
-import { Topics } from 'meta/messageCenter'
+import { Topics } from 'meta/messageCenter/topics'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useCanViewReview } from 'client/store/user/hooks/auth'

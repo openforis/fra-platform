@@ -2,7 +2,7 @@ import './geo.scss'
 import React, { Suspense } from 'react'
 import { Navigate } from 'react-router-dom'
 
-import { Routes } from 'meta/routes'
+import { Routes } from 'meta/routes/routes'
 
 import { useCanViewGeo } from 'client/store/user/hooks/auth'
 import Loading from 'client/components/Loading'

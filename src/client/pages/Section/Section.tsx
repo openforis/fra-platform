@@ -7,7 +7,7 @@ import { CountryIso } from 'meta/area/countryIso'
 import { Labels } from 'meta/assessment/labels'
 import { SubSections } from 'meta/assessment/subSections'
 import { Tables } from 'meta/assessment/tables'
-import { Routes } from 'meta/routes'
+import { Routes } from 'meta/routes/routes'
 
 import { useCountry } from 'client/store/area/hooks/country'
 import { useCycle } from 'client/store/meta/hooks/cycles'

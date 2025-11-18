@@ -4,15 +4,15 @@ import axios from 'axios'
 import { Objects } from 'utils/objects'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { Activity } from 'meta/kiosk'
+import { KioskActivity } from 'meta/kiosk/activity'
 
 type Props = {
-  addMarkers: (activities: Array<Activity>) => void
+  addMarkers: (activities: Array<KioskActivity>) => void
   map: google.maps.Map
 }
 
 type Returned = {
-  data: Array<Activity>
+  data: Array<KioskActivity>
   error: string | null
   isLoading: boolean
 }
@@ -20,7 +20,7 @@ type Returned = {
 export const useFetchAndMarkActivities = (props: Props): Returned => {
   const { addMarkers, map } = props
 
-  const [data, setData] = useState<Array<Activity> | null>(null)
+  const [data, setData] = useState<Array<KioskActivity> | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [markersAdded, setMarkersAdded] = useState(false)
@@ -33,7 +33,7 @@ export const useFetchAndMarkActivities = (props: Props): Returned => {
       setError(null)
 
       try {
-        const response = await axios.get<Array<Activity>>(ApiEndPoint.Kiosk.latestActivities(), {
+        const response = await axios.get<Array<KioskActivity>>(ApiEndPoint.Kiosk.latestActivities(), {
           responseType: 'json',
         })
 

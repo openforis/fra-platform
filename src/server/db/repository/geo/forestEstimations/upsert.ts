@@ -1,6 +1,6 @@
 import { Objects } from 'utils/objects'
 
-import { ForestEstimations } from 'meta/geo'
+import { ForestEstimations } from 'meta/geo/forest/estimations'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { Schemas } from 'server/db/schemas'

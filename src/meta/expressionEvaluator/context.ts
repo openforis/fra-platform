@@ -5,7 +5,7 @@ import { CountryIso } from 'meta/area/countryIso'
 import { Assessment, RecordAssessments } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { Row } from 'meta/assessment/row'
-import { RecordAssessmentData } from 'meta/data'
+import { RecordAssessmentData } from 'meta/data/recordData'
 
 import { ExpressionContext } from 'lib/expressionEvaluator/context'
 

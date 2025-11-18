@@ -1,4 +1,4 @@
-import { RecordAssessmentDatas } from 'meta/data'
+import { RecordAssessmentDatas } from 'meta/data/recordDatas'
 
 import { getData } from 'server/controller/cycleData/getBulkDownload/getData'
 

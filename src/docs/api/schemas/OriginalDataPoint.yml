@@ -94,8 +94,16 @@ components:
             $ref: '#/components/schemas/ODPDataSourceMethod'
         dataSourceReferences:
           type: string
-        description:
-          type: string
+        comments:
+          type: object
+          description: HTML-formatted comments split by section.
+          properties:
+            extentOfForest:
+              type: string
+              description: Extent of forest comments
+            forestCharacteristics:
+              type: string
+              description: Forest characteristics comments
         id:
           type: integer
         idLegacy:

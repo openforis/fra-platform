@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { Objects } from 'utils/objects'
 
 import { MeasureName } from 'meta/measurement/measure'
-import { UnitName } from 'meta/measurement/unit'
+import { UnitName } from 'meta/measurement/unitName'
 
 import { useExplorerSectionMetadata } from 'client/store/explorer/metadata/hooks/metadata'
 import { Option } from 'client/components/Inputs/Select'

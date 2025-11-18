@@ -4,20 +4,29 @@
 .form-field-permissions {
   gap: $spacing-xs;
   width: 100%;
+
+  div.multiselect__container.active {
+    border: unset;
+  }
+
+  div.select__wrapper:focus-within {
+    outline: 1px solid $ui-edit-border-color;
+  }
 }
 
-.form-field-permissions__container {
+div.form-field-permissions__container {
   height: 32px;
 }
 
-.form-field-permissions__label {
-  position: absolute;
-  transform: translate(7%, -55.7%);
-
+div.form-field-permissions__label {
+  background-color: white;
   color: color.adjust($text-mute, $lightness: 10%, $space: hsl);
   font-size: $font-xxs;
   font-weight: bold;
-  text-transform: uppercase;
-  background-color: white;
+  height: 14px;
+  outline: unset !important;
   padding: 0 4px;
+  position: absolute;
+  text-transform: uppercase;
+  transform: translate(8px, -14px);
 }

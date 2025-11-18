@@ -1,13 +1,15 @@
 import { TFunction } from 'i18next'
+import { Objects } from 'utils/objects'
 
 import { AreaCode } from 'meta/area/areaCode'
+import { CountryIso } from 'meta/area/countryIso'
 import { ActivityLog, ActivityLogMessage } from 'meta/assessment/activityLog'
 import { AssessmentName } from 'meta/assessment/assessment'
 import { Cycle, CycleName } from 'meta/assessment/cycle'
 import { Labels } from 'meta/assessment/labels'
 import { SectionName, SectionNames, SubSection } from 'meta/assessment/section'
-import { Routes } from 'meta/routes'
-import { Users } from 'meta/user'
+import { Routes } from 'meta/routes/routes'
+import { RoleName, Users } from 'meta/user'
 
 const messageToKey: { [key in keyof typeof ActivityLogMessage]?: string } = {
   [ActivityLogMessage.assessmentStatusUpdate]: 'updateAssessmentStatus',
@@ -21,7 +23,8 @@ const messageToKey: { [key in keyof typeof ActivityLogMessage]?: string } = {
   [ActivityLogMessage.originalDataPointCreate]: 'added',
   [ActivityLogMessage.originalDataPointRemove]: 'deleted',
   [ActivityLogMessage.originalDataPointUpdateDataSources]: 'updated',
-  [ActivityLogMessage.originalDataPointUpdateDescription]: 'updated',
+  [ActivityLogMessage.originalDataPointUpdateCommentExtentOfForest]: 'updated',
+  [ActivityLogMessage.originalDataPointUpdateCommentForestCharacteristics]: 'updated',
   [ActivityLogMessage.originalDataPointUpdateNationalClasses]: 'updated',
   [ActivityLogMessage.originalDataPointUpdateOriginalData]: 'updated',
   [ActivityLogMessage.originalDataPointUpdateYear]: 'updated',
@@ -29,7 +32,7 @@ const messageToKey: { [key in keyof typeof ActivityLogMessage]?: string } = {
   [ActivityLogMessage.topicStatusChange]: 'resolved',
 }
 
-const _getLabelActionKey = (activity: ActivityLog<any>): string => {
+const _getLabelActionKey = (activity: ActivityLog<unknown>): string => {
   const { message } = activity
 
   const key = messageToKey[message]
@@ -39,25 +42,47 @@ const _getLabelActionKey = (activity: ActivityLog<any>): string => {
   return 'landing.recentActivity.actions.edited'
 }
 
-const _getLabelActionParams = (activity: ActivityLog<any>, t: TFunction): object => {
+const _getLabelActionParams = (activity: ActivityLog<unknown>, t: TFunction): Record<string, string | null> => {
   const { target } = activity
-  let params = {}
-  const { assessment, file, role, status, user } = target ?? {}
-  if (user)
-    params = {
-      user,
-      role: role ? t(Users.getI18nRoleLabelKey(role)) : null,
+  let params: Record<string, string | null> = {}
+
+  if (target && typeof target === 'object') {
+    if ('user' in target && target.user) {
+      const { role, user } = target as { user: string; role?: RoleName }
+      params = {
+        user,
+        role: role ? t(Users.getI18nRoleLabelKey(role)) : null,
+      }
+    } else if ('assessment' in target && target.assessment) {
+      const { assessment, status } = target as { assessment: string; status: string }
+      params = {
+        assessment: t(`assessment.${assessment}`),
+        status: t(`assessment.status.${status}.label`),
+      }
+    } else if ('file' in target && target.file) {
+      const { file } = target as { file: string }
+      params = { file }
     }
-  else if (assessment)
-    params = {
-      assessment: t(`assessment.${assessment}`),
-      status: t(`assessment.status.${status}.label`),
-    }
-  else if (file) params = { file }
+  }
+
   return params
 }
 
-const getLabelAction = (props: { activity: ActivityLog<any>; t: TFunction }): string => {
+const odpCommentMessageToSection: Partial<Record<ActivityLogMessage, SectionName>> = {
+  [ActivityLogMessage.originalDataPointUpdateCommentExtentOfForest]: SectionNames.extentOfForest,
+  [ActivityLogMessage.originalDataPointUpdateCommentForestCharacteristics]: SectionNames.forestCharacteristics,
+}
+
+const _getOdpCommentSection = (activity: ActivityLog<unknown> | undefined): SectionName | undefined => {
+  return odpCommentMessageToSection[activity?.message as ActivityLogMessage]
+}
+
+const _getOdpCommentYear = (activity: ActivityLog<unknown>): number | undefined => {
+  const target = activity?.target as { year?: number } | undefined
+  return target?.year
+}
+
+const getLabelAction = (props: { activity: ActivityLog<unknown>; t: TFunction }): string => {
   const { activity, t } = props
   const labelActionKey = _getLabelActionKey(activity)
   const messageParams = _getLabelActionParams(activity, t)
@@ -79,37 +104,70 @@ const getLabelSectionKey = (activity: ActivityLog<unknown>): string => {
 }
 
 const hasSectionLink = (activity: ActivityLog<unknown>): boolean => {
+  if (!Objects.isNil(_getOdpCommentSection(activity))) {
+    return !Objects.isNil(_getOdpCommentYear(activity))
+  }
+
   const { section } = activity
   return !['users', 'assessment'].includes(section)
 }
 
 const isSectionLinkDisabled = (activity: ActivityLog<unknown>): boolean => {
+  if (!Objects.isNil(_getOdpCommentSection(activity))) {
+    return Objects.isNil(_getOdpCommentYear(activity))
+  }
+
   const { section } = activity
   const labelSectionKey = getLabelSectionKey(activity)
   return ['fileRepository', 'messageBoard', 'odp'].includes(section) || labelSectionKey === 'dashboard.actions.deleted'
 }
 
 const getLabelSection = (props: {
+  activity: ActivityLog<unknown>
   cycle: Cycle
   section?: SubSection
-  activity: ActivityLog<unknown>
   t: TFunction
 }): string => {
   const { activity, cycle, section, t } = props
+
+  const odpCommentSection = _getOdpCommentSection(activity)
+  if (!Objects.isNil(odpCommentSection)) {
+    const sectionLabel =
+      odpCommentSection === SectionNames.forestCharacteristics
+        ? t('nationalDataPoint.forestCharacteristics')
+        : t('extentOfForest.extentOfForest')
+    const year = _getOdpCommentYear(activity) ?? ''
+    const translationKey = 'landing.recentActivity.actions.linkOriginalDataPointComments'
+    return t(translationKey, { year, section: sectionLabel })
+  }
+
   const labels = section?.props?.labels
   const labelSectionKey = labels ? Labels.getCycleLabel({ cycle, labels, t }) : getLabelSectionKey(activity)
   return t(labelSectionKey)
 }
 
 type GetSectionLinkProp = {
-  countryIso: AreaCode
+  activity: ActivityLog<unknown>
   assessmentName: AssessmentName
+  countryIso: AreaCode
   cycleName: CycleName
   sectionName: SectionName
 }
 
 const getSectionLink = (props: GetSectionLinkProp): string => {
-  const { assessmentName, countryIso, cycleName, sectionName: sectionNameProp } = props
+  const { activity, assessmentName, countryIso, cycleName, sectionName: sectionNameProp } = props
+
+  const odpSection = _getOdpCommentSection(activity)
+  const year = _getOdpCommentYear(activity)
+  if (!Objects.isNil(odpSection) && !Objects.isNil(year)) {
+    return Routes.OriginalDataPoint.generatePath({
+      assessmentName,
+      countryIso: countryIso as CountryIso,
+      cycleName,
+      sectionName: odpSection,
+      year: String(year),
+    })
+  }
 
   const sectionNameMap: { [key in SectionName]?: SectionName } = {
     [SectionNames.contacts]: SectionNames.contactPersons,

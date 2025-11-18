@@ -2,7 +2,7 @@ import axios from 'axios'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CountryIso } from 'meta/area/countryIso'
-import { Bounds } from 'meta/geo'
+import { Bounds } from 'meta/geo/bounds'
 
 type CountryBounds = { [key in CountryIso]?: Bounds }
 const countryBounds: CountryBounds = {}

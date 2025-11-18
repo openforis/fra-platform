@@ -1,7 +1,7 @@
 import { ActionReducerMapBuilder, createSelector } from '@reduxjs/toolkit'
 import { Objects } from 'utils/objects'
 
-import { RecordAssessmentDatas } from 'meta/data'
+import { RecordAssessmentDatas } from 'meta/data/recordDatas'
 
 import { getTableDataHistory } from 'client/store/data/history/actions/getTableDataHistory'
 import { HistoryState } from 'client/store/data/history/state'
@@ -11,7 +11,7 @@ const _getTableData = createSelector(
   (history) => history.lastApproved.tableData
 )
 
-export const getTableDataHistoryReducer = (builder: ActionReducerMapBuilder<HistoryState>) =>
+export const getTableDataHistoryReducer = (builder: ActionReducerMapBuilder<HistoryState>): void => {
   builder.addCase(getTableDataHistory.fulfilled, (state, { payload }) => {
     const tableData = _getTableData(state) ?? {}
     const value = RecordAssessmentDatas.mergeData({ tableData, newTableData: payload })
@@ -19,3 +19,4 @@ export const getTableDataHistoryReducer = (builder: ActionReducerMapBuilder<Hist
     const path = ['lastApproved', 'tableData']
     Objects.setInPath({ obj: state, path, value })
   })
+}

@@ -1,4 +1,4 @@
-import { LayerSectionKey } from 'meta/geo'
+import { LayerSectionKey } from 'meta/geo/layer/sectionKey'
 
 import { GeoRecipesSelectors } from 'client/store/geo/recipes/selectors'
 import { useAppSelector } from 'client/store/hooks'

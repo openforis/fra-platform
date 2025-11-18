@@ -1,7 +1,8 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { MessageTopicType, Topics } from 'meta/messageCenter'
+import { MessageTopicType } from 'meta/messageCenter/messageTopic'
+import { Topics } from 'meta/messageCenter/topics'
 
 import { useUser } from 'client/store/user/hooks/user'
 import { ButtonSize } from 'client/components/Buttons/Button'

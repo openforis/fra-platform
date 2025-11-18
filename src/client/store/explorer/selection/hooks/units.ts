@@ -1,5 +1,5 @@
 import { MeasureName } from 'meta/measurement/measure'
-import { UnitName } from 'meta/measurement/unit'
+import { UnitName } from 'meta/measurement/unitName'
 
 import { ExplorerSelectionSelectors } from 'client/store/explorer/selection/selectors'
 import { useAppSelector } from 'client/store/hooks'

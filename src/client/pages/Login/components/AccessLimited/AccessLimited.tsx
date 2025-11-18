@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Routes } from 'meta/routes'
+import { Routes } from 'meta/routes/routes'
 
 const AccessLimited: React.FC = () => {
   const { t } = useTranslation()

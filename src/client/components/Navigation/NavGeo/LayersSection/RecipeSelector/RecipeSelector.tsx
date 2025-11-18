@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { LayerSectionKey } from 'meta/geo'
-import { Recipe } from 'meta/geo/layer'
+import { Recipe } from 'meta/geo/layer/recipe'
+import { LayerSectionKey } from 'meta/geo/layer/sectionKey'
 
 import { GeoRecipesActions } from 'client/store/geo/recipes/actions'
 import { useGeoSectionRecipe } from 'client/store/geo/recipes/hooks/recipes'

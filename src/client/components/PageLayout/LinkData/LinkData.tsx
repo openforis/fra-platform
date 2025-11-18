@@ -10,7 +10,7 @@ import { Objects } from 'utils/objects'
 import { CountryIso } from 'meta/area/countryIso'
 import { Global } from 'meta/area/global'
 import { AssessmentNames } from 'meta/assessment/assessment'
-import { Routes } from 'meta/routes'
+import { Routes } from 'meta/routes/routes'
 import { TooltipId } from 'meta/tooltip'
 
 import { useSectionRouteParams } from 'client/hooks/routeParams'

@@ -1,6 +1,8 @@
 import React from 'react'
 
-import { Layer, LayerControlType, LayerSectionKey } from 'meta/geo/layer'
+import { LayerControlType } from 'meta/geo/layer/controlType'
+import { Layer } from 'meta/geo/layer/layer'
+import { LayerSectionKey } from 'meta/geo/layer/sectionKey'
 
 import AgreementLevelControl from 'client/components/Navigation/NavGeo/Layer/AgreementLevelControl'
 import CustomAssetControl from 'client/components/Navigation/NavGeo/Layer/CustomAssetControl'

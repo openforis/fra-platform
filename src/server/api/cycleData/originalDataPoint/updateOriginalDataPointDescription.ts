@@ -1,20 +1,20 @@
 import { Response } from 'express'
 
 import { CycleRequest } from 'meta/api/request'
-import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
+import { OriginalDataPoint, OriginalDataPointCommentKey } from 'meta/assessment/originalDataPoint'
 
 import { CycleDataController } from 'server/controller/cycleData'
 import Requests from 'server/utils/requests'
 
-type Request = CycleRequest<never, { originalDataPoint: OriginalDataPoint }>
+type Request = CycleRequest<never, { field: OriginalDataPointCommentKey; originalDataPoint: OriginalDataPoint }>
 
 export const updateOriginalDataPointDescription = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { originalDataPoint } = req.body
+    const { field, originalDataPoint } = req.body
     const user = Requests.getUser(req)
     const { assessment, country, cycle } = req.context
 
-    const propsUpdate = { assessment, cycle, country, originalDataPoint, user }
+    const propsUpdate = { assessment, cycle, country, field, originalDataPoint, user }
     const returnedOriginalDataPoint = await CycleDataController.updateOriginalDataPointDescription(propsUpdate)
 
     Requests.send(res, returnedOriginalDataPoint)

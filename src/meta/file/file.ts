@@ -1,7 +1,5 @@
 import { Readable } from 'stream'
 
-import { Label } from 'meta/assessment/label'
-
 export type FileSummary = {
   readonly createdAt: string
   readonly id: number
@@ -13,15 +11,4 @@ export type FileSummary = {
 
 export type File = FileSummary & {
   file: Readable
-}
-
-export type FileUsage = {
-  sectionName: string
-  suffix?: string
-  locations: Array<Label>
-}
-
-export type FileMeta = {
-  summary: FileSummary
-  usages: Array<FileUsage>
 }

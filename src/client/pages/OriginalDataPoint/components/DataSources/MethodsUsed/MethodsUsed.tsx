@@ -2,7 +2,7 @@ import React, { useCallback, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { ODPDataSourceMethod, OriginalDataPoint } from 'meta/assessment/originalDataPoint'
-import { Topics } from 'meta/messageCenter'
+import { Topics } from 'meta/messageCenter/topics'
 
 import { DataCell, DataRow, DataRowAction, DataRowActionType } from 'client/components/DataGrid'
 import Select, { Option } from 'client/components/Inputs/Select'

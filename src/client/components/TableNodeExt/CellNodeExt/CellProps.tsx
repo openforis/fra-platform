@@ -1,5 +1,6 @@
 import { NodeValue } from 'meta/assessment/node'
-import { NodeExt, NodeExtCellType } from 'meta/nodeExt'
+import { NodeExtCellType } from 'meta/nodeExt/cellType'
+import { NodeExt } from 'meta/nodeExt/nodeExt'
 
 import { NodeExtCell, NodeExtCellSelect } from '../types'
 

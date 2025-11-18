@@ -1,7 +1,7 @@
 import { Country } from 'meta/area/country'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { NodeUpdate } from 'meta/data'
+import { NodeUpdate } from 'meta/data/nodeUpdates'
 import { User } from 'meta/user'
 
 import { UpdateDependenciesJob } from 'server/controller/cycleData/updateDependencies/props'

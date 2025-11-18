@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 
-import { Layer, LayerSectionKey } from 'meta/geo'
+import { Layer } from 'meta/geo/layer/layer'
+import { LayerSectionKey } from 'meta/geo/layer/sectionKey'
 
 import { useGeoLayer } from 'client/store/geo/layers/hooks/layers'
 import { useCountSectionSelectedLayers } from 'client/pages/Geo/Map/hooks/useCountSectionSelectedLayers'

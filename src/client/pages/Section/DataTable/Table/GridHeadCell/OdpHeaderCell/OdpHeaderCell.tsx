@@ -9,7 +9,7 @@ import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area/countryIso'
 import { Table } from 'meta/assessment/table'
-import { Routes } from 'meta/routes'
+import { Routes } from 'meta/routes/routes'
 import { TooltipId } from 'meta/tooltip'
 
 import { useHistoryLastApprovedIsActive } from 'client/store/data/history/hooks/lastApproved'
