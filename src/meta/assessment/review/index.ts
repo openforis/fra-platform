@@ -1,4 +1,4 @@
-import { MessageTopicStatus } from 'meta/messageCenter'
+import { MessageTopicStatus } from 'meta/messageCenter/messageTopic'
 
 export interface ReviewStatus {
   hasUnreadMessages: boolean

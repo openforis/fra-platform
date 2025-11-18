@@ -3,7 +3,7 @@ import axios from 'axios'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CycleDataParams } from 'meta/api/request'
-import { MessageTopic, MessageTopicStatus, MessageTopicType } from 'meta/messageCenter'
+import { MessageTopic, MessageTopicStatus, MessageTopicType } from 'meta/messageCenter/messageTopic'
 
 type Params = Omit<CycleDataParams, 'sectionName'> & {
   key: string

@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useRef } from 'react'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CountryIso } from 'meta/area/countryIso'
-import { MessageTopic } from 'meta/messageCenter'
+import { MessageTopic } from 'meta/messageCenter/messageTopic'
 import { Users } from 'meta/user/users'
 
 import { useAppDispatch } from 'client/store/hooks'

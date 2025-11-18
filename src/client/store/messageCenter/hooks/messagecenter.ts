@@ -1,4 +1,4 @@
-import { MessageTopic } from 'meta/messageCenter'
+import { MessageTopic } from 'meta/messageCenter/messageTopic'
 
 import { useAppSelector } from 'client/store/hooks'
 import { MessageCenterSelectors } from 'client/store/messageCenter/selectors'
