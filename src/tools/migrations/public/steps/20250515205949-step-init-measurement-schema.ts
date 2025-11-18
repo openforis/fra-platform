@@ -26,7 +26,7 @@ export default async (): Promise<void> => {
 
   // 2. Insert units and system of measurements
   const insertTasks = Object.entries(systemsOfMeasurement).map(async ([systemOfMeasurementName, system]) => {
-    Logger.info(`Inserting ${system.units.length} units for system "${systemOfMeasurementName}"…`)
+    // Logger.info(`Inserting ${system.units.length} units for system "${systemOfMeasurementName}"…`)
 
     const dbUnits = await UnitRepository.massiveInsert({ units: system.units }, client)
 
@@ -48,7 +48,7 @@ export default async (): Promise<void> => {
       return acc
     }, {})
 
-    Logger.info(`Inserting system of measurement "${systemOfMeasurementName}"…`)
+    // Logger.info(`Inserting system of measurement "${systemOfMeasurementName}"…`)
     await SystemOfMeasurementRepository.create(
       {
         baseUnitUUID: dbBaseUnit.uuid,
