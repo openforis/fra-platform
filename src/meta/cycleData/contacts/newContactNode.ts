@@ -2,7 +2,7 @@ import { CountryIso } from 'meta/area/countryIso'
 import { NodeValue } from 'meta/assessment/node'
 import { ContactField } from 'meta/cycleData/contact/field'
 import { ContactNode } from 'meta/cycleData/contact/node'
-import { NodeExtType } from 'meta/nodeExt'
+import { NodeExtType } from 'meta/nodeExt/nodeExt'
 import { UUIDs } from 'meta/uuid'
 
 type Props = {

@@ -1,13 +1,6 @@
 import { CountryIso } from 'meta/area/countryIso'
 import { NodeValue } from 'meta/assessment/node'
 
-export enum NodeExtCellType {
-  link = 'link',
-  multiselect = 'multiselect',
-  select = 'select',
-  text = 'text',
-}
-
 export enum NodeExtType {
   contact = 'contact',
   node = 'node',

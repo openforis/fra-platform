@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 
 import { ContactField } from 'meta/cycleData/contact/field'
 import { contactFields } from 'meta/cycleData/contact/fields'
-import { NodeExtCellType } from 'meta/nodeExt'
+import { NodeExtCellType } from 'meta/nodeExt/cellType'
 
 import { useIsPrintRoute } from 'client/hooks/routes'
 import { NodeExtCell, NodeExtCellSelect } from 'client/components/TableNodeExt/types'
