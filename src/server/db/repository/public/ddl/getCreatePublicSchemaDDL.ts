@@ -78,7 +78,21 @@ export const getCreatePublicSchemaDDL = (schemaName = 'public'): string => {
         create type ${schemaName}.user_role as enum ('ADMINISTRATOR', 'COLLABORATOR', 'NATIONAL_CORRESPONDENT', 'ALTERNATE_NATIONAL_CORRESPONDENT', 'REVIEWER', 'VIEWER');
       end if;
     end $$;
-
+    
+    -- Enums: Message topic
+    do $$
+    begin
+        create type ${schemaName}.message_topic_status as enum ('opened', 'resolved');
+    exception
+        when duplicate_object then null;
+    end $$;
+    
+    do $$
+    begin
+        create type ${schemaName}.message_topic_type as enum ('review', 'chat', 'messageboard');
+    exception
+        when duplicate_object then null;
+    end $$;
 
     -- Tables
     create table if not exists ${schemaName}.assessment (

@@ -12,20 +12,6 @@ export const getCreateSchemaDDL = (schemaName: string): string => {
   const query = `
 create schema ${schemaName};
 
-do $$
-begin
-    create type ${schemaName}.message_topic_status as enum ('opened', 'resolved');
-exception
-    when duplicate_object then null;
-end $$;
-
-do $$
-begin
-    create type ${schemaName}.message_topic_type as enum ('review', 'chat', 'messageboard');
-exception
-    when duplicate_object then null;
-end $$;
-
 create table ${schemaName}.section
 (
     id            bigserial NOT NULL,
