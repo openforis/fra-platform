@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { RepositoryItems } from 'meta/cycleData/repository/items'
-import { Translations } from 'meta/translation'
+import { Translations } from 'meta/translation/translations'
 
 import { useLanguage } from 'client/hooks/language'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
