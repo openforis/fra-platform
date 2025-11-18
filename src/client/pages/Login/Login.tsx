@@ -2,7 +2,7 @@ import './Login.scss'
 import React from 'react'
 import { Route, Routes as RouterRoutes } from 'react-router-dom'
 
-import { Routes } from 'meta/routes'
+import { Routes } from 'meta/routes/routes'
 
 import { useInjectSlice } from 'client/store/hooks'
 import { LoginSlice } from 'client/store/login/slice'

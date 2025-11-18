@@ -10,7 +10,7 @@ import { CountryStatus } from 'meta/area/countryStatus'
 import { Assessment, AssessmentName } from 'meta/assessment/assessment'
 import { Cycle, CycleName } from 'meta/assessment/cycle'
 import { Lang } from 'meta/lang'
-import { Routes } from 'meta/routes'
+import { Routes } from 'meta/routes/routes'
 import { User, Users } from 'meta/user'
 import { UserRoles } from 'meta/user/userRoles'
 

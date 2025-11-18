@@ -5,7 +5,7 @@ import { matchPath, NavLink, useLocation } from 'react-router-dom'
 
 import classNames from 'classnames'
 
-import { Routes } from 'meta/routes'
+import { Routes } from 'meta/routes/routes'
 
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import Icon from 'client/components/Icon'
@@ -19,7 +19,7 @@ const LinkLanding: React.FC = () => {
 
   return (
     <NavLink
-      className={() => {
+      className={(): string => {
         return classNames('nav-section__header', {
           selected: matchPath({ path: Routes.CountryHome.path.absolute, end: false }, pathname),
         })

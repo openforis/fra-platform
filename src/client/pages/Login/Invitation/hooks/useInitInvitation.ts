@@ -1,7 +1,8 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { LoginInvitationQueryParams, Routes } from 'meta/routes'
+import { LoginInvitationQueryParams } from 'meta/routes/queryParams/invitation'
+import { Routes } from 'meta/routes/routes'
 
 import { useAppDispatch } from 'client/store/hooks'
 import { LoginActions } from 'client/store/login/actions'

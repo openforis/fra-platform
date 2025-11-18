@@ -2,7 +2,7 @@ import { AreaCode } from 'meta/area/areaCode'
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { SectionNames } from 'meta/routes'
+import { SectionNames } from 'meta/routes/sectionNames'
 import { User } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db/db'

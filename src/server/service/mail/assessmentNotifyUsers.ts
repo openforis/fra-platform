@@ -8,7 +8,7 @@ import { AssessmentName } from 'meta/assessment/assessment'
 import { Assessments } from 'meta/assessment/assessments'
 import { Cycle } from 'meta/assessment/cycle'
 import { Lang } from 'meta/lang'
-import { Routes } from 'meta/routes'
+import { Routes } from 'meta/routes/routes'
 import { RoleName, User, Users } from 'meta/user'
 import { UserRoles } from 'meta/user/userRoles'
 

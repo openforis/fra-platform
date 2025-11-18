@@ -3,7 +3,7 @@ import React, { useMemo } from 'react'
 import { NavLink } from 'react-router-dom'
 
 import { Assessments } from 'meta/assessment/assessments'
-import { Routes } from 'meta/routes'
+import { Routes } from 'meta/routes/routes'
 
 import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useUser } from 'client/store/user/hooks/user'

@@ -9,7 +9,7 @@ import { AssessmentName } from 'meta/assessment/assessment'
 import { Col } from 'meta/assessment/col'
 import { Cols } from 'meta/assessment/cols'
 import { Row } from 'meta/assessment/row'
-import { Routes } from 'meta/routes'
+import { Routes } from 'meta/routes/routes'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useCountryIso } from 'client/hooks/country'

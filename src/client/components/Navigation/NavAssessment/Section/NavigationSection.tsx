@@ -5,7 +5,7 @@ import { matchPath, useLocation } from 'react-router-dom'
 
 import { Labels } from 'meta/assessment/labels'
 import { Section } from 'meta/assessment/section'
-import { Routes } from 'meta/routes'
+import { Routes } from 'meta/routes/routes'
 
 import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useCycle } from 'client/store/meta/hooks/cycles'
@@ -71,8 +71,8 @@ const NavigationSection: React.FC<Props> = (props) => {
       <div
         aria-label={sectionLabel}
         className="nav-section__header"
-        onClick={() => setExpanded(!expanded)}
-        onKeyDown={() => setExpanded(!expanded)}
+        onClick={(): void => setExpanded(!expanded)}
+        onKeyDown={(): void => setExpanded(!expanded)}
         role="button"
         tabIndex={0}
       >

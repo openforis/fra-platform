@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
 import { Global as GlobalType } from 'meta/area/global'
-import { Routes } from 'meta/routes'
+import { Routes } from 'meta/routes/routes'
 
 import { useCycleRouteParams } from 'client/hooks/routeParams'
 import { useShowRegions } from 'client/hooks/showRegions'

@@ -1,5 +1,5 @@
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
-import { SectionNames } from 'meta/routes'
+import { SectionNames } from 'meta/routes/sectionNames'
 
 import { CycleDataController } from 'server/controller/cycleData'
 import { LinkRepository } from 'server/db/repository/assessmentCycle/links'

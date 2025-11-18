@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 
-import { Routes as ApplicationRoutes } from 'meta/routes'
+import { Routes as ApplicationRoutes } from 'meta/routes/routes'
 
 import InviteUserForm from 'client/pages/CountryHome/Collaborators/InviteUserForm'
 

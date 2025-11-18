@@ -1,10 +1,10 @@
 import { generatePath } from 'react-router-dom'
 
-import { Root } from './root'
-import { Route } from './route'
+import { Route } from 'meta/routes/route'
+import { Root } from 'meta/routes/routes/root'
 
 type Params = {
-  parent?: Route<any, any>
+  parent?: Route<unknown, unknown>
   path: string
 }
 

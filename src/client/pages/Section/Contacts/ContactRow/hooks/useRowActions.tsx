@@ -3,7 +3,7 @@ import { useMemo } from 'react'
 import { Contact } from 'meta/cycleData/contact/contact'
 import { ContactField } from 'meta/cycleData/contact/field'
 import { Topics } from 'meta/messageCenter/topics'
-import { Routes } from 'meta/routes'
+import { Routes } from 'meta/routes/routes'
 import { Users } from 'meta/user'
 
 import { useIsEditTableDataEnabled } from 'client/store/user/hooks/auth'

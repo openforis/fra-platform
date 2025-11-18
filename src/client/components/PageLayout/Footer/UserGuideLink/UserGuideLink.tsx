@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { AssessmentNames } from 'meta/assessment/assessment'
 import { Files } from 'meta/file/files'
-import { Routes } from 'meta/routes'
+import { Routes } from 'meta/routes/routes'
 
 import { useUser } from 'client/store/user/hooks/user'
 import { useLanguage } from 'client/hooks/language'

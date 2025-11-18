@@ -6,7 +6,8 @@ import { Navigate, NavLink, Outlet } from 'react-router-dom'
 import classNames from 'classnames'
 import { Objects } from 'utils/objects'
 
-import { Routes, SectionNames } from 'meta/routes'
+import { Routes } from 'meta/routes/routes'
+import { SectionNames } from 'meta/routes/sectionNames'
 import { Users } from 'meta/user'
 
 import { AdminSliceName } from 'client/store/admin/name'
