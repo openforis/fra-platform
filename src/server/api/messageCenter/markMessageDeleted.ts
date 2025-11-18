@@ -1,7 +1,7 @@
 import { Response } from 'express'
 
 import { CycleDataRequest } from 'meta/api/request'
-import { Sockets } from 'meta/socket'
+import { Sockets } from 'meta/socket/sockets'
 
 import { MessageCenterController } from 'server/controller/messageCenter'
 import { SocketServer } from 'server/service/socket'

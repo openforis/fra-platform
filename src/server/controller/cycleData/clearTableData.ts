@@ -3,7 +3,7 @@ import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { NodeUpdate } from 'meta/data/nodeUpdates'
-import { Sockets } from 'meta/socket'
+import { Sockets } from 'meta/socket/sockets'
 import { User } from 'meta/user'
 
 import { DataRedisRepository } from 'server/cache/repository/data'
