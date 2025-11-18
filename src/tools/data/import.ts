@@ -29,8 +29,8 @@ const exec = async (): Promise<void> => {
   await Promise.all(
     EXPORT_ASSESSMENTS.flatMap((assessmentName) =>
       EXPORT_ASSESSMENTS_CYCLES[assessmentName].map(async (cycleName) => {
-        const schemaAssessment = Schemas.getSchemaAssessment(assessmentName)
-        const schemaCycle = Schemas.getSchemaAssessmentCycle(assessmentName, cycleName)
+        const schemaAssessment = Schemas.getSchemaAssessment({ assessmentName })
+        const schemaCycle = Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName })
         await DB.query(AssessmentRepository.getCreateSchemaCycleDDL(schemaAssessment, schemaCycle))
       })
     )

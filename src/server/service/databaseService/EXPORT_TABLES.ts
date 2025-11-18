@@ -16,7 +16,7 @@ const EXPORT_ASSESSMENT_TABLES = ['section', 'table_section', 'table', 'row', 'c
 
 const ASSESSMENT_TABLES = EXPORT_ASSESSMENTS.flatMap((assessmentName) =>
   EXPORT_ASSESSMENT_TABLES.flatMap((tableName) => ({
-    schema: Schemas.getSchemaAssessment(assessmentName),
+    schema: Schemas.getSchemaAssessment({ assessmentName }),
     table: tableName,
   }))
 )
@@ -56,7 +56,7 @@ const ASSESSMENT_CYCLE_TABLES = EXPORT_ASSESSMENTS.flatMap((assessmentName) =>
   EXPORT_ASSESSMENTS_CYCLES[assessmentName].flatMap((cycleName) => {
     const allTables = [...EXPORT_ASSESSMENT_CYCLE_TABLES, ...(_assessmentCycleTables[assessmentName] || [])]
     return allTables.map((tableName) => ({
-      schema: Schemas.getSchemaAssessmentCycle(assessmentName, cycleName),
+      schema: Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName }),
       table: tableName,
       ...(tableName in _orderBy && { orderBy: _orderBy[tableName] }),
     }))

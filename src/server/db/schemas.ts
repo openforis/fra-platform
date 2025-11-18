@@ -1,11 +1,13 @@
 import { Assessment, AssessmentName } from 'meta/assessment/assessment'
 import { Cycle, CycleName } from 'meta/assessment/cycle'
 
-const getSchemaAssessmentCycle = (assessmentName: AssessmentName, cycleName: CycleName): string => {
+const getSchemaAssessmentCycle = (props: { assessmentName: AssessmentName; cycleName: CycleName }): string => {
+  const { assessmentName, cycleName } = props
   return `assessment_${assessmentName}_${cycleName}`.toLowerCase()
 }
 
-const getSchemaAssessment = (assessmentName: AssessmentName): string => {
+const getSchemaAssessment = (props: { assessmentName: AssessmentName }): string => {
+  const { assessmentName } = props
   return `assessment_${assessmentName}`.toLowerCase()
 }
 
@@ -14,14 +16,14 @@ const getSchemaAssessment = (assessmentName: AssessmentName): string => {
  */
 const getName = (assessment: Pick<Assessment, 'props'>): string => {
   const assessmentName = assessment.props.name
-  return getSchemaAssessment(assessmentName)
+  return getSchemaAssessment({ assessmentName })
 }
 
 /**
  * @deprecated - use getSchemaAssessmentCycle
  */
 const getNameCycle = (assessment: Pick<Assessment, 'props'>, cycle: Pick<Cycle, 'name'>): string => {
-  return getSchemaAssessmentCycle(assessment.props.name, cycle.name)
+  return getSchemaAssessmentCycle({ assessmentName: assessment.props.name, cycleName: cycle.name })
 }
 
 const getSchemaGeo = (): string => `geo`
