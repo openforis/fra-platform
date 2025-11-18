@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next'
 
 import { Dates } from 'utils/dates'
 
-import { Users } from 'meta/user'
-import { UserInvitationSummary } from 'meta/user/userInvitationSummary'
+import { UserInvitationSummary } from 'meta/user/invitationSummary'
+import { Users } from 'meta/user/users'
 
 import CountryLink from 'client/components/CountryLink'
 import { Column } from 'client/components/TablePaginated'

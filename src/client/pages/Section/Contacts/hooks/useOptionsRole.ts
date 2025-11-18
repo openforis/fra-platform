@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Contacts } from 'meta/cycleData/contacts'
-import { Users } from 'meta/user'
+import { Users } from 'meta/user/users'
 
 import { Option } from 'client/components/Inputs/Select'
 

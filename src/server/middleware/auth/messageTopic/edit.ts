@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express'
 
 import { CountryParams } from 'meta/api/request/country'
 import { MessageTopicStatus } from 'meta/messageCenter/messageTopic'
-import { Users } from 'meta/user'
+import { Users } from 'meta/user/users'
 
 import { MessageCenterController } from 'server/controller/messageCenter'
 import { _getRequestParams } from 'server/middleware/auth/_getRequestParams'

@@ -1,7 +1,7 @@
 import { Express } from 'express'
 import * as passport from 'passport'
 
-import { User } from 'meta/user'
+import { User } from 'meta/user/user'
 
 import { googleStrategy } from 'server/api/auth/strategy/google'
 import { jwtStrategy } from 'server/api/auth/strategy/jwt'

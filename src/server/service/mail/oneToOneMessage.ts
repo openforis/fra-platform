@@ -5,7 +5,8 @@ import { AssessmentName } from 'meta/assessment/assessment'
 import { Assessments } from 'meta/assessment/assessments'
 import { Lang } from 'meta/lang'
 import { Routes } from 'meta/routes/routes'
-import { User, Users } from 'meta/user'
+import { User } from 'meta/user/user'
+import { Users } from 'meta/user/users'
 
 import { sendMail } from './mail'
 

@@ -1,5 +1,6 @@
 import { CountryIso } from 'meta/area/countryIso'
-import { RoleName, UserStatus } from 'meta/user'
+import { RoleName } from 'meta/user/role/name'
+import { UserStatus } from 'meta/user/user'
 
 export type UserFilters = {
   administrators?: boolean

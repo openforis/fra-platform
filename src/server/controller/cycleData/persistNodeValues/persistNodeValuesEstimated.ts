@@ -4,7 +4,7 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { NodeValuesEstimation } from 'meta/assessment/nodeValuesEstimation'
 import { NodeUpdate } from 'meta/data/nodeUpdates'
-import { User } from 'meta/user'
+import { User } from 'meta/user/user'
 
 import { DB } from 'server/db/db'
 import { NodeValueEstimationRepository } from 'server/db/repository/assessmentCycle/nodeValueEstimationRepository'

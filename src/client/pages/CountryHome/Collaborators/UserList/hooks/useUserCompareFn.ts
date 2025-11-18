@@ -2,8 +2,9 @@ import { useCallback } from 'react'
 
 import { CountryIso } from 'meta/area/countryIso'
 import { TablePaginatedCompareFn } from 'meta/tablePaginated/compareFn'
-import { CountryUserSummary, RoleName } from 'meta/user'
-import { CountryUserSummaries } from 'meta/user/countryUserSummaries'
+import { UserCountrySummaries } from 'meta/user/countrySummaries'
+import { UserCountrySummary } from 'meta/user/countrySummary'
+import { RoleName } from 'meta/user/role/name'
 
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 
@@ -16,18 +17,18 @@ const ranks: Record<RoleName, number> = {
   [RoleName.VIEWER]: 0,
 }
 
-export const useUserCompareFn = (): TablePaginatedCompareFn<CountryUserSummary> => {
+export const useUserCompareFn = (): TablePaginatedCompareFn<UserCountrySummary> => {
   const { countryIso } = useCountryRouteParams<CountryIso>()
 
-  return useCallback<TablePaginatedCompareFn<CountryUserSummary>>(
-    (a: CountryUserSummary, b: CountryUserSummary) => {
-      const isInvitationA = CountryUserSummaries.isInvitation(a, countryIso)
-      const isInvitationB = CountryUserSummaries.isInvitation(b, countryIso)
+  return useCallback<TablePaginatedCompareFn<UserCountrySummary>>(
+    (a: UserCountrySummary, b: UserCountrySummary) => {
+      const isInvitationA = UserCountrySummaries.isInvitation(a, countryIso)
+      const isInvitationB = UserCountrySummaries.isInvitation(b, countryIso)
       if (isInvitationA && !isInvitationB) return 1
       if (!isInvitationA && isInvitationB) return -1
 
-      const rankA = ranks[CountryUserSummaries.getRoleName(a, countryIso)]
-      const rankB = ranks[CountryUserSummaries.getRoleName(b, countryIso)]
+      const rankA = ranks[UserCountrySummaries.getRoleName(a, countryIso)]
+      const rankB = ranks[UserCountrySummaries.getRoleName(b, countryIso)]
       return rankB - rankA
     },
     [countryIso]

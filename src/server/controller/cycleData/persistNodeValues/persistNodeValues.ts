@@ -4,7 +4,7 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { NodeUpdate, NodeUpdates } from 'meta/data/nodeUpdates'
 import { Sockets } from 'meta/socket/sockets'
-import { User } from 'meta/user'
+import { User } from 'meta/user/user'
 
 import { resetMirrorNodes } from 'server/controller/cycleData/resetMirrorNodes'
 import { updateDependents } from 'server/controller/cycleData/updateDependencies/updateDependents'

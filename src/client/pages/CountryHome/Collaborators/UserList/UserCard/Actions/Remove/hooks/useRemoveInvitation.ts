@@ -5,7 +5,7 @@ import axios from 'axios'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CountryIso } from 'meta/area/countryIso'
-import { CountryUserSummaries } from 'meta/user/countryUserSummaries'
+import { UserCountrySummaries } from 'meta/user/countrySummaries'
 
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 
@@ -27,7 +27,7 @@ export const useRemoveInvitation = (props: Props): Returned => {
 
   return useCallback(async () => {
     const { fullName } = user
-    const { invitation } = CountryUserSummaries.getCountryRoleAndInvitation(user, countryIso)
+    const { invitation } = UserCountrySummaries.getCountryRoleAndInvitation(user, countryIso)
     const { uuid: invitationUuid } = invitation
     // eslint-disable-next-line no-alert
     if (window.confirm(t('userManagement.confirmDelete', { user: fullName }))) {

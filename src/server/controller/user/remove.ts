@@ -1,5 +1,5 @@
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
-import { User } from 'meta/user'
+import { User } from 'meta/user/user'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { ActivityLogRepository } from 'server/db/repository/public/activityLog'

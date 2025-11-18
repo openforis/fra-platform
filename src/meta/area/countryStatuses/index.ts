@@ -6,7 +6,9 @@ import { Country } from 'meta/area/country'
 import { CountryStatus } from 'meta/area/countryStatus'
 import { Cycle } from 'meta/assessment/cycle'
 import { Cycles } from 'meta/assessment/cycles'
-import { RoleName, User, Users } from 'meta/user'
+import { RoleName } from 'meta/user/role/name'
+import { User } from 'meta/user/user'
+import { Users } from 'meta/user/users'
 
 export type CountryStatusTransition = {
   next?: CountryStatus

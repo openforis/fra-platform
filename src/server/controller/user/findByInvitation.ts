@@ -1,5 +1,7 @@
 import { Assessment } from 'meta/assessment/assessment'
-import { AuthProvider, User, UserInvitation } from 'meta/user'
+import { AuthProvider } from 'meta/user/auth'
+import { UserInvitation } from 'meta/user/invitation'
+import { User } from 'meta/user/user'
 
 import { AssessmentRedisRepository } from 'server/cache/repository/assessment'
 import { BaseProtocol, DB } from 'server/db/db'

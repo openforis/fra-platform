@@ -1,4 +1,5 @@
-import { RoleName, UserStatus } from 'meta/user'
+import { RoleName } from 'meta/user/role/name'
+import { UserStatus } from 'meta/user/user'
 
 export interface UserQueryParams {
   fullName?: string

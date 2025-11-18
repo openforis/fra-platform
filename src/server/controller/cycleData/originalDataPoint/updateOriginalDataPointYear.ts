@@ -4,7 +4,7 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { Sockets } from 'meta/socket/sockets'
-import { User } from 'meta/user'
+import { User } from 'meta/user/user'
 
 import { CycleDataController } from 'server/controller/cycleData/index'
 import { BaseProtocol, DB } from 'server/db/db'

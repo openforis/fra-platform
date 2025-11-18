@@ -1,5 +1,5 @@
 import { MessageTopic, MessageTopicType } from 'meta/messageCenter/messageTopic'
-import { User } from 'meta/user'
+import { User } from 'meta/user/user'
 
 export const getChatRecipientId = (topic: MessageTopic, sender: User): number | undefined => {
   if (topic.type !== MessageTopicType.chat) return undefined

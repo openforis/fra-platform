@@ -1,7 +1,8 @@
 import { NextFunction, Request, Response } from 'express'
 
 import { CycleDataParams } from 'meta/api/request/cycleData/cycleData'
-import { Authorizer, CollaboratorEditPropertyType } from 'meta/user'
+import { Authorizer } from 'meta/auth/authorizer'
+import { CollaboratorEditPropertyType } from 'meta/user/role/collaborator'
 
 import { MetadataController } from 'server/controller/metadata'
 import { _getRequestParams } from 'server/middleware/auth/_getRequestParams'

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { ODPs } from 'meta/assessment/odps'
 import { NationalClassValidation } from 'meta/assessment/odps/validateODP'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
-import { Authorizer } from 'meta/user'
+import { Authorizer } from 'meta/auth/authorizer'
 
 import { useAssessmentCountry } from 'client/store/area/hooks/country'
 import { useCycle } from 'client/store/meta/hooks/cycles'
@@ -16,7 +16,7 @@ type Props = {
   index: number
   variable: keyof NationalClassValidation
 }
-export const useNationalClassValidations = (props: Props) => {
+export const useNationalClassValidations = (props: Props): string => {
   const { index, originalDataPoint, variable } = props
   const country = useAssessmentCountry()
   const cycle = useCycle()

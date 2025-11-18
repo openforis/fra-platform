@@ -4,7 +4,7 @@ import { Objects } from 'utils/objects'
 
 import { Areas } from 'meta/area/areas'
 import { CountryIso } from 'meta/area/countryIso'
-import { Users } from 'meta/user'
+import { Users } from 'meta/user/users'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useCountryRouteParams } from 'client/hooks/routeParams'

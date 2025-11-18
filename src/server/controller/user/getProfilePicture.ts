@@ -1,4 +1,4 @@
-import { UserProfilePicture } from 'meta/user/userProfilePicture'
+import { UserProfilePicture } from 'meta/user/profilePicture'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { UserRepository } from 'server/db/repository/public/user'
