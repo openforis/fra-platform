@@ -2,7 +2,7 @@ import { Response } from 'express'
 
 import { CycleRequest } from 'meta/api/request'
 import { Lang } from 'meta/lang'
-import { Translations } from 'meta/translation'
+import { Translations } from 'meta/translation/translations'
 
 import { CycleDataController } from 'server/controller/cycleData'
 import { FileStorage, FileStorageUtils } from 'server/service/fileStorage'
