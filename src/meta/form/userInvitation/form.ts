@@ -1,12 +1,12 @@
 import { Lang } from 'meta/lang'
-import { RoleName } from 'meta/user'
-import { CollaboratorPermissionsNEW } from 'meta/user/userRole'
+import { CollaboratorPermissions } from 'meta/user/role/collaborator'
+import { RoleName } from 'meta/user/role/name'
 
 export type UserInvitationForm = {
   email: string
   language: Lang
   name: string
-  permissions?: CollaboratorPermissionsNEW
+  permissions?: CollaboratorPermissions
   role: RoleName
   surname: string
 }

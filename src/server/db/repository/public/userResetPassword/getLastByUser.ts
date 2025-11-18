@@ -1,6 +1,7 @@
 import { Objects } from 'utils/objects'
 
-import { User, UserResetPassword } from 'meta/user'
+import { UserResetPassword } from 'meta/user/resetPassword'
+import { User } from 'meta/user/user'
 
 import { BaseProtocol, DB } from 'server/db/db'
 

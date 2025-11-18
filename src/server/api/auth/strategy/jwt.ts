@@ -2,8 +2,8 @@ import { Request } from 'express'
 import { PassportStatic } from 'passport'
 import { Strategy, VerifiedCallback } from 'passport-jwt'
 
-import { AuthToken } from 'meta/auth'
-import { User } from 'meta/user'
+import { AuthToken } from 'meta/auth/token'
+import { User } from 'meta/user/user'
 
 import { UserController } from 'server/controller/user'
 

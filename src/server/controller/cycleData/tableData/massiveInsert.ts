@@ -10,7 +10,7 @@ import { RowCache } from 'meta/assessment/rowCache'
 import { RowCaches } from 'meta/assessment/rowCaches'
 import { TableName } from 'meta/assessment/table'
 import { NodeUpdate } from 'meta/data/nodeUpdates'
-import { User } from 'meta/user'
+import { User } from 'meta/user/user'
 
 import { DataRedisRepository } from 'server/cache/repository/data'
 import { RowRedisRepository } from 'server/cache/repository/row'

@@ -9,7 +9,7 @@ import { Areas } from 'meta/area/areas'
 import { CountryIso } from 'meta/area/countryIso'
 import { Global } from 'meta/area/global'
 import { RegionCode } from 'meta/area/regionCode'
-import { UserRoles } from 'meta/user/userRoles'
+import { UserRoles } from 'meta/user/roles'
 
 import { useCountry } from 'client/store/area/hooks/country'
 import { useIsAreaSelectorExpanded } from 'client/store/ui/areaSelector/hooks/areaSelector'

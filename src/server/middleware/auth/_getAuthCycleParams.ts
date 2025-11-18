@@ -5,7 +5,7 @@ import { AreaCode } from 'meta/area/areaCode'
 import { Country } from 'meta/area/country'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { User } from 'meta/user'
+import { User } from 'meta/user/user'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { _getRequestParams } from 'server/middleware/auth/_getRequestParams'

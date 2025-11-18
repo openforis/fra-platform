@@ -1,13 +1,14 @@
 import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { CountryUserSummary, Users } from 'meta/user'
+import { UserCountrySummary } from 'meta/user/countrySummary'
+import { Users } from 'meta/user/users'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { Column } from 'client/components/TablePaginated'
 
-const RoleCell: React.FC<{ datum: CountryUserSummary }> = ({ datum }) => {
+const RoleCell: React.FC<{ datum: UserCountrySummary }> = ({ datum }) => {
   const { t } = useTranslation()
   const { countryIso } = useCountryRouteParams()
   const cycle = useCycle()
@@ -16,10 +17,10 @@ const RoleCell: React.FC<{ datum: CountryUserSummary }> = ({ datum }) => {
   return <span>{t(key)}</span>
 }
 
-export const useColumns = (): Array<Column<CountryUserSummary>> => {
+export const useColumns = (): Array<Column<UserCountrySummary>> => {
   const { t } = useTranslation()
 
-  return useMemo<Array<Column<CountryUserSummary>>>(
+  return useMemo<Array<Column<UserCountrySummary>>>(
     () => [
       {
         header: t('common.name'),

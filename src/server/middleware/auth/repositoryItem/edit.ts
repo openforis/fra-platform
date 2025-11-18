@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 
-import { Authorizer } from 'meta/user'
+import { Authorizer } from 'meta/auth/authorizer'
 
 import { _next } from 'server/middleware/auth/_next'
 import { Requests } from 'server/utils'

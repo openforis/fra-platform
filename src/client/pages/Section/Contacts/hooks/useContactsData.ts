@@ -6,7 +6,7 @@ import { Objects } from 'utils/objects'
 import { Contact } from 'meta/cycleData/contact/contact'
 import { ContactField } from 'meta/cycleData/contact/field'
 import { Contacts } from 'meta/cycleData/contacts'
-import { RoleName } from 'meta/user'
+import { RoleName } from 'meta/user/role/name'
 
 import { useContacts } from 'client/store/data/contacts/hooks/contacts'
 import { useIsEditTableDataEnabled } from 'client/store/user/hooks/auth'

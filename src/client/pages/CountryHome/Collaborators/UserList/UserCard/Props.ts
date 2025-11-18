@@ -1,5 +1,5 @@
-import { CountryUserSummary } from 'meta/user'
+import { UserCountrySummary } from 'meta/user/countrySummary'
 
 export type Props = {
-  user: CountryUserSummary
+  user: UserCountrySummary
 }

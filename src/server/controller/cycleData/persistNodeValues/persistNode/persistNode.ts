@@ -4,7 +4,7 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { Node } from 'meta/assessment/node'
 import { NodeUpdate } from 'meta/data/nodeUpdates'
-import { User } from 'meta/user'
+import { User } from 'meta/user/user'
 
 import { DataRedisRepository } from 'server/cache/repository/data'
 import { BaseProtocol } from 'server/db/db'

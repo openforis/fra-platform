@@ -1,6 +1,6 @@
 import { Objects } from 'utils/objects'
 
-import { UserRole } from 'meta/user'
+import { UserRole } from 'meta/user/role/role'
 
 export type UserRoleDB = Pick<UserRole, 'id' | 'uuid' | 'role' | 'props' | 'permissions'> & {
   assessment_uuid: string

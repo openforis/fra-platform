@@ -1,6 +1,6 @@
 import { Areas } from 'meta/area/areas'
 import { CountryIso } from 'meta/area/countryIso'
-import { RoleName } from 'meta/user'
+import { RoleName } from 'meta/user/role/name'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { UsersGetManyProps } from 'server/db/repository/public/user/usersGetManyProps'

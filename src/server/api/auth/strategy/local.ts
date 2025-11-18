@@ -3,9 +3,9 @@ import { PassportStatic } from 'passport'
 import { VerifiedCallback } from 'passport-jwt'
 import * as passportLocal from 'passport-local'
 import { Objects } from 'utils/objects'
+import { RegExps } from 'utils/regExps'
 
-import { AuthProvider, Users } from 'meta/user'
-import { AuthProviderLocalProps } from 'meta/user/userAuth'
+import { AuthProvider, AuthProviderLocalProps } from 'meta/user/auth'
 
 import { passwordCompare, passwordHash } from 'server/api/auth/utils/passwordUtils'
 import { AssessmentController } from 'server/controller/assessment'
@@ -21,7 +21,7 @@ const localStrategyVerifyCallback = async (
   const sendErr = (message: string): void => done(null, false, { message })
 
   try {
-    if (!Users.validEmail({ email })) {
+    if (!RegExps.validEmail({ email })) {
       sendErr('login.invalidEmail')
     } else if (Objects.isEmpty(password.trim())) {
       sendErr('login.noEmptyPassword')

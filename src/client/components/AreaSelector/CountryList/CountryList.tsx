@@ -11,7 +11,7 @@ import { Global } from 'meta/area/global'
 import { Region } from 'meta/area/region'
 import { RegionCode } from 'meta/area/regionCode'
 import { RegionGroup } from 'meta/area/regionGroup'
-import { UserRoles } from 'meta/user/userRoles'
+import { UserRoles } from 'meta/user/roles'
 
 import { useRegionGroups } from 'client/store/area/hooks/regions'
 import { useCycle } from 'client/store/meta/hooks/cycles'

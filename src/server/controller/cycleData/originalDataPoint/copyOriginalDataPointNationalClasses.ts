@@ -3,7 +3,7 @@ import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { ODPNationalClass, OriginalDataPoint } from 'meta/assessment/originalDataPoint'
-import { User } from 'meta/user'
+import { User } from 'meta/user/user'
 import { UUIDs } from 'meta/uuid'
 
 import { BaseProtocol, DB } from 'server/db/db'
