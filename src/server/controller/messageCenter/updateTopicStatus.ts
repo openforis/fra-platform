@@ -2,7 +2,7 @@ import { CountryIso } from 'meta/area/countryIso'
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { MessageTopic, MessageTopicStatus } from 'meta/messageCenter'
+import { MessageTopic, MessageTopicStatus } from 'meta/messageCenter/messageTopic'
 import { User } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db/db'

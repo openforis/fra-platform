@@ -1,13 +1,15 @@
 import { Objects } from 'utils/objects'
 
-import { Assessment, AssessmentProps } from 'meta/assessment/assessment'
+import { AssessmentBase, AssessmentProps } from 'meta/assessment/assessment'
+import { Cycle } from 'meta/assessment/cycle'
 
 interface AssessmentDB {
+  cycles: Array<Cycle>
   id: number
-  uuid: string
   props: AssessmentProps
+  uuid: string
 }
 
-export const AssessmentAdapter = (assessment: AssessmentDB): Assessment => {
+export const AssessmentAdapter = (assessment: AssessmentDB): AssessmentBase => {
   return Objects.camelize(assessment)
 }

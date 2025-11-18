@@ -2,7 +2,7 @@ import { Worker, WorkerOptions } from 'bullmq'
 import IORedis from 'ioredis'
 
 import { Country } from 'meta/area/country'
-import { NodeUpdates } from 'meta/data'
+import { NodeUpdates } from 'meta/data/nodeUpdates'
 import { Sockets } from 'meta/socket'
 import { User } from 'meta/user'
 

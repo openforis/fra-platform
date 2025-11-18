@@ -1,7 +1,7 @@
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { MessageTopic, MessageTopicStatus } from 'meta/messageCenter'
+import { MessageTopic, MessageTopicStatus } from 'meta/messageCenter/messageTopic'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { getOneOrNone } from 'server/db/repository/assessmentCycle/messageTopic/getOneOrNone'

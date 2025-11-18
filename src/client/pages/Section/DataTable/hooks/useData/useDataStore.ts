@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import { RecordAssessmentData } from 'meta/data'
+import { RecordAssessmentData } from 'meta/data/recordData'
 
 import {
   useRecordAssessmentData,

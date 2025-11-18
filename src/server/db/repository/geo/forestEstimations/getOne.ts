@@ -1,7 +1,7 @@
 import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area/countryIso'
-import { ForestEstimations } from 'meta/geo'
+import { ForestEstimations } from 'meta/geo/forest/estimations'
 
 import { BaseProtocol, DB } from 'server/db/db'
 

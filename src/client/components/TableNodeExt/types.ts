@@ -1,5 +1,5 @@
 import { Label } from 'meta/assessment/label'
-import { NodeExtCellType } from 'meta/nodeExt'
+import { NodeExtCellType } from 'meta/nodeExt/cellType'
 
 import { OptionsOrGroups } from 'client/components/Inputs/Select'
 

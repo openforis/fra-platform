@@ -1,4 +1,4 @@
-import { MessageTopicStatus } from 'meta/messageCenter'
+import { MessageTopicStatus } from 'meta/messageCenter/messageTopic'
 import { UUID } from 'meta/uuid'
 
 export interface ReviewStatus {

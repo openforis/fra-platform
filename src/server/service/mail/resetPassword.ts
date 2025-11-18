@@ -2,7 +2,7 @@ import { createI18nPromise } from 'i18n/i18nFactory'
 
 import { AssessmentName } from 'meta/assessment/assessment'
 import { Lang } from 'meta/lang'
-import { Routes } from 'meta/routes'
+import { Routes } from 'meta/routes/routes'
 import { User, UserResetPassword, Users } from 'meta/user'
 
 import { sendMail } from './mail'

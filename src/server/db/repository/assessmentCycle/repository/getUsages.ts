@@ -1,7 +1,7 @@
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { SectionNames } from 'meta/assessment/section'
-import { FileUsage } from 'meta/file'
+import { FileUsage } from 'meta/file/meta'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { Schemas } from 'server/db/schemas'

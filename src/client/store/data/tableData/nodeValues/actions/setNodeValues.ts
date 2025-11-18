@@ -1,6 +1,6 @@
 import { createAction } from '@reduxjs/toolkit'
 
-import { NodeUpdates } from 'meta/data'
+import { NodeUpdates } from 'meta/data/nodeUpdates'
 
 type Payload = { nodeUpdates: NodeUpdates }
 

@@ -1,8 +1,9 @@
 import React, { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { ExtraEstimation } from 'meta/geo'
-import { Layer, LayerSectionKey } from 'meta/geo/layer'
+import { ExtraEstimation } from 'meta/geo/extraEstimation/extraEstimation'
+import { Layer } from 'meta/geo/layer/layer'
+import { LayerSectionKey } from 'meta/geo/layer/sectionKey'
 
 import { GeoStatisticsActions } from 'client/store/geo/statistics/actions'
 import { useGeoExtraEstimation } from 'client/store/geo/statistics/hooks/statistics'

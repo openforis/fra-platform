@@ -1,7 +1,7 @@
 import './Layer.scss'
 import React from 'react'
 
-import { LayerControlType } from 'meta/geo/layer'
+import { LayerControlType } from 'meta/geo/layer/controlType'
 
 import InputRange, { InputRangeSize } from 'client/components/Inputs/InputRange'
 import OptionsGrid from 'client/components/Navigation/NavGeo/Grid/OptionsGrid'

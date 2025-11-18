@@ -1,3 +1,5 @@
+import { Objects } from 'utils/objects'
+
 import { Country, LastPublishedInfo } from 'meta/area/country'
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
@@ -22,7 +24,14 @@ const _mergeCountry = (country: Country, lastPublishedInfo: Record<CountryIso, L
 
 const _setCache = async (key: string, countries: Array<Country>): Promise<void> => {
   const redis = RedisData.getInstance()
-  await redis.hmset(key, ...countries.flatMap((c) => [c.countryIso, JSON.stringify(c)]))
+  const countryEntries = countries.reduce<Array<string>>((acc, country) => {
+    const { countryIso } = country
+    if (!Objects.isEmpty(countryIso)) {
+      acc.push(countryIso, JSON.stringify(country))
+    }
+    return acc
+  }, [])
+  await redis.hmset(key, ...countryEntries)
 }
 
 const _getCountries = async (
@@ -31,8 +40,10 @@ const _getCountries = async (
 ): Promise<Array<Country>> => {
   const { assessment, countryIso, cycle } = props
 
-  const params = countryIso ? { assessment, countryIso } : { assessment }
-  const lastPublishedInfo = await CountryRepository.getCountryLastPublishedInfo(params, client)
+  const lastPublishedInfo = await CountryRepository.getCountryLastPublishedInfo(
+    { assessment, countryIso, cycle },
+    client
+  )
 
   if (countryIso) {
     const country = await CountryRepository.getOne({ assessment, cycle, countryIso }, client)

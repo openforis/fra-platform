@@ -2,7 +2,7 @@ import { AreaCode } from 'meta/area/areaCode'
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessment, AssessmentName } from 'meta/assessment/assessment'
 import { Cycle, CycleName } from 'meta/assessment/cycle'
-import { MessageTopic } from 'meta/messageCenter'
+import { MessageTopic } from 'meta/messageCenter/messageTopic'
 
 const getRequestReviewSummaryEvent = (props: {
   countryIso: AreaCode

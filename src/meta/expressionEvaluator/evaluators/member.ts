@@ -1,9 +1,9 @@
 import { Assessments } from 'meta/assessment/assessments'
 import { AssessmentMetaCaches } from 'meta/assessment/metaCaches'
-import { RecordAssessmentDatas } from 'meta/data'
+import { RecordAssessmentDatas } from 'meta/data/recordDatas'
+import { Member } from 'meta/expressionEvaluator/member'
 import { BaseContext } from 'meta/expressionEvaluator/util/_types'
 import { parseMemberVariable } from 'meta/expressionEvaluator/util/parseMemberVariable'
-import { Member } from 'meta/expressions'
 
 import { MemberEvaluator as ArenaMemberEvaluator } from 'lib/expressionEvaluator/javascript/node/member'
 import { MemberExpression } from 'lib/expressionEvaluator/node'

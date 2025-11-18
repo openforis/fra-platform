@@ -2,7 +2,7 @@ import './linkGeo.scss'
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 
-import { Routes } from 'meta/routes'
+import { Routes } from 'meta/routes/routes'
 
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 

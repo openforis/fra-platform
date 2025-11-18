@@ -1,6 +1,5 @@
 import { CountryIso } from 'meta/area/countryIso'
-
-import { Message } from './message'
+import { Message } from 'meta/messageCenter/message'
 
 export enum MessageTopicStatus {
   opened = 'opened',

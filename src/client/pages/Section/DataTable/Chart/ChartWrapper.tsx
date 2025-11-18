@@ -4,7 +4,7 @@ import React, { useRef } from 'react'
 import { Objects } from 'utils/objects'
 
 import { Table } from 'meta/assessment/table'
-import { RecordAssessmentData } from 'meta/data'
+import { RecordAssessmentData } from 'meta/data/recordData'
 
 import Chart from 'client/pages/Section/DataTable/Chart/Chart'
 
@@ -15,7 +15,7 @@ type Props = {
   table: Table
 }
 
-const ChartWrapper = (props: Props) => {
+const ChartWrapper: React.FC<Props> = (props) => {
   const { data, table } = props
 
   const containerRef = useRef<HTMLDivElement>(null)

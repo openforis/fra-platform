@@ -3,8 +3,9 @@ import { Link, matchPath, useLocation } from 'react-router-dom'
 
 import { Areas } from 'meta/area/areas'
 import { RegionCode } from 'meta/area/regionCode'
-import { Files } from 'meta/file'
-import { Routes, SectionNames } from 'meta/routes'
+import { Files } from 'meta/file/files'
+import { Routes } from 'meta/routes/routes'
+import { SectionNames } from 'meta/routes/sectionNames'
 
 import { useLanguage } from 'client/hooks/language'
 import { useCountryRouteParams } from 'client/hooks/routeParams'

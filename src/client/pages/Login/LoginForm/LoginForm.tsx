@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { Objects } from 'utils/objects'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { Routes } from 'meta/routes'
+import { Routes } from 'meta/routes/routes'
 
 import { useAppDispatch } from 'client/store/hooks'
 import { LoginActions } from 'client/store/login/actions'
@@ -42,7 +42,7 @@ const LoginForm: React.FC = () => {
     dispatch(LoginActions.initLogin())
   }, [dispatch, loginError, t, toaster])
 
-  const onLogin = () => {
+  const onLogin = (): void => {
     const fieldErrors = LoginValidator.localValidate(email, password)
     setErrors(fieldErrors)
 
@@ -65,8 +65,8 @@ const LoginForm: React.FC = () => {
       <div className="login__form">
         <input
           name="email"
-          onChange={(event) => setEmail(event.target.value)}
-          onFocus={() => setErrors({ ...errors, email: null })}
+          onChange={(event): void => setEmail(event.target.value)}
+          onFocus={(): void => setErrors({ ...errors, email: null })}
           placeholder={t('login.email')}
           type="text"
           value={email}
@@ -74,8 +74,8 @@ const LoginForm: React.FC = () => {
         {errors.email && <span className="login__field-error">{t(errors.email)}</span>}
 
         <input
-          onChange={(event) => setPassword(event.target.value)}
-          onFocus={() => setErrors({ ...errors, password: null })}
+          onChange={(event): void => setPassword(event.target.value)}
+          onFocus={(): void => setErrors({ ...errors, password: null })}
           placeholder={t('login.password')}
           type="password"
           value={password}
@@ -83,7 +83,7 @@ const LoginForm: React.FC = () => {
         {errors.password && <span className="login__field-error">{t(errors.password)}</span>}
 
         <div>
-          <button className="btn" onClick={() => setIsLocal(false)} type="button">
+          <button className="btn" onClick={(): void => setIsLocal(false)} type="button">
             {t('login.cancel')}
           </button>
 
@@ -113,7 +113,7 @@ const LoginForm: React.FC = () => {
           {t('login.signInGoogle')}
         </a>
 
-        <button className="btn" onClick={() => setIsLocal(true)} type="button">
+        <button className="btn" onClick={(): void => setIsLocal(true)} type="button">
           {t('login.signInFRA')}
         </button>
       </div>

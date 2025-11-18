@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Recipe } from 'meta/geo/layer'
+import { Recipe } from 'meta/geo/layer/recipe'
 
 import { Option } from 'client/components/Inputs/Select'
 

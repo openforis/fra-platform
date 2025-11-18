@@ -2,7 +2,7 @@ import { ScaleLinear, Selection } from 'd3'
 
 import { ODPDataSourceMethod } from 'meta/assessment/originalDataPoint'
 import { Table } from 'meta/assessment/table'
-import { RecordAssessmentData } from 'meta/data'
+import { RecordAssessmentData } from 'meta/data/recordData'
 
 // component
 export type ChartProps = {

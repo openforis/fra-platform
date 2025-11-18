@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { AssessmentName } from 'meta/assessment/assessment'
 import { TableCell } from 'meta/assessment/table'
-import { RecordAssessmentData } from 'meta/data'
+import { RecordAssessmentData } from 'meta/data/recordData'
 
 import { useDataExportSelection } from 'client/store/dataExport/hooks/dataExport'
 import { useCountryIso } from 'client/hooks/country'

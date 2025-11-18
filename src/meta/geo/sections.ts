@@ -1,10 +1,11 @@
 import { ApiEndPoint } from 'meta/api/endpoint'
-
-import { burnedAreaLayers, forestLayers, LayerSection, LayerSectionKey, protectedAreaLayers } from '.'
+import { burnedAreaLayers } from 'meta/geo/burnedArea/layers'
+import { forestLayers } from 'meta/geo/forest/layers'
+import { LayerSection } from 'meta/geo/layer/section'
+import { LayerSectionKey } from 'meta/geo/layer/sectionKey'
+import { protectedAreaLayers } from 'meta/geo/protectedArea/layers'
 
 export const sections: Array<LayerSection> = [forestLayers, protectedAreaLayers, burnedAreaLayers]
-
-export const GLOBAL_OPACITY_KEY = 'global_opacity'
 
 export type SectionsApiEndpoint = Record<LayerSectionKey, string>
 

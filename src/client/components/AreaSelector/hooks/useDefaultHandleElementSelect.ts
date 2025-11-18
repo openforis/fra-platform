@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { AreaCode } from 'meta/area/areaCode'
 import { Areas } from 'meta/area/areas'
-import { Routes } from 'meta/routes'
+import { Routes } from 'meta/routes/routes'
 
 import { useCountries } from 'client/store/area/hooks/countries'
 import { useAssessment } from 'client/store/meta/hooks/assessments'

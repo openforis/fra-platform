@@ -10,7 +10,7 @@ import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area/countryIso'
 import { NodeValue } from 'meta/assessment/node'
-import { NodeExtType } from 'meta/nodeExt'
+import { NodeExtType } from 'meta/nodeExt/nodeExt'
 
 import { UserController } from 'server/controller/user'
 import { BaseProtocol, DB } from 'server/db/db'

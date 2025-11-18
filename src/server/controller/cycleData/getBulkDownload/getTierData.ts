@@ -1,5 +1,5 @@
 import { TableNames } from 'meta/assessment/table'
-import { RecordAssessmentDatas } from 'meta/data'
+import { RecordAssessmentDatas } from 'meta/data/recordDatas'
 
 import { climaticDomain } from 'server/controller/cycleData/getBulkDownload/climaticDomain'
 import { getClimaticValue } from 'server/controller/cycleData/getBulkDownload/getClimaticValue'

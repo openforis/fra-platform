@@ -1,6 +1,7 @@
 import { Objects } from 'utils/objects'
 
-import { LayerKey, LayerSectionKey } from 'meta/geo/layer'
+import { LayerKey } from 'meta/geo/layer/key'
+import { LayerSectionKey } from 'meta/geo/layer/sectionKey'
 import { sectionsMap } from 'meta/geo/sections'
 
 import { GeoLayersState, LayerState } from 'client/store/geo/layers/state'

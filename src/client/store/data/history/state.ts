@@ -4,7 +4,7 @@ import { CycleName } from 'meta/assessment/cycle'
 import { DescriptionCountryValues } from 'meta/assessment/descriptionValue'
 import { RecordAssessmentOriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { HistoryTarget } from 'meta/cycleData/history/activities'
-import { RecordAssessmentData } from 'meta/data'
+import { RecordAssessmentData } from 'meta/data/recordData'
 
 type DescriptionsState = Record<AssessmentName, Record<CycleName, DescriptionCountryValues>>
 

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
 import { CountryIso } from 'meta/area/countryIso'
-import { Routes } from 'meta/routes'
+import { Routes } from 'meta/routes/routes'
 
 import { useIsEditTableDataEnabled } from 'client/store/user/hooks/auth'
 import { useUser } from 'client/store/user/hooks/user'

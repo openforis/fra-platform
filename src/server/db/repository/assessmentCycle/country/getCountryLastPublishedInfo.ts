@@ -1,12 +1,20 @@
+import { Dates } from 'utils/dates'
+
 import { LastPublishedInfo } from 'meta/area/country'
 import { CountryIso } from 'meta/area/countryIso'
 import { CountryStatus } from 'meta/area/countryStatus'
 import { Assessment } from 'meta/assessment/assessment'
+import { Cycle } from 'meta/assessment/cycle'
+import { Cycles } from 'meta/assessment/cycles'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { Schemas } from 'server/db/schemas'
 
-type Props = { assessment: Assessment; countryIso?: CountryIso }
+type Props = {
+  assessment: Assessment
+  countryIso?: CountryIso
+  cycle: Cycle
+}
 
 type LastPublishedRecord = Record<CountryIso, LastPublishedInfo>
 
@@ -14,9 +22,21 @@ export const getCountryLastPublishedInfo = async (
   props: Props,
   client: BaseProtocol = DB
 ): Promise<LastPublishedRecord> => {
-  const { assessment, countryIso } = props
+  const { assessment, countryIso, cycle } = props
 
-  const selectStatements = assessment.cycles
+  const cycleDateCreated = Dates.parseISO(cycle.props.dateCreated)
+
+  let include = true
+  const cycles = assessment.cycles.filter((c) => {
+    const dateCreated = Dates.parseISO(c.props.dateCreated)
+    // exclude all successor published cycles and their successors for computing last published info
+    if (Cycles.isPublished(c) && Dates.isAfter(dateCreated, cycleDateCreated)) {
+      include = false
+    }
+    return include
+  })
+
+  const selectStatements = cycles
     .map(
       (cycle) =>
         `select country_iso, 

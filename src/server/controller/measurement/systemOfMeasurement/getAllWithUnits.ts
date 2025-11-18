@@ -1,4 +1,4 @@
-import { SystemOfMeasurement } from 'meta/measurement/systemOfMeasurement/systemOfMeasurement'
+import { SystemOfMeasurement } from 'meta/measurement/systemOfMeasurement'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { SystemOfMeasurementRepository } from 'server/db/repository/measurement/systemOfMeasurement'

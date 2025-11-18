@@ -3,7 +3,7 @@ import { useMemo } from 'react'
 import { Objects } from 'utils/objects'
 
 import { NodeValue } from 'meta/assessment/node'
-import { Taxon } from 'meta/extData'
+import { Taxon } from 'meta/extData/taxon'
 
 import { Option } from 'client/components/Inputs/Select'
 import { CURRENT_NODE_OPTION_VALUE } from 'client/pages/Section/DataTable/Table/RowData/Cell/Taxon/types'

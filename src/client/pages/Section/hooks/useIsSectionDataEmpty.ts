@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 
 import { CountryIso } from 'meta/area/countryIso'
 import { TableSection } from 'meta/assessment/tableSection'
-import { RecordAssessmentDatas } from 'meta/data'
+import { RecordAssessmentDatas } from 'meta/data/recordDatas'
 
 import { useRecordAssessmentData } from 'client/store/data/tableData/nodeValues/hooks/data'
 import { useCountryRouteParams } from 'client/hooks/routeParams'

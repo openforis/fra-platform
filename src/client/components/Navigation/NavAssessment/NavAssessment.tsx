@@ -8,7 +8,7 @@ import { Objects } from 'utils/objects'
 
 import { Areas } from 'meta/area/areas'
 import { CountryIso } from 'meta/area/countryIso'
-import { Routes } from 'meta/routes'
+import { Routes } from 'meta/routes/routes'
 
 import { useHistoryActivitiesIsActive } from 'client/store/data/history/hooks/activities'
 import { useSections } from 'client/store/meta/hooks/sections'

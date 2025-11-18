@@ -1,6 +1,7 @@
 {
   "allowSyntheticDefaults": true,
   "include": ["src"],
+  "exclude": ["src/tools/migrations/steps/steps/template.ts"],
   "compilerOptions": {
     "allowJs": true,
     "allowSyntheticDefaultImports": true,

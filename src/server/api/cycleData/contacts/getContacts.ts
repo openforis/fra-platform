@@ -1,7 +1,7 @@
 import { Response } from 'express'
 
 import { CycleDataRequest } from 'meta/api/request'
-import { NodeExtType } from 'meta/nodeExt'
+import { NodeExtType } from 'meta/nodeExt/nodeExt'
 
 import { CycleDataController } from 'server/controller/cycleData'
 import Requests from 'server/utils/requests'

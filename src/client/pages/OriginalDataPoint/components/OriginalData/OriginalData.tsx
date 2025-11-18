@@ -6,14 +6,15 @@ import classNames from 'classnames'
 
 import { AssessmentName } from 'meta/assessment/assessment'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
-import { Routes } from 'meta/routes'
+import { TableNames } from 'meta/assessment/table'
+import { Routes } from 'meta/routes/routes'
 
 import { useAssessmentCountry } from 'client/store/area/hooks/country'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useCountryIso } from 'client/hooks/country'
-
-import ExtentOfForest from '../ExtentOfForest'
-import ForestCharacteristics from '../ForestCharacteristics'
+import Comments from 'client/pages/OriginalDataPoint/components/Comments'
+import ExtentOfForest from 'client/pages/OriginalDataPoint/components/ExtentOfForest'
+import ForestCharacteristics from 'client/pages/OriginalDataPoint/components/ForestCharacteristics'
 
 type Props = {
   canEditData: boolean
@@ -40,13 +41,15 @@ const OriginalData: React.FC<Props> = (props) => {
   const i18n = useTranslation()
   const countryIso = useCountryIso()
 
+  const isExtentOfForestSection = sectionName === extentOfForest.name
+
   return (
     <div>
       <h3 className="subhead">{i18n.t<string>('nationalDataPoint.reclassificationLabel')}</h3>
 
       <div className="odp__tab-controller">
         <NavLink
-          className={(navData) =>
+          className={(navData): string =>
             classNames('odp__tab-item', {
               disabled: year === '-1',
               active: navData.isActive,
@@ -65,7 +68,7 @@ const OriginalData: React.FC<Props> = (props) => {
           )}`}
         </NavLink>
         <NavLink
-          className={(navData) =>
+          className={(navData): string =>
             classNames('odp__tab-item', {
               disabled: year === '-1' || !country.props.forestCharacteristics.useOriginalDataPoint,
               active: navData.isActive,
@@ -83,12 +86,16 @@ const OriginalData: React.FC<Props> = (props) => {
         </NavLink>
       </div>
 
-      {sectionName === extentOfForest.name && (
+      {isExtentOfForestSection ? (
         <ExtentOfForest canEditData={canEditData} originalDataPoint={originalDataPoint} />
-      )}
-      {sectionName !== extentOfForest.name && (
+      ) : (
         <ForestCharacteristics canEditData={canEditData} originalDataPoint={originalDataPoint} />
       )}
+
+      <Comments
+        canEditData={canEditData}
+        field={isExtentOfForestSection ? TableNames.extentOfForest : TableNames.forestCharacteristics}
+      />
     </div>
   )
 }

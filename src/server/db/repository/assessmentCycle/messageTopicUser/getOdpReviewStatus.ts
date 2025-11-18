@@ -4,7 +4,7 @@ import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { ReviewStatus } from 'meta/assessment/review'
-import { Topics } from 'meta/messageCenter'
+import { Topics } from 'meta/messageCenter/topics'
 import { User } from 'meta/user'
 
 import { BaseProtocol, DB } from 'server/db/db'

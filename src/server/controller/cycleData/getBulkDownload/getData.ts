@@ -1,4 +1,4 @@
-import { RecordAssessmentData } from 'meta/data'
+import { RecordAssessmentData } from 'meta/data/recordData'
 
 import { getTableData } from '../getTableData'
 import { Props } from './props'

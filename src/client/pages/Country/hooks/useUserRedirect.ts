@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { Areas } from 'meta/area/areas'
 import { AssessmentNames } from 'meta/assessment/assessment'
 import { Cycles } from 'meta/assessment/cycles'
-import { Routes } from 'meta/routes'
+import { Routes } from 'meta/routes/routes'
 import { Authorizer, Users } from 'meta/user'
 
 import { useAssessmentCountry } from 'client/store/area/hooks/country'

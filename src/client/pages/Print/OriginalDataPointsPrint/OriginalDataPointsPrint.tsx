@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Objects } from 'utils/objects'
 
+import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { SectionNames } from 'meta/assessment/section'
+import { TableNames } from 'meta/assessment/table'
 
 import { DataCell, DataGrid } from 'client/components/DataGrid'
 import EditorWYSIWYG from 'client/components/EditorWYSIWYG'
@@ -11,8 +13,7 @@ import DataSources from 'client/pages/OriginalDataPoint/components/DataSources'
 import ExtentOfForest from 'client/pages/OriginalDataPoint/components/ExtentOfForest'
 import ForestCharacteristics from 'client/pages/OriginalDataPoint/components/ForestCharacteristics'
 import NationalClasses from 'client/pages/OriginalDataPoint/components/NationalClasses'
-
-import { useOriginalDataPoints } from './useOriginalDataPoints'
+import { useOriginalDataPoints } from 'client/pages/Print/OriginalDataPointsPrint/useOriginalDataPoints'
 
 type Props = {
   sectionName: string
@@ -24,20 +25,25 @@ const OriginalDataPointsPrint: React.FC<Props> = (props) => {
   const i18n = useTranslation()
   const { loading, originalDataPoints } = useOriginalDataPoints()
 
-  if (loading || Objects.isEmpty(originalDataPoints)) return null
+  const isExtentOfForest = sectionName === SectionNames.extentOfForest
 
-  const hasDescriptions = originalDataPoints.some((odp) => !Objects.isEmpty(odp.description))
-  const isExtendOfForest = sectionName === SectionNames.extentOfForest
+  const commentKey = isExtentOfForest ? TableNames.extentOfForest : TableNames.forestCharacteristics
+  const odpsWithComments = useMemo<Array<OriginalDataPoint>>(
+    () => (originalDataPoints ?? []).filter((odp) => !Objects.isEmpty(odp.comments?.[commentKey])),
+    [commentKey, originalDataPoints]
+  )
+
+  if (loading || Objects.isEmpty(originalDataPoints)) return null
 
   return (
     <div className="print-break-after">
       <h2 className="headline">
-        {isExtendOfForest
+        {isExtentOfForest
           ? i18n.t('nationalDataPoint.nationalData')
           : i18n.t('nationalDataPoint.nationalDataReferToSection1a')}
       </h2>
 
-      {isExtendOfForest && (
+      {isExtentOfForest && (
         <>
           <div className="odp__section-print-mode">
             <h3 className="subhead">{i18n.t('nationalDataPoint.dataSources')}</h3>
@@ -58,7 +64,7 @@ const OriginalDataPointsPrint: React.FC<Props> = (props) => {
       <div className="odp__section-print-mode">
         <h3 className="subhead">{i18n.t('nationalDataPoint.reclassificationLabel')}</h3>
         {originalDataPoints.map((originalDataPoint) => {
-          const Component = isExtendOfForest ? ExtentOfForest : ForestCharacteristics
+          const Component = isExtentOfForest ? ExtentOfForest : ForestCharacteristics
           return React.createElement(Component, {
             key: originalDataPoint.id,
             originalDataPoint,
@@ -67,17 +73,13 @@ const OriginalDataPointsPrint: React.FC<Props> = (props) => {
         })}
       </div>
 
-      {hasDescriptions && (
+      {odpsWithComments.length > 0 && (
         <div className="odp__section-print-mode">
           <h3 className="subhead">{i18n.t('dataSource.comments')}</h3>
           <DataGrid className="odp__section" gridTemplateColumns="100px 1fr">
-            {originalDataPoints.map((originalDataPoint, i) => {
-              const lastRow = originalDataPoints.length - 1 === i
-              const value = originalDataPoint.description
-
-              if (Objects.isEmpty(value)) {
-                return null
-              }
+            {odpsWithComments.map((originalDataPoint, i) => {
+              const lastRow = odpsWithComments.length - 1 === i
+              const value = originalDataPoint.comments?.[commentKey]
 
               return (
                 <React.Fragment key={originalDataPoint.id}>

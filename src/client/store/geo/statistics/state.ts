@@ -1,5 +1,7 @@
-import { ExtraEstimation, ForestEstimations, LayerSectionKey } from 'meta/geo'
-import { ForestEstimationEntry } from 'meta/geo/geoStatistics'
+import { ExtraEstimation } from 'meta/geo/extraEstimation/extraEstimation'
+import { ForestEstimationEntry } from 'meta/geo/forest/estimationEntry'
+import { ForestEstimations } from 'meta/geo/forest/estimations'
+import { LayerSectionKey } from 'meta/geo/layer/sectionKey'
 
 export type ExtraEstimationState = {
   errorKey: string | null

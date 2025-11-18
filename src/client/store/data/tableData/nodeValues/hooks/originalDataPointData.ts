@@ -2,7 +2,8 @@ import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area/countryIso'
 import { TableNames } from 'meta/assessment/table'
-import { RecordAssessmentDatas, RecordColumnData } from 'meta/data'
+import { RecordColumnData } from 'meta/data/recordData'
+import { RecordAssessmentDatas } from 'meta/data/recordDatas'
 
 import { NodeValuesSelectors } from 'client/store/data/tableData/nodeValues/selectors'
 import { useAppSelector } from 'client/store/hooks'

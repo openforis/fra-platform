@@ -1,11 +1,11 @@
 import React from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 
-import { Routes } from 'meta/routes'
+import { Routes } from 'meta/routes/routes'
 
 import { usePrevious } from 'client/hooks/previous'
-import { useIsGeoRoute } from 'client/hooks/routes'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
+import { useIsGeoRoute } from 'client/hooks/routes'
 import Button, { ButtonSize, ButtonType, useButtonClassName } from 'client/components/Buttons/Button'
 import Icon from 'client/components/Icon'
 
@@ -28,7 +28,7 @@ const GeoToggle: React.FC = () => {
     return (
       <Button
         iconName="earth"
-        onClick={() => {
+        onClick={(): void => {
           const path = previousPathname !== pathGeo ? previousPathname : pathCountryHome
           navigate(path)
         }}

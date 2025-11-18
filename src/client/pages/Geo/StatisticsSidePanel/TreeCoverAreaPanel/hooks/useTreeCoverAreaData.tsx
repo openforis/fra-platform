@@ -3,7 +3,11 @@ import { useTranslation } from 'react-i18next'
 
 import { Numbers } from 'utils/numbers'
 
-import { agreementPalette, ExtraEstimation, extraEstimationsMetadata, ForestKey, forestLayersMetadata } from 'meta/geo'
+import { agreementPalette } from 'meta/geo/agreementPalette'
+import { ExtraEstimation } from 'meta/geo/extraEstimation/extraEstimation'
+import { extraEstimationsMetadata } from 'meta/geo/extraEstimation/metadata'
+import { ForestKey } from 'meta/geo/forest/key'
+import { forestLayersMetadata } from 'meta/geo/forest/layersMetadata'
 
 import { useGeoLayer } from 'client/store/geo/layers/hooks/layers'
 import { useGeoFra1aLandArea, useGeoStatistics } from 'client/store/geo/statistics/hooks/statistics'

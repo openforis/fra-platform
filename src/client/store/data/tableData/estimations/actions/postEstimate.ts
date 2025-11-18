@@ -4,7 +4,7 @@ import axios from 'axios'
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CycleDataParams, EstimateBody } from 'meta/api/request'
 import { NodeValuesEstimation } from 'meta/assessment/nodeValuesEstimation'
-import { RecordAssessmentData } from 'meta/data'
+import { RecordAssessmentData } from 'meta/data/recordData'
 
 export const postEstimate = createAsyncThunk<
   { nodes: RecordAssessmentData; nodeValueEstimations: Record<string, NodeValuesEstimation> },

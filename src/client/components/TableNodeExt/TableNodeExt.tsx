@@ -2,7 +2,8 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Labels } from 'meta/assessment/labels'
-import { NodeExt, NodeExtCellType } from 'meta/nodeExt'
+import { NodeExtCellType } from 'meta/nodeExt/cellType'
+import { NodeExt } from 'meta/nodeExt/nodeExt'
 
 import { DataCell, DataGrid } from 'client/components/DataGrid'
 import CellNodeExt from 'client/components/TableNodeExt/CellNodeExt'
@@ -17,7 +18,7 @@ type Props = {
   onChange: (value: string | Array<string>) => void
 }
 
-const TableNodeExt = (props: Props) => {
+const TableNodeExt: React.FC<Props> = (props) => {
   const { columns, data, disabled, gridTemplateColumns, onChange } = props
   const { t } = useTranslation()
 

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { NodeExtCellType } from 'meta/nodeExt'
+import { NodeExtCellType } from 'meta/nodeExt/cellType'
 
 import TextInput from 'client/components/Inputs/InputText'
 import { NodeExtCell } from 'client/components/TableNodeExt/types'
@@ -13,7 +13,7 @@ const CellText: React.FC<CellProps<NodeExtCell<NodeExtCellType.text>>> = (props)
   return (
     <TextInput
       disabled={disabled}
-      onChange={(event) => onChange(event.target.value)}
+      onChange={(event): void => onChange(event.target.value)}
       value={nodeExt?.value?.raw ?? null}
     />
   )

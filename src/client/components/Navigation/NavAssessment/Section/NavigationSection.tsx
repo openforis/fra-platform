@@ -5,7 +5,7 @@ import { matchPath, useLocation } from 'react-router-dom'
 
 import { Labels } from 'meta/assessment/labels'
 import { Section } from 'meta/assessment/section'
-import { Routes } from 'meta/routes'
+import { Routes } from 'meta/routes/routes'
 
 import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useCycle } from 'client/store/meta/hooks/cycles'

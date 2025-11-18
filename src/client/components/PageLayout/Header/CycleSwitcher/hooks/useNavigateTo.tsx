@@ -4,20 +4,22 @@ import { useNavigate } from 'react-router-dom'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { Cycles } from 'meta/assessment/cycles'
-import { Routes } from 'meta/routes'
+import { Routes } from 'meta/routes/routes'
 import { User, Users } from 'meta/user'
 
-import { useIsAdminRoute } from 'client/hooks/routes'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
+import { useIsAdminRoute } from 'client/hooks/routes'
 
-export const useNavigateTo = () => {
+type Returned = (props: { assessment: Assessment; cycle: Cycle; user: User }) => void
+
+export const useNavigateTo = (): Returned => {
   const navigate = useNavigate()
   // const { countryIso } = useCountryRouteParams()
   const isAdminPage = useIsAdminRoute()
   const { assessmentName: prevAssessmentName, countryIso } = useCountryRouteParams()
 
-  return useCallback(
-    (props: { assessment: Assessment; cycle: Cycle; user: User }) => {
+  return useCallback<Returned>(
+    (props) => {
       const { assessment, cycle, user } = props
       const assessmentName = assessment.props.name
       const cycleName = cycle.name

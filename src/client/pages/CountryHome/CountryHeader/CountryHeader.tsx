@@ -4,7 +4,8 @@ import { useTranslation } from 'react-i18next'
 import { NavLink } from 'react-router-dom'
 
 import { Areas } from 'meta/area/areas'
-import { MessageTopicType, Topics } from 'meta/messageCenter'
+import { MessageTopicType } from 'meta/messageCenter/messageTopic'
+import { Topics } from 'meta/messageCenter/topics'
 
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { ButtonSize, ButtonType, useButtonClassName } from 'client/components/Buttons/Button'

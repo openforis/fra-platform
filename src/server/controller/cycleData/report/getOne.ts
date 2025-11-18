@@ -3,7 +3,7 @@ import { errors as pgErrors } from 'pg-promise'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { RepositoryItem } from 'meta/cycleData/repository/item'
-import { File } from 'meta/file'
+import { File } from 'meta/file/file'
 
 import { RepositoryRepository } from 'server/db/repository/assessmentCycle/repository'
 import { FileRepository } from 'server/db/repository/public/file'

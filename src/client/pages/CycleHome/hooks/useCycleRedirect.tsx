@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { Routes } from 'meta/routes'
+import { Routes } from 'meta/routes/routes'
 
 import { useLastPublishedCycle } from 'client/store/meta/hooks/cycles'
 import { useUser } from 'client/store/user/hooks/user'
