@@ -10,7 +10,7 @@ import { ForestEstimationsRepository } from 'server/db/repository/geo/forestEsti
 
 import { AssetsController } from './assets'
 
-type Props = { countryIso: CountryIso; year: number }
+type Props = { countryIso: CountryIso; year: string }
 
 export const getForestEstimations = async (props: Props, client: BaseProtocol = DB): Promise<ForestEstimations> => {
   return ForestEstimationsRepository.getOne(props, client)

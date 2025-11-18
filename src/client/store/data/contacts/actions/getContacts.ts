@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { CycleDataParams } from 'meta/api/request'
+import { CycleDataParams } from 'meta/api/request/cycleData/cycleData'
 import { Contact } from 'meta/cycleData/contact/contact'
 
 export const getContacts = createAsyncThunk<Array<Contact>, CycleDataParams>('data/contacts/get', async (props) => {

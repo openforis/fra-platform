@@ -3,7 +3,7 @@ import axios from 'axios'
 import { Objects } from 'utils/objects'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { CycleParams } from 'meta/api/request'
+import { CountryParams } from 'meta/api/request/country'
 import { CountryIso } from 'meta/area/countryIso'
 import { SectionName } from 'meta/assessment/section'
 import { TableName } from 'meta/assessment/table'
@@ -13,7 +13,7 @@ import { Dimensions } from 'meta/measurement/dimensions'
 import { MeasureName } from 'meta/measurement/measure'
 import { Measures } from 'meta/measurement/measures'
 
-type Props = CycleParams & {
+type Props = CountryParams & {
   countryISOs: Array<CountryIso>
   dimensions: Array<DimensionName>
   fetchLastPublished: boolean

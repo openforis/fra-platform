@@ -2,11 +2,11 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { CycleParams } from 'meta/api/request'
+import { CountryParams } from 'meta/api/request/country'
 import { DescriptionCountryValues } from 'meta/assessment/descriptionValue'
 import { SectionName } from 'meta/assessment/section'
 
-type Props = CycleParams & { sectionName?: SectionName; name?: string }
+type Props = CountryParams & { sectionName?: SectionName; name?: string }
 
 type Returned = DescriptionCountryValues
 

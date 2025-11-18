@@ -1,6 +1,6 @@
 import { Response } from 'express'
 
-import { CycleDataRequest } from 'meta/api/request'
+import { CycleDataRequest } from 'meta/api/request/cycleData/cycleData'
 import { MessageTopicStatus, MessageTopicType } from 'meta/messageCenter/messageTopic'
 import { Sockets } from 'meta/socket/sockets'
 
@@ -10,10 +10,9 @@ import Requests from 'server/utils/requests'
 
 import { sendRequestReviewUpdateEvents } from './sendRequestReviewUpdateEvents'
 
-export const addMessage = async (
-  req: CycleDataRequest<{ key: string; type: MessageTopicType }>,
-  res: Response
-): Promise<void> => {
+type Request = CycleDataRequest<{ key: string; type: MessageTopicType }, { message: string }>
+
+export const addMessage = async (req: Request, res: Response): Promise<void> => {
   try {
     const { assessmentName, countryIso, cycleName, key, sectionName, type } = req.query
     const user = Requests.getUser(req)

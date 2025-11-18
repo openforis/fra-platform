@@ -2,7 +2,7 @@ import { Request } from 'express'
 
 import { TablePaginatedDataRequestParams } from 'meta/api/request/tablePaginated'
 
-export type UsersRequest<QueryParams = any, Body = any> = Request<
+export type AdminUsersRequest<QueryParams = unknown, Body = unknown> = Request<
   never,
   never,
   Body,

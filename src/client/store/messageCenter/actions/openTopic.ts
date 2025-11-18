@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { CycleDataParams } from 'meta/api/request'
+import { CycleDataParams } from 'meta/api/request/cycleData/cycleData'
 import { MessageTopic, MessageTopicStatus, MessageTopicType } from 'meta/messageCenter/messageTopic'
 
 type Params = Omit<CycleDataParams, 'sectionName'> & {

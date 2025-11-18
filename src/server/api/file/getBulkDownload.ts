@@ -1,6 +1,6 @@
 import { Response } from 'express'
 
-import { CycleRequest } from 'meta/api/request'
+import { CountryRequest } from 'meta/api/request/country'
 
 import { CycleDataController } from 'server/controller/cycleData'
 import { Requests } from 'server/utils'
@@ -35,7 +35,7 @@ Contact: fra@fao.org
 `
 }
 
-export const getBulkDownload = async (req: CycleRequest, res: Response): Promise<void> => {
+export const getBulkDownload = async (req: CountryRequest, res: Response): Promise<void> => {
   try {
     const { assessmentName, cycleName } = req.query
     const { assessment, cycle } = req.context

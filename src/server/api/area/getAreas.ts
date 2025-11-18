@@ -1,11 +1,11 @@
 import { Response } from 'express'
 
-import { InitRequest } from 'meta/api/request'
+import { CycleRequest } from 'meta/api/request/cycle'
 
 import { AreaController } from 'server/controller/area'
 import Requests from 'server/utils/requests'
 
-export const getAreas = async (req: InitRequest, res: Response): Promise<void> => {
+export const getAreas = async (req: CycleRequest, res: Response): Promise<void> => {
   try {
     const { assessment, cycle } = req.context
 

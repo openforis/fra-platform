@@ -1,11 +1,11 @@
 import { Response } from 'express'
 
-import { CycleRequest } from 'meta/api/request'
+import { CountryRequest } from 'meta/api/request/country'
 
 import { CycleDataController } from 'server/controller/cycleData'
 import Requests from 'server/utils/requests'
 
-type Request = CycleRequest<{ year: string; targetYear: string }>
+type Request = CountryRequest<{ year: string }, { targetYear: string }>
 
 export const copyOriginalDataPointNationalClasses = async (req: Request, res: Response): Promise<void> => {
   try {
