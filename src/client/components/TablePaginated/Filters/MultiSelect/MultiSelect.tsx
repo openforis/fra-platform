@@ -2,7 +2,7 @@ import './MultiSelect.scss'
 import React from 'react'
 
 import { TablePaginatedFilterType } from 'meta/tablePaginated/filters/filter'
-import { TooltipId } from 'meta/tooltip'
+import { TooltipId } from 'meta/tooltip/id'
 
 import { useAppDispatch } from 'client/store/hooks'
 import { TablePaginatedActions } from 'client/store/tablePaginated/actions'

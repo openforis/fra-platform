@@ -7,7 +7,7 @@ import { Cols } from 'meta/assessment/cols'
 import { Row } from 'meta/assessment/row'
 import { Table } from 'meta/assessment/table'
 import { RecordAssessmentData } from 'meta/data/recordData'
-import { TooltipId } from 'meta/tooltip'
+import { TooltipId } from 'meta/tooltip/id'
 
 import { useHistoryLastApprovedIsActive } from 'client/store/data/history/hooks/lastApproved'
 import { useHistoryLastApprovedDataTableFetched } from 'client/store/data/history/hooks/lastApprovedTableData'

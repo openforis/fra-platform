@@ -3,7 +3,7 @@ import React from 'react'
 import classNames from 'classnames'
 import JoditEditor from 'jodit-react'
 
-import { TooltipId } from 'meta/tooltip'
+import { TooltipId } from 'meta/tooltip/id'
 
 import AddFromRepository from 'client/components/EditorWYSIWYG/AddFromRepository'
 import { EditorConfig } from 'client/components/EditorWYSIWYG/types'

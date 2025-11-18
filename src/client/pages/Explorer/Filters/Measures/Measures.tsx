@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import { Objects } from 'utils/objects'
 
-import { TooltipId } from 'meta/tooltip'
+import { TooltipId } from 'meta/tooltip/id'
 
 import { useExplorerMeasures } from 'client/store/explorer/selection/hooks/measures'
 import { useCycle } from 'client/store/meta/hooks/cycles'

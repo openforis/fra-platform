@@ -6,7 +6,7 @@ import classNames from 'classnames'
 
 import { Global } from 'meta/area/global'
 import { Routes } from 'meta/routes/routes'
-import { TooltipId } from 'meta/tooltip'
+import { TooltipId } from 'meta/tooltip/id'
 
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import Icon from 'client/components/Icon'

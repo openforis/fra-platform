@@ -1,7 +1,7 @@
 import './Flag.scss'
 import React, { PropsWithChildren } from 'react'
 
-import { TooltipId } from 'meta/tooltip'
+import { TooltipId } from 'meta/tooltip/id'
 
 type Props = {
   tooltipContent?: string

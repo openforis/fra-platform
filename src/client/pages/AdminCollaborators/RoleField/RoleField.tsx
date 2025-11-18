@@ -6,7 +6,7 @@ import { TFunction } from 'i18next'
 
 import { Areas } from 'meta/area/areas'
 import { CountryIso } from 'meta/area/countryIso'
-import { TooltipId } from 'meta/tooltip'
+import { TooltipId } from 'meta/tooltip/id'
 import { CountryUserSummary, RoleName, Users } from 'meta/user'
 
 const MAX_ITEMS = 3

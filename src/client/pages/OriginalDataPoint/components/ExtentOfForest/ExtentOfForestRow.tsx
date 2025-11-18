@@ -7,7 +7,7 @@ import { ODPs } from 'meta/assessment/odps'
 import { NationalClassValidation } from 'meta/assessment/odps/validateODP'
 import { ODPNationalClass, OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { Topics } from 'meta/messageCenter/topics'
-import { TooltipId } from 'meta/tooltip'
+import { TooltipId } from 'meta/tooltip/id'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import DiffText from 'client/components/DiffText'
