@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { OriginalDataPointCommentKey } from 'meta/assessment/originalDataPoint'
 import { SectionNames } from 'meta/assessment/section'
 import { TableNames } from 'meta/assessment/table'
-import { Topics } from 'meta/messageCenter'
+import { Topics } from 'meta/messageCenter/topics'
 
 import { useOriginalDataPoint } from 'client/store/data/originalDataPoint/hooks/originalDataPoint'
 import { DataRowAction, DataRowActionType } from 'client/components/DataGrid'

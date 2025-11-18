@@ -1,11 +1,11 @@
 import { ActionReducerMapBuilder } from '@reduxjs/toolkit'
 
-import { MessageTopicStatus } from 'meta/messageCenter'
+import { MessageTopicStatus } from 'meta/messageCenter/messageTopic'
 
 import { openTopic } from 'client/store/messageCenter/actions/openTopic'
 import { MessageCenterState } from 'client/store/messageCenter/state'
 
-export const openTopicReducer = (builder: ActionReducerMapBuilder<MessageCenterState>) => {
+export const openTopicReducer = (builder: ActionReducerMapBuilder<MessageCenterState>): void => {
   builder.addCase(openTopic.pending, (state, reducer) => {
     const {
       meta: { arg },

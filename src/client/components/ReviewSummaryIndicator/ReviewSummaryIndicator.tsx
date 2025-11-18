@@ -4,7 +4,7 @@ import React from 'react'
 import classNames from 'classnames'
 
 import { ReviewStatus } from 'meta/assessment/review'
-import { MessageTopicStatus } from 'meta/messageCenter'
+import { MessageTopicStatus } from 'meta/messageCenter/messageTopic'
 
 type Props = {
   status: ReviewStatus

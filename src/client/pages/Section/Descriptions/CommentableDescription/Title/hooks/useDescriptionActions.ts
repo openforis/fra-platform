@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 
 import { CountryIso } from 'meta/area/countryIso'
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
-import { Topics } from 'meta/messageCenter'
+import { Topics } from 'meta/messageCenter/topics'
 
 import { useCanEditDescription } from 'client/store/user/hooks/auth'
 import { useCountryRouteParams } from 'client/hooks/routeParams'

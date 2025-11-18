@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom'
 
 import { Objects } from 'utils/objects'
 
-import { MessageTopic, MessageTopicType } from 'meta/messageCenter'
+import { MessageTopic, MessageTopicType } from 'meta/messageCenter/messageTopic'
 
 import { useAppDispatch } from 'client/store/hooks'
 import { MessageCenterActions } from 'client/store/messageCenter/actions'
@@ -62,7 +62,7 @@ const Footer: React.FC<Props> = (props: Props) => {
           <DataCell lastCol lastRow>
             <TextArea
               maxHeight={200}
-              onChange={(e) => setMessage(e.target.value)}
+              onChange={(e): void => setMessage(e.target.value)}
               placeholder={t('review.writeComment')}
               rows={2}
               value={message}

@@ -4,7 +4,7 @@ import React, { useCallback } from 'react'
 import classNames from 'classnames'
 
 import { CountryIso } from 'meta/area/countryIso'
-import { MessageTopicStatus, MessageTopicType } from 'meta/messageCenter'
+import { MessageTopicStatus, MessageTopicType } from 'meta/messageCenter/messageTopic'
 
 import { useAppDispatch } from 'client/store/hooks'
 import { MessageCenterActions } from 'client/store/messageCenter/actions'

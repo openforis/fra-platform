@@ -1,7 +1,7 @@
 import { Response } from 'express'
 
 import { CycleDataRequest } from 'meta/api/request'
-import { MessageTopicStatus } from 'meta/messageCenter'
+import { MessageTopicStatus } from 'meta/messageCenter/messageTopic'
 import { Sockets } from 'meta/socket'
 
 import { MessageCenterController } from 'server/controller/messageCenter'

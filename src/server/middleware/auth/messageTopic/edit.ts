@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 
 import { CycleParams } from 'meta/api/request'
-import { MessageTopicStatus } from 'meta/messageCenter'
+import { MessageTopicStatus } from 'meta/messageCenter/messageTopic'
 import { Users } from 'meta/user'
 
 import { MessageCenterController } from 'server/controller/messageCenter'

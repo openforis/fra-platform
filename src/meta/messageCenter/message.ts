@@ -1,11 +1,11 @@
 import { User } from 'meta/user'
 
 export interface Message {
-  id: number
-  topicId: number
-  userId: number
-  message: string
-  deleted: boolean
   createdTime: string
+  deleted: boolean
+  id: number
+  message: string
+  topicId: number
   user?: User
+  userId: number
 }
