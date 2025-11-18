@@ -3,7 +3,7 @@ import 'client/pages/Kiosk/Kiosk.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Routes } from 'meta/routes'
+import { Routes } from 'meta/routes/routes'
 
 import Card from 'client/pages/Kiosk/components/Card/'
 import { KioskCardProps } from 'client/pages/Kiosk/components/Card/types'

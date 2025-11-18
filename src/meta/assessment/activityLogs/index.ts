@@ -8,7 +8,7 @@ import { AssessmentName } from 'meta/assessment/assessment'
 import { Cycle, CycleName } from 'meta/assessment/cycle'
 import { Labels } from 'meta/assessment/labels'
 import { SectionName, SectionNames, SubSection } from 'meta/assessment/section'
-import { Routes } from 'meta/routes'
+import { Routes } from 'meta/routes/routes'
 import { RoleName, Users } from 'meta/user'
 
 const messageToKey: { [key in keyof typeof ActivityLogMessage]?: string } = {

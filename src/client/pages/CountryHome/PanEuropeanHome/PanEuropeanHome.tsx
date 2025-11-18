@@ -2,7 +2,7 @@ import './PanEuropeanHome.scss'
 import React from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 
-import { SectionNames } from 'meta/routes'
+import { SectionNames } from 'meta/routes/sectionNames'
 
 import CountryHeader from 'client/pages/CountryHome/CountryHeader'
 

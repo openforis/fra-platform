@@ -2,7 +2,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useNavigate } from 'react-router-dom'
 
-import { Routes } from 'meta/routes'
+import { Routes } from 'meta/routes/routes'
 
 import { OriginalDataPointActions } from 'client/store/data/originalDataPoint/actions'
 import {
@@ -32,7 +32,7 @@ const ButtonBar: React.FC = () => {
     return null
   }
 
-  const handleDelete = () => {
+  const handleDelete = (): void => {
     // eslint-disable-next-line no-alert
     if (window.confirm(t('nationalDataPoint.confirmDelete'))) {
       dispatch(

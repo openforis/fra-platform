@@ -1,7 +1,7 @@
 import { matchPath, useLocation } from 'react-router-dom'
 
 import { AssessmentNames } from 'meta/assessment/assessment'
-import { Routes } from 'meta/routes'
+import { Routes } from 'meta/routes/routes'
 
 import { useAssessmentRouteParams } from 'client/hooks/routeParams'
 

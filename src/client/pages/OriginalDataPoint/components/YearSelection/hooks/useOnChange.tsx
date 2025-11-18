@@ -1,7 +1,8 @@
 import { SelectHTMLAttributes, useCallback } from 'react'
 
 import { CountryIso } from 'meta/area/countryIso'
-import { Routes, SectionRouteParams } from 'meta/routes'
+import { SectionRouteParams } from 'meta/routes/routeParams/section'
+import { Routes } from 'meta/routes/routes'
 
 import { OriginalDataPointActions } from 'client/store/data/originalDataPoint/actions'
 import { useOriginalDataPoint } from 'client/store/data/originalDataPoint/hooks/originalDataPoint'

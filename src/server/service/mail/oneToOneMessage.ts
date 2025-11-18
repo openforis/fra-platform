@@ -4,7 +4,7 @@ import { CountryIso } from 'meta/area/countryIso'
 import { AssessmentName } from 'meta/assessment/assessment'
 import { Assessments } from 'meta/assessment/assessments'
 import { Lang } from 'meta/lang'
-import { Routes } from 'meta/routes'
+import { Routes } from 'meta/routes/routes'
 import { User, Users } from 'meta/user'
 
 import { sendMail } from './mail'

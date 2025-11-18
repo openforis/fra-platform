@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 
 import classNames from 'classnames'
 
-import { Routes } from 'meta/routes'
+import { Routes } from 'meta/routes/routes'
 
 import { useIsRoute } from 'client/hooks/routes'
 import Icon from 'client/components/Icon'

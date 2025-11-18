@@ -4,7 +4,7 @@ import { Objects } from 'utils/objects'
 
 import { LoginRequest } from 'meta/api/request'
 import { AuthToken } from 'meta/auth'
-import { Routes } from 'meta/routes'
+import { Routes } from 'meta/routes/routes'
 import { User } from 'meta/user'
 
 import { ProcessEnv } from 'server/utils'

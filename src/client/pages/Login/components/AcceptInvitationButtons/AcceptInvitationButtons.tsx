@@ -4,7 +4,8 @@ import { useNavigate } from 'react-router-dom'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { Assessments } from 'meta/assessment/assessments'
-import { LoginInvitationQueryParams, Routes } from 'meta/routes'
+import { LoginInvitationQueryParams } from 'meta/routes/queryParams/invitation'
+import { Routes } from 'meta/routes/routes'
 import { AuthProvider } from 'meta/user'
 
 import { useAcceptInvitationForm, useInvitation } from 'client/store/login/hooks/invitation'

@@ -5,7 +5,7 @@ import { matchPath, NavLink, useLocation } from 'react-router-dom'
 import classNames from 'classnames'
 
 import { Global } from 'meta/area/global'
-import { Routes } from 'meta/routes'
+import { Routes } from 'meta/routes/routes'
 import { TooltipId } from 'meta/tooltip'
 
 import { useCountryRouteParams } from 'client/hooks/routeParams'

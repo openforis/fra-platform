@@ -5,7 +5,8 @@ import { Link, Navigate } from 'react-router-dom'
 import { Objects } from 'utils/objects'
 
 import { Assessments } from 'meta/assessment/assessments'
-import { LoginInvitationQueryParams, Routes } from 'meta/routes'
+import { LoginInvitationQueryParams } from 'meta/routes/queryParams/invitation'
+import { Routes } from 'meta/routes/routes'
 import { AuthProvider, UserInvitations } from 'meta/user'
 
 import { useAppDispatch } from 'client/store/hooks'

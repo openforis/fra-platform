@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 
 import { Areas } from 'meta/area/areas'
-import { SectionNames } from 'meta/routes'
+import { SectionNames } from 'meta/routes/sectionNames'
 import { Users } from 'meta/user'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'

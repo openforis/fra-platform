@@ -8,7 +8,7 @@ import classNames from 'classnames'
 import { Labels } from 'meta/assessment/labels'
 import { SubSection } from 'meta/assessment/section'
 import { SubSections } from 'meta/assessment/subSections'
-import { Routes } from 'meta/routes'
+import { Routes } from 'meta/routes/routes'
 
 import { useAppDispatch } from 'client/store/hooks'
 import { useAssessment } from 'client/store/meta/hooks/assessments'

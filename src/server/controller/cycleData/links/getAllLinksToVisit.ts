@@ -5,7 +5,7 @@ import { OriginalDataPointCommentKey } from 'meta/assessment/originalDataPoint'
 import { SectionNames } from 'meta/assessment/section'
 import { TableNames } from 'meta/assessment/table'
 import { LinkLocation, LinkToVisit } from 'meta/cycleData/links/link'
-import { Routes } from 'meta/routes'
+import { Routes } from 'meta/routes/routes'
 
 import { DescriptionRepository } from 'server/db/repository/assessmentCycle/descriptions'
 import { OriginalDataPointRepository } from 'server/db/repository/assessmentCycle/originalDataPoint'
