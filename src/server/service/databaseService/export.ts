@@ -7,12 +7,13 @@ export type ExportTableProps = {
   schema: string
   table: string
   orderBy?: string
+  where?: string
 }
 
 const exportTable = async (props: ExportTableProps, client: BaseProtocol = DB): Promise<ExportedTableData> => {
-  const { orderBy = 'id', schema, table } = props
+  const { orderBy = 'id', schema, table, where = '1 = 1' } = props
 
-  const rows = await client.manyOrNone(`select * from ${schema}.${table} order by ${orderBy}`)
+  const rows = await client.manyOrNone(`select * from ${schema}.${table} where ${where} order by ${orderBy}`)
 
   return {
     schema,

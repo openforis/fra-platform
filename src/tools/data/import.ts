@@ -3,6 +3,10 @@ import '../scriptInit'
 import * as path from 'path'
 import { ToolsUtils } from 'tools/utils/toolsUtils'
 
+import { AssessmentNames } from 'meta/assessment/assessment'
+
+import { AssessmentController } from 'server/controller/assessment'
+import { TableData } from 'server/controller/cycleData/tableData'
 import { DB } from 'server/db/db'
 import { AssessmentRepository } from 'server/db/repository/assessment/assessment'
 import { Schemas } from 'server/db/schemas'
@@ -32,6 +36,11 @@ const exec = async (): Promise<void> => {
         const schemaAssessment = Schemas.getSchemaAssessment({ assessmentName })
         const schemaCycle = Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName })
         await DB.query(AssessmentRepository.getCreateSchemaCycleDDL(schemaAssessment, schemaCycle))
+
+        // create odp data tables for fra
+        if ([AssessmentNames.fra, AssessmentNames.fraTest].includes(assessmentName)) {
+          await DB.query(AssessmentRepository.getCreateSchemaCycleOriginalDataPointViewDDL(schemaCycle))
+        }
       })
     )
   )
@@ -44,6 +53,16 @@ const exec = async (): Promise<void> => {
     })
 
     await DatabaseService.importTables(allData, t)
+
+    // create views
+    const assessments = await AssessmentController.getAll({}, t)
+    await Promise.all(
+      assessments.flatMap((assessment) =>
+        assessment.cycles.map(async (cycle) => {
+          await TableData.refreshViews({ assessment, cycle }, t)
+        })
+      )
+    )
   })
 }
 
