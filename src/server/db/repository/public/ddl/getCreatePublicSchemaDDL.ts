@@ -55,44 +55,57 @@ export const getUsersInvitationDDL = (schemaName = 'public'): string => {
   `
 }
 
-export const getCreatePublicSchemaDDL = (schemaName = 'public'): string => {
-  const query = `
-    -- Extensions
+const _getExtensions = (): string => {
+  return `
+      -- Extensions
     create extension if not exists "uuid-ossp";
+  `
+}
 
-    -- Enums    
+const _getEnums = (): string => {
+  return `
+  
+    -- Enums - create enums in default search path
     do $$ begin
       if not exists (select 1 from pg_type where typname = 'users_status') then
-        create type ${schemaName}.users_status as enum ('invitationPending', 'active', 'disabled');
+        create type users_status as enum ('invitationPending', 'active', 'disabled');
       end if;
     end $$;
 
     do $$ begin
       if not exists (select 1 from pg_type where typname = 'auth_provider') then
-        create type ${schemaName}.auth_provider as enum ('local', 'google');
+        create type auth_provider as enum ('local', 'google');
       end if;
     end $$;
 
     do $$ begin
       if not exists (select 1 from pg_type where typname = 'user_role') then
-        create type ${schemaName}.user_role as enum ('ADMINISTRATOR', 'COLLABORATOR', 'NATIONAL_CORRESPONDENT', 'ALTERNATE_NATIONAL_CORRESPONDENT', 'REVIEWER', 'VIEWER');
+        create type user_role as enum ('ADMINISTRATOR', 'COLLABORATOR', 'NATIONAL_CORRESPONDENT', 'ALTERNATE_NATIONAL_CORRESPONDENT', 'REVIEWER', 'VIEWER');
       end if;
     end $$;
     
     -- Enums: Message topic
     do $$
     begin
-        create type ${schemaName}.message_topic_status as enum ('opened', 'resolved');
+        create type message_topic_status as enum ('opened', 'resolved');
     exception
         when duplicate_object then null;
     end $$;
     
     do $$
     begin
-        create type ${schemaName}.message_topic_type as enum ('review', 'chat', 'messageboard');
+        create type message_topic_type as enum ('review', 'chat', 'messageboard');
     exception
         when duplicate_object then null;
     end $$;
+
+  `
+}
+
+export const getCreatePublicSchemaDDL = (schemaName = 'public'): string => {
+  const query = `
+      ${_getExtensions()}
+      ${_getEnums()}
 
     -- Tables
     create table if not exists ${schemaName}.assessment (
