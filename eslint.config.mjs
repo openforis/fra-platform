@@ -14,12 +14,7 @@ import globals from 'globals'
 
 export default defineConfig([
   {
-    ignores: [
-      '**/node_modules/**',
-      '**/dist/**',
-      '**/build/**',
-      'src/tools/migrations/steps/steps/template.ts',
-    ],
+    ignores: ['**/node_modules/**', '**/dist/**', '**/build/**', 'src/tools/migrations/steps/steps/template.ts'],
   },
   js.configs.recommended,
   ...tseslint.configs.recommended,
@@ -69,7 +64,43 @@ export default defineConfig([
       },
     },
     rules: {
+      camelcase: [
+        'error',
+        {
+          properties: 'never',
+          ignoreDestructuring: false,
+        },
+      ],
+      '@typescript-eslint/no-var-requires': 'error',
+      'class-methods-use-this': 'error',
+      'global-require': 'error',
+      'import/no-dynamic-require': 'error',
+      'max-classes-per-file': ['error', 1],
+      'no-alert': 'error',
+      'no-await-in-loop': 'error',
+      'no-promise-executor-return': 'error',
+      'no-restricted-syntax': [
+        'error',
+        {
+          selector: 'ForInStatement',
+          message: 'for..in loops iterate over the entire prototype chain; use Object.{keys,values,entries} instead.',
+        },
+        {
+          selector: 'ForOfStatement',
+          message:
+            'for..of loops are not allowed by this project style; consider Array.forEach or a classic for loop instead.',
+        },
+        {
+          selector: 'LabeledStatement',
+          message: 'Labels are a form of goto; they make code harder to read and maintain.',
+        },
+        {
+          selector: 'WithStatement',
+          message: '`with` is disallowed in strict mode and makes code hard to reason about.',
+        },
+      ],
       'no-underscore-dangle': 'off',
+      'react/jsx-props-no-spreading': 'error',
       'react/jsx-filename-extension': ['warn', { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
       'react/forbid-prop-types': 'off',
       'react/prop-types': 'off',
