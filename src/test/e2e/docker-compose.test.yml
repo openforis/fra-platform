@@ -10,7 +10,6 @@ services:
       - '5432:5432'
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ../../../db/backup:/docker-entrypoint-initdb.d/backup
       - ./init-db:/docker-entrypoint-initdb.d
       - ./healthcheck.sh:/healthcheck.sh
     healthcheck:
