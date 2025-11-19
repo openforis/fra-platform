@@ -2,7 +2,7 @@ import IORedis from 'ioredis'
 import Redlock, { Lock } from 'redlock'
 
 import { ProcessEnv } from 'server/utils'
-import { JobStatus } from 'server/worker/jobs/jobStatus'
+import { JobStatus } from 'server/worker/job/jobStatus'
 
 export class JobLock {
   #name: string
