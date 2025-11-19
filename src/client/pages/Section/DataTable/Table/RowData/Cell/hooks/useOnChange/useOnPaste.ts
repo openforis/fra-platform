@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 
-import { NodesBodyValue } from 'meta/api/request'
+import { NodesBodyValue } from 'meta/api/request/cycleData/table'
 import { ColType } from 'meta/assessment/col'
 import { Cols } from 'meta/assessment/cols'
 import { NodeValue } from 'meta/assessment/node'

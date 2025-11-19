@@ -1,7 +1,8 @@
 import { CountryIso } from 'meta/area/countryIso'
-import { RoleName, User, UserRole } from 'meta/user'
-import { UserProps } from 'meta/user/user'
-import { CollaboratorPermissionsNEW } from 'meta/user/userRole'
+import { CollaboratorPermissions } from 'meta/user/role/collaborator'
+import { RoleName } from 'meta/user/role/name'
+import { UserRole } from 'meta/user/role/role'
+import { User, UserProps } from 'meta/user/user'
 
 export type UserForm = Pick<User, 'email' | 'id' | 'uuid'> & {
   disabled?: boolean
@@ -23,7 +24,7 @@ export type UserEditCountryForm = {
   profilePicture?: File
   user: UserForm
   role?: Pick<UserRole, 'uuid'> & {
-    permissions?: CollaboratorPermissionsNEW
+    permissions?: CollaboratorPermissions
     props?: Partial<UserRole['props']>
     role?: RoleName
   }

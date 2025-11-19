@@ -3,7 +3,7 @@ import { CycleUuid } from 'meta/assessment/cycle'
 import { CycledPropsObject } from 'meta/assessment/cycledObject'
 import { VariableCache } from 'meta/assessment/metaCache'
 import { VariableName } from 'meta/assessment/variable'
-import { UUID } from 'meta/uuid'
+import { UUID } from 'meta/uuid/uuid'
 
 export enum RowType {
   header = 'header',

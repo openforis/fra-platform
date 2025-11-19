@@ -5,7 +5,7 @@ import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { Lang } from 'meta/lang'
-import { Translations } from 'meta/translation'
+import { Translations } from 'meta/translation/translations'
 
 import { RepositoryRepository } from 'server/db/repository/assessmentCycle/repository'
 import { FileRepository } from 'server/db/repository/public/file'

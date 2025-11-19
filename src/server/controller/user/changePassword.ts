@@ -1,4 +1,4 @@
-import { UserResetPassword } from 'meta/user'
+import { UserResetPassword } from 'meta/user/resetPassword'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { UserRepository } from 'server/db/repository/public/user'

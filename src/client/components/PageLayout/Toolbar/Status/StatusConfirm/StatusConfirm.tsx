@@ -9,7 +9,7 @@ import { Objects } from 'utils/objects'
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CountryStatus } from 'meta/area/countryStatus'
 import { AssessmentName } from 'meta/assessment/assessment'
-import { Users } from 'meta/user'
+import { Users } from 'meta/user/users'
 
 import { AreaActions } from 'client/store/area/actions'
 import { useAssessmentCountry } from 'client/store/area/hooks/country'

@@ -1,8 +1,8 @@
 import 'tsconfig-paths/register'
 import 'dotenv/config'
 
-import { DB } from 'server/db/db'
 import { passwordHash } from 'server/api/auth/utils/passwordUtils'
+import { DB } from 'server/db/db'
 import { Logger } from 'server/utils/logger'
 
 const ADMIN = {
@@ -16,7 +16,7 @@ const exec = async (): Promise<void> => {
   const user = await DB.one(
     `
         insert into public.users (status, email, props)
-        values ('active', '${ADMIN.email}', jsonb_build_object('name', '${ADMIN.name}', 'lang', 'en')) returning id;
+        values ('active', '${ADMIN.email}', jsonb_build_object('name', '${ADMIN.name}', 'lang', 'en')) returning id, uuid;
     `
   )
 
@@ -29,8 +29,8 @@ const exec = async (): Promise<void> => {
 
   await DB.none(
     `
-        insert into public.users_role (user_id, role, props)
-        values (${user.id}, 'ADMINISTRATOR', '{}')
+        insert into public.users_role (user_uuid, role, props)
+        values ('${user.uuid}', 'ADMINISTRATOR', '{}')
     `
   )
 }

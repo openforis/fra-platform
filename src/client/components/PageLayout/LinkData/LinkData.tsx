@@ -11,7 +11,7 @@ import { CountryIso } from 'meta/area/countryIso'
 import { Global } from 'meta/area/global'
 import { AssessmentNames } from 'meta/assessment/assessment'
 import { Routes } from 'meta/routes/routes'
-import { TooltipId } from 'meta/tooltip'
+import { TooltipId } from 'meta/tooltip/id'
 
 import { useSectionRouteParams } from 'client/hooks/routeParams'
 import { useIsCountryRoute, useIsGeoRoute } from 'client/hooks/routes'

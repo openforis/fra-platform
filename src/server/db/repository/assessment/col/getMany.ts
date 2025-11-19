@@ -1,6 +1,6 @@
 import { Assessment } from 'meta/assessment/assessment'
 import { Col, ColType } from 'meta/assessment/col'
-import { UUID } from 'meta/uuid'
+import { UUID } from 'meta/uuid/uuid'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { ColAdapter } from 'server/db/repository/adapter/col'

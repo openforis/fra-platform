@@ -1,8 +1,8 @@
 import { Response } from 'express'
 
 import { TablePaginatedCountRequest } from 'meta/api/request/tablePaginated'
-import { TablePaginateds } from 'meta/tablePaginated'
-import { LinksFilters } from 'meta/tablePaginated/links'
+import { LinksFilters } from 'meta/tablePaginated/filters/links'
+import { TablePaginateds } from 'meta/tablePaginated/tablePaginateds'
 
 import { CycleDataController } from 'server/controller/cycleData'
 import Requests from 'server/utils/requests'

@@ -2,7 +2,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { CountryIso } from 'meta/area/countryIso'
-import { CountryUserSummaries } from 'meta/user/countryUserSummaries'
+import { UserCountrySummaries } from 'meta/user/countrySummaries'
 
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
@@ -17,7 +17,7 @@ const Information: React.FC<Props> = (props: Props) => {
 
   const { t } = useTranslation()
 
-  if (!CountryUserSummaries.isInvitation(user, countryIso)) {
+  if (!UserCountrySummaries.isInvitation(user, countryIso)) {
     return null
   }
 

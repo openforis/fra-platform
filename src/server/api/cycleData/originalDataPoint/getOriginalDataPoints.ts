@@ -1,11 +1,11 @@
 import { Response } from 'express'
 
-import { CycleRequest } from 'meta/api/request'
+import { CountryRequest } from 'meta/api/request/country'
 
 import { CycleDataController } from 'server/controller/cycleData'
 import { Requests } from 'server/utils'
 
-export const getOriginalDataPoints = async (req: CycleRequest, res: Response): Promise<void> => {
+export const getOriginalDataPoints = async (req: CountryRequest, res: Response): Promise<void> => {
   try {
     const { countryIso } = req.query
     const { assessment, cycle } = req.context

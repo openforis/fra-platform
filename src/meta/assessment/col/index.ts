@@ -6,7 +6,7 @@ import { CycledPropsObject } from 'meta/assessment/cycledObject'
 import { Label } from 'meta/assessment/label'
 import { TableName } from 'meta/assessment/table'
 import { VariableName } from 'meta/assessment/variable'
-import { UUID } from 'meta/uuid'
+import { UUID } from 'meta/uuid/uuid'
 
 export type ColName = string
 export type InputPlaceholder = string

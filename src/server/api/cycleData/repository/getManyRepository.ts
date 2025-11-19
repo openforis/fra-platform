@@ -1,20 +1,18 @@
 import { Response } from 'express'
 
-import { CycleRequest } from 'meta/api/request'
+import { CountryRequest } from 'meta/api/request/country'
 
 import { CycleDataController } from 'server/controller/cycleData'
 import Requests from 'server/utils/requests'
 
-type Request = CycleRequest & {
-  global: boolean
-}
+type Request = CountryRequest<{ global: string }>
 
 export const getManyRepository = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { countryIso, global } = req.query
+    const { countryIso, global = 'false' } = req.query
     const { assessment, cycle } = req.context
 
-    const props = { assessment, cycle, countryIso, global }
+    const props = { assessment, cycle, countryIso, global: JSON.parse(global) }
     const items = await CycleDataController.Repository.getMany(props)
 
     Requests.send(res, items)

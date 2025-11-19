@@ -2,7 +2,9 @@ import { useMemo } from 'react'
 
 import { CountryIso } from 'meta/area/countryIso'
 import { Cycle } from 'meta/assessment/cycle'
-import { RoleName, User, Users } from 'meta/user'
+import { RoleName } from 'meta/user/role/name'
+import { User } from 'meta/user/user'
+import { Users } from 'meta/user/users'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useCountryRouteParams } from 'client/hooks/routeParams'

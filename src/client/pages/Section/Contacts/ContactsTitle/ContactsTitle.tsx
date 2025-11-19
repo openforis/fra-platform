@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import { CountryProps } from 'meta/area/country'
 import { CountryIso } from 'meta/area/countryIso'
-import { Users } from 'meta/user'
+import { Users } from 'meta/user/users'
 
 import { AreaActions } from 'client/store/area/actions'
 import { useCountry } from 'client/store/area/hooks/country'

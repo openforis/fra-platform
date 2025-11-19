@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 
 import { CountryIso } from 'meta/area/countryIso'
-import { Users } from 'meta/user'
+import { Users } from 'meta/user/users'
 
 import { ExplorerSelectionActions } from 'client/store/explorer/selection/actions'
 import { useExplorerCountries } from 'client/store/explorer/selection/hooks/countries'

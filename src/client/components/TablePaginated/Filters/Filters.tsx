@@ -1,7 +1,7 @@
 import './Filters.scss'
 import React from 'react'
 
-import { TablePaginatedFilterType } from 'meta/tablePaginated'
+import { TablePaginatedFilterType } from 'meta/tablePaginated/filters/filter'
 
 import Icon from 'client/components/Icon'
 import Country from 'client/components/TablePaginated/Filters/Country'

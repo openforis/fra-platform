@@ -1,11 +1,11 @@
 import { Response } from 'express'
 
-import { CycleRequest } from 'meta/api/request'
+import { CountryRequest } from 'meta/api/request/country'
 
 import { CycleDataController } from 'server/controller/cycleData'
 import Requests from 'server/utils/requests'
 
-type Request = CycleRequest<never, { id: string; index: number }>
+type Request = CountryRequest<never, { id: string; index: number }>
 
 export const deleteOriginalDataPointNationalClass = async (req: Request, res: Response): Promise<void> => {
   try {

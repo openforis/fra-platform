@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 
-import { Users } from 'meta/user'
+import { Users } from 'meta/user/users'
 
 import { _next } from 'server/middleware/auth/_next'
 import { Requests } from 'server/utils'

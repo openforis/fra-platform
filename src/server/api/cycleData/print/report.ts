@@ -3,7 +3,7 @@ import puppeteer, { PDFOptions } from 'puppeteer'
 import { Objects } from 'utils/objects'
 import { Promises } from 'utils/promises'
 
-import { CycleRequest } from 'meta/api/request'
+import { CountryRequest } from 'meta/api/request/country'
 import { Lang } from 'meta/lang'
 
 import { AreaController } from 'server/controller/area'
@@ -11,7 +11,7 @@ import { CycleDataController } from 'server/controller/cycleData'
 import Requests from 'server/utils/requests'
 import { Responses } from 'server/utils/responses'
 
-type Request = CycleRequest<{ force?: string; lang: Lang; onlyTables?: string }>
+type Request = CountryRequest<{ force?: string; lang: Lang; onlyTables?: string }>
 
 const margin = '5mm'
 const pdfOptions: PDFOptions = {

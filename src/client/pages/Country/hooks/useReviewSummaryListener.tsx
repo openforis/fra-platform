@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-import { Sockets } from 'meta/socket'
+import { Sockets } from 'meta/socket/sockets'
 
 import { useAppDispatch } from 'client/store/hooks'
 import { ReviewActions } from 'client/store/review/actions'

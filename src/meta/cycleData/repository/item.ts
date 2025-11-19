@@ -1,5 +1,5 @@
 import { AreaCode } from 'meta/area/areaCode'
-import { Translation } from 'meta/translation'
+import { Translation } from 'meta/translation/translation'
 
 export interface RepositoryItemProps {
   hidden?: boolean // File not visible in UI

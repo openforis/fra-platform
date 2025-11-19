@@ -1,7 +1,7 @@
 import { Objects } from 'utils/objects'
 
 import { Table, TableProps } from 'meta/assessment/table'
-import { UUID } from 'meta/uuid'
+import { UUID } from 'meta/uuid/uuid'
 
 import { RowAdapter, RowDB } from 'server/db/repository/adapter/row'
 

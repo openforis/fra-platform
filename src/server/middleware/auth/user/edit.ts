@@ -1,7 +1,7 @@
 import { NextFunction, Response } from 'express'
 
 import { UserEditRequest } from 'meta/api/request/user/edit'
-import { Authorizer } from 'meta/user'
+import { Authorizer } from 'meta/auth/authorizer'
 
 import { UserController } from 'server/controller/user'
 import { _next } from 'server/middleware/auth/_next'

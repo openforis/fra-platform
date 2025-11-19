@@ -9,7 +9,8 @@ import { Cycle, CycleName } from 'meta/assessment/cycle'
 import { Labels } from 'meta/assessment/labels'
 import { SectionName, SectionNames, SubSection } from 'meta/assessment/section'
 import { Routes } from 'meta/routes/routes'
-import { RoleName, Users } from 'meta/user'
+import { RoleName } from 'meta/user/role/name'
+import { Users } from 'meta/user/users'
 
 const messageToKey: { [key in keyof typeof ActivityLogMessage]?: string } = {
   [ActivityLogMessage.assessmentStatusUpdate]: 'updateAssessmentStatus',

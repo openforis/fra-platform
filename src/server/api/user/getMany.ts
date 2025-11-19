@@ -1,13 +1,13 @@
 import { Response } from 'express'
 
-import { CycleRequest } from 'meta/api/request'
-import { UserFilters } from 'meta/tablePaginated/users'
-import { UserStatus } from 'meta/user'
+import { CountryRequest } from 'meta/api/request/country'
+import { UserFilters } from 'meta/tablePaginated/filters/users'
+import { UserStatus } from 'meta/user/user'
 
 import { UserController } from 'server/controller/user'
 import Requests from 'server/utils/requests'
 
-export const getMany = async (req: CycleRequest, res: Response): Promise<void> => {
+export const getMany = async (req: CountryRequest, res: Response): Promise<void> => {
   try {
     const { countryIso } = req.query
 

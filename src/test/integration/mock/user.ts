@@ -1,5 +1,5 @@
 import { Lang } from 'meta/lang'
-import { User } from 'meta/user'
+import { User } from 'meta/user/user'
 
 export const userMockTest: Pick<User, 'email' | 'props'> = {
   email: 'test@fra-platform.com',

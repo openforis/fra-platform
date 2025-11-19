@@ -5,7 +5,7 @@ import axios from 'axios'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { AssessmentName } from 'meta/assessment/assessment'
-import { UUIDs } from 'meta/uuid'
+import { UUIDs } from 'meta/uuid/uuids'
 
 import { NotificationActions } from 'client/store/ui/notification/actions'
 import { NotificationMessage } from 'client/store/ui/notification/state'

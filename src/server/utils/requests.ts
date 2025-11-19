@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import { Objects } from 'utils/objects'
 
-import { User } from 'meta/user'
+import { User } from 'meta/user/user'
 
 import { ProcessEnv } from 'server/utils/processEnv'
 

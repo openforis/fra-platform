@@ -2,7 +2,7 @@ import { Job } from 'bullmq'
 
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { User } from 'meta/user'
+import { User } from 'meta/user/user'
 
 export type VisitCycleLinksProps = {
   assessment: Assessment

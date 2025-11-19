@@ -3,7 +3,7 @@ import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import MediaQuery from 'react-responsive'
 
-import { TooltipId } from 'meta/tooltip'
+import { TooltipId } from 'meta/tooltip/id'
 
 import { HistoryActions } from 'client/store/data/history/actions'
 import { useHistoryLastApprovedIsActive } from 'client/store/data/history/hooks/lastApproved'

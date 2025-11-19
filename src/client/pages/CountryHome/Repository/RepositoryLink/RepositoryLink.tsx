@@ -3,7 +3,7 @@ import React from 'react'
 
 import { RepositoryItem } from 'meta/cycleData/repository/item'
 import { RepositoryItems } from 'meta/cycleData/repository/items'
-import { Translations } from 'meta/translation'
+import { Translations } from 'meta/translation/translations'
 
 import { useLanguage } from 'client/hooks/language'
 import { useCountryRouteParams } from 'client/hooks/routeParams'

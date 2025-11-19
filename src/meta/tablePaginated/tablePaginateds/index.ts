@@ -1,0 +1,1 @@
+export { TablePaginateds } from './tablePaginateds'

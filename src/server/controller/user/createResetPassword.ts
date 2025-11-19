@@ -1,5 +1,6 @@
 import { AssessmentName } from 'meta/assessment/assessment'
-import { User, UserResetPassword } from 'meta/user'
+import { UserResetPassword } from 'meta/user/resetPassword'
+import { User } from 'meta/user/user'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { UserResetPasswordRepository } from 'server/db/repository/public/userResetPassword'

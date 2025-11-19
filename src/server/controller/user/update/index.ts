@@ -1,4 +1,4 @@
-import { User } from 'meta/user'
+import { User } from 'meta/user/user'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { UserRepository } from 'server/db/repository/public/user'

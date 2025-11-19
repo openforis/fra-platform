@@ -2,10 +2,10 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { CycleParams } from 'meta/api/request'
+import { CountryParams } from 'meta/api/request/country'
 import { ExplorerMetadata } from 'meta/explorer/metadata'
 
-type Params = CycleParams & { sectionNames: Array<string> }
+type Params = CountryParams & { sectionNames: Array<string> }
 
 type Returned = Record<string, ExplorerMetadata>
 

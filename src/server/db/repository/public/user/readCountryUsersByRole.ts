@@ -1,6 +1,7 @@
 import { CountryIso } from 'meta/area/countryIso'
 import { Cycle } from 'meta/assessment/cycle'
-import { RoleName, User } from 'meta/user'
+import { RoleName } from 'meta/user/role/name'
+import { User } from 'meta/user/user'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { UserAdapter } from 'server/db/repository/adapter/user'

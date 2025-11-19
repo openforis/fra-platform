@@ -5,11 +5,12 @@ import { ToolsUtils } from 'tools/utils/toolsUtils'
 import { Objects } from 'utils/objects'
 
 import { AssessmentNames } from 'meta/assessment/assessment'
-import { RoleName, User } from 'meta/user'
+import { RoleName } from 'meta/user/role/name'
+import { User } from 'meta/user/user'
 
-import { BaseProtocol, DB } from 'server/db/db'
 import { AssessmentController } from 'server/controller/assessment'
 import { UserController } from 'server/controller/user'
+import { BaseProtocol, DB } from 'server/db/db'
 
 const client: BaseProtocol = DB
 

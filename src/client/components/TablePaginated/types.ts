@@ -1,6 +1,8 @@
 import React from 'react'
 
-import { TablePaginatedCompareFn, TablePaginatedCount, TablePaginatedFilterType } from 'meta/tablePaginated'
+import { TablePaginatedCompareFn } from 'meta/tablePaginated/compareFn'
+import { TablePaginatedCount } from 'meta/tablePaginated/count'
+import { TablePaginatedFilterType } from 'meta/tablePaginated/filters/filter'
 
 export type ColumnComponentProps<Datum> = {
   datum: Datum

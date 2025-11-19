@@ -1,5 +1,5 @@
 import { CommentableDescriptionName, CommentableDescriptionValue } from 'meta/assessment/descriptionValue'
-import { User } from 'meta/user'
+import { User } from 'meta/user/user'
 
 export enum ActivityLogMessage {
   assessmentCreate = 'assessmentCreate',

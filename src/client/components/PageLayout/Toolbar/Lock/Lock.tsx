@@ -5,7 +5,7 @@ import MediaQuery from 'react-responsive'
 
 import classNames from 'classnames'
 
-import { TooltipId } from 'meta/tooltip'
+import { TooltipId } from 'meta/tooltip/id'
 
 import { HistoryActions } from 'client/store/data/history/actions'
 import { useHistoryActivitiesIsActive } from 'client/store/data/history/hooks/activities'

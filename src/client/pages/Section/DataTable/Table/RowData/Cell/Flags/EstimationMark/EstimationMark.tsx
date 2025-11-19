@@ -1,7 +1,7 @@
 import './EstimationMark.scss'
 import React from 'react'
 
-import { TooltipId } from 'meta/tooltip'
+import { TooltipId } from 'meta/tooltip/id'
 
 import Flag from '../Flag'
 import { useEstimationDetails } from './hooks/useEstimationDetails'

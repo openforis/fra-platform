@@ -1,7 +1,7 @@
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { Assessment } from 'meta/assessment/assessment'
 import { TableSection } from 'meta/assessment/tableSection'
-import { User } from 'meta/user'
+import { User } from 'meta/user/user'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { TableSectionRepository } from 'server/db/repository/assessment/tableSection'

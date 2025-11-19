@@ -1,6 +1,6 @@
 import { Assessment } from 'meta/assessment/assessment'
 import { Section, SubSection } from 'meta/assessment/section'
-import { UUID } from 'meta/uuid'
+import { UUID } from 'meta/uuid/uuid'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { SectionAdapter, SubSectionAdapter } from 'server/db/repository/adapter'

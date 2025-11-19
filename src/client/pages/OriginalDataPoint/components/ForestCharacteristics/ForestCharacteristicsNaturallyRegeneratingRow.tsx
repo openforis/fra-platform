@@ -8,7 +8,7 @@ import { ODPs } from 'meta/assessment/odps'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { SectionNames } from 'meta/assessment/section'
 import { Topics } from 'meta/messageCenter/topics'
-import { TooltipId } from 'meta/tooltip'
+import { TooltipId } from 'meta/tooltip/id'
 
 import DiffText from 'client/components/DiffText'
 import InputPercent from 'client/components/Inputs/InputPercent'

@@ -1,7 +1,7 @@
 import { TableName } from 'meta/assessment/table'
 import { Unit } from 'meta/measurement/unit'
 import { UnitName } from 'meta/measurement/unitName'
-import { UUID } from 'meta/uuid'
+import { UUID } from 'meta/uuid/uuid'
 
 export type SystemOfMeasurementDB = {
   baseUnitUUID: UUID

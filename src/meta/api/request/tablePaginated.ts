@@ -5,7 +5,7 @@ import { AssessmentName } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
 import { SectionName } from 'meta/assessment/section'
 import { Lang } from 'meta/lang'
-import { TablePaginatedOrderByDirection } from 'meta/tablePaginated'
+import { TablePaginatedOrderByDirection } from 'meta/tablePaginated/orderBy'
 
 export type TablePaginatedBaseParams = {
   assessmentName: AssessmentName

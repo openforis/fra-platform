@@ -3,7 +3,7 @@ import { Contact } from 'meta/cycleData/contact/contact'
 import { ContactField } from 'meta/cycleData/contact/field'
 import { newContactNode } from 'meta/cycleData/contacts/newContactNode'
 import { NodeExtType } from 'meta/nodeExt/nodeExt'
-import { UUIDs } from 'meta/uuid'
+import { UUIDs } from 'meta/uuid/uuids'
 
 type Props = {
   countryIso: CountryIso

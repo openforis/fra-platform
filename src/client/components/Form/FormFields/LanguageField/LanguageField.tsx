@@ -9,7 +9,7 @@ import { Option } from 'client/components/Inputs/Select'
 
 import { FieldProps } from '../types'
 
-const LanguageField = (props: FieldProps) => {
+const LanguageField: React.FC<FieldProps> = (props) => {
   const { fieldDefinition: _fieldDefinition } = props
 
   const { t } = useTranslation()
