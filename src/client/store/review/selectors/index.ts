@@ -1,6 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit'
 
-import { UUID } from 'meta/uuid'
+import { UUID } from 'meta/uuid/uuid'
 
 import { ReviewSlice } from 'client/store/review/slice'
 import { RootState } from 'client/store/types'

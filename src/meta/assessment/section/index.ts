@@ -2,7 +2,7 @@ import { CycleUuid } from 'meta/assessment/cycle'
 import { CycledPropsObject } from 'meta/assessment/cycledObject'
 import { Descriptions } from 'meta/assessment/description'
 import { Label } from 'meta/assessment/label'
-import { UUID } from 'meta/uuid'
+import { UUID } from 'meta/uuid/uuid'
 
 export type SectionName = string
 

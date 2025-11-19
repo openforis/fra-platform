@@ -1,7 +1,7 @@
 import { Objects } from 'utils/objects'
 
 import { TableSection, TableSectionProps } from 'meta/assessment/tableSection'
-import { UUID } from 'meta/uuid'
+import { UUID } from 'meta/uuid/uuid'
 
 import { TableAdapter, TableDB } from 'server/db/repository/adapter/table'
 

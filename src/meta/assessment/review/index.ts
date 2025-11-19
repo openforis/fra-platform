@@ -1,5 +1,5 @@
 import { MessageTopicStatus } from 'meta/messageCenter/messageTopic'
-import { UUID } from 'meta/uuid'
+import { UUID } from 'meta/uuid/uuid'
 
 export interface ReviewStatus {
   hasUnreadMessages: boolean

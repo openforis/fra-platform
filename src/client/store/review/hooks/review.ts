@@ -1,7 +1,7 @@
 import { ReviewStatus } from 'meta/assessment/review'
 import { MessageTopicStatus } from 'meta/messageCenter/messageTopic'
 import { Topics } from 'meta/messageCenter/topics'
-import { UUID } from 'meta/uuid'
+import { UUID } from 'meta/uuid/uuid'
 
 import { useAppSelector } from 'client/store/hooks'
 import { ReviewSelectors } from 'client/store/review/selectors'
