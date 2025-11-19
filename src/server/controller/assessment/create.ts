@@ -11,7 +11,7 @@ type Props = { user: User; assessment: Pick<Assessment, 'props'> }
 
 export const create = async (props: Props, client: BaseProtocol = DB): Promise<Assessment> => {
   const { assessment, user } = props
-  await AssessmentRepository.createAssessmentSchema({ assessment })
+  await AssessmentRepository.createAssessmentSchema({ assessmentName: assessment.props.name })
 
   return client.tx(async (t) => {
     const assessmentBase = await AssessmentRepository.createAssessment({ assessment }, t)
