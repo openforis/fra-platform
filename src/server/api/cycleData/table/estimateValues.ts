@@ -5,7 +5,7 @@ import { EstimateBody } from 'meta/api/request/cycleData/table'
 import { NodeValueEstimationMethod, NodeValuesEstimation } from 'meta/assessment/nodeValuesEstimation'
 import { Table, TableNames } from 'meta/assessment/table'
 import { RecordAssessmentDatas } from 'meta/data/recordDatas'
-import { UUIDs } from 'meta/uuid'
+import { UUIDs } from 'meta/uuid/uuids'
 
 import { CycleDataController } from 'server/controller/cycleData'
 import { MetadataController } from 'server/controller/metadata'

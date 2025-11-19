@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Objects } from 'utils/objects'
 import { z } from 'zod'
 
-import { UUIDs } from 'meta/uuid'
+import { UUIDs } from 'meta/uuid/uuids'
 
 import { useAppDispatch } from 'client/store/hooks'
 import { NotificationActions } from 'client/store/ui/notification/actions'
@@ -22,7 +22,7 @@ const defaults = {
   validationSchema: z.any(),
 }
 
-const getSchemaFieldPath = (schema: FormValidationSchema | z.ZodAny, fieldPath: Array<string>) => {
+const getSchemaFieldPath = (schema: FormValidationSchema | z.ZodAny, fieldPath: Array<string>): typeof schema => {
   const schemaPath = fieldPath.flatMap((field) => ['shape', field])
   return Objects.getInPath(schema, schemaPath)
 }
@@ -56,12 +56,12 @@ const Form: React.FC<FormProps> = (props) => {
       action={action}
       control={control}
       method={method}
-      onError={async ({ response }) => {
+      onError={async ({ response }): Promise<void> => {
         const { error: message, params } = await response.json()
         dispatch(NotificationActions.addMessage({ id: UUIDs.getUuid(), type: 'error', message, params }))
       }}
       onSubmit={onSubmit}
-      onSuccess={() => onSuccess?.(watchValues)}
+      onSuccess={(): void => onSuccess?.(watchValues)}
     >
       <DataGrid className="form-grid" gridTemplateColumns="max-content 1fr">
         {fields.map((fieldDefinition) => {

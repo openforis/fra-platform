@@ -1,6 +1,6 @@
 import { NodeValueEstimationMethod, NodeValuesEstimation } from 'meta/assessment/nodeValuesEstimation'
 import { NodeUpdate } from 'meta/data/nodeUpdates'
-import { UUIDs } from 'meta/uuid'
+import { UUIDs } from 'meta/uuid/uuids'
 
 import { dataset1, dataset1Expected } from 'server/service/estimates/datasets/dataset1'
 import { dataset2, dataset2Expected } from 'server/service/estimates/datasets/dataset2'
