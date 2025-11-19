@@ -3,7 +3,6 @@ import { Promises } from 'utils/promises'
 import { AssessmentController } from 'server/controller/assessment'
 import { FileRepository } from 'server/db/repository/public/file'
 import { FileStorage } from 'server/service/fileStorage'
-import { Logger } from 'server/utils/logger'
 import { Job } from 'server/worker/job/job'
 
 const name = 'Scheduler-FileCleanup'
@@ -23,10 +22,7 @@ export class CleanUpFiles extends Job {
       // Remove S3 files
       await Promises.each(files, async (file) => {
         await FileStorage.File.remove({ key: file.uuid })
-      })
-
-      files.forEach((file) => {
-        Logger.info(`[${name}] removed file ${file.name} (${file.uuid})`)
+        this.logInfo(`removed file ${file.name} (${file.uuid})`)
       })
     }
   }
