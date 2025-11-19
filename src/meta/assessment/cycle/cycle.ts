@@ -1,4 +1,4 @@
-import { UUID } from 'meta/uuid'
+import { UUID } from 'meta/uuid/uuid'
 
 export type CycleName = string
 export type CycleUuid = string
