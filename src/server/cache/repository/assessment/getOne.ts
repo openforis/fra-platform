@@ -1,7 +1,7 @@
 import { Objects } from 'utils/objects'
 
 import { Assessment, AssessmentName } from 'meta/assessment/assessment'
-import { UUID } from 'meta/uuid'
+import { UUID } from 'meta/uuid/uuid'
 
 import {
   getAssessmentWithMetaCache,

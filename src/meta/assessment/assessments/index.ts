@@ -3,7 +3,7 @@ import { Dates } from 'utils/dates'
 import { Assessment, AssessmentName, RecordAssessments } from 'meta/assessment/assessment'
 import { Cycle, CycleName } from 'meta/assessment/cycle'
 import { Cycles } from 'meta/assessment/cycles'
-import { UUID } from 'meta/uuid'
+import { UUID } from 'meta/uuid/uuid'
 
 const getShortLabel = (assessmentName: AssessmentName): string => `${assessmentName}.labels.short`
 

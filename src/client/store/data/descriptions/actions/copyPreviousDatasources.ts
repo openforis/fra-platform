@@ -8,7 +8,7 @@ import {
   CommentableDescriptionValue,
   DescriptionCountryValues,
 } from 'meta/assessment/descriptionValue'
-import { UUIDs } from 'meta/uuid'
+import { UUIDs } from 'meta/uuid/uuids'
 
 import { updateDescription } from './updateDescription'
 
