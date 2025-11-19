@@ -66,7 +66,7 @@ const ASSESSMENT_CYCLE_TABLES = EXPORT_ASSESSMENTS.flatMap((assessmentName) =>
 export const EXPORT_TABLES: Array<ExportTableProps> = [
   // ===== Schema: Public
   { schema: 'public', table: 'assessment' },
-  { schema: 'public', table: 'assessment_cycle' },
+  { schema: 'public', table: 'assessment_cycle', where: `props ->> 'status' = 'published'` },
   { schema: 'public', table: 'country', orderBy: 'country_iso' },
   { schema: 'public', table: 'region', orderBy: 'region_code' },
 
