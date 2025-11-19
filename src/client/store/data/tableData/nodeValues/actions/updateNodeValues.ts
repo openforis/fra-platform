@@ -15,7 +15,7 @@ import { ThunkApiConfig } from 'client/store/types'
 
 type Props = CycleDataParams & NodesBody
 
-const patchNodeValues = (id: string): typeof Functions.debounce =>
+const patchNodeValues = (id: string): ReturnType<typeof Functions.debounce> =>
   Functions.debounce(
     async ({ tableName, values, ...params }: Props) => {
       try {
