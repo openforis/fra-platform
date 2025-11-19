@@ -22,9 +22,11 @@ export const useOnBlur = (props: Props): Returned => {
       const valueTrimmed = (value ?? '').trim()
       if (valueTrimmed === nodeValue?.raw) return
 
-      const matchingOption = options.find((option) => option.label.toLowerCase() === valueTrimmed.toLowerCase())
+      const matchingOption = options.find(
+        (option) => option.label.toString().toLowerCase() === valueTrimmed.toLowerCase()
+      )
       if (matchingOption) {
-        onChange(matchingOption.value)
+        onChange(matchingOption.value, { action: 'select-option', option: matchingOption })
         return
       }
 
