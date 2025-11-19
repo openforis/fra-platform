@@ -14,7 +14,7 @@ type Props = {
   countryIso: CountryIso
 }
 
-const CountryLink: React.FC = (props: Props) => {
+const CountryLink: React.FC<Props> = (props) => {
   const { countryIso } = props
 
   const { t } = useTranslation()
