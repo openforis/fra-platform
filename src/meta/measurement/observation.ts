@@ -1,5 +1,5 @@
 import { CountryIso } from 'meta/area/countryIso'
-import { UUID } from 'meta/uuid'
+import { UUID } from 'meta/uuid/uuid'
 
 export type ObservationValue<VALUE> = {
   calculated?: boolean

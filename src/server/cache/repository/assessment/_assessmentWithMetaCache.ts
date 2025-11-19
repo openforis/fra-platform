@@ -3,7 +3,7 @@ import { Objects } from 'utils/objects'
 import { Assessment } from 'meta/assessment/assessment'
 import { Assessments } from 'meta/assessment/assessments'
 import { CycleName } from 'meta/assessment/cycle'
-import { UUID } from 'meta/uuid'
+import { UUID } from 'meta/uuid/uuid'
 
 import { MetaCacheRedisRepository } from 'server/cache/repository/metaCache'
 
