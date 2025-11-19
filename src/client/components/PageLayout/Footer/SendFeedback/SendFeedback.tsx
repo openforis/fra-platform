@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Users } from 'meta/user'
+import { Users } from 'meta/user/users'
 
 import { useUser } from 'client/store/user/hooks/user'
 /* global  __APPLICATION_VERSION__ */

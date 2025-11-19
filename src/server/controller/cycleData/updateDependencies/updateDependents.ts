@@ -1,7 +1,7 @@
 import { Promises } from 'utils/promises'
 
 import { AssessmentMetaCaches } from 'meta/assessment/metaCaches'
-import { Sockets } from 'meta/socket'
+import { Sockets } from 'meta/socket/sockets'
 
 import { updateExternalDependents } from 'server/controller/cycleData/updateDependencies/updateExternalDependents'
 import worker from 'server/controller/cycleData/updateDependencies/worker'

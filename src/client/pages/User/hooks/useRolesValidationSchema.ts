@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { Objects } from 'utils/objects'
 import { z } from 'zod'
 
-import { RoleName } from 'meta/user'
+import { RoleName } from 'meta/user/role/name'
 
 // Roles with one or more countries
 const countryRoles = [

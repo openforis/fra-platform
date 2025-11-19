@@ -2,7 +2,7 @@ import { Country } from 'meta/area/country'
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { User } from 'meta/user'
+import { User } from 'meta/user/user'
 
 import { AreaRedisRepository } from 'server/cache/repository/area'
 import { BaseProtocol, DB } from 'server/db/db'

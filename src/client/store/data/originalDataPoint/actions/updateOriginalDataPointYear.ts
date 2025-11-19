@@ -3,10 +3,10 @@ import axios from 'axios'
 import { Functions } from 'utils/functions'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { CycleParams } from 'meta/api/request'
+import { CountryParams } from 'meta/api/request/country'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
-type Props = CycleParams & {
+type Props = CountryParams & {
   originalDataPoint: OriginalDataPoint
   id: string | number
   year: string | number

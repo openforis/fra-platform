@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 
 import { CountryIso } from 'meta/area/countryIso'
-import { Sockets } from 'meta/socket'
+import { Sockets } from 'meta/socket/sockets'
 
 import { NodeValuesActions } from 'client/store/data/tableData/nodeValues/actions'
 import { useAssessment } from 'client/store/meta/hooks/assessments'

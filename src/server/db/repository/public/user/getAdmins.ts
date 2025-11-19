@@ -1,4 +1,5 @@
-import { RoleName, User, UserStatus } from 'meta/user'
+import { RoleName } from 'meta/user/role/name'
+import { User, UserStatus } from 'meta/user/user'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { UserAdapter } from 'server/db/repository/adapter/user'

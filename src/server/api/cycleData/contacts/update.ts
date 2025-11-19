@@ -1,6 +1,6 @@
 import { Response } from 'express'
 
-import { CycleDataRequest } from 'meta/api/request'
+import { CycleDataRequest } from 'meta/api/request/cycleData/cycleData'
 import { NodeValue } from 'meta/assessment/node'
 import { Contact } from 'meta/cycleData/contact/contact'
 import { ContactField } from 'meta/cycleData/contact/field'

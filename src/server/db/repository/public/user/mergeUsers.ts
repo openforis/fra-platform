@@ -1,5 +1,5 @@
 import { Assessment } from 'meta/assessment/assessment'
-import { User } from 'meta/user'
+import { User } from 'meta/user/user'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { getOne } from 'server/db/repository/public/user/getOne'

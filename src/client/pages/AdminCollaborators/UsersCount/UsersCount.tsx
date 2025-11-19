@@ -3,7 +3,8 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { RoleName, Users } from 'meta/user'
+import { RoleName } from 'meta/user/role/name'
+import { Users } from 'meta/user/users'
 
 import { useTablePaginatedCount } from 'client/store/tablePaginated/hooks/tablePaginated'
 import { TablePaginatedCounterComponent } from 'client/components/TablePaginated'

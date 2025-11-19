@@ -1,6 +1,7 @@
 import { Objects } from 'utils/objects'
 
-import { AuthProvider, User, UserAuthProvider } from 'meta/user'
+import { AuthProvider, UserAuthProvider } from 'meta/user/auth'
+import { User } from 'meta/user/user'
 
 import { BaseProtocol, DB } from 'server/db/db'
 

@@ -1,6 +1,6 @@
 import { Lang } from 'meta/lang'
-
-import { RoleName, UserRole } from './index'
+import { RoleName } from 'meta/user/role/name'
+import { UserRole } from 'meta/user/role/role'
 
 export enum UserTitle {
   mr = 'mr',

@@ -1,6 +1,6 @@
 import { Objects } from 'utils/objects'
 
-import { UserInvitation } from 'meta/user'
+import { UserInvitation } from 'meta/user/invitation'
 
 import { BaseProtocol, DB } from 'server/db/db'
 

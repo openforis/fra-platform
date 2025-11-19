@@ -1,13 +1,13 @@
 import { Response } from 'express'
 
-import { UsersRequest } from 'meta/api/request'
-import { TablePaginateds } from 'meta/tablePaginated'
-import { UserFilters } from 'meta/tablePaginated/users'
+import { AdminUsersRequest } from 'meta/api/request/admin/users'
+import { UserFilters } from 'meta/tablePaginated/filters/users'
+import { TablePaginateds } from 'meta/tablePaginated/tablePaginateds'
 
 import { UserController } from 'server/controller/user'
 import Requests from 'server/utils/requests'
 
-export const getUsersCount = async (req: UsersRequest, res: Response): Promise<void> => {
+export const getUsersCount = async (req: AdminUsersRequest, res: Response): Promise<void> => {
   try {
     const { filters: filtersReq } = req.query
 

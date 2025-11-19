@@ -13,5 +13,3 @@ declare module 'express' {
     context: RequestContext
   }
 }
-
-// export {}

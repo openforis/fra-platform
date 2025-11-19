@@ -1,6 +1,6 @@
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { Assessment } from 'meta/assessment/assessment'
-import { User } from 'meta/user'
+import { User } from 'meta/user/user'
 
 import { AssessmentRedisRepository } from 'server/cache/repository/assessment'
 import { BaseProtocol, DB } from 'server/db/db'

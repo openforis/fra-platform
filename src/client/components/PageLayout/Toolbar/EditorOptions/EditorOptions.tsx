@@ -2,7 +2,7 @@ import './EditorOptions.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Users } from 'meta/user'
+import { Users } from 'meta/user/users'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useCanViewHistoryLastApproved } from 'client/store/user/hooks/auth'

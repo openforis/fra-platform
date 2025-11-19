@@ -1,11 +1,11 @@
 import { NextFunction, Request } from 'express'
 
-import { CycleParams } from 'meta/api/request'
+import { CountryParams } from 'meta/api/request/country'
 import { AreaCode } from 'meta/area/areaCode'
 import { Country } from 'meta/area/country'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { User } from 'meta/user'
+import { User } from 'meta/user/user'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { _getRequestParams } from 'server/middleware/auth/_getRequestParams'
@@ -19,7 +19,7 @@ type AuthCycleProps = {
   user: User
 }
 
-type RequestParams = CycleParams & { authContext?: string }
+type RequestParams = CountryParams & { authContext?: string }
 
 export const _getAuthCycleParams = async (req: Request, next: NextFunction): Promise<AuthCycleProps> => {
   const params = _getRequestParams<RequestParams>(req)

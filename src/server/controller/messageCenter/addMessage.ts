@@ -5,7 +5,7 @@ import { Cycle } from 'meta/assessment/cycle'
 import { Message } from 'meta/messageCenter/message'
 import { MessageTopic, MessageTopicType } from 'meta/messageCenter/messageTopic'
 import { Topics } from 'meta/messageCenter/topics'
-import { User } from 'meta/user'
+import { User } from 'meta/user/user'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { SectionRepository } from 'server/db/repository/assessment/section'

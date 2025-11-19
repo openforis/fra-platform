@@ -1,5 +1,5 @@
 import { SystemOfMeasurementName } from 'meta/measurement/systemOfMeasurement'
-import { UUID } from 'meta/uuid'
+import { UUID } from 'meta/uuid/uuid'
 
 export type MeasureName = string
 

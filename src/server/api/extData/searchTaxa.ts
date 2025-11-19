@@ -1,13 +1,13 @@
 import { Response } from 'express'
 
-import { CycleRequest } from 'meta/api/request'
+import { CountryRequest } from 'meta/api/request/country'
 
 import { ExtDataController } from 'server/controller/extData'
 import Requests from 'server/utils/requests'
 
 type Query = { query: string; limit: string }
 
-export const searchTaxa = async (req: CycleRequest<Query>, res: Response): Promise<void> => {
+export const searchTaxa = async (req: CountryRequest<Query>, res: Response): Promise<void> => {
   try {
     const { limit = '20', query } = req.query
     const result = await ExtDataController.searchTaxa({

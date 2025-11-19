@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
 import { Routes } from 'meta/routes/routes'
-import { TooltipId } from 'meta/tooltip'
+import { TooltipId } from 'meta/tooltip/id'
 
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { ButtonSize, ButtonType, useButtonClassName } from 'client/components/Buttons/Button'

@@ -2,7 +2,8 @@ import { Objects } from 'utils/objects'
 
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { UserEditCountryForm, UserForm } from 'meta/form/userEdit/form'
-import { User, Users, UserStatus } from 'meta/user'
+import { User, UserStatus } from 'meta/user/user'
+import { Users } from 'meta/user/users'
 
 import { BaseProtocol } from 'server/db/db'
 import { ActivityLogRepository } from 'server/db/repository/public/activityLog'

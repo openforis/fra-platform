@@ -1,8 +1,8 @@
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { Assessment } from 'meta/assessment/assessment'
 import { SubSection } from 'meta/assessment/section'
-import { User } from 'meta/user'
-import { UUID } from 'meta/uuid'
+import { User } from 'meta/user/user'
+import { UUID } from 'meta/uuid/uuid'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { SectionRepository } from 'server/db/repository/assessment/section'

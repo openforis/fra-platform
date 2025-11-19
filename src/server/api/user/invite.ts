@@ -1,12 +1,12 @@
 import { Response } from 'express'
 
-import { CycleRequest } from 'meta/api/request'
+import { CountryRequest } from 'meta/api/request/country'
 import { UserInvitationForm } from 'meta/form/userInvitation/form'
 
 import { UserController } from 'server/controller/user'
 import { Requests } from 'server/utils'
 
-type InviteUserRequest = CycleRequest<unknown, UserInvitationForm>
+type InviteUserRequest = CountryRequest<unknown, UserInvitationForm>
 
 export const invite = async (req: InviteUserRequest, res: Response): Promise<void> => {
   try {

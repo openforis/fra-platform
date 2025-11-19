@@ -1,6 +1,6 @@
 import { CountryIso } from 'meta/area/countryIso'
 import { MessageTopic, MessageTopicType } from 'meta/messageCenter/messageTopic'
-import { Sockets } from 'meta/socket'
+import { Sockets } from 'meta/socket/sockets'
 
 import { SocketServer } from 'server/service/socket'
 

@@ -4,7 +4,7 @@ import { WorkerListener } from 'bullmq'
 import { Objects } from 'utils/objects'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { Sockets } from 'meta/socket'
+import { Sockets } from 'meta/socket/sockets'
 
 import { LinksActions } from 'client/store/admin/links/actions'
 import { useIsVerificationInProgress } from 'client/store/admin/links/hooks/verification'

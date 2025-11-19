@@ -1,14 +1,16 @@
 import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { CountryUserSummary, RoleName, Users } from 'meta/user'
+import { UserCountrySummary } from 'meta/user/countrySummary'
+import { RoleName } from 'meta/user/role/name'
+import { Users } from 'meta/user/users'
 
 import { Column } from 'client/components/TablePaginated'
 
 import NameField from '../NameField'
 import RoleField from '../RoleField'
 
-type Returned = Array<Column<CountryUserSummary>>
+type Returned = Array<Column<UserCountrySummary>>
 
 const roles = [
   RoleName.ADMINISTRATOR,

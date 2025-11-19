@@ -3,7 +3,8 @@ import { CountryIso } from 'meta/area/countryIso'
 import { CountryStatus } from 'meta/area/countryStatus'
 import { CountryStatuses, CountryStatusTransition } from 'meta/area/countryStatuses/index'
 import { Cycle, CycleStatus } from 'meta/assessment/cycle'
-import { RoleName, User } from 'meta/user'
+import { RoleName } from 'meta/user/role/name'
+import { User } from 'meta/user/user'
 
 const countryIso = 'ATL' as CountryIso
 const cycleUuid = '123-XXX-123'

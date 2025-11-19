@@ -8,7 +8,7 @@ import { Objects } from 'utils/objects'
 
 import { Routes } from 'meta/routes/routes'
 import { SectionNames } from 'meta/routes/sectionNames'
-import { Users } from 'meta/user'
+import { Users } from 'meta/user/users'
 
 import { AdminSliceName } from 'client/store/admin/name'
 import { AdminSlice } from 'client/store/admin/slice'

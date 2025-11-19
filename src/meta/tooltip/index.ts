@@ -1,1 +1,0 @@
-export { TooltipId } from './tooltip'

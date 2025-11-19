@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { CountryIso } from 'meta/area/countryIso'
+import { Authorizer } from 'meta/auth/authorizer'
 import { Files } from 'meta/file/files'
-import { Authorizer } from 'meta/user'
 
 import { useCountry } from 'client/store/area/hooks/country'
 import { useCycle } from 'client/store/meta/hooks/cycles'

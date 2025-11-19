@@ -2,13 +2,13 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { CycleParams } from 'meta/api/request'
+import { CountryParams } from 'meta/api/request/country'
 import { FileSummary } from 'meta/file/file'
 
 import { FileUploadActions } from 'client/store/fileUpload/actions'
 import { ThunkApiConfig } from 'client/store/types'
 
-type Props = CycleParams & {
+type Props = CountryParams & {
   files: Array<File>
 }
 

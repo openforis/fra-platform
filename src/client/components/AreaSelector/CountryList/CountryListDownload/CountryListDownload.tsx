@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next'
 import { Dates } from 'utils/dates'
 
 import { Areas } from 'meta/area/areas'
-import { Users } from 'meta/user'
+import { Users } from 'meta/user/users'
 
 import { useCountries } from 'client/store/area/hooks/countries'
 import { useUser } from 'client/store/user/hooks/user'

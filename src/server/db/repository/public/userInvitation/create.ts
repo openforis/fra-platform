@@ -3,8 +3,10 @@ import { Objects } from 'utils/objects'
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { RoleName, User, UserInvitation } from 'meta/user'
-import { CollaboratorPermissionsNEW } from 'meta/user/userRole'
+import { UserInvitation } from 'meta/user/invitation'
+import { CollaboratorPermissions } from 'meta/user/role/collaborator'
+import { RoleName } from 'meta/user/role/name'
+import { User } from 'meta/user/user'
 
 import { BaseProtocol, DB } from 'server/db/db'
 
@@ -15,7 +17,7 @@ type Props = {
   invitedBy: User
   role: RoleName
   user: User
-  permissions?: CollaboratorPermissionsNEW
+  permissions?: CollaboratorPermissions
 }
 
 export const create = async (props: Props, client: BaseProtocol = DB): Promise<UserInvitation> => {

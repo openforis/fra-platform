@@ -1,6 +1,6 @@
 import { CountryIso } from 'meta/area/countryIso'
 import { NodeUpdates } from 'meta/data/nodeUpdates'
-import { User } from 'meta/user'
+import { User } from 'meta/user/user'
 
 import { AreaController } from 'server/controller/area'
 import { AssessmentController } from 'server/controller/assessment'

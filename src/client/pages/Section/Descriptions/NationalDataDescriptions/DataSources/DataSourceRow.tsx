@@ -5,7 +5,7 @@ import classNames from 'classnames'
 import { DataSourceDescription } from 'meta/assessment/description'
 import { CommentableDescriptionName, DataSource } from 'meta/assessment/descriptionValue'
 import { SectionName } from 'meta/assessment/section'
-import { TooltipId } from 'meta/tooltip'
+import { TooltipId } from 'meta/tooltip/id'
 
 import { useIsDescriptionEditable } from 'client/store/user/hooks/auth'
 import { DataCell, DataRow } from 'client/components/DataGrid'

@@ -1,21 +1,24 @@
+import { ColName } from 'meta/assessment/col'
 import { NodeValue } from 'meta/assessment/node'
+import { TableName } from 'meta/assessment/table'
+import { VariableName } from 'meta/assessment/variable'
 
 /**
  * @deprecated
  */
 export type EstimateBody = {
-  fields: Array<{ annualChangeRates: { past: string; future: string }; variableName: string }>
+  fields: Array<{ annualChangeRates: { past: string; future: string }; variableName: VariableName }>
   method: string
-  tableName: string
+  tableName: TableName
 }
 
 export type NodesBodyValue = {
-  variableName: string
-  colName: string
+  colName: ColName
   value: NodeValue
+  variableName: VariableName
 }
 
 export type NodesBody = {
-  tableName: string
+  tableName: TableName
   values: Array<NodesBodyValue>
 }

@@ -1,8 +1,8 @@
-import React, { useCallback } from 'react'
+import React, { ReactElement, useCallback } from 'react'
 
 import classNames from 'classnames'
 
-import { TablePaginatedOrderBy, TablePaginatedOrderByDirection } from 'meta/tablePaginated'
+import { TablePaginatedOrderBy, TablePaginatedOrderByDirection } from 'meta/tablePaginated/orderBy'
 
 import { useAppDispatch } from 'client/store/hooks'
 import { TablePaginatedActions } from 'client/store/tablePaginated/actions'
@@ -15,7 +15,7 @@ type Props<Datum> = {
   path: string
 }
 
-const OrderBy = <Datum extends object>(props: Props<Datum>) => {
+const OrderBy = <Datum extends object>(props: Props<Datum>): ReactElement => {
   const { column, path } = props
   const { orderByProperty } = column
 

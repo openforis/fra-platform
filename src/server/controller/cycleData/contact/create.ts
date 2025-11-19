@@ -5,7 +5,7 @@ import { Cycle } from 'meta/assessment/cycle'
 import { SectionNames } from 'meta/assessment/section'
 import { Contact } from 'meta/cycleData/contact/contact'
 import { contactFields } from 'meta/cycleData/contact/fields'
-import { User } from 'meta/user'
+import { User } from 'meta/user/user'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { NodeExtRepository } from 'server/db/repository/assessmentCycle/nodeExt'

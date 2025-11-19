@@ -5,7 +5,7 @@ import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { SectionNames } from 'meta/routes/sectionNames'
-import { Sockets } from 'meta/socket'
+import { Sockets } from 'meta/socket/sockets'
 
 import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 import { SocketServer } from 'server/service/socket'

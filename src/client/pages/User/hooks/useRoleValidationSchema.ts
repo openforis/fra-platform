@@ -2,13 +2,14 @@ import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Objects } from 'utils/objects'
-import { z } from 'zod'
+import { z, ZodObject } from 'zod'
 
-import { RoleName, UserContactPreferenceMethod, UserContactPreferencePhoneOption } from 'meta/user/userRole'
+import { RoleName } from 'meta/user/role/name'
+import { UserContactPreferenceMethod, UserContactPreferencePhoneOption } from 'meta/user/role/props'
 
 import { FormSchemas } from 'client/components/Form/formSchemas'
 
-export const useRoleValidationSchema = () => {
+export const useRoleValidationSchema = (): ZodObject => {
   const { t } = useTranslation()
 
   return useMemo(() => {

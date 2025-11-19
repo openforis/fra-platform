@@ -1,6 +1,6 @@
 import { CountryIso } from 'meta/area/countryIso'
 import { LinkValidationStatusCode } from 'meta/cycleData/links/link'
-import { TablePaginatedOrderByDirection } from 'meta/tablePaginated'
+import { TablePaginatedOrderByDirection } from 'meta/tablePaginated/orderBy'
 
 export interface LinksQueryParams {
   approved?: boolean

@@ -2,7 +2,8 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 import { TablePaginatedBaseParams } from 'meta/api/request/tablePaginated'
-import { TablePaginatedFilterValues, TablePaginateds } from 'meta/tablePaginated'
+import { TablePaginatedFilterValues } from 'meta/tablePaginated/filters/filter'
+import { TablePaginateds } from 'meta/tablePaginated/tablePaginateds'
 
 type Props = Omit<TablePaginatedBaseParams, 'filters'> & {
   filters?: Record<string, TablePaginatedFilterValues>

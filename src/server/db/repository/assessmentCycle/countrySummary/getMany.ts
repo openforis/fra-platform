@@ -1,7 +1,7 @@
 import { Objects } from 'utils/objects'
 
 import { CountrySummary } from 'meta/area/countrySummary'
-import { TablePaginatedOrderByDirection } from 'meta/tablePaginated'
+import { TablePaginatedOrderByDirection } from 'meta/tablePaginated/orderBy'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { getBaseQuery } from 'server/db/repository/assessmentCycle/countrySummary/_queries/getBaseQuery'

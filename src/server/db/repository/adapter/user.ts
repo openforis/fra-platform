@@ -1,6 +1,6 @@
 import { Objects } from 'utils/objects'
 
-import { User } from 'meta/user'
+import { User } from 'meta/user/user'
 
 import { UserRoleAdapter, UserRoleDB } from 'server/db/repository/adapter/userRole'
 

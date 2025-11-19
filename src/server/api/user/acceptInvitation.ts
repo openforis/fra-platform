@@ -1,12 +1,15 @@
 import { Response } from 'express'
 
-import { CycleRequest } from 'meta/api/request'
+import { CountryRequest } from 'meta/api/request/country'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { UserController } from 'server/controller/user'
 import { Requests } from 'server/utils'
 
-export const acceptInvitation = async (req: CycleRequest<{ invitationUuid: string }>, res: Response): Promise<void> => {
+export const acceptInvitation = async (
+  req: CountryRequest<{ invitationUuid: string }>,
+  res: Response
+): Promise<void> => {
   try {
     const { invitationUuid } = req.query
 

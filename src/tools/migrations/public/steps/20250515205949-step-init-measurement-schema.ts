@@ -1,7 +1,7 @@
 import { Objects } from 'utils/objects'
 
 import { SystemOfMeasurementName, systemsOfMeasurement } from 'meta/measurement/systemOfMeasurement'
-import { UUID } from 'meta/uuid'
+import { UUID } from 'meta/uuid/uuid'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { SystemOfMeasurementRepository } from 'server/db/repository/measurement/systemOfMeasurement'
