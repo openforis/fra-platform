@@ -1,7 +1,7 @@
 import { Country as CountryType } from 'meta/area/country'
 import { AssessmentName } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
-import { Sockets } from 'meta/socket'
+import { Sockets } from 'meta/socket/sockets'
 
 import { SocketServer } from '../../socketServer/socketServer'
 

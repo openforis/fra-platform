@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { User } from 'meta/user'
+import { User } from 'meta/user/user'
 
 import { useCountryUserRouteParams } from 'client/hooks/routeParams'
 

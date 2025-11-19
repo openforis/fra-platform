@@ -1,4 +1,4 @@
-import { User } from 'meta/user'
+import { User } from 'meta/user/user'
 
 export const getMessageBoardCountryKey = (): string => `message_board`
 

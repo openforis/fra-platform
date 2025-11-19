@@ -1,4 +1,4 @@
-import { User } from 'meta/user'
+import { User } from 'meta/user/user'
 
 import { EditUserRules } from 'client/pages/User/hooks/useEditUserRules'
 

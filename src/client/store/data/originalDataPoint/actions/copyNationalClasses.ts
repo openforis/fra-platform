@@ -2,11 +2,11 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { CycleParams } from 'meta/api/request'
+import { CountryParams } from 'meta/api/request/country'
 import { ODPs } from 'meta/assessment/odps'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
-type Props = CycleParams & { year: number; targetYear: number }
+type Props = CountryParams & { year: number; targetYear: number }
 
 export const copyNationalClasses = createAsyncThunk<OriginalDataPoint, Props>(
   'data/originalDataPoint/nationalClasses/copy',

@@ -1,11 +1,11 @@
 import { Response } from 'express'
 
-import { CycleRequest } from 'meta/api/request'
+import { CountryRequest } from 'meta/api/request/country'
 
 import { MessageCenterController } from 'server/controller/messageCenter'
 import Requests from 'server/utils/requests'
 
-export const getUnreadMessages = async (req: CycleRequest<{ key: string }>, res: Response): Promise<void> => {
+export const getUnreadMessages = async (req: CountryRequest<{ key: string }>, res: Response): Promise<void> => {
   try {
     const { countryIso, key } = req.query
     const user = Requests.getUser(req)

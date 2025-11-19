@@ -4,8 +4,8 @@ import { useTranslation } from 'react-i18next'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CountryIso } from 'meta/area/countryIso'
-import { CountryUserSummary } from 'meta/user'
-import { CountryUserSummaries } from 'meta/user/countryUserSummaries'
+import { UserCountrySummaries } from 'meta/user/countrySummaries'
+import { UserCountrySummary } from 'meta/user/countrySummary'
 
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import TablePaginated from 'client/components/TablePaginated'
@@ -34,7 +34,7 @@ const UserList: React.FC = () => {
         counter={counter}
         groups={{
           headerLabel: (roleName) => t(`user.roles.${roleName.toString()}`, { count: 2 }),
-          keySelector: (user: CountryUserSummary) => CountryUserSummaries.getRoleName(user, countryIso),
+          keySelector: (user: UserCountrySummary) => UserCountrySummaries.getRoleName(user, countryIso),
         }}
         header={header}
         path={path}

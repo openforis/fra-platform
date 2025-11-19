@@ -1,15 +1,15 @@
 import { Response } from 'express'
 
-import { CycleRequest } from 'meta/api/request'
+import { CountryRequest } from 'meta/api/request/country'
 import { Lang } from 'meta/lang'
-import { Translations } from 'meta/translation'
+import { Translations } from 'meta/translation/translations'
 
 import { CycleDataController } from 'server/controller/cycleData'
 import { FileStorage, FileStorageUtils } from 'server/service/fileStorage'
 import Requests from 'server/utils/requests'
 import { Responses } from 'server/utils/responses'
 
-type Request = CycleRequest
+type Request = CountryRequest
 
 export const getRepositoryFile = async (req: Request, res: Response): Promise<void> => {
   try {

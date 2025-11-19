@@ -3,7 +3,7 @@ import axios from 'axios'
 import { Functions } from 'utils/functions'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { CycleDataParams } from 'meta/api/request'
+import { CycleDataParams } from 'meta/api/request/cycleData/cycleData'
 import { CountryIso } from 'meta/area/countryIso'
 import { ODPs } from 'meta/assessment/odps'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'

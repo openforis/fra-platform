@@ -1,12 +1,12 @@
 import { Response } from 'express'
 
-import { UsersRequest } from 'meta/api/request'
+import { AdminUsersRequest } from 'meta/api/request/admin/users'
 
 import { getUsersGetManyPropsFromRequest } from 'server/api/admin/_getUsersGetManyPropsFromRequest'
 import { UserController } from 'server/controller/user'
 import Requests from 'server/utils/requests'
 
-export const getUsers = async (req: UsersRequest, res: Response): Promise<void> => {
+export const getUsers = async (req: AdminUsersRequest, res: Response): Promise<void> => {
   try {
     const props = await getUsersGetManyPropsFromRequest(req)
 

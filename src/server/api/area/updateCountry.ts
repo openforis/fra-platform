@@ -1,6 +1,6 @@
 import { Response } from 'express'
 
-import { CycleRequest } from 'meta/api/request'
+import { CountryRequest } from 'meta/api/request/country'
 import { Country } from 'meta/area/country'
 
 import { AreaController } from 'server/controller/area'
@@ -8,7 +8,7 @@ import { MailService } from 'server/service'
 import Requests from 'server/utils/requests'
 
 export const updateCountry = async (
-  req: CycleRequest<{ notifySelf: string; notifyUsers: string }, { country: Country; message: string }>,
+  req: CountryRequest<{ notifySelf: string; notifyUsers: string }, { country: Country; message: string }>,
   res: Response
 ): Promise<void> => {
   try {

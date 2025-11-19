@@ -1,7 +1,7 @@
 import { Assessment } from 'meta/assessment/assessment'
 import { Assessments } from 'meta/assessment/assessments'
 import { Cycle, CycleName } from 'meta/assessment/cycle'
-import { UUID } from 'meta/uuid'
+import { UUID } from 'meta/uuid/uuid'
 
 import { getOne, PropsGetOneAssessment } from 'server/cache/repository/assessment/getOne'
 import { BaseProtocol, DB } from 'server/db/db'

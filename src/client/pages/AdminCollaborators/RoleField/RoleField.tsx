@@ -6,14 +6,16 @@ import { TFunction } from 'i18next'
 
 import { Areas } from 'meta/area/areas'
 import { CountryIso } from 'meta/area/countryIso'
-import { TooltipId } from 'meta/tooltip'
-import { CountryUserSummary, RoleName, Users } from 'meta/user'
+import { TooltipId } from 'meta/tooltip/id'
+import { UserCountrySummary } from 'meta/user/countrySummary'
+import { RoleName } from 'meta/user/role/name'
+import { Users } from 'meta/user/users'
 
 const MAX_ITEMS = 3
 
 type Props = {
   roleName: RoleName
-  userSummary: CountryUserSummary
+  userSummary: UserCountrySummary
 }
 
 const _getAllRoles = (props: Props): Array<{ countryIso: CountryIso }> => {

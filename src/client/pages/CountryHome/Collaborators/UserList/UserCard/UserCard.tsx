@@ -4,8 +4,8 @@ import React from 'react'
 import classNames from 'classnames'
 
 import { CountryIso } from 'meta/area/countryIso'
-import { UserInvitations } from 'meta/user'
-import { CountryUserSummaries } from 'meta/user/countryUserSummaries'
+import { UserCountrySummaries } from 'meta/user/countrySummaries'
+import { UserInvitations } from 'meta/user/invitations'
 
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import Avatar from 'client/components/Avatar'
@@ -17,9 +17,9 @@ import { Props } from './Props'
 const UserCard: React.FC<Props> = (props) => {
   const { user } = props
   const { countryIso } = useCountryRouteParams<CountryIso>()
-  const { invitation: _invitation } = CountryUserSummaries.getCountryRoleAndInvitation(user, countryIso)
+  const { invitation: _invitation } = UserCountrySummaries.getCountryRoleAndInvitation(user, countryIso)
 
-  const invitation = CountryUserSummaries.isInvitation(user, countryIso)
+  const invitation = UserCountrySummaries.isInvitation(user, countryIso)
   const expired = invitation && UserInvitations.isExpired(_invitation)
 
   return (

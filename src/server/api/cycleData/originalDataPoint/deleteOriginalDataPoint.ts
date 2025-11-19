@@ -1,11 +1,11 @@
 import { Response } from 'express'
 
-import { CycleRequest } from 'meta/api/request'
+import { CountryRequest } from 'meta/api/request/country'
 
 import { CycleDataController } from 'server/controller/cycleData'
 import Requests from 'server/utils/requests'
 
-type Request = CycleRequest<{ year: string }>
+type Request = CountryRequest<{ year: string }>
 
 export const deleteOriginalDataPoint = async (req: Request, res: Response): Promise<void> => {
   try {

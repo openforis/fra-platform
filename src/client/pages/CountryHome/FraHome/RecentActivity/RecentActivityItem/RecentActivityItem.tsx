@@ -9,7 +9,7 @@ import { Dates } from 'utils/dates'
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { ActivityLog } from 'meta/assessment/activityLog'
 import { ActivityLogs } from 'meta/assessment/activityLogs'
-import { Users } from 'meta/user'
+import { Users } from 'meta/user/users'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useSection } from 'client/store/meta/hooks/sections'

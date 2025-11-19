@@ -1,6 +1,5 @@
-import { User, UserAuthProvider } from 'meta/user'
-import { UserProps } from 'meta/user/user'
-import { AuthProviderGoogleProps, AuthProviderLocalProps } from 'meta/user/userAuth'
+import { AuthProviderGoogleProps, AuthProviderLocalProps, UserAuthProvider } from 'meta/user/auth'
+import { User, UserProps } from 'meta/user/user'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { UserRepository } from 'server/db/repository/public/user'

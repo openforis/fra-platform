@@ -3,9 +3,9 @@ import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
 import { CountryIso } from 'meta/area/countryIso'
+import { Authorizer } from 'meta/auth/authorizer'
 import { Routes } from 'meta/routes/routes'
-import { Authorizer } from 'meta/user'
-import { CountryUserSummaries } from 'meta/user/countryUserSummaries'
+import { UserCountrySummaries } from 'meta/user/countrySummaries'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useUser } from 'client/store/user/hooks/user'
@@ -32,7 +32,7 @@ const Edit: React.FC<Props> = (props: Props) => {
   const iconName = isEdit ? 'pencil' : 'icon-eye'
   const className = useButtonClassName({ iconName, label, size, type, className: 'home-user-action-button-edit' })
 
-  if (CountryUserSummaries.isInvitation(user, countryIso)) {
+  if (UserCountrySummaries.isInvitation(user, countryIso)) {
     return null
   }
 

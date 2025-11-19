@@ -1,7 +1,7 @@
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { AuthProvider, User } from 'meta/user'
-import { AuthProviderLocalProps } from 'meta/user/userAuth'
+import { AuthProvider, AuthProviderLocalProps } from 'meta/user/auth'
+import { User } from 'meta/user/user'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { UserController } from 'server/controller/user'

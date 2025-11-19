@@ -1,12 +1,12 @@
 import { Response } from 'express'
 
-import { CycleRequest } from 'meta/api/request'
-import { Users } from 'meta/user'
+import { CountryRequest } from 'meta/api/request/country'
+import { Users } from 'meta/user/users'
 
 import { UserController } from 'server/controller/user'
 import Requests from 'server/utils/requests'
 
-export const getUser = async (req: CycleRequest<{ id: string }>, res: Response): Promise<void> => {
+export const getUser = async (req: CountryRequest<{ id: string }>, res: Response): Promise<void> => {
   try {
     const { id } = req.query
 

@@ -1,7 +1,7 @@
 import { Objects } from 'utils/objects'
 
 import { Link } from 'meta/cycleData/links/link'
-import { TablePaginatedOrderByDirection } from 'meta/tablePaginated'
+import { TablePaginatedOrderByDirection } from 'meta/tablePaginated/orderBy'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { LinksGetManyProps } from 'server/db/repository/assessmentCycle/links/linksGetManyProps'

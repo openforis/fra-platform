@@ -1,8 +1,8 @@
 import './MultiSelect.scss'
 import React from 'react'
 
-import { TablePaginatedFilterType } from 'meta/tablePaginated'
-import { TooltipId } from 'meta/tooltip'
+import { TablePaginatedFilterType } from 'meta/tablePaginated/filters/filter'
+import { TooltipId } from 'meta/tooltip/id'
 
 import { useAppDispatch } from 'client/store/hooks'
 import { TablePaginatedActions } from 'client/store/tablePaginated/actions'
@@ -25,7 +25,7 @@ const MultiSelect: React.FC<Props> = (props: Props) => {
 
   const filterValue = useTablePaginatedFilterValue<Array<string>>(path, fieldName)
 
-  const handleChange = (value: Array<string>) => {
+  const handleChange = (value: Array<string>): void => {
     dispatch(
       TablePaginatedActions.setFilterValue({
         fieldName,

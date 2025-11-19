@@ -1,5 +1,4 @@
-import { User } from 'meta/user'
-import { UserProps } from 'meta/user/user'
+import { User, UserProps } from 'meta/user/user'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { getOne } from 'server/db/repository/public/user/getOne'

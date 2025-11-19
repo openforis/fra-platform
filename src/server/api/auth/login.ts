@@ -2,10 +2,10 @@ import { NextFunction, Request, Response } from 'express'
 import * as passport from 'passport'
 import { Objects } from 'utils/objects'
 
-import { LoginRequest } from 'meta/api/request'
-import { AuthToken } from 'meta/auth'
+import { LoginRequest } from 'meta/api/request/auth/login'
+import { AuthToken } from 'meta/auth/token'
 import { Routes } from 'meta/routes/routes'
-import { User } from 'meta/user'
+import { User } from 'meta/user/user'
 
 import { ProcessEnv } from 'server/utils'
 import Requests from 'server/utils/requests'

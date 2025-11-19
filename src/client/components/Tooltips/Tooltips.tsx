@@ -2,7 +2,7 @@ import './Tooltips.scss'
 import React from 'react'
 import { Tooltip } from 'react-tooltip'
 
-import { TooltipId } from 'meta/tooltip'
+import { TooltipId } from 'meta/tooltip/id'
 
 const tooltips = [TooltipId.black, TooltipId.error, TooltipId.info, TooltipId.success, TooltipId.white]
 

@@ -6,7 +6,7 @@ import { ForestEstimations } from 'meta/geo/forest/estimations'
 import { BaseProtocol, DB } from 'server/db/db'
 
 export const getOne = async (
-  props: { countryIso: CountryIso; year: number },
+  props: { countryIso: CountryIso; year: string },
   client: BaseProtocol = DB
 ): Promise<ForestEstimations> => {
   const { countryIso, year } = props

@@ -1,4 +1,4 @@
-import { UUIDs } from 'meta/uuid'
+import { UUIDs } from 'meta/uuid/uuids'
 
 const newNationalClass = (props?: { name?: string; definition?: string }): ODPNationalClass => ({
   name: props?.name ?? '',

@@ -4,7 +4,7 @@ import { Country } from 'meta/area/country'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { NodeUpdates } from 'meta/data/nodeUpdates'
-import { User } from 'meta/user'
+import { User } from 'meta/user/user'
 
 import { BaseProtocol } from 'server/db/db'
 

@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import { CountryIso } from 'meta/area/countryIso'
 import { Labels } from 'meta/assessment/labels'
-import { Users } from 'meta/user'
+import { Users } from 'meta/user/users'
 
 import { useCountry } from 'client/store/area/hooks/country'
 import { useIsEditTableDataEnabled } from 'client/store/user/hooks/auth'

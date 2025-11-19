@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-import { TablePaginatedFilterType } from 'meta/tablePaginated'
+import { TablePaginatedFilterType } from 'meta/tablePaginated/filters/filter'
 
 import { useAppDispatch, useInjectSlice } from 'client/store/hooks'
 import { TablePaginatedActions } from 'client/store/tablePaginated/actions'
@@ -13,7 +13,7 @@ type Props = {
   path: string
 }
 
-export const useInitTablePaginated = (props: Props) => {
+export const useInitTablePaginated = (props: Props): void => {
   const { filters, path } = props
   const dispatch = useAppDispatch()
   const isInitialized = useIsTablePaginatedInitialized(path)

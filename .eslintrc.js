@@ -33,6 +33,7 @@ module.exports = {
     'sort-react-dependency-arrays',
   ],
   rules: {
+    'class-methods-use-this': 'off',
     'no-underscore-dangle': 0,
     'prettier/prettier': 1,
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],

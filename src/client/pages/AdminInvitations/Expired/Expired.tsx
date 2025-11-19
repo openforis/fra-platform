@@ -3,7 +3,8 @@ import { useTranslation } from 'react-i18next'
 
 import { Objects } from 'utils/objects'
 
-import { UserInvitations, UserInvitationSummary } from 'meta/user'
+import { UserInvitations } from 'meta/user/invitations'
+import { UserInvitationSummary } from 'meta/user/invitationSummary'
 
 type Props = {
   userInvitation: UserInvitationSummary

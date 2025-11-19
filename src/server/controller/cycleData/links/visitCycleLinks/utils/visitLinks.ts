@@ -6,6 +6,10 @@ import { LinkToVisit, LinkValidationStatusCode, VisitedLink } from 'meta/cycleDa
 const _visitLink = async (link: string | null): Promise<LinkValidationStatusCode> => {
   if (Objects.isEmpty(link)) return LinkValidationStatusCode.empty
 
+  if (link.trim().toLowerCase().startsWith('mailto:')) {
+    return LinkValidationStatusCode.success
+  }
+
   if (
     link.startsWith('#_') ||
     link.startsWith('api/cycle-data/repository/file/') ||

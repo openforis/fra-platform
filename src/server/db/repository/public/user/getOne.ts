@@ -1,4 +1,4 @@
-import { User, UserStatus } from 'meta/user'
+import { User, UserStatus } from 'meta/user/user'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { UserAdapter } from 'server/db/repository/adapter/user'

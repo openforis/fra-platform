@@ -2,7 +2,7 @@ import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { MessageTopicType } from 'meta/messageCenter/messageTopic'
-import { User } from 'meta/user'
+import { User } from 'meta/user/user'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { MessageCenterController } from 'server/controller/messageCenter'

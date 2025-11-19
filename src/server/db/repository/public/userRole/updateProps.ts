@@ -1,19 +1,16 @@
 import { Objects } from 'utils/objects'
 
+import { CollaboratorPermissions } from 'meta/user/role/collaborator'
+import { RoleName } from 'meta/user/role/name'
+import { UserRoleBaseProps, UserRoleExtendedProps } from 'meta/user/role/props'
+import { UserRole } from 'meta/user/role/role'
 import { User } from 'meta/user/user'
-import {
-  CollaboratorPermissionsNEW,
-  RoleName,
-  UserRole,
-  UserRoleBaseProps,
-  UserRoleExtendedProps,
-} from 'meta/user/userRole'
 
 import { BaseProtocol, DB } from 'server/db/db'
 
 type Props = {
   id: number
-  permissions?: CollaboratorPermissionsNEW
+  permissions?: CollaboratorPermissions
   role?: RoleName
   props?: UserRoleBaseProps | UserRoleExtendedProps
 }
@@ -23,7 +20,7 @@ export const updateProps = async (props: Props, client: BaseProtocol = DB): Prom
 
   const values: Record<
     string,
-    string | Partial<User> | number | UserRoleBaseProps | UserRoleExtendedProps | CollaboratorPermissionsNEW
+    string | Partial<User> | number | UserRoleBaseProps | UserRoleExtendedProps | CollaboratorPermissions
   > = { id }
   const setParts: Array<string> = []
 

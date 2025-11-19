@@ -5,7 +5,7 @@ import axios from 'axios'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CountryIso } from 'meta/area/countryIso'
-import { CountryUserSummaries } from 'meta/user/countryUserSummaries'
+import { UserCountrySummaries } from 'meta/user/countrySummaries'
 
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { useToaster } from 'client/hooks/toaster'
@@ -36,7 +36,7 @@ export const useResendInvitation = (props: Props): Returned => {
   const resendInvitation = useCallback(async () => {
     setIsLoading(true)
     try {
-      const { invitation } = CountryUserSummaries.getCountryRoleAndInvitation(user, countryIso)
+      const { invitation } = UserCountrySummaries.getCountryRoleAndInvitation(user, countryIso)
       const { uuid: invitationUuid } = invitation
       const params = { assessmentName, countryIso, cycleName, invitationUuid }
 

@@ -6,7 +6,7 @@ import { useMediaQuery } from 'react-responsive'
 import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area/countryIso'
-import { TooltipId } from 'meta/tooltip'
+import { TooltipId } from 'meta/tooltip/id'
 
 import { useIsPanEuropeanRoute } from 'client/hooks/routes'
 import { Props as CountrySelectProps } from 'client/components/CountryMultiSelect/types'

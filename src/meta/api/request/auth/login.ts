@@ -1,11 +1,4 @@
-import { Request } from 'express'
-
+import { CycleRequest } from 'meta/api/request/cycle'
 import { CountryIso } from 'meta/area/countryIso'
-import { AssessmentName } from 'meta/assessment/assessment'
 
-export type LoginRequest = Request<
-  unknown,
-  unknown,
-  unknown,
-  { assessmentName: AssessmentName; countryIso?: CountryIso; cycleName: string; invitationUuid?: string }
->
+export type LoginRequest = CycleRequest<{ countryIso?: CountryIso; invitationUuid?: string }>

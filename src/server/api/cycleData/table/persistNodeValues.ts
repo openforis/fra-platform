@@ -1,6 +1,7 @@
 import { Response } from 'express'
 
-import { CycleDataRequest, NodesBody } from 'meta/api/request'
+import { CycleDataRequest } from 'meta/api/request/cycleData/cycleData'
+import { NodesBody } from 'meta/api/request/cycleData/table'
 import { NodeUpdate, NodeUpdates } from 'meta/data/nodeUpdates'
 
 import { CycleDataController } from 'server/controller/cycleData'

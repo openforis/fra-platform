@@ -1,7 +1,7 @@
 import { Objects } from 'utils/objects'
 
-import { TablePaginatedOrderByDirection } from 'meta/tablePaginated'
-import { UserInvitationSummary } from 'meta/user/userInvitationSummary'
+import { TablePaginatedOrderByDirection } from 'meta/tablePaginated/orderBy'
+import { UserInvitationSummary } from 'meta/user/invitationSummary'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { InvitationsGetManyProps } from 'server/db/repository/public/userInvitation/invitationsGetManyProps'

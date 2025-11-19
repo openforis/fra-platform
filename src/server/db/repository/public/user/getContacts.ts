@@ -5,7 +5,7 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { Contact } from 'meta/cycleData/contact/contact'
 import { ContactField } from 'meta/cycleData/contact/field'
-import { RoleName } from 'meta/user'
+import { RoleName } from 'meta/user/role/name'
 
 import { BaseProtocol, DB } from 'server/db/db'
 

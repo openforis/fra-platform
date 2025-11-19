@@ -3,13 +3,13 @@ import axios from 'axios'
 import { Functions } from 'utils/functions'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { CycleDataParams } from 'meta/api/request'
+import { CycleDataParams } from 'meta/api/request/cycleData/cycleData'
 import { CommentableDescriptionValue } from 'meta/assessment/descriptionValue'
 
 type Props = CycleDataParams & { name: string; value: CommentableDescriptionValue }
 
-const patchDescription = (id: string) =>
-  Functions.debounce(
+const patchDescription = (id: string): ReturnType<typeof Functions.debounce> => {
+  return Functions.debounce(
     async ({ value, ...params }: Props) => {
       try {
         await axios.put(ApiEndPoint.CycleData.Descriptions.many(), { value }, { params })
@@ -20,8 +20,9 @@ const patchDescription = (id: string) =>
     1000,
     id
   )
+}
 
-const getDebounceId = (props: Props) => `${props.countryIso}-${props.sectionName}-${props.name}`
+const getDebounceId = (props: Props): string => `${props.countryIso}-${props.sectionName}-${props.name}`
 
 export const updateDescription = createAsyncThunk<void, Props>('section/description/update', (props) => {
   patchDescription(getDebounceId(props))(props)

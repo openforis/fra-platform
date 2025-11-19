@@ -1,4 +1,4 @@
-import { User } from 'meta/user'
+import { User } from 'meta/user/user'
 
 export interface Message {
   createdTime: string
