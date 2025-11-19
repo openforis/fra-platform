@@ -13,9 +13,20 @@ const importTable = async (exportedTableData: ExportedTableData, client: BasePro
   }
 
   // Get column names from the first row and omit id
-  const columns = Object.keys(rows[0]).filter((column: string) => column !== 'id')
+  const columnNames = Object.keys(rows[0]).filter((column: string) => column !== 'id')
 
   const pgp = pgPromise()
+  const firstRow = rows[0] as Record<string, unknown>
+  const columns = columnNames.map((colName) => {
+    const firstValue = firstRow[colName]
+
+    // Properly handle JSONB columns
+    if (typeof firstValue === 'object' && firstValue !== null) {
+      return { name: colName, mod: ':json', cast: 'jsonb' }
+    }
+    return colName
+  })
+
   const cs = new pgp.helpers.ColumnSet(columns, { table: { table, schema } })
   const query = pgp.helpers.insert(rows, cs)
 

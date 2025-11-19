@@ -9,7 +9,7 @@ const client: BaseProtocol = DB
 export const createAssessmentSchema = async (params: { assessmentName: AssessmentName }): Promise<string> => {
   const { assessmentName } = params
 
-  const schemaName = Schemas.getSchemaAssessment(assessmentName)
+  const schemaName = Schemas.getSchemaAssessment({ assessmentName })
 
   await client.query(getCreateSchemaDDL(schemaName))
 
