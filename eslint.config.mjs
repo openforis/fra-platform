@@ -72,7 +72,7 @@ export default defineConfig([
         },
       ],
       '@typescript-eslint/no-var-requires': 'error',
-      'class-methods-use-this': 'error',
+      'class-methods-use-this': 'off',
       'global-require': 'error',
       'import/no-dynamic-require': 'error',
       'max-classes-per-file': ['error', 1],
