@@ -39,7 +39,7 @@ jobs:
       - name: Run E2E tests
         if: always()
         run: |
-          docker compose -f src/test/e2e/docker-compose.test.yml run \
+          docker compose -f src/test/e2e/docker-compose.test.yml run --no-deps \
             playwright npm run test:e2e
 
       - name: Zip test results
