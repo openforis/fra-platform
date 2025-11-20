@@ -34,7 +34,6 @@ jobs:
 
       - name: Setup tmate session for debugging
         uses: mxschmitt/action-tmate@v3
-        if: failure()
         timeout-minutes: 30
 
       - name: Run E2E tests
