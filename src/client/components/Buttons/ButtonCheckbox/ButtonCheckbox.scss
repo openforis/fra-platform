@@ -23,6 +23,53 @@
       }
     }
   }
+
+  &.variant-checkbox {
+    background-color: transparent;
+    border: unset;
+    color: $text-body;
+    font-size: $font-s;
+    font-weight: 400;
+    justify-content: center;
+    padding: unset;
+    text-transform: unset;
+
+    svg {
+      background-color: $ui-accent;
+      border: 1px solid $ui-accent;
+      height: 14px;
+      width: 14px;
+    }
+
+    &.inverse {
+      background-color: transparent;
+      color: $text-body;
+
+      svg {
+        border-color: $ui-border-dark;
+        background-color: transparent;
+      }
+    }
+  }
+
+  &.variant-form {
+    height: 22px;
+    min-height: 22px;
+    width: 22px;
+    justify-content: center;
+    padding: unset;
+    border: 1px dotted $ui-edit-border-color;
+
+    svg {
+      height: 14px;
+      width: 14px;
+      border: unset;
+    }
+
+    &.inverse {
+      background-color: transparent;
+    }
+  }
 }
 
 $lds-size: 12px;

@@ -29,7 +29,7 @@ export const useRepositoryItemValidation = (): Record<string, string> | undefine
 
 export const useIsRepositoryItemValid = (): boolean => {
   const repositoryItemValidation = useRepositoryItemValidation()
-  return Objects.isEmpty(repositoryItemValidation)
+  return !Objects.isNil(repositoryItemValidation) && Objects.isEmpty(repositoryItemValidation)
 }
 
 export const useRepositoryItemPropValidation = (name: string): string => {
