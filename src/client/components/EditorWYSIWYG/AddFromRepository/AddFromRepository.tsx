@@ -7,7 +7,7 @@ import { Translations } from 'meta/translation/translations'
 
 import { useLanguage } from 'client/hooks/language'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
-import ButtonCheckBox from 'client/components/ButtonCheckBox'
+import ButtonCheckBox, { ButtonCheckboxVariant } from 'client/components/Buttons/ButtonCheckbox'
 import { useRepositoryLinkContext } from 'client/components/EditorWYSIWYG/repositoryLinkContext'
 import FileUpload from 'client/components/FileUpload'
 import Icon from 'client/components/Icon'
@@ -61,28 +61,27 @@ const AddFromRepository: React.FC = () => {
 
       <ModalBody>
         <div className="references-file-list">
-          <div>
-            {/* <ButtonCheckBox onClick={onClickAll} checked={allSelected} label={t('contactPersons.all')} /> */}
-            {/* <div className="divider" /> */}
+          {/* <ButtonCheckBox onClick={onClickAll} checked={allSelected} label={t('contactPersons.all')} /> */}
+          {/* <div className="divider" /> */}
 
-            {repositoryItems?.map((repositoryItem) => {
-              const url = RepositoryItems.getURL({ assessmentName, cycleName, countryIso, repositoryItem })
-              const label = Translations.getLabel({ translation: repositoryItem.props.translation, language })
+          {repositoryItems?.map((repositoryItem) => {
+            const url = RepositoryItems.getURL({ assessmentName, cycleName, countryIso, repositoryItem })
+            const label = Translations.getLabel({ translation: repositoryItem.props.translation, language })
 
-              return (
-                <div key={repositoryItem.uuid} className="file-row">
-                  <ButtonCheckBox
-                    checked={isChecked(repositoryItem.uuid)}
-                    label={label}
-                    onClick={(): void => onClick(repositoryItem.uuid)}
-                  />
-                  <a href={url}>
-                    <Icon className="icon-sub " name="hit-down" />
-                  </a>
-                </div>
-              )
-            })}
-          </div>
+            return (
+              <div key={repositoryItem.uuid} className="file-row">
+                <ButtonCheckBox
+                  checked={isChecked(repositoryItem.uuid)}
+                  label={label}
+                  onClick={(): void => onClick(repositoryItem.uuid)}
+                  variant={ButtonCheckboxVariant.checkbox}
+                />
+                <a href={url}>
+                  <Icon className="icon-sub " name="hit-down" />
+                </a>
+              </div>
+            )
+          })}
 
           <FileUpload multiple onChange={onSuccess} />
         </div>

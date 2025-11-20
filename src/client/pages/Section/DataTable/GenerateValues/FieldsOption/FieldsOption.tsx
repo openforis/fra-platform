@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { Objects } from 'utils/objects'
 
-import ButtonCheckBox from 'client/components/ButtonCheckBox'
+import ButtonCheckBox, { ButtonCheckboxVariant } from 'client/components/Buttons/ButtonCheckbox'
 
 import { GenerateValuesField } from '../field'
 import { Method } from '../method'
@@ -30,7 +30,7 @@ const FieldsOption: React.FC<Props> = (props) => {
     setField(field, idx)
   }
 
-  const setAnnualChangeRateValue = (idx: number, prop: 'past' | 'future', value: string) => {
+  const setAnnualChangeRateValue = (idx: number, prop: 'past' | 'future', value: string): void => {
     const field = fields[idx]
     field.annualChangeRates[prop] = value
     setField(field, idx)
@@ -56,7 +56,12 @@ const FieldsOption: React.FC<Props> = (props) => {
         const { annualChangeRates, labelKey, selected, variableName } = field
         return (
           <React.Fragment key={variableName}>
-            <ButtonCheckBox checked={selected} label={t(labelKey)} onClick={() => toggleSelected(fieldIdx)} />
+            <ButtonCheckBox
+              checked={selected}
+              label={t(labelKey)}
+              onClick={() => toggleSelected(fieldIdx)}
+              variant={ButtonCheckboxVariant.checkbox}
+            />
 
             {method === Method.annualChange && (
               <div className="annual-change-rates">

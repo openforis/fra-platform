@@ -12,7 +12,7 @@ import { Country } from 'meta/area/country'
 import { DataExportActions } from 'client/store/dataExport/actions'
 import { useDataExportCountries, useDataExportSelection } from 'client/store/dataExport/hooks/dataExport'
 import { useAppDispatch } from 'client/store/hooks'
-import ButtonCheckBox from 'client/components/ButtonCheckBox'
+import ButtonCheckBox, { ButtonCheckboxVariant } from 'client/components/Buttons/ButtonCheckbox'
 import { Breakpoints } from 'client/utils/breakpoints'
 
 const CountrySelect: React.FC = () => {
@@ -28,7 +28,7 @@ const CountrySelect: React.FC = () => {
   const getDeskStudyLabel = useCallback(
     (country: Country): string => {
       const { deskStudy } = country.props
-      return deskStudy ? `(${t('assessment.deskStudy')})` : null
+      return deskStudy ? `(${t('assessment.deskStudy')})` : ''
     },
     [t]
   )
@@ -80,6 +80,7 @@ const CountrySelect: React.FC = () => {
               selection.countryISOs.length > 0 ? [] : countries.map((country) => country.countryIso)
             updateSelection(countryISOs)
           }}
+          variant={ButtonCheckboxVariant.checkbox}
         />
       </div>
 
@@ -111,12 +112,12 @@ const CountrySelect: React.FC = () => {
             {countriesFiltered.map((country: Country) => {
               const { countryIso } = country
               const selected = selection.countryISOs.includes(countryIso)
-
+              const label = `${t(Areas.getTranslationKey(country.countryIso))} ${getDeskStudyLabel(country)}`
               return (
                 <ButtonCheckBox
                   key={countryIso}
                   checked={selected}
-                  label={t(Areas.getTranslationKey(country.countryIso))}
+                  label={label}
                   onClick={(): void => {
                     const countryISOs = [...selection.countryISOs]
                     if (selected) countryISOs.splice(selection.countryISOs.indexOf(countryIso), 1)
@@ -124,7 +125,7 @@ const CountrySelect: React.FC = () => {
 
                     updateSelection(countryISOs)
                   }}
-                  suffix={getDeskStudyLabel(country)}
+                  variant={ButtonCheckboxVariant.checkbox}
                 />
               )
             })}
