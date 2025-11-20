@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test'
 
 test.describe('Login', () => {
   test('should login with test user credentials', async ({ page }) => {
-    await page.goto('/assessments/fra/latest/login')
+    await page.goto('/assessments/fra/2025/login')
 
     await page.click('button:has-text("Sign in with FRA")')
 
@@ -11,13 +11,13 @@ test.describe('Login', () => {
 
     await page.click('button.btn:has-text("Login")')
 
-    await expect(page).toHaveURL('/assessments/fra/latest')
+    await expect(page).toHaveURL('/assessments/fra/2025')
 
     await expect(page.getByText('Test User')).toBeVisible()
   })
 
   test('should show error with invalid credentials', async ({ page }) => {
-    await page.goto('/assessments/fra/latest/login')
+    await page.goto('/assessments/fra/2025/login')
 
     await page.click('button:has-text("Sign in with FRA")')
 

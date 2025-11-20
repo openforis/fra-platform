@@ -1,0 +1,15 @@
+{
+  "schema": "public",
+  "table": "users_auth_provider",
+  "rows": [
+    {
+      "user_uuid": "00000000-0000-0000-0000-000000000001",
+      "provider": "local",
+      "props": {
+        "password": "$2b$10$EA1jG3Ddk/3Ee5dLH/W.QOi57paXmhz2vjZFNXExx15.sujp8PW5e"
+      }
+    }
+  ],
+  "exportedAt": "2025-11-19T00:00:00.000Z",
+  "rowCount": 1
+}

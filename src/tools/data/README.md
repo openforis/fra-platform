@@ -5,9 +5,22 @@ Data import / export tool
 #### Export:
 
 - `ts-node src/tools/data/export.ts`
-  - This creates a folder with data in: `src/tools/data/fixtures`
+  - Creates a folder with data in: `src/tools/data/fixtures`
+  - Copies static fixtures from `src/tools/data/staticFixtures/` into fixtures directory
+- Compress and encrypt:
+  - `cd src/tools/data && tar -czf fixtures.tar.gz fixtures && gpg --batch --yes --passphrase "$BACKUP_PASSPHRASE" --symmetric --cipher-algo AES256 -o fixtures.tar.gz.gpg fixtures.tar.gz && rm fixtures.tar.gz`
 
-Relevant file: `src/server/service/databaseService/EXPORT_TABLES.ts`
+Relevant files:
+- `src/server/service/databaseService/EXPORT_TABLES.ts`
+- `src/tools/data/staticFixtures/` - Static test user fixtures
+
+#### Extract fixtures (for CI/E2E):
+- Decrypt and extract fixtures:
+  - `echo "$BACKUP_PASSPHRASE" | gpg --batch --passphrase-fd 0 -d src/tools/data/fixtures.tar.gz.gpg | tar -xz -C src/tools/data`
+
+#### Extract fixtures (for CI/E2E):
+- Decrypt and extract fixtures:
+  - `echo "$BACKUP_PASSPHRASE" | gpg --batch --passphrase-fd 0 -d src/tools/data/fixtures.tar.gz.gpg | tar -xz -C src/tools/data`
 
 #### Import:
 - To import generated data to an empty db, e.g.: `frap-dev-test`

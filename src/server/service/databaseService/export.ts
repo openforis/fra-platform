@@ -8,6 +8,7 @@ export type ExportTableProps = {
   table: string
   orderBy?: string
   where?: string
+  skipExport?: boolean
 }
 
 const exportTable = async (props: ExportTableProps, client: BaseProtocol = DB): Promise<ExportedTableData> => {
@@ -25,5 +26,6 @@ const exportTable = async (props: ExportTableProps, client: BaseProtocol = DB): 
 }
 
 export const exportTables = async (client: BaseProtocol = DB): Promise<Array<ExportedTableData>> => {
-  return Promise.all(EXPORT_TABLES.map((tableConfig) => exportTable(tableConfig, client)))
+  const tables = EXPORT_TABLES.filter((t) => !t.skipExport)
+  return Promise.all(tables.map((tableConfig) => exportTable(tableConfig, client)))
 }
