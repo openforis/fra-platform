@@ -263,7 +263,6 @@
     "react-router": "^5.2.0",
     "react-router-dom": "^6.3.0",
     "react-select": "^5.10.1",
-    "react-sliding-side-panel": "^2.0.3",
     "react-tooltip": "^5.13.1",
     "recharts": "^2.15.3",
     "redis": "^4.6.11",
