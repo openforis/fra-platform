@@ -9,7 +9,7 @@ import { DataExportActions } from 'client/store/dataExport/actions'
 import { useDataExportSelection } from 'client/store/dataExport/hooks/dataExport'
 import { DataExportSelection } from 'client/store/dataExport/state'
 import { useAppDispatch } from 'client/store/hooks'
-import ButtonCheckBox from 'client/components/ButtonCheckBox'
+import ButtonCheckBox, { ButtonCheckboxVariant } from 'client/components/Buttons/ButtonCheckbox'
 import { getColumnLabelKeys } from 'client/pages/DataExport/utils'
 import { Breakpoints } from 'client/utils/breakpoints'
 
@@ -51,6 +51,7 @@ const ColumnSelect: React.FC<{ columns: Array<string> }> = ({ columns }) => {
           className="btn-all"
           label={t(selectionColumns.length > 0 ? 'common.unselectAll' : 'common.selectAll')}
           onClick={() => updateSelection(selection.sections[sectionName].columns.length > 0 ? [] : columns.map(String))}
+          variant={ButtonCheckboxVariant.checkbox}
         />
       </div>
 
@@ -93,6 +94,7 @@ const ColumnSelect: React.FC<{ columns: Array<string> }> = ({ columns }) => {
 
                     updateSelection(columnsUpdate)
                   }}
+                  variant={ButtonCheckboxVariant.checkbox}
                 />
               )
             })}

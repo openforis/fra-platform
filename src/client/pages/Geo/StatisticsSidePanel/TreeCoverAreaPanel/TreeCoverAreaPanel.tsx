@@ -19,13 +19,13 @@ const TreeCoverAreaPanel: React.FC<Props> = (props: Props) => {
   const { t } = useTranslation()
   const { countryIso } = useCountryRouteParams<CountryIso>()
 
-  const { columns, csvData, error, isLoading, tableData, units } = useTreeCoverAreaData()
+  const { columns, csvData, errorKey, loading, tableData, units } = useTreeCoverAreaData()
 
-  if (!isLoading && tableData.length === 0 && !error) return <p>{t('geo.error.statistics.foundNoData')}</p>
+  if (!loading && tableData.length === 0 && !errorKey) return <p>{t('geo.error.statistics.foundNoData')}</p>
 
-  if (!isLoading && error?.length > 0) return <p>{t('geo.error.statistics.failedToFetch', { error })}</p>
+  if (!loading && errorKey?.length > 0) return <p>{`${t('geo.error.statistics.failedToFetch')} ${t(errorKey)}`}</p>
 
-  if (isLoading) return <p>{t('common.loading')}</p>
+  if (loading) return <p>{t('common.loading')}</p>
 
   return (
     <>
@@ -35,7 +35,7 @@ const TreeCoverAreaPanel: React.FC<Props> = (props: Props) => {
         csvData={csvData}
         fileName={`tree-cover-area-estimations-${countryIso}-${year}`}
         gridTemplateColumns="1fr 0.7fr 0.7fr"
-        loaded={!isLoading}
+        loaded={!loading}
         tableData={tableData}
         units={units}
       />
