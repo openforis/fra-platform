@@ -1,0 +1,16 @@
+{
+  "schema": "public",
+  "table": "users",
+  "rows": [
+    {
+      "uuid": "00000000-0000-0000-0000-000000000001",
+      "email": "test@test.com",
+      "props": {
+        "lang": "en",
+        "name": "Test User"
+      }
+    }
+  ],
+  "exportedAt": "2025-11-19T00:00:00.000Z",
+  "rowCount": 1
+}

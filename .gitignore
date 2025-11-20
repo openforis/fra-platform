@@ -35,3 +35,6 @@ src/tools/csvNodeImport/panEuropean
 #Local env
 /.env.review
 /.env.production
+
+#Data export
+src/tools/data/fixtures/
