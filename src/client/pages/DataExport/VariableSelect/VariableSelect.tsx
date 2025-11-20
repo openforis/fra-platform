@@ -13,7 +13,7 @@ import { DataExportSelection } from 'client/store/dataExport/state'
 import { useAppDispatch } from 'client/store/hooks'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useSection } from 'client/store/meta/hooks/sections'
-import ButtonCheckBox from 'client/components/ButtonCheckBox'
+import ButtonCheckBox, { ButtonCheckboxVariant } from 'client/components/Buttons/ButtonCheckbox'
 import DefinitionLink from 'client/components/DefinitionLink'
 import { Breakpoints } from 'client/utils/breakpoints'
 
@@ -74,6 +74,7 @@ const VariableSelect: React.FC<{ variables: Array<Row> }> = ({ variables }) => {
               selection.sections[sectionName].variables.length > 0 ? [] : variables.map((v) => v.props.variableName)
             )
           }}
+          variant={ButtonCheckboxVariant.checkbox}
         />
       </div>
 
@@ -124,6 +125,7 @@ const VariableSelect: React.FC<{ variables: Array<Row> }> = ({ variables }) => {
 
                     updateSelection(variablesUpdate)
                   }}
+                  variant={ButtonCheckboxVariant.checkbox}
                 />
               )
             })}
