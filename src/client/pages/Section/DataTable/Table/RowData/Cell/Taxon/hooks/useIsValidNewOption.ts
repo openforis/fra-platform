@@ -32,7 +32,7 @@ export const useIsValidNewOption = (props: Props): Returned => {
       }
 
       const isInputValueInOptions = options.some(
-        (option) => option.label.toLocaleLowerCase() === inputValueTrimmed.toLocaleLowerCase()
+        (option) => option.label.toString().toLocaleLowerCase() === inputValueTrimmed.toLocaleLowerCase()
       )
       if (isInputValueInOptions) return false
 
