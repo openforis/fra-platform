@@ -32,10 +32,6 @@ jobs:
       - name: Run unit and integration tests
         run: docker compose -f src/test/e2e/docker-compose.test.yml exec -T web yarn test
 
-      - name: Setup tmate session for debugging
-        uses: mxschmitt/action-tmate@v3
-        timeout-minutes: 30
-
       - name: Run E2E tests
         if: always()
         run: |
