@@ -18,7 +18,7 @@ type Props = {
   topicKey: string
 }
 
-const ReviewIndicator: React.FC = (props: Props) => {
+const ReviewIndicator: React.FC<Props> = (props) => {
   const { subtitle, title, topicKey } = props
 
   const dispatch = useAppDispatch()

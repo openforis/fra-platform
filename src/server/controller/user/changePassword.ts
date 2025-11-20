@@ -22,7 +22,7 @@ export const changePassword = async (
     const user = await UserRepository.getOne({ id: userResetPassword.userId })
     if (user.email !== email) return null
 
-    const userAuthProvider = await UserProviderRepository.update({ user: { id: userResetPassword.userId }, password })
+    const userAuthProvider = await UserProviderRepository.update({ userUuid: user.uuid, password })
     if (!userAuthProvider) return null
 
     return UserResetPasswordRepository.update({ uuid: userResetPassword.uuid }, t)

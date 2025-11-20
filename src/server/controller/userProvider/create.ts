@@ -17,7 +17,7 @@ export const create = async <P>(
     {
       provider: {
         ...provider,
-        userId: user.id,
+        userUuid: user.uuid,
       },
     },
     client

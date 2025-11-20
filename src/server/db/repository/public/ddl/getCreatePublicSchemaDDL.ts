@@ -190,10 +190,10 @@ export const getCreatePublicSchemaDDL = (schemaName = 'public'): string => {
 
     create table if not exists ${schemaName}.users_auth_provider (
       id bigserial primary key,
-      user_id bigint not null,
+      user_uuid uuid not null,
       provider ${schemaName}.auth_provider not null,
       props jsonb,
-      foreign key (user_id) references ${schemaName}.users (id)
+      foreign key (user_uuid) references ${schemaName}.users (uuid)
         on update no action on delete cascade
     );
 

@@ -13,9 +13,9 @@ export const read = async <P>(
 
   return client.map<UserAuthProvider<P>>(
     `
-        select * from public.users_auth_provider where user_id = $1 and provider = $2;
+        select * from public.users_auth_provider where user_uuid = $1 and provider = $2;
     `,
-    [user.id, provider],
+    [user.uuid, provider],
     (row) => Objects.camelize(row)
   )
 }
