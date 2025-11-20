@@ -6,6 +6,7 @@ import { BaseProtocol, DB } from 'server/db/db'
 import { Schemas } from 'server/db/schemas'
 
 // Update table_id to table_uuid for:
+// - users_auth_provider.user_id -> users_auth_provider.user_uuid
 // - assessment_cycle.assessment_id -> assessment_cycle.assessment_uuid
 // - section.parent_id -> section.parent_uuid
 // - table_section.section_id -> table_section.section_uuid
@@ -15,6 +16,35 @@ import { Schemas } from 'server/db/schemas'
 
 const client: BaseProtocol = DB
 export default async (): Promise<void> => {
+  // ============= users_auth_provider.user_id -> users_auth_provider.user_uuid
+
+  // Add new user_uuid column
+  await DB.none(`alter table public.users_auth_provider add column if not exists user_uuid uuid`)
+
+  // Populate new column
+  await client.none(
+    `update public.users_auth_provider uap
+       set user_uuid = u.uuid
+     from public.users u
+     where uap.user_id = u.id`
+  )
+
+  // Update column DDL: not null and add foreign key constraint
+  await client.none(`
+    alter table public.users_auth_provider
+      alter column user_uuid set not null,
+      add constraint users_auth_provider_user_uuid_fkey
+        foreign key (user_uuid)
+        references public.users (uuid)
+        on update no action
+        on delete cascade
+  `)
+
+  // Drop deprecated column
+  await client.none(`
+    alter table public.users_auth_provider drop column if exists user_id
+  `)
+
   // ============= - assessment_cycle.assessment_id -> assessment_cycle.assessment_uuid
 
   // Add new UUIDs column

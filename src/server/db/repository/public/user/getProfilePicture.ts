@@ -16,7 +16,7 @@ export const getProfilePicture = async (
     where = 'where lower(trim(u.email)) = trim(lower($1))'
     value = props.email
   } else if ('emailGoogle' in props) {
-    where = `where u.id = (select user_id from public.users_auth_provider where props->>'email' = $1)`
+    where = `where u.uuid = (select user_uuid from public.users_auth_provider where props->>'email' = $1)`
     value = props.emailGoogle
   } else {
     throw new Error('Missing parameter')
