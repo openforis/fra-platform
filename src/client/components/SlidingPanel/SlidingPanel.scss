@@ -15,7 +15,6 @@ $transition-duration: 0.5s;
   width: 100%;
   z-index: $z-index-overlay-panel;
 
-  &.open,
   &.active {
     pointer-events: auto;
     transition-delay: 0s;
@@ -43,7 +42,6 @@ $transition-duration: 0.5s;
   width: 100%;
 }
 
-.sliding-panel-container.open .sliding-panel-backdrop,
 .sliding-panel-container.active .sliding-panel-backdrop {
   opacity: 1;
 }
@@ -60,7 +58,6 @@ $transition-duration: 0.5s;
   width: 100%;
 }
 
-.sliding-panel-container.open .sliding-panel-track,
 .sliding-panel-container.active .sliding-panel-track {
   transform: translateX(0);
 }

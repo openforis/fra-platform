@@ -5,6 +5,8 @@ import classNames from 'classnames'
 
 import ButtonClose from 'client/components/Buttons/ButtonClose'
 
+import { useSlidingPanelMount } from './hooks/useSlidingPanelMount'
+
 type Props = {
   closePanel: () => void
   noBackdrop?: boolean
@@ -15,19 +17,19 @@ type Props = {
 const SlidingPanel: React.FC<React.PropsWithChildren<Props>> = (props) => {
   const { children, closePanel, noBackdrop = false, opened, size = 30 } = props
 
-  const panelStyle = useMemo<Record<string, string>>(
-    () => ({
-      '--sliding-panel-width': `${size}vw`,
-    }),
-    [size]
-  )
+  const panelStyle = useMemo<Record<string, string>>(() => {
+    return { '--sliding-panel-width': `${size}vw` }
+  }, [size])
+
+  const { isExpanded, isMounted } = useSlidingPanelMount({ opened })
+
+  if (!isMounted) return null
 
   return (
     <div
-      aria-hidden={!opened}
+      aria-hidden={!isExpanded}
       className={classNames('sliding-panel-container', {
-        active: opened,
-        open: opened,
+        active: isExpanded,
         'click-through': noBackdrop,
       })}
       style={panelStyle}
