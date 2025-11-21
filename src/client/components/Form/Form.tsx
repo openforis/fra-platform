@@ -61,7 +61,7 @@ const Form: React.FC<FormProps> = (props) => {
         dispatch(NotificationActions.addMessage({ id: UUIDs.getUuid(), type: 'error', message, params }))
       }}
       onSubmit={onSubmit}
-      onSuccess={(): void => onSuccess?.(watchValues)}
+      onSuccess={({ response }): ReturnType<typeof onSuccess> => onSuccess?.(watchValues, response)}
     >
       <DataGrid className="form-grid" gridTemplateColumns="max-content 1fr">
         {fields.map((fieldDefinition) => {
