@@ -1,9 +1,9 @@
 import { BaseProtocol, DB } from 'server/db/db'
 
-export type ExportedTableData<T = unknown> = {
+export type ExportedTableData<ROW = unknown> = {
   schema: string
   table: string
-  rows: Array<T>
+  rows: Array<ROW>
   exportedAt: string
   rowCount: number
 }
