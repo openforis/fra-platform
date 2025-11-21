@@ -13,8 +13,5 @@ export const AuthConfig = {
     googleStrategy(passport)
     localStrategy(passport)
     jwtStrategy(passport)
-
-    // passport.serializeUser((user: User, done) => done(null, user.id))
-    // passport.deserializeUser((id: number, done) => UserRepository.getOne({ id }).then((user: User) => done(null, user)))
   },
 }
