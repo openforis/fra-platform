@@ -3,7 +3,7 @@
   "table": "users_role",
   "rows": [
     {
-      "user_uuid": "00000000-0000-0000-0000-000000000001",
+      "user_uuid": "5f235f15-7e49-4c60-9493-982234401d88",
       "role": "ADMINISTRATOR",
       "props": {}
     }
