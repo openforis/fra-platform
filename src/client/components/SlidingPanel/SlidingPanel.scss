@@ -2,14 +2,85 @@
 
 @import 'src/client/style/partials';
 
+$transition-duration: 0.5s;
+
+.sliding-panel-container {
+  height: 100%;
+  left: 0;
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  transition: visibility 0s linear $transition-duration;
+  visibility: hidden;
+  width: 100%;
+  z-index: $z-index-overlay-panel;
+
+  &.active {
+    pointer-events: auto;
+    transition-delay: 0s;
+    visibility: visible;
+  }
+
+  &.click-through {
+    background-color: transparent;
+    pointer-events: none;
+
+    > .sliding-panel {
+      pointer-events: auto;
+    }
+  }
+}
+
+.sliding-panel-backdrop {
+  background: rgba(0, 0, 0, 0.3);
+  height: 100%;
+  left: 0;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  transition: opacity $transition-duration ease-in-out;
+  width: 100%;
+}
+
+.sliding-panel-container.active .sliding-panel-backdrop {
+  opacity: 1;
+}
+
+.sliding-panel-track {
+  display: flex;
+  height: 100%;
+  inset: 0;
+  justify-content: flex-end;
+  pointer-events: none;
+  position: absolute;
+  transform: translateX(var(--sliding-panel-width, 30vw));
+  transition: transform $transition-duration cubic-bezier(0.25, 0.8, 0.25, 1);
+  width: 100%;
+}
+
+.sliding-panel-container.active .sliding-panel-track {
+  transform: translateX(0);
+}
+
 .sliding-panel {
   background: color.adjust($ui-bg, $lightness: 2%, $space: hsl);
+  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   padding: $spacing-l $spacing-s $spacing-s;
+  pointer-events: auto;
   position: relative;
+  width: var(--sliding-panel-width, 30vw);
 }
 
 button.sliding-panel__close {
   left: $spacing-xxs;
   position: absolute;
   top: $spacing-xxs;
+}
+
+.panel-container {
+  flex: 1;
+  overflow-y: auto;
 }

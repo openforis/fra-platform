@@ -72,11 +72,14 @@ $z-index-panel-review: 15;
 $z-index-popover: 20;
 $z-index-tooltip: 21;
 $z-index-toaster: 25;
+$z-index-overlay-panel: 9998;
 $z-index-loader: 9999;
 
 $shadow-1: 0 0 4px rgba(0, 0, 0, 0.2);
 $shadow-2: 0 0 8px rgba(0, 0, 0, 0.2);
-$shadow-3: 0 0 8px 1px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.1);
+$shadow-3:
+  0 0 8px 1px rgba(0, 0, 0, 0.2),
+  0 0 0 1px rgba(0, 0, 0, 0.1);
 
 $ease-out: all 0.1s ease-out;
 
