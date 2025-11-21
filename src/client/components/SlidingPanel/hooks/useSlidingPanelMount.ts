@@ -32,8 +32,8 @@ export const useSlidingPanelMount = (props: Props): Returned => {
     }
   }, [displayChildren, opened])
 
-  const onTransitionEnd = useCallback(
-    (e: React.TransitionEvent) => {
+  const onTransitionEnd = useCallback<Returned['onTransitionEnd']>(
+    (e) => {
       if (e.target !== e.currentTarget) return
 
       if (!opened) {
