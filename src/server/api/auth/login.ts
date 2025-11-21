@@ -28,6 +28,7 @@ export const postLocalLogin = async (req: Request, res: Response, next: NextFunc
 
 export const getGoogleLogin = (req: LoginRequest, res: Response): void => {
   passport.authenticate('google', {
+    session: false,
     scope: ['https://www.googleapis.com/auth/plus.login', 'profile', 'email'],
     state: JSON.stringify({
       assessmentName: req.query.assessmentName,

@@ -1,12 +1,9 @@
 import { Express } from 'express'
 import * as passport from 'passport'
 
-import { User } from 'meta/user/user'
-
 import { googleStrategy } from 'server/api/auth/strategy/google'
 import { jwtStrategy } from 'server/api/auth/strategy/jwt'
 import { localStrategy } from 'server/api/auth/strategy/local'
-import { UserRepository } from 'server/db/repository/public/user'
 
 export const AuthConfig = {
   init: (app: Express): void => {
@@ -17,7 +14,7 @@ export const AuthConfig = {
     localStrategy(passport)
     jwtStrategy(passport)
 
-    passport.serializeUser((user: User, done) => done(null, user.id))
-    passport.deserializeUser((id: number, done) => UserRepository.getOne({ id }).then((user: User) => done(null, user)))
+    // passport.serializeUser((user: User, done) => done(null, user.id))
+    // passport.deserializeUser((id: number, done) => UserRepository.getOne({ id }).then((user: User) => done(null, user)))
   },
 }
