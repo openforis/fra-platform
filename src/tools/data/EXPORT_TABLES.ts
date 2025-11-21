@@ -4,6 +4,10 @@ import { CycleName } from 'meta/assessment/cycle'
 import { Schemas } from 'server/db/schemas'
 import { ExportTableProps } from 'server/service/databaseService/export'
 
+export type ExportTableConfig = ExportTableProps & {
+  skipExport?: boolean
+}
+
 export const EXPORT_ASSESSMENTS_CYCLES: { [key in AssessmentNames]?: Array<CycleName> } = {
   [AssessmentNames.fra]: ['2020', '2025' /* 'latest' */],
   [AssessmentNames.panEuropean]: ['2020' /* '2025' */],
@@ -63,7 +67,7 @@ const ASSESSMENT_CYCLE_TABLES = EXPORT_ASSESSMENTS.flatMap((assessmentName) =>
   })
 )
 
-export const EXPORT_TABLES: Array<ExportTableProps> = [
+export const EXPORT_TABLES: Array<ExportTableConfig> = [
   // ===== Schema: Public
   { schema: 'public', table: 'users', skipExport: true },
   { schema: 'public', table: 'users_auth_provider', skipExport: true },
