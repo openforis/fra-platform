@@ -3,7 +3,7 @@
   "table": "users",
   "rows": [
     {
-      "uuid": "00000000-0000-0000-0000-000000000001",
+      "uuid": "5f235f15-7e49-4c60-9493-982234401d88",
       "email": "test@test.com",
       "props": {
         "lang": "en",

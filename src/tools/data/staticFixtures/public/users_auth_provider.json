@@ -3,7 +3,7 @@
   "table": "users_auth_provider",
   "rows": [
     {
-      "user_uuid": "00000000-0000-0000-0000-000000000001",
+      "user_uuid": "5f235f15-7e49-4c60-9493-982234401d88",
       "provider": "local",
       "props": {
         "password": "$2b$10$EA1jG3Ddk/3Ee5dLH/W.QOi57paXmhz2vjZFNXExx15.sujp8PW5e"
