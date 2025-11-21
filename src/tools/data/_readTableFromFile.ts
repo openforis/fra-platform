@@ -1,8 +1,7 @@
 import * as fs from 'fs'
 import * as path from 'path'
 
-import { ExportedTableData } from 'meta/metadata/export'
-
+import { ExportedTableData } from 'server/service/databaseService/export'
 import { Logger } from 'server/utils/logger'
 
 export const _readTableFromFile = (schema: string, table: string, baseDir: string): ExportedTableData => {
