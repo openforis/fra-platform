@@ -14,8 +14,6 @@
     "cache:generate": "ts-node src/tools/generateCache/",
     "clean": "shx rm -rf dist/",
     "heroku-cleanup": "cd node_modules/bcrypt && node-pre-gyp install --fallback-to-build",
-    "migration-public:create": "src/tools/migrations/public/create-migration-step.sh",
-    "migration-public:run": "ts-node src/tools/migrations/public",
     "migration-steps:create": "ts-node src/tools/migrations/steps/createMigrationStep.ts",
     "migration-steps:reset": "ts-node src/tools/migrations/steps/reset.ts",
     "migration-steps:run": "ts-node src/tools/migrations/steps/",
