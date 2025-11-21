@@ -71,6 +71,7 @@ export default defineConfig([
           ignoreDestructuring: false,
         },
       ],
+      'object-shorthand': ['warn', 'always', { avoidQuotes: true }],
       '@typescript-eslint/no-var-requires': 'error',
       '@typescript-eslint/no-explicit-any': 'warn',
       '@typescript-eslint/no-non-null-assertion': 'warn',
