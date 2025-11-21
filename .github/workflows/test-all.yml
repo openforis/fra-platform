@@ -13,38 +13,63 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Decrypt and extract fixtures
+      - name: "Fixtures: Decrypt and extract"
         run: |
           echo "$BACKUP_PASSPHRASE" | gpg --batch --passphrase-fd 0 -d src/tools/data/fixtures.tar.gz.gpg | tar -xz -C src/tools/data
         env:
           BACKUP_PASSPHRASE: ${{ secrets.BACKUP_PASSPHRASE }}
 
-      - name: Build and start containers
-        run: docker compose -f src/test/e2e/docker-compose.test.yml up -d
+      - name: "DOCKER: Build containers"
+        run: docker compose -f src/test/e2e/docker-compose.test.yml build
 
-      - name: Wait for services to be ready
+      - name: "DOCKER: Start database and services"
+        run: docker compose -f src/test/e2e/docker-compose.test.yml up -d postgres redis-queue redis-data mailhog
+
+      - name: "POSTGRES: Wait ready"
         run: |
-          timeout 300 bash -c 'until docker compose -f src/test/e2e/docker-compose.test.yml ps web | grep -q "healthy"; do sleep 5; done'
+          timeout 60 bash -c 'until docker compose -f src/test/e2e/docker-compose.test.yml ps postgres | grep -q "healthy"; do sleep 2; done'
 
-      - name: Create test results directory
+      - name: "WEB: Run migrations"
+        run: |
+          docker compose -f src/test/e2e/docker-compose.test.yml run --rm --no-deps web \
+            yarn migration-public:run
+
+      - name: "WEB: Import fixture data"
+        run: |
+          docker compose -f src/test/e2e/docker-compose.test.yml run --rm --no-deps web \
+            yarn ts-node src/tools/data/import.ts
+
+      - name: "WEB: Generate cache"
+        run: |
+          docker compose -f src/test/e2e/docker-compose.test.yml run --rm --no-deps web \
+            yarn cache:generate
+
+      - name: "WEB: Start server"
+        run: docker compose -f src/test/e2e/docker-compose.test.yml up -d web
+
+      - name: "WEB: Wait ready"
+        run: |
+          timeout 60 bash -c 'until docker compose -f src/test/e2e/docker-compose.test.yml ps web | grep -q "healthy"; do sleep 2; done'
+
+      - name: "Playwright: Create test results directory"
         run: mkdir -p playwright-report
 
-      - name: Run unit and integration tests
+      - name: "WEB: Run unit and integration tests"
         run: docker compose -f src/test/e2e/docker-compose.test.yml exec -T web yarn test
 
-      - name: Run E2E tests
+      - name: "Playwright: Run E2E tests"
         if: always()
         run: |
           docker compose -f src/test/e2e/docker-compose.test.yml run --no-deps \
             playwright npm run test:e2e
 
-      - name: Zip test results
+      - name: "Playwright: Zip test results"
         if: always()
         run: |
           cd src/test/e2e
           zip -r ../../../playwright-results.zip test-results/
 
-      - name: Upload test results
+      - name: "Playwright: Upload test results"
         if: always() && !env.ACT
         uses: actions/upload-artifact@v4
         with:
@@ -52,6 +77,6 @@ jobs:
           path: playwright-results.zip
           retention-days: 30
 
-      - name: Stop containers
+      - name: "Docker: Stop containers"
         if: always()
         run: docker compose -f src/test/e2e/docker-compose.test.yml down -v

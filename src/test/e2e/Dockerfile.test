@@ -13,4 +13,4 @@ COPY . .
 RUN yarn build
 
 EXPOSE 9001
-CMD ["yarn", "ci:start"]
+CMD ["yarn", "start"]
