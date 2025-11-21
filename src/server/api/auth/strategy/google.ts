@@ -1,7 +1,7 @@
 import { Request } from 'express'
 import { PassportStatic } from 'passport'
-import * as GoogleStrategy from 'passport-google-oauth'
-import { Profile, VerifyFunction } from 'passport-google-oauth'
+import * as GoogleStrategy from 'passport-google-oauth20'
+import { Profile, VerifyCallback } from 'passport-google-oauth20'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { AuthProvider, AuthProviderGoogleProps } from 'meta/user/auth'
@@ -15,7 +15,7 @@ const googleStrategyVerifyCallback = async (
   _accessToken: string,
   _refreshToken: string,
   profile: Profile,
-  done: VerifyFunction
+  done: VerifyCallback
 ): Promise<void> => {
   try {
     const email = profile.emails[0].value.toLowerCase()
@@ -87,7 +87,7 @@ const googleStrategyVerifyCallback = async (
 
 export const googleStrategy = (passport: PassportStatic): void => {
   passport.use(
-    new GoogleStrategy.OAuth2Strategy(
+    new GoogleStrategy.Strategy(
       {
         clientID: process.env.FRA_GOOGLE_CLIENT_ID,
         clientSecret: process.env.FRA_GOOGLE_CLIENT_SECRET,
