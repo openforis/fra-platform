@@ -35,8 +35,7 @@ const User: React.FC = () => {
     navigate(-1)
   }, [navigate])
 
-  const params = { assessmentName, cycleName, countryIso }
-  const action = Urls.withSearchParams(ApiEndPoint.User.one(), params)
+  const action = Urls.withSearchParams(ApiEndPoint.User.one(), { assessmentName, cycleName, countryIso })
 
   useEffect(() => {
     if (location?.state?.personalInfoRequired) {
