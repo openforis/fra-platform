@@ -1,41 +1,51 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 type Props = {
   opened: boolean
 }
 
 type Returned = {
-  isMounted: boolean
-  isExpanded: boolean
+  active: boolean
+  displayChildren: boolean
+  onTransitionEnd: (e: React.TransitionEvent) => void
 }
 
 export const useSlidingPanelMount = (props: Props): Returned => {
   const { opened } = props
-  const [isMounted, setIsMounted] = useState(opened)
-  const [isExpanded, setIsExpanded] = useState(opened)
+
+  const [active, setActive] = useState(false)
+  const [displayChildren, setDisplayChildren] = useState(false)
 
   useEffect(() => {
     if (opened) {
-      setIsMounted(true)
-      let frameId: number | null = null
-      let openFrameId: number | null = null
-
-      frameId = window.requestAnimationFrame(() => {
-        // Set expanded in a second frame to trigger open animation/transition
-        openFrameId = window.requestAnimationFrame(() => setIsExpanded(true))
-      })
-
-      return (): void => {
-        if (frameId !== null) window.cancelAnimationFrame(frameId)
-        if (openFrameId !== null) window.cancelAnimationFrame(openFrameId)
-      }
+      setDisplayChildren(true)
+    } else {
+      setActive(false)
     }
-
-    setIsExpanded(false)
-    // Unmount after 500ms to allow animation/transition to finish
-    const timeout = window.setTimeout(() => setIsMounted(false), 500)
-    return (): void => window.clearTimeout(timeout)
   }, [opened])
 
-  return { isExpanded, isMounted }
+  useEffect(() => {
+    if (displayChildren && opened) {
+      requestAnimationFrame(() => {
+        setActive(true)
+      })
+    }
+  }, [displayChildren, opened])
+
+  const onTransitionEnd = useCallback(
+    (e: React.TransitionEvent) => {
+      if (e.target !== e.currentTarget) return
+
+      if (!opened) {
+        setDisplayChildren(false)
+      }
+    },
+    [opened]
+  )
+
+  return {
+    active,
+    displayChildren,
+    onTransitionEnd,
+  }
 }

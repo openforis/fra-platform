@@ -21,30 +21,33 @@ const SlidingPanel: React.FC<React.PropsWithChildren<Props>> = (props) => {
     return { '--sliding-panel-width': `${size}vw` }
   }, [size])
 
-  const { isExpanded, isMounted } = useSlidingPanelMount({ opened })
-
-  if (!isMounted) return null
+  const { active, displayChildren, onTransitionEnd } = useSlidingPanelMount({ opened })
 
   return (
     <div
-      aria-hidden={!isExpanded}
+      aria-hidden={!active}
       className={classNames('sliding-panel-container', {
-        active: isExpanded,
+        active,
         'click-through': noBackdrop,
       })}
+      onTransitionEnd={onTransitionEnd}
       style={panelStyle}
     >
-      {!noBackdrop && (
-        /* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */
-        <div className="sliding-panel-backdrop" onClick={closePanel} />
-      )}
+      {displayChildren && (
+        <>
+          {!noBackdrop && (
+            /* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */
+            <div className="sliding-panel-backdrop" onClick={closePanel} />
+          )}
 
-      <div className="sliding-panel-track">
-        <div className="sliding-panel">
-          <ButtonClose className="sliding-panel__close" onClick={closePanel} />
-          <div className="panel-container">{children}</div>
-        </div>
-      </div>
+          <div className="sliding-panel-track">
+            <div className="sliding-panel">
+              <ButtonClose className="sliding-panel__close" onClick={closePanel} />
+              <div className="panel-container">{children}</div>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   )
 }
