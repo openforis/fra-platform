@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import classNames from 'classnames'
 import { Objects } from 'utils/objects'
 
 import { Country } from 'meta/area/country'
@@ -13,6 +12,7 @@ import { useAssessmentCountry } from 'client/store/area/hooks/country'
 import { useAppDispatch } from 'client/store/hooks'
 import { useUser } from 'client/store/user/hooks/user'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
+import ButtonCheckbox, { ButtonCheckboxVariant } from 'client/components/Buttons/ButtonCheckbox'
 import { PopoverItem } from 'client/components/PopoverControl'
 
 export const useAdminPopoverItems = (): Array<PopoverItem> => {
@@ -33,12 +33,15 @@ export const useAdminPopoverItems = (): Array<PopoverItem> => {
 
     const { deskStudy } = country.props ?? {}
 
-    const contentDeskStudy = (
-      <div className="popover-control__checkbox-container">
-        <span className={classNames('fra-checkbox', { checked: deskStudy })} style={{ marginRight: '8px' }} />
-        <span>{t<string>('assessment.deskStudy')}</span>
-      </div>
+    const content = (
+      <ButtonCheckbox
+        checked={deskStudy}
+        label={t('assessment.deskStudy')}
+        onClick={() => {}}
+        variant={ButtonCheckboxVariant.checkbox}
+      />
     )
-    return [{ divider: true }, { content: contentDeskStudy, onClick: toggleDeskStudy }]
+
+    return [{ divider: true }, { content, onClick: toggleDeskStudy }]
   }, [assessmentName, country, countryIso, cycleName, dispatch, t, user])
 }

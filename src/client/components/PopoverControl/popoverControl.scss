@@ -21,7 +21,7 @@
 .popover-control__item-link {
   padding: $spacing-xxs $spacing-xs;
   line-height: 16px;
-  color: $text-link;
+  color: $text-body;
 
   &:hover {
     background-color: color.adjust($ui-bg, $lightness: -4%, $space: hsl);
@@ -39,9 +39,4 @@
   height: 1px;
   background-color: $ui-border;
   margin: 4px 0;
-}
-
-.popover-control__checkbox-container {
-  display: flex;
-  align-items: center;
 }
