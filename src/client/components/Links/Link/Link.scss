@@ -1,0 +1,42 @@
+@use 'sass:color';
+@import 'src/client/style/partials';
+
+$color: $ui-accent;
+$colorHover: color.adjust($color, $lightness: -5%, $space: hsl);
+$colorHoverTextDecoration: color.adjust($colorHover, $lightness: 12%, $space: hsl);
+
+.link {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  gap: $spacing-xxxs;
+  justify-content: start;
+  justify-items: start;
+  outline: none;
+  text-decoration: underline 1px rgba($colorHoverTextDecoration, 0);
+  text-underline-offset: 2px;
+  transition:
+    text-decoration-color 150ms ease-out,
+    color 150ms ease-out;
+
+  &.color-blue {
+    color: $color;
+  }
+
+  &.color-body {
+    color: $text-body;
+  }
+
+  &.one-line {
+    @include line-clamp(1);
+  }
+
+  &:hover {
+    color: $colorHover;
+    text-decoration-color: rgba($colorHoverTextDecoration, 1);
+
+    svg {
+      color: $colorHover;
+    }
+  }
+}

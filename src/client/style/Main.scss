@@ -1,14 +1,11 @@
-@use 'sass:color';
-
 //===WARNING====
 // DO NOT IMPORT SPECIFIC COMPONENT STYLES HERE,
 // ONLY MORE GENERAL STUFF USED IN MANY PLACES
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap');
-@import 'src/client/styles/config';
+@import 'src/client/style/partials';
 //Import all common application styles
 @import 'src/client/styles/cssVars';
 @import 'src/client/styles/buttons';
-@import 'src/client/styles/checkbox';
 @import 'src/client/styles/icon';
 @import 'src/client/styles/form';
 @import 'src/client/styles/fraTable';
@@ -72,14 +69,6 @@ h1.title {
 
 .subhead {
   font-size: $font-l;
-}
-
-a {
-  color: color.adjust($ui-accent, $lightness: -2%, $space: hsl);
-}
-
-a:hover {
-  color: color.adjust($ui-accent, $lightness: -4%, $space: hsl);
 }
 
 hr {

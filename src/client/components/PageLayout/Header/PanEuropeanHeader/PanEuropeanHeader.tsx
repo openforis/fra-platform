@@ -2,7 +2,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
-import LinkHome from 'client/components/LinkHome'
+import LinkHome from 'client/components/Links/LinkHome'
 
 import CycleSwitcher from '../CycleSwitcher'
 import UserLinks from '../UserLinks'

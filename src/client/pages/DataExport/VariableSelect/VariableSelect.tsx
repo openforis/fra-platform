@@ -14,7 +14,7 @@ import { useAppDispatch } from 'client/store/hooks'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useSection } from 'client/store/meta/hooks/sections'
 import ButtonCheckBox, { ButtonCheckboxVariant } from 'client/components/Buttons/ButtonCheckbox'
-import DefinitionLink from 'client/components/DefinitionLink'
+import DefinitionLink from 'client/components/Links/DefinitionLink'
 import { Breakpoints } from 'client/utils/breakpoints'
 
 const Heading: Record<string, string> = {
@@ -56,11 +56,10 @@ const VariableSelect: React.FC<{ variables: Array<Row> }> = ({ variables }) => {
   return (
     <div className="export__form-section">
       <div className="export__form-section-header">
-        <div className="export__form-section-header-withLink">
+        <div className="export__form-section-header-withLink margin-right-big">
           <h4>{t(Heading[assessmentName])}</h4>
           <DefinitionLink
             anchor={subSection.props.anchors[cycle.uuid]}
-            className="margin-right-big"
             document="tad"
             title={`(${t('definition.definitionLabel')})`}
           />

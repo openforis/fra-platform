@@ -10,9 +10,9 @@ import { useExplorerMeasures } from 'client/store/explorer/selection/hooks/measu
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useSection } from 'client/store/meta/hooks/sections'
 import { useSectionRouteParams } from 'client/hooks/routeParams'
-import useOpenDefinition from 'client/components/DefinitionLink/hooks/useOpenDefinition'
 import Icon from 'client/components/Icon'
 import MultiSelect from 'client/components/Inputs/MultiSelect/MultiSelect'
+import useOpenDefinition from 'client/components/Links/DefinitionLink/hooks/useOpenDefinition'
 
 import { useOnChange } from './hooks/useOnChange'
 import { useOptions } from './hooks/useOptions'

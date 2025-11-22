@@ -12,6 +12,7 @@ import { useIsVerificationInProgress } from 'client/store/admin/links/hooks/veri
 import { useAppDispatch } from 'client/store/hooks'
 import { useSectionRouteParams } from 'client/hooks/routeParams'
 import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
+import LinkCommon from 'client/components/Links/Link'
 
 type Props = {
   link: LinkType
@@ -38,9 +39,9 @@ const Link: React.FC<Props> = (props) => {
 
   return (
     <div className={classNames('link-cell', { withApprovalBadge })}>
-      <a className="link-cell__anchor" href={link} rel="noreferrer" target="_blank">
+      <LinkCommon oneLine rel="noreferrer" target="_blank" to={link}>
         {link}
-      </a>
+      </LinkCommon>
       <div className="link-cell__badge-button-container">
         {withApprovalBadge && <div className="link-cell__badge">{t('common.approved')}</div>}
         <Button

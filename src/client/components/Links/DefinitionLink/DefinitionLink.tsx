@@ -1,23 +1,25 @@
-import './DefinitionLink.scss'
 import React from 'react'
 
 import classNames from 'classnames'
+
+import { useLinkClassName } from 'client/components/Links/Link'
 
 import useOpenDefinition from './hooks/useOpenDefinition'
 
 type Props = {
   anchor: string
-  className?: string
   document: string
   title: string
 }
 
 const DefinitionLink: React.FC<Props> = (props: Props) => {
-  const { anchor, className, document, title } = props
+  const { anchor, document, title } = props
+
+  const className = useLinkClassName()
   const openDefinition = useOpenDefinition({ anchor, document })
 
   return (
-    <div aria-hidden="true" className={classNames(`definition-link`, className, `no-print`)} onClick={openDefinition}>
+    <div aria-hidden="true" className={classNames(className, `no-print`)} onClick={openDefinition}>
       {title}
     </div>
   )
