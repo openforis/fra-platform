@@ -23,3 +23,14 @@
     opacity: 0;
   }
 }
+
+.results-table__title {
+  align-items: center;
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+
+  .select__control {
+    padding: unset;
+  }
+}
