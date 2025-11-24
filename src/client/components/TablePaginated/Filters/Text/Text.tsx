@@ -1,6 +1,5 @@
 import './Text.scss'
 import React from 'react'
-
 import classNames from 'classnames'
 import { Objects } from 'utils/objects'
 
@@ -43,7 +42,7 @@ const Text: React.FC<Props> = (props) => {
       <InputText onChange={handleChange} placeholder={label} value={filterValue ?? ''} />
       {!Objects.isEmpty(filterValue) && (
         <button className="clear-button icon" onClick={handleClearInput} type="button">
-          <Icon className="icon-sub" name="remove" />
+          <Icon name="remove" />
         </button>
       )}
     </div>

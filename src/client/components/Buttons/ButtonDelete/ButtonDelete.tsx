@@ -12,7 +12,7 @@ const ButtonDelete: React.FC<Props> = (props) => {
 
   return (
     <button className="btn-s btn-link-destructive btn-delete" onClick={onClick} type="button">
-      <Icon className="icon-no-margin" name="trash-simple" />
+      <Icon name="trash-simple" />
     </button>
   )
 }

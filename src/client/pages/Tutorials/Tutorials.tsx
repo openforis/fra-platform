@@ -90,7 +90,7 @@ const Tutorials: React.FC = () => {
                 rel="noreferrer"
                 target="_blank"
               >
-                <Icon className="icon-sub icon-white" name="video" />
+                <Icon className="icon-white" name="video" />
                 {t('tutorial.watch')}
               </a>
             </React.Fragment>

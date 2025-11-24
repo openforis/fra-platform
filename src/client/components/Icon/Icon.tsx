@@ -1,8 +1,10 @@
+import './Icon.scss'
 import React from 'react'
-
 import classNames from 'classnames'
 
-import bustString from './cacheBust'
+import { UUIDs } from 'meta/uuid/uuids'
+
+const bustString = UUIDs.getUuid()
 
 type Props = {
   name: string

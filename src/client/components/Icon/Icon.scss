@@ -1,4 +1,4 @@
-@import 'src/client/style/_partials/_config';
+@import '../../style/_partials/config';
 
 @mixin mixin-icon-base() {
   display: inline-block;
@@ -28,36 +28,8 @@
   position: relative;
 }
 
-.icon-sub {
-  vertical-align: sub;
-  position: relative;
-}
-
-.icon-no-margin {
-  margin-left: 0 !important;
-  margin-right: 0 !important;
-}
-
-.icon-margin {
-  margin-left: 4px;
-  margin-right: 4px;
-}
-
 .icon-white {
   color: white;
-}
-
-.icon-red {
-  color: $ui-destructive;
-}
-
-.icon-orange {
-  color: $ui-alert;
-}
-
-.icon-geo {
-  @include mixin-icon-base;
-  filter: invert(98%);
 }
 
 svg.icon_hit-down {

@@ -32,7 +32,7 @@ const LinkPrint: React.FC = () => {
         target="_blank"
         to={path}
       >
-        <Icon className="icon-no-margin icon-sub" name="small-print" />
+        <Icon name="small-print" />
       </Link>
       <div className="toolbar__separator" />
       <Link
@@ -42,8 +42,8 @@ const LinkPrint: React.FC = () => {
         target="_blank"
         to={pathTables}
       >
-        <Icon className="icon-white icon-sub" name="small-print" />
-        <Icon className="icon-white icon-sub" name="icon-table2" />
+        <Icon className="icon-white" name="small-print" />
+        <Icon className="icon-white" name="icon-table2" />
       </Link>
     </>
   )

@@ -25,7 +25,7 @@ const ButtonDownloadAll: React.FC<Props> = (props: Props) => {
 
   return (
     <Link className={className} target="_blank" to={`${ApiEndPoint.CycleData.Repository.File.many()}?${queryParams}`}>
-      <Icon className="icon-sub icon-white" name="hit-down" />
+      <Icon className="icon-white" name="hit-down" />
       {label}
     </Link>
   )

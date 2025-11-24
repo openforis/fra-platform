@@ -1,6 +1,5 @@
 import './ToggleNavigationControl.scss'
 import React from 'react'
-
 import classNames from 'classnames'
 
 import { useAppDispatch } from 'client/store/hooks'
@@ -24,7 +23,7 @@ const ToggleNavigationControl: React.FC = () => {
       onClick={() => dispatch(CountryReportActions.setNavigationVisible())}
       type="button"
     >
-      <Icon className="icon-sub" name="menu-left" />
+      <Icon name="menu-left" />
     </button>
   )
 }

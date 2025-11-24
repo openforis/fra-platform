@@ -23,7 +23,7 @@ const Button: React.FC<ButtonProps> = (props) => {
       onMouseLeave={onMouseLeave}
       type="button"
     >
-      {iconName && !icon && <Icon className="icon-sub icon-white" name={iconName} />}
+      {iconName && !icon && <Icon className="icon-white" name={iconName} />}
       {icon && icon}
       {label}
     </button>
