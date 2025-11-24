@@ -1,6 +1,6 @@
 @import 'src/client/style/partials';
 
-.nav-assessment-status-confirm__message {
+.assessment-status-confirm__message {
   resize: none;
   outline: none;
   display: block;
@@ -25,19 +25,11 @@
     color: $text-disabled;
   }
 }
+.assessment-status-confirm__body {
+  display: grid;
+  gap: $spacing-xs;
 
-.nav-assessment-status-confirm__notify-users,
-.nav-assessment-status-confirm__notify-self {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-top: 14px;
-
-  .fra-checkbox {
-    margin-right: 7px;
-  }
-
-  &:hover {
-    cursor: pointer;
+  .button-checkbox {
+    justify-self: center;
   }
 }
