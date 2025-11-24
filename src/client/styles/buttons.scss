@@ -96,17 +96,6 @@ button:hover {
   }
 }
 
-.btn-link-destructive {
-  background: transparent;
-  color: $ui-destructive;
-  font-weight: 400;
-
-  &:hover {
-    color: color.adjust($ui-destructive, $lightness: -6%, $space: hsl);
-    text-decoration: underline;
-  }
-}
-
 .btn-link {
   background: transparent;
   color: color.adjust($ui-accent, $lightness: -2%, $space: hsl);

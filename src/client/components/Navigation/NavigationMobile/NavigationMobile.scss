@@ -36,18 +36,7 @@
 }
 
 button.navM__btnClose {
-  align-items: center;
-  background-color: transparent;
-  border: unset;
-  display: flex;
-  justify-content: center;
-  padding: $spacing-xxxs;
   position: absolute;
   right: $spacing-xxs;
   top: $spacing-xxs;
-  z-index: 1;
-
-  .icon {
-    margin: unset;
-  }
 }
