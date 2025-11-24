@@ -1,6 +1,9 @@
 import '../scriptInit'
 
 import * as path from 'path'
+import { EXPORT_ASSESSMENTS, EXPORT_ASSESSMENTS_CYCLES, EXPORT_TABLES } from 'tools/db/config/EXPORT_TABLES'
+import { readTableFromFile } from 'tools/db/io/readTableFromFile'
+import { DBService } from 'tools/db/service'
 import { ToolsUtils } from 'tools/utils/toolsUtils'
 
 import { AssessmentNames } from 'meta/assessment/assessment'
@@ -10,10 +13,6 @@ import { TableData } from 'server/controller/cycleData/tableData'
 import { DB } from 'server/db/db'
 import { AssessmentRepository } from 'server/db/repository/assessment/assessment'
 import { Schemas } from 'server/db/schemas'
-
-import { DBService } from './utils/dbService/dbService'
-import { EXPORT_ASSESSMENTS, EXPORT_ASSESSMENTS_CYCLES, EXPORT_TABLES } from './utils/EXPORT_TABLES'
-import { _readTableFromFile } from './utils/readTableFromFile'
 
 const INPUT_DIR = path.join(__dirname, 'fixtures')
 
@@ -45,7 +44,7 @@ const exec = async (): Promise<void> => {
     // Use EXPORT_TABLES order to respect foreign key dependencies
     const tables = EXPORT_TABLES.map((tableConfig) => {
       const { schema, table } = tableConfig
-      return _readTableFromFile(schema, table, INPUT_DIR)
+      return readTableFromFile(schema, table, INPUT_DIR)
     })
 
     await DBService.importTables({ tables }, t)

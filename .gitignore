@@ -37,4 +37,4 @@ src/tools/csvNodeImport/panEuropean
 /.env.production
 
 #Data export
-src/tools/database/fixtures/
+src/tools/db/fixtures/

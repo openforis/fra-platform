@@ -1,11 +1,10 @@
 import * as fs from 'fs'
 import * as path from 'path'
+import { ExportedTableData } from 'tools/db/service/exportTables'
 
 import { Logger } from 'server/utils/logger'
 
-import { ExportedTableData } from './dbService/exportTables'
-
-export const _readTableFromFile = (schema: string, table: string, baseDir: string): ExportedTableData => {
+export const readTableFromFile = (schema: string, table: string, baseDir: string): ExportedTableData => {
   const filePath = path.join(baseDir, schema, `${table}.json`)
 
   if (!fs.existsSync(filePath)) {

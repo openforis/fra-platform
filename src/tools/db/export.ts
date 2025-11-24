@@ -1,14 +1,13 @@
 import '../scriptInit'
 
 import * as path from 'path'
+import { EXPORT_TABLES } from 'tools/db/config/EXPORT_TABLES'
+import { copyStaticFixtures } from 'tools/db/io/copyStaticFixtures'
+import { writeTableToFile } from 'tools/db/io/writeTableToFile'
+import { DBService } from 'tools/db/service'
 import { ToolsUtils } from 'tools/utils/toolsUtils'
 
 import { DB } from 'server/db/db'
-
-import { _copyStaticFixtures } from './utils/copyStaticFixtures'
-import { DBService } from './utils/dbService/dbService'
-import { EXPORT_TABLES } from './utils/EXPORT_TABLES'
-import { _writeTableToFile } from './utils/writeTableToFile'
 
 const OUTPUT_DIR = path.join(__dirname, 'fixtures')
 
@@ -18,11 +17,11 @@ const exec = async (): Promise<void> => {
     const allData = await DBService.exportTables({ tables }, t)
 
     allData.forEach((tableData) => {
-      _writeTableToFile(tableData, OUTPUT_DIR)
+      writeTableToFile(tableData, OUTPUT_DIR)
     })
   })
 
-  _copyStaticFixtures(OUTPUT_DIR)
+  copyStaticFixtures(OUTPUT_DIR)
 }
 
 ToolsUtils.exec(exec)

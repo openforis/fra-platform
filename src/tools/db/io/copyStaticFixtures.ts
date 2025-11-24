@@ -3,7 +3,7 @@ import * as path from 'path'
 
 import { Logger } from 'server/utils/logger'
 
-const STATIC_FIXTURES_DIR = path.join(__dirname, 'staticFixtures')
+const STATIC_FIXTURES_DIR = path.join(__dirname, '..', 'staticFixtures')
 
 const _copyRecursive = (src: string, dest: string): void => {
   if (!fs.existsSync(dest)) {
@@ -28,7 +28,7 @@ const _copyRecursive = (src: string, dest: string): void => {
 /**
  * Utility to copy static fixtures to fixtures folder (e.g. for test user)
  */
-export const _copyStaticFixtures = (outputDir: string): void => {
+export const copyStaticFixtures = (outputDir: string): void => {
   if (!fs.existsSync(STATIC_FIXTURES_DIR)) {
     Logger.debug('No static fixtures directory found, skipping')
     return
