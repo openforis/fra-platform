@@ -27,7 +27,7 @@ const Invite: React.FC = () => {
 
   return (
     <Link className={className} to={Routes.CountryHomeSectionInvite.path.relative}>
-      <Icon className="icon-sub icon-white" name="small-add" /> {t('userManagement.addUser')}
+      <Icon className="icon-white" name="small-add" /> {t('userManagement.addUser')}
     </Link>
   )
 }

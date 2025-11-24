@@ -25,7 +25,7 @@ const ExportButton: React.FC<Props> = (props) => {
   return (
     <div className="table-paginated-export-button">
       <Link className={className} target="_blank" to={exportUrl}>
-        <Icon className="icon-sub icon-white" name="hit-down" />
+        <Icon className="icon-white" name="hit-down" />
         CSV
       </Link>
     </div>

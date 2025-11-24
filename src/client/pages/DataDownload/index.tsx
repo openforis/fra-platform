@@ -32,7 +32,7 @@ const DataDownload: React.FC = () => {
       <div className="data-download">
         <div>{t('dataDownload.bulkDownload')}</div>
         <a className="btn-s btn-primary" href={`${ApiEndPoint.File.bulkDownload()}?${baseParams}`}>
-          <Icon className="icon-sub icon-white" name="hit-down" />
+          <Icon className="icon-white" name="hit-down" />
           ZIP
         </a>
 
@@ -54,7 +54,7 @@ const DataDownload: React.FC = () => {
                 language: lang,
               })}
             >
-              <Icon className="icon-sub icon-white" name="hit-down" />
+              <Icon className="icon-white" name="hit-down" />
               ODS
             </a>
             <a
@@ -68,7 +68,7 @@ const DataDownload: React.FC = () => {
                 language: lang,
               })}
             >
-              <Icon className="icon-sub icon-white" name="hit-down" />
+              <Icon className="icon-white" name="hit-down" />
               XLS
             </a>
           </React.Fragment>

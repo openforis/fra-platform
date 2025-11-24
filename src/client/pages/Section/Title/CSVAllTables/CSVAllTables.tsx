@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-
 import { Promises } from 'utils/promises'
 
 import { useIsPrintRoute } from 'client/hooks/routes'
@@ -52,7 +51,7 @@ const CSVAllTables: React.FC<Props> = (props) => {
 
   return (
     <button className={className} onClick={handleClick} type="button">
-      <Icon className="icon-sub icon-white" name="hit-down" />
+      <Icon className="icon-white" name="hit-down" />
       {t('common.csvAllTables')}
     </button>
   )

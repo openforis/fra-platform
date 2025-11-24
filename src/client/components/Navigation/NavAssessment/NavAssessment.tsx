@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import MediaQuery from 'react-responsive'
 import { Link } from 'react-router-dom'
-
 import { Objects } from 'utils/objects'
 
 import { Areas } from 'meta/area/areas'
@@ -54,7 +53,7 @@ const NavAssessment: React.FC = () => {
             to={Routes.CountryDataDownload.generatePath({ assessmentName, cycleName, countryIso })}
           >
             <div className="nav-section__order">
-              <Icon className="icon-sub icon-white" name="hit-down" />
+              <Icon className="icon-white" name="hit-down" />
             </div>
             <div className="nav-section__label">{t('dataDownload.dataDownload')}</div>
           </Link>

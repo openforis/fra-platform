@@ -30,7 +30,7 @@ const ExtentOfForest: React.FC = () => {
           className={className}
           to={Routes.OriginalDataPoint.generatePath({ assessmentName, cycleName, countryIso, sectionName, year: '-1' })}
         >
-          <Icon className="icon-sub icon-white" name="small-add" />
+          <Icon className="icon-white" name="small-add" />
           {t('nationalDataPoint.addNationalDataPoint')}
         </Link>
       </div>

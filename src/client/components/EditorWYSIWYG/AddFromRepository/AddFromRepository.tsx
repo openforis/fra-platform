@@ -77,7 +77,7 @@ const AddFromRepository: React.FC = () => {
                   variant={ButtonCheckboxVariant.checkbox}
                 />
                 <a href={url}>
-                  <Icon className="icon-sub " name="hit-down" />
+                  <Icon name="hit-down" />
                 </a>
               </div>
             )

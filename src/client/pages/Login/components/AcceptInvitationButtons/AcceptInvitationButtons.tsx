@@ -60,7 +60,7 @@ const AcceptInvitationButtons: React.FC = () => {
         rel="noreferrer"
         target="_blank"
       >
-        <Icon className="icon-sub" name="video" /> {t(videoResources[0].labelKeyShort)}
+        <Icon name="video" /> {t(videoResources[0].labelKeyShort)}
       </a>
 
       <div className="divider" />
@@ -78,7 +78,7 @@ const AcceptInvitationButtons: React.FC = () => {
         rel="noreferrer"
         target="_blank"
       >
-        <Icon className="icon-sub" name="video" /> {t(videoResources[1].labelKeyShort)}
+        <Icon name="video" /> {t(videoResources[1].labelKeyShort)}
       </a>
     </>
   )

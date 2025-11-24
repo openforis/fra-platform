@@ -1,7 +1,6 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { matchPath, NavLink, useLocation } from 'react-router-dom'
-
 import classNames from 'classnames'
 
 import { Routes } from 'meta/routes/routes'
@@ -26,7 +25,7 @@ const LinkLanding: React.FC = () => {
       to={Routes.CountryHome.generatePath({ assessmentName, cycleName, countryIso })}
     >
       <div className="nav-section__order">
-        <Icon className="icon-sub" name="icon-bar-chart" />
+        <Icon name="icon-bar-chart" />
       </div>
 
       <div className="nav-section__label">{t('common.dashboard')}</div>
