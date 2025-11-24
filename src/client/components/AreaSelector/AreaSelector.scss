@@ -74,6 +74,13 @@
   }
 }
 
+@include rtl {
+  .toolbar__country .flag {
+    margin-right: initial;
+    margin-left: 8px;
+  }
+}
+
 .toolbar__select-laptop {
   display: none;
 

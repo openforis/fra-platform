@@ -1,0 +1,38 @@
+// RTL Configuration (for arabic) @deprecated
+.rtl {
+  // all below classes are deprecated. and will all be replaced by new components
+  .fra-table tbody th,
+  .fra-table__category-cell,
+  .fra-table__subcategory-cell,
+  .fra-table__header-cell-left,
+  .fra-table__cell-left,
+  .btn-country-select {
+    text-align: right;
+  }
+
+  .country-selection-list__row {
+    .status-accepted,
+    .status-editing,
+    .status-review {
+      margin-right: initial;
+      margin-left: 8px;
+    }
+  }
+
+  .country-selection-list {
+    min-width: 600px;
+    right: 0;
+  }
+
+  .select,
+  .select-s {
+    background-position: left 8px top 50%;
+    padding: 0 20px;
+  }
+
+  .btn.btn-primary.no-print > .icon.icon-sub.icon-white,
+  .btn-s .icon {
+    margin-right: initial;
+    margin-left: 6px;
+  }
+}

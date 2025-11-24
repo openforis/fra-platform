@@ -31,7 +31,7 @@ const DataDownload: React.FC = () => {
 
       <div className="data-download">
         <div>{t('dataDownload.bulkDownload')}</div>
-        <a className="btn-s btn-primary nav__bulk-download" href={`${ApiEndPoint.File.bulkDownload()}?${baseParams}`}>
+        <a className="btn-s btn-primary" href={`${ApiEndPoint.File.bulkDownload()}?${baseParams}`}>
           <Icon className="icon-sub icon-white" name="hit-down" />
           ZIP
         </a>
@@ -44,7 +44,7 @@ const DataDownload: React.FC = () => {
               {t(resource.labelKey)}
             </div>
             <a
-              className="btn-s btn-primary nav__bulk-download"
+              className="btn-s btn-primary"
               href={Files.Static.getDataDownload({
                 assessmentName,
                 cycleName,
@@ -58,7 +58,7 @@ const DataDownload: React.FC = () => {
               ODS
             </a>
             <a
-              className="btn-s btn-primary nav__bulk-download"
+              className="btn-s btn-primary"
               href={Files.Static.getDataDownload({
                 assessmentName,
                 cycleName,

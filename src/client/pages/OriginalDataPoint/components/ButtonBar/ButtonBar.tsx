@@ -1,3 +1,4 @@
+import './ButtonBar.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useNavigate } from 'react-router-dom'
@@ -42,7 +43,7 @@ const ButtonBar: React.FC = () => {
     }
   }
   return (
-    <>
+    <div className="odp__button-bar">
       <Link className={doneClassName} to={sectionLink}>
         <Icon name="checkbox" />
         {t('nationalDataPoint.doneEditing')}
@@ -58,7 +59,7 @@ const ButtonBar: React.FC = () => {
         size={ButtonSize.m}
         type={ButtonType.danger}
       />
-    </>
+    </div>
   )
 }
 

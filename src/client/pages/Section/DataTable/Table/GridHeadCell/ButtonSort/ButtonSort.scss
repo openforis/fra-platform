@@ -1,9 +1,8 @@
 @import 'src/client/style/partials';
-@import 'src/client/styles/config';
 
 .grid-header-cell__button-sort {
   position: absolute;
-  right: 0px;
+  right: 0;
   top: 50%;
   transform: translateY(-50%);
 
@@ -20,7 +19,7 @@
 
 @include rtl {
   .grid-header-cell__button-sort {
-    left: 0px;
+    left: 0;
     right: unset;
   }
 }

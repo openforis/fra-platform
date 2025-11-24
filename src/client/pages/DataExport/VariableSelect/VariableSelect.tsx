@@ -56,7 +56,7 @@ const VariableSelect: React.FC<{ variables: Array<Row> }> = ({ variables }) => {
   return (
     <div className="export__form-section">
       <div className="export__form-section-header">
-        <div className="export__form-section-header-withLink margin-right-big">
+        <div className="export__form-section-header-withLink">
           <h4>{t(Heading[assessmentName])}</h4>
           <DefinitionLink
             anchor={subSection.props.anchors[cycle.uuid]}

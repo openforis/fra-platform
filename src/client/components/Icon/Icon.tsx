@@ -9,7 +9,7 @@ type Props = {
   className?: string
 }
 
-const Icon = (props: Props) => {
+const Icon: React.FC<Props> = (props) => {
   const { className, name } = props
 
   return (

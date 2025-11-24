@@ -85,7 +85,7 @@ const Tutorials: React.FC = () => {
               <div>{t(resource.labelKey)}</div>
 
               <a
-                className="btn-s btn-primary nav__bulk-download"
+                className="btn-s btn-primary"
                 href={resource.url[lang] ?? resource.url.en}
                 rel="noreferrer"
                 target="_blank"

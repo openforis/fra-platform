@@ -4,14 +4,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap');
 @import 'src/client/style/partials';
 //Import all common application styles
-@import 'src/client/styles/cssVars';
+@import '_main/cssVars';
+@import '_main/rtl';
+@import '_main/validation';
 @import 'src/client/styles/buttons';
-@import 'src/client/styles/icon';
 @import 'src/client/styles/form';
 @import 'src/client/styles/fraTable';
-@import 'src/client/styles/fraValidation';
-@import 'src/client/styles/typography';
-@import 'src/client/styles/rtl';
+@import 'src/client/styles/icon';
 @import 'react-loading-skeleton/dist/skeleton.css';
 
 *,
@@ -33,6 +32,10 @@ body {
   height: 100dvh;
   line-height: 20px;
   margin: 0;
+}
+
+@include rtl {
+  direction: rtl;
 }
 
 #main {
@@ -81,42 +84,6 @@ hr {
   display: none;
 }
 
-.notfound {
-  position: fixed;
-  top: 0;
-  left: 0;
-  padding: 100px;
-  width: 100vw;
-  height: 100%;
-  text-align: center;
-  margin: 0 auto;
-  background-color: rgb(white, 0.8);
-  z-index: $z-index-loader;
-
-  img {
-    animation: wobble 0.3s ease-in-out 0.1s;
-  }
-}
-
-.no-scroll {
-  overflow: hidden;
-}
-
 .only-print {
   display: none;
-}
-
-@keyframes wobble {
-  0% {
-    transform: rotate(0deg);
-  }
-  25% {
-    transform: rotate(5deg);
-  }
-  75% {
-    transform: rotate(-5deg);
-  }
-  100% {
-    transform: rotate(0deg);
-  }
 }

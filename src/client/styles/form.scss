@@ -1,6 +1,6 @@
-@import 'src/client/styles/config';
+@import 'src/client/style/_partials/_config';
 
-@mixin mixin-input-base(){
+@mixin mixin-input-base() {
   background-color: transparent;
   border: $ui-thin-border;
   border-radius: 2px;
@@ -13,7 +13,7 @@
   }
 }
 
-@mixin mixin-select-base($padding, $border, $radius){
+@mixin mixin-select-base($padding, $border, $radius) {
   background-color: transparent;
   background-position: right $padding top 50%;
   background-repeat: no-repeat;
@@ -41,14 +41,16 @@ input::-webkit-contacts-auto-fill-button {
   pointer-events: none;
 }
 
-input, select, textarea {
+input,
+select,
+textarea {
   font-family: inherit;
   font-size: 100%;
   margin: 0;
 }
 
 .select {
-@include mixin-select-base(8px, $ui-thin-border, 2px);
+  @include mixin-select-base(8px, $ui-thin-border, 2px);
   font-size: $font-m;
   height: 32px;
   min-width: 120px;
@@ -60,7 +62,7 @@ input, select, textarea {
 }
 
 .select-s {
-@include mixin-select-base(8px, $ui-thin-border, 2px);
+  @include mixin-select-base(8px, $ui-thin-border, 2px);
   font-size: $font-xs;
   height: 28px;
   min-width: 80px;
@@ -72,13 +74,13 @@ input, select, textarea {
 }
 
 .text-input {
-@include mixin-input-base;
+  @include mixin-input-base;
   font-size: $font-m;
   padding: 7px 9px;
 }
 
 .text-input-s {
-@include mixin-input-base;
+  @include mixin-input-base;
   font-size: $font-s;
   padding: 3px 7px;
 }
