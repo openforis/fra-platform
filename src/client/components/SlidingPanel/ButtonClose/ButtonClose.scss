@@ -1,0 +1,9 @@
+@use 'sass:color';
+
+@import 'src/client/style/partials';
+
+button.sliding-panel__close {
+  left: $spacing-xxs;
+  position: absolute;
+  top: $spacing-xxs;
+}
