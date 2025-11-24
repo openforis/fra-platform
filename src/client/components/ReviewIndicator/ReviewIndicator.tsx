@@ -1,6 +1,5 @@
 import './ReviewIndicator.scss'
 import React, { useCallback } from 'react'
-
 import classNames from 'classnames'
 
 import { CountryIso } from 'meta/area/countryIso'
@@ -10,7 +9,7 @@ import { useAppDispatch } from 'client/store/hooks'
 import { MessageCenterActions } from 'client/store/messageCenter/actions'
 import { useReviewStatus } from 'client/store/review/hooks/review'
 import { useSectionRouteParams } from 'client/hooks/routeParams'
-import Icon from 'client/components/Icon'
+import Button, { ButtonSize } from 'client/components/Buttons/Button'
 
 type Props = {
   title: string
@@ -41,17 +40,18 @@ const ReviewIndicator: React.FC<Props> = (props) => {
   }, [assessmentName, countryIso, cycleName, dispatch, sectionName, subtitle, title, topicKey])
 
   return (
-    <button
+    <Button
       className={classNames('review-indicator', {
         open: messagesCount > 0,
         unread: hasUnreadMessages,
         resolved: status === MessageTopicStatus.resolved,
       })}
+      iconName="chat-46"
+      inverse
+      noBorder
       onClick={openTopic}
-      type="button"
-    >
-      <Icon name="chat-46" />
-    </button>
+      size={ButtonSize.m}
+    />
   )
 }
 
