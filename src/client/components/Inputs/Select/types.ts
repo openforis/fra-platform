@@ -36,8 +36,14 @@ type SelectBaseProps = Pick<
 type SelectClassNamesProps = {
   classNames?: { container?: string }
 }
+
+export enum SelectSize {
+  s = 's',
+}
+
 export type SelectProps = SelectBaseProps &
   SelectClassNamesProps & {
+    bordered?: boolean
     collapsibleGroups?: boolean
     createOptionLabelKey?: string
     disabled?: boolean
@@ -49,6 +55,7 @@ export type SelectProps = SelectBaseProps &
     onPaste?: React.ClipboardEventHandler<HTMLDivElement>
     options: OptionsOrGroups
     selectableGroups?: boolean
+    size?: SelectSize
     toggleAll?: boolean
     value?: ValueInput
   }

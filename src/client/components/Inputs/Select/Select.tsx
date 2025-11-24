@@ -2,6 +2,7 @@ import './Select.scss'
 import React from 'react'
 import ReactSelect, { Props as ReactSelectProps } from 'react-select'
 import CreatableSelect from 'react-select/creatable'
+import classNamesFn from 'classnames'
 
 import { useClassNames } from './hooks/useClassNames'
 import { useComponents } from './hooks/useComponents'
@@ -13,6 +14,7 @@ import { SelectProps } from './types'
 
 const Select: React.FC<SelectProps> = (props) => {
   const {
+    bordered,
     createOptionPosition,
     disabled,
     formatOptionLabel,
@@ -31,6 +33,7 @@ const Select: React.FC<SelectProps> = (props) => {
     onMenuOpen,
     onPaste,
     placeholder,
+    size,
   } = props
 
   const classNames = useClassNames(props)
@@ -67,7 +70,7 @@ const Select: React.FC<SelectProps> = (props) => {
   }
 
   return (
-    <div className="select__wrapper" onPaste={onPaste}>
+    <div className={classNamesFn('select__wrapper', { bordered }, `size-${size}`)} onPaste={onPaste}>
       {isCreatable && (
         <CreatableSelect
           // eslint-disable-next-line react/jsx-props-no-spreading
