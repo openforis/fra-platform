@@ -165,6 +165,11 @@ div.select__option {
 div.select__wrapper {
   &.bordered {
     border: 1px solid $ui-border;
+    transition: border-color ease-in-out 0.1s;
+
+    &:has(* .select__menu) {
+      border: $border-menu;
+    }
   }
 
   &.size-s {
