@@ -3,7 +3,7 @@ import { Promises } from 'utils/promises'
 
 import { BaseProtocol, DB } from 'server/db/db'
 
-import { ExportedTableData } from './export'
+import { ExportedTableData } from './exportTables'
 
 type ImportTableProps = { exportedTableData: ExportedTableData }
 const importTable = async (props: ImportTableProps, client: BaseProtocol = DB): Promise<void> => {

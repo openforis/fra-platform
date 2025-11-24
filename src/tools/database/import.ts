@@ -10,10 +10,10 @@ import { TableData } from 'server/controller/cycleData/tableData'
 import { DB } from 'server/db/db'
 import { AssessmentRepository } from 'server/db/repository/assessment/assessment'
 import { Schemas } from 'server/db/schemas'
-import { DatabaseService } from 'server/service/databaseService'
 
-import { _readTableFromFile } from './_readTableFromFile'
-import { EXPORT_ASSESSMENTS, EXPORT_ASSESSMENTS_CYCLES, EXPORT_TABLES } from './EXPORT_TABLES'
+import { DBService } from './utils/dbService/dbService'
+import { EXPORT_ASSESSMENTS, EXPORT_ASSESSMENTS_CYCLES, EXPORT_TABLES } from './utils/EXPORT_TABLES'
+import { _readTableFromFile } from './utils/readTableFromFile'
 
 const INPUT_DIR = path.join(__dirname, 'fixtures')
 
@@ -48,7 +48,7 @@ const exec = async (): Promise<void> => {
       return _readTableFromFile(schema, table, INPUT_DIR)
     })
 
-    await DatabaseService.importTables({ tables }, t)
+    await DBService.importTables({ tables }, t)
 
     // create views
     const assessments = await AssessmentController.getAll({}, t)

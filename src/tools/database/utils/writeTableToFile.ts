@@ -1,8 +1,9 @@
 import * as fs from 'fs'
 import * as path from 'path'
 
-import { ExportedTableData } from 'server/service/databaseService/export'
 import { Logger } from 'server/utils/logger'
+
+import { ExportedTableData } from './dbService/exportTables'
 
 // Exports to baseDir/schema/table.json
 export const _writeTableToFile = (data: ExportedTableData, baseDir: string): void => {

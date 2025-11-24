@@ -15,7 +15,7 @@ jobs:
 
       - name: "Fixtures: Decrypt and extract"
         run: |
-          echo "$BACKUP_PASSPHRASE" | gpg --batch --passphrase-fd 0 -d src/tools/data/fixtures.tar.gz.gpg | tar -xz -C src/tools/data
+          echo "$BACKUP_PASSPHRASE" | gpg --batch --passphrase-fd 0 -d src/tools/database/fixtures.tar.gz.gpg | tar -xz -C src/tools/database
         env:
           BACKUP_PASSPHRASE: ${{ secrets.BACKUP_PASSPHRASE }}
 
@@ -32,12 +32,12 @@ jobs:
       - name: "WEB: Init schemas"
         run: |
           docker compose -f src/test/e2e/docker-compose.test.yml run --rm --no-deps web \
-            yarn ts-node src/tools/initSchemas.ts
+            yarn ts-node src/tools/database/initSchemas.ts
 
       - name: "WEB: Import fixture data"
         run: |
           docker compose -f src/test/e2e/docker-compose.test.yml run --rm --no-deps web \
-            yarn ts-node src/tools/data/import.ts
+            yarn ts-node src/tools/database/import.ts
 
       - name: "WEB: Generate cache"
         run: |

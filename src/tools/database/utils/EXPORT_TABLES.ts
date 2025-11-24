@@ -2,7 +2,8 @@ import { AssessmentNames } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
 
 import { Schemas } from 'server/db/schemas'
-import { ExportTableProps } from 'server/service/databaseService/export'
+
+import { ExportTableProps } from './dbService/exportTables'
 
 export type ExportTableConfig = ExportTableProps & {
   skipExport?: boolean
