@@ -15,13 +15,18 @@
 
 .odp__year-selection {
   margin-bottom: 16px;
+
+  .select__wrapper {
+    width: 140px;
+  }
 }
 
 .odp__previous-year-selection {
-  margin-bottom: 16px;
-  display: flex;
   align-items: center;
+  display: grid;
   gap: 8px;
+  grid-template-columns: max-content 120px max-content;
+  margin-bottom: 16px;
 }
 
 .odp__bottom-buttons {

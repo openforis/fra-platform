@@ -184,5 +184,16 @@ div.select__wrapper {
         width: 12px;
       }
     }
+
+    div.select__indicatorsContainer {
+      gap: 0;
+    }
+
+    div.select__clearIndicator {
+      svg {
+        height: 14px;
+        width: 14px;
+      }
+    }
   }
 }

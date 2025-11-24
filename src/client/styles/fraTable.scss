@@ -149,23 +149,6 @@
   border-right: 3px double $ui-border;
 }
 
-.fra-table__select {
-  @include mixin-select-base(10px, none, 0);
-  font-size: $font-s;
-  height: 100%;
-  min-width: 100%;
-
-  &:focus {
-    outline: none;
-    box-shadow: 0 0 0 1px $text-body;
-  }
-
-  &:disabled {
-    background-image: none;
-    cursor: default;
-  }
-}
-
 // Header button
 
 .fra-table {
