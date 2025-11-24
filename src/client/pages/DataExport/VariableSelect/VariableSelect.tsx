@@ -14,6 +14,8 @@ import { useAppDispatch } from 'client/store/hooks'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useSection } from 'client/store/meta/hooks/sections'
 import ButtonCheckBox, { ButtonCheckboxVariant } from 'client/components/Buttons/ButtonCheckbox'
+import MultiSelect from 'client/components/Inputs/MultiSelect'
+import { Option } from 'client/components/Inputs/Select'
 import DefinitionLink from 'client/components/Links/DefinitionLink'
 import { Breakpoints } from 'client/utils/breakpoints'
 
@@ -64,42 +66,35 @@ const VariableSelect: React.FC<{ variables: Array<Row> }> = ({ variables }) => {
             title={`(${t('definition.definitionLabel')})`}
           />
         </div>
-        <ButtonCheckBox
-          checked={selectionVariables.length > 0 && selectionVariables.length === variables.length}
-          className="btn-all"
-          label={t(selectionVariables.length > 0 ? 'common.unselectAll' : 'common.selectAll')}
-          onClick={() => {
-            updateSelection(
-              selection.sections[sectionName].variables.length > 0 ? [] : variables.map((v) => v.props.variableName)
-            )
-          }}
-          variant={ButtonCheckboxVariant.checkbox}
-        />
+        <MediaQuery minWidth={Breakpoints.laptop}>
+          <ButtonCheckBox
+            checked={selectionVariables.length > 0 && selectionVariables.length === variables.length}
+            className="btn-all"
+            label={t(selectionVariables.length > 0 ? 'common.unselectAll' : 'common.selectAll')}
+            onClick={() => {
+              updateSelection(
+                selection.sections[sectionName].variables.length > 0 ? [] : variables.map((v) => v.props.variableName)
+              )
+            }}
+            variant={ButtonCheckboxVariant.checkbox}
+          />
+        </MediaQuery>
       </div>
 
       <MediaQuery maxWidth={Breakpoints.laptop - 1}>
-        <select
-          multiple
-          onChange={(event) => {
-            const variablesUpdate = Array.from(event.target.selectedOptions, (option) => {
-              return String(option.value)
-            })
-            updateSelection(variablesUpdate)
-          }}
-          value={selectionVariables}
-        >
-          {variables.map((variable) => {
+        <MultiSelect
+          multiLabelSummaryKey="common.variable"
+          onChange={updateSelection}
+          options={variables.map<Option>((variable) => {
             const { variableName } = variable.props
 
             const label = Labels.getCycleLabel({ cycle, labels: variable.cols[0].props.labels, t })
-
-            return (
-              <option key={variableName} value={variableName}>
-                {label}
-              </option>
-            )
+            return { label, value: variableName }
           })}
-        </select>
+          placeholder={t('common.select')}
+          toggleAll
+          value={selectionVariables}
+        />
       </MediaQuery>
       <MediaQuery minWidth={Breakpoints.laptop}>
         <>

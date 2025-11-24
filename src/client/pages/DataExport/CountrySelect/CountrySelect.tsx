@@ -8,11 +8,14 @@ import { Strings } from 'utils/strings'
 
 import { Areas } from 'meta/area/areas'
 import { Country } from 'meta/area/country'
+import { Users } from 'meta/user/users'
 
 import { DataExportActions } from 'client/store/dataExport/actions'
 import { useDataExportCountries, useDataExportSelection } from 'client/store/dataExport/hooks/dataExport'
 import { useAppDispatch } from 'client/store/hooks'
+import { useUser } from 'client/store/user/hooks/user'
 import ButtonCheckBox, { ButtonCheckboxVariant } from 'client/components/Buttons/ButtonCheckbox'
+import CountryMultiSelect from 'client/components/CountryMultiSelect'
 import { Breakpoints } from 'client/utils/breakpoints'
 
 const CountrySelect: React.FC = () => {
@@ -21,6 +24,7 @@ const CountrySelect: React.FC = () => {
   const { sectionName } = useParams<{ sectionName: string }>()
   const countries = useDataExportCountries()
   const selection = useDataExportSelection(sectionName)
+  const user = useUser()
 
   const [countriesFiltered, setCountriesFiltered] = useState<Array<Country>>(countries)
   const inputRef = useRef(null)
@@ -63,46 +67,36 @@ const CountrySelect: React.FC = () => {
   return (
     <div className="export__form-section">
       <div className="export__form-section-header select-all search">
-        <h4>{t('common.country')}</h4>
-        <input
-          ref={inputRef}
-          className="text-input"
-          onChange={filterCountriesThrottle}
-          placeholder={t('emoji.picker.search')}
-          type="text"
-        />
-        <ButtonCheckBox
-          checked={selection.countryISOs.length > 0 && selection.countryISOs.length === countries.length}
-          className="btn-all"
-          label={t(selection.countryISOs.length > 0 ? 'common.unselectAll' : 'common.selectAll')}
-          onClick={(): void => {
-            const countryISOs: Array<string> =
-              selection.countryISOs.length > 0 ? [] : countries.map((country) => country.countryIso)
-            updateSelection(countryISOs)
-          }}
-          variant={ButtonCheckboxVariant.checkbox}
-        />
+        <h4>{t('common.countries')}</h4>
+        <MediaQuery minWidth={Breakpoints.laptop}>
+          <input
+            ref={inputRef}
+            className="text-input"
+            onChange={filterCountriesThrottle}
+            placeholder={t('emoji.picker.search')}
+            type="text"
+          />
+          <ButtonCheckBox
+            checked={selection.countryISOs.length > 0 && selection.countryISOs.length === countries.length}
+            className="btn-all"
+            label={t(selection.countryISOs.length > 0 ? 'common.unselectAll' : 'common.selectAll')}
+            onClick={(): void => {
+              const countryISOs: Array<string> =
+                selection.countryISOs.length > 0 ? [] : countries.map((country) => country.countryIso)
+              updateSelection(countryISOs)
+            }}
+            variant={ButtonCheckboxVariant.checkbox}
+          />
+        </MediaQuery>
       </div>
 
       <MediaQuery maxWidth={Breakpoints.laptop - 1}>
-        <select
-          multiple
-          onChange={(event): void => {
-            const countryISOsUpdate = Array.from(event.target.selectedOptions, (option) => option.value)
-            updateSelection(countryISOsUpdate)
-          }}
-          size={5}
+        <CountryMultiSelect
+          allowAtlantis={user && Users.isAdministrator(user)}
+          allowedCountries={countriesFiltered.map((c) => c.countryIso)}
+          onChange={updateSelection}
           value={selection.countryISOs}
-        >
-          {countriesFiltered.map((country: Country) => {
-            const { countryIso } = country
-            return (
-              <option key={countryIso} value={countryIso}>
-                {t(Areas.getTranslationKey(country.countryIso))}
-              </option>
-            )
-          })}
-        </select>
+        />
       </MediaQuery>
 
       <MediaQuery minWidth={Breakpoints.laptop}>
