@@ -1,4 +1,5 @@
 @import 'src/client/style/partials';
+@import 'src/client/components/Links/Link/Link';
 
 $pdf-guideline-width: 1202px;
 
@@ -16,6 +17,10 @@ div.editorWYSIWYG {
     margin: unset;
   }
 
+  a {
+    @extend .link;
+    @extend .color-blue;
+  }
   div.jodit-react-container,
   div.jodit-container,
   div.jodit-workplace {

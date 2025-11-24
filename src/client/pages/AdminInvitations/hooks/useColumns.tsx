@@ -6,7 +6,7 @@ import { Dates } from 'utils/dates'
 import { UserInvitationSummary } from 'meta/user/invitationSummary'
 import { Users } from 'meta/user/users'
 
-import CountryLink from 'client/components/CountryLink'
+import CountryLink from 'client/components/Links/CountryLink'
 import { Column } from 'client/components/TablePaginated'
 import Expired from 'client/pages/AdminInvitations/Expired'
 

@@ -118,18 +118,6 @@ button:hover {
   }
 }
 
-.link {
-  cursor: pointer;
-  display: inline-block;
-  transition: $ease-out;
-  text-decoration: none;
-  outline: none;
-
-  &:hover {
-    text-decoration: underline;
-  }
-}
-
 .btn-transparent {
   background-color: transparent;
   border: none;

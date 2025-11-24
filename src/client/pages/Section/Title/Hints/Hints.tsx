@@ -12,7 +12,8 @@ import { SdgMetadataFileName } from 'meta/file/static'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useLanguage } from 'client/hooks/language'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
-import DefinitionLink from 'client/components/DefinitionLink'
+import DefinitionLink from 'client/components/Links/DefinitionLink'
+import Link from 'client/components/Links/Link'
 import { Props } from 'client/pages/Section/Title/props'
 
 type Hint = {
@@ -46,9 +47,9 @@ export const HintsSustainableDevelopment: React.FC<Props> = () => {
         })
 
         return (
-          <a key={key} className="definition-link no-print" href={href} rel="noreferrer" target="_blank">
+          <Link key={key} className="no-print" rel="noreferrer" target="_blank" to={href}>
             {t(`fra.sustainableDevelopment.${key}`)}
-          </a>
+          </Link>
         )
       })}
     </div>
