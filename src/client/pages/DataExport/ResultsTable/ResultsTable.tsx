@@ -97,6 +97,7 @@ const ResultsTable: React.FC<{ tableName: string }> = ({ tableName }) => {
                         baseUnit={unit ?? baseUnit}
                         onUnitChange={onUnitChange}
                         resultsLoading={resultsLoading}
+                        unit={units[variableName] ?? unit ?? baseUnit}
                         variable={variableName}
                       />
                     )}
@@ -113,6 +114,7 @@ const ResultsTable: React.FC<{ tableName: string }> = ({ tableName }) => {
                     baseUnit={baseUnit}
                     onUnitChange={onUnitChange}
                     resultsLoading={resultsLoading}
+                    unit={units[variable] ?? baseUnit}
                     variable={variable}
                   />
                 </th>

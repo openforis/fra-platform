@@ -16,26 +16,22 @@ export type OptionsOrGroups = ReadonlyArray<Option | OptionsGroup>
 
 export type ValueInput = string | Array<string> | null
 
-type SelectBaseProps =
-  | Pick<
-      ReactSelectProps,
-      | 'formatOptionLabel'
-      | 'inputValue'
-      | 'isClearable'
-      | 'isMulti'
-      | 'isOptionDisabled'
-      | 'maxMenuHeight'
-      | 'onBlur'
-      | 'onFocus'
-      | 'onInputChange'
-      | 'onMenuClose'
-      | 'onMenuOpen'
-      | 'placeholder'
-    > &
-      Pick<
-        CreatableProps<Option, boolean, OptionsGroup>,
-        'createOptionPosition' | 'onCreateOption' | 'isValidNewOption'
-      >
+type SelectBaseProps = Pick<
+  ReactSelectProps,
+  | 'formatOptionLabel'
+  | 'inputValue'
+  | 'isClearable'
+  | 'isMulti'
+  | 'isOptionDisabled'
+  | 'maxMenuHeight'
+  | 'onBlur'
+  | 'onFocus'
+  | 'onInputChange'
+  | 'onMenuClose'
+  | 'onMenuOpen'
+  | 'placeholder'
+> &
+  Pick<CreatableProps<Option, boolean, OptionsGroup>, 'createOptionPosition' | 'onCreateOption' | 'isValidNewOption'>
 
 type SelectClassNamesProps = {
   classNames?: { container?: string }
