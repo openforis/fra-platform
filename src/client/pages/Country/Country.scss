@@ -26,22 +26,6 @@
     }
   }
 
-  .margin-right {
-    margin-right: $spacing-xxs;
-  }
-
-  .margin-right-big {
-    margin-right: $spacing-xs;
-  }
-
-  .margin-left {
-    margin-left: $spacing-xxs;
-  }
-
-  .margin-left-big {
-    margin-left: $spacing-xs;
-  }
-
   .align-left {
     margin-right: auto;
   }
@@ -49,10 +33,6 @@
   .align-right {
     margin-left: auto;
   }
-}
-
-.fra-review__container + .country-select + .app-view {
-  width: calc(100vw - #{$ui-app-review-width});
 }
 
 .app-view__content {
@@ -74,15 +54,6 @@
     min-height: unset;
     padding: unset;
   }
-}
-
-.app-view__page-header {
-  display: flex;
-  flex-flow: row wrap;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: $spacing-s;
-  @include mixin-header-items;
 }
 
 .app-view__section-toolbar {

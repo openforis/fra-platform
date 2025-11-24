@@ -7,15 +7,15 @@
 }
 
 .chart__legend-item {
-  display: flex;
   align-items: center;
+  display: flex;
+  gap: 4px;
   opacity: 0;
 }
 
 .chart__legend-item-color {
   width: 12px;
   height: 12px;
-  margin-right: 4px;
   border-radius: 2px;
 }
 

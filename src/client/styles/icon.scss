@@ -1,4 +1,4 @@
-@import 'src/client/styles/config';
+@import 'src/client/style/_partials/_config';
 
 @mixin mixin-icon-base() {
   display: inline-block;
@@ -41,14 +41,6 @@
 .icon-margin {
   margin-left: 4px;
   margin-right: 4px;
-}
-
-.icon-margin-right {
-  margin-right: 4px;
-}
-
-.icon-margin-left {
-  margin-left: 4px;
 }
 
 .icon-white {

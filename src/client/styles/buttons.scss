@@ -1,6 +1,6 @@
 @use 'sass:color';
 
-@import 'src/client/styles/config';
+@import 'src/client/style/_partials/_config';
 
 @mixin mixin-button-base($fontSize, $padding) {
   background-color: transparent;

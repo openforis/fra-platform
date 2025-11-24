@@ -1,6 +1,5 @@
-@import 'src/client/styles/config';
+@import 'src/client/style/_partials/_config';
 @import 'src/client/styles/form';
-@import 'src/client/styles/fraValidation';
 
 // Mixins
 
@@ -103,7 +102,7 @@
   }
 
   &.error {
-    @include mixin-validation-error;
+    background-color: rgba($ui-destructive, 0.1) !important;
   }
 }
 
@@ -136,11 +135,6 @@
   padding: 0;
   width: 1px;
   vertical-align: top;
-}
-
-.fra-table__review-indicator-anchor {
-  position: absolute;
-  right: 0;
 }
 
 .fra-table__review-cell {

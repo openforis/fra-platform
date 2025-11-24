@@ -8,6 +8,11 @@
   text-align: $align;
 }
 
+.odp__page-header {
+  display: flex;
+  justify-content: space-between;
+}
+
 .odp__year-selection {
   margin-bottom: 16px;
 }
@@ -68,11 +73,6 @@
   font-weight: 400;
   font-size: $font-xs;
   margin-left: 8px;
-}
-
-.odp__review-indicator-row-anchor {
-  position: absolute;
-  right: 0;
 }
 
 .odp__sub-table {
