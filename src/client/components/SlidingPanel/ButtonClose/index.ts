@@ -1,1 +1,1 @@
-export { default } from 'client/components/SlidingPanel/ButtonClose/ButtonClose'
+export { default } from './ButtonClose'
