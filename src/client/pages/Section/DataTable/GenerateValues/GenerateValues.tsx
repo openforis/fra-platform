@@ -1,7 +1,6 @@
 import './GenerateValues.scss'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-
 import { Objects } from 'utils/objects'
 
 import { AssessmentName } from 'meta/assessment/assessment'
@@ -11,6 +10,7 @@ import { TableNames } from 'meta/assessment/table'
 import { RecordAssessmentData } from 'meta/data/recordData'
 
 import { useAssessmentCountry } from 'client/store/area/hooks/country'
+import Select, { Option, SelectSize } from 'client/components/Inputs/Select'
 
 import { useEstimationStatusListener } from './hooks/useEstimationStatusListener'
 import { useGenerateValues } from './hooks/useGenerateValues'
@@ -25,6 +25,12 @@ type Props = {
   rows: Array<Row>
   data: RecordAssessmentData
 }
+
+const methods: Array<{ method: Method; labelKey: string }> = [
+  { method: Method.linear, labelKey: 'tableWithOdp.linearExtrapolation' },
+  { method: Method.repeatLast, labelKey: 'tableWithOdp.annualChangeExtrapolation' },
+  { method: Method.annualChange, labelKey: 'tableWithOdp.repeatLastExtrapolation' },
+]
 
 const GenerateValues: React.FC<Props> = (props) => {
   const { assessmentName, cycleName, data, rows, sectionName, tableName } = props
@@ -51,21 +57,20 @@ const GenerateValues: React.FC<Props> = (props) => {
   let buttonLabel = 'tableWithOdp.generateFraValues'
   if (isEstimationPending || !buttonEnabled) buttonLabel = 'tableWithOdp.generatingFraValues'
 
+  const options = methods.map<Option>((m) => {
+    return { value: m.method, label: t(m.labelKey) }
+  })
   return (
     <div className="app-view__section-toolbar no-print">
       <div className="data-table-generate-values">
-        <select
-          className="select-s"
-          onChange={(evt): void => setMethod(evt.target.value as Method)}
+        <Select
+          bordered
+          onChange={(value: Method) => setMethod(value)}
+          options={options}
+          placeholder={t('tableWithOdp.placeholderSelect')}
+          size={SelectSize.s}
           value={method ?? ''}
-        >
-          <option disabled value="">
-            {t('tableWithOdp.placeholderSelect')}
-          </option>
-          <option value={Method.linear}>{t('tableWithOdp.linearExtrapolation')}</option>
-          <option value={Method.repeatLast}>{t('tableWithOdp.repeatLastExtrapolation')}</option>
-          <option value={Method.annualChange}>{t('tableWithOdp.annualChangeExtrapolation')}</option>
-        </select>
+        />
 
         <button
           className="btn-s btn-primary"
