@@ -1,0 +1,24 @@
+@import 'src/client/style/partials';
+
+$alignment-values: (start, end, center, stretch, baseline, first, last, space-between, space-around, space-evenly);
+$alignment-properties: (align-items, align-content, justify-items, justify-content);
+
+$gaps: 4, 8, 16, 32;
+
+.flex {
+  display: flex;
+
+  @each $property in $alignment-properties {
+    @each $value in $alignment-values {
+      &.#{$property}-#{$value} {
+        #{$property}: $value;
+      }
+    }
+  }
+
+  @each $gap in $gaps {
+    &.gap-#{$gap} {
+      gap: #{$gap}px;
+    }
+  }
+}

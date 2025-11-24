@@ -18,6 +18,7 @@
   position: sticky;
   left: 0;
   flex: 1 100%;
+  z-index: $z-index-explorer-filters;
 
   @include min-width($laptop) {
     height: 300px;
@@ -29,13 +30,15 @@
 
 .export__form-section {
   display: grid;
+  grid-auto-rows: 30px;
   grid-row-gap: $spacing-xxxs;
   position: relative;
 
   @include min-width($laptop) {
-    overflow: hidden;
-    grid-template-rows: 60px 1px 1fr;
+    grid-auto-rows: unset;
     grid-row-gap: unset;
+    grid-template-rows: 60px 1px 1fr;
+    overflow: hidden;
   }
 
   &:not(:last-child) {
@@ -47,15 +50,8 @@
   .divider {
     border-bottom: 1px solid $ui-border-light;
   }
-
-  select {
-    border: 1px solid $ui-border;
-    width: 100%;
-    background-color: white;
-  }
-
-  option {
-    color: $text-body;
+  .country-multiselect__container {
+    min-width: 100%;
   }
 }
 
@@ -117,9 +113,9 @@
 }
 
 .export__form-section-header-withLink {
-  display: grid;
-  grid-template-columns: repeat(2, auto);
-  grid-column-gap: $spacing-xxs;
+  align-items: center;
+  display: flex;
+  gap: $spacing-xxs;
 }
 
 .export__form-section-variables {

@@ -12,14 +12,18 @@
     text-align: left;
   }
 
-  .select-s {
-    border: unset;
-    color: $text-body;
-    font-weight: 600;
-    font-size: $font-s;
-  }
-
   .timestamp {
     opacity: 0;
+  }
+}
+
+.results-table__title {
+  align-items: center;
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+
+  .select__control {
+    padding: unset;
   }
 }
