@@ -102,6 +102,7 @@ export default defineConfig([
         },
       ],
       'no-underscore-dangle': 'off',
+      'object-shorthand': ['warn', 'always', { avoidQuotes: true }],
       'react/jsx-props-no-spreading': 'error',
       'react/jsx-filename-extension': ['warn', { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
       'react/forbid-prop-types': 'off',

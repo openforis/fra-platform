@@ -3,17 +3,15 @@ import { Objects } from 'utils/objects'
 import { SystemOfMeasurementName, systemsOfMeasurement } from 'meta/measurement/systemOfMeasurement'
 import { UUID } from 'meta/uuid/uuid'
 
-import { BaseProtocol, DB } from 'server/db/db'
+import { DB } from 'server/db/db'
 import { SystemOfMeasurementRepository } from 'server/db/repository/measurement/systemOfMeasurement'
 import { UnitRepository } from 'server/db/repository/measurement/unit'
 import { DDL } from 'server/db/repository/public/ddl'
 import { Logger } from 'server/utils/logger'
 
-const client: BaseProtocol = DB
-
-export default async (): Promise<void> => {
+export const initMeasurement = async (): Promise<void> => {
   // 0. Avoid re-running
-  const { exists } = await client.one<{ exists: boolean }>(
+  const { exists } = await DB.one<{ exists: boolean }>(
     `select exists(select 1 from information_schema.schemata where schema_name = 'measurement') as exists;`
   )
   if (exists) {
@@ -22,13 +20,11 @@ export default async (): Promise<void> => {
   }
 
   // 1. Create measurement schema and tables
-  await client.query(DDL.getCreateMeasurementSchemaDDL())
+  await DB.query(DDL.getCreateMeasurementSchemaDDL())
 
   // 2. Insert units and system of measurements
   const insertTasks = Object.entries(systemsOfMeasurement).map(async ([systemOfMeasurementName, system]) => {
-    // Logger.info(`Inserting ${system.units.length} units for system "${systemOfMeasurementName}"…`)
-
-    const dbUnits = await UnitRepository.massiveInsert({ units: system.units }, client)
+    const dbUnits = await UnitRepository.massiveInsert({ units: system.units })
 
     const baseUnit = system.units.find((u) => u.conversionFactor === 1)
 
@@ -48,15 +44,11 @@ export default async (): Promise<void> => {
       return acc
     }, {})
 
-    // Logger.info(`Inserting system of measurement "${systemOfMeasurementName}"…`)
-    await SystemOfMeasurementRepository.create(
-      {
-        baseUnitUUID: dbBaseUnit.uuid,
-        conversionFactors,
-        name: systemOfMeasurementName as SystemOfMeasurementName,
-      },
-      client
-    )
+    await SystemOfMeasurementRepository.create({
+      baseUnitUUID: dbBaseUnit.uuid,
+      conversionFactors,
+      name: systemOfMeasurementName as SystemOfMeasurementName,
+    })
   })
 
   await Promise.all(insertTasks)

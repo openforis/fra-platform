@@ -15,7 +15,7 @@ jobs:
 
       - name: "Fixtures: Decrypt and extract"
         run: |
-          echo "$BACKUP_PASSPHRASE" | gpg --batch --passphrase-fd 0 -d src/tools/data/fixtures.tar.gz.gpg | tar -xz -C src/tools/data
+          echo "$BACKUP_PASSPHRASE" | gpg --batch --passphrase-fd 0 -d src/tools/db/fixtures.tar.gz.gpg | tar -xz -C src/tools/db
         env:
           BACKUP_PASSPHRASE: ${{ secrets.BACKUP_PASSPHRASE }}
 
@@ -29,15 +29,15 @@ jobs:
         run: |
           timeout 60 bash -c 'until docker compose -f src/test/e2e/docker-compose.test.yml ps postgres | grep -q "healthy"; do sleep 2; done'
 
-      - name: "WEB: Run migrations"
+      - name: "WEB: Init schemas"
         run: |
           docker compose -f src/test/e2e/docker-compose.test.yml run --rm --no-deps web \
-            yarn migration-public:run
+            yarn ts-node src/tools/db/initSchemas.ts
 
       - name: "WEB: Import fixture data"
         run: |
           docker compose -f src/test/e2e/docker-compose.test.yml run --rm --no-deps web \
-            yarn ts-node src/tools/data/import.ts
+            yarn ts-node src/tools/db/import.ts
 
       - name: "WEB: Generate cache"
         run: |
