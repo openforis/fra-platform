@@ -1,8 +1,5 @@
-import './ExtentOfForest.scss'
 import React, { useCallback, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-
-import classNames from 'classnames'
 
 import { Users } from 'meta/user/users'
 
@@ -14,6 +11,7 @@ import { useShowOriginalDatapoints } from 'client/store/ui/countryReport/hooks/o
 import { useUser } from 'client/store/user/hooks/user'
 import { useIsPrintRoute } from 'client/hooks/routes'
 import Button from 'client/components/Buttons/Button'
+import Flex from 'client/components/Layout/Flex'
 import OriginalDataPointsPrint from 'client/pages/Print/OriginalDataPointsPrint'
 import { TitleDefault } from 'client/pages/Section/Title/Components'
 
@@ -47,7 +45,7 @@ const ExtentOfForest: React.FC<Props> = (props) => {
 
   return (
     <>
-      <div className={classNames('justify_start', 'section-title-extentOfForest', { withToggleODPs })}>
+      <Flex gap="16">
         <TitleDefault subSection={subSection} />
 
         {withToggleODPs && (
@@ -58,7 +56,7 @@ const ExtentOfForest: React.FC<Props> = (props) => {
             onClick={onClick}
           />
         )}
-      </div>
+      </Flex>
 
       {hasOdps && print && !onlyTables && <OriginalDataPointsPrint sectionName={sectionName} />}
     </>
