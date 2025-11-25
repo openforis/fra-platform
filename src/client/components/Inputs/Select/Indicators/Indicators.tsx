@@ -3,6 +3,7 @@ import React from 'react'
 import { ClearIndicatorProps, components, DropdownIndicatorProps, IndicatorsContainerProps } from 'react-select'
 import classNames from 'classnames'
 
+import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
 import Icon from 'client/components/Icon'
 
 export const IndicatorsContainer: React.FC<IndicatorsContainerProps> = (props) => {
@@ -36,7 +37,7 @@ export const ClearIndicator: React.FC<ClearIndicatorProps> = (props) => {
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
     <components.ClearIndicator {...rest} className={classNames(className, 'select__clearIndicator')}>
-      <Icon name="remove" />
+      <Button iconName="remove" inverse size={ButtonSize.m} type={ButtonType.anonymous} />
     </components.ClearIndicator>
   )
 }
