@@ -48,10 +48,6 @@ button:hover {
   @include mixin-button-base($font-s, 3px 9px);
 }
 
-.btn-xs {
-  @include mixin-button-base($font-xs, 1px 4px);
-}
-
 .btn-primary {
   background-color: $ui-accent;
   color: white;
@@ -63,58 +59,6 @@ button:hover {
 
   &:active {
     box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.1);
-  }
-}
-
-.btn-secondary {
-  background-color: $ui-bg;
-  border-color: $ui-border;
-  color: $text-mute;
-
-  &:hover {
-    background-color: color.adjust($ui-bg, $lightness: -4%, $space: hsl);
-    border-color: color.adjust($ui-border, $lightness: -4%, $space: hsl);
-    color: $text-mute;
-  }
-
-  &:active {
-    box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.1);
-  }
-}
-
-.btn-destructive {
-  background-color: $ui-destructive;
-  color: white;
-
-  &:hover {
-    background-color: color.adjust($ui-destructive, $lightness: -4%, $space: hsl);
-    color: white;
-  }
-
-  &:active {
-    box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.1);
-  }
-}
-
-.btn-link-destructive {
-  background: transparent;
-  color: $ui-destructive;
-  font-weight: 400;
-
-  &:hover {
-    color: color.adjust($ui-destructive, $lightness: -6%, $space: hsl);
-    text-decoration: underline;
-  }
-}
-
-.btn-link {
-  background: transparent;
-  color: color.adjust($ui-accent, $lightness: -2%, $space: hsl);
-  font-weight: 400;
-
-  &:hover {
-    color: color.adjust($ui-accent, $lightness: -4%, $space: hsl);
-    text-decoration: underline;
   }
 }
 
