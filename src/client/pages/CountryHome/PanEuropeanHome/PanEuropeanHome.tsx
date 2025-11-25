@@ -17,9 +17,7 @@ const PanEuropeanHome: React.FC = () => {
 
       <Routes>
         {sections.map(({ component, name }) => (
-          <Route key={name} path={name}>
-            <Route element={React.createElement(component, {})} path="*" />
-          </Route>
+          <Route key={name} element={React.createElement(component, {})} path={`${name}/*`} />
         ))}
 
         <Route element={<Navigate replace to={SectionNames.Country.Home.overview} />} index />
