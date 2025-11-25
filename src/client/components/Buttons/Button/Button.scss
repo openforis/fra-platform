@@ -10,7 +10,7 @@
   display: flex;
   font-family: $font-family-1;
   font-weight: 600;
-  justify-content: start;
+  justify-content: center;
   letter-spacing: 0.25px;
   line-height: 0;
   text-decoration: none;
@@ -93,12 +93,11 @@
   }
 }
 
-// === type styles
-@mixin withTheme($colorPrimary, $hoverInverseLighten, $colorSecondary: white) {
-  $hoverPercent: 4%;
-
+// === theme styles
+@mixin withTheme($colorPrimary, $hoverInverseLighten, $colorSecondary: white, $hoverPercent: 4%) {
   background-color: $colorPrimary;
-  border-color: $colorPrimary;
+  //border-color: $colorPrimary;
+  border-color: color.adjust($colorPrimary, $lightness: -5%, $space: hsl);
   color: $colorSecondary;
 
   svg {
@@ -107,15 +106,11 @@
 
   &:hover {
     background-color: color.adjust($colorPrimary, $lightness: $hoverPercent, $space: hsl);
-    color: color.adjust(white, $lightness: -$hoverPercent, $space: hsl);
+    color: color.adjust($colorSecondary, $lightness: -$hoverPercent, $space: hsl);
 
     svg {
       color: color.adjust(white, $lightness: -$hoverPercent, $space: hsl);
     }
-  }
-
-  &.noBorder {
-    border: unset;
   }
 
   &.inverse {
@@ -166,6 +161,10 @@
   @include withTheme($ui-accent, 60%);
 }
 
+.button__type-secondary {
+  @include withTheme($ui-bg, -6%, $text-mute, -5%);
+}
+
 .button__type-transparent {
   @include withTheme(transparent, 0, $ui-black-map);
   border-color: transparent;
@@ -177,5 +176,15 @@
     svg {
       color: $ui-black-map;
     }
+  }
+}
+
+// additional custom properties
+.button {
+  &.noBorder {
+    border: unset;
+  }
+  &.bgTransparent {
+    background-color: transparent;
   }
 }
