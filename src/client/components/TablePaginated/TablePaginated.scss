@@ -10,8 +10,8 @@
 .table-paginated-datagrid {
   .data-cell {
     border: none;
-    text-align: left;
     padding: $spacing-xxs;
+    text-align: left;
     word-break: break-word;
 
     &.withBorder {
@@ -20,34 +20,14 @@
   }
 
   .data-cell.header {
+    align-items: center;
     background-color: $ui-bg;
-    font-size: $font-m;
-    padding: $spacing-xxs;
-    text-align: left;
-    overflow-wrap: break-word;
-    border: none;
     border-bottom: 1px solid color.adjust($ui-border, $lightness: -15%, $space: hsl);
     display: flex;
+    font-size: $font-m;
     justify-content: start;
-    align-items: center;
-
-    button.btn-sort {
-      border: unset;
-      background: unset;
-      padding: unset;
-      margin: 0 0 0 $spacing-xxs;
-      display: flex;
-      align-items: center;
-
-      svg {
-        color: $text-body;
-      }
-
-      &.active {
-        svg {
-          color: $ui-accent;
-        }
-      }
-    }
+    overflow-wrap: break-word;
+    padding: $spacing-xxs;
+    text-align: left;
   }
 }

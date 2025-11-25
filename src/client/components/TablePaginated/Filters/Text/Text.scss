@@ -15,26 +15,10 @@
   }
 
   button.clear-button {
-    background-color: #ffffff;
-    border: none;
-    height: $spacing-xs;
-    padding: 0;
     position: absolute;
     right: $spacing-xxxs;
     top: 50%;
     transform: translateY(-50%);
-    width: $spacing-xs;
-
-    svg {
-      height: 14px;
-      width: 14px;
-    }
-
-    &:hover {
-      svg {
-        color: $ui-destructive;
-      }
-    }
   }
 
   &.active {
