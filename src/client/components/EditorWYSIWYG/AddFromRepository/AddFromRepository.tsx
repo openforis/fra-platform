@@ -7,6 +7,7 @@ import { Translations } from 'meta/translation/translations'
 
 import { useLanguage } from 'client/hooks/language'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
+import Button, { ButtonSize } from 'client/components/Buttons/Button'
 import ButtonCheckBox, { ButtonCheckboxVariant } from 'client/components/Buttons/ButtonCheckbox'
 import { useRepositoryLinkContext } from 'client/components/EditorWYSIWYG/repositoryLinkContext'
 import FileUpload from 'client/components/FileUpload'
@@ -61,9 +62,6 @@ const AddFromRepository: React.FC = () => {
 
       <ModalBody>
         <div className="references-file-list">
-          {/* <ButtonCheckBox onClick={onClickAll} checked={allSelected} label={t('contactPersons.all')} /> */}
-          {/* <div className="divider" /> */}
-
           {repositoryItems?.map((repositoryItem) => {
             const url = RepositoryItems.getURL({ assessmentName, cycleName, countryIso, repositoryItem })
             const label = Translations.getLabel({ translation: repositoryItem.props.translation, language })
@@ -88,9 +86,7 @@ const AddFromRepository: React.FC = () => {
       </ModalBody>
 
       <ModalFooter>
-        <button className="btn btn-primary" onClick={onClose} type="button">
-          {t('common.apply')}
-        </button>
+        <Button iconName="checkbox" label={t('common.apply')} onClick={onClose} size={ButtonSize.m} />
       </ModalFooter>
     </Modal>
   )
