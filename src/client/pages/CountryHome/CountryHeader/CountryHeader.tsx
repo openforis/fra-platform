@@ -75,7 +75,7 @@ const CountryHeader: React.FC<Props> = (props) => {
               <NavLink
                 key={name}
                 className={({ isActive }): string => (isActive ? sectionActiveClassName : sectionClassName)}
-                to={name}
+                to={`../${name}`}
               >
                 {t(`landing.sections.${name}`)}
               </NavLink>
