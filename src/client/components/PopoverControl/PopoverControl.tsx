@@ -1,7 +1,6 @@
 import './popoverControl.scss'
 import React, { PropsWithChildren, ReactElement, ReactNode, useEffect, useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
-
+import { Link } from 'react-router'
 import classNames from 'classnames'
 
 export type PopoverItem = {
@@ -22,12 +21,12 @@ const PopoverControl: React.FC<PropsWithChildren<Props>> = (props) => {
   const popoverControlRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const outsideClick = (event: any) => {
+    const outsideClick = (event: any): void => {
       if (popoverControlRef.current && !popoverControlRef.current.contains(event.target)) setOpen(false)
     }
     window.addEventListener('click', outsideClick)
 
-    return () => {
+    return (): void => {
       window.removeEventListener('click', outsideClick)
     }
   }, [])
@@ -42,8 +41,8 @@ const PopoverControl: React.FC<PropsWithChildren<Props>> = (props) => {
       tabIndex={0}
     >
       {React.Children.map(children, (child) =>
-        React.cloneElement(child as ReactElement, {
-          className: classNames((child as ReactElement).props.className, { active: open }),
+        React.cloneElement(child as ReactElement<{ className?: string }>, {
+          className: classNames((child as ReactElement<{ className?: string }>).props.className, { active: open }),
         })
       )}
 
