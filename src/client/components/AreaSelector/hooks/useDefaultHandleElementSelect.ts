@@ -1,5 +1,5 @@
 import { useCallback } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router'
 
 import { AreaCode } from 'meta/area/areaCode'
 import { Areas } from 'meta/area/areas'
@@ -34,10 +34,15 @@ export const useDefaultHandleElementSelect = (): Returned => {
       let cycleName = cycle.name
 
       // If the user is not logged in, direct the user to the last published cycle
-      if (!user && Areas.isISOCountry(areaCode)) {
-        cycleName = countries.find((country) => country.countryIso === areaCode).lastPublishedInfo.cycleName
+      if (!user && isCountry) {
+        const country = countries.find((country) => country.countryIso === areaCode)
         // If the user is not logged in and accessing a region, direct to default cycle
-      } else if (!user && !Areas.isISOCountry(areaCode)) {
+        const {
+          lastPublishedInfo: { cycleName: lastPublishedCycleName },
+        } = country
+
+        cycleName = lastPublishedCycleName
+      } else if (!user && !isCountry) {
         cycleName = defaultCycle.name
       }
 
