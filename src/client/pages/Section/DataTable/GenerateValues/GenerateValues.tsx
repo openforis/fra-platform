@@ -10,6 +10,7 @@ import { TableNames } from 'meta/assessment/table'
 import { RecordAssessmentData } from 'meta/data/recordData'
 
 import { useAssessmentCountry } from 'client/store/area/hooks/country'
+import Button from 'client/components/Buttons/Button'
 import Select, { Option, SelectSize } from 'client/components/Inputs/Select'
 
 import { useEstimationStatusListener } from './hooks/useEstimationStatusListener'
@@ -54,8 +55,8 @@ const GenerateValues: React.FC<Props> = (props) => {
   // ODPs cannot be hidden for table 1a
   if (!useOriginalDataPoint && tableName === TableNames.forestCharacteristics) return null
 
-  let buttonLabel = 'tableWithOdp.generateFraValues'
-  if (isEstimationPending || !buttonEnabled) buttonLabel = 'tableWithOdp.generatingFraValues'
+  const buttonLabel =
+    isEstimationPending || !buttonEnabled ? 'tableWithOdp.generatingFraValues' : 'tableWithOdp.generateFraValues'
 
   const options = methods.map<Option>((m) => {
     return { value: m.method, label: t(m.labelKey) }
@@ -72,9 +73,9 @@ const GenerateValues: React.FC<Props> = (props) => {
           value={method ?? ''}
         />
 
-        <button
-          className="btn-s btn-primary"
+        <Button
           disabled={isEstimationPending || !valid || !buttonEnabled}
+          label={t(buttonLabel)}
           onClick={(): void => {
             setButtonEnabled(false)
             generateValues()
@@ -82,10 +83,7 @@ const GenerateValues: React.FC<Props> = (props) => {
               setButtonEnabled(true)
             }, 4_000)
           }}
-          type="button"
-        >
-          {t(buttonLabel)}
-        </button>
+        />
 
         {!Objects.isEmpty(method) && <FieldsOption fields={fields} method={method} setFields={setFields} />}
       </div>
