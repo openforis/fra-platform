@@ -4,18 +4,26 @@ import { useTranslation } from 'react-i18next'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { Files } from 'meta/file/files'
+import { DataDownloadExt } from 'meta/file/static'
 
 import { useLanguage } from 'client/hooks/language'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
+import { ButtonSize, useButtonClassName } from 'client/components/Buttons/Button'
 import Icon from 'client/components/Icon'
 import { DOMs } from 'client/utils/doms'
 
-import resources from './resources'
+import resources, { DataDownloadResource } from './resources'
 
 const DataDownload: React.FC = () => {
   const { t } = useTranslation()
-  const lang = useLanguage()
+  const language = useLanguage()
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams()
+  const linkClassName = useButtonClassName({ size: ButtonSize.m })
+
+  const getHref = (resource: DataDownloadResource, ext: DataDownloadExt): string => {
+    const { name: file } = resource
+    return Files.Static.getDataDownload({ assessmentName, cycleName, countryIso, ext, file, language })
+  }
 
   useEffect(() => {
     DOMs.scrollTo()
@@ -31,8 +39,8 @@ const DataDownload: React.FC = () => {
 
       <div className="data-download">
         <div>{t('dataDownload.bulkDownload')}</div>
-        <a className="btn-s btn-primary" href={`${ApiEndPoint.File.bulkDownload()}?${baseParams}`}>
-          <Icon className="icon-white" name="hit-down" />
+        <a className={linkClassName} href={`${ApiEndPoint.File.bulkDownload()}?${baseParams}`}>
+          <Icon name="hit-down" />
           ZIP
         </a>
 
@@ -43,34 +51,14 @@ const DataDownload: React.FC = () => {
               {`${resource.idx}. `}
               {t(resource.labelKey)}
             </div>
-            <a
-              className="btn-s btn-primary"
-              href={Files.Static.getDataDownload({
-                assessmentName,
-                cycleName,
-                countryIso,
-                ext: 'ods',
-                file: resource.name,
-                language: lang,
-              })}
-            >
-              <Icon className="icon-white" name="hit-down" />
-              ODS
-            </a>
-            <a
-              className="btn-s btn-primary"
-              href={Files.Static.getDataDownload({
-                assessmentName,
-                cycleName,
-                countryIso,
-                ext: 'xlsx',
-                file: resource.name,
-                language: lang,
-              })}
-            >
-              <Icon className="icon-white" name="hit-down" />
-              XLS
-            </a>
+            {[DataDownloadExt.ods, DataDownloadExt.xlsx].map((ext) => {
+              return (
+                <a key={ext} className={linkClassName} href={getHref(resource, ext)}>
+                  <Icon name="hit-down" />
+                  {ext}
+                </a>
+              )
+            })}
           </React.Fragment>
         ))}
       </div>

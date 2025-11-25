@@ -25,9 +25,14 @@ export enum DataDownloadFileName {
   PermanentForestEstate = '6 Permanent forest estate',
 }
 
+export enum DataDownloadExt {
+  ods = 'ods',
+  xlsx = 'xlsx',
+}
+
 interface DataDownloadProps extends BaseParams {
   file: DataDownloadFileName
-  ext: 'ods' | 'xlsx'
+  ext: DataDownloadExt
   language: Lang
 }
 
