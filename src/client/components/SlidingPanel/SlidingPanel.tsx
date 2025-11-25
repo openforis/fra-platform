@@ -1,9 +1,8 @@
 import './SlidingPanel.scss'
 import React, { useMemo } from 'react'
-
 import classNames from 'classnames'
 
-import ButtonClose from 'client/components/Buttons/ButtonClose'
+import ButtonClose from 'client/components/SlidingPanel/ButtonClose'
 
 import { useSlidingPanelMount } from './hooks/useSlidingPanelMount'
 
@@ -42,7 +41,7 @@ const SlidingPanel: React.FC<React.PropsWithChildren<Props>> = (props) => {
 
           <div className="sliding-panel-track">
             <div className="sliding-panel">
-              <ButtonClose className="sliding-panel__close" onClick={closePanel} />
+              <ButtonClose onClick={closePanel} />
               <div className="panel-container">{children}</div>
             </div>
           </div>

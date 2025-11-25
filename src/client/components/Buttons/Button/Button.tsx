@@ -6,9 +6,23 @@ import Icon from 'client/components/Icon'
 
 import { useButtonClassName } from './hooks/useButtonClassName'
 
+const defaults: Partial<ButtonProps> = {
+  htmlButtonType: 'button',
+}
+
 const Button: React.FC<ButtonProps> = (props) => {
-  const { dataTooltipContent, dataTooltipId, disabled, icon, iconName, label, onClick, onMouseEnter, onMouseLeave } =
-    props
+  const {
+    dataTooltipContent,
+    dataTooltipId,
+    disabled,
+    htmlButtonType = defaults.htmlButtonType,
+    icon,
+    iconName,
+    label,
+    onClick,
+    onMouseEnter,
+    onMouseLeave,
+  } = props
 
   const className = useButtonClassName(props)
 
@@ -21,7 +35,7 @@ const Button: React.FC<ButtonProps> = (props) => {
       onClick={onClick}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      type="button"
+      type={htmlButtonType}
     >
       {iconName && !icon && <Icon className="icon-white" name={iconName} />}
       {icon && icon}

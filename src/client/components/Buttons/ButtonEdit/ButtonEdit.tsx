@@ -1,24 +1,28 @@
-import './ButtonEdit.scss'
 import React from 'react'
 import { Link } from 'react-router-dom'
 
+import Button, { ButtonProps, ButtonSize, useButtonClassName } from 'client/components/Buttons/Button'
 import Icon from 'client/components/Icon'
 
-type LinkProps = {
+type PropsLink = {
   url: string
 }
 
-type ButtonProps = {
+type PropsButton = {
   onClick: () => void
 }
 
-type Props = LinkProps | ButtonProps
+type Props = PropsLink | PropsButton
 
 const ButtonEdit: React.FC<Props> = (props) => {
+  const buttonProps: Partial<ButtonProps> = { iconName: 'pencil', inverse: true, noBorder: true, size: ButtonSize.m }
+
+  const linkClassName = useButtonClassName(buttonProps)
+
   if ('url' in props) {
     const { url } = props
     return (
-      <Link className="btn-s btn-link btn-edit" to={url} type="button">
+      <Link className={linkClassName} to={url} type="button">
         <Icon name="pencil" />
       </Link>
     )
@@ -26,9 +30,8 @@ const ButtonEdit: React.FC<Props> = (props) => {
 
   const { onClick } = props
   return (
-    <button className="btn-s btn-link btn-edit" onClick={onClick} type="button">
-      <Icon name="pencil" />
-    </button>
+    // eslint-disable-next-line react/jsx-props-no-spreading
+    <Button onClick={onClick} {...buttonProps} />
   )
 }
 

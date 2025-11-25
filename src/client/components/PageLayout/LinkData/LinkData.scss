@@ -2,20 +2,13 @@
 
 @import 'src/client/style/partials';
 
-// reset button style
-button.toolbar__data-link {
-  background: none;
-  border: none;
-}
-
-a.toolbar__data-link,
-button.toolbar__data-link {
+a.toolbar__data-link {
   color: $text-link;
   font-family: $font-family-1;
   font-size: $font-m;
   font-weight: 500;
-  margin: $spacing-xxxs;
   outline: none;
+  padding: $spacing-xxxs;
   text-decoration: none;
   white-space: nowrap;
 
@@ -24,12 +17,8 @@ button.toolbar__data-link {
   }
 
   &.disabled {
-    $disabledColor: color.adjust($text-link, $lightness: 25%, $space: hsl);
-    color: $disabledColor;
+    color: color.adjust($text-link, $lightness: 25%, $space: hsl);
     cursor: default;
-
-    &:hover {
-      color: $disabledColor;
-    }
+    pointer-events: none;
   }
 }
