@@ -1,6 +1,6 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { Navigate, Outlet, useNavigate } from 'react-router-dom'
+import { Navigate, Outlet, useNavigate } from 'react-router'
 
 import { Assessments } from 'meta/assessment/assessments'
 import { LoginInvitationQueryParams } from 'meta/routes/queryParams/invitation'

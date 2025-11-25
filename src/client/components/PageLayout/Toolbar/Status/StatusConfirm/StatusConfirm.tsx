@@ -1,7 +1,7 @@
 import './StatusConfirm.scss'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useParams } from 'react-router-dom'
+import { useParams } from 'react-router'
 
 import { AssessmentName } from 'meta/assessment/assessment'
 

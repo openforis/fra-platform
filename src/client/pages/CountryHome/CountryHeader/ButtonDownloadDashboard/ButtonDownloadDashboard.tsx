@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import { Link, matchPath, useLocation } from 'react-router-dom'
+import { Link, matchPath, useLocation } from 'react-router'
 
 import { Areas } from 'meta/area/areas'
 import { RegionCode } from 'meta/area/regionCode'

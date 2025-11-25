@@ -1,5 +1,5 @@
 import React, { Suspense, useMemo } from 'react'
-import { createRoutesFromElements, Navigate, Route, RouteObject } from 'react-router-dom'
+import { createRoutesFromElements, Navigate, Route, RouteObject } from 'react-router'
 
 import { RegionCode } from 'meta/area/regionCode'
 import { Routes } from 'meta/routes/routes'

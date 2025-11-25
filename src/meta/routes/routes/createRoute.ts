@@ -1,4 +1,4 @@
-import { generatePath } from 'react-router-dom'
+import { generatePath } from 'react-router'
 
 import { Route } from 'meta/routes/route'
 import { Root } from 'meta/routes/routes/root'
@@ -33,7 +33,7 @@ const getAbsolutePath = (props: { relativePath: string; parent?: Route<any, any>
 
 export const createRoute = <
   PathParams = undefined,
-  QueryParams extends Record<string, unknown> = Record<string, unknown>
+  QueryParams extends Record<string, unknown> = Record<string, unknown>,
 >(
   params: Params
 ): Route<PathParams, QueryParams> => {

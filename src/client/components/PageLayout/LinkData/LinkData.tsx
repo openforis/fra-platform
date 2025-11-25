@@ -2,8 +2,7 @@ import './LinkData.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import MediaQuery from 'react-responsive'
-import { useNavigate } from 'react-router-dom'
-
+import { useNavigate } from 'react-router'
 import classNames from 'classnames'
 import { Objects } from 'utils/objects'
 
