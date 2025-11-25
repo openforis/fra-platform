@@ -53,7 +53,7 @@ const NavAssessment: React.FC = () => {
             to={Routes.CountryDataDownload.generatePath({ assessmentName, cycleName, countryIso })}
           >
             <div className="nav-section__order">
-              <Icon className="icon-white" name="hit-down" />
+              <Icon name="hit-down" />
             </div>
             <div className="nav-section__label">{t('dataDownload.dataDownload')}</div>
           </Link>

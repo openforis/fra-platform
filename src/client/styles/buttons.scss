@@ -47,22 +47,3 @@ button:hover {
 .btn-s {
   @include mixin-button-base($font-s, 3px 9px);
 }
-
-.btn-primary {
-  background-color: $ui-accent;
-  color: white;
-
-  &:hover {
-    background-color: color.adjust($ui-accent, $lightness: -4%, $space: hsl);
-    color: white;
-  }
-
-  &:active {
-    box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.1);
-  }
-}
-
-.btn-transparent {
-  background-color: transparent;
-  border: none;
-}

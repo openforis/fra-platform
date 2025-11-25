@@ -73,6 +73,8 @@
 
 .landing__activity-empty {
   color: $text-disabled;
+  display: grid;
+  justify-items: center;
   padding: $spacing-xl;
   text-align: center;
 }
