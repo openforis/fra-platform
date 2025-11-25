@@ -25,7 +25,7 @@ const ButtonDataExport: React.FC<ButtonDataExportProps> = (props) => {
   return (
     <div>
       <CSVLink className={className} data={data} filename={`${filename}.csv`} target="_blank">
-        <Icon className="icon-white" name="hit-down" />
+        <Icon name="hit-down" />
         CSV
       </CSVLink>
     </div>

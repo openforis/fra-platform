@@ -9,7 +9,7 @@ import { SectionNames } from 'meta/routes/sectionNames'
 
 import { useLanguage } from 'client/hooks/language'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
-import { ButtonSize, useButtonClassName } from 'client/components/Buttons/Button'
+import { useButtonClassName } from 'client/components/Buttons/Button'
 import Icon from 'client/components/Icon'
 
 const sectionName = SectionNames.Country.Home.overview
@@ -19,7 +19,7 @@ const ButtonDownloadDashboard: React.FC = () => {
 
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams()
   const lang = useLanguage()
-  const className = useButtonClassName({ iconName: 'icon-hit-down', label: 'L', size: ButtonSize.s })
+  const className = useButtonClassName({})
 
   const to = useMemo<string>(() => {
     return Files.Static.getStatisticalFactsheet({
@@ -43,8 +43,8 @@ const ButtonDownloadDashboard: React.FC = () => {
 
   return (
     <Link className={className} target="_top" to={to}>
-      <Icon className="icon-hit-down icon-white" name="hit-down" />
-      <Icon className="icon-white" name="icon-table2" />
+      <Icon className="icon-hit-down" name="hit-down" />
+      <Icon name="icon-table2" />
     </Link>
   )
 }
