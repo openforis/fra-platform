@@ -9,6 +9,7 @@ import { AreaActions } from 'client/store/area/actions'
 import { useAssessmentCountry } from 'client/store/area/hooks/country'
 import { useAppDispatch } from 'client/store/hooks'
 import { useCountryIso } from 'client/hooks/country'
+import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
 import ButtonCheckbox, { ButtonCheckboxVariant } from 'client/components/Buttons/ButtonCheckbox'
 import { Modal, ModalBody, ModalClose, ModalFooter, ModalHeader } from 'client/components/Modal'
 import NotifyUsers from 'client/components/PageLayout/Toolbar/Status/StatusConfirm/NotifyUsers'
@@ -31,8 +32,23 @@ const StatusConfirm: React.FC<Props> = (props) => {
   const [notifyUsers, setNotifyUsers] = useState<boolean>(true)
   const [notifySelf, setNotifySelf] = useState<boolean>(true)
 
-  const [textareaValue, setTextareaValue] = useState<string>('')
+  const [message, setMessage] = useState<string>('')
   const { assessmentName, cycleName } = useParams<{ assessmentName: AssessmentName; cycleName: string }>()
+
+  const updateStatus = (): void => {
+    dispatch(
+      AreaActions.updateCountry({
+        notifyUsers,
+        notifySelf,
+        country: { ...country, props: { ...country.props, status: status.status } },
+        countryIso,
+        cycleName,
+        assessmentName,
+        message,
+      })
+    )
+    onClose()
+  }
 
   return (
     <Modal isOpen>
@@ -45,9 +61,9 @@ const StatusConfirm: React.FC<Props> = (props) => {
         <div style={{ height: '160px' }}>
           <textarea
             className="assessment-status-confirm__message"
-            onChange={({ target: { value } }): void => setTextareaValue(value)}
+            onChange={({ target: { value } }): void => setMessage(value)}
             placeholder={t('navigation.changeStatusTextPlaceholder')}
-            value={textareaValue}
+            value={message}
           />
         </div>
 
@@ -62,29 +78,8 @@ const StatusConfirm: React.FC<Props> = (props) => {
       </ModalBody>
 
       <ModalFooter>
-        <button className="btn btn-secondary modal-footer__item" onClick={onClose} type="button">
-          {t('navigation.cancel')}
-        </button>
-        <button
-          className="btn btn-primary modal-footer__item"
-          onClick={(): void => {
-            dispatch(
-              AreaActions.updateCountry({
-                notifyUsers,
-                notifySelf,
-                country: { ...country, props: { ...country.props, status: status.status } },
-                countryIso,
-                cycleName,
-                assessmentName,
-                message: textareaValue,
-              })
-            )
-            onClose()
-          }}
-          type="button"
-        >
-          {t('common.submit')}
-        </button>
+        <Button label={t('common.cancel')} onClick={onClose} size={ButtonSize.l} type={ButtonType.secondary} />
+        <Button label={t('common.submit')} onClick={updateStatus} size={ButtonSize.l} />
       </ModalFooter>
     </Modal>
   )

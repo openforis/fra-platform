@@ -1,12 +1,10 @@
-import './ToggleNavigationControl.scss'
 import React from 'react'
-import classNames from 'classnames'
 
 import { useAppDispatch } from 'client/store/hooks'
 import { CountryReportActions } from 'client/store/ui/countryReport/actions'
 import { useNavigationVisible } from 'client/store/ui/countryReport/hooks/navigation'
 import { useIsAdminRoute, useIsCycleLandingRoute, useIsGeoRoute } from 'client/hooks/routes'
-import Icon from 'client/components/Icon'
+import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
 
 const ToggleNavigationControl: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -17,14 +15,16 @@ const ToggleNavigationControl: React.FC = () => {
   const navigationVisible = useNavigationVisible()
 
   return (
-    <button
-      className={classNames('btn toggle-navigation-btn', { active: navigationVisible })}
+    <Button
+      bgTransparent
       disabled={disabled}
+      iconName="menu-left"
+      inverse={navigationVisible}
+      noBorder
       onClick={() => dispatch(CountryReportActions.setNavigationVisible())}
-      type="button"
-    >
-      <Icon name="menu-left" />
-    </button>
+      size={ButtonSize.l}
+      type={navigationVisible ? ButtonType.primary : ButtonType.transparent}
+    />
   )
 }
 

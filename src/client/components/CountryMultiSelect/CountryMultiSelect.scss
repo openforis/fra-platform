@@ -28,34 +28,6 @@ $icon-size: 14px;
   .select__control {
     min-height: unset;
     padding: 0 6px;
-
-    .select__indicatorsContainer {
-      .select__clearIndicator {
-        height: unset;
-        width: unset;
-
-        svg.icon {
-          color: rgba(0, 0, 0, 0.5);
-          height: $icon-size;
-          width: $icon-size;
-        }
-
-        &:hover {
-          background-color: unset;
-
-          svg.icon {
-            color: $ui-destructive;
-          }
-        }
-      }
-    }
-  }
-
-  .select__dropdownIndicator {
-    svg {
-      height: $icon-size;
-      width: $icon-size;
-    }
   }
 
   .select__groupHeading {

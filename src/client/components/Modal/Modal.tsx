@@ -1,9 +1,9 @@
 import './Modal.scss'
 import React, { PropsWithChildren } from 'react'
-
 import classNames from 'classnames'
 
 import Icon from 'client/components/Icon'
+import Flex from 'client/components/Layout/Flex'
 
 type PropsChildren = PropsWithChildren<{ className?: string }>
 
@@ -22,7 +22,9 @@ export const ModalBody: React.FC<PropsChildren> = ({ children, className }) => (
 )
 
 export const ModalFooter: React.FC<PropsChildren> = ({ children, className }) => (
-  <div className={classNames(`modal-footer`, className)}>{React.Children.toArray(children)}</div>
+  <Flex className={classNames(`modal-footer`, className)} gap={'16'} justifyContent={'center'}>
+    {React.Children.toArray(children)}
+  </Flex>
 )
 
 type Props = PropsChildren & {

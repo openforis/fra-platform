@@ -2,8 +2,7 @@ import './LinkData.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import MediaQuery from 'react-responsive'
-import { useNavigate } from 'react-router-dom'
-
+import { NavLink } from 'react-router-dom'
 import classNames from 'classnames'
 import { Objects } from 'utils/objects'
 
@@ -23,12 +22,11 @@ const LinkData: React.FC = () => {
   const { assessmentName, countryIso, cycleName, sectionName } = useSectionRouteParams<CountryIso>()
   const isFRA = assessmentName === AssessmentNames.fra
   const isCountryRoute = useIsCountryRoute()
-  const baseParams = { assessmentName, cycleName, countryIso: Global.WO, sectionName }
   const isGeoRoute = useIsGeoRoute()
 
-  const variableDataDisabled = Objects.isNil(sectionName)
+  const baseParams = { assessmentName, cycleName, countryIso: Global.WO, sectionName: sectionName ?? '' }
 
-  const navigate = useNavigate()
+  const variableDataDisabled = Objects.isNil(sectionName)
 
   if (isGeoRoute || !isFRA) {
     return null
@@ -39,21 +37,16 @@ const LinkData: React.FC = () => {
       <LinkDataDownload />
 
       <div className="toolbar__separator" />
-      <button
+
+      <NavLink
         className={classNames('toolbar__data-link', { disabled: variableDataDisabled })}
         data-tooltip-content={t('common.tooltip.dataExplorer')}
         data-tooltip-id={variableDataDisabled ? undefined : TooltipId.white}
-        disabled={variableDataDisabled}
-        onClick={(): void => {
-          const state = { countryISOs: [countryIso] }
-          const path = Routes.Section.generatePath(baseParams)
-
-          navigate(path, { state })
-        }}
-        type="button"
+        state={{ countryISOs: [countryIso] }}
+        to={Routes.Section.generatePath(baseParams)}
       >
         {t('common.variableData')}
-      </button>
+      </NavLink>
 
       {isCountryRoute && (
         <MediaQuery minWidth={Breakpoints.laptop}>
