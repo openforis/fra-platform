@@ -37,10 +37,8 @@ export const useDefaultHandleElementSelect = (): Returned => {
       if (!user && isCountry) {
         const country = countries.find((country) => country.countryIso === areaCode)
         // If the user is not logged in and accessing a region, direct to default cycle
-        const {
-          lastPublishedInfo: { cycleName: lastPublishedCycleName },
-        } = country
-
+        const { lastPublishedInfo } = country
+        const { cycleName: lastPublishedCycleName } = lastPublishedInfo
         cycleName = lastPublishedCycleName
       } else if (!user && !isCountry) {
         cycleName = defaultCycle.name
