@@ -8,7 +8,7 @@ type PropsDiv = Pick<HTMLAttributes<HTMLDivElement>, 'className'> & {
   alignItems?: Alignment
   justifyContent?: Alignment
   justifyItems?: Alignment
-  gap?: '4' | '8' | '16' | '32'
+  gap?: '0' | '4' | '8' | '16' | '32'
 }
 type Props = PropsWithChildren<PropsDiv>
 
