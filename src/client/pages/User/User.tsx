@@ -1,4 +1,3 @@
-// import './User.scss'
 import React, { useCallback, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate } from 'react-router-dom'
@@ -46,7 +45,7 @@ const User: React.FC = () => {
   if (!formDefinition) return null
 
   return (
-    <div className="app-view__content user-container">
+    <div className="app-view__content">
       <Form
         action={action}
         disabled={editUserRules.userDisabled}

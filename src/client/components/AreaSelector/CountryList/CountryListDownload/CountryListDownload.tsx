@@ -51,7 +51,7 @@ const CountryListDownload: React.FC = () => {
   return (
     <div className="country-selection-list__download">
       <CSVLink className={className} data={data} filename="FRA-Countries.csv" headers={headers} target="_blank">
-        <Icon className="icon-white" name="hit-down" />
+        <Icon name="hit-down" />
         CSV
       </CSVLink>
     </div>

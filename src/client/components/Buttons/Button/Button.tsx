@@ -37,7 +37,7 @@ const Button: React.FC<ButtonProps> = (props) => {
       onMouseLeave={onMouseLeave}
       type={htmlButtonType}
     >
-      {iconName && !icon && <Icon className="icon-white" name={iconName} />}
+      {iconName && !icon && <Icon name={iconName} />}
       {icon && icon}
       {label}
     </button>

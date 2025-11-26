@@ -24,7 +24,7 @@ const ButtonCSVExport: React.FC<Props> = (props) => {
       headers={csvData.headers}
       target="_blank"
     >
-      <Icon className="icon-white" name="hit-down" />
+      <Icon name="hit-down" />
       CSV
     </CSVLink>
   )

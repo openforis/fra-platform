@@ -51,7 +51,6 @@ export const Prefill: React.FC<Props> = (props) => {
         value={selectedPreviousYear}
       />
       <Button
-        className="btn-s btn-primary btn-copy-prev-values"
         disabled={copyDisabled || selectedPreviousYear === ''}
         label={t('nationalDataPoint.prefill')}
         onClick={onCopyClick}
