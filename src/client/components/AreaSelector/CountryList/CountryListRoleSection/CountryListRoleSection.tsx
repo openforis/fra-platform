@@ -1,6 +1,5 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-
 import classNames from 'classnames'
 import { TFunction } from 'i18next'
 
@@ -18,6 +17,7 @@ import { useIsAreaSelectorExpanded } from 'client/store/ui/areaSelector/hooks/ar
 import { useUser } from 'client/store/user/hooks/user'
 import { checkMatch } from 'client/components/AreaSelector/CountryList/checkMatch'
 import CountryListRow from 'client/components/AreaSelector/CountryList/CountryListRow'
+import Button from 'client/components/Buttons/Button'
 
 import { useToggleMode } from './hooks/useToggleMode'
 
@@ -67,16 +67,16 @@ const CountryListRoleSection: React.FC<Props> = (props: Props) => {
           {!expanded && <div>{t('common.updated')}</div>}
 
           {admin && (
-            <button
-              className="btn btn-s btn-transparent country-selection-list__btn-show-more"
+            <Button
+              className="country-selection-list__btn-show-more"
+              inverse
+              label={expanded ? t('common.showLess') : t('common.showMore')}
+              noBorder
               onClick={(event): void => {
                 event.stopPropagation()
                 toggleMode()
               }}
-              type="button"
-            >
-              {expanded ? t('common.showLess') : t('common.showMore')}
-            </button>
+            />
           )}
         </div>
       )}

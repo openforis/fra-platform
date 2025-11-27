@@ -13,6 +13,7 @@ import { LoginActions } from 'client/store/login/actions'
 import { useInvitation } from 'client/store/login/hooks/invitation'
 import { useUser } from 'client/store/user/hooks/user'
 import { useSearchParams } from 'client/hooks/searchParams'
+import Button, { ButtonSize } from 'client/components/Buttons/Button'
 import AcceptInvitationButtons from 'client/pages/Login/components/AcceptInvitationButtons'
 import AccessLimited from 'client/pages/Login/components/AccessLimited'
 
@@ -85,9 +86,7 @@ const Invitation: React.FC = () => {
       <Outlet />
 
       {isInvitedUserLoggedIn ? (
-        <button className="btn" onClick={onAccept} type="button">
-          {t('login.acceptInvitation')}
-        </button>
+        <Button label={t('login.acceptInvitation')} onClick={onAccept} size={ButtonSize.l} />
       ) : (
         <div className="login__form">
           <AcceptInvitationButtons />

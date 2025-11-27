@@ -1,0 +1,9 @@
+@import 'src/client/style/_partials/config';
+
+button {
+  color: $text-body;
+}
+
+button:hover {
+  cursor: pointer;
+}

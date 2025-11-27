@@ -42,8 +42,8 @@ const LinkPrint: React.FC = () => {
         target="_blank"
         to={pathTables}
       >
-        <Icon className="icon-white" name="small-print" />
-        <Icon className="icon-white" name="icon-table2" />
+        <Icon name="small-print" />
+        <Icon name="icon-table2" />
       </Link>
     </>
   )

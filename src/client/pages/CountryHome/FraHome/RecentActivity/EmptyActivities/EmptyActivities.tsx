@@ -5,17 +5,19 @@ import { Link } from 'react-router'
 import { Routes } from 'meta/routes/routes'
 
 import { useCountryRouteParams } from 'client/hooks/routeParams'
+import { ButtonSize, useButtonClassName } from 'client/components/Buttons/Button'
 
 const EmptyActivities: React.FC = () => {
   const { t } = useTranslation()
-
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams()
+  const linkClassName = useButtonClassName({ size: ButtonSize.m })
+
   return (
     <div className="landing__activity-empty">
       <img alt="tucan" height="72" src="/img/tucan.svg" />
       <p className="landing__activity-empty-title">{t('landing.recentActivity.noRecentActivityTitle')}</p>
       <p>{t('landing.recentActivity.noRecentActivityBody')}</p>
-      <Link className="btn-s btn-primary" to={Routes.Country.generatePath({ countryIso, assessmentName, cycleName })}>
+      <Link className={linkClassName} to={Routes.Country.generatePath({ countryIso, assessmentName, cycleName })}>
         {t('landing.recentActivity.getStarted')}
       </Link>
     </div>

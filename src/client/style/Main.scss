@@ -4,10 +4,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap');
 @import 'src/client/style/partials';
 //Import all common application styles
+@import '_main/buttons';
 @import '_main/cssVars';
 @import '_main/rtl';
 @import '_main/validation';
-@import 'src/client/styles/buttons';
 @import 'src/client/styles/form';
 @import 'src/client/styles/fraTable';
 @import 'react-loading-skeleton/dist/skeleton.css';

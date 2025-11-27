@@ -16,18 +16,13 @@ const Invite: React.FC = () => {
   const user = useUser()
   const { countryIso } = useCountryRouteParams()
   const cycle = useCycle()
-  const className = useButtonClassName({
-    className: 'btn-invite',
-    iconName: 'small-add',
-    label: 'L',
-    size: ButtonSize.s,
-  })
+  const className = useButtonClassName({ className: 'btn-invite', size: ButtonSize.s })
 
   if (!Users.getRolesAllowedToEdit({ user, countryIso, cycle }).length) return null
 
   return (
     <Link className={className} to={Routes.CountryHomeSectionInvite.path.relative}>
-      <Icon className="icon-white" name="small-add" /> {t('userManagement.addUser')}
+      <Icon name="small-add" /> {t('userManagement.addUser')}
     </Link>
   )
 }

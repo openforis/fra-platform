@@ -9,6 +9,8 @@ import { LoginActions } from 'client/store/login/actions'
 import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useGetRequest } from 'client/hooks/getRequest'
+import Button, { ButtonSize } from 'client/components/Buttons/Button'
+import Flex from 'client/components/Layout/Flex'
 import { isError, LoginValidator } from 'client/pages/Login/utils/LoginValidator'
 import { Urls } from 'client/utils/urls'
 
@@ -107,28 +109,20 @@ const ResetPassword: React.FC = () => {
           />
           {errors.password2 && <span className="login__field-error">{t(errors.password2)}</span>}
 
-          <div style={{ textAlign: 'center' }}>
-            <button className="btn" onClick={(): void => navigate(-1)} type="button">
-              {t('login.cancel')}
-            </button>
+          <Flex gap={'16'} justifyContent="center">
+            <Button label={t('login.cancel')} onClick={(): void => navigate(-1)} size={ButtonSize.l} />
 
-            <button className="btn" onClick={onChangePassword} type="button">
-              {t('login.changePassword')}
-            </button>
-          </div>
+            <Button label={t('login.changePassword')} onClick={onChangePassword} size={ButtonSize.l} />
+          </Flex>
         </>
       )}
 
       {!resetPasswordUuid && (
-        <div style={{ textAlign: 'center' }}>
-          <button className="btn" onClick={(): void => navigate(-1)} type="button">
-            {t('login.cancel')}
-          </button>
+        <Flex gap={'16'} justifyContent="center">
+          <Button label={t('login.cancel')} onClick={(): void => navigate(-1)} size={ButtonSize.l} />
 
-          <button className="btn" onClick={onResetPassword} type="button">
-            {t('login.resetPassword')}
-          </button>
-        </div>
+          <Button label={t('login.resetPassword')} onClick={onResetPassword} size={ButtonSize.l} />
+        </Flex>
       )}
     </div>
   )
