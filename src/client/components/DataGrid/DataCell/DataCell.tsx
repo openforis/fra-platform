@@ -1,29 +1,10 @@
 import './DataCell.scss'
-import React, { HTMLAttributes, PropsWithChildren } from 'react'
-
+import React from 'react'
 import classNames from 'classnames'
 
-type Props = PropsWithChildren<
-  Pick<
-    HTMLAttributes<HTMLDivElement>,
-    'className' | 'data-tooltip-content' | 'data-tooltip-html' | 'data-tooltip-id' | 'id' | 'style'
-  >
-> &
-  Pick<HTMLAttributes<HTMLDivElement>['style'], 'gridColumn' | 'gridRow'> & {
-    actions?: boolean
-    editable?: boolean
-    error?: boolean
-    firstCol?: boolean
-    firstHighlightCol?: boolean
-    header?: boolean
-    highlighted?: boolean
-    lastCol?: boolean
-    lastHighlightCol?: boolean
-    lastRow?: boolean
-    noBorder?: boolean
-  }
+import { DataCellProps } from 'client/components/DataGrid/DataCell/types'
 
-const DataCell: React.FC<Props> = (props) => {
+const DataCell: React.FC<DataCellProps> = (props) => {
   const { children, gridColumn, gridRow, style } = props
   // style props
   const {
