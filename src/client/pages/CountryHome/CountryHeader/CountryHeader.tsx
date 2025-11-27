@@ -1,7 +1,7 @@
 import './CountryHeader.scss'
 import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router'
 
 import { Areas } from 'meta/area/areas'
 import { MessageTopicType } from 'meta/messageCenter/messageTopic'
@@ -75,7 +75,7 @@ const CountryHeader: React.FC<Props> = (props) => {
               <NavLink
                 key={name}
                 className={({ isActive }): string => (isActive ? sectionActiveClassName : sectionClassName)}
-                to={name}
+                to={`../${name}`}
               >
                 {t(`landing.sections.${name}`)}
               </NavLink>

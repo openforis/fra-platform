@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router'
 
 import { Areas } from 'meta/area/areas'
 import { AssessmentNames } from 'meta/assessment/assessment'

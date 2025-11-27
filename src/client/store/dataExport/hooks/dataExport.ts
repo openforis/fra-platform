@@ -1,5 +1,4 @@
-import { useLocation } from 'react-router-dom'
-
+import { useLocation } from 'react-router'
 import { Objects } from 'utils/objects'
 
 import { Areas } from 'meta/area/areas'

@@ -1,4 +1,4 @@
-import { matchPath, useLocation } from 'react-router-dom'
+import { matchPath, useLocation } from 'react-router'
 
 import { AssessmentNames } from 'meta/assessment/assessment'
 import { Routes } from 'meta/routes/routes'

@@ -1,7 +1,6 @@
 import './DataExport.scss'
 import React, { useEffect } from 'react'
-import { useParams } from 'react-router-dom'
-
+import { useParams } from 'react-router'
 import { Objects } from 'utils/objects'
 
 import { Row } from 'meta/assessment/row'
@@ -50,7 +49,7 @@ const DataExport: React.FC = () => {
   }
 
   useEffect(() => {
-    return () => {
+    return (): void => {
       dispatch(DataExportActions.reset())
     }
   }, [countryIso, dispatch])

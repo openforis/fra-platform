@@ -1,8 +1,7 @@
 import React, { useCallback, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import MediaQuery from 'react-responsive'
-import { useParams } from 'react-router-dom'
-
+import { useParams } from 'react-router'
 import { Functions } from 'utils/functions'
 import { Strings } from 'utils/strings'
 

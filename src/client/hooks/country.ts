@@ -1,4 +1,4 @@
-import { useMatch, useParams } from 'react-router-dom'
+import { useMatch, useParams } from 'react-router'
 
 import { CountryIso } from 'meta/area/countryIso'
 

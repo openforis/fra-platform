@@ -1,7 +1,7 @@
 import './Card.scss'
 import 'client/pages/Kiosk/Kiosk.scss'
 import React, { useTransition } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router'
 
 import { KioskCardProps } from './types'
 
@@ -11,7 +11,7 @@ const Card: React.FC<KioskCardProps> = (props: KioskCardProps) => {
   const navigate = useNavigate()
   const [, startTransition] = useTransition()
 
-  const handleClick = () => {
+  const handleClick = (): void => {
     startTransition(() => navigate(link))
   }
 

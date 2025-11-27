@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router'
 
 import { LoginInvitationQueryParams } from 'meta/routes/queryParams/invitation'
 import { Routes } from 'meta/routes/routes'

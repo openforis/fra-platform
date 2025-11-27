@@ -1,6 +1,6 @@
 import './Login.scss'
 import React from 'react'
-import { Route, Routes as RouterRoutes } from 'react-router-dom'
+import { Route, Routes as RouterRoutes } from 'react-router'
 
 import { Routes } from 'meta/routes/routes'
 
