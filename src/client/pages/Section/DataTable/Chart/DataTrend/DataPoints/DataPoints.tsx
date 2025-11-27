@@ -15,7 +15,7 @@ type Props = {
 const DataPoints: React.FC<Props> = (props) => {
   const { data, trend, xScale, yScale } = props
 
-  const containerRef = useRef<SVGGElement>()
+  const containerRef = useRef<SVGGElement>(null)
   usePointsTransition({ containerRef, data, trend, xScale, yScale })
 
   return <g ref={containerRef} className="chart__data-points" />
