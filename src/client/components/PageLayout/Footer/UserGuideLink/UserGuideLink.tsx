@@ -50,7 +50,7 @@ const UserGuideLinkInner: React.FC<Props> = (props) => {
 
 const UserGuideLinkComponents = {
   [AssessmentNames.fra]: {
-    '2020': (): ReactNode => UserGuideLinkInner({ userGuideLinkOption: UserGuideLinkOption.File }),
+    '2020': (): ReactNode => UserGuideLinkInner({ userGuideLinkOption: UserGuideLinkOption.File }) as ReactNode,
   },
 }
 
