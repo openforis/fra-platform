@@ -23,6 +23,10 @@
     align-items: center;
     font-size: $font-s;
     padding: 1px 0;
+
+    input.input-text {
+      font-size: $font-xs;
+    }
   }
 
   .annual-change-rates__label {

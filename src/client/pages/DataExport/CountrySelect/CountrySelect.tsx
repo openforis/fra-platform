@@ -3,12 +3,11 @@ import { useTranslation } from 'react-i18next'
 import MediaQuery from 'react-responsive'
 import { useParams } from 'react-router-dom'
 
-import { Functions } from 'utils/functions'
-import { Strings } from 'utils/strings'
-
 import { Areas } from 'meta/area/areas'
 import { Country } from 'meta/area/country'
 import { Users } from 'meta/user/users'
+import { Functions } from 'utils/functions'
+import { Strings } from 'utils/strings'
 
 import { DataExportActions } from 'client/store/dataExport/actions'
 import { useDataExportCountries, useDataExportSelection } from 'client/store/dataExport/hooks/dataExport'
@@ -16,6 +15,7 @@ import { useAppDispatch } from 'client/store/hooks'
 import { useUser } from 'client/store/user/hooks/user'
 import ButtonCheckBox, { ButtonCheckboxVariant } from 'client/components/Buttons/ButtonCheckbox'
 import CountryMultiSelect from 'client/components/CountryMultiSelect'
+import InputText from 'client/components/Inputs/InputText'
 import { Breakpoints } from 'client/utils/breakpoints'
 
 const CountrySelect: React.FC = () => {
@@ -69,12 +69,11 @@ const CountrySelect: React.FC = () => {
       <div className="export__form-section-header select-all search">
         <h4>{t('common.countries')}</h4>
         <MediaQuery minWidth={Breakpoints.laptop}>
-          <input
+          <InputText
             ref={inputRef}
-            className="text-input"
+            bordered
             onChange={filterCountriesThrottle}
             placeholder={t('emoji.picker.search')}
-            type="text"
           />
           <ButtonCheckBox
             checked={selection.countryISOs.length > 0 && selection.countryISOs.length === countries.length}
