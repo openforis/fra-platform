@@ -1,6 +1,5 @@
-import { Context } from 'meta/expressionEvaluator/context'
+import { BaseContext, Context } from 'meta/expressionEvaluator/context'
 import { Member } from 'meta/expressionEvaluator/member'
-import { BaseContext } from 'meta/expressionEvaluator/util/_types'
 
 import { MemberExpression } from 'lib/expressionEvaluator/node'
 
@@ -8,9 +7,8 @@ import { contextMock as context } from '../context.mock'
 import { parseMemberVariable } from './parseMemberVariable'
 
 const getBaseContext = (context: Context): BaseContext => {
-  const { assessment, assessments, cycle } = context
-  const assessmentName = assessment.props.name
-  const cycleName = cycle.name
+  const { assessmentName, assessments, cycleName } = context
+
   return { assessmentName, cycleName, assessments }
 }
 

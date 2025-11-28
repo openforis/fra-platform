@@ -1,31 +1,29 @@
 import { Assessments } from 'meta/assessment/assessments'
 import { AssessmentMetaCaches } from 'meta/assessment/metaCaches'
 import { RecordAssessmentDatas } from 'meta/data/recordDatas'
+import { BaseContext, Context } from 'meta/expressionEvaluator/context'
 import { Member } from 'meta/expressionEvaluator/member'
-import { BaseContext } from 'meta/expressionEvaluator/util/_types'
 import { parseMemberVariable } from 'meta/expressionEvaluator/util/parseMemberVariable'
 
-import { MemberEvaluator as ArenaMemberEvaluator } from 'lib/expressionEvaluator/javascript/node/member'
+import { MemberEvaluator as MemberEvaluatorBase } from 'lib/expressionEvaluator/javascript/node/member'
 import { MemberExpression } from 'lib/expressionEvaluator/node'
 
-import { Context } from '../context'
+type Returned = string | undefined
 
-export class MemberEvaluator extends ArenaMemberEvaluator<Context> {
-  evaluate(expressionNode: MemberExpression): string | undefined {
+export class MemberEvaluator extends MemberEvaluatorBase<Context, Returned> {
+  evaluate(expressionNode: MemberExpression): Returned {
     const {
-      assessment: assessmentContext,
+      // assessment: assessmentContext,
+      assessmentName: assessmentNameContext,
       assessments,
       colName: colNameContext,
       countryIso,
-      cycle: cycleContext,
+      cycleName: cycleNameContext,
+      // cycle: cycleContext,
       data,
     } = this.context
 
-    const baseContext: BaseContext = {
-      assessments,
-      assessmentName: assessmentContext.props.name,
-      cycleName: cycleContext.name,
-    }
+    const baseContext: BaseContext = { assessments, assessmentName: assessmentNameContext, cycleName: cycleNameContext }
 
     // @ts-ignore
     if (expressionNode.object.name === Member.$country) {
@@ -37,14 +35,14 @@ export class MemberEvaluator extends ArenaMemberEvaluator<Context> {
     const memberAssessmentName = memberVariable.assessmentName
     const memberCycleName = memberVariable.cycleName
 
-    const externalVariable = Boolean(
-      ((memberAssessmentName && memberAssessmentName !== assessmentContext.props.name) ||
-        (memberCycleName && memberCycleName !== cycleContext.name)) &&
-        this.context.assessments
-    )
+    // const externalVariable = Boolean(
+    //   ((memberAssessmentName && memberAssessmentName !== assessmentNameContext) ||
+    //     (memberCycleName && memberCycleName !== cycleNameContext)) &&
+    //     this.context.assessments
+    // )
 
-    const assessment = externalVariable ? this.context.assessments[memberAssessmentName] : assessmentContext
-    const cycle = externalVariable ? Assessments.getCycle({ assessment, cycleName: memberCycleName }) : cycleContext
+    const assessment = this.context.assessments[memberAssessmentName]
+    const cycle = Assessments.getCycle({ assessment, cycleName: memberCycleName })
 
     // client side validations: metaCache can be null if not fetched yet
     if (!AssessmentMetaCaches.getMetaCache({ assessment, cycle })) {

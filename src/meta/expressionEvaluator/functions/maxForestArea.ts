@@ -1,37 +1,25 @@
-import { Numbers } from 'utils/numbers'
-
 import { TableNames } from 'meta/assessment/table'
 import { RecordAssessmentDatas } from 'meta/data/recordDatas'
+import { Numbers } from 'utils/numbers'
 
 import { ExpressionFunction } from 'lib/expressionEvaluator/function'
 
 import { Context } from '../context'
+
+const tableName = TableNames.extentOfForest
+const variableName = 'forestArea'
 
 export const maxForestArea: ExpressionFunction<Context> = {
   name: 'maxForestArea',
   minArity: 0,
   executor: (context) => {
     return (): string | undefined => {
-      const { assessment, countryIso, cycle, data } = context
-      const tableData = RecordAssessmentDatas.getTableData({
-        assessmentName: assessment.props.name,
-        cycleName: cycle.name,
+      const { assessmentName, countryIso, cycleName, data } = context
+      const tableData = RecordAssessmentDatas.getTableData({ assessmentName, cycleName, countryIso, data, tableName })
 
-        countryIso,
-        data,
-        tableName: TableNames.extentOfForest,
-      })
-
-      return Object.keys(tableData).reduce((acc, col) => {
-        const currentValue = RecordAssessmentDatas.getDatum({
-          assessmentName: assessment.props.name,
-          cycleName: cycle.name,
-          data,
-          countryIso,
-          tableName: TableNames.extentOfForest,
-          variableName: 'forestArea',
-          colName: col,
-        })
+      return Object.keys(tableData).reduce((acc, colName) => {
+        const propsDatum = { assessmentName, cycleName, data, countryIso, tableName, variableName, colName }
+        const currentValue = RecordAssessmentDatas.getDatum(propsDatum)
 
         if (!acc || Numbers.greaterThan(currentValue, acc)) {
           return currentValue

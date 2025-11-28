@@ -1,5 +1,3 @@
-import { Objects } from 'utils/objects'
-
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessment, RecordAssessments } from 'meta/assessment/assessment'
 import { Col } from 'meta/assessment/col'
@@ -11,6 +9,7 @@ import { TableName } from 'meta/assessment/table'
 import { RecordCountryData } from 'meta/data/recordData'
 import { RecordAssessmentDatas } from 'meta/data/recordDatas'
 import { ExpressionEvaluator } from 'meta/expressionEvaluator'
+import { Objects } from 'utils/objects'
 
 type Props = {
   assessments: RecordAssessments
@@ -27,8 +26,9 @@ const calculateIf = (props: Props): boolean => {
   const { assessment, assessments, col, countryIso, cycle, data, row } = props
   const { colName } = col.props
   const formula = row.props.calculateIf?.[cycle.uuid]
-
-  const paramsCalculate = { assessments, assessment, countryIso, cycle, data, colName, row, formula }
+  const { name: assessmentName } = assessment.props
+  const { name: cycleName } = cycle
+  const paramsCalculate = { assessments, assessmentName, countryIso, cycleName, data, colName, row, formula }
   return Boolean(ExpressionEvaluator.evalFormula<boolean>(paramsCalculate))
 }
 
@@ -54,7 +54,7 @@ const calculate = (props: Props): NodeValue | undefined => {
     : Objects.isEmpty(value) || value.calculated
 
   if (canCalculate) {
-    const paramsCalculate = { assessments, assessment, countryIso, cycle, data, colName, row, formula }
+    const paramsCalculate = { assessments, assessmentName, countryIso, cycleName, data, colName, row, formula }
     const rawResult = ExpressionEvaluator.evalFormula<string | undefined>(paramsCalculate)
 
     // Objects.isEmpty required to avoid failing on 0
