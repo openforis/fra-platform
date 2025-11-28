@@ -31,9 +31,9 @@ export const updateValidation = (props: Props, client: BaseProtocol = DB): Promi
                        left join ${schema}.col c
                                  on n.col_uuid = c.uuid
                        left join ${schema}.row r
-                                 on r.id = c.row_id
+                                 on r.uuid = c.row_uuid
                        left join ${schema}."table" t
-                                 on r.table_id = t.id
+                                 on r.table_uuid = t.uuid
               where r.props ->> 'variableName' = $2
                 and c.props ->> 'colName' = $3
                 and n.country_iso = $4

@@ -2,19 +2,24 @@ import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { Assessment } from 'meta/assessment/assessment'
 import { SubSection } from 'meta/assessment/section'
 import { User } from 'meta/user/user'
+import { UUID } from 'meta/uuid/uuid'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { SectionRepository } from 'server/db/repository/assessment/section'
 import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 
-export const createSubSection = async (
-  props: { user: User; assessment: Assessment; section: Pick<SubSection, 'props'>; parentSectionId: number },
-  client: BaseProtocol = DB
-): Promise<SubSection> => {
-  const { assessment, parentSectionId, section, user } = props
+type Props = {
+  assessment: Assessment
+  parentSectionUuid: UUID
+  section: Pick<SubSection, 'props'>
+  user: User
+}
+
+export const createSubSection = async (props: Props, client: BaseProtocol = DB): Promise<SubSection> => {
+  const { assessment, parentSectionUuid, section, user } = props
 
   return client.tx(async (t) => {
-    const createdSection = await SectionRepository.createSubSection({ section, assessment, parentSectionId }, t)
+    const createdSection = await SectionRepository.createSubSection({ section, assessment, parentSectionUuid }, t)
 
     await ActivityLogRepository.insertActivityLog(
       {

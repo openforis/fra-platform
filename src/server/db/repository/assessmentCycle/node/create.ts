@@ -28,9 +28,9 @@ export const create = (props: Props, client: BaseProtocol = DB): Promise<Node> =
         select $1 as country_iso, r.uuid as row_uuid, c.uuid as col_uuid, $2::jsonb
         from ${schema}.col c
                  left join ${schema}.row r
-                           on r.id = c.row_id
+                           on r.uuid = c.row_uuid
                  left join ${schema}."table" t
-                           on r.table_id = t.id
+                           on r.table_uuid = t.uuid
         where r.props ->> 'variableName' = $3
           and c.props ->> 'colName' = $4
           and t.props ->> 'name' = $5

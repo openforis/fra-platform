@@ -8,6 +8,7 @@ import { CycledPropsObject } from 'meta/assessment/cycledObject'
 import { Row } from 'meta/assessment/row'
 import { VariableName } from 'meta/assessment/variable'
 import { UnitName } from 'meta/measurement/unitName'
+import { UUID } from 'meta/uuid/uuid'
 
 export enum TableNames {
   areaAffectedByFire = 'areaAffectedByFire',
@@ -81,6 +82,6 @@ export interface TableProps {
 
 export interface Table extends CycledPropsObject<TableProps> {
   rows?: Array<Row>
-  tableSectionId: number
+  tableSectionUuid: UUID
   // odpVariables?: Record<string, string>
 }

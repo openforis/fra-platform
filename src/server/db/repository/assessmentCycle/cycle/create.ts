@@ -41,10 +41,10 @@ export const create = async (params: Props, client: BaseProtocol = DB): Promise<
   }
 
   const cycle = await client.one<Cycle>(
-    `insert into assessment_cycle (assessment_id, name, props, cycle_uuid_source)
+    `insert into assessment_cycle (assessment_uuid, name, props, cycle_uuid_source)
      values ($1, $2, $3, $4)
      returning *;`,
-    [assessment.id, name, getDefaultProps(), cycleSource?.uuid]
+    [assessment.uuid, name, getDefaultProps(), cycleSource?.uuid]
   )
 
   if (withCountries) {

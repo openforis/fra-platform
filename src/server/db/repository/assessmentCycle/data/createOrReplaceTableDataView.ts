@@ -40,7 +40,7 @@ export const createOrReplaceTableDataView = async (props: Props): Promise<void> 
       from ${schemaCycle}.node n
                left join ${schemaAssessment}.row r on r.uuid = n.row_uuid
                left join ${schemaAssessment}.col c on c.uuid = n.col_uuid
-               left join ${schemaAssessment}."table" t on t.id = r.table_id
+               left join ${schemaAssessment}."table" t on t.uuid = r.table_uuid
       where t.props ->> 'name' = '${tableName}'
             and r.props ->> 'type' in ('data', 'calculated')
       order by 1, 2, 3

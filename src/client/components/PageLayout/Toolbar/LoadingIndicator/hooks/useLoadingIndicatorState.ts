@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react'
-
 import { isAnyOf, isFulfilled, isPending, isRejected } from '@reduxjs/toolkit'
 
 import { ContactsActions } from 'client/store/data/contacts/actions'

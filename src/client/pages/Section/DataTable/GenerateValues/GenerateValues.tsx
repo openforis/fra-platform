@@ -1,13 +1,13 @@
 import './GenerateValues.scss'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Objects } from 'utils/objects'
 
 import { AssessmentName } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
 import { Row } from 'meta/assessment/row'
 import { TableNames } from 'meta/assessment/table'
 import { RecordAssessmentData } from 'meta/data/recordData'
+import { Objects } from 'utils/objects'
 
 import { useAssessmentCountry } from 'client/store/area/hooks/country'
 import Button from 'client/components/Buttons/Button'

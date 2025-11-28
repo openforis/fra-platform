@@ -1,5 +1,4 @@
 import '../Link.scss'
-
 import classNames from 'classnames'
 
 import { LinkColor, LinkProps } from 'client/components/Links/Link/types'

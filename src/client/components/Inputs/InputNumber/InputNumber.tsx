@@ -38,7 +38,7 @@ const InputNumber = forwardRef<HTMLInputElement, InputNumberProps>((props, outer
       onPaste={onPaste}
       placeholder={placeholder}
       resize={resize}
-      value={focused ? value ?? '' : formattedValue}
+      value={focused ? (value ?? '') : formattedValue}
     />
   )
 })

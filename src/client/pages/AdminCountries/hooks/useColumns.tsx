@@ -1,9 +1,8 @@
 import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Dates } from 'utils/dates'
-
 import { CountrySummary } from 'meta/area/countrySummary'
+import { Dates } from 'utils/dates'
 
 import CountryStatusIndicator from 'client/components/CountryStatusIndicator'
 import CountryLink from 'client/components/Links/CountryLink'

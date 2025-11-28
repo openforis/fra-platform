@@ -20,9 +20,9 @@ export const update = async (
   return client.one<TableSection>(
     `
       update ${schemaName}.table_section
-      set props = $1::jsonb, section_id = $2
+      set props = $1::jsonb, section_uuid = $2
       where id = $3 returning *;`,
-    [JSON.stringify(tableSection.props), +tableSection.sectionId, +tableSection.id],
+    [JSON.stringify(tableSection.props), tableSection.sectionUuid, +tableSection.id],
     Objects.camelize
   )
 }

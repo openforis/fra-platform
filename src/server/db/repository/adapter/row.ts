@@ -2,6 +2,7 @@ import { Objects } from 'utils/objects'
 
 import { Row, RowProps } from 'meta/assessment/row'
 import { RowCache } from 'meta/assessment/rowCache'
+import { UUID } from 'meta/uuid/uuid'
 
 import { ColAdapter, ColDB } from 'server/db/repository/adapter/col'
 
@@ -9,7 +10,7 @@ export interface RowDB {
   id: number
   uuid: string
   props: RowProps
-  table_id: number
+  table_uuid: UUID
   cols?: Array<ColDB>
 }
 

@@ -6,7 +6,7 @@ import { assessmentParams } from 'test/integration/mock/assessment'
 import { sectionParams } from 'test/integration/mock/section'
 import { userMockTest } from 'test/integration/mock/user'
 
-export default () => {
+export default (): void => {
   return test('Expect section to be removed', async () => {
     const user = await UserController.getOne({
       email: userMockTest.email,

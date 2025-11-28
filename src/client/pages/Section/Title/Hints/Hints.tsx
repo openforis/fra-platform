@@ -2,12 +2,11 @@ import './Hints.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Objects } from 'utils/objects'
-
 import { SubSectionHints } from 'meta/assessment/section'
 import { SubSections } from 'meta/assessment/subSections'
 import { Files } from 'meta/file/files'
 import { SdgMetadataFileName } from 'meta/file/static'
+import { Objects } from 'utils/objects'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useLanguage } from 'client/hooks/language'

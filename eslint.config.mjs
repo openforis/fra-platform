@@ -112,6 +112,7 @@ export default defineConfig([
       'no-underscore-dangle': 'off',
       'no-unused-vars': 'off',
       'no-use-before-define': 'off',
+      'object-shorthand': ['warn', 'always', { avoidQuotes: true }],
       'prefer-destructuring': ['error', { object: true, array: false }],
       'react-hooks/exhaustive-deps': 'error',
       'react-hooks/rules-of-hooks': 'error',

@@ -4,13 +4,7 @@ on:
   pull_request:
     branches:
       - '*'
-    workflow_dispatch:
-      inputs:
-        force_refresh:
-          description: 'Force database refresh'
-          required: false
-          default: false
-          type: boolean
+  workflow_dispatch:
 
 jobs:
   tests-all:
@@ -19,64 +13,63 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_DEV }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_DEV }}
-          aws-region: eu-west-1
-
-      - name: Cache test database
-        id: cache-db
-        uses: actions/cache@v3
-        with:
-          path: ./db/backup
-          key: test-db-${{ runner.os }}-v1-${{ hashFiles('src/test/e2e/docker-compose.test.yml') }}
-          restore-keys: |
-            test-db-${{ runner.os }}-v1-
-            test-db-${{ runner.os }}-
-
-      - name: Download and decrypt test database
-        if: steps.cache-db.outputs.cache-hit != 'true' || ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.force_refresh == true }}
+      - name: "Fixtures: Decrypt and extract"
         run: |
-          mkdir -p ./db
-          aws s3 cp s3://fra-platform-s3-developer-assets/test-assets/database/backup.gpg ./db/backup.gpg
-          ./src/tools/heroku/decrypt.sh ./db/backup.gpg
+          echo "$BACKUP_PASSPHRASE" | gpg --batch --passphrase-fd 0 -d src/tools/db/fixtures.tar.gz.gpg | tar -xz -C src/tools/db
         env:
           BACKUP_PASSPHRASE: ${{ secrets.BACKUP_PASSPHRASE }}
 
-      - name: Build and start containers
-        run: docker compose -f src/test/e2e/docker-compose.test.yml up -d
+      - name: "DOCKER: Build containers"
+        run: docker compose -f src/test/e2e/docker-compose.test.yml build
 
-      - name: Wait for services to be ready
+      - name: "DOCKER: Start database and services"
+        run: docker compose -f src/test/e2e/docker-compose.test.yml up -d postgres redis-queue redis-data mailhog
+
+      - name: "POSTGRES: Wait ready"
         run: |
-          timeout 300 bash -c 'until docker compose -f src/test/e2e/docker-compose.test.yml ps web | grep -q "healthy"; do sleep 5; done'
+          timeout 60 bash -c 'until docker compose -f src/test/e2e/docker-compose.test.yml ps postgres | grep -q "healthy"; do sleep 2; done'
 
-      - name: Create test results directory
+      - name: "WEB: Init schemas"
+        run: |
+          docker compose -f src/test/e2e/docker-compose.test.yml run --rm --no-deps web \
+            yarn ts-node src/tools/db/initSchemas.ts
+
+      - name: "WEB: Import fixture data"
+        run: |
+          docker compose -f src/test/e2e/docker-compose.test.yml run --rm --no-deps web \
+            yarn ts-node src/tools/db/import.ts
+
+      - name: "WEB: Generate cache"
+        run: |
+          docker compose -f src/test/e2e/docker-compose.test.yml run --rm --no-deps web \
+            yarn cache:generate
+
+      - name: "WEB: Start server"
+        run: docker compose -f src/test/e2e/docker-compose.test.yml up -d web
+
+      - name: "WEB: Wait ready"
+        run: |
+          timeout 60 bash -c 'until docker compose -f src/test/e2e/docker-compose.test.yml ps web | grep -q "healthy"; do sleep 2; done'
+
+      - name: "Playwright: Create test results directory"
         run: mkdir -p playwright-report
 
-      - name: Generate cache
-        run: docker compose -f src/test/e2e/docker-compose.test.yml exec -T web yarn cache:generate
-
-      - name: Run database migrations
-        run: docker compose -f src/test/e2e/docker-compose.test.yml exec -T web yarn migration-steps:run
-
-      - name: Run unit and integration tests
+      - name: "WEB: Run unit and integration tests"
         run: docker compose -f src/test/e2e/docker-compose.test.yml exec -T web yarn test
 
-      - name: Run E2E tests
+      - name: "Playwright: Run E2E tests"
         if: always()
         run: |
-          docker compose -f src/test/e2e/docker-compose.test.yml run \
+          docker compose -f src/test/e2e/docker-compose.test.yml run --no-deps \
             playwright npm run test:e2e
 
-      - name: Zip test results
+      - name: "Playwright: Zip test results"
         if: always()
         run: |
           cd src/test/e2e
           zip -r ../../../playwright-results.zip test-results/
 
-      - name: Upload test results
+      - name: "Playwright: Upload test results"
         if: always() && !env.ACT
         uses: actions/upload-artifact@v4
         with:
@@ -84,11 +77,6 @@ jobs:
           path: playwright-results.zip
           retention-days: 30
 
-      - name: Stop containers
+      - name: "Docker: Stop containers"
         if: always()
         run: docker compose -f src/test/e2e/docker-compose.test.yml down -v
-
-      - name: Cleanup database backup
-        if: always()
-        run: |
-          rm -rf ./db

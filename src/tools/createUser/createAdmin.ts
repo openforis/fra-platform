@@ -22,8 +22,8 @@ const exec = async (): Promise<void> => {
 
   await DB.none(
     `
-        insert into public.users_auth_provider (user_id, provider, props)
-        values (${user.id}, 'local', jsonb_build_object('password', '${password}'))
+        insert into public.users_auth_provider (user_uuid, provider, props)
+        values ('${user.uuid}', 'local', jsonb_build_object('password', '${password}'))
     `
   )
 

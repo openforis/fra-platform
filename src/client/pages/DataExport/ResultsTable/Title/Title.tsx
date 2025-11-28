@@ -1,12 +1,12 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router'
-import { Objects } from 'utils/objects'
 
 import { Cols } from 'meta/assessment/cols'
 import { Row } from 'meta/assessment/row'
 import { UnitFactors } from 'meta/dataExport/unitFactor'
 import { UnitName } from 'meta/measurement/unitName'
+import { Objects } from 'utils/objects'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useTableSections } from 'client/store/meta/hooks/tableSections'

@@ -7,7 +7,7 @@ import Requests from 'server/utils/requests'
 export const getProfilePicture = async (req: Request, res: Response): Promise<void> => {
   const { id } = req.params
   try {
-    const profilePicture = await UserController.getProfilePicture({ id: Number(id) })
+    const profilePicture = await UserController.getProfilePicture({ userId: Number(id) })
     if (profilePicture && profilePicture.data) {
       profilePicture.data.pipe(res)
     } else {

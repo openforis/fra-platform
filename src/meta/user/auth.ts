@@ -1,3 +1,5 @@
+import { UUID } from 'meta/uuid/uuid'
+
 export enum AuthProvider {
   google = 'google',
   local = 'local',
@@ -13,7 +15,7 @@ export interface AuthProviderLocalProps {
 
 export interface UserAuthProvider<P = void> {
   readonly id: number
-  readonly userId: number
+  readonly userUuid: UUID
   provider: AuthProvider
   props: P
 }
