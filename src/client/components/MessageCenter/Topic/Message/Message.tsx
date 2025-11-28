@@ -6,7 +6,7 @@ import classNames from 'classnames'
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { Message as MessageType } from 'meta/messageCenter/message'
 import { Users } from 'meta/user/users'
-import { getRelativeDate } from 'utils/dates'
+import { Dates } from 'utils/dates'
 
 import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
 
@@ -48,7 +48,7 @@ const Message: React.FC<MessageProps> = (props) => {
 
           <div className="message-time">
             {deleted && i18n.t('review.commentDeleted')}
-            {!deleted && (getRelativeDate(message.createdTime, i18n) || i18n.t('time.aMomentAgo'))}
+            {!deleted && (Dates.getRelativeDate(message.createdTime, i18n) || i18n.t('time.aMomentAgo'))}
           </div>
         </div>
       </div>

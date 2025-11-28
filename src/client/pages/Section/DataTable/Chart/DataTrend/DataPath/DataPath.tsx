@@ -12,7 +12,7 @@ type Props = {
   yScale: D3ChartAxisScale
 }
 
-const DataPath = (props: Props): React.ReactElement => {
+const DataPath: React.FC<Props> = (props) => {
   const { data, trend, xScale, yScale } = props
 
   const pathRef = useRef<SVGPathElement>(null)

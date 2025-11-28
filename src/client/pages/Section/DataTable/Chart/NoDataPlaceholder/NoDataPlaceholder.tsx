@@ -17,7 +17,7 @@ type Props = Pick<ChartProps, 'width'> & {
   trendsData: RecordTrendData
 }
 
-const NoDataPlaceholder = (props: Props): React.ReactElement => {
+const NoDataPlaceholder: React.FC<Props> = (props) => {
   const { trendsData, width } = props
 
   const { t } = useTranslation()
