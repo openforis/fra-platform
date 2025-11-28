@@ -1,11 +1,11 @@
 import { useMemo } from 'react'
-
 import classNames from 'classnames'
 
 import { ButtonProps, ButtonSize, ButtonType } from 'client/components/Buttons/Button/types'
 
 export const useButtonClassName = (props: ButtonProps): string => {
   const {
+    bgTransparent,
     className,
     disabled,
     inverse,
@@ -23,8 +23,8 @@ export const useButtonClassName = (props: ButtonProps): string => {
       `button__type-${type}`,
       { inverse },
       { disabled },
-      { noBorder },
+      { bgTransparent, noBorder },
       className
     )
-  }, [className, disabled, inverse, noBorder, noPrint, size, type])
+  }, [bgTransparent, className, disabled, inverse, noBorder, noPrint, size, type])
 }

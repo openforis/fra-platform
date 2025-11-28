@@ -1,12 +1,11 @@
 import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { CountrySummary } from 'meta/area/countrySummary'
 import { Dates } from 'utils/dates'
 
-import { CountrySummary } from 'meta/area/countrySummary'
-
-import CountryLink from 'client/components/CountryLink'
 import CountryStatusIndicator from 'client/components/CountryStatusIndicator'
+import CountryLink from 'client/components/Links/CountryLink'
 import { Column } from 'client/components/TablePaginated'
 
 const DateCell: React.FC<{ date: string }> = (props) => {

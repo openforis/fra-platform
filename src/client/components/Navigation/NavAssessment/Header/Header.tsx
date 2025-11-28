@@ -1,10 +1,8 @@
 import './Header.scss'
 import React from 'react'
 
-import classNames from 'classnames'
-
+import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
 import Hr from 'client/components/Hr'
-import Icon from 'client/components/Icon'
 
 import LinkLanding from './LinkLanding'
 
@@ -22,13 +20,14 @@ const Header: React.FC<Props> = (props) => {
 
       <div className="nav-header__sep-container">
         <Hr />
-        <button
-          className={classNames('btn-xs', 'btn-secondary', 'btn-transparent', 'btn-toggle')}
+        <Button
+          className="btn-toggle"
+          iconName="unfold"
+          inverse
           onClick={() => setShowSections(!showSections)}
-          type="button"
-        >
-          <Icon name="unfold" />
-        </button>
+          size={ButtonSize.m}
+          type={ButtonType.anonymous}
+        />
       </div>
     </div>
   )

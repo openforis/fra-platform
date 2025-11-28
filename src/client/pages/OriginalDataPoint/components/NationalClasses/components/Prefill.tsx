@@ -5,11 +5,18 @@ import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
 import { useIsOriginalDataPointUpdating } from 'client/store/data/originalDataPoint/hooks/originalDataPoint'
 import { useIsPrintRoute } from 'client/hooks/routes'
+import Button from 'client/components/Buttons/Button'
+import Select, { Option, SelectSize } from 'client/components/Inputs/Select'
 
 import { useOnCopyClick } from './hooks/useOnCopyClick'
 import { useReservedYearsWithClasses } from './hooks/useReservedYearsWithClasses'
 
-export const Prefill = (props: { canEditData: boolean; originalDataPoint: OriginalDataPoint }) => {
+type Props = {
+  canEditData: boolean
+  originalDataPoint: OriginalDataPoint
+}
+
+export const Prefill: React.FC<Props> = (props) => {
   const { canEditData, originalDataPoint } = props
   const { year } = originalDataPoint
   const [selectedPreviousYear, setSelectedPreviousYear] = useState<string>('')
@@ -21,6 +28,10 @@ export const Prefill = (props: { canEditData: boolean; originalDataPoint: Origin
   const reservedYearsWithClasses = useReservedYearsWithClasses(year)
   const onCopyClick = useOnCopyClick({ originalDataPoint, setSelectedPreviousYear, selectedPreviousYear })
 
+  const options = reservedYearsWithClasses?.map<Option>((y) => {
+    return { label: String(y), value: String(y) }
+  })
+
   if (!canEditData || print) {
     return null
   }
@@ -30,27 +41,20 @@ export const Prefill = (props: { canEditData: boolean; originalDataPoint: Origin
   return (
     <div className="odp__previous-year-selection">
       <h4>{t('nationalDataPoint.prefillWith')}</h4>
-      <select
-        className="select"
+      <Select
+        bordered
         disabled={copyDisabled}
-        onChange={(e) => setSelectedPreviousYear(e.target.value)}
+        onChange={(value: string) => setSelectedPreviousYear(value)}
+        options={options}
+        placeholder={t('nationalDataPoint.selectYear')}
+        size={SelectSize.s}
         value={selectedPreviousYear}
-      >
-        <option value="">{t('nationalDataPoint.selectYear')}</option>
-        {reservedYearsWithClasses?.map((reservedYear: number) => (
-          <option key={reservedYear} value={reservedYear}>
-            {reservedYear}
-          </option>
-        ))}
-      </select>
-      <button
-        className="btn-s btn-primary btn-copy-prev-values"
+      />
+      <Button
         disabled={copyDisabled || selectedPreviousYear === ''}
+        label={t('nationalDataPoint.prefill')}
         onClick={onCopyClick}
-        type="button"
-      >
-        {t('nationalDataPoint.prefill')}
-      </button>
+      />
     </div>
   )
 }

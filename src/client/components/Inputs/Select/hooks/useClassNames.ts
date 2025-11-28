@@ -1,6 +1,5 @@
 import { useMemo } from 'react'
 import { Props as ReactSelectProps } from 'react-select'
-
 import classNames from 'classnames'
 
 import { SelectProps } from 'client/components/Inputs/Select/types'

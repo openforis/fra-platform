@@ -7,11 +7,12 @@ import { Responses } from 'server/utils/responses'
 
 export const getStaticS3File = async (req: Request<{ s3path: string }>, res: Response): Promise<void> => {
   try {
-    const { s3path } = req.params
-    if (!s3path) {
+    const { s3path: s3pathArray } = req.params
+    if (!s3pathArray) {
       Requests.send404(res)
       return
     }
+    const s3path = (s3pathArray as unknown as Array<string>).join('/')
     const key = path.basename(s3path)
     const dir = `static/${path.dirname(s3path)}`
     const extension = path.extname(key).replace('.', '')

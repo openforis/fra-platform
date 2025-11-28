@@ -18,6 +18,7 @@
   color: $text-body;
   transition: $ease-out;
   outline: unset;
+  height: 100%;
 
   &:hover {
     background-color: color.adjust($ui-bg, $lightness: -4%, $space: hsl);
@@ -25,13 +26,6 @@
 
   .icon {
     margin-right: unset;
-  }
-
-  .text-input {
-    width: 100%;
-    border: none;
-    font-size: 13px;
-    padding: initial;
   }
 }
 
@@ -71,6 +65,13 @@
     margin-top: -3px;
     opacity: 0.8;
     text-transform: uppercase;
+  }
+}
+
+@include rtl {
+  .toolbar__country .flag {
+    margin-right: initial;
+    margin-left: 8px;
   }
 }
 

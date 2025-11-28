@@ -29,18 +29,10 @@ $login-height: 50vh;
     text-decoration: none;
   }
 
-  .btn {
-    background-color: $ui-accent;
-    color: white;
-    padding: 6px 26px;
+  .button {
     border-radius: 20px;
-    margin: 0 12px;
     min-width: 190px;
-
-    &:hover {
-      color: white;
-      background-color: color.adjust($ui-accent, $lightness: 5%, $space: hsl);
-    }
+    text-transform: unset;
   }
 }
 
@@ -54,6 +46,10 @@ $login-height: 50vh;
   display: grid;
   justify-items: center;
   grid-row-gap: $spacing-m;
+
+  a.link {
+    display: inline-block;
+  }
 }
 
 .login__form {

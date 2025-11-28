@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link, useNavigate } from 'react-router-dom'
-
-import { Objects } from 'utils/objects'
+import { useNavigate } from 'react-router-dom'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { Routes } from 'meta/routes/routes'
+import { Objects } from 'utils/objects'
 
 import { useAppDispatch } from 'client/store/hooks'
 import { LoginActions } from 'client/store/login/actions'
@@ -13,6 +12,9 @@ import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useUser } from 'client/store/user/hooks/user'
 import { useToaster } from 'client/hooks/toaster'
+import Button, { ButtonSize, useButtonClassName } from 'client/components/Buttons/Button'
+import Flex from 'client/components/Layout/Flex'
+import Link from 'client/components/Links/Link'
 import { isError, LoginValidator } from 'client/pages/Login/utils/LoginValidator'
 import { Urls } from 'client/utils/urls'
 
@@ -24,6 +26,7 @@ const LoginForm: React.FC = () => {
   const user = useUser()
   const { t } = useTranslation()
   const { toaster } = useToaster()
+  const linkClassName = useButtonClassName({ size: ButtonSize.l })
 
   const loginError = Urls.getRequestParam('loginError')?.replace('#', '')
 
@@ -82,21 +85,13 @@ const LoginForm: React.FC = () => {
         />
         {errors.password && <span className="login__field-error">{t(errors.password)}</span>}
 
-        <div>
-          <button className="btn" onClick={(): void => setIsLocal(false)} type="button">
-            {t('login.cancel')}
-          </button>
+        <Flex gap={'16'}>
+          <Button label={t('login.cancel')} onClick={(): void => setIsLocal(false)} size={ButtonSize.l} />
 
-          <button className="btn" onClick={onLogin} type="button">
-            {t('login.login')}
-          </button>
-        </div>
+          <Button className="btn" label={t('login.login')} onClick={onLogin} size={ButtonSize.l} />
+        </Flex>
 
-        <Link
-          className="btn-forgot-pwd"
-          to={Routes.LoginResetPassword.generatePath({ assessmentName, cycleName })}
-          type="button"
-        >
+        <Link className="btn-forgot-pwd" to={Routes.LoginResetPassword.generatePath({ assessmentName, cycleName })}>
           {t('login.forgotPassword')}
         </Link>
       </div>
@@ -105,24 +100,22 @@ const LoginForm: React.FC = () => {
 
   return (
     <div className="login__formWrapper">
-      <div>
+      <Flex gap={'16'}>
         <a
-          className="btn"
+          className={linkClassName}
           href={`${ApiEndPoint.Auth.google()}?assessmentName=${assessmentName}&cycleName=${cycleName}`}
         >
           {t('login.signInGoogle')}
         </a>
 
-        <button className="btn" onClick={(): void => setIsLocal(true)} type="button">
-          {t('login.signInFRA')}
-        </button>
-      </div>
+        <Button label={t('login.signInFRA')} onClick={() => setIsLocal(true)} size={ButtonSize.l} />
+      </Flex>
 
       <div>
         <div>
           {t('login.accessLimited')}
           <br />
-          {t('login.returnHome')} <a href="/">{t('login.returnHomeClick')}</a>
+          {t('login.returnHome')} <Link to="/">{t('login.returnHomeClick')}</Link>
         </div>
       </div>
     </div>

@@ -39,7 +39,7 @@ const ButtonTableExport: React.FC<Props> = (props: Props) => {
       }}
       target="_blank"
     >
-      <Icon className="icon-sub icon-white" name="hit-down" />
+      <Icon name="hit-down" />
       CSV
     </CSVLink>
   )

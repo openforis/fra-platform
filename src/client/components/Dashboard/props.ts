@@ -1,7 +1,5 @@
-import { DashboardBarChart } from 'meta/dashboard/barChart'
-import { DashboardPieChart } from 'meta/dashboard/pieChart'
-import { DashboardTable } from 'meta/dashboard/table'
+import { DashboardItem } from 'meta/dashboard/item'
 
 export type Props = {
-  items: Array<DashboardTable | DashboardPieChart | DashboardBarChart>
+  items: Array<DashboardItem>
 }

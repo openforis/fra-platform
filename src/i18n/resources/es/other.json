@@ -456,7 +456,6 @@
     "placeholder": "Elegir…"
   },
   "navigation": {
-    "cancel": "Cancelar",
     "changeStatusTextPlaceholder": "Añadir un mensaje opcional",
     "doNotNotifyUsers": "No notificar a los usuarios",
     "hideAll": "Esconder todo",

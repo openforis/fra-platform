@@ -1,4 +1,4 @@
-import React, { InputHTMLAttributes } from 'react'
+import React, { ButtonHTMLAttributes } from 'react'
 
 import { TooltipId } from 'meta/tooltip/id'
 
@@ -14,15 +14,19 @@ export enum ButtonType {
   black = 'black',
   danger = 'danger',
   primary = 'primary',
+  secondary = 'secondary',
   transparent = 'transparent',
 }
 
+type HtmlButtonProps = ButtonHTMLAttributes<HTMLButtonElement>
 export type ButtonProps = Pick<
-  InputHTMLAttributes<HTMLButtonElement>,
+  HtmlButtonProps,
   'className' | 'disabled' | 'onClick' | 'onMouseEnter' | 'onMouseLeave'
 > & {
+  bgTransparent?: boolean
   dataTooltipContent?: string | null
   dataTooltipId?: TooltipId
+  htmlButtonType?: HtmlButtonProps['type']
   icon?: React.ReactNode
   iconName?: string
   inverse?: boolean

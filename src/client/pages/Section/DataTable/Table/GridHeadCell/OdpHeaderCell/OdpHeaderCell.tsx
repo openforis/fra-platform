@@ -2,21 +2,20 @@ import './OdpHeaderCell.scss'
 import 'client/components/DiffText/DiffText.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link } from 'react-router-dom'
-
 import classNames from 'classnames'
-import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area/countryIso'
 import { Table } from 'meta/assessment/table'
 import { Routes } from 'meta/routes/routes'
 import { TooltipId } from 'meta/tooltip/id'
+import { Objects } from 'utils/objects'
 
 import { useHistoryLastApprovedIsActive } from 'client/store/data/history/hooks/lastApproved'
 import { useOdpReviewSummary } from 'client/store/review/hooks/review'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { useIsPrintRoute } from 'client/hooks/routes'
 import { DataCell } from 'client/components/DataGrid'
+import Link from 'client/components/Links/Link'
 import ReviewSummaryIndicator from 'client/components/ReviewSummaryIndicator'
 import { ODPColHeader } from 'client/pages/Section/DataTable/Table/types'
 

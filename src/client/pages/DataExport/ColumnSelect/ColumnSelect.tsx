@@ -10,6 +10,8 @@ import { useDataExportSelection } from 'client/store/dataExport/hooks/dataExport
 import { DataExportSelection } from 'client/store/dataExport/state'
 import { useAppDispatch } from 'client/store/hooks'
 import ButtonCheckBox, { ButtonCheckboxVariant } from 'client/components/Buttons/ButtonCheckbox'
+import MultiSelect from 'client/components/Inputs/MultiSelect'
+import { Option } from 'client/components/Inputs/Select'
 import { getColumnLabelKeys } from 'client/pages/DataExport/utils'
 import { Breakpoints } from 'client/utils/breakpoints'
 
@@ -46,33 +48,31 @@ const ColumnSelect: React.FC<{ columns: Array<string> }> = ({ columns }) => {
     <div className="export__form-section">
       <div className="export__form-section-header select-all">
         <h4>{t('common.column')}</h4>
-        <ButtonCheckBox
-          checked={selectionColumns.length > 0 && selectionColumns.length === columns.length}
-          className="btn-all"
-          label={t(selectionColumns.length > 0 ? 'common.unselectAll' : 'common.selectAll')}
-          onClick={() => updateSelection(selection.sections[sectionName].columns.length > 0 ? [] : columns.map(String))}
-          variant={ButtonCheckboxVariant.checkbox}
-        />
+        <MediaQuery minWidth={Breakpoints.laptop}>
+          <ButtonCheckBox
+            checked={selectionColumns.length > 0 && selectionColumns.length === columns.length}
+            className="btn-all"
+            label={t(selectionColumns.length > 0 ? 'common.unselectAll' : 'common.selectAll')}
+            onClick={() =>
+              updateSelection(selection.sections[sectionName].columns.length > 0 ? [] : columns.map(String))
+            }
+            variant={ButtonCheckboxVariant.checkbox}
+          />
+        </MediaQuery>
       </div>
 
       <MediaQuery maxWidth={Breakpoints.laptop - 1}>
-        <select
-          multiple
-          onChange={(event) => {
-            const columnsUpdate = Array.from(event.target.selectedOptions, (option) => String(option.value))
-            updateSelection(columnsUpdate)
-          }}
-          value={selectionColumns}
-        >
-          {columns.map((column: string) => {
+        <MultiSelect
+          multiLabelSummaryKey="common.column"
+          onChange={updateSelection}
+          options={columns.map<Option>((column) => {
             const label = getColumnLabelKeys(column, sectionName, assessmentName).map(t).join(' ')
-            return (
-              <option key={column} value={column}>
-                {label}
-              </option>
-            )
+            return { label, value: column }
           })}
-        </select>
+          placeholder={t('common.select')}
+          toggleAll
+          value={selectionColumns}
+        />
       </MediaQuery>
       <MediaQuery minWidth={Breakpoints.laptop}>
         <>

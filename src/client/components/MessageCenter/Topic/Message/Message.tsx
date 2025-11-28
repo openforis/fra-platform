@@ -1,15 +1,14 @@
 import './Message.scss'
 import React, { useLayoutEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
-
 import classNames from 'classnames'
-import { getRelativeDate } from 'utils/dates'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { Message as MessageType } from 'meta/messageCenter/message'
 import { Users } from 'meta/user/users'
+import { getRelativeDate } from 'utils/dates'
 
-import Icon from 'client/components/Icon'
+import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
 
 type MessageProps = {
   message: MessageType
@@ -36,13 +35,15 @@ const Message: React.FC<MessageProps> = (props) => {
           <div className={classNames('message-author', { 'author-me': isMine })}>{Users.getFullName(message.user)}</div>
 
           {isMine && !deleted && message.message !== 'Marked as resolved' && (
-            <button
-              className="btn-xs btn-secondary btn-remove-msg"
+            <Button
+              className="btn-remove-msg"
+              iconName="trash-simple"
+              inverse
+              noBorder
               onClick={(): void => deleteFunc(message.id)}
-              type="button"
-            >
-              <Icon name="trash-simple" />
-            </button>
+              size={ButtonSize.m}
+              type={ButtonType.danger}
+            />
           )}
 
           <div className="message-time">

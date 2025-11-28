@@ -5,7 +5,9 @@ import { Props as BaseProps } from 'client/components/TablePaginated/types'
 
 type Returned<Datum extends object> = Array<Datum> | Array<[PropertyKey, Array<Datum>]> | undefined
 
-export const useTablePaginatedBodyData = <Datum extends object>(props: BaseProps<Datum>): Returned<Datum> => {
+type Props<Datum extends object> = Pick<BaseProps<Datum>, 'compareFn' | 'filterFn' | 'groups' | 'path'>
+
+export const useTablePaginatedBodyData = <Datum extends object>(props: Props<Datum>): Returned<Datum> => {
   const { compareFn, filterFn, groups, path } = props
 
   const data = useTablePaginatedData<Datum>({ path, compareFn, filterFn })

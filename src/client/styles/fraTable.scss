@@ -1,6 +1,4 @@
-@import 'src/client/styles/config';
-@import 'src/client/styles/form';
-@import 'src/client/styles/fraValidation';
+@import 'src/client/style/_partials/_config';
 
 // Mixins
 
@@ -103,7 +101,7 @@
   }
 
   &.error {
-    @include mixin-validation-error;
+    background-color: rgba($ui-destructive, 0.1) !important;
   }
 }
 
@@ -138,11 +136,6 @@
   vertical-align: top;
 }
 
-.fra-table__review-indicator-anchor {
-  position: absolute;
-  right: 0;
-}
-
 .fra-table__review-cell {
   width: 32px;
 }
@@ -153,23 +146,6 @@
 
 .fra-table__divider {
   border-right: 3px double $ui-border;
-}
-
-.fra-table__select {
-  @include mixin-select-base(10px, none, 0);
-  font-size: $font-s;
-  height: 100%;
-  min-width: 100%;
-
-  &:focus {
-    outline: none;
-    box-shadow: 0 0 0 1px $text-body;
-  }
-
-  &:disabled {
-    background-image: none;
-    cursor: default;
-  }
 }
 
 // Header button

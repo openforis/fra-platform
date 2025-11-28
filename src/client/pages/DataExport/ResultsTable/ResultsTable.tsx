@@ -2,11 +2,10 @@ import './ResultsTable.scss'
 import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Objects } from 'utils/objects'
-
 import { Areas } from 'meta/area/areas'
 import { CountryIso } from 'meta/area/countryIso'
 import { UnitName } from 'meta/measurement/unitName'
+import { Objects } from 'utils/objects'
 
 import { useDataExportCountries, useDataExportSelection } from 'client/store/dataExport/hooks/dataExport'
 import { useCycle } from 'client/store/meta/hooks/cycles'
@@ -97,6 +96,7 @@ const ResultsTable: React.FC<{ tableName: string }> = ({ tableName }) => {
                         baseUnit={unit ?? baseUnit}
                         onUnitChange={onUnitChange}
                         resultsLoading={resultsLoading}
+                        unit={units[variableName] ?? unit ?? baseUnit}
                         variable={variableName}
                       />
                     )}
@@ -113,6 +113,7 @@ const ResultsTable: React.FC<{ tableName: string }> = ({ tableName }) => {
                     baseUnit={baseUnit}
                     onUnitChange={onUnitChange}
                     resultsLoading={resultsLoading}
+                    unit={units[variable] ?? baseUnit}
                     variable={variable}
                   />
                 </th>

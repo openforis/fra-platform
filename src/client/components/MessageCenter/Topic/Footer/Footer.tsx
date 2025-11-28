@@ -2,15 +2,15 @@ import React, { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 
-import { Objects } from 'utils/objects'
-
 import { MessageTopic, MessageTopicType } from 'meta/messageCenter/messageTopic'
+import { Objects } from 'utils/objects'
 
 import { useAppDispatch } from 'client/store/hooks'
 import { MessageCenterActions } from 'client/store/messageCenter/actions'
 import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useCountryIso } from 'client/hooks/country'
+import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
 import { DataCell, DataGrid } from 'client/components/DataGrid'
 import TextArea from 'client/components/Inputs/TextArea'
 
@@ -69,22 +69,26 @@ const Footer: React.FC<Props> = (props: Props) => {
             />
           </DataCell>
           <DataCell noBorder>
-            <button
-              className="btn-s btn-primary"
+            <Button
               disabled={Objects.isEmpty(message)}
+              iconName="icon-paper-plane"
+              label={t('common.add')}
               onClick={postMessage}
-              type="submit"
-            >
-              {t('common.add')}
-            </button>
+              size={ButtonSize.s}
+            />
           </DataCell>
         </DataGrid>
       )}
       {canResolve && (
         <div className="topic-review">
-          <button className="btn btn-secondary btn-s" onClick={resolveTopic} type="submit">
-            {t('review.resolve')}
-          </button>
+          <Button
+            iconName="compare_arrows"
+            inverse
+            label={t('review.resolve')}
+            onClick={resolveTopic}
+            size={ButtonSize.s}
+            type={ButtonType.black}
+          />
         </div>
       )}
     </div>

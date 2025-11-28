@@ -1,12 +1,11 @@
 import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Dates } from 'utils/dates'
-
 import { UserInvitationSummary } from 'meta/user/invitationSummary'
 import { Users } from 'meta/user/users'
+import { Dates } from 'utils/dates'
 
-import CountryLink from 'client/components/CountryLink'
+import CountryLink from 'client/components/Links/CountryLink'
 import { Column } from 'client/components/TablePaginated'
 import Expired from 'client/pages/AdminInvitations/Expired'
 

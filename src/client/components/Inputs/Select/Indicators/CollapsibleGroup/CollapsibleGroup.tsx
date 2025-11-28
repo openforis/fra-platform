@@ -1,11 +1,11 @@
 import './CollapsibleGroup.scss'
 import React from 'react'
 import { GroupProps } from 'react-select'
-
 import classNames from 'classnames'
 
 import Icon from 'client/components/Icon'
 import { Option, OptionsGroup } from 'client/components/Inputs/Select/types'
+import Flex from 'client/components/Layout/Flex'
 
 import { useGroupSelection } from '../SelectableGroupHeading/hooks/useGroupSelection'
 import { useExpandGroup } from './hooks/useExpandGroup'
@@ -45,24 +45,27 @@ export const CollapsibleGroup: React.FC<GroupProps<Option>> = (props: GroupProps
           selectProps={selectProps}
           theme={theme}
         >
-          {isMulti && !disabled ? (
+          <Flex justifyContent={'space-between'}>
+            {isMulti && !disabled ? (
+              <button
+                className={classNames('select__group-label', 'select__group-label--clickable')}
+                onClick={handleGroupSelectionToggle}
+                type="button"
+              >
+                {headingProps.data.label}
+              </button>
+            ) : (
+              <span className="select__group-label">{headingProps.data.label}</span>
+            )}
+
             <button
-              className={classNames('select__group-label', 'select__group-label--clickable')}
-              onClick={handleGroupSelectionToggle}
+              className={classNames('select__group-collapse-button', { expanded })}
+              onClick={toggleExpanded}
               type="button"
             >
-              {headingProps.data.label}
+              <Icon name="small-down" />
             </button>
-          ) : (
-            <span className="select__group-label">{headingProps.data.label}</span>
-          )}
-          <button
-            className={classNames('select__group-collapse-button', { expanded })}
-            onClick={toggleExpanded}
-            type="button"
-          >
-            <Icon name="small-down" />
-          </button>
+          </Flex>
         </Heading>
       </div>
       {expanded && children}

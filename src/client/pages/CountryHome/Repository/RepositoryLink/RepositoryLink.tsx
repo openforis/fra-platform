@@ -1,4 +1,3 @@
-import './RepositoryLink.scss'
 import React from 'react'
 
 import { RepositoryItem } from 'meta/cycleData/repository/item'
@@ -7,6 +6,7 @@ import { Translations } from 'meta/translation/translations'
 
 import { useLanguage } from 'client/hooks/language'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
+import Link from 'client/components/Links/Link'
 
 type Props = {
   datum: RepositoryItem
@@ -22,9 +22,9 @@ const RepositoryLink: React.FC<Props> = (props) => {
   const url = RepositoryItems.getURL({ repositoryItem: datum, assessmentName, cycleName, countryIso })
 
   return (
-    <a className="repository-link" href={url} rel="noreferrer" target="_blank">
+    <Link rel="noreferrer" target="_blank" to={url}>
       {label}
-    </a>
+    </Link>
   )
 }
 

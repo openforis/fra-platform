@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { Objects } from 'utils/objects'
 
 import ButtonCheckBox, { ButtonCheckboxVariant } from 'client/components/Buttons/ButtonCheckbox'
+import InputText from 'client/components/Inputs/InputText'
 
 import { GenerateValuesField } from '../field'
 import { Method } from '../method'
@@ -65,14 +66,16 @@ const FieldsOption: React.FC<Props> = (props) => {
 
             {method === Method.annualChange && (
               <div className="annual-change-rates">
-                <input
-                  className={`text-input-s${rateValidationClass(fieldIdx, 'past')}`}
+                <InputText
+                  bordered
+                  className={rateValidationClass(fieldIdx, 'past')}
                   onChange={(e) => setAnnualChangeRateValue(fieldIdx, 'past', e.target.value)}
                   type="number"
                   value={annualChangeRates.past}
                 />
-                <input
-                  className={`text-input-s${rateValidationClass(fieldIdx, 'future')}`}
+                <InputText
+                  bordered
+                  className={rateValidationClass(fieldIdx, 'future')}
                   onChange={(e) => setAnnualChangeRateValue(fieldIdx, 'future', e.target.value)}
                   type="number"
                   value={annualChangeRates.future}

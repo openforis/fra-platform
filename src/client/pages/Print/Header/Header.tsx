@@ -47,8 +47,8 @@ const Header: React.FC = () => {
       <div className="print-header__toolbar">
         {withDownload && (
           <a className={downloadClassName} href={downloadHref} rel="noreferrer" target="_blank">
-            <Icon className="icon-white icon-sub" name="hit-down" />
-            <Icon className="icon-white icon-sub" name="icon-files" />
+            <Icon name="hit-down" />
+            <Icon name="icon-files" />
           </a>
         )}
       </div>

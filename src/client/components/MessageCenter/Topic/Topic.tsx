@@ -1,14 +1,13 @@
 import './Topic.scss'
 import React, { useCallback, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-
 import classNames from 'classnames'
-import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area/countryIso'
 import { Message as MessageType } from 'meta/messageCenter/message'
 import { MessageTopic, MessageTopicStatus, MessageTopicType } from 'meta/messageCenter/messageTopic'
 import { Sockets } from 'meta/socket/sockets'
+import { Objects } from 'utils/objects'
 
 import { useAppDispatch } from 'client/store/hooks'
 import { MessageCenterActions } from 'client/store/messageCenter/actions'
@@ -17,7 +16,9 @@ import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useIsDataLocked } from 'client/store/ui/countryReport/hooks/datalock'
 import { useUser } from 'client/store/user/hooks/user'
 import { useSectionRouteParams } from 'client/hooks/routeParams'
+import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
 import Icon from 'client/components/Icon'
+import Flex from 'client/components/Layout/Flex'
 import Resizable from 'client/components/Resizable'
 import { SocketClient } from 'client/service/socket/client'
 
@@ -87,7 +88,7 @@ const Topic: React.FC<TopicProps> = (props) => {
       .on(statusEvent, changeStatusEventHandler)
       .on(messageDeleteEvent, deleteMessageEventHandler)
 
-    return () => {
+    return (): void => {
       SocketClient.off(messageAddEvent, newMessageEventHandler)
         .off(statusEvent, changeStatusEventHandler)
         .off(messageDeleteEvent, deleteMessageEventHandler)
@@ -112,15 +113,20 @@ const Topic: React.FC<TopicProps> = (props) => {
       minWidth={300}
       onResize={handleTopicResize}
     >
-      <div className="topic-header">
+      <Flex className="topic-header" justifyContent={'space-between'}>
         <div className="topic-title">
           {topic.title || topicKey}
           {topic.subtitle && <div className="topic-subtitle">{topic.subtitle}</div>}
         </div>
-        <div className="topic-close" onClick={closeTopic} onKeyDown={closeTopic} role="button" tabIndex={0}>
-          <Icon name="remove" />
-        </div>
-      </div>
+        <Button
+          className="topic-close"
+          iconName="remove"
+          inverse
+          onClick={closeTopic}
+          size={ButtonSize.l}
+          type={ButtonType.anonymous}
+        />
+      </Flex>
       <div className={classNames('topic-body', { empty: Objects.isEmpty(topic.messages) })}>
         {!topic.loading &&
           !Objects.isEmpty(topic.messages) &&

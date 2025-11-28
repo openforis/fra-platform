@@ -1,8 +1,6 @@
 import './CellHeader.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link } from 'react-router-dom'
-
 import classNames from 'classnames'
 
 import { AssessmentName } from 'meta/assessment/assessment'
@@ -14,6 +12,7 @@ import { Routes } from 'meta/routes/routes'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useCountryIso } from 'client/hooks/country'
 import { DataCell } from 'client/components/DataGrid'
+import Link from 'client/components/Links/Link'
 import { useCellId } from 'client/pages/Section/DataTable/Table/hooks/useCellId'
 
 type Props = {
@@ -73,7 +72,7 @@ const CellHeader: React.FC<Props> = (props) => {
         <>
           <div className="only-print">{colHeaderLabel}</div>
           <Link
-            className="link no-print"
+            className="no-print"
             to={Routes.Section.generatePath({
               assessmentName,
               countryIso,

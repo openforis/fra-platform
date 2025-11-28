@@ -1,9 +1,0 @@
-@import 'src/client/style/partials';
-
-.toggle-navigation-btn {
-  &.active {
-    svg {
-      color: $ui-accent;
-    }
-  }
-}

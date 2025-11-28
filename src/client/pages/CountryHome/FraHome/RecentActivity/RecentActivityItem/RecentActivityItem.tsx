@@ -1,19 +1,18 @@
 import './RecentActivityItem.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link } from 'react-router-dom'
-
 import classNames from 'classnames'
-import { Dates } from 'utils/dates'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { ActivityLog } from 'meta/assessment/activityLog'
 import { ActivityLogs } from 'meta/assessment/activityLogs'
 import { Users } from 'meta/user/users'
+import { Dates } from 'utils/dates'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useSection } from 'client/store/meta/hooks/sections'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
+import Link from 'client/components/Links/Link'
 import { ColumnComponentProps } from 'client/components/TablePaginated'
 
 const RecentActivityItem: React.FC<ColumnComponentProps<ActivityLog<never>>> = (props) => {
