@@ -13,7 +13,7 @@ type Props = {
 const XAxis: React.FC<Props> = (props) => {
   const { xScale, years } = props
 
-  const axisRef = useRef<SVGGElement>()
+  const axisRef = useRef<SVGGElement>(null)
   useRenderD3XAxis({ axisRef, xScale, years })
 
   return <g ref={axisRef} transform={`translate(0, ${Charts.styles.height - Charts.styles.bottom})`} />

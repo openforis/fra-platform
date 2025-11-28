@@ -15,8 +15,8 @@ const YAxis: React.FC<Props> = (props) => {
   const { trendsData, width, yScale } = props
 
   const { t } = useTranslation()
-  const axisRef = useRef<SVGGElement>()
-  const unitLabelRef = useRef<SVGTextElement>()
+  const axisRef = useRef<SVGGElement>(null)
+  const unitLabelRef = useRef<SVGTextElement>(null)
   const d3Axis = useD3YAxis({ axisRef, yScale, width })
   useD3YAxisTransition({ d3Axis, trendsData, unitLabelRef })
 
