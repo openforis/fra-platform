@@ -24,13 +24,8 @@ const elementOffset = (element: Element): ElementOffset | object => {
 }
 
 const scrollTo = (options: ScrollToOptions = { top: 0, left: 0, behavior: 'smooth' }): void => {
-  const { documentElement } = document
-  if (documentElement.scrollTo) {
-    documentElement.scrollTo(options)
-  } else {
-    // Non Chromium based Edge version
-    documentElement.scrollIntoView(true)
-  }
+  const mainElement = document.getElementById('main')
+  mainElement.scrollTo(options)
 }
 
 const parseDOMValue = (value: string): string =>
