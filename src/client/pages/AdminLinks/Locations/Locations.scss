@@ -4,6 +4,10 @@
   min-width: 240px;
   white-space: normal;
   padding-left: $spacing-s;
+
+  li:not(:last-child) {
+    margin-bottom: $spacing-xxs;
+  }
 }
 
 .locations-count {

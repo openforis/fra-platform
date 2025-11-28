@@ -456,7 +456,6 @@
     "placeholder": "Выбрать…"
   },
   "navigation": {
-    "cancel": "Отмена",
     "changeStatusTextPlaceholder": "Добавить комментарий по выбору",
     "doNotNotifyUsers": "Не уведомлять пользователей",
     "hideAll": "Скрыть все",

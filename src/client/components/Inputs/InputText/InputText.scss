@@ -23,4 +23,8 @@
   &.disabled {
     cursor: default;
   }
+
+  &.bordered {
+    border: 1px solid $ui-border;
+  }
 }

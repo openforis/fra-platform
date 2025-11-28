@@ -1,7 +1,6 @@
-import './ButtonDelete.scss'
 import React from 'react'
 
-import Icon from 'client/components/Icon'
+import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
 
 type Props = {
   onClick: () => void
@@ -11,9 +10,7 @@ const ButtonDelete: React.FC<Props> = (props) => {
   const { onClick } = props
 
   return (
-    <button className="btn-s btn-link-destructive btn-delete" onClick={onClick} type="button">
-      <Icon className="icon-no-margin" name="trash-simple" />
-    </button>
+    <Button iconName="trash-simple" inverse noBorder onClick={onClick} size={ButtonSize.m} type={ButtonType.danger} />
   )
 }
 

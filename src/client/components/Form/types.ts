@@ -1,5 +1,4 @@
 import type { FieldValues, FormProps as ReactHookFormProps } from 'react-hook-form'
-
 import { ZodObject, ZodRawShape } from 'zod'
 
 import { Option } from 'client/components/Inputs/Select'
@@ -55,6 +54,6 @@ export type FormProps<FIELD_VALUES = FieldValues> = {
   hideCancel?: boolean
   method: ReactHookFormProps<unknown>['method']
   onCancel: () => void
-  onSuccess?: (values: FIELD_VALUES) => void
+  onSuccess?: (values: FIELD_VALUES, response: Response) => void | Promise<void>
   validationSchema?: FormValidationSchema
 }

@@ -22,7 +22,7 @@ const Global: React.FC = () => {
     <div className="home-area-selector__group">
       <img alt="" src="/img/iconGlobal.svg" />
       <Link
-        className="home-link m-r"
+        className="home-link"
         to={Routes.Country.generatePath({ countryIso: GlobalType.WO, assessmentName, cycleName })}
       >
         {t(`area.${GlobalType.WO}.listName`)}

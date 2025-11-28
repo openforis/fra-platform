@@ -45,8 +45,8 @@ const OriginalDataPoint: React.FC = () => {
 
   return (
     <div className="app-view__content">
-      <div className="app-view__page-header">
-        <h1 className="title align-left">{i18n.t<string>('nationalDataPoint.nationalDataPoint')}</h1>
+      <div className="odp__page-header">
+        <h1 className="title">{i18n.t<string>('nationalDataPoint.nationalDataPoint')}</h1>
         <ButtonBar />
       </div>
 

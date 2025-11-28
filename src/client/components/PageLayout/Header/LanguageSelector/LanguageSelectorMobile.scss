@@ -7,10 +7,11 @@
 
   button {
     font-weight: 400;
-    font-size: $font-xxs;
     color: $text-mute;
+    text-transform: unset;
+    padding: 0 4px;
 
-    &:disabled {
+    &.disabled {
       font-weight: 600;
       color: $text-body;
       opacity: 1;

@@ -11,27 +11,14 @@ div.select__indicatorsContainer {
   }
 }
 
-@include rtl {
-  div.select__indicatorsContainer {
-    padding-left: unset;
-    padding-right: $spacing-xxxs;
-  }
-}
-
 div.select__clearIndicator {
-  padding: 1px;
-  height: 18px;
-  width: 18px;
+  align-items: center;
+  justify-content: center;
+  padding: unset;
+  width: 22px;
 
-  svg.icon {
-    color: color.adjust($ui-destructive, $lightness: -7%, $space: hsl);
-  }
-
-  &:hover {
-    background-color: rgba(color.adjust($ui-destructive, $lightness: 30%, $space: hsl), 0.1);
-    svg.icon {
-      color: $ui-destructive;
-    }
+  button {
+    width: 22px;
   }
 }
 
@@ -41,6 +28,8 @@ div.select__clearIndicator {
   justify-items: center;
 
   svg {
+    height: 14px;
+    width: 14px;
     color: $text-body;
   }
 

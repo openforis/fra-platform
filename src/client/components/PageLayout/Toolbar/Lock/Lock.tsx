@@ -2,7 +2,6 @@ import './Lock.scss'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import MediaQuery from 'react-responsive'
-
 import classNames from 'classnames'
 
 import { TooltipId } from 'meta/tooltip/id'
@@ -70,7 +69,7 @@ const Lock: React.FC = () => {
         dataTooltipContent={locked ? t('common.tooltip.unlockEditing') : t('common.tooltip.lockEditing')}
         dataTooltipId={locked ? TooltipId.error : TooltipId.success}
         disabled={disabled}
-        icon={<Icon className="icon-no-margin icon-sub" name={iconName} />}
+        icon={<Icon name={iconName} />}
         onClick={toggleLock}
         onMouseEnter={(): void => setOver(true)}
         onMouseLeave={(): void => setOver(false)}

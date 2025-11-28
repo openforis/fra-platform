@@ -11,53 +11,54 @@ import { useSection } from 'client/store/meta/hooks/sections'
 import { useUser } from 'client/store/user/hooks/user'
 import { useLanguage } from 'client/hooks/language'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
+import { useButtonClassName } from 'client/components/Buttons/Button'
+import Select, { Option, SelectSize } from 'client/components/Inputs/Select'
+import Flex from 'client/components/Layout/Flex'
 
 import { useSortedDomains } from './hooks/useSortedDomains'
 
 const ExcelCalculatorDownload: React.FC = () => {
+  const { t } = useTranslation()
   const cycle = useCycle()
   const section = useSection()
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const country = useCountry(countryIso)
-
-  const { t } = useTranslation()
   const userInfo = useUser()
+  const language = useLanguage()
+  const { defaultSelectedDomain, domains } = useSortedDomains()
+  const [domain, setDomain] = useState<string>(defaultSelectedDomain)
+  const linkClassName = useButtonClassName({})
+
+  const propsPath = { assessmentName, cycleName, countryIso, domain, language }
+  const calculatorFilePath = Files.Static.getBiomassCalculator(propsPath)
   const countryDomain = country?.props?.domain
 
-  const { defaultSelectedDomain, domains } = useSortedDomains()
-
-  const [selectedDomain, setSelectedDomain] = useState<string>(defaultSelectedDomain)
-
-  const language = useLanguage()
+  const options = domains.map<Option>((value) => {
+    let label = `${t(`climaticDomain.${value}`)}`
+    if (value === countryDomain) label += ` (${t('climaticDomain.selectDefault')})`
+    return { label, value }
+  })
 
   useEffect(() => {
-    setSelectedDomain(defaultSelectedDomain)
+    setDomain(defaultSelectedDomain)
   }, [defaultSelectedDomain])
-
-  const calculatorFilePath = Files.Static.getBiomassCalculator({
-    assessmentName,
-    cycleName,
-    countryIso,
-    domain: selectedDomain,
-    language,
-  })
 
   if (!Authorizer.canEditSectionData({ country, cycle, section, user: userInfo })) return null
 
   return (
-    <div className="no-print">
-      <select className="select-s" onChange={(e): void => setSelectedDomain(e.target.value)} value={selectedDomain}>
-        {domains.map((domain) => (
-          <option key={domain} value={domain}>
-            {t(`climaticDomain.${domain}`)}
-            {domain === countryDomain && ` (${t('climaticDomain.selectDefault')})`}
-          </option>
-        ))}
-      </select>
-      <a className="btn-s btn-primary" href={calculatorFilePath}>
+    <Flex alignContent={'stretch'} className="no-print" gap={'8'}>
+      <Select
+        bordered
+        isClearable={false}
+        onChange={(value: string) => setDomain(value)}
+        options={options}
+        size={SelectSize.s}
+        value={domain}
+      />
+      <a className={linkClassName} href={calculatorFilePath}>
         {t('biomassStock.downloadExcel')}
       </a>
-    </div>
+    </Flex>
   )
 }
 

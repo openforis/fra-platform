@@ -24,7 +24,7 @@ import { UserApi } from './user'
 
 export const Api = {
   init: (express: Express): void => {
-    express.use('/api*', ApiContextMiddleware.initContext)
+    express.use('/api/*path', ApiContextMiddleware.initContext)
 
     AuthApi.init(express)
 

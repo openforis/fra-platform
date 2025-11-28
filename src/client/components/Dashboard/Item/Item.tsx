@@ -1,9 +1,6 @@
 import React from 'react'
 
-import { DashboardBarChart } from 'meta/dashboard/barChart'
 import { DashboardItem, DashboardItemType } from 'meta/dashboard/item'
-import { DashboardPieChart } from 'meta/dashboard/pieChart'
-import { DashboardTable } from 'meta/dashboard/table'
 
 import { useTableDataStatusListener } from 'client/store/data/tableData/hooks/useTableDataStatusListener'
 import BarChart from 'client/components/Dashboard/BarChart'
@@ -12,14 +9,14 @@ import NoData from 'client/components/Dashboard/NoData'
 import PieChart from 'client/components/Dashboard/PieChart'
 import Table from 'client/components/Dashboard/Table'
 
-const Components: Record<string, React.FC<{ item: DashboardItem<unknown> }>> = {
+const Components: Record<string, React.FC<{ item: DashboardItem }>> = {
   [DashboardItemType.table]: Table,
   [DashboardItemType.pieChart]: PieChart,
   [DashboardItemType.barChart]: BarChart,
 }
 
 type Props = {
-  item: DashboardTable | DashboardPieChart | DashboardBarChart
+  item: DashboardItem
 }
 
 const Component: React.FC<Props> = (props: Props) => {

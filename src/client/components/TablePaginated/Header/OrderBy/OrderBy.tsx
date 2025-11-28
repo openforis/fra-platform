@@ -1,13 +1,11 @@
 import React, { ReactElement, useCallback } from 'react'
 
-import classNames from 'classnames'
-
 import { TablePaginatedOrderBy, TablePaginatedOrderByDirection } from 'meta/tablePaginated/orderBy'
 
 import { useAppDispatch } from 'client/store/hooks'
 import { TablePaginatedActions } from 'client/store/tablePaginated/actions'
 import { useTablePaginatedOrderBy } from 'client/store/tablePaginated/hooks/tablePaginated'
-import Icon from 'client/components/Icon'
+import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
 import { Column } from 'client/components/TablePaginated/types'
 
 type Props<Datum> = {
@@ -36,9 +34,16 @@ const OrderBy = <Datum extends object>(props: Props<Datum>): ReactElement => {
   }, [active, activeAsc, dispatch, orderByProperty, path])
 
   return (
-    <button className={classNames('btn-sort', { active })} onClick={onClick} type="button">
-      <Icon name={iconName} />
-    </button>
+    <Button
+      bgTransparent
+      className="table-paginated__btn-sort"
+      iconName={iconName}
+      inverse
+      noBorder
+      onClick={onClick}
+      size={ButtonSize.m}
+      type={active ? ButtonType.primary : ButtonType.anonymous}
+    />
   )
 }
 

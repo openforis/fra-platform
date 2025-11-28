@@ -1,7 +1,6 @@
 import './AreaSelector.scss'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-
 import classNames from 'classnames'
 
 import { Areas } from 'meta/area/areas'
@@ -11,6 +10,7 @@ import { Users } from 'meta/user/users'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useUser } from 'client/store/user/hooks/user'
 import { Props } from 'client/components/AreaSelector/types'
+import InputText from 'client/components/Inputs/InputText'
 
 import Icon from '../Icon'
 import { useDefaultHandleElementSelect } from './hooks/useDefaultHandleElementSelect'
@@ -59,7 +59,7 @@ const AreaSelector: React.FC<Props> = (props) => {
 
     document.addEventListener('click', handleClickOutside, true)
 
-    return () => {
+    return (): void => {
       document.removeEventListener('click', handleClickOutside, true)
     }
   }, [])
@@ -79,13 +79,11 @@ const AreaSelector: React.FC<Props> = (props) => {
     >
       <div>
         {open && (
-          <input
+          <InputText
             ref={inputRef}
-            className="text-input"
             onChange={handleChange}
             onClick={handleClick}
             placeholder={t('emoji.picker.search')}
-            type="text"
           />
         )}
 

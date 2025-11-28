@@ -3,6 +3,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { useLanguage } from 'client/hooks/language'
+import { ButtonSize, useButtonClassName } from 'client/components/Buttons/Button'
 import Icon from 'client/components/Icon'
 import GuidelinesAndSpecifications from 'client/pages/Tutorials/GuidelinesAndSpecifications'
 
@@ -67,6 +68,7 @@ export const videoResources: Array<{
 const Tutorials: React.FC = () => {
   const { t } = useTranslation()
   const lang = useLanguage()
+  const linkClassName = useButtonClassName({ size: ButtonSize.m })
 
   return (
     <div>
@@ -85,12 +87,12 @@ const Tutorials: React.FC = () => {
               <div>{t(resource.labelKey)}</div>
 
               <a
-                className="btn-s btn-primary nav__bulk-download"
+                className={linkClassName}
                 href={resource.url[lang] ?? resource.url.en}
                 rel="noreferrer"
                 target="_blank"
               >
-                <Icon className="icon-sub icon-white" name="video" />
+                <Icon name="video" />
                 {t('tutorial.watch')}
               </a>
             </React.Fragment>

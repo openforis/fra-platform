@@ -3,10 +3,9 @@ import React from 'react'
 import { CSVLink } from 'react-csv'
 import { useTranslation } from 'react-i18next'
 
-import { Dates } from 'utils/dates'
-
 import { Areas } from 'meta/area/areas'
 import { Users } from 'meta/user/users'
+import { Dates } from 'utils/dates'
 
 import { useCountries } from 'client/store/area/hooks/countries'
 import { useUser } from 'client/store/user/hooks/user'
@@ -52,7 +51,7 @@ const CountryListDownload: React.FC = () => {
   return (
     <div className="country-selection-list__download">
       <CSVLink className={className} data={data} filename="FRA-Countries.csv" headers={headers} target="_blank">
-        <Icon className="icon-sub icon-white" name="hit-down" />
+        <Icon name="hit-down" />
         CSV
       </CSVLink>
     </div>

@@ -160,3 +160,45 @@ div.select__option {
     }
   }
 }
+
+// customizable select styles
+div.select__wrapper {
+  &.bordered {
+    border: 1px solid $ui-border;
+    transition: border-color ease-in-out 0.1s;
+
+    &:has(* .select__menu) {
+      border: $border-menu;
+    }
+  }
+
+  &.size-s {
+    div.select__container {
+      height: $spacing-s;
+      font-size: $font-s;
+    }
+
+    div.select__control {
+      min-height: $spacing-s;
+      padding: 0 $spacing-xxxs 0 $spacing-xxs;
+    }
+
+    div.select__dropdownIndicator {
+      svg {
+        height: 12px;
+        width: 12px;
+      }
+    }
+
+    div.select__indicatorsContainer {
+      gap: 0;
+    }
+
+    div.select__clearIndicator {
+      svg {
+        height: 13px;
+        width: 13px;
+      }
+    }
+  }
+}

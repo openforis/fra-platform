@@ -1,0 +1,37 @@
+@import 'src/client/style/partials';
+
+@mixin mixin-icon-base() {
+  display: inline-block;
+  color: rgba(0, 0, 0, 0.5);
+  fill: currentColor;
+  stroke: none;
+
+  use {
+    fill: inherit;
+  }
+}
+
+.icon {
+  @include mixin-icon-base;
+  height: 16px;
+  width: 16px;
+}
+
+.icon-24 {
+  @include mixin-icon-base;
+  height: 24px;
+  width: 24px;
+}
+
+.icon-middle {
+  vertical-align: middle;
+  position: relative;
+}
+
+.icon-white {
+  color: white;
+}
+
+svg.icon_hit-down {
+  transform: rotate(180deg);
+}

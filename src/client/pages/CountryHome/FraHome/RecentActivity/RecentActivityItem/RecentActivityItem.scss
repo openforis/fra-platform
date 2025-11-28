@@ -5,6 +5,7 @@
 .landing__activity-item {
   align-items: center;
   display: flex;
+  gap: 12px;
   justify-content: start;
   padding: 6px;
   position: relative;
@@ -45,14 +46,11 @@
   box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
   height: 28px;
   width: 28px;
-  margin-right: 12px;
 }
 
 .landing__activity-name {
-  span,
-  strong {
-    margin-right: $spacing-xxs;
-  }
+  display: flex;
+  gap: $spacing-xxs;
 }
 
 .landing__activity-time {
@@ -66,8 +64,17 @@
   letter-spacing: 0.2px;
 }
 
+@include rtl {
+  .landing__activity-time {
+    left: unset;
+    right: 44px;
+  }
+}
+
 .landing__activity-empty {
   color: $text-disabled;
+  display: grid;
+  justify-items: center;
   padding: $spacing-xl;
   text-align: center;
 }

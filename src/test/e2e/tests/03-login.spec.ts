@@ -9,7 +9,7 @@ test.describe('Login', () => {
     await page.fill('input[name="email"]', 'test@test.com')
     await page.fill('input[type="password"]', 'password123')
 
-    await page.click('button.btn:has-text("Login")')
+    await page.click('button.button:has-text("Login")')
 
     await expect(page).toHaveURL('/assessments/fra/2025')
 
@@ -24,7 +24,7 @@ test.describe('Login', () => {
     await page.fill('input[name="email"]', 'wrong@email.com')
     await page.fill('input[type="password"]', 'wrongpassword')
 
-    await page.click('button.btn:has-text("Login")')
+    await page.click('button.button:has-text("Login")')
 
     await expect(page.getByText("We couldn't find any user matching these credentials.")).toBeVisible()
     await expect(

@@ -1,16 +1,15 @@
 import React, { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Numbers } from 'utils/numbers'
-
 import { ODPs } from 'meta/assessment/odps'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
+import { Numbers } from 'utils/numbers'
 
-import { useIsPrintRoute } from 'client/hooks/routes'
 import { useCycleRouteParams } from 'client/hooks/routeParams'
+import { useIsPrintRoute } from 'client/hooks/routes'
 import ButtonTableExport from 'client/components/ButtonTableExport'
-import DefinitionLink from 'client/components/DefinitionLink'
 import DiffText from 'client/components/DiffText'
+import DefinitionLink from 'client/components/Links/DefinitionLink'
 import { useODPDisplayHistory } from 'client/pages/OriginalDataPoint/components/hooks/useODPDisplayHistory'
 
 import { useTotalsChange } from './hooks/useTotalsChange'

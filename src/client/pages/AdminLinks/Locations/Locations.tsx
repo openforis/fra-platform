@@ -1,11 +1,11 @@
 import './Locations.scss'
 import React, { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link } from 'react-router-dom'
 
 import { Link as LinkType } from 'meta/cycleData/links/link'
 
 import Button, { ButtonSize } from 'client/components/Buttons/Button'
+import Link, { LinkColor } from 'client/components/Links/Link'
 import { useGetLocationLabel } from 'client/pages/AdminLinks/Locations/hooks/useGetLocationLabel'
 
 type Props = {
@@ -41,7 +41,7 @@ const Locations: React.FC<Props> = (props) => {
         <ol className="locations">
           {locations?.map((location, idx) => (
             <li key={`${String(idx)}-${location.id}`}>
-              <Link className="locations-link" rel="noreferrer" target="_blank" to={String(location.url)}>
+              <Link color={LinkColor.body} rel="noreferrer" target="_blank" to={String(location.url)}>
                 {getLabel({ countryIso: link.countryIso, location })}
               </Link>
             </li>

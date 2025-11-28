@@ -1,12 +1,11 @@
 import './Form.scss'
 import React from 'react'
 import { Form as ReactHookForm, useForm } from 'react-hook-form'
-
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Objects } from 'utils/objects'
 import { z } from 'zod'
 
 import { UUIDs } from 'meta/uuid/uuids'
+import { Objects } from 'utils/objects'
 
 import { useAppDispatch } from 'client/store/hooks'
 import { NotificationActions } from 'client/store/ui/notification/actions'
@@ -61,7 +60,7 @@ const Form: React.FC<FormProps> = (props) => {
         dispatch(NotificationActions.addMessage({ id: UUIDs.getUuid(), type: 'error', message, params }))
       }}
       onSubmit={onSubmit}
-      onSuccess={(): void => onSuccess?.(watchValues)}
+      onSuccess={({ response }): ReturnType<typeof onSuccess> => onSuccess?.(watchValues, response)}
     >
       <DataGrid className="form-grid" gridTemplateColumns="max-content 1fr">
         {fields.map((fieldDefinition) => {

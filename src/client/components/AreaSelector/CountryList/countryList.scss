@@ -5,7 +5,7 @@
 .country-selection-list {
   display: block;
   position: absolute;
-  top: 30px;
+  top: 40px;
   left: -51px;
   width: 100vw;
   background: white;
@@ -101,17 +101,9 @@
 }
 
 button.country-selection-list__btn-show-more {
-  align-items: center;
-  color: $ui-accent;
-  display: flex;
-  font-size: $font-xxs;
-  font-weight: bold;
-  height: $spacing-m;
   margin-left: $spacing-xs;
-  padding: unset;
   position: absolute;
   right: $spacing-xs;
-  text-transform: uppercase;
   top: 0;
 }
 
