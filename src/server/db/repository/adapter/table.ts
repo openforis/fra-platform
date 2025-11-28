@@ -1,6 +1,7 @@
 import { Objects } from 'utils/objects'
 
 import { Table, TableProps } from 'meta/assessment/table'
+import { UUID } from 'meta/uuid/uuid'
 
 import { RowAdapter, RowDB } from 'server/db/repository/adapter/row'
 
@@ -8,7 +9,7 @@ export interface TableDB {
   id: number
   props: TableProps & { cycles: Array<string> }
   rows?: Array<RowDB>
-  table_section_id: number
+  table_section_uuid: UUID
   uuid: string
 }
 

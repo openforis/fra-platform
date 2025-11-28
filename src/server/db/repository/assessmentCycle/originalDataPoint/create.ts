@@ -4,8 +4,8 @@ import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { TableNames } from 'meta/assessment/table'
 
 import { BaseProtocol, DB } from 'server/db/db'
-import { ODPCommentColumns } from 'server/db/repository/assessmentCycle/originalDataPoint/commentColumns'
 import { OriginalDataPointAdapter } from 'server/db/repository/adapter/originalDataPoint'
+import { ODPCommentColumns } from 'server/db/repository/assessmentCycle/originalDataPoint/commentColumns'
 import { Schemas } from 'server/db/schemas'
 
 export const create = async (

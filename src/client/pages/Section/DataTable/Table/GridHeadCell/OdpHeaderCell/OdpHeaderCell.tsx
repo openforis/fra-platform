@@ -2,14 +2,13 @@ import './OdpHeaderCell.scss'
 import 'client/components/DiffText/DiffText.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-
 import classNames from 'classnames'
-import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area/countryIso'
 import { Table } from 'meta/assessment/table'
 import { Routes } from 'meta/routes/routes'
 import { TooltipId } from 'meta/tooltip/id'
+import { Objects } from 'utils/objects'
 
 import { useHistoryLastApprovedIsActive } from 'client/store/data/history/hooks/lastApproved'
 import { useOdpReviewSummary } from 'client/store/review/hooks/review'

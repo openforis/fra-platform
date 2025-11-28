@@ -29,7 +29,7 @@ const NavigationSection: React.FC<Props> = (props) => {
   const cycle = useCycle()
   const isDataExport = useIsDataExportView()
   const { pathname } = useLocation()
-  const reviewStatus = useSectionReviewSummary(section.id)
+  const reviewStatus = useSectionReviewSummary(section.uuid)
 
   const [expanded, setExpanded] = useState(false)
 

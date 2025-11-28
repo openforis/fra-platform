@@ -3,11 +3,11 @@ import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import MediaQuery from 'react-responsive'
 import { Link } from 'react-router-dom'
-import { Objects } from 'utils/objects'
 
 import { Areas } from 'meta/area/areas'
 import { CountryIso } from 'meta/area/countryIso'
 import { Routes } from 'meta/routes/routes'
+import { Objects } from 'utils/objects'
 
 import { useHistoryActivitiesIsActive } from 'client/store/data/history/hooks/activities'
 import { useSections } from 'client/store/meta/hooks/sections'

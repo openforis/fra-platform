@@ -1,7 +1,6 @@
 import './CellHeader.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-
 import classNames from 'classnames'
 
 import { AssessmentName } from 'meta/assessment/assessment'

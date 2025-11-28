@@ -5,6 +5,7 @@ import { VariableCache } from 'meta/assessment/metaCache'
 import { Row, RowType } from 'meta/assessment/row'
 import { Table } from 'meta/assessment/table'
 import { VariableName } from 'meta/assessment/variable'
+import { UUID } from 'meta/uuid/uuid'
 import { UUIDs } from 'meta/uuid/uuids'
 
 export type RowMetadata = {
@@ -26,10 +27,10 @@ const getStyle = (cycle: Cycle): Record<CycleUuid, ColStyle> => {
   }
 }
 
-const getCols = (cycle: Cycle, cols: Array<string>, rowId: number): Array<Col> => {
+const getCols = (cycle: Cycle, cols: Array<string>, rowUuid: UUID): Array<Col> => {
   return cols.map((col) => {
     return {
-      rowId,
+      rowUuid,
       props: {
         cycles: [cycle.uuid],
         colName: col,
@@ -41,11 +42,12 @@ const getCols = (cycle: Cycle, cols: Array<string>, rowId: number): Array<Col> =
   })
 }
 
-const getHeaderRow = (cycle: Cycle, cols: Array<string>, tableId: number): Row => {
+const getHeaderRow = (cycle: Cycle, cols: Array<string>, tableUuid: UUID): Row => {
+  const rowUuid = UUIDs.getUuid()
   return {
     cols: [
       {
-        rowId: 1,
+        rowUuid,
         props: {
           colType: ColType.header,
           cycles: [cycle.uuid],
@@ -56,7 +58,7 @@ const getHeaderRow = (cycle: Cycle, cols: Array<string>, tableId: number): Row =
       },
       ...cols.map((colName, index) => {
         return {
-          rowId: 1,
+          rowUuid,
           props: {
             index: index + 1,
             cycles: [cycle.uuid],
@@ -74,21 +76,22 @@ const getHeaderRow = (cycle: Cycle, cols: Array<string>, tableId: number): Row =
       index: 'header_1',
       cycles: [cycle.uuid],
     },
-    tableId,
-    uuid: UUIDs.getUuid(),
+    tableUuid,
+    uuid: rowUuid,
   }
 }
 
-type GetRowsProps = { cycle: Cycle; cols: Array<string>; tableId: number; rowMetadata: RowsMetadata }
+type GetRowsProps = { cycle: Cycle; cols: Array<string>; rowMetadata: RowsMetadata; tableUuid: UUID }
 export const getRows = (props: GetRowsProps): Array<Row> => {
-  const { cols, cycle, rowMetadata, tableId } = props
-  const headerRow: Row = getHeaderRow(cycle, cols, tableId)
+  const { cols, cycle, rowMetadata, tableUuid } = props
+  const headerRow: Row = getHeaderRow(cycle, cols, tableUuid)
 
   const _getRow = (row: RowMetadata): Row => {
+    const rowUuid = UUIDs.getUuid()
     return {
       cols: [
         {
-          rowId: row.id,
+          rowUuid,
           props: {
             colType: ColType.header,
             cycles: [cycle.uuid],
@@ -100,7 +103,7 @@ export const getRows = (props: GetRowsProps): Array<Row> => {
           },
           uuid: UUIDs.getUuid(),
         },
-        ...getCols(cycle, cols, row.id),
+        ...getCols(cycle, cols, rowUuid),
       ],
       id: row.id,
       props: {
@@ -113,8 +116,8 @@ export const getRows = (props: GetRowsProps): Array<Row> => {
           [cycle.uuid]: row.calculateFn,
         },
       },
-      tableId,
-      uuid: UUIDs.getUuid(),
+      tableUuid,
+      uuid: rowUuid,
     }
   }
 
@@ -143,9 +146,13 @@ export const getCalculationDependencies = (
 type Returned = Table & { calculationDependencies: Record<VariableName, Array<VariableCache>> }
 export const getTable = (props: GetTableProps): Returned => {
   const { cols, cycle, rowMetadata, tableId, tableName } = props
+
+  // e.g. '000.....-000000000001' where 1 is tableId
+  const tableUuid = `00000000-0000-0000-0000-${String(tableId).padStart(12, '0')}` as UUID
+
   const table: Returned = {
     id: tableId,
-    tableSectionId: -1,
+    tableSectionUuid: '00000000-0000-0000-0000-000000000000' as UUID,
     calculationDependencies: getCalculationDependencies({ rowMetadata }),
     props: {
       odp: false,
@@ -157,8 +164,8 @@ export const getTable = (props: GetTableProps): Returned => {
         [cycle.uuid]: cols,
       },
     },
-    rows: getRows({ cycle, cols, tableId, rowMetadata }),
-    uuid: UUIDs.getUuid(),
+    rows: getRows({ cycle, cols, rowMetadata, tableUuid }),
+    uuid: tableUuid,
   }
 
   return table

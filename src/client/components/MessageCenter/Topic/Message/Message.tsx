@@ -2,11 +2,11 @@ import './Message.scss'
 import React, { useLayoutEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
-import { getRelativeDate } from 'utils/dates'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { Message as MessageType } from 'meta/messageCenter/message'
 import { Users } from 'meta/user/users'
+import { getRelativeDate } from 'utils/dates'
 
 import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
 

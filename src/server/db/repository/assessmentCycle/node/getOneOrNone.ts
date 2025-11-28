@@ -30,7 +30,7 @@ export const getOneOrNone = (props: Props, client: BaseProtocol = DB): Promise<N
                  left join ${schema}.col c
                            on n.col_uuid = c.uuid
                  left join ${schema}."table" t
-                           on r.table_id = t.id
+                           on r.table_uuid = t.uuid
         where r.props ->> 'variableName' = $1
           and c.props ->> 'colName' = $2
           and n.country_iso = $3

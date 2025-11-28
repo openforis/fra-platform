@@ -1,9 +1,9 @@
 import './Text.scss'
 import React from 'react'
 import classNames from 'classnames'
-import { Objects } from 'utils/objects'
 
 import { TablePaginatedFilterType } from 'meta/tablePaginated/filters/filter'
+import { Objects } from 'utils/objects'
 
 import { useAppDispatch } from 'client/store/hooks'
 import { TablePaginatedActions } from 'client/store/tablePaginated/actions'

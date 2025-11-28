@@ -2,33 +2,17 @@ import { UserProfilePicture } from 'meta/user/profilePicture'
 
 import { BaseProtocol, DB } from 'server/db/db'
 
-export const getProfilePicture = async (
-  props: { id: number } | { email: string } | { emailGoogle: string },
-  client: BaseProtocol = DB
-): Promise<UserProfilePicture | undefined> => {
-  let where = ''
-  let value = ''
+type ProfilePicture = { userId: number }
+type Returned = UserProfilePicture | undefined
 
-  if ('id' in props) {
-    where = 'where u.id = $1'
-    value = String(props.id)
-  } else if ('email' in props) {
-    where = 'where lower(trim(u.email)) = trim(lower($1))'
-    value = props.email
-  } else if ('emailGoogle' in props) {
-    where = `where u.id = (select user_id from public.users_auth_provider where props->>'email' = $1)`
-    value = props.emailGoogle
-  } else {
-    throw new Error('Missing parameter')
-  }
-
+export const getProfilePicture = async (props: ProfilePicture, client: BaseProtocol = DB): Promise<Returned> => {
   return client.oneOrNone<UserProfilePicture | undefined>(
     `
         select f.uuid, f.name
         from public.users u
             join file f on u.profile_picture_file_uuid = f.uuid
-        ${where}
+        where u.id = $1
     `,
-    [value]
+    [props.userId]
   )
 }

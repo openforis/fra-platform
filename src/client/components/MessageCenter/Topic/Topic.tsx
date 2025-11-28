@@ -2,12 +2,12 @@ import './Topic.scss'
 import React, { useCallback, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
-import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area/countryIso'
 import { Message as MessageType } from 'meta/messageCenter/message'
 import { MessageTopic, MessageTopicStatus, MessageTopicType } from 'meta/messageCenter/messageTopic'
 import { Sockets } from 'meta/socket/sockets'
+import { Objects } from 'utils/objects'
 
 import { useAppDispatch } from 'client/store/hooks'
 import { MessageCenterActions } from 'client/store/messageCenter/actions'

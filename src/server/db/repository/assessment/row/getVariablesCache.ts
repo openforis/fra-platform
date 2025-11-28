@@ -25,7 +25,7 @@ export const getVariablesCache = async (props: Props, client: BaseProtocol = DB)
                                        'variableName', r.props ->> 'variableName', 'tableName', t.props ->> 'name'
                                    )) as variables
             from ${schema}.row r
-                     left join ${schema}."table" t on r.table_id = t.id
+                     left join ${schema}."table" t on r.table_uuid = t.uuid
             where r.props ->> 'variableName' is not null
               and t.props -> 'cycles' ? '${cycle.uuid}'
               and r.props -> 'cycles' ? '${cycle.uuid}'

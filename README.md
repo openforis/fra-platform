@@ -60,10 +60,10 @@ When you need e.g. a new table to the database (say "kuikka"), create a migratio
 template with:
 
 ```shell
-yarn migration-public:create kuikka
+yarn migration-step:create kuikka
 ```
 
-Now you'll see new sql files in `src/tools/migrations/public/steps/`.
+Now you'll see new sql files in `src/tools/migrations/steps/steps/`.
 
 You should edit the `<timestamp-kuikka-up.ts` to contain your `create table` -statement.
 Make sure migrations can be ran twice without side effects.

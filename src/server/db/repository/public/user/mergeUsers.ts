@@ -34,8 +34,8 @@ export const mergeUsers = async (props: Props, client: BaseProtocol = DB): Promi
     client.query(
       `delete
        from public.users_auth_provider
-       where user_id = $1 `,
-      [userIdToRemove]
+       where user_uuid = $1 `,
+      [userUuidToRemove]
     ),
     // insert users_role if it doesn't exist already
     client.query(

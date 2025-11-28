@@ -12,25 +12,11 @@ export const getCreateSchemaDDL = (schemaName: string): string => {
   const query = `
 create schema ${schemaName};
 
-do $$ 
-begin
-    create type message_topic_status as enum ('opened', 'resolved');
-exception
-    when duplicate_object then null;
-end $$;
-
-do $$ 
-begin
-    create type message_topic_type as enum ('review', 'chat', 'messageboard');
-exception
-    when duplicate_object then null;
-end $$;
-
 create table ${schemaName}.section
 (
     id            bigserial NOT NULL,
     uuid          uuid  default uuid_generate_v4(),
-    parent_id     bigint   references ${schemaName}.section (id) on update cascade on delete cascade,
+    parent_uuid   uuid   references ${schemaName}.section (uuid) on update cascade on delete cascade,
     props         jsonb default '{}'::jsonb,
     PRIMARY KEY (id),
     unique(uuid)
@@ -38,10 +24,10 @@ create table ${schemaName}.section
 
 create table ${schemaName}.table_section
 (
-    id         bigserial NOT NULL,
-    uuid       uuid  default uuid_generate_v4(),
-    props      jsonb default '{}'::jsonb,
-    section_id bigint   not null references ${schemaName}.section (id) on update cascade on delete cascade,
+    id           bigserial NOT NULL,
+    uuid         uuid default uuid_generate_v4(),
+    props        jsonb default '{}'::jsonb,
+    section_uuid uuid not null references ${schemaName}.section (uuid) on update cascade on delete cascade,
     PRIMARY KEY (id),
     unique(uuid)
 );
@@ -49,10 +35,10 @@ create table ${schemaName}.table_section
 
 create table ${schemaName}.table
 (
-    id               bigserial NOT NULL,
-    uuid             uuid  default uuid_generate_v4(),
-    props            jsonb default '{}'::jsonb,
-    table_section_id bigint   not null references ${schemaName}.table_section (id) on update cascade on delete cascade,
+    id                  bigserial NOT NULL,
+    uuid                uuid default uuid_generate_v4(),
+    props               jsonb default '{}'::jsonb,
+    table_section_uuid  uuid not null references ${schemaName}.table_section (uuid) on update cascade on delete cascade,
     PRIMARY KEY (id),
     unique(uuid)
 );
@@ -60,20 +46,20 @@ create table ${schemaName}.table
 
 create table ${schemaName}.row
 (
-    id       bigserial NOT NULL,
-    uuid     uuid  default uuid_generate_v4(),
-    props    jsonb default '{}'::jsonb,
-    table_id bigint   not null references ${schemaName}.table (id) on update cascade on delete cascade,
+    id         bigserial NOT NULL,
+    uuid       uuid default uuid_generate_v4(),
+    props      jsonb default '{}'::jsonb,
+    table_uuid uuid not null references ${schemaName}.table (uuid) on update cascade on delete cascade,
     PRIMARY KEY (id),
     unique(uuid)
 );
 
 create table ${schemaName}.col
 (
-    id     bigserial NOT NULL,
-    uuid   uuid  default uuid_generate_v4(),
-    props  jsonb default '{}'::jsonb,
-    row_id bigint   not null references ${schemaName}.row (id) on update cascade on delete cascade,
+    id       bigserial NOT NULL,
+    uuid     uuid  default uuid_generate_v4(),
+    props    jsonb default '{}'::jsonb,
+    row_uuid uuid not null references ${schemaName}.row (uuid) on update cascade on delete cascade,
     PRIMARY KEY (id),
     unique(uuid)
 );

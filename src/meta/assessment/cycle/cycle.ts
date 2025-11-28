@@ -1,3 +1,5 @@
+import { UUID } from 'meta/uuid/uuid'
+
 export type CycleName = string
 export type CycleUuid = string
 
@@ -18,7 +20,7 @@ export type CycleProps = {
 }
 
 export interface Cycle {
-  readonly assessmentId: number
+  readonly assessmentUuid: UUID
   cycleUuidSource?: CycleUuid
   id: number
   name: CycleName

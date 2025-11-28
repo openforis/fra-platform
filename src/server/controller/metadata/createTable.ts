@@ -9,7 +9,7 @@ import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 
 // Controller to create Table that belongs to a TableSection
 export const createTable = async (
-  props: { user: User; assessment: Assessment; table: Pick<Table, 'props' | 'tableSectionId'> },
+  props: { user: User; assessment: Assessment; table: Pick<Table, 'props' | 'tableSectionUuid'> },
   client: BaseProtocol = DB
 ): Promise<Table> => {
   const { assessment, table, user } = props

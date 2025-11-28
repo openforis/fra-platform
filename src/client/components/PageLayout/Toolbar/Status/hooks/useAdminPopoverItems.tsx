@@ -1,11 +1,10 @@
 import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Objects } from 'utils/objects'
-
 import { Country } from 'meta/area/country'
 import { CountryIso } from 'meta/area/countryIso'
 import { Users } from 'meta/user/users'
+import { Objects } from 'utils/objects'
 
 import { AreaActions } from 'client/store/area/actions'
 import { useAssessmentCountry } from 'client/store/area/hooks/country'

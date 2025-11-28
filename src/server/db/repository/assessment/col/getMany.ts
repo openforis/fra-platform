@@ -1,33 +1,37 @@
 import { Assessment } from 'meta/assessment/assessment'
 import { Col, ColType } from 'meta/assessment/col'
+import { UUID } from 'meta/uuid/uuid'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { ColAdapter } from 'server/db/repository/adapter/col'
 import { Schemas } from 'server/db/schemas'
 
-export const getMany = (
-  props: { assessment: Assessment; tableId?: number; rowId?: number },
-  client: BaseProtocol = DB
-): Promise<Array<Col>> => {
-  const { assessment, rowId, tableId } = props
-  if ((rowId && tableId) || (!rowId && !tableId)) {
-    throw new Error(`Only and only one between rowId and tableId must be present`)
+type Props = {
+  assessment: Assessment
+  tableUuid?: UUID
+  rowUuid?: UUID
+}
+
+export const getMany = (props: Props, client: BaseProtocol = DB): Promise<Array<Col>> => {
+  const { assessment, rowUuid, tableUuid } = props
+  if ((rowUuid && tableUuid) || (!rowUuid && !tableUuid)) {
+    throw new Error(`Either rowUuid or tableUuid must be present`)
   }
   const schema = Schemas.getName(assessment)
-  const where = tableId
-    ? `where c.row_id in (
-         select r.id
+  const where = tableUuid
+    ? `where c.row_uuid in (
+         select r.uuid
          from ${schema}.row r
-         where r.table_id = $1
+         where r.table_uuid = $1
      )`
-    : `where c.row_id = $1`
+    : `where c.row_uuid = $1`
 
   return client.map<Col>(
     `select *
      from ${schema}.col c
      ${where}
        and c.props ->> 'colType' not in ('${ColType.header}', '${ColType.noticeMessage}')`,
-    [tableId ?? rowId],
+    [tableUuid ?? rowUuid],
     ColAdapter
   )
 }

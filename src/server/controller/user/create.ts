@@ -21,7 +21,7 @@ export const create = async (
       {
         provider: {
           ...provider,
-          userId: newUser.id,
+          userUuid: newUser.uuid,
         },
       },
       t

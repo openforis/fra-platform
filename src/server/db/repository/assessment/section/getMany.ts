@@ -18,19 +18,19 @@ export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<
 
   return client.one<Array<Section>>(
     `
-        with ss as (select s.parent_id,
+        with ss as (select s.parent_uuid,
                            jsonb_agg(s.* order by (props ->> 'index')::numeric) as sub_sections
                     from ${schemaName}.section s
-                    where s.parent_id is not null
+                    where s.parent_uuid is not null
                       and props -> 'cycles' ? $1
                       and ($2 = true or (coalesce(s.props -> 'hidden' ->> '${cycle.uuid}', 'false', 'false')::boolean = false and $2 = false))
-                    group by s.parent_id
-                    order by s.parent_id),
+                    group by s.parent_uuid
+                    order by s.parent_uuid),
              s as (select s.*,
                           ss.sub_sections
                    from ${schemaName}.section s
-                            left join ss on ss.parent_id = s.id
-                   where s.parent_id is null
+                            left join ss on ss.parent_uuid = s.uuid
+                   where s.parent_uuid is null
                      and props -> 'cycles' ? $1
                      and ss.sub_sections is not null
                      and ($2 = true or (coalesce(s.props -> 'hidden' ->> '${cycle.uuid}', 'false', 'false')::boolean = false and $2 = false))

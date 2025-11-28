@@ -28,8 +28,8 @@ export const getOne = async (props: Props, client: BaseProtocol = DB): Promise<U
     values.push(props.email)
   } else if ('emailGoogle' in props) {
     where.push(
-      `u.id = (
-      select user_id from public.users_auth_provider
+      `u.uuid = (
+      select user_uuid from public.users_auth_provider
       where
       regexp_replace(props->>'email', '(?<!@gmail)\\.', '', 'g') = regexp_replace($1, '(?<!@gmail)\\.', '', 'g'))`
     )

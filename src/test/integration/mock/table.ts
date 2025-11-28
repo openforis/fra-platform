@@ -1,5 +1,4 @@
 export const tableParams = {
-  tableSectionId: 1,
   props: {
     name: 'testName',
     cycles: ['2020'],

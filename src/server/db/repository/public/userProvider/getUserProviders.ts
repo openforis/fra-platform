@@ -11,9 +11,9 @@ export const getUserProviders = async (
 
   return client.map<AuthProvider>(
     `
-        select distinct(provider) from public.users_auth_provider where user_id = $1;
+        select distinct(provider) from public.users_auth_provider where user_uuid = $1;
     `,
-    [user.id],
+    [user.uuid],
     (row) => row.provider
   )
 }

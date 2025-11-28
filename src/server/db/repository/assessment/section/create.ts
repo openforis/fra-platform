@@ -1,5 +1,6 @@
 import { Assessment } from 'meta/assessment/assessment'
 import { Section, SubSection } from 'meta/assessment/section'
+import { UUID } from 'meta/uuid/uuid'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { SectionAdapter, SubSectionAdapter } from 'server/db/repository/adapter'
@@ -28,18 +29,18 @@ export const createSubSection = async (
   params: {
     section: Pick<SubSection, 'props'>
     assessment: Assessment
-    parentSectionId: number
+    parentSectionUuid: UUID
   },
   client: BaseProtocol = DB
 ): Promise<SubSection> => {
-  const { assessment, parentSectionId, section } = params
+  const { assessment, parentSectionUuid, section } = params
   const schemaName = Schemas.getName(assessment)
 
   return client.one<SubSection>(
     `
-      insert into ${schemaName}.section (props, parent_id)
+      insert into ${schemaName}.section (props, parent_uuid)
       values ($1::JSONB, $2) returning *;`,
-    [JSON.stringify(section.props), parentSectionId],
+    [JSON.stringify(section.props), parentSectionUuid],
     SubSectionAdapter
   )
 }

@@ -1,13 +1,12 @@
 import './NotifyUsers.scss'
 import React, { Dispatch, SetStateAction } from 'react'
 import { useTranslation } from 'react-i18next'
-
 import classNames from 'classnames'
-import { Objects } from 'utils/objects'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CountryStatus } from 'meta/area/countryStatus'
 import { Users } from 'meta/user/users'
+import { Objects } from 'utils/objects'
 
 import { useUser } from 'client/store/user/hooks/user'
 import ButtonCheckbox, { ButtonCheckboxVariant } from 'client/components/Buttons/ButtonCheckbox'

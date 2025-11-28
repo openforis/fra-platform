@@ -38,7 +38,7 @@ export const getUsersInvitationDDL = (schemaName = 'public'): string => {
       role ${schemaName}.user_role not null,
       invited_at timestamp with time zone default now(),
       accepted_at timestamp with time zone,
-      permissions jsonb
+      permissions jsonb,
 
       foreign key (assessment_uuid) references ${schemaName}.assessment (uuid) on update cascade on delete cascade,
       foreign key (user_uuid) references ${schemaName}.users (uuid) on update cascade on delete cascade,
@@ -55,30 +55,57 @@ export const getUsersInvitationDDL = (schemaName = 'public'): string => {
   `
 }
 
-export const getCreatePublicSchemaDDL = (schemaName = 'public'): string => {
-  const query = `
-    -- Extensions
+const _getExtensions = (): string => {
+  return `
+      -- Extensions
     create extension if not exists "uuid-ossp";
+  `
+}
 
-    -- Enums    
+const _getEnums = (): string => {
+  return `
+  
+    -- Enums - create enums in default search path
     do $$ begin
       if not exists (select 1 from pg_type where typname = 'users_status') then
-        create type ${schemaName}.users_status as enum ('invitationPending', 'active', 'disabled');
+        create type users_status as enum ('invitationPending', 'active', 'disabled');
       end if;
     end $$;
 
     do $$ begin
       if not exists (select 1 from pg_type where typname = 'auth_provider') then
-        create type ${schemaName}.auth_provider as enum ('local', 'google');
+        create type auth_provider as enum ('local', 'google');
       end if;
     end $$;
 
     do $$ begin
       if not exists (select 1 from pg_type where typname = 'user_role') then
-        create type ${schemaName}.user_role as enum ('ADMINISTRATOR', 'COLLABORATOR', 'NATIONAL_CORRESPONDENT', 'ALTERNATE_NATIONAL_CORRESPONDENT', 'REVIEWER', 'VIEWER');
+        create type user_role as enum ('ADMINISTRATOR', 'COLLABORATOR', 'NATIONAL_CORRESPONDENT', 'ALTERNATE_NATIONAL_CORRESPONDENT', 'REVIEWER', 'VIEWER');
       end if;
     end $$;
+    
+    -- Enums: Message topic
+    do $$
+    begin
+        create type message_topic_status as enum ('opened', 'resolved');
+    exception
+        when duplicate_object then null;
+    end $$;
+    
+    do $$
+    begin
+        create type message_topic_type as enum ('review', 'chat', 'messageboard');
+    exception
+        when duplicate_object then null;
+    end $$;
 
+  `
+}
+
+export const getCreatePublicSchemaDDL = (schemaName = 'public'): string => {
+  const query = `
+      ${_getExtensions()}
+      ${_getEnums()}
 
     -- Tables
     create table if not exists ${schemaName}.assessment (
@@ -90,12 +117,12 @@ export const getCreatePublicSchemaDDL = (schemaName = 'public'): string => {
 
     create table if not exists ${schemaName}.assessment_cycle (
       id bigserial primary key,
-      assessment_id bigint not null,
+      assessment_uuid uuid not null,
       uuid uuid default uuid_generate_v4(),
       name character varying default '',
       props jsonb default '{}'::jsonb not null,
       cycle_uuid_source uuid,
-      foreign key (assessment_id) references ${schemaName}.assessment (id)
+      foreign key (assessment_uuid) references ${schemaName}.assessment (uuid)
         on update cascade on delete cascade
     );
     create unique index if not exists assessment_cycle_uuid_key on ${schemaName}.assessment_cycle using btree (uuid);
@@ -163,10 +190,10 @@ export const getCreatePublicSchemaDDL = (schemaName = 'public'): string => {
 
     create table if not exists ${schemaName}.users_auth_provider (
       id bigserial primary key,
-      user_id bigint not null,
+      user_uuid uuid not null,
       provider ${schemaName}.auth_provider not null,
       props jsonb,
-      foreign key (user_id) references ${schemaName}.users (id)
+      foreign key (user_uuid) references ${schemaName}.users (uuid)
         on update no action on delete cascade
     );
 

@@ -20,21 +20,21 @@ export const getReviewSummary = async (
 
   return client.one<Array<ReviewSummary>>(
     `
-        with r as (select r.uuid as row_uuid, s.id as sub_section_id, s.parent_id, s.uuid as section_uuid
+        with r as (select r.uuid as row_uuid, s.uuid as sub_section_uuid, s.parent_uuid, s.uuid as section_uuid
                    from ${schemaName}.row r
                             left join ${schemaName}."table" t
-                                      on t.id = r.table_id
+                                      on t.uuid = r.table_uuid
                             left join ${schemaName}.table_section ts
-                                      on ts.id = t.table_section_id
+                                      on ts.uuid = t.table_section_uuid
                             left join ${schemaName}.section s
-                                      on s.id = ts.section_id
+                                      on s.uuid = ts.section_uuid
                    where r.props -> 'cycles' ? $1),
              m as (select r.row_uuid,
-                          r.sub_section_id,
-                          r.parent_id,
+                          r.sub_section_uuid,
+                          r.parent_uuid,
                           m.topic_id,
                           m.created_time                                                as last_message_created_time,
-                          row_number() over (partition by r.row_uuid, r.sub_section_id) as row_number
+                          row_number() over (partition by r.row_uuid, r.sub_section_uuid) as row_number
                    from r
                             left join ${cycleSchema}.message_topic mt
                                       on r.section_uuid = mt.section_uuid
@@ -43,8 +43,8 @@ export const getReviewSummary = async (
                    where mt.status = 'opened'
                      and not m.deleted
                      and mt.country_iso = $3),
-             summaries as (select m.sub_section_id,
-                                  m.parent_id,
+             summaries as (select m.sub_section_uuid,
+                                  m.parent_uuid,
                                  'dataRow_' || m.row_uuid                                        as key,
                                   mt.status,
                                   m.last_message_created_time,
