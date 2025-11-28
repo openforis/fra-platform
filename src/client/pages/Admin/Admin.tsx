@@ -2,19 +2,19 @@ import './Admin.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Navigate, NavLink, Outlet } from 'react-router-dom'
-
 import classNames from 'classnames'
-import { Objects } from 'utils/objects'
 
 import { Routes } from 'meta/routes/routes'
 import { SectionNames } from 'meta/routes/sectionNames'
 import { Users } from 'meta/user/users'
+import { Objects } from 'utils/objects'
 
 import { AdminSliceName } from 'client/store/admin/name'
 import { AdminSlice } from 'client/store/admin/slice'
 import { useCountries } from 'client/store/area/hooks/countries'
 import { useInjectSlice } from 'client/store/hooks'
 import { useUser } from 'client/store/user/hooks/user'
+import { ButtonSize, useButtonClassName } from 'client/components/Buttons/Button'
 
 type Section = {
   labelKey: string
@@ -46,6 +46,7 @@ const Admin: React.FC = () => {
   const countries = useCountries()
   const user = useUser()
   useInjectSlice({ reducerPath: AdminSliceName, reducer: AdminSlice })
+  const linkClassName = useButtonClassName({ inverse: true, noBorder: true, size: ButtonSize.m })
 
   if (!Users.isAdministrator(user)) return <Navigate replace to={Routes.Root.path.absolute} />
 
@@ -62,7 +63,7 @@ const Admin: React.FC = () => {
           <NavLink
             key={name}
             className={(navData): string =>
-              classNames('btn admin__page-menu-button', {
+              classNames(linkClassName, 'admin__page-menu-button', {
                 disabled: navData.isActive,
               })
             }
