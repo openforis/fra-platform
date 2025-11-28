@@ -31,7 +31,12 @@ const ACTIONS = [
   OriginalDataPointActions.deleteOriginalDataPoint,
 ]
 
-export const useLoadingIndicatorState = () => {
+type Returned = {
+  show: boolean
+  showCheck: boolean
+}
+
+export const useLoadingIndicatorState = (): Returned => {
   const dispatch = useAppDispatch()
   const [show, setShow] = useState(false)
   const [showCheck, setShowCheck] = useState(false)
@@ -46,17 +51,13 @@ export const useLoadingIndicatorState = () => {
           ...ACTIONS.map((action) => isRejected(action))
         ),
         effect: (action) => {
-          // If an action is dispatch with showIndicator: false, we hide the indicator
-          // Defaults to true, showing the indicator
-          const showIndicator = action?.payload?.showIndicator ?? action?.meta?.arg?.showIndicator ?? true
-
-          if (isPending(action) && showIndicator) {
+          if (isPending(action)) {
             setShow(true)
             setShowCheck(false)
             if (timeoutRef.current) {
               clearTimeout(timeoutRef.current)
             }
-          } else if (isFulfilled(action) && showIndicator) {
+          } else if (isFulfilled(action)) {
             setShowCheck(true)
             if (timeoutRef.current) {
               clearTimeout(timeoutRef.current)
@@ -75,7 +76,7 @@ export const useLoadingIndicatorState = () => {
         },
       })
     )
-    return () => {
+    return (): void => {
       unsubscribe()
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current)

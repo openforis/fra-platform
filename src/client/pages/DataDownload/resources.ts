@@ -1,6 +1,12 @@
 import { DataDownloadFileName } from 'meta/file/static'
 
-const resources = [
+export type DataDownloadResource = {
+  idx: number
+  name: DataDownloadFileName
+  labelKey: string
+}
+
+const resources: Array<DataDownloadResource> = [
   {
     idx: 1,
     name: DataDownloadFileName.ForestExtentCharacteristicsAndChanges,

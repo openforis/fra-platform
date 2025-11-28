@@ -4,6 +4,7 @@
   font-weight: 700;
   justify-self: right;
 }
+
 .repository-form__field {
   position: relative;
 }
@@ -14,6 +15,7 @@
   font-weight: 600;
   position: absolute;
   text-transform: uppercase;
+  top: 100%;
 }
 
 .error {

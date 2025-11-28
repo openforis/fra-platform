@@ -28,6 +28,7 @@ export const postLocalLogin = async (req: Request, res: Response, next: NextFunc
 
 export const getGoogleLogin = (req: LoginRequest, res: Response): void => {
   passport.authenticate('google', {
+    session: false,
     scope: ['https://www.googleapis.com/auth/plus.login', 'profile', 'email'],
     state: JSON.stringify({
       assessmentName: req.query.assessmentName,
@@ -49,7 +50,7 @@ export const getGoogleCallback = (req: Request, res: Response, next: NextFunctio
       res.clearCookie(AuthToken.fraAuthToken)
       res.redirect(Routes.Login.generatePath({ assessmentName, cycleName }, { loginError: msg.message }))
     } else {
-      req.login(user, (err: any) => {
+      req.login(user, { session: false }, (err: any) => {
         if (err) next(err)
         setAuthToken(res, user)
 

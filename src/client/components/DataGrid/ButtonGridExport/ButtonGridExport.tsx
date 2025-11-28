@@ -37,7 +37,7 @@ const ButtonGridExport: React.FC<Props> = (props) => {
 
   return (
     <CSVLink asyncOnClick className={className} data={data} filename={filename} onClick={onClick} target="_blank">
-      <Icon className="icon-sub icon-white" name="hit-down" />
+      <Icon name="hit-down" />
       CSV
     </CSVLink>
   )

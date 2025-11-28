@@ -2,22 +2,9 @@
 
 @import 'src/client/style/partials';
 
-.review-indicator {
-  background: none;
-  border: none;
-  display: flex;
-  justify-content: center;
-  width: 32px;
-
+button.review-indicator.button__type-primary.inverse {
   svg {
     color: $text-disabled;
-
-    &:hover {
-      color: $text-body;
-      height: 18px;
-      transition: all 0.1s ease-out;
-      width: 18px;
-    }
   }
 
   &.open {
@@ -35,10 +22,6 @@
   &.resolved {
     svg {
       color: color.adjust($ui-accent, $lightness: -20%, $space: hsl);
-
-      &:hover {
-        color: color.adjust($ui-accent, $lightness: -25%, $space: hsl);
-      }
     }
   }
 }

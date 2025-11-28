@@ -1,7 +1,7 @@
-import './TitleExcelCalculator.scss'
 import React from 'react'
 
 import { useIsPrintRoute } from 'client/hooks/routes'
+import Flex from 'client/components/Layout/Flex'
 import { TitleDefault } from 'client/pages/Section/Title/Components'
 
 import { Props } from '../props'
@@ -12,11 +12,11 @@ const TitleExcelCalculator: React.FC<Props> = (props) => {
   const { print } = useIsPrintRoute()
 
   return (
-    <div className="title-with-excel-calculator">
+    <Flex justifyContent="space-between">
       <TitleDefault subSection={subSection} />
 
       {!print && <ExcelCalculatorDownload />}
-    </div>
+    </Flex>
   )
 }
 

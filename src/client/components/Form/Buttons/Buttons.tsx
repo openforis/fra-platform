@@ -2,6 +2,7 @@ import './Buttons.scss'
 import React from 'react'
 
 import { FormProps } from 'client/components/Form/types'
+import Flex from 'client/components/Layout/Flex'
 
 import Cancel from './Cancel'
 import Submit from './Submit'
@@ -16,10 +17,10 @@ const Buttons: React.FC<ButtonsProps> = (props) => {
   const { disabled, hideCancel, isDirty, isSubmitting, onCancel } = props
 
   return (
-    <div className="form-button-container">
+    <Flex className="form-button-container" gap={'32'} justifyContent={'center'}>
       <Cancel disabled={disabled} hideCancel={hideCancel} onClick={onCancel} />
       <Submit disabled={disabled} isDirty={isDirty} isSubmitting={isSubmitting} />
-    </div>
+    </Flex>
   )
 }
 

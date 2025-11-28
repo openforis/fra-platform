@@ -8,15 +8,25 @@
   text-align: $align;
 }
 
+.odp__page-header {
+  display: flex;
+  justify-content: space-between;
+}
+
 .odp__year-selection {
   margin-bottom: 16px;
+
+  .select__wrapper {
+    width: 140px;
+  }
 }
 
 .odp__previous-year-selection {
-  margin-bottom: 16px;
-  display: flex;
   align-items: center;
+  display: grid;
   gap: 8px;
+  grid-template-columns: max-content 120px max-content;
+  margin-bottom: 16px;
 }
 
 .odp__bottom-buttons {
@@ -68,11 +78,6 @@
   font-weight: 400;
   font-size: $font-xs;
   margin-left: 8px;
-}
-
-.odp__review-indicator-row-anchor {
-  position: absolute;
-  right: 0;
 }
 
 .odp__sub-table {

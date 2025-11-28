@@ -6,6 +6,7 @@ import { AssessmentNames } from 'meta/assessment/assessment'
 import { useUser } from 'client/store/user/hooks/user'
 import { useLanguage } from 'client/hooks/language'
 import CycleSwitch from 'client/components/CycleSwitch'
+import Link from 'client/components/Links/Link'
 
 export const userGuideUrls: Record<string, string> = {
   en: 'https://www.fao.org/3/cc4690en/cc4690en.pdf',
@@ -26,9 +27,9 @@ const Fra2025GuidelinesAndSpecifications: React.FC = () => {
         <h1 className="landing__page-title title">{t('tutorial.guidelinesAndSpecifications')}</h1>
       </div>
       <div className="list-tutorial ">
-        <a href={userGuideUrls[lang] ?? userGuideUrls.en} rel="noreferrer" target="_blank">
+        <Link rel="noreferrer" target="_blank" to={userGuideUrls[lang] ?? userGuideUrls.en}>
           {t('common.userGuide')}
-        </a>
+        </Link>
       </div>
     </>
   )

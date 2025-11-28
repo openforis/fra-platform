@@ -6,6 +6,7 @@ import { Labels } from 'meta/assessment/labels'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useIsPrintRoute } from 'client/hooks/routes'
+import Flex from 'client/components/Layout/Flex'
 import CSVAllTables from 'client/pages/Section/Title/CSVAllTables'
 import ExtentOfForest from 'client/pages/Section/Title/ExtentOfForest'
 import ForestCharacteristics from 'client/pages/Section/Title/ForestCharacteristics'
@@ -30,9 +31,9 @@ export const TitleDefault: React.FC<Props> = (props) => {
   const { print } = useIsPrintRoute()
 
   return (
-    <div className="section__title__header">
+    <Flex gap="16">
       <h2 className="headline no-print">{Labels.getCycleLabel({ cycle, labels: subSection.props.labels, t })}</h2>
       {!print && <CSVAllTables />}
-    </div>
+    </Flex>
   )
 }

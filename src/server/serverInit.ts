@@ -19,8 +19,10 @@ import * as resourceCacheControl from './resourceCacheControl'
 export const serverInit = (): void => {
   const app = express()
   Proxy.init(app)
+
   app.use(wwwhisper(false))
   app.use(cookieParser())
+  app.set('query parser', 'extended')
 
   if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'))
@@ -47,7 +49,7 @@ export const serverInit = (): void => {
 
   swaggerInit(app)
 
-  app.use('/*', express.static(path.resolve(__dirname, '..', 'client')))
+  app.use('/{*splat}', express.static(path.resolve(__dirname, '..', 'client')))
 
   // Custom error-handling for handling custom exceptions and
   // sending the uncaught errors as json instead of HTML

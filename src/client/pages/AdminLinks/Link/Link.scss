@@ -25,18 +25,6 @@
   text-transform: uppercase;
 }
 
-.link-cell__anchor {
-  display: block;
-  overflow: hidden;
-  text-decoration: none;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-
-  &:hover {
-    text-decoration: underline;
-  }
-}
-
 .link-cell__badge-button-container {
   display: flex;
   gap: $spacing-xs;

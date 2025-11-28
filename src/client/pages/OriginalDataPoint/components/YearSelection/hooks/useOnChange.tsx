@@ -1,4 +1,4 @@
-import { SelectHTMLAttributes, useCallback } from 'react'
+import { useCallback } from 'react'
 
 import { CountryIso } from 'meta/area/countryIso'
 import { SectionRouteParams } from 'meta/routes/routeParams/section'
@@ -8,8 +8,9 @@ import { OriginalDataPointActions } from 'client/store/data/originalDataPoint/ac
 import { useOriginalDataPoint } from 'client/store/data/originalDataPoint/hooks/originalDataPoint'
 import { useAppDispatch } from 'client/store/hooks'
 import { useSectionRouteParams } from 'client/hooks/routeParams'
+import { SelectProps } from 'client/components/Inputs/Select'
 
-type Returned = SelectHTMLAttributes<HTMLSelectElement>['onChange']
+type Returned = SelectProps['onChange']
 
 type RouteParams = SectionRouteParams & {
   countryIso: CountryIso
@@ -21,9 +22,7 @@ export const useOnChange = (): Returned => {
   const { assessmentName, countryIso, cycleName, sectionName } = useSectionRouteParams() as RouteParams
 
   return useCallback<Returned>(
-    (event) => {
-      const { value: year } = event.target
-
+    (year: string) => {
       const commonProps = {
         assessmentName,
         cycleName,

@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import axios from 'axios'
+import axios, { AxiosRequestConfig } from 'axios'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CountryParams } from 'meta/api/request/country'
@@ -22,11 +22,11 @@ export const uploadFiles = createAsyncThunk<Array<FileSummary>, Props, ThunkApiC
 
     const headers = { 'Content-Type': 'multipart/form-data' }
     const params = { assessmentName, cycleName, countryIso }
-    const onUploadProgress = (progressEvent: ProgressEvent): void => {
+    const onUploadProgress: AxiosRequestConfig['onUploadProgress'] = (progressEvent): void => {
       const { loaded, total } = progressEvent
       dispatch(FileUploadActions.setProgress({ loaded, total }))
     }
-    const config = { headers, params, onUploadProgress }
+    const config: AxiosRequestConfig = { headers, params, onUploadProgress }
 
     const { data } = await axios.post(ApiEndPoint.File.many(), formData, config)
 

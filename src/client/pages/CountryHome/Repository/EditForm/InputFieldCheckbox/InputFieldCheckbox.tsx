@@ -3,7 +3,7 @@ import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { useIsFileInUse } from 'client/store/repository/hooks/repository'
-import ButtonCheckBox from 'client/components/ButtonCheckBox'
+import ButtonCheckbox, { ButtonCheckboxVariant } from 'client/components/Buttons/ButtonCheckbox'
 import { DataCell } from 'client/components/DataGrid'
 
 type Props = {
@@ -29,7 +29,7 @@ const InputFieldCheckbox: React.FC<Props> = (props: Props) => {
         </label>
       </DataCell>
       <DataCell className="repository-form__checkbox" noBorder>
-        <ButtonCheckBox checked={value} disabled={disabled} label="" onClick={_onChange} />
+        <ButtonCheckbox checked={value} disabled={disabled} onClick={_onChange} variant={ButtonCheckboxVariant.form} />
       </DataCell>
     </>
   )

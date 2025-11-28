@@ -1,15 +1,17 @@
+import './Icon.scss'
 import React from 'react'
-
 import classNames from 'classnames'
 
-import bustString from './cacheBust'
+import { UUIDs } from 'meta/uuid/uuids'
+
+const bustString = UUIDs.getUuid()
 
 type Props = {
   name: string
   className?: string
 }
 
-const Icon = (props: Props) => {
+const Icon: React.FC<Props> = (props) => {
   const { className, name } = props
 
   return (

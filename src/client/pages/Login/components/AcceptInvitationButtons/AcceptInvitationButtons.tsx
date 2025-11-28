@@ -12,6 +12,7 @@ import { useAcceptInvitationForm, useInvitation } from 'client/store/login/hooks
 import { useLoginInfo } from 'client/store/login/hooks/login'
 import { useIsInvitationLocalRoute } from 'client/hooks/routes'
 import { useSearchParams } from 'client/hooks/searchParams'
+import Button, { ButtonSize, useButtonClassName } from 'client/components/Buttons/Button'
 import Icon from 'client/components/Icon'
 import { videoResources } from 'client/pages/Tutorials'
 
@@ -22,6 +23,7 @@ const AcceptInvitationButtons: React.FC = () => {
   const navigate = useNavigate()
 
   const { invitationUuid, lang } = useSearchParams<LoginInvitationQueryParams>()
+  const linkClassName = useButtonClassName({ size: ButtonSize.l })
   const { assessment, invitedUser, userInvitation, userProviders } = useInvitation()
   const { countryIso } = userInvitation
 
@@ -45,14 +47,12 @@ const AcceptInvitationButtons: React.FC = () => {
 
   return (
     <>
-      <button
-        className="btn"
+      <Button
         disabled={isInInvitationLocal ? loginInfo?.isLoading : false}
+        label={t('login.acceptInvitationWithFra')}
         onClick={isInInvitationLocal ? onAcceptInvitationLocal : goToAcceptInvitationLocal}
-        type="button"
-      >
-        {t('login.acceptInvitationWithFra')}
-      </button>
+        size={ButtonSize.l}
+      />
 
       <a
         className="btn-help"
@@ -60,13 +60,13 @@ const AcceptInvitationButtons: React.FC = () => {
         rel="noreferrer"
         target="_blank"
       >
-        <Icon className="icon-sub" name="video" /> {t(videoResources[0].labelKeyShort)}
+        <Icon name="video" /> {t(videoResources[0].labelKeyShort)}
       </a>
 
       <div className="divider" />
 
       <a
-        className="btn"
+        className={linkClassName}
         href={`${ApiEndPoint.Auth.google()}?assessmentName=${assessmentName}&countryIso=${countryIso}&cycleName=${cycleName}&invitationUuid=${invitationUuid}`}
       >
         {t('login.acceptInvitationWithGoogle')}
@@ -78,7 +78,7 @@ const AcceptInvitationButtons: React.FC = () => {
         rel="noreferrer"
         target="_blank"
       >
-        <Icon className="icon-sub" name="video" /> {t(videoResources[1].labelKeyShort)}
+        <Icon name="video" /> {t(videoResources[1].labelKeyShort)}
       </a>
     </>
   )

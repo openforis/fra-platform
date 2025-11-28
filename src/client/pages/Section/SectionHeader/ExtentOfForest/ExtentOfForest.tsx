@@ -19,7 +19,7 @@ const ExtentOfForest: React.FC = () => {
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const user = useUser()
   const disabled = !editEnabled
-  const className = useButtonClassName({ disabled, iconName: 'small-add', label: 'L', size: ButtonSize.m })
+  const className = useButtonClassName({ disabled, size: ButtonSize.m })
 
   if (!user) return null
 
@@ -30,7 +30,7 @@ const ExtentOfForest: React.FC = () => {
           className={className}
           to={Routes.OriginalDataPoint.generatePath({ assessmentName, cycleName, countryIso, sectionName, year: '-1' })}
         >
-          <Icon className="icon-sub icon-white" name="small-add" />
+          <Icon name="small-add" />
           {t('nationalDataPoint.addNationalDataPoint')}
         </Link>
       </div>

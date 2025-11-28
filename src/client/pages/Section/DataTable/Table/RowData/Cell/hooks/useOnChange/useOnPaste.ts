@@ -18,7 +18,7 @@ import { Sanitizer } from 'client/utils/sanitizer'
 import { OnPaste, Props } from './types'
 import { usePersistSanitizedValue } from './usePersistSanitizedValue'
 
-export const useOnPaste = (props: Props): void => {
+export const useOnPaste = (props: Props): OnPaste => {
   const { col, data, nodeValue: _nodeValue, row, sectionName, table } = props
 
   const dispatch = useAppDispatch()
@@ -32,7 +32,7 @@ export const useOnPaste = (props: Props): void => {
 
   const persistSanitizedValue = usePersistSanitizedValue(props)
 
-  useCallback<OnPaste>(
+  return useCallback<OnPaste>(
     (event) => {
       event.stopPropagation()
       event.preventDefault()

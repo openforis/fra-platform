@@ -61,15 +61,7 @@ $border-radius: 2px;
 }
 
 .modal-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
   padding: 7px 14px 14px 14px;
-}
-
-.modal-footer__item {
-  margin-left: 5px;
-  margin-right: 5px;
 }
 
 @keyframes animatetop {

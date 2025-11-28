@@ -1,11 +1,9 @@
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-
 import { Promises } from 'utils/promises'
 
 import { useIsPrintRoute } from 'client/hooks/routes'
-import { ButtonSize, useButtonClassName } from 'client/components/Buttons/Button'
-import Icon from 'client/components/Icon'
+import Button from 'client/components/Buttons/Button'
 
 type Props = {
   disabled?: boolean
@@ -17,13 +15,6 @@ const CSVAllTables: React.FC<Props> = (props) => {
   const [isDownloading, setIsDownloading] = useState(false)
   const { t } = useTranslation()
   const { print } = useIsPrintRoute()
-
-  const className = useButtonClassName({
-    disabled: disabled || isDownloading,
-    iconName: 'hit-down',
-    size: ButtonSize.s,
-    className: 'btn-csv-download-all',
-  })
 
   const handleClick = async (): Promise<void> => {
     setIsDownloading(true)
@@ -51,10 +42,12 @@ const CSVAllTables: React.FC<Props> = (props) => {
   if (print) return null
 
   return (
-    <button className={className} onClick={handleClick} type="button">
-      <Icon className="icon-sub icon-white" name="hit-down" />
-      {t('common.csvAllTables')}
-    </button>
+    <Button
+      disabled={disabled || isDownloading}
+      iconName="hit-down"
+      label={t('common.csvAllTables')}
+      onClick={handleClick}
+    />
   )
 }
 

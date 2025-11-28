@@ -37,6 +37,7 @@ $color: color.adjust($ui-bg, $lightness: -20%, $space: hsl);
   align-items: center;
   background-color: transparent;
   border: 1px solid $color;
+  color: $text-body;
   display: grid;
   font-family: $font-family-1;
   font-size: $font-s;
