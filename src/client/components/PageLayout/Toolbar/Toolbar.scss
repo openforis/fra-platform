@@ -17,8 +17,8 @@
 .toolbar__nav-options {
   display: grid;
   grid-template-columns: 50px 1fr;
+  height: 100%;
   width: 340px;
-  padding-right: $spacing-xxxs;
 }
 
 .toolbar__desk-study {

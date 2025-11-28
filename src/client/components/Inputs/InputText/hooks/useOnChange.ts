@@ -9,18 +9,20 @@ import {
 
 type OnChange = ChangeEventHandler<HTMLInputElement>
 
-type Props = Pick<InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'value'> & {
+type Props = Pick<InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'type' | 'value'> & {
   inputRef: MutableRefObject<HTMLInputElement>
 }
 
 export const useOnChange = (props: Props): OnChange => {
-  const { inputRef, onChange, value } = props
+  const { inputRef, onChange, type, value } = props
 
   const [cursor, setCursor] = useState<number | null>(null)
 
   useLayoutEffect(() => {
-    inputRef.current?.setSelectionRange(cursor, cursor)
-  }, [cursor, inputRef, value])
+    if (['password', 'text'].includes(type)) {
+      inputRef.current?.setSelectionRange(cursor, cursor)
+    }
+  }, [cursor, inputRef, type, value])
 
   return useCallback<OnChange>(
     (event) => {

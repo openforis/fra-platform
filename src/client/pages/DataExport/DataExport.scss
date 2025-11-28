@@ -66,10 +66,6 @@
     grid-row-gap: $spacing-xxs;
   }
 
-  .text-input {
-    padding: $spacing-xxxs $spacing-xxs;
-  }
-
   .btn-all {
     padding: 0;
   }
@@ -103,10 +99,6 @@
 
       h4 {
         justify-self: right;
-      }
-
-      .text-input {
-        justify-self: left;
       }
     }
   }
