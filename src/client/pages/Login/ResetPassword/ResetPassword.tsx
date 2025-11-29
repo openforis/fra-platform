@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 
@@ -110,7 +110,13 @@ const ResetPassword: React.FC = () => {
           {errors.password2 && <span className="login__field-error">{t(errors.password2)}</span>}
 
           <Flex gap={'16'} justifyContent="center">
-            <Button label={t('login.cancel')} onClick={(): void => navigate(-1)} size={ButtonSize.l} />
+            <Button
+              label={t('login.cancel')}
+              onClick={(): void => {
+                navigate(-1)
+              }}
+              size={ButtonSize.l}
+            />
 
             <Button label={t('login.changePassword')} onClick={onChangePassword} size={ButtonSize.l} />
           </Flex>
@@ -119,7 +125,13 @@ const ResetPassword: React.FC = () => {
 
       {!resetPasswordUuid && (
         <Flex gap={'16'} justifyContent="center">
-          <Button label={t('login.cancel')} onClick={(): void => navigate(-1)} size={ButtonSize.l} />
+          <Button
+            label={t('login.cancel')}
+            onClick={(): void => {
+              navigate(-1)
+            }}
+            size={ButtonSize.l}
+          />
 
           <Button label={t('login.resetPassword')} onClick={onResetPassword} size={ButtonSize.l} />
         </Flex>

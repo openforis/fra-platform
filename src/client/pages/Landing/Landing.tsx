@@ -1,5 +1,5 @@
 import React from 'react'
-import { Navigate } from 'react-router-dom'
+import { Navigate } from 'react-router'
 
 import { useAssessmentDefault } from 'client/store/meta/hooks/assessments'
 

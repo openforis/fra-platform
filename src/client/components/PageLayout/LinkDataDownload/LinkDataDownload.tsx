@@ -1,7 +1,6 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { matchPath, NavLink, useLocation } from 'react-router-dom'
-
+import { matchPath, NavLink, useLocation } from 'react-router'
 import classNames from 'classnames'
 
 import { Global } from 'meta/area/global'

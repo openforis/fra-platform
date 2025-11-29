@@ -1,8 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useMediaQuery } from 'react-responsive'
-import { NavLink } from 'react-router-dom'
-
+import { NavLink } from 'react-router'
 import classNames from 'classnames'
 
 import { Labels } from 'meta/assessment/labels'

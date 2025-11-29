@@ -17,11 +17,11 @@ type Props = Pick<ChartProps, 'width'> & {
   trendsData: RecordTrendData
 }
 
-const NoDataPlaceholder = (props: Props) => {
+const NoDataPlaceholder: React.FC<Props> = (props) => {
   const { trendsData, width } = props
 
   const { t } = useTranslation()
-  const containerRef = useRef<SVGGElement>()
+  const containerRef = useRef<SVGGElement>(null)
   const hidePlaceholder = useHidePlaceholder({ containerRef, toucanHeight })
   const showPlaceholder = useShowPlaceholder({ containerRef })
   const hasData = useMemo<boolean>(() => Charts.hasData({ trendsData }), [trendsData])

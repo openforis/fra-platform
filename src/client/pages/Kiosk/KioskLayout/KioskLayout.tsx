@@ -1,6 +1,6 @@
 import './KioskLayout.scss'
 import React from 'react'
-import { Outlet } from 'react-router-dom'
+import { Outlet } from 'react-router'
 
 import SidePanel from './SidePanel'
 

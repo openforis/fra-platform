@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link as ReactRouterLink } from 'react-router-dom'
+import { Link as ReactRouterLink } from 'react-router'
 
 import { LinkProps } from 'client/components/Links/Link/types'
 

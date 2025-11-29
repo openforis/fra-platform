@@ -1,11 +1,11 @@
 import React, { RefObject, useLayoutEffect, useRef } from 'react'
 import { renderToString } from 'react-dom/server'
 import { useTranslation } from 'react-i18next'
-
 import * as d3 from 'd3'
 import { Selection, Tooltip } from 'd3'
 import d3Tip from 'd3-tip'
 import { TFunction } from 'i18next'
+
 import { Numbers } from 'utils/numbers'
 
 import { Trend, TrendDatum } from 'client/pages/Section/DataTable/Chart/types'
@@ -52,7 +52,7 @@ export const usePointsTooltip = (props: Props): Tooltip => {
   const { containerRef, trend } = props
 
   const { t } = useTranslation()
-  const tooltipRef = useRef<Tooltip>()
+  const tooltipRef = useRef<Tooltip>(null)
 
   useLayoutEffect(() => {
     const tooltip = (d3Tip as typeof d3.tip)()

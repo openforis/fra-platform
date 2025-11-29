@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useParams } from 'react-router-dom'
+import { useParams } from 'react-router'
 
 import { MessageTopic, MessageTopicType } from 'meta/messageCenter/messageTopic'
 import { Objects } from 'utils/objects'

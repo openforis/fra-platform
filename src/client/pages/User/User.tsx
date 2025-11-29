@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { Areas } from 'meta/area/areas'

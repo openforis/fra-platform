@@ -7,7 +7,7 @@ import { DiffDOMProps } from './types'
 const DiffDOM: React.FC<DiffDOMProps> = (props) => {
   const { current = '', prev = '' } = props
 
-  const ref = useRef<HTMLDivElement>()
+  const ref = useRef<HTMLDivElement>(null)
   const __html = useMemo<string>(() => cleanDOM(prev), [prev])
   useDOMChanges({ current, prev, ref })
 

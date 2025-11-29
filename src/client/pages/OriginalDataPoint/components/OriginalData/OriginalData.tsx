@@ -1,7 +1,6 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { NavLink, useParams } from 'react-router-dom'
-
+import { NavLink, useParams } from 'react-router'
 import classNames from 'classnames'
 
 import { AssessmentName } from 'meta/assessment/assessment'

@@ -1,5 +1,5 @@
 import { useCallback } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router'
 
 import { Assessments } from 'meta/assessment/assessments'
 import { Routes } from 'meta/routes/routes'

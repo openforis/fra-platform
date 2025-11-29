@@ -1,5 +1,4 @@
-import { NavigateFunction } from 'react-router-dom'
-
+import { NavigateFunction } from 'react-router'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 

@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom'
+import { useParams } from 'react-router'
 
 import { AreaCode } from 'meta/area/areaCode'
 import { CountryIso } from 'meta/area/countryIso'
