@@ -9,7 +9,7 @@ import { useCountryRouteParams } from 'client/hooks/routeParams'
 
 type Props = {
   fileSummary: FileSummary
-  acceptedFiles: Array<File>
+  acceptedFiles: ReadonlyArray<File>
 }
 
 const FileDownload: React.FC<Props> = (props: Props) => {

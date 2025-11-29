@@ -1,6 +1,5 @@
 import './NavigationDesktop.scss'
 import React, { useCallback, useEffect, useRef } from 'react'
-
 import classNames from 'classnames'
 
 import { useAppDispatch } from 'client/store/hooks'
@@ -16,7 +15,7 @@ const NavigationDesktop: React.FC = () => {
   const geoRoute = useIsGeoRoute()
 
   const { maxHeight, top } = useMaxHeight()
-  const elementRef = useRef<HTMLDivElement>()
+  const elementRef = useRef<HTMLDivElement>(null)
 
   // Show navigation on first mount (ex. returning from Mobile view)
   useEffect(() => {

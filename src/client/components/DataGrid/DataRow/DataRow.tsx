@@ -3,6 +3,7 @@ import React, { PropsWithChildren, ReactElement, useMemo } from 'react'
 import { Objects } from 'utils/objects'
 
 import { DataRowAction } from 'client/components/DataGrid'
+import { DataCellProps } from 'client/components/DataGrid/DataCell/types'
 import Actions from 'client/components/DataGrid/DataRow/Actions'
 
 import { useHighlighted } from './hooks/useHighlighted'
@@ -19,7 +20,7 @@ const DataRow: React.FC<DataRowProps> = (props) => {
   const highlighted = useHighlighted({ actions })
   const highlightRangeExists = !Objects.isEmpty(highlightRange)
 
-  const validChildren = useMemo<React.ReactElement[]>(
+  const validChildren = useMemo<Array<React.ReactElement>>(
     () =>
       React.Children.toArray(children).reduce<Array<React.ReactElement>>((acc, child) => {
         if (React.isValidElement(child)) {
@@ -43,7 +44,7 @@ const DataRow: React.FC<DataRowProps> = (props) => {
 
         const shouldHighlightCell = highlighted && (cellInHighlightRange || !highlightRangeExists)
 
-        return React.cloneElement(child as ReactElement, {
+        return React.cloneElement(child as ReactElement<DataCellProps>, {
           firstCol,
           firstHighlightCol,
           highlighted: shouldHighlightCell,

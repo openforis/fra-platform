@@ -2,7 +2,7 @@ import './LinkData.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import MediaQuery from 'react-responsive'
-import { NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router'
 import classNames from 'classnames'
 
 import { CountryIso } from 'meta/area/countryIso'

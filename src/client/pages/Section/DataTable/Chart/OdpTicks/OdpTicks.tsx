@@ -13,7 +13,7 @@ type Props = {
 const OdpTicks: React.FC<Props> = (props) => {
   const { trendData: _trendData, xScale, yScale } = props
 
-  const containerRef = useRef<SVGGElement>()
+  const containerRef = useRef<SVGGElement>(null)
   const trendData = useMemo<TrendData>(() => _trendData.filter((datum) => datum.type === 'odp'), [_trendData])
   useOdpTicksTransition({ containerRef, trendData, xScale, yScale })
 

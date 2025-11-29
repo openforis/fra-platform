@@ -1,7 +1,7 @@
 import './Admin.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { Navigate, NavLink, Outlet } from 'react-router-dom'
+import { Navigate, NavLink, Outlet } from 'react-router'
 import classNames from 'classnames'
 
 import { Routes } from 'meta/routes/routes'

@@ -1,8 +1,7 @@
 import './SidePanel.scss'
 import React, { useCallback, useTransition } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useNavigate } from 'react-router-dom'
-
+import { useNavigate } from 'react-router'
 import classNames from 'classnames'
 
 import { Routes } from 'meta/routes/routes'

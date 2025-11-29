@@ -6,7 +6,7 @@ import FileDownload from 'client/components/FileUpload/Files/FileDownload'
 import { FileUploadProps } from 'client/components/FileUpload/types'
 
 type Props = Pick<FileUploadProps, 'onChange' | 'value'> & {
-  acceptedFiles: Array<File>
+  acceptedFiles: ReadonlyArray<File>
 }
 const Files: React.FC<Props> = (props) => {
   const { acceptedFiles, onChange, value } = props

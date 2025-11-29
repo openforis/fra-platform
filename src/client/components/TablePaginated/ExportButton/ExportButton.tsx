@@ -1,6 +1,6 @@
 import './ExportButton.scss'
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router'
 
 import { useTablePaginatedCount } from 'client/store/tablePaginated/hooks/tablePaginated'
 import { useButtonClassName } from 'client/components/Buttons/Button'

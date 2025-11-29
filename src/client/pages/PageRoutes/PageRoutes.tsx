@@ -1,5 +1,5 @@
 import React from 'react'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider } from 'react-router'
 
 import { useIsAppInitialized } from 'client/store/application/hooks/init'
 import Toaster from 'client/components/Toaster'
