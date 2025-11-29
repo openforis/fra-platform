@@ -46,17 +46,22 @@ export const useValidate = (props: Props): void => {
 
   const canEditData = Authorizer.canEditSectionData({ country, cycle, section, user })
 
+  const { name: tableName } = table.props
+
   useEffect(() => {
-    const tableValidations: RecordTableValidationsState = { [table.props.name]: {} }
+    const tableValidations: RecordTableValidationsState = { [tableName]: {} }
 
     if (!print && canEditData) {
       const { name: assessmentName } = assessment.props
       const { name: cycleName } = cycle
 
       rowsData.forEach((row) => {
+        const { variableName } = row.props
         row.cols.forEach((col) => {
           const validateFns = col.props.validateFns?.[cycle.uuid] ?? row.props.validateFns?.[cycle.uuid]
+
           if (validateFns?.length) {
+            const { colName } = col.props
             const validations = validateFns.map((formula) => {
               // hack to disable validatorEqualToPreviousCycleForestArea for Atlantis countries as explicitly requested.
               // This is the only way, unfortunately. We'll get back to this later on.
@@ -66,13 +71,11 @@ export const useValidate = (props: Props): void => {
 
               return ExpressionEvaluator.evalFormula<NodeValueValidation>({
                 assessmentName,
-                // assessment,
                 assessments: { [assessmentName]: assessment },
                 countryIso,
                 cycleName,
-                // cycle,
                 data,
-                colName: col.props.colName,
+                colName,
                 row,
                 formula,
                 t,
@@ -81,7 +84,7 @@ export const useValidate = (props: Props): void => {
 
             Objects.setInPath({
               obj: tableValidations,
-              path: [table.props.name, col.props.colName, row.props.variableName],
+              path: [tableName, colName, variableName],
               value: NodeValueValidations.merge(validations),
             })
           }
@@ -90,5 +93,5 @@ export const useValidate = (props: Props): void => {
 
       dispatch(ValidationsActions.setNodeValueValidations({ assessmentName, cycleName, countryIso, tableValidations }))
     }
-  }, [assessment, canEditData, countryIso, cycle, data, dispatch, print, rowsData, t, table.props.name])
+  }, [assessment, canEditData, countryIso, cycle, data, dispatch, print, rowsData, t, tableName])
 }

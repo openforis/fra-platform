@@ -13,17 +13,13 @@ type Returned = string | undefined
 export class MemberEvaluator extends MemberEvaluatorBase<Context, Returned> {
   evaluate(expressionNode: MemberExpression): Returned {
     const {
-      // assessment: assessmentContext,
       assessmentName: assessmentNameContext,
       assessments,
       colName: colNameContext,
       countryIso,
       cycleName: cycleNameContext,
-      // cycle: cycleContext,
       data,
     } = this.context
-
-    const baseContext: BaseContext = { assessments, assessmentName: assessmentNameContext, cycleName: cycleNameContext }
 
     // @ts-ignore
     if (expressionNode.object.name === Member.$country) {
@@ -31,15 +27,10 @@ export class MemberEvaluator extends MemberEvaluatorBase<Context, Returned> {
       return this.context.country[expressionNode.property.name]
     }
 
+    const baseContext: BaseContext = { assessments, assessmentName: assessmentNameContext, cycleName: cycleNameContext }
     const memberVariable = parseMemberVariable(expressionNode, baseContext)
     const memberAssessmentName = memberVariable.assessmentName
     const memberCycleName = memberVariable.cycleName
-
-    // const externalVariable = Boolean(
-    //   ((memberAssessmentName && memberAssessmentName !== assessmentNameContext) ||
-    //     (memberCycleName && memberCycleName !== cycleNameContext)) &&
-    //     this.context.assessments
-    // )
 
     const assessment = this.context.assessments[memberAssessmentName]
     const cycle = Assessments.getCycle({ assessment, cycleName: memberCycleName })

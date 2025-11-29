@@ -1,6 +1,5 @@
 import { TableNames } from 'meta/assessment/table'
 import { RecordAssessmentDatas } from 'meta/data/recordDatas'
-import { Numbers } from 'utils/numbers'
 
 import { ExpressionFunction } from 'lib/expressionEvaluator/function'
 
@@ -15,16 +14,8 @@ export const maxLandArea: ExpressionFunction<Context> = {
   executor: (context) => {
     return (): string | undefined => {
       const { assessmentName, countryIso, cycleName, data } = context
-      const tableData = RecordAssessmentDatas.getTableData({ assessmentName, cycleName, countryIso, data, tableName })
-      return Object.keys(tableData).reduce((acc, colName) => {
-        const propsDatum = { assessmentName, cycleName, data, countryIso, tableName, variableName, colName }
-        const currentValue = RecordAssessmentDatas.getDatum(propsDatum)
 
-        if (!acc || Numbers.greaterThan(currentValue, acc)) {
-          return currentValue
-        }
-        return acc
-      }, undefined)
+      return RecordAssessmentDatas.getMaxValue({ assessmentName, countryIso, cycleName, data, tableName, variableName })
     }
   },
 }

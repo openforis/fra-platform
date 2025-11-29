@@ -22,36 +22,40 @@ interface Props {
 
 export const useEnableIf = (props: Props): boolean => {
   const { col, data, row, sectionName, table } = props
+
   const assessment = useAssessment()
   const cycle = useCycle()
   const { countryIso } = useCountryRouteParams<CountryIso>()
   const { t } = useTranslation()
 
-  const enableIfFn = col.props.enableIf?.[cycle.uuid]
+  const formula = col.props.enableIf?.[cycle.uuid]
 
-  if (enableIfFn) {
+  if (formula) {
     const rowCache: RowCache = {
       ...row,
       tableName: table.props.name,
       sectionName,
     }
 
+    const { name: assessmentName } = assessment.props
+    const { name: cycleName } = cycle
+    const { colName } = col.props
+
     try {
       return ExpressionEvaluator.evalFormula<boolean>({
-        assessment,
-        assessments: { [assessment.props.name]: assessment },
+        assessmentName,
+        assessments: { [assessmentName]: assessment },
         countryIso,
-        cycle,
+        cycleName,
         data,
-        colName: col.props.colName,
+        colName,
         row: rowCache,
-        formula: enableIfFn,
+        formula,
         t,
       })
     } catch (e) {
-      // eslint-disable-next-line no-console
       console.error(
-        `Error evaluating enableIf formula: "${enableIfFn}" for col "${col.props.colName}" row "${row.props.variableName}"`,
+        `Error evaluating enableIf formula: "${formula}" for col "${colName}" row "${row.props.variableName}"`,
         e
       )
       return true

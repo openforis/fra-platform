@@ -1,7 +1,5 @@
 import { useCallback } from 'react'
 
-import { Objects } from 'utils/objects'
-
 import { CountryIso } from 'meta/area/countryIso'
 import { VariableCache } from 'meta/assessment/metaCache'
 import { AssessmentMetaCaches } from 'meta/assessment/metaCaches'
@@ -9,6 +7,7 @@ import { NodeValue } from 'meta/assessment/node'
 import { RowCache } from 'meta/assessment/rowCache'
 import { RecordAssessmentDatas } from 'meta/data/recordDatas'
 import { ExpressionEvaluator } from 'meta/expressionEvaluator'
+import { Objects } from 'utils/objects'
 
 import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useCycle } from 'client/store/meta/hooks/cycles'
@@ -19,22 +18,24 @@ import { Props } from './types'
 type Returned = (value: NodeValue) => Array<VariableCache>
 
 const useAffectedNodes = (props: Props): Returned => {
-  const { col, data, row, table } = props
+  const { col, data, row, sectionName, table } = props
 
   const { countryIso } = useCountryRouteParams<CountryIso>()
   const assessment = useAssessment()
   const cycle = useCycle()
 
+  const { name: assessmentName } = assessment.props
+  const { name: cycleName } = cycle
+  const { name: tableName } = table.props
+  const { variableName } = row.props
+  const { colName } = col.props
+
   return useCallback(
     (value: NodeValue): Array<VariableCache> => {
-      const tableName = table.props.name
-      const { variableName } = row.props
-      const { colName } = col.props
-
       // Future data contains the updated value and is used to evaluate the enablers
       const futureData = RecordAssessmentDatas.updateDatum({
-        assessmentName: assessment.props.name,
-        cycleName: cycle.name,
+        assessmentName,
+        cycleName,
         countryIso,
         tableName,
         colName,
@@ -53,21 +54,17 @@ const useAffectedNodes = (props: Props): Returned => {
       return enablerDependants.filter((dep) => {
         const depRow = table.rows?.find((r) => r.props.variableName === dep.variableName)
         const depCol = depRow?.cols?.find((c) => c.props.colName === dep.colName)
-        if (!depRow || !depCol) return false
-        const enableIf = depCol.props.enableIf?.[cycle.uuid]
+        const enableIf = depCol?.props?.enableIf?.[cycle.uuid]
+
         if (!enableIf) return false
 
-        const rowCache: RowCache = {
-          ...depRow,
-          tableName,
-          sectionName: props.sectionName,
-        }
+        const rowCache: RowCache = { ...depRow, tableName, sectionName }
 
         const enabled = ExpressionEvaluator.evalFormula<boolean>({
-          assessment,
-          assessments: { [assessment.props.name]: assessment },
+          assessmentName,
+          assessments: { [assessmentName]: assessment },
           countryIso,
-          cycle,
+          cycleName,
           data: futureData,
           colName: depCol.props.colName,
           row: rowCache,
@@ -75,8 +72,8 @@ const useAffectedNodes = (props: Props): Returned => {
         })
 
         const depValue = RecordAssessmentDatas.getNodeValue({
-          assessmentName: assessment.props.name,
-          cycleName: cycle.name,
+          assessmentName,
+          cycleName,
           data,
           countryIso,
           tableName,
@@ -87,7 +84,19 @@ const useAffectedNodes = (props: Props): Returned => {
         return !enabled && !!depValue && !!depValue.raw
       })
     },
-    [assessment, col, countryIso, cycle, data, props.sectionName, row, table]
+    [
+      assessment,
+      assessmentName,
+      colName,
+      countryIso,
+      cycle,
+      cycleName,
+      data,
+      sectionName,
+      table.rows,
+      tableName,
+      variableName,
+    ]
   )
 }
 
