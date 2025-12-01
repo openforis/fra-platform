@@ -2,6 +2,7 @@ import { getAssessmentData } from 'meta/data/recordDatas/getAssessmentData'
 import { getCountryData } from 'meta/data/recordDatas/getCountryData'
 import { getCycleData } from 'meta/data/recordDatas/getCycleData'
 import { getDatum } from 'meta/data/recordDatas/getDatum'
+import { getMaxValue } from 'meta/data/recordDatas/getMaxValue'
 import { getNodeValue } from 'meta/data/recordDatas/getNodeValue'
 import { getTableData } from 'meta/data/recordDatas/getTableData'
 import { hasErrors } from 'meta/data/recordDatas/hasErrors'
@@ -18,6 +19,7 @@ export const RecordAssessmentDatas = {
   getCountryData,
   getCycleData,
   getDatum,
+  getMaxValue,
   getNodeValue,
   getTableData,
   hasErrors,

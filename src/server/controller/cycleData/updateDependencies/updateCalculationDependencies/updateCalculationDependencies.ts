@@ -19,6 +19,8 @@ const _getLogKey = (props: Props): string => {
 export const updateCalculationDependencies = (props: Props): ContextResult => {
   const { context } = props
   const { assessment, assessments, countryIso, cycle, data, rows } = context
+  const { name: assessmentName } = assessment.props
+  const { name: cycleName } = cycle
 
   const logKey = _getLogKey(props)
   Logger.debug(`${logKey} queue length ${context.queue.length}`)
@@ -35,8 +37,7 @@ export const updateCalculationDependencies = (props: Props): ContextResult => {
 
     if (!visited) {
       const row = rows[RowCaches.getKey({ tableName, variableName })]
-      // const evaluateProps = { context, tableName, variableName, row }
-      const propsCalculate = { assessments, assessment, cycle, countryIso, tableName, row, data }
+      const propsCalculate = { assessments, assessmentName, cycleName, countryIso, tableName, row, data }
 
       if (row.props.calculateFn?.[cycle.uuid]) {
         // make sure in target table there's a matching column
