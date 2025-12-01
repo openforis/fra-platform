@@ -2,8 +2,8 @@ import { Assessments } from 'meta/assessment/assessments'
 import { CycleName } from 'meta/assessment/cycle'
 import { Cycles } from 'meta/assessment/cycles'
 import { VariableCache } from 'meta/assessment/metaCache'
+import { BaseContext } from 'meta/expressionEvaluator/context'
 import { Member } from 'meta/expressionEvaluator/member'
-import { BaseContext } from 'meta/expressionEvaluator/util/_types'
 
 import { MemberExpression } from 'lib/expressionEvaluator/node'
 
@@ -29,6 +29,7 @@ const getExpressionDepth = (expressionNode: MemberExpression): number => {
 }
 
 export const parseMemberVariable = (expressionNode: MemberExpression, context: BaseContext): VariableCache => {
+  const { assessmentName, cycleName } = context
   const depth = getExpressionDepth(expressionNode)
 
   switch (depth) {
@@ -40,8 +41,8 @@ export const parseMemberVariable = (expressionNode: MemberExpression, context: B
         // @ts-ignore
         variableName: expressionNode.property.name,
         colName: undefined,
-        assessmentName: undefined,
-        cycleName: undefined,
+        assessmentName,
+        cycleName,
       }
 
     // Case when parsing a member expression: extentOfForest.forestArea['2025']
@@ -54,8 +55,8 @@ export const parseMemberVariable = (expressionNode: MemberExpression, context: B
         variableName: expressionNode.object.property.name,
         // @ts-ignore
         colName: expressionNode.property.value ?? expressionNode.property.name,
-        assessmentName: undefined,
-        cycleName: undefined,
+        assessmentName,
+        cycleName,
       }
     }
 

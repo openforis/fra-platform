@@ -1,24 +1,22 @@
-import { Context } from 'meta/expressionEvaluator/context'
+import { VariableCache } from 'meta/assessment/metaCache'
+import { BaseContext, Context } from 'meta/expressionEvaluator/context'
 import { Member } from 'meta/expressionEvaluator/member'
-import { BaseContext } from 'meta/expressionEvaluator/util/_types'
 
 import { MemberExpression } from 'lib/expressionEvaluator/node'
 
-import { contextMock as context } from '../context.mock'
+import { contextMock as context, contextMock } from '../context.mock'
 import { parseMemberVariable } from './parseMemberVariable'
 
 const getBaseContext = (context: Context): BaseContext => {
-  const { assessment, assessments, cycle } = context
-  const assessmentName = assessment.props.name
-  const cycleName = cycle.name
+  const { assessmentName, assessments, cycleName } = context
+
   return { assessmentName, cycleName, assessments }
 }
 
 describe('parseMemberVariable', () => {
   test('fra["2025"].extentOfForest.forestArea["2025"]', () => {
-    const expected = {
+    const expected: VariableCache = {
       assessmentName: 'fra',
-      // @ts-ignore
       colName: '2025',
       cycleName: '2025',
       tableName: 'extentOfForest',
@@ -70,9 +68,8 @@ describe('parseMemberVariable', () => {
     expect(parseMemberVariable(memberExpression, getBaseContext(context))).toEqual(expected)
   })
   test('fra["2025"].extentOfForest.forestArea', () => {
-    const expected = {
+    const expected: VariableCache = {
       assessmentName: 'fra',
-      // @ts-ignore
       colName: undefined,
       cycleName: '2025',
       tableName: 'extentOfForest',
@@ -115,12 +112,10 @@ describe('parseMemberVariable', () => {
     expect(parseMemberVariable(memberExpression, getBaseContext(context))).toEqual(expected)
   })
   test('extentOfForest.forestArea["2025"]', () => {
-    const expected = {
-      // @ts-ignore
-      assessmentName: undefined,
+    const expected: VariableCache = {
+      assessmentName: contextMock.assessmentName,
       colName: '2025',
-      // @ts-ignore
-      cycleName: undefined,
+      cycleName: contextMock.cycleName,
       tableName: 'extentOfForest',
       variableName: 'forestArea',
     }
@@ -153,12 +148,10 @@ describe('parseMemberVariable', () => {
     expect(parseMemberVariable(memberExpression, getBaseContext(context))).toEqual(expected)
   })
   test('growingStockComposition2025.remainingIntroduced.growingStockMillionCubicMeter', () => {
-    const expected = {
-      // @ts-ignore
-      assessmentName: undefined,
+    const expected: VariableCache = {
+      assessmentName: contextMock.assessmentName,
       colName: 'growingStockMillionCubicMeter',
-      // @ts-ignore
-      cycleName: undefined,
+      cycleName: contextMock.cycleName,
       tableName: 'growingStockComposition2025',
       variableName: 'remainingIntroduced',
     }
@@ -191,13 +184,10 @@ describe('parseMemberVariable', () => {
   })
 
   test('extentOfForest.forestArea', () => {
-    const expected = {
-      // @ts-ignore
-      assessmentName: undefined,
-      // @ts-ignore
+    const expected: VariableCache = {
+      assessmentName: contextMock.assessmentName,
       colName: undefined,
-      // @ts-ignore
-      cycleName: undefined,
+      cycleName: contextMock.cycleName,
       tableName: 'extentOfForest',
       variableName: 'forestArea',
     }
@@ -222,7 +212,7 @@ describe('parseMemberVariable', () => {
   })
 
   test('fra[$prevCycle].extentOfForest.forestArea["2025"]', () => {
-    const expected = {
+    const expected: VariableCache = {
       assessmentName: 'fra',
       colName: '2025',
       cycleName: '2020',

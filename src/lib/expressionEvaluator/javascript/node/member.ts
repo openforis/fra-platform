@@ -1,8 +1,11 @@
 import { ExpressionContext } from '../../context'
 import { ExpressionNodeEvaluator, MemberExpression } from '../../node'
 
-export class MemberEvaluator<C extends ExpressionContext> extends ExpressionNodeEvaluator<C, MemberExpression> {
-  evaluate(expressionNode: MemberExpression): any {
+export class MemberEvaluator<CONTEXT extends ExpressionContext, RETURNED = unknown> extends ExpressionNodeEvaluator<
+  CONTEXT,
+  MemberExpression
+> {
+  evaluate(expressionNode: MemberExpression): RETURNED {
     const { computed, object, property } = expressionNode
 
     const objectEval = this.evaluator.evaluateNode(object, { ...this.context, evaluateToNode: true })
