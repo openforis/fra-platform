@@ -1,5 +1,4 @@
 import React from 'react'
-
 import classNames from 'classnames'
 
 import FormField from 'client/components/Form/FormFields/FormField'
@@ -7,8 +6,12 @@ import InputText from 'client/components/Inputs/InputText'
 
 import { FieldProps } from '../types'
 
-const TextField = (props: FieldProps) => {
-  const { fieldDefinition, register } = props
+type TextFieldProps = FieldProps & {
+  inputType?: 'password' | 'text'
+}
+
+const TextField: React.FC<TextFieldProps> = (props) => {
+  const { fieldDefinition, inputType = 'text', register } = props
 
   const { name, placeholder } = fieldDefinition
 
@@ -18,12 +21,21 @@ const TextField = (props: FieldProps) => {
       {...props}
       renderInput={({ disabled }) => {
         if (disabled) {
-          // eslint-disable-next-line react/jsx-props-no-spreading
-          return <input className={classNames('input-text disabled')} {...register(name, { disabled })} />
+          return (
+            // eslint-disable-next-line react/jsx-props-no-spreading
+            <input className={classNames('input-text disabled')} type={inputType} {...register(name, { disabled })} />
+          )
         }
         return (
-          // eslint-disable-next-line react/jsx-props-no-spreading
-          <InputText disabled={disabled} id={name} name={name} placeholder={placeholder} {...register(name)} />
+          <InputText
+            disabled={disabled}
+            id={name}
+            name={name}
+            placeholder={placeholder}
+            type={inputType}
+            // eslint-disable-next-line react/jsx-props-no-spreading
+            {...register(name)}
+          />
         )
       }}
     />
