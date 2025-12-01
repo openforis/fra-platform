@@ -20,7 +20,7 @@
     "migration-steps:watch": "ts-node-dev --respawn --transpile-only --exit-child --watch src/tools/migrations/steps/ src/tools/migrations/steps/ -- --watch",
     "run:dev": "run-p run:dev:client run:dev:server",
     "run:dev:client": "cross-env NODE_ENV=development webpack serve --config webpack.config.babel.js",
-    "run:dev:server": "ts-node-dev --files --exit-child src/server/start",
+    "run:dev:server": "ts-node-dev --files --exit-child --project tsconfig.server.json src/server/start",
     "run:prod": "run-s clean build start",
     "run:heroku:start": "heroku local:start",
     "run:heroku:local": "run-s clean build run:heroku:start",

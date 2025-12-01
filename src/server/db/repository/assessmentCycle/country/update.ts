@@ -1,4 +1,4 @@
-import * as pgPromise from 'pg-promise'
+import pgPromise from 'pg-promise'
 
 import { Country } from 'meta/area/country'
 import { Assessment } from 'meta/assessment/assessment'
@@ -49,7 +49,9 @@ export const update = async (props: Props, client: BaseProtocol = DB): Promise<C
   const columns = [
     'props',
     'status',
-    ...timestampFields.filter(({ enabled }) => enabled).map(({ name }) => ({ name, init: () => lastUpdateTimestamp })),
+    ...timestampFields
+      .filter(({ enabled }) => enabled)
+      .map(({ name }) => ({ name, init: (): string => lastUpdateTimestamp })),
   ]
 
   const cs = new pgp.helpers.ColumnSet(columns, {

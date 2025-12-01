@@ -1,4 +1,4 @@
-import * as nodemailer from 'nodemailer'
+import nodemailer from 'nodemailer'
 
 import { remindReviewers } from 'server/service/mail/remindReviewers'
 import { ProcessEnv } from 'server/utils'
@@ -29,7 +29,7 @@ const mailTransport = nodemailer.createTransport({
 })
 
 // @ts-ignore
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+
 const emailDefaults = {
   from: '"FRA Platform" <fra-platform@fao.org>',
 }
@@ -42,7 +42,6 @@ export interface MailServiceEmail {
   html: string
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const sendMail = async (email: MailServiceEmail): Promise<void> => {
   if (ProcessEnv.nodeEnv !== NodeEnv.test && ProcessEnv.fraMailEnabled) {
     await new Promise<void>((resolve, reject) => {

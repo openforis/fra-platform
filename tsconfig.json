@@ -1,21 +1,9 @@
 {
+  "extends": "./tsconfig.base.json",
   "allowSyntheticDefaults": true,
-  "include": ["src"],
-  "exclude": ["src/tools/migrations/steps/steps/template.ts"],
   "compilerOptions": {
     "allowJs": true,
-    "allowSyntheticDefaultImports": true,
-    "baseUrl": "./src",
     "isolatedModules": true,
-    "lib": ["ESNext", "DOM", "DOM.Iterable"],
-    "jsx": "react",
-    "module": "CommonJS",
-    "moduleResolution": "Node",
-    "noImplicitAny": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "outDir": "./dist/",
-    "resolveJsonModule": true,
-    "target": "ESNext"
+    "jsx": "react"
   }
 }

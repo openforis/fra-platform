@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express'
-import * as passport from 'passport'
+import passport from 'passport'
 
 import { LoginRequest } from 'meta/api/request/auth/login'
 import { AuthToken } from 'meta/auth/token'

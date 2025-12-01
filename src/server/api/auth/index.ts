@@ -1,5 +1,5 @@
 import { Express } from 'express'
-import * as passport from 'passport'
+import passport from 'passport'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 
