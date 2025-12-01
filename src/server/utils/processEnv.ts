@@ -1,4 +1,4 @@
-import process from 'node:process'
+import process from 'process'
 
 const dbUrl = process.env.DATABASE_URL
 

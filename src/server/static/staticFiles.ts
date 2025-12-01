@@ -32,8 +32,7 @@ const cloneCycle = async (props: PropsClone): Promise<void> => {
     // check if sourceDir exists
     try {
       await fs.access(sourceDir)
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (_e) {
+    } catch (e) {
       return Promise.resolve()
     }
 
@@ -60,8 +59,7 @@ const removeCycle = async (props: PropsRemove): Promise<void> => {
     // check if sourceDir exists
     try {
       await fs.access(sourceDir)
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (_e) {
+    } catch (e) {
       return Promise.resolve()
     }
     await fs.rm(sourceDir, { recursive: true, force: true })
@@ -85,8 +83,7 @@ const renameCycle = async (props: PropsClone): Promise<void> => {
     // check if sourceDir exists
     try {
       await fs.access(sourceDir)
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (_e) {
+    } catch (e) {
       return Promise.resolve()
     }
 
