@@ -1,4 +1,4 @@
-import * as pgPromise from 'pg-promise'
+import pgPromise from 'pg-promise'
 
 import { ProcessEnv } from 'server/utils'
 import { Logger } from 'server/utils/logger'

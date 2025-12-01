@@ -1,0 +1,18 @@
+{
+  "include": ["src"],
+  "exclude": ["src/tools/migrations/steps/steps/template.ts"],
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "./src",
+    "lib": ["ESNext", "DOM"],
+    "module": "CommonJS",
+    "moduleResolution": "Node",
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "outDir": "./dist/",
+    "rootDir": "./src",
+    "resolveJsonModule": true,
+    "target": "ESNext"
+  }
+}

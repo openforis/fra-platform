@@ -1,5 +1,5 @@
 import { Readable } from 'stream'
-import * as archiver from 'archiver'
+import archiver from 'archiver'
 import { Response } from 'express'
 
 import Requests from 'server/utils/requests'
