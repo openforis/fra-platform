@@ -181,7 +181,7 @@
     "diff-dom": "^5.1.4",
     "dom-serializer": "^2.0.0",
     "dotenv": "^16.0.0",
-    "express": "^5.1.0",
+    "express": "^5.2.0",
     "express-queue": "^0.0.13",
     "express-validator": "^7.3.1",
     "fast-csv": "^4.3.6",
