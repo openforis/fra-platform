@@ -9,6 +9,7 @@ export enum FormFieldType {
   country = 'country',
   hidden = 'hidden',
   language = 'language',
+  password = 'password',
   permissions = 'permissions',
   select = 'select',
   telephone = 'telephone',
