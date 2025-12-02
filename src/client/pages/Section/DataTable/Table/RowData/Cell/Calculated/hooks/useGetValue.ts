@@ -1,12 +1,11 @@
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Numbers } from 'utils/numbers'
-import { Objects } from 'utils/objects'
-
 import { CountryIso } from 'meta/area/countryIso'
 import { RowCache } from 'meta/assessment/rowCache'
 import { ExpressionEvaluator } from 'meta/expressionEvaluator'
+import { Numbers } from 'utils/numbers'
+import { Objects } from 'utils/objects'
 
 import { useAssessmentCountry } from 'client/store/area/hooks/country'
 import { useRecordAssessmentDataWithOdp } from 'client/store/data/tableData/nodeValues/hooks/data'
@@ -18,55 +17,56 @@ import { PropsCell } from 'client/pages/Section/DataTable/Table/RowData/Cell/pro
 export const useGetValue = (props: PropsCell): string => {
   const { col, nodeValue, row, table } = props
 
+  const { t } = useTranslation()
   const { countryIso, sectionName } = useSectionRouteParams<CountryIso>()
-
   const assessment = useAssessment()
   const cycle = useCycle()
   const country = useAssessmentCountry()
-
   const data = useRecordAssessmentDataWithOdp()
 
-  const { t } = useTranslation()
+  const { name: assessmentName } = assessment.props
+  const { name: cycleName, uuid: cycleUuid } = cycle
+  const { colName } = col.props
+  const { name: tableName } = table.props
 
   return useMemo(() => {
     if (!Objects.isEmpty(nodeValue?.raw)) {
       return Numbers.format(nodeValue.raw, row.props?.format?.integer ? 0 : 2)
     }
 
-    if (col.props.calculateClientSide?.[cycle.uuid]) {
-      const rowCache: RowCache = {
-        ...row,
-        tableName: table.props.name,
-        sectionName,
-      }
+    if (col.props.calculateClientSide?.[cycleUuid]) {
+      const rowCache: RowCache = { ...row, tableName, sectionName }
 
       return ExpressionEvaluator.evalFormula<string>({
-        assessment,
-        assessments: { [assessment.props.name]: assessment },
+        assessmentName,
+        assessments: { [assessmentName]: assessment },
         countryIso,
         country,
-        cycle,
+        cycleName,
         data,
-        colName: col.props.colName,
+        colName,
         row: rowCache,
-        formula: col.props.calculateFn[cycle.uuid],
+        formula: col.props.calculateFn[cycleUuid],
         t,
       })
     }
+
     return ''
   }, [
     assessment,
+    assessmentName,
     col.props.calculateClientSide,
     col.props.calculateFn,
-    col.props.colName,
+    colName,
     country,
     countryIso,
-    cycle,
+    cycleName,
+    cycleUuid,
     data,
     nodeValue.raw,
     row,
     sectionName,
     t,
-    table.props.name,
+    tableName,
   ])
 }

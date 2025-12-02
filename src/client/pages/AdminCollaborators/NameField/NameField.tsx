@@ -1,6 +1,6 @@
 import './NameField.scss'
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router'
 
 import { Global } from 'meta/area/global'
 import { Routes } from 'meta/routes/routes'

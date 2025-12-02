@@ -1,5 +1,5 @@
 import React from 'react'
-import { Outlet } from 'react-router-dom'
+import { Outlet } from 'react-router'
 
 import { useInitLanguage } from './hooks/useInitLanguage'
 import { useTheme } from './hooks/useTheme'

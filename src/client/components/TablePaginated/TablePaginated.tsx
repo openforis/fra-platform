@@ -1,7 +1,6 @@
 import './TablePaginated.scss'
 import React, { HTMLAttributes, useMemo, useRef } from 'react'
 import Skeleton from 'react-loading-skeleton'
-
 import classNames from 'classnames'
 
 import { useTablePaginatedCount } from 'client/store/tablePaginated/hooks/tablePaginated'
@@ -55,7 +54,7 @@ const TablePaginated = <Datum extends object>(props: Props<Datum>): React.ReactE
     wrapCells = true,
   } = props // Component Props
 
-  const divRef = useRef<HTMLDivElement>()
+  const divRef = useRef<HTMLDivElement>(null)
 
   useInitTablePaginated({ filters, path })
   useFetchData({ counter, limit, path })

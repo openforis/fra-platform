@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link, Navigate } from 'react-router-dom'
-
+import { Link, Navigate } from 'react-router'
 import { Objects } from 'utils/objects'
 
 import { Assessments } from 'meta/assessment/assessments'

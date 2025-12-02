@@ -1,4 +1,4 @@
-import { LinkProps as ReactRouterLinkProps } from 'react-router-dom'
+import { LinkProps as ReactRouterLinkProps } from 'react-router'
 
 export enum LinkColor {
   blue = 'blue',

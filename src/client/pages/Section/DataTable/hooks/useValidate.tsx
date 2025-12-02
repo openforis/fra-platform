@@ -1,8 +1,6 @@
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Objects } from 'utils/objects'
-
 import { Areas } from 'meta/area/areas'
 import { NodeValueValidation } from 'meta/assessment/nodeValueValidation'
 import { NodeValueValidations } from 'meta/assessment/nodeValueValidations'
@@ -11,6 +9,7 @@ import { Authorizer } from 'meta/auth/authorizer'
 import { RecordAssessmentData } from 'meta/data/recordData'
 import { ExpressionEvaluator } from 'meta/expressionEvaluator'
 import { validatorEqualToPreviousCycleForestArea } from 'meta/expressionEvaluator/functions/validatorEqualToPreviousCycleForestArea'
+import { Objects } from 'utils/objects'
 
 import { useCountry } from 'client/store/area/hooks/country'
 import { ValidationsActions } from 'client/store/data/tableData/validations/actions'
@@ -47,14 +46,22 @@ export const useValidate = (props: Props): void => {
 
   const canEditData = Authorizer.canEditSectionData({ country, cycle, section, user })
 
+  const { name: tableName } = table.props
+
   useEffect(() => {
-    const tableValidations: RecordTableValidationsState = { [table.props.name]: {} }
+    const tableValidations: RecordTableValidationsState = { [tableName]: {} }
 
     if (!print && canEditData) {
+      const { name: assessmentName } = assessment.props
+      const { name: cycleName } = cycle
+
       rowsData.forEach((row) => {
+        const { variableName } = row.props
         row.cols.forEach((col) => {
           const validateFns = col.props.validateFns?.[cycle.uuid] ?? row.props.validateFns?.[cycle.uuid]
+
           if (validateFns?.length) {
+            const { colName } = col.props
             const validations = validateFns.map((formula) => {
               // hack to disable validatorEqualToPreviousCycleForestArea for Atlantis countries as explicitly requested.
               // This is the only way, unfortunately. We'll get back to this later on.
@@ -63,12 +70,12 @@ export const useValidate = (props: Props): void => {
               }
 
               return ExpressionEvaluator.evalFormula<NodeValueValidation>({
-                assessment,
-                assessments: { [assessment.props.name]: assessment },
+                assessmentName,
+                assessments: { [assessmentName]: assessment },
                 countryIso,
-                cycle,
+                cycleName,
                 data,
-                colName: col.props.colName,
+                colName,
                 row,
                 formula,
                 t,
@@ -77,21 +84,14 @@ export const useValidate = (props: Props): void => {
 
             Objects.setInPath({
               obj: tableValidations,
-              path: [table.props.name, col.props.colName, row.props.variableName],
+              path: [tableName, colName, variableName],
               value: NodeValueValidations.merge(validations),
             })
           }
         })
       })
 
-      dispatch(
-        ValidationsActions.setNodeValueValidations({
-          assessmentName: assessment.props.name,
-          cycleName: cycle.name,
-          countryIso,
-          tableValidations,
-        })
-      )
+      dispatch(ValidationsActions.setNodeValueValidations({ assessmentName, cycleName, countryIso, tableValidations }))
     }
-  }, [assessment, canEditData, countryIso, cycle, data, dispatch, print, rowsData, t, table.props.name])
+  }, [assessment, canEditData, countryIso, cycle, data, dispatch, print, rowsData, t, tableName])
 }

@@ -1,6 +1,5 @@
 import './Legend.scss'
 import React, { useRef } from 'react'
-
 import classNames from 'classnames'
 
 import { Charts } from 'client/pages/Section/DataTable/Chart/charts'
@@ -19,7 +18,7 @@ const offset = 8
 const Legend: React.FC<Props> = (props) => {
   const { trends, trendsData, width } = props
 
-  const containerRef = useRef<HTMLDivElement>()
+  const containerRef = useRef<HTMLDivElement>(null)
   useLegendTransition({ containerRef, trends, trendsData })
 
   return (

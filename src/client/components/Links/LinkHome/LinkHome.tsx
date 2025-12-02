@@ -1,6 +1,6 @@
 import './linkHome.scss'
 import React, { useMemo } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router'
 
 import { Assessments } from 'meta/assessment/assessments'
 import { Routes } from 'meta/routes/routes'

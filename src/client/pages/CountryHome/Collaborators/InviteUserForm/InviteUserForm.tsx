@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CountryIso } from 'meta/area/countryIso'

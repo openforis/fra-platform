@@ -31,15 +31,12 @@
   z-index: 1;
 
   .admin__page-menu-button {
-    border-radius: unset;
+    border-bottom: 2px solid $ui-border;
+    color: $text-body;
     font-size: $font-l;
     font-weight: normal;
     margin: 0;
-    color: $text-body;
-    border-top: unset;
-    border-right: unset;
-    border-left: unset;
-    border-bottom: 2px solid $ui-border;
+    text-transform: unset;
 
     &:hover {
       color: $ui-accent;

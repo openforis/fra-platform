@@ -1,47 +1,41 @@
-import { Objects } from 'utils/objects'
-
-import { CountryIso } from 'meta/area/countryIso'
-import { Assessment, RecordAssessments } from 'meta/assessment/assessment'
+import { Assessments } from 'meta/assessment/assessments'
 import { Col } from 'meta/assessment/col'
 import { Cols } from 'meta/assessment/cols'
-import { Cycle } from 'meta/assessment/cycle'
 import { NodeValue } from 'meta/assessment/node'
 import { RowCache } from 'meta/assessment/rowCache'
 import { TableName } from 'meta/assessment/table'
-import { RecordCountryData } from 'meta/data/recordData'
 import { RecordAssessmentDatas } from 'meta/data/recordDatas'
 import { ExpressionEvaluator } from 'meta/expressionEvaluator'
+import { Context } from 'meta/expressionEvaluator/context'
+import { Objects } from 'utils/objects'
 
-type Props = {
-  assessments: RecordAssessments
-  assessment: Assessment
-  cycle: Cycle
-  countryIso: CountryIso
-  tableName: TableName
-  row: RowCache
+type Props = Pick<Context, 'assessmentName' | 'assessments' | 'cycleName' | 'countryIso' | 'data'> & {
   col: Col
-  data: RecordCountryData
+  row: RowCache
+  tableName: TableName
 }
 
 const calculateIf = (props: Props): boolean => {
-  const { assessment, assessments, col, countryIso, cycle, data, row } = props
+  const { assessmentName, assessments, col, countryIso, cycleName, data, row } = props
   const { colName } = col.props
+  const assessment = assessments[assessmentName]
+  const cycle = Assessments.getCycle({ assessment, cycleName })
   const formula = row.props.calculateIf?.[cycle.uuid]
-
-  const paramsCalculate = { assessments, assessment, countryIso, cycle, data, colName, row, formula }
+  const paramsCalculate = { assessments, assessmentName, countryIso, cycleName, data, colName, row, formula }
   return Boolean(ExpressionEvaluator.evalFormula<boolean>(paramsCalculate))
 }
 
 const calculate = (props: Props): NodeValue | undefined => {
-  const { assessment, assessments, col, countryIso, cycle, data, row, tableName } = props
+  const { assessmentName, assessments, col, countryIso, cycleName, data, row, tableName } = props
+
+  const assessment = assessments[assessmentName]
+  const cycle = Assessments.getCycle({ assessment, cycleName })
   const formula = Cols.getCalculateFn({ cycle, row, col })
 
   if (!formula) {
     return undefined
   }
 
-  const assessmentName = assessment.props.name
-  const cycleName = cycle.name
   const { variableName } = row.props
   const { colName } = col.props
 
@@ -54,7 +48,7 @@ const calculate = (props: Props): NodeValue | undefined => {
     : Objects.isEmpty(value) || value.calculated
 
   if (canCalculate) {
-    const paramsCalculate = { assessments, assessment, countryIso, cycle, data, colName, row, formula }
+    const paramsCalculate = { assessments, assessmentName, countryIso, cycleName, data, colName, row, formula }
     const rawResult = ExpressionEvaluator.evalFormula<string | undefined>(paramsCalculate)
 
     // Objects.isEmpty required to avoid failing on 0

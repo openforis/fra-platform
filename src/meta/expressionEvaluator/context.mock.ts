@@ -69,18 +69,6 @@ const assessments: RecordAssessments = {
 
 export const contextMock: Context = {
   assessments,
-  assessment,
-  cycle: {
-    id: 2,
-    name: '2025',
-    uuid: '66da2217-da42-492f-9ff4-c99a59e6675c',
-    props: {
-      status: CycleStatus.editing,
-      dateDraft: '2021-01-01T00:00:00.000Z',
-      dateCreated: '2022-01-01T00:00:00.000Z',
-      dateEditing: '2022-03-02T00:00:00.000Z',
-    },
-    assessmentUuid,
-    cycleUuidSource: '66817a08-dc93-4151-b5ed-176d8f04e9b7',
-  },
+  assessmentName: assessment.props.name,
+  cycleName: '2025',
 } as Context

@@ -1,6 +1,6 @@
 import './Cycle.scss'
 import React from 'react'
-import { Outlet } from 'react-router-dom'
+import { Outlet } from 'react-router'
 
 import { useCountryUpdateListener } from './hooks/useCountryUpdateListener'
 import { useInitAreas } from './hooks/useInitAreas'

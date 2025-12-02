@@ -1,7 +1,6 @@
 import './Country.scss'
 import React from 'react'
-import { Outlet } from 'react-router-dom'
-
+import { Outlet } from 'react-router'
 import classNames from 'classnames'
 
 import { useCountries } from 'client/store/area/hooks/countries'
