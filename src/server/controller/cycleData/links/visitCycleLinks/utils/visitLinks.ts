@@ -24,8 +24,7 @@ const _visitLink = async (link: string | null): Promise<LinkValidationStatusCode
     const urlObject = new URL(urlWithScheme)
     // eslint-disable-next-line prefer-destructuring
     hostname = urlObject.hostname
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  } catch (_e) {
+  } catch (e) {
     return LinkValidationStatusCode.urlParsingError
   }
 

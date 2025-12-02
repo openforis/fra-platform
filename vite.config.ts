@@ -31,7 +31,7 @@ export default defineConfig(({ mode }) => {
       __DEV__: JSON.stringify(process.env.NODE_ENV !== 'production'),
       __GOOGLE_API__: JSON.stringify(process.env.FRA_GOOGLE_API),
       __GOOGLE_MAPS_API_KEY__: JSON.stringify(process.env.FRA_GOOGLE_MAPS_API_KEY),
-      __APPLICATION_VERSION__: JSON.stringify(version),
+      __APPLICATION_VERSION__: process.env.APP_VERSION ?? JSON.stringify(version),
       __BUILD_DATE__: JSON.stringify(new Date().toISOString().split('T')[0]),
     },
 

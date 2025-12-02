@@ -1,6 +1,6 @@
 import 'tsconfig-paths/register'
 
-import * as path from 'path'
+import path from 'path'
 import { config } from 'dotenv'
 
 const envFileExt = process.env.NODE_ENV_SCRIPT ? `.${process.env.NODE_ENV_SCRIPT}` : ''

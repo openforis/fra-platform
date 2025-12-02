@@ -1,6 +1,7 @@
 import '../scriptInit'
 
-import * as path from 'node:path'
+import path from 'node:path'
+
 import { Promises } from 'utils/promises'
 
 import { BaseProtocol, DB } from 'server/db/db'

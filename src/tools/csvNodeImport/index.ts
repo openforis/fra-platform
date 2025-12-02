@@ -1,9 +1,7 @@
 import '../scriptInit'
 
-import * as fs from 'node:fs'
-import * as path from 'node:path'
-import { Objects } from 'utils/objects'
-import { Promises } from 'utils/promises'
+import fs from 'node:fs'
+import path from 'node:path'
 
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessments } from 'meta/assessment/assessments'
@@ -11,6 +9,8 @@ import { NodeValue } from 'meta/assessment/node'
 import { RowCaches } from 'meta/assessment/rowCaches'
 import { NodeUpdate } from 'meta/data/nodeUpdates'
 import { UserEmails } from 'meta/user/emails'
+import { Objects } from 'utils/objects'
+import { Promises } from 'utils/promises'
 
 import { RowRedisRepository } from 'server/cache/repository/row'
 import { AreaController } from 'server/controller/area'

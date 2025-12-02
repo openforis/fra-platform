@@ -1,7 +1,7 @@
 import '../scriptInit'
 
-import * as fs from 'node:fs'
-import * as path from 'node:path'
+import fs from 'node:fs'
+import path from 'node:path'
 
 import { Objects } from 'utils/objects'
 import { Promises } from 'utils/promises'
