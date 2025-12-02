@@ -1,12 +1,12 @@
 import '../scriptInit'
 
-import * as fs from 'fs'
-import * as path from 'path'
-import * as archiver from 'archiver'
-import { CSV } from 'tools/utils/CSV'
-import { ToolsUtils } from 'tools/utils/toolsUtils'
+import fs from 'fs'
+import path from 'path'
+import archiver from 'archiver'
 
 import { Files } from 'meta/file/files'
+import { CSV } from 'tools/utils/CSV'
+import { ToolsUtils } from 'tools/utils/toolsUtils'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { BaseProtocol, DB } from 'server/db/db'

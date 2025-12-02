@@ -1,6 +1,6 @@
-import * as fs from 'fs'
-import * as path from 'path'
-import * as readline from 'readline'
+import fs from 'fs'
+import path from 'path'
+import readline from 'readline'
 
 /**
  * Get user input from the terminal

@@ -1,7 +1,7 @@
-import * as dns from 'dns'
-import { Objects } from 'utils/objects'
+import dns from 'dns'
 
 import { LinkToVisit, LinkValidationStatusCode, VisitedLink } from 'meta/cycleData/links/link'
+import { Objects } from 'utils/objects'
 
 const _visitLink = async (link: string | null): Promise<LinkValidationStatusCode> => {
   if (Objects.isEmpty(link)) return LinkValidationStatusCode.empty
@@ -22,8 +22,9 @@ const _visitLink = async (link: string | null): Promise<LinkValidationStatusCode
   try {
     const urlWithScheme = link.startsWith('www.') ? `http://${link}` : link
     const urlObject = new URL(urlWithScheme)
+    // eslint-disable-next-line prefer-destructuring
     hostname = urlObject.hostname
-  } catch (_e) {
+  } catch (e) {
     return LinkValidationStatusCode.urlParsingError
   }
 

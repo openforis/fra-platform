@@ -1,5 +1,6 @@
-import * as path from 'path'
+import path from 'path'
 import { Request, Response } from 'express'
+
 import { Objects } from 'utils/objects'
 
 import { FileStorage } from 'server/service/fileStorage'

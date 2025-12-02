@@ -1,12 +1,12 @@
 import { createI18nPromise } from 'i18n/i18nFactory'
 import { i18n } from 'i18next'
-import * as pgPromise from 'pg-promise'
-import { Promises } from 'utils/promises'
-import { Strings } from 'utils/strings'
+import pgPromise from 'pg-promise'
 
 import { CountryIso } from 'meta/area/countryIso'
 import { RegionCode } from 'meta/area/regionCode'
 import { Lang, LanguageCodes } from 'meta/lang'
+import { Promises } from 'utils/promises'
+import { Strings } from 'utils/strings'
 
 import { CacheController } from 'server/cache/controller'
 import { AssessmentController } from 'server/controller/assessment'

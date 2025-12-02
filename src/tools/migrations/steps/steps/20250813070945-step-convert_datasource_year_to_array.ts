@@ -1,13 +1,13 @@
-import * as pgPromise from 'pg-promise'
-import { Objects } from 'utils/objects'
-import { Promises } from 'utils/promises'
+import pgPromise from 'pg-promise'
 
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
+import { Objects } from 'utils/objects'
+import { Promises } from 'utils/promises'
 
+import { AssessmentController } from 'server/controller/assessment'
 import { BaseProtocol } from 'server/db/db'
 import { Schemas } from 'server/db/schemas'
-import { AssessmentController } from 'server/controller/assessment'
 
 type DataSourceDB<T = string> = {
   type?: string

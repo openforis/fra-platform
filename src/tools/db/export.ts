@@ -1,6 +1,7 @@
 import '../scriptInit'
 
-import * as path from 'path'
+import path from 'path'
+
 import { EXPORT_TABLES } from 'tools/db/config/EXPORT_TABLES'
 import { copyStaticFixtures } from 'tools/db/io/copyStaticFixtures'
 import { writeTableToFile } from 'tools/db/io/writeTableToFile'

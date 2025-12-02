@@ -1,7 +1,7 @@
-import * as pgPromise from 'pg-promise'
-import { Objects } from 'utils/objects'
+import pgPromise from 'pg-promise'
 
 import { Unit } from 'meta/measurement/unit'
+import { Objects } from 'utils/objects'
 
 import { BaseProtocol, DB } from 'server/db/db'
 

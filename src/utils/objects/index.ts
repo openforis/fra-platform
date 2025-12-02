@@ -1,26 +1,19 @@
-// @ts-ignore
-import * as cloneDeep from 'lodash.clonedeep'
-// @ts-ignore
-import * as isEqual from 'lodash.isequal'
-// @ts-ignore
-import * as isFunction from 'lodash.isfunction'
-// @ts-ignore
-import * as merge from 'lodash.merge'
-// @ts-ignore
-import * as pick from 'lodash.pick'
-// @ts-ignore
-import * as set from 'lodash.set'
-// @ts-ignore
-import * as unset from 'lodash.unset'
+import cloneDeep from 'lodash.clonedeep'
+import isEqual from 'lodash.isequal'
+import isFunction from 'lodash.isfunction'
+import merge from 'lodash.merge'
+import pick from 'lodash.pick'
+import set from 'lodash.set'
+import unset from 'lodash.unset'
 
-import { camelize } from './camelize'
-import { flatten } from './flatten'
-import { getDiff } from './getDiff'
-import { getInPath } from './getInPath'
-import { isEmpty } from './isEmpty'
-import { isNil } from './isNil'
-import { propertyOf } from './propertyOf'
-import { setInPath } from './setInPath'
+import { camelize } from 'utils/objects/camelize'
+import { flatten } from 'utils/objects/flatten'
+import { getDiff } from 'utils/objects/getDiff'
+import { getInPath } from 'utils/objects/getInPath'
+import { isEmpty } from 'utils/objects/isEmpty'
+import { isNil } from 'utils/objects/isNil'
+import { propertyOf } from 'utils/objects/propertyOf'
+import { setInPath } from 'utils/objects/setInPath'
 
 export const Objects = {
   camelize,

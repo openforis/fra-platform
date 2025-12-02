@@ -1,9 +1,9 @@
-import * as pgPromise from 'pg-promise'
-import { Objects } from 'utils/objects'
+import pgPromise from 'pg-promise'
 
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { Node } from 'meta/assessment/node'
+import { Objects } from 'utils/objects'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { NodeDb } from 'server/db/repository/assessmentCycle/node/nodeDb'

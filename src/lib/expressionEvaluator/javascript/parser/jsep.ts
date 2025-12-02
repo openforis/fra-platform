@@ -1,5 +1,5 @@
-import * as jsepObjectImport from '@jsep-plugin/object'
-import * as jsepImport from 'jsep'
+import jsepObjectImport from '@jsep-plugin/object'
+import jsepImport from 'jsep'
 
 // @ts-ignore
 const jsep = jsepImport.default || jsepImport
