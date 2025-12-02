@@ -183,6 +183,14 @@ export default defineConfig([
       '@typescript-eslint/explicit-function-return-type': 'off',
     },
   },
+
+  // vite.config disable "ESLint: 'dependency-name' should be listed in the project's dependencies, not devDependencies."
+  {
+    files: ['vite.config.ts'],
+    rules: {
+      'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
+    },
+  },
   // Prettier integration
   eslintPluginPrettierRecommended,
   {
