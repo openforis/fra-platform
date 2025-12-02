@@ -1,0 +1,1141 @@
+components:
+  schemas:
+    PanEuropeanTableNames:
+      type: array
+      description: panEuropean main data table identifiers (pass as `tableNames[]`).
+      items:
+        type: string
+        enum:
+          - table_1_1a
+          - table_1_2a
+          - table_1_3a1
+          - table_1_3b
+          - table_1_4a
+          - table_2_4
+          - table_2_5
+          - table_3_1
+          - table_3_3
+          - table_3_4
+          - table_4_1
+          - table_4_2a
+          - table_4_3a
+          - table_4_4a
+          - table_4_5
+          - table_4_8
+          - table_4_9
+          - table_5_1
+          - table_6_1
+          - table_6_6
+          - table_6_10a
+      example:
+        - table_6_10a
+        - table_1_1a
+
+    PanEuropeanColumnNames:
+      type: array
+      description: Array of columns to retrieve. For example, ["total", "coniferous", "broadleaved"]. See PanEuropeanTableOptions for table-specific options.
+      items:
+        type: string
+        enum:
+          - area
+          - total
+          - coniferous
+          - broadleaved
+          - total_area
+          - regeneration_phase
+          - intermediate_phase
+          - mature_phase
+          - unspecified
+          - total_volume
+          - less_or_equal_20_cm
+          - _21_40_cm
+          - _41_60_cm
+          - greater_60_cm
+          - above_ground
+          - below_ground
+          - deadwood
+          - litter
+          - soil_carbon
+          - total_area_with_damage
+          - insects
+          - disease
+          - wildlife_and_grazing
+          - forest_operations
+          - other
+          - primarily_damaged_by_abiotic_agents
+          - unspecified_mixed_damage_2025
+          - primarily_damaged_by_fire_total
+          - of_which_human_induced
+          - total_area_of_degraded_land
+          - agentOne
+          - agentTwo
+          - agentThree
+          - agentFour
+          - agentFive
+          - unknownMixedDegradation
+          - gross_annual_increment
+          - natural_losses
+          - net_annual_increment
+          - fellings_total
+          - _of_which_of_natural_losses
+          - name_of_groups_of_product
+          - key_species
+          - total_harvested_non_wood_goods_unit
+          - total_harvested_non_wood_goods_quantity
+          - market_value_1000_national_currency
+          - nwfp_category_2025
+          - name_of_service_product
+          - unit
+          - service_provision_amount_of_service_product
+          - service_provision_value_1000_national_currency
+          - forest_service_category
+          - area_with_number_of_tree_species_occurring_1
+          - area_with_number_of_tree_species_occurring_2_3
+          - area_with_number_of_tree_species_occurring_4_5
+          - area_with_number_of_tree_species_occurring_6_pl
+          - natural_expansion_and_natural_regeneration
+          - afforestation_and_regeneration_by_planting_and_or_seeding
+          - coppice
+          - undisturbed_by_man
+          - semi_natural
+          - plantations
+          - _of_which_invasive
+          - standing
+          - lying
+          - total_of_taxa
+          - vulnerable
+          - endangered
+          - critically_endangered
+          - extinct_in_the_wild
+          - mcpfe_class_1_1
+          - mcpfe_class_1_2
+          - mcpfe_class_1_3
+          - mcpfe_class_2
+          - soil_water_and_other_forest_ecosystem_functions
+          - infrastructure_and_managed_natural_resources
+          - total_forest_area
+          - total_number_of_holdings
+          - less_10_ha_area
+          - less_10_ha_number
+          - _11_500_ha_area
+          - _11_500_ha_number
+          - more_500_ha_area
+          - more_500_ha_number
+          - fatal_occupational_accidents_number
+          - fatal_occupational_accidents_per_1000_workers
+          - non_fatal_occupational_accidents_number
+          - non_fatal_occupational_accidents_per_1000_workers
+          - area_available_for_public_recreation_total
+          - area_available_for_public_recreation_percent
+          - area_designated_or_managed_for_public_recreation_total
+          - area_designated_or_managed_for_public_recreation_percent
+      example:
+        - total
+        - coniferous
+        - broadleaved
+
+    PanEuropeanVariableNames:
+      type: array
+      description:  Array of variable names to retrieve. For example, ["forest_2025", "forest_2020"]. Use PanEuropeanTableOptions to pick values that match your selected table.
+      items:
+        type: string
+        enum:
+          - forest_2025
+          - forest_2020
+          - forest_2015
+          - forest_2010
+          - forest_2005
+          - forest_2000
+          - forest_1990
+          - _of_which_available_for_wood_supply_2025
+          - _of_which_available_for_wood_supply_2020
+          - _of_which_available_for_wood_supply_2015
+          - _of_which_available_for_wood_supply_2010
+          - _of_which_available_for_wood_supply_2005
+          - _of_which_available_for_wood_supply_2000
+          - _of_which_available_for_wood_supply_1990
+          - other_wooded_land_2025
+          - other_wooded_land_2020
+          - other_wooded_land_2015
+          - other_wooded_land_2010
+          - other_wooded_land_2005
+          - other_wooded_land_2000
+          - other_wooded_land_1990
+          - other_land_2025
+          - other_land_2020
+          - other_land_2015
+          - other_land_2010
+          - other_land_2005
+          - other_land_2000
+          - other_land_1990
+          - _of_which_with_tree_cover_2025
+          - _of_which_with_tree_cover_2020
+          - _of_which_with_tree_cover_2015
+          - _of_which_with_tree_cover_2010
+          - _of_which_with_tree_cover_2005
+          - _of_which_with_tree_cover_2000
+          - _of_which_with_tree_cover_1990
+          - total_forest_and_other_wooded_land_2025
+          - total_forest_and_other_wooded_land_2020
+          - total_forest_and_other_wooded_land_2015
+          - total_forest_and_other_wooded_land_2010
+          - total_forest_and_other_wooded_land_2005
+          - total_forest_and_other_wooded_land_2000
+          - total_forest_and_other_wooded_land_1990
+          - forest_even_aged_stands_of_which_2020
+          - forest_even_aged_stands_of_which_2015
+          - forest_even_aged_stands_of_which_2010
+          - forest_even_aged_stands_of_which_2005
+          - forest_even_aged_stands_of_which_2000
+          - forest_even_aged_stands_of_which_1990
+          - available_for_wood_supply_of_which_2020
+          - available_for_wood_supply_of_which_2015
+          - available_for_wood_supply_of_which_2010
+          - available_for_wood_supply_of_which_2005
+          - available_for_wood_supply_of_which_2000
+          - available_for_wood_supply_of_which_1990
+          - predominantly_coniferous_forest_2020
+          - predominantly_coniferous_forest_2015
+          - predominantly_coniferous_forest_2010
+          - predominantly_coniferous_forest_2005
+          - predominantly_coniferous_forest_2000
+          - predominantly_coniferous_forest_1990
+          - predominantly_broadleaved_forest_2020
+          - predominantly_broadleaved_forest_2015
+          - predominantly_broadleaved_forest_2010
+          - predominantly_broadleaved_forest_2005
+          - predominantly_broadleaved_forest_2000
+          - predominantly_broadleaved_forest_1990
+          - mixed_forest_2020
+          - mixed_forest_2015
+          - mixed_forest_2010
+          - mixed_forest_2005
+          - mixed_forest_2000
+          - mixed_forest_1990
+          - forest_uneven_aged_stands_2020
+          - forest_uneven_aged_stands_2015
+          - forest_uneven_aged_stands_2010
+          - forest_uneven_aged_stands_2005
+          - forest_uneven_aged_stands_2000
+          - forest_uneven_aged_stands_1990
+          - _of_which_forest_available_for_wood_supply_2020
+          - _of_which_forest_available_for_wood_supply_2015
+          - _of_which_forest_available_for_wood_supply_2010
+          - _of_which_forest_available_for_wood_supply_2005
+          - _of_which_forest_available_for_wood_supply_2000
+          - _of_which_forest_available_for_wood_supply_1990
+          - forest_2022
+          - forest_2021
+          - forest_2019
+          - forest_2018
+          - forest_2017
+          - forest_2016
+          - forest_2014
+          - forest_2013
+          - forest_2012
+          - forest_2011
+          - forest_2009
+          - forest_2008
+          - forest_2007
+          - forest_2006
+          - forest_2004
+          - forest_2003
+          - forest_2002
+          - forest_2001
+          - header_2025
+          - agentName
+          - _01st
+          - _02nd
+          - _03rd
+          - _04th
+          - _05th
+          - _06th
+          - _07th
+          - _08th
+          - _09th
+          - _10th
+          - all_other_plant_products
+          - all_other_animal_products
+          - total
+          - remaining_total
+          - volumeOfDeadwoodInFOWLBySpeciesGroups
+          - coniferous_2020
+          - coniferous_2015
+          - broadleaved_2020
+          - broadleaved_2015
+          - trees_2020
+          - trees_2015
+          - trees_2010
+          - trees_2005
+          - trees_2000
+          - trees_1990
+          - birds_2020
+          - birds_2015
+          - birds_2010
+          - birds_2005
+          - birds_2000
+          - birds_1990
+          - mammals_2020
+          - mammals_2015
+          - mammals_2010
+          - mammals_2005
+          - mammals_2000
+          - mammals_1990
+          - other_vertebrates_2020
+          - other_vertebrates_2015
+          - other_vertebrates_2010
+          - other_vertebrates_2005
+          - other_vertebrates_2000
+          - other_vertebrates_1990
+          - invertebrates_2020
+          - invertebrates_2015
+          - invertebrates_2010
+          - invertebrates_2005
+          - invertebrates_2000
+          - invertebrates_1990
+          - vascular_plants_2020
+          - vascular_plants_2015
+          - vascular_plants_2010
+          - vascular_plants_2005
+          - vascular_plants_2000
+          - vascular_plants_1990
+          - cryptogams_and_fungi_2020
+          - cryptogams_and_fungi_2015
+          - cryptogams_and_fungi_2010
+          - cryptogams_and_fungi_2005
+          - cryptogams_and_fungi_2000
+          - cryptogams_and_fungi_1990
+          - in_public_ownership_2020
+          - in_public_ownership_2015
+          - in_public_ownership_2010
+          - in_public_ownership_2005
+          - in_public_ownership_2000
+          - in_public_ownership_1990
+          - in_private_ownership_2020
+          - in_private_ownership_2015
+          - in_private_ownership_2010
+          - in_private_ownership_2005
+          - in_private_ownership_2000
+          - in_private_ownership_1990
+          - other_types_of_ownership_unknown_2020
+          - other_types_of_ownership_unknown_2015
+          - other_types_of_ownership_unknown_2010
+          - other_types_of_ownership_unknown_2005
+          - other_types_of_ownership_unknown_2000
+          - other_types_of_ownership_unknown_1990
+          - forestry_isic_nace_02_2020
+          - forestry_isic_nace_02_2015
+          - forestry_isic_nace_02_2010
+          - forestry_isic_nace_02_2005
+          - forestry_isic_nace_02_2000
+          - forestry_isic_nace_02_1990
+      example:
+        - forest_2020
+        - area_available_for_public_recreation_total
+
+    PanEuropeanTableOptions:
+      type: object
+      description: Allowed variables and columns by table. Use this map to filter `variables[]` and `columns[]` according to the chosen `tableNames[]`.
+      properties:
+        table_1_1a:
+          type: object
+          description: Valid selectors for table_1_1a.
+          properties:
+            variables:
+              type: array
+              items:
+                type: string
+                enum:
+                  - forest_2025
+                  - forest_2020
+                  - forest_2015
+                  - forest_2010
+                  - forest_2005
+                  - forest_2000
+                  - forest_1990
+                  - _of_which_available_for_wood_supply_2025
+                  - _of_which_available_for_wood_supply_2020
+                  - _of_which_available_for_wood_supply_2015
+                  - _of_which_available_for_wood_supply_2010
+                  - _of_which_available_for_wood_supply_2005
+                  - _of_which_available_for_wood_supply_2000
+                  - _of_which_available_for_wood_supply_1990
+                  - other_wooded_land_2025
+                  - other_wooded_land_2020
+                  - other_wooded_land_2015
+                  - other_wooded_land_2010
+                  - other_wooded_land_2005
+                  - other_wooded_land_2000
+                  - other_wooded_land_1990
+                  - other_land_2025
+                  - other_land_2020
+                  - other_land_2015
+                  - other_land_2010
+                  - other_land_2005
+                  - other_land_2000
+                  - other_land_1990
+                  - _of_which_with_tree_cover_2025
+                  - _of_which_with_tree_cover_2020
+                  - _of_which_with_tree_cover_2015
+                  - _of_which_with_tree_cover_2010
+                  - _of_which_with_tree_cover_2005
+                  - _of_which_with_tree_cover_2000
+                  - _of_which_with_tree_cover_1990
+            columns:
+              type: array
+              items:
+                type: string
+                enum:
+                  - area
+        table_1_2a:
+          type: object
+          description: Valid selectors for table_1_2a.
+          properties:
+            variables:
+              type: array
+              items:
+                type: string
+                enum:
+                  - forest_2025
+                  - forest_2020
+                  - forest_2015
+                  - forest_2010
+                  - forest_2005
+                  - forest_2000
+                  - forest_1990
+                  - _of_which_available_for_wood_supply_2025
+                  - _of_which_available_for_wood_supply_2020
+                  - _of_which_available_for_wood_supply_2015
+                  - _of_which_available_for_wood_supply_2010
+                  - _of_which_available_for_wood_supply_2005
+                  - _of_which_available_for_wood_supply_2000
+                  - _of_which_available_for_wood_supply_1990
+                  - other_wooded_land_2025
+                  - other_wooded_land_2020
+                  - other_wooded_land_2015
+                  - other_wooded_land_2010
+                  - other_wooded_land_2005
+                  - other_wooded_land_2000
+                  - other_wooded_land_1990
+                  - total_forest_and_other_wooded_land_2025
+                  - total_forest_and_other_wooded_land_2020
+                  - total_forest_and_other_wooded_land_2015
+                  - total_forest_and_other_wooded_land_2010
+                  - total_forest_and_other_wooded_land_2005
+                  - total_forest_and_other_wooded_land_2000
+                  - total_forest_and_other_wooded_land_1990
+            columns:
+              type: array
+              items:
+                type: string
+                enum:
+                  - total
+                  - coniferous
+                  - broadleaved
+        table_1_3a1:
+          type: object
+          description: Valid selectors for table_1_3a1.
+          properties:
+            variables:
+              type: array
+              items:
+                type: string
+                enum:
+                  - forest_even_aged_stands_of_which_2020
+                  - forest_even_aged_stands_of_which_2015
+                  - forest_even_aged_stands_of_which_2010
+                  - forest_even_aged_stands_of_which_2005
+                  - forest_even_aged_stands_of_which_2000
+                  - forest_even_aged_stands_of_which_1990
+                  - available_for_wood_supply_of_which_2020
+                  - available_for_wood_supply_of_which_2015
+                  - available_for_wood_supply_of_which_2010
+                  - available_for_wood_supply_of_which_2005
+                  - available_for_wood_supply_of_which_2000
+                  - available_for_wood_supply_of_which_1990
+                  - predominantly_coniferous_forest_2020
+                  - predominantly_coniferous_forest_2015
+                  - predominantly_coniferous_forest_2010
+                  - predominantly_coniferous_forest_2005
+                  - predominantly_coniferous_forest_2000
+                  - predominantly_coniferous_forest_1990
+                  - predominantly_broadleaved_forest_2020
+                  - predominantly_broadleaved_forest_2015
+                  - predominantly_broadleaved_forest_2010
+                  - predominantly_broadleaved_forest_2005
+                  - predominantly_broadleaved_forest_2000
+                  - predominantly_broadleaved_forest_1990
+                  - mixed_forest_2020
+                  - mixed_forest_2015
+                  - mixed_forest_2010
+                  - mixed_forest_2005
+                  - mixed_forest_2000
+                  - mixed_forest_1990
+            columns:
+              type: array
+              items:
+                type: string
+                enum:
+                  - total_area
+                  - regeneration_phase
+                  - intermediate_phase
+                  - mature_phase
+                  - unspecified
+        table_1_3b:
+          type: object
+          description: Valid selectors for table_1_3b.
+          properties:
+            variables:
+              type: array
+              items:
+                type: string
+                enum:
+                  - forest_uneven_aged_stands_2020
+                  - forest_uneven_aged_stands_2015
+                  - forest_uneven_aged_stands_2010
+                  - forest_uneven_aged_stands_2005
+                  - forest_uneven_aged_stands_2000
+                  - forest_uneven_aged_stands_1990
+                  - _of_which_forest_available_for_wood_supply_2020
+                  - _of_which_forest_available_for_wood_supply_2015
+                  - _of_which_forest_available_for_wood_supply_2010
+                  - _of_which_forest_available_for_wood_supply_2005
+                  - _of_which_forest_available_for_wood_supply_2000
+                  - _of_which_forest_available_for_wood_supply_1990
+            columns:
+              type: array
+              items:
+                type: string
+                enum:
+                  - area
+                  - total_volume
+                  - less_or_equal_20_cm
+                  - _21_40_cm
+                  - _41_60_cm
+                  - greater_60_cm
+                  - unspecified
+        table_1_4a:
+          type: object
+          description: Valid selectors for table_1_4a.
+          properties:
+            variables:
+              type: array
+              items:
+                type: string
+                enum:
+                  - forest_2025
+                  - forest_2020
+                  - forest_2015
+                  - forest_2010
+                  - forest_2005
+                  - forest_2000
+                  - forest_1990
+                  - other_wooded_land_2025
+                  - other_wooded_land_2020
+                  - other_wooded_land_2015
+                  - other_wooded_land_2010
+                  - other_wooded_land_2005
+                  - other_wooded_land_2000
+                  - other_wooded_land_1990
+                  - total_forest_and_other_wooded_land_2025
+                  - total_forest_and_other_wooded_land_2020
+                  - total_forest_and_other_wooded_land_2015
+                  - total_forest_and_other_wooded_land_2010
+                  - total_forest_and_other_wooded_land_2005
+                  - total_forest_and_other_wooded_land_2000
+                  - total_forest_and_other_wooded_land_1990
+            columns:
+              type: array
+              items:
+                type: string
+                enum:
+                  - above_ground
+                  - below_ground
+                  - deadwood
+                  - litter
+                  - soil_carbon
+        table_2_4:
+          type: object
+          description: Valid selectors for table_2_4.
+          properties:
+            variables:
+              type: array
+              items:
+                type: string
+                enum:
+                  - forest_2022
+                  - forest_2021
+                  - forest_2020
+                  - forest_2019
+                  - forest_2018
+                  - forest_2017
+                  - forest_2016
+                  - forest_2015
+                  - forest_2014
+                  - forest_2013
+                  - forest_2012
+                  - forest_2011
+                  - forest_2010
+                  - forest_2009
+                  - forest_2008
+                  - forest_2007
+                  - forest_2006
+                  - forest_2005
+                  - forest_2004
+                  - forest_2003
+                  - forest_2002
+                  - forest_2001
+                  - forest_2000
+                  - forest_1990
+                  - other_wooded_land_2020
+                  - other_wooded_land_2015
+                  - other_wooded_land_2010
+                  - other_wooded_land_2005
+                  - other_wooded_land_2000
+                  - other_wooded_land_1990
+                  - total_forest_and_other_wooded_land_2020
+                  - total_forest_and_other_wooded_land_2015
+                  - total_forest_and_other_wooded_land_2010
+                  - total_forest_and_other_wooded_land_2005
+                  - total_forest_and_other_wooded_land_2000
+                  - total_forest_and_other_wooded_land_1990
+            columns:
+              type: array
+              items:
+                type: string
+                enum:
+                  - total_area_with_damage
+                  - insects
+                  - disease
+                  - wildlife_and_grazing
+                  - forest_operations
+                  - other
+                  - primarily_damaged_by_abiotic_agents
+                  - unspecified_mixed_damage_2025
+                  - primarily_damaged_by_fire_total
+                  - of_which_human_induced
+        table_2_5:
+          type: object
+          description: Valid selectors for table_2_5.
+          properties:
+            variables:
+              type: array
+              items:
+                type: string
+                enum:
+                  - header_2025
+                  - agentName
+                  - forest_2020
+                  - forest_2015
+                  - forest_2010
+                  - forest_2005
+                  - forest_2000
+                  - forest_1990
+            columns:
+              type: array
+              items:
+                type: string
+                enum:
+                  - total_area_of_degraded_land
+                  - agentOne
+                  - agentTwo
+                  - agentThree
+                  - agentFour
+                  - agentFive
+                  - unknownMixedDegradation
+        table_3_1:
+          type: object
+          description: Valid selectors for table_3_1.
+          properties:
+            variables:
+              type: array
+              items:
+                type: string
+                enum:
+                  - forest_2020
+                  - forest_2015
+                  - forest_2010
+                  - forest_2005
+                  - forest_2000
+                  - forest_1990
+                  - _of_which_forest_available_for_wood_supply_2020
+                  - _of_which_forest_available_for_wood_supply_2015
+                  - _of_which_forest_available_for_wood_supply_2010
+                  - _of_which_forest_available_for_wood_supply_2005
+                  - _of_which_forest_available_for_wood_supply_2000
+                  - _of_which_forest_available_for_wood_supply_1990
+            columns:
+              type: array
+              items:
+                type: string
+                enum:
+                  - gross_annual_increment
+                  - natural_losses
+                  - net_annual_increment
+                  - fellings_total
+                  - _of_which_of_natural_losses
+        table_3_3:
+          type: object
+          description: Valid selectors for table_3_3.
+          properties:
+            variables:
+              type: array
+              items:
+                type: string
+                enum:
+                  - _01st
+                  - _02nd
+                  - _03rd
+                  - _04th
+                  - _05th
+                  - _06th
+                  - _07th
+                  - _08th
+                  - _09th
+                  - _10th
+                  - all_other_plant_products
+                  - all_other_animal_products
+                  - total
+            columns:
+              type: array
+              items:
+                type: string
+                enum:
+                  - name_of_groups_of_product
+                  - key_species
+                  - total_harvested_non_wood_goods_unit
+                  - total_harvested_non_wood_goods_quantity
+                  - market_value_1000_national_currency
+                  - nwfp_category_2025
+        table_3_4:
+          type: object
+          description: Valid selectors for table_3_4.
+          properties:
+            variables:
+              type: array
+              items:
+                type: string
+                enum:
+                  - _01st
+                  - _02nd
+                  - _03rd
+                  - _04th
+                  - _05th
+                  - _06th
+                  - _07th
+                  - _08th
+                  - _09th
+                  - _10th
+                  - remaining_total
+                  - total
+            columns:
+              type: array
+              items:
+                type: string
+                enum:
+                  - name_of_service_product
+                  - unit
+                  - service_provision_amount_of_service_product
+                  - service_provision_value_1000_national_currency
+                  - forest_service_category
+        table_4_1:
+          type: object
+          description: Valid selectors for table_4_1.
+          properties:
+            variables:
+              type: array
+              items:
+                type: string
+                enum:
+                  - forest_2020
+                  - forest_2015
+                  - forest_2010
+                  - forest_2005
+                  - forest_2000
+                  - forest_1990
+                  - other_wooded_land_2020
+                  - other_wooded_land_2015
+                  - other_wooded_land_2010
+                  - other_wooded_land_2005
+                  - other_wooded_land_2000
+                  - other_wooded_land_1990
+                  - total_forest_and_other_wooded_land_2020
+                  - total_forest_and_other_wooded_land_2015
+                  - total_forest_and_other_wooded_land_2010
+                  - total_forest_and_other_wooded_land_2005
+                  - total_forest_and_other_wooded_land_2000
+                  - total_forest_and_other_wooded_land_1990
+            columns:
+              type: array
+              items:
+                type: string
+                enum:
+                  - area_with_number_of_tree_species_occurring_1
+                  - area_with_number_of_tree_species_occurring_2_3
+                  - area_with_number_of_tree_species_occurring_4_5
+                  - area_with_number_of_tree_species_occurring_6_pl
+        table_4_2a:
+          type: object
+          description: Valid selectors for table_4_2a.
+          properties:
+            variables:
+              type: array
+              items:
+                type: string
+                enum:
+                  - forest_2025
+                  - forest_2020
+                  - forest_2015
+                  - forest_2010
+                  - forest_2005
+                  - forest_2000
+                  - forest_1990
+            columns:
+              type: array
+              items:
+                type: string
+                enum:
+                  - natural_expansion_and_natural_regeneration
+                  - afforestation_and_regeneration_by_planting_and_or_seeding
+                  - coppice
+        table_4_3a:
+          type: object
+          description: Valid selectors for table_4_3a.
+          properties:
+            variables:
+              type: array
+              items:
+                type: string
+                enum:
+                  - forest_2025
+                  - forest_2020
+                  - forest_2015
+                  - forest_2010
+                  - forest_2005
+                  - forest_2000
+                  - forest_1990
+                  - other_wooded_land_2025
+                  - other_wooded_land_2020
+                  - other_wooded_land_2015
+                  - other_wooded_land_2010
+                  - other_wooded_land_2005
+                  - other_wooded_land_2000
+                  - other_wooded_land_1990
+                  - total_forest_and_other_wooded_land_2025
+                  - total_forest_and_other_wooded_land_2020
+                  - total_forest_and_other_wooded_land_2015
+                  - total_forest_and_other_wooded_land_2010
+                  - total_forest_and_other_wooded_land_2005
+                  - total_forest_and_other_wooded_land_2000
+                  - total_forest_and_other_wooded_land_1990
+            columns:
+              type: array
+              items:
+                type: string
+                enum:
+                  - undisturbed_by_man
+                  - semi_natural
+                  - plantations
+        table_4_4a:
+          type: object
+          description: Valid selectors for table_4_4a.
+          properties:
+            variables:
+              type: array
+              items:
+                type: string
+                enum:
+                  - forest_2025
+                  - forest_2020
+                  - forest_2015
+                  - forest_2010
+                  - forest_2005
+                  - forest_2000
+                  - forest_1990
+                  - other_wooded_land_2025
+                  - other_wooded_land_2020
+                  - other_wooded_land_2015
+                  - other_wooded_land_2010
+                  - other_wooded_land_2005
+                  - other_wooded_land_2000
+                  - other_wooded_land_1990
+                  - total_forest_and_other_wooded_land_2025
+                  - total_forest_and_other_wooded_land_2020
+                  - total_forest_and_other_wooded_land_2015
+                  - total_forest_and_other_wooded_land_2010
+                  - total_forest_and_other_wooded_land_2005
+                  - total_forest_and_other_wooded_land_2000
+                  - total_forest_and_other_wooded_land_1990
+            columns:
+              type: array
+              items:
+                type: string
+                enum:
+                  - total
+                  - _of_which_invasive
+        table_4_5:
+          type: object
+          description: Valid selectors for table_4_5.
+          properties:
+            variables:
+              type: array
+              items:
+                type: string
+                enum:
+                  - forest_2020
+                  - forest_2015
+                  - forest_2010
+                  - forest_2005
+                  - forest_2000
+                  - forest_1990
+                  - other_wooded_land_2020
+                  - other_wooded_land_2015
+                  - other_wooded_land_2010
+                  - other_wooded_land_2005
+                  - other_wooded_land_2000
+                  - other_wooded_land_1990
+                  - total_forest_and_other_wooded_land_2020
+                  - total_forest_and_other_wooded_land_2015
+                  - total_forest_and_other_wooded_land_2010
+                  - total_forest_and_other_wooded_land_2005
+                  - total_forest_and_other_wooded_land_2000
+                  - total_forest_and_other_wooded_land_1990
+                  - volumeOfDeadwoodInFOWLBySpeciesGroups
+                  - coniferous_2020
+                  - coniferous_2015
+                  - broadleaved_2020
+                  - broadleaved_2015
+            columns:
+              type: array
+              items:
+                type: string
+                enum:
+                  - total
+                  - standing
+                  - lying
+        table_4_8:
+          type: object
+          description: Valid selectors for table_4_8.
+          properties:
+            variables:
+              type: array
+              items:
+                type: string
+                enum:
+                  - trees_2020
+                  - trees_2015
+                  - trees_2010
+                  - trees_2005
+                  - trees_2000
+                  - trees_1990
+                  - birds_2020
+                  - birds_2015
+                  - birds_2010
+                  - birds_2005
+                  - birds_2000
+                  - birds_1990
+                  - mammals_2020
+                  - mammals_2015
+                  - mammals_2010
+                  - mammals_2005
+                  - mammals_2000
+                  - mammals_1990
+                  - other_vertebrates_2020
+                  - other_vertebrates_2015
+                  - other_vertebrates_2010
+                  - other_vertebrates_2005
+                  - other_vertebrates_2000
+                  - other_vertebrates_1990
+                  - invertebrates_2020
+                  - invertebrates_2015
+                  - invertebrates_2010
+                  - invertebrates_2005
+                  - invertebrates_2000
+                  - invertebrates_1990
+                  - vascular_plants_2020
+                  - vascular_plants_2015
+                  - vascular_plants_2010
+                  - vascular_plants_2005
+                  - vascular_plants_2000
+                  - vascular_plants_1990
+                  - cryptogams_and_fungi_2020
+                  - cryptogams_and_fungi_2015
+                  - cryptogams_and_fungi_2010
+                  - cryptogams_and_fungi_2005
+                  - cryptogams_and_fungi_2000
+                  - cryptogams_and_fungi_1990
+            columns:
+              type: array
+              items:
+                type: string
+                enum:
+                  - total_of_taxa
+                  - vulnerable
+                  - endangered
+                  - critically_endangered
+                  - extinct_in_the_wild
+        table_4_9:
+          type: object
+          description: Valid selectors for table_4_9.
+          properties:
+            variables:
+              type: array
+              items:
+                type: string
+                enum:
+                  - forest_2025
+                  - forest_2020
+                  - forest_2015
+                  - forest_2010
+                  - forest_2005
+                  - forest_2000
+                  - forest_1990
+                  - other_wooded_land_2025
+                  - other_wooded_land_2020
+                  - other_wooded_land_2015
+                  - other_wooded_land_2010
+                  - other_wooded_land_2005
+                  - other_wooded_land_2000
+                  - other_wooded_land_1990
+                  - total_forest_and_other_wooded_land_2025
+                  - total_forest_and_other_wooded_land_2020
+                  - total_forest_and_other_wooded_land_2015
+                  - total_forest_and_other_wooded_land_2010
+                  - total_forest_and_other_wooded_land_2005
+                  - total_forest_and_other_wooded_land_2000
+                  - total_forest_and_other_wooded_land_1990
+            columns:
+              type: array
+              items:
+                type: string
+                enum:
+                  - mcpfe_class_1_1
+                  - mcpfe_class_1_2
+                  - mcpfe_class_1_3
+                  - mcpfe_class_2
+        table_5_1:
+          type: object
+          description: Valid selectors for table_5_1.
+          properties:
+            variables:
+              type: array
+              items:
+                type: string
+                enum:
+                  - forest_2025
+                  - forest_2020
+                  - forest_2015
+                  - forest_2010
+                  - forest_2005
+                  - forest_2000
+                  - forest_1990
+                  - other_wooded_land_2025
+                  - other_wooded_land_2020
+                  - other_wooded_land_2015
+                  - other_wooded_land_2010
+                  - other_wooded_land_2005
+                  - other_wooded_land_2000
+                  - other_wooded_land_1990
+                  - total_forest_and_other_wooded_land_2025
+                  - total_forest_and_other_wooded_land_2020
+                  - total_forest_and_other_wooded_land_2015
+                  - total_forest_and_other_wooded_land_2010
+                  - total_forest_and_other_wooded_land_2005
+                  - total_forest_and_other_wooded_land_2000
+                  - total_forest_and_other_wooded_land_1990
+            columns:
+              type: array
+              items:
+                type: string
+                enum:
+                  - soil_water_and_other_forest_ecosystem_functions
+                  - infrastructure_and_managed_natural_resources
+                  - total
+        table_6_1:
+          type: object
+          description: Valid selectors for table_6_1.
+          properties:
+            variables:
+              type: array
+              items:
+                type: string
+                enum:
+                  - in_public_ownership_2020
+                  - in_public_ownership_2015
+                  - in_public_ownership_2010
+                  - in_public_ownership_2005
+                  - in_public_ownership_2000
+                  - in_public_ownership_1990
+                  - in_private_ownership_2020
+                  - in_private_ownership_2015
+                  - in_private_ownership_2010
+                  - in_private_ownership_2005
+                  - in_private_ownership_2000
+                  - in_private_ownership_1990
+                  - other_types_of_ownership_unknown_2020
+                  - other_types_of_ownership_unknown_2015
+                  - other_types_of_ownership_unknown_2010
+                  - other_types_of_ownership_unknown_2005
+                  - other_types_of_ownership_unknown_2000
+                  - other_types_of_ownership_unknown_1990
+            columns:
+              type: array
+              items:
+                type: string
+                enum:
+                  - total_forest_area
+                  - total_number_of_holdings
+                  - less_10_ha_area
+                  - less_10_ha_number
+                  - _11_500_ha_area
+                  - _11_500_ha_number
+                  - more_500_ha_area
+                  - more_500_ha_number
+        table_6_6:
+          type: object
+          description: Valid selectors for table_6_6.
+          properties:
+            variables:
+              type: array
+              items:
+                type: string
+                enum:
+                  - forestry_isic_nace_02_2020
+                  - forestry_isic_nace_02_2015
+                  - forestry_isic_nace_02_2010
+                  - forestry_isic_nace_02_2005
+                  - forestry_isic_nace_02_2000
+                  - forestry_isic_nace_02_1990
+            columns:
+              type: array
+              items:
+                type: string
+                enum:
+                  - fatal_occupational_accidents_number
+                  - fatal_occupational_accidents_per_1000_workers
+                  - non_fatal_occupational_accidents_number
+                  - non_fatal_occupational_accidents_per_1000_workers
+        table_6_10a:
+          type: object
+          description: Valid selectors for table_6_10a.
+          properties:
+            variables:
+              type: array
+              items:
+                type: string
+                enum:
+                  - total_forest_and_other_wooded_land_2020
+                  - total_forest_and_other_wooded_land_2015
+                  - total_forest_and_other_wooded_land_2010
+                  - total_forest_and_other_wooded_land_2005
+                  - total_forest_and_other_wooded_land_2000
+                  - total_forest_and_other_wooded_land_1990
+            columns:
+              type: array
+              items:
+                type: string
+                enum:
+                  - area_available_for_public_recreation_total
+                  - area_available_for_public_recreation_percent
+                  - area_designated_or_managed_for_public_recreation_total
+                  - area_designated_or_managed_for_public_recreation_percent

@@ -82,7 +82,7 @@ const appConfig = {
     proxy: [
       {
         // Proxy all server-served routes:
-        context: ['/auth', '/img', '/css', '/video', '/api', '/definitions'],
+        context: ['/auth', '/img', '/css', '/video', '/api', '/definitions', '/api-docs', '/panEuropean-api-docs'],
         target: process.env.APP_URI ?? `http://localhost:9001`,
       },
       {
