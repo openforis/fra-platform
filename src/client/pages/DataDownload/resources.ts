@@ -6,7 +6,9 @@ export type DataDownloadResource = {
   labelKey: string
 }
 
-const resources: Array<DataDownloadResource> = [
+// @ts-ignore
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const _resources: Array<DataDownloadResource> = [
   {
     idx: 1,
     name: DataDownloadFileName.ForestExtentCharacteristicsAndChanges,
@@ -33,5 +35,7 @@ const resources: Array<DataDownloadResource> = [
     labelKey: 'areaOfPermanentForestEstate.areaOfPermanentForestEstate',
   },
 ]
+
+const resources: Array<DataDownloadResource> = []
 
 export default resources
