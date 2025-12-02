@@ -1,8 +1,6 @@
 import '../scriptInit'
 
-import * as pgPromise from 'pg-promise'
-import { ToolsUtils } from 'tools/utils/toolsUtils'
-import { Objects } from 'utils/objects'
+import pgPromise from 'pg-promise'
 
 import { Assessment, AssessmentNames } from 'meta/assessment/assessment'
 import { Assessments } from 'meta/assessment/assessments'
@@ -12,6 +10,8 @@ import { VariableName } from 'meta/assessment/variable'
 import { Dimensions } from 'meta/measurement/dimensions'
 import { Measures } from 'meta/measurement/measures'
 import { SystemOfMeasurementName, systemsOfMeasurement } from 'meta/measurement/systemOfMeasurement'
+import { Objects } from 'utils/objects'
+import { ToolsUtils } from 'tools/utils/toolsUtils'
 
 import { CacheController } from 'server/cache/controller'
 import { AssessmentController } from 'server/controller/assessment'

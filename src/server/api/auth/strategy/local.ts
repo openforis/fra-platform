@@ -1,11 +1,11 @@
 import { Request } from 'express'
 import { PassportStatic } from 'passport'
 import { VerifiedCallback } from 'passport-jwt'
-import * as passportLocal from 'passport-local'
-import { Objects } from 'utils/objects'
-import { RegExps } from 'utils/regExps'
+import passportLocal from 'passport-local'
 
 import { AuthProvider, AuthProviderLocalProps } from 'meta/user/auth'
+import { Objects } from 'utils/objects'
+import { RegExps } from 'utils/regExps'
 
 import { passwordCompare, passwordHash } from 'server/api/auth/utils/passwordUtils'
 import { AssessmentController } from 'server/controller/assessment'

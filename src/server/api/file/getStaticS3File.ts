@@ -1,4 +1,4 @@
-import * as path from 'path'
+import path from 'path'
 import { Request, Response } from 'express'
 
 import { FileStorage, FileStorageUtils } from 'server/service/fileStorage'

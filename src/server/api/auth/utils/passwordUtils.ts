@@ -1,4 +1,4 @@
-import * as bcrypt from 'bcrypt'
+import bcrypt from 'bcrypt'
 
 export const passwordCompare = async (password: string, password2: string): Promise<boolean> =>
   bcrypt.compare(password, password2)

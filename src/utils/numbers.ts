@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js'
 
-import { Objects } from './objects'
+import { Objects } from 'utils/objects'
 
 const between = (value: number, min: number, max: number): boolean => min <= value && max >= value
 

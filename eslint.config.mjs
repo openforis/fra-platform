@@ -69,7 +69,7 @@ export default defineConfig([
       '@typescript-eslint/explicit-function-return-type': 'error',
       '@typescript-eslint/no-explicit-any': 'warn',
       '@typescript-eslint/no-non-null-assertion': 'warn',
-      '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+      '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_', caughtErrors: 'none' }],
       '@typescript-eslint/no-use-before-define': ['error'],
       '@typescript-eslint/no-var-requires': 'error',
       camelcase: ['error', { properties: 'never', ignoreDestructuring: false }],
@@ -181,6 +181,14 @@ export default defineConfig([
     files: ['src/client/store/**/selectors/**/*.ts'],
     rules: {
       '@typescript-eslint/explicit-function-return-type': 'off',
+    },
+  },
+
+  // vite.config disable "ESLint: 'dependency-name' should be listed in the project's dependencies, not devDependencies."
+  {
+    files: ['vite.config.ts'],
+    rules: {
+      'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
     },
   },
   // Prettier integration

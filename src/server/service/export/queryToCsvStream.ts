@@ -1,8 +1,7 @@
-import QueryStream = require('pg-query-stream')
 import { pipeline, Transform } from 'stream'
-import * as fastCsv from 'fast-csv'
-import { ParserRow } from 'fast-csv'
-import * as pgPromise from 'pg-promise'
+import fastCsv, { ParserRow } from 'fast-csv'
+import pgPromise from 'pg-promise'
+import QueryStream from 'pg-query-stream'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { Logger } from 'server/utils/logger'

@@ -1,10 +1,10 @@
-import * as path from 'path'
-import * as bodyParser from 'body-parser'
-import * as compression from 'compression'
-import * as wwwhisper from 'connect-wwwhisper'
-import * as cookieParser from 'cookie-parser'
-import * as express from 'express'
-import * as morgan from 'morgan'
+import path from 'path'
+import bodyParser from 'body-parser'
+import compression from 'compression'
+import wwwhisper from 'connect-wwwhisper'
+import cookieParser from 'cookie-parser'
+import express from 'express'
+import morgan from 'morgan'
 
 import { Api } from 'server/api'
 import { Proxy } from 'server/proxy/proxy'
@@ -34,13 +34,10 @@ export const serverInit = (): void => {
 
   app.use(compression({ threshold: 512 }))
 
-  app.use('/img/', express.static(`${__dirname}/../../web-resources/img`))
-  app.use('/css/', express.static(`${__dirname}/../../web-resources/css`))
-  app.use('/video', express.static(`${__dirname}/../../web-resources/video`))
-
-  app.use('/style', express.static(`${__dirname}/../client/style`))
-  app.use('/js', express.static(`${__dirname}/../client/js`))
-  app.use('/woff2.css', express.static(`${__dirname}/../client/woff2.css`))
+  app.use('/assets', express.static(`${__dirname}/../client/assets`))
+  app.use('/css', express.static(`${__dirname}/../client/css`))
+  app.use('/img', express.static(`${__dirname}/../client/img`))
+  app.use('/video', express.static(`${__dirname}/../client/video`))
 
   /*
    * Initialize API

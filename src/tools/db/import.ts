@@ -1,12 +1,12 @@
 import '../scriptInit'
 
-import * as path from 'path'
+import path from 'path'
+
+import { AssessmentNames } from 'meta/assessment/assessment'
 import { EXPORT_ASSESSMENTS, EXPORT_ASSESSMENTS_CYCLES, EXPORT_TABLES } from 'tools/db/config/EXPORT_TABLES'
 import { readTableFromFile } from 'tools/db/io/readTableFromFile'
 import { DBService } from 'tools/db/service'
 import { ToolsUtils } from 'tools/utils/toolsUtils'
-
-import { AssessmentNames } from 'meta/assessment/assessment'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { TableData } from 'server/controller/cycleData/tableData'
