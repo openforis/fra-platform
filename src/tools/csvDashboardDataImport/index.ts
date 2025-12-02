@@ -1,16 +1,16 @@
 import '../scriptInit'
 
-import * as fs from 'node:fs'
-import * as path from 'node:path'
-import * as pgPromise from 'pg-promise'
-import { TotalLandAreaUpdateData, updateTotalLandArea } from 'tools/migrations/steps/steps/utils/updateTotalLandArea'
-import { CSV } from 'tools/utils/CSV'
-import { ToolsUtils } from 'tools/utils/toolsUtils'
-import { Objects } from 'utils/objects'
+import fs from 'node:fs'
+import path from 'node:path'
+import pgPromise from 'pg-promise'
 
 import { CountryIso } from 'meta/area/countryIso'
 import { NodeValue } from 'meta/assessment/node'
 import { NodeExtType } from 'meta/nodeExt/nodeExt'
+import { Objects } from 'utils/objects'
+import { TotalLandAreaUpdateData, updateTotalLandArea } from 'tools/migrations/steps/steps/utils/updateTotalLandArea'
+import { CSV } from 'tools/utils/CSV'
+import { ToolsUtils } from 'tools/utils/toolsUtils'
 
 import { UserController } from 'server/controller/user'
 import { BaseProtocol, DB } from 'server/db/db'

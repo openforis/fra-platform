@@ -1,14 +1,14 @@
-import * as pgPromise from 'pg-promise'
+import pgPromise from 'pg-promise'
 import { ITask } from 'pg-promise'
-import { Promises } from 'utils/promises'
 
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
+import { Promises } from 'utils/promises'
 
+import { CacheController } from 'server/cache/controller'
+import { AssessmentController } from 'server/controller/assessment'
 import { DB } from 'server/db/db'
 import { Schemas } from 'server/db/schemas'
-import { AssessmentController } from 'server/controller/assessment'
-import { CacheController } from 'server/cache/controller'
 
 const csv = `
 iso3,iso2,calling_code

@@ -1,4 +1,4 @@
-import * as path from 'path'
+import path from 'path'
 
 import { BaseProtocol } from 'server/db/db'
 import { Logger } from 'server/utils/logger'

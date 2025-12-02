@@ -4,6 +4,7 @@
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "baseUrl": "./src",
+    "esModuleInterop": true,
     "lib": ["ESNext", "DOM"],
     "module": "CommonJS",
     "moduleResolution": "Node",

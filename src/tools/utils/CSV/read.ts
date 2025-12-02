@@ -1,5 +1,5 @@
-import * as fastCsv from 'fast-csv'
-import * as fs from 'node:fs'
+import fastCsv from 'fast-csv'
+import fs from 'node:fs'
 
 const OPTS = {
   headers: true,

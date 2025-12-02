@@ -1,4 +1,5 @@
-import * as pgPromise from 'pg-promise'
+import pgPromise from 'pg-promise'
+
 import { Promises } from 'utils/promises'
 
 import { BaseProtocol, DB } from 'server/db/db'

@@ -1,15 +1,15 @@
 import 'tsconfig-paths/register'
 import 'dotenv/config'
 
-import * as fs from 'fs'
+import fs from 'fs'
 import { setTimeout } from 'node:timers/promises'
 import { Page } from 'puppeteer'
 import { Cluster } from 'puppeteer-cluster'
-import { APIUtil } from 'tools/utils/API'
-import { cookies } from 'tools/utils/API/cookie'
 
 import { CountryIso } from 'meta/area/countryIso'
 import { Section, SubSection } from 'meta/assessment/section'
+import { APIUtil } from 'tools/utils/API'
+import { cookies } from 'tools/utils/API/cookie'
 
 import { Logger } from 'server/utils/logger'
 
@@ -175,7 +175,6 @@ const exec = async (): Promise<void> => {
       const count = countryIsos.length
       Logger.debug(`Processing ${countryIso} (${processed}/${count}) ${sectionName}`)
 
-      // eslint-disable-next-line no-await-in-loop
       await compareTableData(countryIso, sectionName, page)
       Logger.debug(`OK: ${assessmentName} ${cycleName} ${countryIso} ${sectionName}`)
     }
