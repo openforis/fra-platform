@@ -40,10 +40,7 @@ export const getBulkDownload = async (req: CountryRequest, res: Response): Promi
     const { assessmentName, cycleName } = req.query
     const { assessment, cycle } = req.context
 
-    const files = await CycleDataController.getBulkDownload({
-      assessment,
-      cycle,
-    })
+    const files = await CycleDataController.getBulkDownload({ assessment, cycle })
 
     const BOM = '\uFEFF' // Byte Order Mark for UTF-8
     const readmeContent = Buffer.from(BOM + _README(cycle.name), 'utf-8')

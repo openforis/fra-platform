@@ -1,0 +1,55 @@
+import { i18n as i18nType } from 'i18next'
+
+import { Country } from 'meta/area/country'
+import { Assessment } from 'meta/assessment/assessment'
+import { Cycle } from 'meta/assessment/cycle'
+import { RecordAssessmentData } from 'meta/data/recordData'
+
+import { getFileName } from 'server/controller/cycleData/getBulkDownload/csvContent/_fileName'
+import { BulkDownloadYear, CSVContent, CSVRow } from 'server/controller/cycleData/getBulkDownload/types'
+
+import { getCSVRow } from './_row'
+import { getCSVRowHeader } from './_rowHeader'
+import { CSVColValue, CSVRowHeaderOptionsVariables, CSVRowOptionsVariables } from './_types'
+
+type Props = {
+  assessment: Assessment
+  countries: Array<Country>
+  cycle: Cycle
+  data: RecordAssessmentData
+  i18n: i18nType
+  includeClimaticDomain?: boolean
+  yearMeta: BulkDownloadYear
+}
+
+// multiple variables per row
+export const getCSVContentVariables = async (props: Props): Promise<CSVContent> => {
+  const { assessment, countries, cycle, data, i18n, includeClimaticDomain, yearMeta } = props
+  const { fileName, tables, years } = yearMeta
+
+  const colValues: Array<CSVColValue> = tables.flatMap((table) => {
+    const { tableName } = table
+    return table.variables.flatMap((variable) => {
+      const { csvColumn, type, variableName } = variable
+      return { colName: '', csvColumn, tableName, type, variableName }
+    })
+  })
+
+  const rows: Array<CSVRow> = []
+
+  const optionsHeader: CSVRowHeaderOptionsVariables = { colValues, includeClimaticDomain, includeYear: true, tables }
+  const rowHeader = getCSVRowHeader({ options: optionsHeader })
+  rows.push(rowHeader)
+
+  countries.forEach((country) => {
+    years.forEach((year) => {
+      const colValuesRow = colValues.map<CSVColValue>((colValue) => ({ ...colValue, colName: year }))
+      const options: CSVRowOptionsVariables = { ...optionsHeader, colValues: colValuesRow, year }
+      const row = getCSVRow({ assessment, country, cycle, data, i18n, options })
+
+      rows.push(row)
+    })
+  })
+
+  return { content: rows.join('\n'), fileName: getFileName({ fileName }) }
+}
