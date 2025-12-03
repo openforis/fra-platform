@@ -4,7 +4,7 @@ import { BulkDownloadTable } from 'server/controller/cycleData/getBulkDownload/t
 
 import { BulkDownloadTableFactory } from './_types'
 
-export const getExtentOfForest: BulkDownloadTableFactory = (): BulkDownloadTable => {
+export const getExtentOfForest: BulkDownloadTableFactory = (_props): BulkDownloadTable => {
   return {
     tableName: TableNames.extentOfForest,
     variables: [
