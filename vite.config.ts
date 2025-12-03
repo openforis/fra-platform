@@ -11,6 +11,7 @@ const port = 9000
 
 export default defineConfig(({ mode }) => {
   const buildProd = mode === 'production'
+  const appVersion = process.env.APP_VERSION ?? version
 
   return {
     // Build Configuration
@@ -31,8 +32,44 @@ export default defineConfig(({ mode }) => {
       __DEV__: JSON.stringify(process.env.NODE_ENV !== 'production'),
       __GOOGLE_API__: JSON.stringify(process.env.FRA_GOOGLE_API),
       __GOOGLE_MAPS_API_KEY__: JSON.stringify(process.env.FRA_GOOGLE_MAPS_API_KEY),
-      __APPLICATION_VERSION__: process.env.APP_VERSION ?? JSON.stringify(version),
+      __APPLICATION_VERSION__: JSON.stringify(appVersion),
       __BUILD_DATE__: JSON.stringify(new Date().toISOString().split('T')[0]),
+    },
+
+    // Dependency Pre-bundling Optimization
+    optimizeDeps: {
+      include: [
+        '@reduxjs/toolkit',
+        'axios',
+        'classnames',
+        'd3',
+        'date-fns',
+        'diff',
+        'i18next',
+        'jodit-react',
+        'lodash.chunk',
+        'lodash.clonedeep',
+        'lodash.debounce',
+        'lodash.isequal',
+        'lodash.merge',
+        'lodash.throttle',
+        'marked',
+        'react',
+        'react-csv',
+        'react-dom',
+        'react-dropzone',
+        'react-hook-form',
+        'react-i18next',
+        'react-paginate',
+        'react-redux',
+        'react-router',
+        'react-select',
+        'react-tooltip',
+        'recharts',
+        'socket.io-client',
+        'uuid',
+      ],
+      exclude: [],
     },
 
     // Plugins
