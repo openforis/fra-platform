@@ -30,7 +30,7 @@ const getAreaLabel = (props: { code: AreaCode; i18n: i18nType }): string => {
   return i18n.t(Areas.getTranslationKey(code))
 }
 
-const parseValue = (value: string, type: BulkDownloadVariableType = BulkDownloadVariableType.string): CSVValue => {
+const parseValue = (value: string, type: BulkDownloadVariableType = BulkDownloadVariableType.number): CSVValue => {
   let parsedValue = ''
   if (!Objects.isEmpty(value)) {
     parsedValue = value.replace(/"/g, '').replace(/\n/g, '').replace(/\r/g, '')
