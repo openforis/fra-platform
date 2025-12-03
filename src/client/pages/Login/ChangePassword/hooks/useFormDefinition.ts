@@ -1,4 +1,5 @@
 import { useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { UUID } from 'meta/uuid/uuid'
 
@@ -11,6 +12,7 @@ type Props = {
 
 export const useFormDefinition = (props: Props): FormDefinition => {
   const { email, uuid } = props
+  const { t } = useTranslation()
 
   return useMemo<FormDefinition>(() => {
     const fields: Array<FieldDefinition> = [
@@ -25,7 +27,7 @@ export const useFormDefinition = (props: Props): FormDefinition => {
         defaultValue: email,
         label: 'login.email',
         name: 'email',
-        placeholder: 'login.email',
+        placeholder: t('login.email'),
         required: true,
         type: FormFieldType.text,
         watches: {
@@ -36,7 +38,7 @@ export const useFormDefinition = (props: Props): FormDefinition => {
         defaultValue: '',
         label: 'login.password',
         name: 'password',
-        placeholder: 'login.password',
+        placeholder: t('login.password'),
         required: true,
         type: FormFieldType.password,
       },
@@ -44,12 +46,12 @@ export const useFormDefinition = (props: Props): FormDefinition => {
         defaultValue: '',
         label: 'login.repeatPassword',
         name: 'password2',
-        placeholder: 'login.repeatPassword',
+        placeholder: t('login.repeatPassword'),
         required: true,
         type: FormFieldType.password,
       },
     ]
 
     return { fields }
-  }, [email, uuid])
+  }, [email, t, uuid])
 }
