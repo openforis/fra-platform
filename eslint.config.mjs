@@ -57,9 +57,6 @@ export default defineConfig([
         node: {
           extensions: ['.js', '.jsx', '.ts', '.tsx'],
         },
-        webpack: {
-          config: 'webpack.config.babel.js',
-        },
         typescript: {},
       },
     },
