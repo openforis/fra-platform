@@ -36,6 +36,42 @@ export default defineConfig(({ mode }) => {
       __BUILD_DATE__: JSON.stringify(new Date().toISOString().split('T')[0]),
     },
 
+    // Dependency Pre-bundling Optimization
+    optimizeDeps: {
+      include: [
+        '@reduxjs/toolkit',
+        'axios',
+        'classnames',
+        'd3',
+        'date-fns',
+        'diff',
+        'i18next',
+        'jodit-react',
+        'lodash.chunk',
+        'lodash.clonedeep',
+        'lodash.debounce',
+        'lodash.isequal',
+        'lodash.merge',
+        'lodash.throttle',
+        'marked',
+        'react',
+        'react-csv',
+        'react-dom',
+        'react-dropzone',
+        'react-hook-form',
+        'react-i18next',
+        'react-paginate',
+        'react-redux',
+        'react-router',
+        'react-select',
+        'react-tooltip',
+        'recharts',
+        'socket.io-client',
+        'uuid',
+      ],
+      exclude: [],
+    },
+
     // Plugins
     plugins: [react(), tsconfigPaths()],
 
