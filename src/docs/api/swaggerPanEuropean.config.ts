@@ -1,7 +1,11 @@
 import { Options } from 'swagger-jsdoc'
 
 export const swaggerPanEuropeanOptions: Options = {
-  apis: ['./src/server/api/**/*.panEuropean.apidoc.yml', './src/docs/api/schemas/panEuropean/*.yml'],
+  apis: [
+    './src/server/api/**/*.panEuropean.apidoc.yml',
+    './src/docs/api/schemas/panEuropean/*.yml',
+    './src/docs/api/schemas/DescriptionCountryValues.yml',
+  ],
   definition: {
     info: {
       description: '',
