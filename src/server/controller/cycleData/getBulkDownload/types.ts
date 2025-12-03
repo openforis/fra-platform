@@ -24,10 +24,12 @@ export type BulkDownloadVariable = {
   variableName: VariableName
 }
 
+type GetDatum = typeof RecordAssessmentDatas.getDatum
 export type BulkDownloadTable = {
   tableName: TableName
   variables: Array<BulkDownloadVariable>
-  getDatum?: typeof RecordAssessmentDatas.getDatum // custom getNodeValue processor
+  // custom getDatum processor
+  getDatum?: (props: Parameters<GetDatum>[0] & { csvColumn: string }) => ReturnType<GetDatum>
 }
 
 export type BulkDownloadYear = {

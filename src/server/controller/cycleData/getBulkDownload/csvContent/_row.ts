@@ -70,10 +70,10 @@ export const getCSVRow = (props: Props): CSVRow => {
   }
 
   colValues.forEach((colValue) => {
-    const { colName, getDatum, tableName, type, variableName } = colValue
+    const { colName, csvColumn, getDatum, tableName, type, variableName } = colValue
 
     const getValue = getDatum ?? RecordAssessmentDatas.getDatum
-    const propsValue = { assessmentName, countryIso, colName, cycleName, data, tableName, variableName }
+    const propsValue = { assessmentName, countryIso, colName, csvColumn, cycleName, data, tableName, variableName }
     const value = getValue(propsValue)
 
     row.push(parseValue(value, type))
