@@ -1,4 +1,5 @@
 import { Express } from 'express'
+import multer from 'multer'
 import passport from 'passport'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
@@ -20,7 +21,7 @@ export const AuthApi = {
 
     express.post(ApiEndPoint.Auth.logout(), postLogout)
 
-    express.post(ApiEndPoint.Auth.changePassword(), postChangePassword)
+    express.post(ApiEndPoint.Auth.changePassword(), multer().none(), postChangePassword)
     express.post(ApiEndPoint.Auth.resetPassword(), postResetPassword)
 
     express.use(function (req, res, next) {

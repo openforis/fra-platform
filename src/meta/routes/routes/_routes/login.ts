@@ -1,6 +1,6 @@
 import { LoginInvitationQueryParams } from 'meta/routes/queryParams/invitation'
 import { LoginQueryParams } from 'meta/routes/queryParams/login'
-import { LoginResetPasswordQueryParams } from 'meta/routes/queryParams/resetPassword'
+import { ChangePasswordRouteParams } from 'meta/routes/routeParams/changePassword'
 import { CycleRouteParams } from 'meta/routes/routeParams/cycle'
 import { Cycle } from 'meta/routes/routes/_routes/cycle'
 import { createRoute } from 'meta/routes/routes/createRoute'
@@ -14,7 +14,12 @@ export const LoginInvitationLocal = createRoute<CycleRouteParams, LoginInvitatio
   path: 'local',
   parent: LoginInvitation,
 })
-export const LoginResetPassword = createRoute<CycleRouteParams, LoginResetPasswordQueryParams>({
-  path: 'resetPassword',
+export const LoginResetPassword = createRoute<CycleRouteParams>({
+  path: 'reset-password',
   parent: Login,
+})
+
+export const LoginChangePassword = createRoute<ChangePasswordRouteParams>({
+  path: ':resetPasswordUuid',
+  parent: LoginResetPassword,
 })
