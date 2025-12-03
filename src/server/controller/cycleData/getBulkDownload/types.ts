@@ -1,4 +1,5 @@
 import { Assessment } from 'meta/assessment/assessment'
+import { ColName } from 'meta/assessment/col'
 import { Cycle } from 'meta/assessment/cycle'
 import { TableName } from 'meta/assessment/table'
 import { VariableName } from 'meta/assessment/variable'
@@ -16,6 +17,7 @@ export enum BulkDownloadVariableType {
 }
 
 export type BulkDownloadVariable = {
+  colName?: ColName
   csvColumn: string
   type?: BulkDownloadVariableType // default number
   variableName: VariableName

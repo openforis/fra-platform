@@ -30,8 +30,8 @@ export const getCSVContentVariables = async (props: Props): Promise<CSVContent> 
   const colValues: Array<CSVColValue> = tables.flatMap((table) => {
     const { tableName } = table
     return table.variables.flatMap((variable) => {
-      const { csvColumn, type, variableName } = variable
-      return { colName: '', csvColumn, tableName, type, variableName }
+      const { colName, csvColumn, type, variableName } = variable
+      return { colName, csvColumn, tableName, type, variableName }
     })
   })
 
@@ -43,7 +43,9 @@ export const getCSVContentVariables = async (props: Props): Promise<CSVContent> 
 
   countries.forEach((country) => {
     years.forEach((year) => {
-      const colValuesRow = colValues.map<CSVColValue>((colValue) => ({ ...colValue, colName: year }))
+      const colValuesRow = colValues.map<CSVColValue>((colValue) => {
+        return { ...colValue, colName: colValue.colName ?? year }
+      })
       const options: CSVRowOptionsVariables = { ...optionsHeader, colValues: colValuesRow, year }
       const row = getCSVRow({ assessment, country, cycle, data, i18n, options })
 
