@@ -4,10 +4,11 @@ import { VariableName } from 'meta/assessment/variable'
 
 import { BulkDownloadTable, BulkDownloadVariable } from 'server/controller/cycleData/getBulkDownload/types'
 
-export type CSVColValue = BulkDownloadVariable & {
-  colName: ColName
-  tableName: TableName
-}
+export type CSVColValue = Pick<BulkDownloadTable, 'getDatum'> &
+  BulkDownloadVariable & {
+    colName: ColName
+    tableName: TableName
+  }
 
 export type CSVRowOptionsBase = {
   includeClimaticDomain?: boolean

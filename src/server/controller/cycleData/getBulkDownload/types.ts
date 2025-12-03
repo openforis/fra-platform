@@ -3,6 +3,7 @@ import { ColName } from 'meta/assessment/col'
 import { Cycle } from 'meta/assessment/cycle'
 import { TableName } from 'meta/assessment/table'
 import { VariableName } from 'meta/assessment/variable'
+import { RecordAssessmentDatas } from 'meta/data/recordDatas'
 
 // ===== Bulk Download common props definition
 export type PropsBulkDownload = {
@@ -26,6 +27,7 @@ export type BulkDownloadVariable = {
 export type BulkDownloadTable = {
   tableName: TableName
   variables: Array<BulkDownloadVariable>
+  getDatum?: typeof RecordAssessmentDatas.getDatum // custom getNodeValue processor
 }
 
 export type BulkDownloadYear = {

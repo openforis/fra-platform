@@ -28,10 +28,10 @@ export const getCSVContentVariables = async (props: Props): Promise<CSVContent> 
   const { fileName, tables, years } = yearMeta
 
   const colValues: Array<CSVColValue> = tables.flatMap((table) => {
-    const { tableName } = table
+    const { getDatum, tableName } = table
     return table.variables.flatMap((variable) => {
       const { colName, csvColumn, type, variableName } = variable
-      return { colName, csvColumn, tableName, type, variableName }
+      return { colName, csvColumn, getDatum, tableName, type, variableName }
     })
   })
 
