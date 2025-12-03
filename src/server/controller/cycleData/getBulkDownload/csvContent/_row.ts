@@ -57,7 +57,7 @@ export const getCSVRow = (props: Props): CSVRow => {
   row.push(parseValue(countryIso, BulkDownloadVariableType.string))
   row.push(parseValue(countryLabel, BulkDownloadVariableType.string))
 
-  if ('year' in options && 'includeYear' in options && options.includeYear) {
+  if ('includeYear' in options && options.includeYear) {
     const year = options.year.replace('_', '-')
     row.push(parseValue(year, BulkDownloadVariableType.string))
   }
