@@ -55,11 +55,13 @@ export const panEuropeanSwaggerUiCustomJs = String.raw`
 
     const schemas = spec.components.schemas || {}
     const tableOptions = (schemas.PanEuropeanTableOptions && schemas.PanEuropeanTableOptions.properties) || {}
+    
     const allVariables =
       (schemas.PanEuropeanVariableNames &&
         schemas.PanEuropeanVariableNames.items &&
         schemas.PanEuropeanVariableNames.items.enum) ||
       []
+    
     const allColumns =
       (schemas.PanEuropeanColumnNames &&
         schemas.PanEuropeanColumnNames.items &&
@@ -75,23 +77,41 @@ export const panEuropeanSwaggerUiCustomJs = String.raw`
     return true
   }
 
-  const getSelectedTables = () =>
-    findParamInputs(PARAMS.table)
-      .map((node) => node.value)
-      .filter(Boolean)
+  const getSelectedTables = () => {
+    const values = []
+    findParamInputs(PARAMS.table).forEach((node) => {
+      if(node.tagName === 'SELECT' && node.multiple) {
+         // Handle native multi-select
+         Array.from(node.selectedOptions).forEach(opt => values.push(opt.value))
+      } else {
+         // Handle standard input or single select
+         values.push(node.value)
+      }
+    })
+    return values.filter(Boolean)
+  }
 
   const collectAllowed = (selectedTables) => {
-    const variables = new Set()
-    const columns = new Set()
+    if (!selectedTables || selectedTables.length === 0) {
+      return {
+        variables: state.allVariables,
+        columns: state.allColumns
+      }
+    }
+
+    const variablesSet = new Set()
+    const columnsSet = new Set()
 
     selectedTables.forEach((tableName) => {
       const entry = state.tableOptions[tableName]
+      
       const variableEnum =
         entry &&
         entry.properties &&
         entry.properties.variables &&
         entry.properties.variables.items &&
         entry.properties.variables.items.enum
+
       const columnEnum =
         entry &&
         entry.properties &&
@@ -99,13 +119,13 @@ export const panEuropeanSwaggerUiCustomJs = String.raw`
         entry.properties.columns.items &&
         entry.properties.columns.items.enum
 
-      if (Array.isArray(variableEnum)) variableEnum.forEach((v) => variables.add(v))
-      if (Array.isArray(columnEnum)) columnEnum.forEach((c) => columns.add(c))
+      if (Array.isArray(variableEnum)) variableEnum.forEach((v) => variablesSet.add(v))
+      if (Array.isArray(columnEnum)) columnEnum.forEach((c) => columnsSet.add(c))
     })
 
     return {
-      variables: variables.size ? Array.from(variables) : state.allVariables,
-      columns: columns.size ? Array.from(columns) : state.allColumns,
+      variables: variablesSet.size ? Array.from(variablesSet).sort() : state.allVariables,
+      columns: columnsSet.size ? Array.from(columnsSet).sort() : state.allColumns,
     }
   }
 
@@ -139,7 +159,9 @@ export const panEuropeanSwaggerUiCustomJs = String.raw`
           node.appendChild(option)
         })
 
-        if (previous && values.includes(previous)) node.value = previous
+        if (previous && values.includes(previous)) {
+            node.value = previous
+        }
       } else if (node.tagName === 'INPUT') {
         const datalist = ensureDatalist(paramName + '-datalist', node)
         datalist.innerHTML = ''
@@ -162,15 +184,7 @@ export const panEuropeanSwaggerUiCustomJs = String.raw`
   }
 
   const onTableChange = (evt) => {
-    const target = evt.target
-    if (!target) return
-    const name = target.getAttribute('name') || target.getAttribute('aria-label') || ''
-    const isTable =
-      name === PARAMS.table ||
-      name === PARAMS.table.replace('[]', '') ||
-      !!target.closest('[data-param-name="' + PARAMS.table + '"]') ||
-      !!target.closest('[data-param-name="' + PARAMS.table.replace('[]', '') + '"]')
-    if (isTable) refreshSelectors()
+    setTimeout(refreshSelectors, 50)
   }
 
   const bindTableListeners = (root = document) => {
@@ -178,6 +192,7 @@ export const panEuropeanSwaggerUiCustomJs = String.raw`
       if (node._panEuropeanBound) return
       node._panEuropeanBound = true
       node.addEventListener('change', onTableChange, true)
+      node.addEventListener('input', onTableChange, true) 
     })
   }
 
@@ -198,10 +213,10 @@ export const panEuropeanSwaggerUiCustomJs = String.raw`
 
           if (node.querySelector) {
             const hasTables = selectorsForParam(PARAMS.table).some((sel) => node.querySelector(sel))
-            const hasVars = selectorsForParam(PARAMS.variables).some((sel) => node.querySelector(sel))
-            const hasCols = selectorsForParam(PARAMS.columns).some((sel) => node.querySelector(sel))
-            if (hasTables) bindTableListeners(node)
-            if (hasTables || hasVars || hasCols) shouldRefresh = true
+            if (hasTables) {
+                bindTableListeners(node)
+                shouldRefresh = true
+            }
           }
         })
       })
