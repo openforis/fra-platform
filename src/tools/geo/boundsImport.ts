@@ -1,11 +1,12 @@
 import '../scriptInit'
 
-import * as fs from 'fs/promises'
-import * as path from 'path'
+import fs from 'fs/promises'
+import path from 'path'
 import { config } from 'dotenv'
-import * as pgPromise from 'pg-promise'
+import pgPromise from 'pg-promise'
 
 import { CountryIso } from 'meta/area/countryIso'
+import { ToolsUtils } from 'tools/utils/toolsUtils'
 
 import { DB } from 'server/db/db'
 
@@ -23,7 +24,6 @@ type Response = {
 config({ path: path.resolve(__dirname, '..', '..', '.env') })
 
 export const boundsImport = async (): Promise<void> => {
-  // eslint-disable-next-line no-console
   const content = await fs.readFile(path.resolve(__dirname, 'FRA_236_ISO_GEE_Bounds.geojson'))
   const response: Response = JSON.parse(content.toString())
 
@@ -64,14 +64,4 @@ export const boundsImport = async (): Promise<void> => {
   await DB.none(query)
 }
 
-boundsImport()
-  .then(() => {
-    // eslint-disable-next-line no-console
-    console.log('=== process finished')
-    process.exit(0)
-  })
-  .catch((error) => {
-    // eslint-disable-next-line no-console
-    console.error(error)
-    process.exit(1)
-  })
+ToolsUtils.exec(boundsImport)

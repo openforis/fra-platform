@@ -1,7 +1,7 @@
 import '../../scriptInit'
 
-import * as fs from 'fs'
-import * as path from 'path'
+import fs from 'fs'
+import path from 'path'
 
 import { DB } from 'server/db/db'
 import { Logger } from 'server/utils/logger'
@@ -58,7 +58,6 @@ const resetMigrationSteps = async (): Promise<void> => {
 
     // === 3. Create reset step
     const { fileName } = await createMigrationStep('reset')
-    // eslint-disable-next-line @typescript-eslint/no-var-requires,global-require,import/no-dynamic-require
 
     // === 4. Delete old migration files
     deleteOldMigrationFiles(fileName)

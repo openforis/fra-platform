@@ -1,6 +1,6 @@
 import { Express } from 'express'
 // @ts-ignore
-import * as queue from 'express-queue'
+import queue from 'express-queue'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 

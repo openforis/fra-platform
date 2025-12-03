@@ -1,8 +1,8 @@
 import { Express } from 'express'
 import { OpenAPIV3 } from 'openapi-types'
-import * as swaggerJSDoc from 'swagger-jsdoc'
-import * as swaggerUi from 'swagger-ui-express'
 import { SwaggerUiOptions } from 'swagger-ui-express'
+import swaggerJSDoc from 'swagger-jsdoc'
+import swaggerUi from 'swagger-ui-express'
 
 import { AssessmentNames } from 'meta/assessment/assessment'
 

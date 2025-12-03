@@ -1,15 +1,15 @@
 import 'tsconfig-paths/register'
 import 'dotenv/config'
 
-import * as fs from 'fs'
-import * as path from 'path'
+import fs from 'fs'
+import path from 'path'
 import { setTimeout } from 'node:timers/promises'
 import { Page } from 'puppeteer'
 import { Cluster } from 'puppeteer-cluster'
-import { APIUtil } from 'tools/utils/API'
 
 import { CountryIso } from 'meta/area/countryIso'
 import { Lang } from 'meta/lang'
+import { APIUtil } from 'tools/utils/API'
 
 const HOST = 'https://fra-data.fao.org'
 const ASSESSMENT_NAME = 'fra'

@@ -1,5 +1,4 @@
-// @ts-ignore
-import * as snake from 'to-snake-case'
+import snakeCase from 'to-snake-case'
 
 const nbspToUnicode = (string: string): string => {
   return string.replaceAll('&nbsp;', '\u00A0')
@@ -16,5 +15,5 @@ export const normalize = (string: string): string => {
 export const Strings = {
   nbspToUnicode,
   normalize,
-  snakeCase: snake,
+  snakeCase,
 }

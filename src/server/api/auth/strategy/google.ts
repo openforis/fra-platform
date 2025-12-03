@@ -1,7 +1,6 @@
 import { Request } from 'express'
 import { PassportStatic } from 'passport'
-import * as GoogleStrategy from 'passport-google-oauth20'
-import { Profile, VerifyCallback } from 'passport-google-oauth20'
+import GoogleStrategy, { Profile, VerifyCallback } from 'passport-google-oauth20'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { AuthProvider, AuthProviderGoogleProps } from 'meta/user/auth'
