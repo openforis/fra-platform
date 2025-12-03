@@ -11,6 +11,7 @@ import { swaggerPanEuropeanOptions } from 'docs/api/swaggerPanEuropean.config'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { CountryRepository } from 'server/db/repository/assessmentCycle/country'
+import { buildPanEuropeanDataSchemas } from 'server/swagger/scripts/buildPanEuropeanDataSchemas'
 import { panEuropeanSwaggerUiCustomJs } from 'server/swagger/scripts/panEuropeanSwaggerUiCustomJs'
 
 const swaggerSpec = swaggerJSDoc(swaggerOptions) as OpenAPIV3.Document
@@ -60,6 +61,7 @@ export const swaggerInit = (app: Express): void => {
     })
     const countryIsos = await CountryRepository.getCountryIsos({ assessment, cycle })
     _updateCountryIsoParameter(panEuropeanSwaggerSpec, countryIsos)
+    await buildPanEuropeanDataSchemas({ assessment, cycle, spec: panEuropeanSwaggerSpec })
 
     res.json(panEuropeanSwaggerSpec)
   })
