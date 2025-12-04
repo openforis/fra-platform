@@ -2,6 +2,7 @@ import { Assessment } from 'meta/assessment/assessment'
 import { ColName } from 'meta/assessment/col'
 import { Cycle } from 'meta/assessment/cycle'
 import { TableName } from 'meta/assessment/table'
+import { RecordTables } from 'meta/assessment/table/record'
 import { VariableName } from 'meta/assessment/variable'
 import { RecordAssessmentDatas } from 'meta/data/recordDatas'
 
@@ -46,6 +47,7 @@ export type BulkDownloadForestArea = {
 
 export type BulkDownloadMetadata = {
   forestArea: BulkDownloadForestArea
+  tables: RecordTables
   years: Array<BulkDownloadYear>
 }
 

@@ -16,8 +16,7 @@ type Props = PropsBulkDownload & { includeClimaticDomain?: boolean }
 export const getBulkDownload = async (props: Props): Promise<Array<CSVContent>> => {
   const { assessment, cycle, includeClimaticDomain = true } = props
 
-  const metadata = getBulkDownloadMetadata({ assessment, cycle })
-  const { forestArea, years } = metadata
+  const metadata = await getBulkDownloadMetadata({ assessment, cycle })
 
   const i18n = (await createI18nPromise(Lang.en)) as i18nType
   const countries = await getCountries({ assessment, cycle })
@@ -26,14 +25,14 @@ export const getBulkDownload = async (props: Props): Promise<Array<CSVContent>> 
   const propsContent = { assessment, countries, cycle, data, i18n, includeClimaticDomain }
 
   return [
-    ...years.flatMap((yearMeta) => {
+    ...metadata.years.flatMap((yearMeta) => {
       return [
         // years csv files
         getCSVContentVariables({ ...propsContent, yearMeta }),
         // years singe variable csv files
         ...yearMeta.tables.flatMap((table) => {
           return table.variables.map((variable) => {
-            return getCSVContentVariable({ ...propsContent, forestArea, yearMeta, table, variable })
+            return getCSVContentVariable({ ...propsContent, metadata, yearMeta, table, variable })
           })
         }),
       ]
