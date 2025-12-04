@@ -13,7 +13,7 @@ type TextFieldProps = FieldProps & {
 const TextField: React.FC<TextFieldProps> = (props) => {
   const { fieldDefinition, inputType = 'text', register } = props
 
-  const { name, placeholder } = fieldDefinition
+  const { bordered, name, placeholder } = fieldDefinition
 
   return (
     <FormField
@@ -22,12 +22,18 @@ const TextField: React.FC<TextFieldProps> = (props) => {
       renderInput={({ disabled }) => {
         if (disabled) {
           return (
-            // eslint-disable-next-line react/jsx-props-no-spreading
-            <input className={classNames('input-text disabled')} type={inputType} {...register(name, { disabled })} />
+            <input
+              className={classNames('input-text disabled', { bordered })}
+              placeholder={placeholder}
+              type={inputType}
+              // eslint-disable-next-line react/jsx-props-no-spreading
+              {...register(name, { disabled })}
+            />
           )
         }
         return (
           <InputText
+            bordered={bordered}
             disabled={disabled}
             id={name}
             name={name}

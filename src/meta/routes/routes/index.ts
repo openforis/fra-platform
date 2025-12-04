@@ -29,7 +29,13 @@ import {
   TheSecretsOfMangroves,
   WatchingOverOurForests,
 } from 'meta/routes/routes/_routes/kiosk'
-import { Login, LoginInvitation, LoginInvitationLocal, LoginResetPassword } from 'meta/routes/routes/_routes/login'
+import {
+  Login,
+  LoginChangePassword,
+  LoginInvitation,
+  LoginInvitationLocal,
+  LoginResetPassword,
+} from 'meta/routes/routes/_routes/login'
 import { OriginalDataPoint } from 'meta/routes/routes/_routes/originalDataPoint'
 import { Print, PrintTables } from 'meta/routes/routes/_routes/print'
 import { Section } from 'meta/routes/routes/_routes/section'
@@ -64,6 +70,7 @@ export const Routes = {
 
   // login
   Login,
+  LoginChangePassword,
   LoginInvitation,
   LoginInvitationLocal,
   LoginResetPassword,

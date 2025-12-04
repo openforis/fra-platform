@@ -23,6 +23,7 @@ export type WatchCallback<FIELD_VALUES = FieldValues, RETURNED = unknown> = (pro
 }) => RETURNED
 
 export type FieldDefinition<FIELD_VALUES = FieldValues> = {
+  bordered?: boolean
   defaultValue?: unknown
   errorField?: string
   isMulti?: boolean
