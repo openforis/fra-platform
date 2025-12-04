@@ -24,6 +24,7 @@ export const useFormDefinition = (props: Props): FormDefinition => {
         type: FormFieldType.hidden,
       },
       {
+        bordered: true,
         defaultValue: email,
         label: 'login.email',
         name: 'email',
@@ -35,6 +36,7 @@ export const useFormDefinition = (props: Props): FormDefinition => {
         },
       },
       {
+        bordered: true,
         defaultValue: '',
         label: 'login.password',
         name: 'password',
@@ -43,6 +45,7 @@ export const useFormDefinition = (props: Props): FormDefinition => {
         type: FormFieldType.password,
       },
       {
+        bordered: true,
         defaultValue: '',
         label: 'login.repeatPassword',
         name: 'password2',
