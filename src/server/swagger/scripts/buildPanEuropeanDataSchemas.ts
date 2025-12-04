@@ -17,10 +17,14 @@ export const buildPanEuropeanDataSchemas = async (props: Props): Promise<void> =
   const schemas = components.schemas ?? {}
 
   const sections = await SectionRedisRepository.getMany({ assessment, cycle })
-  const dataExportSectionNames = sections
-    .flatMap((section) => section.subSections ?? [])
-    .filter((subSection) => subSection?.props?.dataExport)
-    .map((subSection) => subSection.props.name)
+  const dataExportSectionNames = sections.reduce<Array<string>>((acc, section) => {
+    section.subSections?.forEach((subSection) => {
+      if (subSection?.props?.dataExport) {
+        acc.push(subSection.props.name)
+      }
+    })
+    return acc
+  }, [])
 
   const sectionsMetadata = await SectionRedisRepository.getManyMetadata({
     assessment,
@@ -46,9 +50,12 @@ export const buildPanEuropeanDataSchemas = async (props: Props): Promise<void> =
 
     const columns = table.props.columnsExport?.[cycle.uuid] ?? table.props.columnNames?.[cycle.uuid] ?? []
     const variables =
-      table.rows
-        ?.filter((row) => !!row.props?.variableName && !row.props?.excludeFromDataExport?.[cycle.uuid])
-        .map((row) => row.props.variableName) ?? []
+      table.rows?.reduce<Array<string>>((acc, row) => {
+        if (!!row.props?.variableName && !row.props?.excludeFromDataExport?.[cycle.uuid]) {
+          acc.push(row.props.variableName)
+        }
+        return acc
+      }, []) ?? []
 
     columns.forEach((col) => allColumns.add(col))
     variables.forEach((variable) => allVariables.add(variable))
