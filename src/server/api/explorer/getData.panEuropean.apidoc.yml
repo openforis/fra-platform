@@ -1,0 +1,48 @@
+openapi: 3.0.0
+paths:
+  /explorer/data:
+    get:
+      tags:
+        - panEuropean data
+      summary: Get latest panEuropean countries published table data
+      parameters:
+        - $ref: '#/components/parameters/assessmentName'
+        - $ref: '#/components/parameters/countryISOs'
+        - $ref: '#/components/parameters/panEuropeanTableNames'
+        - $ref: '#/components/parameters/panEuropeanVariables'
+        - $ref: '#/components/parameters/panEuropeanColumns'
+      responses:
+        '200':
+          description: Successful operation.
+          content:
+            application/json:
+              schema:
+                description: The resulting table data.
+                $ref: '#/components/schemas/RecordAssessmentData'
+              example:
+                panEuropean:
+                  "2025":
+                    ALB:
+                      table_6_10a:
+                        area_available_for_public_recreation_percent:
+                          total_forest_and_other_wooded_land_2015:
+                            raw: null
+                          total_forest_and_other_wooded_land_2010:
+                            raw: null
+                          total_forest_and_other_wooded_land_2005:
+                            raw: "98.61"
+                          total_forest_and_other_wooded_land_2000:
+                            raw: "98.58"
+                          total_forest_and_other_wooded_land_1990:
+                            raw: null
+                        area_available_for_public_recreation_total:
+                          total_forest_and_other_wooded_land_2015:
+                            raw: null
+                          total_forest_and_other_wooded_land_2010:
+                            raw: null
+                          total_forest_and_other_wooded_land_2005:
+                            raw: "1025.66"
+                          total_forest_and_other_wooded_land_2000:
+                            raw: "1009.3"
+                          total_forest_and_other_wooded_land_1990:
+                            raw: null

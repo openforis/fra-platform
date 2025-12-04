@@ -112,6 +112,12 @@ export default defineConfig(({ mode }) => {
         '/definitions': {
           target: process.env.APP_URI ?? 'http://localhost:9001',
         },
+        '/api-docs': {
+          target: process.env.APP_URI ?? 'http://localhost:9001',
+        },
+        '/panEuropean-api-docs': {
+          target: process.env.APP_URI ?? 'http://localhost:9001',
+        },
         '/socket.io': {
           target: process.env.APP_URI ?? 'http://localhost:9001',
           ws: true,
