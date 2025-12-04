@@ -11,6 +11,7 @@ export type CSVColValue = Pick<BulkDownloadTable, 'getDatum'> &
   }
 
 export type CSVRowOptionsBase = {
+  includeDeskStudy?: boolean
   includeClimaticDomain?: boolean
   colValues: Array<CSVColValue>
 }

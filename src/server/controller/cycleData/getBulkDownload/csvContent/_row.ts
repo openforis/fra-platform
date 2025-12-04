@@ -46,15 +46,20 @@ export const getCSVRow = (props: Props): CSVRow => {
   const { name: assessmentName } = assessment.props
   const { name: cycleName } = cycle
   const { countryIso, regionCodes } = country
-  const { colValues } = options
+  const { colValues, includeClimaticDomain, includeDeskStudy } = options
 
   const row: CSVRow = []
 
   const regionLabels = regionCodes.map((code) => getAreaLabel({ code, i18n })).join(',')
   const countryLabel = getAreaLabel({ code: countryIso, i18n })
-
   row.push(parseValue(regionLabels, BulkDownloadVariableType.string))
   row.push(parseValue(countryIso, BulkDownloadVariableType.string))
+
+  if (includeDeskStudy) {
+    const deskStudy = country.props.deskStudy ? i18n.t(`assessment.deskStudy`) : ''
+    row.push(parseValue(deskStudy, BulkDownloadVariableType.string))
+  }
+
   row.push(parseValue(countryLabel, BulkDownloadVariableType.string))
 
   if ('includeYear' in options && options.includeYear) {
@@ -62,7 +67,7 @@ export const getCSVRow = (props: Props): CSVRow => {
     row.push(parseValue(year, BulkDownloadVariableType.string))
   }
 
-  if (options.includeClimaticDomain) {
+  if (includeClimaticDomain) {
     climaticDomainVariables.forEach((variableName) => {
       const climaticValue = getClimaticValue({ assessmentName, countryIso, cycleName, data, variableName })
       row.push(parseValue(climaticValue))

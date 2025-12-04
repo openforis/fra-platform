@@ -37,7 +37,13 @@ export const getCSVContentVariables = async (props: Props): Promise<CSVContent> 
 
   const rows: Array<CSVRow> = []
 
-  const optionsHeader: CSVRowHeaderOptionsVariables = { colValues, includeClimaticDomain, includeYear: true, tables }
+  const optionsHeader: CSVRowHeaderOptionsVariables = {
+    colValues,
+    includeClimaticDomain,
+    includeDeskStudy: true,
+    includeYear: true,
+    tables,
+  }
   const rowHeader = getCSVRowHeader({ options: optionsHeader })
   rows.push(rowHeader)
 

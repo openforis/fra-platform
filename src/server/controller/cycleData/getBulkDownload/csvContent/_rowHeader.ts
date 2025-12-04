@@ -9,14 +9,20 @@ type Props = {
 
 export const getCSVRowHeader = (props: Props): CSVRow => {
   const { options } = props
-  const { colValues } = options
+  const { colValues, includeClimaticDomain, includeDeskStudy } = options
 
-  const row = ['regions', 'iso3', 'name']
+  const row = ['regions', 'iso3']
+
+  if (includeDeskStudy) {
+    row.push('deskStudy')
+  }
+
+  row.push('name')
 
   if ('includeYear' in options && options.includeYear) {
     row.push('year')
   }
-  if (options.includeClimaticDomain) {
+  if (includeClimaticDomain) {
     row.push(...climaticDomainVariables)
   }
 
