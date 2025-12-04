@@ -1,10 +1,11 @@
 import { Express } from 'express'
 import { OpenAPIV3 } from 'openapi-types'
-import { SwaggerUiOptions } from 'swagger-ui-express'
 import swaggerJSDoc from 'swagger-jsdoc'
+import { SwaggerUiOptions } from 'swagger-ui-express'
 import swaggerUi from 'swagger-ui-express'
 
 import { AssessmentNames } from 'meta/assessment/assessment'
+import { Assessments } from 'meta/assessment/assessments'
 
 import { swaggerOptions } from 'docs/api/swagger.config'
 import { swaggerPanEuropeanOptions } from 'docs/api/swaggerPanEuropean.config'
@@ -55,10 +56,8 @@ export const swaggerInit = (app: Express): void => {
   })
 
   app.get('/panEuropean-api-docs/swagger.json', async (_req, res) => {
-    const { assessment, cycle } = await AssessmentController.getOneWithCycle({
-      assessmentName: AssessmentNames.panEuropean,
-      cycleName: '2025',
-    })
+    const assessment = await AssessmentController.getOne({ assessmentName: AssessmentNames.panEuropean })
+    const cycle = Assessments.getLastPublishedCycle(assessment)
     const countryIsos = await CountryRepository.getCountryIsos({ assessment, cycle })
     _updateCountryIsoParameter(panEuropeanSwaggerSpec, countryIsos)
     await buildPanEuropeanDataSchemas({ assessment, cycle, spec: panEuropeanSwaggerSpec })
