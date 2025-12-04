@@ -122,7 +122,7 @@ const _getCountries = async (assessment: Assessment, cycle: Cycle): Promise<Arra
   }, [])
 }
 
-export const getBulkDownload = async (props: {
+export const getBulkDownloadDeprecated = async (props: {
   assessment: Assessment
   cycle: Cycle
 }): Promise<Array<{ fileName: string; content: string }>> => {
@@ -218,3 +218,4 @@ export const getBulkDownload = async (props: {
 
   return Promise.all(promises)
 }
+export { getBulkDownload } from './getBulkDownload'
