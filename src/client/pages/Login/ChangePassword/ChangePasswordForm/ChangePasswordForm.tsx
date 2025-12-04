@@ -1,9 +1,10 @@
-import React, { useCallback } from 'react'
-import { useNavigate, useParams } from 'react-router'
+import React from 'react'
+import { useParams } from 'react-router'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 
 import Form from 'client/components/Form'
+import { useOnCancel } from 'client/pages/Login/ChangePassword/ChangePasswordForm/hooks/useOnCancel'
 
 import { useFormDefinition } from './hooks/useFormDefinition'
 import { useOnSuccess } from './hooks/useOnSuccess'
@@ -19,7 +20,6 @@ type Props = {
 
 const ChangePasswordForm: React.FC<Props> = (props) => {
   const { data } = props
-  const navigate = useNavigate()
   const { resetPasswordUuid } = useParams<{ resetPasswordUuid: string }>()
 
   const { email } = data.user
@@ -27,9 +27,7 @@ const ChangePasswordForm: React.FC<Props> = (props) => {
   const formDefinition = useFormDefinition({ email, uuid: resetPasswordUuid || '' })
   const validationSchema = useValidationSchema()
 
-  const onCancel = useCallback(() => {
-    navigate(-1)
-  }, [navigate])
+  const onCancel = useOnCancel()
 
   const onSuccess = useOnSuccess()
 
