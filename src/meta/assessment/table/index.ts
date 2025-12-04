@@ -11,6 +11,7 @@ import { UnitName } from 'meta/measurement/unitName'
 import { UUID } from 'meta/uuid/uuid'
 
 export enum TableNames {
+  annualReforestation = 'annualReforestation',
   areaAffectedByFire = 'areaAffectedByFire',
   areaOfPermanentForestEstate = 'areaOfPermanentForestEstate',
   biomassStock = 'biomassStock',
@@ -28,6 +29,7 @@ export enum TableNames {
   employment = 'employment',
   extentOfForest = 'extentOfForest',
   extentOfForest_forestAreaStatusAndTrend = 'extentOfForest_forestAreaStatusAndTrend',
+  forestAreaChange = 'forestAreaChange',
   forestAreaWithinProtectedAreas = 'forestAreaWithinProtectedAreas',
   forestCharacteristics = 'forestCharacteristics',
   forestOwnership = 'forestOwnership',
