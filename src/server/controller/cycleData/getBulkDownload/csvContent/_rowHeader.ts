@@ -7,6 +7,8 @@ type Props = {
   options: CSVRowHeaderOptions
 }
 
+const climaticDomainVariableHeaders = climaticDomainVariables.map((variable) => variable.replace('_', ''))
+
 export const getCSVRowHeader = (props: Props): CSVRow => {
   const { options } = props
   const { colValues, includeClimaticDomain, includeDeskStudy } = options
@@ -23,7 +25,7 @@ export const getCSVRowHeader = (props: Props): CSVRow => {
     row.push('year')
   }
   if (includeClimaticDomain) {
-    row.push(...climaticDomainVariables)
+    row.push(...climaticDomainVariableHeaders)
   }
 
   colValues.forEach((colValue) => {
