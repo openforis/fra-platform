@@ -4,7 +4,7 @@ import { Country } from 'meta/area/country'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { Labels } from 'meta/assessment/labels'
-import { Table, TableName } from 'meta/assessment/table'
+import { Table, TableName, TableNames } from 'meta/assessment/table'
 import { RecordAssessmentData } from 'meta/data/recordData'
 import { Dates } from 'utils/dates'
 import { Objects } from 'utils/objects'
@@ -44,8 +44,8 @@ const getUnitLabel = (props: { cycle: Cycle; i18n: i18nType; table: Table }): st
   const { name: tableName, unit } = table.props
 
   const pathMap: Record<TableName, Array<string>> = {
-    growingStockComposition2025: ['1', 'cols', '0', 'props', 'labels', cycle.uuid],
-    carbonStockSoilDepth: ['0', 'cols', '0', 'props', 'labels', cycle.uuid],
+    [TableNames.growingStockComposition2025]: ['1', 'cols', '0', 'props', 'labels', cycle.uuid],
+    [TableNames.carbonStockSoilDepth]: ['0', 'cols', '0', 'props', 'labels', cycle.uuid],
   }
 
   // The unit label is found from the second column of the header row by default
