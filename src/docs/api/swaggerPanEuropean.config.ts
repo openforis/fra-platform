@@ -6,6 +6,7 @@ export const swaggerPanEuropeanOptions: Options = {
     './src/docs/api/schemas/panEuropean/*.yml',
     './src/docs/api/schemas/DescriptionCountryValues.yml',
     './src/docs/api/schemas/RecordAssessmentData.yml',
+    './src/docs/api/schemas/NodeValue.yml',
   ],
   definition: {
     info: {
