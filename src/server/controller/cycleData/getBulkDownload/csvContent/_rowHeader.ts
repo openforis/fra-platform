@@ -21,6 +21,9 @@ export const getCSVRowHeader = (props: Props): CSVRow => {
 
   row.push('name')
 
+  if ('forestArea' in options) {
+    row.push(`forest area ${options.forestArea.colName}`)
+  }
   if ('includeYear' in options && options.includeYear) {
     row.push('year')
   }

@@ -1,7 +1,11 @@
 import { ColName } from 'meta/assessment/col'
 import { TableName } from 'meta/assessment/table'
 
-import { BulkDownloadTable, BulkDownloadVariable } from 'server/controller/cycleData/getBulkDownload/types'
+import {
+  BulkDownloadForestArea,
+  BulkDownloadTable,
+  BulkDownloadVariable,
+} from 'server/controller/cycleData/getBulkDownload/types'
 
 export type CSVColValue = Pick<BulkDownloadTable, 'getDatum'> &
   BulkDownloadVariable & {
@@ -24,7 +28,7 @@ export type CSVRowOptionsVariables = CSVRowHeaderOptionsVariables & {
 }
 
 // single variable per row - base options for now
-export type CSVRowHeaderOptionsVariable = CSVRowOptionsBase & {}
+export type CSVRowHeaderOptionsVariable = CSVRowOptionsBase & { forestArea: BulkDownloadForestArea }
 export type CSVRowOptionsVariable = CSVRowHeaderOptionsVariable & {}
 
 export type CSVRowHeaderOptions = CSVRowHeaderOptionsVariables | CSVRowHeaderOptionsVariable

@@ -62,6 +62,13 @@ export const getCSVRow = (props: Props): CSVRow => {
 
   row.push(parseValue(countryLabel, BulkDownloadVariableType.string))
 
+  if ('forestArea' in options) {
+    const { colName, tableName, variableName } = options.forestArea
+    const propsValue = { assessmentName, countryIso, colName, cycleName, data, tableName, variableName }
+    const forestArea = RecordAssessmentDatas.getDatum(propsValue)
+    row.push(parseValue(forestArea))
+  }
+
   if ('includeYear' in options && options.includeYear) {
     const year = options.year.replace('_', '-')
     row.push(parseValue(year, BulkDownloadVariableType.string))
