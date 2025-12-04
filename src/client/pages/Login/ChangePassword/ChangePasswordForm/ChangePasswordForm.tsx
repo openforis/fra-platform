@@ -5,17 +5,14 @@ import { ApiEndPoint } from 'meta/api/endpoint'
 
 import Form from 'client/components/Form'
 import { useOnCancel } from 'client/pages/Login/ChangePassword/ChangePasswordForm/hooks/useOnCancel'
+import { Data } from 'client/pages/Login/ChangePassword/hooks/useData'
 
 import { useFormDefinition } from './hooks/useFormDefinition'
 import { useOnSuccess } from './hooks/useOnSuccess'
 import { useValidationSchema } from './hooks/useValidationSchema'
 
 type Props = {
-  data: {
-    user: {
-      email: string
-    }
-  }
+  data: Data
 }
 
 const ChangePasswordForm: React.FC<Props> = (props) => {

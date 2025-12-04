@@ -5,13 +5,13 @@ import { ApiEndPoint } from 'meta/api/endpoint'
 
 import { useGetRequest } from 'client/hooks/getRequest'
 
-type Returned = {
+export type Data = {
   user: {
     email: string
   }
 }
 
-export const useData = (): Returned | undefined => {
+export const useData = (): Data | undefined => {
   const { resetPasswordUuid } = useParams<{ resetPasswordUuid: string }>()
 
   const { data, dispatch: fetchData } = useGetRequest(ApiEndPoint.User.resetPassword(), {
