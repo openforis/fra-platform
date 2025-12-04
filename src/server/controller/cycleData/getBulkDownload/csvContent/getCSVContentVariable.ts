@@ -30,7 +30,7 @@ type Props = {
   variable: BulkDownloadVariable
 }
 
-// multiple variables per row
+// single variable file
 export const getCSVContentVariable = (props: Props): CSVContent => {
   const { assessment, countries, cycle, data, i18n, includeClimaticDomain, table, variable, yearMeta } = props
   const { fileName, years } = yearMeta
