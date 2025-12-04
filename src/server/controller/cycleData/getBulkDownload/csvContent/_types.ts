@@ -1,6 +1,5 @@
 import { ColName } from 'meta/assessment/col'
 import { TableName } from 'meta/assessment/table'
-import { VariableName } from 'meta/assessment/variable'
 
 import { BulkDownloadTable, BulkDownloadVariable } from 'server/controller/cycleData/getBulkDownload/types'
 
@@ -19,20 +18,14 @@ export type CSVRowOptionsBase = {
 // multiple variables per row
 export type CSVRowHeaderOptionsVariables = CSVRowOptionsBase & {
   includeYear?: boolean
-  tables: Array<BulkDownloadTable>
 }
 export type CSVRowOptionsVariables = CSVRowHeaderOptionsVariables & {
   year: string
 }
 
-// single variable per row
-export type CSVRowHeaderOptionsVariable = CSVRowOptionsBase & {
-  years: Array<string>
-}
-export type CSVRowOptionsVariable = CSVRowHeaderOptionsVariable & {
-  tableName: TableName
-  variableName: VariableName
-}
+// single variable per row - base options for now
+export type CSVRowHeaderOptionsVariable = CSVRowOptionsBase & {}
+export type CSVRowOptionsVariable = CSVRowHeaderOptionsVariable & {}
 
 export type CSVRowHeaderOptions = CSVRowHeaderOptionsVariables | CSVRowHeaderOptionsVariable
 export type CSVRowOptions = CSVRowOptionsVariable | CSVRowOptionsVariables

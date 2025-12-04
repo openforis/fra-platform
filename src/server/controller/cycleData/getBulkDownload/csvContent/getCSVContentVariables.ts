@@ -42,7 +42,6 @@ export const getCSVContentVariables = async (props: Props): Promise<CSVContent> 
     includeClimaticDomain,
     includeDeskStudy: true,
     includeYear: true,
-    tables,
   }
   const rowHeader = getCSVRowHeader({ options: optionsHeader })
   rows.push(rowHeader)
