@@ -10,6 +10,7 @@ export const getCarbonStockSoilDepth: BulkDownloadTableFactory = (_props) => {
         colName: 'soil_depth',
         csvColumn: '2d_soil_depth_cm',
         variableName: 'soil_depth',
+        colsVariable: [{ colName: 'soil_depth' }],
       },
     ],
   }

@@ -60,11 +60,21 @@ export const getCSVContentVariable = (props: Props): CSVContent => {
   const { forestArea, tables } = metadata
   const { fileName, years } = yearMeta
   const { getDatum, tableName } = table
-  const { colName, type, variableName } = variable
+  const { colName, colsVariable, type, variableName } = variable
 
-  const colValues: Array<CSVColValue> = years.map((year) => {
-    return { colName: colName ?? year, csvColumn: year.replace('_', '-'), getDatum, tableName, type, variableName }
-  })
+  const colValues: Array<CSVColValue> = colsVariable
+    ? colsVariable.map((colVariable) => {
+        return {
+          colName: colVariable.colName,
+          csvColumn: colVariable.csvColumn ?? colVariable.colName,
+          tableName,
+          type,
+          variableName,
+        }
+      })
+    : years.map((year) => {
+        return { colName: colName ?? year, csvColumn: year.replace('_', '-'), getDatum, tableName, type, variableName }
+      })
 
   const rows: Array<CSVRow> = []
 

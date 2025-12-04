@@ -16,5 +16,5 @@ export const getIntervalYears = (props: PropsBulkDownload): BulkDownloadYear => 
     ...(cycleName === CycleNames._2020 ? [getAnnualReforestation(props)] : []),
   ]
 
-  return { fileName, years, tables }
+  return { fileName, includeDeskStudy: false, years, tables }
 }

@@ -6,7 +6,7 @@ import { BulkDownloadTableFactory } from './_types'
 export const getBiomassStockAvg: BulkDownloadTableFactory = (props) => {
   const { cycle } = props
 
-  const tableName = cycle.name === CycleNames._2020 ? TableNames.biomassStock : TableNames.biomassStockTotal
+  const tableName = cycle.name === CycleNames._2020 ? TableNames.biomassStock : TableNames.biomassStockAvg
 
   return {
     tableName,
