@@ -22,7 +22,7 @@ export const AuthApi = {
     express.post(ApiEndPoint.Auth.logout(), postLogout)
 
     express.post(ApiEndPoint.Auth.changePassword(), multer().none(), postChangePassword)
-    express.post(ApiEndPoint.Auth.resetPassword(), postResetPassword)
+    express.post(ApiEndPoint.Auth.resetPassword(), multer().none(), postResetPassword)
 
     express.use(function (req, res, next) {
       passport.authenticate('jwt', { session: false }, function (err: any, user: Express.User, info: any) {

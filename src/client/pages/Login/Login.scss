@@ -110,3 +110,35 @@ $login-height: 50vh;
     margin: 12px;
   }
 }
+
+.login-form {
+  display: grid;
+  grid-row-gap: 40px;
+  min-width: 400px;
+
+  // Hide labels
+  .form-cell-label {
+    display: none;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr !important;
+    grid-row-gap: 40px;
+    box-shadow: none;
+  }
+
+  .data-cell {
+    border: none !important;
+  }
+
+  input[type='text'],
+  input[type='password'] {
+    padding: $spacing-xs $spacing-s;
+    text-align: center;
+    background-color: white;
+  }
+
+  input[type='text']:disabled {
+    background-color: $ui-bg-hover;
+  }
+}

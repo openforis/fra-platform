@@ -1,4 +1,3 @@
-import './ChangePassword.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -11,7 +10,7 @@ const ChangePassword: React.FC = () => {
   const data = useData()
 
   return (
-    <div className="change-password">
+    <div className="login-form">
       {data?.user?.email && <ChangePasswordForm data={data} />}
       {!data && <ChangePasswordSkeleton />}
       {data && !data.user?.email && <h3>{t('login.expired')}</h3>}
