@@ -70,7 +70,7 @@ export const getCSVRow = (props: Props): CSVRow => {
   if (includeClimaticDomain) {
     climaticDomainVariables.forEach((variableName) => {
       const climaticValue = getClimaticValue({ assessmentName, countryIso, cycleName, data, variableName })
-      row.push(parseValue(climaticValue))
+      row.push(parseValue(climaticValue, BulkDownloadVariableType.string))
     })
   }
 
