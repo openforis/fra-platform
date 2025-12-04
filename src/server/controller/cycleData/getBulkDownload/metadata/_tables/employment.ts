@@ -56,7 +56,7 @@ export const getDatum: BulkDownloadTable['getDatum'] = (props) => {
   })
 }
 
-export const getEmployment: BulkDownloadTableFactory = (_props): BulkDownloadTable => {
+export const getEmployment: BulkDownloadTableFactory = (_props) => {
   return {
     getDatum,
     tableName: TableNames.employment,

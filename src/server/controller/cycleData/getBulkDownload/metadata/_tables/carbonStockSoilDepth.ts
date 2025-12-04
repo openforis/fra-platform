@@ -1,10 +1,8 @@
 import { TableNames } from 'meta/assessment/table'
 
-import { BulkDownloadTable } from 'server/controller/cycleData/getBulkDownload/types'
-
 import { BulkDownloadTableFactory } from './_types'
 
-export const getCarbonStockSoilDepth: BulkDownloadTableFactory = (_props): BulkDownloadTable => {
+export const getCarbonStockSoilDepth: BulkDownloadTableFactory = (_props) => {
   return {
     tableName: TableNames.carbonStockSoilDepth,
     variables: [
