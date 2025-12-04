@@ -7,7 +7,7 @@ import { BulkDownloadTable } from 'server/controller/cycleData/getBulkDownload/t
 
 import { BulkDownloadTableFactory } from './_types'
 
-export const getGrowingStockComposition: BulkDownloadTableFactory = (props): BulkDownloadTable => {
+export const getGrowingStockComposition: BulkDownloadTableFactory = (props) => {
   const { cycle } = props
 
   const is2020 = cycle.name === CycleNames._2020

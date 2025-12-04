@@ -1,6 +1,6 @@
 import { TableNames } from 'meta/assessment/table'
 
-import { BulkDownloadTable, BulkDownloadVariable } from 'server/controller/cycleData/getBulkDownload/types'
+import { BulkDownloadVariable } from 'server/controller/cycleData/getBulkDownload/types'
 
 import { BulkDownloadTableFactory } from './_types'
 import { getDatum, getVariables } from './employment'
@@ -28,7 +28,7 @@ const variables: Array<BulkDownloadVariable> = [
   },
 ]
 
-export const getGraduationOfStudents: BulkDownloadTableFactory = (_props): BulkDownloadTable => {
+export const getGraduationOfStudents: BulkDownloadTableFactory = (_props) => {
   return {
     getDatum,
     tableName: TableNames.graduationOfStudents,

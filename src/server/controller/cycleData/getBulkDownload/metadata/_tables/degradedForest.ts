@@ -1,11 +1,11 @@
 import { CycleNames } from 'meta/assessment/cycle/names'
 import { TableNames } from 'meta/assessment/table'
 
-import { BulkDownloadTable, BulkDownloadVariableType } from 'server/controller/cycleData/getBulkDownload/types'
+import { BulkDownloadVariableType } from 'server/controller/cycleData/getBulkDownload/types'
 
 import { BulkDownloadTableFactory } from './_types'
 
-export const getDegradedForest: BulkDownloadTableFactory = (props): BulkDownloadTable => {
+export const getDegradedForest: BulkDownloadTableFactory = (props) => {
   const { cycle } = props
 
   const tableName =

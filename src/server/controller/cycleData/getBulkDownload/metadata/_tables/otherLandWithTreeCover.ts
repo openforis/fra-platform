@@ -1,11 +1,9 @@
 import { CycleNames } from 'meta/assessment/cycle/names'
 import { TableNames } from 'meta/assessment/table'
 
-import { BulkDownloadTable } from 'server/controller/cycleData/getBulkDownload/types'
-
 import { BulkDownloadTableFactory } from './_types'
 
-export const getOtherLandWithTreeCover: BulkDownloadTableFactory = (props): BulkDownloadTable => {
+export const getOtherLandWithTreeCover: BulkDownloadTableFactory = (props) => {
   const { cycle } = props
 
   const anchor = cycle.name === CycleNames._2020 ? '1f' : '1e'
