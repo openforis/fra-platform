@@ -38,7 +38,14 @@ export type BulkDownloadYear = {
   years: Array<string>
 }
 
+export type BulkDownloadForestArea = {
+  colName: ColName
+  tableName: TableName
+  variableName: VariableName
+}
+
 export type BulkDownloadMetadata = {
+  forestArea: BulkDownloadForestArea
   years: Array<BulkDownloadYear>
 }
 

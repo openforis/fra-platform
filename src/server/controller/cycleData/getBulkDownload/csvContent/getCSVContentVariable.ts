@@ -7,6 +7,7 @@ import { RecordAssessmentData } from 'meta/data/recordData'
 
 import { getFileName } from 'server/controller/cycleData/getBulkDownload/csvContent/_fileName'
 import {
+  BulkDownloadForestArea,
   BulkDownloadTable,
   BulkDownloadVariable,
   BulkDownloadYear,
@@ -23,16 +24,18 @@ type Props = {
   countries: Array<Country>
   cycle: Cycle
   data: RecordAssessmentData
+  forestArea: BulkDownloadForestArea
   i18n: i18nType
   includeClimaticDomain?: boolean
-  yearMeta: BulkDownloadYear
   table: BulkDownloadTable
   variable: BulkDownloadVariable
+  yearMeta: BulkDownloadYear
 }
 
 // single variable file
 export const getCSVContentVariable = (props: Props): CSVContent => {
-  const { assessment, countries, cycle, data, i18n, includeClimaticDomain, table, variable, yearMeta } = props
+  const { assessment, countries, cycle, data, forestArea, i18n, includeClimaticDomain, table, variable, yearMeta } =
+    props
   const { fileName, years } = yearMeta
   const { getDatum, tableName } = table
   const { colName, type, variableName } = variable
@@ -43,7 +46,7 @@ export const getCSVContentVariable = (props: Props): CSVContent => {
 
   const rows: Array<CSVRow> = []
 
-  const options: CSVRowHeaderOptionsVariable = { colValues, includeClimaticDomain }
+  const options: CSVRowHeaderOptionsVariable = { colValues, forestArea, includeClimaticDomain }
   const rowHeader = getCSVRowHeader({ options })
   rows.push(rowHeader)
 
