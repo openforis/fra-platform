@@ -1,10 +1,13 @@
-import { z } from 'zod'
+import { z, ZodString } from 'zod'
 
 export const emailValidationSchema = (t: (key: string) => string): z.ZodString => {
-  return z.string().min(1, { message: t('login.emptyEmail') })
+  return z
+    .string()
+    .min(1, { message: t('login.emptyEmail') })
+    .email({ message: t('login.invalidEmail') })
 }
 
-export const passwordValidationSchema = (t: (key: string) => string): z.ZodEffects<z.ZodString> => {
+export const passwordValidationSchema = (t: (key: string) => string): ZodString => {
   return z
     .string()
     .min(1, { message: t('login.noEmptyPassword') })
