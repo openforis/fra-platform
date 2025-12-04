@@ -1,0 +1,29 @@
+components:
+  parameters:
+    assessmentName:
+      name: assessmentName
+      in: query
+      required: true
+      description: The name of the assessment.
+      schema:
+        type: string
+        enum: ["panEuropean"]
+
+    cycleName:
+      name: cycleName
+      in: query
+      required: true
+      description: The name of the cycle. For example, "2025".
+      schema:
+        type: string
+        enum: ["2025"]
+        example: 2025
+
+    countryIso:
+      name: countryIso
+      in: query
+      required: true
+      description: A country ISO code like "FIN".
+      schema:
+        type: string
+        example: FIN
