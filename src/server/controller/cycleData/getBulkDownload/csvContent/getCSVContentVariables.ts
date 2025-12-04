@@ -23,7 +23,7 @@ type Props = {
 }
 
 // multiple variables per row
-export const getCSVContentVariables = async (props: Props): Promise<CSVContent> => {
+export const getCSVContentVariables = (props: Props): CSVContent => {
   const { assessment, countries, cycle, data, i18n, includeClimaticDomain, yearMeta } = props
   const { fileName, tables, years } = yearMeta
 
