@@ -33,7 +33,6 @@
   "notAuthorized": "Utilisateur non autorisé",
   "password": "Password",
   "passwordChanged": "Le mot de passe a été changé",
-  "passwordError": "Le mot de passe doit contenir six caractères ou plus et avoir au moins une minuscule et un caractère alphabétique majuscule et un chiffre",
   "passwordResetSent": "La demande de réinitialisation de votre mot de passe a été soumise avec succès.\nVous recevrez bientôt un e-mail contenant des instructions",
   "repeatPassword": "Mot de passe",
   "resetPassword": "Réinitialiser le mot de passe",

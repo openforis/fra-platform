@@ -33,7 +33,6 @@
   "notAuthorized": "Usuario no autorizado",
   "password": "Password",
   "passwordChanged": "La contraseña ha sido cambiada",
-  "passwordError": "La contraseña debe contener seis caracteres o más y tener al menos una minúscula y un carácter alfabético en mayúscula y un número",
   "passwordResetSent": "La solicitud para restablecer su contraseña se ha enviado con éxito.\nEn breve recibirás un correo electrónico con instrucciones.",
   "repeatPassword": "Contraseña",
   "resetPassword": "Restablecer contraseña",
