@@ -11,5 +11,5 @@ export const getAnnualYears = (props: PropsBulkDownload): BulkDownloadYear => {
   const years: BulkDownloadYear['years'] = Years.annual(cycle)
   const tables: BulkDownloadYear['tables'] = [getDisturbances(props), getAreaAffectedByFire(props)]
 
-  return { fileName, years, tables }
+  return { fileName, includeDeskStudy: false, years, tables }
 }

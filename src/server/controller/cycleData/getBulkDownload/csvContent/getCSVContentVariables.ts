@@ -25,7 +25,7 @@ type Props = {
 // multiple variables per row
 export const getCSVContentVariables = (props: Props): CSVContent => {
   const { assessment, countries, cycle, data, i18n, includeClimaticDomain, yearMeta } = props
-  const { fileName, tables, years } = yearMeta
+  const { fileName, includeDeskStudy = true, tables, years } = yearMeta
 
   const colValues: Array<CSVColValue> = tables.flatMap((table) => {
     const { getDatum, tableName } = table
@@ -40,7 +40,7 @@ export const getCSVContentVariables = (props: Props): CSVContent => {
   const optionsHeader: CSVRowHeaderOptionsVariables = {
     colValues,
     includeClimaticDomain,
-    includeDeskStudy: true,
+    includeDeskStudy,
     includeYear: true,
   }
   const rowHeader = getCSVRowHeader({ options: optionsHeader })

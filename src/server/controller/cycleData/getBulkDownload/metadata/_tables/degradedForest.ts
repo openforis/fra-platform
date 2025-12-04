@@ -21,6 +21,7 @@ export const getDegradedForest: BulkDownloadTableFactory = (props) => {
         variableName,
         csvColumn: '5c_y_n',
         type: BulkDownloadVariableType.string,
+        colsVariable: [{ colName }],
       },
     ],
   }
