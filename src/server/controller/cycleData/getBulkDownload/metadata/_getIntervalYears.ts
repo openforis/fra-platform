@@ -3,9 +3,10 @@ import { Years } from 'meta/assessment/years'
 
 import { getAnnualReforestation } from 'server/controller/cycleData/getBulkDownload/metadata/_tables/annualReforestation'
 import { getForestAreaChange } from 'server/controller/cycleData/getBulkDownload/metadata/_tables/forestAreaChange'
-import { BulkDownloadYear, PropsBulkDownload } from 'server/controller/cycleData/getBulkDownload/types'
+import { BulkDownloadYearFactory } from 'server/controller/cycleData/getBulkDownload/metadata/_types'
+import { BulkDownloadYear } from 'server/controller/cycleData/getBulkDownload/types'
 
-export const getIntervalYears = (props: PropsBulkDownload): BulkDownloadYear => {
+export const getIntervalYears: BulkDownloadYearFactory = (props) => {
   const { cycle } = props
   const { name: cycleName } = cycle
 

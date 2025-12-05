@@ -5,12 +5,12 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { RecordAssessmentData } from 'meta/data/recordData'
 
-import { getFileName } from 'server/controller/cycleData/getBulkDownload/csvContent/_fileName'
+import { toCSVContent } from 'server/controller/cycleData/getBulkDownload/csvContent/_toContent'
 import { BulkDownloadYear, CSVContent, CSVRow } from 'server/controller/cycleData/getBulkDownload/types'
 
 import { getCSVRow } from './_row'
 import { getCSVRowHeader } from './_rowHeader'
-import { CSVColValue, CSVRowHeaderOptionsVariables, CSVRowOptionsVariables } from './_types'
+import { CSVColValue, CSVRowOptions } from './_types'
 
 type Props = {
   assessment: Assessment
@@ -37,12 +37,7 @@ export const getCSVContentVariables = (props: Props): CSVContent => {
 
   const rows: Array<CSVRow> = []
 
-  const optionsHeader: CSVRowHeaderOptionsVariables = {
-    colValues,
-    includeClimaticDomain,
-    includeDeskStudy,
-    includeYear: true,
-  }
+  const optionsHeader: CSVRowOptions = { colValues, includeClimaticDomain, includeDeskStudy, year: 'year' }
   const rowHeader = getCSVRowHeader({ options: optionsHeader })
   rows.push(rowHeader)
 
@@ -51,12 +46,12 @@ export const getCSVContentVariables = (props: Props): CSVContent => {
       const colValuesRow = colValues.map<CSVColValue>((colValue) => {
         return { ...colValue, colName: colValue.colName ?? year }
       })
-      const options: CSVRowOptionsVariables = { ...optionsHeader, colValues: colValuesRow, year }
+      const options: CSVRowOptions = { ...optionsHeader, colValues: colValuesRow, year }
       const row = getCSVRow({ assessment, country, cycle, data, i18n, options })
 
       rows.push(row)
     })
   })
 
-  return { content: rows.join('\n'), fileName: getFileName({ fileName }) }
+  return toCSVContent({ fileName, rows })
 }

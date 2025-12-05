@@ -1,9 +1,8 @@
 import { TableNames } from 'meta/assessment/table'
 import { RecordAssessmentDatas } from 'meta/data/recordDatas'
 
+import { BulkDownloadTableFactory } from 'server/controller/cycleData/getBulkDownload/metadata/_types'
 import { BulkDownloadTable, BulkDownloadVariable } from 'server/controller/cycleData/getBulkDownload/types'
-
-import { BulkDownloadTableFactory } from './_types'
 
 const variables: Array<BulkDownloadVariable> = [
   {

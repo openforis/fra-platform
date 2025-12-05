@@ -1,17 +1,19 @@
+import { Objects } from 'utils/objects'
+
 import { CSVRow } from 'server/controller/cycleData/getBulkDownload/types'
 
 import { climaticDomainVariables } from './_climaticDomainVariables'
-import { CSVRowHeaderOptions } from './_types'
+import { CSVRowOptions } from './_types'
 
 type Props = {
-  options: CSVRowHeaderOptions
+  options: CSVRowOptions
 }
 
 const climaticDomainVariableHeaders = climaticDomainVariables.map((variable) => variable.replace('_', ''))
 
 export const getCSVRowHeader = (props: Props): CSVRow => {
   const { options } = props
-  const { colValues, includeClimaticDomain, includeDeskStudy } = options
+  const { colValues, forestArea, includeClimaticDomain, includeDeskStudy, year } = options
 
   const row = ['regions', 'iso3']
 
@@ -21,10 +23,10 @@ export const getCSVRowHeader = (props: Props): CSVRow => {
 
   row.push('name')
 
-  if ('forestArea' in options) {
+  if (!Objects.isNil(forestArea)) {
     row.push(`forest area ${options.forestArea.colName}`)
   }
-  if ('includeYear' in options && options.includeYear) {
+  if (!Objects.isNil(year)) {
     row.push('year')
   }
   if (includeClimaticDomain) {

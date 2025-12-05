@@ -1,8 +1,8 @@
 import { TableNames } from 'meta/assessment/table'
 
+import { BulkDownloadTableFactory } from 'server/controller/cycleData/getBulkDownload/metadata/_types'
 import { BulkDownloadVariable } from 'server/controller/cycleData/getBulkDownload/types'
 
-import { BulkDownloadTableFactory } from './_types'
 import { getDatum, getVariables } from './employment'
 
 const variables: Array<BulkDownloadVariable> = [

@@ -5,6 +5,7 @@ import { Lang } from 'meta/lang'
 
 import { getCountries } from 'server/controller/cycleData/getBulkDownload/_countries'
 import { getData } from 'server/controller/cycleData/getBulkDownload/_data'
+import { getCSVContentFile } from 'server/controller/cycleData/getBulkDownload/csvContent/getCSVContentFile'
 import { getCSVContentVariable } from 'server/controller/cycleData/getBulkDownload/csvContent/getCSVContentVariable'
 import { getCSVContentVariables } from 'server/controller/cycleData/getBulkDownload/csvContent/getCSVContentVariables'
 import { getBulkDownloadMetadata } from 'server/controller/cycleData/getBulkDownload/metadata/getBulkDownloadMetadata'
@@ -36,6 +37,9 @@ export const getBulkDownload = async (props: Props): Promise<Array<CSVContent>> 
           })
         }),
       ]
+    }),
+    ...metadata.files.map((file) => {
+      return getCSVContentFile({ ...propsContent, file })
     }),
   ]
 }

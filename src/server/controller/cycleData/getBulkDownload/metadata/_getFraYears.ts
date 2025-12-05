@@ -23,9 +23,10 @@ import { getOtherLandWithTreeCover } from 'server/controller/cycleData/getBulkDo
 import { getPrimaryDesignatedManagementObjective } from 'server/controller/cycleData/getBulkDownload/metadata/_tables/primaryDesignatedManagementObjective'
 import { getSpecificForestCategories } from 'server/controller/cycleData/getBulkDownload/metadata/_tables/specificForestCategories'
 import { getTotalAreaWithDesignatedManagementObjective } from 'server/controller/cycleData/getBulkDownload/metadata/_tables/totalAreaWithDesignatedManagementObjective'
-import { BulkDownloadYear, PropsBulkDownload } from 'server/controller/cycleData/getBulkDownload/types'
+import { BulkDownloadYearFactory } from 'server/controller/cycleData/getBulkDownload/metadata/_types'
+import { BulkDownloadYear } from 'server/controller/cycleData/getBulkDownload/types'
 
-export const getFraYears = (props: PropsBulkDownload): BulkDownloadYear => {
+export const getFraYears: BulkDownloadYearFactory = (props) => {
   const { cycle } = props
   const { name: cycleName } = cycle
 

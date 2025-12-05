@@ -13,23 +13,10 @@ export type CSVColValue = Pick<BulkDownloadTable, 'getDatum'> &
     tableName: TableName
   }
 
-export type CSVRowOptionsBase = {
-  includeDeskStudy?: boolean
-  includeClimaticDomain?: boolean
+export type CSVRowOptions = {
   colValues: Array<CSVColValue>
+  forestArea?: BulkDownloadForestArea
+  includeClimaticDomain?: boolean
+  includeDeskStudy?: boolean
+  year?: string
 }
-
-// multiple variables per row
-export type CSVRowHeaderOptionsVariables = CSVRowOptionsBase & {
-  includeYear?: boolean
-}
-export type CSVRowOptionsVariables = CSVRowHeaderOptionsVariables & {
-  year: string
-}
-
-// single variable per row - base options for now
-export type CSVRowHeaderOptionsVariable = CSVRowOptionsBase & { forestArea: BulkDownloadForestArea }
-export type CSVRowOptionsVariable = CSVRowHeaderOptionsVariable & {}
-
-export type CSVRowHeaderOptions = CSVRowHeaderOptionsVariables | CSVRowHeaderOptionsVariable
-export type CSVRowOptions = CSVRowOptionsVariable | CSVRowOptionsVariables

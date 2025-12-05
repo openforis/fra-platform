@@ -2,9 +2,10 @@ import { Years } from 'meta/assessment/years'
 
 import { getAreaAffectedByFire } from 'server/controller/cycleData/getBulkDownload/metadata/_tables/areaAffectedByFire'
 import { getDisturbances } from 'server/controller/cycleData/getBulkDownload/metadata/_tables/disturbances'
-import { BulkDownloadYear, PropsBulkDownload } from 'server/controller/cycleData/getBulkDownload/types'
+import { BulkDownloadYearFactory } from 'server/controller/cycleData/getBulkDownload/metadata/_types'
+import { BulkDownloadYear } from 'server/controller/cycleData/getBulkDownload/types'
 
-export const getAnnualYears = (props: PropsBulkDownload): BulkDownloadYear => {
+export const getAnnualYears: BulkDownloadYearFactory = (props) => {
   const { cycle } = props
 
   const fileName: BulkDownloadYear['fileName'] = 'Annual'
