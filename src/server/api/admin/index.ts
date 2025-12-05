@@ -29,11 +29,11 @@ export const AdminApi = {
     express.get(ApiEndPoint.Admin.usersCount(), AuthMiddleware.requireAdmin, getUsersCount)
     express.get(ApiEndPoint.Admin.usersExport(), AuthMiddleware.requireAdmin, exportUsers)
 
-    express.patch(ApiEndPoint.Admin.link(), AuthMiddleware.requireAdmin, updateLink)
-    express.get(ApiEndPoint.Admin.links(), AuthMiddleware.requireAdmin, getManyLinks)
-    express.get(ApiEndPoint.Admin.linksExport(), AuthMiddleware.requireAdmin, exportLinks)
-    express.get(ApiEndPoint.Admin.linksCount(), AuthMiddleware.requireAdmin, getLinksCount)
-    express.post(ApiEndPoint.Admin.linksVerify(), AuthMiddleware.requireAdmin, verifyLinks)
-    express.get(ApiEndPoint.Admin.linksVerifyStatus(), AuthMiddleware.requireAdmin, isVerificationInProgress)
+    express.patch(ApiEndPoint.Admin.Links.one(), AuthMiddleware.requireAdmin, updateLink)
+    express.get(ApiEndPoint.Admin.Links.many(), AuthMiddleware.requireAdmin, getManyLinks)
+    express.get(ApiEndPoint.Admin.Links.export(), AuthMiddleware.requireAdmin, exportLinks)
+    express.get(ApiEndPoint.Admin.Links.count(), AuthMiddleware.requireAdmin, getLinksCount)
+    express.post(ApiEndPoint.Admin.Links.verify(), AuthMiddleware.requireAdmin, verifyLinks)
+    express.get(ApiEndPoint.Admin.Links.verifyStatus(), AuthMiddleware.requireAdmin, isVerificationInProgress)
   },
 }

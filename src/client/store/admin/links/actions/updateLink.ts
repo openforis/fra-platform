@@ -18,6 +18,6 @@ export const updateLink = createAsyncThunk<Link, Props, ThunkApiConfig>('links/u
   const { assessmentName, cycleName, link } = props
   const params = { assessmentName, cycleName }
 
-  const { data } = await axios.patch(ApiEndPoint.Admin.link(), { link }, { params })
+  const { data } = await axios.patch(ApiEndPoint.Admin.Links.one(), { link }, { params })
   return data
 })

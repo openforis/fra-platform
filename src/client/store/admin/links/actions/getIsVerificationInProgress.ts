@@ -15,7 +15,7 @@ type Props = {
 export const getIsVerificationInProgress = createAsyncThunk<boolean, Props, ThunkApiConfig>(
   'links/verification/status',
   async (props) => {
-    const { data } = await axios.get(ApiEndPoint.Admin.linksVerifyStatus(), { params: props })
+    const { data } = await axios.get(ApiEndPoint.Admin.Links.verifyStatus(), { params: props })
     return data
   }
 )

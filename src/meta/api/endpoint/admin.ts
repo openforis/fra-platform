@@ -8,10 +8,13 @@ export const Admin = {
   users: (): string => apiPath('admin', 'users'),
   usersCount: (): string => apiPath('admin', 'users', 'count'),
   usersExport: (): string => apiPath('admin', 'users', 'export'),
-  links: (): string => apiPath('admin', 'links'),
-  linksCount: (): string => apiPath('admin', 'links', 'count'),
-  linksExport: (): string => apiPath('admin', 'links', 'export'),
-  link: (): string => apiPath('admin', 'links', 'link'),
-  linksVerify: (): string => apiPath('admin', 'links', 'verify'),
-  linksVerifyStatus: (): string => apiPath('admin', 'links', 'verify', 'status'),
+
+  Links: {
+    count: (): string => apiPath('admin', 'links', 'count'),
+    export: (): string => apiPath('admin', 'links', 'export'),
+    many: (): string => apiPath('admin', 'links'),
+    one: (): string => apiPath('admin', 'links', 'link'),
+    verify: (): string => apiPath('admin', 'links', 'verify'),
+    verifyStatus: (): string => apiPath('admin', 'links', 'verify', 'status'),
+  },
 }
