@@ -1,0 +1,50 @@
+components:
+  parameters:
+    countryISOs:
+      name: countryISOs[]
+      in: query
+      description: Array of country ISO codes. For example, ["FIN", "ITA"].
+      required: true
+      schema:
+        type: array
+        items:
+          type: string
+        example: [ "FIN", "ITA" ]
+      style: form
+      explode: true
+
+    panEuropeanTableNames:
+      name: tableNames[]
+      in: query
+      description: Array of panEuropean main data table identifiers. Each table has its own variables and columns (see `PanEuropeanTableOptions`).
+      required: true
+      schema:
+        $ref: '#/components/schemas/PanEuropeanTableNames'
+      style: form
+      explode: true
+      example:
+        - table_6_10a
+
+    panEuropeanVariables:
+      name: variables[]
+      in: query
+      description: Variable names of the selected table. Use values from the `variables` list of the chosen `tableNames[]` in `PanEuropeanTableOptions`.
+      required: false
+      schema:
+        $ref: '#/components/schemas/PanEuropeanVariableNames'
+      style: form
+      explode: true
+      example:
+        - total_forest_and_other_wooded_land_2005
+
+    panEuropeanColumns:
+      name: columns[]
+      in: query
+      description: Column names of the selected table. Use values from the `columns` list of the chosen `tableNames[]` in `PanEuropeanTableOptions`.
+      required: false
+      schema:
+        $ref: '#/components/schemas/PanEuropeanColumnNames'
+      style: form
+      explode: true
+      example:
+        - area_available_for_public_recreation_total

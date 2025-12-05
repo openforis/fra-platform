@@ -1,0 +1,35 @@
+openapi: 3.0.0
+paths:
+  /cycle-data/descriptions:
+    get:
+      tags:
+        - Cycle data
+      summary: Get panEuropean descriptions by cycle and country
+      parameters:
+        - $ref: '#/components/parameters/assessmentName'
+        - $ref: '#/components/parameters/countryIso'
+        - $ref: '#/components/parameters/cycleName'
+      responses:
+        '200':
+          description: Successful operation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DescriptionCountryValues'
+              example:
+                FIN:
+                  deadwood:
+                    dataSources:
+                      text: '<p>HTML-formatted content</p>'
+                      dataSources:
+                        - type: nationalForestInventory
+                          uuid: 6a4bdf15-903f-4aee-8c9e-0b9440b51bb6
+                          year:
+                            - '2019-2022'
+                          comments: ''
+                          reference: '<p>Reference text</p>'
+                          variables: []
+                    generalComments:
+                      text: '<p>HTML-formatted content</p>'
+        '401':
+          description: Unauthorized access.
