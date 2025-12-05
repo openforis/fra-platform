@@ -1,6 +1,8 @@
 import { Assessment } from 'meta/assessment/assessment'
 import { ColName } from 'meta/assessment/col'
 import { Cycle } from 'meta/assessment/cycle'
+import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
+import { SectionName } from 'meta/assessment/section'
 import { TableName } from 'meta/assessment/table'
 import { RecordTables } from 'meta/assessment/table/record'
 import { VariableName } from 'meta/assessment/variable'
@@ -52,7 +54,7 @@ export type BulkDownloadForestArea = {
   variableName: VariableName
 }
 
-export type BulkDownloadFileColumn = {
+export type BulkDownloadColNode = {
   colName: ColName
   csvColumn?: string
   tableName: TableName
@@ -60,8 +62,15 @@ export type BulkDownloadFileColumn = {
   variableName: VariableName
 }
 
+export type BulkDownloadColDescription = {
+  csvColumn?: string
+  name: CommentableDescriptionName
+  sectionName: SectionName
+}
+
 export type BulkDownloadFile = {
-  columns: Array<BulkDownloadFileColumn>
+  colNodes: Array<BulkDownloadColNode>
+  colDescriptions?: Array<BulkDownloadColDescription>
   fileName: string
   includeClimaticDomain?: boolean
 }

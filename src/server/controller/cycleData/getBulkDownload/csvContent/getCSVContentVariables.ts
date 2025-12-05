@@ -37,16 +37,16 @@ export const getCSVContentVariables = (props: Props): CSVContent => {
 
   const rows: Array<CSVRow> = []
 
-  const optionsHeader: CSVRowOptions = { colValues, includeClimaticDomain, includeDeskStudy, year: 'year' }
+  const optionsHeader: CSVRowOptions = { colValues, includeClimaticDomain, includeDeskStudy, colYear: 'year' }
   const rowHeader = getCSVRowHeader({ options: optionsHeader })
   rows.push(rowHeader)
 
   countries.forEach((country) => {
-    years.forEach((year) => {
+    years.forEach((colYear) => {
       const colValuesRow = colValues.map<CSVColValue>((colValue) => {
-        return { ...colValue, colName: colValue.colName ?? year }
+        return { ...colValue, colName: colValue.colName ?? colYear }
       })
-      const options: CSVRowOptions = { ...optionsHeader, colValues: colValuesRow, year }
+      const options: CSVRowOptions = { ...optionsHeader, colValues: colValuesRow, colYear }
       const row = getCSVRow({ assessment, country, cycle, data, i18n, options })
 
       rows.push(row)

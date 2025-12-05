@@ -3,6 +3,7 @@ import { i18n as i18nType } from 'i18next'
 import { Country } from 'meta/area/country'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
+import { DescriptionCountryValues } from 'meta/assessment/descriptionValue'
 import { RecordAssessmentData } from 'meta/data/recordData'
 
 import { toCSVContent } from 'server/controller/cycleData/getBulkDownload/csvContent/_toContent'
@@ -17,6 +18,7 @@ type Props = {
   countries: Array<Country>
   cycle: Cycle
   data: RecordAssessmentData
+  descriptions: DescriptionCountryValues
   file: BulkDownloadFile
   i18n: i18nType
   includeClimaticDomain?: boolean
@@ -24,23 +26,23 @@ type Props = {
 
 // retries the CSV content for the generic BulkDownloadFile object
 export const getCSVContentFile = (props: Props): CSVContent => {
-  const { assessment, countries, cycle, data, file, i18n } = props
-  const { columns, fileName } = file
+  const { assessment, countries, cycle, data, descriptions, file, i18n } = props
+  const { colDescriptions, colNodes, fileName } = file
   const includeClimaticDomain = file.includeClimaticDomain ? props.includeClimaticDomain : false
 
-  const colValues = columns.map<CSVColValue>((column) => {
+  const colValues = colNodes.map<CSVColValue>((column) => {
     const { colName, csvColumn = column.colName, tableName, type, variableName } = column
     return { colName, csvColumn, tableName, type, variableName }
   })
 
   const rows: Array<CSVRow> = []
 
-  const options: CSVRowOptions = { colValues, includeClimaticDomain }
+  const options: CSVRowOptions = { colDescriptions, colValues, includeClimaticDomain }
   const rowHeader = getCSVRowHeader({ options })
   rows.push(rowHeader)
 
   countries.forEach((country) => {
-    const row = getCSVRow({ assessment, country, cycle, data, i18n, options })
+    const row = getCSVRow({ assessment, country, cycle, data, descriptions, i18n, options })
     rows.push(row)
   })
 
