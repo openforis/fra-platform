@@ -24,7 +24,7 @@ export const getCSVRowHeader = (props: Props): CSVRow => {
   row.push('name')
 
   if (!Objects.isNil(forestArea)) {
-    row.push(`forest area ${options.forestArea.colName}`)
+    row.push(`forest area ${forestArea.colName}`)
   }
   if (!Objects.isNil(year)) {
     row.push('year')
