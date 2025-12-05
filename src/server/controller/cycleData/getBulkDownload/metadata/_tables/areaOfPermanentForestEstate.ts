@@ -1,8 +1,7 @@
 import { TableNames } from 'meta/assessment/table'
 
+import { BulkDownloadTableFactory } from 'server/controller/cycleData/getBulkDownload/metadata/_types'
 import { BulkDownloadVariableType } from 'server/controller/cycleData/getBulkDownload/types'
-
-import { BulkDownloadTableFactory } from './_types'
 
 export const getAreaOfPermanentForestEstate: BulkDownloadTableFactory = (_props) => {
   return {

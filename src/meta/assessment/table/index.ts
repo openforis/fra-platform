@@ -42,6 +42,7 @@ export enum TableNames {
   growingStock_growingStockStatus = 'growingStock_growingStockStatus',
   holderOfManagementRights = 'holderOfManagementRights',
   nonWoodForestProductsRemovals = 'nonWoodForestProductsRemovals',
+  nonWoodForestProductsRemovalsCurrency = 'nonWoodForestProductsRemovalsCurrency',
   otherLandWithTreeCover = 'otherLandWithTreeCover',
   primaryDesignatedManagementObjective = 'primaryDesignatedManagementObjective',
   specificForestCategories = 'specificForestCategories',

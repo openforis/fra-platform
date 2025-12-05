@@ -11,15 +11,23 @@ type Props = PropsBulkDownload & { countries: Array<Country>; metadata: BulkDown
 const getTableNames = (props: { metadata: BulkDownloadMetadata }): Array<TableName> => {
   const { metadata } = props
 
-  const tableNames = metadata.years.flatMap((year) => {
-    return year.tables.flatMap((table) => {
-      return table.tableName
+  const tableNames = new Set<string>()
+
+  metadata.years.forEach((year) => {
+    return year.tables.forEach((table) => {
+      tableNames.add(table.tableName)
     })
   })
 
-  tableNames.push(TableNames.climaticDomain)
+  metadata.files.forEach((file) => {
+    file.columns.forEach((column) => {
+      tableNames.add(column.tableName)
+    })
+  })
 
-  return tableNames
+  tableNames.add(TableNames.climaticDomain)
+
+  return Array.from(tableNames)
 }
 
 export const getData = (props: Props): Promise<RecordAssessmentData> => {

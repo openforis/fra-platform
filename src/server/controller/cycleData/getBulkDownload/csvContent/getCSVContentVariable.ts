@@ -9,7 +9,7 @@ import { RecordAssessmentData } from 'meta/data/recordData'
 import { Dates } from 'utils/dates'
 import { Objects } from 'utils/objects'
 
-import { getFileName } from 'server/controller/cycleData/getBulkDownload/csvContent/_fileName'
+import { toCSVContent } from 'server/controller/cycleData/getBulkDownload/csvContent/_toContent'
 import {
   BulkDownloadMetadata,
   BulkDownloadTable,
@@ -21,7 +21,7 @@ import {
 
 import { getCSVRow } from './_row'
 import { getCSVRowHeader } from './_rowHeader'
-import { CSVColValue, CSVRowHeaderOptionsVariable } from './_types'
+import { CSVColValue, CSVRowOptions } from './_types'
 
 type Props = {
   assessment: Assessment
@@ -78,13 +78,12 @@ export const getCSVContentVariable = (props: Props): CSVContent => {
 
   const rows: Array<CSVRow> = []
 
-  const options: CSVRowHeaderOptionsVariable = { colValues, forestArea, includeClimaticDomain }
+  const options: CSVRowOptions = { colValues, forestArea, includeClimaticDomain }
   const rowHeader = getCSVRowHeader({ options })
   rows.push(rowHeader)
 
   countries.forEach((country) => {
     const row = getCSVRow({ assessment, country, cycle, data, i18n, options })
-
     rows.push(row)
   })
 
@@ -92,8 +91,5 @@ export const getCSVContentVariable = (props: Props): CSVContent => {
   rows[1].push(`"${Dates.format(new Date(), 'dd/MM/yyyy')} (${i18n.t('bulkDownload.dateOfExport')})"`)
   rows[2].push(getUnitLabel({ cycle, i18n, table: tables[tableName] }))
 
-  return {
-    content: rows.join('\n'),
-    fileName: getFileName({ fileName: `${fileName}_variables/${variable.csvColumn}` }),
-  }
+  return toCSVContent({ fileName: `${fileName}_variables/${variable.csvColumn}`, rows })
 }

@@ -3,9 +3,8 @@ import { TableNames } from 'meta/assessment/table'
 import { Years } from 'meta/assessment/years'
 import { RecordAssessmentDatas } from 'meta/data/recordDatas'
 
+import { BulkDownloadTableFactory } from 'server/controller/cycleData/getBulkDownload/metadata/_types'
 import { BulkDownloadColVariable, BulkDownloadTable } from 'server/controller/cycleData/getBulkDownload/types'
-
-import { BulkDownloadTableFactory } from './_types'
 
 const colsVariable: Array<BulkDownloadColVariable> = [
   { colName: 'growingStockPercent' },

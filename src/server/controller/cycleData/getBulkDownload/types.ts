@@ -52,10 +52,28 @@ export type BulkDownloadForestArea = {
   variableName: VariableName
 }
 
+export type BulkDownloadFileColumn = {
+  colName: ColName
+  csvColumn?: string
+  tableName: TableName
+  type?: BulkDownloadVariableType // default number
+  variableName: VariableName
+}
+
+export type BulkDownloadFile = {
+  columns: Array<BulkDownloadFileColumn>
+  fileName: string
+  includeClimaticDomain?: boolean
+}
+
 export type BulkDownloadMetadata = {
+  // common metadata
   forestArea: BulkDownloadForestArea
   tables: RecordTables
+  // exported tables with years
   years: Array<BulkDownloadYear>
+  // exported generic files
+  files: Array<BulkDownloadFile>
 }
 
 // ===== Bulk Download CSV definition
