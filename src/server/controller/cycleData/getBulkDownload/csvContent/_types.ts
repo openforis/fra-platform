@@ -2,6 +2,7 @@ import { ColName } from 'meta/assessment/col'
 import { TableName } from 'meta/assessment/table'
 
 import {
+  BulkDownloadColDescription,
   BulkDownloadForestArea,
   BulkDownloadTable,
   BulkDownloadVariable,
@@ -14,9 +15,10 @@ export type CSVColValue = Pick<BulkDownloadTable, 'getDatum'> &
   }
 
 export type CSVRowOptions = {
+  colDescriptions?: Array<BulkDownloadColDescription>
   colValues: Array<CSVColValue>
+  colYear?: string
   forestArea?: BulkDownloadForestArea
   includeClimaticDomain?: boolean
   includeDeskStudy?: boolean
-  year?: string
 }

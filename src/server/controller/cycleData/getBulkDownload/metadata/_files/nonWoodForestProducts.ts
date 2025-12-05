@@ -2,8 +2,8 @@ import { TableNames } from 'meta/assessment/table'
 
 import { BulkDownloadFileFactory } from 'server/controller/cycleData/getBulkDownload/metadata/_types'
 import {
+  BulkDownloadColNode,
   BulkDownloadFile,
-  BulkDownloadFileColumn,
   BulkDownloadVariableType,
 } from 'server/controller/cycleData/getBulkDownload/types'
 
@@ -34,15 +34,15 @@ const getCSVColumn = (variableName: string, colName: string): string => {
 const type = BulkDownloadVariableType.string
 
 export const getNonWoodForestProducts: BulkDownloadFileFactory = (_props) => {
-  const columns: BulkDownloadFile['columns'] = []
+  const colNodes: BulkDownloadFile['colNodes'] = []
 
   const colNameProducts = ['product_name', 'value', 'category', 'quantity', 'unit']
   Array.from({ length: 10 }, (_, i) => `product_${i + 1}`).forEach((variableName) => {
     const tableName = TableNames.nonWoodForestProductsRemovals
     colNameProducts.forEach((colName) => {
       const csvColumn = getCSVColumn(variableName, colName)
-      const column: BulkDownloadFileColumn = { colName, csvColumn, tableName, type, variableName }
-      columns.push(column)
+      const column: BulkDownloadColNode = { colName, csvColumn, tableName, type, variableName }
+      colNodes.push(column)
     })
   })
 
@@ -51,12 +51,12 @@ export const getNonWoodForestProducts: BulkDownloadFileFactory = (_props) => {
     const colName = 'value'
     const tableName = TableNames.nonWoodForestProductsRemovals
     const csvColumn = getCSVColumn(variableName, colName)
-    const column: BulkDownloadFileColumn = { colName, csvColumn, tableName, type, variableName }
-    columns.push(column)
+    const column: BulkDownloadColNode = { colName, csvColumn, tableName, type, variableName }
+    colNodes.push(column)
   })
 
   const currency = 'currency'
-  columns.push({
+  colNodes.push({
     colName: currency,
     csvColumn: `Name of currency`,
     tableName: TableNames.nonWoodForestProductsRemovalsCurrency,
@@ -64,5 +64,5 @@ export const getNonWoodForestProducts: BulkDownloadFileFactory = (_props) => {
     variableName: currency,
   })
 
-  return { columns, fileName: 'NWFP' }
+  return { colNodes, fileName: 'NWFP' }
 }

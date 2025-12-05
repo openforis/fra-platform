@@ -21,7 +21,7 @@ export const getBulkDownload = async (props: Props): Promise<Array<CSVContent>> 
 
   const i18n = (await createI18nPromise(Lang.en)) as i18nType
   const countries = await getCountries({ assessment, cycle })
-  const data = await getData({ assessment, countries, cycle, metadata })
+  const [data, descriptions] = await getData({ assessment, countries, cycle, metadata })
 
   const propsContent = { assessment, countries, cycle, data, i18n, includeClimaticDomain }
 
@@ -39,7 +39,7 @@ export const getBulkDownload = async (props: Props): Promise<Array<CSVContent>> 
       ]
     }),
     ...metadata.files.map((file) => {
-      return getCSVContentFile({ ...propsContent, file })
+      return getCSVContentFile({ ...propsContent, descriptions, file })
     }),
   ]
 }

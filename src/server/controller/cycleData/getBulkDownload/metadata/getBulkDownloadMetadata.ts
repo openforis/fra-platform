@@ -2,6 +2,7 @@ import { CycleNames } from 'meta/assessment/cycle/names'
 import { TableNames } from 'meta/assessment/table'
 
 import { TableRedisRepository } from 'server/cache/repository/table'
+import { getForestPolicy } from 'server/controller/cycleData/getBulkDownload/metadata/_files/forestPolicy'
 import { getNonWoodForestProducts } from 'server/controller/cycleData/getBulkDownload/metadata/_files/nonWoodForestProducts'
 import { getAnnualYears } from 'server/controller/cycleData/getBulkDownload/metadata/_getAnnualYears'
 import { getFraYears } from 'server/controller/cycleData/getBulkDownload/metadata/_getFraYears'
@@ -18,7 +19,7 @@ export const getBulkDownloadMetadata = async (props: PropsBulkDownload): Promise
     variableName: 'forestArea',
   }
 
-  const files: BulkDownloadMetadata['files'] = [getNonWoodForestProducts(props)]
+  const files: BulkDownloadMetadata['files'] = [getNonWoodForestProducts(props), getForestPolicy(props)]
 
   const years: BulkDownloadMetadata['years'] = [getFraYears(props), getAnnualYears(props), getIntervalYears(props)]
 
