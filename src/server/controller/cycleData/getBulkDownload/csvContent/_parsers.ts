@@ -12,7 +12,7 @@ export const parseValue = (
   let parsedValue = ''
   if (!Objects.isEmpty(value)) {
     parsedValue = value.replace(/"/g, '').replace(/\n/g, '').replace(/\r/g, '')
-    if (type === 'number' && Numbers.toBigNumber(value).isFinite()) {
+    if (type === 'number' && Numbers.toBigNumber(parsedValue).isFinite()) {
       parsedValue = Numbers.toFixed(parsedValue)
     }
   }
