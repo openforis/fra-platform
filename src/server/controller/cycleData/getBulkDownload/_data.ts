@@ -2,11 +2,17 @@ import { Country } from 'meta/area/country'
 import { CountryIso } from 'meta/area/countryIso'
 import { DescriptionCountryValues } from 'meta/assessment/descriptionValue'
 import { TableName, TableNames } from 'meta/assessment/table'
-import { RecordAssessmentData } from 'meta/data/recordData'
+import { Objects } from 'utils/objects'
 
-import { BulkDownloadMetadata, PropsBulkDownload } from 'server/controller/cycleData/getBulkDownload/types'
+import {
+  BulkDownloadData,
+  BulkDownloadMetadata,
+  BulkDownloadODPDataTableName,
+  PropsBulkDownload,
+} from 'server/controller/cycleData/getBulkDownload/types'
 import { getTableData } from 'server/controller/cycleData/getTableData'
 import { DescriptionRepository } from 'server/db/repository/assessmentCycle/descriptions'
+import { OriginalDataPointRepository } from 'server/db/repository/assessmentCycle/originalDataPoint'
 
 type Props = PropsBulkDownload & { countries: Array<Country>; metadata: BulkDownloadMetadata }
 
@@ -34,20 +40,25 @@ const getNames = (props: {
   })
 
   tableNames.add(TableNames.climaticDomain)
+  tableNames.delete(BulkDownloadODPDataTableName)
 
   return { sectionNames: Array.from(sectionNames), tableNames: Array.from(tableNames) }
 }
 
-type Returned = [RecordAssessmentData, DescriptionCountryValues]
+type Returned = [BulkDownloadData, DescriptionCountryValues]
 
-export const getData = (props: Props): Promise<Returned> => {
+export const getData = async (props: Props): Promise<Returned> => {
   const { assessment, countries, cycle, metadata } = props
 
   const countryISOs = countries.map<CountryIso>((country) => country.countryIso)
   const { sectionNames, tableNames } = getNames({ metadata })
 
-  return Promise.all([
-    getTableData({ assessment, cycle, countryISOs, tableNames, mergeOdp: true }),
-    DescriptionRepository.getValues({ assessment, cycle, countryISOs, sectionNames }),
+  const [data, descriptions, odpData] = await Promise.all([
+    getTableData({ assessment, countryISOs, cycle, mergeOdp: true, tableNames }),
+    DescriptionRepository.getValues({ assessment, countryISOs, cycle, sectionNames }),
+    OriginalDataPointRepository.getBulkDownloadData({ assessment, countryISOs, cycle }),
   ])
+  Objects.set(data, [BulkDownloadODPDataTableName], odpData)
+
+  return [data as BulkDownloadData, descriptions]
 }

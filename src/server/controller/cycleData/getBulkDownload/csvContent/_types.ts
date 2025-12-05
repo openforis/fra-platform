@@ -3,22 +3,22 @@ import { TableName } from 'meta/assessment/table'
 
 import {
   BulkDownloadColDescription,
-  BulkDownloadForestArea,
-  BulkDownloadTable,
+  BulkDownloadColNode,
+  BulkDownloadGetDatum,
   BulkDownloadVariable,
 } from 'server/controller/cycleData/getBulkDownload/types'
 
-export type CSVColValue = Pick<BulkDownloadTable, 'getDatum'> &
-  BulkDownloadVariable & {
-    colName: ColName
-    tableName: TableName
-  }
+export type CSVColValue = BulkDownloadVariable & {
+  colName: ColName
+  getDatum?: BulkDownloadGetDatum
+  tableName: TableName
+}
 
 export type CSVRowOptions = {
   colDescriptions?: Array<BulkDownloadColDescription>
+  colForestArea?: BulkDownloadColNode
   colValues: Array<CSVColValue>
   colYear?: string
-  forestArea?: BulkDownloadForestArea
   includeClimaticDomain?: boolean
   includeDeskStudy?: boolean
 }
