@@ -40,9 +40,8 @@ const AdminLinks: React.FC = () => {
 
   const extraActions = useMemo<Array<React.ReactElement>>(
     () => [
-      <div>
+      <div key="verify-links">
         <Button
-          key="verify-links"
           className="verify-links-button"
           disabled={verifyLinksInProgress ?? true}
           label={t('admin.verifyLinks')}
@@ -60,7 +59,7 @@ const AdminLinks: React.FC = () => {
       extraActions={extraActions}
       filters={filters}
       gridTemplateColumns="2fr minmax(min-content, 1fr) minmax(264px, 1fr)" // 264px: Location width with padding
-      path={ApiEndPoint.CycleData.Links.many()}
+      path={ApiEndPoint.Admin.links()}
     />
   )
 }

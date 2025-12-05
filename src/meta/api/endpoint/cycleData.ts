@@ -31,15 +31,6 @@ export const CycleData = {
     },
   },
 
-  Links: {
-    count: (): string => apiPath('cycle-data', 'links', 'count'),
-    export: (): string => apiPath('cycle-data', 'links', 'export'),
-    many: (): string => apiPath('cycle-data', 'links'),
-    one: (): string => apiPath('cycle-data', 'links', 'link'),
-    verify: (): string => apiPath('cycle-data', 'links', 'verify'),
-    verifyStatus: (): string => apiPath('cycle-data', 'links', 'verify', 'status'),
-  },
-
   OriginalDataPoint: {
     one: (): string => apiPath('cycle-data', 'original-data-points', 'original-data-point'),
     many: (): string => apiPath('cycle-data', 'original-data-points'),

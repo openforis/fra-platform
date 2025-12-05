@@ -13,5 +13,5 @@ type Props = {
 }
 
 export const verifyLinks = createAsyncThunk<void, Props, ThunkApiConfig>('links/verify', async (props) => {
-  await axios.post(ApiEndPoint.CycleData.Links.verify(), {}, { params: props })
+  await axios.post(ApiEndPoint.Admin.linksVerify(), {}, { params: props })
 })
