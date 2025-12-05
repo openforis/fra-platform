@@ -20,12 +20,6 @@ import { getDescription } from './descriptions/getDescription'
 import { getDescriptionsHistory } from './descriptions/getDescriptionsHistory'
 import { removeDataSource } from './descriptions/removeDataSource'
 import { upsertDescription } from './descriptions/upsertDescription'
-import { exportLinks } from './links/exportLinks'
-import { getLinksCount } from './links/getLinksCount'
-import { getManyLinks } from './links/getManyLinks'
-import { isVerificationInProgress } from './links/isVerificationInProgress'
-import { updateLink } from './links/updateLink'
-import { verifyLinks } from './links/verifyLinks'
 import { copyOriginalDataPointNationalClasses } from './originalDataPoint/copyOriginalDataPointNationalClasses'
 import { createOriginalDataPoint } from './originalDataPoint/createOriginalDataPoint'
 import { deleteOriginalDataPoint } from './originalDataPoint/deleteOriginalDataPoint'
@@ -191,14 +185,6 @@ export const CycleDataApi = {
       AuthMiddleware.requireEditRepositoryItem,
       removeRepositoryItem
     )
-
-    // link
-    express.patch(ApiEndPoint.CycleData.Links.one(), AuthMiddleware.requireAdmin, updateLink)
-    express.get(ApiEndPoint.CycleData.Links.many(), AuthMiddleware.requireAdmin, getManyLinks)
-    express.get(ApiEndPoint.CycleData.Links.export(), AuthMiddleware.requireAdmin, exportLinks)
-    express.get(ApiEndPoint.CycleData.Links.count(), AuthMiddleware.requireAdmin, getLinksCount)
-    express.post(ApiEndPoint.CycleData.Links.verify(), AuthMiddleware.requireAdmin, verifyLinks)
-    express.get(ApiEndPoint.CycleData.Links.verifyStatus(), AuthMiddleware.requireAdmin, isVerificationInProgress)
 
     // dashboard
     express.get(ApiEndPoint.CycleData.Dashboard.one(), getDashboardItems)
