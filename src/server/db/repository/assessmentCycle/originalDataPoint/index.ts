@@ -1,5 +1,6 @@
 import { create } from 'server/db/repository/assessmentCycle/originalDataPoint/create'
 import { deleteNationalClass } from 'server/db/repository/assessmentCycle/originalDataPoint/deleteNationalClass'
+import { getBulkDownloadData } from 'server/db/repository/assessmentCycle/originalDataPoint/getBulkDownloadData'
 import { getLastAccepted } from 'server/db/repository/assessmentCycle/originalDataPoint/getLastAccepted'
 import { getMany } from 'server/db/repository/assessmentCycle/originalDataPoint/getMany'
 import { getManyWithDescriptionLinks } from 'server/db/repository/assessmentCycle/originalDataPoint/getManyWithDescriptionLinks'
@@ -16,6 +17,7 @@ import { updateYear } from 'server/db/repository/assessmentCycle/originalDataPoi
 export const OriginalDataPointRepository = {
   create,
   deleteNationalClass,
+  getBulkDownloadData,
   getLastAccepted,
   getMany,
   getManyWithDescriptionLinks,

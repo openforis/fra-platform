@@ -13,7 +13,7 @@ const climaticDomainVariableHeaders = climaticDomainVariables.map((variable) => 
 
 export const getCSVRowHeader = (props: Props): CSVRow => {
   const { options } = props
-  const { colDescriptions, colValues, colYear, forestArea, includeClimaticDomain, includeDeskStudy } = options
+  const { colDescriptions, colForestArea, colValues, colYear, includeClimaticDomain, includeDeskStudy } = options
 
   const row = ['regions', 'iso3']
 
@@ -23,8 +23,8 @@ export const getCSVRowHeader = (props: Props): CSVRow => {
 
   row.push('name')
 
-  if (!Objects.isNil(forestArea)) {
-    row.push(`forest area ${forestArea.colName}`)
+  if (!Objects.isNil(colForestArea)) {
+    row.push(`forest area ${colForestArea.colName}`)
   }
   if (!Objects.isNil(colYear)) {
     row.push('year')

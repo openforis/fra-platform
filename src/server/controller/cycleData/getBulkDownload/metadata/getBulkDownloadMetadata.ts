@@ -3,6 +3,7 @@ import { TableNames } from 'meta/assessment/table'
 
 import { TableRedisRepository } from 'server/cache/repository/table'
 import { getForestPolicy } from 'server/controller/cycleData/getBulkDownload/metadata/_files/forestPolicy'
+import { getNDPYear } from 'server/controller/cycleData/getBulkDownload/metadata/_files/ndpYear'
 import { getNonWoodForestProducts } from 'server/controller/cycleData/getBulkDownload/metadata/_files/nonWoodForestProducts'
 import { getAnnualYears } from 'server/controller/cycleData/getBulkDownload/metadata/_getAnnualYears'
 import { getFraYears } from 'server/controller/cycleData/getBulkDownload/metadata/_getFraYears'
@@ -13,17 +14,21 @@ export const getBulkDownloadMetadata = async (props: PropsBulkDownload): Promise
   const { assessment, cycle } = props
   const { name: cycleName } = cycle
 
-  const forestArea: BulkDownloadMetadata['forestArea'] = {
+  const colForestArea: BulkDownloadMetadata['colForestArea'] = {
     colName: cycleName === CycleNames._2020 ? '2020' : '2025',
     tableName: TableNames.extentOfForest,
     variableName: 'forestArea',
   }
 
-  const files: BulkDownloadMetadata['files'] = [getNonWoodForestProducts(props), getForestPolicy(props)]
+  const files: BulkDownloadMetadata['files'] = [
+    getNonWoodForestProducts(props),
+    getForestPolicy(props),
+    getNDPYear(props),
+  ]
 
   const years: BulkDownloadMetadata['years'] = [getFraYears(props), getAnnualYears(props), getIntervalYears(props)]
 
   const tables = await TableRedisRepository.getManyRecord({ assessment, cycle })
 
-  return { files, forestArea, tables, years }
+  return { colForestArea, files, tables, years }
 }

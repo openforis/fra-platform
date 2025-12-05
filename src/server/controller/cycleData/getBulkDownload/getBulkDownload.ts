@@ -12,18 +12,22 @@ import { getBulkDownloadMetadata } from 'server/controller/cycleData/getBulkDown
 import { CSVContent, PropsBulkDownload } from 'server/controller/cycleData/getBulkDownload/types'
 
 // includeClimaticDomain will be dynamically handled in a separate task
-type Props = PropsBulkDownload & { includeClimaticDomain?: boolean }
+type Props = Omit<PropsBulkDownload, 'i18n'> & { includeClimaticDomain?: boolean }
 
 export const getBulkDownload = async (props: Props): Promise<Array<CSVContent>> => {
   const { assessment, cycle, includeClimaticDomain = true } = props
 
-  const metadata = await getBulkDownloadMetadata({ assessment, cycle })
-
   const i18n = (await createI18nPromise(Lang.en)) as i18nType
-  const countries = await getCountries({ assessment, cycle })
-  const [data, descriptions] = await getData({ assessment, countries, cycle, metadata })
 
-  const propsContent = { assessment, countries, cycle, data, i18n, includeClimaticDomain }
+  const propsBulkDownload: PropsBulkDownload = { assessment, cycle, i18n }
+
+  const [metadata, countries] = await Promise.all([
+    getBulkDownloadMetadata(propsBulkDownload),
+    getCountries(propsBulkDownload),
+  ])
+  const [data, descriptions] = await getData({ ...propsBulkDownload, countries, metadata })
+
+  const propsContent = { ...propsBulkDownload, countries, data, includeClimaticDomain, metadata }
 
   return [
     ...metadata.years.flatMap((yearMeta) => {
@@ -33,7 +37,7 @@ export const getBulkDownload = async (props: Props): Promise<Array<CSVContent>> 
         // years singe variable csv files
         ...yearMeta.tables.flatMap((table) => {
           return table.variables.map((variable) => {
-            return getCSVContentVariable({ ...propsContent, metadata, yearMeta, table, variable })
+            return getCSVContentVariable({ ...propsContent, yearMeta, table, variable })
           })
         }),
       ]

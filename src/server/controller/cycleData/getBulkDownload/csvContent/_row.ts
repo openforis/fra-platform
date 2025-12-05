@@ -4,13 +4,12 @@ import { Country } from 'meta/area/country'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { DescriptionCountryValues } from 'meta/assessment/descriptionValue'
-import { RecordAssessmentData } from 'meta/data/recordData'
 import { RecordAssessmentDatas } from 'meta/data/recordDatas'
 import { Objects } from 'utils/objects'
 
 import { getAreaLabel } from 'server/controller/cycleData/getBulkDownload/csvContent/_area'
 import { parseDescription, parseValue } from 'server/controller/cycleData/getBulkDownload/csvContent/_parsers'
-import { BulkDownloadVariableType, CSVRow } from 'server/controller/cycleData/getBulkDownload/types'
+import { BulkDownloadData, BulkDownloadVariableType, CSVRow } from 'server/controller/cycleData/getBulkDownload/types'
 
 import { climaticDomainVariables } from './_climaticDomainVariables'
 import { getClimaticValue } from './_getClimaticValue'
@@ -20,7 +19,7 @@ type Props = {
   assessment: Assessment
   country: Country
   cycle: Cycle
-  data: RecordAssessmentData
+  data: BulkDownloadData
   descriptions?: DescriptionCountryValues
   i18n: i18nType
   options: CSVRowOptions
@@ -31,7 +30,7 @@ export const getCSVRow = (props: Props): CSVRow => {
   const { name: assessmentName } = assessment.props
   const { name: cycleName } = cycle
   const { countryIso, regionCodes } = country
-  const { colDescriptions, colValues, colYear, forestArea, includeClimaticDomain, includeDeskStudy } = options
+  const { colDescriptions, colForestArea, colValues, colYear, includeClimaticDomain, includeDeskStudy } = options
 
   const row: CSVRow = []
 
@@ -49,8 +48,8 @@ export const getCSVRow = (props: Props): CSVRow => {
   row.push(parseValue(countryLabel, BulkDownloadVariableType.string))
 
   //==== forestArea
-  if (!Objects.isNil(forestArea)) {
-    const { colName, tableName, variableName } = forestArea
+  if (!Objects.isNil(colForestArea)) {
+    const { colName, tableName, variableName } = colForestArea
     const propsValue = { assessmentName, countryIso, colName, cycleName, data, tableName, variableName }
     const value = RecordAssessmentDatas.getDatum(propsValue)
     row.push(parseValue(value))
