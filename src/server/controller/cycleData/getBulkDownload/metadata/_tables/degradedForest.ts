@@ -2,7 +2,7 @@ import { CycleNames } from 'meta/assessment/cycle/names'
 import { TableNames } from 'meta/assessment/table'
 
 import { BulkDownloadTableFactory } from 'server/controller/cycleData/getBulkDownload/metadata/_types'
-import { BulkDownloadVariableType } from 'server/controller/cycleData/getBulkDownload/types'
+import { BulkDownloadColNodeType } from 'server/controller/cycleData/getBulkDownload/types'
 
 export const getDegradedForest: BulkDownloadTableFactory = (props) => {
   const { cycle } = props
@@ -19,7 +19,7 @@ export const getDegradedForest: BulkDownloadTableFactory = (props) => {
         colName,
         variableName,
         csvColumn: '5c_y_n',
-        type: BulkDownloadVariableType.string,
+        type: BulkDownloadColNodeType.string,
         colsVariable: [{ colName }],
       },
     ],

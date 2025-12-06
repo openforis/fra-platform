@@ -10,6 +10,7 @@ import { Objects } from 'utils/objects'
 
 import { toCSVContent } from 'server/controller/cycleData/getBulkDownload/csvContent/_toContent'
 import {
+  BulkDownloadColNode,
   BulkDownloadData,
   BulkDownloadMetadata,
   BulkDownloadTable,
@@ -21,7 +22,7 @@ import {
 
 import { getCSVRow } from './_row'
 import { getCSVRowHeader } from './_rowHeader'
-import { CSVColValue, CSVRowOptions } from './_types'
+import { CSVRowOptions } from './_types'
 
 type Props = {
   assessment: Assessment
@@ -55,6 +56,10 @@ const getUnitLabel = (props: { cycle: Cycle; i18n: i18nType; table: Table }): st
 }
 
 // single variable file
+/**
+ * @deprecated
+ * only getCSVContentFile will be used
+ */
 export const getCSVContentVariable = (props: Props): CSVContent => {
   const { assessment, countries, cycle, data, i18n, includeClimaticDomain, metadata, table, variable, yearMeta } = props
   const { colForestArea, tables } = metadata
@@ -62,7 +67,7 @@ export const getCSVContentVariable = (props: Props): CSVContent => {
   const { getDatum, tableName } = table
   const { colName, colsVariable, type, variableName } = variable
 
-  const colValues: Array<CSVColValue> = colsVariable
+  const colValues: Array<BulkDownloadColNode> = colsVariable
     ? colsVariable.map((colVariable) => {
         return {
           colName: colVariable.colName,
@@ -78,7 +83,7 @@ export const getCSVContentVariable = (props: Props): CSVContent => {
 
   const rows: Array<CSVRow> = []
 
-  const options: CSVRowOptions = { colValues, colForestArea, includeClimaticDomain }
+  const options: CSVRowOptions = { colNodes: colValues, colForestArea, includeClimaticDomain }
   const rowHeader = getCSVRowHeader({ options })
   rows.push(rowHeader)
 

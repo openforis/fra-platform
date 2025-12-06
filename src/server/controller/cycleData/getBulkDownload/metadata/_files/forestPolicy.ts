@@ -3,7 +3,11 @@ import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 
 import { getForestPolicy as getForestPolicyTable } from 'server/controller/cycleData/getBulkDownload/metadata/_tables/forestPolicy'
 import { BulkDownloadFileFactory } from 'server/controller/cycleData/getBulkDownload/metadata/_types'
-import { BulkDownloadColDescription, BulkDownloadColNode } from 'server/controller/cycleData/getBulkDownload/types'
+import {
+  BulkDownloadColDescription,
+  BulkDownloadColNode,
+  BulkDownloadRow,
+} from 'server/controller/cycleData/getBulkDownload/types'
 
 const colCsvColumns: Record<ColName, string> = {
   national_yes_no: 'National',
@@ -14,7 +18,7 @@ export const getForestPolicy: BulkDownloadFileFactory = (props) => {
   const forestPolicyTable = getForestPolicyTable(props)
   const { tableName, variables } = forestPolicyTable
 
-  const columns = variables.map<BulkDownloadColNode>((variable) => {
+  const colNodes = variables.map<BulkDownloadColNode>((variable) => {
     const { colName, type, variableName } = variable
     const csvColumn = `${colCsvColumns[colName]} ${variableName.split('_').join(' ')}`
     return { colName, csvColumn, tableName, type, variableName }
@@ -26,5 +30,7 @@ export const getForestPolicy: BulkDownloadFileFactory = (props) => {
     sectionName: tableName,
   }
 
-  return { colNodes: columns, colDescriptions: [comments], fileName: 'ForestPolicy' }
+  const row: BulkDownloadRow = { colDescriptions: [comments], colNodes }
+
+  return { fileName: 'ForestPolicy', rows: [row] }
 }

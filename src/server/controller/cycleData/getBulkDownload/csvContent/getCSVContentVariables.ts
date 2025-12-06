@@ -6,6 +6,7 @@ import { Cycle } from 'meta/assessment/cycle'
 
 import { toCSVContent } from 'server/controller/cycleData/getBulkDownload/csvContent/_toContent'
 import {
+  BulkDownloadColNode,
   BulkDownloadData,
   BulkDownloadYear,
   CSVContent,
@@ -14,7 +15,7 @@ import {
 
 import { getCSVRow } from './_row'
 import { getCSVRowHeader } from './_rowHeader'
-import { CSVColValue, CSVRowOptions } from './_types'
+import { CSVRowOptions } from './_types'
 
 type Props = {
   assessment: Assessment
@@ -27,11 +28,15 @@ type Props = {
 }
 
 // multiple variables per row
+/**
+ * @deprecated
+ * only getCSVContentFile will be used
+ */
 export const getCSVContentVariables = (props: Props): CSVContent => {
   const { assessment, countries, cycle, data, i18n, includeClimaticDomain, yearMeta } = props
   const { fileName, includeDeskStudy = true, tables, years } = yearMeta
 
-  const colValues: Array<CSVColValue> = tables.flatMap((table) => {
+  const colValues: Array<BulkDownloadColNode> = tables.flatMap((table) => {
     const { getDatum, tableName } = table
     return table.variables.flatMap((variable) => {
       const { colName, csvColumn, type, variableName } = variable
@@ -41,16 +46,16 @@ export const getCSVContentVariables = (props: Props): CSVContent => {
 
   const rows: Array<CSVRow> = []
 
-  const optionsHeader: CSVRowOptions = { colValues, includeClimaticDomain, includeDeskStudy, colYear: 'year' }
+  const optionsHeader: CSVRowOptions = { colNodes: colValues, includeClimaticDomain, includeDeskStudy, colYear: 'year' }
   const rowHeader = getCSVRowHeader({ options: optionsHeader })
   rows.push(rowHeader)
 
   countries.forEach((country) => {
     years.forEach((colYear) => {
-      const colValuesRow = colValues.map<CSVColValue>((colValue) => {
+      const colValuesRow = colValues.map<BulkDownloadColNode>((colValue) => {
         return { ...colValue, colName: colValue.colName ?? colYear }
       })
-      const options: CSVRowOptions = { ...optionsHeader, colValues: colValuesRow, colYear }
+      const options: CSVRowOptions = { ...optionsHeader, colNodes: colValuesRow, colYear }
       const row = getCSVRow({ assessment, country, cycle, data, i18n, options })
 
       rows.push(row)

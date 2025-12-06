@@ -3,8 +3,8 @@ import { TableNames } from 'meta/assessment/table'
 import { BulkDownloadFileFactory } from 'server/controller/cycleData/getBulkDownload/metadata/_types'
 import {
   BulkDownloadColNode,
-  BulkDownloadFile,
-  BulkDownloadVariableType,
+  BulkDownloadColNodeType,
+  BulkDownloadRow,
 } from 'server/controller/cycleData/getBulkDownload/types'
 
 const toTitleCase = (str: string): string => {
@@ -31,10 +31,10 @@ const getCSVColumn = (variableName: string, colName: string): string => {
   return `${toTitleCase(variableName)} ${toTitleCase(colName)}`
 }
 
-const type = BulkDownloadVariableType.string
+const type = BulkDownloadColNodeType.string
 
 export const getNonWoodForestProducts: BulkDownloadFileFactory = (_props) => {
-  const colNodes: BulkDownloadFile['colNodes'] = []
+  const colNodes: Array<BulkDownloadColNode> = []
 
   const colNameProducts = ['product_name', 'value', 'category', 'quantity', 'unit']
   Array.from({ length: 10 }, (_, i) => `product_${i + 1}`).forEach((variableName) => {
@@ -64,5 +64,7 @@ export const getNonWoodForestProducts: BulkDownloadFileFactory = (_props) => {
     variableName: currency,
   })
 
-  return { colNodes, fileName: 'NWFP' }
+  const row: BulkDownloadRow = { colNodes }
+
+  return { fileName: 'NWFP', rows: [row] }
 }

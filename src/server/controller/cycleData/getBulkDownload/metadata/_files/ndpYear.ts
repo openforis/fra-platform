@@ -4,14 +4,15 @@ import { Objects } from 'utils/objects'
 import { BulkDownloadFileFactory } from 'server/controller/cycleData/getBulkDownload/metadata/_types'
 import {
   BulkDownloadColNode,
+  BulkDownloadColNodeType,
   BulkDownloadGetDatum,
   BulkDownloadODPCountryData,
   BulkDownloadODPDataTableName,
-  BulkDownloadVariableType,
+  BulkDownloadRow,
 } from 'server/controller/cycleData/getBulkDownload/types'
 
 const tableName = BulkDownloadODPDataTableName
-const type = BulkDownloadVariableType.string
+const type = BulkDownloadColNodeType.string
 
 export const getNDPYear: BulkDownloadFileFactory = (props) => {
   const { i18n } = props
@@ -66,5 +67,7 @@ export const getNDPYear: BulkDownloadFileFactory = (props) => {
     }),
   ]
 
-  return { colNodes, getDatum, includeClimaticDomain: true, includeForestArea: true, fileName: 'NDPYear' }
+  const row: BulkDownloadRow = { colNodes }
+
+  return { getDatum, includeClimaticDomain: true, includeForestArea: true, fileName: 'NDPYear', rows: [row] }
 }

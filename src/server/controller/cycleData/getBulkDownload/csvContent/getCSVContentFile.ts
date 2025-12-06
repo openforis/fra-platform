@@ -16,7 +16,7 @@ import {
 
 import { getCSVRow } from './_row'
 import { getCSVRowHeader } from './_rowHeader'
-import { CSVColValue, CSVRowOptions } from './_types'
+import { CSVRowOptions } from './_types'
 
 type Props = {
   assessment: Assessment
@@ -29,33 +29,34 @@ type Props = {
   i18n: i18nType
 }
 
-// retrieves the CSV content for the generic BulkDownloadFile object
+// returns the CSV content for the BulkDownloadFile object
 export const getCSVContentFile = (props: Props): CSVContent => {
   const { assessment, countries, cycle, data, descriptions, file, i18n, metadata } = props
   const { colForestArea } = metadata
-  const { colDescriptions, colNodes, fileName, includeClimaticDomain, includeForestArea } = file
+  const { csvPostProcessor, fileName, includeClimaticDomain, includeDeskStudy, includeForestArea, rows } = file
 
-  const colValues = colNodes.map<CSVColValue>((column) => {
-    const { colName, csvColumn = column.colName, getDatum, tableName, type, variableName } = column
-    return { colName, csvColumn, getDatum, tableName, type, variableName }
-  })
-
-  const options: CSVRowOptions = {
+  const baseOptions = {
     colForestArea: includeForestArea ? colForestArea : undefined,
-    colDescriptions,
-    colValues,
     includeClimaticDomain,
+    includeDeskStudy,
   }
+  const csvRows: Array<CSVRow> = []
 
-  const rows: Array<CSVRow> = []
-
-  const rowHeader = getCSVRowHeader({ options })
-  rows.push(rowHeader)
+  const { colDescriptions, colNodes, colYear } = rows.at(0)
+  const optionsHeader: CSVRowOptions = { ...baseOptions, colDescriptions, colNodes, colYear }
+  const rowHeader = getCSVRowHeader({ options: optionsHeader })
+  csvRows.push(rowHeader)
 
   countries.forEach((country) => {
-    const row = getCSVRow({ assessment, country, cycle, data, descriptions, i18n, options })
-    rows.push(row)
+    rows.forEach((row) => {
+      const { colDescriptions, colNodes, colYear } = row
+      const options = { ...baseOptions, colDescriptions, colNodes, colYear }
+      const csvRow = getCSVRow({ assessment, country, cycle, data, descriptions, i18n, options })
+      csvRows.push(csvRow)
+    })
   })
 
-  return toCSVContent({ fileName, rows })
+  csvPostProcessor?.({ rows: csvRows })
+
+  return toCSVContent({ fileName, rows: csvRows })
 }

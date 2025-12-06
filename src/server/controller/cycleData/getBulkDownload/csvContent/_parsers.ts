@@ -3,12 +3,9 @@ import { Parser } from 'htmlparser2'
 import { Numbers } from 'utils/numbers'
 import { Objects } from 'utils/objects'
 
-import { BulkDownloadVariableType, CSVValue } from 'server/controller/cycleData/getBulkDownload/types'
+import { BulkDownloadColNodeType, CSVValue } from 'server/controller/cycleData/getBulkDownload/types'
 
-export const parseValue = (
-  value: string,
-  type: BulkDownloadVariableType = BulkDownloadVariableType.number
-): CSVValue => {
+export const parseValue = (value: string, type: BulkDownloadColNodeType = BulkDownloadColNodeType.number): CSVValue => {
   let parsedValue = ''
   if (!Objects.isEmpty(value)) {
     parsedValue = value.replace(/"/g, '').replace(/\n/g, '').replace(/\r/g, '')

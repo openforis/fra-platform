@@ -31,10 +31,11 @@ const getNames = (props: {
   })
 
   metadata.files.forEach((file) => {
-    file.colNodes.forEach((column) => {
+    const row = file.rows.at(0)
+    row.colNodes.forEach((column) => {
       tableNames.add(column.tableName)
     })
-    file.colDescriptions?.forEach((description) => {
+    row.colDescriptions?.forEach((description) => {
       sectionNames.add(description.sectionName)
     })
   })

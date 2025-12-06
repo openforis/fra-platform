@@ -1,10 +1,10 @@
 import { TableNames } from 'meta/assessment/table'
 
 import { BulkDownloadTableFactory } from 'server/controller/cycleData/getBulkDownload/metadata/_types'
-import { BulkDownloadVariableType } from 'server/controller/cycleData/getBulkDownload/types'
+import { BulkDownloadColNodeType } from 'server/controller/cycleData/getBulkDownload/types'
 
 export const getForestPolicy: BulkDownloadTableFactory = (_props) => {
-  const type = BulkDownloadVariableType.string
+  const type = BulkDownloadColNodeType.string
 
   return {
     tableName: TableNames.forestPolicy,
