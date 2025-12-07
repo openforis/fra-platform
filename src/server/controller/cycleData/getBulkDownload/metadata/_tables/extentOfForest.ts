@@ -4,27 +4,6 @@ import {
   BulkDownloadFileYearsBuilder,
   ColNodeYearsFactory,
 } from 'server/controller/cycleData/getBulkDownload/metadata/_tables/_fileYearsBuilder'
-import { BulkDownloadTableFactory } from 'server/controller/cycleData/getBulkDownload/metadata/_types'
-
-export const getExtentOfForest: BulkDownloadTableFactory = (_props) => {
-  return {
-    tableName: TableNames.extentOfForest,
-    variables: [
-      {
-        variableName: 'forestArea',
-        csvColumn: '1a_forestArea',
-      },
-      {
-        variableName: 'otherWoodedLand',
-        csvColumn: '1a_otherWoodedLand',
-      },
-      {
-        variableName: 'totalLandArea',
-        csvColumn: '1a_landArea',
-      },
-    ],
-  }
-}
 
 export class ExtentOfForestBuilder extends BulkDownloadFileYearsBuilder {
   getBaseColNodes(): Array<ColNodeYearsFactory> {

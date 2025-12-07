@@ -5,10 +5,14 @@ import { Objects } from 'utils/objects'
 
 import { BulkDownloadColNodeType, CSVValue } from 'server/controller/cycleData/getBulkDownload/types'
 
-export const parseValue = (value: string, type: BulkDownloadColNodeType = BulkDownloadColNodeType.number): CSVValue => {
+export const parseValue = (
+  value: string | Array<string>,
+  type: BulkDownloadColNodeType = BulkDownloadColNodeType.number
+): CSVValue => {
   let parsedValue = ''
   if (!Objects.isEmpty(value)) {
-    parsedValue = value.replace(/"/g, '').replace(/\n/g, '').replace(/\r/g, '')
+    parsedValue = type === 'strings' ? (value as Array<string>).join(', ') : (value as string)
+    parsedValue = parsedValue.replace(/"/g, '').replace(/\n/g, '').replace(/\r/g, '')
     if (type === 'number' && Numbers.toBigNumber(parsedValue).isFinite()) {
       parsedValue = Numbers.toFixed(parsedValue)
     }

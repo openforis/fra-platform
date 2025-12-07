@@ -6,20 +6,18 @@ import { Lang } from 'meta/lang'
 import { getCountries } from 'server/controller/cycleData/getBulkDownload/_countries'
 import { getData } from 'server/controller/cycleData/getBulkDownload/_data'
 import { getCSVContentFile } from 'server/controller/cycleData/getBulkDownload/csvContent/getCSVContentFile'
-import { getCSVContentVariable } from 'server/controller/cycleData/getBulkDownload/csvContent/getCSVContentVariable'
-import { getCSVContentVariables } from 'server/controller/cycleData/getBulkDownload/csvContent/getCSVContentVariables'
 import { getBulkDownloadMetadata } from 'server/controller/cycleData/getBulkDownload/metadata/getBulkDownloadMetadata'
 import { CSVContent, PropsBulkDownload } from 'server/controller/cycleData/getBulkDownload/types'
 
 // includeClimaticDomain will be dynamically handled in a separate task
-type Props = Omit<PropsBulkDownload, 'i18n'> & { includeClimaticDomain?: boolean }
+type Props = Omit<PropsBulkDownload, 'i18n'>
 
 export const getBulkDownload = async (props: Props): Promise<Array<CSVContent>> => {
   const { assessment, cycle, includeClimaticDomain = true } = props
 
   const i18n = (await createI18nPromise(Lang.en)) as i18nType
 
-  const propsBulkDownload: PropsBulkDownload = { assessment, cycle, i18n }
+  const propsBulkDownload: PropsBulkDownload = { assessment, cycle, includeClimaticDomain, i18n }
 
   const [metadata, countries] = await Promise.all([
     getBulkDownloadMetadata(propsBulkDownload),
@@ -27,23 +25,9 @@ export const getBulkDownload = async (props: Props): Promise<Array<CSVContent>> 
   ])
   const [data, descriptions] = await getData({ ...propsBulkDownload, countries, metadata })
 
-  const propsContent = { ...propsBulkDownload, countries, data, includeClimaticDomain, metadata }
+  const propsContent = { ...propsBulkDownload, countries, data, descriptions, metadata }
 
-  return [
-    ...metadata.years.flatMap((yearMeta) => {
-      return [
-        // years csv files
-        getCSVContentVariables({ ...propsContent, yearMeta }),
-        // years singe variable csv files
-        ...yearMeta.tables.flatMap((table) => {
-          return table.variables.map((variable) => {
-            return getCSVContentVariable({ ...propsContent, yearMeta, table, variable })
-          })
-        }),
-      ]
-    }),
-    ...metadata.files.map((file) => {
-      return getCSVContentFile({ ...propsContent, descriptions, file })
-    }),
-  ]
+  return metadata.files.map<CSVContent>((file) => {
+    return getCSVContentFile({ ...propsContent, file })
+  })
 }

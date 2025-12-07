@@ -1,15 +1,20 @@
 import { TableNames } from 'meta/assessment/table'
 
-import { BulkDownloadTableFactory } from 'server/controller/cycleData/getBulkDownload/metadata/_types'
+import {
+  BulkDownloadFileYearsBuilder,
+  ColNodeYearsFactory,
+} from 'server/controller/cycleData/getBulkDownload/metadata/_tables/_fileYearsBuilder'
 
-export const getAnnualReforestation: BulkDownloadTableFactory = (_props) => {
-  return {
-    tableName: TableNames.annualReforestation,
-    variables: [
+export class AnnualReforestationBuilder extends BulkDownloadFileYearsBuilder {
+  getBaseColNodes(): Array<ColNodeYearsFactory> {
+    const tableName = TableNames.annualReforestation
+
+    return [
       {
+        tableName,
         csvColumn: '1d_reforestation',
         variableName: 'reforestation',
       },
-    ],
+    ]
   }
 }

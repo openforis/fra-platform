@@ -1,37 +1,37 @@
 import { TableNames } from 'meta/assessment/table'
 
-import { BulkDownloadTableFactory } from 'server/controller/cycleData/getBulkDownload/metadata/_types'
-import { BulkDownloadVariable } from 'server/controller/cycleData/getBulkDownload/types'
+import {
+  BulkDownloadFileYearsBuilder,
+  ColNodeYearsFactory,
+} from 'server/controller/cycleData/getBulkDownload/metadata/_tables/_fileYearsBuilder'
 
-import { getDatum, getVariables } from './employment'
+import { EmploymentVariable, getVariables } from './employment'
 
-const variables: Array<BulkDownloadVariable> = [
+const variables: Array<EmploymentVariable> = [
   {
-    variableName: 'doctoral_degree',
     csvColumn: '7b_phd',
+    variableName: 'doctoral_degree',
   },
   {
-    variableName: 'masters_degree',
     csvColumn: '7b_msc',
+    variableName: 'masters_degree',
   },
   {
-    variableName: 'bachelors_degree',
     csvColumn: '7b_ba',
+    variableName: 'bachelors_degree',
   },
   {
-    variableName: 'technician_certificate',
     csvColumn: '7b_tech',
+    variableName: 'technician_certificate',
   },
   {
-    variableName: 'total',
     csvColumn: '7b_total',
+    variableName: 'total',
   },
 ]
 
-export const getGraduationOfStudents: BulkDownloadTableFactory = (_props) => {
-  return {
-    getDatum,
-    tableName: TableNames.graduationOfStudents,
-    variables: getVariables(variables),
+export class GraduationOfStudentsBuilder extends BulkDownloadFileYearsBuilder {
+  getBaseColNodes(): Array<ColNodeYearsFactory> {
+    return getVariables(variables, TableNames.graduationOfStudents)
   }
 }

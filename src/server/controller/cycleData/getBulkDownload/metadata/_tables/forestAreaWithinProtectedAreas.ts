@@ -1,23 +1,30 @@
 import { TableNames } from 'meta/assessment/table'
 
-import { BulkDownloadTableFactory } from 'server/controller/cycleData/getBulkDownload/metadata/_types'
+import {
+  BulkDownloadFileYearsBuilder,
+  ColNodeYearsFactory,
+} from 'server/controller/cycleData/getBulkDownload/metadata/_tables/_fileYearsBuilder'
 
-export const getForestAreaWithinProtectedAreas: BulkDownloadTableFactory = (_props) => {
-  return {
-    tableName: TableNames.forestAreaWithinProtectedAreas,
-    variables: [
+export class ForestAreaWithinProtectedAreasBuilder extends BulkDownloadFileYearsBuilder {
+  getBaseColNodes(): Array<ColNodeYearsFactory> {
+    const tableName = TableNames.forestAreaWithinProtectedAreas
+
+    return [
       {
-        variableName: 'forest_area_within_protected_areas',
         csvColumn: '3b_protected',
+        tableName,
+        variableName: 'forest_area_within_protected_areas',
       },
       {
-        variableName: 'forest_area_with_long_term_management_plan',
         csvColumn: '3b_forMngt',
+        tableName,
+        variableName: 'forest_area_with_long_term_management_plan',
       },
       {
-        variableName: 'of_which_in_protected_areas',
         csvColumn: '3b_mngtProt',
+        tableName,
+        variableName: 'of_which_in_protected_areas',
       },
-    ],
+    ]
   }
 }

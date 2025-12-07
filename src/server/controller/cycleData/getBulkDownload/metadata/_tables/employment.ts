@@ -1,46 +1,38 @@
-import { TableNames } from 'meta/assessment/table'
+import { TableName, TableNames } from 'meta/assessment/table'
 import { RecordAssessmentDatas } from 'meta/data/recordDatas'
 
-import { BulkDownloadTableFactory } from 'server/controller/cycleData/getBulkDownload/metadata/_types'
-import { BulkDownloadTable, BulkDownloadVariable } from 'server/controller/cycleData/getBulkDownload/types'
+import {
+  BulkDownloadFileYearsBuilder,
+  ColNodeYearsFactory,
+} from 'server/controller/cycleData/getBulkDownload/metadata/_tables/_fileYearsBuilder'
+import { BulkDownloadColNode, BulkDownloadGetDatum } from 'server/controller/cycleData/getBulkDownload/types'
 
-const variables: Array<BulkDownloadVariable> = [
+export type EmploymentVariable = Pick<BulkDownloadColNode, 'csvColumn' | 'variableName'>
+
+const variables: Array<EmploymentVariable> = [
   {
-    variableName: 'employment_in_forestry_and_logging',
     csvColumn: '7a_employment',
+    variableName: 'employment_in_forestry_and_logging',
   },
   {
-    variableName: 'of_which_silviculture_and_other_forestry_activities',
     csvColumn: '7a_emp_forestry',
+    variableName: 'of_which_silviculture_and_other_forestry_activities',
   },
   {
-    variableName: 'of_which_logging',
     csvColumn: '7a_emp_logging',
+    variableName: 'of_which_logging',
   },
   {
-    variableName: 'of_which_gathering_of_non_wood_forest_products',
     csvColumn: '7a_emp_nwfp',
+    variableName: 'of_which_gathering_of_non_wood_forest_products',
   },
   {
-    variableName: 'of_which_support_services_to_forestry',
     csvColumn: '7a_emp_support',
+    variableName: 'of_which_support_services_to_forestry',
   },
 ]
 
-export const getVariables = (variables: Array<BulkDownloadVariable>): Array<BulkDownloadVariable> => {
-  return variables.flatMap((variable) => {
-    const { csvColumn, variableName } = variable
-
-    return ['total', 'female', 'male'].map((column) => {
-      return {
-        csvColumn: `${csvColumn}_${column}`,
-        variableName,
-      }
-    })
-  })
-}
-
-export const getDatum: BulkDownloadTable['getDatum'] = (props) => {
+const getDatum: BulkDownloadGetDatum = (props) => {
   const { assessmentName, colName, countryIso, csvColumn, cycleName, data, tableName, variableName } = props
   const colNamePostfix = csvColumn.split('_').at(-1)
 
@@ -55,10 +47,26 @@ export const getDatum: BulkDownloadTable['getDatum'] = (props) => {
   })
 }
 
-export const getEmployment: BulkDownloadTableFactory = (_props) => {
-  return {
-    getDatum,
-    tableName: TableNames.employment,
-    variables: getVariables(variables),
+export const getVariables = (
+  variables: Array<EmploymentVariable>,
+  tableName: TableName
+): Array<ColNodeYearsFactory> => {
+  return variables.flatMap<ColNodeYearsFactory>((variable) => {
+    const { csvColumn, variableName } = variable
+
+    return ['total', 'female', 'male'].map((column) => {
+      return {
+        csvColumn: `${csvColumn}_${column}`,
+        getDatum,
+        tableName,
+        variableName,
+      }
+    })
+  })
+}
+
+export class EmploymentBuilder extends BulkDownloadFileYearsBuilder {
+  getBaseColNodes(): Array<ColNodeYearsFactory> {
+    return getVariables(variables, TableNames.employment)
   }
 }

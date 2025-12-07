@@ -1,31 +1,40 @@
 import { TableNames } from 'meta/assessment/table'
 
-import { BulkDownloadTableFactory } from 'server/controller/cycleData/getBulkDownload/metadata/_types'
+import {
+  BulkDownloadFileYearsBuilder,
+  ColNodeYearsFactory,
+} from 'server/controller/cycleData/getBulkDownload/metadata/_tables/_fileYearsBuilder'
 
-export const getTotalAreaWithDesignatedManagementObjective: BulkDownloadTableFactory = (_props) => {
-  return {
-    tableName: TableNames.totalAreaWithDesignatedManagementObjective,
-    variables: [
+export class TotalAreaWithDesignatedManagementObjectiveBuilder extends BulkDownloadFileYearsBuilder {
+  getBaseColNodes(): Array<ColNodeYearsFactory> {
+    const tableName = TableNames.totalAreaWithDesignatedManagementObjective
+
+    return [
       {
-        variableName: 'production',
         csvColumn: '3a_tot_prod',
+        tableName,
+        variableName: 'production',
       },
       {
-        variableName: 'protection_of_soil_and_water',
         csvColumn: '3a_tot_prot',
+        tableName,
+        variableName: 'protection_of_soil_and_water',
       },
       {
-        variableName: 'conservation_of_biodiversity',
         csvColumn: '3a_tot_biodiv',
+        tableName,
+        variableName: 'conservation_of_biodiversity',
       },
       {
-        variableName: 'social_services',
         csvColumn: '3a_tot_socserv',
+        tableName,
+        variableName: 'social_services',
       },
       {
-        variableName: 'other',
         csvColumn: '3a_tot_other',
+        tableName,
+        variableName: 'other',
       },
-    ],
+    ]
   }
 }

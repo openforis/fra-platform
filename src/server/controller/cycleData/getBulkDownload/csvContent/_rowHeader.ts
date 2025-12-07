@@ -1,9 +1,8 @@
 import { Objects } from 'utils/objects'
 
-import { CSVRow } from 'server/controller/cycleData/getBulkDownload/types'
+import { CSVRow, CSVRowOptions } from 'server/controller/cycleData/getBulkDownload/types'
 
 import { climaticDomainVariables } from './_climaticDomainVariables'
-import { CSVRowOptions } from './_types'
 
 type Props = {
   options: CSVRowOptions

@@ -1,23 +1,30 @@
 import { TableNames } from 'meta/assessment/table'
 
-import { BulkDownloadTableFactory } from 'server/controller/cycleData/getBulkDownload/metadata/_types'
+import {
+  BulkDownloadFileYearsBuilder,
+  ColNodeYearsFactory,
+} from 'server/controller/cycleData/getBulkDownload/metadata/_tables/_fileYearsBuilder'
 import { BulkDownloadColNodeType } from 'server/controller/cycleData/getBulkDownload/types'
 
-export const getAreaOfPermanentForestEstate: BulkDownloadTableFactory = (_props) => {
-  return {
-    tableName: TableNames.areaOfPermanentForestEstate,
-    variables: [
+export class AreaOfPermanentForestEstateBuilder extends BulkDownloadFileYearsBuilder {
+  getBaseColNodes(): Array<ColNodeYearsFactory> {
+    const applicable = 'applicable'
+    const tableName = TableNames.areaOfPermanentForestEstate
+
+    return [
       {
-        colName: 'applicable',
+        tableName,
+        colName: applicable,
         csvColumn: '6b_pfe_y_n',
         type: BulkDownloadColNodeType.string,
         variableName: 'area_of_permanent_forest_estate',
-        colsVariable: [{ colName: 'applicable' }],
+        singleFileColumns: [{ colName: applicable, csvColumn: applicable }],
       },
       {
         csvColumn: '6b_pfe_area',
+        tableName,
         variableName: 'area_of_permanent_forest_estate',
       },
-    ],
+    ]
   }
 }

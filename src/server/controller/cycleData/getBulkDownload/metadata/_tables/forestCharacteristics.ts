@@ -1,42 +1,51 @@
 import { CycleNames } from 'meta/assessment/cycle/names'
 import { TableNames } from 'meta/assessment/table'
 
-import { BulkDownloadTableFactory } from 'server/controller/cycleData/getBulkDownload/metadata/_types'
+import {
+  BulkDownloadFileYearsBuilder,
+  ColNodeYearsFactory,
+} from 'server/controller/cycleData/getBulkDownload/metadata/_tables/_fileYearsBuilder'
 
-export const getForestCharacteristics: BulkDownloadTableFactory = (props) => {
-  const { cycle } = props
+export class ForestCharacteristicsBuilder extends BulkDownloadFileYearsBuilder {
+  getBaseColNodes(): Array<ColNodeYearsFactory> {
+    const { cycle } = this.props
+    const tableName = TableNames.forestCharacteristics
 
-  return {
-    tableName: TableNames.forestCharacteristics,
-    variables: [
+    return [
       {
-        variableName: 'naturalForestArea',
         csvColumn: '1b_naturallyRegeneratingForest',
+        tableName,
+        variableName: 'naturalForestArea',
       },
       ...(cycle.name === CycleNames._2020
         ? []
         : [
             {
+              csvColumn: '1b_primary',
+              tableName,
               variableName: 'primaryForest',
-              csvColumn: '1b_primaryForest',
             },
           ]),
       {
-        variableName: 'plantedForest',
         csvColumn: '1b_plantedForest',
+        tableName,
+        variableName: 'plantedForest',
       },
       {
-        variableName: 'plantationForestArea',
         csvColumn: '1b_plantationForest',
+        tableName,
+        variableName: 'plantationForestArea',
       },
       {
-        variableName: 'plantationForestIntroducedArea',
         csvColumn: '1b_plantationForestIntroduced',
+        tableName,
+        variableName: 'plantationForestIntroducedArea',
       },
       {
-        variableName: 'otherPlantedForestArea',
         csvColumn: '1b_otherPlantedForest',
+        tableName,
+        variableName: 'otherPlantedForestArea',
       },
-    ],
+    ]
   }
 }

@@ -34,7 +34,9 @@ export type PropsBulkDownload = {
   assessment: Assessment
   cycle: Cycle
   i18n: i18nType
+  includeClimaticDomain?: boolean
 }
+
 export type PropsBulkDownloadFileBuilder = PropsBulkDownload & {
   tables: RecordTables
 }
@@ -43,45 +45,7 @@ export type PropsBulkDownloadFileBuilder = PropsBulkDownload & {
 export enum BulkDownloadColNodeType {
   number = 'number',
   string = 'string',
-}
-
-/**
- * @deprecated
- */
-export type BulkDownloadColVariable = {
-  colName: ColName
-  csvColumn?: string
-}
-/**
- * @deprecated
- */
-export type BulkDownloadVariable = {
-  colName?: ColName
-  csvColumn: string
-  type?: BulkDownloadColNodeType // default number
-  variableName: VariableName
-  // custom cols used in single variable file export
-  colsVariable?: Array<BulkDownloadColVariable>
-}
-
-/**
- * @deprecated
- */
-export type BulkDownloadTable = {
-  tableName: TableName
-  variables: Array<BulkDownloadVariable>
-  // custom getDatum processor
-  getDatum?: BulkDownloadGetDatum
-}
-
-/**
- * @deprecated
- */
-export type BulkDownloadYear = {
-  fileName: string
-  includeDeskStudy?: boolean
-  tables: Array<BulkDownloadTable>
-  years: Array<string>
+  strings = 'strings', // array of strings
 }
 
 export type BulkDownloadColDescription = {
@@ -119,15 +83,6 @@ export type BulkDownloadMetadata = {
   colForestArea: BulkDownloadColNode
   // files to export
   files: Array<BulkDownloadFile>
-  /**
-   * @deprecated
-   */
-  tables: RecordTables
-  /**
-   * exported tables with years
-   * @deprecated
-   */
-  years: Array<BulkDownloadYear>
 }
 
 // ===== Bulk Download CSV types definition
@@ -135,3 +90,6 @@ export type CSVContent = { content: string; fileName: string }
 export type CSVValue = string | number
 export type CSVRow = Array<CSVValue>
 export type CSVPostProcessor = (props: { rows: Array<CSVRow> }) => void
+export type CSVRowOptions = Pick<BulkDownloadMetadata, 'colForestArea'> &
+  Pick<BulkDownloadFile, 'includeClimaticDomain' | 'includeDeskStudy'> &
+  Pick<BulkDownloadRow, 'colDescriptions' | 'colNodes' | 'colYear'>

@@ -24,12 +24,6 @@ const getNames = (props: {
   const tableNames = new Set<string>()
   const sectionNames = new Set<string>()
 
-  metadata.years.forEach((year) => {
-    return year.tables.forEach((table) => {
-      tableNames.add(table.tableName)
-    })
-  })
-
   metadata.files.forEach((file) => {
     const row = file.rows.at(0)
     row.colNodes.forEach((column) => {

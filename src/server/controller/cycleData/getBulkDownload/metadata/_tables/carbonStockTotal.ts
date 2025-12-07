@@ -1,31 +1,40 @@
 import { TableNames } from 'meta/assessment/table'
 
-import { BulkDownloadTableFactory } from 'server/controller/cycleData/getBulkDownload/metadata/_types'
+import {
+  BulkDownloadFileYearsBuilder,
+  ColNodeYearsFactory,
+} from 'server/controller/cycleData/getBulkDownload/metadata/_tables/_fileYearsBuilder'
 
-export const getCarbonStockTotal: BulkDownloadTableFactory = (_props) => {
-  return {
-    tableName: TableNames.carbonStockTotal,
-    variables: [
+export class CarbonStockTotalBuilder extends BulkDownloadFileYearsBuilder {
+  getBaseColNodes(): Array<ColNodeYearsFactory> {
+    const tableName = TableNames.carbonStockTotal
+
+    return [
       {
-        variableName: 'carbon_forest_above_ground',
         csvColumn: '2d_carbon_agb_total',
+        tableName,
+        variableName: 'carbon_forest_above_ground',
       },
       {
-        variableName: 'carbon_forest_below_ground',
         csvColumn: '2d_carbon_bgb_total',
+        tableName,
+        variableName: 'carbon_forest_below_ground',
       },
       {
-        variableName: 'carbon_forest_deadwood',
         csvColumn: '2d_carbon_dw_total',
+        tableName,
+        variableName: 'carbon_forest_deadwood',
       },
       {
-        variableName: 'carbon_forest_litter',
         csvColumn: '2d_carbon_litter_total',
+        tableName,
+        variableName: 'carbon_forest_litter',
       },
       {
-        variableName: 'carbon_forest_soil',
         csvColumn: '2d_carbon_soil_total',
+        tableName,
+        variableName: 'carbon_forest_soil',
       },
-    ],
+    ]
   }
 }

@@ -2,13 +2,15 @@ import { CycleNames } from 'meta/assessment/cycle/names'
 import { TableNames } from 'meta/assessment/table'
 
 import { TableRedisRepository } from 'server/cache/repository/table'
+import { buildAnnualYears } from 'server/controller/cycleData/getBulkDownload/metadata/_buildAnnualYears'
 import { buildFraYears } from 'server/controller/cycleData/getBulkDownload/metadata/_buildFraYears'
+import { buildIntervalYears } from 'server/controller/cycleData/getBulkDownload/metadata/_buildIntervalYears'
+import { getDegradedForest } from 'server/controller/cycleData/getBulkDownload/metadata/_files/degradedForest'
 import { getForestPolicy } from 'server/controller/cycleData/getBulkDownload/metadata/_files/forestPolicy'
+import { getForestRestoration } from 'server/controller/cycleData/getBulkDownload/metadata/_files/forestRestoration'
 import { getNDPYear } from 'server/controller/cycleData/getBulkDownload/metadata/_files/ndpYear'
 import { getNonWoodForestProducts } from 'server/controller/cycleData/getBulkDownload/metadata/_files/nonWoodForestProducts'
-import { getAnnualYears } from 'server/controller/cycleData/getBulkDownload/metadata/_getAnnualYears'
-import { getFraYears } from 'server/controller/cycleData/getBulkDownload/metadata/_getFraYears'
-import { getIntervalYears } from 'server/controller/cycleData/getBulkDownload/metadata/_getIntervalYears'
+import { getTierData } from 'server/controller/cycleData/getBulkDownload/metadata/_files/tierData'
 import {
   BulkDownloadMetadata,
   PropsBulkDownload,
@@ -18,11 +20,12 @@ import {
 export const getBulkDownloadMetadata = async (props: PropsBulkDownload): Promise<BulkDownloadMetadata> => {
   const { assessment, cycle } = props
   const { name: cycleName } = cycle
+  const is2020 = cycleName === CycleNames._2020
 
-  const colName = cycleName === CycleNames._2020 ? '2020' : '2025'
+  const colNameForestArea = is2020 ? '2020' : '2025'
   const colForestArea: BulkDownloadMetadata['colForestArea'] = {
-    csvColumn: `forest area ${colName}`,
-    colName,
+    csvColumn: `forest area ${colNameForestArea}`,
+    colName: colNameForestArea,
     tableName: TableNames.extentOfForest,
     variableName: 'forestArea',
   }
@@ -32,12 +35,15 @@ export const getBulkDownloadMetadata = async (props: PropsBulkDownload): Promise
   const propsFileBuilder: PropsBulkDownloadFileBuilder = { ...props, tables }
   const files: BulkDownloadMetadata['files'] = [
     ...buildFraYears(propsFileBuilder),
+    ...buildAnnualYears(propsFileBuilder),
+    ...buildIntervalYears(propsFileBuilder),
     getNonWoodForestProducts(propsFileBuilder),
     getForestPolicy(propsFileBuilder),
     getNDPYear(propsFileBuilder),
+    ...(is2020
+      ? []
+      : [getDegradedForest(propsFileBuilder), getForestRestoration(propsFileBuilder), getTierData(propsFileBuilder)]),
   ]
 
-  const years: BulkDownloadMetadata['years'] = [getFraYears(props), getAnnualYears(props), getIntervalYears(props)]
-
-  return { colForestArea, files, tables, years }
+  return { colForestArea, files }
 }

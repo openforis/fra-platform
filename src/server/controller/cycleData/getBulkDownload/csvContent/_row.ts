@@ -9,11 +9,15 @@ import { Objects } from 'utils/objects'
 
 import { getAreaLabel } from 'server/controller/cycleData/getBulkDownload/csvContent/_area'
 import { parseDescription, parseValue } from 'server/controller/cycleData/getBulkDownload/csvContent/_parsers'
-import { BulkDownloadColNodeType, BulkDownloadData, CSVRow } from 'server/controller/cycleData/getBulkDownload/types'
+import {
+  BulkDownloadColNodeType,
+  BulkDownloadData,
+  CSVRow,
+  CSVRowOptions,
+} from 'server/controller/cycleData/getBulkDownload/types'
 
 import { climaticDomainVariables } from './_climaticDomainVariables'
 import { getClimaticValue } from './_getClimaticValue'
-import { CSVRowOptions } from './_types'
 
 type Props = {
   assessment: Assessment
