@@ -41,6 +41,12 @@ export type PropsBulkDownloadFileBuilder = PropsBulkDownload & {
 }
 
 // ===== Bulk Download metadata definition
+export enum BulkDownloadColType {
+  comments = 'comments',
+  odp = 'odp',
+  tableNode = 'tableNode',
+}
+
 export enum BulkDownloadDatumType {
   number = 'number',
   string = 'string',
@@ -55,6 +61,7 @@ export type BulkDownloadColDescription = {
 
 export type BulkDownloadColNode = {
   colName: ColName
+  colType?: BulkDownloadColType // default tableNode
   csvColumn: string
   datumType?: BulkDownloadDatumType // default number
   getDatum?: BulkDownloadGetDatum // custom getDatum function

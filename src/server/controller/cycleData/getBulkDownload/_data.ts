@@ -5,6 +5,7 @@ import { TableName, TableNames } from 'meta/assessment/table'
 import { Objects } from 'utils/objects'
 
 import {
+  BulkDownloadColType,
   BulkDownloadData,
   BulkDownloadMetadata,
   BulkDownloadODPDataTableName,
@@ -27,7 +28,10 @@ const getNames = (props: {
   metadata.files.forEach((file) => {
     const row = file.rows.at(0)
     row.colNodes.forEach((column) => {
-      tableNames.add(column.tableName)
+      const { colType = BulkDownloadColType.tableNode } = column
+      if (colType === BulkDownloadColType.tableNode) {
+        tableNames.add(column.tableName)
+      }
     })
     row.colDescriptions?.forEach((description) => {
       sectionNames.add(description.sectionName)
@@ -35,7 +39,6 @@ const getNames = (props: {
   })
 
   tableNames.add(TableNames.climaticDomain)
-  tableNames.delete(BulkDownloadODPDataTableName)
 
   return { sectionNames: Array.from(sectionNames), tableNames: Array.from(tableNames) }
 }
