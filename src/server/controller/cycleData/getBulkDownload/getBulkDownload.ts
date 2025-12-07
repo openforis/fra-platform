@@ -10,14 +10,14 @@ import { getBulkDownloadMetadata } from 'server/controller/cycleData/getBulkDown
 import { CSVContent, PropsBulkDownload } from 'server/controller/cycleData/getBulkDownload/types'
 
 // includeClimaticDomain will be dynamically handled in a separate task
-type Props = Omit<PropsBulkDownload, 'i18n'>
+type Props = Omit<PropsBulkDownload, 'i18n'> & { includeClimaticDomain?: boolean }
 
 export const getBulkDownload = async (props: Props): Promise<Array<CSVContent>> => {
-  const { assessment, cycle, includeClimaticDomain = true } = props
+  const { assessment, cycle } = props
 
   const i18n = (await createI18nPromise(Lang.en)) as i18nType
 
-  const propsBulkDownload: PropsBulkDownload = { assessment, cycle, includeClimaticDomain, i18n }
+  const propsBulkDownload: PropsBulkDownload = { assessment, cycle, i18n }
 
   const [metadata, countries] = await Promise.all([
     getBulkDownloadMetadata(propsBulkDownload),

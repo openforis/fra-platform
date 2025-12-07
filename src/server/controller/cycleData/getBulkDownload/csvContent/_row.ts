@@ -10,8 +10,8 @@ import { Objects } from 'utils/objects'
 import { getAreaLabel } from 'server/controller/cycleData/getBulkDownload/csvContent/_area'
 import { parseDescription, parseValue } from 'server/controller/cycleData/getBulkDownload/csvContent/_parsers'
 import {
-  BulkDownloadColNodeType,
   BulkDownloadData,
+  BulkDownloadDatumType,
   CSVRow,
   CSVRowOptions,
 } from 'server/controller/cycleData/getBulkDownload/types'
@@ -40,16 +40,16 @@ export const getCSVRow = (props: Props): CSVRow => {
 
   const regionLabels = regionCodes.map((code) => getAreaLabel({ code, i18n })).join(',')
   const countryLabel = getAreaLabel({ code: countryIso, i18n })
-  row.push(parseValue(regionLabels, BulkDownloadColNodeType.string))
-  row.push(parseValue(countryIso, BulkDownloadColNodeType.string))
+  row.push(parseValue(regionLabels, BulkDownloadDatumType.string))
+  row.push(parseValue(countryIso, BulkDownloadDatumType.string))
 
   //==== desk study: why before country label ?
   if (includeDeskStudy) {
     const deskStudy = country.props.deskStudy ? i18n.t(`assessment.deskStudy`) : ''
-    row.push(parseValue(deskStudy, BulkDownloadColNodeType.string))
+    row.push(parseValue(deskStudy, BulkDownloadDatumType.string))
   }
 
-  row.push(parseValue(countryLabel, BulkDownloadColNodeType.string))
+  row.push(parseValue(countryLabel, BulkDownloadDatumType.string))
 
   //==== forestArea
   if (!Objects.isNil(colForestArea)) {
@@ -62,26 +62,26 @@ export const getCSVRow = (props: Props): CSVRow => {
   //==== year
   if (!Objects.isNil(colYear)) {
     const value = colYear.replace('_', '-')
-    row.push(parseValue(value, BulkDownloadColNodeType.string))
+    row.push(parseValue(value, BulkDownloadDatumType.string))
   }
 
   //==== climatic domain
   if (includeClimaticDomain) {
     climaticDomainVariables.forEach((variableName) => {
       const climaticValue = getClimaticValue({ assessmentName, countryIso, cycleName, data, variableName })
-      row.push(parseValue(climaticValue, BulkDownloadColNodeType.string))
+      row.push(parseValue(climaticValue, BulkDownloadDatumType.string))
     })
   }
 
   //==== data table values
-  colNodes.forEach((colValue) => {
-    const { colName, csvColumn, getDatum, tableName, type, variableName } = colValue
+  colNodes.forEach((colNode) => {
+    const { colName, csvColumn, datumType, getDatum, tableName, variableName } = colNode
 
     const getValue = getDatum ?? RecordAssessmentDatas.getDatum
     const propsValue = { assessmentName, countryIso, colName, csvColumn, cycleName, data, tableName, variableName }
     const value = getValue(propsValue)
 
-    row.push(parseValue(value, type))
+    row.push(parseValue(value, datumType))
   })
 
   //==== descriptions
@@ -90,7 +90,7 @@ export const getCSVRow = (props: Props): CSVRow => {
     const value = descriptions?.[countryIso]?.[sectionName]?.[name]?.text
 
     const parsedValue = value ? parseDescription(value) : ''
-    row.push(parseValue(parsedValue, BulkDownloadColNodeType.string))
+    row.push(parseValue(parsedValue, BulkDownloadDatumType.string))
   })
 
   return row

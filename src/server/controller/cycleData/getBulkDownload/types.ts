@@ -34,7 +34,6 @@ export type PropsBulkDownload = {
   assessment: Assessment
   cycle: Cycle
   i18n: i18nType
-  includeClimaticDomain?: boolean
 }
 
 export type PropsBulkDownloadFileBuilder = PropsBulkDownload & {
@@ -42,7 +41,7 @@ export type PropsBulkDownloadFileBuilder = PropsBulkDownload & {
 }
 
 // ===== Bulk Download metadata definition
-export enum BulkDownloadColNodeType {
+export enum BulkDownloadDatumType {
   number = 'number',
   string = 'string',
   strings = 'strings', // array of strings
@@ -57,9 +56,9 @@ export type BulkDownloadColDescription = {
 export type BulkDownloadColNode = {
   colName: ColName
   csvColumn: string
+  datumType?: BulkDownloadDatumType // default number
   getDatum?: BulkDownloadGetDatum // custom getDatum function
   tableName: TableName
-  type?: BulkDownloadColNodeType // default number
   variableName: VariableName
 }
 

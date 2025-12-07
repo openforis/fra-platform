@@ -5,53 +5,53 @@ import { BulkDownloadFileFactory } from 'server/controller/cycleData/getBulkDown
 import {
   BulkDownloadColDescription,
   BulkDownloadColNode,
-  BulkDownloadColNodeType,
+  BulkDownloadDatumType,
   BulkDownloadRow,
 } from 'server/controller/cycleData/getBulkDownload/types'
 
 export const getForestRestoration: BulkDownloadFileFactory = (_props) => {
-  const type = BulkDownloadColNodeType.string
+  const datumType = BulkDownloadDatumType.string
   const colNodes: Array<BulkDownloadColNode> = [
     {
       colName: 'answer',
       csvColumn: 'restoration commitments',
+      datumType,
       tableName: TableNames.forestRestoration,
-      type,
       variableName: 'has_your_country_forest_restoration_commitments',
     },
     {
       colName: 'answer',
       csvColumn: 'Law mandate',
+      datumType,
       tableName: TableNames.forestRestoration,
-      type,
       variableName: 'law_or_other_mandate',
     },
     {
       colName: 'answer',
       csvColumn: 'National definition',
+      datumType,
       tableName: TableNames.forestRestoration,
-      type,
       variableName: 'how_monitored',
     },
     {
       colName: 'answer',
       csvColumn: 'areas in need of restoration',
+      datumType,
       tableName: TableNames.forestRestoration,
-      type,
       variableName: 'areas_in_need_of_restoration',
     },
     {
       colName: 'answer',
       csvColumn: 'restoration targets',
+      datumType,
       tableName: TableNames.forestRestoration,
-      type,
       variableName: 'restoration_targets',
     },
     {
       colName: 'answer',
       csvColumn: 'ha restored to date',
+      datumType,
       tableName: TableNames.forestRestoration,
-      type,
       variableName: 'hectares_restored',
     },
   ]

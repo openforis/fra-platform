@@ -5,60 +5,60 @@ import { BulkDownloadFileFactory } from 'server/controller/cycleData/getBulkDown
 import {
   BulkDownloadColDescription,
   BulkDownloadColNode,
-  BulkDownloadColNodeType,
+  BulkDownloadDatumType,
   BulkDownloadRow,
 } from 'server/controller/cycleData/getBulkDownload/types'
 
 export const getDegradedForest: BulkDownloadFileFactory = (_props) => {
-  const type = BulkDownloadColNodeType.string
+  const datumType = BulkDownloadDatumType.string
   const colNodes: Array<BulkDownloadColNode> = [
     {
       colName: 'hasNationalDefinitionOfDegradedForest',
       csvColumn: 'Has your country nat. definition of degradation',
+      datumType,
       tableName: TableNames.degradedForest2025,
-      type,
       variableName: 'hasNationalDefinitionOfDegradedForest',
     },
     {
       colName: 'national_definition',
       csvColumn: 'What is the national definition',
+      datumType,
       tableName: TableNames.degradedForest2025,
-      type,
       variableName: 'national_definition',
     },
     {
       colName: 'criteriaOfDegradedForest',
       csvColumn: 'Criteria applied',
+      datumType: BulkDownloadDatumType.strings,
       tableName: TableNames.degradedForest2025,
-      type: BulkDownloadColNodeType.strings,
       variableName: 'criteriaOfDegradedForest',
     },
     {
       colName: 'doesYourCountryMonitor',
       csvColumn: 'Does your country monitor degradation',
+      datumType,
       tableName: TableNames.degradedForestMonitoring2025,
-      type,
       variableName: 'doesYourCountryMonitor',
     },
     {
       colName: 'mainMethods',
       csvColumn: 'Main methods applied',
+      datumType: BulkDownloadDatumType.strings,
       tableName: TableNames.degradedForestMonitoring2025,
-      type: BulkDownloadColNodeType.strings,
       variableName: 'mainMethods',
     },
     {
       colName: 'monitoringScale',
       csvColumn: 'Monitoring scale',
+      datumType,
       tableName: TableNames.degradedForestMonitoring2025,
-      type,
       variableName: 'monitoringScale',
     },
     {
       colName: 'yearOfLatestAssessment',
       csvColumn: 'year of latest assessment',
+      datumType,
       tableName: TableNames.degradedForestMonitoring2025,
-      type,
       variableName: 'yearOfLatestAssessment',
     },
     {

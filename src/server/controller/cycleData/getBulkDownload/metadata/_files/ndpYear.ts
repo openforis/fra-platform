@@ -4,7 +4,7 @@ import { Objects } from 'utils/objects'
 import { BulkDownloadFileFactory } from 'server/controller/cycleData/getBulkDownload/metadata/_types'
 import {
   BulkDownloadColNode,
-  BulkDownloadColNodeType,
+  BulkDownloadDatumType,
   BulkDownloadGetDatum,
   BulkDownloadODPCountryData,
   BulkDownloadODPDataTableName,
@@ -12,7 +12,7 @@ import {
 } from 'server/controller/cycleData/getBulkDownload/types'
 
 const tableName = BulkDownloadODPDataTableName
-const type = BulkDownloadColNodeType.string
+const datumType = BulkDownloadDatumType.string
 
 export const getNDPYear: BulkDownloadFileFactory = (props) => {
   const { i18n } = props
@@ -39,17 +39,17 @@ export const getNDPYear: BulkDownloadFileFactory = (props) => {
     {
       colName: 'minYear',
       csvColumn: i18n.t('bulkDownload.NDPYear.earliestYear'),
+      datumType,
       getDatum,
       tableName,
-      type,
       variableName: 'minYear',
     },
     {
       colName: 'maxYear',
       csvColumn: i18n.t('bulkDownload.NDPYear.latestYear'),
+      datumType,
       getDatum,
       tableName,
-      type,
       variableName: 'maxYear',
     },
     ...Object.values(ODPDataSourceMethod).map<BulkDownloadColNode>((colName) => {
@@ -59,9 +59,9 @@ export const getNDPYear: BulkDownloadFileFactory = (props) => {
           colName === ODPDataSourceMethod.other
             ? i18n.t('common.other')
             : i18n.t(`nationalDataPoint.dataSourceMethodsOptions.${colName}`),
+        datumType,
         getDatum,
         tableName,
-        type,
         variableName: 'dataSourceMethods',
       }
     }),

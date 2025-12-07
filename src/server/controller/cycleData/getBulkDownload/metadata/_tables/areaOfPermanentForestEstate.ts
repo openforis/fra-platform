@@ -4,7 +4,7 @@ import {
   BulkDownloadFileYearsBuilder,
   ColNodeYearsFactory,
 } from 'server/controller/cycleData/getBulkDownload/metadata/_tables/_fileYearsBuilder'
-import { BulkDownloadColNodeType } from 'server/controller/cycleData/getBulkDownload/types'
+import { BulkDownloadDatumType } from 'server/controller/cycleData/getBulkDownload/types'
 
 export class AreaOfPermanentForestEstateBuilder extends BulkDownloadFileYearsBuilder {
   getBaseColNodes(): Array<ColNodeYearsFactory> {
@@ -13,12 +13,12 @@ export class AreaOfPermanentForestEstateBuilder extends BulkDownloadFileYearsBui
 
     return [
       {
-        tableName,
         colName: applicable,
         csvColumn: '6b_pfe_y_n',
-        type: BulkDownloadColNodeType.string,
-        variableName: 'area_of_permanent_forest_estate',
+        datumType: BulkDownloadDatumType.string,
         singleFileColumns: [{ colName: applicable, csvColumn: applicable }],
+        tableName,
+        variableName: 'area_of_permanent_forest_estate',
       },
       {
         csvColumn: '6b_pfe_area',

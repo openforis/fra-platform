@@ -5,7 +5,7 @@ import {
   BulkDownloadFileYearsBuilder,
   ColNodeYearsFactory,
 } from 'server/controller/cycleData/getBulkDownload/metadata/_tables/_fileYearsBuilder'
-import { BulkDownloadColNodeType } from 'server/controller/cycleData/getBulkDownload/types'
+import { BulkDownloadDatumType } from 'server/controller/cycleData/getBulkDownload/types'
 
 export class DegradedForestBuilder extends BulkDownloadFileYearsBuilder {
   getBaseColNodes(): Array<ColNodeYearsFactory> {
@@ -19,9 +19,9 @@ export class DegradedForestBuilder extends BulkDownloadFileYearsBuilder {
       {
         colName,
         csvColumn: '5c_y_n',
+        datumType: BulkDownloadDatumType.string,
         singleFileColumns: [{ colName, csvColumn: colName }],
         tableName,
-        type: BulkDownloadColNodeType.string,
         variableName,
       },
     ]

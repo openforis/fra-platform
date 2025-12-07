@@ -20,9 +20,9 @@ export const getForestPolicy: BulkDownloadFileFactory = (props) => {
   const baseColNodes = forestPolicyBuilder.getBaseColNodes()
 
   const colNodes = baseColNodes.map<BulkDownloadColNode>((variable) => {
-    const { colName, tableName, type, variableName } = variable
+    const { colName, datumType, tableName, variableName } = variable
     const csvColumn = `${colCsvColumns[colName]} ${variableName.split('_').join(' ')}`
-    return { colName, csvColumn, tableName, type, variableName }
+    return { colName, csvColumn, datumType, tableName, variableName }
   })
 
   const comments: BulkDownloadColDescription = {

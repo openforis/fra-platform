@@ -62,11 +62,11 @@ export abstract class BulkDownloadFileYearsBuilder {
     const { years } = props
 
     return this.baseColNodes.map<BulkDownloadFile>((colNode) => {
-      const { csvColumn, tableName, type, variableName } = colNode
+      const { csvColumn, datumType, tableName, variableName } = colNode
 
       const columns = colNode.singleFileColumns ?? years.map((year) => ({ colName: year, csvColumn: year }))
       const colNodes = columns.map<BulkDownloadColNode>((column) => {
-        return { colName: column.colName, csvColumn: column.csvColumn, tableName, type, variableName }
+        return { colName: column.colName, csvColumn: column.csvColumn, datumType, tableName, variableName }
       })
       const fileName = `${this.file.fileName}_variables/${csvColumn}`
       const row: BulkDownloadRow = { colNodes }

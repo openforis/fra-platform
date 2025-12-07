@@ -3,17 +3,17 @@ import { Parser } from 'htmlparser2'
 import { Numbers } from 'utils/numbers'
 import { Objects } from 'utils/objects'
 
-import { BulkDownloadColNodeType, CSVValue } from 'server/controller/cycleData/getBulkDownload/types'
+import { BulkDownloadDatumType, CSVValue } from 'server/controller/cycleData/getBulkDownload/types'
 
 export const parseValue = (
   value: string | Array<string>,
-  type: BulkDownloadColNodeType = BulkDownloadColNodeType.number
+  datumType: BulkDownloadDatumType = BulkDownloadDatumType.number
 ): CSVValue => {
   let parsedValue = ''
   if (!Objects.isEmpty(value)) {
-    parsedValue = type === 'strings' ? (value as Array<string>).join(', ') : (value as string)
+    parsedValue = datumType === 'strings' ? (value as Array<string>).join(', ') : (value as string)
     parsedValue = parsedValue.replace(/"/g, '').replace(/\n/g, '').replace(/\r/g, '')
-    if (type === 'number' && Numbers.toBigNumber(parsedValue).isFinite()) {
+    if (datumType === 'number' && Numbers.toBigNumber(parsedValue).isFinite()) {
       parsedValue = Numbers.toFixed(parsedValue)
     }
   }
