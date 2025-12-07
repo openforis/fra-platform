@@ -23,9 +23,9 @@ export const getBulkDownload = async (props: Props): Promise<Array<CSVContent>> 
     getBulkDownloadMetadata(propsBulkDownload),
     getCountries(propsBulkDownload),
   ])
-  const [data, descriptions] = await getData({ ...propsBulkDownload, countries, metadata })
+  const data = await getData({ ...propsBulkDownload, countries, metadata })
 
-  const propsContent = { ...propsBulkDownload, countries, data, descriptions, metadata }
+  const propsContent = { ...propsBulkDownload, countries, data, metadata }
 
   return metadata.files.map<CSVContent>((file) => {
     return getCSVContentFile({ ...propsContent, file })

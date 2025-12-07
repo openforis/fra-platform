@@ -8,11 +8,10 @@ import {
   BulkDownloadDatumType,
   BulkDownloadGetDatum,
   BulkDownloadODPCountryData,
-  BulkDownloadODPDataTableName,
   BulkDownloadRow,
 } from 'server/controller/cycleData/getBulkDownload/types'
 
-const tableName = BulkDownloadODPDataTableName
+const tableName = 'odp'
 const datumType = BulkDownloadDatumType.string
 const colType = BulkDownloadColType.odp
 
@@ -21,7 +20,7 @@ export const getNDPYear: BulkDownloadFileFactory = (props) => {
 
   const getDatum: BulkDownloadGetDatum = (props) => {
     const { colName, countryIso, data, variableName } = props
-    const countryData = data[tableName][countryIso]
+    const countryData = data.odp[countryIso]
 
     if (Objects.isNil(countryData)) return null
 

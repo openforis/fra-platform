@@ -29,28 +29,16 @@ export class GrowingStockCompositionBuilder extends BulkDownloadFileYearsBuilder
     const getDatum: BulkDownloadGetDatum = (props) => {
       const { assessmentName, colName, countryIso, cycleName, data, tableName, variableName } = props
 
-      if (is2020) return RecordAssessmentDatas.getDatum(props)
+      const propsDatum = { assessmentName, colName, countryIso, cycleName, data: data.tables, tableName, variableName }
+
+      if (is2020) return RecordAssessmentDatas.getDatum(propsDatum)
 
       const year =
-        RecordAssessmentDatas.getDatum({
-          assessmentName,
-          cycleName,
-          data,
-          countryIso,
-          tableName,
-          variableName: 'mostRecentYear',
-          colName: 'mostRecentYear',
-        }) ?? years.at(-1)
+        RecordAssessmentDatas.getDatum({ ...propsDatum, colName: 'mostRecentYear', variableName: 'mostRecentYear' }) ??
+        years.at(-1)
+
       if (year === colName) {
-        return RecordAssessmentDatas.getDatum({
-          assessmentName,
-          cycleName,
-          data,
-          countryIso,
-          tableName,
-          variableName,
-          colName: 'growingStockMillionCubicMeter',
-        })
+        return RecordAssessmentDatas.getDatum({ ...propsDatum, colName: 'growingStockMillionCubicMeter' })
       }
     }
 

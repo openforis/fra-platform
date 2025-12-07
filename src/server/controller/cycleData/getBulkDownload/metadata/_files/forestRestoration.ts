@@ -3,8 +3,8 @@ import { TableNames } from 'meta/assessment/table'
 
 import { BulkDownloadFileFactory } from 'server/controller/cycleData/getBulkDownload/metadata/_types'
 import {
-  BulkDownloadColDescription,
   BulkDownloadColNode,
+  BulkDownloadColType,
   BulkDownloadDatumType,
   BulkDownloadRow,
 } from 'server/controller/cycleData/getBulkDownload/types'
@@ -54,15 +54,17 @@ export const getForestRestoration: BulkDownloadFileFactory = (_props) => {
       tableName: TableNames.forestRestoration,
       variableName: 'hectares_restored',
     },
+    {
+      colName: CommentableDescriptionName.generalComments,
+      colType: BulkDownloadColType.description,
+      csvColumn: 'comments',
+      datumType,
+      tableName: TableNames.forestRestoration,
+      variableName: CommentableDescriptionName.generalComments,
+    },
   ]
 
-  const comments: BulkDownloadColDescription = {
-    csvColumn: 'comments',
-    name: CommentableDescriptionName.generalComments,
-    sectionName: TableNames.forestRestoration,
-  }
-
-  const row: BulkDownloadRow = { colDescriptions: [comments], colNodes }
+  const row: BulkDownloadRow = { colNodes }
 
   return { fileName: 'ForestRestoration', rows: [row] }
 }

@@ -3,13 +3,13 @@ import { i18n as i18nType } from 'i18next'
 import { Country } from 'meta/area/country'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { DescriptionCountryValues } from 'meta/assessment/descriptionValue'
-import { RecordAssessmentDatas } from 'meta/data/recordDatas'
 import { Objects } from 'utils/objects'
 
 import { getAreaLabel } from 'server/controller/cycleData/getBulkDownload/csvContent/_area'
-import { parseDescription, parseValue } from 'server/controller/cycleData/getBulkDownload/csvContent/_parsers'
+import { GetDatumRecord, getDatumTableNode } from 'server/controller/cycleData/getBulkDownload/csvContent/_getDatum'
+import { parseValue } from 'server/controller/cycleData/getBulkDownload/csvContent/_parsers'
 import {
+  BulkDownloadColType,
   BulkDownloadData,
   BulkDownloadDatumType,
   CSVRow,
@@ -24,17 +24,16 @@ type Props = {
   country: Country
   cycle: Cycle
   data: BulkDownloadData
-  descriptions?: DescriptionCountryValues
   i18n: i18nType
   options: CSVRowOptions
 }
 
 export const getCSVRow = (props: Props): CSVRow => {
-  const { assessment, country, cycle, data, descriptions, i18n, options } = props
+  const { assessment, country, cycle, data, i18n, options } = props
   const { name: assessmentName } = assessment.props
   const { name: cycleName } = cycle
   const { countryIso, regionCodes } = country
-  const { colDescriptions, colForestArea, colNodes, colYear, includeClimaticDomain, includeDeskStudy } = options
+  const { colForestArea, colNodes, colYear, includeClimaticDomain, includeDeskStudy } = options
 
   const row: CSVRow = []
 
@@ -53,9 +52,9 @@ export const getCSVRow = (props: Props): CSVRow => {
 
   //==== forestArea
   if (!Objects.isNil(colForestArea)) {
-    const { colName, tableName, variableName } = colForestArea
-    const propsValue = { assessmentName, countryIso, colName, cycleName, data, tableName, variableName }
-    const value = RecordAssessmentDatas.getDatum(propsValue)
+    const { colName, csvColumn, tableName, variableName } = colForestArea
+    const propsValue = { assessmentName, countryIso, colName, csvColumn, cycleName, data, tableName, variableName }
+    const value = getDatumTableNode(propsValue)
     row.push(parseValue(value))
   }
 
@@ -73,24 +72,17 @@ export const getCSVRow = (props: Props): CSVRow => {
     })
   }
 
-  //==== data table values
+  //==== colNode values
   colNodes.forEach((colNode) => {
-    const { colName, csvColumn, datumType, getDatum, tableName, variableName } = colNode
+    const { colName, colType = BulkDownloadColType.tableNode, csvColumn, datumType, tableName, variableName } = colNode
 
-    const getValue = getDatum ?? RecordAssessmentDatas.getDatum
+    const getDatum = colNode.getDatum ?? GetDatumRecord[colType]
+    if (!getDatum) throw new Error(`GetDatum not found {colNode:${JSON.stringify(colNode)}`)
+
     const propsValue = { assessmentName, countryIso, colName, csvColumn, cycleName, data, tableName, variableName }
-    const value = getValue(propsValue)
+    const value = getDatum(propsValue)
 
     row.push(parseValue(value, datumType))
-  })
-
-  //==== descriptions
-  colDescriptions?.forEach((colDescription) => {
-    const { name, sectionName } = colDescription
-    const value = descriptions?.[countryIso]?.[sectionName]?.[name]?.text
-
-    const parsedValue = value ? parseDescription(value) : ''
-    row.push(parseValue(parsedValue, BulkDownloadDatumType.string))
   })
 
   return row

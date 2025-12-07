@@ -39,7 +39,7 @@ const getDatum: BulkDownloadGetDatum = (props) => {
   return RecordAssessmentDatas.getDatum({
     assessmentName,
     cycleName,
-    data,
+    data: data.tables,
     countryIso,
     tableName,
     variableName,

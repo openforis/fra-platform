@@ -3,7 +3,6 @@ import { i18n as i18nType } from 'i18next'
 import { Country } from 'meta/area/country'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { DescriptionCountryValues } from 'meta/assessment/descriptionValue'
 import { Dates } from 'utils/dates'
 
 import {
@@ -23,15 +22,14 @@ type Props = {
   countries: Array<Country>
   cycle: Cycle
   data: BulkDownloadData
-  descriptions: DescriptionCountryValues
   file: BulkDownloadFile
-  metadata: BulkDownloadMetadata
   i18n: i18nType
+  metadata: BulkDownloadMetadata
 }
 
 // returns the CSV content for the BulkDownloadFile object
 export const getCSVContentFile = (props: Props): CSVContent => {
-  const { assessment, countries, cycle, data, descriptions, file, i18n, metadata } = props
+  const { assessment, countries, cycle, data, file, i18n, metadata } = props
   const { colForestArea } = metadata
   const { csvPostProcessor, fileName, includeClimaticDomain, includeDeskStudy, includeForestArea, rows } = file
 
@@ -42,16 +40,16 @@ export const getCSVContentFile = (props: Props): CSVContent => {
   }
   const csvRows: Array<CSVRow> = []
 
-  const { colDescriptions, colNodes, colYear } = rows.at(0)
-  const optionsHeader: CSVRowOptions = { ...baseOptions, colDescriptions, colNodes, colYear }
+  const { colNodes, colYear } = rows.at(0)
+  const optionsHeader: CSVRowOptions = { ...baseOptions, colNodes, colYear }
   const rowHeader = getCSVRowHeader({ options: optionsHeader })
   csvRows.push(rowHeader)
 
   countries.forEach((country) => {
     rows.forEach((row) => {
-      const { colDescriptions, colNodes, colYear } = row
-      const options = { ...baseOptions, colDescriptions, colNodes, colYear }
-      const csvRow = getCSVRow({ assessment, country, cycle, data, descriptions, i18n, options })
+      const { colNodes, colYear } = row
+      const options = { ...baseOptions, colNodes, colYear }
+      const csvRow = getCSVRow({ assessment, country, cycle, data, i18n, options })
       csvRows.push(csvRow)
     })
   })

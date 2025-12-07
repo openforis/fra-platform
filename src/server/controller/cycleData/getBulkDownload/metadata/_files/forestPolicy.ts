@@ -5,8 +5,9 @@ import { TableNames } from 'meta/assessment/table'
 import { ForestPolicyBuilder } from 'server/controller/cycleData/getBulkDownload/metadata/_tables/forestPolicy'
 import { BulkDownloadFileFactory } from 'server/controller/cycleData/getBulkDownload/metadata/_types'
 import {
-  BulkDownloadColDescription,
   BulkDownloadColNode,
+  BulkDownloadColType,
+  BulkDownloadDatumType,
   BulkDownloadRow,
 } from 'server/controller/cycleData/getBulkDownload/types'
 
@@ -25,13 +26,16 @@ export const getForestPolicy: BulkDownloadFileFactory = (props) => {
     return { colName, csvColumn, datumType, tableName, variableName }
   })
 
-  const comments: BulkDownloadColDescription = {
+  colNodes.push({
+    colName: CommentableDescriptionName.generalComments,
+    colType: BulkDownloadColType.description,
     csvColumn: 'comments',
-    name: CommentableDescriptionName.generalComments,
-    sectionName: TableNames.forestPolicy,
-  }
+    datumType: BulkDownloadDatumType.string,
+    tableName: TableNames.forestPolicy,
+    variableName: CommentableDescriptionName.generalComments,
+  })
 
-  const row: BulkDownloadRow = { colDescriptions: [comments], colNodes }
+  const row: BulkDownloadRow = { colNodes }
 
   return { fileName: 'ForestPolicy', rows: [row] }
 }

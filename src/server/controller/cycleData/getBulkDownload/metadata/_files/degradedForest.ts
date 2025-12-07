@@ -3,8 +3,8 @@ import { TableNames } from 'meta/assessment/table'
 
 import { BulkDownloadFileFactory } from 'server/controller/cycleData/getBulkDownload/metadata/_types'
 import {
-  BulkDownloadColDescription,
   BulkDownloadColNode,
+  BulkDownloadColType,
   BulkDownloadDatumType,
   BulkDownloadRow,
 } from 'server/controller/cycleData/getBulkDownload/types'
@@ -67,15 +67,17 @@ export const getDegradedForest: BulkDownloadFileFactory = (_props) => {
       tableName: TableNames.degradedForestMonitoring2025,
       variableName: 'degradedAreaForThatYear',
     },
+    {
+      colName: CommentableDescriptionName.generalComments,
+      colType: BulkDownloadColType.description,
+      csvColumn: 'comments',
+      datumType,
+      tableName: TableNames.degradedForest,
+      variableName: CommentableDescriptionName.generalComments,
+    },
   ]
 
-  const comments: BulkDownloadColDescription = {
-    csvColumn: 'comments',
-    name: CommentableDescriptionName.generalComments,
-    sectionName: TableNames.degradedForest,
-  }
-
-  const row: BulkDownloadRow = { colDescriptions: [comments], colNodes }
+  const row: BulkDownloadRow = { colNodes }
 
   return { fileName: 'DegradedForest', rows: [row] }
 }
