@@ -36,12 +36,6 @@ $footer-height: 108px;
     padding: $spacing-xxs;
   }
 
-  .result-grid__header-content {
-    align-items: center;
-    display: flex;
-    gap: $spacing-xxs;
-  }
-
   .firstCol {
     @include sticky-header();
     left: 0;
