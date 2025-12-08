@@ -101,6 +101,7 @@
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "eslint-plugin-sort-destructure-keys": "^2.0.0",
     "eslint-plugin-sort-react-dependency-arrays": "^1.0.0",
+    "eslint-plugin-unused-imports": "^4.3.0",
     "globals": "^16.5.0",
     "husky": "^7.0.0",
     "jest": "^27.5.1",
