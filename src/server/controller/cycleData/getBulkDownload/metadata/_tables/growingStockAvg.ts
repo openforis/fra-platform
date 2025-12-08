@@ -1,50 +1,61 @@
 import { CycleNames } from 'meta/assessment/cycle/names'
 import { TableNames } from 'meta/assessment/table'
 
-import { BulkDownloadTableFactory } from 'server/controller/cycleData/getBulkDownload/metadata/_types'
+import {
+  BulkDownloadFileYearsBuilder,
+  ColNodeYearsFactory,
+} from 'server/controller/cycleData/getBulkDownload/metadata/_tables/_fileYearsBuilder'
 
-export const getGrowingStockAvg: BulkDownloadTableFactory = (props) => {
-  const { cycle } = props
+export class GrowingStockAvgBuilder extends BulkDownloadFileYearsBuilder {
+  getBaseColNodes(): Array<ColNodeYearsFactory> {
+    const { cycle } = this.props
+    const tableName = TableNames.growingStockAvg
 
-  return {
-    tableName: TableNames.growingStockAvg,
-    variables: [
+    return [
       {
-        variableName: 'naturallyRegeneratingForest',
         csvColumn: '2a_gs_ha_nat_reg',
+        tableName,
+        variableName: 'naturallyRegeneratingForest',
       },
       ...(cycle.name === CycleNames._2020
         ? []
         : [
             {
-              variableName: 'primaryForest',
               csvColumn: '2a_gs_ha_primary',
+              tableName,
+              variableName: 'primaryForest',
             },
             {
-              variableName: 'plantationForestIntroducedArea',
               csvColumn: '2a_gs_ha_introduced',
+              tableName,
+              variableName: 'plantationForestIntroducedArea',
             },
           ]),
       {
-        variableName: 'forest',
         csvColumn: '2a_gs_ha_forest',
+        tableName,
+        variableName: 'forest',
       },
       {
-        variableName: 'plantationForest',
         csvColumn: '2a_gs_ha_plantation',
+        tableName,
+        variableName: 'plantationForest',
       },
       {
-        variableName: 'plantedForest',
         csvColumn: '2a_gs_ha_planted',
+        tableName,
+        variableName: 'plantedForest',
       },
       {
-        variableName: 'otherWoodedLand',
         csvColumn: '2a_gs_ha_owl',
+        tableName,
+        variableName: 'otherWoodedLand',
       },
       {
-        variableName: 'otherPlantedForest',
         csvColumn: '2a_gs_ha_other_planted',
+        tableName,
+        variableName: 'otherPlantedForest',
       },
-    ],
+    ]
   }
 }

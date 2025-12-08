@@ -1,70 +1,81 @@
 import { TableNames } from 'meta/assessment/table'
 
-import { BulkDownloadTableFactory } from 'server/controller/cycleData/getBulkDownload/metadata/_types'
-import { BulkDownloadVariableType } from 'server/controller/cycleData/getBulkDownload/types'
+import {
+  BulkDownloadFileYearsBuilder,
+  ColNodeYearsFactory,
+} from 'server/controller/cycleData/getBulkDownload/metadata/_tables/_fileYearsBuilder'
+import { BulkDownloadDatumType } from 'server/controller/cycleData/getBulkDownload/types'
 
-export const getForestPolicy: BulkDownloadTableFactory = (_props) => {
-  const type = BulkDownloadVariableType.string
+export class ForestPolicyBuilder extends BulkDownloadFileYearsBuilder {
+  getBaseColNodes(): Array<ColNodeYearsFactory> {
+    const tableName = TableNames.forestPolicy
+    const datumType = BulkDownloadDatumType.string
 
-  return {
-    tableName: TableNames.forestPolicy,
-    variables: [
+    return [
       {
         colName: 'national_yes_no',
         csvColumn: '6a_policies_national',
-        type,
+        datumType,
+        singleFileColumns: [{ colName: 'national_yes_no', csvColumn: 'yes_no' }],
+        tableName,
         variableName: 'policies_supporting_SFM',
-        colsVariable: [{ colName: 'national_yes_no', csvColumn: 'yes_no' }],
       },
       {
         colName: 'sub_national_yes_no',
         csvColumn: '6a_policies_sub_national',
-        type,
+        datumType,
+        singleFileColumns: [{ colName: 'sub_national_yes_no', csvColumn: 'yes_no' }],
+        tableName,
         variableName: 'policies_supporting_SFM',
-        colsVariable: [{ colName: 'sub_national_yes_no', csvColumn: 'yes_no' }],
       },
       {
         colName: 'national_yes_no',
         csvColumn: '6a_legislation_national',
-        type,
+        datumType,
+        singleFileColumns: [{ colName: 'national_yes_no', csvColumn: 'yes_no' }],
+        tableName,
         variableName: 'legislations_supporting_SFM',
-        colsVariable: [{ colName: 'national_yes_no', csvColumn: 'yes_no' }],
       },
       {
         colName: 'sub_national_yes_no',
         csvColumn: '6a_legislation_sub_national',
-        type,
+        datumType,
+        singleFileColumns: [{ colName: 'sub_national_yes_no', csvColumn: 'yes_no' }],
+        tableName,
         variableName: 'legislations_supporting_SFM',
-        colsVariable: [{ colName: 'sub_national_yes_no', csvColumn: 'yes_no' }],
       },
       {
         colName: 'national_yes_no',
         csvColumn: '6a_platform_national',
-        type,
+        datumType,
+        singleFileColumns: [{ colName: 'national_yes_no', csvColumn: 'yes_no' }],
+        tableName,
         variableName: 'platform_for_stakeholder_participation',
-        colsVariable: [{ colName: 'national_yes_no', csvColumn: 'yes_no' }],
       },
       {
         colName: 'sub_national_yes_no',
         csvColumn: '6a_platform_sub_national',
-        type,
+        datumType,
+        singleFileColumns: [{ colName: 'sub_national_yes_no', csvColumn: 'yes_no' }],
+        tableName,
         variableName: 'platform_for_stakeholder_participation',
-        colsVariable: [{ colName: 'sub_national_yes_no', csvColumn: 'yes_no' }],
       },
       {
         colName: 'national_yes_no',
         csvColumn: '6a_traceability_national',
-        type,
+        datumType,
+        singleFileColumns: [{ colName: 'national_yes_no', csvColumn: 'yes_no' }],
+        tableName,
         variableName: 'existence_of_traceability_system',
-        colsVariable: [{ colName: 'national_yes_no', csvColumn: 'yes_no' }],
       },
       {
         colName: 'sub_national_yes_no',
         csvColumn: '6a_traceability_sub_national',
-        type,
+        datumType,
+        singleFileColumns: [{ colName: 'sub_national_yes_no', csvColumn: 'yes_no' }],
+        tableName,
         variableName: 'existence_of_traceability_system',
-        colsVariable: [{ colName: 'sub_national_yes_no', csvColumn: 'yes_no' }],
       },
-    ],
+    ]
   }
 }

@@ -1,36 +1,43 @@
 import { CycleNames } from 'meta/assessment/cycle/names'
 import { TableNames } from 'meta/assessment/table'
 
-import { BulkDownloadTableFactory } from 'server/controller/cycleData/getBulkDownload/metadata/_types'
+import {
+  BulkDownloadFileYearsBuilder,
+  ColNodeYearsFactory,
+} from 'server/controller/cycleData/getBulkDownload/metadata/_tables/_fileYearsBuilder'
 
-export const getOtherLandWithTreeCover: BulkDownloadTableFactory = (props) => {
-  const { cycle } = props
+export class OtherLandWithTreeCoverBuilder extends BulkDownloadFileYearsBuilder {
+  getBaseColNodes(): Array<ColNodeYearsFactory> {
+    const { cycle } = this.props
+    const anchor = cycle.name === CycleNames._2020 ? '1f' : '1e'
+    const tableName = TableNames.otherLandWithTreeCover
 
-  const anchor = cycle.name === CycleNames._2020 ? '1f' : '1e'
-
-  return {
-    tableName: TableNames.otherLandWithTreeCover,
-    variables: [
+    return [
       {
-        variableName: 'palms',
         csvColumn: `${anchor}_palms`,
+        tableName,
+        variableName: 'palms',
       },
       {
-        variableName: 'tree_orchards',
         csvColumn: `${anchor}_treeOrchards`,
+        tableName,
+        variableName: 'tree_orchards',
       },
       {
-        variableName: 'agroforestry',
         csvColumn: `${anchor}_agroforestry`,
+        tableName,
+        variableName: 'agroforestry',
       },
       {
-        variableName: 'trees_in_urban_settings',
         csvColumn: `${anchor}_treesUrbanSettings`,
+        tableName,
+        variableName: 'trees_in_urban_settings',
       },
       {
-        variableName: 'other',
         csvColumn: `${anchor}_other`,
+        tableName,
+        variableName: 'other',
       },
-    ],
+    ]
   }
 }

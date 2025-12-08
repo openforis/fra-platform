@@ -1,50 +1,61 @@
 import { CycleNames } from 'meta/assessment/cycle/names'
 import { TableNames } from 'meta/assessment/table'
 
-import { BulkDownloadTableFactory } from 'server/controller/cycleData/getBulkDownload/metadata/_types'
+import {
+  BulkDownloadFileYearsBuilder,
+  ColNodeYearsFactory,
+} from 'server/controller/cycleData/getBulkDownload/metadata/_tables/_fileYearsBuilder'
 
-export const getGrowingStockTotal: BulkDownloadTableFactory = (props) => {
-  const { cycle } = props
+export class GrowingStockTotalBuilder extends BulkDownloadFileYearsBuilder {
+  getBaseColNodes(): Array<ColNodeYearsFactory> {
+    const { cycle } = this.props
+    const tableName = TableNames.growingStockTotal
 
-  return {
-    tableName: TableNames.growingStockTotal,
-    variables: [
+    return [
       {
-        variableName: 'naturallyRegeneratingForest',
         csvColumn: '2a_gs_tot_nat_reg',
+        tableName,
+        variableName: 'naturallyRegeneratingForest',
       },
       ...(cycle.name === CycleNames._2020
         ? []
         : [
             {
-              variableName: 'primaryForest',
               csvColumn: '2a_gs_total_primary',
+              tableName,
+              variableName: 'primaryForest',
             },
             {
-              variableName: 'plantationForestIntroducedArea',
               csvColumn: '2a_gs_total_introduced',
+              tableName,
+              variableName: 'plantationForestIntroducedArea',
             },
           ]),
       {
-        variableName: 'plantedForest',
         csvColumn: '2a_gs_tot_planted',
+        tableName,
+        variableName: 'plantedForest',
       },
       {
-        variableName: 'plantationForest',
         csvColumn: '2a_gs_tot_plantation',
+        tableName,
+        variableName: 'plantationForest',
       },
       {
-        variableName: 'otherPlantedForest',
         csvColumn: '2a_gs_tot_other_planted',
+        tableName,
+        variableName: 'otherPlantedForest',
       },
       {
-        variableName: 'forest',
         csvColumn: '2a_gs_tot_forest',
+        tableName,
+        variableName: 'forest',
       },
       {
-        variableName: 'otherWoodedLand',
         csvColumn: '2a_gs_tot_owl',
+        tableName,
+        variableName: 'otherWoodedLand',
       },
-    ],
+    ]
   }
 }

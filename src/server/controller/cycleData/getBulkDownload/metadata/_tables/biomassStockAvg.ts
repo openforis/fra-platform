@@ -1,28 +1,32 @@
 import { CycleNames } from 'meta/assessment/cycle/names'
 import { TableNames } from 'meta/assessment/table'
 
-import { BulkDownloadTableFactory } from 'server/controller/cycleData/getBulkDownload/metadata/_types'
+import {
+  BulkDownloadFileYearsBuilder,
+  ColNodeYearsFactory,
+} from 'server/controller/cycleData/getBulkDownload/metadata/_tables/_fileYearsBuilder'
 
-export const getBiomassStockAvg: BulkDownloadTableFactory = (props) => {
-  const { cycle } = props
+export class BiomassStockAvgBuilder extends BulkDownloadFileYearsBuilder {
+  getBaseColNodes(): Array<ColNodeYearsFactory> {
+    const { cycle } = this.props
+    const tableName = cycle.name === CycleNames._2020 ? TableNames.biomassStock : TableNames.biomassStockAvg
 
-  const tableName = cycle.name === CycleNames._2020 ? TableNames.biomassStock : TableNames.biomassStockAvg
-
-  return {
-    tableName,
-    variables: [
+    return [
       {
-        variableName: 'forest_above_ground',
         csvColumn: '2c_agb',
+        tableName,
+        variableName: 'forest_above_ground',
       },
       {
-        variableName: 'forest_below_ground',
         csvColumn: '2c_bgb',
+        tableName,
+        variableName: 'forest_below_ground',
       },
       {
-        variableName: 'forest_deadwood',
         csvColumn: '2c_dwb',
+        tableName,
+        variableName: 'forest_deadwood',
       },
-    ],
+    ]
   }
 }

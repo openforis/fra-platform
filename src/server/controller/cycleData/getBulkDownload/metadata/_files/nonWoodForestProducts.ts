@@ -3,8 +3,8 @@ import { TableNames } from 'meta/assessment/table'
 import { BulkDownloadFileFactory } from 'server/controller/cycleData/getBulkDownload/metadata/_types'
 import {
   BulkDownloadColNode,
-  BulkDownloadFile,
-  BulkDownloadVariableType,
+  BulkDownloadDatumType,
+  BulkDownloadRow,
 } from 'server/controller/cycleData/getBulkDownload/types'
 
 const toTitleCase = (str: string): string => {
@@ -31,17 +31,17 @@ const getCSVColumn = (variableName: string, colName: string): string => {
   return `${toTitleCase(variableName)} ${toTitleCase(colName)}`
 }
 
-const type = BulkDownloadVariableType.string
+const datumType = BulkDownloadDatumType.string
 
 export const getNonWoodForestProducts: BulkDownloadFileFactory = (_props) => {
-  const colNodes: BulkDownloadFile['colNodes'] = []
+  const colNodes: Array<BulkDownloadColNode> = []
 
   const colNameProducts = ['product_name', 'value', 'category', 'quantity', 'unit']
   Array.from({ length: 10 }, (_, i) => `product_${i + 1}`).forEach((variableName) => {
     const tableName = TableNames.nonWoodForestProductsRemovals
     colNameProducts.forEach((colName) => {
       const csvColumn = getCSVColumn(variableName, colName)
-      const column: BulkDownloadColNode = { colName, csvColumn, tableName, type, variableName }
+      const column: BulkDownloadColNode = { colName, csvColumn, datumType, tableName, variableName }
       colNodes.push(column)
     })
   })
@@ -51,7 +51,7 @@ export const getNonWoodForestProducts: BulkDownloadFileFactory = (_props) => {
     const colName = 'value'
     const tableName = TableNames.nonWoodForestProductsRemovals
     const csvColumn = getCSVColumn(variableName, colName)
-    const column: BulkDownloadColNode = { colName, csvColumn, tableName, type, variableName }
+    const column: BulkDownloadColNode = { colName, csvColumn, datumType, tableName, variableName }
     colNodes.push(column)
   })
 
@@ -59,10 +59,12 @@ export const getNonWoodForestProducts: BulkDownloadFileFactory = (_props) => {
   colNodes.push({
     colName: currency,
     csvColumn: `Name of currency`,
+    datumType,
     tableName: TableNames.nonWoodForestProductsRemovalsCurrency,
-    type,
     variableName: currency,
   })
 
-  return { colNodes, fileName: 'NWFP' }
+  const row: BulkDownloadRow = { colNodes }
+
+  return { fileName: 'NWFP', rows: [row] }
 }

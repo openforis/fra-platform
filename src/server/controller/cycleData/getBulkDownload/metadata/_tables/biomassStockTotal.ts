@@ -1,23 +1,30 @@
 import { TableNames } from 'meta/assessment/table'
 
-import { BulkDownloadTableFactory } from 'server/controller/cycleData/getBulkDownload/metadata/_types'
+import {
+  BulkDownloadFileYearsBuilder,
+  ColNodeYearsFactory,
+} from 'server/controller/cycleData/getBulkDownload/metadata/_tables/_fileYearsBuilder'
 
-export const getBiomassStockTotal: BulkDownloadTableFactory = (_props) => {
-  return {
-    tableName: TableNames.biomassStockTotal,
-    variables: [
+export class BiomassStockTotalBuilder extends BulkDownloadFileYearsBuilder {
+  getBaseColNodes(): Array<ColNodeYearsFactory> {
+    const tableName = TableNames.biomassStockTotal
+
+    return [
       {
-        variableName: 'forest_above_ground',
         csvColumn: '2c_agb_total',
+        tableName,
+        variableName: 'forest_above_ground',
       },
       {
-        variableName: 'forest_below_ground',
         csvColumn: '2c_bgb_total',
+        tableName,
+        variableName: 'forest_below_ground',
       },
       {
-        variableName: 'forest_deadwood',
         csvColumn: '2c_dwb_total',
+        tableName,
+        variableName: 'forest_deadwood',
       },
-    ],
+    ]
   }
 }

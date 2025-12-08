@@ -3,59 +3,61 @@ import { i18n as i18nType } from 'i18next'
 import { Country } from 'meta/area/country'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { DescriptionCountryValues } from 'meta/assessment/descriptionValue'
+import { Dates } from 'utils/dates'
 
-import { toCSVContent } from 'server/controller/cycleData/getBulkDownload/csvContent/_toContent'
 import {
   BulkDownloadData,
   BulkDownloadFile,
   BulkDownloadMetadata,
   CSVContent,
   CSVRow,
+  CSVRowOptions,
 } from 'server/controller/cycleData/getBulkDownload/types'
 
 import { getCSVRow } from './_row'
 import { getCSVRowHeader } from './_rowHeader'
-import { CSVColValue, CSVRowOptions } from './_types'
 
 type Props = {
   assessment: Assessment
   countries: Array<Country>
   cycle: Cycle
   data: BulkDownloadData
-  descriptions: DescriptionCountryValues
   file: BulkDownloadFile
-  metadata: BulkDownloadMetadata
   i18n: i18nType
+  metadata: BulkDownloadMetadata
 }
 
-// retrieves the CSV content for the generic BulkDownloadFile object
+// returns the CSV content for the BulkDownloadFile object
 export const getCSVContentFile = (props: Props): CSVContent => {
-  const { assessment, countries, cycle, data, descriptions, file, i18n, metadata } = props
+  const { assessment, countries, cycle, data, file, i18n, metadata } = props
   const { colForestArea } = metadata
-  const { colDescriptions, colNodes, fileName, includeClimaticDomain, includeForestArea } = file
+  const { csvPostProcessor, fileName, includeClimaticDomain, includeDeskStudy, includeForestArea, rows } = file
 
-  const colValues = colNodes.map<CSVColValue>((column) => {
-    const { colName, csvColumn = column.colName, getDatum, tableName, type, variableName } = column
-    return { colName, csvColumn, getDatum, tableName, type, variableName }
-  })
-
-  const options: CSVRowOptions = {
+  const baseOptions = {
     colForestArea: includeForestArea ? colForestArea : undefined,
-    colDescriptions,
-    colValues,
     includeClimaticDomain,
+    includeDeskStudy,
   }
+  const csvRows: Array<CSVRow> = []
 
-  const rows: Array<CSVRow> = []
-
-  const rowHeader = getCSVRowHeader({ options })
-  rows.push(rowHeader)
+  const { colNodes, colYear } = rows.at(0)
+  const optionsHeader: CSVRowOptions = { ...baseOptions, colNodes, colYear }
+  const rowHeader = getCSVRowHeader({ options: optionsHeader })
+  csvRows.push(rowHeader)
 
   countries.forEach((country) => {
-    const row = getCSVRow({ assessment, country, cycle, data, descriptions, i18n, options })
-    rows.push(row)
+    rows.forEach((row) => {
+      const { colNodes, colYear } = row
+      const options = { ...baseOptions, colNodes, colYear }
+      const csvRow = getCSVRow({ assessment, country, cycle, data, i18n, options })
+      csvRows.push(csvRow)
+    })
   })
 
-  return toCSVContent({ fileName, rows })
+  csvPostProcessor?.({ rows: csvRows })
+
+  return {
+    content: csvRows.join(`\n`),
+    fileName: `${fileName}_${Dates.format(new Date(), 'yyyy-MM-dd')}.csv`,
+  }
 }

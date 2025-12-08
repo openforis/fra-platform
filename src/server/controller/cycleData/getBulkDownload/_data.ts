@@ -1,13 +1,11 @@
 import { Country } from 'meta/area/country'
 import { CountryIso } from 'meta/area/countryIso'
-import { DescriptionCountryValues } from 'meta/assessment/descriptionValue'
 import { TableName, TableNames } from 'meta/assessment/table'
-import { Objects } from 'utils/objects'
 
 import {
+  BulkDownloadColType,
   BulkDownloadData,
   BulkDownloadMetadata,
-  BulkDownloadODPDataTableName,
   PropsBulkDownload,
 } from 'server/controller/cycleData/getBulkDownload/types'
 import { getTableData } from 'server/controller/cycleData/getTableData'
@@ -21,44 +19,36 @@ const getNames = (props: {
 }): { sectionNames: Array<string>; tableNames: Array<TableName> } => {
   const { metadata } = props
 
-  const tableNames = new Set<string>()
+  const tableNames = new Set<string>([TableNames.climaticDomain])
   const sectionNames = new Set<string>()
 
-  metadata.years.forEach((year) => {
-    return year.tables.forEach((table) => {
-      tableNames.add(table.tableName)
-    })
-  })
-
   metadata.files.forEach((file) => {
-    file.colNodes.forEach((column) => {
-      tableNames.add(column.tableName)
-    })
-    file.colDescriptions?.forEach((description) => {
-      sectionNames.add(description.sectionName)
+    const row = file.rows.at(0)
+    row.colNodes.forEach((column) => {
+      const { colType = BulkDownloadColType.tableNode } = column
+      if (colType === BulkDownloadColType.tableNode) {
+        tableNames.add(column.tableName)
+      }
+      if (colType === BulkDownloadColType.description) {
+        sectionNames.add(column.tableName)
+      }
     })
   })
-
-  tableNames.add(TableNames.climaticDomain)
-  tableNames.delete(BulkDownloadODPDataTableName)
 
   return { sectionNames: Array.from(sectionNames), tableNames: Array.from(tableNames) }
 }
 
-type Returned = [BulkDownloadData, DescriptionCountryValues]
-
-export const getData = async (props: Props): Promise<Returned> => {
+export const getData = async (props: Props): Promise<BulkDownloadData> => {
   const { assessment, countries, cycle, metadata } = props
 
   const countryISOs = countries.map<CountryIso>((country) => country.countryIso)
   const { sectionNames, tableNames } = getNames({ metadata })
 
-  const [data, descriptions, odpData] = await Promise.all([
+  const [tables, descriptions, odp] = await Promise.all([
     getTableData({ assessment, countryISOs, cycle, mergeOdp: true, tableNames }),
     DescriptionRepository.getValues({ assessment, countryISOs, cycle, sectionNames }),
     OriginalDataPointRepository.getBulkDownloadData({ assessment, countryISOs, cycle }),
   ])
-  Objects.set(data, [BulkDownloadODPDataTableName], odpData)
 
-  return [data as BulkDownloadData, descriptions]
+  return { descriptions, odp, tables }
 }

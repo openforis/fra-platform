@@ -1,10 +1,4 @@
-import {
-  BulkDownloadFile,
-  BulkDownloadTable,
-  BulkDownloadYear,
-  PropsBulkDownload,
-} from 'server/controller/cycleData/getBulkDownload/types'
+import { BulkDownloadFile, PropsBulkDownloadFileBuilder } from 'server/controller/cycleData/getBulkDownload/types'
 
-export type BulkDownloadYearFactory = (props: PropsBulkDownload) => BulkDownloadYear
-export type BulkDownloadTableFactory = (props: PropsBulkDownload) => BulkDownloadTable
-export type BulkDownloadFileFactory = (props: PropsBulkDownload) => BulkDownloadFile
+export type BulkDownloadFileFactory = (props: PropsBulkDownloadFileBuilder) => BulkDownloadFile
+export type BulkDownloadFilesFactory = (props: PropsBulkDownloadFileBuilder) => Array<BulkDownloadFile>
