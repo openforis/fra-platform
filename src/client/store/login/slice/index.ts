@@ -9,10 +9,6 @@ export const LoginSlice = createSlice({
   name: LoginSliceName,
   initialState,
   reducers: {
-    resetLogin: () => initialState,
-    resetAcceptInvitationForm: (state) => {
-      state.invitation.acceptForm = {}
-    },
     updateAcceptInvitationForm: (state, action: PayloadAction<AcceptInvitationFormFields>) => {
       state.invitation.acceptForm ??= {}
       state.invitation.acceptForm = { ...state.invitation.acceptForm, ...action.payload }
