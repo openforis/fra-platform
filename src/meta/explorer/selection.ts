@@ -20,10 +20,22 @@ export type AxisSelection = {
   y: [AxisType] | [AxisType, AxisType]
 }
 
+export enum ExplorerOrderByDirection {
+  asc = 'asc',
+  desc = 'desc',
+}
+
+export type ExplorerOrderBy = {
+  dimensionName: DimensionName
+  measureName: MeasureName
+  order: ExplorerOrderByDirection
+}
+
 export type ExplorerSelection = {
   axis: Record<SectionName, AxisSelection>
   countries: Array<CountryIso>
   dimensions: Record<SectionName, Array<DimensionName>>
   measures: Record<SectionName, Array<MeasureName>>
+  orderBy?: Record<SectionName, ExplorerOrderBy | undefined>
   units: Record<SectionName, Record<MeasureName, UnitName>>
 }

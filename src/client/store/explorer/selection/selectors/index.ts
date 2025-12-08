@@ -44,6 +44,13 @@ const getMeasures = createSelector(
   }
 )
 
+const getOrderBy = createSelector(
+  [_getSelection, (_state, _assessmentName, __cycleName, sectionName) => sectionName],
+  (selection, sectionName) => {
+    return selection?.orderBy?.[sectionName]
+  }
+)
+
 const getUnits = createSelector(
   [_getSelection, (_state, _assessmentName, __cycleName, sectionName) => sectionName],
   (selection, sectionName) => {
@@ -56,5 +63,6 @@ export const ExplorerSelectionSelectors = {
   getCountries,
   getDimensions,
   getMeasures,
+  getOrderBy,
   getUnits,
 }

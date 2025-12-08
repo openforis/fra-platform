@@ -1,18 +1,21 @@
 import './ResultGrid.scss'
 import React from 'react'
-
 import classNames from 'classnames'
-import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area/countryIso'
 import { Axis, AxisType } from 'meta/explorer/selection'
+import { DimensionName } from 'meta/measurement/dimension'
+import { MeasureName } from 'meta/measurement/measure'
+import { Objects } from 'utils/objects'
 
 import { useGetExplorerSectionData } from 'client/store/explorer/data/hooks/data'
 import { useExplorerSectionMetadata } from 'client/store/explorer/metadata/hooks/metadata'
 import { DataCell, DataGrid } from 'client/components/DataGrid'
+import Flex from 'client/components/Layout/Flex'
 import { useHideGrid } from 'client/pages/Explorer/hooks/useHideGrid'
 import MeasureTitle from 'client/pages/Explorer/ResultGrid/MeasureTitle/MeasureTitle'
 import Observation from 'client/pages/Explorer/ResultGrid/Observation/Observation'
+import OrderBy from 'client/pages/Explorer/ResultGrid/OrderBy'
 import { CountryEntry } from 'client/pages/Explorer/ResultGrid/types'
 import { ExplorerGridProps } from 'client/pages/Explorer/types'
 
@@ -101,6 +104,13 @@ export const ResultGrid: React.FC<ExplorerGridProps> = (props: ExplorerGridProps
       {xCombinations.map((combination, idx) => {
         const isPrimaryVariable = xAxisVariableCount === 1
         const axisType = xAxisSelection[isPrimaryVariable ? 0 : 1]
+        const measureIdx = xAxisSelection.indexOf(AxisType.measures)
+        const dimensionIdx = xAxisSelection.indexOf(AxisType.dimensions)
+        const measureName =
+          measureIdx === -1 ? undefined : _getCombinationStringValue<MeasureName>(combination[measureIdx])
+        const dimensionName =
+          dimensionIdx === -1 ? undefined : _getCombinationStringValue<DimensionName>(combination[dimensionIdx])
+
         return (
           <DataCell
             key={`${combination.map(_getCombinationStringValue).join('-')}-x-header`}
@@ -112,11 +122,17 @@ export const ResultGrid: React.FC<ExplorerGridProps> = (props: ExplorerGridProps
             header
             lastCol={idx === xCombinations.length - 1}
           >
-            {renderLabel({
-              // If there are two X variables selected, render only the secondary variable header
-              axisType,
-              value: combination[xAxisVariableCount - 1],
-            })}
+            <Flex alignItems="center" justifyContent="space-between">
+              <span className="explorer-result-grid__header-label">
+                {renderLabel({
+                  // If there are two X variables selected, render only the secondary variable header
+                  axisType,
+                  value: combination[xAxisVariableCount - 1],
+                })}
+              </span>
+
+              {measureName && dimensionName && <OrderBy dimensionName={dimensionName} measureName={measureName} />}
+            </Flex>
           </DataCell>
         )
       })}

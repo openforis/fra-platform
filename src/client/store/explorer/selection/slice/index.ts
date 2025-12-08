@@ -4,6 +4,7 @@ import { setAxisSelection } from 'client/store/explorer/selection/slice/reducers
 import { setCountries } from 'client/store/explorer/selection/slice/reducers/setCountries'
 import { setDimensions } from 'client/store/explorer/selection/slice/reducers/setDimensions'
 import { setMeasures } from 'client/store/explorer/selection/slice/reducers/setMeasures'
+import { setOrderBy } from 'client/store/explorer/selection/slice/reducers/setOrderBy'
 import { setUnits } from 'client/store/explorer/selection/slice/reducers/setUnits'
 
 import { ExplorerSelectionSliceName } from './name'
@@ -16,6 +17,7 @@ export const ExplorerSelectionSlice = createSlice({
     setCountries,
     setDimensions,
     setMeasures,
+    setOrderBy,
     setUnits,
   },
 })
