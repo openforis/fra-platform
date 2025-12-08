@@ -1,14 +1,12 @@
-import React, { ReactElement, useCallback } from 'react'
+import React, { ReactElement } from 'react'
 
-import { ExplorerOrderBy, ExplorerOrderByDirection } from 'meta/explorer/selection'
+import { ExplorerOrderByDirection } from 'meta/explorer/selection'
 import { DimensionName } from 'meta/measurement/dimension'
 import { MeasureName } from 'meta/measurement/measure'
 
-import { ExplorerSelectionActions } from 'client/store/explorer/selection/actions'
 import { useExplorerOrderBy } from 'client/store/explorer/selection/hooks/orderBy'
-import { useAppDispatch } from 'client/store/hooks'
-import { useSectionRouteParams } from 'client/hooks/routeParams'
 import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
+import { useOnClick } from 'client/pages/Explorer/ResultGrid/OrderBy/hooks/useOnClick'
 
 type Props = {
   dimensionName: DimensionName
@@ -18,37 +16,14 @@ type Props = {
 const OrderBy: React.FC<Props> = (props: Props): ReactElement => {
   const { dimensionName, measureName } = props
 
-  const dispatch = useAppDispatch()
   const orderBy = useExplorerOrderBy()
-  const { assessmentName, cycleName, sectionName } = useSectionRouteParams()
 
   const active = orderBy?.dimensionName === dimensionName && orderBy?.measureName === measureName
   const activeAsc = active && orderBy?.order === ExplorerOrderByDirection.asc
   const activeDesc = active && orderBy?.order === ExplorerOrderByDirection.desc
   const iconName = activeDesc ? 'sort-amount-desc' : 'sort-amount-asc'
 
-  const onClick = useCallback<() => void>(() => {
-    let orderByUpdate: ExplorerOrderBy | undefined = {
-      dimensionName,
-      measureName,
-      order: ExplorerOrderByDirection.asc,
-    }
-
-    if (activeAsc) {
-      orderByUpdate = { dimensionName, measureName, order: ExplorerOrderByDirection.desc }
-    } else if (activeDesc) {
-      orderByUpdate = undefined
-    }
-
-    dispatch(
-      ExplorerSelectionActions.setOrderBy({
-        assessmentName,
-        cycleName,
-        orderBy: orderByUpdate,
-        sectionName,
-      })
-    )
-  }, [activeAsc, activeDesc, assessmentName, cycleName, dimensionName, dispatch, measureName, sectionName])
+  const onClick = useOnClick({ activeAsc, activeDesc, dimensionName, measureName })
 
   return (
     <Button
