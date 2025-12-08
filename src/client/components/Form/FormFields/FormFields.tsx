@@ -5,6 +5,7 @@ import CheckboxField from 'client/components/Form/FormFields/CheckboxField'
 import CountryField from 'client/components/Form/FormFields/CountryField'
 import HiddenField from 'client/components/Form/FormFields/HiddenField'
 import LanguageField from 'client/components/Form/FormFields/LanguageField'
+import PasswordField from 'client/components/Form/FormFields/PasswordField'
 import PermissionsField from 'client/components/Form/FormFields/PermissionsField'
 import SelectField from 'client/components/Form/FormFields/SelectField'
 import TelephoneField from 'client/components/Form/FormFields/TelephoneField'
@@ -20,6 +21,7 @@ export const FormFields: Record<FormFieldType, React.FC<FieldProps>> = {
   [FormFieldType.country]: CountryField,
   [FormFieldType.hidden]: HiddenField,
   [FormFieldType.language]: LanguageField,
+  [FormFieldType.password]: PasswordField,
   [FormFieldType.permissions]: PermissionsField,
   [FormFieldType.select]: SelectField,
   [FormFieldType.telephone]: TelephoneField,
