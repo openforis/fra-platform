@@ -35,7 +35,6 @@
   "passwordChanged": "Password has been changed",
   "passwordMinLength": "Password must be at least {{count}} characters",
   "passwordResetSent": "The request to reset your password has been successfully submitted.\nYou'll be shortly receiving an email with instructions",
-  "passwordUppercase": "Password must contain at least one uppercase letter",
   "repeatPassword": "Repeat Password",
   "resetPassword": "Reset password",
   "returnHome": "To return to the home page click",
