@@ -47,6 +47,7 @@ export enum TableNames {
   nonWoodForestProductsRemovalsCurrency = 'nonWoodForestProductsRemovalsCurrency',
   otherLandWithTreeCover = 'otherLandWithTreeCover',
   primaryDesignatedManagementObjective = 'primaryDesignatedManagementObjective',
+  primaryForestByClimaticDomain = 'primaryForestByClimaticDomain',
   specificForestCategories = 'specificForestCategories',
   sustainableDevelopment15_2_1_1 = 'sustainableDevelopment15_2_1_1',
   sustainableDevelopment15_2_1_2 = 'sustainableDevelopment15_2_1_2',
