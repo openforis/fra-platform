@@ -1,6 +1,4 @@
 import { acceptInvitation } from 'client/store/login/actions/acceptInvitation'
-import { changePassword } from 'client/store/login/actions/changePassword'
-import { createResetPassword } from 'client/store/login/actions/createResetPassword'
 import { fetchUserByInvitation } from 'client/store/login/actions/fetchUserByInvitation'
 import { initLogin } from 'client/store/login/actions/initLogin'
 import { localLogin } from 'client/store/login/actions/localLogin'
@@ -12,6 +10,4 @@ export const LoginActions = {
   fetchUserByInvitation,
   initLogin,
   localLogin,
-  createResetPassword,
-  changePassword,
 }
