@@ -14,7 +14,7 @@ export const getCSVRowHeader = (props: Props): CSVRow => {
   const { options } = props
   const { colForestArea, colNodes, colYear, includeClimaticDomain, includeDeskStudy } = options
 
-  const row = ['regions', 'iso3']
+  const row = ['regions', 'iso3', 'iso2', 'm49']
 
   if (includeDeskStudy) {
     row.push('deskStudy')

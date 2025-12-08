@@ -133,10 +133,11 @@ export const getCreatePublicSchemaDDL = (schemaName = 'public'): string => {
                   on update cascade on delete set null;
                   
     create table if not exists ${schemaName}.country (
-      country_iso character varying(3) primary key not null,
-      country_iso2 character varying(2),
-      calling_code character varying(10),
-      sort_index jsonb not null default '{}'::jsonb
+      country_iso   character varying(3) primary key not null,
+      country_iso2  character varying(2) not null,
+      m49           character varying(3) not null,
+      calling_code  character varying(10),
+      sort_index    jsonb not null default '{}'::jsonb
     );
 
     create table if not exists ${schemaName}.file (
