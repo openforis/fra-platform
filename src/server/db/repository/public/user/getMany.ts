@@ -1,7 +1,6 @@
-import { Objects } from 'utils/objects'
-
 import { TablePaginatedOrderByDirection } from 'meta/tablePaginated/orderBy'
 import { User } from 'meta/user/user'
+import { Objects } from 'utils/objects'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { UserQueryParams } from 'server/db/repository/public/user/UserQueryParams'
@@ -34,11 +33,12 @@ export const buildGetManyQuery = (props: UsersGetManyProps): BuildQueryReturned 
       cus.full_name,
       cus.email,
       cus.lang,
+      cus.title,
       coalesce(jsonb_agg(cus.role) filter ( where cus.role is not null ), '[]') as roles,
       coalesce(jsonb_agg(cus.invitation) filter ( where cus.invitation is not null ), '[]') as invitations
     from ${schemaName}.country_user_summary cus
     where ${whereConditions.join(' and ')}
-    group by cus.id, cus.uuid, cus.full_name, cus.email, cus.lang
+    group by cus.id, cus.uuid, cus.full_name, cus.email, cus.lang, cus.title
     ${order}
     ${queryParams.limit ? `limit $(limit)` : ''}
     ${queryParams.offset ? `offset $(offset)` : ''}

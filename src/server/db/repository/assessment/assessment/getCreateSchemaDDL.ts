@@ -375,6 +375,7 @@ export const getCreateOrReplaceViewCountryUserSummary = (props: { assessment: As
         u.email,
         u.props ->> 'name' as name,
         u.props ->> 'surname' as surname,
+        u.props ->> 'title' as title,
         concat(
             coalesce(u.props ->> 'name', ''),
             case when u.props ->> 'name' is not null and u.props ->> 'surname' is not null 
