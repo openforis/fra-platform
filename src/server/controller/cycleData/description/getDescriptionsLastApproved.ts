@@ -28,7 +28,9 @@ export const getDescriptionsLastApproved = async (
   let data: DescriptionCountryValues = {} as DescriptionCountryValues
 
   if (!Objects.isNil(prevCycle)) {
-    data = await DescriptionRepository.getValues({ ...props, cycle: prevCycle, sectionNames: [sectionName] }, client)
+    const countryISOs = [countryIso]
+    const sectionNames = [sectionName]
+    data = await DescriptionRepository.getValues({ assessment, countryISOs, cycle: prevCycle, sectionNames }, client)
   }
 
   if (!Objects.isNil(lastAccepted)) {

@@ -9,14 +9,14 @@ import { Schemas } from 'server/db/schemas'
 
 type Props = {
   assessment: Assessment
+  countryISOs: Array<CountryIso>
   cycle: Cycle
-  countryIso: CountryIso
-  sectionNames?: Array<SectionName>
   name?: CommentableDescriptionName
+  sectionNames?: Array<SectionName>
 }
 
 export const getValues = async (props: Props, client: BaseProtocol = DB): Promise<DescriptionCountryValues> => {
-  const { assessment, countryIso, cycle, name, sectionNames } = props
+  const { assessment, countryISOs, cycle, name, sectionNames } = props
 
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
 
@@ -26,7 +26,7 @@ export const getValues = async (props: Props, client: BaseProtocol = DB): Promis
                       d.section_name,
                       jsonb_object_agg(d.name, d.value) as descriptions
                from ${schemaCycle}.descriptions d
-               where d.country_iso = $1
+               where d.country_iso in ($1:csv)
                  ${sectionNames ? `and d.section_name in ($2:csv)` : ``}
                  ${name ? `and d.name = $3` : ``}
                group by 1, 2),
@@ -37,7 +37,7 @@ export const getValues = async (props: Props, client: BaseProtocol = DB): Promis
                group by 1)
      select coalesce(jsonb_object_agg(a.country_iso, a.descriptions), '{}'::jsonb) as descriptions
      from agg2 a`,
-    [countryIso, sectionNames, name],
+    [countryISOs, sectionNames, name],
     ({ descriptions }) => descriptions
   )
 }
