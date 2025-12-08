@@ -1,0 +1,31 @@
+# The content of this file is populated dynamically by buildPanEuropeanDataSchemas.ts
+components:
+  schemas:
+    PanEuropeanTableNames:
+      type: array
+      description: panEuropean main data table identifiers (pass as `tableNames[]`).
+      items:
+        type: string
+        enum: []
+      example: []
+
+    PanEuropeanColumnNames:
+      type: array
+      description: Array of columns to retrieve. See PanEuropeanTableOptions for table-specific options.
+      items:
+        type: string
+        enum: []
+      example: []
+
+    PanEuropeanVariableNames:
+      type: array
+      description:  Array of variable names to retrieve. Use PanEuropeanTableOptions to pick values that match your selected table.
+      items:
+        type: string
+        enum: []
+      example: []
+
+    PanEuropeanTableOptions:
+      type: object
+      description: Allowed variables and columns by table.
+      properties: {}

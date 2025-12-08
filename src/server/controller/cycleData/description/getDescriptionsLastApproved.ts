@@ -1,9 +1,8 @@
-import { Objects } from 'utils/objects'
-
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { DescriptionCountryValues } from 'meta/assessment/descriptionValue'
+import { Objects } from 'utils/objects'
 
 import { getInfo } from 'server/controller/cycleData/history/lastApproved'
 import { BaseProtocol, DB } from 'server/db/db'
@@ -29,7 +28,9 @@ export const getDescriptionsLastApproved = async (
   let data: DescriptionCountryValues = {} as DescriptionCountryValues
 
   if (!Objects.isNil(prevCycle)) {
-    data = await DescriptionRepository.getValues({ ...props, cycle: prevCycle }, client)
+    const countryISOs = [countryIso]
+    const sectionNames = [sectionName]
+    data = await DescriptionRepository.getValues({ assessment, countryISOs, cycle: prevCycle, sectionNames }, client)
   }
 
   if (!Objects.isNil(lastAccepted)) {

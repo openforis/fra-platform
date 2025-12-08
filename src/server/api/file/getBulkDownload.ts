@@ -7,9 +7,9 @@ import { Requests } from 'server/utils'
 import { Responses } from 'server/utils/responses'
 
 // Zip contents:
-// FRA_Years_2022_09_07.csv
-// Annual_2022_09_07.csv
-// Intervals_2022_09_07.csv
+// FRA_Years_2022-09-07.csv
+// Annual_2022-09-07.csv
+// Intervals_2022-09-07.csv
 // README.txt
 
 const _README = (cycleName: string): string => {
@@ -21,9 +21,9 @@ const _README = (cycleName: string): string => {
   README
 
 The bulk download zip archive contains three comma separated files (csv). They have been named as follows:
-    1. FRA_Years_YYYY_MM_DD.csv (YYYY_MM_DD refers to the date of the download)
-    2. Intervals_YYYY_MM_DD.csv
-    2. Annual_YYYY_MM_DD.csv
+    1. FRA_Years_YYYY-MM-DD.csv (YYYY-MM-DD refers to the date of the download)
+    2. Intervals_YYYY-MM-DD.csv
+    2. Annual_YYYY-MM-DD.csv
 
 1. Most of the reported data are found in the file “FRA_Years*”.  Typically the data are structured in records according to the FRA reporting years: ${years}.
 2. The file “Intervals*” contains data on Forest expansion, afforestation, natural expansion, deforestation and reforestation and each data record contains information for one interval ${yearRange}.
@@ -40,10 +40,7 @@ export const getBulkDownload = async (req: CountryRequest, res: Response): Promi
     const { assessmentName, cycleName } = req.query
     const { assessment, cycle } = req.context
 
-    const files = await CycleDataController.getBulkDownload({
-      assessment,
-      cycle,
-    })
+    const files = await CycleDataController.getBulkDownload({ assessment, cycle })
 
     const BOM = '\uFEFF' // Byte Order Mark for UTF-8
     const readmeContent = Buffer.from(BOM + _README(cycle.name), 'utf-8')

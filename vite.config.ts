@@ -96,9 +96,6 @@ export default defineConfig(({ mode }) => {
     server: {
       allowedHosts: ['localhost', 'fra-data.local'],
       port,
-      watch: {
-        usePolling: true,
-      },
       proxy: {
         '/api': {
           target: process.env.APP_URI ?? 'http://localhost:9001',
@@ -110,6 +107,12 @@ export default defineConfig(({ mode }) => {
           target: process.env.APP_URI ?? 'http://localhost:9001',
         },
         '/definitions': {
+          target: process.env.APP_URI ?? 'http://localhost:9001',
+        },
+        '/api-docs': {
+          target: process.env.APP_URI ?? 'http://localhost:9001',
+        },
+        '/panEuropean-api-docs': {
           target: process.env.APP_URI ?? 'http://localhost:9001',
         },
         '/socket.io': {
