@@ -35,7 +35,7 @@ export const getCSVRow = (props: Props): CSVRow => {
   const { assessment, country, cycle, data, i18n, options } = props
   const { name: assessmentName } = assessment.props
   const { name: cycleName } = cycle
-  const { countryIso, regionCodes } = country
+  const { countryIso, countryIso2, m49, regionCodes } = country
   const { colForestArea, colNodes, colYear, includeClimaticDomain, includeDeskStudy } = options
 
   const row: CSVRow = []
@@ -44,6 +44,8 @@ export const getCSVRow = (props: Props): CSVRow => {
   const countryLabel = getAreaLabel({ code: countryIso, i18n })
   row.push(parseValue(regionLabels, BulkDownloadDatumType.string))
   row.push(parseValue(countryIso, BulkDownloadDatumType.string))
+  row.push(parseValue(countryIso2, BulkDownloadDatumType.string))
+  row.push(parseValue(m49, BulkDownloadDatumType.string))
 
   //==== desk study: why before country label ?
   if (includeDeskStudy) {
