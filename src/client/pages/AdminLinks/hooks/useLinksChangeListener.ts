@@ -1,5 +1,4 @@
 import { useEffect } from 'react'
-
 import { isAnyOf } from '@reduxjs/toolkit'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
@@ -11,11 +10,11 @@ import { TablePaginatedActions } from 'client/store/tablePaginated/actions'
 import { useTablePaginatedOrderBy, useTablePaginatedPage } from 'client/store/tablePaginated/hooks/tablePaginated'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 
-export const useLinksChangeListener = () => {
+export const useLinksChangeListener = (): void => {
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams()
 
   const dispatch = useAppDispatch()
-  const path = ApiEndPoint.CycleData.Links.many()
+  const path = ApiEndPoint.Admin.Links.many()
   const page = useTablePaginatedPage(path)
   const orderBy = useTablePaginatedOrderBy(path)
 

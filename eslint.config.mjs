@@ -4,7 +4,7 @@ import tseslint from 'typescript-eslint'
 import importPlugin from 'eslint-plugin-import'
 import jsxA11yPlugin from 'eslint-plugin-jsx-a11y'
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
-
+import unusedImportsPlugin from 'eslint-plugin-unused-imports'
 import reactPlugin from 'eslint-plugin-react'
 import reactHooksPlugin from 'eslint-plugin-react-hooks'
 import simpleImportSortPlugin from 'eslint-plugin-simple-import-sort'
@@ -48,6 +48,7 @@ export default defineConfig([
       'simple-import-sort': simpleImportSortPlugin,
       'sort-destructure-keys': sortDestructureKeysPlugin,
       'sort-react-dependency-arrays': sortReactDependencyArraysPlugin,
+      'unused-imports': unusedImportsPlugin,
     },
     settings: {
       react: {
@@ -170,6 +171,7 @@ export default defineConfig([
       ],
       'sort-destructure-keys/sort-destructure-keys': ['error', { caseSensitive: true }],
       'sort-react-dependency-arrays/sort': 'error',
+      'unused-imports/no-unused-imports': 'error',
     },
   },
 

@@ -96,9 +96,6 @@ export default defineConfig(({ mode }) => {
     server: {
       allowedHosts: ['localhost', 'fra-data.local'],
       port,
-      watch: {
-        usePolling: true,
-      },
       proxy: {
         '/api': {
           target: process.env.APP_URI ?? 'http://localhost:9001',
