@@ -16,7 +16,6 @@ import { DOMs } from 'client/utils/doms'
 const DataDownload: React.FC = () => {
   const { t } = useTranslation()
   const language = useLanguage()
-
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams()
   const linkClassName = useButtonClassName({ size: ButtonSize.m })
 
