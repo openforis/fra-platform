@@ -29,7 +29,11 @@ export type BulkDownloadData = {
 
 // with getDatum
 type GetDatum = typeof RecordAssessmentDatas.getDatum
-type PropsGetDatum = Omit<Parameters<GetDatum>[0], 'data'> & { csvColumn: string; data: BulkDownloadData }
+export type PropsGetDatum = Omit<Parameters<GetDatum>[0], 'data'> & {
+  csvColumn: string
+  data: BulkDownloadData
+  i18n: i18nType
+}
 export type BulkDownloadGetDatum = (props: PropsGetDatum) => ReturnType<GetDatum>
 
 // ===== Bulk Download common props definition

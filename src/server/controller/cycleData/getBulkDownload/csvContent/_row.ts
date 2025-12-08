@@ -14,6 +14,7 @@ import {
   BulkDownloadDatumType,
   CSVRow,
   CSVRowOptions,
+  PropsGetDatum,
 } from 'server/controller/cycleData/getBulkDownload/types'
 
 import { climaticDomainVariables } from './_climaticDomainVariables'
@@ -27,6 +28,8 @@ type Props = {
   i18n: i18nType
   options: CSVRowOptions
 }
+
+type PropsGetDatumBase = Pick<PropsGetDatum, 'assessmentName' | 'countryIso' | 'cycleName' | 'data' | 'i18n'>
 
 export const getCSVRow = (props: Props): CSVRow => {
   const { assessment, country, cycle, data, i18n, options } = props
@@ -50,10 +53,11 @@ export const getCSVRow = (props: Props): CSVRow => {
 
   row.push(parseValue(countryLabel, BulkDownloadDatumType.string))
 
+  const propsValueBase: PropsGetDatumBase = { assessmentName, countryIso, cycleName, data, i18n }
   //==== forestArea
   if (!Objects.isNil(colForestArea)) {
     const { colName, csvColumn, tableName, variableName } = colForestArea
-    const propsValue = { assessmentName, countryIso, colName, csvColumn, cycleName, data, tableName, variableName }
+    const propsValue = { ...propsValueBase, colName, csvColumn, tableName, variableName }
     const value = getDatumTableNode(propsValue)
     row.push(parseValue(value))
   }
@@ -67,7 +71,7 @@ export const getCSVRow = (props: Props): CSVRow => {
   //==== climatic domain
   if (includeClimaticDomain) {
     climaticDomainVariables.forEach((variableName) => {
-      const climaticValue = getClimaticValue({ assessmentName, countryIso, cycleName, data, variableName })
+      const climaticValue = getClimaticValue({ ...propsValueBase, variableName })
       row.push(parseValue(climaticValue, BulkDownloadDatumType.string))
     })
   }
@@ -79,7 +83,7 @@ export const getCSVRow = (props: Props): CSVRow => {
     const getDatum = colNode.getDatum ?? GetDatumRecord[colType]
     if (!getDatum) throw new Error(`GetDatum not found {colNode:${JSON.stringify(colNode)}`)
 
-    const propsValue = { assessmentName, countryIso, colName, csvColumn, cycleName, data, tableName, variableName }
+    const propsValue = { ...propsValueBase, colName, csvColumn, tableName, variableName }
     const value = getDatum(propsValue)
 
     row.push(parseValue(value, datumType))
