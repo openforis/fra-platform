@@ -20,6 +20,7 @@ export const getNDPYear: BulkDownloadFileFactory = (props) => {
       colName: 'minYear',
       colType,
       csvColumn: i18n.t('bulkDownload.NDPYear.earliestYear'),
+      datumType,
       tableName,
       variableName: 'minYear',
     },
