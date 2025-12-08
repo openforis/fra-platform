@@ -6,7 +6,8 @@ import { MeasureName } from 'meta/measurement/measure'
 
 import { useExplorerOrderBy } from 'client/store/explorer/selection/hooks/orderBy'
 import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
-import { useOnClick } from 'client/pages/Explorer/ResultGrid/OrderBy/hooks/useOnClick'
+
+import { useOnClick } from './hooks/useOnClick'
 
 type Props = {
   dimensionName: DimensionName
