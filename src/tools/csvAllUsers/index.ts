@@ -1,12 +1,11 @@
 import '../scriptInit'
 
-import { CSV } from 'tools/utils/CSV'
-import { ToolsUtils } from 'tools/utils/toolsUtils'
-import { Objects } from 'utils/objects'
-
 import { AssessmentNames } from 'meta/assessment/assessment'
 import { RoleName } from 'meta/user/role/name'
 import { User } from 'meta/user/user'
+import { Objects } from 'utils/objects'
+import { CSV } from 'tools/utils/CSV'
+import { ToolsUtils } from 'tools/utils/toolsUtils'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { UserController } from 'server/controller/user'
@@ -15,7 +14,7 @@ import { BaseProtocol, DB } from 'server/db/db'
 const client: BaseProtocol = DB
 
 const assessmentName = AssessmentNames.fra
-const cycleName = 'latest'
+const cycleName = '2025'
 
 const roles = [RoleName.NATIONAL_CORRESPONDENT, RoleName.ALTERNATE_NATIONAL_CORRESPONDENT]
 
