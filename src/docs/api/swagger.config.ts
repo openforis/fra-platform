@@ -1,7 +1,7 @@
 import { Options } from 'swagger-jsdoc'
 
 export const swaggerOptions: Options = {
-  apis: ['./src/server/api/**/*.yml', './src/docs/api/schemas/*.yml'],
+  apis: ['./src/server/api/**/!(*.panEuropean).apidoc.yml', './src/docs/api/schemas/*.yml'],
   definition: {
     info: {
       description: '',

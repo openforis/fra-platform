@@ -1,10 +1,9 @@
 import { useEffect } from 'react'
-
 import { WorkerListener } from 'bullmq'
-import { Objects } from 'utils/objects'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { Sockets } from 'meta/socket/sockets'
+import { Objects } from 'utils/objects'
 
 import { LinksActions } from 'client/store/admin/links/actions'
 import { useIsVerificationInProgress } from 'client/store/admin/links/hooks/verification'
@@ -25,7 +24,7 @@ export const useListenLinksVerificationEvents = (): void => {
 
   const linksVerificationEvent = Sockets.getLinksVerificationEvent({ assessmentName, cycleName })
 
-  const path = ApiEndPoint.CycleData.Links.many()
+  const path = ApiEndPoint.Admin.Links.many()
   const page = useTablePaginatedPage(path)
   const orderBy = useTablePaginatedOrderBy(path)
   const filters = useTablePaginatedFilters(path)
@@ -51,7 +50,7 @@ export const useListenLinksVerificationEvents = (): void => {
     }
 
     SocketClient.on(linksVerificationEvent, listener)
-    return () => {
+    return (): void => {
       SocketClient.off(linksVerificationEvent, listener)
     }
   }, [assessmentName, cycleName, dispatch, filters, linksVerificationEvent, orderBy, page, path])
