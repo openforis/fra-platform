@@ -28,12 +28,16 @@ const OrderBy: React.FC<Props> = (props: Props): ReactElement => {
   const iconName = activeDesc ? 'sort-amount-desc' : 'sort-amount-asc'
 
   const onClick = useCallback<() => void>(() => {
-    let orderByUpdate: ExplorerOrderBy | null = { dimensionName, measureName, order: ExplorerOrderByDirection.asc }
+    let orderByUpdate: ExplorerOrderBy | undefined = {
+      dimensionName,
+      measureName,
+      order: ExplorerOrderByDirection.asc,
+    }
 
     if (activeAsc) {
       orderByUpdate = { dimensionName, measureName, order: ExplorerOrderByDirection.desc }
     } else if (activeDesc) {
-      orderByUpdate = null
+      orderByUpdate = undefined
     }
 
     dispatch(

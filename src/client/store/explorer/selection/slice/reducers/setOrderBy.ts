@@ -11,7 +11,7 @@ import { ExplorerSelectionState } from 'client/store/explorer/selection/state'
 type Payload = {
   assessmentName: AssessmentName
   cycleName: CycleName
-  orderBy: ExplorerOrderBy | null
+  orderBy?: ExplorerOrderBy
   sectionName: SectionName
 }
 

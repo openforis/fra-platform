@@ -36,6 +36,6 @@ export type ExplorerSelection = {
   countries: Array<CountryIso>
   dimensions: Record<SectionName, Array<DimensionName>>
   measures: Record<SectionName, Array<MeasureName>>
-  orderBy?: Record<SectionName, ExplorerOrderBy | null>
+  orderBy?: Record<SectionName, ExplorerOrderBy | undefined>
   units: Record<SectionName, Record<MeasureName, UnitName>>
 }

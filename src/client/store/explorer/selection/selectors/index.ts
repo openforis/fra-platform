@@ -47,7 +47,7 @@ const getMeasures = createSelector(
 const getOrderBy = createSelector(
   [_getSelection, (_state, _assessmentName, __cycleName, sectionName) => sectionName],
   (selection, sectionName) => {
-    return selection?.orderBy?.[sectionName] ?? null
+    return selection?.orderBy?.[sectionName]
   }
 )
 
