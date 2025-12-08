@@ -20,10 +20,11 @@ export const resetPassword = async (props: {
 
   const i18n = await createI18nPromise(Lang.en)
 
-  const link = `${url}${Routes.LoginResetPassword.generatePath(
-    { assessmentName, cycleName },
-    { resetPasswordUuid: userResetPassword?.uuid }
-  )}`
+  const link = `${url}${Routes.LoginChangePassword.generatePath({
+    assessmentName,
+    cycleName,
+    resetPasswordUuid: userResetPassword?.uuid,
+  })}`
 
   const emailProps = { link, url, user: Users.getFullName(user) }
 

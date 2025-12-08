@@ -7,6 +7,7 @@ import { Routes } from 'meta/routes/routes'
 import { useInjectSlice } from 'client/store/hooks'
 import { LoginSlice } from 'client/store/login/slice'
 import Partners from 'client/pages/CycleHome/Partners'
+import ChangePassword from 'client/pages/Login/ChangePassword'
 import Invitation from 'client/pages/Login/Invitation'
 import InvitationLocal from 'client/pages/Login/InvitationLocal'
 import LoginForm from 'client/pages/Login/LoginForm'
@@ -24,7 +25,10 @@ const Login: React.FC = () => {
             <Route element={<Invitation />} path={Routes.LoginInvitation.path.relative}>
               <Route element={<InvitationLocal />} path={Routes.LoginInvitationLocal.path.relative} />
             </Route>
-            <Route element={<ResetPassword />} path={Routes.LoginResetPassword.path.relative} />
+            <Route path={Routes.LoginResetPassword.path.relative}>
+              <Route element={<ResetPassword />} index />
+              <Route element={<ChangePassword />} path={Routes.LoginChangePassword.path.relative} />
+            </Route>
           </RouterRoutes>
           <img alt="" className="login__tucan" src="/img/tucan.svg" />
         </div>

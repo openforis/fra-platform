@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, Navigate } from 'react-router'
-import { Objects } from 'utils/objects'
 
 import { Assessments } from 'meta/assessment/assessments'
 import { LoginInvitationQueryParams } from 'meta/routes/queryParams/invitation'
 import { Routes } from 'meta/routes/routes'
 import { AuthProvider } from 'meta/user/auth'
 import { UserInvitations } from 'meta/user/invitations'
+import { Objects } from 'utils/objects'
 
 import { useAppDispatch } from 'client/store/hooks'
 import { LoginActions } from 'client/store/login/actions'
@@ -110,10 +110,7 @@ const InvitationLocal: React.FC = () => {
         {showForgotPassword && (
           <Link
             className="btn-forgot-pwd"
-            to={Routes.LoginResetPassword.generatePath({
-              assessmentName,
-              cycleName,
-            })}
+            to={Routes.LoginResetPassword.generatePath({ assessmentName, cycleName })}
             type="button"
           >
             {t('login.forgotPassword')}

@@ -34,19 +34,9 @@ export interface LoginInformationState {
 export interface LoginState {
   login: LoginInformationState
   invitation: InvitationState
-  resetPassword?: {
-    error?: string
-    message?: string
-  }
-  changePassword?: {
-    error?: string
-    message?: string
-  }
 }
 
 export const initialState: LoginState = {
   login: {},
   invitation: {},
-  resetPassword: {},
-  changePassword: {},
 }

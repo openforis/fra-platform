@@ -35,9 +35,4 @@ export const LoginValidator = {
       password2: validatePasswords(password, password2),
     }
   },
-  resetPasswordValidate: (email: string): Record<string, string> => {
-    return {
-      email: validateEmail(email),
-    }
-  },
 }
