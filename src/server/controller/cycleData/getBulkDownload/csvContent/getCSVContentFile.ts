@@ -42,7 +42,7 @@ export const getCSVContentFile = (props: Props): CSVContent => {
 
   const { colNodes, colYear } = rows.at(0)
   const optionsHeader: CSVRowOptions = { ...baseOptions, colNodes, colYear }
-  const rowHeader = getCSVRowHeader({ options: optionsHeader })
+  const rowHeader = getCSVRowHeader({ i18n, options: optionsHeader })
   csvRows.push(rowHeader)
 
   countries.forEach((country) => {
