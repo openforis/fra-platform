@@ -1,0 +1,17 @@
+@import 'src/client/style/partials';
+
+.country-options__notice {
+  color: $text-mute;
+  font-size: $font-s;
+  margin-bottom: $spacing-s;
+}
+
+.country-options {
+  flex-direction: column;
+  width: 100%;
+
+  .button-checkbox {
+    justify-content: flex-start;
+    width: 100%;
+  }
+}
