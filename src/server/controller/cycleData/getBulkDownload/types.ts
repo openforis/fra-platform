@@ -44,6 +44,7 @@ export type PropsBulkDownload = {
 }
 
 export type PropsBulkDownloadFileBuilder = PropsBulkDownload & {
+  includeClimaticDomain?: boolean
   tables: RecordTables
 }
 

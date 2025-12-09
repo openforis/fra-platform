@@ -1,6 +1,7 @@
 import { Response } from 'express'
 
 import { CountryRequest } from 'meta/api/request/country'
+import { Users } from 'meta/user/users'
 
 import { CycleDataController } from 'server/controller/cycleData'
 import { Requests } from 'server/utils'
@@ -35,12 +36,16 @@ Contact: fra@fao.org
 `
 }
 
-export const getBulkDownload = async (req: CountryRequest, res: Response): Promise<void> => {
+type Request = CountryRequest<{ includeClimaticDomain: string }>
+
+export const getBulkDownload = async (req: Request, res: Response): Promise<void> => {
   try {
     const { assessmentName, cycleName } = req.query
     const { assessment, cycle } = req.context
+    const { user } = req
+    const includeClimaticDomain = Users.isAdministrator(user) ? req.query.includeClimaticDomain === 'true' : false
 
-    const files = await CycleDataController.getBulkDownload({ assessment, cycle })
+    const files = await CycleDataController.getBulkDownload({ assessment, cycle, includeClimaticDomain })
 
     const BOM = '\uFEFF' // Byte Order Mark for UTF-8
     const readmeContent = Buffer.from(BOM + _README(cycle.name), 'utf-8')

@@ -6,6 +6,10 @@ import {
 } from 'server/controller/cycleData/getBulkDownload/metadata/_tables/_fileYearsBuilder'
 
 export class ExtentOfForestBuilder extends BulkDownloadFileYearsBuilder {
+  get includeClimaticDomainSingleFiles(): boolean {
+    return true
+  }
+
   getBaseColNodes(): Array<ColNodeYearsFactory> {
     return [
       {

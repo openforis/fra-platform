@@ -7,7 +7,9 @@ import {
   BulkDownloadRow,
 } from 'server/controller/cycleData/getBulkDownload/types'
 
-export const getTierData: BulkDownloadFileFactory = (_props) => {
+export const getTierData: BulkDownloadFileFactory = (props) => {
+  const { includeClimaticDomain } = props
+
   const datumType = BulkDownloadDatumType.string
   const colNodes: Array<BulkDownloadColNode> = [
     {
@@ -42,5 +44,5 @@ export const getTierData: BulkDownloadFileFactory = (_props) => {
 
   const row: BulkDownloadRow = { colNodes }
 
-  return { fileName: 'Tiers', includeClimaticDomain: true, rows: [row] }
+  return { fileName: 'Tiers', includeClimaticDomain, rows: [row] }
 }

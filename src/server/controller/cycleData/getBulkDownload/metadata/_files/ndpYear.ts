@@ -13,7 +13,7 @@ const datumType = BulkDownloadDatumType.string
 const colType = BulkDownloadColType.odp
 
 export const getNDPYear: BulkDownloadFileFactory = (props) => {
-  const { i18n } = props
+  const { i18n, includeClimaticDomain } = props
 
   const colNodes: Array<BulkDownloadColNode> = [
     {
@@ -49,5 +49,5 @@ export const getNDPYear: BulkDownloadFileFactory = (props) => {
 
   const row: BulkDownloadRow = { colNodes }
 
-  return { includeClimaticDomain: true, includeForestArea: true, fileName: 'NDPYear', rows: [row] }
+  return { includeClimaticDomain, includeForestArea: true, fileName: 'NDPYear', rows: [row] }
 }

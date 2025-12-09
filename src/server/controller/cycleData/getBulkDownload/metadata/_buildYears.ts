@@ -13,12 +13,12 @@ type Props = PropsBulkDownloadFileBuilder & {
 }
 
 export const buildYears = (props: Props): Array<BulkDownloadFile> => {
-  const { assessment, builders, cycle, fileName, i18n, includeDeskStudy, tables, years } = props
+  const { assessment, builders, cycle, fileName, i18n, includeClimaticDomain, includeDeskStudy, tables, years } = props
 
   // init main file
   const file: BulkDownloadFile = {
     fileName,
-    includeClimaticDomain: true,
+    includeClimaticDomain,
     includeDeskStudy,
     rows: years.map<BulkDownloadRow>((colYear) => {
       return { colNodes: [], colYear }
@@ -26,7 +26,7 @@ export const buildYears = (props: Props): Array<BulkDownloadFile> => {
   }
 
   const files = builders.flatMap<BulkDownloadFile>((Builder) => {
-    const builder = new Builder({ file, props: { assessment, cycle, i18n, tables } })
+    const builder = new Builder({ file, props: { assessment, cycle, includeClimaticDomain, i18n, tables } })
 
     years.forEach((year, index) => {
       const row = file.rows.at(index)
