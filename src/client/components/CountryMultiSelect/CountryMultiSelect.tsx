@@ -1,11 +1,10 @@
 import './CountryMultiSelect.scss'
 import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-
 import classNames from 'classnames'
-import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area/countryIso'
+import { Objects } from 'utils/objects'
 
 import Select from 'client/components/Inputs/Select'
 
@@ -63,7 +62,7 @@ const CountryMultiSelect: React.FC<Props> = (props) => {
         onMenuClose={onMenuClose}
         onMenuOpen={onMenuOpen}
         options={optionGroups}
-        placeholder={placeholder ?? t('common.countries')}
+        placeholder={placeholder ?? t('common.countriesAreas')}
         selectableGroups
         toggleAll
         value={value}
