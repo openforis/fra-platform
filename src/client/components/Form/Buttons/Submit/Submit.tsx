@@ -14,7 +14,7 @@ const Submit: React.FC<SubmitProps> = (props) => {
 
   const { t } = useTranslation()
 
-  const label = isSubmitting ? t('common.submitting') : t('common.submit')
+  const label = t('common.submit')
 
   if (disabled) return null
 
