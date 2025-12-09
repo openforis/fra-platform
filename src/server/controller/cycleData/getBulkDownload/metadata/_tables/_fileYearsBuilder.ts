@@ -43,6 +43,11 @@ export abstract class BulkDownloadFileYearsBuilder {
     return ['0', 'cols', '1', 'props', 'labels']
   }
 
+  // in single files generation, climatic domain is included if includeClimaticDomain is in this.props || if this method returns true (e.g. 1a)
+  get includeClimaticDomainSingleFiles(): boolean {
+    return false
+  }
+
   /**
    * Build the Array of CSV Column Nodes for the single file generation (e.g. FRAYears.csv)
    */
@@ -60,6 +65,8 @@ export abstract class BulkDownloadFileYearsBuilder {
    */
   public buildSingleFiles(props: { years: Array<string> }): Array<BulkDownloadFile> {
     const { years } = props
+    const includeClimaticDomain = this.includeClimaticDomainSingleFiles || this.props.includeClimaticDomain
+    const includeForestArea = true
 
     return this.baseColNodes.map<BulkDownloadFile>((colNode) => {
       const { csvColumn, datumType, tableName, variableName } = colNode
@@ -86,7 +93,7 @@ export abstract class BulkDownloadFileYearsBuilder {
         rows[2].push(unitLabel)
       }
 
-      return { csvPostProcessor, fileName, includeClimaticDomain: true, includeForestArea: true, rows: [row] }
+      return { csvPostProcessor, fileName, includeClimaticDomain, includeForestArea, rows: [row] }
     })
   }
 }

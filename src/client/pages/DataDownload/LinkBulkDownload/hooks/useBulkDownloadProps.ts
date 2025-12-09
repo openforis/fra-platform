@@ -6,6 +6,7 @@ import { ApiEndPoint } from 'meta/api/endpoint'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 
 type Props = {
+  includeClimaticDomain: boolean
   linkRef: RefObject<HTMLAnchorElement>
 }
 
@@ -15,12 +16,18 @@ type Returned = {
 }
 
 export const useBulkDownloadProps = (props: Props): Returned => {
-  const { linkRef } = props
+  const { includeClimaticDomain, linkRef } = props
 
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams()
   const [downloading, setDownloading] = useState<boolean>()
 
-  const fileLinkParams = new URLSearchParams({ assessmentName, countryIso, cycleName })
+  const fileLinkParams = new URLSearchParams({
+    assessmentName,
+    countryIso,
+    cycleName,
+    includeClimaticDomain: String(includeClimaticDomain),
+  })
+
   const fileLink = `${ApiEndPoint.File.bulkDownload()}?${fileLinkParams.toString()}`
   const fileName = `bulk-download_${assessmentName}_${cycleName}.zip`
   let url: string

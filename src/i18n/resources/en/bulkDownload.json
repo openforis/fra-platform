@@ -3,5 +3,6 @@
     "earliestYear": "Earliest NDP year",
     "latestYear": "Latest NDP year"
   },
-  "dateOfExport": "Date of export"
+  "dateOfExport": "Date of export",
+  "includeClimaticDomain": "Include climatic domain"
 }
