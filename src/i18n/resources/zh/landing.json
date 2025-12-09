@@ -56,6 +56,7 @@
       "deleted": "已删除",
       "deletedFile": "已删除 {{file}}",
       "edited": "已编辑",
+      "linkOriginalDataPointComments": "国家数据点 {{year}}：{{section}} 评论",
       "removeInvitation": "删除有关请 {{user}} 成为 {{role}}的邀请",
       "removeUser": "已移除 {{user}}",
       "resolved": "已解决的问题为",

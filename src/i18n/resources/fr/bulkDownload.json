@@ -3,5 +3,6 @@
     "earliestYear": "Première année du PND",
     "latestYear": "Dernière année NDP"
   },
-  "dateOfExport": "Date d'exportation"
+  "dateOfExport": "Date d'exportation",
+  "includeClimaticDomain": "Inclure domaine climatique"
 }

@@ -56,6 +56,7 @@
       "deleted": "ha borrado",
       "deletedFile": "ha borrado {{file}}",
       "edited": "ha editado",
+      "linkOriginalDataPointComments": "Punto de datos nacional {{year}}: {{section}} comentarios",
       "removeInvitation": "ha eliminado la invitación de {{user}} como {{role}}",
       "removeUser": "ha eliminado a {{user}}",
       "resolved": "ha resuelto el asunto",

@@ -3,5 +3,6 @@
     "earliestYear": "في وقت سابق من سنة NDP",
     "latestYear": "آخر سنة NDP"
   },
-  "dateOfExport": "تاريخ التصدير"
+  "dateOfExport": "تاريخ التصدير",
+  "includeClimaticDomain": "تضمين النطاق المناخي"
 }

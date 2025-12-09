@@ -3,5 +3,6 @@
     "earliestYear": "NDP年前",
     "latestYear": "最新NDP年"
   },
-  "dateOfExport": "导出日期"
+  "dateOfExport": "导出日期",
+  "includeClimaticDomain": "包括气候域"
 }
