@@ -3,5 +3,6 @@
     "earliestYear": "Самый ранний NDP год",
     "latestYear": "Последний год NDP"
   },
-  "dateOfExport": "Дата экспорта"
+  "dateOfExport": "Дата экспорта",
+  "includeClimaticDomain": "Включить область климата"
 }

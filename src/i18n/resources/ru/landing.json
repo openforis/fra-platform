@@ -56,6 +56,7 @@
       "deleted": "удалил",
       "deletedFile": "удалил {{file}}",
       "edited": "отредактировал",
+      "linkOriginalDataPointComments": "Национальная точка данных {{year}}: {{section}} комментарии",
       "removeInvitation": "удалил приглашение от {{user}} как {{role}}",
       "removeUser": "удалил {{user}}",
       "resolved": "разрешил проблему в",

@@ -3,5 +3,6 @@
     "earliestYear": "Año del primer punto de información nacional",
     "latestYear": "Año del punto de información nacional más reciente"
   },
-  "dateOfExport": "Fecha de exportación"
+  "dateOfExport": "Fecha de exportación",
+  "includeClimaticDomain": "Incluye dominio climático"
 }
