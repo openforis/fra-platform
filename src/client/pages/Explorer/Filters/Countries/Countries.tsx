@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useLocation } from 'react-router'
 
 import { CountryIso } from 'meta/area/countryIso'
@@ -17,6 +18,7 @@ import { useAllowedCountries } from './hooks/useAllowedCountries'
 const Countries: React.FC = () => {
   const { state } = useLocation()
   const { assessmentName, cycleName } = useCycleRouteParams()
+  const { t } = useTranslation()
   const dispatch = useAppDispatch()
   const homeCountriesFilter = useGlobalCountries()
   const explorerCountries = useExplorerCountries()
@@ -40,6 +42,7 @@ const Countries: React.FC = () => {
       allowAtlantis={allowAtlantis}
       allowedCountries={allowedCountries}
       onChange={handleChange}
+      placeholder={t('common.countriesAreas')}
       value={explorerCountries}
     />
   )
