@@ -7,7 +7,7 @@ import { ExplorerCountryOptions } from 'meta/explorer/selection'
 import ButtonCheckbox, { ButtonCheckboxVariant } from 'client/components/Buttons/ButtonCheckbox'
 import Hr from 'client/components/Hr'
 import Flex from 'client/components/Layout/Flex'
-import { useCountryOptionsAvailability } from 'client/pages/Explorer/hooks/useCountryOptionsAvailability'
+import { useCountryOptionsEnabled } from 'client/pages/Explorer/ResultGrid/hooks/useCountryOptionsEnabled'
 
 import { useCheckboxes } from './hooks/useCheckboxes'
 
@@ -20,7 +20,7 @@ const CountryOptions: React.FC<Props> = (props: Props) => {
   const { options, toggleOption } = props
   const { t } = useTranslation()
 
-  const { enabled } = useCountryOptionsAvailability()
+  const enabled = useCountryOptionsEnabled()
 
   const checkboxes = useCheckboxes()
 
