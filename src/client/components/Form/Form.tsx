@@ -37,7 +37,7 @@ const Form: React.FC<FormProps> = (props) => {
     onSuccess,
     validationSchema = defaults.validationSchema,
   } = props
-  const { fields } = formDefinition
+  const { fields, labels } = formDefinition
 
   const dispatch = useAppDispatch()
   // type FormValues = z.infer<typeof formSchema>
@@ -95,6 +95,7 @@ const Form: React.FC<FormProps> = (props) => {
           hideCancel={hideCancel}
           isDirty={isDirty}
           isSubmitting={isSubmitting}
+          labels={labels}
           onCancel={onCancel}
         />
       </DataGrid>

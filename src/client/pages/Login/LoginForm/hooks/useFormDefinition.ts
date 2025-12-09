@@ -28,6 +28,6 @@ export const useFormDefinition = (): FormDefinition => {
       },
     ]
 
-    return { fields }
+    return { fields, labels: { submit: t('login.login') } }
   }, [t])
 }

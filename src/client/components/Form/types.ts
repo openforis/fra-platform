@@ -43,7 +43,10 @@ export type FieldDefinition<FIELD_VALUES = FieldValues> = {
   }
 }
 
+export type FormDefinitionLabels = { submit: string }
+
 export type FormDefinition<FIELD_VALUES = FieldValues> = {
+  labels: FormDefinitionLabels
   fields: Array<FieldDefinition<FIELD_VALUES>>
 }
 
