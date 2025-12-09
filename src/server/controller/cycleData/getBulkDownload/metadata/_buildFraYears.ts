@@ -22,6 +22,7 @@ import { GrowingStockTotalBuilder } from 'server/controller/cycleData/getBulkDow
 import { HolderOfManagementRightsBuilder } from 'server/controller/cycleData/getBulkDownload/metadata/_tables/holderOfManagementRights'
 import { OtherLandWithTreeCoverBuilder } from 'server/controller/cycleData/getBulkDownload/metadata/_tables/otherLandWithTreeCover'
 import { PrimaryDesignatedManagementObjectiveBuilder } from 'server/controller/cycleData/getBulkDownload/metadata/_tables/primaryDesignatedManagementObjective'
+import { PrimaryForestByClimaticDomainBuilder } from 'server/controller/cycleData/getBulkDownload/metadata/_tables/primaryForestByClimaticDomain'
 import { SpecificForestCategoriesBuilder } from 'server/controller/cycleData/getBulkDownload/metadata/_tables/specificForestCategories'
 import { TotalAreaWithDesignatedManagementObjectiveBuilder } from 'server/controller/cycleData/getBulkDownload/metadata/_tables/totalAreaWithDesignatedManagementObjective'
 import { BulkDownloadFilesFactory } from 'server/controller/cycleData/getBulkDownload/metadata/_types'
@@ -37,6 +38,7 @@ export const buildFraYears: BulkDownloadFilesFactory = (props) => {
   const builders = [
     ExtentOfForestBuilder,
     ForestCharacteristicsBuilder,
+    ...(is2020 ? [] : [PrimaryForestByClimaticDomainBuilder]),
     SpecificForestCategoriesBuilder,
     OtherLandWithTreeCoverBuilder,
     GrowingStockAvgBuilder,

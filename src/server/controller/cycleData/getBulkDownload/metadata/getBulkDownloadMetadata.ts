@@ -17,8 +17,10 @@ import {
   PropsBulkDownloadFileBuilder,
 } from 'server/controller/cycleData/getBulkDownload/types'
 
-export const getBulkDownloadMetadata = async (props: PropsBulkDownload): Promise<BulkDownloadMetadata> => {
-  const { assessment, cycle } = props
+type Props = PropsBulkDownload & { includeClimaticDomain?: boolean }
+
+export const getBulkDownloadMetadata = async (props: Props): Promise<BulkDownloadMetadata> => {
+  const { assessment, cycle, i18n, includeClimaticDomain } = props
   const { name: cycleName } = cycle
   const is2020 = cycleName === CycleNames._2020
 
@@ -32,7 +34,7 @@ export const getBulkDownloadMetadata = async (props: PropsBulkDownload): Promise
 
   const tables = await TableRedisRepository.getManyRecord({ assessment, cycle })
 
-  const propsFileBuilder: PropsBulkDownloadFileBuilder = { ...props, tables }
+  const propsFileBuilder: PropsBulkDownloadFileBuilder = { assessment, cycle, i18n, includeClimaticDomain, tables }
   const files: BulkDownloadMetadata['files'] = [
     ...buildFraYears(propsFileBuilder),
     ...buildAnnualYears(propsFileBuilder),

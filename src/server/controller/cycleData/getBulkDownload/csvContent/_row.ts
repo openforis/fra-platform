@@ -35,7 +35,7 @@ export const getCSVRow = (props: Props): CSVRow => {
   const { assessment, country, cycle, data, i18n, options } = props
   const { name: assessmentName } = assessment.props
   const { name: cycleName } = cycle
-  const { countryIso, regionCodes } = country
+  const { countryIso, countryIso2, m49, regionCodes } = country
   const { colForestArea, colNodes, colYear, includeClimaticDomain, includeDeskStudy } = options
 
   const row: CSVRow = []
@@ -44,14 +44,14 @@ export const getCSVRow = (props: Props): CSVRow => {
   const countryLabel = getAreaLabel({ code: countryIso, i18n })
   row.push(parseValue(regionLabels, BulkDownloadDatumType.string))
   row.push(parseValue(countryIso, BulkDownloadDatumType.string))
+  row.push(parseValue(countryIso2, BulkDownloadDatumType.string))
+  row.push(parseValue(m49, BulkDownloadDatumType.string))
+  row.push(parseValue(countryLabel, BulkDownloadDatumType.string))
 
-  //==== desk study: why before country label ?
   if (includeDeskStudy) {
-    const deskStudy = country.props.deskStudy ? i18n.t(`assessment.deskStudy`) : ''
+    const deskStudy = country.props.deskStudy ? i18n.t(`yesNoTextSelect.yes`) : i18n.t(`yesNoTextSelect.no`)
     row.push(parseValue(deskStudy, BulkDownloadDatumType.string))
   }
-
-  row.push(parseValue(countryLabel, BulkDownloadDatumType.string))
 
   const propsValueBase: PropsGetDatumBase = { assessmentName, countryIso, cycleName, data, i18n }
   //==== forestArea

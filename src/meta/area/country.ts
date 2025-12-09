@@ -23,7 +23,8 @@ export type LastPublishedInfo = {
 export type Country = {
   callingCode: CallingCode
   countryIso: CountryIso
-  countryIso2?: CountryIso2
+  countryIso2: CountryIso2
+  m49: string
   props?: CountryProps
   regionCodes?: Array<RegionCode>
   sortIndex: Record<Lang, number>
