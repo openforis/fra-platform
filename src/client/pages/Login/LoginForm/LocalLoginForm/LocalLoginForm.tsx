@@ -9,7 +9,6 @@ import Form from 'client/components/Form'
 import Link from 'client/components/Links/Link'
 
 import { useFormDefinition } from '../hooks/useFormDefinition'
-import { useOnCancel } from '../hooks/useOnCancel'
 import { useOnSuccess } from '../hooks/useOnSuccess'
 import { useValidationSchema } from '../hooks/useValidationSchema'
 
@@ -18,14 +17,13 @@ type Props = {
 }
 
 const LocalLoginForm: React.FC<Props> = (props) => {
-  const { onCancel: onCancelProp } = props
+  const { onCancel } = props
   const { t } = useTranslation()
 
   const { assessmentName, cycleName } = useCycleRouteParams()
   const formDefinition = useFormDefinition()
   const validationSchema = useValidationSchema()
   const onSuccess = useOnSuccess()
-  const onCancel = useOnCancel({ onCancel: onCancelProp })
 
   return (
     <div className="login__formWrapper">
