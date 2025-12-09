@@ -15,7 +15,7 @@ export const AuthApi = {
     // Initialize auth config
     AuthConfig.init(express)
 
-    express.post(ApiEndPoint.Auth.login(), postLocalLogin)
+    express.post(ApiEndPoint.Auth.login(), multer().none(), postLocalLogin)
     express.get(ApiEndPoint.Auth.google(), getGoogleLogin)
     express.get(ApiEndPoint.Auth.googleCallback(), getGoogleCallback)
 

@@ -112,9 +112,9 @@ $login-height: 50vh;
 }
 
 .login-form {
-  display: grid;
-  grid-row-gap: 40px;
-  min-width: 400px;
+  h3 {
+    text-align: center;
+  }
 
   // Hide labels
   .form-cell-label {
@@ -140,5 +140,9 @@ $login-height: 50vh;
 
   input[type='text']:disabled {
     background-color: $ui-bg-hover;
+  }
+
+  .btn-forgot-pwd {
+    padding-left: $spacing-s;
   }
 }

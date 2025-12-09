@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { Routes } from 'meta/routes/routes'
 import { Objects } from 'utils/objects'
 
 import { useAppDispatch } from 'client/store/hooks'
@@ -15,8 +14,9 @@ import { useToaster } from 'client/hooks/toaster'
 import Button, { ButtonSize, useButtonClassName } from 'client/components/Buttons/Button'
 import Flex from 'client/components/Layout/Flex'
 import Link from 'client/components/Links/Link'
-import { isError, LoginValidator } from 'client/pages/Login/utils/LoginValidator'
 import { Urls } from 'client/utils/urls'
+
+import LocalLoginForm from './LocalLoginForm'
 
 const LoginForm: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -31,9 +31,6 @@ const LoginForm: React.FC = () => {
   const loginError = Urls.getRequestParam('loginError')?.replace('#', '')
 
   const [isLocal, setIsLocal] = useState<boolean>(false)
-  const [email, setEmail] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
-  const [errors, setErrors] = useState<Record<string, string>>({})
 
   useEffect(() => {
     if (user) navigate('/')
@@ -45,57 +42,11 @@ const LoginForm: React.FC = () => {
     dispatch(LoginActions.initLogin())
   }, [dispatch, loginError, t, toaster])
 
-  const onLogin = (): void => {
-    const fieldErrors = LoginValidator.localValidate(email, password)
-    setErrors(fieldErrors)
-
-    if (!isError(fieldErrors)) {
-      dispatch(
-        LoginActions.localLogin({
-          email,
-          password,
-        })
-      ).then(() => {
-        navigate(Routes.Root.path.absolute)
-      })
-    }
-  }
-
   const assessmentName = assessment.props.name
   const cycleName = cycle.name
+
   if (isLocal) {
-    return (
-      <div className="login__form">
-        <input
-          name="email"
-          onChange={(event): void => setEmail(event.target.value)}
-          onFocus={(): void => setErrors({ ...errors, email: null })}
-          placeholder={t('login.email')}
-          type="text"
-          value={email}
-        />
-        {errors.email && <span className="login__field-error">{t(errors.email)}</span>}
-
-        <input
-          onChange={(event): void => setPassword(event.target.value)}
-          onFocus={(): void => setErrors({ ...errors, password: null })}
-          placeholder={t('login.password')}
-          type="password"
-          value={password}
-        />
-        {errors.password && <span className="login__field-error">{t(errors.password)}</span>}
-
-        <Flex gap={'16'}>
-          <Button label={t('login.cancel')} onClick={(): void => setIsLocal(false)} size={ButtonSize.l} />
-
-          <Button className="btn" label={t('login.login')} onClick={onLogin} size={ButtonSize.l} />
-        </Flex>
-
-        <Link className="btn-forgot-pwd" to={Routes.LoginResetPassword.generatePath({ assessmentName, cycleName })}>
-          {t('login.forgotPassword')}
-        </Link>
-      </div>
-    )
+    return <LocalLoginForm onCancel={() => setIsLocal(false)} />
   }
 
   return (

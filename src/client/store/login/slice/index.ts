@@ -9,10 +9,6 @@ export const LoginSlice = createSlice({
   name: LoginSliceName,
   initialState,
   reducers: {
-    resetLogin: () => initialState,
-    resetAcceptInvitationForm: (state) => {
-      state.invitation.acceptForm = {}
-    },
     updateAcceptInvitationForm: (state, action: PayloadAction<AcceptInvitationFormFields>) => {
       state.invitation.acceptForm ??= {}
       state.invitation.acceptForm = { ...state.invitation.acceptForm, ...action.payload }
@@ -23,18 +19,6 @@ export const LoginSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(LoginActions.localLogin.fulfilled, () => initialState)
-
-    builder.addCase(LoginActions.localLogin.pending, (state) => {
-      state.login ??= {}
-      state.login.isLoading = true
-    })
-
-    builder.addCase(LoginActions.localLogin.rejected, (state) => {
-      state.login ??= {}
-      state.login.isLoading = false
-    })
-
     builder.addCase(LoginActions.acceptInvitation.fulfilled, () => initialState)
 
     builder.addCase(LoginActions.fetchUserByInvitation.fulfilled, (state, { payload }) => {
