@@ -6,11 +6,13 @@ import { useExplorerAxisSelection } from 'client/store/explorer/selection/hooks/
 
 import { useCountryAxis } from './useCountryAxis'
 
-export const useCountryOptionsEnabled = (): boolean => {
+type Returned = boolean
+
+export const useCountryOptionsEnabled = (): Returned => {
   const { x: xAxisSelection, y: yAxisSelection } = useExplorerAxisSelection()
   const countryAxis = useCountryAxis()
 
-  return useMemo(() => {
+  return useMemo<Returned>(() => {
     if (countryAxis === Axis.x) return xAxisSelection.length === 1
     if (countryAxis === Axis.y) return yAxisSelection.length === 1
     return false
