@@ -53,7 +53,7 @@ const Options: React.FC = () => {
       <SlidingPanel closePanel={closePanel} opened={opened} size={panelSize}>
         <CountryOptions options={countryOptions} toggleOption={toggleOption} uiAxisSelection={axisSelection} />
 
-        <Hr className="options-hr" />
+        <Hr className="options-hr country-options-hr" />
 
         <UnitsSelection unitSelectors={unitSelectors} />
 
