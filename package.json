@@ -17,7 +17,7 @@
     "migration-steps:run": "ts-node src/tools/migrations/steps/",
     "migration-steps:watch": "ts-node-dev --respawn --transpile-only --exit-child --watch src/tools/migrations/steps/ src/tools/migrations/steps/ -- --watch",
     "run:dev": "run-p run:dev:server run:dev:client",
-    "run:dev:client": "wait-on http://localhost:9001/api/init && vite --host",
+    "run:dev:client": "wait-on http://localhost:9001/api/health && vite --host",
     "run:dev:server": "ts-node-dev --files --exit-child --project tsconfig.server.json src/server/start",
     "run:prod": "run-s clean build start",
     "run:heroku:start": "heroku local:start",

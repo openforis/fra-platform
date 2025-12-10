@@ -1,7 +1,10 @@
 import { Express } from 'express'
 
+import { ApiEndPoint } from 'meta/api/endpoint'
+
 import { ExtDataApi } from 'server/api/extData'
 import { ApiContextMiddleware } from 'server/middleware/apiContext'
+import Requests from 'server/utils/requests'
 
 import { AdminApi } from './admin'
 import { AreaApi } from './area'
@@ -24,10 +27,14 @@ import { UserApi } from './user'
 
 export const Api = {
   init: (express: Express): void => {
+    // context middleware applied to all api endpoints
     express.use('/api/*path', ApiContextMiddleware.initContext)
 
-    AuthApi.init(express)
+    // health system staus endpoint
+    express.use(ApiEndPoint.health(), (_req, res) => Requests.sendOk(res, { staus: 'ok' }))
 
+    // init all endpoints
+    AuthApi.init(express)
     InitApi.init(express)
     AdminApi.init(express)
     AreaApi.init(express)
