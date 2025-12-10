@@ -3382,10 +3382,10 @@
   resolved "https://registry.yarnpkg.com/@socket.io/component-emitter/-/component-emitter-3.1.2.tgz#821f8442f4175d8f0467b9daf26e3a18e2d02af2"
   integrity sha512-9BCxFwvbGg/RsZK9tjXd8s4UcwR0MWeFQ1XEKIQVVvAGJyINdrqKMcTRyLoK8Rse1GjzLV9cwjWV1olXRWEXVA==
 
-"@socket.io/redis-streams-adapter@^0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@socket.io/redis-streams-adapter/-/redis-streams-adapter-0.1.0.tgz#cdc6ecbffff8ee788397dffa22680a27eec73ca6"
-  integrity sha512-8LVPOvXh4+Ibm3UGDmfr5NFj9xOKIZShx0J+cXuAZU5oWBLpOV1H5+XZu2TYX/6BGHtys/Uy/pOrrvRG4uaBRQ==
+"@socket.io/redis-streams-adapter@^0.2.3":
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/@socket.io/redis-streams-adapter/-/redis-streams-adapter-0.2.3.tgz#c6cf0c0d4f5e0f2dae71e029ab3696db9bbabf75"
+  integrity sha512-c8b+ZO6L10TQx7HbVwbupJQ3yj4aZOzxN1u8paIM8tFxJBJUiujdm0SryWC0xv7gIG8LbPsXIHiBHGi7TEVVqQ==
   dependencies:
     "@msgpack/msgpack" "~2.8.0"
     debug "~4.3.1"
@@ -12887,10 +12887,10 @@ socket.io-adapter@~2.5.2:
     debug "~4.3.4"
     ws "~8.17.1"
 
-socket.io-client@^4.7.1:
-  version "4.8.0"
-  resolved "https://registry.yarnpkg.com/socket.io-client/-/socket.io-client-4.8.0.tgz#2ea0302d0032d23422bd2860f78127a800cad6a2"
-  integrity sha512-C0jdhD5yQahMws9alf/yvtsMGTaIDBnZ8Rb5HU56svyq0l5LIrGzIDZZD5pHQlmzxLuU91Gz+VpQMKgCTNYtkw==
+socket.io-client@^4.8.1:
+  version "4.8.1"
+  resolved "https://registry.yarnpkg.com/socket.io-client/-/socket.io-client-4.8.1.tgz#1941eca135a5490b94281d0323fe2a35f6f291cb"
+  integrity sha512-hJVXfu3E28NmzGk8o1sHhN3om52tRvwYeidbj7xKy2eIIse5IoKX3USlS6Tqt3BHAtflLIkCQBkzVrEEfWUyYQ==
   dependencies:
     "@socket.io/component-emitter" "~3.1.0"
     debug "~4.3.2"
@@ -12905,10 +12905,10 @@ socket.io-parser@~4.2.4:
     "@socket.io/component-emitter" "~3.1.0"
     debug "~4.3.1"
 
-socket.io@^4.7.1:
-  version "4.8.0"
-  resolved "https://registry.yarnpkg.com/socket.io/-/socket.io-4.8.0.tgz#33d05ae0915fad1670bd0c4efcc07ccfabebe3b1"
-  integrity sha512-8U6BEgGjQOfGz3HHTYaC/L1GaxDCJ/KM0XTkJly0EhZ5U/du9uNEZy4ZgYzEzIqlx2CMm25CrCqr1ck899eLNA==
+socket.io@^4.8.1:
+  version "4.8.1"
+  resolved "https://registry.yarnpkg.com/socket.io/-/socket.io-4.8.1.tgz#fa0eaff965cc97fdf4245e8d4794618459f7558a"
+  integrity sha512-oZ7iUCxph8WYRHHcjBEc9unw3adt5CmSNlppj/5Q4k2RIrhl8Z5yY2Xr4j9zj0+wzVZ0bxmYoGSzKJnRl6A4yg==
   dependencies:
     accepts "~1.3.4"
     base64id "~2.0.0"
