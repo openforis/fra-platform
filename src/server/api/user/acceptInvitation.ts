@@ -7,11 +7,11 @@ import { UserController } from 'server/controller/user'
 import { Requests } from 'server/utils'
 
 export const acceptInvitation = async (
-  req: CountryRequest<{ invitationUuid: string }>,
+  req: CountryRequest<unknown, { invitationUuid: string }>,
   res: Response
 ): Promise<void> => {
   try {
-    const { invitationUuid } = req.query
+    const { invitationUuid } = req.body
 
     const { user, userInvitation } = await UserController.findByInvitation({ invitationUuid })
 
