@@ -3,15 +3,10 @@
 .country-options__notice {
   color: $text-mute;
   font-size: $font-s;
-  margin-bottom: $spacing-s;
+  margin: $spacing-xxs 0;
 }
 
 .country-options {
   flex-direction: column;
   width: 100%;
-
-  .button-checkbox {
-    justify-content: flex-start;
-    width: 100%;
-  }
 }
