@@ -1,5 +1,6 @@
 import { pipeline, Transform } from 'stream'
-import fastCsv, { ParserRow } from 'fast-csv'
+import * as fastCsv from 'fast-csv'
+import { ParserRow } from 'fast-csv'
 import pgPromise from 'pg-promise'
 import QueryStream from 'pg-query-stream'
 
