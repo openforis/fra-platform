@@ -1,0 +1,12 @@
+@import 'src/client/style/partials';
+
+.country-options__notice {
+  color: $text-mute;
+  font-size: $font-s;
+  margin: $spacing-xxs 0;
+}
+
+.country-options {
+  flex-direction: column;
+  width: 100%;
+}

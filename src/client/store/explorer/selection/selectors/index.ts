@@ -4,7 +4,7 @@ import { AssessmentName } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
 
 import { ExplorerSelectionSlice } from 'client/store/explorer/selection/slice'
-import { defaultAxisSelection } from 'client/store/explorer/selection/state'
+import { defaultAxisSelection, defaultExplorerCountryOptions } from 'client/store/explorer/selection/state'
 import { ExplorerSliceName } from 'client/store/explorer/slice/name'
 import { RootState } from 'client/store/types'
 
@@ -51,9 +51,14 @@ const getUnits = createSelector(
   }
 )
 
+const getCountryOptions = createSelector([_getSelection], (selection) => {
+  return selection?.countryOptions ?? defaultExplorerCountryOptions
+})
+
 export const ExplorerSelectionSelectors = {
   getAxisSelection,
   getCountries,
+  getCountryOptions,
   getDimensions,
   getMeasures,
   getUnits,
