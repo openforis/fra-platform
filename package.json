@@ -11,7 +11,6 @@
     "build:prod:server": "yarn tsc --project tsconfig.server.json && tsc-alias -p tsconfig.server.json",
     "build:prod:server:resources": "shx cp -Rf src/server/static dist/server/",
     "clean": "shx rm -rf dist/",
-    "heroku-cleanup": "cd node_modules/bcrypt && node-pre-gyp install --fallback-to-build",
     "migration-steps:create": "ts-node src/tools/migrations/steps/createMigrationStep.ts",
     "migration-steps:reset": "ts-node src/tools/migrations/steps/reset.ts",
     "migration-steps:run": "ts-node src/tools/migrations/steps/",
