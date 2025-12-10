@@ -17,8 +17,8 @@ export const useRenderLabel = (): Returned => {
       const { axisType, value } = props
       switch (axisType) {
         case AxisType.countries: {
-          const { label, props: { deskStudy } = {} } = value as CountryEntry
-          return deskStudy ? `${label} (${t('assessment.deskStudy')})` : label
+          const { label } = value as CountryEntry
+          return label
         }
         case AxisType.dimensions:
           return t(Dimensions.getTName(value as string), { defaultValue: value })
