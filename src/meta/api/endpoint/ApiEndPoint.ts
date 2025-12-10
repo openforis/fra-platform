@@ -15,10 +15,10 @@ import { Static } from 'meta/api/endpoint/static'
 import { User } from 'meta/api/endpoint/user'
 
 export const ApiEndPoint = {
-  init: (): string => apiPath('init'),
-
   definitions: (lang = ':lang', name = ':name', assessmentName = ':assessmentName', cycleName = ':cycleName'): string =>
     joinPaths('definitions', assessmentName, cycleName, lang, name),
+  health: (): string => apiPath('health'),
+  init: (): string => apiPath('init'),
 
   Admin,
   Area,

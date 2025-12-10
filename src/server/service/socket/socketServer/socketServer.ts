@@ -1,6 +1,6 @@
 import http from 'http'
 import { createAdapter } from '@socket.io/redis-streams-adapter'
-import { createClient } from 'redis'
+import IORedis from 'ioredis'
 import { Server } from 'socket.io'
 
 import { ProcessEnv } from 'server/utils'
@@ -9,11 +9,10 @@ import { Logger } from 'server/utils/logger'
 let io: Server
 
 const init = async (server: http.Server): Promise<void> => {
-  const clientAdapter = createClient({ url: ProcessEnv.redisQueueUrl })
-  await clientAdapter.connect()
+  const client = new IORedis(ProcessEnv.redisQueueUrl)
 
   io = new Server(server, {
-    adapter: createAdapter(clientAdapter),
+    adapter: createAdapter(client),
     cors: {
       origin: ProcessEnv.appUri,
       methods: ['GET', 'POST'],

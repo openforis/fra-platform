@@ -14,6 +14,7 @@ const queues: Record<string, Queue<VisitCycleLinksProps>> = {}
 const workers: Record<string, Worker<VisitCycleLinksProps>> = {}
 
 const connection = new IORedis(ProcessEnv.redisQueueUrl)
+connection.options.maxRetriesPerRequest = null
 
 type Props = {
   assessment: Assessment
