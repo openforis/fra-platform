@@ -27,7 +27,7 @@ const CountryOptions: React.FC<Props> = (props: Props) => {
 
   return (
     <>
-      <h2 className="options-title">{t('common.countryAreaDetails')}</h2>
+      <h2 className="options-title">{t('common.countriesAreas')}</h2>
       <Flex alignItems="start" className="country-options" gap="8">
         {checkboxes.map(({ key, label }) => (
           <ButtonCheckbox
