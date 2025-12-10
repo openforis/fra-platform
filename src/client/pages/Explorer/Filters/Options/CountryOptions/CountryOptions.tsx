@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next'
 import { ExplorerCountryOptions } from 'meta/explorer/selection'
 
 import ButtonCheckbox, { ButtonCheckboxVariant } from 'client/components/Buttons/ButtonCheckbox'
-import Hr from 'client/components/Hr'
 import Icon from 'client/components/Icon'
 import Flex from 'client/components/Layout/Flex'
 import { useCountryOptionsEnabled } from 'client/pages/Explorer/ResultGrid/hooks/useCountryOptionsEnabled'
@@ -46,7 +45,6 @@ const CountryOptions: React.FC<Props> = (props: Props) => {
           <span>{t('common.explorerCountryOptionsDisabled')}</span>
         </Flex>
       )}
-      <Hr className="options-hr" />
     </>
   )
 }
