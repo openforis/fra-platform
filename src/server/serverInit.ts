@@ -1,5 +1,4 @@
 import path from 'path'
-import bodyParser from 'body-parser'
 import compression from 'compression'
 import wwwhisper from 'connect-wwwhisper'
 import cookieParser from 'cookie-parser'
@@ -18,21 +17,19 @@ import * as resourceCacheControl from './resourceCacheControl'
 
 export const serverInit = (): void => {
   const app = express()
+
   Proxy.init(app)
 
   app.use(wwwhisper(false))
   app.use(cookieParser())
   app.set('query parser', 'extended')
+  app.use(express.json({ limit: '5000kb', type: () => true }))
+  resourceCacheControl.init(app)
+  app.use(compression({ threshold: 512 }))
 
   if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'))
   }
-
-  app.use(bodyParser.json({ limit: '5000kb' }))
-
-  resourceCacheControl.init(app)
-
-  app.use(compression({ threshold: 512 }))
 
   app.use('/assets', express.static(`${__dirname}/../client/assets`))
   app.use('/css', express.static(`${__dirname}/../client/css`))

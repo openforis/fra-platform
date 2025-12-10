@@ -1,11 +1,11 @@
 import { NextFunction, Request, Response } from 'express'
-import { Objects } from 'utils/objects'
 
 import { Areas } from 'meta/area/areas'
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessment, AssessmentName } from 'meta/assessment/assessment'
 import { Assessments } from 'meta/assessment/assessments'
 import { CycleName } from 'meta/assessment/cycle'
+import { Objects } from 'utils/objects'
 
 import { AreaController } from 'server/controller/area'
 import { AssessmentController } from 'server/controller/assessment'
@@ -20,6 +20,11 @@ const metaCache = true
 
 const initContext = async (req: Request, _: Response, next: NextFunction): Promise<void> => {
   try {
+    // ensure body is always set
+    if (!req.body) {
+      Objects.set(req, 'body', {})
+    }
+
     const params = { ...req.params, ...req.query, ...req.body } as BaseType
     const { assessmentName, countryIso, cycleName } = params
 
