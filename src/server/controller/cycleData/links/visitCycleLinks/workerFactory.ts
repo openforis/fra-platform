@@ -16,6 +16,7 @@ import { VisitCycleLinksProps } from './props'
 import workerProcessor from './worker'
 
 const connection = new IORedis(ProcessEnv.redisQueueUrl)
+connection.options.maxRetriesPerRequest = null
 
 const workerOptions: WorkerOptions = {
   concurrency: 1,
