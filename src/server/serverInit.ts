@@ -5,6 +5,8 @@ import cookieParser from 'cookie-parser'
 import express from 'express'
 import morgan from 'morgan'
 
+import { Objects } from 'utils/objects'
+
 import { Api } from 'server/api'
 import { Proxy } from 'server/proxy/proxy'
 import { SocketServer } from 'server/service/socket'
@@ -23,7 +25,19 @@ export const serverInit = (): void => {
   app.use(wwwhisper(false))
   app.use(cookieParser())
   app.set('query parser', 'extended')
-  app.use(express.json({ limit: '5000kb', type: () => true }))
+  // TODO: pass content-type from our client requests - now it's empty and therefore solution below
+  // app.use(express.json({ limit: '5000kb', type: ['application/json', 'application/*+json'] }))
+  app.use(
+    express.json({
+      limit: '5000kb',
+      type: (req) => {
+        const contentType = req.headers['content-type']
+        return (
+          Objects.isEmpty(contentType) || contentType.startsWith('application/json') || contentType.includes('+json')
+        )
+      },
+    })
+  )
   resourceCacheControl.init(app)
   app.use(compression({ threshold: 512 }))
 
