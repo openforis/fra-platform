@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { useExplorerAxisSelection } from 'client/store/explorer/selection/hooks/axisSelection'
 import { useExplorerCountryOptions } from 'client/store/explorer/selection/hooks/options'
 import { CountryOptionField } from 'client/pages/Explorer/ResultGrid/types'
 
@@ -11,7 +12,8 @@ type Returned = Array<CountryOptionField>
 export const useCountryOptionFields = (): Returned => {
   const { t } = useTranslation()
   const options = useExplorerCountryOptions()
-  const enabled = useCountryOptionsEnabled()
+  const axisSelection = useExplorerAxisSelection()
+  const enabled = useCountryOptionsEnabled({ axisSelection })
 
   return useMemo<Returned>(() => {
     if (!enabled) return []

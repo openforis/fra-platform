@@ -51,7 +51,7 @@ const Options: React.FC = () => {
     <div className="options-container">
       <Button disabled={hideGrid} iconName="equalizer" onClick={openPanel} />
       <SlidingPanel closePanel={closePanel} opened={opened} size={panelSize}>
-        <CountryOptions options={countryOptions} toggleOption={toggleOption} />
+        <CountryOptions options={countryOptions} toggleOption={toggleOption} uiAxisSelection={axisSelection} />
 
         <Hr className="options-hr" />
 
