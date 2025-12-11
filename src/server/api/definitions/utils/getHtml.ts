@@ -28,24 +28,22 @@ export const getHtml = async (props: Props): Promise<string> => {
 
   const toc: Array<Record<string, string>> = []
   const renderer = new marked.Renderer()
-  renderer.heading = function (text: string, level: number): string {
-    if (level < 3) {
+  renderer.heading = ({ depth, tokens }): string => {
+    const text = tokens.at(0).raw
+
+    if (depth < 3) {
       const { anchor, text: newText } = _getAnchorAndTextFromHeader(text)
       toc.push({
         anchor,
         text: newText,
       })
-      return `<h${level} id="${anchor}" class="anchor-link">${newText}</h${level}>`
+      return `<h${depth} id="${anchor}" class="anchor-link">${newText}</h${depth}>`
     }
 
-    return `<h${level}>${text}</h${level}>`
+    return `<h${depth}>${text}</h${depth}>`
   }
-  // @ts-ignore
-  marked.setOptions({
-    renderer,
-    smartypants: true,
-  })
-  // @ts-ignore
+  marked.setOptions({ renderer })
+
   const content = markdown ? marked(markdown) : ''
   let tocHTML = '<ul class="toc">'
   toc.forEach(({ anchor, text }: Record<string, string>, index: number) => {
