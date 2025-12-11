@@ -1,8 +1,9 @@
 import './CountryOptions.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+import classNames from 'classnames'
 
-import { ExplorerCountryOptions } from 'meta/explorer/selection'
+import { AxisSelection, ExplorerCountryOptions } from 'meta/explorer/selection'
 
 import ButtonCheckbox, { ButtonCheckboxVariant } from 'client/components/Buttons/ButtonCheckbox'
 import Icon from 'client/components/Icon'
@@ -14,13 +15,14 @@ import { useCheckboxes } from './hooks/useCheckboxes'
 type Props = {
   options: ExplorerCountryOptions
   toggleOption: (key: keyof ExplorerCountryOptions) => void
+  uiAxisSelection: AxisSelection
 }
 
 const CountryOptions: React.FC<Props> = (props: Props) => {
-  const { options, toggleOption } = props
+  const { options, toggleOption, uiAxisSelection } = props
   const { t } = useTranslation()
 
-  const enabled = useCountryOptionsEnabled()
+  const enabled = useCountryOptionsEnabled({ axisSelection: uiAxisSelection })
 
   const checkboxes = useCheckboxes()
 
@@ -39,12 +41,15 @@ const CountryOptions: React.FC<Props> = (props: Props) => {
           />
         ))}
       </Flex>
-      {!enabled && (
-        <Flex alignItems="center" className="country-options__notice" gap="4">
-          <Icon className="icon-middle" name="alert" />
-          <span>{t('common.explorerCountryOptionsDisabled')}</span>
-        </Flex>
-      )}
+      <Flex
+        alignItems="center"
+        aria-hidden={enabled}
+        className={classNames('country-options__notice', { hidden: enabled })}
+        gap="4"
+      >
+        <Icon className="icon-middle" name="alert" />
+        <span>{t('common.explorerCountryOptionsDisabled')}</span>
+      </Flex>
     </>
   )
 }

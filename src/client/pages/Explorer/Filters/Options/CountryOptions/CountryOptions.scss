@@ -3,7 +3,11 @@
 .country-options__notice {
   color: $text-mute;
   font-size: $font-s;
-  margin: $spacing-xxs 0;
+  margin-top: $spacing-xxxxs;
+
+  &.hidden {
+    visibility: hidden !important;
+  }
 }
 
 .country-options {

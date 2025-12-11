@@ -31,14 +31,18 @@ const AxisSelection: React.FC<Props> = (props: Props) => {
           <React.Fragment key={axisType}>
             <span>{t(labelKey)}:</span>
             <div className="axis-selection-buttons">
-              {axes.map((axis) => (
-                <ButtonCheckbox
-                  key={axis}
-                  checked={axisSelection[axis].includes(axisType)}
-                  label={axis.toUpperCase()}
-                  onClick={() => toggleAxis({ axis, axisType })}
-                />
-              ))}
+              {axes.map((axis) => {
+                const selected = axisSelection[axis].includes(axisType)
+                return (
+                  <ButtonCheckbox
+                    key={axis}
+                    checked={selected}
+                    disabled={selected}
+                    label={axis.toUpperCase()}
+                    onClick={() => toggleAxis({ axis, axisType })}
+                  />
+                )
+              })}
             </div>
           </React.Fragment>
         ))}

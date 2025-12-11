@@ -24,6 +24,10 @@ $btn-width: 128px;
   margin: $spacing-s 0;
   width: 70%;
   justify-self: center;
+
+  &.country-options-hr {
+    margin-top: $spacing-xxxs;
+  }
 }
 
 .options-title {
