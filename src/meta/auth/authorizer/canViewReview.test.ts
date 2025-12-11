@@ -1,3 +1,5 @@
+import { vi } from 'vitest'
+
 import { Areas } from 'meta/area/areas'
 import { Country } from 'meta/area/country'
 import { CountryIso } from 'meta/area/countryIso'
@@ -9,8 +11,8 @@ import { RoleName } from 'meta/user/role/name'
 import { User } from 'meta/user/user'
 import { Users } from 'meta/user/users'
 
-jest.mock('meta/area/areas')
-jest.mock('meta/user/users')
+vi.mock('meta/area/areas')
+vi.mock('meta/user/users')
 
 describe('canViewReview', () => {
   const mockSection: Section = { uuid: 'section1' } as Section
@@ -20,7 +22,7 @@ describe('canViewReview', () => {
   let mockCycle: Cycle
 
   beforeEach(() => {
-    jest.resetAllMocks()
+    vi.resetAllMocks()
 
     mockUser = { id: 1 } as User
     mockCountry = {
