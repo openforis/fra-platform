@@ -7,7 +7,8 @@ IGNORED_PATHS="node_modules|src/server/proxy"
 # disable exit on error to capture output
 set +e
 # note we redirect stderror (@) output together with stdout (1) (2>&1)
-tsc_output=$(yarn tsc --noEmit 2>&1)
+# use --incremental to cache results between runs
+tsc_output=$(yarn tsc --noEmit --incremental 2>&1)
 tsc_exit_code=$?
 # enable eone
 set -e
