@@ -1,11 +1,10 @@
 import './ResultGrid.scss'
 import React from 'react'
-
 import classNames from 'classnames'
-import { Objects } from 'utils/objects'
 
 import { CountryIso } from 'meta/area/countryIso'
 import { Axis, AxisType } from 'meta/explorer/selection'
+import { Objects } from 'utils/objects'
 
 import { useGetExplorerSectionData } from 'client/store/explorer/data/hooks/data'
 import { useExplorerSectionMetadata } from 'client/store/explorer/metadata/hooks/metadata'
@@ -37,6 +36,8 @@ export const ResultGrid: React.FC<ExplorerGridProps> = (props: ExplorerGridProps
     axisValues,
     cellsExportAlways,
     cellsExportAlwaysAxis,
+    countryAxis,
+    countryOptionFields,
     data,
     gridTemplateColumns,
     uniquePrimaryX,
@@ -66,6 +67,17 @@ export const ResultGrid: React.FC<ExplorerGridProps> = (props: ExplorerGridProps
         header
       />
 
+      {countryAxis === Axis.y &&
+        countryOptionFields.map((field) => (
+          <DataCell
+            key={`${field.key}-country-option-header`}
+            className="country-field-x-header"
+            gridRow="span 2"
+            header
+          >
+            {field.label}
+          </DataCell>
+        ))}
       {/* Cells export always on the X axis - Headers */}
       {!Objects.isEmpty(cellsExportAlways) &&
         cellsExportAlwaysAxis === Axis.x &&
@@ -120,6 +132,27 @@ export const ResultGrid: React.FC<ExplorerGridProps> = (props: ExplorerGridProps
           </DataCell>
         )
       })}
+
+      {countryAxis === Axis.x &&
+        countryOptionFields.map((field) => (
+          <React.Fragment key={`${field.key}-country-option-row`}>
+            <DataCell firstCol gridColumn="span 2" header>
+              {field.label}
+            </DataCell>
+            {xCombinations.map((colCombination, colIdx) => {
+              const countryEntry = colCombination[0] as CountryEntry
+              return (
+                <DataCell
+                  key={`${countryEntry.countryIso}-${field.key}-country-option`}
+                  className="observation"
+                  lastCol={colIdx === xCombinations.length - 1}
+                >
+                  {field.getValue(countryEntry)}
+                </DataCell>
+              )
+            })}
+          </React.Fragment>
+        ))}
 
       {/* Cells export always on the Y axis */}
       {!Objects.isEmpty(cellsExportAlways) &&
@@ -195,6 +228,21 @@ export const ResultGrid: React.FC<ExplorerGridProps> = (props: ExplorerGridProps
                 value: yAxisVariableCount === 2 ? secondaryVariable : primaryVariable,
               })}
             </DataCell>
+
+            {countryAxis === Axis.y &&
+              countryOptionFields.map((field) => {
+                const countryEntry = rowMap[AxisType.countries] as CountryEntry
+
+                return (
+                  <DataCell
+                    key={`${countryEntry.countryIso}-${field.key}-country-option`}
+                    className="observation"
+                    lastRow={lastRow}
+                  >
+                    {field.getValue(countryEntry)}
+                  </DataCell>
+                )
+              })}
 
             {/* Cells export always on the X axis - Observations */}
             {!Objects.isEmpty(cellsExportAlways) &&

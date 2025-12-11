@@ -12,6 +12,12 @@ export type CountryEntry = Country & { label: string }
 
 export type Combination = Array<CountryEntry | string>
 
+export type CountryOptionField = {
+  getValue: (country: CountryEntry) => string
+  key: 'deskStudy' | 'iso2' | 'iso3' | 'm49'
+  label: string
+}
+
 export type AxisValues = {
   [AxisType.countries]: Array<CountryEntry>
   [AxisType.dimensions]: Array<string>

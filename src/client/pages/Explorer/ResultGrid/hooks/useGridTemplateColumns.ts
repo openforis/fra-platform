@@ -1,19 +1,21 @@
 import { useMemo } from 'react'
 
-import { AxisType } from 'meta/explorer/selection'
+import { Axis, AxisType } from 'meta/explorer/selection'
 
 import { useExplorerAxisSelection } from 'client/store/explorer/selection/hooks/axisSelection'
 import { AxisValues } from 'client/pages/Explorer/ResultGrid/types'
 
 type Props = {
   axisValues: AxisValues
+  countryAxis: Axis | null
+  countryOptionFieldsCount: number
   extraCols: number
 }
 
 type Returned = string
 
 export const useGridTemplateColumns = (props: Props): Returned => {
-  const { axisValues, extraCols } = props
+  const { axisValues, countryAxis, countryOptionFieldsCount, extraCols } = props
   const { x: xAxisSelection, y: yAxisSelection } = useExplorerAxisSelection()
 
   return useMemo<Returned>(() => {
@@ -34,7 +36,8 @@ export const useGridTemplateColumns = (props: Props): Returned => {
     } else if (xAxisSelection.length === 1) {
       xAxisColCount = axisValues[selectedXAxisA]?.length ?? 0
     }
-    const bodyCols = `repeat(${xAxisColCount + extraCols}, 1fr)`
+    const countryOptionCols = countryAxis === Axis.y ? countryOptionFieldsCount : 0
+    const bodyCols = `repeat(${xAxisColCount + extraCols + countryOptionCols}, 1fr)`
     return `${headerCols} ${bodyCols}`
-  }, [axisValues, extraCols, xAxisSelection, yAxisSelection])
+  }, [axisValues, countryAxis, countryOptionFieldsCount, extraCols, xAxisSelection, yAxisSelection])
 }
