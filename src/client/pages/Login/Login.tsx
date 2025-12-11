@@ -9,6 +9,7 @@ import { LoginSlice } from 'client/store/login/slice'
 import Partners from 'client/pages/CycleHome/Partners'
 import ChangePassword from 'client/pages/Login/ChangePassword'
 import Invitation from 'client/pages/Login/Invitation'
+import InvitationActions from 'client/pages/Login/InvitationActions'
 import InvitationLocal from 'client/pages/Login/InvitationLocal'
 import LoginForm from 'client/pages/Login/LoginForm'
 import ResetPassword from 'client/pages/Login/ResetPassword'
@@ -23,6 +24,7 @@ const Login: React.FC = () => {
           <RouterRoutes>
             <Route element={<LoginForm />} index />
             <Route element={<Invitation />} path={Routes.LoginInvitation.path.relative}>
+              <Route element={<InvitationActions />} index />
               <Route element={<InvitationLocal />} path={Routes.LoginInvitationLocal.path.relative} />
             </Route>
             <Route path={Routes.LoginResetPassword.path.relative}>

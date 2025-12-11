@@ -46,7 +46,7 @@ const AcceptInvitationButtons: React.FC = () => {
   }
 
   return (
-    <>
+    <div className="login__form">
       <Button
         disabled={isInInvitationLocal ? loginInfo?.isLoading : false}
         label={t('login.acceptInvitationWithFra')}
@@ -80,7 +80,7 @@ const AcceptInvitationButtons: React.FC = () => {
       >
         <Icon name="video" /> {t(videoResources[1].labelKeyShort)}
       </a>
-    </>
+    </div>
   )
 }
 
