@@ -16,6 +16,7 @@ import {
 } from 'meta/routes/routes/_routes/country'
 import { Cycle } from 'meta/routes/routes/_routes/cycle'
 import { Geo } from 'meta/routes/routes/_routes/geo'
+import { Invitation } from 'meta/routes/routes/_routes/invitation'
 import {
   ExploringOurForests,
   ForestKids,
@@ -74,6 +75,9 @@ export const Routes = {
   LoginInvitation,
   LoginInvitationLocal,
   LoginResetPassword,
+
+  // invitation
+  Invitation,
 
   // kiosk
   Kiosk,

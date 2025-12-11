@@ -24,12 +24,13 @@ import Tutorials from 'client/pages/Tutorials'
 
 import { KioskRoutes } from './_KioskRoutes'
 
+const AdminLazy = React.lazy(() => import('client/pages/Admin'))
+const DataDownloadLazy = React.lazy(() => import('client/pages/DataDownload'))
+const GeoLazy = React.lazy(() => import('client/pages/Geo'))
+const InvitationLazy = React.lazy(() => import('client/pages/Invitation'))
 const LoginLazy = React.lazy(() => import('client/pages/Login'))
 const OriginalDataPointLazy = React.lazy(() => import('client/pages/OriginalDataPoint'))
-const AdminLazy = React.lazy(() => import('client/pages/Admin'))
 const UserLazy = React.lazy(() => import('client/pages/User'))
-const GeoLazy = React.lazy(() => import('client/pages/Geo'))
-const DataDownloadLazy = React.lazy(() => import('client/pages/DataDownload'))
 
 export const useRoutes = (): Array<RouteObject> => {
   return useMemo(() => {
@@ -107,6 +108,16 @@ export const useRoutes = (): Array<RouteObject> => {
                 <Route element={<SectionAreaSwitch />} path={Routes.Section.path.relative} />
                 <Route element={<Print />} path={`${Routes.Print.path.relative}/*`} />
               </Route>
+
+              {/* Invitation */}
+              <Route
+                element={
+                  <Suspense>
+                    <InvitationLazy />
+                  </Suspense>
+                }
+                path={`${Routes.Invitation.path.relative}/*`}
+              />
 
               {/* Login */}
               <Route
