@@ -1,5 +1,4 @@
 import { useEffect } from 'react'
-import { WorkerListener } from 'bullmq'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { Sockets } from 'meta/socket/sockets'
@@ -33,7 +32,7 @@ export const useListenLinksVerificationEvents = (): void => {
   const linksTableData = useTablePaginatedData({ path })
 
   useEffect(() => {
-    const listener = (args: [{ event: keyof WorkerListener }]): void => {
+    const listener = (args: [{ event: 'active' | 'completed' | 'failed' }]): void => {
       const [{ event }] = args
       if (event === 'active') {
         dispatch(
