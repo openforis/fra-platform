@@ -3,14 +3,12 @@ import { useTranslation } from 'react-i18next'
 import { Navigate, Outlet } from 'react-router'
 
 import { Assessments } from 'meta/assessment/assessments'
-import { LoginInvitationQueryParams } from 'meta/routes/queryParams/invitation'
 import { Routes } from 'meta/routes/routes'
 import { UserInvitations } from 'meta/user/invitations'
 import { Users } from 'meta/user/users'
 
 import { useInvitation } from 'client/store/login/hooks/invitation'
 import { useUser } from 'client/store/user/hooks/user'
-import { useSearchParams } from 'client/hooks/searchParams'
 
 import { useInitInvitation } from './hooks/useInitInvitation'
 
@@ -20,7 +18,6 @@ const Invitation: React.FC = () => {
 
   useInitInvitation()
 
-  useSearchParams<LoginInvitationQueryParams>()
   const invitation = useInvitation()
 
   if (!invitation || !invitation.assessment) return null
