@@ -11,7 +11,7 @@ import { userMockTest, userMockTestPassword } from 'test/integration/mock/user'
 
 import { assessmentParams } from '../mock/assessment'
 
-export default (): void =>
+export default (): void => {
   describe('User Reset Password', () => {
     // test1
     const userMockTestNewPassword = '$2b$10$PsmikkFaWlVuMJ/CS189/e6r/H3.W0fTZG2mRhCNZEFosG8A/Ibmm'
@@ -70,3 +70,4 @@ export default (): void =>
       expect(userAuthProvider.props.password).toEqual(userMockTestNewPassword)
     })
   })
+}

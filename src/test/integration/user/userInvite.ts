@@ -18,7 +18,7 @@ type TestContext = {
   userInvitation?: UserInvitation
 }
 
-export default (): void =>
+export default (): void => {
   describe('User Invite', () => {
     const testContext: TestContext = {
       assessment: undefined,
@@ -151,3 +151,4 @@ export default (): void =>
       await UserController.remove({ userToRemove: userMockUnknown, user })
     })
   })
+}

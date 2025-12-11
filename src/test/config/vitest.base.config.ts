@@ -11,5 +11,8 @@ export default defineConfig({
     },
     environment: 'node', // use node environment for backend tests
     globals: true, // enables describe/it global names
+    typecheck: {
+      tsconfig: './tsconfig.vitest.json',
+    },
   },
 })

@@ -14,7 +14,11 @@
     "outDir": "./dist/",
     "rootDir": "./src",
     "resolveJsonModule": true,
-    "target": "ESNext",
-    "types": ["vitest/globals"]
-  }
+    "target": "ESNext"
+  },
+  "references": [
+    {
+      "path": "./src/test/config/tsconfig.vitest.json"
+    }
+  ]
 }
