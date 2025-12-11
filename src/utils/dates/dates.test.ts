@@ -1,14 +1,16 @@
-import * as RelativeDate from './dates'
+import { i18n } from 'i18next'
 
-const i18nMock = {
-  t: (id: any) => {
+import { Dates } from './dates'
+
+const i18nMock: Pick<i18n, 't'> = {
+  t: (id) => {
     return id
   },
 }
 
 describe('Relative date tests: ', () => {
   test('Returns null if input null', () => {
-    const relativeDate = RelativeDate.getRelativeDate(null, {})
+    const relativeDate = Dates.getRelativeDate(null, i18nMock)
     expect(relativeDate).toBeNull()
   })
 
@@ -16,7 +18,7 @@ describe('Relative date tests: ', () => {
     const currentDate = new Date()
     const futureDate = new Date().setDate(currentDate.getDate() + 1)
 
-    const relativeDate = RelativeDate.getRelativeDate(futureDate, i18nMock)
+    const relativeDate = Dates.getRelativeDate(futureDate, i18nMock)
 
     expect(relativeDate).toEqual('time.aMomentAgo')
   })
