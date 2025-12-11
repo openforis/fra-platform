@@ -1,4 +1,4 @@
-import { vi } from 'vitest'
+import { Mock, vi } from 'vitest'
 
 import { Areas } from 'meta/area/areas'
 import { Country } from 'meta/area/country'
@@ -27,15 +27,15 @@ describe('canEditSomeData', () => {
       props: { status: CountryStatus.editing },
     } as Country
     mockCycle = { uuid: '2020' } as Cycle
-    ;(Areas.getStatus as jest.Mock).mockReturnValue(CountryStatus.editing)
-    ;(Areas.isISOCountry as jest.Mock).mockReturnValue(true)
-    ;(Users.isViewer as jest.Mock).mockReturnValue(false)
-    ;(Users.isAdministrator as jest.Mock).mockReturnValue(false)
-    ;(Users.isNationalCorrespondent as jest.Mock).mockReturnValue(false)
-    ;(Users.isAlternateNationalCorrespondent as jest.Mock).mockReturnValue(false)
-    ;(Users.isCollaborator as jest.Mock).mockReturnValue(false)
-    ;(Users.isReviewer as jest.Mock).mockReturnValue(false)
-    ;(Users.getRole as jest.Mock).mockReturnValue({ role: RoleName.VIEWER })
+    ;(Areas.getStatus as Mock).mockReturnValue(CountryStatus.editing)
+    ;(Areas.isISOCountry as Mock).mockReturnValue(true)
+    ;(Users.isViewer as Mock).mockReturnValue(false)
+    ;(Users.isAdministrator as Mock).mockReturnValue(false)
+    ;(Users.isNationalCorrespondent as Mock).mockReturnValue(false)
+    ;(Users.isAlternateNationalCorrespondent as Mock).mockReturnValue(false)
+    ;(Users.isCollaborator as Mock).mockReturnValue(false)
+    ;(Users.isReviewer as Mock).mockReturnValue(false)
+    ;(Users.getRole as Mock).mockReturnValue({ role: RoleName.VIEWER })
   })
 
   test('should return false when user is null', () => {
@@ -43,18 +43,18 @@ describe('canEditSomeData', () => {
   })
 
   test('should return false for viewer', () => {
-    ;(Users.isViewer as jest.Mock).mockReturnValue(true)
+    ;(Users.isViewer as Mock).mockReturnValue(true)
     expect(canEditSomeData({ cycle: mockCycle, country: mockCountry, user: mockUser })).toBe(false)
   })
 
   test('should return true for administrator', () => {
-    ;(Users.isAdministrator as jest.Mock).mockReturnValue(true)
+    ;(Users.isAdministrator as Mock).mockReturnValue(true)
     expect(canEditSomeData({ cycle: mockCycle, country: mockCountry, user: mockUser })).toBe(true)
   })
 
   describe('National Correspondent', () => {
     beforeEach(() => {
-      ;(Users.isNationalCorrespondent as jest.Mock).mockReturnValue(true)
+      ;(Users.isNationalCorrespondent as Mock).mockReturnValue(true)
     })
 
     test.each([
@@ -63,14 +63,14 @@ describe('canEditSomeData', () => {
       [false, CountryStatus.review],
       [false, CountryStatus.accepted],
     ])('should return %s when country status is %s', (expected, status) => {
-      ;(Areas.getStatus as jest.Mock).mockReturnValue(status)
+      ;(Areas.getStatus as Mock).mockReturnValue(status)
       expect(canEditSomeData({ cycle: mockCycle, country: mockCountry, user: mockUser })).toBe(expected)
     })
   })
 
   describe('Alternate National Correspondent', () => {
     beforeEach(() => {
-      ;(Users.isAlternateNationalCorrespondent as jest.Mock).mockReturnValue(true)
+      ;(Users.isAlternateNationalCorrespondent as Mock).mockReturnValue(true)
     })
 
     test.each([
@@ -79,15 +79,15 @@ describe('canEditSomeData', () => {
       [false, CountryStatus.review],
       [false, CountryStatus.accepted],
     ])('should return %s when country status is %s', (expected, status) => {
-      ;(Areas.getStatus as jest.Mock).mockReturnValue(status)
+      ;(Areas.getStatus as Mock).mockReturnValue(status)
       expect(canEditSomeData({ cycle: mockCycle, country: mockCountry, user: mockUser })).toBe(expected)
     })
   })
 
   describe('Collaborator', () => {
     beforeEach(() => {
-      ;(Users.isCollaborator as jest.Mock).mockReturnValue(true)
-      ;(Users.getRole as jest.Mock).mockReturnValue({
+      ;(Users.isCollaborator as Mock).mockReturnValue(true)
+      ;(Users.getRole as Mock).mockReturnValue({
         role: RoleName.COLLABORATOR,
         permissions: {
           tableData: [],
@@ -97,22 +97,22 @@ describe('canEditSomeData', () => {
     })
 
     test('should return false when country status is review', () => {
-      ;(Areas.getStatus as jest.Mock).mockReturnValue(CountryStatus.review)
+      ;(Areas.getStatus as Mock).mockReturnValue(CountryStatus.review)
       expect(canEditSomeData({ cycle: mockCycle, country: mockCountry, user: mockUser })).toBe(false)
     })
 
     test('should return false when country status is accepted', () => {
-      ;(Areas.getStatus as jest.Mock).mockReturnValue(CountryStatus.accepted)
+      ;(Areas.getStatus as Mock).mockReturnValue(CountryStatus.accepted)
       expect(canEditSomeData({ cycle: mockCycle, country: mockCountry, user: mockUser })).toBe(false)
     })
 
     describe('with editing status', () => {
       beforeEach(() => {
-        ;(Areas.getStatus as jest.Mock).mockReturnValue(CountryStatus.editing)
+        ;(Areas.getStatus as Mock).mockReturnValue(CountryStatus.editing)
       })
 
       test('should return true when permissions allow tableData and descriptions', () => {
-        ;(Users.getRole as jest.Mock).mockReturnValue({
+        ;(Users.getRole as Mock).mockReturnValue({
           role: RoleName.COLLABORATOR,
           permissions: {
             tableData: ['section1'],
@@ -124,7 +124,7 @@ describe('canEditSomeData', () => {
       })
 
       test('should return true when tableData includes none but descriptions has access', () => {
-        ;(Users.getRole as jest.Mock).mockReturnValue({
+        ;(Users.getRole as Mock).mockReturnValue({
           role: RoleName.COLLABORATOR,
           permissions: {
             tableData: ['none'],
@@ -136,7 +136,7 @@ describe('canEditSomeData', () => {
       })
 
       test('should return false when both tableData and descriptions include none', () => {
-        ;(Users.getRole as jest.Mock).mockReturnValue({
+        ;(Users.getRole as Mock).mockReturnValue({
           role: RoleName.COLLABORATOR,
           permissions: {
             tableData: ['none'],
@@ -148,7 +148,7 @@ describe('canEditSomeData', () => {
       })
 
       test('should return true when permissions have all access', () => {
-        ;(Users.getRole as jest.Mock).mockReturnValue({
+        ;(Users.getRole as Mock).mockReturnValue({
           role: RoleName.COLLABORATOR,
           permissions: {
             tableData: ['all'],
@@ -160,7 +160,7 @@ describe('canEditSomeData', () => {
       })
 
       test('should return true when permissions have specific sections', () => {
-        ;(Users.getRole as jest.Mock).mockReturnValue({
+        ;(Users.getRole as Mock).mockReturnValue({
           role: RoleName.COLLABORATOR,
           permissions: {
             tableData: ['section1', 'section2'],
@@ -172,7 +172,7 @@ describe('canEditSomeData', () => {
       })
 
       test('should return true when user can edit descriptions but not tableData', () => {
-        ;(Users.getRole as jest.Mock).mockReturnValue({
+        ;(Users.getRole as Mock).mockReturnValue({
           role: RoleName.COLLABORATOR,
           permissions: {
             tableData: ['none'],
@@ -186,11 +186,11 @@ describe('canEditSomeData', () => {
 
     describe('with notStarted status', () => {
       beforeEach(() => {
-        ;(Areas.getStatus as jest.Mock).mockReturnValue(CountryStatus.notStarted)
+        ;(Areas.getStatus as Mock).mockReturnValue(CountryStatus.notStarted)
       })
 
       test('should return true when permissions allow editing', () => {
-        ;(Users.getRole as jest.Mock).mockReturnValue({
+        ;(Users.getRole as Mock).mockReturnValue({
           role: RoleName.COLLABORATOR,
           permissions: {
             tableData: ['section1'],
@@ -205,7 +205,7 @@ describe('canEditSomeData', () => {
 
   describe('Reviewer', () => {
     beforeEach(() => {
-      ;(Users.isReviewer as jest.Mock).mockReturnValue(true)
+      ;(Users.isReviewer as Mock).mockReturnValue(true)
     })
 
     test.each([
@@ -214,7 +214,7 @@ describe('canEditSomeData', () => {
       [true, CountryStatus.review],
       [false, CountryStatus.accepted],
     ])('should return %s when country status is %s', (expected, status) => {
-      ;(Areas.getStatus as jest.Mock).mockReturnValue(status)
+      ;(Areas.getStatus as Mock).mockReturnValue(status)
       expect(canEditSomeData({ cycle: mockCycle, country: mockCountry, user: mockUser })).toBe(expected)
     })
   })
