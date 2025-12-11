@@ -30,7 +30,10 @@ export const useEstimationDetails = (props: Props): Returned => {
   const { createdAt, method, variables } = tableEstimation
   const variableOptions = variables[variableName]
   const { changeRates } = variableOptions
-  const executedBeforeOdpUpdate = Dates.isBefore(Dates.parseISO(createdAt), Dates.parseISO(odpLastUpdatedTimestamp))
+  const executedBeforeOdpUpdate =
+    createdAt &&
+    odpLastUpdatedTimestamp &&
+    Dates.isBefore(Dates.parseISO(createdAt), Dates.parseISO(odpLastUpdatedTimestamp))
 
   const node = (
     <div className="table-grid__data-cell-flag-estimate">

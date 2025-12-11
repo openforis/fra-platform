@@ -103,9 +103,6 @@ export default defineConfig(({ mode }) => {
         '/auth': {
           target: process.env.APP_URI ?? 'http://localhost:9001',
         },
-        '/css': {
-          target: process.env.APP_URI ?? 'http://localhost:9001',
-        },
         '/definitions': {
           target: process.env.APP_URI ?? 'http://localhost:9001',
         },
