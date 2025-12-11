@@ -19,6 +19,9 @@
   "references": [
     {
       "path": "./src/test/config/tsconfig.vitest.json"
+    },
+    {
+      "path": "./tsconfig.vite.json"
     }
   ]
 }
