@@ -1,8 +1,8 @@
 import { useMemo } from 'react'
 import { TFunction, useTranslation } from 'react-i18next'
-
 import * as Diff from 'diff'
 import { Change } from 'diff'
+
 import { Numbers } from 'utils/numbers'
 import { Objects } from 'utils/objects'
 
@@ -57,6 +57,6 @@ export const useFieldChanges = (props: ODPDiffTextProps): Returned => {
     if (pathsDiffWords.some((p) => path.includes(p))) {
       return Diff.diffWords(textPrev, textCurrent, { ignoreCase: false })
     }
-    return Diff.diffLines(textPrev, textCurrent, { ignoreCase: false })
+    return Diff.diffLines(textPrev, textCurrent)
   }, [format, originalDataPoint, originalDataPointHistory, path, t])
 }
