@@ -26,6 +26,13 @@ $footer-height: 108px;
   overflow-x: auto;
   width: 100%;
 
+  .country-field-x-header {
+    @include sticky-header();
+    justify-content: space-around;
+    min-width: 100px;
+    top: 0;
+  }
+
   .country-header {
     min-width: 200px;
   }
@@ -53,8 +60,9 @@ $footer-height: 108px;
     // Offsets the length of the first row so both headers
     // are sticky together and the first row is not cut off.
     // --first-row-height is calculated in useTrackFirstColRowWidth.
-    top: var(--first-row-height);
     justify-content: space-around;
+    min-width: 160px;
+    top: var(--first-row-height);
   }
 
   .secondary-y-header {

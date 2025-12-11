@@ -20,10 +20,18 @@ export type AxisSelection = {
   y: [AxisType] | [AxisType, AxisType]
 }
 
+export type ExplorerCountryOptions = {
+  showDeskStudy: boolean
+  showIso2: boolean
+  showIso3: boolean
+  showM49: boolean
+}
+
 export type ExplorerSelection = {
   axis: Record<SectionName, AxisSelection>
   countries: Array<CountryIso>
   dimensions: Record<SectionName, Array<DimensionName>>
   measures: Record<SectionName, Array<MeasureName>>
+  countryOptions: ExplorerCountryOptions
   units: Record<SectionName, Record<MeasureName, UnitName>>
 }
