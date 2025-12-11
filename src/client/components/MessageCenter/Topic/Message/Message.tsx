@@ -18,7 +18,7 @@ type MessageProps = {
 
 const Message: React.FC<MessageProps> = (props) => {
   const { deleteFunc, isMine = false, message } = props
-  const { i18n } = useTranslation()
+  const { t } = useTranslation()
 
   const elementRef = useRef<HTMLDivElement>(null)
   const { deleted } = message
@@ -47,8 +47,8 @@ const Message: React.FC<MessageProps> = (props) => {
           )}
 
           <div className="message-time">
-            {deleted && i18n.t('review.commentDeleted')}
-            {!deleted && (Dates.getRelativeDate(message.createdTime, i18n) || i18n.t('time.aMomentAgo'))}
+            {deleted && t('review.commentDeleted')}
+            {!deleted && (Dates.getRelativeDate(message.createdTime, t) ?? t('time.aMomentAgo'))}
           </div>
         </div>
       </div>

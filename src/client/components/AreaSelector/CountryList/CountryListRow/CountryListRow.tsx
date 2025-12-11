@@ -1,15 +1,14 @@
 import React, { useCallback, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
-
 import classNames from 'classnames'
-import { Dates } from 'utils/dates'
-import { Objects } from 'utils/objects'
 
 import { Areas } from 'meta/area/areas'
 import { CountryIso } from 'meta/area/countryIso'
 import { Global } from 'meta/area/global'
 import { RegionCode } from 'meta/area/regionCode'
 import { UserRoles } from 'meta/user/roles'
+import { Dates } from 'utils/dates'
+import { Objects } from 'utils/objects'
 
 import { useCountry } from 'client/store/area/hooks/country'
 import { useIsAreaSelectorExpanded } from 'client/store/ui/areaSelector/hooks/areaSelector'
@@ -33,7 +32,7 @@ const CountryListRow: React.FC<Props> = (props: Props) => {
     selectedValue,
   } = props
 
-  const { i18n } = useTranslation()
+  const { t } = useTranslation()
   const country = useCountry(countryIso as CountryIso)
   const isCycleLanding = useIsCycleLandingRoute()
   const expanded = useIsAreaSelectorExpanded()
@@ -44,7 +43,7 @@ const CountryListRow: React.FC<Props> = (props: Props) => {
   const selected = selectedValue === countryIso && !isCycleLanding
   const hasRole = role !== UserRoles.noRole.role
 
-  const formatDate = useCallback((date?: string): string => (date ? Dates.getRelativeDate(date, i18n) : '-'), [i18n])
+  const formatDate = useCallback((date?: string): string => (date ? Dates.getRelativeDate(date, t) : '-'), [t])
 
   const lastPublishedLabel = usePublishedAfterLabel({ country })
 
@@ -67,7 +66,7 @@ const CountryListRow: React.FC<Props> = (props: Props) => {
         onElementSelect(countryIso)
       }}
     >
-      <div ref={countryNameRef}>{i18n.t<string>(Areas.getTranslationKey(countryIso))}</div>
+      <div ref={countryNameRef}>{t(Areas.getTranslationKey(countryIso))}</div>
       {lastPublishedLabel && <div>{lastPublishedLabel}</div>}
 
       {hasRole && !Objects.isEmpty(country) && (

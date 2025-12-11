@@ -10,9 +10,9 @@ import { Column } from 'client/components/TablePaginated'
 
 const DateCell: React.FC<{ date: string }> = (props) => {
   const { date } = props
-  const { i18n } = useTranslation()
+  const { t } = useTranslation()
 
-  return <span>{date ? Dates.getRelativeDate(date, i18n) : '-'}</span>
+  return <span>{date ? Dates.getRelativeDate(date, t) : '-'}</span>
 }
 
 type Returned = Array<Column<CountrySummary>>

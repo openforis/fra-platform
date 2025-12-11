@@ -19,7 +19,7 @@ const RecentActivityItem: React.FC<ColumnComponentProps<ActivityLog<never>>> = (
   const { datum: activity, rowIndex } = props
   const { section: sectionName, user } = activity
 
-  const { i18n, t } = useTranslation()
+  const { t } = useTranslation()
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams()
   const cycle = useCycle()
   const section = useSection(sectionName)
@@ -46,7 +46,7 @@ const RecentActivityItem: React.FC<ColumnComponentProps<ActivityLog<never>>> = (
           </Link>
         )}
       </div>
-      <div className="landing__activity-time">{Dates.getRelativeDate(activity.time, i18n)}</div>
+      <div className="landing__activity-time">{Dates.getRelativeDate(activity.time, t)}</div>
     </div>
   )
 }
