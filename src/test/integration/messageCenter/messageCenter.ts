@@ -11,7 +11,7 @@ import { UserController } from 'server/controller/user'
 import { assessmentCycleName, assessmentParams } from 'test/integration/mock/assessment'
 import { userMockTest } from 'test/integration/mock/user'
 
-export default (): void =>
+export default (): void => {
   describe('Message topic tests', () => {
     let assessment: Assessment
     let cycle: Cycle
@@ -65,3 +65,4 @@ export default (): void =>
       expect(topic.type).toBe(MessageTopicType.review)
     })
   })
+}

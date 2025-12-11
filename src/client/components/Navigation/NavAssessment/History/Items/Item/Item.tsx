@@ -1,13 +1,12 @@
 import './Item.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-
 import classNames from 'classnames'
-import { Dates } from 'utils/dates'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { ActivityLogs } from 'meta/assessment/activityLogs'
 import { Users } from 'meta/user/users'
+import { Dates } from 'utils/dates'
 
 import { useHistoryActivitiesCompareItem } from 'client/store/data/history/hooks/activities'
 import Icon from 'client/components/Icon'
@@ -19,7 +18,7 @@ const Item: React.FC<Props> = (props) => {
   const { datum: activity, target } = props
   const { user } = activity
 
-  const { i18n, t } = useTranslation()
+  const { t } = useTranslation()
   const compareItem = useHistoryActivitiesCompareItem(target)
   const onClick = useOnClick(props)
 
@@ -41,7 +40,7 @@ const Item: React.FC<Props> = (props) => {
         />
 
         <div className="history-item__content-text">
-          <div className="history-item__timestamp">{Dates.getRelativeDate(activity.time, i18n)}</div>
+          <div className="history-item__timestamp">{Dates.getRelativeDate(activity.time, t)}</div>
           <div>
             {user.props.name.at(0)}. {user.props.surname} {ActivityLogs.getLabelAction({ activity, t })}
           </div>

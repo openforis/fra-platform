@@ -1,6 +1,6 @@
 {
   "extends": "./tsconfig.base.json",
-  "exclude": ["node_modules", "src/client", "src/test", "src/tools"],
+  "exclude": ["node_modules", "src/client", "src/test", "src/tools", "src/**/*.test.ts"],
   "compilerOptions": {
     "skipLibCheck": true
   }

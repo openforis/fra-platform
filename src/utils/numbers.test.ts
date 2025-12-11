@@ -1,6 +1,6 @@
 import { BigNumberInput, Numbers } from './numbers'
 
-const array: BigNumberInput[] = [2, 4, 7, 8]
+const array: Array<BigNumberInput> = [2, 4, 7, 8]
 
 const t = Numbers.toBigNumber
 

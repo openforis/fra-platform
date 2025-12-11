@@ -1,8 +1,7 @@
-import { Numbers } from 'utils/numbers'
-
 import { CountryIso } from 'meta/area/countryIso'
 import { ODPs } from 'meta/assessment/odps'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint/originalDataPoint'
+import { Numbers } from 'utils/numbers'
 
 const countryIso = 'ATL' as CountryIso
 
@@ -23,37 +22,6 @@ describe('OriginalDataPoint test:', () => {
       values: {},
     }
     expect(ODPs.calcTotalFieldArea({ originalDataPoint, field: 'forestPercent' })).toEqual(t(200.0))
-  })
-
-  // Temporarily disabled, ODP code should no longer round to integer
-  xit('rounds decimals to nearest integer', () => {
-    const originalDataPoint: OriginalDataPoint = {
-      id: 1,
-      comments: {},
-      countryIso,
-      nationalClasses: [
-        { area: '200', forestPercent: '50' },
-        { area: '1002', forestPercent: '10' },
-        { area: null, forestPercent: '5' },
-        { area: '400', forestPercent: null },
-      ],
-      values: {},
-    }
-    expect(ODPs.calcTotalFieldArea({ originalDataPoint, field: 'forestPercent' })).toEqual(200)
-
-    const originalDataPoint2: OriginalDataPoint = {
-      id: 2,
-      comments: {},
-      countryIso,
-      nationalClasses: [
-        { area: '200', forestPercent: '50' },
-        { area: '1008', forestPercent: '10' },
-        { area: null, forestPercent: '5' },
-        { area: '400', forestPercent: null },
-      ],
-      values: {},
-    }
-    expect(ODPs.calcTotalFieldArea({ originalDataPoint: originalDataPoint2, field: 'forestPercent' })).toEqual(201)
   })
 
   it('allows copying values only for empty odp', () => {
