@@ -1,14 +1,14 @@
-import * as RelativeDate from './dates'
+import { TFunction } from 'i18next'
 
-const i18nMock = {
-  t: (id: any) => {
-    return id
-  },
+import { Dates } from './dates'
+
+const t: TFunction = (id) => {
+  return id
 }
 
 describe('Relative date tests: ', () => {
   test('Returns null if input null', () => {
-    const relativeDate = RelativeDate.getRelativeDate(null, {})
+    const relativeDate = Dates.getRelativeDate(null, t)
     expect(relativeDate).toBeNull()
   })
 
@@ -16,7 +16,7 @@ describe('Relative date tests: ', () => {
     const currentDate = new Date()
     const futureDate = new Date().setDate(currentDate.getDate() + 1)
 
-    const relativeDate = RelativeDate.getRelativeDate(futureDate, i18nMock)
+    const relativeDate = Dates.getRelativeDate(futureDate, t)
 
     expect(relativeDate).toEqual('time.aMomentAgo')
   })

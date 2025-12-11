@@ -1,3 +1,5 @@
+import { Mock, vi } from 'vitest'
+
 import { Areas } from 'meta/area/areas'
 import { Country } from 'meta/area/country'
 import { CountryIso } from 'meta/area/countryIso'
@@ -9,8 +11,8 @@ import { RoleName } from 'meta/user/role/name'
 import { User } from 'meta/user/user'
 import { Users } from 'meta/user/users'
 
-jest.mock('meta/area/areas')
-jest.mock('meta/user/users')
+vi.mock('meta/area/areas')
+vi.mock('meta/user/users')
 
 describe('canViewReview', () => {
   const mockSection: Section = { uuid: 'section1' } as Section
@@ -20,7 +22,7 @@ describe('canViewReview', () => {
   let mockCycle: Cycle
 
   beforeEach(() => {
-    jest.resetAllMocks()
+    vi.resetAllMocks()
 
     mockUser = { id: 1 } as User
     mockCountry = {
@@ -29,14 +31,14 @@ describe('canViewReview', () => {
       lastEdit: '2024-03-12 09:53:02.9951',
     } as Country
     mockCycle = { uuid: '2020' } as Cycle
-    ;(Areas.isISOCountry as jest.Mock).mockReturnValue(true)
-    ;(Areas.getStatus as jest.Mock).mockReturnValue(CountryStatus.review)
-    ;(Users.isAdministrator as jest.Mock).mockReturnValue(false)
-    ;(Users.isReviewer as jest.Mock).mockReturnValue(false)
-    ;(Users.isNationalCorrespondent as jest.Mock).mockReturnValue(false)
-    ;(Users.isAlternateNationalCorrespondent as jest.Mock).mockReturnValue(false)
-    ;(Users.isCollaborator as jest.Mock).mockReturnValue(false)
-    ;(Users.getRole as jest.Mock).mockReturnValue({ role: RoleName.VIEWER })
+    ;(Areas.isISOCountry as Mock).mockReturnValue(true)
+    ;(Areas.getStatus as Mock).mockReturnValue(CountryStatus.review)
+    ;(Users.isAdministrator as Mock).mockReturnValue(false)
+    ;(Users.isReviewer as Mock).mockReturnValue(false)
+    ;(Users.isNationalCorrespondent as Mock).mockReturnValue(false)
+    ;(Users.isAlternateNationalCorrespondent as Mock).mockReturnValue(false)
+    ;(Users.isCollaborator as Mock).mockReturnValue(false)
+    ;(Users.getRole as Mock).mockReturnValue({ role: RoleName.VIEWER })
   })
 
   test('should return false when country is null', () => {
@@ -52,7 +54,7 @@ describe('canViewReview', () => {
   })
 
   test('should return false when country is not an ISO country', () => {
-    ;(Areas.isISOCountry as jest.Mock).mockReturnValue(false)
+    ;(Areas.isISOCountry as Mock).mockReturnValue(false)
     expect(canViewReview({ country: mockCountry, section: mockSection, user: mockUser, cycle: mockCycle })).toBe(false)
   })
 
@@ -62,14 +64,14 @@ describe('canViewReview', () => {
     ['national correspondent', 'isNationalCorrespondent', RoleName.NATIONAL_CORRESPONDENT],
     ['alternate national correspondent', 'isAlternateNationalCorrespondent', RoleName.ALTERNATE_NATIONAL_CORRESPONDENT],
   ])('should return true for %s in review status', (_, roleFn, roleName) => {
-    ;(Users[roleFn as keyof typeof Users] as jest.Mock).mockReturnValue(true)
-    ;(Users.getRole as jest.Mock).mockReturnValue({ role: roleName })
+    ;(Users[roleFn as keyof typeof Users] as Mock).mockReturnValue(true)
+    ;(Users.getRole as Mock).mockReturnValue({ role: roleName })
     expect(canViewReview({ country: mockCountry, section: mockSection, user: mockUser, cycle: mockCycle })).toBe(true)
   })
 
   test('should return true for collaborator in review status with proper permissions', () => {
-    ;(Users.isCollaborator as jest.Mock).mockReturnValue(true)
-    ;(Users.getRole as jest.Mock).mockReturnValue({
+    ;(Users.isCollaborator as Mock).mockReturnValue(true)
+    ;(Users.getRole as Mock).mockReturnValue({
       role: RoleName.COLLABORATOR,
       permissions: {
         tableData: ['all'],
@@ -85,8 +87,8 @@ describe('canViewReview', () => {
     ['specific section', { tableData: [mockSection.uuid], descriptions: [mockSection.uuid] }, true],
     ['different section', { tableData: ['differentSection'], descriptions: ['differentSection'] }, false],
   ])('should return %s for collaborator with %s permission', (_, permissions, expected) => {
-    ;(Users.isCollaborator as jest.Mock).mockReturnValue(true)
-    ;(Users.getRole as jest.Mock).mockReturnValue({
+    ;(Users.isCollaborator as Mock).mockReturnValue(true)
+    ;(Users.getRole as Mock).mockReturnValue({
       role: RoleName.COLLABORATOR,
       permissions,
     })
@@ -96,8 +98,8 @@ describe('canViewReview', () => {
   })
 
   test('should return false for collaborator without specific section permission', () => {
-    ;(Users.isCollaborator as jest.Mock).mockReturnValue(true)
-    ;(Users.getRole as jest.Mock).mockReturnValue({
+    ;(Users.isCollaborator as Mock).mockReturnValue(true)
+    ;(Users.getRole as Mock).mockReturnValue({
       role: RoleName.COLLABORATOR,
       permissions: {
         tableData: ['section1'],
@@ -112,8 +114,8 @@ describe('canViewReview', () => {
 
   test('should return true for admin when country status is accepted', () => {
     const mockCountryNotInReview = { ...mockCountry, props: { status: CountryStatus.accepted } }
-    ;(Users.isAdministrator as jest.Mock).mockReturnValue(true)
-    ;(Users.getRole as jest.Mock).mockReturnValue({ role: RoleName.ADMINISTRATOR })
+    ;(Users.isAdministrator as Mock).mockReturnValue(true)
+    ;(Users.getRole as Mock).mockReturnValue({ role: RoleName.ADMINISTRATOR })
     expect(
       canViewReview({
         country: mockCountryNotInReview as Country,

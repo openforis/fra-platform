@@ -1,0 +1,33 @@
+#! /bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# ignored paths, separate with |
+IGNORED_PATHS="node_modules|src/server/proxy"
+
+# disable exit on error to capture output
+set +e
+# note we redirect stderror (@) output together with stdout (1) (2>&1)
+# use --incremental to cache results between runs
+tsc_output=$(yarn tsc --noEmit --incremental 2>&1)
+tsc_exit_code=$?
+# enable eone
+set -e
+
+# check if exit code 0 (success)
+if [ $tsc_exit_code -eq 0 ]; then
+  echo "Pre-push hook passed"
+  exit 0
+fi
+
+filtered_output=$(echo "$tsc_output" | grep -v -E "$IGNORED_PATHS")
+
+if [ -n "$filtered_output" ]; then
+  echo "Please, fix the following errors:"
+  echo "$filtered_output"
+  # Disabled for now:
+  # exit 1
+  exit 0
+fi
+
+echo "Pre-push hook passed"
+exit 0

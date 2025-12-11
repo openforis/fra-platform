@@ -38,3 +38,6 @@ src/tools/csvNodeImport/panEuropean
 
 #Data export
 src/tools/db/fixtures/
+
+#tsc cache
+tsconfig.tsbuildinfo

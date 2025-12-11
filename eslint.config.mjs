@@ -76,7 +76,10 @@ export default defineConfig([
       'global-require': 'error',
       'import/extensions': ['error', 'ignorePackages', { js: 'never', jsx: 'never', ts: 'never', tsx: 'never' }],
       'import/no-dynamic-require': 'error',
-      'import/no-extraneous-dependencies': ['error', { devDependencies: ['src/test/**/*.ts'] }], // allow using devDependencies (vs dependencies) in test files
+      'import/no-extraneous-dependencies': [
+        'error',
+        { devDependencies: ['src/test/**/*.ts', 'vite.config.ts', 'vitest.*.config.ts', '**/?(*.)+(test).ts'] },
+      ],
       'import/order': 'off',
       'import/prefer-default-export': 'off',
       'lines-between-class-members': ['error', 'always', { exceptAfterSingleLine: true }],
@@ -183,13 +186,6 @@ export default defineConfig([
     },
   },
 
-  // vite.config disable "ESLint: 'dependency-name' should be listed in the project's dependencies, not devDependencies."
-  {
-    files: ['vite.config.ts'],
-    rules: {
-      'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
-    },
-  },
   // Prettier integration
   eslintPluginPrettierRecommended,
   {
