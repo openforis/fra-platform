@@ -1,16 +1,15 @@
 import { useMemo } from 'react'
 import { TFunction, useTranslation } from 'react-i18next'
-
 import * as Diff from 'diff'
 import { Change } from 'diff'
-import { Numbers } from 'utils/numbers'
-import { Objects } from 'utils/objects'
 
 import { Col, ColType } from 'meta/assessment/col'
 import { Cols } from 'meta/assessment/cols'
 import { Cycle } from 'meta/assessment/cycle'
 import { NodeValue } from 'meta/assessment/node'
 import { Row } from 'meta/assessment/row'
+import { Numbers } from 'utils/numbers'
+import { Objects } from 'utils/objects'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
 
@@ -34,7 +33,7 @@ const _formatSelectValue = (nodeValue: NodeValue, col: Col, cycle: Cycle, t: TFu
     return raw
   }
 
-  const getLabel = (value: string) => {
+  const getLabel = (value: string): string => {
     const optionProps = options.find((option) => option.name === value)
     return optionProps ? Cols.getSelectOptionLabel(optionProps, t, labelKeyPrefix) : value
   }
@@ -76,6 +75,6 @@ export const useChanges = (props: Props): Returned => {
     const textA = _formatValue({ nodeValue: nodeValueA, isNumeric, row, col, cycle, t })
     const textB = _formatValue({ nodeValue: nodeValueB, isNumeric, row, col, cycle, t })
 
-    return Diff.diffLines(textA, textB, { ignoreCase: false })
+    return Diff.diffLines(textA, textB)
   }, [col, cycle, isNumeric, nodeValueA, nodeValueB, row, t])
 }
