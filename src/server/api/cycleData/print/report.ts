@@ -1,13 +1,14 @@
 import { Response } from 'express'
-import puppeteer, { PDFOptions } from 'puppeteer'
-import { Objects } from 'utils/objects'
-import { Promises } from 'utils/promises'
+import puppeteer, { Page, PDFOptions } from 'puppeteer'
 
 import { CountryRequest } from 'meta/api/request/country'
 import { Lang } from 'meta/lang'
+import { Objects } from 'utils/objects'
+import { Promises } from 'utils/promises'
 
 import { AreaController } from 'server/controller/area'
 import { CycleDataController } from 'server/controller/cycleData'
+import { Buffers } from 'server/utils/buffers'
 import Requests from 'server/utils/requests'
 import { Responses } from 'server/utils/responses'
 
@@ -23,7 +24,7 @@ const pdfOptions: PDFOptions = {
   scale: 0.7,
 }
 
-const buildPdf = async (req: Request): Promise<Buffer> => {
+const buildPdf = async (req: Request): ReturnType<Page['pdf']> => {
   const { assessmentName, countryIso, cycleName, lang, onlyTables } = req.query
 
   const browser = await puppeteer.launch({ headless: true })
@@ -45,7 +46,7 @@ const buildPdf = async (req: Request): Promise<Buffer> => {
   return pdf
 }
 
-const getPdf = async (req: Request, fileName: string): Promise<Buffer> => {
+const getPdf = async (req: Request, fileName: string): ReturnType<Page['pdf']> => {
   const { countryIso, force } = req.query
 
   const { assessment, cycle } = req.context
@@ -57,10 +58,10 @@ const getPdf = async (req: Request, fileName: string): Promise<Buffer> => {
   const countryCycleLastUpdate = country?.lastUpdate
 
   if (Objects.isEmpty(cachedPdfInfo)) {
-    const pdfBuffer = await buildPdf(req)
-    await CycleDataController.Report.create({ assessment, buffer: pdfBuffer, countryIso, cycle, fileName })
+    const bufferView = await buildPdf(req)
+    await CycleDataController.Report.create({ assessment, bufferView, countryIso, cycle, fileName })
 
-    return pdfBuffer
+    return bufferView
   }
 
   const shouldRefreshCache =
@@ -69,10 +70,10 @@ const getPdf = async (req: Request, fileName: string): Promise<Buffer> => {
     force === 'true'
 
   if (shouldRefreshCache) {
-    const pdfBuffer = await buildPdf(req)
-    await CycleDataController.Report.updateFile({ assessment, buffer: pdfBuffer, countryIso, cycle, fileName })
+    const bufferView = await buildPdf(req)
+    await CycleDataController.Report.updateFile({ assessment, bufferView, countryIso, cycle, fileName })
 
-    return pdfBuffer
+    return bufferView
   }
 
   // Convert Readable to Buffer
@@ -91,9 +92,9 @@ export const report = async (req: Request, res: Response): Promise<void> => {
 
     const tables = onlyTables === 'true' ? '_tables' : ''
     const fileName = `${assessmentName}_${cycleName}_${countryIso}_${lang}${tables}.pdf`
-    const pdf = await getPdf(req, fileName)
+    const bufferView = await getPdf(req, fileName)
 
-    Responses.sendFile(res, fileName, pdf)
+    Responses.sendFile(res, fileName, Buffers.fromBufferView({ bufferView }))
   } catch (e) {
     Requests.sendErr(res, e)
   }

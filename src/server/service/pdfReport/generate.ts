@@ -1,6 +1,5 @@
 import { createI18nPromise } from 'i18n/i18nFactory'
-import puppeteer, { PDFOptions, PuppeteerLaunchOptions } from 'puppeteer'
-import { Promises } from 'utils/promises'
+import puppeteer, { LaunchOptions, Page, PDFOptions } from 'puppeteer'
 
 import { Areas } from 'meta/area/areas'
 import { CountryIso } from 'meta/area/countryIso'
@@ -8,6 +7,7 @@ import { AssessmentName } from 'meta/assessment/assessment'
 import { Assessments } from 'meta/assessment/assessments'
 import { CycleName } from 'meta/assessment/cycle'
 import { Lang } from 'meta/lang'
+import { Promises } from 'utils/promises'
 
 import { ProcessEnv } from 'server/utils'
 import { Logger } from 'server/utils/logger'
@@ -49,9 +49,9 @@ const pdfOptions: PDFOptions = {
 
 // Pass --debug to open the browser window and wait for Enter before closing
 const debug = process.argv.includes('--debug')
-const browserOptions: PuppeteerLaunchOptions = debug ? { headless: false, defaultViewport: null } : { headless: true }
+const browserOptions: LaunchOptions = debug ? { headless: false, defaultViewport: null } : { headless: true }
 
-export const generate = async (props: Props): Promise<Buffer> => {
+export const generate = async (props: Props): ReturnType<Page['pdf']> => {
   const { appUri, assessmentName, cookies, countryIso, cycleName, lang, onlyTables } = { ...defaultProps, ...props }
   const { t } = await createI18nPromise(lang)
   const browser = await puppeteer.launch(browserOptions)
@@ -77,7 +77,7 @@ export const generate = async (props: Props): Promise<Buffer> => {
   const url = `${appUri}${path}?${params.toString()}`
 
   await Promises.each(Object.entries(cookies), ([name, value]) => {
-    page.setCookie({ name, value: value.toString(), url })
+    browser.setCookie({ name, value: value.toString(), domain: appUri })
   })
 
   await page.goto(url, { waitUntil: 'networkidle0', timeout: 0 })

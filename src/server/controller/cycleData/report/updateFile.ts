@@ -13,7 +13,7 @@ import { bufferToPdfMulterFile } from './utils'
 
 type Props = {
   assessment: Assessment
-  buffer: Buffer
+  bufferView: ArrayBufferView
   countryIso: CountryIso
   cycle: Cycle
   fileName: string
@@ -25,13 +25,13 @@ type Returned = {
 }
 
 export const updateFile = async (props: Props): Promise<Returned> => {
-  const { assessment, buffer, countryIso, cycle, fileName } = props
+  const { assessment, bufferView, countryIso, cycle, fileName } = props
 
   return DB.tx(async (t: BaseProtocol) => {
     const getRepositoryItemProps = { assessment, countryIso, cycle, fileName }
     const repositoryItem = await RepositoryRepository.getOne(getRepositoryItemProps, t)
 
-    const pdfMulterFile = bufferToPdfMulterFile({ buffer, fileName })
+    const pdfMulterFile = bufferToPdfMulterFile({ bufferView, fileName })
     const newFile = await FileRepository.create({ fileName: pdfMulterFile.originalname }, t)
     const { uuid: key } = newFile
     const body = pdfMulterFile.buffer

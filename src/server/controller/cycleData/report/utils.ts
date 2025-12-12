@@ -1,12 +1,16 @@
+import { Buffers } from 'server/utils/buffers'
+
 type BufferToPdfMulterFileProps = {
-  buffer: Buffer
+  bufferView: ArrayBufferView
   fileName: string
 }
 
 export const bufferToPdfMulterFile = (props: BufferToPdfMulterFileProps): Express.Multer.File => {
-  const { buffer, fileName } = props
+  const { bufferView, fileName } = props
 
-  const multerPdfFile: Express.Multer.File = {
+  const buffer = Buffers.fromBufferView({ bufferView })
+
+  return {
     buffer,
     destination: null,
     encoding: 'base64',
@@ -18,6 +22,4 @@ export const bufferToPdfMulterFile = (props: BufferToPdfMulterFileProps): Expres
     size: buffer.length,
     stream: null,
   }
-
-  return multerPdfFile
 }
