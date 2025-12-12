@@ -22,6 +22,8 @@
   "copyLink": "Copy link",
   "countries": "Countries",
   "countriesAreas": "Countries / Areas",
+  "countriesAreas_one": "{{count}} Country / Area",
+  "countriesAreas_other": "{{count}} Countries / Areas",
   "country": "Country",
   "countryCode": "Country code",
   "csvAllTables": "CSV All Tables",
