@@ -42,7 +42,7 @@ const digOnlyClassDataOutOfOdp = (rowCount: number, odp: OriginalDataPoint): Arr
   digOnlyCertainFieldsOutOfOdp(rowCount, odp, ['name', 'definition'])
 
 describe('OriginalDataPoint paste test:', () => {
-  it('Pastes national classes and definitions', () => {
+  test('Pastes national classes and definitions', () => {
     const expected = [
       { name: 'Closed forest', definition: 'Closed def' },
       { name: 'Open forest', definition: 'Open def' },
@@ -52,7 +52,7 @@ describe('OriginalDataPoint paste test:', () => {
     expect(nationalClassInfo).toEqual(expected)
   })
 
-  it('Pastes to second row and column (nc definitions)', () => {
+  test('Pastes to second row and column (nc definitions)', () => {
     const result = handlePaste(
       ncColumns,
       () => true,
@@ -70,7 +70,7 @@ describe('OriginalDataPoint paste test:', () => {
     expect(digOnlyClassDataOutOfOdp(3, result.updatedOdp)).toEqual(expected)
   })
 
-  it('Skips rows which are not valid for certain table (and are not visible either in the UI', () => {
+  test('Skips rows which are not valid for certain table (and are not visible either in the UI', () => {
     const otherLandCharacteristicsCols = [
       { name: 'otherLandPalmsPercent', type: 'integer' },
       { name: 'otherLandTreeOrchardsPercent', type: 'integer' },

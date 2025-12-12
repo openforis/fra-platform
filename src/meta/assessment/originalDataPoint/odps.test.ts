@@ -8,7 +8,7 @@ const countryIso = 'ATL' as CountryIso
 const t = Numbers.toBigNumber
 
 describe('OriginalDataPoint test:', () => {
-  it('calculates correct total forest amount', () => {
+  test('calculates correct total forest amount', () => {
     const originalDataPoint: OriginalDataPoint = {
       id: 1,
       comments: {},
@@ -24,7 +24,7 @@ describe('OriginalDataPoint test:', () => {
     expect(ODPs.calcTotalFieldArea({ originalDataPoint, field: 'forestPercent' })).toEqual(t(200.0))
   })
 
-  it('allows copying values only for empty odp', () => {
+  test('allows copying values only for empty odp', () => {
     const originalDataPoint: OriginalDataPoint = {
       id: 1,
       comments: {},
@@ -35,7 +35,7 @@ describe('OriginalDataPoint test:', () => {
     expect(ODPs.canCopyPreviousValues(originalDataPoint)).toEqual(true)
   })
 
-  it('disallows copying of values if odp has named national classes', () => {
+  test('disallows copying of values if odp has named national classes', () => {
     const originalDataPoint: OriginalDataPoint = {
       id: 1,
       comments: {},

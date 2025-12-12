@@ -1,13 +1,12 @@
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Objects } from 'utils/objects'
-
 import { CountryIso } from 'meta/area/countryIso'
 import { Labels } from 'meta/assessment/labels'
 import { Table } from 'meta/assessment/table'
 import { PieChart, PieChartData } from 'meta/chart/pie'
 import { RecordAssessmentDatas } from 'meta/data/recordDatas'
+import { Objects } from 'utils/objects'
 
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { DashboardCSVData } from 'client/components/Dashboard/ButtonDataExport/ButtonDataExport'
@@ -31,12 +30,14 @@ export const usePieChartData = (table: Table, chart: PieChart): Returned => {
   return useMemo<Returned>((): Returned => {
     if (Objects.isEmpty(tableData)) return { data: [], csvData: [] }
 
-    const data = chart.cells.map((cell) => {
-      return {
-        ...cell,
-        value: parseFloat(tableData[cell.columnName][cell.variableName].raw),
-      }
-    })
+    const data = chart.cells
+      .map((cell) => {
+        return {
+          ...cell,
+          value: parseFloat(tableData[cell.columnName][cell.variableName].raw),
+        }
+      })
+      .sort((d1, d2) => d2.value - d1.value)
 
     const csvData = data.map((pieData) => {
       const { columnName, label, unit, value } = pieData

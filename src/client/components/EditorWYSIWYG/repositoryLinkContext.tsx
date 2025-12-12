@@ -1,6 +1,5 @@
 import { createContext, Dispatch, SetStateAction, useContext } from 'react'
-
-import type { IControlType, IJodit } from 'jodit/types'
+import type { IControlType, IJodit } from 'jodit/esm/types'
 
 import { RepositoryItem } from 'meta/cycleData/repository/item'
 

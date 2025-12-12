@@ -26,7 +26,7 @@ export default (): void => {
       user = await UserController.getOne({ email: userMockTest.email })
     })
 
-    it('Create new Message topic adding a Message', async () => {
+    test('Create new Message topic adding a Message', async () => {
       const { message: createdMessage } = await MessageCenterController.addMessage({
         message: 'This is a test!',
         user,

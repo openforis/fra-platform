@@ -32,7 +32,7 @@ export default (): void => {
       testContext.user = await UserController.getOne({ email: userMockTest.email })
     })
 
-    it('Invite new user as Collaborator', async () => {
+    test('Invite new user as Collaborator', async () => {
       const { assessment, cycle, user } = testContext
       const { user: invitedUser, userInvitation } = await UserController.invite({
         assessment,
@@ -73,7 +73,7 @@ export default (): void => {
       expect(acceptedUser.roles[0].role).toBe(RoleName.COLLABORATOR)
     })
 
-    it('Invite the user as National Correspondent to a country', async () => {
+    test('Invite the user as National Correspondent to a country', async () => {
       const { assessment, cycle, user } = testContext
       const { user: invitedUser, userInvitation } = await UserController.invite({
         assessment,
@@ -107,7 +107,7 @@ export default (): void => {
       expect(filteredRoles.length).toBe(1)
     })
 
-    it('Invite the user as Reviewer to the same country', async () => {
+    test('Invite the user as Reviewer to the same country', async () => {
       const { assessment, cycle, user } = testContext
       // invite same userA as Reviewer to X02
       // verify Controller throws exception since user has a pending invitation for X02 already
@@ -128,7 +128,7 @@ export default (): void => {
       ).rejects.toThrowError('error.userInvitation.userAlreadyRoleInCountry')
     })
 
-    it('User accept invitation as National Correspondant', async () => {
+    test('User accept invitation as National Correspondant', async () => {
       const { assessment, cycle, userInvitation } = testContext
       const { user } = await UserController.findByInvitation({ invitationUuid: userInvitation.uuid })
 

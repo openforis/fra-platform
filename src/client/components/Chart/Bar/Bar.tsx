@@ -1,7 +1,6 @@
 import './Bar.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-
 import {
   Bar as BarComponent,
   BarChart,
@@ -12,12 +11,13 @@ import {
   XAxis,
   YAxis,
 } from 'recharts'
+import { ImplicitLabelType } from 'recharts/types/component/Label'
 
 import { Labels } from 'meta/assessment/labels'
 import { BarChart as BarChartType, BarChartData } from 'meta/chart/bar'
 
-import { cursor } from '../utils/cursor'
-import Tooltip from './Tooltip'
+import Tooltip from 'client/components/Chart/Bar/Tooltip'
+import { cursor } from 'client/components/Chart/utils/cursor'
 
 type Props = {
   data: BarChartData
@@ -33,18 +33,14 @@ const Bar: React.FC<Props> = (props) => {
   const { t } = useTranslation()
   const { chart, data, showLabels = true, showLegend = true, stacked } = props
 
-  let yAxisLabel
-  let xAxisLabel
+  let yAxisLabel: ImplicitLabelType
+  let xAxisLabel: ImplicitLabelType
 
   if (showLabels) {
-    yAxisLabel = {
-      angle: -90,
-      dx: -SPACING / 2,
-      position: 'insideLeft',
-      value: Labels.getLabel({ label: chart.yAxis?.label, t }),
-    }
-
-    xAxisLabel = { value: Labels.getLabel({ label: chart.xAxis?.label, t }), position: 'insideBottom', offset: -10 }
+    const valueY = Labels.getLabel({ label: chart.yAxis?.label, t })
+    const valueX = Labels.getLabel({ label: chart.xAxis?.label, t })
+    yAxisLabel = { angle: -90, dx: -SPACING / 2, position: 'insideLeft', value: valueY }
+    xAxisLabel = { value: valueX, position: 'insideBottom', offset: -10 }
   }
 
   return (

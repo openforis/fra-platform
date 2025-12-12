@@ -1,13 +1,13 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-
-import { TooltipProps } from 'recharts'
+import { NameType, ValueType } from 'recharts/types/component/DefaultTooltipContent'
+import { TooltipContentProps } from 'recharts/types/component/Tooltip'
 
 import { Labels } from 'meta/assessment/labels'
 
 import TooltipContent from 'client/components/Chart/TooltipContent'
 
-const Tooltip: React.FC<TooltipProps<never, never> & { totalValue: number }> = (props) => {
+const Tooltip: React.FC<TooltipContentProps<ValueType, NameType> & { totalValue: number }> = (props) => {
   const { payload, totalValue } = props
   const { t } = useTranslation()
 

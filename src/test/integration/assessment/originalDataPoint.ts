@@ -31,7 +31,7 @@ export default (): void => {
       user = await UserController.getOne({ email: userMockTest.email })
     })
 
-    it('Create new Original data point', async () => {
+    test('Create new Original data point', async () => {
       const createdOriginalDataPoint = await CycleDataController.createOriginalDataPoint({
         assessment,
         cycle,
@@ -99,7 +99,7 @@ export default (): void => {
     //   expect(removedOriginalDataPoint).toHaveProperty('id')
     // })
 
-    it('Get not existing Original data point', async () => {
+    test('Get not existing Original data point', async () => {
       await expect(
         CycleDataController.getOriginalDataPoint({
           assessment,
