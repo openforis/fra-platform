@@ -11,7 +11,7 @@ export type GeoMapState = {
 
 export const initialState: GeoMapState = {
   options: {
-    mapTypeId: 'roadmap' as google.maps.MapTypeId,
+    mapTypeId: 'satellite' as google.maps.MapTypeId,
     maxZoom: 15,
     minZoom: 3,
     zoom: 6,
