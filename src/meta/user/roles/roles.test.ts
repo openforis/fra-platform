@@ -34,33 +34,33 @@ describe('UserRoles - getLastRole', () => {
     uuid: '1',
   } as Assessment
 
-  it('returns undefined when user is undefined', () => {
+  test('returns undefined when user is undefined', () => {
     const result = UserRoles.getLastRole({ user: undefined as unknown as User })
     expect(result).toBeUndefined()
   })
 
-  it('returns undefined when user has no roles', () => {
+  test('returns undefined when user has no roles', () => {
     const result = UserRoles.getLastRole({ user: { ...mockUser, roles: undefined } })
     expect(result).toBeUndefined()
   })
 
-  it('returns single role when user has only one role', () => {
+  test('returns single role when user has only one role', () => {
     const userWithOneRole = { ...mockUser, roles: [mockUser.roles[0]] }
     const result = UserRoles.getLastRole({ user: userWithOneRole })
     expect(result).toEqual(mockUser.roles[0])
   })
 
-  it('returns most recent role when no assessment is specified', () => {
+  test('returns most recent role when no assessment is specified', () => {
     const result = UserRoles.getLastRole({ user: mockUser })
     expect(result).toEqual(mockUser.roles[2])
   })
 
-  it('returns most recent role for specific assessment', () => {
+  test('returns most recent role for specific assessment', () => {
     const result = UserRoles.getLastRole({ user: mockUser, assessment: mockAssessment })
     expect(result).toEqual(mockUser.roles[1])
   })
 
-  it('handles roles without createdAt dates', () => {
+  test('handles roles without createdAt dates', () => {
     const userWithMixedDates = {
       ...mockUser,
       roles: [

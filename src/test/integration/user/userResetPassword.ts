@@ -27,7 +27,7 @@ export default (): void => {
       user = await UserController.getOne({ email: userMockTest.email })
     })
 
-    it('Send change password request', async () => {
+    test('Send change password request', async () => {
       const resetPasswordRequest = await UserController.createResetPassword({
         assessmentName: assessment.props.name,
         cycleName: cycle.name,
@@ -46,7 +46,7 @@ export default (): void => {
       expect(resetPasswordRequest.uuid).toBe(otherResetPasswordRequest.uuid)
     })
 
-    it('Change password', async () => {
+    test('Change password', async () => {
       const userResetPassword = await UserController.changePassword({
         email: user.email,
         password: userMockTestNewPassword,
@@ -58,7 +58,7 @@ export default (): void => {
       expect(userResetPassword.active).toBeFalsy()
     })
 
-    it('Verify changed password', async () => {
+    test('Verify changed password', async () => {
       const userAuthProviders = await UserProviderController.read<AuthProviderLocalProps>({
         user,
         provider: AuthProvider.local,
