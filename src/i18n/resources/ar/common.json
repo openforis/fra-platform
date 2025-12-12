@@ -22,6 +22,8 @@
   "copyLink": "نسخ الرابط",
   "countries": "البلدان",
   "countriesAreas": "البلدان / المناطق",
+  "countriesAreas_one": "{{count}} البلد / المنطقة",
+  "countriesAreas_other": "{{count}} بلدان / مناطق",
   "country": "البلد",
   "countryCode": "رمز البلد",
   "csvAllTables": "CSV جميع الجداول",

@@ -22,6 +22,8 @@
   "copyLink": "复制链接",
   "countries": "国家",
   "countriesAreas": "国家/地区",
+  "countriesAreas_one": "{{count}} 个国家/地区",
+  "countriesAreas_other": "{{count}} 个国家/地区",
   "country": "国家",
   "countryCode": "国家代码",
   "csvAllTables": "CSV 所有表",
