@@ -22,6 +22,8 @@
   "copyLink": "Копировать ссылку",
   "countries": "Страны",
   "countriesAreas": "Страны / Области",
+  "countriesAreas_one": "{{count}} Страна / Область",
+  "countriesAreas_other": "{{count}} Страны / Области",
   "country": "Страна",
   "countryCode": "Код страны",
   "csvAllTables": "CSV все таблицы",

@@ -22,6 +22,8 @@
   "copyLink": "Copiar enlace",
   "countries": "Países",
   "countriesAreas": "Países / Áreas",
+  "countriesAreas_one": "{{count}} País / Área",
+  "countriesAreas_other": "{{count}} Países / Áreas",
   "country": "País",
   "countryCode": "Código de país",
   "csvAllTables": "Todas las tablas CSV",
