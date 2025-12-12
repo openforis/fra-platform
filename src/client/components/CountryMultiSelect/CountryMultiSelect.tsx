@@ -57,7 +57,7 @@ const CountryMultiSelect: React.FC<Props> = (props) => {
         collapsibleGroups
         isMulti={isMulti}
         isOptionDisabled={isOptionDisabled}
-        multiLabelSummaryKey="admin.country"
+        multiLabelSummaryKey="common.countriesAreas"
         onChange={onChange}
         onMenuClose={onMenuClose}
         onMenuOpen={onMenuOpen}
