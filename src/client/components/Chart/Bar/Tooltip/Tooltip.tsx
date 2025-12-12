@@ -1,10 +1,10 @@
 import React from 'react'
-
-import { TooltipProps } from 'recharts'
+import { NameType, ValueType } from 'recharts/types/component/DefaultTooltipContent'
+import { ContentType } from 'recharts/types/component/Tooltip'
 
 import TooltipContent from 'client/components/Chart/TooltipContent'
 
-const Tooltip: React.FC<TooltipProps<never, never>> = (props) => {
+const Tooltip: ContentType<ValueType, NameType> = (props) => {
   const { payload } = props
 
   if (!(payload.length > 0)) {

@@ -1,11 +1,10 @@
 import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-
 import { Cell, Legend, Pie as PieComponent, PieChart, ResponsiveContainer, Tooltip as TooltipRecharts } from 'recharts'
-import { Numbers } from 'utils/numbers'
 
 import { Labels } from 'meta/assessment/labels'
 import { PieChartData } from 'meta/chart/pie'
+import { Numbers } from 'utils/numbers'
 
 import { cursor } from '../utils/cursor'
 import Tooltip from './Tooltip'
@@ -39,13 +38,16 @@ const Pie: React.FC<Props> = (props) => {
             />
           ))}
         </PieComponent>
-        <TooltipRecharts content={<Tooltip totalValue={totalValue} />} cursor={cursor} />
+        {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+        <TooltipRecharts content={(props) => <Tooltip {...props} totalValue={totalValue} />} cursor={cursor} />
         <Legend
           align="center"
-          // @ts-ignore
-          formatter={(value, entry: { payload: { percent: number } }): string => {
-            return `${value} (${Numbers.format(entry.payload.percent * 100, 0)}%)`
+          formatter={(_, entry): string => {
+            const { label, value } = entry.payload as PieChartData
+
+            return `${Labels.getLabel({ label, t })} (${Numbers.format((value / totalValue) * 100, 0)}%)`
           }}
+          itemSorter={null}
           layout="horizontal"
           verticalAlign="top"
         />
