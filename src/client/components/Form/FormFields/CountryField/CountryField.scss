@@ -1,4 +1,4 @@
-@import 'src/client/style/partials';
+@use 'src/client/style/partials' as *;
 
 .form-cell-field_country {
   height: $spacing-l;

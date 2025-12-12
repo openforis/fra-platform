@@ -1,6 +1,8 @@
 @use 'sass:color';
 
-@import 'src/client/style/partials';
+@use 'src/client/style/partials' as *;
+
+$border: 1px solid color.adjust($text-body, $lightness: -4%, $space: hsl);
 
 .tooltip-container {
   z-index: $z-index-tooltip;
@@ -73,8 +75,8 @@
       opacity: 0.95;
 
       .black-tooltip-arrow {
-        border-bottom: 1px solid darken($text-body, 4%);
-        border-right: 1px solid darken($text-body, 4%);
+        border-bottom: $border;
+        border-right: $border;
       }
     }
 
@@ -86,8 +88,8 @@
       opacity: 0.95;
 
       .white-tooltip-arrow {
-        border-bottom: 1px solid darken($text-body, 4%);
-        border-right: 1px solid darken($text-body, 4%);
+        border-bottom: $border;
+        border-right: $border;
       }
     }
   }

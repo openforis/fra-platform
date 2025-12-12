@@ -1,6 +1,6 @@
 @use 'sass:color';
 
-@import 'src/client/style/partials';
+@use 'src/client/style/partials' as *;
 
 $colorError: color.adjust($ui-destructive, $lightness: -3%, $space: hsl);
 

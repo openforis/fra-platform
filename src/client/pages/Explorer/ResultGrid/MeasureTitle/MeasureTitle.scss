@@ -1,4 +1,4 @@
-@import 'src/client/style/partials';
+@use 'src/client/style/partials' as *;
 
 .measure-title {
   min-width: 160px;

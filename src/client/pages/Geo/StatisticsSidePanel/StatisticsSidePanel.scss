@@ -1,4 +1,4 @@
-@import 'src/client/style/partials';
+@use 'src/client/style/partials' as *;
 
 $side-panel-notch-height: $spacing-xxl;
 $side-panel-notch-width: $spacing-s;

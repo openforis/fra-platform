@@ -1,4 +1,5 @@
-@import 'src/client/style/partials';
+@use 'sass:math';
+@use 'src/client/style/partials' as *;
 
 @mixin mixin-header-menu-item {
   padding: 20px 12px;
@@ -114,7 +115,7 @@
 .app-header__separator {
   display: none;
   background-color: $text-body;
-  height: $ui-app-header-height / 2;
+  height: math.div($ui-app-header-height, 2);
   width: 1px;
 
   @include min-width($laptop) {

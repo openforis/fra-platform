@@ -1,6 +1,5 @@
 @use 'sass:color';
-
-@import 'spacing';
+@use 'spacing' as *;
 
 $font-family-1: 'Open Sans', sans-serif;
 $font-family-report-body: 'Signika', sans-serif;

@@ -1,4 +1,4 @@
-@import 'src/client/style/partials';
+@use 'src/client/style/partials' as *;
 
 .user-counts__container {
   padding: $spacing-xs $spacing-xxs $spacing-xxs;

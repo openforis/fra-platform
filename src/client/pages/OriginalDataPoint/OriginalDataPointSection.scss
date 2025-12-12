@@ -1,4 +1,4 @@
-@import 'src/client/style/partials';
+@use 'src/client/style/partials' as *;
 
 .odp__section {
   margin: $spacing-m 0;

@@ -1,4 +1,4 @@
-@import 'src/client/style/partials';
+@use 'src/client/style/partials' as *;
 
 $alignment-values: (start, end, center, stretch, baseline, first, last, space-between, space-around, space-evenly);
 $alignment-properties: (align-items, align-content, justify-items, justify-content);

@@ -1,5 +1,5 @@
-@import 'config';
-@import 'spacing';
+@use 'config' as *;
+@use 'spacing' as *;
 
 @mixin nav-bg($color) {
   -webkit-box-shadow: inset 0 0 50px 10px $color;

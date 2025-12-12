@@ -1,4 +1,4 @@
-@import 'src/client/style/partials';
+@use 'src/client/style/partials' as *;
 
 .layer-controls {
   grid-row-gap: $spacing-xxxs;

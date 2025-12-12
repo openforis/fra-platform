@@ -1,4 +1,4 @@
-@import 'src/client/style/_partials/config';
+@use 'src/client/style/partials' as *;
 
 button {
   color: $text-body;

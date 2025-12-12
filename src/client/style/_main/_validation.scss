@@ -1,4 +1,4 @@
-// Validation
+@use 'src/client/style/partials' as *;
 
 @mixin mixin-validation-error() {
   background-color: rgba($ui-destructive, 0.1) !important;

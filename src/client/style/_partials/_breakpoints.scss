@@ -1,3 +1,6 @@
+@use 'sass:map';
+@use 'sass:meta';
+
 $desktop: 'desktop';
 $mobile: 'mobile';
 $mobile-landscape: 'mobile-landscape';
@@ -27,8 +30,8 @@ $breakpoints: (
 ) !default;
 
 @mixin min-width($breakpoint) {
-  @if map-has-key($breakpoints, $breakpoint) {
-    @media #{inspect(map-get($breakpoints, $breakpoint))} {
+  @if map.has-key($breakpoints, $breakpoint) {
+    @media #{meta.inspect(map.get($breakpoints, $breakpoint))} {
       @content;
     }
   }

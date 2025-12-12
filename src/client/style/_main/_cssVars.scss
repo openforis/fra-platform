@@ -1,4 +1,4 @@
-@import 'src/client/style/_partials/_config';
+@use 'src/client/style/partials' as *;
 
 :root {
   --ui-accent: $ui-accent;

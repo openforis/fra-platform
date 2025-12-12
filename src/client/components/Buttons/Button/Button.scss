@@ -1,6 +1,6 @@
 @use 'sass:color';
 
-@import 'src/client/style/partials';
+@use 'src/client/style/partials' as *;
 
 .button {
   align-items: center;
@@ -166,7 +166,7 @@
 }
 
 .button__type-transparent {
-  @include withTheme(transparent, 0, $ui-black-map);
+  @include withTheme(transparent, 0%, $ui-black-map);
   border-color: transparent;
 
   &:hover {

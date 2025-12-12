@@ -1,7 +1,7 @@
 @use 'sass:color';
 
 @use 'sass:math';
-@import 'src/client/style/partials';
+@use 'src/client/style/partials' as *;
 
 $color: color.adjust($ui-bg, $lightness: -20%, $space: hsl);
 

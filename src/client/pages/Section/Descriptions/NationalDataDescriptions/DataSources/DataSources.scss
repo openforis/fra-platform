@@ -1,6 +1,6 @@
 @use 'sass:color';
 
-@import 'src/client/style/partials';
+@use 'src/client/style/partials' as *;
 
 .data-sources__readOnlyText {
   background-color: color.adjust($ui-bg, $lightness: 2%, $space: hsl);

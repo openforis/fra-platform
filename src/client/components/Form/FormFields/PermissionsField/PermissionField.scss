@@ -1,5 +1,5 @@
 @use 'sass:color';
-@import 'src/client/style/partials';
+@use 'src/client/style/partials' as *;
 
 .form-field-permissions {
   gap: $spacing-xs;
