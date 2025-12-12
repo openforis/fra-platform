@@ -1,4 +1,4 @@
-import fastCsv from 'fast-csv'
+import * as fastCsv from 'fast-csv'
 import fs from 'node:fs'
 
 const OPTS = {
