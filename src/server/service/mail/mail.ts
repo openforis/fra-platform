@@ -28,8 +28,6 @@ const mailTransport = nodemailer.createTransport({
   },
 })
 
-// @ts-ignore
-
 const emailDefaults = {
   from: '"FRA Platform" <fra-platform@fao.org>',
 }
