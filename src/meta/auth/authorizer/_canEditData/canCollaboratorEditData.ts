@@ -1,8 +1,7 @@
-import { Objects } from 'utils/objects'
-
 import { CanEditDataProps } from 'meta/auth/authorizer/_canEditData/types'
 import { Collaborator, CollaboratorEditPropertyType } from 'meta/user/role/collaborator'
 import { Users } from 'meta/user/users'
+import { Objects } from 'utils/objects'
 
 export const canCollaboratorEditData = (props: CanEditDataProps): boolean => {
   const { country, cycle, permission, section, user } = props

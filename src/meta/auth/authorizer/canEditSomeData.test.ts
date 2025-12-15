@@ -34,6 +34,7 @@ describe('canEditSomeData', () => {
     ;(Users.isNationalCorrespondent as Mock).mockReturnValue(false)
     ;(Users.isAlternateNationalCorrespondent as Mock).mockReturnValue(false)
     ;(Users.isCollaborator as Mock).mockReturnValue(false)
+    ;(Users.isRegionalFocalPoint as Mock).mockReturnValue(false)
     ;(Users.isReviewer as Mock).mockReturnValue(false)
     ;(Users.getRole as Mock).mockReturnValue({ role: RoleName.VIEWER })
   })
@@ -200,6 +201,22 @@ describe('canEditSomeData', () => {
 
         expect(canEditSomeData({ cycle: mockCycle, country: mockCountry, user: mockUser })).toBe(true)
       })
+    })
+  })
+
+  describe('Regional focal point', () => {
+    beforeEach(() => {
+      ;(Users.isRegionalFocalPoint as Mock).mockReturnValue(true)
+    })
+
+    test.each([
+      [true, CountryStatus.notStarted],
+      [true, CountryStatus.editing],
+      [true, CountryStatus.review],
+      [false, CountryStatus.accepted],
+    ])('should return %s when country status is %s', (expected, status) => {
+      ;(Areas.getStatus as Mock).mockReturnValue(status)
+      expect(canEditSomeData({ cycle: mockCycle, country: mockCountry, user: mockUser })).toBe(expected)
     })
   })
 
