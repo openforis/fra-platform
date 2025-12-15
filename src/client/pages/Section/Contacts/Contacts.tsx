@@ -7,7 +7,7 @@ import { Labels } from 'meta/assessment/labels'
 import { Users } from 'meta/user/users'
 
 import { useCountry } from 'client/store/area/hooks/country'
-import { useIsEditTableDataEnabled } from 'client/store/user/hooks/auth'
+import { useCanEditDescription } from 'client/store/user/hooks/auth'
 import { useUser } from 'client/store/user/hooks/user'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { useIsPrintRoute } from 'client/hooks/routes'
@@ -31,7 +31,7 @@ const Contacts: React.FC = () => {
   const country = useCountry(countryIso)
   const { print } = useIsPrintRoute()
   const { sectionName } = useSectionContext()
-  const editEnabled = useIsEditTableDataEnabled(sectionName)
+  const editEnabled = useCanEditDescription({ sectionName })
   const contacts = useContactsData()
   const columns = useColumns()
   const fields = useFields()

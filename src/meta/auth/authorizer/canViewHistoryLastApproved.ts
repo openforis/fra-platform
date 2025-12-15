@@ -20,8 +20,9 @@ export const canViewHistoryLastApproved = (props: Props): boolean => {
 
   const status = Areas.getStatus(country)
 
-  return (
-    (Users.isAdministrator(user) || Users.isReviewer(user, country?.countryIso, cycle)) &&
-    status !== CountryStatus.notStarted
-  )
+  const isAdmin = Users.isAdministrator(user)
+  const isRegionalFocalPoint = Users.isRegionalFocalPoint(user, country?.countryIso, cycle)
+  const isReviewer = Users.isReviewer(user, country?.countryIso, cycle)
+
+  return (isAdmin || isRegionalFocalPoint || isReviewer) && status !== CountryStatus.notStarted
 }

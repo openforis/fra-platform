@@ -21,6 +21,7 @@ export type AuthProps = {
 const allowedStatuses = [CountryStatus.notStarted, CountryStatus.editing, CountryStatus.review]
 
 const allowedRolesWithoutPermissions = [
+  RoleName.REGIONAL_FOCAL_POINT,
   RoleName.REVIEWER,
   RoleName.NATIONAL_CORRESPONDENT,
   RoleName.ALTERNATE_NATIONAL_CORRESPONDENT,

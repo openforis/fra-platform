@@ -31,5 +31,8 @@ export const canViewHistory = (props: Props): boolean => {
 
   if (Users.isAdministrator(user)) return true
 
-  return Users.isReviewer(user, country.countryIso, cycle) && canEditSomeData(props)
+  const isRegionalFocalPoint = Users.isRegionalFocalPoint(user, country.countryIso, cycle)
+  const isReviewer = Users.isReviewer(user, country.countryIso, cycle)
+
+  return (isRegionalFocalPoint || isReviewer) && canEditSomeData(props)
 }
