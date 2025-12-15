@@ -1,5 +1,4 @@
-@import 'src/client/style/partials';
-@import 'src/client/styles/fraTable';
+@use 'src/client/style/partials' as *;
 
 @mixin mixin-odp-list-cell($padding: 12px, $align: left) {
   border-bottom: $ui-thin-border;

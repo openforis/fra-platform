@@ -1,11 +1,11 @@
 @use 'sass:color';
-
-@import 'src/client/style/partials';
+@use 'sass:math';
+@use 'src/client/style/partials' as *;
 
 .nav-header__sep-container {
   display: grid;
   grid-template-columns: $spacing-xl 1fr $spacing-xl - 4;
-  grid-auto-rows: $spacing-s/2;
+  grid-auto-rows: math.div($spacing-s, 2);
   margin: -6px 0;
 
   .btn-toggle {

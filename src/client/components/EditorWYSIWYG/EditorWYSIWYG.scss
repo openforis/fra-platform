@@ -1,5 +1,5 @@
-@import 'src/client/style/partials';
-@import 'src/client/components/Links/Link/Link';
+@use 'src/client/style/partials' as *;
+@use 'src/client/components/Links/Link/Link' as *;
 
 $pdf-guideline-width: 1202px;
 

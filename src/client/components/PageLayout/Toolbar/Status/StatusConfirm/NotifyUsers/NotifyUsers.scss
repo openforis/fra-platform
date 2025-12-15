@@ -1,4 +1,4 @@
-@import 'src/client/style/partials';
+@use 'src/client/style/partials' as *;
 
 .assessment-status-confirm__notify-users {
   .table-dont-notify-users {

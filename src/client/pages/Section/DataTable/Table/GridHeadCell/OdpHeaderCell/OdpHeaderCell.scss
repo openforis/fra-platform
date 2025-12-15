@@ -1,4 +1,4 @@
-@import 'src/client/style/partials';
+@use 'src/client/style/partials' as *;
 
 .table-grid__odp-cell.header {
   background-color: rgba($ui-accent, 10%);

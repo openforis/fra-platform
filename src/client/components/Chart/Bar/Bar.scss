@@ -1,4 +1,4 @@
-@import 'src/client/style/partials';
+@use 'src/client/style/partials' as *;
 
 .recharts-label,
 .recharts-cartesian-axis-tick-value {

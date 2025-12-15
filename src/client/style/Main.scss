@@ -1,15 +1,15 @@
 //===WARNING====
 // DO NOT IMPORT SPECIFIC COMPONENT STYLES HERE,
 // ONLY MORE GENERAL STUFF USED IN MANY PLACES
+@use 'src/client/style/partials' as *;
+@use '_main/buttons';
+@use '_main/cssVars';
+@use '_main/rtl';
+@use '_main/validation';
+@use 'src/client/styles/fraTable';
+@use 'react-loading-skeleton/dist/skeleton.css';
+
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap');
-@import 'src/client/style/partials';
-//Import all common application styles
-@import '_main/buttons';
-@import '_main/cssVars';
-@import '_main/rtl';
-@import '_main/validation';
-@import 'src/client/styles/fraTable';
-@import 'react-loading-skeleton/dist/skeleton.css';
 
 *,
 *:before,

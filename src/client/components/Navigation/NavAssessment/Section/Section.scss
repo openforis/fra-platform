@@ -1,4 +1,4 @@
-@import 'src/client/style/partials';
+@use 'src/client/style/partials' as *;
 
 .nav-section__header {
   @include mixin-nav-secondary-base(8px, true);

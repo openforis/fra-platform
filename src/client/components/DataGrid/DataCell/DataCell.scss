@@ -1,11 +1,13 @@
-@import 'src/client/style/partials';
+@use 'src/client/style/partials' as *;
 
 $border-editable: 1px dashed $ui-edit-border-color;
 $border: 1px solid $ui-border;
 $highlight-border-shadow: 0 0 4px rgba($ui-accent, 50%);
 $highlight-left: inset 1px 0 $ui-accent;
 $highlight-right: inset -1px 0 $ui-accent;
-$highlight-top-bottom: inset 0 1px $ui-accent, inset 0 -1px $ui-accent;
+$highlight-top-bottom:
+  inset 0 1px $ui-accent,
+  inset 0 -1px $ui-accent;
 
 .data-cell {
   border-left: $border;

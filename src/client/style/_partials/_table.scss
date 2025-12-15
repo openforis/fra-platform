@@ -1,5 +1,5 @@
-@import 'config';
-@import 'spacing';
+@use 'config' as *;
+@use 'spacing' as *;
 
 @mixin mixin-table-cell($fontWeight, $align, $padding, $cell: false) {
   border: $ui-thin-border;

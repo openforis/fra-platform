@@ -1,7 +1,7 @@
-@import 'src/client/style/_partials/_config';
-
-// Mixins
-
+@use 'src/client/style/partials' as *;
+/**
+@deprecated
+ */
 @mixin mixin-table-cell($fontWeight, $align, $padding, $cell: false) {
   border: $ui-thin-border;
   font-weight: $fontWeight;

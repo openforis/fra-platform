@@ -1,6 +1,6 @@
 @use 'sass:color';
 
-@import 'src/client/style/partials';
+@use 'src/client/style/partials' as *;
 
 $btnHeight: $spacing-s;
 

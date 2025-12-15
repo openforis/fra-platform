@@ -1,4 +1,4 @@
-@import 'src/client/style/partials';
+@use 'src/client/style/partials' as *;
 
 .select__toggleAllOption-checkbox {
   accent-color: $ui-accent;

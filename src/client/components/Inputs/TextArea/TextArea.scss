@@ -1,5 +1,5 @@
-@import 'src/client/style/partials';
-@import 'src/client/components/Inputs/InputText/InputText';
+@use 'src/client/style/partials' as *;
+@use 'src/client/components/Inputs/InputText/InputText' as *;
 
 .textarea,
 .textarea-print {

@@ -1,6 +1,6 @@
 @use 'sass:color';
 
-@import 'src/client/style/partials';
+@use 'src/client/style/partials' as *;
 
 $color-private: color.adjust($ui-destructive, $lightness: 2.5%, $space: hsl);
 $color-public: color.adjust($ui-status-accepted, $lightness: -10%, $space: hsl);

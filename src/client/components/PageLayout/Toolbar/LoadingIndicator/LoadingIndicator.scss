@@ -1,9 +1,10 @@
-@import 'src/client/style/partials';
+@use 'sass:math';
+@use 'src/client/style/partials' as *;
 
 $loader-size: 24px;
-$check-height: $loader-size / 2;
-$check-width: $check-height / 2;
-$check-left: ($loader-size / 6 + $loader-size / 12);
+$check-height: math.div($loader-size, 2);
+$check-width: math.div($check-height, 2);
+$check-left: (math.div($loader-size, 6) + math.div($loader-size, 12));
 $check-thickness: 3px;
 $pending-color: $ui-accent;
 $check-color: $ui-status-approval;

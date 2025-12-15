@@ -1,6 +1,6 @@
 @use 'sass:color';
-
-@import 'src/client/style/partials';
+@use 'sass:math';
+@use 'src/client/style/partials' as *;
 
 .input-range {
   align-items: center;
@@ -50,7 +50,7 @@
       border-radius: 2px;
       border: $thumb-border-width solid $ui-accent;
       height: $thumb-height;
-      margin-top: ($track-height/2)- ($thumb-height/2);
+      margin-top: (math.div($track-height, 2))- (math.div($thumb-height, 2));
       width: $thumb-height;
     }
     /***** Firefox *****/

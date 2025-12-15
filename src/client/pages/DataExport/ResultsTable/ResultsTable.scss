@@ -1,4 +1,4 @@
-@import 'src/client/style/partials';
+@use 'src/client/style/partials' as *;
 
 .results-table {
   width: calc(100vw - #{$spacing-m});
