@@ -46,7 +46,7 @@ export type FieldDefinition<FIELD_VALUES = FieldValues> = {
 export type FormDefinitionLabels = { submit: string }
 
 export type FormDefinition<FIELD_VALUES = FieldValues> = {
-  labels: FormDefinitionLabels
+  labels?: FormDefinitionLabels
   fields: Array<FieldDefinition<FIELD_VALUES>>
 }
 
@@ -58,7 +58,7 @@ export type FormProps<FIELD_VALUES = FieldValues> = {
   formDefinition: FormDefinition<FIELD_VALUES>
   hideCancel?: boolean
   method: ReactHookFormProps<unknown>['method']
-  onCancel: () => void
+  onCancel?: () => void
   onSuccess?: (values: FIELD_VALUES, response: Response) => void | Promise<void>
   validationSchema?: FormValidationSchema
 }

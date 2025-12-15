@@ -4,8 +4,8 @@ import { useParams } from 'react-router'
 import { ApiEndPoint } from 'meta/api/endpoint'
 
 import Form from 'client/components/Form'
-import { useOnCancel } from 'client/pages/Login/ChangePassword/ChangePasswordForm/hooks/useOnCancel'
-import { Data } from 'client/pages/Login/ChangePassword/hooks/useData'
+import { useOnCancel } from 'client/pages/LoginDeprecated/ChangePassword/ChangePasswordForm/hooks/useOnCancel'
+import { Data } from 'client/pages/LoginDeprecated/ChangePassword/hooks/useData'
 
 import { useFormDefinition } from './hooks/useFormDefinition'
 import { useOnSuccess } from './hooks/useOnSuccess'

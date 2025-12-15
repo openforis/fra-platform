@@ -7,11 +7,11 @@ import { Routes } from 'meta/routes/routes'
 import { useInjectSlice } from 'client/store/hooks'
 import { LoginSlice } from 'client/store/login/slice'
 import Partners from 'client/pages/CycleHome/Partners'
-import ChangePassword from 'client/pages/Login/ChangePassword'
-import Invitation from 'client/pages/Login/Invitation'
-import InvitationLocal from 'client/pages/Login/InvitationLocal'
-import LoginForm from 'client/pages/Login/LoginForm'
-import ResetPassword from 'client/pages/Login/ResetPassword'
+import ChangePassword from 'client/pages/LoginDeprecated/ChangePassword'
+import Invitation from 'client/pages/LoginDeprecated/Invitation'
+import InvitationLocal from 'client/pages/LoginDeprecated/InvitationLocal'
+import LoginForm from 'client/pages/LoginDeprecated/LoginForm'
+import ResetPassword from 'client/pages/LoginDeprecated/ResetPassword'
 
 const Login: React.FC = () => {
   useInjectSlice(LoginSlice)

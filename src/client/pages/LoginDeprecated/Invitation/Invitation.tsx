@@ -14,8 +14,8 @@ import { useInvitation } from 'client/store/login/hooks/invitation'
 import { useUser } from 'client/store/user/hooks/user'
 import { useSearchParams } from 'client/hooks/searchParams'
 import Button, { ButtonSize } from 'client/components/Buttons/Button'
-import AcceptInvitationButtons from 'client/pages/Login/components/AcceptInvitationButtons'
-import AccessLimited from 'client/pages/Login/components/AccessLimited'
+import AcceptInvitationButtons from 'client/pages/LoginDeprecated/components/AcceptInvitationButtons'
+import AccessLimited from 'client/pages/LoginDeprecated/components/AccessLimited'
 
 import { useInitInvitation } from './hooks/useInitInvitation'
 
