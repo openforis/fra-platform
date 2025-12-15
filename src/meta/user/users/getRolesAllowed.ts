@@ -22,6 +22,15 @@ export const getRolesAllowedToEdit = (props: { user: User; countryIso: AreaCode;
       RoleName.VIEWER,
     ]
   }
+  if (isRegionalFocalPoint(user, countryIso, cycle)) {
+    return [
+      RoleName.REVIEWER,
+      RoleName.NATIONAL_CORRESPONDENT,
+      RoleName.ALTERNATE_NATIONAL_CORRESPONDENT,
+      RoleName.COLLABORATOR,
+      RoleName.VIEWER,
+    ]
+  }
   if (isNationalCorrespondent(user, countryIso, cycle) || isAlternateNationalCorrespondent(user, countryIso, cycle)) {
     return [RoleName.COLLABORATOR, RoleName.VIEWER]
   }
@@ -31,7 +40,7 @@ export const getRolesAllowedToEdit = (props: { user: User; countryIso: AreaCode;
 export const getRolesAllowedToView = (props: { user: User; countryIso: AreaCode; cycle: Cycle }): Array<RoleName> => {
   const { countryIso, cycle, user } = props
 
-  if (isReviewer(user, countryIso, cycle) || isRegionalFocalPoint(user, countryIso, cycle)) {
+  if (isReviewer(user, countryIso, cycle)) {
     return [
       RoleName.NATIONAL_CORRESPONDENT,
       RoleName.ALTERNATE_NATIONAL_CORRESPONDENT,
