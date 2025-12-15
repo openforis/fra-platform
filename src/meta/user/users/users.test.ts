@@ -8,7 +8,7 @@ const countryIso = 'ATL' as CountryIso
 const cycleUuid = '123-XXX-123'
 
 const getUserInfo = (countryIso: CountryIso, role: RoleName): User =>
-  ({ id: 1, roles: [{ countryIso, role, cycleUuid }] } as User)
+  ({ id: 1, roles: [{ countryIso, role, cycleUuid }] }) as User
 const cycle = { uuid: cycleUuid } as Cycle
 
 describe('User allowance tests:', () => {
@@ -18,7 +18,7 @@ describe('User allowance tests:', () => {
       user: getUserInfo(countryIso, RoleName.ADMINISTRATOR),
       cycle,
     })
-    expect(res).toHaveLength(5)
+    expect(res).toHaveLength(6)
   })
 
   test('National Correspondent can edit', () => {
