@@ -55,7 +55,7 @@ const AcceptInvitationButtons: React.FC = () => {
       />
 
       <a
-        className="link-forgot-password"
+        className="btn-help"
         href={videoResources[0].url[i18n.resolvedLanguage] ?? videoResources[0].url.en}
         rel="noreferrer"
         target="_blank"
@@ -73,7 +73,7 @@ const AcceptInvitationButtons: React.FC = () => {
       </a>
 
       <a
-        className="link-forgot-password"
+        className="btn-help"
         href={videoResources[1].url[i18n.resolvedLanguage] ?? videoResources[1].url.en}
         rel="noreferrer"
         target="_blank"

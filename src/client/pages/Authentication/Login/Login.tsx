@@ -18,7 +18,7 @@ const Login: React.FC = () => {
     <div className="login-form">
       <FormLogin />
       <Link
-        className="link-forgot-password"
+        className="btn-help"
         to={Routes.LoginResetPassword.generatePath({ assessmentName, cycleName })}
         type="button"
       >
