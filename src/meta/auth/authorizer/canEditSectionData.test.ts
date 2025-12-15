@@ -43,6 +43,7 @@ describe('canEditSectionData', () => {
     ;(Users.isNationalCorrespondent as Mock).mockReturnValue(false)
     ;(Users.isAlternateNationalCorrespondent as Mock).mockReturnValue(false)
     ;(Users.isCollaborator as Mock).mockReturnValue(false)
+    ;(Users.isRegionalFocalPoint as Mock).mockReturnValue(false)
     ;(Users.isReviewer as Mock).mockReturnValue(false)
     ;(Users.getRole as Mock).mockReturnValue({ role: RoleName.VIEWER })
   })
@@ -365,6 +366,59 @@ describe('canEditSectionData', () => {
           ).toBe(true)
         })
       })
+    })
+  })
+
+  describe('Regional focal point permissions', () => {
+    beforeEach(() => {
+      ;(Users.isRegionalFocalPoint as Mock).mockReturnValue(true)
+      ;(Users.getRole as Mock).mockReturnValue({ role: RoleName.REGIONAL_FOCAL_POINT })
+    })
+
+    test.each([
+      [true, CountryStatus.notStarted],
+      [true, CountryStatus.editing],
+      [true, CountryStatus.review],
+      [false, CountryStatus.accepted],
+      [false, CountryStatus.published],
+    ])('should return %s when country status is %s', (expected, status) => {
+      ;(Areas.getStatus as Mock).mockReturnValue(status)
+
+      expect(
+        canEditSectionData({
+          country: mockCountry,
+          cycle: mockCycle,
+          section: mockSection,
+          user: mockUser,
+        })
+      ).toBe(expected)
+    })
+  })
+
+  describe('Regional focal point description permissions', () => {
+    beforeEach(() => {
+      ;(Users.isRegionalFocalPoint as Mock).mockReturnValue(true)
+      ;(Users.getRole as Mock).mockReturnValue({ role: RoleName.REGIONAL_FOCAL_POINT })
+    })
+
+    test.each([
+      [true, CountryStatus.notStarted],
+      [true, CountryStatus.editing],
+      [true, CountryStatus.review],
+      [true, CountryStatus.accepted],
+      [true, CountryStatus.published],
+    ])('should return %s when country status is %s', (expected, status) => {
+      ;(Areas.getStatus as Mock).mockReturnValue(status)
+
+      expect(
+        canEditSectionData({
+          country: mockCountry,
+          cycle: mockCycle,
+          section: mockSection,
+          user: mockUser,
+          permission: CollaboratorEditPropertyType.descriptions,
+        })
+      ).toBe(expected)
     })
   })
 

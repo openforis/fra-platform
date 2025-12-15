@@ -3,6 +3,7 @@ import { CountryStatus } from 'meta/area/countryStatus'
 import { areCanEditDataPropsValid } from 'meta/auth/authorizer/_canEditData/areCanEditDataPropsValid'
 import { canCollaboratorEditData } from 'meta/auth/authorizer/_canEditData/canCollaboratorEditData'
 import { CanEditDataProps } from 'meta/auth/authorizer/_canEditData/types'
+import { CollaboratorEditPropertyType } from 'meta/user/role/collaborator'
 import { Users } from 'meta/user/users'
 
 export const canUserEditData = (props: CanEditDataProps): boolean => {
@@ -16,11 +17,15 @@ export const canUserEditData = (props: CanEditDataProps): boolean => {
     const isCollaborator = Users.isCollaborator(user, countryIso, cycle)
     const isAlternateNationalCorrespondent = Users.isAlternateNationalCorrespondent(user, countryIso, cycle)
     const isNationalCorrespondent = Users.isNationalCorrespondent(user, countryIso, cycle)
+    const isRegionalFocalPoint = Users.isRegionalFocalPoint(user, countryIso, cycle)
     const isReviewer = Users.isReviewer(user, countryIso, cycle)
 
     if (isAdministrator) return true
 
-    if (isReviewer) {
+    // RFC can always edit descriptions. instead can edit data like Reviewer
+    if (isRegionalFocalPoint && permission === CollaboratorEditPropertyType.descriptions) return true
+
+    if (isRegionalFocalPoint || isReviewer) {
       return [CountryStatus.notStarted, CountryStatus.editing, CountryStatus.review].includes(status)
     }
 

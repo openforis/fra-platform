@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Contact } from 'meta/cycleData/contact/contact'
 
-import { useIsEditTableDataEnabled } from 'client/store/user/hooks/auth'
+import { useCanEditDescription } from 'client/store/user/hooks/auth'
 import { DataCell, DataRow } from 'client/components/DataGrid'
 import CellNodeExt from 'client/components/TableNodeExt/CellNodeExt'
 import { Columns, Fields } from 'client/pages/Section/Contacts/types'
@@ -23,7 +23,7 @@ const ContactRow: React.FC<Props> = (props) => {
 
   const { sectionName } = useSectionContext()
   const actions = useRowActions({ contact })
-  const editEnabled = useIsEditTableDataEnabled(sectionName)
+  const editEnabled = useCanEditDescription({ sectionName })
   const onChange = useOnChange()
 
   const { readOnly } = contact.props
