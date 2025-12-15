@@ -6,7 +6,8 @@ import { Topics } from 'meta/messageCenter/topics'
 import { Routes } from 'meta/routes/routes'
 import { Users } from 'meta/user/users'
 
-import { useIsEditTableDataEnabled } from 'client/store/user/hooks/auth'
+import { useCycle } from 'client/store/meta/hooks/cycles'
+import { useCanEditDescription } from 'client/store/user/hooks/auth'
 import { useUser } from 'client/store/user/hooks/user'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { DataRowAction, DataRowActionType } from 'client/components/DataGrid'
@@ -24,11 +25,15 @@ export const useRowActions = (props: Props): Returned => {
   const { contact } = props
 
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams()
+  const cycle = useCycle()
   const user = useUser()
   const deleteContact = useDeleteContact({ contact })
   const { sectionName } = useSectionContext()
-  const editEnabled = useIsEditTableDataEnabled(sectionName)
-  const isAdmin = Users.isAdministrator(user)
+  const editEnabled = useCanEditDescription({ sectionName })
+
+  const roleName = contact[ContactField.role].value.raw
+  const rolesAllowedToEdit = Users.getRolesAllowedToEdit({ user, countryIso, cycle })
+  const canEditUser = contact.props.userId && rolesAllowedToEdit.includes(roleName)
 
   return useMemo<Returned>(() => {
     const { readOnly } = contact.props
@@ -38,7 +43,7 @@ export const useRowActions = (props: Props): Returned => {
       return actions
     }
 
-    if (isAdmin && contact.props.userId) {
+    if (canEditUser) {
       actions.push({
         type: DataRowActionType.EditLink,
         url: Routes.CountryUser.generatePath({
@@ -64,5 +69,5 @@ export const useRowActions = (props: Props): Returned => {
     }
 
     return actions
-  }, [assessmentName, contact, countryIso, cycleName, deleteContact, editEnabled, isAdmin])
+  }, [assessmentName, canEditUser, contact, countryIso, cycleName, deleteContact, editEnabled])
 }

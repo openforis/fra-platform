@@ -1,15 +1,14 @@
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Objects } from 'utils/objects'
-
 import { Contact } from 'meta/cycleData/contact/contact'
 import { ContactField } from 'meta/cycleData/contact/field'
 import { Contacts } from 'meta/cycleData/contacts'
 import { RoleName } from 'meta/user/role/name'
+import { Objects } from 'utils/objects'
 
 import { useContacts } from 'client/store/data/contacts/hooks/contacts'
-import { useIsEditTableDataEnabled } from 'client/store/user/hooks/auth'
+import { useCanEditDescription } from 'client/store/user/hooks/auth'
 import { useIsPrintRoute } from 'client/hooks/routes'
 import { useSectionContext } from 'client/pages/Section/context'
 
@@ -36,7 +35,7 @@ export const useContactsData = (): Returned => {
   const { print } = useIsPrintRoute()
   const contacts = useContacts()
   const { sectionName } = useSectionContext()
-  const editEnabled = useIsEditTableDataEnabled(sectionName)
+  const editEnabled = useCanEditDescription({ sectionName })
 
   return useMemo<Returned>(() => {
     const contactsReturn = [...contacts]
