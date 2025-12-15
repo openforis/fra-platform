@@ -24,6 +24,7 @@ type Returned = {
   layerKey: LayerKey
   mapId: string
   sectionKey: LayerSectionKey
+  tileUrl?: string
 }
 
 export const getLayerMapId = createAsyncThunk<Returned, Params, ThunkApiConfig>(
@@ -46,6 +47,6 @@ export const getLayerMapId = createAsyncThunk<Returned, Params, ThunkApiConfig>(
     const sectionLayers = sectionsMap[sectionKey].layers
     const body = _getLayerRequestBody(countryIso, layerKey, layerState, layersState, sectionLayers)
     const response = await axios.post(url, body)
-    return { layerKey, mapId: response.data.mapId, sectionKey }
+    return { layerKey, mapId: response.data.mapId, sectionKey, tileUrl: response.data.tileUrl }
   }
 )

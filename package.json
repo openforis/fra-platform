@@ -120,9 +120,9 @@
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.637.0",
-    "@google/earthengine": "^0.1.316",
-    "@googlemaps/js-api-loader": "^1.13.10",
-    "@googlemaps/react-wrapper": "^1.1.29",
+    "@google/earthengine": "^1.7.4",
+    "@googlemaps/js-api-loader": "^2.0.2",
+    "@googlemaps/react-wrapper": "^1.2.0",
     "@hookform/resolvers": "^5.1.1",
     "@jsep-plugin/object": "^1.2.2",
     "@reduxjs/toolkit": "^2.11.0",

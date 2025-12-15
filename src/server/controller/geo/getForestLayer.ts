@@ -41,8 +41,9 @@ export const getForestLayer = async (props: Props): Promise<LayerConfig> => {
 
   return {
     mapId: map.mapId,
-    year: asset.year,
-    scale: asset.metadata.scale,
     palette: style.palette,
+    scale: asset.metadata.scale,
+    tileUrl: map.tileUrl,
+    year: asset.year,
   }
 }

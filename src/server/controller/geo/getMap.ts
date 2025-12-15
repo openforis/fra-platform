@@ -14,6 +14,7 @@ type Props = {
 export const getMap = async (
   props: Props
 ): Promise<{
+  tileUrl: string
   mapId: string
 }> => {
   const { countryIso, image, style } = props
@@ -24,15 +25,7 @@ export const getMap = async (
     finalImage = image.clip(ftcCountry)
   }
 
-  return new Promise((resolve, reject) => {
-    finalImage.getMap(style, (mapProperties: any, err: any) => {
-      if (err) {
-        reject(err)
-        return
-      }
-      resolve({
-        mapId: mapProperties.mapid,
-      })
-    })
-  })
+  const map = await finalImage.getMap(style)
+
+  return { mapId: map.mapid, tileUrl: map.urlFormat }
 }

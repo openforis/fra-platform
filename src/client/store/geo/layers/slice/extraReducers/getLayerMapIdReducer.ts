@@ -1,8 +1,8 @@
 import { ActionReducerMapBuilder } from '@reduxjs/toolkit'
-import { Objects } from 'utils/objects'
 
 import { LayerKey } from 'meta/geo/layer/key'
 import { LayerSectionKey } from 'meta/geo/layer/sectionKey'
+import { Objects } from 'utils/objects'
 
 import { getLayerMapId } from 'client/store/geo/layers/actions/getLayerMapId'
 import { getAgreementLayerCacheKey } from 'client/store/geo/layers/slice/utils'
@@ -61,7 +61,7 @@ export const getLayerMapIdReducer = (builder: ActionReducerMapBuilder<GeoLayersS
   })
 
   builder.addCase(getLayerMapId.fulfilled, (state, { payload }) => {
-    const { layerKey, mapId = null, sectionKey } = payload
+    const { layerKey, mapId = null, sectionKey, tileUrl } = payload
     Objects.setInPath({ obj: state, path: [layerKey, 'status'], value: LayerFetchStatus.Ready })
     Objects.setInPath({ obj: state, path: [layerKey, 'mapId'], value: mapId })
 
@@ -73,7 +73,7 @@ export const getLayerMapIdReducer = (builder: ActionReducerMapBuilder<GeoLayersS
       layerState.opacity = 1
     }
     if (layerState.selected) {
-      mapController.addOrUpdateEarthEngineLayer(layerKey, mapId, layerState.opacity)
+      mapController.addOrUpdateEarthEngineLayer(layerKey, mapId, layerState.opacity, false, tileUrl)
     } else {
       mapController.removeLayer(layerKey)
     }
