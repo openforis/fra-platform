@@ -4,6 +4,7 @@ import { Link } from 'react-router'
 
 import { Routes } from 'meta/routes/routes'
 
+import { useCycleRouteParams } from 'client/hooks/routeParams'
 import ButtonGoogle from 'client/pages/Authentication/ButtonGoogle'
 import Divider from 'client/pages/Authentication/Divider'
 import FormLogin from 'client/pages/Authentication/FormLogin'
@@ -11,8 +12,7 @@ import FormLogin from 'client/pages/Authentication/FormLogin'
 const Login: React.FC = () => {
   const { t } = useTranslation()
 
-  const assessmentName = 'fra'
-  const cycleName = '2025'
+  const { assessmentName, cycleName } = useCycleRouteParams()
 
   return (
     <div className="login-form">
