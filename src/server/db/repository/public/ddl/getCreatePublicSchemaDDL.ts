@@ -80,7 +80,7 @@ const _getEnums = (): string => {
 
     do $$ begin
       if not exists (select 1 from pg_type where typname = 'user_role') then
-        create type user_role as enum ('ADMINISTRATOR', 'COLLABORATOR', 'NATIONAL_CORRESPONDENT', 'ALTERNATE_NATIONAL_CORRESPONDENT', 'REVIEWER', 'VIEWER');
+        create type user_role as enum ('ADMINISTRATOR', 'COLLABORATOR', 'NATIONAL_CORRESPONDENT', 'ALTERNATE_NATIONAL_CORRESPONDENT', 'REGIONAL_FOCAL_POINT', 'REVIEWER', 'VIEWER');
       end if;
     end $$;
     
