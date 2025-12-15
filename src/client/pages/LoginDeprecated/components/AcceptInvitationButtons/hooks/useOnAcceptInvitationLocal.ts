@@ -12,7 +12,7 @@ import { LoginActions } from 'client/store/login/actions'
 import { useInvitation } from 'client/store/login/hooks/invitation'
 import { AcceptInvitationFormState } from 'client/store/login/state'
 import { UserActions } from 'client/store/user/actions'
-import { isError, LoginValidator } from 'client/pages/Login/utils/LoginValidator'
+import { isError, LoginValidator } from 'client/pages/LoginDeprecated/utils/LoginValidator'
 
 type Props = {
   formData: AcceptInvitationFormState | undefined
