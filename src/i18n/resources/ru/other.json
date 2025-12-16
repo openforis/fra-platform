@@ -594,11 +594,11 @@
   "time": {
     "aMomentAgo": "минуту назад",
     "day_one": "{{count}} день назад",
-    "day_plural": "{{count}} несколько дней назад",
+    "day_other": "{{count}} несколько дней назад",
     "hour_one": "{{count}} час назад",
-    "hour_plural": "{{count}} несколько часов назад",
+    "hour_other": "{{count}} несколько часов назад",
     "week_one": "{{count}} неделю назад",
-    "week_plural": "{{count}} Несколько недель назад"
+    "week_other": "{{count}} Несколько недель назад"
   },
   "tutorial": {
     "collaboratorAdd": "Руководство пользователя платформы ОЛР — Как добавить сотрудника",
