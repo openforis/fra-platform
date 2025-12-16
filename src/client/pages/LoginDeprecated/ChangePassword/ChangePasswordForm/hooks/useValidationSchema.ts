@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { z } from 'zod'
 
 import { FormValidationSchema } from 'client/components/Form/types'
-import { emailValidationSchema, passwordValidationSchema } from 'client/pages/Login/validationSchemas'
+import { emailValidationSchema, passwordValidationSchema } from 'client/pages/LoginDeprecated/validationSchemas'
 
 export const useValidationSchema = (): FormValidationSchema => {
   const { t } = useTranslation()

@@ -14,7 +14,7 @@ import { LoginActions } from 'client/store/login/actions'
 import { useAcceptInvitationForm, useInvitation } from 'client/store/login/hooks/invitation'
 import { useUser } from 'client/store/user/hooks/user'
 import { useSearchParams } from 'client/hooks/searchParams'
-import { useInitInvitation } from 'client/pages/Login/Invitation/hooks/useInitInvitation'
+import { useInitInvitation } from 'client/pages/LoginDeprecated/Invitation/hooks/useInitInvitation'
 
 const InvitationLocal: React.FC = () => {
   const { t } = useTranslation()

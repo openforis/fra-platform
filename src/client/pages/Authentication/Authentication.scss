@@ -1,0 +1,88 @@
+@use 'sass:color';
+
+@use 'src/client/style/partials' as *;
+
+$login-height: 50vh;
+
+.login-view {
+  padding: unset;
+}
+
+.login {
+  min-height: $login-height;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-l 0;
+  position: relative;
+  background-color: $ui-bg;
+  border-bottom: $ui-thin-border;
+  background-image: url('/img/FRAPublPattern.svg');
+
+  a,
+  button {
+    transition: all 0.2s;
+    cursor: pointer;
+    outline: none;
+    text-decoration: none;
+  }
+
+  .button {
+    border-radius: 20px;
+    text-transform: unset;
+    width: 100%;
+    max-width: 400px;
+  }
+}
+
+.login__tucan {
+  position: absolute;
+  right: 20vw;
+  top: calc(100% - 62px);
+}
+
+.login-form {
+  display: grid;
+  justify-items: center;
+  grid-row-gap: $spacing-xs;
+
+  h3 {
+    text-align: center;
+  }
+
+  // Hide labels
+  .form-cell-label {
+    display: none;
+  }
+
+  .form-grid {
+    width: 460px;
+    grid-template-columns: 1fr !important;
+    grid-row-gap: 40px;
+    box-shadow: none;
+    padding: $spacing-m $spacing-s 0;
+  }
+
+  .data-cell {
+    border: none !important;
+  }
+
+  input[type='text'],
+  input[type='password'] {
+    padding: $spacing-xs $spacing-s;
+    text-align: center;
+    background-color: white;
+  }
+
+  input[type='text']:disabled {
+    background-color: $ui-bg-hover;
+  }
+
+  .btn-help {
+    color: $text-link;
+    border-bottom: 1px solid transparent;
+    &:hover {
+      border-bottom-color: rgba($text-link, 0.7);
+    }
+  }
+}
