@@ -593,12 +593,24 @@
   },
   "time": {
     "aMomentAgo": "قبل لحظة",
+    "day_few": "قبل {{count}} أيام",
+    "day_many": "قبل {{count}} يومًا",
     "day_one": "{{count}} قبل يوم",
     "day_other": "قبل {{count}} ايام",
+    "day_two": "قبل يومين",
+    "day_zero": "قبل {{count}} يوم",
+    "hour_few": "قبل {{count}} ساعات",
+    "hour_many": "قبل {{count}} ساعة",
     "hour_one": "{{count}} قبل ساعة",
     "hour_other": "قبل {{count}} ساعات",
+    "hour_two": "قبل ساعتين",
+    "hour_zero": "قبل {{count}} ساعة",
+    "week_few": "قبل {{count}} أسابيع",
+    "week_many": "قبل {{count}} أسبوعًا",
     "week_one": "{{count}} قبل أسبوع",
-    "week_other": "قبل {{count}} أسابيع"
+    "week_other": "قبل {{count}} أسابيع",
+    "week_two": "قبل أسبوعين",
+    "week_zero": "قبل {{count}} أسبوع"
   },
   "tutorial": {
     "collaboratorAdd": "البرنامج التعليمي لمنصة الفرا - كيفية إضافة شخص اخر للتعاون في ملئ التقارير",
