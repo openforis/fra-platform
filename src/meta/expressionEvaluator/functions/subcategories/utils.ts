@@ -1,8 +1,7 @@
-import { Numbers } from 'utils/numbers'
-import { Objects } from 'utils/objects'
-
 import { NodeValueValidationMessage } from 'meta/assessment/nodeValueValidation'
 import { Context } from 'meta/expressionEvaluator/context'
+import { Numbers } from 'utils/numbers'
+import { Objects } from 'utils/objects'
 
 type CategoryInfo = { labelKey: string; value?: string }
 
@@ -44,7 +43,7 @@ export const getValidationMessage = (
         parentLabel,
         parentValue: Numbers.format(Number(parentValue)),
         categoriesSum: Numbers.format(categoriesSum),
-        categoryLabels: categoryLabelKeys.map((labelKey) => t<string>(labelKey)).join(', '),
+        categoryLabels: categoryLabelKeys.map((labelKey) => t(labelKey)).join(', '),
       },
     },
   ]

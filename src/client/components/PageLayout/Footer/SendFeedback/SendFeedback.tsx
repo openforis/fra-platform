@@ -34,7 +34,7 @@ ${i18n.t('navigation.support.userAgent')}: ${navigator.userAgent}
 
   return (
     <a href={`mailto:fra@fao.org?subject=${subject}&body=${body.trim()}`} target="_top">
-      {i18n.t<string>('footer.sendFeedback')}
+      {i18n.t('footer.sendFeedback')}
     </a>
   )
 }

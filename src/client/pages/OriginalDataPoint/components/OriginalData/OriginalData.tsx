@@ -44,7 +44,7 @@ const OriginalData: React.FC<Props> = (props) => {
 
   return (
     <div>
-      <h3 className="subhead">{i18n.t<string>('nationalDataPoint.reclassificationLabel')}</h3>
+      <h3 className="subhead">{i18n.t('nationalDataPoint.reclassificationLabel')}</h3>
 
       <div className="odp__tab-controller">
         <NavLink
