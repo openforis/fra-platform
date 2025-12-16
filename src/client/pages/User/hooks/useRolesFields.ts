@@ -1,7 +1,5 @@
 import { useMemo } from 'react'
 
-import { Objects } from 'utils/objects'
-
 import { Areas } from 'meta/area/areas'
 import { CountryIso } from 'meta/area/countryIso'
 import { UserEditCountryForm } from 'meta/form/userEdit/form'
@@ -9,6 +7,7 @@ import { RoleName } from 'meta/user/role/name'
 import { UserRole } from 'meta/user/role/role'
 import { UserStatus } from 'meta/user/user'
 import { Users } from 'meta/user/users'
+import { Objects } from 'utils/objects'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useUser } from 'client/store/user/hooks/user'
@@ -19,6 +18,7 @@ import { PropsFormDefinition } from 'client/pages/User/hooks/types'
 type Returned = FormDefinition['fields']
 
 const rolesWithCountries = [
+  RoleName.REGIONAL_FOCAL_POINT,
   RoleName.REVIEWER,
   RoleName.NATIONAL_CORRESPONDENT,
   RoleName.ALTERNATE_NATIONAL_CORRESPONDENT,
@@ -91,7 +91,7 @@ export const useRolesFields = (props: PropsFormDefinition): Returned => {
               return [...acc, ...(value as Array<string>)]
             }, [])
           },
-          isDisabled: (values) => isAdminWatch(values) || isTargetDisabledWatch(values),
+          isDisabled: (values): boolean => isAdminWatch(values) || isTargetDisabledWatch(values),
           triggerFields,
         },
       }
