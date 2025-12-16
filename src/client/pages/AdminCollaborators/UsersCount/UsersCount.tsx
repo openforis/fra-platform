@@ -14,6 +14,7 @@ const UsersCount: TablePaginatedCounterComponent = () => {
 
   const roleNames = [
     RoleName.ADMINISTRATOR,
+    RoleName.REGIONAL_FOCAL_POINT,
     RoleName.REVIEWER,
     RoleName.NATIONAL_CORRESPONDENT,
     RoleName.ALTERNATE_NATIONAL_CORRESPONDENT,
