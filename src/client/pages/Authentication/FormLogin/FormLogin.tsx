@@ -1,25 +1,34 @@
 import React from 'react'
 
-import { ApiEndPoint } from 'meta/api/endpoint'
-
 import Form from 'client/components/Form'
+import { FormDefinition, FormProps } from 'client/components/Form/types'
 
 import { useFormDefinition } from './hooks/useFormDefinition'
-import { useOnSuccess } from './hooks/useOnSuccess'
+import { useOnCancel } from './hooks/useOnCancel'
 import { useValidationSchema } from './hooks/useValidationSchema'
 
-const FormLogin: React.FC = () => {
-  const formDefinition = useFormDefinition()
-  const validationSchema = useValidationSchema()
-  const onSuccess = useOnSuccess()
+interface FormLoginProps {
+  action: FormProps['action']
+  hideCancel?: FormProps['hideCancel']
+  labels?: FormDefinition['labels']
+  onSuccess: FormProps['onSuccess']
+  password?: boolean
+}
+
+const FormLogin: React.FC<FormLoginProps> = (props) => {
+  const { action, hideCancel = true, labels, onSuccess, password = true } = props
+
+  const formDefinition = useFormDefinition({ labels, password })
+  const validationSchema = useValidationSchema({ password })
+  const onCancel = useOnCancel()
 
   return (
     <div className="login-form">
       <Form
-        action={ApiEndPoint.Auth.login()}
+        action={action}
         formDefinition={formDefinition}
-        hideCancel
-        method="post"
+        hideCancel={hideCancel}
+        onCancel={onCancel}
         onSuccess={onSuccess}
         validationSchema={validationSchema}
       />
