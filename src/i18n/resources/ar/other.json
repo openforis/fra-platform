@@ -593,12 +593,12 @@
   },
   "time": {
     "aMomentAgo": "قبل لحظة",
-    "day": "{{count}} قبل يوم",
-    "day_plural": "قبل {{عدد}} ايام",
-    "hour": "{{count}} قبل ساعة",
-    "hour_plural": "قبل {{عدد}} ساعات",
-    "week": "{{count}} قبل أسبوع",
-    "week_plural": "قبل {{عدد}} أسابيع"
+    "day_one": "{{count}} قبل يوم",
+    "day_plural": "قبل {{count}} ايام",
+    "hour_one": "{{count}} قبل ساعة",
+    "hour_plural": "قبل {{count}} ساعات",
+    "week_one": "{{count}} قبل أسبوع",
+    "week_plural": "قبل {{count}} أسابيع"
   },
   "tutorial": {
     "collaboratorAdd": "البرنامج التعليمي لمنصة الفرا - كيفية إضافة شخص اخر للتعاون في ملئ التقارير",

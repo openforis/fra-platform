@@ -593,11 +593,11 @@
   },
   "time": {
     "aMomentAgo": "刚才",
-    "day": "{{count}} 天前",
+    "day_one": "{{count}} 天前",
     "day_plural": "{{count}}天以前",
-    "hour": "{{count}} 小时前",
+    "hour_one": "{{count}} 小时前",
     "hour_plural": "{{count}}小时前",
-    "week": "{{count}} 星期前",
+    "week_one": "{{count}} 星期前",
     "week_plural": "{{count}}周前"
   },
   "tutorial": {
