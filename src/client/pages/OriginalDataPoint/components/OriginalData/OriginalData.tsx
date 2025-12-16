@@ -37,14 +37,14 @@ const OriginalData: React.FC<Props> = (props) => {
   }
   const forestCharacteristics = { name: 'forestCharacteristics', anchor: '1b' }
 
-  const i18n = useTranslation()
+  const { t } = useTranslation()
   const countryIso = useCountryIso()
 
   const isExtentOfForestSection = sectionName === extentOfForest.name
 
   return (
     <div>
-      <h3 className="subhead">{i18n.t('nationalDataPoint.reclassificationLabel')}</h3>
+      <h3 className="subhead">{t('nationalDataPoint.reclassificationLabel')}</h3>
 
       <div className="odp__tab-controller">
         <NavLink
@@ -62,7 +62,7 @@ const OriginalData: React.FC<Props> = (props) => {
             sectionName: extentOfForest.name,
           })}
         >
-          {`${extentOfForest.anchor} ${i18n.t(
+          {`${extentOfForest.anchor} ${t(
             `nationalDataPoint.forestCategoriesLabel${cycle.name !== '2020' ? '2025' : ''}`
           )}`}
         </NavLink>
@@ -81,7 +81,7 @@ const OriginalData: React.FC<Props> = (props) => {
             sectionName: forestCharacteristics.name,
           })}
         >
-          {`${forestCharacteristics.anchor} ${i18n.t('nationalDataPoint.forestCharacteristics')}`}
+          {`${forestCharacteristics.anchor} ${t('nationalDataPoint.forestCharacteristics')}`}
         </NavLink>
       </div>
 

@@ -32,7 +32,7 @@ type TopicProps = {
 const Topic: React.FC<TopicProps> = (props) => {
   const { topic } = props
 
-  const { i18n } = useTranslation()
+  const { t } = useTranslation()
   const dispatch = useAppDispatch()
   const { countryIso, sectionName } = useSectionRouteParams<CountryIso>()
   const assessment = useAssessment()
@@ -142,10 +142,10 @@ const Topic: React.FC<TopicProps> = (props) => {
           <div className="topic__no-comments">
             <Icon className="icon-24" name="chat-46" />
             <br />
-            {i18n.t('review.noComments')}
+            {t('review.noComments')}
           </div>
         )}
-        {topic.loading && <div className="topic__loading">{i18n.t('review.loading')}...</div>}
+        {topic.loading && <div className="topic__loading">{t('review.loading')}...</div>}
       </div>
 
       <Footer topic={topic} />
