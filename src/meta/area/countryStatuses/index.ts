@@ -1,6 +1,4 @@
 // TODO: Rename in CountryStatusTransition
-import { Objects } from 'utils/objects'
-
 import { Areas } from 'meta/area/areas'
 import { Country } from 'meta/area/country'
 import { CountryStatus } from 'meta/area/countryStatus'
@@ -9,6 +7,7 @@ import { Cycles } from 'meta/assessment/cycles'
 import { RoleName } from 'meta/user/role/name'
 import { User } from 'meta/user/user'
 import { Users } from 'meta/user/users'
+import { Objects } from 'utils/objects'
 
 export type CountryStatusTransition = {
   next?: CountryStatus
@@ -30,7 +29,7 @@ const statusRolesAllowed: { [status in CountryStatus]?: Array<RoleName> } = {
     RoleName.NATIONAL_CORRESPONDENT,
     RoleName.ALTERNATE_NATIONAL_CORRESPONDENT,
   ],
-  [CountryStatus.review]: [RoleName.ADMINISTRATOR, RoleName.REVIEWER],
+  [CountryStatus.review]: [RoleName.ADMINISTRATOR, RoleName.REGIONAL_FOCAL_POINT, RoleName.REVIEWER],
   [CountryStatus.approval]: [RoleName.ADMINISTRATOR],
   [CountryStatus.accepted]: [RoleName.ADMINISTRATOR],
   [CountryStatus.published]: [RoleName.ADMINISTRATOR],
