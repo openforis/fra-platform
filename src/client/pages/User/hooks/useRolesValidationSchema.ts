@@ -1,13 +1,13 @@
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-
-import { Objects } from 'utils/objects'
 import { z } from 'zod'
 
 import { RoleName } from 'meta/user/role/name'
+import { Objects } from 'utils/objects'
 
 // Roles with one or more countries
 const countryRoles = [
+  RoleName.REGIONAL_FOCAL_POINT,
   RoleName.REVIEWER,
   RoleName.NATIONAL_CORRESPONDENT,
   RoleName.ALTERNATE_NATIONAL_CORRESPONDENT,
