@@ -1,7 +1,8 @@
 import { useMemo } from 'react'
-import { TFunction, useTranslation } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 import * as Diff from 'diff'
 import { Change } from 'diff'
+import type { TFunction } from 'i18next'
 
 import { Col, ColType } from 'meta/assessment/col'
 import { Cols } from 'meta/assessment/cols'
