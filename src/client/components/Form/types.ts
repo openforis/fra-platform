@@ -57,7 +57,7 @@ export type FormProps<FIELD_VALUES = FieldValues> = {
   disabled?: boolean
   formDefinition: FormDefinition<FIELD_VALUES>
   hideCancel?: boolean
-  method: ReactHookFormProps<unknown>['method']
+  method?: ReactHookFormProps<unknown>['method']
   onCancel?: () => void
   onSuccess?: (values: FIELD_VALUES, response: Response) => void | Promise<void>
   validationSchema?: FormValidationSchema

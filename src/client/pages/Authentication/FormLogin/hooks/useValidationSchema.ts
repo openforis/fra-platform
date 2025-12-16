@@ -4,13 +4,23 @@ import { z } from 'zod'
 
 import { FormValidationSchema } from 'client/components/Form/types'
 
-export const useValidationSchema = (): FormValidationSchema => {
+interface Props {
+  password: boolean
+}
+
+export const useValidationSchema = (props: Props): FormValidationSchema => {
+  const { password } = props
   const { t } = useTranslation()
 
   return useMemo<FormValidationSchema>((): FormValidationSchema => {
-    return z.object({
+    const schema: Record<string, z.ZodTypeAny> = {
       email: z.email(),
-      password: z.string().min(1, { message: t('login.noEmptyPassword') }),
-    })
-  }, [t])
+    }
+
+    if (password) {
+      schema.password = z.string().min(1, { message: t('login.noEmptyPassword') })
+    }
+
+    return z.object(schema)
+  }, [password, t])
 }
