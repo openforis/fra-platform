@@ -34,6 +34,7 @@ describe('canViewReview', () => {
     ;(Areas.isISOCountry as Mock).mockReturnValue(true)
     ;(Areas.getStatus as Mock).mockReturnValue(CountryStatus.review)
     ;(Users.isAdministrator as Mock).mockReturnValue(false)
+    ;(Users.isRegionalFocalPoint as Mock).mockReturnValue(false)
     ;(Users.isReviewer as Mock).mockReturnValue(false)
     ;(Users.isNationalCorrespondent as Mock).mockReturnValue(false)
     ;(Users.isAlternateNationalCorrespondent as Mock).mockReturnValue(false)
@@ -60,6 +61,7 @@ describe('canViewReview', () => {
 
   test.each([
     ['administrator', 'isAdministrator', RoleName.ADMINISTRATOR],
+    ['regional focal point', 'isRegionalFocalPoint', RoleName.REGIONAL_FOCAL_POINT],
     ['reviewer', 'isReviewer', RoleName.REVIEWER],
     ['national correspondent', 'isNationalCorrespondent', RoleName.NATIONAL_CORRESPONDENT],
     ['alternate national correspondent', 'isAlternateNationalCorrespondent', RoleName.ALTERNATE_NATIONAL_CORRESPONDENT],

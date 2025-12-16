@@ -6,12 +6,23 @@ import {
   isAdministrator,
   isAlternateNationalCorrespondent,
   isNationalCorrespondent,
+  isRegionalFocalPoint,
   isReviewer,
 } from 'meta/user/users/isRole'
 
 export const getRolesAllowedToEdit = (props: { user: User; countryIso: AreaCode; cycle: Cycle }): Array<RoleName> => {
   const { countryIso, cycle, user } = props
   if (isAdministrator(user)) {
+    return [
+      RoleName.REGIONAL_FOCAL_POINT,
+      RoleName.REVIEWER,
+      RoleName.NATIONAL_CORRESPONDENT,
+      RoleName.ALTERNATE_NATIONAL_CORRESPONDENT,
+      RoleName.COLLABORATOR,
+      RoleName.VIEWER,
+    ]
+  }
+  if (isRegionalFocalPoint(user, countryIso, cycle)) {
     return [
       RoleName.REVIEWER,
       RoleName.NATIONAL_CORRESPONDENT,
