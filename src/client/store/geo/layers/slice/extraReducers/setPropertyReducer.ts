@@ -13,13 +13,13 @@ const _handleTileUrl = (state: GeoLayersState, layerKey: LayerKey, tileUrl?: str
   mapController.removeLayer(layerKey)
   const layerState = state[layerKey]
   const opacity = layerState.opacity ?? 0
-  mapController.addOrUpdateEarthEngineLayer(layerKey, layerState.mapId, opacity, tileUrl)
+  mapController.addOrUpdateEarthEngineLayer(layerKey, opacity, tileUrl)
 }
 
 const _handleSelected = (state: GeoLayersState, layerKey: LayerKey, selected: boolean): void => {
   const layerState = state[layerKey]
   if (selected) {
-    mapController.addOrUpdateEarthEngineLayer(layerKey, layerState.mapId, layerState.opacity ?? 1, layerState.tileUrl)
+    mapController.addOrUpdateEarthEngineLayer(layerKey, layerState.opacity ?? 1, layerState.tileUrl)
   } else {
     mapController.removeLayer(layerKey)
   }

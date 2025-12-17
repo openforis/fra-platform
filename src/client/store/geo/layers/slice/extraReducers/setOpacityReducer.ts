@@ -12,6 +12,6 @@ export const setOpacityReducer = (builder: ActionReducerMapBuilder<GeoLayersStat
 
     Objects.setInPath({ obj: state, path: [layerKey, 'opacity'], value: opacity })
 
-    mapController.addOrUpdateEarthEngineLayer(layerKey, state[layerKey]?.mapId, opacity, state[layerKey].tileUrl)
+    mapController.addOrUpdateEarthEngineLayer(layerKey, opacity, state[layerKey].tileUrl)
   })
 }

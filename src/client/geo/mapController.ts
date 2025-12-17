@@ -113,8 +113,8 @@ export class MapController {
     this.#map.overlayMapTypes.insertAt(0, layer)
   }
 
-  addOrUpdateEarthEngineLayer(mapLayerKey: MapLayerKey, mapId: string, opacity: number, tileUrl?: string): void {
-    if (mapId && opacity > 0) {
+  addOrUpdateEarthEngineLayer(mapLayerKey: MapLayerKey, opacity: number, tileUrl?: string): void {
+    if (tileUrl && opacity > 0) {
       this.addEarthEngineLayer(mapLayerKey, tileUrl)
       this.setEarthEngineLayerOpacity(mapLayerKey, opacity)
     } else {

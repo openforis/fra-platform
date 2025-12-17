@@ -70,7 +70,7 @@ export const getLayerMapIdReducer = (builder: ActionReducerMapBuilder<GeoLayersS
     Objects.setInPath({ obj: state, path: [layerKey, 'mapId'], value: mapId })
     Objects.setInPath({ obj: state, path: [layerKey, 'tileUrl'], value: tileUrl })
 
-    if (Objects.isEmpty(mapId)) return
+    if (Objects.isEmpty(tileUrl)) return
 
     const layerState = state[layerKey]
 
@@ -78,7 +78,7 @@ export const getLayerMapIdReducer = (builder: ActionReducerMapBuilder<GeoLayersS
       layerState.opacity = 1
     }
     if (layerState.selected) {
-      mapController.addOrUpdateEarthEngineLayer(layerKey, mapId, layerState.opacity, tileUrl)
+      mapController.addOrUpdateEarthEngineLayer(layerKey, layerState.opacity, tileUrl)
     } else {
       mapController.removeLayer(layerKey)
     }

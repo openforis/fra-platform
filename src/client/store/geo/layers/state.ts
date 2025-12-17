@@ -29,8 +29,6 @@ export type LayerState = {
   status?: LayerFetchStatus
 }
 
-export type LayersSectionState = Record<LayerKey, LayerState>
-
 export type GeoLayersState = { [key in LayerKey]?: LayerState }
 
 export const initialState: GeoLayersState = {}
