@@ -26,6 +26,7 @@ const statusTransitions: { [status in CountryStatus]?: CountryStatusTransition }
 const statusRolesAllowed: { [status in CountryStatus]?: Array<RoleName> } = {
   [CountryStatus.editing]: [
     RoleName.ADMINISTRATOR,
+    RoleName.REGIONAL_FOCAL_POINT,
     RoleName.NATIONAL_CORRESPONDENT,
     RoleName.ALTERNATE_NATIONAL_CORRESPONDENT,
   ],
