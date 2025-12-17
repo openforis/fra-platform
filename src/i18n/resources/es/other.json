@@ -593,12 +593,12 @@
   },
   "time": {
     "aMomentAgo": "Hace un momento",
-    "day": "Hace {{count}} día",
-    "day_plural": "Hace {{count}} días ",
-    "hour": "Hace {{count}} hora",
-    "hour_plural": "Hace {{count}} horas",
-    "week": "Hace {{count}} semana",
-    "week_plural": "Hace {{count}} semanas"
+    "day_one": "Hace {{count}} día",
+    "day_other": "Hace {{count}} días ",
+    "hour_one": "Hace {{count}} hora",
+    "hour_other": "Hace {{count}} horas",
+    "week_one": "Hace {{count}} semana",
+    "week_other": "Hace {{count}} semanas"
   },
   "tutorial": {
     "collaboratorAdd": "Manual de usuario de la plataforma FRA - Cómo añadir un colaborador",

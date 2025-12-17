@@ -2,9 +2,7 @@ import { TFunction } from 'i18next'
 
 import { Dates } from './dates'
 
-const t: TFunction = (id) => {
-  return id
-}
+const t = ((id: string) => id) as unknown as TFunction
 
 describe('Relative date tests: ', () => {
   test('Returns null if input null', () => {

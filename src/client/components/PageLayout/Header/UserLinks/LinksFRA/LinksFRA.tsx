@@ -42,7 +42,7 @@ const LinksFRA: React.FC = () => {
           className="app-header__menu-item"
           to={Routes.Login.generatePath({ assessmentName, cycleName })}
         >
-          {t<string>('common.login')}
+          {t('common.login')}
         </Link>
       )}
     </>

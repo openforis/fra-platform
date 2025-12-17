@@ -1,7 +1,6 @@
+import { NodeValueValidation, NodeValueValidationMessage } from 'meta/assessment/nodeValueValidation'
 import { Numbers } from 'utils/numbers'
 import { Objects } from 'utils/objects'
-
-import { NodeValueValidation, NodeValueValidationMessage } from 'meta/assessment/nodeValueValidation'
 
 import { ExpressionFunction } from 'lib/expressionEvaluator/function'
 
@@ -29,7 +28,7 @@ export const validatorSumEqualTo: ExpressionFunction<Context> = {
         {
           key: 'generalValidation.sumEqualTo',
           params: {
-            categoryLabels: categoryLabelKeys.map((labelKey) => t<string>(labelKey)).join(', '),
+            categoryLabels: categoryLabelKeys.map((labelKey) => t(labelKey)).join(', '),
 
             categoriesSum: Numbers.toFixed(sum),
             maxValue: Numbers.toFixed(maxValue),

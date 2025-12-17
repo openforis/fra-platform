@@ -34,14 +34,14 @@ export const useUserLinks = (): Array<PopoverItem> => {
   const userProfileProps = { assessmentName, cycleName, countryIso: userCountryIso, id: String(user.id) }
   const items: Array<PopoverItem> = [
     {
-      content: t<string>('header.editProfile'),
+      content: t('header.editProfile'),
       link: Routes.CountryUser.generatePath(userProfileProps),
     },
   ]
 
   if (Users.isAdministrator(user)) {
     items.push({
-      content: t<string>('admin.admin'),
+      content: t('admin.admin'),
       link: Routes.Admin.generatePath({ assessmentName, cycleName }),
     })
   }
@@ -51,7 +51,7 @@ export const useUserLinks = (): Array<PopoverItem> => {
       divider: true,
     },
     {
-      content: t<string>('header.logout'),
+      content: t('header.logout'),
       onClick: async () => {
         await dispatch(UserActions.logout()).unwrap()
         toaster.toaster.info(t('login.logoutSuccessful'))

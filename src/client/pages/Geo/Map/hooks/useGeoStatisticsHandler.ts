@@ -29,7 +29,7 @@ export const useGeoStatisticsHandler = (props: Props): void => {
     if (loading) return
 
     if (Objects.isEmpty(forestEstimations)) {
-      dispatch(GeoStatisticsActions.setEstimationsErrorKey(t('geo.error.statistics.dataUnavailable')))
+      dispatch(GeoStatisticsActions.setEstimationsErrorKey({ errorKey: 'geo.error.statistics.dataUnavailable' }))
       return
     }
     const forestEstimationsTableData = buildForestEstimationsDataTable(forestEstimations)
