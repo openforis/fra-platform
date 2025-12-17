@@ -101,12 +101,12 @@ export const CycleDataApi = {
     )
     express.put(
       ApiEndPoint.CycleData.OriginalDataPoint.dataSources(),
-      AuthMiddleware.requireEditTableData,
+      AuthMiddleware.requireEditDescriptions,
       updateOriginalDataPointDataSources
     )
     express.put(
       ApiEndPoint.CycleData.OriginalDataPoint.description(),
-      AuthMiddleware.requireEditTableData,
+      AuthMiddleware.requireEditDescriptions,
       updateOriginalDataPointDescription
     )
     express.put(

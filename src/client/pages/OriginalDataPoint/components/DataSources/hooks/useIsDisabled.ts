@@ -1,9 +1,9 @@
 import { useIsPrintRoute } from 'client/hooks/routes'
-import { useIsEditODPEnabled } from 'client/pages/OriginalDataPoint/hooks/useIsEditODPEnabled'
+import { useIsEditODPDescriptionEnabled } from 'client/pages/OriginalDataPoint/hooks/useIsEditODPEnabled'
 
-export const useIsDisabled = () => {
+export const useIsDisabled = (): boolean => {
   const { print } = useIsPrintRoute()
 
-  const canEditData = useIsEditODPEnabled()
+  const canEditData = useIsEditODPDescriptionEnabled()
   return Boolean(print || !canEditData)
 }
