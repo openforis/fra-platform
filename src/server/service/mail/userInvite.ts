@@ -26,8 +26,8 @@ export const userInvite = async (props: {
   const i18n = await createI18nPromise(userToInvite.props.lang ?? Lang.en)
 
   const link = `${url}${Routes.LoginInvitation.generatePath(
-    { assessmentName, cycleName },
-    { invitationUuid: userInvitation.uuid, lang: userToInvite.props.lang }
+    { assessmentName, cycleName, invitationUuid: userInvitation.uuid },
+    { lang: userToInvite.props.lang }
   )}`
 
   const roleName = i18n.t(Users.getI18nRoleLabelKey(userInvitation.role))
