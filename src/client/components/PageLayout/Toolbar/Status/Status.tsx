@@ -3,9 +3,8 @@ import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import MediaQuery from 'react-responsive'
 
-import { Objects } from 'utils/objects'
-
 import { Areas } from 'meta/area/areas'
+import { Objects } from 'utils/objects'
 
 import { useAssessmentCountry } from 'client/store/area/hooks/country'
 import Icon from 'client/components/Icon'
@@ -30,13 +29,13 @@ const Status: React.FC = () => {
       {targetStatus && <StatusConfirm onClose={(): void => setTargetStatus(null)} status={targetStatus} />}
       <MediaQuery maxWidth={Breakpoints.laptop - 1}>
         <div className={`nav-header__status status-${status}`}>
-          <span>{t<string>(`assessment.status.${status}.label`)}</span>
+          <span>{t(`assessment.status.${status}.label`)}</span>
         </div>
       </MediaQuery>
       <MediaQuery minWidth={Breakpoints.laptop}>
         <PopoverControl items={items}>
           <div className={`nav-header__status status-${status} actionable-${!Objects.isEmpty(items)}`}>
-            <span>{t<string>(`assessment.status.${status}.label`)}</span>
+            <span>{t(`assessment.status.${status}.label`)}</span>
             {!Objects.isEmpty(items) && <Icon className="icon-white icon-middle" name="small-down" />}
           </div>
         </PopoverControl>

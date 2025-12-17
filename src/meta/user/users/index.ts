@@ -11,6 +11,7 @@ import {
   isAReviewer,
   isCollaborator,
   isNationalCorrespondent,
+  isRegionalFocalPoint,
   isReviewer,
   isViewer,
 } from 'meta/user/users/isRole'
@@ -25,6 +26,7 @@ export const Users = {
   isCollaborator,
   isNationalCorrespondent,
   isPersonalInfoRequired,
+  isRegionalFocalPoint,
   isReviewer,
   isAReviewer,
   isViewer,

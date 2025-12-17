@@ -1,5 +1,9 @@
 {
+  "change_few": "{{count}} تعديلات",
+  "change_many": "{{count}} تعديلًا",
   "change_one": "{{count}} تعديل",
   "change_other": "{{count}} تعديل",
+  "change_two": "{{count}} تعديلان",
+  "change_zero": "لا تعديلات",
   "history": "التغيرات الماضية للبيانات"
 }

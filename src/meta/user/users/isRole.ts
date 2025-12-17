@@ -15,6 +15,9 @@ const isRole = (user: User, role: RoleName, countryIso: AreaCode, cycle: Cycle):
 export const isCollaborator = (user: User, countryIso: CountryIso, cycle: Cycle): boolean =>
   isRole(user, RoleName.COLLABORATOR, countryIso, cycle)
 
+export const isRegionalFocalPoint = (user: User, countryIso: AreaCode, cycle: Cycle): boolean =>
+  isRole(user, RoleName.REGIONAL_FOCAL_POINT, countryIso, cycle)
+
 export const isReviewer = (user: User, countryIso: AreaCode, cycle: Cycle): boolean =>
   isRole(user, RoleName.REVIEWER, countryIso, cycle)
 

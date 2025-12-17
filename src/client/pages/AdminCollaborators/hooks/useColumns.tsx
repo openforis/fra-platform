@@ -14,6 +14,7 @@ type Returned = Array<Column<UserCountrySummary>>
 
 const roles = [
   RoleName.ADMINISTRATOR,
+  RoleName.REGIONAL_FOCAL_POINT,
   RoleName.REVIEWER,
   RoleName.NATIONAL_CORRESPONDENT,
   RoleName.ALTERNATE_NATIONAL_CORRESPONDENT,

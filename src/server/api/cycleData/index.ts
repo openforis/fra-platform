@@ -101,12 +101,12 @@ export const CycleDataApi = {
     )
     express.put(
       ApiEndPoint.CycleData.OriginalDataPoint.dataSources(),
-      AuthMiddleware.requireEditTableData,
+      AuthMiddleware.requireEditDescriptions,
       updateOriginalDataPointDataSources
     )
     express.put(
       ApiEndPoint.CycleData.OriginalDataPoint.description(),
-      AuthMiddleware.requireEditTableData,
+      AuthMiddleware.requireEditDescriptions,
       updateOriginalDataPointDescription
     )
     express.put(
@@ -156,10 +156,10 @@ export const CycleDataApi = {
 
     // ext node
     // -- Contacts
-    express.post(ApiEndPoint.CycleData.Contacts.one(), AuthMiddleware.requireEditTableData, createContact)
+    express.post(ApiEndPoint.CycleData.Contacts.one(), AuthMiddleware.requireEditDescriptions, createContact)
     express.get(ApiEndPoint.CycleData.Contacts.many(), AuthMiddleware.requireView, getContacts)
-    express.put(ApiEndPoint.CycleData.Contacts.one(), AuthMiddleware.requireEditTableData, updateContact)
-    express.delete(ApiEndPoint.CycleData.Contacts.one(), AuthMiddleware.requireEditTableData, removeContact)
+    express.put(ApiEndPoint.CycleData.Contacts.one(), AuthMiddleware.requireEditDescriptions, updateContact)
+    express.delete(ApiEndPoint.CycleData.Contacts.one(), AuthMiddleware.requireEditDescriptions, removeContact)
 
     // repository
     express.post(ApiEndPoint.CycleData.Repository.one(), AuthMiddleware.requireEditRepositoryItem, createRepositoryItem)

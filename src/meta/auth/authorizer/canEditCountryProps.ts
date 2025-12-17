@@ -42,7 +42,7 @@ export const canEditCountryProps = (props: Props): boolean => {
   )
     return [CountryStatus.notStarted, CountryStatus.editing].includes(status)
 
-  if (Users.isReviewer(user, countryIso, cycle))
+  if (Users.isRegionalFocalPoint(user, countryIso, cycle) || Users.isReviewer(user, countryIso, cycle))
     return [CountryStatus.notStarted, CountryStatus.editing, CountryStatus.review].includes(status)
 
   return false

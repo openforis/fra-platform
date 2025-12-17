@@ -1,5 +1,4 @@
 import { createI18nPromise } from 'i18n/i18nFactory'
-import { Objects } from 'utils/objects'
 
 import { Areas } from 'meta/area/areas'
 import { Lang } from 'meta/lang'
@@ -7,6 +6,7 @@ import { UserCountrySummary } from 'meta/user/countrySummary'
 import { RoleName } from 'meta/user/role/name'
 import { User } from 'meta/user/user'
 import { Users } from 'meta/user/users'
+import { Objects } from 'utils/objects'
 
 import { UserRepository, UsersGetManyProps } from 'server/db/repository/public/user'
 import { UserQueryParams } from 'server/db/repository/public/user/UserQueryParams'
@@ -32,6 +32,7 @@ export const getManyExport = async (props: Props): Promise<Returned> => {
 
   const roleHeaders: Record<RoleName, string> = {
     [RoleName.ADMINISTRATOR]: i18n.t(Users.getI18nRoleLabelKey(RoleName.ADMINISTRATOR)),
+    [RoleName.REGIONAL_FOCAL_POINT]: i18n.t(Users.getI18nRoleLabelKey(RoleName.REGIONAL_FOCAL_POINT)),
     [RoleName.REVIEWER]: i18n.t(Users.getI18nRoleLabelKey(RoleName.REVIEWER)),
     [RoleName.NATIONAL_CORRESPONDENT]: i18n.t(Users.getI18nRoleLabelKey(RoleName.NATIONAL_CORRESPONDENT)),
     [RoleName.ALTERNATE_NATIONAL_CORRESPONDENT]: i18n.t(
