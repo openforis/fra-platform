@@ -27,7 +27,6 @@ const ChangePassword: React.FC = () => {
         action={ApiEndPoint.Auth.changePassword()}
         disableEmail
         email={data?.user.email}
-        hideCancel={false}
         loading={!data}
         onSuccess={onSuccess}
         password2

@@ -19,8 +19,7 @@ const FormSkeleton: React.FC<Props> = (props) => {
         <Skeleton key={field.name} borderRadius="4px" height="48px" width="100%" />
       ))}
       <Flex gap="16" justifyContent="center">
-        <Skeleton borderRadius="20px" height="48px" width="190px" />
-        <Skeleton borderRadius="20px" height="48px" width="190px" />
+        <Skeleton borderRadius="20px" height="48px" width="380px" />
       </Flex>
     </div>
   )
