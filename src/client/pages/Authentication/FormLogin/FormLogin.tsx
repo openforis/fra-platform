@@ -6,21 +6,42 @@ import { FormDefinition, FormProps } from 'client/components/Form/types'
 import { useFormDefinition } from './hooks/useFormDefinition'
 import { useOnCancel } from './hooks/useOnCancel'
 import { useValidationSchema } from './hooks/useValidationSchema'
+import FormSkeleton from './FormSkeleton'
 
 interface FormLoginProps {
   action: FormProps['action']
+  disableEmail?: boolean
+  email?: string
   hideCancel?: FormProps['hideCancel']
   labels?: FormDefinition['labels']
+  loading?: boolean
   onSuccess: FormProps['onSuccess']
   password?: boolean
+  password2?: boolean
+  resetPasswordUuid?: string
 }
 
 const FormLogin: React.FC<FormLoginProps> = (props) => {
-  const { action, hideCancel = true, labels, onSuccess, password = true } = props
+  const {
+    action,
+    disableEmail = false,
+    email,
+    hideCancel = true,
+    labels,
+    loading = false,
+    onSuccess,
+    password = true,
+    password2 = false,
+    resetPasswordUuid,
+  } = props
 
-  const formDefinition = useFormDefinition({ labels, password })
-  const validationSchema = useValidationSchema({ password })
+  const formDefinition = useFormDefinition({ disableEmail, email, labels, password, password2, resetPasswordUuid })
+  const validationSchema = useValidationSchema({ password, password2 })
   const onCancel = useOnCancel()
+
+  if (loading) {
+    return <FormSkeleton formDefinition={formDefinition} />
+  }
 
   return (
     <div className="login-form">
