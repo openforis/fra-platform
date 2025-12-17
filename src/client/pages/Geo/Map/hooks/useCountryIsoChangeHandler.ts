@@ -1,8 +1,7 @@
 import { useEffect } from 'react'
 
-import { Objects } from 'utils/objects'
-
 import { sections } from 'meta/geo/sections'
+import { Objects } from 'utils/objects'
 
 import { LayersActions } from 'client/store/geo/layers/actions'
 import { useGeoLayers } from 'client/store/geo/layers/hooks/layers'
@@ -31,13 +30,7 @@ export const useCountryIsoChangeHandler = (): void => {
 
         if (!layerState.selected || (layerState.opacity ?? 0) === 0) return
 
-        dispatch(
-          LayersActions.getLayerMapId({
-            countryIso,
-            sectionKey,
-            layerKey,
-          })
-        )
+        dispatch(LayersActions.getLayerMapId({ countryIso, sectionKey, layerKey }))
       })
     })
   }, [countryIso, dispatch, layersState, prevCountryIso])

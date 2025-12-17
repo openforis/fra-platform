@@ -33,11 +33,7 @@ export const getForestLayer = async (props: Props): Promise<LayerConfig> => {
     }
   }
 
-  const map = await getMap({
-    image: asset.img,
-    style,
-    countryIso,
-  })
+  const map = await getMap({ countryIso, image: asset.img, style })
 
   return {
     mapId: map.mapId,

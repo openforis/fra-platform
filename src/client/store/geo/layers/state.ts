@@ -21,7 +21,8 @@ export type LayerStateOptions = {
 
 export type LayerState = {
   cache?: Record<string | number, string>
-  mapId?: string | null
+  mapId?: string
+  tileUrl?: string
   opacity?: number
   options?: LayerStateOptions
   selected?: boolean
@@ -30,6 +31,6 @@ export type LayerState = {
 
 export type LayersSectionState = Record<LayerKey, LayerState>
 
-export type GeoLayersState = Record<LayerKey, LayerState>
+export type GeoLayersState = { [key in LayerKey]?: LayerState }
 
-export const initialState = {} as GeoLayersState
+export const initialState: GeoLayersState = {}

@@ -37,52 +37,22 @@ export class MapController {
     })
   }
 
-  addEarthEngineLayer(mapLayerKey: MapLayerKey, mapId: string, overwrite = false, tileUrl?: string): void {
+  addEarthEngineLayer(mapLayerKey: MapLayerKey, tileUrl?: string): void {
     if (this.#map === null) return
 
-    if (overwrite) {
-      this.removeLayer(mapLayerKey)
-    } else if (this.getLayer(mapLayerKey)) {
+    if (this.getLayer(mapLayerKey)) {
       return // avoid duplicates
     }
 
-    // const tileSource = new ee.layers.EarthEngineTileSource({
-    //   mapid: mapId,
-    // })
-    // const overlay = new ee.layers.ImageOverlay(tileSource, { name: mapLayerKey })
-    // this.#map.overlayMapTypes.push(overlay)
-
     const eeLayer = new google.maps.ImageMapType({
       tileSize: new google.maps.Size(256, 256),
-      name: mapId,
+      name: mapLayerKey,
       getTileUrl: (coord, zoom): string => {
         return tileUrl.replace('{x}', String(coord.x)).replace('{y}', String(coord.y)).replace('{z}', String(zoom))
       },
     })
 
     this.#map.overlayMapTypes.push(eeLayer)
-
-    // ee.Image(mapId)
-    //   .getMap({ min: 0, max: 255 })
-    //   .then((mapIdObject: { tile_fetcher: { url_format: any }; mapid: any }) => {
-    //     // 2. Construct the tile URL
-    //     const tileUrl = mapIdObject.tile_fetcher.url_format
-    //
-    //     // 3. Create and add a tile overlay
-    //     // const map = new google.maps.Map(document.getElementById('map'), {
-    //     //   center: { lat: 0, lng: 0 },
-    //     //   zoom: 3,
-    //     // })
-    //
-    //     const eeOverlay = new google.maps.ImageMapType({
-    //       getTileUrl: (coord, zoom): string => {
-    //         return tileUrl.replace('{x}', coord.x).replace('{y}', coord.y).replace('{z}', zoom)
-    //       },
-    //       tileSize: new google.maps.Size(256, 256),
-    //       name: mapIdObject.mapid,
-    //     })
-    //     this.#map.overlayMapTypes.push(eeOverlay)
-    //   })
   }
 
   // Render WDPA layer
@@ -143,15 +113,9 @@ export class MapController {
     this.#map.overlayMapTypes.insertAt(0, layer)
   }
 
-  addOrUpdateEarthEngineLayer(
-    mapLayerKey: MapLayerKey,
-    mapId: string,
-    opacity: number,
-    overwrite = false,
-    tileUrl?: string
-  ): void {
+  addOrUpdateEarthEngineLayer(mapLayerKey: MapLayerKey, mapId: string, opacity: number, tileUrl?: string): void {
     if (mapId && opacity > 0) {
-      this.addEarthEngineLayer(mapLayerKey, mapId, overwrite, tileUrl)
+      this.addEarthEngineLayer(mapLayerKey, tileUrl)
       this.setEarthEngineLayerOpacity(mapLayerKey, opacity)
     } else {
       this.removeLayer(mapLayerKey)
