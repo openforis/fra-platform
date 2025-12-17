@@ -1,6 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-
 import classNames from 'classnames'
 
 import { OriginalDataPointCommentKey } from 'meta/assessment/originalDataPoint'
@@ -12,23 +11,24 @@ import { DataCell, DataGrid, DataRow } from 'client/components/DataGrid'
 import EditorWYSIWYG from 'client/components/EditorWYSIWYG'
 import { useODPDisplayHistory } from 'client/pages/OriginalDataPoint/components/hooks/useODPDisplayHistory'
 import ODPCommentsDiffView from 'client/pages/OriginalDataPoint/components/ODPCommentsDiffView/ODPCommentsDiffView'
+import { useIsEditODPDescriptionEnabled } from 'client/pages/OriginalDataPoint/hooks/useIsEditODPEnabled'
 
 import { useUpdateComment } from './hooks/useUpdateDescription'
 import { useCommentsActions } from './useCommentsActions'
 
 type Props = {
-  canEditData: boolean
   field: OriginalDataPointCommentKey
 }
 
 const Comments: React.FC<Props> = (props) => {
-  const { canEditData, field } = props
+  const { field } = props
 
   const { t } = useTranslation()
   const originalDataPoint = useOriginalDataPoint()
   const isDataLocked = useIsDataLocked()
   const updateComment = useUpdateComment({ field })
   const actions = useCommentsActions({ field })
+  const canEditData = useIsEditODPDescriptionEnabled()
   const [open, setOpen] = useState<boolean>(false)
   const displayHistory = useODPDisplayHistory()
 

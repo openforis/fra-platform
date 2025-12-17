@@ -1,9 +1,8 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { NavLink, useParams } from 'react-router'
+import { NavLink } from 'react-router'
 import classNames from 'classnames'
 
-import { AssessmentName } from 'meta/assessment/assessment'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { TableNames } from 'meta/assessment/table'
 import { Routes } from 'meta/routes/routes'
@@ -11,6 +10,7 @@ import { Routes } from 'meta/routes/routes'
 import { useAssessmentCountry } from 'client/store/area/hooks/country'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useCountryIso } from 'client/hooks/country'
+import { useOriginalDataPointRouteParams } from 'client/hooks/routeParams'
 import Comments from 'client/pages/OriginalDataPoint/components/Comments'
 import ExtentOfForest from 'client/pages/OriginalDataPoint/components/ExtentOfForest'
 import ForestCharacteristics from 'client/pages/OriginalDataPoint/components/ForestCharacteristics'
@@ -24,17 +24,9 @@ const OriginalData: React.FC<Props> = (props) => {
   const { canEditData, originalDataPoint } = props
   const cycle = useCycle()
   const country = useAssessmentCountry()
-  const { assessmentName, cycleName, sectionName, year } = useParams<{
-    assessmentName: AssessmentName
-    cycleName: string
-    year: string
-    sectionName: string
-  }>()
+  const { assessmentName, cycleName, sectionName, year } = useOriginalDataPointRouteParams()
 
-  const extentOfForest = {
-    name: 'extentOfForest',
-    anchor: '1a',
-  }
+  const extentOfForest = { name: 'extentOfForest', anchor: '1a' }
   const forestCharacteristics = { name: 'forestCharacteristics', anchor: '1b' }
 
   const i18n = useTranslation()
@@ -91,10 +83,7 @@ const OriginalData: React.FC<Props> = (props) => {
         <ForestCharacteristics canEditData={canEditData} originalDataPoint={originalDataPoint} />
       )}
 
-      <Comments
-        canEditData={canEditData}
-        field={isExtentOfForestSection ? TableNames.extentOfForest : TableNames.forestCharacteristics}
-      />
+      <Comments field={isExtentOfForestSection ? TableNames.extentOfForest : TableNames.forestCharacteristics} />
     </div>
   )
 }
