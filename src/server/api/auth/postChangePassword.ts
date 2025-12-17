@@ -8,11 +8,11 @@ import { Requests } from 'server/utils'
 
 export const postChangePassword = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { email, password, uuid } = req.body
+    const { email, password, resetPasswordUuid } = req.body
 
     if (Objects.isEmpty(password?.trim())) return Requests.send400(res, 'login.noEmptyPassword')
 
-    const { user, userResetPassword } = await UserController.findByResetPassword({ resetPasswordUuid: uuid })
+    const { user, userResetPassword } = await UserController.findByResetPassword({ resetPasswordUuid })
     if (!userResetPassword) return Requests.send400(res, 'login.errorOccurred')
 
     if (user.email !== email) return Requests.send400(res, 'login.errorOccurred')
@@ -20,7 +20,7 @@ export const postChangePassword = async (req: Request, res: Response): Promise<v
     const changed = await UserController.changePassword({
       email: user.email,
       password: await passwordHash(password),
-      resetPasswordUuid: uuid,
+      resetPasswordUuid,
     })
 
     if (changed) return Requests.sendOk(res, { message: 'login.passwordChanged' })

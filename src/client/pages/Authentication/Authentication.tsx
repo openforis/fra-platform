@@ -4,6 +4,7 @@ import { Route, Routes as RouterRoutes } from 'react-router'
 
 import { Routes } from 'meta/routes/routes'
 
+import ChangePassword from 'client/pages/Authentication/ChangePassword'
 import Login from 'client/pages/Authentication/Login'
 import ResetPassword from 'client/pages/Authentication/ResetPassword'
 import Partners from 'client/pages/CycleHome/Partners'
@@ -16,6 +17,7 @@ const Authentication: React.FC = () => {
           <Route element={<Login />} index />
           <Route path={Routes.LoginResetPassword.path.relative}>
             <Route element={<ResetPassword />} index />
+            <Route element={<ChangePassword />} path={Routes.LoginChangePassword.path.relative} />
           </Route>
         </RouterRoutes>
         <img alt="tucan" className="login__tucan" src="/img/tucan.svg" />

@@ -5,12 +5,16 @@ import { useCycleRouteParams } from 'client/hooks/routeParams'
 import { FieldDefinition, FormDefinition, FormFieldType } from 'client/components/Form/types'
 
 interface Props {
+  disableEmail: boolean
+  email?: string
   labels?: FormDefinition['labels']
   password: boolean
+  password2: boolean
+  resetPasswordUuid?: string
 }
 
 export const useFormDefinition = (props: Props): FormDefinition => {
-  const { labels, password } = props
+  const { disableEmail, email, labels, password, password2, resetPasswordUuid } = props
   const { t } = useTranslation()
   const { assessmentName, cycleName } = useCycleRouteParams()
 
@@ -30,16 +34,28 @@ export const useFormDefinition = (props: Props): FormDefinition => {
         required: true,
         type: FormFieldType.hidden,
       },
-      {
-        bordered: true,
-        defaultValue: '',
-        label: 'login.email',
-        name: 'email',
-        placeholder: t('login.email'),
-        required: true,
-        type: FormFieldType.text,
-      },
     ]
+
+    if (resetPasswordUuid) {
+      fields.push({
+        defaultValue: resetPasswordUuid,
+        label: '',
+        name: 'resetPasswordUuid',
+        required: true,
+        type: FormFieldType.hidden,
+      })
+    }
+
+    fields.push({
+      bordered: true,
+      defaultValue: email || '',
+      label: 'login.email',
+      name: 'email',
+      placeholder: t('login.email'),
+      required: true,
+      type: FormFieldType.text,
+      watches: { isDisabled: (): boolean => disableEmail },
+    })
 
     if (password) {
       fields.push({
@@ -53,9 +69,21 @@ export const useFormDefinition = (props: Props): FormDefinition => {
       })
     }
 
+    if (password2) {
+      fields.push({
+        bordered: true,
+        defaultValue: '',
+        label: 'login.repeatPassword',
+        name: 'password2',
+        placeholder: t('login.repeatPassword'),
+        required: true,
+        type: FormFieldType.password,
+      })
+    }
+
     const formDefinition: FormDefinition = { fields }
     if (labels) formDefinition.labels = labels
 
     return formDefinition
-  }, [assessmentName, cycleName, labels, password, t])
+  }, [assessmentName, cycleName, disableEmail, email, labels, password, password2, resetPasswordUuid, t])
 }
