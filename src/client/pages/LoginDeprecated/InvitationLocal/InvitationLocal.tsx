@@ -54,7 +54,7 @@ const InvitationLocal: React.FC = () => {
     return (
       <Navigate
         replace
-        to={Routes.LoginInvitation.generatePath({ cycleName, assessmentName }, { invitationUuid, lang })}
+        to={Routes.LoginInvitation.generatePath({ cycleName, assessmentName, invitationUuid }, { lang })}
       />
     )
   }
