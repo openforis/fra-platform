@@ -1,21 +1,21 @@
 import './ButtonCheckbox.scss'
 import React from 'react'
-
 import classNames from 'classnames'
+
 import { Objects } from 'utils/objects'
 
 import Button from 'client/components/Buttons/Button'
 import { ButtonProps, ButtonType } from 'client/components/Buttons/Button/types'
 import { ButtonCheckboxVariant } from 'client/components/Buttons/ButtonCheckbox/types'
 
-type Props = Pick<ButtonProps, 'className' | 'disabled' | 'label' | 'onClick' | 'size'> & {
+type Props = Pick<ButtonProps, 'className' | 'disabled' | 'label' | 'onClick' | 'size' | 'type'> & {
   checked?: boolean
   loading?: boolean
   variant?: ButtonCheckboxVariant
 }
 
 const ButtonCheckbox: React.FC<Props> = (props) => {
-  const { checked, className, disabled, label, loading, onClick, size, variant } = props
+  const { checked, className, disabled, label, loading, onClick, size, type = ButtonType.primary, variant } = props
 
   return (
     <Button
@@ -34,7 +34,7 @@ const ButtonCheckbox: React.FC<Props> = (props) => {
       label={label}
       onClick={onClick}
       size={size}
-      type={ButtonType.primary}
+      type={type}
     />
   )
 }

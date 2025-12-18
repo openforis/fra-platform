@@ -25,6 +25,11 @@
       background-color: white;
     }
   }
+
+  &.layers {
+    justify-items: start;
+    padding: 0 $spacing-xs;
+  }
 }
 
 .nav-geo-section__content {

@@ -79,6 +79,7 @@
   "selectMinTreeCoverPercent": "Seleccionar porcentaje mínimo de cobertura forestal:",
   "sentinel": "Centinela",
   "showSatelliteMosaic": "Mostrar Mosaico Satelital",
+  "showUnBoundaries": "Mostrar fronteras de la ONU",
   "snowMasking": "Máscara de nieve",
   "statistics": {
     "burnedArea": {
@@ -101,5 +102,6 @@
   },
   "treeCoverAgreementSelected": "Acuerdo de cobertura forestal seleccionado",
   "treeCoverProtectedAreas": "Cobertura forestal dentro de áreas protegidas",
-  "treeCoverProtectedAreasWithUnit": "$t(geo.treeCoverProtectedAreas) ({{unit}})"
+  "treeCoverProtectedAreasWithUnit": "$t(geo.treeCoverProtectedAreas) ({{unit}})",
+  "unBoundariesDisclaimer": "Las denominaciones empleadas en este mapa y la forma en que aparecen presentados los datos que contiene no implican, de parte de la Secretaría de las Naciones Unidas, juicio alguno sobre la condición jurídica de países, territorios, ciudades o zonas, o de sus autoridades, ni respecto de la delimitación de sus fronteras o límites. La línea de puntos representa aproximadamente la Línea de Control en Jammu y Cachemira convenida por la India y el Pakistán. Las partes no han llegado todavia a un acuerdo sobre el estatuto definitivo de Jammu y Cachemira. Las fronteras definitivas entre la República del Sudán y la República de Sudán del Sur no se han determinado todavía. Todavía no se ha determinado el estatuto definitive de la zona de Abyei. Existe una disputa entre los Gobiernos de la Argentina y el Reino Unido de Gran Bretaña e Irlanda del Norte acerca de la soberanía sobre las Islas Malvinas (Falkland Islands)."
 }

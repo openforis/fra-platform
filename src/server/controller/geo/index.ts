@@ -4,14 +4,16 @@ import { getBurnedAreaLayer } from './getBurnedAreaLayer'
 import { estimateImageArea, estimateIntersectionArea, getForestEstimations } from './getForestEstimations'
 import { getForestLayer } from './getForestLayer'
 import { getProtectedAreaLayer } from './getProtectedAreaLayer'
+import { getUNBoundariesLayer } from './getUNBoundariesLayer'
 
 export const GeoController = {
-  getForestLayer,
-  getBoundariesLayer,
-  getForestEstimations,
   estimateImageArea,
-  getBounds,
-  getProtectedAreaLayer,
-  getBurnedAreaLayer,
   estimateIntersectionArea,
+  getBoundariesLayer,
+  getBounds,
+  getBurnedAreaLayer,
+  getForestEstimations,
+  getForestLayer,
+  getProtectedAreaLayer,
+  getUNBoundariesLayer,
 }

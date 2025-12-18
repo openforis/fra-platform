@@ -9,6 +9,7 @@ export const Geo = {
     protectedArea: (): string => apiPath('geo', 'layers', 'protected-area'),
     burnedArea: (): string => apiPath('geo', 'layers', 'burned-area'),
     boundaries: (): string => apiPath('geo', 'layers', 'boundaries'),
+    unBoundaries: (): string => apiPath('geo', 'layers', 'un-boundaries'),
   },
   Estimations: {
     forest: (): string => apiPath('geo', 'estimations', 'forest'),

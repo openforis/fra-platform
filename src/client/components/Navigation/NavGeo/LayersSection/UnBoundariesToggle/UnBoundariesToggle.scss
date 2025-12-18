@@ -1,0 +1,9 @@
+@use 'src/client/style/partials' as *;
+
+.nav-geo__un-boundaries-toggle {
+  padding: $spacing-xs $spacing-xs;
+
+  button.button-checkbox {
+    width: fit-content;
+  }
+}
