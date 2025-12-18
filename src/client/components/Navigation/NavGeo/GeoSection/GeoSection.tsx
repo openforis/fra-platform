@@ -1,13 +1,13 @@
 import './GeoSection.scss'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-
 import classNames from 'classnames'
 
 import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
 
 type Props = {
   children: ReactElement
+  className?: string
   expanded: boolean
   icon?: React.ReactNode
   labelKey: string
@@ -15,14 +15,14 @@ type Props = {
 }
 
 const GeoSection: React.FC<Props> = (props) => {
-  const { children, expanded, icon, labelKey, setExpanded } = props
+  const { children, className, expanded, icon, labelKey, setExpanded } = props
 
   const { t } = useTranslation()
   const label = t(labelKey)
 
   return (
     <div className={classNames('nav-geo-section', { expanded })}>
-      <div className="nav-geo-section__header">
+      <div className={classNames('nav-geo-section__header', className)}>
         <Button
           icon={icon}
           inverse={!expanded}
