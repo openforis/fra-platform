@@ -14,6 +14,7 @@ const passwordValidationSchema = (t: TFunction, minLength = 8): ZodString => {
     .string()
     .min(1, { message: t('login.noEmptyPassword') })
     .min(minLength, { message: t('login.passwordMinLength', { count: minLength }) })
+    .max(100, { message: t('login.passwordMaxLength', { count: 100 }) })
 }
 
 interface Props {

@@ -13,6 +13,7 @@ interface FormLoginProps {
   disableEmail?: boolean
   email?: string
   hideCancel?: FormProps['hideCancel']
+  invitationUuid?: string
   labels?: FormDefinition['labels']
   loading?: boolean
   onSuccess: FormProps['onSuccess']
@@ -27,6 +28,7 @@ const FormLogin: React.FC<FormLoginProps> = (props) => {
     disableEmail = false,
     email,
     hideCancel = true,
+    invitationUuid,
     labels,
     loading = false,
     onSuccess,
@@ -35,7 +37,15 @@ const FormLogin: React.FC<FormLoginProps> = (props) => {
     resetPasswordUuid,
   } = props
 
-  const formDefinition = useFormDefinition({ disableEmail, email, labels, password, password2, resetPasswordUuid })
+  const formDefinition = useFormDefinition({
+    disableEmail,
+    email,
+    invitationUuid,
+    labels,
+    password,
+    password2,
+    resetPasswordUuid,
+  })
   const validationSchema = useValidationSchema({ password, password2 })
   const onCancel = useOnCancel()
 

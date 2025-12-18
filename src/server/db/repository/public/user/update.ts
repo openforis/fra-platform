@@ -1,12 +1,16 @@
 import { User, UserProps } from 'meta/user/user'
+import { UUID } from 'meta/uuid/uuid'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { getOne } from 'server/db/repository/public/user/getOne'
 
-type Props = { user: Partial<Omit<User, 'props'> & { props: Partial<UserProps> }> }
+type Props = {
+  user: Partial<Omit<User, 'props'> & { props: Partial<UserProps> }>
+  cycleUuid?: UUID
+}
 
 export const update = async (props: Props, client: BaseProtocol = DB): Promise<User> => {
-  const { user } = props
+  const { cycleUuid, user } = props
 
   const values: Record<string, string | Partial<UserProps> | number> = { id: user.id }
   const setParts: Array<string> = []
@@ -41,5 +45,5 @@ export const update = async (props: Props, client: BaseProtocol = DB): Promise<U
     values
   )
 
-  return getOne({ id: user.id, allowDisabled: true }, client)
+  return getOne({ id: user.id, cycleUuid, allowDisabled: true }, client)
 }

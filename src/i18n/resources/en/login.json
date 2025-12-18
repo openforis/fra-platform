@@ -34,6 +34,7 @@
   "password": "Password",
   "passwordChanged": "Password has been changed",
   "passwordMinLength": "Password must be at least {{count}} characters",
+  "passwordMaxLength": "Password must be at most {{count}} characters",
   "passwordResetSent": "The request to reset your password has been successfully submitted.\nYou'll be shortly receiving an email with instructions",
   "repeatPassword": "Repeat Password",
   "resetPassword": "Reset password",
