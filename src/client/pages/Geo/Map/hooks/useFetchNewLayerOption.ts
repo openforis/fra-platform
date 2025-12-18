@@ -33,15 +33,15 @@ export const useFetchNewLayerOption = (
         }
         return
       }
-      const cachedMapId = layerState.cache?.[layerOptionValue]
-      if (cachedMapId === undefined) {
+      const cacheTileUrl = layerState.cache?.[layerOptionValue]
+      if (cacheTileUrl === undefined) {
         if (layerState?.opacity > 0) {
           dispatch(LayersActions.getLayerMapId({ countryIso, layerKey, sectionKey }))
         } else {
           dispatch(LayersActions.resetLayerStatus({ layerKey }))
         }
       } else {
-        dispatch(LayersActions.setProperty({ key: 'mapId', layerKey, value: cachedMapId }))
+        dispatch(LayersActions.setProperty({ key: 'tileUrl', layerKey, value: cacheTileUrl }))
       }
     },
     // Ignore opacity changes:

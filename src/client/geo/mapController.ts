@@ -1,5 +1,4 @@
 // @ts-ignore
-import ee from '@google/earthengine'
 
 import { CountryIso } from 'meta/area/countryIso'
 import { MapLayerKey } from 'meta/geo/map'
@@ -38,20 +37,22 @@ export class MapController {
     })
   }
 
-  addEarthEngineLayer(mapLayerKey: MapLayerKey, mapId: string, overwrite = false): void {
+  addEarthEngineLayer(mapLayerKey: MapLayerKey, tileUrl?: string): void {
     if (this.#map === null) return
 
-    if (overwrite) {
-      this.removeLayer(mapLayerKey)
-    } else if (this.getLayer(mapLayerKey)) {
+    if (this.getLayer(mapLayerKey)) {
       return // avoid duplicates
     }
 
-    const tileSource = new ee.layers.EarthEngineTileSource({
-      mapid: mapId,
+    const eeLayer = new google.maps.ImageMapType({
+      tileSize: new google.maps.Size(256, 256),
+      name: mapLayerKey,
+      getTileUrl: (coord, zoom): string => {
+        return tileUrl.replace('{x}', String(coord.x)).replace('{y}', String(coord.y)).replace('{z}', String(zoom))
+      },
     })
-    const overlay = new ee.layers.ImageOverlay(tileSource, { name: mapLayerKey })
-    this.#map.overlayMapTypes.push(overlay)
+
+    this.#map.overlayMapTypes.push(eeLayer)
   }
 
   // Render WDPA layer
@@ -112,9 +113,9 @@ export class MapController {
     this.#map.overlayMapTypes.insertAt(0, layer)
   }
 
-  addOrUpdateEarthEngineLayer(mapLayerKey: MapLayerKey, mapId: string, opacity: number, overwrite = false): void {
-    if (mapId && opacity > 0) {
-      this.addEarthEngineLayer(mapLayerKey, mapId, overwrite)
+  addOrUpdateEarthEngineLayer(mapLayerKey: MapLayerKey, opacity: number, tileUrl?: string): void {
+    if (tileUrl && opacity > 0) {
+      this.addEarthEngineLayer(mapLayerKey, tileUrl)
       this.setEarthEngineLayerOpacity(mapLayerKey, opacity)
     } else {
       this.removeLayer(mapLayerKey)

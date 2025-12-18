@@ -1,8 +1,8 @@
 import { ActionReducerMapBuilder } from '@reduxjs/toolkit'
-import { Objects } from 'utils/objects'
 
 import { LayerKey } from 'meta/geo/layer/key'
 import { LayerSectionKey } from 'meta/geo/layer/sectionKey'
+import { Objects } from 'utils/objects'
 
 import { getLayerMapId } from 'client/store/geo/layers/actions/getLayerMapId'
 import { getAgreementLayerCacheKey } from 'client/store/geo/layers/slice/utils'
@@ -13,7 +13,7 @@ const _setLayerCache = (
   state: GeoLayersState,
   sectionKey: LayerSectionKey,
   layerKey: LayerKey,
-  mapId: string
+  tileUrl: string
 ): void => {
   state[layerKey].options ??= {}
   const layerOptions = state[layerKey].options
@@ -33,15 +33,17 @@ const _setLayerCache = (
   }
 
   if (cacheKey !== null) {
-    Objects.setInPath({ obj: state, path: [layerKey, 'cache', cacheKey], value: mapId })
+    Objects.setInPath({ obj: state, path: [layerKey, 'cache', cacheKey], value: tileUrl })
   }
 }
 
 export const getLayerMapIdReducer = (builder: ActionReducerMapBuilder<GeoLayersState>): void => {
   builder.addCase(getLayerMapId.pending, (state, { meta }) => {
     const { layerKey } = meta.arg
+
     Objects.setInPath({ obj: state, path: [layerKey, 'status'], value: LayerFetchStatus.Loading })
-    Objects.setInPath({ obj: state, path: [layerKey, 'mapId'], value: null })
+    Objects.unset(state, [layerKey, 'mapId'])
+    Objects.unset(state, [layerKey, 'tileUrl'])
 
     mapController.removeLayer(layerKey)
   })
@@ -49,7 +51,8 @@ export const getLayerMapIdReducer = (builder: ActionReducerMapBuilder<GeoLayersS
   builder.addCase(getLayerMapId.rejected, (state, { meta }) => {
     const { layerKey } = meta.arg
     Objects.setInPath({ obj: state, path: [layerKey, 'status'], value: LayerFetchStatus.Failed })
-    Objects.setInPath({ obj: state, path: [layerKey, 'mapId'], value: null })
+    Objects.unset(state, [layerKey, 'mapId'])
+    Objects.unset(state, [layerKey, 'tileUrl'])
 
     const layerState = state[layerKey]
 
@@ -61,11 +64,13 @@ export const getLayerMapIdReducer = (builder: ActionReducerMapBuilder<GeoLayersS
   })
 
   builder.addCase(getLayerMapId.fulfilled, (state, { payload }) => {
-    const { layerKey, mapId = null, sectionKey } = payload
+    const { layerKey, mapId, sectionKey, tileUrl } = payload
+
     Objects.setInPath({ obj: state, path: [layerKey, 'status'], value: LayerFetchStatus.Ready })
     Objects.setInPath({ obj: state, path: [layerKey, 'mapId'], value: mapId })
+    Objects.setInPath({ obj: state, path: [layerKey, 'tileUrl'], value: tileUrl })
 
-    if (Objects.isEmpty(mapId)) return
+    if (Objects.isEmpty(tileUrl)) return
 
     const layerState = state[layerKey]
 
@@ -73,11 +78,11 @@ export const getLayerMapIdReducer = (builder: ActionReducerMapBuilder<GeoLayersS
       layerState.opacity = 1
     }
     if (layerState.selected) {
-      mapController.addOrUpdateEarthEngineLayer(layerKey, mapId, layerState.opacity)
+      mapController.addOrUpdateEarthEngineLayer(layerKey, layerState.opacity, tileUrl)
     } else {
       mapController.removeLayer(layerKey)
     }
 
-    _setLayerCache(state, sectionKey, layerKey, mapId)
+    _setLayerCache(state, sectionKey, layerKey, tileUrl)
   })
 }

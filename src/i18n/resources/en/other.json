@@ -593,12 +593,12 @@
   },
   "time": {
     "aMomentAgo": "a moment ago",
-    "day": "{{count}} day ago",
-    "day_plural": "{{count}} days ago",
-    "hour": "{{count}} hour ago",
-    "hour_plural": "{{count}} hours ago",
-    "week": "{{count}} week ago",
-    "week_plural": "{{count}} weeks ago"
+    "day_one": "{{count}} day ago",
+    "day_other": "{{count}} days ago",
+    "hour_one": "{{count}} hour ago",
+    "hour_other": "{{count}} hours ago",
+    "week_one": "{{count}} week ago",
+    "week_other": "{{count}} weeks ago"
   },
   "tutorial": {
     "collaboratorAdd": "The FRA platform user tutorial - How to add a collaborator",

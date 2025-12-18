@@ -1,11 +1,25 @@
 import { useOriginalDataPoint } from 'client/store/data/originalDataPoint/hooks/originalDataPoint'
-import { useIsEditTableDataEnabled } from 'client/store/user/hooks/auth'
+import { useCanEditDescription, useIsEditTableDataEnabled } from 'client/store/user/hooks/auth'
 import { useOriginalDataPointRouteParams } from 'client/hooks/routeParams'
 
-export const useIsEditODPEnabled = () => {
-  const { sectionName } = useOriginalDataPointRouteParams()
-  const isEditTableDataEnabled = useIsEditTableDataEnabled(sectionName)
+const useIsValidODP = (): boolean => {
   const originalDataPoint = useOriginalDataPoint()
 
-  return isEditTableDataEnabled && originalDataPoint?.year > 0
+  return originalDataPoint?.year > 0
+}
+
+export const useIsEditODPEnabled = (): boolean => {
+  const { sectionName } = useOriginalDataPointRouteParams()
+  const validODP = useIsValidODP()
+  const canEdit = useIsEditTableDataEnabled(sectionName)
+
+  return canEdit && validODP
+}
+
+export const useIsEditODPDescriptionEnabled = (): boolean => {
+  const { sectionName } = useOriginalDataPointRouteParams()
+  const validODP = useIsValidODP()
+  const canEdit = useCanEditDescription({ sectionName })
+
+  return canEdit && validODP
 }

@@ -31,15 +31,15 @@ const _getHtml = (props: PropsGetHtml): string => {
       </div>
       <div className="chart__tooltip-value-container">
         <div className="chart__tooltip-value">{Numbers.format(datum.value)}</div>
-        <div>({t<string>('unit.haThousand')})</div>
+        <div>({t('unit.haThousand')})</div>
       </div>
 
       {datum.dataSourceMethods && (
         <div className="chart__tooltip-methods">
-          <div className="chart__tooltip-heading">{t<string>('nationalDataPoint.methodsUsed')}</div>
+          <div className="chart__tooltip-heading">{t('nationalDataPoint.methodsUsed')}</div>
           {datum.dataSourceMethods.map((dataSourceMethod) => (
             <div key={dataSourceMethod} className="chart__tooltip-data-source">
-              {t<string>(`nationalDataPoint.dataSourceMethodsOptions.${dataSourceMethod}`)}
+              {t(`nationalDataPoint.dataSourceMethodsOptions.${dataSourceMethod}`)}
             </div>
           ))}
         </div>

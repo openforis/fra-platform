@@ -1,13 +1,12 @@
-import { Objects } from 'utils/objects'
-
 import { LayerRequestBody } from 'meta/api/request/geo/layer'
 import { CountryIso } from 'meta/area/countryIso'
 import { ForestKey } from 'meta/geo/forest/key'
 import { LayerKey } from 'meta/geo/layer/key'
 import { Layer } from 'meta/geo/layer/layer'
 import { LayerSource } from 'meta/geo/layer/source'
+import { Objects } from 'utils/objects'
 
-import { GeoLayersState, LayerFetchStatus, LayersSectionState, LayerState } from 'client/store/geo/layers/state'
+import { GeoLayersState, LayerFetchStatus, LayerState } from 'client/store/geo/layers/state'
 
 export const buildLayerData = (layerKey: LayerKey, layerState: LayerState): LayerSource => {
   const data: LayerSource = { key: layerKey }
@@ -20,7 +19,7 @@ export const buildLayerData = (layerKey: LayerKey, layerState: LayerState): Laye
 }
 
 const _buildAgreementLayerData = (
-  layersState: LayersSectionState,
+  layersState: GeoLayersState,
   sectionLayers: Array<Layer>,
   layerKey: LayerKey,
   agreementLayerState: LayerState

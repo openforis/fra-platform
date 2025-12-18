@@ -1,14 +1,13 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-
 import classNames from 'classnames'
-import { Numbers } from 'utils/numbers'
 
 import { ODPs } from 'meta/assessment/odps'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { SectionNames } from 'meta/assessment/section'
 import { Topics } from 'meta/messageCenter/topics'
 import { TooltipId } from 'meta/tooltip/id'
+import { Numbers } from 'utils/numbers'
 
 import DiffText from 'client/components/DiffText'
 import InputPercent from 'client/components/Inputs/InputPercent'
@@ -35,7 +34,7 @@ type Props = {
 const ForestCharacteristicsNaturallyRegeneratingRow: React.FC<Props> = (props) => {
   const { canEditData, index, originalDataPoint } = props
 
-  const { i18n } = useTranslation()
+  const { t } = useTranslation()
 
   const { id, nationalClasses } = originalDataPoint
   const nationalClass = nationalClasses[index]
@@ -117,7 +116,7 @@ const ForestCharacteristicsNaturallyRegeneratingRow: React.FC<Props> = (props) =
       {showReviewIndicator && (
         <td className="fra-table__review-cell no-print">
           <ReviewIndicator
-            subtitle={i18n.t('nationalDataPoint.naturallyRegeneratingForest')}
+            subtitle={t('nationalDataPoint.naturallyRegeneratingForest')}
             title={name}
             topicKey={Topics.getOdpClassReviewTopicKey(
               originalDataPoint.id,

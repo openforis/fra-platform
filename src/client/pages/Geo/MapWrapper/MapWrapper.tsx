@@ -1,7 +1,6 @@
 import './MapWrapper.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-
 import { Status, Wrapper, WrapperProps } from '@googlemaps/react-wrapper'
 import { TFunction } from 'i18next'
 
@@ -23,7 +22,7 @@ const Components: Record<Status, React.FC<{ t: TFunction }>> = {
   [Status.FAILURE]: ({ t }) => (
     <>
       <StatisticsSidePanel />
-      <div className="geo-map-error-message">{t<string>('geo.error.map.failedToLoad')}</div>
+      <div className="geo-map-error-message">{t('geo.error.map.failedToLoad')}</div>
     </>
   ),
   [Status.SUCCESS]: () => (
