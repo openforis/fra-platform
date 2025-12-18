@@ -1,6 +1,5 @@
 import { useCallback, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-
 import axios from 'axios'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
@@ -9,11 +8,10 @@ import { Lang } from 'meta/lang'
 
 import { useUser } from 'client/store/user/hooks/user'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
+import i18nGlobal from 'client/i18n'
 
 type UpdateLanguage = (props: { lang: Lang; persist?: boolean }) => Promise<void>
-
 export const useUpdateLanguage = (): UpdateLanguage => {
-  const { i18n } = useTranslation()
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams()
   const user = useUser()
 
@@ -21,7 +19,7 @@ export const useUpdateLanguage = (): UpdateLanguage => {
     async (props) => {
       const { lang, persist = true } = props
 
-      await i18n.changeLanguage(lang)
+      await i18nGlobal.changeLanguage(lang)
 
       if (persist) {
         await localStorage.setItem('i18n/lang', lang)
@@ -39,12 +37,12 @@ export const useUpdateLanguage = (): UpdateLanguage => {
         await axios.put(ApiEndPoint.User.one(), formData, { params })
       }
     },
-    [assessmentName, countryIso, cycleName, i18n, user]
+    [assessmentName, countryIso, cycleName, user]
   )
 }
 
 export const useLanguage = (): Lang => {
   const { i18n } = useTranslation()
 
-  return useMemo<Lang>(() => i18n.resolvedLanguage as Lang, [i18n.resolvedLanguage])
+  return useMemo<Lang>(() => (i18n.resolvedLanguage || i18n.language) as Lang, [i18n.language, i18n.resolvedLanguage])
 }

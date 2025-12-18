@@ -1,6 +1,5 @@
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-
 import type { IJodit } from 'jodit/esm/types/jodit'
 
 import { useToaster } from 'client/hooks/toaster'
@@ -92,6 +91,7 @@ export const useConfigs = (props: Props): Returned => {
       statusbar: false,
       toolbarAdaptive: false,
       toolbarButtonSize: 'small',
+      toolbarSticky: false,
       uploader: undefined,
       ...options,
     }

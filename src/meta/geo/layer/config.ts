@@ -1,7 +1,8 @@
 export type LayerConfig = {
+  citation?: string
   mapId: string
   palette: Array<string>
-  year?: number
   scale?: number
-  citation?: string
+  tileUrl?: string
+  year?: number
 }

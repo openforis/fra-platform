@@ -593,12 +593,12 @@
   },
   "time": {
     "aMomentAgo": "Il y a un moment",
-    "day": "Il y a {{count}} jour",
-    "day_plural": "Il y a {{count}} jours",
-    "hour": "Il y a {{count}} heure",
-    "hour_plural": "Il y a {{count}} heures",
-    "week": "Il y a {{count}} semaine",
-    "week_plural": "il y a {{count}} semaines"
+    "day_one": "Il y a {{count}} jour",
+    "day_other": "Il y a {{count}} jours",
+    "hour_one": "Il y a {{count}} heure",
+    "hour_other": "Il y a {{count}} heures",
+    "week_one": "Il y a {{count}} semaine",
+    "week_other": "il y a {{count}} semaines"
   },
   "tutorial": {
     "collaboratorAdd": "Tutoriel pour l'utilisateur de la plateforme FRA - Comment ajouter un collaborateur",

@@ -19,7 +19,7 @@ import Title from './Title'
 import { useFetchResults } from './useFetchResults'
 
 const ResultsTable: React.FC<{ tableName: string }> = ({ tableName }) => {
-  const i18n = useTranslation()
+  const { t } = useTranslation()
   const { assessmentName, cycleName, sectionName } = useSectionRouteParams()
 
   const cycle = useCycle()
@@ -101,9 +101,7 @@ const ResultsTable: React.FC<{ tableName: string }> = ({ tableName }) => {
                       />
                     )}
                     {unit === null &&
-                      getColumnLabelKeys(String(columnName), sectionName, assessmentName).map(
-                        (key) => `${i18n.t(key)} `
-                      )}
+                      getColumnLabelKeys(String(columnName), sectionName, assessmentName).map((key) => `${t(key)} `)}
                   </th>
                 )
               })}
@@ -123,7 +121,7 @@ const ResultsTable: React.FC<{ tableName: string }> = ({ tableName }) => {
               {variables.map((_) =>
                 columnsResults.map((column) => (
                   <th key={column} className="fra-table__header-cell">
-                    {getColumnLabelKeys(String(column), sectionName, assessmentName).map((key) => `${i18n.t(key)} `)}
+                    {getColumnLabelKeys(String(column), sectionName, assessmentName).map((key) => `${t(key)} `)}
                   </th>
                 ))
               )}
@@ -133,13 +131,13 @@ const ResultsTable: React.FC<{ tableName: string }> = ({ tableName }) => {
           <tbody>
             {selection.countryISOs.map((countryIso) => {
               const country = countries.find((country) => country.countryIso === countryIso)
-              const label = i18n.t(Areas.getTranslationKey(countryIso as CountryIso))
+              const label = t(Areas.getTranslationKey(countryIso as CountryIso))
               const { deskStudy } = country.props
 
               return (
                 <tr key={label}>
                   <th className="fra-table__category-cell" colSpan={1}>
-                    {i18n.t(label)} {deskStudy && `(${i18n.t('assessment.deskStudy')})`}
+                    {t(label)} {deskStudy && `(${t('assessment.deskStudy')})`}
                   </th>
                   {cellsExportAlways.map((cell) => {
                     const { columnName, format, unit, variableName } = cell

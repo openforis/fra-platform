@@ -33,8 +33,9 @@ export const getProtectedAreaLayer = async (props: Props): Promise<LayerConfig> 
 
   return {
     mapId: map.mapId,
-    year: asset.year,
-    scale: asset.metadata.scale,
     palette: asset.metadata.palette,
+    scale: asset.metadata.scale,
+    tileUrl: map.tileUrl,
+    year: asset.year,
   }
 }

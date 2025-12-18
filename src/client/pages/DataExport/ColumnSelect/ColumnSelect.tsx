@@ -66,7 +66,9 @@ const ColumnSelect: React.FC<{ columns: Array<string> }> = ({ columns }) => {
           multiLabelSummaryKey="common.column"
           onChange={updateSelection}
           options={columns.map<Option>((column) => {
-            const label = getColumnLabelKeys(column, sectionName, assessmentName).map(t).join(' ')
+            const label = getColumnLabelKeys(column, sectionName, assessmentName)
+              .map((key) => t(key))
+              .join(' ')
             return { label, value: column }
           })}
           placeholder={t('common.select')}
@@ -80,7 +82,9 @@ const ColumnSelect: React.FC<{ columns: Array<string> }> = ({ columns }) => {
           <div className="export__form-section-variables">
             {columns.map((column: string) => {
               const selected = selectionColumns.includes(column)
-              const label = getColumnLabelKeys(column, sectionName, assessmentName).map(t).join(' ')
+              const label = getColumnLabelKeys(column, sectionName, assessmentName)
+                .map((key) => t(key))
+                .join(' ')
 
               return (
                 <ButtonCheckBox
