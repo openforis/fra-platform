@@ -1,11 +1,10 @@
-import { Objects } from 'utils/objects'
-
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { UserInvitation } from 'meta/user/invitation'
 import { UserInvitations } from 'meta/user/invitations'
 import { User, UserStatus } from 'meta/user/user'
+import { Objects } from 'utils/objects'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
@@ -60,6 +59,6 @@ export const acceptInvitation = async (props: Props, client: BaseProtocol = DB):
       await MailService.userNotifyAcceptedInvitation(mailServiceProps)
     }
 
-    return UserRepository.update({ user }, t)
+    return UserRepository.update({ user, cycleUuid }, t)
   })
 }
