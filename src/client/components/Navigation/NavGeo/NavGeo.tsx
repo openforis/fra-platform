@@ -7,6 +7,7 @@ import { useOnUpdate } from 'client/hooks/onUpdate'
 import Icon from 'client/components/Icon'
 import GeoSection from 'client/components/Navigation/NavGeo/GeoSection'
 import LayersSection from 'client/components/Navigation/NavGeo/LayersSection'
+import UnBoundariesToggle from 'client/components/Navigation/NavGeo/LayersSection/UnBoundariesToggle'
 import SatelliteMosaic from 'client/components/Navigation/NavGeo/SatelliteMosaic'
 
 type Props = {
@@ -29,7 +30,7 @@ const NavGeo: React.FC<Props> = (props) => {
   const hasExpanded = useMemo<boolean>(() => Object.values(sectionsExpanded).some((value) => value), [sectionsExpanded])
 
   const makeSetExpanded = useCallback((titleKey: string) => {
-    return (expanded: boolean) => {
+    return (expanded: boolean): void => {
       setSectionsExpanded((prevState) => ({ ...prevState, [titleKey]: expanded }))
     }
   }, [])
@@ -63,6 +64,8 @@ const NavGeo: React.FC<Props> = (props) => {
           </React.Fragment>
         )
       })}
+
+      <UnBoundariesToggle />
     </div>
   )
 }
