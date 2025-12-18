@@ -15,8 +15,6 @@ import { GeoMapState } from 'client/store/geo/map/state'
 import { GeoMosaicState } from 'client/store/geo/mosaic/state'
 import { GeoRecipesState } from 'client/store/geo/recipes/state'
 import { GeoSliceName } from 'client/store/geo/slice/name'
-import { LoginSliceName } from 'client/store/login/name'
-import { LoginState } from 'client/store/login/state'
 import { TablePaginatedSliceName } from 'client/store/tablePaginated/name'
 import { TablePaginatedState } from 'client/store/tablePaginated/state'
 
@@ -42,7 +40,6 @@ export interface LazyLoadedSlices {
     recipes: GeoRecipesState
     statistics: GeoStatisticsState
   }
-  [LoginSliceName]: LoginState
   [TablePaginatedSliceName]: TablePaginatedState
 }
 
