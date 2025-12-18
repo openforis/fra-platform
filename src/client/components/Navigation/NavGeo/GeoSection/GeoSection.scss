@@ -16,8 +16,7 @@
 
 .nav-geo-section__header {
   display: grid;
-  justify-items: start;
-  padding: 0 $spacing-xs;
+  justify-items: center;
 
   button.button.inverse {
     background-color: rgba(white, 0.85);
@@ -25,6 +24,11 @@
     &:hover {
       background-color: white;
     }
+  }
+
+  &.layers {
+    justify-items: start;
+    padding: 0 $spacing-xs;
   }
 }
 

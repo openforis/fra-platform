@@ -24,6 +24,18 @@
     }
   }
 
+  &.button__type-black.inverse {
+    svg {
+      border-color: $ui-black-map;
+    }
+
+    &:hover {
+      svg {
+        color: $ui-black-map;
+      }
+    }
+  }
+
   &.variant-checkbox {
     background-color: transparent;
     border: unset;

@@ -6,7 +6,8 @@ import { BoundariesActions } from 'client/store/geo/boundaries/actions'
 import { useShowUnBoundaries, useUnBoundariesStatus } from 'client/store/geo/boundaries/hooks/boundaries'
 import { LayerFetchStatus } from 'client/store/geo/layers/state'
 import { useAppDispatch } from 'client/store/hooks'
-import ToggleControl from 'client/components/Navigation/NavGeo/Layer/ToggleControl'
+import { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
+import ButtonCheckbox from 'client/components/Buttons/ButtonCheckbox'
 
 const UnBoundariesToggle: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -21,12 +22,14 @@ const UnBoundariesToggle: React.FC = () => {
 
   return (
     <div className="nav-geo__un-boundaries-toggle">
-      <ToggleControl
-        backgroundColor="#5B92E5"
+      <ButtonCheckbox
         checked={showUnBoundaries}
+        className="checkbox"
         label={t('geo.showUnBoundaries')}
-        onCheckboxClick={toggle}
-        status={showUnBoundaries ? status : LayerFetchStatus.Unfetched}
+        loading={status === LayerFetchStatus.Loading}
+        onClick={toggle}
+        size={ButtonSize.m}
+        type={ButtonType.black}
       />
     </div>
   )

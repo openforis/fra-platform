@@ -41,6 +41,7 @@ const NavGeo: React.FC<Props> = (props) => {
     <div className="nav-geo">
       <GeoSection
         key={satelliteMosaicKey}
+        className="layers"
         expanded={sectionsExpanded[satelliteMosaicKey]}
         icon={<Icon name="radar" />}
         labelKey="geo.satelliteMosaic"
@@ -54,6 +55,7 @@ const NavGeo: React.FC<Props> = (props) => {
         return (
           <React.Fragment key={`geo-nav-section-${key}`}>
             <GeoSection
+              className="layers"
               expanded={sectionsExpanded[titleKey]}
               icon={<Icon name="layers" />}
               labelKey={titleKey}
