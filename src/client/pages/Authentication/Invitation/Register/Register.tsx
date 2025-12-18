@@ -10,15 +10,14 @@ import Icon from 'client/components/Icon'
 import ButtonGoogle from 'client/pages/Authentication/ButtonGoogle'
 import Divider from 'client/pages/Authentication/Divider'
 import FormLogin from 'client/pages/Authentication/FormLogin'
+import { useOnSuccess } from 'client/pages/Authentication/FormLogin/hooks/useOnSuccess'
 import { useData } from 'client/pages/Authentication/Invitation/hooks/useData'
 import { videoResources } from 'client/pages/Tutorials'
-
-import { useOnSuccess } from './hooks/useOnSuccess'
 
 const Register: React.FC = () => {
   const { i18n, t } = useTranslation()
   const data = useData()
-  const onSuccess = useOnSuccess({ data })
+  const onSuccess = useOnSuccess()
 
   if (!data) return null
 
