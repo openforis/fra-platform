@@ -27,8 +27,8 @@ export const useOnAccept = (props: Props): Returned => {
   const [isLoading, setIsLoading] = useState(false)
 
   const onAccept = useCallback(async () => {
-    const { assessmentName, cycleName, userInvitation } = data
-    const { countryIso, uuid: invitationUuid } = userInvitation
+    const { userInvitation } = data
+    const { uuid: invitationUuid } = userInvitation
 
     setIsLoading(true)
     try {
@@ -36,7 +36,7 @@ export const useOnAccept = (props: Props): Returned => {
       const { data } = await axios.post<{ user: User }>(ApiEndPoint.User.invitationAccept(), {}, config)
       // On accept, update received user to store and navigate to role assessment/cycle/country
       dispatch(UserActions.setUser(data.user))
-      navigate(Routes.Country.generatePath({ assessmentName, countryIso, cycleName }))
+      navigate(Routes.Root.generatePath())
     } catch (error) {
       setIsLoading(false)
     }
