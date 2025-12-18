@@ -10,11 +10,10 @@ const Invitation: React.FC = () => {
   const data = useData()
 
   if (!data) return null
-  if (!user) return <Register />
 
-  if (data.user.uuid !== user.uuid) {
-    return null
-  }
+  // If the user is not logged in,
+  // or the user is logged in with a different account than invited
+  if (!user || data.user.uuid !== user.uuid) return <Register />
 
   return <Accept data={data} />
 }
