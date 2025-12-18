@@ -32,7 +32,7 @@ const Form: React.FC<FormProps> = (props) => {
     disabled,
     formDefinition,
     hideCancel,
-    method,
+    method = 'post',
     onCancel,
     onSuccess,
     validationSchema = defaults.validationSchema,

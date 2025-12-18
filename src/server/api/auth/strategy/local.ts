@@ -26,7 +26,7 @@ const localStrategyVerifyCallback = async (
     } else if (Objects.isEmpty(password.trim())) {
       sendErr('login.noEmptyPassword')
     } else {
-      const invitationUuid = req.query?.invitationUuid as string
+      const invitationUuid = req.body?.invitationUuid as string
 
       if (invitationUuid) {
         const { user: invitedUser, userInvitation } = await UserController.findByInvitation({ invitationUuid })

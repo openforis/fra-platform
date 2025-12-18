@@ -24,7 +24,7 @@ import Tutorials from 'client/pages/Tutorials'
 
 import { KioskRoutes } from './_KioskRoutes'
 
-const LoginLazy = React.lazy(() => import('client/pages/Login'))
+const AuthenticationLazy = React.lazy(() => import('client/pages/Authentication/Authentication'))
 const OriginalDataPointLazy = React.lazy(() => import('client/pages/OriginalDataPoint'))
 const AdminLazy = React.lazy(() => import('client/pages/Admin'))
 const UserLazy = React.lazy(() => import('client/pages/User'))
@@ -112,7 +112,7 @@ export const useRoutes = (): Array<RouteObject> => {
               <Route
                 element={
                   <Suspense>
-                    <LoginLazy />
+                    <AuthenticationLazy />
                   </Suspense>
                 }
                 path={`${Routes.Login.path.relative}/*`}
