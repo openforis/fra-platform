@@ -79,6 +79,7 @@
   "selectMinTreeCoverPercent": "Sélectionner le pourcentage minimum de couvert arboré:",
   "sentinel": "Sentinel",
   "showSatelliteMosaic": "Montrer la mosaïque satellite",
+  "showUnBoundaries": "Afficher les frontières de l'ONU",
   "snowMasking": "Masquage de la neige",
   "statistics": {
     "burnedArea": {
@@ -101,5 +102,6 @@
   },
   "treeCoverAgreementSelected": "Accord sélectionné sur le couvert arboré",
   "treeCoverProtectedAreas": "Couvert arboré dans les zones protégées",
-  "treeCoverProtectedAreasWithUnit": "$t(geo.treeCoverProtectedAreas) ({{unit}})"
+  "treeCoverProtectedAreasWithUnit": "$t(geo.treeCoverProtectedAreas) ({{unit}})",
+  "unBoundariesDisclaimer": "Les appellations utilisées sur cette carte et la présentation des données qui y figurent n’impliquent de la part du Secrétariat de l’Organisation des Nations Unies aucune prise de position quant au statut juridique des pays, territoires, villes ou zones, ou de leurs autorités, ni quant au tracé de leurs frontières ou limites. Les pointillés correspondent approximativement à la ligne de contrôle au Jammu-et-Cachemire convenue par l'Inde et le Pakistan. Les parties n’ont pas encore réglé la question du statut définitif du Jammu-et-Cachemire. Le tracé définitif de la frontière entre la République du Soudan et la République du Soudan du Sud n’a pas encore été défini. Le statut définitif de la zone d’Abyei n’est pas encore déterminé. La souverainté sur les îles Falkland (Malvinas) fait l’objet d’un différend entre le Gouvernement de l’Argentine et le Gouvernement du Royaume-Uni de Grande-Bretagne et d’Irlande du Nord."
 }

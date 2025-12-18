@@ -79,6 +79,7 @@
   "selectMinTreeCoverPercent": "选择最小树木覆盖百分比：",
   "sentinel": "哨兵卫星(Sentinel)",
   "showSatelliteMosaic": "显示卫星镶嵌",
+  "showUnBoundaries": "显示联合国国界",
   "snowMasking": "雪面掩码",
   "statistics": {
     "burnedArea": {
@@ -101,5 +102,6 @@
   },
   "treeCoverAgreementSelected": "选定的同意树木覆盖区域",
   "treeCoverProtectedAreas": "受保护区域内的树木覆盖",
-  "treeCoverProtectedAreasWithUnit": "$t(geo.treeCoverProtectedAreas) ({{unit}})"
+  "treeCoverProtectedAreasWithUnit": "$t(geo.treeCoverProtectedAreas) ({{unit}})",
+  "unBoundariesDisclaimer": "本地图采用的说明性注记和所列资料并不代表联合国秘书处对任何国家、领土、 城市或地区的法律地位或对其边疆或边界划分管辖权的任何意见。虚线为印度和巴基斯坦商定的查谟和克什米尔的大致控制线。双方尚未商定查谟 和克什米尔的最终地位。苏丹共和国和南苏丹共和国之间的最终边界尚未确定。阿卜耶伊地区的最终地位尚未确定。阿根廷政府和大不列颠及爱尔兰联合王国政府之间就福克兰 (马尔维纳斯)群岛的主权问题存在着争议。"
 }
