@@ -7,14 +7,15 @@ import { FieldDefinition, FormDefinition, FormFieldType } from 'client/component
 interface Props {
   disableEmail: boolean
   email?: string
+  invitationUuid?: string
   labels?: FormDefinition['labels']
-  password: boolean
   password2: boolean
+  password: boolean
   resetPasswordUuid?: string
 }
 
 export const useFormDefinition = (props: Props): FormDefinition => {
-  const { disableEmail, email, labels, password, password2, resetPasswordUuid } = props
+  const { disableEmail, email, invitationUuid, labels, password, password2, resetPasswordUuid } = props
   const { t } = useTranslation()
   const { assessmentName, cycleName } = useCycleRouteParams()
 
@@ -35,6 +36,16 @@ export const useFormDefinition = (props: Props): FormDefinition => {
         type: FormFieldType.hidden,
       },
     ]
+
+    if (invitationUuid) {
+      fields.push({
+        defaultValue: invitationUuid,
+        label: '',
+        name: 'invitationUuid',
+        required: true,
+        type: FormFieldType.hidden,
+      })
+    }
 
     if (resetPasswordUuid) {
       fields.push({
@@ -85,5 +96,16 @@ export const useFormDefinition = (props: Props): FormDefinition => {
     if (labels) formDefinition.labels = labels
 
     return formDefinition
-  }, [assessmentName, cycleName, disableEmail, email, labels, password, password2, resetPasswordUuid, t])
+  }, [
+    assessmentName,
+    cycleName,
+    disableEmail,
+    email,
+    invitationUuid,
+    labels,
+    password,
+    password2,
+    resetPasswordUuid,
+    t,
+  ])
 }
