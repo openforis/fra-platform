@@ -4,3 +4,28 @@
   flex: 1;
   overflow: hidden;
 }
+
+.geo-un-boundaries-disclaimer {
+  background-color: rgba($ui-bg, 0.98);
+  border-radius: $spacing-xxxxs;
+  bottom: $spacing-xxs;
+  box-shadow: 0 0 1px 1px rgba($ui-black-map, 0.1);
+  color: $ui-black-map;
+  font-size: $font-xxs;
+  left: $spacing-xs;
+  line-height: 1.3;
+  max-height: 240px;
+  overflow: auto;
+  padding: $spacing-xs;
+  position: absolute;
+  white-space: pre-line;
+  width: 60vw;
+  z-index: 1;
+}
+
+@include rtl {
+  .geo-un-boundaries-disclaimer {
+    left: unset;
+    right: $spacing-xs;
+  }
+}
