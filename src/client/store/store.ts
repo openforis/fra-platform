@@ -10,6 +10,7 @@ import { ExplorerDataState } from 'client/store/explorer/data/state'
 import { ExplorerMetadataState } from 'client/store/explorer/metadata/state'
 import { ExplorerSelectionState } from 'client/store/explorer/selection/state'
 import { ExplorerSliceName } from 'client/store/explorer/slice/name'
+import { GeoBoundariesState } from 'client/store/geo/boundaries/state'
 import { GeoLayersState } from 'client/store/geo/layers/state'
 import { GeoMapState } from 'client/store/geo/map/state'
 import { GeoMosaicState } from 'client/store/geo/mosaic/state'
@@ -36,6 +37,7 @@ export interface LazyLoadedSlices {
     selection: ExplorerSelectionState
   }
   [GeoSliceName]: {
+    boundaries: GeoBoundariesState
     layers: GeoLayersState
     map: GeoMapState
     mosaic: GeoMosaicState
