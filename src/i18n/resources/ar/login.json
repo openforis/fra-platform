@@ -34,6 +34,7 @@
   "password": "كلمة مرور",
   "passwordChanged": "تم تغيير كلمة المرور",
   "passwordMinLength": "يجب أن تكون كلمة المرور على الأقل {{count}} أحرف",
+  "passwordMaxLength": "يجب أن تكون كلمة المرور على الأقل {{count}} أحرف",
   "passwordResetSent": "تم تقديم طلب إعادة ضبط كلمة المرور بنجاح.",
   "repeatPassword": "كرر كلمة المرور",
   "resetPassword": "إعادة تعيين كلمة المرور",

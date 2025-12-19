@@ -34,6 +34,7 @@
   "password": "Password",
   "passwordChanged": "Le mot de passe a été changé",
   "passwordMinLength": "Le mot de passe doit comporter au moins {{count}} caractères",
+  "passwordMaxLength": "Le mot de passe doit comporter au moins {{count}} caractères",
   "passwordResetSent": "La demande de réinitialisation de votre mot de passe a été soumise avec succès.\nVous recevrez bientôt un e-mail contenant des instructions",
   "repeatPassword": "Mot de passe",
   "resetPassword": "Réinitialiser le mot de passe",
