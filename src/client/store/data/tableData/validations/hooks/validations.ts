@@ -14,13 +14,12 @@ export const useNodeValueValidation = (props: { table: Table; row: Row; col: Col
   const { col, row, table } = props
 
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
+  const tableName = table.props.name
+  const { colName } = col.props
+  const { variableName } = row.props
 
   return useAppSelector((state) => {
-    const tableName = table.props.name
-    const { colName } = col.props
-    const { variableName } = row.props
-
-    const validation = ValidationsSelectors.getNodeValidation(
+    return ValidationsSelectors.getNodeValidation(
       state,
       assessmentName,
       cycleName,
@@ -29,8 +28,6 @@ export const useNodeValueValidation = (props: { table: Table; row: Row; col: Col
       colName,
       variableName
     )
-
-    return validation ?? { valid: true }
   })
 }
 

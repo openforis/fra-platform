@@ -1,5 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit'
 
+import { ReviewStatus } from 'meta/assessment/review'
 import { UUID } from 'meta/uuid/uuid'
 
 import { ReviewSlice } from 'client/store/review/slice'
@@ -9,7 +10,10 @@ const getState = (state: RootState) => state[ReviewSlice.name]
 // ====== status
 const _getStatus = createSelector(getState, (state) => state.status)
 
-const getStatus = createSelector([_getStatus, (_state, key: string) => key], (status, key) => status?.[key])
+const getStatus = createSelector(
+  [_getStatus, (_state, key: string) => key],
+  (status, key) => status?.[key] ?? ({} as ReviewStatus)
+)
 
 const getStatuses = createSelector(_getStatus, (status) => Object.values(status ?? {}))
 
