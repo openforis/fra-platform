@@ -3,7 +3,7 @@
   "change_many": "{{count}} изменений",
   "change_one": "{{count}} изменение",
   "change_other": "{{count}} изменения",
-  "change_two": "{{count}} изменения",
-  "change_zero": "{{count}} изменений",
+  "change_two": "$t(history.change_few)",
+  "change_zero": "$t(history.change_many)",
   "history": "История"
 }

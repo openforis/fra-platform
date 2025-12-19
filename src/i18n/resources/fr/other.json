@@ -593,12 +593,24 @@
   },
   "time": {
     "aMomentAgo": "Il y a un moment",
+    "day_few": "$t(time.day_other)",
+    "day_many": "$t(time.day_other)",
     "day_one": "Il y a {{count}} jour",
     "day_other": "Il y a {{count}} jours",
+    "day_two": "$t(time.day_other)",
+    "day_zero": "$t(time.day_other)",
+    "hour_few": "$t(time.hour_other)",
+    "hour_many": "$t(time.hour_other)",
     "hour_one": "Il y a {{count}} heure",
     "hour_other": "Il y a {{count}} heures",
+    "hour_two": "$t(time.hour_other)",
+    "hour_zero": "$t(time.hour_other)",
+    "week_few": "$t(time.week_other)",
+    "week_many": "$t(time.week_other)",
     "week_one": "Il y a {{count}} semaine",
-    "week_other": "il y a {{count}} semaines"
+    "week_other": "il y a {{count}} semaines",
+    "week_two": "$t(time.week_other)",
+    "week_zero": "$t(time.week_other)"
   },
   "tutorial": {
     "collaboratorAdd": "Tutoriel pour l'utilisateur de la plateforme FRA - Comment ajouter un collaborateur",

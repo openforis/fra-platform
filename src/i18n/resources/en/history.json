@@ -1,5 +1,9 @@
 {
+  "change_few": "$t(history.change_other)",
+  "change_many": "$t(history.change_other)",
   "change_one": "{{count}} change",
   "change_other": "{{count}} changes",
+  "change_two": "$t(history.change_other)",
+  "change_zero": "$t(history.change_other)",
   "history": "History"
 }

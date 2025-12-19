@@ -593,12 +593,24 @@
   },
   "time": {
     "aMomentAgo": "Hace un momento",
+    "day_few": "$t(time.day_other)",
+    "day_many": "$t(time.day_other)",
     "day_one": "Hace {{count}} día",
-    "day_other": "Hace {{count}} días ",
+    "day_other": "Hace {{count}} días",
+    "day_two": "$t(time.day_other)",
+    "day_zero": "$t(time.day_other)",
+    "hour_few": "$t(time.hour_other)",
+    "hour_many": "$t(time.hour_other)",
     "hour_one": "Hace {{count}} hora",
     "hour_other": "Hace {{count}} horas",
+    "hour_two": "$t(time.hour_other)",
+    "hour_zero": "$t(time.hour_other)",
+    "week_few": "$t(time.week_other)",
+    "week_many": "$t(time.week_other)",
     "week_one": "Hace {{count}} semana",
-    "week_other": "Hace {{count}} semanas"
+    "week_other": "Hace {{count}} semanas",
+    "week_two": "$t(time.week_other)",
+    "week_zero": "$t(time.week_other)"
   },
   "tutorial": {
     "collaboratorAdd": "Manual de usuario de la plataforma FRA - Cómo añadir un colaborador",
