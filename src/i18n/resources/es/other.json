@@ -686,8 +686,7 @@
     "remove": "Eliminar",
     "sendInvitation": "Enviar correo electrónico de invitación",
     "userAdded": "El email {{email}} ha sido añadido",
-    "userModified": "{{user}} ha sido modificado",
-    "userUpdated": "{{email}} ha sido actualizado"
+    "userUpdated": "{{user}} ha sido actualizado"
   },
   "yesNoTextSelect": {
     "no": "No",

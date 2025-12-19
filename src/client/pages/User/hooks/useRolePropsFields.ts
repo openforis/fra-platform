@@ -1,8 +1,6 @@
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Objects } from 'utils/objects'
-
 import { Areas } from 'meta/area/areas'
 import { CountryIso } from 'meta/area/countryIso'
 import { Authorizer } from 'meta/auth/authorizer'
@@ -13,6 +11,7 @@ import { UserRoleExtended } from 'meta/user/role/role'
 import { UserRoles } from 'meta/user/roles'
 import { User } from 'meta/user/user'
 import { Users } from 'meta/user/users'
+import { Objects } from 'utils/objects'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useUser } from 'client/store/user/hooks/user'
@@ -141,6 +140,7 @@ export const useRolePropsFields = (props: PropsFormDefinition): FormDefinition['
         required: true,
       },
       {
+        country: { allowAtlantis: false },
         name: 'role.props.address.countryIso',
         type: FormFieldType.country,
         label: 'editUser.countryIso',

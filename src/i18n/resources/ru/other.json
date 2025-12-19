@@ -698,8 +698,7 @@
     "remove": "Удалить",
     "sendInvitation": "Направить приглашение по электронной почте",
     "userAdded": "{{email}} был добавлен",
-    "userModified": "{{user}} был изменен",
-    "userUpdated": "{{email}} был обновлен"
+    "userUpdated": "{{user}} был обновлен"
   },
   "yesNoTextSelect": {
     "no": "Нет",
