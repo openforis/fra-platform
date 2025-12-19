@@ -1,5 +1,9 @@
 {
+  "change_few": "{{count}} 改变",
+  "change_many": "{{count}} 改变",
   "change_one": "{{count}} 改变",
   "change_other": "{{count}} 改变",
+  "change_two": "{{count}} 改变",
+  "change_zero": "{{count}} 改变",
   "history": "历史记录"
 }

@@ -1,5 +1,9 @@
 {
+  "change_few": "{{count}} cambios",
+  "change_many": "{{count}} cambios",
   "change_one": "{{count}} cambio",
   "change_other": "{{count}} cambios",
+  "change_two": "{{count}} cambios",
+  "change_zero": "{{count}} cambios",
   "history": "Registro histórico de cambios"
 }

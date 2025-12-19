@@ -1,5 +1,9 @@
 {
+  "change_few": "{{count}} modifications",
+  "change_many": "{{count}} modifications",
   "change_one": "{{count}} modification",
   "change_other": "{{count}} modifications",
+  "change_two": "{{count}} modifications",
+  "change_zero": "{{count}} modifications",
   "history": "Journal des modifications historiques"
 }

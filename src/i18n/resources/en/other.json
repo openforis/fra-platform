@@ -593,12 +593,24 @@
   },
   "time": {
     "aMomentAgo": "a moment ago",
+    "day_few": "{{count}} days ago",
+    "day_many": "{{count}} days ago",
     "day_one": "{{count}} day ago",
     "day_other": "{{count}} days ago",
+    "day_two": "{{count}} days ago",
+    "day_zero": "{{count}} days ago",
+    "hour_few": "{{count}} hours ago",
+    "hour_many": "{{count}} hours ago",
     "hour_one": "{{count}} hour ago",
     "hour_other": "{{count}} hours ago",
+    "hour_two": "{{count}} hours ago",
+    "hour_zero": "{{count}} hours ago",
+    "week_few": "{{count}} weeks ago",
+    "week_many": "{{count}} weeks ago",
     "week_one": "{{count}} week ago",
-    "week_other": "{{count}} weeks ago"
+    "week_other": "{{count}} weeks ago",
+    "week_two": "{{count}} weeks ago",
+    "week_zero": "{{count}} weeks ago"
   },
   "tutorial": {
     "collaboratorAdd": "The FRA platform user tutorial - How to add a collaborator",

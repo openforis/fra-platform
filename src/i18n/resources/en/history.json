@@ -1,5 +1,9 @@
 {
+  "change_few": "{{count}} changes",
+  "change_many": "{{count}} changes",
   "change_one": "{{count}} change",
   "change_other": "{{count}} changes",
+  "change_two": "{{count}} changes",
+  "change_zero": "{{count}} changes",
   "history": "History"
 }
