@@ -686,8 +686,7 @@
     "remove": "移除",
     "sendInvitation": "发送邀请邮件",
     "userAdded": "{{email}}已被添加",
-    "userModified": "用户{{user}}已被修改",
-    "userUpdated": "{{email}} 已更新"
+    "userUpdated": "{{user}} 已更新"
   },
   "yesNoTextSelect": {
     "no": "否",

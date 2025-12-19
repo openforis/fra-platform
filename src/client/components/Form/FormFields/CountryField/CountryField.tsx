@@ -7,10 +7,10 @@ import FormField from 'client/components/Form/FormFields/FormField'
 
 import { FieldProps } from '../types'
 
-const CountryField = (props: FieldProps) => {
+const CountryField: React.FC<FieldProps> = (props) => {
   const { control, fieldDefinition } = props
 
-  const { defaultValue, isMulti = false, name, placeholder } = fieldDefinition
+  const { country, defaultValue, isMulti = false, name, placeholder } = fieldDefinition
 
   return (
     <FormField
@@ -28,6 +28,7 @@ const CountryField = (props: FieldProps) => {
 
               return (
                 <CountryMultiSelect
+                  allowAtlantis={country?.allowAtlantis}
                   disabled={disabled}
                   disabledOptions={disabledOptions}
                   isClearable={false}

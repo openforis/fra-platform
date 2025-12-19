@@ -7,6 +7,6 @@ export type GeoBoundariesState = {
 }
 
 export const initialState: GeoBoundariesState = {
-  showUnBoundaries: true,
+  showUnBoundaries: false,
   status: LayerFetchStatus.Unfetched,
 }

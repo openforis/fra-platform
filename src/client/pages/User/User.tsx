@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from 'react-router'
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { Areas } from 'meta/area/areas'
 import { CountryIso } from 'meta/area/countryIso'
+import { Routes } from 'meta/routes/routes'
 
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { useToaster } from 'client/hooks/toaster'
@@ -29,7 +30,12 @@ const User: React.FC = () => {
   const formDefinition = useFormDefinition({ editUserRules, targetUser })
   const validationSchema = useValidationSchema()
 
-  const onSuccess = useOnSuccess()
+  const personalInfoRequired = location?.state?.personalInfoRequired
+  const redirectUrl = personalInfoRequired
+    ? Routes.Country.generatePath({ assessmentName, countryIso, cycleName })
+    : undefined
+
+  const onSuccess = useOnSuccess({ redirectUrl })
   const onCancel = useCallback(() => {
     navigate(-1)
   }, [navigate])
@@ -37,10 +43,10 @@ const User: React.FC = () => {
   const action = Urls.withSearchParams(ApiEndPoint.User.one(), { assessmentName, cycleName, countryIso })
 
   useEffect(() => {
-    if (location?.state?.personalInfoRequired) {
+    if (personalInfoRequired) {
       toaster.info(t('userManagement.personalInfoRequired'))
     }
-  }, [location?.state?.personalInfoRequired, t, toaster])
+  }, [personalInfoRequired, t, toaster])
 
   if (!formDefinition) return null
 

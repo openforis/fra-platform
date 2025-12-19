@@ -698,8 +698,7 @@
     "remove": "إزالة",
     "sendInvitation": "إرسال دعوة عبر البريد الإلكتروني",
     "userAdded": "تمت إضافة {{البريد الالكتروني}}",
-    "userModified": "تم تعديل {{user}}",
-    "userUpdated": "تم تحديث {{email}}"
+    "userUpdated": "تم تحديث {{user}}"
   },
   "yesNoTextSelect": {
     "no": "لا",
