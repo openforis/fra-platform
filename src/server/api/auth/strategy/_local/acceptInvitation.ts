@@ -35,7 +35,7 @@ export const localAcceptInvitation = async (props: Props): Promise<void> => {
         provider: { provider, props: { password: passwordHashed } },
       })
     } else {
-      sendErr('login.noMatchPasswords')
+      return sendErr('login.noMatchPasswords')
     }
   }
 
