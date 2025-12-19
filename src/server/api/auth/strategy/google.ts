@@ -28,12 +28,10 @@ const googleStrategyVerifyCallback = async (
     if (invitationUuid) {
       const { user: invitedUser, userInvitation } = await UserController.findByInvitation({ invitationUuid })
 
-      const userProviders = await UserProviderController.read<AuthProviderGoogleProps>({
+      let userProvider = await UserProviderController.read<AuthProviderGoogleProps>({
         user: invitedUser,
         provider: AuthProvider.google,
       })
-
-      let userProvider = userProviders?.find((up) => up.props.email === email)
 
       if (!userProvider) {
         const googleUser = await UserController.getOne({ emailGoogle: email })
