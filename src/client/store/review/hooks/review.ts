@@ -6,8 +6,9 @@ import { UUID } from 'meta/uuid/uuid'
 import { useAppSelector } from 'client/store/hooks'
 import { ReviewSelectors } from 'client/store/review/selectors'
 
-export const useReviewStatus = (key: string): ReviewStatus =>
-  useAppSelector((state) => ReviewSelectors.getStatus(state, key) || ({} as ReviewStatus))
+export const useReviewStatus = (key: string): ReviewStatus => {
+  return useAppSelector((state) => ReviewSelectors.getStatus(state, key))
+}
 
 export const useOdpReviewSummary = (odpId: number): ReviewStatus => {
   const statuses = useAppSelector(ReviewSelectors.getStatuses)

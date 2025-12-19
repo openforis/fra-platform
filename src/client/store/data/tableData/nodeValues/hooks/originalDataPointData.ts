@@ -1,21 +1,16 @@
-import { Objects } from 'utils/objects'
-
 import { CountryIso } from 'meta/area/countryIso'
-import { TableNames } from 'meta/assessment/table'
 import { RecordColumnData } from 'meta/data/recordData'
-import { RecordAssessmentDatas } from 'meta/data/recordDatas'
+import { Objects } from 'utils/objects'
 
 import { NodeValuesSelectors } from 'client/store/data/tableData/nodeValues/selectors'
 import { useAppSelector } from 'client/store/hooks'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 
 export const useOriginalDataPointData = (): RecordColumnData => {
-  const tableName = TableNames.originalDataPointValue
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
 
   return useAppSelector((state) => {
-    const data = NodeValuesSelectors.getRecordAssessmentData(state)
-    return RecordAssessmentDatas.getTableData({ assessmentName, cycleName, data, countryIso, tableName })
+    return NodeValuesSelectors.getOriginalDataPointData(state, assessmentName, cycleName, countryIso)
   })
 }
 

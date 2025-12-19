@@ -45,7 +45,7 @@ const getNodeValidation = createSelector(
       variableName: VariableName
     ) => variableName,
   ],
-  (tableValidations, colName, variableName) => tableValidations?.[colName]?.[variableName]
+  (tableValidations, colName, variableName) => tableValidations?.[colName]?.[variableName] ?? { valid: true }
 )
 
 export const ValidationsSelectors = {
