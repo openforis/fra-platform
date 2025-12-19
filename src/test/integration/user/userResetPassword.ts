@@ -59,12 +59,10 @@ export default (): void => {
     })
 
     test('Verify changed password', async () => {
-      const userAuthProviders = await UserProviderController.read<AuthProviderLocalProps>({
+      const userAuthProvider = await UserProviderController.read<AuthProviderLocalProps>({
         user,
         provider: AuthProvider.local,
       })
-
-      const [userAuthProvider] = userAuthProviders
 
       expect(userAuthProvider.props.password).not.toEqual(userMockTestPassword)
       expect(userAuthProvider.props.password).toEqual(userMockTestNewPassword)
