@@ -1,6 +1,7 @@
 name: Upload translation sources
 
 on:
+  workflow_dispatch:
   push:
     paths: ["src/i18n/resources/en/**/*.json", "!src/i18n/resources/en/panEuropean/**"]
     branches: [development]

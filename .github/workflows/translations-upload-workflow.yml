@@ -1,6 +1,7 @@
 name: Upload existing translations to Crowdin
 
 on:
+  workflow_dispatch:
   push:
     paths: ["src/i18n/resources/**/*.json", "!src/i18n/resources/en/**"]
     branches: [development]
