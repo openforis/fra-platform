@@ -34,6 +34,7 @@
   "password": "Password",
   "passwordChanged": "La contraseña ha sido cambiada",
   "passwordMinLength": "La contraseña debe tener al menos {{count}} caracteres",
+  "passwordMaxLength": "La contraseña debe tener al menos {{count}} caracteres",
   "passwordResetSent": "La solicitud para restablecer su contraseña se ha enviado con éxito.\nEn breve recibirás un correo electrónico con instrucciones.",
   "repeatPassword": "Contraseña",
   "resetPassword": "Restablecer contraseña",

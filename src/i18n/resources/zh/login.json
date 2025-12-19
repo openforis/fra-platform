@@ -34,6 +34,7 @@
   "password": "密码",
   "passwordChanged": "密码修改成功",
   "passwordMinLength": "密码长度至少为 {{count}} 个字符",
+  "passwordMaxLength": "密码长度至少为 {{count}} 个字符",
   "passwordResetSent": "重置密码的请求已成功提交。\n您很快将收到一封关于密码重置的电子邮件",
   "repeatPassword": "重复密码",
   "resetPassword": "重置密码",
