@@ -34,7 +34,7 @@ export const localChangePassword = async (props: Props): Promise<void> => {
       resetPasswordUuid,
     })
     if (changed) {
-      return done(null, user)
+      return done(null, user, { message: 'login.passwordChanged' })
     }
   } else {
     return sendErr('login.noMatchPasswords')

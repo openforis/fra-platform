@@ -19,7 +19,6 @@ const jwtStrategyVerifyCallback = async (_req: Request, { uuid }: User, done: Ve
     const user = await UserController.getOne({ uuid })
 
     return done(null, user)
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
     return sendErr('login.noUser')
   }

@@ -47,11 +47,7 @@ export const localAcceptInvitation = async (props: Props): Promise<void> => {
 
     const userAccepted = await UserController.acceptInvitation({ assessment, cycle, user, userInvitation })
 
-    done(null, userAccepted, {
-      assessmentName: assessment.props.name,
-      countryIso: userInvitation.countryIso,
-      cycleName: cycle.name,
-    })
+    done(null, userAccepted)
   } else {
     sendErr('login.notAuthorized')
   }

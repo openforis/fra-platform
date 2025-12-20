@@ -8,25 +8,10 @@ import { User } from 'meta/user/user'
 import { Objects } from 'utils/objects'
 
 import { ProcessEnv } from 'server/utils'
-import Requests from 'server/utils/requests'
 
 import { setAuthToken } from './utils/setAuthToken'
 
-export const postLocalLogin = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-  passport.authenticate('local', { session: false }, (err: any, user: User, info: any) => {
-    if (err) return next(err)
-
-    if (!user) return next(new Error(info.message))
-
-    return req.login(user, { session: false }, (err: any) => {
-      if (err) next(err)
-      setAuthToken(res, user)
-      Requests.sendOk(res, user)
-    })
-  })(req, res, next)
-}
-
-export const getGoogleLogin = (req: LoginRequest, res: Response): void => {
+export const loginGoogle = (req: LoginRequest, res: Response): void => {
   passport.authenticate('google', {
     session: false,
     scope: ['https://www.googleapis.com/auth/plus.login', 'profile', 'email'],
@@ -39,7 +24,7 @@ export const getGoogleLogin = (req: LoginRequest, res: Response): void => {
   })(req, res)
 }
 
-export const getGoogleCallback = (req: Request, res: Response, next: NextFunction): void => {
+export const loginGoogleCallback = (req: Request, res: Response, next: NextFunction): void => {
   passport.authenticate('google', { session: false }, (err: any, user: User, msg: any) => {
     const state = JSON.parse(req.query.state as string) ?? {}
     const { assessmentName, countryIso, cycleName } = state
