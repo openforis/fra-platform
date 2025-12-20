@@ -1,6 +1,8 @@
 import React from 'react'
 
+import { Route } from 'meta/routes/route'
+
 export type CountryHomeSection = {
-  name: string
   component: React.FC
+  route: Route
 }

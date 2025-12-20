@@ -6,7 +6,7 @@ import Dashboard from 'client/components/Dashboard'
 
 import { useGetDashboard } from './hooks/useGetDashboard'
 
-const Overview: React.FC = () => {
+const FraOverview: React.FC = () => {
   const sections = useSections()
   const items = useDashboardItems()
   useGetDashboard()
@@ -16,4 +16,4 @@ const Overview: React.FC = () => {
   return <Dashboard items={items} />
 }
 
-export default Overview
+export default FraOverview

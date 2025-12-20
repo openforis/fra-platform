@@ -1,31 +1,31 @@
 import './CountryHome.scss'
 import React from 'react'
+import { Navigate, Route, Routes } from 'react-router'
 
-import { AssessmentNames } from 'meta/assessment/assessment'
-
-import { useAssessment } from 'client/store/meta/hooks/assessments'
 import MessageCenter from 'client/components/MessageCenter'
+import CountryHeader from 'client/pages/CountryHome/CountryHeader'
 
-import FraHome from './FraHome'
-import PanEuropeanHome from './PanEuropeanHome'
-
-const Components: Record<string, React.FC> = {
-  [AssessmentNames.fra]: FraHome,
-  [AssessmentNames.panEuropean]: PanEuropeanHome,
-}
+import { useSections } from './hooks/useSections'
 
 const CountryHome: React.FC = () => {
-  const assessment = useAssessment()
-
-  const Component = Components[assessment.props.name]
-
-  if (!Component) return null
+  const sections = useSections()
 
   return (
     <>
       <MessageCenter />
       <div className="app-view__content">
-        <Component />
+        <CountryHeader sections={sections} />
+
+        <Routes>
+          {sections.map(({ component, route }) => {
+            const path = route.path.relative
+            return <Route key={path} element={React.createElement(component, {})} path={`${path}/*`} />
+          })}
+
+          {sections.length > 0 && (
+            <Route element={<Navigate replace to={sections.at(0).route.path.relative} />} index />
+          )}
+        </Routes>
       </div>
     </>
   )

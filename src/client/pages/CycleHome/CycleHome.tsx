@@ -3,7 +3,7 @@ import React from 'react'
 import { AssessmentName, AssessmentNames } from 'meta/assessment/assessment'
 
 import AssessmentSwitch from 'client/components/AssessmentSwitch'
-import Overview from 'client/pages/CountryHome/PanEuropeanHome/Overview'
+import PanEuropeanOverview from 'client/pages/CountryHome/PanEuropeanOverview'
 
 import { useCycleRedirect } from './hooks/useCycleRedirect'
 import Introduction from './Introduction'
@@ -18,7 +18,7 @@ const Components: { [key: AssessmentName]: React.FC } = {
       <Partners />
     </>
   ),
-  [AssessmentNames.panEuropean]: Overview,
+  [AssessmentNames.panEuropean]: PanEuropeanOverview,
 }
 
 const CycleHome: React.FC = () => {

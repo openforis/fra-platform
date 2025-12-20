@@ -5,7 +5,7 @@ import { MetaActions } from 'client/store/meta/actions'
 import { useDashboardItems } from 'client/store/meta/hooks/dashboard'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 
-export const useGetDashboard = () => {
+export const useGetDashboard = (): void => {
   const dispatch = useAppDispatch()
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams()
   const dashboardItems = useDashboardItems()

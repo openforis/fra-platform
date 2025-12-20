@@ -28,7 +28,7 @@ const CountryHeader: React.FC<Props> = (props) => {
   const { sections, showRegionLabel = true } = props
 
   const { t } = useTranslation()
-  const { countryIso } = useCountryRouteParams()
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams()
   const withMessageBoard = useShowCountryMessageButton()
   const sectionClassName = useButtonClassName({ inverse: true, label: 'L', noBorder, size, type: ButtonType.black })
   const sectionActiveClassName = useButtonClassName({ label: 'L', noBorder, size, type: ButtonType.primary })
@@ -69,18 +69,20 @@ const CountryHeader: React.FC<Props> = (props) => {
 
       {withTabs && (
         <div className="country-header__tabs">
-          {sections.map(({ name }, index) => (
-            <React.Fragment key={name}>
-              {index !== 0 && <div className="toolbar__separator" />}
-              <NavLink
-                key={name}
-                className={({ isActive }): string => (isActive ? sectionActiveClassName : sectionClassName)}
-                to={`../${name}`}
-              >
-                {t(`landing.sections.${name}`)}
-              </NavLink>
-            </React.Fragment>
-          ))}
+          {sections.map(({ route }, index) => {
+            const path = route.path.relative
+            return (
+              <React.Fragment key={path}>
+                {index !== 0 && <div className="toolbar__separator" />}
+                <NavLink
+                  className={({ isActive }): string => (isActive ? sectionActiveClassName : sectionClassName)}
+                  to={route.generatePath({ assessmentName, countryIso, cycleName })}
+                >
+                  {t(`landing.sections.${path}`)}
+                </NavLink>
+              </React.Fragment>
+            )
+          })}
         </div>
       )}
     </div>
