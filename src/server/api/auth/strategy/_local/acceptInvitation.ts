@@ -3,7 +3,7 @@ import { VerifiedCallback } from 'passport-jwt'
 
 import { AuthProvider, AuthProviderLocalProps } from 'meta/user/auth'
 
-import { passwordCompare, passwordHash } from 'server/api/auth/utils/passwordUtils'
+import { getAndComparePasswordHash } from 'server/api/auth/strategy/_local/getAndComparePasswordHash'
 import { AssessmentController } from 'server/controller/assessment'
 import { UserController } from 'server/controller/user'
 import { UserProviderController } from 'server/controller/userProvider'
@@ -19,17 +19,16 @@ const provider = AuthProvider.local
 export const localAcceptInvitation = async (props: Props): Promise<void> => {
   const { done, req, sendErr } = props
 
-  const { invitationUuid, password, password2 } = req.body
+  const { invitationUuid } = req.body
   const { user, userInvitation } = await UserController.findByInvitation({ invitationUuid })
   let userProvider = await UserProviderController.read<AuthProviderLocalProps>({ user, provider })
 
   // first time user access accept an invitation with local account (email/password)
   if (!userProvider) {
-    const passwordHashed = await passwordHash(password)
-    const passwordMatch = await passwordCompare(password2, passwordHashed)
+    const passwordHashed = await getAndComparePasswordHash({ req })
 
     // if passwords match, then create the user auth local provider
-    if (passwordMatch) {
+    if (passwordHashed) {
       userProvider = await UserProviderController.create<AuthProviderLocalProps>({
         user,
         provider: { provider, props: { password: passwordHashed } },

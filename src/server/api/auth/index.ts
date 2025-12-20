@@ -6,7 +6,6 @@ import { ApiEndPoint } from 'meta/api/endpoint'
 
 import { AuthConfig } from './config'
 import { getGoogleCallback, getGoogleLogin, postLocalLogin } from './login'
-import { postChangePassword } from './postChangePassword'
 import { postLogout } from './postLogout'
 import { postResetPassword } from './postResetPassword'
 
@@ -21,7 +20,6 @@ export const AuthApi = {
 
     express.post(ApiEndPoint.Auth.logout(), postLogout)
 
-    express.post(ApiEndPoint.Auth.changePassword(), multer().none(), postChangePassword)
     express.post(ApiEndPoint.Auth.resetPassword(), multer().none(), postResetPassword)
 
     express.use(function (req, res, next) {
