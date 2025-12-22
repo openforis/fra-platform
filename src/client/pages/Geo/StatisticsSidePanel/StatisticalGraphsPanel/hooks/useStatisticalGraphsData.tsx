@@ -70,14 +70,17 @@ export const useStatisticalGraphsData = (): Returned => {
     } as BarChartType
 
     const data: BarChartData = [
-      forestEstimationsTableData.reduce<Record<string, number>>((acc, entry) => {
-        const { area } = entry
-        const sourceKey = _getSourceKey(entry)
-        // eslint-disable-next-line no-param-reassign
-        acc[sourceKey] = area / 1000
+      forestEstimationsTableData.reduce<Record<string, number | string>>(
+        (acc, entry) => {
+          const { area } = entry
+          const sourceKey = _getSourceKey(entry)
 
-        return acc
-      }, {}),
+          acc[sourceKey] = area / 1000
+
+          return acc
+        },
+        { columnName: '' }
+      ),
     ]
 
     return { data, errorKey, loading, chart }
