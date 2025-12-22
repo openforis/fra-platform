@@ -66,10 +66,7 @@ export const useRoutes = (): Array<RouteObject> => {
               <Route element={<Country />} path={Routes.Country.path.relative}>
                 <Route element={<Navigate replace to={Routes.CountryHome.path.relative} />} index />
 
-                <Route path={Routes.CountryHome.path.relative}>
-                  <Route element={<CountryHome />} index />
-                  <Route element={<CountryHome />} path="*" />
-                </Route>
+                <Route element={<CountryHome />} path={`${Routes.CountryHome.path.relative}/*`} />
                 <Route
                   element={
                     <Suspense>

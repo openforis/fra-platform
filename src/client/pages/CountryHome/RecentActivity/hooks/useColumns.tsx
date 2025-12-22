@@ -3,7 +3,7 @@ import { useMemo } from 'react'
 import { ActivityLog } from 'meta/assessment/activityLog'
 
 import { Column } from 'client/components/TablePaginated'
-import RecentActivityItem from 'client/pages/CountryHome/FraHome/RecentActivity/RecentActivityItem'
+import RecentActivityItem from 'client/pages/CountryHome/RecentActivity/RecentActivityItem'
 
 export const useColumns = (): Array<Column<ActivityLog<never>>> => {
   return useMemo<Array<Column<ActivityLog<never>>>>(

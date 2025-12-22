@@ -3,7 +3,7 @@ import React from 'react'
 import { ApiEndPoint } from 'meta/api/endpoint'
 
 import TablePaginated from 'client/components/TablePaginated'
-import EmptyActivities from 'client/pages/CountryHome/FraHome/RecentActivity/EmptyActivities'
+import EmptyActivities from 'client/pages/CountryHome/RecentActivity/EmptyActivities'
 
 import { useColumns } from './hooks/useColumns'
 import { limit } from './limit'

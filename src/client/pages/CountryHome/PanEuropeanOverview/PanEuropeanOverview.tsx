@@ -1,12 +1,12 @@
+import './PanEuropeanOverview.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { AssessmentNames } from 'meta/assessment/assessment'
 
 import CycleSwitch from 'client/components/CycleSwitch'
-
-import Description2020 from './Description2020'
-import Description2025 from './Description2025'
+import Description2020 from 'client/pages/CountryHome/PanEuropeanOverview/Description2020'
+import Description2025 from 'client/pages/CountryHome/PanEuropeanOverview/Description2025'
 
 const components = {
   [AssessmentNames.panEuropean]: {
@@ -15,7 +15,7 @@ const components = {
   },
 }
 
-const Overview: React.FC = () => {
+const PanEuropeanOverview: React.FC = () => {
   const { t } = useTranslation()
   return (
     <div className="pan-eu-home">
@@ -55,4 +55,4 @@ const Overview: React.FC = () => {
   )
 }
 
-export default Overview
+export default PanEuropeanOverview
