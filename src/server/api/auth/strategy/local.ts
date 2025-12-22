@@ -1,92 +1,38 @@
-import { Request } from 'express'
 import { PassportStatic } from 'passport'
-import { VerifiedCallback } from 'passport-jwt'
-import passportLocal from 'passport-local'
+import passportLocal, { VerifyFunctionWithRequest } from 'passport-local'
 
-import { AuthProvider, AuthProviderLocalProps } from 'meta/user/auth'
 import { Objects } from 'utils/objects'
 import { RegExps } from 'utils/regExps'
 
-import { passwordCompare, passwordHash } from 'server/api/auth/utils/passwordUtils'
-import { AssessmentController } from 'server/controller/assessment'
-import { UserController } from 'server/controller/user'
-import { UserProviderController } from 'server/controller/userProvider'
+import { localAcceptInvitation } from 'server/api/auth/strategy/_local/acceptInvitation'
+import { localChangePassword } from 'server/api/auth/strategy/_local/changePassword'
+import { localLogin } from 'server/api/auth/strategy/_local/login'
 
-const localStrategyVerifyCallback = async (
-  req: Request,
-  email: string,
-  password: string,
-  done: VerifiedCallback
-): Promise<void> => {
+const localStrategyVerifyCallback: VerifyFunctionWithRequest = (req, email, password, done): void | Promise<void> => {
+  const { invitationUuid, resetPasswordUuid } = req.body
   const sendErr = (message: string): void => done(null, false, { message })
 
   try {
+    // validate email and password
     if (!RegExps.validEmail({ email })) {
-      sendErr('login.invalidEmail')
-    } else if (Objects.isEmpty(password.trim())) {
-      sendErr('login.noEmptyPassword')
-    } else {
-      const invitationUuid = req.body?.invitationUuid as string
-
-      if (invitationUuid) {
-        const { user: invitedUser, userInvitation } = await UserController.findByInvitation({ invitationUuid })
-
-        const userProviders = await UserProviderController.read<AuthProviderLocalProps>({
-          user: invitedUser,
-          provider: AuthProvider.local,
-        })
-
-        let userProvider = !Objects.isEmpty(userProviders) ? userProviders[0] : null
-
-        if (!userProvider) {
-          userProvider = await UserProviderController.create<AuthProviderLocalProps>({
-            user: invitedUser,
-            provider: { provider: AuthProvider.local, props: { password: await passwordHash(password) } },
-          })
-        }
-
-        const passwordMatch = await passwordCompare(password, userProvider.props.password)
-
-        if (passwordMatch) {
-          const { assessment, cycle } = await AssessmentController.getOneWithCycle({
-            uuid: userInvitation.assessmentUuid,
-            cycleUuid: userInvitation.cycleUuid,
-          })
-
-          const user = await UserController.acceptInvitation({ assessment, cycle, user: invitedUser, userInvitation })
-
-          done(null, user, {
-            countryIso: userInvitation.countryIso,
-            assessmentName: assessment.props.name,
-            cycleName: cycle.name,
-          })
-        } else {
-          sendErr('login.notAuthorized')
-        }
-      } else {
-        const user = await UserController.getOne({ email })
-
-        if (user) {
-          const userProviders = await UserProviderController.read<AuthProviderLocalProps>({
-            user,
-            provider: AuthProvider.local,
-          })
-
-          if (!Objects.isEmpty(userProviders)) {
-            const [userProvider] = userProviders
-
-            const passwordMatch = await passwordCompare(password, userProvider.props?.password)
-
-            if (passwordMatch) done(null, user)
-            else sendErr('login.noMatchingLocalUser')
-          } else {
-            sendErr('login.noMatchingProvider')
-          }
-        } else {
-          sendErr('login.noMatchingProvider')
-        }
-      }
+      return sendErr('login.invalidEmail')
     }
+    if (Objects.isEmpty(password.trim())) {
+      return sendErr('login.noEmptyPassword')
+    }
+
+    // accept invitation
+    if (invitationUuid) {
+      return localAcceptInvitation({ done, req, sendErr })
+    }
+
+    // change password
+    if (resetPasswordUuid) {
+      return localChangePassword({ done, req, sendErr })
+    }
+
+    // login
+    return localLogin({ done, req, sendErr })
   } catch (e) {
     sendErr(`${'login.errorOccurred'}: ${e}`)
   }
