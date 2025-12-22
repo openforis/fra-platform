@@ -1,0 +1,31 @@
+@use 'src/client/style/partials' as *;
+
+.area-select__container {
+  div.select__control {
+    &:hover {
+      background-color: var(--ui-bg-hover);
+      transition: background-color 0.3s ease;
+    }
+  }
+
+  div.select__menu.bottom {
+    border: unset;
+    padding: $spacing-xxs 0;
+
+    @include min-width($mobile-landscape) {
+      min-width: 400px;
+    }
+  }
+
+  div.select__menuList {
+    @include min-width($tablet-portrait) {
+      max-height: 560px;
+    }
+  }
+
+  div.select__group {
+    hr {
+      margin: $spacing-xxs 0;
+    }
+  }
+}
