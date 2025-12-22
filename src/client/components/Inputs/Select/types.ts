@@ -45,6 +45,7 @@ export type SelectProps = SelectBaseProps &
   SelectClassNamesProps & {
     bordered?: boolean
     collapsibleGroups?: boolean
+    components?: ReactSelectProps['components']
     createOptionLabelKey?: string
     disabled?: boolean
     hideDropdownIndicator?: boolean
