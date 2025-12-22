@@ -1,15 +1,15 @@
 import { Request, Response } from 'express'
-import { Objects } from 'utils/objects'
-import { RegExps } from 'utils/regExps'
 
 import { AuthProvider } from 'meta/user/auth'
 import { UserStatus } from 'meta/user/user'
+import { Objects } from 'utils/objects'
+import { RegExps } from 'utils/regExps'
 
 import { UserController } from 'server/controller/user'
 import { UserProviderController } from 'server/controller/userProvider'
 import { Requests } from 'server/utils'
 
-export const postResetPassword = async (req: Request, res: Response): Promise<void> => {
+export const resetPassword = async (req: Request, res: Response): Promise<void> => {
   try {
     const { assessmentName, cycleName, email } = req.body
 

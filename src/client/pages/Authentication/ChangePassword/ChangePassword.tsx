@@ -5,9 +5,9 @@ import { useParams } from 'react-router'
 import { ApiEndPoint } from 'meta/api/endpoint'
 
 import FormLogin from 'client/pages/Authentication/FormLogin'
+import { useOnSuccess } from 'client/pages/Authentication/FormLogin/hooks/useOnSuccess'
 
 import { useData } from './hooks/useData'
-import { useOnSuccess } from './hooks/useOnSuccess'
 import Expired from './Expired'
 
 const ChangePassword: React.FC = () => {
@@ -24,7 +24,7 @@ const ChangePassword: React.FC = () => {
     <div className="login-form">
       <h3>{t('login.changePassword')}</h3>
       <FormLogin
-        action={ApiEndPoint.Auth.changePassword()}
+        action={ApiEndPoint.Auth.login()}
         disableEmail
         email={data?.user.email}
         loading={!data}

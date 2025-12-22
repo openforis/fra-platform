@@ -1,17 +1,18 @@
-import { Objects } from 'utils/objects'
-
 import { AuthProvider, UserAuthProvider } from 'meta/user/auth'
 import { User } from 'meta/user/user'
+import { Objects } from 'utils/objects'
 
 import { BaseProtocol, DB } from 'server/db/db'
 
-export const read = async <P>(
-  props: { user: User; provider: AuthProvider },
-  client: BaseProtocol = DB
-): Promise<Array<UserAuthProvider<P>>> => {
+type Props = {
+  provider: AuthProvider
+  user: User
+}
+
+export const read = async <P>(props: Props, client: BaseProtocol = DB): Promise<UserAuthProvider<P> | null> => {
   const { provider, user } = props
 
-  return client.map<UserAuthProvider<P>>(
+  return client.oneOrNone<UserAuthProvider<P>>(
     `
         select * from public.users_auth_provider where user_uuid = $1 and provider = $2;
     `,
