@@ -22,7 +22,9 @@ const BurnedAreaPanel: React.FC<Props> = (props: Props) => {
 
   if (!loading && tableData.length === 0 && !errorKey) return <p>{t('geo.error.statistics.foundNoData')}</p>
 
-  if (!loading && errorKey?.length > 0) return <p>{`${t('geo.error.statistics.failedToFetch')} ${t(errorKey)}`}</p>
+  if (!loading && errorKey?.length > 0) {
+    return <p>{t('geo.error.statistics.failedToFetch', { error: t(errorKey) })}</p>
+  }
 
   if (loading) return <p>{t('common.loading')}</p>
 
