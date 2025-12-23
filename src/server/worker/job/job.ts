@@ -4,17 +4,13 @@ import { Logger } from 'server/utils/logger'
 import { JobLock } from 'server/worker/job/jobLock'
 import { JobStatus, JobStatusPayload } from 'server/worker/job/jobStatus'
 
-type JobOptions = {
-  lockDurationMs?: number
-}
-
 export abstract class Job {
   #name: string
   #jobLock: JobLock
 
-  protected constructor(name: string, options?: JobOptions) {
+  protected constructor(name: string) {
     this.#name = name
-    this.#jobLock = new JobLock(this.#name, options?.lockDurationMs)
+    this.#jobLock = new JobLock(this.#name)
   }
 
   protected abstract execute(): Promise<void>
