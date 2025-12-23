@@ -172,6 +172,35 @@ div.select__wrapper {
     }
   }
 
+  &.size-m {
+    div.select__container {
+      height: $spacing-m;
+    }
+
+    div.select__control {
+      min-height: $spacing-m;
+      padding: 0 $spacing-xxxs 0 $spacing-xxs;
+    }
+
+    div.select__dropdownIndicator {
+      svg {
+        height: 12px;
+        width: 12px;
+      }
+    }
+
+    div.select__indicatorsContainer {
+      gap: 0;
+    }
+
+    div.select__clearIndicator {
+      svg {
+        height: 13px;
+        width: 13px;
+      }
+    }
+  }
+
   &.size-s {
     div.select__container {
       height: $spacing-s;

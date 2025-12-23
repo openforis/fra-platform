@@ -1,0 +1,31 @@
+@use 'src/client/style/partials' as *;
+
+.area-select__group-heading {
+  color: $text-disabled;
+  font-size: $font-s;
+  font-weight: 600;
+  position: relative;
+  text-transform: uppercase;
+
+  &.isAdmin {
+    background-color: white;
+    position: sticky;
+    top: $spacing-s; //  csv download
+  }
+}
+
+button.area-select__show-more {
+  position: absolute;
+  right: $spacing-xxxs;
+}
+
+@include rtl {
+  button.area-select__show-more {
+    left: $spacing-xxxs;
+    right: unset;
+  }
+}
+
+hr.area-select__group-hr {
+  margin: $spacing-xxs 0;
+}

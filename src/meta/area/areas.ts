@@ -1,5 +1,3 @@
-import { Dates } from 'utils/dates'
-
 import { AreaCode } from 'meta/area/areaCode'
 import { Country } from 'meta/area/country'
 import { CountryIso } from 'meta/area/countryIso'
@@ -12,6 +10,7 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Assessments } from 'meta/assessment/assessments'
 import { Cycle } from 'meta/assessment/cycle'
 import { Lang } from 'meta/lang'
+import { Dates } from 'utils/dates'
 
 const getCountryBackgroundImg = (isoCode: AreaCode): string =>
   isoCode.startsWith('X')
@@ -20,7 +19,8 @@ const getCountryBackgroundImg = (isoCode: AreaCode): string =>
 
 const getTranslationKey = (isoCode: AreaCode): string => `area.${isoCode}.listName`
 
-const isAtlantis = (countryIso: CountryIso): boolean => countryIso.startsWith('X')
+const isAtlantis = (countryIso: CountryIso | RegionCode): boolean =>
+  countryIso.startsWith('X') || countryIso === RegionCode.AT
 const isGlobal = (isoCode: CountryIso | RegionCode | Global): boolean => Global.WO === isoCode
 const isISOCountry = (isoCode: string): boolean => /^[a-zA-Z0-9]{3}$/.test(isoCode)
 const isISOGlobal = (isoCode: string): boolean => isoCode === Global.WO

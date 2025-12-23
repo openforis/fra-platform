@@ -13,10 +13,9 @@ import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useUser } from 'client/store/user/hooks/user'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { useIsGeoRoute, useIsPrintRoute } from 'client/hooks/routes'
-import { useShowRegions } from 'client/hooks/showRegions'
-import AreaSelector from 'client/components/AreaSelector/AreaSelector'
 import LinkHome from 'client/components/Links/LinkHome'
 import LinkDataDownload from 'client/components/PageLayout/LinkDataDownload'
+import AreaSelect from 'client/components/PageLayout/Toolbar/AreaSelect'
 import EditorOptions from 'client/components/PageLayout/Toolbar/EditorOptions'
 import Options from 'client/components/PageLayout/Toolbar/Options'
 import Published from 'client/components/PageLayout/Toolbar/Published'
@@ -34,7 +33,6 @@ const Toolbar: React.FC = () => {
   const { print } = useIsPrintRoute()
   const user = useUser()
   const geoRoute = useIsGeoRoute()
-  const showRegions = useShowRegions()
 
   if (print) return null
 
@@ -46,16 +44,7 @@ const Toolbar: React.FC = () => {
     <div className="toolbar">
       <div className="toolbar__nav-options">
         <ToggleNavigationControl />
-
-        <AreaSelector
-          enableDownload
-          includeCountries
-          includeRegions={showRegions ? [] : undefined}
-          placeholder="common.selectArea"
-          selectedValue={countryIso}
-          showCountryFlag
-          showCountryRole
-        />
+        <AreaSelect />
       </div>
 
       {geoRoute && (

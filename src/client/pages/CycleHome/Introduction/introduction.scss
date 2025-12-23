@@ -113,34 +113,16 @@
   @include min-width($laptop) {
     grid-template-columns: repeat(3, auto);
   }
-
-  .country-selection-list__row {
-    padding: $spacing-xxs $spacing-xs;
-  }
 }
 
 .home-area-selector__group {
-  display: grid;
+  display: flex;
   align-items: center;
   justify-content: start;
-  grid-template-columns: repeat(3, auto);
-  grid-column-gap: $spacing-xxs;
+  gap: $spacing-xxs;
 
   img {
     height: $spacing-s;
-  }
-
-  .btn-country-select {
-    min-width: 220px;
-    width: 220px;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-
-    @include min-width($laptop) {
-      min-width: 250px;
-      width: unset;
-    }
   }
 
   .country-select__icon {
@@ -151,5 +133,11 @@
       top: 7px;
       right: 12px;
     }
+  }
+
+  .select__wrapper {
+    background-color: white;
+    color: $text-body;
+    min-width: 250px;
   }
 }
