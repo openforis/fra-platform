@@ -14,8 +14,8 @@ import { useCountriesRecord } from 'client/store/area/hooks/countries'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useUser } from 'client/store/user/hooks/user'
 import { useLanguage } from 'client/hooks/language'
-import { Option, OptionsGroup } from 'client/components/Inputs/Select'
-import { OptionsGroupArea } from 'client/components/PageLayout/Toolbar/AreaSelect/types'
+import { OptionsGroup } from 'client/components/Inputs/Select'
+import { OptionArea, OptionsGroupArea } from 'client/components/PageLayout/Toolbar/AreaSelect/types'
 
 export const useOptionGroupCountries = (props: { regionGroupsLength: number }): ReadonlyArray<OptionsGroup> => {
   const { regionGroupsLength } = props
@@ -68,9 +68,10 @@ export const useOptionGroupCountries = (props: { regionGroupsLength: number }): 
           const area2 = countriesRecord[r2.countryIso]
           return Areas.getCompareListName(area1, area2, lang)
         })
-        .map<Option>((role) => {
+        .map<OptionArea>((role) => {
           const { countryIso } = role
-          return { label: t(Areas.getTranslationKey(countryIso)), value: countryIso }
+          const country = countriesRecord[countryIso]
+          return { country, label: t(Areas.getTranslationKey(countryIso)), value: countryIso }
         })
 
       const group = { options, order, roleName: roleName as RoleName }

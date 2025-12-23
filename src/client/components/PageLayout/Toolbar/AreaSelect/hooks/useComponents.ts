@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 
 import { SelectProps } from 'client/components/Inputs/Select'
 import GroupHeading from 'client/components/PageLayout/Toolbar/AreaSelect/GroupHeading'
+import Option from 'client/components/PageLayout/Toolbar/AreaSelect/Option'
 import SingleValue from 'client/components/PageLayout/Toolbar/AreaSelect/SingleValue'
 
 export const useComponents = (): SelectProps['components'] => {
@@ -9,6 +10,7 @@ export const useComponents = (): SelectProps['components'] => {
     return {
       GroupHeading,
       SingleValue,
+      Option,
     }
   }, [])
 }

@@ -28,4 +28,28 @@
       margin: $spacing-xxs 0;
     }
   }
+
+  div.select__option {
+    padding: unset;
+  }
+
+  // styles when user is logged in and has a valid role in the cycle
+  &.withRoles {
+    div.select__menu.bottom {
+      @include min-width($mobile-landscape) {
+        min-width: 550px;
+      }
+    }
+  }
+}
+
+// common row style
+.area-select__country-row {
+  display: grid;
+  line-height: $spacing-xs;
+  padding: $spacing-xxs $spacing-xs;
+
+  &.withRole {
+    grid-template-columns: 220px 128px 1fr;
+  }
 }
