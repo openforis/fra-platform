@@ -17,7 +17,11 @@ import { useLanguage } from 'client/hooks/language'
 import { OptionsGroup } from 'client/components/Inputs/Select'
 import { OptionArea, OptionsGroupArea } from 'client/components/PageLayout/Toolbar/AreaSelect/types'
 
-export const useOptionGroupCountries = (props: { regionGroupsLength: number }): ReadonlyArray<OptionsGroup> => {
+type Props = {
+  regionGroupsLength: number
+}
+
+export const useOptionGroupCountries = (props: Props): ReadonlyArray<OptionsGroup> => {
   const { regionGroupsLength } = props
 
   const { t } = useTranslation()
