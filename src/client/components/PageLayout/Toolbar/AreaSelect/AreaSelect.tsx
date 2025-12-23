@@ -24,7 +24,7 @@ const AreaSelect: React.FC = () => {
   const user = useUser()
   const cycle = useCycle()
   const expanded = useIsAreaSelectorExpanded()
-  const withRoles = Users.hasRoleInCycle({ cycle, user })
+  const withRoles = user && Users.hasRoleInCycle({ cycle, user })
 
   return (
     <Select
