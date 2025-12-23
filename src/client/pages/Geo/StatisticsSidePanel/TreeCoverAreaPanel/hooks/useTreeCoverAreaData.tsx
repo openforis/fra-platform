@@ -1,13 +1,12 @@
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Numbers } from 'utils/numbers'
-
 import { agreementPalette } from 'meta/geo/agreementPalette'
 import { ExtraEstimation } from 'meta/geo/extraEstimation/extraEstimation'
 import { extraEstimationsMetadata } from 'meta/geo/extraEstimation/metadata'
 import { ForestKey } from 'meta/geo/forest/key'
 import { forestLayersMetadata } from 'meta/geo/forest/layersMetadata'
+import { Numbers } from 'utils/numbers'
 
 import { useGeoLayer } from 'client/store/geo/layers/hooks/layers'
 import { useGeoFra1aLandArea, useGeoStatistics } from 'client/store/geo/statistics/hooks/statistics'
@@ -83,7 +82,7 @@ export const useTreeCoverAreaData = (): Returned => {
       csvData.push({
         forestAreaHa: formatedArea,
         forestAreaPercentage: `${fra1ALandAreaPercentage} %`,
-        landArea: fra1aLandArea.toString(),
+        landArea: String(fra1aLandArea ?? ''),
         source: sourceName,
       })
     })
