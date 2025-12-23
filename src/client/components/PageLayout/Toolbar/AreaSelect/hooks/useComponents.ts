@@ -1,16 +1,17 @@
 import { useMemo } from 'react'
 
 import { SelectProps } from 'client/components/Inputs/Select'
-import GroupHeading from 'client/components/PageLayout/Toolbar/AreaSelect/GroupHeading'
+import Group from 'client/components/PageLayout/Toolbar/AreaSelect/Group'
 import Option from 'client/components/PageLayout/Toolbar/AreaSelect/Option'
 import SingleValue from 'client/components/PageLayout/Toolbar/AreaSelect/SingleValue'
 
 export const useComponents = (): SelectProps['components'] => {
   return useMemo<SelectProps['components']>(() => {
     return {
-      GroupHeading,
-      SingleValue,
+      Group,
+      GroupHeading: () => null,
       Option,
+      SingleValue,
     }
   }, [])
 }

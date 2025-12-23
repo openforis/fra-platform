@@ -1,7 +1,7 @@
-import './GroupHeading.scss'
+import './Group.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { GroupHeadingProps } from 'react-select'
+import { components, GroupProps } from 'react-select'
 import classNames from 'classnames'
 
 import { UserRoles } from 'meta/user/roles'
@@ -13,11 +13,12 @@ import { useIsAreaSelectorExpanded } from 'client/store/ui/areaSelector/hooks/ar
 import { useUser } from 'client/store/user/hooks/user'
 import Button from 'client/components/Buttons/Button'
 import { Option } from 'client/components/Inputs/Select'
+import CountryListDownload from 'client/components/PageLayout/Toolbar/AreaSelect/Group/CountryListDownload'
 import { OptionsGroupArea } from 'client/components/PageLayout/Toolbar/AreaSelect/types'
 
-type Props = GroupHeadingProps<Option, boolean, OptionsGroupArea>
+type Props = GroupProps<Option, boolean, OptionsGroupArea>
 
-const GroupHeading: React.FC<Props> = (props) => {
+const Group: React.FC<Props> = (props) => {
   const { data } = props
 
   const { t } = useTranslation()
@@ -25,12 +26,21 @@ const GroupHeading: React.FC<Props> = (props) => {
   const dispatch = useAppDispatch()
   const expanded = useIsAreaSelectorExpanded()
 
+  const isAdmin = Users.isAdministrator(user)
+
   return (
     <>
-      {data.order !== 0 && <hr />}
+      {data.order !== 0 && <hr className="area-select__group-hr" />}
+
+      {isAdmin && data.order === 0 && <CountryListDownload />}
 
       {'roleName' in data && data.roleName !== UserRoles.noRole.role && (
-        <div className={classNames('area-select__group-heading', 'area-select__country-row', 'withRole', { expanded })}>
+        <div
+          className={classNames('area-select__group-heading', 'area-select__country-row', 'withRole', {
+            expanded,
+            isAdmin,
+          })}
+        >
           <div>{t(Users.getI18nRoleLabelKey(data.roleName))}</div>
           <div>{t('common.status')}</div>
 
@@ -44,7 +54,7 @@ const GroupHeading: React.FC<Props> = (props) => {
           )}
           {!expanded && <div>{t('common.updated')}</div>}
 
-          {Users.isAdministrator(user) && (
+          {isAdmin && (
             <Button
               className="area-select__show-more"
               inverse
@@ -57,7 +67,10 @@ const GroupHeading: React.FC<Props> = (props) => {
           )}
         </div>
       )}
+
+      {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+      <components.Group {...props} />
     </>
   )
 }
-export default GroupHeading
+export default Group
