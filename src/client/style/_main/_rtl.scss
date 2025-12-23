@@ -5,22 +5,7 @@
   .fra-table__category-cell,
   .fra-table__subcategory-cell,
   .fra-table__header-cell-left,
-  .fra-table__cell-left,
-  .btn-country-select {
+  .fra-table__cell-left {
     text-align: right;
-  }
-
-  .country-selection-list__row {
-    .status-accepted,
-    .status-editing,
-    .status-review {
-      margin-right: initial;
-      margin-left: 8px;
-    }
-  }
-
-  .country-selection-list {
-    min-width: 600px;
-    right: 0;
   }
 }

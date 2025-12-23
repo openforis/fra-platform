@@ -1,14 +1,13 @@
-import './countryListDownload.scss'
+import './CountryListDownload.scss'
 import React from 'react'
 import { CSVLink } from 'react-csv'
 import { useTranslation } from 'react-i18next'
 
 import { Areas } from 'meta/area/areas'
-import { Users } from 'meta/user/users'
 import { Dates } from 'utils/dates'
 
 import { useCountries } from 'client/store/area/hooks/countries'
-import { useUser } from 'client/store/user/hooks/user'
+import { useAssessmentRouteParams } from 'client/hooks/routeParams'
 import { useButtonClassName } from 'client/components/Buttons/Button'
 import Icon from 'client/components/Icon'
 
@@ -16,11 +15,9 @@ const formatDate = (date?: string): string => (date ? Dates.format(Dates.parseIS
 
 const CountryListDownload: React.FC = () => {
   const { t } = useTranslation()
-  const user = useUser()
+  const { assessmentName } = useAssessmentRouteParams()
   const countries = useCountries()
   const className = useButtonClassName({ iconName: 'hit-down', label: 'CSV' })
-
-  if (!Users.isAdministrator(user)) return null
 
   const data = countries.map((country) => {
     const status = Areas.getStatus(country)
@@ -49,8 +46,14 @@ const CountryListDownload: React.FC = () => {
   ]
 
   return (
-    <div className="country-selection-list__download">
-      <CSVLink className={className} data={data} filename="FRA-Countries.csv" headers={headers} target="_blank">
+    <div className="area-select__country-download">
+      <CSVLink
+        className={className}
+        data={data}
+        filename={`${assessmentName}-Countries.csv`}
+        headers={headers}
+        target="_blank"
+      >
         <Icon name="hit-down" />
         CSV
       </CSVLink>

@@ -1,0 +1,10 @@
+@use 'src/client/style/partials' as *;
+
+.area-select__country-download {
+  background-color: white;
+  display: grid;
+  justify-items: right;
+  padding: 0 $spacing-xxs;
+  position: sticky;
+  top: 0;
+}

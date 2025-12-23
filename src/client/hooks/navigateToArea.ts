@@ -3,44 +3,41 @@ import { useNavigate } from 'react-router'
 
 import { AreaCode } from 'meta/area/areaCode'
 import { Areas } from 'meta/area/areas'
+import { CountryIso } from 'meta/area/countryIso'
 import { Routes } from 'meta/routes/routes'
 
-import { useCountries } from 'client/store/area/hooks/countries'
-import { useAssessment } from 'client/store/meta/hooks/assessments'
+import { useCountriesRecord } from 'client/store/area/hooks/countries'
 import { useCycle, useLastPublishedCycle } from 'client/store/meta/hooks/cycles'
 import { useUser } from 'client/store/user/hooks/user'
+import { useAssessmentRouteParams } from 'client/hooks/routeParams'
 import { useIsGeoRoute } from 'client/hooks/routes'
 
 type Returned = (areaCode: AreaCode) => void
 
-export const useDefaultHandleElementSelect = (): Returned => {
+export const useNavigateToArea = (): Returned => {
   const navigate = useNavigate()
   const user = useUser()
-
-  const assessment = useAssessment()
-  const assessmentName = assessment.props.name
+  const { assessmentName } = useAssessmentRouteParams()
   const cycle = useCycle()
   const defaultCycle = useLastPublishedCycle()
-  const countries = useCountries()
-
+  const countries = useCountriesRecord()
   const isInGeoPage = useIsGeoRoute()
 
-  return useCallback(
-    (areaCode: AreaCode) => {
-      const isCountry = Areas.isISOCountry(areaCode)
-
-      const destinationRoute = isInGeoPage && isCountry ? Routes.Geo : Routes.Country
-
+  return useCallback<Returned>(
+    (areaCode) => {
       let cycleName = cycle.name
+      const isCountry = Areas.isISOCountry(areaCode)
+      const destinationRoute = isInGeoPage && isCountry ? Routes.Geo : Routes.Country
 
       // If the user is not logged in, direct the user to the last published cycle
       if (!user && isCountry) {
-        const country = countries.find((country) => country.countryIso === areaCode)
+        const country = countries[areaCode as CountryIso]
         // If the user is not logged in and accessing a region, direct to default cycle
         const { lastPublishedInfo } = country
         const { cycleName: lastPublishedCycleName } = lastPublishedInfo
         cycleName = lastPublishedCycleName
-      } else if (!user && !isCountry) {
+      }
+      if (!user && !isCountry) {
         cycleName = defaultCycle.name
       }
 

@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { ReactElement, useMemo } from 'react'
 import { components as originalComponents, InputProps, MultiValueProps, Props as ReactSelectProps } from 'react-select'
 
 import { Objects } from 'utils/objects'
@@ -17,8 +17,15 @@ import { SelectProps } from 'client/components/Inputs/Select/types'
 type Returned = ReactSelectProps['components']
 
 export const useComponents = (props: SelectProps): Returned => {
-  const { collapsibleGroups, hideDropdownIndicator, inputHidden, isMulti, multiLabelSummaryKey, selectableGroups } =
-    props
+  const {
+    collapsibleGroups,
+    components: _components = {},
+    hideDropdownIndicator,
+    inputHidden,
+    isMulti,
+    multiLabelSummaryKey,
+    selectableGroups,
+  } = props
 
   return useMemo<Returned>(() => {
     const components: Returned = {
@@ -29,7 +36,7 @@ export const useComponents = (props: SelectProps): Returned => {
     }
     if (isMulti) components.Option = MultiSelectOption
     if (isMulti && !Objects.isEmpty(multiLabelSummaryKey)) {
-      components.MultiValue = (originalMultiValueProps: MultiValueProps) => (
+      components.MultiValue = (originalMultiValueProps: MultiValueProps): ReactElement => (
         // eslint-disable-next-line react/jsx-props-no-spreading
         <MultiValueSummary {...originalMultiValueProps} multiLabelSummaryKey={multiLabelSummaryKey} />
       )
@@ -37,13 +44,21 @@ export const useComponents = (props: SelectProps): Returned => {
     if (isMulti && selectableGroups) components.GroupHeading = SelectableGroupHeading
     if (collapsibleGroups) components.Group = CollapsibleGroup
     if (!Objects.isEmpty(inputHidden)) {
-      components.Input = (originalInputProps: InputProps) => {
+      components.Input = (originalInputProps: InputProps): ReactElement => {
         // eslint-disable-next-line react/jsx-props-no-spreading
         return <originalComponents.Input {...originalInputProps} isHidden={inputHidden} />
       }
     }
     if (hideDropdownIndicator) components.DropdownIndicator = null
 
-    return components
-  }, [collapsibleGroups, hideDropdownIndicator, inputHidden, isMulti, multiLabelSummaryKey, selectableGroups])
+    return { ...components, ..._components }
+  }, [
+    _components,
+    collapsibleGroups,
+    hideDropdownIndicator,
+    inputHidden,
+    isMulti,
+    multiLabelSummaryKey,
+    selectableGroups,
+  ])
 }

@@ -38,6 +38,7 @@ type SelectClassNamesProps = {
 }
 
 export enum SelectSize {
+  m = 'm',
   s = 's',
 }
 
@@ -45,6 +46,7 @@ export type SelectProps = SelectBaseProps &
   SelectClassNamesProps & {
     bordered?: boolean
     collapsibleGroups?: boolean
+    components?: ReactSelectProps['components']
     createOptionLabelKey?: string
     disabled?: boolean
     hideDropdownIndicator?: boolean
