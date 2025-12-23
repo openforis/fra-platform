@@ -1,5 +1,8 @@
+import { ResourceLockedError } from 'redlock'
+
 import { Logger } from 'server/utils/logger'
 import { JobLock } from 'server/worker/job/jobLock'
+import { JobStatus, JobStatusPayload } from 'server/worker/job/jobStatus'
 
 export abstract class Job {
   #name: string
@@ -28,6 +31,14 @@ export abstract class Job {
     Logger.error(this.getLogMessage(message))
   }
 
+  protected async setStatus(status: JobStatus, details: Partial<JobStatusPayload> = {}): Promise<void> {
+    await this.#jobLock.setStatus(status, details)
+  }
+
+  public async getStatus(): Promise<JobStatusPayload | null> {
+    return this.#jobLock.getStatus()
+  }
+
   public async run(): Promise<void> {
     try {
       this.logInfo(`**** started`)
@@ -36,6 +47,11 @@ export abstract class Job {
       await this.execute()
       await this.#jobLock.releaseSuccess()
     } catch (error) {
+      if (error instanceof ResourceLockedError) {
+        this.logInfo(`**** already running - skipped`)
+        return
+      }
+
       await this.#jobLock.releaseError(error)
       this.logError(JSON.stringify(error))
       throw error
