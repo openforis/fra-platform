@@ -38,6 +38,7 @@ type SelectClassNamesProps = {
 }
 
 export enum SelectSize {
+  m = 'm',
   s = 's',
 }
 
