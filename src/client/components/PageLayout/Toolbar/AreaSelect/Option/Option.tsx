@@ -13,6 +13,8 @@ import { useUser } from 'client/store/user/hooks/user'
 import CountryStatusIndicator from 'client/components/CountryStatusIndicator'
 import { OptionArea, OptionsGroupArea } from 'client/components/PageLayout/Toolbar/AreaSelect/types'
 
+import { usePublishedAfterLabel } from './hooks/usePublishedAfterLabel'
+
 type Props = OptionProps<OptionArea, boolean, OptionsGroupArea>
 
 const Option: React.FC<Props> = (props) => {
@@ -23,6 +25,7 @@ const Option: React.FC<Props> = (props) => {
   const cycle = useCycle()
   const user = useUser()
   const expanded = useIsAreaSelectorExpanded()
+  const publishedAfterLabel = usePublishedAfterLabel({ country })
 
   const withRole = country && Users.hasRoleInCountry({ countryIso: country.countryIso, cycle, user })
 
@@ -31,8 +34,17 @@ const Option: React.FC<Props> = (props) => {
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
     <components.Option {...props}>
-      <div className={classNames('area-select__country-row', { withRole, expanded })}>
+      <div
+        className={classNames('area-select__country-row', {
+          withRole,
+          expanded,
+          withLastPublished: Boolean(publishedAfterLabel),
+        })}
+      >
         <div>{label}</div>
+
+        {publishedAfterLabel && <div>{publishedAfterLabel}</div>}
+
         {withRole && (
           <>
             <div>

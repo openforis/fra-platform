@@ -23,12 +23,6 @@
     }
   }
 
-  div.select__group {
-    hr {
-      margin: $spacing-xxs 0;
-    }
-  }
-
   div.select__option {
     padding: unset;
   }
@@ -56,6 +50,10 @@
   grid-column-gap: $spacing-xxs;
   line-height: $spacing-xs;
   padding: $spacing-xxs $spacing-xs;
+
+  &.withLastPublished {
+    grid-template-columns: 1fr auto;
+  }
 
   &.withRole {
     grid-template-columns: 220px 128px 1fr;
