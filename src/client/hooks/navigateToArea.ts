@@ -14,7 +14,7 @@ import { useIsGeoRoute } from 'client/hooks/routes'
 
 type Returned = (areaCode: AreaCode) => void
 
-export const useOnChange = (): Returned => {
+export const useNavigateToArea = (): Returned => {
   const navigate = useNavigate()
   const user = useUser()
   const { assessmentName } = useAssessmentRouteParams()
@@ -23,8 +23,8 @@ export const useOnChange = (): Returned => {
   const countries = useCountriesRecord()
   const isInGeoPage = useIsGeoRoute()
 
-  return useCallback(
-    (areaCode: AreaCode) => {
+  return useCallback<Returned>(
+    (areaCode) => {
       let cycleName = cycle.name
       const isCountry = Areas.isISOCountry(areaCode)
       const destinationRoute = isInGeoPage && isCountry ? Routes.Geo : Routes.Country
