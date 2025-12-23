@@ -31,13 +31,22 @@ const Option: React.FC<Props> = (props) => {
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
     <components.Option {...props}>
-      <div className={classNames('area-select__country-row', { withRole })}>
+      <div className={classNames('area-select__country-row', { withRole, expanded })}>
         <div>{label}</div>
         {withRole && (
           <>
             <div>
               <CountryStatusIndicator status={Areas.getStatus(country)} />
             </div>
+
+            {expanded && (
+              <>
+                <div>{formatDate(country.lastEdit)}</div>
+                <div>{formatDate(country.lastInReview)}</div>
+                <div>{formatDate(country.lastInApproval)}</div>
+                <div>{formatDate(country.lastInAccepted)}</div>
+              </>
+            )}
             {!expanded && <div>{formatDate(country.lastUpdate)}</div>}
           </>
         )}

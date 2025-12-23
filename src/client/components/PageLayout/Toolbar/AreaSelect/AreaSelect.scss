@@ -40,16 +40,28 @@
         min-width: 550px;
       }
     }
+    &.expanded {
+      div.select__menu.bottom {
+        @include min-width($mobile-landscape) {
+          min-width: 1150px;
+        }
+      }
+    }
   }
 }
 
 // common row style
 .area-select__country-row {
   display: grid;
+  grid-column-gap: $spacing-xxs;
   line-height: $spacing-xs;
   padding: $spacing-xxs $spacing-xs;
 
   &.withRole {
     grid-template-columns: 220px 128px 1fr;
+
+    &.expanded {
+      grid-template-columns: 220px 128px repeat(4, 180px);
+    }
   }
 }

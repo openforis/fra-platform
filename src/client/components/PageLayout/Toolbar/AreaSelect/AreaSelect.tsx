@@ -6,6 +6,7 @@ import classNames from 'classnames'
 import { Users } from 'meta/user/users'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
+import { useIsAreaSelectorExpanded } from 'client/store/ui/areaSelector/hooks/areaSelector'
 import { useUser } from 'client/store/user/hooks/user'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import Select from 'client/components/Inputs/Select'
@@ -22,11 +23,12 @@ const AreaSelect: React.FC = () => {
   const onChange = useOnChange()
   const user = useUser()
   const cycle = useCycle()
+  const expanded = useIsAreaSelectorExpanded()
   const withRoles = Users.hasRoleInCycle({ cycle, user })
 
   return (
     <Select
-      classNames={{ container: classNames('area-select__container', { withRoles }) }}
+      classNames={{ container: classNames('area-select__container', { withRoles, expanded }) }}
       components={components}
       isClearable={false}
       onChange={onChange}
