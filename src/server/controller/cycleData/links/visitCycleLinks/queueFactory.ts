@@ -1,17 +1,15 @@
-import { Job, Queue, QueueOptions, Worker } from 'bullmq'
+import { Job, Queue, QueueOptions } from 'bullmq'
 import IORedis from 'ioredis'
 
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 
 import { ProcessEnv } from 'server/utils'
-import { Logger } from 'server/utils/logger'
 
 import { VisitCycleLinksProps } from './props'
-import { WorkerFactory } from './workerFactory'
 
-const queues: Record<string, Queue<VisitCycleLinksProps>> = {}
-const workers: Record<string, Worker<VisitCycleLinksProps>> = {}
+const queueName = 'verifyLinks'
+let queue: Queue<VisitCycleLinksProps> | undefined
 
 const connection = new IORedis(ProcessEnv.redisQueueUrl)
 connection.options.maxRetriesPerRequest = null
@@ -26,35 +24,29 @@ const opts: QueueOptions = {
   streams: { events: { maxLen: 1 } },
 }
 
-const getInstance = (props: Props): Queue<VisitCycleLinksProps> => {
-  const { assessment, cycle } = props
-
-  const key = `visitCycleLinks/${assessment.props.name}/${cycle.name}`
-  let queue = queues[key]
-
+const getInstance = (): Queue<VisitCycleLinksProps> => {
   if (queue) return queue
 
-  workers[key] = WorkerFactory.newInstance({ key })
-
-  queue = new Queue<VisitCycleLinksProps>(key, opts)
-  queues[key] = queue
-
+  queue = new Queue<VisitCycleLinksProps>(queueName, opts)
   return queue
 }
 
-const getActiveJobs = async (props: Props): Promise<Array<Job<VisitCycleLinksProps>>> => {
-  const queue = getInstance(props)
+const getActiveJobs = async (_props: Props): Promise<Array<Job<VisitCycleLinksProps>>> => {
+  const queue = getInstance()
   const activeJobs: Array<Job<VisitCycleLinksProps>> = await queue.getActive()
   return activeJobs
 }
 
-process.on('SIGTERM', async () => {
-  await Promise.all(Object.values(workers).map((worker) => worker.close()))
-  Logger.debug('[visitCycleLinks] all workers closed')
-})
+const getJobId = (props: Props): string => {
+  const { assessment, cycle } = props
+
+  return `verifyLinks/${assessment.props.name}/${cycle.name}`
+}
 
 export const VisitCycleLinksQueueFactory = {
   connection,
   getActiveJobs,
   getInstance,
+  getJobId,
+  queueName,
 }

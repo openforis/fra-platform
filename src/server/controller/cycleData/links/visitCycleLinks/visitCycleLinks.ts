@@ -1,6 +1,7 @@
 import { Job, JobsOptions } from 'bullmq'
 
 import { Logger } from 'server/utils/logger'
+import { VerifyLinksJob } from 'server/worker/tasks/verifyLinksJob'
 
 import { VisitCycleLinksProps } from './props'
 import { VisitCycleLinksQueueFactory } from './queueFactory'
@@ -21,6 +22,12 @@ export const visitCycleLinks = async (props: VisitCycleLinksProps): Promise<Job<
 
   if (isVerificationInProgress) return undefined
 
-  const queue = VisitCycleLinksQueueFactory.getInstance({ assessment, cycle })
-  return queue.add('visitCycleLinks', props, jobOptions)
+  const queue = VisitCycleLinksQueueFactory.getInstance()
+  const jobId = VisitCycleLinksQueueFactory.getJobId({ assessment, cycle })
+  const job = await queue.add('verifyLinks', props, { ...jobOptions, jobId })
+
+  const verifyLinksJob = new VerifyLinksJob({ assessment, cycle })
+  await verifyLinksJob.setQueued(job.id?.toString())
+
+  return job
 }

@@ -1,5 +1,5 @@
 import { CountryIso } from 'meta/area/countryIso'
-import { Assessment } from 'meta/assessment/assessment'
+import { Assessment, AssessmentNames } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { OriginalDataPointCommentKey } from 'meta/assessment/originalDataPoint'
 import { SectionNames } from 'meta/assessment/section'
@@ -90,6 +90,8 @@ const _getDescriptionTextLinks = async (props: Props): Promise<Array<LinkToVisit
 
 const _getOriginalDataPointLinks = async (props: Props): Promise<Array<LinkToVisit>> => {
   const { assessment, cycle } = props
+  if (assessment.props.name === AssessmentNames.panEuropean) return []
+
   const assessmentName = assessment.props.name
   const cycleName = cycle.name
   const [odpsByDescriptionsLinks, odpsByReferenceLinks] = await Promise.all([
