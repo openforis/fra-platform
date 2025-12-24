@@ -12,17 +12,20 @@ import { SocketServer } from 'server/service/socket'
 import { ProcessEnv } from 'server/utils'
 import { Logger } from 'server/utils/logger'
 
-import { VisitCycleLinksProps } from './props'
+import { VisitCycleLinksJob, VisitCycleLinksProps } from './props'
 import workerProcessor from './worker'
 
 const connection = new IORedis(ProcessEnv.redisQueueUrl)
 connection.options.maxRetriesPerRequest = null
 
+const jobTimeoutMs = 10 * 60 * 1000
+
 const workerOptions: WorkerOptions = {
   concurrency: 1,
   connection,
-  lockDuration: 60_000,
+  lockDuration: jobTimeoutMs,
   maxStalledCount: 0,
+  skipLockRenewal: true,
 }
 
 type EmitEventProps = {
@@ -30,6 +33,8 @@ type EmitEventProps = {
   cycle: Cycle
   event: keyof WorkerListener
 }
+
+type VisitCycleLinksProcessor = string | ((job: VisitCycleLinksJob) => Promise<void>)
 
 const _emitEvent = (props: EmitEventProps): void => {
   const { assessment, cycle, event } = props
@@ -40,10 +45,10 @@ const _emitEvent = (props: EmitEventProps): void => {
   SocketServer.emit(linksVerificationEvent, { event })
 }
 
-const newInstance = (props: { key: string }): Worker<VisitCycleLinksProps> => {
-  const { key } = props
+const newInstance = (props: { key: string; processor?: VisitCycleLinksProcessor }): Worker<VisitCycleLinksProps> => {
+  const { key, processor } = props
 
-  const worker = new Worker<VisitCycleLinksProps>(key, workerProcessor, workerOptions)
+  const worker = new Worker<VisitCycleLinksProps>(key, processor ?? workerProcessor, workerOptions)
 
   worker.on('error', (error) => {
     Logger.error(`[visitCycleLinks-worker] job error ${error}`)
