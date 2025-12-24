@@ -34,6 +34,7 @@ type EmitEventProps = {
   event: keyof WorkerListener
 }
 
+// BullMQ accepts either a processor function (dev) or a path to compiled JS (prod).
 type VisitCycleLinksProcessor = string | ((job: VisitCycleLinksJob) => Promise<void>)
 
 const _emitEvent = (props: EmitEventProps): void => {
