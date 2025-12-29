@@ -39,7 +39,7 @@
     },
     "recipes": "الوصفات"
   },
-  "reportedToFra2020": "أبلغت إلى تقييمات موارد الغابات 2020",
+  "reportedToFra": "أبلغت إلى تقييمات موارد الغابات",
   "satellite": "قمر صناعي",
   "satelliteMosaic": "فسيفساء الأقمار الصناعية",
   "sections": {
@@ -86,7 +86,7 @@
       "burnedAreaByYear": "المنطقة المحروقة حسب السنة"
     },
     "forestArea": {
-      "extentOfForestPerSource": "امتداد الغطاء الشجري حسب المصدر وحسبما تم الإبلاغ عنه إلى هيئة تقييم الموارد الحرجية {{year}}",
+      "extentOfForestPerSource": "امتداد الغطاء الشجري حسب المصدر وحسبما تم الإبلاغ عنه إلى هيئة تقييم الموارد الحرجية",
       "extentOfForestTreeCover": "امتداد الغطاء الشجري حسب المصدر",
       "forestAreaHa": "مساحة الغطاء الحرجي، هكتار",
       "forestAreaPercentOfLandArea": "مساحة الغطاء الحرجي % من مساحة الأرض",
