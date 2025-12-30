@@ -15,9 +15,6 @@ type GetDataParams = {
 }
 type GetDataRequest = Request<never, never, Body, GetDataParams>
 
-const excludeOdpTable = true
-const mergeOdp = true
-
 export const getData = async (req: GetDataRequest, res: Response): Promise<void> => {
   try {
     const { assessment } = req.context
@@ -26,8 +23,6 @@ export const getData = async (req: GetDataRequest, res: Response): Promise<void>
       assessment,
       columns,
       countryISOs,
-      excludeOdpTable,
-      mergeOdp,
       tableNames,
       variables,
     })

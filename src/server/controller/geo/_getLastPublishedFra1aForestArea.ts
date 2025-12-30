@@ -19,13 +19,11 @@ export const _getLastPublishedFra1aForestArea = async (
 
   // Same logic as Explorer: country-specific last published cycle.
   const lastPublishedCycleName = Assessments.getLastPublishedCycle(assessment).name
-  const excludeOdpTable = true
-  const mergeOdp = true
   const variables = ['forestArea']
   const tableNames = [TableNames.extentOfForest]
 
   const data = await CycleDataController.getLastPublishedData(
-    { assessment, countryISOs: [countryIso], excludeOdpTable, mergeOdp, tableNames, variables },
+    { assessment, countryISOs: [countryIso], tableNames, variables },
     client
   )
 
