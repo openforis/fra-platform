@@ -11,6 +11,6 @@ type Props = {
   cycle: Cycle
 }
 
-export const getActiveVerifyJobs = async (props: Props): Promise<Array<Job<VisitCycleLinksProps>>> => {
-  return VisitCycleLinksQueueFactory.getActiveJobs(props)
+export const getActiveVerifyJob = async (props: Props): Promise<Job<VisitCycleLinksProps> | null> => {
+  return VisitCycleLinksQueueFactory.getQueuedOrActiveJob(props)
 }

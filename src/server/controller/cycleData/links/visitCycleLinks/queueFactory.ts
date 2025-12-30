@@ -31,22 +31,28 @@ const getInstance = (): Queue<VisitCycleLinksProps> => {
   return queue
 }
 
-const getActiveJobs = async (_props: Props): Promise<Array<Job<VisitCycleLinksProps>>> => {
-  const queue = getInstance()
-  const activeJobs: Array<Job<VisitCycleLinksProps>> = await queue.getActive()
-  return activeJobs
-}
-
 const getJobId = (props: Props): string => {
   const { assessment, cycle } = props
 
+  // Job ID with assessment/cycle to avoid requests from enqueuing duplicates.
   return `verifyLinks/${assessment.props.name}/${cycle.name}`
+}
+
+const activeStates = ['active', 'delayed', 'paused', 'waiting', 'waiting-children']
+
+const getQueuedOrActiveJob = async (props: Props): Promise<Job<VisitCycleLinksProps> | null> => {
+  const queueInstance = getInstance()
+  const job = await queueInstance.getJob(getJobId(props))
+  if (!job) return null
+
+  const state = await job.getState()
+  return activeStates.includes(state) ? job : null
 }
 
 export const VisitCycleLinksQueueFactory = {
   connection,
-  getActiveJobs,
   getInstance,
   getJobId,
+  getQueuedOrActiveJob,
   queueName,
 }
