@@ -5,8 +5,8 @@ import { VisitCycleLinksQueueFactory } from 'server/controller/cycleData/links/v
 import { WorkerFactory } from 'server/controller/cycleData/links/visitCycleLinks/workerFactory'
 import { SocketServer } from 'server/service/socket'
 import { Logger } from 'server/utils/logger'
-import { VerifyLinksJob } from 'server/worker/tasks/verifyLinksJob'
-import { VerifyLinksWorkerPresence } from 'server/worker/tasks/verifyLinksWorkerPresence'
+import { VerifyLinksJob } from 'server/worker/tasks/verifyLinks/verifyLinksJob'
+import { VerifyLinksWorkerPresence } from 'server/worker/tasks/verifyLinks/verifyLinksWorkerPresence'
 
 /**
  * The plan:
