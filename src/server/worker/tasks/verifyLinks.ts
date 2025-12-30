@@ -5,8 +5,8 @@ import { VisitCycleLinksQueueFactory } from 'server/controller/cycleData/links/v
 import { WorkerFactory } from 'server/controller/cycleData/links/visitCycleLinks/workerFactory'
 import { SocketServer } from 'server/service/socket'
 import { Logger } from 'server/utils/logger'
-import { VerifyLinksJob } from 'server/worker/tasks/verifyLinksJob'
-import { VerifyLinksWorkerPresence } from 'server/worker/tasks/verifyLinksWorkerPresence'
+import { VerifyLinksJob } from 'server/worker/tasks/verifyLinks/verifyLinksJob'
+import { VerifyLinksWorkerPresence } from 'server/worker/tasks/verifyLinks/verifyLinksWorkerPresence'
 
 /**
  * The plan:
@@ -27,6 +27,8 @@ import { VerifyLinksWorkerPresence } from 'server/worker/tasks/verifyLinksWorker
 const idleGraceMs = 60 * 1000
 // Interval time to check if the process is idle and can be shut down.
 const idleCheckIntervalMs = 15 * 1000
+// Refresh the worker presence lock so the web dyno won't start a second worker.
+const workerHeartbeatMs = 60 * 1000
 
 const isMainProcess = require.main === module
 
@@ -55,6 +57,13 @@ export const startVerifyLinksWorker = async (options: StartOptions = {}): Promis
   // Mark this worker as active in Redis so new requests won’t start another dyno.
   await VerifyLinksWorkerPresence.refreshWorkerLock(workerId)
 
+  const heartbeatIntervalRef: { current?: NodeJS.Timeout } = {}
+  heartbeatIntervalRef.current = setInterval(() => {
+    void VerifyLinksWorkerPresence.refreshWorkerLock(workerId).catch((error) => {
+      Logger.error(`[verifyLinks-worker] heartbeat failed: ${JSON.stringify(error)}`)
+    })
+  }, workerHeartbeatMs)
+
   const worker = WorkerFactory.newInstance({
     key: VisitCycleLinksQueueFactory.queueName,
     processor,
@@ -69,6 +78,9 @@ export const startVerifyLinksWorker = async (options: StartOptions = {}): Promis
     if (shuttingDown) return
     shuttingDown = true
 
+    if (heartbeatIntervalRef.current) {
+      clearInterval(heartbeatIntervalRef.current)
+    }
     if (idleIntervalRef.current) {
       clearInterval(idleIntervalRef.current)
     }
@@ -96,7 +108,7 @@ export const startVerifyLinksWorker = async (options: StartOptions = {}): Promis
         // Queue is empty, so shutdown if the grace period has passed.
         if (!idleSince) idleSince = Date.now()
         const idleForMs = Date.now() - idleSince
-        if (idleForMs >= idleGraceMs) {
+        if (exitOnIdle && idleForMs >= idleGraceMs) {
           await shutdown('idle')
         }
       } else {

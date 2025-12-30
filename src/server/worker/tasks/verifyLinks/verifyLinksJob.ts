@@ -30,6 +30,7 @@ export class VerifyLinksJob extends Job {
     this.#queueJob = job
 
     try {
+      // Update redis to sync with BullMQ job status.
       await this.setRunning(jobId)
       await this.execute()
       await this.setSuccess(jobId)

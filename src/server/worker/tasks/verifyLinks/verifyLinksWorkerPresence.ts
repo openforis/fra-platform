@@ -2,6 +2,7 @@ import IORedis from 'ioredis'
 
 import { ProcessEnv } from 'server/utils'
 
+// Presence key used by the controller to avoid starting multiple dynos.
 const workerPresenceKey = 'verifyLinks:worker:active'
 const workerPresenceTtlMs = 10 * 60 * 1000
 const redis = new IORedis(ProcessEnv.redisQueueUrl)
