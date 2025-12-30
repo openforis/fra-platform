@@ -21,6 +21,7 @@ import { clearTableData } from './clearTableData'
 import { Contacts } from './contact'
 import { Description } from './description'
 import { getBulkDownload } from './getBulkDownload'
+import { getLastPublishedData } from './getLastPublishedData'
 import { getNodeValuesEstimations } from './getNodeValuesEstimations'
 import { getReviewStatus } from './getReviewStatus'
 import { getTableData } from './getTableData'
@@ -36,6 +37,7 @@ export const CycleDataController = {
 
   // ===== table data
   clearTableData,
+  getLastPublishedData,
   getTableData,
 
   // ===== original data point
