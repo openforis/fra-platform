@@ -18,13 +18,16 @@ const jobOptions: JobsOptions = {
 export const visitCycleLinks = async (props: VisitCycleLinksProps): Promise<Job<VisitCycleLinksProps>> | undefined => {
   const { assessment, cycle } = props
 
-  Logger.debug(`[visitCycleLinks] added visit all links job for ${assessment.props.name} ${cycle.name} to the queue`)
-
   // Skip if a verification job is already active.
   const activeJob = await VisitCycleLinksQueueFactory.getQueuedOrActiveJob(props)
   const isVerificationInProgress = Boolean(activeJob)
 
-  if (isVerificationInProgress) return undefined
+  if (isVerificationInProgress) {
+    Logger.debug(
+      `[visitCycleLinks] skipping enqueue: verification already queued or running for ${assessment.props.name} / ${cycle.name}`
+    )
+    return undefined
+  }
 
   const queue = VisitCycleLinksQueueFactory.getInstance()
   // Job ID is scoped by assessment/cycle so concurrent requests collapse to one job.
@@ -33,6 +36,8 @@ export const visitCycleLinks = async (props: VisitCycleLinksProps): Promise<Job<
 
   const verifyLinksJob = new VerifyLinksJob({ assessment, cycle })
   await verifyLinksJob.setQueued(job.id?.toString())
+
+  Logger.debug(`[visitCycleLinks] added visit all links job for ${assessment.props.name} ${cycle.name} to the queue`)
 
   const linksVerificationEvent = Sockets.getLinksVerificationEvent({
     assessmentName: assessment.props.name,
