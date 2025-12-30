@@ -11,8 +11,8 @@ export const isVerificationInProgress = async (req: Request, res: Response): Pro
   try {
     const { assessment, cycle } = req.context
 
-    const activeJobs = await CycleDataController.Links.getActiveVerifyJobs({ assessment, cycle })
-    const isVerificationInProgress = activeJobs.length > 0
+    const activeJob = await CycleDataController.Links.getActiveVerifyJob({ assessment, cycle })
+    const isVerificationInProgress = Boolean(activeJob)
 
     Requests.send(res, isVerificationInProgress)
   } catch (e) {
