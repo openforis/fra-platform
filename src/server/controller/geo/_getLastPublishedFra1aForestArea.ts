@@ -5,6 +5,7 @@ import { TableNames } from 'meta/assessment/table'
 import { RecordAssessmentDatas } from 'meta/data/recordDatas'
 import { Numbers } from 'utils/numbers'
 
+import { AreaController } from 'server/controller/area'
 import { CycleDataController } from 'server/controller/cycleData'
 import { BaseProtocol, DB } from 'server/db/db'
 
@@ -18,36 +19,38 @@ export const _getLastPublishedFra1aForestArea = async (
   const { name: assessmentName } = assessment.props
 
   // Same logic as Explorer: country-specific last published cycle.
-  const lastPublishedCycleName = Assessments.getLastPublishedCycle(assessment).name
-  const variables = ['forestArea']
-  const tableNames = [TableNames.extentOfForest]
+  const lastPublishedCycle = Assessments.getLastPublishedCycle(assessment)
+  if (!lastPublishedCycle) return null
+  const lastPublishedCycleName = lastPublishedCycle.name
+
+  const country = await AreaController.getCountry({ assessment, cycle: lastPublishedCycle, countryIso }, client)
+  const countryLastPublishedCycleName = country.lastPublishedInfo?.cycleName
+  if (!countryLastPublishedCycleName) return null
+
+  const variableName = 'forestArea'
+  const tableName = TableNames.extentOfForest
 
   const data = await CycleDataController.getLastPublishedData(
-    { assessment, countryISOs: [countryIso], tableNames, variables },
+    {
+      assessment,
+      columns: [countryLastPublishedCycleName],
+      countryISOs: [countryIso],
+      tableNames: [tableName],
+      variables: [variableName],
+    },
     client
   )
 
-  const tableData = RecordAssessmentDatas.getTableData({
-    assessmentName,
-    countryIso,
-    cycleName: lastPublishedCycleName,
-    data,
-    tableName: tableNames[0],
-  })
-
-  const lastYear = Object.keys(tableData)
-    .reduce<Array<number>>((years, colName) => {
-      const year = Number.parseInt(colName, 10)
-      if (Number.isFinite(year)) years.push(year)
-      return years
-    }, [])
-    .sort((a, b) => a - b)
-    .at(-1)
-
-  if (!lastYear) return null
-
-  const nodeValue = tableData[String(lastYear)]?.forestArea
-  const rawValue = nodeValue?.raw ?? ''
+  const rawValue =
+    RecordAssessmentDatas.getDatum({
+      assessmentName,
+      colName: countryLastPublishedCycleName,
+      countryIso,
+      cycleName: lastPublishedCycleName,
+      data,
+      tableName,
+      variableName,
+    }) ?? ''
   const parsed = Numbers.toBigNumber(rawValue)
 
   return parsed.isFinite() ? parsed.toNumber() : null
