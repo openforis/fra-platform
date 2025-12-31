@@ -1,10 +1,10 @@
 import { LinkRepository } from 'server/db/repository/assessmentCycle/links'
+import { visitCycleLinks } from 'server/worker/tasks/verifyLinks/visitCycleLinks'
 
 import { getActiveVerifyJob } from './getActiveVerifyJob'
 import { getAllLinksToVisit } from './getAllLinksToVisit'
 import { getManyExport } from './getManyExport'
 import { update } from './update'
-import { visitCycleLinks } from './visitCycleLinks'
 
 export const Links = {
   getActiveVerifyJob,

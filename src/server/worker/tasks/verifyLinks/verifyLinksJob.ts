@@ -1,10 +1,10 @@
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 
-import { VisitCycleLinksJob } from 'server/controller/cycleData/links/visitCycleLinks'
-import workerProcessor from 'server/controller/cycleData/links/visitCycleLinks/worker'
 import { Job } from 'server/worker/job/job'
 import { JobStatus } from 'server/worker/job/jobStatus'
+import { VisitCycleLinksJob } from 'server/worker/tasks/verifyLinks/visitCycleLinks'
+import workerProcessor from 'server/worker/tasks/verifyLinks/visitCycleLinks/worker'
 
 type VerifyLinksJobContext = {
   assessment: Assessment

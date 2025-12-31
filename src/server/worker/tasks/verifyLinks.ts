@@ -1,12 +1,12 @@
 import http from 'http'
 
-import { VisitCycleLinksJob } from 'server/controller/cycleData/links/visitCycleLinks'
-import { VisitCycleLinksQueueFactory } from 'server/controller/cycleData/links/visitCycleLinks/queueFactory'
-import { WorkerFactory } from 'server/controller/cycleData/links/visitCycleLinks/workerFactory'
 import { SocketServer } from 'server/service/socket'
 import { Logger } from 'server/utils/logger'
 import { VerifyLinksJob } from 'server/worker/tasks/verifyLinks/verifyLinksJob'
 import { VerifyLinksWorkerPresence } from 'server/worker/tasks/verifyLinks/verifyLinksWorkerPresence'
+import { VisitCycleLinksJob } from 'server/worker/tasks/verifyLinks/visitCycleLinks'
+import { VisitCycleLinksQueueFactory } from 'server/worker/tasks/verifyLinks/visitCycleLinks/queueFactory'
+import { WorkerFactory } from 'server/worker/tasks/verifyLinks/visitCycleLinks/workerFactory'
 
 /**
  * The plan:
