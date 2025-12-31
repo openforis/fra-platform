@@ -14,19 +14,19 @@ type Props = {
   assessment: Assessment
   columns?: Array<string>
   countryISOs: Array<CountryIso>
-  excludeOdpTable?: boolean
-  mergeOdp?: boolean
   tableNames: Array<string>
   variables?: Array<string>
 }
 
 export const getLastPublishedData = async (props: Props, client: BaseProtocol = DB): Promise<RecordAssessmentData> => {
-  const { assessment, columns, countryISOs, excludeOdpTable = true, mergeOdp = true, tableNames, variables } = props
+  const { assessment, columns, countryISOs, tableNames, variables } = props
   const { name: assessmentName } = assessment.props
 
   const lastPublishedCycle = Assessments.getLastPublishedCycle(assessment)
   const countriesMap = await AreaController.getCountriesMap({ assessment, cycle: lastPublishedCycle }, client)
   const publishedCycleName = lastPublishedCycle.name
+  const excludeOdpTable = true
+  const mergeOdp = true
 
   // Build a record of cycleName->countryISOs, where cycleName is lastPublished cycle for the given countries.
   const cycleCountries = countryISOs.reduce<Record<CycleName, Array<CountryIso>>>((acc, countryIso) => {
