@@ -39,7 +39,7 @@
     },
     "recipes": "Recipes"
   },
-  "reportedToFra2020": "Reported to FRA 2020",
+  "reportedToFra": "Reported to FRA",
   "satellite": "Satellite",
   "satelliteMosaic": "Satellite Mosaic",
   "sections": {
@@ -86,7 +86,7 @@
       "burnedAreaByYear": "Burned area by year"
     },
     "forestArea": {
-      "extentOfForestPerSource": "Extent of tree cover per source and as reported to FRA {{year}}",
+      "extentOfForestPerSource": "Extent of tree cover per source and as reported to FRA",
       "extentOfForestTreeCover": "Extent of tree cover by source",
       "forestAreaHa": "Tree cover area, ha",
       "forestAreaPercentOfLandArea": "Tree cover area % of land area",

@@ -31,7 +31,7 @@ const TreeCoverAreaPanel: React.FC<Props> = (props: Props) => {
 
   return (
     <>
-      <StatisticalGraphsPanel year={year} />
+      <StatisticalGraphsPanel />
       <StatisticsTable
         columns={columns}
         csvData={csvData}

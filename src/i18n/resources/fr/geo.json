@@ -39,7 +39,7 @@
     },
     "recipes": "Recettes"
   },
-  "reportedToFra2020": "Rapporté à FRA 2020",
+  "reportedToFra": "Rapporté à FRA",
   "satellite": "Satellite",
   "satelliteMosaic": "Mosaïque satellite",
   "sections": {
@@ -86,7 +86,7 @@
       "burnedAreaByYear": "Superficie incendiée par année"
     },
     "forestArea": {
-      "extentOfForestPerSource": "Étendue du couvert arboré par source et telle que rapporté à FRA {{year}}",
+      "extentOfForestPerSource": "Étendue du couvert arboré par source et telle que rapporté à FRA",
       "extentOfForestTreeCover": "Étendue du couvert arboré par source",
       "forestAreaHa": "Superficie du couvert arboré, ha",
       "forestAreaPercentOfLandArea": "Superficie du couvert arboré en % de la superficie des terres",
