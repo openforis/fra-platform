@@ -5,7 +5,6 @@ import { TableNames } from 'meta/assessment/table'
 import { RecordAssessmentDatas } from 'meta/data/recordDatas'
 import { Numbers } from 'utils/numbers'
 
-import { AreaController } from 'server/controller/area'
 import { CycleDataController } from 'server/controller/cycleData'
 import { BaseProtocol, DB } from 'server/db/db'
 
@@ -23,17 +22,13 @@ export const _getLastPublishedFra1aForestArea = async (
   if (!lastPublishedCycle) return null
   const lastPublishedCycleName = lastPublishedCycle.name
 
-  const country = await AreaController.getCountry({ assessment, cycle: lastPublishedCycle, countryIso }, client)
-  const countryLastPublishedCycleName = country.lastPublishedInfo?.cycleName
-  if (!countryLastPublishedCycleName) return null
-
   const variableName = 'forestArea'
   const tableName = TableNames.extentOfForest
 
   const data = await CycleDataController.getLastPublishedData(
     {
       assessment,
-      columns: [countryLastPublishedCycleName],
+      columns: [lastPublishedCycleName],
       countryISOs: [countryIso],
       tableNames: [tableName],
       variables: [variableName],
@@ -44,7 +39,7 @@ export const _getLastPublishedFra1aForestArea = async (
   const rawValue =
     RecordAssessmentDatas.getDatum({
       assessmentName,
-      colName: countryLastPublishedCycleName,
+      colName: lastPublishedCycleName,
       countryIso,
       cycleName: lastPublishedCycleName,
       data,
