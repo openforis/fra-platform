@@ -6,15 +6,10 @@ import Bar from 'client/components/Chart/Bar'
 
 import { useStatisticalGraphsData } from './hooks/useStatisticalGraphsData'
 
-type Props = {
-  year: number
-}
-
-const StatisticalGraphsPanel: React.FC<Props> = (props: Props) => {
-  const { year } = props
+const StatisticalGraphsPanel: React.FC = () => {
   const { t } = useTranslation()
 
-  const title = t('geo.statistics.forestArea.extentOfForestPerSource', { year })
+  const title = t('geo.statistics.forestArea.extentOfForestPerSource')
 
   const { chart, data, errorKey, loading } = useStatisticalGraphsData()
 

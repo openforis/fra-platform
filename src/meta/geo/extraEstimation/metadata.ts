@@ -14,8 +14,8 @@ export const extraEstimationsMetadata: Record<ExtraEstimation, ExtraEstimationMe
     palette: ['#FF00FF'], // fuchsia
     titleKey: 'geo.treeCoverAgreementSelected',
   },
-  [ExtraEstimation.ReportedToFRA2020]: {
+  [ExtraEstimation.ReportedToFRA]: {
     palette: ['#000000'], // black
-    titleKey: 'geo.reportedToFra2020',
+    titleKey: 'geo.reportedToFra',
   },
 }
