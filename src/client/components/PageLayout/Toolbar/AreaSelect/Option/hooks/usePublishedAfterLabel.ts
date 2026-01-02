@@ -22,7 +22,8 @@ export const usePublishedAfterLabel = (props: Props): Returned => {
 
   return useMemo<Returned>(() => {
     const lastPublished = country?.lastPublishedInfo?.lastPublished
-    if (user || !Areas.isPublishedAfterLastPublishedCycle({ assessment, country })) {
+
+    if (user || !Areas.hasVoluntaryUpdates({ assessment, country })) {
       return null
     }
 

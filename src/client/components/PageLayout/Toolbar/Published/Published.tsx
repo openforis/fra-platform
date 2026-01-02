@@ -1,20 +1,19 @@
 import './Published.scss'
 import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-
 import classNames from 'classnames'
-import { Dates } from 'utils/dates'
 
 import { Areas } from 'meta/area/areas'
+import { Dates } from 'utils/dates'
 
 import { useAssessmentCountry } from 'client/store/area/hooks/country'
-import { useLastPublishedCycle } from 'client/store/meta/hooks/cycles'
+import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useLanguage } from 'client/hooks/language'
 
 const Published: React.FC = () => {
   const { t } = useTranslation()
   const lang = useLanguage()
-  const lastPublishedCycle = useLastPublishedCycle()
+  const assessment = useAssessment()
   const country = useAssessmentCountry()
 
   const formattedDate = useMemo(() => {
@@ -26,8 +25,8 @@ const Published: React.FC = () => {
 
   const publishedAfter = useMemo(() => {
     if (!country) return false
-    return Areas.hasVoluntaryUpdates({ country, cycle: lastPublishedCycle })
-  }, [country, lastPublishedCycle])
+    return Areas.hasVoluntaryUpdates({ assessment, country })
+  }, [assessment, country])
 
   if (!country) return null
 
