@@ -85,13 +85,22 @@ export const startVerifyLinksWorker = async (options: StartOptions = {}): Promis
       clearInterval(idleIntervalRef.current)
     }
 
-    await worker.close()
-    await VerifyLinksWorkerPresence.clearWorkerLock()
+    // Force close in dev to avoid lingering instances
+    const forceClose = !exitOnIdle && (reason === 'SIGTERM' || reason === 'SIGINT')
+    await worker.close(forceClose)
 
-    if (exitOnIdle) {
-      await queue.close()
-      await VerifyLinksWorkerPresence.disconnect()
-      Logger.info(`[verifyLinks-worker] shutdown (${reason})`)
+    // Always close connections on shutdown so dev restarts don't leave a stale worker running.
+    await Promise.allSettled([
+      VerifyLinksWorkerPresence.clearWorkerLock(),
+      queue.close(),
+      VerifyLinksWorkerPresence.disconnect(),
+      VisitCycleLinksQueueFactory.connection.quit(),
+      WorkerFactory.connection.quit(),
+    ])
+
+    Logger.info(`[verifyLinks-worker] shutdown (${reason})`)
+
+    if (exitOnIdle || reason === 'SIGTERM' || reason === 'SIGINT') {
       process.exit(0)
     }
   }
