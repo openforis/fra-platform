@@ -4,6 +4,6 @@ export type MosaicYearRange = {
 }
 
 export const mosaicYearRange: MosaicYearRange = {
-  endYear: 2024,
+  endYear: 2025,
   startYear: 2000,
 }
