@@ -65,12 +65,12 @@ export const buildForestEstimationsDataTable = (
   })
 
   // Adding the reported Forest Area to the data.
-  const reportedToFraLabelKey = extraEstimationsMetadata[ExtraEstimation.ReportedToFRA2020].titleKey
+  const reportedToFraLabelKey = extraEstimationsMetadata[ExtraEstimation.ReportedToFRA].titleKey
   const reportedFra1aForestAreaHa = reportedFra1aForestArea * 1000 // Normalize to Ha. Instead of Thousands of Ha.
   estimationsData.push({
     area: reportedFra1aForestAreaHa,
     fra1ALandAreaPercentage: _calculateSourcePercent(reportedFra1aForestAreaHa),
-    sourceKey: ExtraEstimation.ReportedToFRA2020,
+    sourceKey: ExtraEstimation.ReportedToFRA,
     sourceLabelKey: reportedToFraLabelKey,
   })
 

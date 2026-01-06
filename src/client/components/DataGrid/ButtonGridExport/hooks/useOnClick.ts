@@ -3,12 +3,12 @@ import type { AsyncClickHandler } from 'react-csv/components/CommonPropTypes'
 import { flushSync } from 'react-dom'
 import { useTranslation } from 'react-i18next'
 
-import { Dates } from 'utils/dates'
-
 import { Areas } from 'meta/area/areas'
 import { Assessments } from 'meta/assessment/assessments'
+import { Dates } from 'utils/dates'
 
 import { useAssessmentCountry } from 'client/store/area/hooks/country'
+import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useLastPublishedCycle } from 'client/store/meta/hooks/cycles'
 import { useUser } from 'client/store/user/hooks/user'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
@@ -25,6 +25,7 @@ export const useOnClick = (props: Props): AsyncClickHandler => {
   const { t } = useTranslation()
   const user = useUser()
   const { assessmentName } = useCountryRouteParams()
+  const assessment = useAssessment()
   const country = useAssessmentCountry()
   const lastPublishedCycle = useLastPublishedCycle()
 
@@ -33,7 +34,7 @@ export const useOnClick = (props: Props): AsyncClickHandler => {
       let csvData = getDataGridData(gridRef.current)
 
       // Add disclaimer rows when in public view and the country has voluntary updates
-      const showDisclaimer = !user && Areas.hasVoluntaryUpdates({ country, cycle: lastPublishedCycle })
+      const showDisclaimer = !user && Areas.hasVoluntaryUpdates({ assessment, country })
 
       if (showDisclaimer) {
         const publishedDate = Dates.parseISO(country.lastPublishedInfo.lastPublished)

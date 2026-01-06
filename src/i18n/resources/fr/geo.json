@@ -1,4 +1,5 @@
 {
+  "accessJrcGwis": "Accéder au GWIS JRC",
   "agreementLevelExplanation": "Le niveau d'accord N signifie qu'au moins N des sources de données sélectionnées doivent être d'accord sur le fait qu'un pixel donné est une zone avec un couvert arboré.",
   "burnedArea": "Zone incendiée",
   "burnedAreaWithUnit": "$t(geo.burnedArea) ({{unit}})",
@@ -39,7 +40,7 @@
     },
     "recipes": "Recettes"
   },
-  "reportedToFra2020": "Rapporté à FRA 2020",
+  "reportedToFra": "Rapporté à FRA",
   "satellite": "Satellite",
   "satelliteMosaic": "Mosaïque satellite",
   "sections": {
@@ -86,7 +87,7 @@
       "burnedAreaByYear": "Superficie incendiée par année"
     },
     "forestArea": {
-      "extentOfForestPerSource": "Étendue du couvert arboré par source et telle que rapporté à FRA {{year}}",
+      "extentOfForestPerSource": "Étendue du couvert arboré par source et telle que rapporté à FRA",
       "extentOfForestTreeCover": "Étendue du couvert arboré par source",
       "forestAreaHa": "Superficie du couvert arboré, ha",
       "forestAreaPercentOfLandArea": "Superficie du couvert arboré en % de la superficie des terres",

@@ -55,7 +55,7 @@ export const useOptionGroupCountries = (props: Props): ReadonlyArray<OptionsGrou
     }
 
     // 2. add no roles group (with remaining countries) to groups if cycle is published
-    if (Cycles.isPublished(cycle)) {
+    if (!user || Cycles.isPublished(cycle)) {
       rolesGrouped[UserRoles.noRole.role] = countryISOs.reduce<Array<UserRole>>((acc, countryIso) => {
         if (!userCountryISOs.includes(countryIso) && !Areas.isAtlantis(countryIso)) {
           acc.push({ role: UserRoles.noRole.role, countryIso } as UserRole)

@@ -2,9 +2,12 @@
 import { Image, Reducer } from '@google/earthengine'
 
 import { CountryIso } from 'meta/area/countryIso'
+import { AssessmentNames } from 'meta/assessment/assessment'
 import { ForestEstimations } from 'meta/geo/forest/estimations'
 import { LayerSource } from 'meta/geo/layer/source'
 
+import { AssessmentController } from 'server/controller/assessment'
+import { _getLastPublishedFra1aForestArea } from 'server/controller/geo/_getLastPublishedFra1aForestArea'
 import { BaseProtocol, DB } from 'server/db/db'
 import { ForestEstimationsRepository } from 'server/db/repository/geo/forestEstimations'
 
@@ -13,7 +16,17 @@ import { AssetsController } from './assets'
 type Props = { countryIso: CountryIso; year: string }
 
 export const getForestEstimations = async (props: Props, client: BaseProtocol = DB): Promise<ForestEstimations> => {
-  return ForestEstimationsRepository.getOne(props, client)
+  const { countryIso, year } = props
+
+  const forestEstimations = await ForestEstimationsRepository.getOne({ countryIso, year }, client)
+
+  if (!forestEstimations) return forestEstimations
+
+  const assessment = await AssessmentController.getOne({ assessmentName: AssessmentNames.fra }, client)
+  const lastPublishedFra1aForestArea = await _getLastPublishedFra1aForestArea({ assessment, countryIso }, client)
+  if (lastPublishedFra1aForestArea !== null) forestEstimations.data.fra1aForestArea = lastPublishedFra1aForestArea
+
+  return forestEstimations
 }
 
 export const estimateArea = async (props: {

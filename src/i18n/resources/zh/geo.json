@@ -1,4 +1,5 @@
 {
+  "accessJrcGwis": "访问 JRC GWIS",
   "agreementLevelExplanation": "同意程度 N 意味着至少 N 个选定的数据源需要达成一致，认定某个像素为树木覆盖区域。",
   "burnedArea": "烧毁区域",
   "burnedAreaWithUnit": "$t(geo.burnedArea) ({{unit}})",
@@ -39,7 +40,7 @@
     },
     "recipes": "配方"
   },
-  "reportedToFra2020": "汇报给2020年全球森林资源评估",
+  "reportedToFra": "汇报给全球森林资源评估",
   "satellite": "卫星",
   "satelliteMosaic": "卫星镶嵌",
   "sections": {
@@ -86,7 +87,7 @@
       "burnedAreaByYear": "烧毁区域（按年）"
     },
     "forestArea": {
-      "extentOfForestPerSource": "根据资料来源及向 FRA 报告的树木覆盖范围 {{year}}",
+      "extentOfForestPerSource": "根据资料来源及向 FRA 报告的树木覆盖范围",
       "extentOfForestTreeCover": "树木覆盖范围（按来源）",
       "forestAreaHa": "树木覆盖面积，公顷",
       "forestAreaPercentOfLandArea": "树木覆盖面积占土地面积的百分比",

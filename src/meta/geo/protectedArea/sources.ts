@@ -15,7 +15,7 @@ export const protectedAreaSources: Record<keyof ProtectedAreaEstimations, { titl
   faHansen30Protected: { titleKey: 'geo.statistics.protectedArea.allGfc30' },
   faJaxaProtected: { titleKey: forestLayersMetadata[ForestKey.JAXA].titleKey },
   faTandemxProtected: { titleKey: forestLayersMetadata[ForestKey.TandemX].titleKey },
-  fra3bProtected: { titleKey: extraEstimationsMetadata[ExtraEstimation.ReportedToFRA2020].titleKey },
+  fra3bProtected: { titleKey: extraEstimationsMetadata[ExtraEstimation.ReportedToFRA].titleKey },
   faJrc2020Protected: { titleKey: forestLayersMetadata[ForestKey.JRC2020].titleKey },
 }
 
