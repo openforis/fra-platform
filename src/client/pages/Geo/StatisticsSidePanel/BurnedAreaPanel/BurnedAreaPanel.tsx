@@ -21,7 +21,7 @@ const BurnedAreaPanel: React.FC<Props> = (props: Props) => {
 
   const { columns, errorKey, loading, tableData, units } = useBurnedAreaData()
 
-  const gwisUrl = `https://gwis.jrc.ec.europa.eu/apps/gwis.statistics/estimates/${countryIso}2012`
+  const gwisUrl = `https://gwis.jrc.ec.europa.eu/apps/gwis.statistics/estimates/${countryIso}`
 
   const renderContent = (): React.ReactNode => {
     if (loading) return <p>{t('common.loading')}</p>
