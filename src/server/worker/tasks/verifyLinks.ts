@@ -1,12 +1,5 @@
-import http from 'http'
-
-import { SocketServer } from 'server/service/socket'
 import { Logger } from 'server/utils/logger'
-import { VerifyLinksJob } from 'server/worker/tasks/verifyLinks/verifyLinksJob'
-import { VerifyLinksWorkerPresence } from 'server/worker/tasks/verifyLinks/verifyLinksWorkerPresence'
-import { VisitCycleLinksJob } from 'server/worker/tasks/verifyLinks/visitCycleLinks/props'
-import { VisitCycleLinksQueueFactory } from 'server/worker/tasks/verifyLinks/visitCycleLinks/queueFactory'
-import { WorkerFactory } from 'server/worker/tasks/verifyLinks/visitCycleLinks/workerFactory'
+import { startVerifyLinksWorkerRuntime } from 'server/worker/tasks/verifyLinks/workerRuntime/runtime'
 
 /**
  * The plan:
@@ -23,13 +16,6 @@ import { WorkerFactory } from 'server/worker/tasks/verifyLinks/visitCycleLinks/w
  *   add a countryIso to the key in the future).
  */
 
-// Idle grace period to keep dyno alive briefly for possible new incoming jobs.
-const idleGraceMs = 60 * 1000
-// Interval time to check if the process is idle and can be shut down.
-const idleCheckIntervalMs = 15 * 1000
-// Refresh the worker presence lock so the web dyno won't start a second worker.
-const workerHeartbeatMs = 60 * 1000
-
 const isMainProcess = require.main === module
 
 // Exit on idle option, set to false for dev so the local server can keep running.
@@ -37,120 +23,10 @@ type StartOptions = {
   exitOnIdle?: boolean
 }
 
-const processor = async (job: VisitCycleLinksJob): Promise<void> => {
-  const { assessment, cycle } = job.data
-  const verifyLinksJob = new VerifyLinksJob({ assessment, cycle })
-  await verifyLinksJob.runFromQueue(job)
-}
-
 export const startVerifyLinksWorker = async (options: StartOptions = {}): Promise<void> => {
   const exitOnIdle = options.exitOnIdle ?? isMainProcess
   const workerId = `verify-links-${process.pid}-${Date.now()}`
-
-  const queue = VisitCycleLinksQueueFactory.getInstance()
-
-  // Init SocketServer only for the worker dyno so it can emit events.
-  if (exitOnIdle) {
-    await SocketServer.init(http.createServer())
-  }
-
-  // Mark this worker as active in Redis so new requests won’t start another dyno.
-  await VerifyLinksWorkerPresence.refreshWorkerLock(workerId)
-
-  const heartbeatIntervalRef: { current?: NodeJS.Timeout } = {}
-  heartbeatIntervalRef.current = setInterval(() => {
-    void VerifyLinksWorkerPresence.refreshWorkerLock(workerId).catch((error) => {
-      Logger.error(`[verifyLinks-worker] heartbeat failed: ${JSON.stringify(error)}`)
-    })
-  }, workerHeartbeatMs)
-
-  const worker = WorkerFactory.newInstance({
-    key: VisitCycleLinksQueueFactory.queueName,
-    processor,
-  })
-
-  let idleSince: number | null = null
-  let isCheckingIdle = false
-  let shuttingDown = false
-  const idleIntervalRef: { current?: NodeJS.Timeout } = {}
-
-  const shutdown = async (reason: string): Promise<void> => {
-    if (shuttingDown) return
-    shuttingDown = true
-
-    if (heartbeatIntervalRef.current) {
-      clearInterval(heartbeatIntervalRef.current)
-    }
-    if (idleIntervalRef.current) {
-      clearInterval(idleIntervalRef.current)
-    }
-
-    // Force close in dev to avoid lingering instances
-    const forceClose = !exitOnIdle && (reason === 'SIGTERM' || reason === 'SIGINT')
-    await worker.close(forceClose)
-
-    // Always close connections on shutdown so dev restarts don't leave a stale worker running.
-    await Promise.allSettled([
-      VerifyLinksWorkerPresence.clearWorkerLock(),
-      queue.close(),
-      VerifyLinksWorkerPresence.disconnect(),
-      VisitCycleLinksQueueFactory.connection.quit(),
-      WorkerFactory.connection.quit(),
-    ])
-
-    Logger.info(`[verifyLinks-worker] shutdown (${reason})`)
-
-    if (exitOnIdle || reason === 'SIGTERM' || reason === 'SIGINT') {
-      process.exit(0)
-    }
-  }
-
-  const checkIdle = async (): Promise<void> => {
-    if (isCheckingIdle || shuttingDown) return
-    isCheckingIdle = true
-
-    try {
-      const counts = await queue.getJobCounts('waiting', 'active', 'delayed')
-      const pendingJobs = counts.waiting + counts.active + counts.delayed
-
-      if (pendingJobs === 0) {
-        // Queue is empty, so shutdown if the grace period has passed.
-        if (!idleSince) idleSince = Date.now()
-        const idleForMs = Date.now() - idleSince
-        if (exitOnIdle && idleForMs >= idleGraceMs) {
-          await shutdown('idle')
-        }
-      } else {
-        idleSince = null
-      }
-    } finally {
-      isCheckingIdle = false
-    }
-  }
-
-  // Check idle periodically.
-  idleIntervalRef.current = setInterval(() => {
-    void checkIdle()
-  }, idleCheckIntervalMs)
-
-  worker.on('active', () => {
-    idleSince = null
-  })
-  worker.on('completed', () => {
-    idleSince = null
-  })
-  worker.on('failed', () => {
-    idleSince = null
-  })
-
-  process.on('SIGTERM', () => {
-    void shutdown('SIGTERM')
-  })
-  process.on('SIGINT', () => {
-    void shutdown('SIGINT')
-  })
-
-  await checkIdle()
+  await startVerifyLinksWorkerRuntime({ exitOnIdle, workerId })
 }
 
 if (isMainProcess) {
