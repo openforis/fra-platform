@@ -4,7 +4,7 @@ import { SocketServer } from 'server/service/socket'
 import { Logger } from 'server/utils/logger'
 import { VerifyLinksJob } from 'server/worker/tasks/verifyLinks/verifyLinksJob'
 import { VerifyLinksWorkerPresence } from 'server/worker/tasks/verifyLinks/verifyLinksWorkerPresence'
-import { VisitCycleLinksJob } from 'server/worker/tasks/verifyLinks/visitCycleLinks'
+import { VisitCycleLinksJob } from 'server/worker/tasks/verifyLinks/visitCycleLinks/props'
 import { VisitCycleLinksQueueFactory } from 'server/worker/tasks/verifyLinks/visitCycleLinks/queueFactory'
 import { WorkerFactory } from 'server/worker/tasks/verifyLinks/visitCycleLinks/workerFactory'
 

@@ -3,7 +3,7 @@ import { Cycle } from 'meta/assessment/cycle'
 
 import { Job } from 'server/worker/job/job'
 import { JobStatus } from 'server/worker/job/jobStatus'
-import { VisitCycleLinksJob } from 'server/worker/tasks/verifyLinks/visitCycleLinks'
+import { VisitCycleLinksJob } from 'server/worker/tasks/verifyLinks/visitCycleLinks/props'
 import workerProcessor from 'server/worker/tasks/verifyLinks/visitCycleLinks/worker'
 
 type VerifyLinksJobContext = {
