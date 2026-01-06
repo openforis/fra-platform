@@ -1,4 +1,5 @@
 {
+  "accessJrcGwis": "Acceder a JRC GWIS",
   "agreementLevelExplanation": "El nivel de acuerdo N significa que al menos N de las fuentes de datos seleccionadas necesitan acordar que un determinado píxel es área de superficie forestal.",
   "burnedArea": "Zona Quemada",
   "burnedAreaWithUnit": "$t(geo.burnedArea) ({{unit}})",

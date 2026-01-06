@@ -1,4 +1,5 @@
 {
+  "accessJrcGwis": "访问 JRC GWIS",
   "agreementLevelExplanation": "同意程度 N 意味着至少 N 个选定的数据源需要达成一致，认定某个像素为树木覆盖区域。",
   "burnedArea": "烧毁区域",
   "burnedAreaWithUnit": "$t(geo.burnedArea) ({{unit}})",

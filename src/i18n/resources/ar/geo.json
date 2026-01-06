@@ -1,4 +1,5 @@
 {
+  "accessJrcGwis": "الوصول إلى JRC GWIS",
   "agreementLevelExplanation": "مستوى الاتفاق (N) يعني أنه يجب أن تتفق مصادر البيانات المحددة على الأقل بنسبة (N) بأن نقطة بيانات معينة هي منطقة تغطية شجرية.",
   "burnedArea": "المنطقة المحروقة",
   "burnedAreaWithUnit": "$t(geo.burnedArea) ({{unit}})",
