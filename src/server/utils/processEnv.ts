@@ -52,6 +52,10 @@ export const ProcessEnv = {
   // Kiosk
   kioskActivitiesSheetUrl: process.env.KIOSK_ACTIVITIES_SHEET_URL,
 
+  // Heroku
+  herokuApiKey: process.env.HEROKU_API_KEY,
+  herokuAppName: process.env.HEROKU_APP_NAME,
+
   // scripts
   fraAuthToken: process.env.FRA_AUTH_TOKEN,
   fraReportAssessment: process.env.FRA_REPORT_ASSESSMENT,

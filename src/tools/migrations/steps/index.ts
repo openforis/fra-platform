@@ -2,13 +2,13 @@ import '../../scriptInit'
 
 import { Promises } from 'utils/promises'
 
-import { DB } from 'server/db/db'
-import { VisitCycleLinksQueueFactory } from 'server/controller/cycleData/links/visitCycleLinks/queueFactory'
-import { WorkerFactory as VisitLinksWorkerFactory } from 'server/controller/cycleData/links/visitCycleLinks/workerFactory'
+import { RedisData } from 'server/cache/repository/redisData'
 import { UpdateDependenciesQueueFactory } from 'server/controller/cycleData/updateDependencies/queueFactory'
 import { WorkerFactory } from 'server/controller/cycleData/updateDependencies/workerFactory'
-import { RedisData } from 'server/cache/repository/redisData'
+import { DB } from 'server/db/db'
 import { Logger } from 'server/utils/logger'
+import { VisitCycleLinksQueueFactory } from 'server/worker/tasks/verifyLinks/visitCycleLinks/queueFactory'
+import { WorkerFactory as VisitLinksWorkerFactory } from 'server/worker/tasks/verifyLinks/visitCycleLinks/workerFactory'
 
 import { getMigrationFiles } from './utils'
 
@@ -65,7 +65,7 @@ const exec = async (): Promise<void> => {
     await client.tx(async (t) => {
       try {
         Logger.info(`Running migration ${file}`)
-        // eslint-disable-next-line @typescript-eslint/no-var-requires,global-require,import/no-dynamic-require
+        // eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires,global-require,import/no-dynamic-require
         await require(`./steps/${file}`).default(t)
         Logger.info(`Migration step completed: ${file}`)
         await _writeStep(file)

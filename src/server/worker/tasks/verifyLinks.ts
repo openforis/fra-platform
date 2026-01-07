@@ -1,0 +1,37 @@
+import { Logger } from 'server/utils/logger'
+import { startVerifyLinksWorkerRuntime } from 'server/worker/tasks/verifyLinks/workerRuntime/runtime'
+
+/**
+ * The plan:
+ * - Queue verify-links jobs in the main web process and keep them using Redis, then
+ *   spin up a dedicated Heroku dyno to consume them.
+ * - Only one dyno should run at a time. If one is already active, new requests are
+ *   just added to the queue.
+ * - The worker runs with concurrency=1, so the jobs are run sequentially. There will
+ *   be a single queue for all link jobs, regardless of assessment/cycle. Then the
+ *   worker shuts itself down after the queue stays empty for a brief idle grace period.
+ * - The job status is stored in Redis keyed by assessment/cycle so the admin status
+ *   endpoint can report queued/running/success/failed per assessment/cycle. That's
+ *   also necessary so we can disable the Verify Links button per assessment. (We will
+ *   add a countryIso to the key in the future).
+ */
+
+const isMainProcess = require.main === module
+
+// Exit on idle option, set to false for dev so the local server can keep running.
+type StartOptions = {
+  exitOnIdle?: boolean
+}
+
+export const startVerifyLinksWorker = async (options: StartOptions = {}): Promise<void> => {
+  const exitOnIdle = options.exitOnIdle ?? isMainProcess
+  const workerId = `verify-links-${process.pid}-${Date.now()}`
+  await startVerifyLinksWorkerRuntime({ exitOnIdle, workerId })
+}
+
+if (isMainProcess) {
+  startVerifyLinksWorker({ exitOnIdle: true }).catch((error) => {
+    Logger.error(`[verifyLinks-worker] failed to start: ${JSON.stringify(error)}`)
+    process.exit(1)
+  })
+}

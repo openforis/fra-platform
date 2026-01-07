@@ -4,6 +4,7 @@ import { CountryRequest } from 'meta/api/request/country'
 
 import { CycleDataController } from 'server/controller/cycleData'
 import Requests from 'server/utils/requests'
+import { triggerVerifyLinksWorker } from 'server/worker/tasks/verifyLinks/triggerVerifyLinksWorker'
 
 type Request = CountryRequest
 
@@ -13,7 +14,10 @@ export const verifyLinks = async (req: Request, res: Response): Promise<void> =>
 
     const user = Requests.getUser(req)
 
+    // Enqueue the verify-links job.
     await CycleDataController.Links.verify({ assessment, cycle, user })
+    // Ensure the worker dyno (or local worker) is running to consume the queue.
+    await triggerVerifyLinksWorker()
 
     Requests.send(res)
   } catch (e) {

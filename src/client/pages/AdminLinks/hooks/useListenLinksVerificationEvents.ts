@@ -32,9 +32,9 @@ export const useListenLinksVerificationEvents = (): void => {
   const linksTableData = useTablePaginatedData({ path })
 
   useEffect(() => {
-    const listener = (args: [{ event: 'active' | 'completed' | 'failed' }]): void => {
+    const listener = (args: [{ event: 'queued' | 'active' | 'completed' | 'failed' }]): void => {
       const [{ event }] = args
-      if (event === 'active') {
+      if (event === 'queued' || event === 'active') {
         dispatch(
           LinksActions.setIsVerificationInProgress({ assessmentName, cycleName, isVerificationInProgress: true })
         )
