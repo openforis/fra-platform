@@ -1,5 +1,5 @@
 import { LinkRepository } from 'server/db/repository/assessmentCycle/links'
-import { visitCycleLinks } from 'server/worker/tasks/verifyLinks/visitCycleLinks'
+import { visitCycleLinks } from 'server/worker/tasks/verifyLinks/visitCycleLinks/visitCycleLinks'
 
 import { getActiveVerifyJob } from './getActiveVerifyJob'
 import { getAllLinksToVisit } from './getAllLinksToVisit'

@@ -13,7 +13,6 @@ import { ProcessEnv } from 'server/utils'
 import { Logger } from 'server/utils/logger'
 
 import { VisitCycleLinksJob, VisitCycleLinksProps } from './props'
-import workerProcessor from './worker'
 
 const connection = new IORedis(ProcessEnv.redisQueueUrl)
 connection.options.maxRetriesPerRequest = null
@@ -46,10 +45,10 @@ const _emitEvent = (props: EmitEventProps): void => {
   SocketServer.emit(linksVerificationEvent, { event })
 }
 
-const newInstance = (props: { key: string; processor?: VisitCycleLinksProcessor }): Worker<VisitCycleLinksProps> => {
+const newInstance = (props: { key: string; processor: VisitCycleLinksProcessor }): Worker<VisitCycleLinksProps> => {
   const { key, processor } = props
 
-  const worker = new Worker<VisitCycleLinksProps>(key, processor ?? workerProcessor, workerOptions)
+  const worker = new Worker<VisitCycleLinksProps>(key, processor, workerOptions)
 
   worker.on('error', (error) => {
     Logger.error(`[visitCycleLinks-worker] job error ${error}`)

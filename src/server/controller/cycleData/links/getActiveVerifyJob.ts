@@ -3,7 +3,7 @@ import { Job } from 'bullmq'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 
-import { VisitCycleLinksProps } from 'server/worker/tasks/verifyLinks/visitCycleLinks'
+import { VisitCycleLinksProps } from 'server/worker/tasks/verifyLinks/visitCycleLinks/props'
 import { VisitCycleLinksQueueFactory } from 'server/worker/tasks/verifyLinks/visitCycleLinks/queueFactory'
 
 type Props = {
