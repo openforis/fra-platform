@@ -1,6 +1,7 @@
 import { Job, Queue, QueueOptions } from 'bullmq'
 import IORedis from 'ioredis'
 
+import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 
@@ -16,6 +17,7 @@ connection.options.maxRetriesPerRequest = null
 
 type Props = {
   assessment: Assessment
+  countryIso?: CountryIso
   cycle: Cycle
 }
 
@@ -32,10 +34,11 @@ const getInstance = (): Queue<VisitCycleLinksProps> => {
 }
 
 const getJobId = (props: Props): string => {
-  const { assessment, cycle } = props
+  const { assessment, countryIso, cycle } = props
 
   // Job ID with assessment/cycle to avoid requests from enqueuing duplicates.
-  return `verifyLinks/${assessment.props.name}/${cycle.name}`
+  const baseJobId = `verifyLinks/${assessment.props.name}/${cycle.name}`
+  return countryIso ? `${baseJobId}/${countryIso}` : baseJobId
 }
 
 const activeStates = ['active', 'delayed', 'paused', 'waiting', 'waiting-children']

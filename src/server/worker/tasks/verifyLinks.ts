@@ -11,9 +11,8 @@ import { startVerifyLinksWorkerRuntime } from 'server/worker/tasks/verifyLinks/w
  *   be a single queue for all link jobs, regardless of assessment/cycle. Then the
  *   worker shuts itself down after the queue stays empty for a brief idle grace period.
  * - The job status is stored in Redis keyed by assessment/cycle so the admin status
- *   endpoint can report queued/running/success/failed per assessment/cycle. That's
- *   also necessary so we can disable the Verify Links button per assessment. (We will
- *   add a countryIso to the key in the future).
+ *   endpoint can report queued/running/success/failed per assessment/cycle, or
+ *   assessment/cycle/countryIso.
  */
 
 const isMainProcess = require.main === module

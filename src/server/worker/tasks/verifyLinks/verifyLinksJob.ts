@@ -1,3 +1,4 @@
+import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 
@@ -8,6 +9,7 @@ import workerProcessor from 'server/worker/tasks/verifyLinks/visitCycleLinks/wor
 
 type VerifyLinksJobContext = {
   assessment: Assessment
+  countryIso?: CountryIso
   cycle: Cycle
 }
 
@@ -21,8 +23,9 @@ export class VerifyLinksJob extends Job {
   }
 
   public static getJobName(context: VerifyLinksJobContext): string {
-    const { assessment, cycle } = context
-    return `${jobNamePrefix}/${assessment.props.name}/${cycle.name}`
+    const { assessment, countryIso, cycle } = context
+    const baseJobName = `${jobNamePrefix}/${assessment.props.name}/${cycle.name}`
+    return countryIso ? `${baseJobName}/${countryIso}` : baseJobName
   }
 
   public async runFromQueue(job: VisitCycleLinksJob): Promise<void> {

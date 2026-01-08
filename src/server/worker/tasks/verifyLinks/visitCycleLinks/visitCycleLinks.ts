@@ -15,32 +15,34 @@ const jobOptions: JobsOptions = {
   removeOnFail: true,
 }
 
-export const visitCycleLinks = async (props: VisitCycleLinksProps): Promise<Job<VisitCycleLinksProps>> | undefined => {
-  const { assessment, cycle } = props
+export const visitCycleLinks = async (props: VisitCycleLinksProps): Promise<Job<VisitCycleLinksProps> | undefined> => {
+  const { assessment, countryIso, cycle } = props
+  const scope = countryIso
+    ? `${assessment.props.name} / ${cycle.name} / ${countryIso}`
+    : `${assessment.props.name} / ${cycle.name}`
 
   // Skip if a verification job is already active.
   const activeJob = await VisitCycleLinksQueueFactory.getQueuedOrActiveJob(props)
   const isVerificationInProgress = Boolean(activeJob)
 
   if (isVerificationInProgress) {
-    Logger.debug(
-      `[visitCycleLinks] skipping enqueue: verification already queued or running for ${assessment.props.name} / ${cycle.name}`
-    )
+    Logger.debug(`[visitCycleLinks] skipping enqueue: verification already queued or running for ${scope}`)
     return undefined
   }
 
   const queue = VisitCycleLinksQueueFactory.getInstance()
   // Job ID is scoped by assessment/cycle so concurrent requests collapse to one job.
-  const jobId = VisitCycleLinksQueueFactory.getJobId({ assessment, cycle })
+  const jobId = VisitCycleLinksQueueFactory.getJobId({ assessment, countryIso, cycle })
   const job = await queue.add('verifyLinks', props, { ...jobOptions, jobId })
 
-  const verifyLinksJob = new VerifyLinksJob({ assessment, cycle })
+  const verifyLinksJob = new VerifyLinksJob({ assessment, countryIso, cycle })
   await verifyLinksJob.setQueued(job.id?.toString())
 
-  Logger.debug(`[visitCycleLinks] added visit all links job for ${assessment.props.name} ${cycle.name} to the queue`)
+  Logger.debug(`[visitCycleLinks] added visit all links job for ${scope} to the queue`)
 
   const linksVerificationEvent = Sockets.getLinksVerificationEvent({
     assessmentName: assessment.props.name,
+    countryIso,
     cycleName: cycle.name,
   })
   SocketServer.emit(linksVerificationEvent, { event: 'queued' })
