@@ -2,6 +2,7 @@ import { Response } from 'express'
 
 import { CycleDataRequest } from 'meta/api/request/cycleData/cycleData'
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
+import { Objects } from 'utils/objects'
 
 import { CycleDataController } from 'server/controller/cycleData'
 import Requests from 'server/utils/requests'
@@ -13,7 +14,8 @@ export const getDescription = async (req: Request, res: Response): Promise<void>
     const { assessment, cycle } = req.context
     const { countryIso, name, sectionName } = req.query
 
-    const propsValues = { assessment, cycle, countryISOs: [countryIso], sectionNames: [sectionName], name }
+    const sectionNames = Objects.isNil(sectionName) ? undefined : [sectionName]
+    const propsValues = { assessment, cycle, countryISOs: [countryIso], sectionNames, name }
     const values = await CycleDataController.Description.getDescriptionValues(propsValues)
 
     Requests.send(res, values)
