@@ -12,37 +12,41 @@ import { visitLinks } from './utils/visitLinks'
 import { VisitCycleLinksJob } from './props'
 
 const _getLogKey = (job: VisitCycleLinksJob): string => {
-  const { assessment, cycle } = job.data
+  const { assessment, countryIso, cycle } = job.data
 
   const assessmentName = assessment.props.name
   const cycleName = cycle.name
-  return `[visitCycleLinks-workerThread] [${[assessmentName, cycleName].join('-')}] [job-${job.id}]`
+  const scope = countryIso ? `${assessmentName}-${cycleName}-${countryIso}` : `${assessmentName}-${cycleName}`
+  return `[visitCycleLinks-workerThread] [${scope}] [job-${job.id}]`
 }
 
 export default async (job: VisitCycleLinksJob): Promise<void> => {
   const logKey = _getLogKey(job)
   try {
-    const { assessment, cycle, user } = job.data
+    const { assessment, countryIso, cycle, user } = job.data
 
     const target = { jobStatus: 'started' }
     const message = ActivityLogMessage.linksCheckStart
     const section = SectionNames.Admin.links
-    const activityLog = { message, section, target, user }
+    const activityLog = { countryIso, message, section, target, user }
     const activityLogParams = { activityLog, assessment, cycle }
     await ActivityLogRepository.insertActivityLog(activityLogParams)
 
     const time = new Date().getTime()
     Logger.info(`${logKey} started.`)
 
+    const approvedLinksFilters = countryIso ? { approved: true, countries: [countryIso] } : { approved: true }
+
     const [linksToVisit, approvedLinks] = await Promise.all([
-      CycleDataController.Links.getAllLinksToVisit({ assessment, cycle }),
-      LinkRepository.getMany({ assessment, cycle, filters: { approved: true } }),
+      CycleDataController.Links.getAllLinksToVisit({ assessment, countryIso, cycle }),
+      LinkRepository.getMany({ assessment, cycle, filters: approvedLinksFilters }),
     ])
 
     const mergedLinks = mergeLinks({ linksToVisit })
 
     await LinkRepository.markDeletedMany({
       assessment,
+      countryIso,
       cycle,
       excludedLinks: mergedLinks.map((link) => ({
         countryIso: link.countryIso,

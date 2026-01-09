@@ -1,7 +1,17 @@
+import { CountryIso } from 'meta/area/countryIso'
 import { AssessmentName } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
 
-export const getLinksVerificationEvent = (props: { assessmentName: AssessmentName; cycleName: CycleName }): string => {
-  const { assessmentName, cycleName } = props
-  return `${assessmentName}-${cycleName}-linksVerification`
+type Props = {
+  assessmentName: AssessmentName
+  countryIso?: CountryIso
+  cycleName: CycleName
+}
+
+export const getLinksVerificationEvent = (props: Props): string => {
+  const { assessmentName, countryIso, cycleName } = props
+
+  return countryIso
+    ? `${assessmentName}-${cycleName}-${countryIso}-linksVerification`
+    : `${assessmentName}-${cycleName}-linksVerification`
 }
