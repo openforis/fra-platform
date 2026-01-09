@@ -23,8 +23,15 @@ export const getPropsToQueryParams = (props: LinksGetManyProps): Returned => {
   if (!Objects.isNil(limit)) queryParams.limit = limit
   if (!Objects.isNil(offset)) queryParams.offset = offset
 
+  let approvedCondition: string | undefined
+  if (!Objects.isNil(approved)) {
+    approvedCondition = approved
+      ? `jsonb_exists(props, 'approved') AND (props ->> 'approved')::boolean is true`
+      : `(props ->> 'approved')::boolean is distinct from true`
+  }
+
   const whereConditions = [
-    approved && `jsonb_exists(props, 'approved') AND (props ->> 'approved')::boolean = $(approved)`,
+    approvedCondition,
     excludeDeleted && `(props->>'deleted')::boolean is distinct from true`,
     hasCodes &&
       `(
