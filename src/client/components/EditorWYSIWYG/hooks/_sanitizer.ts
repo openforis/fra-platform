@@ -6,6 +6,11 @@ import { unified } from 'unified'
 
 export const tableTags = ['table', 'tbody', 'td', 'tfoot', 'th', 'thead', 'tr']
 
+const linkTagsAttributes = ((): typeof defaultSchema.attributes.a => {
+  const defaultAttributes = defaultSchema.attributes?.a ?? []
+  return [...defaultAttributes, 'rel', 'target']
+})()
+
 const tableTagsAttributes = tableTags.reduce<Partial<Options['attributes']>>((acc, tag) => {
   const defaultAttributes = defaultSchema.attributes[tag] || []
   acc[tag] = [...defaultAttributes, 'style']
@@ -17,6 +22,7 @@ const schema = {
   tagNames: [...defaultSchema.tagNames, 'u', ...tableTags],
   attributes: {
     ...defaultSchema.attributes,
+    a: linkTagsAttributes,
     ...tableTagsAttributes,
   },
 }
