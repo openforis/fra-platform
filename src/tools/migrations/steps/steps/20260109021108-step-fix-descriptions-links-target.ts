@@ -11,43 +11,56 @@ import { BaseProtocol } from 'server/db/db'
 import { Schemas } from 'server/db/schemas'
 import { Logger } from 'server/utils/logger'
 
-const _fixAHrefTags = (htmlString: string): string => {
-  if (Objects.isEmpty(htmlString)) return htmlString
+type FixHtmlResult = { html: string | null; correctedLinks: number }
 
-  const dom = parseDocument(htmlString, { lowerCaseAttributeNames: true, lowerCaseTags: true })
+const _fixAHrefTags = (htmlString: string): FixHtmlResult => {
+  if (Objects.isEmpty(htmlString)) return { html: htmlString, correctedLinks: 0 }
+
+  const dom = parseDocument(htmlString, { decodeEntities: false, lowerCaseAttributeNames: true, lowerCaseTags: true })
   const anchorTags = DomUtils.findAll((node) => node.type === 'tag' && node.name === 'a', dom.children)
 
-  if (anchorTags.length === 0) return htmlString
+  if (anchorTags.length === 0) return { html: htmlString, correctedLinks: 0 }
 
-  let changed = false
+  let correctedLinks = 0
   for (let i = 0; i < anchorTags.length; i += 1) {
     const anchor = anchorTags[i]
     if (!anchor.attribs?.target) {
       anchor.attribs.target = '_blank'
-      changed = true
+      correctedLinks += 1
     }
   }
 
-  if (!changed) return htmlString
+  if (correctedLinks === 0) return { html: htmlString, correctedLinks: 0 }
 
-  return serialize(dom.children, { decodeEntities: false, xmlMode: false })
+  const html = serialize(dom.children, { decodeEntities: false, xmlMode: false })
+  return { html, correctedLinks }
 }
 
-const _fixDatasource = (dataSource: DataSource): DataSource => {
+type FixResult<T> = { correctedLinks: number; value: T }
+
+const _fixDatasource = (dataSource: DataSource): FixResult<DataSource> => {
   const { reference } = dataSource
-  const fixedReference = _fixAHrefTags(reference)
-  return { ...dataSource, reference: fixedReference }
+  const { correctedLinks, html: fixedReference } = _fixAHrefTags(reference)
+  return { value: { ...dataSource, reference: fixedReference }, correctedLinks }
 }
 
-const _fixValue = (value: CommentableDescriptionValue): CommentableDescriptionValue => {
-  const text = _fixAHrefTags(value.text)
-  const dataSources = value.dataSources?.map(_fixDatasource)
-  return { ...value, text, dataSources }
+const _fixValue = (value: CommentableDescriptionValue): FixResult<CommentableDescriptionValue> => {
+  const { correctedLinks: correctedTextLinks, html: text } = _fixAHrefTags(value.text)
+  const dataSourcesResults = value.dataSources?.map(_fixDatasource) ?? []
+
+  const correctedLinks =
+    correctedTextLinks + dataSourcesResults.reduce((acc, dataSourceResult) => acc + dataSourceResult.correctedLinks, 0)
+
+  const dataSources = value.dataSources
+    ? dataSourcesResults.map((dataSourceResult) => dataSourceResult.value)
+    : undefined
+
+  return { value: { ...value, text, dataSources }, correctedLinks }
 }
 
-const _fixDescription = (description: CommentableDescription): CommentableDescription => {
-  const value = _fixValue(description.value)
-  return { ...description, value }
+const _fixDescription = (description: CommentableDescription): FixResult<CommentableDescription> => {
+  const valueResult = _fixValue(description.value)
+  return { value: { ...description, value: valueResult.value }, correctedLinks: valueResult.correctedLinks }
 }
 
 export default async (client: BaseProtocol): Promise<void> => {
@@ -76,9 +89,21 @@ export default async (client: BaseProtocol): Promise<void> => {
         return
       }
 
-      Logger.debug(`Fixing ${descriptions.length} descriptions for: ${assessment.props.name} ${cycle.name}`)
+      let correctedLinks = 0
+      const fixedDescriptions: Array<CommentableDescription> = []
+      descriptions.forEach((description) => {
+        const result = _fixDescription(description)
+        correctedLinks += result.correctedLinks
+        if (result.correctedLinks > 0) fixedDescriptions.push(result.value)
+      })
 
-      const fixedDescriptions = descriptions.map((d) => _fixDescription(d))
+      Logger.debug(
+        `Fixing ${correctedLinks} links (${fixedDescriptions.length}/${descriptions.length} descriptions updated) for: ${assessment.props.name} ${cycle.name}`
+      )
+
+      if (fixedDescriptions.length === 0) {
+        return
+      }
 
       const pgp = pgPromise()
       const cs = new pgp.helpers.ColumnSet<CommentableDescription>(

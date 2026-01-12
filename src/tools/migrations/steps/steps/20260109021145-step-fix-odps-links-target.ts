@@ -20,26 +20,29 @@ const TABLE = 'original_data_point'
 const commentColumnExtent = ODPCommentColumns[TableNames.extentOfForest]
 const commentColumnForestCharacteristics = ODPCommentColumns[TableNames.forestCharacteristics]
 
-const _fixAHrefTags = (htmlString: string): string => {
-  if (Objects.isEmpty(htmlString)) return htmlString
+type FixHtmlResult = { html: string | null; correctedLinks: number }
 
-  const dom = parseDocument(htmlString, { lowerCaseAttributeNames: true, lowerCaseTags: true })
+const _fixAHrefTags = (htmlString: string): FixHtmlResult => {
+  if (Objects.isEmpty(htmlString)) return { html: htmlString, correctedLinks: 0 }
+
+  const dom = parseDocument(htmlString, { decodeEntities: false, lowerCaseAttributeNames: true, lowerCaseTags: true })
   const anchorTags = DomUtils.findAll((node) => node.type === 'tag' && node.name === 'a', dom.children)
 
-  if (anchorTags.length === 0) return htmlString
+  if (anchorTags.length === 0) return { html: htmlString, correctedLinks: 0 }
 
-  let changed = false
+  let correctedLinks = 0
   for (let i = 0; i < anchorTags.length; i += 1) {
     const anchor = anchorTags[i]
     if (!anchor.attribs?.target) {
       anchor.attribs.target = '_blank'
-      changed = true
+      correctedLinks += 1
     }
   }
 
-  if (!changed) return htmlString
+  if (correctedLinks === 0) return { html: htmlString, correctedLinks: 0 }
 
-  return serialize(dom.children, { decodeEntities: false, xmlMode: false })
+  const html = serialize(dom.children, { decodeEntities: false, xmlMode: false })
+  return { html, correctedLinks }
 }
 
 type OriginalDataPointUpdateDB = {
@@ -48,7 +51,9 @@ type OriginalDataPointUpdateDB = {
   [key: string]: unknown
 }
 
-const _fixODP = (originalDataPoint: OriginalDataPoint): OriginalDataPointUpdateDB => {
+type FixODPResult = { correctedLinks: number; value: OriginalDataPointUpdateDB }
+
+const _fixODP = (originalDataPoint: OriginalDataPoint): FixODPResult => {
   const { dataSourceReferences } = originalDataPoint
 
   const extentComments =
@@ -61,14 +66,25 @@ const _fixODP = (originalDataPoint: OriginalDataPoint): OriginalDataPointUpdateD
       ? originalDataPoint.comments[TableNames.forestCharacteristics]
       : ''
 
+  const fixedDataSourceReferences: FixHtmlResult =
+    typeof dataSourceReferences === 'string' ? _fixAHrefTags(dataSourceReferences) : { html: null, correctedLinks: 0 }
+
+  const fixedExtentComments = _fixAHrefTags(extentComments)
+  const fixedForestCharacteristicsComments = _fixAHrefTags(forestCharacteristicsComments)
+
   const updatedValues: OriginalDataPointUpdateDB = {
     id: originalDataPoint.id,
-    data_source_references: typeof dataSourceReferences === 'string' ? _fixAHrefTags(dataSourceReferences) : null,
-    [commentColumnExtent]: _fixAHrefTags(extentComments),
-    [commentColumnForestCharacteristics]: _fixAHrefTags(forestCharacteristicsComments),
+    data_source_references: fixedDataSourceReferences.html,
+    [commentColumnExtent]: fixedExtentComments.html,
+    [commentColumnForestCharacteristics]: fixedForestCharacteristicsComments.html,
   }
 
-  return updatedValues
+  const correctedLinks =
+    fixedDataSourceReferences.correctedLinks +
+    fixedExtentComments.correctedLinks +
+    fixedForestCharacteristicsComments.correctedLinks
+
+  return { value: updatedValues, correctedLinks }
 }
 
 export default async (client: BaseProtocol): Promise<void> => {
@@ -96,9 +112,21 @@ export default async (client: BaseProtocol): Promise<void> => {
         return
       }
 
-      Logger.debug(`Fixing ${odps.length} ODPS for: ${assessment.props.name} ${cycle.name}`)
+      let correctedLinks = 0
+      const fixedODPs: Array<OriginalDataPointUpdateDB> = []
+      odps.forEach((odp) => {
+        const result = _fixODP(odp)
+        correctedLinks += result.correctedLinks
+        if (result.correctedLinks > 0) fixedODPs.push(result.value)
+      })
 
-      const fixedODPs = odps.map((odp) => _fixODP(odp))
+      Logger.debug(
+        `Fixing ${correctedLinks} links (${fixedODPs.length}/${odps.length} ODPS updated) for: ${assessment.props.name} ${cycle.name}`
+      )
+
+      if (fixedODPs.length === 0) {
+        return
+      }
 
       const pgp = pgPromise()
       const cs = new pgp.helpers.ColumnSet<OriginalDataPointUpdateDB>(
