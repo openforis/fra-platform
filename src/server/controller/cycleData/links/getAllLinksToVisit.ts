@@ -33,13 +33,18 @@ const _processLinks = (props: ProcessLinksProps): Array<LinkToVisit> => {
 
 type Props = {
   assessment: Assessment
+  countryIso?: CountryIso
   cycle: Cycle
 }
 
 const _getDescriptionDataSourcesLinks = async (props: Props): Promise<Array<LinkToVisit>> => {
-  const { assessment, cycle } = props
+  const { assessment, countryIso, cycle } = props
 
-  const descriptionsByDataSourcesLinks = await DescriptionRepository.getManyWithDataSourcesLinks({ assessment, cycle })
+  const descriptionsByDataSourcesLinks = await DescriptionRepository.getManyWithDataSourcesLinks({
+    assessment,
+    countryIso,
+    cycle,
+  })
 
   const linksToVisit: Array<LinkToVisit> = descriptionsByDataSourcesLinks.flatMap((description) => {
     const { countryIso, id, name, sectionName, value } = description
@@ -65,9 +70,9 @@ const _getDescriptionDataSourcesLinks = async (props: Props): Promise<Array<Link
 }
 
 const _getDescriptionTextLinks = async (props: Props): Promise<Array<LinkToVisit>> => {
-  const { assessment, cycle } = props
+  const { assessment, countryIso, cycle } = props
 
-  const descriptionsByTextLinks = await DescriptionRepository.getManyWithTextLinks({ assessment, cycle })
+  const descriptionsByTextLinks = await DescriptionRepository.getManyWithTextLinks({ assessment, countryIso, cycle })
 
   const linksToVisit: Array<LinkToVisit> = descriptionsByTextLinks.flatMap((description) => {
     const { countryIso, id, name, sectionName, value } = description
@@ -89,14 +94,14 @@ const _getDescriptionTextLinks = async (props: Props): Promise<Array<LinkToVisit
 }
 
 const _getOriginalDataPointLinks = async (props: Props): Promise<Array<LinkToVisit>> => {
-  const { assessment, cycle } = props
+  const { assessment, countryIso, cycle } = props
   if (assessment.props.name === AssessmentNames.panEuropean) return []
 
   const assessmentName = assessment.props.name
   const cycleName = cycle.name
   const [odpsByDescriptionsLinks, odpsByReferenceLinks] = await Promise.all([
-    OriginalDataPointRepository.getManyWithDescriptionLinks({ assessment, cycle }),
-    OriginalDataPointRepository.getManyWithReferenceLinks({ assessment, cycle }),
+    OriginalDataPointRepository.getManyWithDescriptionLinks({ assessment, countryIso, cycle }),
+    OriginalDataPointRepository.getManyWithReferenceLinks({ assessment, countryIso, cycle }),
   ])
 
   const commentFieldConfigs: Array<{ field: OriginalDataPointCommentKey; sectionName: SectionNames }> = [
@@ -145,12 +150,12 @@ const _getOriginalDataPointLinks = async (props: Props): Promise<Array<LinkToVis
 }
 
 export const getAllLinksToVisit = async (props: Props): Promise<Array<LinkToVisit>> => {
-  const { assessment, cycle } = props
+  const { assessment, countryIso, cycle } = props
 
   const [descriptionTextLinks, descriptionDataSourcesLinks, originalDataPointLinks] = await Promise.all([
-    _getDescriptionTextLinks({ assessment, cycle }),
-    _getDescriptionDataSourcesLinks({ assessment, cycle }),
-    _getOriginalDataPointLinks({ assessment, cycle }),
+    _getDescriptionTextLinks({ assessment, countryIso, cycle }),
+    _getDescriptionDataSourcesLinks({ assessment, countryIso, cycle }),
+    _getOriginalDataPointLinks({ assessment, countryIso, cycle }),
   ])
 
   return descriptionTextLinks.concat(descriptionDataSourcesLinks, originalDataPointLinks)
