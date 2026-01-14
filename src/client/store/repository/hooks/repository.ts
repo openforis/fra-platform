@@ -1,7 +1,6 @@
-import { Objects } from 'utils/objects'
-
 import { RepositoryItem } from 'meta/cycleData/repository/item'
 import { FileMeta } from 'meta/file/meta'
+import { Objects } from 'utils/objects'
 
 import { useAppSelector } from 'client/store/hooks'
 import { RepositorySelectors } from 'client/store/repository/selectors'
@@ -29,7 +28,7 @@ export const useRepositoryItemValidation = (): Record<string, string> | undefine
 
 export const useIsRepositoryItemValid = (): boolean => {
   const repositoryItemValidation = useRepositoryItemValidation()
-  return !Objects.isNil(repositoryItemValidation) && Objects.isEmpty(repositoryItemValidation)
+  return Objects.isEmpty(repositoryItemValidation)
 }
 
 export const useRepositoryItemPropValidation = (name: string): string => {
