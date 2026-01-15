@@ -20,6 +20,11 @@ import { getDescription } from './descriptions/getDescription'
 import { getDescriptionsHistory } from './descriptions/getDescriptionsHistory'
 import { removeDataSource } from './descriptions/removeDataSource'
 import { upsertDescription } from './descriptions/upsertDescription'
+import { getLinksCount } from './links/getLinksCount'
+import { getManyLinks } from './links/getManyLinks'
+import { isVerificationInProgress } from './links/isVerificationInProgress'
+import { updateLink } from './links/updateLink'
+import { verifyLinks } from './links/verifyLinks'
 import { copyOriginalDataPointNationalClasses } from './originalDataPoint/copyOriginalDataPointNationalClasses'
 import { createOriginalDataPoint } from './originalDataPoint/createOriginalDataPoint'
 import { deleteOriginalDataPoint } from './originalDataPoint/deleteOriginalDataPoint'
@@ -145,6 +150,13 @@ export const CycleDataApi = {
     // Review
     express.get(ApiEndPoint.CycleData.Review.status(), AuthMiddleware.requireView, getReviewStatus)
     express.get(ApiEndPoint.CycleData.Review.summary(), AuthMiddleware.requireView, getReviewSummary)
+
+    // Country Links
+    express.get(ApiEndPoint.CycleData.Links.count(), AuthMiddleware.requireVerifyLinks, getLinksCount)
+    express.get(ApiEndPoint.CycleData.Links.many(), AuthMiddleware.requireVerifyLinks, getManyLinks)
+    express.patch(ApiEndPoint.CycleData.Links.one(), AuthMiddleware.requireVerifyLinks, updateLink)
+    express.post(ApiEndPoint.CycleData.Links.verify(), AuthMiddleware.requireVerifyLinks, verifyLinks)
+    express.get(ApiEndPoint.CycleData.Links.verifyStatus(), AuthMiddleware.requireVerifyLinks, isVerificationInProgress)
 
     // Activities
     express.get(ApiEndPoint.CycleData.activities(), AuthMiddleware.requireView, getActivities)
