@@ -136,7 +136,7 @@
     "d3-interpolate-path": "^2.3.0",
     "d3-tip": "^0.9.1",
     "date-fns": "^4.1.0",
-    "diff": "^8.0.2",
+    "diff": "^8.0.3",
     "diff-dom": "^5.2.1",
     "dom-serializer": "^2.0.0",
     "dotenv": "^17.2.3",
