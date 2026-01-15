@@ -20,6 +20,7 @@ div.editorWYSIWYG {
   a {
     @extend .link;
     @extend .color-blue;
+    display: inline;
   }
 
   div.jodit-react-container,
