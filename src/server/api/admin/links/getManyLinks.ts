@@ -11,11 +11,13 @@ export const getManyLinks = async (req: TablePaginatedDataRequest, res: Response
   try {
     const { filters: filtersReq, limit: limitReq, offset: offsetReq, orderBy, orderByDirection } = req.query
 
-    const filters = TablePaginateds.decodeFilters<LinksFilters>(filtersReq)
+    const decodedFilters = TablePaginateds.decodeFilters<LinksFilters>(filtersReq)
     const limit = limitReq && Number(limitReq)
     const offset = offsetReq && Number(offsetReq)
 
-    const { assessment, cycle } = req.context
+    const { assessment, country, cycle } = req.context
+    const { countryIso } = country ?? {}
+    const filters = countryIso ? { ...decodedFilters, countries: [countryIso] } : decodedFilters
     const props = { assessment, cycle, filters, limit, offset, orderBy, orderByDirection }
 
     const links = await CycleDataController.Links.getMany(props)

@@ -10,9 +10,11 @@ import Requests from 'server/utils/requests'
 export const getLinksCount = async (req: TablePaginatedCountRequest, res: Response): Promise<void> => {
   try {
     const { filters: filtersReq } = req.query
-    const { assessment, cycle } = req.context
+    const { assessment, country, cycle } = req.context
+    const { countryIso } = country ?? {}
 
-    const filters = TablePaginateds.decodeFilters<LinksFilters>(filtersReq)
+    const decodedFilters = TablePaginateds.decodeFilters<LinksFilters>(filtersReq)
+    const filters = countryIso ? { ...decodedFilters, countries: [countryIso] } : decodedFilters
     const linksCount = await CycleDataController.Links.getCount({ assessment, cycle, filters })
 
     Requests.sendOk(res, linksCount)
