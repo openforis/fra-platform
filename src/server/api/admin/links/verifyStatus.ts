@@ -8,7 +8,7 @@ import Requests from 'server/utils/requests'
 
 type Request = CycleRequest<{ countryIso?: AreaCode }>
 
-export const isVerificationInProgress = async (req: Request, res: Response): Promise<void> => {
+export const verifyStatus = async (req: Request, res: Response): Promise<void> => {
   try {
     const { assessment, country, cycle } = req.context
     const { countryIso } = country ?? {}
