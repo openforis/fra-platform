@@ -12,9 +12,9 @@ import { getUsersCount } from 'server/api/admin/getUsersCount'
 import { exportLinks } from 'server/api/admin/links/exportLinks'
 import { getLinksCount } from 'server/api/admin/links/getLinksCount'
 import { getManyLinks } from 'server/api/admin/links/getManyLinks'
-import { isVerificationInProgress } from 'server/api/admin/links/isVerificationInProgress'
 import { updateLink } from 'server/api/admin/links/updateLink'
 import { verifyLinks } from 'server/api/admin/links/verifyLinks'
+import { verifyStatus } from 'server/api/admin/links/verifyStatus'
 import { AuthMiddleware } from 'server/middleware/auth'
 
 export const AdminApi = {
@@ -34,6 +34,6 @@ export const AdminApi = {
     express.get(ApiEndPoint.Admin.Links.export(), AuthMiddleware.requireAdmin, exportLinks)
     express.get(ApiEndPoint.Admin.Links.count(), AuthMiddleware.requireAdmin, getLinksCount)
     express.post(ApiEndPoint.Admin.Links.verify(), AuthMiddleware.requireAdmin, verifyLinks)
-    express.get(ApiEndPoint.Admin.Links.verifyStatus(), AuthMiddleware.requireAdmin, isVerificationInProgress)
+    express.get(ApiEndPoint.Admin.Links.verifyStatus(), AuthMiddleware.requireAdmin, verifyStatus)
   },
 }

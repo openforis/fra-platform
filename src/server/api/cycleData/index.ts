@@ -4,6 +4,11 @@ import queue from 'express-queue'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 
+import { getLinksCount } from 'server/api/admin/links/getLinksCount'
+import { getManyLinks } from 'server/api/admin/links/getManyLinks'
+import { updateLink } from 'server/api/admin/links/updateLink'
+import { verifyLinks } from 'server/api/admin/links/verifyLinks'
+import { verifyStatus } from 'server/api/admin/links/verifyStatus'
 import { getDashboardItems } from 'server/api/cycleData/dashboard/getDashboardItems'
 import { getHistory } from 'server/api/cycleData/history/getHistory'
 import { getHistoryCount } from 'server/api/cycleData/history/getHistoryCount'
@@ -145,6 +150,13 @@ export const CycleDataApi = {
     // Review
     express.get(ApiEndPoint.CycleData.Review.status(), AuthMiddleware.requireView, getReviewStatus)
     express.get(ApiEndPoint.CycleData.Review.summary(), AuthMiddleware.requireView, getReviewSummary)
+
+    // Country Links
+    express.get(ApiEndPoint.CycleData.Links.count(), AuthMiddleware.requireVerifyLinks, getLinksCount)
+    express.get(ApiEndPoint.CycleData.Links.many(), AuthMiddleware.requireVerifyLinks, getManyLinks)
+    express.patch(ApiEndPoint.CycleData.Links.one(), AuthMiddleware.requireVerifyLinks, updateLink)
+    express.post(ApiEndPoint.CycleData.Links.verify(), AuthMiddleware.requireVerifyLinks, verifyLinks)
+    express.get(ApiEndPoint.CycleData.Links.verifyStatus(), AuthMiddleware.requireVerifyLinks, verifyStatus)
 
     // Activities
     express.get(ApiEndPoint.CycleData.activities(), AuthMiddleware.requireView, getActivities)

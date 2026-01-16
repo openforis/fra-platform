@@ -1,7 +1,9 @@
 import { Response } from 'express'
 
-import { CycleDataRequest } from 'meta/api/request/cycleData/cycleData'
+import { CycleRequest } from 'meta/api/request/cycle'
+import { AreaCode } from 'meta/area/areaCode'
 import { Link } from 'meta/cycleData/links/link'
+import { Users } from 'meta/user/users'
 
 import { CycleDataController } from 'server/controller/cycleData'
 import Requests from 'server/utils/requests'
@@ -10,16 +12,17 @@ type Body = {
   link: Link
 }
 
-type Request = CycleDataRequest<never, Body>
+type Request = CycleRequest<{ countryIso?: AreaCode }, Body>
 
 export const updateLink = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { assessment, cycle } = req.context
+    const { assessment, country, cycle } = req.context
+    const { countryIso } = country ?? {}
     const { link } = req.body
 
     const user = Requests.getUser(req)
 
-    const props = { assessment, cycle, link, user }
+    const props = { assessment, countryIso: Users.isAdministrator(user) ? undefined : countryIso, cycle, link, user }
     const updatedLink = await CycleDataController.Links.update(props)
 
     Requests.send(res, updatedLink)
