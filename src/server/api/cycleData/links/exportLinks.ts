@@ -14,9 +14,11 @@ export const exportLinks = async (req: TablePaginatedDataRequest, res: Response)
   try {
     const { filters: filtersReq, lang: langReq, orderBy, orderByDirection } = req.query
 
-    const filters = TablePaginateds.decodeFilters<LinksFilters>(filtersReq)
+    const decodedFilters = TablePaginateds.decodeFilters<LinksFilters>(filtersReq)
 
-    const { assessment, cycle } = req.context
+    const { assessment, country, cycle } = req.context
+    const { countryIso } = country ?? {}
+    const filters = countryIso ? { ...decodedFilters, countries: [countryIso] } : decodedFilters
     const user = Requests.getUser(req)
     const lang = langReq ?? user?.props.lang ?? Lang.en
     const props = { assessment, cycle, filters, lang, orderBy, orderByDirection }
