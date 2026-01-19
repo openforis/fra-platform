@@ -66,5 +66,5 @@ export const getNonWoodForestProducts: BulkDownloadFileFactory = (_props) => {
 
   const row: BulkDownloadRow = { colNodes }
 
-  return { fileName: 'NWFP', rows: [row] }
+  return { fileName: 'NWFP', includeDeskStudy: true, rows: [row] }
 }

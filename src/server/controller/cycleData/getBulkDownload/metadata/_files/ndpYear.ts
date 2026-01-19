@@ -49,5 +49,5 @@ export const getNDPYear: BulkDownloadFileFactory = (props) => {
 
   const row: BulkDownloadRow = { colNodes }
 
-  return { includeClimaticDomain, includeForestArea: true, fileName: 'NDPYear', rows: [row] }
+  return { includeClimaticDomain, includeDeskStudy: true, includeForestArea: true, fileName: 'NDPYear', rows: [row] }
 }

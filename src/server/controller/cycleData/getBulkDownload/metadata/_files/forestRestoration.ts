@@ -66,5 +66,5 @@ export const getForestRestoration: BulkDownloadFileFactory = (_props) => {
 
   const row: BulkDownloadRow = { colNodes }
 
-  return { fileName: 'ForestRestoration', rows: [row] }
+  return { fileName: 'ForestRestoration', includeDeskStudy: true, rows: [row] }
 }
