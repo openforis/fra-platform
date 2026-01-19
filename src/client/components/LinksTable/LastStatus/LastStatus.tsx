@@ -1,7 +1,6 @@
 import './LastStatus.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-
 import classNames from 'classnames'
 
 import { Link as LinkType } from 'meta/cycleData/links/link'

@@ -1,15 +1,22 @@
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { CountryIso } from 'meta/area/countryIso'
 import { LinkValidationStatusCode } from 'meta/cycleData/links/link'
 import { Links } from 'meta/cycleData/links/links'
 import { TablePaginatedFilterType } from 'meta/tablePaginated/filters/filter'
+import { Objects } from 'utils/objects'
 
 import { TablePaginatedFilter } from 'client/components/TablePaginated/types'
 
 type Returned = Array<TablePaginatedFilter<TablePaginatedFilterType>>
 
-export const useFilters = (): Returned => {
+type Props = {
+  countryIso?: CountryIso
+}
+
+export const useFilters = (props: Props): Returned => {
+  const { countryIso } = props
   const { t } = useTranslation()
 
   return useMemo<Returned>(() => {
@@ -24,6 +31,7 @@ export const useFilters = (): Returned => {
     return [
       {
         fieldName: 'countries',
+        hidden: !Objects.isEmpty(countryIso),
         label: t('common.countries'),
         type: TablePaginatedFilterType.COUNTRY,
       },
@@ -35,5 +43,5 @@ export const useFilters = (): Returned => {
         type: TablePaginatedFilterType.MULTI_SELECT,
       },
     ]
-  }, [t])
+  }, [countryIso, t])
 }

@@ -3,6 +3,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
 
+import { CountryIso } from 'meta/area/countryIso'
 import { Link as LinkType } from 'meta/cycleData/links/link'
 import { Objects } from 'utils/objects'
 
@@ -14,17 +15,18 @@ import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button
 import LinkCommon from 'client/components/Links/Link'
 
 type Props = {
+  countryIso?: CountryIso
   link: LinkType
 }
 
 const Link: React.FC<Props> = (props) => {
-  const { link: linkInfo } = props
+  const { countryIso, link: linkInfo } = props
   const { link } = linkInfo
   const { assessmentName, cycleName } = useSectionRouteParams()
   const dispatch = useAppDispatch()
   const { t } = useTranslation()
 
-  const verifyLinksInProgress = useIsVerificationInProgress(assessmentName, cycleName)
+  const verifyLinksInProgress = useIsVerificationInProgress(assessmentName, cycleName, countryIso)
 
   const approved = linkInfo.props?.approved
   const withApprovalBadge = approved ?? false
@@ -33,7 +35,7 @@ const Link: React.FC<Props> = (props) => {
     const newApproved = Objects.isEmpty(approved) ? true : !approved
     const newProps = { ...linkInfo.props, approved: newApproved }
     const newLink = { ...linkInfo, props: newProps }
-    dispatch(LinksActions.updateLink({ assessmentName, cycleName, link: newLink }))
+    dispatch(LinksActions.updateLink({ assessmentName, cycleName, countryIso, link: newLink }))
   }
 
   return (

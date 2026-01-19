@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-import { ApiEndPoint } from 'meta/api/endpoint'
+import { CountryIso } from 'meta/area/countryIso'
 import { Sockets } from 'meta/socket/sockets'
 import { Objects } from 'utils/objects'
 
@@ -17,18 +17,23 @@ import {
 import { useSectionRouteParams } from 'client/hooks/routeParams'
 import { SocketClient } from 'client/service/socket/client'
 
-export const useListenLinksVerificationEvents = (): void => {
+type Props = {
+  countryIso?: CountryIso
+  path: string
+}
+
+export const useListenLinksVerificationEvents = (props: Props): void => {
+  const { countryIso, path } = props
   const dispatch = useAppDispatch()
   const { assessmentName, cycleName } = useSectionRouteParams()
 
-  const linksVerificationEvent = Sockets.getLinksVerificationEvent({ assessmentName, cycleName })
+  const linksVerificationEvent = Sockets.getLinksVerificationEvent({ assessmentName, countryIso, cycleName })
 
-  const path = ApiEndPoint.CycleData.Links.many()
   const page = useTablePaginatedPage(path)
   const orderBy = useTablePaginatedOrderBy(path)
   const filters = useTablePaginatedFilters(path)
 
-  const verifyLinksInProgress = useIsVerificationInProgress(assessmentName, cycleName)
+  const verifyLinksInProgress = useIsVerificationInProgress(assessmentName, cycleName, countryIso)
   const linksTableData = useTablePaginatedData({ path })
 
   useEffect(() => {
@@ -36,13 +41,23 @@ export const useListenLinksVerificationEvents = (): void => {
       const [{ event }] = args
       if (event === 'queued' || event === 'active') {
         dispatch(
-          LinksActions.setIsVerificationInProgress({ assessmentName, cycleName, isVerificationInProgress: true })
+          LinksActions.setIsVerificationInProgress({
+            assessmentName,
+            countryIso,
+            cycleName,
+            isVerificationInProgress: true,
+          })
         )
       } else if (event === 'completed' || event === 'failed') {
         dispatch(
-          LinksActions.setIsVerificationInProgress({ assessmentName, cycleName, isVerificationInProgress: false })
+          LinksActions.setIsVerificationInProgress({
+            assessmentName,
+            countryIso,
+            cycleName,
+            isVerificationInProgress: false,
+          })
         )
-        const getDataProps = { assessmentName, cycleName, filters, limit: 30, orderBy, page, path }
+        const getDataProps = { assessmentName, countryIso, cycleName, filters, limit: 30, orderBy, page, path }
         dispatch(TablePaginatedActions.getData(getDataProps))
         dispatch(TablePaginatedActions.getCount(getDataProps))
       }
@@ -52,7 +67,7 @@ export const useListenLinksVerificationEvents = (): void => {
     return (): void => {
       SocketClient.off(linksVerificationEvent, listener)
     }
-  }, [assessmentName, cycleName, dispatch, filters, linksVerificationEvent, orderBy, page, path])
+  }, [assessmentName, countryIso, cycleName, dispatch, filters, linksVerificationEvent, orderBy, page, path])
 
   useEffect(() => {
     if (verifyLinksInProgress && !Objects.isEmpty(linksTableData)) {
