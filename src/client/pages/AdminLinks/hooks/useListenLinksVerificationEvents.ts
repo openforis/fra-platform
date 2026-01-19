@@ -23,7 +23,7 @@ export const useListenLinksVerificationEvents = (): void => {
 
   const linksVerificationEvent = Sockets.getLinksVerificationEvent({ assessmentName, cycleName })
 
-  const path = ApiEndPoint.Admin.Links.many()
+  const path = ApiEndPoint.CycleData.Links.many()
   const page = useTablePaginatedPage(path)
   const orderBy = useTablePaginatedOrderBy(path)
   const filters = useTablePaginatedFilters(path)

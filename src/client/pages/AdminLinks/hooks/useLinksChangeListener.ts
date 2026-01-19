@@ -14,7 +14,7 @@ export const useLinksChangeListener = (): void => {
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams()
 
   const dispatch = useAppDispatch()
-  const path = ApiEndPoint.Admin.Links.many()
+  const path = ApiEndPoint.CycleData.Links.many()
   const page = useTablePaginatedPage(path)
   const orderBy = useTablePaginatedOrderBy(path)
 

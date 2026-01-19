@@ -21,6 +21,7 @@ export const CycleData = {
 
   Links: {
     count: (): string => apiPath('cycle-data', 'links', 'count'),
+    export: (): string => apiPath('cycle-data', 'links', 'export'),
     many: (): string => apiPath('cycle-data', 'links'),
     one: (): string => apiPath('cycle-data', 'links', 'link'),
     verify: (): string => apiPath('cycle-data', 'links', 'verify'),
