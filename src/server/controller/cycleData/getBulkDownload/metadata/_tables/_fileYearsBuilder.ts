@@ -67,6 +67,7 @@ export abstract class BulkDownloadFileYearsBuilder {
     const { years } = props
     const includeClimaticDomain = this.includeClimaticDomainSingleFiles || this.props.includeClimaticDomain
     const includeForestArea = true
+    const includeDeskStudy = true
 
     return this.baseColNodes.map<BulkDownloadFile>((colNode) => {
       const { csvColumn, datumType, tableName, variableName } = colNode
@@ -93,7 +94,7 @@ export abstract class BulkDownloadFileYearsBuilder {
         rows[2].push(unitLabel)
       }
 
-      return { csvPostProcessor, fileName, includeClimaticDomain, includeForestArea, rows: [row] }
+      return { csvPostProcessor, fileName, includeClimaticDomain, includeDeskStudy, includeForestArea, rows: [row] }
     })
   }
 }

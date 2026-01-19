@@ -12,8 +12,9 @@ export const buildIntervalYears: BulkDownloadFilesFactory = (props) => {
   const is2020 = cycleName === CycleNames._2020
 
   const fileName = 'Intervals'
+  const includeDeskStudy = true
   const years = Years.intervals(cycle)
   const builders = [ForestAreaChangeBuilder, ...(is2020 ? [AnnualReforestationBuilder] : [])]
 
-  return buildYears({ ...props, builders, fileName, years })
+  return buildYears({ ...props, builders, fileName, includeDeskStudy, years })
 }

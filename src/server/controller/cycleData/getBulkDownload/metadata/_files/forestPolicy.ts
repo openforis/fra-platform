@@ -37,5 +37,5 @@ export const getForestPolicy: BulkDownloadFileFactory = (props) => {
 
   const row: BulkDownloadRow = { colNodes }
 
-  return { fileName: 'ForestPolicy', rows: [row] }
+  return { fileName: 'ForestPolicy', includeDeskStudy: true, rows: [row] }
 }
