@@ -3,10 +3,13 @@ import React, { useEffect } from 'react'
 
 import { CountryIso } from 'meta/area/countryIso'
 
-import { LinksActions } from 'client/store/admin/links/actions'
-import { useAppDispatch } from 'client/store/hooks'
+import { useAppDispatch, useInjectSlice } from 'client/store/hooks'
+import { LinksActions } from 'client/store/links/actions'
+import { LinksSlice } from 'client/store/links/slice'
+import { LinksSliceName } from 'client/store/links/slice/name'
 import { useSectionRouteParams } from 'client/hooks/routeParams'
 import TablePaginated from 'client/components/TablePaginated'
+import { useInitSections } from 'client/pages/Country/hooks/useInitSections'
 
 import { useColumns } from './hooks/useColumns'
 import { useExtraActions } from './hooks/useExtraActions'
@@ -22,6 +25,8 @@ type Props = {
 const LinksTable: React.FC<Props> = (props) => {
   const { countryIso } = props
   const { assessmentName, cycleName } = useSectionRouteParams()
+  useInitSections()
+  useInjectSlice({ reducerPath: LinksSliceName, reducer: LinksSlice.reducer })
 
   const columns = useColumns({ countryIso })
   const extraActions = useExtraActions({ assessmentName, countryIso, cycleName })

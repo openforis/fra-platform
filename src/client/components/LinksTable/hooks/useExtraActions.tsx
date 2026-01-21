@@ -3,9 +3,9 @@ import { useTranslation } from 'react-i18next'
 
 import { CountryIso } from 'meta/area/countryIso'
 
-import { LinksActions } from 'client/store/admin/links/actions'
-import { useIsVerificationInProgress } from 'client/store/admin/links/hooks/verification'
 import { useAppDispatch } from 'client/store/hooks'
+import { LinksActions } from 'client/store/links/actions'
+import { useIsVerificationInProgress } from 'client/store/links/hooks/verification'
 import Button from 'client/components/Buttons/Button'
 
 type Props = {
