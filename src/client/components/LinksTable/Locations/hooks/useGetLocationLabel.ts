@@ -10,6 +10,10 @@ import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useSections } from 'client/store/meta/hooks/sections'
 import { useIsPanEuropeanRoute } from 'client/hooks/routes'
 
+type Props = {
+  includeCountryIso?: boolean
+}
+
 type GetLabelProps = {
   countryIso: CountryIso
   location: LinkLocation
@@ -17,7 +21,8 @@ type GetLabelProps = {
 
 type Returned = (props: GetLabelProps) => string
 
-export const useGetLocationLabel = (): Returned => {
+export const useGetLocationLabel = (props: Props): Returned => {
+  const { includeCountryIso } = props
   const { t } = useTranslation()
   const isPanEuropean = useIsPanEuropeanRoute()
   const sections = useSections()
@@ -33,12 +38,13 @@ export const useGetLocationLabel = (): Returned => {
       return Links.getLocationLabel({
         countryIso,
         cycle,
+        includeCountryIso,
         isPanEuropean,
         location,
         subSections,
         t,
       })
     },
-    [cycle, isPanEuropean, subSections, t]
+    [cycle, includeCountryIso, isPanEuropean, subSections, t]
   )
 }

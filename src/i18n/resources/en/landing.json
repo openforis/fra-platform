@@ -76,6 +76,7 @@
     "collaborators": "$t(user.roles.COLLABORATOR, {\"count\":10})",
     "contentCheck": "Content / Check",
     "externalData": "External data",
+    "linksStatus": "Links status",
     "messageBoard": "Message board",
     "overview": "Overview",
     "recentActivity": "Recent activity",
