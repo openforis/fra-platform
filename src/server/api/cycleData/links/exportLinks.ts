@@ -24,7 +24,9 @@ export const exportLinks = async (req: TablePaginatedDataRequest, res: Response)
     const props = { assessment, cycle, filters, lang, orderBy, orderByDirection }
     const { query, queryParams, rowTransformer } = await CycleDataController.Links.getManyExport(props)
 
-    const fileName = `links-${assessment.props.name}-${cycle.name}.csv`
+    const fileName = countryIso
+      ? `links-${assessment.props.name}-${cycle.name}-${countryIso}.csv`
+      : `links-${assessment.props.name}-${cycle.name}.csv`
 
     await ExportService.queryToCsvResponseStream<Link>({ fileName, query, queryParams, res, rowTransformer })
   } catch (e) {

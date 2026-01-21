@@ -10,6 +10,7 @@ enum CountryHomeSectionNames {
   messageBoard = 'messageBoard',
   // contentCheck = 'contentCheck',
   collaborators = 'collaborators',
+  linksStatus = 'linksStatus',
   recentActivity = 'recentActivity',
   repository = 'repository',
 }

@@ -21,6 +21,7 @@ const getI18nValidationStatusLabelKey = (code: LinkValidationStatusCode): string
 type GetLocationLabelProps = {
   countryIso: CountryIso
   cycle: Cycle
+  includeCountryIso?: boolean
   isPanEuropean: boolean
   location: LinkLocation
   subSections: Array<SubSection>
@@ -28,7 +29,7 @@ type GetLocationLabelProps = {
 }
 
 const getLocationLabel = (props: GetLocationLabelProps): string => {
-  const { countryIso, cycle, isPanEuropean, location, subSections, t } = props
+  const { countryIso, cycle, includeCountryIso = true, isPanEuropean, location, subSections, t } = props
 
   const { sectionName } = location
 
@@ -47,7 +48,7 @@ const getLocationLabel = (props: GetLocationLabelProps): string => {
         : t('nationalDataPoint.dataSources')
 
     const label = `${year} ${t('nationalDataPoint.nationalDataPoint')} - ${sectionLabel}`
-    return `${countryIso} - ${label}`
+    return includeCountryIso ? `${countryIso} - ${label}` : label
   }
 
   const { descriptionName, path } = location
@@ -60,13 +61,13 @@ const getLocationLabel = (props: GetLocationLabelProps): string => {
       })
 
   const subSection = subSections.find((_subSection) => _subSection.props.name === sectionName)
-  if (!subSection) return countryIso
+  if (!subSection) return includeCountryIso ? countryIso : ''
 
   const subSectionLabel = Labels.getCycleLabel({ cycle, labels: subSection.props.labels, t })
 
   const label = `${subSectionLabel} - ${t(descriptionLabelKey, { cycleName: cycle.name })}`
 
-  return `${countryIso} - ${label}`
+  return includeCountryIso ? `${countryIso} - ${label}` : label
 }
 
 export const Links = {
