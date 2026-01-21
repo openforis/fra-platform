@@ -1,6 +1,7 @@
 import './LinksTable.scss'
 import React, { useEffect } from 'react'
 
+import { ApiEndPoint } from 'meta/api/endpoint'
 import { CountryIso } from 'meta/area/countryIso'
 
 import { useAppDispatch, useInjectSlice } from 'client/store/hooks'
@@ -15,7 +16,6 @@ import { useColumns } from './hooks/useColumns'
 import { useExtraActions } from './hooks/useExtraActions'
 import { useFilters } from './hooks/useFilters'
 import { useLinksChangeListener } from './hooks/useLinksChangeListener'
-import { useLinksPath } from './hooks/useLinksPath'
 import { useListenLinksVerificationEvents } from './hooks/useListenLinksVerificationEvents'
 
 type Props = {
@@ -31,7 +31,7 @@ const LinksTable: React.FC<Props> = (props) => {
   const columns = useColumns({ countryIso })
   const extraActions = useExtraActions({ assessmentName, countryIso, cycleName })
   const filters = useFilters({ countryIso })
-  const path = useLinksPath({ countryIso })
+  const path = ApiEndPoint.CycleData.Links.many()
 
   const dispatch = useAppDispatch()
 
