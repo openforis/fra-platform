@@ -1,13 +1,13 @@
 import React from 'react'
 
-import { AdminSliceName } from 'client/store/admin/name'
-import { AdminSlice } from 'client/store/admin/slice'
 import { useInjectSlice } from 'client/store/hooks'
+import { LinksSlice } from 'client/store/links/slice'
+import { LinksSliceName } from 'client/store/links/slice/name'
 import LinksTable from 'client/components/LinksTable'
 import { useInitSections } from 'client/pages/Country/hooks/useInitSections'
 
 const AdminLinks: React.FC = () => {
-  useInjectSlice({ reducerPath: AdminSliceName, reducer: AdminSlice })
+  useInjectSlice({ reducerPath: LinksSliceName, reducer: LinksSlice.reducer })
   useInitSections()
 
   return <LinksTable />

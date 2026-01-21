@@ -5,8 +5,8 @@ import { AssessmentName } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
 import { Objects } from 'utils/objects'
 
-import { getIsVerificationInProgress } from 'client/store/admin/links/actions/getIsVerificationInProgress'
-import { getLinksVerificationKey, initialState, LinksState } from 'client/store/admin/links/state'
+import { getIsVerificationInProgress } from 'client/store/links/actions/getIsVerificationInProgress'
+import { getLinksVerificationKey, initialState, LinksState } from 'client/store/links/state'
 
 import { LinksSliceName } from './name'
 

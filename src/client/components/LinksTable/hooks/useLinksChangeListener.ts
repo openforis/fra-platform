@@ -3,8 +3,8 @@ import { isAnyOf } from '@reduxjs/toolkit'
 
 import { CountryIso } from 'meta/area/countryIso'
 
-import { LinksActions } from 'client/store/admin/links/actions'
 import { useAppDispatch } from 'client/store/hooks'
+import { LinksActions } from 'client/store/links/actions'
 import { addAppListener } from 'client/store/middleware/listener'
 import { TablePaginatedActions } from 'client/store/tablePaginated/actions'
 import {

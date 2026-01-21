@@ -9,10 +9,10 @@ import { SectionNames } from 'meta/routes/sectionNames'
 import { Users } from 'meta/user/users'
 import { Objects } from 'utils/objects'
 
-import { AdminSliceName } from 'client/store/admin/name'
-import { AdminSlice } from 'client/store/admin/slice'
 import { useCountries } from 'client/store/area/hooks/countries'
 import { useInjectSlice } from 'client/store/hooks'
+import { LinksSlice } from 'client/store/links/slice'
+import { LinksSliceName } from 'client/store/links/slice/name'
 import { useUser } from 'client/store/user/hooks/user'
 import { ButtonSize, useButtonClassName } from 'client/components/Buttons/Button'
 
@@ -45,7 +45,7 @@ const Admin: React.FC = () => {
   const { t } = useTranslation()
   const countries = useCountries()
   const user = useUser()
-  useInjectSlice({ reducerPath: AdminSliceName, reducer: AdminSlice })
+  useInjectSlice({ reducerPath: LinksSliceName, reducer: LinksSlice.reducer })
   const linkClassName = useButtonClassName({ inverse: true, noBorder: true, size: ButtonSize.m })
 
   if (!Users.isAdministrator(user)) return <Navigate replace to={Routes.Root.path.absolute} />

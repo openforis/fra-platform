@@ -4,9 +4,9 @@ import { CountryIso } from 'meta/area/countryIso'
 import { Sockets } from 'meta/socket/sockets'
 import { Objects } from 'utils/objects'
 
-import { LinksActions } from 'client/store/admin/links/actions'
-import { useIsVerificationInProgress } from 'client/store/admin/links/hooks/verification'
 import { useAppDispatch } from 'client/store/hooks'
+import { LinksActions } from 'client/store/links/actions'
+import { useIsVerificationInProgress } from 'client/store/links/hooks/verification'
 import { TablePaginatedActions } from 'client/store/tablePaginated/actions'
 import {
   useTablePaginatedData,

@@ -3,8 +3,8 @@ import React, { useEffect } from 'react'
 
 import { CountryIso } from 'meta/area/countryIso'
 
-import { LinksActions } from 'client/store/admin/links/actions'
 import { useAppDispatch } from 'client/store/hooks'
+import { LinksActions } from 'client/store/links/actions'
 import { useSectionRouteParams } from 'client/hooks/routeParams'
 import TablePaginated from 'client/components/TablePaginated'
 

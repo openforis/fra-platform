@@ -2,9 +2,9 @@ import { CountryIso } from 'meta/area/countryIso'
 import { AssessmentName } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
 
-import { LinksSelectors } from 'client/store/admin/links/selectors'
-import { getLinksVerificationKey } from 'client/store/admin/links/state'
 import { useAppSelector } from 'client/store/hooks'
+import { LinksSelectors } from 'client/store/links/selectors'
+import { getLinksVerificationKey } from 'client/store/links/state'
 
 export const useIsVerificationInProgress = (
   assessmentName: AssessmentName,
