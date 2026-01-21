@@ -5,6 +5,7 @@ import { Link } from 'meta/cycleData/links/link'
 import { Lang } from 'meta/lang'
 import { LinksFilters } from 'meta/tablePaginated/filters/links'
 import { TablePaginateds } from 'meta/tablePaginated/tablePaginateds'
+import { Objects } from 'utils/objects'
 
 import { CycleDataController } from 'server/controller/cycleData'
 import { ExportService } from 'server/service/export'
@@ -21,7 +22,8 @@ export const exportLinks = async (req: TablePaginatedDataRequest, res: Response)
     const filters = countryIso ? { ...decodedFilters, countries: [countryIso] } : decodedFilters
     const user = Requests.getUser(req)
     const lang = langReq ?? user?.props.lang ?? Lang.en
-    const props = { assessment, cycle, filters, lang, orderBy, orderByDirection }
+    const includeCountryIso = Objects.isEmpty(countryIso)
+    const props = { assessment, cycle, filters, includeCountryIso, lang, orderBy, orderByDirection }
     const { query, queryParams, rowTransformer } = await CycleDataController.Links.getManyExport(props)
 
     const fileName = countryIso
