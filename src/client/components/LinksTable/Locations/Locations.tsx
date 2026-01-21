@@ -6,7 +6,7 @@ import { Link as LinkType } from 'meta/cycleData/links/link'
 
 import Button, { ButtonSize } from 'client/components/Buttons/Button'
 import Link, { LinkColor } from 'client/components/Links/Link'
-import { useGetLocationLabel } from 'client/pages/AdminLinks/Locations/hooks/useGetLocationLabel'
+import { useGetLocationLabel } from 'client/components/LinksTable/Locations/hooks/useGetLocationLabel'
 
 type Props = {
   link: LinkType

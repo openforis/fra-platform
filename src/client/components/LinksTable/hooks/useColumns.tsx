@@ -1,20 +1,26 @@
 import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { CountryIso } from 'meta/area/countryIso'
 import { Link as LinkType } from 'meta/cycleData/links/link'
 
+import LastStatus from 'client/components/LinksTable/LastStatus'
+import LinkItem from 'client/components/LinksTable/Link'
+import Locations from 'client/components/LinksTable/Locations'
 import { Column } from 'client/components/TablePaginated'
-import LastStatus from 'client/pages/AdminLinks/LastStatus'
-import LinkItem from 'client/pages/AdminLinks/Link'
-import Locations from 'client/pages/AdminLinks/Locations'
 
-export const useColumns = (): Array<Column<LinkType>> => {
+type Props = {
+  countryIso?: CountryIso
+}
+
+export const useColumns = (props: Props): Array<Column<LinkType>> => {
+  const { countryIso } = props
   const { t } = useTranslation()
 
   return useMemo<Array<Column<LinkType>>>(() => {
     return [
       {
-        component: ({ datum }) => <LinkItem link={datum} />,
+        component: ({ datum }) => <LinkItem countryIso={countryIso} link={datum} />,
         header: t('common.link'),
         key: 'link',
         orderByProperty: 'link',
@@ -31,5 +37,5 @@ export const useColumns = (): Array<Column<LinkType>> => {
         key: 'locationsCount',
       },
     ]
-  }, [t])
+  }, [countryIso, t])
 }
