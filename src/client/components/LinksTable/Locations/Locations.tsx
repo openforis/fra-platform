@@ -9,15 +9,16 @@ import Link, { LinkColor } from 'client/components/Links/Link'
 import { useGetLocationLabel } from 'client/components/LinksTable/Locations/hooks/useGetLocationLabel'
 
 type Props = {
+  includeCountryIso?: boolean
   link: LinkType
 }
 
 const Locations: React.FC<Props> = (props) => {
-  const { link } = props
+  const { includeCountryIso, link } = props
   const { t } = useTranslation()
 
   const { locations } = link
-  const getLabel = useGetLocationLabel()
+  const getLabel = useGetLocationLabel({ includeCountryIso })
   const [showLocations, setShowLocations] = useState(false)
 
   const onClick = useCallback<() => void>(() => {

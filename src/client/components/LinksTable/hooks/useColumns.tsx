@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { CountryIso } from 'meta/area/countryIso'
 import { Link as LinkType } from 'meta/cycleData/links/link'
+import { Objects } from 'utils/objects'
 
 import LastStatus from 'client/components/LinksTable/LastStatus'
 import LinkItem from 'client/components/LinksTable/Link'
@@ -32,7 +33,7 @@ export const useColumns = (props: Props): Array<Column<LinkType>> => {
         orderByProperty: 'code',
       },
       {
-        component: ({ datum }) => <Locations link={datum} />,
+        component: ({ datum }) => <Locations includeCountryIso={Objects.isEmpty(countryIso)} link={datum} />,
         header: t('admin.locationsCount'),
         key: 'locationsCount',
       },
