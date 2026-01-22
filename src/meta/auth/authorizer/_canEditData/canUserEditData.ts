@@ -22,8 +22,11 @@ export const canUserEditData = (props: CanEditDataProps): boolean => {
 
     if (isAdministrator) return true
 
-    // RFC can always edit descriptions. instead can edit data like Reviewer
+    // RFC can always edit metadata (descriptions). instead can edit data like Reviewer
     if (isRegionalFocalPoint && permission === CollaboratorEditPropertyType.descriptions) return true
+
+    // Reviewer can always edit metadata (descriptions)
+    if (isReviewer && permission === CollaboratorEditPropertyType.descriptions) return true
 
     if (isRegionalFocalPoint || isReviewer) {
       return [CountryStatus.notStarted, CountryStatus.editing, CountryStatus.review].includes(status)
