@@ -1,11 +1,10 @@
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-
-import { Objects } from 'utils/objects'
 import { z, ZodObject } from 'zod'
 
 import { RoleName } from 'meta/user/role/name'
 import { UserContactPreferenceMethod, UserContactPreferencePhoneOption } from 'meta/user/role/props'
+import { Objects } from 'utils/objects'
 
 import { FormSchemas } from 'client/components/Form/formSchemas'
 
@@ -14,6 +13,7 @@ export const useRoleValidationSchema = (): ZodObject => {
 
   return useMemo(() => {
     const allowedRoles = [
+      RoleName.REGIONAL_FOCAL_POINT,
       RoleName.REVIEWER,
       RoleName.NATIONAL_CORRESPONDENT,
       RoleName.ALTERNATE_NATIONAL_CORRESPONDENT,

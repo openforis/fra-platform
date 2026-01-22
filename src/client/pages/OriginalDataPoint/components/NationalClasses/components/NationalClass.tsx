@@ -11,7 +11,10 @@ import TextArea from 'client/components/Inputs/TextArea'
 import { useODPDisplayHistory } from 'client/pages/OriginalDataPoint/components/hooks/useODPDisplayHistory'
 import ODPDiffText from 'client/pages/OriginalDataPoint/components/ODPDiffText/ODPDiffText'
 // import { useNationalClassNameComments } from 'client/pages/OriginalDataPoint/hooks'
-import { useIsEditODPEnabled } from 'client/pages/OriginalDataPoint/hooks/useIsEditODPEnabled'
+import {
+  useIsEditODPDescriptionEnabled,
+  useIsEditODPEnabled,
+} from 'client/pages/OriginalDataPoint/hooks/useIsEditODPEnabled'
 
 import { useOnChangeNationalClass } from './hooks/onChangeNationalClass'
 import { useRowActions } from './hooks/useRowActions'
@@ -30,13 +33,14 @@ const NationalClass: React.FC<Props> = (props) => {
 
   const { t } = useTranslation()
   const { print } = useIsPrintRoute()
-  const canEditData = useIsEditODPEnabled()
+  const canEditOdp = useIsEditODPEnabled()
+  const canEditDescription = useIsEditODPDescriptionEnabled()
   const actions = useRowActions({ index, originalDataPoint })
   const { onChangeDefinition, onChangeName, onPasteDefinition, onPasteName } = useOnChangeNationalClass({ index })
 
   const displayHistory = useODPDisplayHistory()
 
-  const lastRow = canEditData && !print ? placeHolder : index === nationalClasses.length - (print ? 1 : 2)
+  const lastRow = canEditOdp && !print ? placeHolder : index === nationalClasses.length - (print ? 1 : 2)
   // TODO next pr
   // const target = [originalDataPoint.id, 'class', `${uuid}`, 'definition'] as string[]
   // const classNameRowComments = useNationalClassNameComments(target)
@@ -44,7 +48,8 @@ const NationalClass: React.FC<Props> = (props) => {
   const nationalClassValidation = ODPs.validateNationalClass(originalDataPoint, index)
   const error = !nationalClassValidation.validClassName
 
-  if (!canEditData && placeHolder) {
+  // Hide placeholder row if user doesn't have table data permission (prevents adding new items)
+  if (!canEditOdp && placeHolder) {
     return null
   }
 
@@ -59,7 +64,7 @@ const NationalClass: React.FC<Props> = (props) => {
           />
         ) : (
           <InputText
-            disabled={!canEditData}
+            disabled={!canEditDescription}
             onChange={onChangeName}
             onPaste={onPasteName}
             placeholder={placeHolder && index === 0 ? t('nationalDataPoint.enterOrCopyPasteNationalClasses') : ''}
@@ -77,7 +82,7 @@ const NationalClass: React.FC<Props> = (props) => {
           />
         ) : (
           <TextArea
-            disabled={!canEditData}
+            disabled={!canEditDescription}
             onChange={onChangeDefinition}
             onPaste={onPasteDefinition}
             value={definition ?? ''}

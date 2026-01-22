@@ -44,5 +44,5 @@ export const getTierData: BulkDownloadFileFactory = (props) => {
 
   const row: BulkDownloadRow = { colNodes }
 
-  return { fileName: 'Tiers', includeClimaticDomain, rows: [row] }
+  return { fileName: 'Tiers', includeClimaticDomain, includeDeskStudy: true, rows: [row] }
 }
