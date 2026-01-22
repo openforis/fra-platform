@@ -57,3 +57,10 @@ export type LinkToVisit = {
 }
 
 export type VisitedLink = LinkToVisit & LinkVisit
+
+export type LinksVerificationSummary = {
+  invalidCount: number
+  invalidUnapprovedCount: number
+  lastExecutedAt?: string
+  neverRan: boolean
+}

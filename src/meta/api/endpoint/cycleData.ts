@@ -25,6 +25,7 @@ export const CycleData = {
     many: (): string => apiPath('cycle-data', 'links'),
     one: (): string => apiPath('cycle-data', 'links', 'link'),
     verify: (): string => apiPath('cycle-data', 'links', 'verify'),
+    verifySummary: (): string => apiPath('cycle-data', 'links', 'verify', 'summary'),
     verifyStatus: (): string => apiPath('cycle-data', 'links', 'verify', 'status'),
   },
 
