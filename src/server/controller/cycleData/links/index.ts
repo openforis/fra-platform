@@ -4,6 +4,7 @@ import { visitCycleLinks } from 'server/worker/tasks/verifyLinks/visitCycleLinks
 import { getActiveVerifyJob } from './getActiveVerifyJob'
 import { getAllLinksToVisit } from './getAllLinksToVisit'
 import { getManyExport } from './getManyExport'
+import { getVerificationSummary } from './getVerificationSummary'
 import { update } from './update'
 
 export const Links = {
@@ -12,6 +13,7 @@ export const Links = {
   getCount: LinkRepository.getCount,
   getMany: LinkRepository.getMany,
   getManyExport,
+  getVerificationSummary,
   update,
   verify: visitCycleLinks,
 }
