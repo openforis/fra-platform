@@ -47,32 +47,34 @@ const NavAssessment: React.FC = () => {
         <Hr />
       </div>
 
-      {Areas.isGlobal(countryIso) && (
-        <MediaQuery minWidth={Breakpoints.laptop}>
-          <Link
-            className="nav-section__header nav-assessment__bulk-download"
-            to={Routes.CountryDataDownload.generatePath({ assessmentName, cycleName, countryIso })}
+      <div className="nav-assessment__link-container">
+        {Areas.isGlobal(countryIso) && (
+          <MediaQuery minWidth={Breakpoints.laptop}>
+            <Link
+              className="nav-section__header nav-assessment__bulk-download"
+              to={Routes.CountryDataDownload.generatePath({ assessmentName, cycleName, countryIso })}
+            >
+              <div className="nav-section__order">
+                <Icon name="hit-down" />
+              </div>
+              <div className="nav-section__label">{t('dataDownload.dataDownload')}</div>
+            </Link>
+          </MediaQuery>
+        )}
+
+        <div className="nav-assessment__fao-link">
+          <a
+            className="nav-section__header"
+            href={`https://www.fao.org/forest-resources-assessment/${i18n.language}`}
+            rel="noreferrer"
+            target="_blank"
           >
             <div className="nav-section__order">
-              <Icon name="hit-down" />
+              <Icon name="external-link" />
             </div>
-            <div className="nav-section__label">{t('dataDownload.dataDownload')}</div>
-          </Link>
-        </MediaQuery>
-      )}
-
-      <div className="nav-assessment__fao-link">
-        <a
-          className="nav-section__header"
-          href={`https://www.fao.org/forest-resources-assessment/${i18n.language}`}
-          rel="noreferrer"
-          target="_blank"
-        >
-          <div className="nav-section__order">
-            <Icon name="external-link" />
-          </div>
-          <div className="nav-section__label">{t('common.globalFRA_many')}</div>
-        </a>
+            <div className="nav-section__label">{t('common.globalFRA_many')}</div>
+          </a>
+        </div>
       </div>
     </>
   )
