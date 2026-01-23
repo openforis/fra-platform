@@ -11,6 +11,7 @@ import { Objects } from 'utils/objects'
 
 import { useHistoryActivitiesIsActive } from 'client/store/data/history/hooks/activities'
 import { useSections } from 'client/store/meta/hooks/sections'
+import { useLanguage } from 'client/hooks/language'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import Hr from 'client/components/Hr'
 import Icon from 'client/components/Icon'
@@ -20,7 +21,9 @@ import NavigationSection from 'client/components/Navigation/NavAssessment/Sectio
 import { Breakpoints } from 'client/utils/breakpoints'
 
 const NavAssessment: React.FC = () => {
-  const { i18n, t } = useTranslation()
+  const { t } = useTranslation()
+  const language = useLanguage()
+
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const sections = useSections()
   const historyActive = useHistoryActivitiesIsActive()
@@ -65,7 +68,7 @@ const NavAssessment: React.FC = () => {
         <div className="nav-assessment__fao-link">
           <a
             className="nav-section__header"
-            href={`https://www.fao.org/forest-resources-assessment/${i18n.language}`}
+            href={`https://www.fao.org/forest-resources-assessment/${language}`}
             rel="noreferrer"
             target="_blank"
           >
