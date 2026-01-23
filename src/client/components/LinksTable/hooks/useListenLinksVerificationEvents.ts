@@ -57,6 +57,7 @@ export const useListenLinksVerificationEvents = (props: Props): void => {
             isVerificationInProgress: false,
           })
         )
+        dispatch(LinksActions.getVerificationSummary({ assessmentName, cycleName, countryIso }))
         const getDataProps = { assessmentName, countryIso, cycleName, filters, limit: 30, orderBy, page, path }
         dispatch(TablePaginatedActions.getData(getDataProps))
         dispatch(TablePaginatedActions.getCount(getDataProps))

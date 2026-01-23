@@ -6,7 +6,9 @@ import { RootState } from 'client/store/types'
 
 const _getState = (state: RootState): LinksState | undefined => state[LinksSlice.name]
 const isVerificationInProgress = createSelector(_getState, (links) => links?.isVerificationInProgress)
+const verificationSummary = createSelector(_getState, (links) => links?.verificationSummary)
 
 export const LinksSelectors = {
   isVerificationInProgress,
+  verificationSummary,
 }

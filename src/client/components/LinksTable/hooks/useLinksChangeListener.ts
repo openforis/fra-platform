@@ -35,6 +35,7 @@ export const useLinksChangeListener = (props: Props): void => {
         effect: () => {
           const getDataProps = { assessmentName, countryIso, cycleName, filters, limit: 30, orderBy, page, path }
           dispatch(TablePaginatedActions.getData(getDataProps))
+          dispatch(LinksActions.getVerificationSummary({ assessmentName, cycleName, countryIso }))
         },
       })
     )

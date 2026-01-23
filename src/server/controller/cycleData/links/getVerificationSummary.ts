@@ -26,7 +26,8 @@ export const getVerificationSummary = async (props: Props): Promise<LinksVerific
 
   const lastJobFinishedAt = jobStatus?.status === JobStatus.success ? jobStatus.finishedAt : undefined
   const lastActivityLogCompleteTime = activityLog?.lastCompletedAt ?? undefined
-  const lastVisitedAt = summary.lastVisitedAt ? new Date(Number(summary.lastVisitedAt)).toISOString() : undefined
+  const lastVisitedAt =
+    countryIso && summary.lastVisitedAt ? new Date(Number(summary.lastVisitedAt)).toISOString() : undefined
   const lastExecutedAt = lastJobFinishedAt ?? lastActivityLogCompleteTime ?? lastVisitedAt
   const neverRan = !lastExecutedAt
 
