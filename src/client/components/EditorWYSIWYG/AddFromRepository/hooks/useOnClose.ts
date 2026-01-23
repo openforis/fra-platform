@@ -1,4 +1,5 @@
 import { useCallback } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { CountryIso } from 'meta/area/countryIso'
 import { RepositoryItem } from 'meta/cycleData/repository/item'
@@ -13,6 +14,7 @@ import { useRepositoryLinkContext } from 'client/components/EditorWYSIWYG/reposi
 type Returned = () => void
 
 export const useOnClose = (): Returned => {
+  const { t } = useTranslation()
   const language = useLanguage()
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const { jodit, selectedFiles, setRepositoryOpened } = useRepositoryLinkContext()
@@ -21,6 +23,11 @@ export const useOnClose = (): Returned => {
   return useCallback<Returned>(() => {
     setRepositoryOpened(false)
     if (!selectedFiles.length) return
+
+    if (selectedFiles.some((f) => !f.props.public)) {
+      const confirmed = window.confirm(t('nationalDataPoint.fileAddedWillBecomePublic'))
+      if (!confirmed) return
+    }
 
     const mapFunction = (repositoryItem: RepositoryItem): string => {
       const url = RepositoryItems.getURL({ repositoryItem, assessmentName, cycleName, countryIso })
@@ -45,6 +52,7 @@ export const useOnClose = (): Returned => {
     language,
     selectedFiles,
     setRepositoryOpened,
+    t,
     updateRepositoryAccess,
   ])
 }
