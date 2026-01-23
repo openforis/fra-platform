@@ -40,6 +40,7 @@ const LinksTable: React.FC<Props> = (props) => {
 
   useEffect(() => {
     dispatch(LinksActions.getIsVerificationInProgress({ assessmentName, cycleName, countryIso }))
+    dispatch(LinksActions.getVerificationSummary({ assessmentName, cycleName, countryIso }))
   }, [assessmentName, countryIso, cycleName, dispatch])
 
   return (
