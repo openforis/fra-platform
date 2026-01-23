@@ -20,7 +20,7 @@ import NavigationSection from 'client/components/Navigation/NavAssessment/Sectio
 import { Breakpoints } from 'client/utils/breakpoints'
 
 const NavAssessment: React.FC = () => {
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const sections = useSections()
   const historyActive = useHistoryActivitiesIsActive()
@@ -43,11 +43,12 @@ const NavAssessment: React.FC = () => {
         <NavigationSection key={section.uuid} section={section} showSections={showSections} />
       ))}
 
+      <div className="nav-header__sep-container">
+        <Hr />
+      </div>
+
       {Areas.isGlobal(countryIso) && (
         <MediaQuery minWidth={Breakpoints.laptop}>
-          <div className="nav-header__sep-container">
-            <Hr />
-          </div>
           <Link
             className="nav-section__header nav-assessment__bulk-download"
             to={Routes.CountryDataDownload.generatePath({ assessmentName, cycleName, countryIso })}
@@ -59,6 +60,20 @@ const NavAssessment: React.FC = () => {
           </Link>
         </MediaQuery>
       )}
+
+      <div className="nav-assessment__fao-link">
+        <a
+          className="nav-section__header"
+          href={`https://www.fao.org/forest-resources-assessment/${i18n.language}`}
+          rel="noreferrer"
+          target="_blank"
+        >
+          <div className="nav-section__order">
+            <Icon name="external-link" />
+          </div>
+          <div className="nav-section__label">{t('common.globalFRA_many')}</div>
+        </a>
+      </div>
     </>
   )
 }
