@@ -50,7 +50,6 @@ const AddFromRepository: React.FC = () => {
       <ModalHeader>
         <div>
           <h3 className="subhead">{t('common.selectFiles')}</h3>
-          <span>{t('nationalDataPoint.fileAddedWillBecomePublic')}</span>
         </div>
         <ModalClose
           onClose={(): void => {
