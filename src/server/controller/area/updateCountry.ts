@@ -14,7 +14,7 @@ import { CountryRepository } from 'server/db/repository/assessmentCycle/country'
 import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 import { SocketService } from 'server/service/socket'
 
-class StatusChangeBlockedError extends Error {
+export class StatusChangeBlockedError extends Error {
   public statusCode = 409
 
   constructor() {
@@ -61,11 +61,10 @@ export const updateCountry = async (props: Props, client: BaseProtocol = DB): Pr
     const statusUpdate = currentStatus !== targetStatus
 
     if (needsGuardCheck && currentStatus === CountryStatus.review) {
-      const verificationSummary = await CycleDataController.Links.getVerificationSummary({
-        assessment,
-        countryIso,
-        cycle,
-      })
+      const verificationSummary = await CycleDataController.Links.getVerificationSummary(
+        { assessment, countryIso, cycle },
+        t
+      )
       const guardResult = checkLinksVerificationGuard({
         country: currentCountry,
         currentStatus,
