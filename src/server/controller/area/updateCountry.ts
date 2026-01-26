@@ -1,14 +1,27 @@
 import { Country } from 'meta/area/country'
+import { CountryStatus } from 'meta/area/countryStatus'
+import { checkLinksVerificationGuard } from 'meta/area/countryStatuses/linksVerificationGuard'
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { User } from 'meta/user/user'
+import { Users } from 'meta/user/users'
 
 import { AreaRedisRepository } from 'server/cache/repository/area'
+import { CycleDataController } from 'server/controller/cycleData'
 import { BaseProtocol, DB } from 'server/db/db'
 import { CountryRepository } from 'server/db/repository/assessmentCycle/country'
 import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 import { SocketService } from 'server/service/socket'
+
+class StatusChangeBlockedError extends Error {
+  public statusCode = 409
+
+  constructor() {
+    super('linksGuard.blocked')
+    this.name = 'StatusChangeBlockedError'
+  }
+}
 
 type Props = {
   assessment: Assessment
@@ -36,10 +49,33 @@ export const updateCountry = async (props: Props, client: BaseProtocol = DB): Pr
     user,
   } = props
   const { countryIso } = country
+  const targetStatus = country.props.status
+  const isAdmin = Users.isAdministrator(user)
+  const isReviewer = Users.isReviewer(user, countryIso, cycle)
+  const isRegionalFocalPoint = Users.isRegionalFocalPoint(user, countryIso, cycle)
+  const needsGuardCheck = targetStatus === CountryStatus.approval && !isAdmin && (isReviewer || isRegionalFocalPoint)
 
   return client.tx(async (t) => {
     const currentCountry = await AreaRedisRepository.getOneCountry({ assessment, cycle, countryIso }, t)
-    const statusUpdate = currentCountry.props.status !== country.props.status
+    const currentStatus = currentCountry.props.status
+    const statusUpdate = currentStatus !== targetStatus
+
+    if (needsGuardCheck && currentStatus === CountryStatus.review) {
+      const verificationSummary = await CycleDataController.Links.getVerificationSummary({
+        assessment,
+        countryIso,
+        cycle,
+      })
+      const guardResult = checkLinksVerificationGuard({
+        country: currentCountry,
+        currentStatus,
+        targetStatus,
+        verificationSummary,
+      })
+      if (guardResult.blocked) {
+        throw new StatusChangeBlockedError()
+      }
+    }
 
     const updatedCountry = await CountryRepository.update(
       {

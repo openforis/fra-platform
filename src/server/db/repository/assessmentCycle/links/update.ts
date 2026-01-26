@@ -26,12 +26,12 @@ export const update = async (props: Props, client: BaseProtocol = DB): Promise<L
   return client.one<Link>(
     `
       update ${schemaCycle}.link
-      set props = $1
-      where uuid = $2
+      set props = $(props)
+      where uuid = $(uuid)
       ${countryIsoCondition}
       returning *
     `,
-    [_props, uuid],
+    { countryIso, props: _props, uuid },
     (row) => Objects.camelize(row)
   )
 }
