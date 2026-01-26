@@ -6,6 +6,6 @@ test('homepage has title and links to intro page', async ({ page }) => {
   await expect(page).toHaveTitle(title, { timeout: 10000 })
   const headerLogo = await page.getByRole('img', { name: 'FAO', exact: true })
   await expect(headerLogo).toBeVisible()
-  const headerTitle = await page.getByText('Global Forest Resources Assessment').first()
+  const headerTitle = await page.getByText('Global Forest Resources Assessment', { exact: true }).first()
   await expect(headerTitle).toHaveText('Global Forest Resources Assessment')
 })

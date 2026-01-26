@@ -11,6 +11,7 @@ import { Objects } from 'utils/objects'
 
 import { useHistoryActivitiesIsActive } from 'client/store/data/history/hooks/activities'
 import { useSections } from 'client/store/meta/hooks/sections'
+import { useLanguage } from 'client/hooks/language'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import Hr from 'client/components/Hr'
 import Icon from 'client/components/Icon'
@@ -21,6 +22,8 @@ import { Breakpoints } from 'client/utils/breakpoints'
 
 const NavAssessment: React.FC = () => {
   const { t } = useTranslation()
+  const language = useLanguage()
+
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const sections = useSections()
   const historyActive = useHistoryActivitiesIsActive()
@@ -43,22 +46,39 @@ const NavAssessment: React.FC = () => {
         <NavigationSection key={section.uuid} section={section} showSections={showSections} />
       ))}
 
-      {Areas.isGlobal(countryIso) && (
-        <MediaQuery minWidth={Breakpoints.laptop}>
-          <div className="nav-header__sep-container">
-            <Hr />
-          </div>
-          <Link
-            className="nav-section__header nav-assessment__bulk-download"
-            to={Routes.CountryDataDownload.generatePath({ assessmentName, cycleName, countryIso })}
+      <div className="nav-header__sep-container">
+        <Hr />
+      </div>
+
+      <div className="nav-assessment__link-container">
+        {Areas.isGlobal(countryIso) && (
+          <MediaQuery minWidth={Breakpoints.laptop}>
+            <Link
+              className="nav-section__header nav-assessment__bulk-download"
+              to={Routes.CountryDataDownload.generatePath({ assessmentName, cycleName, countryIso })}
+            >
+              <div className="nav-section__order">
+                <Icon name="hit-down" />
+              </div>
+              <div className="nav-section__label">{t('dataDownload.dataDownload')}</div>
+            </Link>
+          </MediaQuery>
+        )}
+
+        <div className="nav-assessment__fao-link">
+          <a
+            className="nav-section__header"
+            href={`https://www.fao.org/forest-resources-assessment/${language}`}
+            rel="noreferrer"
+            target="_blank"
           >
             <div className="nav-section__order">
-              <Icon name="hit-down" />
+              <Icon name="external-link" />
             </div>
-            <div className="nav-section__label">{t('dataDownload.dataDownload')}</div>
-          </Link>
-        </MediaQuery>
-      )}
+            <div className="nav-section__label">{t('common.globalFRA_many')}</div>
+          </a>
+        </div>
+      </div>
     </>
   )
 }

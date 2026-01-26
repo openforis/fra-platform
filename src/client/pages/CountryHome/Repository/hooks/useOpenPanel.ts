@@ -9,7 +9,7 @@ import { RepositoryActions } from 'client/store/repository/actions'
 type Returned = () => void
 
 const initialRepositoryItem = (countryIso?: CountryIso): Partial<RepositoryItem> => {
-  return { countryIso, props: { translation: { en: undefined } } }
+  return { countryIso, props: { public: true, translation: { en: undefined } } }
 }
 
 export const useOpenPanel = (props: { repositoryItem?: RepositoryItem; countryIso?: CountryIso }): Returned => {
