@@ -14,6 +14,8 @@ import { useUser } from 'client/store/user/hooks/user'
 import Button from 'client/components/Buttons/Button'
 import { Option } from 'client/components/Inputs/Select'
 import CountryListDownload from 'client/components/PageLayout/Toolbar/AreaSelect/Group/CountryListDownload'
+import { useHeaders } from 'client/components/PageLayout/Toolbar/AreaSelect/Group/hooks/useHeaders'
+import SortableHeader from 'client/components/PageLayout/Toolbar/AreaSelect/Group/SortableHeader'
 import { OptionsGroupArea } from 'client/components/PageLayout/Toolbar/AreaSelect/types'
 
 type Props = GroupProps<Option, boolean, OptionsGroupArea>
@@ -25,6 +27,7 @@ const Group: React.FC<Props> = (props) => {
   const user = useUser()
   const dispatch = useAppDispatch()
   const expanded = useIsAreaSelectorExpanded()
+  const headers = useHeaders()
 
   const isAdmin = Users.isAdministrator(user)
 
@@ -44,15 +47,9 @@ const Group: React.FC<Props> = (props) => {
           <div>{t(Users.getI18nRoleLabelKey(data.roleName))}</div>
           <div>{t('common.status')}</div>
 
-          {expanded && (
-            <>
-              <div>{t('audit.edited')}</div>
-              <div>{t('common.submittedToReview')}</div>
-              <div>{t('common.submittedForApproval')}</div>
-              <div>{t('common.accepted')}</div>
-            </>
-          )}
-          {!expanded && <div>{t('common.updated')}</div>}
+          {headers.map((header) => (
+            <SortableHeader key={header.sortBy} label={header.label} sortByProperty={header.sortBy} />
+          ))}
 
           {isAdmin && (
             <Button
