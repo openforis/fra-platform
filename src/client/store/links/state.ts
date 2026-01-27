@@ -14,14 +14,15 @@ export type LinksVerificationSummaryState = {
   summary?: LinksVerificationSummary
 }
 
-export type LinksState = {
-  isVerificationInProgress?: Record<AssessmentName, Record<CycleName, Record<CountryIso | '__global__', boolean>>>
-  verificationSummary?: Record<
-    AssessmentName,
-    Record<CycleName, Record<CountryIso | '__global__', LinksVerificationSummaryState>>
-  >
+export type LinksCountryKey = CountryIso | '__global__'
+
+export type LinksVerificationData = {
+  isVerificationInProgress?: boolean
+  verificationSummary?: LinksVerificationSummaryState
 }
+
+export type LinksState = Record<AssessmentName, Record<CycleName, Record<LinksCountryKey, LinksVerificationData>>>
 
 export const initialState: LinksState = {}
 
-export const getLinksVerificationKey = (countryIso?: CountryIso): string => countryIso ?? '__global__'
+export const getLinksVerificationKey = (countryIso?: CountryIso): LinksCountryKey => countryIso ?? '__global__'

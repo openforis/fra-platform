@@ -12,9 +12,10 @@ export const useIsVerificationInProgress = (
   cycleName: CycleName,
   countryIso?: CountryIso
 ): boolean | undefined => {
-  const isVerificationInProgress = useAppSelector(LinksSelectors.isVerificationInProgress)
   const countryKey = getLinksVerificationKey(countryIso)
-  return isVerificationInProgress?.[assessmentName]?.[cycleName]?.[countryKey]
+  return useAppSelector((state) =>
+    LinksSelectors.getIsVerificationInProgress(state, assessmentName, cycleName, countryKey)
+  )
 }
 
 export const useVerificationSummary = (
@@ -22,9 +23,8 @@ export const useVerificationSummary = (
   cycleName: CycleName,
   countryIso?: CountryIso
 ): LinksVerificationSummary | undefined => {
-  const verificationSummary = useAppSelector(LinksSelectors.verificationSummary)
   const countryKey = getLinksVerificationKey(countryIso)
-  return verificationSummary?.[assessmentName]?.[cycleName]?.[countryKey]?.summary
+  return useAppSelector((state) => LinksSelectors.getVerificationSummary(state, assessmentName, cycleName, countryKey))
 }
 
 export const useVerificationSummaryStatus = (
@@ -32,7 +32,8 @@ export const useVerificationSummaryStatus = (
   cycleName: CycleName,
   countryIso?: CountryIso
 ): LinksVerificationSummaryStatus | undefined => {
-  const verificationSummary = useAppSelector(LinksSelectors.verificationSummary)
   const countryKey = getLinksVerificationKey(countryIso)
-  return verificationSummary?.[assessmentName]?.[cycleName]?.[countryKey]?.status
+  return useAppSelector((state) =>
+    LinksSelectors.getVerificationSummaryStatus(state, assessmentName, cycleName, countryKey)
+  )
 }

@@ -11,7 +11,7 @@ export const getVerificationSummaryReducer = (builder: ActionReducerMapBuilder<L
     const countryKey = getLinksVerificationKey(countryIso)
     Objects.setInPath({
       obj: state,
-      path: ['verificationSummary', assessmentName, cycleName, countryKey, 'status'],
+      path: [assessmentName, cycleName, countryKey, 'verificationSummary', 'status'],
       value: LinksVerificationSummaryStatus.loading,
     })
   })
@@ -21,12 +21,12 @@ export const getVerificationSummaryReducer = (builder: ActionReducerMapBuilder<L
     const countryKey = getLinksVerificationKey(countryIso)
     Objects.setInPath({
       obj: state,
-      path: ['verificationSummary', assessmentName, cycleName, countryKey, 'summary'],
+      path: [assessmentName, cycleName, countryKey, 'verificationSummary', 'summary'],
       value: payload,
     })
     Objects.setInPath({
       obj: state,
-      path: ['verificationSummary', assessmentName, cycleName, countryKey, 'status'],
+      path: [assessmentName, cycleName, countryKey, 'verificationSummary', 'status'],
       value: LinksVerificationSummaryStatus.ready,
     })
   })
@@ -36,7 +36,7 @@ export const getVerificationSummaryReducer = (builder: ActionReducerMapBuilder<L
     const countryKey = getLinksVerificationKey(countryIso)
     Objects.setInPath({
       obj: state,
-      path: ['verificationSummary', assessmentName, cycleName, countryKey, 'status'],
+      path: [assessmentName, cycleName, countryKey, 'verificationSummary', 'status'],
       value: LinksVerificationSummaryStatus.failed,
     })
   })

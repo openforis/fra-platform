@@ -11,7 +11,7 @@ export const getIsVerificationInProgressReducer = (builder: ActionReducerMapBuil
     const countryKey = getLinksVerificationKey(countryIso)
     Objects.setInPath({
       obj: state,
-      path: ['isVerificationInProgress', assessmentName, cycleName, countryKey],
+      path: [assessmentName, cycleName, countryKey, 'isVerificationInProgress'],
       value: payload,
     })
   })
