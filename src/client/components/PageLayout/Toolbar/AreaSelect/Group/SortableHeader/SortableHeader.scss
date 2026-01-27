@@ -6,12 +6,16 @@
   cursor: pointer;
   display: flex;
 
-  .icon {
+  svg {
+    color: $text-link;
     margin-right: $spacing-xxxxs;
   }
 
-  &:hover,
-  &.active {
+  &:hover {
     color: $text-body;
+  }
+
+  &.active svg {
+    color: $ui-accent;
   }
 }
