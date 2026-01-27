@@ -2,15 +2,11 @@ import { useEffect, useMemo } from 'react'
 import { useParams } from 'react-router'
 
 import { Areas } from 'meta/area/areas'
-import { CountryStatus } from 'meta/area/countryStatus'
 import {
   checkLinksVerificationGuard,
   LinksVerificationGuardResult,
 } from 'meta/area/countryStatuses/linksVerificationGuard'
 import { AssessmentName } from 'meta/assessment/assessment'
-import { Routes } from 'meta/routes/routes'
-import { SectionNames } from 'meta/routes/sectionNames'
-import { Users } from 'meta/user/users'
 
 import { useAssessmentCountry } from 'client/store/area/hooks/country'
 import { useAppDispatch, useInjectSlice } from 'client/store/hooks'
@@ -23,6 +19,9 @@ import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useUser } from 'client/store/user/hooks/user'
 import { useCountryIso } from 'client/hooks/country'
 import { StatusTransition } from 'client/components/PageLayout/Toolbar/Status/types'
+
+import { useLinksStatusUrl } from './useLinksStatusUrl'
+import { useNeedsGuardCheck } from './useNeedsGuardCheck'
 
 type Props = {
   status: StatusTransition
@@ -50,14 +49,10 @@ export const useLinksVerificationGuard = (props: Props): Returned => {
   useInjectSlice({ reducer: LinksSlice.reducer, reducerPath: LinksSliceName })
 
   const currentStatus = Areas.getStatus(country)
-  const isTransitionToApproval = status.status === CountryStatus.approval && status.direction === 'next'
-
-  const isAdmin = Users.isAdministrator(user)
-  const canSendToApproval =
-    Users.isRegionalFocalPoint(user, countryIso, cycle) || Users.isReviewer(user, countryIso, cycle)
-
   const hasRouteParams = Boolean(assessmentName && countryIso && cycleName)
-  const needsGuardCheck = hasRouteParams && canSendToApproval && isTransitionToApproval && !isAdmin
+
+  const needsGuardCheck = useNeedsGuardCheck({ countryIso, cycle, hasRouteParams, status, user })
+  const linksStatusUrl = useLinksStatusUrl({ assessmentName, countryIso, cycleName })
 
   useEffect(() => {
     if (!needsGuardCheck) return
@@ -76,16 +71,6 @@ export const useLinksVerificationGuard = (props: Props): Returned => {
       verificationSummary,
     })
   }, [country, currentStatus, needsGuardCheck, status.status, verificationSummary])
-
-  const linksStatusUrl = useMemo<string>(() => {
-    if (!hasRouteParams) return ''
-    return Routes.CountryHomeSection.generatePath({
-      assessmentName,
-      countryIso,
-      cycleName,
-      sectionName: SectionNames.Country.Home.linksStatus,
-    })
-  }, [assessmentName, countryIso, cycleName, hasRouteParams])
 
   const hasError = needsGuardCheck && verificationSummaryStatus === LinksVerificationSummaryStatus.failed
   const isLoading = needsGuardCheck && !verificationSummary && !hasError
