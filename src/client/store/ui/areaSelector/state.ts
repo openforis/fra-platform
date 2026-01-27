@@ -10,9 +10,13 @@ export enum AreaSelectorSortDirection {
   desc = 'desc',
 }
 
-export type AreaSelectorFilters = {
+export type AreaSelectorOrderBy = {
   sortBy: AreaSelectorSortBy
-  sortDirection: AreaSelectorSortDirection | null
+  sortDirection: AreaSelectorSortDirection
+}
+
+export type AreaSelectorFilters = {
+  orderBy: Record<string, AreaSelectorOrderBy | undefined>
 }
 
 export type AreaSelectorState = {
@@ -23,7 +27,6 @@ export type AreaSelectorState = {
 export const initialState: AreaSelectorState = {
   mode: AreaSelectorMode.collapsed,
   filters: {
-    sortBy: null,
-    sortDirection: null,
+    orderBy: {},
   },
 }

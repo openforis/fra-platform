@@ -9,6 +9,11 @@ import {
 
 import { AreaSelectorSliceName } from './name'
 
+type SetSortByPayload = {
+  roleName: string
+  sortBy: AreaSelectorSortBy
+}
+
 export const AreaSelectorSlice = createSlice({
   name: AreaSelectorSliceName,
   initialState,
@@ -16,18 +21,16 @@ export const AreaSelectorSlice = createSlice({
     toggleMode: (state) => {
       state.mode = state.mode === AreaSelectorMode.collapsed ? AreaSelectorMode.expanded : AreaSelectorMode.collapsed
     },
-    setSortBy: (state, action: PayloadAction<AreaSelectorSortBy>) => {
-      const { sortBy, sortDirection } = state.filters
-      const property = action.payload
+    setSortBy: (state, action: PayloadAction<SetSortByPayload>) => {
+      const { roleName, sortBy: property } = action.payload
+      const current = state.filters.orderBy[roleName]
 
-      if (sortBy !== property) {
-        state.filters.sortBy = property
-        state.filters.sortDirection = AreaSelectorSortDirection.desc
-      } else if (sortDirection === AreaSelectorSortDirection.desc) {
-        state.filters.sortDirection = AreaSelectorSortDirection.asc
+      if (current?.sortBy !== property) {
+        state.filters.orderBy[roleName] = { sortBy: property, sortDirection: AreaSelectorSortDirection.desc }
+      } else if (current.sortDirection === AreaSelectorSortDirection.desc) {
+        state.filters.orderBy[roleName] = { sortBy: property, sortDirection: AreaSelectorSortDirection.asc }
       } else {
-        state.filters.sortBy = null
-        state.filters.sortDirection = null
+        delete state.filters.orderBy[roleName]
       }
     },
   },
