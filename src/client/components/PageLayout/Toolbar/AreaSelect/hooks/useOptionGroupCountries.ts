@@ -8,10 +8,13 @@ import { RoleName } from 'meta/user/role/name'
 import { UserRole } from 'meta/user/role/role'
 import { UserRoles } from 'meta/user/roles'
 import { Users } from 'meta/user/users'
+import { Dates } from 'utils/dates'
 import { Objects } from 'utils/objects'
 
 import { useCountriesRecord } from 'client/store/area/hooks/countries'
 import { useCycle } from 'client/store/meta/hooks/cycles'
+import { useAreaSelectorFilters } from 'client/store/ui/areaSelector/hooks/areaSelector'
+import { AreaSelectorSortDirection } from 'client/store/ui/areaSelector/state'
 import { useUser } from 'client/store/user/hooks/user'
 import { useLanguage } from 'client/hooks/language'
 import { OptionsGroup } from 'client/components/Inputs/Select'
@@ -29,6 +32,7 @@ export const useOptionGroupCountries = (props: Props): ReadonlyArray<OptionsGrou
   const user = useUser()
   const countriesRecord = useCountriesRecord()
   const lang = useLanguage()
+  const { sortBy, sortDirection } = useAreaSelectorFilters()
 
   return useMemo<ReadonlyArray<OptionsGroup>>(() => {
     if (Objects.isEmpty(countriesRecord)) {
@@ -68,6 +72,13 @@ export const useOptionGroupCountries = (props: Props): ReadonlyArray<OptionsGrou
     return Object.entries(rolesGrouped).map<OptionsGroupArea>(([roleName, roles]) => {
       const options = roles
         .sort((r1, r2) => {
+          if (sortBy) {
+            const a = countriesRecord[r1.countryIso][sortBy]
+            const b = countriesRecord[r2.countryIso][sortBy]
+            const direction = sortDirection === AreaSelectorSortDirection.asc ? 1 : -1
+            return Dates.isAfter(a, b) ? direction : -direction
+          }
+
           const area1 = countriesRecord[r1.countryIso]
           const area2 = countriesRecord[r2.countryIso]
           return Areas.getCompareListName(area1, area2, lang)
@@ -82,5 +93,5 @@ export const useOptionGroupCountries = (props: Props): ReadonlyArray<OptionsGrou
       order += 1
       return group
     })
-  }, [countriesRecord, cycle, lang, regionGroupsLength, t, user])
+  }, [countriesRecord, cycle, lang, regionGroupsLength, sortBy, sortDirection, t, user])
 }
