@@ -3,6 +3,7 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { LinksVerificationSummary } from 'meta/cycleData/links/link'
 
+import { BaseProtocol, DB } from 'server/db/db'
 import { LinkRepository } from 'server/db/repository/assessmentCycle/links'
 import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 import { JobStatus } from 'server/worker/job/jobStatus'
@@ -14,13 +15,16 @@ type Props = {
   cycle: Cycle
 }
 
-export const getVerificationSummary = async (props: Props): Promise<LinksVerificationSummary> => {
+export const getVerificationSummary = async (
+  props: Props,
+  client: BaseProtocol = DB
+): Promise<LinksVerificationSummary> => {
   const { assessment, countryIso, cycle } = props
 
   const verifyLinksJob = new VerifyLinksJob({ assessment, countryIso, cycle })
   const [summary, activityLog, jobStatus] = await Promise.all([
-    LinkRepository.getVerificationSummary({ assessment, countryIso, cycle }),
-    ActivityLogRepository.getLastLinksCheckCompleteTime({ assessment, countryIso, cycle }),
+    LinkRepository.getVerificationSummary({ assessment, countryIso, cycle }, client),
+    ActivityLogRepository.getLastLinksCheckCompleteTime({ assessment, countryIso, cycle }, client),
     verifyLinksJob.getStatus(),
   ])
 
