@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { components, GroupProps } from 'react-select'
 import classNames from 'classnames'
 
+import { RoleName } from 'meta/user/role/name'
 import { UserRoles } from 'meta/user/roles'
 import { Users } from 'meta/user/users'
 
@@ -20,6 +21,8 @@ import { OptionsGroupArea } from 'client/components/PageLayout/Toolbar/AreaSelec
 
 type Props = GroupProps<Option, boolean, OptionsGroupArea>
 
+const sortableRoles: Array<RoleName> = [RoleName.ADMINISTRATOR, RoleName.REGIONAL_FOCAL_POINT, RoleName.REVIEWER]
+
 const Group: React.FC<Props> = (props) => {
   const { data } = props
 
@@ -30,6 +33,7 @@ const Group: React.FC<Props> = (props) => {
   const headers = useHeaders()
 
   const isAdmin = Users.isAdministrator(user)
+  const sortable = 'roleName' in data && sortableRoles.includes(data.roleName)
 
   return (
     <>
@@ -47,9 +51,13 @@ const Group: React.FC<Props> = (props) => {
           <div>{t(Users.getI18nRoleLabelKey(data.roleName))}</div>
           <div>{t('common.status')}</div>
 
-          {headers.map((header) => (
-            <SortableHeader key={header.sortBy} label={header.label} sortByProperty={header.sortBy} />
-          ))}
+          {headers.map((header) =>
+            sortable ? (
+              <SortableHeader key={header.sortBy} label={header.label} sortByProperty={header.sortBy} />
+            ) : (
+              <div key={header.sortBy}>{header.label}</div>
+            )
+          )}
 
           {isAdmin && (
             <Button
