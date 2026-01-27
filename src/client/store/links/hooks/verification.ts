@@ -5,16 +5,17 @@ import { LinksVerificationSummary } from 'meta/cycleData/links/link'
 
 import { useAppSelector } from 'client/store/hooks'
 import { LinksSelectors } from 'client/store/links/selectors'
-import { getLinksVerificationKey } from 'client/store/links/state'
+import { getLinksVerificationKey, LinksVerificationSummaryStatus } from 'client/store/links/state'
 
 export const useIsVerificationInProgress = (
   assessmentName: AssessmentName,
   cycleName: CycleName,
   countryIso?: CountryIso
 ): boolean | undefined => {
-  const isVerificationInProgress = useAppSelector(LinksSelectors.isVerificationInProgress)
   const countryKey = getLinksVerificationKey(countryIso)
-  return isVerificationInProgress?.[assessmentName]?.[cycleName]?.[countryKey]
+  return useAppSelector((state) =>
+    LinksSelectors.getIsVerificationInProgress(state, assessmentName, cycleName, countryKey)
+  )
 }
 
 export const useVerificationSummary = (
@@ -22,7 +23,17 @@ export const useVerificationSummary = (
   cycleName: CycleName,
   countryIso?: CountryIso
 ): LinksVerificationSummary | undefined => {
-  const verificationSummary = useAppSelector(LinksSelectors.verificationSummary)
   const countryKey = getLinksVerificationKey(countryIso)
-  return verificationSummary?.[assessmentName]?.[cycleName]?.[countryKey]
+  return useAppSelector((state) => LinksSelectors.getVerificationSummary(state, assessmentName, cycleName, countryKey))
+}
+
+export const useVerificationSummaryStatus = (
+  assessmentName: AssessmentName,
+  cycleName: CycleName,
+  countryIso?: CountryIso
+): LinksVerificationSummaryStatus | undefined => {
+  const countryKey = getLinksVerificationKey(countryIso)
+  return useAppSelector((state) =>
+    LinksSelectors.getVerificationSummaryStatus(state, assessmentName, cycleName, countryKey)
+  )
 }
