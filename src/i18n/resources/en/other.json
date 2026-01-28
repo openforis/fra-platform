@@ -451,12 +451,12 @@
   },
   "linksGuard": {
     "blocked": "The report cannot be submitted for approval. Please go to the Links status page and verify the links.",
-    "blockedMessage": "The report cannot be submitted for approval since {{reasons}}.",
+    "blockedMessage": "The report cannot be submitted for approval since {{reason}}.",
     "fetchError": "Unable to verify links status. Please try again.",
     "reason": {
-      "invalidLinks": "there are invalid links to fix.",
-      "neverRan": "the verification links process must be executed.",
-      "staleVerification": "the data has been edited after the last verification run."
+      "invalidLinks": "there are invalid links to fix",
+      "neverRan": "the verification links process must be executed",
+      "staleVerification": "the data has been edited after the last links verification run"
     },
     "suffix": "Please go to the <lnk>Links status page</lnk> and verify the links."
   },
