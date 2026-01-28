@@ -31,6 +31,12 @@
   &.withRoles {
     div.select__menu.bottom {
       @include min-width($mobile-landscape) {
+        min-width: 550px;
+      }
+    }
+    &.sortable div.select__menu.bottom {
+      @include min-width($mobile-landscape) {
+        // Increase the size of the menu when we can sort
         min-width: 570px;
       }
     }

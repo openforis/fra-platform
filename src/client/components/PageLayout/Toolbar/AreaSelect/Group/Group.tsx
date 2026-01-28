@@ -8,7 +8,6 @@ import { UserRoles } from 'meta/user/roles'
 import { Users } from 'meta/user/users'
 
 import { useAppDispatch } from 'client/store/hooks'
-import { useCycle } from 'client/store/meta/hooks/cycles'
 import { AreaSelectorActions } from 'client/store/ui/areaSelector/actions'
 import { useIsAreaSelectorExpanded } from 'client/store/ui/areaSelector/hooks/areaSelector'
 import { useUser } from 'client/store/user/hooks/user'
@@ -17,6 +16,7 @@ import { Option } from 'client/components/Inputs/Select'
 import CountryListDownload from 'client/components/PageLayout/Toolbar/AreaSelect/Group/CountryListDownload'
 import { useHeaders } from 'client/components/PageLayout/Toolbar/AreaSelect/Group/hooks/useHeaders'
 import SortableHeader from 'client/components/PageLayout/Toolbar/AreaSelect/Group/SortableHeader'
+import { useIsSortable } from 'client/components/PageLayout/Toolbar/AreaSelect/hooks/useIsSortable'
 import { OptionsGroupArea } from 'client/components/PageLayout/Toolbar/AreaSelect/types'
 
 type Props = GroupProps<Option, boolean, OptionsGroupArea>
@@ -26,16 +26,13 @@ const Group: React.FC<Props> = (props) => {
 
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
-  const cycle = useCycle()
   const user = useUser()
   const expanded = useIsAreaSelectorExpanded()
   const headers = useHeaders()
+  const isSortable = useIsSortable()
 
   const isAdmin = Users.isAdministrator(user)
-  const isARegionalFocalPoint = Users.isARegionalFocalPoint(user, cycle)
-  const isAReviewer = Users.isAReviewer(user, cycle)
-  // only allow sorting when we have more than one country and user has specific role
-  const sortable = data.options.length > 1 && (isAdmin || isARegionalFocalPoint || isAReviewer)
+  const sortable = data.options.length > 1 && isSortable
 
   return (
     <>
