@@ -14,6 +14,9 @@ import { useUser } from 'client/store/user/hooks/user'
 import Button from 'client/components/Buttons/Button'
 import { Option } from 'client/components/Inputs/Select'
 import CountryListDownload from 'client/components/PageLayout/Toolbar/AreaSelect/Group/CountryListDownload'
+import { useHeaders } from 'client/components/PageLayout/Toolbar/AreaSelect/Group/hooks/useHeaders'
+import SortableHeader from 'client/components/PageLayout/Toolbar/AreaSelect/Group/SortableHeader'
+import { useIsSortable } from 'client/components/PageLayout/Toolbar/AreaSelect/hooks/useIsSortable'
 import { OptionsGroupArea } from 'client/components/PageLayout/Toolbar/AreaSelect/types'
 
 type Props = GroupProps<Option, boolean, OptionsGroupArea>
@@ -22,11 +25,14 @@ const Group: React.FC<Props> = (props) => {
   const { data } = props
 
   const { t } = useTranslation()
-  const user = useUser()
   const dispatch = useAppDispatch()
+  const user = useUser()
   const expanded = useIsAreaSelectorExpanded()
+  const headers = useHeaders()
+  const isSortable = useIsSortable()
 
   const isAdmin = Users.isAdministrator(user)
+  const sortable = data.options.length > 1 && isSortable
 
   return (
     <>
@@ -44,15 +50,18 @@ const Group: React.FC<Props> = (props) => {
           <div>{t(Users.getI18nRoleLabelKey(data.roleName))}</div>
           <div>{t('common.status')}</div>
 
-          {expanded && (
-            <>
-              <div>{t('audit.edited')}</div>
-              <div>{t('common.submittedToReview')}</div>
-              <div>{t('common.submittedForApproval')}</div>
-              <div>{t('common.accepted')}</div>
-            </>
+          {headers.map((header) =>
+            sortable ? (
+              <SortableHeader
+                key={header.sortBy}
+                label={header.label}
+                roleName={data.roleName}
+                sortByProperty={header.sortBy}
+              />
+            ) : (
+              <div key={header.sortBy}>{header.label}</div>
+            )
           )}
-          {!expanded && <div>{t('common.updated')}</div>}
 
           {isAdmin && (
             <Button

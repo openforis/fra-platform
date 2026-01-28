@@ -13,6 +13,7 @@ import { useCountryRouteParams } from 'client/hooks/routeParams'
 import Select from 'client/components/Inputs/Select'
 
 import { useComponents } from './hooks/useComponents'
+import { useIsSortable } from './hooks/useIsSortable'
 import { useOptionGroups } from './hooks/useOptionGroups'
 
 const AreaSelect: React.FC = () => {
@@ -25,10 +26,11 @@ const AreaSelect: React.FC = () => {
   const cycle = useCycle()
   const expanded = useIsAreaSelectorExpanded()
   const withRoles = user && Users.hasRoleInCycle({ cycle, user })
+  const sortable = useIsSortable()
 
   return (
     <Select
-      classNames={{ container: classNames('area-select__container', { withRoles, expanded }) }}
+      classNames={{ container: classNames('area-select__container', { withRoles, expanded, sortable }) }}
       components={components}
       isClearable={false}
       onChange={navigateToArea}

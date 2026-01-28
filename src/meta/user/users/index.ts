@@ -8,6 +8,7 @@ import { isPersonalInfoRequired } from 'meta/user/users/isPersonalInfoRequired'
 import {
   isAdministrator,
   isAlternateNationalCorrespondent,
+  isARegionalFocalPoint,
   isAReviewer,
   isCollaborator,
   isNationalCorrespondent,
@@ -27,6 +28,7 @@ export const Users = {
   isNationalCorrespondent,
   isPersonalInfoRequired,
   isRegionalFocalPoint,
+  isARegionalFocalPoint,
   isReviewer,
   isAReviewer,
   isViewer,

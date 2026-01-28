@@ -1,0 +1,21 @@
+@use 'src/client/style/partials' as *;
+
+.area-select__group-heading-sortable {
+  all: unset; // reset all button defaults to inherit or initial
+  align-items: start;
+  cursor: pointer;
+  display: flex;
+
+  svg {
+    color: $text-link;
+    margin-right: $spacing-xxxxs;
+  }
+
+  &:hover {
+    color: $text-body;
+  }
+
+  &.active svg {
+    color: $ui-accent;
+  }
+}
