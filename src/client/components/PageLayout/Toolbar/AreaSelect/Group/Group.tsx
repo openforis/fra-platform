@@ -16,6 +16,7 @@ import { Option } from 'client/components/Inputs/Select'
 import CountryListDownload from 'client/components/PageLayout/Toolbar/AreaSelect/Group/CountryListDownload'
 import { useHeaders } from 'client/components/PageLayout/Toolbar/AreaSelect/Group/hooks/useHeaders'
 import SortableHeader from 'client/components/PageLayout/Toolbar/AreaSelect/Group/SortableHeader'
+import StatusFilter from 'client/components/PageLayout/Toolbar/AreaSelect/Group/StatusFilter'
 import { useIsSortable } from 'client/components/PageLayout/Toolbar/AreaSelect/hooks/useIsSortable'
 import { OptionsGroupArea } from 'client/components/PageLayout/Toolbar/AreaSelect/types'
 
@@ -48,7 +49,7 @@ const Group: React.FC<Props> = (props) => {
           })}
         >
           <div>{t(Users.getI18nRoleLabelKey(data.roleName))}</div>
-          <div>{t('common.status')}</div>
+          {sortable ? <StatusFilter roleName={data.roleName} /> : <div>{t('common.status')}</div>}
 
           {headers.map((header) =>
             sortable ? (
