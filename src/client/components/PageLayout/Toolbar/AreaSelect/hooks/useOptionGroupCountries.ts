@@ -32,7 +32,7 @@ export const useOptionGroupCountries = (props: Props): ReadonlyArray<OptionsGrou
   const user = useUser()
   const countriesRecord = useCountriesRecord()
   const lang = useLanguage()
-  const { orderBy } = useAreaSelectorFilters()
+  const filters = useAreaSelectorFilters()
 
   return useMemo<ReadonlyArray<OptionsGroup>>(() => {
     if (Objects.isEmpty(countriesRecord)) {
@@ -70,7 +70,9 @@ export const useOptionGroupCountries = (props: Props): ReadonlyArray<OptionsGrou
 
     // 3. create the array of OptionsGroup
     return Object.entries(rolesGrouped).map<OptionsGroupArea>(([roleName, roles]) => {
-      const roleOrderBy = orderBy[roleName]
+      const roleFilters = filters[roleName]
+      const roleOrderBy = roleFilters?.orderBy
+      const roleStatusFilter = roleFilters?.statusFilter
 
       const options = roles
         .sort((r1, r2) => {
@@ -88,12 +90,13 @@ export const useOptionGroupCountries = (props: Props): ReadonlyArray<OptionsGrou
         .map<OptionArea>((role) => {
           const { countryIso } = role
           const country = countriesRecord[countryIso]
-          return { country, label: t(Areas.getTranslationKey(countryIso)), value: countryIso }
+          const hidden = roleStatusFilter ? !roleStatusFilter.includes(Areas.getStatus(country)) : false
+          return { country, hidden, label: t(Areas.getTranslationKey(countryIso)), value: countryIso }
         })
 
       const group = { options, order, roleName: roleName as RoleName }
       order += 1
       return group
     })
-  }, [countriesRecord, cycle, lang, orderBy, regionGroupsLength, t, user])
+  }, [countriesRecord, cycle, filters, lang, regionGroupsLength, t, user])
 }
