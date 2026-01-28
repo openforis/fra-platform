@@ -82,6 +82,10 @@ const _getCountryLastExecutedAt = async (
   return _getLastExecutedAtFromInfo({ activityLog, jobStatus, lastVisitedAt })
 }
 
+// lastExecutedAt resolution:
+// 1. Global: latest of successful queue job finish time and activity_log linksCheckComplete time.
+// 2. Country: latest of (global) and country-scoped job/activity_log completion.
+// 3. Country fallback: lastVisitedAt from link table (only when countryIso is provided).
 export const getVerificationSummary = async (
   props: Props,
   client: BaseProtocol = DB
