@@ -21,12 +21,13 @@ export const getLastLinksCheckCompleteTime = async (
 ): Promise<Returned | null> => {
   const { assessment, countryIso, cycle } = props
 
+  // If countryIso is not provided, we are querying the global assessment/cycle verification run.
   const whereConditions = [
     `assessment_uuid = $(assessmentUuid)`,
     `cycle_uuid = $(cycleUuid)`,
     `message = $(message)`,
     `section = $(section)`,
-    countryIso && `country_iso = $(countryIso)`,
+    countryIso ? `country_iso = $(countryIso)` : `country_iso is null`,
   ].filter(Boolean)
 
   return client.oneOrNone<Returned | null>(

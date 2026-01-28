@@ -6,7 +6,7 @@ import { LinksVerificationSummary } from 'meta/cycleData/links/link'
 import { BaseProtocol, DB } from 'server/db/db'
 import { LinkRepository } from 'server/db/repository/assessmentCycle/links'
 import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
-import { JobStatus } from 'server/worker/job/jobStatus'
+import { JobStatus, JobStatusPayload } from 'server/worker/job/jobStatus'
 import { VerifyLinksJob } from 'server/worker/tasks/verifyLinks/verifyLinksJob'
 
 type Props = {
@@ -15,24 +15,98 @@ type Props = {
   cycle: Cycle
 }
 
+const _getLatestDate = (dates: Array<string | undefined>): string | undefined => {
+  const validDates = dates.filter(Boolean) as Array<string>
+  if (validDates.length === 0) return undefined
+
+  return validDates.reduce((latest, current) => {
+    if (new Date(current).getTime() > new Date(latest).getTime()) return current
+    return latest
+  })
+}
+
+type LastLinksCheckCompleteTime = Awaited<ReturnType<typeof ActivityLogRepository.getLastLinksCheckCompleteTime>>
+
+type ExecutionInfo = {
+  activityLog?: LastLinksCheckCompleteTime
+  jobStatus?: JobStatusPayload
+  lastVisitedAt?: string
+}
+
+const _getLastExecutedAtFromInfo = (props: ExecutionInfo): string | undefined => {
+  const { activityLog, jobStatus, lastVisitedAt } = props
+
+  const lastJobFinishedAt = jobStatus?.status === JobStatus.success ? jobStatus.finishedAt : undefined
+  const lastActivityLogCompleteTime = activityLog?.lastCompletedAt ?? undefined
+
+  return _getLatestDate([lastJobFinishedAt, lastActivityLogCompleteTime, lastVisitedAt])
+}
+
+type GlobalLastExecutedAtProps = {
+  assessment: Assessment
+  cycle: Cycle
+}
+
+const _getGlobalLastExecutedAt = async (
+  props: GlobalLastExecutedAtProps,
+  client: BaseProtocol
+): Promise<string | undefined> => {
+  const { assessment, cycle } = props
+
+  const verifyLinksJob = new VerifyLinksJob({ assessment, cycle })
+  const [activityLog, jobStatus] = await Promise.all([
+    ActivityLogRepository.getLastLinksCheckCompleteTime({ assessment, cycle }, client),
+    verifyLinksJob.getStatus(),
+  ])
+
+  return _getLastExecutedAtFromInfo({ activityLog, jobStatus })
+}
+
+type CountryLastExecutedAtProps = GlobalLastExecutedAtProps & {
+  countryIso: CountryIso
+  lastVisitedAt?: string
+}
+
+const _getCountryLastExecutedAt = async (
+  props: CountryLastExecutedAtProps,
+  client: BaseProtocol
+): Promise<string | undefined> => {
+  const { assessment, countryIso, cycle, lastVisitedAt } = props
+
+  const verifyLinksJob = new VerifyLinksJob({ assessment, countryIso, cycle })
+  const [activityLog, jobStatus] = await Promise.all([
+    ActivityLogRepository.getLastLinksCheckCompleteTime({ assessment, countryIso, cycle }, client),
+    verifyLinksJob.getStatus(),
+  ])
+
+  return _getLastExecutedAtFromInfo({ activityLog, jobStatus, lastVisitedAt })
+}
+
 export const getVerificationSummary = async (
   props: Props,
   client: BaseProtocol = DB
 ): Promise<LinksVerificationSummary> => {
   const { assessment, countryIso, cycle } = props
 
-  const verifyLinksJob = new VerifyLinksJob({ assessment, countryIso, cycle })
-  const [summary, activityLog, jobStatus] = await Promise.all([
+  const [summary, globalLastExecutedAt] = await Promise.all([
     LinkRepository.getVerificationSummary({ assessment, countryIso, cycle }, client),
-    ActivityLogRepository.getLastLinksCheckCompleteTime({ assessment, countryIso, cycle }, client),
-    verifyLinksJob.getStatus(),
+    _getGlobalLastExecutedAt({ assessment, cycle }, client),
   ])
 
-  const lastJobFinishedAt = jobStatus?.status === JobStatus.success ? jobStatus.finishedAt : undefined
-  const lastActivityLogCompleteTime = activityLog?.lastCompletedAt ?? undefined
+  // lastVisitedAt comes directly from the links table, it is used as a last fallback
+  // when the countryIso is provided
   const lastVisitedAt =
     countryIso && summary.lastVisitedAt ? new Date(Number(summary.lastVisitedAt)).toISOString() : undefined
-  const lastExecutedAt = lastJobFinishedAt ?? lastActivityLogCompleteTime ?? lastVisitedAt
+
+  let countryLastExecutedAt: string | undefined
+  if (countryIso) {
+    countryLastExecutedAt = await _getCountryLastExecutedAt({ assessment, countryIso, cycle, lastVisitedAt }, client)
+  }
+
+  let lastExecutedAt = globalLastExecutedAt
+  if (countryIso) {
+    lastExecutedAt = _getLatestDate([globalLastExecutedAt, countryLastExecutedAt])
+  }
   const neverRan = !lastExecutedAt
 
   return {
