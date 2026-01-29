@@ -8,14 +8,16 @@ import { RoleName } from 'meta/user/role/name'
 import { Objects } from 'utils/objects'
 
 import { useAreaSelectorFilters } from 'client/store/ui/areaSelector/hooks/areaSelector'
-import ButtonCheckbox from 'client/components/Buttons/ButtonCheckbox'
 import Icon from 'client/components/Icon'
-import { useHandleOutsideClick } from 'client/components/PageLayout/Toolbar/AreaSelect/Group/StatusFilter/hooks/useHandleOutsideClick'
-import { useHandleToggle } from 'client/components/PageLayout/Toolbar/AreaSelect/Group/StatusFilter/hooks/useHandleToggle'
+
+import { useHandleOutsideClick } from './hooks/useHandleOutsideClick'
+import { useHandleToggle } from './hooks/useHandleToggle'
 
 type Props = {
   roleName: RoleName
 }
+
+const emptyFn = (): void => {}
 
 const StatusFilter: React.FC<Props> = (props) => {
   const { roleName } = props
@@ -44,14 +46,28 @@ const StatusFilter: React.FC<Props> = (props) => {
 
       {open && (
         <div className="status-filter__menu">
-          {Object.values(CountryStatus).map((status) => (
-            <ButtonCheckbox
-              key={status}
-              checked={activeStatuses?.includes(status) ?? false}
-              label={t(`assessment.status.${status}.label`)}
-              onClick={() => handleToggle(status)}
-            />
-          ))}
+          {Object.values(CountryStatus).map((status) => {
+            const selected = activeStatuses?.includes(status) ?? false
+            return (
+              <div
+                key={status}
+                aria-selected={selected}
+                className={classNames('status-filter__option', { selected })}
+                onClick={() => handleToggle(status)}
+                onKeyDown={() => handleToggle(status)}
+                role="option"
+                tabIndex={0}
+              >
+                <input
+                  checked={selected}
+                  className="select__toggleAllOption-checkbox"
+                  onChange={emptyFn}
+                  type="checkbox"
+                />
+                <span className="select__toggleAllOption-label">{t(`assessment.status.${status}.label`)}</span>
+              </div>
+            )
+          })}
         </div>
       )}
     </div>

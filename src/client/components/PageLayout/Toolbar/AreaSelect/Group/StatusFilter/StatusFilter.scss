@@ -6,14 +6,24 @@
 
 .status-filter__menu {
   position: absolute;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: $spacing-xxxs;
-  padding: $spacing-xxs;
   background-color: white;
+  border: 1px solid $ui-border;
   border-radius: 2px;
   box-shadow: $shadow-3;
   z-index: $z-index-popover;
+}
+
+.status-filter__option {
+  cursor: pointer;
+  padding: $spacing-xxs;
   white-space: nowrap;
+
+  &:hover {
+    background-color: $ui-option-hover;
+  }
+
+  &.selected {
+    color: $text-body;
+    font-weight: 600;
+  }
 }
