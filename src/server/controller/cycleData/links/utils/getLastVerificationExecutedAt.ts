@@ -10,8 +10,11 @@ type Props = {
   lastVisitedAt?: string
 }
 
-export const getLatestDate = (dates: Array<string | undefined>): string | undefined => {
-  const validDates = dates.filter(Boolean) as Array<string>
+export const getLatestDate = (dates: Array<string | Date | undefined>): string | undefined => {
+  // Normalize dates
+  const validDates = dates
+    .filter(Boolean)
+    .map((value) => (value instanceof Date ? value.toISOString() : value)) as Array<string>
   if (validDates.length === 0) return undefined
 
   return validDates.reduce((latest, current) => {
