@@ -1,7 +1,9 @@
 import './popoverControl.scss'
-import React, { PropsWithChildren, ReactElement, ReactNode, useEffect, useRef, useState } from 'react'
+import React, { PropsWithChildren, ReactElement, ReactNode, useState } from 'react'
 import { Link } from 'react-router'
 import classNames from 'classnames'
+
+import { useOnClose } from 'client/hooks/useOnClose'
 
 export type PopoverItem = {
   content?: ReactNode
@@ -18,18 +20,7 @@ const PopoverControl: React.FC<PropsWithChildren<Props>> = (props) => {
   const { children, items } = props
 
   const [open, setOpen] = useState<boolean>(false)
-  const popoverControlRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const outsideClick = (event: any): void => {
-      if (popoverControlRef.current && !popoverControlRef.current.contains(event.target)) setOpen(false)
-    }
-    window.addEventListener('click', outsideClick)
-
-    return (): void => {
-      window.removeEventListener('click', outsideClick)
-    }
-  }, [])
+  const popoverControlRef = useOnClose<HTMLDivElement>({ open, onClose: () => setOpen(false) })
 
   return (
     <div
