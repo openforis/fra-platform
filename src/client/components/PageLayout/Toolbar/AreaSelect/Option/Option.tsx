@@ -19,17 +19,18 @@ type Props = OptionProps<OptionArea, boolean, OptionsGroupArea>
 
 const Option: React.FC<Props> = (props) => {
   const { data } = props
-  const { country, label } = data
+  const { country, hidden, label } = data
 
   const { t } = useTranslation()
   const cycle = useCycle()
   const user = useUser()
   const expanded = useIsAreaSelectorExpanded()
   const publishedAfterLabel = usePublishedAfterLabel({ country })
+  const formatDate = useCallback((date?: string): string => (date ? Dates.getRelativeDate(date, t) : '-'), [t])
+
+  if (hidden) return null
 
   const withRole = country && Users.hasRoleInCountry({ countryIso: country.countryIso, cycle, user })
-
-  const formatDate = useCallback((date?: string): string => (date ? Dates.getRelativeDate(date, t) : '-'), [t])
 
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading

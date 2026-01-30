@@ -20,9 +20,9 @@ const SortableHeader: React.FC<Props> = (props) => {
   const { label, roleName, sortByProperty } = props
 
   const dispatch = useAppDispatch()
-  const { orderBy } = useAreaSelectorFilters()
+  const filters = useAreaSelectorFilters()
 
-  const current = orderBy[roleName]
+  const current = filters[roleName]?.orderBy
   const active = current?.sortBy === sortByProperty
   const iconName =
     active && current?.sortDirection === AreaSelectorSortDirection.asc ? 'sort-amount-asc' : 'sort-amount-desc'

@@ -1,3 +1,5 @@
+import { CountryStatus } from 'meta/area/countryStatus'
+
 export enum AreaSelectorMode {
   collapsed = 'collapsed',
   expanded = 'expanded',
@@ -15,9 +17,12 @@ export type AreaSelectorOrderBy = {
   sortDirection: AreaSelectorSortDirection
 }
 
-export type AreaSelectorFilters = {
-  orderBy: Record<string, AreaSelectorOrderBy | undefined>
+export type AreaSelectorRoleFilters = {
+  orderBy?: AreaSelectorOrderBy
+  statusFilter?: Array<CountryStatus>
 }
+
+export type AreaSelectorFilters = Record<string, AreaSelectorRoleFilters | undefined>
 
 export type AreaSelectorState = {
   mode: AreaSelectorMode
@@ -26,7 +31,5 @@ export type AreaSelectorState = {
 
 export const initialState: AreaSelectorState = {
   mode: AreaSelectorMode.collapsed,
-  filters: {
-    orderBy: {},
-  },
+  filters: {},
 }

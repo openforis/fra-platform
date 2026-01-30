@@ -2158,6 +2158,11 @@
   resolved "https://registry.yarnpkg.com/@jsep-plugin/object/-/object-1.2.2.tgz#ee10e9b4531063d61ce5bd47f5abb4b9e8be6e65"
   integrity sha512-GZsC7gI5oBR+mfDFJqULf5a76FRVKednNCdSco96HM1NUbZSdDT7t/fkClUf6In64L5JORCIyhOhE6wJA6AZYg==
 
+"@junaidakbar076/react-outside-click-handler@^1.0.5":
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/@junaidakbar076/react-outside-click-handler/-/react-outside-click-handler-1.0.5.tgz#3e282295e44a35bf070edc4a90abbfc35424e158"
+  integrity sha512-BT/jZ4zm2EhfMmCQPggXoMAJE2/yCeLaG3wpYsDIyC6K8D6zUcWWiuUnHhwzaJspNuSkvyWNP0i0NeVmISfsNA==
+
 "@msgpack/msgpack@~2.8.0":
   version "2.8.0"
   resolved "https://registry.yarnpkg.com/@msgpack/msgpack/-/msgpack-2.8.0.tgz#4210deb771ee3912964f14a15ddfb5ff877e70b9"
