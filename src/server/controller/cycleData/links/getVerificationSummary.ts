@@ -3,10 +3,13 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { LinksVerificationSummary } from 'meta/cycleData/links/link'
 
+import {
+  getLastVerificationExecutedAt,
+  getLatestDate,
+} from 'server/controller/cycleData/links/utils/getLastVerificationExecutedAt'
 import { BaseProtocol, DB } from 'server/db/db'
 import { LinkRepository } from 'server/db/repository/assessmentCycle/links'
 import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
-import { JobStatus } from 'server/worker/job/jobStatus'
 import { VerifyLinksJob } from 'server/worker/tasks/verifyLinks/verifyLinksJob'
 
 type Props = {
@@ -15,24 +18,47 @@ type Props = {
   cycle: Cycle
 }
 
+// lastExecutedAt resolution:
+// 1. Global: latest of successful queue job finish time and activity_log linksCheckComplete time.
+// 2. Country: latest of (global) and country-scoped job/activity_log completion.
+// 3. Country fallback: lastVisitedAt from link table (only when countryIso is provided).
 export const getVerificationSummary = async (
   props: Props,
   client: BaseProtocol = DB
 ): Promise<LinksVerificationSummary> => {
   const { assessment, countryIso, cycle } = props
 
-  const verifyLinksJob = new VerifyLinksJob({ assessment, countryIso, cycle })
-  const [summary, activityLog, jobStatus] = await Promise.all([
+  const [summary, globalActivityLog, globalJobStatus, countryActivityLog, countryJobStatus] = await Promise.all([
     LinkRepository.getVerificationSummary({ assessment, countryIso, cycle }, client),
-    ActivityLogRepository.getLastLinksCheckCompleteTime({ assessment, countryIso, cycle }, client),
-    verifyLinksJob.getStatus(),
+    ActivityLogRepository.getLastLinksCheckCompleteTime({ assessment, cycle }, client),
+    new VerifyLinksJob({ assessment, cycle }).getStatus(),
+    countryIso
+      ? ActivityLogRepository.getLastLinksCheckCompleteTime({ assessment, countryIso, cycle }, client)
+      : undefined,
+    countryIso ? new VerifyLinksJob({ assessment, countryIso, cycle }).getStatus() : undefined,
   ])
 
-  const lastJobFinishedAt = jobStatus?.status === JobStatus.success ? jobStatus.finishedAt : undefined
-  const lastActivityLogCompleteTime = activityLog?.lastCompletedAt ?? undefined
-  const lastVisitedAt =
-    countryIso && summary.lastVisitedAt ? new Date(Number(summary.lastVisitedAt)).toISOString() : undefined
-  const lastExecutedAt = lastJobFinishedAt ?? lastActivityLogCompleteTime ?? lastVisitedAt
+  const globalLastExecutedAt = getLastVerificationExecutedAt({
+    activityLog: globalActivityLog,
+    jobStatus: globalJobStatus,
+  })
+
+  let countryLastExecutedAt: string | undefined = undefined
+  if (countryIso) {
+    // lastVisitedAt comes directly from the links table, it is used as a last fallback
+    const lastVisitedAt = summary.lastVisitedAt ? new Date(Number(summary.lastVisitedAt)).toISOString() : undefined
+
+    countryLastExecutedAt = getLastVerificationExecutedAt({
+      activityLog: countryActivityLog,
+      jobStatus: countryJobStatus,
+      lastVisitedAt,
+    })
+  }
+
+  let lastExecutedAt = globalLastExecutedAt
+  if (countryIso) {
+    lastExecutedAt = getLatestDate([globalLastExecutedAt, countryLastExecutedAt])
+  }
   const neverRan = !lastExecutedAt
 
   return {

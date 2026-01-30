@@ -13,7 +13,7 @@ type Props = {
 const LastStatus: React.FC<Props> = (props) => {
   const { link } = props
   const { t } = useTranslation()
-  const code = link.visits?.at(-1).code
+  const code = link.visits?.at(-1)?.code
 
   const labelKey = Links.getI18nValidationStatusLabelKey(code)
 

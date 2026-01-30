@@ -73,7 +73,9 @@ export const useLinksVerificationGuard = (props: Props): Returned => {
   }, [country, currentStatus, needsGuardCheck, status.status, verificationSummary])
 
   const hasError = needsGuardCheck && verificationSummaryStatus === LinksVerificationSummaryStatus.failed
-  const isLoading = needsGuardCheck && !verificationSummary && !hasError
+  const isLoading =
+    needsGuardCheck &&
+    (verificationSummaryStatus === LinksVerificationSummaryStatus.loading || (!verificationSummary && !hasError))
 
   const canSubmit = !hasError && !guardResult.blocked && !isLoading
   const hasGuardFetchError = hasError && !isLoading

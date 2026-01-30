@@ -30,7 +30,10 @@ const _visitLink = async (link: string | null): Promise<LinkValidationStatusCode
 
   return new Promise((resolve) => {
     dns.resolve(hostname, (err, addresses) => {
-      if (err) resolve(LinkValidationStatusCode.enotfound)
+      if (err) {
+        resolve(LinkValidationStatusCode.enotfound)
+        return
+      }
 
       if (addresses?.length > 0) {
         resolve(LinkValidationStatusCode.success)
