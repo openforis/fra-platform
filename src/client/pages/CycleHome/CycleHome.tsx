@@ -11,12 +11,12 @@ import KeyFindings from 'client/pages/CycleHome/KeyFindings'
 import { useCycleRedirect } from './hooks/useCycleRedirect'
 import Introduction from './Introduction'
 import Partners from './Partners'
-import Report from './Report'
+import ReportAndStory from './ReportAndStory'
 
 const HeroComponents: Record<CycleName, React.FC> = {
   '2020': KeyFindings,
-  '2025': Report,
-  latest: Report,
+  '2025': ReportAndStory,
+  latest: ReportAndStory,
 }
 
 const Components: { [key: AssessmentName]: React.FC } = {

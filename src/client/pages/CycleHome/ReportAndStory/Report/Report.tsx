@@ -14,6 +14,15 @@ const Report: React.FC = () => {
 
   return (
     <div className="home-report">
+      <div className="home-report__title">
+        {t('common.globalFRA')
+          .split(' ')
+          .map((word) => (
+            <span key={word}>{word}</span>
+          ))}
+        <span className="home-report__title-year">2025</span>
+      </div>
+
       <img
         key={cycleName}
         alt={t('common.globalFRA')}
@@ -21,19 +30,22 @@ const Report: React.FC = () => {
         src={`/img/${assessmentName}/${cycleName}/landing/report-cover.jpg`}
       />
 
-      <div className="home-report__links">
-        <Button
-          label={t('common.readOnline')}
-          onClick={() => window.open(readOnlineUrl, '_blank')}
-          size={ButtonSize.l}
-          type={ButtonType.primary}
-        />
-        <Button
-          label={t('common.downloadPdf')}
-          onClick={() => window.open(downloadPdfUrl, '_blank')}
-          size={ButtonSize.l}
-          type={ButtonType.primary}
-        />
+      <div className="home-report__actions">
+        <h3 className="home-report__actions-title">{t('landing.mainReport')}</h3>
+        <div className="home-report__links">
+          <Button
+            label={t('common.readOnline')}
+            onClick={() => window.open(readOnlineUrl, '_blank')}
+            size={ButtonSize.l}
+            type={ButtonType.primary}
+          />
+          <Button
+            label={t('common.downloadPdf')}
+            onClick={() => window.open(downloadPdfUrl, '_blank')}
+            size={ButtonSize.l}
+            type={ButtonType.primary}
+          />
+        </div>
       </div>
     </div>
   )

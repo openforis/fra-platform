@@ -1,0 +1,11 @@
+@use 'src/client/style/partials' as *;
+
+.report-and-story {
+  background-color: #f2fcff;
+  display: grid;
+  grid-template-columns: 1fr;
+
+  @include min-width($desktop) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
