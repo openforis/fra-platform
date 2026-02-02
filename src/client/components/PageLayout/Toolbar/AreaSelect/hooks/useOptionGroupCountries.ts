@@ -8,10 +8,13 @@ import { RoleName } from 'meta/user/role/name'
 import { UserRole } from 'meta/user/role/role'
 import { UserRoles } from 'meta/user/roles'
 import { Users } from 'meta/user/users'
+import { Dates } from 'utils/dates'
 import { Objects } from 'utils/objects'
 
 import { useCountriesRecord } from 'client/store/area/hooks/countries'
 import { useCycle } from 'client/store/meta/hooks/cycles'
+import { useAreaSelectorFilters } from 'client/store/ui/areaSelector/hooks/areaSelector'
+import { AreaSelectorSortDirection } from 'client/store/ui/areaSelector/state'
 import { useUser } from 'client/store/user/hooks/user'
 import { useLanguage } from 'client/hooks/language'
 import { OptionsGroup } from 'client/components/Inputs/Select'
@@ -29,6 +32,7 @@ export const useOptionGroupCountries = (props: Props): ReadonlyArray<OptionsGrou
   const user = useUser()
   const countriesRecord = useCountriesRecord()
   const lang = useLanguage()
+  const filters = useAreaSelectorFilters()
 
   return useMemo<ReadonlyArray<OptionsGroup>>(() => {
     if (Objects.isEmpty(countriesRecord)) {
@@ -66,8 +70,19 @@ export const useOptionGroupCountries = (props: Props): ReadonlyArray<OptionsGrou
 
     // 3. create the array of OptionsGroup
     return Object.entries(rolesGrouped).map<OptionsGroupArea>(([roleName, roles]) => {
+      const roleFilters = filters[roleName]
+      const roleOrderBy = roleFilters?.orderBy
+      const roleStatusFilter = roleFilters?.statusFilter
+
       const options = roles
         .sort((r1, r2) => {
+          if (roleOrderBy?.sortBy) {
+            const a = countriesRecord[r1.countryIso][roleOrderBy.sortBy]
+            const b = countriesRecord[r2.countryIso][roleOrderBy.sortBy]
+            const direction = roleOrderBy.sortDirection === AreaSelectorSortDirection.asc ? 1 : -1
+            return Dates.isAfter(a, b) ? direction : -direction
+          }
+
           const area1 = countriesRecord[r1.countryIso]
           const area2 = countriesRecord[r2.countryIso]
           return Areas.getCompareListName(area1, area2, lang)
@@ -75,12 +90,13 @@ export const useOptionGroupCountries = (props: Props): ReadonlyArray<OptionsGrou
         .map<OptionArea>((role) => {
           const { countryIso } = role
           const country = countriesRecord[countryIso]
-          return { country, label: t(Areas.getTranslationKey(countryIso)), value: countryIso }
+          const hidden = roleStatusFilter ? !roleStatusFilter.includes(Areas.getStatus(country)) : false
+          return { country, hidden, label: t(Areas.getTranslationKey(countryIso)), value: countryIso }
         })
 
       const group = { options, order, roleName: roleName as RoleName }
       order += 1
       return group
     })
-  }, [countriesRecord, cycle, lang, regionGroupsLength, t, user])
+  }, [countriesRecord, cycle, filters, lang, regionGroupsLength, t, user])
 }

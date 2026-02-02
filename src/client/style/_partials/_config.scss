@@ -37,6 +37,7 @@ $ui-alert: #f58020;
 $ui-black-map: #07090a;
 
 $ui-input-focus: rgba(219, 241, 245, 0.25); //$ui-accent-light-extra 0.2
+$ui-option-hover: color.adjust($ui-accent-light-extra, $lightness: 3%, $space: hsl);
 $ui-edit-border-color: #939393;
 
 //Theme 2

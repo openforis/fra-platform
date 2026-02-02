@@ -1,12 +1,10 @@
-@use 'sass:color';
-
 @use 'src/client/style/partials' as *;
 
 .select__groupHeading-selectable {
   display: flex;
 
   &:hover:not(.disabled) {
-    background-color: color.adjust($ui-accent-light-extra, $lightness: 3%, $space: hsl);
+    background-color: $ui-option-hover;
   }
 
   &.disabled {
