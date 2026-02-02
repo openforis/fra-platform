@@ -7,7 +7,7 @@ import { Dates } from 'utils/dates'
 import { useAppDispatch } from 'client/store/hooks'
 import { LinksActions } from 'client/store/links/actions'
 import { useIsVerificationInProgress, useVerificationSummary } from 'client/store/links/hooks/verification'
-import Button from 'client/components/Buttons/Button'
+import Button, { ButtonSize } from 'client/components/Buttons/Button'
 
 type Props = {
   assessmentName: string
@@ -43,6 +43,7 @@ export const useExtraActions = (props: Props): Array<React.ReactElement> => {
           disabled={verifyLinksInProgress ?? true}
           label={t('admin.verifyLinks')}
           onClick={handleVerifyLinks}
+          size={ButtonSize.m}
         />
         {lastExecutedLabel && (
           <span className="verify-links__last-executed">

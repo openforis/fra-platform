@@ -1,10 +1,23 @@
 @use 'src/client/style/partials' as *;
 
 .table-paginated-actions {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xxs;
+  margin-top: $spacing-s;
+  padding: $spacing-xxxs;
+  z-index: 1;
+}
+
+.table-paginated-actions__row {
   align-items: center;
   display: flex;
   gap: $spacing-xs;
-  height: $spacing-l;
-  padding: $spacing-xxxs;
-  z-index: 1;
+  min-height: $spacing-l;
+
+  &--extra {
+    justify-content: center;
+    width: 100%;
+  }
 }

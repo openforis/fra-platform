@@ -21,16 +21,19 @@ const Actions: React.FC<Props> = (props) => {
   return (
     <div className="table-paginated-actions">
       {extraActions?.length > 0 && (
-        <>
+        <div className="table-paginated-actions__row table-paginated-actions__row--extra">
           {extraActions.map((action, index) => (
             <React.Fragment key={`extra-action-${String(index)}`}>{action}</React.Fragment>
           ))}
-          {hasDefaultActions && <Hr vertical />}
-        </>
+        </div>
       )}
-      {exportTable && <ExportButton path={path} />}
-      {exportTable && withFilters && <Hr vertical />}
-      {withFilters && <Filters filters={filters} path={path} />}
+      {hasDefaultActions && (
+        <div className="table-paginated-actions__row">
+          {exportTable && <ExportButton path={path} />}
+          {exportTable && withFilters && <Hr vertical />}
+          {withFilters && <Filters filters={filters} path={path} />}
+        </div>
+      )}
     </div>
   )
 }
