@@ -47,9 +47,12 @@ const TablePaginated = <Datum extends object>(props: Props<Datum>): React.ReactE
     EmptyListComponent = defaults.EmptyListComponent,
     compareFn,
     counter = defaults.counter,
+    disableExport = false,
+    disableFilters = false,
     export: exportTable,
     extraActions,
     header = true,
+    hidePagination = false,
     skeleton = defaults.skeleton,
     wrapCells = true,
   } = props // Component Props
@@ -70,7 +73,14 @@ const TablePaginated = <Datum extends object>(props: Props<Datum>): React.ReactE
   return (
     <div ref={divRef} className={classNames('table-paginated', className)}>
       <div>
-        <Actions export={exportTable} extraActions={extraActions} filters={filters} path={path} />
+        <Actions
+          disableExport={disableExport}
+          disableFilters={disableFilters}
+          export={exportTable}
+          extraActions={extraActions}
+          filters={filters}
+          path={path}
+        />
         <DataGrid className="table-paginated-datagrid" gridTemplateColumns={gridTemplateColumns}>
           {header && <Header columns={columns} path={path} />}
           {count?.total === 0 && <EmptyListComponent />}
@@ -87,12 +97,14 @@ const TablePaginated = <Datum extends object>(props: Props<Datum>): React.ReactE
         </DataGrid>
       </div>
 
-      <Paginator
-        limit={limit}
-        marginPagesDisplayed={marginPagesDisplayed}
-        pageRangeDisplayed={pageRangeDisplayed}
-        path={path}
-      />
+      {!hidePagination && (
+        <Paginator
+          limit={limit}
+          marginPagesDisplayed={marginPagesDisplayed}
+          pageRangeDisplayed={pageRangeDisplayed}
+          path={path}
+        />
+      )}
 
       {counter.show && <Count counter={counter} path={path} />}
     </div>

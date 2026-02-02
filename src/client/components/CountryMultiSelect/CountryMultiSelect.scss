@@ -30,6 +30,11 @@ $icon-size: 14px;
     padding: 0 6px;
   }
 
+  .select__control.isDisabled {
+    align-content: center;
+    align-items: center;
+  }
+
   .select__groupHeading {
     background-color: color.adjust($ui-bg, $lightness: 1%, $space: hsl);
     border-bottom: 1px solid color.adjust($ui-border, $lightness: 1%, $space: hsl);

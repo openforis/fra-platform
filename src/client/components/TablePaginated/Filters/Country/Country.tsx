@@ -14,7 +14,7 @@ type Props = TablePaginatedFilter<TablePaginatedFilterType.COUNTRY> & {
 }
 
 const Country: React.FC<Props> = (props: Props) => {
-  const { fieldName, label, path } = props
+  const { disabled, fieldName, label, path } = props
   const dispatch = useAppDispatch()
   const filterValue = useTablePaginatedFilterValue<Array<string>>(path, fieldName)
 
@@ -24,6 +24,7 @@ const Country: React.FC<Props> = (props: Props) => {
 
   return (
     <CountryMultiSelect
+      disabled={disabled}
       onChange={(value): void => handleChange(value as Array<CountryIso>)}
       placeholder={label}
       value={filterValue}

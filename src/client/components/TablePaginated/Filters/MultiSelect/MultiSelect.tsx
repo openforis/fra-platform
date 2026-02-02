@@ -17,7 +17,7 @@ type Props = TablePaginatedFilter<TablePaginatedFilterType.MULTI_SELECT> & {
 }
 
 const MultiSelect: React.FC<Props> = (props: Props) => {
-  const { fieldName, label, multiLabelSummaryKey, options, path } = props
+  const { disabled, fieldName, label, multiLabelSummaryKey, options, path } = props
 
   const dispatch = useAppDispatch()
 
@@ -42,6 +42,7 @@ const MultiSelect: React.FC<Props> = (props: Props) => {
       data-tooltip-id={TooltipId.info}
     >
       <CommonMultiSelect
+        disabled={disabled}
         multiLabelSummaryKey={multiLabelSummaryKey}
         onChange={handleChange}
         onMenuClose={showTooltip}

@@ -9,22 +9,29 @@ import Icon from 'client/components/Icon'
 import { useExportUrl } from './hooks/useExportUrl'
 
 type Props = {
+  disabled?: boolean
   path: string
 }
 
 const ExportButton: React.FC<Props> = (props) => {
-  const { path } = props
+  const { disabled: disabledProp, path } = props
 
   const exportUrl = useExportUrl({ path })
 
   const count = useTablePaginatedCount(path)
-  const disabled = count?.total === 0
+  const disabled = disabledProp || count?.total === 0
 
   const className = useButtonClassName({ disabled, iconName: 'hit-down' })
 
   return (
     <div className="table-paginated-export-button">
-      <Link className={className} target="_blank" to={exportUrl}>
+      <Link
+        aria-disabled={disabled}
+        className={className}
+        tabIndex={disabled ? -1 : undefined}
+        target="_blank"
+        to={exportUrl}
+      >
         <Icon name="hit-down" />
         CSV
       </Link>

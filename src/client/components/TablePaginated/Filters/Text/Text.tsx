@@ -17,7 +17,7 @@ type Props = TablePaginatedFilter<TablePaginatedFilterType.TEXT> & {
 }
 
 const Text: React.FC<Props> = (props) => {
-  const { fieldName, label, path } = props
+  const { disabled, fieldName, label, path } = props
   const dispatch = useAppDispatch()
 
   const filterValue = useTablePaginatedFilterValue<string>(path, fieldName)
@@ -39,10 +39,11 @@ const Text: React.FC<Props> = (props) => {
 
   return (
     <div className={classNames('table-paginated-filter-input', { active: !Objects.isEmpty(filterValue) })}>
-      <InputText onChange={handleChange} placeholder={label} value={filterValue ?? ''} />
+      <InputText disabled={disabled} onChange={handleChange} placeholder={label} value={filterValue ?? ''} />
       {!Objects.isEmpty(filterValue) && (
         <Button
           className="clear-button icon"
+          disabled={disabled}
           iconName="remove"
           inverse
           onClick={handleClearInput}
