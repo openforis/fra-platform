@@ -9,3 +9,29 @@
     grid-template-columns: 1fr 1fr;
   }
 }
+
+.home-hero {
+  align-items: center;
+  display: grid;
+  gap: $spacing-l;
+  justify-content: center;
+  padding: $spacing-xxl $spacing-l;
+}
+
+.home-hero__image {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.home-hero__title {
+  color: $text-heading;
+  font-size: $font-xl;
+  font-weight: 400;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.home-hero__content {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-m;
+}

@@ -1,29 +1,9 @@
 @use 'src/client/style/partials' as *;
 
 .home-story {
-  align-items: center;
-  display: grid;
-  gap: clamp(16px, 4vw, 48px);
   grid-template-columns: auto auto;
-  justify-content: center;
-  padding: $spacing-xxl $spacing-l;
 }
 
 .home-story__image {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   width: 400px;
-}
-
-.home-story__content {
-  display: flex;
-  flex-direction: column;
-  gap: $spacing-m;
-}
-
-.home-story__title {
-  color: $text-heading;
-  font-size: $font-xl;
-  font-weight: 400;
-  margin: 0;
-  text-transform: uppercase;
 }

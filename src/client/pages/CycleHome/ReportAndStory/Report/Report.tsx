@@ -13,25 +13,25 @@ const Report: React.FC = () => {
   const { assessmentName, cycleName } = useCycleRouteParams()
 
   return (
-    <div className="home-report">
-      <div className="home-report__title">
+    <div className="home-hero home-report">
+      <div className="home-report__fra-title">
         {t('common.globalFRA')
           .split(' ')
           .map((word) => (
             <span key={word}>{word}</span>
           ))}
-        <span className="home-report__title-year">2025</span>
+        <span className="home-report__fra-title-year">2025</span>
       </div>
 
       <img
         key={cycleName}
         alt={t('common.globalFRA')}
-        className="home-report__cover"
+        className="home-hero__image home-report__cover"
         src={`/img/${assessmentName}/${cycleName}/landing/report-cover.jpg`}
       />
 
-      <div className="home-report__actions">
-        <h3 className="home-report__actions-title">{t('landing.mainReport')}</h3>
+      <div className="home-hero__content">
+        <h3 className="home-hero__title">{t('landing.mainReport')}</h3>
         <div className="home-report__links">
           <Button
             label={t('common.readOnline')}

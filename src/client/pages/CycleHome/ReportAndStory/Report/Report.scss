@@ -4,15 +4,10 @@
 // https://openknowledge.fao.org/server/api/core/bitstreams/2dee6e93-1988-4659-aa89-30dd20b43b15/content/cd6709en.html
 
 .home-report {
-  align-items: center;
-  display: grid;
-  gap: clamp(16px, 4vw, 48px);
   grid-template-columns: auto auto auto;
-  justify-content: center;
-  padding: $spacing-xxl $spacing-l;
 }
 
-.home-report__title {
+.home-report__fra-title {
   color: #01582d;
   display: flex;
   flex-direction: column;
@@ -22,29 +17,14 @@
   text-transform: uppercase;
 }
 
-.home-report__title-year {
+.home-report__fra-title-year {
   color: #f69c04;
   font-weight: 700;
   margin-top: 0.6rem;
 }
 
 .home-report__cover {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   width: 260px;
-}
-
-.home-report__actions {
-  display: flex;
-  flex-direction: column;
-  gap: $spacing-m;
-}
-
-.home-report__actions-title {
-  color: $text-heading;
-  font-size: $font-xl;
-  font-weight: 400;
-  margin: 0;
-  text-transform: uppercase;
 }
 
 .home-report__links {
