@@ -121,6 +121,7 @@
     "@googlemaps/react-wrapper": "^1.2.0",
     "@hookform/resolvers": "^5.2.2",
     "@jsep-plugin/object": "^1.2.2",
+    "@junaidakbar076/react-outside-click-handler": "^1.0.5",
     "@reduxjs/toolkit": "^2.11.2",
     "@socket.io/redis-streams-adapter": "^0.2.3",
     "archiver": "^7.0.1",
