@@ -18,6 +18,13 @@ export const isCollaborator = (user: User, countryIso: CountryIso, cycle: Cycle)
 export const isRegionalFocalPoint = (user: User, countryIso: AreaCode, cycle: Cycle): boolean =>
   isRole(user, RoleName.REGIONAL_FOCAL_POINT, countryIso, cycle)
 
+export const isARegionalFocalPoint = (user: User, cycle: Cycle): boolean => {
+  return user?.roles?.some(
+    (userRole: UserRole<never>) =>
+      userRole?.role === RoleName.REGIONAL_FOCAL_POINT && userRole?.cycleUuid === cycle.uuid
+  )
+}
+
 export const isReviewer = (user: User, countryIso: AreaCode, cycle: Cycle): boolean =>
   isRole(user, RoleName.REVIEWER, countryIso, cycle)
 
