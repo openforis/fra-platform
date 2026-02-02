@@ -7,8 +7,7 @@ import { Dates } from 'utils/dates'
 import { useAppDispatch } from 'client/store/hooks'
 import { LinksActions } from 'client/store/links/actions'
 import { useIsVerificationInProgress, useVerificationSummary } from 'client/store/links/hooks/verification'
-import { useLanguage } from 'client/hooks/language'
-import Button from 'client/components/Buttons/Button'
+import Button, { ButtonSize } from 'client/components/Buttons/Button'
 
 type Props = {
   assessmentName: string
@@ -21,7 +20,6 @@ export const useExtraActions = (props: Props): Array<React.ReactElement> => {
 
   const dispatch = useAppDispatch()
   const { t } = useTranslation()
-  const lang = useLanguage()
 
   const handleVerifyLinks = useCallback<() => void>(() => {
     dispatch(LinksActions.verifyLinks({ assessmentName, cycleName, countryIso }))
@@ -34,10 +32,8 @@ export const useExtraActions = (props: Props): Array<React.ReactElement> => {
     if (!verificationSummary) return null
     if (verificationSummary.neverRan) return null
     if (!verificationSummary.lastExecutedAt) return null
-    return Dates.format(Dates.parseISO(verificationSummary.lastExecutedAt), 'dd/MMMM/yyyy', {
-      locale: Dates.getLocale(lang),
-    })
-  }, [lang, verificationSummary])
+    return Dates.getRelativeDate(verificationSummary.lastExecutedAt, t)
+  }, [t, verificationSummary])
 
   return useMemo<Array<React.ReactElement>>(
     () => [
@@ -47,6 +43,7 @@ export const useExtraActions = (props: Props): Array<React.ReactElement> => {
           disabled={verifyLinksInProgress ?? true}
           label={t('admin.verifyLinks')}
           onClick={handleVerifyLinks}
+          size={ButtonSize.m}
         />
         {lastExecutedLabel && (
           <span className="verify-links__last-executed">
