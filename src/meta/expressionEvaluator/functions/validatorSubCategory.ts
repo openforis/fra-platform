@@ -1,7 +1,6 @@
+import { NodeValueValidation, NodeValueValidationMessage } from 'meta/assessment/nodeValueValidation'
 import { Numbers } from 'utils/numbers'
 import { Objects } from 'utils/objects'
-
-import { NodeValueValidation, NodeValueValidationMessage } from 'meta/assessment/nodeValueValidation'
 
 import { ExpressionFunction } from 'lib/expressionEvaluator/function'
 
@@ -11,13 +10,12 @@ export const validatorSubCategory: ExpressionFunction<Context> = {
   name: 'validatorSubCategory',
   minArity: 2,
   executor: () => {
-    return (categoryValue?: string, subCategoryValues?: Array<string>): NodeValueValidation => {
+    return (categoryValue?: string, subCategoryValues?: Array<string>, tolerance?: number): NodeValueValidation => {
       const nonEmptySubCategoryValues = subCategoryValues?.filter((v) => !Objects.isEmpty(v))
-
       const valid =
         Objects.isEmpty(categoryValue) ||
         nonEmptySubCategoryValues.length === 0 ||
-        Numbers.greaterThanWithTolerance(categoryValue, Numbers.sum(nonEmptySubCategoryValues))
+        Numbers.greaterThanWithTolerance(categoryValue, Numbers.sum(nonEmptySubCategoryValues), tolerance)
 
       const messages: Array<NodeValueValidationMessage> = valid
         ? undefined
