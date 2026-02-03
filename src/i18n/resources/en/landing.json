@@ -12,7 +12,10 @@
   "dataExport": {
     "downloadData": "Download data"
   },
+  "exploreKeyFindings": "Explore key findings",
   "home": "Home",
+  "interactiveStory": "Interactive Story",
+  "mainReport": "Main Report",
   "links": {
     "confirmDelete": "Delete {{file}}? This cannot be undone.",
     "fileDeleted": "File successfully deleted",
