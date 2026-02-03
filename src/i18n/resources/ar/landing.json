@@ -12,7 +12,10 @@
   "dataExport": {
     "downloadData": "تحميل البيانات"
   },
+  "exploreKeyFindings": "استكشاف النتائج الرئيسية",
   "home": "الصفحة الرئيسية",
+  "interactiveStory": "قصة تفاعلية",
+  "mainReport": "التقرير الرئيسي",
   "links": {
     "confirmDelete": "هل ستحذف {{file}}? لا يمكنك العودة عن هذه الخطوة",
     "fileDeleted": "تم حذف الملف بنجاح",

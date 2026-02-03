@@ -12,7 +12,10 @@
   "dataExport": {
     "downloadData": "下载数据"
   },
+  "exploreKeyFindings": "探索关键结果",
   "home": "主页",
+  "interactiveStory": "交互式故事",
+  "mainReport": "主要报告",
   "links": {
     "confirmDelete": "删除 {{file}}? 此操作无法撤销。",
     "fileDeleted": "文件成功删除",

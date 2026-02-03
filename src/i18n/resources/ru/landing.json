@@ -12,7 +12,10 @@
   "dataExport": {
     "downloadData": "Загрузить данные"
   },
+  "exploreKeyFindings": "Изучить ключевые выводы",
   "home": "Главная",
+  "interactiveStory": "Интерактивная история",
+  "mainReport": "Основной отчет",
   "links": {
     "confirmDelete": "Удалить {{file}}? Его невозможно будет восстановить.",
     "fileDeleted": "Файл успешно удален",
