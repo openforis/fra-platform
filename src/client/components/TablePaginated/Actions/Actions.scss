@@ -15,6 +15,11 @@
   gap: $spacing-xs;
   min-height: $spacing-l;
 
+  .hr.vertical {
+    flex-shrink: 0;
+    min-height: $spacing-s;
+  }
+
   &--extra {
     justify-content: center;
     width: 100%;
