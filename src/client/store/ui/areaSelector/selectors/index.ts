@@ -8,8 +8,10 @@ const _getState = (state: RootState) => state.ui[AreaSelectorSlice.name]
 
 const getMode = createSelector(_getState, (areaSelector) => areaSelector.mode)
 const isExpanded = createSelector(getMode, (mode) => mode === AreaSelectorMode.expanded)
+const getFilters = createSelector(_getState, (areaSelector) => areaSelector.filters)
 
 export const AreaSelectorSelectors = {
+  getFilters,
   getMode,
   isExpanded,
 }
