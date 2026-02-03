@@ -76,8 +76,8 @@ export const useFetchData = (props: Props): void => {
       const _props = { assessmentName, countryIso, cycleName, filters, limit, orderBy, page, path, sectionName }
       throttledGetData(_props)
 
-      return () => {
-        dispatch(TablePaginatedActions.resetData({ path }))
+      return (): void => {
+        dispatch(TablePaginatedActions.resetData({ path, resetCount: false }))
       }
     }
     return undefined

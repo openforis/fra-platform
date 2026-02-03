@@ -52,7 +52,6 @@ const TablePaginated = <Datum extends object>(props: Props<Datum>): React.ReactE
     export: exportTable,
     extraActions,
     header = true,
-    hidePagination = false,
     skeleton = defaults.skeleton,
     wrapCells = true,
   } = props // Component Props
@@ -97,14 +96,12 @@ const TablePaginated = <Datum extends object>(props: Props<Datum>): React.ReactE
         </DataGrid>
       </div>
 
-      {!hidePagination && (
-        <Paginator
-          limit={limit}
-          marginPagesDisplayed={marginPagesDisplayed}
-          pageRangeDisplayed={pageRangeDisplayed}
-          path={path}
-        />
-      )}
+      <Paginator
+        limit={limit}
+        marginPagesDisplayed={marginPagesDisplayed}
+        pageRangeDisplayed={pageRangeDisplayed}
+        path={path}
+      />
 
       {counter.show && <Count counter={counter} path={path} />}
     </div>
