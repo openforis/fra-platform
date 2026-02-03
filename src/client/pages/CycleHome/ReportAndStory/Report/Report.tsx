@@ -27,7 +27,7 @@ const Report: React.FC = () => {
         key={cycleName}
         alt={t('common.globalFRA')}
         className="home-hero__image home-report__cover"
-        src={`/img/${assessmentName}/${cycleName}/landing/report-cover.jpg`}
+        src={`/img/${assessmentName}/${cycleName}/landing/report-cover.png`}
       />
 
       <div className="home-hero__content">

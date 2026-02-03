@@ -3,9 +3,10 @@
 .report-and-story {
   background-color: #f2fcff;
   display: grid;
+  gap: $spacing-l;
   grid-template-columns: 1fr;
 
-  @include min-width($desktop) {
+  @include min-width($laptop) {
     grid-template-columns: 1fr 1fr;
   }
 }
@@ -33,5 +34,6 @@
 .home-hero__content {
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
   gap: $spacing-m;
 }

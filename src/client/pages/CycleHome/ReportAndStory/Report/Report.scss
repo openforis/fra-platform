@@ -5,6 +5,10 @@
 
 .home-report {
   grid-template-columns: auto auto auto;
+
+  @include min-width($laptop) {
+    justify-content: end;
+  }
 }
 
 .home-report__fra-title {
