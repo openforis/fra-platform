@@ -6,6 +6,7 @@ import { CountryIso } from 'meta/area/countryIso'
 
 import { useAppDispatch, useInjectSlice } from 'client/store/hooks'
 import { LinksActions } from 'client/store/links/actions'
+import { useIsVerificationInProgress } from 'client/store/links/hooks/verification'
 import { LinksSlice } from 'client/store/links/slice'
 import { LinksSliceName } from 'client/store/links/slice/name'
 import { useSectionRouteParams } from 'client/hooks/routeParams'
@@ -32,6 +33,8 @@ const LinksTable: React.FC<Props> = (props) => {
   const extraActions = useExtraActions({ assessmentName, countryIso, cycleName })
   const filters = useFilters({ countryIso })
   const path = ApiEndPoint.CycleData.Links.many()
+  const verifyLinksInProgress = useIsVerificationInProgress(assessmentName, cycleName, countryIso)
+  const isVerificationInProgress = verifyLinksInProgress ?? true
 
   const dispatch = useAppDispatch()
 
@@ -46,6 +49,9 @@ const LinksTable: React.FC<Props> = (props) => {
   return (
     <TablePaginated
       columns={columns}
+      counter={{ show: !isVerificationInProgress }}
+      disableExport={isVerificationInProgress}
+      disableFilters={isVerificationInProgress}
       export
       extraActions={extraActions}
       filters={filters}

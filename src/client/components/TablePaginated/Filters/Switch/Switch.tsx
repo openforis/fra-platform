@@ -1,9 +1,8 @@
 import React from 'react'
-
 import classNames from 'classnames'
-import { Objects } from 'utils/objects'
 
 import { TablePaginatedFilterType } from 'meta/tablePaginated/filters/filter'
+import { Objects } from 'utils/objects'
 
 import { useAppDispatch } from 'client/store/hooks'
 import { TablePaginatedActions } from 'client/store/tablePaginated/actions'
@@ -16,7 +15,7 @@ type Props = TablePaginatedFilter<TablePaginatedFilterType.SWITCH> & {
 }
 
 const Switch: React.FC<Props> = (props) => {
-  const { fieldName, label, path } = props
+  const { disabled, fieldName, label, path } = props
   const dispatch = useAppDispatch()
 
   const filterValue = useTablePaginatedFilterValue<boolean>(path, fieldName)
@@ -28,7 +27,7 @@ const Switch: React.FC<Props> = (props) => {
 
   return (
     <div className={classNames('table-paginated-filter-input', { active: !Objects.isEmpty(filterValue) })}>
-      <ButtonCheckbox checked={filterValue ?? false} label={label} onClick={handleChange} />
+      <ButtonCheckbox checked={filterValue ?? false} disabled={disabled} label={label} onClick={handleChange} />
     </div>
   )
 }

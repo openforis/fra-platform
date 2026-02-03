@@ -47,6 +47,8 @@ const TablePaginated = <Datum extends object>(props: Props<Datum>): React.ReactE
     EmptyListComponent = defaults.EmptyListComponent,
     compareFn,
     counter = defaults.counter,
+    disableExport = false,
+    disableFilters = false,
     export: exportTable,
     extraActions,
     header = true,
@@ -70,7 +72,14 @@ const TablePaginated = <Datum extends object>(props: Props<Datum>): React.ReactE
   return (
     <div ref={divRef} className={classNames('table-paginated', className)}>
       <div>
-        <Actions export={exportTable} extraActions={extraActions} filters={filters} path={path} />
+        <Actions
+          disableExport={disableExport}
+          disableFilters={disableFilters}
+          export={exportTable}
+          extraActions={extraActions}
+          filters={filters}
+          path={path}
+        />
         <DataGrid className="table-paginated-datagrid" gridTemplateColumns={gridTemplateColumns}>
           {header && <Header columns={columns} path={path} />}
           {count?.total === 0 && <EmptyListComponent />}
