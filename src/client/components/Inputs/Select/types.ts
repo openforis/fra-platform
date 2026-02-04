@@ -50,6 +50,7 @@ export type SelectProps = SelectBaseProps &
     createOptionLabelKey?: string
     disabled?: boolean
     hideDropdownIndicator?: boolean
+    id?: string
     inputHidden?: boolean
     isCreatable?: boolean
     multiLabelSummaryKey?: string
