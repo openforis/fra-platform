@@ -79,6 +79,7 @@
     "collaborators": "$t(user.roles.COLLABORATOR, {\"count\":10})",
     "contentCheck": "المحتوى / التحقق",
     "externalData": "بيانات خارجية",
+    "linksStatus": "حالة الروابط",
     "messageBoard": "لوح الرسائل",
     "overview": "استعراض",
     "recentActivity": "آخر النشاطات",
