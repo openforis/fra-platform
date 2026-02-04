@@ -1,3 +1,4 @@
+import { CountryIso } from 'meta/area/countryIso'
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
@@ -11,6 +12,7 @@ import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 
 type Props = {
   assessment: Assessment
+  countryIso?: CountryIso
   cycle: Cycle
   link: Link
   user: User

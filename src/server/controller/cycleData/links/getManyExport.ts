@@ -1,10 +1,10 @@
 import { createI18nPromise } from 'i18n/i18nFactory'
-import { Objects } from 'utils/objects'
 
 import { AssessmentNames } from 'meta/assessment/assessment'
 import { Link } from 'meta/cycleData/links/link'
 import { Links } from 'meta/cycleData/links/links'
 import { Lang } from 'meta/lang'
+import { Objects } from 'utils/objects'
 
 import { MetadataController } from 'server/controller/metadata'
 import { LinkRepository } from 'server/db/repository/assessmentCycle/links'
@@ -13,6 +13,7 @@ import { LinksQueryParams } from 'server/db/repository/assessmentCycle/links/Lin
 import { ProcessEnv } from 'server/utils'
 
 type Props = LinksGetManyProps & {
+  includeCountryIso?: boolean
   lang: Lang
 }
 
@@ -23,7 +24,7 @@ type Returned = {
 }
 
 export const getManyExport = async (props: Props): Promise<Returned> => {
-  const { assessment, cycle, lang } = props
+  const { assessment, cycle, includeCountryIso, lang } = props
 
   const { query, queryParams } = LinkRepository.buildGetManyQuery(props)
 
@@ -46,6 +47,7 @@ export const getManyExport = async (props: Props): Promise<Returned> => {
         const label = Links.getLocationLabel({
           countryIso: link.countryIso,
           cycle,
+          includeCountryIso,
           isPanEuropean,
           location,
           subSections,

@@ -21,12 +21,13 @@ const componentsByFilterType: Record<
 }
 
 type Props = {
+  disabled?: boolean
   filters: Array<TablePaginatedFilter<TablePaginatedFilterType>>
   path: string
 }
 
 const Filters: React.FC<Props> = (props: Props) => {
-  const { filters, path } = props
+  const { disabled, filters, path } = props
 
   return (
     <div className="table-paginated-filters">
@@ -34,11 +35,13 @@ const Filters: React.FC<Props> = (props: Props) => {
       {filters.map((filter) => {
         if (filter.hidden) return null
         const Component = componentsByFilterType[filter.type]
+        const filterDisabled = disabled || filter.disabled
         return (
           <Component
             key={filter.fieldName}
             // eslint-disable-next-line react/jsx-props-no-spreading
             {...filter}
+            disabled={filterDisabled}
             path={path}
           />
         )

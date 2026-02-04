@@ -2,8 +2,6 @@ import { combineSlices, configureStore } from '@reduxjs/toolkit'
 import { Middleware } from 'redux'
 import createDebounce from 'redux-debounced'
 
-import { LinksState } from 'client/store/admin/links/state'
-import { AdminSliceName } from 'client/store/admin/name'
 import { DataExportSliceName } from 'client/store/dataExport/slice/name'
 import { DataExportState } from 'client/store/dataExport/state'
 import { ExplorerDataState } from 'client/store/explorer/data/state'
@@ -16,6 +14,8 @@ import { GeoMapState } from 'client/store/geo/map/state'
 import { GeoMosaicState } from 'client/store/geo/mosaic/state'
 import { GeoRecipesState } from 'client/store/geo/recipes/state'
 import { GeoSliceName } from 'client/store/geo/slice/name'
+import { LinksSliceName } from 'client/store/links/slice/name'
+import { LinksState } from 'client/store/links/state'
 import { TablePaginatedSliceName } from 'client/store/tablePaginated/name'
 import { TablePaginatedState } from 'client/store/tablePaginated/state'
 
@@ -25,9 +25,6 @@ import { listenerMiddleware } from './middleware/listener'
 import rootReducer from './rootReducer'
 
 export interface LazyLoadedSlices {
-  [AdminSliceName]: {
-    links: LinksState
-  }
   [DataExportSliceName]: DataExportState
   [ExplorerSliceName]: {
     data: ExplorerDataState
@@ -42,6 +39,7 @@ export interface LazyLoadedSlices {
     recipes: GeoRecipesState
     statistics: GeoStatisticsState
   }
+  [LinksSliceName]: LinksState
   [TablePaginatedSliceName]: TablePaginatedState
 }
 

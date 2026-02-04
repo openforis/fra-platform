@@ -1,6 +1,7 @@
 import { Worker, WorkerListener, WorkerOptions } from 'bullmq'
 import IORedis from 'ioredis'
 
+import { CountryIso } from 'meta/area/countryIso'
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
@@ -29,6 +30,7 @@ const workerOptions: WorkerOptions = {
 
 type EmitEventProps = {
   assessment: Assessment
+  countryIso?: CountryIso
   cycle: Cycle
   event: keyof WorkerListener
 }
@@ -37,9 +39,10 @@ type EmitEventProps = {
 type VisitCycleLinksProcessor = string | ((job: VisitCycleLinksJob) => Promise<void>)
 
 const _emitEvent = (props: EmitEventProps): void => {
-  const { assessment, cycle, event } = props
+  const { assessment, countryIso, cycle, event } = props
   const linksVerificationEvent = Sockets.getLinksVerificationEvent({
     assessmentName: assessment.props.name,
+    countryIso,
     cycleName: cycle.name,
   })
   SocketServer.emit(linksVerificationEvent, { event })
@@ -55,19 +58,19 @@ const newInstance = (props: { key: string; processor: VisitCycleLinksProcessor }
   })
 
   worker.on('active', async (job) => {
-    const { assessment, cycle } = job.data
-    _emitEvent({ assessment, cycle, event: 'active' })
+    const { assessment, countryIso, cycle } = job.data
+    _emitEvent({ assessment, countryIso, cycle, event: 'active' })
   })
 
   worker.on('completed', async (job) => {
-    const { assessment, cycle, user } = job.data
+    const { assessment, countryIso, cycle, user } = job.data
 
-    _emitEvent({ assessment, cycle, event: 'completed' })
+    _emitEvent({ assessment, countryIso, cycle, event: 'completed' })
 
     const target = { jobStatus: 'completed' }
     const message = ActivityLogMessage.linksCheckComplete
     const section = SectionNames.Admin.links
-    const activityLog = { message, section, target, user }
+    const activityLog = { countryIso, message, section, target, user }
     const activityLogParams = { activityLog, assessment, cycle }
     await ActivityLogRepository.insertActivityLog(activityLogParams)
 
@@ -75,14 +78,14 @@ const newInstance = (props: { key: string; processor: VisitCycleLinksProcessor }
   })
 
   worker.on('failed', async (job, error) => {
-    const { assessment, cycle, user } = job.data
+    const { assessment, countryIso, cycle, user } = job.data
 
-    _emitEvent({ assessment, cycle, event: 'failed' })
+    _emitEvent({ assessment, countryIso, cycle, event: 'failed' })
 
     const target = { error, jobStatus: 'failed' }
     const message = ActivityLogMessage.linksCheckFail
     const section = SectionNames.Admin.links
-    const activityLog = { message, section, target, user }
+    const activityLog = { countryIso, message, section, target, user }
     const activityLogParams = { activityLog, assessment, cycle }
     await ActivityLogRepository.insertActivityLog(activityLogParams)
 

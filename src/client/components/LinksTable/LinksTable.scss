@@ -1,0 +1,20 @@
+@use 'src/client/style/partials' as *;
+
+.verify-links {
+  align-items: center;
+  display: flex;
+  flex-shrink: 0;
+  gap: $spacing-xxs;
+  margin-top: $spacing-s;
+}
+
+.verify-links-button {
+  white-space: nowrap;
+  width: max-content;
+}
+
+.verify-links__last-executed {
+  font-size: $font-xs;
+  font-weight: 600;
+  white-space: nowrap;
+}

@@ -19,6 +19,8 @@ export type Column<Datum> = {
 export type Props<Datum extends object> = {
   columns: Array<Column<Datum>>
   compareFn?: TablePaginatedCompareFn<Datum>
+  disableExport?: boolean
+  disableFilters?: boolean
   export?: boolean
   extraActions?: Array<React.ReactElement>
   filterFn?: (datum: Datum) => boolean
@@ -48,6 +50,7 @@ type TablePaginatedFilterTypeMap = {
 
 type BaseTablePaginatedFilter<FilterType extends TablePaginatedFilterType> = {
   defaultValue?: TablePaginatedFilterTypeMap[FilterType]
+  disabled?: boolean
   fieldName: string
   hidden?: boolean
   label: string
