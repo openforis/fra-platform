@@ -79,6 +79,7 @@
     "collaborators": "$t(user.roles.COLLABORATOR, {\"count\":10})",
     "contentCheck": "内容/检查",
     "externalData": "外部数据",
+    "linksStatus": "链接状态",
     "messageBoard": "留言板",
     "overview": "概览",
     "recentActivity": "近期活动",

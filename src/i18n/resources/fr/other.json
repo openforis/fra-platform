@@ -449,6 +449,17 @@
     "ru": "Русский",
     "zh": "中文"
   },
+  "linksGuard": {
+    "blocked": "Le rapport ne peut pas être soumis pour approbation. Veuillez aller sur la page de statut des liens et vérifier les liens.",
+    "blockedMessage": "Le rapport ne peut pas être soumis pour approbation depuis {{reason}}.",
+    "fetchError": "Impossible de vérifier le statut des liens. Veuillez réessayer.",
+    "reason": {
+      "invalidLinks": "Il y a des liens non valides à corriger",
+      "neverRan": "le processus des liens de vérification doit être exécuté",
+      "staleVerification": "les données ont été modifiées après l'exécution de la dernière vérification des liens"
+    },
+    "suffix": "Veuillez accéder à la <lnk>page Statut des liens</lnk> et vérifier les liens."
+  },
   "messageBoard": {
     "messageBoard": "$t(landing.sections.messageBoard)"
   },

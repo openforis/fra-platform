@@ -13,6 +13,7 @@
   "invitationsAcceptedCount": "Nombre d'invitations acceptées",
   "invitationsSentCount": "Nombre d'invitations envoyées",
   "lastStatus": "Dernier statut",
+  "lastExecuted": "Dernière exécution {{date}}",
   "locations": "Emplacements",
   "locationsCount": "Nº d'emplacements",
   "role_few": "$t(admin.role_other)",
