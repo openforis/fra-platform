@@ -449,6 +449,17 @@
     "ru": "Русский",
     "zh": "中文"
   },
+  "linksGuard": {
+    "blocked": "报告无法提交审批。请前往链接状态页面并验证链接。",
+    "blockedMessage": "报告无法提交审批，因为{{reason}}。",
+    "fetchError": "无法验证链接状态。请重试。",
+    "reason": {
+      "invalidLinks": "有无效的链接以修复",
+      "neverRan": "必须执行验证链接进程",
+      "staleVerification": "数据在最后一次链接验证运行后被编辑"
+    },
+    "suffix": "请前往 <lnk>链接状态页</lnk> 并验证链接。"
+  },
   "messageBoard": {
     "messageBoard": "$t(landing.sections.messageBoard)"
   },

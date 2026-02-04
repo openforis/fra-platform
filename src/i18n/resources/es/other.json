@@ -449,6 +449,17 @@
     "ru": "Русский",
     "zh": "中文"
   },
+  "linksGuard": {
+    "blocked": "El informe no puede ser enviado para su aprobación. Por favor, vaya a la página de estado de los enlaces y verifique los enlaces.",
+    "blockedMessage": "El informe no puede ser enviado para su aprobación porque {{reason}}.",
+    "fetchError": "No se puede verificar el estado de los enlaces. Por favor, inténtalo de nuevo.",
+    "reason": {
+      "invalidLinks": "hay enlaces no válidos para arreglar",
+      "neverRan": "el proceso de los enlaces de verificación debe ser ejecutado",
+      "staleVerification": "los datos han sido editados después de la última verificación de enlaces"
+    },
+    "suffix": "Vaya a la página de estado <lnk>Enlaces</lnk> y verifique los enlaces."
+  },
   "messageBoard": {
     "messageBoard": "$t(landing.sections.messageBoard)"
   },

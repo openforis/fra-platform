@@ -13,6 +13,7 @@
   "invitationsAcceptedCount": "عدد الدعوات المقبولة",
   "invitationsSentCount": "عدد الدعوات المرسلة",
   "lastStatus": "آخر تحديث",
+  "lastExecuted": "آخر تنفيذ {{date}}",
   "locations": "المواقع",
   "locationsCount": "عدد المواقع",
   "role_few": "{{count}} أدوار",
