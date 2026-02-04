@@ -1,0 +1,38 @@
+@use 'src/client/style/partials' as *;
+
+// Styling is based on the interactive story found here:
+// https://openknowledge.fao.org/server/api/core/bitstreams/2dee6e93-1988-4659-aa89-30dd20b43b15/content/cd6709en.html
+
+.home-report {
+  grid-template-columns: auto auto auto;
+
+  @include min-width($laptop) {
+    justify-content: end;
+  }
+}
+
+.home-report__fra-title {
+  color: #01582d;
+  display: flex;
+  flex-direction: column;
+  font-size: $font-xxl;
+  font-weight: 400;
+  line-height: 0.85;
+  text-transform: uppercase;
+}
+
+.home-report__fra-title-year {
+  color: #f69c04;
+  font-weight: 700;
+  margin-top: 0.6rem;
+}
+
+.home-report__cover {
+  width: 260px;
+}
+
+.home-report__links {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-s;
+}

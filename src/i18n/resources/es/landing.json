@@ -12,7 +12,10 @@
   "dataExport": {
     "downloadData": "Descargar datos"
   },
+  "exploreKeyFindings": "Explorar hallazgos clave",
   "home": "Inicio",
+  "interactiveStory": "Historia interactiva",
+  "mainReport": "Reporte principal",
   "links": {
     "confirmDelete": "¿Borrar {{file}}? Esta acción no puede deshacerse.",
     "fileDeleted": "Archivo eliminado correctamente",
