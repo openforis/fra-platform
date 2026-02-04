@@ -115,8 +115,8 @@ export default defineConfig([
       'no-use-before-define': 'off',
       'object-shorthand': ['warn', 'always', { avoidQuotes: true }],
       'prefer-destructuring': ['error', { object: true, array: false }],
-      'react-hooks/exhaustive-deps': 'error',
-      'react-hooks/rules-of-hooks': 'error',
+      'react-hooks/exhaustive-deps': 'off',
+      'react-hooks/rules-of-hooks': 'off',
       'react/display-name': 'off',
       'react/forbid-prop-types': 'off',
       'react/function-component-definition': 'off',
@@ -183,6 +183,14 @@ export default defineConfig([
     files: ['src/client/store/**/selectors/**/*.ts'],
     rules: {
       '@typescript-eslint/explicit-function-return-type': 'off',
+    },
+  },
+
+  {
+    files: ['src/client/**/*.{ts,tsx}'],
+    rules: {
+      'react-hooks/exhaustive-deps': 'error',
+      'react-hooks/rules-of-hooks': 'error',
     },
   },
 
