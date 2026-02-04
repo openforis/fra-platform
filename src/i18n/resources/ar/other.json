@@ -458,7 +458,7 @@
       "neverRan": "يجب تنفيذ عملية روابط التحقق",
       "staleVerification": "تم تعديل البيانات بعد تشغيل التحقق من الروابط الأخيرة"
     },
-    "suffix": "يرجى الذهاب إلى صفحة حالة الروابط <lnk></lnk> والتحقق من الروابط."
+    "suffix": "يُرجى الانتقال إلى <lnk>صفحة حالة الروابط</lnk> والتحقق من الروابط."
   },
   "messageBoard": {
     "messageBoard": "$t(landing.sections.messageBoard)"
