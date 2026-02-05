@@ -7,8 +7,10 @@ import { UUID } from 'meta/uuid/uuid'
 export type SectionName = string
 
 export enum SectionNames {
+  areaAffectedByFire = 'areaAffectedByFire',
   contactPersons = 'contactPersons',
   contacts = 'contacts',
+  disturbances = 'disturbances',
   extentOfForest = 'extentOfForest',
   forestCharacteristics = 'forestCharacteristics',
   originalDataPoints = 'originalDataPoints',
