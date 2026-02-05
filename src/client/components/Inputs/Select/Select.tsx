@@ -18,6 +18,7 @@ const Select: React.FC<SelectProps> = (props) => {
     createOptionPosition,
     disabled,
     formatOptionLabel,
+    id,
     inputValue,
     isClearable = true,
     isCreatable,
@@ -67,6 +68,11 @@ const Select: React.FC<SelectProps> = (props) => {
     options,
     placeholder: placeholder ?? '',
     value,
+  }
+
+  if (id) {
+    selectProps.id = `select-${id}`
+    selectProps.inputId = `select-input-${id}`
   }
 
   return (

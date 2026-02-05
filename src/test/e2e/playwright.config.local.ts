@@ -4,7 +4,8 @@ import baseConfig from './playwright.config'
 
 const config: PlaywrightTestConfig = {
   ...baseConfig,
-  fullyParallel: true,
+  fullyParallel: false,
+  workers: 1,
   retries: 0,
   use: {
     ...baseConfig.use,

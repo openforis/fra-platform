@@ -12,6 +12,7 @@ import { AssessmentController } from 'server/controller/assessment'
 import { TableData } from 'server/controller/cycleData/tableData'
 import { DB } from 'server/db/db'
 import { AssessmentRepository } from 'server/db/repository/assessment/assessment'
+import { getCreateOrReplaceViewCountryUserSummary } from 'server/db/repository/assessment/assessment/getCreateSchemaDDL'
 import { Schemas } from 'server/db/schemas'
 
 const INPUT_DIR = path.join(__dirname, 'fixtures')
@@ -55,6 +56,7 @@ const exec = async (): Promise<void> => {
       assessments.flatMap((assessment) =>
         assessment.cycles.map(async (cycle) => {
           await TableData.refreshViews({ assessment, cycle }, t)
+          await t.query(getCreateOrReplaceViewCountryUserSummary({ assessment, cycle }))
         })
       )
     )
