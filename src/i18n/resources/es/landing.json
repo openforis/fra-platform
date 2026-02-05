@@ -79,6 +79,7 @@
     "collaborators": "$t(user.roles.COLLABORATOR, {\"count\":10})",
     "contentCheck": "Contenido / Comprobar",
     "externalData": "Datos externos",
+    "linksStatus": "Estado de enlaces",
     "messageBoard": "Tablero de mensajes",
     "overview": "Visión general",
     "recentActivity": "Actividad reciente",

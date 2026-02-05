@@ -13,6 +13,7 @@
   "invitationsAcceptedCount": "Число принятых приглашений",
   "invitationsSentCount": "Число направленных приглашений",
   "lastStatus": "Последний статус",
+  "lastExecuted": "Последний выполненный {{date}}",
   "locations": "Места",
   "locationsCount": "Нет мест",
   "role_few": "{{count}} Роли",
