@@ -1,9 +1,12 @@
 import { AssessmentNames } from 'meta/assessment/assessment'
 import { ColProps, ColType } from 'meta/assessment/col'
 import { CycleNames } from 'meta/assessment/cycle/names'
+import { RowCaches } from 'meta/assessment/rowCaches'
+import { SectionNames } from 'meta/assessment/section'
 import { Table, TableNames } from 'meta/assessment/table'
 
-import { CacheController } from 'server/cache/controller'
+import { RowRedisRepository } from 'server/cache/repository/row'
+import { SectionRedisRepository } from 'server/cache/repository/section'
 import { TableRedisRepository } from 'server/cache/repository/table'
 import { AssessmentController } from 'server/controller/assessment'
 import { MetadataController } from 'server/controller/metadata'
@@ -12,6 +15,7 @@ import { TableRepository } from 'server/db/repository/assessment/table'
 
 const assessmentName = AssessmentNames.fra
 const cycleName = CycleNames.latest
+const sectionNames = [SectionNames.areaAffectedByFire, SectionNames.disturbances]
 const tableNames = [TableNames.disturbances, TableNames.areaAffectedByFire]
 
 export default async (client: BaseProtocol): Promise<void> => {
@@ -32,5 +36,19 @@ export default async (client: BaseProtocol): Promise<void> => {
       await TableRepository.update({ assessment, tableId: table.id, tableProps }, client)
     })
   )
-  await CacheController.generateMetadata({ assessment }, client)
+
+  const rowKeys = [
+    RowCaches.getKey({ tableName: TableNames.areaAffectedByFire, variableName: 'total_land_area_affected_by_fire' }),
+    RowCaches.getKey({ tableName: TableNames.areaAffectedByFire, variableName: 'of_which_on_forest' }),
+
+    RowCaches.getKey({ tableName: TableNames.disturbances, variableName: 'insects' }),
+    RowCaches.getKey({ tableName: TableNames.disturbances, variableName: 'diseases' }),
+    RowCaches.getKey({ tableName: TableNames.disturbances, variableName: 'severe_weather_events' }),
+    RowCaches.getKey({ tableName: TableNames.disturbances, variableName: 'other' }),
+  ]
+
+  const force = true
+
+  await RowRedisRepository.getRows({ assessment, force, rowKeys }, client)
+  await SectionRedisRepository.getManyMetadata({ assessment, cycle, force, sectionNames }, client)
 }
