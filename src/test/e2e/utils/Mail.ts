@@ -19,7 +19,7 @@ const getEmailByRecipient = async (recipient: string, attempts = 10): Promise<Ma
   return getEmailByRecipient(recipient, attempts - 1)
 }
 
-// Decode mailhog mail
+// Mailhog v2 api returns emails in 'quotedPrintable' -> decode it so we can extract url
 const decodeQuotedPrintable = (str: string): string =>
   str.replace(/=\r?\n/g, '').replace(/=([0-9A-Fa-f]{2})/g, (_, hex) => String.fromCharCode(parseInt(hex, 16)))
 
