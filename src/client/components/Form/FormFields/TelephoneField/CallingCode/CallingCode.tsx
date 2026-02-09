@@ -10,13 +10,14 @@ import { useFormatOptionLabel } from './hooks/useFormatOptionLabel'
 import { useHandleCountryChange } from './hooks/useHandleCountryChange'
 
 type Props = {
+  id?: string
   disabled: boolean
   value?: string
   onChange?: (callingCode: string) => void
 }
 
 const CallingCode: React.FC<Props> = (props) => {
-  const { disabled, onChange, value } = props
+  const { disabled, id, onChange, value } = props
 
   const countryOptions = useCountryOptions()
   const formatOptionLabel = useFormatOptionLabel()
@@ -45,6 +46,7 @@ const CallingCode: React.FC<Props> = (props) => {
           <InputText
             className="calling-code__manual-input"
             disabled={disabled}
+            id={`${id}-phone-number-prefix`}
             onChange={handleManualCodeChange}
             value={manualCode}
           />
