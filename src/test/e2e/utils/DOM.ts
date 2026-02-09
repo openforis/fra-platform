@@ -1,4 +1,4 @@
-import { Page } from '@playwright/test'
+import { expect, Locator, Page } from '@playwright/test'
 
 // Eg. { id: 'telephone-field' }
 type Selector = Record<string, string>
@@ -27,7 +27,12 @@ const selectOption = async (page: Page, selector: Selector, optionName: string, 
   await page.getByRole('option', { name: optionName, exact }).click()
 }
 
+const elementNotExists = async (locator: Locator): Promise<void> => {
+  await expect(locator).toHaveCount(0)
+}
+
 export const DOMUtils = {
+  elementNotExists,
   fillInput,
   fillWYSIWYG,
   nestedSelectOption,
