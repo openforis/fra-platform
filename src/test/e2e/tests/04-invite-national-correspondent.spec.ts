@@ -72,7 +72,7 @@ test.describe.serial('National Correspondent: ', () => {
     await ncPage.getByRole('button', { name: 'Submit' }).click()
 
     // After submitting, NC is redirected back to country page
-    await expect(ncPage).toHaveURL(/\/assessments\/fra\/2025\/X01\/home$/)
+    await expect(ncPage).toHaveURL(/\/assessments\/fra\/2025\/X01\/home\/overview$/)
     await ncContext.close()
   })
 
