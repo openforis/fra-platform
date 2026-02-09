@@ -31,6 +31,7 @@ const CountryField: React.FC<FieldProps> = (props) => {
                   allowAtlantis={country?.allowAtlantis}
                   disabled={disabled}
                   disabledOptions={disabledOptions}
+                  id={name}
                   isClearable={false}
                   isMulti={isMulti}
                   onChange={onChange}
