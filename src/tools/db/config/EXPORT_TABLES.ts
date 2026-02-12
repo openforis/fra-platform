@@ -1,7 +1,6 @@
-import { ExportTableProps } from 'tools/db/service/exportTables'
-
 import { AssessmentNames } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
+import { ExportTableProps } from 'tools/db/service/exportTables'
 
 import { Schemas } from 'server/db/schemas'
 
@@ -42,7 +41,7 @@ const EXPORT_ASSESSMENT_CYCLE_TABLES = [
   // 'repository',
   // 'descriptions',
   // 'node',
-  // 'node_ext',
+  // 'node_ext', (partly, see below)
   // 'node_values_estimation',
 ]
 
@@ -84,4 +83,26 @@ export const EXPORT_TABLES: Array<ExportTableConfig> = [
 
   // ===== Schema: Assessment cycle
   ...ASSESSMENT_CYCLE_TABLES,
+
+  // ===== node (Atlantis extentOfForest only)
+  ...EXPORT_ASSESSMENTS.flatMap((assessmentName) =>
+    EXPORT_ASSESSMENTS_CYCLES[assessmentName].flatMap((cycleName) => ({
+      schema: Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName }),
+      table: 'node',
+      where: `country_iso like 'X%' and row_uuid in (
+        select r.uuid from ${Schemas.getSchemaAssessment({ assessmentName })}.row r
+        join ${Schemas.getSchemaAssessment({ assessmentName })}."table" t on t.uuid = r.table_uuid
+        where t.props->>'name' = 'extentOfForest'
+      )`,
+    }))
+  ),
+
+  // ===== node_ext (totalLandArea only)
+  ...EXPORT_ASSESSMENTS.flatMap((assessmentName) =>
+    EXPORT_ASSESSMENTS_CYCLES[assessmentName].flatMap((cycleName) => ({
+      schema: Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName }),
+      table: 'node_ext',
+      where: `type = 'node' and props->>'variableName' = 'totalLandArea'`,
+    }))
+  ),
 ]
