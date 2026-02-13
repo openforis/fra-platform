@@ -51,7 +51,7 @@ const _getTableData = async (props: {
 }): Promise<RecordAssessmentData> => {
   const { assessment, countryISOs, cycle, tableNames } = props
 
-  // Use getLastPublishedData to include voluntary updates from non-published cycles
+  // Include last published country data, only if exporting data for the last published cycle
   const lastPublishedCycle = Assessments.getLastPublishedCycle(assessment)
   if (lastPublishedCycle?.uuid === cycle.uuid) {
     return getLastPublishedData({ assessment, countryISOs, tableNames })
