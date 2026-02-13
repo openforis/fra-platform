@@ -3,7 +3,6 @@ import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Assessments } from 'meta/assessment/assessments'
 import { Cycle } from 'meta/assessment/cycle'
-import { Cycles } from 'meta/assessment/cycles'
 import { TableName, TableNames } from 'meta/assessment/table'
 import { RecordAssessmentData } from 'meta/data/recordData'
 
@@ -52,21 +51,13 @@ const _getTableData = async (props: {
 }): Promise<RecordAssessmentData> => {
   const { assessment, countryISOs, cycle, tableNames } = props
 
-  if (!Cycles.isPublished(cycle)) {
-    return getTableData({ assessment, countryISOs, cycle, mergeOdp: true, tableNames })
+  // Use getLastPublishedData to include voluntary updates from non-published cycles
+  const lastPublishedCycle = Assessments.getLastPublishedCycle(assessment)
+  if (lastPublishedCycle?.uuid === cycle.uuid) {
+    return getLastPublishedData({ assessment, countryISOs, tableNames })
   }
 
-  const tableData = await getLastPublishedData({ assessment, countryISOs, tableNames })
-
-  // Re-key to the requested cycle name for CSV generation
-  const { name: assessmentName } = assessment.props
-  const lastPublishedCycleName = Assessments.getLastPublishedCycle(assessment)?.name
-  if (lastPublishedCycleName && lastPublishedCycleName !== cycle.name) {
-    tableData[assessmentName][cycle.name] = tableData[assessmentName][lastPublishedCycleName]
-    delete tableData[assessmentName][lastPublishedCycleName]
-  }
-
-  return tableData
+  return getTableData({ assessment, countryISOs, cycle, mergeOdp: true, tableNames })
 }
 
 export const getData = async (props: Props): Promise<BulkDownloadData> => {
