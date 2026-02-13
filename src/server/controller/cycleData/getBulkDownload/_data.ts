@@ -1,6 +1,10 @@
 import { Country } from 'meta/area/country'
 import { CountryIso } from 'meta/area/countryIso'
+import { Assessment } from 'meta/assessment/assessment'
+import { Assessments } from 'meta/assessment/assessments'
+import { Cycle } from 'meta/assessment/cycle'
 import { TableName, TableNames } from 'meta/assessment/table'
+import { RecordAssessmentData } from 'meta/data/recordData'
 
 import {
   BulkDownloadColType,
@@ -8,6 +12,7 @@ import {
   BulkDownloadMetadata,
   PropsBulkDownload,
 } from 'server/controller/cycleData/getBulkDownload/types'
+import { getLastPublishedData } from 'server/controller/cycleData/getLastPublishedData'
 import { getTableData } from 'server/controller/cycleData/getTableData'
 import { DescriptionRepository } from 'server/db/repository/assessmentCycle/descriptions'
 import { OriginalDataPointRepository } from 'server/db/repository/assessmentCycle/originalDataPoint'
@@ -38,6 +43,23 @@ const getNames = (props: {
   return { sectionNames: Array.from(sectionNames), tableNames: Array.from(tableNames) }
 }
 
+const _getTableData = async (props: {
+  assessment: Assessment
+  countryISOs: Array<CountryIso>
+  cycle: Cycle
+  tableNames: Array<string>
+}): Promise<RecordAssessmentData> => {
+  const { assessment, countryISOs, cycle, tableNames } = props
+
+  // Include last published country data, only if exporting data for the last published cycle
+  const lastPublishedCycle = Assessments.getLastPublishedCycle(assessment)
+  if (lastPublishedCycle?.uuid === cycle.uuid) {
+    return getLastPublishedData({ assessment, countryISOs, tableNames })
+  }
+
+  return getTableData({ assessment, countryISOs, cycle, mergeOdp: true, tableNames })
+}
+
 export const getData = async (props: Props): Promise<BulkDownloadData> => {
   const { assessment, countries, cycle, metadata } = props
 
@@ -45,7 +67,7 @@ export const getData = async (props: Props): Promise<BulkDownloadData> => {
   const { sectionNames, tableNames } = getNames({ metadata })
 
   const [tables, descriptions, odp] = await Promise.all([
-    getTableData({ assessment, countryISOs, cycle, mergeOdp: true, tableNames }),
+    _getTableData({ assessment, countryISOs, cycle, tableNames }),
     DescriptionRepository.getValues({ assessment, countryISOs, cycle, sectionNames }),
     OriginalDataPointRepository.getBulkDownloadData({ assessment, countryISOs, cycle }),
   ])
