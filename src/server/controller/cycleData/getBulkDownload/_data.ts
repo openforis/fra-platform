@@ -2,10 +2,13 @@ import { Country } from 'meta/area/country'
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Assessments } from 'meta/assessment/assessments'
-import { Cycle } from 'meta/assessment/cycle'
+import { Cycle, CycleName } from 'meta/assessment/cycle'
+import { DescriptionCountryValues } from 'meta/assessment/descriptionValue'
+import { SectionName } from 'meta/assessment/section'
 import { TableName, TableNames } from 'meta/assessment/table'
 import { RecordAssessmentData } from 'meta/data/recordData'
 
+import { AreaController } from 'server/controller/area'
 import {
   BulkDownloadColType,
   BulkDownloadData,
@@ -60,6 +63,45 @@ const _getTableData = async (props: {
   return getTableData({ assessment, countryISOs, cycle, mergeOdp: true, tableNames })
 }
 
+const _getDescriptions = async (props: {
+  assessment: Assessment
+  countryISOs: Array<CountryIso>
+  cycle: Cycle
+  sectionNames: Array<SectionName>
+}): Promise<DescriptionCountryValues> => {
+  const { assessment, countryISOs, cycle, sectionNames } = props
+
+  const lastPublishedCycle = Assessments.getLastPublishedCycle(assessment)
+  if (lastPublishedCycle?.uuid !== cycle.uuid) {
+    return DescriptionRepository.getValues({ assessment, countryISOs, cycle, sectionNames })
+  }
+
+  const countriesMap = await AreaController.getCountriesMap({ assessment, cycle: lastPublishedCycle })
+
+  // Map of: cycle name - array of countries - used to split data fetching
+  const cycleCountries = countryISOs.reduce<Record<CycleName, Array<CountryIso>>>((acc, countryIso) => {
+    const country = countriesMap[countryIso]
+    const { cycleName } = country.lastPublishedInfo
+    if (!acc[cycleName]) acc[cycleName] = []
+    acc[cycleName].push(countryIso)
+    return acc
+  }, {})
+
+  const dataArray = await Promise.all(
+    Object.entries(cycleCountries).map(async ([cycleName, countryIsos]) => {
+      const countryCycle = Assessments.getCycle({ assessment, cycleName: cycleName as CycleName })
+      return DescriptionRepository.getValues({
+        assessment,
+        countryISOs: countryIsos,
+        cycle: countryCycle,
+        sectionNames,
+      })
+    })
+  )
+
+  return dataArray.reduce<DescriptionCountryValues>((acc, data) => ({ ...acc, ...data }), {})
+}
+
 export const getData = async (props: Props): Promise<BulkDownloadData> => {
   const { assessment, countries, cycle, metadata } = props
 
@@ -68,7 +110,7 @@ export const getData = async (props: Props): Promise<BulkDownloadData> => {
 
   const [tables, descriptions, odp] = await Promise.all([
     _getTableData({ assessment, countryISOs, cycle, tableNames }),
-    DescriptionRepository.getValues({ assessment, countryISOs, cycle, sectionNames }),
+    _getDescriptions({ assessment, countryISOs, cycle, sectionNames }),
     OriginalDataPointRepository.getBulkDownloadData({ assessment, countryISOs, cycle }),
   ])
 
