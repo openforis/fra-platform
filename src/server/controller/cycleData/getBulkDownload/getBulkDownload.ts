@@ -4,7 +4,7 @@ import { i18n as i18nType } from 'i18next'
 import { Lang } from 'meta/lang'
 
 import { getCountries } from 'server/controller/cycleData/getBulkDownload/_countries'
-import { getData } from 'server/controller/cycleData/getBulkDownload/_data'
+import { getData } from 'server/controller/cycleData/getBulkDownload/_getData'
 import { getCSVContentFile } from 'server/controller/cycleData/getBulkDownload/csvContent/getCSVContentFile'
 import { getBulkDownloadMetadata } from 'server/controller/cycleData/getBulkDownload/metadata/getBulkDownloadMetadata'
 import { CSVContent, PropsBulkDownload } from 'server/controller/cycleData/getBulkDownload/types'
