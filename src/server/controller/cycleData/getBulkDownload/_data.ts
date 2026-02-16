@@ -13,6 +13,7 @@ import {
   BulkDownloadColType,
   BulkDownloadData,
   BulkDownloadMetadata,
+  BulkDownloadODPData,
   PropsBulkDownload,
 } from 'server/controller/cycleData/getBulkDownload/types'
 import { getLastPublishedData } from 'server/controller/cycleData/getLastPublishedData'
@@ -102,6 +103,42 @@ const _getDescriptions = async (props: {
   return dataArray.reduce<DescriptionCountryValues>((acc, data) => ({ ...acc, ...data }), {})
 }
 
+const _getODPData = async (props: {
+  assessment: Assessment
+  countryISOs: Array<CountryIso>
+  cycle: Cycle
+}): Promise<BulkDownloadODPData> => {
+  const { assessment, countryISOs, cycle } = props
+
+  const lastPublishedCycle = Assessments.getLastPublishedCycle(assessment)
+  if (lastPublishedCycle?.uuid !== cycle.uuid) {
+    return OriginalDataPointRepository.getBulkDownloadData({ assessment, countryISOs, cycle })
+  }
+
+  const countriesMap = await AreaController.getCountriesMap({ assessment, cycle: lastPublishedCycle })
+
+  const cycleCountries = countryISOs.reduce<Record<CycleName, Array<CountryIso>>>((acc, countryIso) => {
+    const country = countriesMap[countryIso]
+    const { cycleName } = country.lastPublishedInfo
+    if (!acc[cycleName]) acc[cycleName] = []
+    acc[cycleName].push(countryIso)
+    return acc
+  }, {})
+
+  const dataArray = await Promise.all(
+    Object.entries(cycleCountries).map(async ([cycleName, countryIsos]) => {
+      const countryCycle = Assessments.getCycle({ assessment, cycleName: cycleName as CycleName })
+      return OriginalDataPointRepository.getBulkDownloadData({
+        assessment,
+        countryISOs: countryIsos,
+        cycle: countryCycle,
+      })
+    })
+  )
+
+  return dataArray.reduce<BulkDownloadODPData>((acc, data) => ({ ...acc, ...data }), {})
+}
+
 export const getData = async (props: Props): Promise<BulkDownloadData> => {
   const { assessment, countries, cycle, metadata } = props
 
@@ -111,7 +148,7 @@ export const getData = async (props: Props): Promise<BulkDownloadData> => {
   const [tables, descriptions, odp] = await Promise.all([
     _getTableData({ assessment, countryISOs, cycle, tableNames }),
     _getDescriptions({ assessment, countryISOs, cycle, sectionNames }),
-    OriginalDataPointRepository.getBulkDownloadData({ assessment, countryISOs, cycle }),
+    _getODPData({ assessment, countryISOs, cycle }),
   ])
 
   return { descriptions, odp, tables }
