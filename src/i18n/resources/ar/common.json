@@ -124,7 +124,8 @@
     "unlockEditing": "فتح التعديل",
     "viewHistory": "عرض المحفوظات",
     "dataExplorer": "استكشاف بيانات البلدان وتحميلها",
-    "dataDownload": "تحميل البيانات العامة"
+    "dataDownload": "تحميل البيانات العامة",
+    "originalValueEntered": "تم إدخال القيمة الأصلية"
   },
   "total": "المجموع",
   "totalPercentage": "النسبة المئوية الإجمالية",
