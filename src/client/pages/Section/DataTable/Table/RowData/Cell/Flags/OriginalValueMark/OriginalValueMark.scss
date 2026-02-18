@@ -1,0 +1,12 @@
+@use 'src/client/style/partials' as *;
+
+.table-grid__data-cell-flag-original-value {
+  display: flex;
+  align-items: center;
+
+  svg.icon {
+    color: $ui-border;
+    height: 8px;
+    width: 8px;
+  }
+}
