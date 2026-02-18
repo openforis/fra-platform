@@ -124,7 +124,8 @@
     "unlockEditing": "Редактирование разблокировки",
     "viewHistory": "Просмотр истории",
     "dataExplorer": "Изучить и загрузить данные стран",
-    "dataDownload": "Скачать глобальные данные"
+    "dataDownload": "Скачать глобальные данные",
+    "originalValueEntered": "Введено исходное значение"
   },
   "total": "Итого",
   "totalPercentage": "Общий процент.",

@@ -124,7 +124,8 @@
     "unlockEditing": "解锁编辑",
     "viewHistory": "查看历史记录",
     "dataExplorer": "探索和下载国家数据",
-    "dataDownload": "下载全局数据"
+    "dataDownload": "下载全局数据",
+    "originalValueEntered": "输入的原始值"
   },
   "total": "总计",
   "totalPercentage": "总百分比",
