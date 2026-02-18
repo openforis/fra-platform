@@ -134,7 +134,7 @@ const Cell: React.FC<Props> = (props) => {
         table={table}
       />
 
-      {!displayHistory && <Flags col={col} nodeValue={nodeValue} row={row} sectionName={sectionName} />}
+      {!displayHistory && <Flags col={col} nodeValue={nodeValue} row={row} sectionName={sectionName} table={table} />}
     </DataCell>
   )
 }
