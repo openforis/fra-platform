@@ -51,7 +51,7 @@ export const useLinksVerificationGuard = (props: Props): Returned => {
   const currentStatus = Areas.getStatus(country)
   const hasRouteParams = Boolean(assessmentName && countryIso && cycleName)
 
-  const needsGuardCheck = useNeedsGuardCheck({ countryIso, cycle, hasRouteParams, status, user })
+  const needsGuardCheck = useNeedsGuardCheck({ country, cycle, hasRouteParams, status, user })
   const linksStatusUrl = useLinksStatusUrl({ assessmentName, countryIso, cycleName })
 
   useEffect(() => {
