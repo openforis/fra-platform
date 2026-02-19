@@ -10,8 +10,13 @@
   &.isAdmin {
     background-color: white;
     position: sticky;
-    top: $spacing-s; //  csv download
+    top: 0;
   }
+}
+
+// only when the area selector has the csv download button, apply top: 24px to sticky header
+:has(.area-select__country-download) .area-select__group-heading.isAdmin {
+  top: $spacing-s;
 }
 
 button.area-select__show-more {
