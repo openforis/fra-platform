@@ -1,4 +1,10 @@
 {
+  "invalidLinks": {
+    "messageBodyIntro": "The following countries you are responsible for have {{threshold}} or more invalid links that require attention:",
+    "messageFooter": "Please review and update the affected links in the FRA Platform.\n\nThank you,\nThe FRA team",
+    "messageHeader": "Dear {{recipientName}},",
+    "subject": "Action required: invalid links detected in your countries"
+  },
   "invitationAccepted": {
     "htmlMessage": "Dear {{recipientName}} {{recipientSurname}},\n<br/><br/>\nUser {{invitedUserName}} {{invitedUserSurname}} has accepted your invitation to {{assessmentName}} {{cycleName}} as {{role}} for <b><a href=\"{{- manageCollaboratorsUrl}}\">{{country}}</a></b>.\n<br/><br/>\nThe FRA team",
     "subject": "User {{invitedUserName}} {{invitedUserSurname}} has accepted your invitation",
