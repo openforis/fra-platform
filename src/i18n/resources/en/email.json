@@ -1,6 +1,6 @@
 {
   "invalidLinks": {
-    "messageBodyIntro": "The following countries you are responsible for have {{threshold}} or more invalid links that require attention:",
+    "messageBodyIntro": "The following countries have one or more invalid links:",
     "messageFooter": "Please review and update the affected links in the FRA Platform.\n\nThank you,\nThe FRA team",
     "messageHeader": "Dear {{recipientName}},",
     "subject": "Action required: invalid links detected in your countries"
