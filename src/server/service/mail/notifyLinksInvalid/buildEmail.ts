@@ -13,10 +13,12 @@ import { Users } from 'meta/user/users'
 import { MailServiceEmail } from 'server/service/mail/mail'
 import { ProcessEnv } from 'server/utils'
 
+import { LinksByCountry } from './types'
+
 type Props = {
   assessment: Assessment
   cycle: Cycle
-  linksByCountry: Record<CountryIso, Array<Link>>
+  linksByCountry: LinksByCountry
   threshold: number
   user: User
 }
@@ -31,7 +33,7 @@ type CountryEntry = {
 type GetCountryEntriesProps = {
   assessmentName: AssessmentName
   cycleName: CycleName
-  linksByCountry: Record<CountryIso, Array<Link>>
+  linksByCountry: LinksByCountry
   t: (key: string) => string
 }
 

@@ -1,9 +1,10 @@
-import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { Link, LinkValidationStatusCode } from 'meta/cycleData/links/link'
+import { LinkValidationStatusCode } from 'meta/cycleData/links/link'
 
 import { LinkRepository } from 'server/db/repository/assessmentCycle/links'
+
+import { LinksByCountry } from './types'
 
 type Props = {
   assessment: Assessment
@@ -20,7 +21,7 @@ const codes = [
 const filters = { codes, approved: false }
 
 // Return links grouped by country iso { ISO: Array<Link> }
-export const groupLinksByCountry = async (props: Props): Promise<Record<CountryIso, Array<Link>>> => {
+export const groupLinksByCountry = async (props: Props): Promise<LinksByCountry> => {
   const { assessment, cycle, threshold } = props
 
   const links = await LinkRepository.getMany({ assessment, cycle, filters })
@@ -30,5 +31,5 @@ export const groupLinksByCountry = async (props: Props): Promise<Record<CountryI
   // Filter out by threshold
   return Object.fromEntries(
     Object.entries(grouped).filter(([, countryLinks]) => (countryLinks?.length ?? 0) > threshold)
-  ) as Record<CountryIso, Array<Link>>
+  ) as LinksByCountry
 }
