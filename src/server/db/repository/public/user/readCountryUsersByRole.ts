@@ -8,7 +8,7 @@ import { UserAdapter } from 'server/db/repository/adapter/user'
 import { fields } from 'server/db/repository/public/user/fields'
 
 /*
-  This is used for mailing service on assessment status change
+  This is used for mailing service
   We get a list of recipients for Array<<countryIsos>> and Array<<RoleName>>
 */
 
