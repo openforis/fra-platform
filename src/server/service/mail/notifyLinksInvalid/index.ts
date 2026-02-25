@@ -43,7 +43,6 @@ export const notifyLinksInvalid = async (props: Props): Promise<void> => {
       assessment,
       cycle,
       linksByCountry: _getUserLinksByCountry({ user, linksByCountry }),
-      threshold: INVALID_LINK_THRESHOLD,
     })
     return sendMail(email)
   })
