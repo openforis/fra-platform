@@ -13,8 +13,6 @@ import { triggerVerifyLinksWorker } from 'server/worker/tasks/verifyLinks/trigge
 import { VisitCycleLinksQueueFactory } from 'server/worker/tasks/verifyLinks/visitCycleLinks/queueFactory'
 
 const name = 'Scheduler-NotifyLinksInvalid'
-// 20 min
-const VERIFY_TIMEOUT_MS = 20 * 60 * 1000
 const cycleName = CycleNames.latest
 const assessmentName = AssessmentNames.fra
 
@@ -40,10 +38,10 @@ export class NotifyLinksInvalid extends Job {
     const queueEvents = new QueueEvents(VisitCycleLinksQueueFactory.queueName, { connection })
 
     try {
-      await job.waitUntilFinished(queueEvents, VERIFY_TIMEOUT_MS)
+      await job.waitUntilFinished(queueEvents)
+      await MailService.notifyLinksInvalid({ assessment, cycle })
     } finally {
       await queueEvents.close()
-      await MailService.notifyLinksInvalid({ assessment, cycle })
     }
   }
 }
