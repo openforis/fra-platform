@@ -19,7 +19,6 @@ type Props = {
   assessment: Assessment
   cycle: Cycle
   linksByCountry: LinksByCountry
-  threshold: number
   user: User
 }
 
@@ -61,7 +60,7 @@ const _getHtmlItems = (countryEntries: Array<CountryEntry>): string =>
       const urlItems = links.map(({ link }) => `<li><a href="${link}">${link}</a></li>`).join('')
       return `<li><a href="${countryLinksUrl}"><strong>${countryName} (${countryIso})</strong></a>: ${links.length} invalid link(s)<ul>${urlItems}</ul></li>`
     })
-    .join('<br>')
+    .join('')
 
 const _getCountryEntries = (props: GetCountryEntriesProps): Array<CountryEntry> => {
   const { assessmentName, cycleName, linksByCountry, t } = props
@@ -77,13 +76,13 @@ const _getCountryEntries = (props: GetCountryEntriesProps): Array<CountryEntry> 
 }
 
 export const buildEmail = async (props: Props): Promise<MailServiceEmail> => {
-  const { assessment, cycle, linksByCountry, threshold, user } = props
+  const { assessment, cycle, linksByCountry, user } = props
   const { t } = await createI18nPromise(Lang.en)
   const to = user.email
 
   const subject = t('email.invalidLinks.subject')
   const messageHeader = t('email.invalidLinks.messageHeader', { recipientName: Users.getFullName(user) })
-  const messageBodyIntro = t('email.invalidLinks.messageBodyIntro', { threshold })
+  const messageBodyIntro = t('email.invalidLinks.messageBodyIntro')
   const messageFooter = t('email.invalidLinks.messageFooter')
 
   const { name: assessmentName } = assessment.props
