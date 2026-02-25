@@ -30,6 +30,6 @@ export const groupLinksByCountry = async (props: Props): Promise<LinksByCountry>
 
   // Filter out by threshold
   return Object.fromEntries(
-    Object.entries(grouped).filter(([, countryLinks]) => (countryLinks?.length ?? 0) > threshold)
+    Object.entries(grouped).filter(([, countryLinks]) => (countryLinks?.length ?? 0) >= threshold)
   ) as LinksByCountry
 }
