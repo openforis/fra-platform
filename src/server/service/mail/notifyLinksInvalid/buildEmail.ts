@@ -60,7 +60,7 @@ const _getHtmlItems = (countryEntries: Array<CountryEntry>): string =>
       const urlItems = links.map(({ link }) => `<li><a href="${link}">${link}</a></li>`).join('')
       return `<li><a href="${countryLinksUrl}"><strong>${countryName} (${countryIso})</strong></a>: ${links.length} invalid link(s)<ul>${urlItems}</ul></li>`
     })
-    .join('<br>')
+    .join('')
 
 const _getCountryEntries = (props: GetCountryEntriesProps): Array<CountryEntry> => {
   const { assessmentName, cycleName, linksByCountry, t } = props
