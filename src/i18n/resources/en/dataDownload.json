@@ -1,4 +1,6 @@
 {
   "bulkDownload": "Bulk Download",
-  "dataDownload": "Data download"
+  "dataDownload": "Data download",
+  "downloadWholeDatasetInstruction": "To download the whole dataset, please click the ZIP button to the right.",
+  "individualTableInstruction": "To access data specific to individual table, please select the relevant section on the left side menu."
 }
