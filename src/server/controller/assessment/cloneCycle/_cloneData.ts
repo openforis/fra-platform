@@ -62,11 +62,7 @@ export const cloneData = async (props: CloneProps, client: BaseProtocol): Promis
              case
                  when name = '${CommentableDescriptionName.dataSources}' then jsonb_delete(value, 'text')
                  else value
-                 end -- // delete nationalData->dataSources->text needed only in FRA 2025 
+                 end -- // delete nationalData->dataSources->text needed only in FRA 2025
       from ${schemaCycleSource}.descriptions;
-
-      insert into ${schemaCycleTarget}.repository (uuid, country_iso, file_uuid, link, props)
-      select uuid, country_iso, file_uuid, link, props
-      from ${schemaCycleSource}.repository;
   `)
 }
