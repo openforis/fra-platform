@@ -5,6 +5,7 @@ import { useIsDataLocked } from 'client/store/ui/countryReport/hooks/datalock'
 import { useIsPrintRoute } from 'client/hooks/routes'
 import Button, { ButtonProps, useButtonClassName } from 'client/components/Buttons/Button'
 import Icon from 'client/components/Icon'
+import Flex from 'client/components/Layout/Flex'
 
 import { useFilename } from './hooks/useFilename'
 import { useOnCsvClick } from './hooks/useOnCsvClick'
@@ -41,7 +42,7 @@ const ButtonGridExport: React.FC<Props> = (props) => {
   if (print) return null
 
   return (
-    <>
+    <Flex gap="4">
       <Button disabled={isDisabled} iconName="hit-down" label="XLSX" onClick={onExcelClick} size={size} />
       <CSVLink
         asyncOnClick
@@ -54,7 +55,7 @@ const ButtonGridExport: React.FC<Props> = (props) => {
         <Icon name="hit-down" />
         CSV
       </CSVLink>
-    </>
+    </Flex>
   )
 }
 
