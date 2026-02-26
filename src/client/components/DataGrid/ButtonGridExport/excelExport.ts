@@ -1,6 +1,9 @@
 import type { Cell, SheetData } from 'write-excel-file/browser'
 import writeXlsxFile from 'write-excel-file/browser'
 
+import { Numbers } from 'utils/numbers'
+import { Objects } from 'utils/objects'
+
 import { getDataGridElementMatrix } from 'client/components/DataGrid/utils'
 
 type Props = {
@@ -11,13 +14,6 @@ type Props = {
 }
 
 const TEXT_FORMAT = '@'
-
-const parseNumber = (value: string): number | null => {
-  const normalized = value.replace(/\s/g, '')
-  const parsed = Number(normalized)
-
-  return normalized.length > 0 && Number.isFinite(parsed) ? parsed : null
-}
 
 const getNumberFormat = (value: string): string => {
   const normalized = value.replace(/\s/g, '').replace(/^[+-]/, '')
@@ -56,7 +52,7 @@ const isTextCell = (cell: Element | null): boolean => {
 }
 
 const toExcelCell = (cell: Element | null, value: string): Cell => {
-  if (value.trim().length === 0) return null
+  if (Objects.isEmpty(value)) return null
 
   if (isHeaderCell(cell)) {
     return { fontWeight: 'bold', format: TEXT_FORMAT, type: String, value }
@@ -66,9 +62,9 @@ const toExcelCell = (cell: Element | null, value: string): Cell => {
     return { format: TEXT_FORMAT, type: String, value }
   }
 
-  const numberValue = parseNumber(value)
-  if (numberValue !== null) {
-    return { format: getNumberFormat(value), type: Number, value: numberValue }
+  const parsed = Numbers.toNumberOrNull(value)
+  if (parsed !== null) {
+    return { format: getNumberFormat(value), type: Number, value: parsed }
   }
 
   return { format: TEXT_FORMAT, type: String, value }
