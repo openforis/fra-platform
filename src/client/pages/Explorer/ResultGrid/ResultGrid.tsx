@@ -144,7 +144,7 @@ export const ResultGrid: React.FC<ExplorerGridProps> = (props: ExplorerGridProps
               return (
                 <DataCell
                   key={`${countryEntry.countryIso}-${field.key}-country-option`}
-                  className="observation"
+                  className="country-option observation"
                   lastCol={colIdx === xCombinations.length - 1}
                 >
                   {field.getValue(countryEntry)}
@@ -236,7 +236,7 @@ export const ResultGrid: React.FC<ExplorerGridProps> = (props: ExplorerGridProps
                 return (
                   <DataCell
                     key={`${countryEntry.countryIso}-${field.key}-country-option`}
-                    className="observation"
+                    className="country-option observation"
                     lastRow={lastRow}
                   >
                     {field.getValue(countryEntry)}

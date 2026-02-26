@@ -44,7 +44,11 @@ const isHeaderCell = (cell: Element | null): boolean => {
 const isTextCell = (cell: Element | null): boolean => {
   if (!(cell instanceof HTMLElement)) return false
 
+  const isCountryOptionObservationCell =
+    cell.classList.contains('country-option') && cell.classList.contains('observation')
+
   return (
+    isCountryOptionObservationCell ||
     cell.classList.contains('left') ||
     Boolean(cell.querySelector('textarea, .table-grid__select-cell-container')) ||
     Boolean(cell.querySelector('input.input-text:not(.table-grid__data-cell-input-number)'))
