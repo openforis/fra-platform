@@ -25,14 +25,6 @@ const ButtonGridExport: React.FC<Props> = (props) => {
   const isLocked = useIsDataLocked()
   const isDisabled = !isLocked || disabled
 
-  const excelClassName = useButtonClassName({
-    className: 'btn-excel-download',
-    disabled: isDisabled,
-    iconName: 'hit-down',
-    label: 'XLSX',
-    size,
-  })
-
   const csvClassName = useButtonClassName({
     className: 'btn-csv-download',
     disabled: isDisabled,
@@ -50,13 +42,7 @@ const ButtonGridExport: React.FC<Props> = (props) => {
 
   return (
     <>
-      <Button
-        className={excelClassName}
-        disabled={isDisabled}
-        iconName="hit-down"
-        label="XLSX"
-        onClick={onExcelClick}
-      />
+      <Button disabled={isDisabled} iconName="hit-down" label="XLSX" onClick={onExcelClick} size={size} />
       <CSVLink
         asyncOnClick
         className={csvClassName}
