@@ -5,7 +5,7 @@ type Props = {
   tableName: string
 }
 
-export const exists = (props: Props, client: BaseProtocol): Promise<{ exists: boolean }> => {
+export const tableExists = (props: Props, client: BaseProtocol): Promise<{ exists: boolean }> => {
   const { schema, tableName } = props
   return client.oneOrNone<{ exists: boolean }>(
     `

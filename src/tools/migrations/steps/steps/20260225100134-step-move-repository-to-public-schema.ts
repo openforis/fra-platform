@@ -9,7 +9,7 @@ import { BaseProtocol, DB } from 'server/db/db'
 import { getRepositoryDDL } from 'server/db/repository/public/ddl/getCreatePublicSchemaDDL'
 import { Schemas } from 'server/db/schemas'
 
-import { exists as tableExists } from './utils/tableExists'
+import { tableExists } from './utils/tableExists'
 
 const pgp = pgPromise()
 
