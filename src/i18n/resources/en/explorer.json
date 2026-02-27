@@ -1,5 +1,5 @@
 {
   "countryOptionsDisabled": "These options are only available when countries / areas are alone in one axis.",
   "downloadWholeDatasetInstruction": "To download the whole dataset please select Data Download link on the toolbar.",
-  "selectDataInstruction": "To access \"Extent of forest\" data, please select countries/areas, variable and column from the pull-down menus above."
+  "selectDataInstruction": "To access {{sectionLabel}} data, please select countries/areas, variable and column from the pull-down menus above."
 }
