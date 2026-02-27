@@ -20,6 +20,6 @@ export const update = async (props: Props, client: BaseProtocol = DB): Promise<U
     await updateRolePermissions({ ...props, targetUser }, t)
     await updateRoles({ ...props, targetUser }, t)
 
-    return UserRepository.getOne({ uuid: targetUser.uuid, cycleUuid: cycle.uuid }, t)
+    return UserRepository.getOne({ uuid: targetUser.uuid, cycleUuid: cycle.uuid, allowDisabled: true }, t)
   })
 }

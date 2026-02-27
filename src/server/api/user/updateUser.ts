@@ -12,8 +12,16 @@ export const updateUser = async (req: UserEditRequest, res: Response): Promise<v
     const userEditForm = req.body
     const profilePicture = req.file
 
-    const { assessment, cycle } = req.context
-    const updatedUser = await UserController.update({ assessment, cycle, profilePicture, user, userEditForm })
+    const { assessment, country, cycle } = req.context
+    const { countryIso } = country
+    const updatedUser = await UserController.update({
+      assessment,
+      countryIso,
+      cycle,
+      profilePicture,
+      user,
+      userEditForm,
+    })
 
     Requests.sendOk(res, updatedUser)
   } catch (e) {
