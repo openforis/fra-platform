@@ -214,6 +214,7 @@
     "unified": "^11.0.5",
     "uuid": "^13.0.0",
     "winston": "^3.19.0",
+    "write-excel-file": "^3.0.4",
     "zod": "^4.2.1"
   },
   "browserslist": [
