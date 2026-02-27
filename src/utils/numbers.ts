@@ -24,6 +24,16 @@ const toBigNumber = (value: BigNumberInput = ''): BigNumber => {
   return new BigNumber(typeof value === 'string' ? value.split(groupSeparator).join('') : value)
 }
 
+const toNumberOrNull = (value: BigNumberInput): number | null => {
+  const normalized = typeof value === 'string' ? value.replace(/\s/g, '') : value
+  if (Objects.isEmpty(normalized)) return null
+
+  const parsedBigNumber = toBigNumber(normalized)
+  const parsed = parsedBigNumber.toNumber()
+
+  return parsedBigNumber.isFinite() && Number.isFinite(parsed) ? parsed : null
+}
+
 type BigNumOp = 'plus' | 'minus' | 'times' | 'div' | 'modulo' | 'exponentiatedBy'
 
 const applyOperator = (x: BigNumberInput, y: BigNumberInput, op: BigNumOp): BigNumber | null => {
@@ -139,8 +149,9 @@ export const Numbers = {
   greaterThanWithTolerance,
 
   // utils
+  countDecimals,
   format,
   toFixed,
+  toNumberOrNull,
   toString,
-  countDecimals,
 }
