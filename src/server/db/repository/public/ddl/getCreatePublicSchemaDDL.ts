@@ -55,6 +55,26 @@ export const getUsersInvitationDDL = (schemaName = 'public'): string => {
   `
 }
 
+export const getRepositoryDDL = (schemaName = 'public'): string => {
+  return `
+    create table if not exists ${schemaName}.repository (
+      id          bigserial primary key,
+      uuid        uuid not null default uuid_generate_v4(),
+      cycle_uuid  uuid not null,
+      country_iso varchar(3),
+      file_uuid   uuid,
+      link        varchar(2048),
+      props       jsonb not null,
+      created_at  timestamptz not null default now(),
+
+      foreign key (cycle_uuid) references ${schemaName}.assessment_cycle (uuid) on update cascade on delete cascade,
+      foreign key (country_iso) references ${schemaName}.country (country_iso) on update cascade on delete cascade,
+      foreign key (file_uuid) references ${schemaName}.file (uuid) on update cascade on delete cascade
+    );
+    create unique index if not exists repository_uuid_key on ${schemaName}.repository using btree (uuid);
+  `
+}
+
 const _getExtensions = (): string => {
   return `
       -- Extensions
@@ -210,6 +230,8 @@ export const getCreatePublicSchemaDDL = (schemaName = 'public'): string => {
 
     ${getUsersInvitationDDL(schemaName)}
     ${getUsersRoleDDL(schemaName)}
+
+    ${getRepositoryDDL(schemaName)}
 
   `
 

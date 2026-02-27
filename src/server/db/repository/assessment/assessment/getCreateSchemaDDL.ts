@@ -272,18 +272,6 @@ export const getCreateSchemaCycleDDL = (assessmentSchemaName: string, assessment
           unique (uuid)
       );
       
-      create table if not exists ${assessmentCycleSchemaName}.repository
-      (
-          id          bigserial     not null,
-          uuid        uuid          not null default uuid_generate_v4(),
-          country_iso varchar(3)    references public.country (country_iso) on update cascade on delete cascade,
-          file_uuid   uuid          references public.file (uuid) on update cascade on delete cascade,
-          link        varchar(2048),
-          props       jsonb         not null,
-          primary key (id),
-          unique (uuid)
-      );
-
       create table if not exists ${assessmentCycleSchemaName}.link
       (
           id          bigserial     not null,
