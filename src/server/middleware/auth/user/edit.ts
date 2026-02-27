@@ -13,7 +13,7 @@ export const requireEditUser = async (req: UserEditRequest, _res: Response, next
   const userEditForm = req.body
   const { cycle } = req.context
 
-  const target = await UserController.getOne({ id: userEditForm.user.id })
+  const target = await UserController.getOne({ id: userEditForm.user.id, allowDisabled: true })
 
   _next(Authorizer.canEditUser({ cycle, countryIso, target, user }), next)
 }
