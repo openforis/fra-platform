@@ -1,9 +1,9 @@
-import { Objects } from 'utils/objects'
-
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
+import { Authorizer } from 'meta/auth/authorizer'
 import { UserEditCountryForm, UserForm } from 'meta/form/userEdit/form'
 import { User, UserStatus } from 'meta/user/user'
 import { Users } from 'meta/user/users'
+import { Objects } from 'utils/objects'
 
 import { BaseProtocol } from 'server/db/db'
 import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
@@ -17,8 +17,8 @@ export type UserEditProps = UserEditCountryForm & {
   user: Omit<UserForm, 'disabled'> & { status?: UserStatus; profilePictureFileUuid?: string }
 }
 
-const toUserEditProps = (props: Props): UserEditProps => {
-  const { user, userEditForm } = props
+const toUserEditProps = async (props: Props, client: BaseProtocol): Promise<UserEditProps> => {
+  const { countryIso, cycle, user, userEditForm } = props
   const userEditProps: UserEditProps = { ...userEditForm }
 
   // only admin can update the email
@@ -26,8 +26,14 @@ const toUserEditProps = (props: Props): UserEditProps => {
     delete userEditProps.user.email
   }
   const { disabled } = userEditForm.user
-  if (Users.isAdministrator(user) && !Objects.isNil(disabled)) {
-    userEditProps.user.status = disabled ? UserStatus.disabled : UserStatus.active
+  if (!Objects.isNil(disabled)) {
+    const targetUser = await UserRepository.getOne(
+      { id: userEditForm.user.id, cycleUuid: cycle.uuid, allowDisabled: true },
+      client
+    )
+    if (Authorizer.canDisableUser({ countryIso, cycle, user, target: targetUser })) {
+      userEditProps.user.status = disabled ? UserStatus.disabled : UserStatus.active
+    }
   }
 
   delete userEditProps.user.disabled
@@ -37,7 +43,7 @@ const toUserEditProps = (props: Props): UserEditProps => {
 
 export const updateUser = async (props: Props, client: BaseProtocol): Promise<User> => {
   const { profilePicture, user } = props
-  const { user: userToUpdate } = toUserEditProps(props)
+  const { user: userToUpdate } = await toUserEditProps(props, client)
 
   if (profilePicture) {
     const createdFile = await FileRepository.create({ fileName: profilePicture.originalname }, client)
