@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 
 import { Areas } from 'meta/area/areas'
 import { CountryIso } from 'meta/area/countryIso'
+import { rfpDisableableRoles } from 'meta/auth/authorizer/canDisableUser'
 import { UserEditCountryForm } from 'meta/form/userEdit/form'
 import { RoleName } from 'meta/user/role/name'
 import { UserRole } from 'meta/user/role/role'
@@ -36,6 +37,7 @@ export const useRolesFields = (props: PropsFormDefinition): Returned => {
   const isAdminPage = Areas.isGlobal(countryIso)
   const isTargetUserAdmin = Users.isAdministrator(targetUser)
   const isAdmin = Users.isAdministrator(user)
+  const isRfp = Users.isRegionalFocalPoint(user, countryIso, cycle)
   const userRoles = useMemo<Array<UserRole>>(
     () => Users.getCycleRoles({ cycle, user: targetUser }),
     [cycle, targetUser]
@@ -56,6 +58,10 @@ export const useRolesFields = (props: PropsFormDefinition): Returned => {
     const shouldShow = (): boolean => {
       return isAdminPage && isAdmin
     }
+
+    const rfpCanDisableTarget =
+      isRfp && rfpDisableableRoles.includes(Users.getRole(targetUser, countryIso, cycle)?.role)
+    const shouldShowDisabledCheckbox = (): boolean => (isAdminPage && isAdmin) || rfpCanDisableTarget
     const isSelfWatch: WatchCallback<UserEditCountryForm, boolean> = (_props) => {
       return String(targetUser.id) === String(user.id)
     }
@@ -114,7 +120,7 @@ export const useRolesFields = (props: PropsFormDefinition): Returned => {
       name: `user.disabled`,
       label: `editUser.disabled`,
       type: FormFieldType.checkbox,
-      shouldShow,
+      shouldShow: shouldShowDisabledCheckbox,
       defaultValue: targetUser.status === UserStatus.disabled,
       watches: {
         isDisabled: isSelfWatch,
@@ -122,5 +128,5 @@ export const useRolesFields = (props: PropsFormDefinition): Returned => {
     })
 
     return fields
-  }, [isAdmin, isAdminPage, isTargetUserAdmin, targetUser, user.id, userRoles])
+  }, [countryIso, cycle, isAdmin, isAdminPage, isRfp, isTargetUserAdmin, targetUser, user.id, userRoles])
 }
