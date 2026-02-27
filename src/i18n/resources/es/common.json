@@ -124,7 +124,8 @@
     "unlockEditing": "Desbloquear edición",
     "viewHistory": "Ver historial",
     "dataExplorer": "Explorar y descargar datos de países",
-    "dataDownload": "Descargar datos globales"
+    "dataDownload": "Descargar datos globales",
+    "originalValueEntered": "Valor original introducido"
   },
   "total": "Total",
   "totalPercentage": "Porcentaje total",

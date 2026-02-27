@@ -5,7 +5,6 @@ import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { User } from 'meta/user/user'
-import { Users } from 'meta/user/users'
 
 import { AreaRedisRepository } from 'server/cache/repository/area'
 import { CycleDataController } from 'server/controller/cycleData'
@@ -50,17 +49,14 @@ export const updateCountry = async (props: Props, client: BaseProtocol = DB): Pr
   } = props
   const { countryIso } = country
   const targetStatus = country.props.status
-  const isAdmin = Users.isAdministrator(user)
-  const isReviewer = Users.isReviewer(user, countryIso, cycle)
-  const isRegionalFocalPoint = Users.isRegionalFocalPoint(user, countryIso, cycle)
-  const needsGuardCheck = targetStatus === CountryStatus.approval && !isAdmin && (isReviewer || isRegionalFocalPoint)
 
   return client.tx(async (t) => {
     const currentCountry = await AreaRedisRepository.getOneCountry({ assessment, cycle, countryIso }, t)
     const currentStatus = currentCountry.props.status
     const statusUpdate = currentStatus !== targetStatus
+    const needsGuardCheck = currentStatus === CountryStatus.review && targetStatus === CountryStatus.approval
 
-    if (needsGuardCheck && currentStatus === CountryStatus.review) {
+    if (needsGuardCheck) {
       const verificationSummary = await CycleDataController.Links.getVerificationSummary(
         { assessment, countryIso, cycle },
         t

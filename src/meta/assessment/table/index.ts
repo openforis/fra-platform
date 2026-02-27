@@ -91,6 +91,8 @@ export interface TableProps {
   readonly?: boolean
   report?: Record<CycleUuid, { columnsReport?: Array<ColName>; transpose?: boolean }>
   secondary?: boolean
+  // Whether to show an icon for the user inputted data (used in mirror tables, 2a, 2b, 2c)
+  showOriginalValueInfo?: Record<CycleUuid, boolean>
   sort?: Record<CycleUuid, { columnNames: Array<ColName>; rowNames: Array<VariableName> }>
   style?: Record<CycleUuid, Pick<CSSProperties, 'gridTemplateColumns'>>
   unit?: UnitName

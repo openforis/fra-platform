@@ -1,9 +1,9 @@
 import nodemailer from 'nodemailer'
 
+import { notifyLinksInvalid } from 'server/service/mail/notifyLinksInvalid'
 import { remindReviewers } from 'server/service/mail/remindReviewers'
 import { ProcessEnv } from 'server/utils'
 import { Logger } from 'server/utils/logger'
-import { NodeEnv } from 'server/utils/processEnv'
 
 import { assessmentNotifyUsers } from './assessmentNotifyUsers'
 import { oneToOneMessage } from './oneToOneMessage'
@@ -41,7 +41,7 @@ export interface MailServiceEmail {
 }
 
 export const sendMail = async (email: MailServiceEmail): Promise<void> => {
-  if (ProcessEnv.nodeEnv !== NodeEnv.test && ProcessEnv.fraMailEnabled) {
+  if (ProcessEnv.fraMailEnabled) {
     await new Promise<void>((resolve, reject) => {
       mailTransport.sendMail({ ...emailDefaults, ...email }, (error: Error | any, _info) => {
         if (error) {
@@ -64,6 +64,7 @@ export const sendMail = async (email: MailServiceEmail): Promise<void> => {
 
 export const MailService = {
   assessmentNotifyUsers,
+  notifyLinksInvalid,
   oneToOneMessage,
   remindReviewers,
   resetPassword,

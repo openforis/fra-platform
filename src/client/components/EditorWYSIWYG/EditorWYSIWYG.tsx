@@ -1,5 +1,4 @@
 import React from 'react'
-
 import classNames from 'classnames'
 import JoditEditor from 'jodit-react'
 
@@ -14,6 +13,7 @@ import { useValidationError } from './hooks/useValidationError'
 
 export type EditorWYSIWYGProps = {
   disabled?: boolean
+  id?: string
   onChange: (value?: string) => void
   options?: EditorConfig
   onlyLinks?: boolean
@@ -23,7 +23,7 @@ export type EditorWYSIWYGProps = {
 }
 
 const EditorWYSIWYG: React.FC<EditorWYSIWYGProps> = (props: EditorWYSIWYGProps) => {
-  const { className, disabled, onChange, onlyLinks, options, repository, value } = props
+  const { className, disabled, id, onChange, onlyLinks, options, repository, value } = props
 
   const { configs } = useConfigs({ onlyLinks, options, repository })
   const onBlur = useOnBlur({ onChange, value })
@@ -39,6 +39,7 @@ const EditorWYSIWYG: React.FC<EditorWYSIWYGProps> = (props: EditorWYSIWYGProps) 
         )}
         data-tooltip-content={validationError}
         data-tooltip-id={TooltipId.error}
+        id={id}
       >
         {disabled && <JoditEditor config={configs.configReadOnly} value={value} />}
         {!disabled && <JoditEditor config={configs.config} onBlur={onBlur} value={value} />}

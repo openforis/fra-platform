@@ -89,4 +89,19 @@ describe('Numbers test:', () => {
     const res = Numbers.format(9873.43645)
     expect(res).toEqual(`9${Numbers.groupSeparator}873.44`)
   })
+
+  test('toNumberOrNull valid value', () => {
+    const res = Numbers.toNumberOrNull(' 1 234.50 ')
+    expect(res).toEqual(1234.5)
+  })
+
+  test('toNumberOrNull empty value', () => {
+    const res = Numbers.toNumberOrNull('   ')
+    expect(res).toEqual(null)
+  })
+
+  test('toNumberOrNull overflow value', () => {
+    const res = Numbers.toNumberOrNull('1e309')
+    expect(res).toEqual(null)
+  })
 })

@@ -26,10 +26,15 @@ const TelephoneField: React.FC<Props> = (props) => {
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...props}
       renderInput={({ disabled }): ReactNode => (
-        <DataGrid className="telephone-field-grid" gridTemplateColumns="76px 50px auto 1fr">
-          <CallingCode disabled={disabled} onChange={setCallingCode} value={callingCode} />
+        <DataGrid className="telephone-field-grid" gridTemplateColumns="76px 50px auto 1fr" id={fieldDefinition.name}>
+          <CallingCode disabled={disabled} id={fieldDefinition.name} onChange={setCallingCode} value={callingCode} />
           <Hr vertical />
-          <PhoneNumberInput disabled={disabled} onChange={setPhoneNumber} value={phoneNumber} />
+          <PhoneNumberInput
+            disabled={disabled}
+            id={fieldDefinition.name}
+            onChange={setPhoneNumber}
+            value={phoneNumber}
+          />
         </DataGrid>
       )}
     />
