@@ -39,8 +39,8 @@ const DataDownload: React.FC = () => {
         <div>{t('dataDownload.bulkDownload')}</div>
         <LinkBulkDownload />
         <Flex alignItems="start" className="data-download__bulk-instructions" flexDirection="column" gap="4">
-          <p>{t('dataDownload.downloadWholeDatasetInstruction')}</p>
-          <p>{t('dataDownload.individualTableInstruction')}</p>
+          <div>{t('dataDownload.downloadWholeDatasetInstruction')}</div>
+          <div>{t('dataDownload.individualTableInstruction')}</div>
         </Flex>
 
         {resources.map((resource) => (

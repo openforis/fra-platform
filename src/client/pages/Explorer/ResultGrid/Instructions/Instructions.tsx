@@ -18,8 +18,8 @@ const Instructions: React.FC = () => {
 
   return (
     <Flex alignItems="start" className="explorer-result-grid__instructions" flexDirection="column" gap="4">
-      <p>{t('explorer.selectDataInstruction', { sectionLabel })}</p>
-      <p>{t('explorer.downloadWholeDatasetInstruction')}</p>
+      <div>{t('explorer.selectDataInstruction', { sectionLabel })}</div>
+      <div>{t('explorer.downloadWholeDatasetInstruction')}</div>
     </Flex>
   )
 }
