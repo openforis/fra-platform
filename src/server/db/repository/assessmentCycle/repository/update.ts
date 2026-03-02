@@ -1,30 +1,22 @@
+import { RepositoryItem } from 'meta/cycleData/repository/item'
 import { Objects } from 'utils/objects'
 
-import { Assessment } from 'meta/assessment/assessment'
-import { Cycle } from 'meta/assessment/cycle'
-import { RepositoryItem } from 'meta/cycleData/repository/item'
-
 import { BaseProtocol, DB } from 'server/db/db'
-import { Schemas } from 'server/db/schemas'
 
 type Props = {
-  assessment: Assessment
-  cycle: Cycle
   repositoryItem: RepositoryItem
 }
 
 export const update = async (props: Props, client: BaseProtocol = DB): Promise<RepositoryItem> => {
-  const { assessment, cycle, repositoryItem } = props
+  const { repositoryItem } = props
   const { fileUuid, link, props: _props, uuid } = repositoryItem
 
   if (fileUuid && link) throw new Error('Cannot create both file and link')
   if (!fileUuid && !link) throw new Error('No file or link provided')
 
-  const schemaCycle = Schemas.getNameCycle(assessment, cycle)
-
   return client.one<RepositoryItem>(
     `
-      update ${schemaCycle}.repository
+      update public.repository
       set file_uuid = $1
         , link = $2
         , props = $3
