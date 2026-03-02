@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router'
 
 import { Areas } from 'meta/area/areas'
 import { AssessmentNames } from 'meta/assessment/assessment'
+import { Assessments } from 'meta/assessment/assessments'
 import { Cycles } from 'meta/assessment/cycles'
 import { Authorizer } from 'meta/auth/authorizer'
 import { Routes } from 'meta/routes/routes'
@@ -28,6 +29,24 @@ export const useUserRedirect = (): void => {
   useEffect(() => {
     // Wait for country data to load before checking authorization
     if (!country) return
+
+    const lastPublishedCycle = Assessments.getLastPublishedCycle(assessment)
+    const shouldRedirectToVoluntaryUpdate =
+      !user &&
+      Areas.isISOCountry(countryIso) &&
+      Areas.hasVoluntaryUpdates({ assessment, country }) &&
+      cycleName === lastPublishedCycle?.name &&
+      cycleName !== country.lastPublishedInfo.cycleName
+
+    if (shouldRedirectToVoluntaryUpdate) {
+      const route = Routes.Country.generatePath({
+        assessmentName,
+        countryIso,
+        cycleName: country.lastPublishedInfo.cycleName,
+      })
+      navigate(route, { replace: true })
+      return
+    }
 
     const isAuthorized = Authorizer.canView({ assessment, cycle, areaCode: countryIso, country, user })
 
