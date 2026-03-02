@@ -19,10 +19,11 @@ type Props = {
 }
 
 export const create = async (props: Props): Promise<RepositoryItem> => {
-  const { assessment, countryIso, cycle, user } = props
+  const { assessment, countryIso, cycle, repositoryItem, user } = props
 
   return DB.tx(async (t: BaseProtocol) => {
-    const target = await RepositoryRepository.create(props, t)
+    const cycleUuid = cycle.uuid
+    const target = await RepositoryRepository.create({ cycleUuid, countryIso, repositoryItem }, t)
 
     const message = ActivityLogMessage.repositoryItemCreate
     const section = SectionNames.Country.Home.repository

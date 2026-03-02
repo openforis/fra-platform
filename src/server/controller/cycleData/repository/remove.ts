@@ -22,10 +22,10 @@ type Props = {
 }
 
 export const remove = async (props: Props): Promise<void> => {
-  const { assessment, countryIso, cycle, user } = props
+  const { assessment, countryIso, cycle, user, uuid } = props
 
   return DB.tx(async (t: BaseProtocol) => {
-    const target = await RepositoryRepository.remove(props, t)
+    const target = await RepositoryRepository.remove({ uuid }, t)
     await FileRepository.remove({ uuid: target.fileUuid }, t)
     await FileStorage.File.remove({ key: target.fileUuid })
 

@@ -25,11 +25,10 @@ type Returned = {
 }
 
 export const updateFile = async (props: Props): Promise<Returned> => {
-  const { assessment, bufferView, countryIso, cycle, fileName } = props
+  const { bufferView, fileName } = props
 
   return DB.tx(async (t: BaseProtocol) => {
-    const getRepositoryItemProps = { assessment, countryIso, cycle, fileName }
-    const repositoryItem = await RepositoryRepository.getOne(getRepositoryItemProps, t)
+    const repositoryItem = await RepositoryRepository.getOne({ fileName }, t)
 
     const pdfMulterFile = bufferToPdfMulterFile({ bufferView, fileName })
     const newFile = await FileRepository.create({ fileName: pdfMulterFile.originalname }, t)
@@ -38,8 +37,7 @@ export const updateFile = async (props: Props): Promise<Returned> => {
     await FileStorage.File.upload({ key, body })
 
     const updateRepositoryItemProps: RepositoryItem = { ...repositoryItem, fileUuid: newFile.uuid }
-    const updateRepositoryProps = { assessment, cycle, repositoryItem: updateRepositoryItemProps }
-    const target = await RepositoryRepository.update(updateRepositoryProps, t)
+    const target = await RepositoryRepository.update({ repositoryItem: updateRepositoryItemProps }, t)
 
     return {
       fileSummary: newFile,

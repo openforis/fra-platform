@@ -1,7 +1,5 @@
 import { errors as pgErrors } from 'pg-promise'
 
-import { Assessment } from 'meta/assessment/assessment'
-import { Cycle } from 'meta/assessment/cycle'
 import { RepositoryItem } from 'meta/cycleData/repository/item'
 import { File } from 'meta/file/file'
 
@@ -10,8 +8,6 @@ import { FileRepository } from 'server/db/repository/public/file'
 import { FileStorage } from 'server/service/fileStorage'
 
 type Props = {
-  assessment: Assessment
-  cycle: Cycle
   fileName: string
 }
 
@@ -21,8 +17,9 @@ type Returned = {
 }
 
 export const getOne = async (props: Props): Promise<Returned | undefined> => {
+  const { fileName } = props
   try {
-    const repositoryItem = await RepositoryRepository.getOne(props)
+    const repositoryItem = await RepositoryRepository.getOne({ fileName })
 
     const fileRepositoryProps = { fileUuid: repositoryItem.fileUuid }
     const fileSummary = await FileRepository.getOne(fileRepositoryProps)

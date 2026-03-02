@@ -27,7 +27,7 @@ type Returned =
   | undefined
 
 export const create = async (props: Props): Promise<Returned> => {
-  const { assessment, bufferView, countryIso, cycle, fileName } = props
+  const { bufferView, countryIso, cycle, fileName } = props
 
   const pdfMulterFile = bufferToPdfMulterFile({ bufferView, fileName })
 
@@ -47,9 +47,8 @@ export const create = async (props: Props): Promise<Returned> => {
     }
     const repositoryItem = await RepositoryRepository.create(
       {
-        assessment,
+        cycleUuid: cycle.uuid,
         countryIso,
-        cycle,
         repositoryItem: repositoryItemProps,
       },
       t
