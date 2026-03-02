@@ -22,8 +22,8 @@ export const getHiddenFile = async (req: GetPrivateFileRequest, res: Response): 
   try {
     const { assessmentName, fileName } = req.query
     const cycleName = '2025'
-    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
-    const repositoryItem = await CycleDataController.Repository.getOne({ assessment, cycle, fileName })
+    await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+    const repositoryItem = await CycleDataController.Repository.getOne({ fileName })
     const urlParams = new URLSearchParams({ assessmentName, cycleName })
     res
       .status(301)

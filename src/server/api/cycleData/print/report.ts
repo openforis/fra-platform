@@ -52,7 +52,7 @@ const getPdf = async (req: Request, fileName: string): ReturnType<Page['pdf']> =
   const { assessment, cycle } = req.context
 
   const [cachedPdfInfo, country] = await Promise.all([
-    CycleDataController.Report.getOne({ assessment, cycle, fileName }),
+    CycleDataController.Report.getOne({ fileName }),
     AreaController.getCountry({ assessment, countryIso, cycle }),
   ])
   const countryCycleLastUpdate = country?.lastUpdate

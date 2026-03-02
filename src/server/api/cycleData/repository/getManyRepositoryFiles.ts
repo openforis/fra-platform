@@ -10,10 +10,10 @@ type Request = CountryRequest<{ global: string }>
 
 export const getManyRepositoryFiles = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { assessment, cycle } = req.context
+    const { cycle } = req.context
     const { countryIso, global = 'false' } = req.query
 
-    const props = { assessment, cycle, countryIso, global: JSON.parse(global) }
+    const props = { cycle, countryIso, global: JSON.parse(global) }
     const files = await CycleDataController.Repository.getManyFiles(props)
 
     await Responses.sendZip(res, files)
