@@ -9,6 +9,7 @@ import { useLanguage } from 'client/hooks/language'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { ButtonSize, useButtonClassName } from 'client/components/Buttons/Button'
 import Icon from 'client/components/Icon'
+import Flex from 'client/components/Layout/Flex'
 import LinkBulkDownload from 'client/pages/DataDownload/LinkBulkDownload'
 import resources, { DataDownloadResource } from 'client/pages/DataDownload/resources'
 import { DOMs } from 'client/utils/doms'
@@ -37,6 +38,10 @@ const DataDownload: React.FC = () => {
       <div className="data-download">
         <div>{t('dataDownload.bulkDownload')}</div>
         <LinkBulkDownload />
+        <Flex alignItems="start" className="data-download__bulk-instructions" flexDirection="column" gap="4">
+          <div>{t('dataDownload.downloadWholeDatasetInstruction')}</div>
+          <div>{t('dataDownload.individualTableInstruction')}</div>
+        </Flex>
 
         {resources.map((resource) => (
           <React.Fragment key={String(resource.labelKey)}>
