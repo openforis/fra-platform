@@ -2,6 +2,7 @@
 
 $alignment-values: (start, end, center, stretch, baseline, first, last, space-between, space-around, space-evenly);
 $alignment-properties: (align-items, align-content, justify-items, justify-content);
+$flex-direction-values: (row, row-reverse, column, column-reverse);
 
 $gaps: 0, 4, 8, 16, 32;
 
@@ -13,6 +14,12 @@ $gaps: 0, 4, 8, 16, 32;
       &.#{$property}-#{$value} {
         #{$property}: $value;
       }
+    }
+  }
+
+  @each $value in $flex-direction-values {
+    &.flex-direction-#{$value} {
+      flex-direction: $value;
     }
   }
 

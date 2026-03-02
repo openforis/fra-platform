@@ -7,6 +7,7 @@ import dataDownload from './es/dataDownload.json'
 import dataSource from './es/dataSource.json'
 import editUser from './es/editUser.json'
 import email from './es/email.json'
+import explorer from './es/explorer.json'
 import footer from './es/footer.json'
 import fra from './es/fra.json'
 import generalValidation from './es/generalValidations.json'
@@ -30,6 +31,7 @@ export const esTranslation = {
   dataSource,
   editUser,
   email,
+  explorer,
   footer,
   fra,
   generalValidation,
