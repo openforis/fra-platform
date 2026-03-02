@@ -1,38 +1,35 @@
 import '../scriptInit'
 
+import { AssessmentNames } from 'meta/assessment/assessment'
 import { ToolsUtils } from 'tools/utils/toolsUtils'
 
-import { Assessment, AssessmentNames } from 'meta/assessment/assessment'
-
-import { CacheController } from 'server/cache/controller'
 import { AssessmentController } from 'server/controller/assessment'
 import { UserController } from 'server/controller/user'
 import { DB } from 'server/db/db'
-import { Schemas } from 'server/db/schemas'
 
 const client = DB
 const assessmentName = AssessmentNames.fra
 // const cycleName = '2025'
-const cycleNameClone = 'latest'
+const cycleNameClone = '2030'
 // const cycleNameCloneRenamed = '2026'
 
-const _removeColumns = async (props: { assessment: Assessment }): Promise<void> => {
-  const { assessment } = props
-
-  const schemaAssessment = Schemas.getName(assessment)
-  await client.query(`
-      delete
-      from ${schemaAssessment}.col
-      where id in
-            (select c.id
-             from ${schemaAssessment}.col c
-                      left join ${schemaAssessment}.row r on r.uuid = c.row_uuid
-                      left join ${schemaAssessment}."table" t on r.table_uuid = t.uuid
-             where c.props ->> 'colName' = '2024'
-               and t.props ->> 'name' in ('areaAffectedByFire', 'disturbances'))
-  `)
-  await CacheController.generateMetadata({ assessment }, client)
-}
+// const _removeColumns = async (props: { assessment: Assessment }): Promise<void> => {
+//   const { assessment } = props
+//
+//   const schemaAssessment = Schemas.getName(assessment)
+//   await client.query(`
+//       delete
+//       from ${schemaAssessment}.col
+//       where id in
+//             (select c.id
+//              from ${schemaAssessment}.col c
+//                       left join ${schemaAssessment}.row r on r.uuid = c.row_uuid
+//                       left join ${schemaAssessment}."table" t on r.table_uuid = t.uuid
+//              where c.props ->> 'colName' = '2024'
+//                and t.props ->> 'name' in ('areaAffectedByFire', 'disturbances'))
+//   `)
+//   await CacheController.generateMetadata({ assessment }, client)
+// }
 
 export const removeCycle = async (): Promise<void> => {
   const { assessment, cycle } = await AssessmentController.getOneWithCycle(
@@ -44,9 +41,9 @@ export const removeCycle = async (): Promise<void> => {
     client
   )
   const user = await UserController.getOne({ email: 'fra@fao.org' }, client)
-  const update = await AssessmentController.removeCycle({ assessment, cycle, user }, client)
+  await AssessmentController.removeCycle({ assessment, cycle, user }, client)
 
-  await _removeColumns({ assessment: update.assessment })
+  // await _removeColumns({ assessment: update.assessment })
 }
 
 ToolsUtils.exec(removeCycle)
