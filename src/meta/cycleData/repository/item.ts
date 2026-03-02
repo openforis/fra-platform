@@ -1,4 +1,5 @@
 import { AreaCode } from 'meta/area/areaCode'
+import { CycleUuid } from 'meta/assessment/cycle'
 import { Translation } from 'meta/translation/translation'
 
 export interface RepositoryItemProps {
@@ -10,6 +11,7 @@ export interface RepositoryItemProps {
 export type RepositoryItem = {
   readonly id: number
   readonly uuid: string
+  cycleUuid?: CycleUuid
   countryIso?: AreaCode
   fileUuid?: string
   link?: string
