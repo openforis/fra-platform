@@ -11,7 +11,7 @@ import { Requests } from 'server/utils'
 export const requireViewRepositoryItem = async (req: Request, _res: Response, next: NextFunction): Promise<void> => {
   const { countryIso: areaCode, uuid } = _getRequestParams<CountryParams & { uuid: string }>(req)
   const { assessment, cycle } = req.context
-  const repositoryItem = await CycleDataController.Repository.getOne({ assessment, cycle, uuid })
+  const repositoryItem = await CycleDataController.Repository.getOne({ uuid })
   const user = Requests.getUser(req)
   const { country } = req.context
 
