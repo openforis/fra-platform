@@ -9,6 +9,7 @@ import dataSource from './en/dataSource.json'
 import dimensions from './en/dimensions.json'
 import editUser from './en/editUser.json'
 import email from './en/email.json'
+import explorer from './en/explorer.json'
 import footer from './en/footer.json'
 import form from './en/form.json'
 import fra from './en/fra.json'
@@ -39,6 +40,7 @@ export const enTranslation = {
   dimensions,
   editUser,
   email,
+  explorer,
   footer,
   form,
   fra,

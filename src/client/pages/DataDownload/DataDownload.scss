@@ -14,3 +14,9 @@
   grid-column: 1/4;
   border-top: $ui-thin-border;
 }
+
+.data-download__bulk-instructions {
+  color: $text-mute;
+  font-size: $font-s;
+  grid-column: 1/4;
+}
