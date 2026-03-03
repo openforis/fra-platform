@@ -2,6 +2,7 @@ import pgPromise from 'pg-promise'
 
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle, CycleUuid } from 'meta/assessment/cycle'
+import { RepositoryItemProps } from 'meta/cycleData/repository/item'
 import { Promises } from 'utils/promises'
 
 import { AssessmentController } from 'server/controller/assessment'
@@ -15,33 +16,51 @@ const pgp = pgPromise()
 
 type DBRepositoryItem = {
   uuid: string
-  country_iso: string
+  country_iso: string | null
   file_uuid: string | null
   link: string | null
-  props: Record<string, unknown>
+  props: RepositoryItemProps
 }
 
-type DBRepositoryItemInsert = DBRepositoryItem & { cycleUuid: CycleUuid }
+type DBRepositoryItemInsert = DBRepositoryItem & {
+  assessmentUuid: string | null
+  cycleUuid: CycleUuid | null
+}
 
 type CycleItems = {
   cycleUuid: CycleUuid
   items: Array<DBRepositoryItem>
 }
 
-const _resolveItems = (cyclesWithItems: Array<CycleItems>): Array<DBRepositoryItemInsert> => {
+const _resolveItems = (assessment: Assessment, cyclesWithItems: Array<CycleItems>): Array<DBRepositoryItemInsert> => {
   const acc: Record<string, DBRepositoryItemInsert> = {}
+  const assessmentUuid = assessment.uuid
 
-  // Iterate over cycles starting from oldest: if item is found another time: update props
-  // e.g. 2020 item found in 2025 -> keep cycle_uuid from 2020 but update props from 2025
+  // Hidden files have no assessment_uuid and cycle_uuid
+  const _hiddenFile = (item: DBRepositoryItem): void => {
+    if (!acc[item.uuid]) acc[item.uuid] = { ...item, assessmentUuid: null, cycleUuid: null }
+  }
+
+  // Global items have assessment_uuid and cycle_uuid.
+  // Deduplicate items by: link (outside links) -> translation (platform files) -> item.uuid (as fallback)
+  const _globalItemKey = (item: DBRepositoryItem): string => item.link ?? item.props?.translation?.en ?? item.uuid
+
+  const _globalItem = (item: DBRepositoryItem, cycleUuid: CycleUuid): void => {
+    const key = _globalItemKey(item)
+    if (!acc[key]) acc[key] = { ...item, assessmentUuid, cycleUuid }
+  }
+
+  // Country items have assessment_uuid, cycle_uuid and "newest/latest" props in case of duplication
+  const _countryItem = (item: DBRepositoryItem, cycleUuid: CycleUuid): void => {
+    if (acc[item.uuid]) acc[item.uuid].props = item.props
+    else acc[item.uuid] = { ...item, assessmentUuid, cycleUuid }
+  }
+
   cyclesWithItems.forEach(({ cycleUuid, items }) => {
     items.forEach((item) => {
-      // if item already exists, update props
-      if (acc[item.uuid]) {
-        // only update props for country-specific items; global items keep props from the oldest cycle
-        if (item.country_iso) acc[item.uuid].props = item.props
-      } else {
-        acc[item.uuid] = { ...item, cycleUuid }
-      }
+      if (!item.country_iso && item.props?.hidden === true) _hiddenFile(item)
+      else if (!item.country_iso) _globalItem(item, cycleUuid)
+      else _countryItem(item, cycleUuid)
     })
   })
 
@@ -67,13 +86,13 @@ const _migrateCycle =
     return { cycleUuid, items }
   }
 
-// insert items to public.repository with cycle_uuid
 const _insertItems = async (items: Array<DBRepositoryItemInsert>, client: BaseProtocol): Promise<void> => {
   if (items.length === 0) return
 
   const cs = new pgp.helpers.ColumnSet(
     [
       'uuid',
+      { name: 'assessment_uuid', prop: 'assessmentUuid' },
       { name: 'cycle_uuid', prop: 'cycleUuid' },
       'country_iso',
       'file_uuid',
@@ -90,10 +109,9 @@ const _insertItems = async (items: Array<DBRepositoryItemInsert>, client: BasePr
 const _migrateAssessment =
   (client: BaseProtocol) =>
   async (assessment: Assessment): Promise<void> => {
-    // sort oldest to newest so cycle_uuid is assigned to the original cycle for repository item
     const cycles = [...assessment.cycles].sort((a, b) => a.id - b.id)
     const cyclesWithItems = await Promise.all(cycles.map(_migrateCycle(assessment, client)))
-    const resolved = _resolveItems(cyclesWithItems)
+    const resolved = _resolveItems(assessment, cyclesWithItems)
 
     await _insertItems(resolved, client)
   }

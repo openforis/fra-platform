@@ -10,6 +10,8 @@ export interface RepositoryItemProps {
 export type RepositoryItem = {
   readonly id: number
   readonly uuid: string
+  assessmentUuid?: string
+  cycleUuid?: string
   countryIso?: AreaCode
   fileUuid?: string
   link?: string
