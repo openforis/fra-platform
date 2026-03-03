@@ -6,7 +6,7 @@ import { Objects } from 'utils/objects'
 import { BaseProtocol, DB } from 'server/db/db'
 
 type Props = {
-  cycleUuid: CycleUuid
+  cycleUuid?: CycleUuid
   countryIso?: AreaCode
   global: boolean
 }
@@ -14,11 +14,12 @@ type Props = {
 export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<Array<RepositoryItem>> => {
   const { countryIso, cycleUuid, global } = props
   const countryCondition = global ? 'country_iso is null' : 'country_iso = $(countryIso)'
+  const cycleCondition = cycleUuid ? 'and cycle_uuid = $(cycleUuid)' : ''
 
   return client.map<RepositoryItem>(
     `select * from public.repository
      where ${countryCondition}
-       and cycle_uuid = $(cycleUuid)
+       ${cycleCondition}
        and (props ->> 'hidden')::boolean is not true
      order by id`,
     { countryIso, cycleUuid },

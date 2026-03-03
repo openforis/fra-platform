@@ -11,7 +11,8 @@ export const getManyRepository = async (req: Request, res: Response): Promise<vo
   try {
     const { countryIso, global = 'false' } = req.query
     const { cycle } = req.context
-    const props = { countryIso, cycleUuid: cycle.uuid, global: JSON.parse(global) }
+    const isGlobal = JSON.parse(global)
+    const props = { countryIso, cycleUuid: isGlobal ? cycle.uuid : undefined, global: isGlobal }
     const items = await CycleDataController.Repository.getMany(props)
 
     Requests.send(res, items)
