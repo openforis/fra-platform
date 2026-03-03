@@ -48,7 +48,7 @@ const CountryOptions: React.FC<Props> = (props: Props) => {
         gap="4"
       >
         <Icon className="icon-middle" name="alert" />
-        <span>{t('common.explorerCountryOptionsDisabled')}</span>
+        <span>{t('explorer.countryOptionsDisabled')}</span>
       </Flex>
     </>
   )

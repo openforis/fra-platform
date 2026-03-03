@@ -1,0 +1,7 @@
+@use 'src/client/style/partials' as *;
+
+.explorer-result-grid__instructions {
+  color: $text-mute;
+  font-size: $font-s;
+  margin-top: $spacing-s;
+}
