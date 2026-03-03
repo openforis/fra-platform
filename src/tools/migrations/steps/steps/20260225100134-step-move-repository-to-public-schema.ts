@@ -1,7 +1,9 @@
+import { randomUUID } from 'crypto'
 import pgPromise from 'pg-promise'
 
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle, CycleUuid } from 'meta/assessment/cycle'
+import { RepositoryItemProps } from 'meta/cycleData/repository/item'
 import { Promises } from 'utils/promises'
 
 import { AssessmentController } from 'server/controller/assessment'
@@ -18,7 +20,7 @@ type DBRepositoryItem = {
   country_iso: string
   file_uuid: string | null
   link: string | null
-  props: Record<string, unknown>
+  props: RepositoryItemProps
 }
 
 type DBRepositoryItemInsert = DBRepositoryItem & { cycleUuid: CycleUuid }
@@ -29,23 +31,36 @@ type CycleItems = {
 }
 
 const _resolveItems = (cyclesWithItems: Array<CycleItems>): Array<DBRepositoryItemInsert> => {
-  const acc: Record<string, DBRepositoryItemInsert> = {}
+  const globalAcc: Record<string, DBRepositoryItemInsert> = {}
+  const countryAcc: Record<string, DBRepositoryItemInsert> = {}
 
-  // Iterate over cycles starting from oldest: if item is found another time: update props
-  // e.g. 2020 item found in 2025 -> keep cycle_uuid from 2020 but update props from 2025
+  const addHiddenGlobal = (item: DBRepositoryItem, cycleUuid: CycleUuid): void => {
+    // deduplicate: hidden files are not cycle-specific, keep first occurrence
+    if (!globalAcc[item.uuid]) globalAcc[item.uuid] = { ...item, cycleUuid }
+  }
+
+  const addVisibleGlobal = (item: DBRepositoryItem, cycleUuid: CycleUuid): void => {
+    // one row per cycle; generate a fresh uuid if the original is already taken
+    const uuid = globalAcc[item.uuid] ? randomUUID() : item.uuid
+    globalAcc[uuid] = { ...item, uuid, cycleUuid }
+  }
+
+  const addCountry = (item: DBRepositoryItem, cycleUuid: CycleUuid): void => {
+    // deduplicate by uuid, keeping oldest cycle_uuid and updating props to newest
+    if (countryAcc[item.uuid]) countryAcc[item.uuid].props = item.props
+    else countryAcc[item.uuid] = { ...item, cycleUuid }
+  }
+
+  // iterate over cycles starting from oldest
   cyclesWithItems.forEach(({ cycleUuid, items }) => {
     items.forEach((item) => {
-      // if item already exists, update props
-      if (acc[item.uuid]) {
-        // only update props for country-specific items; global items keep props from the oldest cycle
-        if (item.country_iso) acc[item.uuid].props = item.props
-      } else {
-        acc[item.uuid] = { ...item, cycleUuid }
-      }
+      if (!item.country_iso && item.props?.hidden === true) addHiddenGlobal(item, cycleUuid)
+      else if (!item.country_iso) addVisibleGlobal(item, cycleUuid)
+      else addCountry(item, cycleUuid)
     })
   })
 
-  return Object.values(acc)
+  return [...Object.values(globalAcc), ...Object.values(countryAcc)]
 }
 
 // get repository items from given schema
