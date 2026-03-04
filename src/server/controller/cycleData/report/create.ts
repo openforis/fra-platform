@@ -45,13 +45,10 @@ export const create = async (props: Props): Promise<Returned> => {
         translation: { en: fileName },
       },
     }
+    const assessmentUuid = assessment.uuid
+    const cycleUuid = cycle.uuid
     const repositoryItem = await RepositoryRepository.create(
-      {
-        assessment,
-        countryIso,
-        cycle,
-        repositoryItem: repositoryItemProps,
-      },
+      { assessmentUuid, cycleUuid, countryIso, repositoryItem: repositoryItemProps },
       t
     )
 

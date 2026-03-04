@@ -24,7 +24,8 @@ export const update = async (props: Props): Promise<RepositoryItem> => {
   const { assessment, countryIso, cycle, user } = props
 
   return DB.tx(async (t: BaseProtocol) => {
-    const target = await RepositoryRepository.update(props, t)
+    const { repositoryItem } = props
+    const target = await RepositoryRepository.update({ repositoryItem }, t)
 
     const message = ActivityLogMessage.repositoryItemUpdate
     const section = SectionNames.Country.Home.repository

@@ -18,8 +18,7 @@ type Returned = FileMeta
 export const getFileMeta = async (props: Props): Promise<Returned> => {
   const { assessment, cycle, uuid } = props
 
-  const getRepositoryItemProps = { assessment, cycle, uuid }
-  const repositoryItem = await RepositoryRepository.getOne(getRepositoryItemProps)
+  const repositoryItem = await RepositoryRepository.getOne({ uuid })
 
   const [usages, summary] = await Promise.all([
     RepositoryRepository.getUsages({ uuid, cycle, assessment }),
