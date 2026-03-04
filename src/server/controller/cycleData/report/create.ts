@@ -46,12 +46,7 @@ export const create = async (props: Props): Promise<Returned> => {
       },
     }
     const repositoryItem = await RepositoryRepository.create(
-      {
-        assessment,
-        countryIso,
-        cycle,
-        repositoryItem: repositoryItemProps,
-      },
+      { assessment, cycle, countryIso, repositoryItem: repositoryItemProps },
       t
     )
 

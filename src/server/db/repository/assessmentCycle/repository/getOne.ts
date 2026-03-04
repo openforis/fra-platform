@@ -1,41 +1,38 @@
+import { RepositoryItem } from 'meta/cycleData/repository/item'
 import { Objects } from 'utils/objects'
 
-import { Assessment } from 'meta/assessment/assessment'
-import { Cycle } from 'meta/assessment/cycle'
-import { RepositoryItem } from 'meta/cycleData/repository/item'
-
 import { BaseProtocol, DB } from 'server/db/db'
-import { Schemas } from 'server/db/schemas'
 
-type Props = {
-  assessment: Assessment
-  cycle: Cycle
-} & ({ uuid: string } | { fileName: string } | { fileUuid: string })
+type Props =
+  | { uuid: string }
+  | { fileUuid: string }
+  /**
+   * @deprecated
+   */
+  | { fileName: string }
 
 export const getOne = async (props: Props, client: BaseProtocol = DB): Promise<RepositoryItem> => {
-  const { assessment, cycle } = props
-  const schemaCycle = Schemas.getNameCycle(assessment, cycle)
-
-  let values: Array<string>
+  let value: string
   let where: string
 
   if ('uuid' in props) {
-    values = [props.uuid]
-    where = 'uuid = $1'
+    value = props.uuid
+    where = 'uuid = $(value)'
   } else if ('fileName' in props) {
-    values = [props.fileName]
-    where = "props -> 'translation' ->> 'en' = $1"
+    value = props.fileName
+    where =
+      "props -> 'translation' ->> 'en' = $(value) and (props ->> 'hidden')::boolean = true and country_iso is null"
   } else {
-    values = [props.fileUuid]
-    where = 'file_uuid = $1'
+    value = props.fileUuid
+    where = 'file_uuid = $(value)'
   }
 
   return client.one<RepositoryItem>(
     `
-      select * from ${schemaCycle}.repository
+      select * from public.repository
       where ${where}
     `,
-    values,
+    { value },
     (row) => Objects.camelize(row)
   )
 }
