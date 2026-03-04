@@ -23,8 +23,7 @@ export const create = async (props: Props): Promise<RepositoryItem> => {
 
   return DB.tx(async (t: BaseProtocol) => {
     const { repositoryItem } = props
-    const repositoryProps = { assessmentUuid: assessment.uuid, cycleUuid: cycle.uuid, countryIso, repositoryItem }
-    const target = await RepositoryRepository.create(repositoryProps, t)
+    const target = await RepositoryRepository.create({ assessment, cycle, countryIso, repositoryItem }, t)
 
     const message = ActivityLogMessage.repositoryItemCreate
     const section = SectionNames.Country.Home.repository
