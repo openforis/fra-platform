@@ -11,7 +11,7 @@ const getPreviousCycle = (props: { assessment: Assessment; cycle: Cycle }): Cycl
   return Assessments.getCycle({ assessment, cycleUuid: cycle.cycleUuidSource })
 }
 
-const getPreviousCycles = (props: { assessment: Assessment; cycle: Cycle }): Array<Cycle> => {
+const getPreviousAndSelfCycles = (props: { assessment: Assessment; cycle: Cycle }): Array<Cycle> => {
   const { assessment, cycle } = props
   const result: Array<Cycle> = []
   let current: Cycle | undefined = cycle
@@ -25,5 +25,5 @@ const getPreviousCycles = (props: { assessment: Assessment; cycle: Cycle }): Arr
 export const Cycles = {
   isPublished,
   getPreviousCycle,
-  getPreviousCycles,
+  getPreviousAndSelfCycles,
 }

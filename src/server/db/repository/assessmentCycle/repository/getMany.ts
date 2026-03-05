@@ -17,7 +17,7 @@ type Props = {
 export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<Array<RepositoryItem>> => {
   const { assessment, countryIso, cycle, global } = props
   const assessmentUuid = assessment.uuid
-  const cycleUuids = Cycles.getPreviousCycles({ assessment, cycle }).map((c) => c.uuid)
+  const cycleUuids = Cycles.getPreviousAndSelfCycles({ assessment, cycle }).map((c) => c.uuid)
   const countryCondition = global ? 'country_iso is null' : 'country_iso = $(countryIso)'
 
   return client.map<RepositoryItem>(
