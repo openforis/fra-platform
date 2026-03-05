@@ -1,12 +1,6 @@
 import { RegionCode } from 'meta/area/regionCode'
-import { SubRegionCode } from 'meta/area/subRegionCode'
+import { SubRegion } from 'meta/area/subRegion'
 import { Lang } from 'meta/lang'
-
-export interface SubRegion {
-  name: string
-  regionCode: SubRegionCode
-  sortIndex: Record<Lang, number>
-}
 
 export interface Region {
   name: string
