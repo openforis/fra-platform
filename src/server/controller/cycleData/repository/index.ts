@@ -3,7 +3,6 @@ import { RepositoryRepository } from 'server/db/repository/assessmentCycle/repos
 
 import { create } from './create'
 import { getFileMeta } from './getFileMeta'
-import { getMany } from './getMany'
 import { getManyFiles } from './getManyFiles'
 import { remove } from './remove'
 import { update } from './update'
@@ -12,7 +11,7 @@ export const Repository = {
   create,
   getOneFile,
   getFileMeta,
-  getMany,
+  getMany: RepositoryRepository.getMany,
   getManyFiles,
   getOne: RepositoryRepository.getOne,
   remove,

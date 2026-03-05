@@ -7,10 +7,9 @@ import { Lang } from 'meta/lang'
 import { Translations } from 'meta/translation/translations'
 import { Promises } from 'utils/promises'
 
+import { RepositoryRepository } from 'server/db/repository/assessmentCycle/repository'
 import { FileRepository } from 'server/db/repository/public/file'
 import { FileStorage } from 'server/service/fileStorage'
-
-import { getMany } from './getMany'
 
 type Props = {
   assessment: Assessment
@@ -27,7 +26,7 @@ type Returned = Array<{
 export const getManyFiles = async (props: Props): Promise<Returned> => {
   const { assessment, countryIso, cycle, global } = props
 
-  const repositoryItems = await getMany({ assessment, cycle, countryIso, global })
+  const repositoryItems = await RepositoryRepository.getMany({ assessment, countryIso, cycle, global })
 
   const repositoryProps = { fileUuids: repositoryItems.map((item) => item.fileUuid) }
   const files = await FileRepository.getMany(repositoryProps)
