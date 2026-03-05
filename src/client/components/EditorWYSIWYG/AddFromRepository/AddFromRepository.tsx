@@ -2,29 +2,23 @@ import './AddFromRepository.scss'
 import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { RepositoryItems } from 'meta/cycleData/repository/items'
-import { Translations } from 'meta/translation/translations'
-
-import { useLanguage } from 'client/hooks/language'
-import { useCountryRouteParams } from 'client/hooks/routeParams'
 import Button, { ButtonSize } from 'client/components/Buttons/Button'
-import ButtonCheckBox, { ButtonCheckboxVariant } from 'client/components/Buttons/ButtonCheckbox'
 import { useRepositoryLinkContext } from 'client/components/EditorWYSIWYG/repositoryLinkContext'
 import FileUpload from 'client/components/FileUpload'
-import Icon from 'client/components/Icon'
 import { Modal, ModalBody, ModalClose, ModalFooter, ModalHeader } from 'client/components/Modal'
+import Resizable from 'client/components/Resizable'
 
 import { useGetRepositoryItems } from './hooks/useGetRepositoryItems'
+import { useGroupedItems } from './hooks/useGroupedItems'
 import { useIsChecked } from './hooks/useIsChecked'
 import { useOnClick } from './hooks/useOnClick'
 import { useOnClose } from './hooks/useOnClose'
 import { useOnSuccess } from './hooks/useOnSuccess'
 import { useRepositoryItems } from './hooks/useRepositoryItems'
+import ItemsGroup from './ItemsGroup'
 
 const AddFromRepository: React.FC = () => {
-  const { assessmentName, countryIso, cycleName } = useCountryRouteParams()
   const { t } = useTranslation()
-  const language = useLanguage()
   const { repositoryOpened, setSelectedFiles } = useRepositoryLinkContext()
 
   const getRepositoryItems = useGetRepositoryItems()
@@ -33,6 +27,7 @@ const AddFromRepository: React.FC = () => {
   const onClose = useOnClose()
   const onSuccess = useOnSuccess()
   const repositoryItems = useRepositoryItems()
+  const groupedItems = useGroupedItems(repositoryItems)
 
   useEffect(() => {
     if (repositoryOpened) {
@@ -47,46 +42,33 @@ const AddFromRepository: React.FC = () => {
 
   return (
     <Modal className="repository-modal" isOpen={repositoryOpened}>
-      <ModalHeader>
-        <div>
-          <h3 className="subhead">{t('common.selectFiles')}</h3>
-        </div>
-        <ModalClose
-          onClose={(): void => {
-            setSelectedFiles([])
-            onClose()
-          }}
-        />
-      </ModalHeader>
+      <Resizable defaultSize={{ width: 500, height: 'auto' }} maxWidth={1500} minWidth={500} vertical={false}>
+        <ModalHeader>
+          <div>
+            <h3 className="subhead">{t('common.selectFiles')}</h3>
+          </div>
+          <ModalClose
+            onClose={(): void => {
+              setSelectedFiles([])
+              onClose()
+            }}
+          />
+        </ModalHeader>
 
-      <ModalBody>
-        <div className="references-file-list">
-          {repositoryItems?.map((repositoryItem) => {
-            const url = RepositoryItems.getURL({ assessmentName, cycleName, countryIso, repositoryItem })
-            const label = Translations.getLabel({ translation: repositoryItem.props.translation, language })
+        <ModalBody>
+          <div className="references-file-list">
+            {groupedItems.map(([cycleUuid, items]) => (
+              <ItemsGroup key={cycleUuid} cycleUuid={cycleUuid} isChecked={isChecked} items={items} onClick={onClick} />
+            ))}
 
-            return (
-              <div key={repositoryItem.uuid} className="file-row">
-                <ButtonCheckBox
-                  checked={isChecked(repositoryItem.uuid)}
-                  label={label}
-                  onClick={(): void => onClick(repositoryItem.uuid)}
-                  variant={ButtonCheckboxVariant.checkbox}
-                />
-                <a href={url}>
-                  <Icon name="hit-down" />
-                </a>
-              </div>
-            )
-          })}
+            <FileUpload multiple onChange={onSuccess} />
+          </div>
+        </ModalBody>
 
-          <FileUpload multiple onChange={onSuccess} />
-        </div>
-      </ModalBody>
-
-      <ModalFooter>
-        <Button iconName="checkbox" label={t('common.apply')} onClick={onClose} size={ButtonSize.m} />
-      </ModalFooter>
+        <ModalFooter>
+          <Button iconName="checkbox" label={t('common.apply')} onClick={onClose} size={ButtonSize.m} />
+        </ModalFooter>
+      </Resizable>
     </Modal>
   )
 }
