@@ -1,0 +1,41 @@
+@use 'src/client/style/partials' as *;
+
+.file-row {
+  align-items: center;
+  border-radius: 2px;
+  cursor: pointer;
+  display: grid;
+  gap: $spacing-xxs;
+  grid-template-columns: 1fr auto;
+  padding: 2px $spacing-xxxs;
+
+  // Alternating color for rows
+  &:nth-child(odd) {
+    background-color: $ui-bg-light;
+  }
+
+  &:nth-child(even) {
+    background-color: $ui-bg;
+  }
+
+  &:hover {
+    background-color: $ui-bg-hover;
+  }
+
+  .button-checkbox {
+    justify-content: flex-start;
+    white-space: normal;
+  }
+
+  .file-row__download {
+    border: 1px solid $ui-border;
+    color: $text-link;
+    display: flex;
+    padding: $spacing-xxxs;
+
+    &:hover {
+      border-color: $ui-black-map;
+      color: $ui-black-map;
+    }
+  }
+}

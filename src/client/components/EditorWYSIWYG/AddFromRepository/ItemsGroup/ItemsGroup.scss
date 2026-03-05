@@ -1,0 +1,15 @@
+@use 'src/client/style/partials' as *;
+
+.items-group__header {
+  justify-content: flex-start;
+  width: 100%;
+
+  &.collapsed svg {
+    transform: rotate(-90deg);
+  }
+}
+
+.items-group__rows {
+  display: grid;
+  padding: $spacing-xxs 0;
+}
