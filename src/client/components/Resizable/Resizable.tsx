@@ -1,5 +1,4 @@
 import React, { useMemo } from 'react'
-
 import { Resizable as ReResizable, ResizeCallback } from 're-resizable'
 
 type ResizableProps = {
@@ -13,12 +12,23 @@ type ResizableProps = {
   maxWidth?: number | string
   minWidth?: number | string
   onResize?: ResizeCallback
+  vertical?: boolean
 }
 
 type Props = React.PropsWithChildren<ResizableProps>
 
 const Resizable: React.FC<Props> = (props: Props) => {
-  const { children, className, defaultSize, maxHeight, maxWidth, minHeight, minWidth, onResize } = props
+  const {
+    children,
+    className,
+    defaultSize,
+    maxHeight,
+    maxWidth,
+    minHeight,
+    minWidth,
+    onResize,
+    vertical = true,
+  } = props
 
   const enable = useMemo(
     () => ({
@@ -27,11 +37,11 @@ const Resizable: React.FC<Props> = (props: Props) => {
       bottomRight: false,
       left: true,
       right: true,
-      top: true,
-      topLeft: true,
-      topRight: true,
+      top: vertical,
+      topLeft: vertical,
+      topRight: vertical,
     }),
-    []
+    [vertical]
   )
 
   return (
