@@ -186,8 +186,10 @@ export const getCreatePublicSchemaDDL = (schemaName = 'public'): string => {
     create table if not exists ${schemaName}.region (
       region_code text primary key not null,
       name text,
+      parent_code text references ${schemaName}.region(region_code) on update cascade on delete set null,
       sort_index jsonb not null default '{}'::jsonb
     );
+    create index if not exists idx_region_parent_code on ${schemaName}.region using btree (parent_code);
 
     create table if not exists ${schemaName}.users_auth_provider (
       id bigserial primary key,
