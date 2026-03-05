@@ -1,6 +1,5 @@
 import './RowsGroup.scss'
 import React, { useCallback, useState } from 'react'
-
 import classNames from 'classnames'
 
 import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
@@ -12,10 +11,10 @@ type Props<Datum extends object> = Pick<BaseProps<Datum>, 'columns' | 'groups' |
   propertyKey: PropertyKey
 }
 
-const RowsGroup = <Datum extends object>(props: Props<Datum>) => {
+const RowsGroup = <Datum extends object>(props: Props<Datum>): React.ReactElement => {
   const { columns, data, groups, propertyKey, wrapCells } = props
 
-  const [collapsed, setCollapsed] = useState<boolean>(false)
+  const [collapsed, setCollapsed] = useState<boolean>(groups.initialCollapsed?.(propertyKey) ?? false)
   const toggleView = useCallback(() => setCollapsed((prevState) => !prevState), [])
 
   return (

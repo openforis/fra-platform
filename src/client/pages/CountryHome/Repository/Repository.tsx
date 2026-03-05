@@ -13,10 +13,14 @@ import ButtonDownloadAll from 'client/pages/CountryHome/Repository/ButtonDownloa
 import EditForm from 'client/pages/CountryHome/Repository/EditForm'
 
 import { useColumns } from './hooks/useColumns'
+import { useCompareFn } from './hooks/useCompareFn'
+import { useGroups } from './hooks/useGroups'
 
 const Repository: React.FC = () => {
   const { t } = useTranslation()
   const columns = useColumns()
+  const compareFn = useCompareFn()
+  const groups = useGroups()
   const isPanEuropean = useIsPanEuropeanRoute()
 
   useRepositoryItemChangeListener()
@@ -48,7 +52,9 @@ const Repository: React.FC = () => {
       </div>
       <TablePaginated
         columns={columns}
+        compareFn={compareFn}
         counter={{ show: false }}
+        groups={groups}
         header={false}
         path={ApiEndPoint.CycleData.Repository.many()}
       />

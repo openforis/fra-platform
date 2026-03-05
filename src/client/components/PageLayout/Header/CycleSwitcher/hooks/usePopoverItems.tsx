@@ -2,7 +2,6 @@ import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Assessments } from 'meta/assessment/assessments'
-import { Cycle } from 'meta/assessment/cycle'
 import { Cycles } from 'meta/assessment/cycles'
 import { Users } from 'meta/user/users'
 
@@ -13,27 +12,6 @@ import { useCycleRouteParams } from 'client/hooks/routeParams'
 import { PopoverItem } from 'client/components/PopoverControl'
 
 import { useNavigateTo } from './useNavigateTo'
-
-const _cyclesSorter = (cycleA: Cycle, cycleB: Cycle): number => {
-  const dateEditingA = cycleA.props.dateEditing
-  const dateEditingB = cycleB.props.dateEditing
-  if (dateEditingA && dateEditingB) {
-    return new Date(dateEditingB).getTime() - new Date(dateEditingA).getTime()
-  }
-
-  const dateCreatedA = cycleA.props.dateCreated
-  const dateCreatedB = cycleB.props.dateCreated
-  if (dateCreatedA && dateCreatedB) {
-    return new Date(dateCreatedB).getTime() - new Date(dateCreatedA).getTime()
-  }
-  if (dateCreatedA) {
-    return -1
-  }
-  if (dateCreatedB) {
-    return 1
-  }
-  return 0
-}
 
 export const usePopoverItems = (): Array<PopoverItem> => {
   const { t } = useTranslation()
@@ -50,7 +28,7 @@ export const usePopoverItems = (): Array<PopoverItem> => {
 
     if ((isAdmin || !isDataExportView) && user) {
       assessments.forEach((assessment) => {
-        const sortedCycles = assessment.cycles.slice().sort(_cyclesSorter)
+        const sortedCycles = assessment.cycles.slice().sort(Cycles.compareByDate)
         sortedCycles.forEach((cycle) => {
           const hasRoleInAssessment = Users.hasRoleInAssessment({ user, assessment })
           const hasRoleInCycle = Users.hasRoleInCycle({ user, cycle })

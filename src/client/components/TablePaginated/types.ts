@@ -25,7 +25,11 @@ export type Props<Datum extends object> = {
   extraActions?: Array<React.ReactElement>
   filterFn?: (datum: Datum) => boolean
   filters?: Array<TablePaginatedFilter<TablePaginatedFilterType>>
-  groups?: { headerLabel: (key: PropertyKey) => string; keySelector: (datum: Datum) => PropertyKey }
+  groups?: {
+    headerLabel: (key: PropertyKey) => string
+    initialCollapsed?: (key: PropertyKey) => boolean
+    keySelector: (datum: Datum) => PropertyKey
+  }
   limit?: number
   path: string
   skeleton?: TablePaginatedSkeleton
