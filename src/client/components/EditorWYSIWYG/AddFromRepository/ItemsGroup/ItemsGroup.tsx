@@ -40,11 +40,10 @@ const ItemsGroup: React.FC<Props> = (props) => {
       <Button
         className={classNames('items-group__header', { collapsed })}
         iconName="small-down"
-        inverse
         label={label}
         onClick={toggleView}
         size={ButtonSize.m}
-        type={ButtonType.black}
+        type={ButtonType.secondary}
       />
       {!collapsed && (
         <div className="items-group__rows">
