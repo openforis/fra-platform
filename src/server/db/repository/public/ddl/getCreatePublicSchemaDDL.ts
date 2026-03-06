@@ -186,6 +186,7 @@ export const getCreatePublicSchemaDDL = (schemaName = 'public'): string => {
     create table if not exists ${schemaName}.region (
       region_code text primary key not null,
       name text,
+      parent_code text references ${schemaName}.region(region_code) on update cascade on delete cascade,
       sort_index jsonb not null default '{}'::jsonb
     );
 
