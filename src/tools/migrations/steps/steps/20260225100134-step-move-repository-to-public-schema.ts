@@ -3,7 +3,6 @@ import pgPromise from 'pg-promise'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle, CycleUuid } from 'meta/assessment/cycle'
 import { RepositoryItemProps } from 'meta/cycleData/repository/item'
-import { Promises } from 'utils/promises'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { BaseProtocol, DB } from 'server/db/db'
@@ -116,11 +115,34 @@ const _migrateAssessment =
     await _insertItems(resolved, client)
   }
 
-export default async (client: BaseProtocol): Promise<void> => {
-  // create public table if not exists
-  const { exists } = await tableExists({ schema: 'public', tableName: 'repository' }, client)
+const _archiveCycleTable =
+  (assessment: Assessment) =>
+  async (cycle: Cycle): Promise<void> => {
+    const schema = Schemas.getNameCycle(assessment, cycle)
+    const archiveName = `${schema}_repository`
+
+    const { exists: legacyExists } = await tableExists({ schema: '_legacy', tableName: archiveName }, DB)
+    if (legacyExists) return
+
+    // Rename the table indexes and sequence before moving to legacy
+    await DB.none(`alter table ${schema}.repository rename to ${archiveName}`)
+    await DB.none(`alter index if exists ${schema}.repository_pkey rename to ${archiveName}_pkey`)
+    await DB.none(`alter index if exists ${schema}.repository_uuid_key rename to ${archiveName}_uuid_key`)
+    await DB.none(`alter sequence if exists ${schema}.repository_id_seq rename to ${archiveName}_id_seq`)
+    await DB.none(`alter table ${schema}.${archiveName} set schema _legacy`)
+  }
+
+export default async (): Promise<void> => {
+  const { exists } = await tableExists({ schema: 'public', tableName: 'repository' }, DB)
   if (!exists) await DB.none(getRepositoryDDL())
 
-  const assessments = await AssessmentController.getAll({}, client)
-  await Promises.each(assessments, _migrateAssessment(client))
+  // Use separate tx so the lock is released for the archiveCycleTable
+  const assessments = await DB.tx(async (tx) => {
+    const allAssessments = await AssessmentController.getAll({}, tx)
+    await Promise.all(allAssessments.map(_migrateAssessment(tx)))
+    return allAssessments
+  })
+
+  await DB.none('create schema if not exists _legacy')
+  await Promise.all(assessments.flatMap((assessment) => assessment.cycles.map(_archiveCycleTable(assessment))))
 }
