@@ -1,0 +1,31 @@
+@use 'src/client/style/partials' as *;
+
+button.items-group__header {
+  background-color: $ui-bg;
+  border-color: $ui-border;
+  color: $text-mute;
+  justify-content: flex-start;
+  width: 100%;
+
+  svg {
+    color: $text-mute;
+  }
+
+  &:hover {
+    background-color: $ui-bg-hover;
+    color: $text-mute;
+
+    svg {
+      color: $text-mute;
+    }
+  }
+
+  &.collapsed svg {
+    transform: rotate(-90deg);
+  }
+}
+
+.items-group__rows {
+  display: grid;
+  padding: $spacing-xxs 0;
+}
