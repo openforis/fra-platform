@@ -1,8 +1,6 @@
+import type { Region } from 'meta/area/region'
 import { SubRegionCode } from 'meta/area/subRegionCode'
-import { Lang } from 'meta/lang'
 
-export interface SubRegion {
-  name: string
+export type SubRegion = Pick<Region, 'name' | 'sortIndex'> & {
   regionCode: SubRegionCode
-  sortIndex: Record<Lang, number>
 }

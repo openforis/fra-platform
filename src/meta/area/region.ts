@@ -1,5 +1,5 @@
 import { RegionCode } from 'meta/area/regionCode'
-import { SubRegion } from 'meta/area/subRegion'
+import type { SubRegion } from 'meta/area/subRegion'
 import { Lang } from 'meta/lang'
 
 export interface Region {
