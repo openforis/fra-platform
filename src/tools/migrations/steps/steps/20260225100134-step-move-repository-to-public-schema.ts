@@ -41,8 +41,10 @@ const _resolveItems = (assessment: Assessment, cyclesWithItems: Array<CycleItems
   }
 
   // Global items have assessment_uuid and cycle_uuid.
-  // Deduplicate items by: link (outside links) -> translation (platform files) -> item.uuid (as fallback)
-  const _globalItemKey = (item: DBRepositoryItem): string => item.link ?? item.props?.translation?.en ?? item.uuid
+  // Deduplicate items by: link (outside links) -> file_uuid (platform files) -> item.uuid (as fallback)
+
+  // NOTE!!: We have duplicated/updated global items!
+  const _globalItemKey = (item: DBRepositoryItem): string => item.link ?? item.file_uuid ?? item.uuid
 
   const _globalItem = (item: DBRepositoryItem, cycleUuid: CycleUuid): void => {
     const key = _globalItemKey(item)
@@ -50,9 +52,13 @@ const _resolveItems = (assessment: Assessment, cyclesWithItems: Array<CycleItems
   }
 
   // Country items have assessment_uuid, cycle_uuid and "newest/latest" props in case of duplication
+  // Deduplicate by file_uuid (same file cloned across cycles)
+  const _countryItemKey = (item: DBRepositoryItem): string => item.file_uuid ?? item.uuid
+
   const _countryItem = (item: DBRepositoryItem, cycleUuid: CycleUuid): void => {
-    if (acc[item.uuid]) acc[item.uuid].props = item.props
-    else acc[item.uuid] = { ...item, assessmentUuid, cycleUuid }
+    const key = _countryItemKey(item)
+    if (acc[key]) acc[key].props = item.props
+    else acc[key] = { ...item, assessmentUuid, cycleUuid }
   }
 
   cyclesWithItems.forEach(({ cycleUuid, items }) => {
