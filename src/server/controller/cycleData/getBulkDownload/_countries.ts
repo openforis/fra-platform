@@ -1,6 +1,8 @@
 import { Areas } from 'meta/area/areas'
 import { Country } from 'meta/area/country'
+import { RegionCode } from 'meta/area/regionCode'
 import { RegionGroupName } from 'meta/area/regionGroup'
+import { SubRegionCode } from 'meta/area/subRegionCode'
 import { Lang } from 'meta/lang'
 
 import { AreaRedisRepository } from 'server/cache/repository/area'
@@ -14,14 +16,22 @@ export const getCountries = async (props: PropsBulkDownload): Promise<Array<Coun
     AreaRedisRepository.getManyRegionGroups({ assessment, cycle }),
   ])
   const fraRegionGroup = regionGroups.find((rg) => rg.name === RegionGroupName.fra2020)
-  const allowedRegionCodes = fraRegionGroup.regions.map((r) => r.regionCode)
+  const allowedRegionCodes = new Set<RegionCode>(fraRegionGroup.regions.map((region) => region.regionCode))
+  const allowedSubregionCodes = new Set<SubRegionCode>(
+    fraRegionGroup.regions.flatMap((region) => region.subRegions?.map((subRegion) => subRegion.regionCode) ?? [])
+  )
 
   return countries
     .reduce<Array<Country>>((acc, country) => {
       if (!Areas.isAtlantis(country.countryIso)) {
-        const regionCodes = country.regionCodes.filter((r) => allowedRegionCodes.includes(r))
-        acc.push({ ...country, regionCodes })
+        const regionCodes = country.regionCodes.filter((regionCode) => allowedRegionCodes.has(regionCode))
+        const subregionCodes = (country.subregionCodes ?? []).filter((subregionCode) =>
+          allowedSubregionCodes.has(subregionCode)
+        )
+
+        acc.push({ ...country, regionCodes, subregionCodes })
       }
+
       return acc
     }, [])
     .sort((c1, c2) => Areas.getCompareListName(c1, c2, Lang.en))
