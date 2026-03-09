@@ -30,12 +30,21 @@ export const getBaseQuery = (props: Props): string => {
            c.last_in_accepted,
            c.last_in_published,
            c.last_update,
-           jsonb_agg(cr.region_code) as region_codes
+           coalesce(
+             jsonb_agg(cr.region_code order by cr.region_code) filter ( where pr.parent_code is null ),
+             '[]'::jsonb
+           ) as region_codes,
+           coalesce(
+             jsonb_agg(cr.region_code order by cr.region_code) filter ( where pr.parent_code is not null ),
+             '[]'::jsonb
+           ) as subregion_codes
     from ${cycleSchema}.country c
              left join public.country pc
                        on pc.country_iso = c.country_iso
              left join ${cycleSchema}.country_region cr
                        on c.country_iso = cr.country_iso
+             left join public.region pr
+                       on pr.region_code = cr.region_code
     ${countryIso ? 'where c.country_iso = $1' : ''}
     ${countryIsos?.length > 0 ? 'where c.country_iso in ($1:list)' : ''}
     group by c.country_iso,
