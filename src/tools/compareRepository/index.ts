@@ -83,7 +83,7 @@ const _writeToCSV = async (): Promise<void> => {
 
   const rows = differences.flatMap((diff) =>
     diff.sourceItems.reduce<Array<ReturnType<typeof _toRow>>>((acc, sourceItem, i) => {
-      const targetItem = diff.targetItems[i]
+      const targetItem = diff.targetItems[i] ?? ({} as RepositoryItem)
       if (JSON.stringify(sourceItem) !== JSON.stringify(targetItem))
         acc.push(_toRow(diff.label, i, sourceItem, targetItem))
       return acc
