@@ -1,4 +1,10 @@
 {
+  "invalidLinks": {
+    "messageBodyIntro": "以下国家有一个或多个无效链接：",
+    "messageFooter": "请在 FRA 平台中检查并更新受影响的链接。\n\n谢谢，\nFRA 团队",
+    "messageHeader": "亲爱的 {{recipientName}},",
+    "subject": "需要操作：在您的国家检测到无效链接"
+  },
   "invitationAccepted": {
     "htmlMessage": "尊敬的 {{recipientName}} {{recipientSurname}},\n<br/><br/>\n用户 {{invitedUserName}} {{invitedUserSurname}} 已接受您的邀请，加入{{assessmentName}} {{cycleName}} <b><a href=\"{{- manageCollaboratorsUrl}}\">{{country}}</a></b>，并担任 {{role}}。\n<br/><br/>\n全球森林资源评估报告小组",
     "subject": "用户 {{invitedUserName}} {{invitedUserSurname}} 已经接受您的邀请",
