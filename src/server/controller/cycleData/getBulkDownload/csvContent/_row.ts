@@ -35,14 +35,16 @@ export const getCSVRow = (props: Props): CSVRow => {
   const { assessment, country, cycle, data, i18n, options } = props
   const { name: assessmentName } = assessment.props
   const { name: cycleName } = cycle
-  const { countryIso, countryIso2, m49, regionCodes } = country
+  const { countryIso, countryIso2, m49, regionCodes = [], subregionCodes = [] } = country
   const { colForestArea, colNodes, colYear, includeClimaticDomain, includeDeskStudy } = options
 
   const row: CSVRow = []
 
   const regionLabels = regionCodes.map((code) => getAreaLabel({ code, i18n })).join(',')
+  const subRegionLabels = subregionCodes.map((code) => i18n.t(`area.${code}.listName`)).join(',')
   const countryLabel = getAreaLabel({ code: countryIso, i18n })
   row.push(parseValue(regionLabels, BulkDownloadDatumType.string))
+  row.push(parseValue(subRegionLabels, BulkDownloadDatumType.string))
   row.push(parseValue(countryIso, BulkDownloadDatumType.string))
   row.push(parseValue(countryIso2, BulkDownloadDatumType.string))
   row.push(parseValue(m49, BulkDownloadDatumType.string))
