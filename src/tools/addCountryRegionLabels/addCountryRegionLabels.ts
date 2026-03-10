@@ -4,7 +4,7 @@ import pgPromise from 'pg-promise'
 
 import { CountryIso } from 'meta/area/countryIso'
 import { RegionCode } from 'meta/area/regionCode'
-import { SubRegionCode } from 'meta/area/subRegionCode'
+import { SubregionCode } from 'meta/area/subregionCode'
 import { Lang, LanguageCodes } from 'meta/lang'
 import { Promises } from 'utils/promises'
 import { Strings } from 'utils/strings'
@@ -88,7 +88,7 @@ const getCountrySortIndexes = async (
 }
 
 type RegionSortIndexUpdate = {
-  regionCode: RegionCode | SubRegionCode
+  regionCode: RegionCode | SubregionCode
   sortIndex: SortIndex
 }
 

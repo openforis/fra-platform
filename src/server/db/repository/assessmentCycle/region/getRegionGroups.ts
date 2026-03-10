@@ -28,7 +28,7 @@ export const getRegionGroups = async (
                                          'region_code', r2.region_code,
                                          'name', r2.name,
                                          'sort_index', r2.sort_index,
-                                         'sub_regions',
+                                         'subregions',
                                          (
                                            select coalesce(
                                              jsonb_agg(

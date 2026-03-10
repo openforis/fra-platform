@@ -1,6 +1,6 @@
 import type { Region } from 'meta/area/region'
-import { SubRegionCode } from 'meta/area/subRegionCode'
+import { SubregionCode } from 'meta/area/subregionCode'
 
-export type SubRegion = Pick<Region, 'name' | 'sortIndex'> & {
-  regionCode: SubRegionCode
+export type Subregion = Pick<Region, 'name' | 'sortIndex'> & {
+  regionCode: SubregionCode
 }
