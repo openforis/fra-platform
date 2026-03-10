@@ -18,18 +18,34 @@ export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<
   const { assessment, countryIso, cycle, global } = props
   const assessmentUuid = assessment.uuid
   const cycleUuids = Cycles.getPreviousAndSelfCycles({ assessment, cycle }).map((c) => c.uuid)
-  const countryCondition = global ? 'country_iso is null' : 'country_iso = $(countryIso)'
+
+  // newest first: pick the most "fresh" global item (e.g. if two global items with the same name -> return newest)
+  const globalQuery = `
+    select * from (
+      select distinct on (coalesce(r.link, r.props -> 'translation' ->> 'en')) r.*
+      from public.repository r
+      join public.assessment_cycle ac on ac.uuid = r.cycle_uuid
+      where r.assessment_uuid = $(assessmentUuid)
+        and r.country_iso is null
+        and r.cycle_uuid in ($(cycleUuids:list))
+        and (r.props ->> 'hidden')::boolean is not true
+      order by coalesce(r.link, r.props -> 'translation' ->> 'en'),
+               ac.id desc
+    ) as deduped
+    order by id
+  `
+
+  const countryQuery = `
+    select * from public.repository
+    where assessment_uuid = $(assessmentUuid)
+      and country_iso = $(countryIso)
+      and cycle_uuid in ($(cycleUuids:list))
+      and (props ->> 'hidden')::boolean is not true
+    order by id
+  `
 
   return client.map<RepositoryItem>(
-    `
-      select * from public.repository
-      where assessment_uuid = $(assessmentUuid)
-        and ${countryCondition}
-        -- return only repository items from this and previous cycles
-        and cycle_uuid in ($(cycleUuids:list))
-        and (props ->> 'hidden')::boolean is not true
-      order by id
-    `,
+    global ? globalQuery : countryQuery,
     { assessmentUuid, countryIso, cycleUuids },
     (row) => Objects.camelize(row)
   )
