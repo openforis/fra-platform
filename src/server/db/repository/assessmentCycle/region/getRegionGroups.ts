@@ -1,4 +1,4 @@
-import { RegionGroup, RegionGroupName } from 'meta/area/regionGroup'
+import { RegionGroup } from 'meta/area/regionGroup'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { Objects } from 'utils/objects'
@@ -29,25 +29,21 @@ export const getRegionGroups = async (
                                          'name', r2.name,
                                          'sort_index', r2.sort_index,
                                          'sub_regions',
-                                         case
-                                           when rg.name = '${RegionGroupName.fra2020}'
-                                             then (
-                                               select coalesce(
-                                                 jsonb_agg(
-                                                   jsonb_build_object(
-                                                     'region_code', r3.region_code,
-                                                     'name', r3.name,
-                                                     'sort_index', r3.sort_index
-                                                   )
-                                                   order by r3.region_code
-                                                 ),
-                                                 '[]'::jsonb
+                                         (
+                                           select coalesce(
+                                             jsonb_agg(
+                                               jsonb_build_object(
+                                                 'region_code', r3.region_code,
+                                                 'name', r3.name,
+                                                 'sort_index', r3.sort_index
                                                )
-                                               from public.region r3
-                                               where r3.parent_code = r2.region_code
-                                             )
-                                           else null
-                                         end
+                                               order by r3.region_code
+                                             ),
+                                             '[]'::jsonb
+                                           )
+                                           from public.region r3
+                                           where r3.parent_code = r2.region_code
+                                         )
                                        )
                                      )
                                      order by r2.region_code
