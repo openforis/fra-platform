@@ -1,10 +1,11 @@
-import { CountryIso } from 'meta/area/countryIso'
+import { AreaCode } from 'meta/area/areaCode'
+import { Areas } from 'meta/area/areas'
 import { Cycle } from 'meta/assessment/cycle'
 import { RoleName } from 'meta/user/role/name'
 import { User } from 'meta/user/user'
 import { Users } from 'meta/user/users'
 
-type Props = { countryIso: CountryIso; cycle: Cycle; user: User; target: User }
+type Props = { countryIso?: AreaCode; cycle: Cycle; user: User; target: User }
 
 export const rfpDisableableRoles = [
   RoleName.REVIEWER,
@@ -20,6 +21,7 @@ export const rfpDisableableRoles = [
 export const canDisableUser = ({ countryIso, cycle, target, user }: Props): boolean => {
   if (Users.isAdministrator(user)) return true
   if (user.id === target.id) return false
+  if (!countryIso || !Areas.isISOCountry(countryIso)) return false
   if (!Users.isRegionalFocalPoint(user, countryIso, cycle)) return false
   return rfpDisableableRoles.includes(Users.getRole(target, countryIso, cycle)?.role)
 }
