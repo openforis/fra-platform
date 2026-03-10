@@ -20,8 +20,29 @@ const source = 'http://localhost:9000'
 
 const assessmentName = 'fra'
 const cycleName = 'latest'
+const ALL_CYCLES = ['2020', '2025', 'latest']
 // use --csv flag to write to file
 const WRITE_TO_CSV = process.argv.includes('--csv')
+// use --countryIso=FIN to test only a specific country
+// Top countries:
+//  country_iso | items
+//      -------------+-------
+//       IDN         |    97
+//       MUS         |    24
+//       BIH         |    23
+//       URY         |    22
+//       BEN         |    20
+//       COD         |    18
+//       PER         |    18
+//       MDG         |    18
+//       MNG         |    18
+//       SPM         |    17
+//       GAB         |    17
+//       MKD         |    16
+//       AGO         |    16
+//       HTI         |    15
+//       MRT         |    15
+const COUNTRY_ISO = process.argv.find((arg) => arg.startsWith('--countryIso='))?.split('=')[1] as CountryIso | undefined
 
 type Difference = {
   label: string
@@ -41,12 +62,29 @@ const normalize = ({ countryIso, fileUuid, link, props }: RepositoryItem): Parti
   props,
 })
 
+// fetch all cycles from target and deduplicate to match new repository
+// global: dedup by link ?? translation
+// country: dedup by fileUuid ?? uuid
+const getTargetItems = async (countryIso: CountryIso, global: boolean): Promise<Array<RepositoryItem>> => {
+  const perCycle = await Promise.all(
+    ALL_CYCLES.map((cn) =>
+      APIUtil.getRepositoryItems({ source: target, assessmentName, cycleName: cn, countryIso, global })
+    )
+  )
+  const dedupKey = global
+    ? (item: RepositoryItem): string => item.link ?? item.props?.translation?.en ?? item.uuid
+    : (item: RepositoryItem): string => item.fileUuid ?? item.uuid
+  const acc = new Map<string, RepositoryItem>()
+  perCycle.flat().forEach((item) => acc.set(dedupKey(item), item))
+  return [...acc.values()]
+}
+
 const compare = async (countryIso: CountryIso, global: boolean): Promise<void> => {
   const label = global ? `${countryIso} global` : countryIso
 
   const [sourceItems, targetItems] = await Promise.all([
     APIUtil.getRepositoryItems({ api: localAPI, source, assessmentName, cycleName, countryIso, global }),
-    APIUtil.getRepositoryItems({ source: target, assessmentName, cycleName, countryIso, global }),
+    getTargetItems(countryIso, global),
   ])
 
   try {
@@ -95,10 +133,14 @@ const _writeToCSV = async (): Promise<void> => {
 const exec = async (): Promise<void> => {
   const { countries } = await APIUtil.getCountries({ source: target, assessmentName, cycleName })
 
+  if (!COUNTRY_ISO) Logger.info('compare single country with --countryIso=ISO flag')
+
+  const filtered = COUNTRY_ISO ? countries.filter((c) => c.countryIso === COUNTRY_ISO) : countries
+
   if (!WRITE_TO_CSV) Logger.info('write to csv using --csv flag')
 
   await Promise.all(
-    countries.flatMap((country) => [compare(country.countryIso, false), compare(country.countryIso, true)])
+    filtered.flatMap((country) => [compare(country.countryIso, false), compare(country.countryIso, true)])
   )
 
   if (differences.length) {
