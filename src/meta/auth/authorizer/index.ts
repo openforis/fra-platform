@@ -1,3 +1,4 @@
+import { canDisableUser } from 'meta/auth/authorizer/canDisableUser'
 import { canEditCountryProps } from 'meta/auth/authorizer/canEditCountryProps'
 import { canEditRepositoryItem } from 'meta/auth/authorizer/canEditRepositoryItem'
 import { canEditSectionData } from 'meta/auth/authorizer/canEditSectionData'
@@ -49,6 +50,7 @@ export const Authorizer = {
 
   // ==== user
   // edit
+  canDisableUser,
   canEditUser,
   canEditUserRoleName,
   canEditUserRolePermissions,

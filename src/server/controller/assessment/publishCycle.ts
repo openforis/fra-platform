@@ -48,18 +48,21 @@ export const publishCycle = async (props: Props, client: BaseProtocol = DB): Pro
     await ActivityLogRepository.insertActivityLog({ activityLog, assessment, cycle }, t)
 
     // Activity log for all published countries
-    const activityLogs = publishedCountries.map<ActivityLogDb<Country>>((country: Country) => {
-      const message = ActivityLogMessage.assessmentStatusUpdate
-      return {
-        assessment_uuid: assessment.uuid,
-        cycle_uuid: cycle.uuid,
-        country_iso: country.countryIso,
-        section: 'assessment',
-        message,
-        target: country,
-        user_id: user.id,
+    const activityLogs = publishedCountries.map<ActivityLogDb<{ assessment: string; status: string }>>(
+      (country: Country) => {
+        const message = ActivityLogMessage.assessmentStatusUpdate
+        const target = { assessment: assessment.props.name, status: country.props.status }
+        return {
+          assessment_uuid: assessment.uuid,
+          cycle_uuid: cycle.uuid,
+          country_iso: country.countryIso,
+          section: 'assessment',
+          message,
+          target,
+          user_id: user.id,
+        }
       }
-    })
+    )
     await ActivityLogRepository.massiveInsert({ activityLogs }, t)
 
     const { name: assessmentName } = assessment.props

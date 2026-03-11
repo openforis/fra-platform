@@ -18,6 +18,7 @@ import { ExplorerGridProps } from 'client/pages/Explorer/types'
 import { useDeferredGridData } from './hooks/useDeferredGridData'
 import { useRenderLabel } from './hooks/useRenderLabel'
 import { useTrackFirstColRowWidth } from './hooks/useTrackFirstColRowWidth'
+import Instructions from './Instructions/Instructions'
 
 const _getCombinationStringValue = <T extends string = string>(value: string | CountryEntry): T => {
   if (typeof value === 'string') return value as T
@@ -55,7 +56,7 @@ export const ResultGrid: React.FC<ExplorerGridProps> = (props: ExplorerGridProps
 
   useTrackFirstColRowWidth({ gridRef, gridTemplateColumns, hideGrid, xAxisSelection, yAxisSelection })
 
-  if (hideGrid) return null
+  if (hideGrid) return <Instructions />
 
   return (
     <DataGrid ref={gridRef} className="explorer-result-grid" gridTemplateColumns={gridTemplateColumns}>
@@ -144,7 +145,7 @@ export const ResultGrid: React.FC<ExplorerGridProps> = (props: ExplorerGridProps
               return (
                 <DataCell
                   key={`${countryEntry.countryIso}-${field.key}-country-option`}
-                  className="observation"
+                  className="country-option observation"
                   lastCol={colIdx === xCombinations.length - 1}
                 >
                   {field.getValue(countryEntry)}
@@ -236,7 +237,7 @@ export const ResultGrid: React.FC<ExplorerGridProps> = (props: ExplorerGridProps
                 return (
                   <DataCell
                     key={`${countryEntry.countryIso}-${field.key}-country-option`}
-                    className="observation"
+                    className="country-option observation"
                     lastRow={lastRow}
                   >
                     {field.getValue(countryEntry)}
