@@ -13,7 +13,7 @@ export const updateUser = async (req: UserEditRequest, res: Response): Promise<v
     const profilePicture = req.file
 
     const { assessment, country, cycle } = req.context
-    const { countryIso } = country
+    const countryIso = country?.countryIso
     const updatedUser = await UserController.update({
       assessment,
       countryIso,

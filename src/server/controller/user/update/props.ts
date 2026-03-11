@@ -6,7 +6,7 @@ import { User } from 'meta/user/user'
 
 export type Props = {
   assessment: Assessment
-  countryIso: CountryIso
+  countryIso?: CountryIso
   cycle: Cycle
   profilePicture?: Express.Multer.File | null
   user: User

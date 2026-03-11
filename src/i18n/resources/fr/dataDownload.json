@@ -1,4 +1,6 @@
 {
   "bulkDownload": "Téléchargement groupé",
-  "dataDownload": "Téléchargement de données"
+  "dataDownload": "Téléchargement des données",
+  "downloadWholeDatasetInstruction": "Pour télécharger l'ensemble des données, veuillez cliquer sur le bouton ZIP à droite.",
+  "individualTableInstruction": "Pour accéder aux données spécifiques à un tableau individuel, veuillez sélectionner la section correspondante dans le menu de gauche."
 }
