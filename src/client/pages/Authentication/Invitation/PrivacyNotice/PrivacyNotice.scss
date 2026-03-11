@@ -1,0 +1,17 @@
+$privacy-notice-max-width: 460px;
+
+.invitation-privacy-notice {
+  max-width: $privacy-notice-max-width;
+  text-align: center;
+
+  a {
+    color: inherit;
+    font: inherit;
+    text-decoration: underline;
+  }
+}
+
+.invitation-privacy-notice__divider {
+  max-width: $privacy-notice-max-width;
+  width: 100%;
+}

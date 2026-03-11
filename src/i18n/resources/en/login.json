@@ -17,6 +17,8 @@
   "invalidEmail": "Email not valid",
   "invitationExpired": "This invitation has expired",
   "invitationMessage": "You have been invited to {{assessment}} {{cycle}} as {{role}} for {{- country}}",
+  "invitationPrivacyNotice": "By accepting this invitation, you confirm that you hereby accept the terms and conditions described in the FAO Data Protection and Privacy Notice.",
+  "invitationPrivacyNoticeLinkLabel": "Click here to view the FAO Data Protection and Privacy Notice.",
   "invitationProvidersRegistered": "You already have an account registered with {{authProviderNames}}",
   "login": "Login",
   "logoutSuccessful": "You have successfully logged out",

@@ -12,6 +12,7 @@ import Divider from 'client/pages/Authentication/Divider'
 import FormLogin from 'client/pages/Authentication/FormLogin'
 import { useOnSuccess } from 'client/pages/Authentication/FormLogin/hooks/useOnSuccess'
 import { useData } from 'client/pages/Authentication/Invitation/hooks/useData'
+import PrivacyNotice from 'client/pages/Authentication/Invitation/PrivacyNotice'
 import { videoResources } from 'client/pages/Tutorials'
 
 const Register: React.FC = () => {
@@ -73,6 +74,7 @@ const Register: React.FC = () => {
       >
         <Icon name="video" /> {t(videoResources[1].labelKeyShort)}
       </a>
+      <PrivacyNotice />
     </div>
   )
 }
