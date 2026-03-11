@@ -1,4 +1,10 @@
 {
+  "invalidLinks": {
+    "messageBodyIntro": "У следующих стран есть одна или несколько неправильных ссылок:",
+    "messageFooter": "Пожалуйста, проверьте и обновите затронутые ссылки на платформе ОЛР.\n\nСпасибо,\nкоманда по ОЛР",
+    "messageHeader": "Уважаемый(ая) {{recipientName}},",
+    "subject": "Необходимые действия: обнаружены неправильные ссылки в ваших странах"
+  },
   "invitationAccepted": {
     "htmlMessage": "Уважаемый (ая) {{recipientName}} {{recipientSurname}},\n<br/><br/>\nПользователь {{invitedUserName}} {{invitedUserSurname}} принял(а) ваше приглашение на {{assessmentName}} {{cycleName}} в качестве {{role}} для <b><a href=\"{{- manageCollaboratorsUrl}}\">{{country}}</a></b>.\n<br/><br/>\nКоманда по ОЛР",
     "subject": "Пользователь {{invitedUserName}} {{invitedUserSurname}} принял(а) ваше приглашение",

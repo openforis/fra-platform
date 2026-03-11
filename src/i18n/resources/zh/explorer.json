@@ -1,3 +1,5 @@
 {
-  "countryOptionsDisabled": "这些备选办法只有在单个国家/地区位于一个轴线时才可用。"
+  "countryOptionsDisabled": "这些选项在仅有国家/地区位于同一轴线时才可用。",
+  "downloadWholeDatasetInstruction": "要下载整个数据集，请在工具栏上选择数据下载链接。",
+  "selectDataInstruction": "要访问 {{sectionLabel}} 数据，请从上方的下拉菜单中选择国家/地区、变量和列。"
 }

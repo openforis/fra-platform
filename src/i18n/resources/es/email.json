@@ -1,4 +1,10 @@
 {
+  "invalidLinks": {
+    "messageBodyIntro": "Los siguientes países tienen uno o más enlaces no válidos:",
+    "messageFooter": "Por favor revise y actualice los enlaces afectados en la Plataforma de FRA.\n\nGracias,\nEl equipo de FRA",
+    "messageHeader": "Estimado/a {{recipientName}},",
+    "subject": "Acción requerida: enlaces no válidos detectados en sus países"
+  },
   "invitationAccepted": {
     "htmlMessage": "Estimado/a {{recipientName}} {{recipientSurname}},\n<br/><br/>\nEl usuario {{invitedUserName}} {{invitedUserSurname}} ha aceptado su invitación a {{assessmentName}} {{cycleName}} como {{role}} para <b><a href=\"{{- manageCollaboratorsUrl}}\">{{country}}</a></b>.\n<br/><br/>\nEl equipo de FRA",
     "subject": "El usuario {{invitedUserName}} {{invitedUserSurname}} ha aceptado su invitación",
