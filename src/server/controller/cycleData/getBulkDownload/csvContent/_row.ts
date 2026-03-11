@@ -41,10 +41,10 @@ export const getCSVRow = (props: Props): CSVRow => {
   const row: CSVRow = []
 
   const regionLabels = regionCodes.map((code) => getAreaLabel({ code, i18n })).join(',')
-  const subRegionLabels = subregionCodes.map((code) => i18n.t(`area.${code}.listName`)).join(',')
+  const subregionLabels = subregionCodes.map((code) => i18n.t(`area.${code}.listName`)).join(',')
   const countryLabel = getAreaLabel({ code: countryIso, i18n })
   row.push(parseValue(regionLabels, BulkDownloadDatumType.string))
-  row.push(parseValue(subRegionLabels, BulkDownloadDatumType.string))
+  row.push(parseValue(subregionLabels, BulkDownloadDatumType.string))
   row.push(parseValue(countryIso, BulkDownloadDatumType.string))
   row.push(parseValue(countryIso2, BulkDownloadDatumType.string))
   row.push(parseValue(m49, BulkDownloadDatumType.string))

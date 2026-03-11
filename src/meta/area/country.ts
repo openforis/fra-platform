@@ -1,7 +1,7 @@
 import { CountryIso, CountryIso2 } from 'meta/area/countryIso'
 import { CountryStatus } from 'meta/area/countryStatus'
 import { RegionCode } from 'meta/area/regionCode'
-import { SubRegionCode } from 'meta/area/subRegionCode'
+import { SubregionCode } from 'meta/area/subregionCode'
 import { CycleName } from 'meta/assessment/cycle'
 import { Lang } from 'meta/lang'
 
@@ -28,7 +28,7 @@ export type Country = {
   m49: string
   props?: CountryProps
   regionCodes?: Array<RegionCode>
-  subregionCodes?: Array<SubRegionCode>
+  subregionCodes?: Array<SubregionCode>
   sortIndex: Record<Lang, number>
 
   /* last timestamp strings */

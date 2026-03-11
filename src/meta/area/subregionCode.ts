@@ -1,4 +1,4 @@
-export enum SubRegionCode {
+export enum SubregionCode {
   CAM = 'CAM', // Central America
   CAR = 'CAR', // Caribbean
   EAS = 'EAS', // East Asia
