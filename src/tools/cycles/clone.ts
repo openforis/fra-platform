@@ -51,7 +51,7 @@ export const cloneCycle = async (): Promise<void> => {
     where country_iso not in
           (select c.country_iso
            from assessment_fra_2030.country c
-           where c.props ->> 'deskStudy' = 'true')
+           where c.props ->> 'deskStudy' = 'true' or country_iso like 'X%')
   `)
   await CacheController.generateArea({ assessment, cycle: clone.cycle }, client)
   // await _addColumns(clone)
