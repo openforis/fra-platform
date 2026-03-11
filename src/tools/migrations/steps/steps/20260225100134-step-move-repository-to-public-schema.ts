@@ -31,8 +31,15 @@ type CycleItems = {
   items: Array<DBRepositoryItem>
 }
 
-const _resolveItems = (assessment: Assessment, cyclesWithItems: Array<CycleItems>): Array<DBRepositoryItemInsert> => {
+type ResolveResult = {
+  items: Array<DBRepositoryItemInsert>
+  // Map containing [key: deleted] -> [value: replaced with]
+  uuidMapping: Record<string, string>
+}
+
+const _resolveItems = (assessment: Assessment, cyclesWithItems: Array<CycleItems>): ResolveResult => {
   const acc: Record<string, DBRepositoryItemInsert> = {}
+  const uuidMapping: Record<string, string> = {}
   const assessmentUuid = assessment.uuid
 
   // Hidden files have no assessment_uuid and cycle_uuid
@@ -49,6 +56,8 @@ const _resolveItems = (assessment: Assessment, cyclesWithItems: Array<CycleItems
   const _globalItem = (item: DBRepositoryItem, cycleUuid: CycleUuid): void => {
     const key = _globalItemKey(item)
     if (!acc[key]) acc[key] = { ...item, assessmentUuid, cycleUuid }
+    // Keep track of deleted items
+    else if (acc[key].uuid !== item.uuid) uuidMapping[item.uuid] = acc[key].uuid
   }
 
   // Country items have assessment_uuid, cycle_uuid and "newest/latest" props in case of duplication
@@ -57,8 +66,13 @@ const _resolveItems = (assessment: Assessment, cyclesWithItems: Array<CycleItems
 
   const _countryItem = (item: DBRepositoryItem, cycleUuid: CycleUuid): void => {
     const key = _countryItemKey(item)
-    if (acc[key]) acc[key].props = item.props
-    else acc[key] = { ...item, assessmentUuid, cycleUuid }
+    if (acc[key]) {
+      // Keep track of deleted items
+      if (acc[key].uuid !== item.uuid) uuidMapping[item.uuid] = acc[key].uuid
+      acc[key].props = item.props
+    } else {
+      acc[key] = { ...item, assessmentUuid, cycleUuid }
+    }
   }
 
   cyclesWithItems.forEach(({ cycleUuid, items }) => {
@@ -69,7 +83,42 @@ const _resolveItems = (assessment: Assessment, cyclesWithItems: Array<CycleItems
     })
   })
 
-  return Object.values(acc)
+  return { items: Object.values(acc), uuidMapping }
+}
+
+type FixTableProps = { schema: string; uuidMapping: Record<string, string> }
+type FixLinksProps = { assessment: Assessment; uuidMapping: Record<string, string> }
+
+// Recursively concatenate all uuid replacements in a single expression to avoid multiple hits to the table
+// e.g. (replace(replace(value::text, 'old-uuid-1', 'new-uuid-1'), 'old-uuid-2', 'new-uuid-2'))::jsonb
+const _replaceUuid = (col: string, uuidMapping: Record<string, string>): string =>
+  Object.entries(uuidMapping).reduce((acc, [oldUuid, newUuid]) => `replace(${acc}, '${oldUuid}', '${newUuid}')`, col)
+
+const _fixDescriptions = ({ schema, uuidMapping }: FixTableProps, client: BaseProtocol): Promise<null> =>
+  client.none(
+    `update ${schema}.descriptions
+     set value = (${_replaceUuid('value::text', uuidMapping)})::jsonb`
+  )
+
+const _fixOdp = ({ schema, uuidMapping }: FixTableProps, client: BaseProtocol): Promise<null> =>
+  client.none(
+    `update ${schema}.original_data_point
+     set data_source_references = ${_replaceUuid('data_source_references', uuidMapping)},
+         comments_extentofforest = ${_replaceUuid('comments_extentofforest', uuidMapping)},
+         comments_forestcharacteristics = ${_replaceUuid('comments_forestcharacteristics', uuidMapping)}`
+  )
+
+// Fix links: replace old deleted uuids with their replacements in one query per table per schema
+const _fixLinks = async ({ assessment, uuidMapping }: FixLinksProps, client: BaseProtocol): Promise<void> => {
+  if (Object.keys(uuidMapping).length === 0) return
+
+  await Promise.all(
+    assessment.cycles.map(async (cycle) => {
+      const schema = Schemas.getNameCycle(assessment, cycle)
+      const props = { schema, uuidMapping }
+      await Promise.all([_fixDescriptions(props, client), _fixOdp(props, client)])
+    })
+  )
 }
 
 // get repository items from given schema
@@ -116,9 +165,12 @@ const _migrateAssessment =
   async (assessment: Assessment): Promise<void> => {
     const cycles = [...assessment.cycles].sort((a, b) => a.id - b.id)
     const cyclesWithItems = await Promise.all(cycles.map(_migrateCycle(assessment, client)))
-    const resolved = _resolveItems(assessment, cyclesWithItems)
+    const { items, uuidMapping } = _resolveItems(assessment, cyclesWithItems)
 
-    await _insertItems(resolved, client)
+    // -- insert items to db
+    await _insertItems(items, client)
+    // -- fix broken links in db
+    await _fixLinks({ assessment, uuidMapping }, client)
   }
 
 const _archiveCycleTable =
