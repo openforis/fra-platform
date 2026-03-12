@@ -46,6 +46,29 @@ export const buildGetManyQuery = (props: UsersGetManyProps): BuildQueryReturned 
   return { query, queryParams }
 }
 
+export const buildGetManyExportQuery = (props: UsersGetManyProps): BuildQueryReturned => {
+  const { assessment, cycle } = props
+  const { queryParams, whereConditions } = getPropsToQueryParams(props)
+  const schemaName = Schemas.getNameCycle(assessment, cycle)
+
+  const query = `
+    select
+      cus.email,
+      cus.name,
+      cus.surname,
+      cus.title,
+      cus.lang,
+      cus.status,
+      cus.role
+    from ${schemaName}.country_user_summary cus
+    where ${whereConditions.join(' and ')}
+      and cus.role is not null
+    order by cus.full_name, cus.email, (cus.role->>'role'), (cus.role->>'country_iso')
+  `
+
+  return { query, queryParams }
+}
+
 export const getMany = async (props: UsersGetManyProps, client: BaseProtocol = DB): Promise<Array<User>> => {
   const { query, queryParams } = buildGetManyQuery(props)
 
