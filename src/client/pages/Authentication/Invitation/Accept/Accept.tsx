@@ -7,7 +7,6 @@ import { Users } from 'meta/user/users'
 import Button, { ButtonSize } from 'client/components/Buttons/Button'
 import { useOnAccept } from 'client/pages/Authentication/Invitation/Accept/hooks/useOnAccept'
 import { DataInvitation, useData } from 'client/pages/Authentication/Invitation/hooks/useData'
-import PrivacyNotice from 'client/pages/Authentication/Invitation/PrivacyNotice'
 
 type Props = {
   data: DataInvitation
@@ -31,11 +30,10 @@ const Accept: React.FC<Props> = () => {
   }
 
   return (
-    <div className="login-form">
+    <>
       <h3>{t('login.invitationMessage', invitationMessageParams)}</h3>
       <Button disabled={isLoading} label={t('login.acceptInvitation')} onClick={onAccept} size={ButtonSize.l} />
-      <PrivacyNotice />
-    </div>
+    </>
   )
 }
 
