@@ -5,11 +5,29 @@
   "AF": {
     "listName": "África"
   },
+  "ESA": {
+    "listName": "África oriental y austral"
+  },
+  "NAF": {
+    "listName": "África septentrional"
+  },
+  "WAF": {
+    "listName": "África occidental y central"
+  },
   "AN": {
     "listName": "Antarctica"
   },
   "AS": {
     "listName": "Asia"
+  },
+  "EAS": {
+    "listName": "Asia oriental"
+  },
+  "SSE": {
+    "listName": "Asia meridional y sudoriental"
+  },
+  "WCA": {
+    "listName": "Asia occidental y central"
   },
   "AT": {
     "listName": "Atlántida"
@@ -19,6 +37,15 @@
   },
   "NA": {
     "listName": "América del Norte y Central"
+  },
+  "CAM": {
+    "listName": "América central"
+  },
+  "CAR": {
+    "listName": "Caribe"
+  },
+  "NOA": {
+    "listName": "América del Norte"
   },
   "OC": {
     "listName": "Oceanía"
