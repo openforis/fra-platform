@@ -1,9 +1,9 @@
-$privacy-notice-max-width: 460px;
-
 .invitation-privacy-notice {
-  max-width: $privacy-notice-max-width;
+  max-width: 620px;
   text-align: center;
+}
 
+.invitation-privacy-notice__link {
   a {
     color: inherit;
     font: inherit;
@@ -12,6 +12,6 @@ $privacy-notice-max-width: 460px;
 }
 
 .invitation-privacy-notice__divider {
-  max-width: $privacy-notice-max-width;
+  max-width: 460px;
   width: 100%;
 }
