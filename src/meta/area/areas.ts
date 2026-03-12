@@ -6,10 +6,14 @@ import { fraRegionCodes } from 'meta/area/fraRegionCodes'
 import { Global } from 'meta/area/global'
 import { Region } from 'meta/area/region'
 import { RegionCode } from 'meta/area/regionCode'
+import { SubregionCode } from 'meta/area/subregionCode'
 import { Assessment } from 'meta/assessment/assessment'
 import { Assessments } from 'meta/assessment/assessments'
 import { Lang } from 'meta/lang'
 import { Dates } from 'utils/dates'
+
+const subregionCodes = Object.values(SubregionCode)
+const regionCodes = Object.values(RegionCode)
 
 const getCountryBackgroundImg = (isoCode: AreaCode): string =>
   isoCode.startsWith('X')
@@ -21,9 +25,10 @@ const getTranslationKey = (isoCode: AreaCode): string => `area.${isoCode}.listNa
 const isAtlantis = (countryIso: CountryIso | RegionCode): boolean =>
   countryIso.startsWith('X') || countryIso === RegionCode.AT
 const isGlobal = (isoCode: CountryIso | RegionCode | Global): boolean => Global.WO === isoCode
-const isISOCountry = (isoCode: string): boolean => /^[a-zA-Z0-9]{3}$/.test(isoCode)
+const isSubregion = (isoCode: string): boolean => subregionCodes.includes(isoCode as SubregionCode)
+const isISOCountry = (isoCode: string): boolean => /^[a-zA-Z0-9]{3}$/.test(isoCode) && !isSubregion(isoCode)
 const isISOGlobal = (isoCode: string): boolean => isoCode === Global.WO
-const isRegion = (isoCode: string): boolean => Object.values(RegionCode).includes(isoCode as RegionCode)
+const isRegion = (isoCode: string): boolean => regionCodes.includes(isoCode as RegionCode)
 const isFRARegion = (isoCode: string): boolean => fraRegionCodes.includes(isoCode as RegionCode)
 const getStatus = (country: Country): CountryStatus => {
   const { status } = country?.props ?? {}
@@ -74,4 +79,5 @@ export const Areas = {
   isISOCountry,
   isISOGlobal,
   isRegion,
+  isSubregion,
 }
