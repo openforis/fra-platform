@@ -1,11 +1,4 @@
-import { createI18nPromise } from 'i18n/i18nFactory'
-
-import { Areas } from 'meta/area/areas'
 import { Lang } from 'meta/lang'
-import { UserCountrySummary } from 'meta/user/countrySummary'
-import { RoleName } from 'meta/user/role/name'
-import { User } from 'meta/user/user'
-import { Users } from 'meta/user/users'
 import { Objects } from 'utils/objects'
 
 import { UserRepository, UsersGetManyProps } from 'server/db/repository/public/user'
@@ -15,60 +8,84 @@ type Props = UsersGetManyProps & {
   lang: Lang
 }
 
+type RawExportRow = {
+  email: string
+  name: string
+  surname: string
+  title: string
+  lang: string
+  status: string
+  role: Record<string, unknown>
+}
+
 type Returned = {
   query: string
   queryParams: UserQueryParams
-  rowTransformer: (rawUser: User) => Record<string, string>
+  rowTransformer: (rawRow: RawExportRow) => Record<string, string>
+}
+
+// Fields to remove from the return user row object
+const fieldsToRemove = [
+  'id',
+  'uuid',
+  'userUuid',
+  'createdAt',
+  'cycleUuid',
+  'assessmentUuid',
+  'invitationUuid',
+  'permissions',
+]
+
+const emptyRow: Record<string, string> = {
+  email: '',
+  name: '',
+  surname: '',
+  title: '',
+  lang: '',
+  status: '',
+  role: '',
+  countryIso: '',
+  professionalTitle: '',
+  organizationalUnit: '',
+  organization: '',
+  primaryEmail: '',
+  secondaryEmail: '',
+  primaryPhoneNumber: '',
+  secondaryPhoneNumber: '',
+  skype: '',
+  'address.street': '',
+  'address.zipCode': '',
+  'address.poBox': '',
+  'address.city': '',
+  'address.countryIso': '',
+  'contactPreference.method': '',
+  'contactPreference.options.phone': '',
+}
+
+const _rowTransformer = (rawRow: RawExportRow): Record<string, string> => {
+  const { role: rawRole, ...userFields } = rawRow
+  const { props, ...roleRest } = Objects.camelize(rawRole)
+  const { address = {}, contactPreference = {}, ...propsRest } = (props as Record<string, unknown>) ?? {}
+
+  // Flatten the records to a single csv row
+  const flat: Record<string, unknown> = {
+    ...userFields,
+    ...roleRest,
+    ...propsRest,
+    ...Objects.flatten(address as Record<string, unknown>, 'address'),
+    ...Objects.flatten(contactPreference as Record<string, unknown>, 'contactPreference'),
+  }
+
+  // Remove rows we don't want to include
+  fieldsToRemove.forEach((f) => delete flat[f])
+
+  // Transform null objects to ''
+  const stringified = Object.fromEntries(Object.entries(flat).map(([k, v]) => [k, String(v ?? '')]))
+  return { ...emptyRow, ...stringified }
 }
 
 export const getManyExport = async (props: Props): Promise<Returned> => {
-  const { lang } = props
+  const { query, queryParams } = UserRepository.buildGetManyExportQuery(props)
 
-  const { query, queryParams } = UserRepository.buildGetManyQuery(props)
-
-  const i18n = await createI18nPromise(lang)
-  const nameHeader = i18n.t('common.name')
-  const emailHeader = i18n.t('common.email')
-
-  const roleHeaders: Record<RoleName, string> = {
-    [RoleName.ADMINISTRATOR]: i18n.t(Users.getI18nRoleLabelKey(RoleName.ADMINISTRATOR)),
-    [RoleName.REGIONAL_FOCAL_POINT]: i18n.t(Users.getI18nRoleLabelKey(RoleName.REGIONAL_FOCAL_POINT)),
-    [RoleName.REVIEWER]: i18n.t(Users.getI18nRoleLabelKey(RoleName.REVIEWER)),
-    [RoleName.NATIONAL_CORRESPONDENT]: i18n.t(Users.getI18nRoleLabelKey(RoleName.NATIONAL_CORRESPONDENT)),
-    [RoleName.ALTERNATE_NATIONAL_CORRESPONDENT]: i18n.t(
-      Users.getI18nRoleLabelKey(RoleName.ALTERNATE_NATIONAL_CORRESPONDENT)
-    ),
-    [RoleName.COLLABORATOR]: i18n.t(Users.getI18nRoleLabelKey(RoleName.COLLABORATOR)),
-    [RoleName.VIEWER]: i18n.t(Users.getI18nRoleLabelKey(RoleName.VIEWER)),
-  }
-
-  const rowTransformer = (rawUser: UserCountrySummary): Record<string, string> => {
-    const user: UserCountrySummary = Objects.camelize(rawUser)
-
-    const getRoleCountries = (roleName: RoleName): string => {
-      const roleCountries = user.roles
-        .filter((role) => role.role === roleName)
-        .map((role) =>
-          role.role === RoleName.ADMINISTRATOR
-            ? i18n.t(Users.getI18nRoleLabelKey(role.role))
-            : i18n.t(Areas.getTranslationKey(role.countryIso))
-        )
-        .join(', ')
-      return roleCountries
-    }
-
-    const { email, fullName: name } = user
-
-    const rowData: Record<string, string> = {
-      [nameHeader]: name,
-    }
-    Object.entries(roleHeaders).forEach(([roleName, header]) => {
-      rowData[header] = getRoleCountries(roleName as RoleName)
-    })
-    rowData[emailHeader] = email
-
-    return rowData
-  }
-
-  return { query, queryParams, rowTransformer }
+  return { query, queryParams, rowTransformer: _rowTransformer }
 }
