@@ -35,7 +35,7 @@ const Register: React.FC = () => {
   const authProviderNames = userProviders?.join(', ') ?? ''
 
   return (
-    <div className="login-form">
+    <>
       <h3>{t('login.invitationMessage', invitationMessageParams)}</h3>
 
       {userProviders && userProviders.length > 0 && (
@@ -73,7 +73,7 @@ const Register: React.FC = () => {
       >
         <Icon name="video" /> {t(videoResources[1].labelKeyShort)}
       </a>
-    </div>
+    </>
   )
 }
 
