@@ -1,4 +1,10 @@
+import { createI18nPromise } from 'i18n/i18nFactory'
+
+import { AreaCode } from 'meta/area/areaCode'
+import { Areas } from 'meta/area/areas'
 import { Lang } from 'meta/lang'
+import { RoleName } from 'meta/user/role/name'
+import { Users } from 'meta/user/users'
 import { Objects } from 'utils/objects'
 
 import { UserRepository, UsersGetManyProps } from 'server/db/repository/public/user'
@@ -62,30 +68,37 @@ const emptyRow: Record<string, string> = {
   'contactPreference.options.phone': '',
 }
 
-const _rowTransformer = (rawRow: RawExportRow): Record<string, string> => {
-  const { role: rawRole, ...userFields } = rawRow
-  const { props, ...roleRest } = Objects.camelize(rawRole)
-  const { address = {}, contactPreference = {}, ...propsRest } = (props as Record<string, unknown>) ?? {}
-
-  // Flatten the records to a single csv row
-  const flat: Record<string, unknown> = {
-    ...userFields,
-    ...roleRest,
-    ...propsRest,
-    ...Objects.flatten(address as Record<string, unknown>, 'address'),
-    ...Objects.flatten(contactPreference as Record<string, unknown>, 'contactPreference'),
-  }
-
-  // Remove rows we don't want to include
-  fieldsToRemove.forEach((f) => delete flat[f])
-
-  // Transform null objects to ''
-  const stringified = Object.fromEntries(Object.entries(flat).map(([k, v]) => [k, String(v ?? '')]))
-  return { ...emptyRow, ...stringified }
-}
-
 export const getManyExport = async (props: Props): Promise<Returned> => {
+  const { lang } = props
   const { query, queryParams } = UserRepository.buildGetManyExportQuery(props)
 
-  return { query, queryParams, rowTransformer: _rowTransformer }
+  const i18n = await createI18nPromise(lang)
+
+  const rowTransformer = (rawRow: RawExportRow): Record<string, string> => {
+    const { role: rawRole, ...userFields } = rawRow
+    const { props: roleProps, ...roleRest } = Objects.camelize(rawRole)
+    const { address = {}, contactPreference = {}, ...propsRest } = roleProps ?? {}
+
+    // Flatten the records to a single csv row
+    const flat: Record<string, unknown> = {
+      ...userFields,
+      ...roleRest,
+      ...propsRest,
+      ...Objects.flatten(address as Record<string, unknown>, 'address'),
+      ...Objects.flatten(contactPreference as Record<string, unknown>, 'contactPreference'),
+    }
+
+    // Remove fields we don't want to include
+    fieldsToRemove.forEach((f) => delete flat[f])
+
+    // Translate role and countryIso
+    flat.role = i18n.t(Users.getI18nRoleLabelKey(flat.role as RoleName))
+    flat.countryIso = i18n.t(Areas.getTranslationKey(flat.countryIso as AreaCode))
+
+    // Transform null/undefined values to ''
+    const stringified = Object.fromEntries(Object.entries(flat).map(([k, v]) => [k, String(v ?? '')]))
+    return { ...emptyRow, ...stringified }
+  }
+
+  return { query, queryParams, rowTransformer }
 }
