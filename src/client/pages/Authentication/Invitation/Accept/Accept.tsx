@@ -30,10 +30,10 @@ const Accept: React.FC<Props> = () => {
   }
 
   return (
-    <div className="login-form">
+    <>
       <h3>{t('login.invitationMessage', invitationMessageParams)}</h3>
       <Button disabled={isLoading} label={t('login.acceptInvitation')} onClick={onAccept} size={ButtonSize.l} />
-    </div>
+    </>
   )
 }
 
