@@ -1,4 +1,6 @@
 {
   "bulkDownload": "批量下载",
-  "dataDownload": "数据下载"
+  "dataDownload": "数据下载",
+  "downloadWholeDatasetInstruction": "要下载整个数据集，请点击右侧的 ZIP 按钮。",
+  "individualTableInstruction": "要访问针对单个表的数据，请在左侧菜单中选择相关部分。"
 }

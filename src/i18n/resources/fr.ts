@@ -7,6 +7,7 @@ import dataDownload from './fr/dataDownload.json'
 import dataSource from './fr/dataSource.json'
 import editUser from './fr/editUser.json'
 import email from './fr/email.json'
+import explorer from './fr/explorer.json'
 import footer from './fr/footer.json'
 import fra from './fr/fra.json'
 import generalValidation from './fr/generalValidation.json'
@@ -30,6 +31,7 @@ export const frTranslation = {
   dataSource,
   editUser,
   email,
+  explorer,
   footer,
   fra,
   generalValidation,

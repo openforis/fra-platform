@@ -1,0 +1,5 @@
+{
+  "countryOptionsDisabled": "Estas opciones sólo están disponibles cuando los países / áreas están solos en un eje.",
+  "downloadWholeDatasetInstruction": "Para descargar todo el conjunto de datos, seleccione el enlace «Descarga de datos» en la barra de herramientas.",
+  "selectDataInstruction": "Para acceder a los datos sobre {{sectionLabel}}, seleccione los países/zonas, la variable y la columna en los menús desplegables de arriba."
+}
