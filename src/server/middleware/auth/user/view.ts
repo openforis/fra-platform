@@ -28,3 +28,11 @@ export const requireViewUsers = async (req: Request, _res: Response, next: NextF
 
   _next((print === 'true' && Cycles.isPublished(cycle)) || Authorizer.canViewUsers({ user, countryIso, cycle }), next)
 }
+
+export const requireExportUsers = async (req: Request, _res: Response, next: NextFunction): Promise<void> => {
+  const { countryIso } = _getRequestParams<CountryParams>(req)
+  const user = Requests.getUser(req)
+  const { cycle } = req.context
+
+  _next(Users.isAdministrator(user) || Users.isRegionalFocalPoint(user, countryIso, cycle), next)
+}

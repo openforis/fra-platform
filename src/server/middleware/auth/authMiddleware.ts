@@ -15,7 +15,7 @@ import { requireEditRepositoryItem } from 'server/middleware/auth/repositoryItem
 import { requireViewRepositoryItem } from 'server/middleware/auth/repositoryItem/view'
 import { requireEditUser } from 'server/middleware/auth/user/edit'
 import { requireInviteUser } from 'server/middleware/auth/user/invite'
-import { requireViewUser, requireViewUsers } from 'server/middleware/auth/user/view'
+import { requireExportUsers, requireViewUser, requireViewUsers } from 'server/middleware/auth/user/view'
 import { Requests } from 'server/utils'
 
 /**
@@ -39,6 +39,7 @@ export const AuthMiddleware = {
   requireEditMessageTopic: _tryCatch(requireEditMessageTopic),
   requireEditTableData: _tryCatch(requireEditTableData),
   requireEditUser: _tryCatch(requireEditUser),
+  requireExportUsers: _tryCatch(requireExportUsers),
   requireInviteUser: _tryCatch(requireInviteUser),
   requireResolveTopic: _tryCatch(requireResolveTopic),
   requireUser: _tryCatch(requireUser),
