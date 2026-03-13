@@ -2,6 +2,8 @@ import { apiPath } from 'meta/api/endpoint/_utils'
 
 export const User = {
   many: (): string => apiPath('users'),
+  manyCount: (): string => apiPath('users', 'count'),
+  manyExport: (): string => apiPath('users', 'export'),
   one: (): string => apiPath('users', 'user'),
 
   invite: (): string => apiPath('users', 'invite'),

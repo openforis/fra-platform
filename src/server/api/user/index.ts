@@ -7,6 +7,8 @@ import { AuthMiddleware } from 'server/middleware/auth'
 import { FormDataBodyMiddleware } from 'server/middleware/formDataBodyMiddleware'
 
 import { acceptInvitation } from './acceptInvitation'
+import { exportUsers } from './exportUsers'
+import { getCount } from './getCount'
 import { getInvitation } from './getInvitation'
 import { getMany } from './getMany'
 import { getProfilePicture } from './getProfilePicture'
@@ -27,6 +29,8 @@ export const UserApi = {
       updateUser
     )
     express.get(ApiEndPoint.User.many(), AuthMiddleware.requireViewUsers, getMany)
+    express.get(ApiEndPoint.User.manyCount(), AuthMiddleware.requireViewUsers, getCount)
+    express.get(ApiEndPoint.User.manyExport(), AuthMiddleware.requireViewUsers, exportUsers)
     express.get(ApiEndPoint.User.one(), AuthMiddleware.requireViewUser, getUser)
 
     express.delete(ApiEndPoint.User.invitation(), AuthMiddleware.requireInviteUser, removeInvitation)
