@@ -89,7 +89,7 @@ export const CycleData = {
   },
 
   Validations: {
-    tableData: (): string => apiPath('cycle-data', 'validations', 'table-data'),
     summary: (): string => apiPath('cycle-data', 'validations', 'summary'),
+    tableData: (): string => apiPath('cycle-data', 'validations', 'table-data'),
   },
 }
