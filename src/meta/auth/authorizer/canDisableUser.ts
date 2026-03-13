@@ -1,12 +1,12 @@
+import { AreaCode } from 'meta/area/areaCode'
 import { Areas } from 'meta/area/areas'
-import { CountryIso } from 'meta/area/countryIso'
 import { Cycle } from 'meta/assessment/cycle'
 import { RoleName } from 'meta/user/role/name'
 import { User } from 'meta/user/user'
 import { Users } from 'meta/user/users'
 import { Objects } from 'utils/objects'
 
-type Props = { countryIso?: CountryIso; cycle: Cycle; user: User; target: User }
+type Props = { countryIso?: AreaCode; cycle: Cycle; user: User; target: User }
 
 export const rfpDisableableRoles = [
   RoleName.REVIEWER,
