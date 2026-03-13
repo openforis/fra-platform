@@ -22,7 +22,7 @@ const UsersCount: TablePaginatedCounterComponent = () => {
     RoleName.VIEWER,
   ]
 
-  const usersCount = useTablePaginatedCount(ApiEndPoint.Admin.users()) as Record<RoleName | 'total', number>
+  const usersCount = useTablePaginatedCount(ApiEndPoint.User.many()) as Record<RoleName | 'total', number>
 
   return (
     <div className="user-counts__container">
