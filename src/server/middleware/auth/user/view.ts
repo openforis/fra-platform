@@ -34,5 +34,5 @@ export const requireExportUsers = async (req: Request, _res: Response, next: Nex
   const user = Requests.getUser(req)
   const { cycle } = req.context
 
-  _next(Users.isAdministrator(user) || Users.isRegionalFocalPoint(user, countryIso, cycle), next)
+  _next(Authorizer.canExportUsers({ user, countryIso, cycle }), next)
 }

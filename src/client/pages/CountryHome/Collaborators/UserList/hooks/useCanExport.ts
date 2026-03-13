@@ -1,5 +1,5 @@
 import { CountryIso } from 'meta/area/countryIso'
-import { Users } from 'meta/user/users'
+import { Authorizer } from 'meta/auth/authorizer'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useUser } from 'client/store/user/hooks/user'
@@ -10,5 +10,5 @@ export const useCanExport = (): boolean => {
   const user = useUser()
   const cycle = useCycle()
 
-  return Users.isAdministrator(user) || Users.isRegionalFocalPoint(user, countryIso, cycle)
+  return Authorizer.canExportUsers({ countryIso, cycle, user })
 }
