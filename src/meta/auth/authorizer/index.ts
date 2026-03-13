@@ -6,6 +6,7 @@ import { canEditSomeData } from 'meta/auth/authorizer/canEditSomeData'
 import { canEditUser, canEditUserRoleName } from 'meta/auth/authorizer/canEditUser'
 import { canEditUserRolePermissions } from 'meta/auth/authorizer/canEditUserRolePermissions'
 import { canEditUserRoleProps } from 'meta/auth/authorizer/canEditUserRoleProps'
+import { canExportUsers } from 'meta/auth/authorizer/canExportUsers'
 import { canVerifyLinks } from 'meta/auth/authorizer/canVerifyLinks'
 import { canView } from 'meta/auth/authorizer/canView'
 import { canViewGeo } from 'meta/auth/authorizer/canViewGeo'
@@ -55,6 +56,8 @@ export const Authorizer = {
   canEditUserRoleName,
   canEditUserRolePermissions,
   canEditUserRoleProps,
+  // export
+  canExportUsers,
   // view
   canViewUsers,
 }

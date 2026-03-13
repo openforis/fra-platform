@@ -57,7 +57,7 @@ type BaseTablePaginatedFilter<FilterType extends TablePaginatedFilterType> = {
   type: FilterType
 }
 
-type MultiSelectItem = {
+export type MultiSelectItem = {
   label: string
   value: string
 }
