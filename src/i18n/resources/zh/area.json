@@ -5,11 +5,29 @@
   "AF": {
     "listName": "非洲"
   },
+  "ESA": {
+    "listName": "东部和南部非洲"
+  },
+  "NAF": {
+    "listName": "北部非洲"
+  },
+  "WAF": {
+    "listName": "西部和中部非洲"
+  },
   "AN": {
     "listName": "南极洲"
   },
   "AS": {
     "listName": "亚洲"
+  },
+  "EAS": {
+    "listName": "东亚"
+  },
+  "SSE": {
+    "listName": "南亚和东南亚"
+  },
+  "WCA": {
+    "listName": "西亚和中亚"
   },
   "AT": {
     "listName": "亚特兰蒂斯"
@@ -19,6 +37,15 @@
   },
   "NA": {
     "listName": "中北美洲"
+  },
+  "CAM": {
+    "listName": "中美洲"
+  },
+  "CAR": {
+    "listName": "加勒比地区"
+  },
+  "NOA": {
+    "listName": "北美洲"
   },
   "OC": {
     "listName": "大洋洲"

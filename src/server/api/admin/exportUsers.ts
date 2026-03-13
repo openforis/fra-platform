@@ -1,7 +1,6 @@
 import { Response } from 'express'
 
 import { AdminUsersRequest } from 'meta/api/request/admin/users'
-import { User } from 'meta/user/user'
 
 import { getUsersGetManyPropsFromRequest } from 'server/api/admin/_getUsersGetManyPropsFromRequest'
 import { UserController } from 'server/controller/user'
@@ -19,7 +18,7 @@ export const exportUsers = async (req: AdminUsersRequest, res: Response): Promis
 
     const { query, queryParams, rowTransformer } = await UserController.getManyExport({ ...props, lang })
 
-    await ExportService.queryToCsvResponseStream<User>({ fileName, query, queryParams, res, rowTransformer })
+    await ExportService.queryToCsvResponseStream({ fileName, query, queryParams, res, rowTransformer })
   } catch (e) {
     Requests.sendErr(res, e)
   }
