@@ -1,21 +1,18 @@
-import { createI18nPromise } from 'i18n/i18nFactory'
-import { Arrays } from 'utils/arrays'
-
 import { Country } from 'meta/area/country'
 import { CountryIso } from 'meta/area/countryIso'
 import { CountryStatus } from 'meta/area/countryStatus'
 import { AssessmentName } from 'meta/assessment/assessment'
 import { Assessments } from 'meta/assessment/assessments'
 import { Cycle } from 'meta/assessment/cycle'
-import { Lang } from 'meta/lang'
 import { Routes } from 'meta/routes/routes'
 import { RoleName } from 'meta/user/role/name'
 import { UserRoles } from 'meta/user/roles'
 import { User } from 'meta/user/user'
 import { Users } from 'meta/user/users'
+import { Arrays } from 'utils/arrays'
 
 import { UserRepository } from 'server/db/repository/public/user'
-import { ProcessEnv } from 'server/utils'
+import { I18nUtils, ProcessEnv } from 'server/utils'
 
 import { sendMail } from './mail'
 
@@ -34,7 +31,7 @@ const createMail = async (
 ): Promise<{ html: string; subject: string; text: string; to: string }> => {
   const { assessmentName, countryIso, cycleName, message, recipient, status, url, user } = props
 
-  const i18n = await createI18nPromise(recipient.props.lang ?? Lang.en)
+  const i18n = await I18nUtils.get({ user: recipient })
 
   const serverUrl = `${url}${Routes.Country.generatePath({ assessmentName, countryIso, cycleName })}`
 

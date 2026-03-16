@@ -9,7 +9,7 @@ type Props = {
   lang?: Lang
 }
 
-const get = ({ lang, user }: Props): Promise<{ language: Lang; t: TFunction }> =>
+const get = ({ lang, user }: Props = {}): Promise<{ language: Lang; t: TFunction }> =>
   createI18nPromise(user?.props.lang ?? lang ?? Lang.en)
 
 export const I18nUtils = { get }

@@ -1,5 +1,3 @@
-import { createI18nPromise } from 'i18n/i18nFactory'
-
 import { AssessmentNames } from 'meta/assessment/assessment'
 import { Link } from 'meta/cycleData/links/link'
 import { Links } from 'meta/cycleData/links/links'
@@ -10,7 +8,7 @@ import { MetadataController } from 'server/controller/metadata'
 import { LinkRepository } from 'server/db/repository/assessmentCycle/links'
 import { LinksGetManyProps } from 'server/db/repository/assessmentCycle/links/linksGetManyProps'
 import { LinksQueryParams } from 'server/db/repository/assessmentCycle/links/LinksQueryParams'
-import { ProcessEnv } from 'server/utils'
+import { I18nUtils, ProcessEnv } from 'server/utils'
 
 type Props = LinksGetManyProps & {
   includeCountryIso?: boolean
@@ -30,7 +28,7 @@ export const getManyExport = async (props: Props): Promise<Returned> => {
 
   const sections = await MetadataController.getSections({ assessment, cycle })
   const subSections = sections.flatMap((section) => section.subSections ?? [])
-  const i18n = await createI18nPromise(lang)
+  const i18n = await I18nUtils.get({ lang })
   const { t } = i18n
   const linkHeader = t('common.link')
   const statusHeader = t('admin.lastStatus')

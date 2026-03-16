@@ -1,12 +1,11 @@
-import { createI18nPromise } from 'i18n/i18nFactory'
-
 import { CountryIso } from 'meta/area/countryIso'
 import { AssessmentName } from 'meta/assessment/assessment'
 import { Assessments } from 'meta/assessment/assessments'
-import { Lang } from 'meta/lang'
 import { Routes } from 'meta/routes/routes'
 import { User } from 'meta/user/user'
 import { Users } from 'meta/user/users'
+
+import { I18nUtils } from 'server/utils'
 
 import { sendMail } from './mail'
 
@@ -20,7 +19,7 @@ export const oneToOneMessage = async (props: {
 }): Promise<void> => {
   const { assessmentName, countryIso, cycleName, recipient, sender, url } = props
 
-  const i18n = await createI18nPromise(Lang.en)
+  const i18n = await I18nUtils.get({ user: recipient })
 
   const link = `${url}${Routes.CountryHome.generatePath({
     assessmentName,

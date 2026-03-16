@@ -1,5 +1,3 @@
-import { createI18nPromise } from 'i18n/i18nFactory'
-
 import { AreaCode } from 'meta/area/areaCode'
 import { Areas } from 'meta/area/areas'
 import { Lang } from 'meta/lang'
@@ -9,6 +7,7 @@ import { Objects } from 'utils/objects'
 
 import { UserRepository, UsersGetManyProps } from 'server/db/repository/public/user'
 import { UserQueryParams } from 'server/db/repository/public/user/UserQueryParams'
+import { I18nUtils } from 'server/utils'
 
 type Props = UsersGetManyProps & {
   lang: Lang
@@ -72,7 +71,7 @@ export const getManyExport = async (props: Props): Promise<Returned> => {
   const { lang } = props
   const { query, queryParams } = UserRepository.buildGetManyExportQuery(props)
 
-  const i18n = await createI18nPromise(lang)
+  const i18n = await I18nUtils.get({ lang })
 
   const rowTransformer = (rawRow: RawExportRow): Record<string, string> => {
     const { role: rawRole, ...userFields } = rawRow

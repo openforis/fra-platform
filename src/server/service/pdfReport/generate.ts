@@ -1,4 +1,3 @@
-import { createI18nPromise } from 'i18n/i18nFactory'
 import puppeteer, { LaunchOptions, Page, PDFOptions } from 'puppeteer'
 
 import { Areas } from 'meta/area/areas'
@@ -9,7 +8,7 @@ import { CycleName } from 'meta/assessment/cycle'
 import { Lang } from 'meta/lang'
 import { Promises } from 'utils/promises'
 
-import { ProcessEnv } from 'server/utils'
+import { I18nUtils, ProcessEnv } from 'server/utils'
 import { Logger } from 'server/utils/logger'
 
 type Props = {
@@ -53,7 +52,7 @@ const browserOptions: LaunchOptions = debug ? { headless: false, defaultViewport
 
 export const generate = async (props: Props): ReturnType<Page['pdf']> => {
   const { appUri, assessmentName, cookies, countryIso, cycleName, lang, onlyTables } = { ...defaultProps, ...props }
-  const { t } = await createI18nPromise(lang)
+  const { t } = await I18nUtils.get({ lang })
   const browser = await puppeteer.launch(browserOptions)
   const page = await browser.newPage()
 
