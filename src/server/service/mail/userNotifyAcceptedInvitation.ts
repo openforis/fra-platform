@@ -9,7 +9,7 @@ import { UserRole } from 'meta/user/role/role'
 import { User } from 'meta/user/user'
 import { Users } from 'meta/user/users'
 
-import { I18nUtils, ProcessEnv } from 'server/utils'
+import { I18n, ProcessEnv } from 'server/utils'
 
 import { sendMail } from './mail'
 
@@ -24,7 +24,7 @@ export const userNotifyAcceptedInvitation = async (props: {
   const { assessmentName, countryIso, cycleName, invitedUser, invitedUserRole, recipient } = props
 
   const url = ProcessEnv.appUri
-  const i18n = await I18nUtils.get({ user: recipient })
+  const i18n = await I18n.get({ user: recipient })
 
   const sectionName = SectionNames.Country.Home.collaborators
   const manageCollaboratorsUrl = `${url}${Routes.CountryHomeSection.generatePath({

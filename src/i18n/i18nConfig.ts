@@ -1,4 +1,4 @@
-import i18next, { InitOptions, TFunction } from 'i18next'
+import { InitOptions } from 'i18next'
 
 import { Lang } from 'meta/lang'
 
@@ -49,14 +49,3 @@ export const createParams = (lang: Lang): InitOptions => ({
     },
   },
 })
-
-export const createI18nPromise = (lang: Lang): Promise<{ language: Lang; t: TFunction }> =>
-  new Promise((resolve, reject) => {
-    i18next.createInstance(createParams(lang), (err, t) => {
-      if (err) {
-        reject(err)
-        return
-      }
-      resolve({ language: lang, t })
-    })
-  })

@@ -8,7 +8,7 @@ import { User } from 'meta/user/user'
 import { Users } from 'meta/user/users'
 
 import { MailServiceEmail } from 'server/service/mail/mail'
-import { I18nUtils, ProcessEnv } from 'server/utils'
+import { I18n, ProcessEnv } from 'server/utils'
 
 import { LinksByCountry } from './types'
 
@@ -74,7 +74,7 @@ const _getCountryEntries = (props: GetCountryEntriesProps): Array<CountryEntry> 
 
 export const buildEmail = async (props: Props): Promise<MailServiceEmail> => {
   const { assessment, cycle, linksByCountry, user } = props
-  const { t } = await I18nUtils.get({ user })
+  const { t } = await I18n.get({ user })
   const to = user.email
 
   const subject = t('email.invalidLinks.subject')

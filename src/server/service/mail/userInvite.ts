@@ -6,7 +6,7 @@ import { UserInvitation } from 'meta/user/invitation'
 import { User } from 'meta/user/user'
 import { Users } from 'meta/user/users'
 
-import { I18nUtils, ProcessEnv } from 'server/utils'
+import { I18n, ProcessEnv } from 'server/utils'
 
 import { sendMail } from './mail'
 
@@ -20,7 +20,7 @@ export const userInvite = async (props: {
   const { assessmentName, countryIso, cycleName, userInvitation, userToInvite } = props
 
   const url = ProcessEnv.appUri
-  const i18n = await I18nUtils.get({ user: userToInvite })
+  const i18n = await I18n.get({ user: userToInvite })
 
   const link = `${url}${Routes.LoginInvitation.generatePath(
     { assessmentName, cycleName, invitationUuid: userInvitation.uuid },

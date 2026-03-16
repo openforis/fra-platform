@@ -4,7 +4,7 @@ import { UserResetPassword } from 'meta/user/resetPassword'
 import { User } from 'meta/user/user'
 import { Users } from 'meta/user/users'
 
-import { I18nUtils } from 'server/utils'
+import { I18n } from 'server/utils'
 
 import { sendMail } from './mail'
 
@@ -19,7 +19,7 @@ type Props = {
 export const resetPassword = async (props: Props): Promise<void> => {
   const { assessmentName, cycleName, url, user, userResetPassword } = props
 
-  const i18n = await I18nUtils.get({ user })
+  const i18n = await I18n.get({ user })
 
   const link = `${url}${Routes.LoginChangePassword.generatePath({
     assessmentName,

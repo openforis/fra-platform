@@ -1,18 +1,16 @@
-import { i18n as i18nType } from 'i18next'
-
 import { getCountries } from 'server/controller/cycleData/getBulkDownload/_countries'
 import { getData } from 'server/controller/cycleData/getBulkDownload/_getData'
 import { getCSVContentFile } from 'server/controller/cycleData/getBulkDownload/csvContent/getCSVContentFile'
 import { getBulkDownloadMetadata } from 'server/controller/cycleData/getBulkDownload/metadata/getBulkDownloadMetadata'
 import { CSVContent, PropsBulkDownload } from 'server/controller/cycleData/getBulkDownload/types'
-import { I18nUtils } from 'server/utils'
+import { I18n } from 'server/utils'
 
 type Props = Omit<PropsBulkDownload, 'i18n'> & { includeClimaticDomain?: boolean }
 
 export const getBulkDownload = async (props: Props): Promise<Array<CSVContent>> => {
   const { assessment, cycle, includeClimaticDomain } = props
 
-  const i18n = (await I18nUtils.get({})) as i18nType
+  const i18n = await I18n.get({})
 
   const propsBulkDownload: PropsBulkDownload = { assessment, cycle, i18n }
 

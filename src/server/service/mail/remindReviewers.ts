@@ -16,7 +16,7 @@ import { Objects } from 'utils/objects'
 import { AreaController } from 'server/controller/area'
 import { UserRepository } from 'server/db/repository/public/user'
 import { sendMail } from 'server/service/mail/mail'
-import { I18nUtils, ProcessEnv } from 'server/utils'
+import { I18n, ProcessEnv } from 'server/utils'
 
 type RecipientAssessmentCycleCountries = {
   user: User
@@ -53,7 +53,7 @@ const createMail = async (
   recipient: RecipientAssessmentCycleCountries
 ): Promise<{ html: string; subject: string; text: string; to: string }> => {
   const { assessments, user } = recipient
-  const { t } = await I18nUtils.get({ user })
+  const { t } = await I18n.get({ user })
   const to = recipient.user.email
   const htmlStyle = `style="white-space: pre-line; max-width: 100%"`
   const subject = t('email.remindReviewer.subject')

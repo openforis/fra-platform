@@ -5,7 +5,7 @@ import { Routes } from 'meta/routes/routes'
 import { User } from 'meta/user/user'
 import { Users } from 'meta/user/users'
 
-import { I18nUtils } from 'server/utils'
+import { I18n } from 'server/utils'
 
 import { sendMail } from './mail'
 
@@ -19,7 +19,7 @@ export const oneToOneMessage = async (props: {
 }): Promise<void> => {
   const { assessmentName, countryIso, cycleName, recipient, sender, url } = props
 
-  const i18n = await I18nUtils.get({ user: recipient })
+  const i18n = await I18n.get({ user: recipient })
 
   const link = `${url}${Routes.CountryHome.generatePath({
     assessmentName,

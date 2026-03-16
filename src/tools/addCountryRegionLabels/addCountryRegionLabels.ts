@@ -11,7 +11,7 @@ import { Strings } from 'utils/strings'
 import { CacheController } from 'server/cache/controller'
 import { AssessmentController } from 'server/controller/assessment'
 import { BaseProtocol, DB } from 'server/db/db'
-import { I18nUtils } from 'server/utils'
+import { I18n } from 'server/utils'
 
 const pgp = pgPromise()
 
@@ -38,7 +38,7 @@ type I18nInstances = Record<Lang, { compareListName: CompareFn }>
 const _createI18nInstances = async (): Promise<I18nInstances> => {
   const entries = await Promise.all(
     LanguageCodes.map(async (lang) => {
-      const i18nInstance = await I18nUtils.get({ lang })
+      const i18nInstance = await I18n.get({ lang })
       const compareListName = _getCompareListNameByIsoCode(i18nInstance)
       return [lang, { compareListName }] as const
     })

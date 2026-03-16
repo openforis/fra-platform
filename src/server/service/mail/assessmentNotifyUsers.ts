@@ -12,7 +12,7 @@ import { Users } from 'meta/user/users'
 import { Arrays } from 'utils/arrays'
 
 import { UserRepository } from 'server/db/repository/public/user'
-import { I18nUtils, ProcessEnv } from 'server/utils'
+import { I18n, ProcessEnv } from 'server/utils'
 
 import { sendMail } from './mail'
 
@@ -31,7 +31,7 @@ const createMail = async (
 ): Promise<{ html: string; subject: string; text: string; to: string }> => {
   const { assessmentName, countryIso, cycleName, message, recipient, status, url, user } = props
 
-  const i18n = await I18nUtils.get({ user: recipient })
+  const i18n = await I18n.get({ user: recipient })
 
   const serverUrl = `${url}${Routes.Country.generatePath({ assessmentName, countryIso, cycleName })}`
 
