@@ -12,7 +12,8 @@ import { Users } from 'meta/user/users'
 import { Arrays } from 'utils/arrays'
 
 import { UserRepository } from 'server/db/repository/public/user'
-import { I18n, ProcessEnv } from 'server/utils'
+import { ProcessEnv } from 'server/utils'
+import { I18n } from 'server/utils/i18n'
 
 import { sendMail } from './mail'
 

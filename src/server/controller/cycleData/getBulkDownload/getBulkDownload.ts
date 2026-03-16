@@ -3,7 +3,7 @@ import { getData } from 'server/controller/cycleData/getBulkDownload/_getData'
 import { getCSVContentFile } from 'server/controller/cycleData/getBulkDownload/csvContent/getCSVContentFile'
 import { getBulkDownloadMetadata } from 'server/controller/cycleData/getBulkDownload/metadata/getBulkDownloadMetadata'
 import { CSVContent, PropsBulkDownload } from 'server/controller/cycleData/getBulkDownload/types'
-import { I18n } from 'server/utils'
+import { I18n } from 'server/utils/i18n'
 
 type Props = Omit<PropsBulkDownload, 'i18n'> & { includeClimaticDomain?: boolean }
 

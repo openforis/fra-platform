@@ -16,7 +16,8 @@ import { Objects } from 'utils/objects'
 import { AreaController } from 'server/controller/area'
 import { UserRepository } from 'server/db/repository/public/user'
 import { sendMail } from 'server/service/mail/mail'
-import { I18n, ProcessEnv } from 'server/utils'
+import { ProcessEnv } from 'server/utils'
+import { I18n } from 'server/utils/i18n'
 
 type RecipientAssessmentCycleCountries = {
   user: User

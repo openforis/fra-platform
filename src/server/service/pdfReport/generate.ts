@@ -8,7 +8,8 @@ import { CycleName } from 'meta/assessment/cycle'
 import { Lang } from 'meta/lang'
 import { Promises } from 'utils/promises'
 
-import { I18n, ProcessEnv } from 'server/utils'
+import { ProcessEnv } from 'server/utils'
+import { I18n } from 'server/utils/i18n'
 import { Logger } from 'server/utils/logger'
 
 type Props = {

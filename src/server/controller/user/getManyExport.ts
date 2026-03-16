@@ -7,7 +7,7 @@ import { Objects } from 'utils/objects'
 
 import { UserRepository, UsersGetManyProps } from 'server/db/repository/public/user'
 import { UserQueryParams } from 'server/db/repository/public/user/UserQueryParams'
-import { I18n } from 'server/utils'
+import { I18n } from 'server/utils/i18n'
 
 type Props = UsersGetManyProps & {
   lang: Lang

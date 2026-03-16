@@ -8,7 +8,8 @@ import { MetadataController } from 'server/controller/metadata'
 import { LinkRepository } from 'server/db/repository/assessmentCycle/links'
 import { LinksGetManyProps } from 'server/db/repository/assessmentCycle/links/linksGetManyProps'
 import { LinksQueryParams } from 'server/db/repository/assessmentCycle/links/LinksQueryParams'
-import { I18n, ProcessEnv } from 'server/utils'
+import { ProcessEnv } from 'server/utils'
+import { I18n } from 'server/utils/i18n'
 
 type Props = LinksGetManyProps & {
   includeCountryIso?: boolean

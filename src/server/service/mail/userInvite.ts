@@ -6,7 +6,8 @@ import { UserInvitation } from 'meta/user/invitation'
 import { User } from 'meta/user/user'
 import { Users } from 'meta/user/users'
 
-import { I18n, ProcessEnv } from 'server/utils'
+import { ProcessEnv } from 'server/utils'
+import { I18n } from 'server/utils/i18n'
 
 import { sendMail } from './mail'
 
