@@ -31,7 +31,7 @@ const createMail = async (
 ): Promise<{ html: string; subject: string; text: string; to: string }> => {
   const { assessmentName, countryIso, cycleName, message, recipient, status, url, user } = props
 
-  const i18n = await I18n.get({ user: recipient })
+  const i18n = await I18n.getInstance({ user: recipient })
 
   const serverUrl = `${url}${Routes.Country.generatePath({ assessmentName, countryIso, cycleName })}`
 

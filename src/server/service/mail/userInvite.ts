@@ -20,7 +20,7 @@ export const userInvite = async (props: {
   const { assessmentName, countryIso, cycleName, userInvitation, userToInvite } = props
 
   const url = ProcessEnv.appUri
-  const i18n = await I18n.get({ user: userToInvite })
+  const i18n = await I18n.getInstance({ user: userToInvite })
 
   const link = `${url}${Routes.LoginInvitation.generatePath(
     { assessmentName, cycleName, invitationUuid: userInvitation.uuid },

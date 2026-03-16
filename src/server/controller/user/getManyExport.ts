@@ -71,7 +71,7 @@ export const getManyExport = async (props: Props): Promise<Returned> => {
   const { lang } = props
   const { query, queryParams } = UserRepository.buildGetManyExportQuery(props)
 
-  const i18n = await I18n.get({ lang })
+  const i18n = await I18n.getInstance({ lang })
 
   const rowTransformer = (rawRow: RawExportRow): Record<string, string> => {
     const { role: rawRole, ...userFields } = rawRow

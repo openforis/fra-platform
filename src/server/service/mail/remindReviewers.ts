@@ -53,7 +53,7 @@ const createMail = async (
   recipient: RecipientAssessmentCycleCountries
 ): Promise<{ html: string; subject: string; text: string; to: string }> => {
   const { assessments, user } = recipient
-  const { t } = await I18n.get({ user })
+  const { t } = await I18n.getInstance({ user })
   const to = recipient.user.email
   const htmlStyle = `style="white-space: pre-line; max-width: 100%"`
   const subject = t('email.remindReviewer.subject')

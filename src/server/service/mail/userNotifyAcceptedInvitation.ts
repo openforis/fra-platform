@@ -24,7 +24,7 @@ export const userNotifyAcceptedInvitation = async (props: {
   const { assessmentName, countryIso, cycleName, invitedUser, invitedUserRole, recipient } = props
 
   const url = ProcessEnv.appUri
-  const i18n = await I18n.get({ user: recipient })
+  const i18n = await I18n.getInstance({ user: recipient })
 
   const sectionName = SectionNames.Country.Home.collaborators
   const manageCollaboratorsUrl = `${url}${Routes.CountryHomeSection.generatePath({

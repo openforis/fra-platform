@@ -10,7 +10,7 @@ type Props = Omit<PropsBulkDownload, 'i18n'> & { includeClimaticDomain?: boolean
 export const getBulkDownload = async (props: Props): Promise<Array<CSVContent>> => {
   const { assessment, cycle, includeClimaticDomain } = props
 
-  const i18n = await I18n.get({})
+  const i18n = await I18n.getInstance({})
 
   const propsBulkDownload: PropsBulkDownload = { assessment, cycle, i18n }
 

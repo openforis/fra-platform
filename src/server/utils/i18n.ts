@@ -9,10 +9,10 @@ type Props = {
   lang?: Lang
 }
 
-const get = async ({ lang, user }: Props = {}): Promise<i18nType> => {
+const getInstance = async ({ lang, user }: Props = {}): Promise<i18nType> => {
   const instance = i18next.createInstance(createParams(user?.props.lang ?? lang ?? Lang.en))
   await instance.init()
   return instance
 }
 
-export const I18n = { get }
+export const I18n = { getInstance }

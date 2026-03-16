@@ -19,7 +19,7 @@ type Props = {
 export const resetPassword = async (props: Props): Promise<void> => {
   const { assessmentName, cycleName, url, user, userResetPassword } = props
 
-  const i18n = await I18n.get({ user })
+  const i18n = await I18n.getInstance({ user })
 
   const link = `${url}${Routes.LoginChangePassword.generatePath({
     assessmentName,

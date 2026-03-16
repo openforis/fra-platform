@@ -19,7 +19,7 @@ export const oneToOneMessage = async (props: {
 }): Promise<void> => {
   const { assessmentName, countryIso, cycleName, recipient, sender, url } = props
 
-  const i18n = await I18n.get({ user: recipient })
+  const i18n = await I18n.getInstance({ user: recipient })
 
   const link = `${url}${Routes.CountryHome.generatePath({
     assessmentName,

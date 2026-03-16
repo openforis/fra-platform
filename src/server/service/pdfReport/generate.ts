@@ -52,7 +52,7 @@ const browserOptions: LaunchOptions = debug ? { headless: false, defaultViewport
 
 export const generate = async (props: Props): ReturnType<Page['pdf']> => {
   const { appUri, assessmentName, cookies, countryIso, cycleName, lang, onlyTables } = { ...defaultProps, ...props }
-  const { t } = await I18n.get({ lang })
+  const { t } = await I18n.getInstance({ lang })
   const browser = await puppeteer.launch(browserOptions)
   const page = await browser.newPage()
 

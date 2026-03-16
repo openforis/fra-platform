@@ -28,7 +28,7 @@ export const getManyExport = async (props: Props): Promise<Returned> => {
 
   const sections = await MetadataController.getSections({ assessment, cycle })
   const subSections = sections.flatMap((section) => section.subSections ?? [])
-  const i18n = await I18n.get({ lang })
+  const i18n = await I18n.getInstance({ lang })
   const { t } = i18n
   const linkHeader = t('common.link')
   const statusHeader = t('admin.lastStatus')

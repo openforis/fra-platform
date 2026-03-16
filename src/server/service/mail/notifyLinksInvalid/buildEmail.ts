@@ -74,7 +74,7 @@ const _getCountryEntries = (props: GetCountryEntriesProps): Array<CountryEntry> 
 
 export const buildEmail = async (props: Props): Promise<MailServiceEmail> => {
   const { assessment, cycle, linksByCountry, user } = props
-  const { t } = await I18n.get({ user })
+  const { t } = await I18n.getInstance({ user })
   const to = user.email
 
   const subject = t('email.invalidLinks.subject')
