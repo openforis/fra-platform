@@ -8,6 +8,20 @@ import { ODPCommentColumns } from 'server/db/repository/assessmentCycle/original
 import { OriginalDataPointQueries } from 'server/db/repository/assessmentCycle/originalDataPoint/queries'
 import { Schemas } from 'server/db/schemas'
 
+export const getRepositoryFolderDDL = (schemaName: string): string => `
+    create table if not exists ${schemaName}.repository_folder
+    (
+        uuid        uuid        not null default uuid_generate_v4(),
+        name        varchar     not null,
+        parent_uuid uuid,
+        created_at  timestamptz not null default now(),
+        primary key (uuid),
+        constraint repository_folder_parent_fk
+            foreign key (parent_uuid) references ${schemaName}.repository_folder (uuid)
+            on update cascade on delete cascade
+    )
+`
+
 export const getCreateSchemaDDL = (schemaName: string): string => {
   const query = `
 create schema ${schemaName};
@@ -272,6 +286,8 @@ export const getCreateSchemaCycleDDL = (assessmentSchemaName: string, assessment
           unique (uuid)
       );
       
+      ${getRepositoryFolderDDL(assessmentCycleSchemaName)}
+
       create table if not exists ${assessmentCycleSchemaName}.repository
       (
           id          bigserial     not null,
@@ -280,6 +296,9 @@ export const getCreateSchemaCycleDDL = (assessmentSchemaName: string, assessment
           file_uuid   uuid          references public.file (uuid) on update cascade on delete cascade,
           link        varchar(2048),
           props       jsonb         not null,
+          description text,
+          folder_uuid uuid          references ${assessmentCycleSchemaName}.repository_folder (uuid) on update cascade on delete set null,
+          created_at  timestamptz   not null default now(),
           primary key (id),
           unique (uuid)
       );
