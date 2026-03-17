@@ -87,4 +87,9 @@ export const CycleData = {
     tableClear: (): string => apiPath('cycle-data', 'table', 'clear'),
     nodeValuesEstimations: (): string => apiPath('cycle-data', 'table', 'node-values-estimations'),
   },
+
+  Validations: {
+    summary: (): string => apiPath('cycle-data', 'validations', 'summary'),
+    tableData: (): string => apiPath('cycle-data', 'validations', 'table-data'),
+  },
 }
