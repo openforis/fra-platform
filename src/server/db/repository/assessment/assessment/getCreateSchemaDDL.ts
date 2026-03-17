@@ -19,7 +19,7 @@ export const getRepositoryFolderDDL = (schemaName: string): string => `
         constraint repository_folder_parent_fk
             foreign key (parent_uuid) references ${schemaName}.repository_folder (uuid)
             on update cascade on delete cascade
-    )
+    );
 `
 
 export const getCreateSchemaDDL = (schemaName: string): string => {
