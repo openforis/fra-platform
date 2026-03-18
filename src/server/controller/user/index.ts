@@ -9,6 +9,7 @@ import { acceptInvitation } from './acceptInvitation'
 import { changePassword } from './changePassword'
 import { create } from './create'
 import { createResetPassword } from './createResetPassword'
+import { disassociateRole } from './disassociateRole'
 import { findByInvitation } from './findByInvitation'
 import { findByResetPassword } from './findByResetPassword'
 import { getManyExport } from './getManyExport'
@@ -26,6 +27,7 @@ const getUserRobot = async (client: BaseProtocol = DB): Promise<User> => {
 
 export const UserController = {
   create,
+  disassociateRole,
   count: UserRepository.count,
   update,
   getAdmins: UserRepository.getAdmins,
