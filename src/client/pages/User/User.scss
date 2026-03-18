@@ -1,0 +1,10 @@
+@use 'src/client/style/partials' as *;
+
+.user-form {
+  max-width: 800px;
+  margin: 0 auto;
+
+  .disassociate-role {
+    margin-top: $spacing-l;
+  }
+}

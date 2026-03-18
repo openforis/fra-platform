@@ -1,3 +1,4 @@
+import './User.scss'
 import React, { useCallback, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate } from 'react-router'
@@ -17,6 +18,7 @@ import { useFormDefinition } from './hooks/useFormDefinition'
 import { useOnSuccess } from './hooks/useOnSuccess'
 import { useTargetUser } from './hooks/useTargetUser'
 import { useValidationSchema } from './hooks/useValidationSchema'
+import DisassociateRole from './DisassociateRole'
 
 const User: React.FC = () => {
   const location = useLocation()
@@ -52,16 +54,19 @@ const User: React.FC = () => {
 
   return (
     <div className="app-view__content">
-      <Form
-        action={action}
-        disabled={editUserRules.userDisabled}
-        formDefinition={formDefinition}
-        hideCancel={Areas.isGlobal(countryIso)}
-        method="put"
-        onCancel={onCancel}
-        onSuccess={onSuccess}
-        validationSchema={validationSchema}
-      />
+      <div className="user-form">
+        <Form
+          action={action}
+          disabled={editUserRules.userDisabled}
+          formDefinition={formDefinition}
+          hideCancel={Areas.isGlobal(countryIso)}
+          method="put"
+          onCancel={onCancel}
+          onSuccess={onSuccess}
+          validationSchema={validationSchema}
+        />
+        {targetUser && <DisassociateRole targetUser={targetUser} />}
+      </div>
     </div>
   )
 }
