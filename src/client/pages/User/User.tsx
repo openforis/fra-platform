@@ -1,3 +1,4 @@
+import './User.scss'
 import React, { useCallback, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate } from 'react-router'
@@ -10,6 +11,7 @@ import { Routes } from 'meta/routes/routes'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { useToaster } from 'client/hooks/toaster'
 import Form from 'client/components/Form'
+import Flex from 'client/components/Layout/Flex'
 import { Urls } from 'client/utils/urls'
 
 import { useEditUserRules } from './hooks/useEditUserRules'
@@ -17,6 +19,7 @@ import { useFormDefinition } from './hooks/useFormDefinition'
 import { useOnSuccess } from './hooks/useOnSuccess'
 import { useTargetUser } from './hooks/useTargetUser'
 import { useValidationSchema } from './hooks/useValidationSchema'
+import RemoveRole from './RemoveRole'
 
 const User: React.FC = () => {
   const location = useLocation()
@@ -52,16 +55,19 @@ const User: React.FC = () => {
 
   return (
     <div className="app-view__content">
-      <Form
-        action={action}
-        disabled={editUserRules.userDisabled}
-        formDefinition={formDefinition}
-        hideCancel={Areas.isGlobal(countryIso)}
-        method="put"
-        onCancel={onCancel}
-        onSuccess={onSuccess}
-        validationSchema={validationSchema}
-      />
+      <Flex alignItems="stretch" className="user-form" flexDirection="column" gap="16">
+        <Form
+          action={action}
+          disabled={editUserRules.userDisabled}
+          formDefinition={formDefinition}
+          hideCancel={Areas.isGlobal(countryIso)}
+          method="put"
+          onCancel={onCancel}
+          onSuccess={onSuccess}
+          validationSchema={validationSchema}
+        />
+        {targetUser && <RemoveRole targetUser={targetUser} />}
+      </Flex>
     </div>
   )
 }
