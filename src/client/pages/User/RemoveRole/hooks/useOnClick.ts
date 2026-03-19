@@ -32,11 +32,12 @@ export const useOnClick = (props: Props): (() => Promise<void>) => {
     const cycleLabel = t('common.cycleLabel', { assessmentName, cycleName })
     const countryRole = Users.getRole(targetUser, countryIso, cycle)
     const role = t(Users.getI18nRoleLabelKey(countryRole.role))
+    const i18nParams = { name, country, role, cycleLabel }
     // eslint-disable-next-line no-alert
-    if (!window.confirm(t('editUser.removeRoleConfirm', { name, country, role, cycleLabel }))) return
+    if (!window.confirm(t('editUser.removeRoleConfirm', i18nParams))) return
     const params = { assessmentName, cycleName, countryIso, userUuid: targetUser.uuid }
     await axios.delete(ApiEndPoint.User.role(), { params })
-    toaster.success(t('editUser.removeRoleSuccess', { name, assessmentName, cycleName }))
+    toaster.success(t('editUser.removeRoleSuccess', i18nParams))
     navigate(-1)
   }, [assessmentName, countryIso, cycle, cycleName, navigate, t, targetUser, toaster])
 }
