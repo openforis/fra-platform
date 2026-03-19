@@ -12,10 +12,16 @@ export const getManyRepository = async (req: Request, res: Response): Promise<vo
     const { countryIso, global = 'false' } = req.query
     const { assessment, cycle } = req.context
 
-    const props = { assessment, cycle, countryIso, global: JSON.parse(global) }
-    const items = await CycleDataController.Repository.getMany(props)
+    const isGlobal = JSON.parse(global)
+    const props = { assessment, cycle, countryIso, global: isGlobal }
 
-    Requests.send(res, items)
+    // Return global items as list
+    // Return country items as tree
+    const data = isGlobal
+      ? await CycleDataController.Repository.getMany(props)
+      : await CycleDataController.Repository.getManyAsTree(props)
+
+    Requests.send(res, data)
   } catch (e) {
     Requests.sendErr(res, e)
   }
