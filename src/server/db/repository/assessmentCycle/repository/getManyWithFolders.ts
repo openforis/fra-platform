@@ -20,7 +20,7 @@ type Returned = {
   folders: Array<RepositoryFolder>
 }
 
-export const getManyAsTree = async (props: Props, client: BaseProtocol = DB): Promise<Returned> => {
+export const getManyWithFolders = async (props: Props, client: BaseProtocol = DB): Promise<Returned> => {
   const { assessment, countryIso, cycle, global } = props
   const schema = Schemas.getNameCycle(assessment, cycle)
 

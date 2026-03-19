@@ -19,7 +19,7 @@ export const getManyRepository = async (req: Request, res: Response): Promise<vo
     // Return country items as tree
     const data = isGlobal
       ? await CycleDataController.Repository.getMany(props)
-      : await CycleDataController.Repository.getManyAsTree(props)
+      : await CycleDataController.Repository.getManyWithFolders(props)
 
     Requests.send(res, data)
   } catch (e) {
