@@ -11,6 +11,7 @@ import { Routes } from 'meta/routes/routes'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { useToaster } from 'client/hooks/toaster'
 import Form from 'client/components/Form'
+import Flex from 'client/components/Layout/Flex'
 import { Urls } from 'client/utils/urls'
 
 import { useEditUserRules } from './hooks/useEditUserRules'
@@ -54,7 +55,7 @@ const User: React.FC = () => {
 
   return (
     <div className="app-view__content">
-      <div className="user-form">
+      <Flex alignItems="stretch" className="user-form" flexDirection="column" gap="16">
         <Form
           action={action}
           disabled={editUserRules.userDisabled}
@@ -66,7 +67,7 @@ const User: React.FC = () => {
           validationSchema={validationSchema}
         />
         {targetUser && <RemoveRole targetUser={targetUser} />}
-      </div>
+      </Flex>
     </div>
   )
 }
