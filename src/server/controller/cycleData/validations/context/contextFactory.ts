@@ -1,11 +1,15 @@
+import { RecordAssessments } from 'meta/assessment/assessment'
 import { VariableCache } from 'meta/assessment/metaCache'
 import { AssessmentMetaCaches } from 'meta/assessment/metaCaches'
 import { TableName } from 'meta/assessment/table'
 import { NodeUpdate, NodeUpdates } from 'meta/data/nodeUpdates'
+import { RecordAssessmentData } from 'meta/data/recordData'
 import { Promises } from 'utils/promises'
 
 import { BaseContextBuilder } from './baseContextBuilder'
+import { Context } from './context'
 import { ContextBuilderProps } from './contextBuilderProps'
+import { DataContextBuilder } from './dataContextBuilder'
 
 type Props = Pick<ContextBuilderProps, 'assessment' | 'cycle'> & {
   nodeUpdates: NodeUpdates
@@ -17,16 +21,21 @@ type Returned = {
 }
 
 export class ContextFactory extends BaseContextBuilder {
+  readonly #dataContextBuilder?: DataContextBuilder
   readonly #externalNodeUpdatesByCycle: Map<string, NodeUpdates>
   readonly #nodeUpdates: NodeUpdates
   readonly #queue: Array<VariableCache>
   readonly #tableNames: Set<TableName>
   readonly #visitedVariables: Set<string>
 
-  private constructor(props: Props) {
+  private constructor(props: Props, withDataContext: boolean) {
     super({ assessment: props.assessment, countryIso: props.nodeUpdates.countryIso, cycle: props.cycle })
 
     const { assessmentName, cycleName, nodes } = props.nodeUpdates
+
+    if (withDataContext) {
+      this.#dataContextBuilder = new DataContextBuilder(this.props)
+    }
 
     this.#externalNodeUpdatesByCycle = new Map<string, NodeUpdates>()
     this.#nodeUpdates = props.nodeUpdates
@@ -76,7 +85,13 @@ export class ContextFactory extends BaseContextBuilder {
 
   async #addTable(tableName: TableName): Promise<void> {
     if (this.#tableNames.has(tableName)) return
+
+    // Keep track of affected local tables and optionally preload their validation deps
     this.#tableNames.add(tableName)
+
+    if (this.#dataContextBuilder) {
+      await this.#dataContextBuilder.addTable(tableName)
+    }
   }
 
   #addExternalNodeUpdate(variable: VariableCache): void {
@@ -165,10 +180,45 @@ export class ContextFactory extends BaseContextBuilder {
     }
   }
 
+  async #getDataContext(): Promise<{ assessments: RecordAssessments; data: RecordAssessmentData }> {
+    const { assessment } = this.props
+    if (this.#dataContextBuilder) {
+      return this.#dataContextBuilder.getData()
+    }
+
+    return {
+      assessments: { [assessment.props.name]: assessment },
+      data: {} as RecordAssessmentData,
+    }
+  }
+
+  async #createContext(): Promise<Context> {
+    const { assessment, countryIso, cycle } = this.props
+    const { assessments, data } = await this.#getDataContext()
+
+    // collect() only needs targets, while newInstance() also materializes the fetched validation data
+    return new Context({
+      assessment,
+      assessments,
+      countryIso,
+      cycle,
+      data,
+      externalNodeUpdates: Array.from(this.#externalNodeUpdatesByCycle.values()),
+      tableNames: Array.from(this.#tableNames),
+    })
+  }
+
   static async collect(props: Props): Promise<Returned> {
-    const factory = new ContextFactory(props)
+    const factory = new ContextFactory(props, false)
     await factory.#initQueue()
 
     return factory.#getTargets()
+  }
+
+  static async newInstance(props: Props): Promise<Context> {
+    const factory = new ContextFactory(props, true)
+    await factory.#initQueue()
+
+    return factory.#createContext()
   }
 }
