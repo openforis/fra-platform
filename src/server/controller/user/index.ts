@@ -9,7 +9,6 @@ import { acceptInvitation } from './acceptInvitation'
 import { changePassword } from './changePassword'
 import { create } from './create'
 import { createResetPassword } from './createResetPassword'
-import { disassociateRole } from './disassociateRole'
 import { findByInvitation } from './findByInvitation'
 import { findByResetPassword } from './findByResetPassword'
 import { getManyExport } from './getManyExport'
@@ -18,6 +17,7 @@ import { invite } from './invite'
 import { mergeUsers } from './mergeUsers'
 import { remove } from './remove'
 import { removeInvitation } from './removeInvitation'
+import { removeRole } from './removeRole'
 import { sendInvitationEmail } from './sendInvitationEmail'
 import { update } from './update'
 
@@ -27,7 +27,7 @@ const getUserRobot = async (client: BaseProtocol = DB): Promise<User> => {
 
 export const UserController = {
   create,
-  disassociateRole,
+  removeRole,
   count: UserRepository.count,
   update,
   getAdmins: UserRepository.getAdmins,

@@ -17,7 +17,7 @@ type Props = {
   user: User
 }
 
-export const disassociateRole = async (props: Props, client: BaseProtocol = DB): Promise<void> => {
+export const removeRole = async (props: Props, client: BaseProtocol = DB): Promise<void> => {
   const { assessment, countryIso, cycle, target, user } = props
 
   return client.tx(async (t) => {

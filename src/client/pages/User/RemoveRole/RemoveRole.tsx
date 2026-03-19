@@ -17,7 +17,7 @@ type Props = {
   targetUser: User
 }
 
-const DisassociateRole: React.FC<Props> = (props) => {
+const RemoveRole: React.FC<Props> = (props) => {
   const { targetUser } = props
   const { t } = useTranslation()
   const { countryIso } = useCountryRouteParams<CountryIso>()
@@ -29,11 +29,11 @@ const DisassociateRole: React.FC<Props> = (props) => {
   if (!Authorizer.canDisableUser({ countryIso, cycle, target: targetUser, user })) return null
 
   return (
-    <Flex className="disassociate-role" justifyContent="end">
+    <Flex className="remove-role" justifyContent="end">
       <Button
         iconName={'remove'}
         inverse
-        label={t('editUser.disassociateRole')}
+        label={t('editUser.removeRole')}
         onClick={onClick}
         size={ButtonSize.l}
         type={ButtonType.danger}
@@ -42,4 +42,4 @@ const DisassociateRole: React.FC<Props> = (props) => {
   )
 }
 
-export default DisassociateRole
+export default RemoveRole

@@ -7,7 +7,6 @@ import { AuthMiddleware } from 'server/middleware/auth'
 import { FormDataBodyMiddleware } from 'server/middleware/formDataBodyMiddleware'
 
 import { acceptInvitation } from './acceptInvitation'
-import { disassociateRole } from './disassociateRole'
 import { exportUsers } from './exportUsers'
 import { getCount } from './getCount'
 import { getInvitation } from './getInvitation'
@@ -17,6 +16,7 @@ import { getResetPassword } from './getResetPassword'
 import { getUser } from './getUser'
 import { invite } from './invite'
 import { removeInvitation } from './removeInvitation'
+import { removeRole } from './removeRole'
 import { sendInvitationEmail } from './sendInvitationEmail'
 import { updateUser } from './updateUser'
 
@@ -34,7 +34,7 @@ export const UserApi = {
     express.get(ApiEndPoint.User.manyExport(), AuthMiddleware.requireExportUsers, exportUsers)
     express.get(ApiEndPoint.User.one(), AuthMiddleware.requireViewUser, getUser)
 
-    express.delete(ApiEndPoint.User.role(), AuthMiddleware.requireDisassociateUserRole, disassociateRole)
+    express.delete(ApiEndPoint.User.role(), AuthMiddleware.requireRemoveUserRole, removeRole)
     express.delete(ApiEndPoint.User.invitation(), AuthMiddleware.requireInviteUser, removeInvitation)
     express.get(ApiEndPoint.User.invitation(), getInvitation)
     express.post(ApiEndPoint.User.invitationAccept(), acceptInvitation)

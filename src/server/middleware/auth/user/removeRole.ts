@@ -8,7 +8,7 @@ import { UserController } from 'server/controller/user'
 import { _next } from 'server/middleware/auth/_next'
 import { Requests } from 'server/utils'
 
-export const requireDisassociateUserRole = async (
+export const requireRemoveUserRole = async (
   req: CountryRequest<{ userUuid: string }>,
   _res: Response,
   next: NextFunction

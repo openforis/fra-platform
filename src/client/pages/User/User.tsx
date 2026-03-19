@@ -18,7 +18,7 @@ import { useFormDefinition } from './hooks/useFormDefinition'
 import { useOnSuccess } from './hooks/useOnSuccess'
 import { useTargetUser } from './hooks/useTargetUser'
 import { useValidationSchema } from './hooks/useValidationSchema'
-import DisassociateRole from './DisassociateRole'
+import RemoveRole from './RemoveRole'
 
 const User: React.FC = () => {
   const location = useLocation()
@@ -65,7 +65,7 @@ const User: React.FC = () => {
           onSuccess={onSuccess}
           validationSchema={validationSchema}
         />
-        {targetUser && <DisassociateRole targetUser={targetUser} />}
+        {targetUser && <RemoveRole targetUser={targetUser} />}
       </div>
     </div>
   )
