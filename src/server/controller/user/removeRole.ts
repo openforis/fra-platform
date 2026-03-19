@@ -29,7 +29,7 @@ export const removeRole = async (props: Props, client: BaseProtocol = DB): Promi
     const { _: roles, ...userNoRoles } = user
 
     const activityLog = {
-      target: { user: userNoRoles, countryIso },
+      target: { user: userNoRoles, countryIso, role: role.role },
       section: 'users',
       message: ActivityLogMessage.userRoleDeleteRole,
       countryIso,
