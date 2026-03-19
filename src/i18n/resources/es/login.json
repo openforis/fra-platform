@@ -17,6 +17,8 @@
   "invalidEmail": "Correo electrónico no válido",
   "invitationExpired": "Esta invitación ha caducado",
   "invitationMessage": "Ha sido invitado a {{assessment}} {{cycle}} como {{role}} para {{country}}",
+  "invitationPrivacyNotice": "Al aceptar esta invitación, usted confirma que acepta los términos y condiciones descritos en la Notificación de Protección de Datos y Privacidad de la FAO.",
+  "invitationPrivacyNoticeLinkLabel": "Haga clic aquí para ver la Notificación de Protección de Datos y Privacidad de la FAO.",
   "invitationProvidersRegistered": "Ya tiene una cuenta registrada en {{authProviderNames}}",
   "login": "Acceso",
   "logoutSuccessful": "Se ha desconectado correctamente",
