@@ -17,6 +17,8 @@
   "invalidEmail": "البريد الإلكتروني غير سارٍ",
   "invitationExpired": "انتهت صلاحية هذه الدعوة",
   "invitationMessage": "{{country}}في  {{role}} كـ  {{ cycle }} {{ assessment }} لقد تمت دعوتك إلى",
+  "invitationPrivacyNotice": "بقبولك هذه الدعوة، فإنك تؤكد أنك تقبل بموجب هذا الأحكام والشروط الموصوفة في إشعار الفاو لحماية البيانات والخصوصية.",
+  "invitationPrivacyNoticeLinkLabel": "انقر هنا لعرض إشعار الفاو لحماية البيانات والخصوصية.",
   "invitationProvidersRegistered": "لديك بالفعل حساب مسجل باسم {{authProviderNames}}",
   "login": "تسجيل دخول",
   "logoutSuccessful": "لقد قمت بتسجيل الخروج بنجاح",
