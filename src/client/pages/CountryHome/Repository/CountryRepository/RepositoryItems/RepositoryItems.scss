@@ -1,0 +1,12 @@
+@use 'src/client/style/partials' as *;
+
+.repository__items {
+  .repository-item {
+    border-top: 1px solid $ui-border-light;
+    padding: $spacing-xxs;
+  }
+
+  .repository-item:first-child {
+    border-top: none;
+  }
+}

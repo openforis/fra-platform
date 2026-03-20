@@ -3,10 +3,9 @@ import React from 'react'
 
 import { useRepositoryItemChangeListener } from 'client/store/repository/hooks/useRepositoryItemChangeListener'
 
+import CountryRepository from './CountryRepository'
 import EditForm from './EditForm'
 import GlobalRepository from './GlobalRepository'
-
-const CountryRepository = (): Element => <div />
 
 const Repository: React.FC = () => {
   useRepositoryItemChangeListener()

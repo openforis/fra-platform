@@ -1,0 +1,22 @@
+@use 'src/client/style/partials' as *;
+
+.repository__folder__buttons {
+  border-right: $ui-thin-border;
+}
+
+.repository__folder__button {
+  all: unset;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: block;
+  width: 100%;
+  padding: $spacing-xxs $spacing-xs;
+
+  &.selected {
+    font-weight: bold;
+  }
+
+  &:hover {
+    background: $ui-bg-hover;
+  }
+}
