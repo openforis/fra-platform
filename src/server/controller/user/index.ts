@@ -17,6 +17,7 @@ import { invite } from './invite'
 import { mergeUsers } from './mergeUsers'
 import { remove } from './remove'
 import { removeInvitation } from './removeInvitation'
+import { removeRole } from './removeRole'
 import { sendInvitationEmail } from './sendInvitationEmail'
 import { update } from './update'
 
@@ -26,6 +27,7 @@ const getUserRobot = async (client: BaseProtocol = DB): Promise<User> => {
 
 export const UserController = {
   create,
+  removeRole,
   count: UserRepository.count,
   update,
   getAdmins: UserRepository.getAdmins,

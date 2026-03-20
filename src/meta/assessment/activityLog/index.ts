@@ -57,6 +57,7 @@ export enum ActivityLogMessage {
   userRoleUpdatePermissions = 'userRoleUpdatePermissions',
   userRoleUpdateProps = 'userRoleUpdateProps',
   userRoleUpdateRole = 'userRoleUpdateRole',
+  userRoleDeleteRole = 'userRoleDeleteRole',
   userRolesUpdate = 'userRolesUpdate',
   userUpdate = 'userUpdate',
   usersMerge = 'usersMerge',

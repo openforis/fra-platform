@@ -15,4 +15,6 @@ export const User = {
   resetPassword: (): string => apiPath('users', 'reset-password'),
 
   profilePicture: (id = ':id'): string => apiPath('users', 'profile-picture', id),
+
+  role: (): string => apiPath('users', 'role'),
 }
