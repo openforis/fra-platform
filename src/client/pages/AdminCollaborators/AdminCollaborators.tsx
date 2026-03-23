@@ -22,7 +22,7 @@ const AdminCollaborators: React.FC = () => {
       filters={filters}
       gridTemplateColumns={gridTemplateColumns}
       limit={20}
-      path={ApiEndPoint.Admin.users()}
+      path={ApiEndPoint.User.many()}
     />
   )
 }
