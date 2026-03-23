@@ -11,7 +11,11 @@ export type RepositoryItem = {
   readonly id: number
   readonly uuid: string
   countryIso?: AreaCode
+  createdAt?: string
+  description?: string
   fileUuid?: string
+  folderName?: string
   link?: string
+  parentUuid?: string
   props?: RepositoryItemProps
 }
