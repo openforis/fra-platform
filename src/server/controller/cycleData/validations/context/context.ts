@@ -8,8 +8,6 @@ import { TableName } from 'meta/assessment/table'
 import { NodeUpdates } from 'meta/data/nodeUpdates'
 import { RecordAssessmentData } from 'meta/data/recordData'
 
-import { ContextResult } from './contextResult'
-
 type ConstructorProps = {
   assessment: Assessment
   assessments: RecordAssessments
@@ -30,7 +28,6 @@ export class Context {
   readonly #data: RecordAssessmentData
   readonly #externalNodeUpdates: Array<NodeUpdates>
   readonly #queue: Array<VariableCache>
-  readonly #result: ContextResult
   readonly #rows: RecordRowCache
   readonly #tableNames: Array<TableName>
 
@@ -44,7 +41,6 @@ export class Context {
     this.#data = data
     this.#externalNodeUpdates = externalNodeUpdates
     this.#queue = queue
-    this.#result = new ContextResult()
     this.#rows = rows
     this.#tableNames = tableNames
   }
@@ -79,10 +75,6 @@ export class Context {
 
   get queue(): Array<VariableCache> {
     return this.#queue
-  }
-
-  get result(): ContextResult {
-    return this.#result
   }
 
   get rows(): RecordRowCache {
