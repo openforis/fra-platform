@@ -12,6 +12,7 @@ export const Repository = {
   getOneFile,
   getFileMeta,
   getMany: RepositoryRepository.getMany,
+  getManyTree: RepositoryRepository.getManyTree,
   getManyFiles,
   getOne: RepositoryRepository.getOne,
   remove,

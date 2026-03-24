@@ -19,3 +19,5 @@ export type RepositoryItem = {
   parentUuid?: string
   props?: RepositoryItemProps
 }
+
+export type RepositoryItemTree = RepositoryItem & { children: Array<RepositoryItemTree> }
