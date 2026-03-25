@@ -2,21 +2,16 @@ import './Repository.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { ApiEndPoint } from 'meta/api/endpoint'
-
 import { useRepositoryItemChangeListener } from 'client/store/repository/hooks/useRepositoryItemChangeListener'
 import { useIsPanEuropeanRoute } from 'client/hooks/routes'
 import Hr from 'client/components/Hr'
-import TablePaginated from 'client/components/TablePaginated'
 import ButtonAdd from 'client/pages/CountryHome/Repository/ButtonAdd'
 import ButtonDownloadAll from 'client/pages/CountryHome/Repository/ButtonDownloadAll'
 import EditForm from 'client/pages/CountryHome/Repository/EditForm'
-
-import { useColumns } from './hooks/useColumns'
+import RepositoryList from 'client/pages/CountryHome/Repository/RepositoryList'
 
 const Repository: React.FC = () => {
   const { t } = useTranslation()
-  const columns = useColumns()
   const isPanEuropean = useIsPanEuropeanRoute()
 
   useRepositoryItemChangeListener()
@@ -30,12 +25,7 @@ const Repository: React.FC = () => {
             <ButtonDownloadAll isGlobal />
             <ButtonAdd isGlobal />
           </div>
-          <TablePaginated
-            columns={columns}
-            counter={{ show: false }}
-            header={false}
-            path={`${ApiEndPoint.CycleData.Repository.many()}?global=true`}
-          />
+          <RepositoryList isGlobal />
 
           <Hr />
         </>
@@ -46,12 +36,7 @@ const Repository: React.FC = () => {
         <ButtonDownloadAll />
         <ButtonAdd />
       </div>
-      <TablePaginated
-        columns={columns}
-        counter={{ show: false }}
-        header={false}
-        path={ApiEndPoint.CycleData.Repository.many()}
-      />
+      <RepositoryList />
 
       <EditForm />
     </div>
