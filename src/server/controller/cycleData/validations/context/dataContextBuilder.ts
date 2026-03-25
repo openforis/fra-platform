@@ -74,12 +74,12 @@ export class DataContextBuilder extends BaseContextBuilder {
     return this.#tables[assessmentName][cycleName]
   }
 
-  async #addDependency(props: Pick<VariableCache, 'assessmentName' | 'cycleName' | 'tableName'>): Promise<void> {
-    const assessmentName = props.assessmentName ?? this.props.assessment.props.name
-    const cycleName = props.cycleName ?? this.props.cycle.name
+  async #addDependency(variable: Pick<VariableCache, 'assessmentName' | 'cycleName' | 'tableName'>): Promise<void> {
+    const assessmentName = variable.assessmentName ?? this.props.assessment.props.name
+    const cycleName = variable.cycleName ?? this.props.cycle.name
     const tablesFetch = await this.#ensureTablesFetch(assessmentName, cycleName)
 
-    tablesFetch.tableNames.add(props.tableName)
+    tablesFetch.tableNames.add(variable.tableName)
   }
 
   async addTable(tableName: TableName): Promise<void> {
@@ -92,8 +92,19 @@ export class DataContextBuilder extends BaseContextBuilder {
       tableName,
     })
 
-    // Validation formulas can read from other local or external tables
     await Promises.each(Object.values(dependencies).flat(), async (dependency) => {
+      await this.#addDependency(dependency)
+    })
+  }
+
+  async addVariable(variable: VariableCache): Promise<void> {
+    const { assessment, cycle } = this.props
+    const { tableName, variableName } = variable
+
+    await this.#addDependency(variable)
+
+    const dependencies = AssessmentMetaCaches.getValidationsDependencies({ assessment, cycle, tableName, variableName })
+    await Promises.each(dependencies, async (dependency) => {
       await this.#addDependency(dependency)
     })
   }
@@ -105,7 +116,7 @@ export class DataContextBuilder extends BaseContextBuilder {
   }
 
   async getData(): Promise<Returned> {
-    const { countryIso } = this.props
+    const { countryIso } = this.props.country
     let data: RecordAssessmentData = {}
 
     await Promises.each(Object.values(this.#tables), async (cycles) => {
@@ -116,6 +127,7 @@ export class DataContextBuilder extends BaseContextBuilder {
           return
         }
 
+        // Fetch the tables collected for this assessment/cycle
         const cycleData = await getTableData({
           assessment: tablesFetch.assessment,
           countryISOs: [countryIso],
