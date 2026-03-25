@@ -1,10 +1,9 @@
 import { useEffect } from 'react'
-
 import { isAnyOf } from '@reduxjs/toolkit'
-import { Objects } from 'utils/objects'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { RepositoryItem } from 'meta/cycleData/repository/item'
+import { Objects } from 'utils/objects'
 
 import { useAppDispatch } from 'client/store/hooks'
 import { addAppListener } from 'client/store/middleware/listener'
@@ -25,8 +24,8 @@ export const useRepositoryItemChangeListener = (): void => {
         ),
         effect: (action) => {
           const repositoryItem = action.payload as RepositoryItem
-          const global = Objects.isEmpty(repositoryItem.countryIso) ? '?global=true' : ''
-          const path = `${ApiEndPoint.CycleData.Repository.many()}${global}`
+          const isGlobal = Objects.isEmpty(repositoryItem.countryIso)
+          const path = `${ApiEndPoint.CycleData.Repository.tree()}?global=${isGlobal}`
 
           const limit: number = undefined
           const page: number = undefined

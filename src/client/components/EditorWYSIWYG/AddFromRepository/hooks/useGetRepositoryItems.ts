@@ -9,6 +9,7 @@ import { useCountryRouteParams } from 'client/hooks/routeParams'
 
 type Returned = () => void
 
+// TODO: rewrite to use /tree endpoint (component level rewrite)
 export const useGetRepositoryItems = (): Returned => {
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const dispatch = useAppDispatch()
