@@ -1,0 +1,20 @@
+@use 'src/client/style/partials' as *;
+
+.repository-folder {
+  all: unset;
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  gap: $spacing-xxxs;
+
+  .icon {
+    transform: rotate(-90deg);
+    transition: $ease-out;
+  }
+
+  &.expanded {
+    .icon {
+      transform: unset;
+    }
+  }
+}

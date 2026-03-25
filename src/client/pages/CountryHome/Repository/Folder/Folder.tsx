@@ -1,15 +1,23 @@
+import './Folder.scss'
 import React from 'react'
+import classNames from 'classnames'
 
-import { RepositoryItemTree } from 'meta/cycleData/repository/item'
+import Icon from 'client/components/Icon'
 
-type Props = {
-  repositoryItem: RepositoryItemTree
-}
+import { FolderProps } from './props'
 
-const Folder: React.FC<Props> = (props) => {
-  const { repositoryItem } = props
+const Folder: React.FC<FolderProps> = (props) => {
+  const { isCollapsed, onToggle, repositoryItem } = props
 
-  return <div>{repositoryItem.folderName}</div>
+  return (
+    <button
+      className={classNames('repository-folder', { expanded: !isCollapsed })}
+      onClick={() => onToggle(repositoryItem.uuid)}
+    >
+      <Icon name="small-down" />
+      {repositoryItem.folderName}
+    </button>
+  )
 }
 
 export default Folder

@@ -1,10 +1,8 @@
 import 'client/pages/CountryHome/Repository/Item/Item.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-
 import classNames from 'classnames'
 
-import { RepositoryItem } from 'meta/cycleData/repository/item'
 import { RepositoryItems } from 'meta/cycleData/repository/items'
 
 import { useIsCountryRepositoryEditable, useIsGlobalRepositoryEditable } from 'client/store/user/hooks/auth'
@@ -12,11 +10,9 @@ import Button, { ButtonSize } from 'client/components/Buttons/Button'
 import { useOpenPanel } from 'client/pages/CountryHome/Repository/hooks/useOpenPanel'
 import RepositoryLink from 'client/pages/CountryHome/Repository/RepositoryLink'
 
-type Props = {
-  repositoryItem: RepositoryItem
-}
+import { ItemProps } from './props'
 
-const Item: React.FC<Props> = (props) => {
+const Item: React.FC<ItemProps> = (props) => {
   const { repositoryItem } = props
 
   const { t } = useTranslation()
