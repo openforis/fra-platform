@@ -1,3 +1,5 @@
+import { Col } from 'meta/assessment/col'
+import { VariableCache } from 'meta/assessment/metaCache'
 import { NodeValueValidation } from 'meta/assessment/nodeValueValidation'
 import { NodeValueValidations } from 'meta/assessment/nodeValueValidations'
 import { RowCaches } from 'meta/assessment/rowCaches'
@@ -8,7 +10,7 @@ import { Objects } from 'utils/objects'
 import { Promises } from 'utils/promises'
 
 import { ValidationRedisRepository } from 'server/cache/repository/validation'
-import { Context } from 'server/controller/cycleData/validations/context'
+import { Context } from 'server/controller/cycleData/validations/context/context'
 import { shouldSkipValidationFormula } from 'server/controller/cycleData/validations/shouldSkipValidationFormula'
 
 type RemoveValidationProps = {
@@ -47,7 +49,7 @@ export const validateNodeUpdates = async (props: Props): Promise<void> => {
   })
   const touchedTableNames = new Set<TableName>()
 
-  await Promises.each(queue, async (variable) => {
+  await Promises.each(queue, async (variable: VariableCache) => {
     if (Objects.isNil(variable)) {
       return
     }
@@ -61,7 +63,7 @@ export const validateNodeUpdates = async (props: Props): Promise<void> => {
     touchedTableNames.add(tableName)
 
     const row = rows[RowCaches.getKey({ tableName, variableName })]
-    const col = row?.cols?.find((candidate) => candidate.props.colName === colName)
+    const col = row?.cols?.find((candidate: Col) => candidate.props.colName === colName)
     const validateFns = col?.props.validateFns?.[cycle.uuid] ?? row?.props.validateFns?.[cycle.uuid]
 
     if (Objects.isNil(row) || Objects.isNil(col)) {
@@ -74,7 +76,7 @@ export const validateNodeUpdates = async (props: Props): Promise<void> => {
       return
     }
 
-    const validations = validateFns.map((formula) => {
+    const validations = validateFns.map((formula: string) => {
       if (shouldSkipValidationFormula({ countryIso, formula })) {
         return { valid: true }
       }
