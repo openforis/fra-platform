@@ -1,0 +1,48 @@
+import { CountryIso } from 'meta/area/countryIso'
+import { Assessment } from 'meta/assessment/assessment'
+import { Cycle } from 'meta/assessment/cycle'
+import { TableName } from 'meta/assessment/table'
+import { RecordTableValidationsState } from 'meta/assessment/validation/table'
+import { Objects } from 'utils/objects'
+
+import { getKeyCountry, Keys } from 'server/cache/repository/keys'
+import { RedisData } from 'server/cache/repository/redisData'
+
+type Props = {
+  assessment: Assessment
+  countryIso: CountryIso
+  cycle: Cycle
+  tableNames: Array<TableName>
+  tableValidations: RecordTableValidationsState
+}
+
+export const setTableValidations = async (props: Props): Promise<void> => {
+  const { assessment, countryIso, cycle, tableNames, tableValidations } = props
+
+  if (tableNames.length === 0) {
+    return
+  }
+
+  const redis = RedisData.getInstance()
+  const key = getKeyCountry({ assessment, countryIso, cycle, key: Keys.Data.validations })
+
+  const validationsToSet = tableNames.reduce<Record<string, string>>((acc, tableName) => {
+    const tableValidation = tableValidations[tableName] ?? {}
+
+    if (!Objects.isEmpty(tableValidation)) {
+      acc[tableName] = JSON.stringify(tableValidation)
+    }
+
+    return acc
+  }, {})
+
+  const tableNamesToDelete = tableNames.filter((tableName) => Objects.isEmpty(tableValidations[tableName] ?? {}))
+
+  if (!Objects.isEmpty(validationsToSet)) {
+    await redis.hmset(key, validationsToSet)
+  }
+
+  if (tableNamesToDelete.length > 0) {
+    await redis.hdel(key, ...tableNamesToDelete)
+  }
+}

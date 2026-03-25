@@ -1,6 +1,8 @@
 import { NodeValueValidation } from 'meta/assessment/nodeValueValidation'
 import { NodeValueValidations } from 'meta/assessment/nodeValueValidations'
 import { RowCaches } from 'meta/assessment/rowCaches'
+import { TableName } from 'meta/assessment/table'
+import { RecordTableValidationsState } from 'meta/assessment/validation/table'
 import { ExpressionEvaluator } from 'meta/expressionEvaluator'
 import { Objects } from 'utils/objects'
 import { Promises } from 'utils/promises'
@@ -9,16 +11,41 @@ import { ValidationRedisRepository } from 'server/cache/repository/validation'
 import { Context } from 'server/controller/cycleData/validations/context'
 import { shouldSkipValidationFormula } from 'server/controller/cycleData/validations/shouldSkipValidationFormula'
 
+type RemoveValidationProps = {
+  colName: string
+  tableName: TableName
+  tableValidations: RecordTableValidationsState
+  variableName: string
+}
+
+const _removeValidation = (props: RemoveValidationProps): void => {
+  const { colName, tableName, tableValidations, variableName } = props
+
+  Objects.unset(tableValidations, [tableName, colName, variableName])
+
+  // Remove empty column object after deleting the last invalid node for that column.
+  if (Objects.isEmpty(tableValidations[tableName]?.[colName])) {
+    Objects.unset(tableValidations, [tableName, colName])
+  }
+}
+
 type Props = {
   context: Context
 }
 
 export const validateNodeUpdates = async (props: Props): Promise<void> => {
   const { context } = props
-  const { assessment, assessments, country, countryIso, cycle, data, rows } = context
+  const { assessment, assessments, country, countryIso, cycle, data, rows, tableNames } = context
   const { name: assessmentName } = assessment.props
   const { name: cycleName } = cycle
   const queue = context.queue.splice(0)
+  const tableValidations = await ValidationRedisRepository.getTableValidations({
+    assessment,
+    countryIso,
+    cycle,
+    tableNames,
+  })
+  const touchedTableNames = new Set<TableName>()
 
   await Promises.each(queue, async (variable) => {
     if (Objects.isNil(variable)) {
@@ -31,15 +58,19 @@ export const validateNodeUpdates = async (props: Props): Promise<void> => {
       return
     }
 
+    touchedTableNames.add(tableName)
+
     const row = rows[RowCaches.getKey({ tableName, variableName })]
     const col = row?.cols?.find((candidate) => candidate.props.colName === colName)
     const validateFns = col?.props.validateFns?.[cycle.uuid] ?? row?.props.validateFns?.[cycle.uuid]
 
     if (Objects.isNil(row) || Objects.isNil(col)) {
+      _removeValidation({ colName, tableName, tableValidations, variableName })
       return
     }
 
     if (Objects.isEmpty(validateFns) || Objects.isEmpty(row.props.variableName)) {
+      _removeValidation({ colName, tableName, tableValidations, variableName })
       return
     }
 
@@ -52,13 +83,28 @@ export const validateNodeUpdates = async (props: Props): Promise<void> => {
     })
 
     const validation = NodeValueValidations.merge(validations)
-    const validationProps = { assessment, colName, countryIso, cycle, tableName, validation, variableName }
 
     if (validation.valid) {
-      await ValidationRedisRepository.unsetValidation(validationProps)
+      _removeValidation({ colName, tableName, tableValidations, variableName })
       return
     }
 
-    await ValidationRedisRepository.setValidation(validationProps)
+    Objects.setInPath({
+      obj: tableValidations,
+      path: [tableName, colName, variableName],
+      value: validation,
+    })
+  })
+
+  if (touchedTableNames.size === 0) {
+    return
+  }
+
+  await ValidationRedisRepository.setTableValidations({
+    assessment,
+    countryIso,
+    cycle,
+    tableNames: Array.from(touchedTableNames),
+    tableValidations,
   })
 }
