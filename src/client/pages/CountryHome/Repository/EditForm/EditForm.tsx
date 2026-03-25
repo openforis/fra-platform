@@ -45,6 +45,13 @@ const EditForm: React.FC = () => {
         <div />
         <InputFieldFile />
         <Hr />
+        <InputField
+          label="common.description"
+          name="description"
+          onChange={onChangeField}
+          value={repositoryItem?.description}
+        />
+        <Hr />
         <InputFieldCheckbox name="public" onChange={onChangeProps} value={repositoryItem?.props?.public} />
         <Hr />
         <Actions />
