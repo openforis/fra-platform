@@ -19,7 +19,7 @@ type Props = {
 export const setTableValidations = async (props: Props): Promise<void> => {
   const { assessment, countryIso, cycle, tableNames, tableValidations } = props
 
-  if (tableNames.length === 0) {
+  if (Objects.isEmpty(tableNames)) {
     return
   }
 
@@ -42,7 +42,7 @@ export const setTableValidations = async (props: Props): Promise<void> => {
     await redis.hmset(key, validationsToSet)
   }
 
-  if (tableNamesToDelete.length > 0) {
+  if (!Objects.isEmpty(tableNamesToDelete)) {
     await redis.hdel(key, ...tableNamesToDelete)
   }
 }
