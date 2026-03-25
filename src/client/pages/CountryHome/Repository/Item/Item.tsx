@@ -25,7 +25,7 @@ const Item: React.FC<ItemProps> = (props) => {
   const level = repositoryItem.props.public ? 'public' : 'private'
 
   return (
-    <div className={classNames('repository-item', { withActions })}>
+    <div className={classNames('repository-item', { withActions })} title={repositoryItem.description}>
       <RepositoryLink datum={repositoryItem} />
       <div className={classNames('repository-item__badge', level)}>{t(`common.${level}`)}</div>
 
