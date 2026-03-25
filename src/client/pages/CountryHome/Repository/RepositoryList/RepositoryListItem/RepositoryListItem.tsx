@@ -1,11 +1,11 @@
+import './RepositoryListItem.scss'
 import React from 'react'
 
 import { RepositoryItemTree } from 'meta/cycleData/repository/item'
 
-import Folder from 'client/pages/CountryHome/Repository/Folder'
-import type { FolderProps } from 'client/pages/CountryHome/Repository/Folder/props'
-import Item from 'client/pages/CountryHome/Repository/Item'
-import type { ItemProps } from 'client/pages/CountryHome/Repository/Item/props'
+import type { Props as FolderRowProps } from './FolderRow/FolderRow'
+import FolderRow from './FolderRow'
+import ItemRow from './ItemRow'
 
 type Props = {
   collapsed: Record<string, boolean>
@@ -14,22 +14,20 @@ type Props = {
   onToggle: (uuid: string) => void
 }
 
-const Components: Record<string, React.FC<FolderProps | ItemProps>> = {
-  folder: Folder,
-  item: Item,
+const Components: Record<string, React.FC<FolderRowProps>> = {
+  folder: FolderRow,
+  item: ItemRow,
 }
 
 const RepositoryListItem: React.FC<Props> = (props) => {
   const { collapsed, depth = 0, item, onToggle } = props
 
-  const Component = Components[item.folderName ? 'folder' : 'item']
   const isCollapsed = collapsed[item.uuid]
+  const Component = Components[item.folderName ? 'folder' : 'item']
 
   return (
     <>
-      <div style={{ paddingLeft: depth * 20 }}>
-        <Component isCollapsed={isCollapsed} onToggle={onToggle} repositoryItem={item} />
-      </div>
+      <Component depth={depth} isCollapsed={isCollapsed} item={item} onToggle={onToggle} />
       {!isCollapsed &&
         item.children.map((child) => (
           <RepositoryListItem

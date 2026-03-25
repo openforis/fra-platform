@@ -1,0 +1,12 @@
+@use 'src/client/style/partials' as *;
+
+.repository-list-item {
+  align-items: center;
+  display: grid;
+  gap: $spacing-xs;
+  grid-template-columns: 1fr auto 48px auto;
+
+  &:hover {
+    background-color: $ui-bg-hover;
+  }
+}
