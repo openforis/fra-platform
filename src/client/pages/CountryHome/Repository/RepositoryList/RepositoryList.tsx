@@ -1,7 +1,10 @@
 import React from 'react'
 
-import { useItems } from 'client/pages/CountryHome/Repository/RepositoryList/hooks/useItems'
 import RepositoryListItem from 'client/pages/CountryHome/Repository/RepositoryList/RepositoryListItem'
+
+import { useGetItems } from './hooks/useGetItems'
+import { useItems } from './hooks/useItems'
+import { useOnToggle } from './hooks/useOnToggle'
 
 type Props = {
   isGlobal?: boolean
@@ -9,9 +12,14 @@ type Props = {
 
 const RepositoryList: React.FC<Props> = (props) => {
   const { isGlobal } = props
-  const items = useItems(isGlobal)
 
-  return items.map((item) => <RepositoryListItem key={item.uuid} item={item} />)
+  useGetItems(isGlobal)
+  const items = useItems(isGlobal)
+  const { collapsed, onToggle } = useOnToggle()
+
+  return items.map((item) => (
+    <RepositoryListItem key={item.uuid} collapsed={collapsed} item={item} onToggle={onToggle} />
+  ))
 }
 
 export default RepositoryList
