@@ -37,8 +37,8 @@ export const _getUrlTemplateReqBody = (mosaicOptions: MosaicOptions, countryIso:
         scenes: {},
         aoi: {
           type: 'EE_TABLE',
-          id: 'users/geofra/boundaries/GAUL_5000m_test_2',
-          keyColumn: 'ISO3',
+          id: 'users/geofra/boundaries/UN_Res0_ADM0_BNDA_CTY_FRA_v1',
+          keyColumn: 'ISO3CD',
           key: countryIso,
           buffer: 0,
         },
