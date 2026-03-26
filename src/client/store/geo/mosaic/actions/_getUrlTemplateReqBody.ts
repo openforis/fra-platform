@@ -31,7 +31,7 @@ export const _getUrlTemplateReqBody = (mosaicOptions: MosaicOptions, countryIso:
           corrections: ['SR'],
           // @ts-ignore
           filters: [],
-          cloudDetection: ['QA', 'CLOUD_SCORE'],
+          cloudDetection: ['QA'],
           cloudMasking: 'MODERATE',
           cloudBuffering: 0,
           snowMasking: snowMasking ? 'ON' : 'OFF',
