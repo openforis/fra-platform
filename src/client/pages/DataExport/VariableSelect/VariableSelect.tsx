@@ -36,6 +36,11 @@ const VariableSelect: React.FC<{ variables: Array<Row> }> = ({ variables }) => {
   const selectionVariables = selection.sections[sectionName].variables
   const subSection = useSection(sectionName)
 
+  // Hide "dynamic" variables - they don't have a label
+  const visibleVariables = variables.filter(
+    (variable) => !!Labels.getCycleLabel({ cycle, labels: variable.cols[0].props.labels, t })
+  )
+
   const updateSelection = (variablesUpdate: Array<string>): void => {
     const selectionUpdate: DataExportSelection = {
       ...selection,
@@ -68,13 +73,11 @@ const VariableSelect: React.FC<{ variables: Array<Row> }> = ({ variables }) => {
         </div>
         <MediaQuery minWidth={Breakpoints.laptop}>
           <ButtonCheckBox
-            checked={selectionVariables.length > 0 && selectionVariables.length === variables.length}
+            checked={selectionVariables.length > 0 && selectionVariables.length === visibleVariables.length}
             className="btn-all"
             label={t(selectionVariables.length > 0 ? 'common.unselectAll' : 'common.selectAll')}
             onClick={() => {
-              updateSelection(
-                selection.sections[sectionName].variables.length > 0 ? [] : variables.map((v) => v.props.variableName)
-              )
+              updateSelection(selectionVariables.length > 0 ? [] : visibleVariables.map((v) => v.props.variableName))
             }}
             variant={ButtonCheckboxVariant.checkbox}
           />
@@ -100,7 +103,7 @@ const VariableSelect: React.FC<{ variables: Array<Row> }> = ({ variables }) => {
         <>
           <div className="divider" />
           <div className="export__form-section-variables">
-            {variables.map((variable) => {
+            {visibleVariables.map((variable) => {
               const { variableName } = variable.props
 
               const label = Labels.getCycleLabel({ cycle, labels: variable.cols[0].props.labels, t })
