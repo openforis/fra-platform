@@ -25,10 +25,16 @@ const ColumnSelect: React.FC<{ columns: Array<string> }> = ({ columns }) => {
   const selection = useDataExportSelection(sectionName)
   const selectionColumns = selection.sections[sectionName].columns
 
-  // Hide "dynamic" columns - they don't have a label (panEu)
+  // Hide columns with no real translation (e.g. panEu dynamic columns with empty label).
+  // i18 returns the key for empty-string values
+  // Year-only keys (e.g. "1990", "1990-2000") have no dots and fall through as their own label.
   const visibleColumns = columns.reduce<Array<Option>>((acc, column) => {
     const label = getColumnLabelKeys(column, sectionName, assessmentName)
-      .map((key) => t(key, { defaultValue: '' }))
+      .map((key) => {
+        const result = t(key)
+        // if t(key) === key and key contains dots, it's an untranslated path — treat as empty.
+        return result === key && key.includes('.') ? '' : result
+      })
       .join(' ')
       .trim()
     if (label) acc.push({ label, value: column })
