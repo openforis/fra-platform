@@ -47,7 +47,9 @@ const ColumnSelect: React.FC<{ columns: Array<string> }> = ({ columns }) => {
   return (
     <div className="export__form-section">
       <div className="export__form-section-header select-all">
-        <h4>{t('common.column')}</h4>
+        <div className="title-container">
+          <h4>{t('common.column')}</h4>
+        </div>
         <MediaQuery minWidth={Breakpoints.laptop}>
           <ButtonCheckBox
             checked={selectionColumns.length > 0 && selectionColumns.length === columns.length}

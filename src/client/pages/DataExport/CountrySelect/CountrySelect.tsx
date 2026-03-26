@@ -67,7 +67,9 @@ const CountrySelect: React.FC = () => {
   return (
     <div className="export__form-section">
       <div className="export__form-section-header select-all search">
-        <h4>{t('common.countries')}</h4>
+        <div className="title-container">
+          <h4>{t('common.countries')}</h4>
+        </div>
         <MediaQuery minWidth={Breakpoints.laptop}>
           <InputText
             ref={inputRef}
