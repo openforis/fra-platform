@@ -48,7 +48,13 @@
   }
 
   .divider {
+    display: none;
+    margin: 0;
     border-bottom: 1px solid $ui-border-light;
+
+    @include min-width($laptop) {
+      display: block;
+    }
   }
   .country-multiselect__container {
     min-width: 100%;
