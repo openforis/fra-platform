@@ -3,11 +3,13 @@ import { MosaicOptions } from 'meta/geo/mosaic/options'
 
 export const _getUrlTemplateReqBody = (mosaicOptions: MosaicOptions, countryIso: CountryIso): any => {
   const { maxCloudCoverage, snowMasking, sources, year } = mosaicOptions
-  const dataSets = sources.sentinel
-    ? { SENTINEL: ['SENTINEL_2'] }
-    : sources.landsat
-      ? { LANDSAT: ['LANDSAT_7', 'LANDSAT_8'] }
-      : {}
+  let dataSets = {}
+
+  if (sources.sentinel) {
+    dataSets = { SENTINEL: ['SENTINEL_2'] }
+  } else if (sources.landsat) {
+    dataSets = { LANDSAT: ['LANDSAT_7', 'LANDSAT_8'] }
+  }
 
   const body = {
     recipe: {
