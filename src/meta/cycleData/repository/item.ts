@@ -13,6 +13,7 @@ export type RepositoryItem = {
   countryIso?: AreaCode
   createdAt?: string
   description?: string
+  used?: boolean
   fileUuid?: string
   folderName?: string
   link?: string

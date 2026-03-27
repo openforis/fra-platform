@@ -38,7 +38,14 @@ export const getManyTree = async (props: Props, client: BaseProtocol = DB): Prom
         join tree t on r.parent_uuid = t.uuid
         where (r.props ->> 'hidden')::boolean is not true
       )
-      select * from tree
+      select
+        tree.*,
+        case when tree.file_uuid is not null then (
+          exists(select 1 from ${schemaCycle}.original_data_point odp where odp.data_source_references ilike '%' || tree.uuid::text || '%')
+          or
+          exists(select 1 from ${schemaCycle}.descriptions d where d.value::text ilike '%' || tree.uuid::text || '%')
+        ) end as used
+      from tree
       order by folder_name nulls last
     `,
     [countryIso],

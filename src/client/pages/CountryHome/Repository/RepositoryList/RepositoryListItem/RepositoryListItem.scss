@@ -4,7 +4,7 @@
   align-items: center;
   display: grid;
   gap: $spacing-xs;
-  grid-template-columns: 1fr auto 48px auto;
+  grid-template-columns: 1fr auto 48px 48px auto;
 
   &:hover {
     background-color: $ui-bg-hover;

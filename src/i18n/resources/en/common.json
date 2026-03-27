@@ -80,6 +80,8 @@
   "plusCountMore": "+{{count}} More",
   "private": "Private",
   "public": "Public",
+  "unused": "Unused",
+  "used": "Used",
   "readOnline": "Read online",
   "regions": "Regions",
   "remove": "Remove",

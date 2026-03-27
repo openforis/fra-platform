@@ -36,6 +36,9 @@ const ItemRow: React.FC<Props> = (props) => {
         <RepositoryLink datum={item} />
       </div>
       <div className="repository-list-item__created-at">{Dates.getRelativeDate(item.createdAt, t)}</div>
+      <div className={classNames('repository-list-item__badge', { used: item.used, unused: !item.used })}>
+        {t(`common.${item.used ? 'used' : 'unused'}`)}
+      </div>
       <div className={classNames('repository-list-item__badge', level)}>{t(`common.${level}`)}</div>
       {withActions ? (
         <Button iconName="pencil" inverse label={t('description.edit')} onClick={openPanel} size={ButtonSize.xs} />
