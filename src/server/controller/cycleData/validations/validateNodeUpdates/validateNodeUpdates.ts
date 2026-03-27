@@ -52,12 +52,7 @@ export const validateNodeUpdates = async (props: Props): Promise<Array<TableName
     const col = row?.cols?.find((candidate: Col) => candidate.props.colName === colName)
     const validateFns = col?.props.validateFns?.[cycle.uuid] ?? row?.props.validateFns?.[cycle.uuid]
 
-    if (Objects.isNil(row) || Objects.isNil(col)) {
-      _removeValidation({ colName, tableName, tableValidations, variableName })
-      return
-    }
-
-    if (Objects.isEmpty(validateFns) || Objects.isEmpty(row.props.variableName)) {
+    if (Objects.isEmpty(validateFns)) {
       _removeValidation({ colName, tableName, tableValidations, variableName })
       return
     }
