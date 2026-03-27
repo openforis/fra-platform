@@ -821,7 +821,12 @@
     "link": "Joint FOREST EUROPE / UNECE / FAO reporting on pan-European indicators for SFM : FOREST EUROPE"
   },
   "marketedServices": {
-    "marketedServices": "Marketed services"
+    "forest_service_category": "$t(panEuropean.marketedServices2015.forest_service_category)",
+    "marketedServices": "Marketed services",
+    "name_of_service_product": "$t(panEuropean.marketedServices2015.name_of_service_product)",
+    "service_provision_amount_of_service_product": "$t(panEuropean.marketedServices2015.service_provision_amount_of_service_product)",
+    "service_provision_value_1000_national_currency": "$t(panEuropean.marketedServices2015.service_provision_value_1000_national_currency)",
+    "unit": "$t(panEuropean.marketedServices2015.unit)"
   },
   "marketedServices2015": {
     "_01st": "1st Rank (value)",
@@ -895,7 +900,14 @@
     "socioEconomicFunctionsAndConditions": "Socio-economic functions and conditions"
   },
   "nonWoodGoods": {
-    "nonWoodGoods": "Non-wood goods"
+    "key_species": "$t(panEuropean.nonWoodGoods2015.key_species)",
+    "market_value_1000_national_currency": "$t(panEuropean.nonWoodGoods2015.market_value_1000_national_currency)",
+    "name_of_groups_of_product": "$t(panEuropean.nonWoodGoods2015.name_of_groups_of_product)",
+    "nonWoodGoods": "Non-wood goods",
+    "nwfp_category": "$t(panEuropean.nonWoodGoods2015.nwfp_category)",
+    "nwfp_category_2025": "$t(panEuropean.nonWoodGoods2015.nwfp_category)",
+    "total_harvested_non_wood_goods_quantity": "$t(panEuropean.nonWoodGoods2015.total_harvested_non_wood_goods_quantity)",
+    "total_harvested_non_wood_goods_unit": "$t(panEuropean.nonWoodGoods2015.total_harvested_non_wood_goods_unit)"
   },
   "nonWoodGoods2015": {
     "_01st": "1st Rank (value)",
