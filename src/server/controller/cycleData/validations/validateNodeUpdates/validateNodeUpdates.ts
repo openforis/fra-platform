@@ -44,15 +44,7 @@ export const validateNodeUpdates = async (props: Props): Promise<Array<TableName
   const touchedTableNames = new Set<TableName>()
 
   await Promises.each(queue, (variable: VariableCache) => {
-    if (Objects.isNil(variable)) {
-      return
-    }
-
     const { colName, tableName, variableName } = variable
-
-    if (Objects.isEmpty(colName)) {
-      return
-    }
 
     touchedTableNames.add(tableName)
 
