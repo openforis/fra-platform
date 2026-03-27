@@ -1,10 +1,11 @@
-import { Col } from 'meta/assessment/col'
+import { Col, ColName } from 'meta/assessment/col'
 import { VariableCache } from 'meta/assessment/metaCache'
 import { NodeValueValidation } from 'meta/assessment/nodeValueValidation'
 import { NodeValueValidations } from 'meta/assessment/nodeValueValidations'
 import { RowCaches } from 'meta/assessment/rowCaches'
 import { TableName } from 'meta/assessment/table'
 import { RecordTableValidationsState } from 'meta/assessment/validation/table'
+import { VariableName } from 'meta/assessment/variable'
 import { ExpressionEvaluator } from 'meta/expressionEvaluator'
 import { Objects } from 'utils/objects'
 import { Promises } from 'utils/promises'
@@ -13,10 +14,10 @@ import { Context } from 'server/controller/cycleData/validations/context/context
 import { shouldSkipValidationFormula } from 'server/controller/cycleData/validations/shouldSkipValidationFormula'
 
 type RemoveValidationProps = {
-  colName: string
+  colName: ColName
   tableName: TableName
   tableValidations: RecordTableValidationsState
-  variableName: string
+  variableName: VariableName
 }
 
 const _removeValidation = (props: RemoveValidationProps): void => {

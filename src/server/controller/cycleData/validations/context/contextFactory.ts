@@ -162,14 +162,13 @@ export class ContextFactory extends BaseContextBuilder {
     const { assessment, country, cycle } = this.props
     const { countryIso } = country
     const tableNames = Array.from(this.#tableNames)
-    const { assessments, data } = await this.#dataContextBuilder.getData()
-    const rows = await RowRedisRepository.getRows({ assessment, rowKeys: Array.from(this.#rowKeys) })
-    const tableValidations = await ValidationRedisRepository.getTableValidations({
-      assessment,
-      countryIso,
-      cycle,
-      tableNames,
-    })
+
+    const [contextData, rows, tableValidations] = await Promise.all([
+      this.#dataContextBuilder.getData(),
+      RowRedisRepository.getRows({ assessment, rowKeys: Array.from(this.#rowKeys) }),
+      ValidationRedisRepository.getTableValidations({ assessment, countryIso, cycle, tableNames }),
+    ])
+    const { assessments, data } = contextData
 
     return new Context({
       assessment,
