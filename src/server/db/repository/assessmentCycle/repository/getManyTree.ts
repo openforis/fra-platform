@@ -20,6 +20,11 @@ export const getManyTree = async (props: Props, client: BaseProtocol = DB): Prom
 
   const condition = global ? 'country_iso is null' : 'country_iso = $1'
 
+  const usedInOdp = (ref: string): string =>
+    `exists(select 1 from ${schemaCycle}.original_data_point odp where odp.country_iso = tree.country_iso and odp.data_source_references ilike '%' || ${ref} || '%')`
+  const usedInDescriptions = (ref: string): string =>
+    `exists(select 1 from ${schemaCycle}.descriptions d where d.country_iso = tree.country_iso and d.value::text ilike '%' || ${ref} || '%')`
+
   // Map of parentUuid | null : RepositoryItem
   const nodeMap = new Map<string, RepositoryItemTree>()
   const roots: Array<RepositoryItemTree> = []
@@ -40,10 +45,12 @@ export const getManyTree = async (props: Props, client: BaseProtocol = DB): Prom
       )
       select
         tree.*,
-        case when tree.file_uuid is not null then (
-          exists(select 1 from ${schemaCycle}.original_data_point odp where odp.data_source_references ilike '%' || tree.uuid::text || '%')
-          or
-          exists(select 1 from ${schemaCycle}.descriptions d where d.value::text ilike '%' || tree.uuid::text || '%')
+        -- For items (not folders): populate "used"
+        case when tree.folder_name is null then (
+             ${usedInOdp('tree.uuid::text')}
+          or ${usedInDescriptions('tree.uuid::text')}
+          or (tree.link is not null and ${usedInDescriptions('tree.link')})
+          or (tree.link is not null and ${usedInOdp('tree.link')})
         ) end as used
       from tree
       order by folder_name nulls last
