@@ -27,22 +27,9 @@ export const setTableValidations = async (props: Props): Promise<void> => {
   const key = getKeyCountry({ assessment, countryIso, cycle, key: Keys.Data.validations })
 
   const validationsToSet = tableNames.reduce<Record<string, string>>((acc, tableName) => {
-    const tableValidation = tableValidations[tableName] ?? {}
-
-    if (!Objects.isEmpty(tableValidation)) {
-      acc[tableName] = JSON.stringify(tableValidation)
-    }
-
+    acc[tableName] = JSON.stringify(tableValidations[tableName] ?? {})
     return acc
   }, {})
 
-  const tableNamesToDelete = tableNames.filter((tableName) => Objects.isEmpty(tableValidations[tableName] ?? {}))
-
-  if (!Objects.isEmpty(validationsToSet)) {
-    await redis.hmset(key, validationsToSet)
-  }
-
-  if (!Objects.isEmpty(tableNamesToDelete)) {
-    await redis.hdel(key, ...tableNamesToDelete)
-  }
+  await redis.hmset(key, validationsToSet)
 }
