@@ -15,6 +15,7 @@ const Folder: React.FC<FolderProps> = (props) => {
       onClick={() => onToggle(repositoryItem.uuid)}
     >
       <Icon name="small-down" />
+      <Icon name="icon-folder" />
       {repositoryItem.folderName}
     </button>
   )

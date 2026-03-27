@@ -7,13 +7,13 @@
   display: flex;
   gap: $spacing-xxxs;
 
-  .icon {
+  .icon_small-down {
     transform: rotate(-90deg);
     transition: $ease-out;
   }
 
   &.expanded {
-    .icon {
+    .icon_small-down {
       transform: unset;
     }
   }

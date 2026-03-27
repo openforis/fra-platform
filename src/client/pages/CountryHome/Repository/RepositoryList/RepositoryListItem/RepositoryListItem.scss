@@ -3,8 +3,11 @@
 .repository-list-item {
   align-items: center;
   display: grid;
-  gap: $spacing-xs;
-  grid-template-columns: 1fr auto 48px auto;
+  column-gap: $spacing-xs;
+  row-gap: $spacing-xxxs;
+  grid-template-columns: 1fr auto 48px 48px auto;
+  min-height: 28px;
+  padding: 0;
 
   &:hover {
     background-color: $ui-bg-hover;

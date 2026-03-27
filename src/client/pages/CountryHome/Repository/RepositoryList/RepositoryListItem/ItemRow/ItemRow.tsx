@@ -32,10 +32,13 @@ const ItemRow: React.FC<Props> = (props) => {
 
   return (
     <div className="repository-list-item">
-      <div style={{ paddingLeft: depth * 20 }}>
+      <div style={{ paddingLeft: depth * 20 + 20 }}>
         <RepositoryLink datum={item} />
       </div>
       <div className="repository-list-item__created-at">{Dates.getRelativeDate(item.createdAt, t)}</div>
+      <div className={classNames('repository-list-item__badge', { linked: item.linked, unlinked: !item.linked })}>
+        {t(`common.${item.linked ? 'linked' : 'unlinked'}`)}
+      </div>
       <div className={classNames('repository-list-item__badge', level)}>{t(`common.${level}`)}</div>
       {withActions ? (
         <Button iconName="pencil" inverse label={t('description.edit')} onClick={openPanel} size={ButtonSize.xs} />
