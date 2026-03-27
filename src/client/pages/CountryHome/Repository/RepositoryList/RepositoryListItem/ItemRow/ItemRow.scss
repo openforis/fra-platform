@@ -36,11 +36,11 @@ $color-public: color.adjust($ui-status-accepted, $lightness: -10%, $space: hsl);
     color: $color-public;
   }
 
-  &.used {
+  &.linked {
     color: $ui-status-accepted;
   }
 
-  &.unused {
+  &.unlinked {
     color: $ui-status-notStarted;
   }
 }

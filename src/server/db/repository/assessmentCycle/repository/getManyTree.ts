@@ -20,9 +20,9 @@ export const getManyTree = async (props: Props, client: BaseProtocol = DB): Prom
 
   const condition = global ? 'country_iso is null' : 'country_iso = $1'
 
-  const usedInOdp = (ref: string): string =>
+  const linkedInOdp = (ref: string): string =>
     `exists(select 1 from ${schemaCycle}.original_data_point odp where odp.country_iso = tree.country_iso and odp.data_source_references ilike '%' || ${ref} || '%')`
-  const usedInDescriptions = (ref: string): string =>
+  const linkedInDescriptions = (ref: string): string =>
     `exists(select 1 from ${schemaCycle}.descriptions d where d.country_iso = tree.country_iso and d.value::text ilike '%' || ${ref} || '%')`
 
   // Map of parentUuid | null : RepositoryItem
@@ -45,13 +45,13 @@ export const getManyTree = async (props: Props, client: BaseProtocol = DB): Prom
       )
       select
         tree.*,
-        -- For items (not folders): populate "used"
+        -- For items (not folders): populate "linked"
         case when tree.folder_name is null then (
-             ${usedInOdp('tree.uuid::text')}
-          or ${usedInDescriptions('tree.uuid::text')}
-          or (tree.link is not null and ${usedInDescriptions('tree.link')})
-          or (tree.link is not null and ${usedInOdp('tree.link')})
-        ) end as used
+             ${linkedInOdp('tree.uuid::text')}
+          or ${linkedInDescriptions('tree.uuid::text')}
+          or (tree.link is not null and ${linkedInDescriptions('tree.link')})
+          or (tree.link is not null and ${linkedInOdp('tree.link')})
+        ) end as linked
       from tree
       order by folder_name nulls last
     `,
