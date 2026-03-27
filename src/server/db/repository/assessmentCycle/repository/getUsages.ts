@@ -21,7 +21,7 @@ export const getUsages = async (props: Props, client: BaseProtocol = DB): Promis
                     'sectionName', '${SectionNames.originalDataPoints}',
                     'suffix', odp.year,
                     'locations', jsonb_build_array(jsonb_build_object('key', 'nationalDataPoint.references'))) as values
-        from ${schemaCycle}.original_data_point odp where odp.data_source_references ilike '%$1#%'
+        from ${schemaCycle}.original_data_point odp where odp.data_source_references ilike '%' || $1 || '%'
         union
 -- Section descriptions
         select
@@ -29,7 +29,7 @@ export const getUsages = async (props: Props, client: BaseProtocol = DB): Promis
                     'sectionName', d.section_name,
                     'locations', jsonb_build_array(jsonb_build_object('key', 'description' || '.' || d.name))) as values
         from ${schemaCycle}.descriptions d
-        where d.value::text ilike '%$1#%'
+        where d.value::text ilike '%' || $1 || '%'
     `,
     [uuid],
     (row) => row.values
