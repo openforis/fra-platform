@@ -9,7 +9,6 @@ import { ExpressionEvaluator } from 'meta/expressionEvaluator'
 import { Objects } from 'utils/objects'
 import { Promises } from 'utils/promises'
 
-import { ValidationRedisRepository } from 'server/cache/repository/validation'
 import { Context } from 'server/controller/cycleData/validations/context/context'
 import { shouldSkipValidationFormula } from 'server/controller/cycleData/validations/shouldSkipValidationFormula'
 
@@ -35,18 +34,12 @@ type Props = {
   context: Context
 }
 
-export const validateNodeUpdates = async (props: Props): Promise<void> => {
+export const validateNodeUpdates = async (props: Props): Promise<Array<TableName>> => {
   const { context } = props
-  const { assessment, assessments, country, countryIso, cycle, data, rows, tableNames } = context
+  const { assessment, assessments, country, countryIso, cycle, data, rows, tableValidations } = context
   const { name: assessmentName } = assessment.props
   const { name: cycleName } = cycle
   const queue = context.queue.splice(0)
-  const tableValidations = await ValidationRedisRepository.getTableValidations({
-    assessment,
-    countryIso,
-    cycle,
-    tableNames,
-  })
   const touchedTableNames = new Set<TableName>()
 
   await Promises.each(queue, async (variable: VariableCache) => {
@@ -98,15 +91,5 @@ export const validateNodeUpdates = async (props: Props): Promise<void> => {
     })
   })
 
-  if (touchedTableNames.size === 0) {
-    return
-  }
-
-  await ValidationRedisRepository.setTableValidations({
-    assessment,
-    countryIso,
-    cycle,
-    tableNames: Array.from(touchedTableNames),
-    tableValidations,
-  })
+  return Array.from(touchedTableNames)
 }

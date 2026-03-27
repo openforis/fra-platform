@@ -3,6 +3,7 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { TableName } from 'meta/assessment/table'
 import { RecordTableValidationsState, TableValidations } from 'meta/assessment/validation/table'
+import { Objects } from 'utils/objects'
 
 import { getKeyCountry, Keys } from 'server/cache/repository/keys'
 import { RedisData } from 'server/cache/repository/redisData'
@@ -25,10 +26,14 @@ const _parseTableValidations = (value?: string | null): TableValidations => {
 export const getTableValidations = async (props: Props): Promise<RecordTableValidationsState> => {
   const { assessment, countryIso, cycle, tableNames } = props
 
-  const redis = RedisData.getInstance()
   const key = getKeyCountry({ assessment, countryIso, cycle, key: Keys.Data.validations })
 
-  if (tableNames?.length) {
+  if (!Objects.isNil(tableNames)) {
+    if (tableNames.length === 0) {
+      return {}
+    }
+
+    const redis = RedisData.getInstance()
     const values = await redis.hmget(key, ...tableNames)
 
     return tableNames.reduce<RecordTableValidationsState>((acc, tableName, index) => {
@@ -37,6 +42,7 @@ export const getTableValidations = async (props: Props): Promise<RecordTableVali
     }, {})
   }
 
+  const redis = RedisData.getInstance()
   const tableValidations = await redis.hgetall(key)
 
   return Object.entries(tableValidations).reduce<RecordTableValidationsState>((acc, [tableName, validations]) => {
