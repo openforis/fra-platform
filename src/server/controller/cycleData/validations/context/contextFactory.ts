@@ -8,6 +8,7 @@ import { Objects } from 'utils/objects'
 import { Promises } from 'utils/promises'
 
 import { RowRedisRepository } from 'server/cache/repository/row'
+import { ValidationRedisRepository } from 'server/cache/repository/validation'
 
 import { BaseContextBuilder } from './baseContextBuilder'
 import { Context } from './context'
@@ -159,8 +160,15 @@ export class ContextFactory extends BaseContextBuilder {
 
   async #createContext(): Promise<Context> {
     const { assessment, country, cycle } = this.props
-    const { assessments, data } = await this.#dataContextBuilder.getData()
-    const rows = await RowRedisRepository.getRows({ assessment, rowKeys: Array.from(this.#rowKeys) })
+    const { countryIso } = country
+    const tableNames = Array.from(this.#tableNames)
+
+    const [contextData, rows, tableValidations] = await Promise.all([
+      this.#dataContextBuilder.getData(),
+      RowRedisRepository.getRows({ assessment, rowKeys: Array.from(this.#rowKeys) }),
+      ValidationRedisRepository.getTableValidations({ assessment, countryIso, cycle, tableNames }),
+    ])
+    const { assessments, data } = contextData
 
     return new Context({
       assessment,
@@ -171,7 +179,8 @@ export class ContextFactory extends BaseContextBuilder {
       externalNodeUpdates: Array.from(this.#externalNodeUpdatesByCycle.values()),
       queue: [...this.#queue],
       rows,
-      tableNames: Array.from(this.#tableNames),
+      tableNames,
+      tableValidations,
     })
   }
 

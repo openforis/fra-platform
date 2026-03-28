@@ -5,6 +5,7 @@ import { Cycle } from 'meta/assessment/cycle'
 import { VariableCache } from 'meta/assessment/metaCache'
 import { RecordRowCache } from 'meta/assessment/rowCache'
 import { TableName } from 'meta/assessment/table'
+import { RecordTableValidationsState } from 'meta/assessment/validation/table'
 import { NodeUpdates } from 'meta/data/nodeUpdates'
 import { RecordAssessmentData } from 'meta/data/recordData'
 
@@ -18,6 +19,7 @@ type ConstructorProps = {
   queue: Array<VariableCache>
   rows: RecordRowCache
   tableNames: Array<TableName>
+  tableValidations: RecordTableValidationsState
 }
 
 export class Context {
@@ -30,9 +32,21 @@ export class Context {
   readonly #queue: Array<VariableCache>
   readonly #rows: RecordRowCache
   readonly #tableNames: Array<TableName>
+  readonly #tableValidations: RecordTableValidationsState
 
   constructor(props: ConstructorProps) {
-    const { assessment, assessments, country, cycle, data, externalNodeUpdates, queue, rows, tableNames } = props
+    const {
+      assessment,
+      assessments,
+      country,
+      cycle,
+      data,
+      externalNodeUpdates,
+      queue,
+      rows,
+      tableNames,
+      tableValidations,
+    } = props
 
     this.#assessment = assessment
     this.#assessments = assessments
@@ -43,6 +57,7 @@ export class Context {
     this.#queue = queue
     this.#rows = rows
     this.#tableNames = tableNames
+    this.#tableValidations = tableValidations
   }
 
   get assessment(): Assessment {
@@ -83,5 +98,9 @@ export class Context {
 
   get tableNames(): Array<TableName> {
     return this.#tableNames
+  }
+
+  get tableValidations(): RecordTableValidationsState {
+    return this.#tableValidations
   }
 }
