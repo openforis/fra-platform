@@ -48,7 +48,13 @@
   }
 
   .divider {
+    display: none;
+    margin: 0;
     border-bottom: 1px solid $ui-border-light;
+
+    @include min-width($laptop) {
+      display: block;
+    }
   }
   .country-multiselect__container {
     min-width: 100%;
@@ -79,7 +85,7 @@
       grid-template-columns: 1fr;
       padding-left: $spacing-xxs;
 
-      h4 {
+      .title-container {
         justify-self: center;
       }
     }
@@ -90,21 +96,28 @@
     justify-content: stretch;
 
     @include min-width($laptop) {
-      grid-column-gap: $spacing-s;
-      grid-template-columns: repeat(2, auto);
+      grid-template-columns: 1fr auto 1fr;
+      grid-row-gap: 0;
+      justify-items: start;
+      padding-left: $spacing-xxs;
 
-      :nth-child(3) {
-        grid-column: span 2;
+      .title-container {
+        grid-column: 2;
+        justify-self: center;
       }
 
-      h4 {
-        justify-self: right;
+      :nth-child(2) {
+        grid-column: 3;
+      }
+
+      :nth-child(3) {
+        grid-column: 1 / -1;
       }
     }
   }
 }
 
-.export__form-section-header-withLink {
+.title-container {
   align-items: center;
   display: flex;
   gap: $spacing-xxs;
@@ -118,4 +131,8 @@
   height: auto;
   overflow-y: auto;
   overflow-x: hidden;
+
+  @include min-width($laptop) {
+    padding-left: $spacing-xxs;
+  }
 }
