@@ -1,0 +1,37 @@
+@use 'src/client/style/partials' as *;
+
+.repository-toolbar {
+  background-color: $ui-bg-hover;
+  border-bottom: 1px solid $ui-border;
+  border-top: 1px solid $ui-border;
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: subgrid;
+  min-height: 28px;
+}
+
+.repository-toolbar__col {
+  align-items: center;
+  border-right: 1px solid $ui-border;
+  color: $text-disabled;
+  cursor: pointer;
+  display: flex;
+  font-size: $font-xxxs;
+  font-weight: 600;
+  padding: 0 $spacing-xxs;
+  text-transform: uppercase;
+
+  &:first-child {
+    border-left: 1px solid $ui-border;
+  }
+
+  &:hover {
+    background-color: $ui-border;
+  }
+}
+
+// Adjust spacing for first col - take into account the folder/arrow icons
+.repository-toolbar__col--name {
+  gap: $spacing-xxxs;
+  padding-left: $spacing-xs;
+}
