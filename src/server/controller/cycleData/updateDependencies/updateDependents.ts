@@ -1,10 +1,10 @@
-import { Promises } from 'utils/promises'
-
 import { AssessmentMetaCaches } from 'meta/assessment/metaCaches'
 import { Sockets } from 'meta/socket/sockets'
+import { Promises } from 'utils/promises'
 
 import { updateExternalDependents } from 'server/controller/cycleData/updateDependencies/updateExternalDependents'
 import worker from 'server/controller/cycleData/updateDependencies/worker'
+import { updateValidations } from 'server/controller/cycleData/validations/updateValidations'
 import { BaseProtocol } from 'server/db/db'
 import { SocketServer } from 'server/service/socket'
 import { Logger } from 'server/utils/logger'
@@ -16,7 +16,7 @@ type Props = Omit<UpdateDependenciesProps, 'client'> & {
 }
 
 export const updateDependents = async (props: Props, client: BaseProtocol): Promise<void> => {
-  const { assessment, cycle, includeSourceNodes, notifyClients = true, user } = props
+  const { assessment, country, cycle, includeSourceNodes, notifyClients = true, user } = props
   const { countryIso, nodes } = props.nodeUpdates
   const { name: assessmentName } = assessment.props
   const { name: cycleName } = cycle
@@ -41,7 +41,11 @@ export const updateDependents = async (props: Props, client: BaseProtocol): Prom
   if (notifyClients) {
     const nodeUpdateEvent = Sockets.getNodeValuesUpdateEvent({ assessmentName, cycleName, countryIso })
     SocketServer.emit(nodeUpdateEvent, { nodeUpdates })
+    // TODO: Notify for validations
   }
+
+  const validationNodeUpdates = { ...props.nodeUpdates, nodes: [...props.nodeUpdates.nodes, ...nodeUpdates.nodes] }
+  await updateValidations({ assessment, country, cycle, nodeUpdates: validationNodeUpdates, notifyClients })
 
   Logger.debug(`[updateDependencies] [job-${job.id}] completed with ${nodeUpdates.nodes.length} nodes updated`)
 
@@ -52,6 +56,7 @@ export const updateDependents = async (props: Props, client: BaseProtocol): Prom
     )
     await updateExternalDependents({ countryIso, nodeUpdates: externalNodeUpdates, notifyClients, user }, client)
   })
+  // TODO: Update external validations
 
   // 4. end
   return Promise.resolve()
