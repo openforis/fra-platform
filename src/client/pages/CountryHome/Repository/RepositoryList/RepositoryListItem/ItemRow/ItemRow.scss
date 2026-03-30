@@ -8,7 +8,6 @@ $color-public: color.adjust($ui-status-accepted, $lightness: -10%, $space: hsl);
 .repository-list-item__created-at {
   color: $text-disabled;
   font-size: $font-xxxs;
-  white-space: nowrap;
 }
 
 .repository-list-item__badge {
@@ -22,11 +21,8 @@ $color-public: color.adjust($ui-status-accepted, $lightness: -10%, $space: hsl);
   height: 20px;
   justify-content: center;
   letter-spacing: 0.4px;
-  line-height: 0;
   opacity: 0.5;
   text-transform: uppercase;
-  transition: all 0.2s;
-  width: 48px;
 
   &.private {
     color: $color-private;

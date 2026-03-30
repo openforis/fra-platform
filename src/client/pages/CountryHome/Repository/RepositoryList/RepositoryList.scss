@@ -1,0 +1,6 @@
+@use 'src/client/style/partials' as *;
+
+.repository-list {
+  display: grid;
+  grid-template-columns: 1fr 100px 64px 64px auto;
+}
