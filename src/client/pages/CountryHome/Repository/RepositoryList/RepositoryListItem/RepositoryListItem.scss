@@ -7,10 +7,6 @@
   grid-template-columns: subgrid;
   min-height: 28px;
 
-  &:nth-child(odd) {
-    background-color: $ui-bg;
-  }
-
   &:nth-child(even) {
     background-color: $ui-bg-light;
   }
