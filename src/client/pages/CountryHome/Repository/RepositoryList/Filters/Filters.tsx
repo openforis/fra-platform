@@ -27,7 +27,7 @@ const Filters: React.FC<Props> = (props) => {
       {/* TODO: Add Button ADD FOLDER */}
       <ButtonAdd isGlobal={isGlobal} />
       <Hr vertical />
-      <Icon name="sort-amount-asc" />
+      <Icon name="filter" />
       <Text fieldName="name" label={t('common.name')} path={path} type={TablePaginatedFilterType.TEXT} />
       {/* TODO: Add ADDED */}
       {/* TODO: Add LINKED */}
