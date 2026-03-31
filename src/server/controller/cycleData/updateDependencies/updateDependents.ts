@@ -23,11 +23,13 @@ export const updateDependents = async (props: Props, client: BaseProtocol): Prom
 
   Logger.debug(`[scheduleUpdateDependencies] ${countryIso} ${nodes.length} nodes added to updateDependencies queue`)
 
-  // avoid executing worker when nodes have no dependents.
-  const dependants = nodes.flatMap(({ tableName, variableName }) => {
-    return AssessmentMetaCaches.getCalculationsDependants({ assessment, cycle, tableName, variableName })
+  // avoid executing worker when nodes have no calculation dependents.
+  const hasCalculationDependants = nodes.some(({ tableName, variableName }) => {
+    return AssessmentMetaCaches.getCalculationsDependants({ assessment, cycle, tableName, variableName }).length > 0
   })
-  if (dependants.length === 0 && !includeSourceNodes) {
+  if (!hasCalculationDependants && !includeSourceNodes) {
+    // nodes with no calculation dependents may have validation dependents
+    await updateValidations({ assessment, country, cycle, nodeUpdates: props.nodeUpdates, notifyClients })
     return Promise.resolve()
   }
 
