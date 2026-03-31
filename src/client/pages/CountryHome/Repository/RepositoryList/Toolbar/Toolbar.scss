@@ -13,8 +13,6 @@
 .repository-toolbar__col {
   align-items: center;
   border-right: 1px solid $ui-border;
-  color: $text-disabled;
-  cursor: pointer;
   display: flex;
   font-size: $font-xxxs;
   font-weight: 600;
@@ -23,10 +21,6 @@
 
   &:first-child {
     border-left: 1px solid $ui-border;
-  }
-
-  &:hover {
-    background-color: $ui-border;
   }
 }
 

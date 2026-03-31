@@ -9,6 +9,7 @@ import { Dates } from 'utils/dates'
 
 import { useIsCountryRepositoryEditable, useIsGlobalRepositoryEditable } from 'client/store/user/hooks/auth'
 import Button, { ButtonSize } from 'client/components/Buttons/Button'
+import Icon from 'client/components/Icon'
 import { useOpenPanel } from 'client/pages/CountryHome/Repository/hooks/useOpenPanel'
 
 import RepositoryLink from '../RepositoryLink'
@@ -36,8 +37,8 @@ const ItemRow: React.FC<Props> = (props) => {
         <RepositoryLink datum={item} />
       </div>
       <div className="repository-list-item__created-at">{Dates.getRelativeDate(item.createdAt, t)}</div>
-      <div className={classNames('repository-list-item__badge', { linked: item.linked, unlinked: !item.linked })}>
-        {t(`common.${item.linked ? 'linked' : 'unlinked'}`)}
+      <div className="repository-list-item__icon-wrapper">
+        {item.linked && <Icon className="repository-list-item__icon" name="checkbox" />}
       </div>
       <div className={classNames('repository-list-item__badge', level)}>{t(`common.${level}`)}</div>
       {withActions ? (
