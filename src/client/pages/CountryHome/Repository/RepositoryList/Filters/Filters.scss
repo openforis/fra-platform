@@ -1,0 +1,21 @@
+@use 'src/client/style/partials' as *;
+
+.repository-filters {
+  align-items: center;
+  display: flex;
+  gap: $spacing-xs;
+  grid-column: 1 / -1;
+  min-height: $spacing-l;
+  padding: $spacing-xxxs $spacing-xxs;
+
+  .hr.vertical {
+    flex-shrink: 0;
+    margin: $spacing-xxs 0;
+    min-height: $spacing-s;
+    width: 1px;
+  }
+
+  .table-paginated-filter-input {
+    height: 30px;
+  }
+}

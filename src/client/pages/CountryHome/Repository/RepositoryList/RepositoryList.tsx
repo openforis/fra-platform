@@ -6,6 +6,7 @@ import RepositoryListItem from 'client/pages/CountryHome/Repository/RepositoryLi
 import { useGetItems } from './hooks/useGetItems'
 import { useItems } from './hooks/useItems'
 import { useOnToggle } from './hooks/useOnToggle'
+import Filters from './Filters'
 import Toolbar from './Toolbar'
 
 type Props = {
@@ -21,6 +22,7 @@ const RepositoryList: React.FC<Props> = (props) => {
 
   return (
     <div className="repository-list">
+      <Filters isGlobal={isGlobal} />
       <Toolbar isGlobal={isGlobal} />
       {items.map((item) => (
         <RepositoryListItem key={item.uuid} collapsed={collapsed} item={item} onToggle={onToggle} />
