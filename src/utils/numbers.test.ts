@@ -90,6 +90,26 @@ describe('Numbers test:', () => {
     expect(res).toEqual(`9${Numbers.groupSeparator}873.44`)
   })
 
+  test('toBigNumber grouped string', () => {
+    const res = Numbers.toBigNumber(`1${Numbers.groupSeparator}234.50`)
+    expect(res).toEqual(t('1234.5'))
+  })
+
+  test('toBigNumber null value', () => {
+    const res = Numbers.toBigNumber(null)
+    expect(res.isNaN()).toEqual(true)
+  })
+
+  test('toBigNumber undefined value', () => {
+    const res = Numbers.toBigNumber(undefined)
+    expect(res.isNaN()).toEqual(true)
+  })
+
+  test('toBigNumber invalid string', () => {
+    const res = Numbers.toBigNumber('not-a-number')
+    expect(res.isNaN()).toEqual(true)
+  })
+
   test('toNumberOrNull valid value', () => {
     const res = Numbers.toNumberOrNull(' 1 234.50 ')
     expect(res).toEqual(1234.5)
