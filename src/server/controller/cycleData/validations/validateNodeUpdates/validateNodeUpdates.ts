@@ -41,7 +41,7 @@ export const validateNodeUpdates = async (props: Props): Promise<Array<TableName
   const { name: assessmentName } = assessment.props
   const { name: cycleName } = cycle
   const queue = context.queue.splice(0)
-  const touchedTableNames = new Set<TableName>()
+  const updatedTableNames = new Set<TableName>()
 
   await Promises.each(queue, (variable: VariableCache) => {
     const { colName, tableName, variableName } = variable
@@ -56,7 +56,7 @@ export const validateNodeUpdates = async (props: Props): Promise<Array<TableName
 
     if (Objects.isEmpty(validateFns)) {
       _removeValidation({ colName, tableName, tableValidations, variableName })
-      touchedTableNames.add(tableName)
+      updatedTableNames.add(tableName)
       return
     }
 
@@ -72,7 +72,7 @@ export const validateNodeUpdates = async (props: Props): Promise<Array<TableName
 
     if (validation.valid) {
       _removeValidation({ colName, tableName, tableValidations, variableName })
-      touchedTableNames.add(tableName)
+      updatedTableNames.add(tableName)
       return
     }
 
@@ -81,8 +81,8 @@ export const validateNodeUpdates = async (props: Props): Promise<Array<TableName
       path: [tableName, colName, variableName],
       value: validation,
     })
-    touchedTableNames.add(tableName)
+    updatedTableNames.add(tableName)
   })
 
-  return Array.from(touchedTableNames)
+  return Array.from(updatedTableNames)
 }

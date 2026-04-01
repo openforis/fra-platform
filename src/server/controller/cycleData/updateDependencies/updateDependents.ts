@@ -4,7 +4,7 @@ import { Promises } from 'utils/promises'
 
 import { updateExternalDependents } from 'server/controller/cycleData/updateDependencies/updateExternalDependents'
 import worker from 'server/controller/cycleData/updateDependencies/worker'
-import { updateValidations } from 'server/controller/cycleData/validations/updateValidations'
+import { updateValidationState } from 'server/controller/cycleData/validations/updateValidationState'
 import { BaseProtocol } from 'server/db/db'
 import { SocketServer } from 'server/service/socket'
 import { Logger } from 'server/utils/logger'
@@ -55,15 +55,13 @@ export const updateDependents = async (props: Props, client: BaseProtocol): Prom
     nodes: [...props.nodeUpdates.nodes, ...workerResult.nodeUpdates.nodes],
   }
 
-  await updateValidations({ assessment, country, cycle, nodeUpdates: validationNodeUpdates, notifyClients })
-  // TODO: Notify for validations
+  await updateValidationState({ assessment, country, cycle, nodeUpdates: validationNodeUpdates, notifyClients })
 
   // 3. schedule external assessment/cycle updates
   await Promises.each(workerResult.externalDependants, async (externalNodeUpdates) => {
     Logger.debug(`[updateDependencies] [${logKey}] scheduling ${externalNodeUpdates.nodes.length} external dependents`)
     await updateExternalDependents({ countryIso, nodeUpdates: externalNodeUpdates, notifyClients, user }, client)
   })
-  // TODO: Update external validations
 
   // 4. end
   return Promise.resolve()
