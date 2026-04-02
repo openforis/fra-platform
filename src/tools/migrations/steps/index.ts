@@ -65,7 +65,7 @@ const exec = async (): Promise<void> => {
     await client.tx(async (t) => {
       try {
         Logger.info(`Running migration ${file}`)
-        // eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires,global-require,import/no-dynamic-require
+        // eslint-disable-next-line @typescript-eslint/no-require-imports,global-require,import/no-dynamic-require
         await require(`./steps/${file}`).default(t)
         Logger.info(`Migration step completed: ${file}`)
         await _writeStep(file)
