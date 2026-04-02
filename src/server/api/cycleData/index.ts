@@ -55,6 +55,7 @@ import { getNodeValuesEstimations } from './table/getNodeValuesEstimations'
 import { getTableData } from './table/getTableData'
 import { getTableDataHistory } from './table/getTableDataHistory'
 import { persistNodeValues } from './table/persistNodeValues'
+import { getSummary as getValidationSummary } from './validations/getSummary'
 
 export const CycleDataApi = {
   init: (express: Express): void => {
@@ -152,6 +153,7 @@ export const CycleDataApi = {
     // Review
     express.get(ApiEndPoint.CycleData.Review.status(), AuthMiddleware.requireView, getReviewStatus)
     express.get(ApiEndPoint.CycleData.Review.summary(), AuthMiddleware.requireView, getReviewSummary)
+    express.get(ApiEndPoint.CycleData.Validations.summary(), AuthMiddleware.requireView, getValidationSummary)
 
     // Country Links
     express.get(ApiEndPoint.CycleData.Links.count(), AuthMiddleware.requireVerifyLinks, getLinksCount)

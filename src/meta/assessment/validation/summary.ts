@@ -1,20 +1,20 @@
-import { SectionName } from 'meta/assessment/section'
 import { TableName } from 'meta/assessment/table'
 import { UUID } from 'meta/uuid/uuid'
 
-export type ValidationSummaryTableRecord = Record<TableName, boolean>
-
-export type ValidationSummarySubSection = {
-  hasErrors: boolean
-  tables: ValidationSummaryTableRecord
+export type ValidationStatus = {
+  valid: boolean
 }
 
-export type ValidationSummarySection = {
-  hasErrors: boolean
-  subSections: Record<SectionName, ValidationSummarySubSection>
+export type ValidationSummarySubsection = ValidationStatus & {
+  tableNames: Array<TableName>
+}
+
+export type ValidationSummarySection = ValidationStatus & {
+  subsections: Record<UUID, ValidationSummarySubsection>
 }
 
 export type ValidationSummary = {
-  hasErrors: boolean
   sections: Record<UUID, ValidationSummarySection>
+  subsections: Record<UUID, ValidationSummarySubsection>
+  tables: Record<TableName, ValidationStatus>
 }
