@@ -1,3 +1,4 @@
+import { fixupConfigRules, fixupPluginRules } from '@eslint/compat'
 import { defineConfig } from 'eslint/config'
 import js from '@eslint/js'
 import tseslint from 'typescript-eslint'
@@ -18,8 +19,8 @@ export default defineConfig([
   },
   js.configs.recommended,
   ...tseslint.configs.recommended,
-  reactPlugin.configs.flat.recommended,
-  jsxA11yPlugin.flatConfigs.recommended,
+  ...fixupConfigRules(reactPlugin.configs.flat.recommended),
+  ...fixupConfigRules(jsxA11yPlugin.flatConfigs.recommended),
   {
     files: ['**/*.{js,jsx,ts,tsx}'],
     languageOptions: {
@@ -42,13 +43,13 @@ export default defineConfig([
     },
     plugins: {
       '@typescript-eslint': tseslint.plugin,
-      react: reactPlugin,
-      'react-hooks': reactHooksPlugin,
-      import: importPlugin,
-      'simple-import-sort': simpleImportSortPlugin,
-      'sort-destructure-keys': sortDestructureKeysPlugin,
-      'sort-react-dependency-arrays': sortReactDependencyArraysPlugin,
-      'unused-imports': unusedImportsPlugin,
+      react: fixupPluginRules(reactPlugin),
+      'react-hooks': fixupPluginRules(reactHooksPlugin),
+      import: fixupPluginRules(importPlugin),
+      'simple-import-sort': fixupPluginRules(simpleImportSortPlugin),
+      'sort-destructure-keys': fixupPluginRules(sortDestructureKeysPlugin),
+      'sort-react-dependency-arrays': fixupPluginRules(sortReactDependencyArraysPlugin),
+      'unused-imports': fixupPluginRules(unusedImportsPlugin),
     },
     settings: {
       react: {
@@ -69,7 +70,7 @@ export default defineConfig([
       '@typescript-eslint/no-non-null-assertion': 'warn',
       '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_', caughtErrors: 'none' }],
       '@typescript-eslint/no-use-before-define': ['error'],
-      '@typescript-eslint/no-var-requires': 'error',
+      '@typescript-eslint/no-require-imports': 'error',
       camelcase: ['error', { properties: 'never', ignoreDestructuring: false }],
       'class-methods-use-this': 'off',
       'func-names': 'warn',
@@ -195,7 +196,7 @@ export default defineConfig([
   },
 
   // Prettier integration
-  eslintPluginPrettierRecommended,
+  ...fixupConfigRules(eslintPluginPrettierRecommended),
   {
     rules: {
       'prettier/prettier': 'warn',

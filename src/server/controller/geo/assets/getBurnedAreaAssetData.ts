@@ -6,8 +6,6 @@ import { burnedAreaLayersMetadata } from 'meta/geo/burnedArea/layersMetadata'
 import { LayerSource } from 'meta/geo/layer/source'
 
 export const getBurnedAreaAssetData = (layer: LayerSource): { year?: number; img: Image; metadata: any } => {
-  let asset = {} as { year?: number; img: Image; metadata: any }
-
   switch (layer.key) {
     case BurnedAreaKey.MODIS_FIRE: {
       const imcMODIS = ImageCollection('MODIS/061/MCD64A1').filter(
@@ -16,17 +14,14 @@ export const getBurnedAreaAssetData = (layer: LayerSource): { year?: number; img
 
       const imgMODIS = imcMODIS.select('BurnDate').reduce(Reducer.anyNonZero()).select(0)
 
-      asset = {
+      return {
         year: layer.options.year,
         img: imgMODIS,
         metadata: burnedAreaLayersMetadata[layer.key],
       }
-      break
     }
 
     default:
       return null
   }
-
-  return asset
 }
