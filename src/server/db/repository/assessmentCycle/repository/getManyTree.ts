@@ -1,5 +1,6 @@
 import { AreaCode } from 'meta/area/areaCode'
 import { Assessment } from 'meta/assessment/assessment'
+import { Assessments } from 'meta/assessment/assessments'
 import { Cycle } from 'meta/assessment/cycle'
 import { RepositoryItemTree } from 'meta/cycleData/repository/item'
 import { Objects } from 'utils/objects'
@@ -20,6 +21,7 @@ export const getManyTree = async (props: Props, client: BaseProtocol = DB): Prom
 
   const condition = global ? 'country_iso is null' : 'country_iso = $1'
 
+  const hasODPFeature = Assessments.hasODPFeature(assessment)
   const linkedInOdp = (ref: string): string =>
     `exists(select 1 from ${schemaCycle}.original_data_point odp where odp.country_iso = tree.country_iso and odp.data_source_references ilike '%' || ${ref} || '%')`
   const linkedInDescriptions = (ref: string): string =>
@@ -47,10 +49,9 @@ export const getManyTree = async (props: Props, client: BaseProtocol = DB): Prom
         tree.*,
         -- For items (not folders): populate "linked"
         case when tree.folder_name is null then (
-             ${linkedInOdp('tree.uuid::text')}
-          or ${linkedInDescriptions('tree.uuid::text')}
+             ${linkedInDescriptions('tree.uuid::text')}
           or (tree.link is not null and ${linkedInDescriptions('tree.link')})
-          or (tree.link is not null and ${linkedInOdp('tree.link')})
+          ${hasODPFeature ? `or ${linkedInOdp('tree.uuid::text')} or (tree.link is not null and ${linkedInOdp('tree.link')})` : ''}
         ) end as linked
       from tree
       order by folder_name nulls last
