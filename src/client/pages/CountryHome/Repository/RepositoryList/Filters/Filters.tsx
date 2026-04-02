@@ -7,6 +7,7 @@ import { TablePaginatedFilterType } from 'meta/tablePaginated/filters/filter'
 
 import Hr from 'client/components/Hr'
 import Icon from 'client/components/Icon'
+import Switch from 'client/components/TablePaginated/Filters/Switch'
 import Text from 'client/components/TablePaginated/Filters/Text'
 import ButtonAdd from 'client/pages/CountryHome/Repository/ButtonAdd'
 import ButtonDownloadAll from 'client/pages/CountryHome/Repository/ButtonDownloadAll'
@@ -29,9 +30,10 @@ const Filters: React.FC<Props> = (props) => {
       <Hr vertical />
       <Icon name="filter" />
       <Text fieldName="name" label={t('common.name')} path={path} type={TablePaginatedFilterType.TEXT} />
-      {/* TODO: Add ADDED */}
-      {/* TODO: Add LINKED */}
-      {/* TODO: Add ACCESS */}
+      <Switch fieldName="linked" label={t('common.linked')} path={path} type={TablePaginatedFilterType.SWITCH} />
+      <Switch fieldName="unlinked" label={t('common.unlinked')} path={path} type={TablePaginatedFilterType.SWITCH} />
+      <Switch fieldName="public" label={t('common.public')} path={path} type={TablePaginatedFilterType.SWITCH} />
+      <Switch fieldName="private" label={t('common.private')} path={path} type={TablePaginatedFilterType.SWITCH} />
     </div>
   )
 }
