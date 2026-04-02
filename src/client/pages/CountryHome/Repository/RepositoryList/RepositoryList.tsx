@@ -23,6 +23,7 @@ const RepositoryList: React.FC<Props> = (props) => {
   return (
     <div className="repository-list">
       <Filters isGlobal={isGlobal} />
+      <Filters isGlobal={isGlobal} parentUuid={parentUuid} />
       <Toolbar isGlobal={isGlobal} />
       {items.map((item) => (
         <RepositoryListItem key={item.uuid} collapsed={collapsed} item={item} onToggle={onToggle} />

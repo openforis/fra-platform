@@ -14,10 +14,11 @@ import ButtonDownloadAll from 'client/pages/CountryHome/Repository/ButtonDownloa
 
 type Props = {
   isGlobal?: boolean
+  parentUuid?: string
 }
 
 const Filters: React.FC<Props> = (props) => {
-  const { isGlobal = false } = props
+  const { isGlobal = false, parentUuid } = props
   const { t } = useTranslation()
   const path = `${ApiEndPoint.CycleData.Repository.tree()}?global=${isGlobal}`
 
@@ -26,7 +27,7 @@ const Filters: React.FC<Props> = (props) => {
       <ButtonDownloadAll isGlobal={isGlobal} />
       {/* TODO: Add Button ADD FILE */}
       {/* TODO: Add Button ADD FOLDER */}
-      <ButtonAdd isGlobal={isGlobal} />
+      <ButtonAdd isGlobal={isGlobal} parentUuid={parentUuid} />
       <Hr vertical />
       <Icon name="filter" />
       <Text fieldName="name" label={t('common.name')} path={path} type={TablePaginatedFilterType.TEXT} />
