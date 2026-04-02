@@ -12,14 +12,16 @@ import Text from 'client/components/TablePaginated/Filters/Text'
 import ButtonAdd from 'client/pages/CountryHome/Repository/ButtonAdd'
 import ButtonDownloadAll from 'client/pages/CountryHome/Repository/ButtonDownloadAll'
 
+import { useRepositoryListContext } from '../context'
+
 type Props = {
   isGlobal?: boolean
-  parentUuid?: string
 }
 
 const Filters: React.FC<Props> = (props) => {
-  const { isGlobal = false, parentUuid } = props
+  const { isGlobal = false } = props
   const { t } = useTranslation()
+  const { parentUuid } = useRepositoryListContext()
   const path = `${ApiEndPoint.CycleData.Repository.tree()}?global=${isGlobal}`
 
   return (

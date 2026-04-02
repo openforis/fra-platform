@@ -1,11 +1,17 @@
 @use 'src/client/style/partials' as *;
 
 .repository-folder {
-  all: unset;
   align-items: center;
-  cursor: pointer;
   display: flex;
   gap: $spacing-xxxs;
+
+  button {
+    all: unset;
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    gap: $spacing-xxxs;
+  }
 
   .icon_small-down {
     transform: rotate(-90deg);
