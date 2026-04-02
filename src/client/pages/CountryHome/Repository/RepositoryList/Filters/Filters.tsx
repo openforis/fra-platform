@@ -7,7 +7,7 @@ import { TablePaginatedFilterType } from 'meta/tablePaginated/filters/filter'
 
 import Hr from 'client/components/Hr'
 import Icon from 'client/components/Icon'
-import Switch from 'client/components/TablePaginated/Filters/Switch'
+import MultiSelect from 'client/components/TablePaginated/Filters/MultiSelect'
 import Text from 'client/components/TablePaginated/Filters/Text'
 import ButtonAdd from 'client/pages/CountryHome/Repository/ButtonAdd'
 import ButtonDownloadAll from 'client/pages/CountryHome/Repository/ButtonDownloadAll'
@@ -30,10 +30,28 @@ const Filters: React.FC<Props> = (props) => {
       <Hr vertical />
       <Icon name="filter" />
       <Text fieldName="name" label={t('common.name')} path={path} type={TablePaginatedFilterType.TEXT} />
-      <Switch fieldName="linked" label={t('common.linked')} path={path} type={TablePaginatedFilterType.SWITCH} />
-      <Switch fieldName="unlinked" label={t('common.unlinked')} path={path} type={TablePaginatedFilterType.SWITCH} />
-      <Switch fieldName="public" label={t('common.public')} path={path} type={TablePaginatedFilterType.SWITCH} />
-      <Switch fieldName="private" label={t('common.private')} path={path} type={TablePaginatedFilterType.SWITCH} />
+      <MultiSelect
+        fieldName="linked"
+        label={t('common.linked')}
+        multiLabelSummaryKey="common.linked"
+        options={[
+          { label: t('common.linked'), value: 'linked' },
+          { label: t('common.unlinked'), value: 'unlinked' },
+        ]}
+        path={path}
+        type={TablePaginatedFilterType.MULTI_SELECT}
+      />
+      <MultiSelect
+        fieldName="access"
+        label={t('common.access')}
+        multiLabelSummaryKey="common.access"
+        options={[
+          { label: t('common.public'), value: 'public' },
+          { label: t('common.private'), value: 'private' },
+        ]}
+        path={path}
+        type={TablePaginatedFilterType.MULTI_SELECT}
+      />
     </div>
   )
 }
