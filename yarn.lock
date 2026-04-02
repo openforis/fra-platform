@@ -4515,7 +4515,12 @@ bcrypt@^6.0.0:
     node-addon-api "^8.3.0"
     node-gyp-build "^4.8.4"
 
-bignumber.js@^9.0.0, bignumber.js@^9.3.1:
+bignumber.js@^10.0.2:
+  version "10.0.2"
+  resolved "https://registry.yarnpkg.com/bignumber.js/-/bignumber.js-10.0.2.tgz#19087206c0630074023619230be46727b09c1c0f"
+  integrity sha512-E8Wp9O06QA6lneJ4aRUXKYf/1GIomqUEmUMwtIOMtDxf1U52ffJY+y7JBk/8wRafA8qOIqLnXQGqonYXZdBnFQ==
+
+bignumber.js@^9.0.0:
   version "9.3.1"
   resolved "https://registry.yarnpkg.com/bignumber.js/-/bignumber.js-9.3.1.tgz#759c5aaddf2ffdc4f154f7b493e1c8770f88c4d7"
   integrity sha512-Ko0uX15oIUS7wJ3Rb30Fs6SkVbLmPBAKdlm7q9+ak9bbIeFf0MwuBsQV6z7+X768/cHsfg+WlysDWJcmthjsjQ==
@@ -9073,10 +9078,10 @@ node-releases@^2.0.36:
   resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-2.0.36.tgz#99fd6552aaeda9e17c4713b57a63964a2e325e9d"
   integrity sha512-TdC8FSgHz8Mwtw9g5L4gR/Sh9XhSP/0DEkQxfEFXOpiul5IiHgHan2VhYYb6agDSfp4KuvltmGApc8HMgUrIkA==
 
-nodemailer@^7.0.11:
-  version "7.0.13"
-  resolved "https://registry.yarnpkg.com/nodemailer/-/nodemailer-7.0.13.tgz#74acaa55f0c6f9476384c29f27f53e467e8483cd"
-  integrity sha512-PNDFSJdP+KFgdsG3ZzMXCgquO7I6McjY2vlqILjtJd0hy8wEvtugS9xKRF2NWlPNGxvLCXlTNIae4serI7dinw==
+nodemailer@^8.0.4:
+  version "8.0.4"
+  resolved "https://registry.yarnpkg.com/nodemailer/-/nodemailer-8.0.4.tgz#b63626585693f37a390ddaecde273da991c76010"
+  integrity sha512-k+jf6N8PfQJ0Fe8ZhJlgqU5qJU44Lpvp2yvidH3vp1lPnVQMgi4yEEMPXg5eJS1gFIJTVq1NHBk7Ia9ARdSBdQ==
 
 normalize-package-data@^2.3.2:
   version "2.5.0"
