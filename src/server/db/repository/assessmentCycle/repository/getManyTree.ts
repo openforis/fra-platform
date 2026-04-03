@@ -52,8 +52,11 @@ export const getManyTree = async (props: Props, client: BaseProtocol = DB): Prom
              ${linkedInDescriptions('tree.uuid::text')}
           or (tree.link is not null and ${linkedInDescriptions('tree.link')})
           ${hasODPFeature ? `or ${linkedInOdp('tree.uuid::text')} or (tree.link is not null and ${linkedInOdp('tree.link')})` : ''}
-        ) end as linked
+        ) end as linked,
+        -- For file items: extract extension from file.name
+        case when tree.file_uuid is not null then lower(split_part(f.name, '.', -1)) end as file_type
       from tree
+      left join public.file f on f.uuid = tree.file_uuid
       order by folder_name nulls last
     `,
     [countryIso],

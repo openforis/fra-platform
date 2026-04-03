@@ -13,10 +13,12 @@ export type RepositoryItem = {
   countryIso?: AreaCode
   createdAt?: string
   description?: string
-  linked?: boolean
+  fileType?: string
   fileUuid?: string
   folderName?: string
   link?: string
+  // Linked: Whether the item is used in the platform
+  linked?: boolean
   parentUuid?: string
   props?: RepositoryItemProps
 }

@@ -25,7 +25,7 @@ const _filterByPredicate = (
 
 // Select filter for boolean values:
 // - If one value is selected: enable filter
-// - If (0,2) values are selected: dont filter
+// - If (0,2) values are selected: don't filter
 const _getFilterBoolSelect = (
   filter: Array<string> | undefined,
   positiveValue: string,
@@ -54,6 +54,7 @@ const _filterByName = (items: Array<RepositoryItemTree>, filter: string, languag
 
 export const useFilterFn = (path: string): ItemsFn => {
   const accessFilter = useTablePaginatedFilterValue<Array<string>>(path, 'access')
+  const fileTypeFilter = useTablePaginatedFilterValue<Array<string>>(path, 'fileType')
   const linkedFilter = useTablePaginatedFilterValue<Array<string>>(path, 'linked')
   const nameFilter = useTablePaginatedFilterValue<string>(path, 'name')
   const language = useLanguage()
@@ -61,11 +62,13 @@ export const useFilterFn = (path: string): ItemsFn => {
   return useMemo(() => {
     const fns: Array<ItemsFn> = []
     if (nameFilter) fns.push((items) => _filterByName(items, nameFilter, language))
+    if (fileTypeFilter?.length)
+      fns.push((items) => _filterByPredicate(items, (item) => fileTypeFilter.includes(item.fileType ?? '')))
     const linkedFn = _getFilterBoolSelect(linkedFilter, 'linked', (item) => !!item.linked)
     const accessFn = _getFilterBoolSelect(accessFilter, 'public', (item) => !!item.props?.public)
     if (linkedFn) fns.push(linkedFn)
     if (accessFn) fns.push(accessFn)
     if (Objects.isEmpty(fns)) return (items) => items
     return (items) => fns.reduce<Array<RepositoryItemTree>>((acc, fn) => fn(acc), items)
-  }, [accessFilter, language, linkedFilter, nameFilter])
+  }, [accessFilter, fileTypeFilter, language, linkedFilter, nameFilter])
 }
