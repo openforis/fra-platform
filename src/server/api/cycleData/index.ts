@@ -55,7 +55,7 @@ import { getNodeValuesEstimations } from './table/getNodeValuesEstimations'
 import { getTableData } from './table/getTableData'
 import { getTableDataHistory } from './table/getTableDataHistory'
 import { persistNodeValues } from './table/persistNodeValues'
-import { getSummary as getValidationSummary } from './validations/getSummary'
+import { getValidationSummary } from './validations/getSummary'
 
 export const CycleDataApi = {
   init: (express: Express): void => {

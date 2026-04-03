@@ -13,7 +13,7 @@ type Props = {
   cycle: Cycle
 }
 
-export const getSummary = async (props: Props): Promise<ValidationSummary> => {
+export const getValidationSummary = async (props: Props): Promise<ValidationSummary> => {
   const { assessment, countryIso, cycle } = props
   const [sectionsMetadata, tableValidations] = await Promise.all([
     SectionRedisRepository.getManyMetadata({ assessment, cycle }),
