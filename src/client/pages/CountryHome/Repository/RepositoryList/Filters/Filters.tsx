@@ -11,6 +11,7 @@ import MultiSelect from 'client/components/TablePaginated/Filters/MultiSelect'
 import Text from 'client/components/TablePaginated/Filters/Text'
 import ButtonAdd from 'client/pages/CountryHome/Repository/ButtonAdd'
 import ButtonDownloadAll from 'client/pages/CountryHome/Repository/ButtonDownloadAll'
+import { useFileTypeOptions } from 'client/pages/CountryHome/Repository/RepositoryList/hooks/_useFileTypeOptions'
 
 type Props = {
   isGlobal?: boolean
@@ -20,6 +21,7 @@ const Filters: React.FC<Props> = (props) => {
   const { isGlobal = false } = props
   const { t } = useTranslation()
   const path = `${ApiEndPoint.CycleData.Repository.tree()}?global=${isGlobal}`
+  const fileTypeOptions = useFileTypeOptions(path)
 
   return (
     <div className="repository-filters">
@@ -30,6 +32,17 @@ const Filters: React.FC<Props> = (props) => {
       <Hr vertical />
       <Icon name="filter" />
       <Text fieldName="name" label={t('common.name')} path={path} type={TablePaginatedFilterType.TEXT} />
+      <MultiSelect
+        fieldName="access"
+        label={t('common.access')}
+        multiLabelSummaryKey="common.access"
+        options={[
+          { label: t('common.public'), value: 'public' },
+          { label: t('common.private'), value: 'private' },
+        ]}
+        path={path}
+        type={TablePaginatedFilterType.MULTI_SELECT}
+      />
       <MultiSelect
         fieldName="linked"
         label={t('common.linked')}
@@ -42,13 +55,10 @@ const Filters: React.FC<Props> = (props) => {
         type={TablePaginatedFilterType.MULTI_SELECT}
       />
       <MultiSelect
-        fieldName="access"
-        label={t('common.access')}
-        multiLabelSummaryKey="common.access"
-        options={[
-          { label: t('common.public'), value: 'public' },
-          { label: t('common.private'), value: 'private' },
-        ]}
+        fieldName="fileType"
+        label={t('common.fileType')}
+        multiLabelSummaryKey="common.fileType"
+        options={fileTypeOptions}
         path={path}
         type={TablePaginatedFilterType.MULTI_SELECT}
       />
