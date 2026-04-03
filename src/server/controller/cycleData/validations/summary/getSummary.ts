@@ -4,8 +4,8 @@ import { Cycle } from 'meta/assessment/cycle'
 import { ValidationSummary } from 'meta/assessment/validation/summary'
 import { Objects } from 'utils/objects'
 
-import { SectionRedisRepository } from 'server/cache/repository/section'
 import { ValidationRedisRepository } from 'server/cache/repository/validation'
+import { SectionRepository } from 'server/db/repository/assessment/section'
 
 type Props = {
   assessment: Assessment
@@ -15,15 +15,18 @@ type Props = {
 
 export const getValidationSummary = async (props: Props): Promise<ValidationSummary> => {
   const { assessment, countryIso, cycle } = props
-  const [sectionsMetadata, tableValidations] = await Promise.all([
-    SectionRedisRepository.getManyMetadata({ assessment, cycle }),
+  const [sections, sectionsMetadata, tableValidations] = await Promise.all([
+    SectionRepository.getMany({ assessment, cycle }),
+    SectionRepository.getManyMetadata({ assessment, cycle }),
     ValidationRedisRepository.getTableValidations({ assessment, countryIso, cycle }),
   ])
   const summary: ValidationSummary = { sections: {}, subsections: {}, tables: {} }
+  const subSections = sections.flatMap((section) => section.subSections ?? [])
 
-  Object.values(sectionsMetadata).forEach((tableSections) => {
-    const { sectionUuid } = tableSections[0]
-    const subsectionUuid = tableSections[0].uuid
+  Object.entries(sectionsMetadata).forEach(([subSectionName, tableSections]) => {
+    const subSection = subSections.find((_subSection) => _subSection.props.name === subSectionName)
+    const sectionUuid = subSection.parentUuid
+    const subsectionUuid = subSection.uuid
     const tableNames = tableSections.flatMap((tableSection) => tableSection.tables.map((table) => table.props.name))
     let subsectionValid = true
 
