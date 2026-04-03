@@ -12,7 +12,7 @@ export type FolderPath = {
  * @param uuid - target folder UUID
  * @returns path to the folder and the folder itself as currentFolder
  */
-export const getFolderPath = (items: Array<RepositoryItemTree>, uuid: string | null): FolderPath => {
+export const getFolderPath = (items: Array<RepositoryItemTree>, uuid: string | undefined): FolderPath => {
   if (!uuid) return { currentFolder: undefined, folderPath: [] }
 
   const folderPath = items.reduce<Array<RepositoryItemTree>>((found, item) => {

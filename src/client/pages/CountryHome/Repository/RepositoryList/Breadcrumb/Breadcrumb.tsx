@@ -10,7 +10,7 @@ const Breadcrumb: React.FC = () => {
 
   return (
     <div className="repository-list__breadcrumb">
-      <button onClick={() => onNavigate(null)}>{t('landing.home')}</button>
+      <button onClick={() => onNavigate()}>{t('landing.home')}</button>
       {folderPath.map((folder) => (
         <React.Fragment key={folder.uuid}>
           {' / '}

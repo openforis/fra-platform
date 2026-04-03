@@ -5,7 +5,7 @@ import { RepositoryItemTree } from 'meta/cycleData/repository/item'
 export type RepositoryListContextValue = {
   collapsed: Record<string, boolean>
   folderPath: Array<RepositoryItemTree>
-  onNavigate: (uuid: string | null) => void
+  onNavigate: (uuid?: string) => void
   onToggle: (uuid: string) => void
   parentUuid: string | undefined
 }

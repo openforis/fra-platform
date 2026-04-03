@@ -18,11 +18,11 @@ type Returned = {
 
 export const useFolderNavigation = (props: Props): Returned => {
   const { collapsed, items, onToggle } = props
-  const [folderTarget, setFolderTarget] = useState<string | null>(null)
+  const [folderTarget, setFolderTarget] = useState<string | undefined>()
 
   const { currentFolder, folderPath } = useMemo(() => getFolderPath(items, folderTarget), [folderTarget, items])
 
-  const onNavigate = useCallback((uuid: string | null) => setFolderTarget(uuid), [])
+  const onNavigate = useCallback((uuid?: string) => setFolderTarget(uuid), [])
 
   const contextValue = useMemo<RepositoryListContextValue>(
     () => ({
