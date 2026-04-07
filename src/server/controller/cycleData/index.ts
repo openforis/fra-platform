@@ -4,6 +4,7 @@ import { deleteOriginalDataPointNationalClass } from 'server/controller/cycleDat
 import { Report } from 'server/controller/cycleData/report'
 import { Repository } from 'server/controller/cycleData/repository'
 import { TableData } from 'server/controller/cycleData/tableData'
+import { getValidationSummary } from 'server/controller/cycleData/validations/summary/getSummary'
 import { CountryActivityLogRepository } from 'server/db/repository/assessmentCycle/countryActivityLog'
 import { MessageTopicUserRepository } from 'server/db/repository/assessmentCycle/messageTopicUser'
 import { OriginalDataPointRepository } from 'server/db/repository/assessmentCycle/originalDataPoint'
@@ -64,6 +65,7 @@ export const CycleDataController = {
   // ===== review
   getReviewStatus,
   getReviewSummary: MessageTopicUserRepository.getReviewSummary,
+  getValidationSummary,
 
   // ==== activities
   getActivities: CountryActivityLogRepository.getMany,

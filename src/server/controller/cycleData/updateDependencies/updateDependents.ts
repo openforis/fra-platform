@@ -63,7 +63,6 @@ export const updateDependents = async (props: Props, client: BaseProtocol): Prom
     Logger.debug(`[updateDependencies] [${logKey}] scheduling ${externalNodeUpdates.nodes.length} external dependents`)
     await updateExternalDependents({ countryIso, nodeUpdates: externalNodeUpdates, notifyClients, user }, client)
   })
-  // TODO: Update external validations
 
   // 4. end
   return Promise.resolve()

@@ -16,7 +16,7 @@ type Props = {
   notifyClients?: boolean
 }
 
-export async function updateValidations(props: Props): Promise<void> {
+export const updateValidations = async (props: Props): Promise<void> => {
   const { assessment, country, cycle, nodeUpdates } = props
   const context = await ContextFactory.newInstance({ assessment, country, cycle, nodeUpdates })
   const { countryIso, tableValidations } = context
