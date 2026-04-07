@@ -12,15 +12,18 @@ const getDefinition = (props: Props): Promise<string> => {
 
 const _getAnchorAndTextFromHeader = (header: string): { anchor: string; text: string } => {
   const sectionMarkerMatch = header.match(/<!--\s*section:(.*?)\s*-->/)
-  let anchor = ''
-  let text = header
+
   if (sectionMarkerMatch && sectionMarkerMatch.length > 1) {
-    anchor = sectionMarkerMatch[1].trim() // Result of the capturing group (.*?)
-    text = header.replace(sectionMarkerMatch[0], '').trim() // Remove HTML comment
-  } else {
-    anchor = header.toLowerCase().substring(0, header.indexOf(' ')).trim()
+    return {
+      anchor: sectionMarkerMatch[1].trim(), // Result of the capturing group (.*?)
+      text: header.replace(sectionMarkerMatch[0], '').trim(), // Remove HTML comment
+    }
   }
-  return { anchor, text }
+
+  return {
+    anchor: header.toLowerCase().substring(0, header.indexOf(' ')).trim(),
+    text: header,
+  }
 }
 
 export const getHtml = async (props: Props): Promise<string> => {
