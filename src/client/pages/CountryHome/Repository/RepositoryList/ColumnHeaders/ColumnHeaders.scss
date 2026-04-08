@@ -1,7 +1,8 @@
+@use 'sass:color';
 @use 'src/client/style/partials' as *;
 
 .repository-column-headers {
-  background-color: $ui-bg-light;
+  background-color: color.adjust($ui-bg-hover, $lightness: 4%, $space: hsl);
   border-top: 1px solid $ui-border;
   box-shadow: 0 1px 0 $ui-border-dark;
   display: grid;
