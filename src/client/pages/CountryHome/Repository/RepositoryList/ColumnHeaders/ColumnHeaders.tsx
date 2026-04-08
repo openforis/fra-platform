@@ -1,4 +1,4 @@
-import './Toolbar.scss'
+import './ColumnHeaders.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -14,7 +14,7 @@ type Props = {
   isGlobal?: boolean
 }
 
-const Toolbar: React.FC<Props> = (props) => {
+const ColumnHeaders: React.FC<Props> = (props) => {
   const { isGlobal = false } = props
   const { t } = useTranslation()
   const path = `${ApiEndPoint.CycleData.Repository.tree()}?global=${isGlobal}`
@@ -26,20 +26,20 @@ const Toolbar: React.FC<Props> = (props) => {
   })
 
   return (
-    <div className="repository-toolbar">
-      <div className="repository-toolbar__col repository-toolbar__col--name">
+    <div className="repository-column-headers">
+      <div className="repository-column-headers__col repository-column-headers__col--name">
         {t('common.name')}
         <OrderBy column={col('name')} path={path} />
       </div>
-      <div className="repository-toolbar__col">
+      <div className="repository-column-headers__col">
         {t('common.added')}
         <OrderBy column={col('createdAt')} path={path} />
       </div>
-      <div className="repository-toolbar__col">
+      <div className="repository-column-headers__col">
         {t('common.linked')}
         <OrderBy column={col('linked')} path={path} />
       </div>
-      <div className="repository-toolbar__col">
+      <div className="repository-column-headers__col">
         {t('common.access')}
         <OrderBy column={col('access')} path={path} />
       </div>
@@ -48,4 +48,4 @@ const Toolbar: React.FC<Props> = (props) => {
   )
 }
 
-export default Toolbar
+export default ColumnHeaders

@@ -1,18 +1,19 @@
 @use 'src/client/style/partials' as *;
 
-.repository-toolbar {
+.repository-column-headers {
   background-color: $ui-bg-hover;
-  border-bottom: 1px solid $ui-border;
   border-top: 1px solid $ui-border;
+  box-shadow: 0 1px 0 $ui-border-dark;
   display: grid;
   grid-column: 1 / -1;
   grid-template-columns: subgrid;
   min-height: 28px;
 }
 
-.repository-toolbar__col {
+.repository-column-headers__col {
   align-items: center;
-  border-right: 1px solid $ui-border;
+  border-right: 1px solid $ui-border-light;
+  color: $text-mute;
   display: flex;
   font-size: $font-xxxs;
   font-weight: 600;
@@ -20,12 +21,11 @@
   text-transform: uppercase;
 
   &:first-child {
-    border-left: 1px solid $ui-border;
+    border-left: 1px solid $ui-border-light;
   }
 }
 
-// Adjust spacing for first col - take into account the folder/arrow icons
-.repository-toolbar__col--name {
+.repository-column-headers__col--name {
   gap: $spacing-xxxs;
   padding-left: $spacing-xs;
 }

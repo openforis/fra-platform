@@ -1,0 +1,23 @@
+@use 'src/client/style/partials' as *;
+
+.repository-button-back {
+  all: unset;
+  align-items: center;
+  color: $text-body;
+  cursor: pointer;
+  display: flex;
+  transition: $ease-out;
+
+  .icon_small-down {
+    transform: rotate(90deg);
+  }
+
+  &:hover {
+    color: $ui-accent;
+  }
+
+  &:disabled {
+    color: $text-disabled;
+    cursor: default;
+  }
+}

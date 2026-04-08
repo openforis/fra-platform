@@ -4,3 +4,12 @@
   display: grid;
   grid-template-columns: 1fr 100px minmax(120px, auto) minmax(120px, auto) auto;
 }
+
+.repository-list__title {
+  background-color: $ui-bg-hover;
+  font-size: $font-m;
+  font-weight: 600;
+  grid-column: 1 / -1;
+  padding: $spacing-xs $spacing-xxs $spacing-xxxs;
+  text-align: center;
+}

@@ -4,8 +4,8 @@ import React from 'react'
 import { RepositoryItemTree } from 'meta/cycleData/repository/item'
 
 import { useRepositoryListContext } from '../context'
-import type { Props as FolderRowProps } from './FolderRow/FolderRow'
-import FolderRow from './FolderRow'
+import type { Props as FolderProps } from './Folder/props'
+import Folder from './Folder'
 import ItemRow from './ItemRow'
 
 type Props = {
@@ -13,8 +13,8 @@ type Props = {
   item: RepositoryItemTree
 }
 
-const Components: Record<string, React.FC<FolderRowProps>> = {
-  folder: FolderRow,
+const Components: Record<string, React.FC<FolderProps>> = {
+  folder: Folder,
   item: ItemRow,
 }
 

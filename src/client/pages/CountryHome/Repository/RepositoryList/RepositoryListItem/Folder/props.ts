@@ -1,6 +1,7 @@
 import { RepositoryItemTree } from 'meta/cycleData/repository/item'
 
-export type FolderProps = {
+export type Props = {
+  depth: number
   isCollapsed: boolean
-  repositoryItem: RepositoryItemTree
+  item: RepositoryItemTree
 }
