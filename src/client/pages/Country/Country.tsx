@@ -12,6 +12,7 @@ import Navigation from 'client/components/Navigation'
 import { useInitSections } from './hooks/useInitSections'
 import { useInitValidationSummary } from './hooks/useInitValidationSummary'
 import { useReviewSummaryListener } from './hooks/useReviewSummaryListener'
+import { useTableValidationsListener } from './hooks/useTableValidationsListener'
 import { useUserRedirect } from './hooks/useUserRedirect'
 
 const Country: React.FC = () => {
@@ -23,6 +24,7 @@ const Country: React.FC = () => {
   useInitSections()
   useInitValidationSummary()
   useReviewSummaryListener()
+  useTableValidationsListener()
   useUserRedirect()
 
   if (!countryIso) return null
