@@ -13,11 +13,10 @@ import Header from './Header'
 
 type Props = {
   isGlobal?: boolean
-  title: string
 }
 
 const RepositoryList: React.FC<Props> = (props) => {
-  const { isGlobal, title } = props
+  const { isGlobal } = props
 
   useGetItems(isGlobal)
   const items = useItems(isGlobal)
@@ -27,7 +26,6 @@ const RepositoryList: React.FC<Props> = (props) => {
   return (
     <RepositoryListContext.Provider value={contextValue}>
       <div className="repository-list">
-        <div className="repository-list__title">{title}</div>
         <Header isGlobal={isGlobal} />
         <ColumnHeaders isGlobal={isGlobal} />
         {visibleItems.map((item) => (

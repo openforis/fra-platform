@@ -18,12 +18,15 @@ const Repository: React.FC = () => {
     <div className="repository">
       {!isPanEuropean && (
         <>
-          <RepositoryList isGlobal title={t('landing.links.links')} />
+          <h3>{t('landing.links.links')}</h3>
+
+          <RepositoryList isGlobal />
           <Hr />
         </>
       )}
 
-      <RepositoryList title={t('landing.links.repository')} />
+      <h3>{t('landing.links.repository')}</h3>
+      <RepositoryList />
 
       <EditForm />
     </div>
