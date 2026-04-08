@@ -9,15 +9,14 @@ export type Props = {
   depth: number
   isCollapsed: boolean
   item: RepositoryItemTree
-  onToggle: (uuid: string) => void
 }
 
 const FolderRow: React.FC<Props> = (props) => {
-  const { depth, isCollapsed, item, onToggle } = props
+  const { depth, isCollapsed, item } = props
 
   return (
     <div className="repository-list-item repository-list-item--folder" style={{ paddingLeft: depth * 20 }}>
-      <Folder isCollapsed={isCollapsed} onToggle={onToggle} repositoryItem={item} />
+      <Folder isCollapsed={isCollapsed} repositoryItem={item} />
     </div>
   )
 }

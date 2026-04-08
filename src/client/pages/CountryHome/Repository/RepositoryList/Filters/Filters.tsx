@@ -13,6 +13,8 @@ import ButtonAdd from 'client/pages/CountryHome/Repository/ButtonAdd'
 import ButtonDownloadAll from 'client/pages/CountryHome/Repository/ButtonDownloadAll'
 import { useFileTypeOptions } from 'client/pages/CountryHome/Repository/RepositoryList/hooks/_useFileTypeOptions'
 
+import { useRepositoryListContext } from '../context'
+
 type Props = {
   isGlobal?: boolean
 }
@@ -20,6 +22,7 @@ type Props = {
 const Filters: React.FC<Props> = (props) => {
   const { isGlobal = false } = props
   const { t } = useTranslation()
+  const { parentUuid } = useRepositoryListContext()
   const path = `${ApiEndPoint.CycleData.Repository.tree()}?global=${isGlobal}`
   const fileTypeOptions = useFileTypeOptions(path)
 
@@ -28,7 +31,7 @@ const Filters: React.FC<Props> = (props) => {
       <ButtonDownloadAll isGlobal={isGlobal} />
       {/* TODO: Add Button ADD FILE */}
       {/* TODO: Add Button ADD FOLDER */}
-      <ButtonAdd isGlobal={isGlobal} />
+      <ButtonAdd isGlobal={isGlobal} parentUuid={parentUuid} />
       <Hr vertical />
       <Icon name="filter" />
       <Text fieldName="name" label={t('common.name')} path={path} type={TablePaginatedFilterType.TEXT} />

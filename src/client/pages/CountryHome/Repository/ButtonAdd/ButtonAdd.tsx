@@ -10,14 +10,15 @@ import { useOpenPanel } from 'client/pages/CountryHome/Repository/hooks/useOpenP
 
 type Props = {
   isGlobal?: boolean
+  parentUuid?: string
 }
 
 const ButtonAdd: React.FC<Props> = (props: Props) => {
-  const { isGlobal } = props
+  const { isGlobal, parentUuid } = props
   const { countryIso } = useCountryRouteParams<CountryIso>()
   const { t } = useTranslation()
 
-  const openPanel = useOpenPanel({ countryIso: isGlobal ? undefined : countryIso })
+  const openPanel = useOpenPanel({ countryIso: isGlobal ? undefined : countryIso, parentUuid })
 
   const isGlobalRepositoryEditable = useIsGlobalRepositoryEditable()
   const isCountryRepositoryEditable = useIsCountryRepositoryEditable()

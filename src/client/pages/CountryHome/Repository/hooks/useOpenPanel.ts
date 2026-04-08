@@ -8,13 +8,17 @@ import { RepositoryActions } from 'client/store/repository/actions'
 
 type Returned = () => void
 
-const initialRepositoryItem = (countryIso?: CountryIso): Partial<RepositoryItem> => {
-  return { countryIso, props: { public: true, translation: { en: undefined } } }
+const initialRepositoryItem = (countryIso?: CountryIso, parentUuid?: string): Partial<RepositoryItem> => {
+  return { countryIso, parentUuid, props: { public: true, translation: { en: undefined } } }
 }
 
-export const useOpenPanel = (props: { repositoryItem?: RepositoryItem; countryIso?: CountryIso }): Returned => {
-  const { countryIso, repositoryItem } = props
-  const _repositoryItem = repositoryItem ?? initialRepositoryItem(countryIso)
+export const useOpenPanel = (props: {
+  repositoryItem?: RepositoryItem
+  countryIso?: CountryIso
+  parentUuid?: string
+}): Returned => {
+  const { countryIso, parentUuid, repositoryItem } = props
+  const _repositoryItem = repositoryItem ?? initialRepositoryItem(countryIso, parentUuid)
   const dispatch = useAppDispatch()
   return useCallback(() => {
     dispatch(RepositoryActions.setRepositoryItem(_repositoryItem))

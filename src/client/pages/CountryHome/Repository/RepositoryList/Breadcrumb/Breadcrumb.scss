@@ -1,0 +1,21 @@
+@use 'src/client/style/partials' as *;
+
+.repository-list__breadcrumb {
+  align-items: center;
+  color: $text-mute;
+  display: flex;
+  font-size: $font-xs;
+  gap: $spacing-xxxs;
+  grid-column: 1 / -1;
+  padding: $spacing-xxxs $spacing-xxs;
+
+  button {
+    all: unset;
+    color: $ui-accent;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
