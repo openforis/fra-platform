@@ -2,14 +2,14 @@ import './Breadcrumb.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { useRepositoryListContext } from '../context'
+import { useRepositoryListContext } from 'client/pages/CountryHome/Repository/RepositoryList/context'
 
 const Breadcrumb: React.FC = () => {
   const { folderPath, onNavigate } = useRepositoryListContext()
   const { t } = useTranslation()
 
   return (
-    <div className="repository-list__breadcrumb">
+    <span className="repository-header__path">
       <button onClick={() => onNavigate()}>{t('landing.home')}</button>
       {folderPath.map((folder) => (
         <React.Fragment key={folder.uuid}>
@@ -17,7 +17,7 @@ const Breadcrumb: React.FC = () => {
           <button onClick={() => onNavigate(folder.uuid)}>{folder.folderName}</button>
         </React.Fragment>
       ))}
-    </div>
+    </span>
   )
 }
 

@@ -1,13 +1,11 @@
 @use 'src/client/style/partials' as *;
 
-.repository-list__breadcrumb {
+.repository-header__path {
   align-items: center;
   color: $text-mute;
   display: flex;
   font-size: $font-xs;
   gap: $spacing-xxxs;
-  grid-column: 1 / -1;
-  padding: $spacing-xxxs $spacing-xxs;
 
   button {
     all: unset;
@@ -16,6 +14,12 @@
 
     &:hover {
       text-decoration: underline;
+    }
+
+    &:last-child {
+      color: $text-body;
+      cursor: default;
+      pointer-events: none;
     }
   }
 }

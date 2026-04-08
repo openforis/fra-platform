@@ -5,13 +5,13 @@
   display: grid;
   grid-column: 1 / -1;
   grid-template-columns: subgrid;
-  min-height: 28px;
+  min-height: 32px;
 
   &:nth-child(even) {
     background-color: $ui-bg-light;
   }
 
   &:hover {
-    background-color: $ui-bg-hover;
+    background-color: $ui-accent-light;
   }
 }
