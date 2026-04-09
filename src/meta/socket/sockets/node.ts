@@ -8,7 +8,7 @@ type Props = {
   cycleName: CycleName
 }
 
-export const getNodeValidationsUpdateEvent = (props: Props): string => {
+export const getTableValidationsUpdateEvent = (props: Props): string => {
   const { assessmentName, countryIso, cycleName } = props
   return `${countryIso}-${assessmentName}-${cycleName}-validationsUpdate`
 }

@@ -37,7 +37,7 @@ export const updateValidations = async (props: Props): Promise<void> => {
   })
 
   if (notifyClients && updatedTableNames.length > 0) {
-    const eventName = Sockets.getNodeValidationsUpdateEvent({ assessmentName, countryIso, cycleName })
+    const eventName = Sockets.getTableValidationsUpdateEvent({ assessmentName, countryIso, cycleName })
     const updatedTableValidations = updatedTableNames.reduce<RecordTableValidationsState>((acc, tableName) => {
       acc[tableName] = tableValidations[tableName] ?? {}
       return acc

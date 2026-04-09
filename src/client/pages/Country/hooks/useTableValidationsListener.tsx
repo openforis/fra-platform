@@ -18,7 +18,7 @@ export const useTableValidationsListener = (): void => {
   useEffect(() => {
     if (!canEditData) return
 
-    const eventName = Sockets.getNodeValidationsUpdateEvent({ countryIso, assessmentName, cycleName })
+    const eventName = Sockets.getTableValidationsUpdateEvent({ countryIso, assessmentName, cycleName })
 
     const listener = (args: [{ tableValidations: RecordTableValidationsState }]): void => {
       const [{ tableValidations }] = args
