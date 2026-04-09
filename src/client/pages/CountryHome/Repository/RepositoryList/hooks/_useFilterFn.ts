@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 
 import { RepositoryItemTree } from 'meta/cycleData/repository/item'
+import { RepositoryItems } from 'meta/cycleData/repository/items'
 import { Lang } from 'meta/lang'
 import { Objects } from 'utils/objects'
 
@@ -14,7 +15,7 @@ const _filterByPredicate = (
   predicate: (item: RepositoryItemTree) => boolean
 ): Array<RepositoryItemTree> =>
   items.reduce<Array<RepositoryItemTree>>((acc, item) => {
-    if (!item.folderName) {
+    if (!RepositoryItems.isFolder(item)) {
       if (predicate(item)) acc.push(item)
       return acc
     }
@@ -39,7 +40,7 @@ const _getFilterBoolSelect = (
 const _filterByName = (items: Array<RepositoryItemTree>, filter: string, language: Lang): Array<RepositoryItemTree> => {
   const lower = filter.toLowerCase()
   return items.reduce<Array<RepositoryItemTree>>((acc, item) => {
-    if (!item.folderName) {
+    if (!RepositoryItems.isFolder(item)) {
       if (_getNameTranslation(item, language).toLowerCase().includes(lower)) acc.push(item)
       return acc
     }

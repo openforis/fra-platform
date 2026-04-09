@@ -1,4 +1,5 @@
 import { RepositoryItemTree } from 'meta/cycleData/repository/item'
+import { RepositoryItems } from 'meta/cycleData/repository/items'
 import { Lang } from 'meta/lang'
 import { TablePaginatedOrderByDirection } from 'meta/tablePaginated/orderBy'
 import { Objects } from 'utils/objects'
@@ -31,8 +32,8 @@ const _compareFn =
   (property: SortProperty, direction: TablePaginatedOrderByDirection, language: Lang): CompareFN =>
   (a: RepositoryItemTree, b: RepositoryItemTree): number => {
     // Folders first
-    if (a.folderName && !b.folderName) return -1
-    if (!a.folderName && b.folderName) return 1
+    if (RepositoryItems.isFolder(a) && !RepositoryItems.isFolder(b)) return -1
+    if (!RepositoryItems.isFolder(a) && RepositoryItems.isFolder(b)) return 1
 
     // Direction
     const multiplier = direction === TablePaginatedOrderByDirection.asc ? 1 : -1

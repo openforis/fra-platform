@@ -1,11 +1,12 @@
 import { RepositoryItem } from 'meta/cycleData/repository/item'
+import { RepositoryItems } from 'meta/cycleData/repository/items'
 import { RepositoryItemValidation } from 'meta/cycleData/repository/itemValidation'
 
 const validate = (repositoryItem: Partial<RepositoryItem>): RepositoryItemValidation | undefined => {
   const { fileUuid, folderName, link, props } = repositoryItem || {}
   const name = props?.translation?.en
 
-  if (folderName !== undefined) {
+  if (RepositoryItems.isFolder(repositoryItem)) {
     if (!folderName) return { folderName: 'validation.repositoryItem.nameIsRequired' }
     return undefined
   }
