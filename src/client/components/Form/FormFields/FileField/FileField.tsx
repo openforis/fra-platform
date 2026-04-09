@@ -9,18 +9,23 @@ import FormField from 'client/components/Form/FormFields/FormField'
 import { FieldProps } from '../types'
 
 const FileField: React.FC<FieldProps> = (props) => {
-  const { fieldDefinition, register, setValue, trigger } = props
-  const { name } = fieldDefinition
+  const { fieldDefinition, register, setValue, trigger, watch } = props
+  const { name, nameField } = fieldDefinition
 
   const [files, setFiles] = useState<Array<FileSummary>>()
 
   const onChange = useCallback<FileUploadOnChange>(
     (uploadedFiles) => {
+      const file = uploadedFiles.at(0)
       setFiles(uploadedFiles)
-      setValue(name, uploadedFiles.at(0)?.uuid ?? '')
+      setValue(name, file?.uuid ?? '')
+      // If nameField is empty, populate the given name field with file name
+      if (nameField && !watch(nameField) && file?.name) {
+        setValue(nameField as never, file.name as never)
+      }
       trigger(name)
     },
-    [name, setValue, trigger]
+    [name, nameField, setValue, trigger, watch]
   )
 
   return (
