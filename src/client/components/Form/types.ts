@@ -7,6 +7,7 @@ export enum FormFieldType {
   avatar = 'avatar',
   checkbox = 'checkbox',
   country = 'country',
+  file = 'file',
   hidden = 'hidden',
   language = 'language',
   password = 'password',
