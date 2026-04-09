@@ -14,24 +14,27 @@ type Props = {
 
 export const update = async (props: Props, client: BaseProtocol = DB): Promise<RepositoryItem> => {
   const { assessment, cycle, repositoryItem } = props
-  const { description, fileUuid, link, props: _props, uuid } = repositoryItem
+  const { description, fileUuid, folderName, link, props: _props = {}, uuid } = repositoryItem
 
-  if (fileUuid && link) throw new Error('Cannot create both file and link')
-  if (!fileUuid && !link) throw new Error('No file or link provided')
+  if (!folderName) {
+    if (fileUuid && link) throw new Error('Cannot create both file and link')
+    if (!fileUuid && !link) throw new Error('No file or link provided')
+  }
 
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
 
   return client.one<RepositoryItem>(
     `
       update ${schemaCycle}.repository
-      set description = $1
-        , file_uuid = $2
-        , link = $3
-        , props = $4
-      where uuid = $5
+      set description = $(description)
+        , file_uuid = $(fileUuid)
+        , folder_name = $(folderName)
+        , link = $(link)
+        , props = $(props)
+      where uuid = $(uuid)
       returning *
     `,
-    [description, fileUuid, link, _props, uuid],
+    { description, fileUuid, folderName, link, props: _props, uuid },
     (row) => Objects.camelize(row)
   )
 }

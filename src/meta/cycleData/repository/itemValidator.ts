@@ -2,17 +2,15 @@ import { RepositoryItem } from 'meta/cycleData/repository/item'
 import { RepositoryItemValidation } from 'meta/cycleData/repository/itemValidation'
 
 const validate = (repositoryItem: Partial<RepositoryItem>): RepositoryItemValidation | undefined => {
-  const {
-    fileUuid,
-    link,
-    props: {
-      translation: { en: name },
-    },
-  } = repositoryItem || {}
+  const { fileUuid, folderName, link, props } = repositoryItem || {}
+  const name = props?.translation?.en
 
-  if (!name) {
-    return { name: 'validation.repositoryItem.nameIsRequired' }
+  if (folderName !== undefined) {
+    if (!folderName) return { folderName: 'validation.repositoryItem.nameIsRequired' }
+    return undefined
   }
+
+  if (!name) return { name: 'validation.repositoryItem.nameIsRequired' }
 
   if (!fileUuid && !link) {
     return {
