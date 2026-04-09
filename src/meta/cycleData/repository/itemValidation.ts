@@ -1,5 +1,6 @@
 export type RepositoryItemValidation = {
-  name?: string
   fileUuid?: string
+  folderName?: string
   link?: string
+  name?: string
 }

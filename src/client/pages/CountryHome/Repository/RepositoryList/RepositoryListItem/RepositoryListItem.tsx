@@ -2,6 +2,7 @@ import './RepositoryListItem.scss'
 import React from 'react'
 
 import { RepositoryItemTree } from 'meta/cycleData/repository/item'
+import { RepositoryItems } from 'meta/cycleData/repository/items'
 
 import { useRepositoryListContext } from '../context'
 import type { Props as FolderProps } from './Folder/props'
@@ -23,7 +24,7 @@ const RepositoryListItem: React.FC<Props> = (props) => {
   const { collapsed } = useRepositoryListContext()
 
   const isCollapsed = collapsed[item.uuid]
-  const Component = Components[item.folderName ? 'folder' : 'item']
+  const Component = Components[RepositoryItems.isFolder(item) ? 'folder' : 'item']
 
   return (
     <>

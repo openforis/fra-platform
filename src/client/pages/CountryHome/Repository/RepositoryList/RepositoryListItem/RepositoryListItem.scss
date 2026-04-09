@@ -6,6 +6,7 @@
   grid-column: 1 / -1;
   grid-template-columns: subgrid;
   min-height: 32px;
+  padding-right: $spacing-xxs;
 
   &:nth-child(even) {
     background-color: $ui-bg-light;
