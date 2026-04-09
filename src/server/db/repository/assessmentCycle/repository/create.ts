@@ -2,6 +2,7 @@ import { AreaCode } from 'meta/area/areaCode'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { RepositoryItem } from 'meta/cycleData/repository/item'
+import { RepositoryItems } from 'meta/cycleData/repository/items'
 import { Objects } from 'utils/objects'
 
 import { BaseProtocol, DB } from 'server/db/db'
@@ -18,7 +19,7 @@ export const create = async (props: Props, client: BaseProtocol = DB): Promise<R
   const { assessment, cycle, repositoryItem } = props
   const { countryIso, description, fileUuid, folderName, link, parentUuid, props: _props = {} } = repositoryItem
 
-  if (!folderName) {
+  if (!RepositoryItems.isFolder(repositoryItem)) {
     if (fileUuid && link) throw new Error('Cannot create both file and link')
     if (!fileUuid && !link) throw new Error('No file or link provided')
   }
@@ -31,7 +32,15 @@ export const create = async (props: Props, client: BaseProtocol = DB): Promise<R
       values ($(countryIso), $(description), $(fileUuid), $(folderName), $(link), $(parentUuid), $(props))
       returning *
     `,
-    { countryIso, description, fileUuid, folderName, link, parentUuid, props: _props },
+    {
+      countryIso,
+      description: description || null,
+      fileUuid: fileUuid || null,
+      folderName: folderName ?? null,
+      link: link || null,
+      parentUuid: parentUuid || null,
+      props: _props,
+    },
     (row) => Objects.camelize(row)
   )
 }
