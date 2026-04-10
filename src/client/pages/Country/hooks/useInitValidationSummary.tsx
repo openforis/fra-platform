@@ -16,5 +16,9 @@ export const useInitValidationSummary = (): void => {
     if (!canEditData) return
 
     dispatch(ValidationsActions.getSummary({ assessmentName, cycleName, countryIso }))
+
+    return (): void => {
+      dispatch(ValidationsActions.removeValidations({ assessmentName, cycleName, countryIso }))
+    }
   }, [assessmentName, canEditData, countryIso, cycleName, dispatch])
 }

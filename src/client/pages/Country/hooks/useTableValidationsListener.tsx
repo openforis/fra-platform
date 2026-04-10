@@ -29,6 +29,7 @@ export const useTableValidationsListener = (): void => {
 
     return (): void => {
       SocketClient.off(eventName, listener)
+      dispatch(ValidationsActions.removeValidations({ assessmentName, cycleName, countryIso }))
     }
   }, [assessmentName, canEditData, countryIso, cycleName, dispatch])
 }
