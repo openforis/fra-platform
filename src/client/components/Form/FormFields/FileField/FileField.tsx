@@ -27,10 +27,10 @@ const FileField: React.FC<FieldProps> = (props) => {
       hasUserInteracted.current = true
       const file = uploadedFiles.at(0)
       setFiles(uploadedFiles)
-      setValue(name, file?.uuid ?? '')
+      setValue(name, file?.uuid ?? '', { shouldDirty: true })
       // If nameField is empty, populate the given name field with file name
       if (nameField && !watch(nameField) && file?.name) {
-        setValue(nameField as never, file.name as never)
+        setValue(nameField as never, file.name as never, { shouldDirty: true })
       }
       trigger(name)
     },
