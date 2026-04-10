@@ -201,7 +201,7 @@ export const CycleDataApi = {
     )
     express.get(ApiEndPoint.CycleData.Repository.many(), AuthMiddleware.requireView, getManyRepository)
     express.get(ApiEndPoint.CycleData.Repository.tree(), AuthMiddleware.requireView, getManyRepositoryTree)
-    express.patch(
+    express.put(
       ApiEndPoint.CycleData.Repository.one(),
       multer().none(),
       FormDataBodyMiddleware.parseBody,

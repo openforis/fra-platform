@@ -1,7 +1,6 @@
 @use 'src/client/style/partials' as *;
 
 .repository-form__usages {
-  grid-column: 1 / -1;
   margin-top: $spacing-m;
 }
 

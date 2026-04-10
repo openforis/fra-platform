@@ -28,6 +28,7 @@ export type FieldDefinition<FIELD_VALUES = FieldValues> = {
   bordered?: boolean
   defaultValue?: unknown
   errorField?: string
+  initialValue?: unknown
   isMulti?: boolean
   label: string
   name: string

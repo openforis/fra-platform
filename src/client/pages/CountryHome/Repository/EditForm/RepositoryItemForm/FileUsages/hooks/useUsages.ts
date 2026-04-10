@@ -4,25 +4,25 @@ import { useTranslation } from 'react-i18next'
 import { Labels } from 'meta/assessment/labels'
 import { SectionNames } from 'meta/assessment/section'
 import { SubSections } from 'meta/assessment/subSections'
+import { FileMeta } from 'meta/file/meta'
 
 import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useSections } from 'client/store/meta/hooks/sections'
-import { useRepositoryFileMeta } from 'client/store/repository/hooks/repository'
 
-type Returned = Array<{
+type Usage = {
   section: string
   locations: Array<string>
-}>
-export const useUsages = (): Returned => {
+}
+
+export const useUsages = (fileMeta: FileMeta | undefined): Array<Usage> => {
   const { t } = useTranslation()
   const assessment = useAssessment()
   const cycle = useCycle()
-  const fileMeta = useRepositoryFileMeta()
   const sections = useSections()
   const subsections = sections?.flatMap((section) => section.subSections)
 
-  return useMemo<Returned>(() => {
+  return useMemo<Array<Usage>>(() => {
     return (
       fileMeta?.usages?.map((usage) => {
         const locations =
@@ -45,7 +45,7 @@ export const useUsages = (): Returned => {
         )
 
         return {
-          section: `${anchor} ${label} `,
+          section: `${anchor} ${label}`,
           locations,
         }
       }) ?? []
