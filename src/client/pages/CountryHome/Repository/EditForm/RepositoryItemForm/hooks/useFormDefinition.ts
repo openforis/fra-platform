@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { CountryIso } from 'meta/area/countryIso'
 import { RepositoryItem, RepositoryItemTree } from 'meta/cycleData/repository/item'
 import { RepositoryItems } from 'meta/cycleData/repository/items'
+import { FileMeta } from 'meta/file/meta'
 
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { FieldDefinition, FormDefinition, FormFieldType } from 'client/components/Form/types'
@@ -11,7 +12,6 @@ import { Option } from 'client/components/Inputs/Select/types'
 import { useItems } from 'client/pages/CountryHome/Repository/RepositoryList/hooks/useItems'
 
 import { FormType } from '../types'
-import { useFileMeta } from './useFileMeta'
 
 const flattenFolders = (items: Array<RepositoryItemTree>, depth = 0): Array<Option> =>
   items.reduce<Array<Option>>((acc, item) => {
@@ -22,11 +22,14 @@ const flattenFolders = (items: Array<RepositoryItemTree>, depth = 0): Array<Opti
     return acc
   }, [])
 
-export const useFormDefinition = (repositoryItem: Partial<RepositoryItem> | undefined): FormDefinition => {
+export const useFormDefinition = (
+  repositoryItem: Partial<RepositoryItem> | undefined,
+  fileMeta: FileMeta | undefined,
+  isLoadingFileMeta: boolean
+): FormDefinition => {
   const { countryIso } = useCountryRouteParams<CountryIso>()
   const { t } = useTranslation()
   const items = useItems(false)
-  const { fileMeta, isLoading: isLoadingFileMeta } = useFileMeta(repositoryItem)
 
   return useMemo<FormDefinition>(() => {
     const formType = repositoryItem && RepositoryItems.isFolder(repositoryItem) ? FormType.folder : FormType.item

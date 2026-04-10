@@ -12,9 +12,11 @@ import Form from 'client/components/Form'
 import { Urls } from 'client/utils/urls'
 
 import { useClosePanel } from '../../hooks/useClosePanel'
+import { useFileMeta } from './hooks/useFileMeta'
 import { useFormDefinition } from './hooks/useFormDefinition'
 import { useOnDelete } from './hooks/useOnDelete'
 import { useOnSuccess } from './hooks/useOnSuccess'
+import FileUsages from './FileUsages'
 
 const RepositoryItemForm: React.FC = () => {
   const repositoryItem = useRepositoryItem()
@@ -22,7 +24,8 @@ const RepositoryItemForm: React.FC = () => {
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const { t } = useTranslation()
 
-  const formDefinition = useFormDefinition(repositoryItem)
+  const { fileMeta, isLoading } = useFileMeta(repositoryItem)
+  const formDefinition = useFormDefinition(repositoryItem, fileMeta, isLoading)
   const onSuccess = useOnSuccess()
   const onDelete = useOnDelete(repositoryItem)
 
@@ -47,6 +50,7 @@ const RepositoryItemForm: React.FC = () => {
       {isEditing && (
         <Button iconName="trash-simple" label={t('common.delete')} onClick={onDelete} type={ButtonType.danger} />
       )}
+      <FileUsages fileMeta={fileMeta} />
     </div>
   )
 }
