@@ -19,7 +19,7 @@ export const useOnSuccess = (): (() => void) => {
   const page: number = undefined
 
   return useCallback(async () => {
-    await dispatch(TablePaginatedActions.getData({ assessmentName, countryIso, cycleName, limit, page, path }))
+    await dispatch(TablePaginatedActions.getData({ assessmentName, countryIso, cycleName, limit, page, path })).unwrap()
     closePanel()
   }, [assessmentName, closePanel, countryIso, cycleName, dispatch, limit, page, path])
 }

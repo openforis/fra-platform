@@ -28,7 +28,7 @@ export const useOnDelete = (repositoryItem: Partial<RepositoryItem> | undefined)
     const url = ApiEndPoint.CycleData.Repository.one()
     const params = { assessmentName, countryIso, cycleName, sectionName, uuid: repositoryItem?.uuid }
     await axios.delete(url, { params })
-    await dispatch(TablePaginatedActions.getData({ assessmentName, countryIso, cycleName, limit, page, path }))
+    await dispatch(TablePaginatedActions.getData({ assessmentName, countryIso, cycleName, limit, page, path })).unwrap()
     closePanel()
   }, [
     assessmentName,
