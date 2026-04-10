@@ -19,7 +19,7 @@ export const validatorSubCategory: ExpressionFunction<Context> = {
 
       const messages: Array<NodeValueValidationMessage> = valid
         ? undefined
-        : [{ key: 'generalValidation.subCategoryExceedsParent' }]
+        : [{ validatorName: validatorSubCategory.name, key: 'generalValidation.subCategoryExceedsParent' }]
 
       return { valid, messages }
     }

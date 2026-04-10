@@ -1,7 +1,6 @@
+import { NodeValueValidation, NodeValueValidationMessage } from 'meta/assessment/nodeValueValidation'
 import { Numbers } from 'utils/numbers'
 import { Objects } from 'utils/objects'
-
-import { NodeValueValidation, NodeValueValidationMessage } from 'meta/assessment/nodeValueValidation'
 
 import { ExpressionFunction } from 'lib/expressionEvaluator/function'
 
@@ -31,7 +30,9 @@ export const validatorPrivateOwnership: ExpressionFunction<Context> = {
         }
       }
 
-      const messages: Array<NodeValueValidationMessage> = valid ? undefined : [{ key }]
+      const messages: Array<NodeValueValidationMessage> = valid
+        ? undefined
+        : [{ validatorName: validatorPrivateOwnership.name, key }]
 
       return { valid, messages }
     }

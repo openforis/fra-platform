@@ -1,6 +1,5 @@
-import { Objects } from 'utils/objects'
-
 import { NodeValueValidation, NodeValueValidationMessage } from 'meta/assessment/nodeValueValidation'
+import { Objects } from 'utils/objects'
 
 import { ExpressionFunction } from 'lib/expressionEvaluator/function'
 
@@ -15,7 +14,13 @@ export const NWFPProductHasCategory: ExpressionFunction<Context> = {
 
       const messages: Array<NodeValueValidationMessage> = valid
         ? undefined
-        : [{ key: 'generalValidation.columnEmpty', params: { columName: 'nonWoodForestProductsRemovals.category' } }]
+        : [
+            {
+              validatorName: NWFPProductHasCategory.name,
+              key: 'generalValidation.columnEmpty',
+              params: { columName: 'nonWoodForestProductsRemovals.category' },
+            },
+          ]
 
       return { valid, messages }
     }

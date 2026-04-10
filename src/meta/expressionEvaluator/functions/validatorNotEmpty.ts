@@ -1,6 +1,5 @@
-import { Objects } from 'utils/objects'
-
 import { NodeValueValidation, NodeValueValidationMessage } from 'meta/assessment/nodeValueValidation'
+import { Objects } from 'utils/objects'
 
 import { ExpressionFunction } from 'lib/expressionEvaluator/function'
 
@@ -17,7 +16,9 @@ export const validatorNotEmpty: ExpressionFunction<Context> = {
       const isEmpty = shouldCheckEmpty ? Objects.isEmpty(value) : false
       const valid = !isEmpty
 
-      const messages: Array<NodeValueValidationMessage> = valid ? undefined : [{ key: 'generalValidation.notEmpty' }]
+      const messages: Array<NodeValueValidationMessage> = valid
+        ? undefined
+        : [{ validatorName: validatorNotEmpty.name, key: 'generalValidation.notEmpty' }]
 
       return { valid, messages }
     }

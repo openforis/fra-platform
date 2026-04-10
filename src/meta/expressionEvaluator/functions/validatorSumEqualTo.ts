@@ -9,7 +9,7 @@ import { Context } from '../context'
 export const validatorSumEqualTo: ExpressionFunction<Context> = {
   name: 'validatorSumEqualTo',
   minArity: 2,
-  executor: ({ t }) => {
+  executor: () => {
     return (
       categoryValues: Array<string | undefined>,
       categoryLabelKeys: Array<string>,
@@ -26,10 +26,10 @@ export const validatorSumEqualTo: ExpressionFunction<Context> = {
 
       const messages: Array<NodeValueValidationMessage> = [
         {
+          validatorName: validatorSumEqualTo.name,
           key: 'generalValidation.sumEqualTo',
           params: {
-            categoryLabels: categoryLabelKeys.map((labelKey) => t(labelKey)).join(', '),
-
+            categoryLabelKeys,
             categoriesSum: Numbers.toFixed(sum),
             maxValue: Numbers.toFixed(maxValue),
           },

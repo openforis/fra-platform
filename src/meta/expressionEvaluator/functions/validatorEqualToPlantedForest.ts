@@ -1,6 +1,5 @@
-import { Numbers } from 'utils/numbers'
-
 import { NodeValueValidation, NodeValueValidationMessage } from 'meta/assessment/nodeValueValidation'
+import { Numbers } from 'utils/numbers'
 
 import { ExpressionFunction } from 'lib/expressionEvaluator/function'
 
@@ -18,7 +17,7 @@ export const validatorEqualToPlantedForest: ExpressionFunction<Context> = {
 
       const messages: Array<NodeValueValidationMessage> = valid
         ? undefined
-        : [{ key: 'generalValidation.mustBeEqualToPlantedForest' }]
+        : [{ validatorName: validatorEqualToPlantedForest.name, key: 'generalValidation.mustBeEqualToPlantedForest' }]
 
       return { valid, messages }
     }

@@ -1,7 +1,6 @@
+import { NodeValueValidation, NodeValueValidationMessage } from 'meta/assessment/nodeValueValidation'
 import { Numbers } from 'utils/numbers'
 import { Objects } from 'utils/objects'
-
-import { NodeValueValidation, NodeValueValidationMessage } from 'meta/assessment/nodeValueValidation'
 
 import { ExpressionFunction } from 'lib/expressionEvaluator/function'
 
@@ -28,6 +27,7 @@ export const validatorEqualToSum: ExpressionFunction<Context> = {
         ? undefined
         : [
             {
+              validatorName: validatorEqualToSum.name,
               key: 'generalValidation.valueEqualToSumParent',
               params: { parentVariable, subcategories, parentCol: col, parentTable: table, valueRounded },
             },

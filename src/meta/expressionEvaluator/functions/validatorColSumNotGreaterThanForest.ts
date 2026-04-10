@@ -1,7 +1,6 @@
-import { Numbers } from 'utils/numbers'
-
 import { NodeValueValidation } from 'meta/assessment/nodeValueValidation'
 import { validatorSumNotGreaterThanForest } from 'meta/expressionEvaluator/functions/validatorSumNotGreaterThanForest'
+import { Numbers } from 'utils/numbers'
 
 import { ExpressionFunction } from 'lib/expressionEvaluator/function'
 
@@ -14,8 +13,12 @@ export const validatorColSumNotGreaterThanForest: ExpressionFunction<Context> = 
     return (value?: string, maxValue?: string): NodeValueValidation => {
       return validatorSumNotGreaterThanForest.executor(context)(maxValue, value, [
         {
+          validatorName: validatorColSumNotGreaterThanForest.name,
           key: 'generalValidation.valueCannotExceedMaximumValueReportedForForestAreaYear',
-          params: { maxForestArea: Numbers.toFixed(maxValue), year: context.colName },
+          params: {
+            maxForestArea: Numbers.toFixed(maxValue),
+            year: context.colName,
+          },
         },
       ])
     }
