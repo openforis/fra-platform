@@ -1,5 +1,3 @@
-import { TFunction } from 'i18next'
-
 import { Country } from 'meta/area/country'
 import { CountryIso } from 'meta/area/countryIso'
 import { AssessmentName, RecordAssessments } from 'meta/assessment/assessment'
@@ -23,5 +21,4 @@ export interface Context extends ExpressionContext, BaseContext {
   data: RecordAssessmentData
   formula: string
   row: Row
-  t?: TFunction
 }
