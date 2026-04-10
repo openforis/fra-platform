@@ -20,7 +20,7 @@ export const validatorSumSubCategoriesNotEqualToParent: ExpressionFunction<Conte
       parentLabelParams?: string,
       parentColLabelKey?: string
     ): NodeValueValidation => {
-      const categoriesSum = calculateCategoriesSum(categoryValues, categoryLabelKeys)
+      const categoriesSum = calculateCategoriesSum(categoryValues)
 
       const valid =
         Objects.isEmpty(parentValue) ||

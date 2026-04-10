@@ -19,7 +19,7 @@ export const validatorSumSubCategoriesNotGreaterThanParent: ExpressionFunction<C
       categoryLabelKeys: Array<string>,
       categoryIndex: number
     ): NodeValueValidation => {
-      const categoriesSum = calculateCategoriesSum(categoryValues, categoryLabelKeys)
+      const categoriesSum = calculateCategoriesSum(categoryValues)
 
       const valid =
         Objects.isEmpty(parentValue) ||
