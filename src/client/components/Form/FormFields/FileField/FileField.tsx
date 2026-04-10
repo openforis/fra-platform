@@ -1,6 +1,7 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 
 import { FileSummary } from 'meta/file/file'
+import { Objects } from 'utils/objects'
 
 import FileUpload from 'client/components/FileUpload'
 import { FileUploadOnChange } from 'client/components/FileUpload/types'
@@ -10,12 +11,20 @@ import { FieldProps } from '../types'
 
 const FileField: React.FC<FieldProps> = (props) => {
   const { fieldDefinition, register, setValue, trigger, watch } = props
-  const { name, nameField } = fieldDefinition
+  const { initialValue, name, nameField } = fieldDefinition
 
   const [files, setFiles] = useState<Array<FileSummary>>()
+  // Whether the user has uploaded a new file
+  const hasUserInteracted = useRef(false)
+
+  useEffect(() => {
+    if (hasUserInteracted.current || Objects.isEmpty(initialValue)) return
+    setFiles(initialValue as Array<FileSummary>)
+  }, [initialValue])
 
   const onChange = useCallback<FileUploadOnChange>(
     (uploadedFiles) => {
+      hasUserInteracted.current = true
       const file = uploadedFiles.at(0)
       setFiles(uploadedFiles)
       setValue(name, file?.uuid ?? '')
