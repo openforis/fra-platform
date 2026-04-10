@@ -1,34 +1,39 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import axios from 'axios'
 
+import { ApiEndPoint } from 'meta/api/endpoint'
 import { CountryIso } from 'meta/area/countryIso'
 import { RepositoryItem } from 'meta/cycleData/repository/item'
 import { FileMeta } from 'meta/file/meta'
 
-import { useAppDispatch } from 'client/store/hooks'
-import { RepositoryActions } from 'client/store/repository/actions'
-import { useRepositoryFileMeta } from 'client/store/repository/hooks/repository'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 
-export const useFileMeta = (repositoryItem: Partial<RepositoryItem> | undefined): FileMeta | undefined => {
+type Returned = {
+  fileMeta: FileMeta | undefined
+  isLoading: boolean
+}
+
+export const useFileMeta = (repositoryItem: Partial<RepositoryItem> | undefined): Returned => {
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
-  const dispatch = useAppDispatch()
-  const fileMeta = useRepositoryFileMeta()
+  const [fileMeta, setFileMeta] = useState<FileMeta | undefined>(undefined)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const { fileUuid, uuid } = repositoryItem ?? {}
-  const summaryFileUuid = fileMeta?.summary?.uuid
 
   useEffect(() => {
-    if (fileUuid && uuid && fileUuid !== summaryFileUuid) {
-      dispatch(
-        RepositoryActions.getFileMeta({
-          repositoryItem: repositoryItem as RepositoryItem,
-          assessmentName,
-          cycleName,
-          countryIso,
-        })
-      )
-    }
-  }, [assessmentName, countryIso, cycleName, dispatch, fileUuid, repositoryItem, summaryFileUuid, uuid])
+    if (!fileUuid || !uuid) return
 
-  return fileMeta
+    const fetchFileMeta = async (): Promise<void> => {
+      setIsLoading(true)
+      const url = ApiEndPoint.CycleData.Repository.fileMeta()
+      const params = { assessmentName, cycleName, countryIso, uuid, fileUuid }
+      const { data } = await axios.get<FileMeta>(url, { params })
+      setFileMeta(data)
+      setIsLoading(false)
+    }
+
+    fetchFileMeta()
+  }, [assessmentName, countryIso, cycleName, fileUuid, uuid])
+
+  return { fileMeta, isLoading }
 }

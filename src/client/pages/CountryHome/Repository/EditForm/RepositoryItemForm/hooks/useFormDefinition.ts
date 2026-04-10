@@ -26,12 +26,13 @@ export const useFormDefinition = (repositoryItem: Partial<RepositoryItem> | unde
   const { countryIso } = useCountryRouteParams<CountryIso>()
   const { t } = useTranslation()
   const items = useItems(false)
-  const fileMeta = useFileMeta(repositoryItem)
+  const { fileMeta, isLoading: isLoadingFileMeta } = useFileMeta(repositoryItem)
 
   return useMemo<FormDefinition>(() => {
     const formType = repositoryItem && RepositoryItems.isFolder(repositoryItem) ? FormType.folder : FormType.item
     const initialFile = fileMeta?.summary ? [fileMeta.summary] : undefined
     const folderOptions: Array<Option> = [{ label: t('landing.home'), value: '' }, ...flattenFolders(items)]
+    const disabledWatch: Pick<FieldDefinition, 'watches'> = { watches: { isDisabled: () => isLoadingFileMeta } }
 
     const commonFields: Array<FieldDefinition> = [
       { defaultValue: countryIso, label: '', name: 'repositoryItem.countryIso', type: FormFieldType.hidden },
@@ -51,6 +52,7 @@ export const useFormDefinition = (repositoryItem: Partial<RepositoryItem> | unde
         fields: [
           ...commonFields,
           {
+            ...disabledWatch,
             defaultValue: repositoryItem?.folderName ?? '',
             label: 'common.name',
             name: 'repositoryItem.folderName',
@@ -58,6 +60,7 @@ export const useFormDefinition = (repositoryItem: Partial<RepositoryItem> | unde
             type: FormFieldType.text,
           },
           {
+            ...disabledWatch,
             defaultValue: repositoryItem?.parentUuid ?? '',
             label: 'common.folder',
             name: 'repositoryItem.parentUuid',
@@ -73,18 +76,21 @@ export const useFormDefinition = (repositoryItem: Partial<RepositoryItem> | unde
       fields: [
         ...commonFields,
         {
+          ...disabledWatch,
           defaultValue: repositoryItem?.props?.translation?.en,
           label: 'common.label',
           name: 'repositoryItem.props.translation.en',
           type: FormFieldType.text,
         },
         {
+          ...disabledWatch,
           defaultValue: repositoryItem?.link,
           label: 'common.link',
           name: 'repositoryItem.link',
           type: FormFieldType.text,
         },
         {
+          ...disabledWatch,
           defaultValue: repositoryItem?.fileUuid,
           initialValue: initialFile,
           label: 'common.file',
@@ -93,18 +99,21 @@ export const useFormDefinition = (repositoryItem: Partial<RepositoryItem> | unde
           type: FormFieldType.file,
         },
         {
+          ...disabledWatch,
           defaultValue: repositoryItem?.description,
           label: 'common.description',
           name: 'repositoryItem.description',
           type: FormFieldType.text,
         },
         {
+          ...disabledWatch,
           defaultValue: repositoryItem?.props?.public ?? false,
           label: 'common.public',
           name: 'repositoryItem.props.public',
           type: FormFieldType.checkbox,
         },
         {
+          ...disabledWatch,
           defaultValue: repositoryItem?.parentUuid ?? '',
           label: 'common.folder',
           name: 'repositoryItem.parentUuid',
@@ -114,5 +123,5 @@ export const useFormDefinition = (repositoryItem: Partial<RepositoryItem> | unde
       ],
       labels: { submit: t('editUser.done') },
     }
-  }, [countryIso, fileMeta, items, repositoryItem, t])
+  }, [countryIso, fileMeta, isLoadingFileMeta, items, repositoryItem, t])
 }
