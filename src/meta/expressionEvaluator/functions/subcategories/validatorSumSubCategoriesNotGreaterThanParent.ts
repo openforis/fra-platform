@@ -5,7 +5,7 @@ import { Objects } from 'utils/objects'
 
 import { ExpressionFunction } from 'lib/expressionEvaluator/function'
 
-import { calculateCategoriesSum, getValidationMessage } from './utils'
+import { calculateCategoriesSum } from './utils'
 
 export const validatorSumSubCategoriesNotGreaterThanParent: ExpressionFunction<Context> = {
   name: 'validatorSumSubCategoriesNotGreaterThanParent',
@@ -31,17 +31,22 @@ export const validatorSumSubCategoriesNotGreaterThanParent: ExpressionFunction<C
         return { valid }
       }
 
-      const messages = getValidationMessage(
-        validatorSumSubCategoriesNotGreaterThanParent.name,
-        parentValue,
-        parentLabelKey,
-        parentTableAnchor,
-        categoriesSum,
-        categoryLabelKeys,
-        'sumSubCategoriesExceedParent'
-      )
-
-      return { valid, messages }
+      return {
+        valid,
+        messages: [
+          {
+            validatorName: validatorSumSubCategoriesNotGreaterThanParent.name,
+            key: 'generalValidation.sumSubCategoriesExceedParent',
+            params: {
+              categoriesSum: Numbers.format(categoriesSum),
+              categoryLabelKeys,
+              parentLabelKey,
+              parentTableAnchor,
+              parentValue: Numbers.format(Number(parentValue)),
+            },
+          },
+        ],
+      }
     }
   },
 }
