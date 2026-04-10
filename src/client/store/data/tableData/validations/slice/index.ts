@@ -2,8 +2,8 @@ import { createSlice } from '@reduxjs/toolkit'
 
 import { getSummaryReducer } from 'client/store/data/tableData/validations/slice/extraReducers/getSummaryReducer'
 import { removeValidationsReducer } from 'client/store/data/tableData/validations/slice/extraReducers/removeValidationsReducer'
-import { updateSummaryReducer } from 'client/store/data/tableData/validations/slice/extraReducers/setSummaryReducer'
 import { setValidationsReducer } from 'client/store/data/tableData/validations/slice/extraReducers/setValidationsReducer'
+import { updateSummaryReducer } from 'client/store/data/tableData/validations/slice/extraReducers/updateSummaryReducer'
 import { initialState } from 'client/store/data/tableData/validations/state'
 
 import { ValidationsReducerName } from './name'
