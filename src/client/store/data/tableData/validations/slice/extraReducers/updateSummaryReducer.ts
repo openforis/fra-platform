@@ -6,7 +6,7 @@ import { setNodeValueValidations } from 'client/store/data/tableData/validations
 import { ValidationsState } from 'client/store/data/tableData/validations/state'
 
 export const updateSummaryReducer = (builder: ActionReducerMapBuilder<ValidationsState>): void => {
-  builder.addCase(setNodeValueValidations, (state, action) => {
+  builder.addMatcher(setNodeValueValidations.match, (state, action) => {
     const { assessmentName, countryIso, cycleName, tableValidations } = action.payload
     const summary = state.summary?.[assessmentName]?.[cycleName]?.[countryIso]
 
