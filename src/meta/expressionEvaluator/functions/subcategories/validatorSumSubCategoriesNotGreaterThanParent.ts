@@ -1,5 +1,6 @@
 import { NodeValueValidation } from 'meta/assessment/nodeValueValidation'
 import { Context } from 'meta/expressionEvaluator/context'
+import { ValidatorName } from 'meta/expressionEvaluator/validatorName'
 import { Numbers } from 'utils/numbers'
 import { Objects } from 'utils/objects'
 
@@ -8,7 +9,7 @@ import { ExpressionFunction } from 'lib/expressionEvaluator/function'
 import { calculateCategoriesSum } from './utils'
 
 export const validatorSumSubCategoriesNotGreaterThanParent: ExpressionFunction<Context> = {
-  name: 'validatorSumSubCategoriesNotGreaterThanParent',
+  name: ValidatorName.sumSubCategoriesNotGreaterThanParent,
   minArity: 6,
   executor: () => {
     return (
@@ -35,7 +36,7 @@ export const validatorSumSubCategoriesNotGreaterThanParent: ExpressionFunction<C
         valid,
         messages: [
           {
-            validatorName: validatorSumSubCategoriesNotGreaterThanParent.name,
+            name: ValidatorName.sumSubCategoriesNotGreaterThanParent,
             key: 'generalValidation.sumSubCategoriesExceedParent',
             params: {
               categoriesSum: Numbers.format(categoriesSum),

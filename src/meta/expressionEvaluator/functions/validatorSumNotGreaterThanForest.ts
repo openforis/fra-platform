@@ -1,4 +1,5 @@
 import { NodeValueValidation, NodeValueValidationMessage } from 'meta/assessment/nodeValueValidation'
+import { ValidatorName } from 'meta/expressionEvaluator/validatorName'
 import { Numbers } from 'utils/numbers'
 import { Objects } from 'utils/objects'
 
@@ -7,7 +8,7 @@ import { ExpressionFunction } from 'lib/expressionEvaluator/function'
 import { Context } from '../context'
 
 export const validatorSumNotGreaterThanForest: ExpressionFunction<Context> = {
-  name: 'validatorSumNotGreaterThanForest',
+  name: ValidatorName.sumNotGreaterThanForest,
   minArity: 2,
   executor: () => {
     return (
@@ -22,7 +23,7 @@ export const validatorSumNotGreaterThanForest: ExpressionFunction<Context> = {
         ? undefined
         : (_messages ?? [
             {
-              validatorName: validatorSumNotGreaterThanForest.name,
+              name: ValidatorName.sumNotGreaterThanForest,
               key: 'generalValidation.forestSumAreaExceedsExtentOfForest',
             },
           ])

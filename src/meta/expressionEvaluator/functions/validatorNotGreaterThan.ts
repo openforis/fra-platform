@@ -1,4 +1,5 @@
 import { NodeValueValidation, NodeValueValidationMessage } from 'meta/assessment/nodeValueValidation'
+import { ValidatorName } from 'meta/expressionEvaluator/validatorName'
 import { Numbers } from 'utils/numbers'
 import { Objects } from 'utils/objects'
 
@@ -7,7 +8,7 @@ import { ExpressionFunction } from 'lib/expressionEvaluator/function'
 import { Context } from '../context'
 
 export const validatorNotGreaterThan: ExpressionFunction<Context> = {
-  name: 'validatorNotGreaterThan',
+  name: ValidatorName.notGreaterThan,
   minArity: 2,
   executor: () => {
     return (value?: string, maxValue?: string): NodeValueValidation => {
@@ -17,7 +18,7 @@ export const validatorNotGreaterThan: ExpressionFunction<Context> = {
         ? undefined
         : [
             {
-              validatorName: validatorNotGreaterThan.name,
+              name: ValidatorName.notGreaterThan,
               key: 'generalValidation.valueNotGreaterThan',
               params: { maxValue },
             },

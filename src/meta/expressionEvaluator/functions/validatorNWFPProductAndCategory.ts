@@ -1,4 +1,5 @@
 import { NodeValueValidation, NodeValueValidationMessage } from 'meta/assessment/nodeValueValidation'
+import { ValidatorName } from 'meta/expressionEvaluator/validatorName'
 import { Objects } from 'utils/objects'
 
 import { ExpressionFunction } from 'lib/expressionEvaluator/function'
@@ -6,7 +7,7 @@ import { ExpressionFunction } from 'lib/expressionEvaluator/function'
 import { Context } from '../context'
 
 export const validatorNWFPProductAndCategory: ExpressionFunction<Context> = {
-  name: 'validatorNWFPProductAndCategory',
+  name: ValidatorName.nwfpProductAndCategory,
   minArity: 2,
   executor: () => {
     return (value: string, rowValues: Array<string>): NodeValueValidation => {
@@ -16,7 +17,7 @@ export const validatorNWFPProductAndCategory: ExpressionFunction<Context> = {
         ? undefined
         : [
             {
-              validatorName: validatorNWFPProductAndCategory.name,
+              name: ValidatorName.nwfpProductAndCategory,
               key: 'generalValidation.columnEmpty',
               params: { columName: 'nonWoodForestProductsRemovals.category' },
             },

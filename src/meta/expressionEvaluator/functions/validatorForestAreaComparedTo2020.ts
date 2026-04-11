@@ -1,4 +1,5 @@
 import { NodeValueValidation, NodeValueValidationMessage } from 'meta/assessment/nodeValueValidation'
+import { ValidatorName } from 'meta/expressionEvaluator/validatorName'
 import { Numbers } from 'utils/numbers'
 import { Objects } from 'utils/objects'
 
@@ -7,7 +8,7 @@ import { ExpressionFunction } from 'lib/expressionEvaluator/function'
 import { Context } from '../context'
 
 export const validatorForestAreaComparedTo2020: ExpressionFunction<Context> = {
-  name: 'validatorForestAreaComparedTo2020',
+  name: ValidatorName.forestAreaComparedTo2020,
   minArity: 2,
   executor: () => {
     return (forestArea2020?: string, forestArea?: string): NodeValueValidation => {
@@ -20,7 +21,7 @@ export const validatorForestAreaComparedTo2020: ExpressionFunction<Context> = {
         ? undefined
         : [
             {
-              validatorName: validatorForestAreaComparedTo2020.name,
+              name: ValidatorName.forestAreaComparedTo2020,
               key: 'extentOfForest.forestAreaDoesNotMatchPreviouslyReported',
               params: { previous: forestArea2020, year: '2020' },
             },

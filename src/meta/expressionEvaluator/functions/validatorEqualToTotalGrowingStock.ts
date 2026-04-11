@@ -1,4 +1,5 @@
 import { NodeValueValidation, NodeValueValidationMessage } from 'meta/assessment/nodeValueValidation'
+import { ValidatorName } from 'meta/expressionEvaluator/validatorName'
 import { Numbers } from 'utils/numbers'
 import { Objects } from 'utils/objects'
 
@@ -7,7 +8,7 @@ import { ExpressionFunction } from 'lib/expressionEvaluator/function'
 import { Context } from '../context'
 
 export const validatorEqualToTotalGrowingStock: ExpressionFunction<Context> = {
-  name: 'validatorEqualToTotalGrowingStock',
+  name: ValidatorName.equalToTotalGrowingStock,
   minArity: 2,
   executor: () => {
     return (forestGrowingStock?: string, value?: string): NodeValueValidation => {
@@ -20,7 +21,7 @@ export const validatorEqualToTotalGrowingStock: ExpressionFunction<Context> = {
         ? undefined
         : [
             {
-              validatorName: validatorEqualToTotalGrowingStock.name,
+              name: ValidatorName.equalToTotalGrowingStock,
               key: 'generalValidation.mustBeEqualToTotalGrowingStock',
             },
           ]

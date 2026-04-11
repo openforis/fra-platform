@@ -1,4 +1,5 @@
 import { NodeValueValidation, NodeValueValidationMessage } from 'meta/assessment/nodeValueValidation'
+import { ValidatorName } from 'meta/expressionEvaluator/validatorName'
 import { Numbers } from 'utils/numbers'
 import { Objects } from 'utils/objects'
 
@@ -7,7 +8,7 @@ import { ExpressionFunction } from 'lib/expressionEvaluator/function'
 import { Context } from '../context'
 
 export const validatorNotGreaterThanMaxForest: ExpressionFunction<Context> = {
-  name: 'validatorNotGreaterThanMaxForest',
+  name: ValidatorName.notGreaterThanMaxForest,
   minArity: 2,
   executor: () => {
     return (maxForestArea?: string, value?: string): NodeValueValidation => {
@@ -20,7 +21,7 @@ export const validatorNotGreaterThanMaxForest: ExpressionFunction<Context> = {
         ? undefined
         : [
             {
-              validatorName: validatorNotGreaterThanMaxForest.name,
+              name: ValidatorName.notGreaterThanMaxForest,
               key: 'generalValidation.valueCannotExceedMaximumValueReportedForForestArea',
               params: { maxForestArea: Numbers.toFixed(maxForestArea) },
             },

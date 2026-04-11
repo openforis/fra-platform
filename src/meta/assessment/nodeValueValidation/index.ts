@@ -1,7 +1,9 @@
+import { ValidatorName } from 'meta/expressionEvaluator/validatorName'
+
 export type NodeValueValidationMessageParam = string | number | Array<string> | Array<number>
 
 export interface NodeValueValidationMessage {
-  validatorName: string
+  name: ValidatorName
   key: string
   params?: Record<string, NodeValueValidationMessageParam>
 }
