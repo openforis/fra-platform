@@ -1,6 +1,7 @@
+import { ColName } from 'meta/assessment/col'
 import { VariableCache } from 'meta/assessment/metaCache'
 import { AssessmentMetaCaches } from 'meta/assessment/metaCaches'
-import { RowCacheKey } from 'meta/assessment/rowCache'
+import { RowCache, RowCacheKey } from 'meta/assessment/rowCache'
 import { RowCaches } from 'meta/assessment/rowCaches'
 import { TableName } from 'meta/assessment/table'
 import { NodeUpdate, NodeUpdates } from 'meta/data/nodeUpdates'
@@ -52,6 +53,44 @@ export class ContextFactory extends BaseContextBuilder {
     const cycleName = variable.cycleName ?? this.props.cycle.name
 
     return assessmentName === this.props.assessment.props.name && cycleName === this.props.cycle.name
+  }
+
+  async #getRow(variable: VariableCache): Promise<RowCache | undefined> {
+    const rowKey = RowCaches.getKey(variable)
+
+    const rows = await RowRedisRepository.getRows({ assessment: this.props.assessment, rowKeys: [rowKey] })
+
+    return rows[rowKey]
+  }
+
+  async #expandVariable(variable: VariableCache): Promise<Array<VariableCache>> {
+    const assessmentName = variable.assessmentName ?? this.props.assessment.props.name
+    const cycleName = variable.cycleName ?? this.props.cycle.name
+
+    if (!Objects.isEmpty(variable.colName)) {
+      return [{ ...variable, assessmentName, cycleName, colName: variable.colName }]
+    }
+
+    const row = await this.#getRow(variable)
+    const colNames =
+      row?.cols?.reduce<Array<ColName>>((acc, col) => {
+        const colName = col.props.colName as ColName | undefined
+
+        if (Objects.isEmpty(colName)) {
+          return acc
+        }
+
+        acc.push(colName)
+
+        return acc
+      }, []) ?? []
+
+    return colNames.map((colName) => ({
+      ...variable,
+      assessmentName,
+      cycleName,
+      colName,
+    }))
   }
 
   async #addToQueue(variable: VariableCache): Promise<void> {
@@ -109,25 +148,23 @@ export class ContextFactory extends BaseContextBuilder {
     })
 
     await Promises.each(dependants, async (dependant) => {
-      const candidate: VariableCache = {
+      const candidates = await this.#expandVariable({
         assessmentName: dependant.assessmentName ?? assessment.props.name,
         cycleName: dependant.cycleName ?? cycle.name,
-        colName: dependant.colName ?? variable.colName,
+        colName: dependant.colName,
         tableName: dependant.tableName,
         variableName: dependant.variableName,
-      }
+      })
 
-      if (Objects.isEmpty(candidate.colName)) {
-        return
-      }
+      await Promises.each(candidates, async (candidate) => {
+        if (!this.#isCurrentTarget(candidate)) {
+          // External validation dependants are rescheduled through updateDependencies in the target cycle.
+          this.#addExternalNodeUpdate(candidate)
+          return
+        }
 
-      if (!this.#isCurrentTarget(candidate)) {
-        // External validation dependants are rescheduled through updateDependencies in the target cycle.
-        this.#addExternalNodeUpdate(candidate)
-        return
-      }
-
-      await this.#addToQueue(candidate)
+        await this.#addToQueue(candidate)
+      })
     })
   }
 
