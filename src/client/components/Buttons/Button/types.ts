@@ -1,4 +1,5 @@
 import React, { ButtonHTMLAttributes } from 'react'
+import { PlacesType } from 'react-tooltip'
 
 import { TooltipId } from 'meta/tooltip/id'
 
@@ -26,6 +27,7 @@ export type ButtonProps = Pick<
   bgTransparent?: boolean
   dataTooltipContent?: string | null
   dataTooltipId?: TooltipId
+  dataTooltipPlace?: PlacesType
   htmlButtonType?: HtmlButtonProps['type']
   icon?: React.ReactNode
   iconName?: string

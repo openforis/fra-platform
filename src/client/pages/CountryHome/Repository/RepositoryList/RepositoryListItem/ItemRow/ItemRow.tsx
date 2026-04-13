@@ -5,10 +5,11 @@ import classNames from 'classnames'
 
 import { RepositoryItemTree } from 'meta/cycleData/repository/item'
 import { RepositoryItems } from 'meta/cycleData/repository/items'
+import { TooltipId } from 'meta/tooltip/id'
 import { Dates } from 'utils/dates'
 
 import { useIsCountryRepositoryEditable, useIsGlobalRepositoryEditable } from 'client/store/user/hooks/auth'
-import Button, { ButtonSize } from 'client/components/Buttons/Button'
+import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
 import Icon from 'client/components/Icon'
 import { useOpenPanel } from 'client/pages/CountryHome/Repository/hooks/useOpenPanel'
 
@@ -42,7 +43,15 @@ const ItemRow: React.FC<Props> = (props) => {
       </div>
       <div className={classNames('repository-list-item__badge', level)}>{t(`common.${level}`)}</div>
       {withActions ? (
-        <Button iconName="pencil" inverse label={t('description.edit')} onClick={openPanel} size={ButtonSize.xs} />
+        <Button
+          dataTooltipContent={t('description.edit')}
+          dataTooltipId={TooltipId.info}
+          dataTooltipPlace="left"
+          iconName="pencil"
+          onClick={openPanel}
+          size={ButtonSize.xs}
+          type={ButtonType.transparent}
+        />
       ) : (
         <div />
       )}

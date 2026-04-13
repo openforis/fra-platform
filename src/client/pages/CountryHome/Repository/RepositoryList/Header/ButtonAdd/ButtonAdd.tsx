@@ -9,16 +9,17 @@ import Button, { ButtonSize } from 'client/components/Buttons/Button'
 import { useOpenPanel } from 'client/pages/CountryHome/Repository/hooks/useOpenPanel'
 
 type Props = {
+  isFolder?: boolean
   isGlobal?: boolean
   parentUuid?: string
 }
 
 const ButtonAdd: React.FC<Props> = (props: Props) => {
-  const { isGlobal, parentUuid } = props
+  const { isFolder, isGlobal, parentUuid } = props
   const { countryIso } = useCountryRouteParams<CountryIso>()
   const { t } = useTranslation()
 
-  const openPanel = useOpenPanel({ countryIso: isGlobal ? undefined : countryIso, parentUuid })
+  const openPanel = useOpenPanel({ countryIso: isGlobal ? undefined : countryIso, isFolder, parentUuid })
 
   const isGlobalRepositoryEditable = useIsGlobalRepositoryEditable()
   const isCountryRepositoryEditable = useIsCountryRepositoryEditable()
@@ -31,7 +32,9 @@ const ButtonAdd: React.FC<Props> = (props: Props) => {
     return null
   }
 
-  return <Button iconName="small-add" inverse label={t('common.add')} onClick={openPanel} size={ButtonSize.xs} />
+  const label = isFolder ? t('common.addFolder') : t('common.add')
+
+  return <Button iconName="small-add" inverse label={label} onClick={openPanel} size={ButtonSize.xs} />
 }
 
 export default ButtonAdd

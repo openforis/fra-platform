@@ -13,11 +13,11 @@ import { useItems } from 'client/pages/CountryHome/Repository/RepositoryList/hoo
 
 import { FormType } from '../types'
 
-const flattenFolders = (items: Array<RepositoryItemTree>, depth = 0): Array<Option> =>
+const flattenFolders = (items: Array<RepositoryItemTree>, excludeUuid?: string, depth = 0): Array<Option> =>
   items.reduce<Array<Option>>((acc, item) => {
-    if (item.folderName) {
+    if (item.folderName && item.uuid !== excludeUuid) {
       acc.push({ label: '\u00a0'.repeat(depth * 4) + item.folderName, value: item.uuid })
-      acc.push(...flattenFolders(item.children, depth + 1))
+      acc.push(...flattenFolders(item.children, excludeUuid, depth + 1))
     }
     return acc
   }, [])
@@ -34,7 +34,12 @@ export const useFormDefinition = (
   return useMemo<FormDefinition>(() => {
     const formType = repositoryItem && RepositoryItems.isFolder(repositoryItem) ? FormType.folder : FormType.item
     const initialFile = fileMeta?.summary ? [fileMeta.summary] : undefined
-    const folderOptions: Array<Option> = [{ label: t('landing.home'), value: '' }, ...flattenFolders(items)]
+    // omit self to avoid inserting folder inside itself when editing folders
+    const excludeUuid = formType === FormType.folder ? repositoryItem?.uuid : undefined
+    const folderOptions: Array<Option> = [
+      { label: t('landing.home'), value: '' },
+      ...flattenFolders(items, excludeUuid),
+    ]
     const disabledWatch: Pick<FieldDefinition, 'watches'> = { watches: { isDisabled: () => isLoadingFileMeta } }
 
     const commonFields: Array<FieldDefinition> = [
