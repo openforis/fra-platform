@@ -44,7 +44,7 @@ const ItemRow: React.FC<Props> = (props) => {
       <div className={classNames('repository-list-item__badge', level)}>{t(`common.${level}`)}</div>
       {withActions ? (
         <Button
-          dataTooltipContent={t('common.editItem')}
+          dataTooltipContent={t('description.edit')}
           dataTooltipId={TooltipId.info}
           dataTooltipPlace="left"
           iconName="pencil"

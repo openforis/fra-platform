@@ -38,7 +38,7 @@ const Folder: React.FC<Props> = (props) => {
       </div>
       {withActions && (
         <Button
-          dataTooltipContent={t('common.editFolder', { name: item.folderName })}
+          dataTooltipContent={t('description.edit')}
           dataTooltipId={TooltipId.info}
           dataTooltipPlace="left"
           iconName="pencil"
