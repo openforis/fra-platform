@@ -1,13 +1,13 @@
-import { Objects } from 'utils/objects'
-
 import { NodeValueValidation, NodeValueValidationMessage } from 'meta/assessment/nodeValueValidation'
+import { ValidatorName } from 'meta/expressionEvaluator/validatorName'
+import { Objects } from 'utils/objects'
 
 import { ExpressionFunction } from 'lib/expressionEvaluator/function'
 
 import { Context } from '../context'
 
 export const validatorIsYear: ExpressionFunction<Context> = {
-  name: 'validatorIsYear',
+  name: ValidatorName.isYear,
   minArity: 1,
   executor: () => {
     return (value?: string): NodeValueValidation => {
@@ -15,7 +15,7 @@ export const validatorIsYear: ExpressionFunction<Context> = {
 
       const messages: Array<NodeValueValidationMessage> = valid
         ? undefined
-        : [{ key: 'generalValidation.valueMustBeYear' }]
+        : [{ name: ValidatorName.isYear, key: 'generalValidation.valueMustBeYear' }]
 
       return { valid, messages }
     }

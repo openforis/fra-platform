@@ -1,50 +1,8 @@
-import { NodeValueValidationMessage } from 'meta/assessment/nodeValueValidation'
-import { Context } from 'meta/expressionEvaluator/context'
 import { Numbers } from 'utils/numbers'
 import { Objects } from 'utils/objects'
 
-type CategoryInfo = { labelKey: string; value?: string }
+export const calculateCategoriesSum = (categoryValues: Array<string | undefined>): number => {
+  const nonEmptyCategoryValues = categoryValues.filter((value) => !Objects.isEmpty(value))
 
-export const calculateCategoriesSum = (
-  categoryValues: Array<string | undefined>,
-  categoryLabelKeys: Array<string>
-): number => {
-  const nonEmptyCategories: Array<CategoryInfo> = categoryValues.reduce(
-    (acc: Array<CategoryInfo>, value: string | undefined, currentIndex: number) => {
-      if (!Objects.isEmpty(value)) acc.push({ labelKey: categoryLabelKeys[currentIndex], value })
-      return acc
-    },
-    []
-  )
-
-  return Numbers.sum(nonEmptyCategories.map(({ value }) => value))
-}
-
-export const getValidationMessage = (
-  { t }: Context,
-  parentValue: string | undefined,
-  parentLabelKey: string,
-  parentTableAnchor: string,
-  categoriesSum: number,
-  categoryLabelKeys: Array<string>,
-  label: string,
-  parentLabelParams?: string,
-  parentColLabelKey?: string
-): Array<NodeValueValidationMessage> => {
-  const parentLabel = `${parentTableAnchor} ${t(
-    parentLabelKey,
-    parentLabelParams ? JSON.parse(parentLabelParams) : null
-  )}${parentColLabelKey ? ` ${t(parentColLabelKey)}` : ''}`
-
-  return [
-    {
-      key: `generalValidation.${label}`,
-      params: {
-        parentLabel,
-        parentValue: Numbers.format(Number(parentValue)),
-        categoriesSum: Numbers.format(categoriesSum),
-        categoryLabels: categoryLabelKeys.map((labelKey) => t(labelKey)).join(', '),
-      },
-    },
-  ]
+  return Numbers.sum(nonEmptyCategoryValues)
 }

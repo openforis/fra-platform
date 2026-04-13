@@ -1,17 +1,17 @@
+import { NodeValueValidation } from 'meta/assessment/nodeValueValidation'
+import { Context } from 'meta/expressionEvaluator/context'
+import { ValidatorName } from 'meta/expressionEvaluator/validatorName'
 import { Numbers } from 'utils/numbers'
 import { Objects } from 'utils/objects'
 
-import { NodeValueValidation } from 'meta/assessment/nodeValueValidation'
-import { Context } from 'meta/expressionEvaluator/context'
-
 import { ExpressionFunction } from 'lib/expressionEvaluator/function'
 
-import { calculateCategoriesSum, getValidationMessage } from './utils'
+import { calculateCategoriesSum } from './utils'
 
 export const validatorSumSubCategoriesNotGreaterThanParent: ExpressionFunction<Context> = {
-  name: 'validatorSumSubCategoriesNotGreaterThanParent',
+  name: ValidatorName.sumSubCategoriesNotGreaterThanParent,
   minArity: 6,
-  executor: (context) => {
+  executor: () => {
     return (
       parentValue: string | undefined,
       parentLabelKey: string,
@@ -20,7 +20,7 @@ export const validatorSumSubCategoriesNotGreaterThanParent: ExpressionFunction<C
       categoryLabelKeys: Array<string>,
       categoryIndex: number
     ): NodeValueValidation => {
-      const categoriesSum = calculateCategoriesSum(categoryValues, categoryLabelKeys)
+      const categoriesSum = calculateCategoriesSum(categoryValues)
 
       const valid =
         Objects.isEmpty(parentValue) ||
@@ -32,17 +32,22 @@ export const validatorSumSubCategoriesNotGreaterThanParent: ExpressionFunction<C
         return { valid }
       }
 
-      const messages = getValidationMessage(
-        context,
-        parentValue,
-        parentLabelKey,
-        parentTableAnchor,
-        categoriesSum,
-        categoryLabelKeys,
-        'sumSubCategoriesExceedParent'
-      )
-
-      return { valid, messages }
+      return {
+        valid,
+        messages: [
+          {
+            name: ValidatorName.sumSubCategoriesNotGreaterThanParent,
+            key: 'generalValidation.sumSubCategoriesExceedParent',
+            params: {
+              categoriesSum: Numbers.format(categoriesSum),
+              categoryLabelKeys,
+              parentLabelKey,
+              parentTableAnchor,
+              parentValue: Numbers.format(Number(parentValue)),
+            },
+          },
+        ],
+      }
     }
   },
 }

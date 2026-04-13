@@ -1,14 +1,14 @@
+import { NodeValueValidation, NodeValueValidationMessage } from 'meta/assessment/nodeValueValidation'
+import { ValidatorName } from 'meta/expressionEvaluator/validatorName'
 import { Numbers } from 'utils/numbers'
 import { Objects } from 'utils/objects'
-
-import { NodeValueValidation, NodeValueValidationMessage } from 'meta/assessment/nodeValueValidation'
 
 import { ExpressionFunction } from 'lib/expressionEvaluator/function'
 
 import { Context } from '../context'
 
 export const validatorPrimaryForest: ExpressionFunction<Context> = {
-  name: 'validatorPrimaryForest',
+  name: ValidatorName.primaryForest,
   minArity: 2,
   executor: () => {
     return (primaryForest?: string, naturalForestArea?: string): NodeValueValidation => {
@@ -19,7 +19,12 @@ export const validatorPrimaryForest: ExpressionFunction<Context> = {
 
       const messages: Array<NodeValueValidationMessage> = valid
         ? undefined
-        : [{ key: 'specificForestCategories.exceedsNaturallyRegeneratingForest' }]
+        : [
+            {
+              name: ValidatorName.primaryForest,
+              key: 'specificForestCategories.exceedsNaturallyRegeneratingForest',
+            },
+          ]
 
       return { valid, messages }
     }

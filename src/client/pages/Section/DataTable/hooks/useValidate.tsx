@@ -1,5 +1,4 @@
 import { useEffect } from 'react'
-import { useTranslation } from 'react-i18next'
 
 import { Areas } from 'meta/area/areas'
 import { NodeValueValidation } from 'meta/assessment/nodeValueValidation'
@@ -33,7 +32,6 @@ type Props = {
 export const useValidate = (props: Props): void => {
   const { data, sectionName, table } = props
 
-  const { t } = useTranslation()
   const dispatch = useAppDispatch()
   const assessment = useAssessment()
   const cycle = useCycle()
@@ -78,7 +76,6 @@ export const useValidate = (props: Props): void => {
                 colName,
                 row,
                 formula,
-                t,
               })
             })
 
@@ -93,5 +90,5 @@ export const useValidate = (props: Props): void => {
 
       dispatch(ValidationsActions.setNodeValueValidations({ assessmentName, cycleName, countryIso, tableValidations }))
     }
-  }, [assessment, canEditData, countryIso, cycle, data, dispatch, print, rowsData, t, tableName])
+  }, [assessment, canEditData, countryIso, cycle, data, dispatch, print, rowsData, tableName])
 }
