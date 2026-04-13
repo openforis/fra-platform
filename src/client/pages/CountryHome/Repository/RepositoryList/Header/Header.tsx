@@ -38,6 +38,7 @@ const Header: React.FC<Props> = (props) => {
 
       <div className="repository-header__right">
         <ButtonAdd isGlobal={isGlobal} parentUuid={parentUuid} />
+        <ButtonAdd isFolder isGlobal={isGlobal} parentUuid={parentUuid} />
         <Icon name="filter" />
         <Hr vertical />
         <Text fieldName="name" label={t('common.name')} path={path} type={TablePaginatedFilterType.TEXT} />
