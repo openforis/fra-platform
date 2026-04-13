@@ -1,8 +1,15 @@
 import './Folder.scss'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
 
+import { RepositoryItems } from 'meta/cycleData/repository/items'
+import { TooltipId } from 'meta/tooltip/id'
+
+import { useIsCountryRepositoryEditable, useIsGlobalRepositoryEditable } from 'client/store/user/hooks/auth'
+import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
 import Icon from 'client/components/Icon'
+import { useOpenPanel } from 'client/pages/CountryHome/Repository/hooks/useOpenPanel'
 
 import { useRepositoryListContext } from '../../context'
 import { Props } from './props'
@@ -10,10 +17,17 @@ import { Props } from './props'
 const Folder: React.FC<Props> = (props) => {
   const { depth, isCollapsed, item } = props
   const { onNavigate, onToggle } = useRepositoryListContext()
+  const { t } = useTranslation()
+  const openPanel = useOpenPanel({ repositoryItem: item })
+
+  const isGlobalRepositoryItem = RepositoryItems.isGlobal({ repositoryItem: item })
+  const isGlobalRepositoryEditable = useIsGlobalRepositoryEditable()
+  const isCountryRepositoryEditable = useIsCountryRepositoryEditable()
+  const withActions = isGlobalRepositoryItem ? isGlobalRepositoryEditable : isCountryRepositoryEditable
 
   return (
-    <div className="repository-list-item repository-list-item--folder" style={{ paddingLeft: depth * 20 }}>
-      <div className={classNames('repository-folder', { expanded: !isCollapsed })}>
+    <div className="repository-list-item repository-list-item--folder">
+      <div className={classNames('repository-folder', { expanded: !isCollapsed })} style={{ paddingLeft: depth * 20 }}>
         <button onClick={() => onToggle(item.uuid)}>
           <Icon name="small-down" />
         </button>
@@ -22,6 +36,17 @@ const Folder: React.FC<Props> = (props) => {
           {item.folderName}
         </button>
       </div>
+      {withActions && (
+        <Button
+          dataTooltipContent={t('common.editFolder', { name: item.folderName })}
+          dataTooltipId={TooltipId.info}
+          dataTooltipPlace="left"
+          iconName="pencil"
+          onClick={openPanel}
+          size={ButtonSize.xs}
+          type={ButtonType.transparent}
+        />
+      )}
     </div>
   )
 }
