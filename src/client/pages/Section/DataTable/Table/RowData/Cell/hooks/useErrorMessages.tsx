@@ -3,7 +3,7 @@ import ReactDOMServer from 'react-dom/server'
 import { useTranslation } from 'react-i18next'
 
 import { NodeValueValidation } from 'meta/assessment/nodeValueValidation'
-import { translateValidationMessage } from 'meta/validations/translateValidationMessage'
+import { MessageParser } from 'meta/validations/messageParser'
 
 import { useHistoryLastApprovedIsActive } from 'client/store/data/history/hooks/lastApproved'
 
@@ -27,7 +27,7 @@ export default (props: Props): string | undefined => {
     <ul>
       {messages.map((message) => {
         const { key } = message
-        return <li key={key}>{translateValidationMessage(t, message)}</li>
+        return <li key={key}>{MessageParser.getMessage(t, message)}</li>
       })}
     </ul>
   )
