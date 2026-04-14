@@ -5,6 +5,18 @@
 $color-private: color.adjust($ui-destructive, $lightness: 2.5%, $space: hsl);
 $color-public: color.adjust($ui-status-accepted, $lightness: -10%, $space: hsl);
 
+.repository-link {
+  align-items: center;
+  display: flex;
+  gap: $spacing-xxxs;
+}
+
+.repository-link__info {
+  align-items: center;
+  color: $text-disabled;
+  display: flex;
+}
+
 .repository-list-item__created-at {
   color: $text-disabled;
   font-size: $font-xxxs;
