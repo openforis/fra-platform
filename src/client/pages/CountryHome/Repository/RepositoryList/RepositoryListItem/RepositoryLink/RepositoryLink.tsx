@@ -2,6 +2,7 @@ import React from 'react'
 
 import { RepositoryItem } from 'meta/cycleData/repository/item'
 import { RepositoryItems } from 'meta/cycleData/repository/items'
+import { TooltipId } from 'meta/tooltip/id'
 import { Translations } from 'meta/translation/translations'
 
 import { useLanguage } from 'client/hooks/language'
@@ -25,10 +26,22 @@ const RepositoryLink: React.FC<Props> = (props) => {
   const iconName = datum.fileUuid ? 'icon-files' : 'external-link'
 
   return (
-    <Link rel="noreferrer" target="_blank" to={url}>
-      <Icon name={iconName} />
-      {label}
-    </Link>
+    <div className="repository-link">
+      <Link rel="noreferrer" target="_blank" to={url}>
+        <Icon name={iconName} />
+        {label}
+      </Link>
+      {datum.description && (
+        <div
+          className="repository-link__info"
+          data-tooltip-content={datum.description}
+          data-tooltip-id={TooltipId.white}
+          data-tooltip-place="bottom-start"
+        >
+          <Icon name="round-e-info" />
+        </div>
+      )}
+    </div>
   )
 }
 
