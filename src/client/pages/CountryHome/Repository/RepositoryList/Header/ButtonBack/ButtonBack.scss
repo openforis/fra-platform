@@ -13,11 +13,16 @@
   }
 
   &:hover {
-    color: $ui-accent;
+    svg {
+      color: $ui-accent;
+    }
   }
 
   &:disabled {
-    color: $text-disabled;
     cursor: default;
+
+    svg {
+      color: $text-disabled;
+    }
   }
 }
