@@ -1,7 +1,7 @@
 {
   "classValueNotGreaterThan": "{{name}} should be not greater than {{value}}",
   "classValuesMustBeEqualTo": "{{name}} sum must be equal to {{value}}",
-  "columnEmpty": "Column '$t({{columName}})' must have a value",
+  "columnEmpty": "Column '{{columName}}' must have a value",
   "countryReportYearGreaterThanCurrentYear": "Value should be greater or equal than {{minValue}}",
   "emptyField": "This field is empty",
   "forestAreaDoesNotMatchExtentOfForest": "Doesn't match Forest area (1a)",

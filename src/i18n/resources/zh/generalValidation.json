@@ -1,7 +1,7 @@
 {
   "classValueNotGreaterThan": "{{name}} 不应大于 {{value}}",
   "classValuesMustBeEqualTo": "{{name}} 的总和必须等于 {{value}}",
-  "columnEmpty": "列 '$t({{columName}})' 必须有一个值",
+  "columnEmpty": "列 '{{columName}}' 必须有一个值",
   "countryReportYearGreaterThanCurrentYear": "数值应大于或等于{{minValue}}",
   "emptyField": "该字段为空",
   "forestAreaDoesNotMatchExtentOfForest": "与森林面积（1a）不匹配",
