@@ -12,7 +12,6 @@ import Text from 'client/components/TablePaginated/Filters/Text'
 import { useRepositoryListContext } from 'client/pages/CountryHome/Repository/RepositoryList/context'
 import { useFileTypeOptions } from 'client/pages/CountryHome/Repository/RepositoryList/hooks/_useFileTypeOptions'
 
-import Breadcrumb from './Breadcrumb'
 import ButtonAdd from './ButtonAdd'
 import ButtonBack from './ButtonBack'
 import ButtonDownloadAll from './ButtonDownloadAll'
@@ -33,12 +32,11 @@ const Header: React.FC<Props> = (props) => {
       <div className="repository-header__left">
         <ButtonBack />
         <ButtonDownloadAll isGlobal={isGlobal} />
-        <Breadcrumb />
+        <ButtonAdd isGlobal={isGlobal} parentUuid={parentUuid} />
+        <ButtonAdd isFolder isGlobal={isGlobal} parentUuid={parentUuid} />
       </div>
 
       <div className="repository-header__right">
-        <ButtonAdd isGlobal={isGlobal} parentUuid={parentUuid} />
-        <ButtonAdd isFolder isGlobal={isGlobal} parentUuid={parentUuid} />
         <Icon name="filter" />
         <Hr vertical />
         <Text fieldName="name" label={t('common.name')} path={path} type={TablePaginatedFilterType.TEXT} />
