@@ -32,7 +32,7 @@ const ButtonAdd: React.FC<Props> = (props: Props) => {
     return null
   }
 
-  const label = isFolder ? t('common.addFolder') : t('common.add')
+  const label = isFolder ? t('common.addFolder') : t('common.addFile')
 
   return <Button iconName="small-add" inverse label={label} onClick={openPanel} size={ButtonSize.xs} />
 }
