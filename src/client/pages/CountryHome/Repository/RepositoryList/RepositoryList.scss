@@ -4,3 +4,21 @@
   display: grid;
   grid-template-columns: 1fr 100px minmax(120px, auto) minmax(120px, auto) auto;
 }
+
+.repository-list__title {
+  align-items: center;
+  display: flex;
+  gap: $spacing-xxs;
+  margin-bottom: $spacing-xxxxs;
+
+  .hr.vertical {
+    flex-shrink: 0;
+    height: 1em;
+    width: 1px;
+  }
+}
+
+.repository-list__title-label {
+  font-size: $font-l;
+  font-weight: 700;
+}

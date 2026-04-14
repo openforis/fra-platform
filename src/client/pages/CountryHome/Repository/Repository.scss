@@ -9,7 +9,8 @@
     height: $spacing-xl;
   }
 
-  .hr {
+  // Don't alter HR style between links and repository (horizontal)
+  .hr:not(.vertical) {
     margin: $spacing-s auto;
     width: 50%;
   }
