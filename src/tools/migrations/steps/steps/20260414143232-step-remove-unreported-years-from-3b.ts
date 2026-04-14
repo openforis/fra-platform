@@ -21,6 +21,8 @@ export default async (client: BaseProtocol): Promise<void> => {
     cycles.map(async (cycle) => {
       const table = await TableRepository.getOne({ assessment, cycle, tableName }, client)
       const currentColumnsExport = table.props.columnsExport?.[cycle.uuid]
+      if (!currentColumnsExport) return
+
       const nextCycleColumnsExport = currentColumnsExport.filter((colName) => !yearsToExclude.has(colName))
 
       const columnsExport = {
@@ -30,8 +32,7 @@ export default async (client: BaseProtocol): Promise<void> => {
 
       await TableRepository.update({ assessment, tableId: table.id, tableProps: { columnsExport } }, client)
 
-      const force = true
-      await ExplorerRedisRepository.getManyMetadata({ assessment, cycle, force }, client)
+      await ExplorerRedisRepository.getManyMetadata({ assessment, cycle, force: true }, client)
     })
   )
 }
