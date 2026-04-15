@@ -23,6 +23,7 @@ import Introduction from 'client/pages/Section/Introduction'
 import { useGetDescriptionHistoryValues } from './hooks/useGetDescriptionHistoryValues'
 import { useGetDescriptionValues } from './hooks/useGetDescriptionValues'
 import { useGetTableData } from './hooks/useGetTableData'
+import { useGetTableValidations } from './hooks/useGetTableData/useGetTableValidations'
 import { useGetTableDataHistory } from './hooks/useGetTableDataHistory'
 import { useIsSectionDataEmpty } from './hooks/useIsSectionDataEmpty'
 import { useListenNodeUpdates } from './hooks/useListenNodeUpdates'
@@ -46,6 +47,7 @@ const Section: React.FC<Props> = (props: Props) => {
   const subSection = useSection(sectionProp)
   const tableSections = useTableSections({ sectionName: subSection?.props.name })
   useGetTableData({ sectionName: subSection?.props.name })
+  useGetTableValidations({ sectionName: subSection?.props.name })
   useGetTableDataHistory({ sectionName: subSection?.props.name })
   useGetDescriptionValues({ sectionName: subSection?.props.name })
   useGetDescriptionHistoryValues({ sectionName: subSection?.props.name })

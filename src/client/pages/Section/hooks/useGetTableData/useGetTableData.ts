@@ -4,7 +4,6 @@ import { CountryIso } from 'meta/area/countryIso'
 
 import { EstimationsActions } from 'client/store/data/tableData/estimations/actions'
 import { NodeValuesActions } from 'client/store/data/tableData/nodeValues/actions'
-import { ValidationsActions } from 'client/store/data/tableData/validations/actions'
 import { useAppDispatch } from 'client/store/hooks'
 import { MetaActions } from 'client/store/meta/actions'
 import { useCanEdit } from 'client/store/user/hooks/auth'
@@ -34,12 +33,6 @@ export const useGetTableData = (props: Props): void => {
         const tableNames = Array.from(tableNamesSet)
 
         dispatch(NodeValuesActions.getTableData({ ...propsFetch, tableNames }))
-
-        if (canEdit) {
-          dispatch(
-            ValidationsActions.getTableValidations({ assessmentName, cycleName, countryIso, sectionName, tableNames })
-          )
-        }
 
         if (tableWithOdp && canEdit) {
           dispatch(EstimationsActions.getNodeValuesEstimations({ ...propsFetch, sectionName, tableName: tableWithOdp }))
