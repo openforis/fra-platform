@@ -14,7 +14,7 @@ type Props = CountryParams & {
   tableNames: Array<TableName>
 }
 
-export const getTableValidations = createAsyncThunk<RecordTableValidationsState, Props>(
+export const getTableValidations = createAsyncThunk<void, Props>(
   'validations/tableData/get',
   async (props, { dispatch }) => {
     const { assessmentName, countryIso, cycleName, sectionName, tableNames } = props
@@ -25,7 +25,5 @@ export const getTableValidations = createAsyncThunk<RecordTableValidationsState,
     })
 
     dispatch(setNodeValueValidations({ assessmentName, cycleName, countryIso, tableValidations: data }))
-
-    return data
   }
 )
