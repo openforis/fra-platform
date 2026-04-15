@@ -46,6 +46,7 @@
   "dashboard": "Dashboard",
   "dataExport": "Data Export",
   "delete": "Delete",
+  "deleted": "\"{{name}}\" deleted",
   "description": "Description",
   "disapprove": "Disapprove",
   "done": "Done",
