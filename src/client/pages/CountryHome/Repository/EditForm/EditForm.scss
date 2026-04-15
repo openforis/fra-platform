@@ -22,5 +22,7 @@
 }
 
 .repository-item-form__delete {
+  display: flex;
+  justify-content: flex-end;
   margin-top: $spacing-s;
 }
