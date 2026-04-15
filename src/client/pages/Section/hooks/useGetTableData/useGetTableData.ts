@@ -4,6 +4,7 @@ import { CountryIso } from 'meta/area/countryIso'
 
 import { EstimationsActions } from 'client/store/data/tableData/estimations/actions'
 import { NodeValuesActions } from 'client/store/data/tableData/nodeValues/actions'
+import { ValidationsActions } from 'client/store/data/tableData/validations/actions'
 import { useAppDispatch } from 'client/store/hooks'
 import { MetaActions } from 'client/store/meta/actions'
 import { useCanEdit } from 'client/store/user/hooks/auth'
@@ -24,14 +25,21 @@ export const useGetTableData = (props: Props): void => {
 
   useEffect(() => {
     const { external, internal } = dependencies
-    const { tableNames, tableWithOdp } = internal
+    const { tableNames: tableNamesSet, tableWithOdp } = internal
 
     if (!print) {
       // fetch internal dependencies
-      if (tableNames.size > 0) {
+      if (tableNamesSet.size > 0) {
         const propsFetch = { assessmentName, cycleName, countryIso, mergeOdp: !tableWithOdp }
+        const tableNames = Array.from(tableNamesSet)
 
-        dispatch(NodeValuesActions.getTableData({ ...propsFetch, tableNames: Array.from(tableNames) }))
+        dispatch(NodeValuesActions.getTableData({ ...propsFetch, tableNames }))
+
+        if (canEdit) {
+          dispatch(
+            ValidationsActions.getTableValidations({ assessmentName, cycleName, countryIso, sectionName, tableNames })
+          )
+        }
 
         if (tableWithOdp && canEdit) {
           dispatch(EstimationsActions.getNodeValuesEstimations({ ...propsFetch, sectionName, tableName: tableWithOdp }))
@@ -41,9 +49,11 @@ export const useGetTableData = (props: Props): void => {
       // fetch external dependencies
       const auth = { assessmentName, cycleName }
       Object.entries(external).forEach(([assessmentName, cycleDependencies]) => {
-        Object.entries(cycleDependencies).forEach(([cycleName, tableNames]) => {
+        Object.entries(cycleDependencies).forEach(([cycleName, tableNamesSet]) => {
           const propsFetch = { assessmentName, cycleName, countryIso, mergeOdp: true, auth }
-          dispatch(NodeValuesActions.getTableData({ ...propsFetch, tableNames: Array.from(tableNames) }))
+          const tableNames = Array.from(tableNamesSet)
+
+          dispatch(NodeValuesActions.getTableData({ ...propsFetch, tableNames }))
 
           dispatch(MetaActions.getMetaCache({ assessmentName, cycleName }))
         })
