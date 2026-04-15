@@ -1,3 +1,4 @@
+import { ValidationRedisRepository } from 'server/cache/repository/validation'
 import { History } from 'server/controller/cycleData/history'
 import { Links } from 'server/controller/cycleData/links'
 import { deleteOriginalDataPointNationalClass } from 'server/controller/cycleData/originalDataPoint/deleteOriginalDataPointNationalClass'
@@ -65,6 +66,7 @@ export const CycleDataController = {
   // ===== review
   getReviewStatus,
   getReviewSummary: MessageTopicUserRepository.getReviewSummary,
+  getTableValidations: ValidationRedisRepository.getTableValidations,
   getValidationSummary,
 
   // ==== activities
