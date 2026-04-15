@@ -48,7 +48,9 @@ const RepositoryItemForm: React.FC = () => {
         onSuccess={onSuccess}
       />
       {isEditing && (
-        <Button iconName="trash-simple" label={t('common.delete')} onClick={onDelete} type={ButtonType.danger} />
+        <div className="repository-item-form__delete">
+          <Button iconName="trash-simple" label={t('common.delete')} onClick={onDelete} type={ButtonType.danger} />
+        </div>
       )}
       <FileUsages fileMeta={fileMeta} />
     </div>

@@ -5,10 +5,12 @@ import axios from 'axios'
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CountryIso } from 'meta/area/countryIso'
 import { RepositoryItem } from 'meta/cycleData/repository/item'
+import { RepositoryItems } from 'meta/cycleData/repository/items'
 
 import { useAppDispatch } from 'client/store/hooks'
 import { TablePaginatedActions } from 'client/store/tablePaginated/actions'
 import { useSectionRouteParams } from 'client/hooks/routeParams'
+import { useToaster } from 'client/hooks/toaster'
 import { useClosePanel } from 'client/pages/CountryHome/Repository/hooks/useClosePanel'
 
 export const useOnDelete = (repositoryItem: Partial<RepositoryItem> | undefined): (() => void) => {
@@ -17,6 +19,7 @@ export const useOnDelete = (repositoryItem: Partial<RepositoryItem> | undefined)
   const closePanel = useClosePanel()
   const { t } = useTranslation()
 
+  const { toaster } = useToaster()
   const path = `${ApiEndPoint.CycleData.Repository.tree()}?global=false`
   const limit: number = undefined
   const page: number = undefined
@@ -29,6 +32,7 @@ export const useOnDelete = (repositoryItem: Partial<RepositoryItem> | undefined)
     const params = { assessmentName, countryIso, cycleName, sectionName, uuid: repositoryItem?.uuid }
     await axios.delete(url, { params })
     await dispatch(TablePaginatedActions.getData({ assessmentName, countryIso, cycleName, limit, page, path })).unwrap()
+    toaster.success(t('common.deleted', { name: RepositoryItems.getName(repositoryItem) }))
     closePanel()
   }, [
     assessmentName,
@@ -39,8 +43,9 @@ export const useOnDelete = (repositoryItem: Partial<RepositoryItem> | undefined)
     limit,
     page,
     path,
-    repositoryItem?.uuid,
+    repositoryItem,
     sectionName,
     t,
+    toaster,
   ])
 }

@@ -12,3 +12,15 @@
     width: 75%;
   }
 }
+
+.repository-item-form {
+  .form-grid {
+    box-shadow: none;
+    grid-row-gap: $spacing-m;
+    padding: $spacing-xs $spacing-s;
+  }
+}
+
+.repository-item-form__delete {
+  margin-top: $spacing-s;
+}
