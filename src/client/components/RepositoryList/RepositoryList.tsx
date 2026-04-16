@@ -21,21 +21,11 @@ type Props = {
   onOpenPanel?: (item: Partial<RepositoryItemTree>) => void
   onSelect?: (item: RepositoryItemTree) => void
   onSelectFolder?: (items: Array<RepositoryItemTree>, select: boolean) => void
-  selectable?: boolean
   selectedUuids?: Array<string>
 }
 
-const _noop = (): void => undefined
-
 const RepositoryList: React.FC<Props> = (props) => {
-  const {
-    isGlobal,
-    onOpenPanel,
-    onSelect = _noop,
-    onSelectFolder = _noop,
-    selectable = false,
-    selectedUuids = [],
-  } = props
+  const { isGlobal, onOpenPanel, onSelect, onSelectFolder, selectedUuids = [] } = props
   const { t } = useTranslation()
 
   useGetItems(isGlobal)
@@ -48,7 +38,6 @@ const RepositoryList: React.FC<Props> = (props) => {
     onSelect,
     onSelectFolder,
     onToggle,
-    selectable,
     selectedUuids,
   })
 

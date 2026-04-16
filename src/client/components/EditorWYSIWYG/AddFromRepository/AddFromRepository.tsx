@@ -1,8 +1,6 @@
 import './AddFromRepository.scss'
-import React, { useCallback, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-
-import { RepositoryItem, RepositoryItemTree } from 'meta/cycleData/repository/item'
 
 import Button, { ButtonSize } from 'client/components/Buttons/Button'
 import { useRepositoryLinkContext } from 'client/components/EditorWYSIWYG/repositoryLinkContext'
@@ -10,42 +8,21 @@ import FileUpload from 'client/components/FileUpload'
 import { Modal, ModalBody, ModalClose, ModalFooter, ModalHeader } from 'client/components/Modal'
 import RepositoryList from 'client/components/RepositoryList'
 
+import { useHandleSelect } from './hooks/useHandleSelect'
 import { useOnClose } from './hooks/useOnClose'
 import { useOnSuccess } from './hooks/useOnSuccess'
 
 const AddFromRepository: React.FC = () => {
   const { t } = useTranslation()
-  const { repositoryOpened, selectedFiles, setSelectedFiles } = useRepositoryLinkContext()
+  const { repositoryOpened, setSelectedFiles } = useRepositoryLinkContext()
 
+  const { onSelect, onSelectFolder, selectedUuids } = useHandleSelect()
   const onClose = useOnClose()
   const onSuccess = useOnSuccess()
 
   useEffect(() => {
     if (repositoryOpened) setSelectedFiles([])
   }, [repositoryOpened, setSelectedFiles])
-
-  const handleSelect = useCallback(
-    (item: RepositoryItemTree) => {
-      setSelectedFiles((prev: Array<RepositoryItem>) =>
-        prev.some((f) => f.uuid === item.uuid) ? prev.filter((f) => f.uuid !== item.uuid) : [...prev, item]
-      )
-    },
-    [setSelectedFiles]
-  )
-
-  const handleSelectFolder = useCallback(
-    (items: Array<RepositoryItemTree>, select: boolean) => {
-      setSelectedFiles((prev: Array<RepositoryItem>) => {
-        if (select) {
-          const newItems = items.filter((item) => !prev.some((f) => f.uuid === item.uuid))
-          return [...prev, ...newItems]
-        }
-        const uuids = new Set(items.map((item) => item.uuid))
-        return prev.filter((f) => !uuids.has(f.uuid))
-      })
-    },
-    [setSelectedFiles]
-  )
 
   if (!repositoryOpened) {
     return null
@@ -66,12 +43,7 @@ const AddFromRepository: React.FC = () => {
       </ModalHeader>
 
       <ModalBody>
-        <RepositoryList
-          onSelect={handleSelect}
-          onSelectFolder={handleSelectFolder}
-          selectable
-          selectedUuids={selectedFiles.map((f: RepositoryItem) => f.uuid)}
-        />
+        <RepositoryList onSelect={onSelect} onSelectFolder={onSelectFolder} selectedUuids={selectedUuids} />
         <FileUpload multiple onChange={onSuccess} />
       </ModalBody>
 

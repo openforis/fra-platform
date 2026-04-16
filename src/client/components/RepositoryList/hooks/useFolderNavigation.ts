@@ -5,14 +5,15 @@ import { RepositoryItemTree } from 'meta/cycleData/repository/item'
 import { RepositoryListContextValue } from '../context'
 import { getFolderPath } from './getFolderPath'
 
+const _noop = (): void => undefined
+
 type Props = {
   collapsed: Record<string, boolean>
   items: Array<RepositoryItemTree>
   onOpenPanel?: (item: Partial<RepositoryItemTree>) => void
-  onSelect: (item: RepositoryItemTree) => void
-  onSelectFolder: (items: Array<RepositoryItemTree>, select: boolean) => void
+  onSelect?: (item: RepositoryItemTree) => void
+  onSelectFolder?: (items: Array<RepositoryItemTree>, select: boolean) => void
   onToggle: (uuid: string) => void
-  selectable: boolean
   selectedUuids: Array<string>
 }
 
@@ -22,7 +23,8 @@ type Returned = {
 }
 
 export const useFolderNavigation = (props: Props): Returned => {
-  const { collapsed, items, onOpenPanel, onSelect, onSelectFolder, onToggle, selectable, selectedUuids } = props
+  const { collapsed, items, onOpenPanel, onSelect, onSelectFolder, onToggle, selectedUuids } = props
+  const selectable = Boolean(onSelect)
   const [folderTarget, setFolderTarget] = useState<string | undefined>()
 
   const { currentFolder, folderPath } = useMemo(() => getFolderPath(items, folderTarget), [folderTarget, items])
@@ -36,8 +38,8 @@ export const useFolderNavigation = (props: Props): Returned => {
       folderPath,
       onNavigate,
       onOpenPanel,
-      onSelect,
-      onSelectFolder,
+      onSelect: onSelect ?? _noop,
+      onSelectFolder: onSelectFolder ?? _noop,
       onToggle,
       parentUuid: currentFolder?.uuid,
       selectable,
