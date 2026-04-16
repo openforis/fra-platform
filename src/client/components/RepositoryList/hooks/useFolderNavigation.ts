@@ -8,7 +8,12 @@ import { getFolderPath } from './getFolderPath'
 type Props = {
   collapsed: Record<string, boolean>
   items: Array<RepositoryItemTree>
+  onOpenPanel?: (item: Partial<RepositoryItemTree>) => void
+  onSelect: (item: RepositoryItemTree) => void
+  onSelectFolder: (items: Array<RepositoryItemTree>, select: boolean) => void
   onToggle: (uuid: string) => void
+  selectable: boolean
+  selectedUuids: Array<string>
 }
 
 type Returned = {
@@ -17,7 +22,7 @@ type Returned = {
 }
 
 export const useFolderNavigation = (props: Props): Returned => {
-  const { collapsed, items, onToggle } = props
+  const { collapsed, items, onOpenPanel, onSelect, onSelectFolder, onToggle, selectable, selectedUuids } = props
   const [folderTarget, setFolderTarget] = useState<string | undefined>()
 
   const { currentFolder, folderPath } = useMemo(() => getFolderPath(items, folderTarget), [folderTarget, items])
@@ -30,10 +35,26 @@ export const useFolderNavigation = (props: Props): Returned => {
       collapsed: currentFolder ? { ...collapsed, [currentFolder.uuid]: false } : collapsed,
       folderPath,
       onNavigate,
+      onOpenPanel,
+      onSelect,
+      onSelectFolder,
       onToggle,
       parentUuid: currentFolder?.uuid,
+      selectable,
+      selectedUuids,
     }),
-    [collapsed, currentFolder, folderPath, onNavigate, onToggle]
+    [
+      collapsed,
+      currentFolder,
+      folderPath,
+      onNavigate,
+      onOpenPanel,
+      onSelect,
+      onSelectFolder,
+      onToggle,
+      selectable,
+      selectedUuids,
+    ]
   )
 
   return { contextValue, visibleItems: currentFolder ? [currentFolder] : items }

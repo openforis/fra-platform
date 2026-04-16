@@ -10,9 +10,10 @@ import { Dates } from 'utils/dates'
 
 import { useIsCountryRepositoryEditable, useIsGlobalRepositoryEditable } from 'client/store/user/hooks/auth'
 import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
+import ButtonCheckBox, { ButtonCheckboxVariant } from 'client/components/Buttons/ButtonCheckbox'
 import Icon from 'client/components/Icon'
-import { useOpenPanel } from 'client/pages/CountryHome/Repository/hooks/useOpenPanel'
 
+import { useRepositoryListContext } from '../../context'
 import RepositoryLink from '../RepositoryLink'
 
 export type Props = {
@@ -24,12 +25,12 @@ const ItemRow: React.FC<Props> = (props) => {
   const { depth, item } = props
 
   const { t } = useTranslation()
+  const { onOpenPanel, onSelect, selectable, selectedUuids } = useRepositoryListContext()
   const isCountryRepositoryEditable = useIsCountryRepositoryEditable()
   const isGlobalRepositoryEditable = useIsGlobalRepositoryEditable()
-  const openPanel = useOpenPanel({ repositoryItem: item })
 
   const isGlobalRepositoryItem = RepositoryItems.isGlobal({ repositoryItem: item })
-  const withActions = isGlobalRepositoryItem ? isGlobalRepositoryEditable : isCountryRepositoryEditable
+  const canEdit = isGlobalRepositoryItem ? isGlobalRepositoryEditable : isCountryRepositoryEditable
   const level = item.props?.public ? 'public' : 'private'
 
   return (
@@ -42,13 +43,19 @@ const ItemRow: React.FC<Props> = (props) => {
         {item.linked && <Icon className="repository-list-item__icon" name="checkbox" />}
       </div>
       <div className={classNames('repository-list-item__badge', level)}>{t(`common.${level}`)}</div>
-      {withActions ? (
+      {selectable ? (
+        <ButtonCheckBox
+          checked={selectedUuids.includes(item.uuid)}
+          onClick={() => onSelect(item)}
+          variant={ButtonCheckboxVariant.checkbox}
+        />
+      ) : onOpenPanel && canEdit ? (
         <Button
           dataTooltipContent={t('description.edit')}
           dataTooltipId={TooltipId.info}
           dataTooltipPlace="left"
           iconName="pencil"
-          onClick={openPanel}
+          onClick={() => onOpenPanel(item)}
           size={ButtonSize.xs}
           type={ButtonType.transparent}
         />

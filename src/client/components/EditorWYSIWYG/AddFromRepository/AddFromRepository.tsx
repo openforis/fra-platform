@@ -1,45 +1,51 @@
 import './AddFromRepository.scss'
-import React, { useEffect } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { RepositoryItems } from 'meta/cycleData/repository/items'
-import { Translations } from 'meta/translation/translations'
+import { RepositoryItem, RepositoryItemTree } from 'meta/cycleData/repository/item'
 
-import { useLanguage } from 'client/hooks/language'
-import { useCountryRouteParams } from 'client/hooks/routeParams'
 import Button, { ButtonSize } from 'client/components/Buttons/Button'
-import ButtonCheckBox, { ButtonCheckboxVariant } from 'client/components/Buttons/ButtonCheckbox'
 import { useRepositoryLinkContext } from 'client/components/EditorWYSIWYG/repositoryLinkContext'
 import FileUpload from 'client/components/FileUpload'
-import Icon from 'client/components/Icon'
 import { Modal, ModalBody, ModalClose, ModalFooter, ModalHeader } from 'client/components/Modal'
+import RepositoryList from 'client/components/RepositoryList'
 
-import { useGetRepositoryItems } from './hooks/useGetRepositoryItems'
-import { useIsChecked } from './hooks/useIsChecked'
-import { useOnClick } from './hooks/useOnClick'
 import { useOnClose } from './hooks/useOnClose'
 import { useOnSuccess } from './hooks/useOnSuccess'
-import { useRepositoryItems } from './hooks/useRepositoryItems'
 
 const AddFromRepository: React.FC = () => {
-  const { assessmentName, countryIso, cycleName } = useCountryRouteParams()
   const { t } = useTranslation()
-  const language = useLanguage()
-  const { repositoryOpened, setSelectedFiles } = useRepositoryLinkContext()
+  const { repositoryOpened, selectedFiles, setSelectedFiles } = useRepositoryLinkContext()
 
-  const getRepositoryItems = useGetRepositoryItems()
-  const isChecked = useIsChecked()
-  const onClick = useOnClick()
   const onClose = useOnClose()
   const onSuccess = useOnSuccess()
-  const repositoryItems = useRepositoryItems()
 
   useEffect(() => {
-    if (repositoryOpened) {
-      setSelectedFiles([])
-      getRepositoryItems()
-    }
-  }, [getRepositoryItems, repositoryOpened, setSelectedFiles])
+    if (repositoryOpened) setSelectedFiles([])
+  }, [repositoryOpened, setSelectedFiles])
+
+  const handleSelect = useCallback(
+    (item: RepositoryItemTree) => {
+      setSelectedFiles((prev: Array<RepositoryItem>) =>
+        prev.some((f) => f.uuid === item.uuid) ? prev.filter((f) => f.uuid !== item.uuid) : [...prev, item]
+      )
+    },
+    [setSelectedFiles]
+  )
+
+  const handleSelectFolder = useCallback(
+    (items: Array<RepositoryItemTree>, select: boolean) => {
+      setSelectedFiles((prev: Array<RepositoryItem>) => {
+        if (select) {
+          const newItems = items.filter((item) => !prev.some((f) => f.uuid === item.uuid))
+          return [...prev, ...newItems]
+        }
+        const uuids = new Set(items.map((item) => item.uuid))
+        return prev.filter((f) => !uuids.has(f.uuid))
+      })
+    },
+    [setSelectedFiles]
+  )
 
   if (!repositoryOpened) {
     return null
@@ -60,28 +66,13 @@ const AddFromRepository: React.FC = () => {
       </ModalHeader>
 
       <ModalBody>
-        <div className="references-file-list">
-          {repositoryItems?.map((repositoryItem) => {
-            const url = RepositoryItems.getURL({ assessmentName, cycleName, countryIso, repositoryItem })
-            const label = Translations.getLabel({ translation: repositoryItem.props.translation, language })
-
-            return (
-              <div key={repositoryItem.uuid} className="file-row">
-                <ButtonCheckBox
-                  checked={isChecked(repositoryItem.uuid)}
-                  label={label}
-                  onClick={(): void => onClick(repositoryItem.uuid)}
-                  variant={ButtonCheckboxVariant.checkbox}
-                />
-                <a href={url}>
-                  <Icon name="hit-down" />
-                </a>
-              </div>
-            )
-          })}
-
-          <FileUpload multiple onChange={onSuccess} />
-        </div>
+        <RepositoryList
+          onSelect={handleSelect}
+          onSelectFolder={handleSelectFolder}
+          selectable
+          selectedUuids={selectedFiles.map((f: RepositoryItem) => f.uuid)}
+        />
+        <FileUpload multiple onChange={onSuccess} />
       </ModalBody>
 
       <ModalFooter>

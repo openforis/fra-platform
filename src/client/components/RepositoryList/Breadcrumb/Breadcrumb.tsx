@@ -2,7 +2,7 @@ import './Breadcrumb.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { useRepositoryListContext } from 'client/pages/CountryHome/Repository/RepositoryList/context'
+import { useRepositoryListContext } from 'client/components/RepositoryList/context'
 
 const Breadcrumb: React.FC = () => {
   const { folderPath, onNavigate } = useRepositoryListContext()
