@@ -3,31 +3,34 @@ import { useTranslation } from 'react-i18next'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CountryIso } from 'meta/area/countryIso'
+import { RepositoryItem } from 'meta/cycleData/repository/item'
 import { Objects } from 'utils/objects'
 
-import { useRepositoryItem } from 'client/store/repository/hooks/repository'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import Button, { ButtonType } from 'client/components/Buttons/Button'
 import Form from 'client/components/Form'
 import { Urls } from 'client/utils/urls'
 
-import { useClosePanel } from '../../hooks/useClosePanel'
 import { useFileMeta } from './hooks/useFileMeta'
 import { useFormDefinition } from './hooks/useFormDefinition'
 import { useOnDelete } from './hooks/useOnDelete'
 import { useOnSuccess } from './hooks/useOnSuccess'
 import FileUsages from './FileUsages'
 
-const RepositoryItemForm: React.FC = () => {
-  const repositoryItem = useRepositoryItem()
-  const closePanel = useClosePanel()
+type Props = {
+  onClose: () => void
+  repositoryItem: Partial<RepositoryItem> | undefined
+}
+
+const RepositoryItemForm: React.FC<Props> = (props) => {
+  const { onClose, repositoryItem } = props
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const { t } = useTranslation()
 
   const { fileMeta, isLoading } = useFileMeta(repositoryItem)
   const formDefinition = useFormDefinition(repositoryItem, fileMeta, isLoading)
-  const onSuccess = useOnSuccess()
-  const onDelete = useOnDelete(repositoryItem)
+  const onSuccess = useOnSuccess(onClose)
+  const onDelete = useOnDelete(onClose, repositoryItem)
 
   const isEditing = !Objects.isEmpty(repositoryItem?.uuid)
   const method = isEditing ? 'put' : 'post'
@@ -44,7 +47,7 @@ const RepositoryItemForm: React.FC = () => {
         formDefinition={formDefinition}
         isDirtyOverride={isEditing || undefined}
         method={method}
-        onCancel={closePanel}
+        onCancel={onClose}
         onSuccess={onSuccess}
       />
       {isEditing && (

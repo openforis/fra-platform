@@ -1,12 +1,11 @@
 import { useCallback } from 'react'
+import axios from 'axios'
 
-import { Objects } from 'utils/objects'
-
+import { ApiEndPoint } from 'meta/api/endpoint'
 import { CountryIso } from 'meta/area/countryIso'
 import { RepositoryItem } from 'meta/cycleData/repository/item'
+import { Objects } from 'utils/objects'
 
-import { useAppDispatch } from 'client/store/hooks'
-import { RepositoryActions } from 'client/store/repository/actions'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 
 type Returned = {
@@ -15,15 +14,14 @@ type Returned = {
 
 export const useUpdateRepositoryItemAccess = (): Returned => {
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
-  const dispatch = useAppDispatch()
   return useCallback<Returned>(
     (repositoryItem: RepositoryItem, value: boolean) => {
       const path = ['props', 'public']
       const _repositoryItem = Objects.setInPath({ obj: Objects.cloneDeep(repositoryItem), path, value })
-      const upsertParams = { assessmentName, cycleName, countryIso, repositoryItem: _repositoryItem }
-      dispatch(RepositoryActions.upsertRepositoryItem(upsertParams))
+      const params = { assessmentName, countryIso, cycleName }
+      axios.put(ApiEndPoint.CycleData.Repository.one(), { repositoryItem: _repositoryItem }, { params })
     },
-    [assessmentName, countryIso, cycleName, dispatch]
+    [assessmentName, countryIso, cycleName]
   )
 }
 
@@ -35,14 +33,13 @@ type UseUpdateRepositoryItemsAccessParams = {
 type ReturnedUpdateRepositoryItemsAccess = (params: UseUpdateRepositoryItemsAccessParams) => void
 
 export const useUpdateRepositoryItemsAccess = (): ReturnedUpdateRepositoryItemsAccess => {
-  const updateRepositoryItemsAccess = useUpdateRepositoryItemAccess()
+  const updateRepositoryItemAccess = useUpdateRepositoryItemAccess()
   return useCallback<ReturnedUpdateRepositoryItemsAccess>(
-    (params: UseUpdateRepositoryItemsAccessParams) => {
-      const { repositoryItems, value } = params
+    ({ repositoryItems, value }: UseUpdateRepositoryItemsAccessParams) => {
       repositoryItems.forEach((repositoryItem: RepositoryItem) => {
-        updateRepositoryItemsAccess(repositoryItem, value)
+        updateRepositoryItemAccess(repositoryItem, value)
       })
     },
-    [updateRepositoryItemsAccess]
+    [updateRepositoryItemAccess]
   )
 }

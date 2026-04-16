@@ -6,10 +6,11 @@ import { RepositoryItem } from 'meta/cycleData/repository/item'
 import { RepositoryItems } from 'meta/cycleData/repository/items'
 import { Translations } from 'meta/translation/translations'
 
-import { useUpdateRepositoryItemsAccess } from 'client/store/repository/hooks/useUpdateRepositoryItemAccess'
 import { useLanguage } from 'client/hooks/language'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { useRepositoryLinkContext } from 'client/components/EditorWYSIWYG/repositoryLinkContext'
+
+import { useUpdateRepositoryItemsAccess } from './useUpdateRepositoryItemAccess'
 
 type Returned = () => void
 
