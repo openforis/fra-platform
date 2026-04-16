@@ -1,23 +1,25 @@
 import './EditForm.scss'
 import React from 'react'
 
+import { RepositoryItem } from 'meta/cycleData/repository/item'
 import { Objects } from 'utils/objects'
 
-import { useRepositoryItem } from 'client/store/repository/hooks/repository'
 import SlidingPanel from 'client/components/SlidingPanel'
 
-import { useClosePanel } from '../hooks/useClosePanel'
 import RepositoryItemForm from './RepositoryItemForm'
 
-const EditForm: React.FC = () => {
-  const repositoryItem = useRepositoryItem()
-  const closePanel = useClosePanel()
+type Props = {
+  onClose: () => void
+  repositoryItem: Partial<RepositoryItem> | undefined
+}
 
+const EditForm: React.FC<Props> = (props) => {
+  const { onClose, repositoryItem } = props
   const opened = !Objects.isEmpty(repositoryItem)
 
   return (
-    <SlidingPanel closePanel={closePanel} opened={opened} size={45}>
-      <RepositoryItemForm />
+    <SlidingPanel closePanel={onClose} opened={opened} size={45}>
+      <RepositoryItemForm onClose={onClose} repositoryItem={repositoryItem} />
     </SlidingPanel>
   )
 }
