@@ -37,9 +37,7 @@ export const useOnClose = (): Returned => {
       })}</a>`
     }
 
-    selectedFiles.forEach((_repositoryItem: RepositoryItem) => {
-      updateRepositoryAccess({ repositoryItems: selectedFiles, value: true })
-    })
+    updateRepositoryAccess({ repositoryItems: selectedFiles, value: true })
 
     const linksString = selectedFiles.map(mapFunction).join(' ')
     jodit?.s.insertHTML(linksString)

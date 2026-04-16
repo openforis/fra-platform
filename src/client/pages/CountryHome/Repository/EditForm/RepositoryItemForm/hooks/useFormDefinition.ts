@@ -9,7 +9,7 @@ import { FileMeta } from 'meta/file/meta'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { FieldDefinition, FormDefinition, FormFieldType } from 'client/components/Form/types'
 import { Option } from 'client/components/Inputs/Select/types'
-import { useItems } from 'client/pages/CountryHome/Repository/RepositoryList/hooks/useItems'
+import { useItems } from 'client/components/RepositoryList/hooks/useItems'
 
 import { FormType } from '../types'
 

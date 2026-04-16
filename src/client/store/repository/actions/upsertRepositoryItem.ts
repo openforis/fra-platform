@@ -28,7 +28,7 @@ export const upsertRepositoryItem = createAsyncThunk<RepositoryItem, Props, Thun
     const { repositoryItem } = props
     const config = _getParamsConfig(props)
 
-    const request = repositoryItem.uuid ? axios.patch : axios.post
+    const request = repositoryItem.uuid ? axios.put : axios.post
     const { data } = await request(ApiEndPoint.CycleData.Repository.one(), { repositoryItem }, config)
     return data
   }

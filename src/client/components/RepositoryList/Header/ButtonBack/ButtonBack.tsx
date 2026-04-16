@@ -6,7 +6,7 @@ import { TooltipId } from 'meta/tooltip/id'
 import { Objects } from 'utils/objects'
 
 import Icon from 'client/components/Icon'
-import { useRepositoryListContext } from 'client/pages/CountryHome/Repository/RepositoryList/context'
+import { useRepositoryListContext } from 'client/components/RepositoryList/context'
 
 const ButtonBack: React.FC = () => {
   const { folderPath, onNavigate } = useRepositoryListContext()

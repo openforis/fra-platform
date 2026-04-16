@@ -7,10 +7,10 @@ import { TablePaginatedFilterType } from 'meta/tablePaginated/filters/filter'
 
 import Hr from 'client/components/Hr'
 import Icon from 'client/components/Icon'
+import { useRepositoryListContext } from 'client/components/RepositoryList/context'
+import { useFileTypeOptions } from 'client/components/RepositoryList/hooks/_useFileTypeOptions'
 import MultiSelect from 'client/components/TablePaginated/Filters/MultiSelect'
 import Text from 'client/components/TablePaginated/Filters/Text'
-import { useRepositoryListContext } from 'client/pages/CountryHome/Repository/RepositoryList/context'
-import { useFileTypeOptions } from 'client/pages/CountryHome/Repository/RepositoryList/hooks/_useFileTypeOptions'
 
 import ButtonAdd from './ButtonAdd'
 import ButtonBack from './ButtonBack'
@@ -23,7 +23,7 @@ type Props = {
 const Header: React.FC<Props> = (props) => {
   const { isGlobal = false } = props
   const { t } = useTranslation()
-  const { parentUuid } = useRepositoryListContext()
+  const { parentUuid, selectable } = useRepositoryListContext()
   const path = `${ApiEndPoint.CycleData.Repository.tree()}?global=${isGlobal}`
   const fileTypeOptions = useFileTypeOptions(path)
 
@@ -31,9 +31,13 @@ const Header: React.FC<Props> = (props) => {
     <div className="repository-header">
       <div className="repository-header__left">
         <ButtonBack />
-        <ButtonDownloadAll isGlobal={isGlobal} />
-        <ButtonAdd isGlobal={isGlobal} parentUuid={parentUuid} />
-        <ButtonAdd isFolder isGlobal={isGlobal} parentUuid={parentUuid} />
+        {!selectable && (
+          <>
+            <ButtonDownloadAll isGlobal={isGlobal} />
+            <ButtonAdd isGlobal={isGlobal} parentUuid={parentUuid} />
+            <ButtonAdd isFolder isGlobal={isGlobal} parentUuid={parentUuid} />
+          </>
+        )}
       </div>
 
       <div className="repository-header__right">

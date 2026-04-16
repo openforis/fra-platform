@@ -1,5 +1,5 @@
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { RepositoryItem } from 'meta/cycleData/repository/item'
+import { RepositoryItem, RepositoryItemTree } from 'meta/cycleData/repository/item'
 import { CountryRouteParams } from 'meta/routes/routeParams/country'
 
 type GetFileURLProps = CountryRouteParams & {
@@ -22,12 +22,20 @@ const getName = (item: Pick<RepositoryItem, 'folderName' | 'props'>): string =>
 
 const isFolder = (item: Pick<RepositoryItem, 'folderName'>): boolean => typeof item.folderName === 'string'
 
+// Get all file items from current and child folders
+const getFileItemsFromFolder = (item: RepositoryItemTree): Array<RepositoryItemTree> =>
+  item.children.reduce<Array<RepositoryItemTree>>((acc, child) => {
+    if (isFolder(child)) return [...acc, ...getFileItemsFromFolder(child)]
+    return [...acc, child]
+  }, [])
+
 const isGlobal = (props: { repositoryItem: RepositoryItem }): boolean => {
   const { repositoryItem } = props
   return !repositoryItem.countryIso
 }
 
 export const RepositoryItems = {
+  getFileItemsFromFolder,
   getName,
   getURL,
   isFolder,
