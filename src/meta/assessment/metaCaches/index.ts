@@ -60,7 +60,8 @@ const getMetaCache = (props: CycleProps): AssessmentMetaCache => {
 
 const getCalculations = (props: CycleProps): DependencyCache => getMetaCache(props).calculations
 
-const getValidations = (props: CycleProps): DependencyCache => getMetaCache(props).validations
+const getValidations = (props: CycleProps): DependencyCache =>
+  getMetaCache(props).validations as unknown as DependencyCache // TODO: delete this cast after implementing new validation graph
 
 const getEnablers = (props: CycleProps): DependencyCache => getMetaCache(props).enablers
 
