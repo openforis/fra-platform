@@ -28,16 +28,7 @@ export type VariablesCache = Record<TableName, Record<VariableName, VariableCach
 export type TableDependencyRecord = Record<VariableName, Array<VariableCache>>
 export type DependencyRecord = Record<TableName, TableDependencyRecord>
 
-export type ValidationTargetCache = {
-  colName: ColName
-  tableName: TableName
-  variableName: VariableName
-}
-
-export type ValidationTargetsBySource = Record<
-  TableName,
-  Record<VariableName, Record<ColName, Array<ValidationTargetCache>>>
->
+export type ValidationTargetsBySource = Record<TableName, Record<VariableName, Record<ColName, Array<VariableCache>>>>
 
 export type DependencyCache = {
   dependencies: DependencyRecord
