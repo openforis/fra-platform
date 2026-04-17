@@ -5,6 +5,10 @@
 $color-private: color.adjust($ui-destructive, $lightness: 2.5%, $space: hsl);
 $color-public: color.adjust($ui-status-accepted, $lightness: -10%, $space: hsl);
 
+.repository-list-item__name {
+  grid-column: 1 / 3;
+}
+
 .repository-link {
   align-items: center;
   display: flex;

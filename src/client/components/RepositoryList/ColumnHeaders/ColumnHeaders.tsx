@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 
+import ButtonExpandCollapse from 'client/components/RepositoryList/Header/ButtonExpandCollapse'
 import OrderBy from 'client/components/TablePaginated/Header/OrderBy'
 import { Column } from 'client/components/TablePaginated/types'
 
@@ -27,6 +28,9 @@ const ColumnHeaders: React.FC<Props> = (props) => {
 
   return (
     <div className="repository-column-headers">
+      <div className="repository-column-headers__col">
+        <ButtonExpandCollapse />
+      </div>
       <div className="repository-column-headers__col repository-column-headers__col--name">
         {t('common.name')}
         <OrderBy column={col('name')} path={path} />

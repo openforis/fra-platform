@@ -35,7 +35,7 @@ const ItemRow: React.FC<Props> = (props) => {
 
   return (
     <div className="repository-list-item">
-      <div style={{ paddingLeft: depth * 20 + 20 }}>
+      <div className="repository-list-item__name" style={{ paddingLeft: depth * 20 + 20 }}>
         <RepositoryLink datum={item} />
       </div>
       <div className="repository-list-item__created-at">{Dates.getRelativeDate(item.createdAt, t)}</div>

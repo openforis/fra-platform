@@ -23,10 +23,10 @@
 
   &:first-child {
     border-left: 1px solid $ui-border-light;
+    justify-content: center;
   }
 }
 
 .repository-column-headers__col--name {
   gap: $spacing-xxxs;
-  padding-left: $spacing-xs;
 }
