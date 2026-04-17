@@ -66,8 +66,13 @@ const getNodeValidation = createSelector(
 
 const getSummary = createSelector([_getCountryValidations], (countryValidations) => countryValidations.summary)
 
+const getSummaryHasErrors = createSelector([getSummary], (summary) =>
+  Object.values(summary.tables).some((validationStatus) => !validationStatus.valid)
+)
+
 export const ValidationsSelectors = {
   getSummary,
+  getSummaryHasErrors,
   getTableValidations,
   getNodeValidation,
 }
