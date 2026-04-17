@@ -28,14 +28,21 @@ export type VariablesCache = Record<TableName, Record<VariableName, VariableCach
 export type TableDependencyRecord = Record<VariableName, Array<VariableCache>>
 export type DependencyRecord = Record<TableName, TableDependencyRecord>
 
+export type ValidationTargetsBySource = Record<TableName, Record<VariableName, Record<ColName, Array<VariableCache>>>>
+
 export type DependencyCache = {
   dependencies: DependencyRecord
   dependants: DependencyRecord
 }
 
+export type ValidationDependencyCache = {
+  dependencies: DependencyRecord
+  dependants: ValidationTargetsBySource
+}
+
 export interface AssessmentMetaCache {
   calculations: DependencyCache
-  validations: DependencyCache
+  validations: ValidationDependencyCache
   enablers?: DependencyCache
   variablesByTable: VariablesCache
 }
