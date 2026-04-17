@@ -7,13 +7,13 @@ import Requests from 'server/utils/requests'
 
 type Request = CountryRequest<{ global: string }>
 
-export const getManyRepositoryTree = async (req: Request, res: Response): Promise<void> => {
+export const getManyRepository = async (req: Request, res: Response): Promise<void> => {
   try {
     const { countryIso, global = 'false' } = req.query
     const { assessment, cycle } = req.context
 
     const props = { assessment, cycle, countryIso, global: JSON.parse(global) }
-    const tree = await CycleDataController.Repository.getManyTree(props)
+    const tree = await CycleDataController.Repository.getMany(props)
 
     Requests.send(res, tree)
   } catch (e) {

@@ -48,6 +48,6 @@ const collectFileEntries = async (items: Array<RepositoryItemTree>, prefix = '')
 
 export const getManyFiles = async (props: Props): Promise<Returned> => {
   const { assessment, countryIso, cycle, global } = props
-  const tree = await RepositoryRepository.getManyTree({ assessment, cycle, countryIso, global })
+  const tree = await RepositoryRepository.getMany({ assessment, cycle, countryIso, global })
   return collectFileEntries(tree)
 }

@@ -15,7 +15,7 @@ type Props = {
   global: boolean
 }
 
-export const getManyTree = async (props: Props, client: BaseProtocol = DB): Promise<Array<RepositoryItemTree>> => {
+export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<Array<RepositoryItemTree>> => {
   const { assessment, countryIso, cycle, global } = props
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
 
