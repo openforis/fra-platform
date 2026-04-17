@@ -21,9 +21,9 @@ const Components: Record<string, React.FC<FolderProps>> = {
 
 const RepositoryListItem: React.FC<Props> = (props) => {
   const { depth = 0, item } = props
-  const { collapsed } = useRepositoryListContext()
+  const { expanded } = useRepositoryListContext()
 
-  const isCollapsed = collapsed[item.uuid]
+  const isCollapsed = !expanded[item.uuid]
   const Component = Components[RepositoryItems.isFolder(item) ? 'folder' : 'item']
 
   return (

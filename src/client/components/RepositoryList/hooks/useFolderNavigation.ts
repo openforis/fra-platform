@@ -1,6 +1,7 @@
 import { useCallback, useMemo, useState } from 'react'
 
 import { RepositoryItemTree } from 'meta/cycleData/repository/item'
+import { RepositoryItems } from 'meta/cycleData/repository/items'
 
 import { RepositoryListContextValue } from '../context'
 import { getFolderPath } from './getFolderPath'
@@ -8,8 +9,10 @@ import { getFolderPath } from './getFolderPath'
 const _noop = (): void => undefined
 
 type Props = {
-  collapsed: Record<string, boolean>
+  expanded: Record<string, boolean>
   items: Array<RepositoryItemTree>
+  onCollapseAll: () => void
+  onExpandAll: (uuids: Array<string>) => void
   onOpenPanel?: (item: Partial<RepositoryItemTree>) => void
   onSelect?: (item: RepositoryItemTree) => void
   onSelectFolder?: (items: Array<RepositoryItemTree>, select: boolean) => void
@@ -23,7 +26,17 @@ type Returned = {
 }
 
 export const useFolderNavigation = (props: Props): Returned => {
-  const { collapsed, items, onOpenPanel, onSelect, onSelectFolder, onToggle, selectedUuids } = props
+  const {
+    expanded,
+    items,
+    onCollapseAll,
+    onExpandAll,
+    onOpenPanel,
+    onSelect,
+    onSelectFolder,
+    onToggle,
+    selectedUuids,
+  } = props
   const selectable = Boolean(onSelect)
   const [folderTarget, setFolderTarget] = useState<string | undefined>()
 
@@ -31,11 +44,18 @@ export const useFolderNavigation = (props: Props): Returned => {
 
   const onNavigate = useCallback((uuid?: string) => setFolderTarget(uuid), [])
 
+  const visibleItems = useMemo(() => (currentFolder ? [currentFolder] : items), [currentFolder, items])
+  const folderUuids = useMemo(() => RepositoryItems.getFolderUuids(visibleItems), [visibleItems])
+  const allExpanded = folderUuids.every((uuid) => expanded[uuid])
+
   const contextValue = useMemo<RepositoryListContextValue>(
     () => ({
+      allExpanded,
       // Force the current folder to always appear expanded, even if contracted in parent view
-      collapsed: currentFolder ? { ...collapsed, [currentFolder.uuid]: false } : collapsed,
+      expanded: currentFolder ? { ...expanded, [currentFolder.uuid]: true } : expanded,
       folderPath,
+      onCollapseAll,
+      onExpandAll: (): void => onExpandAll(folderUuids),
       onNavigate,
       onOpenPanel,
       onSelect: onSelect ?? _noop,
@@ -46,9 +66,13 @@ export const useFolderNavigation = (props: Props): Returned => {
       selectedUuids,
     }),
     [
-      collapsed,
+      allExpanded,
       currentFolder,
+      expanded,
       folderPath,
+      folderUuids,
+      onCollapseAll,
+      onExpandAll,
       onNavigate,
       onOpenPanel,
       onSelect,
@@ -59,5 +83,5 @@ export const useFolderNavigation = (props: Props): Returned => {
     ]
   )
 
-  return { contextValue, visibleItems: currentFolder ? [currentFolder] : items }
+  return { contextValue, visibleItems }
 }

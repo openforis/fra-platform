@@ -3,8 +3,11 @@ import { createContext, useContext } from 'react'
 import { RepositoryItemTree } from 'meta/cycleData/repository/item'
 
 export type RepositoryListContextValue = {
-  collapsed: Record<string, boolean>
+  allExpanded: boolean
+  expanded: Record<string, boolean>
   folderPath: Array<RepositoryItemTree>
+  onCollapseAll: () => void
+  onExpandAll: () => void
   onNavigate: (uuid?: string) => void
   onOpenPanel?: (item: Partial<RepositoryItemTree>) => void
   onSelect: (item: RepositoryItemTree) => void

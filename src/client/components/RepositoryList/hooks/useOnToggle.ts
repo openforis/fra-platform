@@ -1,14 +1,18 @@
 import { useState } from 'react'
 
 type Returned = {
-  collapsed: Record<string, boolean>
+  expanded: Record<string, boolean>
+  onCollapseAll: () => void
+  onExpandAll: (uuids: Array<string>) => void
   onToggle: (uuid: string) => void
 }
 
 export const useOnToggle = (): Returned => {
-  const [collapsed, setCollapsed] = useState<Record<string, boolean>>({})
+  const [expanded, setExpanded] = useState<Record<string, boolean>>({})
 
-  const onToggle = (uuid: string): void => setCollapsed((prev) => ({ ...prev, [uuid]: !prev[uuid] }))
+  const onToggle = (uuid: string): void => setExpanded((prev) => ({ ...prev, [uuid]: !prev[uuid] }))
+  const onExpandAll = (uuids: Array<string>): void => setExpanded(Object.fromEntries(uuids.map((uuid) => [uuid, true])))
+  const onCollapseAll = (): void => setExpanded({})
 
-  return { collapsed, onToggle }
+  return { expanded, onCollapseAll, onExpandAll, onToggle }
 }

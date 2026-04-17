@@ -29,6 +29,13 @@ const getFileItemsFromFolder = (item: RepositoryItemTree): Array<RepositoryItemT
     return [...acc, child]
   }, [])
 
+// Recursively collect all folder UUIDs from a tree
+const getFolderUuids = (items: Array<RepositoryItemTree>): Array<string> =>
+  items.reduce<Array<string>>((acc, item) => {
+    if (!isFolder(item)) return acc
+    return [...acc, item.uuid, ...getFolderUuids(item.children)]
+  }, [])
+
 const isGlobal = (props: { repositoryItem: RepositoryItem }): boolean => {
   const { repositoryItem } = props
   return !repositoryItem.countryIso
@@ -36,6 +43,7 @@ const isGlobal = (props: { repositoryItem: RepositoryItem }): boolean => {
 
 export const RepositoryItems = {
   getFileItemsFromFolder,
+  getFolderUuids,
   getName,
   getURL,
   isFolder,
