@@ -13,7 +13,7 @@ import { useSortFn } from './_useSortFn'
 export const useItems = (isGlobal = false): Array<RepositoryItemTree> => {
   useInjectSlice(TablePaginatedSlice)
 
-  const path = `${ApiEndPoint.CycleData.Repository.tree()}?global=${isGlobal}`
+  const path = `${ApiEndPoint.CycleData.Repository.many()}?global=${isGlobal}`
   const storeItems = useTablePaginatedData<RepositoryItemTree>({ path })
   const rawItems = useMemo(() => storeItems ?? [], [storeItems])
 

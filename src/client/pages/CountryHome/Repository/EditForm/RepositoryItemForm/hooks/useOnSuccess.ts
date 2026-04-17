@@ -11,7 +11,7 @@ export const useOnSuccess = (onClose: () => void): (() => void) => {
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const dispatch = useAppDispatch()
 
-  const path = `${ApiEndPoint.CycleData.Repository.tree()}?global=false`
+  const path = `${ApiEndPoint.CycleData.Repository.many()}?global=false`
   const limit: number = undefined
   const page: number = undefined
 

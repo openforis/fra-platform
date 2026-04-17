@@ -71,7 +71,6 @@ export const CycleData = {
 
     many: (): string => apiPath('cycle-data', 'repository', 'items'),
     one: (): string => apiPath('cycle-data', 'repository', 'items', 'item'),
-    tree: (): string => apiPath('cycle-data', 'repository', 'items', 'tree'),
     fileMeta: (): string => apiPath('cycle-data', 'repository', 'items', 'item', 'file-meta'),
   },
 

@@ -18,7 +18,7 @@ export const useOnDelete = (onClose: () => void, repositoryItem: Partial<Reposit
   const { t } = useTranslation()
   const { toaster } = useToaster()
 
-  const path = `${ApiEndPoint.CycleData.Repository.tree()}?global=false`
+  const path = `${ApiEndPoint.CycleData.Repository.many()}?global=false`
   const limit: number = undefined
   const page: number = undefined
 

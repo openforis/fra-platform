@@ -20,7 +20,7 @@ export const useOnSuccess = (): Returned => {
     async (files: Array<File>) => {
       const limit: number = undefined
       const page: number = undefined
-      const path = `${ApiEndPoint.CycleData.Repository.tree()}?global=false`
+      const path = `${ApiEndPoint.CycleData.Repository.many()}?global=false`
       const params = { assessmentName, countryIso, cycleName }
 
       await Promise.all(
