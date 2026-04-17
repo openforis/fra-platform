@@ -10,3 +10,11 @@ export const useValidationSummary = (): ValidationSummary => {
 
   return useAppSelector((state) => ValidationsSelectors.getSummary(state, assessmentName, cycleName, countryIso))
 }
+
+export const useSummaryHasErrors = (): boolean => {
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
+
+  return useAppSelector((state) =>
+    ValidationsSelectors.getSummaryHasErrors(state, assessmentName, cycleName, countryIso)
+  )
+}
