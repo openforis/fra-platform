@@ -17,7 +17,7 @@ type Props = {
 const ColumnHeaders: React.FC<Props> = (props) => {
   const { isGlobal = false } = props
   const { t } = useTranslation()
-  const path = `${ApiEndPoint.CycleData.Repository.tree()}?global=${isGlobal}`
+  const path = `${ApiEndPoint.CycleData.Repository.many()}?global=${isGlobal}`
 
   const col = (orderByProperty: string): Column<object> => ({
     key: orderByProperty,

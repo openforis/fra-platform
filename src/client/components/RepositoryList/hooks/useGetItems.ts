@@ -10,7 +10,7 @@ export const useGetItems = (isGlobal = false): void => {
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams()
   const dispatch = useAppDispatch()
 
-  const path = `${ApiEndPoint.CycleData.Repository.tree()}?global=${isGlobal}`
+  const path = `${ApiEndPoint.CycleData.Repository.many()}?global=${isGlobal}`
 
   useEffect((): void => {
     const limit: number = undefined

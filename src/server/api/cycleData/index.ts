@@ -43,7 +43,6 @@ import { updateOriginalDataPointNationalClasses } from './originalDataPoint/upda
 import { updateOriginalDataPointOriginalData } from './originalDataPoint/updateOriginalDataPointOriginalData'
 import { updateOriginalDataPointYear } from './originalDataPoint/updateOriginalDataPointYear'
 import { createRepositoryItem } from './repository/createRepositoryItem'
-import { getManyRepository } from './repository/getManyRepository'
 import { getManyRepositoryFiles } from './repository/getManyRepositoryFiles'
 import { getManyRepositoryTree } from './repository/getManyRepositoryTree'
 import { getRepositoryFile } from './repository/getRepositoryFile'
@@ -199,8 +198,7 @@ export const CycleDataApi = {
       AuthMiddleware.requireEditRepositoryItem,
       getRepositoryFileMeta
     )
-    express.get(ApiEndPoint.CycleData.Repository.many(), AuthMiddleware.requireView, getManyRepository)
-    express.get(ApiEndPoint.CycleData.Repository.tree(), AuthMiddleware.requireView, getManyRepositoryTree)
+    express.get(ApiEndPoint.CycleData.Repository.many(), AuthMiddleware.requireView, getManyRepositoryTree)
     express.put(
       ApiEndPoint.CycleData.Repository.one(),
       multer().none(),
