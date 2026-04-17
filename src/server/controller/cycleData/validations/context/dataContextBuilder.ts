@@ -1,4 +1,4 @@
-import { Assessment, AssessmentName, RecordAssessments } from 'meta/assessment/assessment'
+import { RecordAssessments } from 'meta/assessment/assessment'
 import { Assessments } from 'meta/assessment/assessments'
 import { Cycle, CycleName } from 'meta/assessment/cycle'
 import { VariableCache } from 'meta/assessment/metaCache'
@@ -6,10 +6,8 @@ import { AssessmentMetaCaches } from 'meta/assessment/metaCaches'
 import { TableName } from 'meta/assessment/table'
 import { RecordAssessmentData } from 'meta/data/recordData'
 import { RecordAssessmentDatas } from 'meta/data/recordDatas'
-import { Objects } from 'utils/objects'
 import { Promises } from 'utils/promises'
 
-import { AssessmentController } from 'server/controller/assessment'
 import { getTableData } from 'server/controller/cycleData/getTableData'
 
 import { BaseContextBuilder } from './baseContextBuilder'
@@ -21,14 +19,13 @@ type Returned = {
 }
 
 type TablesFetch = {
-  assessment: Assessment
   cycle: Cycle
   tableNames: Set<TableName>
 }
 
 export class DataContextBuilder extends BaseContextBuilder {
   readonly #assessments: RecordAssessments
-  readonly #tables: Record<AssessmentName, Record<CycleName, TablesFetch>>
+  readonly #tables: Record<CycleName, TablesFetch>
 
   constructor(props: ContextBuilderProps) {
     super(props)
@@ -40,44 +37,33 @@ export class DataContextBuilder extends BaseContextBuilder {
 
     // init tables to fetch
     this.#tables = {
-      [assessment.props.name]: {
-        [cycle.name]: {
-          assessment,
-          cycle,
-          tableNames: new Set<TableName>(),
-        },
+      [cycle.name]: {
+        cycle,
+        tableNames: new Set<TableName>(),
       },
     }
   }
 
-  async #ensureAssessment(assessmentName: AssessmentName): Promise<Assessment> {
-    if (!this.#assessments[assessmentName]) {
-      this.#assessments[assessmentName] = await AssessmentController.getOne({ assessmentName, metaCache: true })
+  async #ensureTablesFetch(cycleName: CycleName): Promise<TablesFetch> {
+    if (!this.#tables[cycleName]) {
+      this.#tables[cycleName] = {
+        cycle: Assessments.getCycle({ assessment: this.props.assessment, cycleName }),
+        tableNames: new Set<TableName>(),
+      }
     }
 
-    return this.#assessments[assessmentName]
-  }
-
-  async #ensureTablesFetch(assessmentName: AssessmentName, cycleName: CycleName): Promise<TablesFetch> {
-    if (!this.#tables[assessmentName]?.[cycleName]) {
-      // Validation dependencies may point to another assessment/cycle
-      const assessment = await this.#ensureAssessment(assessmentName)
-      const cycle = Assessments.getCycle({ assessment, cycleName })
-
-      Objects.setInPath({
-        obj: this.#tables,
-        path: [assessmentName, cycleName],
-        value: { assessment, cycle, tableNames: new Set<TableName>() },
-      })
-    }
-
-    return this.#tables[assessmentName][cycleName]
+    return this.#tables[cycleName]
   }
 
   async #addDependency(variable: Pick<VariableCache, 'assessmentName' | 'cycleName' | 'tableName'>): Promise<void> {
     const assessmentName = variable.assessmentName ?? this.props.assessment.props.name
     const cycleName = variable.cycleName ?? this.props.cycle.name
-    const tablesFetch = await this.#ensureTablesFetch(assessmentName, cycleName)
+
+    if (assessmentName !== this.props.assessment.props.name) {
+      throw new Error(`Cross-assessment validation dependencies are not supported: ${assessmentName}`)
+    }
+
+    const tablesFetch = await this.#ensureTablesFetch(cycleName)
 
     tablesFetch.tableNames.add(variable.tableName)
   }
@@ -116,28 +102,27 @@ export class DataContextBuilder extends BaseContextBuilder {
   }
 
   async getData(): Promise<Returned> {
-    const { countryIso } = this.props.country
+    const { assessment, country } = this.props
+    const { countryIso } = country
     let data: RecordAssessmentData = {}
 
-    await Promises.each(Object.values(this.#tables), async (cycles) => {
-      await Promises.each(Object.values(cycles), async (tablesFetch) => {
-        const tableNames = Array.from(tablesFetch.tableNames)
+    await Promises.each(Object.values(this.#tables), async (tablesFetch) => {
+      const tableNames = Array.from(tablesFetch.tableNames)
 
-        if (tableNames.length === 0) {
-          return
-        }
+      if (tableNames.length === 0) {
+        return
+      }
 
-        // Fetch the tables collected for this assessment/cycle
-        const cycleData = await getTableData({
-          assessment: tablesFetch.assessment,
-          countryISOs: [countryIso],
-          cycle: tablesFetch.cycle,
-          mergeOdp: true,
-          tableNames,
-        })
-
-        data = RecordAssessmentDatas.mergeData({ newTableData: cycleData, tableData: data })
+      // Fetch the tables collected for this assessment/cycle
+      const cycleData = await getTableData({
+        assessment,
+        countryISOs: [countryIso],
+        cycle: tablesFetch.cycle,
+        mergeOdp: true,
+        tableNames,
       })
+
+      data = RecordAssessmentDatas.mergeData({ newTableData: cycleData, tableData: data })
     })
 
     return { assessments: this.#assessments, data }
