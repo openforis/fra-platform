@@ -1,0 +1,13 @@
+@use 'src/client/style/partials' as *;
+
+.validation-error-indicator {
+  align-items: center;
+  display: inline-flex;
+  justify-content: center;
+
+  .icon {
+    color: $ui-destructive;
+    height: 12px;
+    width: 12px;
+  }
+}

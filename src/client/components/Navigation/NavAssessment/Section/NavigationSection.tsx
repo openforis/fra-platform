@@ -14,6 +14,7 @@ import { useCountryIso } from 'client/hooks/country'
 import { useIsDataExportView } from 'client/hooks/dataExport'
 import SectionItemLink from 'client/components/Navigation/NavAssessment/Section/SectionItemLink'
 import ReviewSummaryIndicator from 'client/components/ReviewSummaryIndicator'
+import ValidationErrorIndicator from 'client/components/ValidationErrorIndicator'
 
 type Props = {
   section: Section
@@ -77,10 +78,13 @@ const NavigationSection: React.FC<Props> = (props) => {
         tabIndex={0}
       >
         <div className="nav-section__order">{prefix}</div>
-        <div className="nav-section__label">{sectionLabel}</div>
+        <div className="nav-section__label-content">
+          <div className="nav-section__label">{sectionLabel}</div>
+        </div>
         {!expanded && !isDataExport && (
           <div className="nav-section__status-content">
             <ReviewSummaryIndicator status={reviewStatus} />
+            <ValidationErrorIndicator target="section" uuid={section.uuid} />
           </div>
         )}
       </div>
