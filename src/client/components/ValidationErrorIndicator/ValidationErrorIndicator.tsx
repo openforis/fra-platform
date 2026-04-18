@@ -4,6 +4,7 @@ import React from 'react'
 import { UUID } from 'meta/uuid/uuid'
 
 import Icon from 'client/components/Icon'
+import Flex from 'client/components/Layout/Flex'
 
 import { useShow } from './hooks/useShow'
 
@@ -18,9 +19,9 @@ const ValidationErrorIndicator: React.FC<Props> = (props) => {
   if (!show) return null
 
   return (
-    <div className="validation-error-indicator">
+    <Flex alignItems="center" className="validation-error-indicator" display="inline-flex" justifyContent="center">
       <Icon name="alert" />
-    </div>
+    </Flex>
   )
 }
 

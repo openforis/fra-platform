@@ -25,12 +25,6 @@
   font-size: $font-s;
 }
 
-.nav-section__label-content {
-  align-items: center;
-  display: inline-flex;
-  gap: $spacing-xxs;
-}
-
 .nav-section__status-content {
   @include mixin-status-content-base;
 }
