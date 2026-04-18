@@ -1,12 +1,11 @@
+@use 'spacing' as *;
+
 @mixin mixin-status-content-base() {
+  align-items: center;
   display: flex;
   flex-flow: row-reverse nowrap;
-  align-items: center;
-  margin-left: auto;
-
-  div {
-    margin-left: 4px;
-  }
+  gap: $spacing-xxxs;
+  margin-inline-start: auto;
 }
 
 @mixin mixin-status-base($color) {
