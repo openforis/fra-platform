@@ -29,7 +29,7 @@ export const useFormDefinition = (
 ): FormDefinition => {
   const { countryIso } = useCountryRouteParams<CountryIso>()
   const { t } = useTranslation()
-  const items = useItems(false)
+  const { items } = useItems(false)
 
   return useMemo<FormDefinition>(() => {
     const formType = repositoryItem && RepositoryItems.isFolder(repositoryItem) ? FormType.folder : FormType.item

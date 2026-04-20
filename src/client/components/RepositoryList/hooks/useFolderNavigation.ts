@@ -13,7 +13,7 @@ type Props = {
   items: Array<RepositoryItemTree>
   onCollapseAll: () => void
   onExpandAll: (uuids: Array<string>) => void
-  onOpenPanel?: (item: Partial<RepositoryItemTree>) => void
+  onOpenPanel: (item: Partial<RepositoryItemTree>) => void
   onSelect?: (item: RepositoryItemTree) => void
   onSelectFolder?: (items: Array<RepositoryItemTree>, select: boolean) => void
   onToggle: (uuid: string) => void

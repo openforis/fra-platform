@@ -1,8 +1,8 @@
 import './RepositoryList.scss'
-import React from 'react'
+import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { RepositoryItemTree } from 'meta/cycleData/repository/item'
+import { RepositoryItem, RepositoryItemTree } from 'meta/cycleData/repository/item'
 
 import { DataGrid } from 'client/components/DataGrid'
 import Hr from 'client/components/Hr'
@@ -15,20 +15,21 @@ import { useOnToggle } from './hooks/useOnToggle'
 import Breadcrumb from './Breadcrumb'
 import ColumnHeaders from './ColumnHeaders'
 import { RepositoryListContext } from './context'
+import EditForm from './EditForm'
 import Header from './Header'
 import RepositoryListSkeleton from './RepositoryListSkeleton'
 
 type Props = {
   isGlobal?: boolean
-  onOpenPanel?: (item: Partial<RepositoryItemTree>) => void
   onSelect?: (item: RepositoryItemTree) => void
   onSelectFolder?: (items: Array<RepositoryItemTree>, select: boolean) => void
   selectedUuids?: Array<string>
 }
 
 const RepositoryList: React.FC<Props> = (props) => {
-  const { isGlobal, onOpenPanel, onSelect, onSelectFolder, selectedUuids = [] } = props
+  const { isGlobal, onSelect, onSelectFolder, selectedUuids = [] } = props
   const { t } = useTranslation()
+  const [repositoryItem, setRepositoryItem] = useState<Partial<RepositoryItem> | undefined>()
 
   useGetItems(isGlobal)
   const { isLoading, items } = useItems(isGlobal)
@@ -38,7 +39,7 @@ const RepositoryList: React.FC<Props> = (props) => {
     items,
     onCollapseAll,
     onExpandAll,
-    onOpenPanel,
+    onOpenPanel: setRepositoryItem,
     onSelect,
     onSelectFolder,
     onToggle,
@@ -66,6 +67,7 @@ const RepositoryList: React.FC<Props> = (props) => {
           visibleItems.map((item) => <RepositoryListItem key={item.uuid} item={item} />)
         )}
       </DataGrid>
+      <EditForm onClose={() => setRepositoryItem(undefined)} repositoryItem={repositoryItem} />
     </RepositoryListContext.Provider>
   )
 }

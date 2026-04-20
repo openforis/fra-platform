@@ -31,13 +31,9 @@ const Header: React.FC<Props> = (props) => {
     <div className="repository-header">
       <div className="repository-header__left">
         <ButtonBack />
-        {!selectable && (
-          <>
-            <ButtonDownloadAll isGlobal={isGlobal} />
-            <ButtonAdd isGlobal={isGlobal} parentUuid={parentUuid} />
-            <ButtonAdd isFolder isGlobal={isGlobal} parentUuid={parentUuid} />
-          </>
-        )}
+        {!selectable && <ButtonDownloadAll isGlobal={isGlobal} />}
+        <ButtonAdd isGlobal={isGlobal} parentUuid={parentUuid} />
+        <ButtonAdd isFolder isGlobal={isGlobal} parentUuid={parentUuid} />
       </div>
 
       <div className="repository-header__right">

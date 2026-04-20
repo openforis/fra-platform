@@ -4,13 +4,11 @@ import { useTranslation } from 'react-i18next'
 
 import Button, { ButtonSize } from 'client/components/Buttons/Button'
 import { useRepositoryLinkContext } from 'client/components/EditorWYSIWYG/repositoryLinkContext'
-import FileUpload from 'client/components/FileUpload'
 import { Modal, ModalBody, ModalClose, ModalFooter, ModalHeader } from 'client/components/Modal'
 import RepositoryList from 'client/components/RepositoryList'
 
 import { useHandleSelect } from './hooks/useHandleSelect'
 import { useOnClose } from './hooks/useOnClose'
-import { useOnSuccess } from './hooks/useOnSuccess'
 
 const AddFromRepository: React.FC = () => {
   const { t } = useTranslation()
@@ -18,7 +16,6 @@ const AddFromRepository: React.FC = () => {
 
   const { onSelect, onSelectFolder, selectedUuids } = useHandleSelect()
   const onClose = useOnClose()
-  const onSuccess = useOnSuccess()
 
   useEffect(() => {
     if (repositoryOpened) setSelectedFiles([])
@@ -44,7 +41,6 @@ const AddFromRepository: React.FC = () => {
 
       <ModalBody>
         <RepositoryList onSelect={onSelect} onSelectFolder={onSelectFolder} selectedUuids={selectedUuids} />
-        <FileUpload multiple onChange={onSuccess} />
       </ModalBody>
 
       <ModalFooter>
