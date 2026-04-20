@@ -15,6 +15,7 @@ import Breadcrumb from './Breadcrumb'
 import ColumnHeaders from './ColumnHeaders'
 import { RepositoryListContext } from './context'
 import Header from './Header'
+import RepositoryListSkeleton from './RepositoryListSkeleton'
 
 type Props = {
   isGlobal?: boolean
@@ -29,7 +30,7 @@ const RepositoryList: React.FC<Props> = (props) => {
   const { t } = useTranslation()
 
   useGetItems(isGlobal)
-  const items = useItems(isGlobal)
+  const { isLoading, items } = useItems(isGlobal)
   const { expanded, onCollapseAll, onExpandAll, onToggle } = useOnToggle()
   const { contextValue, visibleItems } = useFolderNavigation({
     expanded,
@@ -55,9 +56,11 @@ const RepositoryList: React.FC<Props> = (props) => {
       <div className="repository-list">
         <Header isGlobal={isGlobal} />
         <ColumnHeaders isGlobal={isGlobal} />
-        {visibleItems.map((item) => (
-          <RepositoryListItem key={item.uuid} item={item} />
-        ))}
+        {isLoading ? (
+          <RepositoryListSkeleton />
+        ) : (
+          visibleItems.map((item) => <RepositoryListItem key={item.uuid} item={item} />)
+        )}
       </div>
     </RepositoryListContext.Provider>
   )
