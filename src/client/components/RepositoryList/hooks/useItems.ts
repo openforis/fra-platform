@@ -10,7 +10,12 @@ import { TablePaginatedSlice } from 'client/store/tablePaginated/slice'
 import { useFilterFn } from './_useFilterFn'
 import { useSortFn } from './_useSortFn'
 
-export const useItems = (isGlobal = false): Array<RepositoryItemTree> => {
+type Returned = {
+  isLoading: boolean
+  items: Array<RepositoryItemTree>
+}
+
+export const useItems = (isGlobal = false): Returned => {
   useInjectSlice(TablePaginatedSlice)
 
   const path = `${ApiEndPoint.CycleData.Repository.many()}?global=${isGlobal}`
@@ -19,6 +24,7 @@ export const useItems = (isGlobal = false): Array<RepositoryItemTree> => {
 
   const sortFn = useSortFn(path)
   const filterFn = useFilterFn(path)
+  const items = useMemo(() => filterFn(sortFn(rawItems)), [filterFn, rawItems, sortFn])
 
-  return useMemo(() => filterFn(sortFn(rawItems)), [filterFn, rawItems, sortFn])
+  return { isLoading: storeItems === undefined, items }
 }
