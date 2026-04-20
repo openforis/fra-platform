@@ -79,7 +79,7 @@ const NavigationSection: React.FC<Props> = (props) => {
         tabIndex={0}
       >
         <div className="nav-section__order">{prefix}</div>
-        <Flex alignItems="center" display="inline-flex" gap="4">
+        <Flex alignItems="center">
           <div className="nav-section__label">{sectionLabel}</div>
         </Flex>
         {!expanded && !isDataExport && (

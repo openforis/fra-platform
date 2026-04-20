@@ -7,13 +7,7 @@ $flex-direction-values: (row, row-reverse, column, column-reverse);
 $gaps: 0, 4, 8, 16, 32;
 
 .flex {
-  &.display-flex {
-    display: flex;
-  }
-
-  &.display-inline-flex {
-    display: inline-flex;
-  }
+  display: flex;
 
   @each $property in $alignment-properties {
     @each $value in $alignment-values {

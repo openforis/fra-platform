@@ -63,7 +63,7 @@ const SectionItemLink: React.FC<Props> = (props) => {
       <div className="nav-section__order">
         {t(SubSections.getAnchorLabel({ assessment, cycle, subSection }), SubSections.getAnchor({ cycle, subSection }))}
       </div>
-      <Flex alignItems="center" display="inline-flex" gap="4">
+      <Flex alignItems="center">
         <div className="nav-section__label">{Labels.getCycleLabel({ cycle, labels: subSection.props.labels, t })}</div>
       </Flex>
       {!isDataExport && (

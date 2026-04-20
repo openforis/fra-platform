@@ -19,7 +19,7 @@ const ValidationErrorIndicator: React.FC<Props> = (props) => {
   if (!show) return null
 
   return (
-    <Flex alignItems="center" className="validation-error-indicator" display="inline-flex" justifyContent="center">
+    <Flex alignItems="center" className="validation-error-indicator" justifyContent="center">
       <Icon name="alert" />
     </Flex>
   )
