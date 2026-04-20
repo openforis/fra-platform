@@ -44,28 +44,32 @@ const Header: React.FC<Props> = (props) => {
         <Icon name="filter" />
         <Hr vertical />
         <Text fieldName="name" label={t('common.name')} path={path} type={TablePaginatedFilterType.TEXT} />
-        <MultiSelect
-          fieldName="access"
-          label={t('common.access')}
-          multiLabelSummaryKey="common.access"
-          options={[
-            { label: t('common.public'), value: 'public' },
-            { label: t('common.private'), value: 'private' },
-          ]}
-          path={path}
-          type={TablePaginatedFilterType.MULTI_SELECT}
-        />
-        <MultiSelect
-          fieldName="linked"
-          label={t('common.linked')}
-          multiLabelSummaryKey="common.linked"
-          options={[
-            { label: t('common.linked'), value: 'linked' },
-            { label: t('common.unlinked'), value: 'unlinked' },
-          ]}
-          path={path}
-          type={TablePaginatedFilterType.MULTI_SELECT}
-        />
+        {!selectable && (
+          <>
+            <MultiSelect
+              fieldName="access"
+              label={t('common.access')}
+              multiLabelSummaryKey="common.access"
+              options={[
+                { label: t('common.public'), value: 'public' },
+                { label: t('common.private'), value: 'private' },
+              ]}
+              path={path}
+              type={TablePaginatedFilterType.MULTI_SELECT}
+            />
+            <MultiSelect
+              fieldName="linked"
+              label={t('common.linked')}
+              multiLabelSummaryKey="common.linked"
+              options={[
+                { label: t('common.linked'), value: 'linked' },
+                { label: t('common.unlinked'), value: 'unlinked' },
+              ]}
+              path={path}
+              type={TablePaginatedFilterType.MULTI_SELECT}
+            />
+          </>
+        )}
         <MultiSelect
           fieldName="fileType"
           label={t('common.fileType')}

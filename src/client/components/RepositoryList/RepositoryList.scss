@@ -1,10 +1,5 @@
 @use 'src/client/style/partials' as *;
 
-.repository-list {
-  display: grid;
-  grid-template-columns: 28px 1fr 100px minmax(120px, auto) minmax(120px, auto) auto;
-}
-
 .repository-list__title {
   align-items: center;
   display: flex;

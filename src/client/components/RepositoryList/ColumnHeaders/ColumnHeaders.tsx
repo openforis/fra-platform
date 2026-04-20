@@ -8,6 +8,8 @@ import ButtonExpandCollapse from 'client/components/RepositoryList/Header/Button
 import OrderBy from 'client/components/TablePaginated/Header/OrderBy'
 import { Column } from 'client/components/TablePaginated/types'
 
+import { useRepositoryListContext } from '../context'
+
 // Placeholder component
 const EmptyComponent = (): null => null
 
@@ -18,6 +20,7 @@ type Props = {
 const ColumnHeaders: React.FC<Props> = (props) => {
   const { isGlobal = false } = props
   const { t } = useTranslation()
+  const { selectable } = useRepositoryListContext()
   const path = `${ApiEndPoint.CycleData.Repository.many()}?global=${isGlobal}`
 
   const col = (orderByProperty: string): Column<object> => ({
@@ -39,14 +42,18 @@ const ColumnHeaders: React.FC<Props> = (props) => {
         {t('common.added')}
         <OrderBy column={col('createdAt')} path={path} />
       </div>
-      <div className="repository-column-headers__col">
-        {t('common.linked')}
-        <OrderBy column={col('linked')} path={path} />
-      </div>
-      <div className="repository-column-headers__col">
-        {t('common.access')}
-        <OrderBy column={col('access')} path={path} />
-      </div>
+      {!selectable && (
+        <div className="repository-column-headers__col">
+          {t('common.linked')}
+          <OrderBy column={col('linked')} path={path} />
+        </div>
+      )}
+      {!selectable && (
+        <div className="repository-column-headers__col">
+          {t('common.access')}
+          <OrderBy column={col('access')} path={path} />
+        </div>
+      )}
       <div />
     </div>
   )
