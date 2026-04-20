@@ -31,7 +31,30 @@ const ItemRow: React.FC<Props> = (props) => {
 
   const isGlobalRepositoryItem = RepositoryItems.isGlobal({ repositoryItem: item })
   const canEdit = isGlobalRepositoryItem ? isGlobalRepositoryEditable : isCountryRepositoryEditable
-  const level = item.props?.public ? 'public' : 'private'
+  const visibility = item.props?.public ? 'public' : 'private'
+
+  let actionCell: React.ReactNode = <div />
+  if (selectable) {
+    actionCell = (
+      <ButtonCheckBox
+        checked={selectedUuids.includes(item.uuid)}
+        onClick={() => onSelect(item)}
+        variant={ButtonCheckboxVariant.checkbox}
+      />
+    )
+  } else if (onOpenPanel && canEdit) {
+    actionCell = (
+      <Button
+        dataTooltipContent={t('description.edit')}
+        dataTooltipId={TooltipId.info}
+        dataTooltipPlace="left"
+        iconName="pencil"
+        onClick={() => onOpenPanel(item)}
+        size={ButtonSize.xs}
+        type={ButtonType.transparent}
+      />
+    )
+  }
 
   return (
     <div className="repository-list-item">
@@ -39,29 +62,15 @@ const ItemRow: React.FC<Props> = (props) => {
         <RepositoryLink datum={item} />
       </div>
       <div className="repository-list-item__created-at">{Dates.getRelativeDate(item.createdAt, t)}</div>
-      <div className="repository-list-item__icon-wrapper">
-        {item.linked && <Icon className="repository-list-item__icon" name="checkbox" />}
-      </div>
-      <div className={classNames('repository-list-item__badge', level)}>{t(`common.${level}`)}</div>
-      {selectable ? (
-        <ButtonCheckBox
-          checked={selectedUuids.includes(item.uuid)}
-          onClick={() => onSelect(item)}
-          variant={ButtonCheckboxVariant.checkbox}
-        />
-      ) : onOpenPanel && canEdit ? (
-        <Button
-          dataTooltipContent={t('description.edit')}
-          dataTooltipId={TooltipId.info}
-          dataTooltipPlace="left"
-          iconName="pencil"
-          onClick={() => onOpenPanel(item)}
-          size={ButtonSize.xs}
-          type={ButtonType.transparent}
-        />
-      ) : (
-        <div />
+      {!selectable && (
+        <div className="repository-list-item__icon-wrapper">
+          {item.linked && <Icon className="repository-list-item__icon" name="checkbox" />}
+        </div>
       )}
+      {!selectable && (
+        <div className={classNames('repository-list-item__badge', visibility)}>{t(`common.${visibility}`)}</div>
+      )}
+      {actionCell}
     </div>
   )
 }

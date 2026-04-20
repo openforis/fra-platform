@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import { RepositoryItemTree } from 'meta/cycleData/repository/item'
 
+import { DataGrid } from 'client/components/DataGrid'
 import Hr from 'client/components/Hr'
 import RepositoryListItem from 'client/components/RepositoryList/RepositoryListItem'
 
@@ -45,6 +46,9 @@ const RepositoryList: React.FC<Props> = (props) => {
   })
 
   const title = isGlobal ? t('landing.links.links') : t('landing.links.repository')
+  const gridTemplateColumns = onSelect
+    ? '28px 1fr 100px auto'
+    : '28px 1fr 100px minmax(120px, auto) minmax(120px, auto) auto'
 
   return (
     <RepositoryListContext.Provider value={contextValue}>
@@ -53,7 +57,7 @@ const RepositoryList: React.FC<Props> = (props) => {
         <Hr vertical />
         <Breadcrumb />
       </div>
-      <div className="repository-list">
+      <DataGrid gridTemplateColumns={gridTemplateColumns}>
         <Header isGlobal={isGlobal} />
         <ColumnHeaders isGlobal={isGlobal} />
         {isLoading ? (
@@ -61,7 +65,7 @@ const RepositoryList: React.FC<Props> = (props) => {
         ) : (
           visibleItems.map((item) => <RepositoryListItem key={item.uuid} item={item} />)
         )}
-      </div>
+      </DataGrid>
     </RepositoryListContext.Provider>
   )
 }
