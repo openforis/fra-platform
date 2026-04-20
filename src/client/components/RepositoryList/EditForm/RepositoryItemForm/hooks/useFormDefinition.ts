@@ -5,6 +5,7 @@ import { CountryIso } from 'meta/area/countryIso'
 import { RepositoryItem, RepositoryItemTree } from 'meta/cycleData/repository/item'
 import { RepositoryItems } from 'meta/cycleData/repository/items'
 import { FileMeta } from 'meta/file/meta'
+import { Objects } from 'utils/objects'
 
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { FieldDefinition, FormDefinition, FormFieldType } from 'client/components/Form/types'
@@ -40,7 +41,11 @@ export const useFormDefinition = (
       { label: t('landing.home'), value: '' },
       ...flattenFolders(items, excludeUuid),
     ]
+    const isUsed = !Objects.isEmpty(fileMeta?.usages)
     const disabledWatch: Pick<FieldDefinition, 'watches'> = { watches: { isDisabled: () => isLoadingFileMeta } }
+    const disabledWhenUsed: Pick<FieldDefinition, 'watches'> = {
+      watches: { isDisabled: () => isLoadingFileMeta || isUsed },
+    }
 
     const commonFields: Array<FieldDefinition> = [
       { defaultValue: countryIso, label: '', name: 'repositoryItem.countryIso', type: FormFieldType.hidden },
@@ -84,7 +89,7 @@ export const useFormDefinition = (
       fields: [
         ...commonFields,
         {
-          ...disabledWatch,
+          ...disabledWhenUsed,
           defaultValue: repositoryItem?.props?.translation?.en,
           label: 'common.label',
           name: 'repositoryItem.props.translation.en',
@@ -114,7 +119,7 @@ export const useFormDefinition = (
           type: FormFieldType.text,
         },
         {
-          ...disabledWatch,
+          ...disabledWhenUsed,
           defaultValue: repositoryItem?.props?.public ?? false,
           label: 'common.public',
           name: 'repositoryItem.props.public',

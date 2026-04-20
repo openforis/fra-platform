@@ -33,6 +33,7 @@ const RepositoryItemForm: React.FC<Props> = (props) => {
   const onDelete = useOnDelete(onClose, repositoryItem)
 
   const isEditing = !Objects.isEmpty(repositoryItem?.uuid)
+  const isUsed = !Objects.isEmpty(fileMeta?.usages)
   const method = isEditing ? 'put' : 'post'
   const action = Urls.withSearchParams(ApiEndPoint.CycleData.Repository.one(), {
     assessmentName,
@@ -52,7 +53,13 @@ const RepositoryItemForm: React.FC<Props> = (props) => {
       />
       {isEditing && (
         <div className="repository-item-form__delete">
-          <Button iconName="trash-simple" label={t('common.delete')} onClick={onDelete} type={ButtonType.danger} />
+          <Button
+            disabled={isLoading || isUsed}
+            iconName="trash-simple"
+            label={t('common.delete')}
+            onClick={onDelete}
+            type={ButtonType.danger}
+          />
         </div>
       )}
       <FileUsages fileMeta={fileMeta} />
