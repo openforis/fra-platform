@@ -1,10 +1,9 @@
-import { Objects } from 'utils/objects'
-import { Promises } from 'utils/promises'
-
 import { Assessment, AssessmentName } from 'meta/assessment/assessment'
 import { Assessments } from 'meta/assessment/assessments'
 import { AssessmentMetaCache } from 'meta/assessment/metaCache'
 import { RowCache } from 'meta/assessment/rowCache'
+import { Objects } from 'utils/objects'
+import { Promises } from 'utils/promises'
 
 import { AssessmentRedisRepository } from 'server/cache/repository/assessment'
 import { getKeyMetaCache } from 'server/cache/repository/keys'
@@ -74,14 +73,18 @@ export const generateMetaCache = async (props: Props, client: BaseProtocol = DB)
         }
 
         if (row.props.validateFns?.[cycle.uuid]) {
-          row.props.validateFns[cycle.uuid].forEach((validateFn) =>
-            DependencyEvaluator.evalDependencies(validateFn, { ...context, type: 'validations' })
-          )
+          row.cols.forEach((col) => {
+            if (Objects.isEmpty(col.props.colName)) return
+
+            row.props.validateFns[cycle.uuid].forEach((validateFn) =>
+              DependencyEvaluator.evalDependencies(validateFn, { ...context, col, type: 'validations' })
+            )
+          })
         } else {
           row.cols.forEach((col) => {
             if (col.props.validateFns?.[cycle.uuid]) {
               col.props.validateFns?.[cycle.uuid].forEach((validateFn) => {
-                DependencyEvaluator.evalDependencies(validateFn, { ...context, type: 'validations' })
+                DependencyEvaluator.evalDependencies(validateFn, { ...context, col, type: 'validations' })
               })
             }
           })
