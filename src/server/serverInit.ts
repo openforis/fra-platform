@@ -4,6 +4,7 @@ import wwwhisper from 'connect-wwwhisper'
 import cookieParser from 'cookie-parser'
 import express from 'express'
 import morgan from 'morgan'
+import qs from 'qs'
 
 import { Objects } from 'utils/objects'
 
@@ -24,7 +25,12 @@ export const serverInit = (): void => {
 
   app.use(wwwhisper(false))
   app.use(cookieParser())
-  app.set('query parser', 'extended')
+  app.set('query parser', (str: string) =>
+    qs.parse(str, {
+      // The default limit is 20 and Data Explorer can send a couple hundred.
+      arrayLimit: 1000,
+    })
+  )
   // TODO: pass content-type from our client requests - now it's empty and therefore solution below
   // app.use(express.json({ limit: '5000kb', type: ['application/json', 'application/*+json'] }))
   app.use(
