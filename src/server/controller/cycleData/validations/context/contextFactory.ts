@@ -3,8 +3,6 @@ import { AssessmentMetaCaches } from 'meta/assessment/metaCaches'
 import { RowCacheKey } from 'meta/assessment/rowCache'
 import { RowCaches } from 'meta/assessment/rowCaches'
 import { TableName } from 'meta/assessment/table'
-import { NodeUpdate, NodeUpdates } from 'meta/data/nodeUpdates'
-import { Objects } from 'utils/objects'
 import { Promises } from 'utils/promises'
 
 import { RowRedisRepository } from 'server/cache/repository/row'
@@ -17,7 +15,6 @@ import { DataContextBuilder } from './dataContextBuilder'
 
 export class ContextFactory extends BaseContextBuilder {
   readonly #dataContextBuilder: DataContextBuilder
-  readonly #externalNodeUpdatesByCycle: Map<string, NodeUpdates>
   readonly #queue: Array<VariableCache>
   readonly #queuedKeys: Set<string>
   readonly #rowKeys: Set<RowCacheKey>
@@ -28,7 +25,6 @@ export class ContextFactory extends BaseContextBuilder {
     super(props)
 
     this.#dataContextBuilder = new DataContextBuilder(this.props)
-    this.#externalNodeUpdatesByCycle = new Map<string, NodeUpdates>()
     this.#queue = []
     this.#queuedKeys = new Set<string>()
     this.#rowKeys = new Set<RowCacheKey>()
@@ -37,21 +33,7 @@ export class ContextFactory extends BaseContextBuilder {
   }
 
   #getVariableKey(variable: VariableCache): string {
-    const assessmentName = variable.assessmentName ?? this.props.assessment.props.name
-    const cycleName = variable.cycleName ?? this.props.cycle.name
-
-    return [assessmentName, cycleName, variable.tableName, variable.variableName, variable.colName].join(':')
-  }
-
-  #getNodeUpdateKey(node: NodeUpdate, assessmentName: string, cycleName: string): string {
-    return [assessmentName, cycleName, node.tableName, node.variableName, node.colName].join(':')
-  }
-
-  #isCurrentTarget(variable: VariableCache): boolean {
-    const assessmentName = variable.assessmentName ?? this.props.assessment.props.name
-    const cycleName = variable.cycleName ?? this.props.cycle.name
-
-    return assessmentName === this.props.assessment.props.name && cycleName === this.props.cycle.name
+    return [variable.tableName, variable.variableName, variable.colName].join(':')
   }
 
   async #addToQueue(variable: VariableCache): Promise<void> {
@@ -71,60 +53,21 @@ export class ContextFactory extends BaseContextBuilder {
     this.#rowKeys.add(RowCaches.getKey(variable))
   }
 
-  #addExternalNodeUpdate(variable: VariableCache): void {
-    const assessmentName = variable.assessmentName ?? this.props.assessment.props.name
-    const cycleName = variable.cycleName ?? this.props.cycle.name
-    const key = `${assessmentName}:${cycleName}`
-    const existing = this.#externalNodeUpdatesByCycle.get(key)
-    const externalNode: NodeUpdate = {
-      colName: variable.colName,
-      tableName: variable.tableName,
-      value: { raw: undefined },
-      variableName: variable.variableName,
-    }
-    const externalNodeKey = this.#getNodeUpdateKey(externalNode, assessmentName, cycleName)
-
-    if (!existing) {
-      this.#externalNodeUpdatesByCycle.set(key, {
-        assessmentName,
-        countryIso: this.props.country.countryIso,
-        cycleName,
-        nodes: [externalNode],
-      })
-      return
-    }
-
-    if (!existing.nodes.find((node) => this.#getNodeUpdateKey(node, assessmentName, cycleName) === externalNodeKey)) {
-      existing.nodes.push(externalNode)
-    }
-  }
-
   async #addDependantsToQueue(variable: VariableCache): Promise<void> {
     const { assessment, cycle } = this.props
     const dependants = AssessmentMetaCaches.getValidationsDependants({
       assessment,
       cycle,
+      // colName: variable.colName, TODO Next: add colName to getValidationsDependants
       tableName: variable.tableName,
       variableName: variable.variableName,
     })
 
     await Promises.each(dependants, async (dependant) => {
       const candidate: VariableCache = {
-        assessmentName: dependant.assessmentName ?? assessment.props.name,
-        cycleName: dependant.cycleName ?? cycle.name,
-        colName: dependant.colName ?? variable.colName,
+        colName: dependant.colName,
         tableName: dependant.tableName,
         variableName: dependant.variableName,
-      }
-
-      if (Objects.isEmpty(candidate.colName)) {
-        return
-      }
-
-      if (!this.#isCurrentTarget(candidate)) {
-        // External validation dependants are rescheduled through updateDependencies in the target cycle.
-        this.#addExternalNodeUpdate(candidate)
-        return
       }
 
       await this.#addToQueue(candidate)
@@ -133,13 +76,11 @@ export class ContextFactory extends BaseContextBuilder {
 
   async #initQueue(): Promise<void> {
     const { nodeUpdates } = this.props
-    const { assessmentName, cycleName, nodes } = nodeUpdates
+    const { nodes } = nodeUpdates
 
     // Traverse the dependant graph starting from the changed source nodes.
     await Promises.each(nodes, async (node) => {
       await this.#addToQueue({
-        assessmentName,
-        cycleName,
         colName: node.colName,
         tableName: node.tableName,
         variableName: node.variableName,
@@ -176,7 +117,6 @@ export class ContextFactory extends BaseContextBuilder {
       country,
       cycle,
       data,
-      externalNodeUpdates: Array.from(this.#externalNodeUpdatesByCycle.values()),
       queue: [...this.#queue],
       rows,
       tableNames,

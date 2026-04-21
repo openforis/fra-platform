@@ -7,6 +7,7 @@ import { CycleName } from 'meta/assessment/cycle'
 import { TableName } from 'meta/assessment/table'
 import { ValidationSummary } from 'meta/assessment/validation/summary'
 import { VariableName } from 'meta/assessment/variable'
+import { UUID } from 'meta/uuid/uuid'
 
 import { RootState } from 'client/store/types'
 
@@ -70,9 +71,21 @@ const getSummaryHasErrors = createSelector([getSummary], (summary) =>
   Object.values(summary.tables).some((validationStatus) => !validationStatus.valid)
 )
 
+const getSummarySubSectionHasErrors = createSelector(
+  [getSummary, (_state: RootState, _assessmentName, _cycleName, _countryIso, subSectionUuid?: UUID) => subSectionUuid],
+  (summary, subSectionUuid) => !(summary.subsections?.[subSectionUuid]?.valid ?? true)
+)
+
+const getSummarySectionHasErrors = createSelector(
+  [getSummary, (_state: RootState, _assessmentName, _cycleName, _countryIso, sectionUuid?: UUID) => sectionUuid],
+  (summary, sectionUuid) => !(summary.sections?.[sectionUuid]?.valid ?? true)
+)
+
 export const ValidationsSelectors = {
+  getNodeValidation,
   getSummary,
   getSummaryHasErrors,
+  getSummarySectionHasErrors,
+  getSummarySubSectionHasErrors,
   getTableValidations,
-  getNodeValidation,
 }

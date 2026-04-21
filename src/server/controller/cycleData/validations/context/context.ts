@@ -6,7 +6,6 @@ import { VariableCache } from 'meta/assessment/metaCache'
 import { RecordRowCache } from 'meta/assessment/rowCache'
 import { TableName } from 'meta/assessment/table'
 import { RecordTableValidationsState } from 'meta/assessment/validation/table'
-import { NodeUpdates } from 'meta/data/nodeUpdates'
 import { RecordAssessmentData } from 'meta/data/recordData'
 
 type ConstructorProps = {
@@ -15,7 +14,6 @@ type ConstructorProps = {
   country: Country
   cycle: Cycle
   data: RecordAssessmentData
-  externalNodeUpdates: Array<NodeUpdates>
   queue: Array<VariableCache>
   rows: RecordRowCache
   tableNames: Array<TableName>
@@ -28,32 +26,19 @@ export class Context {
   readonly #country: Country
   readonly #cycle: Cycle
   readonly #data: RecordAssessmentData
-  readonly #externalNodeUpdates: Array<NodeUpdates>
   readonly #queue: Array<VariableCache>
   readonly #rows: RecordRowCache
   readonly #tableNames: Array<TableName>
   readonly #tableValidations: RecordTableValidationsState
 
   constructor(props: ConstructorProps) {
-    const {
-      assessment,
-      assessments,
-      country,
-      cycle,
-      data,
-      externalNodeUpdates,
-      queue,
-      rows,
-      tableNames,
-      tableValidations,
-    } = props
+    const { assessment, assessments, country, cycle, data, queue, rows, tableNames, tableValidations } = props
 
     this.#assessment = assessment
     this.#assessments = assessments
     this.#country = country
     this.#cycle = cycle
     this.#data = data
-    this.#externalNodeUpdates = externalNodeUpdates
     this.#queue = queue
     this.#rows = rows
     this.#tableNames = tableNames
@@ -82,10 +67,6 @@ export class Context {
 
   get data(): RecordAssessmentData {
     return this.#data
-  }
-
-  get externalNodeUpdates(): Array<NodeUpdates> {
-    return this.#externalNodeUpdates
   }
 
   get queue(): Array<VariableCache> {
