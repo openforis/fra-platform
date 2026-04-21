@@ -1,4 +1,3 @@
-import { Areas } from 'meta/area/areas'
 import { Country } from 'meta/area/country'
 import { Assessment, RecordAssessments } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
@@ -9,8 +8,9 @@ import { RecordTables } from 'meta/assessment/table/record'
 import { RecordTableValidationsState, TableValidations } from 'meta/assessment/validation/table'
 import { RecordAssessmentData } from 'meta/data/recordData'
 import { ExpressionEvaluator } from 'meta/expressionEvaluator'
-import { validatorEqualToPreviousCycleForestArea } from 'meta/expressionEvaluator/functions/validatorEqualToPreviousCycleForestArea'
 import { Objects } from 'utils/objects'
+
+import { shouldSkipValidationFormula } from 'server/controller/cycleData/validations/shouldSkipValidationFormula'
 
 type Props = {
   assessment: Assessment
@@ -46,9 +46,7 @@ export const evaluateTableValidations = (props: Props): RecordTableValidationsSt
         }
 
         const validations = validateFns.map((formula) => {
-          // hack to disable validatorEqualToPreviousCycleForestArea for Atlantis countries as explicitly requested.
-          // This is the only way, unfortunately. We'll get back to this later on.
-          if (Areas.isAtlantis(countryIso) && formula.includes(validatorEqualToPreviousCycleForestArea.name)) {
+          if (shouldSkipValidationFormula({ countryIso, formula })) {
             return { valid: true }
           }
 
