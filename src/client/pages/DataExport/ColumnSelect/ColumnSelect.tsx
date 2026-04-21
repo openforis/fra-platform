@@ -25,6 +25,22 @@ const ColumnSelect: React.FC<{ columns: Array<string> }> = ({ columns }) => {
   const selection = useDataExportSelection(sectionName)
   const selectionColumns = selection.sections[sectionName].columns
 
+  // Hide columns with no real translation (e.g. panEu dynamic columns with empty label).
+  // i18 returns the key for empty-string values
+  // Year-only keys (e.g. "1990", "1990-2000") have no dots and fall through as their own label.
+  const visibleColumns = columns.reduce<Array<Option>>((acc, column) => {
+    const label = getColumnLabelKeys(column, sectionName, assessmentName)
+      .map((key) => {
+        const result = t(key)
+        // if t(key) === key and key contains dots, it's an untranslated path — treat as empty.
+        return result === key && key.includes('.') ? '' : result
+      })
+      .join(' ')
+      .trim()
+    if (label) acc.push({ label, value: column })
+    return acc
+  }, [])
+
   const updateSelection = (columnsUpdate: Array<string>): void => {
     const selectionUpdate: DataExportSelection = {
       ...selection,
@@ -47,15 +63,15 @@ const ColumnSelect: React.FC<{ columns: Array<string> }> = ({ columns }) => {
   return (
     <div className="export__form-section">
       <div className="export__form-section-header select-all">
-        <h4>{t('common.column')}</h4>
+        <div className="title-container">
+          <h4>{t('common.column')}</h4>
+        </div>
         <MediaQuery minWidth={Breakpoints.laptop}>
           <ButtonCheckBox
-            checked={selectionColumns.length > 0 && selectionColumns.length === columns.length}
+            checked={selectionColumns.length > 0 && selectionColumns.length === visibleColumns.length}
             className="btn-all"
             label={t(selectionColumns.length > 0 ? 'common.unselectAll' : 'common.selectAll')}
-            onClick={() =>
-              updateSelection(selection.sections[sectionName].columns.length > 0 ? [] : columns.map(String))
-            }
+            onClick={() => updateSelection(selectionColumns.length > 0 ? [] : visibleColumns.map((c) => c.value))}
             variant={ButtonCheckboxVariant.checkbox}
           />
         </MediaQuery>
@@ -65,12 +81,7 @@ const ColumnSelect: React.FC<{ columns: Array<string> }> = ({ columns }) => {
         <MultiSelect
           multiLabelSummaryKey="common.column"
           onChange={updateSelection}
-          options={columns.map<Option>((column) => {
-            const label = getColumnLabelKeys(column, sectionName, assessmentName)
-              .map((key) => t(key))
-              .join(' ')
-            return { label, value: column }
-          })}
+          options={visibleColumns}
           placeholder={t('common.select')}
           toggleAll
           value={selectionColumns}
@@ -80,11 +91,8 @@ const ColumnSelect: React.FC<{ columns: Array<string> }> = ({ columns }) => {
         <>
           <div className="divider" />
           <div className="export__form-section-variables">
-            {columns.map((column: string) => {
+            {visibleColumns.map(({ label, value: column }) => {
               const selected = selectionColumns.includes(column)
-              const label = getColumnLabelKeys(column, sectionName, assessmentName)
-                .map((key) => t(key))
-                .join(' ')
 
               return (
                 <ButtonCheckBox

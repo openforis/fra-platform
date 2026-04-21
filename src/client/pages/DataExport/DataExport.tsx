@@ -1,9 +1,8 @@
 import './DataExport.scss'
 import React, { useEffect } from 'react'
-import { useParams } from 'react-router'
-import { Objects } from 'utils/objects'
 
 import { Row } from 'meta/assessment/row'
+import { Objects } from 'utils/objects'
 
 import { DataExportActions } from 'client/store/dataExport/actions'
 import { useDataExportCountries, useDataExportSelection } from 'client/store/dataExport/hooks/dataExport'
@@ -11,6 +10,7 @@ import { useAppDispatch } from 'client/store/hooks'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useTableSections } from 'client/store/meta/hooks/tableSections'
 import { useCountryIso } from 'client/hooks/country'
+import { useSectionRouteParams } from 'client/hooks/routeParams'
 
 import ColumnSelect from './ColumnSelect'
 import CountrySelect from './CountrySelect'
@@ -23,9 +23,7 @@ const DataExport: React.FC = () => {
   const countryIso = useCountryIso()
   const cycle = useCycle()
 
-  const { sectionName } = useParams<{
-    sectionName: string
-  }>()
+  const { sectionName } = useSectionRouteParams()
 
   useDataExportCountries()
   const selection = useDataExportSelection(sectionName)
@@ -45,7 +43,7 @@ const DataExport: React.FC = () => {
   if (table) {
     tableName = table.props.name
     rows = table.rows.filter((row) => !!row.props.variableName && !row.props.excludeFromDataExport?.[cycle.uuid])
-    columns = table.props.columnsExport[cycle.uuid] ?? table.props.columnNames[cycle.uuid]
+    columns = table.props.columnsExport?.[cycle.uuid] ?? table.props.columnNames[cycle.uuid]
   }
 
   useEffect(() => {

@@ -16,12 +16,20 @@ BigNumber.config({
 
 const defaultTo0 = (number: BigNumber | number) => (Objects.isEmpty(number) ? 0 : number)
 
-export type BigNumberInput = BigNumber | string | number
+export type BigNumberInput = BigNumber | string | number | null | undefined
 
 const toBigNumber = (value: BigNumberInput = ''): BigNumber => {
   if (value instanceof BigNumber) return value // Do not wrap unnecessarily
+  // In bignumber.js v10, invalid constructor input throws, 
+  // but the expected behavior from callers is to return NaN.
+  if (Objects.isNil(value)) return new BigNumber(NaN)
   if (typeof value === 'string' && Objects.isEmpty(value.trim())) return new BigNumber(NaN)
-  return new BigNumber(typeof value === 'string' ? value.split(groupSeparator).join('') : value)
+
+  try {
+    return new BigNumber(typeof value === 'string' ? value.split(groupSeparator).join('') : value)
+  } catch {
+    return new BigNumber(NaN)
+  }
 }
 
 const toNumberOrNull = (value: BigNumberInput): number | null => {

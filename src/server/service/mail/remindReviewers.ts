@@ -1,7 +1,4 @@
-import { createI18nPromise } from 'i18n/i18nFactory'
 import { TFunction } from 'i18next'
-import { Dates } from 'utils/dates'
-import { Objects } from 'utils/objects'
 
 import { AreaCode } from 'meta/area/areaCode'
 import { Areas } from 'meta/area/areas'
@@ -9,16 +6,18 @@ import { Country } from 'meta/area/country'
 import { CountryStatus } from 'meta/area/countryStatus'
 import { Assessment, AssessmentName } from 'meta/assessment/assessment'
 import { Cycle, CycleName } from 'meta/assessment/cycle'
-import { Lang } from 'meta/lang'
 import { Routes } from 'meta/routes/routes'
 import { UserRoles } from 'meta/user/roles'
 import { User } from 'meta/user/user'
 import { Users } from 'meta/user/users'
+import { Dates } from 'utils/dates'
+import { Objects } from 'utils/objects'
 
 import { AreaController } from 'server/controller/area'
 import { UserRepository } from 'server/db/repository/public/user'
 import { sendMail } from 'server/service/mail/mail'
 import { ProcessEnv } from 'server/utils'
+import { I18n } from 'server/utils/i18n'
 
 type RecipientAssessmentCycleCountries = {
   user: User
@@ -55,7 +54,7 @@ const createMail = async (
   recipient: RecipientAssessmentCycleCountries
 ): Promise<{ html: string; subject: string; text: string; to: string }> => {
   const { assessments, user } = recipient
-  const { t } = await createI18nPromise(Lang.en)
+  const { t } = await I18n.getInstance({ user })
   const to = recipient.user.email
   const htmlStyle = `style="white-space: pre-line; max-width: 100%"`
   const subject = t('email.remindReviewer.subject')

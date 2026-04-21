@@ -1,6 +1,5 @@
 import { initReactI18next } from 'react-i18next'
-
-import { createParams } from 'i18n/i18nFactory'
+import { createParams } from 'i18n/i18nConfig'
 import i18n from 'i18next'
 
 import { Lang } from 'meta/lang'

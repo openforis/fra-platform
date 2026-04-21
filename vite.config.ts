@@ -18,7 +18,7 @@ export default defineConfig(({ mode }) => {
     build: {
       cssCodeSplit: false,
       emptyOutDir: true,
-      rollupOptions: {
+      rolldownOptions: {
         input: path.resolve(__dirname, 'index.html'),
         output: {
           dir: 'dist/client',

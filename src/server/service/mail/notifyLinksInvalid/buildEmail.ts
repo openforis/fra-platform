@@ -1,10 +1,7 @@
-import { createI18nPromise } from 'i18n/i18nFactory'
-
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessment, AssessmentName } from 'meta/assessment/assessment'
 import { Cycle, CycleName } from 'meta/assessment/cycle'
 import { Link } from 'meta/cycleData/links/link'
-import { Lang } from 'meta/lang'
 import { Routes } from 'meta/routes/routes'
 import { SectionNames } from 'meta/routes/sectionNames'
 import { User } from 'meta/user/user'
@@ -12,6 +9,7 @@ import { Users } from 'meta/user/users'
 
 import { MailServiceEmail } from 'server/service/mail/mail'
 import { ProcessEnv } from 'server/utils'
+import { I18n } from 'server/utils/i18n'
 
 import { LinksByCountry } from './types'
 
@@ -77,7 +75,7 @@ const _getCountryEntries = (props: GetCountryEntriesProps): Array<CountryEntry> 
 
 export const buildEmail = async (props: Props): Promise<MailServiceEmail> => {
   const { assessment, cycle, linksByCountry, user } = props
-  const { t } = await createI18nPromise(Lang.en)
+  const { t } = await I18n.getInstance({ user })
   const to = user.email
 
   const subject = t('email.invalidLinks.subject')

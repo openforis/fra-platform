@@ -15,7 +15,8 @@ import { requireEditRepositoryItem } from 'server/middleware/auth/repositoryItem
 import { requireViewRepositoryItem } from 'server/middleware/auth/repositoryItem/view'
 import { requireEditUser } from 'server/middleware/auth/user/edit'
 import { requireInviteUser } from 'server/middleware/auth/user/invite'
-import { requireViewUser, requireViewUsers } from 'server/middleware/auth/user/view'
+import { requireRemoveUserRole } from 'server/middleware/auth/user/removeRole'
+import { requireExportUsers, requireViewUser, requireViewUsers } from 'server/middleware/auth/user/view'
 import { Requests } from 'server/utils'
 
 /**
@@ -32,6 +33,7 @@ const requireUser = async (req: Request, _res: Response, next: NextFunction): Pr
 
 export const AuthMiddleware = {
   requireAdmin: _tryCatch(requireAdmin),
+  requireRemoveUserRole: _tryCatch(requireRemoveUserRole),
   requireDeleteTopicMessage: _tryCatch(requireDeleteTopicMessage),
   requireEditRepositoryItem: _tryCatch(requireEditRepositoryItem),
   requireEditCountryProps: _tryCatch(requireEditCountryProps),
@@ -39,6 +41,7 @@ export const AuthMiddleware = {
   requireEditMessageTopic: _tryCatch(requireEditMessageTopic),
   requireEditTableData: _tryCatch(requireEditTableData),
   requireEditUser: _tryCatch(requireEditUser),
+  requireExportUsers: _tryCatch(requireExportUsers),
   requireInviteUser: _tryCatch(requireInviteUser),
   requireResolveTopic: _tryCatch(requireResolveTopic),
   requireUser: _tryCatch(requireUser),
