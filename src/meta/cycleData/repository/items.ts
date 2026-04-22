@@ -22,13 +22,6 @@ const getName = (item: Pick<RepositoryItem, 'folderName' | 'props'>): string =>
 
 const isFolder = (item: Pick<RepositoryItem, 'folderName'>): boolean => typeof item.folderName === 'string'
 
-// Get all file items from current and child folders
-const getFileItemsFromFolder = (item: RepositoryItemTree): Array<RepositoryItemTree> =>
-  item.children.reduce<Array<RepositoryItemTree>>((acc, child) => {
-    if (isFolder(child)) return [...acc, ...getFileItemsFromFolder(child)]
-    return [...acc, child]
-  }, [])
-
 // Recursively collect all folder UUIDs from a tree
 const getFolderUuids = (items: Array<RepositoryItemTree>): Array<string> =>
   items.reduce<Array<string>>((acc, item) => {
@@ -42,7 +35,6 @@ const isGlobal = (props: { repositoryItem: RepositoryItem }): boolean => {
 }
 
 export const RepositoryItems = {
-  getFileItemsFromFolder,
   getFolderUuids,
   getName,
   getURL,
