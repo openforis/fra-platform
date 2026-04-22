@@ -20,6 +20,7 @@
     "confirmDelete": "Delete {{file}}? This cannot be undone.",
     "fileDeleted": "File successfully deleted",
     "fileOperationFailed": "The operation cannot be performed because the file is used in:\n{{sectionNames}}",
+    "folderNotEmpty": "This folder cannot be removed because it's not empty.",
     "fileUploaded": "File successfully uploaded",
     "links": "Links",
     "repository": "Repository",
