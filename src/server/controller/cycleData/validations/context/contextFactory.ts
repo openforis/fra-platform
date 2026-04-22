@@ -58,7 +58,7 @@ export class ContextFactory extends BaseContextBuilder {
     const dependants = AssessmentMetaCaches.getValidationsDependants({
       assessment,
       cycle,
-      // colName: variable.colName, TODO Next: add colName to getValidationsDependants
+      colName: variable.colName,
       tableName: variable.tableName,
       variableName: variable.variableName,
     })
