@@ -53,7 +53,7 @@ export class MemberEvaluator extends ExpressionNodeEvaluator<Context, MemberExpr
       const metaCache = AssessmentMetaCaches.getMetaCache({ assessment, cycle })
 
       const propsDependants = { assessment, cycle, tableName: variable.tableName, variableName: variable.variableName }
-      const colName = variable?.colName ?? col?.props?.colName
+      const colName = variable.colName ?? col?.props?.colName
       let dependants
       if (type === 'calculations') {
         dependants = AssessmentMetaCaches.getCalculationsDependants(propsDependants)
