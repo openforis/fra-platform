@@ -87,9 +87,8 @@ export class MemberEvaluator extends ExpressionNodeEvaluator<Context, MemberExpr
     const { assessmentName, assessments, cycleName, row, type } = this.context
     const { tableName } = row
     const { variableName } = row.props
-    const dependencyVariable = type === 'validations' ? { ...variable, colName: undefined } : variable
 
-    if (this.#variableExists(dependencyVariable)) {
+    if (this.#variableExists(variable)) {
       const assessment = assessments[assessmentName]
       const cycle = Assessments.getCycle({ assessment, cycleName })
       const metaCache = AssessmentMetaCaches.getMetaCache({ assessment, cycle })
@@ -104,9 +103,9 @@ export class MemberEvaluator extends ExpressionNodeEvaluator<Context, MemberExpr
         dependencies = AssessmentMetaCaches.getValidationsDependencies(propsDependency)
       }
 
-      if (!_includesVariableCache(dependencies, dependencyVariable)) {
+      if (!_includesVariableCache(dependencies, variable)) {
         const path = [type, 'dependencies', tableName, variableName]
-        Objects.setInPath({ obj: metaCache, path, value: [...dependencies, dependencyVariable] })
+        Objects.setInPath({ obj: metaCache, path, value: [...dependencies, variable] })
       }
     }
   }
