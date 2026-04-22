@@ -26,7 +26,7 @@ const _getNodeUpdates = (props: Props): NodeUpdates => {
 
       row.cols?.forEach((col) => {
         const { colName } = col.props
-        const validateFns = col.props?.validateFns?.[cycle.uuid] ?? rowValidateFns
+        const validateFns = col.props.validateFns?.[cycle.uuid] ?? rowValidateFns
 
         if ([colName, variableName, validateFns].some(Objects.isEmpty)) return
 
