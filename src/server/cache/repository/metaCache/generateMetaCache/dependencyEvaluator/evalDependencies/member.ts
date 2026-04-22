@@ -60,6 +60,9 @@ export class MemberEvaluator extends ExpressionNodeEvaluator<Context, MemberExpr
       } else if (type === 'enablers') {
         dependants = AssessmentMetaCaches.getEnablersDependants(propsDependants)
       } else if (type === 'validations') {
+        // Prevent validating nodes from other asessments/cycles
+        if (assessment.props.name !== assessmentName || cycle.name !== cycleName) return
+
         dependants = AssessmentMetaCaches.getValidationsDependants({ ...propsDependants, colName })
       }
       const external = assessmentName !== assessment.props.name
