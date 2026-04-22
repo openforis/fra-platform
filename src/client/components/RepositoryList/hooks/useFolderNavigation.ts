@@ -15,7 +15,6 @@ type Props = {
   onExpandAll: (uuids: Array<string>) => void
   onOpenPanel: (item: Partial<RepositoryItemTree>) => void
   onSelect?: (item: RepositoryItemTree) => void
-  onSelectFolder?: (items: Array<RepositoryItemTree>, select: boolean) => void
   onToggle: (uuid: string) => void
   selectedUuids: Array<string>
 }
@@ -26,17 +25,7 @@ type Returned = {
 }
 
 export const useFolderNavigation = (props: Props): Returned => {
-  const {
-    expanded,
-    items,
-    onCollapseAll,
-    onExpandAll,
-    onOpenPanel,
-    onSelect,
-    onSelectFolder,
-    onToggle,
-    selectedUuids,
-  } = props
+  const { expanded, items, onCollapseAll, onExpandAll, onOpenPanel, onSelect, onToggle, selectedUuids } = props
   const selectable = Boolean(onSelect)
   const [folderTarget, setFolderTarget] = useState<string | undefined>()
 
@@ -59,7 +48,6 @@ export const useFolderNavigation = (props: Props): Returned => {
       onNavigate,
       onOpenPanel,
       onSelect: onSelect ?? _noop,
-      onSelectFolder: onSelectFolder ?? _noop,
       onToggle,
       parentUuid: currentFolder?.uuid,
       selectable,
@@ -76,7 +64,6 @@ export const useFolderNavigation = (props: Props): Returned => {
       onNavigate,
       onOpenPanel,
       onSelect,
-      onSelectFolder,
       onToggle,
       selectable,
       selectedUuids,

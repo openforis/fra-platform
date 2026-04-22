@@ -8,7 +8,6 @@ import { TooltipId } from 'meta/tooltip/id'
 
 import { useIsCountryRepositoryEditable, useIsGlobalRepositoryEditable } from 'client/store/user/hooks/auth'
 import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
-import ButtonCheckBox, { ButtonCheckboxVariant } from 'client/components/Buttons/ButtonCheckbox'
 import Icon from 'client/components/Icon'
 
 import { useRepositoryListContext } from '../../context'
@@ -16,17 +15,14 @@ import { Props } from './props'
 
 const Folder: React.FC<Props> = (props) => {
   const { depth, isCollapsed, item } = props
-  const { onNavigate, onOpenPanel, onSelectFolder, onToggle, selectable, selectedUuids } = useRepositoryListContext()
+  const { onNavigate, onOpenPanel, onToggle, selectable } = useRepositoryListContext()
   const { t } = useTranslation()
 
   const isGlobalRepositoryItem = RepositoryItems.isGlobal({ repositoryItem: item })
   const isGlobalRepositoryEditable = useIsGlobalRepositoryEditable()
   const isCountryRepositoryEditable = useIsCountryRepositoryEditable()
   const canEdit = isGlobalRepositoryItem ? isGlobalRepositoryEditable : isCountryRepositoryEditable
-  const withActions = onOpenPanel && canEdit
-
-  const folderFileItems = selectable ? RepositoryItems.getFileItemsFromFolder(item) : []
-  const allSelected = folderFileItems.length > 0 && folderFileItems.every((f) => selectedUuids.includes(f.uuid))
+  const withActions = !selectable && onOpenPanel && canEdit
 
   return (
     <div className="repository-list-item repository-list-item--folder">
@@ -39,24 +35,16 @@ const Folder: React.FC<Props> = (props) => {
           {item.folderName}
         </button>
       </div>
-      {selectable ? (
-        <ButtonCheckBox
-          checked={allSelected}
-          onClick={() => onSelectFolder(folderFileItems, !allSelected)}
-          variant={ButtonCheckboxVariant.checkbox}
+      {withActions && (
+        <Button
+          dataTooltipContent={t('description.edit')}
+          dataTooltipId={TooltipId.info}
+          dataTooltipPlace="left"
+          iconName="pencil"
+          onClick={() => onOpenPanel(item)}
+          size={ButtonSize.xs}
+          type={ButtonType.transparent}
         />
-      ) : (
-        withActions && (
-          <Button
-            dataTooltipContent={t('description.edit')}
-            dataTooltipId={TooltipId.info}
-            dataTooltipPlace="left"
-            iconName="pencil"
-            onClick={() => onOpenPanel(item)}
-            size={ButtonSize.xs}
-            type={ButtonType.transparent}
-          />
-        )
       )}
     </div>
   )

@@ -22,12 +22,11 @@ import RepositoryListSkeleton from './RepositoryListSkeleton'
 type Props = {
   isGlobal?: boolean
   onSelect?: (item: RepositoryItemTree) => void
-  onSelectFolder?: (items: Array<RepositoryItemTree>, select: boolean) => void
   selectedUuids?: Array<string>
 }
 
 const RepositoryList: React.FC<Props> = (props) => {
-  const { isGlobal, onSelect, onSelectFolder, selectedUuids = [] } = props
+  const { isGlobal, onSelect, selectedUuids = [] } = props
   const { t } = useTranslation()
   const [repositoryItem, setRepositoryItem] = useState<Partial<RepositoryItem> | undefined>()
 
@@ -41,7 +40,6 @@ const RepositoryList: React.FC<Props> = (props) => {
     onExpandAll,
     onOpenPanel: setRepositoryItem,
     onSelect,
-    onSelectFolder,
     onToggle,
     selectedUuids,
   })
