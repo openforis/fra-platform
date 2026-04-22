@@ -44,68 +44,6 @@ export class MemberEvaluator extends ExpressionNodeEvaluator<Context, MemberExpr
     return Boolean(variablesCache[variable.tableName])
   }
 
-  #getValidationSourceVariable(variable: VariableCache): VariableCache | undefined {
-    const { assessmentName, cycleName } = this.context
-    const sourceAssessmentName = variable.assessmentName ?? assessmentName
-    const sourceCycleName = variable.cycleName ?? cycleName
-
-    // Prevent validating nodes from other asessments/cycles
-    if (sourceAssessmentName !== assessmentName || sourceCycleName !== cycleName) {
-      return undefined
-    }
-
-    if (!Objects.isEmpty(variable.colName)) {
-      return { colName: variable.colName, tableName: variable.tableName, variableName: variable.variableName }
-    }
-
-    const colName = this.context.col?.props.colName
-
-    if (Objects.isEmpty(colName)) {
-      return undefined
-    }
-
-    return { colName, tableName: variable.tableName, variableName: variable.variableName }
-  }
-
-  #addValidationDependant(variable: VariableCache): void {
-    const { assessmentName, assessments, col, cycleName, row } = this.context
-    const sourceVariable = this.#getValidationSourceVariable(variable)
-    const targetColName = col?.props.colName
-
-    if (!sourceVariable || Objects.isEmpty(targetColName)) {
-      return
-    }
-
-    const assessment = assessments[variable.assessmentName ?? assessmentName]
-    const cycle = Assessments.getCycle({ assessment, cycleName: variable.cycleName ?? cycleName })
-    const metaCache = AssessmentMetaCaches.getMetaCache({ assessment, cycle })
-
-    const validationDependants = AssessmentMetaCaches.getValidationsDependants({
-      assessment,
-      cycle,
-      colName: sourceVariable.colName,
-      tableName: sourceVariable.tableName,
-      variableName: sourceVariable.variableName,
-    })
-
-    const dependant: VariableCache = {
-      colName: targetColName,
-      tableName: row.tableName,
-      variableName: row.props.variableName,
-    }
-
-    if (!_includesVariableCache(validationDependants, dependant)) {
-      const path = [
-        'validations',
-        'dependants',
-        sourceVariable.tableName,
-        sourceVariable.variableName,
-        sourceVariable.colName,
-      ]
-      Objects.setInPath({ obj: metaCache, path, value: [...validationDependants, dependant] })
-    }
-  }
-
   #addDependant(variable: VariableCache): void {
     const { assessmentName, assessments, col, cycleName, row, type } = this.context
 
@@ -115,14 +53,14 @@ export class MemberEvaluator extends ExpressionNodeEvaluator<Context, MemberExpr
       const metaCache = AssessmentMetaCaches.getMetaCache({ assessment, cycle })
 
       const propsDependants = { assessment, cycle, tableName: variable.tableName, variableName: variable.variableName }
+      const colName = variable?.colName ?? col?.props?.colName
       let dependants
       if (type === 'calculations') {
         dependants = AssessmentMetaCaches.getCalculationsDependants(propsDependants)
       } else if (type === 'enablers') {
         dependants = AssessmentMetaCaches.getEnablersDependants(propsDependants)
-      } else {
-        this.#addValidationDependant(variable)
-        return
+      } else if (type === 'validations') {
+        dependants = AssessmentMetaCaches.getValidationsDependants({ ...propsDependants, colName })
       }
       const external = assessmentName !== assessment.props.name
       const dependant: VariableCache = {
@@ -138,6 +76,8 @@ export class MemberEvaluator extends ExpressionNodeEvaluator<Context, MemberExpr
 
       if (!_includesVariableCache(dependants, dependant)) {
         const path = [type, 'dependants', variable.tableName, variable.variableName]
+        if (type === 'validations') path.push(colName)
+
         Objects.setInPath({ obj: metaCache, path, value: [...dependants, dependant] })
       }
     }

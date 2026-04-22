@@ -6,9 +6,9 @@ import {
   AssessmentMetaCache,
   DependencyCache,
   DependencyRecord,
+  FullDependencyRecord,
   TableDependencyRecord,
   ValidationDependencyCache,
-  ValidationTargetsBySource,
   VariableCache,
   VariablesCache,
 } from 'meta/assessment/metaCache'
@@ -26,7 +26,7 @@ type TableProps = CycleProps & {
 type VariableProps = TableProps & {
   variableName: VariableName
 }
-type ValidationVariableProps = VariableProps & {
+type ColProps = VariableProps & {
   colName: ColName
 }
 
@@ -34,7 +34,7 @@ type DependencyTableCacheProps = Pick<VariableProps, 'tableName'> & { dependency
 type DependencyCacheProps = Pick<VariableProps, 'variableName'> & DependencyTableCacheProps
 
 type DependencyTableRecordProps = Pick<VariableProps, 'tableName'> & { dependencyRecord: DependencyRecord }
-type ValidationTableDependants = ValidationTargetsBySource[TableName]
+type ValidationTableDependants = FullDependencyRecord[TableName]
 type VariableCacheList = Array<VariableCache>
 
 // ****==== utils
@@ -87,12 +87,16 @@ const getTableValidationsDependants = (props: TableProps): ValidationTableDepend
   const { assessment, cycle, tableName } = props
   return getValidations({ assessment, cycle }).dependants[tableName] ?? {}
 }
-const getValidationsDependants = (props: ValidationVariableProps): VariableCacheList =>
+const getValidationsDependants = (props: ColProps): VariableCacheList =>
   getTableValidationsDependants(props)?.[props.variableName]?.[props.colName] ?? []
 
 const getTableValidationsDependencies = (props: TableProps): TableDependencyRecord => {
   const { assessment, cycle, tableName } = props
-  return _getTableDeps({ dependencyRecord: getValidations({ assessment, cycle }).dependencies, tableName }) ?? {}
+  return _getTableDependencies({
+    // the below cast is allowed because dependencies type are the same
+    dependencyCache: getValidations({ assessment, cycle }) as unknown as DependencyCache,
+    tableName,
+  })
 }
 const getValidationsDependencies = (props: VariableProps): VariableCacheList =>
   getTableValidationsDependencies(props)?.[props.variableName] ?? []

@@ -50,49 +50,42 @@ export const generateMetaCache = async (props: Props, client: BaseProtocol = DB)
 
     assessment.cycles.forEach((cycle) => {
       rows[assessmentName].forEach((row) => {
-        const cycleName = cycle.name
+        const { name: cycleName, uuid: cycleUuid } = cycle
         const context: Omit<Context, 'type'> = { assessments: recordAssessments, cycleName, assessmentName, row }
 
-        if (row.props.calculateFn?.[cycle.uuid]) {
-          DependencyEvaluator.evalDependencies(row.props.calculateFn[cycle.uuid], { ...context, type: 'calculations' })
-          if (row.props.calculateIf?.[cycle.uuid]) {
-            DependencyEvaluator.evalDependencies(row.props.calculateIf[cycle.uuid], {
-              ...context,
-              type: 'calculations',
-            })
+        const calculateFn = row.props.calculateFn?.[cycleUuid]
+        if (calculateFn) {
+          DependencyEvaluator.evalDependencies(calculateFn, { ...context, type: 'calculations' })
+
+          const calculateIf = row.props.calculateIf?.[cycleUuid]
+          if (calculateIf) {
+            DependencyEvaluator.evalDependencies(calculateIf, { ...context, type: 'calculations' })
           }
         } else {
           row.cols.forEach((col) => {
-            if (col.props.calculateFn?.[cycle.uuid]) {
-              DependencyEvaluator.evalDependencies(col.props.calculateFn[cycle.uuid], {
-                ...context,
-                type: 'calculations',
-              })
-            }
-          })
-        }
-
-        if (row.props.validateFns?.[cycle.uuid]) {
-          row.cols.forEach((col) => {
-            if (Objects.isEmpty(col.props.colName)) return
-
-            row.props.validateFns[cycle.uuid].forEach((validateFn) =>
-              DependencyEvaluator.evalDependencies(validateFn, { ...context, col, type: 'validations' })
-            )
-          })
-        } else {
-          row.cols.forEach((col) => {
-            if (col.props.validateFns?.[cycle.uuid]) {
-              col.props.validateFns?.[cycle.uuid].forEach((validateFn) => {
-                DependencyEvaluator.evalDependencies(validateFn, { ...context, col, type: 'validations' })
-              })
+            const calculateFn = col.props.calculateFn?.[cycleUuid]
+            if (col.props.cycles.includes(cycleUuid) && calculateFn) {
+              DependencyEvaluator.evalDependencies(calculateFn, { ...context, type: 'calculations' })
             }
           })
         }
 
         row.cols.forEach((col) => {
-          if (col.props.enableIf?.[cycle.uuid]) {
-            DependencyEvaluator.evalDependencies(col.props.enableIf[cycle.uuid], { ...context, col, type: 'enablers' })
+          const validateFNs = row.props.validateFns?.[cycleUuid] ?? col.props.validateFns?.[cycleUuid]
+          if (
+            !Objects.isEmpty(validateFNs) &&
+            !Objects.isEmpty(col.props.colName) &&
+            col.props.cycles.includes(cycleUuid)
+          ) {
+            validateFNs.forEach((validateFn) => {
+              DependencyEvaluator.evalDependencies(validateFn, { ...context, col, type: 'validations' })
+            })
+          }
+        })
+
+        row.cols.forEach((col) => {
+          if (col.props.enableIf?.[cycleUuid]) {
+            DependencyEvaluator.evalDependencies(col.props.enableIf[cycleUuid], { ...context, col, type: 'enablers' })
           }
         })
       })
