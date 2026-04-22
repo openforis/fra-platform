@@ -14,7 +14,7 @@ const AddFromRepository: React.FC = () => {
   const { t } = useTranslation()
   const { repositoryOpened, setSelectedFiles } = useRepositoryLinkContext()
 
-  const { onSelect, onSelectFolder, selectedUuids } = useHandleSelect()
+  const { onSelect, selectedUuids } = useHandleSelect()
   const onClose = useOnClose()
 
   useEffect(() => {
@@ -40,7 +40,7 @@ const AddFromRepository: React.FC = () => {
       </ModalHeader>
 
       <ModalBody>
-        <RepositoryList onSelect={onSelect} onSelectFolder={onSelectFolder} selectedUuids={selectedUuids} />
+        <RepositoryList onSelect={onSelect} selectedUuids={selectedUuids} />
       </ModalBody>
 
       <ModalFooter>
