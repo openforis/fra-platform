@@ -23,7 +23,7 @@
     }
 
     &.selected {
-      @include nav-bg(var(--ui-accent-light));
+      background-color: $ui-accent-light;
       pointer-events: none;
     }
   }
