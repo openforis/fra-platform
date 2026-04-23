@@ -15,14 +15,14 @@ import { Props } from './props'
 
 const Folder: React.FC<Props> = (props) => {
   const { depth, isCollapsed, item } = props
-  const { onNavigate, onOpenPanel, onToggle, selectable } = useRepositoryListContext()
+  const { onNavigate, onOpenPanel, onToggle, readOnly, selectable } = useRepositoryListContext()
   const { t } = useTranslation()
 
   const isGlobalRepositoryItem = RepositoryItems.isGlobal({ repositoryItem: item })
   const isGlobalRepositoryEditable = useIsGlobalRepositoryEditable()
   const isCountryRepositoryEditable = useIsCountryRepositoryEditable()
   const canEdit = isGlobalRepositoryItem ? isGlobalRepositoryEditable : isCountryRepositoryEditable
-  const withActions = !selectable && onOpenPanel && canEdit
+  const withActions = !selectable && !readOnly && onOpenPanel && canEdit
 
   return (
     <div className="repository-list-item repository-list-item--folder">

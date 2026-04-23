@@ -20,7 +20,7 @@ type Props = {
 const ColumnHeaders: React.FC<Props> = (props) => {
   const { isGlobal = false } = props
   const { t } = useTranslation()
-  const { selectable } = useRepositoryListContext()
+  const { readOnly, selectable } = useRepositoryListContext()
   const path = `${ApiEndPoint.CycleData.Repository.many()}?global=${isGlobal}`
 
   const col = (orderByProperty: string): Column<object> => ({
@@ -36,22 +36,22 @@ const ColumnHeaders: React.FC<Props> = (props) => {
       </div>
       <div className="repository-column-headers__col repository-column-headers__col--name">
         {t('common.name')}
-        <OrderBy column={col('name')} path={path} />
+        {!readOnly && <OrderBy column={col('name')} path={path} />}
       </div>
       <div className="repository-column-headers__col">
         {t('common.added')}
-        <OrderBy column={col('createdAt')} path={path} />
+        {!readOnly && <OrderBy column={col('createdAt')} path={path} />}
       </div>
       {!selectable && (
         <div className="repository-column-headers__col">
           {t('common.linked')}
-          <OrderBy column={col('linked')} path={path} />
+          {!readOnly && <OrderBy column={col('linked')} path={path} />}
         </div>
       )}
       {!selectable && (
         <div className="repository-column-headers__col">
           {t('common.access')}
-          <OrderBy column={col('access')} path={path} />
+          {!readOnly && <OrderBy column={col('access')} path={path} />}
         </div>
       )}
       <div />

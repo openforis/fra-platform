@@ -23,9 +23,19 @@ type Props = {
 const Header: React.FC<Props> = (props) => {
   const { isGlobal = false } = props
   const { t } = useTranslation()
-  const { parentUuid, selectable } = useRepositoryListContext()
+  const { parentUuid, readOnly, selectable } = useRepositoryListContext()
   const path = `${ApiEndPoint.CycleData.Repository.many()}?global=${isGlobal}`
   const fileTypeOptions = useFileTypeOptions(path)
+
+  if (readOnly)
+    return (
+      <div className="repository-header">
+        <div className="repository-header__left">
+          <ButtonBack />
+          {!selectable && <ButtonDownloadAll isGlobal={isGlobal} />}
+        </div>
+      </div>
+    )
 
   return (
     <div className="repository-header">

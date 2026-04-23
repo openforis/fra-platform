@@ -8,8 +8,10 @@ import Icon from 'client/components/Icon'
 import { useRepositoryListContext } from 'client/components/RepositoryList/context'
 
 const ButtonExpandCollapse: React.FC = () => {
-  const { allExpanded, onCollapseAll, onExpandAll } = useRepositoryListContext()
+  const { allExpanded, hasFolders, onCollapseAll, onExpandAll } = useRepositoryListContext()
   const { t } = useTranslation()
+
+  if (!hasFolders) return null
 
   if (allExpanded) {
     return (

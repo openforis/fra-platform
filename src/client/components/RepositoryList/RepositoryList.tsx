@@ -35,6 +35,7 @@ const RepositoryList: React.FC<Props> = (props) => {
   const { expanded, onCollapseAll, onExpandAll, onToggle } = useOnToggle()
   const { contextValue, visibleItems } = useFolderNavigation({
     expanded,
+    isGlobal,
     items,
     onCollapseAll,
     onExpandAll,

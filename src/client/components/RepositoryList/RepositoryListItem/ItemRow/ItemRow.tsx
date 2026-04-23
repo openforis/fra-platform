@@ -25,7 +25,7 @@ const ItemRow: React.FC<Props> = (props) => {
   const { depth, item } = props
 
   const { t } = useTranslation()
-  const { onOpenPanel, onSelect, selectable, selectedUuids } = useRepositoryListContext()
+  const { onOpenPanel, onSelect, readOnly, selectable, selectedUuids } = useRepositoryListContext()
   const isCountryRepositoryEditable = useIsCountryRepositoryEditable()
   const isGlobalRepositoryEditable = useIsGlobalRepositoryEditable()
 
@@ -42,7 +42,7 @@ const ItemRow: React.FC<Props> = (props) => {
         variant={ButtonCheckboxVariant.checkbox}
       />
     )
-  } else if (onOpenPanel && canEdit) {
+  } else if (!readOnly && onOpenPanel && canEdit) {
     actionCell = (
       <Button
         dataTooltipContent={t('description.edit')}
