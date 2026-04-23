@@ -16,14 +16,9 @@ import ButtonAdd from './ButtonAdd'
 import ButtonBack from './ButtonBack'
 import ButtonDownloadAll from './ButtonDownloadAll'
 
-type Props = {
-  isGlobal?: boolean
-}
-
-const Header: React.FC<Props> = (props) => {
-  const { isGlobal = false } = props
+const Header: React.FC = () => {
   const { t } = useTranslation()
-  const { parentUuid, selectable } = useRepositoryListContext()
+  const { allowEditing, allowFiltering, isGlobal, parentUuid, selectable } = useRepositoryListContext()
   const path = `${ApiEndPoint.CycleData.Repository.many()}?global=${isGlobal}`
   const fileTypeOptions = useFileTypeOptions(path)
 
@@ -31,50 +26,52 @@ const Header: React.FC<Props> = (props) => {
     <div className="repository-header">
       <div className="repository-header__left">
         <ButtonBack />
-        {!selectable && <ButtonDownloadAll isGlobal={isGlobal} />}
-        <ButtonAdd isGlobal={isGlobal} parentUuid={parentUuid} />
-        <ButtonAdd isFolder isGlobal={isGlobal} parentUuid={parentUuid} />
+        {!selectable && <ButtonDownloadAll />}
+        {allowEditing && !selectable && <ButtonAdd parentUuid={parentUuid} />}
+        {allowEditing && !selectable && <ButtonAdd isFolder parentUuid={parentUuid} />}
       </div>
 
-      <div className="repository-header__right">
-        <Icon name="filter" />
-        <Hr vertical />
-        <Text fieldName="name" label={t('common.name')} path={path} type={TablePaginatedFilterType.TEXT} />
-        {!selectable && (
-          <>
-            <MultiSelect
-              fieldName="access"
-              label={t('common.access')}
-              multiLabelSummaryKey="common.access"
-              options={[
-                { label: t('common.public'), value: 'public' },
-                { label: t('common.private'), value: 'private' },
-              ]}
-              path={path}
-              type={TablePaginatedFilterType.MULTI_SELECT}
-            />
-            <MultiSelect
-              fieldName="linked"
-              label={t('common.linked')}
-              multiLabelSummaryKey="common.linked"
-              options={[
-                { label: t('common.linked'), value: 'linked' },
-                { label: t('common.unlinked'), value: 'unlinked' },
-              ]}
-              path={path}
-              type={TablePaginatedFilterType.MULTI_SELECT}
-            />
-          </>
-        )}
-        <MultiSelect
-          fieldName="fileType"
-          label={t('common.fileType')}
-          multiLabelSummaryKey="common.fileType"
-          options={fileTypeOptions}
-          path={path}
-          type={TablePaginatedFilterType.MULTI_SELECT}
-        />
-      </div>
+      {allowFiltering && (
+        <div className="repository-header__right">
+          <Icon name="filter" />
+          <Hr vertical />
+          <Text fieldName="name" label={t('common.name')} path={path} type={TablePaginatedFilterType.TEXT} />
+          {!selectable && (
+            <>
+              <MultiSelect
+                fieldName="access"
+                label={t('common.access')}
+                multiLabelSummaryKey="common.access"
+                options={[
+                  { label: t('common.public'), value: 'public' },
+                  { label: t('common.private'), value: 'private' },
+                ]}
+                path={path}
+                type={TablePaginatedFilterType.MULTI_SELECT}
+              />
+              <MultiSelect
+                fieldName="linked"
+                label={t('common.linked')}
+                multiLabelSummaryKey="common.linked"
+                options={[
+                  { label: t('common.linked'), value: 'linked' },
+                  { label: t('common.unlinked'), value: 'unlinked' },
+                ]}
+                path={path}
+                type={TablePaginatedFilterType.MULTI_SELECT}
+              />
+            </>
+          )}
+          <MultiSelect
+            fieldName="fileType"
+            label={t('common.fileType')}
+            multiLabelSummaryKey="common.fileType"
+            options={fileTypeOptions}
+            path={path}
+            type={TablePaginatedFilterType.MULTI_SELECT}
+          />
+        </div>
+      )}
     </div>
   )
 }

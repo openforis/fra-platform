@@ -8,13 +8,10 @@ import { CountryIso } from 'meta/area/countryIso'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { ButtonSize, useButtonClassName } from 'client/components/Buttons/Button'
 import Icon from 'client/components/Icon'
+import { useRepositoryListContext } from 'client/components/RepositoryList/context'
 
-type Props = {
-  isGlobal?: boolean
-}
-
-const ButtonDownloadAll: React.FC<Props> = (props: Props) => {
-  const { isGlobal = false } = props
+const ButtonDownloadAll: React.FC = () => {
+  const { isGlobal } = useRepositoryListContext()
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const { t } = useTranslation()
 

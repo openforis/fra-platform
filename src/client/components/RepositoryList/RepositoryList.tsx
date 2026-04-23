@@ -20,13 +20,25 @@ import Header from './Header'
 import RepositoryListSkeleton from './RepositoryListSkeleton'
 
 type Props = {
+  allowEditing?: boolean
+  allowFiltering?: boolean
+  allowSorting?: boolean
   isGlobal?: boolean
   onSelect?: (item: RepositoryItemTree) => void
   selectedUuids?: Array<string>
+  showColumns?: boolean
 }
 
 const RepositoryList: React.FC<Props> = (props) => {
-  const { isGlobal, onSelect, selectedUuids = [] } = props
+  const {
+    allowEditing = true,
+    allowFiltering = true,
+    allowSorting = true,
+    isGlobal = false,
+    onSelect,
+    selectedUuids = [],
+    showColumns = true,
+  } = props
   const { t } = useTranslation()
   const [repositoryItem, setRepositoryItem] = useState<Partial<RepositoryItem> | undefined>()
 
@@ -34,7 +46,11 @@ const RepositoryList: React.FC<Props> = (props) => {
   const { isLoading, items } = useItems(isGlobal)
   const { expanded, onCollapseAll, onExpandAll, onToggle } = useOnToggle()
   const { contextValue, visibleItems } = useFolderNavigation({
+    allowEditing,
+    allowFiltering,
+    allowSorting,
     expanded,
+    isGlobal,
     items,
     onCollapseAll,
     onExpandAll,
@@ -42,12 +58,13 @@ const RepositoryList: React.FC<Props> = (props) => {
     onSelect,
     onToggle,
     selectedUuids,
+    showColumns,
   })
 
   const title = isGlobal ? t('landing.links.links') : t('landing.links.repository')
-  const gridTemplateColumns = onSelect
-    ? '28px 1fr 100px auto'
-    : '28px 1fr 100px minmax(120px, auto) minmax(120px, auto) auto'
+  let gridTemplateColumns = '28px 1fr 100px minmax(120px, auto) minmax(120px, auto) auto'
+  if (!showColumns) gridTemplateColumns = '28px 1fr'
+  else if (onSelect) gridTemplateColumns = '28px 1fr 100px auto'
 
   return (
     <RepositoryListContext.Provider value={contextValue}>
@@ -57,8 +74,8 @@ const RepositoryList: React.FC<Props> = (props) => {
         <Breadcrumb />
       </div>
       <DataGrid gridTemplateColumns={gridTemplateColumns}>
-        <Header isGlobal={isGlobal} />
-        <ColumnHeaders isGlobal={isGlobal} />
+        <Header />
+        <ColumnHeaders />
         {isLoading ? (
           <RepositoryListSkeleton />
         ) : (

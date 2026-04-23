@@ -12,7 +12,6 @@ import { useRepositoryListContext } from '../../context'
 
 type Props = {
   isFolder?: boolean
-  isGlobal?: boolean
   parentUuid?: string
 }
 
@@ -26,10 +25,10 @@ const _getNewRepositoryItem = (props: {
   return { countryIso, parentUuid, props: { public: true, translation: { en: '' } } }
 }
 
-const ButtonAdd: React.FC<Props> = (props: Props) => {
-  const { isFolder, isGlobal, parentUuid } = props
+const ButtonAdd: React.FC<Props> = (props) => {
+  const { isFolder, parentUuid } = props
   const { countryIso } = useCountryRouteParams<CountryIso>()
-  const { onOpenPanel } = useRepositoryListContext()
+  const { isGlobal, onOpenPanel } = useRepositoryListContext()
   const { t } = useTranslation()
 
   const isGlobalRepositoryEditable = useIsGlobalRepositoryEditable()
