@@ -1,11 +1,14 @@
 // ****==== types
 import { Assessment } from 'meta/assessment/assessment'
+import { ColName } from 'meta/assessment/col'
 import { Cycle } from 'meta/assessment/cycle'
 import {
   AssessmentMetaCache,
   DependencyCache,
   DependencyRecord,
+  FullDependencyRecord,
   TableDependencyRecord,
+  ValidationDependencyCache,
   VariableCache,
   VariablesCache,
 } from 'meta/assessment/metaCache'
@@ -23,13 +26,15 @@ type TableProps = CycleProps & {
 type VariableProps = TableProps & {
   variableName: VariableName
 }
+type ColProps = VariableProps & {
+  colName: ColName
+}
 
 type DependencyTableCacheProps = Pick<VariableProps, 'tableName'> & { dependencyCache: DependencyCache }
 type DependencyCacheProps = Pick<VariableProps, 'variableName'> & DependencyTableCacheProps
 
 type DependencyTableRecordProps = Pick<VariableProps, 'tableName'> & { dependencyRecord: DependencyRecord }
-// type DependencyRecordProps = Pick<VariableProps, 'variableName'> & DependencyTableRecordProps
-
+type ValidationTableDependants = FullDependencyRecord[TableName]
 type VariableCacheList = Array<VariableCache>
 
 // ****==== utils
@@ -60,8 +65,7 @@ const getMetaCache = (props: CycleProps): AssessmentMetaCache => {
 
 const getCalculations = (props: CycleProps): DependencyCache => getMetaCache(props).calculations
 
-const getValidations = (props: CycleProps): DependencyCache =>
-  getMetaCache(props).validations as unknown as DependencyCache // TODO: delete this cast after implementing new validation graph
+const getValidations = (props: CycleProps): ValidationDependencyCache => getMetaCache(props).validations
 
 const getEnablers = (props: CycleProps): DependencyCache => getMetaCache(props).enablers
 
@@ -79,16 +83,20 @@ const getTableCalculationsDependencies = (props: TableProps): TableDependencyRec
 const getCalculationsDependencies = (props: VariableProps): VariableCacheList =>
   getTableCalculationsDependencies(props)?.[props.variableName] ?? []
 
-const getTableValidationsDependants = (props: TableProps): TableDependencyRecord => {
+const getTableValidationsDependants = (props: TableProps): ValidationTableDependants => {
   const { assessment, cycle, tableName } = props
-  return _getTableDependants({ dependencyCache: getValidations({ assessment, cycle }), tableName })
+  return getValidations({ assessment, cycle }).dependants[tableName] ?? {}
 }
-const getValidationsDependants = (props: VariableProps): VariableCacheList =>
-  getTableValidationsDependants(props)?.[props.variableName] ?? []
+const getValidationsDependants = (props: ColProps): VariableCacheList =>
+  getTableValidationsDependants(props)?.[props.variableName]?.[props.colName] ?? []
 
 const getTableValidationsDependencies = (props: TableProps): TableDependencyRecord => {
   const { assessment, cycle, tableName } = props
-  return _getTableDependencies({ dependencyCache: getValidations({ assessment, cycle }), tableName })
+  return _getTableDependencies({
+    // the below cast is allowed because dependencies type are the same
+    dependencyCache: getValidations({ assessment, cycle }) as unknown as DependencyCache,
+    tableName,
+  })
 }
 const getValidationsDependencies = (props: VariableProps): VariableCacheList =>
   getTableValidationsDependencies(props)?.[props.variableName] ?? []
