@@ -67,9 +67,17 @@ const RepositoryItemForm: React.FC<Props> = (props) => {
               type={ButtonType.danger}
             />
             {isNonEmptyFolder && (
-              <Tooltip className={TooltipId.info} id="repository-item-form__delete-btn" place="top">
-                {t('landing.links.folderNotEmpty')}
-              </Tooltip>
+              // Workaround to get around z-index issue with panel
+              <div className="tooltip-container">
+                <Tooltip
+                  className={TooltipId.error}
+                  classNameArrow={`${TooltipId.error}-arrow`}
+                  id="repository-item-form__delete-btn"
+                  place="top"
+                >
+                  {t('landing.links.folderNotEmpty')}
+                </Tooltip>
+              </div>
             )}
           </div>
         </div>
