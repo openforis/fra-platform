@@ -1,7 +1,6 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Tooltip } from 'react-tooltip'
-import classNames from 'classnames'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CountryIso } from 'meta/area/countryIso'
@@ -59,19 +58,20 @@ const RepositoryItemForm: React.FC<Props> = (props) => {
       />
       {isEditing && (
         <div className="repository-item-form__delete">
-          <Button
-            className={classNames({ 'btn--tooltip-on-disabled': isNonEmptyFolder })}
-            disabled={isLoading || isUsed || isNonEmptyFolder}
-            iconName="trash-simple"
-            label={t('common.delete')}
-            onClick={onDelete}
-            type={ButtonType.danger}
-          />
-          {isNonEmptyFolder && (
-            <Tooltip anchorSelect=".btn--tooltip-on-disabled" className={TooltipId.info} place="top">
-              {t('landing.links.folderNotEmpty')}
-            </Tooltip>
-          )}
+          <div data-tooltip-id="repository-item-form__delete-btn">
+            <Button
+              disabled={isLoading || isUsed || isNonEmptyFolder}
+              iconName="trash-simple"
+              label={t('common.delete')}
+              onClick={onDelete}
+              type={ButtonType.danger}
+            />
+            {isNonEmptyFolder && (
+              <Tooltip className={TooltipId.info} id="repository-item-form__delete-btn" place="top">
+                {t('landing.links.folderNotEmpty')}
+              </Tooltip>
+            )}
+          </div>
         </div>
       )}
       <FileUsages fileMeta={fileMeta} />

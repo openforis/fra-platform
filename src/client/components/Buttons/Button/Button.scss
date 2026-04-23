@@ -188,8 +188,3 @@
     background-color: transparent;
   }
 }
-
-// Allow tooltip to appear on a disabled button (disabled blocks clicks, not hover)
-.btn--tooltip-on-disabled:disabled {
-  pointer-events: auto;
-}
