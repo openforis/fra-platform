@@ -25,7 +25,7 @@ const ItemRow: React.FC<Props> = (props) => {
   const { depth, item } = props
 
   const { t } = useTranslation()
-  const { onOpenPanel, onSelect, readOnly, selectable, selectedUuids } = useRepositoryListContext()
+  const { allowEditing, onOpenPanel, onSelect, selectable, selectedUuids, showColumns } = useRepositoryListContext()
   const isCountryRepositoryEditable = useIsCountryRepositoryEditable()
   const isGlobalRepositoryEditable = useIsGlobalRepositoryEditable()
 
@@ -33,7 +33,7 @@ const ItemRow: React.FC<Props> = (props) => {
   const canEdit = isGlobalRepositoryItem ? isGlobalRepositoryEditable : isCountryRepositoryEditable
   const visibility = item.props?.public ? 'public' : 'private'
 
-  let actionCell: React.ReactNode = readOnly ? null : <div />
+  let actionCell: React.ReactNode = allowEditing ? <div /> : null
   if (selectable) {
     actionCell = (
       <ButtonCheckBox
@@ -42,7 +42,7 @@ const ItemRow: React.FC<Props> = (props) => {
         variant={ButtonCheckboxVariant.checkbox}
       />
     )
-  } else if (!readOnly && onOpenPanel && canEdit) {
+  } else if (allowEditing && onOpenPanel && canEdit) {
     actionCell = (
       <Button
         dataTooltipContent={t('description.edit')}
@@ -61,13 +61,15 @@ const ItemRow: React.FC<Props> = (props) => {
       <div className="repository-list-item__name" style={{ paddingLeft: depth * 20 + 20 }}>
         <RepositoryLink datum={item} />
       </div>
-      {!readOnly && <div className="repository-list-item__created-at">{Dates.getRelativeDate(item.createdAt, t)}</div>}
-      {!readOnly && !selectable && (
+      {showColumns && (
+        <div className="repository-list-item__created-at">{Dates.getRelativeDate(item.createdAt, t)}</div>
+      )}
+      {showColumns && !selectable && (
         <div className="repository-list-item__icon-wrapper">
           {item.linked && <Icon className="repository-list-item__icon" name="checkbox" />}
         </div>
       )}
-      {!readOnly && !selectable && (
+      {showColumns && !selectable && (
         <div className={classNames('repository-list-item__badge', visibility)}>{t(`common.${visibility}`)}</div>
       )}
       {actionCell}

@@ -3,10 +3,14 @@ import { createContext, useContext } from 'react'
 import { RepositoryItemTree } from 'meta/cycleData/repository/item'
 
 export type RepositoryListContextValue = {
+  allowEditing: boolean
+  allowFiltering: boolean
+  allowSorting: boolean
   allExpanded: boolean
   expanded: Record<string, boolean>
   folderPath: Array<RepositoryItemTree>
   hasFolders: boolean
+  isGlobal: boolean
   onCollapseAll: () => void
   onExpandAll: () => void
   onNavigate: (uuid?: string) => void
@@ -14,9 +18,9 @@ export type RepositoryListContextValue = {
   onSelect: (item: RepositoryItemTree) => void
   onToggle: (uuid: string) => void
   parentUuid: string | undefined
-  readOnly: boolean
   selectable: boolean
   selectedUuids: Array<string>
+  showColumns: boolean
 }
 
 export const RepositoryListContext = createContext<RepositoryListContextValue | undefined>(undefined)

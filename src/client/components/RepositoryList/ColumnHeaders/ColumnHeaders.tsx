@@ -13,14 +13,9 @@ import { useRepositoryListContext } from '../context'
 // Placeholder component
 const EmptyComponent = (): null => null
 
-type Props = {
-  isGlobal?: boolean
-}
-
-const ColumnHeaders: React.FC<Props> = (props) => {
-  const { isGlobal = false } = props
+const ColumnHeaders: React.FC = () => {
   const { t } = useTranslation()
-  const { readOnly, selectable } = useRepositoryListContext()
+  const { allowSorting, isGlobal, selectable, showColumns } = useRepositoryListContext()
   const path = `${ApiEndPoint.CycleData.Repository.many()}?global=${isGlobal}`
 
   const col = (orderByProperty: string): Column<object> => ({
@@ -36,24 +31,24 @@ const ColumnHeaders: React.FC<Props> = (props) => {
       </div>
       <div className="repository-column-headers__col repository-column-headers__col--name">
         {t('common.name')}
-        {!readOnly && <OrderBy column={col('name')} path={path} />}
+        {allowSorting && <OrderBy column={col('name')} path={path} />}
       </div>
-      {!readOnly && (
+      {showColumns && (
         <div className="repository-column-headers__col">
           {t('common.added')}
-          <OrderBy column={col('createdAt')} path={path} />
+          {allowSorting && <OrderBy column={col('createdAt')} path={path} />}
         </div>
       )}
-      {!readOnly && !selectable && (
+      {showColumns && !selectable && (
         <div className="repository-column-headers__col">
           {t('common.linked')}
-          <OrderBy column={col('linked')} path={path} />
+          {allowSorting && <OrderBy column={col('linked')} path={path} />}
         </div>
       )}
-      {!readOnly && !selectable && (
+      {showColumns && !selectable && (
         <div className="repository-column-headers__col">
           {t('common.access')}
-          <OrderBy column={col('access')} path={path} />
+          {allowSorting && <OrderBy column={col('access')} path={path} />}
         </div>
       )}
       <div />

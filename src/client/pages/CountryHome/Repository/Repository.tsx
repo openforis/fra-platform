@@ -12,7 +12,13 @@ const Repository: React.FC = () => {
     <div className="repository">
       {!isPanEuropean && (
         <>
-          <RepositoryList isGlobal />
+          <RepositoryList
+            allowEditing={false}
+            allowFiltering={false}
+            allowSorting={false}
+            isGlobal
+            showColumns={false}
+          />
           <Hr />
         </>
       )}
