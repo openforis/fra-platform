@@ -1,15 +1,14 @@
 import { CountryIso } from 'meta/area/countryIso'
 import { AssessmentName } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
-import { TableName } from 'meta/assessment/table'
 
 import { TableRedisRepository } from 'server/cache/repository/table'
-import { ValidationRedisRepository } from 'server/cache/repository/validation'
 import { AreaController } from 'server/controller/area'
 import { AssessmentController } from 'server/controller/assessment'
+import { updateValidations } from 'server/controller/cycleData/validations/updateValidations'
 import { BaseProtocol, DB } from 'server/db/db'
 
-import { validateTables } from './validateTables'
+import { buildTablesNodeUpdates } from './buildTablesNodeUpdates'
 
 type Props = {
   assessmentName: AssessmentName
@@ -28,14 +27,13 @@ export const validateCountryTables = async (props: Props, client: BaseProtocol =
     AreaController.getCountry({ assessment, countryIso, cycle }, client),
     TableRedisRepository.getManyRecord({ assessment, cycle }),
   ])
-  const tableNames = Object.keys(tables) as Array<TableName>
-  const tableValidations = await validateTables({ assessment, country, cycle, tables })
+  const nodeUpdates = buildTablesNodeUpdates({ assessment, country, cycle, tables })
 
-  await ValidationRedisRepository.setTableValidations({
+  await updateValidations({
     assessment,
-    countryIso: country.countryIso,
+    country,
     cycle,
-    tableNames,
-    tableValidations,
+    nodeUpdates,
+    notifyClients: false,
   })
 }

@@ -2,12 +2,8 @@ import { Country } from 'meta/area/country'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { RecordTables } from 'meta/assessment/table/record'
-import { RecordTableValidationsState } from 'meta/assessment/validation/table'
 import { NodeUpdate, NodeUpdates } from 'meta/data/nodeUpdates'
 import { Objects } from 'utils/objects'
-
-import { ContextFactory } from '../context/contextFactory'
-import { validateNodeUpdates } from '../validateNodeUpdates/validateNodeUpdates'
 
 type Props = {
   assessment: Assessment
@@ -16,7 +12,7 @@ type Props = {
   tables: RecordTables
 }
 
-const _getNodeUpdates = (props: Props): NodeUpdates => {
+export const buildTablesNodeUpdates = (props: Props): NodeUpdates => {
   const { assessment, country, cycle, tables } = props
 
   const nodes = Object.entries(tables).reduce<Array<NodeUpdate>>((acc, [tableName, table]) => {
@@ -47,16 +43,4 @@ const _getNodeUpdates = (props: Props): NodeUpdates => {
     cycleName: cycle.name,
     nodes,
   }
-}
-
-export const validateTables = async (props: Props): Promise<RecordTableValidationsState> => {
-  const nodeUpdates = _getNodeUpdates(props)
-
-  if (Objects.isEmpty(nodeUpdates.nodes)) return {}
-
-  const context = await ContextFactory.newInstance({ ...props, nodeUpdates })
-
-  await validateNodeUpdates({ context })
-
-  return context.tableValidations
 }
