@@ -33,7 +33,7 @@ const ItemRow: React.FC<Props> = (props) => {
   const canEdit = isGlobalRepositoryItem ? isGlobalRepositoryEditable : isCountryRepositoryEditable
   const visibility = item.props?.public ? 'public' : 'private'
 
-  let actionCell: React.ReactNode = <div />
+  let actionCell: React.ReactNode = readOnly ? null : <div />
   if (selectable) {
     actionCell = (
       <ButtonCheckBox
@@ -61,13 +61,13 @@ const ItemRow: React.FC<Props> = (props) => {
       <div className="repository-list-item__name" style={{ paddingLeft: depth * 20 + 20 }}>
         <RepositoryLink datum={item} />
       </div>
-      <div className="repository-list-item__created-at">{Dates.getRelativeDate(item.createdAt, t)}</div>
-      {!selectable && (
+      {!readOnly && <div className="repository-list-item__created-at">{Dates.getRelativeDate(item.createdAt, t)}</div>}
+      {!readOnly && !selectable && (
         <div className="repository-list-item__icon-wrapper">
           {item.linked && <Icon className="repository-list-item__icon" name="checkbox" />}
         </div>
       )}
-      {!selectable && (
+      {!readOnly && !selectable && (
         <div className={classNames('repository-list-item__badge', visibility)}>{t(`common.${visibility}`)}</div>
       )}
       {actionCell}

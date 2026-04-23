@@ -38,20 +38,22 @@ const ColumnHeaders: React.FC<Props> = (props) => {
         {t('common.name')}
         {!readOnly && <OrderBy column={col('name')} path={path} />}
       </div>
-      <div className="repository-column-headers__col">
-        {t('common.added')}
-        {!readOnly && <OrderBy column={col('createdAt')} path={path} />}
-      </div>
-      {!selectable && (
+      {!readOnly && (
         <div className="repository-column-headers__col">
-          {t('common.linked')}
-          {!readOnly && <OrderBy column={col('linked')} path={path} />}
+          {t('common.added')}
+          <OrderBy column={col('createdAt')} path={path} />
         </div>
       )}
-      {!selectable && (
+      {!readOnly && !selectable && (
+        <div className="repository-column-headers__col">
+          {t('common.linked')}
+          <OrderBy column={col('linked')} path={path} />
+        </div>
+      )}
+      {!readOnly && !selectable && (
         <div className="repository-column-headers__col">
           {t('common.access')}
-          {!readOnly && <OrderBy column={col('access')} path={path} />}
+          <OrderBy column={col('access')} path={path} />
         </div>
       )}
       <div />
