@@ -71,7 +71,7 @@ export const generateMetaCache = async (props: Props, client: BaseProtocol = DB)
         }
 
         row.cols.forEach((col) => {
-          const validateFNs = row.props.validateFns?.[cycleUuid] ?? col.props.validateFns?.[cycleUuid]
+          const validateFNs = col.props.validateFns?.[cycleUuid] ?? row.props.validateFns?.[cycleUuid]
           if (
             !Objects.isEmpty(validateFNs) &&
             !Objects.isEmpty(col.props.colName) &&
