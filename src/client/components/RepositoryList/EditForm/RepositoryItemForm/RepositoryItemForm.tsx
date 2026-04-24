@@ -38,7 +38,9 @@ const RepositoryItemForm: React.FC<Props> = (props) => {
   const isEditing = !Objects.isEmpty(repositoryItem?.uuid)
   const isUsed = !Objects.isEmpty(fileMeta?.usages)
   const isNonEmptyFolder =
-    RepositoryItems.isFolder(repositoryItem) && Boolean((repositoryItem as RepositoryItemTree).children?.length)
+    !Objects.isNil(repositoryItem) &&
+    RepositoryItems.isFolder(repositoryItem) &&
+    !Objects.isEmpty((repositoryItem as RepositoryItemTree).children)
   const method = isEditing ? 'put' : 'post'
   const action = Urls.withSearchParams(ApiEndPoint.CycleData.Repository.one(), {
     assessmentName,
