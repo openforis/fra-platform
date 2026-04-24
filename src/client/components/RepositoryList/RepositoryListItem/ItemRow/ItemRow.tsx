@@ -16,6 +16,7 @@ import Icon from 'client/components/Icon'
 
 import { useRepositoryListContext } from '../../context'
 import RepositoryLink from '../RepositoryLink'
+import { useLinkedTooltip } from './hooks/useLinkedTooltip'
 
 export type Props = {
   depth: number
@@ -29,6 +30,8 @@ const ItemRow: React.FC<Props> = (props) => {
   const { allowEditing, onOpenPanel, onSelect, selectable, selectedUuids, showColumns } = useRepositoryListContext()
   const isCountryRepositoryEditable = useIsCountryRepositoryEditable()
   const isGlobalRepositoryEditable = useIsGlobalRepositoryEditable()
+
+  const linkedTooltip = useLinkedTooltip(item.usages)
 
   const isGlobalRepositoryItem = RepositoryItems.isGlobal({ repositoryItem: item })
   const canEdit = isGlobalRepositoryItem ? isGlobalRepositoryEditable : isCountryRepositoryEditable
@@ -66,7 +69,11 @@ const ItemRow: React.FC<Props> = (props) => {
         <div className="repository-list-item__created-at">{Dates.getRelativeDate(item.createdAt, t)}</div>
       )}
       {showColumns && !selectable && (
-        <div className="repository-list-item__icon-wrapper">
+        <div
+          className="repository-list-item__icon-wrapper"
+          data-tooltip-content={linkedTooltip ?? undefined}
+          data-tooltip-id={linkedTooltip ? TooltipId.info : undefined}
+        >
           {!Objects.isEmpty(item.usages) && <Icon className="repository-list-item__icon" name="checkbox" />}
         </div>
       )}

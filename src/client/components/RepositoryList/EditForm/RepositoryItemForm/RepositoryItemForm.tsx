@@ -30,13 +30,13 @@ const RepositoryItemForm: React.FC<Props> = (props) => {
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const { t } = useTranslation()
 
-  const { fileMeta, isLoading } = useFileMeta(repositoryItem)
-  const formDefinition = useFormDefinition(repositoryItem, fileMeta, isLoading)
+  const { fileSummary, isLoading } = useFileMeta(repositoryItem)
+  const formDefinition = useFormDefinition(repositoryItem, fileSummary, isLoading)
   const onSuccess = useOnSuccess(onClose)
   const onDelete = useOnDelete(onClose, repositoryItem)
 
   const isEditing = !Objects.isEmpty(repositoryItem?.uuid)
-  const isUsed = !Objects.isEmpty(fileMeta?.usages)
+  const isUsed = !Objects.isEmpty(repositoryItem?.usages)
   const isNonEmptyFolder =
     !Objects.isNil(repositoryItem) &&
     RepositoryItems.isFolder(repositoryItem) &&
@@ -58,6 +58,7 @@ const RepositoryItemForm: React.FC<Props> = (props) => {
         onCancel={onClose}
         onSuccess={onSuccess}
       />
+      <FileUsages usages={repositoryItem?.usages} />
       {isEditing && (
         <div className="repository-item-form__delete">
           <div data-tooltip-id="repository-item-form__delete-btn">
@@ -84,7 +85,6 @@ const RepositoryItemForm: React.FC<Props> = (props) => {
           </div>
         </div>
       )}
-      <FileUsages fileMeta={fileMeta} />
     </div>
   )
 }
