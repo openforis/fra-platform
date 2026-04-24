@@ -1,15 +1,17 @@
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 
 import { CountryIso } from 'meta/area/countryIso'
+import { TableName } from 'meta/assessment/table'
+import { Objects } from 'utils/objects'
 
 import { ValidationsActions } from 'client/store/data/tableData/validations/actions'
 import { useAppDispatch } from 'client/store/hooks'
+import { useTableSections } from 'client/store/meta/hooks/tableSections'
 import { useCanEdit } from 'client/store/user/hooks/auth'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { useIsPrintRoute } from 'client/hooks/routes'
 
 import { Props } from './props'
-import { useDependencies } from './useDependencies'
 
 export const useGetTableValidations = (props: Props): void => {
   const { sectionName } = props
@@ -18,18 +20,18 @@ export const useGetTableValidations = (props: Props): void => {
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const canEdit = useCanEdit(sectionName)
   const { print } = useIsPrintRoute()
-  const dependencies = useDependencies(props)
+  const tableSections = useTableSections({ sectionName })
+
+  const tableNames = useMemo<Array<TableName>>(
+    () => tableSections.flatMap((tableSection) => tableSection.tables.map((table) => table.props.name)),
+    [tableSections]
+  )
 
   useEffect(() => {
-    const { internal } = dependencies
-    const { tableNames: tableNamesSet } = internal
-
-    if (print || !canEdit || tableNamesSet.size === 0) {
+    if (print || !canEdit || Objects.isEmpty(tableNames)) {
       return
     }
 
-    const tableNames = Array.from(tableNamesSet)
-
     dispatch(ValidationsActions.getTableValidations({ assessmentName, cycleName, countryIso, sectionName, tableNames }))
-  }, [assessmentName, canEdit, countryIso, cycleName, dependencies, dispatch, print, sectionName])
+  }, [assessmentName, canEdit, countryIso, cycleName, dispatch, print, sectionName, tableNames])
 }
