@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { CountryIso } from 'meta/area/countryIso'
 import { RepositoryItem, RepositoryItemTree } from 'meta/cycleData/repository/item'
 import { RepositoryItems } from 'meta/cycleData/repository/items'
-import { FileMeta } from 'meta/file/meta'
+import { FileSummary } from 'meta/file/file'
 import { Objects } from 'utils/objects'
 
 import { useCountryRouteParams } from 'client/hooks/routeParams'
@@ -17,7 +17,7 @@ import { FormType } from '../types'
 const flattenFolders = (items: Array<RepositoryItemTree>, excludeUuid?: string, depth = 0): Array<Option> =>
   items.reduce<Array<Option>>((acc, item) => {
     if (item.folderName && item.uuid !== excludeUuid) {
-      acc.push({ label: '\u00a0'.repeat(depth * 4) + item.folderName, value: item.uuid })
+      acc.push({ label: ' '.repeat(depth * 4) + item.folderName, value: item.uuid })
       acc.push(...flattenFolders(item.children, excludeUuid, depth + 1))
     }
     return acc
@@ -25,7 +25,7 @@ const flattenFolders = (items: Array<RepositoryItemTree>, excludeUuid?: string, 
 
 export const useFormDefinition = (
   repositoryItem: Partial<RepositoryItem> | undefined,
-  fileMeta: FileMeta | undefined,
+  fileSummary: FileSummary | undefined,
   isLoadingFileMeta: boolean
 ): FormDefinition => {
   const { countryIso } = useCountryRouteParams<CountryIso>()
@@ -34,14 +34,14 @@ export const useFormDefinition = (
 
   return useMemo<FormDefinition>(() => {
     const formType = repositoryItem && RepositoryItems.isFolder(repositoryItem) ? FormType.folder : FormType.item
-    const initialFile = fileMeta?.summary ? [fileMeta.summary] : undefined
+    const initialFile = fileSummary ? [fileSummary] : undefined
     // omit self to avoid inserting folder inside itself when editing folders
     const excludeUuid = formType === FormType.folder ? repositoryItem?.uuid : undefined
     const folderOptions: Array<Option> = [
       { label: t('landing.home'), value: '' },
       ...flattenFolders(items, excludeUuid),
     ]
-    const isUsed = !Objects.isEmpty(fileMeta?.usages)
+    const isUsed = !Objects.isEmpty(repositoryItem?.usages)
     const disabledWatch: Pick<FieldDefinition, 'watches'> = { watches: { isDisabled: () => isLoadingFileMeta } }
     const disabledWhenUsed: Pick<FieldDefinition, 'watches'> = {
       watches: { isDisabled: () => isLoadingFileMeta || isUsed },
@@ -136,5 +136,5 @@ export const useFormDefinition = (
       ],
       labels: { submit: t('editUser.done') },
     }
-  }, [countryIso, fileMeta, isLoadingFileMeta, items, repositoryItem, t])
+  }, [countryIso, fileSummary, isLoadingFileMeta, items, repositoryItem, t])
 }

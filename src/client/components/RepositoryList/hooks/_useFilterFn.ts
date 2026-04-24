@@ -65,7 +65,7 @@ export const useFilterFn = (path: string): ItemsFn => {
     if (nameFilter) fns.push((items) => _filterByName(items, nameFilter, language))
     if (fileTypeFilter?.length)
       fns.push((items) => _filterByPredicate(items, (item) => fileTypeFilter.includes(item.fileType ?? '')))
-    const linkedFn = _getFilterBoolSelect(linkedFilter, 'linked', (item) => !!item.linked)
+    const linkedFn = _getFilterBoolSelect(linkedFilter, 'linked', (item) => !Objects.isEmpty(item.usages))
     const accessFn = _getFilterBoolSelect(accessFilter, 'public', (item) => !!item.props?.public)
     if (linkedFn) fns.push(linkedFn)
     if (accessFn) fns.push(accessFn)

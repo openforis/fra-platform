@@ -20,7 +20,7 @@ const _getValue = (item: RepositoryItemTree, property: SortProperty, language: L
     case 'createdAt':
       return item.createdAt ?? ''
     case 'linked':
-      return item.linked ? 1 : 0
+      return Objects.isEmpty(item.usages) ? 0 : 1
     case 'access':
       return item.props?.public ? 1 : 0
     default:

@@ -2,6 +2,7 @@ import { AreaCode } from 'meta/area/areaCode'
 import { Assessment } from 'meta/assessment/assessment'
 import { Assessments } from 'meta/assessment/assessments'
 import { Cycle } from 'meta/assessment/cycle'
+import { SectionNames } from 'meta/assessment/section'
 import { RepositoryItemTree } from 'meta/cycleData/repository/item'
 import { Objects } from 'utils/objects'
 
@@ -22,12 +23,20 @@ export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<
   const condition = global ? 'country_iso is null' : 'country_iso = $1'
 
   const hasODPFeature = Assessments.hasODPFeature(assessment)
-  const linkedInOdp = (ref: string): string =>
-    `exists(select 1 from ${schemaCycle}.original_data_point odp where odp.country_iso = tree.country_iso and odp.data_source_references ilike '%' || ${ref} || '%')`
-  const linkedInDescriptions = (ref: string): string =>
-    `exists(select 1 from ${schemaCycle}.descriptions d where d.country_iso = tree.country_iso and d.value::text ilike '%' || ${ref} || '%')`
+  const odpUsageClause = hasODPFeature
+    ? `
+            union all
+            select jsonb_build_object(
+              'sectionName', '${SectionNames.originalDataPoints}',
+              'suffix', odp.year::text,
+              'locations', jsonb_build_array(jsonb_build_object('key', 'nationalDataPoint.references'))
+            ) as u
+            from ${schemaCycle}.original_data_point odp
+            where odp.country_iso = tree.country_iso
+              and odp.data_source_references ilike '%' || tree.uuid::text || '%'
+            `
+    : ''
 
-  // Map of parentUuid | null : RepositoryItem
   const nodeMap = new Map<string, RepositoryItemTree>()
   const roots: Array<RepositoryItemTree> = []
 
@@ -47,12 +56,20 @@ export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<
       )
       select
         tree.*,
-        -- For items (not folders): populate "linked"
+        -- For items (not folders): aggregate usages
         case when tree.folder_name is null then (
-             ${linkedInDescriptions('tree.uuid::text')}
-          or (tree.link is not null and ${linkedInDescriptions('tree.link')})
-          ${hasODPFeature ? `or ${linkedInOdp('tree.uuid::text')} or (tree.link is not null and ${linkedInOdp('tree.link')})` : ''}
-        ) end as linked,
+          select coalesce(jsonb_agg(u), '[]'::jsonb)
+          from (
+            select jsonb_build_object(
+              'sectionName', d.section_name,
+              'locations', jsonb_build_array(jsonb_build_object('key', 'description.' || d.name))
+            ) as u
+            from ${schemaCycle}.descriptions d
+            where d.country_iso = tree.country_iso
+              and d.value::text ilike '%' || tree.uuid::text || '%'
+            ${odpUsageClause}
+          ) sub
+        ) end as usages,
         -- For file items: extract extension from file.name
         case when tree.file_uuid is not null then lower(split_part(f.name, '.', -1)) end as file_type
       from tree

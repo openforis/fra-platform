@@ -1,6 +1,5 @@
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { FileMeta } from 'meta/file/meta'
 
 import { RepositoryRepository } from 'server/db/repository/assessmentCycle/repository'
 import { FileRepository } from 'server/db/repository/public/file'
@@ -13,23 +12,19 @@ type Props = {
   uuid: string
 }
 
-type Returned = FileMeta
+type Returned = {
+  name: string
+  size: number
+}
 
-export const getFileMeta = async (props: Props): Promise<Returned> => {
+export const getFileMeta = async (props: Props): Promise<Returned | null> => {
   const { assessment, cycle, uuid } = props
 
-  const getRepositoryItemProps = { assessment, cycle, uuid }
-  const repositoryItem = await RepositoryRepository.getOne(getRepositoryItemProps)
+  const repositoryItem = await RepositoryRepository.getOne({ assessment, cycle, uuid })
+  if (!repositoryItem.fileUuid) return null
 
-  const [usages, summary] = await Promise.all([
-    RepositoryRepository.getUsages({ uuid, cycle, assessment }),
-    FileRepository.getSummary({ fileUuid: repositoryItem.fileUuid }),
-  ])
+  const summary = await FileRepository.getSummary({ fileUuid: repositoryItem.fileUuid })
+  const size = await FileStorage.File.getSize({ key: repositoryItem.fileUuid })
 
-  summary.size = await FileStorage.File.getSize({ key: repositoryItem.fileUuid })
-
-  return {
-    usages,
-    summary: { ...summary, repositoryItemUuid: repositoryItem.uuid },
-  }
+  return { name: summary.name, size }
 }

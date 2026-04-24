@@ -2,25 +2,25 @@ import './FileUsages.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { FileMeta } from 'meta/file/meta'
+import { FileUsage } from 'meta/file/meta'
 
-import { useUsages } from './hooks/useUsages'
+import { useUsages } from 'client/components/RepositoryList/hooks/useUsages'
 
 type Props = {
-  fileMeta: FileMeta | undefined
+  usages: Array<FileUsage> | undefined
 }
 
 const FileUsages: React.FC<Props> = (props) => {
-  const { fileMeta } = props
+  const { usages } = props
   const { t } = useTranslation()
-  const usages = useUsages(fileMeta)
+  const usageItems = useUsages(usages)
 
-  if (!usages.length) return null
+  if (!usageItems.length) return null
 
   return (
     <div className="repository-form__usages">
       {t('validation.repositoryItem.optionsDisabled')}
-      {usages.map((usage, index) => (
+      {usageItems.map((usage, index) => (
         <div key={`usage_${String(index)}`} className="repository-form__usage">
           {usage.section} ({usage.locations.join(', ')})
         </div>

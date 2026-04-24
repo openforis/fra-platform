@@ -1,4 +1,5 @@
 import { AreaCode } from 'meta/area/areaCode'
+import { FileUsage } from 'meta/file/meta'
 import { Translation } from 'meta/translation/translation'
 
 export interface RepositoryItemProps {
@@ -17,10 +18,9 @@ export type RepositoryItem = {
   fileUuid?: string
   folderName?: string
   link?: string
-  // Linked: Whether the item is used in the platform
-  linked?: boolean
   parentUuid?: string
   props?: RepositoryItemProps
+  usages?: Array<FileUsage>
 }
 
 export type RepositoryItemTree = RepositoryItem & { children: Array<RepositoryItemTree> }

@@ -4,36 +4,42 @@ import axios from 'axios'
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CountryIso } from 'meta/area/countryIso'
 import { RepositoryItem } from 'meta/cycleData/repository/item'
-import { FileMeta } from 'meta/file/meta'
+import { FileSummary } from 'meta/file/file'
 
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 
 type Returned = {
-  fileMeta: FileMeta | undefined
+  fileSummary: Partial<FileSummary> | undefined
   isLoading: boolean
+}
+
+type FileMetaResponse = {
+  name: string
+  size: number
 }
 
 export const useFileMeta = (repositoryItem: Partial<RepositoryItem> | undefined): Returned => {
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
-  const [fileMeta, setFileMeta] = useState<FileMeta | undefined>(undefined)
+  const [fileSummary, setFileSummary] = useState<Partial<FileSummary> | undefined>(undefined)
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const { fileUuid, uuid } = repositoryItem ?? {}
 
   useEffect(() => {
+    setFileSummary(undefined)
     if (!fileUuid || !uuid) return
 
     const fetchFileMeta = async (): Promise<void> => {
       setIsLoading(true)
       const url = ApiEndPoint.CycleData.Repository.fileMeta()
-      const params = { assessmentName, cycleName, countryIso, uuid, fileUuid }
-      const { data } = await axios.get<FileMeta>(url, { params })
-      setFileMeta(data)
+      const params = { assessmentName, cycleName, countryIso, uuid }
+      const { data } = await axios.get<FileMetaResponse | null>(url, { params })
+      if (data) setFileSummary({ name: data.name, size: data.size, repositoryItemUuid: uuid })
       setIsLoading(false)
     }
 
     fetchFileMeta()
   }, [assessmentName, countryIso, cycleName, fileUuid, uuid])
 
-  return { fileMeta, isLoading }
+  return { fileSummary, isLoading }
 }
