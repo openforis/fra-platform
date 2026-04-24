@@ -7,6 +7,7 @@ import { RepositoryItemTree } from 'meta/cycleData/repository/item'
 import { RepositoryItems } from 'meta/cycleData/repository/items'
 import { TooltipId } from 'meta/tooltip/id'
 import { Dates } from 'utils/dates'
+import { Objects } from 'utils/objects'
 
 import { useIsCountryRepositoryEditable, useIsGlobalRepositoryEditable } from 'client/store/user/hooks/auth'
 import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
@@ -66,7 +67,7 @@ const ItemRow: React.FC<Props> = (props) => {
       )}
       {showColumns && !selectable && (
         <div className="repository-list-item__icon-wrapper">
-          {item.linked && <Icon className="repository-list-item__icon" name="checkbox" />}
+          {!Objects.isEmpty(item.usages) && <Icon className="repository-list-item__icon" name="checkbox" />}
         </div>
       )}
       {showColumns && !selectable && (
