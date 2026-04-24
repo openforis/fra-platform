@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { CountryIso } from 'meta/area/countryIso'
 import { RepositoryItem, RepositoryItemTree } from 'meta/cycleData/repository/item'
 import { RepositoryItems } from 'meta/cycleData/repository/items'
-import { FileSummary } from 'meta/file/file'
+import { BaseFileSummary } from 'meta/file/file'
 import { Objects } from 'utils/objects'
 
 import { useCountryRouteParams } from 'client/hooks/routeParams'
@@ -25,7 +25,7 @@ const flattenFolders = (items: Array<RepositoryItemTree>, excludeUuid?: string, 
 
 export const useFormDefinition = (
   repositoryItem: Partial<RepositoryItem> | undefined,
-  fileSummary: FileSummary | undefined,
+  fileSummary: BaseFileSummary | undefined,
   isLoadingFileMeta: boolean
 ): FormDefinition => {
   const { countryIso } = useCountryRouteParams<CountryIso>()
