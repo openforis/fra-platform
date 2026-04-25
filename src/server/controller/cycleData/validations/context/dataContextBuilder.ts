@@ -68,21 +68,6 @@ export class DataContextBuilder extends BaseContextBuilder {
     tablesFetch.tableNames.add(variable.tableName)
   }
 
-  async addTable(tableName: TableName): Promise<void> {
-    // Add the requested table itself before its validation dependencies
-    await this.#addDependency({ tableName })
-
-    const dependencies = AssessmentMetaCaches.getTableValidationsDependencies({
-      assessment: this.props.assessment,
-      cycle: this.props.cycle,
-      tableName,
-    })
-
-    await Promises.each(Object.values(dependencies).flat(), async (dependency) => {
-      await this.#addDependency(dependency)
-    })
-  }
-
   async addVariable(variable: VariableCache): Promise<void> {
     const { assessment, cycle } = this.props
     const { tableName, variableName } = variable
@@ -92,12 +77,6 @@ export class DataContextBuilder extends BaseContextBuilder {
     const dependencies = AssessmentMetaCaches.getValidationsDependencies({ assessment, cycle, tableName, variableName })
     await Promises.each(dependencies, async (dependency) => {
       await this.#addDependency(dependency)
-    })
-  }
-
-  async registerRequestedTables(tableNames: Array<TableName>): Promise<void> {
-    await Promises.each(tableNames, async (tableName) => {
-      await this.addTable(tableName)
     })
   }
 
