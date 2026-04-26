@@ -96,6 +96,8 @@ test.describe.serial('Backend validations', () => {
     await expect(sectionHeader.locator('.validation-error-indicator')).toBeVisible()
 
     // Open the Submit to Review modal
+    await DOMUtils.unlockEditing(page)
+    await expect(page.locator('.nav-header__status.actionable-true')).toBeVisible()
     await page.locator('.nav-header__status.actionable-true').click()
     await page.getByText(sendToReviewLabel).click()
     await expect(page.locator('.modal')).toBeVisible()
@@ -124,6 +126,7 @@ test.describe.serial('Backend validations', () => {
     await page.goto(extentOfForestPath)
     await expect(DOMUtils.tableContainer(page, 'extentOfForest')).toBeVisible({ timeout: 20000 })
 
+    await DOMUtils.unlockEditing(page)
     await DOMUtils.fillCell(page, 'forestArea', '2025', '1500')
 
     const targetSubSectionItem = page.locator(`.nav-section__item[href="${forestAreaChangePath}"]`)
