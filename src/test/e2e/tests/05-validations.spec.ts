@@ -40,7 +40,7 @@ const _waitForForestAreaNetChangeValidation = async (page: Page, props: { valid:
   await expect(async () => {
     const params = new URLSearchParams(countryParams)
     params.set('sectionName', 'forestAreaChange')
-    params.append('tableNames', 'forestAreaChange')
+    params.append('tableNames[]', 'forestAreaChange')
     const response = await page.request.get(`/api/cycle-data/validations/table-data?${params.toString()}`)
 
     expect(response.ok()).toBeTruthy()
