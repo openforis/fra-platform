@@ -8,7 +8,7 @@ import { expect, test } from '../fixtures/auth'
 import { DOMUtils } from '../utils/DOM'
 
 const assessmentName = 'fra'
-const countryIso = 'X02'
+const countryIso = 'X04'
 const cycleName = '2025'
 
 const countryParams = { assessmentName, countryIso, cycleName }
