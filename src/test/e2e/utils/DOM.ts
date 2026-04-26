@@ -33,7 +33,7 @@ const elementNotExists = async (locator: Locator): Promise<void> => {
 
 // Internal utility to find datatable cell
 const cellLocator = (page: Page, variableName: string, colName: string): Locator =>
-  page.locator(`[id*="variableName_${variableName}"][id*="colName_${colName}"]`)
+  page.locator(`[id$="variableName_${variableName}_colName_${colName}"]`)
 
 // Return cell value from input or inner text
 const getCellValue = async (page: Page, variableName: string, colName: string): Promise<string> => {
@@ -62,7 +62,10 @@ const expectCellHasNoValidationError = async (page: Page, variableName: string, 
 // Fill table cell for given variable and colname with value
 const fillCell = async (page: Page, variableName: string, colName: string, value: string): Promise<void> => {
   const cellInput = cellLocator(page, variableName, colName).locator('input')
-  await cellInput.fill(value)
+  await cellInput.click()
+  await cellInput.press('Control+A') // If the cell already has a value, we need to delete it first.
+  await cellInput.press('Backspace')
+  await cellInput.pressSequentially(value)
   await cellInput.blur()
 }
 
