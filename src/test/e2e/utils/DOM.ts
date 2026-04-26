@@ -51,6 +51,14 @@ const expectCellValue = async (page: Page, variableName: string, colName: string
   }).toPass({ timeout: 10000 })
 }
 
+const expectCellHasValidationError = async (page: Page, variableName: string, colName: string): Promise<void> => {
+  await expect(cellLocator(page, variableName, colName)).toHaveClass(/validation-error/, { timeout: 10000 })
+}
+
+const expectCellHasNoValidationError = async (page: Page, variableName: string, colName: string): Promise<void> => {
+  await expect(cellLocator(page, variableName, colName)).not.toHaveClass(/validation-error/, { timeout: 10000 })
+}
+
 // Fill table cell for given variable and colname with value
 const fillCell = async (page: Page, variableName: string, colName: string, value: string): Promise<void> => {
   const cellInput = cellLocator(page, variableName, colName).locator('input')
@@ -92,6 +100,8 @@ const sidebarNavigate = async (page: Page, section: string, subSection: string):
 export const DOMUtils = {
   clearTable,
   elementNotExists,
+  expectCellHasNoValidationError,
+  expectCellHasValidationError,
   expectCellValue,
   expectTableHasError,
   expectTableHasNoError,
@@ -102,5 +112,7 @@ export const DOMUtils = {
   nestedSelectOption,
   selectOption,
   sidebarNavigate,
+  tableContainer,
+  tableValidationErrors,
   unlockEditing,
 }
