@@ -8,25 +8,32 @@ import { expect, test } from '../fixtures/auth'
 import { DOMUtils } from '../utils/DOM'
 
 const assessmentName = 'fra'
-const countryIso = 'X04'
 const cycleName = '2025'
 
-const countryParams = { assessmentName, countryIso, cycleName }
+const targetCountryIso = 'X04' // Non-published country to test submit-to-review warning.
+const crossCycleValidationCountryIso = 'ALB' // Non-atlantis country to test cross-cycle validations (see: shouldSkipValidationFormula.ts).
 
-const baseCountryPath = `/assessments/${assessmentName}/${cycleName}/${countryIso}`
-const extentOfForestPath = `${baseCountryPath}/sections/extentOfForest`
-const forestAreaChangePath = `${baseCountryPath}/sections/forestAreaChange`
-const printTablesPath = `${baseCountryPath}/print/tables`
+const targetCountryParams = { assessmentName, countryIso: targetCountryIso, cycleName }
+
+const targetCountryPath = `/assessments/${assessmentName}/${cycleName}/${targetCountryIso}`
+const extentOfForestPath = `${targetCountryPath}/sections/extentOfForest`
+const forestAreaChangePath = `${targetCountryPath}/sections/forestAreaChange`
+const printTablesPath = `${targetCountryPath}/print/tables`
 const sendToReviewLabel = other.assessment.status.review.next
 const submitToReviewWarning = other.navigation.submitToReviewWithErrorsWarning
 const forestExtentSectionLabel = other.navigation.sectionHeaders.forestExtentCharacteristicsAndChanges
 
-const _patchNodeValues = async (
-  page: Page,
-  props: { sectionName: string; tableName: string; values: Array<NodesBodyValue> }
-): Promise<void> => {
-  const { sectionName, tableName, values } = props
-  const params = new URLSearchParams(countryParams)
+type PatchNodeValuesProps = {
+  countryIso?: string
+  cycleName?: string
+  sectionName: string
+  tableName: string
+  values: Array<NodesBodyValue>
+}
+
+const _patchNodeValues = async (page: Page, props: PatchNodeValuesProps): Promise<void> => {
+  const { countryIso = targetCountryIso, cycleName: cycleNameProp = cycleName, sectionName, tableName, values } = props
+  const params = new URLSearchParams({ assessmentName, countryIso, cycleName: cycleNameProp })
   params.set('sectionName', sectionName)
 
   const response = await page.request.patch(`/api/cycle-data/table/nodes?${params.toString()}`, {
@@ -38,7 +45,7 @@ const _patchNodeValues = async (
 const _waitForForestAreaNetChangeValidation = async (page: Page, props: { valid: boolean }): Promise<void> => {
   const { valid } = props
   await expect(async () => {
-    const params = new URLSearchParams(countryParams)
+    const params = new URLSearchParams(targetCountryParams)
     params.set('sectionName', 'forestAreaChange')
     params.append('tableNames[]', 'forestAreaChange')
     const response = await page.request.get(`/api/cycle-data/validations/table-data?${params.toString()}`)
@@ -147,6 +154,45 @@ test.describe.serial('Backend validations', () => {
     await expect(page).toHaveURL(/\/sections\/forestAreaChange$/)
     await DOMUtils.expectCellHasNoValidationError(page, 'forestAreaNetChange', '2020-2025')
     await DOMUtils.expectTableHasNoError(page, 'forestAreaChange')
+  })
+
+  test('editing forestArea validates against the previous cycle', async ({ authenticatedPage }) => {
+    const page = authenticatedPage
+    const previousCycleForestArea2020 = '2000'
+
+    // Seed 2020 extentOfForest value
+    await _patchNodeValues(page, {
+      countryIso: crossCycleValidationCountryIso,
+      cycleName: '2020',
+      sectionName: 'extentOfForest',
+      tableName: 'extentOfForest',
+      values: [{ colName: '2020', value: { raw: previousCycleForestArea2020 }, variableName: 'forestArea' }],
+    })
+
+    // Seed matching value in fra-2025 and assert no validation error
+    await _patchNodeValues(page, {
+      countryIso: crossCycleValidationCountryIso,
+      sectionName: 'extentOfForest',
+      tableName: 'extentOfForest',
+      values: [{ colName: '2020', value: { raw: previousCycleForestArea2020 }, variableName: 'forestArea' }],
+    })
+
+    await page.goto(
+      `/assessments/${assessmentName}/${cycleName}/${crossCycleValidationCountryIso}/sections/extentOfForest`
+    )
+    await expect(DOMUtils.tableContainer(page, 'extentOfForest')).toBeVisible({ timeout: 20000 })
+    await DOMUtils.unlockEditing(page)
+    await DOMUtils.expectCellHasNoValidationError(page, 'forestArea', '2020')
+
+    // Change 2020 value from fra-2025 and assert validation error
+    await DOMUtils.fillCell(page, 'forestArea', '2020', '1800')
+    await DOMUtils.expectCellHasValidationError(page, 'forestArea', '2020')
+    const currentCycleForestArea2020 = page.locator('[id$="variableName_forestArea_colName_2020"]')
+    await expect(currentCycleForestArea2020).toHaveAttribute('data-tooltip-html', /differs from previously reported/)
+
+    // Fix value and assert no validation error
+    await DOMUtils.fillCell(page, 'forestArea', '2020', previousCycleForestArea2020)
+    await DOMUtils.expectCellHasNoValidationError(page, 'forestArea', '2020')
   })
 
   test('does not show validation UI on the print route', async ({ authenticatedPage }) => {
