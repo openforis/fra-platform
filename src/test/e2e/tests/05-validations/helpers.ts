@@ -1,0 +1,69 @@
+import { expect, type Page } from '@playwright/test'
+
+import { SectionNames } from 'meta/assessment/section'
+import { TableNames } from 'meta/assessment/table'
+import { type RecordTableValidationsState } from 'meta/assessment/validation/table'
+
+import { NodeValues } from 'test/e2e/utils/NodeValues'
+
+type SeedForestAreaNetChangeValidationProps = {
+  assessmentName: string
+  countryIso: string
+  cycleName: string
+  valid: boolean
+}
+
+const _waitForForestAreaNetChangeValidation = async (
+  page: Page,
+  props: SeedForestAreaNetChangeValidationProps
+): Promise<void> => {
+  const { assessmentName, countryIso, cycleName, valid } = props
+
+  await expect(async () => {
+    const params = new URLSearchParams({ assessmentName, countryIso, cycleName })
+    params.set('sectionName', 'forestAreaChange')
+    params.append('tableNames[]', TableNames.forestAreaChange)
+    const response = await page.request.get(`/api/cycle-data/validations/table-data?${params.toString()}`)
+
+    expect(response.ok()).toBeTruthy()
+
+    const validations = (await response.json()) as RecordTableValidationsState
+    const validation = validations[TableNames.forestAreaChange]?.['2020-2025']?.forestAreaNetChange
+
+    expect(validation?.valid === false).toBe(!valid)
+    expect(validations[TableNames.forestAreaChange]?.['2025']?.forestAreaNetChange).toBeUndefined()
+  }).toPass({ timeout: 20000 })
+}
+
+export const seedForestAreaNetChangeValidation = async (
+  page: Page,
+  props: SeedForestAreaNetChangeValidationProps
+): Promise<void> => {
+  const { assessmentName, countryIso, cycleName, valid } = props
+  const forestArea2020 = '1000'
+  const forestArea2025 = valid ? '1000' : '1500'
+  const forestAreaNetChange = '0'
+
+  await NodeValues.patch(page, {
+    assessmentName,
+    countryIso,
+    cycleName,
+    sectionName: SectionNames.extentOfForest,
+    tableName: TableNames.extentOfForest,
+    values: [
+      { colName: '2020', value: { raw: forestArea2020 }, variableName: 'forestArea' },
+      { colName: '2025', value: { raw: forestArea2025 }, variableName: 'forestArea' },
+    ],
+  })
+
+  await NodeValues.patch(page, {
+    assessmentName,
+    countryIso,
+    cycleName,
+    sectionName: 'forestAreaChange',
+    tableName: TableNames.forestAreaChange,
+    values: [{ colName: '2020-2025', value: { raw: forestAreaNetChange }, variableName: 'forestAreaNetChange' }],
+  })
+
+  await _waitForForestAreaNetChangeValidation(page, props)
+}
