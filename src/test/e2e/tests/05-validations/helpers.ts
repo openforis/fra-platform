@@ -1,15 +1,19 @@
 import { expect, type Page } from '@playwright/test'
 
+import { CountryIso } from 'meta/area/countryIso'
+import { AssessmentNames } from 'meta/assessment/assessment'
+import { CycleNames } from 'meta/assessment/cycle/names'
 import { SectionNames } from 'meta/assessment/section'
 import { TableNames } from 'meta/assessment/table'
 import { type RecordTableValidationsState } from 'meta/assessment/validation/table'
 
 import { NodeValues } from 'test/e2e/utils/NodeValues'
 
+const assessmentName = AssessmentNames.fra
+const cycleName = CycleNames._2025
+
 type SeedForestAreaNetChangeValidationProps = {
-  assessmentName: string
-  countryIso: string
-  cycleName: string
+  countryIso: CountryIso
   valid: boolean
 }
 
@@ -17,7 +21,7 @@ const _waitForForestAreaNetChangeValidation = async (
   page: Page,
   props: SeedForestAreaNetChangeValidationProps
 ): Promise<void> => {
-  const { assessmentName, countryIso, cycleName, valid } = props
+  const { countryIso, valid } = props
 
   await expect(async () => {
     const params = new URLSearchParams({ assessmentName, countryIso, cycleName })
@@ -39,7 +43,7 @@ export const seedForestAreaNetChangeValidation = async (
   page: Page,
   props: SeedForestAreaNetChangeValidationProps
 ): Promise<void> => {
-  const { assessmentName, countryIso, cycleName, valid } = props
+  const { countryIso, valid } = props
   const forestArea2020 = '1000'
   const forestArea2025 = valid ? '1000' : '1500'
   const forestAreaNetChange = '0'

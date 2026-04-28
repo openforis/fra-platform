@@ -20,13 +20,13 @@ test.describe.serial('Update validations', () => {
   test('clears validation errors after fixing the data', async ({ authenticatedPage }) => {
     const page = authenticatedPage
 
-    await seedForestAreaNetChangeValidation(page, { assessmentName, countryIso, cycleName, valid: false })
+    await seedForestAreaNetChangeValidation(page, { countryIso, valid: false })
     await page.goto(forestAreaChangePath)
     await expect(DOMUtils.tableContainer(page, TableNames.forestAreaChange)).toBeVisible({ timeout: 20000 })
     await DOMUtils.expectCellHasValidationError(page, 'forestAreaNetChange', '2020-2025')
     await DOMUtils.expectTableHasError(page, TableNames.forestAreaChange)
 
-    await seedForestAreaNetChangeValidation(page, { assessmentName, countryIso, cycleName, valid: true })
+    await seedForestAreaNetChangeValidation(page, { countryIso, valid: true })
 
     await DOMUtils.expectCellHasNoValidationError(page, 'forestAreaNetChange', '2020-2025')
   })
@@ -34,7 +34,7 @@ test.describe.serial('Update validations', () => {
   test('editing extentOfForest updates forestAreaChange validation errors', async ({ authenticatedPage }) => {
     const page = authenticatedPage
 
-    await seedForestAreaNetChangeValidation(page, { assessmentName, countryIso, cycleName, valid: true })
+    await seedForestAreaNetChangeValidation(page, { countryIso, valid: true })
     await page.goto(extentOfForestPath)
     await expect(DOMUtils.tableContainer(page, TableNames.extentOfForest)).toBeVisible({ timeout: 20000 })
 

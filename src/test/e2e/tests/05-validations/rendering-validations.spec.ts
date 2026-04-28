@@ -11,7 +11,8 @@ import { seedForestAreaNetChangeValidation } from './helpers'
 
 const assessmentName = AssessmentNames.fra
 const cycleName = CycleNames._2025
-const countryIso = 'X05' // Non-published country to test submit-to-review warning.
+// Non-published country without 2020/2025 ODP rows; ODP data masks seeded extentOfForest values during validation.
+const countryIso = 'X06'
 
 const forestExtentSectionLabel = other.navigation.sectionHeaders.forestExtentCharacteristicsAndChanges
 const sendToReviewLabel = other.assessment.status.review.next
@@ -25,7 +26,7 @@ test.describe.serial('Rendering validations', () => {
   test('shows validation errors on initial load', async ({ authenticatedPage }) => {
     const page = authenticatedPage
 
-    await seedForestAreaNetChangeValidation(page, { assessmentName, countryIso, cycleName, valid: false })
+    await seedForestAreaNetChangeValidation(page, { countryIso, valid: false })
     await page.goto(forestAreaChangePath)
     await expect(DOMUtils.tableContainer(page, TableNames.forestAreaChange)).toBeVisible({ timeout: 20000 })
 
@@ -52,7 +53,7 @@ test.describe.serial('Rendering validations', () => {
   test('does not show validation UI on the print route', async ({ authenticatedPage }) => {
     const page = authenticatedPage
 
-    await seedForestAreaNetChangeValidation(page, { assessmentName, countryIso, cycleName, valid: false })
+    await seedForestAreaNetChangeValidation(page, { countryIso, valid: false })
 
     await page.goto(printTablesPath)
     await expect(DOMUtils.tableContainer(page, TableNames.forestAreaChange)).toBeVisible({ timeout: 20000 })
