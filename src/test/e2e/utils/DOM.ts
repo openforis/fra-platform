@@ -33,7 +33,7 @@ const elementNotExists = async (locator: Locator): Promise<void> => {
 
 // Internal utility to find datatable cell
 const cellLocator = (page: Page, variableName: string, colName: string): Locator =>
-  page.locator(`[id*="variableName_${variableName}"][id*="colName_${colName}"]`)
+  page.locator(`[id$="variableName_${variableName}_colName_${colName}"]`)
 
 // Return cell value from input or inner text
 const getCellValue = async (page: Page, variableName: string, colName: string): Promise<string> => {
@@ -51,10 +51,21 @@ const expectCellValue = async (page: Page, variableName: string, colName: string
   }).toPass({ timeout: 10000 })
 }
 
+const expectCellHasValidationError = async (page: Page, variableName: string, colName: string): Promise<void> => {
+  await expect(cellLocator(page, variableName, colName)).toHaveClass(/validation-error/, { timeout: 10000 })
+}
+
+const expectCellHasNoValidationError = async (page: Page, variableName: string, colName: string): Promise<void> => {
+  await expect(cellLocator(page, variableName, colName)).not.toHaveClass(/validation-error/, { timeout: 10000 })
+}
+
 // Fill table cell for given variable and colname with value
 const fillCell = async (page: Page, variableName: string, colName: string, value: string): Promise<void> => {
   const cellInput = cellLocator(page, variableName, colName).locator('input')
-  await cellInput.fill(value)
+  await cellInput.click()
+  await cellInput.press('Control+A') // If the cell already has a value, we need to delete it first.
+  await cellInput.press('Backspace')
+  await cellInput.pressSequentially(value)
   await cellInput.blur()
 }
 
@@ -92,6 +103,8 @@ const sidebarNavigate = async (page: Page, section: string, subSection: string):
 export const DOMUtils = {
   clearTable,
   elementNotExists,
+  expectCellHasNoValidationError,
+  expectCellHasValidationError,
   expectCellValue,
   expectTableHasError,
   expectTableHasNoError,
@@ -102,5 +115,7 @@ export const DOMUtils = {
   nestedSelectOption,
   selectOption,
   sidebarNavigate,
+  tableContainer,
+  tableValidationErrors,
   unlockEditing,
 }
