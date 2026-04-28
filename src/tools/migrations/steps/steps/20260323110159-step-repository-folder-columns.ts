@@ -1,3 +1,5 @@
+import pgPromise from 'pg-promise'
+
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
@@ -7,62 +9,150 @@ import { AssessmentController } from 'server/controller/assessment'
 import { BaseProtocol } from 'server/db/db'
 import { Schemas } from 'server/db/schemas'
 
-const _migrateCreatedAt = (
-  assessment: Assessment,
-  cycle: Cycle,
-  prevCycle: Cycle | undefined,
-  client: BaseProtocol
-): Promise<void> => {
+type LogEntry = {
+  time: Date
+  country_iso: string | null
+  target: Record<string, string>
+}
+
+type RepositoryRow = {
+  uuid: string
+  file_uuid: string | null
+  link: string | null
+  country_iso: string | null
+  label: string | null
+}
+
+type UpdateRow = {
+  uuid: string
+  created_at: Date
+}
+
+type PrevCycleData = {
+  byUuid: Map<string, Date>
+  byFileUuid: Map<string, Date>
+  byLink: Map<string, Date>
+}
+
+// Stable key that handles null country_iso (global items).
+const _key = (countryIso: string | null, name: string): string => `${countryIso ?? ''}:${name}`
+
+const _updateMin = (map: Map<string, Date>, key: string, time: Date): void => {
+  const existing = map.get(key)
+  if (!existing || time < existing) map.set(key, time)
+}
+
+type LogIndexes = {
+  byFile: Map<string, Date>
+  byFileUuid: Map<string, Date>
+  byUuid: Map<string, Date>
+}
+
+const _buildLogIndexes = (logEntries: Array<LogEntry>, fileNameToUuid: Map<string, string>): LogIndexes => {
+  const byFile = new Map<string, Date>()
+  const byFileUuid = new Map<string, Date>()
+  const byUuid = new Map<string, Date>()
+
+  logEntries.forEach((entry) => {
+    const { uuid } = entry.target
+    if (uuid) _updateMin(byUuid, uuid, entry.time)
+
+    const fileName = entry.target['file'] ?? entry.target['fileName']
+    if (fileName) {
+      _updateMin(byFile, _key(entry.country_iso, fileName), entry.time)
+      const fileUuid = fileNameToUuid.get(fileName)
+      if (fileUuid) _updateMin(byFileUuid, _key(entry.country_iso, fileUuid), entry.time)
+    }
+  })
+
+  return { byFile, byFileUuid, byUuid }
+}
+
+type ResolveTimeProps = {
+  cycleCreatedAt: Date
+  indexes: LogIndexes
+  item: RepositoryRow
+  prevCycleData: PrevCycleData | null
+}
+
+const _resolveTime = (props: ResolveTimeProps): Date => {
+  const { cycleCreatedAt, indexes, item, prevCycleData } = props
+
+  const byUuid = indexes.byUuid.get(item.uuid)
+  const byFileUuid = item.file_uuid ? indexes.byFileUuid.get(_key(item.country_iso, item.file_uuid)) : undefined
+  const byFile = item.label ? indexes.byFile.get(_key(item.country_iso, item.label)) : undefined
+  const fromLog = byUuid ?? byFileUuid ?? byFile
+
+  const prevByUuid = prevCycleData?.byUuid.get(item.uuid)
+  const prevByFileUuid = item.file_uuid ? prevCycleData?.byFileUuid.get(item.file_uuid) : undefined
+  const prevByLink = item.link ? prevCycleData?.byLink.get(item.link) : undefined
+  const fromPrevCycle = prevByUuid ?? prevByFileUuid ?? prevByLink
+
+  // activity_log match, then inherited from previous cycle, then cycle creation date as last resort
+  return fromLog ?? fromPrevCycle ?? cycleCreatedAt
+}
+
+type ProcessCycleProps = {
+  assessment: Assessment
+  cycle: Cycle
+  indexes: LogIndexes
+  prevCycleData: PrevCycleData | null
+}
+
+const _processCycle = async (props: ProcessCycleProps, client: BaseProtocol): Promise<PrevCycleData> => {
+  const { assessment, cycle, indexes, prevCycleData } = props
   const schema = Schemas.getNameCycle(assessment, cycle)
-  const prevSchema = prevCycle ? Schemas.getNameCycle(assessment, prevCycle) : null
-  const cycleCreatedAt = cycle.props.dateCreated
+  const cycleCreatedAt = new Date(cycle.props.dateCreated)
 
-  const prevFallback = prevSchema
-    ? `(select prev.created_at from ${prevSchema}.repository prev where prev.uuid = r.uuid limit 1),
-       (select prev.created_at from ${prevSchema}.repository prev where r.file_uuid is not null and prev.file_uuid = r.file_uuid limit 1),
-       (select prev.created_at from ${prevSchema}.repository prev where r.link is not null and prev.link = r.link limit 1),`
-    : ''
+  const items = await client.manyOrNone<RepositoryRow>(
+    `select uuid, file_uuid, link, country_iso, props->'translation'->>'en' as label
+     from ${schema}.repository`
+  )
 
-  // NOTE: Slow query!
-  return client.none(
-    `update ${schema}.repository r
-     set created_at = coalesce(by_uuid.time, by_file_uuid.time, by_file.time, by_filename.time, ${prevFallback} $(cycleCreatedAt)::timestamptz)
-     from ${schema}.repository r2
-         
-     left join lateral (
-       select min(al.time) as time
-       from public.activity_log al
-       where al.message = $(message)
-         and al.target->>'uuid' = r2.uuid::text
-     ) by_uuid on true
-         
-     left join lateral (
-       select min(al.time) as time
-       from public.activity_log al
-       where al.message = $(message)
-         and al.country_iso is not distinct from r2.country_iso
-         and al.target->>'file' = r2.props->'translation'->>'en'
-     ) by_file on true
-         
-     left join lateral (
-       select min(al.time) as time
-       from public.activity_log al
-       where al.message = $(message)
-         and al.country_iso is not distinct from r2.country_iso
-         and al.target->>'fileName' = r2.props->'translation'->>'en'
-     ) by_filename on true
-         
-     left join lateral (
-       select min(al.time) as time
-       from public.activity_log al
-       join public.file f on f.name = coalesce(al.target->>'file', al.target->>'fileName')
-       where al.message = $(message)
-         and al.country_iso is not distinct from r2.country_iso
-         and f.uuid = r2.file_uuid
-     ) by_file_uuid on true
-     
-     where r2.uuid = r.uuid`,
-    { cycleCreatedAt, message: ActivityLogMessage.repositoryItemCreate }
+  const result: PrevCycleData = { byUuid: new Map(), byFileUuid: new Map(), byLink: new Map() }
+
+  const updates = items.map<UpdateRow>((item) => {
+    const time = _resolveTime({ cycleCreatedAt, indexes, item, prevCycleData })
+
+    result.byUuid.set(item.uuid, time)
+    if (item.file_uuid) result.byFileUuid.set(item.file_uuid, time)
+    if (item.link) result.byLink.set(item.link, time)
+
+    return { uuid: item.uuid, created_at: time }
+  })
+
+  const pgp = pgPromise()
+  const cs = new pgp.helpers.ColumnSet<UpdateRow>(
+    [
+      { name: 'created_at', cast: 'timestamptz' },
+      { name: 'uuid', cast: 'uuid', cnd: true },
+    ],
+    { table: { table: 'repository', schema } }
+  )
+
+  if (updates.length > 0) await client.none(`${pgp.helpers.update(updates, cs)} where v.uuid = t.uuid`)
+
+  return result
+}
+
+const _migrateCreatedAt = async (assessments: Array<Assessment>, client: BaseProtocol): Promise<void> => {
+  // get activity_log entries for all repositoryItemCreate events
+  const logEntries = await client.manyOrNone<LogEntry>(
+    `select time, country_iso, target from public.activity_log where message = $(message)`,
+    { message: ActivityLogMessage.repositoryItemCreate }
+  )
+
+  const fileRows = await client.manyOrNone<{ uuid: string; name: string }>(`select uuid, name from public.file`)
+  const fileNameToUuid = new Map(fileRows.map((f) => [f.name, f.uuid]))
+  const indexes = _buildLogIndexes(logEntries, fileNameToUuid)
+
+  await Promise.all(
+    assessments.map(async (assessment) => {
+      let prevCycleData: PrevCycleData | null = null
+      await Promises.each(assessment.cycles, async (cycle) => {
+        prevCycleData = await _processCycle({ assessment, cycle, indexes, prevCycleData }, client)
+      })
+    })
   )
 }
 
@@ -88,12 +178,5 @@ export default async (client: BaseProtocol): Promise<void> => {
     )
   )
 
-  // Migrate created_at
-  await Promise.all(
-    assessments.map((assessment) =>
-      Promises.each(assessment.cycles, (cycle, i) =>
-        _migrateCreatedAt(assessment, cycle, assessment.cycles[i - 1], client)
-      )
-    )
-  )
+  await _migrateCreatedAt(assessments, client)
 }
