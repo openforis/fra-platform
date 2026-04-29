@@ -1,5 +1,5 @@
 merge_queue:
-    max_parallel_checks: 1
+  max_parallel_checks: 1
 
 queue_rules:
   - name: default
@@ -19,12 +19,6 @@ pull_request_rules:
       - head!=production
     actions:
       update: {}
-  - name: Delete head branch after merge
-    conditions:
-      - merged
-    actions:
-      delete_head_branch:
-        force: true
   - name: Automatic merge using squash
     conditions:
       - "#approved-reviews-by>=1"

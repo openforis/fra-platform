@@ -1,4 +1,5 @@
 import { Request } from 'express'
+
 import { Objects } from 'utils/objects'
 
 function InvalidParameterException(key: string, values: Array<any>): void {
@@ -11,23 +12,27 @@ InvalidParameterException.prototype.name = 'InvalidParameterException'
 InvalidParameterException.prototype.constructor = InvalidParameterException
 
 const checkParamAllowedValue = (req: Request, paramName: string, values: Array<any>): string => {
-  if (Objects.isEmpty(req.params[paramName]))
+  const value = req.params[paramName]
+
+  if (Objects.isEmpty(value) || Array.isArray(value))
     // @ts-ignore
     throw new InvalidParameterException('error.request.invalidValue', { params: req.params })
-  if (!values.includes(req.params[paramName]))
+  if (!values.includes(value))
     // @ts-ignore
     throw new InvalidParameterException('error.request.invalidValue', { params: req.params })
-  return req.params[paramName]
+  return value
 }
 
 const checkParamValue = (req: Request, paramName: string, allowFn: (x: any) => any): string => {
-  if (Objects.isEmpty(req.params[paramName]))
+  const value = req.params[paramName]
+
+  if (Objects.isEmpty(value) || Array.isArray(value))
     // @ts-ignore
     throw new InvalidParameterException('error.request.invalidValue', { params: req.params })
-  if (!allowFn(req.params[paramName]))
+  if (!allowFn(value))
     // @ts-ignore
     throw new InvalidParameterException('error.request.invalidValue', { params: req.params })
-  return req.params[paramName]
+  return value
 }
 
 export const readParameterWithAllowedValues = checkParamAllowedValue

@@ -45,7 +45,9 @@ export const invite = async (props: Props, client: BaseProtocol = DB): Promise<R
     try {
       userToInvite = await _getOrCreateUserToInvite(userInvitationForm, t)
     } catch (error) {
-      if (error.constraint === 'users_email_key') throw new Error('error.userInvitation.userIsDisabled')
+      if (error.constraint === 'users_email_key') {
+        throw new Error('error.userInvitation.userIsDisabled', { cause: error })
+      }
       throw error
     }
 
@@ -64,7 +66,9 @@ export const invite = async (props: Props, client: BaseProtocol = DB): Promise<R
       userInvitation = await UserInvitationRepository.create(userInvitationProps, t)
     } catch (error) {
       const constraint = 'users_invitation_assessment_cycle_country_uindex'
-      if (error.constraint === constraint) throw new Error('error.userInvitation.userAlreadyRoleInCountry')
+      if (error.constraint === constraint) {
+        throw new Error('error.userInvitation.userAlreadyRoleInCountry', { cause: error })
+      }
       throw error
     }
 
