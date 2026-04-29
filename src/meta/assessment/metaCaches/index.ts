@@ -3,6 +3,7 @@ import { Assessment } from 'meta/assessment/assessment'
 import { ColName } from 'meta/assessment/col'
 import { Cycle } from 'meta/assessment/cycle'
 import {
+  AllColumnsDependencyKey,
   AssessmentMetaCache,
   DependencyCache,
   DependencyRecord,
@@ -87,8 +88,21 @@ const getTableValidationsDependants = (props: TableProps): ValidationTableDepend
   const { assessment, cycle, tableName } = props
   return getValidations({ assessment, cycle }).dependants[tableName] ?? {}
 }
-const getValidationsDependants = (props: ColProps): VariableCacheList =>
-  getTableValidationsDependants(props)?.[props.variableName]?.[props.colName] ?? []
+const getValidationsDependants = (props: ColProps): VariableCacheList => {
+  const { colName, variableName } = props
+  const dependantsByCol = getTableValidationsDependants(props)?.[variableName] ?? {}
+
+  // Avoid adding the all-columns dependencies twice.
+  if (colName === AllColumnsDependencyKey) {
+    return dependantsByCol[colName] ?? []
+  }
+
+  const columnDependants = dependantsByCol[colName] ?? []
+  // maxForestArea() and maxLandArea() depend on the source variable across all columns.
+  const allColumnsDependants = dependantsByCol[AllColumnsDependencyKey] ?? []
+
+  return [...columnDependants, ...allColumnsDependants]
+}
 
 const getTableValidationsDependencies = (props: TableProps): TableDependencyRecord => {
   const { assessment, cycle, tableName } = props
@@ -148,5 +162,6 @@ export const AssessmentMetaCaches = {
   getEnablersDependants,
   getEnablersDependencies,
   getTableCalculationsDependencies,
+  getTableValidationsDependants,
   getTableValidationsDependencies,
 }
