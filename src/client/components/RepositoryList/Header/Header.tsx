@@ -1,10 +1,13 @@
 import './Header.scss'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { TablePaginatedFilterType } from 'meta/tablePaginated/filters/filter'
 
+import { useAppDispatch } from 'client/store/hooks'
+import { TablePaginatedActions } from 'client/store/tablePaginated/actions'
+import { useCountryRouteParams } from 'client/hooks/routeParams'
 import Hr from 'client/components/Hr'
 import Icon from 'client/components/Icon'
 import { useRepositoryListContext } from 'client/components/RepositoryList/context'
@@ -16,11 +19,22 @@ import ButtonAdd from './ButtonAdd'
 import ButtonBack from './ButtonBack'
 import ButtonDownloadAll from './ButtonDownloadAll'
 
+const useResetFilters = (path: string): void => {
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams()
+  const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    dispatch(TablePaginatedActions.resetFilters({ path }))
+  }, [assessmentName, countryIso, cycleName, dispatch, path])
+}
+
 const Header: React.FC = () => {
   const { t } = useTranslation()
   const { allowEditing, allowFiltering, isGlobal, parentUuid, selectable } = useRepositoryListContext()
   const path = `${ApiEndPoint.CycleData.Repository.many()}?global=${isGlobal}`
   const fileTypeOptions = useFileTypeOptions(path)
+
+  useResetFilters(path)
 
   return (
     <div className="repository-header">
