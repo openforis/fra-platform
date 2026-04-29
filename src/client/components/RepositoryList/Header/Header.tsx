@@ -27,8 +27,8 @@ const Header: React.FC = () => {
       <div className="repository-header__left">
         <ButtonBack />
         {!selectable && <ButtonDownloadAll />}
-        {allowEditing && !selectable && <ButtonAdd parentUuid={parentUuid} />}
-        {allowEditing && !selectable && <ButtonAdd isFolder parentUuid={parentUuid} />}
+        {allowEditing && <ButtonAdd parentUuid={parentUuid} />}
+        {allowEditing && <ButtonAdd isFolder parentUuid={parentUuid} />}
       </div>
 
       {allowFiltering && (
