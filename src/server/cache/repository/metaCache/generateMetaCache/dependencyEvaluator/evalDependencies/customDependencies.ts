@@ -1,6 +1,6 @@
 import { ExpressionNodeType, IdentifierExpression, MemberExpression } from 'lib/expressionEvaluator/node'
 
-export const customDepenendencies: Record<string, MemberExpression> = {
+export const customDependencies: Record<string, MemberExpression> = {
   maxForestArea: {
     type: 'MemberExpression' as ExpressionNodeType.Member,
     computed: false,
