@@ -15,7 +15,7 @@ type Props = {
 
 export const update = async (props: Props, client: BaseProtocol = DB): Promise<RepositoryItem> => {
   const { assessment, cycle, repositoryItem } = props
-  const { description, fileUuid, folderName, link, props: _props = {}, uuid } = repositoryItem
+  const { description, fileUuid, folderName, link, parentUuid, props: _props = {}, uuid } = repositoryItem
 
   if (!RepositoryItems.isFolder(repositoryItem)) {
     if (fileUuid && link) throw new Error('Cannot create both file and link')
@@ -31,6 +31,7 @@ export const update = async (props: Props, client: BaseProtocol = DB): Promise<R
         , file_uuid = $(fileUuid)
         , folder_name = $(folderName)
         , link = $(link)
+        , parent_uuid = $(parentUuid)
         , props = $(props)
       where uuid = $(uuid)
       returning *
@@ -40,6 +41,7 @@ export const update = async (props: Props, client: BaseProtocol = DB): Promise<R
       fileUuid: fileUuid || null,
       folderName: folderName ?? null,
       link: link || null,
+      parentUuid: parentUuid || null,
       props: _props,
       uuid,
     },
