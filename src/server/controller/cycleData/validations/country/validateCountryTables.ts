@@ -1,5 +1,6 @@
 import { CountryIso } from 'meta/area/countryIso'
 import { AssessmentName } from 'meta/assessment/assessment'
+import { Assessments } from 'meta/assessment/assessments'
 import { CycleName } from 'meta/assessment/cycle'
 
 import { TableRedisRepository } from 'server/cache/repository/table'
@@ -19,10 +20,9 @@ type Props = {
 export const validateCountryTables = async (props: Props, client: BaseProtocol = DB): Promise<void> => {
   const { assessmentName, countryIso, cycleName } = props
 
-  const { assessment, cycle } = await AssessmentController.getOneWithCycle(
-    { assessmentName, cycleName, metaCache: true },
-    client
-  )
+  const assessment = await AssessmentController.getOne({ assessmentName, metaCache: true }, client)
+  const cycle = Assessments.getCycle({ assessment, cycleName })
+
   const [country, tables] = await Promise.all([
     AreaController.getCountry({ assessment, countryIso, cycle }, client),
     TableRedisRepository.getManyRecord({ assessment, cycle }),
