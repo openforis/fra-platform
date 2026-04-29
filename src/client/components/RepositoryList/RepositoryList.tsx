@@ -62,9 +62,9 @@ const RepositoryList: React.FC<Props> = (props) => {
   })
 
   const title = isGlobal ? t('landing.links.links') : t('landing.links.repository')
-  let gridTemplateColumns = '28px 1fr 100px minmax(120px, auto) minmax(120px, auto) auto'
+  let gridTemplateColumns = '28px 1fr minmax(120px, max-content) minmax(120px, auto) minmax(120px, auto) auto'
   if (!showColumns) gridTemplateColumns = '28px 1fr'
-  else if (onSelect) gridTemplateColumns = '28px 1fr 100px auto'
+  else if (onSelect) gridTemplateColumns = '28px 1fr minmax(120px, max-content) auto'
 
   return (
     <RepositoryListContext.Provider value={contextValue}>
