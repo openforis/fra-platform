@@ -22,8 +22,8 @@ $color-public: color.adjust($ui-status-accepted, $lightness: -10%, $space: hsl);
 }
 
 .repository-list-item__created-at {
-  color: $text-disabled;
-  font-size: $font-xxxs;
+  color: $text-mute;
+  font-size: $font-xxs;
 }
 
 .repository-list-item__icon {

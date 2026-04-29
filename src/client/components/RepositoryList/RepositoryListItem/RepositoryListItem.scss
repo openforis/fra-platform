@@ -3,6 +3,7 @@
 .repository-list-item {
   align-items: center;
   display: grid;
+  font-size: $font-s;
   grid-column: 1 / -1;
   grid-template-columns: subgrid;
   min-height: 32px;

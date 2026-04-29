@@ -42,7 +42,7 @@ const Folder: React.FC<Props> = (props) => {
           dataTooltipPlace="left"
           iconName="pencil"
           onClick={() => onOpenPanel(item)}
-          size={ButtonSize.xs}
+          size={ButtonSize.s}
           type={ButtonType.transparent}
         />
       )}
