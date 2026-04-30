@@ -12,7 +12,9 @@ export const useReset = (isGlobal: boolean): void => {
   const path = `${ApiEndPoint.CycleData.Repository.many()}?global=${isGlobal}`
 
   useEffect(() => {
-    dispatch(TablePaginatedActions.resetFilters({ path }))
-    dispatch(TablePaginatedActions.resetData({ path }))
+    return (): void => {
+      dispatch(TablePaginatedActions.resetFilters({ path }))
+      dispatch(TablePaginatedActions.resetData({ path }))
+    }
   }, [assessmentName, countryIso, cycleName, dispatch, path])
 }
