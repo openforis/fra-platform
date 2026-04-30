@@ -6,6 +6,7 @@ import { RepositoryItem, RepositoryItemTree } from 'meta/cycleData/repository/it
 
 import { DataGrid } from 'client/components/DataGrid'
 import Hr from 'client/components/Hr'
+import { useReset } from 'client/components/RepositoryList/hooks/useReset'
 import RepositoryListItem from 'client/components/RepositoryList/RepositoryListItem'
 
 import { useFolderNavigation } from './hooks/useFolderNavigation'
@@ -60,6 +61,8 @@ const RepositoryList: React.FC<Props> = (props) => {
     selectedUuids,
     showColumns,
   })
+
+  useReset(isGlobal)
 
   const title = isGlobal ? t('landing.links.links') : t('landing.links.repository')
   let gridTemplateColumns = '28px 1fr minmax(120px, max-content) minmax(120px, auto) minmax(120px, auto) auto'

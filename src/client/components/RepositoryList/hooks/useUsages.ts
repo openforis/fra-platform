@@ -17,40 +17,45 @@ export type Usage = {
   section: string
 }
 
-export const useUsages = (usages: Array<FileUsage> | undefined): Array<Usage> => {
+type Returned = Array<Usage>
+export const useUsages = (usages: Array<FileUsage> | undefined): Returned => {
   const { t } = useTranslation()
   const assessment = useAssessment()
   const cycle = useCycle()
   const sections = useSections()
   const subsections = sections?.flatMap((section) => section.subSections)
 
-  return useMemo<Array<Usage>>(() => {
+  return useMemo<Returned>(() => {
     if (Objects.isEmpty(usages)) return []
 
-    return usages.map((usage) => {
+    return usages.reduce<Returned>((acc, usage) => {
       const locations =
         usage.locations?.map((location) =>
           t(location.key, { assessmentName: assessment.props.name, cycleName: cycle.name })
         ) ?? []
 
       if (usage.sectionName === SectionNames.originalDataPoints) {
-        return {
+        acc.push({
           anchor: `ODP ${usage.suffix}`,
           locations,
           section: `${t('nationalDataPoint.nationalDataPoint')} ${usage.suffix}`,
-        }
+        })
+        return acc
       }
 
       const subSection = subsections?.find((s) => s.props.name === usage.sectionName)
+      if (Objects.isNil(subSection)) return acc
+
       const anchor = SubSections.getAnchor({ cycle, subSection })
       const label = Labels.getCycleLabel({ cycle, labels: subSection?.props.labels, t })
       const anchorLabel = t(SubSections.getAnchorLabel({ assessment, cycle, subSection }), anchor)
 
-      return {
+      acc.push({
         anchor,
         locations,
         section: `${anchorLabel} ${label}`,
-      }
-    })
+      })
+      return acc
+    }, [])
   }, [assessment, cycle, subsections, t, usages])
 }
