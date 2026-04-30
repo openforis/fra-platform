@@ -5,7 +5,7 @@ import { AssessmentNames } from 'meta/assessment/assessment'
 import { useAssessment } from 'client/store/meta/hooks/assessments'
 
 const defaultTheme = {
-  '--ui-accent-light-extra': '#DBF1F5',
+  '--ui-accent-light-extra': '#f1f8f9',
   '--ui-accent-light': '#d7eef1',
   '--ui-bg': '#f5f5f5',
   '--ui-bg-hover': '#ebebeb',
