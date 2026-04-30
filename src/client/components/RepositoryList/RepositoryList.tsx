@@ -6,13 +6,13 @@ import { RepositoryItem, RepositoryItemTree } from 'meta/cycleData/repository/it
 
 import { DataGrid } from 'client/components/DataGrid'
 import Hr from 'client/components/Hr'
-import { useReset } from 'client/components/RepositoryList/hooks/useReset'
 import RepositoryListItem from 'client/components/RepositoryList/RepositoryListItem'
 
 import { useFolderNavigation } from './hooks/useFolderNavigation'
 import { useGetItems } from './hooks/useGetItems'
 import { useItems } from './hooks/useItems'
 import { useOnToggle } from './hooks/useOnToggle'
+import { useReset } from './hooks/useReset'
 import Breadcrumb from './Breadcrumb'
 import ColumnHeaders from './ColumnHeaders'
 import { RepositoryListContext } from './context'
