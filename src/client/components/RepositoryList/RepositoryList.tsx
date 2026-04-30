@@ -12,6 +12,7 @@ import { useFolderNavigation } from './hooks/useFolderNavigation'
 import { useGetItems } from './hooks/useGetItems'
 import { useItems } from './hooks/useItems'
 import { useOnToggle } from './hooks/useOnToggle'
+import { useReset } from './hooks/useReset'
 import Breadcrumb from './Breadcrumb'
 import ColumnHeaders from './ColumnHeaders'
 import { RepositoryListContext } from './context'
@@ -60,6 +61,8 @@ const RepositoryList: React.FC<Props> = (props) => {
     selectedUuids,
     showColumns,
   })
+
+  useReset(isGlobal)
 
   const title = isGlobal ? t('landing.links.links') : t('landing.links.repository')
   let gridTemplateColumns = '28px 1fr minmax(120px, max-content) minmax(120px, auto) minmax(120px, auto) auto'
