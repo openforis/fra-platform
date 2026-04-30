@@ -8,7 +8,7 @@ import { Translations } from 'meta/translation/translations'
 import { useLanguage } from 'client/hooks/language'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import Icon from 'client/components/Icon'
-import Link from 'client/components/Links/Link'
+import Link, { LinkColor } from 'client/components/Links/Link'
 
 type Props = {
   datum: RepositoryItem
@@ -27,7 +27,7 @@ const RepositoryLink: React.FC<Props> = (props) => {
 
   return (
     <div className="repository-link">
-      <Link rel="noreferrer" target="_blank" to={url}>
+      <Link color={LinkColor.body} rel="noreferrer" target="_blank" to={url}>
         <Icon name={iconName} />
         {label}
       </Link>

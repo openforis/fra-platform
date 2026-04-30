@@ -21,24 +21,34 @@ $colorHoverTextDecoration: color.adjust($colorHover, $lightness: 12%, $space: hs
     text-decoration-color 150ms ease-out,
     color 150ms ease-out;
 
-  &.color-blue {
-    color: $color;
-  }
-
-  &.color-body {
-    color: $text-body;
-  }
-
   &.one-line {
     @include line-clamp(1);
   }
 
-  &:hover {
-    color: $colorHover;
-    text-decoration-color: rgba($colorHoverTextDecoration, 1);
+  &.color-blue {
+    color: $color;
 
-    svg {
+    &:hover {
       color: $colorHover;
+      text-decoration-color: rgba($colorHoverTextDecoration, 1);
+
+      svg {
+        color: $colorHover;
+      }
+    }
+  }
+
+  &.color-body {
+    color: $text-body;
+
+    &:hover {
+      $colorHoverBody: color.adjust($text-body, $lightness: -5%, $space: hsl);
+      color: $colorHoverBody;
+      text-decoration-color: rgba($colorHoverBody, 1);
+
+      svg {
+        color: $colorHoverBody;
+      }
     }
   }
 }
