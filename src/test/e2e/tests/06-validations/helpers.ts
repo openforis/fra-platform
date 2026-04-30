@@ -17,26 +17,26 @@ type SeedForestAreaNetChangeValidationProps = {
   valid: boolean
 }
 
-const _waitForForestAreaNetChangeValidation = async (
+type GetTableValidationsProps = {
+  countryIso: CountryIso
+  sectionName: string
+  tableNames: Array<TableNames>
+}
+
+export const getTableValidations = async (
   page: Page,
-  props: SeedForestAreaNetChangeValidationProps
-): Promise<void> => {
-  const { countryIso, valid } = props
+  props: GetTableValidationsProps
+): Promise<RecordTableValidationsState> => {
+  const { countryIso, sectionName, tableNames } = props
 
-  await expect(async () => {
-    const params = new URLSearchParams({ assessmentName, countryIso, cycleName })
-    params.set('sectionName', 'forestAreaChange')
-    params.append('tableNames[]', TableNames.forestAreaChange)
-    const response = await page.request.get(`/api/cycle-data/validations/table-data?${params.toString()}`)
+  const params = new URLSearchParams({ assessmentName, countryIso, cycleName })
+  params.set('sectionName', sectionName)
+  tableNames.forEach((tableName) => params.append('tableNames[]', tableName))
 
-    expect(response.ok()).toBeTruthy()
+  const response = await page.request.get(`/api/cycle-data/validations/table-data?${params.toString()}`)
+  expect(response.ok()).toBeTruthy()
 
-    const validations = (await response.json()) as RecordTableValidationsState
-    const validation = validations[TableNames.forestAreaChange]?.['2020-2025']?.forestAreaNetChange
-
-    expect(validation?.valid === false).toBe(!valid)
-    expect(validations[TableNames.forestAreaChange]?.['2025']?.forestAreaNetChange).toBeUndefined()
-  }).toPass({ timeout: 20000 })
+  return response.json() as Promise<RecordTableValidationsState>
 }
 
 export const seedForestAreaNetChangeValidation = async (
@@ -69,5 +69,16 @@ export const seedForestAreaNetChangeValidation = async (
     values: [{ colName: '2020-2025', value: { raw: forestAreaNetChange }, variableName: 'forestAreaNetChange' }],
   })
 
-  await _waitForForestAreaNetChangeValidation(page, props)
+  // Wait for validation state to reflect the patched node values.
+  await expect(async () => {
+    const validations = await getTableValidations(page, {
+      countryIso,
+      sectionName: 'forestAreaChange',
+      tableNames: [TableNames.forestAreaChange],
+    })
+    const validation = validations[TableNames.forestAreaChange]?.['2020-2025']?.forestAreaNetChange
+
+    expect(validation?.valid === false).toBe(!valid)
+    expect(validations[TableNames.forestAreaChange]?.['2025']?.forestAreaNetChange).toBeUndefined()
+  }).toPass({ timeout: 20000 })
 }
