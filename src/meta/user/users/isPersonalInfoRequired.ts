@@ -1,6 +1,3 @@
-import { Objects } from 'utils/objects'
-import { RegExps } from 'utils/regExps'
-
 import { RoleName } from 'meta/user/role/name'
 import {
   UserContactPreference,
@@ -11,6 +8,8 @@ import {
 import { UserRole } from 'meta/user/role/role'
 import { User, UserProps } from 'meta/user/user'
 import { isAdministrator } from 'meta/user/users/isRole'
+import { Objects } from 'utils/objects'
+import { RegExps } from 'utils/regExps'
 
 export const isPersonalInfoRequired = (user: User, role: UserRole): boolean => {
   // If no user or user is administrator, not required to fill information
@@ -62,3 +61,6 @@ export const isPersonalInfoRequired = (user: User, role: UserRole): boolean => {
 
   return hasCorrectRole && (!RegExps.validEmail(user) || missingUserProperties || missingRoleProperties)
 }
+
+export const isPersonalInfoRequiredForRole = (roleName: RoleName): boolean =>
+  [RoleName.NATIONAL_CORRESPONDENT, RoleName.ALTERNATE_NATIONAL_CORRESPONDENT, RoleName.COLLABORATOR].includes(roleName)

@@ -4,7 +4,7 @@ import { getI18nRoleLabelKey } from 'meta/user/users/getI18nRoleLabelKey'
 import { getRole } from 'meta/user/users/getRole'
 import { getRolesAllowedToEdit, getRolesAllowedToView } from 'meta/user/users/getRolesAllowed'
 import { hasEditorRole, hasRoleInAssessment, hasRoleInCountry, hasRoleInCycle } from 'meta/user/users/hasRole'
-import { isPersonalInfoRequired } from 'meta/user/users/isPersonalInfoRequired'
+import { isPersonalInfoRequired, isPersonalInfoRequiredForRole } from 'meta/user/users/isPersonalInfoRequired'
 import {
   isAdministrator,
   isAlternateNationalCorrespondent,
@@ -27,6 +27,7 @@ export const Users = {
   isCollaborator,
   isNationalCorrespondent,
   isPersonalInfoRequired,
+  isPersonalInfoRequiredForRole,
   isRegionalFocalPoint,
   isARegionalFocalPoint,
   isReviewer,
