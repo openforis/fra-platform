@@ -3,6 +3,7 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { UserInvitation } from 'meta/user/invitation'
 import { UserInvitations } from 'meta/user/invitations'
+import { UserRoleBaseProps, UserRoleExtendedProps } from 'meta/user/role/props'
 import { User, UserStatus } from 'meta/user/user'
 import { Objects } from 'utils/objects'
 
@@ -23,12 +24,13 @@ import { MailService } from 'server/service'
 type Props = {
   assessment: Assessment
   cycle: Cycle
+  roleProps?: UserRoleBaseProps | UserRoleExtendedProps
   user: User
   userInvitation: UserInvitation
 }
 
 export const acceptInvitation = async (props: Props, client: BaseProtocol = DB): Promise<User> => {
-  const { assessment, cycle, user, userInvitation: userInvitationProp } = props
+  const { assessment, cycle, roleProps, user, userInvitation: userInvitationProp } = props
 
   return client.tx(async (t) => {
     if (UserInvitations.isExpired(userInvitationProp)) throw new Error('login.invitationExpired')
@@ -39,7 +41,16 @@ export const acceptInvitation = async (props: Props, client: BaseProtocol = DB):
     const cycleUuid = cycle.uuid
     const userUuid = user.uuid
     const { countryIso, permissions, role, uuid: invitationUuid } = userInvitation
-    const userRoleCreateProps = { assessmentUuid, cycleUuid, countryIso, userUuid, role, invitationUuid, permissions }
+    const userRoleCreateProps = {
+      assessmentUuid,
+      countryIso,
+      cycleUuid,
+      invitationUuid,
+      permissions,
+      props: roleProps,
+      role,
+      userUuid,
+    }
 
     const userRole = await UserRoleRepository.create(userRoleCreateProps, t)
 
