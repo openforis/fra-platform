@@ -2,6 +2,7 @@ import { Request } from 'express'
 import { VerifiedCallback } from 'passport-jwt'
 
 import { AuthProvider, AuthProviderLocalProps } from 'meta/user/auth'
+import { Users } from 'meta/user/users'
 
 import { getAndComparePasswordHash } from 'server/api/auth/strategy/_local/getAndComparePasswordHash'
 import { AssessmentController } from 'server/controller/assessment'
@@ -40,14 +41,19 @@ export const localAcceptInvitation = async (props: Props): Promise<void> => {
 
   // if user provider existed or successfully created
   if (userProvider) {
-    const { assessment, cycle } = await AssessmentController.getOneWithCycle({
-      uuid: userInvitation.assessmentUuid,
-      cycleUuid: userInvitation.cycleUuid,
-    })
+    // if type of invitation requires more information
+    if (Users.isPersonalInfoRequiredForRole(userInvitation.role)) {
+      done(null, user, { invitationUuid })
+    } else {
+      const { assessment, cycle } = await AssessmentController.getOneWithCycle({
+        uuid: userInvitation.assessmentUuid,
+        cycleUuid: userInvitation.cycleUuid,
+      })
 
-    const userAccepted = await UserController.acceptInvitation({ assessment, cycle, user, userInvitation })
+      const userAccepted = await UserController.acceptInvitation({ assessment, cycle, user, userInvitation })
 
-    done(null, userAccepted)
+      done(null, userAccepted)
+    }
   } else {
     sendErr('login.notAuthorized')
   }
