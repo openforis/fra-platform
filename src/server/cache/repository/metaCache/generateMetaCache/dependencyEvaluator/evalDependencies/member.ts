@@ -63,7 +63,11 @@ export class MemberEvaluator extends ExpressionNodeEvaluator<Context, MemberExpr
         // Prevent validating nodes from other asessments/cycles
         if (assessment.props.name !== assessmentName || cycle.name !== cycleName) return
 
-        dependants = AssessmentMetaCaches.getValidationsDependantsAtCol({ ...propsDependants, colName })
+        dependants = AssessmentMetaCaches.getValidationsDependants({
+          ...propsDependants,
+          colName,
+          includeAllColumnsDependants: false, // Graph generation must read only this column's dependants.
+        })
       }
       const external = assessmentName !== assessment.props.name
       const dependant: VariableCache = {

@@ -30,6 +30,9 @@ type VariableProps = TableProps & {
 type ColProps = VariableProps & {
   colName: ColName
 }
+type ValidationsDependantsProps = ColProps & {
+  includeAllColumnsDependants: boolean
+}
 
 type DependencyTableCacheProps = Pick<VariableProps, 'tableName'> & { dependencyCache: DependencyCache }
 type DependencyCacheProps = Pick<VariableProps, 'variableName'> & DependencyTableCacheProps
@@ -88,20 +91,19 @@ const getTableValidationsDependants = (props: TableProps): ValidationTableDepend
   const { assessment, cycle, tableName } = props
   return getValidations({ assessment, cycle }).dependants[tableName] ?? {}
 }
-const getValidationsDependantsAtCol = (props: ColProps): VariableCacheList =>
-  getTableValidationsDependants(props)[props.variableName]?.[props.colName] ?? []
 
-const getValidationsDependants = (props: ColProps): VariableCacheList => {
-  const { colName } = props
-  const columnDependants = getValidationsDependantsAtCol(props)
+const getValidationsDependants = (props: ValidationsDependantsProps): VariableCacheList => {
+  const { colName, includeAllColumnsDependants, variableName } = props
+  const dependantsByCol = getTableValidationsDependants(props)[variableName] ?? {}
+  const columnDependants = dependantsByCol[colName] ?? []
 
   // Avoid adding the all-columns dependencies twice.
-  if (colName === AllColumnsDependencyKey) {
+  if (!includeAllColumnsDependants || colName === AllColumnsDependencyKey) {
     return columnDependants
   }
 
   // maxForestArea() and maxLandArea() depend on the source variable across all columns.
-  const allColumnsDependants = getValidationsDependantsAtCol({ ...props, colName: AllColumnsDependencyKey })
+  const allColumnsDependants = dependantsByCol[AllColumnsDependencyKey] ?? []
 
   return [...columnDependants, ...allColumnsDependants]
 }
@@ -163,8 +165,6 @@ export const AssessmentMetaCaches = {
   getVariablesByTables,
   getEnablersDependants,
   getEnablersDependencies,
-  getValidationsDependantsAtCol,
   getTableCalculationsDependencies,
-  getTableValidationsDependants,
   getTableValidationsDependencies,
 }
