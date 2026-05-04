@@ -2,9 +2,11 @@ import { type Page } from '@playwright/test'
 
 import { CountryIso } from 'meta/area/countryIso'
 import { AssessmentNames } from 'meta/assessment/assessment'
+import { type Cycle } from 'meta/assessment/cycle'
 import { CycleNames } from 'meta/assessment/cycle/names'
 import { SectionNames } from 'meta/assessment/section'
 import { TableNames } from 'meta/assessment/table'
+import { Years } from 'meta/assessment/years'
 
 import { expect, test } from 'test/e2e/fixtures/auth'
 import { NodeValues } from 'test/e2e/utils/NodeValues'
@@ -15,7 +17,7 @@ const assessmentName = AssessmentNames.fra
 const cycleName = CycleNames._2025
 const targetColName = '2005'
 const maxSourceColName = '2025'
-const extentOfForestColumns = ['1990', '2000', '2010', '2015', '2016', '2017', '2018', '2019', '2020', '2025']
+const extentOfForestColumns = Years.fraYears({ name: cycleName } as Cycle)
 
 type TargetValue = {
   raw: string
