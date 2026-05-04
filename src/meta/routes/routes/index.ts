@@ -34,6 +34,7 @@ import {
   LoginChangePassword,
   LoginInvitation,
   LoginInvitationLocal,
+  LoginInvitationUserInfo,
   LoginResetPassword,
 } from 'meta/routes/routes/_routes/login'
 import { OriginalDataPoint } from 'meta/routes/routes/_routes/originalDataPoint'
@@ -73,6 +74,7 @@ export const Routes = {
   LoginChangePassword,
   LoginInvitation,
   LoginInvitationLocal,
+  LoginInvitationUserInfo,
   LoginResetPassword,
 
   // kiosk
