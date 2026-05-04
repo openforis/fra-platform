@@ -1,17 +1,17 @@
 import { TFunction } from 'i18next'
 
-import { NodeValueValidationMessageParam } from 'meta/assessment/nodeValueValidation'
+import { ValidationMessageParam } from 'meta/assessment/validation/validation'
 
 import { translateParam } from './utils'
 
 export type SumSubCategoriesParams = {
-  categoriesSum: NodeValueValidationMessageParam
+  categoriesSum: ValidationMessageParam
   categoryLabelKeys: Array<string>
   parentColLabelKey?: string
   parentLabelKey: string
   parentLabelParams?: string
   parentTableAnchor: string
-  parentValue: NodeValueValidationMessageParam
+  parentValue: ValidationMessageParam
 }
 
 export const parseSumSubCategories = (t: TFunction, params: SumSubCategoriesParams): Record<string, string> => {

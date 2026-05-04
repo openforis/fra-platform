@@ -1,13 +1,13 @@
 import { TFunction } from 'i18next'
 
-import { NodeValueValidationMessageParam } from 'meta/assessment/nodeValueValidation'
+import { ValidationMessageParam } from 'meta/assessment/validation/validation'
 
 import { translateParam } from './utils'
 
 export type SumEqualToParams = {
-  categoriesSum: NodeValueValidationMessageParam
+  categoriesSum: ValidationMessageParam
   categoryLabelKeys: Array<string>
-  maxValue: NodeValueValidationMessageParam
+  maxValue: ValidationMessageParam
 }
 
 export const parseSumEqualTo = (t: TFunction, params: SumEqualToParams): Record<string, string> => {

@@ -1,9 +1,9 @@
 import { TFunction } from 'i18next'
 
-import { NodeValueValidationMessageParam } from 'meta/assessment/nodeValueValidation'
+import { ValidationMessageParam } from 'meta/assessment/validation/validation'
 import { Objects } from 'utils/objects'
 
-export const translateParam = (t: TFunction, param: NodeValueValidationMessageParam): string => {
+export const translateParam = (t: TFunction, param: ValidationMessageParam): string => {
   if (Array.isArray(param)) {
     return `(${param.map((item) => translateParam(t, item)).join(', ')})`
   }
@@ -13,7 +13,7 @@ export const translateParam = (t: TFunction, param: NodeValueValidationMessagePa
 
 export const translateParams = (
   t: TFunction,
-  params?: Record<string, NodeValueValidationMessageParam>
+  params?: Record<string, ValidationMessageParam>
 ): Record<string, string> | undefined => {
   if (Objects.isEmpty(params)) {
     return undefined
