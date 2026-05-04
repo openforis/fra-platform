@@ -36,6 +36,9 @@ export type DependencyCache = {
   dependants: DependencyRecord
 }
 
+// Used by validation dependencies that read across all columns, such as maxForestArea().
+export const AllColumnsDependencyKey = '*'
+
 export type ValidationDependencyCache = {
   dependencies: DependencyRecord
   dependants: FullDependencyRecord
