@@ -59,6 +59,7 @@ export class ContextFactory extends BaseContextBuilder {
       assessment,
       cycle,
       colName: variable.colName,
+      includeAllColumnsDependants: true,
       tableName: variable.tableName,
       variableName: variable.variableName,
     })
