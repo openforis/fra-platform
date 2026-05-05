@@ -1,6 +1,3 @@
-import { Objects } from 'utils/objects'
-import { RegExps } from 'utils/regExps'
-
 import { RoleName } from 'meta/user/role/name'
 import {
   UserContactPreference,
@@ -11,6 +8,11 @@ import {
 import { UserRole } from 'meta/user/role/role'
 import { User, UserProps } from 'meta/user/user'
 import { isAdministrator } from 'meta/user/users/isRole'
+import { Objects } from 'utils/objects'
+import { RegExps } from 'utils/regExps'
+
+export const isPersonalInfoRequiredForRole = (roleName: RoleName): boolean =>
+  [RoleName.NATIONAL_CORRESPONDENT, RoleName.ALTERNATE_NATIONAL_CORRESPONDENT, RoleName.COLLABORATOR].includes(roleName)
 
 export const isPersonalInfoRequired = (user: User, role: UserRole): boolean => {
   // If no user or user is administrator, not required to fill information
@@ -35,7 +37,7 @@ export const isPersonalInfoRequired = (user: User, role: UserRole): boolean => {
 
   const roleExtendedProps = roleBaseProps.concat(['address', 'primaryPhoneNumber'])
 
-  const validateAddress = (prop: any): boolean =>
+  const validateAddress = (prop: Record<string, string>): boolean =>
     ['street', 'zipCode', 'city'].some((propName) => Objects.isEmpty(prop?.[propName]))
 
   const validateContactPreference = (prop: UserContactPreference): boolean => {
@@ -48,9 +50,9 @@ export const isPersonalInfoRequired = (user: User, role: UserRole): boolean => {
     )
   }
 
-  const validateExtendedProps = (prop: any, propName: string): boolean => {
-    if (propName === 'address') return validateAddress(prop)
-    if (propName === 'contactPreference') return validateContactPreference(prop)
+  const validateExtendedProps = (prop: unknown, propName: string): boolean => {
+    if (propName === 'address') return validateAddress(prop as Record<string, string>)
+    if (propName === 'contactPreference') return validateContactPreference(prop as UserContactPreference)
     return Objects.isEmpty(prop)
   }
 
