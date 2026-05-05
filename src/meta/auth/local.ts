@@ -1,7 +1,8 @@
 import { User } from 'meta/user/user'
 
 export type LoginLocalInfoResponse = {
-  message: string
+  invitationUuid?: string
+  message?: string
 }
 
 export type LoginLocalResponse = {

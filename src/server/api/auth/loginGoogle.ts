@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express'
 import passport from 'passport'
 
 import { LoginRequest } from 'meta/api/request/auth/login'
+import { AreaCode } from 'meta/area/areaCode'
 import { AuthToken } from 'meta/auth/token'
 import { Routes } from 'meta/routes/routes'
 import { User } from 'meta/user/user'
@@ -10,6 +11,32 @@ import { Objects } from 'utils/objects'
 import { ProcessEnv } from 'server/utils'
 
 import { setAuthToken } from './utils/setAuthToken'
+
+type RedirectUrlProps = {
+  assessmentName: string
+  countryIso: AreaCode
+  cycleName: string
+  msg: { message?: string }
+}
+
+const _getRedirectUrl = (props: RedirectUrlProps): string => {
+  const { assessmentName, countryIso, cycleName, msg } = props
+
+  const parsedMsg = msg?.message ? (JSON.parse(msg.message) as Record<string, string>) : {}
+  const { invitationUuid, requiresUserInfo } = parsedMsg
+  const invitedCountryIso = (parsedMsg.countryIso as AreaCode) ?? countryIso
+
+  let redirectPath: string
+  if (requiresUserInfo && invitationUuid) {
+    redirectPath = Routes.LoginInvitationUserInfo.generatePath({ assessmentName, cycleName, invitationUuid })
+  } else {
+    redirectPath = !Objects.isEmpty(invitedCountryIso)
+      ? Routes.Country.generatePath({ assessmentName, countryIso: invitedCountryIso, cycleName })
+      : ''
+  }
+
+  return process.env.NODE_ENV === 'development' ? redirectPath || '/' : `${ProcessEnv.appUri}${redirectPath}`
+}
 
 export const loginGoogle = (req: LoginRequest, res: Response): void => {
   passport.authenticate('google', {
@@ -25,7 +52,7 @@ export const loginGoogle = (req: LoginRequest, res: Response): void => {
 }
 
 export const loginGoogleCallback = (req: Request, res: Response, next: NextFunction): void => {
-  passport.authenticate('google', { session: false }, (err: any, user: User, msg: any) => {
+  passport.authenticate('google', { session: false }, (err: Error | null, user: User, msg: { message?: string }) => {
     const state = JSON.parse(req.query.state as string) ?? {}
     const { assessmentName, countryIso, cycleName } = state
 
@@ -35,17 +62,10 @@ export const loginGoogleCallback = (req: Request, res: Response, next: NextFunct
       res.clearCookie(AuthToken.fraAuthToken)
       res.redirect(Routes.Login.generatePath({ assessmentName, cycleName }, { loginError: msg.message }))
     } else {
-      req.login(user, { session: false }, (err: any) => {
+      req.login(user, { session: false }, (err: Error | null) => {
         if (err) next(err)
         setAuthToken(res, user)
-
-        const countryPath = !Objects.isEmpty(countryIso)
-          ? Routes.Country.generatePath({ assessmentName, countryIso, cycleName })
-          : ''
-        const redirectUrl =
-          process.env.NODE_ENV === 'development' ? countryPath || '/' : `${ProcessEnv.appUri}${countryPath}`
-
-        res.redirect(redirectUrl)
+        res.redirect(_getRedirectUrl({ assessmentName, countryIso, cycleName, msg }))
       })
     }
   })(req, res, next)

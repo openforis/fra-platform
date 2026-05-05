@@ -37,7 +37,12 @@ export const UserApi = {
     express.delete(ApiEndPoint.User.role(), AuthMiddleware.requireRemoveUserRole, removeRole)
     express.delete(ApiEndPoint.User.invitation(), AuthMiddleware.requireInviteUser, removeInvitation)
     express.get(ApiEndPoint.User.invitation(), getInvitation)
-    express.post(ApiEndPoint.User.invitationAccept(), acceptInvitation)
+    express.post(
+      ApiEndPoint.User.invitationAccept(),
+      multer().none(),
+      FormDataBodyMiddleware.parseBody,
+      acceptInvitation
+    )
     express.get(ApiEndPoint.User.invitationSendEmail(), AuthMiddleware.requireInviteUser, sendInvitationEmail)
     express.post(
       ApiEndPoint.User.invite(),

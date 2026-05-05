@@ -1,17 +1,21 @@
-import { Response } from 'express'
+import { Request, Response } from 'express'
 
-import { CountryRequest } from 'meta/api/request/country'
+import { UserRoleBaseProps, UserRoleExtendedProps } from 'meta/user/role/props'
+import { UserProps } from 'meta/user/user'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { UserController } from 'server/controller/user'
 import { Requests } from 'server/utils'
 
-export const acceptInvitation = async (
-  req: CountryRequest<{ invitationUuid: string }>,
-  res: Response
-): Promise<void> => {
+type RequestBody = {
+  invitationUuid: string
+  roleProps?: UserRoleBaseProps | UserRoleExtendedProps
+  userProps?: Pick<UserProps, 'name' | 'surname' | 'title'>
+}
+
+export const acceptInvitation = async (req: Request<never, never, RequestBody>, res: Response): Promise<void> => {
   try {
-    const { invitationUuid } = req.query
+    const { invitationUuid, roleProps, userProps } = req.body
 
     const { user, userInvitation } = await UserController.findByInvitation({ invitationUuid })
 
@@ -19,11 +23,16 @@ export const acceptInvitation = async (
     const { cycleUuid } = userInvitation
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ uuid, cycleUuid })
 
-    const acceptedUser = await UserController.acceptInvitation({ assessment, cycle, user, userInvitation })
-
-    Requests.sendOk(res, {
-      user: acceptedUser,
+    const acceptedUser = await UserController.acceptInvitation({
+      assessment,
+      cycle,
+      roleProps,
+      user,
+      userInvitation,
+      userProps,
     })
+
+    Requests.sendOk(res, { user: acceptedUser })
   } catch (e) {
     Requests.sendErr(res, e)
   }
