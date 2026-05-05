@@ -15,6 +15,10 @@ export const LoginInvitationLocal = createRoute<CycleRouteParams, LoginInvitatio
   path: 'local',
   parent: LoginInvitation,
 })
+export const LoginInvitationUserInfo = createRoute<InvitationRouteParams>({
+  path: 'user-info',
+  parent: LoginInvitation,
+})
 export const LoginResetPassword = createRoute<CycleRouteParams>({
   path: 'reset-password',
   parent: Login,
