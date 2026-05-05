@@ -9,7 +9,7 @@ import { UserRole } from 'meta/user/role/role'
 import { User } from 'meta/user/user'
 import { Dates } from 'utils/dates'
 
-const isPersonalInfoRequiredForRole = (roleName: RoleName): boolean =>
+const isPersonalInfoRequired = (roleName: RoleName): boolean =>
   [RoleName.NATIONAL_CORRESPONDENT, RoleName.ALTERNATE_NATIONAL_CORRESPONDENT, RoleName.COLLABORATOR].includes(roleName)
 
 const noRole = { role: 'NONE', labelKey: 'user.roles.noRole' }
@@ -84,7 +84,7 @@ export const UserRoles = {
   noRole,
   getRecipientRoles,
   getLastRole,
-  isPersonalInfoRequiredForRole,
+  isPersonalInfoRequired,
   sortRolesByRolesAndCountry,
   getDefaultCollaboratorPermissions,
 }

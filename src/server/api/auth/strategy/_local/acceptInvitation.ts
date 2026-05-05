@@ -42,7 +42,7 @@ export const localAcceptInvitation = async (props: Props): Promise<void> => {
   // if user provider existed or successfully created
   if (userProvider) {
     // Don't create role if invitation role requires user information
-    if (UserRoles.isPersonalInfoRequiredForRole(userInvitation.role)) {
+    if (UserRoles.isPersonalInfoRequired(userInvitation.role)) {
       done(null, user, { invitationUuid })
     } else {
       const { assessment, cycle } = await AssessmentController.getOneWithCycle({

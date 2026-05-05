@@ -48,7 +48,7 @@ export const googleAcceptInvitation = async (props: Props): Promise<void> => {
   })
 
   // Don't create role if invitation role requires user information
-  if (UserRoles.isPersonalInfoRequiredForRole(userInvitation.role)) {
+  if (UserRoles.isPersonalInfoRequired(userInvitation.role)) {
     done(null, invitedUser, {
       message: JSON.stringify({
         assessmentName: assessment.props.name,
