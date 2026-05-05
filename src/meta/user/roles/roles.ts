@@ -1,5 +1,4 @@
 import i18n from 'i18next'
-import { Dates } from 'utils/dates'
 
 import { Areas } from 'meta/area/areas'
 import { CountryStatus } from 'meta/area/countryStatus'
@@ -8,6 +7,10 @@ import { CollaboratorEditPropertyType, CollaboratorPermissions } from 'meta/user
 import { RoleName } from 'meta/user/role/name'
 import { UserRole } from 'meta/user/role/role'
 import { User } from 'meta/user/user'
+import { Dates } from 'utils/dates'
+
+const isPersonalInfoRequiredForRole = (roleName: RoleName): boolean =>
+  [RoleName.NATIONAL_CORRESPONDENT, RoleName.ALTERNATE_NATIONAL_CORRESPONDENT, RoleName.COLLABORATOR].includes(roleName)
 
 const noRole = { role: 'NONE', labelKey: 'user.roles.noRole' }
 
@@ -81,6 +84,7 @@ export const UserRoles = {
   noRole,
   getRecipientRoles,
   getLastRole,
+  isPersonalInfoRequiredForRole,
   sortRolesByRolesAndCountry,
   getDefaultCollaboratorPermissions,
 }

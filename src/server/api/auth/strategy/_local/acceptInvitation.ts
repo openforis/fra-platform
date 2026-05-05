@@ -2,7 +2,7 @@ import { Request } from 'express'
 import { VerifiedCallback } from 'passport-jwt'
 
 import { AuthProvider, AuthProviderLocalProps } from 'meta/user/auth'
-import { Users } from 'meta/user/users'
+import { UserRoles } from 'meta/user/roles/roles'
 
 import { getAndComparePasswordHash } from 'server/api/auth/strategy/_local/getAndComparePasswordHash'
 import { AssessmentController } from 'server/controller/assessment'
@@ -42,7 +42,7 @@ export const localAcceptInvitation = async (props: Props): Promise<void> => {
   // if user provider existed or successfully created
   if (userProvider) {
     // Don't create role if invitation role requires user information
-    if (Users.isPersonalInfoRequiredForRole(userInvitation.role)) {
+    if (UserRoles.isPersonalInfoRequiredForRole(userInvitation.role)) {
       done(null, user, { invitationUuid })
     } else {
       const { assessment, cycle } = await AssessmentController.getOneWithCycle({

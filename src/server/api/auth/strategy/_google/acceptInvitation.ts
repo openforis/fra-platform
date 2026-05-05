@@ -1,7 +1,7 @@
 import { VerifyCallback } from 'passport-google-oauth20'
 
 import { AuthProvider, AuthProviderGoogleProps } from 'meta/user/auth'
-import { Users } from 'meta/user/users'
+import { UserRoles } from 'meta/user/roles/roles'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { UserController } from 'server/controller/user'
@@ -48,7 +48,7 @@ export const googleAcceptInvitation = async (props: Props): Promise<void> => {
   })
 
   // Don't create role if invitation role requires user information
-  if (Users.isPersonalInfoRequiredForRole(userInvitation.role)) {
+  if (UserRoles.isPersonalInfoRequiredForRole(userInvitation.role)) {
     done(null, invitedUser, {
       message: JSON.stringify({
         assessmentName: assessment.props.name,

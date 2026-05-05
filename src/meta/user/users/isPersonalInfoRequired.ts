@@ -11,9 +11,6 @@ import { isAdministrator } from 'meta/user/users/isRole'
 import { Objects } from 'utils/objects'
 import { RegExps } from 'utils/regExps'
 
-export const isPersonalInfoRequiredForRole = (roleName: RoleName): boolean =>
-  [RoleName.NATIONAL_CORRESPONDENT, RoleName.ALTERNATE_NATIONAL_CORRESPONDENT, RoleName.COLLABORATOR].includes(roleName)
-
 export const isPersonalInfoRequired = (user: User, role: UserRole): boolean => {
   // If no user or user is administrator, not required to fill information
   if (!user || isAdministrator(user) || !role) return false
