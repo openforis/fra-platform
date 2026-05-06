@@ -12,6 +12,9 @@ type Props = {
   data: DataInvitation
 }
 
+/**
+ * @deprecated
+ */
 const Accept: React.FC<Props> = () => {
   const { t } = useTranslation()
   const data = useData()
