@@ -6,7 +6,6 @@ import { Routes } from 'meta/routes/routes'
 import { UserInvitations } from 'meta/user/invitations'
 
 import { useUser } from 'client/store/user/hooks/user'
-import Accept from 'client/pages/Authentication/Invitation/Accept'
 import { useData } from 'client/pages/Authentication/Invitation/hooks/useData'
 import PrivacyNotice from 'client/pages/Authentication/Invitation/PrivacyNotice'
 import Register from 'client/pages/Authentication/Invitation/Register'
@@ -39,14 +38,24 @@ const Invitation: React.FC = () => {
     )
   }
 
-  // If the user is not logged in,
-  // or the user is logged in with a different account than invited
   const isInvitedUser = Boolean(user) && data.user.uuid === user.uuid
+
+  if (isInvitedUser) {
+    return (
+      <Navigate
+        replace
+        to={Routes.LoginInvitationAccept.generatePath({
+          assessmentName,
+          cycleName,
+          invitationUuid: userInvitation.uuid,
+        })}
+      />
+    )
+  }
 
   return (
     <div className="login-form">
-      {isInvitedUser && <Accept data={data} />}
-      {!isInvitedUser && <Register />}
+      <Register />
       <PrivacyNotice />
     </div>
   )
