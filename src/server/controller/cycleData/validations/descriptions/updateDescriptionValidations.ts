@@ -6,7 +6,7 @@ import { SectionName } from 'meta/assessment/section'
 import { RecordDescriptionValidations } from 'meta/assessment/validation/description'
 import { Objects } from 'utils/objects'
 
-import { validateDescription } from './validateDescription'
+import { validateDescriptionText } from './validateDescriptionText'
 
 type Props = {
   assessment: Assessment
@@ -24,12 +24,18 @@ export const updateDescriptionValidations = async (props: Props): Promise<void> 
 
   const cachedValidations = {} as RecordDescriptionValidations
   const sectionValidations = cachedValidations[sectionName] ?? {}
-  const descriptionValidation = validateDescription(props)
+  const textValidation = validateDescriptionText(props)
+  // TODO: Validate data sources and store results under sectionValidations.dataSources.
 
-  if (!Objects.isEmpty(descriptionValidation)) {
-    sectionValidations[descriptionName] = descriptionValidation
+  if (!Objects.isEmpty(textValidation)) {
+    sectionValidations.descriptions ??= {}
+    sectionValidations.descriptions[descriptionName] = textValidation
   } else {
-    Objects.unset(sectionValidations, [descriptionName])
+    Objects.unset(sectionValidations, ['descriptions', descriptionName])
+
+    if (Objects.isEmpty(sectionValidations.descriptions)) {
+      Objects.unset(sectionValidations, ['descriptions'])
+    }
   }
 
   // TODO: await ValidationRedisRepository.setDescriptionValidations
