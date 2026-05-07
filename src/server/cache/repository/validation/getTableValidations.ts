@@ -26,7 +26,7 @@ const _parseTableValidations = (value?: string | null): TableValidations => {
 export const getTableValidations = async (props: Props): Promise<RecordTableValidationsState> => {
   const { assessment, countryIso, cycle, tableNames } = props
 
-  const key = getKeyCountry({ assessment, countryIso, cycle, key: Keys.Data.validations })
+  const key = getKeyCountry({ assessment, countryIso, cycle, key: Keys.Data.validationTables })
 
   if (!Objects.isNil(tableNames)) {
     if (tableNames.length === 0) {

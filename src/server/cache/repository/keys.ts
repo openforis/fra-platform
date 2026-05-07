@@ -17,8 +17,8 @@ enum Assessments {
 
 enum Data {
   data = 'data',
-  validations = 'data:validations',
-  validationsDescriptions = 'data:validations:descriptions',
+  validationDescriptions = 'data:validation:descriptions',
+  validationTables = 'data:validation:tables',
 }
 
 enum Explorer {

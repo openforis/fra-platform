@@ -15,7 +15,7 @@ export const clearCountryValidations = async (props: Props): Promise<void> => {
   const { assessment, countryIso, cycle } = props
 
   const redis = RedisData.getInstance()
-  const key = getKeyCountry({ assessment, countryIso, cycle, key: Keys.Data.validations })
+  const key = getKeyCountry({ assessment, countryIso, cycle, key: Keys.Data.validationTables })
 
   await redis.del(key)
 }
