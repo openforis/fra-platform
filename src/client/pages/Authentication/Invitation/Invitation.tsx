@@ -41,16 +41,7 @@ const Invitation: React.FC = () => {
   const isInvitedUser = Boolean(user) && data.user.uuid === user.uuid
 
   if (isInvitedUser) {
-    return (
-      <Navigate
-        replace
-        to={Routes.LoginInvitationAccept.generatePath({
-          assessmentName,
-          cycleName,
-          invitationUuid: userInvitation.uuid,
-        })}
-      />
-    )
+    return <div>Accept invitation page</div>
   }
 
   return (
