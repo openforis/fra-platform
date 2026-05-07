@@ -5,6 +5,7 @@ import { Cycle } from 'meta/assessment/cycle'
 import { CommentableDescriptionName, CommentableDescriptionValue } from 'meta/assessment/descriptionValue'
 import { User } from 'meta/user/user'
 
+import { updateDescriptionValidations } from 'server/controller/cycleData/validations/descriptions/updateDescriptionValidations'
 import { BaseProtocol, DB } from 'server/db/db'
 import { DescriptionRepository } from 'server/db/repository/assessmentCycle/descriptions'
 import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
@@ -39,6 +40,12 @@ export const upsertDescription = async (props: Props, client: BaseProtocol = DB)
     )
 
     await CountryService.updateLastEdit({ assessment, cycle, country, user, lastUpdateTimestamp }, t)
+    await updateDescriptionValidations({
+      assessment,
+      country,
+      cycle,
+      descriptions: [{ descriptionName: name, sectionName, value }],
+    })
 
     return description
   })
