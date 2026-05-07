@@ -3,7 +3,7 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { CommentableDescriptionName, CommentableDescriptionValue } from 'meta/assessment/descriptionValue'
 import { SectionName } from 'meta/assessment/section'
-import { RecordDescriptionValidationsState } from 'meta/assessment/validation/description'
+import { RecordDescriptionValidations } from 'meta/assessment/validation/description'
 import { Objects } from 'utils/objects'
 
 import { validateDescription } from './validateDescription'
@@ -22,7 +22,7 @@ export const updateDescriptionValidations = async (props: Props): Promise<void> 
 
   // TODO: const cachedValidations = ValidationRedisRepository.getDescriptionValidations
 
-  const cachedValidations = {} as RecordDescriptionValidationsState
+  const cachedValidations = {} as RecordDescriptionValidations
   const sectionValidations = cachedValidations[sectionName] ?? {}
   const descriptionValidation = validateDescription(props)
 

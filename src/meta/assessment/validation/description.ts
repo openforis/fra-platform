@@ -4,4 +4,4 @@ import { Validation } from 'meta/assessment/validation/validation'
 
 export type DescriptionValidations = Partial<Record<CommentableDescriptionName, Validation>>
 
-export type RecordDescriptionValidationsState = Record<SectionName, DescriptionValidations>
+export type RecordDescriptionValidations = Record<SectionName, DescriptionValidations>
