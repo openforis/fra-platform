@@ -33,7 +33,6 @@ import {
   Login,
   LoginChangePassword,
   LoginInvitation,
-  LoginInvitationAccept,
   LoginInvitationLocal,
   LoginResetPassword,
 } from 'meta/routes/routes/_routes/login'
@@ -73,7 +72,6 @@ export const Routes = {
   Login,
   LoginChangePassword,
   LoginInvitation,
-  LoginInvitationAccept,
   LoginInvitationLocal,
   LoginResetPassword,
 
