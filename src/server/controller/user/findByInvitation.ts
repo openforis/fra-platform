@@ -1,7 +1,4 @@
-import { Assessment } from 'meta/assessment/assessment'
-import { AuthProvider } from 'meta/user/auth'
-import { UserInvitation } from 'meta/user/invitation'
-import { User } from 'meta/user/user'
+import { InvitationData } from 'meta/user/invitations/invitation'
 
 import { AssessmentRedisRepository } from 'server/cache/repository/assessment'
 import { BaseProtocol, DB } from 'server/db/db'
@@ -13,14 +10,7 @@ type Props = {
   invitationUuid: string
 }
 
-type Returned = {
-  assessment: Assessment
-  user: User
-  userProviders: Array<AuthProvider>
-  userInvitation: UserInvitation
-}
-
-export const findByInvitation = async (props: Props, client: BaseProtocol = DB): Promise<Returned> => {
+export const findByInvitation = async (props: Props, client: BaseProtocol = DB): Promise<InvitationData> => {
   const { invitationUuid } = props
 
   const userInvitation = await UserInvitationRepository.getOne({ invitationUuid }, client)
