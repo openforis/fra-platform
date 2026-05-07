@@ -40,7 +40,12 @@ export const upsertDescription = async (props: Props, client: BaseProtocol = DB)
     )
 
     await CountryService.updateLastEdit({ assessment, cycle, country, user, lastUpdateTimestamp }, t)
-    await updateDescriptionValidations({ assessment, country, cycle, descriptionName: name, sectionName, value })
+    await updateDescriptionValidations({
+      assessment,
+      country,
+      cycle,
+      descriptions: [{ descriptionName: name, sectionName, value }],
+    })
 
     return description
   })

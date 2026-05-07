@@ -8,35 +8,43 @@ import { Objects } from 'utils/objects'
 
 import { validateDescriptionText } from './validateDescriptionText'
 
-type Props = {
-  assessment: Assessment
-  country: Country
-  cycle: Cycle
+type DescriptionValidationUpdate = {
   descriptionName: CommentableDescriptionName
   sectionName: SectionName
   value: CommentableDescriptionValue
 }
 
+type Props = {
+  assessment: Assessment
+  country: Country
+  cycle: Cycle
+  descriptions: Array<DescriptionValidationUpdate>
+}
+
 export const updateDescriptionValidations = async (props: Props): Promise<void> => {
-  const { descriptionName, sectionName } = props
+  const { assessment, cycle, descriptions } = props
 
   // TODO: const cachedValidations = ValidationRedisRepository.getDescriptionValidations
 
   const cachedValidations = {} as RecordDescriptionValidations
-  const sectionValidations = cachedValidations[sectionName] ?? {}
-  const textValidation = validateDescriptionText(props)
-  // TODO: Validate data sources and store results under sectionValidations.dataSources.
 
-  if (!Objects.isEmpty(textValidation)) {
-    sectionValidations.descriptions ??= {}
-    sectionValidations.descriptions[descriptionName] = textValidation
-  } else {
-    Objects.unset(sectionValidations, ['descriptions', descriptionName])
+  descriptions.forEach((description) => {
+    const { descriptionName, sectionName } = description
+    const sectionValidations = cachedValidations[sectionName] ?? {}
+    const textValidation = validateDescriptionText({ assessment, cycle, ...description })
+    // TODO: Validate data sources and store results under sectionValidations.dataSources.
 
-    if (Objects.isEmpty(sectionValidations.descriptions)) {
-      Objects.unset(sectionValidations, ['descriptions'])
+    if (!Objects.isEmpty(textValidation)) {
+      sectionValidations.descriptions ??= {}
+      sectionValidations.descriptions[descriptionName] = textValidation
+    } else {
+      Objects.unset(sectionValidations, ['descriptions', descriptionName])
+
+      if (Objects.isEmpty(sectionValidations.descriptions)) {
+        Objects.unset(sectionValidations, ['descriptions'])
+      }
     }
-  }
+  })
 
   // TODO: await ValidationRedisRepository.setDescriptionValidations
 }
