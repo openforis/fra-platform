@@ -1,48 +1,6 @@
-import dns from 'dns'
-
 import { LinkToVisit, LinkValidationStatusCode, VisitedLink } from 'meta/cycleData/links/link'
-import { Objects } from 'utils/objects'
 
-const _visitLink = async (link: string | null): Promise<LinkValidationStatusCode> => {
-  if (Objects.isEmpty(link)) return LinkValidationStatusCode.empty
-
-  if (link.trim().toLowerCase().startsWith('mailto:')) {
-    return LinkValidationStatusCode.success
-  }
-
-  if (
-    link.startsWith('#_') ||
-    link.startsWith('api/cycle-data/repository/file/') ||
-    link.startsWith('/api/cycle-data/repository/file/')
-  ) {
-    return LinkValidationStatusCode.success
-  }
-
-  let hostname = ''
-  try {
-    const urlWithScheme = link.startsWith('www.') ? `http://${link}` : link
-    const urlObject = new URL(urlWithScheme)
-    // eslint-disable-next-line prefer-destructuring
-    hostname = urlObject.hostname
-  } catch (e) {
-    return LinkValidationStatusCode.urlParsingError
-  }
-
-  return new Promise((resolve) => {
-    dns.resolve(hostname, (err, addresses) => {
-      if (err) {
-        resolve(LinkValidationStatusCode.enotfound)
-        return
-      }
-
-      if (addresses?.length > 0) {
-        resolve(LinkValidationStatusCode.success)
-      } else {
-        resolve(LinkValidationStatusCode.enotfound)
-      }
-    })
-  })
-}
+import { validateLink } from 'server/controller/cycleData/links/validateLink'
 
 export const visitLinks = async (links: Array<LinkToVisit>): Promise<Array<VisitedLink>> => {
   const dnsLookupCache = new Map<string, LinkValidationStatusCode>()
@@ -50,14 +8,14 @@ export const visitLinks = async (links: Array<LinkToVisit>): Promise<Array<Visit
   const visitedLinks: Array<VisitedLink> = []
   const BATCH_SIZE = 50 // Preventing thousands of dns lookups at the same time
 
-  const visitBatch = async (batch: Array<LinkToVisit>): Promise<any> => {
+  const visitBatch = async (batch: Array<LinkToVisit>): Promise<Array<VisitedLink>> => {
     const promises = batch.map(async (link) => {
       const cachedStatusCode = dnsLookupCache.get(link.link)
       if (cachedStatusCode !== undefined) {
         return { ...link, code: cachedStatusCode, timestamp }
       }
 
-      const validationCode = await _visitLink(link.link)
+      const validationCode = await validateLink(link.link)
 
       dnsLookupCache.set(link.link, validationCode)
       return { ...link, code: validationCode, timestamp }
