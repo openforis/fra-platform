@@ -28,23 +28,27 @@ export const updateDescriptionValidations = async (props: Props): Promise<void> 
 
   const cachedValidations = {} as RecordDescriptionValidations
 
-  descriptions.forEach((description) => {
-    const { descriptionName, sectionName } = description
-    const sectionValidations = cachedValidations[sectionName] ?? {}
-    const textValidation = validateDescriptionText({ assessment, cycle, ...description })
-    // TODO: Validate data sources and store results under sectionValidations.dataSources.
+  await Promise.all(
+    descriptions.map(async (description) => {
+      const { descriptionName, sectionName } = description
+      const sectionValidations = cachedValidations[sectionName] ?? {}
+      cachedValidations[sectionName] = sectionValidations
 
-    if (!Objects.isEmpty(textValidation)) {
-      sectionValidations.descriptions ??= {}
-      sectionValidations.descriptions[descriptionName] = textValidation
-    } else {
-      Objects.unset(sectionValidations, ['descriptions', descriptionName])
+      const textValidation = await validateDescriptionText({ assessment, cycle, ...description })
+      // TODO: Validate data sources and store results under sectionValidations.dataSources.
 
-      if (Objects.isEmpty(sectionValidations.descriptions)) {
-        Objects.unset(sectionValidations, ['descriptions'])
+      if (!Objects.isEmpty(textValidation)) {
+        sectionValidations.descriptions ??= {}
+        sectionValidations.descriptions[descriptionName] = textValidation
+      } else {
+        Objects.unset(sectionValidations, ['descriptions', descriptionName])
+
+        if (Objects.isEmpty(sectionValidations.descriptions)) {
+          Objects.unset(sectionValidations, ['descriptions'])
+        }
       }
-    }
-  })
+    })
+  )
 
   // TODO: await ValidationRedisRepository.setDescriptionValidations
 }
