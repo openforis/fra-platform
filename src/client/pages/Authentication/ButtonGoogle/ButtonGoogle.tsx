@@ -8,13 +8,14 @@ import { DataInvitation } from 'client/pages/Authentication/Invitation/hooks/use
 type Props = {
   data?: DataInvitation
   label?: string
+  disabled?: boolean
 }
 
 const ButtonGoogle: React.FC<Props> = (props) => {
-  const { data, label } = props
+  const { data, disabled, label } = props
   const { t } = useTranslation()
 
-  const linkClassName = useButtonClassName({ size: ButtonSize.l, className: 'button-google' })
+  const linkClassName = useButtonClassName({ size: ButtonSize.l, className: 'button-google', disabled })
   const href = useHref(data)
 
   return (

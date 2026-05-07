@@ -10,6 +10,7 @@ import { UserInvitation } from 'meta/user/invitation'
 import { User } from 'meta/user/user'
 
 import { useGetRequest } from 'client/hooks/getRequest'
+import { useSearchParams } from 'client/hooks/searchParams'
 
 type Data = {
   assessment?: Assessment
@@ -24,7 +25,9 @@ export type DataInvitation = Data & {
 }
 
 export const useData = (): DataInvitation | undefined => {
-  const { invitationUuid } = useParams<{ invitationUuid: string }>()
+  const params = useParams<{ invitationUuid: string }>()
+  const search = useSearchParams<{ invitationUuid: string }>()
+  const invitationUuid = params.invitationUuid ?? search.invitationUuid
   const { data, dispatch: fetchData } = useGetRequest(ApiEndPoint.User.invitation(), {
     params: { invitationUuid },
   })

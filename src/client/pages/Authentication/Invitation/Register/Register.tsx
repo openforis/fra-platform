@@ -12,6 +12,7 @@ import Divider from 'client/pages/Authentication/Divider'
 import FormLogin from 'client/pages/Authentication/FormLogin'
 import { useOnSuccess } from 'client/pages/Authentication/FormLogin/hooks/useOnSuccess'
 import { useData } from 'client/pages/Authentication/Invitation/hooks/useData'
+import RegisterSkeleton from 'client/pages/Authentication/Invitation/Register/RegisterSkeleton'
 import { videoResources } from 'client/pages/Tutorials'
 
 const Register: React.FC = () => {
@@ -19,38 +20,45 @@ const Register: React.FC = () => {
   const data = useData()
   const onSuccess = useOnSuccess()
 
-  if (!data) return null
-
-  const { assessmentName, cycleName, user, userInvitation, userProviders } = data
-  const { countryIso, uuid: invitationUuid } = userInvitation
-
-  const invitationMessageParams = {
-    assessment: t(Assessments.getShortLabel(assessmentName)),
-    country: t(`area.${countryIso}.listName`),
-    cycle: cycleName,
-    role: t(Users.getI18nRoleLabelKey(userInvitation.role)),
-  }
+  const { assessmentName, cycleName, user, userInvitation, userProviders } = data ?? {}
+  const { countryIso, uuid: invitationUuid } = userInvitation ?? {}
 
   const showPassword2 = !userProviders?.includes(AuthProvider.local)
   const authProviderNames = userProviders?.join(', ') ?? ''
 
+  let invitationMessage = t('common.loading')
+
+  if (data) {
+    const invitationMessageParams = {
+      assessment: t(Assessments.getShortLabel(assessmentName)),
+      country: t(`area.${countryIso}.listName`),
+      cycle: cycleName,
+      role: t(Users.getI18nRoleLabelKey(userInvitation.role)),
+    }
+    invitationMessage = t('login.invitationMessage', invitationMessageParams)
+  }
+
   return (
     <>
-      <h3>{t('login.invitationMessage', invitationMessageParams)}</h3>
+      <h3>{invitationMessage}</h3>
 
       {userProviders && userProviders.length > 0 && (
         <h3>{t('login.invitationProvidersRegistered', { authProviderNames })}</h3>
       )}
 
-      <FormLogin
-        action={ApiEndPoint.Auth.login()}
-        disableEmail
-        email={user?.email}
-        invitationUuid={invitationUuid}
-        labels={{ submit: t('login.acceptInvitationWithFra') }}
-        onSuccess={onSuccess}
-        password2={showPassword2}
-      />
+      {data ? (
+        <FormLogin
+          action={ApiEndPoint.Auth.login()}
+          disableEmail
+          email={user?.email}
+          invitationUuid={invitationUuid}
+          labels={{ submit: t('login.acceptInvitationWithFra') }}
+          onSuccess={onSuccess}
+          password2={showPassword2}
+        />
+      ) : (
+        <RegisterSkeleton />
+      )}
 
       <a
         className="btn-help"
@@ -63,7 +71,7 @@ const Register: React.FC = () => {
 
       <Divider />
 
-      <ButtonGoogle data={data} label="login.acceptInvitationWithGoogle" />
+      <ButtonGoogle data={data} disabled={!data} label="login.acceptInvitationWithGoogle" />
 
       <a
         className="btn-help"
