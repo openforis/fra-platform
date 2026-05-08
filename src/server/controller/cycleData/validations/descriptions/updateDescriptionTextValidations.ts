@@ -13,16 +13,11 @@ type Props = {
   value: CommentableDescriptionValue
 }
 
-type DescriptionTextValidationResult = {
-  scheduled: boolean
-}
-
-export const updateDescriptionTextValidations = (props: Props): DescriptionTextValidationResult => {
+export const updateDescriptionTextValidations = (props: Props): void => {
   const { value } = props
 
   const links = Htmls.getLinks(value.text)
-  if (Objects.isEmpty(links)) return { scheduled: false }
+  if (Objects.isEmpty(links)) return
 
   // TODO: Schedule description links validation worker.
-  return { scheduled: true }
 }
