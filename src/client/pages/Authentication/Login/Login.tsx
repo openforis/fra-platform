@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link } from 'react-router'
+import { Link, Navigate } from 'react-router'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { LoginQueryParams } from 'meta/routes/queryParams/login'
@@ -16,6 +16,7 @@ import ButtonGoogle from 'client/pages/Authentication/ButtonGoogle'
 import Divider from 'client/pages/Authentication/Divider'
 import FormLogin from 'client/pages/Authentication/FormLogin'
 import { useOnSuccess } from 'client/pages/Authentication/FormLogin/hooks/useOnSuccess'
+import { useGetRedirectUrl } from 'client/pages/Authentication/Login/hooks/useGetRedirectUrl'
 
 export const useGetInvitation = (): InvitationData => {
   const { invitationUuid } = useSearchParams<LoginQueryParams>()
@@ -40,11 +41,11 @@ const Login: React.FC = () => {
   const invitationData = useGetInvitation()
   const { invitationUuid } = useSearchParams<LoginQueryParams>()
 
-  const onSuccess = useOnSuccess({ invitationData })
+  const redirectUrl = useGetRedirectUrl(invitationData)
+  const onSuccess = useOnSuccess({ redirectTo: redirectUrl })
 
-  // Case when user is logged in and invitation is for the user
   if (invitationData && user?.uuid === invitationData.user.uuid) {
-    // TODO: Redirect to accept invitation page
+    return <Navigate replace to={redirectUrl} />
   }
 
   if (invitationData && user?.uuid !== invitationData.user.uuid) {
