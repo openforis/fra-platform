@@ -40,7 +40,7 @@ const Login: React.FC = () => {
   const invitationData = useGetInvitation()
   const { invitationUuid } = useSearchParams<LoginQueryParams>()
 
-  const onSuccess = useOnSuccess()
+  const onSuccess = useOnSuccess({ invitationData })
 
   // Case when user is logged in and invitation is for the user
   if (invitationData && user?.uuid === invitationData.user.uuid) {
@@ -58,6 +58,8 @@ const Login: React.FC = () => {
       {(!invitationUuid || invitationData) && (
         <FormLogin
           action={ApiEndPoint.Auth.login()}
+          disableEmail={Boolean(invitationData)}
+          email={invitationData?.user.email}
           labels={{ submit: t('login.signInFRA') }}
           onSuccess={onSuccess}
           password2={invitationData && Objects.isEmpty(invitationData.userProviders)}
