@@ -6,7 +6,7 @@ import { SectionName } from 'meta/assessment/section'
 import { RecordDescriptionValidations } from 'meta/assessment/validation/description'
 import { Objects } from 'utils/objects'
 
-import { validateDescriptionText } from './validateDescriptionText'
+import { updateDescriptionTextValidations } from './updateDescriptionTextValidations'
 
 type DescriptionValidationUpdate = {
   descriptionName: CommentableDescriptionName
@@ -28,27 +28,23 @@ export const updateDescriptionValidations = async (props: Props): Promise<void> 
 
   const cachedValidations = {} as RecordDescriptionValidations
 
-  await Promise.all(
-    descriptions.map(async (description) => {
-      const { descriptionName, sectionName } = description
-      const sectionValidations = cachedValidations[sectionName] ?? {}
-      cachedValidations[sectionName] = sectionValidations
+  descriptions.forEach((description) => {
+    const { descriptionName, sectionName } = description
+    const sectionValidations = cachedValidations[sectionName] ?? {}
+    cachedValidations[sectionName] = sectionValidations
 
-      const textValidation = await validateDescriptionText({ assessment, cycle, ...description })
-      // TODO: Validate data sources and store results under sectionValidations.dataSources.
+    const { scheduled } = updateDescriptionTextValidations({ assessment, cycle, ...description })
 
-      if (!Objects.isEmpty(textValidation)) {
-        sectionValidations.descriptions ??= {}
-        sectionValidations.descriptions[descriptionName] = textValidation
-      } else {
-        Objects.unset(sectionValidations, ['descriptions', descriptionName])
+    if (!scheduled) {
+      Objects.unset(sectionValidations, ['descriptions', descriptionName])
 
-        if (Objects.isEmpty(sectionValidations.descriptions)) {
-          Objects.unset(sectionValidations, ['descriptions'])
-        }
+      if (Objects.isEmpty(sectionValidations.descriptions)) {
+        Objects.unset(sectionValidations, ['descriptions'])
       }
-    })
-  )
+    }
+
+    // TODO: Validate data sources and store results under sectionValidations.dataSources.
+  })
 
   // TODO: await ValidationRedisRepository.setDescriptionValidations
 }
