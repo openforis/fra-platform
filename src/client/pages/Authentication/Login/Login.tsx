@@ -41,6 +41,7 @@ const Login: React.FC = () => {
   const invitationData = useGetInvitation()
   const { invitationUuid } = useSearchParams<LoginQueryParams>()
 
+  const isNewUser = Boolean(invitationData && Objects.isEmpty(invitationData.userProviders))
   const redirectUrl = useGetRedirectUrl(invitationData)
   const onSuccess = useOnSuccess({ redirectTo: redirectUrl })
 
@@ -61,9 +62,10 @@ const Login: React.FC = () => {
           action={ApiEndPoint.Auth.login()}
           disableEmail={Boolean(invitationData)}
           email={invitationData?.user.email}
+          invitationUuid={isNewUser ? invitationUuid : undefined}
           labels={{ submit: t('login.signInFRA') }}
           onSuccess={onSuccess}
-          password2={invitationData && Objects.isEmpty(invitationData.userProviders)}
+          password2={isNewUser}
         />
       )}
       <Link
