@@ -7,8 +7,8 @@ import { Logger } from 'server/utils/logger'
 import { VerifyLinksJobName } from 'server/worker/tasks/verifyLinks/jobNames'
 import { VerifyLinksJob } from 'server/worker/tasks/verifyLinks/verifyLinksJob'
 
-import { VisitCycleLinksProps } from './props'
-import { VisitCycleLinksQueueFactory } from './queueFactory'
+import { VerifyAllLinksJobProps } from './props'
+import { VerifyLinksQueueFactory } from './queueFactory'
 
 const jobOptions: JobsOptions = {
   attempts: 1,
@@ -16,14 +16,14 @@ const jobOptions: JobsOptions = {
   removeOnFail: true,
 }
 
-export const visitCycleLinks = async (props: VisitCycleLinksProps): Promise<Job | undefined> => {
+export const visitCycleLinks = async (props: VerifyAllLinksJobProps): Promise<Job | undefined> => {
   const { assessment, countryIso, cycle } = props
   const scope = countryIso
     ? `${assessment.props.name} / ${cycle.name} / ${countryIso}`
     : `${assessment.props.name} / ${cycle.name}`
 
   // Skip if a verification job is already active.
-  const activeJob = await VisitCycleLinksQueueFactory.getQueuedOrActiveJob(props)
+  const activeJob = await VerifyLinksQueueFactory.getQueuedOrActiveVerifyAllLinksJob(props)
   const isVerificationInProgress = Boolean(activeJob)
 
   if (isVerificationInProgress) {
@@ -31,9 +31,9 @@ export const visitCycleLinks = async (props: VisitCycleLinksProps): Promise<Job 
     return undefined
   }
 
-  const queue = VisitCycleLinksQueueFactory.getInstance()
+  const queue = VerifyLinksQueueFactory.getInstance()
   // Job ID is scoped by assessment/cycle so concurrent requests collapse to one job.
-  const jobId = VisitCycleLinksQueueFactory.getJobId({ assessment, countryIso, cycle })
+  const jobId = VerifyLinksQueueFactory.getVerifyAllLinksJobId({ assessment, countryIso, cycle })
   const job = await queue.add(VerifyLinksJobName.verifyAllLinks, props, { ...jobOptions, jobId })
 
   const verifyLinksJob = new VerifyLinksJob({ assessment, countryIso, cycle })

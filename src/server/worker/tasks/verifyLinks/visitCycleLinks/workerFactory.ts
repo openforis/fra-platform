@@ -15,7 +15,7 @@ import { Logger } from 'server/utils/logger'
 import { VerifyLinksJobName } from 'server/worker/tasks/verifyLinks/jobNames'
 import { VerifyLinksQueueJob, VerifyLinksQueueProps } from 'server/worker/tasks/verifyLinks/props'
 
-import { VisitCycleLinksJob } from './props'
+import { VerifyAllLinksJob } from './props'
 
 const connection = new IORedis(ProcessEnv.redisQueueUrl)
 connection.options.maxRetriesPerRequest = null
@@ -38,7 +38,7 @@ type EmitEventProps = {
 }
 
 // BullMQ accepts either a processor function (dev) or a path to compiled JS (prod).
-type VisitCycleLinksProcessor = string | ((job: VerifyLinksQueueJob) => Promise<void>)
+type VerifyLinksProcessor = string | ((job: VerifyLinksQueueJob) => Promise<void>)
 
 const _emitEvent = (props: EmitEventProps): void => {
   const { assessment, countryIso, cycle, event } = props
@@ -50,10 +50,10 @@ const _emitEvent = (props: EmitEventProps): void => {
   SocketServer.emit(linksVerificationEvent, { event })
 }
 
-const _isVerifyAllLinksJob = (job: VerifyLinksQueueJob): job is VisitCycleLinksJob =>
+const _isVerifyAllLinksJob = (job: VerifyLinksQueueJob): job is VerifyAllLinksJob =>
   job.name === VerifyLinksJobName.verifyAllLinks
 
-const newInstance = (props: { key: string; processor: VisitCycleLinksProcessor }): Worker<VerifyLinksQueueProps> => {
+const newInstance = (props: { key: string; processor: VerifyLinksProcessor }): Worker<VerifyLinksQueueProps> => {
   const { key, processor } = props
 
   const worker = new Worker<VerifyLinksQueueProps>(key, processor, workerOptions)

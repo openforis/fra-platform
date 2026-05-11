@@ -10,7 +10,7 @@ import { MailService } from 'server/service'
 import { ProcessEnv } from 'server/utils'
 import { Job } from 'server/worker/job/job'
 import { triggerVerifyLinksWorker } from 'server/worker/tasks/verifyLinks/triggerVerifyLinksWorker'
-import { VisitCycleLinksQueueFactory } from 'server/worker/tasks/verifyLinks/visitCycleLinks/queueFactory'
+import { VerifyLinksQueueFactory } from 'server/worker/tasks/verifyLinks/visitCycleLinks/queueFactory'
 
 const name = 'Scheduler-NotifyLinksInvalid'
 const cycleName = CycleNames.latest
@@ -30,12 +30,12 @@ export class NotifyLinksInvalid extends Job {
     const user = await UserController.getUserRobot()
 
     // get existing job or create new job and process it
-    const existingJob = await VisitCycleLinksQueueFactory.getQueuedOrActiveJob({ assessment, cycle })
+    const existingJob = await VerifyLinksQueueFactory.getQueuedOrActiveVerifyAllLinksJob({ assessment, cycle })
     const job = existingJob ?? (await CycleDataController.Links.verify({ assessment, cycle, user }))
     await triggerVerifyLinksWorker()
 
     const connection = { url: ProcessEnv.redisQueueUrl }
-    const queueEvents = new QueueEvents(VisitCycleLinksQueueFactory.queueName, { connection })
+    const queueEvents = new QueueEvents(VerifyLinksQueueFactory.queueName, { connection })
 
     try {
       await job.waitUntilFinished(queueEvents)

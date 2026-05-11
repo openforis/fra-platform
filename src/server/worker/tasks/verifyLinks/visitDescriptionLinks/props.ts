@@ -6,15 +6,15 @@ import { Cycle } from 'meta/assessment/cycle'
 
 import { VerifyLinksJobName } from 'server/worker/tasks/verifyLinks/jobNames'
 
-export type VisitDescriptionLinksProps = {
+export type VerifyDescriptionLinksJobProps = {
   assessment: Assessment
   countryIso: CountryIso
   cycle: Cycle
   descriptionIds: Array<number>
 }
 
-export type VisitDescriptionLinksJob = Job<
-  VisitDescriptionLinksProps,
+export type VerifyDescriptionLinksJob = Job<
+  VerifyDescriptionLinksJobProps,
   void,
   typeof VerifyLinksJobName.verifyDescriptionLinks
 >

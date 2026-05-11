@@ -7,11 +7,11 @@ import { User } from 'meta/user/user'
 
 import { VerifyLinksJobName } from 'server/worker/tasks/verifyLinks/jobNames'
 
-export type VisitCycleLinksProps = {
+export type VerifyAllLinksJobProps = {
   assessment: Assessment
   countryIso?: CountryIso
   cycle: Cycle
   user: User
 }
 
-export type VisitCycleLinksJob = Job<VisitCycleLinksProps, void, typeof VerifyLinksJobName.verifyAllLinks>
+export type VerifyAllLinksJob = Job<VerifyAllLinksJobProps, void, typeof VerifyLinksJobName.verifyAllLinks>

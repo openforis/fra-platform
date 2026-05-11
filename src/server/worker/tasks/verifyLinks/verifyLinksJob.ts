@@ -4,7 +4,7 @@ import { Cycle } from 'meta/assessment/cycle'
 
 import { Job } from 'server/worker/job/job'
 import { JobStatus } from 'server/worker/job/jobStatus'
-import { VisitCycleLinksJob } from 'server/worker/tasks/verifyLinks/visitCycleLinks/props'
+import { VerifyAllLinksJob } from 'server/worker/tasks/verifyLinks/visitCycleLinks/props'
 import workerProcessor from 'server/worker/tasks/verifyLinks/visitCycleLinks/worker'
 
 type VerifyLinksJobContext = {
@@ -16,7 +16,7 @@ type VerifyLinksJobContext = {
 const jobNamePrefix = 'VerifyLinks'
 
 export class VerifyLinksJob extends Job {
-  #queueJob?: VisitCycleLinksJob
+  #queueJob?: VerifyAllLinksJob
 
   public constructor(context: VerifyLinksJobContext) {
     super(VerifyLinksJob.getJobName(context))
@@ -28,7 +28,7 @@ export class VerifyLinksJob extends Job {
     return countryIso ? `${baseJobName}/${countryIso}` : baseJobName
   }
 
-  public async runFromQueue(job: VisitCycleLinksJob): Promise<void> {
+  public async runFromQueue(job: VerifyAllLinksJob): Promise<void> {
     const jobId = job.id?.toString()
     this.#queueJob = job
 

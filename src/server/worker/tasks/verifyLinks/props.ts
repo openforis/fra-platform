@@ -1,8 +1,8 @@
 import { Job } from 'bullmq'
 
-import { VisitCycleLinksProps } from 'server/worker/tasks/verifyLinks/visitCycleLinks/props'
-import { VisitDescriptionLinksProps } from 'server/worker/tasks/verifyLinks/visitDescriptionLinks/props'
+import { VerifyAllLinksJobProps } from 'server/worker/tasks/verifyLinks/visitCycleLinks/props'
+import { VerifyDescriptionLinksJobProps } from 'server/worker/tasks/verifyLinks/visitDescriptionLinks/props'
 
-export type VerifyLinksQueueProps = VisitCycleLinksProps | VisitDescriptionLinksProps
+export type VerifyLinksQueueProps = VerifyAllLinksJobProps | VerifyDescriptionLinksJobProps
 
 export type VerifyLinksQueueJob = Job<VerifyLinksQueueProps>
