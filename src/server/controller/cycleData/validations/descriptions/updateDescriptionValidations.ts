@@ -1,23 +1,15 @@
 import { Country } from 'meta/area/country'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { CommentableDescriptionName, CommentableDescriptionValue } from 'meta/assessment/descriptionValue'
-import { SectionName } from 'meta/assessment/section'
+import { CommentableDescription } from 'meta/assessment/descriptionValue'
 
 import { updateDescriptionTextValidations } from './updateDescriptionTextValidations'
-
-type DescriptionValidationUpdate = {
-  descriptionName: CommentableDescriptionName
-  id: number
-  sectionName: SectionName
-  value: CommentableDescriptionValue
-}
 
 type Props = {
   assessment: Assessment
   country: Country
   cycle: Cycle
-  descriptions: Array<DescriptionValidationUpdate>
+  descriptions: Array<CommentableDescription>
 }
 
 export const updateDescriptionValidations = async (props: Props): Promise<void> => {

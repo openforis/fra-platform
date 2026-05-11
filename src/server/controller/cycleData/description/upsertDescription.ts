@@ -3,7 +3,6 @@ import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { CommentableDescriptionName, CommentableDescriptionValue } from 'meta/assessment/descriptionValue'
-import { SectionName } from 'meta/assessment/section'
 import { User } from 'meta/user/user'
 
 import { updateDescriptionValidations } from 'server/controller/cycleData/validations/descriptions/updateDescriptionValidations'
@@ -52,7 +51,7 @@ export const upsertDescription = async (
     assessment,
     country,
     cycle,
-    descriptions: [{ descriptionName: name, id: description.id, sectionName: sectionName as SectionName, value }],
+    descriptions: [description],
   })
 
   return description.value
