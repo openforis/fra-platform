@@ -4,6 +4,7 @@ import { Sockets } from 'meta/socket/sockets'
 
 import { SocketServer } from 'server/service/socket'
 import { Logger } from 'server/utils/logger'
+import { VerifyLinksJobName } from 'server/worker/tasks/verifyLinks/jobNames'
 import { VerifyLinksJob } from 'server/worker/tasks/verifyLinks/verifyLinksJob'
 
 import { VisitCycleLinksProps } from './props'
@@ -15,7 +16,7 @@ const jobOptions: JobsOptions = {
   removeOnFail: true,
 }
 
-export const visitCycleLinks = async (props: VisitCycleLinksProps): Promise<Job<VisitCycleLinksProps> | undefined> => {
+export const visitCycleLinks = async (props: VisitCycleLinksProps): Promise<Job | undefined> => {
   const { assessment, countryIso, cycle } = props
   const scope = countryIso
     ? `${assessment.props.name} / ${cycle.name} / ${countryIso}`
@@ -33,7 +34,7 @@ export const visitCycleLinks = async (props: VisitCycleLinksProps): Promise<Job<
   const queue = VisitCycleLinksQueueFactory.getInstance()
   // Job ID is scoped by assessment/cycle so concurrent requests collapse to one job.
   const jobId = VisitCycleLinksQueueFactory.getJobId({ assessment, countryIso, cycle })
-  const job = await queue.add('verifyLinks', props, { ...jobOptions, jobId })
+  const job = await queue.add(VerifyLinksJobName.verifyAllLinks, props, { ...jobOptions, jobId })
 
   const verifyLinksJob = new VerifyLinksJob({ assessment, countryIso, cycle })
   await verifyLinksJob.setQueued(job.id?.toString())

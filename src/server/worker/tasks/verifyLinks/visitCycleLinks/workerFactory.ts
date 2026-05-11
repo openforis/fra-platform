@@ -12,8 +12,10 @@ import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 import { SocketServer } from 'server/service/socket'
 import { ProcessEnv } from 'server/utils'
 import { Logger } from 'server/utils/logger'
+import { VerifyLinksJobName } from 'server/worker/tasks/verifyLinks/jobNames'
+import { VerifyLinksQueueJob, VerifyLinksQueueProps } from 'server/worker/tasks/verifyLinks/props'
 
-import { VisitCycleLinksJob, VisitCycleLinksProps } from './props'
+import { VisitCycleLinksJob } from './props'
 
 const connection = new IORedis(ProcessEnv.redisQueueUrl)
 connection.options.maxRetriesPerRequest = null
@@ -36,7 +38,7 @@ type EmitEventProps = {
 }
 
 // BullMQ accepts either a processor function (dev) or a path to compiled JS (prod).
-type VisitCycleLinksProcessor = string | ((job: VisitCycleLinksJob) => Promise<void>)
+type VisitCycleLinksProcessor = string | ((job: VerifyLinksQueueJob) => Promise<void>)
 
 const _emitEvent = (props: EmitEventProps): void => {
   const { assessment, countryIso, cycle, event } = props
@@ -48,21 +50,31 @@ const _emitEvent = (props: EmitEventProps): void => {
   SocketServer.emit(linksVerificationEvent, { event })
 }
 
-const newInstance = (props: { key: string; processor: VisitCycleLinksProcessor }): Worker<VisitCycleLinksProps> => {
+const _isVerifyAllLinksJob = (job: VerifyLinksQueueJob): job is VisitCycleLinksJob =>
+  job.name === VerifyLinksJobName.verifyAllLinks
+
+const newInstance = (props: { key: string; processor: VisitCycleLinksProcessor }): Worker<VerifyLinksQueueProps> => {
   const { key, processor } = props
 
-  const worker = new Worker<VisitCycleLinksProps>(key, processor, workerOptions)
+  const worker = new Worker<VerifyLinksQueueProps>(key, processor, workerOptions)
 
   worker.on('error', (error) => {
     Logger.error(`[visitCycleLinks-worker] job error ${error}`)
   })
 
   worker.on('active', async (job) => {
+    if (!_isVerifyAllLinksJob(job)) return
+
     const { assessment, countryIso, cycle } = job.data
     _emitEvent({ assessment, countryIso, cycle, event: 'active' })
   })
 
   worker.on('completed', async (job) => {
+    if (!_isVerifyAllLinksJob(job)) {
+      Logger.debug(`[visitDescriptionLinks-worker] [job-${job.id}] completed`)
+      return
+    }
+
     const { assessment, countryIso, cycle, user } = job.data
 
     _emitEvent({ assessment, countryIso, cycle, event: 'completed' })
@@ -78,6 +90,11 @@ const newInstance = (props: { key: string; processor: VisitCycleLinksProcessor }
   })
 
   worker.on('failed', async (job, error) => {
+    if (!job || !_isVerifyAllLinksJob(job)) {
+      Logger.debug(`[visitDescriptionLinks-worker] job failed with error: ${error}`)
+      return
+    }
+
     const { assessment, countryIso, cycle, user } = job.data
 
     _emitEvent({ assessment, countryIso, cycle, event: 'failed' })

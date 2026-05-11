@@ -3,15 +3,18 @@ import { Job } from 'bullmq'
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { User } from 'meta/user/user'
 
 import { VerifyLinksJobName } from 'server/worker/tasks/verifyLinks/jobNames'
 
-export type VisitCycleLinksProps = {
+export type VisitDescriptionLinksProps = {
   assessment: Assessment
-  countryIso?: CountryIso
+  countryIso: CountryIso
   cycle: Cycle
-  user: User
+  descriptionIds: Array<number>
 }
 
-export type VisitCycleLinksJob = Job<VisitCycleLinksProps, void, typeof VerifyLinksJobName.verifyAllLinks>
+export type VisitDescriptionLinksJob = Job<
+  VisitDescriptionLinksProps,
+  void,
+  typeof VerifyLinksJobName.verifyDescriptionLinks
+>
