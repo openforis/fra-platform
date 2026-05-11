@@ -8,6 +8,7 @@ import { updateDescriptionTextValidations } from './updateDescriptionTextValidat
 
 type DescriptionValidationUpdate = {
   descriptionName: CommentableDescriptionName
+  id: number
   sectionName: SectionName
   value: CommentableDescriptionValue
 }
@@ -20,11 +21,9 @@ type Props = {
 }
 
 export const updateDescriptionValidations = async (props: Props): Promise<void> => {
-  const { assessment, cycle, descriptions } = props
+  const { assessment, country, cycle, descriptions } = props
 
-  descriptions.forEach((description) => {
-    updateDescriptionTextValidations({ assessment, cycle, ...description })
+  await updateDescriptionTextValidations({ assessment, country, cycle, descriptions })
 
-    // TODO: Validate data sources and store results under sectionValidations.dataSources.
-  })
+  // TODO: Validate data sources and store results under sectionValidations.dataSources.
 }

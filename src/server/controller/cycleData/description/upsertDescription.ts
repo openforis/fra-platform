@@ -3,6 +3,7 @@ import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { CommentableDescriptionName, CommentableDescriptionValue } from 'meta/assessment/descriptionValue'
+import { SectionName } from 'meta/assessment/section'
 import { User } from 'meta/user/user'
 
 import { updateDescriptionValidations } from 'server/controller/cycleData/validations/descriptions/updateDescriptionValidations'
@@ -21,17 +22,20 @@ type Props = {
   user: User
 }
 
-export const upsertDescription = async (props: Props, client: BaseProtocol = DB): Promise<string> => {
+export const upsertDescription = async (
+  props: Props,
+  client: BaseProtocol = DB
+): Promise<CommentableDescriptionValue> => {
   const { assessment, country, cycle, name, sectionName, user, value } = props
   const { countryIso } = country
 
-  return client.tx(async (t) => {
+  const description = await client.tx(async (t) => {
     const description = await DescriptionRepository.upsert(
       { assessment, cycle, countryIso, sectionName, name, value },
       t
     )
 
-    const target = { name, description }
+    const target = { name, description: description.value }
     const message = ActivityLogMessage.descriptionUpdate
     const activityLog = { target, section: sectionName, message, countryIso, user }
     const { time: lastUpdateTimestamp } = await ActivityLogRepository.insertActivityLog(
@@ -40,13 +44,16 @@ export const upsertDescription = async (props: Props, client: BaseProtocol = DB)
     )
 
     await CountryService.updateLastEdit({ assessment, cycle, country, user, lastUpdateTimestamp }, t)
-    await updateDescriptionValidations({
-      assessment,
-      country,
-      cycle,
-      descriptions: [{ descriptionName: name, sectionName, value }],
-    })
 
     return description
   })
+
+  await updateDescriptionValidations({
+    assessment,
+    country,
+    cycle,
+    descriptions: [{ descriptionName: name, id: description.id, sectionName: sectionName as SectionName, value }],
+  })
+
+  return description.value
 }

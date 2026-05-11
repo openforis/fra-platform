@@ -1,9 +1,12 @@
-import { Objects } from 'utils/objects'
-
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { CommentableDescriptionName, CommentableDescriptionValue } from 'meta/assessment/descriptionValue'
+import {
+  CommentableDescription,
+  CommentableDescriptionName,
+  CommentableDescriptionValue,
+} from 'meta/assessment/descriptionValue'
+import { Objects } from 'utils/objects'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { Schemas } from 'server/db/schemas'
@@ -18,7 +21,7 @@ export const upsert = async (
     name: CommentableDescriptionName
   },
   client: BaseProtocol = DB
-): Promise<string> => {
+): Promise<CommentableDescription> => {
   const { assessment, countryIso, cycle, name, sectionName, value } = props
   const schemaCycle = Schemas.getNameCycle(assessment, cycle)
 
@@ -29,8 +32,8 @@ export const upsert = async (
           values ($1, $2, $3, $4)
       on conflict (country_iso, section_name, name) do update 
             set value = $4
-      returning value;
+      returning *;
     `
 
-  return client.oneOrNone<string>(query, [countryIso, sectionName, name, value], Objects.camelize)
+  return client.one<CommentableDescription>(query, [countryIso, sectionName, name, value], Objects.camelize)
 }
