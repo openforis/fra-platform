@@ -1,19 +1,18 @@
 import { Parser } from 'htmlparser2'
+
 import { Objects } from 'utils/objects'
 
-type LinkInfo = {
-  link: string
+type HtmlLink = {
+  link: string | null
   name: string
 }
 
-type Returned = Array<LinkInfo>
-
-export const getLinksFromHtml = (html: string): Returned => {
+const getLinks = (html: string): Array<HtmlLink> => {
   if (Objects.isEmpty(html)) return []
 
-  const links: Returned = []
+  const links: Array<HtmlLink> = []
 
-  let currentLink: LinkInfo | null = null
+  let currentLink: HtmlLink | null = null
   const parser = new Parser(
     {
       onopentag(name, attributes): void {
@@ -43,4 +42,8 @@ export const getLinksFromHtml = (html: string): Returned => {
   parser.end()
 
   return links
+}
+
+export const Htmls = {
+  getLinks,
 }

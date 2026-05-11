@@ -2,7 +2,8 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { CommentableDescriptionName, CommentableDescriptionValue } from 'meta/assessment/descriptionValue'
 import { SectionName } from 'meta/assessment/section'
-import { Validation } from 'meta/assessment/validation/validation'
+import { Htmls } from 'utils/htmls'
+import { Objects } from 'utils/objects'
 
 type Props = {
   assessment: Assessment
@@ -12,11 +13,11 @@ type Props = {
   value: CommentableDescriptionValue
 }
 
-export const validateDescriptionText = (props: Props): Validation | undefined => {
+export const updateDescriptionTextValidations = (props: Props): void => {
   const { value } = props
 
-  // TODO: Validate description text links through the existing links validation workflow.
-  void value
+  const links = Htmls.getLinks(value.text)
+  if (Objects.isEmpty(links)) return
 
-  return undefined
+  // TODO: Schedule description links validation worker.
 }
