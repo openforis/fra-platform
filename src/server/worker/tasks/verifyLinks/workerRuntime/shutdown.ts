@@ -1,16 +1,16 @@
 import { Queue, Worker } from 'bullmq'
 
 import { Logger } from 'server/utils/logger'
+import { VerifyLinksQueueProps } from 'server/worker/tasks/verifyLinks/props'
 import { VerifyLinksWorkerPresence } from 'server/worker/tasks/verifyLinks/verifyLinksWorkerPresence'
-import { VisitCycleLinksProps } from 'server/worker/tasks/verifyLinks/visitCycleLinks/props'
-import { VisitCycleLinksQueueFactory } from 'server/worker/tasks/verifyLinks/visitCycleLinks/queueFactory'
+import { VerifyLinksQueueFactory } from 'server/worker/tasks/verifyLinks/visitCycleLinks/queueFactory'
 import { WorkerFactory } from 'server/worker/tasks/verifyLinks/visitCycleLinks/workerFactory'
 
 type Props = {
   exitOnIdle: boolean
-  queue: Queue<VisitCycleLinksProps>
+  queue: Queue<VerifyLinksQueueProps>
   reason: string
-  worker: Worker<VisitCycleLinksProps>
+  worker: Worker<VerifyLinksQueueProps>
 }
 
 export const shutdownVerifyLinksWorker = async (props: Props): Promise<void> => {
@@ -25,7 +25,7 @@ export const shutdownVerifyLinksWorker = async (props: Props): Promise<void> => 
     VerifyLinksWorkerPresence.clearWorkerLock(),
     queue.close(),
     VerifyLinksWorkerPresence.disconnect(),
-    VisitCycleLinksQueueFactory.connection.quit(),
+    VerifyLinksQueueFactory.connection.quit(),
     WorkerFactory.connection.quit(),
   ])
 
