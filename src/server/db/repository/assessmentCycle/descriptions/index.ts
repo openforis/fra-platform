@@ -1,4 +1,5 @@
 import { getDataSources } from 'server/db/repository/assessmentCycle/descriptions/getDataSources'
+import { getManyByIds } from 'server/db/repository/assessmentCycle/descriptions/getManyByIds'
 import { getManyWithDataSourcesLinks } from 'server/db/repository/assessmentCycle/descriptions/getManyWithDataSourcesLinks'
 import { getManyWithTextLinks } from 'server/db/repository/assessmentCycle/descriptions/getManyWithTextLinks'
 import { getValues } from 'server/db/repository/assessmentCycle/descriptions/getValues'
@@ -7,6 +8,7 @@ import { upsert } from 'server/db/repository/assessmentCycle/descriptions/upsert
 
 export const DescriptionRepository = {
   getDataSources,
+  getManyByIds,
   getManyWithDataSourcesLinks,
   getManyWithTextLinks,
   getValues,
