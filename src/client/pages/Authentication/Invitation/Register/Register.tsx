@@ -7,13 +7,15 @@ import { AuthProvider } from 'meta/user/auth'
 import { Users } from 'meta/user/users'
 
 import Icon from 'client/components/Icon'
-import ButtonGoogle from 'client/pages/Authentication/ButtonGoogle'
 import Divider from 'client/pages/Authentication/Divider'
 import FormLogin from 'client/pages/Authentication/FormLogin'
 import { useOnSuccess } from 'client/pages/Authentication/FormLogin/hooks/useOnSuccess'
 import { useData } from 'client/pages/Authentication/Invitation/hooks/useData'
 import { videoResources } from 'client/pages/Tutorials'
 
+/**
+ * @deprecated
+ */
 const Register: React.FC = () => {
   const { i18n, t } = useTranslation()
   const data = useData()
@@ -63,7 +65,7 @@ const Register: React.FC = () => {
 
       <Divider />
 
-      <ButtonGoogle data={data} label="login.acceptInvitationWithGoogle" />
+      {/*<ButtonGoogle data={data} label="login.acceptInvitationWithGoogle" />*/}
 
       <a
         className="btn-help"

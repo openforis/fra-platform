@@ -4,8 +4,8 @@ import GoogleStrategy, { Profile, VerifyCallback } from 'passport-google-oauth20
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 
-import { googleAcceptInvitation } from 'server/api/auth/strategy/_google/acceptInvitation'
 import { googleLogin } from 'server/api/auth/strategy/_google/login'
+import { register } from 'server/api/auth/strategy/_google/register'
 
 const googleStrategyVerifyCallback = async (
   req: Request,
@@ -20,7 +20,7 @@ const googleStrategyVerifyCallback = async (
     const { invitationUuid } = state
 
     if (invitationUuid) {
-      return googleAcceptInvitation({ done, email, invitationUuid })
+      return register({ done, email, invitationUuid })
     }
 
     return googleLogin({ done, email })

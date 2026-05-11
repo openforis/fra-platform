@@ -12,10 +12,10 @@ import { useUser } from 'client/store/user/hooks/user'
 import { useGetRequest } from 'client/hooks/getRequest'
 import { useCycleRouteParams } from 'client/hooks/routeParams'
 import { useSearchParams } from 'client/hooks/searchParams'
-import ButtonGoogle from 'client/pages/Authentication/ButtonGoogle'
 import Divider from 'client/pages/Authentication/Divider'
 import FormLogin from 'client/pages/Authentication/FormLogin'
 import { useOnSuccess } from 'client/pages/Authentication/FormLogin/hooks/useOnSuccess'
+import ButtonGoogle from 'client/pages/Authentication/Login/ButtonGoogle'
 import { useGetRedirectUrl } from 'client/pages/Authentication/Login/hooks/useGetRedirectUrl'
 
 export const useGetInvitation = (): InvitationData => {
@@ -76,7 +76,7 @@ const Login: React.FC = () => {
         {t('login.forgotPassword')}
       </Link>
       <Divider />
-      <ButtonGoogle disabled={invitationUuid && !invitationData} />
+      <ButtonGoogle disabled={invitationUuid && !invitationData} invitationData={invitationData} />
     </div>
   )
 }

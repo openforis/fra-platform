@@ -1,8 +1,8 @@
 import { VerifyCallback } from 'passport-google-oauth20'
 
+import { Assessments } from 'meta/assessment/assessments'
 import { AuthProvider, AuthProviderGoogleProps } from 'meta/user/auth'
 
-import { AssessmentController } from 'server/controller/assessment'
 import { UserController } from 'server/controller/user'
 import { UserProviderController } from 'server/controller/userProvider'
 
@@ -12,10 +12,10 @@ type Props = {
   invitationUuid: string
 }
 
-export const googleAcceptInvitation = async (props: Props): Promise<void> => {
+export const register = async (props: Props): Promise<void> => {
   const { done, email, invitationUuid } = props
 
-  const { user: invitedUser, userInvitation } = await UserController.findByInvitation({ invitationUuid })
+  const { assessment, user: invitedUser, userInvitation } = await UserController.findByInvitation({ invitationUuid })
 
   let userProvider = await UserProviderController.read<AuthProviderGoogleProps>({
     user: invitedUser,
@@ -41,18 +41,6 @@ export const googleAcceptInvitation = async (props: Props): Promise<void> => {
     return
   }
 
-  const { assessment, cycle } = await AssessmentController.getOneWithCycle({
-    uuid: userInvitation.assessmentUuid,
-    cycleUuid: userInvitation.cycleUuid,
-  })
-
-  const user = await UserController.acceptInvitation({ assessment, cycle, user: invitedUser, userInvitation })
-
-  done(null, user, {
-    message: JSON.stringify({
-      assessmentName: assessment.props.name,
-      countryIso: userInvitation.countryIso,
-      cycleName: cycle.name,
-    }),
-  })
+  const cycle = Assessments.getCycle({ assessment, cycleUuid: userInvitation.cycleUuid })
+  done(null, invitedUser, { assessmentName: assessment.props.name, cycleName: cycle.name, invitationUuid })
 }
