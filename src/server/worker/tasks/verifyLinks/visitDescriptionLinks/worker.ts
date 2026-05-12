@@ -1,9 +1,11 @@
 import { LinkToVisit } from 'meta/cycleData/links/link'
 import { Routes } from 'meta/routes/routes'
+import { Sockets } from 'meta/socket/sockets'
 import { Htmls } from 'utils/htmls'
 
 import { DescriptionRepository } from 'server/db/repository/assessmentCycle/descriptions'
 import { LinkRepository } from 'server/db/repository/assessmentCycle/links'
+import { SocketServer } from 'server/service/socket'
 import { Logger } from 'server/utils/logger'
 import { filterLinks } from 'server/worker/tasks/verifyLinks/visitCycleLinks/utils/filterLinks'
 import { mergeLinks } from 'server/worker/tasks/verifyLinks/visitCycleLinks/utils/mergeLinks'
@@ -46,7 +48,7 @@ export default async (job: VerifyDescriptionLinksJob): Promise<void> => {
   const logKey = _getLogKey(job)
 
   try {
-    const { assessment, countryIso, cycle } = job.data
+    const { assessment, countryIso, cycle, descriptionIds } = job.data
     const time = new Date().getTime()
 
     Logger.info(`${logKey} started.`)
@@ -70,6 +72,17 @@ export default async (job: VerifyDescriptionLinksJob): Promise<void> => {
       linkVisits,
       linksToVisit,
     })
+
+    // Get the unique section names affected by this validation run.
+    const sectionNames = Array.from(
+      new Set(linksToVisit.flatMap(({ locations }) => locations.map(({ sectionName }) => sectionName)))
+    )
+    const eventName = Sockets.getDescriptionLinksValidationUpdateEvent({
+      assessmentName: assessment.props.name,
+      countryIso,
+      cycleName: cycle.name,
+    })
+    SocketServer.emit(eventName, { countryIso, descriptionIds, sectionNames })
 
     const duration = (new Date().getTime() - time) / 1000
     Logger.info(`${logKey} ended in ${duration} seconds with ${linkVisits.length} links visited.`)
