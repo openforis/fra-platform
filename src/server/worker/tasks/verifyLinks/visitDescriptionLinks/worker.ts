@@ -64,12 +64,12 @@ export default async (job: VerifyDescriptionLinksJob): Promise<void> => {
     })
     const linkVisits = await visitLinks(filterLinks({ approvedLinks, linksToVisit }))
 
-    // TODO: await LinkRepository.upsertDescriptionLinks({
-    //   assessment,
-    //   cycle,
-    //   linkVisits,
-    //   linksToVisit,
-    // })
+    await LinkRepository.upsertDescriptionLinks({
+      assessment,
+      cycle,
+      linkVisits,
+      linksToVisit,
+    })
 
     const duration = (new Date().getTime() - time) / 1000
     Logger.info(`${logKey} ended in ${duration} seconds with ${linkVisits.length} links visited.`)
