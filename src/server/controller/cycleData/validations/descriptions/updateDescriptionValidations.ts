@@ -1,50 +1,21 @@
 import { Country } from 'meta/area/country'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { CommentableDescriptionName, CommentableDescriptionValue } from 'meta/assessment/descriptionValue'
-import { SectionName } from 'meta/assessment/section'
-import { RecordDescriptionValidations } from 'meta/assessment/validation/description'
-import { Objects } from 'utils/objects'
+import { CommentableDescription } from 'meta/assessment/descriptionValue'
 
-import { validateDescriptionText } from './validateDescriptionText'
-
-type DescriptionValidationUpdate = {
-  descriptionName: CommentableDescriptionName
-  sectionName: SectionName
-  value: CommentableDescriptionValue
-}
+import { updateDescriptionTextValidations } from './updateDescriptionTextValidations'
 
 type Props = {
   assessment: Assessment
   country: Country
   cycle: Cycle
-  descriptions: Array<DescriptionValidationUpdate>
+  descriptions: Array<CommentableDescription>
 }
 
 export const updateDescriptionValidations = async (props: Props): Promise<void> => {
-  const { assessment, cycle, descriptions } = props
+  const { assessment, country, cycle, descriptions } = props
 
-  // TODO: const cachedValidations = ValidationRedisRepository.getDescriptionValidations
+  await updateDescriptionTextValidations({ assessment, country, cycle, descriptions })
 
-  const cachedValidations = {} as RecordDescriptionValidations
-
-  descriptions.forEach((description) => {
-    const { descriptionName, sectionName } = description
-    const sectionValidations = cachedValidations[sectionName] ?? {}
-    const textValidation = validateDescriptionText({ assessment, cycle, ...description })
-    // TODO: Validate data sources and store results under sectionValidations.dataSources.
-
-    if (!Objects.isEmpty(textValidation)) {
-      sectionValidations.descriptions ??= {}
-      sectionValidations.descriptions[descriptionName] = textValidation
-    } else {
-      Objects.unset(sectionValidations, ['descriptions', descriptionName])
-
-      if (Objects.isEmpty(sectionValidations.descriptions)) {
-        Objects.unset(sectionValidations, ['descriptions'])
-      }
-    }
-  })
-
-  // TODO: await ValidationRedisRepository.setDescriptionValidations
+  // TODO: Validate data sources and store results under sectionValidations.dataSources.
 }

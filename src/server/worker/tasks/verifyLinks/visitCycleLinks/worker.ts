@@ -9,9 +9,9 @@ import { Logger } from 'server/utils/logger'
 import { filterLinks } from './utils/filterLinks'
 import { mergeLinks } from './utils/mergeLinks'
 import { visitLinks } from './utils/visitLinks'
-import { VisitCycleLinksJob } from './props'
+import { VerifyAllLinksJob } from './props'
 
-const _getLogKey = (job: VisitCycleLinksJob): string => {
+const _getLogKey = (job: VerifyAllLinksJob): string => {
   const { assessment, countryIso, cycle } = job.data
 
   const assessmentName = assessment.props.name
@@ -20,7 +20,7 @@ const _getLogKey = (job: VisitCycleLinksJob): string => {
   return `[visitCycleLinks-workerThread] [${scope}] [job-${job.id}]`
 }
 
-export default async (job: VisitCycleLinksJob): Promise<void> => {
+export default async (job: VerifyAllLinksJob): Promise<void> => {
   const logKey = _getLogKey(job)
   try {
     const { assessment, countryIso, cycle, user } = job.data

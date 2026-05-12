@@ -2,7 +2,7 @@ import http from 'http'
 
 import { SocketServer } from 'server/service/socket'
 import { VerifyLinksWorkerPresence } from 'server/worker/tasks/verifyLinks/verifyLinksWorkerPresence'
-import { VisitCycleLinksQueueFactory } from 'server/worker/tasks/verifyLinks/visitCycleLinks/queueFactory'
+import { VerifyLinksQueueFactory } from 'server/worker/tasks/verifyLinks/visitCycleLinks/queueFactory'
 import { WorkerFactory } from 'server/worker/tasks/verifyLinks/visitCycleLinks/workerFactory'
 
 import { startVerifyLinksWorkerHeartbeat } from './heartbeat'
@@ -18,7 +18,7 @@ type Props = {
 export const startVerifyLinksWorkerRuntime = async (props: Props): Promise<void> => {
   const { exitOnIdle, workerId } = props
 
-  const queue = VisitCycleLinksQueueFactory.getInstance()
+  const queue = VerifyLinksQueueFactory.getInstance()
 
   // Init SocketServer only for the worker dyno so it can emit events.
   if (exitOnIdle) {
@@ -31,7 +31,7 @@ export const startVerifyLinksWorkerRuntime = async (props: Props): Promise<void>
   const heartbeatInterval = startVerifyLinksWorkerHeartbeat({ workerId })
 
   const worker = WorkerFactory.newInstance({
-    key: VisitCycleLinksQueueFactory.queueName,
+    key: VerifyLinksQueueFactory.queueName,
     processor: verifyLinksWorkerProcessor,
   })
 

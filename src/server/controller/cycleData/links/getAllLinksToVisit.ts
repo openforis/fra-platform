@@ -6,12 +6,11 @@ import { SectionNames } from 'meta/assessment/section'
 import { TableNames } from 'meta/assessment/table'
 import { LinkLocation, LinkToVisit } from 'meta/cycleData/links/link'
 import { Routes } from 'meta/routes/routes'
+import { Htmls } from 'utils/htmls'
 
 import { DescriptionRepository } from 'server/db/repository/assessmentCycle/descriptions'
 import { OriginalDataPointRepository } from 'server/db/repository/assessmentCycle/originalDataPoint'
 import { ODPCommentColumns } from 'server/db/repository/assessmentCycle/originalDataPoint/commentColumns'
-
-import { getLinksFromHtml } from './utils/getLinksFromHtml'
 
 type ProcessLinksProps = {
   countryIso: CountryIso
@@ -21,7 +20,7 @@ type ProcessLinksProps = {
 const _processLinks = (props: ProcessLinksProps): Array<LinkToVisit> => {
   const { countryIso, html, ...location } = props
 
-  const links = getLinksFromHtml(html)
+  const links = Htmls.getLinks(html)
 
   const locations = [location]
 
