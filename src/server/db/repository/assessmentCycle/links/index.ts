@@ -3,6 +3,7 @@ import { buildGetManyQuery, getMany } from 'server/db/repository/assessmentCycle
 import { getVerificationSummary } from 'server/db/repository/assessmentCycle/links/getVerificationSummary'
 import { markDeletedMany } from 'server/db/repository/assessmentCycle/links/markDeletedMany'
 import { update } from 'server/db/repository/assessmentCycle/links/update'
+import { upsertDescriptionLinks } from 'server/db/repository/assessmentCycle/links/upsertDescriptionLinks'
 import { upsertMany } from 'server/db/repository/assessmentCycle/links/upsertMany'
 
 export const LinkRepository = {
@@ -12,5 +13,6 @@ export const LinkRepository = {
   getVerificationSummary,
   markDeletedMany,
   update,
+  upsertDescriptionLinks,
   upsertMany,
 }
