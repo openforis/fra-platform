@@ -27,7 +27,9 @@ export const visitDescriptionLinks = async (props: VerifyDescriptionLinksJobProp
     `[visitDescriptionLinks] added description links job for ${assessment.props.name} / ${cycle.name} / ${countryIso}`
   )
 
-  await triggerVerifyLinksWorker()
+  void triggerVerifyLinksWorker().catch((error) => {
+    Logger.error(`[visitDescriptionLinks] failed to trigger verify links worker: ${JSON.stringify(error)}`)
+  })
 
   return job
 }
