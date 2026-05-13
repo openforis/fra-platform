@@ -37,7 +37,7 @@ export const getCSVRow = (props: Props): CSVRow => {
   const { name: assessmentName } = assessment.props
   const { name: cycleName } = cycle
   const { countryIso, countryIso2, m49, regionCodes = [], subregionCodes = [] } = country
-  const { colForestArea, colNodes, colYear, includeClimaticDomain, includeDeskStudy, withFlag } = options
+  const { colForestArea, colNodes, colYear, includeClimaticDomain, includeDeskStudy, includeFlag } = options
 
   const row: CSVRow = []
 
@@ -91,7 +91,7 @@ export const getCSVRow = (props: Props): CSVRow => {
     const value = getDatum(propsValue)
     row.push(parseValue(value, datumType))
 
-    if (withFlag) {
+    if (includeFlag) {
       const flag = getFlag({ assessmentName, colName, countryIso, cycleName, data, deskStudy, tableName, variableName })
       row.push(parseValue(flag, BulkDownloadDatumType.string))
     }

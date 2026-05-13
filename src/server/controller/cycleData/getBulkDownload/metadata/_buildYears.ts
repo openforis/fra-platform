@@ -10,7 +10,7 @@ type Props = PropsBulkDownloadFileBuilder & {
   builders: Array<BulkDownloadFileYearsBuilderConstructor>
   fileName: string
   includeDeskStudy?: boolean
-  withFlag?: boolean
+  includeFlag?: boolean
   years: Array<string>
 }
 
@@ -23,13 +23,13 @@ export const buildYears = (props: Props): Array<BulkDownloadFile> => {
     i18n,
     includeClimaticDomain,
     includeDeskStudy,
+    includeFlag,
     tables,
-    withFlag,
     years,
   } = props
 
   let csvPostProcessor: CSVPostProcessor | undefined
-  if (withFlag) {
+  if (includeFlag) {
     const legendEntries = [
       i18n.t('bulkDownload.flag.legend'),
       i18n.t('bulkDownload.flag.A'),
@@ -53,7 +53,7 @@ export const buildYears = (props: Props): Array<BulkDownloadFile> => {
     rows: years.map<BulkDownloadRow>((colYear) => {
       return { colNodes: [], colYear }
     }),
-    withFlag,
+    includeFlag,
   }
 
   const files = builders.flatMap<BulkDownloadFile>((Builder) => {
