@@ -12,8 +12,8 @@ export class ForestAreaChangeBuilder extends BulkDownloadFileYearsBuilder {
     return [
       {
         csvColumn: '1d_expansion',
-        variableName: 'forest_expansion',
         tableName,
+        variableName: 'forest_expansion',
       },
       {
         csvColumn: '1d_afforestation',
