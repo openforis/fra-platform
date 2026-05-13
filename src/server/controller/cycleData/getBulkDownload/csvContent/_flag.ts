@@ -4,6 +4,7 @@ import { CycleName } from 'meta/assessment/cycle'
 import { TableName, TableNames } from 'meta/assessment/table'
 import { RecordAssessmentDatas } from 'meta/data/recordDatas'
 import { Numbers } from 'utils/numbers'
+import { Objects } from 'utils/objects'
 
 import { BulkDownloadData } from 'server/controller/cycleData/getBulkDownload/types'
 
@@ -55,6 +56,6 @@ export const getFlag = (props: Props): string => {
 
   const isImputed = deskStudy || nodeValue?.faoEstimate
   if (isImputed) return 'I'
-  if (nodeValue?.raw == null) return 'O'
+  if (Objects.isNil(nodeValue?.raw)) return 'O'
   return 'A'
 }
