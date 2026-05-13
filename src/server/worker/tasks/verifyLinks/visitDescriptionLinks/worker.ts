@@ -3,6 +3,7 @@ import { Routes } from 'meta/routes/routes'
 import { Sockets } from 'meta/socket/sockets'
 import { Htmls } from 'utils/htmls'
 
+// import { ValidationRedisRepository } from 'server/cache/repository/validation'
 import { DescriptionRepository } from 'server/db/repository/assessmentCycle/descriptions'
 import { LinkRepository } from 'server/db/repository/assessmentCycle/links'
 import { SocketServer } from 'server/service/socket'
@@ -11,6 +12,7 @@ import { filterLinks } from 'server/worker/tasks/verifyLinks/visitCycleLinks/uti
 import { mergeLinks } from 'server/worker/tasks/verifyLinks/visitCycleLinks/utils/mergeLinks'
 import { visitLinks } from 'server/worker/tasks/verifyLinks/visitCycleLinks/utils/visitLinks'
 
+import { buildDescriptionLinkValidations } from './utils/buildDescriptionLinkValidations'
 import { VerifyDescriptionLinksJob } from './props'
 
 const _getLogKey = (job: VerifyDescriptionLinksJob): string => {
@@ -48,7 +50,7 @@ export default async (job: VerifyDescriptionLinksJob): Promise<void> => {
   const logKey = _getLogKey(job)
 
   try {
-    const { assessment, countryIso, cycle, descriptionIds } = job.data
+    const { assessment, countryIso, cycle } = job.data
     const time = new Date().getTime()
 
     Logger.info(`${logKey} started.`)
@@ -73,16 +75,20 @@ export default async (job: VerifyDescriptionLinksJob): Promise<void> => {
       linksToVisit,
     })
 
-    // Get the unique section names affected by this validation run.
-    const sectionNames = Array.from(
-      new Set(linksToVisit.flatMap(({ locations }) => locations.map(({ sectionName }) => sectionName)))
-    )
+    const descriptionValidations = buildDescriptionLinkValidations({ approvedLinks, linkVisits, linksToVisit })
+    // TODO Next PR: await ValidationRedisRepository.setDescriptionValidations({
+    //   assessment,
+    //   countryIso,
+    //   cycle,
+    //   descriptionValidations,
+    // })
+
     const eventName = Sockets.getDescriptionLinksValidationUpdateEvent({
       assessmentName: assessment.props.name,
       countryIso,
       cycleName: cycle.name,
     })
-    SocketServer.emit(eventName, { countryIso, descriptionIds, sectionNames })
+    SocketServer.emit(eventName, { countryIso, descriptionValidations })
 
     const duration = (new Date().getTime() - time) / 1000
     Logger.info(`${logKey} ended in ${duration} seconds with ${linkVisits.length} links visited.`)
