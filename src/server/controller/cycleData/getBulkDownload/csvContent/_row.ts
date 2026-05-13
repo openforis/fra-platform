@@ -6,6 +6,7 @@ import { Cycle } from 'meta/assessment/cycle'
 import { Objects } from 'utils/objects'
 
 import { getAreaLabel } from 'server/controller/cycleData/getBulkDownload/csvContent/_area'
+import { getFlag } from 'server/controller/cycleData/getBulkDownload/csvContent/_flag'
 import { GetDatumRecord, getDatumTableNode } from 'server/controller/cycleData/getBulkDownload/csvContent/_getDatum'
 import { parseValue } from 'server/controller/cycleData/getBulkDownload/csvContent/_parsers'
 import {
@@ -29,17 +30,14 @@ type Props = {
   options: CSVRowOptions
 }
 
-type PropsGetDatumBase = Pick<
-  PropsGetDatum,
-  'assessmentName' | 'countryIso' | 'cycleName' | 'data' | 'deskStudy' | 'i18n'
->
+type PropsGetDatumBase = Pick<PropsGetDatum, 'assessmentName' | 'countryIso' | 'cycleName' | 'data' | 'i18n'>
 
 export const getCSVRow = (props: Props): CSVRow => {
   const { assessment, country, cycle, data, i18n, options } = props
   const { name: assessmentName } = assessment.props
   const { name: cycleName } = cycle
   const { countryIso, countryIso2, m49, regionCodes = [], subregionCodes = [] } = country
-  const { colForestArea, colNodes, colYear, includeClimaticDomain, includeDeskStudy } = options
+  const { colForestArea, colNodes, colYear, includeClimaticDomain, includeDeskStudy, withFlag } = options
 
   const row: CSVRow = []
 
@@ -59,7 +57,7 @@ export const getCSVRow = (props: Props): CSVRow => {
   }
 
   const deskStudy = country.props?.deskStudy
-  const propsValueBase: PropsGetDatumBase = { assessmentName, countryIso, cycleName, data, deskStudy, i18n }
+  const propsValueBase: PropsGetDatumBase = { assessmentName, countryIso, cycleName, data, i18n }
   //==== forestArea
   if (!Objects.isNil(colForestArea)) {
     const { colName, csvColumn, tableName, variableName } = colForestArea
@@ -91,8 +89,12 @@ export const getCSVRow = (props: Props): CSVRow => {
 
     const propsValue = { ...propsValueBase, colName, csvColumn, tableName, variableName }
     const value = getDatum(propsValue)
-
     row.push(parseValue(value, datumType))
+
+    if (withFlag) {
+      const flag = getFlag({ assessmentName, colName, countryIso, cycleName, data, deskStudy, tableName, variableName })
+      row.push(parseValue(flag, BulkDownloadDatumType.string))
+    }
   })
 
   return row

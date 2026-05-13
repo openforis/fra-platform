@@ -10,6 +10,7 @@ type Props = PropsBulkDownloadFileBuilder & {
   builders: Array<BulkDownloadFileYearsBuilderConstructor>
   fileName: string
   includeDeskStudy?: boolean
+  withFlag?: boolean
   years: Array<string>
 }
 
@@ -52,10 +53,11 @@ export const buildYears = (props: Props): Array<BulkDownloadFile> => {
     rows: years.map<BulkDownloadRow>((colYear) => {
       return { colNodes: [], colYear }
     }),
+    withFlag,
   }
 
   const files = builders.flatMap<BulkDownloadFile>((Builder) => {
-    const builder = new Builder({ file, props: { assessment, cycle, includeClimaticDomain, i18n, tables, withFlag } })
+    const builder = new Builder({ file, props: { assessment, cycle, includeClimaticDomain, i18n, tables } })
 
     years.forEach((year, index) => {
       const row = file.rows.at(index)

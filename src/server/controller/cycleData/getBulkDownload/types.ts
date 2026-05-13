@@ -32,7 +32,6 @@ type GetDatum = typeof RecordAssessmentDatas.getDatum
 export type PropsGetDatum = Omit<Parameters<GetDatum>[0], 'data'> & {
   csvColumn: string
   data: BulkDownloadData
-  deskStudy?: boolean
   i18n: i18nType
 }
 export type BulkDownloadGetDatum = (props: PropsGetDatum) => ReturnType<GetDatum>
@@ -47,13 +46,11 @@ export type PropsBulkDownload = {
 export type PropsBulkDownloadFileBuilder = PropsBulkDownload & {
   includeClimaticDomain?: boolean
   tables: RecordTables
-  withFlag?: boolean
 }
 
 // ===== Bulk Download metadata definition
 export enum BulkDownloadColType {
   description = 'description',
-  flag = 'flag',
   odp = 'odp',
   tableNode = 'tableNode',
 }
@@ -86,6 +83,7 @@ export type BulkDownloadFile = {
   includeDeskStudy?: boolean
   includeForestArea?: boolean
   rows: Array<BulkDownloadRow> // rows per country
+  withFlag?: boolean
 }
 
 export type BulkDownloadMetadata = {
@@ -101,5 +99,5 @@ export type CSVValue = string | number
 export type CSVRow = Array<CSVValue>
 export type CSVPostProcessor = (props: { rows: Array<CSVRow> }) => void
 export type CSVRowOptions = Pick<BulkDownloadMetadata, 'colForestArea'> &
-  Pick<BulkDownloadFile, 'includeClimaticDomain' | 'includeDeskStudy'> &
+  Pick<BulkDownloadFile, 'includeClimaticDomain' | 'includeDeskStudy' | 'withFlag'> &
   Pick<BulkDownloadRow, 'colNodes' | 'colYear'>

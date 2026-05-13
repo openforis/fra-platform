@@ -31,12 +31,14 @@ type Props = {
 export const getCSVContentFile = (props: Props): CSVContent => {
   const { assessment, countries, cycle, data, file, i18n, metadata } = props
   const { colForestArea } = metadata
-  const { csvPostProcessor, fileName, includeClimaticDomain, includeDeskStudy, includeForestArea, rows } = file
+  const { csvPostProcessor, fileName, includeClimaticDomain, includeDeskStudy, includeForestArea, rows, withFlag } =
+    file
 
   const baseOptions = {
     colForestArea: includeForestArea ? colForestArea : undefined,
     includeClimaticDomain,
     includeDeskStudy,
+    withFlag,
   }
   const csvRows: Array<CSVRow> = []
 
