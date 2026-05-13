@@ -15,7 +15,7 @@ type Props = {
   sectionNames?: Array<SectionName>
 }
 
-const _parseDescriptionValidations = (value?: string | null): SectionDescriptionValidations => {
+const _parseSectionDescriptionValidations = (value?: string | null): SectionDescriptionValidations => {
   if (!value) {
     return {}
   }
@@ -37,7 +37,7 @@ export const getDescriptionValidations = async (props: Props): Promise<RecordDes
     const values = await redis.hmget(key, ...sectionNames)
 
     return sectionNames.reduce<RecordDescriptionValidations>((acc, sectionName, index) => {
-      acc[sectionName] = _parseDescriptionValidations(values[index])
+      acc[sectionName] = _parseSectionDescriptionValidations(values[index])
       return acc
     }, {})
   }
@@ -47,7 +47,7 @@ export const getDescriptionValidations = async (props: Props): Promise<RecordDes
 
   return Object.entries(descriptionValidations).reduce<RecordDescriptionValidations>(
     (acc, [sectionName, validations]) => {
-      acc[sectionName] = _parseDescriptionValidations(validations)
+      acc[sectionName] = _parseSectionDescriptionValidations(validations)
       return acc
     },
     {}
