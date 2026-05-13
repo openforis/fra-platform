@@ -13,5 +13,5 @@ export const buildAnnualYears: BulkDownloadFilesFactory = (props) => {
   const years = Years.annual(cycle)
   const builders = [DisturbancesBuilder, AreaAffectedByFireBuilder]
 
-  return buildYears({ ...props, builders, fileName, includeDeskStudy, years })
+  return buildYears({ ...props, builders, fileName, includeDeskStudy, includeFlagLegend: true, withFlag: true, years })
 }

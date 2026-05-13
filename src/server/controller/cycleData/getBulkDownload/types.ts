@@ -47,6 +47,7 @@ export type PropsBulkDownload = {
 export type PropsBulkDownloadFileBuilder = PropsBulkDownload & {
   includeClimaticDomain?: boolean
   tables: RecordTables
+  withFlag?: boolean
 }
 
 // ===== Bulk Download metadata definition

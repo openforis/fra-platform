@@ -25,6 +25,7 @@ export const buildYears = (props: Props): Array<BulkDownloadFile> => {
     includeDeskStudy,
     includeFlagLegend,
     tables,
+    withFlag,
     years,
   } = props
 
@@ -56,7 +57,7 @@ export const buildYears = (props: Props): Array<BulkDownloadFile> => {
   }
 
   const files = builders.flatMap<BulkDownloadFile>((Builder) => {
-    const builder = new Builder({ file, props: { assessment, cycle, includeClimaticDomain, i18n, tables } })
+    const builder = new Builder({ file, props: { assessment, cycle, includeClimaticDomain, i18n, tables, withFlag } })
 
     years.forEach((year, index) => {
       const row = file.rows.at(index)
