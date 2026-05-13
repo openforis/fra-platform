@@ -2,7 +2,6 @@ import { BulkDownloadFileYearsBuilderConstructor } from 'server/controller/cycle
 import {
   BulkDownloadFile,
   BulkDownloadRow,
-  CSVPostProcessor,
   PropsBulkDownloadFileBuilder,
 } from 'server/controller/cycleData/getBulkDownload/types'
 
@@ -28,25 +27,8 @@ export const buildYears = (props: Props): Array<BulkDownloadFile> => {
     years,
   } = props
 
-  let csvPostProcessor: CSVPostProcessor | undefined
-  if (includeFlag) {
-    const legendEntries = [
-      i18n.t('bulkDownload.flag.legend'),
-      i18n.t('bulkDownload.flag.A'),
-      i18n.t('bulkDownload.flag.I'),
-      i18n.t('bulkDownload.flag.M'),
-      i18n.t('bulkDownload.flag.O'),
-    ]
-    csvPostProcessor = ({ rows }: Parameters<CSVPostProcessor>[0]): void => {
-      legendEntries.forEach((entry, index) => {
-        rows[index]?.push(`"${entry}"`)
-      })
-    }
-  }
-
   // init main file
   const file: BulkDownloadFile = {
-    csvPostProcessor,
     fileName,
     includeClimaticDomain,
     includeDeskStudy,

@@ -58,6 +58,20 @@ export const getCSVContentFile = (props: Props): CSVContent => {
 
   csvPostProcessor?.({ rows: csvRows })
 
+  if (includeFlag) {
+    const legendEntries = [
+      i18n.t('bulkDownload.flag.legend'),
+      i18n.t('bulkDownload.flag.A'),
+      i18n.t('bulkDownload.flag.I'),
+      i18n.t('bulkDownload.flag.M'),
+      i18n.t('bulkDownload.flag.O'),
+    ]
+
+    legendEntries.forEach((entry, index) => {
+      csvRows.at(index).push(`"${entry}"`)
+    })
+  }
+
   return {
     content: csvRows.join(`\n`),
     fileName: `${fileName}_${Dates.format(new Date(), 'yyyy-MM-dd')}.csv`,
