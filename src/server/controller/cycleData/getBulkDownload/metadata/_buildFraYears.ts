@@ -60,5 +60,5 @@ export const buildFraYears: BulkDownloadFilesFactory = (props) => {
     ...(is2020 ? [EmploymentBuilder, GraduationOfStudentsBuilder] : []),
   ]
 
-  return buildYears({ ...props, builders, fileName, includeDeskStudy, includeFlagLegend: true, withFlag: true, years })
+  return buildYears({ ...props, builders, fileName, includeDeskStudy, withFlag: true, years })
 }
