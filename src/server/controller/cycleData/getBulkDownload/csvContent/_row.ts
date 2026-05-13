@@ -29,7 +29,10 @@ type Props = {
   options: CSVRowOptions
 }
 
-type PropsGetDatumBase = Pick<PropsGetDatum, 'assessmentName' | 'countryIso' | 'cycleName' | 'data' | 'i18n'>
+type PropsGetDatumBase = Pick<
+  PropsGetDatum,
+  'assessmentName' | 'countryIso' | 'cycleName' | 'data' | 'deskStudy' | 'i18n'
+>
 
 export const getCSVRow = (props: Props): CSVRow => {
   const { assessment, country, cycle, data, i18n, options } = props
@@ -55,7 +58,8 @@ export const getCSVRow = (props: Props): CSVRow => {
     row.push(parseValue(deskStudy, BulkDownloadDatumType.string))
   }
 
-  const propsValueBase: PropsGetDatumBase = { assessmentName, countryIso, cycleName, data, i18n }
+  const deskStudy = country.props?.deskStudy
+  const propsValueBase: PropsGetDatumBase = { assessmentName, countryIso, cycleName, data, deskStudy, i18n }
   //==== forestArea
   if (!Objects.isNil(colForestArea)) {
     const { colName, csvColumn, tableName, variableName } = colForestArea

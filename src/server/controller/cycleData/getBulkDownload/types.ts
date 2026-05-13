@@ -32,6 +32,7 @@ type GetDatum = typeof RecordAssessmentDatas.getDatum
 export type PropsGetDatum = Omit<Parameters<GetDatum>[0], 'data'> & {
   csvColumn: string
   data: BulkDownloadData
+  deskStudy?: boolean
   i18n: i18nType
 }
 export type BulkDownloadGetDatum = (props: PropsGetDatum) => ReturnType<GetDatum>
@@ -51,6 +52,7 @@ export type PropsBulkDownloadFileBuilder = PropsBulkDownload & {
 // ===== Bulk Download metadata definition
 export enum BulkDownloadColType {
   description = 'description',
+  flag = 'flag',
   odp = 'odp',
   tableNode = 'tableNode',
 }

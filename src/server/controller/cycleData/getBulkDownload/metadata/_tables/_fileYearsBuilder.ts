@@ -4,6 +4,8 @@ import { Objects } from 'utils/objects'
 
 import {
   BulkDownloadColNode,
+  BulkDownloadColType,
+  BulkDownloadDatumType,
   BulkDownloadFile,
   BulkDownloadRow,
   CSVPostProcessor,
@@ -18,6 +20,7 @@ type ConstructorArgs = {
 export type ColNodeYearsFactory = Omit<BulkDownloadColNode, 'colName'> & {
   colName?: string // colName is optional and by default it will be derived from the year
   singleFileColumns?: Array<{ colName: string; csvColumn: string }>
+  withFlag?: boolean // if true, inserts a sibling flag column after this column
 }
 
 export interface BulkDownloadFileYearsBuilderConstructor {
@@ -54,10 +57,23 @@ export abstract class BulkDownloadFileYearsBuilder {
   public buildRowColNodes(props: { year: string }): Array<BulkDownloadColNode> {
     const { year } = props
 
-    return this.baseColNodes.map<BulkDownloadColNode>((colNode) => {
-      const { colName = year } = colNode
-      return { ...colNode, colName }
-    })
+    return this.baseColNodes.reduce<Array<BulkDownloadColNode>>((acc, colNode) => {
+      const { colName = year, withFlag, ...colNodeRest } = colNode
+      acc.push({ ...colNodeRest, colName })
+
+      // If withFlag enabled, push also sibling row for imputed flag
+      if (withFlag) {
+        acc.push({
+          colName,
+          colType: BulkDownloadColType.flag,
+          csvColumn: '',
+          datumType: BulkDownloadDatumType.string,
+          tableName: colNodeRest.tableName,
+          variableName: colNodeRest.variableName,
+        })
+      }
+      return acc
+    }, [])
   }
 
   /**

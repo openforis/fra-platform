@@ -22,6 +22,24 @@ export const getDatumDescription: BulkDownloadGetDatum = (props) => {
   return value ? parseDescription(value) : ''
 }
 
+export const getDatumFlag: BulkDownloadGetDatum = (props) => {
+  const { assessmentName, colName, countryIso, cycleName, data, deskStudy, tableName, variableName } = props
+  const nodeValue = RecordAssessmentDatas.getNodeValue({
+    assessmentName,
+    colName,
+    countryIso,
+    cycleName,
+    data: data.tables,
+    tableName,
+    variableName,
+  })
+
+  const isImputed = deskStudy || nodeValue?.faoEstimate
+  if (isImputed) return 'I'
+  if (nodeValue?.raw == null) return 'O'
+  return 'A'
+}
+
 const getDatumNDP: BulkDownloadGetDatum = (props) => {
   const { colName, countryIso, data, i18n, variableName } = props
   const countryData = data.odp[countryIso]
@@ -49,6 +67,7 @@ export const getDatumTableNode: BulkDownloadGetDatum = (props) => {
 
 export const GetDatumRecord: { [key in BulkDownloadColType]?: BulkDownloadGetDatum } = {
   [BulkDownloadColType.description]: getDatumDescription,
+  [BulkDownloadColType.flag]: getDatumFlag,
   [BulkDownloadColType.odp]: getDatumNDP,
   [BulkDownloadColType.tableNode]: getDatumTableNode,
 }
