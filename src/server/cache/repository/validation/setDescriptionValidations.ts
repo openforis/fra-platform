@@ -19,11 +19,7 @@ const _mergeSectionDescriptionValidations = (
   current: SectionDescriptionValidations,
   update: SectionDescriptionValidations
 ): SectionDescriptionValidations => {
-  const value: SectionDescriptionValidations = {}
-
-  if (current.dataSources || update.dataSources) {
-    value.dataSources = { ...current.dataSources, ...update.dataSources }
-  }
+  const value: SectionDescriptionValidations = { ...current, ...update }
 
   if (current.descriptions || update.descriptions) {
     value.descriptions = { ...current.descriptions, ...update.descriptions }
