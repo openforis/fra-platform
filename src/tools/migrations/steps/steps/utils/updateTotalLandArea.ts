@@ -86,11 +86,10 @@ export const updateTotalLandArea = async (props: Props, client: BaseProtocol): P
   )
 
   // 3. insert node
-  await Promise.all(
-    dataEntries.map(async ([countryIso, values]) => {
-      const years = values.map((value) => `'${value.year}'`).join(', ')
-      const meta = await client.one<Meta>(
-        `
+  await Promises.each(dataEntries, async ([countryIso, values]) => {
+    const years = values.map((value) => `'${value.year}'`).join(', ')
+    const meta = await client.one<Meta>(
+      `
             select jsonb_object_agg(
                            c.props ->> 'colName',
                            jsonb_build_object('colUuid', c.uuid, 'rowUuid', r.uuid)
@@ -103,31 +102,28 @@ export const updateTotalLandArea = async (props: Props, client: BaseProtocol): P
               and c.props ->> 'colName' in (${years})
               and c.props -> 'cycles' ? '${cycle.uuid}'
         `,
-        [],
-        ({ meta }) => meta
-      )
+      [],
+      ({ meta }) => meta
+    )
 
-      const query = values.reduce<Array<string>>((acc, { value, year }) => {
-        if (meta[year]) {
-          const query = `
+    const query = values.reduce<Array<string>>((acc, { value, year }) => {
+      if (meta[year]) {
+        acc.push(`
               insert into ${schemaCycle}.node (country_iso, row_uuid, col_uuid, value)
               values ('${countryIso}', '${meta[year].rowUuid}', '${meta[year].colUuid}',
                       jsonb_build_object('raw', '${value}'))
-          `
-          acc.push(query)
-        }
-        return acc
-      }, []).join(`; 
+          `)
+      }
+      return acc
+    }, []).join(`;
     `)
-      return client.query(query)
-    })
-  )
+    return client.query(query)
+  })
 
   // 4. insert node_ext
-  await Promise.all(
-    dataEntries.map(async ([countryIso, values]) => {
-      const query = values.map(
-        ({ value, year }) => `
+  await Promises.each(dataEntries, async ([countryIso, values]) => {
+    const query = values.map(
+      ({ value, year }) => `
             insert into ${schemaCycle}.node_ext (country_iso, props, type, value)
             values ('${countryIso}',
                     jsonb_build_object(
@@ -136,11 +132,10 @@ export const updateTotalLandArea = async (props: Props, client: BaseProtocol): P
                     '${NodeExtType.node}',
                     jsonb_build_object('raw', '${value}'))
         `
-      ).join(`;
+    ).join(`;
     `)
-      return client.query(query)
-    })
-  )
+    return client.query(query)
+  })
 
   // 5. update data cache
   await Promises.each(dataEntries, async ([countryIso]) => {
