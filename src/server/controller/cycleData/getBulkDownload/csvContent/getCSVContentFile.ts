@@ -31,12 +31,14 @@ type Props = {
 export const getCSVContentFile = (props: Props): CSVContent => {
   const { assessment, countries, cycle, data, file, i18n, metadata } = props
   const { colForestArea } = metadata
-  const { csvPostProcessor, fileName, includeClimaticDomain, includeDeskStudy, includeForestArea, rows } = file
+  const { csvPostProcessor, fileName, includeClimaticDomain, includeDeskStudy, includeFlag, includeForestArea, rows } =
+    file
 
   const baseOptions = {
     colForestArea: includeForestArea ? colForestArea : undefined,
     includeClimaticDomain,
     includeDeskStudy,
+    includeFlag,
   }
   const csvRows: Array<CSVRow> = []
 
@@ -55,6 +57,20 @@ export const getCSVContentFile = (props: Props): CSVContent => {
   })
 
   csvPostProcessor?.({ rows: csvRows })
+
+  if (includeFlag) {
+    const legendEntries = [
+      i18n.t('bulkDownload.flag.legend'),
+      i18n.t('bulkDownload.flag.A'),
+      i18n.t('bulkDownload.flag.I'),
+      i18n.t('bulkDownload.flag.M'),
+      i18n.t('bulkDownload.flag.O'),
+    ]
+
+    legendEntries.forEach((entry, index) => {
+      csvRows.at(index).push(`"${entry}"`)
+    })
+  }
 
   return {
     content: csvRows.join(`\n`),
