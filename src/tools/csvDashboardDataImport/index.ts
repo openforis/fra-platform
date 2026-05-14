@@ -8,15 +8,11 @@ import { CountryIso } from 'meta/area/countryIso'
 import { NodeValue } from 'meta/assessment/node'
 import { NodeExtType } from 'meta/nodeExt/nodeExt'
 import { Objects } from 'utils/objects'
-import { TotalLandAreaUpdateData, updateTotalLandArea } from 'tools/migrations/steps/steps/utils/updateTotalLandArea'
 import { CSV } from 'tools/utils/CSV'
 import { ToolsUtils } from 'tools/utils/toolsUtils'
 
-import { UserController } from 'server/controller/user'
 import { BaseProtocol, DB } from 'server/db/db'
 import { Logger } from 'server/utils/logger'
-
-const totalLandAreaFile = 'total_land_area.csv' as const
 
 const pgp = pgPromise()
 
@@ -173,33 +169,12 @@ const _writeDb = async (values: Array<ValueType>, client: BaseProtocol): Promise
   )
 }
 
-const _totalLandArea = async (client: BaseProtocol): Promise<void> => {
-  const values = await _getValues([totalLandAreaFile])
-
-  const user = await UserController.getUserRobot(client)
-  const data = values.reduce<TotalLandAreaUpdateData>((acc, valueType) => {
-    // eslint-disable-next-line camelcase
-    const { country_iso, props, value } = valueType
-    // eslint-disable-next-line camelcase
-    const countryIso = country_iso as CountryIso
-    if (!acc[countryIso]) acc[countryIso] = []
-    acc[countryIso].push({ year: Number(props.colName), value: Number(value.raw) })
-    return acc
-  }, {})
-
-  await updateTotalLandArea({ cycleName, data, user }, client)
-}
-
 const processCSVFiles = async (): Promise<void> => {
-  // Upsert new values
-  const fileNames = _getFileNames().filter((n) => n !== totalLandAreaFile)
+  const fileNames = _getFileNames()
   const values = await _getValues(fileNames)
 
   await DB.tx(async (client) => {
     await _writeDb(values, client)
-
-    // Update total land area values
-    await _totalLandArea(client)
   })
 }
 
