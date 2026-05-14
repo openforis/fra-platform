@@ -4,5 +4,12 @@
     "latestYear": "Dernière année NDP"
   },
   "dateOfExport": "Date d'exportation",
+  "flag": {
+    "legend": "Signaler",
+    "A": "A = Valeur normale, données officielles rapportées par pays/zone",
+    "I": "I = Valeur imposée, étude de bureau, données compilées par la FAO",
+    "M": "M = Valeur manquante, impossible d'exister, le dénominateur est zéro ou manquant",
+    "O": "O = Valeur manquante"
+  },
   "includeClimaticDomain": "Inclure domaine climatique"
 }

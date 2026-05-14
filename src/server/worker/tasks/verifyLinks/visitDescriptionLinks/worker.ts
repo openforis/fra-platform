@@ -1,14 +1,18 @@
 import { LinkToVisit } from 'meta/cycleData/links/link'
 import { Routes } from 'meta/routes/routes'
+import { Sockets } from 'meta/socket/sockets'
 import { Htmls } from 'utils/htmls'
 
+// import { ValidationRedisRepository } from 'server/cache/repository/validation'
 import { DescriptionRepository } from 'server/db/repository/assessmentCycle/descriptions'
 import { LinkRepository } from 'server/db/repository/assessmentCycle/links'
+import { SocketServer } from 'server/service/socket'
 import { Logger } from 'server/utils/logger'
 import { filterLinks } from 'server/worker/tasks/verifyLinks/visitCycleLinks/utils/filterLinks'
 import { mergeLinks } from 'server/worker/tasks/verifyLinks/visitCycleLinks/utils/mergeLinks'
 import { visitLinks } from 'server/worker/tasks/verifyLinks/visitCycleLinks/utils/visitLinks'
 
+import { buildDescriptionLinkValidations } from './utils/buildDescriptionLinkValidations'
 import { VerifyDescriptionLinksJob } from './props'
 
 const _getLogKey = (job: VerifyDescriptionLinksJob): string => {
@@ -70,6 +74,21 @@ export default async (job: VerifyDescriptionLinksJob): Promise<void> => {
       linkVisits,
       linksToVisit,
     })
+
+    const descriptionValidations = buildDescriptionLinkValidations({ approvedLinks, linkVisits, linksToVisit })
+    // TODO Next PR: await ValidationRedisRepository.setDescriptionValidations({
+    //   assessment,
+    //   countryIso,
+    //   cycle,
+    //   descriptionValidations,
+    // })
+
+    const eventName = Sockets.getDescriptionLinksValidationUpdateEvent({
+      assessmentName: assessment.props.name,
+      countryIso,
+      cycleName: cycle.name,
+    })
+    SocketServer.emit(eventName, { countryIso, descriptionValidations })
 
     const duration = (new Date().getTime() - time) / 1000
     Logger.info(`${logKey} ended in ${duration} seconds with ${linkVisits.length} links visited.`)
