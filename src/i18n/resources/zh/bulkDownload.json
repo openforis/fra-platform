@@ -4,5 +4,12 @@
     "latestYear": "最新NDP年"
   },
   "dateOfExport": "导出日期",
+  "flag": {
+    "legend": "标志",
+    "A": "A = 正常值，按国家/地区报告的官方数据",
+    "I": "I = 估算值，案头研究，粮农组织编纂的数据",
+    "M": "M = 缺少值，不能存在，分母为零或丢失",
+    "O": "O = 缺少值"
+  },
   "includeClimaticDomain": "包括气候域"
 }

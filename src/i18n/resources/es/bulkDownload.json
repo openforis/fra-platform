@@ -4,5 +4,12 @@
     "latestYear": "Año del punto de información nacional más reciente"
   },
   "dateOfExport": "Fecha de exportación",
+  "flag": {
+    "legend": "Marca",
+    "A": "A = Valor normal, datos oficiales reportados por país/área",
+    "I": "I = Valor imputado, estudio de escritorio, datos compilados por la FAO",
+    "M": "M = Valor faltante, no puede existir, el denominador es cero o falta",
+    "O": "O = Valor faltante"
+  },
   "includeClimaticDomain": "Incluye dominio climático"
 }
