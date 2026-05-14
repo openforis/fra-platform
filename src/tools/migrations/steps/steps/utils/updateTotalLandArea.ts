@@ -1,5 +1,3 @@
-import { Promises } from 'utils/promises'
-
 import { CountryIso } from 'meta/area/countryIso'
 import { AssessmentNames } from 'meta/assessment/assessment'
 import { ColName } from 'meta/assessment/col'
@@ -8,6 +6,7 @@ import { TableNames } from 'meta/assessment/table'
 import { NodeUpdate, NodeUpdates } from 'meta/data/nodeUpdates'
 import { NodeExtType } from 'meta/nodeExt/nodeExt'
 import { User } from 'meta/user/user'
+import { Promises } from 'utils/promises'
 
 import { DataRedisRepository } from 'server/cache/repository/data'
 import { AreaController } from 'server/controller/area'
@@ -97,7 +96,7 @@ export const updateTotalLandArea = async (props: Props, client: BaseProtocol): P
                            jsonb_build_object('colUuid', c.uuid, 'rowUuid', r.uuid)
                    ) as meta
             from ${schemaAssessment}.col c
-                     left join ${schemaAssessment}.row r on r.id = c.row_id
+                     left join ${schemaAssessment}.row r on r.uuid = c.row_uuid
                      left join ${schemaAssessment}."table" t on t.uuid = r.table_uuid
             where t.props ->> 'name' = '${tableName}'
               and r.props ->> 'variableName' = '${variableName}'
