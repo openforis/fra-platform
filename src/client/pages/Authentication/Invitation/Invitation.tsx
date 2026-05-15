@@ -38,13 +38,20 @@ const Invitation: React.FC = () => {
     )
   }
 
-  // If the user is not logged in,
-  // or the user is logged in with a different account than invited
   const isInvitedUser = Boolean(user) && data.user.uuid === user.uuid
+
+  if (!isInvitedUser) {
+    return (
+      <Navigate
+        replace
+        to={Routes.Login.generatePath({ assessmentName, cycleName }, { invitationUuid: userInvitation.uuid })}
+      />
+    )
+  }
 
   return (
     <div className="login-form">
-      {isInvitedUser && <Accept data={data} />}
+      <Accept data={data} />
       <PrivacyNotice />
     </div>
   )
