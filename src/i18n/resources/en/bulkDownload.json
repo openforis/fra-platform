@@ -4,5 +4,12 @@
     "latestYear": "Latest NDP year"
   },
   "dateOfExport": "Date of export",
+  "flag": {
+    "legend": "Flag",
+    "A": "A = Normal value, official data reported by country/area",
+    "I": "I = Imputed value, desk study, data compiled by FAO",
+    "M": "M = Missing value, cannot exist, denominator is zero or missing",
+    "O": "O = Missing value"
+  },
   "includeClimaticDomain": "Include climatic domain"
 }

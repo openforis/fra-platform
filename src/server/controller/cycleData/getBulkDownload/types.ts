@@ -83,6 +83,7 @@ export type BulkDownloadFile = {
   includeDeskStudy?: boolean
   includeForestArea?: boolean
   rows: Array<BulkDownloadRow> // rows per country
+  includeFlag?: boolean
 }
 
 export type BulkDownloadMetadata = {
@@ -98,5 +99,5 @@ export type CSVValue = string | number
 export type CSVRow = Array<CSVValue>
 export type CSVPostProcessor = (props: { rows: Array<CSVRow> }) => void
 export type CSVRowOptions = Pick<BulkDownloadMetadata, 'colForestArea'> &
-  Pick<BulkDownloadFile, 'includeClimaticDomain' | 'includeDeskStudy'> &
+  Pick<BulkDownloadFile, 'includeClimaticDomain' | 'includeDeskStudy' | 'includeFlag'> &
   Pick<BulkDownloadRow, 'colNodes' | 'colYear'>
