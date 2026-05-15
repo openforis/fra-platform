@@ -9,7 +9,6 @@ import { useUser } from 'client/store/user/hooks/user'
 import Accept from 'client/pages/Authentication/Invitation/Accept'
 import { useData } from 'client/pages/Authentication/Invitation/hooks/useData'
 import PrivacyNotice from 'client/pages/Authentication/Invitation/PrivacyNotice'
-import Register from 'client/pages/Authentication/Invitation/Register'
 
 const Invitation: React.FC = () => {
   const { t } = useTranslation()
@@ -46,7 +45,6 @@ const Invitation: React.FC = () => {
   return (
     <div className="login-form">
       {isInvitedUser && <Accept data={data} />}
-      {!isInvitedUser && <Register />}
       <PrivacyNotice />
     </div>
   )
