@@ -17,7 +17,6 @@ export const loginGoogle = (req: LoginRequest, res: Response): void => {
     scope: ['https://www.googleapis.com/auth/plus.login', 'profile', 'email'],
     state: JSON.stringify({
       assessmentName: req.query.assessmentName,
-      countryIso: req.query.countryIso,
       cycleName: req.query.cycleName,
       invitationUuid: req.query.invitationUuid,
     }),
