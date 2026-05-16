@@ -16,7 +16,7 @@ type Props = {
 }
 
 const _parseSectionDescriptionValidations = (value?: string | null): SectionDescriptionValidations => {
-  if (!value) {
+  if (Objects.isEmpty(value)) {
     return {}
   }
 
