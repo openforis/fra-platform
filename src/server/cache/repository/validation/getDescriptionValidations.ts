@@ -12,7 +12,7 @@ type Props = {
   assessment: Assessment
   countryIso: CountryIso
   cycle: Cycle
-  sectionNames?: Array<SectionName>
+  sectionNames: Array<SectionName>
 }
 
 const _parseSectionDescriptionValidations = (value?: string | null): SectionDescriptionValidations => {
@@ -28,28 +28,15 @@ export const getDescriptionValidations = async (props: Props): Promise<RecordDes
 
   const key = getKeyCountry({ assessment, countryIso, cycle, key: Keys.Data.validationDescriptions })
 
-  if (!Objects.isNil(sectionNames)) {
-    if (sectionNames.length === 0) {
-      return {}
-    }
-
-    const redis = RedisData.getInstance()
-    const values = await redis.hmget(key, ...sectionNames)
-
-    return sectionNames.reduce<RecordDescriptionValidations>((acc, sectionName, index) => {
-      acc[sectionName] = _parseSectionDescriptionValidations(values[index])
-      return acc
-    }, {})
+  if (Objects.isEmpty(sectionNames)) {
+    return {}
   }
 
   const redis = RedisData.getInstance()
-  const descriptionValidations = await redis.hgetall(key)
+  const values = await redis.hmget(key, ...sectionNames)
 
-  return Object.entries(descriptionValidations).reduce<RecordDescriptionValidations>(
-    (acc, [sectionName, validations]) => {
-      acc[sectionName] = _parseSectionDescriptionValidations(validations)
-      return acc
-    },
-    {}
-  )
+  return sectionNames.reduce<RecordDescriptionValidations>((acc, sectionName, index) => {
+    acc[sectionName] = _parseSectionDescriptionValidations(values[index])
+    return acc
+  }, {})
 }
