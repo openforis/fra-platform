@@ -5,7 +5,7 @@ import { Link, LinkToVisit, VisitedLink } from 'meta/cycleData/links/link'
 
 import { AreaRedisRepository } from 'server/cache/repository/area'
 import { SectionRedisRepository } from 'server/cache/repository/section'
-import { ValidationRedisRepository } from 'server/cache/repository/validation'
+import { DescriptionValidationRedisRepository } from 'server/cache/repository/validation'
 import { buildDescriptionLinkValidationsByCountry } from 'server/worker/tasks/verifyLinks/visitDescriptionLinks/utils/buildDescriptionLinkValidations'
 
 type Props = {
@@ -39,7 +39,7 @@ export const refreshDescriptionLinkValidationCache = async (props: Props): Promi
 
   await Promise.all(
     targetCountryISOs.map((targetCountryIso) =>
-      ValidationRedisRepository.replaceDescriptionLinkValidations({
+      DescriptionValidationRedisRepository.updateTextDescriptionValidation({
         assessment,
         countryIso: targetCountryIso,
         cycle,

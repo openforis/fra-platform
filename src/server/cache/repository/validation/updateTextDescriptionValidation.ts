@@ -17,7 +17,7 @@ type Props = {
   sectionNames: Array<SectionName>
 }
 
-const _replaceDescriptionLinkSectionValidations = (
+const _updateTextDescriptionSectionValidation = (
   current: SectionDescriptionValidations,
   update: SectionDescriptionValidations
 ): SectionDescriptionValidations => {
@@ -32,7 +32,7 @@ const _replaceDescriptionLinkSectionValidations = (
   return value
 }
 
-export const replaceDescriptionLinkValidations = async (props: Props): Promise<void> => {
+export const updateTextDescriptionValidation = async (props: Props): Promise<void> => {
   const { assessment, countryIso, cycle, descriptionValidations, sectionNames } = props
 
   const redis = RedisData.getInstance()
@@ -54,7 +54,7 @@ export const replaceDescriptionLinkValidations = async (props: Props): Promise<v
     const current = currentValidations[sectionName] ?? {}
     const update = descriptionValidations[sectionName] ?? {}
     // Refresh link validation results while keeping the rest of the section state intact.
-    const value = _replaceDescriptionLinkSectionValidations(current, update)
+    const value = _updateTextDescriptionSectionValidation(current, update)
 
     if (Objects.isEmpty(value)) {
       // Clear sections that are empty after the link validations are refreshed.

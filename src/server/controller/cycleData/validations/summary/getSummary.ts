@@ -4,7 +4,7 @@ import { Cycle } from 'meta/assessment/cycle'
 import { ValidationSummary } from 'meta/assessment/validation/summary'
 import { Objects } from 'utils/objects'
 
-import { ValidationRedisRepository } from 'server/cache/repository/validation'
+import { TableValidationRedisRepository } from 'server/cache/repository/validation'
 import { SectionRepository } from 'server/db/repository/assessment/section'
 
 type Props = {
@@ -18,7 +18,7 @@ export const getValidationSummary = async (props: Props): Promise<ValidationSumm
   const [sections, sectionsMetadata, tableValidations] = await Promise.all([
     SectionRepository.getMany({ assessment, cycle }),
     SectionRepository.getManyMetadata({ assessment, cycle }),
-    ValidationRedisRepository.getTableValidations({ assessment, countryIso, cycle }),
+    TableValidationRedisRepository.getTableValidations({ assessment, countryIso, cycle }),
   ])
   const summary: ValidationSummary = { sections: {}, subsections: {}, tables: {} }
 
