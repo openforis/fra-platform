@@ -8,6 +8,7 @@ import { Logger } from 'server/utils/logger'
 
 import { filterLinks } from './utils/filterLinks'
 import { mergeLinks } from './utils/mergeLinks'
+import { refreshDescriptionLinkValidationCache } from './utils/refreshDescriptionLinkValidationCache'
 import { visitLinks } from './utils/visitLinks'
 import { VerifyAllLinksJob } from './props'
 
@@ -60,6 +61,15 @@ export default async (job: VerifyAllLinksJob): Promise<void> => {
       assessment,
       cycle,
       linkVisits,
+    })
+
+    await refreshDescriptionLinkValidationCache({
+      assessment,
+      approvedLinks,
+      countryIso,
+      cycle,
+      linkVisits,
+      linksToVisit: mergedLinks,
     })
 
     const duration = (new Date().getTime() - time) / 1000
