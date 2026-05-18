@@ -1,4 +1,4 @@
-import { TableValidationRedisRepository } from 'server/cache/repository/validation'
+import { TableValidationRedisRepository } from 'server/cache/repository/validation/table'
 import { History } from 'server/controller/cycleData/history'
 import { Links } from 'server/controller/cycleData/links'
 import { deleteOriginalDataPointNationalClass } from 'server/controller/cycleData/originalDataPoint/deleteOriginalDataPointNationalClass'

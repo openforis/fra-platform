@@ -5,7 +5,7 @@ import { CycleName } from 'meta/assessment/cycle'
 
 import { AreaRedisRepository } from 'server/cache/repository/area'
 import { TableRedisRepository } from 'server/cache/repository/table'
-import { TableValidationRedisRepository } from 'server/cache/repository/validation'
+import { TableValidationRedisRepository } from 'server/cache/repository/validation/table'
 import { AssessmentController } from 'server/controller/assessment'
 import { updateValidations } from 'server/controller/cycleData/validations/updateValidations'
 import { BaseProtocol, DB } from 'server/db/db'

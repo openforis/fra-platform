@@ -3,7 +3,7 @@ import { Routes } from 'meta/routes/routes'
 import { Sockets } from 'meta/socket/sockets'
 import { Htmls } from 'utils/htmls'
 
-import { DescriptionValidationRedisRepository } from 'server/cache/repository/validation'
+import { DescriptionValidationRedisRepository } from 'server/cache/repository/validation/description'
 import { DescriptionRepository } from 'server/db/repository/assessmentCycle/descriptions'
 import { LinkRepository } from 'server/db/repository/assessmentCycle/links'
 import { SocketServer } from 'server/service/socket'

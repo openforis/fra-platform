@@ -6,7 +6,7 @@ import { TableName } from 'meta/assessment/table'
 import { Promises } from 'utils/promises'
 
 import { RowRedisRepository } from 'server/cache/repository/row'
-import { TableValidationRedisRepository } from 'server/cache/repository/validation'
+import { TableValidationRedisRepository } from 'server/cache/repository/validation/table'
 
 import { BaseContextBuilder } from './baseContextBuilder'
 import { Context } from './context'

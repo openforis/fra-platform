@@ -5,7 +5,7 @@ import { RecordTableValidationsState } from 'meta/assessment/validation/table'
 import { NodeUpdates } from 'meta/data/nodeUpdates'
 import { Sockets } from 'meta/socket/sockets'
 
-import { TableValidationRedisRepository } from 'server/cache/repository/validation'
+import { TableValidationRedisRepository } from 'server/cache/repository/validation/table'
 import { SocketServer } from 'server/service/socket'
 
 import { ContextFactory } from './context/contextFactory'

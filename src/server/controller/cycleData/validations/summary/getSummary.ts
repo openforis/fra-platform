@@ -4,7 +4,7 @@ import { Cycle } from 'meta/assessment/cycle'
 import { ValidationSummary } from 'meta/assessment/validation/summary'
 import { Objects } from 'utils/objects'
 
-import { TableValidationRedisRepository } from 'server/cache/repository/validation'
+import { TableValidationRedisRepository } from 'server/cache/repository/validation/table'
 import { SectionRepository } from 'server/db/repository/assessment/section'
 
 type Props = {

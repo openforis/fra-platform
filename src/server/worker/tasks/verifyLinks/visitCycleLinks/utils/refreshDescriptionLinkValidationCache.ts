@@ -5,7 +5,7 @@ import { Link, LinkToVisit, VisitedLink } from 'meta/cycleData/links/link'
 
 import { AreaRedisRepository } from 'server/cache/repository/area'
 import { SectionRedisRepository } from 'server/cache/repository/section'
-import { DescriptionValidationRedisRepository } from 'server/cache/repository/validation'
+import { DescriptionValidationRedisRepository } from 'server/cache/repository/validation/description'
 import { buildDescriptionLinkValidationsByCountry } from 'server/worker/tasks/verifyLinks/visitDescriptionLinks/utils/buildDescriptionLinkValidations'
 
 type Props = {
