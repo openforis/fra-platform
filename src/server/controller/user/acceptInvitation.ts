@@ -65,7 +65,7 @@ export const acceptInvitation = async (props: Props, client: BaseProtocol = DB):
     await ActivityLogRepository.insertActivityLog({ activityLog, assessment, cycle }, t)
 
     if (!Objects.isEmpty(userInvitation.invitedByUserUuid)) {
-      const recipient = await UserRepository.getOne({ uuid: userInvitation.invitedByUserUuid })
+      const recipient = await UserRepository.getOne({ uuid: userInvitation.invitedByUserUuid }, t)
       const assessmentName = assessment.props.name
       const cycleName = cycle.name
       const invitedUser = user
