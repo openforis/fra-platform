@@ -32,14 +32,14 @@ const _updateTextDescriptionSectionValidation = (
   return value
 }
 
-export const updateTextDescriptionValidation = async (props: Props): Promise<void> => {
+export const updateTextDescriptionValidation = async (props: Props): Promise<RecordDescriptionValidations> => {
   const { assessment, countryIso, cycle, descriptionValidations, sectionNames } = props
 
   const redis = RedisData.getInstance()
   const key = getKeyCountry({ assessment, countryIso, cycle, key: Keys.Data.validationDescriptions })
   const targetSectionNames = Array.from(new Set([...sectionNames, ...Object.keys(descriptionValidations)]))
 
-  if (Objects.isEmpty(targetSectionNames)) return
+  if (Objects.isEmpty(targetSectionNames)) return {}
 
   const currentValidations = await getDescriptionValidations({
     assessment,
@@ -47,6 +47,7 @@ export const updateTextDescriptionValidation = async (props: Props): Promise<voi
     cycle,
     sectionNames: targetSectionNames,
   })
+  const updatedDescriptionValidations: RecordDescriptionValidations = {}
   const validationsToSet: Record<string, string> = {}
   const sectionsToDelete: Array<string> = []
 
@@ -61,6 +62,7 @@ export const updateTextDescriptionValidation = async (props: Props): Promise<voi
       sectionsToDelete.push(sectionName)
     } else {
       validationsToSet[sectionName] = JSON.stringify(value)
+      updatedDescriptionValidations[sectionName] = value
     }
   })
 
@@ -68,4 +70,6 @@ export const updateTextDescriptionValidation = async (props: Props): Promise<voi
   const deleteSections = !Objects.isEmpty(sectionsToDelete) ? redis.hdel(key, ...sectionsToDelete) : undefined
 
   await Promise.all([setValidations, deleteSections])
+
+  return updatedDescriptionValidations
 }
