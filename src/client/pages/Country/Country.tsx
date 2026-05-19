@@ -9,10 +9,12 @@ import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { useIsGeoRoute } from 'client/hooks/routes'
 import Navigation from 'client/components/Navigation'
 
+import { useDescriptionValidationsListener } from './hooks/useDescriptionValidationsListener'
+import { useGetValidationsSummary } from './hooks/useGetValidationsSummary'
 import { useInitSections } from './hooks/useInitSections'
 import { useReviewSummaryListener } from './hooks/useReviewSummaryListener'
+import { useTableValidationsListener } from './hooks/useTableValidationsListener'
 import { useUserRedirect } from './hooks/useUserRedirect'
-import { useValidations } from './hooks/useValidations'
 
 const Country: React.FC = () => {
   const { countryIso } = useCountryRouteParams()
@@ -21,7 +23,9 @@ const Country: React.FC = () => {
   const countries = useCountries()
   const geoRoute = useIsGeoRoute()
   useInitSections()
-  useValidations()
+  useTableValidationsListener()
+  useDescriptionValidationsListener()
+  useGetValidationsSummary()
   useReviewSummaryListener()
   useUserRedirect()
 

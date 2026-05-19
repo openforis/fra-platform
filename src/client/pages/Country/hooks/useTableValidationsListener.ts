@@ -10,7 +10,9 @@ import { useCanEditCycleData } from 'client/store/user/hooks/auth'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { SocketClient } from 'client/service/socket/client'
 
-export const useTableValidations = (): void => {
+type TableValidationsListenerArgs = [{ tableValidations: RecordTableValidationsState }]
+
+export const useTableValidationsListener = (): void => {
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const canEditData = useCanEditCycleData()
   const dispatch = useAppDispatch()
@@ -20,7 +22,7 @@ export const useTableValidations = (): void => {
 
     const eventName = Sockets.getTableValidationsUpdateEvent({ countryIso, assessmentName, cycleName })
 
-    const listener = (args: [{ tableValidations: RecordTableValidationsState }]): void => {
+    const listener = (args: TableValidationsListenerArgs): void => {
       const [{ tableValidations }] = args
       dispatch(ValidationsActions.setNodeValueValidations({ assessmentName, cycleName, countryIso, tableValidations }))
     }

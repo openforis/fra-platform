@@ -7,16 +7,10 @@ import { useAppDispatch } from 'client/store/hooks'
 import { useCanEditCycleData } from 'client/store/user/hooks/auth'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 
-import { useDescriptionValidations } from './useDescriptionValidations'
-import { useTableValidations } from './useTableValidations'
-
-export const useValidations = (): void => {
+export const useGetValidationsSummary = (): void => {
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const canEditData = useCanEditCycleData()
   const dispatch = useAppDispatch()
-
-  useTableValidations()
-  useDescriptionValidations()
 
   // Init validations summary
   useEffect(() => {
