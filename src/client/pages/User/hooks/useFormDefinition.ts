@@ -1,10 +1,9 @@
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Objects } from 'utils/objects'
-
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { Contacts } from 'meta/cycleData/contacts'
+import { Objects } from 'utils/objects'
 
 import { FieldDefinition, FormDefinition, FormFieldType } from 'client/components/Form/types'
 
@@ -13,7 +12,7 @@ import { useRolePropsFields } from './useRolePropsFields'
 import { useRolesFields } from './useRolesFields'
 
 export const useFormDefinition = (props: PropsFormDefinition): FormDefinition | undefined => {
-  const { editUserRules, targetUser } = props
+  const { editUserRules, labels, targetUser } = props
 
   const { t } = useTranslation()
 
@@ -92,6 +91,6 @@ export const useFormDefinition = (props: PropsFormDefinition): FormDefinition | 
     fields.push(...rolePropsFields)
     fields.push(...rolesFields)
 
-    return { fields }
-  }, [emailDisabled, rolePropsFields, rolesFields, t, targetUser, userDisabled])
+    return { fields, labels }
+  }, [emailDisabled, labels, rolePropsFields, rolesFields, t, targetUser, userDisabled])
 }

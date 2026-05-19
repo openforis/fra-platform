@@ -21,11 +21,13 @@ import { Option } from 'client/components/Inputs/Select'
 import { PropsFormDefinition } from 'client/pages/User/hooks/types'
 
 export const useRolePropsFields = (props: PropsFormDefinition): FormDefinition['fields'] => {
-  const { targetUser } = props
+  const { countryIso: countryIsoProp, cycle: cycleProp, targetUser } = props
 
   const { t } = useTranslation()
-  const { countryIso } = useCountryRouteParams<CountryIso>()
-  const cycle = useCycle()
+  const countryRouteParams = useCountryRouteParams<CountryIso>()
+  const countryIso = countryIsoProp ?? countryRouteParams.countryIso
+  const cycleRoute = useCycle()
+  const cycle = cycleProp ?? cycleRoute
   const user = useUser()
 
   return useMemo<FormDefinition['fields']>(() => {

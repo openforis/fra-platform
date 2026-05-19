@@ -1,9 +1,12 @@
+import './Invitation.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Navigate } from 'react-router'
+import classNames from 'classnames'
 
 import { Routes } from 'meta/routes/routes'
 import { UserInvitations } from 'meta/user/invitations'
+import { UserRoles } from 'meta/user/roles'
 
 import { useUser } from 'client/store/user/hooks/user'
 import Accept from 'client/pages/Authentication/Invitation/Accept'
@@ -49,8 +52,10 @@ const Invitation: React.FC = () => {
     )
   }
 
+  const showForm = UserRoles.isInvitationInfoRequired(userInvitation.role)
+
   return (
-    <div className="login-form">
+    <div className={classNames({ 'invitation-accept-form': showForm, 'login-form': !showForm })}>
       <Accept data={data} />
       <PrivacyNotice />
     </div>

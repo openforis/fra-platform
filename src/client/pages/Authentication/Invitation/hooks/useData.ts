@@ -30,6 +30,8 @@ export const useData = (): DataInvitation | undefined => {
   })
 
   useEffect(() => {
+    // Only fetch if dataProp is empty.
+    // E.g. when arriving from google redirect to invitation accept page
     if (invitationUuid) fetchData()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [invitationUuid])
