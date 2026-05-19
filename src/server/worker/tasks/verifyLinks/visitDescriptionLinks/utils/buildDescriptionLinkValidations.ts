@@ -5,9 +5,11 @@ import { Links } from 'meta/cycleData/links/links'
 
 const _getLinkKey = (link: Pick<LinkToVisit, 'countryIso' | 'link'>): string => `${link.countryIso}_${link.link ?? ''}`
 
-const _isDescriptionLocation = (
+const _isDescriptionTextLocation = (
   location: LinkLocation
-): location is Extract<LinkLocation, { descriptionName: string }> => 'descriptionName' in location
+): location is Extract<LinkLocation, { descriptionName: string }> => {
+  return 'descriptionName' in location && location.path.length === 1 && location.path[0] === 'text'
+}
 
 type Props = {
   approvedLinks: Array<Link>
@@ -30,7 +32,7 @@ export const buildDescriptionLinkValidations = (props: Props): RecordDescription
     const validationCode = linkVisitsByKey[linkKey]?.code
     const valid = approved || validationCode === LinkValidationStatusCode.success
 
-    linkToVisit.locations.filter(_isDescriptionLocation).forEach((location) => {
+    linkToVisit.locations.filter(_isDescriptionTextLocation).forEach((location) => {
       const { descriptionName, sectionName } = location
       const sectionValidation = (acc[sectionName] ??= { descriptions: {} })
       const descriptions = (sectionValidation.descriptions ??= {})
@@ -46,4 +48,25 @@ export const buildDescriptionLinkValidations = (props: Props): RecordDescription
 
     return acc
   }, {})
+}
+
+export const buildDescriptionLinkValidationsByCountry = (
+  props: Props
+): Record<string, RecordDescriptionValidations> => {
+  const { linksToVisit } = props
+
+  const linksToVisitByCountry = linksToVisit.reduce<Record<string, Array<LinkToVisit>>>((acc, linkToVisit) => {
+    const { countryIso } = linkToVisit
+    acc[countryIso] ??= []
+    acc[countryIso].push(linkToVisit)
+    return acc
+  }, {})
+
+  return Object.entries(linksToVisitByCountry).reduce<Record<string, RecordDescriptionValidations>>(
+    (acc, [countryIso, countryLinksToVisit]) => {
+      acc[countryIso] = buildDescriptionLinkValidations({ ...props, linksToVisit: countryLinksToVisit })
+      return acc
+    },
+    {}
+  )
 }

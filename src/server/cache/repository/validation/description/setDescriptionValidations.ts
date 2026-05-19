@@ -6,7 +6,7 @@ import { Objects } from 'utils/objects'
 
 import { getKeyCountry, Keys } from 'server/cache/repository/keys'
 import { RedisData } from 'server/cache/repository/redisData'
-import { getDescriptionValidations } from 'server/cache/repository/validation/getDescriptionValidations'
+import { getDescriptionValidations } from 'server/cache/repository/validation/description/getDescriptionValidations'
 
 type Props = {
   assessment: Assessment

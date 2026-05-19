@@ -3,7 +3,7 @@ import { Routes } from 'meta/routes/routes'
 import { Sockets } from 'meta/socket/sockets'
 import { Htmls } from 'utils/htmls'
 
-import { ValidationRedisRepository } from 'server/cache/repository/validation'
+import { DescriptionValidationRedisRepository } from 'server/cache/repository/validation/description'
 import { DescriptionRepository } from 'server/db/repository/assessmentCycle/descriptions'
 import { LinkRepository } from 'server/db/repository/assessmentCycle/links'
 import { SocketServer } from 'server/service/socket'
@@ -76,7 +76,7 @@ export default async (job: VerifyDescriptionLinksJob): Promise<void> => {
     })
 
     const descriptionValidations = buildDescriptionLinkValidations({ approvedLinks, linkVisits, linksToVisit })
-    await ValidationRedisRepository.setDescriptionValidations({
+    await DescriptionValidationRedisRepository.setDescriptionValidations({
       assessment,
       countryIso,
       cycle,

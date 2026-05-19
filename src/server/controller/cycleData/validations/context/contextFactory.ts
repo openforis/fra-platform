@@ -6,7 +6,7 @@ import { TableName } from 'meta/assessment/table'
 import { Promises } from 'utils/promises'
 
 import { RowRedisRepository } from 'server/cache/repository/row'
-import { ValidationRedisRepository } from 'server/cache/repository/validation'
+import { TableValidationRedisRepository } from 'server/cache/repository/validation/table'
 
 import { BaseContextBuilder } from './baseContextBuilder'
 import { Context } from './context'
@@ -108,7 +108,7 @@ export class ContextFactory extends BaseContextBuilder {
     const [contextData, rows, tableValidations] = await Promise.all([
       this.#dataContextBuilder.getData(),
       RowRedisRepository.getRows({ assessment, rowKeys: Array.from(this.#rowKeys) }),
-      ValidationRedisRepository.getTableValidations({ assessment, countryIso, cycle, tableNames }),
+      TableValidationRedisRepository.getTableValidations({ assessment, countryIso, cycle, tableNames }),
     ])
     const { assessments, data } = contextData
 
