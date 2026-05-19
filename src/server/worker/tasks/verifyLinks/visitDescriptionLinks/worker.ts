@@ -76,6 +76,8 @@ export default async (job: VerifyDescriptionLinksJob): Promise<void> => {
     })
 
     const descriptionValidations = buildDescriptionLinkValidations({ approvedLinks, linkVisits, linksToVisit })
+    const sectionNames = Object.keys(descriptionValidations)
+
     await DescriptionValidationRedisRepository.setDescriptionValidations({
       assessment,
       countryIso,
@@ -88,7 +90,7 @@ export default async (job: VerifyDescriptionLinksJob): Promise<void> => {
       countryIso,
       cycleName: cycle.name,
     })
-    SocketServer.emit(eventName, { countryIso, descriptionValidations })
+    SocketServer.emit(eventName, { countryIso, descriptionValidations, sectionNames })
 
     const duration = (new Date().getTime() - time) / 1000
     Logger.info(`${logKey} ended in ${duration} seconds with ${linkVisits.length} links visited.`)

@@ -2,10 +2,12 @@ import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { Link, LinkToVisit, VisitedLink } from 'meta/cycleData/links/link'
+import { Sockets } from 'meta/socket/sockets'
 
 import { AreaRedisRepository } from 'server/cache/repository/area'
 import { SectionRedisRepository } from 'server/cache/repository/section'
 import { DescriptionValidationRedisRepository } from 'server/cache/repository/validation/description'
+import { SocketServer } from 'server/service/socket'
 import { buildDescriptionLinkValidationsByCountry } from 'server/worker/tasks/verifyLinks/visitDescriptionLinks/utils/buildDescriptionLinkValidations'
 
 type Props = {
@@ -38,14 +40,23 @@ export const refreshDescriptionLinkValidationCache = async (props: Props): Promi
   })
 
   await Promise.all(
-    targetCountryISOs.map((targetCountryIso) =>
-      DescriptionValidationRedisRepository.updateTextDescriptionValidation({
+    targetCountryISOs.map(async (targetCountryIso) => {
+      const descriptionValidations = descriptionValidationsByCountry[targetCountryIso] ?? {}
+
+      await DescriptionValidationRedisRepository.updateTextDescriptionValidation({
         assessment,
         countryIso: targetCountryIso,
         cycle,
-        descriptionValidations: descriptionValidationsByCountry[targetCountryIso] ?? {},
+        descriptionValidations,
         sectionNames,
       })
-    )
+
+      const eventName = Sockets.getDescriptionLinksValidationUpdateEvent({
+        assessmentName: assessment.props.name,
+        countryIso: targetCountryIso,
+        cycleName: cycle.name,
+      })
+      SocketServer.emit(eventName, { countryIso: targetCountryIso, descriptionValidations, sectionNames })
+    })
   )
 }
