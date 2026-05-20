@@ -10,6 +10,7 @@ export const removeValidationsReducer = (builder: ActionReducerMapBuilder<Valida
     const { assessmentName, countryIso, cycleName } = action.payload
     const path = [assessmentName, cycleName, countryIso]
 
+    Objects.unset(state.descriptions, path)
     Objects.unset(state.summary, path)
     Objects.unset(state.tables, path)
   })
