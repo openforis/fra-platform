@@ -8,7 +8,6 @@ export default async (client: BaseProtocol): Promise<void> => {
   const assessments = await AssessmentController.getAll({})
   const allCycles = assessments.flatMap((assessment) => assessment.cycles.map((cycle) => ({ assessment, cycle })))
 
-  // update public
   await client.none(`
       update public.country c
        set m49 = 159
