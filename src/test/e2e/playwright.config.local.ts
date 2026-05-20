@@ -10,7 +10,7 @@ const config: PlaywrightTestConfig = {
   use: {
     ...baseConfig.use,
     headless: false,
-    baseURL: 'http://localhost:9000',
+    baseURL: 'http://127.0.0.1:9000',
     launchOptions: {
       slowMo: 100,
     },
