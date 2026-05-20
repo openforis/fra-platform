@@ -42,7 +42,9 @@ test.describe.serial('National Correspondent: ', () => {
     await ncPage.fill('input[name="password2"]', testUser.password)
     await ncPage.click('button.button:has-text("Sign in with FRA")')
 
-    // After registering, the accept-invitation page shows the required info form
+    // After registering, wait for the accept-invitation page to load with the required info form
+    await ncPage.waitForSelector('[id="select-user.props.title"]', { timeout: 30_000 })
+
     await DOMUtils.selectOption(ncPage, { id: 'select-user.props.title' }, 'Mr.')
     await DOMUtils.fillWYSIWYG(ncPage, { id: 'role.props.organization' }, 'Test Organization')
     await DOMUtils.fillInput(ncPage, { id: 'role.props.address.street' }, 'Test Street 1')
