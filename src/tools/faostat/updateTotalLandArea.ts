@@ -1,4 +1,5 @@
 import { CountryIso } from 'meta/area/countryIso'
+import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { Assessment } from 'meta/assessment/assessment'
 import { ColName } from 'meta/assessment/col'
 import { Cycle } from 'meta/assessment/cycle'
@@ -12,6 +13,7 @@ import { DataRedisRepository } from 'server/cache/repository/data'
 import { AreaController } from 'server/controller/area'
 import { updateDependents } from 'server/controller/cycleData/updateDependencies/updateDependents'
 import { BaseProtocol } from 'server/db/db'
+import { ActivityLogDb, ActivityLogRepository } from 'server/db/repository/public/activityLog'
 import { Schemas } from 'server/db/schemas'
 
 export type TotalLandAreaUpdateData = {
@@ -82,7 +84,7 @@ export const updateTotalLandArea = async (props: Props, client: BaseProtocol): P
   `)
   )
 
-  // 3. insert node
+  // 3. insert node + activity log
   await Promises.each(dataEntries, async ([countryIso, values]) => {
     const years = values.map((value) => `'${value.year}'`).join(', ')
     const meta = await client.one<Meta>(
@@ -114,7 +116,20 @@ export const updateTotalLandArea = async (props: Props, client: BaseProtocol): P
       return acc
     }, []).join(`;
     `)
-    return client.query(query)
+    await client.query(query)
+
+    const activityLogs = values.map<
+      ActivityLogDb<{ countryIso: string; tableName: string; variableName: string; colName: string; value: string }>
+    >(({ value, year }) => ({
+      assessment_uuid: assessment.uuid,
+      cycle_uuid: cycle.uuid,
+      country_iso: countryIso,
+      section: tableName,
+      message: ActivityLogMessage.nodeValueImport,
+      target: { countryIso, tableName, variableName, colName: year, value },
+      user_id: user.id,
+    }))
+    await ActivityLogRepository.massiveInsert({ activityLogs }, client)
   })
 
   // 4. insert node_ext
