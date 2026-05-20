@@ -13,7 +13,7 @@ export const getTableValidationsUpdateEvent = (props: Props): string => {
   return `${countryIso}-${assessmentName}-${cycleName}-validationsUpdate`
 }
 
-export const getDescriptionLinksValidationUpdateEvent = (props: Props): string => {
+export const getDescriptionValidationsUpdateEvent = (props: Props): string => {
   const { assessmentName, countryIso, cycleName } = props
   return `${countryIso}-${assessmentName}-${cycleName}-descriptionLinksValidationUpdate`
 }

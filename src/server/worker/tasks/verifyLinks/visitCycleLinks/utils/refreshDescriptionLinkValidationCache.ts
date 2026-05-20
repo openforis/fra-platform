@@ -51,7 +51,7 @@ export const refreshDescriptionLinkValidationCache = async (props: Props): Promi
         sectionNames,
       })
 
-      const eventName = Sockets.getDescriptionLinksValidationUpdateEvent({
+      const eventName = Sockets.getDescriptionValidationsUpdateEvent({
         assessmentName: assessment.props.name,
         countryIso: targetCountryIso,
         cycleName: cycle.name,

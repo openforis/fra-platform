@@ -85,7 +85,7 @@ export default async (job: VerifyDescriptionLinksJob): Promise<void> => {
       descriptionValidations,
     })
 
-    const eventName = Sockets.getDescriptionLinksValidationUpdateEvent({
+    const eventName = Sockets.getDescriptionValidationsUpdateEvent({
       assessmentName: assessment.props.name,
       countryIso,
       cycleName: cycle.name,

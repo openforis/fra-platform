@@ -6,7 +6,7 @@ import {
   getTopicStatusEvent,
 } from 'meta/socket/sockets/messageTopic'
 import {
-  getDescriptionLinksValidationUpdateEvent,
+  getDescriptionValidationsUpdateEvent,
   getNodeValuesUpdateEvent,
   getTableValidationsUpdateEvent,
 } from 'meta/socket/sockets/node'
@@ -14,7 +14,7 @@ import { getODPDeleteEvent, getODPReservedYearsEvent } from 'meta/socket/sockets
 import { getRequestReviewStatusEvent, getRequestReviewSummaryEvent } from 'meta/socket/sockets/review'
 
 export const Sockets = {
-  getDescriptionLinksValidationUpdateEvent,
+  getDescriptionValidationsUpdateEvent,
   getNodeValuesUpdateEvent,
   getTableValidationsUpdateEvent,
   getODPDeleteEvent,
