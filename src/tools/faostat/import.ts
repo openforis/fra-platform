@@ -16,14 +16,17 @@ import { DB } from 'server/db/db'
 import { Logger } from 'server/utils/logger'
 
 // Usage:
-// Simply download the csv from fao stat and add it to ./csv/ and update __FILENAME__
+// Simply download the csv from fao stat, rename it to FAOSTAT_data.csv and add it to ./csv/
 // https://www.fao.org/faostat/en/#data/RL
+// Run: npx ts-node src/tools/faostat/import.ts <cycleName>
+// Example: npx ts-node src/tools/faostat/import.ts 2025
 
-const __FILENAME__ = 'FAOSTAT_data_en_5-14-2026.csv'
+const __FILENAME__ = 'FAOSTAT_data.csv'
 const __LAST_YEAR__ = new Date().getFullYear()
 
 const assessmentName = 'fra'
-const cycleName = '2025'
+const cycleName = process.argv[2]
+if (!cycleName) throw new Error('cycleName is required. Usage: import.ts <cycleName>')
 
 /**
  * All columns:
