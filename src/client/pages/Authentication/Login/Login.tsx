@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link, Navigate } from 'react-router'
+import { Link } from 'react-router'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { LoginQueryParams } from 'meta/routes/queryParams/login'
@@ -8,7 +8,6 @@ import { Routes } from 'meta/routes/routes'
 import { InvitationData } from 'meta/user/invitations/invitation'
 import { Objects } from 'utils/objects'
 
-import { useUser } from 'client/store/user/hooks/user'
 import { useGetRequest } from 'client/hooks/getRequest'
 import { useCycleRouteParams } from 'client/hooks/routeParams'
 import { useSearchParams } from 'client/hooks/searchParams'
@@ -16,7 +15,7 @@ import Divider from 'client/pages/Authentication/Divider'
 import FormLogin from 'client/pages/Authentication/FormLogin'
 import { useOnSuccess } from 'client/pages/Authentication/FormLogin/hooks/useOnSuccess'
 import ButtonGoogle from 'client/pages/Authentication/Login/ButtonGoogle'
-import { useGetRedirectUrl } from 'client/pages/Authentication/Login/hooks/useGetRedirectUrl'
+import { useRedirect } from 'client/pages/Authentication/Login/hooks/useRedirect'
 
 export const useGetInvitation = (): InvitationData => {
   const { invitationUuid } = useSearchParams<LoginQueryParams>()
@@ -35,23 +34,13 @@ export const useGetInvitation = (): InvitationData => {
 const Login: React.FC = () => {
   const { t } = useTranslation()
 
-  const user = useUser()
-
   const { assessmentName, cycleName } = useCycleRouteParams()
   const invitationData = useGetInvitation()
   const { invitationUuid } = useSearchParams<LoginQueryParams>()
 
   const isNewUser = Boolean(invitationData && Objects.isEmpty(invitationData.userProviders))
-  const redirectUrl = useGetRedirectUrl(invitationData)
+  const { redirectUrl } = useRedirect({ invitationData })
   const onSuccess = useOnSuccess({ redirectTo: redirectUrl })
-
-  if (invitationData && user?.uuid === invitationData.user.uuid) {
-    return <Navigate replace to={redirectUrl} />
-  }
-
-  if (invitationData && user?.uuid !== invitationData.user.uuid) {
-    // TODO: Redirect / and show notification
-  }
 
   return (
     <div className="login-form">
