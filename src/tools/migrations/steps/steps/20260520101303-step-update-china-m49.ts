@@ -14,6 +14,6 @@ export default async (client: BaseProtocol): Promise<void> => {
      where country_iso = 'CHN'`)
 
   await Promises.each(allCycles, async ({ assessment, cycle }) => {
-    await CacheController.generateArea({ assessment, cycle })
+    await CacheController.generateArea({ assessment, cycle }, client)
   })
 }
