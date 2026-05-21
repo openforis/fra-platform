@@ -11,10 +11,11 @@ type Props = {
   id?: string
   onChange: (value?: string) => void
   repository?: boolean
+  validationErrors?: Array<string>
   value: string
 }
 const EditorWYSIWYGLinks: React.FC<Props> = (props: Props) => {
-  const { disabled, id, onChange, repository, value } = props
+  const { disabled, id, onChange, repository, validationErrors, value } = props
   const { print } = useIsPrintRoute()
 
   if (print) {
@@ -29,6 +30,7 @@ const EditorWYSIWYGLinks: React.FC<Props> = (props: Props) => {
       onChange={onChange}
       onlyLinks
       repository={repository}
+      validationErrors={validationErrors}
       value={value}
     />
   )
