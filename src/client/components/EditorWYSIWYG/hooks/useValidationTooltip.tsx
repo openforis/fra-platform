@@ -28,6 +28,12 @@ export const useValidationTooltip = (props: Props): Returned => {
       }
     }
 
+    if (validationErrors.length === 1) {
+      const dataTooltipHtml = ReactDOMServer.renderToStaticMarkup(<div>{validationErrors[0]}</div>)
+
+      return { dataTooltipHtml, dataTooltipId: TooltipId.error, hasValidationErrors }
+    }
+
     const dataTooltipHtml = ReactDOMServer.renderToStaticMarkup(
       <ul>
         {validationErrors.map((validationError, index) => (
