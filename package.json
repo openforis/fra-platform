@@ -183,7 +183,7 @@
     "pg-query-stream": "^4.14.0",
     "puppeteer": "^24.40.0",
     "puppeteer-cluster": "^0.25.0",
-    "qs": "^6.15.1",
+    "qs": "^6.15.2",
     "re-resizable": "^6.11.2",
     "react": "^19.2.5",
     "react-csv": "^2.0.3",
