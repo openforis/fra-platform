@@ -57,7 +57,6 @@ export const refreshDescriptionLinkValidationCache = async (props: Props): Promi
         cycleName: cycle.name,
       })
       SocketServer.emit(eventName, {
-        countryIso: targetCountryIso,
         descriptionValidations: updatedDescriptionValidations,
       })
     })

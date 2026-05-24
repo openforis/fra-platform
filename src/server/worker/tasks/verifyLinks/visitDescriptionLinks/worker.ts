@@ -90,7 +90,7 @@ export default async (job: VerifyDescriptionLinksJob): Promise<void> => {
       countryIso,
       cycleName: cycle.name,
     })
-    SocketServer.emit(eventName, { countryIso, descriptionValidations, sectionNames })
+    SocketServer.emit(eventName, { descriptionValidations, sectionNames })
 
     const duration = (new Date().getTime() - time) / 1000
     Logger.info(`${logKey} ended in ${duration} seconds with ${linkVisits.length} links visited.`)

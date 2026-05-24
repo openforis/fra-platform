@@ -27,17 +27,21 @@ export const setDescriptionValidationsReducer = (builder: ActionReducerMapBuilde
 
     const path = [assessmentName, cycleName, countryIso]
 
-    // Replace all description validations after a full refresh
+    // When sectionNames is missing, this came from the full assessment/country verification flow.
+    // In that case the server already sent the full cached snapshot for this country, so we can
+    // replace the current description validations state directly.
     if (Objects.isEmpty(sectionNames)) {
       Objects.setInPath({ obj: state.descriptions, path, value: descriptionValidations })
       return
     }
 
-    // Update only the affected sections after a single link check
-    const currentValue = Objects.cloneDeep(Objects.getInPath(state.descriptions, path) ?? {})
-    const targetSectionNames = Array.from(new Set([...sectionNames, ...Object.keys(descriptionValidations)]))
+    // When sectionNames is present, this came from the single-description verification flow.
+    // That payload only includes the sections touched by that check, so we update just those
+    // sections and leave the rest of the country state as is.
+    const currentValue = Objects.getInPath(state.descriptions, path) ?? {}
+    Objects.setInPath({ obj: state.descriptions, path, value: currentValue })
 
-    targetSectionNames.forEach((sectionName) => {
+    sectionNames.forEach((sectionName) => {
       const current = currentValue[sectionName] ?? {}
       const update = descriptionValidations[sectionName] ?? {}
       const value = _updateTextDescriptionSectionValidation(current, update)
@@ -48,7 +52,5 @@ export const setDescriptionValidationsReducer = (builder: ActionReducerMapBuilde
         currentValue[sectionName] = value
       }
     })
-
-    Objects.setInPath({ obj: state.descriptions, path, value: currentValue })
   })
 }

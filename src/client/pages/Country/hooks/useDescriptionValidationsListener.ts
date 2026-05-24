@@ -13,7 +13,6 @@ import { SocketClient } from 'client/service/socket/client'
 
 type DescriptionValidationsListenerArgs = [
   {
-    countryIso?: CountryIso
     descriptionValidations: RecordDescriptionValidations
     sectionNames?: Array<SectionName>
   },
@@ -29,6 +28,11 @@ export const useDescriptionValidationsListener = (): void => {
 
     const eventName = Sockets.getDescriptionValidationsUpdateEvent({ countryIso, assessmentName, cycleName })
 
+    // This event covers two flows:
+    // - when we verify links for a whole assessment/country, the server sends the full
+    //   description validations snapshot, so the client can replace everything
+    // - when a user edits a single description, the server sends only the affected sections
+    //   plus sectionNames, so the client knows what to patch
     const listener = (args: DescriptionValidationsListenerArgs): void => {
       const [{ descriptionValidations, sectionNames }] = args
       dispatch(
