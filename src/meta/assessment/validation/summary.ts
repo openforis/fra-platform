@@ -1,3 +1,4 @@
+import { SectionName } from 'meta/assessment/section'
 import { TableName } from 'meta/assessment/table'
 import { UUID } from 'meta/uuid/uuid'
 
@@ -6,6 +7,7 @@ export type ValidationStatus = {
 }
 
 export type ValidationSummarySubsection = ValidationStatus & {
+  sectionName: SectionName
   tableNames: Array<TableName>
 }
 
@@ -14,6 +16,7 @@ export type ValidationSummarySection = ValidationStatus & {
 }
 
 export type ValidationSummary = {
+  descriptions: Record<SectionName, ValidationStatus>
   sections: Record<UUID, ValidationSummarySection>
   subsections: Record<UUID, ValidationSummarySubsection>
   tables: Record<TableName, ValidationStatus>

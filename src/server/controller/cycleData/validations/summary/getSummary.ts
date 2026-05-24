@@ -4,6 +4,7 @@ import { Cycle } from 'meta/assessment/cycle'
 import { ValidationSummary } from 'meta/assessment/validation/summary'
 import { Objects } from 'utils/objects'
 
+import { DescriptionValidationRedisRepository } from 'server/cache/repository/validation/description'
 import { TableValidationRedisRepository } from 'server/cache/repository/validation/table'
 import { SectionRepository } from 'server/db/repository/assessment/section'
 
@@ -15,30 +16,36 @@ type Props = {
 
 export const getValidationSummary = async (props: Props): Promise<ValidationSummary> => {
   const { assessment, countryIso, cycle } = props
-  const [sections, sectionsMetadata, tableValidations] = await Promise.all([
-    SectionRepository.getMany({ assessment, cycle }),
+  const sections = await SectionRepository.getMany({ assessment, cycle })
+  const sectionNames = sections.flatMap(
+    (section) => section.subSections?.map((subSection) => subSection.props.name) ?? []
+  )
+  const [descriptionValidations, sectionsMetadata, tableValidations] = await Promise.all([
+    DescriptionValidationRedisRepository.getDescriptionValidations({ assessment, countryIso, cycle, sectionNames }),
     SectionRepository.getManyMetadata({ assessment, cycle }),
     TableValidationRedisRepository.getTableValidations({ assessment, countryIso, cycle }),
   ])
-  const summary: ValidationSummary = { sections: {}, subsections: {}, tables: {} }
+  const summary: ValidationSummary = { descriptions: {}, sections: {}, subsections: {}, tables: {} }
 
   sections.forEach((section) => {
     section.subSections?.forEach((subSection) => {
-      const tableSections = sectionsMetadata[subSection.props.name]
-      if (!tableSections) return
-
       const sectionUuid = section.uuid
       const subsectionUuid = subSection.uuid
+      const tableSections = sectionsMetadata[subSection.props.name] ?? []
       const tableNames = tableSections.flatMap((tableSection) => tableSection.tables.map((table) => table.props.name))
-      let subsectionValid = true
+      const descriptions = Object.values(descriptionValidations[subSection.props.name]?.descriptions ?? {})
+      const descriptionsValid = descriptions.every((validation) => validation?.valid ?? true)
 
+      summary.descriptions[subSection.props.name] = { valid: descriptionsValid }
+
+      let subsectionValid = descriptionsValid
       tableNames.forEach((tableName) => {
         const valid = Objects.isEmpty(tableValidations[tableName] ?? {})
         summary.tables[tableName] = { valid }
         subsectionValid = subsectionValid && valid
       })
 
-      const subsection = { tableNames, valid: subsectionValid }
+      const subsection = { sectionName: subSection.props.name, tableNames, valid: subsectionValid }
       summary.sections[sectionUuid] ??= { subsections: {}, valid: true }
       const summarySection = summary.sections[sectionUuid]
 
