@@ -6,6 +6,7 @@ import { RoleName } from 'meta/user/role/name'
 import { UserContactPreferenceMethod, UserContactPreferencePhoneOption } from 'meta/user/role/props'
 import { Objects } from 'utils/objects'
 
+import { getLinkValidationError } from 'client/components/EditorWYSIWYG/hooks/useLinkValidationErrors'
 import { FormSchemas } from 'client/components/Form/formSchemas'
 
 export const useRoleValidationSchema = (): ZodObject => {
@@ -29,7 +30,17 @@ export const useRoleValidationSchema = (): ZodObject => {
         .object({
           professionalTitle: z.string().optional(),
           organizationalUnit: z.string().optional(),
-          organization: z.string().min(1, { error: t('form.errors.required', { field: t('editUser.organization') }) }),
+          organization: z
+            .string()
+            .min(1, { error: t('form.errors.required', { field: t('editUser.organization') }) })
+            .refine(
+              (value) => {
+                // Check that the org link is not empty.
+                if (value === '') return true
+                return Objects.isEmpty(getLinkValidationError({ enabled: true, t, value }))
+              },
+              { error: t('generalValidation.invalidLink') }
+            ),
           address: z.object({
             street: z.string().min(1, { error: t('form.errors.required', { field: t('editUser.street') }) }),
             zipCode: z.string().min(1, { error: t('form.errors.required', { field: t('editUser.zipCode') }) }),
