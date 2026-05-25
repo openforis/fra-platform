@@ -22,15 +22,14 @@ const adminInvite = async (page: Page, testUser: TestUserData): Promise<string> 
 
 const adminConfirmsNoPending = async (page: Page, fullName: string): Promise<void> => {
   await page.goto('/assessments/fra/2025/X01/home/collaborators')
-  await page.waitForSelector('.home-user-card', { timeout: 30_000 })
 
   const card = page.locator('.home-user-card').filter({ hasText: fullName })
   await expect(card).toBeVisible()
   await expect(card.locator('.invitation-badge')).toHaveCount(0)
 }
 
-const fillNcAcceptForm = async (page: Page): Promise<void> => {
-  await page.waitForSelector('[id="select-user.props.title"]', { timeout: 30_000 })
+const fillRolePropsForm = async (page: Page): Promise<void> => {
+  await expect(page.locator('.user-form')).toBeVisible()
   await DOMUtils.selectOption(page, { id: 'select-user.props.title' }, 'Mr.')
   await DOMUtils.fillWYSIWYG(page, { id: 'role.props.organization' }, 'Test Organization')
   await DOMUtils.fillInput(page, { id: 'role.props.address.street' }, 'Test Street 1')
@@ -44,5 +43,5 @@ const fillNcAcceptForm = async (page: Page): Promise<void> => {
 export const InviteUtils = {
   adminConfirmsNoPending,
   adminInvite,
-  fillNcAcceptForm,
+  fillRolePropsForm,
 }
