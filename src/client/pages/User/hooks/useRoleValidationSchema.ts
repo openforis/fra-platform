@@ -36,7 +36,7 @@ export const useRoleValidationSchema = (): ZodObject => {
             .refine(
               (value) => {
                 // Check that the org link is not empty.
-                if (value === '') return true
+                if (Objects.isEmpty(value)) return true
                 return Objects.isEmpty(getLinkValidationError({ enabled: true, t, value }))
               },
               { error: t('generalValidation.invalidLink') }
