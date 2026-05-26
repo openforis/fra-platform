@@ -15,7 +15,7 @@ import { TablePaginatedCounter } from 'client/components/TablePaginated/types'
 
 type Props = {
   counter: TablePaginatedCounter
-  limit: number
+  limit?: number
   path: string
 }
 
