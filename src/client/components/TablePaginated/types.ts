@@ -27,6 +27,7 @@ export type Props<Datum extends object> = {
   filters?: Array<TablePaginatedFilter<TablePaginatedFilterType>>
   groups?: { headerLabel: (key: PropertyKey) => string; keySelector: (datum: Datum) => PropertyKey }
   limit?: number
+  noLimit?: boolean
   path: string
   skeleton?: TablePaginatedSkeleton
   wrapCells?: boolean
