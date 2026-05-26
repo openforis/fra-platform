@@ -17,8 +17,8 @@ export type TablePaginatedBaseParams = {
 }
 
 export type TablePaginatedDataRequestParams = TablePaginatedBaseParams & {
-  limit: string
-  offset: string
+  limit?: string
+  offset?: string
   orderBy?: string
   orderByDirection?: TablePaginatedOrderByDirection
 }
