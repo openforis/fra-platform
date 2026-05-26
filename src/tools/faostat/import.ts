@@ -1,12 +1,10 @@
 import '../scriptInit'
 
-import path from 'node:path'
-
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
+import { FAOSTATRow, getFAOStat } from 'tools/faostat/getFAOStat'
 import { TotalLandAreaUpdateData, updateTotalLandArea } from 'tools/faostat/updateTotalLandArea'
-import { CSV } from 'tools/utils/CSV'
 import { ToolsUtils } from 'tools/utils/toolsUtils'
 
 import { AreaController } from 'server/controller/area'
@@ -16,27 +14,16 @@ import { DB } from 'server/db/db'
 import { Logger } from 'server/utils/logger'
 
 // Usage:
-// Simply download the csv from fao stat, rename it to FAOSTAT_data.csv and add it to ./csv/
-// https://www.fao.org/faostat/en/#data/RL
 // Run: npx ts-node src/tools/faostat/import.ts <cycleName>
 // Example: npx ts-node src/tools/faostat/import.ts 2025
+// Example: npx ts-node src/tools/faostat/import.ts 2025 --save-file # save json file from API
+// Requires FAOSTAT_AUTH_TOKEN in the environment (.env)
 
-const __FILENAME__ = 'FAOSTAT_data.csv'
 const __LAST_YEAR__ = new Date().getFullYear()
 
 const assessmentName = 'fra'
 const cycleName = process.argv[2]
 if (!cycleName) throw new Error('cycleName is required. Usage: import.ts <cycleName>')
-
-/**
- * All columns:
- * Domain Code, Domain, Area Code (M49), Area, Element Code, Element, Item Code, Item, Year Code, Year, Unit, Value, Flag, Flag Description, Note
- */
-type FAOSTATRow = {
-  'Area Code (M49)': string
-  Year: string
-  Value: string
-}
 
 // Return map [m49, country iso]
 const _buildM49Map = (assessment: Assessment, cycle: Cycle): Promise<Map<string, CountryIso>> =>
@@ -82,8 +69,7 @@ ToolsUtils.exec(async () => {
     metaCache: true,
   })
 
-  const csvPath = path.join(__dirname, 'csv', __FILENAME__)
-  const [rows, m49Map] = await Promise.all([CSV.read<FAOSTATRow>(csvPath), _buildM49Map(assessment, cycle)])
+  const [rows, m49Map] = await Promise.all([getFAOStat(), _buildM49Map(assessment, cycle)])
   const data = _buildData(rows, m49Map)
 
   await DB.tx(async (client) => {
