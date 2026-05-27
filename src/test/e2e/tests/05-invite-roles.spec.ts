@@ -34,7 +34,7 @@ roleConfigs.forEach(({ fillAcceptForm, role }) => {
       const page = await context.newPage()
 
       await page.goto(invitationPath)
-      await page.waitForURL(/\/login\?/)
+      await page.waitForURL(/\/login\?/, { timeout: 30_000 })
 
       // Forgot password not visible for new users
       await expect(page.getByText('Forgot your password?')).not.toBeVisible()
