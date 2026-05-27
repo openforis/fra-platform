@@ -21,8 +21,6 @@ const emptySummary: ValidationSummary = {
   subsections: {},
   tables: {},
 }
-const emptyDescriptionValidations: RecordDescriptionValidations = {}
-const emptyTableValidations: RecordTableValidationsState = {}
 
 const _getCountryValidations = createSelector(
   [
@@ -31,10 +29,19 @@ const _getCountryValidations = createSelector(
     (_state, _assessmentName: AssessmentName, cycleName: CycleName) => cycleName,
     (_state, _assessmentName: AssessmentName, _cycleName: CycleName, countryIso: CountryIso) => countryIso,
   ],
-  (state, assessmentName, cycleName, countryIso) => ({
-    descriptions: state?.descriptions?.[assessmentName]?.[cycleName]?.[countryIso] ?? emptyDescriptionValidations,
+  (
+    state,
+    assessmentName,
+    cycleName,
+    countryIso
+  ): {
+    descriptions: RecordDescriptionValidations
+    summary: ValidationSummary
+    tables: RecordTableValidationsState
+  } => ({
+    descriptions: state?.descriptions?.[assessmentName]?.[cycleName]?.[countryIso] ?? {},
     summary: state?.summary?.[assessmentName]?.[cycleName]?.[countryIso] ?? emptySummary,
-    tables: state?.tables?.[assessmentName]?.[cycleName]?.[countryIso] ?? emptyTableValidations,
+    tables: state?.tables?.[assessmentName]?.[cycleName]?.[countryIso] ?? {},
   })
 )
 
