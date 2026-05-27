@@ -9,10 +9,11 @@ import {
 } from 'client/store/data/descriptions/hooks/descriptions'
 import { useHistoryLastApprovedIsActive } from 'client/store/data/history/hooks/lastApproved'
 import { useHistoryLastApprovedDescriptionFetched } from 'client/store/data/history/hooks/lastApprovedDescriptions'
-import { useCanEditDescription, useIsDescriptionEditable } from 'client/store/user/hooks/auth'
+import { useCanEditCycleData, useCanEditDescription, useIsDescriptionEditable } from 'client/store/user/hooks/auth'
 import { useIsPrintRoute } from 'client/hooks/routes'
 import { DataCell, DataGrid, DataRow } from 'client/components/DataGrid'
 import EditorWYSIWYG from 'client/components/EditorWYSIWYG'
+import { useLinkValidationErrors } from 'client/components/EditorWYSIWYG/hooks/useLinkValidationErrors'
 import { useSectionContext } from 'client/pages/Section/context'
 import Title from 'client/pages/Section/Descriptions/CommentableDescription/Title'
 
@@ -39,8 +40,10 @@ const CommentableDescription: React.FC<Props> = (props) => {
   const displayHistory = historyLastApprovedIsActive && historyLastApprovedDescriptionFetched && descriptionsFetched
 
   const canEdit = useCanEditDescription({ sectionName })
+  const canEditCycleData = useCanEditCycleData()
   const editable = useIsDescriptionEditable({ sectionName, name })
   const onChange = useOnChange({ sectionName, name })
+  const validationErrors = useLinkValidationErrors({ enabled: canEditCycleData && !print, value: value.text })
 
   return (
     <DataGrid className="description" withActions={canEdit}>
@@ -62,6 +65,7 @@ const CommentableDescription: React.FC<Props> = (props) => {
               disabled={!editable}
               onChange={(content) => onChange({ ...value, text: content })}
               repository={repository}
+              validationErrors={validationErrors}
               value={empty && print ? '-' : value.text}
             />
           )}

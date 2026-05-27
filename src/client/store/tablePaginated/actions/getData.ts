@@ -5,10 +5,11 @@ import { TablePaginatedBaseParams, TablePaginatedDataRequestParams } from 'meta/
 import { TablePaginatedFilterValues } from 'meta/tablePaginated/filters/filter'
 import { TablePaginatedOrderBy } from 'meta/tablePaginated/orderBy'
 import { TablePaginateds } from 'meta/tablePaginated/tablePaginateds'
+import { Objects } from 'utils/objects'
 
 type Props = Omit<TablePaginatedBaseParams, 'filters'> & {
   filters?: Record<string, TablePaginatedFilterValues>
-  limit: number
+  limit?: number
   orderBy?: TablePaginatedOrderBy
   page: number
   path: string
@@ -26,9 +27,12 @@ export const getData = createAsyncThunk<Returned, Props>('tablePaginated/data/ge
     countryIso,
     cycleName,
     filters: encodedFilters,
-    limit: String(limit),
-    offset: String(page * limit),
     sectionName,
+  }
+
+  if (!Objects.isNil(limit)) {
+    params.limit = String(limit)
+    params.offset = String(page * limit)
   }
 
   if (orderBy && orderBy.property && orderBy.direction) {
