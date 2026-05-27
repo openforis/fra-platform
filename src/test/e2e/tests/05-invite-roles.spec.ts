@@ -34,6 +34,15 @@ roleConfigs.forEach(({ fillAcceptForm, role }) => {
       const page = await context.newPage()
 
       await page.goto(invitationPath)
+
+      // Tutorial links visible for new users
+      await expect(page.locator('a.btn-help[href*="youtube"]')).toHaveCount(2, { timeout: 30_000 })
+      await expect(page.getByText('How to log in with a self-defined password')).toBeVisible()
+      await expect(page.getByText('How to log in using Google authentication')).toBeVisible()
+
+      // Forgot password not visible for new users
+      await expect(page.getByText('Forgot your password?')).not.toBeVisible()
+
       await AuthUtils.fillRegisterForm(page, testUser.password)
       if (fillAcceptForm) await fillAcceptForm(page)
       await page.getByRole('button', { name: 'Accept Invitation' }).click()
