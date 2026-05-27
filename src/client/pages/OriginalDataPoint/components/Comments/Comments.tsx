@@ -6,9 +6,12 @@ import { OriginalDataPointCommentKey } from 'meta/assessment/originalDataPoint'
 
 import { useOriginalDataPoint } from 'client/store/data/originalDataPoint/hooks/originalDataPoint'
 import { useIsDataLocked } from 'client/store/ui/countryReport/hooks/datalock'
+import { useCanEditCycleData } from 'client/store/user/hooks/auth'
+import { useIsPrintRoute } from 'client/hooks/routes'
 import Button, { ButtonSize } from 'client/components/Buttons/Button'
 import { DataCell, DataGrid, DataRow } from 'client/components/DataGrid'
 import EditorWYSIWYG from 'client/components/EditorWYSIWYG'
+import { useLinkValidationErrors } from 'client/components/EditorWYSIWYG/hooks/useLinkValidationErrors'
 import { useODPDisplayHistory } from 'client/pages/OriginalDataPoint/components/hooks/useODPDisplayHistory'
 import ODPCommentsDiffView from 'client/pages/OriginalDataPoint/components/ODPCommentsDiffView/ODPCommentsDiffView'
 import { useIsEditODPDescriptionEnabled } from 'client/pages/OriginalDataPoint/hooks/useIsEditODPEnabled'
@@ -26,11 +29,17 @@ const Comments: React.FC<Props> = (props) => {
   const { t } = useTranslation()
   const originalDataPoint = useOriginalDataPoint()
   const isDataLocked = useIsDataLocked()
+  const canEditCycleData = useCanEditCycleData()
   const updateComment = useUpdateComment({ field })
   const actions = useCommentsActions({ field })
   const canEditData = useIsEditODPDescriptionEnabled()
+  const { print } = useIsPrintRoute()
   const [open, setOpen] = useState<boolean>(false)
   const displayHistory = useODPDisplayHistory()
+  const validationErrors = useLinkValidationErrors({
+    enabled: canEditCycleData && !print,
+    value: originalDataPoint.comments?.[field] ?? '',
+  })
 
   useEffect(() => {
     if (open && isDataLocked) {
@@ -66,6 +75,7 @@ const Comments: React.FC<Props> = (props) => {
               disabled={!open}
               onChange={updateComment}
               repository
+              validationErrors={validationErrors}
               value={originalDataPoint.comments?.[field] ?? ''}
             />
           </div>

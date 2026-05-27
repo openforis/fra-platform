@@ -1,11 +1,11 @@
 import React from 'react'
-
 import classNames from 'classnames'
 
 import { DataSourceDescription } from 'meta/assessment/description'
 import { CommentableDescriptionName, DataSource } from 'meta/assessment/descriptionValue'
 import { SectionName } from 'meta/assessment/section'
 import { TooltipId } from 'meta/tooltip/id'
+import { Objects } from 'utils/objects'
 
 import { useIsDescriptionEditable } from 'client/store/user/hooks/auth'
 import { DataCell, DataRow } from 'client/components/DataGrid'
@@ -47,12 +47,16 @@ const DataSourceRow: React.FC<Props> = (props: Props) => {
     <DataRow actions={actions}>
       {componentsOrder.map((componentKey) => {
         const Component = Components[componentKey]
+        const validationError = errors[componentKey]
+        const dataTooltipContent = Objects.isEmpty(validationError) ? undefined : validationError
+        const dataTooltipId = Objects.isEmpty(validationError) ? undefined : TooltipId.error
+
         return (
           <DataCell
             key={`${componentKey}-${dataSource.uuid}`}
-            className={classNames({ 'validation-error': errors[componentKey] })}
-            data-tooltip-content={errors[componentKey]}
-            data-tooltip-id={TooltipId.error}
+            className={classNames({ 'validation-error': !Objects.isEmpty(validationError) })}
+            data-tooltip-content={dataTooltipContent}
+            data-tooltip-id={dataTooltipId}
             editable={!disabled}
             lastRow={lastRow}
           >

@@ -35,7 +35,7 @@ export const getCSVRowHeader = (props: Props): CSVRow => {
 
   colNodes.forEach((colValue) => {
     row.push(colValue.csvColumn)
-    if (includeFlag) row.push('')
+    if (includeFlag) row.push(`${colValue.csvColumn}_flag`)
   })
 
   return row
