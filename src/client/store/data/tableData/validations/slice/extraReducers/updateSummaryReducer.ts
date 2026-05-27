@@ -1,8 +1,9 @@
 import { ActionReducerMapBuilder, Draft, isAnyOf } from '@reduxjs/toolkit'
 
+import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 import { SectionName } from 'meta/assessment/section'
 import { RecordDescriptionValidations } from 'meta/assessment/validation/description'
-import { ValidationSummary } from 'meta/assessment/validation/summary'
+import { ValidationSummary, ValidationSummaryDescription } from 'meta/assessment/validation/summary'
 import { Objects } from 'utils/objects'
 
 import { setDescriptionValidations } from 'client/store/data/tableData/validations/actions/setDescriptionValidations'
@@ -23,18 +24,23 @@ const _updateDescriptions = (
   sectionNames: Array<SectionName>
 ): void => {
   sectionNames.forEach((sectionName) => {
-    const descriptions = Object.values(descriptionValidations[sectionName]?.descriptions ?? {})
+    const descriptions = descriptionValidations[sectionName]?.descriptions ?? {}
 
-    state.descriptions[sectionName] = {
-      valid: descriptions.every((validation) => validation?.valid ?? true),
-    }
+    state.descriptions[sectionName] = Object.values(CommentableDescriptionName).reduce<ValidationSummaryDescription>(
+      (acc, descriptionName) => {
+        acc[descriptionName] = { valid: descriptions[descriptionName]?.valid ?? true }
+        return acc
+      },
+      {} as ValidationSummaryDescription
+    )
   })
 }
 
 const _recomputeSubsections = (state: ValidationSummaryDraft): void => {
   Object.entries(state.subsections).forEach(([subsectionUuid, summarySubsection]) => {
     const { sectionName, tableNames } = summarySubsection
-    const descriptionsValid = state.descriptions[sectionName]?.valid ?? true
+    const descriptions = Object.values(state.descriptions[sectionName] ?? {})
+    const descriptionsValid = descriptions.every((description) => description?.valid ?? true)
     const tablesValid = tableNames.every((tableName) => state.tables[tableName]?.valid ?? true)
 
     state.subsections[subsectionUuid].valid = descriptionsValid && tablesValid
