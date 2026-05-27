@@ -3,6 +3,8 @@
 @use 'src/client/style/partials' as *;
 
 $login-height: 50vh;
+$login-form-width: 460px;
+$login-input-width: $login-form-width - (2 * $spacing-s);
 
 .login-view {
   padding: unset;
@@ -56,7 +58,7 @@ $login-height: 50vh;
   }
 
   .form-grid {
-    width: 460px;
+    width: $login-form-width;
     grid-template-columns: 1fr !important;
     grid-row-gap: 40px;
     box-shadow: none;
@@ -76,6 +78,10 @@ $login-height: 50vh;
 
   input[type='text']:disabled {
     background-color: $ui-bg-hover;
+  }
+
+  .button {
+    width: $login-input-width;
   }
 
   .btn-help {
