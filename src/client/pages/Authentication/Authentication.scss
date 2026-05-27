@@ -81,7 +81,7 @@ $login-input-width: $login-form-width - (2 * $spacing-s);
   }
 
   .button {
-    width: $login-input-width;
+    min-width: 300px;
   }
 
   .btn-help {
