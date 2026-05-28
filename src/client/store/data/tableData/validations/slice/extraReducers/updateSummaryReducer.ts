@@ -1,41 +1,89 @@
-import { ActionReducerMapBuilder } from '@reduxjs/toolkit'
+import { ActionReducerMapBuilder, Draft, isAnyOf } from '@reduxjs/toolkit'
 
+import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
+import { SectionName } from 'meta/assessment/section'
+import { RecordDescriptionValidations } from 'meta/assessment/validation/description'
+import { ValidationSummary, ValidationSummaryDescription } from 'meta/assessment/validation/summary'
 import { Objects } from 'utils/objects'
 
+import { setDescriptionValidations } from 'client/store/data/tableData/validations/actions/setDescriptionValidations'
 import { setNodeValueValidations } from 'client/store/data/tableData/validations/actions/setNodeValueValidations'
-import { ValidationsState } from 'client/store/data/tableData/validations/state'
+import { RecordTableValidationsState, ValidationsState } from 'client/store/data/tableData/validations/state'
+
+type ValidationSummaryDraft = Draft<ValidationSummary>
+
+const _updateTables = (state: ValidationSummaryDraft, tableValidations: RecordTableValidationsState): void => {
+  Object.keys(tableValidations).forEach((tableName) => {
+    state.tables[tableName] = { valid: Objects.isEmpty(tableValidations[tableName]) }
+  })
+}
+
+const _updateDescriptions = (
+  state: ValidationSummaryDraft,
+  descriptionValidations: RecordDescriptionValidations,
+  sectionNames: Array<SectionName>
+): void => {
+  sectionNames.forEach((sectionName) => {
+    const descriptions = descriptionValidations[sectionName]?.descriptions ?? {}
+
+    state.descriptions[sectionName] = Object.values(CommentableDescriptionName).reduce<ValidationSummaryDescription>(
+      (acc, descriptionName) => {
+        acc[descriptionName] = { valid: descriptions[descriptionName]?.valid ?? true }
+        return acc
+      },
+      {} as ValidationSummaryDescription
+    )
+  })
+}
+
+const _recomputeSubsections = (state: ValidationSummaryDraft): void => {
+  Object.entries(state.subsections).forEach(([subsectionUuid, summarySubsection]) => {
+    const { sectionName, tableNames } = summarySubsection
+    const descriptions = Object.values(state.descriptions[sectionName] ?? {})
+    const descriptionsValid = descriptions.every((description) => description?.valid ?? true)
+    const tablesValid = tableNames.every((tableName) => state.tables[tableName]?.valid ?? true)
+
+    state.subsections[subsectionUuid].valid = descriptionsValid && tablesValid
+  })
+}
+
+const _recomputeSections = (state: ValidationSummaryDraft): void => {
+  Object.keys(state.sections).forEach((sectionUuid) => {
+    const { subsections } = state.sections[sectionUuid]
+    const subsectionUuids = Object.keys(subsections)
+
+    state.sections[sectionUuid].valid = subsectionUuids.every((subsectionUuid) => {
+      const subsectionValid = state.subsections[subsectionUuid]?.valid ?? true
+
+      subsections[subsectionUuid].valid = subsectionValid
+
+      return subsectionValid
+    })
+  })
+}
 
 export const updateSummaryReducer = (builder: ActionReducerMapBuilder<ValidationsState>): void => {
-  builder.addMatcher(setNodeValueValidations.match, (state, action) => {
-    const { assessmentName, countryIso, cycleName, tableValidations } = action.payload
+  builder.addMatcher(isAnyOf(setDescriptionValidations, setNodeValueValidations), (state, action) => {
+    const { assessmentName, countryIso, cycleName } = action.payload
     const summary = state.summary?.[assessmentName]?.[cycleName]?.[countryIso]
 
     if (Objects.isEmpty(summary)) return
 
-    const updatedTableNamesSet = new Set(Object.keys(tableValidations))
+    if (setNodeValueValidations.match(action)) {
+      const { tableValidations } = action.payload
+      _updateTables(summary, tableValidations)
+    }
 
-    // 1. Update changed tables
-    updatedTableNamesSet.forEach((tableName) => {
-      summary.tables[tableName] = { valid: Objects.isEmpty(tableValidations[tableName]) }
-    })
+    if (setDescriptionValidations.match(action)) {
+      const { sectionNames } = action.payload
+      const descriptionValidations = state.descriptions?.[assessmentName]?.[cycleName]?.[countryIso] ?? {}
+      const summarySectionNames = Object.values(summary.subsections).map(({ sectionName }) => sectionName)
+      const updatedSectionNames = sectionNames ?? summarySectionNames
 
-    // 2. Recompute subsections
-    Object.entries(summary.subsections).forEach(([subsectionUuid, subsection]) => {
-      const { tableNames } = subsection
+      _updateDescriptions(summary, descriptionValidations, updatedSectionNames)
+    }
 
-      summary.subsections[subsectionUuid].valid = tableNames.every(
-        (tableName) => summary.tables[tableName]?.valid ?? true
-      )
-    })
-
-    // 3. Recompute sections
-    Object.keys(summary.sections).forEach((sectionUuid) => {
-      const { subsections } = summary.sections[sectionUuid]
-      const subsectionUuids = Object.keys(subsections)
-
-      summary.sections[sectionUuid].valid = subsectionUuids.every(
-        (subsectionUuid) => summary.subsections[subsectionUuid]?.valid ?? true
-      )
-    })
+    _recomputeSubsections(summary)
+    _recomputeSections(summary)
   })
 }

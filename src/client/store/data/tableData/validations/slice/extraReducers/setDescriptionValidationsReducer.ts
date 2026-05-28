@@ -13,7 +13,7 @@ const _updateTextDescriptionSectionValidation = (
   const value: SectionDescriptionValidations = { ...current }
 
   if (!Objects.isEmpty(update.descriptions)) {
-    value.descriptions = update.descriptions
+    value.descriptions = { ...current.descriptions, ...update.descriptions }
   } else {
     delete value.descriptions
   }
