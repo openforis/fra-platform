@@ -1,12 +1,13 @@
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Objects } from 'utils/objects'
-
 import { DataSource } from 'meta/assessment/descriptionValue'
 import { CollaboratorEditPropertyType } from 'meta/user/role/collaborator'
+import { Objects } from 'utils/objects'
 
-import { useCanEdit } from 'client/store/user/hooks/auth'
+import { useCanEdit, useCanEditCycleData } from 'client/store/user/hooks/auth'
+import { useIsPrintRoute } from 'client/hooks/routes'
+import { getLinkValidationError } from 'client/components/EditorWYSIWYG/hooks/useLinkValidationErrors'
 import { useSectionContext } from 'client/pages/Section/context'
 
 type Props = {
@@ -26,6 +27,8 @@ export const useValidationErrors = (props: Props): Returned => {
   const { t } = useTranslation()
   const { sectionName } = useSectionContext()
   const canEdit = useCanEdit(sectionName, CollaboratorEditPropertyType.descriptions)
+  const canEditCycleData = useCanEditCycleData()
+  const { print } = useIsPrintRoute()
 
   const { placeholder, reference, type, variables, year } = dataSource
 
@@ -35,12 +38,22 @@ export const useValidationErrors = (props: Props): Returned => {
       return ''
     }
 
+    const getReferenceError = (): string => {
+      const validationError = getLinkValidationError({ enabled: canEditCycleData && !print, t, value: reference })
+
+      if (!Objects.isEmpty(validationError)) {
+        return validationError
+      }
+
+      return getErrorMessage(reference)
+    }
+
     return {
       comments: undefined,
-      reference: getErrorMessage(reference),
+      reference: getReferenceError(),
       type: getErrorMessage(type),
       variables: getErrorMessage(variables),
       year: getErrorMessage(year),
     }
-  }, [canEdit, placeholder, reference, t, type, variables, year])
+  }, [canEdit, canEditCycleData, placeholder, print, reference, t, type, variables, year])
 }
