@@ -1,28 +1,19 @@
 import { useMemo } from 'react'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { Assessments } from 'meta/assessment/assessments'
-import { InvitationData } from 'meta/user/invitations/invitation'
 
-import { useCycleRouteParams } from 'client/hooks/routeParams'
+type Props = {
+  assessmentName: string
+  cycleName: string
+  invitationUuid?: string
+}
 
-export const useHref = (invitationData?: InvitationData): string => {
-  const { assessmentName, cycleName } = useCycleRouteParams()
+export const useHref = (props: Props): string => {
+  const { assessmentName, cycleName, invitationUuid } = props
 
   return useMemo(() => {
-    if (invitationData) {
-      const cycle = Assessments.getCycle({
-        assessment: invitationData.assessment,
-        cycleUuid: invitationData.userInvitation.cycleUuid,
-      })
-      const params = new URLSearchParams({
-        assessmentName: invitationData.assessment.props.name,
-        cycleName: cycle.name,
-        invitationUuid: invitationData.userInvitation.uuid,
-      })
-      return `${ApiEndPoint.Auth.google()}?${params.toString()}`
-    }
     const params = new URLSearchParams({ assessmentName, cycleName })
+    if (invitationUuid) params.append('invitationUuid', invitationUuid)
     return `${ApiEndPoint.Auth.google()}?${params.toString()}`
-  }, [assessmentName, cycleName, invitationData])
+  }, [assessmentName, cycleName, invitationUuid])
 }

@@ -1,11 +1,13 @@
-import { Assessment } from 'meta/assessment/assessment'
+import { AssessmentName } from 'meta/assessment/assessment'
+import { CycleName } from 'meta/assessment/cycle'
 import { AuthProvider } from 'meta/user/auth'
 import { UserInvitation } from 'meta/user/invitation'
 import { User } from 'meta/user/user'
 
 export type InvitationData = {
-  assessment: Assessment
+  assessmentName: AssessmentName
+  cycleName: CycleName
   user: User
-  userProviders: Array<AuthProvider>
   userInvitation: UserInvitation
+  userProviders: Array<AuthProvider>
 }

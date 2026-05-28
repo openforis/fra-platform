@@ -1,6 +1,5 @@
 import { VerifyCallback } from 'passport-google-oauth20'
 
-import { Assessments } from 'meta/assessment/assessments'
 import { AuthProvider, AuthProviderGoogleProps } from 'meta/user/auth'
 
 import { UserController } from 'server/controller/user'
@@ -15,7 +14,7 @@ type Props = {
 export const register = async (props: Props): Promise<void> => {
   const { done, email, invitationUuid } = props
 
-  const { assessment, user: invitedUser, userInvitation } = await UserController.findByInvitation({ invitationUuid })
+  const { assessmentName, cycleName, user: invitedUser } = await UserController.findByInvitation({ invitationUuid })
 
   let userProvider = await UserProviderController.read<AuthProviderGoogleProps>({
     user: invitedUser,
@@ -41,6 +40,5 @@ export const register = async (props: Props): Promise<void> => {
     return
   }
 
-  const cycle = Assessments.getCycle({ assessment, cycleUuid: userInvitation.cycleUuid })
-  done(null, invitedUser, { assessmentName: assessment.props.name, cycleName: cycle.name, invitationUuid })
+  done(null, invitedUser, { assessmentName, cycleName, invitationUuid })
 }

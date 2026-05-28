@@ -2,16 +2,16 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Assessments } from 'meta/assessment/assessments'
+import { InvitationData } from 'meta/user/invitations/invitation'
 import { UserRoles } from 'meta/user/roles'
 import { Users } from 'meta/user/users'
 
 import Button, { ButtonSize } from 'client/components/Buttons/Button'
 import FormAccept from 'client/pages/Authentication/Invitation/Accept/FormAccept'
 import { useOnAccept } from 'client/pages/Authentication/Invitation/Accept/hooks/useOnAccept'
-import { DataInvitation } from 'client/pages/Authentication/Invitation/hooks/useData'
 
 type Props = {
-  data: DataInvitation
+  data: InvitationData
 }
 
 const Accept: React.FC<Props> = (props) => {
