@@ -5,6 +5,7 @@ import { Link } from 'react-router'
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { LoginQueryParams } from 'meta/routes/queryParams/login'
 import { Routes } from 'meta/routes/routes'
+import { AuthProvider } from 'meta/user/auth'
 import { InvitationData } from 'meta/user/invitations/invitation'
 import { Objects } from 'utils/objects'
 
@@ -40,7 +41,9 @@ const Login: React.FC = () => {
   const invitationData = useGetInvitation()
   const { invitationUuid } = useSearchParams<LoginQueryParams>()
 
-  const isNewUser = Boolean(invitationData && Objects.isEmpty(invitationData.userProviders))
+  // Show register form if user has no local login
+  const isRegister = Boolean(invitationData && !invitationData.userProviders.includes(AuthProvider.local))
+
   const { redirectUrl } = useRedirect({ invitationData })
   const onSuccess = useOnSuccess({ redirectTo: redirectUrl })
 
@@ -53,13 +56,13 @@ const Login: React.FC = () => {
           action={ApiEndPoint.Auth.login()}
           disableEmail={Boolean(invitationData)}
           email={invitationData?.user.email}
-          invitationUuid={isNewUser ? invitationUuid : undefined}
+          invitationUuid={isRegister ? invitationUuid : undefined}
           labels={{ submit: t('login.signInFRA') }}
           onSuccess={onSuccess}
-          password2={isNewUser}
+          password2={isRegister}
         />
       )}
-      {!isNewUser && (
+      {!isRegister && (
         <Link
           className="btn-help"
           to={Routes.LoginResetPassword.generatePath({ assessmentName, cycleName })}
@@ -68,7 +71,7 @@ const Login: React.FC = () => {
           {t('login.forgotPassword')}
         </Link>
       )}
-      {isNewUser && (
+      {isRegister && (
         <a
           className="btn-help"
           href={videoResources[0].url[i18n.resolvedLanguage] ?? videoResources[0].url.en}
@@ -80,7 +83,7 @@ const Login: React.FC = () => {
       )}
       <Divider />
       <ButtonGoogle disabled={invitationUuid && !invitationData} invitationData={invitationData} />
-      {isNewUser && (
+      {isRegister && (
         <a
           className="btn-help"
           href={videoResources[1].url[i18n.resolvedLanguage] ?? videoResources[1].url.en}
