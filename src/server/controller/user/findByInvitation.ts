@@ -1,3 +1,4 @@
+import { Assessments } from 'meta/assessment/assessments'
 import { InvitationData } from 'meta/user/invitations/invitation'
 
 import { AssessmentRedisRepository } from 'server/cache/repository/assessment'
@@ -18,10 +19,15 @@ export const findByInvitation = async (props: Props, client: BaseProtocol = DB):
   const userProviders = await UserProviderRepository.getUserProviders({ user }, client)
   const assessment = await AssessmentRedisRepository.getOne({ uuid: userInvitation.assessmentUuid }, client)
 
+  const assessmentName = assessment.props.name
+  const cycle = Assessments.getCycle({ assessment, cycleUuid: userInvitation.cycleUuid })
+  const cycleName = cycle.name
+
   return {
-    assessment,
+    assessmentName,
+    cycleName,
     user,
-    userProviders,
     userInvitation,
+    userProviders,
   }
 }

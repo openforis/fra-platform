@@ -4,14 +4,14 @@ import axios from 'axios'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { Routes } from 'meta/routes/routes'
+import { InvitationData } from 'meta/user/invitations/invitation'
 import { User } from 'meta/user/user'
 
 import { useAppDispatch } from 'client/store/hooks'
 import { UserActions } from 'client/store/user/actions'
-import { DataInvitation } from 'client/pages/Authentication/Invitation/hooks/useData'
 
 type Props = {
-  data: DataInvitation
+  data: InvitationData
 }
 
 type Returned = {

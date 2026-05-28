@@ -37,9 +37,12 @@ export const useGetInvitation = (): InvitationData => {
 const Login: React.FC = () => {
   const { i18n, t } = useTranslation()
 
-  const { assessmentName, cycleName } = useCycleRouteParams()
+  const { assessmentName: routeAssessmentName, cycleName: routeCycleName } = useCycleRouteParams()
   const invitationData = useGetInvitation()
   const { invitationUuid } = useSearchParams<LoginQueryParams>()
+
+  const assessmentName = invitationData?.assessmentName ?? routeAssessmentName
+  const cycleName = invitationData?.cycleName ?? routeCycleName
 
   // Show register form if user has no local login
   const isRegister = Boolean(invitationData && !invitationData.userProviders.includes(AuthProvider.local))
@@ -82,7 +85,12 @@ const Login: React.FC = () => {
         </a>
       )}
       <Divider />
-      <ButtonGoogle disabled={invitationUuid && !invitationData} invitationData={invitationData} />
+      <ButtonGoogle
+        assessmentName={assessmentName}
+        cycleName={cycleName}
+        disabled={Boolean(invitationUuid && !invitationData)}
+        invitationUuid={invitationUuid}
+      />
       {isRegister && (
         <a
           className="btn-help"

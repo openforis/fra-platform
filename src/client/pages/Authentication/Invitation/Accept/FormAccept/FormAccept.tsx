@@ -2,21 +2,20 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { Assessments } from 'meta/assessment/assessments'
+import { InvitationData } from 'meta/user/invitations/invitation'
 import { UserRole } from 'meta/user/role/role'
 import { User } from 'meta/user/user'
 
 import Form from 'client/components/Form'
 import Flex from 'client/components/Layout/Flex'
 import { useOnFormAccept } from 'client/pages/Authentication/Invitation/Accept/FormAccept/hooks/useOnFormAccept'
-import { DataInvitation } from 'client/pages/Authentication/Invitation/hooks/useData'
 import { EditUserRules } from 'client/pages/User/hooks/useEditUserRules'
 import { useFormDefinition } from 'client/pages/User/hooks/useFormDefinition'
 import { useValidationSchema } from 'client/pages/User/hooks/useValidationSchema'
 import { Urls } from 'client/utils/urls'
 
 type Props = {
-  data: DataInvitation
+  data: InvitationData
 }
 
 const FormAccept: React.FC<Props> = (props) => {
@@ -31,17 +30,15 @@ const FormAccept: React.FC<Props> = (props) => {
     userDisabled: false,
   }
 
-  const { assessment, cycleName } = data
-  const cycle = Assessments.getCycle({ assessment, cycleName })
-  const { countryIso, role } = data.userInvitation
+  const { countryIso, cycleUuid, role } = data.userInvitation
 
   // Create a "mock" role used for "mock" user
-  const partialRole: Partial<UserRole> = { role, cycleUuid: cycle.uuid, countryIso }
+  const partialRole: Partial<UserRole> = { role, cycleUuid, countryIso }
   // Create a "mock" user with roles based on invitation
   const targetUser: User = { ...data.user, roles: [partialRole as UserRole] }
 
   const labels = { submit: t('login.acceptInvitation') }
-  const formDefinition = useFormDefinition({ countryIso, cycle, editUserRules, labels, targetUser })
+  const formDefinition = useFormDefinition({ countryIso, editUserRules, labels, targetUser })
   const validationSchema = useValidationSchema()
 
   const action = Urls.withSearchParams(ApiEndPoint.User.invitationAccept(), {

@@ -13,11 +13,8 @@ export const removeInvitation = async (
   try {
     const { countryIso, invitationUuid } = req.query
 
-    const { assessment, userInvitation } = await UserController.findByInvitation({ invitationUuid })
-
-    const assessmentName = assessment.props.name
-    const { cycleUuid } = userInvitation
-    const { cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleUuid })
+    const { assessmentName, cycleName } = await UserController.findByInvitation({ invitationUuid })
+    const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
     const user = Requests.getUser(req)
     const removeInvitationProps = { assessment, cycle, countryIso, invitationUuid, user }
