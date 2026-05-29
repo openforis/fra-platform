@@ -46,7 +46,7 @@ export const useRoleValidationSchema = (): ZodObject => {
             zipCode: z.string().min(1, { error: t('form.errors.required', { field: t('editUser.zipCode') }) }),
             poBox: z.string().optional(),
             city: z.string().min(1, { error: t('form.errors.required', { field: t('editUser.city') }) }),
-            countryIso: z.string().optional(),
+            countryIso: z.string().min(1, { error: t('form.errors.required', { field: t('editUser.countryIso') }) }),
           }),
           secondaryEmail: z
             .email(t('form.errors.invalid', { field: t('editUser.secondaryEmail') }))
