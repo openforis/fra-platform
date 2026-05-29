@@ -71,7 +71,7 @@ const RepositoryList: React.FC<Props> = (props) => {
 
   const countryName = t(Areas.getTranslationKey(countryIso))
   let title = t('landing.links.repository')
-  if (isGlobal) title = t('landing.links.links')
+  if (isGlobal) title = t('landing.links.fraRepository')
   else if (showCountryName) title = t('landing.links.countryRepository', { countryName })
   let gridTemplateColumns = '28px 1fr minmax(120px, max-content) minmax(120px, auto) minmax(120px, auto) auto'
   if (!showColumns) gridTemplateColumns = '28px 1fr'

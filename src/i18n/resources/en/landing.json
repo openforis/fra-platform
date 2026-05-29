@@ -23,7 +23,7 @@
     "folderNotEmpty": "This folder cannot be removed because it's not empty.",
     "fileUploaded": "File successfully uploaded",
     "countryRepository": "{{countryName}} Repository",
-    "links": "FRA Repository",
+    "fraRepository": "FRA Repository",
     "repository": "Repository",
     "uploadFile": "Upload a file"
   },
