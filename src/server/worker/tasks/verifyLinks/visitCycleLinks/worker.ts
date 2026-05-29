@@ -36,11 +36,14 @@ export default async (job: VerifyAllLinksJob): Promise<void> => {
     const time = new Date().getTime()
     Logger.info(`${logKey} started.`)
 
-    const approvedLinksFilters = countryIso ? { approved: true, countries: [countryIso] } : { approved: true }
+    // Include deleted approved rows, so a previously approved URL stays approved if it is added back.
+    const filters = countryIso
+      ? { approved: true, countries: [countryIso], excludeDeleted: false }
+      : { approved: true, excludeDeleted: false }
 
     const [linksToVisit, approvedLinks] = await Promise.all([
       CycleDataController.Links.getAllLinksToVisit({ assessment, countryIso, cycle }),
-      LinkRepository.getMany({ assessment, cycle, filters: approvedLinksFilters }),
+      LinkRepository.getMany({ assessment, cycle, filters }),
     ])
 
     const mergedLinks = mergeLinks({ linksToVisit })

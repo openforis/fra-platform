@@ -45,9 +45,9 @@ export const syncDescriptionLinks = async (props: Props): Promise<Returned> => {
     return { approvedLinks: [], linkVisits: [] }
   }
 
-  // Prevent verifying already approved links.
-  const approvedProps = { assessment, cycle, filters: { approved: true, countries: [countryIso] } }
-  const approvedLinks = await LinkRepository.getMany(approvedProps)
+  // Include deleted approved rows, so a previously approved URL stays approved if it is added back.
+  const filters = { approved: true, countries: [countryIso], excludeDeleted: false }
+  const approvedLinks = await LinkRepository.getMany({ assessment, cycle, filters })
   const linkVisits = await visitLinks(filterLinks({ approvedLinks, linksToVisit }))
 
   // Replace stale description locations with the current ones in a single transaction.
