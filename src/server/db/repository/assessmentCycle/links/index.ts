@@ -2,6 +2,7 @@ import { getCount } from 'server/db/repository/assessmentCycle/links/getCount'
 import { buildGetManyQuery, getMany } from 'server/db/repository/assessmentCycle/links/getMany'
 import { getVerificationSummary } from 'server/db/repository/assessmentCycle/links/getVerificationSummary'
 import { markDeletedMany } from 'server/db/repository/assessmentCycle/links/markDeletedMany'
+import { removeLocations } from 'server/db/repository/assessmentCycle/links/removeLocations'
 import { update } from 'server/db/repository/assessmentCycle/links/update'
 import { upsertDescriptionLinks } from 'server/db/repository/assessmentCycle/links/upsertDescriptionLinks'
 import { upsertMany } from 'server/db/repository/assessmentCycle/links/upsertMany'
@@ -12,6 +13,7 @@ export const LinkRepository = {
   getMany,
   getVerificationSummary,
   markDeletedMany,
+  removeLocations,
   update,
   upsertDescriptionLinks,
   upsertMany,
