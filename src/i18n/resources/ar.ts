@@ -10,6 +10,7 @@ import editUser from './ar/editUser.json'
 import email from './ar/email.json'
 import explorer from './ar/explorer.json'
 import footer from './ar/footer.json'
+import form from './ar/form.json'
 import fra from './ar/fra.json'
 import generalValidation from './ar/generalValidation.json'
 import geo from './ar/geo.json'
@@ -34,6 +35,7 @@ export const arTranslation = {
   email,
   explorer,
   footer,
+  form,
   fra,
   generalValidation,
   geo,
