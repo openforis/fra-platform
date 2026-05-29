@@ -13,7 +13,7 @@ test.describe.serial('Repository: ', () => {
     await page.goto('/assessments/fra/2025/X01/home/repository')
     await DOMUtils.unlockEditing(page)
 
-    await page.getByRole('button', { name: 'Add file' }).click()
+    await page.getByRole('button', { name: 'Add file' }).last().click()
     await page.fill('input[name="repositoryItem.props.translation.en"]', rootLinkLabel)
     await page.fill('input[name="repositoryItem.link"]', 'https://example.com')
     await page.getByRole('button', { name: 'Save' }).click()
@@ -40,7 +40,7 @@ test.describe.serial('Repository: ', () => {
     await page.goto('/assessments/fra/2025/X01/home/repository')
     await DOMUtils.unlockEditing(page)
 
-    await page.getByRole('button', { name: 'Add folder' }).click()
+    await page.getByRole('button', { name: 'Add folder' }).last().click()
     await page.fill('input[name="repositoryItem.folderName"]', folderName)
     await page.getByRole('button', { name: 'Save' }).click()
 
@@ -54,7 +54,7 @@ test.describe.serial('Repository: ', () => {
     await DOMUtils.unlockEditing(page)
 
     await page.locator('.repository-folder button', { hasText: folderName }).click()
-    await page.getByRole('button', { name: 'Add file' }).click()
+    await page.getByRole('button', { name: 'Add file' }).last().click()
     await page.fill('input[name="repositoryItem.props.translation.en"]', nestedLinkLabel)
     await page.fill('input[name="repositoryItem.link"]', 'https://example.com/nested')
     await page.getByRole('button', { name: 'Save' }).click()
