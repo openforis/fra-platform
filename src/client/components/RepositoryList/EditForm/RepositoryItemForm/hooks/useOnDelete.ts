@@ -11,14 +11,16 @@ import { useAppDispatch } from 'client/store/hooks'
 import { TablePaginatedActions } from 'client/store/tablePaginated/actions'
 import { useSectionRouteParams } from 'client/hooks/routeParams'
 import { useToaster } from 'client/hooks/toaster'
+import { useRepositoryListContext } from 'client/components/RepositoryList/context'
 
 export const useOnDelete = (onClose: () => void, repositoryItem: Partial<RepositoryItem> | undefined): (() => void) => {
   const { assessmentName, countryIso, cycleName, sectionName } = useSectionRouteParams<CountryIso>()
+  const { isGlobal } = useRepositoryListContext()
   const dispatch = useAppDispatch()
   const { t } = useTranslation()
   const { toaster } = useToaster()
 
-  const path = `${ApiEndPoint.CycleData.Repository.many()}?global=false`
+  const path = `${ApiEndPoint.CycleData.Repository.many()}?global=${isGlobal}`
   const limit: number = undefined
   const page: number = undefined
 
