@@ -49,7 +49,7 @@ export const triggerVerifyLinksWorker = async (): Promise<void> => {
     const url = `https://api.heroku.com/apps/${ProcessEnv.herokuAppName}/dynos`
     const payload = {
       attach: false,
-      command: 'task-verifyLinks',
+      command: 'task_verifyLinks',
       type: 'run',
     }
 
