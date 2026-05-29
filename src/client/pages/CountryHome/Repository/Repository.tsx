@@ -23,7 +23,7 @@ const Repository: React.FC = () => {
         </>
       )}
 
-      <RepositoryList />
+      <RepositoryList showCountryName />
     </div>
   )
 }
