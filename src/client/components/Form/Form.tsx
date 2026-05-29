@@ -1,6 +1,7 @@
 import './Form.scss'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Form as ReactHookForm, useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
@@ -39,6 +40,7 @@ const Form: React.FC<FormProps> = (props) => {
   } = props
   const { fields, labels } = formDefinition
 
+  const { i18n } = useTranslation()
   const dispatch = useAppDispatch()
   // type FormValues = z.infer<typeof formSchema>
   const defaultValues = useDefaultValues(fields)
@@ -49,6 +51,10 @@ const Form: React.FC<FormProps> = (props) => {
   const { control, formState, register, resetField, setValue, trigger, watch } = form
   const { errors, isDirty, isSubmitting } = formState
   const watchValues = watch()
+
+  useEffect(() => {
+    trigger()
+  }, [i18n.language, trigger])
 
   return (
     <ReactHookForm
