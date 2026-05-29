@@ -1,5 +1,5 @@
 import './Form.scss'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Form as ReactHookForm, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -9,6 +9,7 @@ import { Objects } from 'utils/objects'
 
 import { useAppDispatch } from 'client/store/hooks'
 import { NotificationActions } from 'client/store/ui/notification/actions'
+import { useLanguage } from 'client/hooks/language'
 import { DataGrid } from 'client/components/DataGrid'
 import { FormFields } from 'client/components/Form/FormFields/FormFields'
 
@@ -39,6 +40,7 @@ const Form: React.FC<FormProps> = (props) => {
   } = props
   const { fields, labels } = formDefinition
 
+  const language = useLanguage()
   const dispatch = useAppDispatch()
   // type FormValues = z.infer<typeof formSchema>
   const defaultValues = useDefaultValues(fields)
@@ -49,6 +51,10 @@ const Form: React.FC<FormProps> = (props) => {
   const { control, formState, register, resetField, setValue, trigger, watch } = form
   const { errors, isDirty, isSubmitting } = formState
   const watchValues = watch()
+
+  useEffect(() => {
+    trigger()
+  }, [language, trigger])
 
   return (
     <ReactHookForm
