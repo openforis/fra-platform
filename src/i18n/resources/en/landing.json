@@ -22,7 +22,8 @@
     "fileOperationFailed": "The operation cannot be performed because the file is used in:\n{{sectionNames}}",
     "folderNotEmpty": "This folder cannot be removed because it's not empty.",
     "fileUploaded": "File successfully uploaded",
-    "links": "Links",
+    "countryRepository": "{{countryName}} Repository",
+    "fraRepository": "FRA Repository",
     "repository": "Repository",
     "uploadFile": "Upload a file"
   },
@@ -84,7 +85,7 @@
     "messageBoard": "Message board",
     "overview": "Overview",
     "recentActivity": "Recent activity",
-    "repository": "Links & Repository",
+    "repository": "Repository",
     "userManagement": "Manage Collaborators",
     "versioning": "Versioning"
   },

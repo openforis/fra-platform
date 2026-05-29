@@ -10,6 +10,7 @@ import { Objects } from 'utils/objects'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { FieldDefinition, FormDefinition, FormFieldType } from 'client/components/Form/types'
 import { Option } from 'client/components/Inputs/Select/types'
+import { useRepositoryListContext } from 'client/components/RepositoryList/context'
 import { useItems } from 'client/components/RepositoryList/hooks/useItems'
 
 import { FormType } from '../types'
@@ -29,8 +30,9 @@ export const useFormDefinition = (
   isLoadingFileMeta: boolean
 ): FormDefinition => {
   const { countryIso } = useCountryRouteParams<CountryIso>()
+  const { isGlobal } = useRepositoryListContext()
   const { t } = useTranslation()
-  const { items } = useItems(false)
+  const { items } = useItems(isGlobal)
 
   return useMemo<FormDefinition>(() => {
     const formType = repositoryItem && RepositoryItems.isFolder(repositoryItem) ? FormType.folder : FormType.item
@@ -47,9 +49,9 @@ export const useFormDefinition = (
       watches: { isDisabled: () => isLoadingFileMeta || isUsed },
     }
 
-    const commonFields: Array<FieldDefinition> = [
-      { defaultValue: countryIso, label: '', name: 'repositoryItem.countryIso', type: FormFieldType.hidden },
-    ]
+    const commonFields: Array<FieldDefinition> = isGlobal
+      ? []
+      : [{ defaultValue: countryIso, label: '', name: 'repositoryItem.countryIso', type: FormFieldType.hidden }]
 
     if (repositoryItem?.uuid) {
       commonFields.push({
@@ -123,6 +125,7 @@ export const useFormDefinition = (
           defaultValue: repositoryItem?.props?.public ?? false,
           label: 'common.public',
           name: 'repositoryItem.props.public',
+          shouldShow: () => !isGlobal,
           type: FormFieldType.checkbox,
         },
         {
@@ -136,5 +139,5 @@ export const useFormDefinition = (
       ],
       labels: { submit: t('editUser.done') },
     }
-  }, [countryIso, fileSummary, isLoadingFileMeta, items, repositoryItem, t])
+  }, [countryIso, fileSummary, isGlobal, isLoadingFileMeta, items, repositoryItem, t])
 }

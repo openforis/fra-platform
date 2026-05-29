@@ -33,7 +33,7 @@ const sections: Array<Section> = [
   },
   {
     name: SectionNames.Admin.links,
-    labelKey: 'landing.links.links',
+    labelKey: 'landing.links.fraRepository',
   },
   // { name: 'dataExport', labelKey: 'common.dataExport' },
 ]
