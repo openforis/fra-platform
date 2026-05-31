@@ -1,3 +1,4 @@
+import { DescriptionValidationRedisRepository } from 'server/cache/repository/validation/description'
 import { TableValidationRedisRepository } from 'server/cache/repository/validation/table'
 import { History } from 'server/controller/cycleData/history'
 import { Links } from 'server/controller/cycleData/links'
@@ -64,6 +65,7 @@ export const CycleDataController = {
   updateOriginalDataPointYear,
 
   // ===== review
+  getDescriptionValidations: DescriptionValidationRedisRepository.getDescriptionValidations,
   getReviewStatus,
   getReviewSummary: MessageTopicUserRepository.getReviewSummary,
   getTableValidations: TableValidationRedisRepository.getTableValidations,

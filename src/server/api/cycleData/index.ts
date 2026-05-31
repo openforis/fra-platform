@@ -55,6 +55,7 @@ import { getNodeValuesEstimations } from './table/getNodeValuesEstimations'
 import { getTableData } from './table/getTableData'
 import { getTableDataHistory } from './table/getTableDataHistory'
 import { persistNodeValues } from './table/persistNodeValues'
+import { getDescriptionValidations } from './validations/getDescriptionData'
 import { getValidationSummary } from './validations/getSummary'
 import { getTableValidations } from './validations/getTableData'
 
@@ -155,6 +156,11 @@ export const CycleDataApi = {
     express.get(ApiEndPoint.CycleData.Review.status(), AuthMiddleware.requireView, getReviewStatus)
     express.get(ApiEndPoint.CycleData.Review.summary(), AuthMiddleware.requireView, getReviewSummary)
     express.get(ApiEndPoint.CycleData.Validations.summary(), AuthMiddleware.requireView, getValidationSummary)
+    express.get(
+      ApiEndPoint.CycleData.Validations.descriptionData(),
+      AuthMiddleware.requireEditDescriptions,
+      getDescriptionValidations
+    )
     express.get(ApiEndPoint.CycleData.Validations.tableData(), AuthMiddleware.requireEditTableData, getTableValidations)
 
     // Country Links
