@@ -51,8 +51,6 @@ export const upsertDescriptionLinks = async (props: Props, client: BaseProtocol 
   const table = { table: 'link', schema: schemaCycle }
   const cs = new pgp.helpers.ColumnSet(columns, { table })
 
-  // Description validation only appends locations.
-  // Locations clean up for removed links is handled in the full country job.
   const query = `${pgp.helpers.insert(values, cs)}
     on conflict (country_iso, link) do update
     set visits = case

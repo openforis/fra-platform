@@ -2,7 +2,6 @@ import { Country } from 'meta/area/country'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { CommentableDescription } from 'meta/assessment/descriptionValue'
-import { Htmls } from 'utils/htmls'
 import { Objects } from 'utils/objects'
 
 import { visitDescriptionLinks } from 'server/worker/tasks/verifyLinks/visitDescriptionLinks/visitDescriptionLinks'
@@ -20,14 +19,10 @@ export const updateDescriptionTextValidations = async (props: Props): Promise<vo
 
   if (Objects.isEmpty(descriptions)) return
 
-  const descriptionsWithLinks = descriptions.filter(({ value }) => !Objects.isEmpty(Htmls.getLinks(value.text)))
-
-  if (Objects.isEmpty(descriptionsWithLinks)) return
-
   await visitDescriptionLinks({
     assessment,
     countryIso,
     cycle,
-    descriptionIds: descriptionsWithLinks.map(({ id }) => id),
+    descriptionIds: descriptions.map(({ id }) => id),
   })
 }

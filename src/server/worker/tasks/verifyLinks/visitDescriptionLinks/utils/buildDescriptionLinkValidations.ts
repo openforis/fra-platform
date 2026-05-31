@@ -1,4 +1,4 @@
-import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
+import { CommentableDescription, CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 import { RecordDescriptionValidations } from 'meta/assessment/validation/description'
 import { Link, LinkLocation, LinkToVisit, LinkValidationStatusCode, VisitedLink } from 'meta/cycleData/links/link'
 import { Links } from 'meta/cycleData/links/links'
@@ -13,16 +13,26 @@ const _isDescriptionTextLocation = (
 
 type Props = {
   approvedLinks: Array<Link>
+  initialDescriptions?: Array<CommentableDescription>
   linkVisits: Array<VisitedLink>
   linksToVisit: Array<LinkToVisit>
 }
 
 export const buildDescriptionLinkValidations = (props: Props): RecordDescriptionValidations => {
-  const { approvedLinks, linkVisits, linksToVisit } = props
+  const { approvedLinks, initialDescriptions = [], linkVisits, linksToVisit } = props
 
   const approvedLinksSet = new Set<string>(approvedLinks.map(_getLinkKey))
   const linkVisitsByKey = linkVisits.reduce<Record<string, VisitedLink>>((acc, linkVisit) => {
     acc[_getLinkKey(linkVisit)] = linkVisit
+    return acc
+  }, {})
+
+  // Mark the validated descriptions as valid first, so removing the last invalid link clears the previous error.
+  const initialValidations = initialDescriptions.reduce<RecordDescriptionValidations>((acc, description) => {
+    const { name, sectionName } = description
+    const sectionValidation = (acc[sectionName] ??= { descriptions: {} })
+    sectionValidation.descriptions ??= {}
+    sectionValidation.descriptions[name] = { valid: true }
     return acc
   }, {})
 
@@ -47,7 +57,7 @@ export const buildDescriptionLinkValidations = (props: Props): RecordDescription
     })
 
     return acc
-  }, {})
+  }, initialValidations)
 }
 
 export const buildDescriptionLinkValidationsByCountry = (
