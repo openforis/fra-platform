@@ -29,7 +29,7 @@ const Accept: React.FC<Props> = (props) => {
     role: t(Users.getI18nRoleLabelKey(userInvitation.role)),
   }
 
-  const showForm = UserRoles.isInvitationInfoRequired(userInvitation.role)
+  const showForm = UserRoles.isInvitationInfoRequired(userInvitation.role, assessmentName)
 
   return (
     <>

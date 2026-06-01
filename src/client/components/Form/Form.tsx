@@ -1,5 +1,5 @@
 import './Form.scss'
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Form as ReactHookForm, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -52,7 +52,13 @@ const Form: React.FC<FormProps> = (props) => {
   const { errors, isDirty, isSubmitting } = formState
   const watchValues = watch()
 
+  // Trigger validations on language change after first render
+  const isMounted = useRef(false)
   useEffect(() => {
+    if (!isMounted.current) {
+      isMounted.current = true
+      return
+    }
     trigger()
   }, [language, trigger])
 

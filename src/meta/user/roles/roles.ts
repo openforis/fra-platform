@@ -2,7 +2,7 @@ import i18n from 'i18next'
 
 import { Areas } from 'meta/area/areas'
 import { CountryStatus } from 'meta/area/countryStatus'
-import { Assessment } from 'meta/assessment/assessment'
+import { Assessment, AssessmentName, AssessmentNames } from 'meta/assessment/assessment'
 import { CollaboratorEditPropertyType, CollaboratorPermissions } from 'meta/user/role/collaborator'
 import { RoleName } from 'meta/user/role/name'
 import { UserRole } from 'meta/user/role/role'
@@ -83,7 +83,16 @@ const rolesRequiringInfo: Array<RoleName> = [
   RoleName.COLLABORATOR,
 ]
 
-const isInvitationInfoRequired = (roleName: RoleName): boolean => rolesRequiringInfo.includes(roleName)
+/**
+ * @param roleName - the role being invited
+ * @param assessmentName - the assessment the invitation belongs to
+ * @returns true if the invitation accept page should show the role info form.
+ * Only FRA roles NC, ANC, and Collaborator require it. All panEuropean invitations skip the form.
+ */
+const isInvitationInfoRequired = (roleName: RoleName, assessmentName: AssessmentName): boolean => {
+  if (assessmentName !== AssessmentNames.fra) return false
+  return rolesRequiringInfo.includes(roleName)
+}
 
 export const UserRoles = {
   noRole,
