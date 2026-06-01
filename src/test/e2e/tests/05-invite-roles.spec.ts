@@ -1,16 +1,18 @@
 import type { Page } from '@playwright/test'
 
+import { Routes } from 'meta/routes/routes'
+
 import { expect, test } from '../fixtures/auth'
 import { AuthUtils } from '../utils/Auth'
-import { InviteUtils } from '../utils/Invite'
+import { AssessmentConfig, fraConfig, InviteUtils, panEuropeanConfig } from '../utils/Invite'
 import { UserUtils } from '../utils/User'
 
 type RoleConfig = {
+  // form required for role
   fillAcceptForm?: (page: Page) => Promise<void>
   role: string
 }
 
-// fillAcceptForm: expect the form to be visible and required before accepting the invitation
 const roleConfigs: Array<RoleConfig> = [
   { role: 'National correspondent', fillAcceptForm: InviteUtils.fillRolePropsForm },
   { role: 'Alternate national correspondent', fillAcceptForm: InviteUtils.fillRolePropsForm },
@@ -20,16 +22,32 @@ const roleConfigs: Array<RoleConfig> = [
   { role: 'Viewer' },
 ]
 
-roleConfigs.forEach(({ fillAcceptForm, role }) => {
-  test.describe.serial(`${role} - Logged out new user`, () => {
+const assessmentConfigs: Array<AssessmentConfig & { shouldFillForm?: boolean }> = [
+  { ...fraConfig, shouldFillForm: true },
+  { ...panEuropeanConfig },
+]
+
+const testConfigs = assessmentConfigs.flatMap((assessment) =>
+  roleConfigs.map((roleConfig) => ({ ...assessment, ...roleConfig }))
+)
+
+testConfigs.forEach(({ assessmentName, countryIso, cycleName, fillAcceptForm, role, shouldFillForm }) => {
+  const label = `${role} (${assessmentName})`
+  const expectedUrl = new RegExp(Routes.Country.generatePath({ assessmentName, cycleName, countryIso }))
+
+  test.describe.serial(`${label} - Logged out new user`, () => {
     const testUser = UserUtils.createTestUser(role)
     let invitationPath: string
 
-    test(`Admin invites ${role}`, async ({ authenticatedPage }) => {
-      invitationPath = await InviteUtils.adminInvite(authenticatedPage, testUser)
+    test(`Admin invites ${label}`, async ({ authenticatedPage }) => {
+      invitationPath = await InviteUtils.adminInvite(authenticatedPage, testUser, {
+        assessmentName,
+        countryIso,
+        cycleName,
+      })
     })
 
-    test(`${role} registers and accepts invitation`, async ({ browser }) => {
+    test(`${label} registers and accepts invitation`, async ({ browser }) => {
       const context = await browser.newContext({ baseURL: test.info().project.use.baseURL })
       const page = await context.newPage()
 
@@ -44,26 +62,35 @@ roleConfigs.forEach(({ fillAcceptForm, role }) => {
       await expect(page.getByText('Forgot your password?')).not.toBeVisible()
 
       await AuthUtils.fillRegisterForm(page, testUser.password)
-      if (fillAcceptForm) await fillAcceptForm(page)
+      if (shouldFillForm && fillAcceptForm) await fillAcceptForm(page)
+      else await expect(page.locator('.user-form')).not.toBeVisible()
       await page.getByRole('button', { name: 'Accept Invitation' }).click()
-      await expect(page).toHaveURL(/\/assessments\/fra\/2025\/X01\/home\/overview$/)
+      await expect(page).toHaveURL(expectedUrl)
       await context.close()
     })
 
     test('Admin confirms no pending badge', async ({ authenticatedPage }) => {
-      await InviteUtils.adminConfirmsNoPending(authenticatedPage, testUser.fullName)
+      await InviteUtils.adminConfirmsNoPending(authenticatedPage, testUser.fullName, {
+        assessmentName,
+        countryIso,
+        cycleName,
+      })
     })
   })
 
-  test.describe.serial(`${role} - Logged out existing user`, () => {
+  test.describe.serial(`${label} - Logged out existing user`, () => {
     const testUser = UserUtils.createTestUser(role)
     let invitationPath: string
 
-    test(`Admin invites ${role}`, async ({ authenticatedPage }) => {
-      invitationPath = await InviteUtils.adminInvite(authenticatedPage, testUser)
+    test(`Admin invites ${label}`, async ({ authenticatedPage }) => {
+      invitationPath = await InviteUtils.adminInvite(authenticatedPage, testUser, {
+        assessmentName,
+        countryIso,
+        cycleName,
+      })
     })
 
-    test(`${role} creates account without accepting`, async ({ browser }) => {
+    test(`${label} creates account without accepting`, async ({ browser }) => {
       const context = await browser.newContext({ baseURL: test.info().project.use.baseURL })
       const page = await context.newPage()
 
@@ -74,7 +101,7 @@ roleConfigs.forEach(({ fillAcceptForm, role }) => {
       await context.close()
     })
 
-    test(`${role} logs in and accepts invitation`, async ({ browser }) => {
+    test(`${label} logs in and accepts invitation`, async ({ browser }) => {
       const context = await browser.newContext({ baseURL: test.info().project.use.baseURL })
       const page = await context.newPage()
 
@@ -82,26 +109,35 @@ roleConfigs.forEach(({ fillAcceptForm, role }) => {
       // Email is pre-filled and disabled, existing user sees only the password field
       await expect(page.locator('input[name="password2"]')).not.toBeVisible()
       await AuthUtils.fillLoginForm(page, testUser.password)
-      if (fillAcceptForm) await fillAcceptForm(page)
+      if (shouldFillForm && fillAcceptForm) await fillAcceptForm(page)
+      else await expect(page.locator('.user-form')).not.toBeVisible()
       await page.getByRole('button', { name: 'Accept Invitation' }).click()
-      await expect(page).toHaveURL(/\/assessments\/fra\/2025\/X01\/home\/overview$/)
+      await expect(page).toHaveURL(expectedUrl)
       await context.close()
     })
 
     test('Admin confirms no pending badge', async ({ authenticatedPage }) => {
-      await InviteUtils.adminConfirmsNoPending(authenticatedPage, testUser.fullName)
+      await InviteUtils.adminConfirmsNoPending(authenticatedPage, testUser.fullName, {
+        assessmentName,
+        countryIso,
+        cycleName,
+      })
     })
   })
 
-  test.describe.serial(`${role} - Logged in existing user`, () => {
+  test.describe.serial(`${label} - Logged in existing user`, () => {
     const testUser = UserUtils.createTestUser(role)
     let invitationPath: string
 
-    test(`Admin invites ${role}`, async ({ authenticatedPage }) => {
-      invitationPath = await InviteUtils.adminInvite(authenticatedPage, testUser)
+    test(`Admin invites ${label}`, async ({ authenticatedPage }) => {
+      invitationPath = await InviteUtils.adminInvite(authenticatedPage, testUser, {
+        assessmentName,
+        countryIso,
+        cycleName,
+      })
     })
 
-    test(`${role} accepts invitation while already logged in`, async ({ browser }) => {
+    test(`${label} accepts invitation while already logged in`, async ({ browser }) => {
       const context = await browser.newContext({ baseURL: test.info().project.use.baseURL })
       const page = await context.newPage()
 
@@ -111,26 +147,35 @@ roleConfigs.forEach(({ fillAcceptForm, role }) => {
 
       // Already logged in - Login page redirects straight to the accept form
       await page.goto(invitationPath)
-      if (fillAcceptForm) await fillAcceptForm(page)
+      if (shouldFillForm && fillAcceptForm) await fillAcceptForm(page)
+      else await expect(page.locator('.user-form')).not.toBeVisible()
       await page.getByRole('button', { name: 'Accept Invitation' }).click()
-      await expect(page).toHaveURL(/\/assessments\/fra\/2025\/X01\/home\/overview$/)
+      await expect(page).toHaveURL(expectedUrl)
       await context.close()
     })
 
     test('Admin confirms no pending badge', async ({ authenticatedPage }) => {
-      await InviteUtils.adminConfirmsNoPending(authenticatedPage, testUser.fullName)
+      await InviteUtils.adminConfirmsNoPending(authenticatedPage, testUser.fullName, {
+        assessmentName,
+        countryIso,
+        cycleName,
+      })
     })
   })
 
-  test.describe.serial(`${role} - Logged in as different user`, () => {
+  test.describe.serial(`${label} - Logged in as different user`, () => {
     const testUser = UserUtils.createTestUser(role)
     let invitationPath: string
 
-    test(`Admin invites ${role}`, async ({ authenticatedPage }) => {
-      invitationPath = await InviteUtils.adminInvite(authenticatedPage, testUser)
+    test(`Admin invites ${label}`, async ({ authenticatedPage }) => {
+      invitationPath = await InviteUtils.adminInvite(authenticatedPage, testUser, {
+        assessmentName,
+        countryIso,
+        cycleName,
+      })
     })
 
-    test(`Admin visits ${role} invitation link (wrong user) and sees notification`, async ({ authenticatedPage }) => {
+    test(`Admin visits ${label} invitation link (wrong user) and sees notification`, async ({ authenticatedPage }) => {
       // Admin is already logged in as a different user
       await authenticatedPage.goto(invitationPath)
 

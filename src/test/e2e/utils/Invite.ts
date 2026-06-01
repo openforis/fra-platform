@@ -1,13 +1,41 @@
 import { expect, Page } from '@playwright/test'
 
+import { CountryIso } from 'meta/area/countryIso'
+import { AssessmentName, AssessmentNames } from 'meta/assessment/assessment'
+import { CycleName } from 'meta/assessment/cycle'
+import { CycleNames } from 'meta/assessment/cycle/names'
+
 import { DOMUtils } from './DOM'
 import { MailUtil } from './Mail'
 import { TestUserData } from './User'
 
-const adminInvite = async (page: Page, testUser: TestUserData): Promise<string> => {
+export type AssessmentConfig = {
+  assessmentName: AssessmentName
+  countryIso: CountryIso
+  cycleName: CycleName
+}
+
+export const fraConfig: AssessmentConfig = {
+  assessmentName: AssessmentNames.fra,
+  countryIso: 'X01',
+  cycleName: CycleNames._2025,
+}
+
+export const panEuropeanConfig: AssessmentConfig = {
+  assessmentName: AssessmentNames.panEuropean,
+  countryIso: 'FIN',
+  cycleName: CycleNames._2025,
+}
+
+const adminInvite = async (
+  page: Page,
+  testUser: TestUserData,
+  config: AssessmentConfig = fraConfig
+): Promise<string> => {
+  const { assessmentName, countryIso, cycleName } = config
   const { email, name, role, surname } = testUser
 
-  await page.goto('/assessments/fra/2025/X01/home/collaborators')
+  await page.goto(`/assessments/${assessmentName}/${cycleName}/${countryIso}/home/collaborators`)
   await page.getByRole('link', { name: 'Add collaborator' }).click()
   await page.fill('input[name="name"]', name)
   await page.fill('input[name="surname"]', surname)
@@ -20,8 +48,14 @@ const adminInvite = async (page: Page, testUser: TestUserData): Promise<string> 
   return MailUtil.getInvitationLink(email)
 }
 
-const adminConfirmsNoPending = async (page: Page, fullName: string): Promise<void> => {
-  await page.goto('/assessments/fra/2025/X01/home/collaborators')
+const adminConfirmsNoPending = async (
+  page: Page,
+  fullName: string,
+  config: AssessmentConfig = fraConfig
+): Promise<void> => {
+  const { assessmentName, countryIso, cycleName } = config
+
+  await page.goto(`/assessments/${assessmentName}/${cycleName}/${countryIso}/home/collaborators`)
 
   const card = page.locator('.home-user-card').filter({ hasText: fullName })
   await expect(card).toBeVisible()
