@@ -54,8 +54,8 @@ export const getFlag = (props: Props): string => {
     variableName,
   })
 
+  if (Objects.isNil(nodeValue?.raw)) return 'O'
   const isImputed = deskStudy || nodeValue?.faoEstimate
   if (isImputed) return 'I'
-  if (Objects.isNil(nodeValue?.raw)) return 'O'
   return 'A'
 }
