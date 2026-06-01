@@ -2,6 +2,7 @@ import { CommentableDescription, CommentableDescriptionName } from 'meta/assessm
 import { RecordDescriptionValidations } from 'meta/assessment/validation/description'
 import { Link, LinkLocation, LinkToVisit, LinkValidationStatusCode, VisitedLink } from 'meta/cycleData/links/link'
 import { Links } from 'meta/cycleData/links/links'
+import { Objects } from 'utils/objects'
 
 const _getLinkKey = (link: Pick<LinkToVisit, 'countryIso' | 'link'>): string => `${link.countryIso}_${link.link ?? ''}`
 
@@ -9,6 +10,15 @@ const _isDescriptionTextLocation = (
   location: LinkLocation
 ): location is Extract<LinkLocation, { descriptionName: string }> => {
   return 'descriptionName' in location && location.path.length === 1 && location.path[0] === 'text'
+}
+
+const _getInvalidLinkLabel = (linkToVisit: LinkToVisit): string => {
+  const { link, name } = linkToVisit
+
+  if (!Objects.isEmpty(link)) return link
+  if (!Objects.isEmpty(name)) return name
+
+  return ''
 }
 
 type Props = {
@@ -52,7 +62,13 @@ export const buildDescriptionLinkValidations = (props: Props): RecordDescription
 
       if (!valid && validationCode) {
         descriptionValidation.messages ??= []
-        descriptionValidation.messages.push({ key: Links.getI18nValidationStatusLabelKey(validationCode) })
+        descriptionValidation.messages.push({
+          key: 'generalValidation.invalidLinkWithReason',
+          params: {
+            link: _getInvalidLinkLabel(linkToVisit),
+            reason: Links.getI18nValidationStatusLabelKey(validationCode),
+          },
+        })
       }
     })
 
