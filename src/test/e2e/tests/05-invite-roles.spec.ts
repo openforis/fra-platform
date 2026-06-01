@@ -22,13 +22,16 @@ const roleConfigs: Array<RoleConfig> = [
   { role: 'Viewer' },
 ]
 
-const assessmentConfigs: Array<AssessmentConfig & { shouldFillForm?: boolean }> = [
+// For panEuropean, only test the roles which have accept form in FRA
+const panEuropeanRoleConfigs: Array<RoleConfig> = roleConfigs.filter(({ fillAcceptForm }) => fillAcceptForm)
+
+const assessmentConfigs: Array<AssessmentConfig & { roles?: Array<RoleConfig>; shouldFillForm?: boolean }> = [
   { ...fraConfig, shouldFillForm: true },
-  { ...panEuropeanConfig },
+  { ...panEuropeanConfig, roles: panEuropeanRoleConfigs },
 ]
 
-const testConfigs = assessmentConfigs.flatMap((assessment) =>
-  roleConfigs.map((roleConfig) => ({ ...assessment, ...roleConfig }))
+const testConfigs = assessmentConfigs.flatMap(({ roles = roleConfigs, ...assessment }) =>
+  roles.map((roleConfig) => ({ ...assessment, ...roleConfig }))
 )
 
 testConfigs.forEach(({ assessmentName, countryIso, cycleName, fillAcceptForm, role, shouldFillForm }) => {
