@@ -42,6 +42,7 @@ export const CycleDataController = {
   clearTableData,
   getLastPublishedData,
   getTableData,
+  getTableValidations: TableValidationRedisRepository.getTableValidations,
 
   // ===== original data point
   createOriginalDataPoint,
@@ -65,10 +66,8 @@ export const CycleDataController = {
   updateOriginalDataPointYear,
 
   // ===== review
-  getDescriptionValidations: DescriptionValidationRedisRepository.getDescriptionValidations,
   getReviewStatus,
   getReviewSummary: MessageTopicUserRepository.getReviewSummary,
-  getTableValidations: TableValidationRedisRepository.getTableValidations,
   getValidationSummary,
 
   // ==== activities
@@ -77,6 +76,7 @@ export const CycleDataController = {
 
   // ====== description
   Description,
+  getDescriptionValidations: DescriptionValidationRedisRepository.getDescriptionValidations,
 
   // ====== history
   History,
