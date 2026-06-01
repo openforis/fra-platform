@@ -25,7 +25,7 @@ const intervals = (cycle: Cycle): Array<string> => {
 const _annual: Record<string, Array<string>> = {
   '2020': Array.from({ length: 18 }, (_, i) => String(2000 + i)),
   '2025': Array.from({ length: 24 }, (_, i) => String(2000 + i)),
-  latest: Array.from({ length: 24 }, (_, i) => String(2000 + i)),
+  latest: Array.from({ length: new Date().getFullYear() - 2000 }, (_, i) => String(2000 + i)),
 }
 
 // TODO: Refactor / dynamic / cycle.props
