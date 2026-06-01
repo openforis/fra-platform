@@ -32,11 +32,12 @@ export const useOnAccept = (props: Props): Returned => {
 
     setIsLoading(true)
     try {
+      const { assessmentName, cycleName, userInvitation } = data
+      const { countryIso } = userInvitation
       const config = { params: { invitationUuid } }
-      const { data } = await axios.post<{ user: User }>(ApiEndPoint.User.invitationAccept(), {}, config)
-      // On accept, update received user to store and navigate to role assessment/cycle/country
-      dispatch(UserActions.setUser(data.user))
-      navigate(Routes.Root.generatePath())
+      const response = await axios.post<{ user: User }>(ApiEndPoint.User.invitationAccept(), {}, config)
+      dispatch(UserActions.setUser(response.data.user))
+      navigate(Routes.Country.generatePath({ assessmentName, cycleName, countryIso }))
     } catch (error) {
       setIsLoading(false)
     }

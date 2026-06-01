@@ -22,7 +22,7 @@ const FormAccept: React.FC<Props> = (props) => {
   const { data } = props
   const { t } = useTranslation()
 
-  const onSuccess = useOnFormAccept()
+  const onSuccess = useOnFormAccept({ data })
 
   const editUserRules: EditUserRules = {
     emailDisabled: true,
