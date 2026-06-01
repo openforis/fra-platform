@@ -21,6 +21,7 @@
     "fileDeleted": "تم حذف الملف بنجاح",
     "fileOperationFailed": ":لا يمكن تنفيذ العملية لأن الملف قيد الاستخدام في :\n{{sectionNames}}",
     "fileUploaded": "تم تحميل الملف بنجاح",
+    "fraRepository": "مستودع تقييم الموارد الحرجية العالمية ( الفرا)",
     "links": "روابط",
     "repository": "المستودع",
     "uploadFile": "حمل ملفاً"

@@ -21,6 +21,7 @@
     "fileDeleted": "Файл успешно удален",
     "fileOperationFailed": "Операция не может быть выполнена, так как файл используется в:\n{{sectionNames}}",
     "fileUploaded": "Файл успешно загружен",
+    "fraRepository": "Хранилище данных ОЛР",
     "links": "Ссылки",
     "repository": "Хранилище данных",
     "uploadFile": "Загрузить файл"
