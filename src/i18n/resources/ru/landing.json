@@ -21,7 +21,8 @@
     "fileDeleted": "Файл успешно удален",
     "fileOperationFailed": "Операция не может быть выполнена, так как файл используется в:\n{{sectionNames}}",
     "fileUploaded": "Файл успешно загружен",
-    "links": "Ссылки",
+    "fraRepository": "Хранилище данных ОЛР",
+    "countryRepository": "Хранилище данных {{countryName}}",
     "repository": "Хранилище данных",
     "uploadFile": "Загрузить файл"
   },
@@ -83,7 +84,7 @@
     "messageBoard": "Доска сообщений",
     "overview": "Обзор",
     "recentActivity": "Недавняя активность",
-    "repository": "Ссылки и хранилище данных",
+    "repository": "Хранилище данных",
     "userManagement": "Координировать сотрудников",
     "versioning": "Версии"
   },
