@@ -52,7 +52,7 @@ const Invitation: React.FC = () => {
     )
   }
 
-  const showForm = UserRoles.isInvitationInfoRequired(userInvitation.role)
+  const showForm = UserRoles.isInvitationInfoRequired(userInvitation.role, assessmentName)
 
   return (
     <div className={classNames({ 'invitation-accept-form': showForm, 'login-form': !showForm })}>
