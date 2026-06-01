@@ -1,3 +1,4 @@
+import { DescriptionValidationRedisRepository } from 'server/cache/repository/validation/description'
 import { TableValidationRedisRepository } from 'server/cache/repository/validation/table'
 import { History } from 'server/controller/cycleData/history'
 import { Links } from 'server/controller/cycleData/links'
@@ -41,6 +42,7 @@ export const CycleDataController = {
   clearTableData,
   getLastPublishedData,
   getTableData,
+  getTableValidations: TableValidationRedisRepository.getTableValidations,
 
   // ===== original data point
   createOriginalDataPoint,
@@ -66,7 +68,6 @@ export const CycleDataController = {
   // ===== review
   getReviewStatus,
   getReviewSummary: MessageTopicUserRepository.getReviewSummary,
-  getTableValidations: TableValidationRedisRepository.getTableValidations,
   getValidationSummary,
 
   // ==== activities
@@ -75,6 +76,7 @@ export const CycleDataController = {
 
   // ====== description
   Description,
+  getDescriptionValidations: DescriptionValidationRedisRepository.getDescriptionValidations,
 
   // ====== history
   History,
