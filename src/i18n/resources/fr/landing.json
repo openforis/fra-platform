@@ -22,7 +22,7 @@
     "fileOperationFailed": "L'opération ne peut pas être réalisée parce que le fichier est en cours d'utilisation dans:\n{{sectionNames}}",
     "fileUploaded": "Fichier téléchargé avec succès",
     "fraRepository": "Référentiel de FRA",
-    "links": "Liens",
+    "countryRepository": "Référentiel de {{countryName}}",
     "repository": "Référentiel",
     "uploadFile": "Mettre en ligne un fichier"
   },
@@ -84,7 +84,7 @@
     "messageBoard": "Panneau d'affichage",
     "overview": "Aperçu",
     "recentActivity": "Activité récente",
-    "repository": "Liens et Référentiel",
+    "repository": "Référentiel",
     "userManagement": "Gérer collaborateurs",
     "versioning": "Gestion des versions"
   },

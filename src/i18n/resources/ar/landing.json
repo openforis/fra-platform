@@ -22,7 +22,7 @@
     "fileOperationFailed": ":لا يمكن تنفيذ العملية لأن الملف قيد الاستخدام في :\n{{sectionNames}}",
     "fileUploaded": "تم تحميل الملف بنجاح",
     "fraRepository": "مستودع تقييم الموارد الحرجية العالمية ( الفرا)",
-    "links": "روابط",
+    "countryRepository": "مستودع {{countryName}}",
     "repository": "المستودع",
     "uploadFile": "حمل ملفاً"
   },
@@ -84,7 +84,7 @@
     "messageBoard": "لوح الرسائل",
     "overview": "استعراض",
     "recentActivity": "آخر النشاطات",
-    "repository": "الروابط والمستودع",
+    "repository": "المستودع",
     "userManagement": "إدارة المتعاونين",
     "versioning": "الإصدار"
   },
