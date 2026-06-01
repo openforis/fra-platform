@@ -157,7 +157,7 @@ export const CycleDataApi = {
     express.get(ApiEndPoint.CycleData.Review.summary(), AuthMiddleware.requireView, getReviewSummary)
     express.get(ApiEndPoint.CycleData.Validations.summary(), AuthMiddleware.requireView, getValidationSummary)
     express.get(
-      ApiEndPoint.CycleData.Validations.descriptionData(),
+      ApiEndPoint.CycleData.Validations.descriptions(),
       AuthMiddleware.requireEditDescriptions,
       getDescriptionValidations
     )
