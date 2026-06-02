@@ -21,7 +21,8 @@
     "fileDeleted": "文件成功删除",
     "fileOperationFailed": "该操作无法进行，因为此文件已被用于:\n{{sectionNames}}",
     "fileUploaded": "文件成功上传",
-    "links": "链接",
+    "fraRepository": "FRA资料库",
+    "countryRepository": "{{countryName}}资源库",
     "repository": "资源库",
     "uploadFile": "上传文件"
   },
@@ -83,7 +84,7 @@
     "messageBoard": "留言板",
     "overview": "概览",
     "recentActivity": "近期活动",
-    "repository": "链接和仓库",
+    "repository": "资源库",
     "userManagement": "合作管理",
     "versioning": "版本更新"
   },

@@ -21,7 +21,8 @@
     "fileDeleted": "Archivo eliminado correctamente",
     "fileOperationFailed": "La operación no se puede realizar porque el archivo se utiliza en:\n{{sectionNames}}",
     "fileUploaded": "Archivo cargado correctamente",
-    "links": "Enlaces",
+    "fraRepository": "Repositorio de la FRA",
+    "countryRepository": "Repositorio de {{countryName}}",
     "repository": "Repositorio",
     "uploadFile": "Cargar un archivo"
   },
@@ -83,7 +84,7 @@
     "messageBoard": "Tablero de mensajes",
     "overview": "Visión general",
     "recentActivity": "Actividad reciente",
-    "repository": "Enlaces y Repositorio",
+    "repository": "Repositorio",
     "userManagement": "Gestionar colaboradores",
     "versioning": "Versionando"
   },

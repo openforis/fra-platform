@@ -3,6 +3,7 @@ import React from 'react'
 import AvatarField from 'client/components/Form/FormFields/AvatarField'
 import CheckboxField from 'client/components/Form/FormFields/CheckboxField'
 import CountryField from 'client/components/Form/FormFields/CountryField'
+import FileField from 'client/components/Form/FormFields/FileField'
 import HiddenField from 'client/components/Form/FormFields/HiddenField'
 import LanguageField from 'client/components/Form/FormFields/LanguageField'
 import PasswordField from 'client/components/Form/FormFields/PasswordField'
@@ -19,6 +20,7 @@ export const FormFields: Record<FormFieldType, React.FC<FieldProps>> = {
   [FormFieldType.avatar]: AvatarField,
   [FormFieldType.checkbox]: CheckboxField,
   [FormFieldType.country]: CountryField,
+  [FormFieldType.file]: FileField,
   [FormFieldType.hidden]: HiddenField,
   [FormFieldType.language]: LanguageField,
   [FormFieldType.password]: PasswordField,

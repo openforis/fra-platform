@@ -1,0 +1,32 @@
+@use 'sass:color';
+@use 'src/client/style/partials' as *;
+
+.repository-column-headers {
+  background-color: color.adjust($ui-bg-hover, $lightness: 4%, $space: hsl);
+  border-top: 1px solid $ui-border;
+  box-shadow: 0 1px 0 $ui-border-dark;
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: subgrid;
+  min-height: 28px;
+}
+
+.repository-column-headers__col {
+  align-items: center;
+  border-right: 1px solid $ui-border-light;
+  color: $text-mute;
+  display: flex;
+  font-size: $font-xxxs;
+  font-weight: 600;
+  padding: 0 $spacing-xxs;
+  text-transform: uppercase;
+
+  &:first-child {
+    border-left: 1px solid $ui-border-light;
+    justify-content: center;
+  }
+}
+
+.repository-column-headers__col--name {
+  gap: $spacing-xxxs;
+}

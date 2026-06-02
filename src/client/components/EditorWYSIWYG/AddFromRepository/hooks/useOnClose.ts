@@ -6,10 +6,11 @@ import { RepositoryItem } from 'meta/cycleData/repository/item'
 import { RepositoryItems } from 'meta/cycleData/repository/items'
 import { Translations } from 'meta/translation/translations'
 
-import { useUpdateRepositoryItemsAccess } from 'client/store/repository/hooks/useUpdateRepositoryItemAccess'
 import { useLanguage } from 'client/hooks/language'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { useRepositoryLinkContext } from 'client/components/EditorWYSIWYG/repositoryLinkContext'
+
+import { useUpdateRepositoryItemsAccess } from './useUpdateRepositoryItemAccess'
 
 type Returned = () => void
 
@@ -37,9 +38,7 @@ export const useOnClose = (): Returned => {
       })}</a>`
     }
 
-    selectedFiles.forEach((_repositoryItem: RepositoryItem) => {
-      updateRepositoryAccess({ repositoryItems: selectedFiles, value: true })
-    })
+    updateRepositoryAccess({ repositoryItems: selectedFiles, value: true })
 
     const linksString = selectedFiles.map(mapFunction).join(' ')
     jodit?.s.insertHTML(linksString)
