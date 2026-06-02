@@ -34,7 +34,13 @@ const CountryMultiSelect: React.FC<Props> = (props) => {
   const { t } = useTranslation()
   const optionGroups = useCountriesByRegionOptions({ allowedCountries, allowAtlantis, disabledOptions })
   const isOptionDisabled = useIsOptionDisabled(props)
-  const tooltip = useTooltipContent({ allowedCountries, error, isMulti, value: (value as Array<CountryIso>) ?? [] })
+  const tooltip = useTooltipContent({
+    allowAtlantis,
+    allowedCountries,
+    error,
+    isMulti,
+    value: (value as Array<CountryIso>) ?? [],
+  })
   const { onMenuClose, onMenuOpen } = useMenuActions({ ...props, tooltip })
 
   const active = useMemo(() => !Objects.isEmpty(value), [value])

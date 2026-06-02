@@ -1,0 +1,25 @@
+@use 'src/client/style/partials' as *;
+
+.repository-header__path {
+  align-items: center;
+  color: $text-mute;
+  display: flex;
+  font-size: $font-xs;
+  gap: $spacing-xxxs;
+
+  button {
+    all: unset;
+    color: $ui-accent;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    &:last-child {
+      color: $text-body;
+      cursor: default;
+      pointer-events: none;
+    }
+  }
+}

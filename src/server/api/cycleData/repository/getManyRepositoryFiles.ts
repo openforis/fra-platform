@@ -13,10 +13,12 @@ export const getManyRepositoryFiles = async (req: Request, res: Response): Promi
     const { assessment, cycle } = req.context
     const { countryIso, global = 'false' } = req.query
 
-    const props = { assessment, cycle, countryIso, global: JSON.parse(global) }
+    const isGlobal = JSON.parse(global)
+    const props = { assessment, cycle, countryIso, global: isGlobal }
     const files = await CycleDataController.Repository.getManyFiles(props)
 
-    await Responses.sendZip(res, files)
+    const zipName = `repository_${isGlobal ? 'global' : countryIso}`
+    await Responses.sendZip(res, files, zipName)
   } catch (e) {
     Requests.sendErr(res, e)
   }

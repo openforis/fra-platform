@@ -1,13 +1,5 @@
 @use 'src/client/style/partials' as *;
 
-.home-story {
-  grid-template-columns: auto auto;
-
-  @include min-width($laptop) {
-    justify-content: start;
-  }
-}
-
 .home-story__image {
   width: 400px;
 }

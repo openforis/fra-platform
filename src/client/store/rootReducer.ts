@@ -7,7 +7,6 @@ import { dataReducer } from 'client/store/data/reducer'
 import { FileUploadSlice } from 'client/store/fileUpload/slice'
 import { MessageCenterSlice } from 'client/store/messageCenter/slice'
 import { MetaSlice } from 'client/store/meta/slice'
-import { RepositorySlice } from 'client/store/repository/slice'
 import { ReviewSlice } from 'client/store/review/slice'
 import { AreaSelectorSlice } from 'client/store/ui/areaSelector/slice'
 import { CountryReportSlice } from 'client/store/ui/countryReport/slice'
@@ -21,7 +20,6 @@ export default {
   [FileUploadSlice.name]: FileUploadSlice.reducer,
   [MetaSlice.name]: MetaSlice.reducer,
   [MessageCenterSlice.name]: MessageCenterSlice.reducer,
-  [RepositorySlice.name]: RepositorySlice.reducer,
   [ReviewSlice.name]: ReviewSlice.reducer,
 
   ui: combineReducers({

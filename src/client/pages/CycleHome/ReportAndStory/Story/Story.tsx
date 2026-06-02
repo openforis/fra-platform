@@ -14,7 +14,7 @@ const Story: React.FC = () => {
   const url = `https://www.fao.org/interactive/2025/forest-resources-assessment/${lang}/`
 
   return (
-    <div className="home-hero home-story">
+    <div className="home-hero">
       <img
         alt={t('landing.interactiveStory')}
         className="home-hero__image home-story__image"

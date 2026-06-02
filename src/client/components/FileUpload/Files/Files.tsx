@@ -14,10 +14,12 @@ const Files: React.FC<Props> = (props) => {
     <div className="file-upload__files">
       {value.map((fileSummary) => {
         return (
-          <React.Fragment key={fileSummary.uuid}>
+          <React.Fragment key={fileSummary.repositoryItemUuid}>
             <FileDownload acceptedFiles={acceptedFiles} fileSummary={fileSummary} />
 
-            <ButtonDelete onClick={() => onChange(value.filter((f) => f.uuid !== fileSummary.uuid))} />
+            <ButtonDelete
+              onClick={() => onChange(value.filter((f) => f.repositoryItemUuid !== fileSummary.repositoryItemUuid))}
+            />
           </React.Fragment>
         )
       })}

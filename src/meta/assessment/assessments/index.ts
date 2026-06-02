@@ -1,9 +1,14 @@
-import { Dates } from 'utils/dates'
-
-import { Assessment, AssessmentName, RecordAssessments } from 'meta/assessment/assessment'
+import { Assessment, AssessmentName, AssessmentNames, RecordAssessments } from 'meta/assessment/assessment'
 import { Cycle, CycleName } from 'meta/assessment/cycle'
 import { Cycles } from 'meta/assessment/cycles'
 import { UUID } from 'meta/uuid/uuid'
+import { Dates } from 'utils/dates'
+
+/**
+ * Returns true if the given assessment has the ODP-feature layer
+ * @param assessment - Assessment
+ */
+const hasODPFeature = (assessment: Assessment): boolean => assessment.props.name === AssessmentNames.fra
 
 const getShortLabel = (assessmentName: AssessmentName): string => `${assessmentName}.labels.short`
 
@@ -74,4 +79,5 @@ export const Assessments = {
   getLastPublishedCycle,
   getRecordAssessments,
   getShortLabel,
+  hasODPFeature,
 }

@@ -31,13 +31,13 @@ $ui-bg-hover: #ebebeb;
 $ui-accent: #1798a5;
 $ui-accent-dark: color.adjust($ui-accent, $lightness: -10%, $space: hsl);
 $ui-accent-light: #c4e7eb;
-$ui-accent-light-extra: #dbf1f5;
+$ui-accent-light-extra: #f1f8f9;
 $ui-destructive: #d0021b;
 $ui-alert: #f58020;
 $ui-black-map: #07090a;
 
 $ui-input-focus: rgba(219, 241, 245, 0.25); //$ui-accent-light-extra 0.2
-$ui-option-hover: color.adjust($ui-accent-light-extra, $lightness: 3%, $space: hsl);
+$ui-option-hover: color.adjust($ui-accent-light, $lightness: 8%, $space: hsl);
 $ui-edit-border-color: #939393;
 
 //Theme 2

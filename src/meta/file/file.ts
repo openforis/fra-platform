@@ -1,12 +1,15 @@
 import { Readable } from 'stream'
 
-export type FileSummary = {
+export type BaseFileSummary = {
+  readonly name: string
+  readonly repositoryItemUuid: string
+  size: number
+}
+
+export type FileSummary = BaseFileSummary & {
   readonly createdAt: string
   readonly id: number
-  readonly name: string
-  size: number
   readonly uuid: string
-  readonly repositoryItemUuid: string
 }
 
 export type File = FileSummary & {
