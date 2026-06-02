@@ -13,6 +13,7 @@ import Button, { ButtonSize } from 'client/components/Buttons/Button'
 import MultiSelect from 'client/components/Inputs/MultiSelect/MultiSelect'
 import Flex from 'client/components/Layout/Flex'
 import useOpenDefinition from 'client/components/Links/DefinitionLink/hooks/useOpenDefinition'
+import { useTooltipContent } from 'client/pages/Explorer/Filters/hooks/useTooltipContent'
 
 import { useOnChange } from './hooks/useOnChange'
 import { useOptions } from './hooks/useOptions'
@@ -29,21 +30,28 @@ const Measures: React.FC = () => {
 
   const options = useOptions()
   const explorerMeasures = useExplorerMeasures()
-
   const onChange = useOnChange({ options })
+  const { hideTooltip, showTooltip, tooltipContent } = useTooltipContent({
+    options: options ?? [],
+    value: explorerMeasures,
+  })
 
   return (
     <Flex className="measure-filter-container" gap="0">
-      <MultiSelect
-        classNames={{ container: 'explorer-filters__multiselect' }}
-        disabled={Objects.isNil(options)}
-        multiLabelSummaryKey="common.variable"
-        onChange={onChange}
-        options={options ?? []}
-        placeholder={t('common.variable')}
-        toggleAll
-        value={explorerMeasures}
-      />
+      <div data-tooltip-content={tooltipContent} data-tooltip-id={TooltipId.info} data-tooltip-place="bottom">
+        <MultiSelect
+          classNames={{ container: 'explorer-filters__multiselect' }}
+          disabled={Objects.isNil(options)}
+          multiLabelSummaryKey="common.variable"
+          onChange={onChange}
+          onMenuClose={showTooltip}
+          onMenuOpen={hideTooltip}
+          options={options ?? []}
+          placeholder={t('common.variable')}
+          toggleAll
+          value={explorerMeasures}
+        />
+      </div>
       <Button
         dataTooltipContent={t('definition.definitionLabel')}
         dataTooltipId={TooltipId.info}
