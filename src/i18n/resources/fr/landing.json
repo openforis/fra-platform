@@ -24,6 +24,7 @@
     "fileUploaded": "Fichier téléchargé avec succès",
     "countryRepository": "Référentiel de {{countryName}}",
     "fraRepository": "Référentiel de FRA",
+    "links": "Liens",
     "repository": "Référentiel",
     "uploadFile": "Mettre en ligne un fichier"
   },

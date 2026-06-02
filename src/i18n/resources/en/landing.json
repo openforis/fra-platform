@@ -24,6 +24,7 @@
     "fileUploaded": "File successfully uploaded",
     "countryRepository": "{{countryName}} Repository",
     "fraRepository": "FRA Repository",
+    "links": "Links",
     "repository": "Repository",
     "uploadFile": "Upload a file"
   },
