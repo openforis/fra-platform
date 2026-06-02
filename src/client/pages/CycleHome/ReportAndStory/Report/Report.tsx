@@ -13,7 +13,7 @@ const Report: React.FC = () => {
   const { assessmentName, cycleName } = useCycleRouteParams()
 
   return (
-    <div className="home-hero home-report">
+    <div className="home-hero">
       <div className="home-report__fra-title">
         {t('common.globalFRA')
           .split(' ')
