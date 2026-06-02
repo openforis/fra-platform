@@ -2,21 +2,33 @@
 
 .report-and-story {
   background-color: #f2fcff;
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: $spacing-l;
-  grid-template-columns: 1fr;
+  justify-content: center;
+  padding: $spacing-xs 0;
+
+  @include min-width($tablet-portrait) {
+    padding: $spacing-m 0;
+  }
 
   @include min-width($laptop) {
-    grid-template-columns: 1fr 1fr;
+    gap: $spacing-xxxl;
+    flex-direction: row;
   }
 }
 
 .home-hero {
   align-items: center;
-  display: grid;
-  gap: $spacing-l;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-s;
   justify-content: center;
-  padding: $spacing-xxl $spacing-l;
+
+  @include min-width($tablet-portrait) {
+    flex-direction: row;
+    gap: $spacing-m;
+  }
 }
 
 .home-hero__image {
