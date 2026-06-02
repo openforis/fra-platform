@@ -20,9 +20,10 @@
     "confirmDelete": "Удалить {{file}}? Его невозможно будет восстановить.",
     "fileDeleted": "Файл успешно удален",
     "fileOperationFailed": "Операция не может быть выполнена, так как файл используется в:\n{{sectionNames}}",
+    "folderNotEmpty": "Эта папка не может быть удалена, так как она не пуста.",
     "fileUploaded": "Файл успешно загружен",
-    "fraRepository": "Хранилище данных ОЛР",
     "countryRepository": "Хранилище данных {{countryName}}",
+    "fraRepository": "Хранилище данных ОЛР",
     "repository": "Хранилище данных",
     "uploadFile": "Загрузить файл"
   },
