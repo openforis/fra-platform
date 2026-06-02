@@ -2,6 +2,7 @@ import './Measures.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { SubSections } from 'meta/assessment/subSections'
 import { TooltipId } from 'meta/tooltip/id'
 import { Objects } from 'utils/objects'
 
@@ -13,45 +14,36 @@ import Button, { ButtonSize } from 'client/components/Buttons/Button'
 import MultiSelect from 'client/components/Inputs/MultiSelect/MultiSelect'
 import Flex from 'client/components/Layout/Flex'
 import useOpenDefinition from 'client/components/Links/DefinitionLink/hooks/useOpenDefinition'
-import { useTooltipContent } from 'client/pages/Explorer/Filters/hooks/useTooltipContent'
 
 import { useOnChange } from './hooks/useOnChange'
 import { useOptions } from './hooks/useOptions'
 
+const document = 'tad'
+
 const Measures: React.FC = () => {
   const { t } = useTranslation()
-
   const { sectionName } = useSectionRouteParams()
   const cycle = useCycle()
   const subSection = useSection(sectionName)
-  const anchor = subSection?.props.anchors[cycle.uuid]
-  const document = 'tad'
+  const anchor = SubSections.getAnchor({ cycle, subSection })
   const openDefinition = useOpenDefinition({ anchor, document })
-
   const options = useOptions()
   const explorerMeasures = useExplorerMeasures()
   const onChange = useOnChange({ options })
-  const { hideTooltip, showTooltip, tooltipContent } = useTooltipContent({
-    options: options ?? [],
-    value: explorerMeasures,
-  })
 
   return (
     <Flex className="measure-filter-container" gap="0">
-      <div data-tooltip-content={tooltipContent} data-tooltip-id={TooltipId.info} data-tooltip-place="bottom">
-        <MultiSelect
-          classNames={{ container: 'explorer-filters__multiselect' }}
-          disabled={Objects.isNil(options)}
-          multiLabelSummaryKey="common.variable"
-          onChange={onChange}
-          onMenuClose={showTooltip}
-          onMenuOpen={hideTooltip}
-          options={options ?? []}
-          placeholder={t('common.variable')}
-          toggleAll
-          value={explorerMeasures}
-        />
-      </div>
+      <MultiSelect
+        classNames={{ container: 'explorer-filters__multiselect' }}
+        disabled={Objects.isNil(options)}
+        multiLabelSummaryKey="common.variable"
+        onChange={onChange}
+        options={options ?? []}
+        placeholder={t('common.variable')}
+        toggleAll
+        tooltipPlace="bottom"
+        value={explorerMeasures}
+      />
       <Button
         dataTooltipContent={t('definition.definitionLabel')}
         dataTooltipId={TooltipId.info}
