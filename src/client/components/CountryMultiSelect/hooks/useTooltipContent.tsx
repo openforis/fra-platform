@@ -3,10 +3,9 @@ import ReactDOMServer from 'react-dom/server'
 import { useTranslation } from 'react-i18next'
 import { useMediaQuery } from 'react-responsive'
 
-import { Objects } from 'utils/objects'
-
 import { CountryIso } from 'meta/area/countryIso'
 import { TooltipId } from 'meta/tooltip/id'
+import { Objects } from 'utils/objects'
 
 import { useIsPanEuropeanRoute } from 'client/hooks/routes'
 import { Props as CountrySelectProps } from 'client/components/CountryMultiSelect/types'
@@ -81,7 +80,7 @@ export const useTooltipContent = (props: Props): TooltipContent => {
       })
     }
 
-    const gridTemplateColumns = `repeat(${selectedRegions.length},1fr)`
+    const gridTemplateColumns = `repeat(${selectedRegions.length},max-content)`
 
     return ReactDOMServer.renderToStaticMarkup(
       <div className="regions-container" style={{ gridTemplateColumns }}>
