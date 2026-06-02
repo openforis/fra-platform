@@ -20,9 +20,10 @@
     "confirmDelete": "¿Borrar {{file}}? Esta acción no puede deshacerse.",
     "fileDeleted": "Archivo eliminado correctamente",
     "fileOperationFailed": "La operación no se puede realizar porque el archivo se utiliza en:\n{{sectionNames}}",
+    "folderNotEmpty": "Esta carpeta no se puede eliminar porque no está vacía.",
     "fileUploaded": "Archivo cargado correctamente",
-    "fraRepository": "Repositorio de la FRA",
     "countryRepository": "Repositorio de {{countryName}}",
+    "fraRepository": "Repositorio de la FRA",
     "repository": "Repositorio",
     "uploadFile": "Cargar un archivo"
   },

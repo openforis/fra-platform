@@ -20,9 +20,10 @@
     "confirmDelete": "Supprimer {{file}}? Cette action ne peut pas être annulée.",
     "fileDeleted": "Fichier supprimé avec succès",
     "fileOperationFailed": "L'opération ne peut pas être réalisée parce que le fichier est en cours d'utilisation dans:\n{{sectionNames}}",
+    "folderNotEmpty": "Ce dossier ne peut pas être supprimé car il n'est pas vide.",
     "fileUploaded": "Fichier téléchargé avec succès",
-    "fraRepository": "Référentiel de FRA",
     "countryRepository": "Référentiel de {{countryName}}",
+    "fraRepository": "Référentiel de FRA",
     "repository": "Référentiel",
     "uploadFile": "Mettre en ligne un fichier"
   },

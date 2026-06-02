@@ -20,9 +20,10 @@
     "confirmDelete": "هل ستحذف {{file}}? لا يمكنك العودة عن هذه الخطوة",
     "fileDeleted": "تم حذف الملف بنجاح",
     "fileOperationFailed": ":لا يمكن تنفيذ العملية لأن الملف قيد الاستخدام في :\n{{sectionNames}}",
+    "folderNotEmpty": "لا يمكن إزالة هذا المجلد لأنه ليس فارغاً.",
     "fileUploaded": "تم تحميل الملف بنجاح",
-    "fraRepository": "مستودع تقييم الموارد الحرجية العالمية ( الفرا)",
     "countryRepository": "مستودع {{countryName}}",
+    "fraRepository": "مستودع تقييم الموارد الحرجية العالمية ( الفرا)",
     "repository": "المستودع",
     "uploadFile": "حمل ملفاً"
   },
