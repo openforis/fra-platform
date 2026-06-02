@@ -2,9 +2,7 @@ import { useCallback, useMemo, useState } from 'react'
 
 import { DataSource } from 'meta/assessment/descriptionValue'
 import { SectionName } from 'meta/assessment/section'
-import { Years } from 'meta/assessment/years'
 
-import { useCycle } from 'client/store/meta/hooks/cycles'
 import { Option } from 'client/components/Inputs/Select'
 
 import { useOnChange as useOnChangeHook } from '../../hook/useOnChange'
@@ -32,13 +30,13 @@ type Returned = {
 
 export const useYearOptions = (props: Props): Returned => {
   const { dataSource, sectionName } = props
-  const cycle = useCycle()
   const onChangeHook = useOnChangeHook({ sectionName, dataSource })
 
   const defaultOptions = useMemo<Array<Option>>((): Array<Option> => {
-    const annualYears = Years.annual(cycle)
-    return annualYears.map((year) => ({ value: year, label: year }))
-  }, [cycle])
+    const currentYear = new Date().getFullYear()
+    const years = Array.from({ length: currentYear - 2000 }, (_, i) => String(2000 + i))
+    return years.map((year) => ({ value: year, label: year }))
+  }, [])
 
   const initialOptions = useMemo<Array<Option>>(
     (): Array<Option> => _getOptions(dataSource.year, defaultOptions),
