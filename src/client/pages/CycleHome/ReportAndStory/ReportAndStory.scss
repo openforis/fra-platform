@@ -13,6 +13,7 @@
   }
 
   @include min-width($laptop) {
+    gap: $spacing-xxxl;
     flex-direction: row;
   }
 }
