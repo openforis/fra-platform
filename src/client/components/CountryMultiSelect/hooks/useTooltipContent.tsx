@@ -14,7 +14,7 @@ import { Breakpoints } from 'client/utils/breakpoints'
 
 import { useCountriesByRegionOptions } from './useCountriesByRegionOptions'
 
-type Props = Pick<CountrySelectProps, 'allowedCountries' | 'isMulti'> & {
+type Props = Pick<CountrySelectProps, 'allowAtlantis' | 'allowedCountries' | 'isMulti'> & {
   value: Array<CountryIso>
   error?: string
 }
@@ -27,11 +27,11 @@ export type TooltipContent = {
 }
 
 export const useTooltipContent = (props: Props): TooltipContent => {
-  const { allowedCountries, error, isMulti, value } = props
+  const { allowAtlantis, allowedCountries, error, isMulti, value } = props
   const [canDisplayTooltip, setCanDisplayTooltip] = useState<boolean>(true)
   const { t } = useTranslation()
 
-  const countryOptionGroups = useCountriesByRegionOptions({ allowedCountries })
+  const countryOptionGroups = useCountriesByRegionOptions({ allowAtlantis, allowedCountries })
   const isPanEuropean = useIsPanEuropeanRoute()
   const isMinLaptop = useMediaQuery({ minWidth: Breakpoints.laptop })
 
