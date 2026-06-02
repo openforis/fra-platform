@@ -3,10 +3,9 @@ import ReactDOMServer from 'react-dom/server'
 import { useTranslation } from 'react-i18next'
 import { useMediaQuery } from 'react-responsive'
 
-import { Objects } from 'utils/objects'
-
 import { CountryIso } from 'meta/area/countryIso'
 import { TooltipId } from 'meta/tooltip/id'
+import { Objects } from 'utils/objects'
 
 import { useIsPanEuropeanRoute } from 'client/hooks/routes'
 import { Props as CountrySelectProps } from 'client/components/CountryMultiSelect/types'
@@ -15,7 +14,7 @@ import { Breakpoints } from 'client/utils/breakpoints'
 
 import { useCountriesByRegionOptions } from './useCountriesByRegionOptions'
 
-type Props = Pick<CountrySelectProps, 'allowedCountries' | 'isMulti'> & {
+type Props = Pick<CountrySelectProps, 'allowAtlantis' | 'allowedCountries' | 'isMulti'> & {
   value: Array<CountryIso>
   error?: string
 }
@@ -28,11 +27,11 @@ export type TooltipContent = {
 }
 
 export const useTooltipContent = (props: Props): TooltipContent => {
-  const { allowedCountries, error, isMulti, value } = props
+  const { allowAtlantis, allowedCountries, error, isMulti, value } = props
   const [canDisplayTooltip, setCanDisplayTooltip] = useState<boolean>(true)
   const { t } = useTranslation()
 
-  const countryOptionGroups = useCountriesByRegionOptions({ allowedCountries })
+  const countryOptionGroups = useCountriesByRegionOptions({ allowAtlantis, allowedCountries })
   const isPanEuropean = useIsPanEuropeanRoute()
   const isMinLaptop = useMediaQuery({ minWidth: Breakpoints.laptop })
 
@@ -81,7 +80,7 @@ export const useTooltipContent = (props: Props): TooltipContent => {
       })
     }
 
-    const gridTemplateColumns = `repeat(${selectedRegions.length},1fr)`
+    const gridTemplateColumns = `repeat(${selectedRegions.length},max-content)`
 
     return ReactDOMServer.renderToStaticMarkup(
       <div className="regions-container" style={{ gridTemplateColumns }}>
