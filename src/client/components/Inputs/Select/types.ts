@@ -1,5 +1,6 @@
 import { ActionMeta, Props as ReactSelectProps } from 'react-select'
 import { CreatableProps } from 'react-select/creatable'
+import { PlacesType } from 'react-tooltip'
 
 export type Option = {
   label: React.ReactNode
@@ -60,5 +61,10 @@ export type SelectProps = SelectBaseProps &
     selectableGroups?: boolean
     size?: SelectSize
     toggleAll?: boolean
+    tooltip?: {
+      content: string
+      id: string
+      place?: PlacesType
+    }
     value?: ValueInput
   }
