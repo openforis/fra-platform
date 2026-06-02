@@ -24,6 +24,7 @@
     "fileUploaded": "Файл успешно загружен",
     "countryRepository": "Хранилище данных {{countryName}}",
     "fraRepository": "Хранилище данных ОЛР",
+    "links": "Ссылки",
     "repository": "Хранилище данных",
     "uploadFile": "Загрузить файл"
   },

@@ -24,6 +24,7 @@
     "fileUploaded": "Archivo cargado correctamente",
     "countryRepository": "Repositorio de {{countryName}}",
     "fraRepository": "Repositorio de la FRA",
+    "links": "Enlaces",
     "repository": "Repositorio",
     "uploadFile": "Cargar un archivo"
   },

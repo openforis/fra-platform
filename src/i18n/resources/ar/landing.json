@@ -24,6 +24,7 @@
     "fileUploaded": "تم تحميل الملف بنجاح",
     "countryRepository": "مستودع {{countryName}}",
     "fraRepository": "مستودع تقييم الموارد الحرجية العالمية ( الفرا)",
+    "links": "روابط",
     "repository": "المستودع",
     "uploadFile": "حمل ملفاً"
   },
