@@ -1,8 +1,8 @@
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
-import { ValidationSummary, ValidationSummaryDescription } from 'meta/assessment/validation/summary'
+import { DescriptionValidations } from 'meta/assessment/validation/descriptionValidations'
+import { ValidationSummary } from 'meta/assessment/validation/summary'
 import { Objects } from 'utils/objects'
 
 import { DescriptionValidationRedisRepository } from 'server/cache/repository/validation/description'
@@ -34,14 +34,9 @@ export const getValidationSummary = async (props: Props): Promise<ValidationSumm
       const subsectionUuid = subSection.uuid
       const tableSections = sectionsMetadata[subSection.props.name] ?? []
       const tableNames = tableSections.flatMap((tableSection) => tableSection.tables.map((table) => table.props.name))
-      const descriptions = descriptionValidations[subSection.props.name]?.descriptions ?? {}
-      const descriptionSummary = Object.values(CommentableDescriptionName).reduce<ValidationSummaryDescription>(
-        (acc, descriptionName) => {
-          acc[descriptionName] = { valid: descriptions[descriptionName]?.valid ?? true }
-          return acc
-        },
-        {} as ValidationSummaryDescription
-      )
+      const descriptionSummary = DescriptionValidations.calculateSummary({
+        sectionValidations: descriptionValidations[subSection.props.name],
+      })
       const descriptionsValid = Object.values(descriptionSummary).every((description) => description?.valid ?? true)
 
       summary.descriptions[subSection.props.name] = descriptionSummary

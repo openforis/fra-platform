@@ -1,7 +1,8 @@
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { RecordDescriptionValidations, SectionDescriptionValidations } from 'meta/assessment/validation/description'
+import { RecordDescriptionValidations } from 'meta/assessment/validation/description'
+import { DescriptionValidations } from 'meta/assessment/validation/descriptionValidations'
 import { Objects } from 'utils/objects'
 
 import { getKeyCountry, Keys } from 'server/cache/repository/keys'
@@ -13,19 +14,6 @@ type Props = {
   countryIso: CountryIso
   cycle: Cycle
   descriptionValidations: RecordDescriptionValidations
-}
-
-const _mergeSectionDescriptionValidations = (
-  current: SectionDescriptionValidations,
-  update: SectionDescriptionValidations
-): SectionDescriptionValidations => {
-  const value: SectionDescriptionValidations = { ...current, ...update }
-
-  if (current.descriptions || update.descriptions) {
-    value.descriptions = { ...current.descriptions, ...update.descriptions }
-  }
-
-  return value
 }
 
 export const setDescriptionValidations = async (props: Props): Promise<void> => {
@@ -43,7 +31,7 @@ export const setDescriptionValidations = async (props: Props): Promise<void> => 
   const validationsToSet = sectionNames.reduce<Record<string, string>>((acc, sectionName) => {
     const current = currentValidations[sectionName] ?? {}
     const update = descriptionValidations[sectionName]
-    const value = _mergeSectionDescriptionValidations(current, update)
+    const value = DescriptionValidations.applySectionUpdate({ current, update })
 
     acc[sectionName] = JSON.stringify(value)
     return acc
