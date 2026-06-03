@@ -2,6 +2,7 @@ import './Measures.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { SubSections } from 'meta/assessment/subSections'
 import { TooltipId } from 'meta/tooltip/id'
 import { Objects } from 'utils/objects'
 
@@ -17,19 +18,17 @@ import useOpenDefinition from 'client/components/Links/DefinitionLink/hooks/useO
 import { useOnChange } from './hooks/useOnChange'
 import { useOptions } from './hooks/useOptions'
 
+const document = 'tad'
+
 const Measures: React.FC = () => {
   const { t } = useTranslation()
-
   const { sectionName } = useSectionRouteParams()
   const cycle = useCycle()
   const subSection = useSection(sectionName)
-  const anchor = subSection?.props.anchors[cycle.uuid]
-  const document = 'tad'
+  const anchor = SubSections.getAnchor({ cycle, subSection })
   const openDefinition = useOpenDefinition({ anchor, document })
-
   const options = useOptions()
   const explorerMeasures = useExplorerMeasures()
-
   const onChange = useOnChange({ options })
 
   return (
@@ -42,6 +41,7 @@ const Measures: React.FC = () => {
         options={options ?? []}
         placeholder={t('common.variable')}
         toggleAll
+        tooltipPlace="bottom"
         value={explorerMeasures}
       />
       <Button

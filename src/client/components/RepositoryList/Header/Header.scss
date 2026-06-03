@@ -1,0 +1,37 @@
+@use 'src/client/style/partials' as *;
+
+.repository-header {
+  align-items: center;
+  background-color: $ui-bg-hover;
+  display: flex;
+  grid-column: 1 / -1;
+  min-height: $spacing-l;
+  padding: $spacing-xxxs $spacing-xxs;
+}
+
+.repository-header__left {
+  align-items: center;
+  display: flex;
+  gap: $spacing-xs;
+}
+
+.repository-header__right {
+  align-items: center;
+  display: flex;
+  gap: $spacing-xs;
+  margin-left: auto;
+
+  .hr.vertical {
+    flex-shrink: 0;
+    margin: $spacing-xxs 0;
+    min-height: $spacing-s;
+    width: 1px;
+  }
+
+  .filter-multiselect__tooltip-trigger,
+  .table-paginated-filter-input {
+    background-color: $ui-bg-light;
+    height: 30px;
+    min-width: 100px;
+  }
+}

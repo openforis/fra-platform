@@ -42,7 +42,7 @@ $icon-size: 14px;
 }
 
 .country-multiselect__tooltip {
-  max-width: unset;
+  max-width: none !important;
 
   .regions-container {
     column-gap: $spacing-xs;
@@ -50,6 +50,7 @@ $icon-size: 14px;
     font-size: $font-xs;
     max-height: 500px;
     max-width: 1200px;
+    overflow-x: hidden;
     overflow-y: scroll;
     pointer-events: auto;
     row-gap: $spacing-xxxs;

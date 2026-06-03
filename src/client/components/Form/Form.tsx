@@ -33,6 +33,7 @@ const Form: React.FC<FormProps> = (props) => {
     disabled,
     formDefinition,
     hideCancel,
+    isDirtyOverride,
     method = 'post',
     onCancel,
     onSuccess,
@@ -106,6 +107,7 @@ const Form: React.FC<FormProps> = (props) => {
           disabled={disabled}
           hideCancel={hideCancel}
           isDirty={isDirty}
+          isDirtyOverride={isDirtyOverride}
           isSubmitting={isSubmitting}
           labels={labels}
           onCancel={onCancel}

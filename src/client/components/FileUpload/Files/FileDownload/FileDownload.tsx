@@ -2,13 +2,13 @@ import React from 'react'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CountryIso } from 'meta/area/countryIso'
-import { FileSummary } from 'meta/file/file'
+import { BaseFileSummary } from 'meta/file/file'
 import { Files } from 'meta/file/files'
 
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 
 type Props = {
-  fileSummary: FileSummary
+  fileSummary: BaseFileSummary
   acceptedFiles: ReadonlyArray<File>
 }
 

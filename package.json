@@ -116,7 +116,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1030.0",
-    "@google/earthengine": "^1.7.22",
+    "@google/earthengine": "^1.7.29",
     "@googlemaps/js-api-loader": "^2.0.2",
     "@googlemaps/react-wrapper": "^1.2.0",
     "@hookform/resolvers": "^5.2.2",
@@ -144,7 +144,7 @@
     "express": "^5.2.1",
     "express-queue": "^0.0.13",
     "express-validator": "^7.3.2",
-    "fast-csv": "^5.0.5",
+    "fast-csv": "^5.0.7",
     "htmlparser2": "^12.0.0",
     "http-proxy-middleware": "^3.0.5",
     "i18next": "^26.0.4",
@@ -172,7 +172,7 @@
     "morgan": "^1.10.1",
     "multer": "^2.1.1",
     "node-cron": "^4.2.1",
-    "nodemailer": "^8.0.5",
+    "nodemailer": "^8.0.10",
     "openapi-types": "^12.1.3",
     "passport": "^0.7.0",
     "passport-google-oauth20": "^2.0.0",
@@ -183,14 +183,14 @@
     "pg-query-stream": "^4.14.0",
     "puppeteer": "^24.40.0",
     "puppeteer-cluster": "^0.25.0",
-    "qs": "^6.15.1",
+    "qs": "^6.15.2",
     "re-resizable": "^6.11.2",
-    "react": "^19.2.5",
+    "react": "^19.2.7",
     "react-csv": "^2.0.3",
-    "react-dom": "^19.2.5",
+    "react-dom": "^19.2.7",
     "react-dropzone": "^15.0.0",
     "react-hook-form": "^7.72.1",
-    "react-i18next": "^17.0.3",
+    "react-i18next": "^17.0.8",
     "react-loading-skeleton": "^3.4.0",
     "react-paginate": "^8.3.0",
     "react-redux": "^9.2.0",
@@ -221,7 +221,7 @@
   "browserslist": [
     "last 2 versions"
   ],
-  "version": "3.15.15",
+  "version": "3.16.0",
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"

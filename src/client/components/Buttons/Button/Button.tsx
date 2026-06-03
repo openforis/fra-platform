@@ -14,6 +14,7 @@ const Button: React.FC<ButtonProps> = (props) => {
   const {
     dataTooltipContent,
     dataTooltipId,
+    dataTooltipPlace,
     disabled,
     htmlButtonType = defaults.htmlButtonType,
     icon,
@@ -31,6 +32,7 @@ const Button: React.FC<ButtonProps> = (props) => {
       className={className}
       data-tooltip-content={dataTooltipContent}
       data-tooltip-id={dataTooltipId}
+      data-tooltip-place={dataTooltipPlace}
       disabled={disabled}
       onClick={onClick}
       onMouseEnter={onMouseEnter}

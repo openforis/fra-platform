@@ -19,9 +19,18 @@
   }
 }
 
-.repository-modal {
-  .modal-header span {
-    font-size: $font-s;
-    font-weight: initial;
-  }
+.repository-modal .modal-content {
+  height: 80dvh;
+  min-width: 450px;
+  overflow: hidden;
+}
+
+.repository-modal .modal-body {
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.repository-modal .modal-header span {
+  font-size: $font-s;
+  font-weight: initial;
 }

@@ -1,0 +1,16 @@
+@use 'src/client/style/partials' as *;
+
+.repository-button-expand-collapse {
+  all: unset;
+  align-items: center;
+  color: $text-body;
+  cursor: pointer;
+  display: flex;
+  transition: $ease-out;
+
+  &:hover {
+    svg {
+      color: $ui-accent;
+    }
+  }
+}

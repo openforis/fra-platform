@@ -280,6 +280,10 @@ export const getCreateSchemaCycleDDL = (assessmentSchemaName: string, assessment
           file_uuid   uuid          references public.file (uuid) on update cascade on delete cascade,
           link        varchar(2048),
           props       jsonb         not null,
+          folder_name varchar,
+          parent_uuid uuid          references ${assessmentCycleSchemaName}.repository(uuid) on delete set null,
+          description text,
+          created_at  timestamptz   not null default now(),
           primary key (id),
           unique (uuid)
       );

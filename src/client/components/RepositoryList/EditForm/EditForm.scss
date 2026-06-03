@@ -1,0 +1,28 @@
+@use 'src/client/style/partials' as *;
+
+.repository-form {
+  align-items: center;
+  grid-row-gap: $spacing-s;
+  grid-column-gap: $spacing-xs;
+
+  .hr {
+    grid-column: 2/3;
+    justify-self: center;
+    margin: $spacing-xxs 0;
+    width: 75%;
+  }
+}
+
+.repository-item-form {
+  .form-grid {
+    box-shadow: none;
+    grid-row-gap: $spacing-m;
+    padding: $spacing-xs $spacing-s;
+  }
+}
+
+.repository-item-form__delete {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: $spacing-s;
+}

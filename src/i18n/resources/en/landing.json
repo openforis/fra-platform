@@ -20,7 +20,10 @@
     "confirmDelete": "Delete {{file}}? This cannot be undone.",
     "fileDeleted": "File successfully deleted",
     "fileOperationFailed": "The operation cannot be performed because the file is used in:\n{{sectionNames}}",
+    "folderNotEmpty": "This folder cannot be removed because it's not empty.",
     "fileUploaded": "File successfully uploaded",
+    "countryRepository": "{{countryName}} Repository",
+    "fraRepository": "FRA Repository",
     "links": "Links",
     "repository": "Repository",
     "uploadFile": "Upload a file"
@@ -83,7 +86,7 @@
     "messageBoard": "Message board",
     "overview": "Overview",
     "recentActivity": "Recent activity",
-    "repository": "Links & Repository",
+    "repository": "Repository",
     "userManagement": "Manage Collaborators",
     "versioning": "Versioning"
   },

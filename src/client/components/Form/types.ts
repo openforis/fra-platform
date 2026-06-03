@@ -7,6 +7,7 @@ export enum FormFieldType {
   avatar = 'avatar',
   checkbox = 'checkbox',
   country = 'country',
+  file = 'file',
   hidden = 'hidden',
   language = 'language',
   password = 'password',
@@ -27,9 +28,11 @@ export type FieldDefinition<FIELD_VALUES = FieldValues> = {
   bordered?: boolean
   defaultValue?: unknown
   errorField?: string
+  initialValue?: unknown
   isMulti?: boolean
   label: string
   name: string
+  nameField?: string
   options?: Array<Option>
   placeholder?: string
   required?: boolean
@@ -58,6 +61,7 @@ export type FormProps<FIELD_VALUES = FieldValues> = {
   disabled?: boolean
   formDefinition: FormDefinition<FIELD_VALUES>
   hideCancel?: boolean
+  isDirtyOverride?: boolean
   method?: ReactHookFormProps<unknown>['method']
   onCancel?: () => void
   onSuccess?: (values: FIELD_VALUES, response: Response) => void | Promise<void>

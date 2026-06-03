@@ -19,18 +19,24 @@ const getRecipientRoles = (props: { status: CountryStatus }): Array<RoleName> =>
     case CountryStatus.editing:
       return [
         RoleName.COLLABORATOR,
-        RoleName.REVIEWER,
         RoleName.ALTERNATE_NATIONAL_CORRESPONDENT,
         RoleName.NATIONAL_CORRESPONDENT,
+        RoleName.REGIONAL_FOCAL_POINT,
+        RoleName.REVIEWER,
       ]
     case CountryStatus.review:
-      return [RoleName.REVIEWER]
+      return [RoleName.REGIONAL_FOCAL_POINT, RoleName.REVIEWER]
     case CountryStatus.approval:
-      return [RoleName.ADMINISTRATOR, RoleName.REVIEWER]
+      return [RoleName.ADMINISTRATOR, RoleName.REGIONAL_FOCAL_POINT, RoleName.REVIEWER]
     case CountryStatus.accepted:
-      return [RoleName.REVIEWER, RoleName.NATIONAL_CORRESPONDENT]
+      return [RoleName.REGIONAL_FOCAL_POINT, RoleName.REVIEWER, RoleName.NATIONAL_CORRESPONDENT]
     case CountryStatus.published:
-      return [RoleName.ADMINISTRATOR, RoleName.NATIONAL_CORRESPONDENT, RoleName.ALTERNATE_NATIONAL_CORRESPONDENT]
+      return [
+        RoleName.ADMINISTRATOR,
+        RoleName.NATIONAL_CORRESPONDENT,
+        RoleName.ALTERNATE_NATIONAL_CORRESPONDENT,
+        RoleName.REGIONAL_FOCAL_POINT,
+      ]
     default:
       return []
   }
