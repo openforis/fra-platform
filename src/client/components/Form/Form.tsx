@@ -43,7 +43,7 @@ const Form: React.FC<FormProps> = (props) => {
   const dispatch = useAppDispatch()
   // type FormValues = z.infer<typeof formSchema>
   const defaultValues = useDefaultValues(fields)
-  const resolver = zodResolver(validationSchema)
+  const resolver = zodResolver(validationSchema, undefined, { raw: true })
   const form = useForm({ resolver, defaultValues, shouldUnregister: true })
   const onSubmit = useOnSubmit(props)
 
