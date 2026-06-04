@@ -1,25 +1,10 @@
 import { ActionReducerMapBuilder } from '@reduxjs/toolkit'
 
-import { SectionDescriptionValidations } from 'meta/assessment/validation/description'
+import { DescriptionValidations } from 'meta/assessment/validation/descriptionValidations'
 import { Objects } from 'utils/objects'
 
 import { setDescriptionValidations } from 'client/store/data/tableData/validations/actions/setDescriptionValidations'
 import { ValidationsState } from 'client/store/data/tableData/validations/state'
-
-const _updateTextDescriptionSectionValidation = (
-  current: SectionDescriptionValidations,
-  update: SectionDescriptionValidations
-): SectionDescriptionValidations => {
-  const value: SectionDescriptionValidations = { ...current }
-
-  if (!Objects.isEmpty(update.descriptions)) {
-    value.descriptions = { ...current.descriptions, ...update.descriptions }
-  } else {
-    delete value.descriptions
-  }
-
-  return value
-}
 
 export const setDescriptionValidationsReducer = (builder: ActionReducerMapBuilder<ValidationsState>): void => {
   builder.addCase(setDescriptionValidations, (state, action) => {
@@ -44,7 +29,7 @@ export const setDescriptionValidationsReducer = (builder: ActionReducerMapBuilde
     sectionNames.forEach((sectionName) => {
       const current = currentValue[sectionName] ?? {}
       const update = descriptionValidations[sectionName] ?? {}
-      const value = _updateTextDescriptionSectionValidation(current, update)
+      const value = DescriptionValidations.mergeValidations({ current, update })
 
       if (Objects.isEmpty(value)) {
         delete currentValue[sectionName]

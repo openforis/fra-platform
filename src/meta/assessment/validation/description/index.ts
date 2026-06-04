@@ -1,7 +1,7 @@
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
-import { SectionName } from 'meta/assessment/section'
-import { Validation } from 'meta/assessment/validation/validation'
-import { UUID } from 'meta/uuid/uuid'
+import type { SectionName } from 'meta/assessment/section'
+import type { Validation } from 'meta/assessment/validation/validation'
+import type { UUID } from 'meta/uuid/uuid'
 
 export type DescriptionTextValidations = Partial<Record<CommentableDescriptionName, Validation>>
 
