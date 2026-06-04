@@ -15,9 +15,10 @@ import Divider from 'client/pages/Authentication/Divider'
 import FormLogin from 'client/pages/Authentication/FormLogin'
 import { useOnSuccess } from 'client/pages/Authentication/FormLogin/hooks/useOnSuccess'
 import ButtonGoogle from 'client/pages/Authentication/Login/ButtonGoogle'
-import { useGetInvitation } from 'client/pages/Authentication/Login/hooks/useGetInvitation'
-import { useRedirect } from 'client/pages/Authentication/Login/hooks/useRedirect'
 import { videoResources } from 'client/pages/Tutorials'
+
+import { useGetInvitation } from './hooks/useGetInvitation'
+import { useRedirect } from './hooks/useRedirect'
 
 const Login: React.FC = () => {
   const { i18n, t } = useTranslation()
