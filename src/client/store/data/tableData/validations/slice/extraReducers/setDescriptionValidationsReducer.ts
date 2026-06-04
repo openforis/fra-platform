@@ -29,7 +29,7 @@ export const setDescriptionValidationsReducer = (builder: ActionReducerMapBuilde
     sectionNames.forEach((sectionName) => {
       const current = currentValue[sectionName] ?? {}
       const update = descriptionValidations[sectionName] ?? {}
-      const value = DescriptionValidations.applySectionUpdate({ current, update })
+      const value = DescriptionValidations.mergeValidations({ current, update })
 
       if (Objects.isEmpty(value)) {
         delete currentValue[sectionName]

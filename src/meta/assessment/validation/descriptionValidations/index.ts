@@ -3,7 +3,7 @@ import type { DataSourceRowValidations, SectionDescriptionValidations } from 'me
 import type { ValidationSummaryDescription } from 'meta/assessment/validation/summary'
 import { Objects } from 'utils/objects'
 
-type ApplySectionUpdateProps = {
+type MergeValidationsProps = {
   current: SectionDescriptionValidations
   update: SectionDescriptionValidations
 }
@@ -13,7 +13,7 @@ type ApplySectionUpdateProps = {
 //   current: { reference: { valid: false }, year: { valid: true } }
 //   update:  { year: { valid: false } }
 //   result:  { reference: { valid: false }, year: { valid: false } }
-const applySectionUpdate = (props: ApplySectionUpdateProps): SectionDescriptionValidations => {
+const mergeValidations = (props: MergeValidationsProps): SectionDescriptionValidations => {
   const { current, update } = props
   const value: SectionDescriptionValidations = { ...current }
 
@@ -72,6 +72,6 @@ const calculateSummary = (props: CalculateSummaryProps): ValidationSummaryDescri
 }
 
 export const DescriptionValidations = {
-  applySectionUpdate,
+  mergeValidations,
   calculateSummary,
 }

@@ -31,7 +31,7 @@ export const setDescriptionValidations = async (props: Props): Promise<void> => 
   const validationsToSet = sectionNames.reduce<Record<string, string>>((acc, sectionName) => {
     const current = currentValidations[sectionName] ?? {}
     const update = descriptionValidations[sectionName]
-    const value = DescriptionValidations.applySectionUpdate({ current, update })
+    const value = DescriptionValidations.mergeValidations({ current, update })
 
     acc[sectionName] = JSON.stringify(value)
     return acc
