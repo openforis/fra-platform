@@ -15,8 +15,7 @@ import { Logger } from 'server/utils/logger'
 
 import { VisitCycleLinksJob, VisitCycleLinksProps } from './props'
 
-const connection = new IORedis(ProcessEnv.redisQueueUrl)
-connection.options.maxRetriesPerRequest = null
+const connection = new IORedis(ProcessEnv.redisQueueUrl, { maxRetriesPerRequest: null })
 
 const jobTimeoutMs = 10 * 60 * 1000
 

@@ -5,8 +5,7 @@ import { ProcessEnv } from 'server/utils'
 // Presence key used by the controller to avoid starting multiple dynos.
 const workerPresenceKey = 'verifyLinks:worker:active'
 const workerPresenceTtlMs = 10 * 60 * 1000
-const redis = new IORedis(ProcessEnv.redisQueueUrl)
-redis.options.maxRetriesPerRequest = null
+const redis = new IORedis(ProcessEnv.redisQueueUrl, { maxRetriesPerRequest: null })
 
 const isWorkerActive = async (): Promise<boolean> => {
   const value = await redis.get(workerPresenceKey)
