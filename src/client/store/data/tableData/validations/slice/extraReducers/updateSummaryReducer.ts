@@ -1,9 +1,9 @@
 import { ActionReducerMapBuilder, Draft, isAnyOf } from '@reduxjs/toolkit'
 
-import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 import { SectionName } from 'meta/assessment/section'
 import { RecordDescriptionValidations } from 'meta/assessment/validation/description'
-import { ValidationSummary, ValidationSummaryDescription } from 'meta/assessment/validation/summary'
+import { DescriptionValidations } from 'meta/assessment/validation/descriptionValidations'
+import { ValidationSummary } from 'meta/assessment/validation/summary'
 import { Objects } from 'utils/objects'
 
 import { setDescriptionValidations } from 'client/store/data/tableData/validations/actions/setDescriptionValidations'
@@ -24,15 +24,9 @@ const _updateDescriptions = (
   sectionNames: Array<SectionName>
 ): void => {
   sectionNames.forEach((sectionName) => {
-    const descriptions = descriptionValidations[sectionName]?.descriptions ?? {}
-
-    state.descriptions[sectionName] = Object.values(CommentableDescriptionName).reduce<ValidationSummaryDescription>(
-      (acc, descriptionName) => {
-        acc[descriptionName] = { valid: descriptions[descriptionName]?.valid ?? true }
-        return acc
-      },
-      {} as ValidationSummaryDescription
-    )
+    state.descriptions[sectionName] = DescriptionValidations.calculateSummary({
+      sectionValidations: descriptionValidations[sectionName],
+    })
   })
 }
 
