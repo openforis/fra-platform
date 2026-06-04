@@ -9,6 +9,7 @@ import editUser from './fr/editUser.json'
 import email from './fr/email.json'
 import explorer from './fr/explorer.json'
 import footer from './fr/footer.json'
+import form from './fr/form.json'
 import fra from './fr/fra.json'
 import generalValidation from './fr/generalValidation.json'
 import geo from './fr/geo.json'
@@ -33,6 +34,7 @@ export const frTranslation = {
   email,
   explorer,
   footer,
+  form,
   fra,
   generalValidation,
   geo,

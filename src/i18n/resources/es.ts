@@ -9,6 +9,7 @@ import editUser from './es/editUser.json'
 import email from './es/email.json'
 import explorer from './es/explorer.json'
 import footer from './es/footer.json'
+import form from './es/form.json'
 import fra from './es/fra.json'
 import generalValidation from './es/generalValidations.json'
 import geo from './es/geo.json'
@@ -33,6 +34,7 @@ export const esTranslation = {
   email,
   explorer,
   footer,
+  form,
   fra,
   generalValidation,
   geo,

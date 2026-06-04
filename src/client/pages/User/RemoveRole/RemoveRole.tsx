@@ -1,6 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { Areas } from 'meta/area/areas'
 import { CountryIso } from 'meta/area/countryIso'
 import { Authorizer } from 'meta/auth/authorizer'
 import { User } from 'meta/user/user'
@@ -26,6 +27,8 @@ const RemoveRole: React.FC<Props> = (props) => {
   const user = useUser()
   const onClick = useOnClick({ targetUser })
 
+  if (!Areas.isISOCountry(countryIso)) return null
+  if (user?.id === targetUser.id) return null
   if (!Authorizer.canDisableUser({ countryIso, cycle, target: targetUser, user })) return null
 
   return (

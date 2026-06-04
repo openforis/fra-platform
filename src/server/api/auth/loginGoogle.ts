@@ -17,7 +17,6 @@ export const loginGoogle = (req: LoginRequest, res: Response): void => {
     scope: ['https://www.googleapis.com/auth/plus.login', 'profile', 'email'],
     state: JSON.stringify({
       assessmentName: req.query.assessmentName,
-      countryIso: req.query.countryIso,
       cycleName: req.query.cycleName,
       invitationUuid: req.query.invitationUuid,
     }),
@@ -27,7 +26,7 @@ export const loginGoogle = (req: LoginRequest, res: Response): void => {
 export const loginGoogleCallback = (req: Request, res: Response, next: NextFunction): void => {
   passport.authenticate('google', { session: false }, (err: any, user: User, msg: any) => {
     const state = JSON.parse(req.query.state as string) ?? {}
-    const { assessmentName, countryIso, cycleName } = state
+    const { assessmentName, cycleName } = state
 
     if (err) {
       next(err)
@@ -39,11 +38,9 @@ export const loginGoogleCallback = (req: Request, res: Response, next: NextFunct
         if (err) next(err)
         setAuthToken(res, user)
 
-        const countryPath = !Objects.isEmpty(countryIso)
-          ? Routes.Country.generatePath({ assessmentName, countryIso, cycleName })
-          : ''
+        const redirectPath = !Objects.isEmpty(msg?.invitationUuid) ? Routes.LoginInvitation.generatePath(msg) : ''
         const redirectUrl =
-          process.env.NODE_ENV === 'development' ? countryPath || '/' : `${ProcessEnv.appUri}${countryPath}`
+          process.env.NODE_ENV === 'development' ? redirectPath || '/' : `${ProcessEnv.appUri}${redirectPath}`
 
         res.redirect(redirectUrl)
       })

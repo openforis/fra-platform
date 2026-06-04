@@ -24,10 +24,11 @@ const TextField: React.FC<TextFieldProps> = (props) => {
           return (
             <input
               className={classNames('input-text disabled', { bordered })}
+              disabled
               placeholder={placeholder}
               type={inputType}
               // eslint-disable-next-line react/jsx-props-no-spreading
-              {...register(name, { disabled })}
+              {...register(name)}
             />
           )
         }

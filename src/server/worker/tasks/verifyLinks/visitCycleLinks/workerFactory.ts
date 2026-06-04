@@ -17,8 +17,7 @@ import { VerifyLinksQueueJob, VerifyLinksQueueProps } from 'server/worker/tasks/
 
 import { VerifyAllLinksJob } from './props'
 
-const connection = new IORedis(ProcessEnv.redisQueueUrl)
-connection.options.maxRetriesPerRequest = null
+const connection = new IORedis(ProcessEnv.redisQueueUrl, { maxRetriesPerRequest: null })
 
 const jobTimeoutMs = 10 * 60 * 1000
 

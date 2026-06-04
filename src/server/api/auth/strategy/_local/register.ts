@@ -4,7 +4,6 @@ import { VerifiedCallback } from 'passport-jwt'
 import { AuthProvider, AuthProviderLocalProps } from 'meta/user/auth'
 
 import { getAndComparePasswordHash } from 'server/api/auth/strategy/_local/getAndComparePasswordHash'
-import { AssessmentController } from 'server/controller/assessment'
 import { UserController } from 'server/controller/user'
 import { UserProviderController } from 'server/controller/userProvider'
 
@@ -16,11 +15,11 @@ type Props = {
 
 const provider = AuthProvider.local
 
-export const localAcceptInvitation = async (props: Props): Promise<void> => {
+export const localRegister = async (props: Props): Promise<void> => {
   const { done, req, sendErr } = props
 
   const { invitationUuid } = req.body
-  const { user, userInvitation } = await UserController.findByInvitation({ invitationUuid })
+  const { user } = await UserController.findByInvitation({ invitationUuid })
   let userProvider = await UserProviderController.read<AuthProviderLocalProps>({ user, provider })
 
   // first time user access accept an invitation with local account (email/password)
@@ -40,14 +39,7 @@ export const localAcceptInvitation = async (props: Props): Promise<void> => {
 
   // if user provider existed or successfully created
   if (userProvider) {
-    const { assessment, cycle } = await AssessmentController.getOneWithCycle({
-      uuid: userInvitation.assessmentUuid,
-      cycleUuid: userInvitation.cycleUuid,
-    })
-
-    const userAccepted = await UserController.acceptInvitation({ assessment, cycle, user, userInvitation })
-
-    done(null, userAccepted)
+    done(null, user)
   } else {
     sendErr('login.notAuthorized')
   }

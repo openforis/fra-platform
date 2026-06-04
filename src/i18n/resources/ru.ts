@@ -9,6 +9,7 @@ import editUser from './ru/editUser.json'
 import email from './ru/email.json'
 import explorer from './ru/explorer.json'
 import footer from './ru/footer.json'
+import form from './ru/form.json'
 import fra from './ru/fra.json'
 import generalValidation from './ru/generalValidation.json'
 import geo from './ru/geo.json'
@@ -32,6 +33,7 @@ export const ruTranslation = {
   email,
   explorer,
   footer,
+  form,
   fra,
   generalValidation,
   geo,

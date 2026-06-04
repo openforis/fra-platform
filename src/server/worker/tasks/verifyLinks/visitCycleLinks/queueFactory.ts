@@ -13,8 +13,7 @@ import { VerifyAllLinksJob } from 'server/worker/tasks/verifyLinks/visitCycleLin
 const queueName = 'verifyLinks'
 let queue: Queue<VerifyLinksQueueProps> | undefined
 
-const connection = new IORedis(ProcessEnv.redisQueueUrl)
-connection.options.maxRetriesPerRequest = null
+const connection = new IORedis(ProcessEnv.redisQueueUrl, { maxRetriesPerRequest: null })
 
 type VerifyAllLinksJobScope = {
   assessment: Assessment
