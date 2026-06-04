@@ -16,6 +16,7 @@ import { useGetRedirectUrl } from './useGetRedirectUrl'
 
 type Props = { error: unknown; invitationData: InvitationData; loaded: boolean }
 type Returned = { redirectUrl: string }
+type Redirect = { message?: string; path?: string; type?: 'error' | 'warning' }
 
 export const useRedirect = (props: Props): Returned => {
   const { error, invitationData, loaded } = props
@@ -36,35 +37,28 @@ export const useRedirect = (props: Props): Returned => {
   const invitationExpired =
     loaded && Boolean(invitationData && UserInvitations.isExpired(invitationData.userInvitation))
 
-  useEffect(() => {
-    if (isSameUser) {
-      navigate(redirectUrl, { replace: true })
-    }
-  }, [isSameUser, navigate, redirectUrl])
-
   const redirectHandled = useRef(false)
 
+  // Main redirect logic for edge cases (e.g. wrong user, already accepted, etc)
   useEffect(() => {
     if (redirectHandled.current) return
 
-    if (isDifferentUser) {
-      redirectHandled.current = true
-      toaster.error(t('login.invitationLinkedToDifferentUser'))
-      navigate(Routes.Root.generatePath(), { replace: true })
-    } else if (noInvitation) {
-      redirectHandled.current = true
-      toaster.error(t('login.noInvitation'))
-      navigate(Routes.Root.generatePath(), { replace: true })
-    } else if (alreadyAccepted) {
-      redirectHandled.current = true
-      toaster.warning(t('login.alreadyAcceptedInvitation'))
-      navigate(Routes.Root.generatePath(), { replace: true })
-    } else if (invitationExpired) {
-      redirectHandled.current = true
-      toaster.warning(t('login.invitationExpired'))
-      navigate(Routes.Root.generatePath(), { replace: true })
-    }
-  }, [alreadyAccepted, invitationExpired, isDifferentUser, navigate, noInvitation, t, toaster])
+    let redirect: Redirect | null = null
+
+    if (isSameUser) redirect = { path: redirectUrl }
+    else if (isDifferentUser) redirect = { message: t('login.invitationLinkedToDifferentUser'), type: 'error' }
+    else if (noInvitation) redirect = { message: t('login.noInvitation'), type: 'error' }
+    else if (alreadyAccepted) redirect = { message: t('login.alreadyAcceptedInvitation'), type: 'warning' }
+    else if (invitationExpired) redirect = { message: t('login.invitationExpired'), type: 'warning' }
+
+    if (!redirect) return
+
+    redirectHandled.current = true
+    if (redirect.message) toaster[redirect.type](redirect.message)
+
+    // path defaults to root
+    navigate(redirect.path ?? Routes.Root.generatePath(), { replace: true })
+  }, [alreadyAccepted, invitationExpired, isDifferentUser, isSameUser, navigate, noInvitation, redirectUrl, t, toaster])
 
   return { redirectUrl }
 }
