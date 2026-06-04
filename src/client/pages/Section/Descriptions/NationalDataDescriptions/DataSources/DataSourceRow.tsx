@@ -18,9 +18,8 @@ import YearForDataSource from 'client/pages/Section/Descriptions/NationalDataDes
 import { useDataSourceActions } from './hooks/useDataSourceActions'
 import { useValidationErrors } from './hooks/useValidationErrors'
 
-const Components: Record<'comments' | 'reference' | 'type' | 'variables' | 'year', React.FC<any>> = {
+const Components: Record<'comments' | 'type' | 'variables' | 'year', React.FC<any>> = {
   comments: Comments,
-  reference: Reference,
   type: TypeOfDataSource,
   variables: Variables,
   year: YearForDataSource,
@@ -41,10 +40,20 @@ const DataSourceRow: React.FC<Props> = (props: Props) => {
   const editable = useIsDescriptionEditable({ sectionName, name: CommentableDescriptionName.dataSources })
   const disabled = !editable || readOnly
   const errors = useValidationErrors({ dataSource })
-  const componentsOrder: Array<keyof typeof Components> = ['reference', 'type', 'variables', 'year', 'comments']
+  const componentsOrder: Array<keyof typeof Components> = ['type', 'variables', 'year', 'comments']
 
   return (
     <DataRow actions={actions}>
+      <DataCell editable={!disabled} lastRow={lastRow}>
+        <Reference
+          dataSource={dataSource}
+          disabled={disabled}
+          sectionName={sectionName}
+          // Validation errors are displayed by the editor WYSIWYG
+          validationErrors={errors.reference}
+        />
+      </DataCell>
+
       {componentsOrder.map((componentKey) => {
         const Component = Components[componentKey]
         const validationError = errors[componentKey]

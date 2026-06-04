@@ -1,13 +1,14 @@
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { DataSource } from 'meta/assessment/descriptionValue'
-import { CollaboratorEditPropertyType } from 'meta/user/role/collaborator'
+import type { DataSource } from 'meta/assessment/descriptionValue'
+import type { DataSourceValidationField } from 'meta/assessment/validation/description'
+import { MessageParser } from 'meta/validations/messageParser'
 import { Objects } from 'utils/objects'
 
-import { useCanEdit, useCanEditCycleData } from 'client/store/user/hooks/auth'
+import { useDataSourceValidation } from 'client/store/data/tableData/validations/hooks/descriptions'
+import { useCanEditCycleData } from 'client/store/user/hooks/auth'
 import { useIsPrintRoute } from 'client/hooks/routes'
-import { getLinkValidationError } from 'client/components/EditorWYSIWYG/hooks/useLinkValidationErrors'
 import { useSectionContext } from 'client/pages/Section/context'
 
 type Props = {
@@ -16,44 +17,49 @@ type Props = {
 
 type Returned = {
   comments: undefined
-  reference: string
+  reference: Array<string>
   type: string
   variables: string
   year: string
 }
 
+type RequiredField = Exclude<DataSourceValidationField, 'reference'>
+
 export const useValidationErrors = (props: Props): Returned => {
   const { dataSource } = props
   const { t } = useTranslation()
   const { sectionName } = useSectionContext()
-  const canEdit = useCanEdit(sectionName, CollaboratorEditPropertyType.descriptions)
   const canEditCycleData = useCanEditCycleData()
   const { print } = useIsPrintRoute()
-
-  const { placeholder, reference, type, variables, year } = dataSource
+  const dataSourceValidation = useDataSourceValidation({ sectionName, uuid: dataSource.uuid })
 
   return useMemo<Returned>(() => {
-    const getErrorMessage = (value: DataSource[keyof DataSource]): string => {
-      if (canEdit && !placeholder && Objects.isEmpty(value)) return t('generalValidation.notEmpty')
-      return ''
+    const empty: Returned = { comments: undefined, reference: [], type: '', variables: '', year: '' }
+    if (!canEditCycleData || print) return empty
+
+    const getReferenceErrors = (): Array<string> => {
+      const validation = dataSourceValidation.reference
+
+      if (!validation || validation.valid || Objects.isEmpty(validation.messages)) return []
+
+      return validation.messages.map((message) => MessageParser.getMessage(t, message))
     }
 
-    const getReferenceError = (): string => {
-      const validationError = getLinkValidationError({ enabled: canEditCycleData && !print, t, value: reference })
+    const getRequiredFieldError = (field: RequiredField): string => {
+      const validation = dataSourceValidation[field]
 
-      if (!Objects.isEmpty(validationError)) {
-        return validationError
-      }
+      if (!validation || validation.valid || Objects.isEmpty(validation.messages)) return ''
 
-      return getErrorMessage(reference)
+      const [message] = validation.messages
+      return MessageParser.getMessage(t, message)
     }
 
     return {
       comments: undefined,
-      reference: getReferenceError(),
-      type: getErrorMessage(type),
-      variables: getErrorMessage(variables),
-      year: getErrorMessage(year),
+      reference: getReferenceErrors(),
+      type: getRequiredFieldError('type'),
+      variables: getRequiredFieldError('variables'),
+      year: getRequiredFieldError('year'),
     }
-  }, [canEdit, canEditCycleData, placeholder, print, reference, t, type, variables, year])
+  }, [canEditCycleData, dataSourceValidation, print, t])
 }

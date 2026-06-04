@@ -11,10 +11,11 @@ type Props = {
   dataSource: DataSource
   disabled: boolean
   sectionName: SectionName
+  validationErrors: Array<string>
 }
 
 const Reference: React.FC<Props> = (props: Props) => {
-  const { dataSource, disabled, sectionName } = props
+  const { dataSource, disabled, sectionName, validationErrors } = props
 
   const onChange = useOnChange({ sectionName, dataSource })
 
@@ -25,7 +26,15 @@ const Reference: React.FC<Props> = (props: Props) => {
     [onChange]
   )
 
-  return <EditorWYSIWYGLinks disabled={disabled} onChange={_onChange} repository value={dataSource.reference ?? ''} />
+  return (
+    <EditorWYSIWYGLinks
+      disabled={disabled}
+      onChange={_onChange}
+      repository
+      validationErrors={validationErrors}
+      value={dataSource.reference ?? ''}
+    />
+  )
 }
 
 export default Reference

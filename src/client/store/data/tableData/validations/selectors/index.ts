@@ -1,4 +1,7 @@
-import { getDescriptionValidation } from 'client/store/data/tableData/validations/selectors/descriptions'
+import {
+  getDataSourceValidation,
+  getDescriptionValidation,
+} from 'client/store/data/tableData/validations/selectors/descriptions'
 import {
   getSummary,
   getSummaryHasErrors,
@@ -8,6 +11,7 @@ import {
 import { getNodeValidation, getTableValidations } from 'client/store/data/tableData/validations/selectors/tables'
 
 export const ValidationsSelectors = {
+  getDataSourceValidation,
   getDescriptionValidation,
   getNodeValidation,
   getSummary,
