@@ -8,7 +8,7 @@ export type TestUserData = {
 }
 
 const createTestUser = (role: string): TestUserData => {
-  const timestamp = Date.now()
+  const timestamp = `${Date.now()}${Math.floor(Math.random() * 100_000)}`
   const name = `Test${timestamp}`
   const surname = role
   const password = 'testPassword123!'

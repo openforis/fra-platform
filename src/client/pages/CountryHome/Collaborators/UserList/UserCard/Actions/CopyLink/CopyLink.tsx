@@ -26,7 +26,7 @@ const CopyLink: React.FC<Props> = (props: Props) => {
     const { uuid: invitationUuid } = invitation
 
     const { origin } = window.location
-    const invitationPath = Routes.LoginInvitation.generatePath({ assessmentName, cycleName, invitationUuid }, { lang })
+    const invitationPath = Routes.Login.generatePath({ assessmentName, cycleName }, { invitationUuid, lang })
     const url = `${origin}${invitationPath}`
 
     navigator.clipboard.writeText(url).then(() => {
