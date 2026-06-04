@@ -16,6 +16,7 @@
   "googleOnlyAccount": "La cuenta está asociada a la autenticación de Google",
   "invalidEmail": "Correo electrónico no válido",
   "invitationExpired": "Esta invitación ha caducado",
+  "invitationLinkedToDifferentUser": "La invitación a la que intentas acceder está vinculada a un usuario diferente.\nPor favor, cierra la sesión si quieres acceder a la invitación",
   "invitationMessage": "Ha sido invitado a {{assessment}} {{cycle}} como {{role}} para {{country}}",
   "invitationPrivacyNotice": "Al aceptar esta invitación, usted confirma que acepta los términos y condiciones descritos en la Notificación de Protección de Datos y Privacidad de la FAO.",
   "invitationPrivacyNoticeLinkLabel": "Haga clic aquí para ver la Notificación de Protección de Datos y Privacidad de la FAO.",
