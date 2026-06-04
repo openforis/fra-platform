@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router'
 
@@ -6,10 +6,8 @@ import { ApiEndPoint } from 'meta/api/endpoint'
 import { LoginQueryParams } from 'meta/routes/queryParams/login'
 import { Routes } from 'meta/routes/routes'
 import { AuthProvider } from 'meta/user/auth'
-import { InvitationData } from 'meta/user/invitations/invitation'
 import { Objects } from 'utils/objects'
 
-import { useGetRequest } from 'client/hooks/getRequest'
 import { useCycleRouteParams } from 'client/hooks/routeParams'
 import { useSearchParams } from 'client/hooks/searchParams'
 import Icon from 'client/components/Icon'
@@ -17,33 +15,9 @@ import Divider from 'client/pages/Authentication/Divider'
 import FormLogin from 'client/pages/Authentication/FormLogin'
 import { useOnSuccess } from 'client/pages/Authentication/FormLogin/hooks/useOnSuccess'
 import ButtonGoogle from 'client/pages/Authentication/Login/ButtonGoogle'
+import { useGetInvitation } from 'client/pages/Authentication/Login/hooks/useGetInvitation'
 import { useRedirect } from 'client/pages/Authentication/Login/hooks/useRedirect'
 import { videoResources } from 'client/pages/Tutorials'
-
-export const useGetInvitation = (): {
-  error: unknown
-  invitationData: InvitationData
-  loaded: boolean
-  loading: boolean
-} => {
-  const { invitationUuid } = useSearchParams<LoginQueryParams>()
-  const {
-    data: invitationData,
-    dispatch: fetchData,
-    error,
-    loaded,
-    loading,
-  } = useGetRequest(ApiEndPoint.User.invitation(), {
-    params: { invitationUuid },
-  })
-
-  useEffect(() => {
-    if (!Objects.isEmpty(invitationUuid)) fetchData()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [invitationUuid])
-
-  return { error, invitationData, loaded, loading }
-}
 
 const Login: React.FC = () => {
   const { i18n, t } = useTranslation()
