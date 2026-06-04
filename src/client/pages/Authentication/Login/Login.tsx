@@ -20,9 +20,20 @@ import ButtonGoogle from 'client/pages/Authentication/Login/ButtonGoogle'
 import { useRedirect } from 'client/pages/Authentication/Login/hooks/useRedirect'
 import { videoResources } from 'client/pages/Tutorials'
 
-export const useGetInvitation = (): InvitationData => {
+export const useGetInvitation = (): {
+  error: unknown
+  invitationData: InvitationData
+  loaded: boolean
+  loading: boolean
+} => {
   const { invitationUuid } = useSearchParams<LoginQueryParams>()
-  const { data: invitationData, dispatch: fetchData } = useGetRequest(ApiEndPoint.User.invitation(), {
+  const {
+    data: invitationData,
+    dispatch: fetchData,
+    error,
+    loaded,
+    loading,
+  } = useGetRequest(ApiEndPoint.User.invitation(), {
     params: { invitationUuid },
   })
 
@@ -31,40 +42,38 @@ export const useGetInvitation = (): InvitationData => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [invitationUuid])
 
-  return invitationData
+  return { error, invitationData, loaded, loading }
 }
 
 const Login: React.FC = () => {
   const { i18n, t } = useTranslation()
 
   const { assessmentName: routeAssessmentName, cycleName: routeCycleName } = useCycleRouteParams()
-  const invitationData = useGetInvitation()
+  const { error, invitationData, loaded, loading } = useGetInvitation()
   const { invitationUuid } = useSearchParams<LoginQueryParams>()
 
   const assessmentName = invitationData?.assessmentName ?? routeAssessmentName
   const cycleName = invitationData?.cycleName ?? routeCycleName
 
-  // Show register form if user has no local login
   const isRegister = Boolean(invitationData && !invitationData.userProviders.includes(AuthProvider.local))
 
-  const { redirectUrl } = useRedirect({ invitationData })
+  const hasInvitationUuid = !Objects.isEmpty(invitationUuid)
+  const { redirectUrl } = useRedirect({ error, invitationData, loaded })
   const onSuccess = useOnSuccess({ redirectTo: redirectUrl })
 
   return (
     <div className="login-form">
-      {invitationUuid && !invitationData && <div>Add a FormLoginSkeleton</div>}
+      <FormLogin
+        action={ApiEndPoint.Auth.login()}
+        disableEmail={Boolean(invitationData)}
+        email={invitationData?.user.email}
+        invitationUuid={isRegister ? invitationUuid : undefined}
+        labels={{ submit: t('login.signInFRA') }}
+        loading={loading || (hasInvitationUuid && !loaded && !error)}
+        onSuccess={onSuccess}
+        password2={isRegister}
+      />
 
-      {(!invitationUuid || invitationData) && (
-        <FormLogin
-          action={ApiEndPoint.Auth.login()}
-          disableEmail={Boolean(invitationData)}
-          email={invitationData?.user.email}
-          invitationUuid={isRegister ? invitationUuid : undefined}
-          labels={{ submit: t('login.signInFRA') }}
-          onSuccess={onSuccess}
-          password2={isRegister}
-        />
-      )}
       {!isRegister && (
         <Link
           className="btn-help"
