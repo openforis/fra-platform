@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'
 
@@ -37,12 +37,8 @@ export const useRedirect = (props: Props): Returned => {
   const invitationExpired =
     loaded && Boolean(invitationData && UserInvitations.isExpired(invitationData.userInvitation))
 
-  const redirectHandled = useRef(false)
-
   // Main redirect logic for edge cases (e.g. wrong user, already accepted, etc)
   useEffect(() => {
-    if (redirectHandled.current) return
-
     let redirect: Redirect | null = null
 
     if (isSameUser) redirect = { path: redirectUrl }
@@ -53,7 +49,6 @@ export const useRedirect = (props: Props): Returned => {
 
     if (!redirect) return
 
-    redirectHandled.current = true
     if (redirect.message) toaster[redirect.type](redirect.message)
 
     // path defaults to root
