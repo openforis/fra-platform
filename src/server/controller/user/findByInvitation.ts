@@ -15,6 +15,8 @@ export const findByInvitation = async (props: Props, client: BaseProtocol = DB):
   const { invitationUuid } = props
 
   const userInvitation = await UserInvitationRepository.getOne({ invitationUuid }, client)
+  if (!userInvitation) throw new Error('login.noInvitation')
+
   const user = await UserRepository.getOne({ uuid: userInvitation.userUuid }, client)
   const userProviders = await UserProviderRepository.getUserProviders({ user }, client)
   const assessment = await AssessmentRedisRepository.getOne({ uuid: userInvitation.assessmentUuid }, client)
