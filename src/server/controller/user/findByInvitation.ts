@@ -11,10 +11,12 @@ type Props = {
   invitationUuid: string
 }
 
-export const findByInvitation = async (props: Props, client: BaseProtocol = DB): Promise<InvitationData> => {
+export const findByInvitation = async (props: Props, client: BaseProtocol = DB): Promise<InvitationData | null> => {
   const { invitationUuid } = props
 
   const userInvitation = await UserInvitationRepository.getOne({ invitationUuid }, client)
+  if (!userInvitation) return null
+
   const user = await UserRepository.getOne({ uuid: userInvitation.userUuid }, client)
   const userProviders = await UserProviderRepository.getUserProviders({ user }, client)
   const assessment = await AssessmentRedisRepository.getOne({ uuid: userInvitation.assessmentUuid }, client)

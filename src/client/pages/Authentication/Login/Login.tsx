@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router'
 
@@ -6,10 +6,8 @@ import { ApiEndPoint } from 'meta/api/endpoint'
 import { LoginQueryParams } from 'meta/routes/queryParams/login'
 import { Routes } from 'meta/routes/routes'
 import { AuthProvider } from 'meta/user/auth'
-import { InvitationData } from 'meta/user/invitations/invitation'
 import { Objects } from 'utils/objects'
 
-import { useGetRequest } from 'client/hooks/getRequest'
 import { useCycleRouteParams } from 'client/hooks/routeParams'
 import { useSearchParams } from 'client/hooks/searchParams'
 import Icon from 'client/components/Icon'
@@ -17,54 +15,41 @@ import Divider from 'client/pages/Authentication/Divider'
 import FormLogin from 'client/pages/Authentication/FormLogin'
 import { useOnSuccess } from 'client/pages/Authentication/FormLogin/hooks/useOnSuccess'
 import ButtonGoogle from 'client/pages/Authentication/Login/ButtonGoogle'
-import { useRedirect } from 'client/pages/Authentication/Login/hooks/useRedirect'
 import { videoResources } from 'client/pages/Tutorials'
 
-export const useGetInvitation = (): InvitationData => {
-  const { invitationUuid } = useSearchParams<LoginQueryParams>()
-  const { data: invitationData, dispatch: fetchData } = useGetRequest(ApiEndPoint.User.invitation(), {
-    params: { invitationUuid },
-  })
-
-  useEffect(() => {
-    if (!Objects.isEmpty(invitationUuid)) fetchData()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [invitationUuid])
-
-  return invitationData
-}
+import { useGetInvitation } from './hooks/useGetInvitation'
+import { useRedirect } from './hooks/useRedirect'
 
 const Login: React.FC = () => {
   const { i18n, t } = useTranslation()
 
   const { assessmentName: routeAssessmentName, cycleName: routeCycleName } = useCycleRouteParams()
-  const invitationData = useGetInvitation()
+  const { error, invitationData, loaded, loading } = useGetInvitation()
   const { invitationUuid } = useSearchParams<LoginQueryParams>()
 
   const assessmentName = invitationData?.assessmentName ?? routeAssessmentName
   const cycleName = invitationData?.cycleName ?? routeCycleName
 
-  // Show register form if user has no local login
   const isRegister = Boolean(invitationData && !invitationData.userProviders.includes(AuthProvider.local))
 
-  const { redirectUrl } = useRedirect({ invitationData })
+  const hasInvitationUuid = !Objects.isEmpty(invitationUuid)
+  const isLoading = loading || (hasInvitationUuid && !loaded && !error)
+  const { redirectUrl } = useRedirect({ error, invitationData, loaded })
   const onSuccess = useOnSuccess({ redirectTo: redirectUrl })
 
   return (
     <div className="login-form">
-      {invitationUuid && !invitationData && <div>Add a FormLoginSkeleton</div>}
+      <FormLogin
+        action={ApiEndPoint.Auth.login()}
+        disableEmail={Boolean(invitationData)}
+        email={invitationData?.user.email}
+        invitationUuid={isRegister ? invitationUuid : undefined}
+        labels={{ submit: t('login.signInFRA') }}
+        loading={isLoading}
+        onSuccess={onSuccess}
+        password2={isRegister}
+      />
 
-      {(!invitationUuid || invitationData) && (
-        <FormLogin
-          action={ApiEndPoint.Auth.login()}
-          disableEmail={Boolean(invitationData)}
-          email={invitationData?.user.email}
-          invitationUuid={isRegister ? invitationUuid : undefined}
-          labels={{ submit: t('login.signInFRA') }}
-          onSuccess={onSuccess}
-          password2={isRegister}
-        />
-      )}
       {!isRegister && (
         <Link
           className="btn-help"
@@ -90,6 +75,7 @@ const Login: React.FC = () => {
         cycleName={cycleName}
         disabled={Boolean(invitationUuid && !invitationData)}
         invitationUuid={invitationUuid}
+        isLoading={isLoading}
       />
       {isRegister && (
         <a
