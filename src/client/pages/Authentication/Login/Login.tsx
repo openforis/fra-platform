@@ -33,6 +33,7 @@ const Login: React.FC = () => {
   const isRegister = Boolean(invitationData && !invitationData.userProviders.includes(AuthProvider.local))
 
   const hasInvitationUuid = !Objects.isEmpty(invitationUuid)
+  const isLoading = loading || (hasInvitationUuid && !loaded && !error)
   const { redirectUrl } = useRedirect({ error, invitationData, loaded })
   const onSuccess = useOnSuccess({ redirectTo: redirectUrl })
 
@@ -44,7 +45,7 @@ const Login: React.FC = () => {
         email={invitationData?.user.email}
         invitationUuid={isRegister ? invitationUuid : undefined}
         labels={{ submit: t('login.signInFRA') }}
-        loading={loading || (hasInvitationUuid && !loaded && !error)}
+        loading={isLoading}
         onSuccess={onSuccess}
         password2={isRegister}
       />
@@ -74,6 +75,7 @@ const Login: React.FC = () => {
         cycleName={cycleName}
         disabled={Boolean(invitationUuid && !invitationData)}
         invitationUuid={invitationUuid}
+        isLoading={isLoading}
       />
       {isRegister && (
         <a
