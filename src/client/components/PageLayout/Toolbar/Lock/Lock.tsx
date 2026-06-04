@@ -67,6 +67,7 @@ const Lock: React.FC = () => {
         key={`lock-button-${locked ? 'active' : 'inactive'}`}
         className={classNames('btn-lock', { locked })}
         dataTooltipContent={locked ? t('common.tooltip.unlockEditing') : t('common.tooltip.lockEditing')}
+        dataTooltipDelayHide={1000}
         dataTooltipId={locked ? TooltipId.error : TooltipId.success}
         disabled={disabled}
         icon={<Icon name={iconName} />}

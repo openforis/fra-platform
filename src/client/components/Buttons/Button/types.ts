@@ -26,6 +26,7 @@ export type ButtonProps = Pick<
 > & {
   bgTransparent?: boolean
   dataTooltipContent?: string | null
+  dataTooltipDelayHide?: number
   dataTooltipId?: TooltipId
   dataTooltipPlace?: PlacesType
   htmlButtonType?: HtmlButtonProps['type']

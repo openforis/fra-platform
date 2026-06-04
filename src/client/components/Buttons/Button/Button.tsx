@@ -13,6 +13,7 @@ const defaults: Partial<ButtonProps> = {
 const Button: React.FC<ButtonProps> = (props) => {
   const {
     dataTooltipContent,
+    dataTooltipDelayHide,
     dataTooltipId,
     dataTooltipPlace,
     disabled,
@@ -31,6 +32,7 @@ const Button: React.FC<ButtonProps> = (props) => {
     <button
       className={className}
       data-tooltip-content={dataTooltipContent}
+      data-tooltip-delay-hide={dataTooltipDelayHide}
       data-tooltip-id={dataTooltipId}
       data-tooltip-place={dataTooltipPlace}
       disabled={disabled}
