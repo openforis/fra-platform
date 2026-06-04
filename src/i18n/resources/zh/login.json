@@ -16,6 +16,7 @@
   "googleOnlyAccount": "该账户使用谷歌认证",
   "invalidEmail": "邮箱无效",
   "invitationExpired": "该邀请已过期",
+  "invitationLinkedToDifferentUser": "您尝试访问的邀请与另一位用户相关联。\n如需访问该邀请，请先退出登录",
   "invitationMessage": "您作为{{country}}的{{role}}已被邀请参加{{assessment}}{{cycle}}",
   "invitationPrivacyNotice": "通过接受此邀请，您确认在此接受粮农组织数据保护与隐私声明中所述的条款和条件。",
   "invitationPrivacyNoticeLinkLabel": "点击此处查看粮农组织数据保护与隐私声明。",
