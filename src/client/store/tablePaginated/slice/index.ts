@@ -6,6 +6,7 @@ import getDataPendingReducer from 'client/store/tablePaginated/slice/extraReduce
 import { init } from 'client/store/tablePaginated/slice/reducers/init'
 import { resetData } from 'client/store/tablePaginated/slice/reducers/resetData'
 import { resetFilter } from 'client/store/tablePaginated/slice/reducers/resetFilter'
+import { resetFilters } from 'client/store/tablePaginated/slice/reducers/resetFilters'
 import { resetPaths } from 'client/store/tablePaginated/slice/reducers/resetPaths'
 import { setFilterValue } from 'client/store/tablePaginated/slice/reducers/setFilterValue'
 import { setOrderBy } from 'client/store/tablePaginated/slice/reducers/setOrderBy'
@@ -24,6 +25,7 @@ export const TablePaginatedSlice = createSlice({
     setPage,
     resetData,
     resetFilter,
+    resetFilters,
     resetPaths,
   },
   extraReducers: (builder) => {

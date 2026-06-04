@@ -1,59 +1,31 @@
 import './Repository.scss'
 import React from 'react'
-import { useTranslation } from 'react-i18next'
 
-import { ApiEndPoint } from 'meta/api/endpoint'
-
-import { useRepositoryItemChangeListener } from 'client/store/repository/hooks/useRepositoryItemChangeListener'
+import { useIsGlobalRepositoryEditable } from 'client/store/user/hooks/auth'
 import { useIsPanEuropeanRoute } from 'client/hooks/routes'
 import Hr from 'client/components/Hr'
-import TablePaginated from 'client/components/TablePaginated'
-import ButtonAdd from 'client/pages/CountryHome/Repository/ButtonAdd'
-import ButtonDownloadAll from 'client/pages/CountryHome/Repository/ButtonDownloadAll'
-import EditForm from 'client/pages/CountryHome/Repository/EditForm'
-
-import { useColumns } from './hooks/useColumns'
+import RepositoryList from 'client/components/RepositoryList'
 
 const Repository: React.FC = () => {
-  const { t } = useTranslation()
-  const columns = useColumns()
   const isPanEuropean = useIsPanEuropeanRoute()
-
-  useRepositoryItemChangeListener()
+  const isGlobalEditable = useIsGlobalRepositoryEditable()
 
   return (
     <div className="repository">
       {!isPanEuropean && (
         <>
-          <div className="repository__header">
-            <h3>{t('landing.links.links')}</h3>
-            <ButtonDownloadAll isGlobal />
-            <ButtonAdd isGlobal />
-          </div>
-          <TablePaginated
-            columns={columns}
-            counter={{ show: false }}
-            header={false}
-            path={`${ApiEndPoint.CycleData.Repository.many()}?global=true`}
+          <RepositoryList
+            allowEditing={isGlobalEditable}
+            allowFiltering={false}
+            allowSorting={false}
+            isGlobal
+            showColumns={false}
           />
-
           <Hr />
         </>
       )}
 
-      <div className="repository__header">
-        <h3>{t('landing.links.repository')}</h3>
-        <ButtonDownloadAll />
-        <ButtonAdd />
-      </div>
-      <TablePaginated
-        columns={columns}
-        counter={{ show: false }}
-        header={false}
-        path={ApiEndPoint.CycleData.Repository.many()}
-      />
-
-      <EditForm />
+      <RepositoryList showCountryName />
     </div>
   )
 }

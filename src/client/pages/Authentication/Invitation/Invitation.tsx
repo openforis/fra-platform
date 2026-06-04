@@ -1,15 +1,17 @@
+import './Invitation.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Navigate } from 'react-router'
+import classNames from 'classnames'
 
 import { Routes } from 'meta/routes/routes'
 import { UserInvitations } from 'meta/user/invitations'
+import { UserRoles } from 'meta/user/roles'
 
 import { useUser } from 'client/store/user/hooks/user'
 import Accept from 'client/pages/Authentication/Invitation/Accept'
 import { useData } from 'client/pages/Authentication/Invitation/hooks/useData'
 import PrivacyNotice from 'client/pages/Authentication/Invitation/PrivacyNotice'
-import Register from 'client/pages/Authentication/Invitation/Register'
 
 const Invitation: React.FC = () => {
   const { t } = useTranslation()
@@ -39,14 +41,22 @@ const Invitation: React.FC = () => {
     )
   }
 
-  // If the user is not logged in,
-  // or the user is logged in with a different account than invited
   const isInvitedUser = Boolean(user) && data.user.uuid === user.uuid
 
+  if (!isInvitedUser) {
+    return (
+      <Navigate
+        replace
+        to={Routes.Login.generatePath({ assessmentName, cycleName }, { invitationUuid: userInvitation.uuid })}
+      />
+    )
+  }
+
+  const showForm = UserRoles.isInvitationInfoRequired(userInvitation.role, assessmentName)
+
   return (
-    <div className="login-form">
-      {isInvitedUser && <Accept data={data} />}
-      {!isInvitedUser && <Register />}
+    <div className={classNames({ 'invitation-accept-form': showForm, 'login-form': !showForm })}>
+      <Accept data={data} />
       <PrivacyNotice />
     </div>
   )

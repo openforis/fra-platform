@@ -1,0 +1,33 @@
+@use 'src/client/style/partials' as *;
+
+.invitation-accept-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-xs;
+  padding: 0 $spacing-m;
+}
+
+.invitation-accept-form h3 {
+  text-align: center;
+}
+
+.invitation-accept-form input,
+.invitation-accept-form .select__control,
+.invitation-accept-form .jodit-container,
+.invitation-accept-form .telephone-field-grid {
+  background-color: white;
+}
+
+.invitation-accept-form input:disabled {
+  background-color: $ui-bg-hover;
+}
+
+.invitation-accept-form .user-form {
+  max-width: 900px;
+}
+
+.invitation-accept-form .form-grid {
+  max-width: 900px;
+}

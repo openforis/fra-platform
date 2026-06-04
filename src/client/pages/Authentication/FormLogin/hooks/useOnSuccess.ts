@@ -9,7 +9,12 @@ import { UserActions } from 'client/store/user/actions'
 import { useToaster } from 'client/hooks/toaster'
 import { FormProps } from 'client/components/Form/types'
 
-export const useOnSuccess = (): NonNullable<FormProps['onSuccess']> => {
+type Props = {
+  redirectTo?: string
+}
+
+export const useOnSuccess = (props: Props = {}): NonNullable<FormProps['onSuccess']> => {
+  const { redirectTo = Routes.Root.path.absolute } = props
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const { toaster } = useToaster()
@@ -19,12 +24,12 @@ export const useOnSuccess = (): NonNullable<FormProps['onSuccess']> => {
       const { info, user } = (await response.json()) as LoginLocalResponse
 
       dispatch(UserActions.setUser(user))
-      navigate(Routes.Root.path.absolute)
+      navigate(redirectTo)
 
       if (info?.message) {
         toaster.info(info.message)
       }
     },
-    [dispatch, navigate, toaster]
+    [dispatch, navigate, redirectTo, toaster]
   )
 }

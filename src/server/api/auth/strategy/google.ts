@@ -3,11 +3,9 @@ import { PassportStatic } from 'passport'
 import GoogleStrategy, { Profile, VerifyCallback } from 'passport-google-oauth20'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
-import { AuthProvider, AuthProviderGoogleProps } from 'meta/user/auth'
 
-import { AssessmentController } from 'server/controller/assessment'
-import { UserController } from 'server/controller/user'
-import { UserProviderController } from 'server/controller/userProvider'
+import { googleLogin } from 'server/api/auth/strategy/_google/login'
+import { register } from 'server/api/auth/strategy/_google/register'
 
 const googleStrategyVerifyCallback = async (
   req: Request,
@@ -18,65 +16,14 @@ const googleStrategyVerifyCallback = async (
 ): Promise<void> => {
   try {
     const email = profile.emails[0].value.toLowerCase()
-
-    let user = null
-
     const state = JSON.parse(req.query.state as string) ?? {}
-
     const { invitationUuid } = state
 
     if (invitationUuid) {
-      const { user: invitedUser, userInvitation } = await UserController.findByInvitation({ invitationUuid })
-
-      let userProvider = await UserProviderController.read<AuthProviderGoogleProps>({
-        user: invitedUser,
-        provider: AuthProvider.google,
-      })
-
-      if (!userProvider) {
-        const googleUser = await UserController.getOne({ emailGoogle: email })
-
-        if (!googleUser) {
-          userProvider = await UserProviderController.create<AuthProviderGoogleProps>({
-            user: invitedUser,
-            provider: { provider: AuthProvider.google, props: { email } },
-          })
-        } else if (invitedUser.id !== googleUser.id) {
-          done(null, false, { message: 'login.alreadyLinked' })
-          return
-        }
-      }
-
-      if (userProvider) {
-        const googleMatch = userProvider.props.email === email
-
-        if (googleMatch) {
-          const { assessment, cycle } = await AssessmentController.getOneWithCycle({
-            uuid: userInvitation.assessmentUuid,
-            cycleUuid: userInvitation.cycleUuid,
-          })
-
-          user = await UserController.acceptInvitation({ assessment, cycle, user: invitedUser, userInvitation })
-
-          done(null, user, {
-            message: JSON.stringify({
-              countryIso: userInvitation.countryIso,
-              assessmentName: assessment.props.name,
-              cycleName: cycle.name,
-            }),
-          })
-        } else {
-          done(null, false, { message: 'login.notAuthorized' })
-        }
-      } else {
-        done(null, false, { message: 'login.notAuthorized' })
-      }
-    } else {
-      user = await UserController.getOne({ emailGoogle: email })
-
-      if (user) done(null, user)
-      else done(null, false, { message: 'login.noMatchingProvider' })
+      return register({ done, email, invitationUuid })
     }
+
+    return googleLogin({ done, email })
   } catch (e) {
     done(null, false, { message: `${'login.errorOccurred'}: ${e}` })
   }

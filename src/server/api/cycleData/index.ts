@@ -1,6 +1,7 @@
 import { Express } from 'express'
 // @ts-ignore
 import queue from 'express-queue'
+import multer from 'multer'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 
@@ -15,6 +16,7 @@ import { verifyLinks } from 'server/api/cycleData/links/verifyLinks'
 import { verifyStatus } from 'server/api/cycleData/links/verifyStatus'
 import { verifySummary } from 'server/api/cycleData/links/verifySummary'
 import { AuthMiddleware } from 'server/middleware/auth'
+import { FormDataBodyMiddleware } from 'server/middleware/formDataBodyMiddleware'
 
 import { getActivities } from './activities/getActivities'
 import { getActivitiesCount } from './activities/getActivitiesCount'
@@ -178,7 +180,13 @@ export const CycleDataApi = {
     express.delete(ApiEndPoint.CycleData.Contacts.one(), AuthMiddleware.requireEditDescriptions, removeContact)
 
     // repository
-    express.post(ApiEndPoint.CycleData.Repository.one(), AuthMiddleware.requireEditRepositoryItem, createRepositoryItem)
+    express.post(
+      ApiEndPoint.CycleData.Repository.one(),
+      multer().none(),
+      FormDataBodyMiddleware.parseBody,
+      AuthMiddleware.requireEditRepositoryItem,
+      createRepositoryItem
+    )
     express.get(
       ApiEndPoint.CycleData.Repository.File.one(),
       AuthMiddleware.requireViewRepositoryItem,
@@ -191,8 +199,10 @@ export const CycleDataApi = {
       getRepositoryFileMeta
     )
     express.get(ApiEndPoint.CycleData.Repository.many(), AuthMiddleware.requireView, getManyRepository)
-    express.patch(
+    express.put(
       ApiEndPoint.CycleData.Repository.one(),
+      multer().none(),
+      FormDataBodyMiddleware.parseBody,
       AuthMiddleware.requireEditRepositoryItem,
       updateRepositoryItem
     )

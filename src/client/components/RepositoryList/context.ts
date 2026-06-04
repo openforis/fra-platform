@@ -1,0 +1,29 @@
+import { createContext, useContext } from 'react'
+
+import { RepositoryItemTree } from 'meta/cycleData/repository/item'
+
+export type RepositoryListContextValue = {
+  allowEditing: boolean
+  allowFiltering: boolean
+  allowSorting: boolean
+  allExpanded: boolean
+  expanded: Record<string, boolean>
+  folderPath: Array<RepositoryItemTree>
+  hasFolders: boolean
+  isGlobal: boolean
+  onCollapseAll: () => void
+  onExpandAll: () => void
+  onNavigate: (uuid?: string) => void
+  onOpenPanel: (item: Partial<RepositoryItemTree>) => void
+  onSelect: (item: RepositoryItemTree) => void
+  onToggle: (uuid: string) => void
+  parentUuid: string | undefined
+  selectable: boolean
+  selectedUuids: Array<string>
+  showColumns: boolean
+}
+
+export const RepositoryListContext = createContext<RepositoryListContextValue | undefined>(undefined)
+
+export const useRepositoryListContext = (): RepositoryListContextValue =>
+  useContext<RepositoryListContextValue>(RepositoryListContext)

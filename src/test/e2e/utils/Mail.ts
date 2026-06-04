@@ -26,7 +26,7 @@ const decodeQuotedPrintable = (str: string): string =>
 const getInvitationLink = async (recipient: string): Promise<string> => {
   const email = await getEmailByRecipient(recipient)
   const html = decodeQuotedPrintable(email.Content.Body)
-  const match = html.match(/href="([^"]*\/login\/invitation\/[^"]*)"/)
+  const match = html.match(/href="([^"]*invitationUuid=[^"]*)"/)
 
   // throw error if no match
   if (!match) throw new Error(`No invitation link found in email for ${recipient}`)

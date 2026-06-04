@@ -9,6 +9,7 @@ import editUser from './zh/editUser.json'
 import email from './zh/email.json'
 import explorer from './zh/explorer.json'
 import footer from './zh/footer.json'
+import form from './zh/form.json'
 import fra from './zh/fra.json'
 import generalValidation from './zh/generalValidation.json'
 import geo from './zh/geo.json'
@@ -32,6 +33,7 @@ export const zhTranslation = {
   email,
   explorer,
   footer,
+  form,
   fra,
   generalValidation,
   geo,

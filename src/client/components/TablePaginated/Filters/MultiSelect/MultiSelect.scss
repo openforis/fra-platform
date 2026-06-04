@@ -1,9 +1,0 @@
-@use 'sass:color';
-
-@use 'src/client/style/partials' as *;
-
-$icon-size: 14px;
-
-.filter-multiselect__tooltip-trigger {
-  height: 100%;
-}

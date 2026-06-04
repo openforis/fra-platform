@@ -1,0 +1,64 @@
+@use 'sass:color';
+
+@use 'src/client/style/partials' as *;
+
+$color-private: color.adjust($ui-destructive, $lightness: 2.5%, $space: hsl);
+$color-public: color.adjust($ui-status-accepted, $lightness: -10%, $space: hsl);
+
+.repository-list-item__name {
+  grid-column: 1 / 3;
+}
+
+.repository-link {
+  align-items: center;
+  display: flex;
+  gap: $spacing-xxxs;
+}
+
+.repository-link__info {
+  align-items: center;
+  color: $text-disabled;
+  display: flex;
+}
+
+.repository-list-item__created-at {
+  color: $text-mute;
+  font-size: $font-xxs;
+}
+
+.repository-list-item__icon {
+  color: $ui-status-accepted;
+  height: 14px;
+  width: 14px;
+}
+
+.repository-list-item__icon-wrapper {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.repository-list-item__badge {
+  align-items: center;
+  border-radius: 4px;
+  border: 1px solid $ui-border-dark;
+  color: white;
+  display: flex;
+  font-size: $font-xxxxs;
+  font-weight: 600;
+  height: 16px;
+  justify-content: center;
+  letter-spacing: 0.4px;
+  opacity: 0.5;
+  padding: 0 $spacing-xxxs;
+  text-transform: uppercase;
+  width: fit-content;
+
+  &.private {
+    color: $color-private;
+  }
+
+  &.public {
+    color: $color-public;
+  }
+}
