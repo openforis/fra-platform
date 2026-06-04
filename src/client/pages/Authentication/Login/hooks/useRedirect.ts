@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router'
 
 import { LoginQueryParams } from 'meta/routes/queryParams/login'
 import { Routes } from 'meta/routes/routes'
+import { UserInvitations } from 'meta/user/invitations'
 import { InvitationData } from 'meta/user/invitations/invitation'
 import { Objects } from 'utils/objects'
 
@@ -32,6 +33,8 @@ export const useRedirect = (props: Props): Returned => {
   const isDifferentUser = Boolean(invitationData && user && user.uuid !== invitationData.user.uuid)
   const noInvitation = hasInvitationUuid && ((loaded && Objects.isEmpty(invitationData)) || Boolean(error))
   const alreadyAccepted = loaded && Boolean(invitationData?.userInvitation.acceptedAt)
+  const invitationExpired =
+    loaded && Boolean(invitationData && UserInvitations.isExpired(invitationData.userInvitation))
 
   useEffect(() => {
     if (isSameUser) {
@@ -56,8 +59,12 @@ export const useRedirect = (props: Props): Returned => {
       redirectHandled.current = true
       toaster.warning(t('login.alreadyAcceptedInvitation'))
       navigate(Routes.Root.generatePath(), { replace: true })
+    } else if (invitationExpired) {
+      redirectHandled.current = true
+      toaster.warning(t('login.invitationExpired'))
+      navigate(Routes.Root.generatePath(), { replace: true })
     }
-  }, [alreadyAccepted, isDifferentUser, navigate, noInvitation, t, toaster])
+  }, [alreadyAccepted, invitationExpired, isDifferentUser, navigate, noInvitation, t, toaster])
 
   return { redirectUrl }
 }
