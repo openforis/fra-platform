@@ -39,28 +39,25 @@ export const useRedirect = (props: Props): Returned => {
     }
   }, [isSameUser, navigate, redirectUrl])
 
-  useEffect(() => {
-    if (isDifferentUser) {
-      toaster.error(t('login.invitationLinkedToDifferentUser'))
-      navigate(Routes.Root.generatePath(), { replace: true })
-    }
-  }, [isDifferentUser, navigate, t, toaster])
-
   const redirectHandled = useRef(false)
 
   useEffect(() => {
     if (redirectHandled.current) return
 
-    if (noInvitation) {
+    if (isDifferentUser) {
+      redirectHandled.current = true
+      toaster.error(t('login.invitationLinkedToDifferentUser'))
+      navigate(Routes.Root.generatePath(), { replace: true })
+    } else if (noInvitation) {
       redirectHandled.current = true
       toaster.error(t('login.noInvitation'))
-      navigate('/', { replace: true })
+      navigate(Routes.Root.generatePath(), { replace: true })
     } else if (alreadyAccepted) {
       redirectHandled.current = true
       toaster.warning(t('login.alreadyAcceptedInvitation'))
-      navigate('/', { replace: true })
+      navigate(Routes.Root.generatePath(), { replace: true })
     }
-  }, [alreadyAccepted, navigate, noInvitation, t, toaster])
+  }, [alreadyAccepted, isDifferentUser, navigate, noInvitation, t, toaster])
 
   return { redirectUrl }
 }
