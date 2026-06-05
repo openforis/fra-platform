@@ -3,7 +3,6 @@ import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
 
-import { CountryIso } from 'meta/area/countryIso'
 import { Objects } from 'utils/objects'
 
 import Select from 'client/components/Inputs/Select'
@@ -15,32 +14,28 @@ import { useTooltipContent } from './hooks/useTooltipContent'
 import { Props } from './types'
 
 const defaults: Readonly<Partial<Props>> = {
+  allowAtlantis: true,
   isMulti: true,
+  value: [],
 }
 
 const CountryMultiSelect: React.FC<Props> = (props) => {
   const {
-    allowAtlantis = true,
+    allowAtlantis = defaults.allowAtlantis,
     allowedCountries,
     disabledOptions,
     error,
     isMulti = defaults.isMulti,
     onChange,
     placeholder,
-    value,
+    value = defaults.value,
     ...otherProps
   } = props
 
   const { t } = useTranslation()
   const optionGroups = useCountriesByRegionOptions({ allowedCountries, allowAtlantis, disabledOptions })
   const isOptionDisabled = useIsOptionDisabled(props)
-  const tooltip = useTooltipContent({
-    allowAtlantis,
-    allowedCountries,
-    error,
-    isMulti,
-    value: (value as Array<CountryIso>) ?? [],
-  })
+  const tooltip = useTooltipContent({ allowAtlantis, allowedCountries, error, isMulti, value })
   const { onMenuClose, onMenuOpen } = useMenuActions({ ...props, tooltip })
 
   const active = useMemo(() => !Objects.isEmpty(value), [value])
