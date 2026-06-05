@@ -13,7 +13,7 @@ type Props = {
   descriptions: Array<CommentableDescription>
 }
 
-export const updateDescriptionTextValidations = async (props: Props): Promise<void> => {
+export const updateDescriptionLinkValidations = async (props: Props): Promise<void> => {
   const { assessment, country, cycle, descriptions } = props
   const { countryIso } = country
 

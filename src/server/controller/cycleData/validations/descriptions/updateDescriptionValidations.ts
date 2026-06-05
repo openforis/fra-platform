@@ -4,7 +4,7 @@ import { Cycle } from 'meta/assessment/cycle'
 import { CommentableDescription } from 'meta/assessment/descriptionValue'
 
 import { updateDataSourceFieldValidations } from './updateDataSourceFieldValidations'
-import { updateDescriptionTextValidations } from './updateDescriptionTextValidations'
+import { updateDescriptionLinkValidations } from './updateDescriptionLinkValidations'
 
 type Props = {
   assessment: Assessment
@@ -17,7 +17,7 @@ export const updateDescriptionValidations = async (props: Props): Promise<void> 
   const { assessment, country, cycle, descriptions } = props
 
   await Promise.all([
-    updateDescriptionTextValidations({ assessment, country, cycle, descriptions }),
+    updateDescriptionLinkValidations({ assessment, country, cycle, descriptions }),
     updateDataSourceFieldValidations({ assessment, country, cycle, descriptions }),
   ])
 }

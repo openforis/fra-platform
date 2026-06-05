@@ -2,7 +2,8 @@ import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { SectionName } from 'meta/assessment/section'
-import { RecordDescriptionValidations, SectionDescriptionValidations } from 'meta/assessment/validation/description'
+import { RecordDescriptionValidations } from 'meta/assessment/validation/description'
+import { DescriptionValidations } from 'meta/assessment/validation/descriptionValidations'
 import { Objects } from 'utils/objects'
 
 import { getKeyCountry, Keys } from 'server/cache/repository/keys'
@@ -17,22 +18,7 @@ type Props = {
   sectionNames: Array<SectionName>
 }
 
-const _updateTextDescriptionSectionValidation = (
-  current: SectionDescriptionValidations,
-  update: SectionDescriptionValidations
-): SectionDescriptionValidations => {
-  const value: SectionDescriptionValidations = { ...current }
-
-  if (!Objects.isEmpty(update.descriptions)) {
-    value.descriptions = update.descriptions
-  } else {
-    delete value.descriptions
-  }
-
-  return value
-}
-
-export const updateTextDescriptionValidation = async (props: Props): Promise<RecordDescriptionValidations> => {
+export const updateDescriptionLinkValidations = async (props: Props): Promise<RecordDescriptionValidations> => {
   const { assessment, countryIso, cycle, descriptionValidations, sectionNames } = props
 
   const redis = RedisData.getInstance()
@@ -55,7 +41,7 @@ export const updateTextDescriptionValidation = async (props: Props): Promise<Rec
     const current = currentValidations[sectionName] ?? {}
     const update = descriptionValidations[sectionName] ?? {}
     // Refresh link validation results while keeping the rest of the section state intact.
-    const value = _updateTextDescriptionSectionValidation(current, update)
+    const value = DescriptionValidations.mergeLinkValidations({ current, update })
 
     if (Objects.isEmpty(value)) {
       // Clear sections that are empty after the link validations are refreshed.
