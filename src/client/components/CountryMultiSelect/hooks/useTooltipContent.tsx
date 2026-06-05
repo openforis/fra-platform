@@ -14,16 +14,15 @@ import { Breakpoints } from 'client/utils/breakpoints'
 
 import { useCountriesByRegionOptions } from './useCountriesByRegionOptions'
 
-type Props = Pick<CountrySelectProps, 'allowAtlantis' | 'allowedCountries' | 'isMulti'> & {
-  value: Array<CountryIso>
+type Props = Pick<CountrySelectProps, 'allowAtlantis' | 'allowedCountries' | 'isMulti' | 'value'> & {
   error?: string
 }
 
 export type TooltipContent = {
+  dataTooltipId: TooltipId
   hideTooltip: () => void
   showTooltip: () => void
   tooltipContent: string | null
-  dataTooltipId: TooltipId
 }
 
 export const useTooltipContent = (props: Props): TooltipContent => {
@@ -35,7 +34,7 @@ export const useTooltipContent = (props: Props): TooltipContent => {
   const isPanEuropean = useIsPanEuropeanRoute()
   const isMinLaptop = useMediaQuery({ minWidth: Breakpoints.laptop })
 
-  const tooltipContent = useMemo<string | null>(() => {
+  const tooltipContent = useMemo<TooltipContent['tooltipContent']>(() => {
     if (!isMinLaptop) return null
     if (Objects.isEmpty(value) || !isMulti) return null
     if (!canDisplayTooltip) return null
@@ -104,10 +103,12 @@ export const useTooltipContent = (props: Props): TooltipContent => {
     )
   }, [canDisplayTooltip, countryOptionGroups, error, isMinLaptop, isMulti, isPanEuropean, t, value])
 
-  const hideTooltip = useCallback(() => setCanDisplayTooltip(false), [])
-  const showTooltip = useCallback(() => setCanDisplayTooltip(true), [])
+  const hideTooltip = useCallback<TooltipContent['hideTooltip']>(() => setCanDisplayTooltip(false), [])
+  const showTooltip = useCallback<TooltipContent['showTooltip']>(() => setCanDisplayTooltip(true), [])
 
-  const dataTooltipId = useMemo(() => (error ? TooltipId.error : TooltipId.infoClickable), [error])
+  const dataTooltipId = useMemo<TooltipContent['dataTooltipId']>(() => {
+    return error ? TooltipId.error : TooltipId.info
+  }, [error])
 
   return {
     hideTooltip,
