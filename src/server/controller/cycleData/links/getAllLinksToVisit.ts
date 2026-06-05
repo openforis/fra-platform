@@ -4,7 +4,7 @@ import { Cycle } from 'meta/assessment/cycle'
 import { OriginalDataPointCommentKey } from 'meta/assessment/originalDataPoint'
 import { SectionNames } from 'meta/assessment/section'
 import { TableNames } from 'meta/assessment/table'
-import { LinkLocation, LinkToVisit } from 'meta/cycleData/links/link'
+import { DescriptionLinkLocationPath, LinkLocation, LinkToVisit } from 'meta/cycleData/links/link'
 import { Routes } from 'meta/routes/routes'
 import { Htmls } from 'utils/htmls'
 
@@ -57,7 +57,7 @@ const _getDescriptionDataSourcesLinks = async (props: Props): Promise<Array<Link
         descriptionName: name,
         html: reference,
         id,
-        path: ['dataSources', 'reference'],
+        path: DescriptionLinkLocationPath.dataSourceReference,
         sectionName,
         url,
         uuid,
@@ -83,7 +83,7 @@ const _getDescriptionTextLinks = async (props: Props): Promise<Array<LinkToVisit
       descriptionName: name,
       html: value.text,
       id,
-      path: ['text'],
+      path: DescriptionLinkLocationPath.text,
       sectionName,
       url,
     })
