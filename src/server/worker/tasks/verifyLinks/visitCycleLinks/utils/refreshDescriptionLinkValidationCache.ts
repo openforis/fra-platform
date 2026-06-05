@@ -43,13 +43,15 @@ export const refreshDescriptionLinkValidationCache = async (props: Props): Promi
     targetCountryISOs.map(async (targetCountryIso) => {
       const descriptionValidations = descriptionValidationsByCountry[targetCountryIso] ?? {}
 
-      const updatedDescriptionValidations = await DescriptionValidationRedisRepository.updateTextDescriptionValidation({
-        assessment,
-        countryIso: targetCountryIso,
-        cycle,
-        descriptionValidations,
-        sectionNames,
-      })
+      const updatedDescriptionValidations = await DescriptionValidationRedisRepository.updateDescriptionLinkValidations(
+        {
+          assessment,
+          countryIso: targetCountryIso,
+          cycle,
+          descriptionValidations,
+          sectionNames,
+        }
+      )
 
       const eventName = Sockets.getDescriptionValidationsUpdateEvent({
         assessmentName: assessment.props.name,

@@ -17,7 +17,7 @@ type Props = {
   descriptions: Array<CommentableDescription>
 }
 
-// Required data source fields. TODO: The reference field will be validated by the links worker.
+// Reference (empty check + link verification) is validated by the description link flow.
 const requiredFields: Array<keyof Pick<DataSource, 'type' | 'variables' | 'year'>> = ['type', 'variables', 'year']
 
 const _getRequiredValidation = (value: DataSource[keyof DataSource]): Validation => {
