@@ -14,7 +14,7 @@ RUN rm -rf /usr/local/bin/yarn \
 WORKDIR /app
 
 COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile
+RUN PUPPETEER_SKIP_DOWNLOAD=true yarn install --frozen-lockfile
 
 RUN yarn playwright install --with-deps chromium
 
