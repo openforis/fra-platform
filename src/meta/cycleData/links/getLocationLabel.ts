@@ -1,6 +1,7 @@
 import { TFunction } from 'i18next'
 
 import { CountryIso } from 'meta/area/countryIso'
+import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { Descriptions } from 'meta/assessment/description/descriptions'
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
@@ -12,17 +13,17 @@ import { LinkLocation } from 'meta/cycleData/links/link'
 import { ODPCommentColumns } from 'server/db/repository/assessmentCycle/originalDataPoint/commentColumns'
 
 type GetLocationLabelProps = {
+  assessment: Assessment
   countryIso: CountryIso
   cycle: Cycle
   includeCountryIso?: boolean
-  isPanEuropean: boolean
   location: LinkLocation
   subSections: Array<SubSection>
   t: TFunction
 }
 
 export const getLocationLabel = (props: GetLocationLabelProps): string => {
-  const { countryIso, cycle, includeCountryIso = true, isPanEuropean, location, subSections, t } = props
+  const { assessment, countryIso, cycle, includeCountryIso = true, location, subSections, t } = props
 
   const { sectionName } = location
 
@@ -49,8 +50,8 @@ export const getLocationLabel = (props: GetLocationLabelProps): string => {
   const descriptionLabelKey = path.includes('reference')
     ? 'dataSource.referenceToTataSource'
     : Descriptions.getLabelKey({
+        assessment,
         name: descriptionName as CommentableDescriptionName,
-        isPanEuropean,
       })
 
   const subSection = subSections.find((_subSection) => _subSection.props.name === sectionName)

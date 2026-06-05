@@ -1,17 +1,20 @@
+import { Assessment, AssessmentNames } from 'meta/assessment/assessment'
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 
 type GetLabelKeyProps = {
-  isPanEuropean: boolean
+  assessment: Assessment
   name: CommentableDescriptionName
 }
 
 const getLabelKey = (props: GetLabelKeyProps): string => {
-  const { isPanEuropean, name } = props
+  const { assessment, name } = props
   switch (name) {
     case CommentableDescriptionName.dataSources:
       return 'description.dataSourcesPlus'
     case CommentableDescriptionName.generalComments:
-      return isPanEuropean ? 'panEuropean.panEuCommentsTitle' : 'description.generalCommentsTitle'
+      return assessment.props.name === AssessmentNames.panEuropean
+        ? 'panEuropean.panEuCommentsTitle'
+        : 'description.generalCommentsTitle'
     case CommentableDescriptionName.nationalClassificationAndDefinitions:
       return 'description.nationalClassificationAndDefinitions'
     case CommentableDescriptionName.originalData:
