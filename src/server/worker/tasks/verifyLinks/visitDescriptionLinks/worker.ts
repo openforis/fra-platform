@@ -37,7 +37,6 @@ export default async (job: VerifyDescriptionLinksJob): Promise<void> => {
       countryIso,
       cycle,
       descriptionIds,
-      locationPath: ['text'],
       linksToVisit,
     })
 
