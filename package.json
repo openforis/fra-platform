@@ -115,9 +115,9 @@
     "wait-on": "^9.0.10"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.1060.0",
+    "@aws-sdk/client-s3": "^3.1062.0",
     "@google/earthengine": "^1.7.29",
-    "@googlemaps/js-api-loader": "^2.0.2",
+    "@googlemaps/js-api-loader": "^2.1.0",
     "@googlemaps/react-wrapper": "^1.2.0",
     "@hookform/resolvers": "^5.4.0",
     "@jsep-plugin/object": "^1.2.2",
@@ -147,8 +147,8 @@
     "fast-csv": "^5.0.7",
     "htmlparser2": "^12.0.0",
     "http-proxy-middleware": "^3.0.5",
-    "i18next": "^26.3.0",
-    "ioredis": "^5.11.0",
+    "i18next": "^26.3.1",
+    "ioredis": "^5.11.1",
     "jodit-react": "^5.3.21",
     "jsep": "^1.4.0",
     "jsonwebtoken": "^9.0.3",
@@ -195,7 +195,7 @@
     "react-paginate": "^8.3.0",
     "react-redux": "^9.3.0",
     "react-responsive": "^10.0.1",
-    "react-router": "^7.16.0",
+    "react-router": "^7.17.0",
     "react-select": "^5.10.2",
     "react-tooltip": "^5.30.1",
     "recharts": "^3.8.1",
@@ -213,13 +213,13 @@
     "to-snake-case": "^1.0.0",
     "tsconfig-paths": "^4.2.0",
     "unified": "^11.0.5",
-    "uuid": "^13.0.0",
+    "uuid": "^14.0.0",
     "winston": "^3.19.0",
-    "write-excel-file": "^3.0.8",
+    "write-excel-file": "^4.0.7",
     "zod": "^4.4.3"
   },
   "resolutions": {
-    "ioredis": "5.11.0"
+    "ioredis": "5.11.1"
   },
   "browserslist": [
     "last 2 versions"

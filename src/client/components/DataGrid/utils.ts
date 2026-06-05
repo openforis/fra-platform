@@ -1,7 +1,7 @@
 import { Objects } from 'utils/objects'
 
 // Converts one or mutiple white spaces or break lines into one space.
-const normalizeString = (string = '') => string.trim().replace(/\s+/g, ' ')
+const normalizeString = (string = ''): string => string.trim().replace(/\s+/g, ' ')
 
 const _getElementText = (element: HTMLElement): string => {
   if (typeof element === 'string') return normalizeString(element)
