@@ -1,23 +1,12 @@
-import { CommentableDescription, CommentableDescriptionName } from 'meta/assessment/descriptionValue'
+import { CommentableDescription } from 'meta/assessment/descriptionValue'
 import { RecordDescriptionValidations } from 'meta/assessment/validation/description'
-import { Link, LinkLocation, LinkToVisit, LinkValidationStatusCode, VisitedLink } from 'meta/cycleData/links/link'
+import { ValidationMessage } from 'meta/assessment/validation/validation'
+import { Link, LinkToVisit, LinkValidationStatusCode, VisitedLink } from 'meta/cycleData/links/link'
 import { Links } from 'meta/cycleData/links/links'
 import { Objects } from 'utils/objects'
 
-const _isDescriptionTextLocation = (
-  location: LinkLocation
-): location is Extract<LinkLocation, { descriptionName: string }> => {
-  return 'descriptionName' in location && location.path.length === 1 && location.path[0] === 'text'
-}
-
-const _getInvalidLinkLabel = (linkToVisit: LinkToVisit): string => {
-  const { link, name } = linkToVisit
-
-  if (!Objects.isEmpty(link)) return link
-  if (!Objects.isEmpty(name)) return name
-
-  return ''
-}
+import { buildInitialDescriptionValidations } from './buildInitialDescriptionValidations'
+import { updateLocationValidation } from './updateLocationValidation'
 
 type Props = {
   approvedLinks: Array<Link>
@@ -29,49 +18,42 @@ type Props = {
 export const buildDescriptionLinkValidations = (props: Props): RecordDescriptionValidations => {
   const { approvedLinks, initialDescriptions = [], linkVisits, linksToVisit } = props
 
-  const approvedLinksSet = new Set<string>(approvedLinks.map(Links.getKey))
-  const linkVisitsByKey = linkVisits.reduce<Record<string, VisitedLink>>((acc, linkVisit) => {
+  // Start from a clean validation state for the edited descriptions,
+  // so old link errors disappear when links are fixed or removed.
+  const descriptionValidations = buildInitialDescriptionValidations(initialDescriptions)
+
+  const approvedLinkKeys = new Set<string>(approvedLinks.map(Links.getKey))
+  const visitedLinksByKey = linkVisits.reduce<Record<string, VisitedLink>>((acc, linkVisit) => {
     acc[Links.getKey(linkVisit)] = linkVisit
     return acc
   }, {})
 
-  // Mark the validated descriptions as valid first, so removing the last invalid link clears the previous error.
-  const initialValidations = initialDescriptions.reduce<RecordDescriptionValidations>((acc, description) => {
-    const { name, sectionName } = description
-    const sectionValidation = (acc[sectionName] ??= { descriptions: {} })
-    sectionValidation.descriptions ??= {}
-    sectionValidation.descriptions[name] = { valid: true }
-    return acc
-  }, {})
-
-  return linksToVisit.reduce<RecordDescriptionValidations>((acc, linkToVisit) => {
+  linksToVisit.forEach((linkToVisit) => {
     const linkKey = Links.getKey(linkToVisit)
-    const approved = approvedLinksSet.has(linkKey)
-    const validationCode = linkVisitsByKey[linkKey]?.code
-    const valid = approved || validationCode === LinkValidationStatusCode.success
+    const approved = approvedLinkKeys.has(linkKey)
+    const validationCode = visitedLinksByKey[linkKey]?.code
 
-    linkToVisit.locations.filter(_isDescriptionTextLocation).forEach((location) => {
-      const { descriptionName, sectionName } = location
-      const sectionValidation = (acc[sectionName] ??= { descriptions: {} })
-      const descriptions = (sectionValidation.descriptions ??= {})
-      const descriptionValidation = (descriptions[descriptionName as CommentableDescriptionName] ??= { valid: true })
+    let linkValidationMessage: ValidationMessage | undefined
+    const isInvalid = !approved && validationCode !== undefined && validationCode !== LinkValidationStatusCode.success
+    if (isInvalid) {
+      const { link, name } = linkToVisit
+      const invalidLinkLabel = !Objects.isEmpty(link) ? link : name
 
-      descriptionValidation.valid = descriptionValidation.valid && valid
-
-      if (!valid && validationCode) {
-        descriptionValidation.messages ??= []
-        descriptionValidation.messages.push({
-          key: 'generalValidation.invalidLinkWithReason',
-          params: {
-            link: _getInvalidLinkLabel(linkToVisit),
-            reason: Links.getI18nValidationStatusLabelKey(validationCode),
-          },
-        })
+      linkValidationMessage = {
+        key: 'generalValidation.invalidLinkWithReason',
+        params: {
+          link: invalidLinkLabel,
+          reason: Links.getI18nValidationStatusLabelKey(validationCode),
+        },
       }
-    })
+    }
 
-    return acc
-  }, initialValidations)
+    linkToVisit.locations.forEach((location) => {
+      updateLocationValidation({ descriptionValidations, linkValidationMessage, location })
+    })
+  })
+
+  return descriptionValidations
 }
 
 export const buildDescriptionLinkValidationsByCountry = (
