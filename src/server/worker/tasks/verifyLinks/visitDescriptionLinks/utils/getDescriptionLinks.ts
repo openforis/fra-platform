@@ -2,9 +2,10 @@ import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { CommentableDescription } from 'meta/assessment/descriptionValue'
-import { LinkToVisit } from 'meta/cycleData/links/link'
+import { DescriptionLinkLocationPath, LinkToVisit } from 'meta/cycleData/links/link'
 import { Routes } from 'meta/routes/routes'
 import { Htmls } from 'utils/htmls'
+import { Objects } from 'utils/objects'
 
 import { DescriptionRepository } from 'server/db/repository/assessmentCycle/descriptions'
 
@@ -29,9 +30,29 @@ export const getDescriptionLinks = async (props: Props): Promise<Returned> => {
     const { id, name: descriptionName, sectionName, value } = description
     const urlParams = { assessmentName: assessment.props.name, countryIso, cycleName: cycle.name, sectionName }
     const url = Routes.Section.generatePath(urlParams)
-    const locations = [{ colName: 'value', descriptionName, id, path: ['text'], sectionName, url }]
 
-    return Htmls.getLinks(value.text).map(({ link, name }) => ({ countryIso, link: link ?? '', locations, name }))
+    // Build text links to visit
+    const path = DescriptionLinkLocationPath.text
+    const textLocations = [{ colName: 'value', descriptionName, id, path, sectionName, url }]
+    const textLinks = Htmls.getLinks(value.text).map(({ link, name }) => ({
+      countryIso,
+      link: link ?? '',
+      locations: textLocations,
+      name,
+    }))
+
+    // Build reference links to visit
+    const referenceLinks = (value.dataSources ?? []).flatMap((dataSource) => {
+      const { placeholder, reference, uuid } = dataSource
+      if (placeholder || Objects.isEmpty(uuid)) return []
+
+      const path = DescriptionLinkLocationPath.dataSourceReference
+      const locations = [{ colName: 'value', descriptionName, id, path, sectionName, url, uuid }]
+
+      return Htmls.getLinks(reference).map(({ link, name }) => ({ countryIso, link: link ?? '', locations, name }))
+    })
+
+    return textLinks.concat(referenceLinks)
   })
 
   return { descriptions, linksToVisit }
