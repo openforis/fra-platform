@@ -4,8 +4,6 @@ import { Link, LinkLocation, LinkToVisit, LinkValidationStatusCode, VisitedLink 
 import { Links } from 'meta/cycleData/links/links'
 import { Objects } from 'utils/objects'
 
-const _getLinkKey = (link: Pick<LinkToVisit, 'countryIso' | 'link'>): string => `${link.countryIso}_${link.link ?? ''}`
-
 const _isDescriptionTextLocation = (
   location: LinkLocation
 ): location is Extract<LinkLocation, { descriptionName: string }> => {
@@ -31,9 +29,9 @@ type Props = {
 export const buildDescriptionLinkValidations = (props: Props): RecordDescriptionValidations => {
   const { approvedLinks, initialDescriptions = [], linkVisits, linksToVisit } = props
 
-  const approvedLinksSet = new Set<string>(approvedLinks.map(_getLinkKey))
+  const approvedLinksSet = new Set<string>(approvedLinks.map(Links.getKey))
   const linkVisitsByKey = linkVisits.reduce<Record<string, VisitedLink>>((acc, linkVisit) => {
-    acc[_getLinkKey(linkVisit)] = linkVisit
+    acc[Links.getKey(linkVisit)] = linkVisit
     return acc
   }, {})
 
@@ -47,7 +45,7 @@ export const buildDescriptionLinkValidations = (props: Props): RecordDescription
   }, {})
 
   return linksToVisit.reduce<RecordDescriptionValidations>((acc, linkToVisit) => {
-    const linkKey = _getLinkKey(linkToVisit)
+    const linkKey = Links.getKey(linkToVisit)
     const approved = approvedLinksSet.has(linkKey)
     const validationCode = linkVisitsByKey[linkKey]?.code
     const valid = approved || validationCode === LinkValidationStatusCode.success

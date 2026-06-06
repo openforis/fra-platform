@@ -5,6 +5,11 @@ type LinkLocationBase = {
   url: string
 }
 
+export const DescriptionLinkLocationPath = {
+  dataSourceReference: ['dataSources', 'reference'],
+  text: ['text'],
+}
+
 type DescriptionsLocation = LinkLocationBase & {
   colName: string
   descriptionName: string
