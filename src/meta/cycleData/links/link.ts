@@ -1,4 +1,5 @@
 import { CountryIso } from 'meta/area/countryIso'
+import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 
 type LinkLocationBase = {
   id: number
@@ -10,9 +11,9 @@ export const DescriptionLinkLocationPath = {
   text: ['text'],
 }
 
-type DescriptionsLocation = LinkLocationBase & {
+export type DescriptionsLocation = LinkLocationBase & {
   colName: string
-  descriptionName: string
+  descriptionName: CommentableDescriptionName
   path: Array<string>
   sectionName: string
   uuid?: string
