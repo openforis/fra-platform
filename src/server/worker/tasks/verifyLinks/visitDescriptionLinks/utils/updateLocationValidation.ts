@@ -20,14 +20,14 @@ export const updateLocationValidation = (props: Props): void => {
   const sectionValidation = (descriptionValidations[sectionName] ??= {})
 
   // For description.text
-  if (Links.isLocationPath(location.path, DescriptionLinkLocationPath.text)) {
+  if (Objects.isEqual(location.path, DescriptionLinkLocationPath.text)) {
     const { descriptionName } = location
     const descriptions = (sectionValidation.descriptions ??= {})
     validation = descriptions[descriptionName] ??= { valid: true }
   }
 
   // For dataSource.reference
-  if (Links.isLocationPath(location.path, DescriptionLinkLocationPath.dataSourceReference)) {
+  if (Objects.isEqual(location.path, DescriptionLinkLocationPath.dataSourceReference)) {
     const { uuid } = location
     if (Objects.isEmpty(uuid)) return
 
