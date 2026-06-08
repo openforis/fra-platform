@@ -67,6 +67,7 @@ const CountryMultiSelect: React.FC<Props> = (props) => {
         allowedCountries={allowedCountries}
         canDisplayTooltip={canDisplayTooltip}
         error={error}
+        isMulti={isMulti}
         tooltipId={dataTooltipId}
         value={value}
       />
