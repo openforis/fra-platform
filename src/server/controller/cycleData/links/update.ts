@@ -3,12 +3,15 @@ import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { Link } from 'meta/cycleData/links/link'
+import { Links } from 'meta/cycleData/links/links'
 import { SectionNames } from 'meta/routes/sectionNames'
 import { User } from 'meta/user/user'
+import { Objects } from 'utils/objects'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { LinkRepository } from 'server/db/repository/assessmentCycle/links'
 import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
+import { visitDescriptionLinks } from 'server/worker/tasks/verifyLinks/visitDescriptionLinks/visitDescriptionLinks'
 
 type Props = {
   assessment: Assessment
@@ -21,7 +24,7 @@ type Props = {
 export const update = async (props: Props): Promise<Link> => {
   const { assessment, cycle, user } = props
 
-  return DB.tx(async (t: BaseProtocol) => {
+  const updatedLink = await DB.tx(async (t: BaseProtocol) => {
     const updatedLink = await LinkRepository.update(props, t)
     const { id, link, props: _props, uuid } = updatedLink
     const target = { id, link, props: _props, uuid }
@@ -34,4 +37,13 @@ export const update = async (props: Props): Promise<Link> => {
 
     return updatedLink
   })
+
+  // If the link has description locations, we trigger the flow that updates validation cache.
+  const descriptionIds = updatedLink.locations.filter(Links.isDescriptionLocation).map(({ id }) => id)
+  if (!Objects.isEmpty(descriptionIds)) {
+    const { countryIso } = updatedLink
+    await visitDescriptionLinks({ assessment, countryIso, cycle, descriptionIds })
+  }
+
+  return updatedLink
 }
