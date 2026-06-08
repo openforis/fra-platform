@@ -1,7 +1,8 @@
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { CommentableDescription } from 'meta/assessment/descriptionValue'
+import { CommentableDescription, CommentableDescriptionName } from 'meta/assessment/descriptionValue'
+import { SectionName } from 'meta/assessment/section'
 import { DescriptionLinkLocationPath, LinkToVisit } from 'meta/cycleData/links/link'
 import { Routes } from 'meta/routes/routes'
 import { Htmls } from 'utils/htmls'
@@ -13,7 +14,10 @@ type Props = {
   assessment: Assessment
   countryIso: CountryIso
   cycle: Cycle
-  descriptionIds: Array<number>
+  descriptionTargets: Array<{
+    name: CommentableDescriptionName
+    sectionName: SectionName
+  }>
 }
 
 type Returned = {
@@ -22,9 +26,14 @@ type Returned = {
 }
 
 export const getDescriptionLinks = async (props: Props): Promise<Returned> => {
-  const { assessment, countryIso, cycle, descriptionIds } = props
+  const { assessment, countryIso, cycle, descriptionTargets } = props
 
-  const descriptions = await DescriptionRepository.getManyByIds({ assessment, countryIso, cycle, ids: descriptionIds })
+  const descriptions = await DescriptionRepository.getMany({
+    assessment,
+    countryIso,
+    cycle,
+    descriptionTargets,
+  })
 
   const linksToVisit = descriptions.flatMap((description) => {
     const { id, name: descriptionName, sectionName, value } = description

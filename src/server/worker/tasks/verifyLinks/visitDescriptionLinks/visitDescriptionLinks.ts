@@ -16,9 +16,9 @@ const jobOptions: JobsOptions = {
 }
 
 export const visitDescriptionLinks = async (props: VerifyDescriptionLinksJobProps): Promise<Job | undefined> => {
-  const { assessment, countryIso, cycle, descriptionIds } = props
+  const { assessment, countryIso, cycle, descriptionTargets } = props
 
-  if (Objects.isEmpty(descriptionIds)) return undefined
+  if (Objects.isEmpty(descriptionTargets)) return undefined
 
   const queue = VerifyLinksQueueFactory.getInstance()
   const job = await queue.add(VerifyLinksJobName.verifyDescriptionLinks, props, jobOptions)

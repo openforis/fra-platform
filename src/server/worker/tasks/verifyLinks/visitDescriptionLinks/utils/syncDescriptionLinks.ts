@@ -1,6 +1,7 @@
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
+import { CommentableDescription } from 'meta/assessment/descriptionValue'
 import { DescriptionLinkLocationPath, Link, LinkToVisit, VisitedLink } from 'meta/cycleData/links/link'
 import { Objects } from 'utils/objects'
 
@@ -19,7 +20,7 @@ type Props = {
   assessment: Assessment
   countryIso: CountryIso
   cycle: Cycle
-  descriptionIds: Array<number>
+  descriptions: Array<CommentableDescription>
   linksToVisit: Array<LinkToVisit>
 }
 
@@ -33,10 +34,10 @@ type Returned = {
 // 2. Visit the links that are not approved.
 // 3. When the descriptions still contain links, update the database in one transaction: remove old locations and save the current ones.
 export const syncDescriptionLinks = async (props: Props): Promise<Returned> => {
-  const { assessment, countryIso, cycle, descriptionIds, linksToVisit: rawLinksToVisit } = props
+  const { assessment, countryIso, cycle, descriptions, linksToVisit: rawLinksToVisit } = props
 
   const locationPaths = [DescriptionLinkLocationPath.text, DescriptionLinkLocationPath.dataSourceReference]
-  const locations: Array<LocationToRefresh> = descriptionIds.flatMap((id) =>
+  const locations: Array<LocationToRefresh> = descriptions.flatMap(({ id }) =>
     locationPaths.map((path) => ({ id, path }))
   )
   const linksToVisit = mergeLinks({ linksToVisit: rawLinksToVisit }) // Merge duplicated links
