@@ -1,11 +1,11 @@
-import React from 'react'
-import ReactDOMServer from 'react-dom/server'
+import React, { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { TFunction } from 'i18next'
 
 import { NodeValueValidation, NodeValueValidationMessageParam } from 'meta/assessment/nodeValueValidation'
 
 import { useHistoryLastApprovedIsActive } from 'client/store/data/history/hooks/lastApproved'
+import { TooltipProps, TooltipType } from 'client/components/Tooltips/type'
 
 type Props = {
   validation: NodeValueValidation
@@ -18,7 +18,7 @@ const translateErrorMessageParams = (t: TFunction, text: NodeValueValidationMess
   return t(String(text))
 }
 
-export default (props: Props): string | undefined => {
+export default (props: Props): TooltipProps | undefined => {
   const { validation } = props
 
   const { t } = useTranslation()
@@ -30,7 +30,7 @@ export default (props: Props): string | undefined => {
     return undefined
   }
 
-  return ReactDOMServer.renderToStaticMarkup(
+  const content: ReactNode = (
     <ul>
       {messages.map(({ key, params }) => {
         const paramsTranslated =
@@ -39,4 +39,6 @@ export default (props: Props): string | undefined => {
       })}
     </ul>
   )
+
+  return { content, type: TooltipType.error }
 }
