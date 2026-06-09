@@ -39,6 +39,11 @@ export interface CommentableDescription {
   value: CommentableDescriptionValue
 }
 
+export type DescriptionIdentifier = {
+  name: CommentableDescriptionName
+  sectionName: SectionName
+}
+
 export type DescriptionValues = Record<CommentableDescriptionName, CommentableDescriptionValue>
 export type DescriptionSectionValues = Record<SectionName, DescriptionValues>
 export type DescriptionCountryValues = { [key in CountryIso]?: DescriptionSectionValues }

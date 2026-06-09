@@ -1,8 +1,7 @@
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { CommentableDescription, CommentableDescriptionName } from 'meta/assessment/descriptionValue'
-import { SectionName } from 'meta/assessment/section'
+import { CommentableDescription, DescriptionIdentifier } from 'meta/assessment/descriptionValue'
 import { DescriptionLinkLocationPath, LinkToVisit } from 'meta/cycleData/links/link'
 import { Routes } from 'meta/routes/routes'
 import { Htmls } from 'utils/htmls'
@@ -14,10 +13,7 @@ type Props = {
   assessment: Assessment
   countryIso: CountryIso
   cycle: Cycle
-  descriptionTargets: Array<{
-    name: CommentableDescriptionName
-    sectionName: SectionName
-  }>
+  descriptionTargets: Array<DescriptionIdentifier>
 }
 
 type Returned = {

@@ -3,8 +3,7 @@ import pgPromise from 'pg-promise'
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { CommentableDescription, CommentableDescriptionName } from 'meta/assessment/descriptionValue'
-import { SectionName } from 'meta/assessment/section'
+import { CommentableDescription, DescriptionIdentifier } from 'meta/assessment/descriptionValue'
 import { Objects } from 'utils/objects'
 
 import { BaseProtocol, DB } from 'server/db/db'
@@ -14,10 +13,7 @@ type Props = {
   assessment: Assessment
   countryIso: CountryIso
   cycle: Cycle
-  descriptionTargets: Array<{
-    name: CommentableDescriptionName
-    sectionName: SectionName
-  }>
+  descriptionTargets: Array<DescriptionIdentifier>
 }
 
 export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<Array<CommentableDescription>> => {
