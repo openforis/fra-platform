@@ -1,17 +1,16 @@
-import React, { HTMLAttributes, useMemo } from 'react'
-import ReactDOMServer from 'react-dom/server'
+import React, { ReactNode, useMemo } from 'react'
 
-import { TooltipId } from 'meta/tooltip/id'
 import { Objects } from 'utils/objects'
+
+import { TooltipProps, TooltipType } from 'client/components/Tooltips/type'
 
 type Props = {
   validationErrors: Array<string>
 }
 
 type Returned = {
-  dataTooltipHtml?: HTMLAttributes<HTMLDivElement>['data-tooltip-html']
-  dataTooltipId?: HTMLAttributes<HTMLDivElement>['data-tooltip-id']
   hasValidationErrors: boolean
+  tooltip?: TooltipProps
 }
 
 export const useValidationTooltip = (props: Props): Returned => {
@@ -21,27 +20,20 @@ export const useValidationTooltip = (props: Props): Returned => {
     const hasValidationErrors = !Objects.isEmpty(validationErrors)
 
     if (!hasValidationErrors) {
-      return {
-        dataTooltipHtml: undefined,
-        dataTooltipId: undefined,
-        hasValidationErrors,
-      }
+      return { hasValidationErrors }
     }
 
-    if (validationErrors.length === 1) {
-      const dataTooltipHtml = ReactDOMServer.renderToStaticMarkup(<div>{validationErrors[0]}</div>)
+    const content: ReactNode =
+      validationErrors.length === 1 ? (
+        <div>{validationErrors[0]}</div>
+      ) : (
+        <ul>
+          {validationErrors.map((validationError, index) => (
+            <li key={`${validationError}-${index}`}>{validationError}</li>
+          ))}
+        </ul>
+      )
 
-      return { dataTooltipHtml, dataTooltipId: TooltipId.error, hasValidationErrors }
-    }
-
-    const dataTooltipHtml = ReactDOMServer.renderToStaticMarkup(
-      <ul>
-        {validationErrors.map((validationError, index) => (
-          <li key={`${validationError}-${index}`}>{validationError}</li>
-        ))}
-      </ul>
-    )
-
-    return { dataTooltipHtml, dataTooltipId: TooltipId.error, hasValidationErrors }
+    return { hasValidationErrors, tooltip: { content, type: TooltipType.error } }
   }, [validationErrors])
 }

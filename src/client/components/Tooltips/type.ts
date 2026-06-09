@@ -9,7 +9,7 @@ export enum TooltipType {
 }
 
 export type TooltipProps = {
-  type?: TooltipType
   className?: string
   content?: ReactNode
+  type?: TooltipType
 }
