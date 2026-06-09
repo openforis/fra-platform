@@ -48,7 +48,8 @@ test.describe.serial('Cross-cycle validations', () => {
     await DOMUtils.expectCellHasValidationError(page, 'forestArea', '2020')
 
     const currentCycleForestArea2020 = page.locator('[id$="variableName_forestArea_colName_2020"]')
-    await expect(currentCycleForestArea2020).toHaveAttribute('data-tooltip-html', /differs from previously reported/)
+    await currentCycleForestArea2020.hover()
+    await expect(page.getByRole('tooltip')).toContainText('differs from previously reported')
 
     // Fix value and assert no validation error
     await DOMUtils.fillCell(page, 'forestArea', '2020', previousCycleForestArea2020)
