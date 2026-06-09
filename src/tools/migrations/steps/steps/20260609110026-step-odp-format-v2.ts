@@ -56,7 +56,7 @@ export default async (): Promise<void> => {
               , odp.uuid            as section_uuid
               , 'dataSources'       as name
               , jsonb_build_object('reference', odp.data_source_references, 'type', odp.data_source_methods, 'comments',
-                                   odp.data_source_additional_comments)
+                                   odp.data_source_additional_comments, 'uuid', uuid_generate_v4())
            as value
          from ${schemaName}.original_data_point odp`
     )
