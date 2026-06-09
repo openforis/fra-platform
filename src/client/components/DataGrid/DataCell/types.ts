@@ -4,7 +4,7 @@ import { TooltipProps } from 'client/components/Tooltips/type'
 
 type DivElementProps = Pick<HTMLAttributes<HTMLDivElement>, 'className' | 'id' | 'style'>
 
-type DivTooltipProps = { tooltip: TooltipProps }
+type DivTooltipProps = { tooltip?: TooltipProps }
 
 type GridPlacementProps = Pick<HTMLAttributes<HTMLDivElement>['style'], 'gridColumn' | 'gridRow'>
 
