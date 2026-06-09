@@ -8,22 +8,20 @@ import { Objects } from 'utils/objects'
 import { TooltipProps, TooltipType } from 'client/components/Tooltips/type'
 
 type Props = PropsWithChildren<
-  Pick<HTMLAttributes<HTMLDivElement>, 'className' | 'id'> & {
+  Pick<HTMLAttributes<HTMLDivElement>, 'className' | 'id' | 'style'> & {
     tooltip?: TooltipProps
   }
 >
 
 const WithTooltip: React.FC<Props> = (props) => {
-  const { children, className, id, tooltip = {} } = props
+  const { children, className, id, style, tooltip = {} } = props
   const { content, type = TooltipType.info } = tooltip
 
   const tooltipId = useRef<string>(UUIDs.getUuid())
 
   return (
-    <>
-      <div className={className} data-tooltip-id={tooltipId.current} id={id}>
-        {children}
-      </div>
+    <div className={className} data-tooltip-id={tooltipId.current} id={id} style={style}>
+      {children}
 
       {!Objects.isEmpty(content) && (
         <div className="tooltip-container">
@@ -37,7 +35,7 @@ const WithTooltip: React.FC<Props> = (props) => {
           </ReactTooltip>
         </div>
       )}
-    </>
+    </div>
   )
 }
 

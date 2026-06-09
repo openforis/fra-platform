@@ -1,11 +1,10 @@
 import { HTMLAttributes, PropsWithChildren } from 'react'
 
+import { TooltipProps } from 'client/components/Tooltips/type'
+
 type DivElementProps = Pick<HTMLAttributes<HTMLDivElement>, 'className' | 'id' | 'style'>
 
-type DivTooltipProps = Pick<
-  HTMLAttributes<HTMLDivElement>,
-  'data-tooltip-content' | 'data-tooltip-html' | 'data-tooltip-id'
->
+type DivTooltipProps = { tooltip: TooltipProps }
 
 type GridPlacementProps = Pick<HTMLAttributes<HTMLDivElement>['style'], 'gridColumn' | 'gridRow'>
 
