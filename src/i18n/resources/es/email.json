@@ -2,7 +2,7 @@
   "invalidLinks": {
     "invalidLinkCount_one": "{{count}} enlace no válido",
     "invalidLinkCount_other": "{{count}} enlaces no válidos",
-    "linkStatusPageInfo": "Para más detalles sobre el estado del enlace de {{countryName}}, por favor visite la página Estado del enlace",
+    "linkStatusPageInfo": "Para más detalles sobre el estado del enlace de {{countryName}}, por favor visite la página Estado de los enlaces",
     "messageBodyIntro": "Los siguientes países tienen uno o más enlaces no válidos:",
     "messageFooter": "Por favor revise y actualice los enlaces afectados en la Plataforma de FRA.\n\nGracias,\nEl equipo de FRA",
     "messageHeader": "Estimado/a {{recipientName}},",
