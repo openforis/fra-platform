@@ -37,8 +37,8 @@ export const syncDescriptionLinks = async (props: Props): Promise<Returned> => {
   const { assessment, countryIso, cycle, descriptions, linksToVisit: rawLinksToVisit } = props
 
   const locationPaths = [DescriptionLinkLocationPath.text, DescriptionLinkLocationPath.dataSourceReference]
-  const locations: Array<LocationToRefresh> = descriptions.flatMap(({ id }) =>
-    locationPaths.map((path) => ({ id, path }))
+  const locations = descriptions.flatMap<LocationToRefresh>(({ id }) =>
+    locationPaths.map<LocationToRefresh>((path) => ({ id, path }))
   )
   const linksToVisit = mergeLinks({ linksToVisit: rawLinksToVisit }) // Merge duplicated links
 
