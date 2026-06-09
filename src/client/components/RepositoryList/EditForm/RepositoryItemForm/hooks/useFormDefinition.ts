@@ -95,6 +95,7 @@ export const useFormDefinition = (
           defaultValue: repositoryItem?.props?.translation?.en,
           label: 'common.label',
           name: 'repositoryItem.props.translation.en',
+          required: true,
           type: FormFieldType.text,
         },
         {
@@ -103,6 +104,7 @@ export const useFormDefinition = (
           label: 'common.link',
           name: 'repositoryItem.link',
           type: FormFieldType.text,
+          watches: { ...disabledWatch.watches, triggerFields: ['repositoryItem.fileUuid'] },
         },
         {
           ...disabledWatch,
@@ -112,6 +114,7 @@ export const useFormDefinition = (
           name: 'repositoryItem.fileUuid',
           nameField: 'repositoryItem.props.translation.en',
           type: FormFieldType.file,
+          watches: { ...disabledWatch.watches, triggerFields: ['repositoryItem.link'] },
         },
         {
           ...disabledWatch,
