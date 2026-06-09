@@ -1,6 +1,5 @@
 import React, { ReactNode, useMemo } from 'react'
 
-import { TooltipId } from 'meta/tooltip/id'
 import { Objects } from 'utils/objects'
 
 import { TooltipProps, TooltipType } from 'client/components/Tooltips/type'
@@ -35,6 +34,6 @@ export const useValidationTooltip = (props: Props): Returned => {
         </ul>
       )
 
-    return { dataTooltipId: TooltipId.error, hasValidationErrors, tooltip: { content, type: TooltipType.error } }
+    return { hasValidationErrors, tooltip: { content, type: TooltipType.error } }
   }, [validationErrors])
 }
