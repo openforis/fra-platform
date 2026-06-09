@@ -1,5 +1,8 @@
 {
   "invalidLinks": {
+    "invalidLinkCount_one": "Lien non valide {{count}}",
+    "invalidLinkCount_other": "Liens non valides {{count}}",
+    "linkStatusPageInfo": "Pour plus de détails sur le statut du lien {{countryName}}, veuillez visiter la page Statut des liens",
     "messageBodyIntro": "Les pays suivants ont un ou plusieurs liens invalides :",
     "messageFooter": "Veuillez consulter et mettre à jour les liens concernés sur la plateforme FRA.\n\nMerci,\nL'équipe FRA",
     "messageHeader": "Cher/Chère {{recipientName}},",
