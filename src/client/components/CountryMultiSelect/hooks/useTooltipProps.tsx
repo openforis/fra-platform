@@ -1,6 +1,8 @@
 import { useCallback, useMemo, useState } from 'react'
 
 import { TooltipId } from 'meta/tooltip/id'
+import { UUIDs } from 'meta/uuid/uuids'
+import { Objects } from 'utils/objects'
 
 type Props = {
   error?: string
@@ -8,9 +10,10 @@ type Props = {
 
 export type TooltipProps = {
   canDisplayTooltip: boolean
-  dataTooltipId: string
   hideTooltip: () => void
   showTooltip: () => void
+  tooltipId: string
+  tooltipLevel: TooltipId.error | TooltipId.info
 }
 
 export const useTooltipProps = (props: Props): TooltipProps => {
@@ -20,14 +23,19 @@ export const useTooltipProps = (props: Props): TooltipProps => {
   const hideTooltip = useCallback<TooltipProps['hideTooltip']>(() => setCanDisplayTooltip(false), [])
   const showTooltip = useCallback<TooltipProps['showTooltip']>(() => setCanDisplayTooltip(true), [])
 
-  const dataTooltipId = useMemo<string>(() => {
-    return error ? TooltipId.error : 'countries-tooltip'
+  const tooltipId = useMemo<string>(() => {
+    return `countries-tooltip-${UUIDs.getUuid()}`
+  }, [])
+
+  const tooltipLevel = useMemo<TooltipProps['tooltipLevel']>(() => {
+    return Objects.isEmpty(error) ? TooltipId.info : TooltipId.error
   }, [error])
 
   return {
     canDisplayTooltip,
-    dataTooltipId,
     hideTooltip,
     showTooltip,
+    tooltipId,
+    tooltipLevel,
   }
 }

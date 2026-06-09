@@ -5,6 +5,4 @@ export type PropsTooltipCountries = Pick<
   CountryMultiSelectProps,
   'allowAtlantis' | 'allowedCountries' | 'error' | 'isMulti' | 'value'
 > &
-  Pick<TooltipProps, 'canDisplayTooltip'> & {
-    tooltipId: string
-  }
+  Pick<TooltipProps, 'canDisplayTooltip' | 'tooltipId' | 'tooltipLevel'>

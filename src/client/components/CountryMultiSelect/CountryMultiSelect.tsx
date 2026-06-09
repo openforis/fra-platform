@@ -41,10 +41,10 @@ const CountryMultiSelect: React.FC<Props> = (props) => {
 
   const active = useMemo(() => !Objects.isEmpty(value), [value])
   const container = classNames('country-multiselect__container', { active, error })
-  const { canDisplayTooltip, dataTooltipId } = tooltip
+  const { canDisplayTooltip, tooltipId, tooltipLevel } = tooltip
 
   return (
-    <div className="country-multiselect__tooltip-trigger" data-tooltip-id={dataTooltipId}>
+    <div className="country-multiselect__tooltip-trigger" data-tooltip-id={tooltipId}>
       <Select
         // eslint-disable-next-line react/jsx-props-no-spreading
         {...otherProps}
@@ -68,7 +68,8 @@ const CountryMultiSelect: React.FC<Props> = (props) => {
         canDisplayTooltip={canDisplayTooltip}
         error={error}
         isMulti={isMulti}
-        tooltipId={dataTooltipId}
+        tooltipId={tooltipId}
+        tooltipLevel={tooltipLevel}
         value={value}
       />
     </div>
