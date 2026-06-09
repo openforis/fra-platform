@@ -16,6 +16,7 @@
   "googleOnlyAccount": "The account is associated with Google authentication",
   "invalidEmail": "Email not valid",
   "invitationExpired": "This invitation has expired",
+  "invitationLinkedToDifferentUser": "The invitation you are trying to access is linked to a different user.\nPlease log out if you want to access the invitation",
   "invitationMessage": "You have been invited to {{assessment}} {{cycle}} as {{role}} for {{- country}}",
   "invitationPrivacyNotice": "By accepting this invitation, you confirm that you hereby accept the terms and conditions described in the FAO Data Protection and Privacy Notice.",
   "invitationPrivacyNoticeLinkLabel": "Click here to view the FAO Data Protection and Privacy Notice.",

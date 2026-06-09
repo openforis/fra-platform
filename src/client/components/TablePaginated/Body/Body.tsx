@@ -10,13 +10,13 @@ import { Props as BaseProps } from 'client/components/TablePaginated/types'
 
 import { useTablePaginatedBodyData } from './hooks/useTablePaginatedBodyData'
 
-const Body = <Datum extends object>(props: BaseProps<Datum>) => {
+const Body = <Datum extends object>(props: BaseProps<Datum>): React.ReactElement => {
   const { columns, groups, limit, skeleton, wrapCells } = props
 
   const data = useTablePaginatedBodyData<Datum>(props)
 
   if (Objects.isNil(data)) {
-    return <RowsSkeleton columns={columns} limit={limit} skeleton={skeleton} />
+    return <RowsSkeleton columns={columns} limit={limit !== undefined && limit > 0 ? limit : 5} skeleton={skeleton} />
   }
 
   if (!Objects.isNil(groups)) {

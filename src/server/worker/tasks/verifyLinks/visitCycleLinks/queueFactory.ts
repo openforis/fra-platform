@@ -12,8 +12,7 @@ import { VisitCycleLinksProps } from './props'
 const queueName = 'verifyLinks'
 let queue: Queue<VisitCycleLinksProps> | undefined
 
-const connection = new IORedis(ProcessEnv.redisQueueUrl)
-connection.options.maxRetriesPerRequest = null
+const connection = new IORedis(ProcessEnv.redisQueueUrl, { maxRetriesPerRequest: null })
 
 type Props = {
   assessment: Assessment

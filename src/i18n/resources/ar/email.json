@@ -1,5 +1,8 @@
 {
   "invalidLinks": {
+    "invalidLinkCount_one": "رابط غير صالح {{count}}",
+    "invalidLinkCount_other": "روابط غير صالحة {{count}}",
+    "linkStatusPageInfo": "لمزيد من التفاصيل حول حالة الرابط {{countryName}}، يرجى زيارة صفحة حالة الرابط",
     "messageBodyIntro": "البلدان التالية لديها رابط غير صحيح واحد أو أكثر:",
     "messageFooter": "يرجى مراجعة الروابط المتأثرة وتحديثها على منصة FRA.\n\nشكرًا لكم،\nفريق FRA",
     "messageHeader": "عزيزي {{recipientName}},",

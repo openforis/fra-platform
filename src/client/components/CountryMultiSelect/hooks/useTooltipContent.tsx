@@ -3,10 +3,9 @@ import ReactDOMServer from 'react-dom/server'
 import { useTranslation } from 'react-i18next'
 import { useMediaQuery } from 'react-responsive'
 
-import { Objects } from 'utils/objects'
-
 import { CountryIso } from 'meta/area/countryIso'
 import { TooltipId } from 'meta/tooltip/id'
+import { Objects } from 'utils/objects'
 
 import { useIsPanEuropeanRoute } from 'client/hooks/routes'
 import { Props as CountrySelectProps } from 'client/components/CountryMultiSelect/types'
@@ -15,28 +14,27 @@ import { Breakpoints } from 'client/utils/breakpoints'
 
 import { useCountriesByRegionOptions } from './useCountriesByRegionOptions'
 
-type Props = Pick<CountrySelectProps, 'allowedCountries' | 'isMulti'> & {
-  value: Array<CountryIso>
+type Props = Pick<CountrySelectProps, 'allowAtlantis' | 'allowedCountries' | 'isMulti' | 'value'> & {
   error?: string
 }
 
 export type TooltipContent = {
+  dataTooltipId: TooltipId
   hideTooltip: () => void
   showTooltip: () => void
   tooltipContent: string | null
-  dataTooltipId: TooltipId
 }
 
 export const useTooltipContent = (props: Props): TooltipContent => {
-  const { allowedCountries, error, isMulti, value } = props
+  const { allowAtlantis, allowedCountries, error, isMulti, value } = props
   const [canDisplayTooltip, setCanDisplayTooltip] = useState<boolean>(true)
   const { t } = useTranslation()
 
-  const countryOptionGroups = useCountriesByRegionOptions({ allowedCountries })
+  const countryOptionGroups = useCountriesByRegionOptions({ allowAtlantis, allowedCountries })
   const isPanEuropean = useIsPanEuropeanRoute()
   const isMinLaptop = useMediaQuery({ minWidth: Breakpoints.laptop })
 
-  const tooltipContent = useMemo<string | null>(() => {
+  const tooltipContent = useMemo<TooltipContent['tooltipContent']>(() => {
     if (!isMinLaptop) return null
     if (Objects.isEmpty(value) || !isMulti) return null
     if (!canDisplayTooltip) return null
@@ -81,7 +79,7 @@ export const useTooltipContent = (props: Props): TooltipContent => {
       })
     }
 
-    const gridTemplateColumns = `repeat(${selectedRegions.length},1fr)`
+    const gridTemplateColumns = `repeat(${selectedRegions.length},max-content)`
 
     return ReactDOMServer.renderToStaticMarkup(
       <div className="regions-container" style={{ gridTemplateColumns }}>
@@ -105,10 +103,12 @@ export const useTooltipContent = (props: Props): TooltipContent => {
     )
   }, [canDisplayTooltip, countryOptionGroups, error, isMinLaptop, isMulti, isPanEuropean, t, value])
 
-  const hideTooltip = useCallback(() => setCanDisplayTooltip(false), [])
-  const showTooltip = useCallback(() => setCanDisplayTooltip(true), [])
+  const hideTooltip = useCallback<TooltipContent['hideTooltip']>(() => setCanDisplayTooltip(false), [])
+  const showTooltip = useCallback<TooltipContent['showTooltip']>(() => setCanDisplayTooltip(true), [])
 
-  const dataTooltipId = useMemo(() => (error ? TooltipId.error : TooltipId.infoClickable), [error])
+  const dataTooltipId = useMemo<TooltipContent['dataTooltipId']>(() => {
+    return error ? TooltipId.error : TooltipId.info
+  }, [error])
 
   return {
     hideTooltip,

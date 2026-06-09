@@ -1,0 +1,12 @@
+@use 'src/client/style/partials' as *;
+
+.repository-form__usages {
+  margin-top: $spacing-m;
+}
+
+.repository-form__usage {
+  &::before {
+    content: '•';
+    margin: 0 $spacing-xxs 0 $spacing-xs;
+  }
+}

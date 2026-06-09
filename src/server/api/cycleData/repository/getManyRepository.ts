@@ -13,9 +13,9 @@ export const getManyRepository = async (req: Request, res: Response): Promise<vo
     const { assessment, cycle } = req.context
 
     const props = { assessment, cycle, countryIso, global: JSON.parse(global) }
-    const items = await CycleDataController.Repository.getMany(props)
+    const tree = await CycleDataController.Repository.getMany(props)
 
-    Requests.send(res, items)
+    Requests.send(res, tree)
   } catch (e) {
     Requests.sendErr(res, e)
   }

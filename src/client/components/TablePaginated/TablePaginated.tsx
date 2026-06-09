@@ -59,7 +59,7 @@ const TablePaginated = <Datum extends object>(props: Props<Datum>): React.ReactE
   const divRef = useRef<HTMLDivElement>(null)
 
   useInitTablePaginated({ filters, path })
-  useFetchData({ counter, limit, path })
+  useFetchData({ counter, limit: limit === -1 ? undefined : limit, path })
   useResetOnUnmount({ path })
   useScrollToTopOnPageUpdate({ divRef, path })
   const count = useTablePaginatedCount(path)

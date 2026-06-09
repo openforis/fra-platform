@@ -7,7 +7,7 @@ import Flex from 'client/components/Layout/Flex'
 import Cancel from './Cancel'
 import Submit from './Submit'
 
-type ButtonsProps = Pick<FormProps, 'disabled' | 'hideCancel'> & {
+type ButtonsProps = Pick<FormProps, 'disabled' | 'hideCancel' | 'isDirtyOverride'> & {
   isDirty?: boolean
   isSubmitting?: boolean
   onCancel: () => void
@@ -15,12 +15,17 @@ type ButtonsProps = Pick<FormProps, 'disabled' | 'hideCancel'> & {
 }
 
 const Buttons: React.FC<ButtonsProps> = (props) => {
-  const { disabled, hideCancel, isDirty, isSubmitting, labels, onCancel } = props
+  const { disabled, hideCancel, isDirty, isDirtyOverride, isSubmitting, labels, onCancel } = props
 
   return (
     <Flex className="form-button-container" gap={'32'} justifyContent={'center'}>
       <Cancel disabled={disabled} hideCancel={hideCancel} onClick={onCancel} />
-      <Submit disabled={disabled} isDirty={isDirty} isSubmitting={isSubmitting} label={labels?.submit} />
+      <Submit
+        disabled={disabled}
+        isDirty={isDirtyOverride ?? isDirty}
+        isSubmitting={isSubmitting}
+        label={labels?.submit}
+      />
     </Flex>
   )
 }

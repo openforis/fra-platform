@@ -20,7 +20,10 @@
     "confirmDelete": "Удалить {{file}}? Его невозможно будет восстановить.",
     "fileDeleted": "Файл успешно удален",
     "fileOperationFailed": "Операция не может быть выполнена, так как файл используется в:\n{{sectionNames}}",
+    "folderNotEmpty": "Эта папка не может быть удалена, так как она не пуста.",
     "fileUploaded": "Файл успешно загружен",
+    "countryRepository": "Хранилище данных {{countryName}}",
+    "fraRepository": "Хранилище данных ОЛР",
     "links": "Ссылки",
     "repository": "Хранилище данных",
     "uploadFile": "Загрузить файл"
@@ -83,7 +86,7 @@
     "messageBoard": "Доска сообщений",
     "overview": "Обзор",
     "recentActivity": "Недавняя активность",
-    "repository": "Ссылки и хранилище данных",
+    "repository": "Хранилище данных",
     "userManagement": "Координировать сотрудников",
     "versioning": "Версии"
   },

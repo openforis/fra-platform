@@ -22,5 +22,3 @@ export const useIsPanEuropeanRoute = (): boolean => {
   return assessmentName === AssessmentNames.panEuropean
 }
 export const useIsGeoRoute = (): boolean => useIsRoute({ path: Routes.Geo.path.absolute, exact: false })
-export const useIsInvitationLocalRoute = (): boolean =>
-  useIsRoute({ path: Routes.LoginInvitationLocal.path.absolute, exact: false })

@@ -1,0 +1,19 @@
+@use 'src/client/style/partials' as *;
+
+.repository-list-item {
+  align-items: center;
+  display: grid;
+  font-size: $font-s;
+  grid-column: 1 / -1;
+  grid-template-columns: subgrid;
+  min-height: 32px;
+  padding-right: $spacing-xxs;
+
+  &:nth-child(even) {
+    background-color: $ui-bg-light;
+  }
+
+  &:hover {
+    background-color: var(--ui-accent-light-extra);
+  }
+}

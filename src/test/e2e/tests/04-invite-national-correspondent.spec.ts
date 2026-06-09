@@ -32,7 +32,7 @@ test.describe.serial('National Correspondent: ', () => {
     invitationPath = await MailUtil.getInvitationLink(email)
   })
 
-  test('NC accepts invitation', async ({ browser }) => {
+  test('NC accepts invitation and fills required info', async ({ browser }) => {
     // new clean browser state
     const ncContext = await browser.newContext({ baseURL: test.info().project.use.baseURL })
     const ncPage = await ncContext.newPage()
@@ -40,29 +40,12 @@ test.describe.serial('National Correspondent: ', () => {
     await ncPage.goto(invitationPath)
     await ncPage.fill('input[name="password"]', testUser.password)
     await ncPage.fill('input[name="password2"]', testUser.password)
-    await ncPage.click('button.button:has-text("Accept Invitation with FRA")')
+    await ncPage.click('button.button:has-text("Sign in with FRA")')
 
-    await expect(ncPage).not.toHaveURL(/\/login\/invitation\//)
-    await ncContext.close()
-  })
+    // After registering, wait for the accept-invitation page to load with the required info form
+    await ncPage.waitForSelector('[id="select-user.props.title"]', { timeout: 30_000 })
 
-  test('NC fills required info on first login', async ({ browser }) => {
-    const ncContext = await browser.newContext({ baseURL: test.info().project.use.baseURL })
-    const ncPage = await ncContext.newPage()
-
-    await AuthUtils.login(ncPage, { email: testUser.email, password: testUser.password })
-
-    // Navigate to country page -> should trigger redirect to profile
-    await ncPage.goto('/assessments/fra/2025/X01/home')
-    await ncPage.waitForURL(/\/users\//)
-
-    // Check the notification shows correct text
-    await expect(ncPage.getByText('Please complete your personal information before continuing')).toBeVisible()
-
-    // == Fill form
     await DOMUtils.selectOption(ncPage, { id: 'select-user.props.title' }, 'Mr.')
-
-    // Role properties
     await DOMUtils.fillWYSIWYG(ncPage, { id: 'role.props.organization' }, 'Test Organization')
     await DOMUtils.fillInput(ncPage, { id: 'role.props.address.street' }, 'Test Street 1')
     await DOMUtils.fillInput(ncPage, { id: 'role.props.address.zipCode' }, '00100')
@@ -71,9 +54,9 @@ test.describe.serial('National Correspondent: ', () => {
     await DOMUtils.fillInput(ncPage, { id: 'role.props.primaryPhoneNumber-phone-number' }, '123456789')
     await DOMUtils.selectOption(ncPage, { id: 'select-role.props.contactPreference.method' }, 'Primary email address')
 
-    await ncPage.getByRole('button', { name: 'Submit' }).click()
+    await ncPage.getByRole('button', { name: 'Accept Invitation' }).click()
 
-    // After submitting, NC is redirected back to country page
+    // After submitting, NC is redirected to country home
     await expect(ncPage).toHaveURL(/\/assessments\/fra\/2025\/X01\/home\/overview$/)
     await ncContext.close()
   })

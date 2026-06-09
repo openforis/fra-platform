@@ -11,11 +11,8 @@ import { useOptions } from './hooks/useOptions'
 
 const Dimensions: React.FC = () => {
   const { t } = useTranslation()
-
   const options = useOptions()
-
   const explorerDimensions = useExplorerDimensions()
-
   const onChange = useOnChange({ options })
 
   return (
@@ -27,6 +24,7 @@ const Dimensions: React.FC = () => {
       options={options ?? []}
       placeholder={t('common.column')}
       toggleAll
+      tooltipPlace="bottom"
       value={explorerDimensions}
     />
   )

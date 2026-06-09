@@ -43,6 +43,7 @@ const UserList: React.FC = () => {
           keySelector: (user: UserCountrySummary) => UserCountrySummaries.getRoleName(user, countryIso),
         }}
         header={header}
+        limit={-1}
         path={path}
       />
     </div>

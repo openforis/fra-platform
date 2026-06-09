@@ -1,5 +1,5 @@
 import './Form.scss'
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Form as ReactHookForm, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -9,6 +9,7 @@ import { Objects } from 'utils/objects'
 
 import { useAppDispatch } from 'client/store/hooks'
 import { NotificationActions } from 'client/store/ui/notification/actions'
+import { useLanguage } from 'client/hooks/language'
 import { DataGrid } from 'client/components/DataGrid'
 import { FormFields } from 'client/components/Form/FormFields/FormFields'
 
@@ -32,6 +33,7 @@ const Form: React.FC<FormProps> = (props) => {
     disabled,
     formDefinition,
     hideCancel,
+    isDirtyOverride,
     method = 'post',
     onCancel,
     onSuccess,
@@ -39,16 +41,27 @@ const Form: React.FC<FormProps> = (props) => {
   } = props
   const { fields, labels } = formDefinition
 
+  const language = useLanguage()
   const dispatch = useAppDispatch()
   // type FormValues = z.infer<typeof formSchema>
   const defaultValues = useDefaultValues(fields)
-  const resolver = zodResolver(validationSchema)
+  const resolver = zodResolver(validationSchema, undefined, { raw: true })
   const form = useForm({ resolver, defaultValues, shouldUnregister: true })
   const onSubmit = useOnSubmit(props)
 
   const { control, formState, register, resetField, setValue, trigger, watch } = form
   const { errors, isDirty, isSubmitting } = formState
   const watchValues = watch()
+
+  // Trigger validations on language change after first render
+  const isMounted = useRef(false)
+  useEffect(() => {
+    if (!isMounted.current) {
+      isMounted.current = true
+      return
+    }
+    trigger()
+  }, [language, trigger])
 
   return (
     <ReactHookForm
@@ -94,6 +107,7 @@ const Form: React.FC<FormProps> = (props) => {
           disabled={disabled}
           hideCancel={hideCancel}
           isDirty={isDirty}
+          isDirtyOverride={isDirtyOverride}
           isSubmitting={isSubmitting}
           labels={labels}
           onCancel={onCancel}

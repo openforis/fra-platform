@@ -1,10 +1,10 @@
-import { FileSummary } from 'meta/file/file'
+import { BaseFileSummary } from 'meta/file/file'
 
-export type FileUploadOnChange = (filesSummaries: Array<FileSummary>) => void
+export type FileUploadOnChange = (filesSummaries: Array<BaseFileSummary>) => void
 
 export type FileUploadProps = {
   id?: string
   multiple?: boolean
   onChange: FileUploadOnChange
-  value?: Array<FileSummary>
+  value?: Array<BaseFileSummary>
 }

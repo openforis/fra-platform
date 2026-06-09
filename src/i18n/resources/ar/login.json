@@ -16,6 +16,7 @@
   "googleOnlyAccount": "الحساب مرتبط بمصادقة جوجل",
   "invalidEmail": "البريد الإلكتروني غير سارٍ",
   "invitationExpired": "انتهت صلاحية هذه الدعوة",
+  "invitationLinkedToDifferentUser": "الدعوة التي تحاول الوصول إليها مرتبطة بمستخدم آخر.\nيرجى تسجيل الخروج إذا كنت ترغب في الوصول إلى الدعوة",
   "invitationMessage": "{{country}}في  {{role}} كـ  {{ cycle }} {{ assessment }} لقد تمت دعوتك إلى",
   "invitationPrivacyNotice": "بقبولك هذه الدعوة، فإنك تؤكد أنك تقبل بموجب هذا الأحكام والشروط الموصوفة في إشعار الفاو لحماية البيانات والخصوصية.",
   "invitationPrivacyNoticeLinkLabel": "انقر هنا لعرض إشعار الفاو لحماية البيانات والخصوصية.",

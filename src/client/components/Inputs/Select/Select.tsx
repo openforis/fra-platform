@@ -35,6 +35,7 @@ const Select: React.FC<SelectProps> = (props) => {
     onPaste,
     placeholder,
     size,
+    tooltip,
   } = props
 
   const classNames = useClassNames(props)
@@ -76,7 +77,13 @@ const Select: React.FC<SelectProps> = (props) => {
   }
 
   return (
-    <div className={classNamesFn('select__wrapper', { bordered }, `size-${size}`)} onPaste={onPaste}>
+    <div
+      className={classNamesFn('select__wrapper', { bordered }, `size-${size}`)}
+      data-tooltip-content={tooltip?.content}
+      data-tooltip-id={tooltip?.id}
+      data-tooltip-place={tooltip?.place}
+      onPaste={onPaste}
+    >
       {isCreatable && (
         <CreatableSelect
           // eslint-disable-next-line react/jsx-props-no-spreading

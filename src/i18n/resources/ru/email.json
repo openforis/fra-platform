@@ -1,5 +1,8 @@
 {
   "invalidLinks": {
+    "invalidLinkCount_one": "Недопустимая ссылка {{count}}",
+    "invalidLinkCount_other": "{{count}} неверные ссылки",
+    "linkStatusPageInfo": "Для получения более подробной информации о статусе ссылки {{countryName}}, посетите страницу Статус ссылки",
     "messageBodyIntro": "У следующих стран есть одна или несколько неправильных ссылок:",
     "messageFooter": "Пожалуйста, проверьте и обновите затронутые ссылки на платформе ОЛР.\n\nСпасибо,\nкоманда по ОЛР",
     "messageHeader": "Уважаемый(ая) {{recipientName}},",
