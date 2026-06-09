@@ -24,7 +24,10 @@ export const useRegionGroups = (props: PropsTooltipCountries): Returned => {
 
   return useMemo<Returned>(() => {
     if (isPanEuropean) {
-      const countries = value.map((countryIso) => t(`area.${countryIso}.listName`)).sort((a, b) => a.localeCompare(b))
+      const valueArray = Array.isArray(value) ? value : [value]
+      const countries = valueArray
+        .map((countryIso) => t(`area.${countryIso}.listName`))
+        .sort((a, b) => a.localeCompare(b))
       return [{ label: '', countries }]
     }
 
