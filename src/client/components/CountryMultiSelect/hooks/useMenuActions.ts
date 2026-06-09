@@ -3,14 +3,14 @@ import { useMemo } from 'react'
 import { Props } from 'client/components/CountryMultiSelect/types'
 import { SelectProps } from 'client/components/Inputs/Select'
 
-import { TooltipContent } from './useTooltipContent'
+import { TooltipProps } from './useTooltipProps'
 
 type Returned = {
   onMenuOpen: SelectProps['onMenuOpen']
   onMenuClose: SelectProps['onMenuClose']
 }
 
-export const useMenuActions = (props: Props & { tooltip: TooltipContent }): Returned => {
+export const useMenuActions = (props: Props & { tooltip: TooltipProps }): Returned => {
   const { onMenuClose: onMenuCloseProps, tooltip } = props
   const { hideTooltip, showTooltip } = tooltip
 

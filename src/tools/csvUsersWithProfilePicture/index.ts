@@ -2,7 +2,7 @@ import '../scriptInit'
 
 import fs from 'fs'
 import path from 'path'
-import archiver from 'archiver'
+import { ZipArchive } from 'archiver'
 
 import { Files } from 'meta/file/files'
 import { CSV } from 'tools/utils/CSV'
@@ -91,7 +91,7 @@ const downloadProfilePictures = async (): Promise<void> => {
   // Create zip file with profile pictures
   const zipFileName = `avatars_${assessmentName}_${cycleName}.zip`
   const output = fs.createWriteStream(path.join('tmp', zipFileName))
-  const archive = archiver('zip', { zlib: { level: 9 } })
+  const archive = new ZipArchive({ zlib: { level: 9 } })
 
   return new Promise<void>((resolve, reject) => {
     output.on('close', () => {

@@ -1,20 +1,20 @@
 import './Flag.scss'
 import React, { PropsWithChildren } from 'react'
 
-import { TooltipId } from 'meta/tooltip/id'
+import { TooltipProps } from 'client/components/Tooltips/type'
+import WithTooltip from 'client/components/Tooltips/WithTooltip'
 
 type Props = {
-  tooltipContent?: string
-  tooltipId?: TooltipId
+  tooltip?: TooltipProps
 }
 
 const Flag: React.FC<PropsWithChildren<Props>> = (props) => {
-  const { children, tooltipContent, tooltipId } = props
+  const { children, tooltip } = props
 
   return (
-    <div className="table-grid__data-cell-flag no-csv" data-tooltip-html={tooltipContent} data-tooltip-id={tooltipId}>
-      {React.Children.toArray(children)}
-    </div>
+    <WithTooltip className="table-grid__data-cell-flag no-csv" tooltip={tooltip}>
+      {children}
+    </WithTooltip>
   )
 }
 
