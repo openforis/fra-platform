@@ -4,7 +4,6 @@ import { useMediaQuery } from 'react-responsive'
 import { Tooltip } from 'react-tooltip'
 import classNames from 'classnames'
 
-import { TooltipId } from 'meta/tooltip/id'
 import { Objects } from 'utils/objects'
 
 import { useNavigationVisible } from 'client/store/ui/countryReport/hooks/navigation'
@@ -14,13 +13,12 @@ import { useRegionGroups } from './hooks/useRegionGroups'
 import { PropsTooltipCountries } from './types'
 
 const TooltipCountries: React.FC<PropsTooltipCountries> = (props) => {
-  const { canDisplayTooltip, error, isMulti, tooltipId, value } = props
+  const { canDisplayTooltip, error, isMulti, tooltipId, tooltipLevel, value } = props
   const hasError = !Objects.isEmpty(error)
 
   const isMinLaptop = useMediaQuery({ minWidth: Breakpoints.laptop })
   const navigationVisible = useNavigationVisible()
   const regionGroups = useRegionGroups(props)
-  const tooltipLevel = tooltipId === TooltipId.error ? TooltipId.error : TooltipId.info
 
   if (!canDisplayTooltip || !isMulti || !isMinLaptop || Objects.isEmpty(value)) return null
 
