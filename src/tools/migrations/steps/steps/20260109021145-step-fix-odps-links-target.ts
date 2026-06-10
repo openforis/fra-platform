@@ -10,7 +10,7 @@ import { Promises } from 'utils/promises'
 
 import { AssessmentController } from 'server/controller/assessment'
 import { BaseProtocol } from 'server/db/db'
-import { OriginalDataPointAdapter } from 'server/db/repository/adapter/originalDataPoint'
+import { OriginalDataPointAdapterDeprecated } from 'server/db/repository/adapter/originalDataPoint'
 import { ODPCommentColumns } from 'server/db/repository/assessmentCycle/originalDataPoint/commentColumns'
 import { Schemas } from 'server/db/schemas'
 import { Logger } from 'server/utils/logger'
@@ -105,7 +105,7 @@ export default async (client: BaseProtocol): Promise<void> => {
              or ${commentColumnForestCharacteristics} ilike '%href%'
         `,
         [],
-        OriginalDataPointAdapter
+        OriginalDataPointAdapterDeprecated
       )
 
       if (odps.length === 0) {
