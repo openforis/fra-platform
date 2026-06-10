@@ -5,9 +5,7 @@ import { Change } from 'diff'
 
 import { DataSourceDescription } from 'meta/assessment/description'
 import { DataSources } from 'meta/assessment/description/dataSources'
-import { DataSource } from 'meta/assessment/descriptionValue'
-
-import { DataSourceHistoryCompare } from 'client/components/DataSources/types'
+import { DataSource, DataSourceHistoryCompare } from 'meta/assessment/descriptionValue/dataSource'
 
 type Props = {
   historyCompare: DataSourceHistoryCompare

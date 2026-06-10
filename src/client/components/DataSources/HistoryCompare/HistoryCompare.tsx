@@ -1,10 +1,10 @@
 import React from 'react'
 
 import { DataSourceDescription } from 'meta/assessment/description'
+import { DataSourceHistoryCompare } from 'meta/assessment/descriptionValue/dataSource'
 
 import { DataRow } from 'client/components/DataGrid'
 import CellDiff from 'client/components/DataSources/HistoryCompare/CellDiff'
-import { DataSourceHistoryCompare } from 'client/components/DataSources/types'
 
 import { useChanges } from './hooks/useChanges'
 

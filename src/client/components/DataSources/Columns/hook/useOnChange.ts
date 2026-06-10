@@ -1,7 +1,8 @@
 import { useCallback } from 'react'
 
 import { CountryIso } from 'meta/area/countryIso'
-import { CommentableDescriptionName, DataSource } from 'meta/assessment/descriptionValue'
+import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
+import { DataSource } from 'meta/assessment/descriptionValue/dataSource'
 import { SectionName } from 'meta/assessment/section'
 import { Objects } from 'utils/objects'
 

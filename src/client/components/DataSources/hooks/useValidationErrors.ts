@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { DataSource } from 'meta/assessment/descriptionValue'
+import { DataSource } from 'meta/assessment/descriptionValue/dataSource'
 import { CollaboratorEditPropertyType } from 'meta/user/role/collaborator'
 import { Objects } from 'utils/objects'
 

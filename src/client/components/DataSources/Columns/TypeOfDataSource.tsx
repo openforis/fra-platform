@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { DataSourceType } from 'meta/assessment/description'
 import { DataSourceDescription } from 'meta/assessment/description/nationalDataDataSourceDescription'
-import { DataSource } from 'meta/assessment/descriptionValue'
+import { DataSource } from 'meta/assessment/descriptionValue/dataSource'
 import { SectionName } from 'meta/assessment/section'
 
 import Select from 'client/components/Inputs/Select'

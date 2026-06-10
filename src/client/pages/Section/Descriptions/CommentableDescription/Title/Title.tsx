@@ -5,6 +5,7 @@ import MediaQuery from 'react-responsive'
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 
 import { DataCell, DataRow } from 'client/components/DataGrid'
+import { PropsDataSources } from 'client/components/DataSources/types'
 import ButtonEdit from 'client/pages/Section/Descriptions/CommentableDescription/Title/ButtonEdit'
 import ButtonHistory from 'client/pages/Section/Descriptions/CommentableDescription/Title/ButtonHistory'
 import { Breakpoints } from 'client/utils/breakpoints'
@@ -14,10 +15,11 @@ import { useDescriptionActions } from './hooks/useDescriptionActions'
 type Props = {
   name: CommentableDescriptionName
   title: string
-}
+} & Pick<PropsDataSources, 'options'>
 
 const Title: React.FC<Props> = (props) => {
-  const { name, title } = props
+  const { name, options, title } = props
+  const { canToggleEdit, canToggleHistory } = options ?? {}
 
   const actions = useDescriptionActions({ name, title })
 
@@ -29,8 +31,8 @@ const Title: React.FC<Props> = (props) => {
         </h3>
 
         <MediaQuery minWidth={Breakpoints.laptop}>
-          <ButtonHistory target={name} />
-          <ButtonEdit name={name} />
+          {canToggleHistory && <ButtonHistory target={name} />}
+          {canToggleEdit && <ButtonEdit name={name} />}
         </MediaQuery>
       </DataCell>
     </DataRow>

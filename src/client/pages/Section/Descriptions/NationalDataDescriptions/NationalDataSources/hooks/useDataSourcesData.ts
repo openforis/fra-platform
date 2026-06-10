@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 
-import { CommentableDescriptionName, DataSource } from 'meta/assessment/descriptionValue'
+import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
+import { DataSource } from 'meta/assessment/descriptionValue/dataSource'
 import { SectionName } from 'meta/assessment/section'
 import { UUIDs } from 'meta/uuid/uuids'
 
@@ -25,6 +26,7 @@ const newPlaceholder = (): DataSource => ({
   variables: [],
   year: [],
 })
+
 const name = CommentableDescriptionName.dataSources
 
 export const useDataSourcesData = (props: Props): Returned => {

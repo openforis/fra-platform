@@ -1,7 +1,5 @@
-import { DataSource } from 'meta/assessment/descriptionValue'
+import { DataSource, DataSourceHistoryCompare } from 'meta/assessment/descriptionValue/dataSource'
 import { Arrays } from 'utils/arrays'
-
-import { DataSourceHistoryCompare } from '../types'
 
 type Props = {
   dataSources: Array<DataSource>

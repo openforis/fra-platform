@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
 
 import { CountryIso } from 'meta/area/countryIso'
-import { NationalDataDescription } from 'meta/assessment/description'
-import { DataSourceLinked } from 'meta/assessment/descriptionValue'
+import { DataSourceDescription } from 'meta/assessment/description'
+import { DataSourceLinked } from 'meta/assessment/descriptionValue/dataSource'
 
 import { LinkedDataSourcesActions } from 'client/store/data/linkedDataSources/actions'
 import { useDataSourcesLinked } from 'client/store/data/linkedDataSources/hooks/linkedDataSources'
@@ -10,7 +10,7 @@ import { useAppDispatch } from 'client/store/hooks'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 
 type Props = {
-  nationalData: NationalDataDescription
+  meta?: DataSourceDescription
   sectionName: string
 }
 
@@ -19,14 +19,14 @@ type Returned = {
 }
 
 export const useGetDataSourcesLinked = (props: Props): Returned => {
-  const { nationalData, sectionName } = props
+  const { meta, sectionName } = props
 
   const dispatch = useAppDispatch()
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const linkedDataSources = useDataSourcesLinked({ sectionName })
 
   useEffect(() => {
-    const linkedVariables = nationalData?.dataSources?.linkedVariables ?? []
+    const linkedVariables = meta?.linkedVariables ?? []
 
     if (linkedVariables.length) {
       dispatch(
@@ -39,7 +39,7 @@ export const useGetDataSourcesLinked = (props: Props): Returned => {
         })
       )
     }
-  }, [assessmentName, countryIso, cycleName, dispatch, nationalData?.dataSources?.linkedVariables, sectionName])
+  }, [assessmentName, countryIso, cycleName, dispatch, meta?.linkedVariables, sectionName])
 
   return { dataSourcesLinked: linkedDataSources }
 }

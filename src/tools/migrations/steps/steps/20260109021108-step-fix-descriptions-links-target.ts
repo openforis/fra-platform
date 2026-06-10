@@ -2,7 +2,8 @@ import serialize from 'dom-serializer'
 import { DomUtils, parseDocument } from 'htmlparser2'
 import pgPromise from 'pg-promise'
 
-import { CommentableDescription, CommentableDescriptionValue, DataSource } from 'meta/assessment/descriptionValue'
+import { CommentableDescription, CommentableDescriptionValue } from 'meta/assessment/descriptionValue'
+import { DataSource } from 'meta/assessment/descriptionValue/dataSource'
 import { Objects } from 'utils/objects'
 import { Promises } from 'utils/promises'
 

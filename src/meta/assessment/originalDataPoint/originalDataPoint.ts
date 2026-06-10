@@ -1,5 +1,5 @@
 import { CountryIso } from 'meta/area/countryIso' // import { ODPValidation } from './odpValidation'
-import { DataSource } from 'meta/assessment/descriptionValue'
+import { DataSource } from 'meta/assessment/descriptionValue/dataSource'
 import { ODPDataSourceMethod } from 'meta/assessment/originalDataPoint/odpDataSource'
 import { TableNames } from 'meta/assessment/table'
 import { UUID } from 'meta/uuid/uuid'
