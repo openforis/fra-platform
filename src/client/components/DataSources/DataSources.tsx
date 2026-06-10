@@ -2,41 +2,49 @@ import './DataSources.scss'
 import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 import { Objects } from 'utils/objects'
 
 import { useCycleRouteParams } from 'client/hooks/routeParams'
 import { useIsPrintRoute } from 'client/hooks/routes'
 import { DataCell, DataGrid } from 'client/components/DataGrid'
-import ButtonCopy from 'client/components/DataSources/ButtonCopy'
 import DataSourceRow from 'client/components/DataSources/DataSourceRow'
 import HistoryCompare from 'client/components/DataSources/HistoryCompare'
 import { PropsDataSources } from 'client/components/DataSources/types'
 import EditorWYSIWYG from 'client/components/EditorWYSIWYG'
-import Title from 'client/pages/Section/Descriptions/CommentableDescription/Title'
 import { DOMs } from 'client/utils/doms'
 
-const name: CommentableDescriptionName = CommentableDescriptionName.dataSources
+import { useGridTemplateColumns } from './hooks/useGridTemplateColumns'
 
 const defaults: Partial<PropsDataSources> = {
   options: {
-    canCopy: false,
     canEdit: false,
     canReview: false,
     canToggleEdit: false,
     canToggleHistory: false,
     displayHistory: false,
+    includeVariables: false,
+    includeYears: false,
   },
 }
 
 export const DataSources: React.FC<PropsDataSources> = (props: PropsDataSources) => {
-  const { data, dataSourcesLinked, historyCompares, meta, options = defaults.options, sectionName } = props
+  const {
+    columns,
+    data,
+    dataSourcesLinked,
+    historyCompares,
+    meta,
+    options = defaults.options,
+    sectionName,
+    validator,
+  } = props
   const { dataSources, text } = data
-  const { canCopy, canEdit, canReview, displayHistory } = options
+  const { canEdit, canReview, displayHistory, includeVariables, includeYears } = options
 
   const { t } = useTranslation()
   const { assessmentName } = useCycleRouteParams()
   const { print } = useIsPrintRoute()
+  const gridTemplateColumns = useGridTemplateColumns({ options })
 
   const textEmpty = useMemo<boolean>(() => DOMs.isHTMLEmpty(text), [text])
 
@@ -46,24 +54,20 @@ export const DataSources: React.FC<PropsDataSources> = (props: PropsDataSources)
   const withActions = canEdit || canReview
 
   return (
-    <DataGrid className="description" withActions={withActions}>
-      <Title name={name} options={options} title={t('description.dataSourcesPlus')} />
-
+    <>
       {print && !hasDataSources && <div className="editorWYSIWYG jodit-wysiwyg textarea-print">-</div>}
       {renderGrid && (
         <>
-          {canEdit && canCopy && <ButtonCopy disabled={dataSources.length !== 1} sectionName={sectionName} />}
-
           <DataGrid
             className="data-source"
             gridColumn={canEdit ? `1/3` : undefined}
-            gridTemplateColumns="minmax(200px, 1fr) minmax(200px, 1fr) minmax(200px, 1fr) minmax(150px, 1fr) minmax(150px, 1fr)"
+            gridTemplateColumns={gridTemplateColumns}
             withActions={withActions}
           >
             <DataCell header>{t(`${keyPrefix}.referenceToTataSource`)}</DataCell>
             <DataCell header>{t(`${keyPrefix}.typeOfDataSource`)}</DataCell>
-            <DataCell header>{t(`${keyPrefix}.variable`)}</DataCell>
-            <DataCell header>{t(`${keyPrefix}.yearForDataSource`)}</DataCell>
+            {includeVariables && <DataCell header>{t(`${keyPrefix}.variable`)}</DataCell>}
+            {includeYears && <DataCell header>{t(`${keyPrefix}.yearForDataSource`)}</DataCell>}
             <DataCell header lastCol>
               {t(`${keyPrefix}.comments`)}
             </DataCell>
@@ -73,13 +77,16 @@ export const DataSources: React.FC<PropsDataSources> = (props: PropsDataSources)
               dataSourcesLinked.map((dataSource, i) => (
                 <React.Fragment key={`linkedDataSource_${dataSource.data.uuid}`}>
                   <DataSourceRow
+                    columns={columns}
                     dataSource={dataSource.data}
                     lastRow={i === dataSourcesLinked.length - 1}
                     meta={dataSource.meta}
+                    options={options}
                     readOnly
                     sectionName={sectionName}
+                    validator={validator}
                   />
-                  {canEdit && <div />}
+                  {canReview && <div />}
                 </React.Fragment>
               ))}
 
@@ -98,11 +105,13 @@ export const DataSources: React.FC<PropsDataSources> = (props: PropsDataSources)
                 return (
                   <DataSourceRow
                     key={String(`dataSource_${dataSourceValue.uuid}`)}
+                    columns={columns}
                     dataSource={dataSourceValue}
                     lastRow={i === dataSources.length - 1}
                     meta={meta}
                     options={options}
                     sectionName={sectionName}
+                    validator={validator}
                   />
                 )
               })}
@@ -118,7 +127,7 @@ export const DataSources: React.FC<PropsDataSources> = (props: PropsDataSources)
           )}
         </>
       )}
-    </DataGrid>
+    </>
   )
 }
 

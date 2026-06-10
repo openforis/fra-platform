@@ -10,7 +10,7 @@ import { useCommentableDescriptionValue } from 'client/store/data/descriptions/h
 import { useAppDispatch } from 'client/store/hooks'
 import { usePreviousSection } from 'client/store/meta/hooks/sections'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
-import Button from 'client/components/Buttons/Button'
+import Button, { ButtonSize } from 'client/components/Buttons/Button'
 
 interface Props {
   disabled: boolean
@@ -39,6 +39,7 @@ export const ButtonCopy: React.FC<Props> = (props: Props) => {
       iconName="content_copy"
       label={t('nationalDataPoint.copyPreviousValues')}
       onClick={onClick}
+      size={ButtonSize.xs}
     />
   )
 }

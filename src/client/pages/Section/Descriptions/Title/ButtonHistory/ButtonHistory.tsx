@@ -1,9 +1,9 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Objects } from 'utils/objects'
-
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
+import { SectionName } from 'meta/assessment/section'
+import { Objects } from 'utils/objects'
 
 import { useHistoryActivities, useHistoryActivitiesIsActive } from 'client/store/data/history/hooks/activities'
 import { useHistoryLastApprovedIsActive } from 'client/store/data/history/hooks/lastApproved'
@@ -14,6 +14,7 @@ import { useSectionContext } from 'client/pages/Section/context'
 import { useToggleHistory } from './hooks/useToggleHistory'
 
 type Props = {
+  sectionName: SectionName
   target: CommentableDescriptionName
 }
 
