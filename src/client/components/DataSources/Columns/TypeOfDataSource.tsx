@@ -31,7 +31,9 @@ const SelectInput: React.FC<Props> = (props) => {
 
   const { t } = useTranslation()
   const onChange = useOnChange({ sectionName, dataSource })
-  const _onChange = (value: string) => onChange('type', value)
+  const _onChange = (value: string): void => {
+    onChange('type', value)
+  }
 
   const options = useMemo(() => {
     return Object.keys(DataSourceType).map((type) => {
