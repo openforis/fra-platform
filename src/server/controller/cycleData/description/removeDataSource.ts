@@ -28,8 +28,9 @@ export const removeDataSource = async (props: Props, client: BaseProtocol = DB):
 
   return client.tx(async (t) => {
     const countryISOs = [countryIso]
+    const names = [name]
     const sectionNames = [sectionName]
-    const values = await DescriptionRepository.getValues({ assessment, countryISOs, cycle, name, sectionNames }, t)
+    const values = await DescriptionRepository.getValues({ assessment, countryISOs, cycle, names, sectionNames }, t)
     const value = values[countryIso][sectionName].dataSources
 
     if (!value) {
