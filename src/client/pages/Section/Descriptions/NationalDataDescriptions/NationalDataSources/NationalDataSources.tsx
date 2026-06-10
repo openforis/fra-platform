@@ -1,8 +1,10 @@
 import React from 'react'
 
 import { DataSourceDescription } from 'meta/assessment/description'
+import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 
 import { useHistoryLastApprovedDescriptionFetched } from 'client/store/data/history/hooks/lastApprovedDescriptions'
+import { useCanEditDescription, useIsDescriptionEditable } from 'client/store/user/hooks/auth'
 import DataSources from 'client/components/DataSources'
 import { useSectionContext } from 'client/pages/Section/context'
 
@@ -15,12 +17,16 @@ type Props = {
   meta: DataSourceDescription
 }
 
+const name: CommentableDescriptionName = CommentableDescriptionName.dataSources
+
 const NationalDataSources: React.FC<Props> = (props) => {
   const { meta } = props
 
   const { sectionName } = useSectionContext()
   const data = useDataSourcesData({ sectionName })
   const { dataSourcesLinked } = useGetDataSourcesLinked({ meta, sectionName })
+  const canReview = useCanEditDescription({ sectionName })
+  const canEdit = useIsDescriptionEditable({ sectionName, name })
 
   const { dataSources } = data
   const historyLastApprovedCompares = useDataSourcesHistoryLastApproved({ dataSources })
@@ -39,7 +45,7 @@ const NationalDataSources: React.FC<Props> = (props) => {
       dataSourcesLinked={dataSourcesLinked}
       historyCompares={historyCompares}
       meta={meta}
-      options={{ canCopy: true, canToggleEdit: true, canToggleHistory: true, displayHistory }}
+      options={{ canCopy: true, canEdit, canReview, canToggleEdit: true, canToggleHistory: true, displayHistory }}
       sectionName={sectionName}
     />
   )

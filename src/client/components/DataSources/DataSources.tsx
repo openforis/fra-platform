@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next'
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 import { Objects } from 'utils/objects'
 
-import { useCanEditDescription, useIsDescriptionEditable } from 'client/store/user/hooks/auth'
 import { useCycleRouteParams } from 'client/hooks/routeParams'
 import { useIsPrintRoute } from 'client/hooks/routes'
 import { DataCell, DataGrid } from 'client/components/DataGrid'
@@ -22,6 +21,8 @@ const name: CommentableDescriptionName = CommentableDescriptionName.dataSources
 const defaults: Partial<PropsDataSources> = {
   options: {
     canCopy: false,
+    canEdit: false,
+    canReview: false,
     canToggleEdit: false,
     canToggleHistory: false,
     displayHistory: false,
@@ -31,34 +32,33 @@ const defaults: Partial<PropsDataSources> = {
 export const DataSources: React.FC<PropsDataSources> = (props: PropsDataSources) => {
   const { data, dataSourcesLinked, historyCompares, meta, options = defaults.options, sectionName } = props
   const { dataSources, text } = data
-  const { canCopy, displayHistory } = options
+  const { canCopy, canEdit, canReview, displayHistory } = options
 
   const { t } = useTranslation()
   const { assessmentName } = useCycleRouteParams()
   const { print } = useIsPrintRoute()
 
-  const canEdit = useCanEditDescription({ sectionName })
-  const editable = useIsDescriptionEditable({ sectionName, name })
   const textEmpty = useMemo<boolean>(() => DOMs.isHTMLEmpty(text), [text])
 
   const hasDataSources = !Objects.isEmpty(dataSources) || !Objects.isEmpty(dataSourcesLinked)
-  const renderGrid = Boolean(hasDataSources || editable)
+  const renderGrid = Boolean(hasDataSources || canEdit)
   const keyPrefix = `${assessmentName}.description.dataSource`
+  const withActions = canEdit || canReview
 
   return (
-    <DataGrid className="description" withActions={canEdit}>
+    <DataGrid className="description" withActions={withActions}>
       <Title name={name} options={options} title={t('description.dataSourcesPlus')} />
 
       {print && !hasDataSources && <div className="editorWYSIWYG jodit-wysiwyg textarea-print">-</div>}
       {renderGrid && (
         <>
-          {editable && canCopy && <ButtonCopy disabled={dataSources.length !== 1} sectionName={sectionName} />}
+          {canEdit && canCopy && <ButtonCopy disabled={dataSources.length !== 1} sectionName={sectionName} />}
 
           <DataGrid
             className="data-source"
             gridColumn={canEdit ? `1/3` : undefined}
             gridTemplateColumns="minmax(200px, 1fr) minmax(200px, 1fr) minmax(200px, 1fr) minmax(150px, 1fr) minmax(150px, 1fr)"
-            withActions={canEdit}
+            withActions={withActions}
           >
             <DataCell header>{t(`${keyPrefix}.referenceToTataSource`)}</DataCell>
             <DataCell header>{t(`${keyPrefix}.typeOfDataSource`)}</DataCell>
@@ -67,7 +67,7 @@ export const DataSources: React.FC<PropsDataSources> = (props: PropsDataSources)
             <DataCell header lastCol>
               {t(`${keyPrefix}.comments`)}
             </DataCell>
-            {canEdit && <div />}
+            {withActions && <div />}
 
             {dataSourcesLinked &&
               dataSourcesLinked.map((dataSource, i) => (
@@ -101,13 +101,14 @@ export const DataSources: React.FC<PropsDataSources> = (props: PropsDataSources)
                     dataSource={dataSourceValue}
                     lastRow={i === dataSources.length - 1}
                     meta={meta}
+                    options={options}
                     sectionName={sectionName}
                   />
                 )
               })}
           </DataGrid>
 
-          {meta?.text?.readOnly && editable && !textEmpty && (
+          {meta?.text?.readOnly && canEdit && !textEmpty && (
             <div className="data-sources__readOnlyText">
               <h5>{t('nationalDataPoint.dataSource2025ExplanatoryText')}</h5>
               <div className="description__editor-container">
