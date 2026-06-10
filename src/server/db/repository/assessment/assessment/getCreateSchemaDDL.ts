@@ -231,7 +231,7 @@ export const getCreateSchemaCycleDDL = (assessmentSchemaName: string, assessment
           section_uuid uuid,
           name         varchar(256)     not null,
           value      jsonb default '{}'::jsonb not null,
-          constraint descriptions_unique_key unique (country_iso, section_name, section_uuid, name)
+          constraint descriptions_unique_key unique nulls not distinct (country_iso, section_name, section_uuid, name)
       );
       
       create table ${assessmentCycleSchemaName}.node_ext
