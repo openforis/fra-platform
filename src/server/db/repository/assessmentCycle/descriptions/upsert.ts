@@ -1,9 +1,8 @@
-import { Objects } from 'utils/objects'
-
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { CommentableDescriptionName, CommentableDescriptionValue } from 'meta/assessment/descriptionValue'
+import { Objects } from 'utils/objects'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { Schemas } from 'server/db/schemas'
@@ -27,7 +26,7 @@ export const upsert = async (
       insert into
           ${schemaCycle}.descriptions (country_iso, section_name, name, value)
           values ($1, $2, $3, $4)
-      on conflict (country_iso, section_name, name) do update 
+      on conflict (country_iso, section_name, section_uuid, name) do update 
             set value = $4
       returning value;
     `

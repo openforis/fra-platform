@@ -44,7 +44,7 @@ export default async (): Promise<void> => {
 
       alter table ${schemaName}.descriptions
         add constraint descriptions_unique_key
-          unique (country_iso, section_name, section_uuid, name);
+          unique nulls not distinct (country_iso, section_name, section_uuid, name);
     `)
 
     // 3. migrate all odp data sources
