@@ -57,12 +57,12 @@ export const OriginalDataPointAdapterDeprecated = (row: OriginalDataPointDBDepre
 }
 
 export type OriginalDataPointDB = {
+  comments: OriginalDataPointComments
   country_iso: CountryIso
   id: number
   national_classes: Array<ODPNationalClass>
   values: OriginalDataPointValues
   year: number
-  comments: OriginalDataPointComments
 }
 
 export const OriginalDataPointAdapter = (row: OriginalDataPointDB): OriginalDataPoint => {
