@@ -1,5 +1,6 @@
 import { CountryIso } from 'meta/area/countryIso' // import { ODPValidation } from './odpValidation'
 import { TableNames } from 'meta/assessment/table'
+import { UUID } from 'meta/uuid/uuid'
 
 import { ODPDataSourceMethod } from './odpDataSource' // import { ODPEditStatus } from './odpEditStatus'
 import { ODPNationalClass } from './odpNationalClass'
@@ -34,6 +35,7 @@ export interface OriginalDataPoint {
   dataSourceReferences?: string
   id: number
   nationalClasses?: Array<ODPNationalClass>
+  readonly uuid?: UUID
   values: OriginalDataPointValues
   year?: number
   // editStatus?: ODPEditStatus

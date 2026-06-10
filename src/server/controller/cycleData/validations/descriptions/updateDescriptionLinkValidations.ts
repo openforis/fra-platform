@@ -1,7 +1,7 @@
 import { Country } from 'meta/area/country'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { CommentableDescription } from 'meta/assessment/descriptionValue'
+import { CommentableDescription, DescriptionIdentifier } from 'meta/assessment/descriptionValue'
 import { Objects } from 'utils/objects'
 
 import { visitDescriptionLinks } from 'server/worker/tasks/verifyLinks/visitDescriptionLinks/visitDescriptionLinks'
@@ -23,6 +23,9 @@ export const updateDescriptionLinkValidations = async (props: Props): Promise<vo
     assessment,
     countryIso,
     cycle,
-    descriptionIds: descriptions.map(({ id }) => id),
+    descriptionIdentifiers: descriptions.map<DescriptionIdentifier>(({ name, sectionName }) => ({
+      name,
+      sectionName,
+    })),
   })
 }

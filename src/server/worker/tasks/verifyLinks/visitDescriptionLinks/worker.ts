@@ -20,12 +20,17 @@ export default async (job: VerifyDescriptionLinksJob): Promise<void> => {
   const logKey = _getLogKey(job)
 
   try {
-    const { assessment, countryIso, cycle, descriptionIds } = job.data
+    const { assessment, countryIso, cycle, descriptionIdentifiers } = job.data
     const time = new Date().getTime()
 
     Logger.info(`${logKey} started.`)
 
-    const { descriptions, linksToVisit } = await getDescriptionLinks({ assessment, countryIso, cycle, descriptionIds })
+    const { descriptions, linksToVisit } = await getDescriptionLinks({
+      assessment,
+      countryIso,
+      cycle,
+      descriptionIdentifiers,
+    })
 
     if (Objects.isEmpty(descriptions)) {
       Logger.info(`${logKey} ended with no descriptions to validate.`)
@@ -36,7 +41,7 @@ export default async (job: VerifyDescriptionLinksJob): Promise<void> => {
       assessment,
       countryIso,
       cycle,
-      descriptionIds,
+      descriptions,
       linksToVisit,
     })
 

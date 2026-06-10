@@ -1,6 +1,7 @@
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
+import { DescriptionIdentifier } from 'meta/assessment/descriptionValue'
 import { DescriptionLinkLocationPath, Link, LinkToVisit, VisitedLink } from 'meta/cycleData/links/link'
 import { Objects } from 'utils/objects'
 
@@ -9,9 +10,9 @@ import { LinkRepository } from 'server/db/repository/assessmentCycle/links'
 import { filterLinks } from 'server/worker/tasks/verifyLinks/visitCycleLinks/utils/filterLinks'
 import { mergeLinks } from 'server/worker/tasks/verifyLinks/visitCycleLinks/utils/mergeLinks'
 import { visitLinks } from 'server/worker/tasks/verifyLinks/visitCycleLinks/utils/visitLinks'
+import { DescriptionLinkSource } from 'server/worker/tasks/verifyLinks/visitDescriptionLinks/types'
 
-type LocationToRefresh = {
-  id: number
+type LocationToRefresh = DescriptionIdentifier & {
   path: Array<string>
 }
 
@@ -19,7 +20,7 @@ type Props = {
   assessment: Assessment
   countryIso: CountryIso
   cycle: Cycle
-  descriptionIds: Array<number>
+  descriptions: Array<DescriptionLinkSource>
   linksToVisit: Array<LinkToVisit>
 }
 
@@ -33,11 +34,11 @@ type Returned = {
 // 2. Visit the links that are not approved.
 // 3. When the descriptions still contain links, update the database in one transaction: remove old locations and save the current ones.
 export const syncDescriptionLinks = async (props: Props): Promise<Returned> => {
-  const { assessment, countryIso, cycle, descriptionIds, linksToVisit: rawLinksToVisit } = props
+  const { assessment, countryIso, cycle, descriptions, linksToVisit: rawLinksToVisit } = props
 
   const locationPaths = [DescriptionLinkLocationPath.text, DescriptionLinkLocationPath.dataSourceReference]
-  const locations: Array<LocationToRefresh> = descriptionIds.flatMap((id) =>
-    locationPaths.map((path) => ({ id, path }))
+  const locations = descriptions.flatMap(({ name, sectionName }) =>
+    locationPaths.map<LocationToRefresh>((path) => ({ name, path, sectionName }))
   )
   const linksToVisit = mergeLinks({ linksToVisit: rawLinksToVisit }) // Merge duplicated links
 

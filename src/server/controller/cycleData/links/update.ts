@@ -2,6 +2,7 @@ import { CountryIso } from 'meta/area/countryIso'
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
+import { DescriptionIdentifier } from 'meta/assessment/descriptionValue'
 import { Link } from 'meta/cycleData/links/link'
 import { Links } from 'meta/cycleData/links/links'
 import { SectionNames } from 'meta/routes/sectionNames'
@@ -39,10 +40,16 @@ export const update = async (props: Props): Promise<Link> => {
   })
 
   // If the link has description locations, we trigger the flow that updates validation cache.
-  const descriptionIds = updatedLink.locations.filter(Links.isDescriptionLocation).map(({ id }) => id)
-  if (!Objects.isEmpty(descriptionIds)) {
+  const descriptionLocations = updatedLink.locations.filter(Links.isDescriptionLocation)
+  if (!Objects.isEmpty(descriptionLocations)) {
     const { countryIso } = updatedLink
-    await visitDescriptionLinks({ assessment, countryIso, cycle, descriptionIds })
+    const descriptionIdentifiers = descriptionLocations.map<DescriptionIdentifier>(
+      ({ descriptionName, sectionName }) => ({
+        name: descriptionName,
+        sectionName,
+      })
+    )
+    await visitDescriptionLinks({ assessment, countryIso, cycle, descriptionIdentifiers })
   }
 
   return updatedLink

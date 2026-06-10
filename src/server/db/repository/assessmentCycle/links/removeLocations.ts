@@ -1,13 +1,13 @@
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
+import { DescriptionIdentifier } from 'meta/assessment/descriptionValue'
 import { Objects } from 'utils/objects'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { Schemas } from 'server/db/schemas'
 
-type LocationToRemove = {
-  id: number
+type LocationToRemove = DescriptionIdentifier & {
   path: Array<string>
 }
 
@@ -29,9 +29,12 @@ export const removeLocations = async (props: Props, client: BaseProtocol = DB): 
   return client.query(
     `
       with locations_to_remove as (
-        -- Turn the JSON input into rows so each stored location can be matched by description id and path.
-        select id, path
-        from jsonb_to_recordset($(locations)::jsonb) as location(id int, path jsonb)
+        -- Turn the JSON input into rows so each stored location can be matched by description identifier and path.
+        select
+          location.value ->> 'name' as name,
+          location.value ->> 'sectionName' as section_name,
+          location.value -> 'path' as path
+        from jsonb_array_elements($(locations)::jsonb) as location(value)
       ),
       updated_links as (
         select
@@ -43,7 +46,8 @@ export const removeLocations = async (props: Props, client: BaseProtocol = DB): 
               where not exists (
                 select
                 from locations_to_remove
-                where (location.value ->> 'id')::int = locations_to_remove.id
+                where location.value ->> 'descriptionName' = locations_to_remove.name
+                  and location.value ->> 'sectionName' = locations_to_remove.section_name
                   and location.value -> 'path' = locations_to_remove.path
               )
             ),
