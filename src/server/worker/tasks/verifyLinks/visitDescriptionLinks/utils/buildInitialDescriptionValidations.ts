@@ -1,12 +1,13 @@
-import { CommentableDescription } from 'meta/assessment/descriptionValue'
 import { RecordDescriptionValidations } from 'meta/assessment/validation/description'
 import { Validation } from 'meta/assessment/validation/validation'
 import { Objects } from 'utils/objects'
 
+import { DescriptionLinkSource } from 'server/worker/tasks/verifyLinks/visitDescriptionLinks/types'
+
 // Builds the initial description validation state before link results are applied. Description text starts valid;
 // data source references also include required-field validation, so empty references are flagged.
 export const buildInitialDescriptionValidations = (
-  initialDescriptions: Array<CommentableDescription>
+  initialDescriptions: Array<DescriptionLinkSource>
 ): RecordDescriptionValidations => {
   const validations: RecordDescriptionValidations = {}
 

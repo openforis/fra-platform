@@ -1,7 +1,7 @@
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { CommentableDescription } from 'meta/assessment/descriptionValue'
+import { DescriptionIdentifier } from 'meta/assessment/descriptionValue'
 import { DescriptionLinkLocationPath, Link, LinkToVisit, VisitedLink } from 'meta/cycleData/links/link'
 import { Objects } from 'utils/objects'
 
@@ -10,9 +10,9 @@ import { LinkRepository } from 'server/db/repository/assessmentCycle/links'
 import { filterLinks } from 'server/worker/tasks/verifyLinks/visitCycleLinks/utils/filterLinks'
 import { mergeLinks } from 'server/worker/tasks/verifyLinks/visitCycleLinks/utils/mergeLinks'
 import { visitLinks } from 'server/worker/tasks/verifyLinks/visitCycleLinks/utils/visitLinks'
+import { DescriptionLinkSource } from 'server/worker/tasks/verifyLinks/visitDescriptionLinks/types'
 
-type LocationToRefresh = {
-  id: number
+type LocationToRefresh = DescriptionIdentifier & {
   path: Array<string>
 }
 
@@ -20,7 +20,7 @@ type Props = {
   assessment: Assessment
   countryIso: CountryIso
   cycle: Cycle
-  descriptions: Array<CommentableDescription>
+  descriptions: Array<DescriptionLinkSource>
   linksToVisit: Array<LinkToVisit>
 }
 
@@ -37,8 +37,8 @@ export const syncDescriptionLinks = async (props: Props): Promise<Returned> => {
   const { assessment, countryIso, cycle, descriptions, linksToVisit: rawLinksToVisit } = props
 
   const locationPaths = [DescriptionLinkLocationPath.text, DescriptionLinkLocationPath.dataSourceReference]
-  const locations = descriptions.flatMap<LocationToRefresh>(({ id }) =>
-    locationPaths.map<LocationToRefresh>((path) => ({ id, path }))
+  const locations = descriptions.flatMap(({ name, sectionName }) =>
+    locationPaths.map<LocationToRefresh>((path) => ({ name, path, sectionName }))
   )
   const linksToVisit = mergeLinks({ linksToVisit: rawLinksToVisit }) // Merge duplicated links
 
