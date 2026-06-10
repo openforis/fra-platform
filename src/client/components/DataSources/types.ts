@@ -13,6 +13,8 @@ export type PropsDataSources = {
   meta?: DataSourceDescription
   options?: {
     canCopy?: boolean
+    canEdit?: boolean
+    canReview?: boolean
     canToggleEdit?: boolean
     canToggleHistory?: boolean
     displayHistory?: boolean
