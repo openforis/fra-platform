@@ -26,7 +26,7 @@ export const getNDPSelect = (props: Props): string => {
         '${TableNames.extentOfForest}', odp.comments_extentofforest,
         '${TableNames.forestCharacteristics}', odp.comments_forestcharacteristics
            )       as comments
-         , d.value as data_sources
+         , coalesce(d.value, jsonb_build_array()) as data_sources
     from ${schemaName}.original_data_point odp
            left join ${schemaName}.descriptions d
                      on odp.uuid = d.section_uuid and d.name = 'dataSources'`

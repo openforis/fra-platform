@@ -30,7 +30,6 @@ const OriginalDataPoint: React.FC = () => {
   const navigate = useNavigate()
   const countryIso = useCountryIso()
   const originalDataPoint = useOriginalDataPoint()
-
   const canEditData = useIsEditODPEnabled()
 
   useReservedYears()
