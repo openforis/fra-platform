@@ -11,6 +11,9 @@ import { ODPCommentColumns } from 'server/db/repository/assessmentCycle/original
 
 type ODPCommentColName<K extends OriginalDataPointCommentKey = OriginalDataPointCommentKey> = `comments_${Lowercase<K>}`
 
+/**
+ * @deprecated
+ */
 export type OriginalDataPointDBDeprecated = {
   [K in ODPCommentColName]: string
 } & {
@@ -30,6 +33,9 @@ const commentColumnForestCharacteristics = ODPCommentColumns[
   TableNames.forestCharacteristics
 ] as ODPCommentColName<TableNames.forestCharacteristics>
 
+/**
+ * @deprecated
+ */
 export const OriginalDataPointAdapterDeprecated = (row: OriginalDataPointDBDeprecated): OriginalDataPoint => {
   if (Objects.isNil(row)) return null
 
