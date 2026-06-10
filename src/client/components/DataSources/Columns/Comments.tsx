@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { DataSource } from 'meta/assessment/descriptionValue'
+import { DataSource } from 'meta/assessment/descriptionValue/dataSource'
 import { SectionName } from 'meta/assessment/section'
 
 import TextArea from 'client/components/Inputs/TextArea'

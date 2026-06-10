@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useState } from 'react'
 
-import { DataSource } from 'meta/assessment/descriptionValue'
+import { DataSource } from 'meta/assessment/descriptionValue/dataSource'
 import { SectionName } from 'meta/assessment/section'
 
 import { Option } from 'client/components/Inputs/Select'

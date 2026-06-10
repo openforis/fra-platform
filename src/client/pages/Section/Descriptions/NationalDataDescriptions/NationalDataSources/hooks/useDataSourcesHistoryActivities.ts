@@ -1,10 +1,10 @@
 import { useMemo } from 'react'
 
-import { CommentableDescription, CommentableDescriptionName, DataSource } from 'meta/assessment/descriptionValue'
+import { CommentableDescription, CommentableDescriptionName } from 'meta/assessment/descriptionValue'
+import { DataSource, DataSourceHistoryCompare } from 'meta/assessment/descriptionValue/dataSource'
 
 import { useHistoryActivitiesCompareItem } from 'client/store/data/history/hooks/activities'
 
-import { DataSourceHistoryCompare } from '../types'
 import { getDataSourceHistoryCompares } from './_getDataSourceHistoryCompares'
 
 type ActivityLogTarget = { description: CommentableDescription }

@@ -1,77 +1,64 @@
 import './DataSources.scss'
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { NationalDataDescription } from 'meta/assessment/description'
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 import { Objects } from 'utils/objects'
 
-import { useHistoryLastApprovedDescriptionFetched } from 'client/store/data/history/hooks/lastApprovedDescriptions'
-import { useCanEditDescription, useIsDescriptionEditable } from 'client/store/user/hooks/auth'
 import { useCycleRouteParams } from 'client/hooks/routeParams'
 import { useIsPrintRoute } from 'client/hooks/routes'
 import { DataCell, DataGrid } from 'client/components/DataGrid'
 import ButtonCopy from 'client/components/DataSources/ButtonCopy'
 import DataSourceRow from 'client/components/DataSources/DataSourceRow'
 import HistoryCompare from 'client/components/DataSources/HistoryCompare'
+import { PropsDataSources } from 'client/components/DataSources/types'
 import EditorWYSIWYG from 'client/components/EditorWYSIWYG'
-import { useSectionContext } from 'client/pages/Section/context'
-import { useDescriptionErrorState } from 'client/pages/Section/Descriptions/CommentableDescription/hooks/useDescriptionErrorState'
 import Title from 'client/pages/Section/Descriptions/CommentableDescription/Title'
-
-import { useDataSourcesData } from './hooks/useDataSourcesData'
-import { useDataSourcesHistoryActivities } from './hooks/useDataSourcesHistoryActivities'
-import { useDataSourcesHistoryLastApproved } from './hooks/useDataSourcesHistoryLastApproved'
-import { useGetDataSourcesLinked } from './hooks/useGetDataSourcesLinked'
-
-type Props = {
-  nationalData: NationalDataDescription
-}
+import { DOMs } from 'client/utils/doms'
 
 const name: CommentableDescriptionName = CommentableDescriptionName.dataSources
 
-export const DataSources: React.FC<Props> = (props: Props) => {
-  const { nationalData } = props
+const defaults: Partial<PropsDataSources> = {
+  options: {
+    canCopy: false,
+    canEdit: false,
+    canReview: false,
+    canToggleEdit: false,
+    canToggleHistory: false,
+    displayHistory: false,
+  },
+}
+
+export const DataSources: React.FC<PropsDataSources> = (props: PropsDataSources) => {
+  const { data, dataSourcesLinked, historyCompares, meta, options = defaults.options, sectionName } = props
+  const { dataSources, text } = data
+  const { canCopy, canEdit, canReview, displayHistory } = options
 
   const { t } = useTranslation()
   const { assessmentName } = useCycleRouteParams()
-  const { sectionName } = useSectionContext()
-  const { dataSources, text } = useDataSourcesData({ sectionName })
-  const { dataSourcesLinked } = useGetDataSourcesLinked({ nationalData, sectionName })
-
-  const historyLastApprovedCompares = useDataSourcesHistoryLastApproved({ dataSources })
-  const historyLastApprovedDescriptionFetched = useHistoryLastApprovedDescriptionFetched()
-
-  const historyActivityCompares = useDataSourcesHistoryActivities({ dataSources })
-  const historyCompares = historyLastApprovedCompares ?? historyActivityCompares
-
-  const displayHistory =
-    (historyLastApprovedCompares && historyLastApprovedDescriptionFetched) ?? historyActivityCompares
-
-  const canEdit = useCanEditDescription({ sectionName })
-  const editable = useIsDescriptionEditable({ sectionName, name })
-  const { empty } = useDescriptionErrorState({ name, sectionName })
-
   const { print } = useIsPrintRoute()
 
+  const textEmpty = useMemo<boolean>(() => DOMs.isHTMLEmpty(text), [text])
+
   const hasDataSources = !Objects.isEmpty(dataSources) || !Objects.isEmpty(dataSourcesLinked)
-  const renderGrid = Boolean(hasDataSources || editable)
+  const renderGrid = Boolean(hasDataSources || canEdit)
   const keyPrefix = `${assessmentName}.description.dataSource`
+  const withActions = canEdit || canReview
 
   return (
-    <DataGrid className="description" withActions={canEdit}>
-      <Title name={name} title={t('description.dataSourcesPlus')} />
+    <DataGrid className="description" withActions={withActions}>
+      <Title name={name} options={options} title={t('description.dataSourcesPlus')} />
 
       {print && !hasDataSources && <div className="editorWYSIWYG jodit-wysiwyg textarea-print">-</div>}
       {renderGrid && (
         <>
-          {editable && <ButtonCopy disabled={dataSources.length !== 1} sectionName={sectionName} />}
+          {canEdit && canCopy && <ButtonCopy disabled={dataSources.length !== 1} sectionName={sectionName} />}
 
           <DataGrid
             className="data-source"
             gridColumn={canEdit ? `1/3` : undefined}
             gridTemplateColumns="minmax(200px, 1fr) minmax(200px, 1fr) minmax(200px, 1fr) minmax(150px, 1fr) minmax(150px, 1fr)"
-            withActions={canEdit}
+            withActions={withActions}
           >
             <DataCell header>{t(`${keyPrefix}.referenceToTataSource`)}</DataCell>
             <DataCell header>{t(`${keyPrefix}.typeOfDataSource`)}</DataCell>
@@ -80,7 +67,7 @@ export const DataSources: React.FC<Props> = (props: Props) => {
             <DataCell header lastCol>
               {t(`${keyPrefix}.comments`)}
             </DataCell>
-            {canEdit && <div />}
+            {withActions && <div />}
 
             {dataSourcesLinked &&
               dataSourcesLinked.map((dataSource, i) => (
@@ -102,7 +89,7 @@ export const DataSources: React.FC<Props> = (props: Props) => {
                   key={`${String(i)}-${historyCompare.dataItem?.uuid ?? historyCompare.historyItem?.uuid}`}
                   historyCompare={historyCompare}
                   lastRow={i === historyCompares.length - 1}
-                  meta={nationalData.dataSources}
+                  meta={meta}
                 />
               ))}
 
@@ -113,14 +100,15 @@ export const DataSources: React.FC<Props> = (props: Props) => {
                     key={String(`dataSource_${dataSourceValue.uuid}`)}
                     dataSource={dataSourceValue}
                     lastRow={i === dataSources.length - 1}
-                    meta={nationalData.dataSources}
+                    meta={meta}
+                    options={options}
                     sectionName={sectionName}
                   />
                 )
               })}
           </DataGrid>
 
-          {nationalData.dataSources?.text?.readOnly && !empty && editable && (
+          {meta?.text?.readOnly && canEdit && !textEmpty && (
             <div className="data-sources__readOnlyText">
               <h5>{t('nationalDataPoint.dataSource2025ExplanatoryText')}</h5>
               <div className="description__editor-container">

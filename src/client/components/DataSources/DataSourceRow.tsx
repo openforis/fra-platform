@@ -2,18 +2,18 @@ import React from 'react'
 import classNames from 'classnames'
 
 import { DataSourceDescription } from 'meta/assessment/description'
-import { CommentableDescriptionName, DataSource } from 'meta/assessment/descriptionValue'
+import { DataSource } from 'meta/assessment/descriptionValue/dataSource'
 import { SectionName } from 'meta/assessment/section'
 import { TooltipId } from 'meta/tooltip/id'
 import { Objects } from 'utils/objects'
 
-import { useIsDescriptionEditable } from 'client/store/user/hooks/auth'
 import { DataCell, DataRow } from 'client/components/DataGrid'
 import Comments from 'client/components/DataSources/Columns/Comments'
 import Reference from 'client/components/DataSources/Columns/Reference'
 import TypeOfDataSource from 'client/components/DataSources/Columns/TypeOfDataSource'
 import Variables from 'client/components/DataSources/Columns/Variables'
 import YearForDataSource from 'client/components/DataSources/Columns/YearForDataSource'
+import { PropsDataSources } from 'client/components/DataSources/types'
 
 import { useDataSourceActions } from './hooks/useDataSourceActions'
 import { useValidationErrors } from './hooks/useValidationErrors'
@@ -26,7 +26,7 @@ const Components: Record<'comments' | 'reference' | 'type' | 'variables' | 'year
   year: YearForDataSource,
 }
 
-type Props = {
+type Props = Pick<PropsDataSources, 'options'> & {
   dataSource: DataSource
   lastRow: boolean
   meta: DataSourceDescription
@@ -35,11 +35,11 @@ type Props = {
 }
 
 const DataSourceRow: React.FC<Props> = (props: Props) => {
-  const { dataSource, lastRow, meta, readOnly, sectionName } = props
+  const { dataSource, lastRow, meta, options, readOnly, sectionName } = props
+  const { canEdit } = options
+  const disabled = !canEdit || readOnly
 
-  const actions = useDataSourceActions({ dataSource, readOnly, sectionName })
-  const editable = useIsDescriptionEditable({ sectionName, name: CommentableDescriptionName.dataSources })
-  const disabled = !editable || readOnly
+  const actions = useDataSourceActions({ dataSource, readOnly, options, sectionName })
   const errors = useValidationErrors({ dataSource })
   const componentsOrder: Array<keyof typeof Components> = ['reference', 'type', 'variables', 'year', 'comments']
 

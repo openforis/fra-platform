@@ -1,6 +1,23 @@
-import { DataSource } from 'meta/assessment/descriptionValue'
+import { DataSourceDescription } from 'meta/assessment/description'
+import {
+  DataSourceHistoryCompare,
+  DataSourceLinked,
+  DataSourcesData,
+} from 'meta/assessment/descriptionValue/dataSource'
+import { SectionName } from 'meta/assessment/section'
 
-export type DataSourceHistoryCompare = {
-  dataItem?: DataSource
-  historyItem?: DataSource
+export type PropsDataSources = {
+  data: DataSourcesData
+  dataSourcesLinked?: Array<DataSourceLinked>
+  historyCompares?: Array<DataSourceHistoryCompare>
+  meta?: DataSourceDescription
+  options?: {
+    canCopy?: boolean
+    canEdit?: boolean
+    canReview?: boolean
+    canToggleEdit?: boolean
+    canToggleHistory?: boolean
+    displayHistory?: boolean
+  }
+  sectionName: SectionName
 }
