@@ -4,6 +4,7 @@ import { commonProps } from './commonProps'
 
 export const odp11 = {
   ...commonProps,
+  uuid: '11',
   nationalClasses: [
     {
       area: '1500.00',
