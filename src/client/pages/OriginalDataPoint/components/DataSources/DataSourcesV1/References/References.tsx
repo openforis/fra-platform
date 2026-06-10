@@ -8,12 +8,12 @@ import { useIsPrintRoute } from 'client/hooks/routes'
 import { DataCell, DataRow } from 'client/components/DataGrid'
 import { EditorWYSIWYGLinks } from 'client/components/EditorWYSIWYG'
 import { useLinkValidationErrors } from 'client/components/EditorWYSIWYG/hooks/useLinkValidationErrors'
-import { useActions } from 'client/pages/OriginalDataPoint/components/DataSources/DataSourcesV1/References/hooks/useActions'
-import { useOnChange } from 'client/pages/OriginalDataPoint/components/DataSources/DataSourcesV1/References/hooks/useOnChange'
 import { useODPDisplayHistory } from 'client/pages/OriginalDataPoint/components/hooks/useODPDisplayHistory'
 import ODPDiffText from 'client/pages/OriginalDataPoint/components/ODPDiffText/ODPDiffText'
 
 import { useIsDisabled } from '../hooks/useIsDisabled'
+import { useActions } from './hooks/useActions'
+import { useOnChange } from './hooks/useOnChange'
 
 type Props = {
   originalDataPoint: OriginalDataPoint
