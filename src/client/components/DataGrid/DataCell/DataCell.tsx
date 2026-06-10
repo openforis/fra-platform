@@ -3,6 +3,7 @@ import React from 'react'
 import classNames from 'classnames'
 
 import { DataCellProps } from 'client/components/DataGrid/DataCell/types'
+import WithTooltip from 'client/components/Tooltips/WithTooltip'
 
 const DataCell: React.FC<DataCellProps> = (props) => {
   const { children, gridColumn, gridRow, style } = props
@@ -21,17 +22,12 @@ const DataCell: React.FC<DataCellProps> = (props) => {
     lastHighlightCol,
     lastRow,
     noBorder,
+    tooltip,
   } = props
   // tooltip props
-  const {
-    'data-tooltip-content': dataTooltipContent,
-    'data-tooltip-html': dataTooltipHtml,
-    'data-tooltip-id': dataTooltipId,
-  } = props
-  const tooltipId = dataTooltipContent || dataTooltipHtml ? dataTooltipId : null
 
   return (
-    <div
+    <WithTooltip
       className={classNames(
         'data-cell',
         {
@@ -49,14 +45,12 @@ const DataCell: React.FC<DataCellProps> = (props) => {
         },
         className
       )}
-      data-tooltip-content={dataTooltipContent}
-      data-tooltip-html={dataTooltipHtml}
-      data-tooltip-id={tooltipId}
       id={id}
       style={{ gridColumn, gridRow, ...style }}
+      tooltip={tooltip}
     >
       {React.Children.toArray(children)}
-    </div>
+    </WithTooltip>
   )
 }
 

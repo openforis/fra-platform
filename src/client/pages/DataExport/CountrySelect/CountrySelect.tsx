@@ -5,6 +5,7 @@ import { useParams } from 'react-router'
 
 import { Areas } from 'meta/area/areas'
 import { Country } from 'meta/area/country'
+import { CountryIso } from 'meta/area/countryIso'
 import { Users } from 'meta/user/users'
 import { Functions } from 'utils/functions'
 import { Strings } from 'utils/strings'
@@ -96,7 +97,7 @@ const CountrySelect: React.FC = () => {
           allowAtlantis={user && Users.isAdministrator(user)}
           allowedCountries={countriesFiltered.map((c) => c.countryIso)}
           onChange={updateSelection}
-          value={selection.countryISOs}
+          value={selection.countryISOs as Array<CountryIso>}
         />
       </MediaQuery>
 
