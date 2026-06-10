@@ -3,7 +3,7 @@ import { Cycle } from 'meta/assessment/cycle'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
 import { BaseProtocol, DB } from 'server/db/db'
-import { OriginalDataPointAdapter } from 'server/db/repository/adapter/originalDataPoint'
+import { OriginalDataPointAdapterDeprecated } from 'server/db/repository/adapter/originalDataPoint'
 import { getOne } from 'server/db/repository/assessmentCycle/originalDataPoint/getOne'
 import { Schemas } from 'server/db/schemas'
 
@@ -23,7 +23,7 @@ export const deleteNationalClass = async (
       returning *
   `,
     [id, Number(index)],
-    OriginalDataPointAdapter
+    OriginalDataPointAdapterDeprecated
   )
 
   const { countryIso, year } = originalDataPoint

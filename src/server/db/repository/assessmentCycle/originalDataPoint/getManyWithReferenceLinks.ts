@@ -4,7 +4,7 @@ import { Cycle } from 'meta/assessment/cycle'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
 import { BaseProtocol, DB } from 'server/db/db'
-import { OriginalDataPointAdapter } from 'server/db/repository/adapter/originalDataPoint'
+import { OriginalDataPointAdapterDeprecated } from 'server/db/repository/adapter/originalDataPoint'
 import { Schemas } from 'server/db/schemas'
 
 type Props = {
@@ -29,6 +29,6 @@ export const getManyWithReferenceLinks = async (
         ${countryIsoCondition}
     `,
     { countryIso },
-    OriginalDataPointAdapter
+    OriginalDataPointAdapterDeprecated
   )
 }

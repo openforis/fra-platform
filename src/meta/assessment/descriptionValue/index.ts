@@ -1,6 +1,7 @@
 import { CountryIso } from 'meta/area/countryIso'
 import { DataSourceDescription } from 'meta/assessment/description'
 import { SectionName } from 'meta/assessment/section'
+import { UUID } from 'meta/uuid/uuid'
 
 export type DataSourceLinked = {
   data: DataSource
@@ -21,9 +22,9 @@ export interface DataSource {
   placeholder?: boolean
   reference: string
   type: string
-  uuid?: string
+  uuid: UUID
   variables?: Array<string>
-  year: Array<string>
+  year?: Array<string>
 }
 
 export interface CommentableDescriptionValue {

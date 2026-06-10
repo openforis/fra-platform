@@ -21,10 +21,9 @@ export default async (): Promise<void> => {
       `
           update public.assessment_cycle
           set props = jsonb_set(props, '{ndp}', jsonb_build_object('dataSources',jsonb_build_object('version',to_jsonb(${version}))), true)
-          where assessment_uuid = $1
-            and uuid = $2;
+          where uuid = $1;
         `,
-      [assessment.uuid, cycle.uuid]
+      [cycle.uuid]
     )
 
     const schemaName = Schemas.getSchemaAssessmentCycle({ assessmentName, cycleName })
@@ -49,33 +48,35 @@ export default async (): Promise<void> => {
     `)
 
     // 3. migrate all odp data sources
-    await DB.query(
-      `insert into ${schemaName}.descriptions(country_iso, section_name, section_uuid, name, value)
-         select odp.country_iso
-              , 'nationalDataPoint' as section_name
-              , odp.uuid            as section_uuid
-              , 'dataSources'       as name
-              , jsonb_build_object('reference', odp.data_source_references, 'type', odp.data_source_methods, 'comments',
-                                   odp.data_source_additional_comments, 'uuid', uuid_generate_v4())
-           as value
-         from ${schemaName}.original_data_point odp`
-    )
+    await DB.query(`
+      insert into ${schemaName}.descriptions(country_iso, section_name, section_uuid, name, value)
+      select odp.country_iso
+           , 'nationalDataPoint' as section_name
+           , odp.uuid            as section_uuid
+           , 'dataSources'       as name
+           , jsonb_build_array(jsonb_build_object(
+        'uuid', uuid_generate_v4(),
+        'reference', odp.data_source_references,
+        'type', odp.data_source_methods, 'comments',
+        odp.data_source_additional_comments
+                               ))
+        as value
+      from ${schemaName}.original_data_point odp`)
 
     // 4. drop odp columns
-    await DB.query(
-      `
-          alter table ${schemaName}.original_data_point
-          drop
-          column data_source_additional_comments;
+    await DB.query(`
+      alter table ${schemaName}.original_data_point
+      drop
+      column data_source_additional_comments;
 
-          alter table ${schemaName}.original_data_point
-          drop
-          column data_source_methods;
+      alter table ${schemaName}.original_data_point
+      drop
+      column data_source_methods;
 
-          alter table ${schemaName}.original_data_point
-          drop
-          column data_source_references;`
-    )
+      alter table ${schemaName}.original_data_point
+      drop
+      column data_source_references;
+    `)
   })
 
   await CacheController.generateAssessment({ assessmentName })

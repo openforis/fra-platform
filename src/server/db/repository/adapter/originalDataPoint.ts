@@ -1,5 +1,3 @@
-import { Objects } from 'utils/objects'
-
 import { CountryIso } from 'meta/area/countryIso'
 import { ODPNationalClass, OriginalDataPoint, OriginalDataPointComments } from 'meta/assessment/originalDataPoint'
 import {
@@ -7,12 +5,16 @@ import {
   OriginalDataPointValues,
 } from 'meta/assessment/originalDataPoint/originalDataPoint'
 import { TableNames } from 'meta/assessment/table'
+import { Objects } from 'utils/objects'
 
 import { ODPCommentColumns } from 'server/db/repository/assessmentCycle/originalDataPoint/commentColumns'
 
 type ODPCommentColName<K extends OriginalDataPointCommentKey = OriginalDataPointCommentKey> = `comments_${Lowercase<K>}`
 
-export type OriginalDataPointDB = {
+/**
+ * @deprecated
+ */
+export type OriginalDataPointDBDeprecated = {
   [K in ODPCommentColName]: string
 } & {
   country_iso: CountryIso
@@ -31,7 +33,10 @@ const commentColumnForestCharacteristics = ODPCommentColumns[
   TableNames.forestCharacteristics
 ] as ODPCommentColName<TableNames.forestCharacteristics>
 
-export const OriginalDataPointAdapter = (row: OriginalDataPointDB): OriginalDataPoint => {
+/**
+ * @deprecated
+ */
+export const OriginalDataPointAdapterDeprecated = (row: OriginalDataPointDBDeprecated): OriginalDataPoint => {
   if (Objects.isNil(row)) return null
 
   const {
@@ -49,4 +54,17 @@ export const OriginalDataPointAdapter = (row: OriginalDataPointDB): OriginalData
     ...(Objects.camelize(rest) as OriginalDataPoint),
     comments,
   }
+}
+
+export type OriginalDataPointDB = {
+  comments: OriginalDataPointComments
+  country_iso: CountryIso
+  id: number
+  national_classes: Array<ODPNationalClass>
+  values: OriginalDataPointValues
+  year: number
+}
+
+export const OriginalDataPointAdapter = (row: OriginalDataPointDB): OriginalDataPoint => {
+  return Objects.camelize(row)
 }
