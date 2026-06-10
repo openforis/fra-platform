@@ -1,10 +1,9 @@
 import { useCallback } from 'react'
 
-import { Objects } from 'utils/objects'
-
 import { CountryIso } from 'meta/area/countryIso'
 import { CommentableDescriptionName, DataSource } from 'meta/assessment/descriptionValue'
 import { SectionName } from 'meta/assessment/section'
+import { Objects } from 'utils/objects'
 
 import { DescriptionsActions } from 'client/store/data/descriptions/actions'
 import { useCommentableDescriptionValue } from 'client/store/data/descriptions/hooks/descriptions'

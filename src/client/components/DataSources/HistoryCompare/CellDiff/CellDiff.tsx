@@ -1,6 +1,5 @@
 import './CellDiff.scss'
 import React from 'react'
-
 import { Change } from 'diff'
 
 import { DataCell } from 'client/components/DataGrid'

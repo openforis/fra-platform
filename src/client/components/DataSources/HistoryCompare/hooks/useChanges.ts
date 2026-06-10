@@ -1,6 +1,5 @@
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-
 import * as Diff from 'diff'
 import { Change } from 'diff'
 
@@ -8,7 +7,7 @@ import { DataSourceDescription } from 'meta/assessment/description'
 import { DataSources } from 'meta/assessment/description/dataSources'
 import { DataSource } from 'meta/assessment/descriptionValue'
 
-import { DataSourceHistoryCompare } from 'client/pages/Section/Descriptions/NationalDataDescriptions/DataSources/types'
+import { DataSourceHistoryCompare } from 'client/components/DataSources/types'
 
 type Props = {
   historyCompare: DataSourceHistoryCompare
@@ -44,7 +43,7 @@ export const useChanges = (props: Props): Returned => {
         .map((variable) => DataSources.getVariableLabel({ variable, t }))
         .join('\n\r')
 
-    const _getType = (dataSource: DataSource) => {
+    const _getType = (dataSource: DataSource): string => {
       if (typeOfDataSourceText) return dataSource?.type
       if (dataSource?.type) return t(`dataSource.${dataSource.type}`)
       return ''
@@ -76,7 +75,7 @@ export const useChanges = (props: Props): Returned => {
 
     // year
     const yearData = dataItem?.year.join('\n\r') ?? ''
-    const yearHistory = Array.isArray(historyItem?.year) ? historyItem.year.join(', ') : historyItem?.year ?? ''
+    const yearHistory = Array.isArray(historyItem?.year) ? historyItem.year.join(', ') : (historyItem?.year ?? '')
     const year = Diff.diffChars(yearHistory, yearData)
 
     return { comments, reference, type, variables, year }

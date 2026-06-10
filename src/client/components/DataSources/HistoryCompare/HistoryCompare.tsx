@@ -3,8 +3,8 @@ import React from 'react'
 import { DataSourceDescription } from 'meta/assessment/description'
 
 import { DataRow } from 'client/components/DataGrid'
-import CellDiff from 'client/pages/Section/Descriptions/NationalDataDescriptions/DataSources/HistoryCompare/CellDiff'
-import { DataSourceHistoryCompare } from 'client/pages/Section/Descriptions/NationalDataDescriptions/DataSources/types'
+import CellDiff from 'client/components/DataSources/HistoryCompare/CellDiff'
+import { DataSourceHistoryCompare } from 'client/components/DataSources/types'
 
 import { useChanges } from './hooks/useChanges'
 

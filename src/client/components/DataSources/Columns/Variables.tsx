@@ -14,7 +14,7 @@ import { useOnChange } from './hook/useOnChange'
 type Props = {
   dataSource: DataSource
   disabled: boolean
-  // eslint-disable-next-line react/no-unused-prop-types
+
   meta: DataSourceDescription
   sectionName: SectionName
 }
@@ -43,7 +43,7 @@ const VariablesSelect: React.FC<Props> = (props) => {
     return { label: DataSources.getVariableLabel({ variable, t }), value: variableName }
   })
 
-  const _onChange = (value: string[]) => {
+  const _onChange = (value: Array<string>): void => {
     onChange('variables', value)
   }
 
