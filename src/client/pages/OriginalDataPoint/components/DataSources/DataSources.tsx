@@ -10,6 +10,7 @@ import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useIsPrintRoute } from 'client/hooks/routes'
 import DataCell from 'client/components/DataGrid/DataCell'
 import DataSourcesV1 from 'client/pages/OriginalDataPoint/components/DataSources/DataSourcesV1'
+import DataSourcesV2 from 'client/pages/OriginalDataPoint/components/DataSources/DataSourcesV2'
 
 type Props = {
   originalDataPoint: OriginalDataPoint
@@ -20,7 +21,7 @@ const components: Record<
   React.FC<{ originalDataPoint: OriginalDataPoint }>
 > = {
   1: DataSourcesV1,
-  2: DataSourcesV1,
+  2: DataSourcesV2,
 }
 
 const DataSources: React.FC<Props> = (props) => {

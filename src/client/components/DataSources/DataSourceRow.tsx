@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import classNames from 'classnames'
 
 import { DataSourceDescription } from 'meta/assessment/description'
-import { DataSource } from 'meta/assessment/descriptionValue/dataSource'
+import { DataSource, DataSourceValidation } from 'meta/assessment/descriptionValue/dataSource'
 import { SectionName } from 'meta/assessment/section'
 import { TooltipId } from 'meta/tooltip/id'
 import { Objects } from 'utils/objects'
@@ -13,12 +13,12 @@ import Reference from 'client/components/DataSources/Columns/Reference'
 import TypeOfDataSource from 'client/components/DataSources/Columns/TypeOfDataSource'
 import Variables from 'client/components/DataSources/Columns/Variables'
 import YearForDataSource from 'client/components/DataSources/Columns/YearForDataSource'
-import { PropsDataSources } from 'client/components/DataSources/types'
+import { PropsDataSourceComponent, PropsDataSources } from 'client/components/DataSources/types'
 
+import { useComponentsOrder } from './hooks/useComponentsOrder'
 import { useDataSourceActions } from './hooks/useDataSourceActions'
-import { useValidationErrors } from './hooks/useValidationErrors'
 
-const Components: Record<'comments' | 'reference' | 'type' | 'variables' | 'year', React.FC<any>> = {
+const Components: Partial<Record<keyof DataSource, React.FC<PropsDataSourceComponent>>> = {
   comments: Comments,
   reference: Reference,
   type: TypeOfDataSource,
@@ -26,7 +26,7 @@ const Components: Record<'comments' | 'reference' | 'type' | 'variables' | 'year
   year: YearForDataSource,
 }
 
-type Props = Pick<PropsDataSources, 'options'> & {
+type Props = Pick<PropsDataSources, 'columns' | 'options' | 'validator'> & {
   dataSource: DataSource
   lastRow: boolean
   meta: DataSourceDescription
@@ -35,13 +35,16 @@ type Props = Pick<PropsDataSources, 'options'> & {
 }
 
 const DataSourceRow: React.FC<Props> = (props: Props) => {
-  const { dataSource, lastRow, meta, options, readOnly, sectionName } = props
+  const { columns, dataSource, lastRow, meta, options, readOnly, sectionName, validator } = props
   const { canEdit } = options
   const disabled = !canEdit || readOnly
 
   const actions = useDataSourceActions({ dataSource, readOnly, options, sectionName })
-  const errors = useValidationErrors({ dataSource })
-  const componentsOrder: Array<keyof typeof Components> = ['reference', 'type', 'variables', 'year', 'comments']
+  const componentsOrder = useComponentsOrder({ options })
+
+  const errors = useMemo<DataSourceValidation>(() => {
+    return canEdit && validator ? validator(dataSource) : {}
+  }, [canEdit, dataSource, validator])
 
   return (
     <DataRow actions={actions}>
@@ -60,7 +63,13 @@ const DataSourceRow: React.FC<Props> = (props: Props) => {
             editable={!disabled}
             lastRow={lastRow}
           >
-            <Component dataSource={dataSource} disabled={disabled} meta={meta} sectionName={sectionName} />
+            <Component
+              columns={columns}
+              dataSource={dataSource}
+              disabled={disabled}
+              meta={meta}
+              sectionName={sectionName}
+            />
           </DataCell>
         )
       })}

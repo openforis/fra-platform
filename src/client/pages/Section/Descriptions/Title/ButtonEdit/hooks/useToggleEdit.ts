@@ -15,7 +15,7 @@ type Props = {
 
 type Returned = () => void
 
-export const useToggleEdit = (props: Props) => {
+export const useToggleEdit = (props: Props): Returned => {
   const { name, sectionName } = props
 
   const dispatch = useAppDispatch()
