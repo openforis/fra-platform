@@ -19,15 +19,6 @@ export interface DataSourceDescriptionTable {
   typeOfDataSourceText?: boolean
   // If variables is not specified, render a free text field
   variables?: Array<DataSourceVariable>
-  // // If years is not specified, do not render years column
-  // include?: {
-  //   years?: boolean
-  //   variables?: boolean
-  // }
-  //
-  // columns: Partial<
-  //   Record<keyof DataSource, { type?: 'text'; include?: boolean; variables?: Array<DataSourceVariable> }>
-  // >
 }
 
 export interface DataSourceDescription {

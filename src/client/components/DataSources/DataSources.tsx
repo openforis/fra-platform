@@ -35,12 +35,11 @@ export const DataSources: React.FC<PropsDataSources> = (props: PropsDataSources)
 
   const { t } = useTranslation()
   const { assessmentName } = useCycleRouteParams()
+  const { print } = useIsPrintRoute()
 
   const canEdit = useCanEditDescription({ sectionName })
   const editable = useIsDescriptionEditable({ sectionName, name })
   const textEmpty = useMemo<boolean>(() => DOMs.isHTMLEmpty(text), [text])
-
-  const { print } = useIsPrintRoute()
 
   const hasDataSources = !Objects.isEmpty(dataSources) || !Objects.isEmpty(dataSourcesLinked)
   const renderGrid = Boolean(hasDataSources || editable)
