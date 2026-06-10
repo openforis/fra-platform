@@ -2,7 +2,7 @@ import { CountryIso } from 'meta/area/countryIso'
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 
 type LinkLocationBase = {
-  id: number
+  identifier?: string
   url: string
 }
 

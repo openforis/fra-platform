@@ -46,7 +46,7 @@ const _getDescriptionDataSourcesLinks = async (props: Props): Promise<Array<Link
   })
 
   const linksToVisit: Array<LinkToVisit> = descriptionsByDataSourcesLinks.flatMap((description) => {
-    const { countryIso, id, name, sectionName, value } = description
+    const { countryIso, name, sectionName, value } = description
     return value.dataSources?.flatMap((dataSource) => {
       const { reference, uuid } = dataSource
       const urlParams = { assessmentName: assessment.props.name, cycleName: cycle.name, countryIso, sectionName }
@@ -56,7 +56,6 @@ const _getDescriptionDataSourcesLinks = async (props: Props): Promise<Array<Link
         countryIso,
         descriptionName: name,
         html: reference,
-        id,
         path: DescriptionLinkLocationPath.dataSourceReference,
         sectionName,
         url,
@@ -74,7 +73,7 @@ const _getDescriptionTextLinks = async (props: Props): Promise<Array<LinkToVisit
   const descriptionsByTextLinks = await DescriptionRepository.getManyWithTextLinks({ assessment, countryIso, cycle })
 
   const linksToVisit: Array<LinkToVisit> = descriptionsByTextLinks.flatMap((description) => {
-    const { countryIso, id, name, sectionName, value } = description
+    const { countryIso, name, sectionName, value } = description
     const urlParams = { assessmentName: assessment.props.name, countryIso, cycleName: cycle.name, sectionName }
     const url = Routes.Section.generatePath(urlParams)
     return _processLinks({
@@ -82,7 +81,6 @@ const _getDescriptionTextLinks = async (props: Props): Promise<Array<LinkToVisit
       countryIso,
       descriptionName: name,
       html: value.text,
-      id,
       path: DescriptionLinkLocationPath.text,
       sectionName,
       url,
@@ -109,7 +107,7 @@ const _getOriginalDataPointLinks = async (props: Props): Promise<Array<LinkToVis
   ]
 
   const linksToVisit: Array<LinkToVisit> = odpsByDescriptionsLinks.flatMap((odp) => {
-    const { comments, countryIso, id, year } = odp
+    const { comments, countryIso, uuid, year } = odp
 
     return commentFieldConfigs.flatMap(({ field, sectionName }) => {
       const html = comments[field]
@@ -120,7 +118,7 @@ const _getOriginalDataPointLinks = async (props: Props): Promise<Array<LinkToVis
       return _processLinks({
         countryIso,
         html,
-        id,
+        identifier: uuid,
         odpSection: ODPCommentColumns[field],
         sectionName: 'originalDataPoint',
         url,
@@ -131,14 +129,14 @@ const _getOriginalDataPointLinks = async (props: Props): Promise<Array<LinkToVis
 
   return linksToVisit.concat(
     odpsByReferenceLinks.flatMap((odp) => {
-      const { countryIso, dataSourceReferences, id, year } = odp
+      const { countryIso, dataSourceReferences, uuid, year } = odp
       const sectionName = SectionNames.extentOfForest
       const urlParams = { assessmentName, countryIso, cycleName, sectionName, year: String(year) }
       const url = Routes.OriginalDataPoint.generatePath(urlParams)
       return _processLinks({
         countryIso,
         html: dataSourceReferences,
-        id,
+        identifier: uuid,
         odpSection: 'data_source_references',
         sectionName: 'originalDataPoint',
         url,
