@@ -14,7 +14,7 @@ type Props = {
   assessment: Assessment
   countryIso: CountryIso
   cycle: Cycle
-  descriptionTargets: Array<DescriptionIdentifier>
+  descriptionIdentifiers: Array<DescriptionIdentifier>
 }
 
 type Returned = {
@@ -23,10 +23,10 @@ type Returned = {
 }
 
 export const getDescriptionLinks = async (props: Props): Promise<Returned> => {
-  const { assessment, countryIso, cycle, descriptionTargets } = props
+  const { assessment, countryIso, cycle, descriptionIdentifiers } = props
 
-  const names = descriptionTargets.map(({ name }) => name)
-  const sectionNames = descriptionTargets.map(({ sectionName }) => sectionName)
+  const names = descriptionIdentifiers.map(({ name }) => name)
+  const sectionNames = descriptionIdentifiers.map(({ sectionName }) => sectionName)
 
   const descriptionValues = await DescriptionRepository.getValues({
     assessment,
@@ -36,8 +36,8 @@ export const getDescriptionLinks = async (props: Props): Promise<Returned> => {
     sectionNames,
   })
 
-  const descriptions = descriptionTargets.reduce<Array<DescriptionLinkSource>>((acc, descriptionTarget) => {
-    const { name, sectionName } = descriptionTarget
+  const descriptions = descriptionIdentifiers.reduce<Array<DescriptionLinkSource>>((acc, descriptionIdentifier) => {
+    const { name, sectionName } = descriptionIdentifier
     const value = descriptionValues[countryIso]?.[sectionName]?.[name]
     if (Objects.isEmpty(value)) return acc
     acc.push({ countryIso, name, sectionName, value })

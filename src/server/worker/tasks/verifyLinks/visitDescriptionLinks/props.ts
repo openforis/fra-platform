@@ -11,7 +11,7 @@ export type VerifyDescriptionLinksJobProps = {
   assessment: Assessment
   countryIso: CountryIso
   cycle: Cycle
-  descriptionTargets: Array<DescriptionIdentifier>
+  descriptionIdentifiers: Array<DescriptionIdentifier>
 }
 
 export type VerifyDescriptionLinksJob = Job<

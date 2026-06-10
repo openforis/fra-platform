@@ -43,11 +43,13 @@ export const update = async (props: Props): Promise<Link> => {
   const descriptionLocations = updatedLink.locations.filter(Links.isDescriptionLocation)
   if (!Objects.isEmpty(descriptionLocations)) {
     const { countryIso } = updatedLink
-    const descriptionTargets = descriptionLocations.map<DescriptionIdentifier>(({ descriptionName, sectionName }) => ({
-      name: descriptionName,
-      sectionName,
-    }))
-    await visitDescriptionLinks({ assessment, countryIso, cycle, descriptionTargets })
+    const descriptionIdentifiers = descriptionLocations.map<DescriptionIdentifier>(
+      ({ descriptionName, sectionName }) => ({
+        name: descriptionName,
+        sectionName,
+      })
+    )
+    await visitDescriptionLinks({ assessment, countryIso, cycle, descriptionIdentifiers })
   }
 
   return updatedLink

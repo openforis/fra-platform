@@ -23,7 +23,7 @@ export const updateDescriptionLinkValidations = async (props: Props): Promise<vo
     assessment,
     countryIso,
     cycle,
-    descriptionTargets: descriptions.map<DescriptionIdentifier>(({ name, sectionName }) => ({
+    descriptionIdentifiers: descriptions.map<DescriptionIdentifier>(({ name, sectionName }) => ({
       name,
       sectionName,
     })),

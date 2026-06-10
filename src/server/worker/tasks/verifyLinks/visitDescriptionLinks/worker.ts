@@ -20,7 +20,7 @@ export default async (job: VerifyDescriptionLinksJob): Promise<void> => {
   const logKey = _getLogKey(job)
 
   try {
-    const { assessment, countryIso, cycle, descriptionTargets } = job.data
+    const { assessment, countryIso, cycle, descriptionIdentifiers } = job.data
     const time = new Date().getTime()
 
     Logger.info(`${logKey} started.`)
@@ -29,7 +29,7 @@ export default async (job: VerifyDescriptionLinksJob): Promise<void> => {
       assessment,
       countryIso,
       cycle,
-      descriptionTargets,
+      descriptionIdentifiers,
     })
 
     if (Objects.isEmpty(descriptions)) {
