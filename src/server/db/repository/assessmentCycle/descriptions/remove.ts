@@ -31,7 +31,7 @@ export const remove = async (props: Props, client: BaseProtocol = DB): Promise<A
         and d.name = $(name)
         and d.section_name = $(sectionName)
         and d.section_uuid = $(sectionUuid)
-      
+      returning *
     `,
     { countryIso, name, sectionName, sectionUuid },
     (row) => Objects.camelize(row)
