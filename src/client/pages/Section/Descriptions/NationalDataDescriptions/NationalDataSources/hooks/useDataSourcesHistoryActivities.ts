@@ -4,8 +4,7 @@ import { CommentableDescription, CommentableDescriptionName } from 'meta/assessm
 import { DataSource, DataSourceHistoryCompare } from 'meta/assessment/descriptionValue/dataSource'
 
 import { useHistoryActivitiesCompareItem } from 'client/store/data/history/hooks/activities'
-
-import { getDataSourceHistoryCompares } from './_getDataSourceHistoryCompares'
+import { getDataSourceHistoryCompares } from 'client/components/DataSources/_getDataSourceHistoryCompares'
 
 type ActivityLogTarget = { description: CommentableDescription }
 

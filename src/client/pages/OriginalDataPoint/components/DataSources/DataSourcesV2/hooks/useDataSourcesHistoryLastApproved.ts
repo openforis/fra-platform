@@ -1,10 +1,9 @@
 import { useMemo } from 'react'
 
-import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 import { DataSource, DataSourceHistoryCompare } from 'meta/assessment/descriptionValue/dataSource'
 
 import { useHistoryLastApprovedIsActive } from 'client/store/data/history/hooks/lastApproved'
-import { useLastApprovedHistoryDescriptions } from 'client/store/data/history/hooks/lastApprovedDescriptions'
+import { useLastApprovedOriginalDataPoint } from 'client/store/data/history/hooks/lastApprovedOriginalDataPoint'
 import { getDataSourceHistoryCompares } from 'client/components/DataSources/_getDataSourceHistoryCompares'
 
 type Props = {
@@ -16,15 +15,15 @@ type Returned = Array<DataSourceHistoryCompare> | undefined
 export const useDataSourcesHistoryLastApproved = (props: Props): Returned => {
   const { dataSources } = props
 
-  const lastApprovedHistoryDescriptions = useLastApprovedHistoryDescriptions()
   const historyLastApprovedIsActive = useHistoryLastApprovedIsActive()
+  const lastApprovedODP = useLastApprovedOriginalDataPoint()
 
   return useMemo<Returned>(() => {
     if (!historyLastApprovedIsActive) return undefined
 
-    const dataSourcesHistory =
-      lastApprovedHistoryDescriptions?.[CommentableDescriptionName.dataSources]?.dataSources ?? []
+    const dataSourcesHistory = lastApprovedODP?.dataSources ?? []
+    const dataSourcesWithoutPlaceholder = dataSources.filter((ds) => !ds.placeholder)
 
-    return getDataSourceHistoryCompares({ dataSources, dataSourcesHistory })
-  }, [dataSources, historyLastApprovedIsActive, lastApprovedHistoryDescriptions])
+    return getDataSourceHistoryCompares({ dataSources: dataSourcesWithoutPlaceholder, dataSourcesHistory })
+  }, [dataSources, historyLastApprovedIsActive, lastApprovedODP])
 }

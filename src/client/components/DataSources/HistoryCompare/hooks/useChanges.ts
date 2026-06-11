@@ -7,9 +7,12 @@ import { DataSourceDescription } from 'meta/assessment/description'
 import { DataSource, DataSourceHistoryCompare } from 'meta/assessment/descriptionValue/dataSource'
 import { DataSources } from 'meta/assessment/descriptionValue/dataSources'
 
+import { PropsDataSources } from 'client/components/DataSources/types'
+
 type Props = {
+  columns?: PropsDataSources['columns']
   historyCompare: DataSourceHistoryCompare
-  meta: DataSourceDescription
+  meta?: DataSourceDescription
 }
 
 type Returned = {
@@ -21,14 +24,15 @@ type Returned = {
 }
 
 export const useChanges = (props: Props): Returned => {
-  const { historyCompare, meta } = props
+  const { columns, historyCompare, meta } = props
   const { dataItem, historyItem } = historyCompare
 
   const { t } = useTranslation()
 
   return useMemo<Returned>(() => {
-    const typeOfDataSourceText = meta.table?.typeOfDataSourceText
-    const variablesMeta = meta.table?.variables ?? []
+    const typeOfDataSourceText = meta?.table?.typeOfDataSourceText
+    const typeOptions = columns?.type?.options ?? []
+    const variablesMeta = meta?.table?.variables ?? []
     const variablesSelect = variablesMeta.length > 0
 
     // utility functions
@@ -43,8 +47,13 @@ export const useChanges = (props: Props): Returned => {
 
     const _getType = (dataSource: DataSource): string => {
       if (typeOfDataSourceText) return dataSource?.type as string
-      if (dataSource?.type) return t(`dataSource.${dataSource.type}`)
-      return ''
+      if (!dataSource?.type) return ''
+      const types = Array.isArray(dataSource.type) ? dataSource.type : [dataSource.type as string]
+      // consistent diff lines
+      return (
+        types.map((type) => typeOptions.find((o) => o.value === type)?.label ?? t(`dataSource.${type}`)).join('\n') +
+        '\n'
+      )
     }
 
     // comments
@@ -72,10 +81,10 @@ export const useChanges = (props: Props): Returned => {
       : Diff.diffChars(variablesHistory ?? '', variablesData ?? '')
 
     // year
-    const yearData = dataItem?.year.join('\n\r') ?? ''
+    const yearData = dataItem?.year?.join('\n\r') ?? ''
     const yearHistory = Array.isArray(historyItem?.year) ? historyItem.year.join(', ') : (historyItem?.year ?? '')
     const year = Diff.diffChars(yearHistory, yearData)
 
     return { comments, reference, type, variables, year }
-  }, [dataItem, historyItem, meta, t])
+  }, [columns, dataItem, historyItem, meta, t])
 }
