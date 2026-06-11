@@ -1,25 +1,25 @@
 import { useCallback } from 'react'
 
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
-import { Objects } from 'utils/objects'
 
-import { useUpdateDataSources } from 'client/pages/OriginalDataPoint/components/DataSources/DataSourcesV1/hooks/useUpdateDataSources'
+import { useUpdateDataSources } from 'client/pages/OriginalDataPoint/components/DataSources/hooks/useUpdateDataSources'
 
 type Props = { originalDataPoint: OriginalDataPoint }
 
 type OnChange = (value?: string) => void
 
+// Treat v1 datasources as single data source.
+// Mapping: reference -> DataSource.reference
 export const useOnChange = (props: Props): OnChange => {
   const { originalDataPoint } = props
 
-  const updateOriginalDataPoint = useUpdateDataSources()
+  const updateDataSources = useUpdateDataSources({ originalDataPoint })
 
   return useCallback<OnChange>(
     (value) => {
-      const dataSourceReferences = Objects.isEmpty(value) ? null : value
-      const originalDataPointUpdate = { ...originalDataPoint, dataSourceReferences }
-      updateOriginalDataPoint(originalDataPointUpdate)
+      const dataSource = originalDataPoint.dataSources?.at(0)
+      updateDataSources([{ ...dataSource, reference: value ?? '' }])
     },
-    [originalDataPoint, updateOriginalDataPoint]
+    [originalDataPoint, updateDataSources]
   )
 }
