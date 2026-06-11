@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { DataSources } from 'meta/assessment/description/dataSources'
+import { DataSources } from 'meta/assessment/descriptionValue/dataSources'
 
 import { PropsDataSourceComponent } from 'client/components/DataSources/types'
 import Select, { Option } from 'client/components/Inputs/Select'

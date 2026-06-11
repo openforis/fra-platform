@@ -1,9 +1,9 @@
 import { TFunction } from 'i18next'
 
-import { DataSourceVariable } from 'meta/assessment/description/nationalDataDataSourceDescription'
+import { DataSourceVariable } from 'meta/assessment/description'
 import { Labels } from 'meta/assessment/labels'
 
-const getVariableLabel = (props: { variable: DataSourceVariable; t: TFunction }): string => {
+export const getVariableLabel = (props: { variable: DataSourceVariable; t: TFunction }): string => {
   const { t, variable } = props
   const { label: _label, prefixLabel } = variable
 
@@ -15,8 +15,4 @@ const getVariableLabel = (props: { variable: DataSourceVariable; t: TFunction })
   label += Labels.getLabel({ label: _label, t })
 
   return label
-}
-
-export const DataSources = {
-  getVariableLabel,
 }

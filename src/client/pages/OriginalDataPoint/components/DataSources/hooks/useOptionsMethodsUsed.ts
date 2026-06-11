@@ -7,7 +7,7 @@ import { Option } from 'client/components/Inputs/Select'
 
 type Returned = Array<Option>
 
-export const useOptions = (): Returned => {
+export const useOptionsMethodsUsed = (): Returned => {
   const { t } = useTranslation()
 
   return useMemo<Returned>(() => {
