@@ -8,24 +8,22 @@ import { PropsDataSourceComponent } from 'client/components/DataSources/types'
 import Select, { Option } from 'client/components/Inputs/Select'
 import TextArea from 'client/components/Inputs/TextArea'
 
-import { useOnChange } from './hook/useOnChange'
-
 const TextInput: React.FC<PropsDataSourceComponent> = (props) => {
-  const { dataSource, disabled, sectionName } = props
+  const { dataSource, disabled, onChange } = props
 
-  const onChange = useOnChange({ sectionName, dataSource })
+  const _onChange: React.ChangeEventHandler<HTMLTextAreaElement> = (event) =>
+    onChange(dataSource, 'type', event.target.value)
 
-  const _onChange: React.ChangeEventHandler<HTMLTextAreaElement> = (event) => onChange('type', event.target.value)
   return <TextArea disabled={disabled} onChange={_onChange} value={dataSource.type} />
 }
 
 const SelectInput: React.FC<PropsDataSourceComponent> = (props) => {
-  const { columns, dataSource, disabled, sectionName } = props
+  const { columns, dataSource, disabled, onChange } = props
 
   const { t } = useTranslation()
-  const onChange = useOnChange({ sectionName, dataSource })
+
   const _onChange = (value: string): void => {
-    onChange('type', value)
+    onChange(dataSource, 'type', value)
   }
 
   const options = useMemo<Array<Option>>(() => {
@@ -51,12 +49,11 @@ const SelectInput: React.FC<PropsDataSourceComponent> = (props) => {
 }
 
 const TypeOfDataSource: React.FC<PropsDataSourceComponent> = (props) => {
-  const { meta } = props
+  const { columns, dataSource, disabled, meta, onChange } = props
 
   const Component = meta?.table?.typeOfDataSourceText ? TextInput : SelectInput
 
-  // eslint-disable-next-line react/jsx-props-no-spreading
-  return <Component {...props} />
+  return <Component columns={columns} dataSource={dataSource} disabled={disabled} meta={meta} onChange={onChange} />
 }
 
 export default TypeOfDataSource

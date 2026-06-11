@@ -19,8 +19,6 @@ const defaults: Partial<PropsDataSources> = {
   options: {
     canEdit: false,
     canReview: false,
-    canToggleEdit: false,
-    canToggleHistory: false,
     displayHistory: false,
     includeVariables: false,
     includeYears: false,
@@ -34,8 +32,9 @@ export const DataSources: React.FC<PropsDataSources> = (props: PropsDataSources)
     dataSourcesLinked,
     historyCompares,
     meta,
+    onChange,
+    onDelete,
     options = defaults.options,
-    sectionName,
     validator,
   } = props
   const { dataSources, text } = data
@@ -47,6 +46,7 @@ export const DataSources: React.FC<PropsDataSources> = (props: PropsDataSources)
   const gridTemplateColumns = useGridTemplateColumns({ options })
 
   const textEmpty = useMemo<boolean>(() => DOMs.isHTMLEmpty(text), [text])
+  const hasPlaceholder = useMemo<boolean>(() => Boolean(dataSources?.find((d) => d.placeholder)), [dataSources])
 
   const hasDataSources = !Objects.isEmpty(dataSources) || !Objects.isEmpty(dataSourcesLinked)
   const renderGrid = Boolean(hasDataSources || canEdit)
@@ -81,9 +81,10 @@ export const DataSources: React.FC<PropsDataSources> = (props: PropsDataSources)
                     dataSource={dataSource.data}
                     lastRow={i === dataSourcesLinked.length - 1}
                     meta={dataSource.meta}
+                    onChange={onChange}
+                    onDelete={onDelete}
                     options={options}
                     readOnly
-                    sectionName={sectionName}
                     validator={validator}
                   />
                   {canReview && <div />}
@@ -102,15 +103,18 @@ export const DataSources: React.FC<PropsDataSources> = (props: PropsDataSources)
 
             {!displayHistory &&
               dataSources.map((dataSourceValue, i) => {
+                if (!canEdit && dataSourceValue.placeholder) return null
+
                 return (
                   <DataSourceRow
                     key={String(`dataSource_${dataSourceValue.uuid}`)}
                     columns={columns}
                     dataSource={dataSourceValue}
-                    lastRow={i === dataSources.length - 1}
+                    lastRow={i === dataSources.length - (hasPlaceholder && !canEdit ? 2 : 1)}
                     meta={meta}
+                    onChange={onChange}
+                    onDelete={onDelete}
                     options={options}
-                    sectionName={sectionName}
                     validator={validator}
                   />
                 )

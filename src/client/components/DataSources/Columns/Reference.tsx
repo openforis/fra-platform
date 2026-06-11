@@ -1,28 +1,16 @@
 import React, { useCallback } from 'react'
 
-import { DataSource } from 'meta/assessment/descriptionValue/dataSource'
-import { SectionName } from 'meta/assessment/section'
-
+import { PropsDataSourceComponent } from 'client/components/DataSources/types'
 import { EditorWYSIWYGLinks } from 'client/components/EditorWYSIWYG'
 
-import { useOnChange } from './hook/useOnChange'
-
-type Props = {
-  dataSource: DataSource
-  disabled: boolean
-  sectionName: SectionName
-}
-
-const Reference: React.FC<Props> = (props: Props) => {
-  const { dataSource, disabled, sectionName } = props
-
-  const onChange = useOnChange({ sectionName, dataSource })
+const Reference: React.FC<PropsDataSourceComponent> = (props) => {
+  const { dataSource, disabled, onChange } = props
 
   const _onChange = useCallback(
     (value: string) => {
-      onChange('reference', value)
+      onChange(dataSource, 'reference', value)
     },
-    [onChange]
+    [dataSource, onChange]
   )
 
   return <EditorWYSIWYGLinks disabled={disabled} onChange={_onChange} repository value={dataSource.reference ?? ''} />

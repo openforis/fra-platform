@@ -6,9 +6,16 @@ import {
   DataSourcesData,
   DataSourceValidator,
 } from 'meta/assessment/descriptionValue/dataSource'
-import { SectionName } from 'meta/assessment/section'
 
 import { Option } from 'client/components/Inputs/Select'
+
+export type DataSourceOnChange = (
+  dataSource: DataSource,
+  field: keyof DataSource,
+  fieldValue: string | Array<string>
+) => void
+
+export type DataSourceOnDelete = (dataSource: DataSource) => void
 
 export type PropsDataSources = {
   columns?: {
@@ -21,24 +28,19 @@ export type PropsDataSources = {
   dataSourcesLinked?: Array<DataSourceLinked>
   historyCompares?: Array<DataSourceHistoryCompare>
   meta?: DataSourceDescription
+  onChange: DataSourceOnChange
+  onDelete: DataSourceOnDelete
   options?: {
     canEdit?: boolean
     canReview?: boolean
-    canToggleEdit?: boolean
-    canToggleHistory?: boolean
     displayHistory?: boolean
-    displayTitle?: boolean
     includeVariables?: boolean
     includeYears?: boolean
   }
-  sectionName: SectionName
   validator?: DataSourceValidator
 }
 
-export type PropsDataSourceComponent = {
-  columns: PropsDataSources['columns']
+export type PropsDataSourceComponent = Pick<PropsDataSources, 'columns' | 'meta' | 'onChange'> & {
   dataSource: DataSource
   disabled: boolean
-  meta: DataSourceDescription
-  sectionName: SectionName
 }
