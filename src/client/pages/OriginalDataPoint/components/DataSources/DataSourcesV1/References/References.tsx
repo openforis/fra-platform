@@ -41,7 +41,7 @@ const References: React.FC<Props> = (props: Props) => {
           <ODPDiffText
             className="input-text disabled"
             originalDataPoint={originalDataPoint}
-            path={['dataSourceReferences']}
+            path={['dataSources', '0', 'reference']}
           />
         ) : (
           <EditorWYSIWYGLinks

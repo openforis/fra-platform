@@ -1,11 +1,10 @@
 import './DiffText.scss'
 import React from 'react'
-
 import classNames from 'classnames'
-import { Change } from 'diff'
+import { ChangeObject } from 'diff'
 
 interface Props {
-  changes: Array<Change>
+  changes: Array<ChangeObject<unknown>>
   className?: string
 }
 
@@ -17,12 +16,13 @@ const DiffText: React.FC<Props> = (props) => {
       {changes?.map((change, i) => {
         const { added, removed, value } = change
         const key = `${value}_${String(i)}`
+        const valueArray = Array.isArray(value) ? value : (value as string).split('\n\r')
 
         return (
           <React.Fragment key={key}>
-            {value.split('\n\r').map((text, j) => (
+            {valueArray.map((text, j) => (
               <React.Fragment key={`${key}_${String(j)}`}>
-                {j !== 0 && <br />}
+                {i + j !== 0 && <br />}
                 <span className={classNames({ added, removed })}>{text}</span>
               </React.Fragment>
             ))}

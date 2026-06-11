@@ -36,7 +36,7 @@ const MethodsUsed: React.FC<Props> = (props: Props) => {
           <ODPDiffText
             className="input-text disabled"
             originalDataPoint={originalDataPoint}
-            path={['dataSourceMethods']}
+            path={['dataSources', '0', 'type']}
           />
         ) : (
           <Select disabled={disabled} isMulti onChange={onChange} options={options} value={dataSource?.type ?? []} />

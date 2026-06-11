@@ -4,8 +4,8 @@ import { Cycle } from 'meta/assessment/cycle'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
 import { BaseProtocol, DB } from 'server/db/db'
-import { OriginalDataPointAdapterDeprecated } from 'server/db/repository/adapter/originalDataPoint'
-import { Schemas } from 'server/db/schemas'
+import { OriginalDataPointAdapter } from 'server/db/repository/adapter/originalDataPoint'
+import { getNDPSelect } from 'server/db/repository/assessmentCycle/originalDataPoint/_getNDPSelect'
 
 type Props = {
   assessment: Assessment
@@ -19,16 +19,15 @@ export const getManyWithReferenceLinks = async (
 ): Promise<Array<OriginalDataPoint>> => {
   const { assessment, countryIso, cycle } = props
 
-  const schemaName = Schemas.getNameCycle(assessment, cycle)
   const countryIsoCondition = countryIso ? 'and country_iso = $(countryIso)' : ''
 
   return client.map<OriginalDataPoint>(
     `
-        select * from ${schemaName}.original_data_point
-        where data_source_references ilike '%href%'
+        ${getNDPSelect({ assessment, cycle })}
+        where d->'value'->>'reference' ilike '%href%'
         ${countryIsoCondition}
     `,
     { countryIso },
-    OriginalDataPointAdapterDeprecated
+    OriginalDataPointAdapter
   )
 }

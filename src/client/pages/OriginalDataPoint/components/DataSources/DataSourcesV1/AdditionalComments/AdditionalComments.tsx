@@ -36,7 +36,7 @@ const AdditionalComments: React.FC<Props> = (props: Props) => {
           <ODPDiffText
             className="input-text disabled"
             originalDataPoint={originalDataPoint}
-            path={['dataSourceAdditionalComments']}
+            path={['dataSources', '0', 'comments']}
           />
         ) : (
           <TextArea disabled={disabled} onChange={onChange} value={dataSource?.comments ?? ''} />
