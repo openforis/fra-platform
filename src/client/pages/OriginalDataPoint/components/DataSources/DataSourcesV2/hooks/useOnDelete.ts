@@ -3,8 +3,7 @@ import { useCallback } from 'react'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
 import { DataSourceOnDelete } from 'client/components/DataSources/types'
-
-import { useUpdateDataSources } from './useUpdateDataSources'
+import { useUpdateDataSources } from 'client/pages/OriginalDataPoint/components/DataSources/hooks/useUpdateDataSources'
 
 type Props = {
   originalDataPoint: OriginalDataPoint

@@ -4,8 +4,7 @@ import { DataSources } from 'meta/assessment/descriptionValue/dataSources'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
 import { DataSourceOnChange } from 'client/components/DataSources/types'
-
-import { useUpdateDataSources } from './useUpdateDataSources'
+import { useUpdateDataSources } from 'client/pages/OriginalDataPoint/components/DataSources/hooks/useUpdateDataSources'
 
 type Props = {
   originalDataPoint: OriginalDataPoint
