@@ -35,7 +35,7 @@ const DataSourceRow: React.FC<Props> = (props: Props) => {
   const { canEdit } = options
   const disabled = !canEdit || readOnly
 
-  const actions = useDataSourceActions({ dataSource, readOnly, onDelete, options })
+  const actions = useDataSourceActions({ columns, dataSource, readOnly, onDelete, options })
   const componentsOrder = useComponentsOrder({ options })
 
   const errors = useMemo<DataSourceValidation>(() => {
