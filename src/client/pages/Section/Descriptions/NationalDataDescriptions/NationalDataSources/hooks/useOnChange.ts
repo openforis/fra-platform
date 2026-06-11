@@ -1,8 +1,8 @@
 import { useCallback } from 'react'
 
 import { CountryIso } from 'meta/area/countryIso'
-import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
-import { DataSource } from 'meta/assessment/descriptionValue/dataSource'
+import { CommentableDescriptionName, CommentableDescriptionValue } from 'meta/assessment/descriptionValue'
+import { DataSources } from 'meta/assessment/descriptionValue/dataSources'
 import { SectionName } from 'meta/assessment/section'
 
 import { DescriptionsActions } from 'client/store/data/descriptions/actions'
@@ -25,21 +25,11 @@ export const useOnChange = (props: Props): DataSourceOnChange => {
   const value = useCommentableDescriptionValue({ name, sectionName })
 
   return useCallback<DataSourceOnChange>(
-    (dataSource, field, fieldValue) => {
-      const dataSourceUpdate: DataSource = { ...dataSource, [field]: fieldValue }
-      const { placeholder, uuid } = dataSourceUpdate
+    (dataSource, fieldName, fieldValue) => {
+      const { dataSources } = value
 
-      const { dataSources: dataSourceValues = [] } = value
-
-      const valueUpdate = { ...value, dataSources: [...dataSourceValues] }
-      // If placeholder, it's a new data source
-      if (!placeholder) {
-        const i = valueUpdate.dataSources.findIndex((dataSource) => dataSource.uuid === uuid)
-        valueUpdate.dataSources[i] = dataSourceUpdate
-      } else {
-        delete dataSourceUpdate.placeholder
-        valueUpdate.dataSources.push(dataSourceUpdate)
-      }
+      const dataSourcesUpdate = DataSources.updateFieldValue({ dataSources, dataSource, fieldName, fieldValue })
+      const valueUpdate: CommentableDescriptionValue = { ...value, dataSources: dataSourcesUpdate }
 
       const updateProps = { assessmentName, cycleName, countryIso, sectionName, name, value: valueUpdate }
       dispatch(DescriptionsActions.updateDescription(updateProps))

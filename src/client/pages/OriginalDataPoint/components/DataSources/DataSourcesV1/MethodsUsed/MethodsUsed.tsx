@@ -5,13 +5,13 @@ import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
 import { DataCell, DataRow } from 'client/components/DataGrid'
 import Select from 'client/components/Inputs/Select'
+import { useOptionsMethodsUsed } from 'client/pages/OriginalDataPoint/components/DataSources/hooks/useOptionsMethodsUsed'
 import { useODPDisplayHistory } from 'client/pages/OriginalDataPoint/components/hooks/useODPDisplayHistory'
 import ODPDiffText from 'client/pages/OriginalDataPoint/components/ODPDiffText/ODPDiffText'
 
 import { useIsDisabled } from '../hooks/useIsDisabled'
 import { useActions } from './hooks/useActions'
 import { useOnChange } from './hooks/useOnChange'
-import { useOptions } from './hooks/useOptions'
 
 type Props = {
   originalDataPoint: OriginalDataPoint
@@ -24,7 +24,7 @@ const MethodsUsed: React.FC<Props> = (props: Props) => {
   const { t } = useTranslation()
   const disabled = useIsDisabled()
   const displayHistory = useODPDisplayHistory()
-  const options = useOptions()
+  const options = useOptionsMethodsUsed()
   const onChange = useOnChange({ originalDataPoint })
   const actions = useActions({ originalDataPoint })
 

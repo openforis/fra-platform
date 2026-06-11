@@ -1,11 +1,14 @@
 import React from 'react'
 
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
-import { SectionNames } from 'meta/assessment/section'
 
 import DataSources from 'client/components/DataSources'
-import { useOptions } from 'client/pages/OriginalDataPoint/components/DataSources/DataSourcesV1/MethodsUsed/hooks/useOptions'
+import { useOptionsMethodsUsed } from 'client/pages/OriginalDataPoint/components/DataSources/hooks/useOptionsMethodsUsed'
 import { useIsEditODPEnabled } from 'client/pages/OriginalDataPoint/hooks/useIsEditODPEnabled'
+
+import { useDataSourcesData } from './hooks/useDataSourcesData'
+import { useOnChange } from './hooks/useOnChange'
+import { useOnDelete } from './hooks/useOnDelete'
 
 type Props = {
   originalDataPoint: OriginalDataPoint
@@ -13,17 +16,20 @@ type Props = {
 
 const DataSourcesV2: React.FC<Props> = (props) => {
   const { originalDataPoint } = props
-  const { dataSources } = originalDataPoint
 
   const canEdit = useIsEditODPEnabled()
-  const options = useOptions()
+  const dataSourcesData = useDataSourcesData({ originalDataPoint })
+  const options = useOptionsMethodsUsed()
+  const onChange = useOnChange({ originalDataPoint })
+  const onDelete = useOnDelete({ originalDataPoint })
 
   return (
     <DataSources
       columns={{ type: { isMulti: true, options } }}
-      data={{ dataSources }}
+      data={dataSourcesData}
+      onChange={onChange}
+      onDelete={onDelete}
       options={{ canEdit, canReview: canEdit }}
-      sectionName={SectionNames.nationalDataPoint}
     />
   )
 }
