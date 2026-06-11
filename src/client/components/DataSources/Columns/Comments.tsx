@@ -1,23 +1,13 @@
 import React from 'react'
 
-import { DataSource } from 'meta/assessment/descriptionValue/dataSource'
-import { SectionName } from 'meta/assessment/section'
-
+import { PropsDataSourceComponent } from 'client/components/DataSources/types'
 import TextArea from 'client/components/Inputs/TextArea'
 
-import { useOnChange } from './hook/useOnChange'
+const Comments: React.FC<PropsDataSourceComponent> = (props) => {
+  const { dataSource, disabled, onChange } = props
 
-type Props = {
-  dataSource: DataSource
-  disabled: boolean
-  sectionName: SectionName
-}
-
-const Comments: React.FC<Props> = (props: Props) => {
-  const { dataSource, disabled, sectionName } = props
-
-  const onChange = useOnChange({ sectionName, dataSource })
-  const _onChange: React.ChangeEventHandler<HTMLTextAreaElement> = (event) => onChange('comments', event.target.value)
+  const _onChange: React.ChangeEventHandler<HTMLTextAreaElement> = (event) =>
+    onChange(dataSource, 'comments', event.target.value)
 
   return <TextArea disabled={disabled} onChange={_onChange} value={dataSource.comments} />
 }

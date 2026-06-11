@@ -6,7 +6,6 @@ import { SectionName } from 'meta/assessment/section'
 import { UUIDs } from 'meta/uuid/uuids'
 
 import { useCommentableDescriptionValue } from 'client/store/data/descriptions/hooks/descriptions'
-import { useIsDescriptionEditable } from 'client/store/user/hooks/auth'
 
 type Props = {
   sectionName: SectionName
@@ -33,12 +32,11 @@ export const useDataSourcesData = (props: Props): Returned => {
   const { sectionName } = props
 
   const value = useCommentableDescriptionValue({ sectionName, name })
-  const editable = useIsDescriptionEditable({ sectionName, name })
 
   return useMemo<Returned>(() => {
     const _dataSources = value.dataSources ?? []
-    const dataSources = editable ? [..._dataSources, newPlaceholder()] : _dataSources
+    const dataSources = [..._dataSources, newPlaceholder()]
 
     return { dataSources, text: value.text }
-  }, [editable, value.dataSources, value.text])
+  }, [value.dataSources, value.text])
 }

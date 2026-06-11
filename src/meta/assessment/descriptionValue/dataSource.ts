@@ -6,7 +6,7 @@ export type DataSource = {
   comments: string
   placeholder?: boolean
   reference: string
-  type: string
+  type: string | Array<string>
   uuid: UUID
   variables?: Array<string>
   year?: Array<string>

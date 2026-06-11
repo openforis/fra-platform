@@ -17,6 +17,8 @@ import { useDataSourcesHistoryActivities } from './hooks/useDataSourcesHistoryAc
 import { useDataSourcesHistoryLastApproved } from './hooks/useDataSourcesHistoryLastApproved'
 import { useDataSourceValidator } from './hooks/useDataSourceValidator'
 import { useGetDataSourcesLinked } from './hooks/useGetDataSourcesLinked'
+import { useOnChange } from './hooks/useOnChange'
+import { useOnDelete } from './hooks/useOnDelete'
 
 type Props = {
   meta: DataSourceDescription
@@ -34,6 +36,8 @@ const NationalDataSources: React.FC<Props> = (props) => {
   const validator = useDataSourceValidator()
   const canReview = useCanEditDescription({ sectionName })
   const canEdit = useIsDescriptionEditable({ sectionName, name })
+  const onChange = useOnChange({ sectionName })
+  const onDelete = useOnDelete({ sectionName })
 
   const { dataSources } = data
   const historyLastApprovedCompares = useDataSourcesHistoryLastApproved({ dataSources })
@@ -49,8 +53,6 @@ const NationalDataSources: React.FC<Props> = (props) => {
     return {
       canEdit,
       canReview,
-      canToggleEdit: true,
-      canToggleHistory: true,
       displayHistory,
       includeVariables: true,
       includeYears: true,
@@ -70,8 +72,9 @@ const NationalDataSources: React.FC<Props> = (props) => {
         dataSourcesLinked={dataSourcesLinked}
         historyCompares={historyCompares}
         meta={meta}
+        onChange={onChange}
+        onDelete={onDelete}
         options={options}
-        sectionName={sectionName}
         validator={validator}
       />
     </DataGrid>

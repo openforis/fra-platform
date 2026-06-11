@@ -1,11 +1,7 @@
 import { useCallback, useMemo, useState } from 'react'
 
-import { DataSource } from 'meta/assessment/descriptionValue/dataSource'
-import { SectionName } from 'meta/assessment/section'
-
+import { PropsDataSourceComponent } from 'client/components/DataSources/types'
 import { Option } from 'client/components/Inputs/Select'
-
-import { useOnChange as useOnChangeHook } from '../../hook/useOnChange'
 
 const _getOptions = (customValues: Array<string>, defaultOptions: Array<Option>): Array<Option> => {
   const customOptions = customValues.reduce<Array<Option>>((acc, value) => {
@@ -16,10 +12,7 @@ const _getOptions = (customValues: Array<string>, defaultOptions: Array<Option>)
   return [...customOptions, ...defaultOptions]
 }
 
-type Props = {
-  dataSource: DataSource
-  sectionName: SectionName
-}
+type Props = Pick<PropsDataSourceComponent, 'dataSource' | 'onChange'>
 
 type Returned = {
   options: Array<Option>
@@ -29,8 +22,7 @@ type Returned = {
 }
 
 export const useYearOptions = (props: Props): Returned => {
-  const { dataSource, sectionName } = props
-  const onChangeHook = useOnChangeHook({ sectionName, dataSource })
+  const { dataSource, onChange: _onChange } = props
 
   const defaultOptions = useMemo<Array<Option>>((): Array<Option> => {
     const currentYear = new Date().getFullYear()
@@ -56,11 +48,11 @@ export const useYearOptions = (props: Props): Returned => {
   )
 
   const onChange = useCallback<(values: Array<string>) => void>(
-    (newValues: Array<string>): void => {
+    (newValues): void => {
       setValues(newValues)
-      onChangeHook('year', newValues)
+      _onChange(dataSource, 'year', newValues)
     },
-    [onChangeHook]
+    [_onChange, dataSource]
   )
 
   return { options, values, onChange, onCreateOption }

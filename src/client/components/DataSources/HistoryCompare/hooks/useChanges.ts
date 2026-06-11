@@ -42,7 +42,7 @@ export const useChanges = (props: Props): Returned => {
         .join('\n\r')
 
     const _getType = (dataSource: DataSource): string => {
-      if (typeOfDataSourceText) return dataSource?.type
+      if (typeOfDataSourceText) return dataSource?.type as string
       if (dataSource?.type) return t(`dataSource.${dataSource.type}`)
       return ''
     }

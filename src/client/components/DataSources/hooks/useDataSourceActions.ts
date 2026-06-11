@@ -1,28 +1,19 @@
 import { useMemo } from 'react'
 
-import { CountryIso } from 'meta/area/countryIso'
 import { DataSource } from 'meta/assessment/descriptionValue/dataSource'
-import { SectionName } from 'meta/assessment/section'
 import { Topics } from 'meta/messageCenter/topics'
 
-import { DescriptionsActions } from 'client/store/data/descriptions/actions'
-import { useAppDispatch } from 'client/store/hooks'
-import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { DataRowAction, DataRowActionType } from 'client/components/DataGrid'
 import { PropsDataSources } from 'client/components/DataSources/types'
 
-type Props = Pick<PropsDataSources, 'options'> & {
+type Props = Pick<PropsDataSources, 'onDelete' | 'options'> & {
   dataSource: DataSource
   readOnly: boolean
-  sectionName: SectionName
 }
 
 export const useDataSourceActions = (props: Props): Array<DataRowAction> => {
-  const { dataSource, options, readOnly, sectionName } = props
+  const { dataSource, onDelete, options, readOnly } = props
   const { canEdit, canReview } = options
-
-  const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
-  const dispatch = useAppDispatch()
 
   return useMemo<Array<DataRowAction>>(() => {
     const actions: Array<DataRowAction> = []
@@ -30,11 +21,7 @@ export const useDataSourceActions = (props: Props): Array<DataRowAction> => {
     if (readOnly || dataSource.placeholder) return actions
 
     if (canEdit) {
-      const onDelete = (): void => {
-        const deleteProps = { assessmentName, cycleName, countryIso, sectionName, uuid: dataSource.uuid }
-        dispatch(DescriptionsActions.deleteDataSource(deleteProps))
-      }
-      actions.push({ type: DataRowActionType.Delete, onClick: onDelete })
+      actions.push({ type: DataRowActionType.Delete, onClick: () => onDelete(dataSource) })
     }
 
     if (canReview) {
@@ -44,5 +31,5 @@ export const useDataSourceActions = (props: Props): Array<DataRowAction> => {
     }
 
     return actions
-  }, [assessmentName, canEdit, canReview, countryIso, cycleName, dataSource, dispatch, readOnly, sectionName])
+  }, [canEdit, canReview, dataSource, onDelete, readOnly])
 }
