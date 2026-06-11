@@ -79,5 +79,31 @@ export default async (): Promise<void> => {
     `)
   })
 
+  // 5. update activity log ndp format
+  await DB.query(
+    `
+      with data as
+             (select al.id
+                   , jsonb_set(
+                       al.target
+                       , '{dataSources}'
+                       , jsonb_build_array(jsonb_build_object(
+                   'uuid', uuid_generate_v5(uuid_nil(), concat('ndp_', al.target ->> 'id'::text)),
+                   'reference', al.target -> 'dataSourceReferences',
+                   'type', al.target -> 'dataSourceMethods',
+                   'comments', al.target -> 'dataSourceAdditionalComments'
+                                           ))
+                       , true
+                     ) - 'dataSourceMethods' - 'dataSourceReferences' - 'dataSourceAdditionalComments' as target
+              from activity_log al
+              where message like 'originalDataPoint%'
+                and target is not null)
+      update activity_log al
+      set target = data.target
+      from data
+      where al.id = data.id
+    `
+  )
+
   await CacheController.generateAssessment({ assessmentName })
 }

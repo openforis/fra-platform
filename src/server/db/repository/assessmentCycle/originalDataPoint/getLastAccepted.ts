@@ -4,10 +4,7 @@ import { Cycle } from 'meta/assessment/cycle'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
 import { BaseProtocol, DB } from 'server/db/db'
-import {
-  OriginalDataPointAdapterDeprecated,
-  OriginalDataPointDBDeprecated,
-} from 'server/db/repository/adapter/originalDataPoint'
+import { OriginalDataPointAdapter, OriginalDataPointDB } from 'server/db/repository/adapter/originalDataPoint'
 import { OriginalDataPointQueries } from 'server/db/repository/assessmentCycle/originalDataPoint/queries'
 
 type Props = {
@@ -29,6 +26,6 @@ export const getLastAccepted = async (props: Props, client: BaseProtocol = DB): 
      where a.row_number = 1
     `,
     [],
-    (row?: { odp: OriginalDataPointDBDeprecated } | null) => (row ? OriginalDataPointAdapterDeprecated(row.odp) : null)
+    (row?: { odp: OriginalDataPointDB } | null) => (row ? OriginalDataPointAdapter(row.odp) : null)
   )
 }
