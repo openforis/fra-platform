@@ -1,6 +1,7 @@
 import { CountryIso } from 'meta/area/countryIso'
 import { DataSource } from 'meta/assessment/descriptionValue/dataSource'
 import { SectionName } from 'meta/assessment/section'
+import { UUID } from 'meta/uuid/uuid'
 
 export enum CommentableDescriptionName {
   dataSources = 'dataSources',
@@ -21,6 +22,7 @@ export interface CommentableDescription {
   id: number
   countryIso: CountryIso
   sectionName: string
+  sectionUuid?: UUID
   name: CommentableDescriptionName
   value: CommentableDescriptionValue
 }
