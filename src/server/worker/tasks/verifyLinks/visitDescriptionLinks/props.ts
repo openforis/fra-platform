@@ -12,6 +12,7 @@ export type VerifyDescriptionLinksJobProps = {
   countryIso: CountryIso
   cycle: Cycle
   descriptionIdentifiers: Array<DescriptionIdentifier>
+  notifyClients?: boolean
 }
 
 export type VerifyDescriptionLinksJob = Job<
