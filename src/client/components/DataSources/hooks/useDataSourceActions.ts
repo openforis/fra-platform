@@ -1,19 +1,37 @@
 import { useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
+import { TFunction } from 'i18next'
 
 import { DataSource } from 'meta/assessment/descriptionValue/dataSource'
 import { Topics } from 'meta/messageCenter/topics'
+import { Objects } from 'utils/objects'
 
 import { DataRowAction, DataRowActionType } from 'client/components/DataGrid'
 import { PropsDataSources } from 'client/components/DataSources/types'
 
-type Props = Pick<PropsDataSources, 'onDelete' | 'options'> & {
+type Props = Pick<PropsDataSources, 'columns' | 'onDelete' | 'options'> & {
   dataSource: DataSource
   readOnly: boolean
 }
 
+const getTitleType = (props: Pick<Props, 'columns' | 'dataSource'> & { t: TFunction }): string => {
+  const { columns, dataSource, t } = props
+
+  const getLabelType = (value: string): string =>
+    columns?.type?.options?.find((o) => o.value === value)?.label?.toString() ?? t(`dataSource.${dataSource.type}`)
+
+  if (Array.isArray(dataSource.type)) {
+    return dataSource.type.map(getLabelType).join(', ')
+  }
+
+  return getLabelType(dataSource.type as string)
+}
+
 export const useDataSourceActions = (props: Props): Array<DataRowAction> => {
-  const { dataSource, onDelete, options, readOnly } = props
-  const { canEdit, canReview } = options
+  const { columns, dataSource, onDelete, options, readOnly } = props
+  const { canEdit, canReview, includeVariables, includeYears } = options
+
+  const { t } = useTranslation()
 
   return useMemo<Array<DataRowAction>>(() => {
     const actions: Array<DataRowAction> = []
@@ -25,11 +43,15 @@ export const useDataSourceActions = (props: Props): Array<DataRowAction> => {
     }
 
     if (canReview) {
-      const title = `${dataSource.variables?.join(', ')} | ${dataSource.year}`
+      const title: Array<string> = []
+      if (includeVariables) title.push(dataSource.variables?.join(', '))
+      if (includeYears) title.push(String(dataSource.year))
+      if (Objects.isEmpty(title)) title.push(getTitleType({ columns, dataSource, t }))
+
       const topicKey = Topics.getDataSourceReviewTopicKey(dataSource)
-      actions.push({ type: DataRowActionType.Review, title, topicKey })
+      actions.push({ type: DataRowActionType.Review, title: title.join(' | '), topicKey })
     }
 
     return actions
-  }, [canEdit, canReview, dataSource, onDelete, readOnly])
+  }, [canEdit, canReview, columns, dataSource, includeVariables, includeYears, onDelete, readOnly, t])
 }
