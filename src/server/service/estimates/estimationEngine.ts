@@ -1,10 +1,10 @@
 import BigNumber from 'bignumber.js'
-import { BigNumberInput, Numbers } from 'utils/numbers'
-import { Objects } from 'utils/objects'
 
 import { NodeValuesEstimation } from 'meta/assessment/nodeValuesEstimation'
 import { NodeUpdate } from 'meta/data/nodeUpdates'
 import { RecordCountryData } from 'meta/data/recordData'
+import { BigNumberInput, Numbers } from 'utils/numbers'
+import { Objects } from 'utils/objects'
 
 // TODO: refactor everything
 
@@ -25,8 +25,6 @@ interface Deprecated_TableDatum {
   forestAreaEstimated?: boolean
   otherWoodedLandEstimated?: boolean
   countryIso?: string
-  dataSourceAdditionalComments?: string
-  dataSourceReferences?: string
   description?: string
   id?: string
   odpId?: string
