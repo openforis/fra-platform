@@ -4,14 +4,14 @@ paths:
     get:
       tags:
         - Cycle data
-      summary: Get Original Data Point
+      summary: Get National Data Point
       parameters:
         - $ref: '#/components/parameters/assessmentName'
         - $ref: '#/components/parameters/countryIso'
         - $ref: '#/components/parameters/cycleName'
         - in: query
           name: year
-          description: Year of the Original Data Point. For example, "1990".
+          description: Year of the National Data Point. For example, "1990".
           required: true
           schema:
             type: string
