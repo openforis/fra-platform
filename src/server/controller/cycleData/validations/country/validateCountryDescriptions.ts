@@ -1,11 +1,14 @@
 import { Country } from 'meta/area/country'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { CommentableDescriptionName, DescriptionCountryValues } from 'meta/assessment/descriptionValue'
+import {
+  CommentableDescription,
+  CommentableDescriptionName,
+  DescriptionCountryValues,
+} from 'meta/assessment/descriptionValue'
 import { Objects } from 'utils/objects'
 
 import { updateDescriptionValidations } from 'server/controller/cycleData/validations/descriptions/updateDescriptionValidations'
-import { DescriptionLinkSource } from 'server/worker/tasks/verifyLinks/visitDescriptionLinks/types'
 
 type Props = {
   assessment: Assessment
@@ -19,9 +22,9 @@ export const validateCountryDescriptions = async (props: Props): Promise<void> =
   const { countryIso } = country
   const countryDescriptions = descriptionsByCountry[countryIso] ?? {}
 
-  const descriptions = Object.entries(countryDescriptions).flatMap<DescriptionLinkSource>(
+  const descriptions = Object.entries(countryDescriptions).flatMap<Omit<CommentableDescription, 'id'>>(
     ([sectionName, sectionValues]) =>
-      Object.entries(sectionValues).map<DescriptionLinkSource>(([name, value]) => ({
+      Object.entries(sectionValues).map<Omit<CommentableDescription, 'id'>>(([name, value]) => ({
         countryIso,
         name: name as CommentableDescriptionName,
         sectionName,

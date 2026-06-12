@@ -1,8 +1,7 @@
 import { Country } from 'meta/area/country'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-
-import { DescriptionLinkSource } from 'server/worker/tasks/verifyLinks/visitDescriptionLinks/types'
+import { CommentableDescription } from 'meta/assessment/descriptionValue'
 
 import { updateDataSourceFieldValidations } from './updateDataSourceFieldValidations'
 import { updateDescriptionLinkValidations } from './updateDescriptionLinkValidations'
@@ -11,7 +10,7 @@ type Props = {
   assessment: Assessment
   country: Country
   cycle: Cycle
-  descriptions: Array<DescriptionLinkSource>
+  descriptions: Array<Omit<CommentableDescription, 'id'>>
   notifyClients?: boolean
 }
 

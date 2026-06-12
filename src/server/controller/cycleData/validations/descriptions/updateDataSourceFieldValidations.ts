@@ -1,7 +1,7 @@
 import { Country } from 'meta/area/country'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { DataSource } from 'meta/assessment/descriptionValue'
+import { CommentableDescription, DataSource } from 'meta/assessment/descriptionValue'
 import { RecordDescriptionValidations } from 'meta/assessment/validation/description'
 import { Validation } from 'meta/assessment/validation/validation'
 import { Sockets } from 'meta/socket/sockets'
@@ -9,13 +9,12 @@ import { Objects } from 'utils/objects'
 
 import { DescriptionValidationRedisRepository } from 'server/cache/repository/validation/description'
 import { SocketServer } from 'server/service/socket'
-import { DescriptionLinkSource } from 'server/worker/tasks/verifyLinks/visitDescriptionLinks/types'
 
 type Props = {
   assessment: Assessment
   country: Country
   cycle: Cycle
-  descriptions: Array<DescriptionLinkSource>
+  descriptions: Array<Omit<CommentableDescription, 'id'>>
   notifyClients?: boolean
 }
 
