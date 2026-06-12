@@ -8,7 +8,7 @@ import {
 } from 'meta/assessment/descriptionValue'
 import { Objects } from 'utils/objects'
 
-import { updateDescriptionValidations } from 'server/controller/cycleData/validations/descriptions/updateDescriptionValidations'
+import { updateDescriptionValidations } from './updateDescriptionValidations'
 
 type Props = {
   assessment: Assessment
