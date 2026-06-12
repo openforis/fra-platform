@@ -6,7 +6,7 @@ import { TableNames } from 'meta/assessment/table'
 import { expect, test } from 'test/e2e/fixtures/auth'
 import { DOMUtils } from 'test/e2e/utils/DOM'
 
-import { seedForestAreaNetChangeValidation } from './helpers'
+import { seedForestAreaNetChangeValidation } from './helpers/tables'
 
 const assessmentName = AssessmentNames.fra
 const cycleName = CycleNames._2025

@@ -11,7 +11,7 @@ import { Years } from 'meta/assessment/years'
 import { expect, test } from 'test/e2e/fixtures/auth'
 import { NodeValues } from 'test/e2e/utils/NodeValues'
 
-import { getTableValidations } from './helpers'
+import { getTableValidations } from './helpers/tables'
 
 const assessmentName = AssessmentNames.fra
 const cycleName = CycleNames._2025
