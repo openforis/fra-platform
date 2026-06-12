@@ -4,7 +4,7 @@ import { Promises } from 'utils/promises'
 
 import { updateExternalDependents } from 'server/controller/cycleData/updateDependencies/updateExternalDependents'
 import worker from 'server/controller/cycleData/updateDependencies/worker'
-import { updateValidations } from 'server/controller/cycleData/validations/updateValidations'
+import { updateTableValidations } from 'server/controller/cycleData/validations/tables/updateTableValidations'
 import { BaseProtocol } from 'server/db/db'
 import { SocketServer } from 'server/service/socket'
 import { Logger } from 'server/utils/logger'
@@ -55,7 +55,7 @@ export const updateDependents = async (props: Props, client: BaseProtocol): Prom
     nodes: [...props.nodeUpdates.nodes, ...workerResult.nodeUpdates.nodes],
   }
 
-  await updateValidations({ assessment, country, cycle, nodeUpdates: validationNodeUpdates, notifyClients })
+  await updateTableValidations({ assessment, country, cycle, nodeUpdates: validationNodeUpdates, notifyClients })
 
   // 3. schedule external assessment/cycle updates
   await Promises.each(workerResult.externalDependants, async (externalNodeUpdates) => {
