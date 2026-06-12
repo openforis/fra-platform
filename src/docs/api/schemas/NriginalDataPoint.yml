@@ -1,6 +1,6 @@
 components:
   schemas:
-    ODPDataSourceMethod:
+    NDPDataSourceMethod:
       type: string
       enum:
         - fullCoverMaps
@@ -9,7 +9,24 @@ components:
         - registersQuestionnaires
         - sampleBasedRemoteSensingAssessment
 
-    ODPNationalClass:
+    NDPDataSource:
+      type: object
+      properties:
+        uuid:
+          type: string
+        reference:
+          type: string
+          nullable: true
+        type:
+          type: array
+          nullable: true
+          items:
+            $ref: '#/components/schemas/NDPDataSourceMethod'
+        comments:
+          type: string
+          nullable: true
+
+    NDPNationalClass:
       type: object
       properties:
         area:
@@ -40,7 +57,7 @@ components:
         uuid:
           type: string
 
-    OriginalDataPointValues:
+    NationalDataPointValues:
       type: object
       properties:
         forestArea:
@@ -77,7 +94,7 @@ components:
           type: string
           nullable: true
 
-    OriginalDataPoint:
+    NationalDataPoint:
       type: object
       required:
         - countryIso
@@ -86,14 +103,10 @@ components:
       properties:
         countryIso:
           type: string
-        dataSourceAdditionalComments:
-          type: string
-        dataSourceMethods:
+        dataSources:
           type: array
           items:
-            $ref: '#/components/schemas/ODPDataSourceMethod'
-        dataSourceReferences:
-          type: string
+            $ref: '#/components/schemas/NDPDataSource'
         comments:
           type: object
           description: HTML-formatted comments split by section.
@@ -106,15 +119,11 @@ components:
               description: Forest characteristics comments
         id:
           type: integer
-        idLegacy:
-          type: integer
-          deprecated: true
-          nullable: true
         nationalClasses:
           type: array
           items:
-            $ref: '#/components/schemas/ODPNationalClass'
+            $ref: '#/components/schemas/NDPNationalClass'
         values:
-          $ref: '#/components/schemas/OriginalDataPointValues'
+          $ref: '#/components/schemas/NationalDataPointValues'
         year:
           type: integer
