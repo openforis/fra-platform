@@ -5,8 +5,10 @@ import { Promises } from 'utils/promises'
 
 import { AreaController } from 'server/controller/area'
 import { AssessmentController } from 'server/controller/assessment'
-import { validateCountryTables } from 'server/controller/cycleData/validations/country/validateCountryTables'
+import { validateCountryDescriptions } from 'server/controller/cycleData/validations/descriptions/validateCountryDescriptions'
+import { validateCountryTables } from 'server/controller/cycleData/validations/tables/validateCountryTables'
 import { BaseProtocol, DB } from 'server/db/db'
+import { DescriptionRepository } from 'server/db/repository/assessmentCycle/descriptions'
 import { Logger } from 'server/utils/logger'
 
 type Failure = {
@@ -46,6 +48,9 @@ export const validateAll = async (client: BaseProtocol = DB): Promise<void> => {
 
       const countries = await AreaController.getCountries({ assessment, cycle }, client)
 
+      const countryISOs = countries.map<CountryIso>(({ countryIso }) => countryIso)
+      const descriptionsByCountry = await DescriptionRepository.getValues({ assessment, countryISOs, cycle }, client)
+
       await Promises.each(countries, async (country, index) => {
         const { countryIso } = country
         const progress = `${index + 1}/${countries.length}`
@@ -54,7 +59,10 @@ export const validateAll = async (client: BaseProtocol = DB): Promise<void> => {
         processedCountries += 1
 
         try {
-          await validateCountryTables({ assessmentName, countryIso, cycleName }, client)
+          await Promise.all([
+            validateCountryTables({ assessmentName, countryIso, cycleName }, client),
+            validateCountryDescriptions({ assessment, country, cycle, descriptionsByCountry }),
+          ])
         } catch (error) {
           failures.push({ assessmentName, countryIso, cycleName, error })
           Logger.error(`Validation failed for ${assessmentName}/${cycleName}/${countryIso}: ${_getErrorMessage(error)}`)

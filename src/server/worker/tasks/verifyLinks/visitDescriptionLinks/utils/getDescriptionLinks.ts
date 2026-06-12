@@ -1,14 +1,13 @@
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { DescriptionIdentifier } from 'meta/assessment/descriptionValue'
+import { CommentableDescription, DescriptionIdentifier } from 'meta/assessment/descriptionValue'
 import { DescriptionLinkLocationPath, LinkToVisit } from 'meta/cycleData/links/link'
 import { Routes } from 'meta/routes/routes'
 import { Htmls } from 'utils/htmls'
 import { Objects } from 'utils/objects'
 
 import { DescriptionRepository } from 'server/db/repository/assessmentCycle/descriptions'
-import { DescriptionLinkSource } from 'server/worker/tasks/verifyLinks/visitDescriptionLinks/types'
 
 type Props = {
   assessment: Assessment
@@ -18,7 +17,7 @@ type Props = {
 }
 
 type Returned = {
-  descriptions: Array<DescriptionLinkSource>
+  descriptions: Array<Omit<CommentableDescription, 'id'>>
   linksToVisit: Array<LinkToVisit>
 }
 
@@ -36,13 +35,16 @@ export const getDescriptionLinks = async (props: Props): Promise<Returned> => {
     sectionNames,
   })
 
-  const descriptions = descriptionIdentifiers.reduce<Array<DescriptionLinkSource>>((acc, descriptionIdentifier) => {
-    const { name, sectionName } = descriptionIdentifier
-    const value = descriptionValues[countryIso]?.[sectionName]?.[name]
-    if (Objects.isEmpty(value)) return acc
-    acc.push({ countryIso, name, sectionName, value })
-    return acc
-  }, [])
+  const descriptions = descriptionIdentifiers.reduce<Array<Omit<CommentableDescription, 'id'>>>(
+    (acc, descriptionIdentifier) => {
+      const { name, sectionName } = descriptionIdentifier
+      const value = descriptionValues[countryIso]?.[sectionName]?.[name]
+      if (Objects.isEmpty(value)) return acc
+      acc.push({ countryIso, name, sectionName, value })
+      return acc
+    },
+    []
+  )
 
   const linksToVisit = descriptions.flatMap((description) => {
     const { name: descriptionName, sectionName, value } = description

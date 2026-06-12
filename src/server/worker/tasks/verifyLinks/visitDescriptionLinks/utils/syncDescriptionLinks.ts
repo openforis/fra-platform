@@ -1,7 +1,7 @@
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { DescriptionIdentifier } from 'meta/assessment/descriptionValue'
+import { CommentableDescription, DescriptionIdentifier } from 'meta/assessment/descriptionValue'
 import { DescriptionLinkLocationPath, Link, LinkToVisit, VisitedLink } from 'meta/cycleData/links/link'
 import { Objects } from 'utils/objects'
 
@@ -10,7 +10,6 @@ import { LinkRepository } from 'server/db/repository/assessmentCycle/links'
 import { filterLinks } from 'server/worker/tasks/verifyLinks/visitCycleLinks/utils/filterLinks'
 import { mergeLinks } from 'server/worker/tasks/verifyLinks/visitCycleLinks/utils/mergeLinks'
 import { visitLinks } from 'server/worker/tasks/verifyLinks/visitCycleLinks/utils/visitLinks'
-import { DescriptionLinkSource } from 'server/worker/tasks/verifyLinks/visitDescriptionLinks/types'
 
 type LocationToRefresh = DescriptionIdentifier & {
   path: Array<string>
@@ -20,7 +19,7 @@ type Props = {
   assessment: Assessment
   countryIso: CountryIso
   cycle: Cycle
-  descriptions: Array<DescriptionLinkSource>
+  descriptions: Array<Omit<CommentableDescription, 'id'>>
   linksToVisit: Array<LinkToVisit>
 }
 

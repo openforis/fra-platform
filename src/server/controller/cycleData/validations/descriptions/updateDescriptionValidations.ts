@@ -10,14 +10,15 @@ type Props = {
   assessment: Assessment
   country: Country
   cycle: Cycle
-  descriptions: Array<CommentableDescription>
+  descriptions: Array<Omit<CommentableDescription, 'id'>>
+  notifyClients?: boolean
 }
 
 export const updateDescriptionValidations = async (props: Props): Promise<void> => {
-  const { assessment, country, cycle, descriptions } = props
+  const { assessment, country, cycle, descriptions, notifyClients } = props
 
   await Promise.all([
-    updateDescriptionLinkValidations({ assessment, country, cycle, descriptions }),
-    updateDataSourceFieldValidations({ assessment, country, cycle, descriptions }),
+    updateDescriptionLinkValidations({ assessment, country, cycle, descriptions, notifyClients }),
+    updateDataSourceFieldValidations({ assessment, country, cycle, descriptions, notifyClients }),
   ])
 }

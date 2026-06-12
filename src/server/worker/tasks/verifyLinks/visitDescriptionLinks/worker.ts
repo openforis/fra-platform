@@ -20,7 +20,7 @@ export default async (job: VerifyDescriptionLinksJob): Promise<void> => {
   const logKey = _getLogKey(job)
 
   try {
-    const { assessment, countryIso, cycle, descriptionIdentifiers } = job.data
+    const { assessment, countryIso, cycle, descriptionIdentifiers, notifyClients = true } = job.data
     const time = new Date().getTime()
 
     Logger.info(`${logKey} started.`)
@@ -61,12 +61,14 @@ export default async (job: VerifyDescriptionLinksJob): Promise<void> => {
       descriptionValidations,
     })
 
-    const eventName = Sockets.getDescriptionValidationsUpdateEvent({
-      assessmentName: assessment.props.name,
-      countryIso,
-      cycleName: cycle.name,
-    })
-    SocketServer.emit(eventName, { descriptionValidations, sectionNames })
+    if (notifyClients) {
+      const eventName = Sockets.getDescriptionValidationsUpdateEvent({
+        assessmentName: assessment.props.name,
+        countryIso,
+        cycleName: cycle.name,
+      })
+      SocketServer.emit(eventName, { descriptionValidations, sectionNames })
+    }
 
     const duration = (new Date().getTime() - time) / 1000
     Logger.info(`${logKey} ended in ${duration} seconds with ${linkVisits.length} links visited.`)

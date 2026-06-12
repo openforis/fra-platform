@@ -10,22 +10,26 @@ type Props = {
   assessment: Assessment
   country: Country
   cycle: Cycle
-  descriptions: Array<CommentableDescription>
+  descriptions: Array<Omit<CommentableDescription, 'id'>>
+  notifyClients?: boolean
 }
 
 export const updateDescriptionLinkValidations = async (props: Props): Promise<void> => {
-  const { assessment, country, cycle, descriptions } = props
+  const { assessment, country, cycle, descriptions, notifyClients } = props
   const { countryIso } = country
 
   if (Objects.isEmpty(descriptions)) return
+
+  const descriptionIdentifiers = descriptions.map<DescriptionIdentifier>(({ name, sectionName }) => ({
+    name,
+    sectionName,
+  }))
 
   await visitDescriptionLinks({
     assessment,
     countryIso,
     cycle,
-    descriptionIdentifiers: descriptions.map<DescriptionIdentifier>(({ name, sectionName }) => ({
-      name,
-      sectionName,
-    })),
+    descriptionIdentifiers,
+    notifyClients,
   })
 }

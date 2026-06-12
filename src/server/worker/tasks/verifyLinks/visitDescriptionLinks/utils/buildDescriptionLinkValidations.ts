@@ -1,17 +1,16 @@
+import { CommentableDescription } from 'meta/assessment/descriptionValue'
 import { RecordDescriptionValidations } from 'meta/assessment/validation/description'
 import { ValidationMessage } from 'meta/assessment/validation/validation'
 import { Link, LinkToVisit, LinkValidationStatusCode, VisitedLink } from 'meta/cycleData/links/link'
 import { Links } from 'meta/cycleData/links/links'
 import { Objects } from 'utils/objects'
 
-import { DescriptionLinkSource } from 'server/worker/tasks/verifyLinks/visitDescriptionLinks/types'
-
 import { buildInitialDescriptionValidations } from './buildInitialDescriptionValidations'
 import { updateLocationValidation } from './updateLocationValidation'
 
 type Props = {
   approvedLinks: Array<Link>
-  initialDescriptions?: Array<DescriptionLinkSource>
+  initialDescriptions?: Array<Omit<CommentableDescription, 'id'>>
   linkVisits: Array<VisitedLink>
   linksToVisit: Array<LinkToVisit>
 }

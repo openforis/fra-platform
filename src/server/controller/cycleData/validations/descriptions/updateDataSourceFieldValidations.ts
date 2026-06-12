@@ -14,7 +14,8 @@ type Props = {
   assessment: Assessment
   country: Country
   cycle: Cycle
-  descriptions: Array<CommentableDescription>
+  descriptions: Array<Omit<CommentableDescription, 'id'>>
+  notifyClients?: boolean
 }
 
 // Reference (empty check + link verification) is validated by the description link flow.
@@ -27,7 +28,7 @@ const _getRequiredValidation = (value: DataSource[keyof DataSource]): Validation
 
 // Validates the required data source fields (type, variables, year) when the data sources are saved.
 export const updateDataSourceFieldValidations = async (props: Props): Promise<void> => {
-  const { assessment, country, cycle, descriptions } = props
+  const { assessment, country, cycle, descriptions, notifyClients = true } = props
   const { countryIso } = country
 
   const dataSourceDescriptions = descriptions.filter(({ value }) => value.dataSources !== undefined)
@@ -58,11 +59,13 @@ export const updateDataSourceFieldValidations = async (props: Props): Promise<vo
     descriptionValidations,
   })
 
-  const sectionNames = Array.from(new Set(dataSourceDescriptions.map(({ sectionName }) => sectionName)))
-  const eventName = Sockets.getDescriptionValidationsUpdateEvent({
-    assessmentName: assessment.props.name,
-    countryIso,
-    cycleName: cycle.name,
-  })
-  SocketServer.emit(eventName, { descriptionValidations, sectionNames })
+  if (notifyClients) {
+    const sectionNames = Array.from(new Set(dataSourceDescriptions.map(({ sectionName }) => sectionName)))
+    const eventName = Sockets.getDescriptionValidationsUpdateEvent({
+      assessmentName: assessment.props.name,
+      countryIso,
+      cycleName: cycle.name,
+    })
+    SocketServer.emit(eventName, { descriptionValidations, sectionNames })
+  }
 }
