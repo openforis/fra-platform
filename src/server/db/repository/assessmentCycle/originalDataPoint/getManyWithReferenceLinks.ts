@@ -19,12 +19,14 @@ export const getManyWithReferenceLinks = async (
 ): Promise<Array<OriginalDataPoint>> => {
   const { assessment, countryIso, cycle } = props
 
-  const countryIsoCondition = countryIso ? 'and country_iso = $(countryIso)' : ''
+  const countryIsoCondition = countryIso ? 'and odp.country_iso = $(countryIso)' : ''
 
   return client.map<OriginalDataPoint>(
     `
         ${getNDPSelect({ assessment, cycle })}
-        where d->'value'->>'reference' ilike '%href%'
+        where exists (select 1
+              from jsonb_array_elements(d.value) elem
+              where elem ->> 'type' ilike '%href%')
         ${countryIsoCondition}
     `,
     { countryIso },
