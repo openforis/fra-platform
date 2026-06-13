@@ -7,12 +7,13 @@ import { expect, test } from 'test/e2e/fixtures/auth'
 import { DOMUtils } from 'test/e2e/utils/DOM'
 import { NodeValues } from 'test/e2e/utils/NodeValues'
 
+import { sectionPath } from './helpers/navigation'
+import { expectValidationTooltip } from './helpers/tooltips'
+
 const assessmentName = AssessmentNames.fra
 const cycleName = CycleNames._2025
 const countryIso = 'ALB' // Non-atlantis country to test cross-cycle validations (see: shouldSkipValidationFormula.ts).
 const previousCycleForestArea2020 = '2000'
-
-const extentOfForestPath = `/assessments/${assessmentName}/${cycleName}/${countryIso}/sections/${SectionNames.extentOfForest}`
 
 test.describe.serial('Cross-cycle validations', () => {
   test('editing forestArea validates against the previous cycle', async ({ authenticatedPage }) => {
@@ -38,7 +39,7 @@ test.describe.serial('Cross-cycle validations', () => {
       values: [{ colName: '2020', value: { raw: previousCycleForestArea2020 }, variableName: 'forestArea' }],
     })
 
-    await page.goto(extentOfForestPath)
+    await page.goto(sectionPath({ countryIso, sectionName: SectionNames.extentOfForest }))
     await expect(DOMUtils.tableContainer(page, TableNames.extentOfForest)).toBeVisible({ timeout: 20000 })
     await DOMUtils.unlockEditing(page)
     await DOMUtils.expectCellHasNoValidationError(page, 'forestArea', '2020')
@@ -48,8 +49,10 @@ test.describe.serial('Cross-cycle validations', () => {
     await DOMUtils.expectCellHasValidationError(page, 'forestArea', '2020')
 
     const currentCycleForestArea2020 = page.locator('[id$="variableName_forestArea_colName_2020"]')
-    await currentCycleForestArea2020.hover()
-    await expect(page.getByRole('tooltip')).toContainText('differs from previously reported')
+    await expectValidationTooltip(page, {
+      locator: currentCycleForestArea2020,
+      text: 'differs from previously reported',
+    })
 
     // Fix value and assert no validation error
     await DOMUtils.fillCell(page, 'forestArea', '2020', previousCycleForestArea2020)

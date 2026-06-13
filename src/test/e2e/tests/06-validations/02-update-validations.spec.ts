@@ -1,20 +1,16 @@
-import { AssessmentNames } from 'meta/assessment/assessment'
-import { CycleNames } from 'meta/assessment/cycle/names'
 import { SectionNames } from 'meta/assessment/section'
 import { TableNames } from 'meta/assessment/table'
 
 import { expect, test } from 'test/e2e/fixtures/auth'
 import { DOMUtils } from 'test/e2e/utils/DOM'
 
-import { seedForestAreaNetChangeValidation } from './helpers'
+import { sectionPath } from './helpers/navigation'
+import { seedForestAreaNetChangeValidation } from './helpers/tables'
 
-const assessmentName = AssessmentNames.fra
-const cycleName = CycleNames._2025
 const countryIso = 'X04'
 
-const countryPath = `/assessments/${assessmentName}/${cycleName}/${countryIso}`
-const extentOfForestPath = `${countryPath}/sections/${SectionNames.extentOfForest}`
-const forestAreaChangePath = `${countryPath}/sections/forestAreaChange`
+const extentOfForestPath = sectionPath({ countryIso, sectionName: SectionNames.extentOfForest })
+const forestAreaChangePath = sectionPath({ countryIso, sectionName: 'forestAreaChange' })
 
 test.describe.serial('Update validations', () => {
   test('clears validation errors after fixing the data', async ({ authenticatedPage }) => {
