@@ -7,20 +7,19 @@ import { TableNames } from 'meta/assessment/table'
 import { expect, test } from 'test/e2e/fixtures/auth'
 import { DOMUtils } from 'test/e2e/utils/DOM'
 
+import { expectNavigationError, sectionPath } from './helpers/navigation'
+import { expectSubmitToReviewWarning } from './helpers/review'
 import { seedForestAreaNetChangeValidation } from './helpers/tables'
 
 const assessmentName = AssessmentNames.fra
 const cycleName = CycleNames._2025
 // Non-published country without 2020/2025 ODP rows; ODP data masks seeded extentOfForest values during validation.
 const countryIso = 'X06'
+const sectionName = 'forestAreaChange'
+const sectionHeader = other.navigation.sectionHeaders.forestExtentCharacteristicsAndChanges
 
-const forestExtentSectionLabel = other.navigation.sectionHeaders.forestExtentCharacteristicsAndChanges
-const sendToReviewLabel = other.assessment.status.review.next
-const submitToReviewWarning = other.navigation.submitToReviewWithErrorsWarning
-
-const countryPath = `/assessments/${assessmentName}/${cycleName}/${countryIso}`
-const forestAreaChangePath = `${countryPath}/sections/forestAreaChange`
-const printTablesPath = `${countryPath}/print/tables`
+const forestAreaChangePath = sectionPath({ countryIso, sectionName })
+const printTablesPath = `/assessments/${assessmentName}/${cycleName}/${countryIso}/print/tables`
 
 test.describe.serial('Rendering validations', () => {
   test('shows validation errors on initial load', async ({ authenticatedPage }) => {
@@ -33,21 +32,8 @@ test.describe.serial('Rendering validations', () => {
     await DOMUtils.expectCellHasValidationError(page, 'forestAreaNetChange', '2020-2025')
     await DOMUtils.expectTableHasError(page, TableNames.forestAreaChange)
 
-    const subSectionItem = page.locator(`.nav-section__item[href="${forestAreaChangePath}"]`)
-    const sectionHeader = page.locator('.nav-section__header', { hasText: forestExtentSectionLabel })
-
-    await expect(subSectionItem.locator('.validation-error-indicator')).toBeVisible()
-    await sectionHeader.click()
-    await expect(sectionHeader.locator('.validation-error-indicator')).toBeVisible()
-
-    // Open the Submit to Review modal
-    await DOMUtils.unlockEditing(page)
-    await expect(page.locator('.nav-header__status.actionable-true')).toBeVisible()
-    await page.locator('.nav-header__status.actionable-true').click()
-    await page.getByText(sendToReviewLabel).click()
-    await expect(page.locator('.modal')).toBeVisible()
-    await expect(page.getByText(submitToReviewWarning)).toBeVisible()
-    await page.getByRole('button', { name: 'Cancel' }).click()
+    await expectNavigationError(page, { countryIso, hasError: true, sectionHeader, sectionName })
+    await expectSubmitToReviewWarning(page, { present: true })
   })
 
   test('does not show validation UI on the print route', async ({ authenticatedPage }) => {
