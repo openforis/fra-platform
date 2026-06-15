@@ -1,5 +1,8 @@
 {
   "invalidLinks": {
+    "invalidLinkCount_one": "{{count}} invalid link",
+    "invalidLinkCount_other": "{{count}} invalid links",
+    "linkStatusPageInfo": "For more details on the link status of {{countryName}}, please visit the Links Status page",
     "messageBodyIntro": "The following countries have one or more invalid links:",
     "messageFooter": "Please review and update the affected links in the FRA Platform.\n\nThank you,\nThe FRA team",
     "messageHeader": "Dear {{recipientName}},",

@@ -1,41 +1,32 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { NationalDataDescription } from 'meta/assessment/description'
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 
 import CommentableDescription from 'client/pages/Section/Descriptions/CommentableDescription'
-import DataSources from 'client/pages/Section/Descriptions/NationalDataDescriptions/DataSources/DataSources'
+import NationalDataSources from 'client/pages/Section/Descriptions/NationalDataDescriptions/NationalDataSources'
 
 type Props = {
   nationalData: NationalDataDescription
 }
 
-type DataSourcesProps = {
-  withTable: boolean
-  withText: boolean
-}
-
 const NationalDataDescriptions: React.FC<Props> = (props) => {
   const { nationalData } = props
+  const dataSourcesMeta = nationalData.dataSources
+  const withTable = Boolean(dataSourcesMeta?.table)
 
   const { t } = useTranslation()
-
-  const dataSourcesProps = useMemo<DataSourcesProps>(() => {
-    const withTable = Boolean(nationalData.dataSources?.table)
-    const withText = Boolean(nationalData.dataSources?.text)
-    return { withTable, withText }
-  }, [nationalData.dataSources?.table, nationalData.dataSources?.text])
 
   return (
     <div className="descriptions__group">
       <h2 className="headline">{t('description.nationalData')}</h2>
 
-      {nationalData.dataSources && (
+      {dataSourcesMeta && (
         <>
-          {dataSourcesProps.withTable && <DataSources nationalData={nationalData} />}
+          {withTable && <NationalDataSources meta={dataSourcesMeta} />}
 
-          {!dataSourcesProps.withTable && (
+          {!withTable && (
             <CommentableDescription
               name={CommentableDescriptionName.dataSources}
               repository

@@ -1,10 +1,9 @@
 import React from 'react'
-import { NameType, ValueType } from 'recharts/types/component/DefaultTooltipContent'
 import { ContentType } from 'recharts/types/component/Tooltip'
 
 import TooltipContent from 'client/components/Chart/TooltipContent'
 
-const Tooltip: ContentType<ValueType, NameType> = (props) => {
+const Tooltip: ContentType = (props) => {
   const { payload } = props
 
   if (!(payload.length > 0)) {
@@ -14,7 +13,7 @@ const Tooltip: ContentType<ValueType, NameType> = (props) => {
   const content = payload.map((item) => ({
     color: item.color,
     label: item.payload.columnName,
-    name: item.name,
+    name: item.name as string,
     unit: item.unit,
     value: item.value as number,
   }))

@@ -1,3 +1,5 @@
+import { Parser } from 'htmlparser2'
+
 type ElementOffset = {
   height: number
   left: number
@@ -51,10 +53,36 @@ const getHtmlTextContent = (html: string): string => {
   return doc.documentElement.textContent || ''
 }
 
+const isHTMLEmpty = (html: string): boolean => {
+  // Objects.isEmpty() calls trim() internally, which causes
+  // crashes with large strings in Firefox. It is avoided here.
+  if (!html) return true
+
+  let hasVisibleText = false
+  const parser = new Parser(
+    {
+      ontext(text): void {
+        // Stop parsing as soon as a non-whitespace character is found
+        if (/\S/.test(text)) {
+          hasVisibleText = true
+          parser.pause()
+        }
+      },
+    },
+    { decodeEntities: true }
+  )
+
+  parser.write(html)
+  parser.end()
+
+  return !hasVisibleText
+}
+
 export const DOMs = {
   elementOffset,
   findElementByName,
   getHtmlTextContent,
+  isHTMLEmpty,
   parseDOMValue,
   scrollTo,
 }

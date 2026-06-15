@@ -1,0 +1,129 @@
+components:
+  schemas:
+    NDPDataSourceMethod:
+      type: string
+      enum:
+        - fullCoverMaps
+        - nationalForestInventory
+        - other
+        - registersQuestionnaires
+        - sampleBasedRemoteSensingAssessment
+
+    NDPDataSource:
+      type: object
+      properties:
+        uuid:
+          type: string
+        reference:
+          type: string
+          nullable: true
+        type:
+          type: array
+          nullable: true
+          items:
+            $ref: '#/components/schemas/NDPDataSourceMethod'
+        comments:
+          type: string
+          nullable: true
+
+    NDPNationalClass:
+      type: object
+      properties:
+        area:
+          type: number
+          nullable: true
+        definition:
+          type: string
+        forestNaturalPercent:
+          type: number
+          nullable: true
+        forestPercent:
+          type: number
+          nullable: true
+        forestPlantationIntroducedPercent:
+          type: number
+          nullable: true
+        forestPlantationPercent:
+          type: number
+          nullable: true
+        name:
+          type: string
+        otherPlantedForestPercent:
+          type: number
+          nullable: true
+        otherWoodedLandPercent:
+          type: number
+          nullable: true
+        uuid:
+          type: string
+
+    NationalDataPointValues:
+      type: object
+      properties:
+        forestArea:
+          type: string
+          nullable: true
+        naturalForestArea:
+          type: string
+          nullable: true
+        otherPlantedForestArea:
+          type: string
+          nullable: true
+        otherWoodedLand:
+          type: string
+          nullable: true
+        plantationForestArea:
+          type: string
+          nullable: true
+        plantationForestIntroducedArea:
+          type: string
+          nullable: true
+        plantedForest:
+          type: string
+          nullable: true
+        primaryForest:
+          type: string
+          nullable: true
+        primaryForestPercent:
+          type: string
+          nullable: true
+        total:
+          type: string
+          nullable: true
+        totalForestArea:
+          type: string
+          nullable: true
+
+    NationalDataPoint:
+      type: object
+      required:
+        - countryIso
+        - id
+        - values
+      properties:
+        countryIso:
+          type: string
+        dataSources:
+          type: array
+          items:
+            $ref: '#/components/schemas/NDPDataSource'
+        comments:
+          type: object
+          description: HTML-formatted comments split by section.
+          properties:
+            extentOfForest:
+              type: string
+              description: Extent of forest comments
+            forestCharacteristics:
+              type: string
+              description: Forest characteristics comments
+        id:
+          type: integer
+        nationalClasses:
+          type: array
+          items:
+            $ref: '#/components/schemas/NDPNationalClass'
+        values:
+          $ref: '#/components/schemas/NationalDataPointValues'
+        year:
+          type: integer

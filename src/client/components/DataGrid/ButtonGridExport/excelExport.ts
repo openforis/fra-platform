@@ -1,5 +1,4 @@
-import type { Cell, SheetData } from 'write-excel-file/browser'
-import writeXlsxFile from 'write-excel-file/browser'
+import writeXlsxFile, { Cell, SheetData } from 'write-excel-file/browser'
 
 import { Numbers } from 'utils/numbers'
 import { Objects } from 'utils/objects'
@@ -83,5 +82,5 @@ export const exportGridDataToExcel = async (props: Props): Promise<void> => {
     })
   })
 
-  await writeXlsxFile(excelData, { fileName: filename })
+  await writeXlsxFile(excelData).toFile(filename)
 }
