@@ -1,11 +1,8 @@
 import { CountryIso } from 'meta/area/countryIso'
-import { DataSourceDescription } from 'meta/assessment/description'
+import { DataSource } from 'meta/assessment/descriptionValue/dataSource'
 import { SectionName } from 'meta/assessment/section'
+import { UUID } from 'meta/uuid/uuid'
 
-export type DataSourceLinked = {
-  data: DataSource
-  meta: DataSourceDescription
-}
 export enum CommentableDescriptionName {
   dataSources = 'dataSources',
   generalComments = 'generalComments',
@@ -14,16 +11,6 @@ export enum CommentableDescriptionName {
   reclassification = 'reclassification',
   estimationAndForecasting = 'estimationAndForecasting',
   introductoryText = 'introductoryText',
-}
-
-export interface DataSource {
-  comments: string
-  placeholder?: boolean
-  reference: string
-  type: string
-  uuid?: string
-  variables?: Array<string>
-  year: Array<string>
 }
 
 export interface CommentableDescriptionValue {
@@ -35,6 +22,7 @@ export interface CommentableDescription {
   id: number
   countryIso: CountryIso
   sectionName: string
+  sectionUuid?: UUID
   name: CommentableDescriptionName
   value: CommentableDescriptionValue
 }

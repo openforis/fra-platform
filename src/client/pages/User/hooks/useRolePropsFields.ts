@@ -174,13 +174,6 @@ export const useRolePropsFields = (props: PropsFormDefinition): FormDefinition['
         shouldShow: shouldShowRoleProps,
       },
       {
-        name: 'role.props.skype',
-        type: FormFieldType.text,
-        label: 'editUser.skype',
-        defaultValue: role?.props?.skype || '',
-        shouldShow: shouldShowRoleProps,
-      },
-      {
         name: 'role.props.contactPreference.method',
         type: FormFieldType.select,
         label: 'editUser.contactPreference',

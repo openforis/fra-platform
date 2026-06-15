@@ -5,7 +5,8 @@ import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { OriginalDataPointAdapter } from 'server/db/repository/adapter/originalDataPoint'
-import { Schemas } from 'server/db/schemas'
+
+import { getNDPSelect } from './_getNDPSelect'
 
 type Props = {
   assessment: Assessment
@@ -17,11 +18,12 @@ type Props = {
 export const getOne = async (props: Props, client: BaseProtocol = DB): Promise<OriginalDataPoint | undefined> => {
   const { assessment, countryIso, cycle, year } = props
 
-  const schemaName = Schemas.getNameCycle(assessment, cycle)
+  const select = getNDPSelect({ assessment, cycle })
 
   return client.oneOrNone<OriginalDataPoint>(
-    `select * from ${schemaName}.original_data_point where country_iso = $1 and year = $2;`,
-    [countryIso, year],
+    `${select}
+     where odp.country_iso = $(countryIso) and odp.year = $(year);`,
+    { countryIso, year },
     OriginalDataPointAdapter
   )
 }
