@@ -67,7 +67,7 @@ export default async (): Promise<void> => {
            , odp.uuid            as section_uuid
            , 'dataSources'       as name
            , jsonb_build_array(jsonb_build_object(
-        'uuid', uuid_generate_v4(),
+        'uuid', uuid_generate_v5(uuid_nil(), concat('ndp_', odp.id::text)),
         'reference', coalesce(odp.data_source_references, ''),
         'type', coalesce(odp.data_source_methods, jsonb_build_array()),
         'comments', coalesce(odp.data_source_additional_comments, '')
@@ -89,42 +89,33 @@ export default async (): Promise<void> => {
       drop
       column data_source_references;
     `)
+  })
 
-    // 5. update activity log ndp format, using the UUID already stored in descriptions (step 3)
-    await DB.query(`
-      with uuids as (
-        select odp.id as odp_id
-             , coalesce(d.value -> 0 ->> 'uuid', uuid_generate_v5(uuid_nil(), concat('ndp_', odp.id))::text) as uuid
-        from ${schemaName}.original_data_point odp
-        left join ${schemaName}.descriptions d on d.section_uuid = odp.uuid and d.name = 'dataSources'
-      ),
-      data as (
-        select al.id
-             , jsonb_set(
-                 al.target,
-                 '{dataSources}',
-                 jsonb_build_array(jsonb_build_object(
-                   'uuid',      u.uuid,
+  // 5. update activity log ndp format
+  await DB.query(
+    `
+      with data as
+             (select al.id
+                   , jsonb_set(
+                       al.target
+                       , '{dataSources}'
+                       , jsonb_build_array(jsonb_build_object(
+                   'uuid', uuid_generate_v5(uuid_nil(), concat('ndp_', al.target ->> 'id'::text)),
                    'reference', al.target -> 'dataSourceReferences',
-                   'type',      al.target -> 'dataSourceMethods',
-                   'comments',  al.target -> 'dataSourceAdditionalComments'
-                 )),
-                 true
-               ) - 'dataSourceMethods' - 'dataSourceReferences' - 'dataSourceAdditionalComments' as target
-        from public.activity_log al
-        join public.assessment       a  on al.assessment_uuid = a.uuid and a.props ->> 'name' = '${assessmentName}'
-        join public.assessment_cycle ac on a.uuid = ac.assessment_uuid and al.cycle_uuid = ac.uuid and ac.name = '${cycleName}'
-        join uuids u on u.odp_id = (al.target ->> 'id')::int
-        where al.message like 'originalDataPoint%'
-          and al.target is not null
-          and al.target ? 'dataSourceReferences'
-      )
-      update public.activity_log al
+                   'type', al.target -> 'dataSourceMethods',
+                   'comments', al.target -> 'dataSourceAdditionalComments'
+                                           ))
+                       , true
+                     ) - 'dataSourceMethods' - 'dataSourceReferences' - 'dataSourceAdditionalComments' as target
+              from activity_log al
+              where message like 'originalDataPoint%'
+                and target is not null)
+      update activity_log al
       set target = data.target
       from data
       where al.id = data.id
-    `)
-  })
+    `
+  )
 
   await CacheController.generateAssessment({ assessmentName })
 }
