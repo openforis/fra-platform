@@ -1,11 +1,7 @@
-import React, { useMemo } from 'react'
-import { useTranslation } from 'react-i18next'
-
-import { DataSourceType } from 'meta/assessment/description'
-import { Objects } from 'utils/objects'
+import React from 'react'
 
 import { PropsDataSourceComponent } from 'client/components/DataSources/types'
-import Select, { Option } from 'client/components/Inputs/Select'
+import Select from 'client/components/Inputs/Select'
 import TextArea from 'client/components/Inputs/TextArea'
 
 const TextInput: React.FC<PropsDataSourceComponent> = (props) => {
@@ -20,29 +16,16 @@ const TextInput: React.FC<PropsDataSourceComponent> = (props) => {
 const SelectInput: React.FC<PropsDataSourceComponent> = (props) => {
   const { columns, dataSource, disabled, onChange } = props
 
-  const { t } = useTranslation()
-
   const _onChange = (value: string): void => {
     onChange(dataSource, 'type', value)
   }
 
-  const options = useMemo<Array<Option>>(() => {
-    if (!Objects.isEmpty(columns?.type?.options)) return columns.type.options
-
-    return Object.keys(DataSourceType).map((type) => {
-      return {
-        label: t(`dataSource.${type}`),
-        value: type,
-      }
-    })
-  }, [columns?.type?.options, t])
-
   return (
     <Select
       disabled={disabled}
-      isMulti={columns?.type?.isMulti}
+      isMulti={columns.type.isMulti}
       onChange={_onChange}
-      options={options}
+      options={columns.type.options}
       value={dataSource.type}
     />
   )

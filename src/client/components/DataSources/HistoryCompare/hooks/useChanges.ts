@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import * as Diff from 'diff'
-import { Change } from 'diff'
+import { ChangeObject } from 'diff'
 
 import { DataSourceDescription } from 'meta/assessment/description'
 import { DataSource, DataSourceHistoryCompare } from 'meta/assessment/descriptionValue/dataSource'
@@ -16,11 +16,11 @@ type Props = {
 }
 
 type Returned = {
-  comments: Array<Change>
-  reference: Array<Change>
-  type: Array<Change>
-  variables: Array<Change>
-  year: Array<Change>
+  comments: Array<ChangeObject<unknown>>
+  reference: Array<ChangeObject<unknown>>
+  type: Array<ChangeObject<unknown>>
+  variables: Array<ChangeObject<unknown>>
+  year: Array<ChangeObject<unknown>>
 }
 
 export const useChanges = (props: Props): Returned => {
@@ -31,7 +31,7 @@ export const useChanges = (props: Props): Returned => {
 
   return useMemo<Returned>(() => {
     const typeOfDataSourceText = meta?.table?.typeOfDataSourceText
-    const typeOptions = columns?.type?.options ?? []
+    const typeOptions = columns.type.options
     const variablesMeta = meta?.table?.variables ?? []
     const variablesSelect = variablesMeta.length > 0
 
@@ -39,21 +39,20 @@ export const useChanges = (props: Props): Returned => {
     const _getHtmlTextContent = (string?: string): string =>
       new DOMParser().parseFromString(string ?? '', 'text/html')?.documentElement.textContent
 
-    const _getVariablesText = (values?: Array<string>): string =>
+    const _getVariables = (values?: Array<string>): Array<string> =>
       variablesMeta
         .filter(({ variableName }) => values && values.includes(variableName))
         .map((variable) => DataSources.getVariableLabel({ variable, t }))
-        .join('\n\r')
 
-    const _getType = (dataSource: DataSource): string => {
-      if (typeOfDataSourceText) return dataSource?.type as string
-      if (!dataSource?.type) return ''
-      const types = Array.isArray(dataSource.type) ? dataSource.type : [dataSource.type as string]
-      // consistent diff lines
-      return (
-        types.map((type) => typeOptions.find((o) => o.value === type)?.label ?? t(`dataSource.${type}`)).join('\n') +
-        '\n'
-      )
+    const _getType = (dataSource: DataSource): string | Array<string> => {
+      if (typeOfDataSourceText) return dataSource?.type ?? ''
+
+      const types = Array.isArray(dataSource?.type) ? dataSource.type : [dataSource?.type ?? '']
+
+      return types.map((type) => {
+        const label = typeOptions.find((o) => o.value === type)?.label
+        return label ? String(label) : ''
+      })
     }
 
     // comments
@@ -70,20 +69,20 @@ export const useChanges = (props: Props): Returned => {
     const typeData = _getType(dataItem)
     const typeHistory = _getType(historyItem)
     const type = typeOfDataSourceText
-      ? Diff.diffChars(typeHistory ?? '', typeData ?? '')
-      : Diff.diffLines(typeHistory ?? '', typeData ?? '')
+      ? Diff.diffChars((typeHistory as string) ?? '', (typeData as string) ?? '')
+      : Diff.diffArrays((typeHistory as Array<string>) ?? [], (typeData as Array<string>) ?? [])
 
     // variables
-    const variablesData = variablesSelect ? _getVariablesText(dataItem?.variables) : dataItem?.variables?.at(0)
-    const variablesHistory = variablesSelect ? _getVariablesText(historyItem?.variables) : historyItem?.variables?.at(0)
+    const variablesData = variablesSelect ? _getVariables(dataItem?.variables) : dataItem?.variables?.at(0)
+    const variablesHistory = variablesSelect ? _getVariables(historyItem?.variables) : historyItem?.variables?.at(0)
     const variables = variablesSelect
-      ? Diff.diffLines(variablesHistory ?? '', variablesData ?? '')
-      : Diff.diffChars(variablesHistory ?? '', variablesData ?? '')
+      ? Diff.diffArrays((variablesHistory as Array<string>) ?? [], (variablesData as Array<string>) ?? [])
+      : Diff.diffChars((variablesHistory as string) ?? '', (variablesData as string) ?? '')
 
     // year
-    const yearData = dataItem?.year?.join('\n\r') ?? ''
-    const yearHistory = Array.isArray(historyItem?.year) ? historyItem.year.join(', ') : (historyItem?.year ?? '')
-    const year = Diff.diffChars(yearHistory, yearData)
+    const yearData = dataItem?.year
+    const yearHistory = Array.isArray(historyItem?.year) ? historyItem.year : [historyItem?.year]
+    const year = Diff.diffArrays(yearHistory ?? [], yearData ?? [])
 
     return { comments, reference, type, variables, year }
   }, [columns, dataItem, historyItem, meta, t])

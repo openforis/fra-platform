@@ -1,12 +1,12 @@
 import './CellDiff.scss'
 import React from 'react'
-import { Change } from 'diff'
+import { ChangeObject } from 'diff'
 
 import { DataCell } from 'client/components/DataGrid'
 import DiffText from 'client/components/DiffText'
 
 type Props = {
-  changes: Array<Change>
+  changes: Array<ChangeObject<unknown>>
   lastCol?: boolean
   lastRow: boolean
 }

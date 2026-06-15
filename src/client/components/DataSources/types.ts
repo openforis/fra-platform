@@ -18,10 +18,10 @@ export type DataSourceOnChange = (
 export type DataSourceOnDelete = (dataSource: DataSource) => void
 
 export type PropsDataSources = {
-  columns?: {
-    type?: {
+  columns: {
+    type: {
       isMulti?: boolean
-      options?: Array<Option>
+      options: Array<Option>
     }
   }
   data: DataSourcesData
