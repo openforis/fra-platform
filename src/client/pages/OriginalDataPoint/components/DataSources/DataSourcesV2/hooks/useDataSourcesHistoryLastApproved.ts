@@ -1,10 +1,10 @@
 import { useMemo } from 'react'
 
 import { DataSource, DataSourceHistoryCompare } from 'meta/assessment/descriptionValue/dataSource'
+import { DataSources } from 'meta/assessment/descriptionValue/dataSources'
 
 import { useHistoryLastApprovedIsActive } from 'client/store/data/history/hooks/lastApproved'
 import { useLastApprovedOriginalDataPoint } from 'client/store/data/history/hooks/lastApprovedOriginalDataPoint'
-import { getDataSourceHistoryCompares } from 'client/components/DataSources/_getDataSourceHistoryCompares'
 
 type Props = {
   dataSources: Array<DataSource>
@@ -24,6 +24,6 @@ export const useDataSourcesHistoryLastApproved = (props: Props): Returned => {
     const dataSourcesHistory = lastApprovedODP?.dataSources ?? []
     const dataSourcesWithoutPlaceholder = dataSources.filter((ds) => !ds.placeholder)
 
-    return getDataSourceHistoryCompares({ dataSources: dataSourcesWithoutPlaceholder, dataSourcesHistory })
+    return DataSources.getHistoryCompares({ dataSources: dataSourcesWithoutPlaceholder, dataSourcesHistory })
   }, [dataSources, historyLastApprovedIsActive, lastApprovedODP])
 }
