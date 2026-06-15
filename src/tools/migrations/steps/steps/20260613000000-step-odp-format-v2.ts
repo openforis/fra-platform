@@ -49,6 +49,18 @@ export default async (): Promise<void> => {
 
     // 3. migrate all odp data sources
     await DB.query(`
+      update  ${schemaName}.original_data_point odp
+      set data_source_methods = null
+      where odp.data_source_methods = 'null';
+
+      update  ${schemaName}.original_data_point odp
+      set data_source_references = null
+      where odp.data_source_references = 'null';
+
+      update  ${schemaName}.original_data_point odp
+      set data_source_additional_comments = null
+      where odp.data_source_additional_comments = 'null';
+
       insert into ${schemaName}.descriptions(country_iso, section_name, section_uuid, name, value)
       select odp.country_iso
            , 'nationalDataPoint' as section_name
@@ -56,11 +68,11 @@ export default async (): Promise<void> => {
            , 'dataSources'       as name
            , jsonb_build_array(jsonb_build_object(
         'uuid', uuid_generate_v4(),
-        'reference', odp.data_source_references,
-        'type', odp.data_source_methods, 'comments',
-        odp.data_source_additional_comments
+        'reference', coalesce(odp.data_source_references, ''),
+        'type', coalesce(odp.data_source_methods, jsonb_build_array()),
+        'comments', coalesce(odp.data_source_additional_comments, '')
                                ))
-        as value
+                                 as value
       from ${schemaName}.original_data_point odp`)
 
     // 4. drop odp columns

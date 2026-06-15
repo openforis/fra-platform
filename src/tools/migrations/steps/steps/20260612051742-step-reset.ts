@@ -16,6 +16,7 @@ export default async (client: BaseProtocol, fileName: string = path.basename(__f
     Logger.info('Database table migrations.steps reset completed successfully')
   } catch (error) {
     Logger.error('Error resetting database:', error)
+
     throw error
   }
 }
