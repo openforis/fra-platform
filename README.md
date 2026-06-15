@@ -67,3 +67,14 @@ Now you'll see new sql files in `src/tools/migrations/steps/steps/`.
 
 You should edit the `<timestamp-kuikka-up.ts` to contain your `create table` -statement.
 Make sure migrations can be ran twice without side effects.
+
+### Update database e2e test fixtures
+
+```shell
+ts-node src/tools/db/export.ts
+```
+
+```shell
+(cd src/tools/db && tar -czf fixtures.tar.gz fixtures && gpg --batch --yes --passphrase "$BACKUP_PASSPHRASE" --symmetric --cipher-algo AES256 -o fixtures.tar.gz.gpg fixtures.tar.gz && rm fixtures.tar.gz)
+```
+

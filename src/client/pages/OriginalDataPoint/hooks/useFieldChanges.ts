@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import * as Diff from 'diff'
-import { Change } from 'diff'
+import { ChangeObject } from 'diff'
 import type { TFunction } from 'i18next'
 
 import { Numbers } from 'utils/numbers'
@@ -11,11 +11,12 @@ import { useLastApprovedOriginalDataPoint } from 'client/store/data/history/hook
 import { ODPDiffTextProps } from 'client/pages/OriginalDataPoint/components/ODPDiffText/types'
 import { DOMs } from 'client/utils/doms'
 
-type Returned = Array<Change>
+type Returned = Array<ChangeObject<unknown>>
 
 type FormatFn = (value: string | null) => string
 
-const pathsDiffWords = ['dataSourceReferences', 'dataSourceAdditionalComments', 'description']
+const pathsDiffWords = [/^dataSources,\d+,reference$/, /^dataSources,\d+,comments$/, /^description$/]
+
 const _formatDecimalFieldFn: FormatFn = (v) => (!Objects.isEmpty(v) ? Numbers.format(v, 2) : '')
 const _formatPercentFieldFn: FormatFn = (v) => (!Objects.isEmpty(v) ? Numbers.format(v, 3) : '')
 
@@ -24,8 +25,8 @@ const formatFns: Record<ODPDiffTextProps['format'], FormatFn> = {
   percent: _formatPercentFieldFn,
 }
 
-const _getSourceMethodText = (values: Array<string> | undefined, t: TFunction): string =>
-  (values ?? [])?.map((value) => t(`nationalDataPoint.dataSourceMethodsOptions.${value}`)).join('\n\r')
+const _getSourceMethodText = (values: Array<string> | undefined, t: TFunction): Array<string> =>
+  (values ?? [])?.map((value) => t(`nationalDataPoint.dataSourceMethodsOptions.${value}`))
 
 export const useFieldChanges = (props: ODPDiffTextProps): Returned => {
   const { format, originalDataPoint, path } = props
@@ -37,15 +38,16 @@ export const useFieldChanges = (props: ODPDiffTextProps): Returned => {
     const valuePrev = Objects.getInPath(originalDataPointHistory, path)
     const valueCurrent = Objects.getInPath(originalDataPoint, path)
 
-    const isSourceMethods = path.includes('dataSourceMethods')
-    if (isSourceMethods) {
-      const multipleMethods = valueCurrent?.length > 0
+    const pathString = path.join(',')
 
+    const isSourceMethods = /^dataSources,\d+,type$/.test(pathString)
+    if (isSourceMethods) {
       const methodsPrev = _getSourceMethodText(valuePrev, t)
       const methodsCurrent = _getSourceMethodText(valueCurrent, t)
 
-      return multipleMethods ? Diff.diffLines(methodsPrev, methodsCurrent) : Diff.diffChars(methodsPrev, methodsCurrent)
+      return Diff.diffArrays(methodsPrev, methodsCurrent)
     }
+
     let textPrev = DOMs.getHtmlTextContent(valuePrev ?? '')
     let textCurrent = DOMs.getHtmlTextContent(valueCurrent ?? '')
 
@@ -55,7 +57,7 @@ export const useFieldChanges = (props: ODPDiffTextProps): Returned => {
       textCurrent = formatFn(textCurrent)
     }
 
-    if (pathsDiffWords.some((p) => path.includes(p))) {
+    if (pathsDiffWords.some((p) => p.test(pathString))) {
       return Diff.diffWords(textPrev, textCurrent, { ignoreCase: false })
     }
     return Diff.diffLines(textPrev, textCurrent)

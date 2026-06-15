@@ -103,14 +103,12 @@ export const getCreateSchemaCycleDDL = (assessmentSchemaName: string, assessment
           id                              bigserial
               constraint original_data_point_pk
                   primary key,
+          uuid   uuid  default uuid_generate_v4() not null,              
           country_iso                     varchar(3) not null
               constraint original_data_point_country_country_iso_fk
                   references country (country_iso)
                   on update cascade on delete cascade,
           year                            integer,
-          data_source_additional_comments varchar,
-          data_source_methods             jsonb,
-          data_source_references          text,
           ${ODPCommentColumns[TableNames.extentOfForest]}        text default '' not null,
           ${ODPCommentColumns[TableNames.forestCharacteristics]} text default '' not null,
           national_classes                jsonb,
@@ -121,6 +119,8 @@ export const getCreateSchemaCycleDDL = (assessmentSchemaName: string, assessment
       ALTER TABLE ${assessmentCycleSchemaName}.original_data_point
           ADD CONSTRAINT unique_country_year UNIQUE (country_iso, year);
 
+      alter table ${assessmentCycleSchemaName}.original_data_point
+          add constraint original_data_point_uuid_unique_index unique (uuid);
 
       create table ${assessmentCycleSchemaName}.country
       (
@@ -228,9 +228,10 @@ export const getCreateSchemaCycleDDL = (assessmentSchemaName: string, assessment
                   references country
                   on update cascade on delete cascade,
           section_name varchar(256)     not null,
+          section_uuid uuid,
           name         varchar(256)     not null,
           value      jsonb default '{}'::jsonb not null,
-          constraint table_name_pk_2 unique (country_iso, section_name, name)
+          constraint descriptions_unique_key unique nulls not distinct (country_iso, section_name, section_uuid, name)
       );
       
       create table ${assessmentCycleSchemaName}.node_ext
