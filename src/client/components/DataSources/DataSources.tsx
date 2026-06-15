@@ -95,9 +95,11 @@ export const DataSources: React.FC<PropsDataSources> = (props: PropsDataSources)
               historyCompares.map((historyCompare, i) => (
                 <HistoryCompare
                   key={`${String(i)}-${historyCompare.dataItem?.uuid ?? historyCompare.historyItem?.uuid}`}
+                  columns={columns}
                   historyCompare={historyCompare}
                   lastRow={i === historyCompares.length - 1}
                   meta={meta}
+                  options={options}
                 />
               ))}
 

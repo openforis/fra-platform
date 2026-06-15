@@ -1,16 +1,18 @@
 import { DataSource, DataSourceHistoryCompare } from 'meta/assessment/descriptionValue/dataSource'
+import { UUID } from 'meta/uuid/uuid'
 import { Arrays } from 'utils/arrays'
 
 type Props = {
   dataSources: Array<DataSource>
   dataSourcesHistory: Array<DataSource>
 }
-type RecordDataSources = Record<string, DataSource>
+
+type RecordDataSources = Record<UUID, DataSource>
 
 const _getRecordDataSources = (dataSources: Array<DataSource>): RecordDataSources =>
   dataSources.reduce<RecordDataSources>((acc, dataSource) => ({ ...acc, [dataSource.uuid]: dataSource }), {})
 
-export const getDataSourceHistoryCompares = (props: Props): Array<DataSourceHistoryCompare> => {
+export const getHistoryCompares = (props: Props): Array<DataSourceHistoryCompare> => {
   const { dataSources, dataSourcesHistory } = props
 
   const recordDataSources = _getRecordDataSources(dataSources)

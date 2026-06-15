@@ -12,6 +12,7 @@ import { PropsDataSources } from 'client/components/DataSources/types'
 import { useSectionContext } from 'client/pages/Section/context'
 import Title from 'client/pages/Section/Descriptions/Title'
 
+import { useColumns } from './hooks/useColumns'
 import { useDataSourcesData } from './hooks/useDataSourcesData'
 import { useDataSourcesHistoryActivities } from './hooks/useDataSourcesHistoryActivities'
 import { useDataSourcesHistoryLastApproved } from './hooks/useDataSourcesHistoryLastApproved'
@@ -31,6 +32,7 @@ const NationalDataSources: React.FC<Props> = (props) => {
 
   const { t } = useTranslation()
   const { sectionName } = useSectionContext()
+  const columns = useColumns()
   const data = useDataSourcesData({ sectionName })
   const { dataSourcesLinked } = useGetDataSourcesLinked({ meta, sectionName })
   const validator = useDataSourceValidator()
@@ -68,6 +70,7 @@ const NationalDataSources: React.FC<Props> = (props) => {
         title={t('description.dataSourcesPlus')}
       />
       <DataSources
+        columns={columns}
         data={data}
         dataSourcesLinked={dataSourcesLinked}
         historyCompares={historyCompares}

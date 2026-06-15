@@ -67,7 +67,7 @@ export default async (): Promise<void> => {
            , odp.uuid            as section_uuid
            , 'dataSources'       as name
            , jsonb_build_array(jsonb_build_object(
-        'uuid', uuid_generate_v4(),
+        'uuid', uuid_generate_v5(uuid_nil(), concat('ndp_', odp.id::text)),
         'reference', coalesce(odp.data_source_references, ''),
         'type', coalesce(odp.data_source_methods, jsonb_build_array()),
         'comments', coalesce(odp.data_source_additional_comments, '')

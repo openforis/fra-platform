@@ -1,6 +1,4 @@
 import { useMemo } from 'react'
-import { useTranslation } from 'react-i18next'
-import { TFunction } from 'i18next'
 
 import { DataSource } from 'meta/assessment/descriptionValue/dataSource'
 import { Topics } from 'meta/messageCenter/topics'
@@ -14,11 +12,10 @@ type Props = Pick<PropsDataSources, 'columns' | 'onDelete' | 'options'> & {
   readOnly: boolean
 }
 
-const getTitleType = (props: Pick<Props, 'columns' | 'dataSource'> & { t: TFunction }): string => {
-  const { columns, dataSource, t } = props
+const getTitleType = (props: Pick<Props, 'columns' | 'dataSource'>): string => {
+  const { columns, dataSource } = props
 
-  const getLabelType = (value: string): string =>
-    columns?.type?.options?.find((o) => o.value === value)?.label?.toString() ?? t(`dataSource.${dataSource.type}`)
+  const getLabelType = (value: string): string => columns.type.options.find((o) => o.value === value)?.label?.toString()
 
   if (Array.isArray(dataSource.type)) {
     return dataSource.type.map(getLabelType).join(', ')
@@ -30,8 +27,6 @@ const getTitleType = (props: Pick<Props, 'columns' | 'dataSource'> & { t: TFunct
 export const useDataSourceActions = (props: Props): Array<DataRowAction> => {
   const { columns, dataSource, onDelete, options, readOnly } = props
   const { canEdit, canReview, includeVariables, includeYears } = options
-
-  const { t } = useTranslation()
 
   return useMemo<Array<DataRowAction>>(() => {
     const actions: Array<DataRowAction> = []
@@ -46,12 +41,12 @@ export const useDataSourceActions = (props: Props): Array<DataRowAction> => {
       const title: Array<string> = []
       if (includeVariables) title.push(dataSource.variables?.join(', '))
       if (includeYears) title.push(String(dataSource.year))
-      if (Objects.isEmpty(title)) title.push(getTitleType({ columns, dataSource, t }))
+      if (Objects.isEmpty(title)) title.push(getTitleType({ columns, dataSource }))
 
       const topicKey = Topics.getDataSourceReviewTopicKey(dataSource)
       actions.push({ type: DataRowActionType.Review, title: title.join(' | '), topicKey })
     }
 
     return actions
-  }, [canEdit, canReview, columns, dataSource, includeVariables, includeYears, onDelete, readOnly, t])
+  }, [canEdit, canReview, columns, dataSource, includeVariables, includeYears, onDelete, readOnly])
 }

@@ -2,10 +2,9 @@ import { useMemo } from 'react'
 
 import { CommentableDescription, CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 import { DataSource, DataSourceHistoryCompare } from 'meta/assessment/descriptionValue/dataSource'
+import { DataSources } from 'meta/assessment/descriptionValue/dataSources'
 
 import { useHistoryActivitiesCompareItem } from 'client/store/data/history/hooks/activities'
-
-import { getDataSourceHistoryCompares } from './_getDataSourceHistoryCompares'
 
 type ActivityLogTarget = { description: CommentableDescription }
 
@@ -25,6 +24,6 @@ export const useDataSourcesHistoryActivities = (props: Props): Returned => {
 
     const dataSourcesHistory = compareItem.target?.description?.value?.dataSources ?? []
 
-    return getDataSourceHistoryCompares({ dataSources, dataSourcesHistory })
+    return DataSources.getHistoryCompares({ dataSources, dataSourcesHistory })
   }, [compareItem, dataSources])
 }
