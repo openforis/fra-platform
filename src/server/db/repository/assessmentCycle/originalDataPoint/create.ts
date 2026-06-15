@@ -35,8 +35,8 @@ export const create = async (props: Props, client: BaseProtocol = DB): Promise<O
     {
       countryIso,
       year,
-      commentsExtentOfForest: comments?.[TableNames.extentOfForest],
-      commentsForestCharacteristics: comments?.[TableNames.forestCharacteristics],
+      commentsExtentOfForest: comments?.[TableNames.extentOfForest] ?? '',
+      commentsForestCharacteristics: comments?.[TableNames.forestCharacteristics] ?? '',
       nationalClasses: nationalClasses ? JSON.stringify(nationalClasses) : '[]',
       values: values ? JSON.stringify(values) : '{}',
     }
