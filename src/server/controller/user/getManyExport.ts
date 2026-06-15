@@ -57,7 +57,6 @@ const emptyRow: Record<string, string> = {
   secondaryEmail: '',
   primaryPhoneNumber: '',
   secondaryPhoneNumber: '',
-  skype: '',
   'address.street': '',
   'address.zipCode': '',
   'address.poBox': '',
