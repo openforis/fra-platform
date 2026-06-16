@@ -1,5 +1,1 @@
-import { getManyItems } from './getManyItems'
-
-export const DashboardController = {
-  getManyItems,
-}
+export { DashboardController } from './dashboardController'
