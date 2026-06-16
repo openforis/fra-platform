@@ -2,8 +2,13 @@ import { Express } from 'express'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 
+import { ActivitiesApi } from 'server/api/cycleData/activities'
+import { ContactsApi } from 'server/api/cycleData/contacts'
+import { DashboardApi } from 'server/api/cycleData/dashboard'
 import { DescriptionsApi } from 'server/api/cycleData/descriptions'
+import { HistoryApi } from 'server/api/cycleData/history'
 import { NationalDataPointApi } from 'server/api/cycleData/nationalDataPoint'
+import { ReviewApi } from 'server/api/cycleData/review'
 import { TableDataApi } from 'server/api/cycleData/table'
 import { ExtDataApi } from 'server/api/extData'
 import { ApiContextMiddleware } from 'server/middleware/apiContext'
@@ -52,8 +57,13 @@ export const Api = {
     MetadataApi.init(express)
     UserApi.init(express)
     // cycle data apis
+    ActivitiesApi.init(express)
+    ContactsApi.init(express)
+    DashboardApi.init(express)
     DescriptionsApi.init(express)
+    HistoryApi.init(express)
     NationalDataPointApi.init(express)
+    ReviewApi.init(express)
     TableDataApi.init(express)
   },
 }
