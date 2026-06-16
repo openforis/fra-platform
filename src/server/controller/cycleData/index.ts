@@ -7,7 +7,6 @@ import { CountryActivityLogRepository } from 'server/db/repository/assessmentCyc
 import { MessageTopicUserRepository } from 'server/db/repository/assessmentCycle/messageTopicUser'
 
 import { clearTableData } from './clearTableData'
-import { Contacts } from './contact'
 import { Description } from './description'
 import { getBulkDownload } from './getBulkDownload'
 import { getLastPublishedData } from './getLastPublishedData'
@@ -47,9 +46,6 @@ export const CycleDataController = {
   getBulkDownload,
 
   // ====== node ext
-  // -- contact
-  Contacts,
-
   // -- Data
   TableData,
 
