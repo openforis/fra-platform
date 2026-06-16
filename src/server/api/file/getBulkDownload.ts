@@ -6,7 +6,7 @@ import { Lang } from 'meta/lang'
 import { Users } from 'meta/user/users'
 
 import { getReadme } from 'server/api/file/bulkDownload/getReadme'
-import { CycleDataController } from 'server/controller/cycleData'
+import { BulkDownloadController } from 'server/controller/cycleData/bulkDownload'
 import { Requests } from 'server/utils'
 import { I18n } from 'server/utils/i18n'
 import { Responses } from 'server/utils/responses'
@@ -40,7 +40,7 @@ export const getBulkDownload = async (req: Request, res: Response): Promise<void
     const includeClimaticDomain = Users.isAdministrator(user) ? req.query.includeClimaticDomain === 'true' : false
 
     const i18n = await I18n.getInstance({})
-    const files = await CycleDataController.getBulkDownload({ assessment, cycle, includeClimaticDomain, i18n })
+    const files = await BulkDownloadController.get({ assessment, cycle, includeClimaticDomain, i18n })
     const fileList = files.map(({ content, fileName }) => ({ fileName, file: getUTF8Buffer(content) }))
 
     const readmeProps = getReadmeProps(cycle.name)
