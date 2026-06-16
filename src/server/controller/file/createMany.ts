@@ -22,14 +22,12 @@ export const createMany = async (props: Props, client: BaseProtocol = DB): Promi
   return client.tx(async (t) => {
     return Promise.all(
       files.map(async (multerFile) => {
-        const fileName = multerFile.originalname
-        const file = await FileRepository.create({ ...props, fileName }, t)
+        const { originalname: fileName, size } = multerFile
+        const file = await FileRepository.create({ ...props, fileName, size }, t)
         const { uuid } = file
         const key = uuid
         const body = multerFile.buffer
         await FileStorage.File.upload({ key, body })
-
-        file.size = multerFile.size
 
         const target = { fileName, uuid }
         const message = ActivityLogMessage.fileCreate
