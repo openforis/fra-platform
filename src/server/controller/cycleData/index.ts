@@ -1,4 +1,3 @@
-import { History } from 'server/controller/cycleData/history'
 import { Links } from 'server/controller/cycleData/links'
 import { Report } from 'server/controller/cycleData/report'
 import { Repository } from 'server/controller/cycleData/repository'
@@ -17,13 +16,8 @@ export const CycleDataController = {
   getActivities: CountryActivityLogRepository.getMany,
   getActivitiesCount: CountryActivityLogRepository.getCount,
 
-  // ====== history
-  History,
-
   // bulk download
   getBulkDownload,
-
-  // ====== node ext
 
   // ====== report
   Report,

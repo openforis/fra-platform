@@ -3,7 +3,7 @@ import { Response } from 'express'
 import { CycleDataRequest } from 'meta/api/request/cycleData/cycleData'
 import { Objects } from 'utils/objects'
 
-import { CycleDataController } from 'server/controller/cycleData'
+import { HistoryController } from 'server/controller/cycleData/history'
 import { NationalDataPointController } from 'server/controller/cycleData/nationalDataPoint'
 import { Requests } from 'server/utils'
 
@@ -14,7 +14,7 @@ export const getLastApproved = async (req: Request, res: Response): Promise<void
     const { countryIso, year } = req.query
     const { assessment, cycle } = req.context
 
-    const info = await CycleDataController.History.LastApproved.getInfo({ assessment, cycle, countryIso })
+    const info = await HistoryController.LastApproved.getInfo({ assessment, cycle, countryIso })
 
     if (Objects.isNil(info)) {
       Requests.send(res, {})
