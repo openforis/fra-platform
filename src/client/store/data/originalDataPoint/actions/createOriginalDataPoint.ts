@@ -14,7 +14,7 @@ export const createOriginalDataPoint = createAsyncThunk<OriginalDataPoint, Param
     const { assessmentName, countryIso, cycleName, originalDataPoint } = props
 
     const { data } = await axios.post(
-      ApiEndPoint.CycleData.OriginalDataPoint.one(),
+      ApiEndPoint.CycleData.NationalDataPoint.one(),
       {
         originalDataPoint: ODPs.removeNationalClassPlaceHolder(originalDataPoint),
       },

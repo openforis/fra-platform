@@ -7,7 +7,7 @@ import Requests from 'server/utils/requests'
 
 type Request = CountryRequest<{ year: string }, { targetYear: string }>
 
-export const copyOriginalDataPointNationalClasses = async (req: Request, res: Response): Promise<void> => {
+export const copyNationalClasses = async (req: Request, res: Response): Promise<void> => {
   try {
     const { year } = req.query
     const { targetYear } = req.body

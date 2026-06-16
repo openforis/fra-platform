@@ -7,7 +7,7 @@ import { Requests } from 'server/utils'
 
 type Request = CycleDataRequest<{ year: string }>
 
-export const getOriginalDataPoint = async (req: Request, res: Response): Promise<void> => {
+export const getOne = async (req: Request, res: Response): Promise<void> => {
   try {
     const { countryIso, year } = req.query
     const { assessment, cycle } = req.context

@@ -7,15 +7,19 @@ import { NationalDataPointController } from 'server/controller/cycleData/nationa
 import Requests from 'server/utils/requests'
 
 type Request = CycleDataRequest<never, { originalDataPoint: OriginalDataPoint }>
-export const updateOriginalDataPointOriginalData = async (req: Request, res: Response): Promise<void> => {
+
+export const create = async (req: Request, res: Response): Promise<void> => {
   try {
     const { sectionName } = req.query
     const { originalDataPoint } = req.body
     const { assessment, country, cycle } = req.context
-    const user = Requests.getUser(req)
 
-    const propsUpdate = { assessment, cycle, sectionName, country, originalDataPoint, user }
-    const returnedOriginalDataPoint = await NationalDataPointController.updateOriginalData(propsUpdate)
+    if (!originalDataPoint.year) {
+      throw new Error(`odpMissingYear`)
+    }
+
+    const propsCreate = { assessment, cycle, country, originalDataPoint, sectionName, user: Requests.getUser(req) }
+    const returnedOriginalDataPoint = await NationalDataPointController.create(propsCreate)
 
     Requests.send(res, returnedOriginalDataPoint)
   } catch (e) {

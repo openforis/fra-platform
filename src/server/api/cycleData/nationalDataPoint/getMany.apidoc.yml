@@ -1,6 +1,6 @@
 openapi: 3.0.0
 paths:
-  /cycle-data/original-data-points:
+  /cycle-data/national-data-points:
     get:
       tags:
         - Cycle data
