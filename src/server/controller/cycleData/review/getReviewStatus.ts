@@ -7,17 +7,16 @@ import { User } from 'meta/user/user'
 import { BaseProtocol, DB } from 'server/db/db'
 import { MessageTopicUserRepository } from 'server/db/repository/assessmentCycle/messageTopicUser'
 
-export const getReviewStatus = async (
-  props: {
-    countryIso: CountryIso
-    assessment: Assessment
-    cycle: Cycle
-    sectionName: string
-    user: User
-    odpId?: string
-  },
-  client: BaseProtocol = DB
-): Promise<Array<ReviewStatus>> => {
+type Props = {
+  countryIso: CountryIso
+  assessment: Assessment
+  cycle: Cycle
+  sectionName: string
+  user: User
+  odpId?: string
+}
+
+export const getReviewStatus = async (props: Props, client: BaseProtocol = DB): Promise<Array<ReviewStatus>> => {
   const { odpId } = props
 
   return odpId
