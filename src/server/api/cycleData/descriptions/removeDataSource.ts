@@ -3,7 +3,7 @@ import { Response } from 'express'
 import { CycleDataRequest } from 'meta/api/request/cycleData/cycleData'
 import { Sockets } from 'meta/socket/sockets'
 
-import { CycleDataController } from 'server/controller/cycleData'
+import { DescriptionController } from 'server/controller/cycleData/description'
 import { SocketServer } from 'server/service/socket'
 import Requests from 'server/utils/requests'
 
@@ -17,7 +17,7 @@ export const removeDataSource = async (req: Request, res: Response): Promise<voi
     const { countryIso } = country
 
     const propsDelete = { assessment, cycle, country, sectionName, uuid, user }
-    await CycleDataController.Description.removeDataSource(propsDelete)
+    await DescriptionController.removeDataSource(propsDelete)
 
     SocketServer.emit(Sockets.getRequestReviewSummaryEvent({ assessmentName, cycleName, countryIso }))
 
