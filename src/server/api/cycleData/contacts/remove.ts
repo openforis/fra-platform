@@ -3,7 +3,7 @@ import { Response } from 'express'
 import { CycleDataRequest } from 'meta/api/request/cycleData/cycleData'
 import { Sockets } from 'meta/socket/sockets'
 
-import { CycleDataController } from 'server/controller/cycleData'
+import { ContactController } from 'server/controller/cycleData/contact'
 import { SocketServer } from 'server/service/socket'
 import Requests from 'server/utils/requests'
 
@@ -18,7 +18,7 @@ export const removeContact = async (req: CycleDataRequest<never, Body>, res: Res
     const { assessmentName, countryIso, cycleName, sectionName, uuid } = req.query
 
     const props = { assessment, cycle, countryIso, sectionName, user, uuid }
-    await CycleDataController.Contacts.remove(props)
+    await ContactController.remove(props)
 
     SocketServer.emit(Sockets.getRequestReviewSummaryEvent({ assessmentName, cycleName, countryIso }))
 

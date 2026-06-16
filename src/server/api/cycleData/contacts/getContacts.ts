@@ -3,7 +3,7 @@ import { Response } from 'express'
 import { CycleDataRequest } from 'meta/api/request/cycleData/cycleData'
 import { NodeExtType } from 'meta/nodeExt/nodeExt'
 
-import { CycleDataController } from 'server/controller/cycleData'
+import { ContactController } from 'server/controller/cycleData/contact'
 import Requests from 'server/utils/requests'
 
 export const getContacts = async (req: CycleDataRequest, res: Response): Promise<void> => {
@@ -13,7 +13,7 @@ export const getContacts = async (req: CycleDataRequest, res: Response): Promise
     const { countryIso, sectionName } = req.query
     const props = { assessment, cycle, countryIso, sectionName, user, type: NodeExtType.contact }
 
-    const contacts = await CycleDataController.Contacts.getMany(props)
+    const contacts = await ContactController.getMany(props)
 
     Requests.send(res, contacts)
   } catch (e) {

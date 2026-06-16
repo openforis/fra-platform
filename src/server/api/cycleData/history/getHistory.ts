@@ -2,7 +2,7 @@ import { Response } from 'express'
 
 import { TablePaginatedDataRequest } from 'meta/api/request/tablePaginated'
 
-import { CycleDataController } from 'server/controller/cycleData'
+import { HistoryController } from 'server/controller/cycleData/history'
 import Requests from 'server/utils/requests'
 
 export const getHistory = async (req: TablePaginatedDataRequest, res: Response): Promise<void> => {
@@ -12,7 +12,7 @@ export const getHistory = async (req: TablePaginatedDataRequest, res: Response):
     const { target } = req.params
 
     const props = { assessment, cycle, countryIso, sectionName, target, limit, offset }
-    const history = await CycleDataController.History.Activities.getHistoryActivities(props)
+    const history = await HistoryController.Activities.getHistoryActivities(props)
 
     Requests.send(res, history)
   } catch (e) {

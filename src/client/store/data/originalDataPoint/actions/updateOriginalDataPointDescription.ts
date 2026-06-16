@@ -1,12 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
-import { Functions } from 'utils/functions'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CountryParams } from 'meta/api/request/country'
 import { CountryIso } from 'meta/area/countryIso'
 import { ODPs } from 'meta/assessment/odps'
 import { OriginalDataPoint, OriginalDataPointCommentKey } from 'meta/assessment/originalDataPoint'
+import { Functions } from 'utils/functions'
 
 type Props = CountryParams & {
   countryIso: CountryIso
@@ -24,7 +24,7 @@ const putOriginalDataPointDescription = Functions.debounce(
       field,
       originalDataPoint: ODPs.removeNationalClassPlaceHolder(originalDataPoint),
     }
-    await axios.put(ApiEndPoint.CycleData.OriginalDataPoint.description(), data, config)
+    await axios.put(ApiEndPoint.CycleData.NationalDataPoint.description(), data, config)
   },
   1000,
   'updateOriginalDataPointDescription'

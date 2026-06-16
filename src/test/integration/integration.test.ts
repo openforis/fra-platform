@@ -1,8 +1,8 @@
 import 'dotenv/config'
 
 import { RedisData } from 'server/cache/repository/redisData'
-import { UpdateDependenciesQueueFactory } from 'server/controller/cycleData/updateDependencies/queueFactory'
-import { WorkerFactory } from 'server/controller/cycleData/updateDependencies/workerFactory'
+import { UpdateDependenciesQueueFactory } from 'server/controller/cycleData/tableData/updateDependencies/queueFactory'
+import { WorkerFactory } from 'server/controller/cycleData/tableData/updateDependencies/workerFactory'
 import { DB } from 'server/db/db'
 import { VisitCycleLinksQueueFactory } from 'server/worker/tasks/verifyLinks/visitCycleLinks/queueFactory'
 import { WorkerFactory as VisitLinksWorkerFactory } from 'server/worker/tasks/verifyLinks/visitCycleLinks/workerFactory'
