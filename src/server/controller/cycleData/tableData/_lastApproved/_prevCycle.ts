@@ -1,12 +1,11 @@
-import { Objects } from 'utils/objects'
-
 import { TableName } from 'meta/assessment/table'
 import { HistoryLastApprovedInfo } from 'meta/cycleData/history/lastApproved'
 import { RecordAssessmentData } from 'meta/data/recordData'
 import { RecordAssessmentDatas } from 'meta/data/recordDatas'
+import { Objects } from 'utils/objects'
 
 import { TableRedisRepository } from 'server/cache/repository/table'
-import { getTableData } from 'server/controller/cycleData/getTableData'
+import { getData } from 'server/controller/cycleData/tableData/getData'
 import { PropsGetTableData } from 'server/controller/cycleData/tableData/props'
 import { BaseProtocol, DB } from 'server/db/db'
 
@@ -30,7 +29,7 @@ export const getTableDataPrevCycle = async (props: Props, client: BaseProtocol =
     )
 
     if (!Objects.isEmpty(tableNamesPrevCycle)) {
-      const data = await getTableData({ ...props, tableNames: tableNamesPrevCycle, mergeOdp, cycle: prevCycle }, client)
+      const data = await getData({ ...props, tableNames: tableNamesPrevCycle, mergeOdp, cycle: prevCycle }, client)
 
       // replace prev cycle entry key with current cycle
       return {

@@ -9,7 +9,7 @@ import { DBService } from 'tools/db/service'
 import { ToolsUtils } from 'tools/utils/toolsUtils'
 
 import { AssessmentController } from 'server/controller/assessment'
-import { TableData } from 'server/controller/cycleData/tableData'
+import { TableDataController } from 'server/controller/cycleData/tableData'
 import { DB } from 'server/db/db'
 import { AssessmentRepository } from 'server/db/repository/assessment/assessment'
 import { getCreateOrReplaceViewCountryUserSummary } from 'server/db/repository/assessment/assessment/getCreateSchemaDDL'
@@ -55,7 +55,7 @@ const exec = async (): Promise<void> => {
     await Promise.all(
       assessments.flatMap((assessment) =>
         assessment.cycles.map(async (cycle) => {
-          await TableData.refreshViews({ assessment, cycle }, t)
+          await TableDataController.refreshViews({ assessment, cycle }, t)
           await t.query(getCreateOrReplaceViewCountryUserSummary({ assessment, cycle }))
         })
       )

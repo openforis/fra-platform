@@ -9,7 +9,7 @@ import { User } from 'meta/user/user'
 import { DataRedisRepository } from 'server/cache/repository/data'
 import { getVariables } from 'server/controller/cycleData/nationalDataPoint/getVariables'
 import { notifyClientUpdate } from 'server/controller/cycleData/nationalDataPoint/updateDependants/notifyClientUpdate'
-import { updateDependents } from 'server/controller/cycleData/updateDependencies/updateDependents'
+import { updateDependents } from 'server/controller/cycleData/tableData/updateDependencies/updateDependents'
 import { BaseProtocol } from 'server/db/db'
 
 type Props = {

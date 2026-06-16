@@ -7,7 +7,7 @@ import { Table, TableNames } from 'meta/assessment/table'
 import { RecordAssessmentDatas } from 'meta/data/recordDatas'
 import { UUIDs } from 'meta/uuid/uuids'
 
-import { CycleDataController } from 'server/controller/cycleData'
+import { TableDataController } from 'server/controller/cycleData/tableData'
 import { MetadataController } from 'server/controller/metadata'
 import { EstimationEngine, GenerateSpec, GenerateSpecMethod } from 'server/service/estimates/estimationEngine'
 import Requests from 'server/utils/requests'
@@ -44,7 +44,7 @@ export const estimateValues = async (req: CycleDataRequest<never, EstimateBody>,
     const tableNameOdp = TableNames.originalDataPointValue
     const [table, data] = await Promise.all([
       MetadataController.getTable({ assessment, cycle, tableName }),
-      CycleDataController.getTableData({ assessment, cycle, countryISOs: [countryIso], tableNames: [tableNameOdp] }),
+      TableDataController.getData({ assessment, cycle, countryISOs: [countryIso], tableNames: [tableNameOdp] }),
     ])
 
     const propsTableData = { assessmentName, cycleName, countryIso, tableName: tableNameOdp, data }
@@ -82,7 +82,7 @@ export const estimateValues = async (req: CycleDataRequest<never, EstimateBody>,
     )
 
     if (nodes.length) {
-      await CycleDataController.persistNodeValuesEstimated({
+      await TableDataController.persistNodeValuesEstimated({
         assessment,
         cycle,
         country,
@@ -93,7 +93,7 @@ export const estimateValues = async (req: CycleDataRequest<never, EstimateBody>,
       })
     }
 
-    const nodeValueEstimations = await CycleDataController.getNodeValuesEstimations({
+    const nodeValueEstimations = await TableDataController.getNodeValuesEstimations({
       assessment,
       countryIso,
       cycle,

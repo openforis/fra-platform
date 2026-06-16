@@ -4,7 +4,7 @@ import { CycleDataRequest } from 'meta/api/request/cycleData/cycleData'
 import { CountryIso } from 'meta/area/countryIso'
 import { RegionCode } from 'meta/area/regionCode'
 
-import { CycleDataController } from 'server/controller/cycleData'
+import { TableDataController } from 'server/controller/cycleData/tableData'
 import Requests from 'server/utils/requests'
 
 type GetTableDataRequest = CycleDataRequest<{
@@ -24,7 +24,7 @@ export const getTableData = async (req: GetTableDataRequest, res: Response): Pro
     const mergeOdp = !mergeOdpReq || mergeOdpReq === 'true'
 
     // When fetching data for regions, use getAggregatedTableData
-    const getData = regionCode ? CycleDataController.TableData.getAggregatedTableData : CycleDataController.getTableData
+    const getData = regionCode ? TableDataController.getAggregatedData : TableDataController.getData
 
     const props = { assessment, cycle, regionCode, countryISOs, tableNames, variables, columns, mergeOdp }
     const table = await getData(props)

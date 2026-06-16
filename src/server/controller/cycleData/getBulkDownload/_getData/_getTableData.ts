@@ -3,8 +3,8 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { RecordAssessmentData } from 'meta/data/recordData'
 
-import { getLastPublishedData } from 'server/controller/cycleData/getLastPublishedData'
-import { getTableData } from 'server/controller/cycleData/getTableData'
+import { getData } from 'server/controller/cycleData/tableData/getData'
+import { getLastPublishedData } from 'server/controller/cycleData/tableData/getLastPublishedData'
 
 type Props = {
   assessment: Assessment
@@ -21,5 +21,5 @@ export const _getTableData = async (props: Props): Promise<RecordAssessmentData>
     return getLastPublishedData({ assessment, countryISOs, tableNames })
   }
 
-  return getTableData({ assessment, countryISOs, cycle, mergeOdp: true, tableNames })
+  return getData({ assessment, countryISOs, cycle, mergeOdp: true, tableNames })
 }
