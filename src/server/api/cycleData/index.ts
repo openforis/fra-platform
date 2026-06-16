@@ -1,6 +1,4 @@
 import { Express } from 'express'
-// @ts-ignore
-import queue from 'express-queue'
 import multer from 'multer'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
@@ -24,11 +22,6 @@ import { createContact } from './contacts/create'
 import { getContacts } from './contacts/getContacts'
 import { removeContact } from './contacts/remove'
 import { updateContact } from './contacts/update'
-import { getDataSources } from './descriptions/getDataSources'
-import { getDescription } from './descriptions/getDescription'
-import { getDescriptionsHistory } from './descriptions/getDescriptionsHistory'
-import { removeDataSource } from './descriptions/removeDataSource'
-import { upsertDescription } from './descriptions/upsertDescription'
 import { createRepositoryItem } from './repository/createRepositoryItem'
 import { getManyRepository } from './repository/getManyRepository'
 import { getManyRepositoryFiles } from './repository/getManyRepositoryFiles'
@@ -38,48 +31,9 @@ import { removeRepositoryItem } from './repository/removeRepositoryItem'
 import { updateRepositoryItem } from './repository/updateRepositoryItem'
 import { getReviewStatus } from './review/getReviewStatus'
 import { getReviewSummary } from './review/getReviewSummary'
-import { clearTable } from './table/clearTable'
-import { estimateValues } from './table/estimateValues'
-import { getNodeValuesEstimations } from './table/getNodeValuesEstimations'
-import { getTableData } from './table/getTableData'
-import { getTableDataHistory } from './table/getTableDataHistory'
-import { persistNodeValues } from './table/persistNodeValues'
 
 export const CycleDataApi = {
   init: (express: Express): void => {
-    // Table
-    express.get(ApiEndPoint.CycleData.Table.tableData(), AuthMiddleware.requireView, getTableData)
-    express.get(ApiEndPoint.CycleData.Table.tableDataHistory(), AuthMiddleware.requireViewHistory, getTableDataHistory)
-    express.get(
-      ApiEndPoint.CycleData.Table.nodeValuesEstimations(),
-      AuthMiddleware.requireEditTableData,
-      getNodeValuesEstimations
-    )
-    express.patch(ApiEndPoint.CycleData.Table.nodes(), AuthMiddleware.requireEditTableData, persistNodeValues)
-    express.post(
-      ApiEndPoint.CycleData.Table.estimate(),
-      queue({ activeLimit: 1 }),
-      AuthMiddleware.requireEditTableData,
-      estimateValues
-    )
-    express.post(ApiEndPoint.CycleData.Table.tableClear(), AuthMiddleware.requireEditTableData, clearTable)
-
-    // Descriptions
-    express.get(ApiEndPoint.CycleData.Descriptions.many(), AuthMiddleware.requireView, getDescription)
-    express.get(ApiEndPoint.CycleData.Descriptions.history(), AuthMiddleware.requireViewHistory, getDescriptionsHistory)
-    express.put(ApiEndPoint.CycleData.Descriptions.many(), AuthMiddleware.requireEditDescriptions, upsertDescription)
-    express.get(ApiEndPoint.CycleData.Descriptions.DataSources.many(), AuthMiddleware.requireView, getDataSources)
-    express.delete(
-      ApiEndPoint.CycleData.Descriptions.DataSources.one(),
-      AuthMiddleware.requireEditDescriptions,
-      removeDataSource
-    )
-
-    // OriginalDataPoints
-
-    // Print
-    // PrintApi.init(express)
-
     // Review
     express.get(ApiEndPoint.CycleData.Review.status(), AuthMiddleware.requireView, getReviewStatus)
     express.get(ApiEndPoint.CycleData.Review.summary(), AuthMiddleware.requireView, getReviewSummary)
