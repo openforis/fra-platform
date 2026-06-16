@@ -1,1 +1,1 @@
-export const fieldsFileSummary = ['id', 'name', 'uuid', 'created_at']
+export const fieldsFileSummary = ['id', 'name', 'size', 'uuid', 'created_at']
