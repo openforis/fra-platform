@@ -4,7 +4,7 @@ import { Cycle } from 'meta/assessment/cycle'
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 import { SectionNames } from 'meta/assessment/section'
 
-import { BulkDownloadODPData } from 'server/controller/cycleData/getBulkDownload/types'
+import { BulkDownloadODPData } from 'server/controller/cycleData/bulkDownload/types'
 import { BaseProtocol, DB } from 'server/db/db'
 import { Schemas } from 'server/db/schemas'
 

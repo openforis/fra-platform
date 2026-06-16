@@ -2,7 +2,7 @@ import { Response } from 'express'
 
 import { CountryRequest } from 'meta/api/request/country'
 
-import { CycleDataController } from 'server/controller/cycleData'
+import { RepositoryController } from 'server/controller/cycleData/repository'
 import Requests from 'server/utils/requests'
 import { Responses } from 'server/utils/responses'
 
@@ -15,7 +15,7 @@ export const getManyRepositoryFiles = async (req: Request, res: Response): Promi
 
     const isGlobal = JSON.parse(global)
     const props = { assessment, cycle, countryIso, global: isGlobal }
-    const files = await CycleDataController.Repository.getManyFiles(props)
+    const files = await RepositoryController.getManyFiles(props)
 
     const zipName = `repository_${isGlobal ? 'global' : countryIso}`
     await Responses.sendZip(res, files, zipName)

@@ -4,7 +4,7 @@ import { TablePaginatedDataRequest } from 'meta/api/request/tablePaginated'
 import { LinksFilters } from 'meta/tablePaginated/filters/links'
 import { TablePaginateds } from 'meta/tablePaginated/tablePaginateds'
 
-import { CycleDataController } from 'server/controller/cycleData'
+import { LinksController } from 'server/controller/cycleData/links'
 import Requests from 'server/utils/requests'
 
 export const getManyLinks = async (req: TablePaginatedDataRequest, res: Response): Promise<void> => {
@@ -20,7 +20,7 @@ export const getManyLinks = async (req: TablePaginatedDataRequest, res: Response
     const filters = countryIso ? { ...decodedFilters, countries: [countryIso] } : decodedFilters
     const props = { assessment, cycle, filters, limit, offset, orderBy, orderByDirection }
 
-    const links = await CycleDataController.Links.getMany(props)
+    const links = await LinksController.getMany(props)
 
     Requests.send(res, links)
   } catch (e) {

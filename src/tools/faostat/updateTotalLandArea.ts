@@ -11,7 +11,7 @@ import { Promises } from 'utils/promises'
 
 import { DataRedisRepository } from 'server/cache/repository/data'
 import { AreaController } from 'server/controller/area'
-import { updateDependents } from 'server/controller/cycleData/updateDependencies/updateDependents'
+import { updateDependents } from 'server/controller/cycleData/tableData/updateDependencies/updateDependents'
 import { BaseProtocol } from 'server/db/db'
 import { ActivityLogDb, ActivityLogRepository } from 'server/db/repository/public/activityLog'
 import { Schemas } from 'server/db/schemas'
