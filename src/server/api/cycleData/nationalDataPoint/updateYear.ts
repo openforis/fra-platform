@@ -7,7 +7,7 @@ import Requests from 'server/utils/requests'
 
 type Request = CountryRequest<never, { id: string; year: string; targetYear: string }>
 
-export const updateOriginalDataPointYear = async (req: Request, res: Response): Promise<void> => {
+export const updateYear = async (req: Request, res: Response): Promise<void> => {
   try {
     const { sectionName } = req.query
     const { id, targetYear, year } = req.body

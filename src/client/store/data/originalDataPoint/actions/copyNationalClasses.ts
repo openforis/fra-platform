@@ -17,7 +17,7 @@ export const copyNationalClasses = createAsyncThunk<OriginalDataPoint, Props>(
     const config = { params }
     const data = { targetYear }
     const { data: originalDataPoint } = await axios.put(
-      ApiEndPoint.CycleData.OriginalDataPoint.copyNationalClasses(),
+      ApiEndPoint.CycleData.NationalDataPoint.copyNationalClasses(),
       data,
       config
     )

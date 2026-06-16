@@ -7,7 +7,7 @@ import Requests from 'server/utils/requests'
 
 type Request = CountryRequest<{ year: string }>
 
-export const deleteOriginalDataPoint = async (req: Request, res: Response): Promise<void> => {
+export const remove = async (req: Request, res: Response): Promise<void> => {
   try {
     const { countryIso, year } = req.query
     const { assessment, country, cycle } = req.context

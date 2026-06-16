@@ -13,7 +13,7 @@ type Returned = OriginalDataPoint
 export const getOriginalDataPointHistory = createAsyncThunk<Returned, Props>(
   'data/history/originalDataPoint/get',
   async ({ assessmentName, countryIso, cycleName, sectionName, year }) => {
-    const { data } = await axios.get(ApiEndPoint.CycleData.OriginalDataPoint.history(), {
+    const { data } = await axios.get(ApiEndPoint.CycleData.NationalDataPoint.history(), {
       params: {
         assessmentName,
         countryIso,

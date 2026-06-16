@@ -7,7 +7,7 @@ import Requests from 'server/utils/requests'
 
 type Request = CountryRequest<never, { id: string; index: number }>
 
-export const deleteOriginalDataPointNationalClass = async (req: Request, res: Response): Promise<void> => {
+export const deleteNationalClass = async (req: Request, res: Response): Promise<void> => {
   try {
     const { index, odpId: id } = req.query
     const user = Requests.getUser(req)

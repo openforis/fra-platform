@@ -2,6 +2,7 @@ import { Express } from 'express'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 
+import { NationalDataPointApi } from 'server/api/cycleData/nationalDataPoint'
 import { ExtDataApi } from 'server/api/extData'
 import { ApiContextMiddleware } from 'server/middleware/apiContext'
 import Requests from 'server/utils/requests'
@@ -35,18 +36,20 @@ export const Api = {
 
     // init all endpoints
     AuthApi.init(express)
-    InitApi.init(express)
     AdminApi.init(express)
     AreaApi.init(express)
     CycleDataApi.init(express)
     DefinitionApi.init(express)
+    ExplorerApi.init(express)
     ExtDataApi.init(express)
     FileApi.init(express)
-    UserApi.init(express)
+    GeoApi.init(express)
+    InitApi.init(express)
+    KioskApi.init(express)
     MessageCenterApi.init(express)
     MetadataApi.init(express)
-    GeoApi.init(express)
-    KioskApi.init(express)
-    ExplorerApi.init(express)
+    UserApi.init(express)
+    // cycle data apis
+    NationalDataPointApi.init(express)
   },
 }

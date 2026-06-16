@@ -8,7 +8,7 @@ import Requests from 'server/utils/requests'
 
 type Request = CountryRequest<never, { originalDataPoint: OriginalDataPoint }>
 
-export const updateOriginalDataPointNationalClasses = async (req: Request, res: Response): Promise<void> => {
+export const updateNationalClasses = async (req: Request, res: Response): Promise<void> => {
   try {
     const { originalDataPoint } = req.body
     const user = Requests.getUser(req)
