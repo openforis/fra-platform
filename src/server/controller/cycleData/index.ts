@@ -5,7 +5,6 @@ import { Repository } from 'server/controller/cycleData/repository'
 import { CountryActivityLogRepository } from 'server/db/repository/assessmentCycle/countryActivityLog'
 import { MessageTopicUserRepository } from 'server/db/repository/assessmentCycle/messageTopicUser'
 
-import { getBulkDownload } from './getBulkDownload'
 import { getReviewStatus } from './getReviewStatus'
 
 export const CycleDataController = {
@@ -19,9 +18,6 @@ export const CycleDataController = {
 
   // ====== history
   History,
-
-  // bulk download
-  getBulkDownload,
 
   // ====== node ext
 
