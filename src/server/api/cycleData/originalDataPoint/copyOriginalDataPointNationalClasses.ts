@@ -2,7 +2,7 @@ import { Response } from 'express'
 
 import { CountryRequest } from 'meta/api/request/country'
 
-import { CycleDataController } from 'server/controller/cycleData'
+import { NationalDataPointController } from 'server/controller/cycleData/nationalDataPoint'
 import Requests from 'server/utils/requests'
 
 type Request = CountryRequest<{ year: string }, { targetYear: string }>
@@ -15,9 +15,7 @@ export const copyOriginalDataPointNationalClasses = async (req: Request, res: Re
     const user = Requests.getUser(req)
 
     const copyNationalClassesProps = { assessment, cycle, country, year, targetYear, user }
-    const returnedOriginalDataPoint = await CycleDataController.copyOriginalDataPointNationalClasses(
-      copyNationalClassesProps
-    )
+    const returnedOriginalDataPoint = await NationalDataPointController.copyNationalClasses(copyNationalClassesProps)
 
     Requests.send(res, returnedOriginalDataPoint)
   } catch (e) {

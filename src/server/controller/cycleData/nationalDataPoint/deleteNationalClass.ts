@@ -2,6 +2,7 @@ import { Country } from 'meta/area/country'
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
+import { ODPs } from 'meta/assessment/odps'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { User } from 'meta/user/user'
 
@@ -16,49 +17,36 @@ type Props = {
   assessment: Assessment
   cycle: Cycle
   country: Country
-  originalDataPoint: OriginalDataPoint
+  id: string
+  index: number
   user: User
-  sectionName: string
 }
 
-export const updateOriginalDataPointOriginalData = async (
-  props: Props,
-  client: BaseProtocol = DB
-): Promise<OriginalDataPoint> => {
-  const { assessment, country, cycle, originalDataPoint, sectionName, user } = props
-  const { countryIso } = originalDataPoint
+export const deleteNationalClass = async (props: Props, client: BaseProtocol = DB): Promise<OriginalDataPoint> => {
+  const { assessment, country, cycle, id, index, user } = props
 
   return client.tx(async (t) => {
+    const originalDataPoint = await OriginalDataPointRepository.deleteNationalClass({ assessment, cycle, id, index }, t)
     const updatedOriginalDataPoint = await OriginalDataPointRepository.updateOriginalData(
-      { assessment, cycle, originalDataPoint },
+      { assessment, cycle, originalDataPoint: ODPs.calculateValues(originalDataPoint) },
       t
     )
 
-    const activityLog = {
-      target: updatedOriginalDataPoint,
-      section: 'odp',
-      message: ActivityLogMessage.originalDataPointUpdateOriginalData,
-      countryIso,
-      user,
-    }
+    const message = ActivityLogMessage.originalDataPointUpdateNationalClasses
+    const { countryIso } = updatedOriginalDataPoint
+    const section = 'odp'
+    const activityLog = { target: updatedOriginalDataPoint, section, message, countryIso, user }
     const { time: lastUpdateTimestamp } = await ActivityLogRepository.insertActivityLog(
       { activityLog, assessment, cycle },
       t
     )
+
     await CountryService.updateLastEdit({ assessment, cycle, country, user, lastEditOdp: true, lastUpdateTimestamp }, t)
 
     await updateOriginalDataPointDependentNodes(
-      {
-        assessment,
-        cycle,
-        country,
-        sectionName,
-        originalDataPoint: updatedOriginalDataPoint,
-        user,
-      },
+      { assessment, cycle, country, originalDataPoint: updatedOriginalDataPoint, user },
       t
     )
-
     return updatedOriginalDataPoint
   })
 }

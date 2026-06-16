@@ -1,22 +1,11 @@
 import { History } from 'server/controller/cycleData/history'
 import { Links } from 'server/controller/cycleData/links'
-import { deleteOriginalDataPointNationalClass } from 'server/controller/cycleData/originalDataPoint/deleteOriginalDataPointNationalClass'
 import { Report } from 'server/controller/cycleData/report'
 import { Repository } from 'server/controller/cycleData/repository'
 import { TableData } from 'server/controller/cycleData/tableData'
 import { CountryActivityLogRepository } from 'server/db/repository/assessmentCycle/countryActivityLog'
 import { MessageTopicUserRepository } from 'server/db/repository/assessmentCycle/messageTopicUser'
-import { OriginalDataPointRepository } from 'server/db/repository/assessmentCycle/originalDataPoint'
 
-import { copyOriginalDataPointNationalClasses } from './originalDataPoint/copyOriginalDataPointNationalClasses'
-import { createOriginalDataPoint } from './originalDataPoint/createOriginalDataPoint'
-import { getOriginalDataPointLastApproved } from './originalDataPoint/getOriginalDataPointLastApproved'
-import { removeOriginalDataPoint } from './originalDataPoint/removeOriginalDataPoint'
-import { updateOriginalDataPointDataSources } from './originalDataPoint/updateOriginalDataPointDataSources'
-import { updateOriginalDataPointDescription } from './originalDataPoint/updateOriginalDataPointDescription'
-import { updateOriginalDataPointNationalClasses } from './originalDataPoint/updateOriginalDataPointNationalClasses'
-import { updateOriginalDataPointOriginalData } from './originalDataPoint/updateOriginalDataPointOriginalData'
-import { updateOriginalDataPointYear } from './originalDataPoint/updateOriginalDataPointYear'
 import { clearTableData } from './clearTableData'
 import { Contacts } from './contact'
 import { Description } from './description'
@@ -39,27 +28,6 @@ export const CycleDataController = {
   clearTableData,
   getLastPublishedData,
   getTableData,
-
-  // ===== original data point
-  createOriginalDataPoint,
-  getOriginalDataPoint: OriginalDataPointRepository.getOne,
-  getOriginalDataPointLastApproved,
-  getOriginalDataPointReservedYears: OriginalDataPointRepository.getReservedYears,
-  getOriginalDataPoints: OriginalDataPointRepository.getMany,
-  removeOriginalDataPoint,
-
-  // data
-  updateOriginalDataPointOriginalData,
-  // data sources
-  updateOriginalDataPointDataSources,
-  // description
-  updateOriginalDataPointDescription,
-  // national classes
-  copyOriginalDataPointNationalClasses,
-  deleteOriginalDataPointNationalClass,
-  updateOriginalDataPointNationalClasses,
-  // year
-  updateOriginalDataPointYear,
 
   // ===== review
   getReviewStatus,

@@ -2,7 +2,7 @@ import { Response } from 'express'
 
 import { CountryRequest } from 'meta/api/request/country'
 
-import { CycleDataController } from 'server/controller/cycleData'
+import { NationalDataPointController } from 'server/controller/cycleData/nationalDataPoint'
 import { Requests } from 'server/utils'
 
 export const getReservedYears = async (req: CountryRequest, res: Response): Promise<void> => {
@@ -10,7 +10,7 @@ export const getReservedYears = async (req: CountryRequest, res: Response): Prom
     const { countryIso } = req.query
     const { assessment, cycle } = req.context
 
-    const reservedYears = await CycleDataController.getOriginalDataPointReservedYears({ assessment, cycle, countryIso })
+    const reservedYears = await NationalDataPointController.getReservedYears({ assessment, cycle, countryIso })
 
     Requests.send(res, reservedYears)
   } catch (err) {

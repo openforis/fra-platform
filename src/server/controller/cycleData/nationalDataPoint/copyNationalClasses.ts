@@ -22,10 +22,7 @@ type Props = {
   user: User
 }
 
-export const copyOriginalDataPointNationalClasses = async (
-  props: Props,
-  client: BaseProtocol = DB
-): Promise<OriginalDataPoint> => {
+export const copyNationalClasses = async (props: Props, client: BaseProtocol = DB): Promise<OriginalDataPoint> => {
   const { assessment, country, cycle, targetYear, user, year } = props
   const { countryIso } = country
 

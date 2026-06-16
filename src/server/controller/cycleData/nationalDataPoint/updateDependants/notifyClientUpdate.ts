@@ -8,7 +8,7 @@ import { RecordAssessmentDatas } from 'meta/data/recordDatas'
 import { Sockets } from 'meta/socket/sockets'
 
 import { getTableData } from 'server/controller/cycleData/getTableData'
-import { getOriginalDataPointVariables } from 'server/controller/cycleData/originalDataPoint/getOriginalDataPointVariables'
+import { getVariables } from 'server/controller/cycleData/nationalDataPoint/getVariables'
 import { SocketServer } from 'server/service/socket'
 
 type Props = {
@@ -31,7 +31,7 @@ export const notifyClientUpdate = async (props: Props): Promise<void> => {
   const countryISOs = [countryIso]
   const tableNames = [TableNames.extentOfForest, TableNames.forestCharacteristics]
   const data = await getTableData({ assessment, cycle, countryISOs, tableNames, mergeOdp: true })
-  const originalDataPointVariables = getOriginalDataPointVariables({ cycle, sectionName })
+  const originalDataPointVariables = getVariables({ cycle, sectionName })
 
   // send originalDataPointValue table updates to client via websocket
   const propsEvent = { countryIso, assessmentName, cycleName }

@@ -2,7 +2,7 @@ import { Response } from 'express'
 
 import { CountryRequest } from 'meta/api/request/country'
 
-import { CycleDataController } from 'server/controller/cycleData'
+import { NationalDataPointController } from 'server/controller/cycleData/nationalDataPoint'
 import Requests from 'server/utils/requests'
 
 type Request = CountryRequest<never, { id: string; year: string; targetYear: string }>
@@ -16,7 +16,7 @@ export const updateOriginalDataPointYear = async (req: Request, res: Response): 
     const user = Requests.getUser(req)
     const propsUpdate = { assessment, cycle, sectionName, country, id, year, targetYear, user }
 
-    const returnedOriginalDataPoint = await CycleDataController.updateOriginalDataPointYear(propsUpdate)
+    const returnedOriginalDataPoint = await NationalDataPointController.updateYear(propsUpdate)
 
     Requests.send(res, returnedOriginalDataPoint)
   } catch (e) {

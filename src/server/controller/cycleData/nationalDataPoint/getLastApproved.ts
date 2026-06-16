@@ -1,10 +1,9 @@
-import { Objects } from 'utils/objects'
-
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { HistoryLastApprovedInfo } from 'meta/cycleData/history/lastApproved'
+import { Objects } from 'utils/objects'
 
 import { OriginalDataPointRepository } from 'server/db/repository/assessmentCycle/originalDataPoint'
 
@@ -16,7 +15,7 @@ type Props = {
   year: string
 }
 
-export const getOriginalDataPointLastApproved = async (props: Props): Promise<OriginalDataPoint | undefined> => {
+export const getLastApproved = async (props: Props): Promise<OriginalDataPoint | undefined> => {
   const { assessment, countryIso, cycle, info, year } = props
 
   let odp: OriginalDataPoint

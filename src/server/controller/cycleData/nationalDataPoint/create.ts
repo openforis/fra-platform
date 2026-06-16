@@ -24,7 +24,7 @@ type Props = {
   notifyClient?: boolean
 }
 
-export const createOriginalDataPoint = async (props: Props, client: BaseProtocol = DB): Promise<OriginalDataPoint> => {
+export const create = async (props: Props, client: BaseProtocol = DB): Promise<OriginalDataPoint> => {
   const { assessment, country, cycle, notifyClient = true, originalDataPoint, sectionName, user } = props
   const { countryIso } = originalDataPoint
 
