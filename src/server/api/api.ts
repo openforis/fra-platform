@@ -7,7 +7,9 @@ import { ContactsApi } from 'server/api/cycleData/contacts'
 import { DashboardApi } from 'server/api/cycleData/dashboard'
 import { DescriptionsApi } from 'server/api/cycleData/descriptions'
 import { HistoryApi } from 'server/api/cycleData/history'
+import { LinksApi } from 'server/api/cycleData/links'
 import { NationalDataPointApi } from 'server/api/cycleData/nationalDataPoint'
+import { RepositoryApi } from 'server/api/cycleData/repository'
 import { ReviewApi } from 'server/api/cycleData/review'
 import { TableDataApi } from 'server/api/cycleData/table'
 import { ExtDataApi } from 'server/api/extData'
@@ -17,7 +19,6 @@ import Requests from 'server/utils/requests'
 import { AdminApi } from './admin'
 import { AreaApi } from './area'
 import { AuthApi } from './auth'
-import { CycleDataApi } from './cycleData'
 import { DefinitionApi } from './definitions'
 import { ExplorerApi } from './explorer'
 import { FileApi } from './file'
@@ -45,7 +46,6 @@ export const Api = {
     AuthApi.init(express)
     AdminApi.init(express)
     AreaApi.init(express)
-    CycleDataApi.init(express)
     DefinitionApi.init(express)
     ExplorerApi.init(express)
     ExtDataApi.init(express)
@@ -62,7 +62,9 @@ export const Api = {
     DashboardApi.init(express)
     DescriptionsApi.init(express)
     HistoryApi.init(express)
+    LinksApi.init(express)
     NationalDataPointApi.init(express)
+    RepositoryApi.init(express)
     ReviewApi.init(express)
     TableDataApi.init(express)
   },
