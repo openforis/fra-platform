@@ -1,8 +1,9 @@
 import { Request, Response } from 'express'
-import { Objects } from 'utils/objects'
 
 import { User } from 'meta/user/user'
+import { Objects } from 'utils/objects'
 
+import { Logger } from 'server/utils/logger'
 import { ProcessEnv } from 'server/utils/processEnv'
 
 import { AccessControlException } from './accessControl'
@@ -10,6 +11,7 @@ import { AccessControlException } from './accessControl'
 /* Response Utils */
 
 export const sendErr = (res: any, err?: any, statusCode = err.statusCode ?? 500): void => {
+  Logger.error(err.toString())
   if (err instanceof AccessControlException) {
     // @ts-ignore
     res.status(403).json({ error: err.error })
@@ -45,7 +47,7 @@ export const methods = {
 export const getMethod = (req: Request): string => req.method
 export const isGet = (req: Request): boolean => getMethod(req) === methods.GET
 
-const parseStringBoolean = (str: any): any => (str ?? ['true', 'false'].includes(str) ? JSON.parse(str) : str)
+const parseStringBoolean = (str: any): any => ((str ?? ['true', 'false'].includes(str)) ? JSON.parse(str) : str)
 export const getParams = (req: Request): any =>
   Object.entries({
     ...(req.query ?? {}),
