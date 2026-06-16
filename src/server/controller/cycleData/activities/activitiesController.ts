@@ -1,7 +1,6 @@
 import { CountryActivityLogRepository } from 'server/db/repository/assessmentCycle/countryActivityLog'
 
-export const CycleDataController = {
-  // ==== activities
+export const ActivitiesController = {
   getActivities: CountryActivityLogRepository.getMany,
   getActivitiesCount: CountryActivityLogRepository.getCount,
 }
