@@ -15,10 +15,7 @@ type Props = {
   sectionName: string
 }
 
-export const getDescriptionsLastApproved = async (
-  props: Props,
-  client: BaseProtocol = DB
-): Promise<DescriptionCountryValues> => {
+export const getLastApproved = async (props: Props, client: BaseProtocol = DB): Promise<DescriptionCountryValues> => {
   const { assessment, countryIso, cycle, sectionName } = props
   const info = await getInfo(props)
 

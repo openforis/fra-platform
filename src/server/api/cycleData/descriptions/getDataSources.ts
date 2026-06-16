@@ -4,7 +4,7 @@ import { CycleDataRequest } from 'meta/api/request/cycleData/cycleData'
 import { DataSourceLinkedVariable } from 'meta/assessment/description'
 
 import { AssessmentController } from 'server/controller/assessment'
-import { CycleDataController } from 'server/controller/cycleData'
+import { DescriptionController } from 'server/controller/cycleData/description'
 import Requests from 'server/utils/requests'
 
 export const getDataSources = async (
@@ -20,7 +20,7 @@ export const getDataSources = async (
 
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
 
-    const dataSources = await CycleDataController.Description.getDataSources({
+    const dataSources = await DescriptionController.getDataSources({
       assessment,
       countryIso,
       cycle,

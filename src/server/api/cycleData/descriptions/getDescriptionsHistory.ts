@@ -3,7 +3,7 @@ import { Response } from 'express'
 import { CycleDataRequest } from 'meta/api/request/cycleData/cycleData'
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 
-import { CycleDataController } from 'server/controller/cycleData'
+import { DescriptionController } from 'server/controller/cycleData/description'
 import Requests from 'server/utils/requests'
 
 type Request = CycleDataRequest<{ name?: CommentableDescriptionName }>
@@ -14,7 +14,7 @@ export const getDescriptionsHistory = async (req: Request, res: Response): Promi
     const { countryIso, sectionName } = req.query
 
     const props = { assessment, cycle, countryIso, sectionName }
-    const descriptions = await CycleDataController.Description.getDescriptionsLastApproved(props)
+    const descriptions = await DescriptionController.getLastApproved(props)
 
     Requests.send(res, descriptions)
   } catch (e) {
