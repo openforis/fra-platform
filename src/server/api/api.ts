@@ -2,7 +2,9 @@ import { Express } from 'express'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 
+import { DescriptionsApi } from 'server/api/cycleData/descriptions'
 import { NationalDataPointApi } from 'server/api/cycleData/nationalDataPoint'
+import { TableDataApi } from 'server/api/cycleData/table'
 import { ExtDataApi } from 'server/api/extData'
 import { ApiContextMiddleware } from 'server/middleware/apiContext'
 import Requests from 'server/utils/requests'
@@ -50,6 +52,8 @@ export const Api = {
     MetadataApi.init(express)
     UserApi.init(express)
     // cycle data apis
+    DescriptionsApi.init(express)
     NationalDataPointApi.init(express)
+    TableDataApi.init(express)
   },
 }
