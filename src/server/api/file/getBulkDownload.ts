@@ -2,8 +2,10 @@ import { Response } from 'express'
 
 import { CountryRequest } from 'meta/api/request/country'
 import { CycleName } from 'meta/assessment/cycle'
+import { Lang } from 'meta/lang'
 import { Users } from 'meta/user/users'
 
+import { getReadme } from 'server/api/file/bulkDownload/getReadme'
 import { CycleDataController } from 'server/controller/cycleData'
 import { Requests } from 'server/utils'
 import { I18n } from 'server/utils/i18n'
@@ -33,13 +35,17 @@ export const getBulkDownload = async (req: Request, res: Response): Promise<void
     const { assessmentName, cycleName } = req.query
     const { assessment, cycle } = req.context
     const { user } = req
+
+    const lang = user?.props?.lang ?? Lang.en
     const includeClimaticDomain = Users.isAdministrator(user) ? req.query.includeClimaticDomain === 'true' : false
 
     const i18n = await I18n.getInstance({})
     const files = await CycleDataController.getBulkDownload({ assessment, cycle, includeClimaticDomain, i18n })
     const fileList = files.map(({ content, fileName }) => ({ fileName, file: getUTF8Buffer(content) }))
 
-    const readme = i18n.t('bulkDownload.readme', getReadmeProps(cycle.name))
+    const readmeProps = getReadmeProps(cycle.name)
+    const readmeRecord = getReadme(readmeProps)
+    const readme = readmeRecord[lang] ?? readmeRecord[Lang.en]
     fileList.push({ fileName: 'README.txt', file: getUTF8Buffer(readme) })
 
     const fileName = `bulk-download_${assessmentName}_${cycleName}`
