@@ -4,7 +4,7 @@ import { ApiEndPoint } from 'meta/api/endpoint'
 import { AssessmentName } from 'meta/assessment/assessment'
 
 import { AssessmentController } from 'server/controller/assessment'
-import { CycleDataController } from 'server/controller/cycleData'
+import { RepositoryController } from 'server/controller/cycleData/repository'
 import { Requests } from 'server/utils'
 
 type GetPrivateFileRequest = Request<never, never, never, { assessmentName: AssessmentName; fileName: string }>
@@ -23,7 +23,7 @@ export const getHiddenFile = async (req: GetPrivateFileRequest, res: Response): 
     const { assessmentName, fileName } = req.query
     const cycleName = '2025'
     const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
-    const repositoryItem = await CycleDataController.Repository.getOne({ assessment, cycle, fileName })
+    const repositoryItem = await RepositoryController.getOne({ assessment, cycle, fileName })
     const urlParams = new URLSearchParams({ assessmentName, cycleName })
     res
       .status(301)
