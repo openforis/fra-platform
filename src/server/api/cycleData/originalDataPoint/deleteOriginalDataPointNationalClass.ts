@@ -2,7 +2,7 @@ import { Response } from 'express'
 
 import { CountryRequest } from 'meta/api/request/country'
 
-import { CycleDataController } from 'server/controller/cycleData'
+import { NationalDataPointController } from 'server/controller/cycleData/nationalDataPoint'
 import Requests from 'server/utils/requests'
 
 type Request = CountryRequest<never, { id: string; index: number }>
@@ -14,7 +14,7 @@ export const deleteOriginalDataPointNationalClass = async (req: Request, res: Re
     const { assessment, country, cycle } = req.context
 
     const propsDelete = { assessment, cycle, country, index, id, user }
-    const returnedOriginalDataPoint = await CycleDataController.deleteOriginalDataPointNationalClass(propsDelete)
+    const returnedOriginalDataPoint = await NationalDataPointController.deleteNationalClass(propsDelete)
 
     Requests.send(res, returnedOriginalDataPoint)
   } catch (e) {

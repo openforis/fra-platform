@@ -30,7 +30,7 @@ type Props = {
 const name = CommentableDescriptionName.dataSources
 const sectionName = SectionNames.nationalDataPoint
 
-export const removeOriginalDataPoint = async (props: Props, client: BaseProtocol = DB): Promise<OriginalDataPoint> => {
+export const remove = async (props: Props, client: BaseProtocol = DB): Promise<OriginalDataPoint> => {
   const { assessment, country, cycle, originalDataPoint, user } = props
   const assessmentName = assessment.props.name
   const cycleName = cycle.name

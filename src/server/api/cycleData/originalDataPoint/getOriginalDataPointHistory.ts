@@ -1,9 +1,10 @@
 import { Response } from 'express'
-import { Objects } from 'utils/objects'
 
 import { CycleDataRequest } from 'meta/api/request/cycleData/cycleData'
+import { Objects } from 'utils/objects'
 
 import { CycleDataController } from 'server/controller/cycleData'
+import { NationalDataPointController } from 'server/controller/cycleData/nationalDataPoint'
 import { Requests } from 'server/utils'
 
 type Request = CycleDataRequest<{ year: string }>
@@ -19,8 +20,8 @@ export const getOriginalDataPointHistory = async (req: Request, res: Response): 
       Requests.send(res, {})
     } else {
       const _props = { assessment, cycle, countryIso, info, year }
-      const odpLastApproved = await CycleDataController.getOriginalDataPointLastApproved(_props)
-      Requests.send(res, odpLastApproved)
+      const ndpLastApproved = await NationalDataPointController.getLastApproved(_props)
+      Requests.send(res, ndpLastApproved)
     }
   } catch (e) {
     Requests.sendErr(res, e)

@@ -7,8 +7,8 @@ import { NodeUpdate } from 'meta/data/nodeUpdates'
 import { User } from 'meta/user/user'
 
 import { DataRedisRepository } from 'server/cache/repository/data'
-import { getOriginalDataPointVariables } from 'server/controller/cycleData/originalDataPoint/getOriginalDataPointVariables'
-import { notifyClientUpdate } from 'server/controller/cycleData/originalDataPoint/updateDependants/notifyClientUpdate'
+import { getVariables } from 'server/controller/cycleData/nationalDataPoint/getVariables'
+import { notifyClientUpdate } from 'server/controller/cycleData/nationalDataPoint/updateDependants/notifyClientUpdate'
 import { updateDependents } from 'server/controller/cycleData/updateDependencies/updateDependents'
 import { BaseProtocol } from 'server/db/db'
 
@@ -39,7 +39,7 @@ export const updateOriginalDataPointsDependentNodes = async (props: Props, clien
 
   // 2. schedule dependencies update
   const nodes: Array<NodeUpdate> = []
-  const originalDataPointVariables = getOriginalDataPointVariables({ cycle, sectionName })
+  const originalDataPointVariables = getVariables({ cycle, sectionName })
 
   originalDataPoints.forEach(({ originalDataPoint }) => {
     const colName = String(originalDataPoint.year)

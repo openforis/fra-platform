@@ -1,15 +1,13 @@
-// eslint-disable-next-line max-classes-per-file
-import { Promises } from 'utils/promises'
-
 import { VariableCache } from 'meta/assessment/metaCache'
 import { AssessmentMetaCaches } from 'meta/assessment/metaCaches'
 import { RowCacheKey } from 'meta/assessment/rowCache'
 import { RowCaches } from 'meta/assessment/rowCaches'
 import { TableNames } from 'meta/assessment/table'
 import { NodeUpdate, NodeUpdates } from 'meta/data/nodeUpdates'
+import { Promises } from 'utils/promises'
 
 import { RowRedisRepository } from 'server/cache/repository/row'
-import { isODPVariable } from 'server/controller/cycleData/originalDataPoint/getOriginalDataPointVariables'
+import { isODPVariable } from 'server/controller/cycleData/nationalDataPoint/getVariables'
 import { BaseContextBuilder } from 'server/controller/cycleData/updateDependencies/context/baseContextBuilder'
 import { ContextBuilderProps } from 'server/controller/cycleData/updateDependencies/context/contextBuilderProps'
 import { DataContextBuilder } from 'server/controller/cycleData/updateDependencies/context/dataContextBuilder'

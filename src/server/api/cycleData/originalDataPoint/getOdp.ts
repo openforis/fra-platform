@@ -2,7 +2,7 @@ import { Response } from 'express'
 
 import { CycleDataRequest } from 'meta/api/request/cycleData/cycleData'
 
-import { CycleDataController } from 'server/controller/cycleData'
+import { NationalDataPointController } from 'server/controller/cycleData/nationalDataPoint'
 import { Requests } from 'server/utils'
 
 type Request = CycleDataRequest<{ year: string }>
@@ -12,7 +12,7 @@ export const getOriginalDataPoint = async (req: Request, res: Response): Promise
     const { countryIso, year } = req.query
     const { assessment, cycle } = req.context
 
-    const odp = await CycleDataController.getOriginalDataPoint({ assessment, cycle, year, countryIso })
+    const odp = await NationalDataPointController.getOne({ assessment, cycle, year, countryIso })
 
     Requests.send(res, odp)
   } catch (e) {

@@ -25,10 +25,7 @@ const activities: Record<OriginalDataPointCommentKey, ActivityLogMessage> = {
   [TableNames.forestCharacteristics]: ActivityLogMessage.originalDataPointUpdateCommentForestCharacteristics,
 }
 
-export const updateOriginalDataPointDescription = async (
-  props: Props,
-  client: BaseProtocol = DB
-): Promise<OriginalDataPoint> => {
+export const updateComments = async (props: Props, client: BaseProtocol = DB): Promise<OriginalDataPoint> => {
   const { assessment, country, cycle, field, originalDataPoint, user } = props
   const { countryIso } = originalDataPoint
 

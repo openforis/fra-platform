@@ -6,7 +6,7 @@ import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { Sockets } from 'meta/socket/sockets'
 import { User } from 'meta/user/user'
 
-import { CycleDataController } from 'server/controller/cycleData/index'
+import { NationalDataPointController } from 'server/controller/cycleData/nationalDataPoint'
 import { BaseProtocol, DB } from 'server/db/db'
 import { OriginalDataPointRepository } from 'server/db/repository/assessmentCycle/originalDataPoint'
 import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
@@ -17,21 +17,16 @@ import { updateOriginalDataPointsDependentNodes } from './updateDependants/updat
 
 type Props = {
   assessment: Assessment
-  cycle: Cycle
   country: Country
-  sectionName: string
-
+  cycle: Cycle
   id: string
-  year: string
+  sectionName: string
   targetYear: string
-
   user: User
+  year: string
 }
 
-export const updateOriginalDataPointYear = async (
-  props: Props,
-  client: BaseProtocol = DB
-): Promise<OriginalDataPoint> => {
+export const updateYear = async (props: Props, client: BaseProtocol = DB): Promise<OriginalDataPoint> => {
   const { assessment, country, cycle, user, year } = props
   const { countryIso } = country
 
@@ -67,7 +62,7 @@ export const updateOriginalDataPointYear = async (
 
     // 5 --- Notify about reserved years
     const odpReservedYearsEvent = Sockets.getODPReservedYearsEvent({ assessmentName, cycleName, countryIso })
-    const years = await CycleDataController.getOriginalDataPointReservedYears({ assessment, cycle, countryIso }, t)
+    const years = await NationalDataPointController.getReservedYears({ assessment, cycle, countryIso }, t)
     SocketServer.emit(odpReservedYearsEvent, { years })
 
     return updatedOriginalDataPoint

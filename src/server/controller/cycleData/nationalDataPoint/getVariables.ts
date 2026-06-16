@@ -10,7 +10,7 @@ type Variable = {
   variableName: string
 }
 
-export const getOriginalDataPointVariables = (props: { cycle: Cycle; sectionName?: string }): Array<Variable> => {
+export const getVariables = (props: { cycle: Cycle; sectionName?: string }): Array<Variable> => {
   const { cycle, sectionName } = props
   const originalDataPointVariables: Array<Variable> = [
     // 1a
@@ -73,7 +73,7 @@ export const getOriginalDataPointVariables = (props: { cycle: Cycle; sectionName
 
 // Find given variable from ODPVariables
 export const isODPVariable = (cycle: Cycle, variable: VariableCache): boolean => {
-  return getOriginalDataPointVariables({ cycle }).some((odpVariable) => {
+  return getVariables({ cycle }).some((odpVariable) => {
     return ['tableName', 'variableName'].every(
       (key) => variable[key as keyof VariableCache] === odpVariable[key as keyof Variable]
     )

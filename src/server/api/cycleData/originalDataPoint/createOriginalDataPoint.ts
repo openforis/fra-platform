@@ -3,7 +3,7 @@ import { Response } from 'express'
 import { CycleDataRequest } from 'meta/api/request/cycleData/cycleData'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
-import { CycleDataController } from 'server/controller/cycleData'
+import { NationalDataPointController } from 'server/controller/cycleData/nationalDataPoint'
 import Requests from 'server/utils/requests'
 
 type Request = CycleDataRequest<never, { originalDataPoint: OriginalDataPoint }>
@@ -19,7 +19,7 @@ export const createOriginalDataPoint = async (req: Request, res: Response): Prom
     }
 
     const propsCreate = { assessment, cycle, country, originalDataPoint, sectionName, user: Requests.getUser(req) }
-    const returnedOriginalDataPoint = await CycleDataController.createOriginalDataPoint(propsCreate)
+    const returnedOriginalDataPoint = await NationalDataPointController.create(propsCreate)
 
     Requests.send(res, returnedOriginalDataPoint)
   } catch (e) {
