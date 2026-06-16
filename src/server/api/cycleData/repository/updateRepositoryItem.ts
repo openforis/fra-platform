@@ -3,7 +3,7 @@ import { Response } from 'express'
 import { CycleDataRequest } from 'meta/api/request/cycleData/cycleData'
 import { RepositoryItem } from 'meta/cycleData/repository/item'
 
-import { CycleDataController } from 'server/controller/cycleData'
+import { RepositoryController } from 'server/controller/cycleData/repository'
 import Requests from 'server/utils/requests'
 
 type Body = {
@@ -21,7 +21,7 @@ export const updateRepositoryItem = async (req: Request, res: Response): Promise
     const user = Requests.getUser(req)
 
     const props = { assessment, cycle, countryIso, repositoryItem, sectionName, user }
-    const updatedRepositoryItem = await CycleDataController.Repository.update(props)
+    const updatedRepositoryItem = await RepositoryController.update(props)
 
     Requests.send(res, updatedRepositoryItem)
   } catch (e) {
