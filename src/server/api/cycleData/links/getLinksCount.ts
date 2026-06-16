@@ -4,7 +4,7 @@ import { TablePaginatedCountRequest } from 'meta/api/request/tablePaginated'
 import { LinksFilters } from 'meta/tablePaginated/filters/links'
 import { TablePaginateds } from 'meta/tablePaginated/tablePaginateds'
 
-import { CycleDataController } from 'server/controller/cycleData'
+import { LinksController } from 'server/controller/cycleData/links'
 import Requests from 'server/utils/requests'
 
 export const getLinksCount = async (req: TablePaginatedCountRequest, res: Response): Promise<void> => {
@@ -15,7 +15,7 @@ export const getLinksCount = async (req: TablePaginatedCountRequest, res: Respon
 
     const decodedFilters = TablePaginateds.decodeFilters<LinksFilters>(filtersReq)
     const filters = countryIso ? { ...decodedFilters, countries: [countryIso] } : decodedFilters
-    const linksCount = await CycleDataController.Links.getCount({ assessment, cycle, filters })
+    const linksCount = await LinksController.getCount({ assessment, cycle, filters })
 
     Requests.sendOk(res, linksCount)
   } catch (e) {
