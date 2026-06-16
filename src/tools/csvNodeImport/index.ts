@@ -15,7 +15,7 @@ import { Promises } from 'utils/promises'
 import { RowRedisRepository } from 'server/cache/repository/row'
 import { AreaController } from 'server/controller/area'
 import { AssessmentController } from 'server/controller/assessment'
-import { CycleDataController } from 'server/controller/cycleData'
+import { TableDataController } from 'server/controller/cycleData/tableData'
 import { UserController } from 'server/controller/user'
 import { Logger } from 'server/utils/logger'
 
@@ -82,7 +82,7 @@ const processCSVFiles = async (): Promise<void> => {
 
         await Promises.each(Object.entries(countryNodes), async ([countryIso, nodes]) => {
           const country = countriesMap[countryIso as CountryIso]
-          await CycleDataController.TableData.massiveInsert({
+          await TableDataController.massiveInsert({
             assessment,
             cycle,
             country,

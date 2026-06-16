@@ -2,7 +2,7 @@ import { Response } from 'express'
 
 import { CycleDataRequest } from 'meta/api/request/cycleData/cycleData'
 
-import { CycleDataController } from 'server/controller/cycleData'
+import { TableDataController } from 'server/controller/cycleData/tableData'
 import Requests from 'server/utils/requests'
 
 export const getNodeValuesEstimations = async (
@@ -13,7 +13,7 @@ export const getNodeValuesEstimations = async (
     const { assessment, cycle } = req.context
     const { countryIso, tableName } = req.query
 
-    const nodeValueEstimations = await CycleDataController.getNodeValuesEstimations({
+    const nodeValueEstimations = await TableDataController.getNodeValuesEstimations({
       assessment,
       countryIso,
       cycle,
