@@ -24,12 +24,8 @@ export const removeRole = async (props: Props, client: BaseProtocol = DB): Promi
     const role = Users.getRole(target, countryIso, cycle)
     await UserRoleRepository.remove({ uuid: role.uuid }, t)
 
-    // @ts-ignore
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { _: roles, ...userNoRoles } = user
-
     const activityLog = {
-      target: { user: userNoRoles, countryIso, role: role.role },
+      target: { userUuid: target.uuid, user: target.props.name, countryIso, role: role.role },
       section: 'users',
       message: ActivityLogMessage.userRoleDeleteRole,
       countryIso,
