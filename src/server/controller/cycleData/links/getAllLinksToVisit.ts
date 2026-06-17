@@ -128,21 +128,27 @@ const _getOriginalDataPointLinks = async (props: Props): Promise<Array<LinkToVis
   })
 
   return linksToVisit.concat(
-    odpsByReferenceLinks.flatMap((odp) => {
-      const { countryIso, dataSourceReferences, uuid, year } = odp
+    odpsByReferenceLinks.reduce<Array<LinkToVisit>>((acc, odp) => {
+      const { countryIso, dataSources = [], year } = odp
       const sectionName = SectionNames.extentOfForest
       const urlParams = { assessmentName, countryIso, cycleName, sectionName, year: String(year) }
       const url = Routes.OriginalDataPoint.generatePath(urlParams)
-      return _processLinks({
-        countryIso,
-        html: dataSourceReferences,
-        identifier: uuid,
-        odpSection: 'data_source_references',
-        sectionName: 'originalDataPoint',
-        url,
-        year,
+
+      dataSources.forEach((dataSource) => {
+        const links = _processLinks({
+          countryIso,
+          html: dataSource.reference,
+          identifier: dataSource.uuid,
+          odpSection: 'data_source_references',
+          sectionName: 'originalDataPoint',
+          url,
+          year,
+        })
+        acc.push(...links)
       })
-    })
+
+      return acc
+    }, [])
   )
 }
 

@@ -1,5 +1,5 @@
 import { CountryIso } from 'meta/area/countryIso'
-import { DataSourceLinked } from 'meta/assessment/descriptionValue'
+import { DataSourceLinked } from 'meta/assessment/descriptionValue/dataSource'
 import { SectionName } from 'meta/assessment/section'
 
 import { LinkedDataSourcesSelectors } from 'client/store/data/linkedDataSources/selectors'

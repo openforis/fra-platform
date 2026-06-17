@@ -15,7 +15,7 @@ import { RecordAssessmentDatas } from 'meta/data/recordDatas'
 // ===== Bulk Download data definition
 export type BulkDownloadODPCountryData = {
   countryIso: CountryIso
-  dataSourceMethods: Array<ODPDataSourceMethod>
+  dataSourceTypes: Array<ODPDataSourceMethod>
   maxYear: string
   minYear: string
 }

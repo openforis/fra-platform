@@ -9,6 +9,12 @@ export enum CycleStatus {
   published = 'published',
 }
 
+export type CycleNDPProps = {
+  dataSources: {
+    version: 1 | 2 // 1: vertical layout - 2: horizontal layout (same as table sections)
+  }
+}
+
 export type CycleProps = {
   dashboard?: { region?: boolean }
   dateCreated: string
@@ -17,6 +23,7 @@ export type CycleProps = {
   datePublished?: string
   disabledReviewerEmailReminders?: boolean
   status: CycleStatus
+  ndp?: CycleNDPProps
 }
 
 export interface Cycle {

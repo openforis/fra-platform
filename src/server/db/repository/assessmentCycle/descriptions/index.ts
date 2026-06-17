@@ -3,6 +3,7 @@ import { getManyWithDataSourcesLinks } from 'server/db/repository/assessmentCycl
 import { getManyWithTextLinks } from 'server/db/repository/assessmentCycle/descriptions/getManyWithTextLinks'
 import { getValues } from 'server/db/repository/assessmentCycle/descriptions/getValues'
 import { getValuesLastApproved } from 'server/db/repository/assessmentCycle/descriptions/getValuesLastApproved'
+import { remove } from 'server/db/repository/assessmentCycle/descriptions/remove'
 import { upsert } from 'server/db/repository/assessmentCycle/descriptions/upsert'
 
 export const DescriptionRepository = {
@@ -11,5 +12,6 @@ export const DescriptionRepository = {
   getManyWithTextLinks,
   getValues,
   getValuesLastApproved,
+  remove,
   upsert,
 }

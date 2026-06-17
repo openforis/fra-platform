@@ -2,12 +2,15 @@ import { Country } from 'meta/area/country'
 import { ActivityLog, ActivityLogMessage } from 'meta/assessment/activityLog'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
+import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
+import { SectionNames } from 'meta/assessment/section'
 import { Topics } from 'meta/messageCenter/topics'
 import { Sockets } from 'meta/socket/sockets'
 import { User } from 'meta/user/user'
 
 import { BaseProtocol, DB } from 'server/db/db'
+import { DescriptionRepository } from 'server/db/repository/assessmentCycle/descriptions'
 import { MessageTopicRepository } from 'server/db/repository/assessmentCycle/messageTopic'
 import { OriginalDataPointRepository } from 'server/db/repository/assessmentCycle/originalDataPoint'
 import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
@@ -24,6 +27,9 @@ type Props = {
   user: User
 }
 
+const name = CommentableDescriptionName.dataSources
+const sectionName = SectionNames.nationalDataPoint
+
 export const removeOriginalDataPoint = async (props: Props, client: BaseProtocol = DB): Promise<OriginalDataPoint> => {
   const { assessment, country, cycle, originalDataPoint, user } = props
   const assessmentName = assessment.props.name
@@ -31,7 +37,14 @@ export const removeOriginalDataPoint = async (props: Props, client: BaseProtocol
   const { countryIso } = originalDataPoint
 
   return client.tx(async (t) => {
-    const target = await OriginalDataPointRepository.remove({ assessment, cycle, originalDataPoint }, t)
+    const [target] = await Promise.all([
+      OriginalDataPointRepository.remove({ assessment, cycle, originalDataPoint }, t),
+      DescriptionRepository.remove(
+        { assessment, countryIso, cycle, name, sectionName, sectionUuid: originalDataPoint.uuid },
+        t
+      ),
+    ])
+
     const keyPrefix = Topics.getOdpReviewTopicKeyPrefix(originalDataPoint.id)
     await MessageTopicRepository.removeMany({ assessment, cycle, keyPrefix }, t)
 

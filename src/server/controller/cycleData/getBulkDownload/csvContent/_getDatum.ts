@@ -31,7 +31,7 @@ const getDatumNDP: BulkDownloadGetDatum = (props) => {
   const tableKey = variableName as keyof BulkDownloadODPCountryData
   const value = countryData[tableKey]
 
-  if (tableKey === 'dataSourceMethods') {
+  if (tableKey === 'dataSourceTypes') {
     const method = colName as ODPDataSourceMethod
     const included = Boolean(value?.includes(method))
     return i18n.t(`yesNoTextSelect.${included ? 'yes' : 'no'}`)

@@ -42,7 +42,7 @@ export const getNDPYear: BulkDownloadFileFactory = (props) => {
             : i18n.t(`nationalDataPoint.dataSourceMethodsOptions.${colName}`),
         datumType,
         tableName,
-        variableName: 'dataSourceMethods',
+        variableName: 'dataSourceTypes',
       }
     }),
   ]

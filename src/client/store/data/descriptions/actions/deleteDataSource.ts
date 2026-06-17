@@ -6,6 +6,6 @@ import { CycleDataParams } from 'meta/api/request/cycleData/cycleData'
 
 type Props = CycleDataParams & { uuid: string }
 
-export const deleteDataSource = createAsyncThunk<void, Props>('section/dataSource/delete', (props) => {
-  return axios.delete(ApiEndPoint.CycleData.Descriptions.DataSources.one(), { params: props })
+export const deleteDataSource = createAsyncThunk<void, Props>('section/dataSource/delete', async (props) => {
+  await axios.delete(ApiEndPoint.CycleData.Descriptions.DataSources.one(), { params: props })
 })

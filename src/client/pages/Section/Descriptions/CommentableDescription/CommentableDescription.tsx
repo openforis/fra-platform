@@ -14,7 +14,7 @@ import { useIsPrintRoute } from 'client/hooks/routes'
 import { DataCell, DataGrid, DataRow } from 'client/components/DataGrid'
 import EditorWYSIWYG from 'client/components/EditorWYSIWYG'
 import { useSectionContext } from 'client/pages/Section/context'
-import Title from 'client/pages/Section/Descriptions/CommentableDescription/Title'
+import Title from 'client/pages/Section/Descriptions/Title'
 
 import { useDescriptionErrorState } from './hooks/useDescriptionErrorState'
 import { useOnChange } from './hooks/useOnChange'
@@ -46,7 +46,7 @@ const CommentableDescription: React.FC<Props> = (props) => {
 
   return (
     <DataGrid className="description" withActions={canEdit}>
-      <Title name={name} title={title} />
+      <Title name={name} sectionName={sectionName} title={title} />
 
       <DataRow>
         <DataCell
