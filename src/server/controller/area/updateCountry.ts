@@ -7,7 +7,7 @@ import { Cycle } from 'meta/assessment/cycle'
 import { User } from 'meta/user/user'
 
 import { AreaRedisRepository } from 'server/cache/repository/area'
-import { CycleDataController } from 'server/controller/cycleData'
+import { LinksController } from 'server/controller/cycleData/links'
 import { BaseProtocol, DB } from 'server/db/db'
 import { CountryRepository } from 'server/db/repository/assessmentCycle/country'
 import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
@@ -57,10 +57,7 @@ export const updateCountry = async (props: Props, client: BaseProtocol = DB): Pr
     const needsGuardCheck = currentStatus === CountryStatus.review && targetStatus === CountryStatus.approval
 
     if (needsGuardCheck) {
-      const verificationSummary = await CycleDataController.Links.getVerificationSummary(
-        { assessment, countryIso, cycle },
-        t
-      )
+      const verificationSummary = await LinksController.getVerificationSummary({ assessment, countryIso, cycle }, t)
       const guardResult = checkLinksVerificationGuard({
         country: currentCountry,
         currentStatus,

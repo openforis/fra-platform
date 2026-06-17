@@ -5,7 +5,7 @@ import { NodeValue } from 'meta/assessment/node'
 import { Contact } from 'meta/cycleData/contact/contact'
 import { ContactField } from 'meta/cycleData/contact/field'
 
-import { CycleDataController } from 'server/controller/cycleData'
+import { ContactController } from 'server/controller/cycleData/contact'
 import Requests from 'server/utils/requests'
 
 type Body = {
@@ -22,7 +22,7 @@ export const updateContact = async (req: CycleDataRequest<never, Body>, res: Res
     const { countryIso, sectionName } = req.query
 
     const props = { assessment, cycle, countryIso, sectionName, user, nodeExt: contact[field], raw }
-    const updatedContact = await CycleDataController.Contacts.update(props)
+    const updatedContact = await ContactController.update(props)
 
     Requests.send(res, updatedContact)
   } catch (e) {

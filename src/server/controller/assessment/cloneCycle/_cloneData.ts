@@ -41,13 +41,10 @@ export const cloneData = async (props: CloneProps, client: BaseProtocol): Promis
       from ${schemaCycleSource}.node_values_estimation;
 
       insert into ${schemaCycleTarget}.original_data_point
-      (country_iso, year, data_source_additional_comments, data_source_methods, data_source_references,
-       ${commentColumnExtentOfForest}, ${commentColumnForestCharacteristics}, national_classes, values, id_legacy)
-      select country_iso,
+      (uuid, country_iso, year, ${commentColumnExtentOfForest}, ${commentColumnForestCharacteristics}, national_classes, values, id_legacy)
+      select uuid,
+             country_iso,
              year,
-             data_source_additional_comments,
-             data_source_methods,
-             data_source_references,
              ${commentColumnExtentOfForest},
              ${commentColumnForestCharacteristics},
              national_classes,
@@ -55,9 +52,10 @@ export const cloneData = async (props: CloneProps, client: BaseProtocol): Promis
              id_legacy
       from ${schemaCycleSource}.original_data_point;
 
-      insert into ${schemaCycleTarget}.descriptions (country_iso, section_name, name, value)
+      insert into ${schemaCycleTarget}.descriptions (country_iso, section_name, section_uuid, name, value)
       select country_iso,
              section_name,
+             section_uuid,
              name,
              case
                  when name = '${CommentableDescriptionName.dataSources}' then jsonb_delete(value, 'text')

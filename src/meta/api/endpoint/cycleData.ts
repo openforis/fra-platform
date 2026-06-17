@@ -41,24 +41,24 @@ export const CycleData = {
     },
   },
 
-  OriginalDataPoint: {
-    one: (): string => apiPath('cycle-data', 'original-data-points', 'original-data-point'),
-    many: (): string => apiPath('cycle-data', 'original-data-points'),
-    history: (): string => apiPath('cycle-data', 'original-data-points', 'original-data-point', 'history'),
+  NationalDataPoint: {
+    one: (): string => apiPath('cycle-data', 'national-data-points', 'national-data-point'),
+    many: (): string => apiPath('cycle-data', 'national-data-points'),
+    history: (): string => apiPath('cycle-data', 'national-data-points', 'national-data-point', 'history'),
 
-    dataSources: (): string => apiPath('cycle-data', 'original-data-points', 'original-data-point', 'data-sources'),
-    description: (): string => apiPath('cycle-data', 'original-data-points', 'original-data-point', 'description'),
-    originalData: (): string => apiPath('cycle-data', 'original-data-points', 'original-data-point', 'original-data'),
+    dataSources: (): string => apiPath('cycle-data', 'national-data-points', 'national-data-point', 'data-sources'),
+    description: (): string => apiPath('cycle-data', 'national-data-points', 'national-data-point', 'description'),
+    originalData: (): string => apiPath('cycle-data', 'national-data-points', 'national-data-point', 'original-data'),
     nationalClasses: (): string =>
-      apiPath('cycle-data', 'original-data-points', 'original-data-point', 'national-classes'),
-    nationalClass: (): string => apiPath('cycle-data', 'original-data-points', 'original-data-point', 'national-class'),
-    year: (): string => apiPath('cycle-data', 'original-data-points', 'original-data-point', 'year'),
+      apiPath('cycle-data', 'national-data-points', 'national-data-point', 'national-classes'),
+    nationalClass: (): string => apiPath('cycle-data', 'national-data-points', 'national-data-point', 'national-class'),
+    year: (): string => apiPath('cycle-data', 'national-data-points', 'national-data-point', 'year'),
 
     copyNationalClasses: (): string =>
-      apiPath('cycle-data', 'original-data-points', 'original-data-point', 'copy-national-classes'),
+      apiPath('cycle-data', 'national-data-points', 'national-data-point', 'copy-national-classes'),
 
     // Table Data (1a, 1b)
-    reservedYears: (): string => apiPath('cycle-data', 'original-data-points', 'reserved-years'),
+    reservedYears: (): string => apiPath('cycle-data', 'national-data-points', 'reserved-years'),
   },
 
   Print,

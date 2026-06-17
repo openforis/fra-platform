@@ -1,8 +1,10 @@
 import { CountryIso } from 'meta/area/countryIso' // import { ODPValidation } from './odpValidation'
+import { DataSource } from 'meta/assessment/descriptionValue/dataSource'
+import { ODPDataSourceMethod } from 'meta/assessment/originalDataPoint/odpDataSource'
 import { TableNames } from 'meta/assessment/table'
 import { UUID } from 'meta/uuid/uuid'
 
-import { ODPDataSourceMethod } from './odpDataSource' // import { ODPEditStatus } from './odpEditStatus'
+// import { ODPEditStatus } from './odpEditStatus'
 import { ODPNationalClass } from './odpNationalClass'
 // import { ODPValidation } from './odpValidation'
 
@@ -11,7 +13,7 @@ export interface OriginalDataPointValues {
   forestArea?: string
   otherWoodedLand?: string
 
-  // Forest area change
+  // Forest characteristics
   naturalForestArea?: string
   otherPlantedForestArea?: string
   plantationForestArea?: string
@@ -30,15 +32,23 @@ export type OriginalDataPointComments = Partial<Record<OriginalDataPointCommentK
 export interface OriginalDataPoint {
   comments: OriginalDataPointComments
   countryIso: CountryIso
-  dataSourceAdditionalComments?: string
-  dataSourceMethods?: Array<ODPDataSourceMethod>
-  dataSourceReferences?: string
-  id: number
+  dataSources?: Array<DataSource>
   nationalClasses?: Array<ODPNationalClass>
-  readonly uuid?: UUID
+  readonly id: number
+  readonly uuid: UUID
   values: OriginalDataPointValues
   year?: number
-  // editStatus?: ODPEditStatus
-  // reservedYears?: Array<number>
-  // validationStatus?: ODPValidation
+
+  /**
+   * @deprecated
+   */
+  dataSourceAdditionalComments?: string
+  /**
+   * @deprecated
+   */
+  dataSourceMethods?: Array<ODPDataSourceMethod>
+  /**
+   * @deprecated
+   */
+  dataSourceReferences?: string
 }
