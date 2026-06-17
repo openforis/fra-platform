@@ -21,7 +21,7 @@ export const deleteOriginalDataPointNationalClass = createAsyncThunk<OriginalDat
 
     const sectionName = 'extentOfForest'
     const params = { assessmentName, cycleName, countryIso, index, sectionName, odpId }
-    await axios.delete(ApiEndPoint.CycleData.OriginalDataPoint.nationalClass(), { params })
+    await axios.delete(ApiEndPoint.CycleData.NationalDataPoint.nationalClass(), { params })
     return ODPs.deleteNationalClass({ odp: originalDataPoint, index: props.index })
   }
 )

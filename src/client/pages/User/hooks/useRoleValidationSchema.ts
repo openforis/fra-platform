@@ -56,7 +56,6 @@ export const useRoleValidationSchema = (): ZodObject => {
             .string()
             .min(1, { error: t('form.errors.required', { field: t('editUser.primaryPhoneNumber') }) }),
           secondaryPhoneNumber: z.string().optional().or(z.literal('')),
-          skype: z.string().optional(),
           contactPreference: z
             .object({
               method: z.enum(UserContactPreferenceMethod, {

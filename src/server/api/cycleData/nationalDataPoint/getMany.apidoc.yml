@@ -1,0 +1,59 @@
+openapi: 3.0.0
+paths:
+  /cycle-data/national-data-points:
+    get:
+      tags:
+        - Cycle data
+      summary: Get all National Data Points for a given country and cycle
+      parameters:
+        - $ref: '#/components/parameters/assessmentName'
+        - $ref: '#/components/parameters/countryIso'
+        - $ref: '#/components/parameters/cycleName'
+      responses:
+        '200':
+          description: Successful operation.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NationalDataPoint'
+              example:
+                - id: 123
+                  countryIso: ITA
+                  year: 2015
+                  dataSources:
+                    - uuid: "a1x2c3d4-e7f6-9a69-m0d1-f6i6f8d2w6c7"
+                      reference: |
+                        Example Reference Title, 2021.
+                        Organization Name. Example Publisher.
+                        http://example.com/resource
+                      type:
+                        - nationalForestInventory
+                      comments: "Example comment about data source"
+                  comments:
+                    extentOfForest: "<div>Extent of forest HTML-formatted comments</div>"
+                    forestCharacteristics: "<div>Forest characteristics HTML-formatted comments</div>"
+                  nationalClasses:
+                    - area: 1813.24
+                      name: "Other Wooded Land"
+                      uuid: "a1b2c3d4-e5f6-7a89-b0c1-d2e3f4a5b6c7"
+                      definition: "Example definition text."
+                    - area: 9297.08
+                      name: "Forest"
+                      uuid: "abcdef12-3456-7890-abcd-ef1234567890"
+                      definition: "Example definition text."
+                  values:
+                    total: "9297.08"
+                    forestArea: "9297.08"
+                    plantedForest: "639.639104"
+                    primaryForest: null
+                    otherWoodedLand: "1813.24"
+                    totalForestArea: "9297.08"
+                    naturalForestArea: "8657.440896"
+                    plantationForestArea: "126.440288"
+                    primaryForestPercent: null
+                    otherPlantedForestArea: "513.198816"
+                    plantationForestIntroducedArea: "93.2750004576"
+        '401':
+          description: Unauthorized access.

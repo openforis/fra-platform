@@ -8,7 +8,7 @@ import { RecordAssessmentData } from 'meta/data/recordData'
 import { RecordAssessmentDatas } from 'meta/data/recordDatas'
 import { Promises } from 'utils/promises'
 
-import { getTableData } from 'server/controller/cycleData/getTableData'
+import { getData } from 'server/controller/cycleData/tableData/getData'
 
 import { BaseContextBuilder } from './baseContextBuilder'
 import { ContextBuilderProps } from './contextBuilderProps'
@@ -93,7 +93,7 @@ export class DataContextBuilder extends BaseContextBuilder {
       }
 
       // Fetch the tables collected for this assessment/cycle
-      const cycleData = await getTableData({
+      const cycleData = await getData({
         assessment,
         countryISOs: [countryIso],
         cycle: tablesFetch.cycle,

@@ -1,36 +1,10 @@
 import { useMemo } from 'react'
 
-import { Parser } from 'htmlparser2'
-
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 import { SectionName } from 'meta/assessment/section'
 
 import { useCommentableDescriptionValue } from 'client/store/data/descriptions/hooks/descriptions'
-
-const isHTMLEmpty = (html: string): boolean => {
-  // Objects.isEmpty() calls trim() internally, which causes
-  // crashes with large strings in Firefox. It is avoided here.
-  if (!html) return true
-
-  let hasVisibleText = false
-  const parser = new Parser(
-    {
-      ontext(text) {
-        // Stop parsing as soon as a non-whitespace character is found
-        if (/\S/.test(text)) {
-          hasVisibleText = true
-          parser.pause()
-        }
-      },
-    },
-    { decodeEntities: true }
-  )
-
-  parser.write(html)
-  parser.end()
-
-  return !hasVisibleText
-}
+import { DOMs } from 'client/utils/doms'
 
 type Props = {
   name: CommentableDescriptionName
@@ -44,12 +18,11 @@ type Returned = {
 /*
     Note: Return value of the hook is used only in print view
 */
-
 export const useDescriptionErrorState = (props: Props): Returned => {
   const { name, sectionName } = props
   const value = useCommentableDescriptionValue({ name, sectionName })
 
   return useMemo<Returned>(() => {
-    return { empty: isHTMLEmpty(value.text) }
+    return { empty: DOMs.isHTMLEmpty(value.text) }
   }, [value.text])
 }

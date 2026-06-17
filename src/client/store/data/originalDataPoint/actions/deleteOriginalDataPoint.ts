@@ -10,7 +10,7 @@ export const deleteOriginalDataPoint = createAsyncThunk<void, CountryParams & { 
   'data/originalDataPoint/delete',
   async ({ assessmentName, countryIso, cycleName, originalDataPoint: { year } }) => {
     const sectionName = SectionNames.extentOfForest
-    await axios.delete(ApiEndPoint.CycleData.OriginalDataPoint.one(), {
+    await axios.delete(ApiEndPoint.CycleData.NationalDataPoint.one(), {
       params: { assessmentName, cycleName, countryIso, sectionName, year },
     })
   }

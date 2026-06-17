@@ -1,10 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
-import { Functions } from 'utils/functions'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CountryParams } from 'meta/api/request/country'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
+import { Functions } from 'utils/functions'
 
 type Props = CountryParams & {
   originalDataPoint: OriginalDataPoint
@@ -20,7 +20,7 @@ const putOriginalDataPointYear = Functions.debounce(
     const params = { countryIso, assessmentName, cycleName, sectionName: 'extentOfForest' }
     const config = { params }
     const data = { id, year, targetYear }
-    await axios.put(ApiEndPoint.CycleData.OriginalDataPoint.year(), data, config)
+    await axios.put(ApiEndPoint.CycleData.NationalDataPoint.year(), data, config)
   },
   1000,
   'updateOriginalDataPointYear'

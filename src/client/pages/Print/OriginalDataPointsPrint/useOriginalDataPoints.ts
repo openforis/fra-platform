@@ -17,7 +17,7 @@ export const useOriginalDataPoints = (): { originalDataPoints: Array<OriginalDat
     data = [],
     dispatch: fetchResults,
     loading,
-  } = useGetRequest(ApiEndPoint.CycleData.OriginalDataPoint.many(), {
+  } = useGetRequest(ApiEndPoint.CycleData.NationalDataPoint.many(), {
     params: {
       countryIso,
       assessmentName: assessment.props.name,

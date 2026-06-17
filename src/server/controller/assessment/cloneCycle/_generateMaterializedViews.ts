@@ -1,5 +1,5 @@
 import { CloneProps } from 'server/controller/assessment/cloneCycle/types'
-import { TableData } from 'server/controller/cycleData/tableData'
+import { TableDataController } from 'server/controller/cycleData/tableData'
 import { BaseProtocol } from 'server/db/db'
 import { CountryRepository } from 'server/db/repository/assessmentCycle/country'
 import { CountryActivityLogRepository } from 'server/db/repository/assessmentCycle/countryActivityLog'
@@ -7,7 +7,7 @@ import { CountryActivityLogRepository } from 'server/db/repository/assessmentCyc
 export const generateMaterializedViews = async (props: CloneProps, client: BaseProtocol): Promise<void> => {
   const { assessment, cycleTarget } = props
 
-  await TableData.refreshViews({ assessment, cycle: cycleTarget }, client)
+  await TableDataController.refreshViews({ assessment, cycle: cycleTarget }, client)
 
   const countries = await CountryRepository.getMany({ assessment, cycle: cycleTarget }, client)
   await Promise.all([

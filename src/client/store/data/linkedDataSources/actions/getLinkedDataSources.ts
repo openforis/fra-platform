@@ -6,7 +6,7 @@ import { CountryIso } from 'meta/area/countryIso'
 import { AssessmentName } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
 import { DataSourceLinkedVariable } from 'meta/assessment/description'
-import { DataSourceLinked } from 'meta/assessment/descriptionValue'
+import { DataSourceLinked } from 'meta/assessment/descriptionValue/dataSource'
 
 type Params = {
   countryIso: CountryIso

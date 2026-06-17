@@ -1,7 +1,7 @@
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { SectionNames } from 'meta/routes/sectionNames'
 
-import { CycleDataController } from 'server/controller/cycleData'
+import { LinksController } from 'server/controller/cycleData/links'
 import { LinkRepository } from 'server/db/repository/assessmentCycle/links'
 import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 import { Logger } from 'server/utils/logger'
@@ -42,7 +42,7 @@ export default async (job: VerifyAllLinksJob): Promise<void> => {
       : { approved: true, excludeDeleted: false }
 
     const [linksToVisit, approvedLinks] = await Promise.all([
-      CycleDataController.Links.getAllLinksToVisit({ assessment, countryIso, cycle }),
+      LinksController.getAllLinksToVisit({ assessment, countryIso, cycle }),
       LinkRepository.getMany({ assessment, cycle, filters }),
     ])
 

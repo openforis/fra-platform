@@ -5,19 +5,23 @@ import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { OriginalDataPointAdapter } from 'server/db/repository/adapter/originalDataPoint'
-import { Schemas } from 'server/db/schemas'
 
-export const getMany = async (
-  props: { assessment: Assessment; cycle: Cycle; countryIso: CountryIso },
-  client: BaseProtocol = DB
-): Promise<Array<OriginalDataPoint>> => {
+import { getNDPSelect } from './_getNDPSelect'
+
+type Props = {
+  assessment: Assessment
+  countryIso: CountryIso
+  cycle: Cycle
+}
+
+export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<Array<OriginalDataPoint>> => {
   const { assessment, countryIso, cycle } = props
 
-  const schemaName = Schemas.getNameCycle(assessment, cycle)
+  const select = getNDPSelect({ assessment, cycle })
 
   return client.map<OriginalDataPoint>(
-    `select * from ${schemaName}.original_data_point where country_iso = $1;`,
-    [countryIso],
+    `${select} where odp.country_iso = $(countryIso);`,
+    { countryIso },
     OriginalDataPointAdapter
   )
 }

@@ -32,7 +32,7 @@ export const create = async (props: Props): Promise<Returned> => {
   const pdfMulterFile = bufferToPdfMulterFile({ bufferView, fileName })
 
   return DB.tx(async (t: BaseProtocol) => {
-    const file = await FileRepository.create({ fileName: pdfMulterFile.originalname }, t)
+    const file = await FileRepository.create({ fileName: pdfMulterFile.originalname, size: pdfMulterFile.size }, t)
     const { uuid: key } = file
     const body = pdfMulterFile.buffer
     await FileStorage.File.upload({ key, body })

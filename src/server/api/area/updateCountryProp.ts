@@ -7,8 +7,8 @@ import { NodeUpdates } from 'meta/data/nodeUpdates'
 import { RecordAssessmentDatas } from 'meta/data/recordDatas'
 
 import { AreaController } from 'server/controller/area'
-import { CycleDataController } from 'server/controller/cycleData'
-import { updateDependents } from 'server/controller/cycleData/updateDependencies/updateDependents'
+import { TableDataController } from 'server/controller/cycleData/tableData'
+import { updateDependents } from 'server/controller/cycleData/tableData/updateDependencies/updateDependents'
 import { DB } from 'server/db/db'
 import Requests from 'server/utils/requests'
 
@@ -40,7 +40,7 @@ export const updateCountryProp = async (req: Request, res: Response): Promise<vo
       // 2. get table data
       const countryISOs = [countryIso]
       const mergeOdp = updatedCountry.props.forestCharacteristics.useOriginalDataPoint
-      const data = await CycleDataController.getTableData({ assessment, cycle, countryISOs, mergeOdp, tableNames })
+      const data = await TableDataController.getData({ assessment, cycle, countryISOs, mergeOdp, tableNames })
       const tableData = RecordAssessmentDatas.getTableData({ assessmentName, cycleName, countryIso, tableName, data })
 
       // 3. schedule update dependencies

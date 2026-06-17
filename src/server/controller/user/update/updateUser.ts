@@ -46,7 +46,10 @@ export const updateUser = async (props: Props, client: BaseProtocol): Promise<Us
   const { user: userToUpdate } = await toUserEditProps(props, client)
 
   if (profilePicture) {
-    const createdFile = await FileRepository.create({ fileName: profilePicture.originalname }, client)
+    const createdFile = await FileRepository.create(
+      { fileName: profilePicture.originalname, size: profilePicture.size },
+      client
+    )
     const { uuid: key } = createdFile
 
     await FileStorage.File.upload({ key, body: profilePicture.buffer })
