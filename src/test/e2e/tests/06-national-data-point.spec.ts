@@ -38,9 +38,11 @@ test.describe.serial('National data point: ', () => {
     await dataSourceValueCell(page, 'Additional comments').locator('textarea').fill(comments)
 
     await page.getByRole('link', { name: 'Done editing' }).first().click()
+    await expect(page).toHaveURL(/\/sections\/extentOfForest$/)
+
+    await page.reload()
 
     // Back on the table, the new data point shows up as a year column header link
-    await expect(page).toHaveURL(/\/sections\/extentOfForest$/)
     await expect(page.locator('.table-grid__odp-link', { hasText: year })).toBeVisible({ timeout: 10000 })
   })
 
