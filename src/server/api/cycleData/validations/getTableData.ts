@@ -3,7 +3,7 @@ import { Response } from 'express'
 import { CycleDataRequest } from 'meta/api/request/cycleData/cycleData'
 import { TableName } from 'meta/assessment/table'
 
-import { CycleDataController } from 'server/controller/cycleData'
+import { ValidationsController } from 'server/controller/cycleData/validations'
 import Requests from 'server/utils/requests'
 
 type Request = CycleDataRequest<{
@@ -15,7 +15,7 @@ export const getTableValidations = async (req: Request, res: Response): Promise<
     const { countryIso, tableNames = [] } = req.query
     const { assessment, cycle } = req.context
 
-    const tableValidations = await CycleDataController.getTableValidations({
+    const tableValidations = await ValidationsController.getTableValidations({
       assessment,
       countryIso,
       cycle,
