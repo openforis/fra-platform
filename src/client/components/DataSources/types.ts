@@ -4,7 +4,8 @@ import {
   DataSourceHistoryCompare,
   DataSourceLinked,
   DataSourcesData,
-  DataSourceValidator,
+  DataSourceValidationErrors,
+  DataSourceValidationErrorsRecord,
 } from 'meta/assessment/descriptionValue/dataSource'
 
 import { Option } from 'client/components/Inputs/Select'
@@ -37,10 +38,11 @@ export type PropsDataSources = {
     includeVariables?: boolean
     includeYears?: boolean
   }
-  validator?: DataSourceValidator
+  validationErrors?: DataSourceValidationErrorsRecord
 }
 
 export type PropsDataSourceComponent = Pick<PropsDataSources, 'columns' | 'meta' | 'onChange'> & {
   dataSource: DataSource
   disabled: boolean
+  validationErrors?: DataSourceValidationErrors['reference']
 }

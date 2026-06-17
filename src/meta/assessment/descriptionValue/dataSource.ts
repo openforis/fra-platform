@@ -29,5 +29,12 @@ export type DataSourceHistoryCompare = {
 }
 
 // validation
-export type DataSourceValidation = Partial<Record<keyof DataSource, string>>
-export type DataSourceValidator = (dataSource: DataSource) => DataSourceValidation
+export type DataSourceValidationErrors = {
+  comments?: string
+  reference?: Array<string>
+  type?: string
+  variables?: string
+  year?: string
+}
+
+export type DataSourceValidationErrorsRecord = Record<UUID, DataSourceValidationErrors>
