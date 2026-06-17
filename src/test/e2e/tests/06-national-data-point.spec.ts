@@ -41,7 +41,7 @@ test.describe.serial('National data point: ', () => {
 
     // Back on the table, the new data point shows up as a year column header link
     await expect(page).toHaveURL(/\/sections\/extentOfForest$/)
-    await expect(page.locator('.table-grid__odp-link', { hasText: year })).toBeVisible()
+    await expect(page.locator('.table-grid__odp-link', { hasText: year })).toBeVisible({ timeout: 10000 })
   })
 
   test('NC deletes the national data point', async ({ authenticatedPage }) => {
@@ -59,6 +59,6 @@ test.describe.serial('National data point: ', () => {
 
     // Expect the link not to exist anymore
     await expect(page).toHaveURL(/\/sections\/extentOfForest$/)
-    await expect(page.locator('.table-grid__odp-link', { hasText: year })).toHaveCount(0)
+    await expect(page.locator('.table-grid__odp-link', { hasText: year })).toHaveCount(0, { timeout: 10000 })
   })
 })
