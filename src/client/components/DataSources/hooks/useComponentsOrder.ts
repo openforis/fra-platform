@@ -1,10 +1,10 @@
 import { useMemo } from 'react'
 
-import { DataSourceValidationErrors } from 'meta/assessment/descriptionValue/dataSource'
+import { DataSource } from 'meta/assessment/descriptionValue/dataSource'
 
 import { PropsDataSources } from 'client/components/DataSources/types'
 
-type Returned = Array<keyof DataSourceValidationErrors>
+type Returned = Array<keyof DataSource>
 
 export const useComponentsOrder = (props: Pick<PropsDataSources, 'options'>): Returned => {
   const { options } = props
