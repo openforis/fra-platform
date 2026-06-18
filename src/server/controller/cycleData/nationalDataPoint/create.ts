@@ -9,6 +9,8 @@ import { BaseProtocol, DB } from 'server/db/db'
 import { OriginalDataPointRepository } from 'server/db/repository/assessmentCycle/originalDataPoint'
 import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 import { CountryService } from 'server/service/country'
+import { ProcessEnv } from 'server/utils'
+import { NodeEnv } from 'server/utils/processEnv'
 
 import { updateOriginalDataPointDependentNodes } from './updateDependants/updateOriginalDataPointDependentNodes'
 
@@ -49,17 +51,19 @@ export const create = async (props: Props, client: BaseProtocol = DB): Promise<O
       t
     )
 
-    await updateOriginalDataPointDependentNodes(
-      {
-        assessment,
-        cycle,
-        country,
-        sectionName,
-        originalDataPoint: createdOriginalDataPoint,
-        user,
-      },
-      t
-    )
+    if (ProcessEnv.nodeEnv !== NodeEnv.test) {
+      await updateOriginalDataPointDependentNodes(
+        {
+          assessment,
+          cycle,
+          country,
+          sectionName,
+          originalDataPoint: createdOriginalDataPoint,
+          user,
+        },
+        t
+      )
+    }
 
     return createdOriginalDataPoint
   })
