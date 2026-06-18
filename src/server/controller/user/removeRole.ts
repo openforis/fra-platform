@@ -25,7 +25,7 @@ export const removeRole = async (props: Props, client: BaseProtocol = DB): Promi
     await UserRoleRepository.remove({ uuid: role.uuid }, t)
 
     const activityLog = {
-      target: { userUuid: target.uuid, user: target.props.name, countryIso, role: role.role },
+      target: { userUuid: target.uuid, user: Users.getFullName(target), countryIso, role: role.role },
       section: 'users',
       message: ActivityLogMessage.userRoleDeleteRole,
       countryIso,
