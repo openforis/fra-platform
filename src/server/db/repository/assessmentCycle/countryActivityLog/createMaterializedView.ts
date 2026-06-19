@@ -34,7 +34,12 @@ export const createMaterializedView = async (props: Props, client: BaseProtocol 
                        section,
                        target,
                        time,
-                       rank() OVER (PARTITION BY user_id, message, section ORDER BY time DESC) as rank
+                       rank() OVER (
+                          PARTITION BY user_id
+                          , message
+                          , case when section = 'users' then target ->> 'userUuid' else section end
+                          ORDER BY time DESC
+                        ) as rank
                 from public.activity_log a
                 where a.country_iso = $1
                   and a.assessment_uuid = $2
