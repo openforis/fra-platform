@@ -5,8 +5,7 @@ import { AssessmentName } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 import { SectionName } from 'meta/assessment/section'
-import type { DataSourceValidation } from 'meta/assessment/validation/description'
-import { UUID } from 'meta/uuid/uuid'
+import type { DataSourceRowValidations } from 'meta/assessment/validation/description'
 
 import { RootState } from 'client/store/types'
 
@@ -35,7 +34,7 @@ export const getDescriptionValidation = createSelector(
     countryValidations.descriptions?.[sectionName]?.descriptions?.[descriptionName] ?? { valid: true }
 )
 
-export const getDataSourceValidation = createSelector(
+export const getDataSourceValidations = createSelector(
   [
     getCountryValidations,
     (
@@ -45,15 +44,7 @@ export const getDataSourceValidation = createSelector(
       _countryIso: CountryIso,
       sectionName: SectionName
     ) => sectionName,
-    (
-      _state: RootState,
-      _assessmentName: AssessmentName,
-      _cycleName: CycleName,
-      _countryIso: CountryIso,
-      _sectionName: SectionName,
-      uuid: UUID
-    ) => uuid,
   ],
-  (countryValidations, sectionName, uuid): DataSourceValidation =>
-    countryValidations.descriptions?.[sectionName]?.dataSources?.[uuid] ?? {}
+  (countryValidations, sectionName): DataSourceRowValidations =>
+    countryValidations.descriptions?.[sectionName]?.dataSources ?? {}
 )
