@@ -8,6 +8,6 @@ type Props = {
 
 export const validateNationalDataPoint = (props: Props): NDPValidation => {
   const { nationalDataPoint } = props
-  return NationalDataPointValidator.validate(nationalDataPoint)
+  return NationalDataPointValidator.validate({ nationalDataPoint })
   // TODO: Validate national data point data sources
 }

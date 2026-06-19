@@ -4,7 +4,12 @@ import { validateNationalClass } from 'meta/assessment/validation/nationalDataPo
 import { NDPValidation } from 'meta/assessment/validation/ndp'
 import { Objects } from 'utils/objects'
 
-export const validate = (nationalDataPoint: OriginalDataPoint): NDPValidation => {
+type Props = {
+  nationalDataPoint: OriginalDataPoint
+}
+
+export const validate = (props: Props): NDPValidation => {
+  const { nationalDataPoint } = props
   const validation: NDPValidation = {}
 
   // TODO: move validation out of ODPs object.
