@@ -1,6 +1,9 @@
 import { ODPs } from 'meta/assessment/odps'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
-import { NDPNationalClassValidation, NDPNationalClassValidationField } from 'meta/assessment/validation/ndp'
+import {
+  NDPNationalClassValidation,
+  NDPNationalClassValidationField,
+} from 'meta/assessment/validation/nationalDataPoint'
 import { Validation } from 'meta/assessment/validation/validation'
 
 type Props = {

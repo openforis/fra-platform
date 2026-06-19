@@ -1,7 +1,7 @@
 import { Country } from 'meta/area/country'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { RecordNDPValidations } from 'meta/assessment/validation/ndp'
+import { RecordNDPValidations } from 'meta/assessment/validation/nationalDataPoint'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { OriginalDataPointRepository } from 'server/db/repository/assessmentCycle/originalDataPoint'

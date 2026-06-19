@@ -1,6 +1,6 @@
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
-import { NationalDataPointValidator } from 'meta/assessment/validation/nationalDataPoint'
-import { NDPValidation } from 'meta/assessment/validation/ndp'
+import { NDPValidation } from 'meta/assessment/validation/nationalDataPoint'
+import { NationalDataPointValidator } from 'meta/assessment/validation/nationalDataPointValidator/nationalDataPointValidator'
 
 type Props = {
   nationalDataPoint: OriginalDataPoint
