@@ -1,6 +1,7 @@
 import { DataSourceDescription } from 'meta/assessment/description'
 import {
   DataSource,
+  DataSourceEditableField,
   DataSourceHistoryCompare,
   DataSourceLinked,
   DataSourcesData,
@@ -12,7 +13,7 @@ import { Option } from 'client/components/Inputs/Select'
 
 export type DataSourceOnChange = (
   dataSource: DataSource,
-  field: keyof DataSource,
+  field: DataSourceEditableField,
   fieldValue: string | Array<string>
 ) => void
 

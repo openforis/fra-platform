@@ -1,7 +1,11 @@
 import React from 'react'
 import classNames from 'classnames'
 
-import { DataSource, DataSourceValidationErrors } from 'meta/assessment/descriptionValue/dataSource'
+import {
+  DataSource,
+  DataSourceEditableField,
+  DataSourceValidationErrors,
+} from 'meta/assessment/descriptionValue/dataSource'
 import { Objects } from 'utils/objects'
 
 import { DataCell, DataRow } from 'client/components/DataGrid'
@@ -16,7 +20,7 @@ import { useComponentsOrder } from './hooks/useComponentsOrder'
 import { useDataSourceActions } from './hooks/useDataSourceActions'
 import { useGetErrorTooltip } from './hooks/useGetErrorTooltip'
 
-const Components: Partial<Record<keyof DataSource, React.FC<PropsDataSourceComponent>>> = {
+const Components: Record<DataSourceEditableField, React.FC<PropsDataSourceComponent>> = {
   comments: Comments,
   reference: Reference,
   type: TypeOfDataSource,

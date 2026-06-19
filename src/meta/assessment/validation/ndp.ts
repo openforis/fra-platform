@@ -1,3 +1,4 @@
+import type { DataSourceEditableField } from 'meta/assessment/descriptionValue/dataSource'
 import { OriginalDataPointCommentKey } from 'meta/assessment/originalDataPoint'
 import { Validation } from 'meta/assessment/validation/validation'
 import { UUID } from 'meta/uuid/uuid'
@@ -12,7 +13,7 @@ export type NDPNationalClassValidationField =
 
 export type NDPNationalClassValidation = Partial<Record<NDPNationalClassValidationField, Validation>>
 
-export type NDPDataSourceValidationField = 'reference' | 'type' | 'comments'
+export type NDPDataSourceValidationField = Extract<DataSourceEditableField, 'comments' | 'reference' | 'type'>
 
 export type NDPDataSourceValidation = Partial<Record<NDPDataSourceValidationField, Validation>>
 

@@ -2,7 +2,7 @@ import { Country } from 'meta/area/country'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { CommentableDescription } from 'meta/assessment/descriptionValue'
-import { DataSource } from 'meta/assessment/descriptionValue/dataSource'
+import { DataSource, DataSourceEditableField } from 'meta/assessment/descriptionValue/dataSource'
 import { RecordDescriptionValidations } from 'meta/assessment/validation/description'
 import { Validation } from 'meta/assessment/validation/validation'
 import { Sockets } from 'meta/socket/sockets'
@@ -20,9 +20,10 @@ type Props = {
 }
 
 // Reference (empty check + link verification) is validated by the description link flow.
-const requiredFields: Array<keyof Pick<DataSource, 'type' | 'variables' | 'year'>> = ['type', 'variables', 'year']
+type RequiredField = Extract<DataSourceEditableField, 'type' | 'variables' | 'year'>
+const requiredFields: Array<RequiredField> = ['type', 'variables', 'year']
 
-const _getRequiredValidation = (value: DataSource[keyof DataSource]): Validation => {
+const _getRequiredValidation = (value: DataSource[RequiredField]): Validation => {
   if (Objects.isEmpty(value)) return { valid: false, messages: [{ key: 'generalValidation.notEmpty' }] }
   return { valid: true }
 }

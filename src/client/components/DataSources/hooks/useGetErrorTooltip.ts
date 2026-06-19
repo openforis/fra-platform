@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 
-import { DataSource, DataSourceValidationErrors } from 'meta/assessment/descriptionValue/dataSource'
+import { DataSourceEditableField, DataSourceValidationErrors } from 'meta/assessment/descriptionValue/dataSource'
 import { Objects } from 'utils/objects'
 
 import { TooltipProps, TooltipType } from 'client/components/Tooltips/type'
@@ -9,7 +9,7 @@ type Props = {
   validationErrors: DataSourceValidationErrors
 }
 
-type Returned = (componentKey: keyof DataSource) => TooltipProps | undefined
+type Returned = (componentKey: DataSourceEditableField) => TooltipProps | undefined
 
 export const useGetErrorTooltip = (props: Props): Returned => {
   const { validationErrors } = props
@@ -19,7 +19,7 @@ export const useGetErrorTooltip = (props: Props): Returned => {
       // Reference error tooltips are handled in the editor WYSIWYG.
       if (componentKey === 'reference') return undefined
 
-      const content = validationErrors[componentKey as keyof DataSourceValidationErrors]
+      const content = validationErrors[componentKey]
 
       return Objects.isEmpty(content) ? undefined : { content, type: TooltipType.error }
     },

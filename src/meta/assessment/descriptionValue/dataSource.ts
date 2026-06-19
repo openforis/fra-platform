@@ -12,6 +12,8 @@ export type DataSource = {
   year?: Array<string>
 }
 
+export type DataSourceEditableField = keyof Pick<DataSource, 'comments' | 'reference' | 'type' | 'variables' | 'year'>
+
 export type DataSourcesData = {
   dataSources: Array<DataSource>
   text?: string
