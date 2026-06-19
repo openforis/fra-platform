@@ -25,9 +25,10 @@ const _getPercentageValidation = (
   return { valid: false, messages: [message] }
 }
 
-export const buildNationalClassValidation = (props: Props): NDPNationalClassValidation => {
+export const validateNationalClass = (props: Props): NDPNationalClassValidation => {
   const { index, nationalDataPoint } = props
   const nationalClass = nationalDataPoint.nationalClasses?.[index]
+  // TODO: move validation out of ODPs object.
   const validation = ODPs.validateNationalClass(nationalDataPoint, index)
 
   const nationalClassName = nationalClass?.name ?? ''
