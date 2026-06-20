@@ -32,6 +32,8 @@
   "valueCannotExceedMaximumValueReportedForLandArea": "Value cannot exceed the maximum value ({{maxLandArea}}) reported for land area (1a)",
   "valueEqualToSum": "Total value should be equal to sum of subcategories",
   "valueEqualToSumParent": "The sum of subcategories {{subcategories}} is not equal to {{parentVariable}} {{parentCol}} {{parentTable}} <{{valueRounded}}>",
+  "valueMustBeFewerThanCharacters": "Value must be fewer than {{maxLength}} characters",
+  "valueMustBeNumber": "Value should be a valid number",
   "valueMustBePositive": "Value should be greater than zero",
   "valueMustBeYear": "Value should be a valid year",
   "valueNotGreaterThan": "Value should be not greater than {{maxValue}}",
