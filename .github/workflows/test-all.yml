@@ -55,7 +55,7 @@ jobs:
         run: mkdir -p playwright-report
 
       - name: "WEB: Run unit and integration tests"
-        run: docker compose -f src/test/e2e/docker-compose.test.yml exec -T web yarn test
+        run: docker compose -f src/test/e2e/docker-compose.test.yml exec -T -e NODE_ENV=test web yarn test
 
       - name: "Playwright: Run E2E tests"
         if: always()
