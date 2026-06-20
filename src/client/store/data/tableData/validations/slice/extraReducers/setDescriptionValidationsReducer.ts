@@ -1,6 +1,6 @@
 import { ActionReducerMapBuilder } from '@reduxjs/toolkit'
 
-import { DescriptionValidations } from 'meta/assessment/validation/descriptionValidations'
+import { DescriptionValidations } from 'meta/assessment/validation/descriptionValidations/descriptionValidations'
 import { Objects } from 'utils/objects'
 
 import { setDescriptionValidations } from 'client/store/data/tableData/validations/actions/setDescriptionValidations'
