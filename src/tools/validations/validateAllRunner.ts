@@ -6,6 +6,7 @@ import { Promises } from 'utils/promises'
 import { AreaController } from 'server/controller/area'
 import { AssessmentController } from 'server/controller/assessment'
 import { validateCountryDescriptions } from 'server/controller/cycleData/validations/descriptions/validateCountryDescriptions'
+import { validateCountryNationalDataPoints } from 'server/controller/cycleData/validations/nationalDataPoint/validateCountryNationalDataPoints'
 import { validateCountryTables } from 'server/controller/cycleData/validations/tables/validateCountryTables/validateCountryTables'
 import { BaseProtocol, DB } from 'server/db/db'
 import { DescriptionRepository } from 'server/db/repository/assessmentCycle/descriptions'
@@ -62,6 +63,7 @@ export const validateAll = async (client: BaseProtocol = DB): Promise<void> => {
           await Promise.all([
             validateCountryTables({ assessmentName, countryIso, cycleName }, client),
             validateCountryDescriptions({ assessment, country, cycle, descriptionsByCountry }),
+            validateCountryNationalDataPoints({ assessment, country, cycle }, client),
           ])
         } catch (error) {
           failures.push({ assessmentName, countryIso, cycleName, error })

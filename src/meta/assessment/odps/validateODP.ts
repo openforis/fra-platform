@@ -1,26 +1,26 @@
+import { ODPNationalClass, OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { Numbers } from 'utils/numbers'
 import { Objects } from 'utils/objects'
 
-import { ODPNationalClass, OriginalDataPoint } from 'meta/assessment/originalDataPoint'
+const ltE100 = (x: number): boolean => Numbers.lessThanOrEqualTo(x, 100)
 
-const ltE100 = (x: number) => Numbers.lessThanOrEqualTo(x, 100)
+const e100 = (x: number): boolean => Numbers.eq(x, 100)
 
-const e100 = (x: number) => Numbers.eq(x, 100)
-
-export const validateYear = (originalDataPoint: OriginalDataPoint) => {
+export const validateYear = (originalDataPoint: OriginalDataPoint): boolean => {
   return Numbers.greaterThan(originalDataPoint.year ?? 0, 0)
 }
 
 // National Class Validations:
 // == Name must not be empty or longer than 1024
-const _validateClassName = (nationalClass: ODPNationalClass) =>
+const _validateClassName = (nationalClass: ODPNationalClass): boolean =>
   !Objects.isEmpty(nationalClass?.name) && nationalClass?.name?.length < 1024
 
-// == Area must not be null
-const _validateArea = (nationalClass: ODPNationalClass) => Number.isNaN(+nationalClass.area)
+// == Area must not be empty and must be a valid number
+const _validateArea = (nationalClass: ODPNationalClass): boolean =>
+  !Objects.isEmpty(nationalClass.area) && !Number.isNaN(+nationalClass.area)
 
 // == ExtentOfForest percentage (forestPercent, otherWoodedLandPercent) sum should be less than or equal to 100
-const _validExtentOfForestPercentage = (nationalClass: ODPNationalClass) => {
+const _validExtentOfForestPercentage = (nationalClass: ODPNationalClass): boolean => {
   const percentSum = Numbers.sum([nationalClass.forestPercent ?? 0, nationalClass.otherWoodedLandPercent ?? 0])
   return ltE100(percentSum)
 }
@@ -29,7 +29,7 @@ const _validExtentOfForestPercentage = (nationalClass: ODPNationalClass) => {
 // (forestNaturalPercent, forestPlantationPercent, otherPlantedForestPercent)
 // sum should be equal to 100
 
-const _validForestCharacteristicsPercentage = (nationalClass: ODPNationalClass) => {
+const _validForestCharacteristicsPercentage = (nationalClass: ODPNationalClass): boolean => {
   if (+nationalClass.forestPercent <= 0) return true
   const percentSum = Numbers.sum([
     nationalClass.forestNaturalPercent ?? 0,
@@ -42,7 +42,7 @@ const _validForestCharacteristicsPercentage = (nationalClass: ODPNationalClass) 
 // == Forest plantation introduced percentage (forestPlantationIntroducedPercent)
 // should be less than or equal to 100
 
-const _validForestPlantationIntroducedPercent = (nationalClass: ODPNationalClass) => {
+const _validForestPlantationIntroducedPercent = (nationalClass: ODPNationalClass): boolean => {
   if (Objects.isEmpty(nationalClass.forestPlantationIntroducedPercent)) return true
   if (+nationalClass.forestPlantationIntroducedPercent <= 0) return true
   return ltE100(+nationalClass.forestPlantationIntroducedPercent)
@@ -50,7 +50,7 @@ const _validForestPlantationIntroducedPercent = (nationalClass: ODPNationalClass
 // == Natural forest of which primary forest percentage (forestNaturalForestOfWhichPrimaryForestPercent)
 // should be less than or equal to 100
 
-const _validPrimaryForest = (nationalClass: ODPNationalClass) => {
+const _validPrimaryForest = (nationalClass: ODPNationalClass): boolean => {
   if (Objects.isEmpty(nationalClass.forestNaturalForestOfWhichPrimaryForestPercent)) return true
   if (+nationalClass.forestNaturalForestOfWhichPrimaryForestPercent <= 0) return true
   return ltE100(+nationalClass.forestNaturalForestOfWhichPrimaryForestPercent)
@@ -72,7 +72,7 @@ export const validateNationalClass = (originalDataPoint: OriginalDataPoint, inde
   if (!nationalClass) return { error: false } as NationalClassValidation
   const isPlaceHolder = nationalClass.placeHolder
   const validClassName = isPlaceHolder || _validateClassName(nationalClass)
-  const validArea = validClassName || _validateArea(nationalClass)
+  const validArea = isPlaceHolder || _validateArea(nationalClass)
   const validExtentOfForestPercentage = _validExtentOfForestPercentage(nationalClass)
   const validForestCharacteristicsPercentage = _validForestCharacteristicsPercentage(nationalClass)
   const validForestPlantationIntroducedPercent = _validForestPlantationIntroducedPercent(nationalClass)
