@@ -18,6 +18,7 @@ enum Assessments {
 enum Data {
   data = 'data',
   validationDescriptions = 'data:validation:descriptions',
+  validationNationalDataPoints = 'data:validation:nationalDataPoints',
   validationTables = 'data:validation:tables',
 }
 
