@@ -1,7 +1,7 @@
-import { ODPs } from 'meta/assessment/odps'
 import { ODPNationalClass, OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { NDPValidation } from 'meta/assessment/validation/nationalDataPoint'
-import { validateNationalClass } from 'meta/assessment/validation/nationalDataPointValidator/validateNationalClass'
+import { validateNationalClass } from 'meta/assessment/validation/nationalDataPointValidator/validateNationalClass/validateNationalClass'
+import { validateYear } from 'meta/assessment/validation/nationalDataPointValidator/validateYear'
 import { Objects } from 'utils/objects'
 
 type Props = {
@@ -12,10 +12,8 @@ export const validate = (props: Props): NDPValidation => {
   const { nationalDataPoint } = props
   const validation: NDPValidation = {}
 
-  // TODO: move validation out of ODPs object.
-  if (!ODPs.validateYear(nationalDataPoint)) {
-    validation.year = { valid: false }
-  }
+  const yearValidation = validateYear({ nationalDataPoint })
+  if (!Objects.isNil(yearValidation)) validation.year = yearValidation
 
   nationalDataPoint.nationalClasses?.forEach((nationalClass: ODPNationalClass, index) => {
     const { placeHolder, uuid } = nationalClass
