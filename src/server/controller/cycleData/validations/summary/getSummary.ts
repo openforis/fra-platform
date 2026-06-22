@@ -1,7 +1,7 @@
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { DescriptionValidations } from 'meta/assessment/validation/descriptionValidations/descriptionValidations'
+import { DescriptionValidations } from 'meta/assessment/validation/descriptionValidations'
 import { ValidationSummary } from 'meta/assessment/validation/summary'
 import { Objects } from 'utils/objects'
 

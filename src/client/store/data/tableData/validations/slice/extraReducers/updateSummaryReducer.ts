@@ -2,7 +2,7 @@ import { ActionReducerMapBuilder, Draft, isAnyOf } from '@reduxjs/toolkit'
 
 import { SectionName } from 'meta/assessment/section'
 import { RecordDescriptionValidations } from 'meta/assessment/validation/description'
-import { DescriptionValidations } from 'meta/assessment/validation/descriptionValidations/descriptionValidations'
+import { DescriptionValidations } from 'meta/assessment/validation/descriptionValidations'
 import { ValidationSummary } from 'meta/assessment/validation/summary'
 import { Objects } from 'utils/objects'
 
