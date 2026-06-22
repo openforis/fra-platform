@@ -1,5 +1,4 @@
 import { TFunction } from 'i18next'
-import { Objects } from 'utils/objects'
 
 import { AreaCode } from 'meta/area/areaCode'
 import { CountryIso } from 'meta/area/countryIso'
@@ -11,6 +10,7 @@ import { SectionName, SectionNames, SubSection } from 'meta/assessment/section'
 import { Routes } from 'meta/routes/routes'
 import { RoleName } from 'meta/user/role/name'
 import { Users } from 'meta/user/users'
+import { Objects } from 'utils/objects'
 
 const messageToKey: { [key in keyof typeof ActivityLogMessage]?: string } = {
   [ActivityLogMessage.assessmentStatusUpdate]: 'updateAssessmentStatus',
@@ -19,6 +19,7 @@ const messageToKey: { [key in keyof typeof ActivityLogMessage]?: string } = {
   [ActivityLogMessage.invitationAccept]: 'acceptInvitation',
   [ActivityLogMessage.invitationAdd]: 'addInvitation',
   [ActivityLogMessage.invitationRemove]: 'removeInvitation',
+  [ActivityLogMessage.userRoleDeleteRole]: 'removeRole',
   [ActivityLogMessage.messageCreate]: 'commented',
   [ActivityLogMessage.messageMarkDeleted]: 'deleted',
   [ActivityLogMessage.originalDataPointCreate]: 'added',
