@@ -84,6 +84,7 @@ exec()
   .then(() => {
     Logger.info('Migrations executed:')
     Logger.info(`\n${executedMigrations.join('\n')}`)
+    process.exit(0)
   })
   .catch(async (err) => {
     Logger.error('Migration process failed:', err)
