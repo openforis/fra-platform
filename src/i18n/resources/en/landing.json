@@ -64,6 +64,7 @@
       "edited": "edited",
       "linkOriginalDataPointComments": "National data point {{year}}: {{section}} comments",
       "removeInvitation": "removed invitation of {{user}} as {{role}}",
+      "removeRole": "removed {{user}} as {{role}}",
       "removeUser": "removed {{user}}",
       "resolved": "resolved issue in",
       "status": "changed status to",

@@ -23,4 +23,5 @@ export const acceptedMessages = [
   ActivityLogMessage.originalDataPointUpdateYear,
   ActivityLogMessage.topicStatusChange,
   ActivityLogMessage.tableValuesClear,
+  ActivityLogMessage.userRoleDeleteRole,
 ]
