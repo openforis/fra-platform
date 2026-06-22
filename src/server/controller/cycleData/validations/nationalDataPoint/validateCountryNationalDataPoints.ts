@@ -3,6 +3,7 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { RecordNDPValidations } from 'meta/assessment/validation/nationalDataPoint'
 
+import { NationalDataPointValidationRedisRepository } from 'server/cache/repository/validation/nationalDataPoint'
 import { BaseProtocol, DB } from 'server/db/db'
 import { OriginalDataPointRepository } from 'server/db/repository/assessmentCycle/originalDataPoint'
 
@@ -23,11 +24,17 @@ export const validateCountryNationalDataPoints = async (
 
   const nationalDataPoints = await OriginalDataPointRepository.getMany({ assessment, countryIso, cycle }, client)
 
-  const validations = nationalDataPoints.reduce<RecordNDPValidations>((acc, nationalDataPoint) => {
+  const nationalDataPointValidations = nationalDataPoints.reduce<RecordNDPValidations>((acc, nationalDataPoint) => {
     acc[nationalDataPoint.uuid] = validateNationalDataPoint({ nationalDataPoint })
     return acc
   }, {})
 
-  // TODO: Store NDP validations in Redis once the validation cache repository is added.
-  return validations
+  await NationalDataPointValidationRedisRepository.setNationalDataPointValidations({
+    assessment,
+    countryIso,
+    cycle,
+    nationalDataPointValidations,
+  })
+
+  return nationalDataPointValidations
 }
