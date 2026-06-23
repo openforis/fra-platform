@@ -22,6 +22,8 @@ export const validateCountryNationalDataPoints = async (
   const { assessment, country, cycle } = props
   const { countryIso } = country
 
+  if (!cycle.props.ndp) return {}
+
   const nationalDataPoints = await OriginalDataPointRepository.getMany({ assessment, countryIso, cycle }, client)
 
   const nationalDataPointValidations = nationalDataPoints.reduce<RecordNDPValidations>((acc, nationalDataPoint) => {
