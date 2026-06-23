@@ -1,5 +1,7 @@
 import { expect, Locator, Page } from '@playwright/test'
 
+import { Promises } from 'utils/promises'
+
 // Eg. { id: 'telephone-field' }
 type Selector = Record<string, string>
 
@@ -14,6 +16,20 @@ const fillInput = async (page: Page, selector: Selector, value: string): Promise
 
 const fillWYSIWYG = async (page: Page, selector: Selector, value: string): Promise<void> => {
   await page.locator(`${toSelector(selector)} [contenteditable="true"]`).fill(value)
+}
+
+const fillEditorWysiwyg = async (page: Page, editor: Locator, lines: Array<string>): Promise<void> => {
+  await editor.click()
+  await editor.selectText()
+  await page.keyboard.press('Backspace')
+
+  await Promises.each(lines, async (line, index) => {
+    if (index > 0) await page.keyboard.press('Enter')
+    await page.keyboard.type(line)
+  })
+
+  await page.waitForTimeout(300)
+  await editor.blur()
 }
 
 const nestedSelectOption = async (page: Page, selector: Selector, optionName: string, exact = true): Promise<void> => {
@@ -109,6 +125,7 @@ export const DOMUtils = {
   expectTableHasError,
   expectTableHasNoError,
   fillCell,
+  fillEditorWysiwyg,
   fillInput,
   fillWYSIWYG,
   getCellValue,
