@@ -54,7 +54,7 @@ export default async (job: VerifyDescriptionLinksJob): Promise<void> => {
 
     const sectionNames = Array.from(new Set(descriptions.map(({ sectionName }) => sectionName)))
 
-    await DescriptionValidationRedisRepository.setDescriptionValidations({
+    await DescriptionValidationRedisRepository.setValidations({
       assessment,
       countryIso,
       cycle,

@@ -3,7 +3,7 @@ import { TableValidationRedisRepository } from 'server/cache/repository/validati
 import { getValidationSummary } from 'server/controller/cycleData/validations/summary/getSummary'
 
 export const ValidationsController = {
-  getDescriptionValidations: DescriptionValidationRedisRepository.getDescriptionValidations,
+  getDescriptionValidations: DescriptionValidationRedisRepository.getValidations,
   getTableValidations: TableValidationRedisRepository.getTableValidations,
   getValidationSummary,
 }

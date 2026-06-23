@@ -24,7 +24,7 @@ export const getValidationSummary = async (props: Props): Promise<ValidationSumm
     (section) => section.subSections?.map((subSection) => subSection.props.name) ?? []
   )
   const [descriptionValidations, nationalDataPointValidations, sectionsMetadata, tableValidations] = await Promise.all([
-    DescriptionValidationRedisRepository.getDescriptionValidations({ assessment, countryIso, cycle, sectionNames }),
+    DescriptionValidationRedisRepository.getValidations({ assessment, countryIso, cycle, sectionNames }),
     NationalDataPointValidationRedisRepository.getValidations({ assessment, countryIso, cycle }),
     SectionRepository.getManyMetadata({ assessment, cycle }),
     TableValidationRedisRepository.getTableValidations({ assessment, countryIso, cycle }),
