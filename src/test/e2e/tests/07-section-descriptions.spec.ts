@@ -12,20 +12,24 @@ const countryIso = 'X01'
 const sectionName = 'specificForestCategories'
 const sectionPath = `/assessments/${assessmentName}/${cycleName}/${countryIso}/sections/${sectionName}`
 
-const randomString = `${Date.now()}${Math.floor(Math.random() * 100_000)}`
+const commentsTitle = 'Comments'
+
+const randomString = Date.now().toString()
 const commentLines = [
   'These are valid comments.',
   `Lorem ipsum dolor sit amet, consectetur adipiscing elit. ${randomString}`,
 ]
 
-const commentsBlock = (page: Page): Locator =>
-  page
-    .locator('.description-title', { hasText: 'Comments' })
-    .first()
-    .locator('xpath=ancestor::*[contains(@class, "data-grid") and contains(@class, "description")][1]')
-const commentsEditor = (page: Page): Locator => commentsBlock(page).locator('.jodit-wysiwyg')
+const emptyLinkText = 'empty link'
+const brokenLinkDomain = 'this-domain-does-not-exist-e2e-test.invalid'
+const brokenLinkUrl = `https://${brokenLinkDomain}`
+const invalidLinksHtml = `<a href="">${emptyLinkText}</a><br><a href="${brokenLinkUrl}">broken link</a>`
+const brokenLinkDisplayUrl = `//${brokenLinkDomain}`
+
+const commentsEditor = (page: Page): Locator => DOMUtils.descriptionEditor(page, commentsTitle)
+const commentsValidationError = (page: Page): Locator => DOMUtils.descriptionValidationError(page, commentsTitle)
 const commentsToggleEditButton = (page: Page, name: 'Done' | 'Edit'): Locator =>
-  commentsBlock(page).locator('button:visible', { hasText: name })
+  DOMUtils.descriptionToggleEditButton(page, commentsTitle, name)
 
 test.describe.serial('Section descriptions: comments', () => {
   test('NC edits the comments', async ({ authenticatedPage }) => {
@@ -34,20 +38,43 @@ test.describe.serial('Section descriptions: comments', () => {
     await page.goto(sectionPath)
     await DOMUtils.unlockEditing(page)
 
-    // Listener for onBlur save for description comments
-    const descriptionSaved = page.waitForResponse(
-      (response) => response.url().includes('/api/cycle-data/descriptions') && response.request().method() === 'PUT'
-    )
+    const descriptionSaved = DOMUtils.waitForApiSave(page, '/api/cycle-data/descriptions')
 
     await commentsToggleEditButton(page, 'Edit').click()
     await DOMUtils.fillEditorWysiwyg(page, commentsEditor(page), commentLines)
     await commentsToggleEditButton(page, 'Done').click()
 
-    // Wait for the above listener completed
     await descriptionSaved
 
     await expect(commentsEditor(page)).toContainText(randomString)
     await page.reload()
     await expect(commentsEditor(page)).toContainText(randomString)
+  })
+
+  test('NC enters an empty link and a broken link, sees both validation errors', async ({ authenticatedPage }) => {
+    const page = authenticatedPage
+
+    await page.goto(sectionPath)
+    await DOMUtils.unlockEditing(page)
+
+    const descriptionSaved = DOMUtils.waitForApiSave(page, '/api/cycle-data/descriptions')
+
+    await commentsToggleEditButton(page, 'Edit').click()
+    await DOMUtils.pasteIntoEditorWysiwyg(page, commentsEditor(page), invalidLinksHtml)
+    await commentsToggleEditButton(page, 'Done').click()
+
+    await descriptionSaved
+
+    await expect(commentsValidationError(page)).toBeVisible({ timeout: 20000 })
+    await DOMUtils.expectValidationTooltip(
+      page,
+      commentsValidationError(page),
+      `Invalid link: "${emptyLinkText}" (Empty)`
+    )
+    await DOMUtils.expectValidationTooltip(
+      page,
+      commentsValidationError(page),
+      `Invalid link: "${brokenLinkDisplayUrl}" (DNS error)`
+    )
   })
 })
