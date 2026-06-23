@@ -19,6 +19,7 @@ const _getState = (state: RootState) => state.data.tableData.validations
 
 const emptySummary: ValidationSummary = {
   descriptions: {},
+  nationalDataPoints: {},
   sections: {},
   subsections: {},
   tables: {},
