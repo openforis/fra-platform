@@ -16,7 +16,7 @@ type Props = {
   tableValidations: RecordTableValidationsState
 }
 
-export const setTableValidations = async (props: Props): Promise<void> => {
+export const setValidations = async (props: Props): Promise<void> => {
   const { assessment, countryIso, cycle, tableNames, tableValidations } = props
 
   if (Objects.isEmpty(tableNames)) {
