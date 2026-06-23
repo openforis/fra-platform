@@ -7,6 +7,7 @@ import { Sockets } from 'meta/socket/sockets'
 import { User } from 'meta/user/user'
 
 import { NationalDataPointController } from 'server/controller/cycleData/nationalDataPoint'
+import { updateYearValidation } from 'server/controller/cycleData/validations/nationalDataPoint/updateYearValidation'
 import { BaseProtocol, DB } from 'server/db/db'
 import { OriginalDataPointRepository } from 'server/db/repository/assessmentCycle/originalDataPoint'
 import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
@@ -32,7 +33,7 @@ export const updateYear = async (props: Props, client: BaseProtocol = DB): Promi
 
   const originalDataPoint = await OriginalDataPointRepository.getOne({ assessment, cycle, countryIso, year })
 
-  return client.tx(async (t) => {
+  const updatedNationalDataPoint = await client.tx(async (t) => {
     // --- 1. Update ODP year
     const updatedOriginalDataPoint = await OriginalDataPointRepository.updateYear({ ...props, countryIso }, t)
 
@@ -67,4 +68,13 @@ export const updateYear = async (props: Props, client: BaseProtocol = DB): Promi
 
     return updatedOriginalDataPoint
   })
+
+  await updateYearValidation({
+    assessment,
+    countryIso,
+    cycle,
+    nationalDataPoint: updatedNationalDataPoint,
+  })
+
+  return updatedNationalDataPoint
 }
