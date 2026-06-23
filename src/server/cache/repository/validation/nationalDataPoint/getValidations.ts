@@ -22,7 +22,7 @@ const _parseNationalDataPointValidation = (value?: string | null): NDPValidation
   return JSON.parse(value)
 }
 
-export const getNationalDataPointValidations = async (props: Props): Promise<RecordNDPValidations> => {
+export const getValidations = async (props: Props): Promise<RecordNDPValidations> => {
   const { assessment, countryIso, cycle } = props
 
   const redis = RedisData.getInstance()
