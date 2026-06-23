@@ -27,7 +27,7 @@ export const getValidationSummary = async (props: Props): Promise<ValidationSumm
     DescriptionValidationRedisRepository.getValidations({ assessment, countryIso, cycle, sectionNames }),
     NationalDataPointValidationRedisRepository.getValidations({ assessment, countryIso, cycle }),
     SectionRepository.getManyMetadata({ assessment, cycle }),
-    TableValidationRedisRepository.getTableValidations({ assessment, countryIso, cycle }),
+    TableValidationRedisRepository.getValidations({ assessment, countryIso, cycle }),
   ])
   const nationalDataPointSummary = NationalDataPointValidations.calculateSummary({
     nationalDataPointValidations,

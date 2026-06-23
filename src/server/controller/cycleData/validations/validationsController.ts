@@ -4,6 +4,6 @@ import { getValidationSummary } from 'server/controller/cycleData/validations/su
 
 export const ValidationsController = {
   getDescriptionValidations: DescriptionValidationRedisRepository.getValidations,
-  getTableValidations: TableValidationRedisRepository.getTableValidations,
+  getTableValidations: TableValidationRedisRepository.getValidations,
   getValidationSummary,
 }
