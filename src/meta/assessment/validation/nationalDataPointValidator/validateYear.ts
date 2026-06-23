@@ -7,7 +7,7 @@ type Props = {
   nationalDataPoint: OriginalDataPoint
 }
 
-// Year must not be empty and must parse to a finite number.
+// Year must not be empty and must parse to a positive finite number.
 export const validateYear = (props: Props): Validation | undefined => {
   const { nationalDataPoint } = props
   const { year } = nationalDataPoint
@@ -16,7 +16,7 @@ export const validateYear = (props: Props): Validation | undefined => {
   let message: ValidationMessage | undefined
   if (Objects.isEmpty(year)) {
     message = { key: 'generalValidation.notEmpty' }
-  } else if (Objects.isNil(yearNumber)) {
+  } else if (Objects.isNil(yearNumber) || !Numbers.greaterThan(yearNumber, 0)) {
     message = { key: 'generalValidation.valueMustBeYear' }
   }
 
