@@ -6,14 +6,14 @@ import { Objects } from 'utils/objects'
 
 type Props = {
   nationalDataPoint: OriginalDataPoint
+  validation: NDPValidation
 }
 
 export const validate = (props: Props): NDPValidation => {
-  const { nationalDataPoint } = props
-  const validation: NDPValidation = {}
+  const { nationalDataPoint, validation: currentValidation } = props
+  const validation = validateYear({ nationalDataPoint, validation: currentValidation })
 
-  const yearValidation = validateYear({ nationalDataPoint })
-  if (!Objects.isNil(yearValidation)) validation.year = yearValidation
+  delete validation.nationalClasses
 
   nationalDataPoint.nationalClasses?.forEach((nationalClass: ODPNationalClass, index) => {
     const { placeHolder, uuid } = nationalClass
