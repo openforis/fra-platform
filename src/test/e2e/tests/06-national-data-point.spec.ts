@@ -1,7 +1,7 @@
 import { Locator, Page } from '@playwright/test'
 
 import { expect, test } from '../fixtures/auth'
-import { DOMUtils } from '../utils/DOM'
+import { DOMUtils } from '../utils/dom'
 
 const year = '2025'
 const reference = 'https://example.com/e2e-reference'

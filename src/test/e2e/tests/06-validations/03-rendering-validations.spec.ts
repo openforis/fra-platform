@@ -5,7 +5,7 @@ import { CycleNames } from 'meta/assessment/cycle/names'
 import { TableNames } from 'meta/assessment/table'
 
 import { expect, test } from 'test/e2e/fixtures/auth'
-import { DOMUtils } from 'test/e2e/utils/DOM'
+import { DOMUtils } from 'test/e2e/utils/dom'
 
 import { expectNavigationError, sectionPath } from './helpers/navigation'
 import { expectSubmitToReviewWarning } from './helpers/review'
