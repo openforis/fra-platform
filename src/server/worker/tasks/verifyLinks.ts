@@ -27,7 +27,9 @@ type StartOptions = {
 export const startVerifyLinksWorker = async (options: StartOptions = {}): Promise<void> => {
   const exitOnIdle = options.exitOnIdle ?? isMainProcess
   const workerId = `verify-links-${process.pid}-${Date.now()}`
-  await startVerifyLinksWorkerRuntime({ exitOnIdle, workerId })
+  // standalone (Heroku dyno or e2e worker container)
+  // has no other SocketServer instance running
+  await startVerifyLinksWorkerRuntime({ exitOnIdle, standalone: isMainProcess, workerId })
 }
 
 if (isMainProcess) {

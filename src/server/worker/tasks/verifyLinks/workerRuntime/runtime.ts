@@ -12,16 +12,17 @@ import { shutdownVerifyLinksWorker } from './shutdown'
 
 type Props = {
   exitOnIdle: boolean
+  standalone: boolean
   workerId: string
 }
 
 export const startVerifyLinksWorkerRuntime = async (props: Props): Promise<void> => {
-  const { exitOnIdle, workerId } = props
+  const { exitOnIdle, standalone, workerId } = props
 
   const queue = VerifyLinksQueueFactory.getInstance()
 
-  // Init SocketServer only for the worker dyno so it can emit events.
-  if (exitOnIdle) {
+  // Init socketserver for standalone workers (e.g. Heroku, E2E)
+  if (standalone) {
     await SocketServer.init(http.createServer())
   }
 
