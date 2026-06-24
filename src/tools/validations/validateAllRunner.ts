@@ -60,10 +60,14 @@ export const validateAll = async (client: BaseProtocol = DB): Promise<void> => {
         processedCountries += 1
 
         try {
+          const ndpValidationPromise = cycle.props.ndp
+            ? validateCountryNationalDataPoints({ assessment, country, cycle }, client)
+            : undefined
+
           await Promise.all([
             validateCountryTables({ assessmentName, countryIso, cycleName }, client),
             validateCountryDescriptions({ assessment, country, cycle, descriptionsByCountry }),
-            validateCountryNationalDataPoints({ assessment, country, cycle }, client),
+            ndpValidationPromise,
           ])
         } catch (error) {
           failures.push({ assessmentName, countryIso, cycleName, error })
