@@ -5,8 +5,8 @@ import { CycleNames } from 'meta/assessment/cycle/names'
 
 import { expect, test } from '../fixtures/auth'
 import { DescriptionUtils } from '../utils/description'
-import { DOMUtils } from '../utils/DOM'
-import { TooltipUtils } from '../utils/Tooltip'
+import { DOMUtils } from '../utils/dom'
+import { TooltipUtils } from '../utils/tooltip'
 
 const assessmentName = AssessmentNames.fra
 const cycleName = CycleNames._2025

@@ -2,7 +2,7 @@ import { Numbers } from 'utils/numbers'
 
 import { expect, test } from '../fixtures/auth'
 import { AuthUtils } from '../utils/Auth'
-import { DOMUtils } from '../utils/DOM'
+import { DOMUtils } from '../utils/dom'
 import { MailUtil } from '../utils/Mail'
 import { UserUtils } from '../utils/User'
 
