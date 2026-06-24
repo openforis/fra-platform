@@ -63,10 +63,6 @@ jobs:
           docker compose -f src/test/e2e/docker-compose.test.yml run --no-deps \
             playwright npm run test:e2e
 
-      - name: "WORKER: Print logs"
-        if: always()
-        run: docker compose -f src/test/e2e/docker-compose.test.yml logs worker
-
       - name: "Playwright: Zip test results"
         if: always()
         run: |
