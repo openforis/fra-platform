@@ -17,7 +17,7 @@ export const validateYear = async (props: Props): Promise<void> => {
   const { assessment, countryIso, cycle, nationalDataPoint } = props
   const { uuid } = nationalDataPoint
 
-  const nationalDataPointValidations = await NationalDataPointValidationRedisRepository.getValidations({
+  const validations = await NationalDataPointValidationRedisRepository.getValidations({
     assessment,
     countryIso,
     cycle,
@@ -25,14 +25,14 @@ export const validateYear = async (props: Props): Promise<void> => {
 
   const validation = NationalDataPointValidator.validateYear({
     nationalDataPoint,
-    validation: nationalDataPointValidations[uuid] ?? {},
+    validation: validations[uuid] ?? {},
   })
 
   await NationalDataPointValidationRedisRepository.setValidations({
     assessment,
     countryIso,
     cycle,
-    nationalDataPointValidations: { [uuid]: validation },
+    validations: { [uuid]: validation },
   })
   // TODO: Notify clients.
 }
