@@ -16,7 +16,7 @@ const fillWYSIWYG = async (page: Page, selector: Selector, value: string): Promi
   await page.locator(`${toSelector(selector)} [contenteditable="true"]`).fill(value)
 }
 
-const waitForApiSave = (page: Page, pathSubstring: string, method = 'PUT'): Promise<unknown> =>
+const waitForResponse = (page: Page, pathSubstring: string, method: string): Promise<unknown> =>
   page.waitForResponse((response) => response.url().includes(pathSubstring) && response.request().method() === method)
 
 const nestedSelectOption = async (page: Page, selector: Selector, optionName: string, exact = true): Promise<void> => {
@@ -121,5 +121,5 @@ export const DOMUtils = {
   tableContainer,
   tableValidationErrors,
   unlockEditing,
-  waitForApiSave,
+  waitForResponse,
 }

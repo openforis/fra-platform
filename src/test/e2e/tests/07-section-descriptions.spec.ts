@@ -4,7 +4,7 @@ import { AssessmentNames } from 'meta/assessment/assessment'
 import { CycleNames } from 'meta/assessment/cycle/names'
 
 import { expect, test } from '../fixtures/auth'
-import { DescriptionUtils } from '../utils/Description'
+import { DescriptionUtils } from '../utils/description'
 import { DOMUtils } from '../utils/DOM'
 import { TooltipUtils } from '../utils/Tooltip'
 
@@ -41,7 +41,7 @@ test.describe.serial('Section descriptions: comments', () => {
     await page.goto(sectionPath)
     await DOMUtils.unlockEditing(page)
 
-    const descriptionSaved = DOMUtils.waitForApiSave(page, '/api/cycle-data/descriptions')
+    const descriptionSaved = DOMUtils.waitForResponse(page, '/api/cycle-data/descriptions', 'PUT')
 
     await commentsToggleEditButton(page, 'Edit').click()
     await DescriptionUtils.fillEditorWysiwyg(page, commentsEditor(page), commentLines)
@@ -60,7 +60,7 @@ test.describe.serial('Section descriptions: comments', () => {
     await page.goto(sectionPath)
     await DOMUtils.unlockEditing(page)
 
-    const descriptionSaved = DOMUtils.waitForApiSave(page, '/api/cycle-data/descriptions')
+    const descriptionSaved = DOMUtils.waitForResponse(page, '/api/cycle-data/descriptions', 'PUT')
 
     await commentsToggleEditButton(page, 'Edit').click()
     await DescriptionUtils.pasteIntoEditorWysiwyg(page, commentsEditor(page), invalidLinksHtml)
