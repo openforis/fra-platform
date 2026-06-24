@@ -2,10 +2,12 @@ import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { DescriptionValidations } from 'meta/assessment/validation/descriptionValidations'
+import { NationalDataPointValidations } from 'meta/assessment/validation/nationalDataPointValidations'
 import { ValidationSummary } from 'meta/assessment/validation/summary'
 import { Objects } from 'utils/objects'
 
 import { DescriptionValidationRedisRepository } from 'server/cache/repository/validation/description'
+import { NationalDataPointValidationRedisRepository } from 'server/cache/repository/validation/nationalDataPoint'
 import { TableValidationRedisRepository } from 'server/cache/repository/validation/table'
 import { SectionRepository } from 'server/db/repository/assessment/section'
 
@@ -21,12 +23,22 @@ export const getValidationSummary = async (props: Props): Promise<ValidationSumm
   const sectionNames = sections.flatMap(
     (section) => section.subSections?.map((subSection) => subSection.props.name) ?? []
   )
-  const [descriptionValidations, sectionsMetadata, tableValidations] = await Promise.all([
-    DescriptionValidationRedisRepository.getDescriptionValidations({ assessment, countryIso, cycle, sectionNames }),
+  const [descriptionValidations, nationalDataPointValidations, sectionsMetadata, tableValidations] = await Promise.all([
+    DescriptionValidationRedisRepository.getValidations({ assessment, countryIso, cycle, sectionNames }),
+    NationalDataPointValidationRedisRepository.getValidations({ assessment, countryIso, cycle }),
     SectionRepository.getManyMetadata({ assessment, cycle }),
-    TableValidationRedisRepository.getTableValidations({ assessment, countryIso, cycle }),
+    TableValidationRedisRepository.getValidations({ assessment, countryIso, cycle }),
   ])
-  const summary: ValidationSummary = { descriptions: {}, sections: {}, subsections: {}, tables: {} }
+  const nationalDataPointSummary = NationalDataPointValidations.calculateSummary({
+    nationalDataPointValidations,
+  })
+  const summary: ValidationSummary = {
+    descriptions: {},
+    nationalDataPoints: nationalDataPointSummary,
+    sections: {},
+    subsections: {},
+    tables: {},
+  }
 
   sections.forEach((section) => {
     section.subSections?.forEach((subSection) => {
@@ -41,7 +53,8 @@ export const getValidationSummary = async (props: Props): Promise<ValidationSumm
 
       summary.descriptions[subSection.props.name] = descriptionSummary
 
-      let subsectionValid = descriptionsValid
+      const nationalDataPointValid = nationalDataPointSummary[subSection.props.name]?.valid ?? true
+      let subsectionValid = descriptionsValid && nationalDataPointValid
       tableNames.forEach((tableName) => {
         const valid = Objects.isEmpty(tableValidations[tableName] ?? {})
         summary.tables[tableName] = { valid }

@@ -5,6 +5,12 @@ import {
 } from 'meta/assessment/validation/nationalDataPoint'
 import { validateArea } from 'meta/assessment/validation/nationalDataPointValidator/validateNationalClass/rules/validateArea'
 import { validateName } from 'meta/assessment/validation/nationalDataPointValidator/validateNationalClass/rules/validateName'
+import {
+  validateExtentOfForestPercentage,
+  validateForestCharacteristicsPercentage,
+  validateForestPlantationIntroducedPercentage,
+  validatePrimaryForest,
+} from 'meta/assessment/validation/nationalDataPointValidator/validateNationalClass/rules/validatePercentages'
 import { Validation } from 'meta/assessment/validation/validation'
 import { Objects } from 'utils/objects'
 
@@ -21,7 +27,10 @@ type NationalClassRule = {
 const rules: Array<NationalClassRule> = [
   { field: 'name', validator: validateName },
   { field: 'area', validator: validateArea },
-  // TODO: Validate percentages
+  { field: 'extentOfForestPercentage', validator: validateExtentOfForestPercentage },
+  { field: 'forestCharacteristicsPercentage', validator: validateForestCharacteristicsPercentage },
+  { field: 'forestPlantationIntroducedPercentage', validator: validateForestPlantationIntroducedPercentage },
+  { field: 'primaryForest', validator: validatePrimaryForest },
 ]
 
 export const validateNationalClass = (props: Props): NDPNationalClassValidation => {

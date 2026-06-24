@@ -7,7 +7,7 @@ import { Objects } from 'utils/objects'
 
 import { getKeyCountry, Keys } from 'server/cache/repository/keys'
 import { RedisData } from 'server/cache/repository/redisData'
-import { getDescriptionValidations } from 'server/cache/repository/validation/description/getDescriptionValidations'
+import { getValidations } from 'server/cache/repository/validation/description/getValidations'
 
 type Props = {
   assessment: Assessment
@@ -16,7 +16,7 @@ type Props = {
   descriptionValidations: RecordDescriptionValidations
 }
 
-export const setDescriptionValidations = async (props: Props): Promise<void> => {
+export const setValidations = async (props: Props): Promise<void> => {
   const { assessment, countryIso, cycle, descriptionValidations } = props
   const sectionNames = Object.keys(descriptionValidations)
 
@@ -26,7 +26,7 @@ export const setDescriptionValidations = async (props: Props): Promise<void> => 
 
   const redis = RedisData.getInstance()
   const key = getKeyCountry({ assessment, countryIso, cycle, key: Keys.Data.validationDescriptions })
-  const currentValidations = await getDescriptionValidations({ assessment, countryIso, cycle, sectionNames })
+  const currentValidations = await getValidations({ assessment, countryIso, cycle, sectionNames })
 
   const validationsToSet = sectionNames.reduce<Record<string, string>>((acc, sectionName) => {
     const current = currentValidations[sectionName] ?? {}

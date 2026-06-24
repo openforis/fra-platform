@@ -8,7 +8,7 @@ import { Objects } from 'utils/objects'
 
 import { getKeyCountry, Keys } from 'server/cache/repository/keys'
 import { RedisData } from 'server/cache/repository/redisData'
-import { getDescriptionValidations } from 'server/cache/repository/validation/description/getDescriptionValidations'
+import { getValidations } from 'server/cache/repository/validation/description/getValidations'
 
 type Props = {
   assessment: Assessment
@@ -27,7 +27,7 @@ export const updateDescriptionLinkValidations = async (props: Props): Promise<Re
 
   if (Objects.isEmpty(targetSectionNames)) return {}
 
-  const currentValidations = await getDescriptionValidations({
+  const currentValidations = await getValidations({
     assessment,
     countryIso,
     cycle,

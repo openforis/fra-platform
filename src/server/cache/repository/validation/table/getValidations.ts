@@ -23,7 +23,7 @@ const _parseTableValidations = (value?: string | null): TableValidations => {
   return JSON.parse(value)
 }
 
-export const getTableValidations = async (props: Props): Promise<RecordTableValidationsState> => {
+export const getValidations = async (props: Props): Promise<RecordTableValidationsState> => {
   const { assessment, countryIso, cycle, tableNames } = props
 
   const key = getKeyCountry({ assessment, countryIso, cycle, key: Keys.Data.validationTables })

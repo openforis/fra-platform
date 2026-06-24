@@ -54,7 +54,7 @@ export const updateDataSourceFieldValidations = async (props: Props): Promise<vo
     return acc
   }, {})
 
-  await DescriptionValidationRedisRepository.setDescriptionValidations({
+  await DescriptionValidationRedisRepository.setValidations({
     assessment,
     countryIso,
     cycle,

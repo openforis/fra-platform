@@ -14,7 +14,7 @@ type Props = {
   nationalDataPointValidations: RecordNDPValidations
 }
 
-export const setNationalDataPointValidations = async (props: Props): Promise<void> => {
+export const setValidations = async (props: Props): Promise<void> => {
   const { assessment, countryIso, cycle, nationalDataPointValidations } = props
   const nationalDataPointUuids = Object.keys(nationalDataPointValidations)
 
