@@ -29,7 +29,7 @@ export const validateCountryNationalDataPoints = async (
     return acc
   }, {})
 
-  await NationalDataPointValidationRedisRepository.setNationalDataPointValidations({
+  await NationalDataPointValidationRedisRepository.setValidations({
     assessment,
     countryIso,
     cycle,

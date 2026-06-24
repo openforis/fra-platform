@@ -28,7 +28,7 @@ export const updateTableValidations = async (props: Props): Promise<void> => {
 
   const updatedTableNames = await validateNodeUpdates({ context })
 
-  await TableValidationRedisRepository.setTableValidations({
+  await TableValidationRedisRepository.setValidations({
     assessment,
     countryIso,
     cycle,

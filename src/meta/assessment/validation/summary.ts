@@ -20,6 +20,7 @@ export type ValidationSummaryDescription = Record<CommentableDescriptionName, Va
 
 export type ValidationSummary = {
   descriptions: Record<SectionName, ValidationSummaryDescription>
+  nationalDataPoints: Record<SectionName, ValidationStatus>
   sections: Record<UUID, ValidationSummarySection>
   subsections: Record<UUID, ValidationSummarySubsection>
   tables: Record<TableName, ValidationStatus>

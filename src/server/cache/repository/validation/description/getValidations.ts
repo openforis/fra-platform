@@ -23,7 +23,7 @@ const _parseSectionDescriptionValidations = (value?: string | null): SectionDesc
   return JSON.parse(value)
 }
 
-export const getDescriptionValidations = async (props: Props): Promise<RecordDescriptionValidations> => {
+export const getValidations = async (props: Props): Promise<RecordDescriptionValidations> => {
   const { assessment, countryIso, cycle, sectionNames } = props
 
   const key = getKeyCountry({ assessment, countryIso, cycle, key: Keys.Data.validationDescriptions })
