@@ -2,7 +2,7 @@ import { SectionNames } from 'meta/assessment/section'
 import { TableNames } from 'meta/assessment/table'
 
 import { expect, test } from 'test/e2e/fixtures/auth'
-import { DOMUtils } from 'test/e2e/utils/DOM'
+import { DOMUtils } from 'test/e2e/utils/dom'
 
 import { sectionPath } from './helpers/navigation'
 import { seedForestAreaNetChangeValidation } from './helpers/tables'

@@ -1,5 +1,5 @@
 import { expect, test } from '../fixtures/auth'
-import { DOMUtils } from '../utils/DOM'
+import { DOMUtils } from '../utils/dom'
 
 const rootLinkLabel = 'E2E test link'
 const rootLinkLabelEdited = 'E2E test link edited'
