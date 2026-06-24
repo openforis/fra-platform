@@ -1,7 +1,5 @@
 import { expect, Locator, Page } from '@playwright/test'
 
-import { Promises } from 'utils/promises'
-
 // Eg. { id: 'telephone-field' }
 type Selector = Record<string, string>
 
@@ -16,60 +14,6 @@ const fillInput = async (page: Page, selector: Selector, value: string): Promise
 
 const fillWYSIWYG = async (page: Page, selector: Selector, value: string): Promise<void> => {
   await page.locator(`${toSelector(selector)} [contenteditable="true"]`).fill(value)
-}
-
-const fillEditorWysiwyg = async (page: Page, editor: Locator, lines: Array<string>): Promise<void> => {
-  await editor.click()
-  await editor.selectText()
-  await page.keyboard.press('Backspace')
-
-  await Promises.each(lines, async (line, index) => {
-    if (index > 0) await page.keyboard.press('Enter')
-    await page.keyboard.type(line)
-  })
-
-  await page.waitForTimeout(300)
-  await editor.blur()
-}
-
-const pasteIntoEditorWysiwyg = async (page: Page, editor: Locator, html: string): Promise<void> => {
-  await editor.click()
-  await editor.selectText()
-  await page.keyboard.press('Backspace')
-
-  await editor.evaluate((el, pastedHtml) => {
-    const dataTransfer = new DataTransfer()
-    dataTransfer.setData('text/html', pastedHtml)
-    el.dispatchEvent(new ClipboardEvent('paste', { bubbles: true, cancelable: true, clipboardData: dataTransfer }))
-  }, html)
-
-  // Jodit pop up
-  const keepHtmlButton = page.locator('.jodit-dialog button[data-ref="keep"]')
-  await keepHtmlButton.waitFor({ state: 'visible', timeout: 2000 }).catch((): void => undefined)
-  if (await keepHtmlButton.isVisible()) await keepHtmlButton.click()
-
-  await page.waitForTimeout(300)
-  await editor.blur()
-}
-
-const descriptionBlock = (page: Page, title: string): Locator =>
-  page
-    .locator('.description-title', { hasText: title })
-    .first()
-    .locator('xpath=ancestor::*[contains(@class, "data-grid") and contains(@class, "description")][1]')
-
-const descriptionEditor = (page: Page, title: string): Locator =>
-  descriptionBlock(page, title).locator('.jodit-wysiwyg')
-
-const descriptionValidationError = (page: Page, title: string): Locator =>
-  descriptionBlock(page, title).locator('.validation-error')
-
-const descriptionToggleEditButton = (page: Page, title: string, name: 'Done' | 'Edit'): Locator =>
-  descriptionBlock(page, title).locator('button:visible', { hasText: name })
-
-const expectValidationTooltip = async (page: Page, locator: Locator, text: string): Promise<void> => {
-  await locator.hover()
-  await expect(page.getByRole('tooltip').filter({ hasText: text })).toBeVisible({ timeout: 20000 })
 }
 
 const waitForApiSave = (page: Page, pathSubstring: string, method = 'PUT'): Promise<unknown> =>
@@ -161,24 +105,17 @@ const sidebarNavigate = async (page: Page, section: string, subSection: string):
 
 export const DOMUtils = {
   clearTable,
-  descriptionBlock,
-  descriptionEditor,
-  descriptionToggleEditButton,
-  descriptionValidationError,
   elementNotExists,
   expectCellHasNoValidationError,
   expectCellHasValidationError,
   expectCellValue,
   expectTableHasError,
   expectTableHasNoError,
-  expectValidationTooltip,
   fillCell,
-  fillEditorWysiwyg,
   fillInput,
   fillWYSIWYG,
   getCellValue,
   nestedSelectOption,
-  pasteIntoEditorWysiwyg,
   selectOption,
   sidebarNavigate,
   tableContainer,

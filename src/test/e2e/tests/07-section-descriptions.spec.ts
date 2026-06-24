@@ -4,7 +4,9 @@ import { AssessmentNames } from 'meta/assessment/assessment'
 import { CycleNames } from 'meta/assessment/cycle/names'
 
 import { expect, test } from '../fixtures/auth'
+import { DescriptionUtils } from '../utils/Description'
 import { DOMUtils } from '../utils/DOM'
+import { TooltipUtils } from '../utils/Tooltip'
 
 const assessmentName = AssessmentNames.fra
 const cycleName = CycleNames._2025
@@ -26,10 +28,11 @@ const brokenLinkUrl = `https://${brokenLinkDomain}`
 const invalidLinksHtml = `<a href="">${emptyLinkText}</a><br><a href="${brokenLinkUrl}">broken link</a>`
 const brokenLinkDisplayUrl = `//${brokenLinkDomain}`
 
-const commentsEditor = (page: Page): Locator => DOMUtils.descriptionEditor(page, commentsTitle)
-const commentsValidationError = (page: Page): Locator => DOMUtils.descriptionValidationError(page, commentsTitle)
+const commentsEditor = (page: Page): Locator => DescriptionUtils.getDescriptionEditor(page, commentsTitle)
+const commentsValidationError = (page: Page): Locator =>
+  DescriptionUtils.getDescriptionValidationError(page, commentsTitle)
 const commentsToggleEditButton = (page: Page, name: 'Done' | 'Edit'): Locator =>
-  DOMUtils.descriptionToggleEditButton(page, commentsTitle, name)
+  DescriptionUtils.getDescriptionToggleEditButton(page, commentsTitle, name)
 
 test.describe.serial('Section descriptions: comments', () => {
   test('NC edits the comments', async ({ authenticatedPage }) => {
@@ -41,7 +44,7 @@ test.describe.serial('Section descriptions: comments', () => {
     const descriptionSaved = DOMUtils.waitForApiSave(page, '/api/cycle-data/descriptions')
 
     await commentsToggleEditButton(page, 'Edit').click()
-    await DOMUtils.fillEditorWysiwyg(page, commentsEditor(page), commentLines)
+    await DescriptionUtils.fillEditorWysiwyg(page, commentsEditor(page), commentLines)
     await commentsToggleEditButton(page, 'Done').click()
 
     await descriptionSaved
@@ -60,18 +63,18 @@ test.describe.serial('Section descriptions: comments', () => {
     const descriptionSaved = DOMUtils.waitForApiSave(page, '/api/cycle-data/descriptions')
 
     await commentsToggleEditButton(page, 'Edit').click()
-    await DOMUtils.pasteIntoEditorWysiwyg(page, commentsEditor(page), invalidLinksHtml)
+    await DescriptionUtils.pasteIntoEditorWysiwyg(page, commentsEditor(page), invalidLinksHtml)
     await commentsToggleEditButton(page, 'Done').click()
 
     await descriptionSaved
 
     await expect(commentsValidationError(page)).toBeVisible({ timeout: 20000 })
-    await DOMUtils.expectValidationTooltip(
+    await TooltipUtils.expectValidationTooltip(
       page,
       commentsValidationError(page),
       `Invalid link: "${emptyLinkText}" (Empty)`
     )
-    await DOMUtils.expectValidationTooltip(
+    await TooltipUtils.expectValidationTooltip(
       page,
       commentsValidationError(page),
       `Invalid link: "${brokenLinkDisplayUrl}" (DNS error)`
