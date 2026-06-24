@@ -1,7 +1,7 @@
 import { expect, type Page } from '@playwright/test'
 import other from 'i18n/resources/en/other.json'
 
-import { DOMUtils } from 'test/e2e/utils/DOM'
+import { DOMUtils } from 'test/e2e/utils/dom'
 
 const sendToReviewLabel = other.assessment.status.review.next
 const submitToReviewWarning = other.navigation.submitToReviewWithErrorsWarning
