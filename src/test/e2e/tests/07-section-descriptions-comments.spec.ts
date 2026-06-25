@@ -1,32 +1,15 @@
 import { Locator, Page } from '@playwright/test'
 
-import { AssessmentNames } from 'meta/assessment/assessment'
-import { CycleNames } from 'meta/assessment/cycle/names'
-
 import { expect, test } from '../fixtures/auth'
 import { DescriptionUtils } from '../utils/description'
 import { DOMUtils } from '../utils/dom'
+import { LinkFixtures } from '../utils/links'
+import { TextFixtures } from '../utils/text'
 import { TooltipUtils } from '../utils/tooltip'
-
-const assessmentName = AssessmentNames.fra
-const cycleName = CycleNames._2025
-const countryIso = 'X01'
-const sectionName = 'specificForestCategories'
-const sectionPath = `/assessments/${assessmentName}/${cycleName}/${countryIso}/sections/${sectionName}`
+import { sectionPath } from './07-section-descriptions.fixture'
 
 const commentsTitle = 'Comments'
-
 const randomString = Date.now().toString()
-const commentLines = [
-  'These are valid comments.',
-  `Lorem ipsum dolor sit amet, consectetur adipiscing elit. ${randomString}`,
-]
-
-const emptyLinkText = 'empty link'
-const brokenLinkDomain = 'this-domain-does-not-exist-e2e-test.invalid'
-const brokenLinkUrl = `https://${brokenLinkDomain}`
-const invalidLinksHtml = `<a href="">${emptyLinkText}</a><br><a href="${brokenLinkUrl}">broken link</a>`
-const brokenLinkDisplayUrl = `//${brokenLinkDomain}`
 
 const commentsEditor = (page: Page): Locator => DescriptionUtils.getDescriptionEditor(page, commentsTitle)
 const commentsValidationError = (page: Page): Locator =>
@@ -35,24 +18,28 @@ const commentsToggleEditButton = (page: Page, name: 'Done' | 'Edit'): Locator =>
   DescriptionUtils.getDescriptionToggleEditButton(page, commentsTitle, name)
 
 test.describe.serial('Section descriptions: comments', () => {
+  const commentLines = TextFixtures.multiLine(randomString)
+
   test('NC edits the comments', async ({ authenticatedPage }) => {
     const page = authenticatedPage
 
     await page.goto(sectionPath)
     await DOMUtils.unlockEditing(page)
 
-    const descriptionSaved = DOMUtils.waitForResponse(page, '/api/cycle-data/descriptions', 'PUT')
-
-    await commentsToggleEditButton(page, 'Edit').click()
-    await DescriptionUtils.fillEditorWysiwyg(page, commentsEditor(page), commentLines)
-    await commentsToggleEditButton(page, 'Done').click()
-
-    await descriptionSaved
+    await DescriptionUtils.save(page, async () => {
+      await commentsToggleEditButton(page, 'Edit').click()
+      await DescriptionUtils.fillEditorWysiwyg(page, commentsEditor(page), commentLines)
+      await commentsToggleEditButton(page, 'Done').click()
+    })
 
     await expect(commentsEditor(page)).toContainText(randomString)
     await page.reload()
     await expect(commentsEditor(page)).toContainText(randomString)
   })
+})
+
+test.describe.serial('Section descriptions: comments - invalid links', () => {
+  const commentsInvalidLinks = LinkFixtures.buildInvalidLinksHtml(`comments-${randomString}`)
 
   test('NC enters an empty link and a broken link, sees both validation errors', async ({ authenticatedPage }) => {
     const page = authenticatedPage
@@ -60,24 +47,22 @@ test.describe.serial('Section descriptions: comments', () => {
     await page.goto(sectionPath)
     await DOMUtils.unlockEditing(page)
 
-    const descriptionSaved = DOMUtils.waitForResponse(page, '/api/cycle-data/descriptions', 'PUT')
-
-    await commentsToggleEditButton(page, 'Edit').click()
-    await DescriptionUtils.pasteIntoEditorWysiwyg(page, commentsEditor(page), invalidLinksHtml)
-    await commentsToggleEditButton(page, 'Done').click()
-
-    await descriptionSaved
+    await DescriptionUtils.save(page, async () => {
+      await commentsToggleEditButton(page, 'Edit').click()
+      await DescriptionUtils.pasteIntoEditorWysiwyg(page, commentsEditor(page), commentsInvalidLinks.html)
+      await commentsToggleEditButton(page, 'Done').click()
+    })
 
     await expect(commentsValidationError(page)).toBeVisible({ timeout: 20000 })
     await TooltipUtils.expectValidationTooltip(
       page,
       commentsValidationError(page),
-      `Invalid link: "${emptyLinkText}" (Empty)`
+      `Invalid link: "${commentsInvalidLinks.emptyLinkText}" (Empty)`
     )
     await TooltipUtils.expectValidationTooltip(
       page,
       commentsValidationError(page),
-      `Invalid link: "${brokenLinkDisplayUrl}" (DNS error)`
+      `Invalid link: "${commentsInvalidLinks.brokenLinkDisplayUrl}" (DNS error)`
     )
   })
 })
