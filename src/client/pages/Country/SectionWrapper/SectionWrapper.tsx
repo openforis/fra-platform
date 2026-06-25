@@ -4,6 +4,7 @@ import { useSections } from 'client/store/meta/hooks/sections'
 import { useTableSections } from 'client/store/meta/hooks/tableSections'
 import { useSectionRouteParams } from 'client/hooks/routeParams'
 import MessageCenter from 'client/components/MessageCenter'
+import { useGetNationalDataPointValidations } from 'client/pages/Country/hooks/useGetNationalDataPointValidations'
 import { DOMs } from 'client/utils/doms'
 
 import { useReviewStatusListener } from './hooks/useReviewStatusListener'
@@ -15,6 +16,7 @@ const SectionWrapper: React.FC<PropsWithChildren> = (props) => {
   const sections = useSections()
   const tableSections = useTableSections({ sectionName })
   useReviewStatusListener()
+  useGetNationalDataPointValidations()
   useLayoutEffect(() => {
     // scroll to top
     DOMs.scrollTo()
