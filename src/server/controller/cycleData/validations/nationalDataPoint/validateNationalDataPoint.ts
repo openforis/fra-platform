@@ -4,10 +4,11 @@ import { NationalDataPointValidator } from 'meta/assessment/validation/nationalD
 
 type Props = {
   nationalDataPoint: OriginalDataPoint
+  validation: NDPValidation
 }
 
 export const validateNationalDataPoint = (props: Props): NDPValidation => {
-  const { nationalDataPoint } = props
-  return NationalDataPointValidator.validate({ nationalDataPoint })
+  const { nationalDataPoint, validation } = props
+  return NationalDataPointValidator.validate({ nationalDataPoint, validation })
   // TODO: Validate national data point data sources
 }
