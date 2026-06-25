@@ -2,6 +2,8 @@ import { Locator, Page } from '@playwright/test'
 
 import { Promises } from 'utils/promises'
 
+import { DOMUtils } from '../dom'
+
 const getDescriptionBlock = (page: Page, title: string): Locator =>
   page
     .locator('.description-title', { hasText: title })
@@ -51,6 +53,12 @@ const pasteIntoEditorWysiwyg = async (page: Page, editor: Locator, html: string)
   await editor.blur()
 }
 
+const save = async (page: Page, action: () => Promise<void>): Promise<void> => {
+  const descriptionSaved = DOMUtils.waitForResponse(page, '/api/cycle-data/descriptions', 'PUT')
+  await action()
+  await descriptionSaved
+}
+
 export const DescriptionUtils = {
   fillEditorWysiwyg,
   getDescriptionBlock,
@@ -58,4 +66,5 @@ export const DescriptionUtils = {
   getDescriptionToggleEditButton,
   getDescriptionValidationError,
   pasteIntoEditorWysiwyg,
+  save,
 }
