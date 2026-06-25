@@ -1,15 +1,17 @@
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
-import { Validation, ValidationMessage } from 'meta/assessment/validation/validation'
+import { NDPValidation } from 'meta/assessment/validation/nationalDataPoint'
+import { ValidationMessage } from 'meta/assessment/validation/validation'
 import { Numbers } from 'utils/numbers'
 import { Objects } from 'utils/objects'
 
 type Props = {
   nationalDataPoint: OriginalDataPoint
+  validation: NDPValidation
 }
 
 // Year must not be empty and must parse to a positive finite number.
-export const validateYear = (props: Props): Validation | undefined => {
-  const { nationalDataPoint } = props
+export const validateYear = (props: Props): NDPValidation => {
+  const { nationalDataPoint, validation } = props
   const { year } = nationalDataPoint
   const yearNumber = Numbers.toNumberOrNull(year)
 
@@ -20,7 +22,11 @@ export const validateYear = (props: Props): Validation | undefined => {
     message = { key: 'generalValidation.valueMustBeYear' }
   }
 
-  if (!Objects.isNil(message)) return { valid: false, messages: [message] }
+  if (Objects.isNil(message)) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { year: _, ...withoutYearValidation } = validation
+    return withoutYearValidation
+  }
 
-  return undefined
+  return { ...validation, year: { valid: false, messages: [message] } }
 }

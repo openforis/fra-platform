@@ -11,12 +11,12 @@ type Props = {
   assessment: Assessment
   countryIso: CountryIso
   cycle: Cycle
-  nationalDataPointValidations: RecordNDPValidations
+  validations: RecordNDPValidations
 }
 
 export const setValidations = async (props: Props): Promise<void> => {
-  const { assessment, countryIso, cycle, nationalDataPointValidations } = props
-  const nationalDataPointUuids = Object.keys(nationalDataPointValidations)
+  const { assessment, countryIso, cycle, validations } = props
+  const nationalDataPointUuids = Object.keys(validations)
 
   if (Objects.isEmpty(nationalDataPointUuids)) {
     return
@@ -26,7 +26,7 @@ export const setValidations = async (props: Props): Promise<void> => {
   const key = getKeyCountry({ assessment, countryIso, cycle, key: Keys.Data.validationNationalDataPoints })
 
   const validationsToSet = nationalDataPointUuids.reduce<Record<string, string>>((acc, nationalDataPointUuid) => {
-    acc[nationalDataPointUuid] = JSON.stringify(nationalDataPointValidations[nationalDataPointUuid] ?? {})
+    acc[nationalDataPointUuid] = JSON.stringify(validations[nationalDataPointUuid] ?? {})
     return acc
   }, {})
 

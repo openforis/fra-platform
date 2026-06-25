@@ -23,9 +23,17 @@ export const validateCountryNationalDataPoints = async (
   const { countryIso } = country
 
   const nationalDataPoints = await OriginalDataPointRepository.getMany({ assessment, countryIso, cycle }, client)
+  const currentValidations = await NationalDataPointValidationRedisRepository.getValidations({
+    assessment,
+    countryIso,
+    cycle,
+  })
 
-  const nationalDataPointValidations = nationalDataPoints.reduce<RecordNDPValidations>((acc, nationalDataPoint) => {
-    acc[nationalDataPoint.uuid] = validateNationalDataPoint({ nationalDataPoint })
+  const validations = nationalDataPoints.reduce<RecordNDPValidations>((acc, nationalDataPoint) => {
+    acc[nationalDataPoint.uuid] = validateNationalDataPoint({
+      nationalDataPoint,
+      validation: currentValidations[nationalDataPoint.uuid] ?? {},
+    })
     return acc
   }, {})
 
@@ -33,8 +41,8 @@ export const validateCountryNationalDataPoints = async (
     assessment,
     countryIso,
     cycle,
-    nationalDataPointValidations,
+    validations,
   })
 
-  return nationalDataPointValidations
+  return validations
 }
