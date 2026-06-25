@@ -105,6 +105,25 @@ test.describe.serial('Section descriptions: data sources - invalid reference', (
       validationError,
       `Invalid link: "${invalidLinks.brokenLinkDisplayUrl}" (DNS error)`
     )
+
+    // Check that empty cells are showing validation error
+    const emptyValueMessage = 'Value cannot be empty'
+    const typeCell = await DataSourceUtils.getDataSourceTypeCell(page, invalidLinks.emptyLinkText)
+    const variablesCell = await DataSourceUtils.getDataSourceVariablesCell(page, invalidLinks.emptyLinkText)
+    const yearCell = await DataSourceUtils.getDataSourceYearCell(page, invalidLinks.emptyLinkText)
+
+    await expect(typeCell).toHaveClass(/validation-error/)
+    await TooltipUtils.expectValidationTooltip(page, typeCell, emptyValueMessage)
+
+    await expect(variablesCell).toHaveClass(/validation-error/)
+    await TooltipUtils.expectValidationTooltip(page, variablesCell, emptyValueMessage)
+
+    await expect(yearCell).toHaveClass(/validation-error/)
+    await TooltipUtils.expectValidationTooltip(page, yearCell, emptyValueMessage)
+
+    // Comment cell is the only cell without errors (optional)
+    const commentsCell = await DataSourceUtils.getDataSourceCommentsCell(page, invalidLinks.emptyLinkText)
+    await expect(commentsCell).not.toHaveClass(/validation-error/)
   })
 
   test('NC fixes the invalid reference', async ({ authenticatedPage }) => {

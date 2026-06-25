@@ -55,7 +55,9 @@ const DataSourceRow: React.FC<Props> = (props: Props) => {
         return (
           <DataCell
             key={`${componentKey}-${dataSource.uuid}`}
-            className={classNames({ 'validation-error': !Objects.isEmpty(tooltip) })}
+            className={classNames(`datasource-column-${componentKey}`, `datasource-row-${dataSource.uuid}`, {
+              'validation-error': !Objects.isEmpty(tooltip),
+            })}
             editable={!disabled}
             lastRow={lastRow}
             tooltip={tooltip}

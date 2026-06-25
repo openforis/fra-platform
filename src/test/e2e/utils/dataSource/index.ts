@@ -3,7 +3,7 @@ import { Locator, Page } from '@playwright/test'
 const getDataSourceTable = (page: Page): Locator => page.locator('.data-grid.data-source')
 
 const getDataSourceReferenceCells = (page: Page): Locator =>
-  getDataSourceTable(page).locator('.editorWYSIWYG.editor-wysiwyg-links')
+  getDataSourceTable(page).locator('.datasource-column-reference')
 
 // Subject to change: last data source row is a placeholder to add new entries. Will be replaced with a button in #6085
 const getDataSourcePlaceholderReferenceEditor = (page: Page): Locator =>
@@ -18,6 +18,25 @@ const getDataSourceReferenceEditor = (page: Page, text: string): Locator =>
 
 const getDataSourceReferenceValidationError = (page: Page, text: string): Locator =>
   getDataSourceTable(page).locator('.editorWYSIWYG.validation-error', { hasText: text })
+
+const getDataSourceRowClass = async (page: Page, text: string): Promise<string> => {
+  const className = await getDataSourceReferenceCell(page, text).getAttribute('class')
+  const rowClass = className?.match(/datasource-row-\S+/)?.[0]
+  if (!rowClass) throw new Error(`Could not determine data source row class from "${className}"`)
+  return rowClass
+}
+
+const getDataSourceFieldCell = async (page: Page, text: string, field: string): Promise<Locator> => {
+  const rowClass = await getDataSourceRowClass(page, text)
+  return getDataSourceTable(page).locator(`.${rowClass}.datasource-column-${field}`)
+}
+
+const getDataSourceTypeCell = (page: Page, text: string): Promise<Locator> => getDataSourceFieldCell(page, text, 'type')
+const getDataSourceVariablesCell = (page: Page, text: string): Promise<Locator> =>
+  getDataSourceFieldCell(page, text, 'variables')
+const getDataSourceYearCell = (page: Page, text: string): Promise<Locator> => getDataSourceFieldCell(page, text, 'year')
+const getDataSourceCommentsCell = (page: Page, text: string): Promise<Locator> =>
+  getDataSourceFieldCell(page, text, 'comments')
 
 const findDataSourceRowIndex = async (page: Page, text: string): Promise<number> => {
   await getDataSourceReferenceCell(page, text).waitFor()
@@ -38,8 +57,12 @@ const deleteDataSourceRow = async (page: Page, text: string): Promise<void> => {
 
 export const DataSourceUtils = {
   deleteDataSourceRow,
+  getDataSourceCommentsCell,
   getDataSourcePlaceholderReferenceEditor,
   getDataSourceReferenceEditor,
   getDataSourceReferenceValidationError,
   getDataSourceTable,
+  getDataSourceTypeCell,
+  getDataSourceVariablesCell,
+  getDataSourceYearCell,
 }
