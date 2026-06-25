@@ -17,22 +17,23 @@ export const validateYear = async (props: Props): Promise<void> => {
   const { assessment, countryIso, cycle, nationalDataPoint } = props
   const { uuid } = nationalDataPoint
 
-  const validations = await NationalDataPointValidationRedisRepository.getValidations({
+  const validation = await NationalDataPointValidationRedisRepository.getValidation({
     assessment,
     countryIso,
     cycle,
+    uuid,
   })
 
-  const validation = NationalDataPointValidator.validateYear({
+  const updatedValidation = NationalDataPointValidator.validateYear({
     nationalDataPoint,
-    validation: validations[uuid] ?? {},
+    validation,
   })
 
   await NationalDataPointValidationRedisRepository.setValidations({
     assessment,
     countryIso,
     cycle,
-    validations: { [uuid]: validation },
+    validations: { [uuid]: updatedValidation },
   })
   // TODO: Notify clients.
 }
