@@ -5,6 +5,7 @@ import { Cycle } from 'meta/assessment/cycle'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { User } from 'meta/user/user'
 
+import { validateNationalClasses } from 'server/controller/cycleData/validations/nationalDataPoint/validateNationalClasses'
 import { BaseProtocol, DB } from 'server/db/db'
 import { OriginalDataPointRepository } from 'server/db/repository/assessmentCycle/originalDataPoint'
 import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
@@ -25,7 +26,7 @@ export const updateOriginalData = async (props: Props, client: BaseProtocol = DB
   const { assessment, country, cycle, originalDataPoint, sectionName, user } = props
   const { countryIso } = originalDataPoint
 
-  return client.tx(async (t) => {
+  const updatedNationalDataPoint = await client.tx(async (t) => {
     const updatedOriginalDataPoint = await OriginalDataPointRepository.updateOriginalData(
       { assessment, cycle, originalDataPoint },
       t
@@ -58,4 +59,13 @@ export const updateOriginalData = async (props: Props, client: BaseProtocol = DB
 
     return updatedOriginalDataPoint
   })
+
+  await validateNationalClasses({
+    assessment,
+    countryIso,
+    cycle,
+    nationalDataPoint: updatedNationalDataPoint,
+  })
+
+  return updatedNationalDataPoint
 }
