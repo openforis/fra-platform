@@ -3,6 +3,10 @@ import {
   getDescriptionValidation,
 } from 'client/store/data/tableData/validations/selectors/descriptions'
 import {
+  getNationalDataPointValidation,
+  getNationalDataPointValidations,
+} from 'client/store/data/tableData/validations/selectors/nationalDataPoints'
+import {
   getSummary,
   getSummaryHasErrors,
   getSummarySectionHasErrors,
@@ -13,6 +17,8 @@ import { getNodeValidation, getTableValidations } from 'client/store/data/tableD
 export const ValidationsSelectors = {
   getDataSourceValidations,
   getDescriptionValidation,
+  getNationalDataPointValidation,
+  getNationalDataPointValidations,
   getNodeValidation,
   getSummary,
   getSummaryHasErrors,
