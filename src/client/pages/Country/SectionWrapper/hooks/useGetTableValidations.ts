@@ -8,6 +8,7 @@ import { ValidationsActions } from 'client/store/data/tableData/validations/acti
 import { useAppDispatch } from 'client/store/hooks'
 import { useTableSections } from 'client/store/meta/hooks/tableSections'
 import { useCanEdit } from 'client/store/user/hooks/auth'
+import { useIsDataExportView } from 'client/hooks/dataExport'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { useIsPrintRoute } from 'client/hooks/routes'
 
@@ -19,6 +20,7 @@ export const useGetTableValidations = (props: Props): void => {
   const dispatch = useAppDispatch()
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const canEdit = useCanEdit(sectionName)
+  const isDataExportView = useIsDataExportView()
   const { print } = useIsPrintRoute()
   const tableSections = useTableSections({ sectionName })
 
@@ -28,10 +30,10 @@ export const useGetTableValidations = (props: Props): void => {
   )
 
   useEffect(() => {
-    if (print || !canEdit || Objects.isEmpty(tableNames)) {
+    if (isDataExportView || print || !canEdit || Objects.isEmpty(tableNames)) {
       return
     }
 
     dispatch(ValidationsActions.getTableValidations({ assessmentName, cycleName, countryIso, sectionName, tableNames }))
-  }, [assessmentName, canEdit, countryIso, cycleName, dispatch, print, sectionName, tableNames])
+  }, [assessmentName, canEdit, countryIso, cycleName, dispatch, isDataExportView, print, sectionName, tableNames])
 }

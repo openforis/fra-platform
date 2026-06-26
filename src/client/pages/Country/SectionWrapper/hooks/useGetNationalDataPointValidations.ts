@@ -8,6 +8,7 @@ import { useCountry } from 'client/store/area/hooks/country'
 import { ValidationsActions } from 'client/store/data/tableData/validations/actions'
 import { useAppDispatch } from 'client/store/hooks'
 import { useCanEditCycleData } from 'client/store/user/hooks/auth'
+import { useIsDataExportView } from 'client/hooks/dataExport'
 import { useSectionRouteParams } from 'client/hooks/routeParams'
 import { useIsPrintRoute } from 'client/hooks/routes'
 
@@ -16,6 +17,7 @@ export const useGetNationalDataPointValidations = (): void => {
   const { assessmentName, countryIso, cycleName, sectionName } = useSectionRouteParams<CountryIso>()
   const canEdit = useCanEditCycleData()
   const country = useCountry(countryIso)
+  const isDataExportView = useIsDataExportView()
   const { print } = useIsPrintRoute()
 
   const hasOriginalDataPoint = Boolean(country?.props?.forestCharacteristics?.useOriginalDataPoint)
@@ -24,10 +26,20 @@ export const useGetNationalDataPointValidations = (): void => {
   const isNationalDataPointSection = isExtentOfForest || isForestCharacteristics
 
   useEffect(() => {
-    if (print || !canEdit || Objects.isEmpty(sectionName) || !isNationalDataPointSection) {
+    if (isDataExportView || print || !canEdit || Objects.isEmpty(sectionName) || !isNationalDataPointSection) {
       return
     }
 
     dispatch(ValidationsActions.getNationalDataPointValidations({ assessmentName, cycleName, countryIso, sectionName }))
-  }, [assessmentName, canEdit, countryIso, cycleName, dispatch, isNationalDataPointSection, print, sectionName])
+  }, [
+    assessmentName,
+    canEdit,
+    countryIso,
+    cycleName,
+    dispatch,
+    isDataExportView,
+    isNationalDataPointSection,
+    print,
+    sectionName,
+  ])
 }
