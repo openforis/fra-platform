@@ -8,9 +8,9 @@ import { useODPYears, useOriginalDataPoint } from 'client/store/data/originalDat
 import { useIsEditTableDataEnabled } from 'client/store/user/hooks/auth'
 import { useOriginalDataPointRouteParams } from 'client/hooks/routeParams'
 import Select, { Option } from 'client/components/Inputs/Select'
-import { useYearErrorTooltip } from 'client/pages/OriginalDataPoint/hooks/useYearErrorTooltip'
 
 import { useOnChange } from './hooks/useOnChange'
+import { useYearErrorTooltip } from './hooks/useYearErrorTooltip'
 
 const YearSelection: React.FC = () => {
   const { t } = useTranslation()
