@@ -4,6 +4,7 @@ import { CountryIso } from 'meta/area/countryIso'
 import { AssessmentName } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
 import { RecordDescriptionValidations } from 'meta/assessment/validation/description'
+import { RecordNDPValidations } from 'meta/assessment/validation/nationalDataPoint'
 import { ValidationSummary } from 'meta/assessment/validation/summary'
 
 import { RecordTableValidationsState } from 'client/store/data/tableData/validations/state'
@@ -11,6 +12,7 @@ import { RootState } from 'client/store/types'
 
 type CountryValidations = {
   descriptions: RecordDescriptionValidations
+  nationalDataPoints: RecordNDPValidations
   summary: ValidationSummary
   tables: RecordTableValidationsState
 }
@@ -34,6 +36,7 @@ export const getCountryValidations = createSelector(
   ],
   (state, assessmentName, cycleName, countryIso): CountryValidations => ({
     descriptions: state?.descriptions?.[assessmentName]?.[cycleName]?.[countryIso] ?? {},
+    nationalDataPoints: state?.nationalDataPoints?.[assessmentName]?.[cycleName]?.[countryIso] ?? {},
     summary: state?.summary?.[assessmentName]?.[cycleName]?.[countryIso] ?? emptySummary,
     tables: state?.tables?.[assessmentName]?.[cycleName]?.[countryIso] ?? {},
   })

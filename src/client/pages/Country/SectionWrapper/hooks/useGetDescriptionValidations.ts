@@ -7,6 +7,7 @@ import { Objects } from 'utils/objects'
 import { ValidationsActions } from 'client/store/data/tableData/validations/actions'
 import { useAppDispatch } from 'client/store/hooks'
 import { useCanEdit } from 'client/store/user/hooks/auth'
+import { useIsDataExportView } from 'client/hooks/dataExport'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { useIsPrintRoute } from 'client/hooks/routes'
 
@@ -20,13 +21,14 @@ export const useGetDescriptionValidations = (props: Props): void => {
   const dispatch = useAppDispatch()
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const canEdit = useCanEdit(sectionName, CollaboratorEditPropertyType.descriptions)
+  const isDataExportView = useIsDataExportView()
   const { print } = useIsPrintRoute()
 
   useEffect(() => {
-    if (print || !canEdit || Objects.isEmpty(sectionName)) {
+    if (isDataExportView || print || !canEdit || Objects.isEmpty(sectionName)) {
       return
     }
 
     dispatch(ValidationsActions.getDescriptionValidations({ assessmentName, cycleName, countryIso, sectionName }))
-  }, [assessmentName, canEdit, countryIso, cycleName, dispatch, print, sectionName])
+  }, [assessmentName, canEdit, countryIso, cycleName, dispatch, isDataExportView, print, sectionName])
 }
