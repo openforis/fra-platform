@@ -26,30 +26,12 @@ export const useGetNationalDataPointValidations = (): void => {
   const isExtentOfForest = sectionName === SectionNames.extentOfForest
   const isForestCharacteristics = sectionName === SectionNames.forestCharacteristics && hasOriginalDataPoint
   const isNationalDataPointSection = isExtentOfForest || isForestCharacteristics
+  const shouldFetch =
+    !isDataExportView && !fetched && !print && canEdit && !Objects.isEmpty(sectionName) && isNationalDataPointSection
 
   useEffect(() => {
-    if (
-      isDataExportView ||
-      fetched ||
-      print ||
-      !canEdit ||
-      Objects.isEmpty(sectionName) ||
-      !isNationalDataPointSection
-    ) {
-      return
-    }
+    if (!shouldFetch) return
 
     dispatch(ValidationsActions.getNationalDataPointValidations({ assessmentName, cycleName, countryIso, sectionName }))
-  }, [
-    assessmentName,
-    canEdit,
-    countryIso,
-    cycleName,
-    dispatch,
-    fetched,
-    isDataExportView,
-    isNationalDataPointSection,
-    print,
-    sectionName,
-  ])
+  }, [assessmentName, countryIso, cycleName, dispatch, sectionName, shouldFetch])
 }
