@@ -12,7 +12,9 @@ import { useIsDataExportView } from 'client/hooks/dataExport'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { useIsPrintRoute } from 'client/hooks/routes'
 
-import { Props } from './props'
+type Props = {
+  sectionName: string
+}
 
 export const useGetTableValidations = (props: Props): void => {
   const { sectionName } = props
