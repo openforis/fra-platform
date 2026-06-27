@@ -19,7 +19,7 @@ const YearSelection: React.FC = () => {
   const canEditData = useIsEditTableDataEnabled(sectionName)
   const onChange = useOnChange()
   const { reservedYears, years } = useODPYears()
-  const errorTooltip = useYearErrorTooltip({ nationalDataPointUuid: originalDataPoint.uuid })
+  const errorTooltip = useYearErrorTooltip({ nationalDataPointUuid: originalDataPoint?.uuid })
   const disabled = Boolean(!canEditData)
   const options = years.map<Option>((y) => {
     return { label: String(y), value: String(y) }
