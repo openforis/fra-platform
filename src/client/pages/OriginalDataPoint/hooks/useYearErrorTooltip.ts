@@ -1,16 +1,22 @@
-import { UUID } from 'meta/uuid/uuid'
+import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
+import { Validation } from 'meta/assessment/validation/validation'
 
 import { useNationalDataPointValidation } from 'client/store/data/tableData/validations/hooks/nationalDataPoints'
 
 import { ErrorTooltip, useErrorTooltip } from './useErrorTooltip'
 
 type Props = {
-  nationalDataPointUuid?: UUID
+  nationalDataPoint: OriginalDataPoint
 }
 
-export const useYearErrorTooltip = (props: Props): ErrorTooltip | undefined => {
-  const { nationalDataPointUuid } = props
-  const nationalDataPointValidation = useNationalDataPointValidation({ uuid: nationalDataPointUuid })
+// Draft ODPs use year -1 and do not exist in the backend yet, so backend validations cannot cover this draft case.
+const draftYearValidation: Validation = { valid: false, messages: [{ key: 'generalValidation.notEmpty' }] }
 
-  return useErrorTooltip({ validation: nationalDataPointValidation.year })
+export const useYearErrorTooltip = (props: Props): ErrorTooltip | undefined => {
+  const { nationalDataPoint } = props
+  const { uuid, year } = nationalDataPoint
+  const nationalDataPointValidation = useNationalDataPointValidation({ uuid })
+  const validation = year === -1 ? draftYearValidation : nationalDataPointValidation.year
+
+  return useErrorTooltip({ validation })
 }
