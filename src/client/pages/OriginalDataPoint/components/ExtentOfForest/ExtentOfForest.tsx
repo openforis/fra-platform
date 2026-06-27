@@ -30,10 +30,6 @@ const ExtentOfForest: React.FC<Props> = (props) => {
 
   const nationalClasses = originalDataPoint.nationalClasses.filter((nationalClass) => !nationalClass.placeHolder)
 
-  const nationalClassValidations = nationalClasses.map((_, index) =>
-    ODPs.validateNationalClass(originalDataPoint, index)
-  )
-
   const totalArea = Numbers.format(ODPs.calcTotalArea({ originalDataPoint }))
   const totalForestPercentArea = Numbers.format(ODPs.calcTotalFieldArea({ originalDataPoint, field: 'forestPercent' }))
   const totalOtherWoodedLandPercentArea = Numbers.format(
@@ -94,7 +90,6 @@ const ExtentOfForest: React.FC<Props> = (props) => {
                   key={nationalClass.name}
                   canEditData={canEditData}
                   index={index}
-                  nationalClassValidation={nationalClassValidations[index]}
                   originalDataPoint={originalDataPoint}
                 />
               ))}

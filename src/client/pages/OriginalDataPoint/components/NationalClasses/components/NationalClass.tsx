@@ -1,13 +1,15 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+import classNames from 'classnames'
 
-import { ODPs } from 'meta/assessment/odps'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
+import { Objects } from 'utils/objects'
 
 import { useIsPrintRoute } from 'client/hooks/routes'
 import { DataCell, DataRow } from 'client/components/DataGrid'
 import InputText from 'client/components/Inputs/InputText'
 import TextArea from 'client/components/Inputs/TextArea'
+import { TooltipType } from 'client/components/Tooltips/type'
 import { useODPDisplayHistory } from 'client/pages/OriginalDataPoint/components/hooks/useODPDisplayHistory'
 import ODPDiffText from 'client/pages/OriginalDataPoint/components/ODPDiffText/ODPDiffText'
 // import { useNationalClassNameComments } from 'client/pages/OriginalDataPoint/hooks'
@@ -15,6 +17,7 @@ import {
   useIsEditODPDescriptionEnabled,
   useIsEditODPEnabled,
 } from 'client/pages/OriginalDataPoint/hooks/useIsEditODPEnabled'
+import { useNationalClassErrorTooltip } from 'client/pages/OriginalDataPoint/hooks/useNationalClassErrorTooltip'
 
 import { useOnChangeNationalClass } from './hooks/onChangeNationalClass'
 import { useRowActions } from './hooks/useRowActions'
@@ -29,7 +32,7 @@ const NationalClass: React.FC<Props> = (props) => {
 
   const { nationalClasses } = originalDataPoint
   const nationalClass = nationalClasses[index]
-  const { definition, name, placeHolder } = nationalClass
+  const { definition, name, placeHolder, uuid } = nationalClass
 
   const { t } = useTranslation()
   const { print } = useIsPrintRoute()
@@ -45,8 +48,13 @@ const NationalClass: React.FC<Props> = (props) => {
   // const target = [originalDataPoint.id, 'class', `${uuid}`, 'definition'] as string[]
   // const classNameRowComments = useNationalClassNameComments(target)
 
-  const nationalClassValidation = ODPs.validateNationalClass(originalDataPoint, index)
-  const error = !nationalClassValidation.validClassName
+  const errorTooltip = useNationalClassErrorTooltip({
+    field: 'name',
+    nationalClassUuid: uuid,
+    nationalDataPointUuid: originalDataPoint.uuid,
+  })
+  const error = !Objects.isEmpty(errorTooltip)
+  const tooltip = error ? { content: errorTooltip.content, type: TooltipType.error } : undefined
 
   // Hide placeholder row if user doesn't have table data permission (prevents adding new items)
   if (!canEditOdp && placeHolder) {
@@ -55,7 +63,7 @@ const NationalClass: React.FC<Props> = (props) => {
 
   return (
     <DataRow actions={actions}>
-      <DataCell error={error} lastRow={lastRow}>
+      <DataCell className={classNames({ 'validation-error': error })} error={error} lastRow={lastRow} tooltip={tooltip}>
         {displayHistory ? (
           <ODPDiffText
             className="input-text disabled"

@@ -1,5 +1,5 @@
 import { CountryIso } from 'meta/area/countryIso'
-import { NDPValidation } from 'meta/assessment/validation/nationalDataPoint'
+import { NDPNationalClassValidation, NDPValidation } from 'meta/assessment/validation/nationalDataPoint'
 import { UUID } from 'meta/uuid/uuid'
 import { Objects } from 'utils/objects'
 
@@ -27,5 +27,28 @@ export const useNationalDataPointValidation = (props: NationalDataPointValidatio
     if (Objects.isEmpty(uuid)) return {}
 
     return ValidationsSelectors.getNationalDataPointValidation(state, assessmentName, cycleName, countryIso, uuid)
+  })
+}
+
+type NationalClassValidationProps = {
+  nationalClassUuid?: UUID
+  nationalDataPointUuid?: UUID
+}
+
+export const useNationalClassValidation = (props: NationalClassValidationProps): NDPNationalClassValidation => {
+  const { nationalClassUuid, nationalDataPointUuid } = props
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
+
+  return useAppSelector((state) => {
+    if (Objects.isEmpty(nationalDataPointUuid) || Objects.isEmpty(nationalClassUuid)) return {}
+
+    return ValidationsSelectors.getNationalClassValidation(
+      state,
+      assessmentName,
+      cycleName,
+      countryIso,
+      nationalDataPointUuid,
+      nationalClassUuid
+    )
   })
 }
