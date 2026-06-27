@@ -2,12 +2,13 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
 
-import { ODPs } from 'meta/assessment/odps'
+import { Objects } from 'utils/objects'
 
 import { useODPYears, useOriginalDataPoint } from 'client/store/data/originalDataPoint/hooks/originalDataPoint'
 import { useIsEditTableDataEnabled } from 'client/store/user/hooks/auth'
 import { useOriginalDataPointRouteParams } from 'client/hooks/routeParams'
 import Select, { Option } from 'client/components/Inputs/Select'
+import { useYearErrorTooltip } from 'client/pages/OriginalDataPoint/hooks/useYearErrorTooltip'
 
 import { useOnChange } from './hooks/useOnChange'
 
@@ -18,7 +19,7 @@ const YearSelection: React.FC = () => {
   const canEditData = useIsEditTableDataEnabled(sectionName)
   const onChange = useOnChange()
   const { reservedYears, years } = useODPYears()
-  const validYear = ODPs.validateYear(originalDataPoint)
+  const errorTooltip = useYearErrorTooltip({ nationalDataPointUuid: originalDataPoint.uuid })
   const disabled = Boolean(!canEditData)
   const options = years.map<Option>((y) => {
     return { label: String(y), value: String(y) }
@@ -30,13 +31,14 @@ const YearSelection: React.FC = () => {
       <div className="odp__year-selection">
         <Select
           bordered
-          classNames={{ container: classNames({ 'validation-error': !validYear }) }}
+          classNames={{ container: classNames({ 'validation-error': !Objects.isEmpty(errorTooltip) }) }}
           disabled={disabled}
           isClearable={false}
           isOptionDisabled={(option: Option) => reservedYears.includes(Number(option.value))}
           onChange={onChange}
           options={options}
           placeholder=""
+          tooltip={errorTooltip}
           value={originalDataPoint?.year ? String(originalDataPoint.year) : ''}
         />
       </div>
