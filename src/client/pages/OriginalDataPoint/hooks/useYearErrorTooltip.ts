@@ -9,7 +9,7 @@ type Props = {
   nationalDataPoint: OriginalDataPoint
 }
 
-// Draft ODPs use year -1 and do not exist in the backend yet, so backend validations cannot cover this draft case.
+// Draft NDPs use year -1 and do not exist in the backend yet, so backend validations cannot cover this draft case.
 const draftYearValidation: Validation = { valid: false, messages: [{ key: 'generalValidation.notEmpty' }] }
 
 export const useYearErrorTooltip = (props: Props): ErrorTooltip | undefined => {
