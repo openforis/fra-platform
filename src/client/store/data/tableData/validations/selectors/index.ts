@@ -5,6 +5,7 @@ import {
 import {
   getNationalDataPointValidation,
   getNationalDataPointValidations,
+  nationalDataPointValidationsFetched,
 } from 'client/store/data/tableData/validations/selectors/nationalDataPoints'
 import {
   getSummary,
@@ -25,4 +26,5 @@ export const ValidationsSelectors = {
   getSummarySectionHasErrors,
   getSummarySubSectionHasErrors,
   getTableValidations,
+  nationalDataPointValidationsFetched,
 }
