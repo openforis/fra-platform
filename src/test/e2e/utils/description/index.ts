@@ -29,7 +29,6 @@ const fillEditorWysiwyg = async (page: Page, editor: Locator, lines: Array<strin
     await page.keyboard.type(line)
   })
 
-  await page.waitForTimeout(300)
   await editor.blur()
 }
 
@@ -49,7 +48,6 @@ const pasteIntoEditorWysiwyg = async (page: Page, editor: Locator, html: string)
   await keepHtmlButton.waitFor({ state: 'visible', timeout: 2000 }).catch((): void => undefined)
   if (await keepHtmlButton.isVisible()) await keepHtmlButton.click()
 
-  await page.waitForTimeout(300)
   await editor.blur()
 }
 
