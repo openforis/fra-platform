@@ -1,12 +1,10 @@
-import { CountryIso } from 'meta/area/countryIso' // import { ODPValidation } from './odpValidation'
+import { CountryIso } from 'meta/area/countryIso'
 import { DataSource } from 'meta/assessment/descriptionValue/dataSource'
 import { ODPDataSourceMethod } from 'meta/assessment/originalDataPoint/odpDataSource'
 import { TableNames } from 'meta/assessment/table'
 import { UUID } from 'meta/uuid/uuid'
 
-// import { ODPEditStatus } from './odpEditStatus'
 import { ODPNationalClass } from './odpNationalClass'
-// import { ODPValidation } from './odpValidation'
 
 export interface OriginalDataPointValues {
   // Extent of forest

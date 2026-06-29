@@ -19,7 +19,6 @@ import {
 } from 'meta/assessment/odps/nationalClassUtils'
 import { removeNationalClassPlaceHolder } from 'meta/assessment/odps/removeNationalClassPlaceHolder'
 import { updateNationalClass } from 'meta/assessment/odps/updateNationalClass'
-import { validateNationalClass, validateYear } from 'meta/assessment/odps/validateODP'
 
 export const ODPs = {
   addNationalClassPlaceHolder,
@@ -39,7 +38,4 @@ export const ODPs = {
   removeNationalClassPlaceHolder,
   shouldUseTotalPrimaryForestPercentage,
   updateNationalClass,
-  // Validate
-  validateYear,
-  validateNationalClass,
 }
