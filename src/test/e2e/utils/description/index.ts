@@ -29,6 +29,7 @@ const fillEditorWysiwyg = async (page: Page, editor: Locator, lines: Array<strin
     await page.keyboard.type(line)
   })
 
+  await page.waitForTimeout(300)
   await editor.blur()
 }
 
@@ -43,11 +44,11 @@ const pasteIntoEditorWysiwyg = async (page: Page, editor: Locator, html: string)
     el.dispatchEvent(new ClipboardEvent('paste', { bubbles: true, cancelable: true, clipboardData: dataTransfer }))
   }, html)
 
-  // jodit popup
   const keepHtmlButton = page.locator('.jodit-dialog button[data-ref="keep"]')
-  await keepHtmlButton.waitFor({ state: 'visible', timeout: 2000 }).catch((): void => undefined)
+  await keepHtmlButton.waitFor({ state: 'visible', timeout: 200 }).catch((): void => undefined)
   if (await keepHtmlButton.isVisible()) await keepHtmlButton.click()
 
+  await page.waitForTimeout(300)
   await editor.blur()
 }
 
