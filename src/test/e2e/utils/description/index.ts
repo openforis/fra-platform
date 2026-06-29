@@ -44,9 +44,22 @@ const pasteIntoEditorWysiwyg = async (page: Page, editor: Locator, html: string)
     el.dispatchEvent(new ClipboardEvent('paste', { bubbles: true, cancelable: true, clipboardData: dataTransfer }))
   }, html)
 
-  const keepHtmlButton = page.locator('.jodit-dialog button[data-ref="keep"]')
-  await keepHtmlButton.waitFor({ state: 'visible', timeout: 200 }).catch((): void => undefined)
-  if (await keepHtmlButton.isVisible()) await keepHtmlButton.click()
+  await page.locator('.jodit-dialog button[data-ref="keep"]').click()
+
+  await page.waitForTimeout(300)
+  await editor.blur()
+}
+
+const pasteIntoEditorWysiwygLinksOnly = async (page: Page, editor: Locator, html: string): Promise<void> => {
+  await editor.click()
+  await editor.selectText()
+  await page.keyboard.press('Backspace')
+
+  await editor.evaluate((el, pastedHtml) => {
+    // eslint-disable-next-line no-param-reassign
+    el.innerHTML = pastedHtml
+    el.dispatchEvent(new Event('input', { bubbles: true }))
+  }, html)
 
   await page.waitForTimeout(300)
   await editor.blur()
@@ -65,5 +78,6 @@ export const DescriptionUtils = {
   getDescriptionToggleEditButton,
   getDescriptionValidationError,
   pasteIntoEditorWysiwyg,
+  pasteIntoEditorWysiwygLinksOnly,
   save,
 }

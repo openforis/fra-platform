@@ -36,7 +36,7 @@ test.describe.serial('Section descriptions: data sources', () => {
     await DescriptionUtils.save(page, async () => {
       await dataSourcesToggleEditButton(page, 'Edit').click()
       const referenceEditor = DataSourceUtils.getDataSourcePlaceholderReferenceEditor(page)
-      await DescriptionUtils.pasteIntoEditorWysiwyg(page, referenceEditor, validReference.html)
+      await DescriptionUtils.pasteIntoEditorWysiwygLinksOnly(page, referenceEditor, validReference.html)
       await dataSourcesToggleEditButton(page, 'Done').click()
     })
 
@@ -52,7 +52,7 @@ test.describe.serial('Section descriptions: data sources', () => {
     await DescriptionUtils.save(page, async () => {
       await dataSourcesToggleEditButton(page, 'Edit').click()
       const referenceEditor = DataSourceUtils.getDataSourceReferenceEditor(page, validReference.text)
-      await DescriptionUtils.pasteIntoEditorWysiwyg(page, referenceEditor, updatedReference.html)
+      await DescriptionUtils.pasteIntoEditorWysiwygLinksOnly(page, referenceEditor, updatedReference.html)
       await dataSourcesToggleEditButton(page, 'Done').click()
     })
 
@@ -89,7 +89,7 @@ test.describe.serial('Section descriptions: data sources - invalid reference', (
     await DescriptionUtils.save(page, async () => {
       await dataSourcesToggleEditButton(page, 'Edit').click()
       const referenceEditor = DataSourceUtils.getDataSourcePlaceholderReferenceEditor(page)
-      await DescriptionUtils.pasteIntoEditorWysiwyg(page, referenceEditor, invalidLinks.html)
+      await DescriptionUtils.pasteIntoEditorWysiwygLinksOnly(page, referenceEditor, invalidLinks.html)
       await dataSourcesToggleEditButton(page, 'Done').click()
     })
 
@@ -135,7 +135,7 @@ test.describe.serial('Section descriptions: data sources - invalid reference', (
     await DescriptionUtils.save(page, async () => {
       await dataSourcesToggleEditButton(page, 'Edit').click()
       const referenceEditor = DataSourceUtils.getDataSourceReferenceEditor(page, invalidLinks.emptyLinkText)
-      await DescriptionUtils.pasteIntoEditorWysiwyg(page, referenceEditor, fixedReference.html)
+      await DescriptionUtils.pasteIntoEditorWysiwygLinksOnly(page, referenceEditor, fixedReference.html)
       await dataSourcesToggleEditButton(page, 'Done').click()
     })
 
