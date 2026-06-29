@@ -20,6 +20,7 @@ import ReviewSummaryIndicator from 'client/components/ReviewSummaryIndicator'
 import { ODPColHeader } from 'client/pages/Section/DataTable/Table/types'
 
 import { useOdpHeaderLastApprovedHistoryInfo } from './hooks/useOdpHeaderLastApprovedHistoryInfo'
+import { useOdpHeaderValidationError } from './hooks/useOdpHeaderValidationError'
 
 type Props = {
   className: string
@@ -41,6 +42,7 @@ const OdpHeaderCell: React.FC<Props> = (props) => {
   const { print } = useIsPrintRoute()
   const reviewStatus = useOdpReviewSummary(odpId)
   const historyInfo = useOdpHeaderLastApprovedHistoryInfo({ odpYear, table })
+  const hasValidationError = useOdpHeaderValidationError({ odpId })
 
   if (print) {
     return (
@@ -52,7 +54,7 @@ const OdpHeaderCell: React.FC<Props> = (props) => {
 
   return (
     <DataCell
-      className={classNames(className, 'table-grid__odp-cell')}
+      className={classNames(className, 'table-grid__odp-cell', { 'validation-error': hasValidationError })}
       gridColumn={gridColumn}
       gridRow={gridRow}
       header

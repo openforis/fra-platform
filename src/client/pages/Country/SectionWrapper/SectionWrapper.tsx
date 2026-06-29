@@ -8,6 +8,7 @@ import { DOMs } from 'client/utils/doms'
 
 import { useGetDescriptionValidations } from './hooks/useGetDescriptionValidations'
 import { useGetNationalDataPointValidations } from './hooks/useGetNationalDataPointValidations'
+import { useGetOriginalDataPointReservedYears } from './hooks/useGetOriginalDataPointReservedYears'
 import { useGetTableValidations } from './hooks/useGetTableValidations'
 import { useReviewStatusListener } from './hooks/useReviewStatusListener'
 
@@ -21,6 +22,7 @@ const SectionWrapper: React.FC<PropsWithChildren> = (props) => {
   useGetTableValidations({ sectionName })
   useGetDescriptionValidations({ sectionName })
   useGetNationalDataPointValidations()
+  useGetOriginalDataPointReservedYears()
   useLayoutEffect(() => {
     // scroll to top
     DOMs.scrollTo()
