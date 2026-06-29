@@ -10,6 +10,7 @@
   "categories": "Categories",
   "class": "Class",
   "clickOnNDP": "Click on the year to access original data",
+  "clickOnNDPWithErrors": "The original data has errors. Click on the year to open it",
   "confirmCopyPreviousValues": "Do you want to override previous values? This operation cannot be undone.",
   "confirmDelete": "Delete this data point? This cannot be undone.",
   "copyPreviousValues": "Copy previous references",

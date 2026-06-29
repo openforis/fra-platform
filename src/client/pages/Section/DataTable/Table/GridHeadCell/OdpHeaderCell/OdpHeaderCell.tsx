@@ -1,7 +1,6 @@
 import './OdpHeaderCell.scss'
 import 'client/components/DiffText/DiffText.scss'
 import React from 'react'
-import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
 
 import { CountryIso } from 'meta/area/countryIso'
@@ -20,7 +19,7 @@ import ReviewSummaryIndicator from 'client/components/ReviewSummaryIndicator'
 import { ODPColHeader } from 'client/pages/Section/DataTable/Table/types'
 
 import { useOdpHeaderLastApprovedHistoryInfo } from './hooks/useOdpHeaderLastApprovedHistoryInfo'
-import { useOdpHeaderValidationError } from './hooks/useOdpHeaderValidationError'
+import { useOdpHeaderTooltip } from './hooks/useOdpHeaderTooltip'
 
 type Props = {
   className: string
@@ -36,13 +35,13 @@ const OdpHeaderCell: React.FC<Props> = (props) => {
   const { className, gridColumn, gridRow, lastCol, odpYear, sectionName, table } = props
   const { id: odpId, year } = odpYear
 
-  const { t } = useTranslation()
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const historyLastApprovedIsActive = useHistoryLastApprovedIsActive()
   const { print } = useIsPrintRoute()
   const reviewStatus = useOdpReviewSummary(odpId)
   const historyInfo = useOdpHeaderLastApprovedHistoryInfo({ odpYear, table })
-  const hasValidationError = useOdpHeaderValidationError({ odpId })
+  const tooltip = useOdpHeaderTooltip({ odpId })
+  const hasError = tooltip.id === TooltipId.error
 
   if (print) {
     return (
@@ -54,7 +53,7 @@ const OdpHeaderCell: React.FC<Props> = (props) => {
 
   return (
     <DataCell
-      className={classNames(className, 'table-grid__odp-cell', { 'validation-error': hasValidationError })}
+      className={classNames(className, 'table-grid__odp-cell', { 'validation-error': hasError })}
       gridColumn={gridColumn}
       gridRow={gridRow}
       header
@@ -63,8 +62,8 @@ const OdpHeaderCell: React.FC<Props> = (props) => {
       <div className={classNames({ 'diff-text': !Objects.isNil(historyInfo) })}>
         <Link
           className={classNames('table-grid__odp-link', { added: historyInfo?.added, removed: historyInfo?.removed })}
-          data-tooltip-content={t('nationalDataPoint.clickOnNDP')}
-          data-tooltip-id={TooltipId.info}
+          data-tooltip-content={tooltip.content}
+          data-tooltip-id={tooltip.id}
           to={Routes.OriginalDataPoint.generatePath({ assessmentName, countryIso, cycleName, sectionName, year })}
         >
           {year}
