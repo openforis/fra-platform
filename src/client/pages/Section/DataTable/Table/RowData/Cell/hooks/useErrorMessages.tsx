@@ -17,17 +17,16 @@ export default (props: Props): TooltipProps | undefined => {
   const { t } = useTranslation()
   const historyLastApprovedIsActive = useHistoryLastApprovedIsActive()
 
-  const { messages = [], valid } = validation
+  const messages = MessageParser.getMessages(t, validation)
 
-  if (historyLastApprovedIsActive || valid || messages.length === 0) {
+  if (historyLastApprovedIsActive || messages.length === 0) {
     return undefined
   }
 
   const content: ReactNode = (
     <ul>
-      {messages.map((message) => {
-        const { key } = message
-        return <li key={key}>{MessageParser.getMessage(t, message)}</li>
+      {messages.map((message, index) => {
+        return <li key={`${message}-${index}`}>{message}</li>
       })}
     </ul>
   )

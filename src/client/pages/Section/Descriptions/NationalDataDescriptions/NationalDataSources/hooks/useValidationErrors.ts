@@ -5,7 +5,6 @@ import type { DataSourceValidationErrorsRecord } from 'meta/assessment/descripti
 import { SectionName } from 'meta/assessment/section'
 import type { DataSourceValidation, DataSourceValidationField } from 'meta/assessment/validation/description'
 import { MessageParser } from 'meta/validations/messageParser'
-import { Objects } from 'utils/objects'
 
 import { useDataSourceValidations } from 'client/store/data/tableData/validations/hooks/descriptions'
 import { useCanEditCycleData } from 'client/store/user/hooks/auth'
@@ -28,20 +27,12 @@ export const useValidationErrors = (props: Props): DataSourceValidationErrorsRec
     if (!canEditCycleData || print) return {}
 
     const getReferenceErrors = (dataSourceValidation: DataSourceValidation): Array<string> => {
-      const validation = dataSourceValidation.reference
-
-      if (!validation || validation.valid || Objects.isEmpty(validation.messages)) return []
-
-      return validation.messages.map((message) => MessageParser.getMessage(t, message))
+      return MessageParser.getMessages(t, dataSourceValidation.reference)
     }
 
     const getRequiredFieldError = (dataSourceValidation: DataSourceValidation, field: RequiredField): string => {
-      const validation = dataSourceValidation[field]
-
-      if (!validation || validation.valid || Objects.isEmpty(validation.messages)) return ''
-
-      const [message] = validation.messages
-      return MessageParser.getMessage(t, message)
+      const [message = ''] = MessageParser.getMessages(t, dataSourceValidation[field])
+      return message
     }
 
     return Object.entries(dataSourceValidations).reduce<DataSourceValidationErrorsRecord>(
