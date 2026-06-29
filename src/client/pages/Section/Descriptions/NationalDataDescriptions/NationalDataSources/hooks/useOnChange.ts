@@ -22,11 +22,11 @@ export const useOnChange = (props: Props): DataSourceOnChange => {
 
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const dispatch = useAppDispatch()
-  const value = useCommentableDescriptionValue({ name, sectionName })
+  const value = useCommentableDescriptionValue({ name, sectionName, template: { dataSources: [], text: '' } })
 
   return useCallback<DataSourceOnChange>(
     (dataSource, fieldName, fieldValue) => {
-      const { dataSources = [] } = value
+      const { dataSources } = value
 
       const dataSourcesUpdate = DataSources.updateFieldValue({ dataSources, dataSource, fieldName, fieldValue })
       const valueUpdate: CommentableDescriptionValue = { ...value, dataSources: dataSourcesUpdate }
