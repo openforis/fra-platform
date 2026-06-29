@@ -3,7 +3,7 @@ import { createSelector } from '@reduxjs/toolkit'
 import { CountryIso } from 'meta/area/countryIso'
 import { AssessmentName } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
-import { NDPValidation } from 'meta/assessment/validation/nationalDataPoint'
+import { NDPNationalClassValidation, NDPValidation } from 'meta/assessment/validation/nationalDataPoint'
 import { UUID } from 'meta/uuid/uuid'
 import { Objects } from 'utils/objects'
 
@@ -36,4 +36,20 @@ export const nationalDataPointValidationsFetched = createSelector(
     const validations = state.nationalDataPoints?.[assessmentName]?.[cycleName]?.[countryIso]
     return !Objects.isNil(validations)
   }
+)
+
+export const getNationalClassValidation = createSelector(
+  [
+    getNationalDataPointValidation,
+    (
+      _state: RootState,
+      _assessmentName: AssessmentName,
+      _cycleName: CycleName,
+      _countryIso: CountryIso,
+      _nationalDataPointUuid: UUID,
+      nationalClassUuid: UUID
+    ) => nationalClassUuid,
+  ],
+  (nationalDataPointValidation, nationalClassUuid): NDPNationalClassValidation =>
+    nationalDataPointValidation.nationalClasses?.[nationalClassUuid] ?? {}
 )
