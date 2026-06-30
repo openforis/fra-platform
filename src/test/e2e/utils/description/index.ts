@@ -2,6 +2,8 @@ import { Locator, Page } from '@playwright/test'
 
 import { Promises } from 'utils/promises'
 
+import { DOMUtils } from '../dom'
+
 const getDescriptionBlock = (page: Page, title: string): Locator =>
   page
     .locator('.description-title', { hasText: title })
@@ -42,13 +44,31 @@ const pasteIntoEditorWysiwyg = async (page: Page, editor: Locator, html: string)
     el.dispatchEvent(new ClipboardEvent('paste', { bubbles: true, cancelable: true, clipboardData: dataTransfer }))
   }, html)
 
-  // jodit popup
-  const keepHtmlButton = page.locator('.jodit-dialog button[data-ref="keep"]')
-  await keepHtmlButton.waitFor({ state: 'visible', timeout: 2000 }).catch((): void => undefined)
-  if (await keepHtmlButton.isVisible()) await keepHtmlButton.click()
+  await page.locator('.jodit-dialog button[data-ref="keep"]').click()
 
   await page.waitForTimeout(300)
   await editor.blur()
+}
+
+const pasteIntoEditorWysiwygLinksOnly = async (page: Page, editor: Locator, html: string): Promise<void> => {
+  await editor.click()
+  await editor.selectText()
+  await page.keyboard.press('Backspace')
+
+  await editor.evaluate((el, pastedHtml) => {
+    // eslint-disable-next-line no-param-reassign
+    el.innerHTML = pastedHtml
+    el.dispatchEvent(new Event('input', { bubbles: true }))
+  }, html)
+
+  await page.waitForTimeout(300)
+  await editor.blur()
+}
+
+const save = async (page: Page, action: () => Promise<void>): Promise<void> => {
+  const descriptionSaved = DOMUtils.waitForResponse(page, '/api/cycle-data/descriptions', 'PUT')
+  await action()
+  await descriptionSaved
 }
 
 export const DescriptionUtils = {
@@ -58,4 +78,6 @@ export const DescriptionUtils = {
   getDescriptionToggleEditButton,
   getDescriptionValidationError,
   pasteIntoEditorWysiwyg,
+  pasteIntoEditorWysiwygLinksOnly,
+  save,
 }
