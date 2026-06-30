@@ -26,7 +26,7 @@ export const useOnChange = (props: Props): DataSourceOnChange => {
 
   return useCallback<DataSourceOnChange>(
     (dataSource, fieldName, fieldValue) => {
-      const { dataSources } = value
+      const { dataSources = [] } = value
 
       const dataSourcesUpdate = DataSources.updateFieldValue({ dataSources, dataSource, fieldName, fieldValue })
       const valueUpdate: CommentableDescriptionValue = { ...value, dataSources: dataSourcesUpdate }
