@@ -28,10 +28,11 @@ export const useOdpHeaderTooltip = (props: Props): OdpHeaderTooltip => {
   const hasError = !historyLastApprovedIsActive && Boolean(uuid) && NationalDataPointValidations.hasError(validation)
 
   return useMemo<OdpHeaderTooltip>(() => {
+    const content = t('nationalDataPoint.clickOnNDP')
     if (hasError) {
-      return { content: t('nationalDataPoint.clickOnNDPWithErrors'), id: TooltipId.error }
+      return { content, id: TooltipId.error }
     }
 
-    return { content: t('nationalDataPoint.clickOnNDP'), id: TooltipId.info }
+    return { content, id: TooltipId.info }
   }, [hasError, t])
 }
