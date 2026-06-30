@@ -17,9 +17,14 @@ export type NDPDataSourceValidationField = Extract<DataSourceEditableField, 'com
 
 export type NDPDataSourceValidation = Partial<Record<NDPDataSourceValidationField, Validation>>
 
+export type NDPValidationMeta = {
+  odpId: number
+}
+
 export type NDPValidation = {
   comments?: Partial<Record<OriginalDataPointCommentKey, Validation>>
   dataSources?: Record<UUID, NDPDataSourceValidation>
+  meta?: NDPValidationMeta
   nationalClasses?: Record<UUID, NDPNationalClassValidation>
   year?: Validation
 }

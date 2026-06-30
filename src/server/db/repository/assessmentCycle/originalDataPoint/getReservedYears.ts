@@ -21,7 +21,7 @@ export const getReservedYears = async (
 
   return client.map<ODPReservedYear>(
     `
-      select id, uuid, year, jsonb_array_length(national_classes) AS national_classes
+      select id, year, jsonb_array_length(national_classes) AS national_classes
       from ${schemaName}.original_data_point
       where country_iso = $1
     `,

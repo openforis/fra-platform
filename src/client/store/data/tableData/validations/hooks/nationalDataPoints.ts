@@ -30,6 +30,29 @@ export const useNationalDataPointValidation = (props: NationalDataPointValidatio
   })
 }
 
+type NationalDataPointValidationByOdpIdProps = {
+  odpId?: number
+}
+
+export const useNationalDataPointValidationByOdpId = (
+  props: NationalDataPointValidationByOdpIdProps
+): NDPValidation => {
+  const { odpId } = props
+  const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
+
+  return useAppSelector((state) => {
+    if (Objects.isNil(odpId)) return {}
+
+    return ValidationsSelectors.getNationalDataPointValidationByOdpId(
+      state,
+      assessmentName,
+      cycleName,
+      countryIso,
+      odpId
+    )
+  })
+}
+
 type NationalClassValidationProps = {
   nationalClassUuid?: UUID
   nationalDataPointUuid?: UUID

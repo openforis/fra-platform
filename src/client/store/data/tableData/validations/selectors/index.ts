@@ -5,6 +5,7 @@ import {
 import {
   getNationalClassValidation,
   getNationalDataPointValidation,
+  getNationalDataPointValidationByOdpId,
   getNationalDataPointValidations,
   nationalDataPointValidationsFetched,
 } from 'client/store/data/tableData/validations/selectors/nationalDataPoints'
@@ -21,6 +22,7 @@ export const ValidationsSelectors = {
   getDescriptionValidation,
   getNationalClassValidation,
   getNationalDataPointValidation,
+  getNationalDataPointValidationByOdpId,
   getNationalDataPointValidations,
   getNodeValidation,
   getSummary,

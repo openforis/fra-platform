@@ -25,6 +25,24 @@ export const getNationalDataPointValidation = createSelector(
   (validations, uuid): NDPValidation => validations?.[uuid] ?? {}
 )
 
+export const getNationalDataPointValidationByOdpId = createSelector(
+  [
+    getNationalDataPointValidations,
+    (
+      _state: RootState,
+      _assessmentName: AssessmentName,
+      _cycleName: CycleName,
+      _countryIso: CountryIso,
+      odpId?: number
+    ) => odpId,
+  ],
+  (validations, odpId): NDPValidation => {
+    if (Objects.isNil(odpId)) return {}
+
+    return Object.values(validations ?? {}).find((validation) => validation.meta?.odpId === odpId) ?? {}
+  }
+)
+
 export const nationalDataPointValidationsFetched = createSelector(
   [
     (state: RootState) => state.data.tableData.validations,
