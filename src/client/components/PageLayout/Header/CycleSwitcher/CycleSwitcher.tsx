@@ -27,9 +27,9 @@ const CycleSwitcher: React.FC = () => {
     return <div>{cycleLabel}</div>
   }
 
-  const latestCycle = Assessments.getLastCreatedCycle(assessment)
+  const lastCreatedCycle = Assessments.getLastCreatedCycle(assessment)
   const isCycleNameEmpty =
-    (latestCycle.name === cycleName || cycleName?.includes(CycleNames.latest)) && !Users.isAdministrator(user)
+    (lastCreatedCycle.name === cycleName || cycleName?.includes(CycleNames.latest)) && !Users.isAdministrator(user)
   const displayName = isCycleNameEmpty ? '' : cycleName
 
   return (
