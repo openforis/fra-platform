@@ -10,13 +10,18 @@ import {
   getNodeValuesUpdateEvent,
   getTableValidationsUpdateEvent,
 } from 'meta/socket/sockets/node'
-import { getODPDeleteEvent, getODPReservedYearsEvent } from 'meta/socket/sockets/originalDataPoint'
+import {
+  getNationalDataPointValidationsUpdateEvent,
+  getODPDeleteEvent,
+  getODPReservedYearsEvent,
+} from 'meta/socket/sockets/originalDataPoint'
 import { getRequestReviewStatusEvent, getRequestReviewSummaryEvent } from 'meta/socket/sockets/review'
 
 export const Sockets = {
   getDescriptionValidationsUpdateEvent,
   getNodeValuesUpdateEvent,
   getTableValidationsUpdateEvent,
+  getNationalDataPointValidationsUpdateEvent,
   getODPDeleteEvent,
   getODPReservedYearsEvent,
   getRequestReviewStatusEvent,

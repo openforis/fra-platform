@@ -6,6 +6,8 @@ import { NationalDataPointValidator } from 'meta/assessment/validation/nationalD
 
 import { NationalDataPointValidationRedisRepository } from 'server/cache/repository/validation/nationalDataPoint'
 
+import { notifyNationalDataPointValidationUpdate } from './notifyNationalDataPointValidationUpdate'
+
 type Props = {
   assessment: Assessment
   countryIso: CountryIso
@@ -35,5 +37,6 @@ export const validateYear = async (props: Props): Promise<void> => {
     cycle,
     validations: { [uuid]: updatedValidation },
   })
-  // TODO: Notify clients.
+
+  notifyNationalDataPointValidationUpdate({ assessment, countryIso, cycle, uuid, validation: updatedValidation })
 }
