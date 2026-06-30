@@ -2,6 +2,7 @@ import React from 'react'
 
 import { AssessmentName, AssessmentNames } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
+import { CycleNames } from 'meta/assessment/cycle/names'
 
 import { useCycleRouteParams } from 'client/hooks/routeParams'
 import AssessmentSwitch from 'client/components/AssessmentSwitch'
@@ -14,9 +15,10 @@ import Partners from './Partners'
 import ReportAndStory from './ReportAndStory'
 
 const HeroComponents: Record<CycleName, React.FC> = {
-  '2020': KeyFindings,
-  '2025': ReportAndStory,
-  latest: ReportAndStory,
+  [CycleNames._2020]: KeyFindings,
+  [CycleNames._2025]: ReportAndStory,
+  [CycleNames.latest]: ReportAndStory,
+  [CycleNames.latest2]: ReportAndStory,
 }
 
 const Components: { [key: AssessmentName]: React.FC } = {
