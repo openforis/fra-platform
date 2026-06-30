@@ -9,6 +9,8 @@ import { Topics } from 'meta/messageCenter/topics'
 import { Sockets } from 'meta/socket/sockets'
 import { User } from 'meta/user/user'
 
+import { NationalDataPointValidationRedisRepository } from 'server/cache/repository/validation/nationalDataPoint'
+import { notifyNationalDataPointValidationDelete } from 'server/controller/cycleData/validations/nationalDataPoint/notifyNationalDataPointValidationDelete'
 import { BaseProtocol, DB } from 'server/db/db'
 import { DescriptionRepository } from 'server/db/repository/assessmentCycle/descriptions'
 import { MessageTopicRepository } from 'server/db/repository/assessmentCycle/messageTopic'
@@ -34,9 +36,9 @@ export const remove = async (props: Props, client: BaseProtocol = DB): Promise<O
   const { assessment, country, cycle, originalDataPoint, user } = props
   const assessmentName = assessment.props.name
   const cycleName = cycle.name
-  const { countryIso } = originalDataPoint
+  const { countryIso, uuid } = originalDataPoint
 
-  return client.tx(async (t) => {
+  const target = await client.tx(async (t) => {
     const [target] = await Promise.all([
       OriginalDataPointRepository.remove({ assessment, cycle, originalDataPoint }, t),
       DescriptionRepository.remove(
@@ -75,4 +77,14 @@ export const remove = async (props: Props, client: BaseProtocol = DB): Promise<O
 
     return target
   })
+
+  await NationalDataPointValidationRedisRepository.deleteValidations({
+    assessment,
+    countryIso,
+    cycle,
+    uuids: [uuid],
+  })
+  notifyNationalDataPointValidationDelete({ assessment, countryIso, cycle, uuid })
+
+  return target
 }

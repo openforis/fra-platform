@@ -4,12 +4,14 @@ import { CountryIso } from 'meta/area/countryIso'
 import { AssessmentName } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
 import { RecordNDPValidations } from 'meta/assessment/validation/nationalDataPoint'
+import { UUID } from 'meta/uuid/uuid'
 
 type Payload = {
   assessmentName: AssessmentName
   cycleName: CycleName
   countryIso: CountryIso
-  validations: RecordNDPValidations
+  deletedUuids?: Array<UUID>
+  validations?: RecordNDPValidations
 }
 
 export const updateNationalDataPointValidations = createAction<Payload>(

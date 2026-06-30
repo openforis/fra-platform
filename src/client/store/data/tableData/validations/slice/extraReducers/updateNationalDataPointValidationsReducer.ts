@@ -7,12 +7,16 @@ import { ValidationsState } from 'client/store/data/tableData/validations/state'
 
 export const updateNationalDataPointValidationsReducer = (builder: ActionReducerMapBuilder<ValidationsState>): void => {
   builder.addCase(updateNationalDataPointValidations, (state, action) => {
-    const { assessmentName, countryIso, cycleName, validations } = action.payload
+    const { assessmentName, countryIso, cycleName, deletedUuids, validations } = action.payload
 
     const path = [assessmentName, cycleName, countryIso]
     const oldValue = Objects.getInPath(state.nationalDataPoints, path)
 
-    const value = { ...oldValue, ...validations }
+    const value = { ...oldValue, ...(validations ?? {}) }
+    deletedUuids?.forEach((uuid) => {
+      delete value[uuid]
+    })
+
     Objects.setInPath({ obj: state.nationalDataPoints, path, value })
   })
 }
