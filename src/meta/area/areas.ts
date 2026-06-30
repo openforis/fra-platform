@@ -55,7 +55,7 @@ const hasVoluntaryUpdates = (props: { assessment: Assessment; country: Country }
   const { assessment, country } = props
   const cycle = Assessments.getLastPublishedCycle(assessment)
 
-  if (!country?.lastPublishedInfo.lastPublished || !cycle.props.datePublished) {
+  if (!country?.lastPublishedInfo?.lastPublished || !cycle.props.datePublished) {
     return false
   }
 
