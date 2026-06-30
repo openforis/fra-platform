@@ -6,6 +6,7 @@ import { removeValidations } from 'client/store/data/tableData/validations/actio
 import { setDescriptionValidations } from 'client/store/data/tableData/validations/actions/setDescriptionValidations'
 import { setNationalDataPointValidations } from 'client/store/data/tableData/validations/actions/setNationalDataPointValidations'
 import { setNodeValueValidations } from 'client/store/data/tableData/validations/actions/setNodeValueValidations'
+import { updateNationalDataPointValidations } from 'client/store/data/tableData/validations/actions/updateNationalDataPointValidations'
 
 export const ValidationsActions = {
   getDescriptionValidations,
@@ -16,4 +17,5 @@ export const ValidationsActions = {
   setDescriptionValidations,
   setNationalDataPointValidations,
   setNodeValueValidations,
+  updateNationalDataPointValidations,
 }

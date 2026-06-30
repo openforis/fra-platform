@@ -5,6 +5,7 @@ import { removeValidationsReducer } from 'client/store/data/tableData/validation
 import { setDescriptionValidationsReducer } from 'client/store/data/tableData/validations/slice/extraReducers/setDescriptionValidationsReducer'
 import { setNationalDataPointValidationsReducer } from 'client/store/data/tableData/validations/slice/extraReducers/setNationalDataPointValidationsReducer'
 import { setValidationsReducer } from 'client/store/data/tableData/validations/slice/extraReducers/setValidationsReducer'
+import { updateNationalDataPointValidationsReducer } from 'client/store/data/tableData/validations/slice/extraReducers/updateNationalDataPointValidationsReducer'
 import { updateSummaryReducer } from 'client/store/data/tableData/validations/slice/extraReducers/updateSummaryReducer'
 import { initialState } from 'client/store/data/tableData/validations/state'
 
@@ -20,6 +21,7 @@ export const ValidationsReducer = createSlice({
     setDescriptionValidationsReducer(builder)
     setNationalDataPointValidationsReducer(builder)
     setValidationsReducer(builder)
+    updateNationalDataPointValidationsReducer(builder)
     updateSummaryReducer(builder)
   },
 })
