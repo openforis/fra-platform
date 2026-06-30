@@ -1,5 +1,6 @@
 import { Assessment, AssessmentName, AssessmentNames, RecordAssessments } from 'meta/assessment/assessment'
 import { Cycle, CycleName } from 'meta/assessment/cycle'
+import { CycleNames } from 'meta/assessment/cycle/names'
 import { Cycles } from 'meta/assessment/cycles'
 import { UUID } from 'meta/uuid/uuid'
 import { Dates } from 'utils/dates'
@@ -65,7 +66,7 @@ const getRecordAssessments = (assessments: Array<Assessment>): RecordAssessments
 const getCycleTranslationKey = (props: { cycleName: CycleName }): string => {
   const { cycleName } = props
 
-  if (cycleName === 'latest') {
+  if (cycleName.includes(CycleNames.latest)) {
     return 'common.latest'
   }
 
