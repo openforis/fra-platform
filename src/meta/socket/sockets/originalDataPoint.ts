@@ -15,3 +15,8 @@ export const getODPReservedYearsEvent = (props: Props): string => {
   const { assessmentName, countryIso, cycleName } = props
   return `${countryIso}-${assessmentName}-${cycleName}-odpReservedYears`
 }
+
+export const getNationalDataPointValidationsUpdateEvent = (props: Props): string => {
+  const { assessmentName, countryIso, cycleName } = props
+  return `${countryIso}-${assessmentName}-${cycleName}-nationalDataPointValidationsUpdate`
+}
