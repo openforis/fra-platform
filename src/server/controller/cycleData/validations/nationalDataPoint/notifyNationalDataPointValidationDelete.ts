@@ -16,11 +16,11 @@ type Props = {
 export const notifyNationalDataPointValidationDelete = (props: Props): void => {
   const { assessment, countryIso, cycle, uuid } = props
 
-  const eventName = Sockets.getNationalDataPointValidationsUpdateEvent({
+  const eventName = Sockets.getNationalDataPointValidationDeleteEvent({
     assessmentName: assessment.props.name,
     countryIso,
     cycleName: cycle.name,
   })
 
-  SocketServer.emit(eventName, { deletedUuids: [uuid] })
+  SocketServer.emit(eventName, { uuid })
 }

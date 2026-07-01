@@ -7,6 +7,7 @@ import { NationalDataPointValidations } from 'meta/assessment/validation/nationa
 import { ValidationSummary } from 'meta/assessment/validation/summary'
 import { Objects } from 'utils/objects'
 
+import { deleteNationalDataPointValidation } from 'client/store/data/tableData/validations/actions/deleteNationalDataPointValidation'
 import { setDescriptionValidations } from 'client/store/data/tableData/validations/actions/setDescriptionValidations'
 import { setNationalDataPointValidations } from 'client/store/data/tableData/validations/actions/setNationalDataPointValidations'
 import { setNodeValueValidations } from 'client/store/data/tableData/validations/actions/setNodeValueValidations'
@@ -66,7 +67,8 @@ export const updateSummaryReducer = (builder: ActionReducerMapBuilder<Validation
       setDescriptionValidations,
       setNodeValueValidations,
       setNationalDataPointValidations,
-      updateNationalDataPointValidations
+      updateNationalDataPointValidations,
+      deleteNationalDataPointValidation
     ),
     (state, action) => {
       const { assessmentName, countryIso, cycleName } = action.payload
@@ -88,9 +90,17 @@ export const updateSummaryReducer = (builder: ActionReducerMapBuilder<Validation
         _updateDescriptions(summary, descriptionValidations, updatedSectionNames)
       }
 
-      if (setNationalDataPointValidations.match(action) || updateNationalDataPointValidations.match(action)) {
-        const nationalDataPointValidations = state.nationalDataPoints?.[assessmentName]?.[cycleName]?.[countryIso] ?? {}
-        summary.nationalDataPoints = NationalDataPointValidations.calculateSummary({ nationalDataPointValidations })
+      if (
+        setNationalDataPointValidations.match(action) ||
+        updateNationalDataPointValidations.match(action) ||
+        deleteNationalDataPointValidation.match(action)
+      ) {
+        const nationalDataPointValidations = state.nationalDataPoints?.[assessmentName]?.[cycleName]?.[countryIso]
+        if (deleteNationalDataPointValidation.match(action) && Objects.isNil(nationalDataPointValidations)) return
+
+        summary.nationalDataPoints = NationalDataPointValidations.calculateSummary({
+          nationalDataPointValidations: nationalDataPointValidations ?? {},
+        })
       }
 
       _recomputeSubsections(summary)

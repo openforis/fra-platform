@@ -11,6 +11,7 @@ import {
   getTableValidationsUpdateEvent,
 } from 'meta/socket/sockets/node'
 import {
+  getNationalDataPointValidationDeleteEvent,
   getNationalDataPointValidationsUpdateEvent,
   getODPDeleteEvent,
   getODPReservedYearsEvent,
@@ -21,6 +22,7 @@ export const Sockets = {
   getDescriptionValidationsUpdateEvent,
   getNodeValuesUpdateEvent,
   getTableValidationsUpdateEvent,
+  getNationalDataPointValidationDeleteEvent,
   getNationalDataPointValidationsUpdateEvent,
   getODPDeleteEvent,
   getODPReservedYearsEvent,

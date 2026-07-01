@@ -12,6 +12,7 @@ import Navigation from 'client/components/Navigation'
 import { useDescriptionValidationsListener } from './hooks/useDescriptionValidationsListener'
 import { useGetValidationsSummary } from './hooks/useGetValidationsSummary'
 import { useInitSections } from './hooks/useInitSections'
+import { useNationalDataPointValidationDeleteListener } from './hooks/useNationalDataPointValidationDeleteListener'
 import { useNationalDataPointValidationsListener } from './hooks/useNationalDataPointValidationsListener'
 import { useReviewSummaryListener } from './hooks/useReviewSummaryListener'
 import { useTableValidationsListener } from './hooks/useTableValidationsListener'
@@ -27,6 +28,7 @@ const Country: React.FC = () => {
   useTableValidationsListener()
   useDescriptionValidationsListener()
   useNationalDataPointValidationsListener()
+  useNationalDataPointValidationDeleteListener()
   useGetValidationsSummary()
   useReviewSummaryListener()
   useUserRedirect()

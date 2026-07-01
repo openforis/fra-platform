@@ -1,3 +1,4 @@
+import { deleteNationalDataPointValidation } from 'client/store/data/tableData/validations/actions/deleteNationalDataPointValidation'
 import { getDescriptionValidations } from 'client/store/data/tableData/validations/actions/getDescriptionValidations'
 import { getNationalDataPointValidations } from 'client/store/data/tableData/validations/actions/getNationalDataPointValidations'
 import { getSummary } from 'client/store/data/tableData/validations/actions/getSummary'
@@ -9,6 +10,7 @@ import { setNodeValueValidations } from 'client/store/data/tableData/validations
 import { updateNationalDataPointValidations } from 'client/store/data/tableData/validations/actions/updateNationalDataPointValidations'
 
 export const ValidationsActions = {
+  deleteNationalDataPointValidation,
   getDescriptionValidations,
   getNationalDataPointValidations,
   getSummary,

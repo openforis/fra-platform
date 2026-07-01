@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
 
 import { CountryIso } from 'meta/area/countryIso'
-import { RecordNDPValidations } from 'meta/assessment/validation/nationalDataPoint'
 import { Sockets } from 'meta/socket/sockets'
+import { UUID } from 'meta/uuid/uuid'
 
 import { ValidationsActions } from 'client/store/data/tableData/validations/actions'
 import { useAppDispatch } from 'client/store/hooks'
@@ -10,9 +10,9 @@ import { useCanEditCycleData } from 'client/store/user/hooks/auth'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { SocketClient } from 'client/service/socket/client'
 
-type NationalDataPointValidationsListenerArgs = [{ validations: RecordNDPValidations }]
+type NationalDataPointValidationDeleteListenerArgs = [{ uuid: UUID }]
 
-export const useNationalDataPointValidationsListener = (): void => {
+export const useNationalDataPointValidationDeleteListener = (): void => {
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
   const canEditData = useCanEditCycleData()
   const dispatch = useAppDispatch()
@@ -20,16 +20,16 @@ export const useNationalDataPointValidationsListener = (): void => {
   useEffect(() => {
     if (!canEditData) return
 
-    const eventName = Sockets.getNationalDataPointValidationsUpdateEvent({ countryIso, assessmentName, cycleName })
+    const eventName = Sockets.getNationalDataPointValidationDeleteEvent({ countryIso, assessmentName, cycleName })
 
-    const listener = (args: NationalDataPointValidationsListenerArgs): void => {
-      const [{ validations }] = args
+    const listener = (args: NationalDataPointValidationDeleteListenerArgs): void => {
+      const [{ uuid }] = args
       dispatch(
-        ValidationsActions.updateNationalDataPointValidations({
+        ValidationsActions.deleteNationalDataPointValidation({
           assessmentName,
           cycleName,
           countryIso,
-          validations,
+          uuid,
         })
       )
     }
