@@ -30,13 +30,11 @@ export const useNationalDataPointValidation = (props: NationalDataPointValidatio
   })
 }
 
-type NationalDataPointValidationByOdpIdProps = {
+type Props = {
   odpId?: number
 }
 
-export const useNationalDataPointValidationByOdpId = (
-  props: NationalDataPointValidationByOdpIdProps
-): NDPValidation => {
+export const useNationalDataPointValidationByOdpId = (props: Props): NDPValidation => {
   const { odpId } = props
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
 
