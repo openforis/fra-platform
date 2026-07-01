@@ -7,7 +7,7 @@ import { SectionNames } from 'meta/assessment/section'
 import { TableNames } from 'meta/assessment/table'
 import { type RecordTableValidationsState } from 'meta/assessment/validation/table'
 
-import { NodeValues } from 'test/e2e/utils/NodeValues'
+import { NodeValueUtils } from 'test/e2e/utils/nodeValue'
 
 const assessmentName = AssessmentNames.fra
 const cycleName = CycleNames._2025
@@ -48,7 +48,7 @@ export const seedForestAreaNetChangeValidation = async (
   const forestArea2025 = valid ? '1000' : '1500'
   const forestAreaNetChange = '0'
 
-  await NodeValues.patch(page, {
+  await NodeValueUtils.patch(page, {
     assessmentName,
     countryIso,
     cycleName,
@@ -60,7 +60,7 @@ export const seedForestAreaNetChangeValidation = async (
     ],
   })
 
-  await NodeValues.patch(page, {
+  await NodeValueUtils.patch(page, {
     assessmentName,
     countryIso,
     cycleName,

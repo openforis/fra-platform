@@ -9,7 +9,7 @@ import { TableNames } from 'meta/assessment/table'
 import { Years } from 'meta/assessment/years'
 
 import { expect, test } from 'test/e2e/fixtures/auth'
-import { NodeValues } from 'test/e2e/utils/NodeValues'
+import { NodeValueUtils } from 'test/e2e/utils/nodeValue'
 
 import { getTableValidations } from './helpers/tables'
 
@@ -76,7 +76,7 @@ const _patchMaxSource = async (
 ): Promise<void> => {
   const { countryIso, sourceVariableName } = testCase
   // Seed source values so the max-area fallback is determined by 2025.
-  await NodeValues.patch(page, {
+  await NodeValueUtils.patch(page, {
     assessmentName,
     countryIso,
     cycleName,
@@ -121,7 +121,7 @@ test.describe.serial('Max area validation dependencies', () => {
       await _patchMaxSource(authenticatedPage, testCase, validMaxValue)
 
       // Leave the same-year source blank to use the max-area fallback.
-      await NodeValues.patch(authenticatedPage, {
+      await NodeValueUtils.patch(authenticatedPage, {
         assessmentName,
         countryIso,
         cycleName,

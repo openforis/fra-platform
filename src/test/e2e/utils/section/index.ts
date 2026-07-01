@@ -7,12 +7,13 @@ const cycleName = CycleNames._2025
 
 type SectionPathProps = {
   countryIso: CountryIso
+  cycleName?: CycleNames
   sectionName: string
 }
 
 const path = (props: SectionPathProps): string => {
-  const { countryIso, sectionName } = props
-  return `/assessments/${assessmentName}/${cycleName}/${countryIso}/sections/${sectionName}`
+  const { countryIso, cycleName: cycle = cycleName, sectionName } = props
+  return `/assessments/${assessmentName}/${cycle}/${countryIso}/sections/${sectionName}`
 }
 
 export const SectionUtils = {
