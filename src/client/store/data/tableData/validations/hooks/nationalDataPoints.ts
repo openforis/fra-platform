@@ -15,30 +15,20 @@ export const useNationalDataPointValidationsFetched = (): boolean => {
   )
 }
 
-type NationalDataPointValidationProps = {
+type Props = {
+  odpId?: number
   uuid?: UUID
 }
 
-export const useNationalDataPointValidation = (props: NationalDataPointValidationProps): NDPValidation => {
-  const { uuid } = props
+export const useNationalDataPointValidation = (props: Props): NDPValidation => {
+  const { odpId, uuid } = props
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
 
   return useAppSelector((state) => {
-    if (Objects.isEmpty(uuid)) return {}
+    if (!Objects.isEmpty(uuid)) {
+      return ValidationsSelectors.getNationalDataPointValidation(state, assessmentName, cycleName, countryIso, uuid)
+    }
 
-    return ValidationsSelectors.getNationalDataPointValidation(state, assessmentName, cycleName, countryIso, uuid)
-  })
-}
-
-type Props = {
-  odpId?: number
-}
-
-export const useNationalDataPointValidationByOdpId = (props: Props): NDPValidation => {
-  const { odpId } = props
-  const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
-
-  return useAppSelector((state) => {
     if (Objects.isNil(odpId)) return {}
 
     return ValidationsSelectors.getNationalDataPointValidationByOdpId(

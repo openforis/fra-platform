@@ -5,7 +5,7 @@ import { NationalDataPointValidations } from 'meta/assessment/validation/nationa
 import { TooltipId } from 'meta/tooltip/id'
 
 import { useHistoryLastApprovedIsActive } from 'client/store/data/history/hooks/lastApproved'
-import { useNationalDataPointValidationByOdpId } from 'client/store/data/tableData/validations/hooks/nationalDataPoints'
+import { useNationalDataPointValidation } from 'client/store/data/tableData/validations/hooks/nationalDataPoints'
 
 type Props = {
   odpId?: number
@@ -21,7 +21,7 @@ export const useOdpHeaderTooltip = (props: Props): OdpHeaderTooltip => {
 
   const { t } = useTranslation()
   const historyLastApprovedIsActive = useHistoryLastApprovedIsActive()
-  const validation = useNationalDataPointValidationByOdpId({ odpId })
+  const validation = useNationalDataPointValidation({ odpId })
   const hasError = !historyLastApprovedIsActive && NationalDataPointValidations.hasError(validation)
 
   return useMemo<OdpHeaderTooltip>(() => {
