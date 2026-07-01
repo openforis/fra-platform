@@ -39,7 +39,7 @@ export const getNationalDataPointValidationByOdpId = createSelector(
   (validations, odpId): NDPValidation => {
     if (Objects.isNil(odpId)) return {}
 
-    return Object.values(validations ?? {}).find((validation) => validation.meta?.odpId === odpId) ?? {}
+    return Object.values(validations ?? {}).find((validation) => validation.odpId === odpId) ?? {}
   }
 )
 

@@ -17,7 +17,7 @@ type Props = {
 
 export const validateNationalClasses = async (props: Props): Promise<void> => {
   const { assessment, countryIso, cycle, nationalDataPoint } = props
-  const { id, uuid } = nationalDataPoint
+  const { uuid } = nationalDataPoint
 
   const validation = await NationalDataPointValidationRedisRepository.getValidation({
     assessment,
@@ -26,13 +26,10 @@ export const validateNationalClasses = async (props: Props): Promise<void> => {
     uuid,
   })
 
-  const updatedValidation = {
-    ...NationalDataPointValidator.validateNationalClasses({
-      nationalDataPoint,
-      validation,
-    }),
-    meta: { odpId: id },
-  }
+  const updatedValidation = NationalDataPointValidator.validateNationalClasses({
+    nationalDataPoint,
+    validation,
+  })
 
   await NationalDataPointValidationRedisRepository.setValidations({
     assessment,
