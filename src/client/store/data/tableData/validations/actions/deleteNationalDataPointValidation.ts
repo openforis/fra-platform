@@ -7,8 +7,8 @@ import { UUID } from 'meta/uuid/uuid'
 
 type Payload = {
   assessmentName: AssessmentName
-  cycleName: CycleName
   countryIso: CountryIso
+  cycleName: CycleName
   uuid: UUID
 }
 

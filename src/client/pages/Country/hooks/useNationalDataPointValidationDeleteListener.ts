@@ -24,14 +24,7 @@ export const useNationalDataPointValidationDeleteListener = (): void => {
 
     const listener = (args: NationalDataPointValidationDeleteListenerArgs): void => {
       const [{ uuid }] = args
-      dispatch(
-        ValidationsActions.deleteNationalDataPointValidation({
-          assessmentName,
-          cycleName,
-          countryIso,
-          uuid,
-        })
-      )
+      dispatch(ValidationsActions.deleteNationalDataPointValidation({ assessmentName, cycleName, countryIso, uuid }))
     }
 
     SocketClient.on(eventName, listener)

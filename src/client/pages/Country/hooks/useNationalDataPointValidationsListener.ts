@@ -25,12 +25,7 @@ export const useNationalDataPointValidationsListener = (): void => {
     const listener = (args: NationalDataPointValidationsListenerArgs): void => {
       const [{ validations }] = args
       dispatch(
-        ValidationsActions.updateNationalDataPointValidations({
-          assessmentName,
-          cycleName,
-          countryIso,
-          validations,
-        })
+        ValidationsActions.updateNationalDataPointValidations({ assessmentName, cycleName, countryIso, validations })
       )
     }
 
