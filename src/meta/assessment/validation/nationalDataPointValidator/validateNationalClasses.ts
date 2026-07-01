@@ -12,6 +12,7 @@ type Returned = NDPValidation['nationalClasses']
 
 export const validateNationalClasses = (props: Props): NDPValidation => {
   const { nationalDataPoint, validation } = props
+  const { id } = nationalDataPoint
   const nationalClassesValidation: Returned = {}
 
   nationalDataPoint.nationalClasses?.forEach((nationalClass: ODPNationalClass, index) => {
@@ -27,8 +28,8 @@ export const validateNationalClasses = (props: Props): NDPValidation => {
   if (Objects.isEmpty(nationalClassesValidation)) {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { nationalClasses: _, ...withoutNationalClassesValidation } = validation
-    return withoutNationalClassesValidation
+    return { ...withoutNationalClassesValidation, odpId: id }
   }
 
-  return { ...validation, nationalClasses: nationalClassesValidation }
+  return { ...validation, odpId: id, nationalClasses: nationalClassesValidation }
 }

@@ -30,10 +30,12 @@ export const validateCountryNationalDataPoints = async (
   })
 
   const validations = nationalDataPoints.reduce<RecordNDPValidations>((acc, nationalDataPoint) => {
-    acc[nationalDataPoint.uuid] = validateNationalDataPoint({
+    const { uuid } = nationalDataPoint
+    const validation = validateNationalDataPoint({
       nationalDataPoint,
-      validation: currentValidations[nationalDataPoint.uuid] ?? {},
+      validation: currentValidations[uuid] ?? {},
     })
+    acc[uuid] = validation
     return acc
   }, {})
 
