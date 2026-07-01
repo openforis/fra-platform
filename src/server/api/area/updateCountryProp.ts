@@ -46,13 +46,13 @@ export const updateCountryProp = async (req: Request, res: Response): Promise<vo
       const tableData = RecordAssessmentDatas.getTableData({ assessmentName, cycleName, countryIso, tableName, data })
 
       // 3. schedule update dependencies
-      const tableVariables = AssessmentMetaCaches.getVariablesByTables({ assessment, cycle })[tableName] ?? {}
+      const variablesByTable = AssessmentMetaCaches.getVariablesByTables({ assessment, cycle })
       const nodeUpdates = Object.entries(tableData).reduce<NodeUpdates>(
         (acc, [colName, recordRowData]) => {
           Object.entries(recordRowData).forEach(([variableName, value]) => {
             // The merged NDP data also carries variables that don't belong to this table (e.g. total, totalLandArea);
             // only queue variables that are part of the table metadata.
-            if (Objects.isEmpty(tableVariables[variableName])) return
+            if (Objects.isNil(variablesByTable[tableName]?.[variableName])) return
             acc.nodes.push({ tableName, variableName, colName, value })
           })
           return acc
