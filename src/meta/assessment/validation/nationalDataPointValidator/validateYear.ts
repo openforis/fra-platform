@@ -12,7 +12,7 @@ type Props = {
 // Year must not be empty and must parse to a positive finite number.
 export const validateYear = (props: Props): NDPValidation => {
   const { nationalDataPoint, validation } = props
-  const { year } = nationalDataPoint
+  const { id, year } = nationalDataPoint
   const yearNumber = Numbers.toNumberOrNull(year)
 
   let message: ValidationMessage | undefined
@@ -25,8 +25,8 @@ export const validateYear = (props: Props): NDPValidation => {
   if (Objects.isNil(message)) {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { year: _, ...withoutYearValidation } = validation
-    return withoutYearValidation
+    return { ...withoutYearValidation, odpId: id }
   }
 
-  return { ...validation, year: { valid: false, messages: [message] } }
+  return { ...validation, odpId: id, year: { valid: false, messages: [message] } }
 }

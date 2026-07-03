@@ -1,5 +1,5 @@
 import type { DataSourceEditableField } from 'meta/assessment/descriptionValue/dataSource'
-import { OriginalDataPointCommentKey } from 'meta/assessment/originalDataPoint'
+import { OriginalDataPoint, OriginalDataPointCommentKey } from 'meta/assessment/originalDataPoint'
 import { Validation } from 'meta/assessment/validation/validation'
 import { UUID } from 'meta/uuid/uuid'
 
@@ -21,6 +21,7 @@ export type NDPValidation = {
   comments?: Partial<Record<OriginalDataPointCommentKey, Validation>>
   dataSources?: Record<UUID, NDPDataSourceValidation>
   nationalClasses?: Record<UUID, NDPNationalClassValidation>
+  odpId?: OriginalDataPoint['id']
   year?: Validation
 }
 

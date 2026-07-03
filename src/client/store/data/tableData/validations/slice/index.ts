@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
+import { deleteNationalDataPointValidationReducer } from 'client/store/data/tableData/validations/slice/extraReducers/deleteNationalDataPointValidationReducer'
 import { getSummaryReducer } from 'client/store/data/tableData/validations/slice/extraReducers/getSummaryReducer'
 import { removeValidationsReducer } from 'client/store/data/tableData/validations/slice/extraReducers/removeValidationsReducer'
 import { setDescriptionValidationsReducer } from 'client/store/data/tableData/validations/slice/extraReducers/setDescriptionValidationsReducer'
@@ -16,6 +17,7 @@ export const ValidationsReducer = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
+    deleteNationalDataPointValidationReducer(builder)
     getSummaryReducer(builder)
     removeValidationsReducer(builder)
     setDescriptionValidationsReducer(builder)
