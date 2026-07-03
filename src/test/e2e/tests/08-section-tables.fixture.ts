@@ -20,6 +20,11 @@ export const albSection2020Path = SectionUtils.path({
   sectionName: SectionNames.extentOfForest,
 })
 
+export const x01ForestAreaChangePath = SectionUtils.path({
+  countryIso: 'X01',
+  sectionName: 'forestAreaChange',
+})
+
 export const x16ExtentOfForestPath = SectionUtils.path({
   countryIso: 'X16',
   sectionName: SectionNames.extentOfForest,
