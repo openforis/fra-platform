@@ -1,9 +1,13 @@
 import { TableNames } from 'meta/assessment/table'
 
 import { expect, test } from '../fixtures/auth'
+import { CountryStatusUtils } from '../utils/countryStatus'
 import { DOMUtils } from '../utils/dom'
+import { NavigationUtils } from '../utils/navigation'
 import { TooltipUtils } from '../utils/tooltip'
-import { x01ForestAreaChangePath } from './08-section-tables.fixture'
+import { x01ForestAreaChangePath, x16ExtentOfForestPath, x16ForestAreaChangePath } from './08-section-tables.fixture'
+
+const forestExtentSectionHeader = 'Forest extent, characteristics and changes'
 
 test.describe.serial('Section tables: 1d - negative forest_expansion and deforestation', () => {
   test('NC enters negative values in forest_expansion and deforestation and sees validation errors', async ({
@@ -126,5 +130,39 @@ test.describe.serial('Section tables: 1d - afforestation and natural_expansion d
     await DOMUtils.expectCellHasNoValidationError(page, 'natural_expansion', '2020-2025')
 
     await DOMUtils.clearTable(page, TableNames.forestAreaChange)
+  })
+})
+
+test.describe.serial('Section tables: 1d - validation errors persist on page reload', () => {
+  test('NC creates a forestAreaNetChange error, leaves the page, comes back, and sees the error without any interaction', async ({
+    authenticatedPage,
+  }) => {
+    const page = authenticatedPage
+
+    await page.goto(x16ExtentOfForestPath)
+    await expect(DOMUtils.tableContainer(page, TableNames.extentOfForest)).toBeVisible({ timeout: 20000 })
+    await DOMUtils.unlockEditing(page)
+
+    const cellSaved = DOMUtils.waitForResponse(page, '/api/cycle-data/table/nodes', 'PATCH')
+    await DOMUtils.fillCell(page, 'forestArea', '2025', '1500')
+    await cellSaved
+
+    await NavigationUtils.getNavigationSubSectionItem(page, x16ForestAreaChangePath).click()
+    await expect(DOMUtils.tableContainer(page, TableNames.forestAreaChange)).toBeVisible({ timeout: 20000 })
+    await DOMUtils.expectCellHasValidationError(page, 'forestAreaNetChange', '2020-2025')
+
+    await page.goto(x16ForestAreaChangePath)
+    await expect(DOMUtils.tableContainer(page, TableNames.forestAreaChange)).toBeVisible({ timeout: 20000 })
+
+    await DOMUtils.expectCellHasValidationError(page, 'forestAreaNetChange', '2020-2025')
+    await DOMUtils.expectTableHasError(page, TableNames.forestAreaChange)
+    await NavigationUtils.expectNavigationError(page, {
+      hasError: true,
+      sectionHeader: forestExtentSectionHeader,
+      sectionItemPath: x16ForestAreaChangePath,
+    })
+    await CountryStatusUtils.expectSubmitToReviewWarning(page)
+
+    await DOMUtils.clearTable(page, TableNames.extentOfForest)
   })
 })
