@@ -12,6 +12,7 @@ export type VerifyNationalDataPointLinksJobProps = {
   cycle: Cycle
   notifyClients?: boolean
   // TODO: targets: Array<NDPLinkTarget>
+  targets: Array<string>
 }
 
 export type VerifyNationalDataPointLinksJob = Job<
