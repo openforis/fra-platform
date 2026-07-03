@@ -1,29 +1,6 @@
 import { CountryIso } from 'meta/area/countryIso'
-import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
-
-type LinkLocationBase = {
-  identifier?: string
-  url: string
-}
-
-export const DescriptionLinkLocationPath = {
-  dataSourceReference: ['dataSources', 'reference'],
-  text: ['text'],
-}
-
-export type DescriptionsLocation = LinkLocationBase & {
-  colName: string
-  descriptionName: CommentableDescriptionName
-  path: Array<string>
-  sectionName: string
-  uuid?: string
-}
-
-type OriginalDataPointLocation = LinkLocationBase & {
-  sectionName: 'originalDataPoint'
-  odpSection: string
-  year: number
-}
+import { DescriptionsLocation } from 'meta/cycleData/links/descriptionLink'
+import { OriginalDataPointLocation } from 'meta/cycleData/links/nationalDataPointLink'
 
 export type LinkLocation = DescriptionsLocation | OriginalDataPointLocation
 
