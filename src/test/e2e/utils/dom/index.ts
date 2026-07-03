@@ -66,9 +66,7 @@ const expectCellHasNoValidationError = async (page: Page, variableName: string, 
 const fillCell = async (page: Page, variableName: string, colName: string, value: string): Promise<void> => {
   const cellInput = cellLocator(page, variableName, colName).locator('input')
   await cellInput.click()
-  await cellInput.press('Control+A') // If the cell already has a value, we need to delete it first.
-  await cellInput.press('Backspace')
-  await cellInput.pressSequentially(value)
+  await cellInput.fill(value)
   await cellInput.blur()
 }
 

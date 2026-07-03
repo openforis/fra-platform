@@ -25,6 +25,6 @@ const patch = async (page: Page, props: PatchProps): Promise<void> => {
   expect(response.ok()).toBeTruthy()
 }
 
-export const NodeValues = {
+export const NodeValueUtils = {
   patch,
 }
