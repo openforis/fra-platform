@@ -1,5 +1,6 @@
 import { Logger } from 'server/utils/logger'
 
+import { getNationalDataPointLinks } from './utils/getNationalDataPointLinks'
 import { VerifyNationalDataPointLinksJob } from './props'
 
 const _getLogKey = (job: VerifyNationalDataPointLinksJob): string => {
@@ -12,14 +13,15 @@ export default async (job: VerifyNationalDataPointLinksJob): Promise<void> => {
   const logKey = _getLogKey(job)
 
   try {
+    const { assessment, countryIso, cycle, targets } = job.data
     const time = new Date().getTime()
 
     Logger.info(`${logKey} started.`)
 
-    const linkVisits = []
+    const linksToVisit = await getNationalDataPointLinks({ assessment, countryIso, cycle, targets })
 
     const duration = (new Date().getTime() - time) / 1000
-    Logger.info(`${logKey} ended in ${duration} seconds with ${linkVisits.length} links visited.`)
+    Logger.info(`${logKey} ended in ${duration} seconds with ${linksToVisit.length} links to visit.`)
   } catch (error) {
     Logger.error(`${logKey} Error.`)
     Logger.error(error)

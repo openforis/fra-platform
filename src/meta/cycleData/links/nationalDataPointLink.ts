@@ -7,15 +7,19 @@ export enum NDPLinkField {
   dataSourceReferences = 'data_source_references',
 }
 
+export const NDPLinkFields: Array<NDPLinkField> = Object.values(NDPLinkField)
+
 export type NDPLinkTarget = {
   odpUuid: UUID
   fields: Array<NDPLinkField>
   year: number
 }
 
+// `identifier` from LinkLocationBase holds the odp uuid
 export type OriginalDataPointLocation = LinkLocationBase & {
   sectionName: 'originalDataPoint'
   odpSection: string
-  odpUuid?: string
+  // Set when the location is a data source reference location within the odp.
+  dataSourceUuid?: string
   year: number
 }
