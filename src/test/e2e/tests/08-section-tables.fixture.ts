@@ -34,3 +34,7 @@ export const x16ForestAreaChangePath = SectionUtils.path({
   countryIso: 'X16',
   sectionName: 'forestAreaChange',
 })
+
+export const x01PrintTablesPath = SectionUtils.printTablesPath('X01')
+
+export const x16PrintTablesPath = SectionUtils.printTablesPath('X16')

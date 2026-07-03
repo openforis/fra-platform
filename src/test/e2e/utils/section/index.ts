@@ -16,6 +16,10 @@ const path = (props: SectionPathProps): string => {
   return `/assessments/${assessmentName}/${cycle}/${countryIso}/sections/${sectionName}`
 }
 
+const printTablesPath = (countryIso: CountryIso): string =>
+  `/assessments/${assessmentName}/${cycleName}/${countryIso}/print/tables`
+
 export const SectionUtils = {
   path,
+  printTablesPath,
 }
