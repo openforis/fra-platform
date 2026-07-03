@@ -163,6 +163,9 @@ test.describe.serial('Section tables: 1d - validation errors persist on page rel
     })
     await CountryStatusUtils.expectSubmitToReviewWarning(page)
 
+    await page.goto(x16ExtentOfForestPath)
+    await expect(DOMUtils.tableContainer(page, TableNames.extentOfForest)).toBeVisible({ timeout: 20000 })
+    await DOMUtils.unlockEditing(page)
     await DOMUtils.clearTable(page, TableNames.extentOfForest)
   })
 })
