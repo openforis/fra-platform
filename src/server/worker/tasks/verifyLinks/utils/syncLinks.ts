@@ -1,9 +1,7 @@
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
-import { Link, LinkToVisit, VisitedLink } from 'meta/cycleData/links/link'
-import { NDPLinkField } from 'meta/cycleData/links/nationalDataPointLink'
+import { Link, LinkLocationKey, LinkToVisit, VisitedLink } from 'meta/cycleData/links/link'
 import { Objects } from 'utils/objects'
 
 import { DB } from 'server/db/db'
@@ -12,26 +10,12 @@ import { filterLinks } from 'server/worker/tasks/verifyLinks/visitCycleLinks/uti
 import { mergeLinks } from 'server/worker/tasks/verifyLinks/visitCycleLinks/utils/mergeLinks'
 import { visitLinks } from 'server/worker/tasks/verifyLinks/visitCycleLinks/utils/visitLinks'
 
-type DescriptionLocationToRemove = {
-  descriptionName: CommentableDescriptionName
-  path: Array<string>
-  sectionName: string
-}
-
-type NationalDataPointLocationToRemove = {
-  identifier: string
-  odpSection: NDPLinkField
-  sectionName: 'originalDataPoint'
-}
-
-type LocationToRemove = DescriptionLocationToRemove | NationalDataPointLocationToRemove
-
 type Props = {
   assessment: Assessment
   countryIso: CountryIso
   cycle: Cycle
   linksToVisit: Array<LinkToVisit>
-  locations: Array<LocationToRemove>
+  locations: Array<LinkLocationKey>
 }
 
 type Returned = {

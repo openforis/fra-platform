@@ -14,11 +14,17 @@ export type NDPLinkTarget = {
   fields: Array<NDPLinkField>
 }
 
-// `identifier` from LinkLocationBase holds the odp uuid
 export type NationalDataPointLinkLocation = LinkLocationBase & {
   sectionName: 'originalDataPoint'
-  odpSection: string
+  odpSection: NDPLinkField
+  odpUuid: UUID
   // Set when the location is a data source reference location within the odp.
-  dataSourceUuid?: string
+  dataSourceUuid?: UUID
   year: number
 }
+
+// The fields used to match stored locations.
+export type NationalDataPointLinkLocationKey = Pick<
+  NationalDataPointLinkLocation,
+  'odpSection' | 'odpUuid' | 'sectionName'
+>

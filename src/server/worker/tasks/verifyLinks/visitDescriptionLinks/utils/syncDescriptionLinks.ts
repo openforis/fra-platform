@@ -1,17 +1,11 @@
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { CommentableDescription, CommentableDescriptionName } from 'meta/assessment/descriptionValue'
-import { DescriptionLinkLocationPath } from 'meta/cycleData/links/descriptionLink'
+import { CommentableDescription } from 'meta/assessment/descriptionValue'
+import { DescriptionLinkLocationKey, DescriptionLinkLocationPath } from 'meta/cycleData/links/descriptionLink'
 import { Link, LinkToVisit, VisitedLink } from 'meta/cycleData/links/link'
 
 import { syncLinks } from 'server/worker/tasks/verifyLinks/utils/syncLinks'
-
-type LocationToRefresh = {
-  descriptionName: CommentableDescriptionName
-  path: Array<string>
-  sectionName: string
-}
 
 type Props = {
   assessment: Assessment
@@ -33,7 +27,7 @@ export const syncDescriptionLinks = async (props: Props): Promise<Returned> => {
 
   const locationPaths = [DescriptionLinkLocationPath.text, DescriptionLinkLocationPath.dataSourceReference]
   const locations = descriptions.flatMap(({ name, sectionName }) =>
-    locationPaths.map<LocationToRefresh>((path) => ({ descriptionName: name, path, sectionName }))
+    locationPaths.map<DescriptionLinkLocationKey>((path) => ({ descriptionName: name, path, sectionName }))
   )
 
   return syncLinks({ assessment, countryIso, cycle, linksToVisit, locations })

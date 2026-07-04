@@ -57,7 +57,7 @@ export const getNationalDataPointLinks = async (props: Props): Promise<Array<Lin
 
       const url = Routes.OriginalDataPoint.generatePath({ ...urlParams, sectionName })
       const locations: Array<NationalDataPointLinkLocation> = [
-        { identifier: uuid, odpSection: linkField, sectionName: 'originalDataPoint', url, year },
+        { odpSection: linkField, odpUuid: uuid, sectionName: 'originalDataPoint', url, year },
       ]
 
       return Htmls.getLinks(html).map(({ link, name }) => ({ countryIso, link: link ?? '', locations, name }))
@@ -74,8 +74,8 @@ export const getNationalDataPointLinks = async (props: Props): Promise<Array<Lin
       const locations: Array<NationalDataPointLinkLocation> = [
         {
           dataSourceUuid,
-          identifier: uuid,
           odpSection: NDPLinkField.dataSourceReferences,
+          odpUuid: uuid,
           sectionName: 'originalDataPoint',
           url,
           year,

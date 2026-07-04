@@ -2,15 +2,9 @@ import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { Link, LinkToVisit, VisitedLink } from 'meta/cycleData/links/link'
-import { NDPLinkField, NDPLinkTarget } from 'meta/cycleData/links/nationalDataPointLink'
+import { NationalDataPointLinkLocationKey, NDPLinkTarget } from 'meta/cycleData/links/nationalDataPointLink'
 
 import { syncLinks } from 'server/worker/tasks/verifyLinks/utils/syncLinks'
-
-type LocationToRefresh = {
-  identifier: string
-  odpSection: NDPLinkField
-  sectionName: 'originalDataPoint'
-}
 
 type Props = {
   assessment: Assessment
@@ -31,9 +25,9 @@ export const syncNationalDataPointLinks = async (props: Props): Promise<Returned
   const { assessment, countryIso, cycle, linksToVisit, targets } = props
 
   const locations = targets.flatMap((target) =>
-    target.fields.map<LocationToRefresh>((field) => ({
-      identifier: target.odpUuid,
+    target.fields.map<NationalDataPointLinkLocationKey>((field) => ({
       odpSection: field,
+      odpUuid: target.odpUuid,
       sectionName: 'originalDataPoint',
     }))
   )

@@ -1,32 +1,17 @@
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
-import { NDPLinkField } from 'meta/cycleData/links/nationalDataPointLink'
+import { LinkLocationKey } from 'meta/cycleData/links/link'
 import { Objects } from 'utils/objects'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { Schemas } from 'server/db/schemas'
 
-type DescriptionLocationToRemove = {
-  descriptionName: CommentableDescriptionName
-  path: Array<string>
-  sectionName: string
-}
-
-type NationalDataPointLocationToRemove = {
-  identifier: string
-  odpSection: NDPLinkField
-  sectionName: 'originalDataPoint'
-}
-
-type LocationToRemove = DescriptionLocationToRemove | NationalDataPointLocationToRemove
-
 type Props = {
   assessment: Assessment
   countryIso: CountryIso
   cycle: Cycle
-  locations: Array<LocationToRemove>
+  locations: Array<LinkLocationKey>
 }
 
 export const removeLocations = async (props: Props, client: BaseProtocol = DB): Promise<void> => {
