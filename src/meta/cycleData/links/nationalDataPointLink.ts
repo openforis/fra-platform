@@ -12,7 +12,6 @@ export const NDPLinkFields: Array<NDPLinkField> = Object.values(NDPLinkField)
 export type NDPLinkTarget = {
   odpUuid: UUID
   fields: Array<NDPLinkField>
-  year: number
 }
 
 // `identifier` from LinkLocationBase holds the odp uuid
