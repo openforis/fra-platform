@@ -5,7 +5,7 @@ import { OriginalDataPointCommentKey } from 'meta/assessment/originalDataPoint'
 import { SectionNames } from 'meta/assessment/section'
 import { TableNames } from 'meta/assessment/table'
 import { LinkToVisit } from 'meta/cycleData/links/link'
-import { NDPLinkField, NDPLinkTarget, OriginalDataPointLocation } from 'meta/cycleData/links/nationalDataPointLink'
+import { NationalDataPointLinkLocation, NDPLinkField, NDPLinkTarget } from 'meta/cycleData/links/nationalDataPointLink'
 import { Routes } from 'meta/routes/routes'
 import { Htmls } from 'utils/htmls'
 import { Objects } from 'utils/objects'
@@ -56,7 +56,7 @@ export const getNationalDataPointLinks = async (props: Props): Promise<Array<Lin
       if (Objects.isEmpty(html)) return []
 
       const url = Routes.OriginalDataPoint.generatePath({ ...urlParams, sectionName })
-      const locations: Array<OriginalDataPointLocation> = [
+      const locations: Array<NationalDataPointLinkLocation> = [
         { identifier: uuid, odpSection: linkField, sectionName: 'originalDataPoint', url, year },
       ]
 
@@ -71,7 +71,7 @@ export const getNationalDataPointLinks = async (props: Props): Promise<Array<Lin
       const { placeholder, reference, uuid: dataSourceUuid } = dataSource
       if (placeholder || Objects.isEmpty(dataSourceUuid)) return []
 
-      const locations: Array<OriginalDataPointLocation> = [
+      const locations: Array<NationalDataPointLinkLocation> = [
         {
           dataSourceUuid,
           identifier: uuid,

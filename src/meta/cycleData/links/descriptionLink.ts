@@ -6,7 +6,7 @@ export const DescriptionLinkLocationPath = {
   text: ['text'],
 }
 
-export type DescriptionsLocation = LinkLocationBase & {
+export type DescriptionLinkLocation = LinkLocationBase & {
   colName: string
   descriptionName: CommentableDescriptionName
   path: Array<string>

@@ -16,7 +16,7 @@ export type NDPLinkTarget = {
 }
 
 // `identifier` from LinkLocationBase holds the odp uuid
-export type OriginalDataPointLocation = LinkLocationBase & {
+export type NationalDataPointLinkLocation = LinkLocationBase & {
   sectionName: 'originalDataPoint'
   odpSection: string
   // Set when the location is a data source reference location within the odp.

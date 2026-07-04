@@ -1,8 +1,8 @@
 import { CountryIso } from 'meta/area/countryIso'
-import { DescriptionsLocation } from 'meta/cycleData/links/descriptionLink'
-import { OriginalDataPointLocation } from 'meta/cycleData/links/nationalDataPointLink'
+import { DescriptionLinkLocation } from 'meta/cycleData/links/descriptionLink'
+import { NationalDataPointLinkLocation } from 'meta/cycleData/links/nationalDataPointLink'
 
-export type LinkLocation = DescriptionsLocation | OriginalDataPointLocation
+export type LinkLocation = DescriptionLinkLocation | NationalDataPointLinkLocation
 
 export enum LinkValidationStatusCode {
   empty = 'empty',
