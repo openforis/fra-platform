@@ -1,12 +1,10 @@
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessment, AssessmentNames } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { OriginalDataPointCommentKey } from 'meta/assessment/originalDataPoint'
 import { SectionNames } from 'meta/assessment/section'
-import { TableNames } from 'meta/assessment/table'
 import { DescriptionLinkLocationPath } from 'meta/cycleData/links/descriptionLink'
 import { LinkLocation, LinkToVisit } from 'meta/cycleData/links/link'
-import { NDPLinkField } from 'meta/cycleData/links/nationalDataPointLink'
+import { NDPCommentLinkFields, NDPLinkField } from 'meta/cycleData/links/nationalDataPointLink'
 import { Routes } from 'meta/routes/routes'
 import { Htmls } from 'utils/htmls'
 
@@ -102,28 +100,11 @@ const _getOriginalDataPointLinks = async (props: Props): Promise<Array<LinkToVis
     OriginalDataPointRepository.getManyWithReferenceLinks({ assessment, countryIso, cycle }),
   ])
 
-  const commentFieldConfigs: Array<{
-    field: OriginalDataPointCommentKey
-    linkField: NDPLinkField
-    sectionName: SectionNames
-  }> = [
-    {
-      field: TableNames.extentOfForest,
-      linkField: NDPLinkField.commentsExtentOfForest,
-      sectionName: SectionNames.extentOfForest,
-    },
-    {
-      field: TableNames.forestCharacteristics,
-      linkField: NDPLinkField.commentsForestCharacteristics,
-      sectionName: SectionNames.forestCharacteristics,
-    },
-  ]
-
   const linksToVisit: Array<LinkToVisit> = odpsByDescriptionsLinks.flatMap((odp) => {
     const { comments, countryIso, uuid, year } = odp
 
-    return commentFieldConfigs.flatMap(({ field, linkField, sectionName }) => {
-      const html = comments[field]
+    return NDPCommentLinkFields.flatMap(({ commentKey, linkField, sectionName }) => {
+      const html = comments[commentKey]
       if (!html) return []
       const urlParams = { assessmentName, countryIso, cycleName, sectionName, year: String(year) }
       const url = Routes.OriginalDataPoint.generatePath(urlParams)

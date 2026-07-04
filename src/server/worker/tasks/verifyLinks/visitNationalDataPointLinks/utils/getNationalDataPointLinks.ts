@@ -1,11 +1,14 @@
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { OriginalDataPointCommentKey } from 'meta/assessment/originalDataPoint'
 import { SectionNames } from 'meta/assessment/section'
-import { TableNames } from 'meta/assessment/table'
 import { LinkToVisit } from 'meta/cycleData/links/link'
-import { NationalDataPointLinkLocation, NDPLinkField, NDPLinkTarget } from 'meta/cycleData/links/nationalDataPointLink'
+import {
+  NationalDataPointLinkLocation,
+  NDPCommentLinkFields,
+  NDPLinkField,
+  NDPLinkTarget,
+} from 'meta/cycleData/links/nationalDataPointLink'
 import { Routes } from 'meta/routes/routes'
 import { Htmls } from 'utils/htmls'
 import { Objects } from 'utils/objects'
@@ -18,23 +21,6 @@ type Props = {
   cycle: Cycle
   targets: Array<NDPLinkTarget>
 }
-
-const commentLinkFields: Array<{
-  commentKey: OriginalDataPointCommentKey
-  linkField: NDPLinkField
-  sectionName: SectionNames
-}> = [
-  {
-    commentKey: TableNames.extentOfForest,
-    linkField: NDPLinkField.commentsExtentOfForest,
-    sectionName: SectionNames.extentOfForest,
-  },
-  {
-    commentKey: TableNames.forestCharacteristics,
-    linkField: NDPLinkField.commentsForestCharacteristics,
-    sectionName: SectionNames.forestCharacteristics,
-  },
-]
 
 export const getNationalDataPointLinks = async (props: Props): Promise<Array<LinkToVisit>> => {
   const { assessment, countryIso, cycle, targets } = props
@@ -49,7 +35,7 @@ export const getNationalDataPointLinks = async (props: Props): Promise<Array<Lin
     const urlParams = { assessmentName: assessment.props.name, countryIso, cycleName: cycle.name, year: String(year) }
 
     // Build comment links to visit (1a / 1b)
-    const commentLinks = commentLinkFields.flatMap<LinkToVisit>(({ commentKey, linkField, sectionName }) => {
+    const commentLinks = NDPCommentLinkFields.flatMap<LinkToVisit>(({ commentKey, linkField, sectionName }) => {
       if (!target.fields.includes(linkField)) return []
 
       const html = comments[commentKey]
