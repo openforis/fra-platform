@@ -7,10 +7,9 @@ import { Descriptions } from 'meta/assessment/description/descriptions'
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 import { Labels } from 'meta/assessment/labels'
 import { SubSection } from 'meta/assessment/section'
-import { TableNames } from 'meta/assessment/table'
+import { isOriginalDataPointLocation } from 'meta/cycleData/links/isOriginalDataPointLocation'
 import { LinkLocation } from 'meta/cycleData/links/link'
-
-import { ODPCommentColumns } from 'server/db/repository/assessmentCycle/originalDataPoint/commentColumns'
+import { NDPLinkField } from 'meta/cycleData/links/nationalDataPointLink'
 
 type GetLocationLabelProps = {
   assessment: Assessment
@@ -27,18 +26,17 @@ export const getLocationLabel = (props: GetLocationLabelProps): string => {
 
   const { sectionName } = location
 
-  // is an NDP location
-  if ('year' in location) {
+  if (isOriginalDataPointLocation(location)) {
     const { ndpSection, year } = location
 
-    const commentColumnsLabel = {
-      [ODPCommentColumns[TableNames.extentOfForest]]: t('extentOfForest.extentOfForest'),
-      [ODPCommentColumns[TableNames.forestCharacteristics]]: t('nationalDataPoint.forestCharacteristics'),
+    const commentFieldLabels: Partial<Record<NDPLinkField, string>> = {
+      [NDPLinkField.commentsExtentOfForest]: t('extentOfForest.extentOfForest'),
+      [NDPLinkField.commentsForestCharacteristics]: t('nationalDataPoint.forestCharacteristics'),
     }
 
     const sectionLabel =
-      commentColumnsLabel[ndpSection] !== undefined
-        ? `${commentColumnsLabel[ndpSection]} ${t('dataSource.comments')}`
+      commentFieldLabels[ndpSection] !== undefined
+        ? `${commentFieldLabels[ndpSection]} ${t('dataSource.comments')}`
         : t('nationalDataPoint.dataSources')
 
     const label = `${year} ${t('nationalDataPoint.nationalDataPoint')} - ${sectionLabel}`
