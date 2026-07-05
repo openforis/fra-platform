@@ -38,5 +38,5 @@ export const validateNationalClasses = async (props: Props): Promise<void> => {
     validations: { [uuid]: updatedValidation },
   })
 
-  notifyNationalDataPointValidationUpdate({ assessment, countryIso, cycle, uuid, validation: updatedValidation })
+  notifyNationalDataPointValidationUpdate({ assessment, countryIso, cycle, validations: { [uuid]: updatedValidation } })
 }

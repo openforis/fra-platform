@@ -78,11 +78,11 @@ export const remove = async (props: Props, client: BaseProtocol = DB): Promise<O
     return target
   })
 
-  await NationalDataPointValidationRedisRepository.deleteValidation({
+  await NationalDataPointValidationRedisRepository.deleteValidations({
     assessment,
     countryIso,
     cycle,
-    uuid,
+    uuids: [uuid],
   })
   notifyNationalDataPointValidationDelete({ assessment, countryIso, cycle, uuid })
 
