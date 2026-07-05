@@ -1,6 +1,7 @@
 import { Logger } from 'server/utils/logger'
 
 import { getNationalDataPointLinks } from './utils/getNationalDataPointLinks'
+import { mergeTargets } from './utils/mergeTargets'
 import { refreshNationalDataPointValidations } from './utils/refreshNationalDataPointValidations'
 import { syncNationalDataPointLinks } from './utils/syncNationalDataPointLinks'
 import { VerifyNationalDataPointLinksJob } from './props'
@@ -15,10 +16,12 @@ export default async (job: VerifyNationalDataPointLinksJob): Promise<void> => {
   const logKey = _getLogKey(job)
 
   try {
-    const { assessment, countryIso, cycle, notifyClients, targets } = job.data
+    const { assessment, countryIso, cycle, notifyClients, targets: rawTargets } = job.data
     const time = new Date().getTime()
 
     Logger.info(`${logKey} started.`)
+
+    const targets = mergeTargets({ targets: rawTargets }) // Merge duplicated targets
 
     const linksToVisit = await getNationalDataPointLinks({ assessment, countryIso, cycle, targets })
 

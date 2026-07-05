@@ -5,12 +5,14 @@ import { Cycle } from 'meta/assessment/cycle'
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { SectionNames } from 'meta/assessment/section'
+import { NDPLinkField } from 'meta/cycleData/links/nationalDataPointLink'
 import { User } from 'meta/user/user'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { DescriptionRepository } from 'server/db/repository/assessmentCycle/descriptions'
 import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 import { CountryService } from 'server/service/country'
+import { visitNationalDataPointLinks } from 'server/worker/tasks/verifyLinks/visitNationalDataPointLinks/visitNationalDataPointLinks'
 
 type Props = {
   assessment: Assessment
@@ -27,7 +29,7 @@ export const updateDataSources = async (props: Props, client: BaseProtocol = DB)
   const { assessment, country, cycle, originalDataPoint, user } = props
   const { countryIso, dataSources, uuid } = originalDataPoint
 
-  return client.tx(async (t) => {
+  await client.tx(async (t) => {
     await DescriptionRepository.upsert(
       { assessment, countryIso, cycle, name, sectionName, sectionUuid: uuid, value: dataSources },
       t
@@ -46,7 +48,14 @@ export const updateDataSources = async (props: Props, client: BaseProtocol = DB)
     )
 
     await CountryService.updateLastEdit({ assessment, cycle, country, user, lastEditOdp: true, lastUpdateTimestamp }, t)
-
-    return originalDataPoint
   })
+
+  await visitNationalDataPointLinks({
+    assessment,
+    countryIso,
+    cycle,
+    targets: [{ ndpUuid: uuid, fields: [NDPLinkField.dataSourceReferences] }],
+  })
+
+  return originalDataPoint
 }
