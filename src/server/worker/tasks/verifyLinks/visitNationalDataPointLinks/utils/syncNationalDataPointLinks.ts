@@ -26,8 +26,8 @@ export const syncNationalDataPointLinks = async (props: Props): Promise<Returned
 
   const locations = targets.flatMap((target) =>
     target.fields.map<NationalDataPointLinkLocationKey>((field) => ({
-      odpSection: field,
-      odpUuid: target.odpUuid,
+      ndpSection: field,
+      ndpUuid: target.ndpUuid,
       sectionName: 'originalDataPoint',
     }))
   )
