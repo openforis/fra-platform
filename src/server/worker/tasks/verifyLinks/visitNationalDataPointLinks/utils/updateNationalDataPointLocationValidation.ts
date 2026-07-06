@@ -14,7 +14,7 @@ type Props = {
 export const updateNationalDataPointLocationValidation = (props: Props): void => {
   const { linkValidationMessage, location, nationalDataPointValidations } = props
 
-  if (!Links.isOriginalDataPointLocation(location)) return
+  if (!Links.isNationalDataPointLocation(location)) return
   // Valid links are not saved in validation cache
   if (linkValidationMessage === undefined) return
 

@@ -7,7 +7,7 @@ import { Descriptions } from 'meta/assessment/description/descriptions'
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 import { Labels } from 'meta/assessment/labels'
 import { SubSection } from 'meta/assessment/section'
-import { isOriginalDataPointLocation } from 'meta/cycleData/links/isOriginalDataPointLocation'
+import { isNationalDataPointLocation } from 'meta/cycleData/links/isNationalDataPointLocation'
 import { LinkLocation } from 'meta/cycleData/links/link'
 import { NDPLinkField } from 'meta/cycleData/links/nationalDataPointLink'
 
@@ -26,7 +26,7 @@ export const getLocationLabel = (props: GetLocationLabelProps): string => {
 
   const { sectionName } = location
 
-  if (isOriginalDataPointLocation(location)) {
+  if (isNationalDataPointLocation(location)) {
     const { ndpSection, year } = location
 
     const commentFieldLabels: Partial<Record<NDPLinkField, string>> = {
