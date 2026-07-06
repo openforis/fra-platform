@@ -1,17 +1,15 @@
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessment, AssessmentNames } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { OriginalDataPointCommentKey } from 'meta/assessment/originalDataPoint'
 import { SectionNames } from 'meta/assessment/section'
-import { TableNames } from 'meta/assessment/table'
 import { DescriptionLinkLocationPath } from 'meta/cycleData/links/descriptionLink'
 import { LinkLocation, LinkToVisit } from 'meta/cycleData/links/link'
+import { NDPCommentLinkFields, NDPLinkField } from 'meta/cycleData/links/nationalDataPointLink'
 import { Routes } from 'meta/routes/routes'
 import { Htmls } from 'utils/htmls'
 
 import { DescriptionRepository } from 'server/db/repository/assessmentCycle/descriptions'
 import { OriginalDataPointRepository } from 'server/db/repository/assessmentCycle/originalDataPoint'
-import { ODPCommentColumns } from 'server/db/repository/assessmentCycle/originalDataPoint/commentColumns'
 
 type ProcessLinksProps = {
   countryIso: CountryIso
@@ -102,16 +100,11 @@ const _getOriginalDataPointLinks = async (props: Props): Promise<Array<LinkToVis
     OriginalDataPointRepository.getManyWithReferenceLinks({ assessment, countryIso, cycle }),
   ])
 
-  const commentFieldConfigs: Array<{ field: OriginalDataPointCommentKey; sectionName: SectionNames }> = [
-    { field: TableNames.extentOfForest, sectionName: SectionNames.extentOfForest },
-    { field: TableNames.forestCharacteristics, sectionName: SectionNames.forestCharacteristics },
-  ]
-
   const linksToVisit: Array<LinkToVisit> = odpsByDescriptionsLinks.flatMap((odp) => {
     const { comments, countryIso, uuid, year } = odp
 
-    return commentFieldConfigs.flatMap(({ field, sectionName }) => {
-      const html = comments[field]
+    return NDPCommentLinkFields.flatMap(({ commentKey, linkField, sectionName }) => {
+      const html = comments[commentKey]
       if (!html) return []
       const urlParams = { assessmentName, countryIso, cycleName, sectionName, year: String(year) }
       const url = Routes.OriginalDataPoint.generatePath(urlParams)
@@ -119,8 +112,8 @@ const _getOriginalDataPointLinks = async (props: Props): Promise<Array<LinkToVis
       return _processLinks({
         countryIso,
         html,
-        identifier: uuid,
-        odpSection: ODPCommentColumns[field],
+        ndpSection: linkField,
+        ndpUuid: uuid,
         sectionName: 'originalDataPoint',
         url,
         year,
@@ -130,7 +123,7 @@ const _getOriginalDataPointLinks = async (props: Props): Promise<Array<LinkToVis
 
   return linksToVisit.concat(
     odpsByReferenceLinks.reduce<Array<LinkToVisit>>((acc, odp) => {
-      const { countryIso, dataSources = [], year } = odp
+      const { countryIso, dataSources = [], uuid, year } = odp
       const sectionName = SectionNames.extentOfForest
       const urlParams = { assessmentName, countryIso, cycleName, sectionName, year: String(year) }
       const url = Routes.OriginalDataPoint.generatePath(urlParams)
@@ -139,8 +132,9 @@ const _getOriginalDataPointLinks = async (props: Props): Promise<Array<LinkToVis
         const links = _processLinks({
           countryIso,
           html: dataSource.reference,
-          identifier: dataSource.uuid,
-          odpSection: 'data_source_references',
+          dataSourceUuid: dataSource.uuid,
+          ndpSection: NDPLinkField.dataSourceReferences,
+          ndpUuid: uuid,
           sectionName: 'originalDataPoint',
           url,
           year,
