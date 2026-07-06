@@ -5,11 +5,10 @@ import { CommentableDescription } from 'meta/assessment/descriptionValue'
 import { DataSource, DataSourceEditableField } from 'meta/assessment/descriptionValue/dataSource'
 import { RecordDescriptionValidations } from 'meta/assessment/validation/description'
 import { Validation } from 'meta/assessment/validation/validation'
-import { Sockets } from 'meta/socket/sockets'
 import { Objects } from 'utils/objects'
 
 import { DescriptionValidationRedisRepository } from 'server/cache/repository/validation/description'
-import { SocketServer } from 'server/service/socket'
+import { notifyDescriptionValidationUpdate } from 'server/controller/cycleData/validations/descriptions/notifyDescriptionValidationUpdate'
 
 type Props = {
   assessment: Assessment
@@ -63,11 +62,6 @@ export const updateDataSourceFieldValidations = async (props: Props): Promise<vo
 
   if (notifyClients) {
     const sectionNames = Array.from(new Set(dataSourceDescriptions.map(({ sectionName }) => sectionName)))
-    const eventName = Sockets.getDescriptionValidationsUpdateEvent({
-      assessmentName: assessment.props.name,
-      countryIso,
-      cycleName: cycle.name,
-    })
-    SocketServer.emit(eventName, { descriptionValidations, sectionNames })
+    notifyDescriptionValidationUpdate({ assessment, countryIso, cycle, descriptionValidations, sectionNames })
   }
 }
