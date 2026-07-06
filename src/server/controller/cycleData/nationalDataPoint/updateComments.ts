@@ -31,7 +31,7 @@ export const updateComments = async (props: Props, client: BaseProtocol = DB): P
   const { assessment, country, cycle, field, originalDataPoint, user } = props
   const { countryIso } = originalDataPoint
 
-  const updatedOriginalDataPoint = await client.tx(async (t) => {
+  const updatedNationalDataPoint = await client.tx(async (t) => {
     const updated = await OriginalDataPointRepository.updateDescription(
       { assessment, cycle, field, originalDataPoint },
       t
@@ -61,8 +61,8 @@ export const updateComments = async (props: Props, client: BaseProtocol = DB): P
     assessment,
     countryIso,
     cycle,
-    targets: [{ ndpUuid: updatedOriginalDataPoint.uuid, fields: [commentLinkField.linkField] }],
+    targets: [{ ndpUuid: updatedNationalDataPoint.uuid, fields: [commentLinkField.linkField] }],
   })
 
-  return updatedOriginalDataPoint
+  return updatedNationalDataPoint
 }

@@ -26,8 +26,8 @@ const name = CommentableDescriptionName.dataSources
 const sectionName = SectionNames.nationalDataPoint
 
 export const updateDataSources = async (props: Props, client: BaseProtocol = DB): Promise<OriginalDataPoint> => {
-  const { assessment, country, cycle, originalDataPoint, user } = props
-  const { countryIso, dataSources, uuid } = originalDataPoint
+  const { assessment, country, cycle, originalDataPoint: nationalDataPoint, user } = props
+  const { countryIso, dataSources, uuid } = nationalDataPoint
 
   await client.tx(async (t) => {
     await DescriptionRepository.upsert(
@@ -36,7 +36,7 @@ export const updateDataSources = async (props: Props, client: BaseProtocol = DB)
     )
 
     const activityLog = {
-      target: originalDataPoint,
+      target: nationalDataPoint,
       section: 'odp',
       message: ActivityLogMessage.originalDataPointUpdateDataSources,
       countryIso,
@@ -57,5 +57,5 @@ export const updateDataSources = async (props: Props, client: BaseProtocol = DB)
     targets: [{ ndpUuid: uuid, fields: [NDPLinkField.dataSourceReferences] }],
   })
 
-  return originalDataPoint
+  return nationalDataPoint
 }
