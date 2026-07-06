@@ -1,31 +1,13 @@
 import { CountryIso } from 'meta/area/countryIso'
-import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
+import { DescriptionLinkLocation, DescriptionLinkLocationKey } from 'meta/cycleData/links/descriptionLink'
+import {
+  NationalDataPointLinkLocation,
+  NationalDataPointLinkLocationKey,
+} from 'meta/cycleData/links/nationalDataPointLink'
 
-type LinkLocationBase = {
-  identifier?: string
-  url: string
-}
+export type LinkLocation = DescriptionLinkLocation | NationalDataPointLinkLocation
 
-export const DescriptionLinkLocationPath = {
-  dataSourceReference: ['dataSources', 'reference'],
-  text: ['text'],
-}
-
-export type DescriptionsLocation = LinkLocationBase & {
-  colName: string
-  descriptionName: CommentableDescriptionName
-  path: Array<string>
-  sectionName: string
-  uuid?: string
-}
-
-type OriginalDataPointLocation = LinkLocationBase & {
-  sectionName: 'originalDataPoint'
-  odpSection: string
-  year: number
-}
-
-export type LinkLocation = DescriptionsLocation | OriginalDataPointLocation
+export type LinkLocationKey = DescriptionLinkLocationKey | NationalDataPointLinkLocationKey
 
 export enum LinkValidationStatusCode {
   empty = 'empty',

@@ -1,6 +1,7 @@
 import { RecordDescriptionValidations } from 'meta/assessment/validation/description'
 import { Validation, ValidationMessage } from 'meta/assessment/validation/validation'
-import { DescriptionLinkLocationPath, LinkLocation } from 'meta/cycleData/links/link'
+import { DescriptionLinkLocationPath } from 'meta/cycleData/links/descriptionLink'
+import { LinkLocation } from 'meta/cycleData/links/link'
 import { Links } from 'meta/cycleData/links/links'
 import { Objects } from 'utils/objects'
 

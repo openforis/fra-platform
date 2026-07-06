@@ -15,7 +15,7 @@ type Props = {
   linksToVisit: Array<LinkToVisit>
 }
 
-export const upsertDescriptionLinks = async (props: Props, client: BaseProtocol = DB): Promise<Array<Link>> => {
+export const upsertLinks = async (props: Props, client: BaseProtocol = DB): Promise<Array<Link>> => {
   const { assessment, cycle, linkVisits, linksToVisit } = props
   if (Objects.isEmpty(linksToVisit)) return []
 

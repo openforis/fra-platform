@@ -4,7 +4,7 @@ import { getVerificationSummary } from 'server/db/repository/assessmentCycle/lin
 import { markDeletedMany } from 'server/db/repository/assessmentCycle/links/markDeletedMany'
 import { removeLocations } from 'server/db/repository/assessmentCycle/links/removeLocations'
 import { update } from 'server/db/repository/assessmentCycle/links/update'
-import { upsertDescriptionLinks } from 'server/db/repository/assessmentCycle/links/upsertDescriptionLinks'
+import { upsertLinks } from 'server/db/repository/assessmentCycle/links/upsertLinks'
 import { upsertMany } from 'server/db/repository/assessmentCycle/links/upsertMany'
 
 export const LinkRepository = {
@@ -15,6 +15,6 @@ export const LinkRepository = {
   markDeletedMany,
   removeLocations,
   update,
-  upsertDescriptionLinks,
+  upsertLinks,
   upsertMany,
 }

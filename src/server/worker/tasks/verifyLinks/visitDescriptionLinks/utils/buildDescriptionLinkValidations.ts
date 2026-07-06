@@ -1,9 +1,10 @@
 import { CommentableDescription } from 'meta/assessment/descriptionValue'
 import { RecordDescriptionValidations } from 'meta/assessment/validation/description'
-import { ValidationMessage } from 'meta/assessment/validation/validation'
-import { Link, LinkToVisit, LinkValidationStatusCode, VisitedLink } from 'meta/cycleData/links/link'
+import { Link, LinkToVisit, VisitedLink } from 'meta/cycleData/links/link'
 import { Links } from 'meta/cycleData/links/links'
-import { Objects } from 'utils/objects'
+
+import { buildVisitedLinksByKey } from 'server/worker/tasks/verifyLinks/utils/buildVisitedLinksByKey'
+import { getLinkValidationMessage } from 'server/worker/tasks/verifyLinks/utils/getLinkValidationMessage'
 
 import { buildInitialDescriptionValidations } from './buildInitialDescriptionValidations'
 import { updateLocationValidation } from './updateLocationValidation'
@@ -23,30 +24,10 @@ export const buildDescriptionLinkValidations = (props: Props): RecordDescription
   const descriptionValidations = buildInitialDescriptionValidations(initialDescriptions)
 
   const approvedLinkKeys = new Set<string>(approvedLinks.map(Links.getKey))
-  const visitedLinksByKey = linkVisits.reduce<Record<string, VisitedLink>>((acc, linkVisit) => {
-    acc[Links.getKey(linkVisit)] = linkVisit
-    return acc
-  }, {})
+  const visitedLinksByKey = buildVisitedLinksByKey({ linkVisits })
 
   linksToVisit.forEach((linkToVisit) => {
-    const linkKey = Links.getKey(linkToVisit)
-    const approved = approvedLinkKeys.has(linkKey)
-    const validationCode = visitedLinksByKey[linkKey]?.code
-
-    let linkValidationMessage: ValidationMessage | undefined
-    const isInvalid = !approved && validationCode !== undefined && validationCode !== LinkValidationStatusCode.success
-    if (isInvalid) {
-      const { link, name } = linkToVisit
-      const invalidLinkLabel = !Objects.isEmpty(link) ? link : name
-
-      linkValidationMessage = {
-        key: 'generalValidation.invalidLinkWithReason',
-        params: {
-          link: invalidLinkLabel,
-          reason: Links.getI18nValidationStatusLabelKey(validationCode),
-        },
-      }
-    }
+    const linkValidationMessage = getLinkValidationMessage({ approvedLinkKeys, linkToVisit, visitedLinksByKey })
 
     linkToVisit.locations.forEach((location) => {
       updateLocationValidation({ descriptionValidations, linkValidationMessage, location })

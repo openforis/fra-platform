@@ -16,10 +16,13 @@ import { SelectProps } from 'client/components/Inputs/Select/types'
 
 type Returned = ReactSelectProps['components']
 
+// Keep same reference between renders
+const EMPTY_COMPONENTS: Returned = {}
+
 export const useComponents = (props: SelectProps): Returned => {
   const {
     collapsibleGroups,
-    components: _components = {},
+    components: _components = EMPTY_COMPONENTS,
     hideDropdownIndicator,
     inputHidden,
     isMulti,
