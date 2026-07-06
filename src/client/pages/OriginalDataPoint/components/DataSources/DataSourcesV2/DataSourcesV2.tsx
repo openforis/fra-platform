@@ -11,6 +11,7 @@ import { useDataSourcesData } from './hooks/useDataSourcesData'
 import { useDataSourcesHistoryLastApproved } from './hooks/useDataSourcesHistoryLastApproved'
 import { useOnChange } from './hooks/useOnChange'
 import { useOnDelete } from './hooks/useOnDelete'
+import { useValidationErrors } from './hooks/useValidationErrors'
 
 type Props = {
   originalDataPoint: OriginalDataPoint
@@ -28,6 +29,7 @@ const DataSourcesV2: React.FC<Props> = (props) => {
   const { dataSources } = dataSourcesData
   const historyCompares = useDataSourcesHistoryLastApproved({ dataSources })
   const displayHistory = useODPDisplayHistory()
+  const validationErrors = useValidationErrors({ nationalDataPoint: originalDataPoint })
 
   return (
     <DataSources
@@ -37,6 +39,7 @@ const DataSourcesV2: React.FC<Props> = (props) => {
       onChange={onChange}
       onDelete={onDelete}
       options={{ canEdit, canReview: canEdit, displayHistory }}
+      validationErrors={validationErrors}
     />
   )
 }
