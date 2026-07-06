@@ -43,17 +43,17 @@ export const refreshNationalDataPointValidations = async (props: Props): Promise
   const validationsToSet: RecordNDPValidations = {}
   const uuidsToDelete: Array<UUID> = []
 
-  targets.forEach(({ fields, odpUuid }) => {
-    const current = currentValidations[odpUuid] ?? {}
-    const update = linkValidations[odpUuid] ?? {}
+  targets.forEach(({ fields, ndpUuid }) => {
+    const current = currentValidations[ndpUuid] ?? {}
+    const update = linkValidations[ndpUuid] ?? {}
     const value = NationalDataPointValidations.mergeLinkValidations({ current, fields, update })
 
-    validations[odpUuid] = value
+    validations[ndpUuid] = value
 
     if (Objects.isEmpty(value)) {
-      uuidsToDelete.push(odpUuid)
+      uuidsToDelete.push(ndpUuid)
     } else {
-      validationsToSet[odpUuid] = value
+      validationsToSet[ndpUuid] = value
     }
   })
 
