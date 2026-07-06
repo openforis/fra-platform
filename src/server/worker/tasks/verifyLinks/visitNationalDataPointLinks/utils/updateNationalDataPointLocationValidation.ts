@@ -18,19 +18,19 @@ export const updateNationalDataPointLocationValidation = (props: Props): void =>
   // Valid links are not saved in validation cache
   if (linkValidationMessage === undefined) return
 
-  const validation: NDPValidation = (nationalDataPointValidations[location.odpUuid] ??= {})
+  const validation: NDPValidation = (nationalDataPointValidations[location.ndpUuid] ??= {})
 
   let fieldValidation: Validation | undefined
 
   // For comments (1a and 1b)
-  const commentLinkField = NDPCommentLinkFields.find(({ linkField }) => linkField === location.odpSection)
+  const commentLinkField = NDPCommentLinkFields.find(({ linkField }) => linkField === location.ndpSection)
   if (!Objects.isEmpty(commentLinkField)) {
     const comments = (validation.comments ??= {})
     fieldValidation = comments[commentLinkField.commentKey] ??= { valid: true }
   }
 
   // For dataSource.reference
-  if (location.odpSection === NDPLinkField.dataSourceReferences) {
+  if (location.ndpSection === NDPLinkField.dataSourceReferences) {
     const { dataSourceUuid } = location
     if (Objects.isEmpty(dataSourceUuid)) return
 
