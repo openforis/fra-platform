@@ -1,8 +1,7 @@
 import { useCallback } from 'react'
 
-import { Objects } from 'utils/objects'
-
 import { NodeValue } from 'meta/assessment/node'
+import { Objects } from 'utils/objects'
 
 import { Option } from 'client/components/Inputs/Select'
 import { CURRENT_NODE_OPTION_VALUE } from 'client/pages/Section/DataTable/Table/RowData/Cell/Taxon/types'
@@ -34,6 +33,7 @@ export const useOnChange = (props: Props): Returned => {
       if (value === nodeValue.taxonCode) return
 
       const selectedOption = options.find((option) => option.value === value)
+      if (!selectedOption) return
 
       const scientificName = selectedOption.label
 
