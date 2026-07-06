@@ -1,3 +1,5 @@
+import { RecordDescriptionValidations } from 'meta/assessment/validation/description'
+import { DescriptionValidations } from 'meta/assessment/validation/descriptionValidations'
 import { Objects } from 'utils/objects'
 
 import { DescriptionValidationRedisRepository } from 'server/cache/repository/validation/description'
@@ -53,11 +55,25 @@ export default async (job: VerifyDescriptionLinksJob): Promise<void> => {
 
     const sectionNames = Array.from(new Set(descriptions.map(({ sectionName }) => sectionName)))
 
+    // Merge the results onto the current state, so the other validations of the sections are kept.
+    const currentValidations = await DescriptionValidationRedisRepository.getValidations({
+      assessment,
+      countryIso,
+      cycle,
+      sectionNames,
+    })
+    const validations: RecordDescriptionValidations = {}
+    sectionNames.forEach((sectionName) => {
+      const current = currentValidations[sectionName] ?? {}
+      const update = descriptionValidations[sectionName] ?? {}
+      validations[sectionName] = DescriptionValidations.mergeValidations({ current, update })
+    })
+
     await DescriptionValidationRedisRepository.setValidations({
       assessment,
       countryIso,
       cycle,
-      descriptionValidations,
+      descriptionValidations: validations,
     })
 
     if (notifyClients) {
