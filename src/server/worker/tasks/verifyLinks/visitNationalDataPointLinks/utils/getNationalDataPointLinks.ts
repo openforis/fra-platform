@@ -1,6 +1,7 @@
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
+import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { SectionNames } from 'meta/assessment/section'
 import { LinkToVisit } from 'meta/cycleData/links/link'
 import {
@@ -22,16 +23,21 @@ type Props = {
   targets: Array<NDPLinkTarget>
 }
 
-export const getNationalDataPointLinks = async (props: Props): Promise<Array<LinkToVisit>> => {
+type Returned = {
+  linksToVisit: Array<LinkToVisit>
+  nationalDataPoints: Array<OriginalDataPoint>
+}
+
+export const getNationalDataPointLinks = async (props: Props): Promise<Returned> => {
   const { assessment, countryIso, cycle, targets } = props
 
-  const originalDataPoints = await OriginalDataPointRepository.getMany({ assessment, countryIso, cycle })
+  const nationalDataPoints = await OriginalDataPointRepository.getMany({ assessment, countryIso, cycle })
 
-  return targets.flatMap<LinkToVisit>((target) => {
-    const originalDataPoint = originalDataPoints.find(({ uuid }) => uuid === target.ndpUuid)
-    if (!originalDataPoint) return []
+  const linksToVisit = targets.flatMap<LinkToVisit>((target) => {
+    const nationalDataPoint = nationalDataPoints.find(({ uuid }) => uuid === target.ndpUuid)
+    if (Objects.isEmpty(nationalDataPoint)) return []
 
-    const { comments, dataSources = [], uuid, year } = originalDataPoint
+    const { comments, dataSources = [], uuid, year } = nationalDataPoint
     const urlParams = { assessmentName: assessment.props.name, countryIso, cycleName: cycle.name, year: String(year) }
 
     // Build comment links to visit (1a / 1b)
@@ -73,4 +79,6 @@ export const getNationalDataPointLinks = async (props: Props): Promise<Array<Lin
 
     return commentLinks.concat(referenceLinks)
   })
+
+  return { linksToVisit, nationalDataPoints }
 }

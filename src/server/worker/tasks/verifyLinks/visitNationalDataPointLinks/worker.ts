@@ -17,24 +17,20 @@ export default async (job: VerifyNationalDataPointLinksJob): Promise<void> => {
 
   try {
     const { assessment, countryIso, cycle, notifyClients, targets: rawTargets } = job.data
+    const commonProps = { assessment, countryIso, cycle }
     const time = new Date().getTime()
 
     Logger.info(`${logKey} started.`)
 
     const targets = mergeTargets({ targets: rawTargets }) // Merge duplicated targets
 
-    const linksToVisit = await getNationalDataPointLinks({ assessment, countryIso, cycle, targets })
+    const nationalDataPointLinks = await getNationalDataPointLinks({ ...commonProps, targets })
+    const { linksToVisit } = nationalDataPointLinks
 
-    const { approvedLinks, linkVisits } = await syncNationalDataPointLinks({
-      assessment,
-      countryIso,
-      cycle,
-      linksToVisit,
-      targets,
-    })
+    const { approvedLinks, linkVisits } = await syncNationalDataPointLinks({ ...commonProps, linksToVisit, targets })
 
-    const params = { approvedLinks, assessment, countryIso, cycle, linkVisits, linksToVisit, notifyClients, targets }
-    await refreshNationalDataPointValidations(params)
+    const props = { ...commonProps, ...nationalDataPointLinks, approvedLinks, linkVisits, notifyClients, targets }
+    await refreshNationalDataPointValidations(props)
 
     const duration = (new Date().getTime() - time) / 1000
     Logger.info(`${logKey} ended in ${duration} seconds with ${linkVisits.length} links visited.`)
