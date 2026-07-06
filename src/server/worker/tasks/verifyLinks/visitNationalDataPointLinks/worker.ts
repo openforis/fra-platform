@@ -1,7 +1,7 @@
 import { Logger } from 'server/utils/logger'
 
-import { buildNationalDataPointLinkValidations } from './utils/buildNationalDataPointLinkValidations'
 import { getNationalDataPointLinks } from './utils/getNationalDataPointLinks'
+import { refreshNationalDataPointValidations } from './utils/refreshNationalDataPointValidations'
 import { syncNationalDataPointLinks } from './utils/syncNationalDataPointLinks'
 import { VerifyNationalDataPointLinksJob } from './props'
 
@@ -15,7 +15,7 @@ export default async (job: VerifyNationalDataPointLinksJob): Promise<void> => {
   const logKey = _getLogKey(job)
 
   try {
-    const { assessment, countryIso, cycle, targets } = job.data
+    const { assessment, countryIso, cycle, notifyClients, targets } = job.data
     const time = new Date().getTime()
 
     Logger.info(`${logKey} started.`)
@@ -30,9 +30,8 @@ export default async (job: VerifyNationalDataPointLinksJob): Promise<void> => {
       targets,
     })
 
-    const linkValidations = buildNationalDataPointLinkValidations({ approvedLinks, linkVisits, linksToVisit })
-    Logger.debug(`${logKey} built link validations for ${Object.keys(linkValidations).length} national data points.`)
-    // TODO: persist the link validations and notify clients
+    const params = { approvedLinks, assessment, countryIso, cycle, linkVisits, linksToVisit, notifyClients, targets }
+    await refreshNationalDataPointValidations(params)
 
     const duration = (new Date().getTime() - time) / 1000
     Logger.info(`${logKey} ended in ${duration} seconds with ${linkVisits.length} links visited.`)
