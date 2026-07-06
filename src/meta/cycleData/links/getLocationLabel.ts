@@ -27,9 +27,9 @@ export const getLocationLabel = (props: GetLocationLabelProps): string => {
 
   const { sectionName } = location
 
-  // is an ODP location
+  // is an NDP location
   if ('year' in location) {
-    const { odpSection, year } = location
+    const { ndpSection, year } = location
 
     const commentColumnsLabel = {
       [ODPCommentColumns[TableNames.extentOfForest]]: t('extentOfForest.extentOfForest'),
@@ -37,8 +37,8 @@ export const getLocationLabel = (props: GetLocationLabelProps): string => {
     }
 
     const sectionLabel =
-      commentColumnsLabel[odpSection] !== undefined
-        ? `${commentColumnsLabel[odpSection]} ${t('dataSource.comments')}`
+      commentColumnsLabel[ndpSection] !== undefined
+        ? `${commentColumnsLabel[ndpSection]} ${t('dataSource.comments')}`
         : t('nationalDataPoint.dataSources')
 
     const label = `${year} ${t('nationalDataPoint.nationalDataPoint')} - ${sectionLabel}`

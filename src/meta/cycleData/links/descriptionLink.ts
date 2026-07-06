@@ -13,3 +13,6 @@ export type DescriptionLinkLocation = LinkLocationBase & {
   sectionName: string
   uuid?: string
 }
+
+// The fields used to match stored locations.
+export type DescriptionLinkLocationKey = Pick<DescriptionLinkLocation, 'descriptionName' | 'path' | 'sectionName'>

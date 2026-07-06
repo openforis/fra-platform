@@ -1,21 +1,17 @@
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { DescriptionIdentifier } from 'meta/assessment/descriptionValue'
+import { LinkLocationKey } from 'meta/cycleData/links/link'
 import { Objects } from 'utils/objects'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { Schemas } from 'server/db/schemas'
 
-type LocationToRemove = DescriptionIdentifier & {
-  path: Array<string>
-}
-
 type Props = {
   assessment: Assessment
   countryIso: CountryIso
   cycle: Cycle
-  locations: Array<LocationToRemove>
+  locations: Array<LinkLocationKey>
 }
 
 export const removeLocations = async (props: Props, client: BaseProtocol = DB): Promise<void> => {
@@ -28,27 +24,18 @@ export const removeLocations = async (props: Props, client: BaseProtocol = DB): 
 
   return client.query(
     `
-      with locations_to_remove as (
-        -- Turn the JSON input into rows so each stored location can be matched by description identifier and path.
-        select
-          location.value ->> 'name' as name,
-          location.value ->> 'sectionName' as section_name,
-          location.value -> 'path' as path
-        from jsonb_array_elements($(locations)::jsonb) as location(value)
-      ),
-      updated_links as (
+      with updated_links as (
         select
           link.id,
           coalesce(
-            -- Rebuild the locations array without the removed description locations.
+            -- Rebuild the locations array without the removed locations.
             -- Ordinality keeps the remaining locations in their original order.
             jsonb_agg(location.value order by location.ordinality) filter (
               where not exists (
                 select
-                from locations_to_remove
-                where location.value ->> 'descriptionName' = locations_to_remove.name
-                  and location.value ->> 'sectionName' = locations_to_remove.section_name
-                  and location.value -> 'path' = locations_to_remove.path
+                from jsonb_array_elements($(locations)::jsonb) as location_to_remove(value)
+                -- A stored location is removed when it matches every field of one of the locations to remove.
+                where location.value @> location_to_remove.value
               )
             ),
             '[]'::jsonb
