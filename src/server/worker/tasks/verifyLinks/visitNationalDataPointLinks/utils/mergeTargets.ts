@@ -5,7 +5,11 @@ type Props = {
   targets: Array<NDPLinkTarget>
 }
 
-// Merges targets of the same national data point into one, so a job never refreshes a national data point twice.
+// Merges targets of the same national data point into one, so a job never refreshes it twice.
+// This can happen when a link is approved and it was used in more than one field.
+// Example:
+//   targets: [{ ndpUuid: 'abc', fields: [commentsExtentOfForest] }, { ndpUuid: 'abc', fields: [dataSourceReferences] }]
+//   result:  [{ ndpUuid: 'abc', fields: [commentsExtentOfForest, dataSourceReferences] }]
 export const mergeTargets = (props: Props): Array<NDPLinkTarget> => {
   const { targets } = props
 
