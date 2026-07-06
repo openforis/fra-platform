@@ -10,16 +10,21 @@ export enum NDPLinkField {
 export const NDPLinkFields: Array<NDPLinkField> = Object.values(NDPLinkField)
 
 export type NDPLinkTarget = {
-  odpUuid: UUID
+  ndpUuid: UUID
   fields: Array<NDPLinkField>
+}
+
+export type NationalDataPointLinkLocation = LinkLocationBase & {
+  sectionName: 'originalDataPoint'
+  ndpSection: NDPLinkField
+  ndpUuid: UUID
+  // Set when the location is a data source reference location within the odp.
+  dataSourceUuid?: UUID
   year: number
 }
 
-// `identifier` from LinkLocationBase holds the odp uuid
-export type NationalDataPointLinkLocation = LinkLocationBase & {
-  sectionName: 'originalDataPoint'
-  odpSection: string
-  // Set when the location is a data source reference location within the odp.
-  dataSourceUuid?: string
-  year: number
-}
+// The fields used to match stored locations.
+export type NationalDataPointLinkLocationKey = Pick<
+  NationalDataPointLinkLocation,
+  'ndpSection' | 'ndpUuid' | 'sectionName'
+>

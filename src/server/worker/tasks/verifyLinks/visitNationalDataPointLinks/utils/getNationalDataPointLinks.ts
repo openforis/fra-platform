@@ -42,7 +42,7 @@ export const getNationalDataPointLinks = async (props: Props): Promise<Array<Lin
   const originalDataPoints = await OriginalDataPointRepository.getMany({ assessment, countryIso, cycle })
 
   return targets.flatMap<LinkToVisit>((target) => {
-    const originalDataPoint = originalDataPoints.find(({ uuid }) => uuid === target.odpUuid)
+    const originalDataPoint = originalDataPoints.find(({ uuid }) => uuid === target.ndpUuid)
     if (!originalDataPoint) return []
 
     const { comments, dataSources = [], uuid, year } = originalDataPoint
@@ -57,7 +57,7 @@ export const getNationalDataPointLinks = async (props: Props): Promise<Array<Lin
 
       const url = Routes.OriginalDataPoint.generatePath({ ...urlParams, sectionName })
       const locations: Array<NationalDataPointLinkLocation> = [
-        { identifier: uuid, odpSection: linkField, sectionName: 'originalDataPoint', url, year },
+        { ndpSection: linkField, ndpUuid: uuid, sectionName: 'originalDataPoint', url, year },
       ]
 
       return Htmls.getLinks(html).map(({ link, name }) => ({ countryIso, link: link ?? '', locations, name }))
@@ -74,8 +74,8 @@ export const getNationalDataPointLinks = async (props: Props): Promise<Array<Lin
       const locations: Array<NationalDataPointLinkLocation> = [
         {
           dataSourceUuid,
-          identifier: uuid,
-          odpSection: NDPLinkField.dataSourceReferences,
+          ndpSection: NDPLinkField.dataSourceReferences,
+          ndpUuid: uuid,
           sectionName: 'originalDataPoint',
           url,
           year,
