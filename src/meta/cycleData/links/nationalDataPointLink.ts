@@ -1,3 +1,6 @@
+import { OriginalDataPointCommentKey } from 'meta/assessment/originalDataPoint'
+import { SectionNames } from 'meta/assessment/section'
+import { TableNames } from 'meta/assessment/table'
 import { LinkLocationBase } from 'meta/cycleData/links/linkLocationBase'
 import { UUID } from 'meta/uuid/uuid'
 
@@ -8,6 +11,25 @@ export enum NDPLinkField {
 }
 
 export const NDPLinkFields: Array<NDPLinkField> = Object.values(NDPLinkField)
+
+export type NDPCommentLinkField = {
+  commentKey: OriginalDataPointCommentKey
+  linkField: NDPLinkField.commentsExtentOfForest | NDPLinkField.commentsForestCharacteristics
+  sectionName: SectionNames.extentOfForest | SectionNames.forestCharacteristics
+}
+
+export const NDPCommentLinkFields: Array<NDPCommentLinkField> = [
+  {
+    commentKey: TableNames.extentOfForest,
+    linkField: NDPLinkField.commentsExtentOfForest,
+    sectionName: SectionNames.extentOfForest,
+  },
+  {
+    commentKey: TableNames.forestCharacteristics,
+    linkField: NDPLinkField.commentsForestCharacteristics,
+    sectionName: SectionNames.forestCharacteristics,
+  },
+]
 
 export type NDPLinkTarget = {
   ndpUuid: UUID
