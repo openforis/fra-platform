@@ -14,7 +14,9 @@ type Props = {
   field: OriginalDataPointCommentKey
 }
 
-export const useValidationErrors = (props: Props): Array<string> => {
+type Returned = Array<string>
+
+export const useValidationErrors = (props: Props): Returned => {
   const { field } = props
   const { t } = useTranslation()
   const canEditCycleData = useCanEditCycleData()
@@ -24,7 +26,7 @@ export const useValidationErrors = (props: Props): Array<string> => {
   const validation = useNationalDataPointValidation({ uuid: nationalDataPoint.uuid })
   const commentValidation = validation.comments?.[field]
 
-  return useMemo<Array<string>>(() => {
+  return useMemo<Returned>(() => {
     if (!canEditCycleData || print || displayHistory) return []
 
     return MessageParser.getMessages(t, commentValidation)
