@@ -1,5 +1,5 @@
 import { Promises } from 'utils/promises'
-import { validateAll } from 'tools/validations/validateAllRunner'
+import { validateAll } from 'tools/validations/validateAll'
 
 import { CacheController } from 'server/cache/controller'
 import { AssessmentController } from 'server/controller/assessment'

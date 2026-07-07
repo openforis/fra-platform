@@ -2,6 +2,7 @@ import { Sockets } from 'meta/socket/sockets'
 import { Objects } from 'utils/objects'
 
 import { DescriptionValidationRedisRepository } from 'server/cache/repository/validation/description'
+import { BaseProtocol, DB } from 'server/db/db'
 import { SocketServer } from 'server/service/socket'
 import { Logger } from 'server/utils/logger'
 
@@ -10,19 +11,20 @@ import { getDescriptionLinks } from './utils/getDescriptionLinks'
 import { syncDescriptionLinks } from './utils/syncDescriptionLinks'
 import { VerifyDescriptionLinksJob, VerifyDescriptionLinksJobProps } from './props'
 
-export const runDescriptionLinkValidation = async (props: VerifyDescriptionLinksJobProps): Promise<void> => {
+export const runDescriptionLinkValidation = async (
+  props: VerifyDescriptionLinksJobProps,
+  client: BaseProtocol = DB
+): Promise<void> => {
   const { assessment, countryIso, cycle, descriptionIdentifiers, notifyClients = true } = props
   const logKey = `[visitDescriptionLinks] [${assessment.props.name}-${cycle.name}-${countryIso}]`
   const time = new Date().getTime()
 
   Logger.info(`${logKey} started.`)
 
-  const { descriptions, linksToVisit } = await getDescriptionLinks({
-    assessment,
-    countryIso,
-    cycle,
-    descriptionIdentifiers,
-  })
+  const { descriptions, linksToVisit } = await getDescriptionLinks(
+    { assessment, countryIso, cycle, descriptionIdentifiers },
+    client
+  )
 
   if (Objects.isEmpty(descriptions)) {
     Logger.info(`${logKey} ended with no descriptions to validate.`)

@@ -7,6 +7,7 @@ import {
 } from 'meta/assessment/descriptionValue'
 import { Objects } from 'utils/objects'
 
+import { BaseProtocol, DB } from 'server/db/db'
 import { Logger } from 'server/utils/logger'
 import { runDescriptionLinkValidation } from 'server/worker/tasks/verifyLinks/visitDescriptionLinks/worker'
 
@@ -22,7 +23,7 @@ const _getIdentifiers = (sectionValues: DescriptionSectionValues): Array<Descrip
     Object.keys(descriptions).map((name) => ({ name: name as CommentableDescriptionName, sectionName }))
   )
 
-export const validateDescriptions = async (props: Props): Promise<Array<Failure>> => {
+export const validateDescriptions = async (props: Props, client: BaseProtocol = DB): Promise<Array<Failure>> => {
   Logger.info('Start validateDescriptions')
   const { assessment, country, cycle, descriptionsByCountry } = props
   const { countryIso } = country
@@ -35,7 +36,10 @@ export const validateDescriptions = async (props: Props): Promise<Array<Failure>
   if (Objects.isEmpty(descriptionIdentifiers)) return []
 
   try {
-    await runDescriptionLinkValidation({ assessment, countryIso, cycle, descriptionIdentifiers, notifyClients: false })
+    await runDescriptionLinkValidation(
+      { assessment, countryIso, cycle, descriptionIdentifiers, notifyClients: false },
+      client
+    )
     Logger.info('Finish validateDescriptions')
 
     return []

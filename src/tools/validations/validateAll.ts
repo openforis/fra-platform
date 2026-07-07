@@ -6,6 +6,7 @@ import { ToolsUtils } from 'tools/utils/toolsUtils'
 
 import { AreaController } from 'server/controller/area'
 import { AssessmentController } from 'server/controller/assessment'
+import { BaseProtocol, DB } from 'server/db/db'
 import { DescriptionRepository } from 'server/db/repository/assessmentCycle/descriptions'
 
 import { validateDescriptions } from './descriptions'
@@ -25,8 +26,8 @@ const _throwIfFailed = (failures: Array<Failure>): void => {
   throw new Error(`validateAll failed for ${failures.length} countries:\n${summary}`)
 }
 
-const validateAll = async (): Promise<void> => {
-  const assessments = await AssessmentController.getAll({ metaCache: true })
+export const validateAll = async (client: BaseProtocol = DB): Promise<void> => {
+  const assessments = await AssessmentController.getAll({ metaCache: true }, client)
   const assessmentCycles = assessments.flatMap((assessment) =>
     assessment.cycles.map((cycle) => ({ assessment, cycle }))
   )
@@ -34,20 +35,20 @@ const validateAll = async (): Promise<void> => {
 
   await Promise.all(
     assessmentCycles.map(async ({ assessment, cycle }) => {
-      const countriesMap = await AreaController.getCountriesMap({ assessment, cycle })
+      const countriesMap = await AreaController.getCountriesMap({ assessment, cycle }, client)
       const countryISOs = Object.keys(countriesMap) as Array<CountryIso>
       const countries = Object.values(countriesMap)
 
-      const descriptionsByCountry = await DescriptionRepository.getValues({ assessment, countryISOs, cycle })
+      const descriptionsByCountry = await DescriptionRepository.getValues({ assessment, countryISOs, cycle }, client)
 
       await Promises.each(countries, async (country) => {
         const promises = [
-          validateDescriptions({ assessment, country, cycle, descriptionsByCountry }),
-          validateTables({ assessment, country, cycle }),
+          validateDescriptions({ assessment, country, cycle, descriptionsByCountry }, client),
+          validateTables({ assessment, country, cycle }, client),
         ]
 
         if (cycle.props.ndp) {
-          promises.push(validateNationalDataPoints({ assessment, country, cycle }))
+          promises.push(validateNationalDataPoints({ assessment, country, cycle }, client))
         }
 
         const results = await Promise.all(promises)
@@ -59,4 +60,6 @@ const validateAll = async (): Promise<void> => {
   _throwIfFailed(failures)
 }
 
-ToolsUtils.exec(validateAll)
+if (require.main === module) {
+  ToolsUtils.exec(validateAll)
+}
