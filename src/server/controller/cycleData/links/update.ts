@@ -5,6 +5,7 @@ import { Cycle } from 'meta/assessment/cycle'
 import { DescriptionIdentifier } from 'meta/assessment/descriptionValue'
 import { Link } from 'meta/cycleData/links/link'
 import { Links } from 'meta/cycleData/links/links'
+import { NDPLinkTarget } from 'meta/cycleData/links/nationalDataPointLink'
 import { SectionNames } from 'meta/routes/sectionNames'
 import { User } from 'meta/user/user'
 import { Objects } from 'utils/objects'
@@ -13,6 +14,7 @@ import { BaseProtocol, DB } from 'server/db/db'
 import { LinkRepository } from 'server/db/repository/assessmentCycle/links'
 import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 import { visitDescriptionLinks } from 'server/worker/tasks/verifyLinks/visitDescriptionLinks/visitDescriptionLinks'
+import { visitNationalDataPointLinks } from 'server/worker/tasks/verifyLinks/visitNationalDataPointLinks/visitNationalDataPointLinks'
 
 type Props = {
   assessment: Assessment
@@ -50,6 +52,17 @@ export const update = async (props: Props): Promise<Link> => {
       })
     )
     await visitDescriptionLinks({ assessment, countryIso, cycle, descriptionIdentifiers })
+  }
+
+  // If the link has national data point locations, we trigger the flow that updates the ndp validation cache.
+  const nationalDataPointLocations = updatedLink.locations.filter(Links.isNationalDataPointLocation)
+  if (!Objects.isEmpty(nationalDataPointLocations)) {
+    const { countryIso } = updatedLink
+    const targets = nationalDataPointLocations.map<NDPLinkTarget>(({ ndpSection, ndpUuid }) => ({
+      ndpUuid,
+      fields: [ndpSection],
+    }))
+    await visitNationalDataPointLinks({ assessment, countryIso, cycle, targets })
   }
 
   return updatedLink

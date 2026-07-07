@@ -5,6 +5,7 @@ import { Cycle } from 'meta/assessment/cycle'
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { SectionNames } from 'meta/assessment/section'
+import { NDPLinkFields } from 'meta/cycleData/links/nationalDataPointLink'
 import { Topics } from 'meta/messageCenter/topics'
 import { Sockets } from 'meta/socket/sockets'
 import { User } from 'meta/user/user'
@@ -18,6 +19,7 @@ import { OriginalDataPointRepository } from 'server/db/repository/assessmentCycl
 import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 import { CountryService } from 'server/service/country'
 import { SocketServer } from 'server/service/socket'
+import { visitNationalDataPointLinks } from 'server/worker/tasks/verifyLinks/visitNationalDataPointLinks/visitNationalDataPointLinks'
 
 import { updateOriginalDataPointDependentNodes } from './updateDependants/updateOriginalDataPointDependentNodes'
 
@@ -85,6 +87,16 @@ export const remove = async (props: Props, client: BaseProtocol = DB): Promise<O
     uuids: [uuid],
   })
   notifyNationalDataPointValidationDelete({ assessment, countryIso, cycle, uuid })
+
+  // Remove the deleted national data point's link locations.
+  // Clients are already notified through the delete event above.
+  await visitNationalDataPointLinks({
+    assessment,
+    countryIso,
+    cycle,
+    notifyClients: false,
+    targets: [{ ndpUuid: uuid, fields: NDPLinkFields }],
+  })
 
   return target
 }
