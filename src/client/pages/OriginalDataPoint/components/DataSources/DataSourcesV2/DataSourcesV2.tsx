@@ -29,7 +29,7 @@ const DataSourcesV2: React.FC<Props> = (props) => {
   const { dataSources } = dataSourcesData
   const historyCompares = useDataSourcesHistoryLastApproved({ dataSources })
   const displayHistory = useODPDisplayHistory()
-  const validationErrors = useValidationErrors({ nationalDataPoint: originalDataPoint })
+  const validationErrors = useValidationErrors()
 
   return (
     <DataSources

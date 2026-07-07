@@ -2,29 +2,23 @@ import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import type { DataSourceValidationErrorsRecord } from 'meta/assessment/descriptionValue/dataSource'
-import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { MessageParser } from 'meta/validations/messageParser'
 
+import { useOriginalDataPoint } from 'client/store/data/originalDataPoint/hooks/originalDataPoint'
 import { useNationalDataPointValidation } from 'client/store/data/tableData/validations/hooks/nationalDataPoints'
-import { useCanEditCycleData } from 'client/store/user/hooks/auth'
-import { useIsPrintRoute } from 'client/hooks/routes'
-import { useODPDisplayHistory } from 'client/pages/OriginalDataPoint/components/hooks/useODPDisplayHistory'
+import { useShowNDPValidationErrors } from 'client/pages/OriginalDataPoint/components/hooks/useShowNDPValidationErrors'
+import { useIsEditODPEnabled } from 'client/pages/OriginalDataPoint/hooks/useIsEditODPEnabled'
 
-type Props = {
-  nationalDataPoint: OriginalDataPoint
-}
-
-export const useValidationErrors = (props: Props): DataSourceValidationErrorsRecord => {
-  const { nationalDataPoint } = props
+export const useValidationErrors = (): DataSourceValidationErrorsRecord => {
   const { t } = useTranslation()
-  const canEditCycleData = useCanEditCycleData()
-  const { print } = useIsPrintRoute()
-  const displayHistory = useODPDisplayHistory()
+  const canEdit = useIsEditODPEnabled()
+  const showValidationErrors = useShowNDPValidationErrors({ canEdit })
+  const nationalDataPoint = useOriginalDataPoint()
   const validation = useNationalDataPointValidation({ uuid: nationalDataPoint.uuid })
   const dataSourceValidations = validation.dataSources
 
   return useMemo<DataSourceValidationErrorsRecord>(() => {
-    if (!canEditCycleData || print || displayHistory) return {}
+    if (!showValidationErrors) return {}
 
     const validationErrors: DataSourceValidationErrorsRecord = {}
     Object.entries(dataSourceValidations ?? {}).forEach(([uuid, dataSourceValidation]) => {
@@ -32,5 +26,5 @@ export const useValidationErrors = (props: Props): DataSourceValidationErrorsRec
     })
 
     return validationErrors
-  }, [canEditCycleData, dataSourceValidations, displayHistory, print, t])
+  }, [dataSourceValidations, showValidationErrors, t])
 }
