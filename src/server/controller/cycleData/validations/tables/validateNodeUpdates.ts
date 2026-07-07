@@ -47,7 +47,7 @@ export const validateNodeUpdates = async (props: Props): Promise<Array<TableName
     const { colName, tableName, variableName } = variable
 
     const row = rows[RowCaches.getKey({ tableName, variableName })]
-    const col = row?.cols.find((candidate: Col) => candidate.props.colName === colName)
+    const col = row?.cols?.find((candidate: Col) => candidate.props.colName === colName)
     // Same behavior as updateCalculationDependencies: queued targets that don't map
     // to a concrete metadata column are not processed.
     if (Objects.isNil(row) || Objects.isNil(col)) {
