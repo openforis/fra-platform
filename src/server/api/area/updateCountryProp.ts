@@ -2,11 +2,9 @@ import { Response } from 'express'
 
 import { CycleDataRequest } from 'meta/api/request/cycleData/cycleData'
 import { Country, CountryProps } from 'meta/area/country'
-import { AssessmentMetaCaches } from 'meta/assessment/metaCaches'
 import { TableNames } from 'meta/assessment/table'
 import { NodeUpdates } from 'meta/data/nodeUpdates'
 import { RecordAssessmentDatas } from 'meta/data/recordDatas'
-import { Objects } from 'utils/objects'
 
 import { AreaController } from 'server/controller/area'
 import { TableDataController } from 'server/controller/cycleData/tableData'
@@ -46,13 +44,9 @@ export const updateCountryProp = async (req: Request, res: Response): Promise<vo
       const tableData = RecordAssessmentDatas.getTableData({ assessmentName, cycleName, countryIso, tableName, data })
 
       // 3. schedule update dependencies
-      const variablesByTable = AssessmentMetaCaches.getVariablesByTables({ assessment, cycle })
       const nodeUpdates = Object.entries(tableData).reduce<NodeUpdates>(
         (acc, [colName, recordRowData]) => {
           Object.entries(recordRowData).forEach(([variableName, value]) => {
-            // The merged NDP data also carries variables that don't belong to this table (e.g. total, totalLandArea);
-            // only queue variables that are part of the table metadata.
-            if (Objects.isNil(variablesByTable[tableName]?.[variableName])) return
             acc.nodes.push({ tableName, variableName, colName, value })
           })
           return acc

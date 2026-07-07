@@ -10,8 +10,6 @@ import { ExpressionEvaluator } from 'meta/expressionEvaluator'
 import { Objects } from 'utils/objects'
 import { Promises } from 'utils/promises'
 
-import { isODPVariable } from 'server/controller/cycleData/nationalDataPoint/getVariables'
-
 import { Context } from './context/context'
 import { shouldSkipValidationFormula } from './shouldSkipValidationFormula'
 
@@ -49,18 +47,14 @@ export const validateNodeUpdates = async (props: Props): Promise<Array<TableName
     const { colName, tableName, variableName } = variable
 
     const row = rows[RowCaches.getKey({ tableName, variableName })]
-    const col = row?.cols?.find((candidate: Col) => candidate.props.colName === colName)
-
-    // NDP variables are queued with the NDP year as colName (e.g. extentOfForest.forestArea.2024).
-    // NDP years that are not reporting years have no col in the row metadata,
-    // so a missing col is expected: validate with the row-level validateFns.
-    const isNDPYearTarget = Objects.isNil(col) && isODPVariable(cycle, variable)
-
-    if (Objects.isNil(row) || (Objects.isNil(col) && !isNDPYearTarget)) {
-      throw new Error(`Could not resolve validation target ${tableName}.${variableName}.${colName}`)
+    const col = row?.cols.find((candidate: Col) => candidate.props.colName === colName)
+    // Same behavior as updateCalculationDependencies: queued targets that don't map
+    // to a concrete metadata column are not processed.
+    if (Objects.isNil(row) || Objects.isNil(col)) {
+      return
     }
 
-    const validateFns = col?.props.validateFns?.[cycle.uuid] ?? row.props.validateFns?.[cycle.uuid]
+    const validateFns = col.props.validateFns?.[cycle.uuid] ?? row.props.validateFns?.[cycle.uuid]
 
     if (Objects.isEmpty(validateFns)) {
       _removeValidation({ colName, tableName, tableValidations, variableName })
