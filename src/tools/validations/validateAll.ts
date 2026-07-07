@@ -33,29 +33,27 @@ export const validateAll = async (client: BaseProtocol = DB): Promise<void> => {
   )
   const failures: Array<Failure> = []
 
-  await Promise.all(
-    assessmentCycles.map(async ({ assessment, cycle }) => {
-      const countriesMap = await AreaController.getCountriesMap({ assessment, cycle }, client)
-      const countryISOs = Object.keys(countriesMap) as Array<CountryIso>
-      const countries = Object.values(countriesMap)
+  await Promises.each(assessmentCycles, async ({ assessment, cycle }) => {
+    const countriesMap = await AreaController.getCountriesMap({ assessment, cycle }, client)
+    const countryISOs = Object.keys(countriesMap) as Array<CountryIso>
+    const countries = Object.values(countriesMap)
 
-      const descriptionsByCountry = await DescriptionRepository.getValues({ assessment, countryISOs, cycle }, client)
+    const descriptionsByCountry = await DescriptionRepository.getValues({ assessment, countryISOs, cycle }, client)
 
-      await Promises.each(countries, async (country) => {
-        const promises = [
-          validateDescriptions({ assessment, country, cycle, descriptionsByCountry }, client),
-          validateTables({ assessment, country, cycle }, client),
-        ]
+    await Promises.each(countries, async (country) => {
+      const promises = [
+        validateDescriptions({ assessment, country, cycle, descriptionsByCountry }, client),
+        validateTables({ assessment, country, cycle }, client),
+      ]
 
-        if (cycle.props.ndp) {
-          promises.push(validateNationalDataPoints({ assessment, country, cycle }, client))
-        }
+      if (cycle.props.ndp) {
+        promises.push(validateNationalDataPoints({ assessment, country, cycle }, client))
+      }
 
-        const results = await Promise.all(promises)
-        failures.push(...results.flat())
-      })
+      const results = await Promise.all(promises)
+      failures.push(...results.flat())
     })
-  )
+  })
 
   _throwIfFailed(failures)
 }
