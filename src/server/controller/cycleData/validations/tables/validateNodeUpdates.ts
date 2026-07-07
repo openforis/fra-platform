@@ -48,11 +48,13 @@ export const validateNodeUpdates = async (props: Props): Promise<Array<TableName
 
     const row = rows[RowCaches.getKey({ tableName, variableName })]
     const col = row?.cols?.find((candidate: Col) => candidate.props.colName === colName)
-    const validateFns = col?.props.validateFns?.[cycle.uuid] ?? row?.props.validateFns?.[cycle.uuid]
-
+    // Same behavior as updateCalculationDependencies: queued targets that don't map
+    // to a concrete metadata column are not processed.
     if (Objects.isNil(row) || Objects.isNil(col)) {
-      throw new Error(`Could not resolve validation target ${tableName}.${variableName}.${colName}`)
+      return
     }
+
+    const validateFns = col.props.validateFns?.[cycle.uuid] ?? row.props.validateFns?.[cycle.uuid]
 
     if (Objects.isEmpty(validateFns)) {
       _removeValidation({ colName, tableName, tableValidations, variableName })
