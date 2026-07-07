@@ -2,12 +2,11 @@ import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { Link, LinkToVisit, VisitedLink } from 'meta/cycleData/links/link'
-import { Sockets } from 'meta/socket/sockets'
 
 import { AreaRedisRepository } from 'server/cache/repository/area'
 import { SectionRedisRepository } from 'server/cache/repository/section'
 import { DescriptionValidationRedisRepository } from 'server/cache/repository/validation/description'
-import { SocketServer } from 'server/service/socket'
+import { notifyDescriptionValidationUpdate } from 'server/controller/cycleData/validations/descriptions/notifyDescriptionValidationUpdate'
 import { buildDescriptionLinkValidationsByCountry } from 'server/worker/tasks/verifyLinks/visitDescriptionLinks/utils/buildDescriptionLinkValidations'
 
 type Props = {
@@ -53,12 +52,10 @@ export const refreshDescriptionLinkValidationCache = async (props: Props): Promi
         }
       )
 
-      const eventName = Sockets.getDescriptionValidationsUpdateEvent({
-        assessmentName: assessment.props.name,
+      notifyDescriptionValidationUpdate({
+        assessment,
         countryIso: targetCountryIso,
-        cycleName: cycle.name,
-      })
-      SocketServer.emit(eventName, {
+        cycle,
         descriptionValidations: updatedDescriptionValidations,
       })
     })
