@@ -13,6 +13,7 @@ import { LinkRepository } from 'server/db/repository/assessmentCycle/links'
 import { OriginalDataPointRepository } from 'server/db/repository/assessmentCycle/originalDataPoint'
 import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 import { Logger } from 'server/utils/logger'
+import { refreshNationalDataPointValidations } from 'server/worker/tasks/verifyLinks/visitNationalDataPointLinks/utils/refreshNationalDataPointValidations'
 
 import { buildCountryLinks, CountryLinks } from './utils/buildCountryLinks'
 import { filterLinks } from './utils/filterLinks'
@@ -104,7 +105,6 @@ export default async (job: VerifyAllLinksJob): Promise<void> => {
         descriptionLinksToVisit.concat(nationalDataPointLinksToVisit)
     )
 
-    // TODO: Use countryLinks and linksToVisit to refresh link validation
     // TODO: Clear locations
 
     const mergedLinks = mergeLinks({ linksToVisit })
@@ -135,6 +135,22 @@ export default async (job: VerifyAllLinksJob): Promise<void> => {
       linkVisits,
       linksToVisit: mergedLinks,
     })
+
+    // 4. Update validations cache
+    await Promise.all(
+      countryLinks.map((country) => {
+        const commonProps = { approvedLinks, assessment, countryIso: country.countryIso, cycle, linkVisits }
+
+        return refreshNationalDataPointValidations({
+          ...commonProps,
+          includeStoredTargets: true,
+          linksToVisit: country.nationalDataPointLinksToVisit,
+          nationalDataPoints: nationalDataPoints[country.countryIso] ?? [],
+          targets: country.nationalDataPointTargets,
+        })
+      })
+      // TODO: refreshDescriptionValidations({ ...commonProps, ...)
+    )
 
     const duration = (new Date().getTime() - time) / 1000
     Logger.info(`${logKey} ended in ${duration} seconds with ${linkVisits.length} links visited.`)
