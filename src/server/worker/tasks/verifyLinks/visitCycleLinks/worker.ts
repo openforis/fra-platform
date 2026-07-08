@@ -1,11 +1,20 @@
+import { CountryIso } from 'meta/area/countryIso'
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
+import { Assessment, AssessmentNames } from 'meta/assessment/assessment'
+import { Cycle } from 'meta/assessment/cycle'
+import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
+import { LinkToVisit } from 'meta/cycleData/links/link'
 import { SectionNames } from 'meta/routes/sectionNames'
+import { Objects } from 'utils/objects'
 
-import { LinksController } from 'server/controller/cycleData/links'
+import { AreaRedisRepository } from 'server/cache/repository/area'
+import { DescriptionRepository } from 'server/db/repository/assessmentCycle/descriptions'
 import { LinkRepository } from 'server/db/repository/assessmentCycle/links'
+import { OriginalDataPointRepository } from 'server/db/repository/assessmentCycle/originalDataPoint'
 import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 import { Logger } from 'server/utils/logger'
 
+import { buildCountryLinks, CountryLinks } from './utils/buildCountryLinks'
 import { filterLinks } from './utils/filterLinks'
 import { mergeLinks } from './utils/mergeLinks'
 import { refreshDescriptionLinkValidationCache } from './utils/refreshDescriptionLinkValidationCache'
@@ -17,8 +26,21 @@ const _getLogKey = (job: VerifyAllLinksJob): string => {
 
   const assessmentName = assessment.props.name
   const cycleName = cycle.name
-  const scope = countryIso ? `${assessmentName}-${cycleName}-${countryIso}` : `${assessmentName}-${cycleName}`
+  const scope = Objects.isEmpty(countryIso)
+    ? `${assessmentName}-${cycleName}`
+    : `${assessmentName}-${cycleName}-${countryIso}`
   return `[visitCycleLinks-workerThread] [${scope}] [job-${job.id}]`
+}
+
+const _getCycleNationalDataPoints = (props: {
+  assessment: Assessment
+  countryISOs: Array<CountryIso>
+  cycle: Cycle
+}): Promise<Array<OriginalDataPoint>> => {
+  const { assessment, countryISOs, cycle } = props
+  // panEuropean doesn't have NDPs
+  if (assessment.props.name === AssessmentNames.panEuropean) return Promise.resolve([])
+  return OriginalDataPointRepository.getMany({ assessment, countryISOs, cycle })
 }
 
 export default async (job: VerifyAllLinksJob): Promise<void> => {
@@ -36,15 +58,54 @@ export default async (job: VerifyAllLinksJob): Promise<void> => {
     const time = new Date().getTime()
     Logger.info(`${logKey} started.`)
 
-    // Include deleted approved rows, so a previously approved URL stays approved if it is added back.
-    const filters = countryIso
-      ? { approved: true, countries: [countryIso], excludeDeleted: false }
-      : { approved: true, excludeDeleted: false }
+    const isFullCycleJob = Objects.isEmpty(countryIso)
 
-    const [linksToVisit, approvedLinks] = await Promise.all([
-      LinksController.getAllLinksToVisit({ assessment, countryIso, cycle }),
-      LinkRepository.getMany({ assessment, cycle, filters }),
+    // 1. Get all the countryIsos if we are running the full cycle job
+    let countryISOs: Array<CountryIso>
+    if (isFullCycleJob) {
+      const countries = await AreaRedisRepository.getManyCountries({ assessment, cycle })
+      countryISOs = countries.map(({ countryIso }) => countryIso)
+    } else {
+      countryISOs = [countryIso]
+    }
+
+    // Include deleted approved rows, so a previously approved URL stays approved if it is added back.
+    const approvedLinkFilters = isFullCycleJob
+      ? { approved: true, excludeDeleted: false }
+      : { approved: true, countries: countryISOs, excludeDeleted: false }
+
+    // 2. Get the countries' descriptions, NDPs, and approved links
+    const [descriptionValues, cycleNationalDataPoints, approvedLinks] = await Promise.all([
+      DescriptionRepository.getValues({ assessment, countryISOs, cycle }),
+      _getCycleNationalDataPoints({ assessment, countryISOs, cycle }),
+      LinkRepository.getMany({ assessment, cycle, filters: approvedLinkFilters }),
     ])
+
+    const nationalDataPoints: Partial<Record<CountryIso, Array<OriginalDataPoint>>> = {}
+    cycleNationalDataPoints.forEach((nationalDataPoint) => {
+      const countryDataPoints = nationalDataPoints[nationalDataPoint.countryIso] ?? []
+      countryDataPoints.push(nationalDataPoint)
+      nationalDataPoints[nationalDataPoint.countryIso] = countryDataPoints
+    })
+
+    // 3. Build the countries' links to visit
+    const countryLinks = countryISOs.map<CountryLinks>((countryIso) =>
+      buildCountryLinks({
+        assessment,
+        countryIso,
+        cycle,
+        descriptionValues,
+        nationalDataPoints,
+      })
+    )
+
+    const linksToVisit = countryLinks.flatMap<LinkToVisit>(
+      ({ descriptionLinksToVisit, nationalDataPointLinksToVisit }) =>
+        descriptionLinksToVisit.concat(nationalDataPointLinksToVisit)
+    )
+
+    // TODO: Use countryLinks and linksToVisit to refresh link validation
+    // TODO: Clear locations
 
     const mergedLinks = mergeLinks({ linksToVisit })
 
