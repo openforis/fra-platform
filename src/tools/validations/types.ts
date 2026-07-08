@@ -1,12 +1,10 @@
 import { CountryIso } from 'meta/area/countryIso'
-import { Assessment } from 'meta/assessment/assessment'
-import { Cycle } from 'meta/assessment/cycle'
-
-export type AssessmentCycle = { assessment: Assessment; cycle: Cycle }
+import { AssessmentName } from 'meta/assessment/assessment'
+import { CycleName } from 'meta/assessment/cycle'
 
 export type Failure = {
-  assessmentName: string
+  assessmentName: AssessmentName
   countryIso: CountryIso
-  cycleName: string
+  cycleName: CycleName
   error: unknown
 }
