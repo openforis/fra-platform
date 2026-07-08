@@ -26,12 +26,14 @@ export default async (job: VerifyDescriptionLinksJob): Promise<void> => {
 
     Logger.info(`${logKey} started.`)
 
+    const sectionNames = Array.from(new Set(descriptionIdentifiers.map<SectionName>(({ sectionName }) => sectionName)))
+
     const descriptionValues = await DescriptionRepository.getValues({
       assessment,
       countryISOs: [countryIso],
       cycle,
       names: descriptionIdentifiers.map<CommentableDescriptionName>(({ name }) => name),
-      sectionNames: descriptionIdentifiers.map<SectionName>(({ sectionName }) => sectionName),
+      sectionNames,
     })
 
     const { descriptions, linksToVisit } = buildDescriptionLinks({
@@ -47,7 +49,6 @@ export default async (job: VerifyDescriptionLinksJob): Promise<void> => {
 
     const { approvedLinks, linkVisits } = await syncDescriptionLinks({ ...commonProps, descriptions, linksToVisit })
 
-    const sectionNames = Array.from(new Set(descriptions.map<SectionName>(({ sectionName }) => sectionName)))
     const props = { ...commonProps, approvedLinks, descriptions, linkVisits, linksToVisit, notifyClients, sectionNames }
     await refreshDescriptionValidations(props)
 

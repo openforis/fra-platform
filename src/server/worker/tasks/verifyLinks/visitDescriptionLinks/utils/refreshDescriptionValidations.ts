@@ -22,13 +22,14 @@ type Props = {
   linkVisits: Array<VisitedLink>
   linksToVisit: Array<LinkToVisit>
   notifyClients?: boolean
+  replaceDescriptions?: boolean
   sectionNames: Array<SectionName>
 }
 
 // Rebuilds description link validations, saves them in the cache and notifies clients.
 export const refreshDescriptionValidations = async (props: Props): Promise<void> => {
   const { approvedLinks, assessment, countryIso, cycle, descriptions, linkVisits, linksToVisit, sectionNames } = props
-  const { notifyClients = true } = props
+  const { notifyClients = true, replaceDescriptions = false } = props
 
   if (Objects.isEmpty(sectionNames)) return
 
@@ -54,7 +55,7 @@ export const refreshDescriptionValidations = async (props: Props): Promise<void>
   sectionNames.forEach((sectionName) => {
     const current = currentValidations[sectionName] ?? {}
     const update = descriptionValidations[sectionName] ?? {}
-    const value = DescriptionValidations.mergeLinkValidations({ current, update })
+    const value = DescriptionValidations.mergeLinkValidations({ current, replaceDescriptions, update })
 
     if (Objects.isEmpty(value)) {
       sectionNamesToDelete.push(sectionName)

@@ -140,6 +140,7 @@ export default async (job: VerifyAllLinksJob): Promise<void> => {
           ...commonProps,
           descriptions: country.descriptions,
           linksToVisit: country.descriptionLinksToVisit,
+          replaceDescriptions: true,
           sectionNames,
         })
 
