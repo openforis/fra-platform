@@ -26,6 +26,7 @@ export type CountryLinks = {
   countryIso: CountryIso
   descriptionLinksToVisit: Array<LinkToVisit>
   nationalDataPointLinksToVisit: Array<LinkToVisit>
+  nationalDataPointTargets: Array<NDPLinkTarget>
 }
 
 type GetDescriptionIdentifiersProps = {
@@ -71,5 +72,10 @@ export const buildCountryLinks = (props: Props): CountryLinks => {
     targets,
   })
 
-  return { countryIso, descriptionLinksToVisit, nationalDataPointLinksToVisit }
+  return {
+    countryIso,
+    descriptionLinksToVisit,
+    nationalDataPointLinksToVisit,
+    nationalDataPointTargets: targets,
+  }
 }
