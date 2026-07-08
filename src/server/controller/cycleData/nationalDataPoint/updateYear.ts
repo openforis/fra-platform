@@ -3,6 +3,7 @@ import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
+import { NDPLinkFields } from 'meta/cycleData/links/nationalDataPointLink'
 import { Sockets } from 'meta/socket/sockets'
 import { User } from 'meta/user/user'
 
@@ -13,6 +14,7 @@ import { OriginalDataPointRepository } from 'server/db/repository/assessmentCycl
 import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 import { CountryService } from 'server/service/country'
 import { SocketServer } from 'server/service/socket'
+import { visitNationalDataPointLinks } from 'server/worker/tasks/verifyLinks/visitNationalDataPointLinks/visitNationalDataPointLinks'
 
 import { updateOriginalDataPointsDependentNodes } from './updateDependants/updateOriginalDataPointsDependentNodes'
 
@@ -74,6 +76,14 @@ export const updateYear = async (props: Props, client: BaseProtocol = DB): Promi
     countryIso,
     cycle,
     nationalDataPoint: updatedNationalDataPoint,
+  })
+
+  // The stored link locations carry the year and a year-based url, so they are refreshed on year change.
+  await visitNationalDataPointLinks({
+    assessment,
+    countryIso,
+    cycle,
+    targets: [{ ndpUuid: updatedNationalDataPoint.uuid, fields: NDPLinkFields }],
   })
 
   return updatedNationalDataPoint

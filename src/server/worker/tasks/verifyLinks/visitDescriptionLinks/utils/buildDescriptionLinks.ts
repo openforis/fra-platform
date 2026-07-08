@@ -1,20 +1,23 @@
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { CommentableDescription, DescriptionIdentifier } from 'meta/assessment/descriptionValue'
+import {
+  CommentableDescription,
+  DescriptionCountryValues,
+  DescriptionIdentifier,
+} from 'meta/assessment/descriptionValue'
 import { DescriptionLinkLocationPath } from 'meta/cycleData/links/descriptionLink'
 import { LinkToVisit } from 'meta/cycleData/links/link'
 import { Routes } from 'meta/routes/routes'
 import { Htmls } from 'utils/htmls'
 import { Objects } from 'utils/objects'
 
-import { DescriptionRepository } from 'server/db/repository/assessmentCycle/descriptions'
-
 type Props = {
   assessment: Assessment
   countryIso: CountryIso
   cycle: Cycle
   descriptionIdentifiers: Array<DescriptionIdentifier>
+  descriptionValues: DescriptionCountryValues
 }
 
 type Returned = {
@@ -22,19 +25,8 @@ type Returned = {
   linksToVisit: Array<LinkToVisit>
 }
 
-export const getDescriptionLinks = async (props: Props): Promise<Returned> => {
-  const { assessment, countryIso, cycle, descriptionIdentifiers } = props
-
-  const names = descriptionIdentifiers.map(({ name }) => name)
-  const sectionNames = descriptionIdentifiers.map(({ sectionName }) => sectionName)
-
-  const descriptionValues = await DescriptionRepository.getValues({
-    assessment,
-    countryISOs: [countryIso],
-    cycle,
-    names,
-    sectionNames,
-  })
+export const buildDescriptionLinks = (props: Props): Returned => {
+  const { assessment, countryIso, cycle, descriptionIdentifiers, descriptionValues } = props
 
   const descriptions = descriptionIdentifiers.reduce<Array<Omit<CommentableDescription, 'id'>>>(
     (acc, descriptionIdentifier) => {
@@ -47,7 +39,7 @@ export const getDescriptionLinks = async (props: Props): Promise<Returned> => {
     []
   )
 
-  const linksToVisit = descriptions.flatMap((description) => {
+  const linksToVisit = descriptions.flatMap<LinkToVisit>((description) => {
     const { name: descriptionName, sectionName, value } = description
     const urlParams = { assessmentName: assessment.props.name, countryIso, cycleName: cycle.name, sectionName }
     const url = Routes.Section.generatePath(urlParams)

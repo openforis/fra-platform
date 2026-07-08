@@ -4,12 +4,12 @@ import { Cycle } from 'meta/assessment/cycle'
 import { CommentableDescription } from 'meta/assessment/descriptionValue'
 import { DataSource, DataSourceEditableField } from 'meta/assessment/descriptionValue/dataSource'
 import { RecordDescriptionValidations } from 'meta/assessment/validation/description'
+import { DescriptionValidations } from 'meta/assessment/validation/descriptionValidations'
 import { Validation } from 'meta/assessment/validation/validation'
-import { Sockets } from 'meta/socket/sockets'
 import { Objects } from 'utils/objects'
 
 import { DescriptionValidationRedisRepository } from 'server/cache/repository/validation/description'
-import { SocketServer } from 'server/service/socket'
+import { notifyDescriptionValidationUpdate } from 'server/controller/cycleData/validations/descriptions/notifyDescriptionValidationUpdate'
 
 type Props = {
   assessment: Assessment
@@ -54,20 +54,30 @@ export const updateDataSourceFieldValidations = async (props: Props): Promise<vo
     return acc
   }, {})
 
+  const sectionNames = Array.from(new Set(dataSourceDescriptions.map(({ sectionName }) => sectionName)))
+
+  // Merge the results onto the current state, so the other validations of the sections are kept.
+  const currentValidations = await DescriptionValidationRedisRepository.getValidations({
+    assessment,
+    countryIso,
+    cycle,
+    sectionNames,
+  })
+  const validations: RecordDescriptionValidations = {}
+  sectionNames.forEach((sectionName) => {
+    const current = currentValidations[sectionName] ?? {}
+    const update = descriptionValidations[sectionName] ?? {}
+    validations[sectionName] = DescriptionValidations.mergeValidations({ current, update })
+  })
+
   await DescriptionValidationRedisRepository.setValidations({
     assessment,
     countryIso,
     cycle,
-    descriptionValidations,
+    descriptionValidations: validations,
   })
 
   if (notifyClients) {
-    const sectionNames = Array.from(new Set(dataSourceDescriptions.map(({ sectionName }) => sectionName)))
-    const eventName = Sockets.getDescriptionValidationsUpdateEvent({
-      assessmentName: assessment.props.name,
-      countryIso,
-      cycleName: cycle.name,
-    })
-    SocketServer.emit(eventName, { descriptionValidations, sectionNames })
+    notifyDescriptionValidationUpdate({ assessment, countryIso, cycle, descriptionValidations, sectionNames })
   }
 }
