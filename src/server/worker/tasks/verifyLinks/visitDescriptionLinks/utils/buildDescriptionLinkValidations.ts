@@ -36,24 +36,3 @@ export const buildDescriptionLinkValidations = (props: Props): RecordDescription
 
   return descriptionValidations
 }
-
-export const buildDescriptionLinkValidationsByCountry = (
-  props: Props
-): Record<string, RecordDescriptionValidations> => {
-  const { linksToVisit } = props
-
-  const linksToVisitByCountry = linksToVisit.reduce<Record<string, Array<LinkToVisit>>>((acc, linkToVisit) => {
-    const { countryIso } = linkToVisit
-    acc[countryIso] ??= []
-    acc[countryIso].push(linkToVisit)
-    return acc
-  }, {})
-
-  return Object.entries(linksToVisitByCountry).reduce<Record<string, RecordDescriptionValidations>>(
-    (acc, [countryIso, countryLinksToVisit]) => {
-      acc[countryIso] = buildDescriptionLinkValidations({ ...props, linksToVisit: countryLinksToVisit })
-      return acc
-    },
-    {}
-  )
-}
