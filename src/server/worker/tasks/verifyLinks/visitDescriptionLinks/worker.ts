@@ -1,13 +1,16 @@
+import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
+import { SectionName } from 'meta/assessment/section'
 import { RecordDescriptionValidations } from 'meta/assessment/validation/description'
 import { DescriptionValidations } from 'meta/assessment/validation/descriptionValidations'
 import { Objects } from 'utils/objects'
 
 import { DescriptionValidationRedisRepository } from 'server/cache/repository/validation/description'
 import { notifyDescriptionValidationUpdate } from 'server/controller/cycleData/validations/descriptions/notifyDescriptionValidationUpdate'
+import { DescriptionRepository } from 'server/db/repository/assessmentCycle/descriptions'
 import { Logger } from 'server/utils/logger'
 
+import { buildDescriptionLinks } from './utils/buildDescriptionLinks'
 import { buildDescriptionLinkValidations } from './utils/buildDescriptionLinkValidations'
-import { getDescriptionLinks } from './utils/getDescriptionLinks'
 import { syncDescriptionLinks } from './utils/syncDescriptionLinks'
 import { VerifyDescriptionLinksJob } from './props'
 
@@ -26,11 +29,20 @@ export default async (job: VerifyDescriptionLinksJob): Promise<void> => {
 
     Logger.info(`${logKey} started.`)
 
-    const { descriptions, linksToVisit } = await getDescriptionLinks({
+    const descriptionValues = await DescriptionRepository.getValues({
+      assessment,
+      countryISOs: [countryIso],
+      cycle,
+      names: descriptionIdentifiers.map<CommentableDescriptionName>(({ name }) => name),
+      sectionNames: descriptionIdentifiers.map<SectionName>(({ sectionName }) => sectionName),
+    })
+
+    const { descriptions, linksToVisit } = buildDescriptionLinks({
       assessment,
       countryIso,
       cycle,
       descriptionIdentifiers,
+      descriptionValues,
     })
 
     if (Objects.isEmpty(descriptions)) {
