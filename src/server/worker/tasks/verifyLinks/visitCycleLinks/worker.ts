@@ -58,11 +58,11 @@ export default async (job: VerifyAllLinksJob): Promise<void> => {
     const time = new Date().getTime()
     Logger.info(`${logKey} started.`)
 
-    const isFullAssessmentJob = Objects.isEmpty(countryIso)
+    const isFullCycleJob = Objects.isEmpty(countryIso)
 
-    // 1. Get all the countryIsos if we are running the full assessment job
+    // 1. Get all the countryIsos if we are running the full cycle job
     let countryISOs: Array<CountryIso>
-    if (isFullAssessmentJob) {
+    if (isFullCycleJob) {
       const countries = await AreaRedisRepository.getManyCountries({ assessment, cycle })
       countryISOs = countries.map(({ countryIso }) => countryIso)
     } else {
@@ -70,7 +70,7 @@ export default async (job: VerifyAllLinksJob): Promise<void> => {
     }
 
     // Include deleted approved rows, so a previously approved URL stays approved if it is added back.
-    const approvedLinkFilters = isFullAssessmentJob
+    const approvedLinkFilters = isFullCycleJob
       ? { approved: true, excludeDeleted: false }
       : { approved: true, countries: countryISOs, excludeDeleted: false }
 
