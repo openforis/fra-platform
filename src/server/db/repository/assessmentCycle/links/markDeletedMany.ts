@@ -3,6 +3,7 @@ import pgPromise from 'pg-promise'
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
+import { Objects } from 'utils/objects'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { Schemas } from 'server/db/schemas'
@@ -22,7 +23,7 @@ export const markDeletedMany = async (props: Props, client: BaseProtocol = DB): 
   const pgp = pgPromise()
 
   const excludedLinkValues = pgp.helpers.values(excludedLinks, ['countryIso', 'link'])
-  const countryIsoCondition = countryIso ? 'where country_iso = $(countryIso)' : ''
+  const countryIsoCondition = Objects.isEmpty(countryIso) ? '' : 'where country_iso = $(countryIso)'
 
   let query = `
     update ${schemaCycle}.link

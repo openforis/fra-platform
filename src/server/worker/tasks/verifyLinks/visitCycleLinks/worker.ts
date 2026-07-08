@@ -8,6 +8,7 @@ import { SectionNames } from 'meta/routes/sectionNames'
 import { Objects } from 'utils/objects'
 
 import { AreaRedisRepository } from 'server/cache/repository/area'
+import { DB } from 'server/db/db'
 import { DescriptionRepository } from 'server/db/repository/assessmentCycle/descriptions'
 import { LinkRepository } from 'server/db/repository/assessmentCycle/links'
 import { OriginalDataPointRepository } from 'server/db/repository/assessmentCycle/originalDataPoint'
@@ -104,27 +105,25 @@ export default async (job: VerifyAllLinksJob): Promise<void> => {
       ({ descriptionLinksToVisit, nationalDataPointLinksToVisit }) =>
         descriptionLinksToVisit.concat(nationalDataPointLinksToVisit)
     )
-
-    // TODO: Clear locations
-
     const mergedLinks = mergeLinks({ linksToVisit })
-
-    await LinkRepository.markDeletedMany({
-      assessment,
-      countryIso,
-      cycle,
-      excludedLinks: mergedLinks.map((link) => ({
-        countryIso: link.countryIso,
-        link: link.link,
-      })),
-    })
-
     const linkVisits = await visitLinks(filterLinks({ approvedLinks, linksToVisit: mergedLinks }))
 
-    await LinkRepository.upsertMany({
-      assessment,
-      cycle,
-      linkVisits,
+    // 4. Refresh link table locations
+    await DB.tx(async (client) => {
+      await LinkRepository.clearLocations({ assessment, countryIso, cycle }, client)
+      await LinkRepository.markDeletedMany(
+        {
+          assessment,
+          countryIso,
+          cycle,
+          excludedLinks: mergedLinks.map((link) => ({
+            countryIso: link.countryIso,
+            link: link.link,
+          })),
+        },
+        client
+      )
+      await LinkRepository.upsertLinks({ assessment, cycle, linkVisits, linksToVisit: mergedLinks }, client)
     })
 
     await refreshDescriptionLinkValidationCache({
@@ -136,7 +135,7 @@ export default async (job: VerifyAllLinksJob): Promise<void> => {
       linksToVisit: mergedLinks,
     })
 
-    // 4. Update validations cache
+    // 5. Update validations cache
     await Promise.all(
       countryLinks.map((country) => {
         const commonProps = { approvedLinks, assessment, countryIso: country.countryIso, cycle, linkVisits }
