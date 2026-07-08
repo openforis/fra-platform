@@ -5,7 +5,7 @@ import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { RecordNDPValidations } from 'meta/assessment/validation/nationalDataPoint'
 import { NationalDataPointValidations } from 'meta/assessment/validation/nationalDataPointValidations'
 import { Link, LinkToVisit, VisitedLink } from 'meta/cycleData/links/link'
-import { NDPLinkTarget } from 'meta/cycleData/links/nationalDataPointLink'
+import { NDPLinkFields, NDPLinkTarget } from 'meta/cycleData/links/nationalDataPointLink'
 import { UUID } from 'meta/uuid/uuid'
 import { Objects } from 'utils/objects'
 
@@ -19,6 +19,7 @@ type Props = {
   assessment: Assessment
   countryIso: CountryIso
   cycle: Cycle
+  includeStoredTargets?: boolean
   linkVisits: Array<VisitedLink>
   linksToVisit: Array<LinkToVisit>
   nationalDataPoints: Array<OriginalDataPoint>
@@ -29,9 +30,9 @@ type Props = {
 // Rebuilds the target national data points' link validations, saves them in the cache and notifies clients.
 export const refreshNationalDataPointValidations = async (props: Props): Promise<void> => {
   const { approvedLinks, assessment, countryIso, cycle, linkVisits, linksToVisit, nationalDataPoints, targets } = props
-  const { notifyClients = true } = props
+  const { includeStoredTargets = false, notifyClients = true } = props
 
-  if (Objects.isEmpty(targets)) return
+  if (Objects.isEmpty(targets) && !includeStoredTargets) return
 
   const linkValidations = buildNationalDataPointLinkValidations({ approvedLinks, linkVisits, linksToVisit })
   const currentValidations = await NationalDataPointValidationRedisRepository.getValidations({
@@ -40,12 +41,23 @@ export const refreshNationalDataPointValidations = async (props: Props): Promise
     cycle,
   })
 
+  let validationTargets = targets
+  if (includeStoredTargets) {
+    // Full checks also reconcile stored entries missing from targets, so stale link errors clear.
+    const targetUuids = new Set(targets.map(({ ndpUuid }) => ndpUuid))
+    const storedTargets: Array<NDPLinkTarget> = []
+    Object.keys(currentValidations).forEach((ndpUuid) => {
+      if (!targetUuids.has(ndpUuid)) storedTargets.push({ fields: NDPLinkFields, ndpUuid })
+    })
+    validationTargets = targets.concat(storedTargets)
+  }
+
   // Emptied national data points are still included in the notification, so clients clear them too.
   const validations: RecordNDPValidations = {}
   const validationsToSet: RecordNDPValidations = {}
   const uuidsToDelete: Array<UUID> = []
 
-  targets.forEach(({ fields, ndpUuid }) => {
+  validationTargets.forEach(({ fields, ndpUuid }) => {
     // The odp id is not a validation, so we keep it out of the merge.
     const { odpId: currentOdpId, ...current } = currentValidations[ndpUuid] ?? {}
     const update = linkValidations[ndpUuid] ?? {}
