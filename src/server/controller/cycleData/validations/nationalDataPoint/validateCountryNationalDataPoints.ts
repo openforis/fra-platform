@@ -22,7 +22,10 @@ export const validateCountryNationalDataPoints = async (
   const { assessment, country, cycle } = props
   const { countryIso } = country
 
-  const nationalDataPoints = await OriginalDataPointRepository.getMany({ assessment, countryIso, cycle }, client)
+  const nationalDataPoints = await OriginalDataPointRepository.getMany(
+    { assessment, countryISOs: [countryIso], cycle },
+    client
+  )
   const currentValidations = await NationalDataPointValidationRedisRepository.getValidations({
     assessment,
     countryIso,

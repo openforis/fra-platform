@@ -14,26 +14,18 @@ import { Routes } from 'meta/routes/routes'
 import { Htmls } from 'utils/htmls'
 import { Objects } from 'utils/objects'
 
-import { OriginalDataPointRepository } from 'server/db/repository/assessmentCycle/originalDataPoint'
-
 type Props = {
   assessment: Assessment
   countryIso: CountryIso
   cycle: Cycle
+  nationalDataPoints: Array<OriginalDataPoint>
   targets: Array<NDPLinkTarget>
 }
 
-type Returned = {
-  linksToVisit: Array<LinkToVisit>
-  nationalDataPoints: Array<OriginalDataPoint>
-}
+export const buildNationalDataPointLinks = (props: Props): Array<LinkToVisit> => {
+  const { assessment, countryIso, cycle, nationalDataPoints, targets } = props
 
-export const getNationalDataPointLinks = async (props: Props): Promise<Returned> => {
-  const { assessment, countryIso, cycle, targets } = props
-
-  const nationalDataPoints = await OriginalDataPointRepository.getMany({ assessment, countryIso, cycle })
-
-  const linksToVisit = targets.flatMap<LinkToVisit>((target) => {
+  return targets.flatMap<LinkToVisit>((target) => {
     const nationalDataPoint = nationalDataPoints.find(({ uuid }) => uuid === target.ndpUuid)
     if (Objects.isEmpty(nationalDataPoint)) return []
 
@@ -79,6 +71,4 @@ export const getNationalDataPointLinks = async (props: Props): Promise<Returned>
 
     return commentLinks.concat(referenceLinks)
   })
-
-  return { linksToVisit, nationalDataPoints }
 }
