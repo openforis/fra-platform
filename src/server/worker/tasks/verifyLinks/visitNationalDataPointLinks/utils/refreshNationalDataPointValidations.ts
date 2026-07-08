@@ -43,7 +43,7 @@ export const refreshNationalDataPointValidations = async (props: Props): Promise
 
   let validationTargets = targets
   if (includeStoredTargets) {
-    // Full checks also reconcile stored entries missing from targets, so stale link errors clear.
+    // A full check covers all current NDP links, so any stored validation outside the targets can be cleared.
     const targetUuids = new Set(targets.map(({ ndpUuid }) => ndpUuid))
     const storedTargets: Array<NDPLinkTarget> = []
     Object.keys(currentValidations).forEach((ndpUuid) => {
