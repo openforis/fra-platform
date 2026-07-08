@@ -8,7 +8,6 @@ import { Routes } from 'meta/routes/routes'
 import { Htmls } from 'utils/htmls'
 import { Objects } from 'utils/objects'
 
-import { BaseProtocol, DB } from 'server/db/db'
 import { DescriptionRepository } from 'server/db/repository/assessmentCycle/descriptions'
 
 type Props = {
@@ -23,22 +22,19 @@ type Returned = {
   linksToVisit: Array<LinkToVisit>
 }
 
-export const getDescriptionLinks = async (props: Props, client: BaseProtocol = DB): Promise<Returned> => {
+export const getDescriptionLinks = async (props: Props): Promise<Returned> => {
   const { assessment, countryIso, cycle, descriptionIdentifiers } = props
 
   const names = descriptionIdentifiers.map(({ name }) => name)
   const sectionNames = descriptionIdentifiers.map(({ sectionName }) => sectionName)
 
-  const descriptionValues = await DescriptionRepository.getValues(
-    {
-      assessment,
-      countryISOs: [countryIso],
-      cycle,
-      names,
-      sectionNames,
-    },
-    client
-  )
+  const descriptionValues = await DescriptionRepository.getValues({
+    assessment,
+    countryISOs: [countryIso],
+    cycle,
+    names,
+    sectionNames,
+  })
 
   const descriptions = descriptionIdentifiers.reduce<Array<Omit<CommentableDescription, 'id'>>>(
     (acc, descriptionIdentifier) => {
