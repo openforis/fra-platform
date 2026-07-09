@@ -42,8 +42,11 @@ export class JavascriptExpressionEvaluator<C extends ExpressionContext> implemen
 
   constructor(functions: Array<ExpressionFunction<C>> = [], evaluators: Evaluators<C> = {}) {
     this.evaluators = { ...defaultEvaluators, ...evaluators }
-    this.functions = [...functionsDefault, ...functions].reduce(
-      (functionsAcc, expressionFunction) => ({ ...functionsAcc, [expressionFunction.name]: expressionFunction }),
+    this.functions = [...functionsDefault, ...functions].reduce<{ [functionName: string]: ExpressionFunction<C> }>(
+      (acc, expressionFunction) => {
+        acc[expressionFunction.name] = expressionFunction
+        return acc
+      },
       {}
     )
   }
