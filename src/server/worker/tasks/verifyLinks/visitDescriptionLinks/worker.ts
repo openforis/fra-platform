@@ -1,16 +1,12 @@
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 import { SectionName } from 'meta/assessment/section'
-import { RecordDescriptionValidations } from 'meta/assessment/validation/description'
-import { DescriptionValidations } from 'meta/assessment/validation/descriptionValidations'
 import { Objects } from 'utils/objects'
 
-import { DescriptionValidationRedisRepository } from 'server/cache/repository/validation/description'
-import { notifyDescriptionValidationUpdate } from 'server/controller/cycleData/validations/descriptions/notifyDescriptionValidationUpdate'
 import { DescriptionRepository } from 'server/db/repository/assessmentCycle/descriptions'
 import { Logger } from 'server/utils/logger'
 
 import { buildDescriptionLinks } from './utils/buildDescriptionLinks'
-import { buildDescriptionLinkValidations } from './utils/buildDescriptionLinkValidations'
+import { refreshDescriptionValidations } from './utils/refreshDescriptionValidations'
 import { syncDescriptionLinks } from './utils/syncDescriptionLinks'
 import { VerifyDescriptionLinksJob } from './props'
 
@@ -25,22 +21,23 @@ export default async (job: VerifyDescriptionLinksJob): Promise<void> => {
 
   try {
     const { assessment, countryIso, cycle, descriptionIdentifiers, notifyClients = true } = job.data
+    const commonProps = { assessment, countryIso, cycle }
     const time = new Date().getTime()
 
     Logger.info(`${logKey} started.`)
+
+    const sectionNames = Array.from(new Set(descriptionIdentifiers.map<SectionName>(({ sectionName }) => sectionName)))
 
     const descriptionValues = await DescriptionRepository.getValues({
       assessment,
       countryISOs: [countryIso],
       cycle,
       names: descriptionIdentifiers.map<CommentableDescriptionName>(({ name }) => name),
-      sectionNames: descriptionIdentifiers.map<SectionName>(({ sectionName }) => sectionName),
+      sectionNames,
     })
 
     const { descriptions, linksToVisit } = buildDescriptionLinks({
-      assessment,
-      countryIso,
-      cycle,
+      ...commonProps,
       descriptionIdentifiers,
       descriptionValues,
     })
@@ -50,47 +47,10 @@ export default async (job: VerifyDescriptionLinksJob): Promise<void> => {
       return
     }
 
-    const { approvedLinks, linkVisits } = await syncDescriptionLinks({
-      assessment,
-      countryIso,
-      cycle,
-      descriptions,
-      linksToVisit,
-    })
+    const { approvedLinks, linkVisits } = await syncDescriptionLinks({ ...commonProps, descriptions, linksToVisit })
 
-    const descriptionValidations = buildDescriptionLinkValidations({
-      approvedLinks,
-      initialDescriptions: descriptions,
-      linkVisits,
-      linksToVisit,
-    })
-
-    const sectionNames = Array.from(new Set(descriptions.map(({ sectionName }) => sectionName)))
-
-    // Merge the results onto the current state, so the other validations of the sections are kept.
-    const currentValidations = await DescriptionValidationRedisRepository.getValidations({
-      assessment,
-      countryIso,
-      cycle,
-      sectionNames,
-    })
-    const validations: RecordDescriptionValidations = {}
-    sectionNames.forEach((sectionName) => {
-      const current = currentValidations[sectionName] ?? {}
-      const update = descriptionValidations[sectionName] ?? {}
-      validations[sectionName] = DescriptionValidations.mergeValidations({ current, update })
-    })
-
-    await DescriptionValidationRedisRepository.setValidations({
-      assessment,
-      countryIso,
-      cycle,
-      descriptionValidations: validations,
-    })
-
-    if (notifyClients) {
-      notifyDescriptionValidationUpdate({ assessment, countryIso, cycle, descriptionValidations, sectionNames })
-    }
+    const props = { ...commonProps, approvedLinks, descriptions, linkVisits, linksToVisit, notifyClients, sectionNames }
+    await refreshDescriptionValidations(props)
 
     const duration = (new Date().getTime() - time) / 1000
     Logger.info(`${logKey} ended in ${duration} seconds with ${linkVisits.length} links visited.`)

@@ -3,16 +3,25 @@ import { Objects } from 'utils/objects'
 
 type Props = {
   current: SectionDescriptionValidations
+  replaceDescriptions?: boolean
   update: SectionDescriptionValidations
 }
 
 export const mergeLinkValidations = (props: Props): SectionDescriptionValidations => {
-  const { current, update } = props
+  const { current, replaceDescriptions = false, update } = props
   const value: SectionDescriptionValidations = { ...current }
 
-  // Description validation are replaced entirely with the new state.
-  if (!Objects.isEmpty(update.descriptions)) {
-    value.descriptions = update.descriptions
+  if (replaceDescriptions) {
+    // A full check goes over every description, so we replace the whole set and drop anything that's gone.
+    if (!Objects.isEmpty(update.descriptions)) {
+      value.descriptions = update.descriptions
+    } else {
+      delete value.descriptions
+    }
+  } else if (!Objects.isEmpty(current.descriptions) || !Objects.isEmpty(update.descriptions)) {
+    // A single edit only touches the descriptions that changed, so we merge those in and keep the rest.
+    value.descriptions = { ...current.descriptions, ...update.descriptions }
+    if (Objects.isEmpty(value.descriptions)) delete value.descriptions
   } else {
     delete value.descriptions
   }
