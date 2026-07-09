@@ -6,7 +6,7 @@ import { DOMUtils } from '../utils/dom'
 import { LinkFixtures } from '../utils/links'
 import { TextFixtures } from '../utils/text'
 import { TooltipUtils } from '../utils/tooltip'
-import { sectionPath } from './07-section-descriptions.fixture'
+import { commentsSectionPath } from './07-section-descriptions.fixture'
 
 const commentsTitle = 'Comments'
 const randomString = Date.now().toString()
@@ -23,7 +23,7 @@ test.describe.serial('Section descriptions: comments', () => {
   test('NC edits the comments', async ({ authenticatedPage }) => {
     const page = authenticatedPage
 
-    await page.goto(sectionPath)
+    await page.goto(commentsSectionPath)
     await DOMUtils.unlockEditing(page)
 
     await DescriptionUtils.save(page, async () => {
@@ -44,7 +44,7 @@ test.describe.serial('Section descriptions: comments - invalid links', () => {
   test('NC enters an empty link and a broken link, sees both validation errors', async ({ authenticatedPage }) => {
     const page = authenticatedPage
 
-    await page.goto(sectionPath)
+    await page.goto(commentsSectionPath)
     await DOMUtils.unlockEditing(page)
 
     await DescriptionUtils.save(page, async () => {

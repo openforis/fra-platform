@@ -6,7 +6,7 @@ import { DOMUtils } from '../utils/dom'
 import { NavigationUtils } from '../utils/navigation'
 import { TableDomUtils } from '../utils/table'
 import { TooltipUtils } from '../utils/tooltip'
-import { x01ForestAreaChangePath, x16ExtentOfForestPath, x16ForestAreaChangePath } from './08-section-tables.fixture'
+import { x05ForestAreaChangePath, x16ExtentOfForestPath, x16ForestAreaChangePath } from './08-section-tables.fixture'
 
 const forestExtentSectionHeader = 'Forest extent, characteristics and changes'
 
@@ -16,7 +16,7 @@ test.describe.serial('Section tables: 1d - negative forest_expansion and defores
   }) => {
     const page = authenticatedPage
 
-    await page.goto(x01ForestAreaChangePath)
+    await page.goto(x05ForestAreaChangePath)
     await expect(TableDomUtils.tableContainer(page, TableNames.forestAreaChange)).toBeVisible({ timeout: 20000 })
     await DOMUtils.unlockEditing(page)
 
@@ -64,7 +64,7 @@ test.describe.serial('Section tables: 1d - afforestation exceeds forest_expansio
   }) => {
     const page = authenticatedPage
 
-    await page.goto(x01ForestAreaChangePath)
+    await page.goto(x05ForestAreaChangePath)
     await expect(TableDomUtils.tableContainer(page, TableNames.forestAreaChange)).toBeVisible({ timeout: 20000 })
     await DOMUtils.unlockEditing(page)
 
@@ -99,7 +99,7 @@ test.describe.serial('Section tables: 1d - afforestation and natural_expansion d
   }) => {
     const page = authenticatedPage
 
-    await page.goto(x01ForestAreaChangePath)
+    await page.goto(x05ForestAreaChangePath)
     await expect(TableDomUtils.tableContainer(page, TableNames.forestAreaChange)).toBeVisible({ timeout: 20000 })
     await DOMUtils.unlockEditing(page)
 
@@ -139,16 +139,38 @@ test.describe.serial('Section tables: 1d - validation errors persist on page rel
     authenticatedPage,
   }) => {
     const page = authenticatedPage
+    const forestAreaChangeNavItem = NavigationUtils.getNavigationSubSectionItem(page, x16ForestAreaChangePath)
 
     await page.goto(x16ExtentOfForestPath)
     await expect(TableDomUtils.tableContainer(page, TableNames.extentOfForest)).toBeVisible({ timeout: 20000 })
     await DOMUtils.unlockEditing(page)
 
-    const cellSaved = DOMUtils.waitForResponse(page, '/api/cycle-data/table/nodes', 'PATCH')
+    // Seed forestArea 2020 and forest_expansion/deforestation so the net change validation
+    // kicks in when forestArea 2025 is filled below
+    let cellSaved = DOMUtils.waitForResponse(page, '/api/cycle-data/table/nodes', 'PATCH')
+    await TableDomUtils.fillCell(page, 'forestArea', '2020', '1000')
+    await cellSaved
+
+    await forestAreaChangeNavItem.click()
+    await expect(page).toHaveURL(/\/sections\/forestAreaChange$/)
+    await expect(TableDomUtils.tableContainer(page, TableNames.forestAreaChange)).toBeVisible({ timeout: 20000 })
+
+    cellSaved = DOMUtils.waitForResponse(page, '/api/cycle-data/table/nodes', 'PATCH')
+    await TableDomUtils.fillCell(page, 'forest_expansion', '2020-2025', '0')
+    await cellSaved
+
+    cellSaved = DOMUtils.waitForResponse(page, '/api/cycle-data/table/nodes', 'PATCH')
+    await TableDomUtils.fillCell(page, 'deforestation', '2020-2025', '0')
+    await cellSaved
+
+    await NavigationUtils.getNavigationSubSectionItem(page, x16ExtentOfForestPath).click()
+    await expect(page).toHaveURL(/\/sections\/extentOfForest$/)
+
+    cellSaved = DOMUtils.waitForResponse(page, '/api/cycle-data/table/nodes', 'PATCH')
     await TableDomUtils.fillCell(page, 'forestArea', '2025', '1500')
     await cellSaved
 
-    await NavigationUtils.getNavigationSubSectionItem(page, x16ForestAreaChangePath).click()
+    await forestAreaChangeNavItem.click()
     await expect(TableDomUtils.tableContainer(page, TableNames.forestAreaChange)).toBeVisible({ timeout: 20000 })
     await TableDomUtils.expectCellHasValidationError(page, 'forestAreaNetChange', '2020-2025')
 
@@ -163,6 +185,9 @@ test.describe.serial('Section tables: 1d - validation errors persist on page rel
       sectionItemPath: x16ForestAreaChangePath,
     })
     await CountryStatusUtils.expectSubmitToReviewWarning(page)
+
+    await DOMUtils.unlockEditing(page)
+    await TableDomUtils.clearTable(page, TableNames.forestAreaChange)
 
     await page.goto(x16ExtentOfForestPath)
     await expect(TableDomUtils.tableContainer(page, TableNames.extentOfForest)).toBeVisible({ timeout: 20000 })

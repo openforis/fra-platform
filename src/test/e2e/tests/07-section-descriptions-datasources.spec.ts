@@ -6,7 +6,7 @@ import { DescriptionUtils } from '../utils/description'
 import { DOMUtils } from '../utils/dom'
 import { LinkFixtures } from '../utils/links'
 import { TooltipUtils } from '../utils/tooltip'
-import { sectionPath } from './07-section-descriptions.fixture'
+import { dataSourcesSectionPath } from './07-section-descriptions.fixture'
 
 const dataSourcesTitle = 'Data sources + type of data source eg NFI, etc'
 
@@ -22,7 +22,7 @@ test.describe.serial('Section descriptions: data sources', () => {
   test('NC sees no existing data source with the fixture reference', async ({ authenticatedPage }) => {
     const page = authenticatedPage
 
-    await page.goto(sectionPath)
+    await page.goto(dataSourcesSectionPath)
 
     await expect(DataSourceUtils.getDataSourceTable(page)).not.toContainText(validReference.text)
   })
@@ -30,7 +30,7 @@ test.describe.serial('Section descriptions: data sources', () => {
   test('NC creates a new data source with a valid reference', async ({ authenticatedPage }) => {
     const page = authenticatedPage
 
-    await page.goto(sectionPath)
+    await page.goto(dataSourcesSectionPath)
     await DOMUtils.unlockEditing(page)
 
     await DescriptionUtils.save(page, async () => {
@@ -46,7 +46,7 @@ test.describe.serial('Section descriptions: data sources', () => {
   test('NC edits the data source reference', async ({ authenticatedPage }) => {
     const page = authenticatedPage
 
-    await page.goto(sectionPath)
+    await page.goto(dataSourcesSectionPath)
     await DOMUtils.unlockEditing(page)
 
     await DescriptionUtils.save(page, async () => {
@@ -64,7 +64,7 @@ test.describe.serial('Section descriptions: data sources', () => {
   test('NC removes the data source', async ({ authenticatedPage }) => {
     const page = authenticatedPage
 
-    await page.goto(sectionPath)
+    await page.goto(dataSourcesSectionPath)
     await DOMUtils.unlockEditing(page)
 
     await dataSourcesToggleEditButton(page, 'Edit').click()
@@ -83,7 +83,7 @@ test.describe.serial('Section descriptions: data sources - invalid reference', (
   test('NC creates a data source with an empty link and a broken link', async ({ authenticatedPage }) => {
     const page = authenticatedPage
 
-    await page.goto(sectionPath)
+    await page.goto(dataSourcesSectionPath)
     await DOMUtils.unlockEditing(page)
 
     await DescriptionUtils.save(page, async () => {
@@ -129,7 +129,7 @@ test.describe.serial('Section descriptions: data sources - invalid reference', (
   test('NC fixes the invalid reference', async ({ authenticatedPage }) => {
     const page = authenticatedPage
 
-    await page.goto(sectionPath)
+    await page.goto(dataSourcesSectionPath)
     await DOMUtils.unlockEditing(page)
 
     await DescriptionUtils.save(page, async () => {
@@ -147,7 +147,7 @@ test.describe.serial('Section descriptions: data sources - invalid reference', (
   test('NC removes the data source', async ({ authenticatedPage }) => {
     const page = authenticatedPage
 
-    await page.goto(sectionPath)
+    await page.goto(dataSourcesSectionPath)
     await DOMUtils.unlockEditing(page)
 
     await dataSourcesToggleEditButton(page, 'Edit').click()

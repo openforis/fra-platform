@@ -3,9 +3,24 @@ import { SectionNames } from 'meta/assessment/section'
 
 import { SectionUtils } from '../utils/section'
 
-export const sectionPath = SectionUtils.path({
-  countryIso: 'X01',
+export const x05ForestAreaChangePath = SectionUtils.path({
+  countryIso: 'X05',
+  sectionName: 'forestAreaChange',
+})
+
+export const x06ExtentOfForestPath = SectionUtils.path({
+  countryIso: 'X06',
   sectionName: SectionNames.extentOfForest,
+})
+
+export const x07ExtentOfForestPath = SectionUtils.path({
+  countryIso: 'X07',
+  sectionName: SectionNames.extentOfForest,
+})
+
+export const x07ForestAreaChangePath = SectionUtils.path({
+  countryIso: 'X07',
+  sectionName: 'forestAreaChange',
 })
 
 // Note: shouldSkipValidationFormula skips Atlantis countries - use ALB to test previous cycle validation
@@ -20,11 +35,6 @@ export const albSection2020Path = SectionUtils.path({
   sectionName: SectionNames.extentOfForest,
 })
 
-export const x01ForestAreaChangePath = SectionUtils.path({
-  countryIso: 'X01',
-  sectionName: 'forestAreaChange',
-})
-
 export const x16ExtentOfForestPath = SectionUtils.path({
   countryIso: 'X16',
   sectionName: SectionNames.extentOfForest,
@@ -35,6 +45,11 @@ export const x16ForestAreaChangePath = SectionUtils.path({
   sectionName: 'forestAreaChange',
 })
 
-export const x01PrintTablesPath = SectionUtils.printTablesPath('X01')
+export const x14ExtentOfForestPath = SectionUtils.path({
+  countryIso: 'X14',
+  sectionName: SectionNames.extentOfForest,
+})
+
+export const x14PrintTablesPath = SectionUtils.printTablesPath('X14')
 
 export const x16PrintTablesPath = SectionUtils.printTablesPath('X16')

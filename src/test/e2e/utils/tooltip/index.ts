@@ -7,6 +7,8 @@ const expectValidationTooltip = async (page: Page, locator: Locator, text: strin
 
   // Retry hover before failing - tooltip is flaky
   await expect(async () => {
+    // Move the pointer away in case it is already hovering the location
+    await page.mouse.move(0, 0)
     await locator.hover()
     await expect(tooltip).toBeVisible({ timeout: 2000 })
   }).toPass({ timeout: 20000 })

@@ -8,7 +8,7 @@ import {
   ndpOdp1aUrlRegex,
   ndpOdp1bUrlRegex,
   ndpYear,
-  x01ExtentOfForestPath,
+  x11ExtentOfForestPath,
 } from './06-national-data-point.fixture'
 
 // TODO: Validate links
@@ -17,7 +17,7 @@ test.describe.serial('National data point: ', () => {
   test('NC creates a national data point and sees it back on the table', async ({ authenticatedPage }) => {
     const page = authenticatedPage
 
-    await page.goto(x01ExtentOfForestPath)
+    await page.goto(x11ExtentOfForestPath)
     await DOMUtils.unlockEditing(page)
 
     await page.getByRole('link', { name: 'Add national data point' }).click()
@@ -36,7 +36,7 @@ test.describe.serial('National data point: ', () => {
   }) => {
     const page = authenticatedPage
 
-    await page.goto(x01ExtentOfForestPath)
+    await page.goto(x11ExtentOfForestPath)
     await DOMUtils.unlockEditing(page)
     await TableDomUtils.clickOdpLink(page, ndpYear, ndpOdp1aUrlRegex)
 
@@ -128,7 +128,7 @@ test.describe.serial('National data point: ', () => {
   test('NC deletes the national data point', async ({ authenticatedPage }) => {
     const page = authenticatedPage
 
-    await page.goto(x01ExtentOfForestPath)
+    await page.goto(x11ExtentOfForestPath)
     await DOMUtils.unlockEditing(page)
     await TableDomUtils.clickOdpLink(page, ndpYear, ndpOdp1aUrlRegex)
 

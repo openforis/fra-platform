@@ -35,7 +35,11 @@ const elementNotExists = async (locator: Locator): Promise<void> => {
 }
 
 const unlockEditing = async (page: Page): Promise<void> => {
-  await page.locator('.btn-lock.locked').click()
+  // Unlock editing if not already unlocked
+  await page.locator('.btn-lock').waitFor({ timeout: 5000 })
+
+  const lockedButton = page.locator('.btn-lock.locked')
+  if (await lockedButton.isVisible()) await lockedButton.click()
 }
 
 // Navigate the platform using the left navigation
