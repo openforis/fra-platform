@@ -1,6 +1,7 @@
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
+import { SectionName, SectionNames } from 'meta/assessment/section'
 import { DescriptionValidations } from 'meta/assessment/validation/descriptionValidations'
 import { NationalDataPointValidations } from 'meta/assessment/validation/nationalDataPointValidations'
 import { ValidationSummary } from 'meta/assessment/validation/summary'
@@ -10,6 +11,7 @@ import { DescriptionValidationRedisRepository } from 'server/cache/repository/va
 import { NationalDataPointValidationRedisRepository } from 'server/cache/repository/validation/nationalDataPoint'
 import { TableValidationRedisRepository } from 'server/cache/repository/validation/table'
 import { SectionRepository } from 'server/db/repository/assessment/section'
+import { CountryRepository } from 'server/db/repository/assessmentCycle/country'
 
 type Props = {
   assessment: Assessment
@@ -23,14 +25,26 @@ export const getValidationSummary = async (props: Props): Promise<ValidationSumm
   const sectionNames = sections.flatMap(
     (section) => section.subSections?.map((subSection) => subSection.props.name) ?? []
   )
-  const [descriptionValidations, nationalDataPointValidations, sectionsMetadata, tableValidations] = await Promise.all([
-    DescriptionValidationRedisRepository.getValidations({ assessment, countryIso, cycle, sectionNames }),
-    NationalDataPointValidationRedisRepository.getValidations({ assessment, countryIso, cycle }),
-    SectionRepository.getManyMetadata({ assessment, cycle }),
-    TableValidationRedisRepository.getValidations({ assessment, countryIso, cycle }),
-  ])
+  const [country, descriptionValidations, nationalDataPointValidations, sectionsMetadata, tableValidations] =
+    await Promise.all([
+      CountryRepository.getOne({ assessment, countryIso, cycle }),
+      DescriptionValidationRedisRepository.getValidations({ assessment, countryIso, cycle, sectionNames }),
+      NationalDataPointValidationRedisRepository.getValidations({ assessment, countryIso, cycle }),
+      SectionRepository.getManyMetadata({ assessment, cycle }),
+      TableValidationRedisRepository.getValidations({ assessment, countryIso, cycle }),
+    ])
+
+  const forestCharacteristicsUseOriginalDataPoint = Boolean(country?.props?.forestCharacteristics?.useOriginalDataPoint)
+  const nationalDataPointSectionNames: Array<SectionName> = []
+  if (cycle.props.ndp) {
+    nationalDataPointSectionNames.push(SectionNames.extentOfForest)
+    if (forestCharacteristicsUseOriginalDataPoint) {
+      nationalDataPointSectionNames.push(SectionNames.forestCharacteristics)
+    }
+  }
   const nationalDataPointSummary = NationalDataPointValidations.calculateSummary({
     nationalDataPointValidations,
+    sectionNames: nationalDataPointSectionNames,
   })
   const summary: ValidationSummary = {
     descriptions: {},
