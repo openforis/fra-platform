@@ -8,18 +8,19 @@ import { SectionNames } from 'meta/routes/sectionNames'
 import { Objects } from 'utils/objects'
 
 import { AreaRedisRepository } from 'server/cache/repository/area'
+import { SectionRedisRepository } from 'server/cache/repository/section'
 import { DB } from 'server/db/db'
 import { DescriptionRepository } from 'server/db/repository/assessmentCycle/descriptions'
 import { LinkRepository } from 'server/db/repository/assessmentCycle/links'
 import { OriginalDataPointRepository } from 'server/db/repository/assessmentCycle/originalDataPoint'
 import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 import { Logger } from 'server/utils/logger'
+import { refreshDescriptionValidations } from 'server/worker/tasks/verifyLinks/visitDescriptionLinks/utils/refreshDescriptionValidations'
 import { refreshNationalDataPointValidations } from 'server/worker/tasks/verifyLinks/visitNationalDataPointLinks/utils/refreshNationalDataPointValidations'
 
 import { buildCountryLinks, CountryLinks } from './utils/buildCountryLinks'
 import { filterLinks } from './utils/filterLinks'
 import { mergeLinks } from './utils/mergeLinks'
-import { refreshDescriptionLinkValidationCache } from './utils/refreshDescriptionLinkValidationCache'
 import { visitLinks } from './utils/visitLinks'
 import { VerifyAllLinksJob } from './props'
 
@@ -76,11 +77,12 @@ export default async (job: VerifyAllLinksJob): Promise<void> => {
       ? { approved: true, excludeDeleted: false }
       : { approved: true, countries: countryISOs, excludeDeleted: false }
 
-    // 2. Get the countries' descriptions, NDPs, and approved links
-    const [descriptionValues, cycleNationalDataPoints, approvedLinks] = await Promise.all([
+    // 2. Get the countries' descriptions, NDPs, approved links, and cycle sections
+    const [descriptionValues, cycleNationalDataPoints, approvedLinks, sections] = await Promise.all([
       DescriptionRepository.getValues({ assessment, countryISOs, cycle }),
       _getCycleNationalDataPoints({ assessment, countryISOs, cycle }),
       LinkRepository.getMany({ assessment, cycle, filters: approvedLinkFilters }),
+      SectionRedisRepository.getMany({ assessment, cycle }),
     ])
 
     const nationalDataPoints: Partial<Record<CountryIso, Array<OriginalDataPoint>>> = {}
@@ -126,21 +128,22 @@ export default async (job: VerifyAllLinksJob): Promise<void> => {
       await LinkRepository.upsertLinks({ assessment, cycle, linkVisits, linksToVisit: mergedLinks }, client)
     })
 
-    await refreshDescriptionLinkValidationCache({
-      assessment,
-      approvedLinks,
-      countryIso,
-      cycle,
-      linkVisits,
-      linksToVisit: mergedLinks,
-    })
+    const sectionNames = sections.flatMap(({ subSections }) => subSections?.map(({ props }) => props.name) ?? [])
 
     // 5. Update validations cache
     await Promise.all(
-      countryLinks.map((country) => {
+      countryLinks.map(async (country) => {
         const commonProps = { approvedLinks, assessment, countryIso: country.countryIso, cycle, linkVisits }
 
-        return refreshNationalDataPointValidations({
+        await refreshDescriptionValidations({
+          ...commonProps,
+          descriptions: country.descriptions,
+          linksToVisit: country.descriptionLinksToVisit,
+          replaceDescriptions: true,
+          sectionNames,
+        })
+
+        await refreshNationalDataPointValidations({
           ...commonProps,
           includeStoredTargets: true,
           linksToVisit: country.nationalDataPointLinksToVisit,
@@ -148,7 +151,6 @@ export default async (job: VerifyAllLinksJob): Promise<void> => {
           targets: country.nationalDataPointTargets,
         })
       })
-      // TODO: refreshDescriptionValidations({ ...commonProps, ...)
     )
 
     const duration = (new Date().getTime() - time) / 1000

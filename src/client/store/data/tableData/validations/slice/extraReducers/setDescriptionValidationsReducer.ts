@@ -1,6 +1,5 @@
 import { ActionReducerMapBuilder } from '@reduxjs/toolkit'
 
-import { DescriptionValidations } from 'meta/assessment/validation/descriptionValidations'
 import { Objects } from 'utils/objects'
 
 import { setDescriptionValidations } from 'client/store/data/tableData/validations/actions/setDescriptionValidations'
@@ -20,22 +19,20 @@ export const setDescriptionValidationsReducer = (builder: ActionReducerMapBuilde
       return
     }
 
-    // When sectionNames is present, this came from the single-description verification flow.
-    // That payload only includes the sections touched by that check, so we update just those
-    // sections and leave the rest of the country state as is.
+    // With sectionNames, the server sends the whole state for those sections, so we swap them in.
+    // Anything that's gone (like a fixed error) clears too.
     const currentValue = Objects.getInPath(state.descriptions, path) ?? {}
     Objects.setInPath({ obj: state.descriptions, path, value: currentValue })
 
     sectionNames.forEach((sectionName) => {
-      const current = currentValue[sectionName] ?? {}
       const update = descriptionValidations[sectionName] ?? {}
-      const value = DescriptionValidations.mergeValidations({ current, update })
 
-      if (Objects.isEmpty(value)) {
+      if (Objects.isEmpty(update)) {
         delete currentValue[sectionName]
-      } else {
-        currentValue[sectionName] = value
+        return
       }
+
+      currentValue[sectionName] = update
     })
   })
 }

@@ -2,6 +2,7 @@ import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import {
+  CommentableDescription,
   CommentableDescriptionName,
   DescriptionCountryValues,
   DescriptionIdentifier,
@@ -24,6 +25,7 @@ type Props = {
 
 export type CountryLinks = {
   countryIso: CountryIso
+  descriptions: Array<Omit<CommentableDescription, 'id'>>
   descriptionLinksToVisit: Array<LinkToVisit>
   nationalDataPointLinksToVisit: Array<LinkToVisit>
   nationalDataPointTargets: Array<NDPLinkTarget>
@@ -53,7 +55,7 @@ export const buildCountryLinks = (props: Props): CountryLinks => {
   const { assessment, countryIso, cycle, descriptionValues, nationalDataPoints } = props
 
   const descriptionIdentifiers = _getDescriptionIdentifiers({ countryIso, descriptionValues })
-  const { linksToVisit: descriptionLinksToVisit } = buildDescriptionLinks({
+  const { descriptions, linksToVisit: descriptionLinksToVisit } = buildDescriptionLinks({
     assessment,
     countryIso,
     cycle,
@@ -74,6 +76,7 @@ export const buildCountryLinks = (props: Props): CountryLinks => {
 
   return {
     countryIso,
+    descriptions,
     descriptionLinksToVisit,
     nationalDataPointLinksToVisit,
     nationalDataPointTargets: targets,

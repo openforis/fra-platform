@@ -21,7 +21,6 @@ type Props = {
 // lastExecutedAt resolution:
 // 1. Global: latest of successful queue job finish time and activity_log linksCheckComplete time.
 // 2. Country: latest of (global) and country-scoped job/activity_log completion.
-// 3. Country fallback: lastVisitedAt from link table (only when countryIso is provided).
 export const getVerificationSummary = async (
   props: Props,
   client: BaseProtocol = DB
@@ -45,13 +44,9 @@ export const getVerificationSummary = async (
 
   let countryLastExecutedAt: string | undefined = undefined
   if (countryIso) {
-    // lastVisitedAt comes directly from the links table, it is used as a last fallback
-    const lastVisitedAt = summary.lastVisitedAt ? new Date(Number(summary.lastVisitedAt)).toISOString() : undefined
-
     countryLastExecutedAt = getLastVerificationExecutedAt({
       activityLog: countryActivityLog,
       jobStatus: countryJobStatus,
-      lastVisitedAt,
     })
   }
 
