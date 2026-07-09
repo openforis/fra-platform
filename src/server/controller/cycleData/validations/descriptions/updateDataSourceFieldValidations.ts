@@ -36,7 +36,7 @@ export const updateDataSourceFieldValidations = async (props: Props): Promise<vo
   const dataSourceDescriptions = descriptions.filter(({ value }) => value.dataSources !== undefined)
   if (Objects.isEmpty(dataSourceDescriptions)) return
 
-  const descriptionValidations = dataSourceDescriptions.reduce<RecordDescriptionValidations>((acc, description) => {
+  const dataSourceFieldValidations = dataSourceDescriptions.reduce<RecordDescriptionValidations>((acc, description) => {
     const { sectionName, value } = description
     const sectionValidation = (acc[sectionName] ??= {})
     const dataSources = (sectionValidation.dataSources ??= {})
@@ -63,19 +63,14 @@ export const updateDataSourceFieldValidations = async (props: Props): Promise<vo
     cycle,
     sectionNames,
   })
-  const validations: RecordDescriptionValidations = {}
+  const descriptionValidations: RecordDescriptionValidations = {}
   sectionNames.forEach((sectionName) => {
     const current = currentValidations[sectionName] ?? {}
-    const update = descriptionValidations[sectionName] ?? {}
-    validations[sectionName] = DescriptionValidations.mergeValidations({ current, update })
+    const update = dataSourceFieldValidations[sectionName] ?? {}
+    descriptionValidations[sectionName] = DescriptionValidations.mergeValidations({ current, update })
   })
 
-  await DescriptionValidationRedisRepository.setValidations({
-    assessment,
-    countryIso,
-    cycle,
-    descriptionValidations: validations,
-  })
+  await DescriptionValidationRedisRepository.setValidations({ assessment, countryIso, cycle, descriptionValidations })
 
   if (notifyClients) {
     notifyDescriptionValidationUpdate({ assessment, countryIso, cycle, descriptionValidations, sectionNames })
