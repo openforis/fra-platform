@@ -7,11 +7,11 @@ import { NationalDataPointValidations } from 'meta/assessment/validation/nationa
 import { ValidationSummary } from 'meta/assessment/validation/summary'
 import { Objects } from 'utils/objects'
 
+import { AreaRedisRepository } from 'server/cache/repository/area'
+import { SectionRedisRepository } from 'server/cache/repository/section'
 import { DescriptionValidationRedisRepository } from 'server/cache/repository/validation/description'
 import { NationalDataPointValidationRedisRepository } from 'server/cache/repository/validation/nationalDataPoint'
 import { TableValidationRedisRepository } from 'server/cache/repository/validation/table'
-import { SectionRepository } from 'server/db/repository/assessment/section'
-import { CountryRepository } from 'server/db/repository/assessmentCycle/country'
 
 type Props = {
   assessment: Assessment
@@ -21,16 +21,16 @@ type Props = {
 
 export const getValidationSummary = async (props: Props): Promise<ValidationSummary> => {
   const { assessment, countryIso, cycle } = props
-  const sections = await SectionRepository.getMany({ assessment, cycle })
+  const sections = await SectionRedisRepository.getMany({ assessment, cycle })
   const sectionNames = sections.flatMap(
     (section) => section.subSections?.map((subSection) => subSection.props.name) ?? []
   )
   const [country, descriptionValidations, nationalDataPointValidations, sectionsMetadata, tableValidations] =
     await Promise.all([
-      CountryRepository.getOne({ assessment, countryIso, cycle }),
+      AreaRedisRepository.getOneCountry({ assessment, countryIso, cycle }),
       DescriptionValidationRedisRepository.getValidations({ assessment, countryIso, cycle, sectionNames }),
       NationalDataPointValidationRedisRepository.getValidations({ assessment, countryIso, cycle }),
-      SectionRepository.getManyMetadata({ assessment, cycle }),
+      SectionRedisRepository.getManyMetadata({ assessment, cycle }),
       TableValidationRedisRepository.getValidations({ assessment, countryIso, cycle }),
     ])
 
