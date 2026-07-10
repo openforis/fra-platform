@@ -98,8 +98,10 @@ export const updateSummaryReducer = (builder: ActionReducerMapBuilder<Validation
         const nationalDataPointValidations = state.nationalDataPoints?.[assessmentName]?.[cycleName]?.[countryIso]
         if (deleteNationalDataPointValidation.match(action) && Objects.isNil(nationalDataPointValidations)) return
 
+        const sectionNames = Object.keys(summary.nationalDataPoints) as Array<SectionName>
         summary.nationalDataPoints = NationalDataPointValidations.calculateSummary({
           nationalDataPointValidations: nationalDataPointValidations ?? {},
+          sectionNames,
         })
       }
 
