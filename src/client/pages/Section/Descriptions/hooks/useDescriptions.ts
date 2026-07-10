@@ -1,4 +1,5 @@
 import { Description } from 'meta/assessment/description'
+import { Descriptions } from 'meta/assessment/description/descriptions'
 
 import { useAssessmentCountry } from 'client/store/area/hooks/country'
 import { useHasOriginalDataPointData } from 'client/store/data/tableData/nodeValues/hooks/originalDataPointData'
@@ -15,17 +16,14 @@ export const useDescriptions = (props: Props): Description => {
   const { onlyTables } = useIsPrintRoute()
   const country = useAssessmentCountry()
   const { sectionName } = useSectionContext()
-  const hasOriginalDataPointData = useHasOriginalDataPointData()
-  const useOriginalDataPoint = country?.props?.forestCharacteristics?.useOriginalDataPoint
+  const hasNationalDataPointData = useHasOriginalDataPointData()
+  const useNationalDataPoint = Boolean(country?.props?.forestCharacteristics?.useOriginalDataPoint)
 
   if (onlyTables) {
     return {}
   }
 
-  // Only show comments if section has ODP data
-  const onlyComments =
-    (sectionName === 'extentOfForest' && hasOriginalDataPointData) ||
-    (sectionName === 'forestCharacteristics' && hasOriginalDataPointData && useOriginalDataPoint)
+  const onlyComments = Descriptions.isOnlyComments({ hasNationalDataPointData, sectionName, useNationalDataPoint })
 
   if (onlyComments) {
     return {

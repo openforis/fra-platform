@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import { CountryIso } from 'meta/area/countryIso'
 
 import { useCountry } from 'client/store/area/hooks/country'
+import { useHasOriginalDataPointData } from 'client/store/data/tableData/nodeValues/hooks/originalDataPointData'
 import { ValidationsActions } from 'client/store/data/tableData/validations/actions'
 import { useAppDispatch } from 'client/store/hooks'
 import { useCanEditCycleData } from 'client/store/user/hooks/auth'
@@ -14,15 +15,24 @@ export const useGetValidationsSummary = (): void => {
   const country = useCountry(countryIso)
   const dispatch = useAppDispatch()
 
-  // Prop `useOriginalDataPoint` affects the summary, so we refetch it when the prop changes
+  // The summary depends on prop `useOriginalDataPoint` and on whether the country has NDP data, so we refetch it when they change
   const forestCharacteristicsUseOriginalDataPoint = Boolean(country?.props?.forestCharacteristics?.useOriginalDataPoint)
+  const hasNationalDataPointData = useHasOriginalDataPointData()
 
   // Init validations summary
   useEffect(() => {
     if (!canEditData) return
 
     dispatch(ValidationsActions.getSummary({ assessmentName, cycleName, countryIso }))
-  }, [assessmentName, canEditData, countryIso, cycleName, dispatch, forestCharacteristicsUseOriginalDataPoint])
+  }, [
+    assessmentName,
+    canEditData,
+    countryIso,
+    cycleName,
+    dispatch,
+    forestCharacteristicsUseOriginalDataPoint,
+    hasNationalDataPointData,
+  ])
 
   // Cleanup validations on unmount
   useEffect(() => {
