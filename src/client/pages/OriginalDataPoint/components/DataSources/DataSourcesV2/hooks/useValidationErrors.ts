@@ -7,12 +7,10 @@ import { MessageParser } from 'meta/validations/messageParser'
 import { useOriginalDataPoint } from 'client/store/data/originalDataPoint/hooks/originalDataPoint'
 import { useNationalDataPointValidation } from 'client/store/data/tableData/validations/hooks/nationalDataPoints'
 import { useShowNDPValidationErrors } from 'client/pages/OriginalDataPoint/components/hooks/useShowNDPValidationErrors'
-import { useIsEditODPEnabled } from 'client/pages/OriginalDataPoint/hooks/useIsEditODPEnabled'
 
 export const useValidationErrors = (): DataSourceValidationErrorsRecord => {
   const { t } = useTranslation()
-  const canEdit = useIsEditODPEnabled()
-  const showValidationErrors = useShowNDPValidationErrors({ canEdit })
+  const showValidationErrors = useShowNDPValidationErrors()
   const nationalDataPoint = useOriginalDataPoint()
   const validation = useNationalDataPointValidation({ uuid: nationalDataPoint.uuid })
   const dataSourceValidations = validation.dataSources
