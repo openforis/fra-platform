@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
 
 import { CountryIso } from 'meta/area/countryIso'
+import { LinksVerificationEvent } from 'meta/socket/event/links'
 import { Sockets } from 'meta/socket/sockets'
-import { LinksVerificationEvent } from 'meta/socket/sockets/links'
 import { Objects } from 'utils/objects'
 
 import { useAppDispatch } from 'client/store/hooks'

@@ -1,8 +1,8 @@
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
+import { LinksVerificationEvent } from 'meta/socket/event/links'
 import { Sockets } from 'meta/socket/sockets'
-import { LinksVerificationEvent } from 'meta/socket/sockets/links'
 
 import { SocketServer } from 'server/service/socket'
 

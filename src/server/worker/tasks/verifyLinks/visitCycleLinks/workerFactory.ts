@@ -1,7 +1,7 @@
 import { Worker, WorkerOptions } from 'bullmq'
 import IORedis from 'ioredis'
 
-import { LinksVerificationEvent } from 'meta/socket/sockets/links'
+import { LinksVerificationEvent } from 'meta/socket/event/links'
 
 import { ProcessEnv } from 'server/utils'
 import { Logger } from 'server/utils/logger'

@@ -1,6 +1,6 @@
 import { Job, JobsOptions } from 'bullmq'
 
-import { LinksVerificationEvent } from 'meta/socket/sockets/links'
+import { LinksVerificationEvent } from 'meta/socket/event/links'
 
 import { Logger } from 'server/utils/logger'
 import { VerifyLinksJobName } from 'server/worker/tasks/verifyLinks/jobNames'
