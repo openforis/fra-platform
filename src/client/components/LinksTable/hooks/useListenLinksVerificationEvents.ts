@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 
 import { CountryIso } from 'meta/area/countryIso'
+import { LinksVerificationEvent } from 'meta/socket/event/links'
 import { Sockets } from 'meta/socket/sockets'
 import { Objects } from 'utils/objects'
 
@@ -37,9 +38,9 @@ export const useListenLinksVerificationEvents = (props: Props): void => {
   const linksTableData = useTablePaginatedData({ path })
 
   useEffect(() => {
-    const listener = (args: [{ event: 'queued' | 'active' | 'completed' | 'failed' }]): void => {
+    const listener = (args: [{ event: LinksVerificationEvent }]): void => {
       const [{ event }] = args
-      if (event === 'queued' || event === 'active') {
+      if (event === LinksVerificationEvent.queued || event === LinksVerificationEvent.active) {
         dispatch(
           LinksActions.setIsVerificationInProgress({
             assessmentName,
@@ -48,7 +49,7 @@ export const useListenLinksVerificationEvents = (props: Props): void => {
             isVerificationInProgress: true,
           })
         )
-      } else if (event === 'completed' || event === 'failed') {
+      } else if (event === LinksVerificationEvent.completed || event === LinksVerificationEvent.failed) {
         dispatch(
           LinksActions.setIsVerificationInProgress({
             assessmentName,
