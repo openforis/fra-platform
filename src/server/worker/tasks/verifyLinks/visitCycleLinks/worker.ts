@@ -1,10 +1,8 @@
 import { CountryIso } from 'meta/area/countryIso'
-import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { Assessment, AssessmentNames } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { LinkToVisit } from 'meta/cycleData/links/link'
-import { SectionNames } from 'meta/routes/sectionNames'
 import { Objects } from 'utils/objects'
 
 import { AreaRedisRepository } from 'server/cache/repository/area'
@@ -13,8 +11,8 @@ import { DB } from 'server/db/db'
 import { DescriptionRepository } from 'server/db/repository/assessmentCycle/descriptions'
 import { LinkRepository } from 'server/db/repository/assessmentCycle/links'
 import { OriginalDataPointRepository } from 'server/db/repository/assessmentCycle/originalDataPoint'
-import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 import { Logger } from 'server/utils/logger'
+import { insertLinksCheckActivityLog } from 'server/worker/tasks/verifyLinks/utils/insertLinksCheckActivityLog'
 import { refreshDescriptionValidations } from 'server/worker/tasks/verifyLinks/visitDescriptionLinks/utils/refreshDescriptionValidations'
 import { refreshNationalDataPointValidations } from 'server/worker/tasks/verifyLinks/visitNationalDataPointLinks/utils/refreshNationalDataPointValidations'
 
@@ -51,12 +49,7 @@ export default async (job: VerifyAllLinksJob): Promise<void> => {
   try {
     const { assessment, countryIso, cycle, user } = job.data
 
-    const target = { jobStatus: 'started' }
-    const message = ActivityLogMessage.linksCheckStart
-    const section = SectionNames.Admin.links
-    const activityLog = { countryIso, message, section, target, user }
-    const activityLogParams = { activityLog, assessment, cycle }
-    await ActivityLogRepository.insertActivityLog(activityLogParams)
+    await insertLinksCheckActivityLog({ assessment, countryIso, cycle, status: 'started', user })
 
     const time = new Date().getTime()
     Logger.info(`${logKey} started.`)
