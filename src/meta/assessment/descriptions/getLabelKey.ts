@@ -1,12 +1,12 @@
 import { Assessment, AssessmentNames } from 'meta/assessment/assessment'
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 
-type GetLabelKeyProps = {
+type Props = {
   assessment: Assessment
   name: CommentableDescriptionName
 }
 
-const getLabelKey = (props: GetLabelKeyProps): string => {
+export const getLabelKey = (props: Props): string => {
   const { assessment, name } = props
   switch (name) {
     case CommentableDescriptionName.dataSources:
@@ -28,8 +28,4 @@ const getLabelKey = (props: GetLabelKeyProps): string => {
     default:
       return ''
   }
-}
-
-export const Descriptions = {
-  getLabelKey,
 }

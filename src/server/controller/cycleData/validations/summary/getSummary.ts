@@ -8,10 +8,12 @@ import { ValidationSummary } from 'meta/assessment/validation/summary'
 import { Objects } from 'utils/objects'
 
 import { AreaRedisRepository } from 'server/cache/repository/area'
+import { DataRedisRepository } from 'server/cache/repository/data'
 import { SectionRedisRepository } from 'server/cache/repository/section'
 import { DescriptionValidationRedisRepository } from 'server/cache/repository/validation/description'
 import { NationalDataPointValidationRedisRepository } from 'server/cache/repository/validation/nationalDataPoint'
 import { TableValidationRedisRepository } from 'server/cache/repository/validation/table'
+import { calculateSubsection } from 'server/controller/cycleData/validations/summary/calculateSubsection'
 
 type Props = {
   assessment: Assessment
@@ -25,14 +27,17 @@ export const getValidationSummary = async (props: Props): Promise<ValidationSumm
   const sectionNames = sections.flatMap(
     (section) => section.subSections?.map((subSection) => subSection.props.name) ?? []
   )
-  const [country, descriptionValidations, nationalDataPointValidations, sectionsMetadata, tableValidations] =
+  const [country, descriptionValidations, nationalDataPointValidations, ndpYears, sectionsMetadata, tableValidations] =
     await Promise.all([
       AreaRedisRepository.getOneCountry({ assessment, countryIso, cycle }),
       DescriptionValidationRedisRepository.getValidations({ assessment, countryIso, cycle, sectionNames }),
       NationalDataPointValidationRedisRepository.getValidations({ assessment, countryIso, cycle }),
+      DataRedisRepository.getODPYears({ assessment, countryIso, cycle }),
       SectionRedisRepository.getManyMetadata({ assessment, cycle }),
       TableValidationRedisRepository.getValidations({ assessment, countryIso, cycle }),
     ])
+
+  const hasNationalDataPointData = ndpYears.length > 0
 
   const forestCharacteristicsUseOriginalDataPoint = Boolean(country?.props?.forestCharacteristics?.useOriginalDataPoint)
   const nationalDataPointSectionNames: Array<SectionName> = []
@@ -57,31 +62,31 @@ export const getValidationSummary = async (props: Props): Promise<ValidationSumm
   sections.forEach((section) => {
     section.subSections?.forEach((subSection) => {
       const sectionUuid = section.uuid
+      const sectionName = subSection.props.name
       const subsectionUuid = subSection.uuid
-      const tableSections = sectionsMetadata[subSection.props.name] ?? []
+      const tableSections = sectionsMetadata[sectionName] ?? []
       const tableNames = tableSections.flatMap((tableSection) => tableSection.tables.map((table) => table.props.name))
-      const descriptionSummary = DescriptionValidations.calculateSummary({
-        sectionValidations: descriptionValidations[subSection.props.name],
+      summary.descriptions[sectionName] = DescriptionValidations.calculateSummary({
+        sectionValidations: descriptionValidations[sectionName],
       })
-      const descriptionsValid = Object.values(descriptionSummary).every((description) => description?.valid ?? true)
 
-      summary.descriptions[subSection.props.name] = descriptionSummary
-
-      const nationalDataPointValid = nationalDataPointSummary[subSection.props.name]?.valid ?? true
-      let subsectionValid = descriptionsValid && nationalDataPointValid
       tableNames.forEach((tableName) => {
-        const valid = Objects.isEmpty(tableValidations[tableName] ?? {})
-        summary.tables[tableName] = { valid }
-        subsectionValid = subsectionValid && valid
+        summary.tables[tableName] = { valid: Objects.isEmpty(tableValidations[tableName] ?? {}) }
       })
 
-      const subsection = { sectionName: subSection.props.name, tableNames, valid: subsectionValid }
+      const subsection = calculateSubsection({
+        hasNationalDataPointData,
+        sectionName,
+        summary,
+        tableNames,
+        useNationalDataPoint: forestCharacteristicsUseOriginalDataPoint,
+      })
       summary.sections[sectionUuid] ??= { subsections: {}, valid: true }
       const summarySection = summary.sections[sectionUuid]
 
       summary.subsections[subsectionUuid] = subsection
       summarySection.subsections[subsectionUuid] = subsection
-      summarySection.valid = summarySection.valid && subsectionValid
+      summarySection.valid = summarySection.valid && subsection.valid
     })
   })
 
