@@ -1,10 +1,10 @@
 import { Job, JobsOptions } from 'bullmq'
 
-import { Sockets } from 'meta/socket/sockets'
+import { LinksVerificationEvent } from 'meta/socket/sockets/links'
 
-import { SocketServer } from 'server/service/socket'
 import { Logger } from 'server/utils/logger'
 import { VerifyLinksJobName } from 'server/worker/tasks/verifyLinks/jobNames'
+import { emitLinksVerificationEvent } from 'server/worker/tasks/verifyLinks/utils/emitLinksVerificationEvent'
 import { VerifyLinksJob } from 'server/worker/tasks/verifyLinks/verifyLinksJob'
 
 import { VerifyAllLinksJobProps } from './props'
@@ -41,12 +41,7 @@ export const visitCycleLinks = async (props: VerifyAllLinksJobProps): Promise<Jo
 
   Logger.debug(`[visitCycleLinks] added visit all links job for ${scope} to the queue`)
 
-  const linksVerificationEvent = Sockets.getLinksVerificationEvent({
-    assessmentName: assessment.props.name,
-    countryIso,
-    cycleName: cycle.name,
-  })
-  SocketServer.emit(linksVerificationEvent, { event: 'queued' })
+  emitLinksVerificationEvent({ assessment, countryIso, cycle, event: LinksVerificationEvent.queued })
 
   return job
 }
