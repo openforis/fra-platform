@@ -1,5 +1,5 @@
 import { Description } from 'meta/assessment/description'
-import { Descriptions } from 'meta/assessment/description/descriptions'
+import { Descriptions } from 'meta/assessment/descriptions'
 
 import { useAssessmentCountry } from 'client/store/area/hooks/country'
 import { useHasOriginalDataPointData } from 'client/store/data/tableData/nodeValues/hooks/originalDataPointData'
@@ -23,7 +23,11 @@ export const useDescriptions = (props: Props): Description => {
     return {}
   }
 
-  const onlyComments = Descriptions.isOnlyComments({ hasNationalDataPointData, sectionName, useNationalDataPoint })
+  const onlyComments = Descriptions.hasSectionOnlyComments({
+    hasNationalDataPointData,
+    sectionName,
+    useNationalDataPoint,
+  })
 
   if (onlyComments) {
     return {

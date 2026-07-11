@@ -1,4 +1,4 @@
-import { Descriptions } from 'meta/assessment/description/descriptions'
+import { Descriptions } from 'meta/assessment/descriptions'
 import { SectionName } from 'meta/assessment/section'
 import { TableName } from 'meta/assessment/table'
 import { ValidationSummary, ValidationSummarySubsection } from 'meta/assessment/validation/summary'
