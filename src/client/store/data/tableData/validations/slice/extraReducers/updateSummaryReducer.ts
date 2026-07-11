@@ -36,9 +36,10 @@ const _updateDescriptions = (
 
 const _recomputeSubsections = (state: ValidationSummaryDraft): void => {
   Object.entries(state.subsections).forEach(([subsectionUuid, summarySubsection]) => {
-    const { sectionName, tableNames } = summarySubsection
-    const descriptions = Object.values(state.descriptions[sectionName] ?? {})
-    const descriptionsValid = descriptions.every((description) => description?.valid ?? true)
+    const { descriptionNames, sectionName, tableNames } = summarySubsection
+    const descriptionsValid = descriptionNames?.every(
+      (descriptionName) => state.descriptions[sectionName]?.[descriptionName]?.valid ?? true
+    )
     const tablesValid = tableNames.every((tableName) => state.tables[tableName]?.valid ?? true)
     const nationalDataPointsValid = state.nationalDataPoints[sectionName]?.valid ?? true
 
