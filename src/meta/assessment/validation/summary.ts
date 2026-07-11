@@ -8,6 +8,7 @@ export type ValidationStatus = {
 }
 
 export type ValidationSummarySubsection = ValidationStatus & {
+  descriptionNames: Array<CommentableDescriptionName>
   sectionName: SectionName
   tableNames: Array<TableName>
 }
