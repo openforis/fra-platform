@@ -16,7 +16,7 @@ const jobOptions: JobsOptions = {
   removeOnFail: true,
 }
 
-export const visitCycleLinks = async (props: VerifyAllLinksJobProps): Promise<Job | undefined> => {
+export const scheduleVerifyAllLinks = async (props: VerifyAllLinksJobProps): Promise<Job | undefined> => {
   const { assessment, countryIso, cycle } = props
   const scope = countryIso
     ? `${assessment.props.name} / ${cycle.name} / ${countryIso}`

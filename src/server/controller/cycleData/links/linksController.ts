@@ -1,5 +1,5 @@
 import { LinkRepository } from 'server/db/repository/assessmentCycle/links'
-import { visitCycleLinks } from 'server/worker/tasks/verifyLinks/visitCycleLinks/visitCycleLinks'
+import { scheduleVerifyAllLinks } from 'server/worker/tasks/verifyLinks/visitCycleLinks/scheduleVerifyAllLinks'
 
 import { getActiveVerifyJob } from './getActiveVerifyJob'
 import { getManyExport } from './getManyExport'
@@ -13,5 +13,5 @@ export const LinksController = {
   getManyExport,
   getVerificationSummary,
   update,
-  verify: visitCycleLinks,
+  verify: scheduleVerifyAllLinks,
 }
