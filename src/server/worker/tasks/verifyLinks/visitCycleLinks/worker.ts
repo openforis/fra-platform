@@ -15,8 +15,8 @@ const _getLogKey = (job: VerifyAllLinksJob): string => {
 }
 
 export default async (job: VerifyAllLinksJob): Promise<void> => {
-  const { assessment, countryIso, cycle, user } = job.data
+  const { assessment, countryIso, cycle } = job.data
   const logKey = _getLogKey(job)
 
-  return verifyAllLinks({ assessment, countryIso, cycle, logKey, user })
+  return verifyAllLinks({ assessment, countryIso, cycle, logKey })
 }
