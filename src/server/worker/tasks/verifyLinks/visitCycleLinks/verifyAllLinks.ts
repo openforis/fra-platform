@@ -3,17 +3,15 @@ import { Assessment, AssessmentNames } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { LinkToVisit } from 'meta/cycleData/links/link'
-import { User } from 'meta/user/user'
 import { Objects } from 'utils/objects'
 
 import { AreaRedisRepository } from 'server/cache/repository/area'
 import { SectionRedisRepository } from 'server/cache/repository/section'
-import { DB } from 'server/db/db'
+import { BaseProtocol, DB } from 'server/db/db'
 import { DescriptionRepository } from 'server/db/repository/assessmentCycle/descriptions'
 import { LinkRepository } from 'server/db/repository/assessmentCycle/links'
 import { OriginalDataPointRepository } from 'server/db/repository/assessmentCycle/originalDataPoint'
 import { Logger } from 'server/utils/logger'
-import { insertLinksCheckActivityLog } from 'server/worker/tasks/verifyLinks/utils/insertLinksCheckActivityLog'
 import { refreshDescriptionValidations } from 'server/worker/tasks/verifyLinks/visitDescriptionLinks/utils/refreshDescriptionValidations'
 import { refreshNationalDataPointValidations } from 'server/worker/tasks/verifyLinks/visitNationalDataPointLinks/utils/refreshNationalDataPointValidations'
 
@@ -27,27 +25,27 @@ type Props = {
   countryIso?: CountryIso
   cycle: Cycle
   logKey: string
-  user: User
 }
 
-const _getCycleNationalDataPoints = (props: {
-  assessment: Assessment
-  countryISOs: Array<CountryIso>
-  cycle: Cycle
-}): Promise<Array<OriginalDataPoint>> => {
+const _getCycleNationalDataPoints = (
+  props: {
+    assessment: Assessment
+    countryISOs: Array<CountryIso>
+    cycle: Cycle
+  },
+  client: BaseProtocol
+): Promise<Array<OriginalDataPoint>> => {
   const { assessment, countryISOs, cycle } = props
   // panEuropean doesn't have NDPs
   if (assessment.props.name === AssessmentNames.panEuropean) return Promise.resolve([])
-  return OriginalDataPointRepository.getMany({ assessment, countryISOs, cycle })
+  return OriginalDataPointRepository.getMany({ assessment, countryISOs, cycle }, client)
 }
 
 // Verifies all links (descriptions + national data points) of an assessment/cycle,
 // or of a single country when countryIso is set.
-export const verifyAllLinks = async (props: Props): Promise<void> => {
-  const { assessment, countryIso, cycle, logKey, user } = props
+export const verifyAllLinks = async (props: Props, client: BaseProtocol = DB): Promise<void> => {
+  const { assessment, countryIso, cycle, logKey } = props
   try {
-    await insertLinksCheckActivityLog({ assessment, countryIso, cycle, status: 'started', user })
-
     const time = new Date().getTime()
     Logger.info(`${logKey} started.`)
 
@@ -56,7 +54,7 @@ export const verifyAllLinks = async (props: Props): Promise<void> => {
     // 1. Get all the countryIsos if we are running the full cycle job
     let countryISOs: Array<CountryIso>
     if (isFullCycleJob) {
-      const countries = await AreaRedisRepository.getManyCountries({ assessment, cycle })
+      const countries = await AreaRedisRepository.getManyCountries({ assessment, cycle }, client)
       countryISOs = countries.map(({ countryIso }) => countryIso)
     } else {
       countryISOs = [countryIso]
@@ -69,10 +67,10 @@ export const verifyAllLinks = async (props: Props): Promise<void> => {
 
     // 2. Get the countries' descriptions, NDPs, approved links, and cycle sections
     const [descriptionValues, cycleNationalDataPoints, approvedLinks, sections] = await Promise.all([
-      DescriptionRepository.getValues({ assessment, countryISOs, cycle }),
-      _getCycleNationalDataPoints({ assessment, countryISOs, cycle }),
-      LinkRepository.getMany({ assessment, cycle, filters: approvedLinkFilters }),
-      SectionRedisRepository.getMany({ assessment, cycle }),
+      DescriptionRepository.getValues({ assessment, countryISOs, cycle }, client),
+      _getCycleNationalDataPoints({ assessment, countryISOs, cycle }, client),
+      LinkRepository.getMany({ assessment, cycle, filters: approvedLinkFilters }, client),
+      SectionRedisRepository.getMany({ assessment, cycle }, client),
     ])
 
     const nationalDataPoints: Partial<Record<CountryIso, Array<OriginalDataPoint>>> = {}
@@ -101,8 +99,8 @@ export const verifyAllLinks = async (props: Props): Promise<void> => {
     const linkVisits = await visitLinks(filterLinks({ approvedLinks, linksToVisit: mergedLinks }))
 
     // 4. Refresh link table locations
-    await DB.tx(async (client) => {
-      await LinkRepository.clearLocations({ assessment, countryIso, cycle }, client)
+    await client.tx(async (tx) => {
+      await LinkRepository.clearLocations({ assessment, countryIso, cycle }, tx)
       await LinkRepository.markDeletedMany(
         {
           assessment,
@@ -113,9 +111,9 @@ export const verifyAllLinks = async (props: Props): Promise<void> => {
             link: link.link,
           })),
         },
-        client
+        tx
       )
-      await LinkRepository.upsertLinks({ assessment, cycle, linkVisits, linksToVisit: mergedLinks }, client)
+      await LinkRepository.upsertLinks({ assessment, cycle, linkVisits, linksToVisit: mergedLinks }, tx)
     })
 
     const sectionNames = sections.flatMap(({ subSections }) => subSections?.map(({ props }) => props.name) ?? [])

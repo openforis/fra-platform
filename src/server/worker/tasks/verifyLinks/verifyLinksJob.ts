@@ -1,9 +1,11 @@
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
+import { Objects } from 'utils/objects'
 
 import { Job } from 'server/worker/job/job'
-import { JobStatus } from 'server/worker/job/jobStatus'
+import { JobStatus, JobStatusPayload } from 'server/worker/job/jobStatus'
+import { insertLinksCheckActivityLog } from 'server/worker/tasks/verifyLinks/utils/insertLinksCheckActivityLog'
 import { VerifyAllLinksJob } from 'server/worker/tasks/verifyLinks/visitCycleLinks/props'
 import workerProcessor from 'server/worker/tasks/verifyLinks/visitCycleLinks/worker'
 
@@ -25,7 +27,7 @@ export class VerifyLinksJob extends Job {
   public static getJobName(context: VerifyLinksJobContext): string {
     const { assessment, countryIso, cycle } = context
     const baseJobName = `${jobNamePrefix}/${assessment.props.name}/${cycle.name}`
-    return countryIso ? `${baseJobName}/${countryIso}` : baseJobName
+    return Objects.isEmpty(countryIso) ? baseJobName : `${baseJobName}/${countryIso}`
   }
 
   public async runFromQueue(job: VerifyAllLinksJob): Promise<void> {
@@ -33,8 +35,12 @@ export class VerifyLinksJob extends Job {
     this.#queueJob = job
 
     try {
+      const { assessment, countryIso, cycle, user } = job.data
+
       // Update redis to sync with BullMQ job status.
       await this.setRunning(jobId)
+      await insertLinksCheckActivityLog({ assessment, countryIso, cycle, status: 'started', user })
+
       await this.execute()
       await this.setSuccess(jobId)
     } catch (error) {
@@ -50,7 +56,11 @@ export class VerifyLinksJob extends Job {
   }
 
   public async setRunning(jobId?: string): Promise<void> {
-    await this.setStatus(JobStatus.running, { jobId, startedAt: new Date().toISOString() })
+    const startedAt = new Date().toISOString()
+    const details: Partial<JobStatusPayload> = Objects.isEmpty(jobId)
+      ? { jobId, queuedAt: undefined, startedAt }
+      : { jobId, startedAt }
+    await this.setStatus(JobStatus.running, details)
   }
 
   public async setSuccess(jobId?: string): Promise<void> {
