@@ -1,6 +1,7 @@
 import admin from './fr/admin.json'
 import area from './fr/area.json'
 import assessmentSection from './fr/assessmentSection.json'
+import bulkDownload from './fr/bulkDownload.json'
 import common from './fr/common.json'
 import contentCheck from './fr/contentCheck.json'
 import dataDownload from './fr/dataDownload.json'
@@ -26,6 +27,7 @@ import user from './fr/user.json'
 export const frTranslation = {
   admin,
   area,
+  bulkDownload,
   common,
   contentCheck,
   dataDownload,
