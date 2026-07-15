@@ -10,5 +10,5 @@ type Props = {
 export const validateNationalDataPoint = (props: Props): NDPValidation => {
   const { nationalDataPoint, validation } = props
   return NationalDataPointValidator.validate({ nationalDataPoint, validation })
-  // TODO: Validate national data point data sources
+  // NDP data source references are validated by the links flow.
 }
