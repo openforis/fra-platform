@@ -1,8 +1,17 @@
-import { Locator, Page } from '@playwright/test'
+import { expect, Locator, Page } from '@playwright/test'
 
 import { DOMUtils } from '../dom'
 
 const nationalDataPointApi = '/api/cycle-data/national-data-points/national-data-point'
+
+const _nationalClassesGrid = (page: Page): Locator =>
+  page.locator('.data-grid', { has: page.getByText('Definition', { exact: true }) })
+
+const _newNationalClassNameInput = (page: Page): Locator =>
+  _nationalClassesGrid(page).locator('.data-cell.firstCol.lastRow input.input-text')
+
+const _existingNationalClassNameInput = (page: Page): Locator =>
+  _nationalClassesGrid(page).locator('.data-cell.firstCol:not(.lastRow) input.input-text').first()
 
 const fillYear = async (page: Page, year: string): Promise<void> => {
   // New odp year defaults to -1 before selecting a year.
@@ -24,18 +33,25 @@ const fillDataSourceReference = async (page: Page, reference: string): Promise<v
 
 // Uses "empty placeholder" to create new class
 const createNewNationalClassification = async (page: Page, name: string): Promise<void> => {
+  const input = _newNationalClassNameInput(page)
+  await input.waitFor()
+
   const saved = DOMUtils.waitForResponse(page, `${nationalDataPointApi}/national-classes`, 'PUT')
-  await page.locator('input.input-text').last().fill(name)
-  await page.locator('input.input-text').last().press('Tab')
+  await input.fill(name)
   await saved
+
+  await expect(_existingNationalClassNameInput(page)).toHaveValue(name)
 }
 
 const editNationalClassification = async (page: Page, name: string): Promise<void> => {
+  const input = _existingNationalClassNameInput(page)
+  await input.waitFor()
+
   const saved = DOMUtils.waitForResponse(page, `${nationalDataPointApi}/national-classes`, 'PUT')
-  const input = page.locator('input.input-text').first()
   await input.fill(name)
-  await input.press('Tab')
   await saved
+
+  await expect(input).toHaveValue(name)
 }
 
 const _fillOriginalData = async (page: Page, input: Locator, value: string): Promise<void> => {
@@ -122,8 +138,10 @@ const doneEditing = async (page: Page): Promise<void> => {
 }
 
 const switchTab = async (page: Page, tabName: string, urlRegex: RegExp): Promise<void> => {
-  await page.locator('.odp__tab-item', { hasText: tabName }).click()
+  const tab = page.locator('.odp__tab-item', { hasText: tabName })
+  await tab.click()
   await page.waitForURL(urlRegex)
+  await expect(tab).toHaveClass(/active/)
 }
 
 export const NDPDomUtils = {

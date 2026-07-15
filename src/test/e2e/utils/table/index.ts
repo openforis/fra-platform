@@ -58,6 +58,7 @@ const expectTableHasNoError = async (page: Page, tableName: string): Promise<voi
 const clickOdpLink = async (page: Page, year: string, urlRegex: RegExp): Promise<void> => {
   await page.locator('.table-grid__odp-link', { hasText: year }).click()
   await page.waitForURL(urlRegex)
+  await page.locator('.odp__tab-controller .odp__tab-item.active').waitFor()
 }
 
 export const TableDomUtils = {
