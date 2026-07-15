@@ -8,12 +8,16 @@ const throwIfFailed = (toolName: string, failures: Array<Failure>): void => {
   if (Objects.isEmpty(failures)) return
 
   const summary = failures
-    .map(({ assessmentName, countryIso, cycleName, error }) => {
-      return `- ${assessmentName}/${cycleName}/${countryIso}: ${_getErrorMessage(error)}`
+    .map<string>(({ assessmentName, countryIso, cycleName, error }) => {
+      const scope = Objects.isEmpty(countryIso)
+        ? `${assessmentName}/${cycleName}`
+        : `${assessmentName}/${cycleName}/${countryIso}`
+
+      return `- ${scope}: ${_getErrorMessage(error)}`
     })
     .join('\n')
 
-  throw new Error(`${toolName} failed for ${failures.length} countries:\n${summary}`)
+  throw new Error(`${toolName} failed with ${failures.length} failures:\n${summary}`)
 }
 
 export const Failures = {

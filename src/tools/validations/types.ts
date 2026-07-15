@@ -4,7 +4,7 @@ import { CycleName } from 'meta/assessment/cycle'
 
 export type Failure = {
   assessmentName: AssessmentName
-  countryIso: CountryIso
+  countryIso?: CountryIso
   cycleName: CycleName
   error: unknown
 }
