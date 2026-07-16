@@ -5,8 +5,8 @@ import { ToolsUtils } from 'tools/utils/toolsUtils'
 
 import { BaseProtocol, DB } from 'server/db/db'
 
-import { Failures } from './failures'
-import { Failure } from './types'
+import { Failures } from './common/failures'
+import { Failure } from './common/types'
 import { validateDescriptions } from './validateDescriptions'
 import { validateLinks } from './validateLinks'
 import { validateNationalDataPoints } from './validateNationalDataPoints'
