@@ -2,17 +2,17 @@ import '../scriptInit'
 
 import { ToolsUtils } from 'tools/utils/toolsUtils'
 
-import { validateCountryTables } from 'server/controller/cycleData/validations/tables/validateCountryTables/validateCountryTables'
 import { BaseProtocol, DB } from 'server/db/db'
 
-import { _validateCountries } from './_validateCountries'
-import { Failures } from './failures'
-import { Failure } from './types'
+import { Failures } from './common/failures'
+import { Failure } from './common/types'
+import { validateCountries } from './common/validateCountries'
+import { validateCountryTables } from './tables/validateCountryTables'
 
 const toolName = 'validateTableData'
 
 export const validateTableData = async (client: BaseProtocol = DB): Promise<Array<Failure>> => {
-  return _validateCountries({ toolName, validateCountry: validateCountryTables }, client)
+  return validateCountries({ toolName, validateCountry: validateCountryTables }, client)
 }
 
 if (require.main === module) {
