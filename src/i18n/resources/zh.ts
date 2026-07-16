@@ -1,6 +1,7 @@
 import admin from './zh/admin.json'
 import area from './zh/area.json'
 import assessmentSection from './zh/assessmentSection.json'
+import bulkDownload from './zh/bulkDownload.json'
 import common from './zh/common.json'
 import contentCheck from './zh/contentCheck.json'
 import dataDownload from './zh/dataDownload.json'
@@ -25,6 +26,7 @@ import user from './zh/user.json'
 export const zhTranslation = {
   admin,
   area,
+  bulkDownload,
   common,
   contentCheck,
   dataDownload,

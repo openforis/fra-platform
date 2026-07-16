@@ -1,6 +1,7 @@
 import admin from './es/admin.json'
 import area from './es/area.json'
 import assessmentSection from './es/assessmentSection.json'
+import bulkDownload from './es/bulkDownload.json'
 import common from './es/common.json'
 import contentCheck from './es/contentCheck.json'
 import dataDownload from './es/dataDownload.json'
@@ -26,6 +27,7 @@ import user from './es/user.json'
 export const esTranslation = {
   admin,
   area,
+  bulkDownload,
   common,
   contentCheck,
   dataDownload,
