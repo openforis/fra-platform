@@ -6,7 +6,7 @@ import { SectionName } from 'meta/assessment/section'
 import type { DataSourceValidation, DataSourceValidationField } from 'meta/assessment/validation/description'
 import { MessageParser } from 'meta/validations/messageParser'
 
-import { useDataSourceValidations } from 'client/store/data/tableData/validations/hooks/descriptions'
+import { useDataSourceValidations } from 'client/store/data/validations/hooks/descriptions'
 import { useCanEditCycleData } from 'client/store/user/hooks/auth'
 import { useIsPrintRoute } from 'client/hooks/routes'
 

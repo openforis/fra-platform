@@ -8,7 +8,7 @@ import { OriginalDataPointSliceName } from 'client/store/data/originalDataPoint/
 import { OriginalDataPointState } from 'client/store/data/originalDataPoint/state'
 import { EstimationsSlice } from 'client/store/data/tableData/estimations/slice'
 import { NodeValuesSlice } from 'client/store/data/tableData/nodeValues/slice'
-import { ValidationsReducer } from 'client/store/data/tableData/validations/slice'
+import { ValidationsReducer } from 'client/store/data/validations/slice'
 
 type DataLazyLoadedSlices = {
   [OriginalDataPointSliceName]: OriginalDataPointState
@@ -19,10 +19,10 @@ const staticReducers = {
   [DescriptionsSlice.name]: DescriptionsSlice.reducer,
   [HistorySlice.name]: HistorySlice.reducer,
   [LinkedDataSourcesSlice.name]: LinkedDataSourcesSlice.reducer,
+  [ValidationsReducer.name]: ValidationsReducer.reducer,
   tableData: combineReducers({
     [EstimationsSlice.name]: EstimationsSlice.reducer,
     [NodeValuesSlice.name]: NodeValuesSlice.reducer,
-    [ValidationsReducer.name]: ValidationsReducer.reducer,
   }),
 }
 

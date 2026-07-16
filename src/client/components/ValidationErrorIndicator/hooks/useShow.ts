@@ -1,9 +1,6 @@
 import { UUID } from 'meta/uuid/uuid'
 
-import {
-  useSummarySectionHasErrors,
-  useSummarySubSectionHasErrors,
-} from 'client/store/data/tableData/validations/hooks/summary'
+import { useSummarySectionHasErrors, useSummarySubSectionHasErrors } from 'client/store/data/validations/hooks/summary'
 
 type Props = {
   target: 'section' | 'subSection'

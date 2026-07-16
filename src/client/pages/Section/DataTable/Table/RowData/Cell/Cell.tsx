@@ -10,7 +10,7 @@ import { RecordAssessmentData } from 'meta/data/recordData'
 
 import { useHistoryLastApprovedIsActive } from 'client/store/data/history/hooks/lastApproved'
 import { useHistoryLastApprovedDataTableFetched } from 'client/store/data/history/hooks/lastApprovedTableData'
-import { useNodeValueValidation } from 'client/store/data/tableData/validations/hooks/tables'
+import { useNodeValueValidation } from 'client/store/data/validations/hooks/tables'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { DataCell } from 'client/components/DataGrid'
 import { useCellId } from 'client/pages/Section/DataTable/Table/hooks/useCellId'

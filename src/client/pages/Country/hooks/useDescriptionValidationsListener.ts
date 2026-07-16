@@ -5,7 +5,7 @@ import { SectionName } from 'meta/assessment/section'
 import { RecordDescriptionValidations } from 'meta/assessment/validation/description'
 import { Sockets } from 'meta/socket/sockets'
 
-import { ValidationsActions } from 'client/store/data/tableData/validations/actions'
+import { ValidationsActions } from 'client/store/data/validations/actions'
 import { useAppDispatch } from 'client/store/hooks'
 import { useCanEditCycleData } from 'client/store/user/hooks/auth'
 import { useCountryRouteParams } from 'client/hooks/routeParams'

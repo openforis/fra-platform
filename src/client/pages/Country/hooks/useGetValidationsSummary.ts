@@ -4,7 +4,7 @@ import { CountryIso } from 'meta/area/countryIso'
 
 import { useCountry } from 'client/store/area/hooks/country'
 import { useHasOriginalDataPointData } from 'client/store/data/tableData/nodeValues/hooks/originalDataPointData'
-import { ValidationsActions } from 'client/store/data/tableData/validations/actions'
+import { ValidationsActions } from 'client/store/data/validations/actions'
 import { useAppDispatch } from 'client/store/hooks'
 import { useCanEditCycleData } from 'client/store/user/hooks/auth'
 import { useCountryRouteParams } from 'client/hooks/routeParams'

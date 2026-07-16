@@ -5,7 +5,7 @@ import { NationalDataPointValidations } from 'meta/assessment/validation/nationa
 import { TooltipId } from 'meta/tooltip/id'
 
 import { useHistoryLastApprovedIsActive } from 'client/store/data/history/hooks/lastApproved'
-import { useNationalDataPointValidation } from 'client/store/data/tableData/validations/hooks/nationalDataPoints'
+import { useNationalDataPointValidation } from 'client/store/data/validations/hooks/nationalDataPoints'
 
 type Props = {
   odpId?: number

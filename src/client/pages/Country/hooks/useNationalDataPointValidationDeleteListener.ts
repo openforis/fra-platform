@@ -4,7 +4,7 @@ import { CountryIso } from 'meta/area/countryIso'
 import { Sockets } from 'meta/socket/sockets'
 import { UUID } from 'meta/uuid/uuid'
 
-import { ValidationsActions } from 'client/store/data/tableData/validations/actions'
+import { ValidationsActions } from 'client/store/data/validations/actions'
 import { useAppDispatch } from 'client/store/hooks'
 import { useCanEditCycleData } from 'client/store/user/hooks/auth'
 import { useCountryRouteParams } from 'client/hooks/routeParams'

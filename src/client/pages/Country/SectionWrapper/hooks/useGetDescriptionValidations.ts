@@ -4,7 +4,7 @@ import { CountryIso } from 'meta/area/countryIso'
 import { CollaboratorEditPropertyType } from 'meta/user/role/collaborator'
 import { Objects } from 'utils/objects'
 
-import { ValidationsActions } from 'client/store/data/tableData/validations/actions'
+import { ValidationsActions } from 'client/store/data/validations/actions'
 import { useAppDispatch } from 'client/store/hooks'
 import { useCanEdit } from 'client/store/user/hooks/auth'
 import { useIsDataExportView } from 'client/hooks/dataExport'

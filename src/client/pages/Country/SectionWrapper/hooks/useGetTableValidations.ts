@@ -4,7 +4,7 @@ import { CountryIso } from 'meta/area/countryIso'
 import { TableName } from 'meta/assessment/table'
 import { Objects } from 'utils/objects'
 
-import { ValidationsActions } from 'client/store/data/tableData/validations/actions'
+import { ValidationsActions } from 'client/store/data/validations/actions'
 import { useAppDispatch } from 'client/store/hooks'
 import { useTableSections } from 'client/store/meta/hooks/tableSections'
 import { useCanEdit } from 'client/store/user/hooks/auth'

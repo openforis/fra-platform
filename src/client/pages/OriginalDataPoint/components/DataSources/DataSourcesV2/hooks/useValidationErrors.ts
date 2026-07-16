@@ -5,7 +5,7 @@ import type { DataSourceValidationErrorsRecord } from 'meta/assessment/descripti
 import { MessageParser } from 'meta/validations/messageParser'
 
 import { useOriginalDataPoint } from 'client/store/data/originalDataPoint/hooks/originalDataPoint'
-import { useNationalDataPointValidation } from 'client/store/data/tableData/validations/hooks/nationalDataPoints'
+import { useNationalDataPointValidation } from 'client/store/data/validations/hooks/nationalDataPoints'
 import { useShowNDPValidationErrors } from 'client/pages/OriginalDataPoint/components/hooks/useShowNDPValidationErrors'
 
 export const useValidationErrors = (): DataSourceValidationErrorsRecord => {
