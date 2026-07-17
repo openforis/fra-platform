@@ -4,7 +4,7 @@ import { CountryIso } from 'meta/area/countryIso'
 import { CollaboratorEditPropertyType } from 'meta/user/role/collaborator'
 import { Objects } from 'utils/objects'
 
-import { ValidationsActions } from 'client/store/data/validations/actions'
+import { DescriptionValidationActions } from 'client/store/data/validations/descriptions/actions'
 import { useAppDispatch } from 'client/store/hooks'
 import { useCanEdit } from 'client/store/user/hooks/auth'
 import { useIsDataExportView } from 'client/hooks/dataExport'
@@ -29,6 +29,8 @@ export const useGetDescriptionValidations = (props: Props): void => {
       return
     }
 
-    dispatch(ValidationsActions.getDescriptionValidations({ assessmentName, cycleName, countryIso, sectionName }))
+    dispatch(
+      DescriptionValidationActions.getDescriptionValidations({ assessmentName, cycleName, countryIso, sectionName })
+    )
   }, [assessmentName, canEdit, countryIso, cycleName, dispatch, isDataExportView, print, sectionName])
 }

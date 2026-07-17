@@ -4,7 +4,7 @@ import { SectionName } from 'meta/assessment/section'
 import type { DataSourceRowValidations } from 'meta/assessment/validation/description'
 import { Validation } from 'meta/assessment/validation/validation'
 
-import { ValidationsSelectors } from 'client/store/data/validations/selectors'
+import { DescriptionValidationSelectors } from 'client/store/data/validations/descriptions/selectors'
 import { useAppSelector } from 'client/store/hooks'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 
@@ -13,15 +13,13 @@ type DescriptionValidationProps = {
   sectionName: SectionName
 }
 
-type DescriptionValidationReturned = Validation
-
-export const useDescriptionValidation = (props: DescriptionValidationProps): DescriptionValidationReturned => {
+export const useDescriptionValidation = (props: DescriptionValidationProps): Validation => {
   const { name, sectionName } = props
 
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
 
   return useAppSelector((state) => {
-    return ValidationsSelectors.getDescriptionValidation(
+    return DescriptionValidationSelectors.getDescriptionValidation(
       state,
       assessmentName,
       cycleName,
@@ -42,6 +40,12 @@ export const useDataSourceValidations = (props: DataSourceValidationsProps): Dat
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
 
   return useAppSelector((state) => {
-    return ValidationsSelectors.getDataSourceValidations(state, assessmentName, cycleName, countryIso, sectionName)
+    return DescriptionValidationSelectors.getDataSourceValidations(
+      state,
+      assessmentName,
+      cycleName,
+      countryIso,
+      sectionName
+    )
   })
 }

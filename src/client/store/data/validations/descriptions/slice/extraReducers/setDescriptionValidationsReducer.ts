@@ -2,10 +2,12 @@ import { ActionReducerMapBuilder } from '@reduxjs/toolkit'
 
 import { Objects } from 'utils/objects'
 
-import { setDescriptionValidations } from 'client/store/data/validations/actions/setDescriptionValidations'
-import { ValidationsState } from 'client/store/data/validations/state'
+import { setDescriptionValidations } from 'client/store/data/validations/descriptions/actions/setDescriptionValidations'
+import { DescriptionValidationState } from 'client/store/data/validations/descriptions/state'
 
-export const setDescriptionValidationsReducer = (builder: ActionReducerMapBuilder<ValidationsState>): void => {
+export const setDescriptionValidationsReducer = (
+  builder: ActionReducerMapBuilder<DescriptionValidationState>
+): void => {
   builder.addCase(setDescriptionValidations, (state, action) => {
     const { assessmentName, countryIso, cycleName, descriptionValidations, sectionNames } = action.payload
 
@@ -15,14 +17,14 @@ export const setDescriptionValidationsReducer = (builder: ActionReducerMapBuilde
     // In that case the server already sent the full cached snapshot for this country, so we can
     // replace the current description validations state directly.
     if (Objects.isEmpty(sectionNames)) {
-      Objects.setInPath({ obj: state.descriptions, path, value: descriptionValidations })
+      Objects.setInPath({ obj: state, path, value: descriptionValidations })
       return
     }
 
     // With sectionNames, the server sends the whole state for those sections, so we swap them in.
     // Anything that's gone (like a fixed error) clears too.
-    const currentValue = Objects.getInPath(state.descriptions, path) ?? {}
-    Objects.setInPath({ obj: state.descriptions, path, value: currentValue })
+    const currentValue = Objects.getInPath(state, path) ?? {}
+    Objects.setInPath({ obj: state, path, value: currentValue })
 
     sectionNames.forEach((sectionName) => {
       const update = descriptionValidations[sectionName] ?? {}

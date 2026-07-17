@@ -6,14 +6,16 @@ import { CountryParams } from 'meta/api/request/country'
 import { SectionName } from 'meta/assessment/section'
 import { RecordDescriptionValidations } from 'meta/assessment/validation/description'
 
-import { setDescriptionValidations } from 'client/store/data/validations/actions/setDescriptionValidations'
+import { setDescriptionValidations } from 'client/store/data/validations/descriptions/actions/setDescriptionValidations'
+import { updateValidationSummary } from 'client/store/data/validations/summary/actions/updateValidationSummary'
+import { ThunkApiConfig } from 'client/store/types'
 
 type Props = CountryParams & {
   sectionName: SectionName
 }
 
-export const getDescriptionValidations = createAsyncThunk<void, Props>(
-  'validations/descriptionData/get',
+export const getDescriptionValidations = createAsyncThunk<void, Props, ThunkApiConfig>(
+  'validations/descriptions/get',
   async (props, { dispatch }) => {
     const { assessmentName, countryIso, cycleName, sectionName } = props
 
@@ -25,5 +27,14 @@ export const getDescriptionValidations = createAsyncThunk<void, Props>(
     const sectionNames = [sectionName]
 
     dispatch(setDescriptionValidations({ assessmentName, countryIso, cycleName, descriptionValidations, sectionNames }))
+    dispatch(
+      updateValidationSummary({
+        assessmentName,
+        countryIso,
+        cycleName,
+        descriptionSectionNames: sectionNames,
+        updateDescriptions: true,
+      })
+    )
   }
 )

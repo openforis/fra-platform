@@ -5,7 +5,7 @@ import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 import { SectionName } from 'meta/assessment/section'
 import { MessageParser } from 'meta/validations/messageParser'
 
-import { useDescriptionValidation } from 'client/store/data/validations/hooks/descriptions'
+import { useDescriptionValidation } from 'client/store/data/validations/descriptions/hooks/descriptions'
 import { useCanEditCycleData } from 'client/store/user/hooks/auth'
 import { useIsPrintRoute } from 'client/hooks/routes'
 
