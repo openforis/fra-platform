@@ -19,8 +19,8 @@ import { BaseProtocol, DB } from 'server/db/db'
 import { DescriptionRepository } from 'server/db/repository/assessmentCycle/descriptions'
 import { Logger } from 'server/utils/logger'
 
-import { Failures } from './failures'
-import { Failure } from './types'
+import { Failures } from './common/failures'
+import { Failure } from './common/types'
 
 const toolName = 'validateDescriptions'
 
