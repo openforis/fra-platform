@@ -22,7 +22,7 @@ type Props = {
 }
 
 // Util to validate multiple countries - validator passed from outside
-export const _validateCountries = async (props: Props, client: BaseProtocol = DB): Promise<Array<Failure>> => {
+export const validateCountries = async (props: Props, client: BaseProtocol = DB): Promise<Array<Failure>> => {
   const { shouldValidateCycle, toolName, validateCountry } = props
   const failures: Array<Failure> = []
   const assessments = await AssessmentController.getAll({ metaCache: true }, client)
