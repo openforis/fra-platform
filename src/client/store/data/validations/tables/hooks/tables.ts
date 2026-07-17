@@ -6,7 +6,7 @@ import { NodeValueValidation } from 'meta/assessment/nodeValueValidation'
 import { Row } from 'meta/assessment/row'
 import { Table } from 'meta/assessment/table'
 
-import { ValidationsSelectors } from 'client/store/data/validations/selectors'
+import { TableValidationSelectors } from 'client/store/data/validations/tables/selectors'
 import { useAppSelector } from 'client/store/hooks'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 
@@ -19,7 +19,7 @@ export const useNodeValueValidation = (props: { table: Table; row: Row; col: Col
   const { variableName } = row.props
 
   return useAppSelector((state) => {
-    return ValidationsSelectors.getNodeValidation(
+    return TableValidationSelectors.getNodeValidation(
       state,
       assessmentName,
       cycleName,
@@ -37,7 +37,7 @@ export const useTableHasErrors = (props: { table: Table }): boolean => {
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
 
   const tableValidations = useAppSelector((state) =>
-    ValidationsSelectors.getTableValidations(state, assessmentName, cycleName, countryIso, table.props.name)
+    TableValidationSelectors.getTableValidations(state, assessmentName, cycleName, countryIso, table.props.name)
   )
 
   return useMemo<boolean>(() => {

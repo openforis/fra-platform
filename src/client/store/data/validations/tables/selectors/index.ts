@@ -7,13 +7,24 @@ import { CycleName } from 'meta/assessment/cycle'
 import { TableName } from 'meta/assessment/table'
 import { VariableName } from 'meta/assessment/variable'
 
+import { TableValidationState } from 'client/store/data/validations/tables/state'
 import { RootState } from 'client/store/types'
 
-import { getCountryValidations } from './base'
+const _getState = (state: RootState): TableValidationState | undefined => state.data.validations.tables
 
-export const getTableValidations = createSelector(
+const _getCountryTableValidations = createSelector(
   [
-    getCountryValidations,
+    _getState,
+    (_state: RootState, assessmentName: AssessmentName) => assessmentName,
+    (_state: RootState, _assessmentName: AssessmentName, cycleName: CycleName) => cycleName,
+    (_state: RootState, _assessmentName: AssessmentName, _cycleName: CycleName, countryIso: CountryIso) => countryIso,
+  ],
+  (state, assessmentName, cycleName, countryIso) => state?.[assessmentName]?.[cycleName]?.[countryIso] ?? {}
+)
+
+const getTableValidations = createSelector(
+  [
+    _getCountryTableValidations,
     (
       _state: RootState,
       _assessmentName: AssessmentName,
@@ -22,10 +33,10 @@ export const getTableValidations = createSelector(
       tableName: TableName
     ) => tableName,
   ],
-  (countryValidations, tableName) => countryValidations.tables?.[tableName] ?? {}
+  (countryTableValidations, tableName) => countryTableValidations?.[tableName] ?? {}
 )
 
-export const getNodeValidation = createSelector(
+const getNodeValidation = createSelector(
   [
     getTableValidations,
     (
@@ -48,3 +59,8 @@ export const getNodeValidation = createSelector(
   ],
   (tableValidations, colName, variableName) => tableValidations?.[colName]?.[variableName] ?? { valid: true }
 )
+
+export const TableValidationSelectors = {
+  getNodeValidation,
+  getTableValidations,
+}
