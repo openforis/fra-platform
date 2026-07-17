@@ -12,8 +12,8 @@ import { LinksService } from 'server/service/links'
 import { SocketServer } from 'server/service/socket'
 import { Logger } from 'server/utils/logger'
 
-import { Failures } from './failures'
-import { Failure } from './types'
+import { Failures } from './common/failures'
+import { Failure } from './common/types'
 
 const toolName = 'validateLinks'
 

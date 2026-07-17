@@ -2,27 +2,21 @@ import '../scriptInit'
 
 import { ToolsUtils } from 'tools/utils/toolsUtils'
 
-import { validateCountryNationalDataPoints } from 'server/controller/cycleData/validations/nationalDataPoint/validateCountryNationalDataPoints'
 import { BaseProtocol, DB } from 'server/db/db'
 
-import { _validateCountries, CountryProps } from './_validateCountries'
-import { Failures } from './failures'
-import { Failure } from './types'
+import { Failures } from './common/failures'
+import { Failure } from './common/types'
+import { validateCountries } from './common/validateCountries'
+import { validateCountryNationalDataPoints } from './nationalDataPoint/validateCountryNationalDataPoints'
 
 const toolName = 'validateNationalDataPoints'
 
-const validateCountry = async (props: CountryProps, client: BaseProtocol): Promise<void> => {
-  const { assessment, country, cycle } = props
-
-  await validateCountryNationalDataPoints({ assessment, country, cycle }, client)
-}
-
 export const validateNationalDataPoints = async (client: BaseProtocol = DB): Promise<Array<Failure>> => {
-  return _validateCountries(
+  return validateCountries(
     {
       shouldValidateCycle: (cycle) => Boolean(cycle.props.ndp),
       toolName,
-      validateCountry,
+      validateCountry: validateCountryNationalDataPoints,
     },
     client
   )

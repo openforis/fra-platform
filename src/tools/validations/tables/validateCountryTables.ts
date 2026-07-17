@@ -1,20 +1,11 @@
-import { Country } from 'meta/area/country'
-import { Assessment } from 'meta/assessment/assessment'
-import { Cycle } from 'meta/assessment/cycle'
-
 import { TableRedisRepository } from 'server/cache/repository/table'
 import { TableValidationRedisRepository } from 'server/cache/repository/validation/table'
 import { updateTableValidations } from 'server/controller/cycleData/validations/tables/updateTableValidations'
 
+import { CountryProps } from '../common/validateCountries'
 import { buildTablesNodeUpdates } from './buildTablesNodeUpdates'
 
-type Props = {
-  assessment: Assessment
-  country: Country
-  cycle: Cycle
-}
-
-export const validateCountryTables = async (props: Props): Promise<void> => {
+export const validateCountryTables = async (props: CountryProps): Promise<void> => {
   const { assessment, country, cycle } = props
   const { countryIso } = country
 
