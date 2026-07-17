@@ -4,7 +4,8 @@ import { CountryIso } from 'meta/area/countryIso'
 
 import { useCountry } from 'client/store/area/hooks/country'
 import { useHasOriginalDataPointData } from 'client/store/data/tableData/nodeValues/hooks/originalDataPointData'
-import { ValidationsActions } from 'client/store/data/validations/actions'
+import { ValidationActions } from 'client/store/data/validations/actions'
+import { SummaryValidationActions } from 'client/store/data/validations/summary/actions'
 import { useAppDispatch } from 'client/store/hooks'
 import { useCanEditCycleData } from 'client/store/user/hooks/auth'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
@@ -23,7 +24,7 @@ export const useGetValidationsSummary = (): void => {
   useEffect(() => {
     if (!canEditData) return
 
-    dispatch(ValidationsActions.getSummary({ assessmentName, cycleName, countryIso }))
+    dispatch(SummaryValidationActions.getSummary({ assessmentName, cycleName, countryIso }))
   }, [
     assessmentName,
     canEditData,
@@ -37,7 +38,7 @@ export const useGetValidationsSummary = (): void => {
   // Cleanup validations on unmount
   useEffect(() => {
     return (): void => {
-      dispatch(ValidationsActions.removeValidations({ assessmentName, cycleName, countryIso }))
+      dispatch(ValidationActions.removeValidations({ assessmentName, cycleName, countryIso }))
     }
   }, [assessmentName, countryIso, cycleName, dispatch])
 }
