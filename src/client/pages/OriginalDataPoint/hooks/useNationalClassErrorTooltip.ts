@@ -1,7 +1,7 @@
 import { NDPNationalClassValidationField } from 'meta/assessment/validation/nationalDataPoint'
 import { UUID } from 'meta/uuid/uuid'
 
-import { useNationalClassValidation } from 'client/store/data/validations/hooks/nationalDataPoints'
+import { useNationalClassValidation } from 'client/store/data/validations/nationalDataPoints/hooks/nationalDataPoints'
 
 import { ErrorTooltip, useErrorTooltip } from './useErrorTooltip'
 

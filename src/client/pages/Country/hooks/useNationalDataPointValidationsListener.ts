@@ -4,7 +4,8 @@ import { CountryIso } from 'meta/area/countryIso'
 import { RecordNDPValidations } from 'meta/assessment/validation/nationalDataPoint'
 import { Sockets } from 'meta/socket/sockets'
 
-import { ValidationsActions } from 'client/store/data/validations/actions'
+import { NationalDataPointValidationActions } from 'client/store/data/validations/nationalDataPoints/actions'
+import { SummaryValidationActions } from 'client/store/data/validations/summary/actions'
 import { useAppDispatch } from 'client/store/hooks'
 import { useCanEditCycleData } from 'client/store/user/hooks/auth'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
@@ -25,7 +26,20 @@ export const useNationalDataPointValidationsListener = (): void => {
     const listener = (args: NationalDataPointValidationsListenerArgs): void => {
       const [{ validations }] = args
       dispatch(
-        ValidationsActions.updateNationalDataPointValidations({ assessmentName, cycleName, countryIso, validations })
+        NationalDataPointValidationActions.updateNationalDataPointValidations({
+          assessmentName,
+          cycleName,
+          countryIso,
+          validations,
+        })
+      )
+      dispatch(
+        SummaryValidationActions.updateValidationSummary({
+          assessmentName,
+          countryIso,
+          cycleName,
+          updateNationalDataPoints: true,
+        })
       )
     }
 

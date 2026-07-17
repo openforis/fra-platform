@@ -7,16 +7,25 @@ import { NDPNationalClassValidation, NDPValidation } from 'meta/assessment/valid
 import { UUID } from 'meta/uuid/uuid'
 import { Objects } from 'utils/objects'
 
+import { NationalDataPointValidationState } from 'client/store/data/validations/nationalDataPoints/state'
 import { RootState } from 'client/store/types'
 
-import { getCountryValidations } from './base'
+const _getState = (state: RootState): NationalDataPointValidationState | undefined =>
+  state.data.validations.nationalDataPoints
 
-export const getNationalDataPointValidations = createSelector(
-  [getCountryValidations],
-  (countryValidations) => countryValidations.nationalDataPoints
+const _getCountryValidations = createSelector(
+  [
+    _getState,
+    (_state: RootState, assessmentName: AssessmentName) => assessmentName,
+    (_state: RootState, _assessmentName: AssessmentName, cycleName: CycleName) => cycleName,
+    (_state: RootState, _assessmentName: AssessmentName, _cycleName: CycleName, countryIso: CountryIso) => countryIso,
+  ],
+  (state, assessmentName, cycleName, countryIso) => state?.[assessmentName]?.[cycleName]?.[countryIso]
 )
 
-export const getNationalDataPointValidation = createSelector(
+const getNationalDataPointValidations = createSelector([_getCountryValidations], (validations) => validations ?? {})
+
+const getNationalDataPointValidation = createSelector(
   [
     getNationalDataPointValidations,
     (_state: RootState, _assessmentName: AssessmentName, _cycleName: CycleName, _countryIso: CountryIso, uuid: UUID) =>
@@ -25,7 +34,7 @@ export const getNationalDataPointValidation = createSelector(
   (validations, uuid): NDPValidation => validations?.[uuid] ?? {}
 )
 
-export const getNationalDataPointValidationByOdpId = createSelector(
+const getNationalDataPointValidationByOdpId = createSelector(
   [
     getNationalDataPointValidations,
     (
@@ -43,20 +52,12 @@ export const getNationalDataPointValidationByOdpId = createSelector(
   }
 )
 
-export const nationalDataPointValidationsFetched = createSelector(
-  [
-    (state: RootState) => state.data.validations,
-    (_state: RootState, assessmentName: AssessmentName) => assessmentName,
-    (_state: RootState, _assessmentName: AssessmentName, cycleName: CycleName) => cycleName,
-    (_state: RootState, _assessmentName: AssessmentName, _cycleName: CycleName, countryIso: CountryIso) => countryIso,
-  ],
-  (state, assessmentName, cycleName, countryIso): boolean => {
-    const validations = state.nationalDataPoints?.[assessmentName]?.[cycleName]?.[countryIso]
-    return !Objects.isNil(validations)
-  }
+const nationalDataPointValidationsFetched = createSelector(
+  [_getCountryValidations],
+  (validations): boolean => !Objects.isNil(validations)
 )
 
-export const getNationalClassValidation = createSelector(
+const getNationalClassValidation = createSelector(
   [
     getNationalDataPointValidation,
     (
@@ -71,3 +72,11 @@ export const getNationalClassValidation = createSelector(
   (nationalDataPointValidation, nationalClassUuid): NDPNationalClassValidation =>
     nationalDataPointValidation.nationalClasses?.[nationalClassUuid] ?? {}
 )
+
+export const NationalDataPointValidationSelectors = {
+  getNationalClassValidation,
+  getNationalDataPointValidation,
+  getNationalDataPointValidationByOdpId,
+  getNationalDataPointValidations,
+  nationalDataPointValidationsFetched,
+}
