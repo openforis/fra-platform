@@ -2,6 +2,7 @@ import admin from './ar/admin.json'
 import anchors from './ar/anchors.json'
 import area from './ar/area.json'
 import assessmentSection from './ar/assessmentSection.json'
+import bulkDownload from './ar/bulkDownload.json'
 import common from './ar/common.json'
 import contentCheck from './ar/contentCheck.json'
 import dataDownload from './ar/dataDownload.json'
@@ -27,6 +28,7 @@ export const arTranslation = {
   admin,
   anchors,
   area,
+  bulkDownload,
   common,
   contentCheck,
   dataDownload,

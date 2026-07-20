@@ -1,6 +1,7 @@
 import admin from './ru/admin.json'
 import area from './ru/area.json'
 import assessmentSection from './ru/assessmentSection.json'
+import bulkDownload from './ru/bulkDownload.json'
 import common from './ru/common.json'
 import contentCheck from './ru/contentCheck.json'
 import dataDownload from './ru/dataDownload.json'
@@ -25,6 +26,7 @@ import user from './ru/user.json'
 export const ruTranslation = {
   admin,
   area,
+  bulkDownload,
   common,
   contentCheck,
   dataDownload,
