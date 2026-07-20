@@ -14,9 +14,9 @@ import { ToolsUtils } from 'tools/utils/toolsUtils'
 
 import { AreaController } from 'server/controller/area'
 import { AssessmentController } from 'server/controller/assessment'
-import { updateDataSourceFieldValidations } from 'server/controller/cycleData/validations/descriptions/updateDataSourceFieldValidations'
 import { BaseProtocol, DB } from 'server/db/db'
 import { DescriptionRepository } from 'server/db/repository/assessmentCycle/descriptions'
+import { DataValidationService } from 'server/service/dataValidation'
 import { Logger } from 'server/utils/logger'
 
 import { Failures } from './common/failures'
@@ -48,7 +48,7 @@ const _validateCountry = async (props: CountryProps): Promise<void> => {
 
   if (Objects.isEmpty(descriptions)) return
 
-  await updateDataSourceFieldValidations({ assessment, country, cycle, descriptions, notifyClients: false })
+  await DataValidationService.validateDataSources({ assessment, country, cycle, descriptions, notifyClients: false })
 }
 
 // Validate only data sources

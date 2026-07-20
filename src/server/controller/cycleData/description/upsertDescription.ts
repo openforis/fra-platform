@@ -5,11 +5,11 @@ import { Cycle } from 'meta/assessment/cycle'
 import { CommentableDescriptionName, CommentableDescriptionValue } from 'meta/assessment/descriptionValue'
 import { User } from 'meta/user/user'
 
-import { updateDescriptionValidations } from 'server/controller/cycleData/validations/descriptions/updateDescriptionValidations'
 import { BaseProtocol, DB } from 'server/db/db'
 import { DescriptionRepository } from 'server/db/repository/assessmentCycle/descriptions'
 import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 import { CountryService } from 'server/service/country'
+import { DataValidationService } from 'server/service/dataValidation'
 
 type Props = {
   assessment: Assessment
@@ -47,7 +47,7 @@ export const upsertDescription = async (
     return description
   })
 
-  await updateDescriptionValidations({
+  await DataValidationService.validateDescriptions({
     assessment,
     country,
     cycle,

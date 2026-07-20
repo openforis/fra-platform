@@ -1,7 +1,7 @@
 import { Country } from 'meta/area/country'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { CommentableDescription } from 'meta/assessment/descriptionValue'
+import { CommentableDescription, CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 import { DataSource, DataSourceEditableField } from 'meta/assessment/descriptionValue/dataSource'
 import { RecordDescriptionValidations } from 'meta/assessment/validation/description'
 import { DescriptionValidations } from 'meta/assessment/validation/descriptionValidations'
@@ -29,11 +29,11 @@ const _getRequiredValidation = (value: DataSource[RequiredField]): Validation =>
 }
 
 // Validates the required data source fields (type, variables, year) when the data sources are saved.
-export const updateDataSourceFieldValidations = async (props: Props): Promise<void> => {
+export const validateDataSources = async (props: Props): Promise<void> => {
   const { assessment, country, cycle, descriptions, notifyClients = true } = props
   const { countryIso } = country
 
-  const dataSourceDescriptions = descriptions.filter(({ value }) => value.dataSources !== undefined)
+  const dataSourceDescriptions = descriptions.filter(({ name }) => name === CommentableDescriptionName.dataSources)
   if (Objects.isEmpty(dataSourceDescriptions)) return
 
   const dataSourceFieldValidations = dataSourceDescriptions.reduce<RecordDescriptionValidations>((acc, description) => {
