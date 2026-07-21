@@ -4,7 +4,6 @@ import { CountryIso } from 'meta/area/countryIso'
 import { RecordTableValidationsState } from 'meta/assessment/validation/table'
 import { Sockets } from 'meta/socket/sockets'
 
-import { SummaryValidationActions } from 'client/store/data/validations/summary/actions'
 import { TableValidationActions } from 'client/store/data/validations/tables/actions'
 import { useAppDispatch } from 'client/store/hooks'
 import { useCanEditCycleData } from 'client/store/user/hooks/auth'
@@ -27,9 +26,6 @@ export const useTableValidationsListener = (): void => {
       const [{ tableValidations }] = args
       dispatch(
         TableValidationActions.setNodeValueValidations({ assessmentName, cycleName, countryIso, tableValidations })
-      )
-      dispatch(
-        SummaryValidationActions.updateValidationSummary({ assessmentName, countryIso, cycleName, tableValidations })
       )
     }
 

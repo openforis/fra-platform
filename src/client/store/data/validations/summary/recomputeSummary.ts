@@ -1,16 +1,11 @@
-import { createAsyncThunk } from '@reduxjs/toolkit'
-
-import { CountryParams } from 'meta/api/request/country'
 import { SectionName } from 'meta/assessment/section'
 import { RecordDescriptionValidations } from 'meta/assessment/validation/description'
 import { DescriptionValidations } from 'meta/assessment/validation/descriptionValidations'
+import { RecordNDPValidations } from 'meta/assessment/validation/nationalDataPoint'
 import { NationalDataPointValidations } from 'meta/assessment/validation/nationalDataPointValidations'
 import { ValidationSummary } from 'meta/assessment/validation/summary'
 import { RecordTableValidationsState } from 'meta/assessment/validation/table'
 import { Objects } from 'utils/objects'
-
-import { setValidationSummary } from 'client/store/data/validations/summary/actions/setValidationSummary'
-import { ThunkApiConfig } from 'client/store/types'
 
 const _updateTables = (state: ValidationSummary, tableValidations: RecordTableValidationsState): void => {
   Object.keys(tableValidations).forEach((tableName) => {
@@ -58,58 +53,40 @@ const _recomputeSections = (state: ValidationSummary): void => {
   })
 }
 
-type Props = CountryParams & {
+export type RecomputeSummaryProps = {
+  summary: ValidationSummary
   descriptionSectionNames?: Array<SectionName>
+  descriptionValidations?: RecordDescriptionValidations
+  nationalDataPointValidations?: RecordNDPValidations
   tableValidations?: RecordTableValidationsState
-  updateDescriptions?: boolean
-  updateNationalDataPoints?: boolean
 }
 
-export const updateValidationSummary = createAsyncThunk<void, Props, ThunkApiConfig>(
-  'validations/summary/update',
-  (props, { dispatch, getState }) => {
-    const {
-      assessmentName,
-      countryIso,
-      cycleName,
-      descriptionSectionNames,
-      tableValidations,
-      updateDescriptions,
-      updateNationalDataPoints,
-    } = props
+export const recomputeSummary = (props: RecomputeSummaryProps): ValidationSummary => {
+  const { descriptionSectionNames, descriptionValidations, nationalDataPointValidations, tableValidations } = props
 
-    const { validations } = getState().data
-    const currentSummary = validations.summary?.[assessmentName]?.[cycleName]?.[countryIso]
-    if (Objects.isEmpty(currentSummary)) return
+  const summary = Objects.cloneDeep(props.summary)
 
-    const summary = Objects.cloneDeep(currentSummary)
-
-    if (!Objects.isNil(tableValidations)) {
-      _updateTables(summary, tableValidations)
-    }
-
-    if (updateDescriptions) {
-      const descriptionValidations = validations.descriptions?.[assessmentName]?.[cycleName]?.[countryIso] ?? {}
-      const summarySectionNames = Object.values(summary.subsections).map(({ sectionName }) => sectionName)
-      const sectionNames = descriptionSectionNames ?? summarySectionNames
-
-      _updateDescriptions(summary, descriptionValidations, sectionNames)
-    }
-
-    if (updateNationalDataPoints) {
-      const nationalDataPointValidations = validations.nationalDataPoints?.[assessmentName]?.[cycleName]?.[countryIso]
-      if (Objects.isNil(nationalDataPointValidations)) return
-
-      const sectionNames = Object.keys(summary.nationalDataPoints) as Array<SectionName>
-      summary.nationalDataPoints = NationalDataPointValidations.calculateSummary({
-        nationalDataPointValidations,
-        sectionNames,
-      })
-    }
-
-    _recomputeSubsections(summary)
-    _recomputeSections(summary)
-
-    dispatch(setValidationSummary({ assessmentName, countryIso, cycleName, summary }))
+  if (!Objects.isNil(tableValidations)) {
+    _updateTables(summary, tableValidations)
   }
-)
+
+  if (!Objects.isNil(descriptionValidations)) {
+    const summarySectionNames = Object.values(summary.subsections).map(({ sectionName }) => sectionName)
+    const sectionNames = descriptionSectionNames ?? summarySectionNames
+
+    _updateDescriptions(summary, descriptionValidations, sectionNames)
+  }
+
+  if (!Objects.isNil(nationalDataPointValidations)) {
+    const sectionNames = Object.keys(summary.nationalDataPoints) as Array<SectionName>
+    summary.nationalDataPoints = NationalDataPointValidations.calculateSummary({
+      nationalDataPointValidations,
+      sectionNames,
+    })
+  }
+
+  _recomputeSubsections(summary)
+  _recomputeSections(summary)
+
+  return summary
+}
