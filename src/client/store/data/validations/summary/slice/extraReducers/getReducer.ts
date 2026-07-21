@@ -2,11 +2,11 @@ import { ActionReducerMapBuilder } from '@reduxjs/toolkit'
 
 import { Objects } from 'utils/objects'
 
-import { getSummary } from 'client/store/data/validations/summary/actions/getSummary'
+import { get } from 'client/store/data/validations/summary/actions/get'
 import { SummaryValidationState } from 'client/store/data/validations/summary/state'
 
-export const getSummaryReducer = (builder: ActionReducerMapBuilder<SummaryValidationState>): void => {
-  builder.addCase(getSummary.fulfilled, (state, action) => {
+export const getReducer = (builder: ActionReducerMapBuilder<SummaryValidationState>): void => {
+  builder.addCase(get.fulfilled, (state, action) => {
     const { meta, payload } = action
     const { assessmentName, countryIso, cycleName } = meta.arg
 

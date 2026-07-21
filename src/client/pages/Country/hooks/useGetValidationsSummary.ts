@@ -24,7 +24,7 @@ export const useGetValidationsSummary = (): void => {
   useEffect(() => {
     if (!canEditData) return
 
-    dispatch(SummaryValidationActions.getSummary({ assessmentName, cycleName, countryIso }))
+    dispatch(SummaryValidationActions.get({ assessmentName, cycleName, countryIso }))
   }, [
     assessmentName,
     canEditData,

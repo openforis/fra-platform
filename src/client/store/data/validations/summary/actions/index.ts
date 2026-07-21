@@ -1,9 +1,7 @@
-import { getSummary } from 'client/store/data/validations/summary/actions/getSummary'
-import { setValidationSummary } from 'client/store/data/validations/summary/actions/setValidationSummary'
-import { updateValidationSummary } from 'client/store/data/validations/summary/actions/updateValidationSummary'
+import { get } from 'client/store/data/validations/summary/actions/get'
+import { set } from 'client/store/data/validations/summary/actions/set'
 
 export const SummaryValidationActions = {
-  getSummary,
-  setValidationSummary,
-  updateValidationSummary,
+  get,
+  set,
 }

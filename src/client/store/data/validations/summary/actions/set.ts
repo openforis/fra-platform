@@ -7,4 +7,4 @@ type Payload = CountryParams & {
   summary: ValidationSummary
 }
 
-export const setValidationSummary = createAction<Payload>('validations/summary/set')
+export const set = createAction<Payload>('validations/summary/set')

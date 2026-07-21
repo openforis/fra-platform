@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-import { getSummaryReducer } from 'client/store/data/validations/summary/slice/extraReducers/getSummaryReducer'
+import { getReducer } from 'client/store/data/validations/summary/slice/extraReducers/getReducer'
 import { removeValidationsReducer } from 'client/store/data/validations/summary/slice/extraReducers/removeValidationsReducer'
-import { setValidationSummaryReducer } from 'client/store/data/validations/summary/slice/extraReducers/setValidationSummaryReducer'
+import { setReducer } from 'client/store/data/validations/summary/slice/extraReducers/setReducer'
 import { initialState } from 'client/store/data/validations/summary/state'
 
 import { SummaryValidationSliceName } from './name'
@@ -12,8 +12,8 @@ export const SummaryValidationSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    getSummaryReducer(builder)
+    getReducer(builder)
     removeValidationsReducer(builder)
-    setValidationSummaryReducer(builder)
+    setReducer(builder)
   },
 })
