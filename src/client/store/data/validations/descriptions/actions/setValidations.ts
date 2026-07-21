@@ -14,4 +14,4 @@ type Payload = {
   sectionNames?: Array<SectionName>
 }
 
-export const setDescriptionValidations = createAction<Payload>('validations/descriptions/set')
+export const setValidations = createAction<Payload>('validations/descriptions/set')

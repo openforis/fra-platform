@@ -1,7 +1,7 @@
-import { getDescriptionValidations } from 'client/store/data/validations/descriptions/actions/getDescriptionValidations'
-import { setDescriptionValidations } from 'client/store/data/validations/descriptions/actions/setDescriptionValidations'
+import { getValidations } from 'client/store/data/validations/descriptions/actions/getValidations'
+import { setValidations } from 'client/store/data/validations/descriptions/actions/setValidations'
 
 export const DescriptionValidationActions = {
-  getDescriptionValidations,
-  setDescriptionValidations,
+  getValidations,
+  setValidations,
 }

@@ -6,7 +6,6 @@ import { RecordDescriptionValidations } from 'meta/assessment/validation/descrip
 import { Sockets } from 'meta/socket/sockets'
 
 import { DescriptionValidationActions } from 'client/store/data/validations/descriptions/actions'
-import { SummaryValidationActions } from 'client/store/data/validations/summary/actions'
 import { useAppDispatch } from 'client/store/hooks'
 import { useCanEditCycleData } from 'client/store/user/hooks/auth'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
@@ -37,21 +36,12 @@ export const useDescriptionValidationsListener = (): void => {
     const listener = (args: DescriptionValidationsListenerArgs): void => {
       const [{ descriptionValidations, sectionNames }] = args
       dispatch(
-        DescriptionValidationActions.setDescriptionValidations({
+        DescriptionValidationActions.setValidations({
           assessmentName,
           countryIso,
           cycleName,
           descriptionValidations,
           sectionNames,
-        })
-      )
-      dispatch(
-        SummaryValidationActions.updateValidationSummary({
-          assessmentName,
-          countryIso,
-          cycleName,
-          descriptionSectionNames: sectionNames,
-          updateDescriptions: true,
         })
       )
     }

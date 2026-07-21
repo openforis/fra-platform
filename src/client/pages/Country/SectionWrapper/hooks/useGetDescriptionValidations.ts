@@ -29,8 +29,6 @@ export const useGetDescriptionValidations = (props: Props): void => {
       return
     }
 
-    dispatch(
-      DescriptionValidationActions.getDescriptionValidations({ assessmentName, cycleName, countryIso, sectionName })
-    )
+    dispatch(DescriptionValidationActions.getValidations({ assessmentName, cycleName, countryIso, sectionName }))
   }, [assessmentName, canEdit, countryIso, cycleName, dispatch, isDataExportView, print, sectionName])
 }

@@ -2,13 +2,11 @@ import { ActionReducerMapBuilder } from '@reduxjs/toolkit'
 
 import { Objects } from 'utils/objects'
 
-import { setDescriptionValidations } from 'client/store/data/validations/descriptions/actions/setDescriptionValidations'
+import { setValidations } from 'client/store/data/validations/descriptions/actions/setValidations'
 import { DescriptionValidationState } from 'client/store/data/validations/descriptions/state'
 
-export const setDescriptionValidationsReducer = (
-  builder: ActionReducerMapBuilder<DescriptionValidationState>
-): void => {
-  builder.addCase(setDescriptionValidations, (state, action) => {
+export const setValidationsReducer = (builder: ActionReducerMapBuilder<DescriptionValidationState>): void => {
+  builder.addCase(setValidations, (state, action) => {
     const { assessmentName, countryIso, cycleName, descriptionValidations, sectionNames } = action.payload
 
     const path = [assessmentName, cycleName, countryIso]
