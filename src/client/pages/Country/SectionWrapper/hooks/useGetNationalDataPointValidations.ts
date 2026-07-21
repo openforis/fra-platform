@@ -33,7 +33,7 @@ export const useGetNationalDataPointValidations = (): void => {
     if (!shouldFetch) return
 
     dispatch(
-      NationalDataPointValidationActions.getNationalDataPointValidations({
+      NationalDataPointValidationActions.getValidations({
         assessmentName,
         cycleName,
         countryIso,

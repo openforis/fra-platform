@@ -5,7 +5,6 @@ import { Sockets } from 'meta/socket/sockets'
 import { UUID } from 'meta/uuid/uuid'
 
 import { NationalDataPointValidationActions } from 'client/store/data/validations/nationalDataPoints/actions'
-import { SummaryValidationActions } from 'client/store/data/validations/summary/actions'
 import { useAppDispatch } from 'client/store/hooks'
 import { useCanEditCycleData } from 'client/store/user/hooks/auth'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
@@ -26,19 +25,11 @@ export const useNationalDataPointValidationDeleteListener = (): void => {
     const listener = (args: NationalDataPointValidationDeleteListenerArgs): void => {
       const [{ uuid }] = args
       dispatch(
-        NationalDataPointValidationActions.deleteNationalDataPointValidation({
+        NationalDataPointValidationActions.deleteValidation({
           assessmentName,
           cycleName,
           countryIso,
           uuid,
-        })
-      )
-      dispatch(
-        SummaryValidationActions.updateValidationSummary({
-          assessmentName,
-          countryIso,
-          cycleName,
-          updateNationalDataPoints: true,
         })
       )
     }

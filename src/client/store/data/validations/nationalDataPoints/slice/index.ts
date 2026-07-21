@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-import { deleteNationalDataPointValidationReducer } from 'client/store/data/validations/nationalDataPoints/slice/extraReducers/deleteNationalDataPointValidationReducer'
+import { deleteValidationReducer } from 'client/store/data/validations/nationalDataPoints/slice/extraReducers/deleteValidationReducer'
 import { removeValidationsReducer } from 'client/store/data/validations/nationalDataPoints/slice/extraReducers/removeValidationsReducer'
-import { setNationalDataPointValidationsReducer } from 'client/store/data/validations/nationalDataPoints/slice/extraReducers/setNationalDataPointValidationsReducer'
-import { updateNationalDataPointValidationsReducer } from 'client/store/data/validations/nationalDataPoints/slice/extraReducers/updateNationalDataPointValidationsReducer'
+import { setValidationsReducer } from 'client/store/data/validations/nationalDataPoints/slice/extraReducers/setValidationsReducer'
+import { updateValidationsReducer } from 'client/store/data/validations/nationalDataPoints/slice/extraReducers/updateValidationsReducer'
 import { initialState } from 'client/store/data/validations/nationalDataPoints/state'
 
 import { NationalDataPointValidationSliceName } from './name'
@@ -13,9 +13,9 @@ export const NationalDataPointValidationSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    deleteNationalDataPointValidationReducer(builder)
+    deleteValidationReducer(builder)
     removeValidationsReducer(builder)
-    setNationalDataPointValidationsReducer(builder)
-    updateNationalDataPointValidationsReducer(builder)
+    setValidationsReducer(builder)
+    updateValidationsReducer(builder)
   },
 })

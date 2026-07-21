@@ -12,4 +12,4 @@ type Payload = {
   validations: RecordNDPValidations
 }
 
-export const setNationalDataPointValidations = createAction<Payload>('validations/nationalDataPoints/set')
+export const updateValidations = createAction<Payload>('validations/nationalDataPoints/update')

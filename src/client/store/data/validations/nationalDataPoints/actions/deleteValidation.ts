@@ -12,4 +12,4 @@ type Payload = {
   uuid: UUID
 }
 
-export const deleteNationalDataPointValidation = createAction<Payload>('validations/nationalDataPoints/delete')
+export const deleteValidation = createAction<Payload>('validations/nationalDataPoints/delete')

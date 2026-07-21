@@ -1,11 +1,11 @@
-import { deleteNationalDataPointValidation } from 'client/store/data/validations/nationalDataPoints/actions/deleteNationalDataPointValidation'
-import { getNationalDataPointValidations } from 'client/store/data/validations/nationalDataPoints/actions/getNationalDataPointValidations'
-import { setNationalDataPointValidations } from 'client/store/data/validations/nationalDataPoints/actions/setNationalDataPointValidations'
-import { updateNationalDataPointValidations } from 'client/store/data/validations/nationalDataPoints/actions/updateNationalDataPointValidations'
+import { deleteValidation } from 'client/store/data/validations/nationalDataPoints/actions/deleteValidation'
+import { getValidations } from 'client/store/data/validations/nationalDataPoints/actions/getValidations'
+import { setValidations } from 'client/store/data/validations/nationalDataPoints/actions/setValidations'
+import { updateValidations } from 'client/store/data/validations/nationalDataPoints/actions/updateValidations'
 
 export const NationalDataPointValidationActions = {
-  deleteNationalDataPointValidation,
-  getNationalDataPointValidations,
-  setNationalDataPointValidations,
-  updateNationalDataPointValidations,
+  deleteValidation,
+  getValidations,
+  setValidations,
+  updateValidations,
 }

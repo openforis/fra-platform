@@ -2,13 +2,11 @@ import { ActionReducerMapBuilder } from '@reduxjs/toolkit'
 
 import { Objects } from 'utils/objects'
 
-import { setNationalDataPointValidations } from 'client/store/data/validations/nationalDataPoints/actions/setNationalDataPointValidations'
+import { setValidations } from 'client/store/data/validations/nationalDataPoints/actions/setValidations'
 import { NationalDataPointValidationState } from 'client/store/data/validations/nationalDataPoints/state'
 
-export const setNationalDataPointValidationsReducer = (
-  builder: ActionReducerMapBuilder<NationalDataPointValidationState>
-): void => {
-  builder.addCase(setNationalDataPointValidations, (state, action) => {
+export const setValidationsReducer = (builder: ActionReducerMapBuilder<NationalDataPointValidationState>): void => {
+  builder.addCase(setValidations, (state, action) => {
     const { assessmentName, countryIso, cycleName, validations } = action.payload
 
     const path = [assessmentName, cycleName, countryIso]

@@ -5,13 +5,12 @@ import { ApiEndPoint } from 'meta/api/endpoint'
 import { CycleDataParams } from 'meta/api/request/cycleData/cycleData'
 import { RecordNDPValidations } from 'meta/assessment/validation/nationalDataPoint'
 
-import { setNationalDataPointValidations } from 'client/store/data/validations/nationalDataPoints/actions/setNationalDataPointValidations'
-import { updateValidationSummary } from 'client/store/data/validations/summary/actions/updateValidationSummary'
+import { setValidations } from 'client/store/data/validations/nationalDataPoints/actions/setValidations'
 import { ThunkApiConfig } from 'client/store/types'
 
 type Props = CycleDataParams
 
-export const getNationalDataPointValidations = createAsyncThunk<void, Props, ThunkApiConfig>(
+export const getValidations = createAsyncThunk<void, Props, ThunkApiConfig>(
   'validations/nationalDataPoints/get',
   async (props, { dispatch }) => {
     const { assessmentName, countryIso, cycleName, sectionName } = props
@@ -21,7 +20,6 @@ export const getNationalDataPointValidations = createAsyncThunk<void, Props, Thu
       params,
     })
 
-    dispatch(setNationalDataPointValidations({ assessmentName, countryIso, cycleName, validations: data }))
-    dispatch(updateValidationSummary({ assessmentName, countryIso, cycleName, updateNationalDataPoints: true }))
+    dispatch(setValidations({ assessmentName, countryIso, cycleName, validations: data }))
   }
 )
