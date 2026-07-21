@@ -11,12 +11,7 @@ export const useNationalDataPointValidationsFetched = (): boolean => {
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
 
   return useAppSelector((state) =>
-    NationalDataPointValidationSelectors.nationalDataPointValidationsFetched(
-      state,
-      assessmentName,
-      cycleName,
-      countryIso
-    )
+    NationalDataPointValidationSelectors.validationsFetched(state, assessmentName, cycleName, countryIso)
   )
 }
 
@@ -31,18 +26,12 @@ export const useNationalDataPointValidation = (props: NationalDataPointValidatio
 
   return useAppSelector((state) => {
     if (!Objects.isEmpty(uuid)) {
-      return NationalDataPointValidationSelectors.getNationalDataPointValidation(
-        state,
-        assessmentName,
-        cycleName,
-        countryIso,
-        uuid
-      )
+      return NationalDataPointValidationSelectors.getValidation(state, assessmentName, cycleName, countryIso, uuid)
     }
 
     if (Objects.isNil(odpId)) return {}
 
-    return NationalDataPointValidationSelectors.getNationalDataPointValidationByOdpId(
+    return NationalDataPointValidationSelectors.getValidationByOdpId(
       state,
       assessmentName,
       cycleName,

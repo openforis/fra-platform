@@ -9,22 +9,20 @@ import { useCountryRouteParams } from 'client/hooks/routeParams'
 export const useValidationSummary = (): ValidationSummary => {
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
 
-  return useAppSelector((state) => SummaryValidationSelectors.getSummary(state, assessmentName, cycleName, countryIso))
+  return useAppSelector((state) => SummaryValidationSelectors.get(state, assessmentName, cycleName, countryIso))
 }
 
 export const useSummaryHasErrors = (): boolean => {
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
 
-  return useAppSelector((state) =>
-    SummaryValidationSelectors.getSummaryHasErrors(state, assessmentName, cycleName, countryIso)
-  )
+  return useAppSelector((state) => SummaryValidationSelectors.hasErrors(state, assessmentName, cycleName, countryIso))
 }
 
 export const useSummarySectionHasErrors = (sectionUuid?: UUID): boolean => {
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
 
   return useAppSelector((state) =>
-    SummaryValidationSelectors.getSummarySectionHasErrors(state, assessmentName, cycleName, countryIso, sectionUuid)
+    SummaryValidationSelectors.sectionHasErrors(state, assessmentName, cycleName, countryIso, sectionUuid)
   )
 }
 
@@ -32,12 +30,6 @@ export const useSummarySubSectionHasErrors = (subSectionUuid?: UUID): boolean =>
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
 
   return useAppSelector((state) =>
-    SummaryValidationSelectors.getSummarySubSectionHasErrors(
-      state,
-      assessmentName,
-      cycleName,
-      countryIso,
-      subSectionUuid
-    )
+    SummaryValidationSelectors.subSectionHasErrors(state, assessmentName, cycleName, countryIso, subSectionUuid)
   )
 }

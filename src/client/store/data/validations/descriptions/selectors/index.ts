@@ -35,7 +35,7 @@ const _getSectionValidations = createSelector(
   (countryValidations, sectionName) => countryValidations?.[sectionName]
 )
 
-const getDescriptionValidation = createSelector(
+const getValidation = createSelector(
   [
     _getSectionValidations,
     (
@@ -57,5 +57,5 @@ const getDataSourceValidations = createSelector(
 
 export const DescriptionValidationSelectors = {
   getDataSourceValidations,
-  getDescriptionValidation,
+  getValidation,
 }

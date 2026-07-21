@@ -19,14 +19,7 @@ export const useDescriptionValidation = (props: DescriptionValidationProps): Val
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
 
   return useAppSelector((state) => {
-    return DescriptionValidationSelectors.getDescriptionValidation(
-      state,
-      assessmentName,
-      cycleName,
-      countryIso,
-      sectionName,
-      name
-    )
+    return DescriptionValidationSelectors.getValidation(state, assessmentName, cycleName, countryIso, sectionName, name)
   })
 }
 

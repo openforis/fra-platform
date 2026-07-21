@@ -37,7 +37,7 @@ export const useTableHasErrors = (props: { table: Table }): boolean => {
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams<CountryIso>()
 
   const tableValidations = useAppSelector((state) =>
-    TableValidationSelectors.getTableValidations(state, assessmentName, cycleName, countryIso, table.props.name)
+    TableValidationSelectors.getValidations(state, assessmentName, cycleName, countryIso, table.props.name)
   )
 
   return useMemo<boolean>(() => {

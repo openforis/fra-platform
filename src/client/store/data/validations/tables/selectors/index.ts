@@ -22,7 +22,7 @@ const _getCountryTableValidations = createSelector(
   (state, assessmentName, cycleName, countryIso) => state?.[assessmentName]?.[cycleName]?.[countryIso] ?? {}
 )
 
-const getTableValidations = createSelector(
+const getValidations = createSelector(
   [
     _getCountryTableValidations,
     (
@@ -38,7 +38,7 @@ const getTableValidations = createSelector(
 
 const getNodeValidation = createSelector(
   [
-    getTableValidations,
+    getValidations,
     (
       _state: RootState,
       _assessmentName: AssessmentName,
@@ -62,5 +62,5 @@ const getNodeValidation = createSelector(
 
 export const TableValidationSelectors = {
   getNodeValidation,
-  getTableValidations,
+  getValidations,
 }

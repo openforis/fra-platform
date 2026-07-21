@@ -23,20 +23,20 @@ const _getCountryValidations = createSelector(
   (state, assessmentName, cycleName, countryIso) => state?.[assessmentName]?.[cycleName]?.[countryIso]
 )
 
-const getNationalDataPointValidations = createSelector([_getCountryValidations], (validations) => validations ?? {})
+const getValidations = createSelector([_getCountryValidations], (validations) => validations ?? {})
 
-const getNationalDataPointValidation = createSelector(
+const getValidation = createSelector(
   [
-    getNationalDataPointValidations,
+    getValidations,
     (_state: RootState, _assessmentName: AssessmentName, _cycleName: CycleName, _countryIso: CountryIso, uuid: UUID) =>
       uuid,
   ],
   (validations, uuid): NDPValidation => validations?.[uuid] ?? {}
 )
 
-const getNationalDataPointValidationByOdpId = createSelector(
+const getValidationByOdpId = createSelector(
   [
-    getNationalDataPointValidations,
+    getValidations,
     (
       _state: RootState,
       _assessmentName: AssessmentName,
@@ -52,14 +52,14 @@ const getNationalDataPointValidationByOdpId = createSelector(
   }
 )
 
-const nationalDataPointValidationsFetched = createSelector(
+const validationsFetched = createSelector(
   [_getCountryValidations],
   (validations): boolean => !Objects.isNil(validations)
 )
 
 const getNationalClassValidation = createSelector(
   [
-    getNationalDataPointValidation,
+    getValidation,
     (
       _state: RootState,
       _assessmentName: AssessmentName,
@@ -75,8 +75,8 @@ const getNationalClassValidation = createSelector(
 
 export const NationalDataPointValidationSelectors = {
   getNationalClassValidation,
-  getNationalDataPointValidation,
-  getNationalDataPointValidationByOdpId,
-  getNationalDataPointValidations,
-  nationalDataPointValidationsFetched,
+  getValidation,
+  getValidationByOdpId,
+  getValidations,
+  validationsFetched,
 }

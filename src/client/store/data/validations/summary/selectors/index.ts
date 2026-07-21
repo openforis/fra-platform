@@ -19,7 +19,7 @@ const emptySummary: ValidationSummary = {
   tables: {},
 }
 
-const getSummary = createSelector(
+const get = createSelector(
   [
     _getState,
     (_state: RootState, assessmentName: AssessmentName) => assessmentName,
@@ -29,9 +29,7 @@ const getSummary = createSelector(
   (state, assessmentName, cycleName, countryIso) => state?.[assessmentName]?.[cycleName]?.[countryIso] ?? emptySummary
 )
 
-const getSummaryHasErrors = createSelector([getSummary], (summary) =>
-  Object.values(summary.sections).some((section) => !section.valid)
-)
+const hasErrors = createSelector([get], (summary) => Object.values(summary.sections).some((section) => !section.valid))
 
 const _getTargetUuid = (
   _state: RootState,
@@ -41,19 +39,19 @@ const _getTargetUuid = (
   targetUuid?: UUID
 ): UUID | undefined => targetUuid
 
-const getSummarySubSectionHasErrors = createSelector(
-  [_getTargetUuid, getSummary],
+const subSectionHasErrors = createSelector(
+  [_getTargetUuid, get],
   (subSectionUuid, summary) => !(summary.subsections?.[subSectionUuid]?.valid ?? true)
 )
 
-const getSummarySectionHasErrors = createSelector(
-  [_getTargetUuid, getSummary],
+const sectionHasErrors = createSelector(
+  [_getTargetUuid, get],
   (sectionUuid, summary) => !(summary.sections?.[sectionUuid]?.valid ?? true)
 )
 
 export const SummaryValidationSelectors = {
-  getSummary,
-  getSummaryHasErrors,
-  getSummarySectionHasErrors,
-  getSummarySubSectionHasErrors,
+  get,
+  hasErrors,
+  sectionHasErrors,
+  subSectionHasErrors,
 }
