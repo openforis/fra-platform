@@ -2,7 +2,6 @@ import { combineSlices, configureStore } from '@reduxjs/toolkit'
 import { Middleware } from 'redux'
 import createDebounce from 'redux-debounced'
 
-import { startValidationSummaryListener } from 'client/store/data/validations/summary/listener'
 import { DataExportSliceName } from 'client/store/dataExport/slice/name'
 import { DataExportState } from 'client/store/dataExport/state'
 import { ExplorerDataState } from 'client/store/explorer/data/state'
@@ -53,8 +52,6 @@ const store = configureStore({
       .prepend(listenerMiddleware.middleware)
       .concat(createDebounce() as Middleware, axiosMiddleware),
 })
-
-startValidationSummaryListener()
 
 export const injectSlice = (slice: Parameters<typeof reducer.inject>[0]): void => {
   reducer.inject(slice)
