@@ -4,7 +4,6 @@ import { Outlet } from 'react-router'
 import classNames from 'classnames'
 
 import { useCountries } from 'client/store/area/hooks/countries'
-import { useValidationSummaryListener } from 'client/store/data/validations/summary/hooks/useValidationSummaryListener'
 import { useNavigationVisible } from 'client/store/ui/countryReport/hooks/navigation'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { useIsGeoRoute } from 'client/hooks/routes'
@@ -18,6 +17,7 @@ import { useNationalDataPointValidationsListener } from './hooks/useNationalData
 import { useReviewSummaryListener } from './hooks/useReviewSummaryListener'
 import { useTableValidationsListener } from './hooks/useTableValidationsListener'
 import { useUserRedirect } from './hooks/useUserRedirect'
+import { useValidationSummaryListener } from './hooks/useValidationSummaryListener'
 
 const Country: React.FC = () => {
   const { countryIso } = useCountryRouteParams()
