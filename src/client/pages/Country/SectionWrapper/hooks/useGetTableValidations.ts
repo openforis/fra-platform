@@ -36,8 +36,6 @@ export const useGetTableValidations = (props: Props): void => {
       return
     }
 
-    dispatch(
-      TableValidationActions.getTableValidations({ assessmentName, cycleName, countryIso, sectionName, tableNames })
-    )
+    dispatch(TableValidationActions.getValidations({ assessmentName, cycleName, countryIso, sectionName, tableNames }))
   }, [assessmentName, canEdit, countryIso, cycleName, dispatch, isDataExportView, print, sectionName, tableNames])
 }

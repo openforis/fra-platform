@@ -7,7 +7,6 @@ import { SectionName } from 'meta/assessment/section'
 import { TableName } from 'meta/assessment/table'
 import { RecordTableValidationsState } from 'meta/assessment/validation/table'
 
-import { updateValidationSummary } from 'client/store/data/validations/summary/actions/updateValidationSummary'
 import { setNodeValueValidations } from 'client/store/data/validations/tables/actions/setNodeValueValidations'
 import { ThunkApiConfig } from 'client/store/types'
 
@@ -16,7 +15,7 @@ type Props = CountryParams & {
   tableNames: Array<TableName>
 }
 
-export const getTableValidations = createAsyncThunk<void, Props, ThunkApiConfig>(
+export const getValidations = createAsyncThunk<void, Props, ThunkApiConfig>(
   'validations/tables/get',
   async (props, { dispatch }) => {
     const { assessmentName, countryIso, cycleName, sectionName, tableNames } = props
@@ -27,6 +26,5 @@ export const getTableValidations = createAsyncThunk<void, Props, ThunkApiConfig>
     })
 
     dispatch(setNodeValueValidations({ assessmentName, cycleName, countryIso, tableValidations: data }))
-    dispatch(updateValidationSummary({ assessmentName, countryIso, cycleName, tableValidations: data }))
   }
 )
