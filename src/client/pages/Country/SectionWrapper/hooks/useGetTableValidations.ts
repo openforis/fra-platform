@@ -4,7 +4,7 @@ import { CountryIso } from 'meta/area/countryIso'
 import { TableName } from 'meta/assessment/table'
 import { Objects } from 'utils/objects'
 
-import { ValidationsActions } from 'client/store/data/tableData/validations/actions'
+import { TableValidationActions } from 'client/store/data/validations/tables/actions'
 import { useAppDispatch } from 'client/store/hooks'
 import { useTableSections } from 'client/store/meta/hooks/tableSections'
 import { useCanEdit } from 'client/store/user/hooks/auth'
@@ -36,6 +36,6 @@ export const useGetTableValidations = (props: Props): void => {
       return
     }
 
-    dispatch(ValidationsActions.getTableValidations({ assessmentName, cycleName, countryIso, sectionName, tableNames }))
+    dispatch(TableValidationActions.getValidations({ assessmentName, cycleName, countryIso, sectionName, tableNames }))
   }, [assessmentName, canEdit, countryIso, cycleName, dispatch, isDataExportView, print, sectionName, tableNames])
 }
