@@ -1,11 +1,10 @@
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { SectionName, SectionNames } from 'meta/assessment/section'
-import { DescriptionValidations } from 'meta/assessment/validation/descriptionValidations'
-import { NationalDataPointValidations } from 'meta/assessment/validation/nationalDataPointValidations'
+import { Descriptions } from 'meta/assessment/descriptions'
+import { SectionNames } from 'meta/assessment/section'
 import { ValidationSummary } from 'meta/assessment/validation/summary'
-import { Objects } from 'utils/objects'
+import { ValidationSummaries } from 'meta/assessment/validation/validationSummaries'
 
 import { AreaRedisRepository } from 'server/cache/repository/area'
 import { DataRedisRepository } from 'server/cache/repository/data'
@@ -13,7 +12,6 @@ import { SectionRedisRepository } from 'server/cache/repository/section'
 import { DescriptionValidationRedisRepository } from 'server/cache/repository/validation/description'
 import { NationalDataPointValidationRedisRepository } from 'server/cache/repository/validation/nationalDataPoint'
 import { TableValidationRedisRepository } from 'server/cache/repository/validation/table'
-import { calculateSubsection } from 'server/controller/cycleData/validations/summary/calculateSubsection'
 
 type Props = {
   assessment: Assessment
@@ -38,25 +36,22 @@ export const getValidationSummary = async (props: Props): Promise<ValidationSumm
     ])
 
   const hasNationalDataPointData = ndpYears.length > 0
-
   const forestCharacteristicsUseOriginalDataPoint = Boolean(country?.props?.forestCharacteristics?.useOriginalDataPoint)
-  const nationalDataPointSectionNames: Array<SectionName> = []
-  if (cycle.props.ndp) {
-    nationalDataPointSectionNames.push(SectionNames.extentOfForest)
-    if (forestCharacteristicsUseOriginalDataPoint) {
-      nationalDataPointSectionNames.push(SectionNames.forestCharacteristics)
-    }
-  }
-  const nationalDataPointSummary = NationalDataPointValidations.calculateSummary({
-    nationalDataPointValidations,
-    sectionNames: nationalDataPointSectionNames,
-  })
+
+  // Build the summary structure; ValidationSummaries.compute evaluates all validity
   const summary: ValidationSummary = {
     descriptions: {},
-    nationalDataPoints: nationalDataPointSummary,
+    nationalDataPoints: {},
     sections: {},
     subsections: {},
     tables: {},
+  }
+
+  if (cycle.props.ndp) {
+    summary.nationalDataPoints[SectionNames.extentOfForest] = { valid: true }
+    if (forestCharacteristicsUseOriginalDataPoint) {
+      summary.nationalDataPoints[SectionNames.forestCharacteristics] = { valid: true }
+    }
   }
 
   sections.forEach((section) => {
@@ -66,29 +61,29 @@ export const getValidationSummary = async (props: Props): Promise<ValidationSumm
       const subsectionUuid = subSection.uuid
       const tableSections = sectionsMetadata[sectionName] ?? []
       const tableNames = tableSections.flatMap((tableSection) => tableSection.tables.map((table) => table.props.name))
-      summary.descriptions[sectionName] = DescriptionValidations.calculateSummary({
-        sectionValidations: descriptionValidations[sectionName],
-      })
 
       tableNames.forEach((tableName) => {
-        summary.tables[tableName] = { valid: Objects.isEmpty(tableValidations[tableName] ?? {}) }
+        summary.tables[tableName] = { valid: true }
       })
 
-      const subsection = calculateSubsection({
+      // Only visible descriptions count for the summary
+      const descriptionNames = Descriptions.getVisibleDescriptionNames({
         hasNationalDataPointData,
         sectionName,
-        summary,
-        tableNames,
         useNationalDataPoint: forestCharacteristicsUseOriginalDataPoint,
       })
-      summary.sections[sectionUuid] ??= { subsections: {}, valid: true }
-      const summarySection = summary.sections[sectionUuid]
+      const subsection = { descriptionNames, sectionName, tableNames, valid: true }
 
       summary.subsections[subsectionUuid] = subsection
-      summarySection.subsections[subsectionUuid] = subsection
-      summarySection.valid = summarySection.valid && subsection.valid
+      summary.sections[sectionUuid] ??= { subsections: {}, valid: true }
+      summary.sections[sectionUuid].subsections[subsectionUuid] = subsection
     })
   })
 
-  return summary
+  return ValidationSummaries.compute({
+    descriptionValidations,
+    nationalDataPointValidations,
+    summary,
+    tableValidations,
+  })
 }

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { CountryStatus } from 'meta/area/countryStatus'
 
-import { useSummaryHasErrors } from 'client/store/data/tableData/validations/hooks/summary'
+import { useSummaryHasErrors } from 'client/store/data/validations/summary/hooks/summary'
 import Icon from 'client/components/Icon'
 import { StatusTransition } from 'client/components/PageLayout/Toolbar/Status/types'
 

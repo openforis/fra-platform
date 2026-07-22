@@ -17,6 +17,7 @@ import { useNationalDataPointValidationsListener } from './hooks/useNationalData
 import { useReviewSummaryListener } from './hooks/useReviewSummaryListener'
 import { useTableValidationsListener } from './hooks/useTableValidationsListener'
 import { useUserRedirect } from './hooks/useUserRedirect'
+import { useValidationSummaryListener } from './hooks/useValidationSummaryListener'
 
 const Country: React.FC = () => {
   const { countryIso } = useCountryRouteParams()
@@ -30,6 +31,7 @@ const Country: React.FC = () => {
   useNationalDataPointValidationsListener()
   useNationalDataPointValidationDeleteListener()
   useGetValidationsSummary()
+  useValidationSummaryListener()
   useReviewSummaryListener()
   useUserRedirect()
 

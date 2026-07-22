@@ -1,7 +1,7 @@
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { Validation } from 'meta/assessment/validation/validation'
 
-import { useNationalDataPointValidation } from 'client/store/data/tableData/validations/hooks/nationalDataPoints'
+import { useNationalDataPointValidation } from 'client/store/data/validations/nationalDataPoints/hooks/nationalDataPoints'
 import { ErrorTooltip, useErrorTooltip } from 'client/pages/OriginalDataPoint/hooks/useErrorTooltip'
 
 type Props = {

@@ -1,10 +1,10 @@
 import { useEffect } from 'react'
 
 import { CountryIso } from 'meta/area/countryIso'
+import { RecordTableValidationsState } from 'meta/assessment/validation/table'
 import { Sockets } from 'meta/socket/sockets'
 
-import { ValidationsActions } from 'client/store/data/tableData/validations/actions'
-import { RecordTableValidationsState } from 'client/store/data/tableData/validations/state'
+import { TableValidationActions } from 'client/store/data/validations/tables/actions'
 import { useAppDispatch } from 'client/store/hooks'
 import { useCanEditCycleData } from 'client/store/user/hooks/auth'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
@@ -24,7 +24,9 @@ export const useTableValidationsListener = (): void => {
 
     const listener = (args: TableValidationsListenerArgs): void => {
       const [{ tableValidations }] = args
-      dispatch(ValidationsActions.setNodeValueValidations({ assessmentName, cycleName, countryIso, tableValidations }))
+      dispatch(
+        TableValidationActions.setNodeValueValidations({ assessmentName, cycleName, countryIso, tableValidations })
+      )
     }
 
     SocketClient.on(eventName, listener)

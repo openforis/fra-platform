@@ -3,7 +3,7 @@ import { UUID } from 'meta/uuid/uuid'
 import {
   useSummarySectionHasErrors,
   useSummarySubSectionHasErrors,
-} from 'client/store/data/tableData/validations/hooks/summary'
+} from 'client/store/data/validations/summary/hooks/summary'
 
 type Props = {
   target: 'section' | 'subSection'
