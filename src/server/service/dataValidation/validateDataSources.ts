@@ -1,7 +1,7 @@
 import { Country } from 'meta/area/country'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { CommentableDescription, CommentableDescriptionName } from 'meta/assessment/descriptionValue'
+import { CommentableDescription } from 'meta/assessment/descriptionValue'
 import { DataSource, DataSourceEditableField } from 'meta/assessment/descriptionValue/dataSource'
 import { RecordDescriptionValidations } from 'meta/assessment/validation/description'
 import { DescriptionValidations } from 'meta/assessment/validation/descriptionValidations'
@@ -10,6 +10,8 @@ import { Objects } from 'utils/objects'
 
 import { DescriptionValidationRedisRepository } from 'server/cache/repository/validation/description'
 import { notifyDescriptionValidationUpdate } from 'server/controller/cycleData/validations/descriptions/notifyDescriptionValidationUpdate'
+
+import { canValidateDataSources } from './canValidateDataSources'
 
 type Props = {
   assessment: Assessment
@@ -33,7 +35,9 @@ export const validateDataSources = async (props: Props): Promise<void> => {
   const { assessment, country, cycle, descriptions, notifyClients = true } = props
   const { countryIso } = country
 
-  const dataSourceDescriptions = descriptions.filter(({ name }) => name === CommentableDescriptionName.dataSources)
+  const dataSourceDescriptions = descriptions.filter((description) =>
+    canValidateDataSources({ assessment, cycle, description })
+  )
   if (Objects.isEmpty(dataSourceDescriptions)) return
 
   const dataSourceFieldValidations = dataSourceDescriptions.reduce<RecordDescriptionValidations>((acc, description) => {

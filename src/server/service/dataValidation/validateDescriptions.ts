@@ -1,15 +1,12 @@
 import { Country } from 'meta/area/country'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import {
-  CommentableDescription,
-  CommentableDescriptionName,
-  DescriptionIdentifier,
-} from 'meta/assessment/descriptionValue'
+import { CommentableDescription, DescriptionIdentifier } from 'meta/assessment/descriptionValue'
 import { Objects } from 'utils/objects'
 
 import { visitDescriptionLinks } from 'server/worker/tasks/verifyLinks/visitDescriptionLinks/visitDescriptionLinks'
 
+import { canValidateDataSources } from './canValidateDataSources'
 import { validateDataSources } from './validateDataSources'
 
 type Props = {
@@ -25,7 +22,9 @@ export const validateDescriptions = async (props: Props): Promise<void> => {
   const { countryIso } = country
 
   // Validate required data source fields first (not in parallel) to avoid cache race conditions.
-  const dataSourceDescriptions = descriptions.filter(({ name }) => name === CommentableDescriptionName.dataSources)
+  const dataSourceDescriptions = descriptions.filter((description) =>
+    canValidateDataSources({ assessment, cycle, description })
+  )
   if (!Objects.isEmpty(dataSourceDescriptions)) {
     await validateDataSources({
       assessment,
