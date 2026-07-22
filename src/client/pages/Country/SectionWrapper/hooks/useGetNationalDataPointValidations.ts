@@ -5,8 +5,8 @@ import { SectionNames } from 'meta/assessment/section'
 import { Objects } from 'utils/objects'
 
 import { useCountry } from 'client/store/area/hooks/country'
-import { ValidationsActions } from 'client/store/data/tableData/validations/actions'
-import { useNationalDataPointValidationsFetched } from 'client/store/data/tableData/validations/hooks/nationalDataPoints'
+import { NationalDataPointValidationActions } from 'client/store/data/validations/nationalDataPoints/actions'
+import { useNationalDataPointValidationsFetched } from 'client/store/data/validations/nationalDataPoints/hooks/nationalDataPoints'
 import { useAppDispatch } from 'client/store/hooks'
 import { useCanEditCycleData } from 'client/store/user/hooks/auth'
 import { useIsDataExportView } from 'client/hooks/dataExport'
@@ -32,6 +32,13 @@ export const useGetNationalDataPointValidations = (): void => {
   useEffect(() => {
     if (!shouldFetch) return
 
-    dispatch(ValidationsActions.getNationalDataPointValidations({ assessmentName, cycleName, countryIso, sectionName }))
+    dispatch(
+      NationalDataPointValidationActions.getValidations({
+        assessmentName,
+        cycleName,
+        countryIso,
+        sectionName,
+      })
+    )
   }, [assessmentName, countryIso, cycleName, dispatch, sectionName, shouldFetch])
 }
