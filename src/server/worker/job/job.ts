@@ -1,5 +1,3 @@
-import { ResourceLockedError } from 'redlock'
-
 import { Logger } from 'server/utils/logger'
 import { JobLock } from 'server/worker/job/jobLock'
 import { JobStatus, JobStatusPayload } from 'server/worker/job/jobStatus'
@@ -43,15 +41,15 @@ export abstract class Job {
     try {
       this.logInfo(`**** started`)
 
-      await this.#jobLock.acquireLock()
-      await this.execute()
-      await this.#jobLock.releaseSuccess()
-    } catch (error) {
-      if (error instanceof ResourceLockedError) {
+      const acquired = await this.#jobLock.acquireLock()
+      if (!acquired) {
         this.logInfo(`**** already running - skipped`)
         return
       }
 
+      await this.execute()
+      await this.#jobLock.releaseSuccess()
+    } catch (error) {
       await this.#jobLock.releaseError(error)
       this.logError(JSON.stringify(error))
       throw error
