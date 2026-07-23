@@ -1,17 +1,16 @@
 import { Country } from 'meta/area/country'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { CommentableDescription } from 'meta/assessment/descriptionValue'
+import { CommentableDescription, CommentableDescriptionName } from 'meta/assessment/descriptionValue'
 import { DataSource, DataSourceEditableField } from 'meta/assessment/descriptionValue/dataSource'
 import { RecordDescriptionValidations } from 'meta/assessment/validation/description'
 import { DescriptionValidations } from 'meta/assessment/validation/descriptionValidations'
 import { Validation } from 'meta/assessment/validation/validation'
 import { Objects } from 'utils/objects'
 
+import { SectionRedisRepository } from 'server/cache/repository/section'
 import { DescriptionValidationRedisRepository } from 'server/cache/repository/validation/description'
 import { notifyDescriptionValidationUpdate } from 'server/controller/cycleData/validations/descriptions/notifyDescriptionValidationUpdate'
-
-import { canValidateDataSources } from './canValidateDataSources'
 
 type Props = {
   assessment: Assessment
@@ -30,35 +29,48 @@ const _getRequiredValidation = (value: DataSource[RequiredField]): Validation =>
   return { valid: true }
 }
 
-// Validates the required data source fields (type, variables, year) when the data sources are saved.
+// Validates the required data source fields (type, variables, year), except the reference links.
 export const validateDataSources = async (props: Props): Promise<void> => {
   const { assessment, country, cycle, descriptions, notifyClients = true } = props
   const { countryIso } = country
 
-  const dataSourceDescriptions = descriptions.filter((description) =>
-    canValidateDataSources({ assessment, cycle, description })
+  // Return early if none of the descriptions have data sources, to avoid loading the subsections unnecessarily.
+  const descriptionsWithDataSources = descriptions.filter(
+    (description) =>
+      description.name === CommentableDescriptionName.dataSources && description.value.dataSources !== undefined
   )
-  if (Objects.isEmpty(dataSourceDescriptions)) return
+  if (Objects.isEmpty(descriptionsWithDataSources)) return
 
-  const dataSourceFieldValidations = dataSourceDescriptions.reduce<RecordDescriptionValidations>((acc, description) => {
-    const { sectionName, value } = description
-    const sectionValidation = (acc[sectionName] ??= {})
-    const dataSources = (sectionValidation.dataSources ??= {})
+  const subSections = await SectionRedisRepository.getSubSections({ assessment, cycle })
+  const dataSourceFieldValidations = descriptionsWithDataSources.reduce<RecordDescriptionValidations>(
+    (acc, description) => {
+      const { sectionName, value } = description
+      const subSection = subSections[sectionName]
+      // Skip sections that render data sources as free text.
+      if (Objects.isNil(subSection?.props.descriptions?.[cycle.uuid]?.nationalData?.dataSources?.table)) {
+        return acc
+      }
 
-    value.dataSources?.forEach((dataSource) => {
-      const { placeholder, uuid } = dataSource
-      if (placeholder || Objects.isEmpty(uuid)) return
+      const sectionValidation = (acc[sectionName] ??= {})
+      const dataSources = (sectionValidation.dataSources ??= {})
 
-      const dataSourceValidation = (dataSources[uuid] ??= {})
-      requiredFields.forEach((field) => {
-        dataSourceValidation[field] = _getRequiredValidation(dataSource[field])
+      value.dataSources?.forEach((dataSource) => {
+        const { placeholder, uuid } = dataSource
+        if (placeholder || Objects.isEmpty(uuid)) return
+
+        const dataSourceValidation = (dataSources[uuid] ??= {})
+        requiredFields.forEach((field) => {
+          dataSourceValidation[field] = _getRequiredValidation(dataSource[field])
+        })
       })
-    })
 
-    return acc
-  }, {})
+      return acc
+    },
+    {}
+  )
 
-  const sectionNames = Array.from(new Set(dataSourceDescriptions.map(({ sectionName }) => sectionName)))
+  const sectionNames = Object.keys(dataSourceFieldValidations)
+  if (Objects.isEmpty(sectionNames)) return
 
   // Merge the results onto the current state, so the other validations of the sections are kept.
   const currentValidations = await DescriptionValidationRedisRepository.getValidations({
