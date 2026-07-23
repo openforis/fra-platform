@@ -9,7 +9,6 @@ import {
   CommentableDescriptionName,
   DescriptionCountryValues,
 } from 'meta/assessment/descriptionValue'
-import { Objects } from 'utils/objects'
 import { ToolsUtils } from 'tools/utils/toolsUtils'
 
 import { AreaController } from 'server/controller/area'
@@ -35,24 +34,16 @@ const _validateCountry = async (props: CountryProps): Promise<void> => {
   const { assessment, country, cycle, descriptionsByCountry } = props
   const { countryIso } = country
 
-  const descriptions = Object.entries(descriptionsByCountry[countryIso] ?? {}).reduce<
-    Array<Omit<CommentableDescription, 'id'>>
-  >((acc, [sectionName, sectionValues]) => {
-    Object.entries(sectionValues).forEach(([name, value]) => {
-      const description: Omit<CommentableDescription, 'id'> = {
-        countryIso,
-        name: name as CommentableDescriptionName,
-        sectionName,
-        value,
-      }
-
-      if (DataValidationService.canValidateDataSources({ assessment, cycle, description })) acc.push(description)
-    })
-
-    return acc
-  }, [])
-
-  if (Objects.isEmpty(descriptions)) return
+  const descriptions = Object.entries(descriptionsByCountry[countryIso] ?? {}).flatMap<
+    Omit<CommentableDescription, 'id'>
+  >(([sectionName, sectionValues]) =>
+    Object.entries(sectionValues).map<Omit<CommentableDescription, 'id'>>(([name, value]) => ({
+      countryIso,
+      name: name as CommentableDescriptionName,
+      sectionName,
+      value,
+    }))
+  )
 
   await DataValidationService.validateDataSources({ assessment, country, cycle, descriptions, notifyClients: false })
 }
