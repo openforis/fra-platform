@@ -7,13 +7,14 @@ import { BaseProtocol, DB } from 'server/db/db'
 
 import { Failures } from './common/failures'
 import { Failure } from './common/types'
-import { validateDescriptions } from './validateDescriptions'
+import { validateDataSources } from './validateDataSources'
 import { validateLinks } from './validateLinks'
 import { validateNationalDataPoints } from './validateNationalDataPoints'
 import { validateTableData } from './validateTableData'
 
 // Run order matters: links must run last.
-const validators = [validateTableData, validateDescriptions, validateNationalDataPoints, validateLinks]
+// Descriptions are validated by validateLinks, since their only validations are link validations.
+const validators = [validateTableData, validateDataSources, validateNationalDataPoints, validateLinks]
 
 export const validateAll = async (client: BaseProtocol = DB): Promise<void> => {
   const failures: Array<Failure> = []

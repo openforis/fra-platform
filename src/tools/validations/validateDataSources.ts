@@ -21,7 +21,7 @@ import { Logger } from 'server/utils/logger'
 import { Failures } from './common/failures'
 import { Failure } from './common/types'
 
-const toolName = 'validateDescriptions'
+const toolName = 'validateDataSources'
 
 type CountryProps = {
   assessment: Assessment
@@ -48,8 +48,7 @@ const _validateCountry = async (props: CountryProps): Promise<void> => {
   await DataValidationService.validateDataSources({ assessment, country, cycle, descriptions, notifyClients: false })
 }
 
-// Validate only data sources
-export const validateDescriptions = async (client: BaseProtocol = DB): Promise<Array<Failure>> => {
+export const validateDataSources = async (client: BaseProtocol = DB): Promise<Array<Failure>> => {
   const failures: Array<Failure> = []
   const assessments = await AssessmentController.getAll({ metaCache: true }, client)
   const assessmentCycles = assessments.flatMap((assessment) =>
@@ -87,5 +86,5 @@ export const validateDescriptions = async (client: BaseProtocol = DB): Promise<A
 }
 
 if (require.main === module) {
-  ToolsUtils.exec(async () => Failures.throwIfFailed(toolName, await validateDescriptions()))
+  ToolsUtils.exec(async () => Failures.throwIfFailed(toolName, await validateDataSources()))
 }
