@@ -3,8 +3,8 @@ import axios from 'axios'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CountryParams } from 'meta/api/request/country'
-import { ODPs } from 'meta/assessment/odps'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
+import { SectionNames } from 'meta/assessment/section'
 
 type Params = CountryParams & { originalDataPoint: OriginalDataPoint }
 
@@ -13,20 +13,11 @@ export const createOriginalDataPoint = createAsyncThunk<OriginalDataPoint, Param
   async (props) => {
     const { assessmentName, countryIso, cycleName, originalDataPoint } = props
 
-    const { data } = await axios.post(
-      ApiEndPoint.CycleData.NationalDataPoint.one(),
-      {
-        originalDataPoint: ODPs.removeNationalClassPlaceHolder(originalDataPoint),
-      },
-      {
-        params: {
-          countryIso,
-          assessmentName,
-          cycleName,
-          sectionName: 'extentOfForest',
-        },
-      }
-    )
-    return ODPs.addNationalClassPlaceHolder(data)
+    const data = { originalDataPoint }
+    const params = { countryIso, assessmentName, cycleName, sectionName: SectionNames.extentOfForest }
+    const config = { params }
+
+    const { data: ndp } = await axios.post(ApiEndPoint.CycleData.NationalDataPoint.one(), data, config)
+    return ndp
   }
 )

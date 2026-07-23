@@ -8,7 +8,6 @@ const newNationalClass = (props?: { name?: string; definition?: string }): ODPNa
 
 export const ODPNationalClassFactory = {
   newNationalClass,
-  newNationalClassPlaceholder: (): ODPNationalClass => ({ ...newNationalClass(), placeHolder: true }),
 }
 
 export interface ODPNationalClass {
@@ -19,7 +18,6 @@ export interface ODPNationalClass {
   forestNaturalPercent?: string
   otherPlantedForestPercent?: string
   otherWoodedLandPercent?: string
-  placeHolder?: boolean
   forestPlantationIntroducedPercent?: string
   forestPlantationPercent?: string
   forestNaturalForestOfWhichPrimaryForestPercent?: string
