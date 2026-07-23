@@ -1,27 +1,27 @@
 import { Assessment, AssessmentNames } from 'meta/assessment/assessment'
-import { Cycle, CycleProps, CycleStatus } from 'meta/assessment/cycle'
+import { Cycle, CycleName, CycleProps, CycleStatus } from 'meta/assessment/cycle'
+import { UUID } from 'meta/uuid/uuid'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { AssessmentRepository } from 'server/db/repository/assessment/assessment'
 import { getCreateOrReplaceViewCountryUserSummary } from 'server/db/repository/assessment/assessment/getCreateSchemaDDL'
 import { Schemas } from 'server/db/schemas'
 
-type Props = {
-  assessment: Assessment
-  cycleSource?: Cycle
-  name: string
-  withCountries?: boolean
+export type CreateCycleOptions = {
+  name: CycleName
+  props?: Partial<Cycle['props']>
+  uuidSource?: UUID
 }
 
-// const defaultMetaCache: AssessmentMetaCache = {
-//   calculations: { dependants: {}, dependencies: {} },
-//   validations: { dependants: {}, dependencies: {} },
-//   variablesByTable: {},
-// }
+type Props = {
+  assessment: Assessment
+  options: CreateCycleOptions
+}
 
-const getDefaultProps = (): CycleProps => {
+const getDefaultProps = (options: CreateCycleOptions): CycleProps => {
   const dateCreated = new Date().toISOString()
   return {
+    ...options.props,
     status: CycleStatus.draft,
     dateCreated,
     dateDraft: dateCreated,
@@ -31,30 +31,26 @@ const getDefaultProps = (): CycleProps => {
 }
 
 export const create = async (params: Props, client: BaseProtocol = DB): Promise<Cycle> => {
-  const { assessment, cycleSource, name, withCountries } = params
+  const { assessment, options } = params
+  const { name, uuidSource } = options
 
   const schemaAssessment = Schemas.getName(assessment)
   const schemaCycle = Schemas.getNameCycle(assessment, { name } as Cycle)
+
+  // DDL schema init
   await DB.query(AssessmentRepository.getCreateSchemaCycleDDL(schemaAssessment, schemaCycle))
+
   if ([AssessmentNames.fra, AssessmentNames.fraTest].includes(assessment.props.name as AssessmentNames)) {
     await DB.query(AssessmentRepository.getCreateSchemaCycleOriginalDataPointViewDDL(schemaCycle))
   }
 
+  // insert DML
   const cycle = await client.one<Cycle>(
     `insert into assessment_cycle (assessment_uuid, name, props, cycle_uuid_source)
      values ($1, $2, $3, $4)
      returning *;`,
-    [assessment.uuid, name, getDefaultProps(), cycleSource?.uuid]
+    [assessment.uuid, name, getDefaultProps(options), uuidSource]
   )
-
-  if (withCountries) {
-    // Init countries
-    await client.query(`
-      insert into ${schemaCycle}.country (country_iso)
-      select country_iso
-      from country
-  `)
-  }
 
   // Init country user summary view
   await client.query(getCreateOrReplaceViewCountryUserSummary({ assessment, cycle }))

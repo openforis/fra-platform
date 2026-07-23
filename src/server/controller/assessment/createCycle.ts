@@ -7,23 +7,22 @@ import { CacheController } from 'server/cache/controller'
 import { AssessmentRedisRepository } from 'server/cache/repository/assessment'
 import { BaseProtocol, DB } from 'server/db/db'
 import { CycleRepository } from 'server/db/repository/assessmentCycle/cycle'
+import { CreateCycleOptions } from 'server/db/repository/assessmentCycle/cycle/create'
 import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 
 type Props = {
   assessment: Assessment
-  name: string
+  options: CreateCycleOptions
   user: User
-  cycleSource?: Cycle
-  withCountries?: boolean
 }
 
 type Returned = { assessment: Assessment; cycle: Cycle }
 
 export const createCycle = async (props: Props, client: BaseProtocol = DB): Promise<Returned> => {
-  const { assessment, cycleSource, name, user, withCountries } = props
+  const { assessment, options, user } = props
 
   return client.tx(async (t) => {
-    const cycle = await CycleRepository.create({ assessment, cycleSource, name, withCountries }, t)
+    const cycle = await CycleRepository.create({ assessment, options }, t)
     const { name: assessmentName } = assessment.props
     const { name: cycleName } = cycle
     await CacheController.generateMetaCache({}, t)
