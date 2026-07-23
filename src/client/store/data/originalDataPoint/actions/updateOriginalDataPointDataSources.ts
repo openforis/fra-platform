@@ -5,6 +5,7 @@ import { ApiEndPoint } from 'meta/api/endpoint'
 import { CountryParams } from 'meta/api/request/country'
 import { CountryIso } from 'meta/area/countryIso'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
+import { SectionNames } from 'meta/assessment/section'
 import { Functions } from 'utils/functions'
 
 type Props = CountryParams & {
@@ -17,7 +18,7 @@ const putOriginalDataPointDataSources = Functions.debounce(
     const { assessmentName, countryIso, cycleName, originalDataPoint } = props
 
     const data = { originalDataPoint }
-    const params = { countryIso, assessmentName, cycleName, sectionName: 'extentOfForest' }
+    const params = { countryIso, assessmentName, cycleName, sectionName: SectionNames.extentOfForest }
     const config = { params }
 
     await axios.put(ApiEndPoint.CycleData.NationalDataPoint.dataSources(), data, config)
