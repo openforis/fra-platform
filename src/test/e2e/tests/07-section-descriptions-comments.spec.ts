@@ -24,7 +24,7 @@ test.describe.serial('Section descriptions: comments', () => {
     const page = authenticatedPage
 
     await page.goto(commentsSectionPath)
-    await DOMUtils.unlockEditing(page)
+    await DOMUtils.ensureEditingUnlocked(page)
 
     await DescriptionUtils.save(page, async () => {
       await commentsToggleEditButton(page, 'Edit').click()
@@ -45,7 +45,7 @@ test.describe.serial('Section descriptions: comments - invalid links', () => {
     const page = authenticatedPage
 
     await page.goto(commentsSectionPath)
-    await DOMUtils.unlockEditing(page)
+    await DOMUtils.ensureEditingUnlocked(page)
 
     await DescriptionUtils.save(page, async () => {
       await commentsToggleEditButton(page, 'Edit').click()

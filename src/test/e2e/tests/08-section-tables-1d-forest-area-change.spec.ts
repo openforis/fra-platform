@@ -18,7 +18,7 @@ test.describe.serial('Section tables: 1d - negative forest_expansion and defores
 
     await page.goto(x05ForestAreaChangePath)
     await expect(TableDomUtils.tableContainer(page, TableNames.forestAreaChange)).toBeVisible({ timeout: 20000 })
-    await DOMUtils.unlockEditing(page)
+    await DOMUtils.ensureEditingUnlocked(page)
 
     let cellSaved = DOMUtils.waitForResponse(page, '/api/cycle-data/table/nodes', 'PATCH')
     await TableDomUtils.fillCell(page, 'forest_expansion', '2020-2025', '-1')
@@ -66,7 +66,7 @@ test.describe.serial('Section tables: 1d - afforestation exceeds forest_expansio
 
     await page.goto(x05ForestAreaChangePath)
     await expect(TableDomUtils.tableContainer(page, TableNames.forestAreaChange)).toBeVisible({ timeout: 20000 })
-    await DOMUtils.unlockEditing(page)
+    await DOMUtils.ensureEditingUnlocked(page)
 
     let cellSaved = DOMUtils.waitForResponse(page, '/api/cycle-data/table/nodes', 'PATCH')
     await TableDomUtils.fillCell(page, 'forest_expansion', '2020-2025', '100')
@@ -101,7 +101,7 @@ test.describe.serial('Section tables: 1d - afforestation and natural_expansion d
 
     await page.goto(x05ForestAreaChangePath)
     await expect(TableDomUtils.tableContainer(page, TableNames.forestAreaChange)).toBeVisible({ timeout: 20000 })
-    await DOMUtils.unlockEditing(page)
+    await DOMUtils.ensureEditingUnlocked(page)
 
     let cellSaved = DOMUtils.waitForResponse(page, '/api/cycle-data/table/nodes', 'PATCH')
     await TableDomUtils.fillCell(page, 'forest_expansion', '2020-2025', '100')
@@ -143,7 +143,7 @@ test.describe.serial('Section tables: 1d - validation errors persist on page rel
 
     await page.goto(x16ExtentOfForestPath)
     await expect(TableDomUtils.tableContainer(page, TableNames.extentOfForest)).toBeVisible({ timeout: 20000 })
-    await DOMUtils.unlockEditing(page)
+    await DOMUtils.ensureEditingUnlocked(page)
 
     // Seed forestArea 2020 and forest_expansion/deforestation so the net change validation
     // kicks in when forestArea 2025 is filled below
@@ -186,12 +186,12 @@ test.describe.serial('Section tables: 1d - validation errors persist on page rel
     })
     await CountryStatusUtils.expectSubmitToReviewWarning(page)
 
-    await DOMUtils.unlockEditing(page)
+    await DOMUtils.ensureEditingUnlocked(page)
     await TableDomUtils.clearTable(page, TableNames.forestAreaChange)
 
     await page.goto(x16ExtentOfForestPath)
     await expect(TableDomUtils.tableContainer(page, TableNames.extentOfForest)).toBeVisible({ timeout: 20000 })
-    await DOMUtils.unlockEditing(page)
+    await DOMUtils.ensureEditingUnlocked(page)
     await TableDomUtils.clearTable(page, TableNames.extentOfForest)
   })
 })

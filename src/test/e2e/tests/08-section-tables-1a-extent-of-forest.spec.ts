@@ -18,7 +18,7 @@ test.describe.serial('Section tables: 1a - edit and clear table', () => {
     const page = authenticatedPage
 
     await page.goto(x06ExtentOfForestPath)
-    await DOMUtils.unlockEditing(page)
+    await DOMUtils.ensureEditingUnlocked(page)
 
     const cellSaved = DOMUtils.waitForResponse(page, '/api/cycle-data/table/nodes', 'PATCH')
     await TableDomUtils.fillCell(page, 'forestArea', '1990', '1000')
@@ -38,7 +38,7 @@ test.describe.serial('Section tables: 1a - forestArea change triggers net change
 
     await page.goto(x07ExtentOfForestPath)
     await expect(TableDomUtils.tableContainer(page, TableNames.extentOfForest)).toBeVisible({ timeout: 20000 })
-    await DOMUtils.unlockEditing(page)
+    await DOMUtils.ensureEditingUnlocked(page)
 
     let cellSaved = DOMUtils.waitForResponse(page, '/api/cycle-data/table/nodes', 'PATCH')
     await TableDomUtils.fillCell(page, 'forestArea', '2020', '1000')
@@ -98,7 +98,7 @@ test.describe.serial('Section tables: 1a - negative forestArea and otherWoodedLa
 
     await page.goto(x06ExtentOfForestPath)
     await expect(TableDomUtils.tableContainer(page, TableNames.extentOfForest)).toBeVisible({ timeout: 20000 })
-    await DOMUtils.unlockEditing(page)
+    await DOMUtils.ensureEditingUnlocked(page)
 
     let cellSaved = DOMUtils.waitForResponse(page, '/api/cycle-data/table/nodes', 'PATCH')
     await TableDomUtils.fillCell(page, 'forestArea', '2025', '-1')
@@ -146,7 +146,7 @@ test.describe.serial('Section tables: 1a - forestArea exceeds total land area', 
 
     await page.goto(x06ExtentOfForestPath)
     await expect(TableDomUtils.tableContainer(page, TableNames.extentOfForest)).toBeVisible({ timeout: 20000 })
-    await DOMUtils.unlockEditing(page)
+    await DOMUtils.ensureEditingUnlocked(page)
 
     let cellSaved = DOMUtils.waitForResponse(page, '/api/cycle-data/table/nodes', 'PATCH')
     await TableDomUtils.fillCell(page, 'forestArea', '2025', '5000')
@@ -181,7 +181,7 @@ test.describe.serial('Section tables: 1a - forestArea differs from FRA 2020 repo
 
     await page.goto(albSection2020Path)
     await expect(TableDomUtils.tableContainer(page, TableNames.extentOfForest)).toBeVisible({ timeout: 20000 })
-    await DOMUtils.unlockEditing(page)
+    await DOMUtils.ensureEditingUnlocked(page)
 
     let cellSaved = DOMUtils.waitForResponse(page, '/api/cycle-data/table/nodes', 'PATCH')
     await TableDomUtils.fillCell(page, 'forestArea', '2020', forestArea2020Value)
@@ -189,7 +189,7 @@ test.describe.serial('Section tables: 1a - forestArea differs from FRA 2020 repo
 
     await page.goto(albSectionPath)
     await expect(TableDomUtils.tableContainer(page, TableNames.extentOfForest)).toBeVisible({ timeout: 20000 })
-    await DOMUtils.unlockEditing(page)
+    await DOMUtils.ensureEditingUnlocked(page)
 
     cellSaved = DOMUtils.waitForResponse(page, '/api/cycle-data/table/nodes', 'PATCH')
     await TableDomUtils.fillCell(page, 'forestArea', '2020', forestArea2020Value)

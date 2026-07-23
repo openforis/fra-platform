@@ -11,7 +11,7 @@ test.describe.serial('Print view: no validation UI', () => {
 
     await page.goto(x14ExtentOfForestPath)
     await expect(TableDomUtils.tableContainer(page, TableNames.extentOfForest)).toBeVisible({ timeout: 20000 })
-    await DOMUtils.unlockEditing(page)
+    await DOMUtils.ensureEditingUnlocked(page)
 
     // Create validation error in table 1a
     const cellSaved = DOMUtils.waitForResponse(page, '/api/cycle-data/table/nodes', 'PATCH')
@@ -26,7 +26,7 @@ test.describe.serial('Print view: no validation UI', () => {
 
     await page.goto(x14ExtentOfForestPath)
     await expect(TableDomUtils.tableContainer(page, TableNames.extentOfForest)).toBeVisible({ timeout: 20000 })
-    await DOMUtils.unlockEditing(page)
+    await DOMUtils.ensureEditingUnlocked(page)
     await TableDomUtils.clearTable(page, TableNames.extentOfForest)
   })
 })

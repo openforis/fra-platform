@@ -34,12 +34,16 @@ const elementNotExists = async (locator: Locator): Promise<void> => {
   await expect(locator).toHaveCount(0)
 }
 
-const unlockEditing = async (page: Page): Promise<void> => {
-  // Unlock editing if not already unlocked
+const _unlockEditing = async (page: Page): Promise<void> => {
+  await page.locator('.btn-lock.locked').click()
+}
+
+// Unlock editing if it is locked; do nothing if it is already unlocked
+const ensureEditingUnlocked = async (page: Page): Promise<void> => {
   await page.locator('.btn-lock').waitFor({ timeout: 5000 })
 
-  const lockedButton = page.locator('.btn-lock.locked')
-  if (await lockedButton.isVisible()) await lockedButton.click()
+  const editingIsLocked = await page.locator('.btn-lock.locked').isVisible()
+  if (editingIsLocked) await _unlockEditing(page)
 }
 
 // Navigate the platform using the left navigation
@@ -50,11 +54,11 @@ const sidebarNavigate = async (page: Page, section: string, subSection: string):
 
 export const DOMUtils = {
   elementNotExists,
+  ensureEditingUnlocked,
   fillInput,
   fillWYSIWYG,
   nestedSelectOption,
   selectOption,
   sidebarNavigate,
-  unlockEditing,
   waitForResponse,
 }

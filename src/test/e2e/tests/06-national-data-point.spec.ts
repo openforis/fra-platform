@@ -18,7 +18,7 @@ test.describe.serial('National data point: ', () => {
     const page = authenticatedPage
 
     await page.goto(x11ExtentOfForestPath)
-    await DOMUtils.unlockEditing(page)
+    await DOMUtils.ensureEditingUnlocked(page)
 
     await page.getByRole('link', { name: 'Add national data point' }).click()
 
@@ -37,7 +37,7 @@ test.describe.serial('National data point: ', () => {
     const page = authenticatedPage
 
     await page.goto(x11ExtentOfForestPath)
-    await DOMUtils.unlockEditing(page)
+    await DOMUtils.ensureEditingUnlocked(page)
     await TableDomUtils.clickOdpLink(page, ndpYear, ndpOdp1aUrlRegex)
 
     // ==== National classifications name
@@ -129,7 +129,7 @@ test.describe.serial('National data point: ', () => {
     const page = authenticatedPage
 
     await page.goto(x11ExtentOfForestPath)
-    await DOMUtils.unlockEditing(page)
+    await DOMUtils.ensureEditingUnlocked(page)
     await TableDomUtils.clickOdpLink(page, ndpYear, ndpOdp1aUrlRegex)
 
     page.once('dialog', (dialog) => dialog.accept())

@@ -31,7 +31,7 @@ test.describe.serial('Section descriptions: data sources', () => {
     const page = authenticatedPage
 
     await page.goto(dataSourcesSectionPath)
-    await DOMUtils.unlockEditing(page)
+    await DOMUtils.ensureEditingUnlocked(page)
 
     await DescriptionUtils.save(page, async () => {
       await dataSourcesToggleEditButton(page, 'Edit').click()
@@ -47,7 +47,7 @@ test.describe.serial('Section descriptions: data sources', () => {
     const page = authenticatedPage
 
     await page.goto(dataSourcesSectionPath)
-    await DOMUtils.unlockEditing(page)
+    await DOMUtils.ensureEditingUnlocked(page)
 
     await DescriptionUtils.save(page, async () => {
       await dataSourcesToggleEditButton(page, 'Edit').click()
@@ -65,7 +65,7 @@ test.describe.serial('Section descriptions: data sources', () => {
     const page = authenticatedPage
 
     await page.goto(dataSourcesSectionPath)
-    await DOMUtils.unlockEditing(page)
+    await DOMUtils.ensureEditingUnlocked(page)
 
     await dataSourcesToggleEditButton(page, 'Edit').click()
     await DataSourceUtils.deleteDataSourceRow(page, updatedReference.text)
@@ -84,7 +84,7 @@ test.describe.serial('Section descriptions: data sources - invalid reference', (
     const page = authenticatedPage
 
     await page.goto(dataSourcesSectionPath)
-    await DOMUtils.unlockEditing(page)
+    await DOMUtils.ensureEditingUnlocked(page)
 
     await DescriptionUtils.save(page, async () => {
       await dataSourcesToggleEditButton(page, 'Edit').click()
@@ -130,7 +130,7 @@ test.describe.serial('Section descriptions: data sources - invalid reference', (
     const page = authenticatedPage
 
     await page.goto(dataSourcesSectionPath)
-    await DOMUtils.unlockEditing(page)
+    await DOMUtils.ensureEditingUnlocked(page)
 
     await DescriptionUtils.save(page, async () => {
       await dataSourcesToggleEditButton(page, 'Edit').click()
@@ -148,7 +148,7 @@ test.describe.serial('Section descriptions: data sources - invalid reference', (
     const page = authenticatedPage
 
     await page.goto(dataSourcesSectionPath)
-    await DOMUtils.unlockEditing(page)
+    await DOMUtils.ensureEditingUnlocked(page)
 
     await dataSourcesToggleEditButton(page, 'Edit').click()
     await DataSourceUtils.deleteDataSourceRow(page, fixedReference.text)
