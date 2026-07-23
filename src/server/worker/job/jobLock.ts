@@ -1,18 +1,27 @@
 import IORedis from 'ioredis'
-import Redlock, { Lock } from 'redlock'
+import { createLock, IoredisAdapter, type Lock, LockAcquisitionError, type LockHandle } from 'redlock-universal'
 
 import { ProcessEnv } from 'server/utils'
 import { Logger } from 'server/utils/logger'
 import { JobStatus, JobStatusPayload } from 'server/worker/job/jobStatus'
 
 export class JobLock {
-  #lock: Lock
+  #lock?: LockHandle
+  #lockManager: Lock
   #name: string
   static #redis: IORedis = new IORedis(ProcessEnv.redisQueueUrl)
-  static #redlock: Redlock = new Redlock([JobLock.#redis], { retryCount: 0, retryDelay: 200 })
+  static #redisAdapter = new IoredisAdapter(JobLock.#redis)
 
   constructor(name: string) {
     this.#name = name
+    this.#lockManager = createLock({
+      adapter: JobLock.#redisAdapter,
+      key: `lock:${this.#name}`,
+      ttl: 10 * 60 * 1000,
+      retryAttempts: 0,
+      retryDelay: 200,
+      circuitBreaker: false,
+    })
   }
 
   public async getStatus(): Promise<JobStatusPayload | null> {
@@ -47,18 +56,30 @@ export class JobLock {
   }
 
   private async releaseLock(): Promise<void> {
-    if (this.#lock) {
-      await JobLock.#redlock.release(this.#lock)
-    }
+    if (!this.#lock) return
+
+    const released = await this.#lockManager.release(this.#lock)
+    if (!released) throw new Error(`Lock for job ${this.#name} was not released`)
+
+    this.#lock = undefined
   }
 
   public static async disconnect(): Promise<void> {
-    await JobLock.#redlock.quit()
+    await JobLock.#redis.quit()
   }
 
-  public async acquireLock(): Promise<void> {
-    this.#lock = await JobLock.#redlock.acquire([`lock:${this.#name}`], 10 * 60 * 1000)
+  public async acquireLock(): Promise<boolean> {
+    try {
+      this.#lock = await this.#lockManager.acquire()
+    } catch (error) {
+      // Note: redlock-universal throws when acquire() fails for any reason (lock already held, but also
+      // Redis errors). So return false (skip) only when the lock is actually held, otherwise re-throw.
+      if (error instanceof LockAcquisitionError && error.cause?.message.includes('already held')) return false
+
+      throw error
+    }
     await this.setStatus(JobStatus.running, { startedAt: new Date().toISOString() })
+    return true
   }
 
   public async releaseSuccess(): Promise<void> {

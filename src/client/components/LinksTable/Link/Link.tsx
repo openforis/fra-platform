@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
 
 import { CountryIso } from 'meta/area/countryIso'
-import { Link as LinkType } from 'meta/cycleData/links/link'
+import { Link as LinkType, LinkValidationStatusCode } from 'meta/cycleData/links/link'
 import { Objects } from 'utils/objects'
 
 import { useAppDispatch } from 'client/store/hooks'
@@ -30,6 +30,8 @@ const Link: React.FC<Props> = (props) => {
 
   const approved = linkInfo.props?.approved
   const withApprovalBadge = approved ?? false
+  const valid = linkInfo.visits?.at(-1)?.code === LinkValidationStatusCode.success
+  const withButton = !valid || withApprovalBadge
 
   const handleUpdateLink = async (): Promise<void> => {
     const newApproved = Objects.isEmpty(approved) ? true : !approved
@@ -45,14 +47,16 @@ const Link: React.FC<Props> = (props) => {
       </LinkCommon>
       <div className="link-cell__badge-button-container">
         {withApprovalBadge && <div className="link-cell__badge">{t('common.approved')}</div>}
-        <Button
-          disabled={verifyLinksInProgress ?? true}
-          inverse
-          label={withApprovalBadge ? t('common.disapprove') : t('common.approve')}
-          onClick={handleUpdateLink}
-          size={ButtonSize.xs}
-          type={ButtonType.primary}
-        />
+        {withButton && (
+          <Button
+            disabled={verifyLinksInProgress ?? true}
+            inverse
+            label={withApprovalBadge ? t('common.disapprove') : t('common.approve')}
+            onClick={handleUpdateLink}
+            size={ButtonSize.xs}
+            type={ButtonType.primary}
+          />
+        )}
       </div>
     </div>
   )
