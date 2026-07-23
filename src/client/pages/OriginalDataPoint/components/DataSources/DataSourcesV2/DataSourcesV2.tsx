@@ -9,6 +9,7 @@ import { useIsEditODPEnabled } from 'client/pages/OriginalDataPoint/hooks/useIsE
 
 import { useDataSourcesData } from './hooks/useDataSourcesData'
 import { useDataSourcesHistoryLastApproved } from './hooks/useDataSourcesHistoryLastApproved'
+import { useOnAdd } from './hooks/useOnAdd'
 import { useOnChange } from './hooks/useOnChange'
 import { useOnDelete } from './hooks/useOnDelete'
 
@@ -22,6 +23,7 @@ const DataSourcesV2: React.FC<Props> = (props) => {
   const canEdit = useIsEditODPEnabled()
   const dataSourcesData = useDataSourcesData({ originalDataPoint })
   const options = useOptionsMethodsUsed()
+  const onAdd = useOnAdd({ originalDataPoint })
   const onChange = useOnChange({ originalDataPoint })
   const onDelete = useOnDelete({ originalDataPoint })
 
@@ -34,6 +36,7 @@ const DataSourcesV2: React.FC<Props> = (props) => {
       columns={{ type: { isMulti: true, options } }}
       data={dataSourcesData}
       historyCompares={historyCompares}
+      onAdd={onAdd}
       onChange={onChange}
       onDelete={onDelete}
       options={{ canEdit, canReview: canEdit, displayHistory }}
