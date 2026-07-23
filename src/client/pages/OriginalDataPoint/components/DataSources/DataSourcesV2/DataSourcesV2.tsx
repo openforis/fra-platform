@@ -7,7 +7,6 @@ import { useOptionsMethodsUsed } from 'client/pages/OriginalDataPoint/components
 import { useODPDisplayHistory } from 'client/pages/OriginalDataPoint/components/hooks/useODPDisplayHistory'
 import { useIsEditODPEnabled } from 'client/pages/OriginalDataPoint/hooks/useIsEditODPEnabled'
 
-import { useDataSourcesData } from './hooks/useDataSourcesData'
 import { useDataSourcesHistoryLastApproved } from './hooks/useDataSourcesHistoryLastApproved'
 import { useOnAdd } from './hooks/useOnAdd'
 import { useOnChange } from './hooks/useOnChange'
@@ -21,20 +20,19 @@ const DataSourcesV2: React.FC<Props> = (props) => {
   const { originalDataPoint } = props
 
   const canEdit = useIsEditODPEnabled()
-  const dataSourcesData = useDataSourcesData({ originalDataPoint })
   const options = useOptionsMethodsUsed()
   const onAdd = useOnAdd({ originalDataPoint })
   const onChange = useOnChange({ originalDataPoint })
   const onDelete = useOnDelete({ originalDataPoint })
 
-  const { dataSources } = dataSourcesData
+  const { dataSources = [] } = originalDataPoint
   const historyCompares = useDataSourcesHistoryLastApproved({ dataSources })
   const displayHistory = useODPDisplayHistory()
 
   return (
     <DataSources
       columns={{ type: { isMulti: true, options } }}
-      data={dataSourcesData}
+      data={{ dataSources }}
       historyCompares={historyCompares}
       onAdd={onAdd}
       onChange={onChange}
