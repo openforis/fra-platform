@@ -2,6 +2,8 @@
   "extends": "./tsconfig.base.json",
   "exclude": ["node_modules", "src/client", "src/test", "src/tools", "src/**/*.test.ts"],
   "compilerOptions": {
+    "module": "Node20",
+    "moduleResolution": "Node16",
     "skipLibCheck": true
   }
 }
