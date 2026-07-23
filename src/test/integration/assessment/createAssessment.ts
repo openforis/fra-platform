@@ -20,7 +20,10 @@ export default (): void =>
       user,
     })
     // Init countries: TODO: if needed move it to the repository
-    const schemaCycle = Schemas.getSchemaAssessmentCycle({ assessmentName: assessmentCycleName, cycleName: cycle.name })
+    const schemaCycle = Schemas.getSchemaAssessmentCycle({
+      assessmentName: assessment.props.name,
+      cycleName: cycle.name,
+    })
     await DB.query(`
       insert into ${schemaCycle}.country (country_iso)
       select country_iso
