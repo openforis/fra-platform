@@ -67,7 +67,7 @@
       "removeUser": "удалил {{user}}",
       "resolved": "разрешил проблему в",
       "status": "изменил статус на",
-      "updateAssessmentStatus": "изменил статус с {{assessment}} на {{status}}",
+      "updateAssessmentStatus": "изменил статус на {{status}}",
       "updateInvitation": "приглашение обновлено для {{user}} как {{role}}",
       "updateUser": "отредактировал {{user}}"
     },
