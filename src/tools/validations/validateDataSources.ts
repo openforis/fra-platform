@@ -9,20 +9,19 @@ import {
   CommentableDescriptionName,
   DescriptionCountryValues,
 } from 'meta/assessment/descriptionValue'
-import { Objects } from 'utils/objects'
 import { ToolsUtils } from 'tools/utils/toolsUtils'
 
 import { AreaController } from 'server/controller/area'
 import { AssessmentController } from 'server/controller/assessment'
-import { updateDataSourceFieldValidations } from 'server/controller/cycleData/validations/descriptions/updateDataSourceFieldValidations'
 import { BaseProtocol, DB } from 'server/db/db'
 import { DescriptionRepository } from 'server/db/repository/assessmentCycle/descriptions'
+import { DataValidationService } from 'server/service/dataValidation'
 import { Logger } from 'server/utils/logger'
 
 import { Failures } from './common/failures'
 import { Failure } from './common/types'
 
-const toolName = 'validateDescriptions'
+const toolName = 'validateDataSources'
 
 type CountryProps = {
   assessment: Assessment
@@ -46,13 +45,10 @@ const _validateCountry = async (props: CountryProps): Promise<void> => {
     }))
   )
 
-  if (Objects.isEmpty(descriptions)) return
-
-  await updateDataSourceFieldValidations({ assessment, country, cycle, descriptions, notifyClients: false })
+  await DataValidationService.validateDataSources({ assessment, country, cycle, descriptions, notifyClients: false })
 }
 
-// Validate only data sources
-export const validateDescriptions = async (client: BaseProtocol = DB): Promise<Array<Failure>> => {
+export const validateDataSources = async (client: BaseProtocol = DB): Promise<Array<Failure>> => {
   const failures: Array<Failure> = []
   const assessments = await AssessmentController.getAll({ metaCache: true }, client)
   const assessmentCycles = assessments.flatMap((assessment) =>
@@ -90,5 +86,5 @@ export const validateDescriptions = async (client: BaseProtocol = DB): Promise<A
 }
 
 if (require.main === module) {
-  ToolsUtils.exec(async () => Failures.throwIfFailed(toolName, await validateDescriptions()))
+  ToolsUtils.exec(async () => Failures.throwIfFailed(toolName, await validateDataSources()))
 }
