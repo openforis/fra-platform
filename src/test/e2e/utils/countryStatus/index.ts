@@ -7,7 +7,7 @@ const submitToReviewWarning = 'There are errors in the data, are you sure you wa
 
 const expectSubmitToReviewWarning = async (page: Page): Promise<void> => {
   const status = page.locator('.nav-header__status.actionable-true')
-  await DOMUtils.unlockEditing(page)
+  await DOMUtils.ensureEditingUnlocked(page)
   await expect(status).toBeVisible({ timeout: 10000 })
   await status.click()
   await page.getByText(sendToReviewLabel).click()
