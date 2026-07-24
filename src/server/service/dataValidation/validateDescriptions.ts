@@ -3,7 +3,7 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { CommentableDescription, DescriptionIdentifier } from 'meta/assessment/descriptionValue'
 
-import { visitDescriptionLinks } from 'server/worker/tasks/verifyLinks/visitDescriptionLinks/visitDescriptionLinks'
+import { LinksService } from 'server/service/links'
 
 import { validateDataSources } from './validateDataSources'
 
@@ -27,7 +27,7 @@ export const validateDescriptions = async (props: Props): Promise<void> => {
     sectionName,
   }))
 
-  await visitDescriptionLinks({
+  await LinksService.enqueueDescriptionLinksValidation({
     assessment,
     countryIso,
     cycle,

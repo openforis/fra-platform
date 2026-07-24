@@ -13,8 +13,7 @@ import { Objects } from 'utils/objects'
 import { BaseProtocol, DB } from 'server/db/db'
 import { LinkRepository } from 'server/db/repository/assessmentCycle/links'
 import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
-import { visitDescriptionLinks } from 'server/worker/tasks/verifyLinks/visitDescriptionLinks/visitDescriptionLinks'
-import { visitNationalDataPointLinks } from 'server/worker/tasks/verifyLinks/visitNationalDataPointLinks/visitNationalDataPointLinks'
+import { LinksService } from 'server/service/links'
 
 type Props = {
   assessment: Assessment
@@ -51,7 +50,7 @@ export const update = async (props: Props): Promise<Link> => {
         sectionName,
       })
     )
-    await visitDescriptionLinks({ assessment, countryIso, cycle, descriptionIdentifiers })
+    await LinksService.enqueueDescriptionLinksValidation({ assessment, countryIso, cycle, descriptionIdentifiers })
   }
 
   // If the link has national data point locations, we trigger the flow that updates the ndp validation cache.
@@ -62,7 +61,7 @@ export const update = async (props: Props): Promise<Link> => {
       ndpUuid,
       fields: [ndpSection],
     }))
-    await visitNationalDataPointLinks({ assessment, countryIso, cycle, targets })
+    await LinksService.enqueueNationalDataPointLinksValidation({ assessment, countryIso, cycle, targets })
   }
 
   return updatedLink

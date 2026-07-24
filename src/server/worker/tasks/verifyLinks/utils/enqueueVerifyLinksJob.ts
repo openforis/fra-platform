@@ -19,7 +19,7 @@ type JobPropsByName = {
 }
 
 // Enqueues a verify-links job and makes sure a worker is running to consume it.
-export const addVerifyLinksJob = async <JobName extends keyof JobPropsByName>(
+export const enqueueVerifyLinksJob = async <JobName extends keyof JobPropsByName>(
   jobName: JobName,
   props: JobPropsByName[JobName]
 ): Promise<Job> => {

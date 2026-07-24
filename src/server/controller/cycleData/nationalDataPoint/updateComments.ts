@@ -11,7 +11,7 @@ import { BaseProtocol, DB } from 'server/db/db'
 import { OriginalDataPointRepository } from 'server/db/repository/assessmentCycle/originalDataPoint'
 import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 import { CountryService } from 'server/service/country'
-import { visitNationalDataPointLinks } from 'server/worker/tasks/verifyLinks/visitNationalDataPointLinks/visitNationalDataPointLinks'
+import { LinksService } from 'server/service/links'
 
 type Props = {
   assessment: Assessment
@@ -57,7 +57,7 @@ export const updateComments = async (props: Props, client: BaseProtocol = DB): P
   })
 
   const commentLinkField = NDPCommentLinkFields.find(({ commentKey }) => commentKey === field)
-  await visitNationalDataPointLinks({
+  await LinksService.enqueueNationalDataPointLinksValidation({
     assessment,
     countryIso,
     cycle,

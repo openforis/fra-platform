@@ -12,7 +12,7 @@ import { BaseProtocol, DB } from 'server/db/db'
 import { DescriptionRepository } from 'server/db/repository/assessmentCycle/descriptions'
 import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 import { CountryService } from 'server/service/country'
-import { visitNationalDataPointLinks } from 'server/worker/tasks/verifyLinks/visitNationalDataPointLinks/visitNationalDataPointLinks'
+import { LinksService } from 'server/service/links'
 
 type Props = {
   assessment: Assessment
@@ -50,7 +50,7 @@ export const updateDataSources = async (props: Props, client: BaseProtocol = DB)
     await CountryService.updateLastEdit({ assessment, cycle, country, user, lastEditOdp: true, lastUpdateTimestamp }, t)
   })
 
-  await visitNationalDataPointLinks({
+  await LinksService.enqueueNationalDataPointLinksValidation({
     assessment,
     countryIso,
     cycle,

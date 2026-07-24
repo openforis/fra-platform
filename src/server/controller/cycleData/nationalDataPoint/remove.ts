@@ -18,8 +18,8 @@ import { MessageTopicRepository } from 'server/db/repository/assessmentCycle/mes
 import { OriginalDataPointRepository } from 'server/db/repository/assessmentCycle/originalDataPoint'
 import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 import { CountryService } from 'server/service/country'
+import { LinksService } from 'server/service/links'
 import { SocketServer } from 'server/service/socket'
-import { visitNationalDataPointLinks } from 'server/worker/tasks/verifyLinks/visitNationalDataPointLinks/visitNationalDataPointLinks'
 
 import { updateOriginalDataPointDependentNodes } from './updateDependants/updateOriginalDataPointDependentNodes'
 
@@ -90,7 +90,7 @@ export const remove = async (props: Props, client: BaseProtocol = DB): Promise<O
 
   // Remove the deleted national data point's link locations.
   // Clients are already notified through the delete event above.
-  await visitNationalDataPointLinks({
+  await LinksService.enqueueNationalDataPointLinksValidation({
     assessment,
     countryIso,
     cycle,
