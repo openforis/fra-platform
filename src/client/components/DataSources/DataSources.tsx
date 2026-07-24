@@ -122,7 +122,7 @@ export const DataSources: React.FC<PropsDataSources> = (props: PropsDataSources)
 
           {canEdit && !displayHistory && (
             <div style={{ gridColumn: '1/-1' }}>
-              <Button iconName="small-add" label={t('common.add')} onClick={onAdd} size={ButtonSize.m} />
+              <Button iconName="small-add" label={t('common.add')} onClick={onAdd} size={ButtonSize.s} />
             </div>
           )}
 
