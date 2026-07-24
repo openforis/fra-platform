@@ -20,25 +20,25 @@ export default async (job: VerifyDescriptionLinksJob): Promise<void> => {
   const logKey = _getLogKey(job)
 
   try {
-    const { assessment, countryIso, cycle, descriptionIdentifiers, notifyClients = true } = job.data
+    const { assessment, countryIso, cycle, descriptionKeys, notifyClients = true } = job.data
     const commonProps = { assessment, countryIso, cycle }
     const time = new Date().getTime()
 
     Logger.info(`${logKey} started.`)
 
-    const sectionNames = Array.from(new Set(descriptionIdentifiers.map<SectionName>(({ sectionName }) => sectionName)))
+    const sectionNames = Array.from(new Set(descriptionKeys.map<SectionName>(({ sectionName }) => sectionName)))
 
     const descriptionValues = await DescriptionRepository.getValues({
       assessment,
       countryISOs: [countryIso],
       cycle,
-      names: descriptionIdentifiers.map<CommentableDescriptionName>(({ name }) => name),
+      names: descriptionKeys.map<CommentableDescriptionName>(({ name }) => name),
       sectionNames,
     })
 
     const { descriptions, linksToVisit } = buildDescriptionLinks({
       ...commonProps,
-      descriptionIdentifiers,
+      descriptionKeys,
       descriptionValues,
     })
 

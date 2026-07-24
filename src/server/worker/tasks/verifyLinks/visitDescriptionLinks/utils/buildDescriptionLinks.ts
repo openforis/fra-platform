@@ -3,8 +3,8 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import {
   CommentableDescription,
+  CommentableDescriptionKey,
   DescriptionCountryValues,
-  DescriptionIdentifier,
 } from 'meta/assessment/descriptionValue'
 import { DescriptionLinkLocationPath } from 'meta/cycleData/links/descriptionLink'
 import { LinkToVisit } from 'meta/cycleData/links/link'
@@ -16,7 +16,7 @@ type Props = {
   assessment: Assessment
   countryIso: CountryIso
   cycle: Cycle
-  descriptionIdentifiers: Array<DescriptionIdentifier>
+  descriptionKeys: Array<CommentableDescriptionKey>
   descriptionValues: DescriptionCountryValues
 }
 
@@ -26,18 +26,15 @@ type Returned = {
 }
 
 export const buildDescriptionLinks = (props: Props): Returned => {
-  const { assessment, countryIso, cycle, descriptionIdentifiers, descriptionValues } = props
+  const { assessment, countryIso, cycle, descriptionKeys, descriptionValues } = props
 
-  const descriptions = descriptionIdentifiers.reduce<Array<Omit<CommentableDescription, 'id'>>>(
-    (acc, descriptionIdentifier) => {
-      const { name, sectionName } = descriptionIdentifier
-      const value = descriptionValues[countryIso]?.[sectionName]?.[name]
-      if (Objects.isEmpty(value)) return acc
-      acc.push({ countryIso, name, sectionName, value })
-      return acc
-    },
-    []
-  )
+  const descriptions = descriptionKeys.reduce<Array<Omit<CommentableDescription, 'id'>>>((acc, descriptionKey) => {
+    const { name, sectionName } = descriptionKey
+    const value = descriptionValues[countryIso]?.[sectionName]?.[name]
+    if (Objects.isEmpty(value)) return acc
+    acc.push({ countryIso, name, sectionName, value })
+    return acc
+  }, [])
 
   const linksToVisit = descriptions.flatMap<LinkToVisit>((description) => {
     const { name: descriptionName, sectionName, value } = description

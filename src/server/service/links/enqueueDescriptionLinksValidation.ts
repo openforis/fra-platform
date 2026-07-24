@@ -5,9 +5,9 @@ import { enqueueVerifyLinksJob } from 'server/worker/tasks/verifyLinks/utils/enq
 import { VerifyDescriptionLinksJobProps } from 'server/worker/tasks/verifyLinks/visitDescriptionLinks/props'
 
 export const enqueueDescriptionLinksValidation = async (props: VerifyDescriptionLinksJobProps): Promise<void> => {
-  const { descriptionIdentifiers } = props
+  const { descriptionKeys } = props
 
-  if (Objects.isEmpty(descriptionIdentifiers)) return
+  if (Objects.isEmpty(descriptionKeys)) return
 
   await enqueueVerifyLinksJob(VerifyLinksJobName.verifyDescriptionLinks, props)
 }
