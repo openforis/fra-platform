@@ -82,7 +82,7 @@ test.describe.serial('National Correspondent: ', () => {
     // Navigate using sidebar and unlock editing
     await ncPage.goto('/assessments/fra/2025/X01/home')
     await DOMUtils.sidebarNavigate(ncPage, 'Forest extent, characteristics and changes', 'Extent of forest')
-    await DOMUtils.unlockEditing(ncPage)
+    await DOMUtils.ensureEditingUnlocked(ncPage)
 
     // Clear table
     await TableDomUtils.clearTable(ncPage, 'extentOfForest')

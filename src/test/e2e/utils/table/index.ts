@@ -1,5 +1,7 @@
 import { expect, Locator, Page } from '@playwright/test'
 
+import { DOMUtils } from '../dom'
+
 const cellLocator = (page: Page, variableName: string, colName: string): Locator =>
   page.locator(`[id$="variableName_${variableName}_colName_${colName}"]`)
 
@@ -40,7 +42,9 @@ const tableValidationErrors = (page: Page, tableName: string): Locator =>
 
 const clearTable = async (page: Page, tableName: string): Promise<void> => {
   page.once('dialog', (dialog): Promise<void> => dialog.accept())
+  const cleared = DOMUtils.waitForResponse(page, '/api/cycle-data/table/clear', 'POST')
   await tableContainer(page, tableName).getByRole('button', { name: 'Clear table' }).click()
+  await cleared
 }
 
 const expectTableHasError = async (page: Page, tableName: string): Promise<void> => {
@@ -54,6 +58,7 @@ const expectTableHasNoError = async (page: Page, tableName: string): Promise<voi
 const clickOdpLink = async (page: Page, year: string, urlRegex: RegExp): Promise<void> => {
   await page.locator('.table-grid__odp-link', { hasText: year }).click()
   await page.waitForURL(urlRegex)
+  await page.locator('.odp__tab-controller .odp__tab-item.active').waitFor()
 }
 
 export const TableDomUtils = {
