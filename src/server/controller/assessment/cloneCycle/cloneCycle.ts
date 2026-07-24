@@ -1,6 +1,7 @@
 import { Assessment } from 'meta/assessment/assessment'
-import { Cycle } from 'meta/assessment/cycle'
+import { Cycle, CycleName } from 'meta/assessment/cycle'
 import { User } from 'meta/user/user'
+import { Objects } from 'utils/objects'
 
 import { CacheController } from 'server/cache/controller'
 import { AssessmentRedisRepository } from 'server/cache/repository/assessment'
@@ -12,12 +13,13 @@ import { generateMaterializedViews } from 'server/controller/assessment/cloneCyc
 import { CloneProps } from 'server/controller/assessment/cloneCycle/types'
 import { createCycle } from 'server/controller/assessment/createCycle'
 import { BaseProtocol, DB } from 'server/db/db'
+import { CreateCycleOptions } from 'server/db/repository/assessmentCycle/cycle/create'
 import { StaticFiles } from 'server/static/staticFiles'
 
 type Props = {
   assessment: Assessment
-  cycle: Cycle
-  name: string
+  cycleSource: Cycle
+  name: CycleName
   user: User
 }
 
@@ -27,10 +29,13 @@ type Returned = {
 }
 
 export const cloneCycle = async (props: Props, client: BaseProtocol = DB): Promise<Returned> => {
-  const { cycle: cycleSource } = props
+  const { assessment: _assessment, cycleSource, name, user } = props
 
   return client.tx(async (t) => {
-    const { assessment, cycle: cycleTarget } = await createCycle({ ...props, cycleSource }, t)
+    const cycleProps = Objects.pick(cycleSource.props, ['ndp'])
+    const uuidSource = cycleSource.uuid
+    const options: CreateCycleOptions = { name, props: cycleProps, uuidSource }
+    const { assessment, cycle: cycleTarget } = await createCycle({ assessment: _assessment, options, user }, t)
 
     const cloneProps: CloneProps = { assessment, cycleSource, cycleTarget }
 
