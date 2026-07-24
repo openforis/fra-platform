@@ -2,6 +2,12 @@
 
 .status-filter {
   position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.status-filter__clear {
+  margin-left: $spacing-xxxs;
 }
 
 .status-filter__menu {

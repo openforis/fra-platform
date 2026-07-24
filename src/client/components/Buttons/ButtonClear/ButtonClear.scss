@@ -1,0 +1,19 @@
+@use 'src/client/style/partials' as *;
+
+.button.button-clear {
+  padding: $spacing-xxxxs;
+
+  svg {
+    height: 16px;
+    width: 16px;
+    color: $text-disabled;
+  }
+
+  &:hover {
+    background-color: transparent;
+  }
+
+  &:hover svg {
+    color: $ui-accent;
+  }
+}
