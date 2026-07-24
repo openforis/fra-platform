@@ -14,7 +14,6 @@ import { BaseProtocol, DB } from 'server/db/db'
 import { LinkRepository } from 'server/db/repository/assessmentCycle/links'
 import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 import { LinksService } from 'server/service/links'
-import { visitNationalDataPointLinks } from 'server/worker/tasks/verifyLinks/visitNationalDataPointLinks/visitNationalDataPointLinks'
 
 type Props = {
   assessment: Assessment
@@ -62,7 +61,7 @@ export const update = async (props: Props): Promise<Link> => {
       ndpUuid,
       fields: [ndpSection],
     }))
-    await visitNationalDataPointLinks({ assessment, countryIso, cycle, targets })
+    await LinksService.enqueueNationalDataPointLinksValidation({ assessment, countryIso, cycle, targets })
   }
 
   return updatedLink

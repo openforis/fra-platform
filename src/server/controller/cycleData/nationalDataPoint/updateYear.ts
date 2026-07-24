@@ -13,8 +13,8 @@ import { BaseProtocol, DB } from 'server/db/db'
 import { OriginalDataPointRepository } from 'server/db/repository/assessmentCycle/originalDataPoint'
 import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 import { CountryService } from 'server/service/country'
+import { LinksService } from 'server/service/links'
 import { SocketServer } from 'server/service/socket'
-import { visitNationalDataPointLinks } from 'server/worker/tasks/verifyLinks/visitNationalDataPointLinks/visitNationalDataPointLinks'
 
 import { updateOriginalDataPointsDependentNodes } from './updateDependants/updateOriginalDataPointsDependentNodes'
 
@@ -79,7 +79,7 @@ export const updateYear = async (props: Props, client: BaseProtocol = DB): Promi
   })
 
   // The stored link locations carry the year and a year-based url, so they are refreshed on year change.
-  await visitNationalDataPointLinks({
+  await LinksService.enqueueNationalDataPointLinksValidation({
     assessment,
     countryIso,
     cycle,
