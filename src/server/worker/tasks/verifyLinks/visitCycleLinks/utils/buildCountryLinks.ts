@@ -3,9 +3,9 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import {
   CommentableDescription,
+  CommentableDescriptionKey,
   CommentableDescriptionName,
   DescriptionCountryValues,
-  DescriptionIdentifier,
 } from 'meta/assessment/descriptionValue'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { SectionNames } from 'meta/assessment/section'
@@ -31,19 +31,19 @@ export type CountryLinks = {
   nationalDataPointTargets: Array<NDPLinkTarget>
 }
 
-type GetDescriptionIdentifiersProps = {
+type GetDescriptionKeysProps = {
   countryIso: CountryIso
   descriptionValues: DescriptionCountryValues
 }
 
-const _getDescriptionIdentifiers = (props: GetDescriptionIdentifiersProps): Array<DescriptionIdentifier> => {
+const _getDescriptionKeys = (props: GetDescriptionKeysProps): Array<CommentableDescriptionKey> => {
   const { countryIso, descriptionValues } = props
 
-  return Object.entries(descriptionValues[countryIso] ?? {}).flatMap<DescriptionIdentifier>(
+  return Object.entries(descriptionValues[countryIso] ?? {}).flatMap<CommentableDescriptionKey>(
     ([sectionName, sectionValues]) => {
       // NDP data sources are stored as descriptions, but their links belong to the NDP flow.
       if (sectionName === SectionNames.nationalDataPoint) return []
-      return Object.keys(sectionValues).map<DescriptionIdentifier>((name) => ({
+      return Object.keys(sectionValues).map<CommentableDescriptionKey>((name) => ({
         name: name as CommentableDescriptionName,
         sectionName,
       }))
@@ -54,12 +54,12 @@ const _getDescriptionIdentifiers = (props: GetDescriptionIdentifiersProps): Arra
 export const buildCountryLinks = (props: Props): CountryLinks => {
   const { assessment, countryIso, cycle, descriptionValues, nationalDataPoints } = props
 
-  const descriptionIdentifiers = _getDescriptionIdentifiers({ countryIso, descriptionValues })
+  const descriptionKeys = _getDescriptionKeys({ countryIso, descriptionValues })
   const { descriptions, linksToVisit: descriptionLinksToVisit } = buildDescriptionLinks({
     assessment,
     countryIso,
     cycle,
-    descriptionIdentifiers,
+    descriptionKeys,
     descriptionValues,
   })
 

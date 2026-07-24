@@ -1,4 +1,5 @@
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
+import { SectionName } from 'meta/assessment/section'
 import { LinkLocationBase } from 'meta/cycleData/links/linkLocationBase'
 
 export const DescriptionLinkLocationPath = {
@@ -10,7 +11,7 @@ export type DescriptionLinkLocation = LinkLocationBase & {
   colName: string
   descriptionName: CommentableDescriptionName
   path: Array<string>
-  sectionName: string
+  sectionName: SectionName
   uuid?: string
 }
 

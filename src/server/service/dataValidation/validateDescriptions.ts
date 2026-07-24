@@ -1,7 +1,7 @@
 import { Country } from 'meta/area/country'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { CommentableDescription, DescriptionIdentifier } from 'meta/assessment/descriptionValue'
+import { CommentableDescription, CommentableDescriptionKey } from 'meta/assessment/descriptionValue'
 
 import { LinksService } from 'server/service/links'
 
@@ -22,7 +22,7 @@ export const validateDescriptions = async (props: Props): Promise<void> => {
   // Validate data source fields first (not in parallel) to avoid cache race conditions.
   await validateDataSources({ assessment, country, cycle, descriptions, notifyClients })
 
-  const descriptionIdentifiers = descriptions.map<DescriptionIdentifier>(({ name, sectionName }) => ({
+  const descriptionKeys = descriptions.map<CommentableDescriptionKey>(({ name, sectionName }) => ({
     name,
     sectionName,
   }))
@@ -31,7 +31,7 @@ export const validateDescriptions = async (props: Props): Promise<void> => {
     assessment,
     countryIso,
     cycle,
-    descriptionIdentifiers,
+    descriptionKeys,
     notifyClients,
   })
 }

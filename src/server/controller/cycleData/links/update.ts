@@ -2,7 +2,7 @@ import { CountryIso } from 'meta/area/countryIso'
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
-import { DescriptionIdentifier } from 'meta/assessment/descriptionValue'
+import { CommentableDescriptionKey } from 'meta/assessment/descriptionValue'
 import { Link } from 'meta/cycleData/links/link'
 import { Links } from 'meta/cycleData/links/links'
 import { NDPLinkTarget } from 'meta/cycleData/links/nationalDataPointLink'
@@ -44,13 +44,11 @@ export const update = async (props: Props): Promise<Link> => {
   const descriptionLocations = updatedLink.locations.filter(Links.isDescriptionLocation)
   if (!Objects.isEmpty(descriptionLocations)) {
     const { countryIso } = updatedLink
-    const descriptionIdentifiers = descriptionLocations.map<DescriptionIdentifier>(
-      ({ descriptionName, sectionName }) => ({
-        name: descriptionName,
-        sectionName,
-      })
-    )
-    await LinksService.enqueueDescriptionLinksValidation({ assessment, countryIso, cycle, descriptionIdentifiers })
+    const descriptionKeys = descriptionLocations.map<CommentableDescriptionKey>(({ descriptionName, sectionName }) => ({
+      name: descriptionName,
+      sectionName,
+    }))
+    await LinksService.enqueueDescriptionLinksValidation({ assessment, countryIso, cycle, descriptionKeys })
   }
 
   // If the link has national data point locations, we trigger the flow that updates the ndp validation cache.
