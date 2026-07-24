@@ -1,6 +1,5 @@
 // Editor with links: Display toolbar to the right when displaying inline editor
 .editor-wysiwyg-links .jodit-container.jodit {
-  align-items: center;
   display: grid !important;
   grid-template-columns: 1fr auto !important;
   justify-content: center;
