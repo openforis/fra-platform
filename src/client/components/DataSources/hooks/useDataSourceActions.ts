@@ -31,7 +31,7 @@ export const useDataSourceActions = (props: Props): Array<DataRowAction> => {
   return useMemo<Array<DataRowAction>>(() => {
     const actions: Array<DataRowAction> = []
 
-    if (readOnly || dataSource.placeholder) return actions
+    if (readOnly) return actions
 
     if (canEdit) {
       actions.push({ type: DataRowActionType.Delete, onClick: () => onDelete(dataSource) })
