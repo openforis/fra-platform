@@ -27,7 +27,7 @@ const CreateNationalClass: React.FC<Props> = (props) => {
       iconName="small-add"
       label={t('common.add')}
       onClick={onClick}
-      size={ButtonSize.s}
+      size={ButtonSize.xs}
     />
   )
 }
