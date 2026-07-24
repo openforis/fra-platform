@@ -3,11 +3,12 @@
 .status-filter {
   position: relative;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .status-filter__clear {
   margin-left: $spacing-xxxs;
+  margin-top: -2px;
 }
 
 .status-filter__menu {
