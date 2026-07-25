@@ -19,7 +19,7 @@ export const NWFPProductHasCategory: ExpressionFunction<Context> = {
             {
               name: ValidatorName.nwfpProductHasCategory,
               key: 'generalValidation.columnEmpty',
-              params: { columName: 'nonWoodForestProductsRemovals.category' },
+              params: { columName: { key: 'nonWoodForestProductsRemovals.category' } },
             },
           ]
 

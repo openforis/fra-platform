@@ -1,4 +1,12 @@
-export type ValidationMessageParam = string | number | Array<string> | Array<number>
+export type ValidationMessageParamKey = { key: string }
+
+export type ValidationMessageParam =
+  | string
+  | number
+  | ValidationMessageParamKey
+  | Array<string>
+  | Array<number>
+  | Array<ValidationMessageParamKey>
 
 export interface ValidationMessage {
   name?: string
