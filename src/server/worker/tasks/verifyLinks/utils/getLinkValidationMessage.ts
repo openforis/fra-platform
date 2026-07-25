@@ -27,7 +27,7 @@ export const getLinkValidationMessage = (props: Props): ValidationMessage | unde
     key: 'generalValidation.invalidLinkWithReason',
     params: {
       link: invalidLinkLabel,
-      reason: Links.getI18nValidationStatusLabelKey(validationCode),
+      reason: { key: Links.getI18nValidationStatusLabelKey(validationCode) },
     },
   }
 }
