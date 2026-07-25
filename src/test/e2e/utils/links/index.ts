@@ -17,8 +17,8 @@ const buildInvalidLinksHtml = (label: string): InvalidLinksFixture => {
   const emptyLinkText = `empty link ${label}`
   const brokenLinkText = `broken link ${label}`
   const brokenLinkDomain = `${label}.this-domain-does-not-exist-e2e-test.invalid`
-  const brokenLinkDisplayUrl = `//${brokenLinkDomain}`
-  const html = `<a href="">${emptyLinkText}</a><br><a href="https://${brokenLinkDomain}">${brokenLinkText}</a>`
+  const brokenLinkDisplayUrl = `https://${brokenLinkDomain}`
+  const html = `<a href="">${emptyLinkText}</a><br><a href="${brokenLinkDisplayUrl}">${brokenLinkText}</a>`
 
   return { brokenLinkDisplayUrl, brokenLinkText, emptyLinkText, html }
 }
