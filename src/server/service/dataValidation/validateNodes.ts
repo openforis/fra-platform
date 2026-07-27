@@ -6,10 +6,9 @@ import { NodeUpdates } from 'meta/data/nodeUpdates'
 import { Sockets } from 'meta/socket/sockets'
 
 import { TableValidationRedisRepository } from 'server/cache/repository/validation/table'
+import { ContextFactory } from 'server/controller/cycleData/validations/tables/context/contextFactory'
+import { validateNodeUpdates } from 'server/controller/cycleData/validations/tables/validateNodeUpdates'
 import { SocketServer } from 'server/service/socket'
-
-import { ContextFactory } from './context/contextFactory'
-import { validateNodeUpdates } from './validateNodeUpdates'
 
 type Props = {
   assessment: Assessment
@@ -19,7 +18,7 @@ type Props = {
   notifyClients?: boolean
 }
 
-export const updateTableValidations = async (props: Props): Promise<void> => {
+export const validateNodes = async (props: Props): Promise<void> => {
   const { assessment, country, cycle, nodeUpdates, notifyClients = true } = props
   const context = await ContextFactory.newInstance({ assessment, country, cycle, nodeUpdates })
   const { countryIso, tableValidations } = context
