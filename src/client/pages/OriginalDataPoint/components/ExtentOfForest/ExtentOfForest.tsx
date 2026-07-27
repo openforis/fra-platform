@@ -28,7 +28,7 @@ const ExtentOfForest: React.FC<Props> = (props) => {
   const { t } = useTranslation()
   const { print } = useIsPrintRoute()
 
-  const nationalClasses = originalDataPoint.nationalClasses.filter((nationalClass) => !nationalClass.placeHolder)
+  const { nationalClasses } = originalDataPoint
 
   const nationalClassValidations = nationalClasses.map((_, index) =>
     ODPs.validateNationalClass(originalDataPoint, index)

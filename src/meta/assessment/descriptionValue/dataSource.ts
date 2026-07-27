@@ -4,7 +4,6 @@ import { UUID } from 'meta/uuid/uuid'
 // data
 export type DataSource = {
   comments: string
-  placeholder?: boolean
   reference: string
   type: string | Array<string>
   uuid: UUID

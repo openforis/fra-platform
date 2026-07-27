@@ -1,10 +1,9 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Numbers } from 'utils/numbers'
-
 import { ODPs } from 'meta/assessment/odps'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
+import { Numbers } from 'utils/numbers'
 
 import DiffText from 'client/components/DiffText'
 import { useODPDisplayHistory } from 'client/pages/OriginalDataPoint/components/hooks/useODPDisplayHistory'
@@ -21,7 +20,7 @@ const ForestCharacteristicsPlantation: React.FC<Props> = (props) => {
   const { canEditData, originalDataPoint } = props
   const { t } = useTranslation()
 
-  const nationalClasses = originalDataPoint?.nationalClasses.filter((nationalClass) => !nationalClass.placeHolder)
+  const nationalClasses = originalDataPoint?.nationalClasses
 
   const totalForestPlantationPercentArea =
     originalDataPoint &&

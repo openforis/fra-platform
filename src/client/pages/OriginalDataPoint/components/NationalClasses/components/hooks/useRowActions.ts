@@ -22,11 +22,10 @@ export const useRowActions = (props: Props): Returned => {
 
   const { t } = useTranslation()
   const deleteNationalClass = useDeleteNationalClass({ index, originalDataPoint })
-  const { name, placeHolder, uuid } = originalDataPoint.nationalClasses[index]
+  const { name, uuid } = originalDataPoint.nationalClasses[index]
   const odpId = originalDataPoint.id
-  const canEditData = useIsEditODPEnabled()
-  const canEdit = canEditData && !placeHolder
-  const showReviewIndicator = useShowReviewIndicator() && !placeHolder
+  const canEdit = useIsEditODPEnabled()
+  const showReviewIndicator = useShowReviewIndicator()
 
   return useMemo<Returned>(() => {
     const actions: Returned = []

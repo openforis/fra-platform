@@ -6,6 +6,7 @@ import { Objects } from 'utils/objects'
 
 import { useCycleRouteParams } from 'client/hooks/routeParams'
 import { useIsPrintRoute } from 'client/hooks/routes'
+import Button, { ButtonSize } from 'client/components/Buttons/Button'
 import { DataCell, DataGrid } from 'client/components/DataGrid'
 import DataSourceRow from 'client/components/DataSources/DataSourceRow'
 import HistoryCompare from 'client/components/DataSources/HistoryCompare'
@@ -32,6 +33,7 @@ export const DataSources: React.FC<PropsDataSources> = (props: PropsDataSources)
     dataSourcesLinked,
     historyCompares,
     meta,
+    onAdd,
     onChange,
     onDelete,
     options = defaults.options,
@@ -46,7 +48,6 @@ export const DataSources: React.FC<PropsDataSources> = (props: PropsDataSources)
   const gridTemplateColumns = useGridTemplateColumns({ options })
 
   const textEmpty = useMemo<boolean>(() => DOMs.isHTMLEmpty(text), [text])
-  const hasPlaceholder = useMemo<boolean>(() => Boolean(dataSources?.find((d) => d.placeholder)), [dataSources])
 
   const hasDataSources = !Objects.isEmpty(dataSources) || !Objects.isEmpty(dataSourcesLinked)
   const renderGrid = Boolean(hasDataSources || canEdit)
@@ -104,24 +105,26 @@ export const DataSources: React.FC<PropsDataSources> = (props: PropsDataSources)
               ))}
 
             {!displayHistory &&
-              dataSources.map((dataSourceValue, i) => {
-                if (!canEdit && dataSourceValue.placeholder) return null
-
-                return (
-                  <DataSourceRow
-                    key={String(`dataSource_${dataSourceValue.uuid}`)}
-                    columns={columns}
-                    dataSource={dataSourceValue}
-                    lastRow={i === dataSources.length - (hasPlaceholder && !canEdit ? 2 : 1)}
-                    meta={meta}
-                    onChange={onChange}
-                    onDelete={onDelete}
-                    options={options}
-                    validator={validator}
-                  />
-                )
-              })}
+              dataSources.map((dataSourceValue, i) => (
+                <DataSourceRow
+                  key={String(`dataSource_${dataSourceValue.uuid}`)}
+                  columns={columns}
+                  dataSource={dataSourceValue}
+                  lastRow={i === dataSources.length - 1}
+                  meta={meta}
+                  onChange={onChange}
+                  onDelete={onDelete}
+                  options={options}
+                  validator={validator}
+                />
+              ))}
           </DataGrid>
+
+          {canEdit && !displayHistory && (
+            <div style={{ gridColumn: '1/-1' }}>
+              <Button iconName="small-add" label={t('common.add')} onClick={onAdd} size={ButtonSize.xs} />
+            </div>
+          )}
 
           {meta?.text?.readOnly && canEdit && !textEmpty && (
             <div className="data-sources__readOnlyText">

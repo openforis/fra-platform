@@ -2,6 +2,7 @@ import React, { useRef } from 'react'
 
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
+import CreateNationalClass from './components/CreateNationalClass'
 import { NationalClassesTable } from './components/NationalClassesTable'
 import { Prefill } from './components/Prefill'
 import { Title } from './components/Title'
@@ -21,6 +22,7 @@ const NationalClasses: React.FC<Props> = (props) => {
       <Title gridRef={gridRef} year={year} />
       <Prefill canEditData={canEditData} originalDataPoint={originalDataPoint} />
       <NationalClassesTable gridRef={gridRef} originalDataPoint={originalDataPoint} />
+      <CreateNationalClass canEditData={canEditData} />
     </div>
   )
 }
