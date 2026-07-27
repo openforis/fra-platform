@@ -6,7 +6,7 @@ import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button
 
 type Props = {
   className?: string
-  onClick: (event: React.MouseEvent) => void
+  onClick?: (event: React.MouseEvent) => void
 }
 
 const ButtonClear: React.FC<Props> = (props) => {
@@ -18,7 +18,7 @@ const ButtonClear: React.FC<Props> = (props) => {
       iconName="remove"
       inverse
       onClick={onClick}
-      size={ButtonSize.xs}
+      size={ButtonSize.m}
       type={ButtonType.anonymous}
     />
   )
