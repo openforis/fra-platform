@@ -6,8 +6,8 @@ import { NodeUpdates } from 'meta/data/nodeUpdates'
 import { Sockets } from 'meta/socket/sockets'
 
 import { TableValidationRedisRepository } from 'server/cache/repository/validation/table'
-import { ContextFactory } from 'server/controller/cycleData/validations/tables/context/contextFactory'
-import { validateNodeUpdates } from 'server/controller/cycleData/validations/tables/validateNodeUpdates'
+import { ContextFactory } from 'server/service/dataValidation/tables/context/contextFactory'
+import { validateNodeUpdates } from 'server/service/dataValidation/tables/validateNodeUpdates'
 import { SocketServer } from 'server/service/socket'
 
 type Props = {
