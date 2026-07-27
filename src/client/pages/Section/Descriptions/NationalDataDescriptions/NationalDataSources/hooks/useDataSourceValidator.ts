@@ -11,9 +11,7 @@ export const useDataSourceValidator = (): DataSourceValidator => {
 
   return useCallback<DataSourceValidator>(
     (dataSource) => {
-      const { placeholder, reference, type, variables, year } = dataSource
-
-      if (placeholder) return {}
+      const { reference, type, variables, year } = dataSource
 
       const getErrorMessage = (value: DataSource[keyof DataSource]): string => {
         if (Objects.isEmpty(value)) return t('generalValidation.notEmpty')
