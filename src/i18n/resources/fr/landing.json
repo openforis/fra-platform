@@ -67,7 +67,7 @@
       "removeUser": "a éliminé {{user}}",
       "resolved": "a résolu",
       "status": "changer le statut à",
-      "updateAssessmentStatus": "a changé le statut de {{assessment}} à {{status}}",
+      "updateAssessmentStatus": "a changé le statut à {{status}}",
       "updateInvitation": "a mise à jour l'invitation pour {{user}} en tant que {{role}}",
       "updateUser": "a modifié {{user}}"
     },

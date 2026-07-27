@@ -67,7 +67,7 @@
       "removeUser": "ملغى {{user}}",
       "resolved": "تم حل المسألة في",
       "status": "تم تغيير الحالة إلى",
-      "updateAssessmentStatus": "تغيير حالة {{assessment}} إلى {{status}}",
+      "updateAssessmentStatus": "تم تغيير الحالة إلى {{status}}",
       "updateInvitation": "تحديث الدعوة وتوجيهها إلى {{user}} بصفته {{role}}",
       "updateUser": "مضاف {{user}}"
     },
