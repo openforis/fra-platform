@@ -4,6 +4,7 @@ import { LinksVerificationEvent } from 'meta/socket/event/links'
 
 import { Logger } from 'server/utils/logger'
 import { VerifyLinksJobName } from 'server/worker/tasks/verifyLinks/jobNames'
+import { triggerVerifyLinksWorker } from 'server/worker/tasks/verifyLinks/triggerVerifyLinksWorker'
 import { emitLinksVerificationEvent } from 'server/worker/tasks/verifyLinks/utils/emitLinksVerificationEvent'
 import { VerifyLinksJob } from 'server/worker/tasks/verifyLinks/verifyLinksJob'
 
@@ -16,7 +17,8 @@ const jobOptions: JobsOptions = {
   removeOnFail: true,
 }
 
-export const scheduleVerifyAllLinks = async (props: VerifyAllLinksJobProps): Promise<Job | undefined> => {
+// Returns the job performing the verification, either already queued/running or newly scheduled.
+export const enqueueAllLinksValidation = async (props: VerifyAllLinksJobProps): Promise<Job> => {
   const { assessment, countryIso, cycle } = props
   const scope = countryIso
     ? `${assessment.props.name} / ${cycle.name} / ${countryIso}`
@@ -24,11 +26,12 @@ export const scheduleVerifyAllLinks = async (props: VerifyAllLinksJobProps): Pro
 
   // Skip if a verification job is already active.
   const activeJob = await VerifyLinksQueueFactory.getQueuedOrActiveVerifyAllLinksJob(props)
-  const isVerificationInProgress = Boolean(activeJob)
 
-  if (isVerificationInProgress) {
+  if (activeJob) {
     Logger.debug(`[visitCycleLinks] skipping enqueue: verification already queued or running for ${scope}`)
-    return undefined
+    // Ensure a worker is running, in case the worker was lost.
+    await triggerVerifyLinksWorker()
+    return activeJob
   }
 
   const queue = VerifyLinksQueueFactory.getInstance()
@@ -42,6 +45,8 @@ export const scheduleVerifyAllLinks = async (props: VerifyAllLinksJobProps): Pro
   Logger.debug(`[visitCycleLinks] added visit all links job for ${scope} to the queue`)
 
   emitLinksVerificationEvent({ assessment, countryIso, cycle, event: LinksVerificationEvent.queued })
+
+  await triggerVerifyLinksWorker()
 
   return job
 }
