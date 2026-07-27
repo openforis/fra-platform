@@ -35,7 +35,7 @@ test.describe.serial('Section descriptions: data sources', () => {
 
     await DescriptionUtils.save(page, async () => {
       await dataSourcesToggleEditButton(page, 'Edit').click()
-      const referenceEditor = DataSourceUtils.getDataSourcePlaceholderReferenceEditor(page)
+      const referenceEditor = await DataSourceUtils.addDataSource(page)
       await DescriptionUtils.pasteIntoEditorWysiwygLinksOnly(page, referenceEditor, validReference.html)
       await dataSourcesToggleEditButton(page, 'Done').click()
     })
@@ -88,7 +88,7 @@ test.describe.serial('Section descriptions: data sources - invalid reference', (
 
     await DescriptionUtils.save(page, async () => {
       await dataSourcesToggleEditButton(page, 'Edit').click()
-      const referenceEditor = DataSourceUtils.getDataSourcePlaceholderReferenceEditor(page)
+      const referenceEditor = await DataSourceUtils.addDataSource(page)
       await DescriptionUtils.pasteIntoEditorWysiwygLinksOnly(page, referenceEditor, invalidLinks.html)
       await dataSourcesToggleEditButton(page, 'Done').click()
     })
