@@ -18,7 +18,7 @@ const jobOptions: JobsOptions = {
 }
 
 // Returns the job performing the verification, either already queued/running or newly scheduled.
-export const scheduleVerifyAllLinks = async (props: VerifyAllLinksJobProps): Promise<Job> => {
+export const enqueueAllLinksValidation = async (props: VerifyAllLinksJobProps): Promise<Job> => {
   const { assessment, countryIso, cycle } = props
   const scope = countryIso
     ? `${assessment.props.name} / ${cycle.name} / ${countryIso}`
