@@ -1,7 +1,6 @@
+import { ODPNationalClass, ODPNationalClassFactory, OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { Numbers } from 'utils/numbers'
 import { Objects } from 'utils/objects'
-
-import { ODPNationalClass, ODPNationalClassFactory, OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 
 import { calculateValues as calculateODPValues } from './calc'
 
@@ -24,7 +23,7 @@ type CalculateValuesProps = {
   field: keyof ODPNationalClass
 }
 
-const calculateValues = (props: CalculateValuesProps) => {
+const calculateValues = (props: CalculateValuesProps): ODPNationalClass => {
   const { field, index, odp, value } = props
 
   const prevValue = odp.nationalClasses[index][field] as string
@@ -107,16 +106,14 @@ export const updateNationalClass = (props: {
   const { field, index, odp: odpProps, value } = props
 
   const odp: OriginalDataPoint = Objects.cloneDeep(odpProps)
-  const calculateProps = { odp, index, field, value }
-  const nationalClass: ODPNationalClass = calculateValues(calculateProps)
 
-  const wasPlaceHolder = !Objects.isNil(nationalClass.placeHolder)
-  delete nationalClass.placeHolder
-
-  odp.nationalClasses[index] = nationalClass
-  if (wasPlaceHolder) {
-    odp.nationalClasses.push(ODPNationalClassFactory.newNationalClassPlaceholder())
+  // handle pasting multiple rows
+  if (Objects.isNil(odp.nationalClasses[index])) {
+    odp.nationalClasses[index] = ODPNationalClassFactory.newNationalClass()
   }
+
+  const calculateProps = { odp, index, field, value }
+  odp.nationalClasses[index] = calculateValues(calculateProps)
 
   return calculateODPValues(odp)
 }
