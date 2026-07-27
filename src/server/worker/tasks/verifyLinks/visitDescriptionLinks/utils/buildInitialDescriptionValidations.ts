@@ -21,8 +21,8 @@ export const buildInitialDescriptionValidations = (
 
     const dataSources = (sectionValidation.dataSources ??= {})
     value.dataSources.forEach((dataSource) => {
-      const { placeholder, reference, uuid } = dataSource
-      if (placeholder || Objects.isEmpty(uuid)) return
+      const { reference, uuid } = dataSource
+      if (Objects.isEmpty(uuid)) return
 
       const referenceValidation: Validation = { valid: true }
       if (Objects.isEmpty(reference)) {
