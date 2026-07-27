@@ -1,35 +1,16 @@
-import { Col, ColName } from 'meta/assessment/col'
+import { Col } from 'meta/assessment/col'
 import { VariableCache } from 'meta/assessment/metaCache'
 import { NodeValueValidation } from 'meta/assessment/nodeValueValidation'
 import { NodeValueValidations } from 'meta/assessment/nodeValueValidations'
 import { RowCaches } from 'meta/assessment/rowCaches'
 import { TableName } from 'meta/assessment/table'
-import { RecordTableValidationsState } from 'meta/assessment/validation/table'
-import { VariableName } from 'meta/assessment/variable'
+import { TableValidations } from 'meta/assessment/validation/tableValidations'
 import { ExpressionEvaluator } from 'meta/expressionEvaluator'
 import { Objects } from 'utils/objects'
 import { Promises } from 'utils/promises'
 
 import { Context } from './context/context'
 import { shouldSkipValidationFormula } from './shouldSkipValidationFormula'
-
-type RemoveValidationProps = {
-  colName: ColName
-  tableName: TableName
-  tableValidations: RecordTableValidationsState
-  variableName: VariableName
-}
-
-const _removeValidation = (props: RemoveValidationProps): void => {
-  const { colName, tableName, tableValidations, variableName } = props
-
-  Objects.unset(tableValidations, [tableName, colName, variableName])
-
-  // Remove empty column object after deleting the last invalid node for that column.
-  if (Objects.isEmpty(tableValidations[tableName]?.[colName])) {
-    Objects.unset(tableValidations, [tableName, colName])
-  }
-}
 
 type Props = {
   context: Context
@@ -57,7 +38,7 @@ export const validateNodeUpdates = async (props: Props): Promise<Array<TableName
     const validateFns = col.props.validateFns?.[cycle.uuid] ?? row.props.validateFns?.[cycle.uuid]
 
     if (Objects.isEmpty(validateFns)) {
-      _removeValidation({ colName, tableName, tableValidations, variableName })
+      TableValidations.remove({ colName, tableName, tableValidations, variableName })
       updatedTableNames.add(tableName)
       return
     }
@@ -73,7 +54,7 @@ export const validateNodeUpdates = async (props: Props): Promise<Array<TableName
     const validation = NodeValueValidations.merge(validations)
 
     if (validation.valid) {
-      _removeValidation({ colName, tableName, tableValidations, variableName })
+      TableValidations.remove({ colName, tableName, tableValidations, variableName })
       updatedTableNames.add(tableName)
       return
     }
