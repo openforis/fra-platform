@@ -79,7 +79,7 @@ export class ContextFactory extends BaseContextBuilder {
     const { nodeUpdates } = this.props
     const { nodes } = nodeUpdates
 
-    // Traverse the dependant graph starting from the changed source nodes.
+    // Seed the queue with the changed source nodes.
     await Promises.each(nodes, async (node) => {
       await this.#addToQueue({
         colName: node.colName,
@@ -88,6 +88,8 @@ export class ContextFactory extends BaseContextBuilder {
       })
     })
 
+    // Add the dependants of each queued variable. The queue grows while we iterate it,
+    // so dependants of dependants are included as well.
     await Promises.each(this.#queue, async (variable) => {
       const variableKey = this.#getVariableKey(variable)
 
