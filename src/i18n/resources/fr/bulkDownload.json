@@ -11,5 +11,6 @@
     "M": "M = Valeur manquante, impossible d'exister, le dénominateur est zéro ou manquant",
     "O": "O = Valeur manquante"
   },
-  "includeClimaticDomain": "Inclure domaine climatique"
+  "includeClimaticDomain": "Inclure domaine climatique",
+  "includeVoluntaryUpdates": "Inclure les mises à jour facultatives"
 }
