@@ -1,6 +1,6 @@
 import { TableRedisRepository } from 'server/cache/repository/table'
 import { TableValidationRedisRepository } from 'server/cache/repository/validation/table'
-import { updateTableValidations } from 'server/controller/cycleData/validations/tables/updateTableValidations'
+import { DataValidationService } from 'server/service/dataValidation'
 
 import { CountryProps } from '../common/validateCountries'
 import { buildTablesNodeUpdates } from './buildTablesNodeUpdates'
@@ -14,7 +14,7 @@ export const validateCountryTables = async (props: CountryProps): Promise<void> 
 
   await TableValidationRedisRepository.clearCountryValidations({ assessment, countryIso, cycle })
 
-  await updateTableValidations({
+  await DataValidationService.validateNodes({
     assessment,
     country,
     cycle,
