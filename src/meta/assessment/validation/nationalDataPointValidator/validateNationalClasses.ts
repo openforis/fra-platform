@@ -16,8 +16,8 @@ export const validateNationalClasses = (props: Props): NDPValidation => {
   const nationalClassesValidation: Returned = {}
 
   nationalDataPoint.nationalClasses?.forEach((nationalClass: ODPNationalClass, index) => {
-    const { placeHolder, uuid } = nationalClass
-    if (placeHolder || Objects.isEmpty(uuid)) return
+    const { uuid } = nationalClass
+    if (Objects.isEmpty(uuid)) return
 
     const nationalClassValidation = validateNationalClass({ nationalDataPoint, index })
     if (Objects.isEmpty(nationalClassValidation)) return

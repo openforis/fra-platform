@@ -22,8 +22,7 @@ export const useDataSourcesHistoryLastApproved = (props: Props): Returned => {
     if (!historyLastApprovedIsActive) return undefined
 
     const dataSourcesHistory = lastApprovedODP?.dataSources ?? []
-    const dataSourcesWithoutPlaceholder = dataSources.filter((ds) => !ds.placeholder)
 
-    return DataSources.getHistoryCompares({ dataSources: dataSourcesWithoutPlaceholder, dataSourcesHistory })
+    return DataSources.getHistoryCompares({ dataSources, dataSourcesHistory })
   }, [dataSources, historyLastApprovedIsActive, lastApprovedODP])
 }

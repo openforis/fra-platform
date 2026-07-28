@@ -68,7 +68,7 @@
       "removeUser": "removed {{user}}",
       "resolved": "resolved issue in",
       "status": "changed status to",
-      "updateAssessmentStatus": "changed the status of {{assessment}} to {{status}}",
+      "updateAssessmentStatus": "changed the status to {{status}}",
       "updateInvitation": "invite updated for {{user}} as {{role}}",
       "updateUser": "edited {{user}}"
     },

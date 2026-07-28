@@ -30,6 +30,7 @@ export type PropsDataSources = {
   dataSourcesLinked?: Array<DataSourceLinked>
   historyCompares?: Array<DataSourceHistoryCompare>
   meta?: DataSourceDescription
+  onAdd: () => void
   onChange: DataSourceOnChange
   onDelete: DataSourceOnDelete
   options?: {

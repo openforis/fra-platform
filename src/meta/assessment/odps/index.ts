@@ -1,4 +1,3 @@
-import { addNationalClassPlaceHolder } from 'meta/assessment/odps/addNationalClassPlaceHolder'
 import {
   calcTotalArea,
   calcTotalFieldArea,
@@ -17,11 +16,9 @@ import {
   calculateNationalClassPlantationForestPercentArea,
   hasNaturallyRegenerating,
 } from 'meta/assessment/odps/nationalClassUtils'
-import { removeNationalClassPlaceHolder } from 'meta/assessment/odps/removeNationalClassPlaceHolder'
 import { updateNationalClass } from 'meta/assessment/odps/updateNationalClass'
 
 export const ODPs = {
-  addNationalClassPlaceHolder,
   calcTotalArea,
   calcTotalFieldArea,
   calcTotalLandArea,
@@ -35,7 +32,6 @@ export const ODPs = {
   canCopyPreviousValues,
   deleteNationalClass,
   hasNaturallyRegenerating,
-  removeNationalClassPlaceHolder,
   shouldUseTotalPrimaryForestPercentage,
   updateNationalClass,
 }

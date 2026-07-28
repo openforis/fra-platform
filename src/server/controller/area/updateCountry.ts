@@ -92,7 +92,7 @@ export const updateCountry = async (props: Props, client: BaseProtocol = DB): Pr
 
     // notify client
     if (statusUpdate) {
-      const target = { assessment: assessment.props.name, status: country.props.status }
+      const target = { status: country.props.status }
       const message = ActivityLogMessage.assessmentStatusUpdate
       const activityLog = { target, section: 'assessment', message, countryIso, user }
       await ActivityLogRepository.insertActivityLog({ activityLog, assessment, cycle }, t)

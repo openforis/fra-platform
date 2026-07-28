@@ -11,7 +11,6 @@ export const updateFieldValue = (props: Props): Array<DataSource> => {
   const { dataSource, dataSources, fieldName, fieldValue } = props
 
   const dataSourceUpdate: DataSource = { ...dataSource, [fieldName]: fieldValue }
-  delete dataSourceUpdate.placeholder
 
   const dataSourcesUpdate = [...dataSources]
   const index = dataSourcesUpdate.findIndex((_dataSource) => _dataSource.uuid === dataSourceUpdate.uuid)

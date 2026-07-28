@@ -37,7 +37,7 @@ export const validateNationalClass = (props: Props): NDPNationalClassValidation 
   const { index, nationalDataPoint } = props
   const nationalClass = nationalDataPoint.nationalClasses?.[index]
 
-  if (Objects.isNil(nationalClass) || nationalClass.placeHolder) return {}
+  if (Objects.isNil(nationalClass)) return {}
 
   return rules.reduce<NDPNationalClassValidation>((acc, { field, validator }) => {
     const fieldValidation = validator({ nationalClass })

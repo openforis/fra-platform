@@ -52,8 +52,8 @@ export const buildNationalDataPointLinks = (props: Props): Array<LinkToVisit> =>
 
     const url = Routes.OriginalDataPoint.generatePath({ ...urlParams, sectionName: SectionNames.extentOfForest })
     const referenceLinks = dataSources.flatMap<LinkToVisit>((dataSource) => {
-      const { placeholder, reference, uuid: dataSourceUuid } = dataSource
-      if (placeholder || Objects.isEmpty(dataSourceUuid)) return []
+      const { reference, uuid: dataSourceUuid } = dataSource
+      if (Objects.isEmpty(dataSourceUuid)) return []
 
       const locations: Array<NationalDataPointLinkLocation> = [
         {
