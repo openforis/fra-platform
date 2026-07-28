@@ -10,14 +10,13 @@ import { Topics } from 'meta/messageCenter/topics'
 import { Sockets } from 'meta/socket/sockets'
 import { User } from 'meta/user/user'
 
-import { NationalDataPointValidationRedisRepository } from 'server/cache/repository/validation/nationalDataPoint'
-import { notifyNationalDataPointValidationDelete } from 'server/controller/cycleData/validations/nationalDataPoint/notifyNationalDataPointValidationDelete'
 import { BaseProtocol, DB } from 'server/db/db'
 import { DescriptionRepository } from 'server/db/repository/assessmentCycle/descriptions'
 import { MessageTopicRepository } from 'server/db/repository/assessmentCycle/messageTopic'
 import { OriginalDataPointRepository } from 'server/db/repository/assessmentCycle/originalDataPoint'
 import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 import { CountryService } from 'server/service/country'
+import { DataValidationService } from 'server/service/dataValidation'
 import { LinksService } from 'server/service/links'
 import { SocketServer } from 'server/service/socket'
 
@@ -80,13 +79,7 @@ export const remove = async (props: Props, client: BaseProtocol = DB): Promise<O
     return target
   })
 
-  await NationalDataPointValidationRedisRepository.deleteValidations({
-    assessment,
-    countryIso,
-    cycle,
-    uuids: [uuid],
-  })
-  notifyNationalDataPointValidationDelete({ assessment, countryIso, cycle, uuid })
+  await DataValidationService.removeNDPValidation({ assessment, countryIso, cycle, uuid })
 
   // Remove the deleted national data point's link locations.
   // Clients are already notified through the delete event above.
