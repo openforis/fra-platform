@@ -9,8 +9,10 @@ import { Objects } from 'utils/objects'
 
 import { useAreaSelectorFilters } from 'client/store/ui/areaSelector/hooks/areaSelector'
 import { useOnClose } from 'client/hooks/useOnClose'
+import ButtonClear from 'client/components/Buttons/ButtonClear'
 import Icon from 'client/components/Icon'
 
+import { useHandleReset } from './hooks/useHandleReset'
 import { useHandleToggle } from './hooks/useHandleToggle'
 
 type Props = {
@@ -31,6 +33,7 @@ const StatusFilter: React.FC<Props> = (props) => {
 
   const wrapperRef = useOnClose<HTMLDivElement>({ open, onClose: () => setOpen(false) })
   const handleToggle = useHandleToggle({ roleName })
+  const handleReset = useHandleReset({ roleName })
 
   return (
     <div ref={wrapperRef} className="status-filter">
@@ -42,6 +45,8 @@ const StatusFilter: React.FC<Props> = (props) => {
         <Icon name="filter" />
         {t('common.status')}
       </button>
+
+      {active && <ButtonClear className="status-filter__clear" onClick={handleReset} />}
 
       {open && (
         <div className="status-filter__menu">
