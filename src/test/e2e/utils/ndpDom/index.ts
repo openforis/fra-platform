@@ -7,11 +7,13 @@ const nationalDataPointApi = '/api/cycle-data/national-data-points/national-data
 const _nationalClassesGrid = (page: Page): Locator =>
   page.locator('.data-grid', { has: page.getByText('Definition', { exact: true }) })
 
-const _newNationalClassNameInput = (page: Page): Locator =>
-  _nationalClassesGrid(page).locator('.data-cell.firstCol.lastRow input.input-text')
+const _nationalClassesSection = (page: Page): Locator =>
+  page.locator('.odp__section', { has: _nationalClassesGrid(page) })
 
-const _existingNationalClassNameInput = (page: Page): Locator =>
-  _nationalClassesGrid(page).locator('.data-cell.firstCol:not(.lastRow) input.input-text').first()
+const _nationalClassNameInputs = (page: Page): Locator =>
+  _nationalClassesGrid(page).locator('.data-cell.firstCol input.input-text')
+
+const _existingNationalClassNameInput = (page: Page): Locator => _nationalClassNameInputs(page).first()
 
 const fillYear = async (page: Page, year: string): Promise<void> => {
   // New odp year defaults to -1 before selecting a year.
@@ -31,16 +33,20 @@ const fillDataSourceReference = async (page: Page, reference: string): Promise<v
   await editor.blur()
 }
 
-// Uses "empty placeholder" to create new class
 const createNewNationalClassification = async (page: Page, name: string): Promise<void> => {
-  const input = _newNationalClassNameInput(page)
-  await input.waitFor()
+  const inputs = _nationalClassNameInputs(page)
+  const inputCount = await inputs.count()
+
+  await _nationalClassesSection(page).getByRole('button', { name: 'Add', exact: true }).click()
+  await expect(inputs).toHaveCount(inputCount + 1)
+
+  const input = inputs.nth(inputCount)
 
   const saved = DOMUtils.waitForResponse(page, `${nationalDataPointApi}/national-classes`, 'PUT')
   await input.fill(name)
   await saved
 
-  await expect(_existingNationalClassNameInput(page)).toHaveValue(name)
+  await expect(input).toHaveValue(name)
 }
 
 const editNationalClassification = async (page: Page, name: string): Promise<void> => {

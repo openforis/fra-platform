@@ -24,7 +24,8 @@ test.describe.serial('Section descriptions: data sources', () => {
 
     await page.goto(dataSourcesSectionPath)
 
-    await expect(DataSourceUtils.getDataSourceTable(page)).not.toContainText(validReference.text)
+    await expect(page.getByText(dataSourcesTitle)).toBeVisible()
+    await DOMUtils.elementNotExists(DataSourceUtils.getDataSourceTable(page).filter({ hasText: validReference.text }))
   })
 
   test('NC creates a new data source with a valid reference', async ({ authenticatedPage }) => {
@@ -35,7 +36,7 @@ test.describe.serial('Section descriptions: data sources', () => {
 
     await DescriptionUtils.save(page, async () => {
       await dataSourcesToggleEditButton(page, 'Edit').click()
-      const referenceEditor = DataSourceUtils.getDataSourcePlaceholderReferenceEditor(page)
+      const referenceEditor = await DataSourceUtils.addDataSource(page)
       await DescriptionUtils.pasteIntoEditorWysiwygLinksOnly(page, referenceEditor, validReference.html)
       await dataSourcesToggleEditButton(page, 'Done').click()
     })
@@ -88,7 +89,7 @@ test.describe.serial('Section descriptions: data sources - invalid reference', (
 
     await DescriptionUtils.save(page, async () => {
       await dataSourcesToggleEditButton(page, 'Edit').click()
-      const referenceEditor = DataSourceUtils.getDataSourcePlaceholderReferenceEditor(page)
+      const referenceEditor = await DataSourceUtils.addDataSource(page)
       await DescriptionUtils.pasteIntoEditorWysiwygLinksOnly(page, referenceEditor, invalidLinks.html)
       await dataSourcesToggleEditButton(page, 'Done').click()
     })

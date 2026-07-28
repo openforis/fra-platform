@@ -66,7 +66,7 @@ const ForestCharacteristics: React.FC<Props> = (props) => {
   const { historyHasNaturallyRegeneratingForest, historyHasPlantationForest } =
     useHistoryHasNaturallyRegeneratingAndPlantationForest()
 
-  const nationalClasses = originalDataPoint.nationalClasses.filter((nationalClass) => !nationalClass.placeHolder)
+  const { nationalClasses } = originalDataPoint
   const plantationTotal = ODPs.calcTotalSubFieldArea({
     originalDataPoint,
     field: 'forestPercent',

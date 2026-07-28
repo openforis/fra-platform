@@ -55,8 +55,8 @@ export const validateDataSources = async (props: Props): Promise<void> => {
       const dataSources = (sectionValidation.dataSources ??= {})
 
       value.dataSources?.forEach((dataSource) => {
-        const { placeholder, uuid } = dataSource
-        if (placeholder || Objects.isEmpty(uuid)) return
+        const { uuid } = dataSource
+        if (Objects.isEmpty(uuid)) return
 
         const dataSourceValidation = (dataSources[uuid] ??= {})
         requiredFields.forEach((field) => {

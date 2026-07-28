@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { DataSourceDescription } from 'meta/assessment/description'
 import { CommentableDescriptionName } from 'meta/assessment/descriptionValue'
+import { Objects } from 'utils/objects'
 
 import { useHistoryLastApprovedDescriptionFetched } from 'client/store/data/history/hooks/lastApprovedDescriptions'
 import { useCanEditDescription, useIsDescriptionEditable } from 'client/store/user/hooks/auth'
@@ -17,6 +18,7 @@ import { useDataSourcesData } from './hooks/useDataSourcesData'
 import { useDataSourcesHistoryActivities } from './hooks/useDataSourcesHistoryActivities'
 import { useDataSourcesHistoryLastApproved } from './hooks/useDataSourcesHistoryLastApproved'
 import { useGetDataSourcesLinked } from './hooks/useGetDataSourcesLinked'
+import { useOnAdd } from './hooks/useOnAdd'
 import { useOnChange } from './hooks/useOnChange'
 import { useOnDelete } from './hooks/useOnDelete'
 import { useValidationErrors } from './hooks/useValidationErrors'
@@ -37,6 +39,7 @@ const NationalDataSources: React.FC<Props> = (props) => {
   const { dataSourcesLinked } = useGetDataSourcesLinked({ meta, sectionName })
   const canReview = useCanEditDescription({ sectionName })
   const canEdit = useIsDescriptionEditable({ sectionName, name })
+  const onAdd = useOnAdd({ sectionName })
   const onChange = useOnChange({ sectionName })
   const onDelete = useOnDelete({ sectionName })
   const validationErrors = useValidationErrors({ sectionName })
@@ -64,7 +67,7 @@ const NationalDataSources: React.FC<Props> = (props) => {
   return (
     <DataGrid className="description" withActions={canEdit || canReview}>
       <Title
-        canCopy={{ disabled: dataSources.length !== 1 }}
+        canCopy={{ disabled: !Objects.isEmpty(dataSources) }}
         name={name}
         sectionName={sectionName}
         title={t('description.dataSourcesPlus')}
@@ -75,6 +78,7 @@ const NationalDataSources: React.FC<Props> = (props) => {
         dataSourcesLinked={dataSourcesLinked}
         historyCompares={historyCompares}
         meta={meta}
+        onAdd={onAdd}
         onChange={onChange}
         onDelete={onDelete}
         options={options}

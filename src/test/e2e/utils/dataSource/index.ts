@@ -1,13 +1,22 @@
-import { Locator, Page } from '@playwright/test'
+import { expect, Locator, Page } from '@playwright/test'
 
 const getDataSourceTable = (page: Page): Locator => page.locator('.data-grid.data-source')
 
 const getDataSourceReferenceCells = (page: Page): Locator =>
   getDataSourceTable(page).locator('.datasource-column-reference')
 
-// Subject to change: last data source row is a placeholder to add new entries. Will be replaced with a button in #6085
-const getDataSourcePlaceholderReferenceEditor = (page: Page): Locator =>
-  getDataSourceReferenceCells(page).last().locator('.jodit-wysiwyg')
+const addDataSource = async (page: Page): Promise<Locator> => {
+  const editors = getDataSourceReferenceCells(page).locator('.jodit-wysiwyg')
+  const editorCount = await editors.count()
+
+  const addButton = page
+    .locator('.data-grid.description', { has: getDataSourceTable(page) })
+    .getByRole('button', { name: 'Add', exact: true })
+  await addButton.click()
+  await expect(editors).toHaveCount(editorCount + 1)
+
+  return editors.nth(editorCount)
+}
 
 // get data source by text
 const getDataSourceReferenceCell = (page: Page, text: string): Locator =>
@@ -56,9 +65,9 @@ const deleteDataSourceRow = async (page: Page, text: string): Promise<void> => {
 }
 
 export const DataSourceUtils = {
+  addDataSource,
   deleteDataSourceRow,
   getDataSourceCommentsCell,
-  getDataSourcePlaceholderReferenceEditor,
   getDataSourceReferenceEditor,
   getDataSourceReferenceValidationError,
   getDataSourceTable,

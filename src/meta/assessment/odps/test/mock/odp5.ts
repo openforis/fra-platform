@@ -53,11 +53,5 @@ export const odp5 = {
       forestPercent: '0.00',
       otherWoodedLandPercent: '100.00',
     },
-    {
-      name: '',
-      definition: '',
-      uuid: '589e3b51-fbef-4998-970f-a2b3133493e2',
-      placeHolder: true,
-    },
   ],
 } as OriginalDataPoint

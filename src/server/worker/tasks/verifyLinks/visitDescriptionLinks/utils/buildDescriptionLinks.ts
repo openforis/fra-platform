@@ -53,8 +53,8 @@ export const buildDescriptionLinks = (props: Props): Returned => {
 
     // Build reference links to visit
     const referenceLinks = (value.dataSources ?? []).flatMap((dataSource) => {
-      const { placeholder, reference, uuid } = dataSource
-      if (placeholder || Objects.isEmpty(uuid)) return []
+      const { reference, uuid } = dataSource
+      if (Objects.isEmpty(uuid)) return []
 
       const path = DescriptionLinkLocationPath.dataSourceReference
       const locations = [{ colName: 'value', descriptionName, path, sectionName, url, uuid }]
