@@ -15,7 +15,7 @@ type Props = {
   nationalDataPoint: OriginalDataPoint
 }
 
-export const validateYear = async (props: Props): Promise<void> => {
+export const validateNDPNationalClasses = async (props: Props): Promise<void> => {
   const { assessment, countryIso, cycle, nationalDataPoint } = props
   const { uuid } = nationalDataPoint
 
@@ -26,7 +26,7 @@ export const validateYear = async (props: Props): Promise<void> => {
     uuid,
   })
 
-  const updatedValidation = NationalDataPointValidator.validateYear({
+  const updatedValidation = NationalDataPointValidator.validateNationalClasses({
     nationalDataPoint,
     validation,
   })

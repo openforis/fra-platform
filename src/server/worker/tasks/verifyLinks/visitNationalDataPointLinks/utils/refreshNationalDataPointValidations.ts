@@ -10,7 +10,7 @@ import { UUID } from 'meta/uuid/uuid'
 import { Objects } from 'utils/objects'
 
 import { NationalDataPointValidationRedisRepository } from 'server/cache/repository/validation/nationalDataPoint'
-import { notifyNationalDataPointValidationUpdate } from 'server/controller/cycleData/validations/nationalDataPoint/notifyNationalDataPointValidationUpdate'
+import { DataValidationService } from 'server/service/dataValidation'
 
 import { buildNationalDataPointLinkValidations } from './buildNationalDataPointLinkValidations'
 
@@ -93,5 +93,5 @@ export const refreshNationalDataPointValidations = async (props: Props): Promise
 
   if (!notifyClients) return
 
-  notifyNationalDataPointValidationUpdate({ assessment, countryIso, cycle, validations })
+  DataValidationService.notifyNationalDataPointValidationUpdate({ assessment, countryIso, cycle, validations })
 }

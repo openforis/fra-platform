@@ -5,11 +5,11 @@ import { Cycle } from 'meta/assessment/cycle'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { User } from 'meta/user/user'
 
-import { validateNationalClasses } from 'server/controller/cycleData/validations/nationalDataPoint/validateNationalClasses'
 import { BaseProtocol, DB } from 'server/db/db'
 import { OriginalDataPointRepository } from 'server/db/repository/assessmentCycle/originalDataPoint'
 import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 import { CountryService } from 'server/service/country'
+import { DataValidationService } from 'server/service/dataValidation'
 
 type Props = {
   assessment: Assessment
@@ -45,7 +45,7 @@ export const updateNationalClasses = async (props: Props, client: BaseProtocol =
     return updatedOriginalDataPoint
   })
 
-  await validateNationalClasses({
+  await DataValidationService.validateNDPNationalClasses({
     assessment,
     countryIso,
     cycle,
