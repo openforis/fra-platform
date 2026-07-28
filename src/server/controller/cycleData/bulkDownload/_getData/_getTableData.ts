@@ -10,14 +10,16 @@ type Props = {
   assessment: Assessment
   countryISOs: Array<CountryIso>
   cycle: Cycle
+  includeVoluntaryUpdates: boolean
   isLastPublishedCycle: boolean
   tableNames: Array<string>
 }
 
 export const _getTableData = async (props: Props): Promise<RecordAssessmentData> => {
-  const { assessment, countryISOs, cycle, isLastPublishedCycle, tableNames } = props
+  const { assessment, countryISOs, cycle, includeVoluntaryUpdates, isLastPublishedCycle, tableNames } = props
 
-  if (isLastPublishedCycle) {
+  const shouldGetLastPublishedData = isLastPublishedCycle && includeVoluntaryUpdates
+  if (shouldGetLastPublishedData) {
     return getLastPublishedData({ assessment, countryISOs, tableNames })
   }
 

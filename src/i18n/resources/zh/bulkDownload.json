@@ -11,5 +11,6 @@
     "M": "M = 缺少值，不能存在，分母为零或丢失",
     "O": "O = 缺少值"
   },
-  "includeClimaticDomain": "包括气候域"
+  "includeClimaticDomain": "包括气候域",
+  "includeVoluntaryUpdates": "包含自愿性更新"
 }

@@ -19,7 +19,7 @@ import { Responses } from 'server/utils/responses'
 const BOM = '\uFEFF' // Byte Order Mark for UTF-8
 const getUTF8Buffer = (content: string): Buffer => Buffer.from(BOM + content, 'utf-8')
 
-type Request = CountryRequest<{ includeClimaticDomain: string; lang: Lang }>
+type Request = CountryRequest<{ includeClimaticDomain: string; includeVoluntaryUpdates: string; lang: Lang }>
 
 export const getBulkDownload = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -29,9 +29,12 @@ export const getBulkDownload = async (req: Request, res: Response): Promise<void
 
     const lang = langQuery ?? user?.props?.lang ?? Lang.en
     const includeClimaticDomain = Users.isAdministrator(user) ? req.query.includeClimaticDomain === 'true' : false
+    // Voluntary updates are included by default, when the query param is not specified
+    const includeVoluntaryUpdates = req.query.includeVoluntaryUpdates !== 'false'
 
     const i18n = await I18n.getInstance({})
-    const files = await BulkDownloadController.get({ assessment, cycle, includeClimaticDomain, i18n })
+    const props = { assessment, cycle, i18n, includeClimaticDomain, includeVoluntaryUpdates }
+    const files = await BulkDownloadController.get(props)
     const fileList = files.map(({ content, fileName }) => ({ fileName, file: getUTF8Buffer(content) }))
 
     const readme = getReadme({ cycleName: cycle.name, lang })

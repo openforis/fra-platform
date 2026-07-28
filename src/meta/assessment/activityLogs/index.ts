@@ -44,6 +44,7 @@ const _getLabelActionKey = (activity: ActivityLog<unknown>): string => {
   return 'landing.recentActivity.actions.edited'
 }
 
+// Note: When adding new cases, use ActivityLogMessage
 const _getLabelActionParams = (activity: ActivityLog<unknown>, t: TFunction): Record<string, string | null> => {
   const { target } = activity
   let params: Record<string, string | null> = {}
@@ -55,12 +56,9 @@ const _getLabelActionParams = (activity: ActivityLog<unknown>, t: TFunction): Re
         user,
         role: role ? t(Users.getI18nRoleLabelKey(role)) : null,
       }
-    } else if ('assessment' in target && target.assessment) {
-      const { assessment, status } = target as { assessment: string; status: string }
-      params = {
-        assessment: t(`assessment.${assessment}`),
-        status: t(`assessment.status.${status}.label`),
-      }
+    } else if (activity.message === ActivityLogMessage.assessmentStatusUpdate) {
+      const { status } = target as { status: string }
+      params = { status: t(`assessment.status.${status}.label`) }
     } else if ('file' in target && target.file) {
       const { file } = target as { file: string }
       params = { file }
