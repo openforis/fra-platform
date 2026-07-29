@@ -1,1 +1,0 @@
-export { ValidationsController } from './validationsController'
