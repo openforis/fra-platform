@@ -22,7 +22,7 @@ export const validateCountryNationalDataPoints = async (props: CountryProps, cli
   const validations: RecordNDPValidations = {}
   nationalDataPoints.forEach((nationalDataPoint) => {
     const { uuid } = nationalDataPoint
-    validations[uuid] = NationalDataPointValidator.validate({ nationalDataPoint, validation: {} })
+    validations[uuid] = NationalDataPointValidator.validate({ nationalDataPoint })
   })
 
   await NationalDataPointValidationRedisRepository.setValidations({ assessment, countryIso, cycle, validations })

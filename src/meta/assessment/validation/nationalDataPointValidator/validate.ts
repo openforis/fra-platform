@@ -5,12 +5,11 @@ import { validateYear } from 'meta/assessment/validation/nationalDataPointValida
 
 type Props = {
   nationalDataPoint: OriginalDataPoint
-  validation: NDPValidation
 }
 
 export const validate = (props: Props): NDPValidation => {
-  const { nationalDataPoint, validation: currentValidation } = props
-  const validation = validateYear({ nationalDataPoint, validation: currentValidation })
+  const { nationalDataPoint } = props
+  const validation = validateYear({ nationalDataPoint, validation: {} })
 
   return validateNationalClasses({ nationalDataPoint, validation })
 }
