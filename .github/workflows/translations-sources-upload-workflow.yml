@@ -6,10 +6,6 @@ on:
     paths: ["src/i18n/resources/en/**/*.json", "!src/i18n/resources/en/panEuropean/**"]
     branches: [development]
 
-permissions:
-  contents: write
-  pull-requests: write
-
 jobs:
   crowdin-upload-sources:
     runs-on: ubuntu-latest
