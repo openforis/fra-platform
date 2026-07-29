@@ -1,5 +1,4 @@
 import { TableRedisRepository } from 'server/cache/repository/table'
-import { TableValidationRedisRepository } from 'server/cache/repository/validation/table'
 import { DataValidationService } from 'server/service/dataValidation'
 
 import { CountryProps } from '../common/validateCountries'
@@ -12,7 +11,7 @@ export const validateCountryTables = async (props: CountryProps): Promise<void> 
   const tables = await TableRedisRepository.getManyRecord({ assessment, cycle })
   const nodeUpdates = buildTablesNodeUpdates({ assessment, country, cycle, tables })
 
-  await TableValidationRedisRepository.clearCountryValidations({ assessment, countryIso, cycle })
+  await DataValidationService.removeTableValidations({ assessment, countryIso, cycle })
 
   await DataValidationService.validateNodes({
     assessment,

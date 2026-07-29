@@ -4,6 +4,7 @@ import { NationalDataPointValidator } from 'meta/assessment/validation/nationalD
 import { NationalDataPointValidationRedisRepository } from 'server/cache/repository/validation/nationalDataPoint'
 import { BaseProtocol } from 'server/db/db'
 import { OriginalDataPointRepository } from 'server/db/repository/assessmentCycle/originalDataPoint'
+import { DataValidationService } from 'server/service/dataValidation'
 
 import { CountryProps } from '../common/validateCountries'
 
@@ -16,7 +17,7 @@ export const validateCountryNationalDataPoints = async (props: CountryProps, cli
     client
   )
 
-  await NationalDataPointValidationRedisRepository.removeValidations({ assessment, countryIso, cycle })
+  await DataValidationService.removeNDPValidations({ assessment, countryIso, cycle })
 
   const validations: RecordNDPValidations = {}
   nationalDataPoints.forEach((nationalDataPoint) => {

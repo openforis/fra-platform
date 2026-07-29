@@ -11,7 +11,6 @@ import {
 } from 'meta/assessment/descriptionValue'
 import { ToolsUtils } from 'tools/utils/toolsUtils'
 
-import { DescriptionValidationRedisRepository } from 'server/cache/repository/validation/description'
 import { AreaController } from 'server/controller/area'
 import { AssessmentController } from 'server/controller/assessment'
 import { BaseProtocol, DB } from 'server/db/db'
@@ -46,7 +45,7 @@ const _validateCountry = async (props: CountryProps): Promise<void> => {
     }))
   )
 
-  await DescriptionValidationRedisRepository.removeValidations({ assessment, countryIso, cycle })
+  await DataValidationService.removeDescriptionValidations({ assessment, countryIso, cycle })
 
   await DataValidationService.validateDataSources({ assessment, country, cycle, descriptions, notifyClients: false })
 }
