@@ -2,6 +2,7 @@ name: New Crowdin translations PR
 
 on:
   workflow_dispatch:
+  workflow_call:
 
 permissions:
   contents: write
@@ -20,8 +21,10 @@ jobs:
           upload_sources: false
           upload_translations: false
           download_translations: true
-          # Export options
-          export_only_approved: true
+          # Machine translations cannot be auto approved in Crowdin:
+          # The approval happens through the Crowdin PR
+          # uploading the translations marks the merged translations as approved in Crowdin
+          export_only_approved: false
 
           localization_branch_name: i18n_crowdin_translations
           create_pull_request: true
