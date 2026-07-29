@@ -15,20 +15,13 @@ export const validateCountryNationalDataPoints = async (props: CountryProps, cli
     { assessment, countryISOs: [countryIso], cycle },
     client
   )
-  const currentValidations = await NationalDataPointValidationRedisRepository.getValidations({
-    assessment,
-    countryIso,
-    cycle,
-  })
+
+  await NationalDataPointValidationRedisRepository.removeValidations({ assessment, countryIso, cycle })
 
   const validations: RecordNDPValidations = {}
   nationalDataPoints.forEach((nationalDataPoint) => {
     const { uuid } = nationalDataPoint
-    // NDP data source references are validated by the links flow.
-    validations[uuid] = NationalDataPointValidator.validate({
-      nationalDataPoint,
-      validation: currentValidations[uuid] ?? {},
-    })
+    validations[uuid] = NationalDataPointValidator.validate({ nationalDataPoint, validation: {} })
   })
 
   await NationalDataPointValidationRedisRepository.setValidations({ assessment, countryIso, cycle, validations })
