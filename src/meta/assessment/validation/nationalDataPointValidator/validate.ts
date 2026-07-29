@@ -11,5 +11,8 @@ export const validate = (props: Props): NDPValidation => {
   const { nationalDataPoint } = props
   const validation = validateYear({ nationalDataPoint, validation: {} })
 
-  return validateNationalClasses({ nationalDataPoint, validation })
+  const nationalClasses = validateNationalClasses({ nationalDataPoint })
+  if (nationalClasses) validation.nationalClasses = nationalClasses
+
+  return validation
 }
