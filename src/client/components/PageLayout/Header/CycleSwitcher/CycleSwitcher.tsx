@@ -1,5 +1,6 @@
 import './CycleSwitcher.scss'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { Assessments } from 'meta/assessment/assessments'
 import { CycleNames } from 'meta/assessment/cycle/names'
@@ -21,6 +22,7 @@ const CycleSwitcher: React.FC = () => {
   const { cycleName } = useCycleRouteParams()
   const popoverItems = usePopoverItems()
   const user = useUser()
+  const { t } = useTranslation()
 
   if (popoverItems.length < 1) {
     const cycleLabel = Cycles.isPublished(cycle) ? cycleName : Assessments.getLastPublishedCycle(assessment).name
@@ -30,7 +32,7 @@ const CycleSwitcher: React.FC = () => {
   const lastCreatedCycle = Assessments.getLastCreatedCycle(assessment)
   const isCycleNameEmpty =
     (lastCreatedCycle.name === cycleName || cycleName?.includes(CycleNames.latest)) && !Users.isAdministrator(user)
-  const displayName = isCycleNameEmpty ? '' : cycleName
+  const displayName = isCycleNameEmpty ? '' : t(Assessments.getCycleTranslationKey({ cycleName: cycle.name }))
 
   return (
     <div className="cycle-switcher">
