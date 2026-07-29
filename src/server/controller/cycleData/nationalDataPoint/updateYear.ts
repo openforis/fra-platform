@@ -8,11 +8,11 @@ import { Sockets } from 'meta/socket/sockets'
 import { User } from 'meta/user/user'
 
 import { NationalDataPointController } from 'server/controller/cycleData/nationalDataPoint'
-import { validateYear } from 'server/controller/cycleData/validations/nationalDataPoint/validateYear'
 import { BaseProtocol, DB } from 'server/db/db'
 import { OriginalDataPointRepository } from 'server/db/repository/assessmentCycle/originalDataPoint'
 import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 import { CountryService } from 'server/service/country'
+import { DataValidationService } from 'server/service/dataValidation'
 import { LinksService } from 'server/service/links'
 import { SocketServer } from 'server/service/socket'
 
@@ -71,7 +71,7 @@ export const updateYear = async (props: Props, client: BaseProtocol = DB): Promi
     return updatedOriginalDataPoint
   })
 
-  await validateYear({
+  await DataValidationService.validateNDPYear({
     assessment,
     countryIso,
     cycle,

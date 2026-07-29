@@ -9,7 +9,7 @@ import { Link, LinkToVisit, VisitedLink } from 'meta/cycleData/links/link'
 import { Objects } from 'utils/objects'
 
 import { DescriptionValidationRedisRepository } from 'server/cache/repository/validation/description'
-import { notifyDescriptionValidationUpdate } from 'server/controller/cycleData/validations/descriptions/notifyDescriptionValidationUpdate'
+import { DataValidationService } from 'server/service/dataValidation'
 
 import { buildDescriptionLinkValidations } from './buildDescriptionLinkValidations'
 
@@ -83,7 +83,7 @@ export const refreshDescriptionValidations = async (props: Props): Promise<void>
 
   if (!notifyClients) return
 
-  notifyDescriptionValidationUpdate({
+  DataValidationService.notifyDescriptionValidationUpdate({
     assessment,
     countryIso,
     cycle,

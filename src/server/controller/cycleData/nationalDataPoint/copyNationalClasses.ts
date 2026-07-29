@@ -6,11 +6,11 @@ import { ODPNationalClass, OriginalDataPoint } from 'meta/assessment/originalDat
 import { User } from 'meta/user/user'
 import { UUIDs } from 'meta/uuid/uuids'
 
-import { validateNationalClasses } from 'server/controller/cycleData/validations/nationalDataPoint/validateNationalClasses'
 import { BaseProtocol, DB } from 'server/db/db'
 import { OriginalDataPointRepository } from 'server/db/repository/assessmentCycle/originalDataPoint'
 import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 import { CountryService } from 'server/service/country'
+import { DataValidationService } from 'server/service/dataValidation'
 
 import { updateOriginalDataPointDependentNodes } from './updateDependants/updateOriginalDataPointDependentNodes'
 
@@ -75,7 +75,7 @@ export const copyNationalClasses = async (props: Props, client: BaseProtocol = D
     return updatedOriginalDataPoint
   })
 
-  await validateNationalClasses({
+  await DataValidationService.validateNDPNationalClasses({
     assessment,
     countryIso,
     cycle,

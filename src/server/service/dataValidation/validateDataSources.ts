@@ -10,7 +10,8 @@ import { Objects } from 'utils/objects'
 
 import { SectionRedisRepository } from 'server/cache/repository/section'
 import { DescriptionValidationRedisRepository } from 'server/cache/repository/validation/description'
-import { notifyDescriptionValidationUpdate } from 'server/controller/cycleData/validations/descriptions/notifyDescriptionValidationUpdate'
+
+import { notifyDescriptionValidationUpdate } from './descriptions/notifyDescriptionValidationUpdate'
 
 type Props = {
   assessment: Assessment
