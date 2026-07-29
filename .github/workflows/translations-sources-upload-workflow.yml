@@ -1,4 +1,4 @@
-name: Upload translation sources
+name: Upload and translate sources
 
 on:
   workflow_dispatch:
@@ -22,3 +22,35 @@ jobs:
         env:
           CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
           CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
+
+      # Translation Memory: Translate untranslated keys with Translation Memory (TM)
+      # (uses already approved keys)
+      - name: Pre-translate from Translation Memory
+        run: >
+          npx --yes @crowdin/cli@4 pre-translate
+          --method tm
+          --translate-untranslated-only
+          --auto-approve-option all
+          --no-progress
+          --no-colors
+        env:
+          CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
+          CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
+
+      # Machine Translation: use Machine Translation for keys missed by TM
+      - name: Pre-translate with Machine Translation
+        run: >
+          npx --yes @crowdin/cli@4 pre-translate
+          --method mt
+          --engine-id ${{ vars.CROWDIN_MT_ENGINE_ID }}
+          --translate-untranslated-only
+          --no-progress
+          --no-colors
+        env:
+          CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
+          CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
+
+  crowdin-download:
+    needs: crowdin-upload-sources
+    uses: ./.github/workflows/translations-download-workflow.yml
+    secrets: inherit
