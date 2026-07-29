@@ -1,19 +1,16 @@
 import './CycleSwitcher.scss'
 import React from 'react'
-import { useTranslation } from 'react-i18next'
 
 import { Assessments } from 'meta/assessment/assessments'
-import { CycleNames } from 'meta/assessment/cycle/names'
 import { Cycles } from 'meta/assessment/cycles'
-import { Users } from 'meta/user/users'
 
 import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useCycle } from 'client/store/meta/hooks/cycles'
-import { useUser } from 'client/store/user/hooks/user'
 import { useCycleRouteParams } from 'client/hooks/routeParams'
 import Icon from 'client/components/Icon'
 import PopoverControl from 'client/components/PopoverControl'
 
+import { useDisplayName } from './hooks/useDisplayName'
 import { usePopoverItems } from './hooks/usePopoverItems'
 
 const CycleSwitcher: React.FC = () => {
@@ -21,18 +18,13 @@ const CycleSwitcher: React.FC = () => {
   const cycle = useCycle()
   const { cycleName } = useCycleRouteParams()
   const popoverItems = usePopoverItems()
-  const user = useUser()
-  const { t } = useTranslation()
+
+  const displayName = useDisplayName()
 
   if (popoverItems.length < 1) {
     const cycleLabel = Cycles.isPublished(cycle) ? cycleName : Assessments.getLastPublishedCycle(assessment).name
     return <div>{cycleLabel}</div>
   }
-
-  const lastCreatedCycle = Assessments.getLastCreatedCycle(assessment)
-  const isCycleNameEmpty =
-    (lastCreatedCycle.name === cycleName || cycleName?.includes(CycleNames.latest)) && !Users.isAdministrator(user)
-  const displayName = isCycleNameEmpty ? '' : t(Assessments.getCycleTranslationKey({ cycleName: cycle.name }))
 
   return (
     <div className="cycle-switcher">
