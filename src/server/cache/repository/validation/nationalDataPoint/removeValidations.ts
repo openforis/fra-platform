@@ -11,11 +11,11 @@ type Props = {
   cycle: Cycle
 }
 
-export const clearCountryValidations = async (props: Props): Promise<void> => {
+export const removeValidations = async (props: Props): Promise<void> => {
   const { assessment, countryIso, cycle } = props
 
   const redis = RedisData.getInstance()
-  const key = getKeyCountry({ assessment, countryIso, cycle, key: Keys.Data.validationTables })
+  const key = getKeyCountry({ assessment, countryIso, cycle, key: Keys.Data.validationNationalDataPoints })
 
   await redis.del(key)
 }

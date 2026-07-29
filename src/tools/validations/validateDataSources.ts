@@ -45,6 +45,8 @@ const _validateCountry = async (props: CountryProps): Promise<void> => {
     }))
   )
 
+  await DataValidationService.removeDescriptionValidations({ assessment, countryIso, cycle })
+
   await DataValidationService.validateDataSources({ assessment, country, cycle, descriptions, notifyClients: false })
 }
 
