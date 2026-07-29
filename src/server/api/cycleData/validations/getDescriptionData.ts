@@ -3,7 +3,7 @@ import { Response } from 'express'
 import { CycleDataRequest } from 'meta/api/request/cycleData/cycleData'
 import { SectionName } from 'meta/assessment/section'
 
-import { ValidationsController } from 'server/controller/cycleData/validations'
+import { DataValidationService } from 'server/service/dataValidation'
 import Requests from 'server/utils/requests'
 
 type Request = CycleDataRequest<{
@@ -15,7 +15,7 @@ export const getDescriptionValidations = async (req: Request, res: Response): Pr
     const { countryIso, sectionName } = req.query
     const { assessment, cycle } = req.context
 
-    const descriptionValidations = await ValidationsController.getDescriptionValidations({
+    const descriptionValidations = await DataValidationService.getDescriptionValidations({
       assessment,
       countryIso,
       cycle,

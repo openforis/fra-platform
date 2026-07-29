@@ -2,7 +2,7 @@ import { Response } from 'express'
 
 import { CycleDataRequest } from 'meta/api/request/cycleData/cycleData'
 
-import { ValidationsController } from 'server/controller/cycleData/validations'
+import { DataValidationService } from 'server/service/dataValidation'
 import Requests from 'server/utils/requests'
 
 export const getNationalDataPointValidations = async (req: CycleDataRequest, res: Response): Promise<void> => {
@@ -10,7 +10,7 @@ export const getNationalDataPointValidations = async (req: CycleDataRequest, res
     const { countryIso } = req.query
     const { assessment, cycle } = req.context
 
-    const validations = await ValidationsController.getNationalDataPointValidations({ assessment, countryIso, cycle })
+    const validations = await DataValidationService.getNationalDataPointValidations({ assessment, countryIso, cycle })
 
     Requests.send(res, validations)
   } catch (e) {
