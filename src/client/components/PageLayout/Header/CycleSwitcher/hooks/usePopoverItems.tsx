@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next'
 
 import { Assessments } from 'meta/assessment/assessments'
 import { Cycle } from 'meta/assessment/cycle'
-import { CycleNames } from 'meta/assessment/cycle/names'
 import { Cycles } from 'meta/assessment/cycles'
 import { Users } from 'meta/user/users'
 
@@ -58,11 +57,7 @@ export const usePopoverItems = (): Array<PopoverItem> => {
           const canViewCycle = (hasRoleInAssessment && Cycles.isPublished(cycle)) || hasRoleInCycle
 
           const assessmentName = assessment.props.name
-          let cycleName = t(Assessments.getCycleTranslationKey({ cycleName: cycle.name }))
-
-          if (isAdmin && cycle.name.includes(CycleNames.latest)) {
-            cycleName += cycle.name.split(CycleNames.latest).at(1)
-          }
+          const cycleName = t(Assessments.getCycleTranslationKey({ cycleName: cycle.name }))
 
           const isCurrentRoute = assessmentName === routeParams.assessmentName && cycle.name === routeParams.cycleName
           const content = t('common.cycleLabel', { assessmentName, cycleName })

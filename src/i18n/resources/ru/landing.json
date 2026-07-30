@@ -64,6 +64,7 @@
       "edited": "отредактировал",
       "linkOriginalDataPointComments": "Национальная точка данных {{year}}: {{section}} комментарии",
       "removeInvitation": "удалил приглашение от {{user}} как {{role}}",
+      "removeRole": "убрал {{user}} как {{role}}",
       "removeUser": "удалил {{user}}",
       "resolved": "разрешил проблему в",
       "status": "изменил статус на",

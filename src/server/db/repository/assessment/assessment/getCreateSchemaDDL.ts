@@ -171,6 +171,7 @@ export const getCreateSchemaCycleDDL = (assessmentSchemaName: string, assessment
           id            bigserial                             not null
               constraint message_topic_pk
                   primary key,
+          uuid          uuid  default uuid_generate_v4()      not null,
           country_iso   varchar(3)                            not null
               constraint message_topic_country_country_iso_fk
                   references country
@@ -181,7 +182,8 @@ export const getCreateSchemaCycleDDL = (assessmentSchemaName: string, assessment
           section_uuid uuid
             constraint message_topic_section_uuid_fk
             references ${assessmentSchemaName}.section (uuid)
-            on update cascade on delete cascade
+            on update cascade on delete cascade,
+          unique (uuid)
       );
       
       create unique index message_topic_country_iso_key_uindex
@@ -191,9 +193,9 @@ export const getCreateSchemaCycleDDL = (assessmentSchemaName: string, assessment
       (
           id           bigserial                 not null
               constraint message_pk primary key,
-          topic_id     bigint                    not null
-              constraint message_message_topic_id_fk
-                  references ${assessmentCycleSchemaName}.message_topic
+          topic_uuid   uuid                      not null
+              constraint message_message_topic_uuid_fk
+                  references ${assessmentCycleSchemaName}.message_topic (uuid)
                   on update cascade on delete cascade,
           user_id      bigint                    not null
               constraint message_users_id_fk
@@ -209,9 +211,9 @@ export const getCreateSchemaCycleDDL = (assessmentSchemaName: string, assessment
           id             bigserial                 not null
               constraint message_topic_user_pk
                   primary key,
-          topic_id       bigint                    not null
-              constraint message_topic_user_message_topic_id_fk
-                  references ${assessmentCycleSchemaName}.message_topic
+          topic_uuid     uuid                      not null
+              constraint message_topic_user_message_topic_uuid_fk
+                  references ${assessmentCycleSchemaName}.message_topic (uuid)
                   on update cascade on delete cascade,
           user_id        bigint                    not null
               constraint message_topic_user_users_id_fk
