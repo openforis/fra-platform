@@ -21,7 +21,6 @@ export const mergeData = async (props: PropsMerge, client: BaseProtocol): Promis
       from ${schemaCycleFrom}.node f
       where f.country_iso in ($(countryISOs:list));
 
-
       delete
       from ${schemaCycleTo}.node_values_estimation
       where country_iso in ($(countryISOs:list));
@@ -77,7 +76,6 @@ export const mergeData = async (props: PropsMerge, client: BaseProtocol): Promis
              f.created_at
       from ${schemaCycleFrom}.repository f
       where f.country_iso in ($(countryISOs:list));
-
     `,
     params
   )

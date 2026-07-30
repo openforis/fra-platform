@@ -5,6 +5,7 @@ import { AssessmentNames } from 'meta/assessment/assessment'
 import { Assessments } from 'meta/assessment/assessments'
 import { PropsMerge } from 'tools/cycles/merge/_types'
 import { mergeData } from 'tools/cycles/merge/mergeData'
+import { mergeMessageTopics } from 'tools/cycles/merge/mergeMessageTopics'
 import { mergeUserRoles } from 'tools/cycles/merge/mergeUserRoles'
 import { updateCache } from 'tools/cycles/merge/updateCache'
 import { ToolsUtils } from 'tools/utils/toolsUtils'
@@ -32,6 +33,7 @@ const merge = async (): Promise<void> => {
 
   await mergeUserRoles(propsMerge, client)
   await mergeData(propsMerge, client)
+  await mergeMessageTopics(propsMerge, client)
   await updateCache(propsMerge, client)
 }
 
