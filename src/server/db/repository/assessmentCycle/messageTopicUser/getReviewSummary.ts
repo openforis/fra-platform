@@ -1,10 +1,9 @@
-import { Objects } from 'utils/objects'
-
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { ReviewSummary } from 'meta/assessment/review'
 import { User } from 'meta/user/user'
+import { Objects } from 'utils/objects'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { Schemas } from 'server/db/schemas'
@@ -32,14 +31,14 @@ export const getReviewSummary = async (
              m as (select r.row_uuid,
                           r.sub_section_uuid,
                           r.parent_uuid,
-                          m.topic_id,
+                          m.topic_uuid,
                           m.created_time                                                as last_message_created_time,
                           row_number() over (partition by r.row_uuid, r.sub_section_uuid) as row_number
                    from r
                             left join ${cycleSchema}.message_topic mt
                                       on r.section_uuid = mt.section_uuid
                             left join ${cycleSchema}.message m
-                                      on m.topic_id = mt.id
+                                      on m.topic_uuid = mt.uuid
                    where mt.status = 'opened'
                      and not m.deleted
                      and mt.country_iso = $3),
@@ -54,9 +53,9 @@ export const getReviewSummary = async (
                                   m.last_message_created_time > u.last_open_time as has_unread_messages
                            from m
                                     left join ${cycleSchema}.message_topic_user u
-                                              on u.topic_id = m.topic_id and u.user_id = $2
+                                              on u.topic_uuid = m.topic_uuid and u.user_id = $2
                                     left join ${cycleSchema}.message_topic mt
-                                              on mt.id = m.topic_id
+                                              on mt.uuid = m.topic_uuid
                            where m.row_number = 1)
         select jsonb_agg(s.*) as data
         from summaries s

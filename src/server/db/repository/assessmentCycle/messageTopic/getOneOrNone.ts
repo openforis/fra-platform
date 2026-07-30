@@ -1,9 +1,8 @@
-import { Objects } from 'utils/objects'
-
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { MessageTopic } from 'meta/messageCenter/messageTopic'
+import { Objects } from 'utils/objects'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { Schemas } from 'server/db/schemas'
@@ -38,17 +37,17 @@ export const getOneOrNone = async (props: Props, client: BaseProtocol = DB): Pro
       from ${schemaCycle}.message_topic t
           ${
             includeMessages
-              ? `left join ${schemaCycle}.message m on t.id = m.topic_id
+              ? `left join ${schemaCycle}.message m on t.uuid = m.topic_uuid
                   left join public.users u on m.user_id = u.id`
               : ''
           }
       where country_iso = $1
         and ${key ? `key = $2` : `id = $2`}${
-    includeMessages
-      ? `
+          includeMessages
+            ? `
         group by t.id, country_iso, t.key, t.status, t.type`
-      : ''
-  }
+            : ''
+        }
   `
 
   return client.oneOrNone<MessageTopic>(query, [countryIso, key ?? id], Objects.camelize)
