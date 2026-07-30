@@ -4,6 +4,7 @@ import { CountryIso } from 'meta/area/countryIso'
 import { AssessmentNames } from 'meta/assessment/assessment'
 import { Assessments } from 'meta/assessment/assessments'
 import { PropsMerge } from 'tools/cycles/merge/_types'
+import { mergeActivityLog } from 'tools/cycles/merge/mergeActivityLog'
 import { mergeData } from 'tools/cycles/merge/mergeData'
 import { mergeMessageTopics } from 'tools/cycles/merge/mergeMessageTopics'
 import { mergeUserRoles } from 'tools/cycles/merge/mergeUserRoles'
@@ -34,6 +35,7 @@ const merge = async (): Promise<void> => {
   await mergeUserRoles(propsMerge, client)
   await mergeData(propsMerge, client)
   await mergeMessageTopics(propsMerge, client)
+  await mergeActivityLog(propsMerge, client)
   await updateCache(propsMerge, client)
 }
 
