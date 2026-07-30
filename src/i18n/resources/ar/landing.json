@@ -64,6 +64,7 @@
       "edited": "منقح",
       "linkOriginalDataPointComments": "نقطة البيانات الوطنية {{year}}: تعليقات {{section}}",
       "removeInvitation": "إلغاء دعوة {{user}} بصفته {{role}}",
+      "removeRole": "أزال {{user}} ك {{role}}",
       "removeUser": "ملغى {{user}}",
       "resolved": "تم حل المسألة في",
       "status": "تم تغيير الحالة إلى",
