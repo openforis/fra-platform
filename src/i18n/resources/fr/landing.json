@@ -64,6 +64,7 @@
       "edited": "a modifié",
       "linkOriginalDataPointComments": "Point de données national {{year}} : commentaires sur {{section}}",
       "removeInvitation": "a révoqué l'invitation de {{user}} en tant que {{role}}",
+      "removeRole": "a supprimé {{user}} en tant que {{role}}",
       "removeUser": "a éliminé {{user}}",
       "resolved": "a résolu",
       "status": "changer le statut à",
