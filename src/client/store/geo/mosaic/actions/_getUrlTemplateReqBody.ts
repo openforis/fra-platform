@@ -3,6 +3,14 @@ import { MosaicOptions } from 'meta/geo/mosaic/options'
 
 export const _getUrlTemplateReqBody = (mosaicOptions: MosaicOptions, countryIso: CountryIso): any => {
   const { maxCloudCoverage, snowMasking, sources, year } = mosaicOptions
+  let dataSets = {}
+
+  if (sources.sentinel) {
+    dataSets = { SENTINEL: ['SENTINEL_2'] }
+  } else if (sources.landsat) {
+    dataSets = { LANDSAT: ['LANDSAT_7', 'LANDSAT_8'] }
+  }
+
   const body = {
     recipe: {
       id: '390c7c3f-1540-0e1f-52a0-5609b46122a8',
@@ -17,10 +25,7 @@ export const _getUrlTemplateReqBody = (mosaicOptions: MosaicOptions, countryIso:
           yearsAfter: 0,
         },
         sources: {
-          dataSets: {
-            ...(sources.sentinel ? { SENTINEL: ['SENTINEL_2'] } : {}),
-            ...(sources.landsat ? { LANDSAT: ['LANDSAT_7', 'LANDSAT_8'] } : {}),
-          },
+          dataSets,
           cloudPercentageThreshold: maxCloudCoverage,
         },
         sceneSelectionOptions: { type: 'ALL', targetDateWeight: 0 },
@@ -28,7 +33,7 @@ export const _getUrlTemplateReqBody = (mosaicOptions: MosaicOptions, countryIso:
           corrections: ['SR'],
           // @ts-ignore
           filters: [],
-          cloudDetection: ['QA', 'CLOUD_SCORE'],
+          cloudDetection: ['QA'],
           cloudMasking: 'MODERATE',
           cloudBuffering: 0,
           snowMasking: snowMasking ? 'ON' : 'OFF',
