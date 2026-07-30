@@ -1,9 +1,9 @@
 import { OriginalDataPointRepository } from 'server/db/repository/assessmentCycle/originalDataPoint'
+import { DataValidationService } from 'server/service/dataValidation'
 import { Logger } from 'server/utils/logger'
 
 import { buildNationalDataPointLinks } from './utils/buildNationalDataPointLinks'
 import { mergeTargets } from './utils/mergeTargets'
-import { refreshNationalDataPointValidations } from './utils/refreshNationalDataPointValidations'
 import { syncNationalDataPointLinks } from './utils/syncNationalDataPointLinks'
 import { VerifyNationalDataPointLinksJob } from './props'
 
@@ -35,7 +35,7 @@ export default async (job: VerifyNationalDataPointLinksJob): Promise<void> => {
     const syncResult = await syncNationalDataPointLinks({ ...commonProps, linksToVisit, targets })
 
     const props = { ...commonProps, ...syncResult, linksToVisit, nationalDataPoints, notifyClients, targets }
-    await refreshNationalDataPointValidations(props)
+    await DataValidationService.updateNDPValidations(props)
 
     const duration = (new Date().getTime() - time) / 1000
     Logger.info(`${logKey} ended in ${duration} seconds with ${syncResult.linkVisits.length} links visited.`)

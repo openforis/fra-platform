@@ -2,8 +2,8 @@ import { RecordNDPValidations } from 'meta/assessment/validation/nationalDataPoi
 import { Link, LinkToVisit, VisitedLink } from 'meta/cycleData/links/link'
 import { Links } from 'meta/cycleData/links/links'
 
-import { buildVisitedLinksByKey } from 'server/worker/tasks/verifyLinks/utils/buildVisitedLinksByKey'
-import { getLinkValidationMessage } from 'server/worker/tasks/verifyLinks/utils/getLinkValidationMessage'
+import { buildVisitedLinksByKey } from 'server/service/dataValidation/links/buildVisitedLinksByKey'
+import { getLinkValidationMessage } from 'server/service/dataValidation/links/getLinkValidationMessage'
 
 import { updateNationalDataPointLocationValidation } from './updateNationalDataPointLocationValidation'
 

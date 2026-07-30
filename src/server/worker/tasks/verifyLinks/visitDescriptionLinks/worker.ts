@@ -3,10 +3,10 @@ import { SectionName } from 'meta/assessment/section'
 import { Objects } from 'utils/objects'
 
 import { DescriptionRepository } from 'server/db/repository/assessmentCycle/descriptions'
+import { DataValidationService } from 'server/service/dataValidation'
 import { Logger } from 'server/utils/logger'
 
 import { buildDescriptionLinks } from './utils/buildDescriptionLinks'
-import { refreshDescriptionValidations } from './utils/refreshDescriptionValidations'
 import { syncDescriptionLinks } from './utils/syncDescriptionLinks'
 import { VerifyDescriptionLinksJob } from './props'
 
@@ -50,7 +50,7 @@ export default async (job: VerifyDescriptionLinksJob): Promise<void> => {
     const { approvedLinks, linkVisits } = await syncDescriptionLinks({ ...commonProps, descriptions, linksToVisit })
 
     const props = { ...commonProps, approvedLinks, descriptions, linkVisits, linksToVisit, notifyClients, sectionNames }
-    await refreshDescriptionValidations(props)
+    await DataValidationService.updateDescriptionValidations(props)
 
     const duration = (new Date().getTime() - time) / 1000
     Logger.info(`${logKey} ended in ${duration} seconds with ${linkVisits.length} links visited.`)

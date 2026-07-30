@@ -11,9 +11,8 @@ import { BaseProtocol, DB } from 'server/db/db'
 import { DescriptionRepository } from 'server/db/repository/assessmentCycle/descriptions'
 import { LinkRepository } from 'server/db/repository/assessmentCycle/links'
 import { OriginalDataPointRepository } from 'server/db/repository/assessmentCycle/originalDataPoint'
+import { DataValidationService } from 'server/service/dataValidation'
 import { Logger } from 'server/utils/logger'
-import { refreshDescriptionValidations } from 'server/worker/tasks/verifyLinks/visitDescriptionLinks/utils/refreshDescriptionValidations'
-import { refreshNationalDataPointValidations } from 'server/worker/tasks/verifyLinks/visitNationalDataPointLinks/utils/refreshNationalDataPointValidations'
 
 import { buildCountryLinks, CountryLinks } from './utils/buildCountryLinks'
 import { filterLinks } from './utils/filterLinks'
@@ -123,7 +122,7 @@ export const verifyAllLinks = async (props: Props, client: BaseProtocol = DB): P
       countryLinks.map(async (country) => {
         const commonProps = { approvedLinks, assessment, countryIso: country.countryIso, cycle, linkVisits }
 
-        await refreshDescriptionValidations({
+        await DataValidationService.updateDescriptionValidations({
           ...commonProps,
           descriptions: country.descriptions,
           linksToVisit: country.descriptionLinksToVisit,
@@ -131,7 +130,7 @@ export const verifyAllLinks = async (props: Props, client: BaseProtocol = DB): P
           sectionNames,
         })
 
-        await refreshNationalDataPointValidations({
+        await DataValidationService.updateNDPValidations({
           ...commonProps,
           includeStoredTargets: true,
           linksToVisit: country.nationalDataPointLinksToVisit,
