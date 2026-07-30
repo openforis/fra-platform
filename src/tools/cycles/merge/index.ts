@@ -4,6 +4,7 @@ import { CountryIso } from 'meta/area/countryIso'
 import { AssessmentNames } from 'meta/assessment/assessment'
 import { Assessments } from 'meta/assessment/assessments'
 import { PropsMerge } from 'tools/cycles/merge/_types'
+import { deprecateCycleFrom } from 'tools/cycles/merge/deprecateCycleFrom'
 import { mergeActivityLog } from 'tools/cycles/merge/mergeActivityLog'
 import { mergeData } from 'tools/cycles/merge/mergeData'
 import { mergeMessageTopics } from 'tools/cycles/merge/mergeMessageTopics'
@@ -32,10 +33,16 @@ const merge = async (): Promise<void> => {
 
   const propsMerge: PropsMerge = { assessment, countryISOs, cycleFrom, cycleTo }
 
+  // 1. merge data
   await mergeUserRoles(propsMerge, client)
   await mergeData(propsMerge, client)
   await mergeMessageTopics(propsMerge, client)
   await mergeActivityLog(propsMerge, client)
+
+  // 2. deprecate cycle from
+  await deprecateCycleFrom(propsMerge, client)
+
+  //3. update cache
   await updateCache(propsMerge, client)
 }
 
