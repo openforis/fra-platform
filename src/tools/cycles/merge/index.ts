@@ -1,5 +1,6 @@
 import '../../scriptInit'
 
+import { CountryIso } from 'meta/area/countryIso'
 import { AssessmentNames } from 'meta/assessment/assessment'
 import { Assessments } from 'meta/assessment/assessments'
 import { PropsMerge } from 'tools/cycles/merge/_types'
@@ -15,6 +16,7 @@ const client = DB
 const assessmentName = AssessmentNames.fra
 const cycleNameFrom = 'latest2'
 const cycleNameTo = 'latest'
+const countryISOs: Array<CountryIso> = ['ARG', 'EST', 'TUR', 'URY']
 
 const merge = async (): Promise<void> => {
   const assessment = await AssessmentController.getOne({ assessmentName }, client)
@@ -26,7 +28,7 @@ const merge = async (): Promise<void> => {
     throw new Error(msg)
   }
 
-  const propsMerge: PropsMerge = { assessment, cycleFrom, cycleTo }
+  const propsMerge: PropsMerge = { assessment, countryISOs, cycleFrom, cycleTo }
 
   await mergeUserRoles(propsMerge, client)
   await mergeData(propsMerge, client)
