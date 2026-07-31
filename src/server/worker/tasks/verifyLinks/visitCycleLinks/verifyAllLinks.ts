@@ -125,8 +125,8 @@ export const verifyAllLinks = async (props: Props, client: BaseProtocol = DB): P
         await DataValidationService.updateDescriptionValidations({
           ...commonProps,
           descriptions: country.descriptions,
+          isCompleteUpdate: true,
           linksToVisit: country.descriptionLinksToVisit,
-          replaceDescriptions: true,
           sectionNames,
         })
 
