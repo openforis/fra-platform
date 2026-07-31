@@ -39,6 +39,13 @@ export const mergeLinkValidations = (props: Props): NDPValidation => {
   }
 
   if (fields.includes(NDPLinkField.dataSourceReferences)) {
+    // Replace the reference link validation of the ndp's single data source (dataSources v1 cycles)
+    if (update.dataSourceReference) {
+      value.dataSourceReference = update.dataSourceReference
+    } else {
+      delete value.dataSourceReference
+    }
+
     // Replace only the reference link validations
     const dataSources: Record<UUID, NDPDataSourceValidation> = {}
     const uuids = new Set([...Object.keys(current.dataSources ?? {}), ...Object.keys(update.dataSources ?? {})])

@@ -8,9 +8,11 @@ const _isInvalid = (validation?: Validation): boolean => {
 export const hasError = (nationalDataPointValidation?: NDPValidation): boolean => {
   if (!nationalDataPointValidation) return false
 
-  const { comments, dataSources, nationalClasses, year } = nationalDataPointValidation
+  const { comments, dataSourceReference, dataSources, nationalClasses, year } = nationalDataPointValidation
 
   if (_isInvalid(year)) return true
+
+  if (_isInvalid(dataSourceReference)) return true
 
   if (Object.values(comments ?? {}).some((comment) => _isInvalid(comment))) return true
 

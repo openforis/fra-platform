@@ -40,9 +40,11 @@ export const hasSectionError = (props: Props): boolean => {
   const sectionRule = sectionRules[sectionName]
   if (Objects.isNil(sectionRule)) return false
 
-  const { comments, dataSources, nationalClasses, year } = nationalDataPointValidation
+  const { comments, dataSourceReference, dataSources, nationalClasses, year } = nationalDataPointValidation
 
   if (_isInvalid(year)) return true
+
+  if (_isInvalid(dataSourceReference)) return true
 
   const dataSourceInvalid = Object.values(dataSources ?? {}).some((dataSource) => {
     return Object.values(dataSource).some((field) => _isInvalid(field))

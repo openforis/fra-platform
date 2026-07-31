@@ -40,7 +40,7 @@ export type NationalDataPointLinkLocation = LinkLocationBase & {
   sectionName: 'originalDataPoint'
   ndpSection: NDPLinkField
   ndpUuid: UUID
-  // Set when the location is a data source reference location within the odp.
+  // Set when the location is a data source reference location within an ndp of a dataSources v2 cycle.
   dataSourceUuid?: UUID
   year: number
 }
