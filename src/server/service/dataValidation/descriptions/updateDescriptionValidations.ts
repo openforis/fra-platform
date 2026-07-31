@@ -19,17 +19,17 @@ type Props = {
   countryIso: CountryIso
   cycle: Cycle
   descriptions: Array<Omit<CommentableDescription, 'id'>>
+  isCompleteUpdate?: boolean
   linkVisits: Array<VisitedLink>
   linksToVisit: Array<LinkToVisit>
   notifyClients?: boolean
-  replaceDescriptions?: boolean
   sectionNames: Array<SectionName>
 }
 
 // Rebuilds the descriptions' link validations, saves them in the cache and notifies clients.
 export const updateDescriptionValidations = async (props: Props): Promise<void> => {
   const { approvedLinks, assessment, countryIso, cycle, descriptions, linkVisits, linksToVisit, sectionNames } = props
-  const { notifyClients = true, replaceDescriptions = false } = props
+  const { isCompleteUpdate = false, notifyClients = true } = props
 
   if (Objects.isEmpty(sectionNames)) return
 
@@ -55,7 +55,7 @@ export const updateDescriptionValidations = async (props: Props): Promise<void> 
   sectionNames.forEach((sectionName) => {
     const current = currentValidations[sectionName] ?? {}
     const update = descriptionValidations[sectionName] ?? {}
-    const value = DescriptionValidations.mergeLinkValidations({ current, replaceDescriptions, update })
+    const value = DescriptionValidations.mergeLinkValidations({ current, isCompleteUpdate, update })
 
     if (Objects.isEmpty(value)) {
       sectionNamesToDelete.push(sectionName)

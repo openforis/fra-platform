@@ -1,45 +1,62 @@
-import type { DataSourceRowValidations, SectionDescriptionValidations } from 'meta/assessment/validation/description'
+import type {
+  DataSourceRowValidations,
+  DescriptionTextValidations,
+  SectionDescriptionValidations,
+} from 'meta/assessment/validation/description'
 import { Objects } from 'utils/objects'
 
 type Props = {
   current: SectionDescriptionValidations
-  replaceDescriptions?: boolean
+  // True when the whole section was revalidated, so all validations are replaced by the incoming update.
+  isCompleteUpdate?: boolean
   update: SectionDescriptionValidations
 }
 
-export const mergeLinkValidations = (props: Props): SectionDescriptionValidations => {
-  const { current, replaceDescriptions = false, update } = props
-  const value: SectionDescriptionValidations = { ...current }
+const _mergeDescriptionValidations = (props: Props): DescriptionTextValidations => {
+  const { current, isCompleteUpdate, update } = props
 
-  if (replaceDescriptions) {
-    // A full check goes over every description, so we replace the whole set and drop anything that's gone.
-    if (!Objects.isEmpty(update.descriptions)) {
-      value.descriptions = update.descriptions
-    } else {
-      delete value.descriptions
-    }
-  } else if (!Objects.isEmpty(current.descriptions) || !Objects.isEmpty(update.descriptions)) {
-    // A single edit only touches the descriptions that changed, so we merge those in and keep the rest.
-    value.descriptions = { ...current.descriptions, ...update.descriptions }
-    if (Objects.isEmpty(value.descriptions)) delete value.descriptions
-  } else {
-    delete value.descriptions
-  }
+  // If the entire section was revalidated, we use the entire update.
+  if (isCompleteUpdate) return update.descriptions ?? {}
 
-  if (Objects.isEmpty(update.dataSources)) return value
+  // Otherwise, we merge the edited descriptions in and keep the rest.
+  return { ...current.descriptions, ...update.descriptions }
+}
+
+const _mergeDataSourceValidations = (props: Props): DataSourceRowValidations => {
+  const { current, isCompleteUpdate, update } = props
+
+  // If a partial update didn't validate the data sources, we keep the current validations as they are.
+  const dataSourcesValidated = 'dataSources' in update
+  if (!isCompleteUpdate && !dataSourcesValidated) return current.dataSources ?? {}
 
   const currentDataSources = current.dataSources ?? {}
   const dataSourcesUpdate = update.dataSources ?? {}
 
-  // For data sources, we update the reference link validation only.
-  value.dataSources = Object.entries(dataSourcesUpdate).reduce<DataSourceRowValidations>(
-    (acc, [uuid, dataSourceValidation]) => {
-      const { reference } = dataSourceValidation
-      if (reference) acc[uuid] = { ...acc[uuid], reference }
-      return acc
-    },
-    { ...currentDataSources }
-  )
+  // We only keep the rows present in the update; rows missing from it were deleted.
+  // For each row, we replace the reference link validation only and keep its other validations.
+  return Object.entries(dataSourcesUpdate).reduce<DataSourceRowValidations>((acc, [uuid, dataSourceValidation]) => {
+    const mergedValidation = { ...currentDataSources[uuid] }
+    delete mergedValidation.reference
+
+    const { reference } = dataSourceValidation
+    if (!Objects.isEmpty(reference)) mergedValidation.reference = reference
+    if (!Objects.isEmpty(mergedValidation)) acc[uuid] = mergedValidation
+
+    return acc
+  }, {})
+}
+
+// Merges a link validation update into a section's current validations and returns the result.
+export const mergeLinkValidations = (props: Props): SectionDescriptionValidations => {
+  const { current, isCompleteUpdate = false, update } = props
+
+  const value: SectionDescriptionValidations = {}
+
+  const descriptions = _mergeDescriptionValidations({ current, isCompleteUpdate, update })
+  if (!Objects.isEmpty(descriptions)) value.descriptions = descriptions
+
+  const dataSources = _mergeDataSourceValidations({ current, isCompleteUpdate, update })
+  if (!Objects.isEmpty(dataSources)) value.dataSources = dataSources
 
   return value
 }
