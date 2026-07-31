@@ -1,5 +1,6 @@
 import { expect, Locator, Page } from '@playwright/test'
 
+import { DescriptionUtils } from '../description'
 import { DOMUtils } from '../dom'
 
 const nationalDataPointApi = '/api/cycle-data/national-data-points/national-data-point'
@@ -14,6 +15,10 @@ const _nationalClassNameInputs = (page: Page): Locator =>
   _nationalClassesGrid(page).locator('.data-cell.firstCol input.input-text')
 
 const _existingNationalClassNameInput = (page: Page): Locator => _nationalClassNameInputs(page).first()
+
+const _commentsBlock = (page: Page): Locator => page.locator('.data-grid.odp__section.description')
+
+const _commentsEditor = (page: Page): Locator => _commentsBlock(page).locator('.jodit-wysiwyg')
 
 const fillYear = async (page: Page, year: string): Promise<void> => {
   // New odp year defaults to -1 before selecting a year.
@@ -32,6 +37,20 @@ const fillDataSourceReference = async (page: Page, reference: string): Promise<v
   await page.keyboard.type(reference)
   await editor.blur()
 }
+
+// Comments of the active ODP tab (1a extentOfForest / 1b forestCharacteristics)
+const fillComments = async (page: Page, html: string): Promise<void> => {
+  const commentsBlock = _commentsBlock(page)
+  await commentsBlock.getByRole('button', { name: 'Edit', exact: true }).click()
+
+  const saved = DOMUtils.waitForResponse(page, `${nationalDataPointApi}/description`, 'PUT')
+  await DescriptionUtils.pasteIntoEditorWysiwyg(page, _commentsEditor(page), html)
+  await commentsBlock.getByRole('button', { name: 'Done', exact: true }).click()
+  await saved
+}
+
+const getCommentsValidationError = (page: Page): Locator =>
+  _commentsBlock(page).locator('.editorWYSIWYG.validation-error')
 
 const createNewNationalClassification = async (page: Page, name: string): Promise<void> => {
   const inputs = _nationalClassNameInputs(page)
@@ -154,6 +173,7 @@ export const NDPDomUtils = {
   createNewNationalClassification,
   doneEditing,
   editNationalClassification,
+  fillComments,
   fillDataSourceReference,
   fillNationalClassArea,
   fillNationalClassForestPercent,
@@ -164,5 +184,6 @@ export const NDPDomUtils = {
   fillNationalClassPlantationIntroducedPercent,
   fillNationalClassPrimaryForestPercent,
   fillYear,
+  getCommentsValidationError,
   switchTab,
 }
