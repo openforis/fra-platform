@@ -9,9 +9,9 @@ import { Link, LinkToVisit, VisitedLink } from 'meta/cycleData/links/link'
 import { Objects } from 'utils/objects'
 
 import { DescriptionValidationRedisRepository } from 'server/cache/repository/validation/description'
-import { DataValidationService } from 'server/service/dataValidation'
 
 import { buildDescriptionLinkValidations } from './buildDescriptionLinkValidations'
+import { notifyDescriptionValidationUpdate } from './notifyDescriptionValidationUpdate'
 
 type Props = {
   approvedLinks: Array<Link>
@@ -26,8 +26,8 @@ type Props = {
   sectionNames: Array<SectionName>
 }
 
-// Rebuilds description link validations, saves them in the cache and notifies clients.
-export const refreshDescriptionValidations = async (props: Props): Promise<void> => {
+// Rebuilds the descriptions' link validations, saves them in the cache and notifies clients.
+export const updateDescriptionValidations = async (props: Props): Promise<void> => {
   const { approvedLinks, assessment, countryIso, cycle, descriptions, linkVisits, linksToVisit, sectionNames } = props
   const { notifyClients = true, replaceDescriptions = false } = props
 
@@ -83,7 +83,7 @@ export const refreshDescriptionValidations = async (props: Props): Promise<void>
 
   if (!notifyClients) return
 
-  DataValidationService.notifyDescriptionValidationUpdate({
+  notifyDescriptionValidationUpdate({
     assessment,
     countryIso,
     cycle,

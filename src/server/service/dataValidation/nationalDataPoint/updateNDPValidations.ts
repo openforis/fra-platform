@@ -10,9 +10,9 @@ import { UUID } from 'meta/uuid/uuid'
 import { Objects } from 'utils/objects'
 
 import { NationalDataPointValidationRedisRepository } from 'server/cache/repository/validation/nationalDataPoint'
-import { DataValidationService } from 'server/service/dataValidation'
 
 import { buildNationalDataPointLinkValidations } from './buildNationalDataPointLinkValidations'
+import { notifyNationalDataPointValidationUpdate } from './notifyNationalDataPointValidationUpdate'
 
 type Props = {
   approvedLinks: Array<Link>
@@ -28,7 +28,7 @@ type Props = {
 }
 
 // Rebuilds the target national data points' link validations, saves them in the cache and notifies clients.
-export const refreshNationalDataPointValidations = async (props: Props): Promise<void> => {
+export const updateNDPValidations = async (props: Props): Promise<void> => {
   const { approvedLinks, assessment, countryIso, cycle, linkVisits, linksToVisit, nationalDataPoints, targets } = props
   const { includeStoredTargets = false, notifyClients = true } = props
 
@@ -93,5 +93,5 @@ export const refreshNationalDataPointValidations = async (props: Props): Promise
 
   if (!notifyClients) return
 
-  DataValidationService.notifyNationalDataPointValidationUpdate({ assessment, countryIso, cycle, validations })
+  notifyNationalDataPointValidationUpdate({ assessment, countryIso, cycle, validations })
 }
