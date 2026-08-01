@@ -1,6 +1,7 @@
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
+import { Cycles } from 'meta/assessment/cycles'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { SectionNames } from 'meta/assessment/section'
 import { LinkToVisit } from 'meta/cycleData/links/link'
@@ -24,6 +25,8 @@ type Props = {
 
 export const buildNationalDataPointLinks = (props: Props): Array<LinkToVisit> => {
   const { assessment, countryIso, cycle, nationalDataPoints, targets } = props
+
+  const dataSourcesVersion = Cycles.getNDPDataSourcesVersion({ cycle })
 
   return targets.flatMap<LinkToVisit>((target) => {
     const nationalDataPoint = nationalDataPoints.find(({ uuid }) => uuid === target.ndpUuid)
@@ -53,18 +56,20 @@ export const buildNationalDataPointLinks = (props: Props): Array<LinkToVisit> =>
     const url = Routes.OriginalDataPoint.generatePath({ ...urlParams, sectionName: SectionNames.extentOfForest })
     const referenceLinks = dataSources.flatMap<LinkToVisit>((dataSource) => {
       const { reference, uuid: dataSourceUuid } = dataSource
-      if (Objects.isEmpty(dataSourceUuid)) return []
+      // DataSources v2 validations are keyed by data source uuid; skip rows missing one
+      if (dataSourcesVersion !== 1 && Objects.isEmpty(dataSourceUuid)) return []
 
-      const locations: Array<NationalDataPointLinkLocation> = [
-        {
-          dataSourceUuid,
-          ndpSection: NDPLinkField.dataSourceReferences,
-          ndpUuid: uuid,
-          sectionName: 'originalDataPoint',
-          url,
-          year,
-        },
-      ]
+      const location: NationalDataPointLinkLocation = {
+        ndpSection: NDPLinkField.dataSourceReferences,
+        ndpUuid: uuid,
+        sectionName: 'originalDataPoint',
+        url,
+        year,
+      }
+
+      if (dataSourcesVersion !== 1) location.dataSourceUuid = dataSourceUuid
+
+      const locations: Array<NationalDataPointLinkLocation> = [location]
 
       return Htmls.getLinks(reference).map(({ link, name }) => ({ countryIso, link: link ?? '', locations, name }))
     })

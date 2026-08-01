@@ -32,11 +32,15 @@ export const updateNationalDataPointLocationValidation = (props: Props): void =>
   // For dataSource.reference
   if (location.ndpSection === NDPLinkField.dataSourceReferences) {
     const { dataSourceUuid } = location
-    if (Objects.isEmpty(dataSourceUuid)) return
 
-    const dataSources = (validation.dataSources ??= {})
-    const dataSource = (dataSources[dataSourceUuid] ??= {})
-    fieldValidation = dataSource.reference ??= { valid: true }
+    if (Objects.isEmpty(dataSourceUuid)) {
+      // Reference locations without dataSourceUuid come from dataSources v1 ndps, which have a single data source
+      fieldValidation = validation.dataSourceReference ??= { valid: true }
+    } else {
+      const dataSources = (validation.dataSources ??= {})
+      const dataSource = (dataSources[dataSourceUuid] ??= {})
+      fieldValidation = dataSource.reference ??= { valid: true }
+    }
   }
 
   if (!fieldValidation) return
