@@ -19,6 +19,9 @@ export type NDPDataSourceValidation = Partial<Record<NDPDataSourceValidationFiel
 
 export type NDPValidation = {
   comments?: Partial<Record<OriginalDataPointCommentKey, Validation>>
+  // Reference link validation of the ndp's single data source, for cycles using ndp dataSources v1.
+  // In v2 cycles each data source is validated separately, keyed by its uuid in dataSources.
+  dataSourceReference?: Validation
   dataSources?: Record<UUID, NDPDataSourceValidation>
   nationalClasses?: Record<UUID, NDPNationalClassValidation>
   odpId?: OriginalDataPoint['id']
