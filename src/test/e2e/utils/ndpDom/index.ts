@@ -30,13 +30,16 @@ const fillYear = async (page: Page, year: string): Promise<void> => {
   await created
 }
 
-// DataSourceV1
-const fillDataSourceReference = async (page: Page, reference: string): Promise<void> => {
+const fillDataSourcesV1Reference = async (page: Page, html: string): Promise<void> => {
   const editor = page.locator('.editor-wysiwyg-links .jodit-wysiwyg[contenteditable="true"]').first()
-  await editor.click()
-  await page.keyboard.type(reference)
-  await editor.blur()
+
+  const saved = DOMUtils.waitForResponse(page, `${nationalDataPointApi}/data-sources`, 'PUT')
+  await DescriptionUtils.pasteIntoEditorWysiwygLinksOnly(page, editor, html)
+  await saved
 }
+
+const getDataSourcesV1ReferenceValidationError = (page: Page): Locator =>
+  page.locator('.editorWYSIWYG.editor-wysiwyg-links.validation-error')
 
 // Comments of the active ODP tab (1a extentOfForest / 1b forestCharacteristics)
 const fillComments = async (page: Page, html: string): Promise<void> => {
@@ -174,7 +177,7 @@ export const NDPDomUtils = {
   doneEditing,
   editNationalClassification,
   fillComments,
-  fillDataSourceReference,
+  fillDataSourcesV1Reference,
   fillNationalClassArea,
   fillNationalClassForestPercent,
   fillNationalClassNaturalForestPercent,
@@ -185,5 +188,6 @@ export const NDPDomUtils = {
   fillNationalClassPrimaryForestPercent,
   fillYear,
   getCommentsValidationError,
+  getDataSourcesV1ReferenceValidationError,
   switchTab,
 }

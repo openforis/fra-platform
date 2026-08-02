@@ -19,6 +19,8 @@ const forestCharacteristicsInvalidLinks = LinkFixtures.buildInvalidLinksHtml(
   `ndp-forest-characteristics-${randomString}`
 )
 const forestCharacteristicsValidLink = LinkFixtures.buildValidLinkHtml(`ndp-forest-characteristics-${randomString}`)
+const referenceInvalidLinks = LinkFixtures.buildInvalidLinksHtml(`ndp-reference-${randomString}`)
+const referenceValidLink = LinkFixtures.buildValidLinkHtml(`ndp-reference-${randomString}`)
 
 test.describe.serial('National data point: ', () => {
   test('NC creates a national data point and sees it back on the table', async ({ authenticatedPage }) => {
@@ -30,7 +32,7 @@ test.describe.serial('National data point: ', () => {
     await page.getByRole('link', { name: 'Add national data point' }).click()
 
     await NDPDomUtils.fillYear(page, ndpYear)
-    await NDPDomUtils.fillDataSourceReference(page, 'https://example.com/e2e-reference')
+    await NDPDomUtils.fillDataSourcesV1Reference(page, 'https://example.com/e2e-reference')
 
     await NDPDomUtils.doneEditing(page)
     await expect(page).toHaveURL(/\/sections\/extentOfForest$/)
@@ -177,6 +179,34 @@ test.describe.serial('National data point: ', () => {
 
     await NDPDomUtils.fillComments(page, forestCharacteristicsValidLink.html)
     await expect(forestCharacteristicsValidationError).not.toBeVisible({ timeout: 20000 })
+  })
+
+  test('NC enters invalid links in the data source reference and sees validation errors', async ({
+    authenticatedPage,
+  }) => {
+    const page = authenticatedPage
+
+    await page.goto(x11ExtentOfForestPath)
+    await DOMUtils.ensureEditingUnlocked(page)
+    await TableDomUtils.clickOdpLink(page, ndpYear, ndpOdp1aUrlRegex)
+
+    await NDPDomUtils.fillDataSourcesV1Reference(page, referenceInvalidLinks.html)
+
+    const referenceValidationError = NDPDomUtils.getDataSourcesV1ReferenceValidationError(page)
+    await expect(referenceValidationError).toBeVisible({ timeout: 20000 })
+    await TooltipUtils.expectValidationTooltip(
+      page,
+      referenceValidationError,
+      `Invalid link: "${referenceInvalidLinks.emptyLinkText}" (Empty)`
+    )
+    await TooltipUtils.expectValidationTooltip(
+      page,
+      referenceValidationError,
+      `Invalid link: "${referenceInvalidLinks.brokenLinkDisplayUrl}" (DNS error)`
+    )
+
+    await NDPDomUtils.fillDataSourcesV1Reference(page, referenceValidLink.html)
+    await expect(referenceValidationError).not.toBeVisible({ timeout: 20000 })
   })
 
   test('NC deletes the national data point', async ({ authenticatedPage }) => {
