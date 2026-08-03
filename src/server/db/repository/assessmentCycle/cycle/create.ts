@@ -1,5 +1,5 @@
 import { Assessment, AssessmentNames } from 'meta/assessment/assessment'
-import { Cycle, CycleName, CycleProps, CycleStatus } from 'meta/assessment/cycle'
+import { Cycle, CycleName, CycleProps } from 'meta/assessment/cycle'
 import { UUID } from 'meta/uuid/uuid'
 
 import { BaseProtocol, DB } from 'server/db/db'
@@ -18,11 +18,10 @@ type Props = {
   options: CreateCycleOptions
 }
 
-const getDefaultProps = (options: CreateCycleOptions): CycleProps => {
+const getDefaultProps = (options: CreateCycleOptions): Partial<CycleProps> => {
   const dateCreated = new Date().toISOString()
   return {
     ...options.props,
-    status: CycleStatus.draft,
     dateCreated,
     dateDraft: dateCreated,
     dateEditing: undefined,
