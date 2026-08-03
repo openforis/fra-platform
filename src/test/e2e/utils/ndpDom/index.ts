@@ -1,5 +1,6 @@
 import { expect, Locator, Page } from '@playwright/test'
 
+import { DescriptionUtils } from '../description'
 import { DOMUtils } from '../dom'
 
 const nationalDataPointApi = '/api/cycle-data/national-data-points/national-data-point'
@@ -15,6 +16,10 @@ const _nationalClassNameInputs = (page: Page): Locator =>
 
 const _existingNationalClassNameInput = (page: Page): Locator => _nationalClassNameInputs(page).first()
 
+const _commentsBlock = (page: Page): Locator => page.locator('.data-grid.odp__section.description')
+
+const _commentsEditor = (page: Page): Locator => _commentsBlock(page).locator('.jodit-wysiwyg')
+
 const fillYear = async (page: Page, year: string): Promise<void> => {
   // New odp year defaults to -1 before selecting a year.
   // When selecting a year, the ODP gets created via POST request
@@ -25,13 +30,30 @@ const fillYear = async (page: Page, year: string): Promise<void> => {
   await created
 }
 
-// DataSourceV1
-const fillDataSourceReference = async (page: Page, reference: string): Promise<void> => {
+const fillDataSourcesV1Reference = async (page: Page, html: string): Promise<void> => {
   const editor = page.locator('.editor-wysiwyg-links .jodit-wysiwyg[contenteditable="true"]').first()
-  await editor.click()
-  await page.keyboard.type(reference)
-  await editor.blur()
+
+  const saved = DOMUtils.waitForResponse(page, `${nationalDataPointApi}/data-sources`, 'PUT')
+  await DescriptionUtils.pasteIntoEditorWysiwygLinksOnly(page, editor, html)
+  await saved
 }
+
+const getDataSourcesV1ReferenceValidationError = (page: Page): Locator =>
+  page.locator('.editorWYSIWYG.editor-wysiwyg-links.validation-error')
+
+// Comments of the active ODP tab (1a extentOfForest / 1b forestCharacteristics)
+const fillComments = async (page: Page, html: string): Promise<void> => {
+  const commentsBlock = _commentsBlock(page)
+  await commentsBlock.getByRole('button', { name: 'Edit', exact: true }).click()
+
+  const saved = DOMUtils.waitForResponse(page, `${nationalDataPointApi}/description`, 'PUT')
+  await DescriptionUtils.pasteIntoEditorWysiwyg(page, _commentsEditor(page), html)
+  await commentsBlock.getByRole('button', { name: 'Done', exact: true }).click()
+  await saved
+}
+
+const getCommentsValidationError = (page: Page): Locator =>
+  _commentsBlock(page).locator('.editorWYSIWYG.validation-error')
 
 const createNewNationalClassification = async (page: Page, name: string): Promise<void> => {
   const inputs = _nationalClassNameInputs(page)
@@ -154,7 +176,8 @@ export const NDPDomUtils = {
   createNewNationalClassification,
   doneEditing,
   editNationalClassification,
-  fillDataSourceReference,
+  fillComments,
+  fillDataSourcesV1Reference,
   fillNationalClassArea,
   fillNationalClassForestPercent,
   fillNationalClassNaturalForestPercent,
@@ -164,5 +187,7 @@ export const NDPDomUtils = {
   fillNationalClassPlantationIntroducedPercent,
   fillNationalClassPrimaryForestPercent,
   fillYear,
+  getCommentsValidationError,
+  getDataSourcesV1ReferenceValidationError,
   switchTab,
 }

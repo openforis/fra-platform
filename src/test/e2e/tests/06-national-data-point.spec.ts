@@ -1,5 +1,6 @@
 import { expect, test } from '../fixtures/auth'
 import { DOMUtils } from '../utils/dom'
+import { LinkFixtures } from '../utils/links'
 import { NDPDomUtils } from '../utils/ndpDom'
 import { TableDomUtils } from '../utils/table'
 import { TooltipUtils } from '../utils/tooltip'
@@ -11,7 +12,15 @@ import {
   x11ExtentOfForestPath,
 } from './06-national-data-point.fixture'
 
-// TODO: Validate links
+const randomString = Date.now().toString()
+const extentOfForestInvalidLinks = LinkFixtures.buildInvalidLinksHtml(`ndp-extent-of-forest-${randomString}`)
+const extentOfForestValidLink = LinkFixtures.buildValidLinkHtml(`ndp-extent-of-forest-${randomString}`)
+const forestCharacteristicsInvalidLinks = LinkFixtures.buildInvalidLinksHtml(
+  `ndp-forest-characteristics-${randomString}`
+)
+const forestCharacteristicsValidLink = LinkFixtures.buildValidLinkHtml(`ndp-forest-characteristics-${randomString}`)
+const referenceInvalidLinks = LinkFixtures.buildInvalidLinksHtml(`ndp-reference-${randomString}`)
+const referenceValidLink = LinkFixtures.buildValidLinkHtml(`ndp-reference-${randomString}`)
 
 test.describe.serial('National data point: ', () => {
   test('NC creates a national data point and sees it back on the table', async ({ authenticatedPage }) => {
@@ -23,7 +32,7 @@ test.describe.serial('National data point: ', () => {
     await page.getByRole('link', { name: 'Add national data point' }).click()
 
     await NDPDomUtils.fillYear(page, ndpYear)
-    await NDPDomUtils.fillDataSourceReference(page, 'https://example.com/e2e-reference')
+    await NDPDomUtils.fillDataSourcesV1Reference(page, 'https://example.com/e2e-reference')
 
     await NDPDomUtils.doneEditing(page)
     await expect(page).toHaveURL(/\/sections\/extentOfForest$/)
@@ -123,6 +132,81 @@ test.describe.serial('National data point: ', () => {
     // When clicking 'done' when on 1b tab, expect to be redirected to section 1b
     await NDPDomUtils.doneEditing(page)
     await expect(page).toHaveURL(/\/sections\/forestCharacteristics$/)
+  })
+
+  test('NC enters invalid links in comments and sees validation errors', async ({ authenticatedPage }) => {
+    const page = authenticatedPage
+
+    await page.goto(x11ExtentOfForestPath)
+    await DOMUtils.ensureEditingUnlocked(page)
+    await TableDomUtils.clickOdpLink(page, ndpYear, ndpOdp1aUrlRegex)
+
+    // ==== 1a comments: the links worker flags both the empty and the broken link
+    await NDPDomUtils.fillComments(page, extentOfForestInvalidLinks.html)
+
+    const extentOfForestValidationError = NDPDomUtils.getCommentsValidationError(page)
+    await expect(extentOfForestValidationError).toBeVisible({ timeout: 20000 })
+    await TooltipUtils.expectValidationTooltip(
+      page,
+      extentOfForestValidationError,
+      `Invalid link: "${extentOfForestInvalidLinks.emptyLinkText}" (Empty)`
+    )
+    await TooltipUtils.expectValidationTooltip(
+      page,
+      extentOfForestValidationError,
+      `Invalid link: "${extentOfForestInvalidLinks.brokenLinkDisplayUrl}" (DNS error)`
+    )
+
+    await NDPDomUtils.fillComments(page, extentOfForestValidLink.html)
+    await expect(extentOfForestValidationError).not.toBeVisible({ timeout: 20000 })
+
+    // ==== 1b comments: same round trip on the forestCharacteristics link field
+    await NDPDomUtils.switchTab(page, '1b Forest characteristics', ndpOdp1bUrlRegex)
+    await NDPDomUtils.fillComments(page, forestCharacteristicsInvalidLinks.html)
+
+    const forestCharacteristicsValidationError = NDPDomUtils.getCommentsValidationError(page)
+    await expect(forestCharacteristicsValidationError).toBeVisible({ timeout: 20000 })
+    await TooltipUtils.expectValidationTooltip(
+      page,
+      forestCharacteristicsValidationError,
+      `Invalid link: "${forestCharacteristicsInvalidLinks.emptyLinkText}" (Empty)`
+    )
+    await TooltipUtils.expectValidationTooltip(
+      page,
+      forestCharacteristicsValidationError,
+      `Invalid link: "${forestCharacteristicsInvalidLinks.brokenLinkDisplayUrl}" (DNS error)`
+    )
+
+    await NDPDomUtils.fillComments(page, forestCharacteristicsValidLink.html)
+    await expect(forestCharacteristicsValidationError).not.toBeVisible({ timeout: 20000 })
+  })
+
+  test('NC enters invalid links in the data source reference and sees validation errors', async ({
+    authenticatedPage,
+  }) => {
+    const page = authenticatedPage
+
+    await page.goto(x11ExtentOfForestPath)
+    await DOMUtils.ensureEditingUnlocked(page)
+    await TableDomUtils.clickOdpLink(page, ndpYear, ndpOdp1aUrlRegex)
+
+    await NDPDomUtils.fillDataSourcesV1Reference(page, referenceInvalidLinks.html)
+
+    const referenceValidationError = NDPDomUtils.getDataSourcesV1ReferenceValidationError(page)
+    await expect(referenceValidationError).toBeVisible({ timeout: 20000 })
+    await TooltipUtils.expectValidationTooltip(
+      page,
+      referenceValidationError,
+      `Invalid link: "${referenceInvalidLinks.emptyLinkText}" (Empty)`
+    )
+    await TooltipUtils.expectValidationTooltip(
+      page,
+      referenceValidationError,
+      `Invalid link: "${referenceInvalidLinks.brokenLinkDisplayUrl}" (DNS error)`
+    )
+
+    await NDPDomUtils.fillDataSourcesV1Reference(page, referenceValidLink.html)
+    await expect(referenceValidationError).not.toBeVisible({ timeout: 20000 })
   })
 
   test('NC deletes the national data point', async ({ authenticatedPage }) => {
