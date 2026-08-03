@@ -28,7 +28,7 @@ const each = async <Item, Result = unknown>(
   callback: (item: Item, index: number) => Result | Promise<Result>,
   stopIfFn?: (item: Item) => boolean
 ): Promise<Array<Result>> => {
-  function* generator() {
+  function* generator(): Generator<Result | Promise<Result>, void, unknown> {
     for (let i = 0; i < iterable.length; i += 1) {
       const item = iterable[i]
       if (stopIfFn && stopIfFn(item)) {
@@ -41,6 +41,34 @@ const each = async <Item, Result = unknown>(
   return resolveGenerator(generator())
 }
 
+/**
+ * Maps every item with the given callback, keeping at most `concurrency` callbacks running at once.
+ * A new callback starts as soon as any running one finishes. Results keep the input order.
+ */
+const pool = async <Item, Result>(
+  items: Array<Item>,
+  callback: (item: Item, index: number) => Promise<Result>,
+  concurrency: number
+): Promise<Array<Result>> => {
+  const results: Array<Result> = new Array(items.length)
+  let nextIndex = 0
+
+  const runWorker = async (): Promise<void> => {
+    while (nextIndex < items.length) {
+      const index = nextIndex
+      nextIndex += 1
+      // eslint-disable-next-line no-await-in-loop
+      results[index] = await callback(items[index], index)
+    }
+  }
+
+  const workerCount = Math.min(Math.max(concurrency, 1), items.length)
+  await Promise.all(Array.from({ length: workerCount }, runWorker))
+
+  return results
+}
+
 export const Promises = {
   each,
+  pool,
 }
