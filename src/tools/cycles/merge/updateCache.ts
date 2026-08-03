@@ -18,5 +18,5 @@ export const updateCache = async (props: PropsMerge, client: BaseProtocol): Prom
     )
   )
 
-  await new RefreshMaterializedViews().run()
+  await new RefreshMaterializedViews(client).run()
 }
