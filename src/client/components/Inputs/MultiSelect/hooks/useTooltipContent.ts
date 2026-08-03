@@ -13,7 +13,7 @@ type Props = {
 type Returned = {
   hideTooltip: () => void
   showTooltip: () => void
-  tooltipContent: string | null
+  tooltipLabels: Array<string>
 }
 
 const getOptionsMap = (options: ReadonlyArray<Option>): Record<string, string> => {
@@ -36,23 +36,20 @@ export const useTooltipContent = (props: Props): Returned => {
     }, {})
   }, [options])
 
-  const tooltipContent = useMemo<string | null>(() => {
-    if (Objects.isEmpty(value)) return null
-    if (!canDisplayTooltip) return null
-    if (Objects.isEmpty(multiLabelSummaryKey)) return null
+  const tooltipLabels = useMemo<Array<string>>(() => {
+    if (Objects.isEmpty(value)) return []
+    if (!canDisplayTooltip) return []
+    if (Objects.isEmpty(multiLabelSummaryKey)) return []
 
-    const selectedLabels = (value as Array<string>).reduce<Array<string>>((acc, v) => {
+    return (value as Array<string>).reduce<Array<string>>((acc, v) => {
       const label = valueToLabelMap[v]
       if (!Objects.isEmpty(label)) acc.push(label)
       return acc
     }, [])
-
-    if (selectedLabels.length === 0) return null
-    return selectedLabels.join(', ')
   }, [canDisplayTooltip, multiLabelSummaryKey, value, valueToLabelMap])
 
   const hideTooltip = useCallback(() => setCanDisplayTooltip(false), [])
   const showTooltip = useCallback(() => setCanDisplayTooltip(true), [])
 
-  return { hideTooltip, showTooltip, tooltipContent }
+  return { hideTooltip, showTooltip, tooltipLabels }
 }
