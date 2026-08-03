@@ -19,8 +19,7 @@ export const mergeCountries = async (props: PropsMerge, client: BaseProtocol): P
           (country_iso, props, status, last_update, last_edit, last_edit_odp, last_in_editing,
            last_in_review, last_in_approval, last_in_accepted, last_in_published)
         select f.country_iso,
-          -- Omit status from props - it is its own column
-               f.props - 'status',
+               f.props,
                f.status,
                f.last_update,
                f.last_edit,
