@@ -12,5 +12,11 @@ export const updateCache = async (props: PropsMerge, client: BaseProtocol): Prom
   await CacheController.generateMetadata({ assessment }, client)
   await CacheController.generateData({ assessment, cycle }, client)
 
+  await Promise.all(
+    assessment.cycles.map((assessmentCycle) =>
+      CacheController.generateArea({ assessment, cycle: assessmentCycle }, client)
+    )
+  )
+
   await new RefreshMaterializedViews().run()
 }

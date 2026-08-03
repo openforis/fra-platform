@@ -1,3 +1,4 @@
+import { NodeExtType } from 'meta/nodeExt/nodeExt'
 import { PropsMerge } from 'tools/cycles/merge/_types'
 import { getSchemas } from 'tools/cycles/merge/_utils'
 
@@ -20,6 +21,19 @@ export const mergeData = async (props: PropsMerge, client: BaseProtocol): Promis
       select f.uuid, f.country_iso, f.row_uuid, f.col_uuid, f.value
       from ${schemaCycleFrom}.node f
       where f.country_iso in ($(countryISOs:list));
+
+      -- node_ext : only contacts
+      delete
+      from ${schemaCycleTo}.node_ext
+      where country_iso in ($(countryISOs:list))
+        and type = '${NodeExtType.contact}';
+
+      insert into ${schemaCycleTo}.node_ext
+        (uuid, country_iso, parent_uuid, props, type, value)
+      select f.uuid, f.country_iso, f.parent_uuid, f.props, f.type, f.value
+      from ${schemaCycleFrom}.node_ext f
+      where f.country_iso in ($(countryISOs:list))
+        and f.type = '${NodeExtType.contact}';
 
       delete
       from ${schemaCycleTo}.node_values_estimation
