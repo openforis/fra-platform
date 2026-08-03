@@ -16,36 +16,37 @@ import { ToolsUtils } from 'tools/utils/toolsUtils'
 import { AssessmentController } from 'server/controller/assessment'
 import { DB } from 'server/db/db'
 
-const client = DB
 const assessmentName = AssessmentNames.fra
 const cycleNameFrom = 'latest2'
 const cycleNameTo = 'latest'
 const countryISOs: Array<CountryIso> = ['ARG', 'EST', 'TUR', 'URY']
 
 const merge = async (): Promise<void> => {
-  const assessment = await AssessmentController.getOne({ assessmentName }, client)
-  const cycleFrom = Assessments.getCycle({ assessment, cycleName: cycleNameFrom })
-  const cycleTo = Assessments.getCycle({ assessment, cycleName: cycleNameTo })
+  await DB.tx(async (client) => {
+    const assessment = await AssessmentController.getOne({ assessmentName }, client)
+    const cycleFrom = Assessments.getCycle({ assessment, cycleName: cycleNameFrom })
+    const cycleTo = Assessments.getCycle({ assessment, cycleName: cycleNameTo })
 
-  if (cycleFrom.cycleUuidSource !== cycleTo.uuid) {
-    const msg = `Can't merge ${assessmentName} ${cycleNameFrom} into ${cycleNameTo} because ${cycleNameTo} is not the source of ${cycleNameFrom}.`
-    throw new Error(msg)
-  }
+    if (cycleFrom.cycleUuidSource !== cycleTo.uuid) {
+      const msg = `Can't merge ${assessmentName} ${cycleNameFrom} into ${cycleNameTo} because ${cycleNameTo} is not the source of ${cycleNameFrom}.`
+      throw new Error(msg)
+    }
 
-  const propsMerge: PropsMerge = { assessment, countryISOs, cycleFrom, cycleTo }
+    const propsMerge: PropsMerge = { assessment, countryISOs, cycleFrom, cycleTo }
 
-  // 1. merge data
-  await mergeUserRoles(propsMerge, client)
-  await mergeCountries(propsMerge, client)
-  await mergeData(propsMerge, client)
-  await mergeMessageTopics(propsMerge, client)
-  await mergeActivityLog(propsMerge, client)
+    // 1. merge data
+    await mergeUserRoles(propsMerge, client)
+    await mergeCountries(propsMerge, client)
+    await mergeData(propsMerge, client)
+    await mergeMessageTopics(propsMerge, client)
+    await mergeActivityLog(propsMerge, client)
 
-  // 2. deprecate cycle from
-  await deprecateCycleFrom(propsMerge, client)
+    // 2. deprecate cycle from
+    await deprecateCycleFrom(propsMerge, client)
 
-  //3. update cache
-  await updateCache(propsMerge, client)
+    //3. update cache
+    await updateCache(propsMerge, client)
+  })
 }
 
 ToolsUtils.exec(merge)
