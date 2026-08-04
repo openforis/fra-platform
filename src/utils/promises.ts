@@ -1,3 +1,5 @@
+import pLimit from 'p-limit'
+
 const handleNext =
   <Result = unknown>(results: Array<Result>) =>
   async (generator: Generator<Result | Promise<Result>, void, unknown>): Promise<Array<Result>> => {
@@ -50,22 +52,8 @@ const pool = async <Item, Result>(
   callback: (item: Item, index: number) => Promise<Result>,
   concurrency: number
 ): Promise<Array<Result>> => {
-  const results: Array<Result> = new Array(items.length)
-  let nextIndex = 0
-
-  const runWorker = async (): Promise<void> => {
-    while (nextIndex < items.length) {
-      const index = nextIndex
-      nextIndex += 1
-      // eslint-disable-next-line no-await-in-loop
-      results[index] = await callback(items[index], index)
-    }
-  }
-
-  const workerCount = Math.min(Math.max(concurrency, 1), items.length)
-  await Promise.all(Array.from({ length: workerCount }, runWorker))
-
-  return results
+  const limit = pLimit(Math.max(concurrency, 1)) // pLimit throws on concurrency < 1
+  return Promise.all(items.map((item, index) => limit(() => callback(item, index))))
 }
 
 export const Promises = {
