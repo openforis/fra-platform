@@ -1,15 +1,18 @@
-import { TableRedisRepository } from 'server/cache/repository/table'
+import { NodeUpdate, NodeUpdates } from 'meta/data/nodeUpdates'
+
 import { DataValidationService } from 'server/service/dataValidation'
 
-import { CountryProps } from '../common/validateCountries'
-import { buildTablesNodeUpdates } from './buildTablesNodeUpdates'
+import { CountryProps } from '../common/types'
 
-export const validateCountryTables = async (props: CountryProps): Promise<void> => {
-  const { assessment, country, cycle } = props
+type Props = CountryProps & { nodes: Array<NodeUpdate> }
+
+export const validateCountryTables = async (props: Props): Promise<void> => {
+  const { assessment, country, cycle, nodes } = props
   const { countryIso } = country
+  const { name: assessmentName } = assessment.props
+  const { name: cycleName } = cycle
 
-  const tables = await TableRedisRepository.getManyRecord({ assessment, cycle })
-  const nodeUpdates = buildTablesNodeUpdates({ assessment, country, cycle, tables })
+  const nodeUpdates: NodeUpdates = { assessmentName, countryIso, cycleName, nodes }
 
   await DataValidationService.removeTableValidations({ assessment, countryIso, cycle })
 
