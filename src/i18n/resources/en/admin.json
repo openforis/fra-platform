@@ -7,7 +7,6 @@
   "country_two": "$t(admin.country_other)",
   "country_zero": "$t(admin.country_other)",
   "disabledUsers": "Disabled Users",
-  "emailParsingError": "Invalid email address",
   "enotfound": "DNS error",
   "filter": "Filter by",
   "invitationPending": "Invitation pending",

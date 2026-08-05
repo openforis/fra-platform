@@ -1,9 +1,9 @@
 @use 'src/client/style/partials' as *;
 
 .last-status {
-  &.emailParsingError,
   &.empty,
   &.enotfound,
+  &.invalidEmailAddress,
   &.urlParsingError {
     color: $ui-destructive;
   }

@@ -15,7 +15,7 @@ export const parseLink = (link: string | null): ParsedLink => {
   if (trimmedLink.toLowerCase().startsWith('mailto:')) {
     const email = trimmedLink.slice('mailto:'.length).split('?')[0]
     if (!RegExps.validEmail({ email })) {
-      return { code: LinkValidationStatusCode.emailParsingError }
+      return { code: LinkValidationStatusCode.invalidEmailAddress }
     }
     return { code: LinkValidationStatusCode.success }
   }
