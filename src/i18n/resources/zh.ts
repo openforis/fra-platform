@@ -16,6 +16,7 @@ import generalValidation from './zh/generalValidation.json'
 import geo from './zh/geo.json'
 import history from './zh/history.json'
 import landing from './zh/landing.json'
+import linkValidation from './zh/linkValidation.json'
 import login from './zh/login.json'
 import nationalDataPoint from './zh/nationalDataPoint.json'
 import other from './zh/other.json'
@@ -41,6 +42,7 @@ export const zhTranslation = {
   geo,
   history,
   landing,
+  linkValidation,
   login,
   nationalDataPoint,
   page: { assessmentSection },
