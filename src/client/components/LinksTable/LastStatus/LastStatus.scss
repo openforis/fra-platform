@@ -1,6 +1,7 @@
 @use 'src/client/style/partials' as *;
 
 .last-status {
+  &.emailParsingError,
   &.empty,
   &.enotfound,
   &.urlParsingError {

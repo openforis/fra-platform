@@ -1,6 +1,7 @@
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { LinkValidationStatusCode } from 'meta/cycleData/links/link'
 import { Objects } from 'utils/objects'
+import { RegExps } from 'utils/regExps/regExps'
 
 type ParsedLink = { code: LinkValidationStatusCode } | { hostname: string }
 
@@ -10,11 +11,16 @@ const repositoryFilePrefix = ApiEndPoint.CycleData.Repository.File.one('') // '/
 export const parseLink = (link: string | null): ParsedLink => {
   if (Objects.isEmpty(link)) return { code: LinkValidationStatusCode.empty }
 
-  if (link.trim().toLowerCase().startsWith('mailto:')) {
+  const trimmedLink = link.trim()
+  if (trimmedLink.toLowerCase().startsWith('mailto:')) {
+    const email = trimmedLink.slice('mailto:'.length).split('?')[0]
+    if (!RegExps.validEmail({ email })) {
+      return { code: LinkValidationStatusCode.emailParsingError }
+    }
     return { code: LinkValidationStatusCode.success }
   }
 
-  const isRepositoryFileLink = link.startsWith(repositoryFilePrefix) || link.startsWith(repositoryFilePrefix.slice(1))
+  const isRepositoryFileLink = link.startsWith(repositoryFilePrefix)
   if (link.startsWith('#_') || isRepositoryFileLink) {
     return { code: LinkValidationStatusCode.success }
   }
