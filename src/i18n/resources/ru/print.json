@@ -4,6 +4,6 @@
   "disclaimerGeneratedDeskStudy": "Этот документ был подготовлен автоматически на основе кабинетного исследования. ФАО не может нести ответственность за любое использование информации, содержащейся в настоящем документе.",
   "header": "{{assessmentName}} {{cycleName}}, {{countryName}}",
   "tableOfContent": "Содержание",
-  "title": "Доклад ОЛР–{{cycleName}}",
-  "titleTables": "Таблицы отчетности для ОЛР–{{cycleName}}"
+  "title": "Доклад {{assessmentName}}–{{cycleName}}",
+  "titleTables": "Таблицы отчетности для {{assessmentName}}–{{cycleName}}"
 }
