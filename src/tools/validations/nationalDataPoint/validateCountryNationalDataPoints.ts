@@ -5,7 +5,7 @@ import { BaseProtocol } from 'server/db/db'
 import { OriginalDataPointRepository } from 'server/db/repository/assessmentCycle/originalDataPoint'
 import { DataValidationService } from 'server/service/dataValidation'
 
-import { CountryProps } from '../common/validateCountries'
+import { CountryProps } from '../common/types'
 
 export const validateCountryNationalDataPoints = async (props: CountryProps, client: BaseProtocol): Promise<void> => {
   const { assessment, country, cycle } = props

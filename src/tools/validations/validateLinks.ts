@@ -5,7 +5,6 @@ import http from 'http'
 import { Promises } from 'utils/promises'
 import { ToolsUtils } from 'tools/utils/toolsUtils'
 
-import { AssessmentController } from 'server/controller/assessment'
 import { UserController } from 'server/controller/user'
 import { BaseProtocol, DB } from 'server/db/db'
 import { LinksService } from 'server/service/links'
@@ -13,6 +12,7 @@ import { SocketServer } from 'server/service/socket'
 import { Logger } from 'server/utils/logger'
 
 import { Failures } from './common/failures'
+import { getAssessmentCycles } from './common/getAssessmentCycles'
 import { Failure } from './common/types'
 
 const toolName = 'validateLinks'
@@ -22,23 +22,21 @@ const toolName = 'validateLinks'
 export const validateLinks = async (client: BaseProtocol = DB): Promise<Array<Failure>> => {
   await SocketServer.init(http.createServer())
 
-  const user = await UserController.getUserRobot(client)
-  const assessments = await AssessmentController.getAll({ metaCache: true }, client)
   const failures: Array<Failure> = []
+  const user = await UserController.getUserRobot(client)
+  const assessmentCycles = await getAssessmentCycles(client)
 
-  await Promises.each(assessments, async (assessment) => {
-    await Promises.each(assessment.cycles, async (cycle) => {
-      const assessmentName = assessment.props.name
-      const { name: cycleName } = cycle
-      Logger.info(`${toolName}: ${assessmentName}/${cycleName}`)
+  await Promises.each(assessmentCycles, async ({ assessment, cycle }) => {
+    const assessmentName = assessment.props.name
+    const { name: cycleName } = cycle
+    Logger.info(`${toolName}: ${assessmentName}/${cycleName}`)
 
-      try {
-        await LinksService.verifyLinks({ assessment, cycle, user }, client)
-      } catch (error) {
-        Logger.error(`${toolName} failed for ${assessmentName}/${cycleName}`)
-        failures.push({ assessmentName, cycleName, error })
-      }
-    })
+    try {
+      await LinksService.verifyLinks({ assessment, cycle, user }, client)
+    } catch (error) {
+      Logger.error(`${toolName} failed for ${assessmentName}/${cycleName}`)
+      failures.push({ assessmentName, cycleName, error })
+    }
   })
 
   return failures
