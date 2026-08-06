@@ -1,3 +1,5 @@
+import pLimit from 'p-limit'
+
 const handleNext =
   <Result = unknown>(results: Array<Result>) =>
   async (generator: Generator<Result | Promise<Result>, void, unknown>): Promise<Array<Result>> => {
@@ -28,7 +30,7 @@ const each = async <Item, Result = unknown>(
   callback: (item: Item, index: number) => Result | Promise<Result>,
   stopIfFn?: (item: Item) => boolean
 ): Promise<Array<Result>> => {
-  function* generator() {
+  function* generator(): Generator<Result | Promise<Result>, void, unknown> {
     for (let i = 0; i < iterable.length; i += 1) {
       const item = iterable[i]
       if (stopIfFn && stopIfFn(item)) {
@@ -41,6 +43,20 @@ const each = async <Item, Result = unknown>(
   return resolveGenerator(generator())
 }
 
+/**
+ * Maps every item with the given callback, keeping at most `concurrency` callbacks running at once.
+ * A new callback starts as soon as any running one finishes. Results keep the input order.
+ */
+const pool = async <Item, Result>(
+  items: Array<Item>,
+  callback: (item: Item, index: number) => Promise<Result>,
+  concurrency: number
+): Promise<Array<Result>> => {
+  const limit = pLimit(Math.max(concurrency, 1)) // pLimit throws on concurrency < 1
+  return Promise.all(items.map((item, index) => limit(() => callback(item, index))))
+}
+
 export const Promises = {
   each,
+  pool,
 }
