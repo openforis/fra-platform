@@ -1,35 +1,47 @@
 import { LinkToVisit, LinkValidationStatusCode, VisitedLink } from 'meta/cycleData/links/link'
+import { Promises } from 'utils/promises'
 
-import { validateLink } from 'server/controller/cycleData/links/validateLink'
+import { parseLink } from './parseLink'
+import { HostnameResolution, resolveHostname } from './resolveHostname'
 
-export const visitLinks = async (links: Array<LinkToVisit>): Promise<Array<VisitedLink>> => {
-  const dnsLookupCache = new Map<string, LinkValidationStatusCode>()
+const concurrentLookups = 25 // Maximum number of hostnames to resolve at a time.
+
+export const visitLinks = async (linksToVisit: Array<LinkToVisit>): Promise<Array<VisitedLink>> => {
   const timestamp = Date.now().toString()
   const visitedLinks: Array<VisitedLink> = []
-  const BATCH_SIZE = 50 // Preventing thousands of dns lookups at the same time
 
-  const visitBatch = async (batch: Array<LinkToVisit>): Promise<Array<VisitedLink>> => {
-    const promises = batch.map(async (link) => {
-      const cachedStatusCode = dnsLookupCache.get(link.link)
-      if (cachedStatusCode !== undefined) {
-        return { ...link, code: cachedStatusCode, timestamp }
-      }
+  // Group links by hostname, so every hostname is resolved only once per run.
+  const linksByHostname = new Map<string, Array<LinkToVisit>>()
+  linksToVisit.forEach((link) => {
+    const parsedLink = parseLink(link.link)
+    if ('code' in parsedLink) {
+      visitedLinks.push({ ...link, code: parsedLink.code, timestamp })
+      return
+    }
+    const hostnameLinks = linksByHostname.get(parsedLink.hostname) ?? []
+    hostnameLinks.push(link)
+    linksByHostname.set(parsedLink.hostname, hostnameLinks)
+  })
 
-      const validationCode = await validateLink(link.link)
+  const hostnames = Array.from(linksByHostname.keys())
+  const resolutions = new Map<string, HostnameResolution>()
 
-      dnsLookupCache.set(link.link, validationCode)
-      return { ...link, code: validationCode, timestamp }
-    })
-
-    return Promise.all(promises)
+  const resolveMany = async (targets: Array<string>): Promise<void> => {
+    const results = await Promises.pool<string, HostnameResolution>(targets, resolveHostname, concurrentLookups)
+    targets.forEach((hostname, index) => resolutions.set(hostname, results[index]))
   }
 
-  for (let i = 0; i < links.length; i += BATCH_SIZE) {
-    const batch = links.slice(i, i + BATCH_SIZE)
-    // eslint-disable-next-line no-await-in-loop
-    const visitedBatch = await visitBatch(batch)
-    visitedLinks.push(...visitedBatch)
-  }
+  const isTransient = (hostname: string): boolean => resolutions.get(hostname) === 'transient'
+
+  await resolveMany(hostnames)
+  await resolveMany(hostnames.filter(isTransient)) // Try the hostnames with transient errors a second time.
+
+  hostnames.forEach((hostname) => {
+    const isResolved = resolutions.get(hostname) === 'resolved'
+    const code = isResolved ? LinkValidationStatusCode.success : LinkValidationStatusCode.enotfound
+    const hostnameLinks = linksByHostname.get(hostname) ?? []
+    hostnameLinks.forEach((link) => visitedLinks.push({ ...link, code, timestamp }))
+  })
 
   return visitedLinks
 }

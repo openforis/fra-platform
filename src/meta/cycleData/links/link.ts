@@ -12,6 +12,7 @@ export type LinkLocationKey = DescriptionLinkLocationKey | NationalDataPointLink
 export enum LinkValidationStatusCode {
   empty = 'empty',
   enotfound = 'enotfound',
+  invalidEmailAddress = 'invalidEmailAddress',
   success = 'success',
   urlParsingError = 'urlParsingError',
 }

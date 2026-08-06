@@ -18,6 +18,7 @@ import geo from './en/geo.json'
 import history from './en/history.json'
 import kiosk from './en/kiosk.json'
 import landing from './en/landing.json'
+import linkValidation from './en/linkValidation.json'
 import login from './en/login.json'
 import measures from './en/measures.json'
 import nationalDataPoint from './en/nationalDataPoint.json'
@@ -49,6 +50,7 @@ export const enTranslation = {
   history,
   kiosk,
   landing,
+  linkValidation,
   login,
   measures,
   nationalDataPoint,
