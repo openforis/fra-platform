@@ -24,17 +24,13 @@ const TableOfContent: React.FC = () => {
     <>
       {assessmentName === AssessmentNames.fra && (
         <div className="disclaimer print-break-before">
-          <p>{t(`${assessmentName}.print.disclaimer`)}</p>
-          <p>
-            {deskStudy
-              ? t(`${assessmentName}.print.disclaimerGeneratedDeskStudy`)
-              : t(`${assessmentName}.print.disclaimerGenerated`, { cycleName })}
-          </p>
+          <p>{t('print.disclaimer')}</p>
+          <p>{deskStudy ? t('print.disclaimerGeneratedDeskStudy') : t('print.disclaimerGenerated', { cycleName })}</p>
         </div>
       )}
 
       <div className="print-break-before">
-        <h2 className="table-of-content__header">{t(`${assessmentName}.print.tableOfContent`)}</h2>
+        <h2 className="table-of-content__header">{t('print.tableOfContent')}</h2>
 
         <ol className="table-of-content__list">
           {sections.map((section) => {
