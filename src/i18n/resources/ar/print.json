@@ -4,6 +4,6 @@
   "disclaimerGeneratedDeskStudy": "أعدت هذه الوثيقة تلقائياً من خلال دراسة مكتبية. ولا تتحمل منظمة الأغذية والزراعة المسؤولية بشأن أي استخدام للمعلومات الواردة في هذه الوثيقة.",
   "header": "{{assessmentName}} {{cycleName}}, {{countryName}}",
   "tableOfContent": "قائمة المحتويات",
-  "title": "تقرير تقييم الموارد الحرجية لعام {{cycleName}}",
-  "titleTables": "جداول حول التقرير الخاص بتقييم الموارد الحرجية لعام {{cycleName}}"
+  "title": "تقرير {{assessmentName}} {{cycleName}}",
+  "titleTables": "جداول تقارير {{assessmentName}} {{cycleName}}"
 }
