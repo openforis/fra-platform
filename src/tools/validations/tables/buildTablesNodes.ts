@@ -1,21 +1,17 @@
-import { Country } from 'meta/area/country'
-import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { RecordTables } from 'meta/assessment/table/record'
-import { NodeUpdate, NodeUpdates } from 'meta/data/nodeUpdates'
+import { NodeUpdate } from 'meta/data/nodeUpdates'
 import { Objects } from 'utils/objects'
 
 type Props = {
-  assessment: Assessment
-  country: Country
   cycle: Cycle
   tables: RecordTables
 }
 
-export const buildTablesNodeUpdates = (props: Props): NodeUpdates => {
-  const { assessment, country, cycle, tables } = props
+export const buildTablesNodes = (props: Props): Array<NodeUpdate> => {
+  const { cycle, tables } = props
 
-  const nodes = Object.entries(tables).reduce<Array<NodeUpdate>>((acc, [tableName, table]) => {
+  return Object.entries(tables).reduce<Array<NodeUpdate>>((acc, [tableName, table]) => {
     table.rows?.forEach((row) => {
       const rowValidateFns = row.props.validateFns?.[cycle.uuid]
       const { variableName } = row.props
@@ -36,11 +32,4 @@ export const buildTablesNodeUpdates = (props: Props): NodeUpdates => {
 
     return acc
   }, [])
-
-  return {
-    assessmentName: assessment.props.name,
-    countryIso: country.countryIso,
-    cycleName: cycle.name,
-    nodes,
-  }
 }
