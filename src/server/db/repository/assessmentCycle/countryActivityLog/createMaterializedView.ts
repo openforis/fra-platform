@@ -6,6 +6,7 @@ import { BaseProtocol, DB } from 'server/db/db'
 import { acceptedMessages } from 'server/db/repository/assessmentCycle/countryActivityLog/_common/acceptedMessages'
 import { getMaterializedViewName } from 'server/db/repository/assessmentCycle/countryActivityLog/_common/getMaterializedViewName'
 import { hiddenSections } from 'server/db/repository/assessmentCycle/countryActivityLog/_common/hiddenSections'
+import { excludeFoldersClause } from 'server/db/repository/assessmentCycle/countryActivityLog/_common/select'
 import { Schemas } from 'server/db/schemas'
 
 type Props = {
@@ -45,7 +46,8 @@ export const createMaterializedView = async (props: Props, client: BaseProtocol 
                   and a.assessment_uuid = $2
                   and a.cycle_uuid = $3
                   and a.message in ($4:list)
-                  and a.section not in ($5:list)) as a
+                  and a.section not in ($5:list)
+                  and ${excludeFoldersClause}) as a
                  join public.users u on user_id = u.id
           where rank = 1
           order by time desc

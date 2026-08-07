@@ -65,7 +65,6 @@
       "removeRole": "removed {{user}} as {{role}}",
       "removeUser": "removed {{user}}",
       "repositoryFile": "a file",
-      "repositoryFolder": "a folder",
       "repositoryLink": "a link",
       "resolved": "resolved issue in",
       "status": "changed status to",

@@ -88,11 +88,11 @@ const getLabelAction = (props: { activity: ActivityLog<unknown>; t: TFunction })
   return label !== labelActionKey ? label : t('landing.recentActivity.actions.edited')
 }
 
-// Repository activities are logged with the repository item as target
+// Repository activities are logged with the repository item as target.
+// Folders are excluded from the activity view
 const _getRepositoryItemKey = (activity: ActivityLog<unknown>): string => {
   const repositoryItem = activity.target as RepositoryItem
 
-  if (RepositoryItems.isFolder(repositoryItem)) return 'landing.recentActivity.actions.repositoryFolder'
   if (RepositoryItems.isLink(repositoryItem)) return 'landing.recentActivity.actions.repositoryLink'
   return 'landing.recentActivity.actions.repositoryFile'
 }
