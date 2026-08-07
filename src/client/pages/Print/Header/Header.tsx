@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import { ApiEndPoint } from 'meta/api/endpoint'
 import { CountryIso } from 'meta/area/countryIso'
+import { Assessments } from 'meta/assessment/assessments'
 
 // import { AssessmentStatus, CountryIso } from 'meta/area'
 import { useCountry } from 'client/store/area/hooks/country'
@@ -34,9 +35,10 @@ const Header: React.FC = () => {
   const { deskStudy } = country?.props ?? {}
 
   const title = useMemo<string>(() => {
-    if (onlyTables) return t(`${assessmentName}.print.titleTables`, { cycleName })
+    const i18nParams = { assessmentName: t(Assessments.getShortLabel(assessmentName)), cycleName }
+    if (onlyTables) return t('print.titleTables', i18nParams)
     if (deskStudy) return `${t(`assessment.${assessmentName}`)} ${t('assessment.deskStudy')}`
-    return t(`${assessmentName}.print.title`, { cycleName })
+    return t('print.title', i18nParams)
   }, [assessmentName, cycleName, deskStudy, onlyTables, t])
 
   // const withDownload = ![AssessmentStatus.notStarted, AssessmentStatus.editing].includes(status)

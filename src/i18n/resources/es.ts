@@ -6,6 +6,7 @@ import common from './es/common.json'
 import contentCheck from './es/contentCheck.json'
 import dataDownload from './es/dataDownload.json'
 import dataSource from './es/dataSource.json'
+import dimensions from './es/dimensions.json'
 import editUser from './es/editUser.json'
 import email from './es/email.json'
 import explorer from './es/explorer.json'
@@ -19,11 +20,14 @@ import kiosk from './es/kiosk.json'
 import landing from './es/landing.json'
 import linkValidation from './es/linkValidation.json'
 import login from './es/login.json'
+import measures from './es/measures.json'
 import nationalDataPoint from './es/nationalDataPoint.json'
 import other from './es/other.json'
+import print from './es/print.json'
 import statisticalFactsheets from './es/statisticalFactsheets.json'
 import uc from './es/uc.json'
 import user from './es/user.json'
+import validation from './es/validation.json'
 
 export const esTranslation = {
   admin,
@@ -33,6 +37,7 @@ export const esTranslation = {
   contentCheck,
   dataDownload,
   dataSource,
+  dimensions,
   editUser,
   email,
   explorer,
@@ -46,10 +51,13 @@ export const esTranslation = {
   landing,
   linkValidation,
   login,
+  measures,
   nationalDataPoint,
   page: { assessmentSection },
+  print,
   statisticalFactsheets,
   uc,
   user,
+  validation,
   ...other,
 }

@@ -4,6 +4,6 @@
   "disclaimerGeneratedDeskStudy": "This document was generated automatically from a desk study. FAO cannot be held responsible for any use made of the information contained in this document.",
   "header": "{{assessmentName}} {{cycleName}}, {{countryName}}",
   "tableOfContent": "Table of contents",
-  "title": "FRA {{cycleName}} report",
-  "titleTables": "FRA {{cycleName}} reporting tables"
+  "title": "{{assessmentName}} {{cycleName}} report",
+  "titleTables": "{{assessmentName}} {{cycleName}} reporting tables"
 }

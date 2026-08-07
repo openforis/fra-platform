@@ -4,6 +4,6 @@
   "disclaimerGeneratedDeskStudy": "Ce document a été généré automatiquement à partir d'une étude de bureau. La FAO ne peut être tenu responsable de l'utilisation qui pourrait être faite des informations contenues dans le présent rapport.",
   "header": "{{assessmentName}} {{cycleName}}, {{countryName}}",
   "tableOfContent": "Table des matières",
-  "title": "Rapport FRA {{cycleName}}",
-  "titleTables": "Tableaux du rapport FRA {{cycleName}}"
+  "title": "Rapport {{assessmentName}} {{cycleName}}",
+  "titleTables": "Tableaux du rapport {{assessmentName}} {{cycleName}}"
 }

@@ -12,7 +12,7 @@ import { RoleName } from 'meta/user/role/name'
 import { Users } from 'meta/user/users'
 import { Objects } from 'utils/objects'
 
-const messageToKey: { [key in keyof typeof ActivityLogMessage]?: string } = {
+const messageToKey: Partial<Record<ActivityLogMessage, string>> = {
   [ActivityLogMessage.assessmentStatusUpdate]: 'updateAssessmentStatus',
   [ActivityLogMessage.contactCreate]: 'added',
   [ActivityLogMessage.contactDelete]: 'deleted',
@@ -34,38 +34,31 @@ const messageToKey: { [key in keyof typeof ActivityLogMessage]?: string } = {
   [ActivityLogMessage.topicStatusChange]: 'resolved',
 }
 
-const _getLabelActionKey = (activity: ActivityLog<unknown>): string => {
-  const { message } = activity
+const _getLabelActionKey = (activity: ActivityLog<unknown>): string =>
+  `landing.recentActivity.actions.${messageToKey[activity.message] ?? 'edited'}`
 
-  const key = messageToKey[message]
-  if (key) {
-    return `landing.recentActivity.actions.${key}`
-  }
-  return 'landing.recentActivity.actions.edited'
-}
+const userRoleMessages: Array<ActivityLogMessage> = [
+  ActivityLogMessage.invitationAccept,
+  ActivityLogMessage.invitationAdd,
+  ActivityLogMessage.invitationRemove,
+  ActivityLogMessage.userRoleDeleteRole,
+]
 
 // Note: When adding new cases, use ActivityLogMessage
 const _getLabelActionParams = (activity: ActivityLog<unknown>, t: TFunction): Record<string, string | null> => {
-  const { target } = activity
-  let params: Record<string, string | null> = {}
+  const { message, target } = activity
 
-  if (target && typeof target === 'object') {
-    if ('user' in target && target.user) {
-      const { role, user } = target as { user: string; role?: RoleName }
-      params = {
-        user,
-        role: role ? t(Users.getI18nRoleLabelKey(role)) : null,
-      }
-    } else if (activity.message === ActivityLogMessage.assessmentStatusUpdate) {
-      const { status } = target as { status: string }
-      params = { status: t(`assessment.status.${status}.label`) }
-    } else if ('file' in target && target.file) {
-      const { file } = target as { file: string }
-      params = { file }
-    }
+  if (message === ActivityLogMessage.assessmentStatusUpdate) {
+    const { status } = target as { status: string }
+    return { status: t(`assessment.status.${status}.label`) }
   }
 
-  return params
+  if (userRoleMessages.includes(message)) {
+    const { role, user } = target as { role?: RoleName; user: string }
+    return { role: role ? t(Users.getI18nRoleLabelKey(role)) : null, user }
+  }
+
+  return {}
 }
 
 const odpCommentMessageToSection: Partial<Record<ActivityLogMessage, SectionName>> = {

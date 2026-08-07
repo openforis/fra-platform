@@ -21,9 +21,10 @@ export const markMessageDeleted = async (props: Props, client: BaseProtocol = DB
   const { assessment, countryIso, cycle, id, sectionName, user } = props
 
   return client.tx(async (t) => {
-    const target = await MessageRepository.markDeleted({ assessment, cycle, id }, t)
+    const { topicUuid } = await MessageRepository.markDeleted({ assessment, cycle, id }, t)
 
     const message = ActivityLogMessage.messageMarkDeleted
+    const target = { id, topicUuid }
     const activityLog = { target, section: sectionName, message, countryIso, user }
     await ActivityLogRepository.insertActivityLog({ activityLog, assessment, cycle }, t)
   })
