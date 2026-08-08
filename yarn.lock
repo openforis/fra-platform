@@ -7125,9 +7125,9 @@ jodit-react@^5.3.21:
     jodit "^4.9.4"
 
 jodit@^4.9.4:
-  version "4.12.28"
-  resolved "https://registry.yarnpkg.com/jodit/-/jodit-4.12.28.tgz#6e48a14a2a4b2f628d869b03f37bec004162fab0"
-  integrity sha512-WD0fHIY02sp8/C3dIz2U7qQ2PCDMukNweqKeV0kmw4UttAZYVK5qyJCTmDYqQcKB3IrH+O9d5mpRW28lO2W+FQ==
+  version "4.13.16"
+  resolved "https://registry.yarnpkg.com/jodit/-/jodit-4.13.16.tgz#e2dd856768c482e28a708185b440eac79647d886"
+  integrity sha512-6FrgYid0UdIXtWpq0aG1i4a9qBPFovKcDeL6KEL9pj8xeYtPpPDEuiyj0/Ggd0Nkxjw/UmW2L1yoyawh8C1N/A==
 
 joi@^18.2.1:
   version "18.2.3"
