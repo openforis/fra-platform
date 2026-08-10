@@ -16,6 +16,9 @@ export const activitiesLastEdit = [
   ActivityLogMessage.originalDataPointUpdateNationalClasses,
   ActivityLogMessage.originalDataPointUpdateOriginalData,
   ActivityLogMessage.originalDataPointUpdateYear,
+  ActivityLogMessage.repositoryItemCreate,
+  ActivityLogMessage.repositoryItemDelete,
+  ActivityLogMessage.repositoryItemUpdate,
   ActivityLogMessage.tableValuesClear,
 ]
   .map((a) => `'${a}'`)
