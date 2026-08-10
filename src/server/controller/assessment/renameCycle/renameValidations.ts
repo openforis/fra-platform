@@ -11,23 +11,25 @@ import { Logger } from 'server/utils/logger'
 
 type Props = {
   assessment: Assessment
-  cycle: Cycle
+  cycleSource: Cycle
+  cycleTarget: Cycle
 }
 
-export const removeValidationsCache = async (props: Props, client: BaseProtocol = DB): Promise<void> => {
-  const { assessment, cycle } = props
+export const renameValidations = async (props: Props, client: BaseProtocol = DB): Promise<void> => {
+  const { assessment, cycleSource, cycleTarget } = props
   const { name: assessmentName } = assessment.props
-  const { name: cycleName } = cycle
+  const { name: cycleName } = cycleTarget
 
-  const countries = await CountryRepository.getMany({ assessment, cycle }, client)
+  const countries = await CountryRepository.getMany({ assessment, cycle: cycleTarget }, client)
   const countryISOs = countries.map<CountryIso>((country) => country.countryIso)
 
   await Promise.all(
     countryISOs.map(async (countryIso) => {
-      await TableValidationRedisRepository.removeValidations({ assessment, countryIso, cycle })
-      await DescriptionValidationRedisRepository.removeValidations({ assessment, countryIso, cycle })
-      await NationalDataPointValidationRedisRepository.removeValidations({ assessment, countryIso, cycle })
+      const propsRename = { assessment, countryIso, cycleSource, cycleTarget }
+      await TableValidationRedisRepository.renameValidations(propsRename)
+      await DescriptionValidationRedisRepository.renameValidations(propsRename)
+      await NationalDataPointValidationRedisRepository.renameValidations(propsRename)
     })
   )
-  Logger.info(`${assessmentName}-${cycleName}: Validations removed from redis`)
+  Logger.info(`${assessmentName}-${cycleName}: Validations renamed from redis`)
 }

@@ -7,7 +7,7 @@ import { CacheController } from 'server/cache/controller'
 import { AssessmentRedisRepository } from 'server/cache/repository/assessment'
 import { renameDataCache } from 'server/controller/assessment/renameCycle/renameDataCache'
 import { renameMetadataCache } from 'server/controller/assessment/renameCycle/renameMetadataCache'
-import { renameValidationsCache } from 'server/controller/assessment/renameCycle/renameValidationsCache'
+import { renameValidations } from 'server/controller/assessment/renameCycle/renameValidations'
 import { BaseProtocol, DB } from 'server/db/db'
 import { CycleRepository } from 'server/db/repository/assessmentCycle/cycle'
 import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
@@ -39,7 +39,7 @@ export const renameCycle = async (props: Props, client: BaseProtocol = DB): Prom
     await CacheController.generateMetaCache({}, t)
     await renameMetadataCache(propsRename, t)
     await renameDataCache(propsRename, t)
-    await renameValidationsCache(propsRename, t)
+    await renameValidations(propsRename, t)
     // rename static files
     await StaticFiles.renameCycle(propsRename)
     // insert activity log
