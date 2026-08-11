@@ -4,6 +4,7 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 
 import { BaseProtocol, DB } from 'server/db/db'
+import { excludeFoldersClause } from 'server/db/repository/assessmentCycle/countryActivityLog/_common/select'
 import {
   activitiesLastEdit,
   activitiesLastEditOdpData,
@@ -31,6 +32,7 @@ export const getCountryISOsOutOfSync = async (props: Props, client: BaseProtocol
        from activity_log al
        where al.assessment_uuid = $1
          and al.cycle_uuid = $2
+         and ${excludeFoldersClause}
        group by al.country_iso)
        , al_country as (
       ${countries.map((country) => {

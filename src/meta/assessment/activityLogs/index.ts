@@ -7,7 +7,10 @@ import { AssessmentName } from 'meta/assessment/assessment'
 import { Cycle, CycleName } from 'meta/assessment/cycle'
 import { Labels } from 'meta/assessment/labels'
 import { SectionName, SectionNames, SubSection } from 'meta/assessment/section'
+import { RepositoryItem } from 'meta/cycleData/repository/item'
+import { RepositoryItems } from 'meta/cycleData/repository/items'
 import { Routes } from 'meta/routes/routes'
+import { SectionNames as RouteSectionNames } from 'meta/routes/sectionNames'
 import { RoleName } from 'meta/user/role/name'
 import { Users } from 'meta/user/users'
 import { Objects } from 'utils/objects'
@@ -31,6 +34,8 @@ const messageToKey: Partial<Record<ActivityLogMessage, string>> = {
   [ActivityLogMessage.originalDataPointUpdateOriginalData]: 'updated',
   [ActivityLogMessage.originalDataPointUpdateYear]: 'updated',
   [ActivityLogMessage.originalDataPointUpdate]: 'updated',
+  [ActivityLogMessage.repositoryItemCreate]: 'added',
+  [ActivityLogMessage.repositoryItemDelete]: 'deleted',
   [ActivityLogMessage.topicStatusChange]: 'resolved',
 }
 
@@ -83,6 +88,15 @@ const getLabelAction = (props: { activity: ActivityLog<unknown>; t: TFunction })
   return label !== labelActionKey ? label : t('landing.recentActivity.actions.edited')
 }
 
+// Repository activities are logged with the repository item as target.
+// Folders are excluded from the activity view
+const _getRepositoryItemKey = (activity: ActivityLog<unknown>): string => {
+  const repositoryItem = activity.target as RepositoryItem
+
+  if (RepositoryItems.isLink(repositoryItem)) return 'landing.recentActivity.actions.repositoryLink'
+  return 'landing.recentActivity.actions.repositoryFile'
+}
+
 const getLabelSectionKey = (activity: ActivityLog<unknown>): string => {
   const { section } = activity
   if (section.indexOf('odp') !== -1) {
@@ -91,6 +105,10 @@ const getLabelSectionKey = (activity: ActivityLog<unknown>): string => {
 
   if (section === SectionNames.contacts) {
     return 'landing.users.users'
+  }
+
+  if (section === RouteSectionNames.Country.Home.repository) {
+    return _getRepositoryItemKey(activity)
   }
 
   return `${section}.${section}`
@@ -159,6 +177,15 @@ const getSectionLink = (props: GetSectionLinkProp): string => {
       cycleName,
       sectionName: odpSection,
       year: String(year),
+    })
+  }
+
+  if (sectionNameProp === RouteSectionNames.Country.Home.repository) {
+    return Routes.CountryHomeSection.generatePath({
+      assessmentName,
+      countryIso,
+      cycleName,
+      sectionName: sectionNameProp,
     })
   }
 
