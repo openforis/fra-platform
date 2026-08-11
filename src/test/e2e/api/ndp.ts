@@ -48,7 +48,7 @@ const _buildNationalDataPoint = (seed: NdpSeed): Partial<OriginalDataPoint> => {
   return ODPs.calculateValues(originalDataPoint as OriginalDataPoint)
 }
 
-// The error in case it is already deleted is ignored - used for cleanup/setup
+// Ignore error - we use this for teardown/recreating
 const removeIfExists = async (page: Page, seed: NdpSeed): Promise<void> => {
   const { countryIso, year } = seed
 
