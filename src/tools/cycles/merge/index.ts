@@ -10,6 +10,7 @@ import { mergeCountries } from 'tools/cycles/merge/mergeCountries'
 import { mergeData } from 'tools/cycles/merge/mergeData'
 import { mergeMessageTopics } from 'tools/cycles/merge/mergeMessageTopics'
 import { mergeUserRoles } from 'tools/cycles/merge/mergeUserRoles'
+import { mergeValidations } from 'tools/cycles/merge/mergeValidations'
 import { updateCache } from 'tools/cycles/merge/updateCache'
 import { ToolsUtils } from 'tools/utils/toolsUtils'
 
@@ -40,6 +41,7 @@ const merge = async (): Promise<void> => {
     await mergeData(propsMerge, client)
     await mergeMessageTopics(propsMerge, client)
     await mergeActivityLog(propsMerge, client)
+    await mergeValidations(propsMerge)
 
     // 2. deprecate cycle from
     await deprecateCycleFrom(propsMerge, client)
