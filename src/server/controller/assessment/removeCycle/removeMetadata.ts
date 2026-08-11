@@ -16,11 +16,21 @@ export const removeMetadata = async (props: Props, client: BaseProtocol): Promis
 
   const tableNames = ['section', 'table_section', 'table', 'row', 'col']
   const properties: Record<string, Array<string>> = {
-    section: ['anchors', 'lables', 'descriptions', 'hidden', 'hints'],
-    table_section: ['descriptions', 'lables'],
+    section: ['anchors', 'labels', 'descriptions', 'hidden', 'hints'],
+    table_section: ['descriptions', 'labels'],
     table: ['cellsExportAlways', 'columnNames', 'columnsExport', 'columnsExportAlways', 'disableErrorMessage', 'style'],
     row: ['calculateFn', 'calculateIf', 'chart', 'excludeFromDataExport', 'linkToSection', 'validateFns', 'withReview'],
-    col: ['calculateFn', 'classNames', 'labels', 'linkedNodes', 'select', 'style', 'validateFns', 'variableNo'],
+    col: [
+      'calculateFn',
+      'classNames',
+      'enableIf',
+      'labels',
+      'linkedNodes',
+      'select',
+      'style',
+      'validateFns',
+      'variableNo',
+    ],
   }
 
   const query = tableNames.map((tableName) => {
