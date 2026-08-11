@@ -2,6 +2,7 @@ import { deleteValidations } from 'server/cache/repository/validation/nationalDa
 import { getValidation } from 'server/cache/repository/validation/nationalDataPoint/getValidation'
 import { getValidations } from 'server/cache/repository/validation/nationalDataPoint/getValidations'
 import { removeValidations } from 'server/cache/repository/validation/nationalDataPoint/removeValidations'
+import { renameValidations } from 'server/cache/repository/validation/nationalDataPoint/renameValidations'
 import { setValidations } from 'server/cache/repository/validation/nationalDataPoint/setValidations'
 
 export const NationalDataPointValidationRedisRepository = {
@@ -9,5 +10,6 @@ export const NationalDataPointValidationRedisRepository = {
   getValidation,
   getValidations,
   removeValidations,
+  renameValidations,
   setValidations,
 }
