@@ -10,19 +10,19 @@ import { TableDomUtils } from '../../utils/table'
 const countryIso = 'X08'
 const extentOfForestPath = SectionUtils.path({ countryIso, sectionName: SectionNames.extentOfForest })
 
-const year = 2015
-const seed: NdpSeed = { countryIso, nationalClasses: [], year }
-
+const createdYear = 2015
 const seededYear = 2016
 const seededUrlRegex = new RegExp(`/originalDataPoints/${seededYear}/extentOfForest$`)
 
 test.describe('National data point: create', () => {
+  const createdSeed: NdpSeed = { countryIso, nationalClasses: [], year: createdYear }
+
   test.beforeEach(async ({ authenticatedPage }) => {
-    await NdpApiUtils.removeIfExists(authenticatedPage, seed)
+    await NdpApiUtils.removeIfExists(authenticatedPage, createdSeed)
   })
 
   test.afterEach(async ({ authenticatedPage }) => {
-    await NdpApiUtils.removeIfExists(authenticatedPage, seed)
+    await NdpApiUtils.removeIfExists(authenticatedPage, createdSeed)
   })
 
   test('NC creates a national data point and sees it back on the table', async ({ authenticatedPage }) => {
@@ -33,13 +33,15 @@ test.describe('National data point: create', () => {
 
     await page.getByRole('link', { name: 'Add national data point' }).click()
 
-    await NDPDomUtils.fillYear(page, String(year))
+    await NDPDomUtils.fillYear(page, String(createdYear))
     await NDPDomUtils.fillDataSourcesV1Reference(page, 'https://example.com/e2e-reference')
 
     await NDPDomUtils.doneEditing(page)
     await expect(page).toHaveURL(/\/sections\/extentOfForest$/)
 
-    await expect(page.locator('.table-grid__odp-link', { hasText: String(year) })).toBeVisible({ timeout: 10000 })
+    await expect(page.locator('.table-grid__odp-link', { hasText: String(createdYear) })).toBeVisible({
+      timeout: 10000,
+    })
   })
 })
 
