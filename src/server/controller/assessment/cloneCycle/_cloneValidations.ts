@@ -8,13 +8,20 @@ import { CloneProps } from 'server/controller/assessment/cloneCycle/types'
 import { BaseProtocol } from 'server/db/db'
 import { Logger } from 'server/utils/logger'
 
-export const cloneValidations = async (props: CloneProps, client: BaseProtocol): Promise<void> => {
+type Props = CloneProps & {
+  countryISOs?: Array<CountryIso>
+}
+
+export const cloneValidations = async (props: Props, client: BaseProtocol): Promise<void> => {
   const { assessment, cycleSource, cycleTarget } = props
   const { name: assessmentName } = assessment.props
   const { name: cycleName } = cycleTarget
 
-  const countries = await AreaRedisRepository.getManyCountries({ assessment, cycle: cycleTarget }, client)
-  const countryISOs = countries.map<CountryIso>((country) => country.countryIso)
+  let { countryISOs } = props
+  if (!countryISOs) {
+    const countries = await AreaRedisRepository.getManyCountries({ assessment, cycle: cycleTarget }, client)
+    countryISOs = countries.map<CountryIso>((country) => country.countryIso)
+  }
 
   await Promise.all(
     countryISOs.map(async (countryIso) => {
