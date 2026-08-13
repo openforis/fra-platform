@@ -17,6 +17,7 @@ import generalValidation from './ru/generalValidation.json'
 import geo from './ru/geo.json'
 import history from './ru/history.json'
 import landing from './ru/landing.json'
+import linkValidation from './ru/linkValidation.json'
 import login from './ru/login.json'
 import measures from './ru/measures.json'
 import nationalDataPoint from './ru/nationalDataPoint.json'
@@ -46,6 +47,7 @@ export const ruTranslation = {
   geo,
   history,
   landing,
+  linkValidation,
   login,
   measures,
   nationalDataPoint,

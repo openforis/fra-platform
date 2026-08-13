@@ -28,14 +28,25 @@ export type VariablesCache = Record<TableName, Record<VariableName, VariableCach
 export type TableDependencyRecord = Record<VariableName, Array<VariableCache>>
 export type DependencyRecord = Record<TableName, TableDependencyRecord>
 
+export type FullTableDependencyRecord = Record<VariableName, Record<ColName, Array<VariableCache>>>
+export type FullDependencyRecord = Record<TableName, FullTableDependencyRecord>
+
 export type DependencyCache = {
   dependencies: DependencyRecord
   dependants: DependencyRecord
 }
 
+// Used by validation dependencies that read across all columns, such as maxForestArea().
+export const AllColumnsDependencyKey = '*'
+
+export type ValidationDependencyCache = {
+  dependencies: DependencyRecord
+  dependants: FullDependencyRecord
+}
+
 export interface AssessmentMetaCache {
   calculations: DependencyCache
-  validations: DependencyCache
+  validations: ValidationDependencyCache
   enablers?: DependencyCache
   variablesByTable: VariablesCache
 }

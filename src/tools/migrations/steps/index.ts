@@ -7,7 +7,7 @@ import { UpdateDependenciesQueueFactory } from 'server/controller/cycleData/tabl
 import { WorkerFactory } from 'server/controller/cycleData/tableData/updateDependencies/workerFactory'
 import { DB } from 'server/db/db'
 import { Logger } from 'server/utils/logger'
-import { VisitCycleLinksQueueFactory } from 'server/worker/tasks/verifyLinks/visitCycleLinks/queueFactory'
+import { VerifyLinksQueueFactory } from 'server/worker/tasks/verifyLinks/visitCycleLinks/queueFactory'
 import { WorkerFactory as VisitLinksWorkerFactory } from 'server/worker/tasks/verifyLinks/visitCycleLinks/workerFactory'
 
 import { getMigrationFiles } from './utils'
@@ -52,7 +52,7 @@ const close = async (): Promise<void> => {
   // TODO: find a better strategy to handle Redis connections
   UpdateDependenciesQueueFactory.connection.quit()
   WorkerFactory.connection.quit()
-  VisitCycleLinksQueueFactory.connection.quit()
+  VerifyLinksQueueFactory.connection.quit()
   VisitLinksWorkerFactory.connection.quit()
   await DB.$pool.end()
   RedisData.getInstance().quit()

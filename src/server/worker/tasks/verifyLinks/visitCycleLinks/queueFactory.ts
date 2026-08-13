@@ -1,4 +1,4 @@
-import { Job, Queue, QueueOptions } from 'bullmq'
+import { Queue, QueueOptions } from 'bullmq'
 import IORedis from 'ioredis'
 
 import { CountryIso } from 'meta/area/countryIso'
@@ -6,15 +6,16 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 
 import { ProcessEnv } from 'server/utils'
-
-import { VisitCycleLinksProps } from './props'
+import { VerifyLinksJobName } from 'server/worker/tasks/verifyLinks/jobNames'
+import { VerifyLinksQueueProps } from 'server/worker/tasks/verifyLinks/props'
+import { VerifyAllLinksJob } from 'server/worker/tasks/verifyLinks/visitCycleLinks/props'
 
 const queueName = 'verifyLinks'
-let queue: Queue<VisitCycleLinksProps> | undefined
+let queue: Queue<VerifyLinksQueueProps> | undefined
 
 const connection = new IORedis(ProcessEnv.redisQueueUrl, { maxRetriesPerRequest: null })
 
-type Props = {
+type VerifyAllLinksJobScope = {
   assessment: Assessment
   countryIso?: CountryIso
   cycle: Cycle
@@ -25,36 +26,37 @@ const opts: QueueOptions = {
   streams: { events: { maxLen: 1 } },
 }
 
-const getInstance = (): Queue<VisitCycleLinksProps> => {
+const getInstance = (): Queue<VerifyLinksQueueProps> => {
   if (queue) return queue
 
-  queue = new Queue<VisitCycleLinksProps>(queueName, opts)
+  queue = new Queue<VerifyLinksQueueProps>(queueName, opts)
   return queue
 }
 
-const getJobId = (props: Props): string => {
+const getVerifyAllLinksJobId = (props: VerifyAllLinksJobScope): string => {
   const { assessment, countryIso, cycle } = props
 
-  // Job ID with assessment/cycle to avoid requests from enqueuing duplicates.
+  // Verify-all job ID with assessment/cycle to avoid requests from enqueuing duplicates.
   const baseJobId = `verifyLinks/${assessment.props.name}/${cycle.name}`
   return countryIso ? `${baseJobId}/${countryIso}` : baseJobId
 }
 
 const activeStates = ['active', 'delayed', 'paused', 'waiting', 'waiting-children']
 
-const getQueuedOrActiveJob = async (props: Props): Promise<Job<VisitCycleLinksProps> | null> => {
+const getQueuedOrActiveVerifyAllLinksJob = async (props: VerifyAllLinksJobScope): Promise<VerifyAllLinksJob | null> => {
   const queueInstance = getInstance()
-  const job = await queueInstance.getJob(getJobId(props))
+  const job = await queueInstance.getJob(getVerifyAllLinksJobId(props))
   if (!job) return null
+  if (job.name !== VerifyLinksJobName.verifyAllLinks) return null
 
   const state = await job.getState()
-  return activeStates.includes(state) ? job : null
+  return activeStates.includes(state) ? (job as VerifyAllLinksJob) : null
 }
 
-export const VisitCycleLinksQueueFactory = {
+export const VerifyLinksQueueFactory = {
   connection,
   getInstance,
-  getJobId,
-  getQueuedOrActiveJob,
+  getVerifyAllLinksJobId,
+  getQueuedOrActiveVerifyAllLinksJob,
   queueName,
 }

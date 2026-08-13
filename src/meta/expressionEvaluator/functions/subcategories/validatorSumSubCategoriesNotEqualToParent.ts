@@ -1,17 +1,17 @@
+import { NodeValueValidation } from 'meta/assessment/nodeValueValidation'
+import { Context } from 'meta/expressionEvaluator/context'
+import { ValidatorName } from 'meta/expressionEvaluator/validatorName'
 import { Numbers } from 'utils/numbers'
 import { Objects } from 'utils/objects'
 
-import { NodeValueValidation } from 'meta/assessment/nodeValueValidation'
-import { Context } from 'meta/expressionEvaluator/context'
-
 import { ExpressionFunction } from 'lib/expressionEvaluator/function'
 
-import { calculateCategoriesSum, getValidationMessage } from './utils'
+import { calculateCategoriesSum } from './utils'
 
 export const validatorSumSubCategoriesNotEqualToParent: ExpressionFunction<Context> = {
-  name: 'validatorSumSubCategoriesNotEqualToParent',
+  name: ValidatorName.sumSubCategoriesNotEqualToParent,
   minArity: 5,
-  executor: (context) => {
+  executor: () => {
     return (
       parentValue: string | undefined,
       parentLabelKey: string,
@@ -21,7 +21,7 @@ export const validatorSumSubCategoriesNotEqualToParent: ExpressionFunction<Conte
       parentLabelParams?: string,
       parentColLabelKey?: string
     ): NodeValueValidation => {
-      const categoriesSum = calculateCategoriesSum(categoryValues, categoryLabelKeys)
+      const categoriesSum = calculateCategoriesSum(categoryValues)
 
       const valid =
         Objects.isEmpty(parentValue) ||
@@ -32,19 +32,24 @@ export const validatorSumSubCategoriesNotEqualToParent: ExpressionFunction<Conte
         return { valid }
       }
 
-      const messages = getValidationMessage(
-        context,
-        parentValue,
-        parentLabelKey,
-        parentTableAnchor,
-        categoriesSum,
-        categoryLabelKeys,
-        'sumSubCategoriesNotEqualToParent',
-        parentLabelParams,
-        parentColLabelKey
-      )
-
-      return { valid, messages }
+      return {
+        valid,
+        messages: [
+          {
+            name: ValidatorName.sumSubCategoriesNotEqualToParent,
+            key: 'generalValidation.sumSubCategoriesNotEqualToParent',
+            params: {
+              categoriesSum: Numbers.format(categoriesSum),
+              categoryLabelKeys,
+              parentColLabelKey,
+              parentLabelKey,
+              parentLabelParams,
+              parentTableAnchor,
+              parentValue: Numbers.format(Number(parentValue)),
+            },
+          },
+        ],
+      }
     }
   },
 }

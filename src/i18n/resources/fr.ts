@@ -18,6 +18,7 @@ import geo from './fr/geo.json'
 import history from './fr/history.json'
 import kiosk from './fr/kiosk.json'
 import landing from './fr/landing.json'
+import linkValidation from './fr/linkValidation.json'
 import login from './fr/login.json'
 import measures from './fr/measures.json'
 import nationalDataPoint from './fr/nationalDataPoint.json'
@@ -48,6 +49,7 @@ export const frTranslation = {
   history,
   kiosk,
   landing,
+  linkValidation,
   login,
   measures,
   nationalDataPoint,

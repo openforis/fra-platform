@@ -1,5 +1,3 @@
-import { useTranslation } from 'react-i18next'
-
 import { CountryIso } from 'meta/area/countryIso'
 import { Col } from 'meta/assessment/col'
 import { Row } from 'meta/assessment/row'
@@ -26,7 +24,6 @@ export const useEnableIf = (props: Props): boolean => {
   const assessment = useAssessment()
   const cycle = useCycle()
   const { countryIso } = useCountryRouteParams<CountryIso>()
-  const { t } = useTranslation()
 
   const formula = col.props.enableIf?.[cycle.uuid]
 
@@ -51,9 +48,9 @@ export const useEnableIf = (props: Props): boolean => {
         colName,
         row: rowCache,
         formula,
-        t,
       })
     } catch (e) {
+      // eslint-disable-next-line no-console
       console.error(
         `Error evaluating enableIf formula: "${formula}" for col "${colName}" row "${row.props.variableName}"`,
         e

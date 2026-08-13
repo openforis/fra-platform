@@ -1,7 +1,7 @@
 {
   "classValueNotGreaterThan": "يجب ألا يتجاوز {{name}} قيمة {{value}}.",
   "classValuesMustBeEqualTo": "يجب أن يكون مجموع {{name}} مساويًا لـ {{value}}.",
-  "columnEmpty": "يجب أن يحتوي العمود '$t({{columName}})' على قيمة.",
+  "columnEmpty": "يجب أن يحتوي العمود '{{columName}}' على قيمة.",
   "countryReportYearGreaterThanCurrentYear": "يجب أن تكون القيمة أكبر من أو تساوي {{minValue}}.",
   "emptyField": "هذة الخانة فارغة.",
   "forestAreaDoesNotMatchExtentOfForest": "لا يتطابق مع مساحة الغابات (1أ).",

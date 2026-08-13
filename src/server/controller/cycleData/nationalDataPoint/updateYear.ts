@@ -3,6 +3,7 @@ import { ActivityLogMessage } from 'meta/assessment/activityLog'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
+import { NDPLinkFields } from 'meta/cycleData/links/nationalDataPointLink'
 import { Sockets } from 'meta/socket/sockets'
 import { User } from 'meta/user/user'
 
@@ -11,6 +12,8 @@ import { BaseProtocol, DB } from 'server/db/db'
 import { OriginalDataPointRepository } from 'server/db/repository/assessmentCycle/originalDataPoint'
 import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 import { CountryService } from 'server/service/country'
+import { DataValidationService } from 'server/service/dataValidation'
+import { LinksService } from 'server/service/links'
 import { SocketServer } from 'server/service/socket'
 
 import { updateOriginalDataPointsDependentNodes } from './updateDependants/updateOriginalDataPointsDependentNodes'
@@ -32,7 +35,7 @@ export const updateYear = async (props: Props, client: BaseProtocol = DB): Promi
 
   const originalDataPoint = await OriginalDataPointRepository.getOne({ assessment, cycle, countryIso, year })
 
-  return client.tx(async (t) => {
+  const updatedNationalDataPoint = await client.tx(async (t) => {
     // --- 1. Update ODP year
     const updatedOriginalDataPoint = await OriginalDataPointRepository.updateYear({ ...props, countryIso }, t)
 
@@ -67,4 +70,21 @@ export const updateYear = async (props: Props, client: BaseProtocol = DB): Promi
 
     return updatedOriginalDataPoint
   })
+
+  await DataValidationService.validateNDPYear({
+    assessment,
+    countryIso,
+    cycle,
+    nationalDataPoint: updatedNationalDataPoint,
+  })
+
+  // The stored link locations carry the year and a year-based url, so they are refreshed on year change.
+  await LinksService.enqueueNationalDataPointLinksValidation({
+    assessment,
+    countryIso,
+    cycle,
+    targets: [{ ndpUuid: updatedNationalDataPoint.uuid, fields: NDPLinkFields }],
+  })
+
+  return updatedNationalDataPoint
 }

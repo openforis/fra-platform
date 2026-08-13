@@ -1,64 +1,225 @@
-import { Locator, Page } from '@playwright/test'
-
 import { expect, test } from '../fixtures/auth'
-import { DOMUtils } from '../utils/DOM'
+import { DOMUtils } from '../utils/dom'
+import { LinkFixtures } from '../utils/links'
+import { NDPDomUtils } from '../utils/ndpDom'
+import { TableDomUtils } from '../utils/table'
+import { TooltipUtils } from '../utils/tooltip'
+import {
+  ndpClassName,
+  ndpOdp1aUrlRegex,
+  ndpOdp1bUrlRegex,
+  ndpYear,
+  x11ExtentOfForestPath,
+} from './06-national-data-point.fixture'
 
-const year = '2025'
-const reference = 'https://example.com/e2e-reference'
-const methodUsed = 'National Forest Inventory'
-const comments = 'E2E test data source comments'
-
-const dataSourceValueCell = (page: Page, label: string): Locator =>
-  page.locator('.data-cell.header', { hasText: label }).locator('xpath=following-sibling::*[1]')
+const randomString = Date.now().toString()
+const extentOfForestInvalidLinks = LinkFixtures.buildInvalidLinksHtml(`ndp-extent-of-forest-${randomString}`)
+const extentOfForestValidLink = LinkFixtures.buildValidLinkHtml(`ndp-extent-of-forest-${randomString}`)
+const forestCharacteristicsInvalidLinks = LinkFixtures.buildInvalidLinksHtml(
+  `ndp-forest-characteristics-${randomString}`
+)
+const forestCharacteristicsValidLink = LinkFixtures.buildValidLinkHtml(`ndp-forest-characteristics-${randomString}`)
+const referenceInvalidLinks = LinkFixtures.buildInvalidLinksHtml(`ndp-reference-${randomString}`)
+const referenceValidLink = LinkFixtures.buildValidLinkHtml(`ndp-reference-${randomString}`)
 
 test.describe.serial('National data point: ', () => {
   test('NC creates a national data point and sees it back on the table', async ({ authenticatedPage }) => {
     const page = authenticatedPage
 
-    await page.goto('/assessments/fra/2025/X01/home')
-    await DOMUtils.sidebarNavigate(page, 'Forest extent, characteristics and changes', 'Extent of forest')
-    await DOMUtils.unlockEditing(page)
+    await page.goto(x11ExtentOfForestPath)
+    await DOMUtils.ensureEditingUnlocked(page)
 
     await page.getByRole('link', { name: 'Add national data point' }).click()
 
-    // ======= YEAR
-    await page.locator('.odp__year-selection .select__wrapper').click()
-    await page.getByRole('option', { name: year }).click()
+    await NDPDomUtils.fillYear(page, ndpYear)
+    await NDPDomUtils.fillDataSourcesV1Reference(page, 'https://example.com/e2e-reference')
 
-    // ======== DATA SOURCES
-    // == Reference
-    const referenceEditor = dataSourceValueCell(page, 'References').locator('[contenteditable="true"]')
-    await referenceEditor.click()
-    await page.keyboard.type(reference)
-    await referenceEditor.blur()
-    // == Methods
-    await dataSourceValueCell(page, 'Methods used').locator('.select__wrapper').click()
-    await page.getByRole('option', { name: methodUsed }).click()
-    // == Additional comments
-    await dataSourceValueCell(page, 'Additional comments').locator('textarea').fill(comments)
-
-    await page.getByRole('link', { name: 'Done editing' }).first().click()
+    await NDPDomUtils.doneEditing(page)
     await expect(page).toHaveURL(/\/sections\/extentOfForest$/)
 
-    // Back on the table, the new data point shows up as a year column header link
-    await expect(page.locator('.table-grid__odp-link', { hasText: year })).toBeVisible({ timeout: 10000 })
+    await expect(page.locator('.table-grid__odp-link', { hasText: ndpYear })).toBeVisible({ timeout: 10000 })
+  })
+
+  test('NC edits the national data point with incorrect data and sees validation errors', async ({
+    authenticatedPage,
+  }) => {
+    const page = authenticatedPage
+
+    await page.goto(x11ExtentOfForestPath)
+    await DOMUtils.ensureEditingUnlocked(page)
+    await TableDomUtils.clickOdpLink(page, ndpYear, ndpOdp1aUrlRegex)
+
+    // ==== National classifications name
+    await NDPDomUtils.createNewNationalClassification(page, ndpClassName)
+    // Clear the name to create validation error
+    await NDPDomUtils.editNationalClassification(page, '')
+    await expect(page.locator('.data-cell.validation-error')).toBeVisible({ timeout: 10000 })
+    await TooltipUtils.expectValidationTooltip(
+      page,
+      page.locator('.data-cell.validation-error'),
+      'Value cannot be empty'
+    )
+    await NDPDomUtils.editNationalClassification(page, ndpClassName)
+    await expect(page.locator('.data-cell.validation-error')).toHaveCount(0, { timeout: 10000 })
+
+    // ==== National class area
+    const areaCell = page.locator('td.fra-table__cell.fra-table__divider.validation-error')
+    await expect(areaCell).toBeVisible({ timeout: 10000 })
+    await TooltipUtils.expectValidationTooltip(page, areaCell, 'Value cannot be empty')
+    await NDPDomUtils.fillNationalClassArea(page, ndpClassName, '1000')
+    await expect(areaCell).toHaveCount(0, { timeout: 10000 })
+
+    // ==== Validate sum (forest + owl > 100)
+    await NDPDomUtils.fillNationalClassForestPercent(page, ndpClassName, '60')
+    await NDPDomUtils.fillNationalClassOWLPercent(page, ndpClassName, '50') // totals to 110
+    const percentageCell = page.locator('td.fra-table__cell.validation-error')
+    await expect(percentageCell.first()).toBeVisible({ timeout: 10000 })
+    await TooltipUtils.expectValidationTooltip(
+      page,
+      percentageCell.first(),
+      `${ndpClassName} should be not greater than 100%`
+    )
+    await NDPDomUtils.fillNationalClassOWLPercent(page, ndpClassName, '30') // totals to 90
+    await expect(percentageCell).toHaveCount(0, { timeout: 10000 })
+
+    // === Renavigate to ODP to activate "Forest characteristics" -tab link
+    await NDPDomUtils.doneEditing(page)
+    await expect(page).toHaveURL(/\/sections\/extentOfForest$/)
+    await TableDomUtils.clickOdpLink(page, ndpYear, ndpOdp1aUrlRegex)
+
+    await NDPDomUtils.switchTab(page, '1b Forest characteristics', ndpOdp1bUrlRegex)
+
+    // ==== Validate sum (natural + plantation + other planted > 100)
+    await NDPDomUtils.fillNationalClassNaturalForestPercent(page, ndpClassName, '50')
+    await NDPDomUtils.fillNationalClassPlantationForestPercent(page, ndpClassName, '30')
+    await NDPDomUtils.fillNationalClassOtherPlantedForestPercent(page, ndpClassName, '10') // 90
+    const forestCharsCell = page.locator('.fra-table:not(.odp__sub-table) td.fra-table__cell.validation-error')
+    await expect(forestCharsCell.first()).toBeVisible({ timeout: 10000 })
+    await TooltipUtils.expectValidationTooltip(
+      page,
+      forestCharsCell.first(),
+      `${ndpClassName} sum must be equal to 100%`
+    )
+    await NDPDomUtils.fillNationalClassOtherPlantedForestPercent(page, ndpClassName, '20') // 100
+    await expect(forestCharsCell).toHaveCount(0, { timeout: 10000 })
+
+    // ==== Validate (plantation introduced > 100 )
+    await NDPDomUtils.fillNationalClassPlantationIntroducedPercent(page, ndpClassName, '110')
+    const plantationCell = page
+      .locator('.fra-table.odp__sub-table')
+      .nth(1)
+      .locator('td.fra-table__cell.validation-error')
+    await expect(plantationCell).toBeVisible({ timeout: 10000 })
+    await TooltipUtils.expectValidationTooltip(page, plantationCell, `${ndpClassName} should be not greater than 100%`)
+    await NDPDomUtils.fillNationalClassPlantationIntroducedPercent(page, ndpClassName, '50')
+    await expect(plantationCell).toHaveCount(0, { timeout: 10000 })
+
+    // ==== Validate (primary forest > 100 )
+    await NDPDomUtils.fillNationalClassPrimaryForestPercent(page, ndpClassName, '110')
+    const primaryForestCell = page
+      .locator('.fra-table.odp__sub-table')
+      .nth(0)
+      .locator('td.fra-table__cell.validation-error')
+    await expect(primaryForestCell).toBeVisible({ timeout: 10000 })
+    await TooltipUtils.expectValidationTooltip(
+      page,
+      primaryForestCell,
+      `${ndpClassName} should be not greater than 100%`
+    )
+    await NDPDomUtils.fillNationalClassPrimaryForestPercent(page, ndpClassName, '50')
+    await expect(primaryForestCell).toHaveCount(0, { timeout: 10000 })
+
+    // When clicking 'done' when on 1b tab, expect to be redirected to section 1b
+    await NDPDomUtils.doneEditing(page)
+    await expect(page).toHaveURL(/\/sections\/forestCharacteristics$/)
+  })
+
+  test('NC enters invalid links in comments and sees validation errors', async ({ authenticatedPage }) => {
+    const page = authenticatedPage
+
+    await page.goto(x11ExtentOfForestPath)
+    await DOMUtils.ensureEditingUnlocked(page)
+    await TableDomUtils.clickOdpLink(page, ndpYear, ndpOdp1aUrlRegex)
+
+    // ==== 1a comments: the links worker flags both the empty and the broken link
+    await NDPDomUtils.fillComments(page, extentOfForestInvalidLinks.html)
+
+    const extentOfForestValidationError = NDPDomUtils.getCommentsValidationError(page)
+    await expect(extentOfForestValidationError).toBeVisible({ timeout: 20000 })
+    await TooltipUtils.expectValidationTooltip(
+      page,
+      extentOfForestValidationError,
+      `Invalid link: "${extentOfForestInvalidLinks.emptyLinkText}" (Empty)`
+    )
+    await TooltipUtils.expectValidationTooltip(
+      page,
+      extentOfForestValidationError,
+      `Invalid link: "${extentOfForestInvalidLinks.brokenLinkDisplayUrl}" (DNS error)`
+    )
+
+    await NDPDomUtils.fillComments(page, extentOfForestValidLink.html)
+    await expect(extentOfForestValidationError).not.toBeVisible({ timeout: 20000 })
+
+    // ==== 1b comments: same round trip on the forestCharacteristics link field
+    await NDPDomUtils.switchTab(page, '1b Forest characteristics', ndpOdp1bUrlRegex)
+    await NDPDomUtils.fillComments(page, forestCharacteristicsInvalidLinks.html)
+
+    const forestCharacteristicsValidationError = NDPDomUtils.getCommentsValidationError(page)
+    await expect(forestCharacteristicsValidationError).toBeVisible({ timeout: 20000 })
+    await TooltipUtils.expectValidationTooltip(
+      page,
+      forestCharacteristicsValidationError,
+      `Invalid link: "${forestCharacteristicsInvalidLinks.emptyLinkText}" (Empty)`
+    )
+    await TooltipUtils.expectValidationTooltip(
+      page,
+      forestCharacteristicsValidationError,
+      `Invalid link: "${forestCharacteristicsInvalidLinks.brokenLinkDisplayUrl}" (DNS error)`
+    )
+
+    await NDPDomUtils.fillComments(page, forestCharacteristicsValidLink.html)
+    await expect(forestCharacteristicsValidationError).not.toBeVisible({ timeout: 20000 })
+  })
+
+  test('NC enters invalid links in the data source reference and sees validation errors', async ({
+    authenticatedPage,
+  }) => {
+    const page = authenticatedPage
+
+    await page.goto(x11ExtentOfForestPath)
+    await DOMUtils.ensureEditingUnlocked(page)
+    await TableDomUtils.clickOdpLink(page, ndpYear, ndpOdp1aUrlRegex)
+
+    await NDPDomUtils.fillDataSourcesV1Reference(page, referenceInvalidLinks.html)
+
+    const referenceValidationError = NDPDomUtils.getDataSourcesV1ReferenceValidationError(page)
+    await expect(referenceValidationError).toBeVisible({ timeout: 20000 })
+    await TooltipUtils.expectValidationTooltip(
+      page,
+      referenceValidationError,
+      `Invalid link: "${referenceInvalidLinks.emptyLinkText}" (Empty)`
+    )
+    await TooltipUtils.expectValidationTooltip(
+      page,
+      referenceValidationError,
+      `Invalid link: "${referenceInvalidLinks.brokenLinkDisplayUrl}" (DNS error)`
+    )
+
+    await NDPDomUtils.fillDataSourcesV1Reference(page, referenceValidLink.html)
+    await expect(referenceValidationError).not.toBeVisible({ timeout: 20000 })
   })
 
   test('NC deletes the national data point', async ({ authenticatedPage }) => {
     const page = authenticatedPage
 
-    await page.goto('/assessments/fra/2025/X01/sections/extentOfForest')
-    await DOMUtils.unlockEditing(page)
-
-    // Return to the created NDP page
-    await page.locator('.table-grid__odp-link', { hasText: year }).click()
-    await page.waitForURL(new RegExp(`/originalDataPoints/${year}/extentOfForest$`))
+    await page.goto(x11ExtentOfForestPath)
+    await DOMUtils.ensureEditingUnlocked(page)
+    await TableDomUtils.clickOdpLink(page, ndpYear, ndpOdp1aUrlRegex)
 
     page.once('dialog', (dialog) => dialog.accept())
     await page.getByRole('button', { name: 'Delete' }).first().click()
 
-    // Expect the link not to exist anymore
     await expect(page).toHaveURL(/\/sections\/extentOfForest$/)
-    await expect(page.locator('.table-grid__odp-link', { hasText: year })).toHaveCount(0, { timeout: 10000 })
+    await expect(page.locator('.table-grid__odp-link', { hasText: ndpYear })).toHaveCount(0, { timeout: 10000 })
   })
 })

@@ -5,10 +5,12 @@ import { Promises } from 'utils/promises'
 import {
   UpdateDependenciesJob,
   UpdateDependenciesProps,
+  UpdateDependenciesResult,
 } from 'server/controller/cycleData/tableData/updateDependencies/props'
 import { updateExternalDependents } from 'server/controller/cycleData/tableData/updateDependencies/updateExternalDependents'
 import worker from 'server/controller/cycleData/tableData/updateDependencies/worker'
 import { BaseProtocol } from 'server/db/db'
+import { DataValidationService } from 'server/service/dataValidation'
 import { SocketServer } from 'server/service/socket'
 import { Logger } from 'server/utils/logger'
 
@@ -17,40 +19,56 @@ type Props = Omit<UpdateDependenciesProps, 'client'> & {
 }
 
 export const updateDependents = async (props: Props, client: BaseProtocol): Promise<void> => {
-  const { assessment, cycle, includeSourceNodes, notifyClients = true, user } = props
+  const { assessment, country, cycle, includeSourceNodes, notifyClients = true, user } = props
   const { countryIso, nodes } = props.nodeUpdates
   const { name: assessmentName } = assessment.props
   const { name: cycleName } = cycle
+  const logKey = `${assessmentName}-${cycleName}-${countryIso}`
 
   Logger.debug(`[scheduleUpdateDependencies] ${countryIso} ${nodes.length} nodes added to updateDependencies queue`)
 
-  // avoid executing worker when nodes have no dependents.
-  const dependants = nodes.flatMap(({ tableName, variableName }) => {
-    return AssessmentMetaCaches.getCalculationsDependants({ assessment, cycle, tableName, variableName })
+  // avoid executing worker when nodes have no calculation dependents.
+  const hasCalculationDependants = nodes.some(({ tableName, variableName }) => {
+    return AssessmentMetaCaches.getCalculationsDependants({ assessment, cycle, tableName, variableName }).length > 0
   })
-  if (dependants.length === 0 && !includeSourceNodes) {
-    return Promise.resolve()
+  const shouldRunCalculations = hasCalculationDependants || includeSourceNodes
+  let workerResult: UpdateDependenciesResult = {
+    externalDependants: [],
+    nodeUpdates: { assessmentName, countryIso, cycleName, nodes: [] },
   }
 
-  // 1. exec job
-  const jobKey = `${assessmentName}-${cycleName}-${countryIso}`
-  const data: UpdateDependenciesJob['data'] = { ...props, client }
-  const job = { id: Math.random(), name: `job-name-${jobKey}`, data } as unknown as UpdateDependenciesJob
-  const { externalDependants, nodeUpdates } = await worker(job)
+  if (shouldRunCalculations) {
+    const jobKey = logKey
+    const data: UpdateDependenciesJob['data'] = { ...props, client }
+    const job = { id: Math.random(), name: `job-name-${jobKey}`, data } as unknown as UpdateDependenciesJob
+    workerResult = await worker(job)
 
-  // 2. notify client
-  if (notifyClients) {
-    const nodeUpdateEvent = Sockets.getNodeValuesUpdateEvent({ assessmentName, cycleName, countryIso })
-    SocketServer.emit(nodeUpdateEvent, { nodeUpdates })
+    if (notifyClients && workerResult.nodeUpdates.nodes.length > 0) {
+      const nodeUpdateEvent = Sockets.getNodeValuesUpdateEvent({ assessmentName, cycleName, countryIso })
+      SocketServer.emit(nodeUpdateEvent, { nodeUpdates: workerResult.nodeUpdates })
+    }
+
+    Logger.debug(
+      `[updateDependencies] [job-${job.id}] completed with ${workerResult.nodeUpdates.nodes.length} nodes updated`
+    )
   }
 
-  Logger.debug(`[updateDependencies] [job-${job.id}] completed with ${nodeUpdates.nodes.length} nodes updated`)
+  const validationNodeUpdates = {
+    ...props.nodeUpdates,
+    nodes: [...props.nodeUpdates.nodes, ...workerResult.nodeUpdates.nodes],
+  }
+
+  await DataValidationService.validateNodes({
+    assessment,
+    country,
+    cycle,
+    nodeUpdates: validationNodeUpdates,
+    notifyClients,
+  })
 
   // 3. schedule external assessment/cycle updates
-  await Promises.each(externalDependants, async (externalNodeUpdates) => {
-    Logger.debug(
-      `[updateDependencies] [job-${job.id}] scheduling ${externalNodeUpdates.nodes.length} external dependents`
-    )
+  await Promises.each(workerResult.externalDependants, async (externalNodeUpdates) => {
+    Logger.debug(`[updateDependencies] [${logKey}] scheduling ${externalNodeUpdates.nodes.length} external dependents`)
     await updateExternalDependents({ countryIso, nodeUpdates: externalNodeUpdates, notifyClients, user }, client)
   })
 

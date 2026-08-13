@@ -9,6 +9,7 @@ import { BaseProtocol, DB } from 'server/db/db'
 import { OriginalDataPointRepository } from 'server/db/repository/assessmentCycle/originalDataPoint'
 import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 import { CountryService } from 'server/service/country'
+import { DataValidationService } from 'server/service/dataValidation'
 
 import { updateOriginalDataPointDependentNodes } from './updateDependants/updateOriginalDataPointDependentNodes'
 
@@ -25,7 +26,7 @@ export const updateOriginalData = async (props: Props, client: BaseProtocol = DB
   const { assessment, country, cycle, originalDataPoint, sectionName, user } = props
   const { countryIso } = originalDataPoint
 
-  return client.tx(async (t) => {
+  const updatedNationalDataPoint = await client.tx(async (t) => {
     const updatedOriginalDataPoint = await OriginalDataPointRepository.updateOriginalData(
       { assessment, cycle, originalDataPoint },
       t
@@ -58,4 +59,13 @@ export const updateOriginalData = async (props: Props, client: BaseProtocol = DB
 
     return updatedOriginalDataPoint
   })
+
+  await DataValidationService.validateNDPNationalClasses({
+    assessment,
+    countryIso,
+    cycle,
+    nationalDataPoint: updatedNationalDataPoint,
+  })
+
+  return updatedNationalDataPoint
 }

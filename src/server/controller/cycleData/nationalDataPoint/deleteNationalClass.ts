@@ -10,6 +10,7 @@ import { BaseProtocol, DB } from 'server/db/db'
 import { OriginalDataPointRepository } from 'server/db/repository/assessmentCycle/originalDataPoint'
 import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 import { CountryService } from 'server/service/country'
+import { DataValidationService } from 'server/service/dataValidation'
 
 import { updateOriginalDataPointDependentNodes } from './updateDependants/updateOriginalDataPointDependentNodes'
 
@@ -25,7 +26,7 @@ type Props = {
 export const deleteNationalClass = async (props: Props, client: BaseProtocol = DB): Promise<OriginalDataPoint> => {
   const { assessment, country, cycle, id, index, user } = props
 
-  return client.tx(async (t) => {
+  const updatedNationalDataPoint = await client.tx(async (t) => {
     const originalDataPoint = await OriginalDataPointRepository.deleteNationalClass({ assessment, cycle, id, index }, t)
     const updatedOriginalDataPoint = await OriginalDataPointRepository.updateOriginalData(
       { assessment, cycle, originalDataPoint: ODPs.calculateValues(originalDataPoint) },
@@ -49,4 +50,13 @@ export const deleteNationalClass = async (props: Props, client: BaseProtocol = D
     )
     return updatedOriginalDataPoint
   })
+
+  await DataValidationService.validateNDPNationalClasses({
+    assessment,
+    countryIso: updatedNationalDataPoint.countryIso,
+    cycle,
+    nationalDataPoint: updatedNationalDataPoint,
+  })
+
+  return updatedNationalDataPoint
 }
