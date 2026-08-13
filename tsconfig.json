@@ -12,6 +12,7 @@
     "isolatedModules": true,
     "jsx": "react",
     "module": "Preserve",
-    "moduleResolution": "Bundler"
+    "moduleResolution": "Bundler",
+    "types": ["google.maps", "vite/client", "youtube"]
   }
 }
