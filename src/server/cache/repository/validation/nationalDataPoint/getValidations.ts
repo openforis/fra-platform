@@ -18,7 +18,7 @@ export const getValidations = async (props: Props): Promise<RecordNDPValidations
   const { assessment, countryIso, cycle } = props
 
   const redis = RedisData.getInstance()
-  const key = getKeyCountry({ assessment, countryIso, cycle, key: Keys.Data.validationNationalDataPoints })
+  const key = getKeyCountry({ assessment, countryIso, cycle, key: Keys.Validation.nationalDataPoints })
   const nationalDataPointValidations = await redis.hgetall(key)
 
   return Object.entries(nationalDataPointValidations).reduce<RecordNDPValidations>((acc, [uuid, validations]) => {

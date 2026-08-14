@@ -23,7 +23,7 @@ export const setValidations = async (props: Props): Promise<void> => {
   }
 
   const redis = RedisData.getInstance()
-  const key = getKeyCountry({ assessment, countryIso, cycle, key: Keys.Data.validationNationalDataPoints })
+  const key = getKeyCountry({ assessment, countryIso, cycle, key: Keys.Validation.nationalDataPoints })
 
   const validationsToSet = nationalDataPointUuids.reduce<Record<string, string>>((acc, nationalDataPointUuid) => {
     acc[nationalDataPointUuid] = JSON.stringify(validations[nationalDataPointUuid] ?? {})
