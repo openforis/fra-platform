@@ -16,8 +16,8 @@ export const renameValidations = async (props: Props): Promise<void> => {
   const { assessment, countryIso, cycleSource, cycleTarget } = props
 
   const redis = RedisData.getInstance()
-  const key = getKeyCountry({ assessment, countryIso, cycle: cycleSource, key: Keys.Data.validationTables })
-  const keyNew = getKeyCountry({ assessment, countryIso, cycle: cycleTarget, key: Keys.Data.validationTables })
+  const key = getKeyCountry({ assessment, countryIso, cycle: cycleSource, key: Keys.Validation.tables })
+  const keyNew = getKeyCountry({ assessment, countryIso, cycle: cycleTarget, key: Keys.Validation.tables })
 
   // redis.rename throws when the source key is missing
   const exists = await redis.exists(key)
