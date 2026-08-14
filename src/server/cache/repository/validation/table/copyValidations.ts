@@ -16,8 +16,8 @@ export const copyValidations = async (props: Props): Promise<void> => {
   const { assessment, countryIso, cycleSource, cycleTarget } = props
 
   const redis = RedisData.getInstance()
-  const key = getKeyCountry({ assessment, countryIso, cycle: cycleSource, key: Keys.Data.validationTables })
-  const keyNew = getKeyCountry({ assessment, countryIso, cycle: cycleTarget, key: Keys.Data.validationTables })
+  const key = getKeyCountry({ assessment, countryIso, cycle: cycleSource, key: Keys.Validation.tables })
+  const keyNew = getKeyCountry({ assessment, countryIso, cycle: cycleTarget, key: Keys.Validation.tables })
 
   // Delete exisiting keys to prevent stale data
   await redis.del(keyNew)

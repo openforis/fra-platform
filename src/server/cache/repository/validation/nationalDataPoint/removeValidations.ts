@@ -15,7 +15,7 @@ export const removeValidations = async (props: Props): Promise<void> => {
   const { assessment, countryIso, cycle } = props
 
   const redis = RedisData.getInstance()
-  const key = getKeyCountry({ assessment, countryIso, cycle, key: Keys.Data.validationNationalDataPoints })
+  const key = getKeyCountry({ assessment, countryIso, cycle, key: Keys.Validation.nationalDataPoints })
 
   await redis.del(key)
 }

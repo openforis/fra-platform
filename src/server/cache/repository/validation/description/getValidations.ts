@@ -26,7 +26,7 @@ const _parseSectionDescriptionValidations = (value?: string | null): SectionDesc
 export const getValidations = async (props: Props): Promise<RecordDescriptionValidations> => {
   const { assessment, countryIso, cycle, sectionNames } = props
 
-  const key = getKeyCountry({ assessment, countryIso, cycle, key: Keys.Data.validationDescriptions })
+  const key = getKeyCountry({ assessment, countryIso, cycle, key: Keys.Validation.descriptions })
 
   if (Objects.isEmpty(sectionNames)) {
     return {}
