@@ -3,6 +3,7 @@ import '../scriptInit'
 import { Promises } from 'utils/promises'
 import { ToolsUtils } from 'tools/utils/toolsUtils'
 
+import { CacheController } from 'server/cache/controller'
 import { BaseProtocol, DB } from 'server/db/db'
 
 import { Failures } from './common/failures'
@@ -17,6 +18,9 @@ import { validateTableData } from './validateTableData'
 const validators = [validateTableData, validateDataSources, validateNationalDataPoints, validateLinks]
 
 export const validateAll = async (client: BaseProtocol = DB): Promise<void> => {
+  // Rebuild the validation dependency graph before running validations.
+  await CacheController.generateMetaCache({}, client)
+
   const failures: Array<Failure> = []
 
   await Promises.each(validators, async (validator) => {
