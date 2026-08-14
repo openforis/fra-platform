@@ -58,13 +58,16 @@ export const updateDependents = async (props: Props, client: BaseProtocol): Prom
     nodes: [...props.nodeUpdates.nodes, ...workerResult.nodeUpdates.nodes],
   }
 
-  await DataValidationService.validateNodes({
-    assessment,
-    country,
-    cycle,
-    nodeUpdates: validationNodeUpdates,
-    notifyClients,
-  })
+  await DataValidationService.validateNodes(
+    {
+      assessment,
+      country,
+      cycle,
+      nodeUpdates: validationNodeUpdates,
+      notifyClients,
+    },
+    client
+  )
 
   // 3. schedule external assessment/cycle updates
   await Promises.each(workerResult.externalDependants, async (externalNodeUpdates) => {
