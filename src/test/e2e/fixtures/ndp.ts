@@ -1,8 +1,8 @@
 import { type OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { Promises } from 'utils/promises'
 
-import { NdpApiUtils, type NdpSeed } from '../api/ndp'
-import { test as base } from './auth'
+import { NdpApiUtils, type NdpSeed } from 'test/e2e/api/ndp'
+import { test as base } from 'test/e2e/fixtures/auth'
 
 type NdpOptions = {
   ndpSeeds: Array<NdpSeed>

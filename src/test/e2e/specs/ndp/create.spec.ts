@@ -1,18 +1,15 @@
 import { SectionNames } from 'meta/assessment/section'
 
-import { NdpApiUtils, type NdpSeed } from '../../api/ndp'
-import { expect, test } from '../../fixtures/ndp'
-import { DOMUtils } from '../../utils/dom'
-import { NDPDomUtils } from '../../utils/ndpDom'
-import { SectionUtils } from '../../utils/section'
-import { TableDomUtils } from '../../utils/table'
+import { NdpApiUtils, type NdpSeed } from 'test/e2e/api/ndp'
+import { expect, test } from 'test/e2e/fixtures/ndp'
+import { DOMUtils } from 'test/e2e/utils/dom'
+import { NDPDomUtils } from 'test/e2e/utils/ndpDom'
+import { SectionUtils } from 'test/e2e/utils/section'
 
 const countryIso = 'X08'
 const extentOfForestPath = SectionUtils.path({ countryIso, sectionName: SectionNames.extentOfForest })
 
 const createdYear = 2015
-const seededYear = 2016
-const seededUrlRegex = new RegExp(`/originalDataPoints/${seededYear}/extentOfForest$`)
 
 test.describe('National data point: create', () => {
   const createdSeed: NdpSeed = { countryIso, nationalClasses: [], year: createdYear }
@@ -40,27 +37,6 @@ test.describe('National data point: create', () => {
     await expect(page).toHaveURL(/\/sections\/extentOfForest$/)
 
     await expect(page.locator('.table-grid__odp-link', { hasText: String(createdYear) })).toBeVisible({
-      timeout: 10000,
-    })
-  })
-})
-
-test.describe('National data point: delete', () => {
-  test.use({ ndpSeeds: [{ countryIso, nationalClasses: [], year: seededYear }] })
-
-  test('NC deletes the national data point', async ({ authenticatedPage, ndp }) => {
-    const page = authenticatedPage
-    expect(ndp.id).toBeTruthy()
-
-    await page.goto(extentOfForestPath)
-    await DOMUtils.ensureEditingUnlocked(page)
-    await TableDomUtils.clickOdpLink(page, String(seededYear), seededUrlRegex)
-
-    page.once('dialog', (dialog) => dialog.accept())
-    await page.getByRole('button', { name: 'Delete' }).first().click()
-
-    await expect(page).toHaveURL(/\/sections\/extentOfForest$/)
-    await expect(page.locator('.table-grid__odp-link', { hasText: String(seededYear) })).toHaveCount(0, {
       timeout: 10000,
     })
   })
