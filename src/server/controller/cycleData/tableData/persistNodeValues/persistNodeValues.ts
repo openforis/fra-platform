@@ -35,9 +35,9 @@ export const persistNodeValues = async (props: Props, client: BaseProtocol = DB)
 
   await client.tx(async (client) => {
     try {
-      // Serialize writes per country
-      await client.query('select pg_advisory_xact_lock($(namespace), hashtext($(countryIso)))', {
-        countryIso,
+      // Serialize writes per assessment/cycle/country
+      await client.query('select pg_advisory_xact_lock($(namespace), hashtext($(key)))', {
+        key: [nodeUpdates.assessmentName, nodeUpdates.cycleName, countryIso].join('/'),
         namespace: AdvisoryLock.nodeWrites,
       })
 
