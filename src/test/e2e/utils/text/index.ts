@@ -8,7 +8,7 @@ const multiLine = (label: string): Array<string> => [
   `Lorem ipsum dolor sit amet, consectetur adipiscing elit. ${label}`,
 ]
 
-export const TextFixtures = {
+export const TextBuilder = {
   multiLine,
   singleLine,
 }
