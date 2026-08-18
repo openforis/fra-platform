@@ -9,6 +9,7 @@ import { SubSection } from 'meta/assessment/section'
 import { SubSections } from 'meta/assessment/subSections'
 import { Routes } from 'meta/routes/routes'
 
+import { useSummarySubSectionHasErrors } from 'client/store/data/validations/summary/hooks/summary'
 import { useAppDispatch } from 'client/store/hooks'
 import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useCycle } from 'client/store/meta/hooks/cycles'
@@ -40,6 +41,7 @@ const SectionItemLink: React.FC<Props> = (props) => {
   const isDataExport = useIsDataExportView()
   const laptop = useMediaQuery({ minWidth: Breakpoints.laptop })
   const reviewStatus = useSectionReviewSummary(uuid)
+  const subSectionHasErrors = useSummarySubSectionHasErrors(uuid)
 
   return (
     <NavLink
@@ -69,7 +71,7 @@ const SectionItemLink: React.FC<Props> = (props) => {
       {!isDataExport && (
         <div className="nav-section__status-content">
           <ReviewSummaryIndicator status={reviewStatus} />
-          <ValidationErrorIndicator target="subSection" uuid={uuid} />
+          <ValidationErrorIndicator show={subSectionHasErrors} />
         </div>
       )}
     </NavLink>

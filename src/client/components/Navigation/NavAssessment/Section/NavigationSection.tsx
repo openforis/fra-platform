@@ -7,6 +7,7 @@ import { Labels } from 'meta/assessment/labels'
 import { Section } from 'meta/assessment/section'
 import { Routes } from 'meta/routes/routes'
 
+import { useSummarySectionHasErrors } from 'client/store/data/validations/summary/hooks/summary'
 import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useSectionReviewSummary } from 'client/store/review/hooks/review'
@@ -32,6 +33,7 @@ const NavigationSection: React.FC<Props> = (props) => {
   const isDataExport = useIsDataExportView()
   const { pathname } = useLocation()
   const reviewStatus = useSectionReviewSummary(section.uuid)
+  const sectionHasErrors = useSummarySectionHasErrors(section.uuid)
 
   const [expanded, setExpanded] = useState(false)
 
@@ -85,7 +87,7 @@ const NavigationSection: React.FC<Props> = (props) => {
         {!expanded && !isDataExport && (
           <div className="nav-section__status-content">
             <ReviewSummaryIndicator status={reviewStatus} />
-            <ValidationErrorIndicator target="section" uuid={section.uuid} />
+            <ValidationErrorIndicator show={sectionHasErrors} />
           </div>
         )}
       </div>
