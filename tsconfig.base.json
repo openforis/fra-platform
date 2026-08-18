@@ -1,6 +1,10 @@
 {
   "include": ["src"],
-  "exclude": ["src/tools/migrations/steps/steps/template.ts"],
+  "exclude": [
+    "src/tools/migrations/steps/steps/template.ts",
+    // k6 scripts run in k6's own runtime, outside the project.
+    "src/tools/stressTestK6"
+  ],
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "baseUrl": "./src",
