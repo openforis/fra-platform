@@ -4,7 +4,7 @@ import { expect, test } from '../fixtures/auth'
 import { DataSourceUtils } from '../utils/dataSource'
 import { DescriptionUtils } from '../utils/description'
 import { DOMUtils } from '../utils/dom'
-import { LinkFixtures } from '../utils/links'
+import { LinkBuilder } from '../utils/links'
 import { TooltipUtils } from '../utils/tooltip'
 import { dataSourcesSectionPath } from './07-section-descriptions.fixture'
 
@@ -16,8 +16,8 @@ const dataSourcesToggleEditButton = (page: Page, name: 'Done' | 'Edit'): Locator
   DescriptionUtils.getDescriptionToggleEditButton(page, dataSourcesTitle, name)
 
 test.describe.serial('Section descriptions: data sources', () => {
-  const validReference = LinkFixtures.buildValidLinkHtml(`data-source-${randomString}`)
-  const updatedReference = LinkFixtures.buildValidLinkHtml(`data-source-updated-${randomString}`)
+  const validReference = LinkBuilder.buildValidLinkHtml(`data-source-${randomString}`)
+  const updatedReference = LinkBuilder.buildValidLinkHtml(`data-source-updated-${randomString}`)
 
   test('NC sees no existing data source with the fixture reference', async ({ authenticatedPage }) => {
     const page = authenticatedPage
@@ -78,8 +78,8 @@ test.describe.serial('Section descriptions: data sources', () => {
 })
 
 test.describe.serial('Section descriptions: data sources - invalid reference', () => {
-  const invalidLinks = LinkFixtures.buildInvalidLinksHtml(`data-source-${randomString}`)
-  const fixedReference = LinkFixtures.buildValidLinkHtml(`data-source-fixed-${randomString}`)
+  const invalidLinks = LinkBuilder.buildInvalidLinksHtml(`data-source-${randomString}`)
+  const fixedReference = LinkBuilder.buildValidLinkHtml(`data-source-fixed-${randomString}`)
 
   test('NC creates a data source with an empty link and a broken link', async ({ authenticatedPage }) => {
     const page = authenticatedPage

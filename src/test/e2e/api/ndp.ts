@@ -52,7 +52,7 @@ const _buildNationalDataPoint = (seed: NdpSeed): Partial<OriginalDataPoint> => {
 const removeIfExists = async (page: Page, seed: NdpSeed): Promise<void> => {
   const { countryIso, year } = seed
 
-  const query = _getQueryParams({ countryIso, year })
+  const query = _getQueryParams({ countryIso, sectionName: SectionNames.extentOfForest, year })
   await page.request.delete(`${ApiEndPoint.CycleData.NationalDataPoint.one()}?${query}`)
 }
 
