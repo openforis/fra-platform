@@ -1,6 +1,7 @@
+import { LinkBuilder } from 'test/e2e/utils/links'
+
 import { expect, test } from '../fixtures/auth'
 import { DOMUtils } from '../utils/dom'
-import { LinkFixtures } from '../utils/links'
 import { NDPDomUtils } from '../utils/ndpDom'
 import { TableDomUtils } from '../utils/table'
 import { TooltipUtils } from '../utils/tooltip'
@@ -13,14 +14,14 @@ import {
 } from './06-national-data-point.fixture'
 
 const randomString = Date.now().toString()
-const extentOfForestInvalidLinks = LinkFixtures.buildInvalidLinksHtml(`ndp-extent-of-forest-${randomString}`)
-const extentOfForestValidLink = LinkFixtures.buildValidLinkHtml(`ndp-extent-of-forest-${randomString}`)
-const forestCharacteristicsInvalidLinks = LinkFixtures.buildInvalidLinksHtml(
+const extentOfForestInvalidLinks = LinkBuilder.buildInvalidLinksHtml(`ndp-extent-of-forest-${randomString}`)
+const extentOfForestValidLink = LinkBuilder.buildValidLinkHtml(`ndp-extent-of-forest-${randomString}`)
+const forestCharacteristicsInvalidLinks = LinkBuilder.buildInvalidLinksHtml(
   `ndp-forest-characteristics-${randomString}`
 )
-const forestCharacteristicsValidLink = LinkFixtures.buildValidLinkHtml(`ndp-forest-characteristics-${randomString}`)
-const referenceInvalidLinks = LinkFixtures.buildInvalidLinksHtml(`ndp-reference-${randomString}`)
-const referenceValidLink = LinkFixtures.buildValidLinkHtml(`ndp-reference-${randomString}`)
+const forestCharacteristicsValidLink = LinkBuilder.buildValidLinkHtml(`ndp-forest-characteristics-${randomString}`)
+const referenceInvalidLinks = LinkBuilder.buildInvalidLinksHtml(`ndp-reference-${randomString}`)
+const referenceValidLink = LinkBuilder.buildValidLinkHtml(`ndp-reference-${randomString}`)
 
 test.describe.serial('National data point: ', () => {
   test('NC creates a national data point and sees it back on the table', async ({ authenticatedPage }) => {
