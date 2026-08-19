@@ -1,15 +1,8 @@
-// Values come from the env file (.env / .env.$NODE_ENV_SCRIPT — see .env.template); k6 -e flags override
+// Values are passed by run.sh as k6 -e flags (see README.md)
 const required = (name: string): string => {
   const value = __ENV[name]
-  if (!value) throw new Error(`missing env var ${name} (see the stress test section in .env.template)`)
+  if (!value) throw new Error(`missing env var ${name} (run through run.sh, or pass it as a k6 -e flag)`)
   return value
 }
 
-export const baseUrl = required('APP_URI')
-
-// TODO:
-// export const assessmentName = required('STRESS_TEST_ASSESSMENT_NAME')
-// export const cycleName = required('STRESS_TEST_CYCLE_NAME')
-// export const countries = required('STRESS_TEST_COUNTRIES').split(',')
-// export const editors = Number(required('STRESS_TEST_EDITORS'))
-// export const duration = required('STRESS_TEST_DURATION')
+export const baseUrl = required('HOST')
