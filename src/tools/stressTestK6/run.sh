@@ -8,6 +8,5 @@ if [ $# -ne 3 ]; then
   exit 1
 fi
 
-cd "$(dirname "$0")/../../.."
-
-# TODO: exec k6 run -e HOST="$1" -e STRESS_TEST_EMAIL="$2" -e STRESS_TEST_PASSWORD="$3" src/tools/stressTestK6/<stress test scenario>
+# The test script is resolved relative to this file, so run.sh works from any directory
+# TODO: exec k6 run -e HOST="$1" -e STRESS_TEST_EMAIL="$2" -e STRESS_TEST_PASSWORD="$3" "$(dirname "$0")/<stress test script>"
