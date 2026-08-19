@@ -18,7 +18,18 @@ type ExpectNavigationErrorProps = {
   sectionItemPath: string
 }
 
+const _ensureSubSectionVisible = async (page: Page, path: string): Promise<void> => {
+  const item = getNavigationSubSectionItem(page, path)
+  const itemCount = await item.count()
+  if (itemCount > 0) return
+
+  // expand all navigation
+  await page.locator('.nav-header .btn-toggle').click()
+  await item.waitFor()
+}
+
 const subSectionHasError = async (page: Page, path: string, hasError: boolean): Promise<void> => {
+  await _ensureSubSectionVisible(page, path)
   await _expectErrorIndicator(getNavigationSubSectionItem(page, path), hasError)
 }
 
