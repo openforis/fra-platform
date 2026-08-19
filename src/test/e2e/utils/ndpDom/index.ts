@@ -2,6 +2,7 @@ import { expect, Locator, Page } from '@playwright/test'
 
 import { DescriptionUtils } from '../description'
 import { DOMUtils } from '../dom'
+import { NdpPathProps, SectionUtils } from '../section'
 
 const nationalDataPointApi = '/api/cycle-data/national-data-points/national-data-point'
 
@@ -133,15 +134,20 @@ const fillNationalClassOtherPlantedForestPercent = async (
 ): Promise<void> =>
   _fillOriginalData(page, _main1bRow(page, className).locator('td.fra-table__cell input').nth(2), value)
 
+// 1b sub-tables - rendered conditionally
+const getNaturallyRegeneratingTable = (page: Page): Locator =>
+  page.locator('.fra-table.odp__sub-table-naturally-regenerating')
+
+const getPlantationTable = (page: Page): Locator => page.locator('.fra-table.odp__sub-table-plantation')
+
+const _subTableRow = (page: Page, table: Locator, className: string): Locator =>
+  table.locator('tr', { has: page.locator('.fra-table__category-cell', { hasText: className }) })
+
 // 1b naturally regenerating sub-table: primary forest%
 const fillNationalClassPrimaryForestPercent = async (page: Page, className: string, value: string): Promise<void> =>
   _fillOriginalData(
     page,
-    page
-      .locator('.fra-table.odp__sub-table')
-      .nth(0)
-      .locator('tr', { has: page.locator('.fra-table__category-cell', { hasText: className }) })
-      .locator('td.fra-table__cell input'),
+    _subTableRow(page, getNaturallyRegeneratingTable(page), className).locator('td.fra-table__cell input'),
     value
   )
 
@@ -153,11 +159,7 @@ const fillNationalClassPlantationIntroducedPercent = async (
 ): Promise<void> =>
   _fillOriginalData(
     page,
-    page
-      .locator('.fra-table.odp__sub-table')
-      .nth(1)
-      .locator('tr', { has: page.locator('.fra-table__category-cell', { hasText: className }) })
-      .locator('td.fra-table__cell input'),
+    _subTableRow(page, getPlantationTable(page), className).locator('td.fra-table__cell input'),
     value
   )
 
@@ -165,10 +167,12 @@ const doneEditing = async (page: Page): Promise<void> => {
   await page.getByRole('link', { name: 'Done editing' }).first().click()
 }
 
-const switchTab = async (page: Page, tabName: string, urlRegex: RegExp): Promise<void> => {
-  const tab = page.locator('.odp__tab-item', { hasText: tabName })
+const switchSection = async (page: Page, props: NdpPathProps): Promise<void> => {
+  const path = SectionUtils.ndpPath(props)
+
+  const tab = page.locator(`.odp__tab-item[href="${path}"]`)
   await tab.click()
-  await page.waitForURL(urlRegex)
+  await page.waitForURL(new RegExp(`${path}$`))
   await expect(tab).toHaveClass(/active/)
 }
 
@@ -189,5 +193,7 @@ export const NDPDomUtils = {
   fillYear,
   getCommentsValidationError,
   getDataSourcesV1ReferenceValidationError,
-  switchTab,
+  getNaturallyRegeneratingTable,
+  getPlantationTable,
+  switchSection,
 }

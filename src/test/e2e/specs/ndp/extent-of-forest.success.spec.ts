@@ -5,7 +5,6 @@ import { DOMUtils } from 'test/e2e/utils/dom'
 import { NavigationUtils } from 'test/e2e/utils/navigation'
 import { NDPDomUtils } from 'test/e2e/utils/ndpDom'
 import { SectionUtils } from 'test/e2e/utils/section'
-import { TableDomUtils } from 'test/e2e/utils/table'
 
 const countryIso = 'X10'
 const extentOfForestPath = SectionUtils.path({ countryIso, sectionName: SectionNames.extentOfForest })
@@ -15,7 +14,7 @@ const forestCharacteristicsPath = SectionUtils.path({
 })
 
 const seededYear = 2015
-const url1aRegex = new RegExp(`/originalDataPoints/${seededYear}/extentOfForest$`)
+const ndp1aPath = SectionUtils.ndpPath({ countryIso, sectionName: SectionNames.extentOfForest, year: seededYear })
 const className = 'Forest land'
 
 test.describe('National data point: extent of forest - success', () => {
@@ -28,9 +27,8 @@ test.describe('National data point: extent of forest - success', () => {
     const page = authenticatedPage
     expect(ndp.id).toBeTruthy()
 
-    await page.goto(extentOfForestPath)
+    await page.goto(ndp1aPath)
     await DOMUtils.ensureEditingUnlocked(page)
-    await TableDomUtils.clickOdpLink(page, String(seededYear), url1aRegex)
 
     await NDPDomUtils.createNewNationalClassification(page, className)
     await NDPDomUtils.fillNationalClassArea(page, className, '1000')
