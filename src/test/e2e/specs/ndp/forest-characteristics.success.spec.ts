@@ -43,10 +43,6 @@ test.describe('National data point: forest characteristics - success', () => {
     await page.goto(ndp1bPath)
     await DOMUtils.ensureEditingUnlocked(page)
 
-    // Valid 1a data leaves 1b in error until its percentages are filled
-    await NavigationUtils.subSectionHasError(page, extentOfForestPath, false)
-    await NavigationUtils.subSectionHasError(page, forestCharacteristicsPath, true)
-
     // Each sub-table appears conditionally when parent table value is filled
     const naturallyRegeneratingTable = NDPDomUtils.getNaturallyRegeneratingTable(page)
     const plantationTable = NDPDomUtils.getPlantationTable(page)
@@ -59,6 +55,10 @@ test.describe('National data point: forest characteristics - success', () => {
     await NDPDomUtils.fillNationalClassNaturalForestPercent(page, className, '50')
     await expect(naturallyRegeneratingTable).toBeVisible()
     await expect(plantationTable).toBeHidden()
+
+    // The 1a values stay valid, while the 1b percentages do not total 100 yet
+    await NavigationUtils.subSectionHasError(page, extentOfForestPath, false)
+    await NavigationUtils.subSectionHasError(page, forestCharacteristicsPath, true)
 
     // == Filling Plantation Forest makes Plantation table visible
     await NDPDomUtils.fillNationalClassPlantationForestPercent(page, className, '30')

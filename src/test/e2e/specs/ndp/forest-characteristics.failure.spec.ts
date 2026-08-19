@@ -76,9 +76,12 @@ test.describe('National data point: forest characteristics - failure', () => {
       const page = authenticatedPage
       expect(ndp.id).toBeTruthy()
 
+      const plantationTable = NDPDomUtils.getPlantationTable(page)
+      await expect(plantationTable).toBeVisible()
+
       await NDPDomUtils.fillNationalClassPlantationIntroducedPercent(page, className, '110')
 
-      const introducedCell = NDPDomUtils.getPlantationTable(page).locator('td.fra-table__cell.validation-error')
+      const introducedCell = plantationTable.locator('td.fra-table__cell.validation-error')
       await expect(introducedCell).toBeVisible({ timeout: 10000 })
       await TooltipUtils.expectValidationTooltip(page, introducedCell, `${className} should be not greater than 100%`)
 
@@ -98,11 +101,12 @@ test.describe('National data point: forest characteristics - failure', () => {
       const page = authenticatedPage
       expect(ndp.id).toBeTruthy()
 
+      const naturallyRegeneratingTable = NDPDomUtils.getNaturallyRegeneratingTable(page)
+      await expect(naturallyRegeneratingTable).toBeVisible()
+
       await NDPDomUtils.fillNationalClassPrimaryForestPercent(page, className, '110')
 
-      const primaryForestCell = NDPDomUtils.getNaturallyRegeneratingTable(page).locator(
-        'td.fra-table__cell.validation-error'
-      )
+      const primaryForestCell = naturallyRegeneratingTable.locator('td.fra-table__cell.validation-error')
       await expect(primaryForestCell).toBeVisible({ timeout: 10000 })
       await TooltipUtils.expectValidationTooltip(
         page,
