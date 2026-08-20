@@ -5,15 +5,11 @@ import { DOMUtils } from 'test/e2e/utils/dom'
 import { LinkBuilder } from 'test/e2e/utils/links'
 import { NDPDomUtils } from 'test/e2e/utils/ndpDom'
 import { SectionUtils } from 'test/e2e/utils/section'
-import { TableDomUtils } from 'test/e2e/utils/table'
 import { TooltipUtils } from 'test/e2e/utils/tooltip'
 
 const countryIso = 'X20'
-const extentOfForestPath = SectionUtils.path({ countryIso, sectionName: SectionNames.extentOfForest })
-
 const seededYear = 2015
-const url1aRegex = new RegExp(`/originalDataPoints/${seededYear}/extentOfForest$`)
-const url1bRegex = new RegExp(`/originalDataPoints/${seededYear}/forestCharacteristics$`)
+const ndp1aPath = SectionUtils.ndpPath({ countryIso, sectionName: SectionNames.extentOfForest, year: seededYear })
 
 const randomString = Date.now().toString()
 const extentOfForestInvalidLinks = LinkBuilder.buildInvalidLinksHtml(`ndp-extent-of-forest-${randomString}`)
@@ -29,9 +25,8 @@ test.describe('National data point: metadata - failure', () => {
     const page = authenticatedPage
     expect(ndp.id).toBeTruthy()
 
-    await page.goto(extentOfForestPath)
+    await page.goto(ndp1aPath)
     await DOMUtils.ensureEditingUnlocked(page)
-    await TableDomUtils.clickOdpLink(page, String(seededYear), url1aRegex)
 
     //  links worker flags the empty and the broken link
     // ==== 1a comments
@@ -51,7 +46,11 @@ test.describe('National data point: metadata - failure', () => {
     )
 
     // ==== 1b comments: same flagging on the forestCharacteristics link field
-    await NDPDomUtils.switchTab(page, '1b Forest characteristics', url1bRegex)
+    await NDPDomUtils.switchSection(page, {
+      countryIso,
+      sectionName: SectionNames.forestCharacteristics,
+      year: seededYear,
+    })
     await NDPDomUtils.fillComments(page, forestCharacteristicsInvalidLinks.html)
 
     const forestCharacteristicsValidationError = NDPDomUtils.getCommentsValidationError(page)
@@ -75,9 +74,8 @@ test.describe('National data point: metadata - failure', () => {
     const page = authenticatedPage
     expect(ndp.id).toBeTruthy()
 
-    await page.goto(extentOfForestPath)
+    await page.goto(ndp1aPath)
     await DOMUtils.ensureEditingUnlocked(page)
-    await TableDomUtils.clickOdpLink(page, String(seededYear), url1aRegex)
 
     await NDPDomUtils.fillDataSourcesV1Reference(page, referenceInvalidLinks.html)
 

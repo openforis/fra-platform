@@ -5,14 +5,10 @@ import { DOMUtils } from 'test/e2e/utils/dom'
 import { LinkBuilder } from 'test/e2e/utils/links'
 import { NDPDomUtils } from 'test/e2e/utils/ndpDom'
 import { SectionUtils } from 'test/e2e/utils/section'
-import { TableDomUtils } from 'test/e2e/utils/table'
 
 const countryIso = 'X15'
-const extentOfForestPath = SectionUtils.path({ countryIso, sectionName: SectionNames.extentOfForest })
-
 const seededYear = 2015
-const url1aRegex = new RegExp(`/originalDataPoints/${seededYear}/extentOfForest$`)
-const url1bRegex = new RegExp(`/originalDataPoints/${seededYear}/forestCharacteristics$`)
+const ndp1aPath = SectionUtils.ndpPath({ countryIso, sectionName: SectionNames.extentOfForest, year: seededYear })
 
 const randomString = Date.now().toString()
 const extentOfForestValidLink = LinkBuilder.buildValidLinkHtml(`ndp-extent-of-forest-${randomString}`)
@@ -26,14 +22,17 @@ test.describe('National data point: metadata - success', () => {
     const page = authenticatedPage
     expect(ndp.id).toBeTruthy()
 
-    await page.goto(extentOfForestPath)
+    await page.goto(ndp1aPath)
     await DOMUtils.ensureEditingUnlocked(page)
-    await TableDomUtils.clickOdpLink(page, String(seededYear), url1aRegex)
 
     await NDPDomUtils.fillComments(page, extentOfForestValidLink.html)
     await expect(NDPDomUtils.getCommentsValidationError(page)).not.toBeVisible({ timeout: 20000 })
 
-    await NDPDomUtils.switchTab(page, '1b Forest characteristics', url1bRegex)
+    await NDPDomUtils.switchSection(page, {
+      countryIso,
+      sectionName: SectionNames.forestCharacteristics,
+      year: seededYear,
+    })
     await NDPDomUtils.fillComments(page, forestCharacteristicsValidLink.html)
     await expect(NDPDomUtils.getCommentsValidationError(page)).not.toBeVisible({ timeout: 20000 })
   })
@@ -45,9 +44,8 @@ test.describe('National data point: metadata - success', () => {
     const page = authenticatedPage
     expect(ndp.id).toBeTruthy()
 
-    await page.goto(extentOfForestPath)
+    await page.goto(ndp1aPath)
     await DOMUtils.ensureEditingUnlocked(page)
-    await TableDomUtils.clickOdpLink(page, String(seededYear), url1aRegex)
 
     await NDPDomUtils.fillDataSourcesV1Reference(page, referenceValidLink.html)
     await expect(NDPDomUtils.getDataSourcesV1ReferenceValidationError(page)).not.toBeVisible({ timeout: 20000 })

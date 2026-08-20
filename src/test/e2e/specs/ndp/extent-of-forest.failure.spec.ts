@@ -6,7 +6,6 @@ import { DOMUtils } from 'test/e2e/utils/dom'
 import { NavigationUtils } from 'test/e2e/utils/navigation'
 import { NDPDomUtils } from 'test/e2e/utils/ndpDom'
 import { SectionUtils } from 'test/e2e/utils/section'
-import { TableDomUtils } from 'test/e2e/utils/table'
 import { TooltipUtils } from 'test/e2e/utils/tooltip'
 
 const countryIso = 'X18'
@@ -17,7 +16,7 @@ const forestCharacteristicsPath = SectionUtils.path({
 })
 
 const seededYear = 2015
-const url1aRegex = new RegExp(`/originalDataPoints/${seededYear}/extentOfForest$`)
+const ndp1aPath = SectionUtils.ndpPath({ countryIso, sectionName: SectionNames.extentOfForest, year: seededYear })
 const className = 'Forest land'
 
 const namedClassWithArea = { ...ODPNationalClassFactory.newNationalClass({ name: className }), area: '1000' }
@@ -33,9 +32,8 @@ test.describe('National data point: extent of forest - failure', () => {
       const page = authenticatedPage
       expect(ndp.id).toBeTruthy()
 
-      await page.goto(extentOfForestPath)
+      await page.goto(ndp1aPath)
       await DOMUtils.ensureEditingUnlocked(page)
-      await TableDomUtils.clickOdpLink(page, String(seededYear), url1aRegex)
 
       await NDPDomUtils.editNationalClassification(page, '')
 
@@ -56,9 +54,8 @@ test.describe('National data point: extent of forest - failure', () => {
       const page = authenticatedPage
       expect(ndp.id).toBeTruthy()
 
-      await page.goto(extentOfForestPath)
+      await page.goto(ndp1aPath)
       await DOMUtils.ensureEditingUnlocked(page)
-      await TableDomUtils.clickOdpLink(page, String(seededYear), url1aRegex)
 
       await NDPDomUtils.createNewNationalClassification(page, className)
 
@@ -82,9 +79,8 @@ test.describe('National data point: extent of forest - failure', () => {
       const page = authenticatedPage
       expect(ndp.id).toBeTruthy()
 
-      await page.goto(extentOfForestPath)
+      await page.goto(ndp1aPath)
       await DOMUtils.ensureEditingUnlocked(page)
-      await TableDomUtils.clickOdpLink(page, String(seededYear), url1aRegex)
 
       await NDPDomUtils.fillNationalClassForestPercent(page, className, '60')
       await NDPDomUtils.fillNationalClassOWLPercent(page, className, '50') // totals to 110
