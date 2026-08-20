@@ -20,13 +20,13 @@ brew install k6
 ## Usage
 
 ```bash
-./src/tools/stressTestK6/run.sh <host> <email> <password>
+./src/tools/stressTest/run.sh <host> <email> <password>
 ```
 
 Locally:
 
 ```bash
-./src/tools/stressTestK6/run.sh http://localhost:9001 test@test.com password123
+./src/tools/stressTest/run.sh http://localhost:9001 test@test.com password123
 ```
 
 The same command works against any environment: pass the environment's host and an account that can
@@ -37,7 +37,7 @@ No token or cookie file is stored. If you already have a valid `fra-auth-token` 
 login by running k6 directly:
 
 ```bash
-k6 run -e HOST=http://localhost:9001 -e TOKEN=token123 src/tools/stressTestK6/<stress test script>
+k6 run -e HOST=http://localhost:9001 -e TOKEN=token123 src/tools/stressTest/<stress test script>
 ```
 
 The tool refuses to run against the production host (`fra-data.fao.org`).

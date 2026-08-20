@@ -3,8 +3,8 @@
 set -e
 
 if [ $# -ne 3 ]; then
-  echo 'Usage: ./src/tools/stressTestK6/run.sh <host> <email> <password>' >&2
-  echo 'e.g.:  ./src/tools/stressTestK6/run.sh http://localhost:9001 test@test.com password123' >&2
+  echo 'Usage: ./src/tools/stressTest/run.sh <host> <email> <password>' >&2
+  echo 'e.g.:  ./src/tools/stressTest/run.sh http://localhost:9001 test@test.com password123' >&2
   exit 1
 fi
 

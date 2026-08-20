@@ -20,7 +20,7 @@ export default defineConfig([
       '**/dist/**',
       '**/build/**',
       'src/tools/migrations/steps/steps/template.ts',
-      'src/tools/stressTestK6/**',
+      'src/tools/stressTest/**',
     ],
   },
   js.configs.recommended,
