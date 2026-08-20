@@ -1,20 +1,15 @@
 import './ValidationErrorIndicator.scss'
 import React from 'react'
 
-import { UUID } from 'meta/uuid/uuid'
-
 import Icon from 'client/components/Icon'
 import Flex from 'client/components/Layout/Flex'
 
-import { useShow } from './hooks/useShow'
-
 type Props = {
-  target: 'section' | 'subSection'
-  uuid: UUID
+  show: boolean
 }
 
 const ValidationErrorIndicator: React.FC<Props> = (props) => {
-  const show = useShow(props)
+  const { show } = props
 
   if (!show) return null
 

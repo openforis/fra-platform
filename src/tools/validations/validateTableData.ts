@@ -29,7 +29,7 @@ export const validateTableData = async (client: BaseProtocol = DB): Promise<Arra
     const nodes = buildTablesNodes({ cycle, tables: await TableRedisRepository.getManyRecord({ assessment, cycle }) })
 
     const cycleFailures = await validateCycleCountries({ assessment, countries, cycle, toolName }, (country) =>
-      validateCountryTables({ assessment, country, cycle, nodes })
+      validateCountryTables({ assessment, country, cycle, nodes }, client)
     )
     failures.push(...cycleFailures)
   })

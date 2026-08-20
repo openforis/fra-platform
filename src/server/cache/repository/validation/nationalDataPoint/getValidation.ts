@@ -19,7 +19,7 @@ export const getValidation = async (props: Props): Promise<NDPValidation> => {
   const { assessment, countryIso, cycle, uuid } = props
 
   const redis = RedisData.getInstance()
-  const key = getKeyCountry({ assessment, countryIso, cycle, key: Keys.Data.validationNationalDataPoints })
+  const key = getKeyCountry({ assessment, countryIso, cycle, key: Keys.Validation.nationalDataPoints })
   const validation = await redis.hget(key, uuid)
 
   return _parseValidation(validation)

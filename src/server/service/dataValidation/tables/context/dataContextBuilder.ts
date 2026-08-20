@@ -81,7 +81,7 @@ export class DataContextBuilder extends BaseContextBuilder {
   }
 
   async getData(): Promise<Returned> {
-    const { assessment, country } = this.props
+    const { assessment, client, country } = this.props
     const { countryIso } = country
     let data: RecordAssessmentData = {}
 
@@ -93,13 +93,16 @@ export class DataContextBuilder extends BaseContextBuilder {
       }
 
       // Fetch the tables collected for this assessment/cycle
-      const cycleData = await getData({
-        assessment,
-        countryISOs: [countryIso],
-        cycle: tablesFetch.cycle,
-        mergeOdp: true,
-        tableNames,
-      })
+      const cycleData = await getData(
+        {
+          assessment,
+          countryISOs: [countryIso],
+          cycle: tablesFetch.cycle,
+          mergeOdp: true,
+          tableNames,
+        },
+        client
+      )
 
       data = RecordAssessmentDatas.mergeData({ newTableData: cycleData, tableData: data })
     })

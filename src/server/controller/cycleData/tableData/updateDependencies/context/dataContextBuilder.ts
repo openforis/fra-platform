@@ -66,6 +66,7 @@ export class DataContextBuilder extends BaseContextBuilder {
   }
 
   async getData(): Promise<{ assessments: RecordAssessments; data: RecordAssessmentData }> {
+    const { client } = this.props
     const { countryIso } = this.props.nodeUpdates
     let data: RecordAssessmentData = {}
 
@@ -75,7 +76,7 @@ export class DataContextBuilder extends BaseContextBuilder {
         const tableNames = Array.from(tableNamesSet)
         const countryISOs = [countryIso]
 
-        const cycleData = await getData({ assessment, cycle, countryISOs, tableNames, mergeOdp: true })
+        const cycleData = await getData({ assessment, cycle, countryISOs, tableNames, mergeOdp: true }, client)
         data = { ...data, ...cycleData }
       })
     )
