@@ -1,5 +1,7 @@
 import { expect, Locator, Page } from '@playwright/test'
 
+import { DataTestId } from 'meta/dataTestId/id'
+
 import { DescriptionUtils } from '../description'
 import { DOMUtils } from '../dom'
 import { NdpPathProps, SectionUtils } from '../section'
@@ -135,9 +137,10 @@ const fillNationalClassOtherPlantedForestPercent = async (
   _fillOriginalData(page, _main1bRow(page, className).locator('td.fra-table__cell input').nth(2), value)
 
 // 1b sub-tables - rendered conditionally
-const getNaturallyRegeneratingTable = (page: Page): Locator => page.getByTestId('ndp-sub-table-naturally-regenerating')
+const getNaturallyRegeneratingTable = (page: Page): Locator =>
+  page.getByTestId(DataTestId.ndpSubTableNaturallyRegenerating)
 
-const getPlantationTable = (page: Page): Locator => page.getByTestId('ndp-sub-table-plantation')
+const getPlantationTable = (page: Page): Locator => page.getByTestId(DataTestId.ndpSubTablePlantation)
 
 const _subTableRow = (page: Page, table: Locator, className: string): Locator =>
   table.locator('tr', { has: page.locator('.fra-table__category-cell', { hasText: className }) })

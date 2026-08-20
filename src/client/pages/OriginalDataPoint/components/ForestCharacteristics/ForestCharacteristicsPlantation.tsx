@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { ODPs } from 'meta/assessment/odps'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
+import { DataTestId } from 'meta/dataTestId/id'
 import { Numbers } from 'utils/numbers'
 
 import DiffText from 'client/components/DiffText'
@@ -53,7 +54,7 @@ const ForestCharacteristicsPlantation: React.FC<Props> = (props) => {
   return (
     <div className="fra-table__container print-break-inside-avoid">
       <div className="fra-table__scroll-wrapper">
-        <table className="fra-table odp__sub-table" data-testid="ndp-sub-table-plantation">
+        <table className="fra-table odp__sub-table" data-testid={DataTestId.ndpSubTablePlantation}>
           <thead>
             <tr>
               <th className="fra-table__header-cell-left">{t('fraForestCharacteristicsClass.plantationForest')}</th>
