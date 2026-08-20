@@ -37,15 +37,32 @@ No token or cookie file is stored. If you already have a valid `fra-auth-token` 
 login by running k6 directly:
 
 ```bash
-k6 run -e HOST=http://localhost:9001 -e TOKEN=token123 src/tools/stressTest/<stress test script>
+k6 run -e HOST=http://localhost:9001 -e TOKEN=token123 src/tools/stressTest/dataEntry/index.ts
 ```
 
 The tool refuses to run against the production host (`fra-data.fao.org`).
+
+## What the test does
+
+`dataEntry/` simulates 100 users working on X09 and X10 for 5 minutes. Each simulated user repeatedly
+picks one action, sends the same requests the web client would, then pauses 5 to 15 seconds:
+
+- 5% open the country view: `GET validations/summary`, the most expensive read in the system
+- 30% view a section: `GET table/table-data` plus `GET validations/table-data`
+- 55% edit a table cell: `PATCH table/nodes`, which runs calculations and validations inside the request
+- 10% edit a national data point: `PUT national-data-point/original-data`, the heaviest single write
+
+The users, countries and duration can be changed with k6 flags, for example
+`-e USERS=5 -e DURATION=20s -e COUNTRIES=X09`.
+
+National data points are only edited, never created, and table writes can only overwrite existing cells, so a run leaves nothing behind that needs cleaning up.
+
 
 ## Files
 
 | File | Role |
 | --- | --- |
 | `run.sh` | Entry point. Forwards host and credentials to k6 as `-e` flags |
+| `dataEntry/` | The test: simulated users editing and reading data (see above). One file per user action `index.ts` holds the setup and the user loop |
 | `auth.ts` | Logs in and returns the `fra-auth-token` cookie. Holds the `TOKEN` override and the production guard |
 | `config.ts` | Reads the `-e` values and fails fast when one is missing |

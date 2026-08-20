@@ -9,4 +9,4 @@ if [ $# -ne 3 ]; then
 fi
 
 # The test script is resolved relative to this file, so run.sh works from any directory
-# TODO: exec k6 run -e HOST="$1" -e STRESS_TEST_EMAIL="$2" -e STRESS_TEST_PASSWORD="$3" "$(dirname "$0")/<stress test script>"
+exec k6 run -e HOST="$1" -e STRESS_TEST_EMAIL="$2" -e STRESS_TEST_PASSWORD="$3" "$(dirname "$0")/dataEntry/index.ts"

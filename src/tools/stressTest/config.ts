@@ -20,3 +20,6 @@ export const password = __ENV.STRESS_TEST_PASSWORD
 export const users = Number(__ENV.USERS || 100)
 export const duration = __ENV.DURATION || '5m'
 export const countries = (__ENV.COUNTRIES || 'X09,X10').split(',') as Array<CountryIso>
+
+export const cycleParams = (countryIso: CountryIso): string =>
+  `assessmentName=${assessmentName}&cycleName=${cycleName}&countryIso=${countryIso}`
