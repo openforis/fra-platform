@@ -53,7 +53,7 @@ const ForestCharacteristicsPlantation: React.FC<Props> = (props) => {
   return (
     <div className="fra-table__container print-break-inside-avoid">
       <div className="fra-table__scroll-wrapper">
-        <table className="fra-table odp__sub-table odp__sub-table-plantation">
+        <table className="fra-table odp__sub-table" data-testid="ndp-sub-table-plantation">
           <thead>
             <tr>
               <th className="fra-table__header-cell-left">{t('fraForestCharacteristicsClass.plantationForest')}</th>
