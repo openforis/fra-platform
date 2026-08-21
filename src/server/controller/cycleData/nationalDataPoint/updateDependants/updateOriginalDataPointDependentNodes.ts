@@ -18,7 +18,7 @@ type Props = {
 }
 
 export const updateOriginalDataPointDependentNodes = async (props: Props, client: BaseProtocol): Promise<void> => {
-  const { notifyClient, originalDataPoint } = props
+  const { notifyClient = true, originalDataPoint } = props
   const { year } = originalDataPoint
   if (!year) throw new Error(`OriginalDataPoint ${originalDataPoint.id} is missing year`)
 
