@@ -24,6 +24,7 @@ const editTableCellsWeight = 55 // 55% of actions edit table cells
 // editNdp gets the remainder (10%)
 
 export const options = {
+  noVUConnectionReuse: true, // Use a fresh connection per action
   scenarios: {
     users: {
       duration,
