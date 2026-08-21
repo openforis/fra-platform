@@ -10,6 +10,7 @@ import { Sockets } from 'meta/socket/sockets'
 import { getVariables } from 'server/controller/cycleData/nationalDataPoint/getVariables'
 import { getData } from 'server/controller/cycleData/tableData/getData'
 import { SocketServer } from 'server/service/socket'
+import { Logger } from 'server/utils/logger'
 
 type Props = {
   assessment: Assessment
@@ -17,48 +18,46 @@ type Props = {
   countryIso: CountryIso
   sectionName?: string
 
-  originalDataPoints: Array<{
-    originalDataPoint: OriginalDataPoint
-    notifyClient: boolean
-  }>
+  originalDataPoints: Array<OriginalDataPoint>
 }
 
+// Errors are logged, not thrown: callers invoke this after their transaction commits,
+// so a notification failure must not fail an already-committed request.
 export const notifyClientUpdate = async (props: Props): Promise<void> => {
   const { assessment, countryIso, cycle, originalDataPoints, sectionName } = props
   const { name: assessmentName } = assessment.props
   const { name: cycleName } = cycle
 
-  const countryISOs = [countryIso]
-  const tableNames = [TableNames.extentOfForest, TableNames.forestCharacteristics]
-  const data = await getData({ assessment, cycle, countryISOs, tableNames, mergeOdp: true })
-  const originalDataPointVariables = getVariables({ cycle, sectionName })
+  try {
+    const countryISOs = [countryIso]
+    const tableNames = [TableNames.extentOfForest, TableNames.forestCharacteristics]
+    const data = await getData({ assessment, cycle, countryISOs, tableNames, mergeOdp: true })
+    const originalDataPointVariables = getVariables({ cycle, sectionName })
 
-  // send originalDataPointValue table updates to client via websocket
-  const propsEvent = { countryIso, assessmentName, cycleName }
-  const nodeUpdateEvent = Sockets.getNodeValuesUpdateEvent(propsEvent)
+    // send originalDataPointValue table updates to client via websocket
+    const propsEvent = { countryIso, assessmentName, cycleName }
+    const nodeUpdateEvent = Sockets.getNodeValuesUpdateEvent(propsEvent)
 
-  const nodesUpdated: Array<NodeUpdate> = originalDataPoints.reduce<Array<NodeUpdate>>(
-    (acc, { notifyClient, originalDataPoint }) => {
-      if (notifyClient) {
-        const colName = String(originalDataPoint.year)
-        originalDataPointVariables.forEach(({ tableName, variableName }) => {
-          const propsValue = { assessmentName, cycleName, colName, variableName, tableName, countryIso, data }
-          const value = RecordAssessmentDatas.getNodeValue(propsValue)
+    const nodesUpdated: Array<NodeUpdate> = []
+    originalDataPoints.forEach((originalDataPoint) => {
+      const colName = String(originalDataPoint.year)
+      originalDataPointVariables.forEach(({ tableName, variableName }) => {
+        const propsValue = { assessmentName, cycleName, colName, variableName, tableName, countryIso, data }
+        const value = RecordAssessmentDatas.getNodeValue(propsValue)
 
-          if (value.odpId && value.odpId !== originalDataPoint.id)
-            throw new Error(`value.odpId ${value.odpId} is different from originalDataPoint.id ${originalDataPoint.id}`)
+        if (value.odpId && value.odpId !== originalDataPoint.id)
+          throw new Error(`value.odpId ${value.odpId} is different from originalDataPoint.id ${originalDataPoint.id}`)
 
-          const nodeUpdate = { tableName: TableNames.originalDataPointValue, variableName, colName, value }
+        const nodeUpdate = { tableName: TableNames.originalDataPointValue, variableName, colName, value }
 
-          acc.push(nodeUpdate)
-        })
-      }
-      return acc
-    },
-    []
-  )
+        nodesUpdated.push(nodeUpdate)
+      })
+    })
 
-  const nodeUpdatesUpdated: NodeUpdates = { assessmentName, cycleName, countryIso, nodes: nodesUpdated }
+    const nodeUpdatesUpdated: NodeUpdates = { assessmentName, cycleName, countryIso, nodes: nodesUpdated }
 
-  SocketServer.emit(nodeUpdateEvent, { nodeUpdates: nodeUpdatesUpdated })
+    SocketServer.emit(nodeUpdateEvent, { nodeUpdates: nodeUpdatesUpdated })
+  } catch (error) {
+    Logger.error(`[notifyClientUpdate] failed to notify client of national data point update (${countryIso}): ${error}`)
+  }
 }
