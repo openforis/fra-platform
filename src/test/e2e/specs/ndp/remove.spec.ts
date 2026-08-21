@@ -9,7 +9,6 @@ const countryIso = 'X09'
 const extentOfForestPath = SectionUtils.path({ countryIso, sectionName: SectionNames.extentOfForest })
 
 const seededYear = 2015
-const seededUrlRegex = new RegExp(`/originalDataPoints/${seededYear}/extentOfForest$`)
 
 test.describe('National data point: remove', () => {
   test.use({ ndpSeeds: [{ countryIso, nationalClasses: [], year: seededYear }] })
@@ -20,7 +19,11 @@ test.describe('National data point: remove', () => {
 
     await page.goto(extentOfForestPath)
     await DOMUtils.ensureEditingUnlocked(page)
-    await TableDomUtils.clickOdpLink(page, String(seededYear), seededUrlRegex)
+    await TableDomUtils.clickOdpLink(page, {
+      countryIso,
+      sectionName: SectionNames.extentOfForest,
+      year: seededYear,
+    })
 
     page.once('dialog', (dialog) => dialog.accept())
     await page.getByRole('button', { name: 'Delete' }).first().click()

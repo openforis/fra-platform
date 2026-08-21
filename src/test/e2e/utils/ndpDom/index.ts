@@ -174,7 +174,7 @@ const switchSection = async (page: Page, props: NdpPathProps): Promise<void> => 
 
   const tab = page.locator(`.odp__tab-item[href="${path}"]`)
   await tab.click()
-  await page.waitForURL(new RegExp(`${path}$`))
+  await page.waitForURL(path)
   await expect(tab).toHaveClass(/active/)
 }
 

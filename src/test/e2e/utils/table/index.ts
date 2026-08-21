@@ -1,6 +1,7 @@
 import { expect, Locator, Page } from '@playwright/test'
 
 import { DOMUtils } from '../dom'
+import { NdpPathProps, SectionUtils } from '../section'
 
 const cellLocator = (page: Page, variableName: string, colName: string): Locator =>
   page.locator(`[id$="variableName_${variableName}_colName_${colName}"]`)
@@ -17,6 +18,21 @@ const expectCellValue = async (page: Page, variableName: string, colName: string
   await expect(async () => {
     expect(await getCellValue(page, variableName, colName)).toBe(value)
   }).toPass({ timeout: 10000 })
+}
+
+// A NDP column only exists while there is NDP for that year
+const expectCellMissing = async (page: Page, variableName: string, colName: string): Promise<void> => {
+  await expect(cellLocator(page, variableName, colName)).toHaveCount(0, { timeout: 10000 })
+}
+
+const expectCellReadOnly = async (page: Page, variableName: string, colName: string): Promise<void> => {
+  await expect(cellLocator(page, variableName, colName).locator('.input-text.disabled')).toBeVisible({
+    timeout: 10000,
+  })
+}
+
+const expectCellEditable = async (page: Page, variableName: string, colName: string): Promise<void> => {
+  await expect(cellLocator(page, variableName, colName).locator('input')).toBeEnabled({ timeout: 10000 })
 }
 
 const expectCellHasValidationError = async (page: Page, variableName: string, colName: string): Promise<void> => {
@@ -55,9 +71,11 @@ const expectTableHasNoError = async (page: Page, tableName: string): Promise<voi
   await expect(tableValidationErrors(page, tableName)).toHaveCount(0)
 }
 
-const clickOdpLink = async (page: Page, year: string, urlRegex: RegExp): Promise<void> => {
-  await page.locator('.table-grid__odp-link', { hasText: year }).click()
-  await page.waitForURL(urlRegex)
+const clickOdpLink = async (page: Page, props: NdpPathProps): Promise<void> => {
+  const path = SectionUtils.ndpPath(props)
+
+  await page.locator('.table-grid__odp-link', { hasText: String(props.year) }).click()
+  await page.waitForURL(path)
   await page.locator('.odp__tab-controller .odp__tab-item.active').waitFor()
 }
 
@@ -66,6 +84,9 @@ export const TableDomUtils = {
   clickOdpLink,
   expectCellHasNoValidationError,
   expectCellHasValidationError,
+  expectCellEditable,
+  expectCellMissing,
+  expectCellReadOnly,
   expectCellValue,
   expectTableHasError,
   expectTableHasNoError,

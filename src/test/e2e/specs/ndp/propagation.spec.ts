@@ -12,6 +12,10 @@ const forestCharacteristicsPath = SectionUtils.path({ countryIso, sectionName: S
 
 // Choose year outside of FRA year to test column is added correctly
 const seededYear = 2013
+// FRA year 2025 gets overridden by NDP data
+const overriddenYear = 2025
+// FRA Year 2020 stays editable when no NDP data
+const editableYear = 2020
 const className = 'Forest land'
 
 const nationalClass = {
@@ -100,5 +104,75 @@ test.describe('National data point: propagation', () => {
     await TableDomUtils.expectCellValue(page, 'otherPlantedForestArea', year, expectedOtherPlantedForestArea)
     await TableDomUtils.expectCellValue(page, 'plantedForest', year, expectedPlantedForest)
     await TableDomUtils.expectCellValue(page, 'totalForestArea', year, expectedTotalForestArea)
+  })
+
+  test('NC cannot edit table cells that come from a national data point', async ({ authenticatedPage, ndp }) => {
+    const page = authenticatedPage
+    expect(ndp.id).toBeTruthy()
+
+    await page.goto(extentOfForestPath)
+    await DOMUtils.ensureEditingUnlocked(page)
+
+    const year = String(seededYear)
+
+    await TableDomUtils.expectCellReadOnly(page, 'forestArea', year)
+    await TableDomUtils.expectCellReadOnly(page, 'otherWoodedLand', year)
+
+    await TableDomUtils.expectCellEditable(page, 'forestArea', String(editableYear))
+  })
+
+  test('NC deletes the national data point and its column disappears from sections 1a and 1b', async ({
+    authenticatedPage,
+    ndp,
+  }) => {
+    const page = authenticatedPage
+    expect(ndp.id).toBeTruthy()
+
+    await page.goto(extentOfForestPath)
+    await DOMUtils.ensureEditingUnlocked(page)
+
+    const year = String(seededYear)
+    await TableDomUtils.expectCellValue(page, 'forestArea', year, expectedForestArea)
+
+    await TableDomUtils.clickOdpLink(page, {
+      countryIso,
+      sectionName: SectionNames.extentOfForest,
+      year: seededYear,
+    })
+
+    page.once('dialog', (dialog) => dialog.accept())
+    await page.getByRole('button', { name: 'Delete' }).first().click()
+    await expect(page).toHaveURL(/\/sections\/extentOfForest$/)
+
+    // == Expect 1a gone
+    await expect(page.locator('.table-grid__odp-link', { hasText: year })).toHaveCount(0, { timeout: 10000 })
+    await TableDomUtils.expectCellMissing(page, 'forestArea', year)
+
+    // == Expect 1b gone
+    await page.goto(forestCharacteristicsPath)
+    await expect(page.locator('.table-grid__odp-link', { hasText: year })).toHaveCount(0, { timeout: 10000 })
+    await TableDomUtils.expectCellMissing(page, 'naturalForestArea', year)
+  })
+
+  test.describe('year matching an existing column', () => {
+    test.use({ ndpSeeds: [{ countryIso, nationalClasses: [nationalClass], year: overriddenYear }] })
+
+    test('NC sees the national data point take overwrite and make it read only', async ({ authenticatedPage, ndp }) => {
+      const page = authenticatedPage
+      expect(ndp.id).toBeTruthy()
+
+      await page.goto(extentOfForestPath)
+      await DOMUtils.ensureEditingUnlocked(page)
+
+      const year = String(overriddenYear)
+
+      // No column is added, the existing one becomes the national data point column
+      await expect(page.locator('.table-grid__odp-link', { hasText: year })).toBeVisible({ timeout: 10000 })
+      await expect(page.locator(`[id$="variableName_forestArea_colName_${year}"]`)).toHaveCount(1)
+
+      await TableDomUtils.expectCellValue(page, 'forestArea', year, expectedForestArea)
+      await TableDomUtils.expectCellReadOnly(page, 'forestArea', year)
+      await TableDomUtils.expectCellReadOnly(page, 'otherWoodedLand', year)
+    })
   })
 })
