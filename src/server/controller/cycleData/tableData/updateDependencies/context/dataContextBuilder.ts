@@ -34,13 +34,14 @@ export class DataContextBuilder extends BaseContextBuilder {
 
   async #addDependency(variable: VariableCache): Promise<void> {
     const { tableName } = variable
+    const { client } = this.props
 
     const assessmentName = variable.assessmentName ?? this.props.assessment.props.name
     const cycleName = variable.cycleName ?? this.props.cycle.name
 
     // External dependents update might reference an assessment different to the context one
     if (!this.#assessments[assessmentName]) {
-      this.#assessments[assessmentName] = await AssessmentController.getOne({ assessmentName, metaCache: true })
+      this.#assessments[assessmentName] = await AssessmentController.getOne({ assessmentName, metaCache: true }, client)
     }
 
     if (!this.#tables[assessmentName]?.[cycleName]) {
