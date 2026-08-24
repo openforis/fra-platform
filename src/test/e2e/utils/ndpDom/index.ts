@@ -178,6 +178,13 @@ const switchSection = async (page: Page, props: NdpPathProps): Promise<void> => 
   await expect(tab).toHaveClass(/active/)
 }
 
+// Toggle ndp usage in section 1b
+const clickToggleNDPUsage = async (page: Page): Promise<void> => {
+  const saved = DOMUtils.waitForResponse(page, '/area/country/prop', 'PATCH')
+  await page.getByRole('button', { name: /Don.t use national data points|Use national data points/i }).click()
+  await saved
+}
+
 export const NDPDomUtils = {
   createNewNationalClassification,
   doneEditing,
@@ -195,6 +202,7 @@ export const NDPDomUtils = {
   fillYear,
   getCommentsValidationError,
   getDataSourcesV1ReferenceValidationError,
+  clickToggleNDPUsage,
   getNaturallyRegeneratingTable,
   getPlantationTable,
   switchSection,
