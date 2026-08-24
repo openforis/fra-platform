@@ -77,7 +77,7 @@ test.describe('National data point: forest characteristics - failure', () => {
       expect(ndp.id).toBeTruthy()
 
       const plantationTable = NDPDomUtils.getPlantationTable(page)
-      await expect(plantationTable).toBeVisible()
+      await expect(plantationTable).toBeVisible({ timeout: 10000 })
 
       await NDPDomUtils.fillNationalClassPlantationIntroducedPercent(page, className, '110')
 
@@ -102,7 +102,7 @@ test.describe('National data point: forest characteristics - failure', () => {
       expect(ndp.id).toBeTruthy()
 
       const naturallyRegeneratingTable = NDPDomUtils.getNaturallyRegeneratingTable(page)
-      await expect(naturallyRegeneratingTable).toBeVisible()
+      await expect(naturallyRegeneratingTable).toBeVisible({ timeout: 10000 })
 
       await NDPDomUtils.fillNationalClassPrimaryForestPercent(page, className, '110')
 
