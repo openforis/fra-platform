@@ -16,6 +16,7 @@ import { DataValidationService } from 'server/service/dataValidation'
 import { LinksService } from 'server/service/links'
 import { SocketServer } from 'server/service/socket'
 
+import { notifyClientUpdate } from './updateDependants/notifyClientUpdate'
 import { updateOriginalDataPointsDependentNodes } from './updateDependants/updateOriginalDataPointsDependentNodes'
 
 type Props = {
@@ -57,10 +58,7 @@ export const updateYear = async (props: Props, client: BaseProtocol = DB): Promi
 
     // --- 4 Update dependents
     const commonProps = { assessment, cycle, user }
-    const originalDataPoints = [
-      { originalDataPoint, notifyClient: false },
-      { originalDataPoint: updatedOriginalDataPoint, notifyClient: true },
-    ]
+    const originalDataPoints = [originalDataPoint, updatedOriginalDataPoint]
     await updateOriginalDataPointsDependentNodes({ ...commonProps, country, originalDataPoints }, t)
 
     // 5 --- Notify about reserved years
@@ -69,6 +67,13 @@ export const updateYear = async (props: Props, client: BaseProtocol = DB): Promi
     SocketServer.emit(odpReservedYearsEvent, { years })
 
     return updatedOriginalDataPoint
+  })
+
+  await notifyClientUpdate({
+    assessment,
+    cycle,
+    countryIso,
+    originalDataPoints: [updatedNationalDataPoint],
   })
 
   await DataValidationService.validateNDPYear({
