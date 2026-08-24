@@ -58,6 +58,11 @@ export const notifyClientUpdate = async (props: Props): Promise<void> => {
 
     SocketServer.emit(nodeUpdateEvent, { nodeUpdates: nodeUpdatesUpdated })
   } catch (error) {
-    Logger.error(`[notifyClientUpdate] failed to notify client of national data point update (${countryIso}): ${error}`)
+    const originalDataPointDetails = originalDataPoints
+      .map(({ uuid, year }) => `uuid: ${uuid}, year: ${year}`)
+      .join('; ')
+    Logger.error(
+      `[notifyClientUpdate] failed to notify client of national data point update (${countryIso}; ${originalDataPointDetails}): ${error}`
+    )
   }
 }
