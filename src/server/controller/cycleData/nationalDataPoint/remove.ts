@@ -71,7 +71,6 @@ export const remove = async (props: Props, client: BaseProtocol = DB): Promise<O
         country,
         originalDataPoint,
         user,
-        notifyClient: false,
       },
       t
     )
