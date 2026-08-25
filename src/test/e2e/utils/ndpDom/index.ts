@@ -44,6 +44,19 @@ const fillDataSourcesV1Reference = async (page: Page, html: string): Promise<voi
 const getDataSourcesV1ReferenceValidationError = (page: Page): Locator =>
   page.locator('.editorWYSIWYG.editor-wysiwyg-links.validation-error')
 
+const fillDataSourcesV1MethodsUsed = async (page: Page, methodLabel: string): Promise<void> => {
+  const saved = DOMUtils.waitForResponse(page, `${nationalDataPointApi}/data-sources`, 'PUT')
+  await page.getByTestId(DataTestId.ndpDataSourcesV1MethodsUsed).locator('.select__wrapper').click()
+  await page.getByRole('option', { name: methodLabel }).click()
+  await saved
+}
+
+const fillDataSourcesV1AdditionalComments = async (page: Page, text: string): Promise<void> => {
+  const saved = DOMUtils.waitForResponse(page, `${nationalDataPointApi}/data-sources`, 'PUT')
+  await page.getByTestId(DataTestId.ndpDataSourcesV1AdditionalComments).locator('textarea').fill(text)
+  await saved
+}
+
 // Comments of the active ODP tab (1a extentOfForest / 1b forestCharacteristics)
 const fillComments = async (page: Page, html: string): Promise<void> => {
   const commentsBlock = _commentsBlock(page)
@@ -190,6 +203,8 @@ export const NDPDomUtils = {
   doneEditing,
   editNationalClassification,
   fillComments,
+  fillDataSourcesV1AdditionalComments,
+  fillDataSourcesV1MethodsUsed,
   fillDataSourcesV1Reference,
   fillNationalClassArea,
   fillNationalClassForestPercent,
