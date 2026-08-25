@@ -4,8 +4,8 @@ import http from 'k6/http'
 import type { NodesBody } from '../../../meta/api/request/cycleData/table'
 import type { CountryIso } from '../../../meta/area/countryIso'
 import { baseUrl, cycleParams } from '../config.ts'
+import { randomInt } from '../random.ts'
 import { cells } from './cells.ts'
-import { randomInt } from './random.ts'
 
 export const editTableCells = (headers: Record<string, string>, countryIso: CountryIso): void => {
   const cell = cells[randomInt(0, cells.length - 1)]

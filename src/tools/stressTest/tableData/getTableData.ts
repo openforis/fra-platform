@@ -3,10 +3,10 @@ import http from 'k6/http'
 
 import type { CountryIso } from '../../../meta/area/countryIso'
 import { baseUrl, cycleParams } from '../config.ts'
+import { randomInt } from '../random.ts'
 import { cells } from './cells.ts'
-import { randomInt } from './random.ts'
 
-// Gets the table data and its validations, like the UI does.
+// Reads back the data being written, and its validations
 export const getTableData = (headers: Record<string, string>, countryIso: CountryIso): void => {
   const cell = cells[randomInt(0, cells.length - 1)]
   const params = `${cycleParams(countryIso)}&sectionName=${cell.sectionName}&tableNames[]=${cell.tableName}`

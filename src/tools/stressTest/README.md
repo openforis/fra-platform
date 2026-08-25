@@ -1,7 +1,8 @@
 # Stress test (k6)
 
-Stress tests for data entry on the FRA platform API. We simulate many editors writing data at the same
-time, which also triggers the validations that run on every edit.
+Stress tests for data entry on the FRA platform API, one test per case. We simulate many editors writing
+data at the same time, which also triggers the validations that run on every edit, while a canary reads
+the same data back at a fixed rate.
 
 The scripts in this folder are run by [k6](https://k6.io), not Node. This means:
 
@@ -20,13 +21,14 @@ brew install k6
 ## Usage
 
 ```bash
-./src/tools/stressTest/run.sh <host> <email> <password>
+./src/tools/stressTest/run.sh <host> <email> <password> [test]
 ```
 
-Locally:
+`test` is `tableData` (default) or `ndp`. Locally:
 
 ```bash
 ./src/tools/stressTest/run.sh http://localhost:9001 test@test.com password123
+./src/tools/stressTest/run.sh http://localhost:9001 test@test.com password123 ndp
 ```
 
 The same command works against any environment: pass the environment's host and an account that can
@@ -37,32 +39,40 @@ No token or cookie file is stored. If you already have a valid `fra-auth-token` 
 login by running k6 directly:
 
 ```bash
-k6 run -e HOST=http://localhost:9001 -e TOKEN=token123 src/tools/stressTest/dataEntry/index.ts
+k6 run -e HOST=http://localhost:9001 -e TOKEN=token123 src/tools/stressTest/tableData/index.ts
 ```
 
 The tool refuses to run against the production host (`fra-data.fao.org`).
 
-## What the test does
+## What the tests do
 
-`dataEntry/` simulates 100 users working on X09 and X10 for 5 minutes. Each simulated user repeatedly
-picks one action, sends the same requests the web client would, then pauses 5 to 15 seconds:
+Each test runs two scenarios at the same time, for 5 minutes on X09 and X10 by default:
 
-- 5% open the country view: `GET validations/summary`, the most expensive read in the system
-- 30% view a section: `GET table/table-data` plus `GET validations/table-data`
-- 55% edit a table cell: `PATCH table/nodes`, which runs calculations and validations inside the request
-- 10% edit a national data point: `PUT national-data-point/original-data`, the heaviest single write
+- writers: 100 simulated users repeatedly edit, pausing 5 to 15 seconds between edits like a person would.
+- canary: 2 requests per second read the same data back with its validations.
+
+`tableData/` edits table cells (`PATCH table/nodes`, which runs calculations and validations inside the
+request); the canary reads `table/table-data` and `validations/table-data`. Table writes can only
+overwrite existing cells.
+
+`ndp/` edits existing national data points (`PUT national-data-point/original-data`, the heaviest single
+write); the canary reads the same NDP back and `validations/national-data-points`. NDPs are only edited,
+never created.
+
+Neither test creates data, so a run leaves nothing behind that needs cleaning up.
 
 The users, countries and duration can be changed with k6 flags, for example
 `-e USERS=5 -e DURATION=20s -e COUNTRIES=X09`.
 
-National data points are only edited, never created, and table writes can only overwrite existing cells, so a run leaves nothing behind that needs cleaning up.
 
 
 ## Files
 
 | File | Role |
 | --- | --- |
-| `run.sh` | Entry point. Forwards host and credentials to k6 as `-e` flags |
-| `dataEntry/` | The test: simulated users editing and reading data (see above). One file per user action `index.ts` holds the setup and the user loop |
+| `run.sh` | Entry point. Forwards host and credentials to k6 as `-e` flags and picks the test |
+| `tableData/` | Table cell edits plus the read canary (see above). One file per action, `index.ts` holds the scenarios |
+| `ndp/` | National data point edits plus the read canary (see above). Same layout |
 | `auth.ts` | Logs in and returns the `fra-auth-token` cookie. Holds the `TOKEN` override and the production guard |
 | `config.ts` | Reads the `-e` values and fails fast when one is missing |
+| `random.ts` | `randomInt`, shared by the tests |

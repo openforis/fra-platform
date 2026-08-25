@@ -4,9 +4,9 @@ import http from 'k6/http'
 import type { CountryIso } from '../../../meta/area/countryIso'
 import type { OriginalDataPoint } from '../../../meta/assessment/originalDataPoint'
 import { baseUrl, cycleParams } from '../config.ts'
-import { randomInt } from './random.ts'
+import { randomInt } from '../random.ts'
 
-// Edits an existing national data point (never creates one, so a run leaves nothing behind).
+// Edits an existing national data point (never creates one, so a run leaves nothing behind)
 export const editNdp = (
   headers: Record<string, string>,
   countryIso: CountryIso,
