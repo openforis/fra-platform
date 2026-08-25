@@ -11,6 +11,7 @@ import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 import { CountryService } from 'server/service/country'
 import { DataValidationService } from 'server/service/dataValidation'
 
+import { notifyClientUpdate } from './updateDependants/notifyClientUpdate'
 import { updateOriginalDataPointDependentNodes } from './updateDependants/updateOriginalDataPointDependentNodes'
 
 type Props = {
@@ -58,6 +59,14 @@ export const updateOriginalData = async (props: Props, client: BaseProtocol = DB
     )
 
     return updatedOriginalDataPoint
+  })
+
+  await notifyClientUpdate({
+    assessment,
+    cycle,
+    countryIso,
+    sectionName,
+    originalDataPoints: [updatedNationalDataPoint],
   })
 
   await DataValidationService.validateNDPNationalClasses({
