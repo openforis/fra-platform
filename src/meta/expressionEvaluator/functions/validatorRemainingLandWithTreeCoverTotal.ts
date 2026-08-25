@@ -11,11 +11,14 @@ export const validatorRemainingLandWithTreeCoverTotal: ExpressionFunction<Contex
   name: ValidatorName.remainingLandWithTreeCoverTotal,
   minArity: 2,
   executor: () => {
-    return (remainingLand?: string, otherLandWithTreeCoverTotal?: string): NodeValueValidation => {
+    return (categoryValues?: Array<string>, remainingLand?: string): NodeValueValidation => {
+      const reportedValues = categoryValues?.filter((value) => !Objects.isEmpty(value)) ?? []
+
+      // a year with nothing reported in 1e is valid regardless of what 1a contains
       const valid =
+        reportedValues.length === 0 ||
         Objects.isEmpty(remainingLand) ||
-        Objects.isEmpty(otherLandWithTreeCoverTotal) ||
-        Numbers.greaterThanWithTolerance(otherLandWithTreeCoverTotal, remainingLand)
+        Numbers.greaterThanWithTolerance(remainingLand, Numbers.sum(reportedValues))
 
       const messages: Array<NodeValueValidationMessage> = valid
         ? undefined
