@@ -3,8 +3,8 @@ import { Locator, Page } from '@playwright/test'
 import { expect, test } from '../fixtures/auth'
 import { DescriptionUtils } from '../utils/description'
 import { DOMUtils } from '../utils/dom'
-import { LinkFixtures } from '../utils/links'
-import { TextFixtures } from '../utils/text'
+import { LinkBuilder } from '../utils/links'
+import { TextBuilder } from '../utils/text'
 import { TooltipUtils } from '../utils/tooltip'
 import { commentsSectionPath } from './07-section-descriptions.fixture'
 
@@ -18,7 +18,7 @@ const commentsToggleEditButton = (page: Page, name: 'Done' | 'Edit'): Locator =>
   DescriptionUtils.getDescriptionToggleEditButton(page, commentsTitle, name)
 
 test.describe.serial('Section descriptions: comments', () => {
-  const commentLines = TextFixtures.multiLine(randomString)
+  const commentLines = TextBuilder.multiLine(randomString)
 
   test('NC edits the comments', async ({ authenticatedPage }) => {
     const page = authenticatedPage
@@ -39,7 +39,7 @@ test.describe.serial('Section descriptions: comments', () => {
 })
 
 test.describe.serial('Section descriptions: comments - invalid links', () => {
-  const commentsInvalidLinks = LinkFixtures.buildInvalidLinksHtml(`comments-${randomString}`)
+  const commentsInvalidLinks = LinkBuilder.buildInvalidLinksHtml(`comments-${randomString}`)
 
   test('NC enters an empty link and a broken link, sees both validation errors', async ({ authenticatedPage }) => {
     const page = authenticatedPage

@@ -28,7 +28,7 @@ const buildValidLinkHtml = (label: string): ValidLinkFixture => {
   return { html: `<a href="https://example.com">${text}</a>`, text }
 }
 
-export const LinkFixtures = {
+export const LinkBuilder = {
   buildInvalidLinksHtml,
   buildValidLinkHtml,
 }
