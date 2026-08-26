@@ -6,8 +6,10 @@ import { sleep } from 'k6'
 import { getToken } from '../auth.ts'
 import { countries, duration, users } from '../config.ts'
 import { randomInt } from '../random.ts'
+import { cells } from './cells.ts'
 import { editTableCells } from './editTableCells.ts'
 import { getTableData } from './getTableData.ts'
+import { getTableValidations } from './getTableValidations.ts'
 
 const pauseMinSeconds = 5
 const pauseMaxSeconds = 15
@@ -47,8 +49,11 @@ export const write = (data: { token: string }): void => {
   sleep(randomInt(pauseMinSeconds, pauseMaxSeconds))
 }
 
+// Reads back the data being written, and its validations
 export const read = (data: { token: string }): void => {
   const headers = { Cookie: `fra-auth-token=${data.token}` }
   const countryIso = countries[randomInt(0, countries.length - 1)]
-  getTableData(headers, countryIso)
+  const cell = cells[randomInt(0, cells.length - 1)]
+  getTableData(headers, countryIso, cell)
+  getTableValidations(headers, countryIso, cell)
 }

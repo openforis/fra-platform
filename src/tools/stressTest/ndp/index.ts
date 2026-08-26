@@ -10,6 +10,7 @@ import { baseUrl, countries, cycleParams, duration, users } from '../config.ts'
 import { randomInt } from '../random.ts'
 import { editNdp } from './editNdp.ts'
 import { getNdp } from './getNdp.ts'
+import { getNdpValidations } from './getNdpValidations.ts'
 
 const pauseMinSeconds = 5
 const pauseMaxSeconds = 15
@@ -67,8 +68,12 @@ export const write = (data: SetupData): void => {
   sleep(randomInt(pauseMinSeconds, pauseMaxSeconds))
 }
 
+// Reads back one of the NDPs being written, and the country's NDP validations
 export const read = (data: SetupData): void => {
   const headers = { Cookie: `fra-auth-token=${data.token}` }
   const countryIso = countries[randomInt(0, countries.length - 1)]
-  getNdp(headers, countryIso, data.ndpsByCountry[countryIso])
+  const ndps = data.ndpsByCountry[countryIso]
+  const ndp = ndps[randomInt(0, ndps.length - 1)]
+  getNdp(headers, countryIso, ndp)
+  getNdpValidations(headers, countryIso)
 }
