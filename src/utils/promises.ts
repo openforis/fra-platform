@@ -14,12 +14,6 @@ const handleNext =
   }
 
 /**
- * Transforms the generator passed as input parameter to a Promise that gets resolved when the generator finishes.
- * A useful application is when an array of promises must be resolved in order.
- */
-export const resolveGenerator = handleNext([])
-
-/**
  * Given an Array, iterates serially over all the values in it, executing the given callback on each element.
  * If the callback returns a Promise, it is awaited before continuing to the next iteration.
  */
@@ -28,7 +22,7 @@ const each = async <Item, Result = unknown>(
   callback: (item: Item, index: number) => Result | Promise<Result>,
   stopIfFn?: (item: Item) => boolean
 ): Promise<Array<Result>> => {
-  function* generator() {
+  function* generator(): Generator<Result | Promise<Result>, void, unknown> {
     for (let i = 0; i < iterable.length; i += 1) {
       const item = iterable[i]
       if (stopIfFn && stopIfFn(item)) {
@@ -38,7 +32,7 @@ const each = async <Item, Result = unknown>(
     }
   }
 
-  return resolveGenerator(generator())
+  return handleNext<Result>([])(generator())
 }
 
 export const Promises = {
