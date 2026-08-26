@@ -99,6 +99,8 @@ const editNationalClassification = async (page: Page, name: string): Promise<voi
 }
 
 const _fillOriginalData = async (page: Page, input: Locator, value: string): Promise<void> => {
+  await input.fill('')
+
   const saved = DOMUtils.waitForResponse(page, `${nationalDataPointApi}/original-data`, 'PUT')
   await input.fill(value)
   await input.press('Tab')
