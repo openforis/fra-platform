@@ -14,14 +14,13 @@ type Props = {
   sectionName?: string
   originalDataPoint: OriginalDataPoint
   user: User
-  notifyClient?: boolean
 }
 
 export const updateOriginalDataPointDependentNodes = async (props: Props, client: BaseProtocol): Promise<void> => {
-  const { notifyClient, originalDataPoint } = props
+  const { originalDataPoint } = props
   const { year } = originalDataPoint
   if (!year) throw new Error(`OriginalDataPoint ${originalDataPoint.id} is missing year`)
 
-  const originalDataPoints = [{ originalDataPoint, notifyClient }]
+  const originalDataPoints = [originalDataPoint]
   await updateOriginalDataPointsDependentNodes({ ...props, originalDataPoints }, client)
 }

@@ -130,13 +130,13 @@ export class ContextFactory extends BaseContextBuilder {
   }
 
   async #createContext(): Promise<Context> {
-    const { assessment, country, cycle } = this.props
+    const { assessment, client, country, cycle } = this.props
     const { countryIso } = country
     const queue = this.#queue
     const visitedVariables = this.#visitedVariables
     const externalDependants = this.#externalDependants
     const { assessments, data } = await this.#dataContextBuilder.getData()
-    const rows = await RowRedisRepository.getRows({ assessment, rowKeys: Array.from(this.#rowKeys) })
+    const rows = await RowRedisRepository.getRows({ assessment, rowKeys: Array.from(this.#rowKeys) }, client)
 
     const pr = { assessments, assessment, cycle, countryIso, data, queue, rows, visitedVariables, externalDependants }
     return new Context(pr)
