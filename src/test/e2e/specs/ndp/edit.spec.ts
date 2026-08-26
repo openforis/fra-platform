@@ -46,4 +46,40 @@ test.describe('National data point: edit', () => {
     await TableDomUtils.expectCellValue(page, 'forestArea', year, '')
     await TableDomUtils.expectCellReadOnly(page, 'forestArea', year)
   })
+
+  test('NC edits a complete national data point with multiple national classes', async ({
+    authenticatedPage,
+    ndps,
+  }) => {
+    const page = authenticatedPage
+    const [fullNdp] = ndps
+    expect(fullNdp.id).toBeTruthy()
+
+    const editedYearNdpPath = SectionUtils.ndpPath({
+      countryIso,
+      sectionName: SectionNames.extentOfForest,
+      year: fullYear,
+    })
+    await page.goto(editedYearNdpPath)
+    await DOMUtils.ensureEditingUnlocked(page)
+
+    // comments
+    await NDPDomUtils.fillDataSourcesV1Reference(page, NdpData.getDefaultDataSourcesV1Reference())
+    await NDPDomUtils.fillDataSourcesV1MethodsUsed(page, NdpData.getDefaultDataSourcesV1Method())
+    await NDPDomUtils.fillDataSourcesV1AdditionalComments(page, NdpData.getDefaultDataSourcesV1Comments())
+    await NDPDomUtils.fillComments(page, NdpData.getDefaultComments())
+
+    // data
+    await NDPDomUtils.fillNationalClassArea(page, 'Forest', '30000')
+    await NDPDomUtils.fillNationalClassArea(page, 'Other wooded land', '1000')
+    await NDPDomUtils.fillNationalClassForestPercent(page, 'Other land', '50')
+    await NDPDomUtils.fillNationalClassOWLPercent(page, 'Other land', '20')
+
+    await page.goto(extentOfForestPath)
+    await DOMUtils.ensureEditingUnlocked(page)
+
+    const year = String(fullYear)
+    await TableDomUtils.expectCellValue(page, 'forestArea', year, '33549.50')
+    await TableDomUtils.expectCellValue(page, 'otherWoodedLand', year, '2419.80')
+  })
 })
