@@ -16,6 +16,9 @@ type NdpFixtures = {
 export const test = base.extend<NdpOptions & NdpFixtures>({
   ndpSeeds: [[], { option: true }],
 
+  // Values of type Arrays for ndpSeeds need to be passed as a [value, { scope: 'test'}] tuple
+  // Playwright will keep only the first element of an array
+  // For more information, see Playwrights docs: Array as an option value
   ndps: async ({ authenticatedPage, ndpSeeds }, use) => {
     // Create NDPs for test
     const created: Array<OriginalDataPoint> = await Promises.each(ndpSeeds, (seed) =>
