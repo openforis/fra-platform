@@ -11,8 +11,6 @@ const assessmentName = AssessmentNames.fra
 const tableName = TableNames.otherLandWithTreeCover
 const variableNames = ['palms', 'tree_orchards', 'agroforestry', 'trees_in_urban_settings', 'other']
 
-const oldValidateFn =
-  'validatorRemainingLandWithTreeCoverTotal((otherLandWithTreeCover.palms || 0) + (otherLandWithTreeCover.tree_orchards || 0) + (otherLandWithTreeCover.agroforestry || 0) + (otherLandWithTreeCover.trees_in_urban_settings || 0) + (otherLandWithTreeCover.other || 0), extentOfForest.otherLand)'
 // pass the raw category values so the validator can tell whether the year has any reported data
 const newValidateFn =
   'validatorRemainingLandWithTreeCoverTotal([otherLandWithTreeCover.palms, otherLandWithTreeCover.tree_orchards, otherLandWithTreeCover.agroforestry, otherLandWithTreeCover.trees_in_urban_settings, otherLandWithTreeCover.other], extentOfForest.otherLand)'
@@ -29,16 +27,15 @@ export default async (client: BaseProtocol): Promise<void> => {
         set props = jsonb_set(
           r.props,
           array['validateFns', $(cycleUuid)],
-          ((r.props -> 'validateFns' -> $(cycleUuid)) - $(oldValidateFn)) || to_jsonb(array[$(newValidateFn)])
+          to_jsonb(array[$(newValidateFn)])
         )
         from ${schemaName}.table t
         where r.table_uuid = t.uuid
           and t.props ->> 'name' = $(tableName)
           and r.props ->> 'variableName' in ($(variableNames:csv))
-          -- replace only rows with the legacy formula for this cycle
-          and r.props -> 'validateFns' -> $(cycleUuid) @> to_jsonb(array[$(oldValidateFn)])
+          and r.props -> 'validateFns' ? $(cycleUuid)
         `,
-        { cycleUuid: cycle.uuid, newValidateFn, oldValidateFn, tableName, variableNames },
+        { cycleUuid: cycle.uuid, newValidateFn, tableName, variableNames },
         (result) => result.rowCount
       )
       Logger.info(`step-update-validations-otherLandWithTreeCover: cycle ${cycle.name}: ${rowCount} rows updated`)
