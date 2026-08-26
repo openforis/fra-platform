@@ -14,9 +14,20 @@ describe('Promises test:', () => {
     expect(res2).toEqual(['A', 'B'])
   })
 
-  test('each stops early when stopIfFn matches', async () => {
-    const stopIfFn = (n: number): n is 3 => n === 3
-    const res = await Promises.each([1, 2, 3, 4], async (n) => n, stopIfFn)
-    expect(res).toEqual([1, 2])
+  test('each awaits every callback before starting the next one', async () => {
+    const started: Array<number> = []
+    const finished: Array<number> = []
+
+    const delays = [20, 0, 10]
+    await Promises.each(delays, async (delay, index) => {
+      started.push(index)
+      await new Promise((resolve) => {
+        setTimeout(resolve, delay)
+      })
+      finished.push(index)
+    })
+
+    expect(started).toEqual([0, 1, 2])
+    expect(finished).toEqual([0, 1, 2])
   })
 })
