@@ -191,6 +191,17 @@ const switchSection = async (page: Page, props: NdpPathProps): Promise<void> => 
   await expect(tab).toHaveClass(/active/)
 }
 
+// Copy national classes from another year via the "Prefill with" select
+const prefillFromYear = async (page: Page, year: string): Promise<void> => {
+  await page.locator('.odp__previous-year-selection .select__wrapper').click()
+  await page.getByRole('option', { name: year }).click()
+
+  const saved = DOMUtils.waitForResponse(page, `${nationalDataPointApi}/copy-national-classes`, 'PUT')
+  page.once('dialog', (dialog) => dialog.accept())
+  await page.getByRole('button', { name: 'Prefill', exact: true }).click()
+  await saved
+}
+
 // Toggle ndp usage in section 1b
 const clickToggleNDPUsage = async (page: Page): Promise<void> => {
   const saved = DOMUtils.waitForResponse(page, '/area/country/prop', 'PATCH')
@@ -220,5 +231,6 @@ export const NDPDomUtils = {
   clickToggleNDPUsage,
   getNaturallyRegeneratingTable,
   getPlantationTable,
+  prefillFromYear,
   switchSection,
 }
