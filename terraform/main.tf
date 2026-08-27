@@ -14,7 +14,11 @@ terraform {
   }
 }
 
-provider "heroku" {}
+provider "heroku" {
+  customizations {
+    set_addon_config_vars_in_state = false
+  }
+}
 
 resource "heroku_app" "incubator" {
   name   = "fra-platform-incubator"
@@ -24,4 +28,9 @@ resource "heroku_app" "incubator" {
   organization {
     name = "fra-platform"
   }
+}
+
+resource "heroku_addon" "postgres" {
+  app_id = heroku_app.incubator.id
+  plan   = "heroku-postgresql:essential-0"
 }
