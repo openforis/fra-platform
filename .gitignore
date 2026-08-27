@@ -41,3 +41,8 @@ src/tools/db/fixtures/
 
 #tsc cache
 tsconfig.tsbuildinfo
+
+# Terraform
+terraform/.terraform/
+terraform/*.tfstate
+terraform/*.tfstate.backup
