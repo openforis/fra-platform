@@ -34,3 +34,13 @@ resource "heroku_addon" "postgres" {
   app_id = heroku_app.incubator.id
   plan   = "heroku-postgresql:essential-0"
 }
+
+resource "heroku_addon" "redis_queue" {
+  app_id = heroku_app.incubator.id
+  plan   = "heroku-redis:mini"
+}
+
+resource "heroku_addon" "redis_data" {
+  app_id = heroku_app.incubator.id
+  plan   = "heroku-redis:mini"
+}
