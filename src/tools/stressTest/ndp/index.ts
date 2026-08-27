@@ -1,7 +1,6 @@
 // National data point stress test: simulates people editing existing NDPs at the same time.
-// Each simulated user edits an NDP, pauses like a person would, and repeats, while a canary
-// reads the same NDPs and their validations at a fixed rate. See README.md.
-import { sleep } from 'k6'
+// Each simulated user edits an NDP and repeats, while a canary reads the same NDPs
+// and their validations at a fixed rate. See README.md.
 import http from 'k6/http'
 
 import type { OriginalDataPoint } from '../../../meta/assessment/originalDataPoint'
@@ -12,8 +11,6 @@ import { editNdp } from './editNdp.ts'
 import { getNdp } from './getNdp.ts'
 import { getNdpValidations } from './getNdpValidations.ts'
 
-const pauseMinSeconds = 5
-const pauseMaxSeconds = 15
 const canaryReadsPerSecond = 2
 
 export const options = {
@@ -60,12 +57,11 @@ export const setup = (): SetupData => {
   return { ndpsByCountry, token }
 }
 
-// Edits one of the existing NDPs, then pauses like a person would, and repeats
+// Edits one of the existing NDPs, and repeats
 export const write = (data: SetupData): void => {
   const headers = { 'Content-Type': 'application/json', Cookie: `fra-auth-token=${data.token}` }
   const countryIso = countries[__VU % countries.length] // spreads simulated users across countries
   editNdp(headers, countryIso, data.ndpsByCountry[countryIso])
-  sleep(randomInt(pauseMinSeconds, pauseMaxSeconds))
 }
 
 // Reads back one of the NDPs being written, and the country's NDP validations

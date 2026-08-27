@@ -51,7 +51,7 @@ The tool refuses to run against the production host (`fra-data.fao.org`).
 
 Each test runs two scenarios at the same time, for 5 minutes on X09 and X10 by default:
 
-- writers: 100 simulated users repeatedly edit, pausing 5 to 15 seconds between edits like a person would.
+- writers: 100 simulated users edit continuously, one edit after another.
 - canary: 2 requests per second read the same data back with its validations.
 
 `tableData/` edits table cells (`PATCH table/nodes`, which runs calculations and validations inside the
