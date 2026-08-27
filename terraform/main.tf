@@ -44,3 +44,15 @@ resource "heroku_addon" "redis_data" {
   app_id = heroku_app.incubator.id
   plan   = "heroku-redis:mini"
 }
+
+resource "heroku_addon_attachment" "redis_queue" {
+  app_id   = heroku_app.incubator.id
+  addon_id = heroku_addon.redis_queue.id
+  name     = "REDIS_QUEUE"
+}
+
+resource "heroku_addon_attachment" "redis_data" {
+  app_id   = heroku_app.incubator.id
+  addon_id = heroku_addon.redis_data.id
+  name     = "REDIS_DATA"
+}
