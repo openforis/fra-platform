@@ -5,8 +5,9 @@ import http from 'k6/http'
 
 import type { OriginalDataPoint } from '../../../meta/assessment/originalDataPoint'
 import { getToken } from '../auth.ts'
-import { baseUrl, countries, cycleParams, duration, users } from '../config.ts'
+import { countries, duration, users } from '../config.ts'
 import { randomInt } from '../random.ts'
+import { Urls } from '../utils/urls.ts'
 import { editNdp } from './editNdp.ts'
 import { getNdp } from './getNdp.ts'
 import { getNdpValidations } from './getNdpValidations.ts'
@@ -48,7 +49,7 @@ export const setup = (): SetupData => {
 
   const ndpsByCountry: Record<string, Array<OriginalDataPoint>> = {}
   countries.forEach((countryIso) => {
-    const response = http.get(`${baseUrl}/api/cycle-data/national-data-points?${cycleParams(countryIso)}`, { headers })
+    const response = http.get(Urls.ndps({ countryIso }), { headers })
     if (response.status !== 200) throw new Error(`could not list national data points of ${countryIso}`)
     const ndps = response.json() as Array<OriginalDataPoint>
     if (ndps.length === 0) throw new Error(`${countryIso} has no national data points to edit`)
