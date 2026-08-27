@@ -4,6 +4,7 @@ import http from 'k6/http'
 import type { CountryIso } from '../../../meta/area/countryIso'
 import type { OriginalDataPoint } from '../../../meta/assessment/originalDataPoint'
 import { randomInt } from '../random.ts'
+import { Requests } from '../utils/requests.ts'
 import { Urls } from '../utils/urls.ts'
 
 // Edits an existing national data point (never creates one, so a run leaves nothing behind)
@@ -18,5 +19,5 @@ export const editNdp = (
     headers,
     tags: { name: 'ndp/original-data PUT' },
   })
-  check(response, { 'ndp write ok': (res) => res.status === 200 })
+  check(response, { 'ndp write ok': Requests.isOk })
 }

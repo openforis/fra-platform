@@ -2,6 +2,7 @@ import { check } from 'k6'
 import http from 'k6/http'
 
 import type { CountryIso } from '../../../meta/area/countryIso'
+import { Requests } from '../utils/requests.ts'
 import { Urls } from '../utils/urls.ts'
 
 // Reads the country's NDP validations
@@ -10,5 +11,5 @@ export const getNdpValidations = (headers: Record<string, string>, countryIso: C
     headers,
     tags: { name: 'validations/national-data-points GET' },
   })
-  check(response, { 'ndp validations ok': (res) => res.status === 200 })
+  check(response, { 'ndp validations ok': Requests.isOk })
 }

@@ -3,6 +3,7 @@ import http from 'k6/http'
 
 import type { CountryIso } from '../../../meta/area/countryIso'
 import type { OriginalDataPoint } from '../../../meta/assessment/originalDataPoint'
+import { Requests } from '../utils/requests.ts'
 import { Urls } from '../utils/urls.ts'
 
 // Reads back one of the NDPs being written
@@ -12,5 +13,5 @@ export const getNdp = (headers: Record<string, string>, countryIso: CountryIso, 
     headers,
     tags: { name: 'ndp/national-data-point GET' },
   })
-  check(response, { 'ndp read ok': (res) => res.status === 200 })
+  check(response, { 'ndp read ok': Requests.isOk })
 }

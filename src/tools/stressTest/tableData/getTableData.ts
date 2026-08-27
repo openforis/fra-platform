@@ -2,6 +2,7 @@ import { check } from 'k6'
 import http from 'k6/http'
 
 import type { CountryIso } from '../../../meta/area/countryIso'
+import { Requests } from '../utils/requests.ts'
 import { Urls } from '../utils/urls.ts'
 import type { Cell } from './cells.ts'
 
@@ -12,5 +13,5 @@ export const getTableData = (headers: Record<string, string>, countryIso: Countr
     headers,
     tags: { name: 'table/table-data GET' },
   })
-  check(response, { 'table data ok': (res) => res.status === 200 })
+  check(response, { 'table data ok': Requests.isOk })
 }
