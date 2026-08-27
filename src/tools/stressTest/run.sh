@@ -9,5 +9,15 @@ if [ $# -lt 3 ] || [ $# -gt 4 ]; then
   exit 1
 fi
 
-# The test script is resolved relative to this file, so run.sh works from any directory
-exec k6 run -e HOST="$1" -e STRESS_TEST_EMAIL="$2" -e STRESS_TEST_PASSWORD="$3" "$(dirname "$0")/${4:-tableData}/index.ts"
+# Paths are resolved relative to this file, so run.sh works from any directory
+dir="$(dirname "$0")"
+root="$dir/../../.."
+test="${4:-tableData}"
+bundle="$root/dist/stressTest/$test.js" # per-test file, so concurrent runs of different tests don't collide
+
+# Bundle the test first so it is possible to do imports
+mkdir -p "$root/dist/stressTest"
+"$root/node_modules/.bin/rolldown" "$dir/$test/index.ts" --external k6 --external k6/http \
+  --format esm --platform neutral --tsconfig "$root/tsconfig.json" --file "$bundle" >/dev/null
+
+exec k6 run -e HOST="$1" -e STRESS_TEST_EMAIL="$2" -e STRESS_TEST_PASSWORD="$3" "$bundle"

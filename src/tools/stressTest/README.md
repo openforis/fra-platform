@@ -34,12 +34,15 @@ brew install k6
 The same command works against any environment: pass the environment's host and an account that can
 edit the target countries (X09 and X10 by default), or an ADMINISTRATOR account.
 
+run.sh bundles the test into `dist/stressTest/<test>.js` before running it (k6 can't resolve the
+platform's import aliases, so the tests are bundled with rolldown first).
+
 The script logs in once, in k6 `setup()`, and reuses the `fra-auth-token` cookie for the whole run.
 No token or cookie file is stored. If you already have a valid `fra-auth-token` value, you can skip the
-login by running k6 directly:
+login by running k6 directly on the bundle (any run.sh call builds it):
 
 ```bash
-k6 run -e HOST=http://localhost:9001 -e TOKEN=token123 src/tools/stressTest/tableData/index.ts
+k6 run -e HOST=http://localhost:9001 -e TOKEN=token123 dist/stressTest/tableData.js
 ```
 
 The tool refuses to run against the production host (`fra-data.fao.org`).
@@ -70,7 +73,7 @@ The users, countries and duration can be changed with k6 flags, for example
 
 | File | Role |
 | --- | --- |
-| `run.sh` | Entry point. Forwards host and credentials to k6 as `-e` flags and picks the test |
+| `run.sh` | Entry point. Bundles the chosen test and runs it with k6, forwarding host and credentials as `-e` flags |
 | `tableData/` | Table cell edits plus the read canary (see above). One file per action, `index.ts` holds the scenarios |
 | `ndp/` | National data point edits plus the read canary (see above). Same layout |
 | `auth.ts` | Logs in and returns the `fra-auth-token` cookie. Holds the `TOKEN` override and the production guard |
