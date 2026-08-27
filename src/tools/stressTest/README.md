@@ -78,5 +78,4 @@ The users, countries and duration can be changed with k6 flags, for example
 | `ndp/` | National data point edits plus the read canary (see above). Same layout |
 | `auth.ts` | Logs in and returns the `fra-auth-token` cookie. Holds the `TOKEN` override and the production guard |
 | `config.ts` | Reads the `-e` values and fails fast when one is missing |
-| `random.ts` | `randomInt`, shared by the tests |
 | `utils/urls.ts` | Builds the request urls with `ApiEndPoint`  |

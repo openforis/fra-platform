@@ -1,9 +1,10 @@
 // Table data stress test: simulates people editing table cells at the same time.
 // Each simulated user edits a cell and repeats, while a canary reads the same data
 // and its validations at a fixed rate. See README.md.
+import { Numbers } from 'utils/numbers'
+
 import { getToken } from '../auth.ts'
 import { countries, duration, users } from '../config.ts'
-import { randomInt } from '../random.ts'
 import { cells } from './cells.ts'
 import { editTableCells } from './editTableCells.ts'
 import { getTableData } from './getTableData.ts'
@@ -47,8 +48,8 @@ export const write = (data: { token: string }): void => {
 // Reads back the data being written, and its validations
 export const read = (data: { token: string }): void => {
   const headers = { Cookie: `fra-auth-token=${data.token}` }
-  const countryIso = countries[randomInt(0, countries.length - 1)]
-  const cell = cells[randomInt(0, cells.length - 1)]
+  const countryIso = countries[Numbers.randomInt(0, countries.length - 1)]
+  const cell = cells[Numbers.randomInt(0, cells.length - 1)]
   getTableData(headers, countryIso, cell)
   getTableValidations(headers, countryIso, cell)
 }

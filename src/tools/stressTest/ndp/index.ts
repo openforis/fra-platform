@@ -3,10 +3,11 @@
 // and their validations at a fixed rate. See README.md.
 import http from 'k6/http'
 
+import { Numbers } from 'utils/numbers'
+
 import type { OriginalDataPoint } from '../../../meta/assessment/originalDataPoint'
 import { getToken } from '../auth.ts'
 import { countries, duration, users } from '../config.ts'
-import { randomInt } from '../random.ts'
 import { Urls } from '../utils/urls.ts'
 import { editNdp } from './editNdp.ts'
 import { getNdp } from './getNdp.ts'
@@ -68,9 +69,9 @@ export const write = (data: SetupData): void => {
 // Reads back one of the NDPs being written, and the country's NDP validations
 export const read = (data: SetupData): void => {
   const headers = { Cookie: `fra-auth-token=${data.token}` }
-  const countryIso = countries[randomInt(0, countries.length - 1)]
+  const countryIso = countries[Numbers.randomInt(0, countries.length - 1)]
   const ndps = data.ndpsByCountry[countryIso]
-  const ndp = ndps[randomInt(0, ndps.length - 1)]
+  const ndp = ndps[Numbers.randomInt(0, ndps.length - 1)]
   getNdp(headers, countryIso, ndp)
   getNdpValidations(headers, countryIso)
 }

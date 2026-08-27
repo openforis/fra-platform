@@ -1,9 +1,10 @@
 import { check } from 'k6'
 import http from 'k6/http'
 
+import { Numbers } from 'utils/numbers'
+
 import type { CountryIso } from '../../../meta/area/countryIso'
 import type { OriginalDataPoint } from '../../../meta/assessment/originalDataPoint'
-import { randomInt } from '../random.ts'
 import { Requests } from '../utils/requests.ts'
 import { Urls } from '../utils/urls.ts'
 
@@ -13,8 +14,8 @@ export const editNdp = (
   countryIso: CountryIso,
   ndps: Array<OriginalDataPoint>
 ): void => {
-  const ndp = ndps[randomInt(0, ndps.length - 1)]
-  const originalDataPoint = { ...ndp, values: { ...ndp.values, forestArea: String(randomInt(0, 1000)) } }
+  const ndp = ndps[Numbers.randomInt(0, ndps.length - 1)]
+  const originalDataPoint = { ...ndp, values: { ...ndp.values, forestArea: String(Numbers.randomInt(0, 1000)) } }
   const response = http.put(Urls.ndpData({ countryIso }), JSON.stringify({ originalDataPoint }), {
     headers,
     tags: { name: 'ndp/original-data PUT' },
