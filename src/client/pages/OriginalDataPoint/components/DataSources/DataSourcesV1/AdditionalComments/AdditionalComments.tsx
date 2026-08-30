@@ -2,6 +2,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
+import { DataTestId } from 'meta/dataTestId/id'
 
 import { DataCell, DataRow } from 'client/components/DataGrid'
 import TextArea from 'client/components/Inputs/TextArea'
@@ -31,7 +32,7 @@ const AdditionalComments: React.FC<Props> = (props: Props) => {
       <DataCell header lastRow>
         {t('nationalDataPoint.additionalComments')}
       </DataCell>
-      <DataCell lastCol lastRow>
+      <DataCell dataTestId={DataTestId.ndpDataSourcesV1AdditionalComments} lastCol lastRow>
         {displayHistory ? (
           <ODPDiffText
             className="input-text disabled"
