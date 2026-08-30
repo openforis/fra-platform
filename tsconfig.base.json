@@ -1,6 +1,6 @@
 {
   "include": ["src"],
-  "exclude": ["src/tools/migrations/steps/steps/template.ts", "src/tools/stressTestK6"],
+  "exclude": ["src/tools/migrations/steps/steps/template.ts", "src/tools/stressTest"],
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "baseUrl": "./src",
