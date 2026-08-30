@@ -51,7 +51,8 @@ The tool refuses to run against the production host (`fra-data.fao.org`).
 
 Each test runs two scenarios at the same time, for 5 minutes on X09 and X10 by default:
 
-- writers: 100 simulated users edit continuously, one edit after another.
+- writers: 100 simulated users edit continuously, one edit after another, distributed evenly across
+  the countries.
 - canary: 2 requests per second read the same data back with its validations.
 
 `tableData/` edits table cells (`PATCH table/nodes`, which runs calculations and validations inside the
@@ -67,7 +68,14 @@ Neither test creates data, so a run leaves nothing behind that needs cleaning up
 The users, countries and duration can be changed with k6 flags, for example
 `-e USERS=5 -e DURATION=20s -e COUNTRIES=X09`.
 
+## Running against multiple local instances
 
+To test against several web instances instead of the dev server, see "Running a local production
+environment" in the main [README](../../../README.md), then target the nginx proxy:
+
+```bash
+./src/tools/stressTest/run.sh http://localhost:9000 test@test.com password123
+```
 
 ## Files
 
