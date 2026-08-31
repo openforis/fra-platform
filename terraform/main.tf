@@ -7,9 +7,16 @@ terraform {
   required_version = ">= 1.10.0"
 
   required_providers {
+    # Heroku provider
     heroku = {
       source  = "heroku/heroku"
       version = "~> 5.0"
+    }
+
+    # Hashicorps random provider for token
+    random = {
+      source  = "hashicorp/random"
+      version = "~> 3.6"
     }
   }
 }
@@ -20,13 +27,30 @@ provider "heroku" {
   }
 }
 
+resource "random_password" "token_secret" {
+  length  = 64
+  special = false
+}
+
 resource "heroku_app" "incubator" {
-  name   = "fra-platform-incubator"
-  region = "eu"
-  stack  = "heroku-26"
+  name       = "fra-platform-incubator"
+  region     = "eu"
+  stack      = "heroku-26"
+  buildpacks = ["heroku/nodejs"]
 
   organization {
     name = "fra-platform"
+  }
+
+  config_vars = {
+    NODE_ENV          = "production"
+    WWWHISPER_DISABLE = "true"
+  }
+
+  sensitive_config_vars = {
+    TOKEN_SECRET             = random_password.token_secret.result
+    FRA_GOOGLE_CLIENT_ID     = var.fra_google_client_id
+    FRA_GOOGLE_CLIENT_SECRET = var.fra_google_client_secret
   }
 }
 
