@@ -11,11 +11,11 @@ import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 import { SocketServer } from 'server/service/socket'
 import { ProcessEnv } from 'server/utils'
 import { Logger } from 'server/utils/logger'
-import { RedisClient } from 'server/utils/redisClient'
+import { RedisClient } from 'server/utils/redis/client'
 
 import { VisitCycleLinksJob, VisitCycleLinksProps } from './props'
 
-const connection = RedisClient.create(ProcessEnv.redisQueueUrl, { maxRetriesPerRequest: null })
+const connection = RedisClient.newInstance(ProcessEnv.redisQueueUrl, { maxRetriesPerRequest: null })
 
 const jobTimeoutMs = 10 * 60 * 1000
 

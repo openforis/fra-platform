@@ -4,12 +4,12 @@ import { Server } from 'socket.io'
 
 import { ProcessEnv } from 'server/utils'
 import { Logger } from 'server/utils/logger'
-import { RedisClient } from 'server/utils/redisClient'
+import { RedisClient } from 'server/utils/redis/client'
 
 let io: Server
 
 const init = async (server: http.Server): Promise<void> => {
-  const client = RedisClient.create(ProcessEnv.redisQueueUrl)
+  const client = RedisClient.newInstance(ProcessEnv.redisQueueUrl)
 
   io = new Server(server, {
     adapter: createAdapter(client),
