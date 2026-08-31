@@ -1,5 +1,4 @@
 import { Worker, WorkerListener, WorkerOptions } from 'bullmq'
-import IORedis from 'ioredis'
 
 import { CountryIso } from 'meta/area/countryIso'
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
@@ -12,10 +11,11 @@ import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 import { SocketServer } from 'server/service/socket'
 import { ProcessEnv } from 'server/utils'
 import { Logger } from 'server/utils/logger'
+import { RedisClient } from 'server/utils/redisClient'
 
 import { VisitCycleLinksJob, VisitCycleLinksProps } from './props'
 
-const connection = new IORedis(ProcessEnv.redisQueueUrl, { maxRetriesPerRequest: null })
+const connection = RedisClient.create(ProcessEnv.redisQueueUrl, { maxRetriesPerRequest: null })
 
 const jobTimeoutMs = 10 * 60 * 1000
 

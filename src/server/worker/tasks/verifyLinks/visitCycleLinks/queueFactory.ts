@@ -1,18 +1,18 @@
 import { Job, Queue, QueueOptions } from 'bullmq'
-import IORedis from 'ioredis'
 
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 
 import { ProcessEnv } from 'server/utils'
+import { RedisClient } from 'server/utils/redisClient'
 
 import { VisitCycleLinksProps } from './props'
 
 const queueName = 'verifyLinks'
 let queue: Queue<VisitCycleLinksProps> | undefined
 
-const connection = new IORedis(ProcessEnv.redisQueueUrl, { maxRetriesPerRequest: null })
+const connection = RedisClient.create(ProcessEnv.redisQueueUrl, { maxRetriesPerRequest: null })
 
 type Props = {
   assessment: Assessment

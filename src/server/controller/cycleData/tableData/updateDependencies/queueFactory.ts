@@ -1,5 +1,4 @@
 import { Queue, QueueOptions, Worker } from 'bullmq'
-import IORedis from 'ioredis'
 
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
@@ -9,11 +8,12 @@ import { UpdateDependenciesProps } from 'server/controller/cycleData/tableData/u
 import { WorkerFactory } from 'server/controller/cycleData/tableData/updateDependencies/workerFactory'
 import { ProcessEnv } from 'server/utils'
 import { Logger } from 'server/utils/logger'
+import { RedisClient } from 'server/utils/redisClient'
 
 const queues: Record<string, Queue<UpdateDependenciesProps>> = {}
 const workers: Record<string, Worker<UpdateDependenciesProps>> = {}
 
-const connection = new IORedis(ProcessEnv.redisQueueUrl)
+const connection = RedisClient.create(ProcessEnv.redisQueueUrl)
 
 type Props = {
   assessment: Assessment

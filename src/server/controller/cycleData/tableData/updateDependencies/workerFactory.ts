@@ -1,5 +1,4 @@
 import { Worker, WorkerOptions } from 'bullmq'
-import IORedis from 'ioredis'
 
 import { Country } from 'meta/area/country'
 import { NodeUpdates } from 'meta/data/nodeUpdates'
@@ -14,8 +13,9 @@ import { SocketServer } from 'server/service/socket'
 import { ProcessEnv } from 'server/utils'
 import { Logger } from 'server/utils/logger'
 import { NodeEnv } from 'server/utils/processEnv'
+import { RedisClient } from 'server/utils/redisClient'
 
-const connection = new IORedis(ProcessEnv.redisQueueUrl)
+const connection = RedisClient.create(ProcessEnv.redisQueueUrl)
 const workerOptions: WorkerOptions = {
   concurrency: 1,
   connection,
