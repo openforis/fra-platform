@@ -1,9 +1,8 @@
-import { Objects } from 'utils/objects'
-
 import { Country, LastPublishedInfo } from 'meta/area/country'
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
+import { Objects } from 'utils/objects'
 
 import { getKeyCycle, Keys } from 'server/cache/repository/keys'
 import { RedisData } from 'server/cache/repository/redisData'
@@ -14,6 +13,7 @@ type Props = {
   assessment: Assessment
   cycle: Cycle
   countryIso?: CountryIso
+  countryIsos?: Array<CountryIso>
   force?: boolean
 }
 
@@ -35,10 +35,10 @@ const _setCache = async (key: string, countries: Array<Country>): Promise<void> 
 }
 
 const _getCountries = async (
-  props: { assessment: Assessment; cycle: Cycle; countryIso?: CountryIso },
+  props: { assessment: Assessment; cycle: Cycle; countryIso?: CountryIso; countryIsos?: Array<CountryIso> },
   client: BaseProtocol
 ): Promise<Array<Country>> => {
-  const { assessment, countryIso, cycle } = props
+  const { assessment, countryIso, countryIsos, cycle } = props
 
   const lastPublishedInfo = await CountryRepository.getCountryLastPublishedInfo(
     { assessment, countryIso, cycle },
@@ -50,19 +50,22 @@ const _getCountries = async (
     return [_mergeCountry(country, lastPublishedInfo)]
   }
 
-  const countries = await CountryRepository.getMany({ assessment, cycle }, client)
+  const countries = await CountryRepository.getMany({ assessment, countryIsos, cycle }, client)
   return countries.map((country) => _mergeCountry(country, lastPublishedInfo))
 }
 
 export const _cacheCountries = async (props: Props, client: BaseProtocol): Promise<Record<CountryIso, Country>> => {
-  const { assessment, countryIso, cycle } = props
+  const { assessment, countryIso, countryIsos, cycle } = props
   const key = getKeyCycle({ assessment, cycle, key: Keys.Area.country })
 
-  const countries = await _getCountries({ assessment, cycle, countryIso }, client)
+  const countries = await _getCountries({ assessment, cycle, countryIso, countryIsos }, client)
   await _setCache(key, countries)
 
-  return countries.reduce<Record<CountryIso, Country>>((acc, country) => {
-    acc[country.countryIso] = country
-    return acc
-  }, {} as Record<CountryIso, Country>)
+  return countries.reduce<Record<CountryIso, Country>>(
+    (acc, country) => {
+      acc[country.countryIso] = country
+      return acc
+    },
+    {} as Record<CountryIso, Country>
+  )
 }
