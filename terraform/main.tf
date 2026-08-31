@@ -43,8 +43,10 @@ resource "heroku_app" "incubator" {
   }
 
   config_vars = {
-    NODE_ENV          = "production"
-    WWWHISPER_DISABLE = "true"
+    NODE_ENV                      = "production"
+    WWWHISPER_DISABLE             = "true"
+    REDIS_TLS_REJECT_UNAUTHORIZED = "false"
+    PGSSL                         = "true"
   }
 
   sensitive_config_vars = {
