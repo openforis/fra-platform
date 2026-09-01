@@ -13,7 +13,6 @@ type Props = {
   assessment: Assessment
   cycle: Cycle
   countryIso?: CountryIso
-  countryIsos?: Array<CountryIso>
   force?: boolean
 }
 
@@ -35,10 +34,10 @@ const _setCache = async (key: string, countries: Array<Country>): Promise<void> 
 }
 
 const _getCountries = async (
-  props: { assessment: Assessment; cycle: Cycle; countryIso?: CountryIso; countryIsos?: Array<CountryIso> },
+  props: { assessment: Assessment; cycle: Cycle; countryIso?: CountryIso },
   client: BaseProtocol
 ): Promise<Array<Country>> => {
-  const { assessment, countryIso, countryIsos, cycle } = props
+  const { assessment, countryIso, cycle } = props
 
   const lastPublishedInfo = await CountryRepository.getCountryLastPublishedInfo(
     { assessment, countryIso, cycle },
@@ -50,15 +49,15 @@ const _getCountries = async (
     return [_mergeCountry(country, lastPublishedInfo)]
   }
 
-  const countries = await CountryRepository.getMany({ assessment, countryIsos, cycle }, client)
+  const countries = await CountryRepository.getMany({ assessment, cycle }, client)
   return countries.map((country) => _mergeCountry(country, lastPublishedInfo))
 }
 
 export const _cacheCountries = async (props: Props, client: BaseProtocol): Promise<Record<CountryIso, Country>> => {
-  const { assessment, countryIso, countryIsos, cycle } = props
+  const { assessment, countryIso, cycle } = props
   const key = getKeyCycle({ assessment, cycle, key: Keys.Area.country })
 
-  const countries = await _getCountries({ assessment, cycle, countryIso, countryIsos }, client)
+  const countries = await _getCountries({ assessment, cycle, countryIso }, client)
   await _setCache(key, countries)
 
   return countries.reduce<Record<CountryIso, Country>>(

@@ -37,10 +37,7 @@ const _mergeODPTable = (props: PropsInnerMerge): void => {
 export const mergeOdpCountryData = async (props: Props, client: BaseProtocol): Promise<void> => {
   const { assessment, countryISOs, cycle, data, excludeOdpTable, tables } = props
 
-  const countries = await AreaRedisRepository.getCountriesRecord(
-    { assessment, countryIsos: countryISOs, cycle },
-    client
-  )
+  const countries = await AreaRedisRepository.getCountriesMap({ assessment, countryISOs, cycle }, client)
 
   countryISOs.forEach((countryIso) => {
     const country = countries[countryIso]
