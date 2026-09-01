@@ -5,14 +5,14 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 
 import { ProcessEnv } from 'server/utils'
-import { RedisClient } from 'server/utils/redisClient'
+import { RedisClient } from 'server/utils/redis/client'
 
 import { VisitCycleLinksProps } from './props'
 
 const queueName = 'verifyLinks'
 let queue: Queue<VisitCycleLinksProps> | undefined
 
-const connection = RedisClient.create(ProcessEnv.redisQueueUrl, { maxRetriesPerRequest: null })
+const connection = RedisClient.newInstance(ProcessEnv.redisQueueUrl, { maxRetriesPerRequest: null })
 
 type Props = {
   assessment: Assessment

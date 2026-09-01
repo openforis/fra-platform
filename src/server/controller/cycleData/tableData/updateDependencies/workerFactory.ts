@@ -13,9 +13,9 @@ import { SocketServer } from 'server/service/socket'
 import { ProcessEnv } from 'server/utils'
 import { Logger } from 'server/utils/logger'
 import { NodeEnv } from 'server/utils/processEnv'
-import { RedisClient } from 'server/utils/redisClient'
+import { RedisClient } from 'server/utils/redis/client'
 
-const connection = RedisClient.create(ProcessEnv.redisQueueUrl)
+const connection = RedisClient.newInstance(ProcessEnv.redisQueueUrl)
 const workerOptions: WorkerOptions = {
   concurrency: 1,
   connection,

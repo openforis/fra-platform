@@ -8,12 +8,12 @@ import { UpdateDependenciesProps } from 'server/controller/cycleData/tableData/u
 import { WorkerFactory } from 'server/controller/cycleData/tableData/updateDependencies/workerFactory'
 import { ProcessEnv } from 'server/utils'
 import { Logger } from 'server/utils/logger'
-import { RedisClient } from 'server/utils/redisClient'
+import { RedisClient } from 'server/utils/redis/client'
 
 const queues: Record<string, Queue<UpdateDependenciesProps>> = {}
 const workers: Record<string, Worker<UpdateDependenciesProps>> = {}
 
-const connection = RedisClient.create(ProcessEnv.redisQueueUrl)
+const connection = RedisClient.newInstance(ProcessEnv.redisQueueUrl)
 
 type Props = {
   assessment: Assessment
