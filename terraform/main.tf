@@ -58,7 +58,7 @@ resource "heroku_app" "incubator" {
 
 resource "heroku_addon" "postgres" {
   app_id = heroku_app.incubator.id
-  plan   = "heroku-postgresql:essential-0"
+  plan   = "heroku-postgresql:essential-1"
 }
 
 resource "heroku_addon" "redis_queue" {
@@ -68,7 +68,7 @@ resource "heroku_addon" "redis_queue" {
 
 resource "heroku_addon" "redis_data" {
   app_id = heroku_app.incubator.id
-  plan   = "heroku-redis:mini"
+  plan   = "heroku-redis:premium-2"
 }
 
 resource "heroku_addon_attachment" "redis_queue" {
