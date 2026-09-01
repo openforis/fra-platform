@@ -19,24 +19,18 @@ export const getCountriesMap = async (
 
   const cachedData = await (Objects.isEmpty(countryISOs) ? redis.hgetall(key) : redis.hmget(key, ...countryISOs))
 
-  const cachedRecord: Record<string, string> = {}
-  if (Array.isArray(cachedData)) {
-    countryISOs.forEach((countryIso, index) => {
-      cachedRecord[countryIso] = cachedData[index]
-    })
-  } else {
-    Object.assign(cachedRecord, cachedData)
-  }
+  const cachedCountries = Array.isArray(cachedData) ? cachedData : Object.values(cachedData)
 
-  const cacheMiss = Objects.isEmpty(cachedRecord) || Object.values(cachedRecord).some(Objects.isEmpty)
+  const cacheMiss = Objects.isEmpty(cachedCountries) || cachedCountries.some(Objects.isEmpty)
 
   if (cacheMiss || force) {
     return _cacheCountries({ assessment, cycle }, client)
   }
 
-  return Object.entries(cachedRecord).reduce(
-    (acc, [countryIso, country]: [CountryIso, string]) => {
-      acc[countryIso] = JSON.parse(country)
+  return cachedCountries.reduce(
+    (acc, countryString) => {
+      const country: Country = JSON.parse(countryString)
+      acc[country.countryIso] = country
       return acc
     },
     {} as Record<CountryIso, Country>
