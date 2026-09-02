@@ -21,7 +21,7 @@ export const getCountriesMap = async (
 
   const cachedCountries = Array.isArray(cachedData) ? cachedData : Object.values(cachedData)
 
-  const hasMissingCountries = !Objects.isEmpty(countryISOs) && cachedCountries.includes(null)
+  const hasMissingCountries = !Objects.isEmpty(countryISOs) && cachedCountries.some(Objects.isNil)
 
   if (Objects.isEmpty(cachedCountries) || hasMissingCountries || force) {
     return _cacheCountries({ assessment, cycle }, client)
