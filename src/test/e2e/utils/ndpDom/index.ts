@@ -1,7 +1,10 @@
 import { expect, Locator, Page } from '@playwright/test'
 
+import { DataTestId } from 'meta/dataTestId/id'
+
 import { DescriptionUtils } from '../description'
 import { DOMUtils } from '../dom'
+import { NdpPathProps, SectionUtils } from '../section'
 
 const nationalDataPointApi = '/api/cycle-data/national-data-points/national-data-point'
 
@@ -40,6 +43,19 @@ const fillDataSourcesV1Reference = async (page: Page, html: string): Promise<voi
 
 const getDataSourcesV1ReferenceValidationError = (page: Page): Locator =>
   page.locator('.editorWYSIWYG.editor-wysiwyg-links.validation-error')
+
+const fillDataSourcesV1MethodsUsed = async (page: Page, methodLabel: string): Promise<void> => {
+  const saved = DOMUtils.waitForResponse(page, `${nationalDataPointApi}/data-sources`, 'PUT')
+  await page.getByTestId(DataTestId.ndpDataSourcesV1MethodsUsed).locator('.select__wrapper').click()
+  await page.getByRole('option', { name: methodLabel }).click()
+  await saved
+}
+
+const fillDataSourcesV1AdditionalComments = async (page: Page, text: string): Promise<void> => {
+  const saved = DOMUtils.waitForResponse(page, `${nationalDataPointApi}/data-sources`, 'PUT')
+  await page.getByTestId(DataTestId.ndpDataSourcesV1AdditionalComments).locator('textarea').fill(text)
+  await saved
+}
 
 // Comments of the active ODP tab (1a extentOfForest / 1b forestCharacteristics)
 const fillComments = async (page: Page, html: string): Promise<void> => {
@@ -83,6 +99,8 @@ const editNationalClassification = async (page: Page, name: string): Promise<voi
 }
 
 const _fillOriginalData = async (page: Page, input: Locator, value: string): Promise<void> => {
+  await input.fill('')
+
   const saved = DOMUtils.waitForResponse(page, `${nationalDataPointApi}/original-data`, 'PUT')
   await input.fill(value)
   await input.press('Tab')
@@ -133,15 +151,20 @@ const fillNationalClassOtherPlantedForestPercent = async (
 ): Promise<void> =>
   _fillOriginalData(page, _main1bRow(page, className).locator('td.fra-table__cell input').nth(2), value)
 
+// 1b sub-tables - rendered conditionally
+const getNaturallyRegeneratingTable = (page: Page): Locator =>
+  page.getByTestId(DataTestId.ndpSubTableNaturallyRegenerating)
+
+const getPlantationTable = (page: Page): Locator => page.getByTestId(DataTestId.ndpSubTablePlantation)
+
+const _subTableRow = (page: Page, table: Locator, className: string): Locator =>
+  table.locator('tr', { has: page.locator('.fra-table__category-cell', { hasText: className }) })
+
 // 1b naturally regenerating sub-table: primary forest%
 const fillNationalClassPrimaryForestPercent = async (page: Page, className: string, value: string): Promise<void> =>
   _fillOriginalData(
     page,
-    page
-      .locator('.fra-table.odp__sub-table')
-      .nth(0)
-      .locator('tr', { has: page.locator('.fra-table__category-cell', { hasText: className }) })
-      .locator('td.fra-table__cell input'),
+    _subTableRow(page, getNaturallyRegeneratingTable(page), className).locator('td.fra-table__cell input'),
     value
   )
 
@@ -153,11 +176,7 @@ const fillNationalClassPlantationIntroducedPercent = async (
 ): Promise<void> =>
   _fillOriginalData(
     page,
-    page
-      .locator('.fra-table.odp__sub-table')
-      .nth(1)
-      .locator('tr', { has: page.locator('.fra-table__category-cell', { hasText: className }) })
-      .locator('td.fra-table__cell input'),
+    _subTableRow(page, getPlantationTable(page), className).locator('td.fra-table__cell input'),
     value
   )
 
@@ -165,11 +184,31 @@ const doneEditing = async (page: Page): Promise<void> => {
   await page.getByRole('link', { name: 'Done editing' }).first().click()
 }
 
-const switchTab = async (page: Page, tabName: string, urlRegex: RegExp): Promise<void> => {
-  const tab = page.locator('.odp__tab-item', { hasText: tabName })
+const switchSection = async (page: Page, props: NdpPathProps): Promise<void> => {
+  const path = SectionUtils.ndpPath(props)
+
+  const tab = page.locator(`.odp__tab-item[href="${path}"]`)
   await tab.click()
-  await page.waitForURL(urlRegex)
+  await page.waitForURL(path)
   await expect(tab).toHaveClass(/active/)
+}
+
+// Copy national classes from another year via the "Prefill with" select
+const prefillFromYear = async (page: Page, year: string): Promise<void> => {
+  await page.locator('.odp__previous-year-selection .select__wrapper').click()
+  await page.getByRole('option', { name: year }).click()
+
+  const saved = DOMUtils.waitForResponse(page, `${nationalDataPointApi}/copy-national-classes`, 'PUT')
+  page.once('dialog', (dialog) => dialog.accept())
+  await page.getByRole('button', { name: 'Prefill', exact: true }).click()
+  await saved
+}
+
+// Toggle ndp usage in section 1b
+const clickToggleNDPUsage = async (page: Page): Promise<void> => {
+  const saved = DOMUtils.waitForResponse(page, '/area/country/prop', 'PATCH')
+  await page.getByRole('button', { name: /Don.t use national data points|Use national data points/i }).click()
+  await saved
 }
 
 export const NDPDomUtils = {
@@ -177,6 +216,8 @@ export const NDPDomUtils = {
   doneEditing,
   editNationalClassification,
   fillComments,
+  fillDataSourcesV1AdditionalComments,
+  fillDataSourcesV1MethodsUsed,
   fillDataSourcesV1Reference,
   fillNationalClassArea,
   fillNationalClassForestPercent,
@@ -189,5 +230,9 @@ export const NDPDomUtils = {
   fillYear,
   getCommentsValidationError,
   getDataSourcesV1ReferenceValidationError,
-  switchTab,
+  clickToggleNDPUsage,
+  getNaturallyRegeneratingTable,
+  getPlantationTable,
+  prefillFromYear,
+  switchSection,
 }
