@@ -3,13 +3,14 @@ import { createLock, IoredisAdapter, type Lock, LockAcquisitionError, type LockH
 
 import { ProcessEnv } from 'server/utils'
 import { Logger } from 'server/utils/logger'
+import { RedisClient } from 'server/utils/redis/client'
 import { JobStatus, JobStatusPayload } from 'server/worker/job/jobStatus'
 
 export class JobLock {
   #lock?: LockHandle
   #lockManager: Lock
   #name: string
-  static #redis: IORedis = new IORedis(ProcessEnv.redisQueueUrl)
+  static #redis: IORedis = RedisClient.newInstance(ProcessEnv.redisQueueUrl)
   static #redisAdapter = new IoredisAdapter(JobLock.#redis)
 
   constructor(name: string) {
