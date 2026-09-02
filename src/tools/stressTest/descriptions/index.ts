@@ -73,7 +73,7 @@ export const setup = (): SetupData => {
       }
     })
 
-    const dataSources = descriptions.dataSources.dataSources ?? []
+    const dataSources = descriptions?.dataSources.dataSources ?? []
     if (dataSources.length === 0) {
       throw new Error(`${countryIso} has no data sources in ${sectionName} to edit: add one in the UI first`)
     }
