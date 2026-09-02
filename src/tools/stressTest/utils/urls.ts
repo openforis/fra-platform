@@ -1,6 +1,7 @@
 import { ApiEndPoint } from 'meta/api/endpoint'
 
 import type { CountryIso } from '../../../meta/area/countryIso'
+import type { CommentableDescriptionName } from '../../../meta/assessment/descriptionValue'
 import { baseUrl, cycleParams } from '../config.ts'
 
 // Full urls for the requests the tests send, built with ApiEndPoint (no hardcoded paths)
@@ -56,6 +57,31 @@ export const Urls = {
     return (
       `${baseUrl}${ApiEndPoint.CycleData.Validations.nationalDataPoints()}?${cycleParams(countryIso)}` +
       `&sectionName=extentOfForest`
+    )
+  },
+
+  // Descriptions are edited in the forestAreaChange section
+  description: (props: { countryIso: CountryIso; name: CommentableDescriptionName }): string => {
+    const { countryIso, name } = props
+    return (
+      `${baseUrl}${ApiEndPoint.CycleData.Descriptions.many()}?${cycleParams(countryIso)}` +
+      `&sectionName=forestAreaChange&name=${name}`
+    )
+  },
+
+  descriptions: (props: { countryIso: CountryIso }): string => {
+    const { countryIso } = props
+    return (
+      `${baseUrl}${ApiEndPoint.CycleData.Descriptions.many()}?${cycleParams(countryIso)}` +
+      `&sectionName=forestAreaChange`
+    )
+  },
+
+  descriptionValidations: (props: { countryIso: CountryIso }): string => {
+    const { countryIso } = props
+    return (
+      `${baseUrl}${ApiEndPoint.CycleData.Validations.descriptions()}?${cycleParams(countryIso)}` +
+      `&sectionName=forestAreaChange`
     )
   },
 }

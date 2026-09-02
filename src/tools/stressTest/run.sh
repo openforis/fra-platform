@@ -4,7 +4,7 @@ set -e
 
 if [ $# -lt 3 ] || [ $# -gt 4 ]; then
   echo 'Usage: ./src/tools/stressTest/run.sh <host> <email> <password> [test]' >&2
-  echo '       test: tableData (default) or ndp' >&2
+  echo '       test: tableData (default), ndp or descriptions' >&2
   echo 'e.g.:  ./src/tools/stressTest/run.sh http://localhost:9001 test@test.com password123 ndp' >&2
   exit 1
 fi
