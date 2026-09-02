@@ -32,6 +32,17 @@ const confirmVarsAndContinue = async (varNames: Array<string>): Promise<void> =>
   })
 }
 
+const DB_VAR_NAMES = [
+  'DATABASE_URL',
+  'REDIS_QUEUE_URL',
+  'REDIS_DATA_URL',
+  'PGSSL',
+  'REDIS_TLS_REJECT_UNAUTHORIZED',
+  'NODE_ENV',
+]
+
+const confirmDBVarsAndContinue = (): Promise<void> => confirmVarsAndContinue(DB_VAR_NAMES)
+
 const exec = (fn: () => Promise<unknown>): void => {
   const start = new Date().getTime()
   Logger.info(`========== ******** Starting ${start}`)
@@ -47,6 +58,7 @@ const exec = (fn: () => Promise<unknown>): void => {
 
 export const ToolsUtils = {
   close,
+  confirmDBVarsAndContinue,
   confirmVarsAndContinue,
   exec,
 }
