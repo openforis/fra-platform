@@ -16,6 +16,9 @@ fi
 # push project to heroku
 git push heroku-incubator HEAD:main
 
+# scale dynos to match production - see note in main.tf for more information
+heroku ps:scale web=5:Standard-1X worker=1:Standard-1X -a fra-platform-incubator
+
 # set env vars
 export DATABASE_URL=$(heroku config:get DATABASE_URL -a fra-platform-incubator)
 export REDIS_QUEUE_URL=$(heroku config:get REDIS_QUEUE_URL -a fra-platform-incubator)

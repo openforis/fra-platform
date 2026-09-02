@@ -50,12 +50,12 @@ resource "heroku_app" "incubator" {
     FRA_MAIL_ENABLED              = "false"
   }
 
-  sensitive_config_vars = {
-    TOKEN_SECRET             = random_password.token_secret.result
-    FRA_GOOGLE_CLIENT_ID     = var.fra_google_client_id
-    FRA_GOOGLE_CLIENT_SECRET = var.fra_google_client_secret
-  }
+  sensitive_config_vars = merge(var.review_env_vars, {
+    TOKEN_SECRET = random_password.token_secret.result
+  })
 }
+
+# Heroku addons
 
 resource "heroku_addon" "postgres" {
   app_id = heroku_app.incubator.id
@@ -64,13 +64,15 @@ resource "heroku_addon" "postgres" {
 
 resource "heroku_addon" "redis_queue" {
   app_id = heroku_app.incubator.id
-  plan   = "heroku-redis:mini"
+  plan   = "heroku-redis:premium-2"
 }
 
 resource "heroku_addon" "redis_data" {
   app_id = heroku_app.incubator.id
   plan   = "heroku-redis:premium-2"
 }
+
+# Heroku Addon attachments
 
 resource "heroku_addon_attachment" "redis_queue" {
   app_id   = heroku_app.incubator.id
@@ -84,17 +86,34 @@ resource "heroku_addon_attachment" "redis_data" {
   name     = "REDIS_DATA"
 }
 
-# Formation defines how many dynos run for process
-resource "heroku_formation" "web" {
-  app_id   = heroku_app.incubator.id
-  type     = "web"
-  quantity = 5
-  size     = "Standard-1X"
+# dyno formation is handled in _common.sh to avoid running apply twice
+# this expects the app to already have a deploy: process types only exist after deploy
+# left as reference
+
+# resource "heroku_formation" "web" {
+#   app_id   = heroku_app.incubator.id
+#   type     = "web"
+#   quantity = 5
+#   size     = "Standard-1X"
+# }
+#
+# resource "heroku_formation" "worker" {
+#   app_id   = heroku_app.incubator.id
+#   type     = "worker"
+#   quantity = 1
+#   size     = "Standard-1X"
+# }
+
+# Heroku App features
+
+resource "heroku_app_feature" "session_affinity" {
+  app_id  = heroku_app.incubator.id
+  name    = "http-session-affinity"
+  enabled = true
 }
 
-resource "heroku_formation" "worker" {
-  app_id   = heroku_app.incubator.id
-  type     = "worker"
-  quantity = 1
-  size     = "Standard-1X"
+resource "heroku_app_feature" "router_2" {
+  app_id  = heroku_app.incubator.id
+  name    = "http-routing-2-dot-0"
+  enabled = true
 }
