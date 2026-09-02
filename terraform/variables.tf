@@ -1,9 +1,5 @@
-variable "fra_google_client_id" {
-  type      = string
+variable "review_env_vars" {
+  type      = map(string)
   sensitive = true
-}
-
-variable "fra_google_client_secret" {
-  type      = string
-  sensitive = true
+  default   = {}
 }
