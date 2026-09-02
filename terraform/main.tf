@@ -47,6 +47,7 @@ resource "heroku_app" "incubator" {
     WWWHISPER_DISABLE             = "true"
     REDIS_TLS_REJECT_UNAUTHORIZED = "false"
     PGSSL                         = "true"
+    FRA_MAIL_ENABLED              = "false"
   }
 
   sensitive_config_vars = {
@@ -58,7 +59,7 @@ resource "heroku_app" "incubator" {
 
 resource "heroku_addon" "postgres" {
   app_id = heroku_app.incubator.id
-  plan   = "heroku-postgresql:essential-1"
+  plan   = "heroku-postgresql:standard-0"
 }
 
 resource "heroku_addon" "redis_queue" {
@@ -81,4 +82,19 @@ resource "heroku_addon_attachment" "redis_data" {
   app_id   = heroku_app.incubator.id
   addon_id = heroku_addon.redis_data.id
   name     = "REDIS_DATA"
+}
+
+# Formation defines how many dynos run for process
+resource "heroku_formation" "web" {
+  app_id   = heroku_app.incubator.id
+  type     = "web"
+  quantity = 5
+  size     = "Standard-1X"
+}
+
+resource "heroku_formation" "worker" {
+  app_id   = heroku_app.incubator.id
+  type     = "worker"
+  quantity = 1
+  size     = "Standard-1X"
 }
