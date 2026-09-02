@@ -1,10 +1,10 @@
 import { Worker, WorkerOptions } from 'bullmq'
-import IORedis from 'ioredis'
 
 import { LinksVerificationEvent } from 'meta/socket/event/links'
 
 import { ProcessEnv } from 'server/utils'
 import { Logger } from 'server/utils/logger'
+import { RedisClient } from 'server/utils/redis/client'
 import { VerifyLinksJobName } from 'server/worker/tasks/verifyLinks/jobNames'
 import { VerifyLinksQueueJob, VerifyLinksQueueProps } from 'server/worker/tasks/verifyLinks/props'
 import { emitLinksVerificationEvent } from 'server/worker/tasks/verifyLinks/utils/emitLinksVerificationEvent'
@@ -12,7 +12,7 @@ import { insertLinksCheckActivityLog } from 'server/worker/tasks/verifyLinks/uti
 
 import { VerifyAllLinksJob } from './props'
 
-const connection = new IORedis(ProcessEnv.redisQueueUrl, { maxRetriesPerRequest: null })
+const connection = RedisClient.newInstance(ProcessEnv.redisQueueUrl, { maxRetriesPerRequest: null })
 
 const jobTimeoutMs = 10 * 60 * 1000
 
