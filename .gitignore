@@ -44,6 +44,7 @@ tsconfig.tsbuildinfo
 
 # Terraform
 terraform/.terraform/
-terraform/*.tfstate
-terraform/*.tfstate.backup
 terraform/*.auto.tfvars
+*.tfstate
+*.tfstate.backup
+*.tfstate.lock.info
