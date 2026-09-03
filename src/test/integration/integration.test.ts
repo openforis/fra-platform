@@ -7,6 +7,7 @@ import { DB } from 'server/db/db'
 import { VisitCycleLinksQueueFactory } from 'server/worker/tasks/verifyLinks/visitCycleLinks/queueFactory'
 import { WorkerFactory as VisitLinksWorkerFactory } from 'server/worker/tasks/verifyLinks/visitCycleLinks/workerFactory'
 
+import countryIso from 'test/integration/area/countryIso'
 import assessmentCreate from 'test/integration/assessment/createAssessment'
 import originalDataPoint from 'test/integration/assessment/originalDataPoint'
 import assessmentRemove from 'test/integration/assessment/removeAssessment'
@@ -40,6 +41,9 @@ afterAll(async () => {
 })
 
 describe('Metadata integration test', () => {
+  // area
+  countryIso()
+
   // TODO: rename userCreate to userAdminCreate (and add mock user as admin)
   userCreate()
 
