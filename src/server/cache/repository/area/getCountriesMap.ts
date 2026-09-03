@@ -1,7 +1,6 @@
-import { Objects } from 'utils/objects'
-
 import { Country } from 'meta/area/country'
 import { CountryIso } from 'meta/area/countryIso'
+import { Objects } from 'utils/objects'
 
 import { _cacheCountries } from 'server/cache/repository/area/cacheCountries'
 import { Props } from 'server/cache/repository/area/props'
@@ -13,20 +12,27 @@ export const getCountriesMap = async (
   props: Props,
   client: BaseProtocol = DB
 ): Promise<Record<CountryIso, Country>> => {
-  const { assessment, cycle, force = false } = props
+  const { assessment, countryISOs = [], cycle, force = false } = props
 
   const redis = RedisData.getInstance()
   const key = getKeyCycle({ assessment, cycle, key: Keys.Area.country })
 
-  const cachedData = await redis.hgetall(key)
-  const cachedKeys = Object.keys(cachedData)
+  const cachedData = await (Objects.isEmpty(countryISOs) ? redis.hgetall(key) : redis.hmget(key, ...countryISOs))
 
-  if (Objects.isEmpty(cachedKeys) || force) {
+  const cachedCountries = Array.isArray(cachedData) ? cachedData : Object.values(cachedData)
+
+  const hasMissingCountries = !Objects.isEmpty(countryISOs) && cachedCountries.some(Objects.isNil)
+
+  if (Objects.isEmpty(cachedCountries) || hasMissingCountries || force) {
     return _cacheCountries({ assessment, cycle }, client)
   }
 
-  return Object.entries(cachedData).reduce((acc, [countryIso, country]: [CountryIso, string]) => {
-    acc[countryIso] = JSON.parse(country)
-    return acc
-  }, {} as Record<CountryIso, Country>)
+  return cachedCountries.reduce(
+    (acc, countryString) => {
+      const country: Country = JSON.parse(countryString)
+      acc[country.countryIso] = country
+      return acc
+    },
+    {} as Record<CountryIso, Country>
+  )
 }
