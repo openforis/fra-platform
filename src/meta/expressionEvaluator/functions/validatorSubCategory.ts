@@ -11,8 +11,13 @@ export const validatorSubCategory: ExpressionFunction<Context> = {
   name: ValidatorName.subCategory,
   minArity: 2,
   executor: () => {
-    return (categoryValue?: string, subCategoryValues?: Array<string>, tolerance?: number): NodeValueValidation => {
-      const nonEmptySubCategoryValues = subCategoryValues?.filter((v) => !Objects.isEmpty(v))
+    return (
+      categoryValue?: string,
+      subCategoryValues?: Array<string>,
+      tolerance?: number,
+      customMessages?: Array<NodeValueValidationMessage>
+    ): NodeValueValidation => {
+      const nonEmptySubCategoryValues = subCategoryValues?.filter((v) => !Objects.isEmpty(v)) ?? []
       const valid =
         Objects.isEmpty(categoryValue) ||
         nonEmptySubCategoryValues.length === 0 ||
@@ -20,7 +25,7 @@ export const validatorSubCategory: ExpressionFunction<Context> = {
 
       const messages: Array<NodeValueValidationMessage> = valid
         ? undefined
-        : [{ name: ValidatorName.subCategory, key: 'generalValidation.subCategoryExceedsParent' }]
+        : (customMessages ?? [{ name: ValidatorName.subCategory, key: 'generalValidation.subCategoryExceedsParent' }])
 
       return { valid, messages }
     }
