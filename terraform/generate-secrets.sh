@@ -4,7 +4,7 @@ set -e
 app=dev-fra-platform
 
 # keys we want to include when populating secrets
-# omit keys like: FRA_MAIL_HOST, HEROKU_POSTGRESQL_AMBER_URL, REDISCLOUD_DATA_URL, etc
+# omit keys like: HEROKU_POSTGRESQL_AMBER_URL, REDISCLOUD_DATA_URL, etc
 # print all keys in terminal using: heroku config -a dev-fra-platform --json | jq -r 'keys[]'
 included_keys=(
   APP_VERSION
@@ -15,6 +15,12 @@ included_keys=(
   FRA_GOOGLE_CLIENT_ID
   FRA_GOOGLE_CLIENT_SECRET
   FRA_GOOGLE_MAPS_API_KEY
+  # FRA_MAIL_ENABLED handled in main.tf
+  FRA_MAIL_HOST
+  FRA_MAIL_PASSWORD
+  FRA_MAIL_PORT
+  FRA_MAIL_SECURE
+  FRA_MAIL_USER
   GEE_PRIVATE_KEY
   INVITATION_EXPIRY_DAYS
   KIOSK_ACTIVITIES_SHEET_URL
