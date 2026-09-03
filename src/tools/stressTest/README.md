@@ -24,11 +24,12 @@ brew install k6
 ./src/tools/stressTest/run.sh <host> <email> <password> [test]
 ```
 
-`test` is `tableData` (default) or `ndp`. Locally:
+`test` is `tableData` (default), `ndp` or `descriptions`. Locally:
 
 ```bash
 ./src/tools/stressTest/run.sh http://localhost:9001 test@test.com password123
 ./src/tools/stressTest/run.sh http://localhost:9001 test@test.com password123 ndp
+./src/tools/stressTest/run.sh http://localhost:9001 test@test.com password123 descriptions
 ```
 
 The same command works against any environment: pass the environment's host and an account that can
@@ -63,7 +64,14 @@ overwrite existing cells.
 write); the canary reads the same NDP back and `validations/national-data-points`. NDPs are only edited,
 never created.
 
-Neither test creates data, so a run leaves nothing behind that needs cleaning up.
+`descriptions/` edits the existing general comments and data sources of forestAreaChange (`PUT descriptions`,
+which validates the data sources inside the request and enqueues a link check on the `verifyLinks` queue);
+the canary reads the same description back and `validations/descriptions`. Data sources are only edited,
+never added, and the text never contains links, so the queued jobs have nothing to visit.
+
+The tests don't create data, so a run leaves nothing behind that needs cleaning up. The descriptions test
+needs a general comment and one data source saved once in the UI for each country, and fails in `setup()`
+otherwise.
 
 The users, countries and duration can be changed with k6 flags, for example
 `-e USERS=5 -e DURATION=20s -e COUNTRIES=X09`.
@@ -84,6 +92,7 @@ environment" in the main [README](../../../README.md), then target the nginx pro
 | `run.sh` | Entry point. Bundles the chosen test and runs it with k6, forwarding host and credentials as `-e` flags |
 | `tableData/` | Table cell edits plus the read canary (see above). One file per action, `index.ts` holds the scenarios |
 | `ndp/` | National data point edits plus the read canary (see above). Same layout |
+| `descriptions/` | Description edits (general comments and data sources) plus the read canary (see above). Same layout |
 | `auth.ts` | Logs in and returns the `fra-auth-token` cookie. Holds the `TOKEN` override and the production guard |
 | `config.ts` | Reads the `-e` values and fails fast when one is missing |
 | `utils/urls.ts` | Builds the request urls with `ApiEndPoint`  |
