@@ -10,8 +10,8 @@ export const extentOfForest: Array<TableValidationTestCase> = [
   {
     cell: { colName, tableName, variableName: 'otherLand' },
     data: [
-      { colName, raw: '-100', tableName, variableName: 'otherLand' },
-      { colName, raw: '30000', tableName, variableName: 'totalLandArea' },
+      { colName, tableName, value: { raw: '-100' }, variableName: 'otherLand' },
+      { colName, tableName, value: { raw: '30000' }, variableName: 'totalLandArea' },
     ],
     expected: {
       messages: [{ key: 'extentOfForest.fedAreasExceedTotalLandArea', name: ValidatorName.otherLand }],

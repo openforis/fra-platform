@@ -17,10 +17,10 @@ export const buildAssessmentData = (props: Props): RecordAssessmentData => {
   const { name: assessmentName } = assessment.props
   const { name: cycleName } = cycle
 
-  return data.reduce<RecordAssessmentData>((acc, cellValue) => {
-    const { colName, raw, tableName, variableName } = cellValue
+  return data.reduce<RecordAssessmentData>((acc, node) => {
+    const { colName, tableName, value, variableName } = node
     const path = [assessmentName, cycleName, countryIso, tableName, colName, variableName]
-    Objects.setInPath({ obj: acc, path, value: { raw } })
+    Objects.setInPath({ obj: acc, path, value })
     return acc
   }, {})
 }

@@ -1,7 +1,9 @@
 import { ColName } from 'meta/assessment/col'
+import { VariableCache } from 'meta/assessment/metaCache'
 import { NodeValueValidation } from 'meta/assessment/nodeValueValidation'
 import { TableName } from 'meta/assessment/table'
 import { VariableName } from 'meta/assessment/variable'
+import { NodeUpdate } from 'meta/data/nodeUpdates'
 
 type ColMetadata = {
   colName: ColName
@@ -15,19 +17,12 @@ type RowMetadata = {
   variableName: VariableName
 }
 
-export type Cell = {
-  colName: ColName
-  tableName: TableName
-  variableName: VariableName
-}
-
-type CellValue = Cell & {
-  raw: string
-}
+export type Cell = Required<Pick<VariableCache, 'colName' | 'tableName' | 'variableName'>>
 
 export type TableValidationTestCase = {
+  // The cell whose validation is executed and checked
   cell: Cell
-  data: Array<CellValue>
+  data: Array<NodeUpdate>
   // Valid cells have no stored validation entry.
   expected?: NodeValueValidation
   name: string
