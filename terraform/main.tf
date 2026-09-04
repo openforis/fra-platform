@@ -64,7 +64,7 @@ resource "heroku_addon" "postgres" {
 
 resource "heroku_addon" "redis_queue" {
   app_id = heroku_app.incubator.id
-  plan   = "heroku-redis:premium-2"
+  plan   = "heroku-redis:premium-0"
 }
 
 resource "heroku_addon" "redis_data" {
