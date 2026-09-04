@@ -5,6 +5,10 @@ source "$(dirname "$0")/_common.sh"
 
 # copy review db and generate cache
 heroku pg:copy dev-fra-platform::DATABASE_URL DATABASE_URL -a fra-platform-incubator --confirm DATABASE --verbose
+
+# run migrations
+yarn migration-steps:run
+
 yarn ts-node src/tools/generateCache
 
 # add test user
