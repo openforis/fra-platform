@@ -1,6 +1,6 @@
 export type CountryIso2 = string
 
-export const countryIsos = [
+export const countryISOs = [
   'ABW',
   'AFG',
   'AGO',
@@ -259,4 +259,4 @@ export const countryIsos = [
   'ZWE',
 ] as const
 
-export type CountryIso = (typeof countryIsos)[number]
+export type CountryIso = (typeof countryISOs)[number]
