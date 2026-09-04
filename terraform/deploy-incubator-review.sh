@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 source "$(dirname "$0")/_common.sh"
 
-# This is a "slow" script (~9minutes from review)
+# This is a "slow" script (~30minutes from review)
 
 # copy review db and generate cache
 heroku pg:copy dev-fra-platform::DATABASE_URL DATABASE_URL -a fra-platform-incubator --confirm DATABASE --verbose
@@ -9,10 +9,4 @@ heroku pg:copy dev-fra-platform::DATABASE_URL DATABASE_URL -a fra-platform-incub
 # run migrations
 yarn migration-steps:run
 
-yarn ts-node src/tools/generateCache
-
-# add test user
-yarn ts-node src/tools/user/createAdmin.ts
-
-# print web url
-heroku apps:info -a fra-platform-incubator -s | grep web_url | cut -d= -f2-
+source "$(dirname "$0")/_finish.sh"
