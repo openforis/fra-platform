@@ -1,9 +1,12 @@
+import { TableNames } from 'meta/assessment/table'
+import { Years } from 'meta/assessment/years'
 import { ValidatorName } from 'meta/expressionEvaluator/validatorName'
 
+import { cycle } from '../setup/assessment'
 import { TableValidationTestCase } from '../types'
 
-const tableName = 'extentOfForest'
-const colName = '2025'
+const tableName = TableNames.extentOfForest
+const [colName] = Years.fraYears(cycle)
 
 // Formulas are copied from the fra 2025 metadata (row.props.validateFns)
 export const extentOfForest: Array<TableValidationTestCase> = [
@@ -17,7 +20,7 @@ export const extentOfForest: Array<TableValidationTestCase> = [
       messages: [{ key: 'extentOfForest.fedAreasExceedTotalLandArea', name: ValidatorName.otherLand }],
       valid: false,
     },
-    name: 'Expect a negative other land to exceed the total land area',
+    name: `${ValidatorName.otherLand}: negative other land is invalid`,
     rows: [
       {
         cols: [{ colName }],

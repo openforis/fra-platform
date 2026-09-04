@@ -7,6 +7,7 @@ import { RecordTableValidationsState } from 'meta/assessment/validation/table'
 import { Context } from 'server/service/dataValidation/tables/context/context'
 import { validateNodeUpdates } from 'server/service/dataValidation/tables/validateNodeUpdates'
 
+import { cycle } from './setup/assessment'
 import { buildAssessment } from './setup/buildAssessment'
 import { buildAssessmentData } from './setup/buildAssessmentData'
 import { buildRowCaches } from './setup/buildRowCaches'
@@ -23,7 +24,7 @@ export const runTableValidationTestCase = async (
   testCase: TableValidationTestCase
 ): Promise<TableValidationTestResult> => {
   const { cell, data, rows } = testCase
-  const { assessment, cycle } = buildAssessment({ rows })
+  const assessment = buildAssessment({ rows })
   const tableValidations: RecordTableValidationsState = {}
 
   const context = new Context({
