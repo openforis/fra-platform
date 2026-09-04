@@ -13,7 +13,7 @@ const variableNames = ['palms', 'tree_orchards', 'agroforestry', 'trees_in_urban
 
 // pass the raw category values so the validator can tell whether the year has any reported data
 const newValidateFn =
-  'validatorRemainingLandWithTreeCoverTotal([otherLandWithTreeCover.palms, otherLandWithTreeCover.tree_orchards, otherLandWithTreeCover.agroforestry, otherLandWithTreeCover.trees_in_urban_settings, otherLandWithTreeCover.other], extentOfForest.otherLand)'
+  "validatorSubCategory(extentOfForest.otherLand, [otherLandWithTreeCover.palms, otherLandWithTreeCover.tree_orchards, otherLandWithTreeCover.agroforestry, otherLandWithTreeCover.trees_in_urban_settings, otherLandWithTreeCover.other], undefined, 'generalValidation.remainingLandExceedsExtentOfForest')"
 
 export default async (client: BaseProtocol): Promise<void> => {
   const assessment = await AssessmentController.getOne({ assessmentName }, client)

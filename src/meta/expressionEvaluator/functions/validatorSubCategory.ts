@@ -15,7 +15,7 @@ export const validatorSubCategory: ExpressionFunction<Context> = {
       categoryValue?: string,
       subCategoryValues?: Array<string>,
       tolerance?: number,
-      customMessages?: Array<NodeValueValidationMessage>
+      messageKey?: string
     ): NodeValueValidation => {
       const nonEmptySubCategoryValues = subCategoryValues?.filter((v) => !Objects.isEmpty(v)) ?? []
       const valid =
@@ -25,7 +25,7 @@ export const validatorSubCategory: ExpressionFunction<Context> = {
 
       const messages: Array<NodeValueValidationMessage> = valid
         ? undefined
-        : (customMessages ?? [{ name: ValidatorName.subCategory, key: 'generalValidation.subCategoryExceedsParent' }])
+        : [{ name: ValidatorName.subCategory, key: messageKey ?? 'generalValidation.subCategoryExceedsParent' }]
 
       return { valid, messages }
     }
