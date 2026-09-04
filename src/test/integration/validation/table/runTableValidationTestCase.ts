@@ -15,6 +15,8 @@ import { TableValidationTestCase } from './types'
 
 type TableValidationTestResult = {
   updatedTableNames: Array<TableName>
+  // Formulas the case declares for the cell, so a case without formulas cannot pass as valid
+  validateFns: Array<string>
   validation?: NodeValueValidation
 }
 
@@ -41,8 +43,14 @@ export const runTableValidationTestCase = async (
 
   const updatedTableNames = await validateNodeUpdates({ context })
 
+  const row = rows.find(
+    (candidate) => candidate.tableName === cell.tableName && candidate.variableName === cell.variableName
+  )
+  const col = row?.cols.find((candidate) => candidate.colName === cell.colName)
+
   return {
     updatedTableNames,
+    validateFns: col?.validateFns ?? row?.validateFns ?? [],
     validation: tableValidations[cell.tableName]?.[cell.colName]?.[cell.variableName],
   }
 }
