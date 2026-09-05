@@ -4,7 +4,7 @@ import { RedisData } from 'server/cache/repository/redisData'
 import { UpdateDependenciesQueueFactory } from 'server/controller/cycleData/tableData/updateDependencies/queueFactory'
 import { WorkerFactory } from 'server/controller/cycleData/tableData/updateDependencies/workerFactory'
 import { DB } from 'server/db/db'
-import { VisitCycleLinksQueueFactory } from 'server/worker/tasks/verifyLinks/visitCycleLinks/queueFactory'
+import { VerifyLinksQueueFactory } from 'server/worker/tasks/verifyLinks/visitCycleLinks/queueFactory'
 import { WorkerFactory as VisitLinksWorkerFactory } from 'server/worker/tasks/verifyLinks/visitCycleLinks/workerFactory'
 
 import countryIso from 'test/integration/area/countryIso'
@@ -35,7 +35,7 @@ afterAll(async () => {
   // TODO: find a better strategy to handle Redis connections
   UpdateDependenciesQueueFactory.connection.quit()
   WorkerFactory.connection.quit()
-  VisitCycleLinksQueueFactory.connection.quit()
+  VerifyLinksQueueFactory.connection.quit()
   VisitLinksWorkerFactory.connection.quit()
   RedisData.getInstance().quit()
 })

@@ -4,12 +4,14 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { OriginalDataPoint, OriginalDataPointCommentKey } from 'meta/assessment/originalDataPoint'
 import { TableNames } from 'meta/assessment/table'
+import { NDPCommentLinkFields } from 'meta/cycleData/links/nationalDataPointLink'
 import { User } from 'meta/user/user'
 
 import { BaseProtocol, DB } from 'server/db/db'
 import { OriginalDataPointRepository } from 'server/db/repository/assessmentCycle/originalDataPoint'
 import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 import { CountryService } from 'server/service/country'
+import { LinksService } from 'server/service/links'
 
 type Props = {
   assessment: Assessment
@@ -29,8 +31,8 @@ export const updateComments = async (props: Props, client: BaseProtocol = DB): P
   const { assessment, country, cycle, field, originalDataPoint, user } = props
   const { countryIso } = originalDataPoint
 
-  return client.tx(async (t) => {
-    const updatedOriginalDataPoint = await OriginalDataPointRepository.updateDescription(
+  const updatedNationalDataPoint = await client.tx(async (t) => {
+    const updated = await OriginalDataPointRepository.updateDescription(
       { assessment, cycle, field, originalDataPoint },
       t
     )
@@ -38,7 +40,7 @@ export const updateComments = async (props: Props, client: BaseProtocol = DB): P
     const message = activities[field]
 
     const activityLog = {
-      target: updatedOriginalDataPoint,
+      target: updated,
       section: 'odp',
       message,
       countryIso,
@@ -51,6 +53,16 @@ export const updateComments = async (props: Props, client: BaseProtocol = DB): P
 
     await CountryService.updateLastEdit({ assessment, cycle, country, user, lastEditOdp: true, lastUpdateTimestamp }, t)
 
-    return updatedOriginalDataPoint
+    return updated
   })
+
+  const commentLinkField = NDPCommentLinkFields.find(({ commentKey }) => commentKey === field)
+  await LinksService.enqueueNationalDataPointLinksValidation({
+    assessment,
+    countryIso,
+    cycle,
+    targets: [{ ndpUuid: updatedNationalDataPoint.uuid, fields: [commentLinkField.linkField] }],
+  })
+
+  return updatedNationalDataPoint
 }

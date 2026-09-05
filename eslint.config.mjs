@@ -15,7 +15,13 @@ import globals from 'globals'
 
 export default defineConfig([
   {
-    ignores: ['**/node_modules/**', '**/dist/**', '**/build/**', 'src/tools/migrations/steps/steps/template.ts'],
+    ignores: [
+      '**/node_modules/**',
+      '**/dist/**',
+      '**/build/**',
+      'src/tools/migrations/steps/steps/template.ts',
+      'src/tools/stressTest/**',
+    ],
   },
   js.configs.recommended,
   ...tseslint.configs.recommended,

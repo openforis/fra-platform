@@ -14,7 +14,6 @@ import { useIsPrintRoute } from 'client/hooks/routes'
 import { useAreChartVariablesEmpty } from './hooks/useAreChartVariablesEmpty'
 import { useData } from './hooks/useData'
 import { useODPDeleteListener } from './hooks/useODPDeleteListener'
-import { useValidate } from './hooks/useValidate'
 import Chart from './Chart'
 import GenerateValues from './GenerateValues'
 import Table from './Table'
@@ -35,7 +34,6 @@ const DataTable: React.FC<Props> = (props) => {
   const data = useData({ table })
   const canEdit = useIsEditTableDataEnabled(sectionName)
   const { onlyTables, print } = useIsPrintRoute()
-  useValidate({ data, sectionName, table })
   useODPDeleteListener()
 
   const { name: cycleName } = cycle

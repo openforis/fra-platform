@@ -8,9 +8,14 @@ type Props = {
   cycleName: CycleName
 }
 
-export const getNodeValidationsUpdateEvent = (props: Props): string => {
+export const getTableValidationsUpdateEvent = (props: Props): string => {
   const { assessmentName, countryIso, cycleName } = props
   return `${countryIso}-${assessmentName}-${cycleName}-validationsUpdate`
+}
+
+export const getDescriptionValidationsUpdateEvent = (props: Props): string => {
+  const { assessmentName, countryIso, cycleName } = props
+  return `${countryIso}-${assessmentName}-${cycleName}-descriptionLinksValidationUpdate`
 }
 
 export const getNodeValuesUpdateEvent = (props: Props): string => {

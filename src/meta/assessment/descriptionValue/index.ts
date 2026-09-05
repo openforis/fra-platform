@@ -21,11 +21,13 @@ export interface CommentableDescriptionValue {
 export interface CommentableDescription {
   id: number
   countryIso: CountryIso
-  sectionName: string
+  sectionName: SectionName
   sectionUuid?: UUID
   name: CommentableDescriptionName
   value: CommentableDescriptionValue
 }
+
+export type CommentableDescriptionKey = Pick<CommentableDescription, 'name' | 'sectionName'>
 
 export type DescriptionValues = Record<CommentableDescriptionName, CommentableDescriptionValue>
 export type DescriptionSectionValues = Record<SectionName, DescriptionValues>

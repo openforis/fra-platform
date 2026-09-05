@@ -1,19 +1,17 @@
 import { useMemo } from 'react'
 
-import { Objects } from 'utils/objects'
-
 import { CountryIso } from 'meta/area/countryIso'
 import { AssessmentName } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
 import { VariableCache } from 'meta/assessment/metaCache'
 import { AssessmentMetaCaches } from 'meta/assessment/metaCaches'
 import { TableName, TableNames } from 'meta/assessment/table'
+import { Objects } from 'utils/objects'
 
 import { useCountry } from 'client/store/area/hooks/country'
 import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import { useTableSections } from 'client/store/meta/hooks/tableSections'
-import { useCanEdit } from 'client/store/user/hooks/auth'
 import { useSectionRouteParams } from 'client/hooks/routeParams'
 
 import { Props } from './props'
@@ -39,7 +37,6 @@ export const useDependencies = (props: Props): Returned => {
   const assessment = useAssessment()
   const cycle = useCycle()
   const tableSections = useTableSections({ sectionName })
-  const canEdit = useCanEdit(sectionName)
   const country = useCountry(countryIso as CountryIso)
   const forestCharacteristicsUseOdp = country.props.forestCharacteristics?.useOriginalDataPoint
 
@@ -81,16 +78,12 @@ export const useDependencies = (props: Props): Returned => {
 
         const propsDeps = { assessment, cycle, tableName }
         const calculationDependencies = AssessmentMetaCaches.getTableCalculationsDependencies(propsDeps)
-        const validationDependencies = AssessmentMetaCaches.getTableValidationsDependencies(propsDeps)
         if (calculationDependencies) {
           addDependencies(Object.values(calculationDependencies))
-        }
-        if (canEdit && validationDependencies) {
-          addDependencies(Object.values(validationDependencies))
         }
       })
     })
 
     return { external, internal }
-  }, [assessment, assessmentName, canEdit, cycle, cycleName, forestCharacteristicsUseOdp, tableSections])
+  }, [assessment, assessmentName, cycle, cycleName, forestCharacteristicsUseOdp, tableSections])
 }
