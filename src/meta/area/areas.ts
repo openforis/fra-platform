@@ -1,6 +1,6 @@
 import { AreaCode } from 'meta/area/areaCode'
 import { Country } from 'meta/area/country'
-import { CountryIso } from 'meta/area/countryIso'
+import { CountryIso, countryISOs } from 'meta/area/countryIso'
 import { CountryStatus } from 'meta/area/countryStatus'
 import { fraRegionCodes } from 'meta/area/fraRegionCodes'
 import { Global } from 'meta/area/global'
@@ -26,7 +26,7 @@ const isAtlantis = (countryIso: CountryIso | RegionCode): boolean =>
   countryIso.startsWith('X') || countryIso === RegionCode.AT
 const isGlobal = (isoCode: CountryIso | RegionCode | Global): boolean => Global.WO === isoCode
 const isSubregion = (isoCode: string): boolean => subregionCodes.includes(isoCode as SubregionCode)
-const isISOCountry = (isoCode: string): boolean => /^[a-zA-Z0-9]{3}$/.test(isoCode) && !isSubregion(isoCode)
+const isISOCountry = (isoCode: string): boolean => (countryISOs as ReadonlyArray<string>).includes(isoCode)
 const isISOGlobal = (isoCode: string): boolean => isoCode === Global.WO
 const isRegion = (isoCode: string): boolean => regionCodes.includes(isoCode as RegionCode)
 const isFRARegion = (isoCode: string): boolean => fraRegionCodes.includes(isoCode as RegionCode)
