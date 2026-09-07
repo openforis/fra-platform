@@ -23,27 +23,24 @@ const _getInvalidQueryParamError = (paramName: string, value: string): InvalidQu
 // columns, type, topicKey, regionCode, query, paths, notifyUsers, notifySelf,
 // messageId, mergeOdp, linkedVariable, index, id, force, fileName
 
+const assessmentNames = Object.values(AssessmentNames)
+const cycleNames = Object.values(CycleNames)
+
 const validators: Record<string, (value: string | Array<string>) => boolean> = {
   // assessmentName and cycleName
-  assessmentName: (value) => Object.values(AssessmentNames).includes(value as AssessmentNames),
-  cycleName: (value) => Object.values(CycleNames).includes(value as CycleNames),
-  // countryIso
-  // Note: Platform used mixed convention "countryISOs" to mean also a list of area codes
-  countryISOs: (value) => Array.isArray(value) && value.every((countryIso) => Areas.isAreaCode(countryIso)),
+  assessmentName: (value) => assessmentNames.includes(value as AssessmentNames),
+  cycleName: (value) => cycleNames.includes(value as CycleNames),
+  // countryIso and areaCodes
+  areaCodes: (value) => Array.isArray(value) && value.every((areaCode) => Areas.isAreaCode(areaCode)),
   countryIso: (value) => Areas.isAreaCode(value as string),
   // tablePaginated
   limit: (value) => Numbers.isNonNegativeInteger(value as string),
   offset: (value) => Numbers.isNonNegativeInteger(value as string),
 }
 
-const _getParam = (req: Request, paramName: string): string | Array<string> | undefined => {
-  const params = { ...req.params, ...req.query, ...req.body } as Record<string, string | Array<string>>
-  return params[paramName]
-}
-
-const _validateParam = (req: Request, paramName: string): void => {
+const _validateParam = (params: Record<string, string | Array<string>>, paramName: string): void => {
   const validate = validators[paramName]
-  const value = _getParam(req, paramName)
+  const value = params[paramName]
   if (value === undefined) return
 
   if (!validate(value)) {
@@ -53,7 +50,8 @@ const _validateParam = (req: Request, paramName: string): void => {
 
 export const validateQueryParams = (req: Request, _: Response, next: NextFunction): void => {
   try {
-    Object.keys(validators).forEach((paramName) => _validateParam(req, paramName))
+    const params = { ...req.params, ...req.query, ...req.body } as Record<string, string | Array<string>>
+    Object.keys(validators).forEach((paramName) => _validateParam(params, paramName))
     next()
   } catch (error) {
     next(error)
