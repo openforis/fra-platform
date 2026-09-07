@@ -36,6 +36,8 @@ import { UserApi } from './user'
 
 export const Api = {
   init: (express: Express): void => {
+    // validate params
+    express.use('/api/*path', ApiContextMiddleware.validateQueryParams)
     // context middleware applied to all api endpoints
     express.use('/api/*path', ApiContextMiddleware.initContext)
 
