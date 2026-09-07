@@ -33,7 +33,7 @@
   "valueEqualToSumParent": "La suma de subcategorías {{subcategories}} no es igual a {{parentVariable}} {{parentCol}} {{parentTable}} <{{valorRedondeado}}>",
   "valueMustBePositive": "El valor debe ser mayor que cero",
   "valueMustBeYear": "El valor debe ser un año válido",
-  "valueNotGreaterThan": "El valor no debe ser superior a {{maxValue}}.",
+  "valueNotGreaterThan": "El valor no debe exceder de {{maxValue}}",
   "valuesAreInconsistent1aOr1b": "Los valores no coinciden con las superficies indicadas en las tablas 1a o 1b.",
   "valuesAreInconsistentWithNetChange": "Los valores no coinciden con los de Cambio Neto en el área de Bosque"
 }
