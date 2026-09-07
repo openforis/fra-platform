@@ -28,7 +28,6 @@ export enum ValidatorName {
   plantationForestIntroduced = 'validatorPlantationForestIntroduced',
   primaryForest = 'validatorPrimaryForest',
   privateOwnership = 'validatorPrivateOwnership',
-  remainingLandWithTreeCoverTotal = 'validatorRemainingLandWithTreeCoverTotal',
   subCategory = 'validatorSubCategory',
   sumEqualTo = 'validatorSumEqualTo',
   sumNotGreaterThan = 'validatorSumNotGreaterThan',
