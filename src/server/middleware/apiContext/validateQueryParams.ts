@@ -31,7 +31,8 @@ const validators: Record<string, (value: string | Array<string>) => boolean> = {
   assessmentName: (value) => assessmentNames.includes(value as AssessmentNames),
   cycleName: (value) => cycleNames.includes(value as CycleNames),
   // countryIso and areaCodes
-  areaCodes: (value) => Array.isArray(value) && value.every((areaCode) => Areas.isISOCountry(areaCode)),
+  areaCodes: (value) => Array.isArray(value) && value.every((areaCode) => Areas.isAreaCode(areaCode)),
+  countryISOs: (value) => Array.isArray(value) && value.every((areaCode) => Areas.isISOCountry(areaCode)),
   countryIso: (value) => Areas.isAreaCode(value as string),
   // tablePaginated
   limit: (value) => Numbers.isNonNegativeInteger(value as string),
