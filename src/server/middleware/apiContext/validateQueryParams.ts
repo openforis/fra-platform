@@ -20,7 +20,7 @@ const _getInvalidQueryParamError = (paramName: string, value: string): InvalidQu
 // orderBy, orderByDirection, key
 // OTHER:
 // variables, tableNames, tableName, sectionNames, onlyTables, name, global,
-// columns, type, topicKey, regionCode, query, paths, notifyUsers, notifySelf,
+// columns, type, topicKey, query, paths, notifyUsers, notifySelf,
 // messageId, mergeOdp, linkedVariable, index, id, force, fileName
 
 const assessmentNames = Object.values(AssessmentNames)
@@ -30,10 +30,11 @@ const validators: Record<string, (value: string | Array<string>) => boolean> = {
   // assessmentName and cycleName
   assessmentName: (value) => assessmentNames.includes(value as AssessmentNames),
   cycleName: (value) => cycleNames.includes(value as CycleNames),
-  // countryIso and areaCodes
+  // areaCodes, countryISOs and regionCode
   areaCodes: (value) => Array.isArray(value) && value.every((areaCode) => Areas.isAreaCode(areaCode)),
   countryISOs: (value) => Array.isArray(value) && value.every((areaCode) => Areas.isISOCountry(areaCode)),
   countryIso: (value) => Areas.isAreaCode(value as string),
+  regionCode: (value) => Areas.isRegion(value as string),
   // tablePaginated
   limit: (value) => Numbers.isNonNegativeInteger(value as string),
   offset: (value) => Numbers.isNonNegativeInteger(value as string),
