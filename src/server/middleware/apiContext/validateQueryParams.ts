@@ -30,9 +30,8 @@ const validators: Record<string, (value: string | Array<string>) => boolean> = {
   // assessmentName and cycleName
   assessmentName: (value) => assessmentNames.includes(value as AssessmentNames),
   cycleName: (value) => cycleNames.includes(value as CycleNames),
-  // areaCodes, countryISOs and regionCode
-  areaCodes: (value) => Array.isArray(value) && value.every((areaCode) => Areas.isAreaCode(areaCode)),
-  countryISOs: (value) => Array.isArray(value) && value.every((areaCode) => Areas.isISOCountry(areaCode)),
+  // countryISOs and regionCode
+  countryISOs: (value) => Array.isArray(value) && value.every((countryIso) => Areas.isISOCountry(countryIso)),
   countryIso: (value) => Areas.isAreaCode(value as string),
   regionCode: (value) => Areas.isRegion(value as string),
   // tablePaginated
