@@ -1,3 +1,4 @@
+import { canCycleView } from 'meta/auth/authorizer/canCycleView'
 import { canDisableUser } from 'meta/auth/authorizer/canDisableUser'
 import { canEditCountryProps } from 'meta/auth/authorizer/canEditCountryProps'
 import { canEditRepositoryItem } from 'meta/auth/authorizer/canEditRepositoryItem'
@@ -27,6 +28,7 @@ export const Authorizer = {
   canEditSomeData,
   // view
   canView,
+  canCycleView,
   // links
   canVerifyLinks,
 
