@@ -32,7 +32,7 @@ const validators: Record<string, (value: string | Array<string>) => boolean> = {
   cycleName: (value) => cycleNames.includes(value as CycleNames),
   // countryISOs and regionCode
   countryISOs: (value) => Array.isArray(value) && value.every((countryIso) => Areas.isISOCountry(countryIso)),
-  countryIso: (value) => Areas.isAreaCode(value as string),
+  countryIso: (value) => Areas.isISOCountry(value as string),
   regionCode: (value) => Areas.isRegion(value as string),
   // tablePaginated
   limit: (value) => Numbers.isNonNegativeInteger(value as string),
