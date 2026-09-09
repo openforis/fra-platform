@@ -11,7 +11,7 @@ import { otherLand } from './extentOfForest/otherLand'
 import { deforestation } from './forestAreaChange/deforestation'
 import { totalForestArea } from './forestCharacteristics/totalForestArea'
 
-// TODO: Add cases as they are implemented
+// TODO: Add cases at the end to avoid conflicting PRs
 export const cases: Array<TableValidationTestCase> = [
   ...ofWhichOnForest,
   ...totalLandAreaAffectedByFire,
