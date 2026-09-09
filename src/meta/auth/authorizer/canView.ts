@@ -20,6 +20,7 @@ type Props = {
  *  if country is published, everyone can view
  *  if cycle is published, everyone can view
  *  if not, admin can view, any other logged user in whom have a role in that country for that cycle can view
+ *  Usage: Country level data, e.g. table data
  *  @param props
  *  @param props.areaCode - used to handle regions
  *  @param props.country
