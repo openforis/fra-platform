@@ -15,7 +15,7 @@ import { AuthMiddleware } from 'server/middleware/auth'
 export const TableDataApi = {
   init: (express: Express): void => {
     // Table
-    express.get(ApiEndPoint.CycleData.Table.tableData(), AuthMiddleware.requireView, getTableData)
+    express.get(ApiEndPoint.CycleData.Table.tableData(), AuthMiddleware.requireViewCountry, getTableData)
     express.get(ApiEndPoint.CycleData.Table.tableDataHistory(), AuthMiddleware.requireViewHistory, getTableDataHistory)
     express.get(
       ApiEndPoint.CycleData.Table.nodeValuesEstimations(),
