@@ -1,8 +1,11 @@
-import { validatorOtherLand } from './cases/validatorOtherLand'
+import { boreal } from './cases/climaticDomain/boreal'
+import { otherLand } from './cases/extentOfForest/otherLand'
+import { deforestation } from './cases/forestAreaChange/deforestation'
+import { totalForestArea } from './cases/forestCharacteristics/totalForestArea'
 import { runTableValidationTestCase } from './runTableValidationTestCase'
 
-// TODO: Add cases as they are implemented: cases = [...validatorOtherLand, ...validatorGreaterThanOrZero, ...]
-const cases = validatorOtherLand
+// TODO: Add cases as they are implemented
+const cases = [...boreal, ...otherLand, ...deforestation, ...totalForestArea]
 
 export default (): void => {
   describe('Table validations', () => {
