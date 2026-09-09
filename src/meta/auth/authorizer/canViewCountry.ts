@@ -16,7 +16,7 @@ type Props = {
   user: User
 }
 /**
- *  CanView
+ *  CanViewCountry
  *  if country is published, everyone can view
  *  if cycle is published, everyone can view
  *  if not, admin can view, any other logged user in whom have a role in that country for that cycle can view
@@ -28,7 +28,7 @@ type Props = {
  *  @param props.User
  *  @returns boolean
  */
-export const canView = (props: Props): boolean => {
+export const canViewCountry = (props: Props): boolean => {
   const { areaCode, assessment, country, cycle, user } = props
 
   // Country can be undefined when passed from middleware when countryIso: RegionCode

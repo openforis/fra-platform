@@ -11,10 +11,14 @@ import { AuthMiddleware } from 'server/middleware/auth'
 
 export const DescriptionsApi = {
   init: (express: Express): void => {
-    express.get(ApiEndPoint.CycleData.Descriptions.many(), AuthMiddleware.requireView, getDescription)
+    express.get(ApiEndPoint.CycleData.Descriptions.many(), AuthMiddleware.requireViewCountry, getDescription)
     express.get(ApiEndPoint.CycleData.Descriptions.history(), AuthMiddleware.requireViewHistory, getDescriptionsHistory)
     express.put(ApiEndPoint.CycleData.Descriptions.many(), AuthMiddleware.requireEditDescriptions, upsertDescription)
-    express.get(ApiEndPoint.CycleData.Descriptions.DataSources.many(), AuthMiddleware.requireView, getDataSources)
+    express.get(
+      ApiEndPoint.CycleData.Descriptions.DataSources.many(),
+      AuthMiddleware.requireViewCountry,
+      getDataSources
+    )
     express.delete(
       ApiEndPoint.CycleData.Descriptions.DataSources.one(),
       AuthMiddleware.requireEditDescriptions,
