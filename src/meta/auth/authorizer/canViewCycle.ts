@@ -8,7 +8,7 @@ type Props = {
   user: User
 }
 /**
- *  CanCycleView
+ *  CanViewCycle
  *  if cycle is published, everyone can view
  *  if not, admin can view, any other logged user who has a role in that cycle can view
  *  Usage: Cycle scoped data e.g. sections
@@ -17,7 +17,7 @@ type Props = {
  *  @param props.user
  *  @returns boolean
  */
-export const canCycleView = (props: Props): boolean => {
+export const canViewCycle = (props: Props): boolean => {
   const { cycle, user } = props
 
   if (Cycles.isPublished(cycle)) return true

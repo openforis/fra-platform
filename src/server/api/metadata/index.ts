@@ -11,7 +11,7 @@ import { getSectionsMetadata } from './getSectionsMetadata'
 export const MetadataApi = {
   init: (express: Express): void => {
     express.get(ApiEndPoint.MetaData.metaCache(), getMetaCache)
-    express.get(ApiEndPoint.MetaData.sections(), AuthMiddleware.requireCycleView, getSections)
-    express.get(ApiEndPoint.MetaData.sectionsMetadata(), AuthMiddleware.requireCycleView, getSectionsMetadata)
+    express.get(ApiEndPoint.MetaData.sections(), AuthMiddleware.requireViewCycle, getSections)
+    express.get(ApiEndPoint.MetaData.sectionsMetadata(), AuthMiddleware.requireViewCycle, getSectionsMetadata)
   },
 }

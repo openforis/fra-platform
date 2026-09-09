@@ -9,6 +9,6 @@ import { AuthMiddleware } from 'server/middleware/auth'
 export const ExplorerApi = {
   init: (express: Express): void => {
     express.get(ApiEndPoint.Explorer.data(), getData)
-    express.get(ApiEndPoint.Explorer.sectionsMetadata(), AuthMiddleware.requireCycleView, getMetadata)
+    express.get(ApiEndPoint.Explorer.sectionsMetadata(), AuthMiddleware.requireViewCycle, getMetadata)
   },
 }
