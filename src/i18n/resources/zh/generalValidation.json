@@ -33,7 +33,7 @@
   "valueEqualToSumParent": "子类别 {{subcategories}} 的总和与 {{parentVariable}} {{parentCol}} {{parentTable}} <{{valueRounded}}> 不相等",
   "valueMustBePositive": "数值应大于零",
   "valueMustBeYear": "数值应为有效年份",
-  "valueNotGreaterThan": "值不应大于 {{maxValue}}",
+  "valueNotGreaterThan": "该值不应超过 {{maxValue}}",
   "valuesAreInconsistent1aOr1b": "数值与表格1a或1b中报告的面积不一致",
   "valuesAreInconsistentWithNetChange": "数值与森林面积净变化不一致"
 }
