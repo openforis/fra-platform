@@ -23,6 +23,7 @@ export enum TableNames {
   carbonStockSoilDepth = 'carbonStockSoilDepth',
   carbonStockTotal = 'carbonStockTotal',
   climaticDomain = 'climaticDomain',
+  contactPersons = 'contactPersons',
   degradedForest = 'degradedForest',
   degradedForest2025 = 'degradedForest2025',
   degradedForestMonitoring2025 = 'degradedForestMonitoring2025',
