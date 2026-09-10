@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 
 import { Areas } from 'meta/area/areas'
+import { Global } from 'meta/area/global'
 import { AssessmentNames } from 'meta/assessment/assessment'
 import { CycleNames } from 'meta/assessment/cycle/names'
 import { Numbers } from 'utils/numbers'
@@ -33,7 +34,8 @@ const validators: Record<string, (value: string | Array<string>) => boolean> = {
   // countryISOs and regionCode
   countryISOs: (value) => Array.isArray(value) && value.every((countryIso) => Areas.isISOCountry(countryIso)),
   countryIso: (value) => Areas.isISOCountry(value as string),
-  regionCode: (value) => Areas.isRegion(value as string),
+  regionCode: (value) => Areas.isRegion(value as string) || Areas.isGlobal(value as Global),
+  areaCode: (value) => Areas.isAreaCode(value as string),
   // tablePaginated
   limit: (value) => Numbers.isNonNegativeInteger(value as string),
   offset: (value) => Numbers.isNonNegativeInteger(value as string),

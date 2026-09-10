@@ -12,7 +12,7 @@ type Returned = Array<DashboardItem>
 type Props = {
   assessmentName: AssessmentName
   cycleName: CycleName
-  countryIso: AreaCode
+  areaCode: AreaCode
 }
 
 export const getDashboard = createAsyncThunk<Returned, Props>('metadata/dashboard/get', async (props) => {
