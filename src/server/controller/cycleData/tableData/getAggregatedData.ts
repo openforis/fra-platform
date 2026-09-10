@@ -1,3 +1,4 @@
+import { Global } from 'meta/area/global'
 import { RegionCode } from 'meta/area/regionCode'
 import { RecordAssessmentData } from 'meta/data/recordData'
 
@@ -8,7 +9,7 @@ import { DataRepository } from 'server/db/repository/assessmentCycle/data'
 import { getTablesCondition } from './_tablesCondition'
 import { PropsGetTableData } from './props'
 
-type Props = PropsGetTableData & { regionCode: RegionCode }
+type Props = PropsGetTableData & { regionCode: RegionCode | Global.WO }
 
 export const getAggregatedData = async (props: Props, client: BaseProtocol = DB): Promise<RecordAssessmentData> => {
   const {

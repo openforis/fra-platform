@@ -6,7 +6,8 @@ import { requireAdmin } from 'server/middleware/auth/admin/admin'
 import { requireEditCountryProps } from 'server/middleware/auth/country/edit'
 import { requireEditDescriptions, requireEditTableData } from 'server/middleware/auth/data/edit'
 import { requireVerifyLinks } from 'server/middleware/auth/data/verifyLinks'
-import { requireView } from 'server/middleware/auth/data/view'
+import { requireViewCountry } from 'server/middleware/auth/data/viewCountry'
+import { requireViewCycle } from 'server/middleware/auth/data/viewCycle'
 import { requireViewHistory } from 'server/middleware/auth/history/view'
 import { requireDeleteTopicMessage } from 'server/middleware/auth/messageTopic/delete'
 import { requireEditMessageTopic } from 'server/middleware/auth/messageTopic/edit'
@@ -46,7 +47,8 @@ export const AuthMiddleware = {
   requireResolveTopic: _tryCatch(requireResolveTopic),
   requireUser: _tryCatch(requireUser),
   requireVerifyLinks: _tryCatch(requireVerifyLinks),
-  requireView: _tryCatch(requireView),
+  requireViewCountry: _tryCatch(requireViewCountry),
+  requireViewCycle: _tryCatch(requireViewCycle),
   requireViewHistory: _tryCatch(requireViewHistory),
   requireViewRepositoryItem: _tryCatch(requireViewRepositoryItem),
   requireViewUser: _tryCatch(requireViewUser),

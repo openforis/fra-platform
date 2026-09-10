@@ -19,7 +19,7 @@ const fileFilter = (_req: any, file: Express.Multer.File, callback: multer.FileF
 
 export const FileApi = {
   init: (express: Express): void => {
-    express.get(ApiEndPoint.File.bulkDownload(), AuthMiddleware.requireView, getBulkDownload)
+    express.get(ApiEndPoint.File.bulkDownload(), AuthMiddleware.requireViewCountry, getBulkDownload)
     express.get(ApiEndPoint._Legacy.File.hidden(), AuthMiddleware.requireUser, getHiddenFile)
 
     // Files
@@ -31,7 +31,7 @@ export const FileApi = {
     )
 
     // Static S3 files
-    express.get(ApiEndPoint.Static.file(), AuthMiddleware.requireView, getStaticS3File)
-    express.get(ApiEndPoint.Static.files(), AuthMiddleware.requireView, getMultipleS3Files)
+    express.get(ApiEndPoint.Static.file(), AuthMiddleware.requireViewCountry, getStaticS3File)
+    express.get(ApiEndPoint.Static.files(), AuthMiddleware.requireViewCountry, getMultipleS3Files)
   },
 }

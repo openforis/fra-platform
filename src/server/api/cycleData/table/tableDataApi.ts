@@ -8,6 +8,7 @@ import { clearTable } from 'server/api/cycleData/table/clearTable'
 import { estimateValues } from 'server/api/cycleData/table/estimateValues'
 import { getNodeValuesEstimations } from 'server/api/cycleData/table/getNodeValuesEstimations'
 import { getTableData } from 'server/api/cycleData/table/getTableData'
+import { getTableDataAggregated } from 'server/api/cycleData/table/getTableDataAggregated'
 import { getTableDataHistory } from 'server/api/cycleData/table/getTableDataHistory'
 import { persistNodeValues } from 'server/api/cycleData/table/persistNodeValues'
 import { AuthMiddleware } from 'server/middleware/auth'
@@ -15,7 +16,12 @@ import { AuthMiddleware } from 'server/middleware/auth'
 export const TableDataApi = {
   init: (express: Express): void => {
     // Table
-    express.get(ApiEndPoint.CycleData.Table.tableData(), AuthMiddleware.requireView, getTableData)
+    express.get(ApiEndPoint.CycleData.Table.tableData(), AuthMiddleware.requireViewCountry, getTableData)
+    express.get(
+      ApiEndPoint.CycleData.Table.tableDataAggregated(),
+      AuthMiddleware.requireViewCycle,
+      getTableDataAggregated
+    )
     express.get(ApiEndPoint.CycleData.Table.tableDataHistory(), AuthMiddleware.requireViewHistory, getTableDataHistory)
     express.get(
       ApiEndPoint.CycleData.Table.nodeValuesEstimations(),
