@@ -111,7 +111,7 @@
     "typescript-eslint": "^8.62.0",
     "vite": "^8.1.0",
     "vite-tsconfig-paths": "^6.1.1",
-    "vitest": "^4.1.9",
+    "vitest": "^4.1.11",
     "wait-on": "^9.0.10"
   },
   "dependencies": {
