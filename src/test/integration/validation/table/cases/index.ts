@@ -6,6 +6,7 @@ import { boreal } from './climaticDomain/boreal'
 import { subTropical } from './climaticDomain/sub_tropical'
 import { temperate } from './climaticDomain/temperate'
 import { tropical } from './climaticDomain/tropical'
+import { expectedYearForNextCountryReportUpdate } from './contactPersons/expectedYearForNextCountryReportUpdate'
 import { otherLand } from './extentOfForest/otherLand'
 import { deforestation } from './forestAreaChange/deforestation'
 import { totalForestArea } from './forestCharacteristics/totalForestArea'
@@ -19,6 +20,7 @@ export const cases: Array<TableValidationTestCase> = [
   ...subTropical,
   ...temperate,
   ...tropical,
+  ...expectedYearForNextCountryReportUpdate,
   ...otherLand,
   ...deforestation,
   ...totalForestArea,
