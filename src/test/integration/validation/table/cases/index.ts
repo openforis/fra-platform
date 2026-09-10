@@ -13,9 +13,14 @@ import { diseases } from './disturbances/diseases'
 import { insects } from './disturbances/insects'
 import { other } from './disturbances/other'
 import { severeWeatherEvents } from './disturbances/severe_weather_events'
+import { forestArea } from './extentOfForest/forestArea'
 import { otherLand } from './extentOfForest/otherLand'
 import { otherWoodedLand } from './extentOfForest/otherWoodedLand'
+import { afforestation } from './forestAreaChange/afforestation'
 import { deforestation } from './forestAreaChange/deforestation'
+import { forestExpansion } from './forestAreaChange/forest_expansion'
+import { forestAreaNetChange } from './forestAreaChange/forestAreaNetChange'
+import { naturalExpansion } from './forestAreaChange/natural_expansion'
 import { totalForestArea } from './forestCharacteristics/totalForestArea'
 
 // TODO: Add cases at the end to avoid conflicting PRs
@@ -34,8 +39,13 @@ export const cases: Array<TableValidationTestCase> = [
   ...insects,
   ...other,
   ...severeWeatherEvents,
+  ...forestArea,
   ...otherLand,
   ...otherWoodedLand,
+  ...afforestation,
+  ...naturalExpansion,
   ...deforestation,
+  ...forestExpansion,
+  ...forestAreaNetChange,
   ...totalForestArea,
 ]
