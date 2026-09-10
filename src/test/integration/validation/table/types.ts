@@ -11,4 +11,6 @@ export type TableValidationTestCase = {
   // Valid cells have no stored validation entry, so valid cases state expected: undefined
   expected: NodeValueValidation | undefined
   name: string
+  // Data of the previous cycle, for formulas reading fra['$prevCycle']
+  previousCycleData?: Array<NodeUpdate>
 }

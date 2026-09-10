@@ -1,5 +1,6 @@
 import { CountryIso } from 'meta/area/countryIso'
 import { AssessmentNames } from 'meta/assessment/assessment'
+import { Assessments } from 'meta/assessment/assessments'
 import { CycleNames } from 'meta/assessment/cycle/names'
 import { NodeValueValidation } from 'meta/assessment/nodeValueValidation'
 import { RowCaches } from 'meta/assessment/rowCaches'
@@ -29,13 +30,11 @@ const countryIso: CountryIso = 'FIN'
 export const runTableValidationTestCase = async (
   testCase: TableValidationTestCase
 ): Promise<TableValidationTestResult> => {
-  const { cell, data } = testCase
+  const { cell, data, previousCycleData } = testCase
 
-  const { assessment, cycle } = await AssessmentController.getOneWithCycle({
-    assessmentName,
-    cycleName,
-    metaCache: true,
-  })
+  // The meta cache of every cycle is loaded, like the api context does, so formulas can read the previous cycle
+  const assessment = await AssessmentController.getOne({ assessmentName, metaCache: true })
+  const cycle = Assessments.getCycle({ assessment, cycleName })
   const country = await AreaController.getCountry({ assessment, countryIso, cycle })
   const rowKey = RowCaches.getKey(cell)
   const rows = await RowRedisRepository.getRows({ assessment, rowKeys: [rowKey] })
@@ -46,7 +45,7 @@ export const runTableValidationTestCase = async (
     assessments: { [assessmentName]: assessment },
     country,
     cycle,
-    data: buildAssessmentData({ assessment, countryIso, cycle, data }),
+    data: buildAssessmentData({ assessment, countryIso, cycle, data, previousCycleData }),
     queue: [cell],
     rows,
     tableNames: [cell.tableName],
