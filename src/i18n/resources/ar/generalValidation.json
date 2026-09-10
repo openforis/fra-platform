@@ -33,7 +33,7 @@
   "valueEqualToSumParent": "مجموع الفئات الفرعية {{subcategories}} لا يساوي {{parentVariable}} {{parentCol}} {{parentTable}} <{{valueRounded}}>.",
   "valueMustBePositive": "يجب أن يكون القيمة أكبر من الصفر.",
   "valueMustBeYear": "يجب أن تكون القيمة عامًا صحيحًا.",
-  "valueNotGreaterThan": "يجب ألا تتجاوز القيمة {{maxValue}}.",
+  "valueNotGreaterThan": "يجب ألا تتجاوز القيمة {{maxValue}}",
   "valuesAreInconsistent1aOr1b": "القيم غير متناسقة مع القيم المذكورة في الجداول 1أ أو 1ب.",
   "valuesAreInconsistentWithNetChange": "القيم غير متناسقة مع تغير صافي مساحة الغابات."
 }
