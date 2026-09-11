@@ -24,6 +24,8 @@ import { naturalExpansion } from './forestAreaChange/natural_expansion'
 import { forestAreaWithLongTermManagementPlan } from './forestAreaWithinProtectedAreas/forest_area_with_long_term_management_plan'
 import { forestAreaWithinProtectedAreas } from './forestAreaWithinProtectedAreas/forest_area_within_protected_areas'
 import { ofWhichInProtectedAreas } from './forestAreaWithinProtectedAreas/of_which_in_protected_areas'
+import { plantationForestIntroducedArea } from './forestCharacteristics/plantationForestIntroducedArea'
+import { primaryForest } from './forestCharacteristics/primaryForest'
 import { totalForestArea } from './forestCharacteristics/totalForestArea'
 
 // TODO: Add cases at the end to avoid conflicting PRs
@@ -53,5 +55,7 @@ export const cases: Array<TableValidationTestCase> = [
   ...forestAreaWithinProtectedAreas,
   ...forestAreaWithLongTermManagementPlan,
   ...ofWhichInProtectedAreas,
+  ...plantationForestIntroducedArea,
+  ...primaryForest,
   ...totalForestArea,
 ]
