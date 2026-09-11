@@ -50,8 +50,11 @@ export enum TableNames {
   primaryDesignatedManagementObjective = 'primaryDesignatedManagementObjective',
   primaryForestByClimaticDomain = 'primaryForestByClimaticDomain',
   specificForestCategories = 'specificForestCategories',
+  sustainableDevelopment15_1_1 = 'sustainableDevelopment15_1_1',
   sustainableDevelopment15_2_1_1 = 'sustainableDevelopment15_2_1_1',
   sustainableDevelopment15_2_1_2 = 'sustainableDevelopment15_2_1_2',
+  sustainableDevelopment15_2_1_3 = 'sustainableDevelopment15_2_1_3',
+  sustainableDevelopment15_2_1_4 = 'sustainableDevelopment15_2_1_4',
   sustainableDevelopment15_2_1_5 = 'sustainableDevelopment15_2_1_5',
   totalAreaWithDesignatedManagementObjective = 'totalAreaWithDesignatedManagementObjective',
   // Used to append ODP data to tableData
