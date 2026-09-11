@@ -31,7 +31,7 @@ import { ofWhichByCommunities } from './forestOwnership/of_which_by_communities'
 import { ofWhichByIndividuals } from './forestOwnership/of_which_by_individuals'
 import { ofWhichByPrivateBusinesses } from './forestOwnership/of_which_by_private_businesses'
 import { total } from './forestOwnership/total'
-import { unknown } from './forestOwnership/unknown'
+import { unknown as forestOwnershipUnknown } from './forestOwnership/unknown'
 import { forest } from './growingStockTotal/forest'
 import { naturallyRegeneratingForest } from './growingStockTotal/naturallyRegeneratingForest'
 import { otherPlantedForest } from './growingStockTotal/otherPlantedForest'
@@ -55,6 +55,14 @@ import { other as otherLandWithTreeCoverOther } from './otherLandWithTreeCover/o
 import { palms } from './otherLandWithTreeCover/palms'
 import { treeOrchards } from './otherLandWithTreeCover/tree_orchards'
 import { treesInUrbanSettings } from './otherLandWithTreeCover/trees_in_urban_settings'
+import { conservationOfBiodiversity } from './primaryDesignatedManagementObjective/conservation_of_biodiversity'
+import { multipleUse } from './primaryDesignatedManagementObjective/multiple_use'
+import { other as primaryDesignatedManagementObjectiveOther } from './primaryDesignatedManagementObjective/other'
+import { production } from './primaryDesignatedManagementObjective/production'
+import { protectionOfSoilAndWater } from './primaryDesignatedManagementObjective/protection_of_soil_and_water'
+import { socialServices } from './primaryDesignatedManagementObjective/social_services'
+import { totalForestArea as primaryDesignatedManagementObjectiveTotalForestArea } from './primaryDesignatedManagementObjective/totalForestArea'
+import { unknown as primaryDesignatedManagementObjectiveUnknown } from './primaryDesignatedManagementObjective/unknown'
 
 // TODO: Add cases at the end to avoid conflicting PRs
 export const cases: Array<TableValidationTestCase> = [
@@ -90,7 +98,7 @@ export const cases: Array<TableValidationTestCase> = [
   ...ofWhichByIndividuals,
   ...ofWhichByPrivateBusinesses,
   ...total,
-  ...unknown,
+  ...forestOwnershipUnknown,
   ...forest,
   ...naturallyRegeneratingForest,
   ...plantedForest,
@@ -114,4 +122,12 @@ export const cases: Array<TableValidationTestCase> = [
   ...palms,
   ...treeOrchards,
   ...treesInUrbanSettings,
+  ...conservationOfBiodiversity,
+  ...multipleUse,
+  ...primaryDesignatedManagementObjectiveOther,
+  ...production,
+  ...protectionOfSoilAndWater,
+  ...socialServices,
+  ...primaryDesignatedManagementObjectiveTotalForestArea,
+  ...primaryDesignatedManagementObjectiveUnknown,
 ]
