@@ -1,7 +1,6 @@
+import { CycleParams } from 'meta/api/request/cycle'
 import { CountryIso } from 'meta/area/countryIso'
-import { AssessmentNames } from 'meta/assessment/assessment'
 import { Assessments } from 'meta/assessment/assessments'
-import { CycleNames } from 'meta/assessment/cycle/names'
 import { NodeValueValidation } from 'meta/assessment/nodeValueValidation'
 import { RowCaches } from 'meta/assessment/rowCaches'
 import { TableName } from 'meta/assessment/table'
@@ -16,6 +15,10 @@ import { validateNodeUpdates } from 'server/service/dataValidation/tables/valida
 import { buildAssessmentData } from './setup/buildAssessmentData'
 import { TableValidationTestCase } from './types'
 
+type Props = CycleParams & {
+  testCase: TableValidationTestCase
+}
+
 type TableValidationTestResult = {
   updatedTableNames: Array<TableName>
   // Formulas the metadata declares for the cell, so a cell without formulas cannot pass as valid
@@ -23,13 +26,10 @@ type TableValidationTestResult = {
   validation?: NodeValueValidation
 }
 
-const assessmentName = AssessmentNames.fra
-const cycleName = CycleNames._2025
 const countryIso: CountryIso = 'FIN'
 
-export const runTableValidationTestCase = async (
-  testCase: TableValidationTestCase
-): Promise<TableValidationTestResult> => {
+export const runTableValidationTestCase = async (props: Props): Promise<TableValidationTestResult> => {
+  const { assessmentName, cycleName, testCase } = props
   const { cell, data, previousCycleData } = testCase
 
   // The meta cache of every cycle is loaded, like the api context does, so formulas can read the previous cycle
