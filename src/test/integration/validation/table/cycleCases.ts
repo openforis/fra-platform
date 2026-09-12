@@ -1,8 +1,8 @@
 import { AssessmentNames } from 'meta/assessment/assessment'
 import { CycleNames } from 'meta/assessment/cycle/names'
 
+import { cases as fra2025 } from './cases/fra'
 import { cases as panEuropean2025 } from './cases/panEuropean'
-import { cases as fra2025 } from './cases'
 import { TableValidationCycleCases } from './types'
 
 export const cycleCases: Array<TableValidationCycleCases> = [
