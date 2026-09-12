@@ -1,18 +1,24 @@
-import { cases } from './cases'
+import { cycleCases } from './cycleCases'
 import { runTableValidationTestCase } from './runTableValidationTestCase'
 
 export default (): void => {
   describe('Table validations', () => {
-    cases.forEach((testCase) => {
-      test(testCase.name, async () => {
-        const { cell } = testCase
+    cycleCases.forEach((cycle) => {
+      const { assessmentName, cases, cycleName } = cycle
 
-        const result = await runTableValidationTestCase(testCase)
+      describe(`${assessmentName} ${cycleName}`, () => {
+        cases.forEach((testCase) => {
+          test(testCase.name, async () => {
+            const { cell } = testCase
 
-        // A cell without formulas is removed from the validations, which would look like a valid result
-        expect(result.validateFns).not.toEqual([])
-        expect(result.updatedTableNames).toEqual([cell.tableName])
-        expect(result.validation).toEqual(testCase.expected)
+            const result = await runTableValidationTestCase({ assessmentName, cycleName, testCase })
+
+            // A cell without formulas is removed from the validations, which would look like a valid result
+            expect(result.validateFns).not.toEqual([])
+            expect(result.updatedTableNames).toEqual([cell.tableName])
+            expect(result.validation).toEqual(testCase.expected)
+          })
+        })
       })
     })
   })

@@ -1,3 +1,4 @@
+import { CycleParams } from 'meta/api/request/cycle'
 import { VariableCache } from 'meta/assessment/metaCache'
 import { NodeValueValidation } from 'meta/assessment/nodeValueValidation'
 import { NodeUpdate } from 'meta/data/nodeUpdates'
@@ -13,4 +14,8 @@ export type TableValidationTestCase = {
   name: string
   // Data of the previous cycle, for formulas reading fra['$prevCycle']
   previousCycleData?: Array<NodeUpdate>
+}
+
+export type TableValidationCycleCases = CycleParams & {
+  cases: Array<TableValidationTestCase>
 }
