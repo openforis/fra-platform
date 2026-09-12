@@ -14,6 +14,7 @@ type Props = {
 
 const codes = [
   LinkValidationStatusCode.enotfound,
+  LinkValidationStatusCode.invalidEmailAddress,
   LinkValidationStatusCode.urlParsingError,
   LinkValidationStatusCode.empty,
 ]

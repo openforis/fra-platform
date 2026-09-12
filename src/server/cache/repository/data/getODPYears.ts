@@ -14,6 +14,9 @@ type Props = {
 export const getODPYears = async (props: Props): Promise<Array<string>> => {
   const { assessment, countryIso, cycle } = props
 
+  // Non-NDP cycle schemas don't have the national data point table
+  if (!cycle.props.ndp) return []
+
   const tables = { [TableNames.originalDataPointValue]: {} }
   const countryISOs = [countryIso]
   const odpData = await getCountriesData({ assessment, cycle, countryISOs, tables })

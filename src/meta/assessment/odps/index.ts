@@ -17,7 +17,6 @@ import {
   hasNaturallyRegenerating,
 } from 'meta/assessment/odps/nationalClassUtils'
 import { updateNationalClass } from 'meta/assessment/odps/updateNationalClass'
-import { validateNationalClass, validateYear } from 'meta/assessment/odps/validateODP'
 
 export const ODPs = {
   calcTotalArea,
@@ -35,7 +34,4 @@ export const ODPs = {
   hasNaturallyRegenerating,
   shouldUseTotalPrimaryForestPercentage,
   updateNationalClass,
-  // Validate
-  validateYear,
-  validateNationalClass,
 }

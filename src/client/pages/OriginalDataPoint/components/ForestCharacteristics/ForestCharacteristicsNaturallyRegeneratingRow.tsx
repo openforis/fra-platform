@@ -6,8 +6,8 @@ import { ODPs } from 'meta/assessment/odps'
 import { OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { SectionNames } from 'meta/assessment/section'
 import { Topics } from 'meta/messageCenter/topics'
-import { TooltipId } from 'meta/tooltip/id'
 import { Numbers } from 'utils/numbers'
+import { Objects } from 'utils/objects'
 
 import DiffText from 'client/components/DiffText'
 import InputPercent from 'client/components/Inputs/InputPercent'
@@ -17,7 +17,7 @@ import { Columns, useOnPaste } from 'client/pages/OriginalDataPoint/components/h
 import { useUpdateOriginalData } from 'client/pages/OriginalDataPoint/components/hooks/useUpdateOriginalData'
 import { useUpdateOriginalDataField } from 'client/pages/OriginalDataPoint/components/hooks/useUpdateOriginalDataField'
 import ODPDiffText from 'client/pages/OriginalDataPoint/components/ODPDiffText/ODPDiffText'
-import { useNationalClassValidations } from 'client/pages/OriginalDataPoint/hooks/useNationalClassValidations'
+import { useNationalClassErrorTooltip } from 'client/pages/OriginalDataPoint/hooks/useNationalClassErrorTooltip'
 import { useShowReviewIndicator } from 'client/pages/OriginalDataPoint/hooks/useShowReviewIndicator'
 
 import { useNationalClassNameComments } from '../../hooks'
@@ -52,12 +52,11 @@ const ForestCharacteristicsNaturallyRegeneratingRow: React.FC<Props> = (props) =
 
   const displayHistory = useODPDisplayHistory()
 
-  let validationErrorMessage = useNationalClassValidations({
-    index,
-    originalDataPoint,
-    variable: 'validPrimaryForest',
+  const errorTooltip = useNationalClassErrorTooltip({
+    field: 'primaryForest',
+    nationalClassUuid: uuid,
+    nationalDataPointUuid: originalDataPoint.uuid,
   })
-  validationErrorMessage = displayHistory ? null : validationErrorMessage
 
   const _onPaste = useOnPaste({
     columns,
@@ -87,9 +86,9 @@ const ForestCharacteristicsNaturallyRegeneratingRow: React.FC<Props> = (props) =
         {displayHistory ? <DiffText changes={changes?.naturalForestPercentArea} /> : Numbers.format(ofWhichPrimary)}
       </th>
       <td
-        className={classNames(`fra-table__cell`, { 'validation-error': Boolean(validationErrorMessage) })}
-        data-tooltip-content={validationErrorMessage}
-        data-tooltip-id={TooltipId.error}
+        className={classNames(`fra-table__cell`, { 'validation-error': !Objects.isEmpty(errorTooltip) })}
+        data-tooltip-content={errorTooltip?.content}
+        data-tooltip-id={errorTooltip?.id}
       >
         {displayHistory ? (
           <div className="odp-percent-diff">

@@ -33,6 +33,11 @@ export const triggerVerifyLinksWorker = async (): Promise<void> => {
     return
   }
 
+  if (ProcessEnv.nodeEnv === NodeEnv.testE2e) {
+    // A dedicated worker container already consumes the queue in e2e
+    return
+  }
+
   const startId = `verify-links-start-${Date.now()}-${Math.random()}`
   const lockAcquired = await VerifyLinksWorkerPresence.tryAcquireWorkerLock(startId)
 

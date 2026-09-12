@@ -1,4 +1,5 @@
 import { Link, LinkToVisit } from 'meta/cycleData/links/link'
+import { Links } from 'meta/cycleData/links/links'
 
 type Props = {
   approvedLinks: Array<Link>
@@ -8,6 +9,6 @@ type Props = {
 export const filterLinks = (props: Props): Array<LinkToVisit> => {
   const { approvedLinks, linksToVisit } = props
 
-  const approvedLinksSet = new Set<string>(approvedLinks.map((link) => `${link.countryIso}_${link.link ?? ''}`))
-  return linksToVisit.filter((link) => !approvedLinksSet.has(`${link.countryIso}_${link.link ?? ''}`))
+  const approvedLinkKeys = new Set<string>(approvedLinks.map(Links.getKey))
+  return linksToVisit.filter((link) => !approvedLinkKeys.has(Links.getKey(link)))
 }

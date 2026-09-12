@@ -9,4 +9,4 @@ heroku pg:copy dev-fra-platform::DATABASE_URL DATABASE_URL -a fra-platform-incub
 # run migrations
 yarn migration-steps:run
 
-source "$(dirname "$0")/_finish.sh"
+source "$TERRAFORM_DIR/_finish.sh"

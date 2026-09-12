@@ -1,77 +1,47 @@
-import dns from 'dns'
-
 import { LinkToVisit, LinkValidationStatusCode, VisitedLink } from 'meta/cycleData/links/link'
-import { Objects } from 'utils/objects'
+import { Promises } from 'utils/promises'
 
-const _visitLink = async (link: string | null): Promise<LinkValidationStatusCode> => {
-  if (Objects.isEmpty(link)) return LinkValidationStatusCode.empty
+import { parseLink } from './parseLink'
+import { HostnameResolution, resolveHostname } from './resolveHostname'
 
-  if (link.trim().toLowerCase().startsWith('mailto:')) {
-    return LinkValidationStatusCode.success
-  }
+const concurrentLookups = 25 // Maximum number of hostnames to resolve at a time.
 
-  if (
-    link.startsWith('#_') ||
-    link.startsWith('api/cycle-data/repository/file/') ||
-    link.startsWith('/api/cycle-data/repository/file/')
-  ) {
-    return LinkValidationStatusCode.success
-  }
-
-  let hostname = ''
-  try {
-    const urlWithScheme = link.startsWith('www.') ? `http://${link}` : link
-    const urlObject = new URL(urlWithScheme)
-    // eslint-disable-next-line prefer-destructuring
-    hostname = urlObject.hostname
-  } catch (e) {
-    return LinkValidationStatusCode.urlParsingError
-  }
-
-  return new Promise((resolve) => {
-    dns.resolve(hostname, (err, addresses) => {
-      if (err) {
-        resolve(LinkValidationStatusCode.enotfound)
-        return
-      }
-
-      if (addresses?.length > 0) {
-        resolve(LinkValidationStatusCode.success)
-      } else {
-        resolve(LinkValidationStatusCode.enotfound)
-      }
-    })
-  })
-}
-
-export const visitLinks = async (links: Array<LinkToVisit>): Promise<Array<VisitedLink>> => {
-  const dnsLookupCache = new Map<string, LinkValidationStatusCode>()
+export const visitLinks = async (linksToVisit: Array<LinkToVisit>): Promise<Array<VisitedLink>> => {
   const timestamp = Date.now().toString()
   const visitedLinks: Array<VisitedLink> = []
-  const BATCH_SIZE = 50 // Preventing thousands of dns lookups at the same time
 
-  const visitBatch = async (batch: Array<LinkToVisit>): Promise<any> => {
-    const promises = batch.map(async (link) => {
-      const cachedStatusCode = dnsLookupCache.get(link.link)
-      if (cachedStatusCode !== undefined) {
-        return { ...link, code: cachedStatusCode, timestamp }
-      }
+  // Group links by hostname, so every hostname is resolved only once per run.
+  const linksByHostname = new Map<string, Array<LinkToVisit>>()
+  linksToVisit.forEach((link) => {
+    const parsedLink = parseLink(link.link)
+    if ('code' in parsedLink) {
+      visitedLinks.push({ ...link, code: parsedLink.code, timestamp })
+      return
+    }
+    const hostnameLinks = linksByHostname.get(parsedLink.hostname) ?? []
+    hostnameLinks.push(link)
+    linksByHostname.set(parsedLink.hostname, hostnameLinks)
+  })
 
-      const validationCode = await _visitLink(link.link)
+  const hostnames = Array.from(linksByHostname.keys())
+  const resolutions = new Map<string, HostnameResolution>()
 
-      dnsLookupCache.set(link.link, validationCode)
-      return { ...link, code: validationCode, timestamp }
-    })
-
-    return Promise.all(promises)
+  const resolveMany = async (targets: Array<string>): Promise<void> => {
+    const results = await Promises.pool<string, HostnameResolution>(targets, resolveHostname, concurrentLookups)
+    targets.forEach((hostname, index) => resolutions.set(hostname, results[index]))
   }
 
-  for (let i = 0; i < links.length; i += BATCH_SIZE) {
-    const batch = links.slice(i, i + BATCH_SIZE)
-    // eslint-disable-next-line no-await-in-loop
-    const visitedBatch = await visitBatch(batch)
-    visitedLinks.push(...visitedBatch)
-  }
+  const isTransient = (hostname: string): boolean => resolutions.get(hostname) === 'transient'
+
+  await resolveMany(hostnames)
+  await resolveMany(hostnames.filter(isTransient)) // Try the hostnames with transient errors a second time.
+
+  hostnames.forEach((hostname) => {
+    const isResolved = resolutions.get(hostname) === 'resolved'
+    const code = isResolved ? LinkValidationStatusCode.success : LinkValidationStatusCode.enotfound
+    const hostnameLinks = linksByHostname.get(hostname) ?? []
+    hostnameLinks.forEach((link) => visitedLinks.push({ ...link, code, timestamp }))
+  })
 
   return visitedLinks
 }

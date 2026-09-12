@@ -12,6 +12,7 @@ import { CountryService } from 'server/service/country'
 import { ProcessEnv } from 'server/utils'
 import { NodeEnv } from 'server/utils/processEnv'
 
+import { notifyClientUpdate } from './updateDependants/notifyClientUpdate'
 import { updateOriginalDataPointDependentNodes } from './updateDependants/updateOriginalDataPointDependentNodes'
 
 type Props = {
@@ -28,7 +29,7 @@ export const create = async (props: Props, client: BaseProtocol = DB): Promise<O
   const { assessment, country, cycle, notifyClient = true, originalDataPoint, sectionName, user } = props
   const { countryIso } = originalDataPoint
 
-  return client.tx(async (t) => {
+  const createdNationalDataPoint = await client.tx(async (t) => {
     const createdOriginalDataPoint = await OriginalDataPointRepository.create(
       { assessment, cycle, originalDataPoint },
       t
@@ -67,4 +68,16 @@ export const create = async (props: Props, client: BaseProtocol = DB): Promise<O
 
     return createdOriginalDataPoint
   })
+
+  if (ProcessEnv.nodeEnv !== NodeEnv.test) {
+    await notifyClientUpdate({
+      assessment,
+      cycle,
+      countryIso,
+      sectionName,
+      originalDataPoints: [createdNationalDataPoint],
+    })
+  }
+
+  return createdNationalDataPoint
 }

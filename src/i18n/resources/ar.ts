@@ -18,6 +18,7 @@ import generalValidation from './ar/generalValidation.json'
 import geo from './ar/geo.json'
 import history from './ar/history.json'
 import landing from './ar/landing.json'
+import linkValidation from './ar/linkValidation.json'
 import login from './ar/login.json'
 import measures from './ar/measures.json'
 import nationalDataPoint from './ar/nationalDataPoint.json'
@@ -48,6 +49,7 @@ export const arTranslation = {
   geo,
   history,
   landing,
+  linkValidation,
   login,
   measures,
   nationalDataPoint,

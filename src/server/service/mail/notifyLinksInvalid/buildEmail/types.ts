@@ -1,13 +1,14 @@
 import { TFunction } from 'i18next'
 
 import { CountryIso } from 'meta/area/countryIso'
+import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { SubSection } from 'meta/assessment/section'
 import { Link } from 'meta/cycleData/links/link'
 
 export type RenderContext = {
+  assessment: Assessment
   cycle: Cycle
-  isPanEuropean: boolean
   subSections: Array<SubSection>
   t: TFunction
 }

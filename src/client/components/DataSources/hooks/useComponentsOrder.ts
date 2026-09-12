@@ -1,10 +1,10 @@
 import { useMemo } from 'react'
 
-import { DataSource } from 'meta/assessment/descriptionValue/dataSource'
+import { DataSourceEditableField } from 'meta/assessment/descriptionValue/dataSource'
 
 import { PropsDataSources } from 'client/components/DataSources/types'
 
-type Returned = Array<keyof DataSource>
+type Returned = Array<DataSourceEditableField>
 
 export const useComponentsOrder = (props: Pick<PropsDataSources, 'options'>): Returned => {
   const { options } = props

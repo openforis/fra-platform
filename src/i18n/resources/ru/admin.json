@@ -7,7 +7,6 @@
   "country_two": "$t(admin.country_few)",
   "country_zero": "$t(admin.country_many)",
   "disabledUsers": "Отключенные пользователи",
-  "enotfound": "Ошибка DNS",
   "filter": "Фильтровать по",
   "invitationPending": "Приглашение в стадии рассмотрения",
   "invitationsAcceptedCount": "Число принятых приглашений",
@@ -22,7 +21,6 @@
   "role_other": "{{count}} Роли",
   "role_two": "$t(admin.role_few)",
   "role_zero": "$t(admin.role_many)",
-  "urlParsingError": "URL parsing error",
   "usersCount": "Число пользователей",
   "verifyLinks": "Проверить ссылки"
 }

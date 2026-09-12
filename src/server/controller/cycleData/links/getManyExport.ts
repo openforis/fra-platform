@@ -1,4 +1,3 @@
-import { AssessmentNames } from 'meta/assessment/assessment'
 import { Link } from 'meta/cycleData/links/link'
 import { Links } from 'meta/cycleData/links/links'
 import { Lang } from 'meta/lang'
@@ -34,7 +33,6 @@ export const getManyExport = async (props: Props): Promise<Returned> => {
   const linkHeader = t('common.link')
   const statusHeader = t('admin.lastStatus')
   const locationsHeader = t('admin.locations')
-  const isPanEuropean = assessment.props.name === AssessmentNames.panEuropean
   const { appUri } = ProcessEnv
 
   const rowTransformer = (rawLink: Link): Record<string, string> => {
@@ -44,10 +42,10 @@ export const getManyExport = async (props: Props): Promise<Returned> => {
     const formattedLocations = (link.locations ?? [])
       .map((location, index) => {
         const label = Links.getLocationLabel({
+          assessment,
           countryIso: link.countryIso,
           cycle,
           includeCountryIso,
-          isPanEuropean,
           location,
           subSections,
           t,

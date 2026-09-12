@@ -41,7 +41,7 @@ const Locations: React.FC<Props> = (props) => {
       {showLocations && (
         <ol className="locations">
           {locations?.map((location, idx) => (
-            <li key={`${String(idx)}-${location.id}`}>
+            <li key={`${String(idx)}-${location.url}`}>
               <Link color={LinkColor.body} rel="noreferrer" target="_blank" to={String(location.url)}>
                 {getLabel({ countryIso: link.countryIso, location })}
               </Link>

@@ -10,7 +10,11 @@ export const getMany = async (req: CountryRequest, res: Response): Promise<void>
     const { countryIso } = req.query
     const { assessment, cycle } = req.context
 
-    const originalDataPoints = await NationalDataPointController.getMany({ assessment, cycle, countryIso })
+    const originalDataPoints = await NationalDataPointController.getMany({
+      assessment,
+      countryISOs: [countryIso],
+      cycle,
+    })
 
     Requests.send(res, originalDataPoints)
   } catch (e) {

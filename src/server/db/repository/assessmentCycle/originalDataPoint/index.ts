@@ -3,8 +3,6 @@ import { deleteNationalClass } from 'server/db/repository/assessmentCycle/origin
 import { getBulkDownloadData } from 'server/db/repository/assessmentCycle/originalDataPoint/getBulkDownloadData'
 import { getLastAccepted } from 'server/db/repository/assessmentCycle/originalDataPoint/getLastAccepted'
 import { getMany } from 'server/db/repository/assessmentCycle/originalDataPoint/getMany'
-import { getManyWithDescriptionLinks } from 'server/db/repository/assessmentCycle/originalDataPoint/getManyWithDescriptionLinks'
-import { getManyWithReferenceLinks } from 'server/db/repository/assessmentCycle/originalDataPoint/getManyWithReferenceLinks'
 import { getOne } from 'server/db/repository/assessmentCycle/originalDataPoint/getOne'
 import { getReservedYears } from 'server/db/repository/assessmentCycle/originalDataPoint/getReservedYears'
 import { remove } from 'server/db/repository/assessmentCycle/originalDataPoint/remove'
@@ -19,8 +17,6 @@ export const OriginalDataPointRepository = {
   getBulkDownloadData,
   getLastAccepted,
   getMany,
-  getManyWithDescriptionLinks,
-  getManyWithReferenceLinks,
   getOne,
   getReservedYears,
   remove,

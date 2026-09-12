@@ -7,7 +7,6 @@
   "country_two": "$t(admin.country_other)",
   "country_zero": "$t(admin.country_other)",
   "disabledUsers": "禁用用户",
-  "enotfound": "DNS错误",
   "filter": "筛选，按照",
   "invitationPending": "邀请待处理",
   "invitationsAcceptedCount": "已接受的邀请数量",
@@ -22,7 +21,6 @@
   "role_other": "{{count}} 个角色",
   "role_two": "$t(admin.role_other)",
   "role_zero": "$t(admin.role_other)",
-  "urlParsingError": "URL解析错误",
   "usersCount": "用户数量",
   "verifyLinks": "验证链接"
 }

@@ -12,9 +12,11 @@ const config: PlaywrightTestConfig = {
     headless: false,
     baseURL: 'http://localhost:9000',
     launchOptions: {
-      slowMo: 100,
+      slowMo: 500,
     },
     trace: 'on-first-retry',
+    actionTimeout: 25_000,
+    navigationTimeout: 25_000,
   },
 }
 

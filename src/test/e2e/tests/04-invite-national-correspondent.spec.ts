@@ -1,8 +1,10 @@
 import { Numbers } from 'utils/numbers'
 
+import { TableDomUtils } from 'test/e2e/utils/table'
+
 import { expect, test } from '../fixtures/auth'
 import { AuthUtils } from '../utils/Auth'
-import { DOMUtils } from '../utils/DOM'
+import { DOMUtils } from '../utils/dom'
 import { MailUtil } from '../utils/Mail'
 import { UserUtils } from '../utils/User'
 
@@ -80,32 +82,32 @@ test.describe.serial('National Correspondent: ', () => {
     // Navigate using sidebar and unlock editing
     await ncPage.goto('/assessments/fra/2025/X01/home')
     await DOMUtils.sidebarNavigate(ncPage, 'Forest extent, characteristics and changes', 'Extent of forest')
-    await DOMUtils.unlockEditing(ncPage)
+    await DOMUtils.ensureEditingUnlocked(ncPage)
 
     // Clear table
-    await DOMUtils.clearTable(ncPage, 'extentOfForest')
-    await DOMUtils.expectCellValue(ncPage, 'forestArea', '1990', '')
+    await TableDomUtils.clearTable(ncPage, 'extentOfForest')
+    await TableDomUtils.expectCellValue(ncPage, 'forestArea', '1990', '')
 
-    const totalLandArea = await DOMUtils.getCellValue(ncPage, 'totalLandArea', '1990')
+    const totalLandArea = await TableDomUtils.getCellValue(ncPage, 'totalLandArea', '1990')
 
     // Fill cell (forest area, 1990) with non-error value
     const forestAreaValue = 500
-    await DOMUtils.fillCell(ncPage, 'forestArea', '1990', String(forestAreaValue))
+    await TableDomUtils.fillCell(ncPage, 'forestArea', '1990', String(forestAreaValue))
     // Check calculation for other land updates and passes
     const expectedOtherLand = Numbers.toFixed(Numbers.sub(totalLandArea, forestAreaValue))
-    await DOMUtils.expectCellValue(ncPage, 'otherLand', '1990', expectedOtherLand)
+    await TableDomUtils.expectCellValue(ncPage, 'otherLand', '1990', expectedOtherLand)
     // Expect no error
-    await DOMUtils.expectTableHasNoError(ncPage, 'extentOfForest')
+    await TableDomUtils.expectTableHasNoError(ncPage, 'extentOfForest')
 
     // Fill cell (forest area, 1990) with error value
     const forestAreaValueError = 999999
-    await DOMUtils.fillCell(ncPage, 'forestArea', '2000', String(forestAreaValueError))
+    await TableDomUtils.fillCell(ncPage, 'forestArea', '2000', String(forestAreaValueError))
     // Expect error (wait for validation to update)
-    await DOMUtils.expectTableHasError(ncPage, 'extentOfForest')
+    await TableDomUtils.expectTableHasError(ncPage, 'extentOfForest')
 
     // Clear table
-    await DOMUtils.clearTable(ncPage, 'extentOfForest')
-    await DOMUtils.expectCellValue(ncPage, 'forestArea', '1990', '')
+    await TableDomUtils.clearTable(ncPage, 'extentOfForest')
+    await TableDomUtils.expectCellValue(ncPage, 'forestArea', '1990', '')
 
     await ncContext.close()
   })

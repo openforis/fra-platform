@@ -23,5 +23,5 @@ type DataCellStateProps = {
 }
 
 export type DataCellProps = PropsWithChildren<
-  DivElementProps & DivTooltipProps & GridPlacementProps & DataCellStateProps
+  DivElementProps & DivTooltipProps & GridPlacementProps & DataCellStateProps & { dataTestId?: string }
 >

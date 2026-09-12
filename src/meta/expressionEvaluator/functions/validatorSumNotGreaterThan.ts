@@ -1,14 +1,14 @@
+import { NodeValueValidation, NodeValueValidationMessage } from 'meta/assessment/nodeValueValidation'
+import { ValidatorName } from 'meta/expressionEvaluator/validatorName'
 import { Numbers } from 'utils/numbers'
 import { Objects } from 'utils/objects'
-
-import { NodeValueValidation, NodeValueValidationMessage } from 'meta/assessment/nodeValueValidation'
 
 import { ExpressionFunction } from 'lib/expressionEvaluator/function'
 
 import { Context } from '../context'
 
 export const validatorSumNotGreaterThan: ExpressionFunction<Context> = {
-  name: 'validatorSumNotGreaterThan',
+  name: ValidatorName.sumNotGreaterThan,
   minArity: 2,
   executor: () => {
     return (value?: string, maxValue?: string, tolerance?: boolean): NodeValueValidation => {
@@ -19,7 +19,13 @@ export const validatorSumNotGreaterThan: ExpressionFunction<Context> = {
 
       const messages: Array<NodeValueValidationMessage> = valid
         ? undefined
-        : [{ key: 'generalValidation.sumNotGreaterThan', params: { maxValue: Numbers.toFixed(maxValue) } }]
+        : [
+            {
+              name: ValidatorName.sumNotGreaterThan,
+              key: 'generalValidation.sumNotGreaterThan',
+              params: { maxValue: Numbers.toFixed(maxValue) },
+            },
+          ]
 
       return { valid, messages }
     }

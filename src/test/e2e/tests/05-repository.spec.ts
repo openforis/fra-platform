@@ -1,5 +1,5 @@
 import { expect, test } from '../fixtures/auth'
-import { DOMUtils } from '../utils/DOM'
+import { DOMUtils } from '../utils/dom'
 
 const rootLinkLabel = 'E2E test link'
 const rootLinkLabelEdited = 'E2E test link edited'
@@ -11,7 +11,7 @@ test.describe.serial('Repository: ', () => {
     const page = authenticatedPage
 
     await page.goto('/assessments/fra/2025/X01/home/repository')
-    await DOMUtils.unlockEditing(page)
+    await DOMUtils.ensureEditingUnlocked(page)
 
     await page.getByRole('button', { name: 'Add file' }).last().click()
     await page.fill('input[name="repositoryItem.props.translation.en"]', rootLinkLabel)
@@ -25,7 +25,7 @@ test.describe.serial('Repository: ', () => {
     const page = authenticatedPage
 
     await page.goto('/assessments/fra/2025/X01/home/repository')
-    await DOMUtils.unlockEditing(page)
+    await DOMUtils.ensureEditingUnlocked(page)
 
     await page.locator('.repository-list-item', { hasText: rootLinkLabel }).locator('button').click()
     await page.fill('input[name="repositoryItem.props.translation.en"]', rootLinkLabelEdited)
@@ -38,7 +38,7 @@ test.describe.serial('Repository: ', () => {
     const page = authenticatedPage
 
     await page.goto('/assessments/fra/2025/X01/home/repository')
-    await DOMUtils.unlockEditing(page)
+    await DOMUtils.ensureEditingUnlocked(page)
 
     await page.getByRole('button', { name: 'Add folder' }).last().click()
     await page.fill('input[name="repositoryItem.folderName"]', folderName)
@@ -51,7 +51,7 @@ test.describe.serial('Repository: ', () => {
     const page = authenticatedPage
 
     await page.goto('/assessments/fra/2025/X01/home/repository')
-    await DOMUtils.unlockEditing(page)
+    await DOMUtils.ensureEditingUnlocked(page)
 
     await page.locator('.repository-folder button', { hasText: folderName }).click()
     await page.getByRole('button', { name: 'Add file' }).last().click()
@@ -66,7 +66,7 @@ test.describe.serial('Repository: ', () => {
     const page = authenticatedPage
 
     await page.goto('/assessments/fra/2025/X01/home/repository')
-    await DOMUtils.unlockEditing(page)
+    await DOMUtils.ensureEditingUnlocked(page)
 
     await page.locator('.repository-folder button', { hasText: folderName }).click()
     await page.locator('.repository-list-item', { hasText: nestedLinkLabel }).locator('button').click()
@@ -80,7 +80,7 @@ test.describe.serial('Repository: ', () => {
     const page = authenticatedPage
 
     await page.goto('/assessments/fra/2025/X01/home/repository')
-    await DOMUtils.unlockEditing(page)
+    await DOMUtils.ensureEditingUnlocked(page)
 
     await page.locator('.repository-list-item--folder', { hasText: folderName }).locator('button').last().click()
     page.once('dialog', (dialog) => dialog.accept())
@@ -93,7 +93,7 @@ test.describe.serial('Repository: ', () => {
     const page = authenticatedPage
 
     await page.goto('/assessments/fra/2025/X01/home/repository')
-    await DOMUtils.unlockEditing(page)
+    await DOMUtils.ensureEditingUnlocked(page)
 
     await page.locator('.repository-list-item', { hasText: rootLinkLabelEdited }).locator('button').click()
     page.once('dialog', (dialog) => dialog.accept())

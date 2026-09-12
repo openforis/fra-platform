@@ -1,13 +1,11 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-
 import classNames from 'classnames'
 
 import { ODPs } from 'meta/assessment/odps'
-import { NationalClassValidation } from 'meta/assessment/odps/validateODP'
 import { ODPNationalClass, OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { Topics } from 'meta/messageCenter/topics'
-import { TooltipId } from 'meta/tooltip/id'
+import { Objects } from 'utils/objects'
 
 import { useCycle } from 'client/store/meta/hooks/cycles'
 import DiffText from 'client/components/DiffText'
@@ -19,7 +17,7 @@ import { Columns, useOnPaste } from 'client/pages/OriginalDataPoint/components/h
 import { useUpdateOriginalData } from 'client/pages/OriginalDataPoint/components/hooks/useUpdateOriginalData'
 import { useUpdateOriginalDataField } from 'client/pages/OriginalDataPoint/components/hooks/useUpdateOriginalDataField'
 import ODPDiffText from 'client/pages/OriginalDataPoint/components/ODPDiffText/ODPDiffText'
-import { useNationalClassValidations } from 'client/pages/OriginalDataPoint/hooks/useNationalClassValidations'
+import { useNationalClassErrorTooltip } from 'client/pages/OriginalDataPoint/hooks/useNationalClassErrorTooltip'
 import { useShowReviewIndicator } from 'client/pages/OriginalDataPoint/hooks/useShowReviewIndicator'
 
 import { useNationalClassNameComments } from '../../hooks'
@@ -29,7 +27,6 @@ type Props = {
   canEditData: boolean
   index: number
   originalDataPoint: OriginalDataPoint
-  nationalClassValidation: NationalClassValidation
 }
 
 const columns: Columns = [
@@ -40,7 +37,7 @@ const columns: Columns = [
 ]
 
 const ExtentOfForestRow: React.FC<Props> = (props) => {
-  const { canEditData, index, nationalClassValidation, originalDataPoint } = props
+  const { canEditData, index, originalDataPoint } = props
 
   const { t } = useTranslation()
   const cycle = useCycle()
@@ -52,13 +49,16 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
 
   const displayHistory = useODPDisplayHistory()
 
-  let validationErrorMessage = useNationalClassValidations({
-    index,
-    originalDataPoint,
-    variable: 'validExtentOfForestPercentage',
+  const areaErrorTooltip = useNationalClassErrorTooltip({
+    field: 'area',
+    nationalClassUuid: uuid,
+    nationalDataPointUuid: originalDataPoint.uuid,
   })
-
-  validationErrorMessage = displayHistory ? null : validationErrorMessage
+  const percentageErrorTooltip = useNationalClassErrorTooltip({
+    field: 'extentOfForestPercentage',
+    nationalClassUuid: uuid,
+    nationalDataPointUuid: originalDataPoint.uuid,
+  })
 
   const otherLandPercent = ODPs.calculateNationalClassOtherLandPercent(nationalClass)
 
@@ -84,8 +84,10 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
       </th>
       <td
         className={classNames(`fra-table__cell fra-table__divider`, {
-          'validation-error': !nationalClassValidation.validArea,
+          'validation-error': !Objects.isEmpty(areaErrorTooltip),
         })}
+        data-tooltip-content={areaErrorTooltip?.content}
+        data-tooltip-id={areaErrorTooltip?.id}
       >
         {displayHistory ? (
           <ODPDiffText
@@ -112,9 +114,9 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
       </td>
 
       <td
-        className={classNames('fra-table__cell', { 'validation-error': Boolean(validationErrorMessage) })}
-        data-tooltip-content={validationErrorMessage}
-        data-tooltip-id={TooltipId.error}
+        className={classNames('fra-table__cell', { 'validation-error': !Objects.isEmpty(percentageErrorTooltip) })}
+        data-tooltip-content={percentageErrorTooltip?.content}
+        data-tooltip-id={percentageErrorTooltip?.id}
       >
         {displayHistory ? (
           <div className="odp-percent-diff">
@@ -143,9 +145,9 @@ const ExtentOfForestRow: React.FC<Props> = (props) => {
       </td>
 
       <td
-        className={classNames('fra-table__cell', { 'validation-error': Boolean(validationErrorMessage) })}
-        data-tooltip-content={validationErrorMessage}
-        data-tooltip-id={TooltipId.error}
+        className={classNames('fra-table__cell', { 'validation-error': !Objects.isEmpty(percentageErrorTooltip) })}
+        data-tooltip-content={percentageErrorTooltip?.content}
+        data-tooltip-id={percentageErrorTooltip?.id}
       >
         {displayHistory ? (
           <div className="odp-percent-diff">

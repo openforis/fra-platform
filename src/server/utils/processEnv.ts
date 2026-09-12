@@ -14,6 +14,7 @@ export enum NodeEnv {
   development = 'development',
   production = 'production',
   test = 'test',
+  testE2e = 'test-e2e',
 }
 
 export const ProcessEnv = {

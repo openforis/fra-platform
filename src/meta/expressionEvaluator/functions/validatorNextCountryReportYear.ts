@@ -1,14 +1,14 @@
+import { NodeValueValidation, NodeValueValidationMessage } from 'meta/assessment/nodeValueValidation'
+import { ValidatorName } from 'meta/expressionEvaluator/validatorName'
 import { Numbers } from 'utils/numbers'
 import { Objects } from 'utils/objects'
-
-import { NodeValueValidation, NodeValueValidationMessage } from 'meta/assessment/nodeValueValidation'
 
 import { ExpressionFunction } from 'lib/expressionEvaluator/function'
 
 import { Context } from '../context'
 
 export const validatorNextCountryReportYear: ExpressionFunction<Context> = {
-  name: 'validatorNextCountryReportYear',
+  name: ValidatorName.nextCountryReportYear,
   minArity: 1,
   executor: () => {
     return (value?: string): NodeValueValidation => {
@@ -18,7 +18,13 @@ export const validatorNextCountryReportYear: ExpressionFunction<Context> = {
 
       const messages: Array<NodeValueValidationMessage> = valid
         ? undefined
-        : [{ key: 'generalValidation.countryReportYearGreaterThanCurrentYear', params: { minValue: currentYear } }]
+        : [
+            {
+              name: ValidatorName.nextCountryReportYear,
+              key: 'generalValidation.countryReportYearGreaterThanCurrentYear',
+              params: { minValue: currentYear },
+            },
+          ]
 
       return { valid, messages }
     }

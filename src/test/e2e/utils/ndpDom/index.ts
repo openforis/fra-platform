@@ -1,0 +1,238 @@
+import { expect, Locator, Page } from '@playwright/test'
+
+import { DataTestId } from 'meta/dataTestId/id'
+
+import { DescriptionUtils } from '../description'
+import { DOMUtils } from '../dom'
+import { NdpPathProps, SectionUtils } from '../section'
+
+const nationalDataPointApi = '/api/cycle-data/national-data-points/national-data-point'
+
+const _nationalClassesGrid = (page: Page): Locator =>
+  page.locator('.data-grid', { has: page.getByText('Definition', { exact: true }) })
+
+const _nationalClassesSection = (page: Page): Locator =>
+  page.locator('.odp__section', { has: _nationalClassesGrid(page) })
+
+const _nationalClassNameInputs = (page: Page): Locator =>
+  _nationalClassesGrid(page).locator('.data-cell.firstCol input.input-text')
+
+const _existingNationalClassNameInput = (page: Page): Locator => _nationalClassNameInputs(page).first()
+
+const _commentsBlock = (page: Page): Locator => page.locator('.data-grid.odp__section.description')
+
+const _commentsEditor = (page: Page): Locator => _commentsBlock(page).locator('.jodit-wysiwyg')
+
+const fillYear = async (page: Page, year: string): Promise<void> => {
+  // New odp year defaults to -1 before selecting a year.
+  // When selecting a year, the ODP gets created via POST request
+  // Wait for that response so the editor becomes editable
+  const created = DOMUtils.waitForResponse(page, nationalDataPointApi, 'POST')
+  await page.locator('.odp__year-selection .select__wrapper').click()
+  await page.getByRole('option', { name: year }).click()
+  await created
+}
+
+const fillDataSourcesV1Reference = async (page: Page, html: string): Promise<void> => {
+  const editor = page.locator('.editor-wysiwyg-links .jodit-wysiwyg[contenteditable="true"]').first()
+
+  const saved = DOMUtils.waitForResponse(page, `${nationalDataPointApi}/data-sources`, 'PUT')
+  await DescriptionUtils.pasteIntoEditorWysiwygLinksOnly(page, editor, html)
+  await saved
+}
+
+const getDataSourcesV1ReferenceValidationError = (page: Page): Locator =>
+  page.locator('.editorWYSIWYG.editor-wysiwyg-links.validation-error')
+
+const fillDataSourcesV1MethodsUsed = async (page: Page, methodLabel: string): Promise<void> => {
+  const saved = DOMUtils.waitForResponse(page, `${nationalDataPointApi}/data-sources`, 'PUT')
+  await page.getByTestId(DataTestId.ndpDataSourcesV1MethodsUsed).locator('.select__wrapper').click()
+  await page.getByRole('option', { name: methodLabel }).click()
+  await saved
+}
+
+const fillDataSourcesV1AdditionalComments = async (page: Page, text: string): Promise<void> => {
+  const saved = DOMUtils.waitForResponse(page, `${nationalDataPointApi}/data-sources`, 'PUT')
+  await page.getByTestId(DataTestId.ndpDataSourcesV1AdditionalComments).locator('textarea').fill(text)
+  await saved
+}
+
+// Comments of the active ODP tab (1a extentOfForest / 1b forestCharacteristics)
+const fillComments = async (page: Page, html: string): Promise<void> => {
+  const commentsBlock = _commentsBlock(page)
+  await commentsBlock.getByRole('button', { name: 'Edit', exact: true }).click()
+
+  const saved = DOMUtils.waitForResponse(page, `${nationalDataPointApi}/description`, 'PUT')
+  await DescriptionUtils.pasteIntoEditorWysiwyg(page, _commentsEditor(page), html)
+  await commentsBlock.getByRole('button', { name: 'Done', exact: true }).click()
+  await saved
+}
+
+const getCommentsValidationError = (page: Page): Locator =>
+  _commentsBlock(page).locator('.editorWYSIWYG.validation-error')
+
+const createNewNationalClassification = async (page: Page, name: string): Promise<void> => {
+  const inputs = _nationalClassNameInputs(page)
+  const inputCount = await inputs.count()
+
+  await _nationalClassesSection(page).getByRole('button', { name: 'Add', exact: true }).click()
+  await expect(inputs).toHaveCount(inputCount + 1)
+
+  const input = inputs.nth(inputCount)
+
+  const saved = DOMUtils.waitForResponse(page, `${nationalDataPointApi}/national-classes`, 'PUT')
+  await input.fill(name)
+  await saved
+
+  await expect(input).toHaveValue(name)
+}
+
+const editNationalClassification = async (page: Page, name: string): Promise<void> => {
+  const input = _existingNationalClassNameInput(page)
+  await input.waitFor()
+
+  const saved = DOMUtils.waitForResponse(page, `${nationalDataPointApi}/national-classes`, 'PUT')
+  await input.fill(name)
+  await saved
+
+  await expect(input).toHaveValue(name)
+}
+
+const _fillOriginalData = async (page: Page, input: Locator, value: string): Promise<void> => {
+  await input.fill('')
+
+  const saved = DOMUtils.waitForResponse(page, `${nationalDataPointApi}/original-data`, 'PUT')
+  await input.fill(value)
+  await input.press('Tab')
+  await saved
+}
+
+const _tableRow = (page: Page, className: string): Locator =>
+  page.locator('tr', { has: page.locator('.fra-table__category-cell', { hasText: className }) })
+
+const _main1bRow = (page: Page, className: string): Locator =>
+  page.locator('.fra-table:not(.odp__sub-table) tr', {
+    has: page.locator('.fra-table__category-cell', { hasText: className }),
+  })
+
+// 1a area
+const fillNationalClassArea = async (page: Page, className: string, value: string): Promise<void> =>
+  _fillOriginalData(page, _tableRow(page, className).locator('td.fra-table__cell.fra-table__divider input'), value)
+
+// 1a forest%
+const fillNationalClassForestPercent = async (page: Page, className: string, value: string): Promise<void> =>
+  _fillOriginalData(
+    page,
+    _tableRow(page, className).locator('td.fra-table__cell:not(.fra-table__divider) input').nth(0),
+    value
+  )
+
+// 1a owl%
+const fillNationalClassOWLPercent = async (page: Page, className: string, value: string): Promise<void> =>
+  _fillOriginalData(
+    page,
+    _tableRow(page, className).locator('td.fra-table__cell:not(.fra-table__divider) input').nth(1),
+    value
+  )
+
+// 1b natural forest%
+const fillNationalClassNaturalForestPercent = async (page: Page, className: string, value: string): Promise<void> =>
+  _fillOriginalData(page, _main1bRow(page, className).locator('td.fra-table__cell input').nth(0), value)
+
+// 1b plantation forest%
+const fillNationalClassPlantationForestPercent = async (page: Page, className: string, value: string): Promise<void> =>
+  _fillOriginalData(page, _main1bRow(page, className).locator('td.fra-table__cell input').nth(1), value)
+
+// 1b other planted%
+const fillNationalClassOtherPlantedForestPercent = async (
+  page: Page,
+  className: string,
+  value: string
+): Promise<void> =>
+  _fillOriginalData(page, _main1bRow(page, className).locator('td.fra-table__cell input').nth(2), value)
+
+// 1b sub-tables - rendered conditionally
+const getNaturallyRegeneratingTable = (page: Page): Locator =>
+  page.getByTestId(DataTestId.ndpSubTableNaturallyRegenerating)
+
+const getPlantationTable = (page: Page): Locator => page.getByTestId(DataTestId.ndpSubTablePlantation)
+
+const _subTableRow = (page: Page, table: Locator, className: string): Locator =>
+  table.locator('tr', { has: page.locator('.fra-table__category-cell', { hasText: className }) })
+
+// 1b naturally regenerating sub-table: primary forest%
+const fillNationalClassPrimaryForestPercent = async (page: Page, className: string, value: string): Promise<void> =>
+  _fillOriginalData(
+    page,
+    _subTableRow(page, getNaturallyRegeneratingTable(page), className).locator('td.fra-table__cell input'),
+    value
+  )
+
+// 1b plantation sub-table: introduced%
+const fillNationalClassPlantationIntroducedPercent = async (
+  page: Page,
+  className: string,
+  value: string
+): Promise<void> =>
+  _fillOriginalData(
+    page,
+    _subTableRow(page, getPlantationTable(page), className).locator('td.fra-table__cell input'),
+    value
+  )
+
+const doneEditing = async (page: Page): Promise<void> => {
+  await page.getByRole('link', { name: 'Done editing' }).first().click()
+}
+
+const switchSection = async (page: Page, props: NdpPathProps): Promise<void> => {
+  const path = SectionUtils.ndpPath(props)
+
+  const tab = page.locator(`.odp__tab-item[href="${path}"]`)
+  await tab.click()
+  await page.waitForURL(path)
+  await expect(tab).toHaveClass(/active/)
+}
+
+// Copy national classes from another year via the "Prefill with" select
+const prefillFromYear = async (page: Page, year: string): Promise<void> => {
+  await page.locator('.odp__previous-year-selection .select__wrapper').click()
+  await page.getByRole('option', { name: year }).click()
+
+  const saved = DOMUtils.waitForResponse(page, `${nationalDataPointApi}/copy-national-classes`, 'PUT')
+  page.once('dialog', (dialog) => dialog.accept())
+  await page.getByRole('button', { name: 'Prefill', exact: true }).click()
+  await saved
+}
+
+// Toggle ndp usage in section 1b
+const clickToggleNDPUsage = async (page: Page): Promise<void> => {
+  const saved = DOMUtils.waitForResponse(page, '/area/country/prop', 'PATCH')
+  await page.getByRole('button', { name: /Don.t use national data points|Use national data points/i }).click()
+  await saved
+}
+
+export const NDPDomUtils = {
+  createNewNationalClassification,
+  doneEditing,
+  editNationalClassification,
+  fillComments,
+  fillDataSourcesV1AdditionalComments,
+  fillDataSourcesV1MethodsUsed,
+  fillDataSourcesV1Reference,
+  fillNationalClassArea,
+  fillNationalClassForestPercent,
+  fillNationalClassNaturalForestPercent,
+  fillNationalClassOtherPlantedForestPercent,
+  fillNationalClassOWLPercent,
+  fillNationalClassPlantationForestPercent,
+  fillNationalClassPlantationIntroducedPercent,
+  fillNationalClassPrimaryForestPercent,
+  fillYear,
+  getCommentsValidationError,
+  getDataSourcesV1ReferenceValidationError,
+  clickToggleNDPUsage,
+  getNaturallyRegeneratingTable,
+  getPlantationTable,
+  prefillFromYear,
+  switchSection,
+}
