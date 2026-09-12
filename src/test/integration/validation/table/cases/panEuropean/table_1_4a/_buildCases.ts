@@ -162,12 +162,17 @@ export const buildCases = (props: Props): Array<TableValidationTestCase> => {
       expected: differentFromTotal('1000.00'),
       name: `${equalToSum}: litter sum over the total is invalid`,
     },
-    // Known metadata bug: the formulas read a soil column that doesn't exist, the column is soil_carbon, so soil carbon is never checked and this case turns invalid once the metadata is fixed
+    {
+      cell: { ...cell, colName: 'soil_carbon' },
+      data: [total('soil_carbon', '1000'), ...data('soil_carbon', ['400', '600'])],
+      expected: undefined,
+      name: `${equalToSum}: soil carbon sum equal to the total is valid`,
+    },
     {
       cell: { ...cell, colName: 'soil_carbon' },
       data: [total('soil_carbon', '1000'), ...data('soil_carbon', ['402', '600'])],
-      expected: undefined,
-      name: `${equalToSum}: soil carbon sum over the total is valid`,
+      expected: differentFromTotal('1000.00'),
+      name: `${equalToSum}: soil carbon sum over the total is invalid`,
     },
   ]
 }
