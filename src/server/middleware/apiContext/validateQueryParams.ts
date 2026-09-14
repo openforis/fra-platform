@@ -4,6 +4,8 @@ import { Areas } from 'meta/area/areas'
 import { Global } from 'meta/area/global'
 import { AssessmentNames } from 'meta/assessment/assessment'
 import { CycleNames } from 'meta/assessment/cycle/names'
+import { SectionNames } from 'meta/assessment/section'
+import { Lang, LanguageCodes } from 'meta/lang'
 import { Numbers } from 'utils/numbers'
 
 export type InvalidQueryParamError = Error & { statusCode: number }
@@ -16,16 +18,17 @@ const _getInvalidQueryParamError = (paramName: string, value: string): InvalidQu
 }
 
 // TODO:
-// sectionName, filters, lang, year
+// filters
 // uuid, invitationUuid, userUuid, resetPasswordUuid, (odpId?)
 // orderBy, orderByDirection, key
 // OTHER:
-// variables, tableNames, tableName, sectionNames, onlyTables, name, global,
+// variables, tableNames, tableName, onlyTables, name, global,
 // columns, type, topicKey, query, paths, notifyUsers, notifySelf,
 // messageId, mergeOdp, linkedVariable, index, id, force, fileName
 
 const assessmentNames = Object.values(AssessmentNames)
 const cycleNames = Object.values(CycleNames)
+const sectionNames = Object.values(SectionNames)
 
 const validators: Record<string, (value: string | Array<string>) => boolean> = {
   // assessmentName and cycleName
@@ -39,6 +42,17 @@ const validators: Record<string, (value: string | Array<string>) => boolean> = {
   // tablePaginated
   limit: (value) => Numbers.isNonNegativeInteger(value as string),
   offset: (value) => Numbers.isNonNegativeInteger(value as string),
+  // lang
+  lang: (value) => LanguageCodes.includes(value as Lang),
+  // sectionName and sectionNames
+  sectionName: (value) => sectionNames.includes(value as SectionNames),
+  sectionNames: (value) => Array.isArray(value) && value.every((name) => sectionNames.includes(name as SectionNames)),
+  // year
+  year: (value) => {
+    const parsed = Numbers.toNumberOrNull(value as string)
+    // not null, must be integer and between 1900 and current year + 1
+    return parsed !== null && Number.isInteger(parsed) && Numbers.between(parsed, 1900, new Date().getFullYear() + 1)
+  },
 }
 
 const _validateParam = (params: Record<string, string | Array<string>>, paramName: string): void => {
