@@ -47,6 +47,12 @@ const validators: Record<string, (value: string | Array<string>) => boolean> = {
   // sectionName and sectionNames
   sectionName: (value) => sectionNames.includes(value as SectionNames),
   sectionNames: (value) => Array.isArray(value) && value.every((name) => sectionNames.includes(name as SectionNames)),
+  // year
+  year: (value) => {
+    const parsed = Numbers.toNumberOrNull(value as string)
+    // not null, must be integer and between 1900 and current year + 1
+    return parsed !== null && Number.isInteger(parsed) && Numbers.between(parsed, 1900, new Date().getFullYear() + 1)
+  },
 }
 
 const _validateParam = (params: Record<string, string | Array<string>>, paramName: string): void => {
