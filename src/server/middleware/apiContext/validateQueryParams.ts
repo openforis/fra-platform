@@ -4,6 +4,7 @@ import { Areas } from 'meta/area/areas'
 import { Global } from 'meta/area/global'
 import { AssessmentNames } from 'meta/assessment/assessment'
 import { CycleNames } from 'meta/assessment/cycle/names'
+import { Lang, LanguageCodes } from 'meta/lang'
 import { Numbers } from 'utils/numbers'
 
 export type InvalidQueryParamError = Error & { statusCode: number }
@@ -16,7 +17,7 @@ const _getInvalidQueryParamError = (paramName: string, value: string): InvalidQu
 }
 
 // TODO:
-// sectionName, filters, lang, year
+// sectionName, filters, year
 // uuid, invitationUuid, userUuid, resetPasswordUuid, (odpId?)
 // orderBy, orderByDirection, key
 // OTHER:
@@ -39,6 +40,8 @@ const validators: Record<string, (value: string | Array<string>) => boolean> = {
   // tablePaginated
   limit: (value) => Numbers.isNonNegativeInteger(value as string),
   offset: (value) => Numbers.isNonNegativeInteger(value as string),
+  // lang
+  lang: (value) => LanguageCodes.includes(value as Lang),
 }
 
 const _validateParam = (params: Record<string, string | Array<string>>, paramName: string): void => {
