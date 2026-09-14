@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { Props as ReactSelectProps } from 'react-select'
 import classNames from 'classnames'
 
-import { SelectProps } from 'client/components/Inputs/Select/types'
+import { Option, SelectProps } from 'client/components/Inputs/Select/types'
 
 type Returned = ReactSelectProps['classNames']
 
@@ -21,7 +21,10 @@ export const useClassNames = (props: SelectProps): Returned => {
       multiValue: ({ isDisabled }) => classNames('select__multiValue', { isDisabled }),
       multiValueLabel: ({ isDisabled }) => classNames('select__multiValueLabel', { isDisabled }),
       multiValueRemove: ({ isDisabled }) => classNames('select__multiValueRemove', { isDisabled }),
-      option: ({ isFocused, isMulti, isSelected }) => classNames('select__option', { isFocused, isMulti, isSelected }),
+      option: ({ data, isFocused, isMulti, isSelected }): string => {
+        const { level } = data as Option
+        return classNames('select__option', { isFocused, isMulti, isSelected }, level > 0 && `level-${level}`)
+      },
       placeholder: () => `select__placeholder`,
       singleValue: () => 'select__singleValue',
       valueContainer: () => 'select__valueContainer',
