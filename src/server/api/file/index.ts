@@ -8,7 +8,6 @@ import { AuthMiddleware } from 'server/middleware/auth'
 
 import { getBulkDownload } from './getBulkDownload'
 import { getHiddenFile } from './getHiddenFile'
-import { getMultipleS3Files } from './getMultipleS3Files'
 import { getStaticS3File } from './getStaticS3File'
 
 const fileFilter = (_req: any, file: Express.Multer.File, callback: multer.FileFilterCallback): void => {
@@ -32,6 +31,5 @@ export const FileApi = {
 
     // Static S3 files
     express.get(ApiEndPoint.Static.file(), AuthMiddleware.requireViewCountry, getStaticS3File)
-    express.get(ApiEndPoint.Static.files(), AuthMiddleware.requireViewCountry, getMultipleS3Files)
   },
 }
