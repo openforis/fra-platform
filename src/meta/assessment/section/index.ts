@@ -8,7 +8,9 @@ export type SectionName = string
 
 export enum SectionNames {
   // == Custom section names
+  chat = 'chat', // 1 to 1 messages
   contacts = 'contacts',
+  messageBoard = 'messageBoard', // country message board
   nationalDataPoint = 'nationalDataPoint',
   originalDataPoints = 'originalDataPoints',
 

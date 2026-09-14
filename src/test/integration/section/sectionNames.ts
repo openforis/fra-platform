@@ -5,7 +5,9 @@ import { DB } from 'server/db/db'
 import { Schemas } from 'server/db/schemas'
 
 const customSectionNames: Array<SectionNames> = [
+  SectionNames.chat,
   SectionNames.contacts,
+  SectionNames.messageBoard,
   SectionNames.nationalDataPoint,
   SectionNames.originalDataPoints,
 ]
