@@ -21,10 +21,8 @@ export const useClassNames = (props: SelectProps): Returned => {
       multiValue: ({ isDisabled }) => classNames('select__multiValue', { isDisabled }),
       multiValueLabel: ({ isDisabled }) => classNames('select__multiValueLabel', { isDisabled }),
       multiValueRemove: ({ isDisabled }) => classNames('select__multiValueRemove', { isDisabled }),
-      option: ({ data, isFocused, isMulti, isSelected }): string => {
-        const { level } = data as Option
-        return classNames('select__option', { isFocused, isMulti, isSelected }, level > 0 && `level-${level}`)
-      },
+      option: ({ data, isFocused, isMulti, isSelected }): string =>
+        classNames('select__option', { isFocused, isMulti, isSelected }, (data as Option).className),
       placeholder: () => `select__placeholder`,
       singleValue: () => 'select__singleValue',
       valueContainer: () => 'select__valueContainer',

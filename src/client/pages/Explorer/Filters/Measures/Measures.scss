@@ -3,3 +3,28 @@
 .measure-filter-container {
   height: 100%;
 }
+
+// nested measures move in one spacing step per level, on top of the option padding
+.explorer-filters__multiselect div.select__option {
+  &.level-1 {
+    padding-left: $spacing-xxs + $spacing-xs;
+  }
+
+  &.level-2 {
+    padding-left: $spacing-xxs + $spacing-m;
+  }
+}
+
+@include rtl {
+  .explorer-filters__multiselect div.select__option {
+    &.level-1 {
+      padding-left: $spacing-xxs;
+      padding-right: $spacing-xxs + $spacing-xs;
+    }
+
+    &.level-2 {
+      padding-left: $spacing-xxs;
+      padding-right: $spacing-xxs + $spacing-m;
+    }
+  }
+}

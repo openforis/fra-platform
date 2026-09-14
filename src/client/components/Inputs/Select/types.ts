@@ -3,9 +3,8 @@ import { CreatableProps } from 'react-select/creatable'
 import { PlacesType } from 'react-tooltip'
 
 export type Option = {
+  className?: string
   label: React.ReactNode
-  // nested options are indented one step per level
-  level?: number
   value: string
 }
 

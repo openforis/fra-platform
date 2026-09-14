@@ -25,7 +25,12 @@ export const useOptions = (): Returned => {
     measures.forEach((measure) => {
       if (measuresExportAlways.includes(measure.name)) return
 
-      const option: Option = { label: t(Measures.getTName(measure.name)), level: measure.level, value: measure.name }
+      const option: Option = {
+        // nested measures are indented by level, see Measures.scss
+        className: measure.level > 0 ? `level-${measure.level}` : undefined,
+        label: t(Measures.getTName(measure.name)),
+        value: measure.name,
+      }
       if (!measure.group) {
         options.push(option)
         return
