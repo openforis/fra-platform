@@ -1,6 +1,6 @@
 import { Response } from 'express'
 
-import { CountryRequest } from 'meta/api/request/country'
+import { CycleRequest } from 'meta/api/request/cycle'
 import { Lang } from 'meta/lang'
 import { Users } from 'meta/user/users'
 
@@ -19,7 +19,7 @@ import { Responses } from 'server/utils/responses'
 const BOM = '\uFEFF' // Byte Order Mark for UTF-8
 const getUTF8Buffer = (content: string): Buffer => Buffer.from(BOM + content, 'utf-8')
 
-type Request = CountryRequest<{ includeClimaticDomain: string; includeVoluntaryUpdates: string; lang: Lang }>
+type Request = CycleRequest<{ includeClimaticDomain: string; includeVoluntaryUpdates: string; lang: Lang }>
 
 export const getBulkDownload = async (req: Request, res: Response): Promise<void> => {
   try {

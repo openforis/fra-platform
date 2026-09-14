@@ -29,7 +29,7 @@ const ExcelCalculatorDownload: React.FC = () => {
   const [domain, setDomain] = useState<string>(defaultSelectedDomain)
   const linkClassName = useButtonClassName({})
 
-  const propsPath = { assessmentName, cycleName, countryIso, domain, language }
+  const propsPath = { assessmentName, cycleName, domain, language }
   const calculatorFilePath = Files.Static.getBiomassCalculator(propsPath)
   const countryDomain = country?.props?.domain
 

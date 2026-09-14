@@ -6,7 +6,7 @@ import { Files } from 'meta/file/files'
 import { DataDownloadExt } from 'meta/file/static'
 
 import { useLanguage } from 'client/hooks/language'
-import { useCountryRouteParams } from 'client/hooks/routeParams'
+import { useCycleRouteParams } from 'client/hooks/routeParams'
 import { ButtonSize, useButtonClassName } from 'client/components/Buttons/Button'
 import Icon from 'client/components/Icon'
 import Flex from 'client/components/Layout/Flex'
@@ -17,12 +17,12 @@ import { DOMs } from 'client/utils/doms'
 const DataDownload: React.FC = () => {
   const { t } = useTranslation()
   const language = useLanguage()
-  const { assessmentName, countryIso, cycleName } = useCountryRouteParams()
+  const { assessmentName, cycleName } = useCycleRouteParams()
   const linkClassName = useButtonClassName({ size: ButtonSize.m })
 
   const getHref = (resource: DataDownloadResource, ext: DataDownloadExt): string => {
     const { name: file } = resource
-    return Files.Static.getDataDownload({ assessmentName, cycleName, countryIso, ext, file, language })
+    return Files.Static.getDataDownload({ assessmentName, cycleName, ext, file, language })
   }
 
   useEffect(() => {
