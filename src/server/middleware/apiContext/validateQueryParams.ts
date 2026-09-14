@@ -4,6 +4,7 @@ import { Areas } from 'meta/area/areas'
 import { Global } from 'meta/area/global'
 import { AssessmentNames } from 'meta/assessment/assessment'
 import { CycleNames } from 'meta/assessment/cycle/names'
+import { SectionNames } from 'meta/assessment/section'
 import { Lang, LanguageCodes } from 'meta/lang'
 import { Numbers } from 'utils/numbers'
 
@@ -17,16 +18,17 @@ const _getInvalidQueryParamError = (paramName: string, value: string): InvalidQu
 }
 
 // TODO:
-// sectionName, filters, year
+// filters
 // uuid, invitationUuid, userUuid, resetPasswordUuid, (odpId?)
 // orderBy, orderByDirection, key
 // OTHER:
-// variables, tableNames, tableName, sectionNames, onlyTables, name, global,
+// variables, tableNames, tableName, onlyTables, name, global,
 // columns, type, topicKey, query, paths, notifyUsers, notifySelf,
 // messageId, mergeOdp, linkedVariable, index, id, force, fileName
 
 const assessmentNames = Object.values(AssessmentNames)
 const cycleNames = Object.values(CycleNames)
+const sectionNames = Object.values(SectionNames)
 
 const validators: Record<string, (value: string | Array<string>) => boolean> = {
   // assessmentName and cycleName
@@ -42,6 +44,9 @@ const validators: Record<string, (value: string | Array<string>) => boolean> = {
   offset: (value) => Numbers.isNonNegativeInteger(value as string),
   // lang
   lang: (value) => LanguageCodes.includes(value as Lang),
+  // sectionName and sectionNames
+  sectionName: (value) => sectionNames.includes(value as SectionNames),
+  sectionNames: (value) => Array.isArray(value) && value.every((name) => sectionNames.includes(name as SectionNames)),
 }
 
 const _validateParam = (params: Record<string, string | Array<string>>, paramName: string): void => {
