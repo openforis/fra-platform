@@ -10,6 +10,7 @@ import { MessageTopicType } from 'meta/messageCenter/messageTopic'
 import { TablePaginatedOrderByDirection } from 'meta/tablePaginated/orderBy'
 import { UUIDs } from 'meta/uuid/uuids'
 import { Numbers } from 'utils/numbers'
+import { Objects } from 'utils/objects'
 import { Promises } from 'utils/promises'
 
 import { SectionRedisRepository } from 'server/cache/repository/section'
@@ -35,14 +36,23 @@ const messageTopicTypes = Object.values(MessageTopicType)
 const orderByDirections = Object.values(TablePaginatedOrderByDirection)
 const customSectionNames = Object.values(SectionNames)
 
+const _validSectionNames: Record<string, Record<string, Array<string>>> = {}
+
 const _getValidSectionNames = async (params: Record<string, string | Array<string>>): Promise<Array<string>> => {
   const { assessmentName, cycleName } = params as { assessmentName?: AssessmentNames; cycleName?: CycleNames }
   if (!assessmentName || !cycleName) return customSectionNames
 
+  const cached = Objects.getInPath(_validSectionNames, [assessmentName, cycleName])
+  if (cached) return cached
+
+  // cache if not found
   const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
   const validSectionNames = await SectionRedisRepository.getSectionNames({ assessment, cycle })
+  const allValidNames = [...customSectionNames, ...validSectionNames]
 
-  return [...customSectionNames, ...validSectionNames]
+  Objects.setInPath({ obj: _validSectionNames, path: [assessmentName, cycleName], value: allValidNames })
+
+  return allValidNames
 }
 
 const _areSectionNames = async (
