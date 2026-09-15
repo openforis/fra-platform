@@ -1,14 +1,14 @@
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { Labels } from 'meta/assessment/labels'
+import { Measures } from 'meta/measurement/measures'
 import { Objects } from 'utils/objects'
 
-import { Measures } from 'meta/measurement/measures'
-
 import { useExplorerSectionMetadata } from 'client/store/explorer/metadata/hooks/metadata'
-import { Option } from 'client/components/Inputs/Select'
+import { Option, OptionsGroup } from 'client/components/Inputs/Select'
 
-type Returned = Array<Option> | undefined
+type Returned = Array<Option | OptionsGroup> | undefined
 
 export const useOptions = (): Returned => {
   const { t } = useTranslation()
@@ -20,15 +20,30 @@ export const useOptions = (): Returned => {
     if (Objects.isNil(explorerSectionMetadata)) return undefined
 
     const measuresExportAlways = Measures.getExportAlways(cellsExportAlways)
+    const options: Array<Option | OptionsGroup> = []
 
-    return measures.reduce<Returned>((acc, { name }) => {
-      if (!measuresExportAlways.includes(name)) {
-        acc.push({
-          label: t(Measures.getTName(name)),
-          value: name,
-        })
+    measures.forEach((measure) => {
+      if (measuresExportAlways.includes(measure.name)) return
+
+      const option: Option = {
+        // nested measures are indented by level, see Measures.scss
+        className: measure.level > 0 ? `level-${measure.level}` : undefined,
+        label: t(Measures.getTName(measure.name)),
+        value: measure.name,
       }
-      return acc
-    }, [])
+      if (!measure.group) {
+        options.push(option)
+        return
+      }
+
+      // measures of the same table heading come one after the other, so they join the group opened last
+      const groupLabel = Labels.getLabel({ label: measure.group, t })
+      const lastEntry = options.at(-1)
+      const isSameGroup = lastEntry && 'options' in lastEntry && lastEntry.label === groupLabel
+      if (isSameGroup) lastEntry.options.push(option)
+      else options.push({ label: groupLabel, options: [option] })
+    })
+
+    return options
   }, [cellsExportAlways, explorerSectionMetadata, measures, t])
 }
