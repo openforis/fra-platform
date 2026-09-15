@@ -2,7 +2,8 @@ import { NextFunction, Request, Response } from 'express'
 
 import { Areas } from 'meta/area/areas'
 import { Global } from 'meta/area/global'
-import { AssessmentNames } from 'meta/assessment/assessment'
+import { AssessmentName, AssessmentNames } from 'meta/assessment/assessment'
+import { CycleName } from 'meta/assessment/cycle'
 import { CycleNames } from 'meta/assessment/cycle/names'
 import { SectionNames } from 'meta/assessment/section'
 import { Lang, LanguageCodes } from 'meta/lang'
@@ -36,10 +37,10 @@ const messageTopicTypes = Object.values(MessageTopicType)
 const orderByDirections = Object.values(TablePaginatedOrderByDirection)
 const customSectionNames = Object.values(SectionNames)
 
-const _validSectionNames: Record<string, Record<string, Array<string>>> = {}
+const _validSectionNames: Record<AssessmentName, Record<CycleName, Array<string>>> = {}
 
 const _getValidSectionNames = async (params: Record<string, string | Array<string>>): Promise<Array<string>> => {
-  const { assessmentName, cycleName } = params as { assessmentName?: AssessmentNames; cycleName?: CycleNames }
+  const { assessmentName, cycleName } = params as { assessmentName?: AssessmentName; cycleName?: CycleName }
   if (!assessmentName || !cycleName) return customSectionNames
 
   const cached = Objects.getInPath(_validSectionNames, [assessmentName, cycleName])
