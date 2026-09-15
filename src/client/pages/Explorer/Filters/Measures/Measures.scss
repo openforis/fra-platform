@@ -4,14 +4,14 @@
   height: 100%;
 }
 
-// nested measures move in one spacing step per level, on top of the option padding
+// nested measures are indented by level
 .explorer-filters__multiselect div.select__option {
   &.level-1 {
-    padding-left: $spacing-xxs + $spacing-xs;
+    padding-left: $spacing-xs + $spacing-xxxs;
   }
 
   &.level-2 {
-    padding-left: $spacing-xxs + $spacing-m;
+    padding-left: $spacing-m;
   }
 }
 
@@ -19,12 +19,12 @@
   .explorer-filters__multiselect div.select__option {
     &.level-1 {
       padding-left: $spacing-xxs;
-      padding-right: $spacing-xxs + $spacing-xs;
+      padding-right: $spacing-xs + $spacing-xxxs;
     }
 
     &.level-2 {
       padding-left: $spacing-xxs;
-      padding-right: $spacing-xxs + $spacing-m;
+      padding-right: $spacing-m;
     }
   }
 }
