@@ -1,0 +1,21 @@
+import { CycleParams } from 'meta/api/request/cycle'
+import { VariableCache } from 'meta/assessment/metaCache'
+import { NodeValueValidation } from 'meta/assessment/nodeValueValidation'
+import { NodeUpdate } from 'meta/data/nodeUpdates'
+
+type Cell = Required<Pick<VariableCache, 'colName' | 'tableName' | 'variableName'>>
+
+export type TableValidationTestCase = {
+  // The cell whose validation is executed and checked
+  cell: Cell
+  data: Array<NodeUpdate>
+  // Valid cells have no stored validation entry, so valid cases state expected: undefined
+  expected: NodeValueValidation | undefined
+  name: string
+  // Data of the previous cycle, for formulas reading fra['$prevCycle']
+  previousCycleData?: Array<NodeUpdate>
+}
+
+export type TableValidationCycleCases = CycleParams & {
+  cases: Array<TableValidationTestCase>
+}

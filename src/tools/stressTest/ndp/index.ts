@@ -1,0 +1,77 @@
+// National data point stress test: simulates people editing existing NDPs at the same time.
+// Each simulated user edits an NDP and repeats, while a canary reads the same NDPs
+// and their validations at a fixed rate. See README.md.
+import http from 'k6/http'
+
+import { Numbers } from 'utils/numbers'
+
+import type { OriginalDataPoint } from '../../../meta/assessment/originalDataPoint'
+import { getToken } from '../auth.ts'
+import { countries, duration, users } from '../config.ts'
+import { Urls } from '../utils/urls.ts'
+import { editNdp } from './editNdp.ts'
+import { getNdp } from './getNdp.ts'
+import { getNdpValidations } from './getNdpValidations.ts'
+
+const canaryReadsPerSecond = 2
+
+export const options = {
+  noVUConnectionReuse: true, // Use a fresh connection per action
+  scenarios: {
+    writers: {
+      duration,
+      exec: 'write',
+      executor: 'constant-vus',
+      vus: users,
+    },
+    canary: {
+      duration,
+      exec: 'read',
+      executor: 'constant-arrival-rate',
+      preAllocatedVUs: 10,
+      rate: canaryReadsPerSecond,
+      timeUnit: '1s',
+    },
+  },
+  // more than 1% of requests failing (HTTP >= 400 or network error) fails the run.
+  thresholds: {
+    http_req_failed: ['rate<0.01'],
+  },
+}
+
+interface SetupData {
+  ndpsByCountry: Record<string, Array<OriginalDataPoint>>
+  token: string
+}
+
+export const setup = (): SetupData => {
+  const token = getToken()
+  const headers = { Cookie: `fra-auth-token=${token}` }
+
+  const ndpsByCountry: Record<string, Array<OriginalDataPoint>> = {}
+  countries.forEach((countryIso) => {
+    const response = http.get(Urls.ndps({ countryIso }), { headers })
+    if (response.status !== 200) throw new Error(`could not list national data points of ${countryIso}`)
+    const ndps = response.json() as Array<OriginalDataPoint>
+    if (ndps.length === 0) throw new Error(`${countryIso} has no national data points to edit`)
+    ndpsByCountry[countryIso] = ndps
+  })
+  return { ndpsByCountry, token }
+}
+
+// Edits one of the existing NDPs, and repeats
+export const write = (data: SetupData): void => {
+  const headers = { 'Content-Type': 'application/json', Cookie: `fra-auth-token=${data.token}` }
+  const countryIso = countries[__VU % countries.length] // spreads simulated users across countries
+  editNdp(headers, countryIso, data.ndpsByCountry[countryIso])
+}
+
+// Reads back one of the NDPs being written, and the country's NDP validations
+export const read = (data: SetupData): void => {
+  const headers = { Cookie: `fra-auth-token=${data.token}` }
+  const countryIso = countries[Numbers.randomInt(0, countries.length - 1)]
+  const ndps = data.ndpsByCountry[countryIso]
+  const ndp = ndps[Numbers.randomInt(0, ndps.length - 1)]
+  getNdp(headers, countryIso, ndp)
+  getNdpValidations(headers, countryIso)
+}

@@ -12,7 +12,7 @@ export const getData = async (props: PropsGetTableData, client: BaseProtocol = D
   const { name: cycleName } = cycle
 
   const tables = getTablesCondition({ tableNames, columns, variables, mergeOdp })
-  const data = await DataRedisRepository.getCountriesData({ assessment, cycle, tables, countryISOs })
+  const data = await DataRedisRepository.getCountriesData({ assessment, cycle, tables, countryISOs }, client)
 
   if (mergeOdp) {
     await mergeOdpCountryData({ assessment, cycle, countryISOs, data, excludeOdpTable, tables }, client)

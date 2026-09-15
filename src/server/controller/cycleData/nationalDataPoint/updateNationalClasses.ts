@@ -9,6 +9,7 @@ import { BaseProtocol, DB } from 'server/db/db'
 import { OriginalDataPointRepository } from 'server/db/repository/assessmentCycle/originalDataPoint'
 import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
 import { CountryService } from 'server/service/country'
+import { DataValidationService } from 'server/service/dataValidation'
 
 type Props = {
   assessment: Assessment
@@ -20,8 +21,9 @@ type Props = {
 
 export const updateNationalClasses = async (props: Props, client: BaseProtocol = DB): Promise<OriginalDataPoint> => {
   const { assessment, country, cycle, originalDataPoint, user } = props
+  const { countryIso } = originalDataPoint
 
-  return client.tx(async (t) => {
+  const updatedNationalDataPoint = await client.tx(async (t) => {
     const updatedOriginalDataPoint = await OriginalDataPointRepository.updateNationalClasses(
       { assessment, cycle, originalDataPoint },
       t
@@ -31,7 +33,7 @@ export const updateNationalClasses = async (props: Props, client: BaseProtocol =
       target: updatedOriginalDataPoint,
       section: 'odp',
       message: ActivityLogMessage.originalDataPointUpdateNationalClasses,
-      countryIso: originalDataPoint.countryIso,
+      countryIso,
       user,
     }
     const { time: lastUpdateTimestamp } = await ActivityLogRepository.insertActivityLog(
@@ -42,4 +44,13 @@ export const updateNationalClasses = async (props: Props, client: BaseProtocol =
 
     return updatedOriginalDataPoint
   })
+
+  await DataValidationService.validateNDPNationalClasses({
+    assessment,
+    countryIso,
+    cycle,
+    nationalDataPoint: updatedNationalDataPoint,
+  })
+
+  return updatedNationalDataPoint
 }

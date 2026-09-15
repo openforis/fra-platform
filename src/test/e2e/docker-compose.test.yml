@@ -70,6 +70,24 @@ services:
       retries: 3
       start_period: 30s
 
+  worker:
+    build:
+      context: ../../..
+      dockerfile: src/test/e2e/Dockerfile.test
+    command: ['node', 'dist/server/worker/tasks/verifyLinks.js']
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis-queue:
+        condition: service_started
+      redis-data:
+        condition: service_started
+    environment:
+      - DATABASE_URL=postgres://fra:fra@postgres:5432/fra
+      - NODE_ENV=test-e2e
+      - REDIS_QUEUE_URL=redis://redis-queue:6379
+      - REDIS_DATA_URL=redis://redis-data:6379
+
   playwright:
     build:
       context: ../../..
@@ -79,6 +97,8 @@ services:
         condition: service_healthy
       postgres:
         condition: service_healthy
+      worker:
+        condition: service_started
     environment:
       - BASE_URL=http://web:9001
       - MAILHOG_URL=http://mailhog:8025
