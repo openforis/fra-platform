@@ -20,7 +20,7 @@ export type BigNumberInput = BigNumber | string | number | null | undefined
 
 const toBigNumber = (value: BigNumberInput = ''): BigNumber => {
   if (value instanceof BigNumber) return value // Do not wrap unnecessarily
-  // In bignumber.js v10, invalid constructor input throws, 
+  // In bignumber.js v10, invalid constructor input throws,
   // but the expected behavior from callers is to return NaN.
   if (Objects.isNil(value)) return new BigNumber(NaN)
   if (typeof value === 'string' && Objects.isEmpty(value.trim())) return new BigNumber(NaN)
@@ -40,6 +40,11 @@ const toNumberOrNull = (value: BigNumberInput): number | null => {
   const parsed = parsedBigNumber.toNumber()
 
   return parsedBigNumber.isFinite() && Number.isFinite(parsed) ? parsed : null
+}
+
+const isNonNegativeInteger = (value: BigNumberInput): boolean => {
+  const parsed = toNumberOrNull(value)
+  return parsed !== null && Number.isInteger(parsed) && parsed >= 0
 }
 
 type BigNumOp = 'plus' | 'minus' | 'times' | 'div' | 'modulo' | 'exponentiatedBy'
@@ -159,6 +164,7 @@ export const Numbers = {
   // utils
   countDecimals,
   format,
+  isNonNegativeInteger,
   toFixed,
   toNumberOrNull,
   toString,

@@ -124,4 +124,12 @@ describe('Numbers test:', () => {
     const res = Numbers.toNumberOrNull('1e309')
     expect(res).toEqual(null)
   })
+
+  test.each(['0', '1', '42'])('isNonNegativeInteger returns true for "%s"', (value) => {
+    expect(Numbers.isNonNegativeInteger(value)).toBe(true)
+  })
+
+  test.each(['-1', '1.5', '', 'abc', undefined])('isNonNegativeInteger returns false for "%s"', (value) => {
+    expect(Numbers.isNonNegativeInteger(value)).toBe(false)
+  })
 })
