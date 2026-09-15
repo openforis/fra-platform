@@ -15,7 +15,6 @@ import messageCenter from 'test/integration/messageCenter/messageCenter'
 import sectionCreateChild from 'test/integration/section/createChildSection'
 import sectionCreate from 'test/integration/section/createSection'
 import sectionRemove from 'test/integration/section/removeSection'
-import sectionNames from 'test/integration/section/sectionNames'
 import sectionUpdate from 'test/integration/section/updateSection'
 import sectionUpdateChild from 'test/integration/section/updateSubSection'
 import tableCreate from 'test/integration/table/createTable'
@@ -52,7 +51,6 @@ describe('Metadata integration test', () => {
   assessmentCreate()
 
   // section
-  sectionNames()
   sectionCreate()
   sectionCreateChild()
   sectionUpdate()
