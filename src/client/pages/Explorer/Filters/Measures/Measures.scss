@@ -3,3 +3,28 @@
 .measure-filter-container {
   height: 100%;
 }
+
+// nested measures are indented by level
+.explorer-filters__multiselect div.select__option {
+  &.level-1 {
+    padding-left: $spacing-xs + $spacing-xxxs;
+  }
+
+  &.level-2 {
+    padding-left: $spacing-m;
+  }
+}
+
+@include rtl {
+  .explorer-filters__multiselect div.select__option {
+    &.level-1 {
+      padding-left: $spacing-xxs;
+      padding-right: $spacing-xs + $spacing-xxxs;
+    }
+
+    &.level-2 {
+      padding-left: $spacing-xxs;
+      padding-right: $spacing-m;
+    }
+  }
+}
