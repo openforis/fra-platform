@@ -2,20 +2,16 @@ import { NextFunction, Request, Response } from 'express'
 
 import { Areas } from 'meta/area/areas'
 import { Global } from 'meta/area/global'
-import { AssessmentName, AssessmentNames } from 'meta/assessment/assessment'
-import { CycleName } from 'meta/assessment/cycle'
+import { AssessmentNames } from 'meta/assessment/assessment'
 import { CycleNames } from 'meta/assessment/cycle/names'
-import { SectionNames } from 'meta/assessment/section'
 import { Lang, LanguageCodes } from 'meta/lang'
 import { MessageTopicType } from 'meta/messageCenter/messageTopic'
 import { TablePaginatedOrderByDirection } from 'meta/tablePaginated/orderBy'
 import { UUIDs } from 'meta/uuid/uuids'
 import { Numbers } from 'utils/numbers'
-import { Objects } from 'utils/objects'
 import { Promises } from 'utils/promises'
 
-import { SectionRedisRepository } from 'server/cache/repository/section'
-import { AssessmentController } from 'server/controller/assessment'
+import { _areSectionNames } from 'server/middleware/apiContext/_areSectionNames'
 
 type InvalidQueryParamError = Error & { statusCode: number }
 
@@ -35,34 +31,6 @@ const assessmentNames = Object.values(AssessmentNames)
 const cycleNames = Object.values(CycleNames)
 const messageTopicTypes = Object.values(MessageTopicType)
 const orderByDirections = Object.values(TablePaginatedOrderByDirection)
-const customSectionNames = Object.values(SectionNames)
-
-const _validSectionNames: Record<AssessmentName, Record<CycleName, Array<string>>> = {}
-
-const _getValidSectionNames = async (params: Record<string, string | Array<string>>): Promise<Array<string>> => {
-  const { assessmentName, cycleName } = params as { assessmentName?: AssessmentName; cycleName?: CycleName }
-  if (!assessmentName || !cycleName) return customSectionNames
-
-  const cached = Objects.getInPath(_validSectionNames, [assessmentName, cycleName])
-  if (cached) return cached
-
-  // cache if not found
-  const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
-  const validSectionNames = await SectionRedisRepository.getSectionNames({ assessment, cycle })
-  const allValidNames = [...customSectionNames, ...validSectionNames]
-
-  Objects.setInPath({ obj: _validSectionNames, path: [assessmentName, cycleName], value: allValidNames })
-
-  return allValidNames
-}
-
-const _areSectionNames = async (
-  values: Array<string>,
-  params: Record<string, string | Array<string>>
-): Promise<boolean> => {
-  const validSectionNames = await _getValidSectionNames(params)
-  return values.every((value) => validSectionNames.includes(value))
-}
 
 type Validate = (
   value: string | Array<string>,
