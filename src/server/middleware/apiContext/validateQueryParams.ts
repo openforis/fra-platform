@@ -10,8 +10,12 @@ import { MessageTopicType } from 'meta/messageCenter/messageTopic'
 import { TablePaginatedOrderByDirection } from 'meta/tablePaginated/orderBy'
 import { UUIDs } from 'meta/uuid/uuids'
 import { Numbers } from 'utils/numbers'
+import { Promises } from 'utils/promises'
 
-export type InvalidQueryParamError = Error & { statusCode: number }
+import { SectionRedisRepository } from 'server/cache/repository/section'
+import { AssessmentController } from 'server/controller/assessment'
+
+type InvalidQueryParamError = Error & { statusCode: number }
 
 const _getInvalidQueryParamError = (paramName: string, value: string): InvalidQueryParamError => {
   const error = new Error(`Invalid ${paramName}: ${value}`) as InvalidQueryParamError
@@ -23,20 +27,38 @@ const _getInvalidQueryParamError = (paramName: string, value: string): InvalidQu
 const _isBoolean = (value: string): boolean => value === 'true' || value === 'false'
 
 // TODO:
-// filters
-// orderBy, key
-// OTHER:
-// variables, tableNames, tableName, name,
-// columns, topicKey, query, paths,
-// linkedVariable, fileName
+// variables, tableNames, tableName
 
 const assessmentNames = Object.values(AssessmentNames)
 const cycleNames = Object.values(CycleNames)
-const sectionNames = Object.values(SectionNames)
 const messageTopicTypes = Object.values(MessageTopicType)
 const orderByDirections = Object.values(TablePaginatedOrderByDirection)
+const customSectionNames = Object.values(SectionNames)
 
-const validators: Record<string, (value: string | Array<string>) => boolean> = {
+const _getValidSectionNames = async (params: Record<string, string | Array<string>>): Promise<Array<string>> => {
+  const { assessmentName, cycleName } = params as { assessmentName?: AssessmentNames; cycleName?: CycleNames }
+  if (!assessmentName || !cycleName) return customSectionNames
+
+  const { assessment, cycle } = await AssessmentController.getOneWithCycle({ assessmentName, cycleName })
+  const validSectionNames = await SectionRedisRepository.getSectionNames({ assessment, cycle })
+
+  return [...customSectionNames, ...validSectionNames]
+}
+
+const _areSectionNames = async (
+  values: Array<string>,
+  params: Record<string, string | Array<string>>
+): Promise<boolean> => {
+  const validSectionNames = await _getValidSectionNames(params)
+  return values.every((value) => validSectionNames.includes(value))
+}
+
+type Validate = (
+  value: string | Array<string>,
+  params: Record<string, string | Array<string>>
+) => boolean | Promise<boolean>
+
+const validators: Record<string, Validate> = {
   // assessmentName and cycleName
   assessmentName: (value) => assessmentNames.includes(value as AssessmentNames),
   cycleName: (value) => cycleNames.includes(value as CycleNames),
@@ -51,8 +73,8 @@ const validators: Record<string, (value: string | Array<string>) => boolean> = {
   // lang
   lang: (value) => LanguageCodes.includes(value as Lang),
   // sectionName and sectionNames
-  sectionName: (value) => sectionNames.includes(value as SectionNames),
-  sectionNames: (value) => Array.isArray(value) && value.every((name) => sectionNames.includes(name as SectionNames)),
+  sectionName: async (value, params) => _areSectionNames([value as string], params),
+  sectionNames: async (value, params) => Array.isArray(value) && _areSectionNames(value, params),
   // year
   year: (value) => {
     const parsed = Numbers.toNumberOrNull(value as string)
@@ -81,20 +103,21 @@ const validators: Record<string, (value: string | Array<string>) => boolean> = {
   orderByDirection: (value) => orderByDirections.includes(value as TablePaginatedOrderByDirection),
 }
 
-const _validateParam = (params: Record<string, string | Array<string>>, paramName: string): void => {
+const _validateParam = async (paramName: string, params: Record<string, string | Array<string>>): Promise<void> => {
   const validate = validators[paramName]
   const value = params[paramName]
   if (value === undefined) return
 
-  if (!validate(value)) {
+  const isValid = await validate(value, params)
+  if (!isValid) {
     throw _getInvalidQueryParamError(paramName, value.toString())
   }
 }
 
-export const validateQueryParams = (req: Request, _: Response, next: NextFunction): void => {
+export const validateQueryParams = async (req: Request, _: Response, next: NextFunction): Promise<void> => {
   try {
     const params = { ...req.params, ...req.query, ...req.body } as Record<string, string | Array<string>>
-    Object.keys(validators).forEach((paramName) => _validateParam(params, paramName))
+    await Promises.each(Object.keys(validators), (paramName) => _validateParam(paramName, params))
     next()
   } catch (error) {
     next(error)
