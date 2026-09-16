@@ -8,6 +8,7 @@ import { table13a2 } from './table_1_3a2'
 import { table13b } from './table_1_3b'
 import { table14a } from './table_1_4a'
 import { table24 } from './table_2_4'
+import { table25 } from './table_2_5'
 import { table31 } from './table_3_1'
 
 export const cases: Array<TableValidationTestCase> = [
@@ -20,5 +21,6 @@ export const cases: Array<TableValidationTestCase> = [
   ...table13b,
   ...table14a,
   ...table24,
+  ...table25,
   ...table31,
 ]
