@@ -8,6 +8,7 @@ import { AssessmentController } from 'server/controller/assessment'
 
 const customSectionNames = Object.values(SectionNames)
 const _validSectionNames: Record<AssessmentName, Record<CycleName, Array<string>>> = {}
+
 const _getValidSectionNames = async (params: Record<string, string | Array<string>>): Promise<Array<string>> => {
   const { assessmentName, cycleName } = params as { assessmentName?: AssessmentName; cycleName?: CycleName }
   if (!assessmentName || !cycleName) return customSectionNames
@@ -24,6 +25,12 @@ const _getValidSectionNames = async (params: Record<string, string | Array<strin
 
   return allValidNames
 }
+
+/**
+ * Returns full set of section names for given assessment and cycle
+ * @param values
+ * @param params
+ */
 export const _areSectionNames = async (
   values: Array<string>,
   params: Record<string, string | Array<string>>

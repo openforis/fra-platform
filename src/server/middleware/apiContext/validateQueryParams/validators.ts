@@ -1,5 +1,3 @@
-import { NextFunction, Request, Response } from 'express'
-
 import { Areas } from 'meta/area/areas'
 import { Global } from 'meta/area/global'
 import { AssessmentNames } from 'meta/assessment/assessment'
@@ -9,35 +7,24 @@ import { MessageTopicType } from 'meta/messageCenter/messageTopic'
 import { TablePaginatedOrderByDirection } from 'meta/tablePaginated/orderBy'
 import { UUIDs } from 'meta/uuid/uuids'
 import { Numbers } from 'utils/numbers'
-import { Promises } from 'utils/promises'
 
-import { _areSectionNames } from 'server/middleware/apiContext/_areSectionNames'
-
-type InvalidQueryParamError = Error & { statusCode: number }
-
-const _getInvalidQueryParamError = (paramName: string, value: string): InvalidQueryParamError => {
-  const error = new Error(`Invalid ${paramName}: ${value}`) as InvalidQueryParamError
-  error.name = 'InvalidQueryParamError'
-  error.statusCode = 400
-  return error
-}
-
-const _isBoolean = (value: string): boolean => value === 'true' || value === 'false'
+import { _areSectionNames } from 'server/middleware/apiContext/validateQueryParams/_areSectionNames'
+import { _isBoolean } from 'server/middleware/apiContext/validateQueryParams/_isBoolean'
 
 // TODO:
 // variables, tableNames, tableName
-
-const assessmentNames = Object.values(AssessmentNames)
-const cycleNames = Object.values(CycleNames)
-const messageTopicTypes = Object.values(MessageTopicType)
-const orderByDirections = Object.values(TablePaginatedOrderByDirection)
 
 type Validate = (
   value: string | Array<string>,
   params: Record<string, string | Array<string>>
 ) => boolean | Promise<boolean>
 
-const validators: Record<string, Validate> = {
+const assessmentNames = Object.values(AssessmentNames)
+const cycleNames = Object.values(CycleNames)
+const messageTopicTypes = Object.values(MessageTopicType)
+const orderByDirections = Object.values(TablePaginatedOrderByDirection)
+
+export const validators: Record<string, Validate> = {
   // assessmentName and cycleName
   assessmentName: (value) => assessmentNames.includes(value as AssessmentNames),
   cycleName: (value) => cycleNames.includes(value as CycleNames),
@@ -80,25 +67,4 @@ const validators: Record<string, Validate> = {
   // small fixed-set enums
   type: (value) => messageTopicTypes.includes(value as MessageTopicType),
   orderByDirection: (value) => orderByDirections.includes(value as TablePaginatedOrderByDirection),
-}
-
-const _validateParam = async (paramName: string, params: Record<string, string | Array<string>>): Promise<void> => {
-  const validate = validators[paramName]
-  const value = params[paramName]
-  if (value === undefined) return
-
-  const isValid = await validate(value, params)
-  if (!isValid) {
-    throw _getInvalidQueryParamError(paramName, value.toString())
-  }
-}
-
-export const validateQueryParams = async (req: Request, _: Response, next: NextFunction): Promise<void> => {
-  try {
-    const params = { ...req.params, ...req.query, ...req.body } as Record<string, string | Array<string>>
-    await Promises.each(Object.keys(validators), (paramName) => _validateParam(paramName, params))
-    next()
-  } catch (error) {
-    next(error)
-  }
 }
