@@ -1,13 +1,14 @@
-import { CountryParams } from 'meta/api/request/country'
+import { CycleParams } from 'meta/api/request/cycle'
 import { CountryIso } from 'meta/area/countryIso'
+import { Global } from 'meta/area/global'
 import { RegionCode } from 'meta/area/regionCode'
 import { AssessmentName } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
 
-export type Props = CountryParams & {
+export type Props = CycleParams & {
   auth?: { assessmentName: AssessmentName; cycleName: CycleName }
-  mergeOdp?: boolean
-  tableNames: Array<string>
   countryISOs?: Array<CountryIso>
-  regionCode?: RegionCode
+  mergeOdp?: boolean
+  regionCode?: RegionCode | Global.WO
+  tableNames: Array<string>
 }

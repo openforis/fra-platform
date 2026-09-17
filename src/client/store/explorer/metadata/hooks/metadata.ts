@@ -1,9 +1,7 @@
 import { useEffect } from 'react'
 
-import { Objects } from 'utils/objects'
-
-import { CountryIso } from 'meta/area/countryIso'
 import { ExplorerMetadata } from 'meta/explorer/metadata'
+import { Objects } from 'utils/objects'
 
 import { ExplorerMetadataActions } from 'client/store/explorer/metadata/actions/index'
 import { ExplorerMetadataSelectors } from 'client/store/explorer/metadata/selectors/index'
@@ -21,8 +19,7 @@ export const useExplorerSectionMetadata = (): ExplorerMetadata => {
 export const useGetExplorerSectionMetadata = (): void => {
   const dispatch = useAppDispatch()
 
-  const { assessmentName, countryIso: _countryIso, cycleName, sectionName } = useSectionRouteParams()
-  const countryIso = _countryIso as CountryIso
+  const { assessmentName, cycleName, sectionName } = useSectionRouteParams()
   const explorerSectionMetadata = useExplorerSectionMetadata()
   const metadataExists = !Objects.isEmpty(explorerSectionMetadata)
 
@@ -31,11 +28,10 @@ export const useGetExplorerSectionMetadata = (): void => {
       dispatch(
         ExplorerMetadataActions.getMetadata({
           assessmentName,
-          countryIso,
           cycleName,
           sectionNames: [sectionName],
         })
       )
     }
-  }, [assessmentName, countryIso, cycleName, dispatch, metadataExists, sectionName])
+  }, [assessmentName, cycleName, dispatch, metadataExists, sectionName])
 }

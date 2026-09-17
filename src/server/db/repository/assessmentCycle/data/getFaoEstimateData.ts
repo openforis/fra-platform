@@ -1,4 +1,5 @@
 import { CountryIso } from 'meta/area/countryIso'
+import { Global } from 'meta/area/global'
 import { RegionCode } from 'meta/area/regionCode'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
@@ -11,7 +12,7 @@ import { Schemas } from 'server/db/schemas'
 type Props = {
   assessment: Assessment
   countryISOs: Array<CountryIso>
-  regionCode: RegionCode
+  regionCode: RegionCode | Global.WO
   cycle: Cycle
   tables: TablesCondition
 }

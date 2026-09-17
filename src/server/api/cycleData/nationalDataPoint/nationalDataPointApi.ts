@@ -25,9 +25,13 @@ export const NationalDataPointApi = {
 
     // read
     express.get(ApiEndPoint.CycleData.NationalDataPoint.history(), AuthMiddleware.requireViewHistory, getLastApproved)
-    express.get(ApiEndPoint.CycleData.NationalDataPoint.many(), AuthMiddleware.requireView, getMany)
-    express.get(ApiEndPoint.CycleData.NationalDataPoint.one(), AuthMiddleware.requireView, getOne)
-    express.get(ApiEndPoint.CycleData.NationalDataPoint.reservedYears(), AuthMiddleware.requireView, getReservedYears)
+    express.get(ApiEndPoint.CycleData.NationalDataPoint.many(), AuthMiddleware.requireViewCountry, getMany)
+    express.get(ApiEndPoint.CycleData.NationalDataPoint.one(), AuthMiddleware.requireViewCountry, getOne)
+    express.get(
+      ApiEndPoint.CycleData.NationalDataPoint.reservedYears(),
+      AuthMiddleware.requireViewCountry,
+      getReservedYears
+    )
 
     // update
     express.put(

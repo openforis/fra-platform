@@ -9,19 +9,17 @@ import { Props } from 'client/store/data/tableData/nodeValues/actions/getTableDa
 export const getTableData = createAsyncThunk<RecordAssessmentData, Props>(
   'data/tableData/nodeValues/get',
   async (props) => {
-    const { assessmentName, auth, countryISOs, countryIso, cycleName, mergeOdp = false, regionCode, tableNames } = props
-
+    const { assessmentName, auth, countryISOs, cycleName, mergeOdp = false, regionCode, tableNames } = props
     const authContext = auth ? encodeURIComponent(JSON.stringify(auth)) : undefined
-    const params = {
-      assessmentName,
-      countryIso,
-      cycleName,
-      tableNames,
-      regionCode,
-      countryISOs: countryISOs ?? [countryIso],
-      mergeOdp,
-      authContext,
+
+    // when region code is set, fetch the aggregated data
+    if (regionCode) {
+      const params = { assessmentName, cycleName, tableNames, regionCode, countryISOs, authContext }
+      const { data } = await axios.get(ApiEndPoint.CycleData.Table.tableDataAggregated(), { params })
+      return data
     }
+
+    const params = { assessmentName, cycleName, tableNames, countryISOs, mergeOdp, authContext }
     const { data } = await axios.get(ApiEndPoint.CycleData.Table.tableData(), { params })
 
     return data
