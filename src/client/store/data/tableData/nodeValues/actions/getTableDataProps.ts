@@ -8,7 +8,6 @@ import { CycleName } from 'meta/assessment/cycle'
 export type Props = CycleParams & {
   auth?: { assessmentName: AssessmentName; cycleName: CycleName }
   countryISOs?: Array<CountryIso>
-  countryIso?: CountryIso
   mergeOdp?: boolean
   regionCode?: RegionCode | Global.WO
   tableNames: Array<string>
