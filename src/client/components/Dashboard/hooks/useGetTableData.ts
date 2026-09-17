@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo } from 'react'
+import { useCallback, useEffect } from 'react'
 
 import { Areas } from 'meta/area/areas'
 import { CountryIso } from 'meta/area/countryIso'
@@ -20,25 +20,20 @@ export const useGetTableData = (props: Props): void => {
   const dependencies = useDependencies(props)
   const homeCountriesFilter = useGlobalCountries()
 
-  const countryISOs = useMemo(
-    () => (Objects.isEmpty(homeCountriesFilter) ? undefined : homeCountriesFilter),
-    [homeCountriesFilter]
-  )
-
   const fetchTableData = useCallback(() => {
     if (dependencies.size > 0) {
       const tableNames = Array.from(dependencies)
       const propsFetch: GetTableDataProps = { assessmentName, cycleName, tableNames, mergeOdp: true }
 
-      // pass either countryIso or regionCode
       if (Areas.isISOCountry(countryIso)) {
-        propsFetch.countryIso = countryIso
+        propsFetch.countryISOs = [countryIso]
       } else {
         propsFetch.regionCode = countryIso as RegionCode
+        propsFetch.countryISOs = Objects.isEmpty(homeCountriesFilter) ? undefined : homeCountriesFilter
       }
-      dispatch(NodeValuesActions.getTableData({ ...propsFetch, countryISOs }))
+      dispatch(NodeValuesActions.getTableData(propsFetch))
     }
-  }, [assessmentName, countryIso, countryISOs, cycleName, dependencies, dispatch])
+  }, [assessmentName, countryIso, cycleName, dependencies, dispatch, homeCountriesFilter])
 
   useEffect(() => {
     fetchTableData()
