@@ -76,7 +76,6 @@
   "lastEdit": "最后编辑",
   "lastPublished": "上次发布",
   "latest": "最新",
-  "latestInProgress": "$t(common.latest) $t(common.inProgress)",
   "link": "链接",
   "linked": "已链接",
   "load": "加载",
