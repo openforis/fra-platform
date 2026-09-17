@@ -71,7 +71,7 @@ const getCycleTranslationKey = (props: { cycleName: CycleName }): string => {
   }
 
   if (cycleName === CycleNames.latest2) {
-    return 'common.latestInProgress'
+    return 'common.inProgress'
   }
 
   return cycleName
