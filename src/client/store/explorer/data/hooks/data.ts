@@ -1,7 +1,5 @@
 import { useEffect, useRef } from 'react'
 
-import { Global } from 'meta/area/global'
-import { RegionCode } from 'meta/area/regionCode'
 import { Assessments } from 'meta/assessment/assessments'
 import { SectionName } from 'meta/assessment/section'
 import { RecordAssessmentData } from 'meta/data/recordData'
@@ -32,12 +30,7 @@ export const useGetExplorerSectionData = (): void => {
   const countryISOs = useExplorerCountries()
   const dimensions = useExplorerDimensions()
   const measures = useExplorerMeasures()
-  const {
-    assessmentName,
-    countryIso: regionCode,
-    cycleName,
-    sectionName,
-  } = useSectionRouteParams<RegionCode | Global.WO>()
+  const { assessmentName, cycleName, sectionName } = useSectionRouteParams()
 
   const explorerSectionData = useExplorerSectionData()
 
@@ -54,7 +47,6 @@ export const useGetExplorerSectionData = (): void => {
 
     const getDataProps = {
       assessmentName,
-      regionCode,
       countryISOs,
       cycleName,
       dimensions: [...dimensions, ...dimensionsExportAlways],
@@ -82,7 +74,6 @@ export const useGetExplorerSectionData = (): void => {
     dispatch,
     fetchLastPublished,
     measures,
-    regionCode,
     sectionName,
     tableName,
   ])
