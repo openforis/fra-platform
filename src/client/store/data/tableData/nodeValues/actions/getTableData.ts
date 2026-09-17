@@ -21,7 +21,6 @@ export const getTableData = createAsyncThunk<RecordAssessmentData, Props>(
 
     const params = {
       assessmentName,
-      countryIso,
       cycleName,
       tableNames,
       countryISOs: countryISOs ?? [countryIso],
