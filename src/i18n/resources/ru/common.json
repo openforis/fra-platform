@@ -76,7 +76,6 @@
   "lastEdit": "Последнее реадактирование",
   "lastPublished": "Последняя публикация",
   "latest": "Новейшая",
-  "latestInProgress": "$t(common.inProgress) $t(common.latest)",
   "link": "Ссылка",
   "linked": "Связанные",
   "load": "Загрузить",
