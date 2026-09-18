@@ -40,6 +40,7 @@ const LinksFRA: React.FC = () => {
         <Link
           key="admin-link"
           className="app-header__menu-item"
+          data-track-id="header-login"
           to={Routes.Login.generatePath({ assessmentName, cycleName })}
         >
           {t('common.login')}

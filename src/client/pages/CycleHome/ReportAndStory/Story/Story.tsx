@@ -24,6 +24,7 @@ const Story: React.FC = () => {
       <div className="home-hero__content">
         <h3 className="home-hero__title">{t('landing.interactiveStory')}</h3>
         <Button
+          dataTrackId="landing-explore-key-findings"
           label={t('landing.exploreKeyFindings')}
           onClick={() => window.open(url, '_blank')}
           size={ButtonSize.l}

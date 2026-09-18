@@ -30,15 +30,21 @@ const Partners: React.FC = () => {
 
       <div className="partners__disclaimer">
         {t('disclaimer.part1')}
-        <a href="https://ec.europa.eu/info/index_en" rel="noreferrer" target="_blank">
+        <a
+          data-track-id="landing-partner-eu"
+          href="https://ec.europa.eu/info/index_en"
+          rel="noreferrer"
+          target="_blank"
+        >
           {t('disclaimer.europeanUnion')}
         </a>
         {t('disclaimer.part2')}
-        <a href="https://um.fi/frontpage" rel="noreferrer" target="_blank">
+        <a data-track-id="landing-partner-finland" href="https://um.fi/frontpage" rel="noreferrer" target="_blank">
           {t('disclaimer.govFinland')}
         </a>
         {t('disclaimer.part3')}
         <a
+          data-track-id="landing-partner-norway"
           href="https://norad.no/en/front/thematic-areas/climate-change-and-environment/norways-international-climate-and-forest-initiative-nicfi/"
           rel="noreferrer"
           target="_blank"
@@ -46,7 +52,7 @@ const Partners: React.FC = () => {
           {t('disclaimer.govNorway')}
         </a>
         {t('disclaimer.part4')}
-        <a href="https://www.thegef.org" rel="noreferrer" target="_blank">
+        <a data-track-id="landing-partner-gef" href="https://www.thegef.org" rel="noreferrer" target="_blank">
           {t('disclaimer.gef')}
         </a>
         {t('disclaimer.part5')}

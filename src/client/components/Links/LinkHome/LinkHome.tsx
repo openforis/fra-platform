@@ -23,7 +23,12 @@ const LinkHome: React.FC = () => {
   if (!assessmentName || !cycleName) return null
 
   return (
-    <NavLink className="app-header-link-home" end to={Routes.Cycle.generatePath({ assessmentName, cycleName })}>
+    <NavLink
+      className="app-header-link-home"
+      data-track-id="header-home"
+      end
+      to={Routes.Cycle.generatePath({ assessmentName, cycleName })}
+    >
       <Icon name="home" />
     </NavLink>
   )

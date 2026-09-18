@@ -29,6 +29,7 @@ export type ButtonProps = Pick<
   dataTooltipDelayHide?: number
   dataTooltipId?: TooltipId
   dataTooltipPlace?: PlacesType
+  dataTrackId?: string
   htmlButtonType?: HtmlButtonProps['type']
   icon?: React.ReactNode
   iconName?: string

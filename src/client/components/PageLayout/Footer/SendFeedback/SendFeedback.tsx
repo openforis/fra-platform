@@ -33,7 +33,11 @@ ${t('navigation.support.userAgent')}: ${navigator.userAgent}
 `
 
   return (
-    <a href={`mailto:fra@fao.org?subject=${subject}&body=${body.trim()}`} target="_top">
+    <a
+      data-track-id="footer-send-feedback"
+      href={`mailto:fra@fao.org?subject=${subject}&body=${body.trim()}`}
+      target="_top"
+    >
       {t('footer.sendFeedback')}
     </a>
   )

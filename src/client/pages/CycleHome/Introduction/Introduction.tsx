@@ -35,6 +35,7 @@ const Introduction: React.FC = () => {
         <div className="process">{t('landing.about.fraProcess')}</div>
         <a
           className="home-link link-fra-process"
+          data-track-id="landing-read-more-fra-process"
           href={`http://www.fao.org/forest-resources-assessment/${language}/`}
           rel="noreferrer"
           target="_blank"

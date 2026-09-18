@@ -41,7 +41,7 @@ const UserGuideLinkInner: React.FC<Props> = (props) => {
   return (
     <>
       <div className="separator" />
-      <a href={userGuideLink} target="_top">
+      <a data-track-id="footer-user-guide" href={userGuideLink} target="_top">
         {t('common.userGuide')}
       </a>
     </>

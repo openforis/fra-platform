@@ -23,6 +23,7 @@ const Global: React.FC = () => {
       <img alt="" src="/img/iconGlobal.svg" />
       <Link
         className="home-link"
+        data-track-id="landing-select-global"
         to={Routes.Country.generatePath({ countryIso: GlobalType.WO, assessmentName, cycleName })}
       >
         {t(`area.${GlobalType.WO}.listName`)}
