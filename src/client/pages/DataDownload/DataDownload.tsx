@@ -1,10 +1,13 @@
 import './DataDownload.scss'
 import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Navigate } from 'react-router'
 
 import { Files } from 'meta/file/files'
 import { DataDownloadExt } from 'meta/file/static'
+import { Routes } from 'meta/routes/routes'
 
+import { useCanViewCycleData } from 'client/hooks/canViewCycleData'
 import { useLanguage } from 'client/hooks/language'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { ButtonSize, useButtonClassName } from 'client/components/Buttons/Button'
@@ -19,6 +22,7 @@ const DataDownload: React.FC = () => {
   const language = useLanguage()
   const { assessmentName, countryIso, cycleName } = useCountryRouteParams()
   const linkClassName = useButtonClassName({ size: ButtonSize.m })
+  const canViewCycleData = useCanViewCycleData()
 
   const getHref = (resource: DataDownloadResource, ext: DataDownloadExt): string => {
     const { name: file } = resource
@@ -28,6 +32,10 @@ const DataDownload: React.FC = () => {
   useEffect(() => {
     DOMs.scrollTo()
   }, [])
+
+  if (!canViewCycleData) {
+    return <Navigate replace to={Routes.Root.path.absolute} />
+  }
 
   return (
     <div className="app-view__content">
