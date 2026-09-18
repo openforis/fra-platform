@@ -25,10 +25,16 @@ export const usePageEngagement = (router: Router): void => {
     const unsubscribeRouter = router.subscribe((state) => {
       const { pathname } = state.location
       if (pathname === currentPath) return
-      sendPageNavigationEvent(pathname)
+
+      // redirects (e.g. /country -> /country/home) fire as REPLACE, not real navigation
+      const isRealNavigation = state.historyAction !== 'REPLACE'
+      if (isRealNavigation) {
+        sendPageNavigationEvent(pathname)
+        enteredAt = Date.now()
+        exitSent = false
+      }
+
       currentPath = pathname
-      enteredAt = Date.now()
-      exitSent = false
     })
 
     const handleVisibilityChange = (): void => {
