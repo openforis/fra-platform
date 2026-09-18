@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router'
 
 import { Routes } from 'meta/routes/routes'
+import { TrackId } from 'meta/tracking/id'
 import { Users } from 'meta/user/users'
 
 import { useAssessment } from 'client/store/meta/hooks/assessments'
@@ -40,7 +41,7 @@ const LinksFRA: React.FC = () => {
         <Link
           key="admin-link"
           className="app-header__menu-item"
-          data-track-id="header-login"
+          data-track-id={TrackId.headerLogin}
           to={Routes.Login.generatePath({ assessmentName, cycleName })}
         >
           {t('common.login')}

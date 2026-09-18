@@ -4,6 +4,7 @@ import { NavLink } from 'react-router'
 
 import { Assessments } from 'meta/assessment/assessments'
 import { Routes } from 'meta/routes/routes'
+import { TrackId } from 'meta/tracking/id'
 
 import { useAssessment } from 'client/store/meta/hooks/assessments'
 import { useUser } from 'client/store/user/hooks/user'
@@ -25,7 +26,7 @@ const LinkHome: React.FC = () => {
   return (
     <NavLink
       className="app-header-link-home"
-      data-track-id="header-home"
+      data-track-id={TrackId.headerHome}
       end
       to={Routes.Cycle.generatePath({ assessmentName, cycleName })}
     >

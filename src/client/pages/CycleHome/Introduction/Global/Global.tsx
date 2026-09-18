@@ -4,6 +4,7 @@ import { Link } from 'react-router'
 
 import { Global as GlobalType } from 'meta/area/global'
 import { Routes } from 'meta/routes/routes'
+import { TrackId } from 'meta/tracking/id'
 
 import { useCycleRouteParams } from 'client/hooks/routeParams'
 import { useShowRegions } from 'client/hooks/showRegions'
@@ -23,7 +24,7 @@ const Global: React.FC = () => {
       <img alt="" src="/img/iconGlobal.svg" />
       <Link
         className="home-link"
-        data-track-id="landing-select-global"
+        data-track-id={TrackId.landingSelectGlobal}
         to={Routes.Country.generatePath({ countryIso: GlobalType.WO, assessmentName, cycleName })}
       >
         {t(`area.${GlobalType.WO}.listName`)}

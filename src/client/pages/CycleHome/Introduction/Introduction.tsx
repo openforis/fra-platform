@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import { CycleName } from 'meta/assessment/cycle'
 import { CycleNames } from 'meta/assessment/cycle/names'
+import { TrackId } from 'meta/tracking/id'
 
 import { useLanguage } from 'client/hooks/language'
 import { useCycleRouteParams } from 'client/hooks/routeParams'
@@ -35,7 +36,7 @@ const Introduction: React.FC = () => {
         <div className="process">{t('landing.about.fraProcess')}</div>
         <a
           className="home-link link-fra-process"
-          data-track-id="landing-read-more-fra-process"
+          data-track-id={TrackId.landingReadMoreFraProcess}
           href={`http://www.fao.org/forest-resources-assessment/${language}/`}
           rel="noreferrer"
           target="_blank"

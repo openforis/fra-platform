@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { AreaCode } from 'meta/area/areaCode'
 import { Areas } from 'meta/area/areas'
+import { TrackId } from 'meta/tracking/id'
 
 import { useRegionGroups } from 'client/store/area/hooks/regions'
 import { useNavigateToArea } from 'client/hooks/navigateToArea'
@@ -39,7 +40,7 @@ const Regions: React.FC = () => {
   const handleChange = (areaCode: AreaCode): void => {
     // gtag is defined in index.html only for prod
     // @ts-ignore
-    window.gtag?.('event', 'app_select', { element_id: 'landing-select-regions', value: areaCode })
+    window.gtag?.('event', 'app_select', { element_id: TrackId.landingSelectRegions, value: areaCode })
     navigateToArea(areaCode)
   }
 

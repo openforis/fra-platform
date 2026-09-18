@@ -2,6 +2,8 @@ import './partners.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { TrackId } from 'meta/tracking/id'
+
 import { useLanguage } from 'client/hooks/language'
 
 const Partners: React.FC = () => {
@@ -31,7 +33,7 @@ const Partners: React.FC = () => {
       <div className="partners__disclaimer">
         {t('disclaimer.part1')}
         <a
-          data-track-id="landing-partner-eu"
+          data-track-id={TrackId.landingPartnerEu}
           href="https://ec.europa.eu/info/index_en"
           rel="noreferrer"
           target="_blank"
@@ -39,12 +41,17 @@ const Partners: React.FC = () => {
           {t('disclaimer.europeanUnion')}
         </a>
         {t('disclaimer.part2')}
-        <a data-track-id="landing-partner-finland" href="https://um.fi/frontpage" rel="noreferrer" target="_blank">
+        <a
+          data-track-id={TrackId.landingPartnerFinland}
+          href="https://um.fi/frontpage"
+          rel="noreferrer"
+          target="_blank"
+        >
           {t('disclaimer.govFinland')}
         </a>
         {t('disclaimer.part3')}
         <a
-          data-track-id="landing-partner-norway"
+          data-track-id={TrackId.landingPartnerNorway}
           href="https://norad.no/en/front/thematic-areas/climate-change-and-environment/norways-international-climate-and-forest-initiative-nicfi/"
           rel="noreferrer"
           target="_blank"
@@ -52,7 +59,7 @@ const Partners: React.FC = () => {
           {t('disclaimer.govNorway')}
         </a>
         {t('disclaimer.part4')}
-        <a data-track-id="landing-partner-gef" href="https://www.thegef.org" rel="noreferrer" target="_blank">
+        <a data-track-id={TrackId.landingPartnerGef} href="https://www.thegef.org" rel="noreferrer" target="_blank">
           {t('disclaimer.gef')}
         </a>
         {t('disclaimer.part5')}

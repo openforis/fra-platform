@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { AreaCode } from 'meta/area/areaCode'
 import { Areas } from 'meta/area/areas'
+import { TrackId } from 'meta/tracking/id'
 
 import { useCountries } from 'client/store/area/hooks/countries'
 import { useNavigateToArea } from 'client/hooks/navigateToArea'
@@ -26,7 +27,7 @@ const Countries: React.FC = () => {
 
   const handleChange = (areaCode: AreaCode): void => {
     // @ts-ignore
-    window.gtag?.('event', 'app_select', { element_id: 'landing-select-countries', value: areaCode })
+    window.gtag?.('event', 'app_select', { element_id: TrackId.landingSelectCountries, value: areaCode })
     navigateToArea(areaCode)
   }
 

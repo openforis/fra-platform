@@ -1,6 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { TrackId } from 'meta/tracking/id'
 import { Users } from 'meta/user/users'
 
 import { useUser } from 'client/store/user/hooks/user'
@@ -34,7 +35,7 @@ ${t('navigation.support.userAgent')}: ${navigator.userAgent}
 
   return (
     <a
-      data-track-id="footer-send-feedback"
+      data-track-id={TrackId.footerSendFeedback}
       href={`mailto:fra@fao.org?subject=${subject}&body=${body.trim()}`}
       target="_top"
     >
