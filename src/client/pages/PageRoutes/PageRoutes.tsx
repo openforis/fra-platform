@@ -6,6 +6,7 @@ import { useIsAppInitialized } from 'client/store/application/hooks/init'
 import Toaster from 'client/components/Toaster'
 import Tooltips from 'client/components/Tooltips'
 
+import { useClickTracking } from './hooks/useClickTracking'
 import { useInitApp } from './hooks/useInitApp'
 import { useOpenSocket } from './hooks/useOpenSocket'
 import { usePageEngagement } from './hooks/usePageEngagement'
@@ -16,6 +17,7 @@ const AppInitialized: React.FC = () => {
   const router = useMemo(() => createBrowserRouter(routes), [routes])
 
   usePageEngagement(router)
+  useClickTracking()
 
   return (
     <>
