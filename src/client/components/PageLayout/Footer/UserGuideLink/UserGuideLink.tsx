@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { AssessmentNames } from 'meta/assessment/assessment'
 import { Files } from 'meta/file/files'
 import { Routes } from 'meta/routes/routes'
+import { TrackId } from 'meta/tracking/id'
 
 import { useUser } from 'client/store/user/hooks/user'
 import { useLanguage } from 'client/hooks/language'
@@ -41,7 +42,7 @@ const UserGuideLinkInner: React.FC<Props> = (props) => {
   return (
     <>
       <div className="separator" />
-      <a href={userGuideLink} target="_top">
+      <a data-track-id={TrackId.footerUserGuide} href={userGuideLink} target="_top">
         {t('common.userGuide')}
       </a>
     </>

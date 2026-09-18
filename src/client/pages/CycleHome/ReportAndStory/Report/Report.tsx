@@ -2,6 +2,8 @@ import './Report.scss'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { TrackId } from 'meta/tracking/id'
+
 import { useCycleRouteParams } from 'client/hooks/routeParams'
 import Button, { ButtonSize, ButtonType } from 'client/components/Buttons/Button'
 
@@ -34,12 +36,14 @@ const Report: React.FC = () => {
         <h3 className="home-hero__title">{t('landing.mainReport')}</h3>
         <div className="home-report__links">
           <Button
+            dataTrackId={TrackId.landingReadOnline}
             label={t('common.readOnline')}
             onClick={() => window.open(readOnlineUrl, '_blank')}
             size={ButtonSize.l}
             type={ButtonType.primary}
           />
           <Button
+            dataTrackId={TrackId.landingDownloadPdf}
             label={t('common.downloadPdf')}
             onClick={() => window.open(downloadPdfUrl, '_blank')}
             size={ButtonSize.l}
