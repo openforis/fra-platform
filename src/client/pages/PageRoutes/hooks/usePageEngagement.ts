@@ -12,13 +12,14 @@ export const usePageEngagement = (router: Router): void => {
     let enteredAt = Date.now()
     let exitSent = false
 
-    const sendPageNavigationEvent = (toPath: string): void => {
+    const sendPageNavigationEvent = (toPath: string, navType: string): void => {
       // gtag is defined in index.html only for prod
       // @ts-ignore
       window.gtag?.('event', GA_EVENT_NAME, {
         from_path: currentPath,
         to_path: toPath,
         duration_ms: Date.now() - enteredAt,
+        nav_type: navType,
       })
     }
 
@@ -29,7 +30,9 @@ export const usePageEngagement = (router: Router): void => {
       // redirects (e.g. /country -> /country/home) fire as REPLACE, not real navigation
       const isRealNavigation = state.historyAction !== 'REPLACE'
       if (isRealNavigation) {
-        sendPageNavigationEvent(pathname)
+        // PUSH: an in-app link/select click
+        // POP: browser back/forward
+        sendPageNavigationEvent(pathname, state.historyAction.toLowerCase())
         enteredAt = Date.now()
         exitSent = false
       }
@@ -40,7 +43,7 @@ export const usePageEngagement = (router: Router): void => {
     const handleVisibilityChange = (): void => {
       if (document.visibilityState !== 'hidden' || exitSent) return
       exitSent = true
-      sendPageNavigationEvent(EXIT_MARKER)
+      sendPageNavigationEvent(EXIT_MARKER, 'exit')
     }
 
     document.addEventListener('visibilitychange', handleVisibilityChange)
