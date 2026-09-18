@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { createBrowserRouter } from 'react-router'
 import { RouterProvider } from 'react-router/dom'
 
@@ -8,15 +8,19 @@ import Tooltips from 'client/components/Tooltips'
 
 import { useInitApp } from './hooks/useInitApp'
 import { useOpenSocket } from './hooks/useOpenSocket'
+import { usePageEngagement } from './hooks/usePageEngagement'
 import { useRoutes } from './hooks/useRoutes'
 
 const AppInitialized: React.FC = () => {
   const routes = useRoutes()
+  const router = useMemo(() => createBrowserRouter(routes), [routes])
+
+  usePageEngagement(router)
 
   return (
     <>
       <Toaster />
-      <RouterProvider router={createBrowserRouter(routes)} />
+      <RouterProvider router={router} />
       <Tooltips />
     </>
   )
