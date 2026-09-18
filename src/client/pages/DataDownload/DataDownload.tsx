@@ -7,7 +7,7 @@ import { Files } from 'meta/file/files'
 import { DataDownloadExt } from 'meta/file/static'
 import { Routes } from 'meta/routes/routes'
 
-import { useCanViewCycleData } from 'client/hooks/canViewCycleData'
+import { useCanViewCycleData } from 'client/store/user/hooks/auth'
 import { useLanguage } from 'client/hooks/language'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { ButtonSize, useButtonClassName } from 'client/components/Buttons/Button'

@@ -5,7 +5,7 @@ import { AssessmentNames } from 'meta/assessment/assessment'
 import { CycleNames } from 'meta/assessment/cycle/names'
 import { Routes } from 'meta/routes/routes'
 
-import { useCanViewCycleData } from 'client/hooks/canViewCycleData'
+import { useCanViewCycleData } from 'client/store/user/hooks/auth'
 import { useIsDataExportView } from 'client/hooks/dataExport'
 import { useCycleRouteParams } from 'client/hooks/routeParams'
 import SectionWrapper from 'client/pages/Country/SectionWrapper'

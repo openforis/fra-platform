@@ -7,7 +7,7 @@ import { Global } from 'meta/area/global'
 import { Routes } from 'meta/routes/routes'
 import { TooltipId } from 'meta/tooltip/id'
 
-import { useCanViewCycleData } from 'client/hooks/canViewCycleData'
+import { useCanViewCycleData } from 'client/store/user/hooks/auth'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import Icon from 'client/components/Icon'
 

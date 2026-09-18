@@ -12,7 +12,7 @@ import { Routes } from 'meta/routes/routes'
 import { TooltipId } from 'meta/tooltip/id'
 import { Objects } from 'utils/objects'
 
-import { useCanViewCycleData } from 'client/hooks/canViewCycleData'
+import { useCanViewCycleData } from 'client/store/user/hooks/auth'
 import { useSectionRouteParams } from 'client/hooks/routeParams'
 import { useIsCountryRoute, useIsGeoRoute } from 'client/hooks/routes'
 import LinkDataDownload from 'client/components/PageLayout/LinkDataDownload'
