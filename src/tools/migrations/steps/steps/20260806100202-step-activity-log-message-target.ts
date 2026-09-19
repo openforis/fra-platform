@@ -4,8 +4,6 @@ import { AssessmentController } from 'server/controller/assessment'
 import { BaseProtocol } from 'server/db/db'
 import { Schemas } from 'server/db/schemas'
 
-import { recreateCountryActivityLogViews } from './utils/recreateCountryActivityLogViews'
-
 export default async (client: BaseProtocol): Promise<void> => {
   const assessments = await AssessmentController.getAll({}, client)
 
@@ -31,6 +29,4 @@ export default async (client: BaseProtocol): Promise<void> => {
       )
     })
   })
-
-  await recreateCountryActivityLogViews(client)
 }
