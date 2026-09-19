@@ -5,7 +5,7 @@ import { AssessmentName, AssessmentNames } from 'meta/assessment/assessment'
 import { CycleName } from 'meta/assessment/cycle'
 import { CycleNames } from 'meta/assessment/cycle/names'
 
-import { DOMUtils } from './DOM'
+import { DOMUtils } from './dom'
 import { MailUtil } from './Mail'
 import { TestUserData } from './User'
 

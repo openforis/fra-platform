@@ -37,7 +37,7 @@ export const DataSources: React.FC<PropsDataSources> = (props: PropsDataSources)
     onChange,
     onDelete,
     options = defaults.options,
-    validator,
+    validationErrors,
   } = props
   const { dataSources, text } = data
   const { canEdit, canReview, displayHistory, includeVariables, includeYears } = options
@@ -86,7 +86,7 @@ export const DataSources: React.FC<PropsDataSources> = (props: PropsDataSources)
                     onDelete={onDelete}
                     options={options}
                     readOnly
-                    validator={validator}
+                    validationErrors={validationErrors?.[dataSource.data.uuid]}
                   />
                   {canReview && <div />}
                 </React.Fragment>
@@ -115,7 +115,7 @@ export const DataSources: React.FC<PropsDataSources> = (props: PropsDataSources)
                   onChange={onChange}
                   onDelete={onDelete}
                   options={options}
-                  validator={validator}
+                  validationErrors={validationErrors?.[dataSourceValue.uuid]}
                 />
               ))}
           </DataGrid>

@@ -1,10 +1,9 @@
-import { Objects } from 'utils/objects'
-
 import { Assessments } from 'meta/assessment/assessments'
 import { VariableCache } from 'meta/assessment/metaCache'
 import { AssessmentMetaCaches } from 'meta/assessment/metaCaches'
 import { RowCache } from 'meta/assessment/rowCache'
 import { ExpressionEvaluator } from 'meta/expressionEvaluator'
+import { Objects } from 'utils/objects'
 
 import { ExpressionNodeEvaluator, MemberExpression } from 'lib/expressionEvaluator/node'
 
@@ -54,13 +53,21 @@ export class MemberEvaluator extends ExpressionNodeEvaluator<Context, MemberExpr
       const metaCache = AssessmentMetaCaches.getMetaCache({ assessment, cycle })
 
       const propsDependants = { assessment, cycle, tableName: variable.tableName, variableName: variable.variableName }
+      const colName = variable.colName ?? col?.props?.colName
       let dependants
       if (type === 'calculations') {
         dependants = AssessmentMetaCaches.getCalculationsDependants(propsDependants)
       } else if (type === 'enablers') {
         dependants = AssessmentMetaCaches.getEnablersDependants(propsDependants)
-      } else {
-        dependants = AssessmentMetaCaches.getValidationsDependants(propsDependants)
+      } else if (type === 'validations') {
+        // Prevent validating nodes from other asessments/cycles
+        if (assessment.props.name !== assessmentName || cycle.name !== cycleName) return
+
+        dependants = AssessmentMetaCaches.getValidationsDependants({
+          ...propsDependants,
+          colName,
+          includeAllColumnsDependants: false, // Graph generation must read only this column's dependants.
+        })
       }
       const external = assessmentName !== assessment.props.name
       const dependant: VariableCache = {
@@ -76,6 +83,8 @@ export class MemberEvaluator extends ExpressionNodeEvaluator<Context, MemberExpr
 
       if (!_includesVariableCache(dependants, dependant)) {
         const path = [type, 'dependants', variable.tableName, variable.variableName]
+        if (type === 'validations') path.push(colName)
+
         Objects.setInPath({ obj: metaCache, path, value: [...dependants, dependant] })
       }
     }
