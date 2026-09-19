@@ -1,7 +1,6 @@
 import '../../scriptInit'
 
 import { Promises } from 'utils/promises'
-import { recreateCountryActivityLogViews } from 'tools/migrations/steps/steps/utils/recreateCountryActivityLogViews'
 
 import { RedisData } from 'server/cache/repository/redisData'
 import { UpdateDependenciesQueueFactory } from 'server/controller/cycleData/tableData/updateDependencies/queueFactory'
@@ -75,8 +74,6 @@ const exec = async (): Promise<void> => {
         throw e
       }
     })
-
-    await recreateCountryActivityLogViews()
   })
 
   await close()
