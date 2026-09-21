@@ -12,6 +12,7 @@ import { Routes } from 'meta/routes/routes'
 import { TooltipId } from 'meta/tooltip/id'
 import { Objects } from 'utils/objects'
 
+import { useCanViewCycleData } from 'client/store/user/hooks/auth'
 import { useSectionRouteParams } from 'client/hooks/routeParams'
 import { useIsCountryRoute, useIsGeoRoute } from 'client/hooks/routes'
 import LinkDataDownload from 'client/components/PageLayout/LinkDataDownload'
@@ -23,12 +24,13 @@ const LinkData: React.FC = () => {
   const isFRA = assessmentName === AssessmentNames.fra
   const isCountryRoute = useIsCountryRoute()
   const isGeoRoute = useIsGeoRoute()
+  const canViewCycleData = useCanViewCycleData()
 
   const baseParams = { assessmentName, cycleName, countryIso: Global.WO, sectionName: sectionName ?? '' }
 
   const variableDataDisabled = Objects.isNil(sectionName)
 
-  if (isGeoRoute || !isFRA) {
+  if (isGeoRoute || !isFRA || !canViewCycleData) {
     return null
   }
 

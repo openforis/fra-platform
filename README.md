@@ -34,7 +34,7 @@ To constantly build it when something changes, run:
 Create a new Postgres local instance via Docker. Run the command:
 
 ```shell
-sudo docker run -d --name fra-db -p 5442:5432 -e POSTGRES_DB=frap-dev -e POSTGRES_PASSWORD=frap -e POSTGRES_USER=frap postgres:15.4
+sudo docker run -d --name fra-db -p 5442:5432 -e POSTGRES_DB=frap-dev -e POSTGRES_PASSWORD=frap -e POSTGRES_USER=frap postgres:18.6
 ```
 
 Otherwise, check `.env` configurations for setting it up manually (note that the server port is not default!)

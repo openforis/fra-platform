@@ -10,6 +10,7 @@ import { canExportUsers } from 'meta/auth/authorizer/canExportUsers'
 import { canVerifyLinks } from 'meta/auth/authorizer/canVerifyLinks'
 import { canViewCountry } from 'meta/auth/authorizer/canViewCountry'
 import { canViewCycle } from 'meta/auth/authorizer/canViewCycle'
+import { canViewCycleData } from 'meta/auth/authorizer/canViewCycleData'
 import { canViewGeo } from 'meta/auth/authorizer/canViewGeo'
 import { canViewHistory } from 'meta/auth/authorizer/canViewHistory'
 import { canViewHistoryLastApproved } from 'meta/auth/authorizer/canViewHistoryLastApproved'
@@ -29,6 +30,7 @@ export const Authorizer = {
   // view
   canViewCountry,
   canViewCycle,
+  canViewCycleData,
   // links
   canVerifyLinks,
 
