@@ -9,10 +9,9 @@ import { UUIDs } from 'meta/uuid/uuids'
 import { Numbers } from 'utils/numbers'
 
 import { _areSectionNames } from 'server/middleware/apiContext/validateQueryParams/_areSectionNames'
+import { _areTableNames } from 'server/middleware/apiContext/validateQueryParams/_areTableNames'
+import { _areVariables } from 'server/middleware/apiContext/validateQueryParams/_areVariables'
 import { _isBoolean } from 'server/middleware/apiContext/validateQueryParams/_isBoolean'
-
-// TODO:
-// variables, tableNames, tableName
 
 type Validate = (
   value: string | Array<string>,
@@ -41,6 +40,10 @@ export const validators: Record<string, Validate> = {
   // sectionName and sectionNames
   sectionName: async (value, params) => _areSectionNames([value as string], params),
   sectionNames: async (value, params) => Array.isArray(value) && _areSectionNames(value, params),
+  // tableName, tableNames and variables
+  tableName: async (value, params) => _areTableNames([value as string], params),
+  tableNames: async (value, params) => Array.isArray(value) && _areTableNames(value, params),
+  variables: async (value, params) => Array.isArray(value) && _areVariables(value, params),
   // year
   year: (value) => {
     const parsed = Numbers.toNumberOrNull(value as string)
