@@ -1,9 +1,9 @@
-import { DataSource } from 'meta/assessment/descriptionValue/dataSource'
+import { DataSource, DataSourceEditableField } from 'meta/assessment/descriptionValue/dataSource'
 
 type Props = {
   dataSource: DataSource
   dataSources: Array<DataSource>
-  fieldName: keyof DataSource
+  fieldName: DataSourceEditableField
   fieldValue: string | Array<string>
 }
 

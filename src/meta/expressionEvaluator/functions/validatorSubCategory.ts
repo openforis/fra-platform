@@ -1,4 +1,5 @@
 import { NodeValueValidation, NodeValueValidationMessage } from 'meta/assessment/nodeValueValidation'
+import { ValidatorName } from 'meta/expressionEvaluator/validatorName'
 import { Numbers } from 'utils/numbers'
 import { Objects } from 'utils/objects'
 
@@ -7,11 +8,16 @@ import { ExpressionFunction } from 'lib/expressionEvaluator/function'
 import { Context } from '../context'
 
 export const validatorSubCategory: ExpressionFunction<Context> = {
-  name: 'validatorSubCategory',
+  name: ValidatorName.subCategory,
   minArity: 2,
   executor: () => {
-    return (categoryValue?: string, subCategoryValues?: Array<string>, tolerance?: number): NodeValueValidation => {
-      const nonEmptySubCategoryValues = subCategoryValues?.filter((v) => !Objects.isEmpty(v))
+    return (
+      categoryValue?: string,
+      subCategoryValues?: Array<string>,
+      tolerance?: number,
+      messageKey?: string
+    ): NodeValueValidation => {
+      const nonEmptySubCategoryValues = subCategoryValues?.filter((v) => !Objects.isEmpty(v)) ?? []
       const valid =
         Objects.isEmpty(categoryValue) ||
         nonEmptySubCategoryValues.length === 0 ||
@@ -19,7 +25,7 @@ export const validatorSubCategory: ExpressionFunction<Context> = {
 
       const messages: Array<NodeValueValidationMessage> = valid
         ? undefined
-        : [{ key: 'generalValidation.subCategoryExceedsParent' }]
+        : [{ name: ValidatorName.subCategory, key: messageKey ?? 'generalValidation.subCategoryExceedsParent' }]
 
       return { valid, messages }
     }

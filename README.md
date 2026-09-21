@@ -27,6 +27,34 @@ To constantly build it when something changes, run:
 
 ```yarn start```
 
+## Running a local production environment
+
+Runs the production build on several local web instances behind nginx, like staging runs several
+dynos behind Heroku's router. Install nginx and the Heroku CLI first:
+
+```bash
+brew install nginx
+brew install heroku/brew/heroku
+```
+
+Then:
+
+```bash
+yarn run:heroku:local
+```
+
+This builds the app, starts nginx (`yarn nginx:start`) and then the web instances
+(`yarn run:heroku:start`). The app is served at http://localhost:9000.
+
+Ctrl-C stops the web instances but nginx keeps running: stop it with `yarn nginx:stop`, or leave it
+running and restart only the instances with `yarn run:heroku:start` (starting nginx twice fails with
+"address already in use").
+
+The instance ports (9001, 9002, ...) follow `PORT` in the .env file, and
+`nginx.conf` routes to 4 instances: to run more, change `web=4` in the `run:heroku:start` script,
+add the ports to `nginx.conf`, and keep instances x `PG_MAX_CONNECTIONS` (20 by default) under
+postgres `max_connections` (100 by default).
+
 ## * Backend Storage Setup
 
 ## Postgres

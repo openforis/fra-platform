@@ -15,7 +15,6 @@ type Props = {
 type Returned = {
   invalidCount?: number
   invalidUnapprovedCount?: number
-  lastVisitedAt?: string
 }
 
 export const getVerificationSummary = async (props: Props, client: BaseProtocol = DB): Promise<Returned> => {
@@ -31,7 +30,6 @@ export const getVerificationSummary = async (props: Props, client: BaseProtocol 
   return client.one(
     `
       select
-        max((visits -> (jsonb_array_length(visits) - 1) ->> 'timestamp')::bigint) as last_visited_at,
         (count(*) filter (where (visits -> (jsonb_array_length(visits) - 1) ->> 'code') <> 'success'))::int as invalid_count,
         (count(*) filter (
           where (visits -> (jsonb_array_length(visits) - 1) ->> 'code') <> 'success'

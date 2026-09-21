@@ -3,6 +3,7 @@
 .last-status {
   &.empty,
   &.enotfound,
+  &.invalidEmailAddress,
   &.urlParsingError {
     color: $ui-destructive;
   }
