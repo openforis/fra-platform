@@ -1,0 +1,7 @@
+{
+  "dnsError": "DNS 错误",
+  "empty": "空",
+  "invalidEmailAddress": "无效的电子邮件地址",
+  "success": "成功",
+  "urlParsingError": "URL 解析错误"
+}

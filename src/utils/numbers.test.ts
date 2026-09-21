@@ -132,4 +132,18 @@ describe('Numbers test:', () => {
   test.each(['-1', '1.5', '', 'abc', undefined])('isNonNegativeInteger returns false for "%s"', (value) => {
     expect(Numbers.isNonNegativeInteger(value)).toBe(false)
   })
+
+  test('randomInt stays within bounds and is an integer', () => {
+    Array.from({ length: 1000 }).forEach(() => {
+      const res = Numbers.randomInt(3, 7)
+      expect(res).toBeGreaterThanOrEqual(3)
+      expect(res).toBeLessThanOrEqual(7)
+      expect(Number.isInteger(res)).toEqual(true)
+    })
+  })
+
+  test('randomInt with min equal to max', () => {
+    const res = Numbers.randomInt(5, 5)
+    expect(res).toEqual(5)
+  })
 })

@@ -1,9 +1,12 @@
-import path from 'path'
 import type { PlaywrightTestConfig } from '@playwright/test'
 
 const config: PlaywrightTestConfig = {
-  testDir: path.join(__dirname, 'tests'),
-  testMatch: ['**/*.spec.ts'],
+  testDir: __dirname,
+  testMatch: [
+    'specs/**/*.spec.ts',
+    /** @deprecated */
+    'tests/**/*.spec.ts',
+  ],
   timeout: 10_0000,
   retries: 2,
   expect: {

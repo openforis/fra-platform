@@ -1,14 +1,14 @@
+import { NodeValueValidation, NodeValueValidationMessage } from 'meta/assessment/nodeValueValidation'
+import { ValidatorName } from 'meta/expressionEvaluator/validatorName'
 import { Numbers } from 'utils/numbers'
 import { Objects } from 'utils/objects'
-
-import { NodeValueValidation, NodeValueValidationMessage } from 'meta/assessment/nodeValueValidation'
 
 import { ExpressionFunction } from 'lib/expressionEvaluator/function'
 
 import { Context } from '../context'
 
 export const validatorNotGreaterThanForest: ExpressionFunction<Context> = {
-  name: 'validatorNotGreaterThanForest',
+  name: ValidatorName.notGreaterThanForest,
   minArity: 2,
   executor: () => {
     return (forestArea?: string, value?: string): NodeValueValidation => {
@@ -17,7 +17,13 @@ export const validatorNotGreaterThanForest: ExpressionFunction<Context> = {
 
       const messages: Array<NodeValueValidationMessage> = valid
         ? undefined
-        : [{ key: 'generalValidation.forestAreaExceedsExtentOfForest', params: { value: Numbers.toFixed(forestArea) } }]
+        : [
+            {
+              name: ValidatorName.notGreaterThanForest,
+              key: 'generalValidation.forestAreaExceedsExtentOfForest',
+              params: { value: Numbers.toFixed(forestArea) },
+            },
+          ]
 
       return { valid, messages }
     }

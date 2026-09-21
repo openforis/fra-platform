@@ -118,6 +118,9 @@ const countDecimals = (value: number): number => {
   return value.toString().split('.')[1].length ?? 0
 }
 
+// Random integer between min and max, both included
+const randomInt = (min: number, max: number): number => min + Math.floor(Math.random() * (max - min + 1))
+
 const compare = (x: BigNumberInput, y: BigNumberInput): number => {
   const xNum = toBigNumber(x)
   const yNum = toBigNumber(y)
@@ -165,6 +168,7 @@ export const Numbers = {
   countDecimals,
   format,
   isNonNegativeInteger,
+  randomInt,
   toFixed,
   toNumberOrNull,
   toString,

@@ -1,0 +1,7 @@
+{
+  "dnsError": "Erreur DNS",
+  "empty": "Vide",
+  "invalidEmailAddress": "Adresse e-mail non valide",
+  "success": "Succès",
+  "urlParsingError": "Erreur d'analyse de l'URL"
+}

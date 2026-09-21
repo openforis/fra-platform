@@ -15,6 +15,7 @@ import { DataContextBuilder } from 'server/controller/cycleData/tableData/update
 
 export class ContextFactory extends BaseContextBuilder {
   readonly #queue: Array<VariableCache>
+  readonly #queueKeys: Set<string>
   readonly #rowKeys: Set<RowCacheKey>
   readonly #dataContextBuilder: DataContextBuilder
   readonly #visitedVariables: Array<VariableCache>
@@ -23,6 +24,7 @@ export class ContextFactory extends BaseContextBuilder {
   private constructor(props: ContextBuilderProps) {
     super(props)
     this.#queue = []
+    this.#queueKeys = new Set<string>()
     this.#rowKeys = new Set<RowCacheKey>()
     this.#dataContextBuilder = new DataContextBuilder(props)
     this.#visitedVariables = []
@@ -43,19 +45,18 @@ export class ContextFactory extends BaseContextBuilder {
     return true
   }
 
+  #getVariableKey(variable: VariableCache): string {
+    return [variable.tableName, variable.variableName, variable.colName].join(':')
+  }
+
   // check whether a variable has been added to the queue
   #isInQueue(variable: VariableCache): boolean {
-    const { colName, tableName, variableName } = variable
-    return Boolean(
-      this.#queue.find(
-        (processed) =>
-          processed.tableName === tableName && processed.variableName === variableName && processed.colName === colName
-      )
-    )
+    return this.#queueKeys.has(this.#getVariableKey(variable))
   }
 
   // add a variable to the queue
   async #addToQueue(variable: VariableCache): Promise<void> {
+    this.#queueKeys.add(this.#getVariableKey(variable))
     this.#queue.push(variable)
     await this.#dataContextBuilder.addVariable(variable)
     this.#rowKeys.add(RowCaches.getKey(variable)) // keep track of which rows must be fetched
@@ -129,13 +130,13 @@ export class ContextFactory extends BaseContextBuilder {
   }
 
   async #createContext(): Promise<Context> {
-    const { assessment, country, cycle } = this.props
+    const { assessment, client, country, cycle } = this.props
     const { countryIso } = country
     const queue = this.#queue
     const visitedVariables = this.#visitedVariables
     const externalDependants = this.#externalDependants
     const { assessments, data } = await this.#dataContextBuilder.getData()
-    const rows = await RowRedisRepository.getRows({ assessment, rowKeys: Array.from(this.#rowKeys) })
+    const rows = await RowRedisRepository.getRows({ assessment, rowKeys: Array.from(this.#rowKeys) }, client)
 
     const pr = { assessments, assessment, cycle, countryIso, data, queue, rows, visitedVariables, externalDependants }
     return new Context(pr)

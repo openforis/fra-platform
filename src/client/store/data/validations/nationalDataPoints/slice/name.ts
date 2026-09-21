@@ -1,0 +1,1 @@
+export const NationalDataPointValidationSliceName = 'nationalDataPoints'
