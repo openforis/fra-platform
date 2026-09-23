@@ -588,6 +588,7 @@
     "forest": "Forest - {{year}}",
     "forestAreaWithDamage": "Forest area with damage",
     "forestOperations": "Forest operations",
+    "forest_only": "Forest",
     "forest_operations": "Human induced: Forest operations",
     "insects": "Insects",
     "insectsAndDisease": "Insects and disease",
@@ -597,6 +598,7 @@
     "other": "Human induced: Other",
     "otherHumanInduced": "Other",
     "other_wooded_land": "Other wooded land - {{year}}",
+    "other_wooded_land_only": "Other wooded land",
     "primarilyDamagedByAbioticAgents": "Primarily damaged by abiotic agents (storm, wind, snow, etc.)",
     "primarilyDamagedByBioticAgents": "Primarily damaged by biotic agents",
     "primarilyDamagedByFire": "Primarily damaged by fire",
@@ -608,6 +610,7 @@
     "total": "Total",
     "total_area_with_damage": "Total area with damage",
     "total_forest_and_other_wooded_land": "Total forest and other wooded land - {{year}}",
+    "total_forest_and_other_wooded_land_only": "Total forest and other wooded land",
     "unspecifiedMixedDamage": "Unspecified / Mixed damage",
     "wildlifeAndGrazing": "Wildlife and grazing",
     "wildlife_and_grazing": "Biotic agents: Wildlife and grazing"

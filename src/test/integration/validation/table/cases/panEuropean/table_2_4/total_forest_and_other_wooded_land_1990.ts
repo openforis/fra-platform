@@ -34,17 +34,20 @@ const differentFromTotal = (valueRounded: string): TableValidationTestCase['expe
   valid: false,
 })
 
-// Only the disease column passes labels, and they are raw names rather than label keys
+// Only the disease column passes labels
 const differentFromTotalDisease = (valueRounded: string): TableValidationTestCase['expected'] => ({
   messages: [
     {
       key: 'generalValidation.valueEqualToSumParent',
       name: ValidatorName.equalToSum,
       params: {
-        parentCol: { key: 'disease' },
+        parentCol: { key: 'panEuropean.forestAreaWithDamage.disease' },
         parentTable: '2.4',
-        parentVariable: { key: 'table_2_4.total_forest_and_other_wooded_land_1990' },
-        subcategories: '[table_2_4.forest_1990[disease],table_2_4.other_wooded_land_1990[disease]',
+        parentVariable: { key: 'panEuropean.forestAreaWithDamage.total_forest_and_other_wooded_land_only' },
+        subcategories: [
+          { key: 'panEuropean.forestAreaWithDamage.forest_only' },
+          { key: 'panEuropean.forestAreaWithDamage.other_wooded_land_only' },
+        ],
         valueRounded,
       },
     },
