@@ -448,8 +448,10 @@
   },
   "deadwood": {
     "broadleaved": "Broadleaved - {{year}}",
+    "broadleaved_only": "Broadleaved",
     "categoryYear": "Category - Year",
     "coniferous": "Coniferous - {{year}}",
+    "coniferous_only": "Coniferous",
     "deadwood": "Deadwood",
     "forest": "Forest - {{year}}",
     "lying": "Lying",
@@ -457,6 +459,7 @@
     "standing": "Standing",
     "total": "Total",
     "total_forest_and_other_wooded_land": "Total forest and other wooded land - {{year}}",
+    "total_forest_and_other_wooded_land_only": "Total forest and other wooded land",
     "volumeOfDeadwoodInFOWLBySpeciesGroups": "Volume of deadwood in FOWL by species groups",
     "volumeOfDeadwoodM3Ha": "Volume of deadwood (m³/ha)"
   },
