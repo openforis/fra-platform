@@ -1,12 +1,11 @@
 import { Numbers } from 'utils/numbers'
 
+import { expect, test } from 'test/e2e/fixtures/auth'
+import { AuthUtils } from 'test/e2e/utils/Auth'
+import { DOMUtils } from 'test/e2e/utils/dom'
+import { MailUtil } from 'test/e2e/utils/Mail'
 import { TableDomUtils } from 'test/e2e/utils/table'
-
-import { expect, test } from '../fixtures/auth'
-import { AuthUtils } from '../utils/Auth'
-import { DOMUtils } from '../utils/dom'
-import { MailUtil } from '../utils/Mail'
-import { UserUtils } from '../utils/User'
+import { UserUtils } from 'test/e2e/utils/User'
 
 test.describe.serial('National Correspondent: ', () => {
   const testUser = UserUtils.createTestUser('National correspondent')
