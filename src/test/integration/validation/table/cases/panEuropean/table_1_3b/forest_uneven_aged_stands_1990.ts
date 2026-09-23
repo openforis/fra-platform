@@ -47,8 +47,8 @@ const differentFromForestArea = (valueRounded: string): TableValidationTestCase[
         parentTable: '1.1.I',
         parentVariable: { key: 'panEuropean.diameterDistributionAndTotalAreaUnevenAgedStands.forest' },
         subcategories: [
-          { key: 'panEuropean.ageClassDistributionAreaOfEvenAgedStands.forest_even_aged_stands_of_which' },
-          { key: 'panEuropean.diameterDistributionAndTotalAreaUnevenAgedStands.forest_uneven_aged_stands' },
+          { key: 'panEuropean.ageClassDistributionAreaOfEvenAgedStands.forest_even_aged' },
+          { key: 'panEuropean.ageClassDistributionAreaOfEvenAgedStands.forest_uneven_aged' },
         ],
         valueRounded,
       },
