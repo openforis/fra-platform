@@ -1,12 +1,11 @@
 import { Locator, Page } from '@playwright/test'
 
-import { expect, test } from '../fixtures/auth'
-import { DescriptionUtils } from '../utils/description'
-import { DOMUtils } from '../utils/dom'
-import { LinkBuilder } from '../utils/links'
-import { TextBuilder } from '../utils/text'
-import { TooltipUtils } from '../utils/tooltip'
-import { commentsSectionPath } from './07-section-descriptions.fixture'
+import { commentsSectionPath } from 'test/e2e/data/sectionDescriptions'
+import { expect, test } from 'test/e2e/fixtures/auth'
+import { DescriptionUtils } from 'test/e2e/utils/description'
+import { DOMUtils } from 'test/e2e/utils/dom'
+import { LinkBuilder } from 'test/e2e/utils/links'
+import { TooltipUtils } from 'test/e2e/utils/tooltip'
 
 const commentsTitle = 'Comments'
 const randomString = Date.now().toString()
@@ -17,28 +16,7 @@ const commentsValidationError = (page: Page): Locator =>
 const commentsToggleEditButton = (page: Page, name: 'Done' | 'Edit'): Locator =>
   DescriptionUtils.getDescriptionToggleEditButton(page, commentsTitle, name)
 
-test.describe.serial('Section descriptions: comments', () => {
-  const commentLines = TextBuilder.multiLine(randomString)
-
-  test('NC edits the comments', async ({ authenticatedPage }) => {
-    const page = authenticatedPage
-
-    await page.goto(commentsSectionPath)
-    await DOMUtils.ensureEditingUnlocked(page)
-
-    await DescriptionUtils.save(page, async () => {
-      await commentsToggleEditButton(page, 'Edit').click()
-      await DescriptionUtils.fillEditorWysiwyg(page, commentsEditor(page), commentLines)
-      await commentsToggleEditButton(page, 'Done').click()
-    })
-
-    await expect(commentsEditor(page)).toContainText(randomString)
-    await page.reload()
-    await expect(commentsEditor(page)).toContainText(randomString)
-  })
-})
-
-test.describe.serial('Section descriptions: comments - invalid links', () => {
+test.describe.serial('Section descriptions: comments - failure', () => {
   const commentsInvalidLinks = LinkBuilder.buildInvalidLinksHtml(`comments-${randomString}`)
 
   test('NC enters an empty link and a broken link, sees both validation errors', async ({ authenticatedPage }) => {
