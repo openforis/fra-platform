@@ -1,9 +1,9 @@
 import { TableNames } from 'meta/assessment/table'
 
-import { expect, test } from '../fixtures/auth'
-import { DOMUtils } from '../utils/dom'
-import { TableDomUtils } from '../utils/table'
-import { x14ExtentOfForestPath, x14PrintTablesPath } from './08-section-tables.fixture'
+import { expect, test } from 'test/e2e/fixtures/auth'
+import { x14ExtentOfForestPath, x14PrintTablesPath } from 'test/e2e/tests/08-section-tables.fixture'
+import { DOMUtils } from 'test/e2e/utils/dom'
+import { TableDomUtils } from 'test/e2e/utils/table'
 
 test.describe.serial('Print view: no validation UI', () => {
   test('NC visits the print view and sees no validation errors', async ({ authenticatedPage }) => {
