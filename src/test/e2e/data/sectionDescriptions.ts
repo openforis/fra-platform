@@ -1,4 +1,4 @@
-import { SectionUtils } from '../utils/section'
+import { SectionUtils } from 'test/e2e/utils/section'
 
 const commentsSection = {
   countryIso: 'X12',
