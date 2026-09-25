@@ -1,7 +1,9 @@
 import { useEffect } from 'react'
 import { createBrowserRouter } from 'react-router'
 
-const GA_EVENT_NAME = 'page_navigation'
+import { Tracking } from 'client/utils/tracking'
+
+const EVENT_NAME = 'page_navigation'
 const EXIT_MARKER = '(exit)'
 
 type Router = ReturnType<typeof createBrowserRouter>
@@ -13,9 +15,7 @@ export const usePageEngagement = (router: Router): void => {
     let exitSent = false
 
     const sendPageNavigationEvent = (toPath: string, navType: string): void => {
-      // gtag is defined in index.html only for prod
-      // @ts-ignore
-      window.gtag?.('event', GA_EVENT_NAME, {
+      Tracking.capture(EVENT_NAME, {
         from_path: currentPath,
         to_path: toPath,
         duration_ms: Date.now() - enteredAt,
