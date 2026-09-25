@@ -3,6 +3,7 @@ import area from './en/area.json'
 import assessmentSection from './en/assessmentSection.json'
 import bulkDownload from './en/bulkDownload.json'
 import common from './en/common.json'
+import consent from './en/consent.json'
 import contentCheck from './en/contentCheck.json'
 import dataDownload from './en/dataDownload.json'
 import dataSource from './en/dataSource.json'
@@ -34,6 +35,7 @@ export const enTranslation = {
   area,
   bulkDownload,
   common,
+  consent,
   contentCheck,
   dataDownload,
   dataSource,

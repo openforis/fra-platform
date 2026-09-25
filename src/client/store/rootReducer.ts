@@ -9,6 +9,7 @@ import { MessageCenterSlice } from 'client/store/messageCenter/slice'
 import { MetaSlice } from 'client/store/meta/slice'
 import { ReviewSlice } from 'client/store/review/slice'
 import { AreaSelectorSlice } from 'client/store/ui/areaSelector/slice'
+import { ConsentSlice } from 'client/store/ui/consent/slice'
 import { CountryReportSlice } from 'client/store/ui/countryReport/slice'
 import { NotificationSlice } from 'client/store/ui/notification/slice'
 import { UserSlice } from 'client/store/user/slice'
@@ -24,6 +25,7 @@ export default {
 
   ui: combineReducers({
     [AreaSelectorSlice.name]: AreaSelectorSlice.reducer,
+    [ConsentSlice.name]: ConsentSlice.reducer,
     [CountryReportSlice.name]: CountryReportSlice.reducer,
     [NotificationSlice.name]: NotificationSlice.reducer,
   }),

@@ -1,0 +1,19 @@
+@use 'src/client/style/partials' as *;
+
+.consent-banner {
+  position: fixed;
+  inset: auto $spacing-xs $spacing-xs;
+  margin-inline: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: $spacing-xs;
+  max-width: 960px;
+  padding: $spacing-xs;
+  border: $ui-thin-border;
+  background: $ui-bg-light;
+}
+
+.consent-banner__text {
+  flex: 1 1 320px;
+}
