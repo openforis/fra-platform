@@ -1,0 +1,7 @@
+{
+  "accept": "Accept",
+  "decline": "Decline",
+  "description": "With your permission, we use PostHog (hosted in the EU) and Google Analytics to see which pages and links are used, so we can improve the platform. Nothing is collected unless you accept. You can change your choice anytime via \"Analytics preferences\" in the footer.",
+  "learnMore": "FAO Data Protection and Privacy Notice",
+  "title": "Analytics and cookies"
+}
