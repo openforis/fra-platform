@@ -1,15 +1,10 @@
-import posthog from 'posthog-js'
+import { consentCookieName, ConsentStatus } from 'meta/tracking/consent'
+
+import { isEnabled } from 'client/utils/tracking/isEnabled'
+import { start } from 'client/utils/tracking/start'
 
 export const init = (): void => {
-  // PostHog only starts when FRA_POSTHOG_KEY is set at build time
-  // @ts-ignore
-  const key = __POSTHOG_KEY__
-  if (!key) return
+  if (!isEnabled()) return
 
-  posthog.init(key, {
-    api_host: 'https://eu.i.posthog.com',
-    defaults: '2026-05-30',
-    disable_surveys: true,
-    respect_dnt: true,
-  })
+  if (document.cookie.includes(`${consentCookieName}=${ConsentStatus.granted}`)) start()
 }

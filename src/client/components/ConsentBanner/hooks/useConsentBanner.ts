@@ -12,8 +12,6 @@ type Returned = {
   choose: (status: ConsentStatus) => void
   isOpen: boolean
 }
-// 1 year
-const cookieAge = 365 * 24 * 60 * 60
 
 export const useConsentBanner = (): Returned => {
   const dispatch = useAppDispatch()
@@ -25,7 +23,7 @@ export const useConsentBanner = (): Returned => {
   }, [dispatch])
 
   const choose = (status: ConsentStatus): void => {
-    document.cookie = `${consentCookieName}=${status}; max-age=${cookieAge}; path=/; SameSite=Lax`
+    Tracking.setConsent(status)
     dispatch(ConsentActions.close())
   }
 
