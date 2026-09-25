@@ -72,7 +72,7 @@ const create = async (page: Page, seed: NdpSeed): Promise<OriginalDataPoint> => 
   return response.json()
 }
 
-export const NdpApiUtils = {
+export const NdpApi = {
   create,
   removeIfExists,
 }

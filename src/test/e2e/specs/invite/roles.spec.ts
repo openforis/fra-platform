@@ -5,7 +5,7 @@ import { Routes } from 'meta/routes/routes'
 import { RoleName } from 'meta/user/role/name'
 import { Numbers } from 'utils/numbers'
 
-import { InviteApiUtils } from 'test/e2e/api/invite'
+import { InviteApi } from 'test/e2e/api/invite'
 import { testCredentials } from 'test/e2e/config/credentials'
 import { expect, test } from 'test/e2e/fixtures/auth'
 import { AuthUtils } from 'test/e2e/utils/Auth'
@@ -52,7 +52,7 @@ testConfigs.forEach(({ assessmentName, countryIso, cycleName, fillAcceptForm, ro
     const context = await browser.newContext({ baseURL: testInfo.project.use.baseURL })
     const page = await context.newPage()
     await AuthUtils.login(page, testCredentials)
-    const invitationPath = await InviteApiUtils.create(page, { assessmentName, countryIso, cycleName, role, testUser })
+    const invitationPath = await InviteApi.create(page, { assessmentName, countryIso, cycleName, role, testUser })
     await context.close()
     return invitationPath
   }

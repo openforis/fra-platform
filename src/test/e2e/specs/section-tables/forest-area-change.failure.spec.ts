@@ -1,16 +1,25 @@
 import { TableNames } from 'meta/assessment/table'
 
-import { expect, test } from '../fixtures/auth'
-import { CountryStatusUtils } from '../utils/countryStatus'
-import { DOMUtils } from '../utils/dom'
-import { NavigationUtils } from '../utils/navigation'
-import { TableDomUtils } from '../utils/table'
-import { TooltipUtils } from '../utils/tooltip'
-import { x05ForestAreaChangePath, x16ExtentOfForestPath, x16ForestAreaChangePath } from './08-section-tables.fixture'
+import {
+  x05ForestAreaChange,
+  x05ForestAreaChangePath,
+  x16ExtentOfForest,
+  x16ExtentOfForestPath,
+  x16ForestAreaChange,
+  x16ForestAreaChangePath,
+} from 'test/e2e/data/sectionTables'
+import { expect, test } from 'test/e2e/fixtures/table'
+import { CountryStatusUtils } from 'test/e2e/utils/countryStatus'
+import { DOMUtils } from 'test/e2e/utils/dom'
+import { NavigationUtils } from 'test/e2e/utils/navigation'
+import { TableDomUtils } from 'test/e2e/utils/table'
+import { TooltipUtils } from 'test/e2e/utils/tooltip'
 
 const forestExtentSectionHeader = 'Forest extent, characteristics and changes'
 
-test.describe.serial('Section tables: 1d - negative forest_expansion and deforestation', () => {
+test.describe('Section tables: 1d - negative forest_expansion and deforestation', () => {
+  test.use({ tableSeeds: [x05ForestAreaChange] })
+
   test('NC enters negative values in forest_expansion and deforestation and sees validation errors', async ({
     authenticatedPage,
   }) => {
@@ -53,12 +62,16 @@ test.describe.serial('Section tables: 1d - negative forest_expansion and defores
     await cellSaved
 
     await TableDomUtils.expectCellHasNoValidationError(page, 'deforestation', '2020-2025')
-
-    await TableDomUtils.clearTable(page, TableNames.forestAreaChange)
   })
 })
 
-test.describe.serial('Section tables: 1d - afforestation exceeds forest_expansion', () => {
+test.describe('Section tables: 1d - afforestation exceeds forest_expansion', () => {
+  test.use({
+    tableSeeds: [
+      { ...x05ForestAreaChange, values: [{ colName: '2020-2025', value: '100', variableName: 'forest_expansion' }] },
+    ],
+  })
+
   test('NC enters afforestation exceeding forest_expansion and sees subcategory validation error', async ({
     authenticatedPage,
   }) => {
@@ -69,10 +82,6 @@ test.describe.serial('Section tables: 1d - afforestation exceeds forest_expansio
     await DOMUtils.ensureEditingUnlocked(page)
 
     let cellSaved = DOMUtils.waitForResponse(page, '/api/cycle-data/table/nodes', 'PATCH')
-    await TableDomUtils.fillCell(page, 'forest_expansion', '2020-2025', '100')
-    await cellSaved
-
-    cellSaved = DOMUtils.waitForResponse(page, '/api/cycle-data/table/nodes', 'PATCH')
     await TableDomUtils.fillCell(page, 'afforestation', '2020-2025', '200')
     await cellSaved
 
@@ -88,12 +97,16 @@ test.describe.serial('Section tables: 1d - afforestation exceeds forest_expansio
     await cellSaved
 
     await TableDomUtils.expectCellHasNoValidationError(page, 'afforestation', '2020-2025')
-
-    await TableDomUtils.clearTable(page, TableNames.forestAreaChange)
   })
 })
 
-test.describe.serial('Section tables: 1d - afforestation and natural_expansion do not sum to forest_expansion', () => {
+test.describe('Section tables: 1d - afforestation and natural_expansion do not sum to forest_expansion', () => {
+  test.use({
+    tableSeeds: [
+      { ...x05ForestAreaChange, values: [{ colName: '2020-2025', value: '100', variableName: 'forest_expansion' }] },
+    ],
+  })
+
   test('NC enters sub-categories that do not sum to forest_expansion and sees validation error', async ({
     authenticatedPage,
   }) => {
@@ -104,10 +117,6 @@ test.describe.serial('Section tables: 1d - afforestation and natural_expansion d
     await DOMUtils.ensureEditingUnlocked(page)
 
     let cellSaved = DOMUtils.waitForResponse(page, '/api/cycle-data/table/nodes', 'PATCH')
-    await TableDomUtils.fillCell(page, 'forest_expansion', '2020-2025', '100')
-    await cellSaved
-
-    cellSaved = DOMUtils.waitForResponse(page, '/api/cycle-data/table/nodes', 'PATCH')
     await TableDomUtils.fillCell(page, 'afforestation', '2020-2025', '30')
     await cellSaved
 
@@ -129,12 +138,26 @@ test.describe.serial('Section tables: 1d - afforestation and natural_expansion d
 
     await TableDomUtils.expectCellHasNoValidationError(page, 'afforestation', '2020-2025')
     await TableDomUtils.expectCellHasNoValidationError(page, 'natural_expansion', '2020-2025')
-
-    await TableDomUtils.clearTable(page, TableNames.forestAreaChange)
   })
 })
 
-test.describe.serial('Section tables: 1d - validation errors persist on page reload', () => {
+test.describe('Section tables: 1d - validation errors persist on page reload', () => {
+  test.use({
+    tableSeeds: [
+      [
+        { ...x16ExtentOfForest, values: [{ colName: '2020', value: '1000', variableName: 'forestArea' }] },
+        {
+          ...x16ForestAreaChange,
+          values: [
+            { colName: '2020-2025', value: '0', variableName: 'forest_expansion' },
+            { colName: '2020-2025', value: '0', variableName: 'deforestation' },
+          ],
+        },
+      ],
+      { scope: 'test' },
+    ],
+  })
+
   test('NC creates a forestAreaNetChange error, leaves the page, comes back, and sees the error without any interaction', async ({
     authenticatedPage,
   }) => {
@@ -145,28 +168,7 @@ test.describe.serial('Section tables: 1d - validation errors persist on page rel
     await expect(TableDomUtils.tableContainer(page, TableNames.extentOfForest)).toBeVisible({ timeout: 20000 })
     await DOMUtils.ensureEditingUnlocked(page)
 
-    // Seed forestArea 2020 and forest_expansion/deforestation so the net change validation
-    // kicks in when forestArea 2025 is filled below
-    let cellSaved = DOMUtils.waitForResponse(page, '/api/cycle-data/table/nodes', 'PATCH')
-    await TableDomUtils.fillCell(page, 'forestArea', '2020', '1000')
-    await cellSaved
-
-    await forestAreaChangeNavItem.click()
-    await expect(page).toHaveURL(/\/sections\/forestAreaChange$/)
-    await expect(TableDomUtils.tableContainer(page, TableNames.forestAreaChange)).toBeVisible({ timeout: 20000 })
-
-    cellSaved = DOMUtils.waitForResponse(page, '/api/cycle-data/table/nodes', 'PATCH')
-    await TableDomUtils.fillCell(page, 'forest_expansion', '2020-2025', '0')
-    await cellSaved
-
-    cellSaved = DOMUtils.waitForResponse(page, '/api/cycle-data/table/nodes', 'PATCH')
-    await TableDomUtils.fillCell(page, 'deforestation', '2020-2025', '0')
-    await cellSaved
-
-    await NavigationUtils.getNavigationSubSectionItem(page, x16ExtentOfForestPath).click()
-    await expect(page).toHaveURL(/\/sections\/extentOfForest$/)
-
-    cellSaved = DOMUtils.waitForResponse(page, '/api/cycle-data/table/nodes', 'PATCH')
+    const cellSaved = DOMUtils.waitForResponse(page, '/api/cycle-data/table/nodes', 'PATCH')
     await TableDomUtils.fillCell(page, 'forestArea', '2025', '1500')
     await cellSaved
 
@@ -185,13 +187,5 @@ test.describe.serial('Section tables: 1d - validation errors persist on page rel
       sectionItemPath: x16ForestAreaChangePath,
     })
     await CountryStatusUtils.expectSubmitToReviewWarning(page)
-
-    await DOMUtils.ensureEditingUnlocked(page)
-    await TableDomUtils.clearTable(page, TableNames.forestAreaChange)
-
-    await page.goto(x16ExtentOfForestPath)
-    await expect(TableDomUtils.tableContainer(page, TableNames.extentOfForest)).toBeVisible({ timeout: 20000 })
-    await DOMUtils.ensureEditingUnlocked(page)
-    await TableDomUtils.clearTable(page, TableNames.extentOfForest)
   })
 })
