@@ -65,6 +65,29 @@ test.describe('National data point: forest characteristics - failure', () => {
       await NavigationUtils.subSectionHasError(page, extentOfForestPath, false)
       await NavigationUtils.subSectionHasError(page, forestCharacteristicsPath, true)
     })
+
+    test('NC enters forest characteristics percentages totalling over 100 and sees the error in 1b', async ({
+      authenticatedPage,
+      ndp,
+    }) => {
+      const page = authenticatedPage
+      expect(ndp.id).toBeTruthy()
+
+      const percentageCell = page.locator('.fra-table:not(.odp__sub-table) td.fra-table__cell.validation-error')
+
+      // Start from a valid total, so the error can only come from going over 100
+      await NDPDomUtils.fillNationalClassNaturalForestPercent(page, className, '50')
+      await NDPDomUtils.fillNationalClassPlantationForestPercent(page, className, '30')
+      await NDPDomUtils.fillNationalClassOtherPlantedForestPercent(page, className, '20') // totals to 100
+      await expect(percentageCell).toHaveCount(0, { timeout: 10000 })
+
+      await NDPDomUtils.fillNationalClassOtherPlantedForestPercent(page, className, '30') // totals to 110
+      await expect(percentageCell.first()).toBeVisible({ timeout: 10000 })
+      await TooltipUtils.expectValidationTooltip(page, percentageCell.first(), `${className} sum must be equal to 100%`)
+
+      await NavigationUtils.subSectionHasError(page, extentOfForestPath, false)
+      await NavigationUtils.subSectionHasError(page, forestCharacteristicsPath, true)
+    })
   })
 
   test.describe('plantation introduced percentage over 100', () => {
