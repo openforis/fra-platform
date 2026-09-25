@@ -1,18 +1,20 @@
 import './ConsentBanner.scss'
-import React, { useState } from 'react'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { ConsentStatus } from 'meta/tracking/consent'
+
 import { useLanguage } from 'client/hooks/language'
-import { useIsPrintRoute } from 'client/hooks/routes'
 import Button, { ButtonSize } from 'client/components/Buttons/Button'
+
+import { useConsentBanner } from './hooks/useConsentBanner'
 
 const ConsentBanner: React.FC = () => {
   const { t } = useTranslation()
   const language = useLanguage()
-  const { print } = useIsPrintRoute()
-  const [isOpen, setIsOpen] = useState<boolean>(true)
+  const { choose, isOpen } = useConsentBanner()
 
-  if (!isOpen || print) return null
+  if (!isOpen) return null
 
   return (
     <div aria-label={t('consent.title')} className="consent-banner" role="dialog">
@@ -28,8 +30,8 @@ const ConsentBanner: React.FC = () => {
         </a>
       </div>
 
-      <Button label={t('consent.decline')} onClick={() => setIsOpen(false)} size={ButtonSize.m} />
-      <Button label={t('consent.accept')} onClick={() => setIsOpen(false)} size={ButtonSize.m} />
+      <Button label={t('consent.decline')} onClick={() => choose(ConsentStatus.denied)} size={ButtonSize.m} />
+      <Button label={t('consent.accept')} onClick={() => choose(ConsentStatus.granted)} size={ButtonSize.m} />
     </div>
   )
 }
