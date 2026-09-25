@@ -8,7 +8,7 @@ import { LinkBuilder } from 'test/e2e/utils/links'
 import { NDPDomUtils } from 'test/e2e/utils/ndpDom'
 import { SectionUtils } from 'test/e2e/utils/section'
 
-const countryIso = 'X12'
+const countryIso = 'X03'
 const seededYear = 2015
 const ndp1aPath = SectionUtils.ndpPath({ countryIso, sectionName: SectionNames.extentOfForest, year: seededYear })
 const ndp1bPath = SectionUtils.ndpPath({
@@ -65,13 +65,13 @@ test.describe('National data point: metadata - fix links', () => {
     let storedValidations = NdpApi.waitForValidations(page)
     await page.goto(ndp1aPath)
     expect((await storedValidations)[ndp.uuid]?.comments?.[TableNames.extentOfForest]).toBeUndefined()
-    await expect(page.getByText(extentOfForestValidLink.text)).toBeVisible()
+    await expect(page.getByRole('link', { name: extentOfForestValidLink.text, exact: true })).toBeVisible()
     await expect(NDPDomUtils.getCommentsValidationError(page)).not.toBeVisible()
 
     storedValidations = NdpApi.waitForValidations(page)
     await page.goto(ndp1bPath)
     expect((await storedValidations)[ndp.uuid]?.comments?.[TableNames.forestCharacteristics]).toBeUndefined()
-    await expect(page.getByText(forestCharacteristicsValidLink.text)).toBeVisible()
+    await expect(page.getByRole('link', { name: forestCharacteristicsValidLink.text, exact: true })).toBeVisible()
     await expect(NDPDomUtils.getCommentsValidationError(page)).not.toBeVisible()
   })
 
@@ -96,7 +96,7 @@ test.describe('National data point: metadata - fix links', () => {
     const storedValidations = NdpApi.waitForValidations(page)
     await page.goto(ndp1aPath)
     expect((await storedValidations)[ndp.uuid]?.dataSourceReference).toBeUndefined()
-    await expect(page.getByText(referenceValidLink.text)).toBeVisible()
+    await expect(page.getByRole('link', { name: referenceValidLink.text, exact: true })).toBeVisible()
     await expect(NDPDomUtils.getDataSourcesV1ReferenceValidationError(page)).not.toBeVisible()
   })
 })
