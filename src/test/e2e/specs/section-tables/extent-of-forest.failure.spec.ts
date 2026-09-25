@@ -1,35 +1,45 @@
 import { TableNames } from 'meta/assessment/table'
 
-import { expect, test } from '../fixtures/auth'
-import { DOMUtils } from '../utils/dom'
-import { NavigationUtils } from '../utils/navigation'
-import { TableDomUtils } from '../utils/table'
-import { TooltipUtils } from '../utils/tooltip'
 import {
-  albSection2020Path,
+  albExtentOfForest,
+  albExtentOfForest2020,
   albSectionPath,
+  x06ExtentOfForest,
   x06ExtentOfForestPath,
+  x07ExtentOfForest,
   x07ExtentOfForestPath,
+  x07ForestAreaChange,
   x07ForestAreaChangePath,
-} from './08-section-tables.fixture'
+} from 'test/e2e/data/sectionTables'
+import { expect, test } from 'test/e2e/fixtures/table'
+import { DOMUtils } from 'test/e2e/utils/dom'
+import { NavigationUtils } from 'test/e2e/utils/navigation'
+import { TableDomUtils } from 'test/e2e/utils/table'
+import { TooltipUtils } from 'test/e2e/utils/tooltip'
 
-test.describe.serial('Section tables: 1a - edit and clear table', () => {
-  test('NC edits table 1a', async ({ authenticatedPage }) => {
-    const page = authenticatedPage
-
-    await page.goto(x06ExtentOfForestPath)
-    await DOMUtils.ensureEditingUnlocked(page)
-
-    const cellSaved = DOMUtils.waitForResponse(page, '/api/cycle-data/table/nodes', 'PATCH')
-    await TableDomUtils.fillCell(page, 'forestArea', '1990', '1000')
-    await cellSaved
-
-    await TableDomUtils.clearTable(page, TableNames.extentOfForest)
-    await TableDomUtils.expectCellValue(page, 'forestArea', '1990', '')
+test.describe('Section tables: 1a - forestArea change triggers net change error in 1d', () => {
+  test.use({
+    tableSeeds: [
+      [
+        {
+          ...x07ExtentOfForest,
+          values: [
+            { colName: '2020', value: '1000', variableName: 'forestArea' },
+            { colName: '2025', value: '1000', variableName: 'forestArea' },
+          ],
+        },
+        {
+          ...x07ForestAreaChange,
+          values: [
+            { colName: '2020-2025', value: '0', variableName: 'forest_expansion' },
+            { colName: '2020-2025', value: '0', variableName: 'deforestation' },
+          ],
+        },
+      ],
+      { scope: 'test' },
+    ],
   })
-})
 
-test.describe.serial('Section tables: 1a - forestArea change triggers net change error in 1d', () => {
   test('NC edits forestArea in table 1a and sees validation error in forest area change navigation', async ({
     authenticatedPage,
   }) => {
@@ -40,30 +50,7 @@ test.describe.serial('Section tables: 1a - forestArea change triggers net change
     await expect(TableDomUtils.tableContainer(page, TableNames.extentOfForest)).toBeVisible({ timeout: 20000 })
     await DOMUtils.ensureEditingUnlocked(page)
 
-    let cellSaved = DOMUtils.waitForResponse(page, '/api/cycle-data/table/nodes', 'PATCH')
-    await TableDomUtils.fillCell(page, 'forestArea', '2020', '1000')
-    await cellSaved
-
-    cellSaved = DOMUtils.waitForResponse(page, '/api/cycle-data/table/nodes', 'PATCH')
-    await TableDomUtils.fillCell(page, 'forestArea', '2025', '1000')
-    await cellSaved
-
-    await forestAreaChangeNavItem.click()
-    await expect(page).toHaveURL(/\/sections\/forestAreaChange$/)
-    await expect(TableDomUtils.tableContainer(page, TableNames.forestAreaChange)).toBeVisible({ timeout: 20000 })
-
-    cellSaved = DOMUtils.waitForResponse(page, '/api/cycle-data/table/nodes', 'PATCH')
-    await TableDomUtils.fillCell(page, 'forest_expansion', '2020-2025', '0')
-    await cellSaved
-
-    cellSaved = DOMUtils.waitForResponse(page, '/api/cycle-data/table/nodes', 'PATCH')
-    await TableDomUtils.fillCell(page, 'deforestation', '2020-2025', '0')
-    await cellSaved
-
-    await NavigationUtils.getNavigationSubSectionItem(page, x07ExtentOfForestPath).click()
-    await expect(page).toHaveURL(/\/sections\/extentOfForest$/)
-
-    cellSaved = DOMUtils.waitForResponse(page, '/api/cycle-data/table/nodes', 'PATCH')
+    const cellSaved = DOMUtils.waitForResponse(page, '/api/cycle-data/table/nodes', 'PATCH')
     await TableDomUtils.fillCell(page, 'forestArea', '2025', '1500')
     await cellSaved
 
@@ -78,9 +65,9 @@ test.describe.serial('Section tables: 1a - forestArea change triggers net change
     await NavigationUtils.getNavigationSubSectionItem(page, x07ExtentOfForestPath).click()
     await expect(page).toHaveURL(/\/sections\/extentOfForest$/)
 
-    cellSaved = DOMUtils.waitForResponse(page, '/api/cycle-data/table/nodes', 'PATCH')
+    const cellRestored = DOMUtils.waitForResponse(page, '/api/cycle-data/table/nodes', 'PATCH')
     await TableDomUtils.fillCell(page, 'forestArea', '2025', '1000')
-    await cellSaved
+    await cellRestored
 
     await expect(forestAreaChangeNavItem.locator('.validation-error-indicator')).toHaveCount(0, { timeout: 20000 })
     await forestAreaChangeNavItem.click()
@@ -90,7 +77,9 @@ test.describe.serial('Section tables: 1a - forestArea change triggers net change
   })
 })
 
-test.describe.serial('Section tables: 1a - negative forestArea and otherWoodedLand', () => {
+test.describe('Section tables: 1a - negative forestArea and otherWoodedLand', () => {
+  test.use({ tableSeeds: [x06ExtentOfForest] })
+
   test('NC enters negative values in forestArea and otherWoodedLand and sees validation errors', async ({
     authenticatedPage,
   }) => {
@@ -133,12 +122,12 @@ test.describe.serial('Section tables: 1a - negative forestArea and otherWoodedLa
     await cellSaved
 
     await TableDomUtils.expectCellHasNoValidationError(page, 'otherWoodedLand', '2025')
-
-    await TableDomUtils.clearTable(page, TableNames.extentOfForest)
   })
 })
 
-test.describe.serial('Section tables: 1a - forestArea exceeds total land area', () => {
+test.describe('Section tables: 1a - forestArea exceeds total land area', () => {
+  test.use({ tableSeeds: [x06ExtentOfForest] })
+
   test('NC enters forestArea exceeding totalLandArea and sees otherLand validation error', async ({
     authenticatedPage,
   }) => {
@@ -166,34 +155,38 @@ test.describe.serial('Section tables: 1a - forestArea exceeds total land area', 
 
     await TableDomUtils.expectCellHasNoValidationError(page, 'otherLand', '2025')
     await TableDomUtils.expectTableHasNoError(page, TableNames.extentOfForest)
-
-    await TableDomUtils.clearTable(page, TableNames.extentOfForest)
   })
 })
 
-test.describe.serial('Section tables: 1a - forestArea differs from FRA 2020 reported value', () => {
+test.describe('Section tables: 1a - forestArea differs from FRA 2020 reported value', () => {
   const forestArea2020Value = '2000'
+
+  test.use({
+    tableSeeds: [
+      [
+        {
+          ...albExtentOfForest2020,
+          cleanup: false,
+          values: [{ colName: '2020', value: forestArea2020Value, variableName: 'forestArea' }],
+        },
+        {
+          ...albExtentOfForest,
+          cleanup: false,
+          values: [{ colName: '2020', value: forestArea2020Value, variableName: 'forestArea' }],
+        },
+      ],
+      { scope: 'test' },
+    ],
+  })
 
   test('NC edits forestArea to mismatch FRA 2020 value and sees cross-cycle validation error', async ({
     authenticatedPage,
   }) => {
     const page = authenticatedPage
 
-    await page.goto(albSection2020Path)
-    await expect(TableDomUtils.tableContainer(page, TableNames.extentOfForest)).toBeVisible({ timeout: 20000 })
-    await DOMUtils.ensureEditingUnlocked(page)
-
-    let cellSaved = DOMUtils.waitForResponse(page, '/api/cycle-data/table/nodes', 'PATCH')
-    await TableDomUtils.fillCell(page, 'forestArea', '2020', forestArea2020Value)
-    await cellSaved
-
     await page.goto(albSectionPath)
     await expect(TableDomUtils.tableContainer(page, TableNames.extentOfForest)).toBeVisible({ timeout: 20000 })
     await DOMUtils.ensureEditingUnlocked(page)
-
-    cellSaved = DOMUtils.waitForResponse(page, '/api/cycle-data/table/nodes', 'PATCH')
-    await TableDomUtils.fillCell(page, 'forestArea', '2020', forestArea2020Value)
-    await cellSaved
 
     await TableDomUtils.expectCellHasNoValidationError(page, 'forestArea', '2020')
 

@@ -1,7 +1,7 @@
 import { SectionNames } from 'meta/assessment/section'
 import { Promises } from 'utils/promises'
 
-import { NdpApiUtils, type NdpSeed } from 'test/e2e/api/ndp'
+import { NdpApi, type NdpSeed } from 'test/e2e/api/ndp'
 import { NdpData } from 'test/e2e/data/ndp'
 import { expect, test } from 'test/e2e/fixtures/ndp'
 import { DOMUtils } from 'test/e2e/utils/dom'
@@ -20,13 +20,13 @@ test.describe('National data point: create', () => {
   const comprehensiveSeed: NdpSeed = { countryIso, nationalClasses: [], year: createdYearComprehensive }
 
   test.beforeEach(async ({ authenticatedPage }) => {
-    await NdpApiUtils.removeIfExists(authenticatedPage, simpleSeed)
-    await NdpApiUtils.removeIfExists(authenticatedPage, comprehensiveSeed)
+    await NdpApi.removeIfExists(authenticatedPage, simpleSeed)
+    await NdpApi.removeIfExists(authenticatedPage, comprehensiveSeed)
   })
 
   test.afterEach(async ({ authenticatedPage }) => {
-    await NdpApiUtils.removeIfExists(authenticatedPage, simpleSeed)
-    await NdpApiUtils.removeIfExists(authenticatedPage, comprehensiveSeed)
+    await NdpApi.removeIfExists(authenticatedPage, simpleSeed)
+    await NdpApi.removeIfExists(authenticatedPage, comprehensiveSeed)
   })
 
   test('NC creates a simple national data point and sees it back on the table', async ({ authenticatedPage }) => {
