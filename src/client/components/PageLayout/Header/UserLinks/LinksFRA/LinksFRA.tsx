@@ -30,7 +30,7 @@ const LinksFRA: React.FC = () => {
     <>
       {user && (
         <PopoverControl items={userLinks}>
-          <div className="app-header__menu-item">
+          <div className="app-header__menu-item ph-no-capture">
             {Users.getFullName(user)}
             <Icon className="icon-middle" name="small-down" />
           </div>
