@@ -1,6 +1,8 @@
 import { useEffect } from 'react'
 
-const GA_EVENT_NAME = 'app_click'
+import { Tracking } from 'client/utils/tracking'
+
+const EVENT_NAME = 'app_click'
 
 export const useClickTracking = (): void => {
   useEffect(() => {
@@ -9,12 +11,7 @@ export const useClickTracking = (): void => {
       if (!target) return
 
       const elementId = target.getAttribute('data-track-id')
-      // gtag is defined in index.html only for prod
-      // @ts-ignore
-      window.gtag?.('event', GA_EVENT_NAME, {
-        element_id: elementId,
-        path: window.location.pathname,
-      })
+      Tracking.capture(EVENT_NAME, { element_id: elementId, path: window.location.pathname })
     }
 
     document.addEventListener('click', handleClick, true)

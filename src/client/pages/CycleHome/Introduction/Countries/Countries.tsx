@@ -8,6 +8,7 @@ import { TrackId } from 'meta/tracking/id'
 import { useCountries } from 'client/store/area/hooks/countries'
 import { useNavigateToArea } from 'client/hooks/navigateToArea'
 import Select, { Option, SelectSize } from 'client/components/Inputs/Select'
+import { Tracking } from 'client/utils/tracking'
 
 const Countries: React.FC = () => {
   const { t } = useTranslation()
@@ -26,8 +27,7 @@ const Countries: React.FC = () => {
   }, [countries, t])
 
   const handleChange = (areaCode: AreaCode): void => {
-    // @ts-ignore
-    window.gtag?.('event', 'app_select', { element_id: TrackId.landingSelectCountries, value: areaCode })
+    Tracking.capture('app_select', { element_id: TrackId.landingSelectCountries, value: areaCode })
     navigateToArea(areaCode)
   }
 
