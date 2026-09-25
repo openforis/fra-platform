@@ -4,7 +4,10 @@ import { useTranslation } from 'react-i18next'
 
 import { TrackId } from 'meta/tracking/id'
 
+import { useAppDispatch } from 'client/store/hooks'
+import { ConsentActions } from 'client/store/ui/consent/actions'
 import { useLanguage } from 'client/hooks/language'
+import { Tracking } from 'client/utils/tracking'
 
 import { useIsFooterVisible } from './hooks/useIsFooterVisible'
 import SendFeedback from './SendFeedback'
@@ -35,6 +38,7 @@ const links = [
 
 const Footer: React.FC = () => {
   const { t } = useTranslation()
+  const dispatch = useAppDispatch()
   const language = useLanguage()
 
   // @ts-ignore
@@ -70,6 +74,16 @@ const Footer: React.FC = () => {
         <a data-track-id={TrackId.footerLicenses} href={faoTermsHref} rel="noreferrer" target="_blank">
           {t('footer.licenses')}
         </a>
+
+        {Tracking.isEnabled() && (
+          <>
+            <div className="separator" />
+
+            <button className="footer__preferences" onClick={() => dispatch(ConsentActions.open())} type="button">
+              {t('footer.analyticsPreferences')}
+            </button>
+          </>
+        )}
       </div>
 
       <span className="copyright">&copy; FAO, {new Date().getFullYear()}</span>

@@ -70,6 +70,15 @@ footer a {
   }
 }
 
+.footer__preferences {
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: $font-xxs - 1;
+  color: $text-body;
+  cursor: pointer;
+}
+
 footer .separator {
   height: $spacing-xxs;
   width: 1px;

@@ -1,11 +1,12 @@
-import { useState } from 'react'
+import { useEffect } from 'react'
 
-import { ConsentStatus } from 'meta/tracking/consent'
+import { consentCookieName, ConsentStatus } from 'meta/tracking/consent'
 
+import { useAppDispatch } from 'client/store/hooks'
+import { ConsentActions } from 'client/store/ui/consent/actions'
+import { useIsConsentOpen } from 'client/store/ui/consent/hooks'
 import { useIsPrintRoute } from 'client/hooks/routes'
 import { Tracking } from 'client/utils/tracking'
-
-const cookieName = 'analyticsConsent'
 
 type Returned = {
   choose: (status: ConsentStatus) => void
@@ -15,13 +16,18 @@ type Returned = {
 const cookieAge = 365 * 24 * 60 * 60
 
 export const useConsentBanner = (): Returned => {
+  const dispatch = useAppDispatch()
   const { print } = useIsPrintRoute()
-  const [isChosen, setIsChosen] = useState<boolean>(document.cookie.includes(`${cookieName}=`))
+  const isOpen = useIsConsentOpen()
+
+  useEffect(() => {
+    if (Tracking.isEnabled() && !document.cookie.includes(`${consentCookieName}=`)) dispatch(ConsentActions.open())
+  }, [dispatch])
 
   const choose = (status: ConsentStatus): void => {
-    document.cookie = `${cookieName}=${status}; max-age=${cookieAge}; path=/; SameSite=Lax`
-    setIsChosen(true)
+    document.cookie = `${consentCookieName}=${status}; max-age=${cookieAge}; path=/; SameSite=Lax`
+    dispatch(ConsentActions.close())
   }
 
-  return { choose, isOpen: Tracking.isEnabled() && !isChosen && !print }
+  return { choose, isOpen: isOpen && !print }
 }
