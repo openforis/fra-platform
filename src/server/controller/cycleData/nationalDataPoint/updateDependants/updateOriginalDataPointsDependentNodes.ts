@@ -8,7 +8,6 @@ import { User } from 'meta/user/user'
 
 import { DataRedisRepository } from 'server/cache/repository/data'
 import { getVariables } from 'server/controller/cycleData/nationalDataPoint/getVariables'
-import { notifyClientUpdate } from 'server/controller/cycleData/nationalDataPoint/updateDependants/notifyClientUpdate'
 import { updateDependents } from 'server/controller/cycleData/tableData/updateDependencies/updateDependents'
 import { BaseProtocol } from 'server/db/db'
 
@@ -17,7 +16,7 @@ type Props = {
   cycle: Cycle
   country: Country
   sectionName?: string
-  originalDataPoints: Array<{ originalDataPoint: OriginalDataPoint; notifyClient: boolean }>
+  originalDataPoints: Array<OriginalDataPoint>
   user: User
 }
 
@@ -27,7 +26,7 @@ export const updateOriginalDataPointsDependentNodes = async (props: Props, clien
   const cycleName = cycle.name
   const { countryIso } = country
 
-  originalDataPoints.forEach(({ originalDataPoint }) => {
+  originalDataPoints.forEach((originalDataPoint) => {
     if (!originalDataPoint.year) {
       throw new Error(`OriginalDataPoint ${originalDataPoint.id} is missing year`)
     }
@@ -41,7 +40,7 @@ export const updateOriginalDataPointsDependentNodes = async (props: Props, clien
   const nodes: Array<NodeUpdate> = []
   const originalDataPointVariables = getVariables({ cycle, sectionName })
 
-  originalDataPoints.forEach(({ originalDataPoint }) => {
+  originalDataPoints.forEach((originalDataPoint) => {
     const colName = String(originalDataPoint.year)
     const opdNodes = originalDataPointVariables.map<NodeUpdate>(({ tableName, variableName }) => {
       return { tableName, variableName, colName, value: undefined }
@@ -53,7 +52,4 @@ export const updateOriginalDataPointsDependentNodes = async (props: Props, clien
   const nodeUpdates = { assessmentName, cycleName, countryIso, nodes }
   const propsDeps = { assessment, cycle, country, isODP: true, nodeUpdates, user }
   await updateDependents(propsDeps, client)
-
-  // 3. notifies client
-  await notifyClientUpdate({ cycle, sectionName, assessment, countryIso, originalDataPoints })
 }

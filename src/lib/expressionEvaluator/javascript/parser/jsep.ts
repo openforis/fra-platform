@@ -8,6 +8,9 @@ const jsepObject = jsepObjectImport.default || jsepObjectImport
 
 jsep.plugins.register(jsepObject)
 
+// let formulas skip optional arguments, e.g. validatorSubCategory(a, [b], undefined, 'key')
+jsep.addLiteral('undefined', undefined)
+
 const OPEN_PARENTHESIS_CODE = 40 // (
 const CLOSE_PARENTHESIS_CODE = 41 // )
 

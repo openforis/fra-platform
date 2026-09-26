@@ -9,6 +9,7 @@ import { cloneAreas } from 'server/controller/assessment/cloneCycle/_cloneAreas'
 import { cloneData } from 'server/controller/assessment/cloneCycle/_cloneData'
 import { cloneMetadata } from 'server/controller/assessment/cloneCycle/_cloneMetadata'
 import { cloneUserRoles } from 'server/controller/assessment/cloneCycle/_cloneUserRoles'
+import { cloneValidations } from 'server/controller/assessment/cloneCycle/_cloneValidations'
 import { generateMaterializedViews } from 'server/controller/assessment/cloneCycle/_generateMaterializedViews'
 import { CloneProps } from 'server/controller/assessment/cloneCycle/types'
 import { createCycle } from 'server/controller/assessment/createCycle'
@@ -52,6 +53,7 @@ export const cloneCycle = async (props: Props, client: BaseProtocol = DB): Promi
     await CacheController.generateMetaCache({}, t)
     await CacheController.generateMetadata({ assessment }, t)
     await CacheController.generateData({ assessment, cycle: cycleTarget }, t)
+    await cloneValidations(cloneProps, t)
 
     const { name: assessmentName } = assessment.props
     return {

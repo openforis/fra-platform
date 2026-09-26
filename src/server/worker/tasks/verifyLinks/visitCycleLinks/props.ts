@@ -5,11 +5,13 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { User } from 'meta/user/user'
 
-export type VisitCycleLinksProps = {
+import { VerifyLinksJobName } from 'server/worker/tasks/verifyLinks/jobNames'
+
+export type VerifyAllLinksJobProps = {
   assessment: Assessment
   countryIso?: CountryIso
   cycle: Cycle
   user: User
 }
 
-export type VisitCycleLinksJob = Job<VisitCycleLinksProps>
+export type VerifyAllLinksJob = Job<VerifyAllLinksJobProps, void, typeof VerifyLinksJobName.verifyAllLinks>

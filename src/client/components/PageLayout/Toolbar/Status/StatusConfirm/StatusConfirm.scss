@@ -41,21 +41,24 @@
   padding: $spacing-s;
 }
 
-.assessment-status-confirm__notice-error {
-  align-items: start;
-  background-color: rgba($ui-destructive, 0.06);
+.assessment-status-confirm__notice {
+  align-items: center;
   border-radius: $spacing-xxs;
-  border: 1px solid $ui-destructive;
   display: grid;
   gap: $spacing-xs;
   grid-template-columns: auto 1fr;
   padding: $spacing-s;
 }
 
+.assessment-status-confirm__notice-error {
+  background-color: rgba($ui-destructive, 0.06);
+  border: 1px solid $ui-destructive;
+}
+
 .assessment-status-confirm__notice-icon {
   color: $ui-destructive;
-  height: $spacing-m;
-  width: $spacing-m;
+  height: $spacing-s;
+  width: $spacing-s;
 }
 
 .assessment-status-confirm__notice-content {

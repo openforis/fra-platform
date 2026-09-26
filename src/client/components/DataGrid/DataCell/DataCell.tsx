@@ -11,6 +11,7 @@ const DataCell: React.FC<DataCellProps> = (props) => {
   const {
     actions,
     className,
+    dataTestId,
     editable,
     error,
     firstCol,
@@ -45,6 +46,7 @@ const DataCell: React.FC<DataCellProps> = (props) => {
         },
         className
       )}
+      dataTestId={dataTestId}
       id={id}
       style={{ gridColumn, gridRow, ...style }}
       tooltip={tooltip}

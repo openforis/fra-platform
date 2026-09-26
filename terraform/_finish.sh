@@ -4,6 +4,9 @@
 # generate cache
 yarn ts-node src/tools/generateCache
 
+# validate all data
+yarn ts-node src/tools/validations/validateAll.ts
+
 # add test user
 yarn ts-node src/tools/user/createAdmin.ts
 
