@@ -8,6 +8,7 @@ import { Areas } from 'meta/area/areas'
 import { CountryIso } from 'meta/area/countryIso'
 import { Routes } from 'meta/routes/routes'
 
+import { useCountryRequestParams } from 'client/hooks/countryRequestParams'
 import { useCountryRouteParams } from 'client/hooks/routeParams'
 import { useToaster } from 'client/hooks/toaster'
 import Form from 'client/components/Form'
@@ -43,7 +44,8 @@ const User: React.FC = () => {
     navigate(-1)
   }, [navigate])
 
-  const action = Urls.withSearchParams(ApiEndPoint.User.one(), { assessmentName, cycleName, countryIso })
+  const actionParams = useCountryRequestParams()
+  const action = Urls.withSearchParams(ApiEndPoint.User.one(), actionParams)
 
   useEffect(() => {
     if (personalInfoRequired) {

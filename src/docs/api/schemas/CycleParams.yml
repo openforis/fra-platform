@@ -16,7 +16,7 @@ components:
       description: The name of the cycle. For example, "2020".
       schema:
         type: string
-        enum: ["2020", "2025", "latest"]
+        enum: ["2020", "2025"]
         example: 2025
 
     countryIso:

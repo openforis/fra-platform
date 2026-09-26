@@ -27,13 +27,13 @@ export const RepositoryApi = {
       AuthMiddleware.requireViewRepositoryItem,
       getRepositoryFile
     )
-    express.get(ApiEndPoint.CycleData.Repository.File.many(), AuthMiddleware.requireView, getManyRepositoryFiles)
+    express.get(ApiEndPoint.CycleData.Repository.File.many(), AuthMiddleware.requireViewCountry, getManyRepositoryFiles)
     express.get(
       ApiEndPoint.CycleData.Repository.fileMeta(),
       AuthMiddleware.requireEditRepositoryItem,
       getRepositoryFileMeta
     )
-    express.get(ApiEndPoint.CycleData.Repository.many(), AuthMiddleware.requireView, getManyRepository)
+    express.get(ApiEndPoint.CycleData.Repository.many(), AuthMiddleware.requireViewCountry, getManyRepository)
     express.put(
       ApiEndPoint.CycleData.Repository.one(),
       multer().none(),
