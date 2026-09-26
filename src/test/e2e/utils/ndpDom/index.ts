@@ -14,10 +14,8 @@ const _nationalClassesGrid = (page: Page): Locator =>
 const _nationalClassesSection = (page: Page): Locator =>
   page.locator('.odp__section', { has: _nationalClassesGrid(page) })
 
-const _nationalClassNameInputs = (page: Page): Locator =>
+const getNationalClassNameInputs = (page: Page): Locator =>
   _nationalClassesGrid(page).locator('.data-cell.firstCol input.input-text')
-
-const _existingNationalClassNameInput = (page: Page): Locator => _nationalClassNameInputs(page).first()
 
 const _commentsBlock = (page: Page): Locator => page.locator('.data-grid.odp__section.description')
 
@@ -72,7 +70,7 @@ const getCommentsValidationError = (page: Page): Locator =>
   _commentsBlock(page).locator('.editorWYSIWYG.validation-error')
 
 const createNewNationalClassification = async (page: Page, name: string): Promise<void> => {
-  const inputs = _nationalClassNameInputs(page)
+  const inputs = getNationalClassNameInputs(page)
   const inputCount = await inputs.count()
 
   await _nationalClassesSection(page).getByRole('button', { name: 'Add', exact: true }).click()
@@ -87,8 +85,8 @@ const createNewNationalClassification = async (page: Page, name: string): Promis
   await expect(input).toHaveValue(name)
 }
 
-const editNationalClassification = async (page: Page, name: string): Promise<void> => {
-  const input = _existingNationalClassNameInput(page)
+const editNationalClassification = async (page: Page, name: string, index = 0): Promise<void> => {
+  const input = getNationalClassNameInputs(page).nth(index)
   await input.waitFor()
 
   const saved = DOMUtils.waitForResponse(page, `${nationalDataPointApi}/national-classes`, 'PUT')
@@ -96,6 +94,17 @@ const editNationalClassification = async (page: Page, name: string): Promise<voi
   await saved
 
   await expect(input).toHaveValue(name)
+}
+
+const deleteNationalClass = async (page: Page, index: number): Promise<void> => {
+  const inputs = getNationalClassNameInputs(page)
+  const inputCount = await inputs.count()
+
+  const deleted = DOMUtils.waitForResponse(page, `${nationalDataPointApi}/national-class`, 'DELETE')
+  await _nationalClassesGrid(page).locator('button:has(svg.icon_trash-simple)').nth(index).click()
+  await deleted
+
+  await expect(inputs).toHaveCount(inputCount - 1)
 }
 
 const _fillOriginalData = async (page: Page, input: Locator, value: string): Promise<void> => {
@@ -213,6 +222,7 @@ const clickToggleNDPUsage = async (page: Page): Promise<void> => {
 
 export const NDPDomUtils = {
   createNewNationalClassification,
+  deleteNationalClass,
   doneEditing,
   editNationalClassification,
   fillComments,
@@ -230,6 +240,7 @@ export const NDPDomUtils = {
   fillYear,
   getCommentsValidationError,
   getDataSourcesV1ReferenceValidationError,
+  getNationalClassNameInputs,
   clickToggleNDPUsage,
   getNaturallyRegeneratingTable,
   getPlantationTable,
