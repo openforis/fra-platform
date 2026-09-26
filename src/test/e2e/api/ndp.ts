@@ -8,6 +8,9 @@ import { ODPs } from 'meta/assessment/odps'
 import { type ODPNationalClass, type OriginalDataPoint } from 'meta/assessment/originalDataPoint'
 import { type SectionName, SectionNames } from 'meta/assessment/section'
 import { TableNames } from 'meta/assessment/table'
+import { type RecordNDPValidations } from 'meta/assessment/validation/nationalDataPoint'
+
+import { DOMUtils } from 'test/e2e/utils/dom'
 
 const assessmentName = AssessmentNames.fra
 const cycleName = CycleNames._2025
@@ -72,7 +75,14 @@ const create = async (page: Page, seed: NdpSeed): Promise<OriginalDataPoint> => 
   return response.json()
 }
 
+// Call this before page.goto, the validations come in a separate request after the page loads
+const waitForValidations = async (page: Page): Promise<RecordNDPValidations> => {
+  const response = await DOMUtils.waitForResponse(page, ApiEndPoint.CycleData.Validations.nationalDataPoints(), 'GET')
+  return response.json()
+}
+
 export const NdpApi = {
   create,
   removeIfExists,
+  waitForValidations,
 }
