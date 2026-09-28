@@ -21,14 +21,26 @@ const _commentsBlock = (page: Page): Locator => page.locator('.data-grid.odp__se
 
 const _commentsEditor = (page: Page): Locator => _commentsBlock(page).locator('.jodit-wysiwyg')
 
+const openYearSelection = async (page: Page): Promise<void> => {
+  await page.locator('.odp__year-selection .select__wrapper').click()
+}
+
 const fillYear = async (page: Page, year: string): Promise<void> => {
   // New odp year defaults to -1 before selecting a year.
   // When selecting a year, the ODP gets created via POST request
   // Wait for that response so the editor becomes editable
   const created = DOMUtils.waitForResponse(page, nationalDataPointApi, 'POST')
-  await page.locator('.odp__year-selection .select__wrapper').click()
+  await openYearSelection(page)
   await page.getByRole('option', { name: year }).click()
   await created
+}
+
+// Changing the year of an existing point sends a debounced PUT and replaces the url in place
+const changeYear = async (page: Page, year: string): Promise<void> => {
+  const updated = DOMUtils.waitForResponse(page, `${nationalDataPointApi}/year`, 'PUT')
+  await openYearSelection(page)
+  await page.getByRole('option', { name: year }).click()
+  await updated
 }
 
 const fillDataSourcesV1Reference = async (page: Page, html: string): Promise<void> => {
@@ -233,6 +245,7 @@ const clickToggleNDPUsage = async (page: Page): Promise<void> => {
 }
 
 export const NDPDomUtils = {
+  changeYear,
   createNewNationalClassification,
   deleteNationalClass,
   deleteNationalDataPoint,
@@ -258,6 +271,7 @@ export const NDPDomUtils = {
   getNaturallyRegeneratingTable,
   getPlantationTable,
   getSectionTabErrorIndicator,
+  openYearSelection,
   prefillFromYear,
   switchSection,
 }
