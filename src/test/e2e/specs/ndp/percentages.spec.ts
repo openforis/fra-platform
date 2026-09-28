@@ -7,6 +7,7 @@ import { DOMUtils } from 'test/e2e/utils/dom'
 import { NavigationUtils } from 'test/e2e/utils/navigation'
 import { NDPDomUtils } from 'test/e2e/utils/ndpDom'
 import { SectionUtils } from 'test/e2e/utils/section'
+import { TooltipUtils } from 'test/e2e/utils/tooltip'
 
 const countryIso = 'X04'
 const extentOfForestPath = SectionUtils.path({ countryIso, sectionName: SectionNames.extentOfForest })
@@ -36,7 +37,7 @@ const classWithValidForestCharacteristics = {
   otherPlantedForestPercent: '20',
 }
 
-test.describe('National data point: percentages at 100 - success', () => {
+test.describe('National data point: percentages', () => {
   test.describe('forest and other wooded land', () => {
     test.use({ ndpSeeds: [{ countryIso, nationalClasses: [classWithArea], year: seededYear }] })
 
@@ -101,6 +102,62 @@ test.describe('National data point: percentages at 100 - success', () => {
       await page.goto(ndp1bPath)
       expect((await storedValidations)[ndp.uuid]?.nationalClasses).toBeUndefined()
       await expect(page.locator('td.fra-table__cell.validation-error')).toHaveCount(0)
+    })
+  })
+
+  test.describe('forest percentage makes the 1b percentages required', () => {
+    test.use({ ndpSeeds: [{ countryIso, nationalClasses: [classWithArea], year: seededYear }] })
+
+    test('NC sets the forest percentage to 0 and the 1b error clears, then sets it above 0 and the error returns', async ({
+      authenticatedPage,
+      ndp,
+    }) => {
+      const page = authenticatedPage
+      expect(ndp.id).toBeTruthy()
+
+      await page.goto(ndp1aPath)
+      await DOMUtils.ensureEditingUnlocked(page)
+
+      // ==== forest above zero with empty 1b percentages puts the sum error on 1b
+      await NDPDomUtils.fillNationalClassForestPercent(page, className, '60')
+      await NavigationUtils.subSectionHasError(page, forestCharacteristicsPath, true)
+
+      await NDPDomUtils.switchSection(page, {
+        countryIso,
+        sectionName: SectionNames.forestCharacteristics,
+        year: seededYear,
+      })
+      const percentageCell = page.locator('.fra-table:not(.odp__sub-table) td.fra-table__cell.validation-error')
+      await expect(percentageCell.first()).toBeVisible({ timeout: 10000 })
+      await TooltipUtils.expectValidationTooltip(page, percentageCell.first(), `${className} sum must be equal to 100%`)
+      await expect(NDPDomUtils.getSectionTabErrorIndicator(page, '1b')).toBeVisible()
+
+      // ==== forest at zero drops the requirement
+      await NDPDomUtils.switchSection(page, { countryIso, sectionName: SectionNames.extentOfForest, year: seededYear })
+      await NDPDomUtils.fillNationalClassForestPercent(page, className, '0')
+      await NavigationUtils.subSectionHasError(page, forestCharacteristicsPath, false)
+      await expect(NDPDomUtils.getSectionTabErrorIndicator(page, '1b')).toHaveCount(0)
+
+      // ==== the cleared state is what is stored, so it survives a reload
+      const storedValidations = NdpApi.waitForValidations(page)
+      await page.goto(ndp1bPath)
+      const storedClassValidation = (await storedValidations)[ndp.uuid]?.nationalClasses?.[classWithArea.uuid]
+      expect(storedClassValidation?.forestCharacteristicsPercentage).toBeUndefined()
+      await expect(percentageCell).toHaveCount(0)
+      await NavigationUtils.subSectionHasError(page, forestCharacteristicsPath, false)
+
+      // ==== forest above zero again brings the requirement back
+      await DOMUtils.ensureEditingUnlocked(page)
+      await NDPDomUtils.switchSection(page, { countryIso, sectionName: SectionNames.extentOfForest, year: seededYear })
+      await NDPDomUtils.fillNationalClassForestPercent(page, className, '60')
+      await NavigationUtils.subSectionHasError(page, forestCharacteristicsPath, true)
+
+      await NDPDomUtils.switchSection(page, {
+        countryIso,
+        sectionName: SectionNames.forestCharacteristics,
+        year: seededYear,
+      })
+      await expect(percentageCell.first()).toBeVisible({ timeout: 10000 })
     })
   })
 })
