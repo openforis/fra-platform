@@ -189,6 +189,14 @@ const fillNationalClassPlantationIntroducedPercent = async (
     value
   )
 
+// The Delete button on the point page, confirmed through the browser dialog
+const deleteNationalDataPoint = async (page: Page): Promise<void> => {
+  const deleted = DOMUtils.waitForResponse(page, nationalDataPointApi, 'DELETE')
+  page.once('dialog', (dialog) => dialog.accept())
+  await page.getByRole('button', { name: 'Delete' }).first().click()
+  await deleted
+}
+
 const doneEditing = async (page: Page): Promise<void> => {
   await page.getByRole('link', { name: 'Done editing' }).first().click()
 }
@@ -227,6 +235,7 @@ const clickToggleNDPUsage = async (page: Page): Promise<void> => {
 export const NDPDomUtils = {
   createNewNationalClassification,
   deleteNationalClass,
+  deleteNationalDataPoint,
   doneEditing,
   editNationalClassification,
   fillComments,
