@@ -193,6 +193,10 @@ const doneEditing = async (page: Page): Promise<void> => {
   await page.getByRole('link', { name: 'Done editing' }).first().click()
 }
 
+// Error indicator on the 1a / 1b tab, which only reflects the open national data point
+const getSectionTabErrorIndicator = (page: Page, anchor: '1a' | '1b'): Locator =>
+  page.locator('.odp__tab-item', { hasText: anchor }).locator('.validation-error-indicator')
+
 const switchSection = async (page: Page, props: NdpPathProps): Promise<void> => {
   const path = SectionUtils.ndpPath(props)
 
@@ -244,6 +248,7 @@ export const NDPDomUtils = {
   clickToggleNDPUsage,
   getNaturallyRegeneratingTable,
   getPlantationTable,
+  getSectionTabErrorIndicator,
   prefillFromYear,
   switchSection,
 }
