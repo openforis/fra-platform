@@ -4,10 +4,10 @@ import { SectionName } from 'meta/assessment/section'
 import { TableSection } from 'meta/assessment/tableSection'
 
 import { getKeyCycle, Keys } from 'server/cache/repository/keys'
-import { RedisData } from 'server/cache/repository/redisData'
 import { SectionRedisRepository } from 'server/cache/repository/section/index'
 import { BaseProtocol, DB } from 'server/db/db'
 import { SectionRepository } from 'server/db/repository/assessment/section'
+import { RedisDataClient } from 'server/redis/dataClient'
 
 type Props = {
   assessment: Assessment
@@ -34,7 +34,7 @@ const _getSectionNames = async (props: Pick<Props, 'assessment' | 'cycle'>): Pro
 export const getManyMetadata = async (props: Props, client: BaseProtocol = DB): Promise<RecordMetadata> => {
   const { assessment, cycle, force, sectionNames } = props
 
-  const redis = RedisData.getInstance()
+  const redis = RedisDataClient.getInstance()
   const key = getKeyCycle({ assessment, cycle, key: Keys.Section.sectionsMetadata })
 
   if (force) {

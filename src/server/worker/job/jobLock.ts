@@ -1,22 +1,18 @@
-import IORedis from 'ioredis'
 import { createLock, IoredisAdapter, type Lock, LockAcquisitionError, type LockHandle } from 'redlock-universal'
 
-import { ProcessEnv } from 'server/utils'
+import { RedisQueueClient } from 'server/redis/queueClient'
 import { Logger } from 'server/utils/logger'
-import { RedisClient } from 'server/utils/redis/client'
 import { JobStatus, JobStatusPayload } from 'server/worker/job/jobStatus'
 
 export class JobLock {
   #lock?: LockHandle
   #lockManager: Lock
   #name: string
-  static #redis: IORedis = RedisClient.newInstance(ProcessEnv.redisQueueUrl)
-  static #redisAdapter = new IoredisAdapter(JobLock.#redis)
 
   constructor(name: string) {
     this.#name = name
     this.#lockManager = createLock({
-      adapter: JobLock.#redisAdapter,
+      adapter: new IoredisAdapter(RedisQueueClient.getInstance()),
       key: `lock:${this.#name}`,
       ttl: 10 * 60 * 1000,
       retryAttempts: 0,
@@ -26,7 +22,7 @@ export class JobLock {
   }
 
   public async getStatus(): Promise<JobStatusPayload | null> {
-    const status = await JobLock.#redis.get(`job:${this.#name}`)
+    const status = await RedisQueueClient.getInstance().get(`job:${this.#name}`)
     if (!status) return null
 
     try {
@@ -53,7 +49,7 @@ export class JobLock {
       delete payload.finishedAt
     }
 
-    await JobLock.#redis.set(`job:${this.#name}`, JSON.stringify(payload))
+    await RedisQueueClient.getInstance().set(`job:${this.#name}`, JSON.stringify(payload))
   }
 
   private async releaseLock(): Promise<void> {
@@ -63,10 +59,6 @@ export class JobLock {
     if (!released) throw new Error(`Lock for job ${this.#name} was not released`)
 
     this.#lock = undefined
-  }
-
-  public static async disconnect(): Promise<void> {
-    await JobLock.#redis.quit()
   }
 
   public async acquireLock(): Promise<boolean> {

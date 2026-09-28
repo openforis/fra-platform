@@ -1,18 +1,15 @@
-import { Job, Queue, QueueOptions } from 'bullmq'
+import { Job, Queue } from 'bullmq'
 
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 
-import { ProcessEnv } from 'server/utils'
-import { RedisClient } from 'server/utils/redis/client'
+import { RedisQueueClient } from 'server/redis/queueClient'
 
 import { VisitCycleLinksProps } from './props'
 
 const queueName = 'verifyLinks'
 let queue: Queue<VisitCycleLinksProps> | undefined
-
-const connection = RedisClient.newInstance(ProcessEnv.redisQueueUrl, { maxRetriesPerRequest: null })
 
 type Props = {
   assessment: Assessment
@@ -20,15 +17,13 @@ type Props = {
   cycle: Cycle
 }
 
-const opts: QueueOptions = {
-  connection,
-  streams: { events: { maxLen: 1 } },
-}
-
 const getInstance = (): Queue<VisitCycleLinksProps> => {
   if (queue) return queue
 
-  queue = new Queue<VisitCycleLinksProps>(queueName, opts)
+  queue = new Queue<VisitCycleLinksProps>(queueName, {
+    connection: RedisQueueClient.getInstance(),
+    streams: { events: { maxLen: 1 } },
+  })
   return queue
 }
 
@@ -52,7 +47,6 @@ const getQueuedOrActiveJob = async (props: Props): Promise<Job<VisitCycleLinksPr
 }
 
 export const VisitCycleLinksQueueFactory = {
-  connection,
   getInstance,
   getJobId,
   getQueuedOrActiveJob,

@@ -3,8 +3,8 @@ import { Cycle } from 'meta/assessment/cycle'
 import { Section, SubSection } from 'meta/assessment/section'
 
 import { getKeyCycle, Keys } from 'server/cache/repository/keys'
-import { RedisData } from 'server/cache/repository/redisData'
 import { _cacheSections } from 'server/cache/repository/section/_cacheSections'
+import { RedisDataClient } from 'server/redis/dataClient'
 
 type Props = {
   assessment: Assessment
@@ -15,7 +15,7 @@ type Props = {
 export const getSubSection = async (props: Props): Promise<SubSection> => {
   const { assessment, cycle, sectionName } = props
 
-  const redis = RedisData.getInstance()
+  const redis = RedisDataClient.getInstance()
   await _cacheSections({ assessment, cycle })
 
   const sectionIndexKey = getKeyCycle({ assessment, cycle, key: Keys.Section.sectionsIndex })

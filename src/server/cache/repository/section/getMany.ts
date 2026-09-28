@@ -3,9 +3,9 @@ import { Cycle } from 'meta/assessment/cycle'
 import { Section } from 'meta/assessment/section'
 
 import { getKeyCycle, Keys } from 'server/cache/repository/keys'
-import { RedisData } from 'server/cache/repository/redisData'
 import { _cacheSections } from 'server/cache/repository/section/_cacheSections'
 import { BaseProtocol, DB } from 'server/db/db'
+import { RedisDataClient } from 'server/redis/dataClient'
 
 type Props = {
   assessment: Assessment
@@ -16,7 +16,7 @@ type Props = {
 export const getMany = async (props: Props, client: BaseProtocol = DB): Promise<Array<Section>> => {
   const { assessment, cycle, force } = props
 
-  const redis = RedisData.getInstance()
+  const redis = RedisDataClient.getInstance()
 
   await _cacheSections({ assessment, cycle, force }, client)
 

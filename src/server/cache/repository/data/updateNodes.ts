@@ -1,13 +1,12 @@
-import { Objects } from 'utils/objects'
-
 import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 import { TableName } from 'meta/assessment/table'
 import { NodeUpdate } from 'meta/data/nodeUpdates'
+import { Objects } from 'utils/objects'
 
 import { getKeyCountry, Keys } from 'server/cache/repository/keys'
-import { RedisData } from 'server/cache/repository/redisData'
+import { RedisDataClient } from 'server/redis/dataClient'
 
 type Props = {
   assessment: Assessment
@@ -19,7 +18,7 @@ type Props = {
 export const updateNodes = async (props: Props): Promise<void> => {
   const { assessment, countryIso, cycle, nodes } = props
 
-  const redis = RedisData.getInstance()
+  const redis = RedisDataClient.getInstance()
   const key = getKeyCountry({ assessment, cycle, countryIso, key: Keys.Data.data })
 
   const tableNames = Object.keys(nodes)

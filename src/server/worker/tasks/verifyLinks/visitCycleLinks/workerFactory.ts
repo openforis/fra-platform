@@ -1,4 +1,4 @@
-import { Worker, WorkerListener, WorkerOptions } from 'bullmq'
+import { Worker, WorkerListener } from 'bullmq'
 
 import { CountryIso } from 'meta/area/countryIso'
 import { ActivityLogMessage } from 'meta/assessment/activityLog'
@@ -8,24 +8,13 @@ import { SectionNames } from 'meta/routes/sectionNames'
 import { Sockets } from 'meta/socket/sockets'
 
 import { ActivityLogRepository } from 'server/db/repository/public/activityLog'
+import { RedisQueueClient } from 'server/redis/queueClient'
 import { SocketServer } from 'server/service/socket'
-import { ProcessEnv } from 'server/utils'
 import { Logger } from 'server/utils/logger'
-import { RedisClient } from 'server/utils/redis/client'
 
 import { VisitCycleLinksJob, VisitCycleLinksProps } from './props'
 
-const connection = RedisClient.newInstance(ProcessEnv.redisQueueUrl, { maxRetriesPerRequest: null })
-
 const jobTimeoutMs = 10 * 60 * 1000
-
-const workerOptions: WorkerOptions = {
-  concurrency: 1,
-  connection,
-  lockDuration: jobTimeoutMs,
-  maxStalledCount: 0,
-  skipLockRenewal: true,
-}
 
 type EmitEventProps = {
   assessment: Assessment
@@ -50,7 +39,13 @@ const _emitEvent = (props: EmitEventProps): void => {
 const newInstance = (props: { key: string; processor: VisitCycleLinksProcessor }): Worker<VisitCycleLinksProps> => {
   const { key, processor } = props
 
-  const worker = new Worker<VisitCycleLinksProps>(key, processor, workerOptions)
+  const worker = new Worker<VisitCycleLinksProps>(key, processor, {
+    concurrency: 1,
+    connection: RedisQueueClient.getInstance(),
+    lockDuration: jobTimeoutMs,
+    maxStalledCount: 0,
+    skipLockRenewal: true,
+  })
 
   worker.on('error', (error) => {
     Logger.error(`[visitCycleLinks-worker] job error ${error}`)
@@ -95,6 +90,5 @@ const newInstance = (props: { key: string; processor: VisitCycleLinksProcessor }
 }
 
 export const WorkerFactory = {
-  connection,
   newInstance,
 }

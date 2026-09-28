@@ -4,9 +4,9 @@ import { Cycle } from 'meta/assessment/cycle'
 import { TableName, TableNames } from 'meta/assessment/table'
 
 import { getKeyCountry, Keys } from 'server/cache/repository/keys'
-import { RedisData } from 'server/cache/repository/redisData'
 import { BaseProtocol, DB } from 'server/db/db'
 import { DataRepository } from 'server/db/repository/assessmentCycle/data'
+import { RedisDataClient } from 'server/redis/dataClient'
 
 type PropsCache = {
   assessment: Assessment
@@ -19,7 +19,7 @@ type PropsCache = {
 export const cacheCountryTable = async (props: PropsCache, client: BaseProtocol = DB): Promise<void> => {
   const { assessment, countryIso, cycle, force, tableName } = props
 
-  const redis = RedisData.getInstance()
+  const redis = RedisDataClient.getInstance()
   const key = getKeyCountry({ assessment, cycle, countryIso, key: Keys.Data.data })
 
   if (force || !(await redis.hexists(key, tableName))) {

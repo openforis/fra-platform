@@ -1,19 +1,18 @@
-import { Objects } from 'utils/objects'
-import { Promises } from 'utils/promises'
-
 import { Assessment, AssessmentName } from 'meta/assessment/assessment'
 import { Assessments } from 'meta/assessment/assessments'
 import { AssessmentMetaCache } from 'meta/assessment/metaCache'
 import { RowCache } from 'meta/assessment/rowCache'
+import { Objects } from 'utils/objects'
+import { Promises } from 'utils/promises'
 
 import { AssessmentRedisRepository } from 'server/cache/repository/assessment'
 import { getKeyMetaCache } from 'server/cache/repository/keys'
 import { getMetaCacheEntryKey } from 'server/cache/repository/metaCache/generateMetaCache/_getMetaCacheEntryKey'
 import { DependencyEvaluator } from 'server/cache/repository/metaCache/generateMetaCache/dependencyEvaluator'
 import { Context } from 'server/cache/repository/metaCache/generateMetaCache/dependencyEvaluator/evalDependencies/context'
-import { RedisData } from 'server/cache/repository/redisData'
 import { BaseProtocol, DB } from 'server/db/db'
 import { RowRepository } from 'server/db/repository/assessment/row'
+import { RedisDataClient } from 'server/redis/dataClient'
 import { Logger } from 'server/utils/logger'
 
 type Props = {
@@ -97,7 +96,7 @@ export const generateMetaCache = async (props: Props, client: BaseProtocol = DB)
   })
 
   // set redis entries
-  const redis = RedisData.getInstance()
+  const redis = RedisDataClient.getInstance()
   const key = getKeyMetaCache()
   await Promises.each(assessments, async (assessment) => {
     await Promises.each(assessment.cycles, async (cycle) => {

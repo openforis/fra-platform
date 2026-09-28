@@ -2,13 +2,10 @@ import '../../scriptInit'
 
 import { Promises } from 'utils/promises'
 
-import { RedisData } from 'server/cache/repository/redisData'
-import { UpdateDependenciesQueueFactory } from 'server/controller/cycleData/tableData/updateDependencies/queueFactory'
-import { WorkerFactory } from 'server/controller/cycleData/tableData/updateDependencies/workerFactory'
 import { DB } from 'server/db/db'
+import { RedisDataClient } from 'server/redis/dataClient'
+import { RedisQueueClient } from 'server/redis/queueClient'
 import { Logger } from 'server/utils/logger'
-import { VisitCycleLinksQueueFactory } from 'server/worker/tasks/verifyLinks/visitCycleLinks/queueFactory'
-import { WorkerFactory as VisitLinksWorkerFactory } from 'server/worker/tasks/verifyLinks/visitCycleLinks/workerFactory'
 
 import { getMigrationFiles } from './utils'
 
@@ -45,14 +42,7 @@ const init = async (): Promise<Array<string>> => {
 const close = async (): Promise<void> => {
   // quick and dirty workaround to close redis connection after running integration tests
   // TODO: find a better strategy to handle Redis connections
-  await Promise.all([
-    UpdateDependenciesQueueFactory.connection.quit(),
-    WorkerFactory.connection.quit(),
-    VisitCycleLinksQueueFactory.connection.quit(),
-    VisitLinksWorkerFactory.connection.quit(),
-    DB.$pool.end(),
-    RedisData.getInstance().quit(),
-  ])
+  await Promise.all([RedisQueueClient.getInstance().quit(), DB.$pool.end(), RedisDataClient.getInstance().quit()])
 }
 
 const exec = async (): Promise<Array<string>> => {

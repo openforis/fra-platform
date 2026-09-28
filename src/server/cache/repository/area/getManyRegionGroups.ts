@@ -1,13 +1,12 @@
-import { Objects } from 'utils/objects'
-
 import { RegionGroup } from 'meta/area/regionGroup'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
+import { Objects } from 'utils/objects'
 
 import { getKeyCycle, Keys } from 'server/cache/repository/keys'
-import { RedisData } from 'server/cache/repository/redisData'
 import { BaseProtocol, DB } from 'server/db/db'
 import { RegionRepository } from 'server/db/repository/assessmentCycle/region'
+import { RedisDataClient } from 'server/redis/dataClient'
 
 type Props = {
   assessment: Assessment
@@ -18,7 +17,7 @@ type Props = {
 export const getManyRegionGroups = async (props: Props, client: BaseProtocol = DB): Promise<Array<RegionGroup>> => {
   const { assessment, cycle, force = false } = props
 
-  const redis = RedisData.getInstance()
+  const redis = RedisDataClient.getInstance()
   const key = getKeyCycle({ assessment, cycle, key: Keys.Area.regionGroups })
 
   const cachedData = await redis.hgetall(key)
