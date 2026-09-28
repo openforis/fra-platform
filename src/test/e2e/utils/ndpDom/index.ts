@@ -125,8 +125,11 @@ const _main1bRow = (page: Page, className: string): Locator =>
   })
 
 // 1a area
+const getNationalClassAreaCell = (page: Page, className: string): Locator =>
+  _tableRow(page, className).locator('td.fra-table__cell.fra-table__divider')
+
 const fillNationalClassArea = async (page: Page, className: string, value: string): Promise<void> =>
-  _fillOriginalData(page, _tableRow(page, className).locator('td.fra-table__cell.fra-table__divider input'), value)
+  _fillOriginalData(page, getNationalClassAreaCell(page, className).locator('input'), value)
 
 // 1a forest%
 const fillNationalClassForestPercent = async (page: Page, className: string, value: string): Promise<void> =>
@@ -244,6 +247,7 @@ export const NDPDomUtils = {
   fillYear,
   getCommentsValidationError,
   getDataSourcesV1ReferenceValidationError,
+  getNationalClassAreaCell,
   getNationalClassNameInputs,
   clickToggleNDPUsage,
   getNaturallyRegeneratingTable,
