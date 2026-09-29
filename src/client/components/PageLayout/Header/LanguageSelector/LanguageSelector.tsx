@@ -2,10 +2,12 @@ import React, { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { LanguageCodes } from 'meta/lang'
+import { TrackId } from 'meta/tracking/id'
 
 import { useLanguage, useUpdateLanguage } from 'client/hooks/language'
 import Icon from 'client/components/Icon'
 import PopoverControl from 'client/components/PopoverControl'
+import { Tracking } from 'client/utils/tracking'
 
 const LanguageSelector: React.FC = () => {
   const { t } = useTranslation()
@@ -16,7 +18,10 @@ const LanguageSelector: React.FC = () => {
     () =>
       LanguageCodes.map((lang) => ({
         content: t(`language.${lang}`),
-        onClick: () => updateLanguage({ lang }),
+        onClick: (): void => {
+          Tracking.select({ elementId: TrackId.headerLanguageSelect, value: lang })
+          updateLanguage({ lang })
+        },
       })),
     [t, updateLanguage]
   )
