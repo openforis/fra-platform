@@ -22,6 +22,7 @@
   "role_other": "{{count}} 个角色",
   "role_two": "$t(admin.role_other)",
   "role_zero": "$t(admin.role_other)",
+  "tracking": "跟踪",
   "urlParsingError": "URL解析错误",
   "usersCount": "用户数量",
   "verifyLinks": "验证链接"

@@ -22,6 +22,7 @@
   "role_other": "{{count}} Роли",
   "role_two": "$t(admin.role_few)",
   "role_zero": "$t(admin.role_many)",
+  "tracking": "Отслеживание",
   "urlParsingError": "URL parsing error",
   "usersCount": "Число пользователей",
   "verifyLinks": "Проверить ссылки"
