@@ -1,7 +1,8 @@
 import { useEffect } from 'react'
 import { createBrowserRouter } from 'react-router'
 
-const GA_EVENT_NAME = 'page_navigation'
+import { Tracking } from 'client/utils/tracking'
+
 const EXIT_MARKER = '(exit)'
 
 type Router = ReturnType<typeof createBrowserRouter>
@@ -9,18 +10,10 @@ type Router = ReturnType<typeof createBrowserRouter>
 export const usePageEngagement = (router: Router): void => {
   useEffect(() => {
     let currentPath = window.location.pathname
-    let enteredAt = Date.now()
     let exitSent = false
 
     const sendPageNavigationEvent = (toPath: string, navType: string): void => {
-      // gtag is defined in index.html only for prod
-      // @ts-ignore
-      window.gtag?.('event', GA_EVENT_NAME, {
-        from_path: currentPath,
-        to_path: toPath,
-        duration_ms: Date.now() - enteredAt,
-        nav_type: navType,
-      })
+      Tracking.navigation({ fromPath: currentPath, navType, toPath })
     }
 
     const unsubscribeRouter = router.subscribe((state) => {
@@ -33,7 +26,6 @@ export const usePageEngagement = (router: Router): void => {
         // PUSH: an in-app link/select click
         // POP: browser back/forward
         sendPageNavigationEvent(pathname, state.historyAction.toLowerCase())
-        enteredAt = Date.now()
         exitSent = false
       }
 
