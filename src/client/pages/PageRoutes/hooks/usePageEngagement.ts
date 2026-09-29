@@ -10,12 +10,10 @@ type Router = ReturnType<typeof createBrowserRouter>
 export const usePageEngagement = (router: Router): void => {
   useEffect(() => {
     let currentPath = window.location.pathname
-    let enteredAt = Date.now()
     let exitSent = false
 
     const sendPageNavigationEvent = (toPath: string, navType: string): void => {
-      const durationMs = Date.now() - enteredAt
-      Tracking.navigation({ durationMs, navType, toPath })
+      Tracking.navigation({ fromPath: currentPath, navType, toPath })
     }
 
     const unsubscribeRouter = router.subscribe((state) => {
@@ -28,7 +26,6 @@ export const usePageEngagement = (router: Router): void => {
         // PUSH: an in-app link/select click
         // POP: browser back/forward
         sendPageNavigationEvent(pathname, state.historyAction.toLowerCase())
-        enteredAt = Date.now()
         exitSent = false
       }
 

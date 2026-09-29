@@ -1,5 +1,6 @@
 import { apiPath, joinPaths } from 'meta/api/endpoint/_utils'
 import { Admin } from 'meta/api/endpoint/admin'
+import { Analytics } from 'meta/api/endpoint/analytics'
 import { Area } from 'meta/api/endpoint/area'
 import { Auth } from 'meta/api/endpoint/auth'
 import { CycleData } from 'meta/api/endpoint/cycleData'
@@ -21,6 +22,7 @@ export const ApiEndPoint = {
   init: (): string => apiPath('init'),
 
   Admin,
+  Analytics,
   Area,
   Auth,
   CycleData,
