@@ -35,6 +35,10 @@ const sections: Array<Section> = [
     name: SectionNames.Admin.links,
     labelKey: 'landing.links.links',
   },
+  {
+    name: SectionNames.Admin.tracking,
+    labelKey: 'admin.tracking',
+  },
   // { name: 'dataExport', labelKey: 'common.dataExport' },
 ]
 

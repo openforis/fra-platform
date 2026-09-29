@@ -9,6 +9,7 @@ import AdminCollaborators from 'client/pages/AdminCollaborators'
 import AdminCountries from 'client/pages/AdminCountries'
 import AdminInvitations from 'client/pages/AdminInvitations'
 import AdminLinks from 'client/pages/AdminLinks'
+import AdminTracking from 'client/pages/AdminTracking'
 import Assessment from 'client/pages/Assessment'
 import AssessmentHome from 'client/pages/AssessmentHome'
 import Country from 'client/pages/Country'
@@ -56,6 +57,7 @@ export const useRoutes = (): Array<RouteObject> => {
                 <Route element={<AdminCountries />} path={Routes.AdminCountries.path.relative} />
                 <Route element={<AdminInvitations />} path={Routes.AdminInvitations.path.relative} />
                 <Route element={<AdminLinks />} path={Routes.AdminLinks.path.relative} />
+                <Route element={<AdminTracking />} path={Routes.AdminTracking.path.relative} />
                 <Route element={<AdminCollaborators />} path={Routes.AdminCollaborators.path.relative} />
               </Route>
 
