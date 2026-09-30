@@ -67,6 +67,32 @@ test.describe('National data point: extent of forest - failure', () => {
       await NavigationUtils.subSectionHasError(page, extentOfForestPath, true)
       await NavigationUtils.subSectionHasError(page, forestCharacteristicsPath, false)
     })
+
+    test('NC enters 0 as the national class area and sees no error, then clears it and sees the error again', async ({
+      authenticatedPage,
+      ndp,
+    }) => {
+      const page = authenticatedPage
+      expect(ndp.id).toBeTruthy()
+
+      await page.goto(ndp1aPath)
+      await DOMUtils.ensureEditingUnlocked(page)
+
+      await NDPDomUtils.createNewNationalClassification(page, className)
+
+      const areaCell = page.locator('td.fra-table__cell.fra-table__divider.validation-error')
+      await expect(areaCell).toBeVisible({ timeout: 10000 })
+
+      // Zero counts as a value, only an empty area is invalid
+      await NDPDomUtils.fillNationalClassArea(page, className, '0')
+      await expect(areaCell).toHaveCount(0, { timeout: 10000 })
+      await NavigationUtils.subSectionHasError(page, extentOfForestPath, false)
+
+      await NDPDomUtils.fillNationalClassArea(page, className, '')
+      await expect(areaCell).toBeVisible({ timeout: 10000 })
+      await TooltipUtils.expectValidationTooltip(page, areaCell, 'Value cannot be empty')
+      await NavigationUtils.subSectionHasError(page, extentOfForestPath, true)
+    })
   })
 
   test.describe('percentages over 100', () => {
