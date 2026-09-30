@@ -6,7 +6,7 @@ import { RecordTableValidationsState } from 'meta/assessment/validation/table'
 import { Objects } from 'utils/objects'
 
 import { getKeyCountry, Keys } from 'server/cache/repository/keys'
-import { RedisDataClient } from 'server/redis/dataClient'
+import { RedisDataClient } from 'server/service/redis/dataClient'
 
 type Props = {
   assessment: Assessment

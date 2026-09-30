@@ -12,7 +12,7 @@ import { DependencyEvaluator } from 'server/cache/repository/metaCache/generateM
 import { Context } from 'server/cache/repository/metaCache/generateMetaCache/dependencyEvaluator/evalDependencies/context'
 import { BaseProtocol, DB } from 'server/db/db'
 import { RowRepository } from 'server/db/repository/assessment/row'
-import { RedisDataClient } from 'server/redis/dataClient'
+import { RedisDataClient } from 'server/service/redis/dataClient'
 import { Logger } from 'server/utils/logger'
 
 type Props = {

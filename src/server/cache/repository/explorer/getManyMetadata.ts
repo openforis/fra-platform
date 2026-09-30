@@ -16,7 +16,7 @@ import { SystemOfMeasurementController } from 'server/controller/measurement/sys
 import { BaseProtocol, DB } from 'server/db/db'
 import { DimensionRepository } from 'server/db/repository/measurement/dimension'
 import { MeasureRepository } from 'server/db/repository/measurement/measure'
-import { RedisDataClient } from 'server/redis/dataClient'
+import { RedisDataClient } from 'server/service/redis/dataClient'
 
 const skipTables = [
   'biomassStockTotal',

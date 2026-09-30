@@ -4,7 +4,7 @@ import { Promises } from 'utils/promises'
 import { CycleRedisRepository } from 'server/cache/repository/cycle'
 import { getKeyAssessments, getKeyAssessmentsUuid } from 'server/cache/repository/keys'
 import { BaseProtocol, DB } from 'server/db/db'
-import { RedisDataClient } from 'server/redis/dataClient'
+import { RedisDataClient } from 'server/service/redis/dataClient'
 
 type Props = {
   assessment: Assessment

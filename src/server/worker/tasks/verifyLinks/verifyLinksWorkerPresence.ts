@@ -1,4 +1,4 @@
-import { RedisQueueClient } from 'server/redis/queueClient'
+import { RedisQueueClient } from 'server/service/redis/queueClient'
 
 // Presence key used by the controller to avoid starting multiple dynos.
 const workerPresenceKey = 'verifyLinks:worker:active'

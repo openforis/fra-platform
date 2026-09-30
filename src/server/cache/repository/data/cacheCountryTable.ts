@@ -6,7 +6,7 @@ import { TableName, TableNames } from 'meta/assessment/table'
 import { getKeyCountry, Keys } from 'server/cache/repository/keys'
 import { BaseProtocol, DB } from 'server/db/db'
 import { DataRepository } from 'server/db/repository/assessmentCycle/data'
-import { RedisDataClient } from 'server/redis/dataClient'
+import { RedisDataClient } from 'server/service/redis/dataClient'
 
 type PropsCache = {
   assessment: Assessment

@@ -2,7 +2,7 @@ import '../scriptInit'
 
 import { CacheController } from 'server/cache/controller'
 import { DB } from 'server/db/db'
-import { RedisDataClient } from 'server/redis/dataClient'
+import { RedisDataClient } from 'server/service/redis/dataClient'
 import { Logger } from 'server/utils/logger'
 
 const exec = async (): Promise<void> => {

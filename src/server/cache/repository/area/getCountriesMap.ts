@@ -6,7 +6,7 @@ import { _cacheCountries } from 'server/cache/repository/area/cacheCountries'
 import { Props } from 'server/cache/repository/area/props'
 import { getKeyCycle, Keys } from 'server/cache/repository/keys'
 import { BaseProtocol, DB } from 'server/db/db'
-import { RedisDataClient } from 'server/redis/dataClient'
+import { RedisDataClient } from 'server/service/redis/dataClient'
 
 export const getCountriesMap = async (
   props: Props,

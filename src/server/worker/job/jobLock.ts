@@ -1,6 +1,6 @@
 import { createLock, IoredisAdapter, type Lock, LockAcquisitionError, type LockHandle } from 'redlock-universal'
 
-import { RedisQueueClient } from 'server/redis/queueClient'
+import { RedisQueueClient } from 'server/service/redis/queueClient'
 import { Logger } from 'server/utils/logger'
 import { JobStatus, JobStatusPayload } from 'server/worker/job/jobStatus'
 

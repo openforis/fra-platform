@@ -6,7 +6,7 @@ import { Cycle } from 'meta/assessment/cycle'
 
 import { UpdateDependenciesProps } from 'server/controller/cycleData/tableData/updateDependencies/props'
 import { WorkerFactory } from 'server/controller/cycleData/tableData/updateDependencies/workerFactory'
-import { RedisQueueClient } from 'server/redis/queueClient'
+import { RedisQueueClient } from 'server/service/redis/queueClient'
 import { Logger } from 'server/utils/logger'
 
 const queues: Record<string, Queue<UpdateDependenciesProps>> = {}

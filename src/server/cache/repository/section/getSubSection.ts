@@ -4,7 +4,7 @@ import { Section, SubSection } from 'meta/assessment/section'
 
 import { getKeyCycle, Keys } from 'server/cache/repository/keys'
 import { _cacheSections } from 'server/cache/repository/section/_cacheSections'
-import { RedisDataClient } from 'server/redis/dataClient'
+import { RedisDataClient } from 'server/service/redis/dataClient'
 
 type Props = {
   assessment: Assessment

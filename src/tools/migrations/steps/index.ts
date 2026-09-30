@@ -3,8 +3,8 @@ import '../../scriptInit'
 import { Promises } from 'utils/promises'
 
 import { DB } from 'server/db/db'
-import { RedisDataClient } from 'server/redis/dataClient'
-import { RedisQueueClient } from 'server/redis/queueClient'
+import { RedisDataClient } from 'server/service/redis/dataClient'
+import { RedisQueueClient } from 'server/service/redis/queueClient'
 import { Logger } from 'server/utils/logger'
 
 import { getMigrationFiles } from './utils'

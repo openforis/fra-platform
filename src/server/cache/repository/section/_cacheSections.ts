@@ -4,7 +4,7 @@ import { Cycle } from 'meta/assessment/cycle'
 import { getKeyCycle, Keys } from 'server/cache/repository/keys'
 import { BaseProtocol, DB } from 'server/db/db'
 import { SectionRepository } from 'server/db/repository/assessment/section'
-import { RedisDataClient } from 'server/redis/dataClient'
+import { RedisDataClient } from 'server/service/redis/dataClient'
 
 type Props = {
   assessment: Assessment

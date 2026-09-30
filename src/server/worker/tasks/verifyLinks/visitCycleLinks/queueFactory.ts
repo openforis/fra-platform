@@ -4,7 +4,7 @@ import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 
-import { RedisQueueClient } from 'server/redis/queueClient'
+import { RedisQueueClient } from 'server/service/redis/queueClient'
 import { VerifyLinksJobName } from 'server/worker/tasks/verifyLinks/jobNames'
 import { VerifyLinksQueueProps } from 'server/worker/tasks/verifyLinks/props'
 import { VerifyAllLinksJob } from 'server/worker/tasks/verifyLinks/visitCycleLinks/props'

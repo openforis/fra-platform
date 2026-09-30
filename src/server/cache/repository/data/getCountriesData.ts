@@ -8,7 +8,7 @@ import { Objects } from 'utils/objects'
 import { cacheCountryTable } from 'server/cache/repository/data/cacheCountryTable'
 import { getKeyCountry, Keys } from 'server/cache/repository/keys'
 import { BaseProtocol, DB } from 'server/db/db'
-import { RedisDataClient } from 'server/redis/dataClient'
+import { RedisDataClient } from 'server/service/redis/dataClient'
 
 type Props = {
   assessment: Assessment

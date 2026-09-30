@@ -2,7 +2,7 @@ import { Worker, WorkerOptions } from 'bullmq'
 
 import { LinksVerificationEvent } from 'meta/socket/event/links'
 
-import { RedisQueueClient } from 'server/redis/queueClient'
+import { RedisQueueClient } from 'server/service/redis/queueClient'
 import { Logger } from 'server/utils/logger'
 import { VerifyLinksJobName } from 'server/worker/tasks/verifyLinks/jobNames'
 import { VerifyLinksQueueJob, VerifyLinksQueueProps } from 'server/worker/tasks/verifyLinks/props'

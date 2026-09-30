@@ -1,6 +1,6 @@
 import { Queue, Worker } from 'bullmq'
 
-import { RedisQueueClient } from 'server/redis/queueClient'
+import { RedisQueueClient } from 'server/service/redis/queueClient'
 import { Logger } from 'server/utils/logger'
 import { VerifyLinksQueueProps } from 'server/worker/tasks/verifyLinks/props'
 import { VerifyLinksWorkerPresence } from 'server/worker/tasks/verifyLinks/verifyLinksWorkerPresence'

@@ -6,7 +6,7 @@ import { UUID } from 'meta/uuid/uuid'
 
 import { getKeyCountry, Keys } from 'server/cache/repository/keys'
 import { _parseValidation } from 'server/cache/repository/validation/nationalDataPoint/_parseValidation'
-import { RedisDataClient } from 'server/redis/dataClient'
+import { RedisDataClient } from 'server/service/redis/dataClient'
 
 type Props = {
   assessment: Assessment

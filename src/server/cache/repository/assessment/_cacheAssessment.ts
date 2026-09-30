@@ -3,7 +3,7 @@ import { Assessment, AssessmentName, CycleIndexes } from 'meta/assessment/assess
 import { getKeyAssessments, getKeyAssessmentsUuid } from 'server/cache/repository/keys'
 import { BaseProtocol, DB } from 'server/db/db'
 import { AssessmentRepository } from 'server/db/repository/assessment/assessment'
-import { RedisDataClient } from 'server/redis/dataClient'
+import { RedisDataClient } from 'server/service/redis/dataClient'
 
 type Props = { assessmentName: AssessmentName }
 

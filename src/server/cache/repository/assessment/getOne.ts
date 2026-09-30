@@ -9,7 +9,7 @@ import {
 import { _cacheAssessment } from 'server/cache/repository/assessment/_cacheAssessment'
 import { getKeyAssessments, getKeyAssessmentsUuid } from 'server/cache/repository/keys'
 import { BaseProtocol, DB } from 'server/db/db'
-import { RedisDataClient } from 'server/redis/dataClient'
+import { RedisDataClient } from 'server/service/redis/dataClient'
 
 type PropsBase = { assessmentName: AssessmentName } | { uuid: UUID }
 export type PropsGetOneAssessment = PropsBase & PropsMetaCacheCycle & { force?: boolean }

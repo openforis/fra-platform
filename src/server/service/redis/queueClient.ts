@@ -1,6 +1,6 @@
 import IORedis from 'ioredis'
 
-import { RedisClient } from 'server/redis/client'
+import { RedisClient } from 'server/service/redis/client'
 import { ProcessEnv } from 'server/utils/processEnv'
 
 // Single queue Redis connection shared by BullMQ queues/workers, job locks and socket server.

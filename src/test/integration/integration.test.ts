@@ -1,8 +1,8 @@
 import 'dotenv/config'
 
 import { DB } from 'server/db/db'
-import { RedisDataClient } from 'server/redis/dataClient'
-import { RedisQueueClient } from 'server/redis/queueClient'
+import { RedisDataClient } from 'server/service/redis/dataClient'
+import { RedisQueueClient } from 'server/service/redis/queueClient'
 
 import countryIso from 'test/integration/area/countryIso'
 import assessmentCreate from 'test/integration/assessment/createAssessment'

@@ -3,7 +3,7 @@ import { Cycle } from 'meta/assessment/cycle'
 
 import { getKeyMetaCache } from 'server/cache/repository/keys'
 import { getMetaCacheEntryKey } from 'server/cache/repository/metaCache/generateMetaCache/_getMetaCacheEntryKey'
-import { RedisDataClient } from 'server/redis/dataClient'
+import { RedisDataClient } from 'server/service/redis/dataClient'
 
 type Props = {
   assessment: Assessment

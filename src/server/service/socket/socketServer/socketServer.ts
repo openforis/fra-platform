@@ -2,7 +2,7 @@ import http from 'http'
 import { createAdapter } from '@socket.io/redis-streams-adapter'
 import { Server } from 'socket.io'
 
-import { RedisQueueClient } from 'server/redis/queueClient'
+import { RedisQueueClient } from 'server/service/redis/queueClient'
 import { ProcessEnv } from 'server/utils'
 import { Logger } from 'server/utils/logger'
 
