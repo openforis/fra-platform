@@ -4,7 +4,6 @@ import {
   AdminCountries,
   AdminInvitations,
   AdminLinks,
-  AdminTracking,
 } from 'meta/routes/routes/_routes/admin'
 import { Assessment } from 'meta/routes/routes/_routes/assessment'
 import {
@@ -47,7 +46,6 @@ export const Routes = {
   AdminCountries,
   AdminInvitations,
   AdminLinks,
-  AdminTracking,
   AdminCollaborators,
   Tutorials,
 

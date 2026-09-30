@@ -9,7 +9,6 @@ import { useRegionGroups } from 'client/store/area/hooks/regions'
 import { useNavigateToArea } from 'client/hooks/navigateToArea'
 import { useShowRegions } from 'client/hooks/showRegions'
 import Select, { Option, SelectSize } from 'client/components/Inputs/Select'
-import { Tracking } from 'client/utils/tracking'
 
 const includeRegions = ['fra2020', 'secondary']
 
@@ -39,7 +38,9 @@ const Regions: React.FC = () => {
   }
 
   const handleChange = (areaCode: AreaCode): void => {
-    Tracking.select({ elementId: TrackId.landingSelectRegions, value: areaCode })
+    // gtag is defined in index.html only for prod
+    // @ts-ignore
+    window.gtag?.('event', 'app_select', { element_id: TrackId.landingSelectRegions, value: areaCode })
     navigateToArea(areaCode)
   }
 
