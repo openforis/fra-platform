@@ -2,17 +2,15 @@ import http from 'http'
 import { createAdapter } from '@socket.io/redis-streams-adapter'
 import { Server } from 'socket.io'
 
+import { RedisQueueClient } from 'server/service/redis/queueClient'
 import { ProcessEnv } from 'server/utils'
 import { Logger } from 'server/utils/logger'
-import { RedisClient } from 'server/utils/redis/client'
 
 let io: Server
 
 const init = async (server: http.Server): Promise<void> => {
-  const client = RedisClient.newInstance(ProcessEnv.redisQueueUrl)
-
   io = new Server(server, {
-    adapter: createAdapter(client),
+    adapter: createAdapter(RedisQueueClient.getInstance()),
     cors: {
       origin: ProcessEnv.appUri,
       methods: ['GET', 'POST'],

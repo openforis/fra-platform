@@ -5,7 +5,7 @@ import { RecordDescriptionValidations } from 'meta/assessment/validation/descrip
 import { Objects } from 'utils/objects'
 
 import { getKeyCountry, Keys } from 'server/cache/repository/keys'
-import { RedisData } from 'server/cache/repository/redisData'
+import { RedisDataClient } from 'server/service/redis/dataClient'
 
 type Props = {
   assessment: Assessment
@@ -22,7 +22,7 @@ export const setValidations = async (props: Props): Promise<void> => {
     return
   }
 
-  const redis = RedisData.getInstance()
+  const redis = RedisDataClient.getInstance()
   const key = getKeyCountry({ assessment, countryIso, cycle, key: Keys.Validation.descriptions })
 
   const validationsToSet = sectionNames.reduce<Record<string, string>>((acc, sectionName) => {

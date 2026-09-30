@@ -4,8 +4,7 @@ import { CountryIso } from 'meta/area/countryIso'
 import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 
-import { ProcessEnv } from 'server/utils'
-import { RedisClient } from 'server/utils/redis/client'
+import { RedisQueueClient } from 'server/service/redis/queueClient'
 import { VerifyLinksJobName } from 'server/worker/tasks/verifyLinks/jobNames'
 import { VerifyLinksQueueProps } from 'server/worker/tasks/verifyLinks/props'
 import { VerifyAllLinksJob } from 'server/worker/tasks/verifyLinks/visitCycleLinks/props'
@@ -13,21 +12,19 @@ import { VerifyAllLinksJob } from 'server/worker/tasks/verifyLinks/visitCycleLin
 const queueName = 'verifyLinks'
 let queue: Queue<VerifyLinksQueueProps> | undefined
 
-const connection = RedisClient.newInstance(ProcessEnv.redisQueueUrl, { maxRetriesPerRequest: null })
-
 type VerifyAllLinksJobScope = {
   assessment: Assessment
   countryIso?: CountryIso
   cycle: Cycle
 }
 
-const opts: QueueOptions = {
-  connection,
-  streams: { events: { maxLen: 1 } },
-}
-
 const getInstance = (): Queue<VerifyLinksQueueProps> => {
   if (queue) return queue
+
+  const opts: QueueOptions = {
+    connection: RedisQueueClient.getInstance(),
+    streams: { events: { maxLen: 1 } },
+  }
 
   queue = new Queue<VerifyLinksQueueProps>(queueName, opts)
   return queue
@@ -54,7 +51,6 @@ const getQueuedOrActiveVerifyAllLinksJob = async (props: VerifyAllLinksJobScope)
 }
 
 export const VerifyLinksQueueFactory = {
-  connection,
   getInstance,
   getVerifyAllLinksJobId,
   getQueuedOrActiveVerifyAllLinksJob,
