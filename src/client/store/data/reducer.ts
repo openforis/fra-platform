@@ -8,7 +8,10 @@ import { OriginalDataPointSliceName } from 'client/store/data/originalDataPoint/
 import { OriginalDataPointState } from 'client/store/data/originalDataPoint/state'
 import { EstimationsSlice } from 'client/store/data/tableData/estimations/slice'
 import { NodeValuesSlice } from 'client/store/data/tableData/nodeValues/slice'
-import { ValidationsReducer } from 'client/store/data/tableData/validations/slice'
+import { DescriptionValidationSlice } from 'client/store/data/validations/descriptions/slice'
+import { NationalDataPointValidationSlice } from 'client/store/data/validations/nationalDataPoints/slice'
+import { SummaryValidationSlice } from 'client/store/data/validations/summary/slice'
+import { TableValidationSlice } from 'client/store/data/validations/tables/slice'
 
 type DataLazyLoadedSlices = {
   [OriginalDataPointSliceName]: OriginalDataPointState
@@ -22,7 +25,12 @@ const staticReducers = {
   tableData: combineReducers({
     [EstimationsSlice.name]: EstimationsSlice.reducer,
     [NodeValuesSlice.name]: NodeValuesSlice.reducer,
-    [ValidationsReducer.name]: ValidationsReducer.reducer,
+  }),
+  validations: combineReducers({
+    [DescriptionValidationSlice.name]: DescriptionValidationSlice.reducer,
+    [NationalDataPointValidationSlice.name]: NationalDataPointValidationSlice.reducer,
+    [SummaryValidationSlice.name]: SummaryValidationSlice.reducer,
+    [TableValidationSlice.name]: TableValidationSlice.reducer,
   }),
 }
 

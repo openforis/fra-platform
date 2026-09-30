@@ -7,7 +7,6 @@
   "country_two": "{{count}} بلدان",
   "country_zero": "{{count}} بلدان",
   "disabledUsers": "المستخدمين المعطلين",
-  "enotfound": "خطأ في نظام أسماء النطاقات",
   "filter": "غربلة وفق",
   "invitationPending": "تعليق الدعوة",
   "invitationsAcceptedCount": "عدد الدعوات المقبولة",
@@ -22,7 +21,6 @@
   "role_other": "{{count}} أدوار",
   "role_two": "{{count}} دوران",
   "role_zero": "{{count}} أدوار",
-  "urlParsingError": "خطأ في التوصل إلى عنوان الموقع",
   "usersCount": "عدد المستخدمين",
   "verifyLinks": "التحقق من الروابط"
 }

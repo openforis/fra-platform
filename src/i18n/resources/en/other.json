@@ -471,6 +471,7 @@
     "doNotNotifyUsers": "Don't notify users",
     "hideAll": "Hide all",
     "notifySelf": "Send copy to self",
+    "submitToReviewWithErrorsWarning": "There are errors in the data, are you sure you want to submit the report to review?",
     "sectionHeaders": {
       "employmentEducationAndNwfp": "Employment, education and NWFP",
       "forestDesignationAndManagement": "Forest designation and management",
