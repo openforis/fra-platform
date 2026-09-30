@@ -9,7 +9,6 @@ export enum TrackId {
   footerTermsAndConditions = 'footer-terms-and-conditions',
   footerUserGuide = 'footer-user-guide',
   headerHome = 'header-home',
-  headerLanguageSelect = 'header-language-select',
   headerLogin = 'header-login',
   landingDownloadPdf = 'landing-download-pdf',
   landingExploreKeyFindings = 'landing-explore-key-findings',
@@ -22,5 +21,4 @@ export enum TrackId {
   landingSelectCountries = 'landing-select-countries',
   landingSelectGlobal = 'landing-select-global',
   landingSelectRegions = 'landing-select-regions',
-  toolbarSelectArea = 'toolbar-select-area',
 }
