@@ -1,4 +1,4 @@
-import { expect, Locator, Page } from '@playwright/test'
+import { expect, Locator, Page, Response } from '@playwright/test'
 
 // Eg. { id: 'telephone-field' }
 type Selector = Record<string, string>
@@ -16,7 +16,7 @@ const fillWYSIWYG = async (page: Page, selector: Selector, value: string): Promi
   await page.locator(`${toSelector(selector)} [contenteditable="true"]`).fill(value)
 }
 
-const waitForResponse = (page: Page, pathSubstring: string, method: string): Promise<unknown> =>
+const waitForResponse = (page: Page, pathSubstring: string, method: string): Promise<Response> =>
   page.waitForResponse((response) => response.url().includes(pathSubstring) && response.request().method() === method)
 
 const nestedSelectOption = async (page: Page, selector: Selector, optionName: string, exact = true): Promise<void> => {

@@ -1,7 +1,6 @@
 import { AssessmentNames } from 'meta/assessment/assessment'
 import { TableNames } from 'meta/assessment/table'
 
-import { CacheController } from 'server/cache/controller'
 import { AssessmentController } from 'server/controller/assessment'
 import { BaseProtocol } from 'server/db/db'
 import { Schemas } from 'server/db/schemas'
@@ -41,7 +40,4 @@ export default async (client: BaseProtocol): Promise<void> => {
       Logger.info(`step-update-validations-otherLandWithTreeCover: cycle ${cycle.name}: ${rowCount} rows updated`)
     })
   )
-
-  await CacheController.generateMetaCache({}, client)
-  await CacheController.generateMetadata({ assessment }, client)
 }

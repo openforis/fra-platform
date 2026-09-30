@@ -18,6 +18,7 @@ import { ApiContextMiddleware } from 'server/middleware/apiContext'
 import Requests from 'server/utils/requests'
 
 import { AdminApi } from './admin'
+import { AnalyticsApi } from './analytics'
 import { AreaApi } from './area'
 import { AuthApi } from './auth'
 import { DefinitionApi } from './definitions'
@@ -48,6 +49,7 @@ export const Api = {
     // init all endpoints
     AuthApi.init(express)
     AdminApi.init(express)
+    AnalyticsApi.init(express)
     AreaApi.init(express)
     DefinitionApi.init(express)
     ExplorerApi.init(express)

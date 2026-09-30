@@ -17,17 +17,16 @@ const datum = (raw: string, col = colName): NodeUpdate => ({ ...cell, colName: c
 const data = (raws: Array<string>): Array<NodeUpdate> =>
   categories.map((category, index) => datum(raws[index], category))
 
-// The metadata passes the parent as a raw name rather than a label key
 const differentFromBroadleavedTotal = (valueRounded: string): TableValidationTestCase['expected'] => ({
   messages: [
     {
       key: 'generalValidation.valueEqualToSumParent',
       name: ValidatorName.equalToSum,
       params: {
-        parentCol: { key: '' },
-        parentTable: '',
-        parentVariable: { key: 'table_4_5.broadleaved_2015[total]' },
-        subcategories: '',
+        parentCol: { key: 'panEuropean.deadwood.total' },
+        parentTable: '4.5',
+        parentVariable: { key: 'panEuropean.deadwood.broadleaved_only' },
+        subcategories: [{ key: 'panEuropean.deadwood.standing' }, { key: 'panEuropean.deadwood.lying' }],
         valueRounded,
       },
     },

@@ -2,7 +2,6 @@ import { AssessmentNames } from 'meta/assessment/assessment'
 import { Assessments } from 'meta/assessment/assessments'
 import { CycleNames } from 'meta/assessment/cycle/names'
 
-import { CacheController } from 'server/cache/controller'
 import { AssessmentController } from 'server/controller/assessment'
 import { BaseProtocol } from 'server/db/db'
 import { Schemas } from 'server/db/schemas'
@@ -43,7 +42,4 @@ export default async (client: BaseProtocol): Promise<void> => {
     (result) => result.rowCount
   )
   Logger.info(`step-update-validations-panEuropean-table-3-4-total: cycle ${cycle.name}: ${rowCount} columns updated`)
-
-  await CacheController.generateMetaCache({}, client)
-  await CacheController.generateMetadata({ assessment }, client)
 }

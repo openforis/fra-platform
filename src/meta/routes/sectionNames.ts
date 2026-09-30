@@ -2,6 +2,7 @@ enum AdminSectionNames {
   countries = 'countries',
   invitations = 'invitations',
   links = 'links',
+  tracking = 'tracking',
   collaborators = 'collaborators',
 }
 

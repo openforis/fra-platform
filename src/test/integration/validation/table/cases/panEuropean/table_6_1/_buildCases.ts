@@ -6,6 +6,8 @@ import { ValidatorName } from 'meta/expressionEvaluator/validatorName'
 import { TableValidationTestCase } from '../../../types'
 
 type Props = {
+  // The metadata passes a different ownership label to each row
+  ownership: string
   variableName: VariableName
 }
 
@@ -57,7 +59,7 @@ const differentFromForestArea = (valueRounded: string): TableValidationTestCase[
 
 // All rows carry the same formulas, so the cases only differ by the cell under test
 export const buildCases = (props: Props): Array<TableValidationTestCase> => {
-  const { variableName } = props
+  const { ownership, variableName } = props
   const cell = { colName, tableName, variableName }
   const equalToSum = `${ValidatorName.equalToSum} (${variableName})`
   const ownerData = (raws: Array<string>): Array<NodeUpdate> =>
@@ -67,28 +69,26 @@ export const buildCases = (props: Props): Array<TableValidationTestCase> => {
   const numberData = (raws: Array<string>): Array<NodeUpdate> =>
     numberClasses.map((numberClass, index) => datum(variableName, raws[index], numberClass))
 
-  // The metadata passes the parent as a raw cell reference, which the message shows as it is
-  const differentFromTotal = (parentVariable: string, valueRounded: string): TableValidationTestCase['expected'] => ({
+  const differentFromTotal = (parentCol: ColName, valueRounded: string): TableValidationTestCase['expected'] => ({
     messages: [
       {
         key: 'generalValidation.valueEqualToSumParent',
         name: ValidatorName.equalToSum,
         params: {
-          parentCol: { key: '' },
-          parentTable: '',
-          parentVariable: { key: parentVariable },
-          subcategories: '',
+          parentCol: { key: `panEuropean.forestHoldings.${parentCol}` },
+          parentTable: '6.1',
+          parentVariable: { key: `panEuropean.forestHoldings.${ownership}` },
+          subcategories: [
+            { key: 'panEuropean.forestHoldings.less10ha' },
+            { key: 'panEuropean.forestHoldings._11_500ha' },
+            { key: 'panEuropean.forestHoldings.more500ha' },
+          ],
           valueRounded,
         },
       },
     ],
     valid: false,
   })
-  const differentFromTotalForestArea = (valueRounded: string): TableValidationTestCase['expected'] =>
-    differentFromTotal(`table_6_1.${variableName}[total_forest_area]`, valueRounded)
-  // The holdings formulas even leave the table_ prefix out of the reference
-  const differentFromTotalHoldings = (valueRounded: string): TableValidationTestCase['expected'] =>
-    differentFromTotal(`6_1.${variableName}[total_number_of_holdings]`, valueRounded)
 
   return [
     // Nothing reported yet is valid
@@ -186,13 +186,13 @@ export const buildCases = (props: Props): Array<TableValidationTestCase> => {
     {
       cell: { ...cell, colName: 'less_10_ha_area' },
       data: [datum(variableName, '1000')],
-      expected: differentFromTotalForestArea('1000.00'),
+      expected: differentFromTotal('total_forest_area', '1000.00'),
       name: `${equalToSum}: total forest area without size classes is invalid`,
     },
     {
       cell: { ...cell, colName: 'less_10_ha_area' },
       data: [datum(variableName, '0')],
-      expected: differentFromTotalForestArea('0.00'),
+      expected: differentFromTotal('total_forest_area', '0.00'),
       name: `${equalToSum}: total forest area of 0 without size classes is invalid`,
     },
     {
@@ -216,13 +216,13 @@ export const buildCases = (props: Props): Array<TableValidationTestCase> => {
     {
       cell: { ...cell, colName: 'less_10_ha_area' },
       data: [datum(variableName, '1000'), ...areaData(['602', '300', '100'])],
-      expected: differentFromTotalForestArea('1000.00'),
+      expected: differentFromTotal('total_forest_area', '1000.00'),
       name: `${equalToSum}: area sum over the total forest area is invalid`,
     },
     {
       cell: { ...cell, colName: 'less_10_ha_area' },
       data: [datum(variableName, '1000'), ...areaData(['590', '300', '100'])],
-      expected: differentFromTotalForestArea('1000.00'),
+      expected: differentFromTotal('total_forest_area', '1000.00'),
       name: `${equalToSum}: area sum below the total forest area is invalid`,
     },
     {
@@ -234,7 +234,7 @@ export const buildCases = (props: Props): Array<TableValidationTestCase> => {
     {
       cell: { ...cell, colName: 'less_10_ha_area' },
       data: [datum(variableName, '0'), datum(variableName, '2', 'less_10_ha_area')],
-      expected: differentFromTotalForestArea('0.00'),
+      expected: differentFromTotal('total_forest_area', '0.00'),
       name: `${equalToSum}: area over a total forest area of 0 is invalid`,
     },
     // The other area size classes are checked the same way
@@ -247,7 +247,7 @@ export const buildCases = (props: Props): Array<TableValidationTestCase> => {
     {
       cell: { ...cell, colName: '_11_500_ha_area' },
       data: [datum(variableName, '0')],
-      expected: differentFromTotalForestArea('0.00'),
+      expected: differentFromTotal('total_forest_area', '0.00'),
       name: `${equalToSum}: total forest area of 0 without size classes is invalid for the area between 11 and 500 ha`,
     },
     {
@@ -259,7 +259,7 @@ export const buildCases = (props: Props): Array<TableValidationTestCase> => {
     {
       cell: { ...cell, colName: '_11_500_ha_area' },
       data: [datum(variableName, '1000'), ...areaData(['600', '302', '100'])],
-      expected: differentFromTotalForestArea('1000.00'),
+      expected: differentFromTotal('total_forest_area', '1000.00'),
       name: `${equalToSum}: area between 11 and 500 ha sum over the total forest area is invalid`,
     },
     {
@@ -271,7 +271,7 @@ export const buildCases = (props: Props): Array<TableValidationTestCase> => {
     {
       cell: { ...cell, colName: 'more_500_ha_area' },
       data: [datum(variableName, '0')],
-      expected: differentFromTotalForestArea('0.00'),
+      expected: differentFromTotal('total_forest_area', '0.00'),
       name: `${equalToSum}: total forest area of 0 without size classes is invalid for the area over 500 ha`,
     },
     {
@@ -283,7 +283,7 @@ export const buildCases = (props: Props): Array<TableValidationTestCase> => {
     {
       cell: { ...cell, colName: 'more_500_ha_area' },
       data: [datum(variableName, '1000'), ...areaData(['600', '300', '102'])],
-      expected: differentFromTotalForestArea('1000.00'),
+      expected: differentFromTotal('total_forest_area', '1000.00'),
       name: `${equalToSum}: area over 500 ha sum over the total forest area is invalid`,
     },
     // The holdings size classes add up to the total number of holdings of the row
@@ -302,13 +302,13 @@ export const buildCases = (props: Props): Array<TableValidationTestCase> => {
     {
       cell: { ...cell, colName: 'less_10_ha_number' },
       data: [datum(variableName, '1000', 'total_number_of_holdings')],
-      expected: differentFromTotalHoldings('1000.00'),
+      expected: differentFromTotal('total_number_of_holdings', '1000.00'),
       name: `${equalToSum}: total number of holdings without size classes is invalid`,
     },
     {
       cell: { ...cell, colName: 'less_10_ha_number' },
       data: [datum(variableName, '0', 'total_number_of_holdings')],
-      expected: differentFromTotalHoldings('0.00'),
+      expected: differentFromTotal('total_number_of_holdings', '0.00'),
       name: `${equalToSum}: total number of holdings of 0 without size classes is invalid`,
     },
     {
@@ -332,13 +332,13 @@ export const buildCases = (props: Props): Array<TableValidationTestCase> => {
     {
       cell: { ...cell, colName: 'less_10_ha_number' },
       data: [datum(variableName, '1000', 'total_number_of_holdings'), ...numberData(['602', '300', '100'])],
-      expected: differentFromTotalHoldings('1000.00'),
+      expected: differentFromTotal('total_number_of_holdings', '1000.00'),
       name: `${equalToSum}: holdings sum over the total number of holdings is invalid`,
     },
     {
       cell: { ...cell, colName: 'less_10_ha_number' },
       data: [datum(variableName, '1000', 'total_number_of_holdings'), ...numberData(['590', '300', '100'])],
-      expected: differentFromTotalHoldings('1000.00'),
+      expected: differentFromTotal('total_number_of_holdings', '1000.00'),
       name: `${equalToSum}: holdings sum below the total number of holdings is invalid`,
     },
     {
@@ -350,7 +350,7 @@ export const buildCases = (props: Props): Array<TableValidationTestCase> => {
     {
       cell: { ...cell, colName: 'less_10_ha_number' },
       data: [datum(variableName, '0', 'total_number_of_holdings'), datum(variableName, '2', 'less_10_ha_number')],
-      expected: differentFromTotalHoldings('0.00'),
+      expected: differentFromTotal('total_number_of_holdings', '0.00'),
       name: `${equalToSum}: holdings over a total number of holdings of 0 is invalid`,
     },
     // The other holdings size classes are checked the same way
@@ -363,7 +363,7 @@ export const buildCases = (props: Props): Array<TableValidationTestCase> => {
     {
       cell: { ...cell, colName: '_11_500_ha_number' },
       data: [datum(variableName, '0', 'total_number_of_holdings')],
-      expected: differentFromTotalHoldings('0.00'),
+      expected: differentFromTotal('total_number_of_holdings', '0.00'),
       name: `${equalToSum}: total number of holdings of 0 without size classes is invalid for the holdings between 11 and 500 ha`,
     },
     {
@@ -375,7 +375,7 @@ export const buildCases = (props: Props): Array<TableValidationTestCase> => {
     {
       cell: { ...cell, colName: '_11_500_ha_number' },
       data: [datum(variableName, '1000', 'total_number_of_holdings'), ...numberData(['600', '302', '100'])],
-      expected: differentFromTotalHoldings('1000.00'),
+      expected: differentFromTotal('total_number_of_holdings', '1000.00'),
       name: `${equalToSum}: holdings between 11 and 500 ha sum over the total number of holdings is invalid`,
     },
     {
@@ -387,7 +387,7 @@ export const buildCases = (props: Props): Array<TableValidationTestCase> => {
     {
       cell: { ...cell, colName: 'more_500_ha_number' },
       data: [datum(variableName, '0', 'total_number_of_holdings')],
-      expected: differentFromTotalHoldings('0.00'),
+      expected: differentFromTotal('total_number_of_holdings', '0.00'),
       name: `${equalToSum}: total number of holdings of 0 without size classes is invalid for the holdings over 500 ha`,
     },
     {
@@ -399,7 +399,7 @@ export const buildCases = (props: Props): Array<TableValidationTestCase> => {
     {
       cell: { ...cell, colName: 'more_500_ha_number' },
       data: [datum(variableName, '1000', 'total_number_of_holdings'), ...numberData(['600', '300', '102'])],
-      expected: differentFromTotalHoldings('1000.00'),
+      expected: differentFromTotal('total_number_of_holdings', '1000.00'),
       name: `${equalToSum}: holdings over 500 ha sum over the total number of holdings is invalid`,
     },
   ]

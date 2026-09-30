@@ -20,24 +20,33 @@ const datum = (name: VariableName, raw: string, col = colName): NodeUpdate => ({
   variableName: name,
 })
 
-// The metadata passes the parent as a raw name rather than a label key
-const differentFromParent = (parentVariable: string, valueRounded: string): NodeValueValidationMessage => ({
+const differentFromParent = (
+  parentVariable: string,
+  parentCol: string,
+  subcategories: Array<string>,
+  valueRounded: string
+): NodeValueValidationMessage => ({
   key: 'generalValidation.valueEqualToSumParent',
   name: ValidatorName.equalToSum,
   params: {
-    parentCol: { key: '' },
-    parentTable: '',
-    parentVariable: { key: parentVariable },
-    subcategories: '',
+    parentCol: { key: `panEuropean.deadwood.${parentCol}` },
+    parentTable: '4.5',
+    parentVariable: { key: `panEuropean.deadwood.${parentVariable}` },
+    subcategories: subcategories.map((subcategory) => ({ key: `panEuropean.deadwood.${subcategory}` })),
     valueRounded,
   },
 })
 
 const differentFromTotal = (col: string, valueRounded: string): NodeValueValidationMessage =>
-  differentFromParent(`table_4_5.total_forest_and_other_wooded_land_2015[${col}]`, valueRounded)
+  differentFromParent(
+    'total_forest_and_other_wooded_land_only',
+    col,
+    ['coniferous_only', 'broadleaved_only'],
+    valueRounded
+  )
 
 const differentFromConiferousTotal = (valueRounded: string): NodeValueValidationMessage =>
-  differentFromParent('table_4_5.coniferous_2015[total]', valueRounded)
+  differentFromParent('coniferous_only', 'total', ['standing', 'lying'], valueRounded)
 
 export const coniferous2015: Array<TableValidationTestCase> = [
   // Nothing reported yet is valid
