@@ -3,7 +3,7 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 
 import { getKeyCountry, Keys } from 'server/cache/repository/keys'
-import { RedisData } from 'server/cache/repository/redisData'
+import { RedisDataClient } from 'server/service/redis/dataClient'
 
 type Props = {
   assessment: Assessment
@@ -15,7 +15,7 @@ type Props = {
 export const renameValidations = async (props: Props): Promise<void> => {
   const { assessment, countryIso, cycleSource, cycleTarget } = props
 
-  const redis = RedisData.getInstance()
+  const redis = RedisDataClient.getInstance()
   const key = getKeyCountry({ assessment, countryIso, cycle: cycleSource, key: Keys.Validation.descriptions })
   const keyNew = getKeyCountry({ assessment, countryIso, cycle: cycleTarget, key: Keys.Validation.descriptions })
 

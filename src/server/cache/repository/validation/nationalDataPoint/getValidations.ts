@@ -5,8 +5,8 @@ import { RecordNDPValidations } from 'meta/assessment/validation/nationalDataPoi
 import { UUID } from 'meta/uuid/uuid'
 
 import { getKeyCountry, Keys } from 'server/cache/repository/keys'
-import { RedisData } from 'server/cache/repository/redisData'
 import { _parseValidation } from 'server/cache/repository/validation/nationalDataPoint/_parseValidation'
+import { RedisDataClient } from 'server/service/redis/dataClient'
 
 type Props = {
   assessment: Assessment
@@ -17,7 +17,7 @@ type Props = {
 export const getValidations = async (props: Props): Promise<RecordNDPValidations> => {
   const { assessment, countryIso, cycle } = props
 
-  const redis = RedisData.getInstance()
+  const redis = RedisDataClient.getInstance()
   const key = getKeyCountry({ assessment, countryIso, cycle, key: Keys.Validation.nationalDataPoints })
   const nationalDataPointValidations = await redis.hgetall(key)
 

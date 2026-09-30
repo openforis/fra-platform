@@ -1,10 +1,9 @@
 import { Queue, Worker } from 'bullmq'
 
+import { RedisQueueClient } from 'server/service/redis/queueClient'
 import { Logger } from 'server/utils/logger'
 import { VerifyLinksQueueProps } from 'server/worker/tasks/verifyLinks/props'
 import { VerifyLinksWorkerPresence } from 'server/worker/tasks/verifyLinks/verifyLinksWorkerPresence'
-import { VerifyLinksQueueFactory } from 'server/worker/tasks/verifyLinks/visitCycleLinks/queueFactory'
-import { WorkerFactory } from 'server/worker/tasks/verifyLinks/visitCycleLinks/workerFactory'
 
 type Props = {
   exitOnIdle: boolean
@@ -21,13 +20,9 @@ export const shutdownVerifyLinksWorker = async (props: Props): Promise<void> => 
   await worker.close(forceClose)
 
   // Always close connections on shutdown so dev restarts don't leave a stale worker running.
-  await Promise.allSettled([
-    VerifyLinksWorkerPresence.clearWorkerLock(),
-    queue.close(),
-    VerifyLinksWorkerPresence.disconnect(),
-    VerifyLinksQueueFactory.connection.quit(),
-    WorkerFactory.connection.quit(),
-  ])
+  await Promise.allSettled([VerifyLinksWorkerPresence.clearWorkerLock(), queue.close()])
+  // Shared connection: quit only after everything using it is done
+  await Promise.allSettled([RedisQueueClient.getInstance().quit()])
 
   Logger.info(`[verifyLinks-worker] shutdown (${reason})`)
 

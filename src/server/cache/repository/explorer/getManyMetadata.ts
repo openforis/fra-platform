@@ -11,12 +11,12 @@ import {
 
 import { buildMeasures } from 'server/cache/repository/explorer/buildMeasures'
 import { getKeyCycle, Keys } from 'server/cache/repository/keys'
-import { RedisData } from 'server/cache/repository/redisData'
 import { SectionRedisRepository } from 'server/cache/repository/section'
 import { SystemOfMeasurementController } from 'server/controller/measurement/systemOfMeasurement'
 import { BaseProtocol, DB } from 'server/db/db'
 import { DimensionRepository } from 'server/db/repository/measurement/dimension'
 import { MeasureRepository } from 'server/db/repository/measurement/measure'
+import { RedisDataClient } from 'server/service/redis/dataClient'
 
 const skipTables = [
   'biomassStockTotal',
@@ -38,7 +38,7 @@ type RecordExplorerMetadata = Record<SectionName, ExplorerMetadata>
 export const getManyMetadata = async (props: Props, client: BaseProtocol = DB): Promise<RecordExplorerMetadata> => {
   const { assessment, cycle, force, sectionNames } = props
 
-  const redis = RedisData.getInstance()
+  const redis = RedisDataClient.getInstance()
   const key = getKeyCycle({ assessment, cycle, key: Keys.Explorer.metadata })
 
   if (force) {

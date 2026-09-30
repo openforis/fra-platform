@@ -3,7 +3,7 @@ import { Assessment } from 'meta/assessment/assessment'
 import { Cycle } from 'meta/assessment/cycle'
 
 import { getKeyCountry, Keys } from 'server/cache/repository/keys'
-import { RedisData } from 'server/cache/repository/redisData'
+import { RedisDataClient } from 'server/service/redis/dataClient'
 
 type Props = {
   assessment: Assessment
@@ -14,7 +14,7 @@ type Props = {
 export const removeValidations = async (props: Props): Promise<void> => {
   const { assessment, countryIso, cycle } = props
 
-  const redis = RedisData.getInstance()
+  const redis = RedisDataClient.getInstance()
   const key = getKeyCountry({ assessment, countryIso, cycle, key: Keys.Validation.nationalDataPoints })
 
   await redis.del(key)

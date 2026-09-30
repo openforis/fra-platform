@@ -6,7 +6,7 @@ import { RecordTableValidationsState, TableValidations } from 'meta/assessment/v
 import { Objects } from 'utils/objects'
 
 import { getKeyCountry, Keys } from 'server/cache/repository/keys'
-import { RedisData } from 'server/cache/repository/redisData'
+import { RedisDataClient } from 'server/service/redis/dataClient'
 
 type Props = {
   assessment: Assessment
@@ -33,7 +33,7 @@ export const getValidations = async (props: Props): Promise<RecordTableValidatio
       return {}
     }
 
-    const redis = RedisData.getInstance()
+    const redis = RedisDataClient.getInstance()
     const values = await redis.hmget(key, ...tableNames)
 
     return tableNames.reduce<RecordTableValidationsState>((acc, tableName, index) => {
@@ -42,7 +42,7 @@ export const getValidations = async (props: Props): Promise<RecordTableValidatio
     }, {})
   }
 
-  const redis = RedisData.getInstance()
+  const redis = RedisDataClient.getInstance()
   const tableValidations = await redis.hgetall(key)
 
   return Object.entries(tableValidations).reduce<RecordTableValidationsState>((acc, [tableName, validations]) => {

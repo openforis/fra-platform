@@ -2,9 +2,8 @@ import { Worker, WorkerOptions } from 'bullmq'
 
 import { LinksVerificationEvent } from 'meta/socket/event/links'
 
-import { ProcessEnv } from 'server/utils'
+import { RedisQueueClient } from 'server/service/redis/queueClient'
 import { Logger } from 'server/utils/logger'
-import { RedisClient } from 'server/utils/redis/client'
 import { VerifyLinksJobName } from 'server/worker/tasks/verifyLinks/jobNames'
 import { VerifyLinksQueueJob, VerifyLinksQueueProps } from 'server/worker/tasks/verifyLinks/props'
 import { emitLinksVerificationEvent } from 'server/worker/tasks/verifyLinks/utils/emitLinksVerificationEvent'
@@ -12,17 +11,7 @@ import { insertLinksCheckActivityLog } from 'server/worker/tasks/verifyLinks/uti
 
 import { VerifyAllLinksJob } from './props'
 
-const connection = RedisClient.newInstance(ProcessEnv.redisQueueUrl, { maxRetriesPerRequest: null })
-
 const jobTimeoutMs = 10 * 60 * 1000
-
-const workerOptions: WorkerOptions = {
-  concurrency: 1,
-  connection,
-  lockDuration: jobTimeoutMs,
-  maxStalledCount: 0,
-  skipLockRenewal: true,
-}
 
 // BullMQ accepts either a processor function (dev) or a path to compiled JS (prod).
 type VerifyLinksProcessor = string | ((job: VerifyLinksQueueJob) => Promise<void>)
@@ -32,6 +21,14 @@ const _isVerifyAllLinksJob = (job: VerifyLinksQueueJob): job is VerifyAllLinksJo
 
 const newInstance = (props: { key: string; processor: VerifyLinksProcessor }): Worker<VerifyLinksQueueProps> => {
   const { key, processor } = props
+
+  const workerOptions: WorkerOptions = {
+    concurrency: 1,
+    connection: RedisQueueClient.getInstance(),
+    lockDuration: jobTimeoutMs,
+    maxStalledCount: 0,
+    skipLockRenewal: true,
+  }
 
   const worker = new Worker<VerifyLinksQueueProps>(key, processor, workerOptions)
 
@@ -80,6 +77,5 @@ const newInstance = (props: { key: string; processor: VerifyLinksProcessor }): W
 }
 
 export const WorkerFactory = {
-  connection,
   newInstance,
 }

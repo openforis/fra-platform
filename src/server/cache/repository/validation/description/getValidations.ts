@@ -6,7 +6,7 @@ import { RecordDescriptionValidations, SectionDescriptionValidations } from 'met
 import { Objects } from 'utils/objects'
 
 import { getKeyCountry, Keys } from 'server/cache/repository/keys'
-import { RedisData } from 'server/cache/repository/redisData'
+import { RedisDataClient } from 'server/service/redis/dataClient'
 
 type Props = {
   assessment: Assessment
@@ -32,7 +32,7 @@ export const getValidations = async (props: Props): Promise<RecordDescriptionVal
     return {}
   }
 
-  const redis = RedisData.getInstance()
+  const redis = RedisDataClient.getInstance()
   const values = await redis.hmget(key, ...sectionNames)
 
   return sectionNames.reduce<RecordDescriptionValidations>((acc, sectionName, index) => {
